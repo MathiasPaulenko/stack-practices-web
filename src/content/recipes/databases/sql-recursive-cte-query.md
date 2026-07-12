@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-recursive-cte-query
 title: "Traverse Hierarchical Data with Recursive CTEs"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/database-schema-documentation-template
   - /guides/full-text-search-guide
   - /guides/read-replica-guide
+  - /recipes/sql-index-optimization-analysis
+  - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - postgresql
     - hierarchy
     - trees
+
+
+
 ---
 
 
@@ -38,6 +46,9 @@ seo:
 Relational databases are great at tables, but many real-world problems are trees: org charts, comment threads, bill-of-materials, and file systems. Recursive common table expressions let SQL walk these hierarchies by starting at the root and repeatedly joining children until no more rows are found. The result is a flat table with a depth column that shows how far each node is from the starting point.
 
 ## When to Use
+
+
+- For alternatives, see [SQL CTEs — Common Table Expressions Explained](/guides/sql-cte-guide/).
 
 Use this resource when:
 - You need to query parent-child relationships stored in the same table.

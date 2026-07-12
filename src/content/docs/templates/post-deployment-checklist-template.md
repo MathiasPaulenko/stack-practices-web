@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: post-deployment-checklist-template
 templateType: post-deployment-checklist
@@ -15,9 +20,13 @@ tags:
   - ci-cd
   - automation
 relatedResources:
-  - /docs/templates/release-notes-template
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/devops/monitoring-alerting-guide
+  - /docs/release-notes-template
+  - /guides/cicd-pipeline-guide
+  - /guides/monitoring-alerting-guide
+  - /recipes/blue-green-deployment
+  - /recipes/graceful-shutdown
+  - /recipes/traffic-mirroring
+  - /docs/deployment-checklist-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - smoke test template
     - deploy validation checklist
     - release verification steps
+
+
+
+
+
 ---
 
 # Post-Deployment Verification Checklist Template

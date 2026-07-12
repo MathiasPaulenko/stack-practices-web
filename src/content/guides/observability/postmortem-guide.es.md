@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: postmortem-guide
 title: "Postmortems Sin Culpa: Aprendiendo de Incidentes Sin Culpar"
@@ -17,11 +20,12 @@ tags:
   - continuous-improvement
   - guide
 relatedResources:
-  - /guides/observability/incident-response-guide
-  - /guides/observability/alert-management-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/chaos-engineering-guide
-  - /guides/testing/testing-strategy-guide
+  - /guides/incident-response-guide
+  - /guides/alert-management-guide
+  - /guides/sre-practices-guide
+  - /guides/chaos-engineering-guide
+  - /guides/testing-strategy-guide
+  - /guides/complete-guide-testcontainers-integration
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +37,9 @@ seo:
     - root-cause
     - continuous-improvement
     - guide
+
+
+
 ---
 
 ## Descripción General
@@ -42,6 +49,9 @@ Un postmortem es una revisión estructurada de un incidente que se enfoca en qu�
 A continuación: el proceso de postmortem, estructura de plantilla, técnicas de facilitación y responsabilidad de seguimiento.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Postmortem Incident Review Template](/es/docs/postmortem-incident-review-template/).
 
 - Un incidente de Sev2 o superior ha sido resuelto
 - Ocurrió un near-miss que pudo haber sido una interrupción mayor

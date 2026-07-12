@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: database-replication-guide
 title: "Replicación de Bases de Datos"
@@ -22,7 +24,7 @@ relatedResources:
   - /guides/acid-vs-base-guide
   - /guides/indexing-strategies-guide
   - /guides/read-replica-guide
-  - /recipes/databases/connect-to-postgresql
+  - /recipes/connect-to-postgresql
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -35,6 +37,8 @@ seo:
     - resolucion-conflictos
     - alta-disponibilidad
     - guia
+
+
 ---
 
 ## Overview
@@ -42,6 +46,9 @@ seo:
 La replicación de bases de datos es el proceso de copiar y mantener datos a través de múltiples nodos de base de datos. Provee alta disponibilidad, escalado de lecturas y recuperación ante desastres. Pero la replicación introduce complejidad: lag, conflictos, escenarios de split-brain y trade-offs de consistencia. A continuación: las estrategias de replicación usadas en producción, desde simples setups master-slave hasta clusters multi-master.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Replication](/es/guides/complete-guide-postgresql-replication/).
 
 - Necesitas escalar lecturas más allá de lo que un solo nodo puede manejar
 - La alta disponibilidad requiere failover automático

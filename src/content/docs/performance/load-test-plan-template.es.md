@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: load-test-plan-template
 templateType: guideline
@@ -18,9 +20,9 @@ tags:
   - stress-testing
   - capacity-planning
 relatedResources:
-  - /docs/performance/performance-budget-template
-  - /docs/performance/core-web-vitals-audit-checklist
-  - /docs/performance/database-query-tuning-checklist
+  - /docs/performance-budget-template
+  - /docs/core-web-vitals-audit-checklist
+  - /docs/database-query-tuning-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +35,8 @@ seo:
     - locust
     - stress testing
     - capacity planning
+
+
 ---
 
 ## Overview
@@ -438,3 +442,12 @@ Mappea real user journeys desde tu analytics — que porcentaje de users browsea
 ### ¿Qué deberia hacer si el load test failea?
 
 Primero, determina cual threshold se excedio. Si error rate es high, checkea server logs para exceptions y database logs para connection issues. Si response times son high, checkea CPU y memory usage durante el test — si CPU hitteo 90%, el server esta under-provisioned. Si database connections estan exhausted, increasea el pool size. Si el system crasheo, checkea para memory leaks (corre un soak test) o resource exhaustion. Documenta el failure en el test report con el specific metric, el actual value y el root cause. Fixea el issue y re-corre el test. No lowerees thresholds para hacer un faileando test pasar — eso defeat el purpose. Si el failure es due a test infrastructure (no el application), markea el result como inconclusive y re-corre con fixed infrastructure.
+
+## See Also
+
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to Go Concurrency](/es/guides/complete-guide-go-concurrency/)
+- [Complete Guide to Java Concurrency](/es/guides/complete-guide-java-concurrency/)
+- [Complete Guide to Python Asyncio in Production](/es/guides/complete-guide-python-asyncio-production/)
+- [Load Testing APIs with k6 and Threshold-Based Assertions](/es/recipes/load-testing-k6/)
+

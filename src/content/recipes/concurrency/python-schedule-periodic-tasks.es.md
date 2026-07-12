@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-schedule-periodic-tasks
 title: "Programa Tareas Periódicas en Python con APScheduler"
@@ -16,9 +21,12 @@ tags:
   - background-jobs
   - automation
 relatedResources:
-  - /recipes/concurrency/python-async-http-requests
-  - /recipes/devops/docker-health-check-configuration
+  - /recipes/python-async-http-requests
+  - /recipes/docker-health-check-configuration
   - /patterns/circuit-breaker-pattern
+  - /recipes/cron-jobs
+  - /guides/complete-guide-python-asyncio-production
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - apscheduler cron trigger
     - python background scheduler
     - python job scheduling
+
+
+
+
+
 ---
 
 ## Visión General
@@ -37,6 +50,9 @@ seo:
 APScheduler (Advanced Python Scheduler) es una librería para programar jobs de Python para ejecutar en tiempos o intervalos específicos. Soporta scheduling tipo cron, ejecución basada en intervalos y triggers de fecha one-off. A diferencia de Celery, APScheduler se ejecuta in-process y no requiere un message broker. Esta recipe cubre los tres tipos de triggers, job stores persistentes y ejecución en background.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Cron Jobs](/es/recipes/cron-jobs/).
 
 - Necesitas ejecutar tareas periódicamente (cleanup, refresh de caché, generación de reportes)
 - Quieres scheduling tipo cron sin un daemon cron separado

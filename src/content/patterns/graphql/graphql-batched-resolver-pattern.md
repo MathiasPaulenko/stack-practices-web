@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: graphql-batched-resolver-pattern
 title: "GraphQL Batched Resolver Pattern"
@@ -20,6 +25,10 @@ relatedResources:
   - /patterns/graphql-dataloader-pattern
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /recipes/graphql-n-1-query-detection
+  - /recipes/graphql-pagination-relay-connections
+  - /patterns/graphql-connection-pagination-pattern
+  - /patterns/graphql-error-extension-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - dataloader
     - n-plus-1
     - graphql-performance
+
+
+
+
+
 ---
 
 ## Overview
@@ -230,6 +244,9 @@ const loader = new DataLoader(batchLoad, {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL DataLoader Pattern](/patterns/graphql-dataloader-pattern/).
 
 - Create one DataLoader instance per request, never shared across requests
 - Always return results in the same order as the input keys in batch functions

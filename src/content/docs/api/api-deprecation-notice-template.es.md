@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: api-deprecation-notice-template
 title: "Plantilla de Aviso de Deprecacion de API"
@@ -15,10 +20,13 @@ tags:
   - comunicacion
   - plantilla
 relatedResources:
-  - /docs/architecture/api-lifecycle-management-template
-  - /docs/architecture/microservice-contract-template
-  - /docs/architecture/technical-spec-template
-  - /docs/devops/rollout-communication-template
+  - /docs/api-lifecycle-management-template
+  - /docs/microservice-contract-template
+  - /docs/technical-spec-template
+  - /docs/rollout-communication-template
+  - /docs/api-changelog-template
+  - /docs/sla-definition-template
+  - /docs/api-error-response-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -29,6 +37,11 @@ seo:
     - aviso de migracion
     - politica de retiro
     - versionado api
+
+
+
+
+
 ---
 
 ## Resumen
@@ -36,6 +49,9 @@ seo:
 Las APIs evolucionan. Los campos se renombran, los endpoints se reemplazan y las versiones antiguas se retiran. Sin un aviso de deprecacion claro, los consumidores descubren los cambios breaking solo despues de que sus integraciones fallan. Esta plantilla proporciona un formato estandar para anunciar deprecaciones, comunicar plazos y guiar a los consumidores a traves de las migraciones.
 
 ## Cuando Usar
+
+
+- For alternatives, see [API Changelog Template](/es/docs/api-changelog-template/).
 
 Usa este recurso cuando:
 - Elimines o renombres un endpoint, campo o parametro de API

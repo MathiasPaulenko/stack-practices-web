@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: deep-clone-javascript
 title: "Deep Clone de Objetos en JavaScript"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/parse-json
   - /recipes/regular-expressions
+  - /recipes/batch-processing-patterns
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,7 @@ seo:
     - lodash
     - serializacion
     - performance
+
 ---
 ## Visión General
 

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: visitor-pattern-operations
 title: "Visitor Pattern for Extensible Operations on Object"
@@ -14,8 +18,11 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/strategy-pattern
-  - /patterns/design/chain-of-responsibility-middleware
+  - /patterns/strategy-pattern
+  - /patterns/chain-of-responsibility-middleware
+  - /patterns/command-pattern-undo
+  - /patterns/interpreter-pattern-expressions
+  - /patterns/iterator-pattern-collections
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +33,10 @@ seo:
     - extensible operations
     - behavioral patterns
     - object structure traversal
+
+
+
+
 ---
 
 # Visitor Pattern for Extensible Operations on Object Structures

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: feature-specification-template
 title: "Feature Specification Template"
@@ -15,9 +21,13 @@ tags:
   - product-planning
   - template
 relatedResources:
-  - /docs/devops/architecture-decision-record-adr-template
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/code-review-checklist-template
+  - /docs/architecture-decision-record-adr-template
+  - /docs/engineering-handbook-template
+  - /docs/code-review-checklist-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/data-migration-runbook-template
+  - /docs/deprecation-timeline-template
+  - /docs/production-readiness-review-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - product spec template
     - acceptance criteria
     - user stories
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +51,9 @@ seo:
 The most expensive bugs are not in code — they are in misunderstood requirements. A feature specification is a document that aligns product, design, and engineering on what to build, why it matters, and how to know it is done. It prevents the "I thought you meant..." conversations that derail sprints and create rework. A good spec is not a contract; it is a shared understanding that evolves as the team learns.
 
 ## When to Use
+
+
+- For alternatives, see [What Works in Code Review — For Authors and Reviewers](/guides/code-review-best-practices-guide/).
 
 Use this template when:
 - A feature touches multiple systems, teams, or user journeys

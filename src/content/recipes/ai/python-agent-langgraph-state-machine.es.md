@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-agent-langgraph-state-machine
 title: "Construye agentes IA con estado con maquinas de estados"
@@ -14,9 +20,13 @@ tags:
   - state machine
   - langchain
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-function-calling-structured
-  - /recipes/ai/python-llm-streaming-responses
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-huggingface-text-classification
+  - /recipes/python-ollama-local-llm
+  - /recipes/python-sentiment-analysis-nltk
+  - /patterns/agent-tool-selection-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - state machine langchain
     - langgraph python
     - multi-step agent
+
+
+
+
+
+
 ---
 
 # Construye agentes IA con estado con maquinas de estados LangGraph
@@ -34,6 +50,9 @@ seo:
 LangGraph extiende LangChain con grafos con estado y ciclicos para construir workflows agenticos. En lugar de cadenas lineales, defines una maquina de estados con nodos (funciones), aristas (transiciones) y enrutamiento condicional. Esto habilita agentes multi-paso que pueden iterar, llamar herramientas y mantener estado entre turnos. A continuacion: construir un agente de investigacion con tool calling, enrutamiento condicional y checkpointing.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/).
 
 - Agentes multi-paso que necesitan iterar (buscar, evaluar, refinar)
 - Workflows con branching condicional (si confia → responder, sino → buscar mas)

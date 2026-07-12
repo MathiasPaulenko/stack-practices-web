@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: gatekeeper-pattern
 title: "Gatekeeper Pattern"
@@ -19,8 +23,10 @@ tags:
   - api-gateway
   - waf
 relatedResources:
-  - /patterns/design/throttling-pattern
-  - /patterns/design/content-delivery-network-pattern
+  - /patterns/throttling-pattern
+  - /patterns/content-delivery-network-pattern
+  - /guides/complete-guide-api-security
+  - /guides/threat-modeling-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - validation
     - api gateway
     - waf
+
+
+
+
 ---
 
 # Gatekeeper Pattern
@@ -46,6 +56,9 @@ The gatekeeper acts as a reverse proxy with intelligence. It rejects malformed r
 Common implementations include API gateways (Kong, AWS API Gateway), reverse proxies with WAF (Nginx + ModSecurity, Cloudflare), service mesh ingress (Istio Gateway), and application-level middleware.
 
 ## When to Use
+
+
+- For alternatives, see [Threat Modeling — A Practical Guide for Development Teams](/guides/threat-modeling-guide/).
 
 Use the Gatekeeper Pattern when:
 - Multiple backend services share common security and validation requirements

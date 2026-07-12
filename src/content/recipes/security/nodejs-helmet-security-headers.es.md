@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: nodejs-helmet-security-headers
 title: "Configura headers de seguridad HTTP con Helmet en Node.js"
@@ -15,9 +18,10 @@ tags:
   - express
   - owasp
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/security/python-sql-injection-sqlalchemy
-  - /recipes/ai/python-llm-streaming-responses
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/python-llm-streaming-responses
+  - /guides/complete-guide-content-security-policy
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,9 @@ seo:
     - express security
     - csp header
     - hsts header
+
+
+
 ---
 
 # Configura headers de seguridad HTTP con Helmet en Node.js
@@ -35,6 +42,9 @@ seo:
 Los headers de seguridad HTTP protegen tu web app de clickjacking, XSS, MIME sniffing y man-in-the-middle. Helmet es un middleware de Express que los establece automaticamente. A continuacion: configurar Helmet con Content Security Policy (CSP), HSTS, CORS y headers personalizados para cumplimiento OWASP.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [API Security Checklist — Authentication to Encryption](/es/guides/api-security-checklist-guide/).
 
 - Cualquier aplicacion web o API en Express.js
 - Despliegues de produccion que requieren cumplimiento de headers de seguridad OWASP

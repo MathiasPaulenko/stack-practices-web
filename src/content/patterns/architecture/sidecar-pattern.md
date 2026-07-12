@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: sidecar-pattern
 title: "Sidecar Pattern: Extend Services with Companion Containers"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/ambassador-pattern
   - /patterns/modular-monolith-pattern
   - /patterns/strangler-fig-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
+  - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +34,9 @@ seo:
     - containers
     - kubernetes
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -488,6 +496,9 @@ spec:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Graceful Shutdown: Drain In-Flight Requests Before Exit](/patterns/graceful-shutdown-pattern/).
 
 - Keep sidecars lightweight — they consume resources from the pod's total allocation
 - Share volumes for communication — use emptyDir for shared files between containers

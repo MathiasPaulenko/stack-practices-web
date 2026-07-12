@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: nosql-database-selection-guide
 title: "NoSQL Database Selection — MongoDB, DynamoDB, Cassandra"
@@ -16,9 +19,11 @@ tags:
   - nosql
   - redis
 relatedResources:
-  - /guides/databases/database-design-guide
-  - /guides/databases/sql-performance-tuning-guide
-  - /guides/architecture/system-design-interview-guide
+  - /guides/database-design-guide
+  - /guides/sql-performance-tuning-guide
+  - /guides/system-design-interview-guide
+  - /guides/cap-theorem-guide
+  - /guides/database-sharding-partitioning-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +34,9 @@ seo:
     - cassandra vs mongodb
     - document store vs key value
     - choosing nosql database
+
+
+
 ---
 
 # NoSQL Database Selection

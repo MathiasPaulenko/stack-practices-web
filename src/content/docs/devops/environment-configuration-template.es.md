@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: environment-configuration-template
 title: "Plantilla de Configuracion de Entornos"
@@ -16,8 +22,12 @@ tags:
   - deployment
 relatedResources:
   - /docs/runbook-template
-  - /docs/devops/deployment-checklist-template
-  - /docs/devops/cloud-resource-tagging-policy-template
+  - /docs/deployment-checklist-template
+  - /docs/cloud-resource-tagging-policy-template
+  - /docs/zero-downtime-deployment-checklist
+  - /recipes/istio-canary-deployment
+  - /patterns/external-configuration-store-pattern
+  - /guides/canary-deployment-guide
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - documento de configuracion de entornos
     - plantilla de configuracion de despliegue
     - configuracion por entorno
+
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +51,9 @@ seo:
 Toda aplicacion se ejecuta en multiples entornos como desarrollo, staging y produccion. Cada entorno tiene su propia configuracion, endpoints, secretos y ajustes de infraestructura. Esta plantilla ayuda a los equipos a documentar esos ajustes en un solo lugar, facilitando la incorporacion, la depuracion y la recuperacion ante desastres.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Blue-Green Deployment](/es/guides/blue-green-deployment-guide/).
 
 - Configurar una nueva aplicacion o servicio.
 - Incorporar un nuevo miembro del equipo o contratista.

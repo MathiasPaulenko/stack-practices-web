@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: jest-snapshot-testing
 title: "Snapshot Testing React Components with Jest"
@@ -16,6 +18,8 @@ tags:
 relatedResources:
   - /recipes/unit-testing-mocking
   - /guides/testing-strategy-guide
+  - /guides/complete-guide-vitest-react-testing
+  - /recipes/javascript-vitest-snapshot-testing
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +30,8 @@ seo:
     - react
     - ui testing
     - regression
+
+
 ---
 
 # Snapshot Testing React Components with Jest

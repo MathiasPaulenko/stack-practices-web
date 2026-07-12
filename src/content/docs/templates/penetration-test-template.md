@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: penetration-test-template
 templateType: guideline
@@ -15,9 +20,13 @@ tags:
   - encryption
   - owasp
 relatedResources:
-  - /guides/security/web-application-security-guide
-  - /docs/templates/security-incident-response-template
-  - /docs/templates/bug-report-template
+  - /guides/web-application-security-guide
+  - /docs/security-incident-response-template
+  - /docs/bug-report-template
+  - /recipes/container-security
+  - /recipes/data-privacy-gdpr
+  - /recipes/security-headers
+  - /docs/incident-response-playbook-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - security assessment template
     - vulnerability report template
     - security findings documentation
+
+
+
+
+
 ---
 
 # Penetration Test Report Template

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-sql-query-optimization
 title: "Complete Guide to SQL Query Optimization"
@@ -19,9 +24,12 @@ tags:
   - n-plus-1
   - performance
 relatedResources:
-  - /guides/databases/complete-guide-postgresql-replication
-  - /guides/databases/complete-guide-mongodb-indexing
-  - /guides/databases/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-replication
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-tuning
+  - /recipes/elasticsearch-aggregations
+  - /recipes/schema-evolution
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - materialized view
     - query caching
     - postgresql optimization
+
+
+
+
+
 ---
 
 ## Introduction
@@ -598,3 +611,12 @@ Yes, always use connection pooling in production. Opening a new database connect
 ### How do I optimize a slow JOIN?
 
 First, ensure both join columns have indexes. The join column on the inner (larger) table must be indexed — without it, the database does a nested loop scan. Check the EXPLAIN plan for the join method: hash join is efficient for large unsorted inputs, merge join is efficient when both inputs are sorted, nested loop is efficient when one side is small. Filter early — add WHERE conditions to reduce rows before joining. Consider denormalizing if you frequently join the same tables. Use covering indexes to avoid table fetches. For complex multi-table joins, experiment with join order hints.
+
+## See Also
+
+- [Full-Text Search — Implement Search That Actually Works](/guides/full-text-search-guide/)
+- [Complete Guide to MongoDB Indexing](/guides/complete-guide-mongodb-indexing/)
+- [Complete Guide to PostgreSQL Tuning](/guides/complete-guide-postgresql-tuning/)
+- [SQL Performance Tuning — Indexes, Queries, and Explain Plans](/guides/sql-performance-tuning-guide/)
+- [Database Query Tuning Checklist](/docs/database-query-tuning-checklist/)
+

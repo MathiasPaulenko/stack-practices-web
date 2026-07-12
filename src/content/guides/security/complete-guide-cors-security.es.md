@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-cors-security
 title: "CORS Security: Origins, Headers, Preflight, Credentials"
@@ -17,9 +20,10 @@ tags:
   - cross-origin
   - api
 relatedResources:
-  - /guides/security/complete-guide-oauth2-oidc-production
-  - /guides/security/complete-guide-content-security-policy
-  - /recipes/security/csrf-protection
+  - /guides/complete-guide-oauth2-oidc-production
+  - /guides/complete-guide-content-security-policy
+  - /recipes/csrf-protection
+  - /guides/complete-guide-web-security-headers
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 18
@@ -33,6 +37,9 @@ seo:
     - credential handling
     - same-origin policy
     - cors security
+
+
+
 ---
 
 ## Introducción
@@ -321,6 +328,9 @@ app.delete('/api/users/:id', cors({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Content Security Policy: CSP Headers, Nonces, Hashes](/es/guides/complete-guide-content-security-policy/).
 
 - Nunca uses `Access-Control-Allow-Origin: *` con credentials — browsers lo blockean, y el workaround (reflection) es una vulnerability
 - Usá un allowlist de specific origins — no reflectees el Origin header blindly

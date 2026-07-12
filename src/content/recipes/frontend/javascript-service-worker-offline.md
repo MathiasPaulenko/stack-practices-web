@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: javascript-service-worker-offline
 title: "JavaScript Service Worker Offline Caching for PWA"
@@ -31,6 +32,7 @@ seo:
     - service worker install activate
     - stale while revalidate sw
     - progressive web app offline
+
 ---
 
 ## Overview
@@ -38,6 +40,9 @@ seo:
 Service Workers enable offline support by intercepting network requests and serving cached responses. The solution below covers registering a service worker, caching strategies (cache-first, network-first, stale-while-revalidate), cache cleanup, and background sync for progressive web apps.
 
 ## When to Use
+
+
+- For alternatives, see [Progressive Web Apps (PWA) — Complete Guide](/guides/progressive-web-apps-guide/).
 
 - You want your web app to work offline or on flaky connections
 - You need to cache static assets (JS, CSS, images) for instant load on repeat visits

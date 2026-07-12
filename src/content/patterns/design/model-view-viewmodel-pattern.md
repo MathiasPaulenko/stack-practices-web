@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: model-view-viewmodel-pattern
 title: "Model-View-ViewModel (MVVM) Pattern"
@@ -17,9 +18,9 @@ tags:
   - data-binding
   - reactive
 relatedResources:
-  - /patterns/design/model-view-presenter-pattern
-  - /patterns/design/front-controller-pattern
-  - /patterns/design/page-controller-pattern
+  - /patterns/model-view-presenter-pattern
+  - /patterns/front-controller-pattern
+  - /patterns/page-controller-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +31,7 @@ seo:
     - design pattern
     - data binding
     - reactive ui
+
 ---
 
 # Model-View-ViewModel (MVVM) Pattern

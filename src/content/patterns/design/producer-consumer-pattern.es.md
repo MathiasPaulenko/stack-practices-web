@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: producer-consumer-pattern
 title: "Patrón Producer-Consumer"
@@ -17,9 +22,12 @@ tags:
   - decoupling
   - buffering
 relatedResources:
-  - /patterns/design/thread-pool-pattern
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/actor-model-pattern
+  - /patterns/thread-pool-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/async-generator-pattern
+  - /patterns/lock-free-queue-pattern
+  - /patterns/reactive-streams-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - desacoplar produccion consumo
     - buffer limitado concurrencia
     - patron diseno
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +49,9 @@ seo:
 Cuando una parte de un sistema produce datos y otra los consume, suelen ejecutar a diferentes velocidades. Un productor puede generar 1000 items por segundo mientras un consumidor procesa 100. Sin un buffer entre ellos, el productor debe esperar al consumidor (lento) o descartar items (con perdidas). El patron Producer-Consumer coloca una cola entre ellos. Los productores empujan items a la cola; los consumidores los extraen. Ambos ejecutan a su propio ritmo.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Priority Queue Pattern](/es/patterns/priority-queue-pattern/).
 
 - Un productor y consumidor ejecutan a diferentes velocidades y necesitas suavizar el desajuste
 - Quieres desacoplar al productor del consumidor (no necesitan conocerse)

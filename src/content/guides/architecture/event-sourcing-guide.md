@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: event-sourcing-guide
 title: "Event Sourcing — State as a Sequence of Events"
@@ -20,8 +23,9 @@ relatedResources:
   - /guides/cqrs-guide
   - /guides/cqrs-event-sourcing-combined-guide
   - /guides/hexagonal-architecture-guide
-  - /patterns/design/event-bus-pattern
-  - /patterns/design/outbox-pattern
+  - /patterns/event-bus-pattern
+  - /patterns/outbox-pattern
+  - /guides/complete-guide-event-sourcing-cqrs
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - domain-events
     - event-driven
     - guide
+
+
+
 ---
 
 ## Overview
@@ -41,6 +48,9 @@ seo:
 Event Sourcing is an architectural pattern where the state of an application is stored not as a current snapshot, but as a sequence of immutable events. Instead of updating a row in a database, you append an event describing what happened. The current state is derived by replaying all events for an aggregate. This approach provides a complete audit trail, enables temporal queries, and naturally supports event-driven architectures.
 
 ## When to Use
+
+
+- For alternatives, see [CQRS — Command Query Responsibility Segregation](/guides/cqrs-guide/).
 
 - Audit requirements demand knowing exactly how every state change occurred
 - You need to reconstruct past states for debugging or compliance

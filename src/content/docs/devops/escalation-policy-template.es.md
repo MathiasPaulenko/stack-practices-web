@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: escalation-policy-template
 title: "Plantilla de Política de Escalamiento"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/change-management-template
   - /docs/runbook-template
   - /docs/backup-and-restore-template
+  - /docs/sla-definition-template
+  - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - guardia
     - operaciones
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Cuando un incidente crítico ocurre a las 3 a.m., un ingeniero de guardia debe saber en 30 segundos si debe despertar al CTO o manejarlo solo. La mayoría de los equipos asumen que el escalamiento es "sentido común" — hasta que un ticket de baja prioridad despierta al CEO o un incidente de pérdida de datos permanece sin resolver durante horas porque nadie sabía a quién llamar. Esta plantilla define niveles de severidad claros, tiempos de respuesta y rutas de escalamiento para que tu equipo responda con confianza, no con pánico.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [On-Call Runbook Template](/es/docs/on-call-runbook-template/).
 
 Usa este recurso cuando:
 - Estás construyendo o revisando una rotación de guardia y necesitas reglas de escalamiento explícitas

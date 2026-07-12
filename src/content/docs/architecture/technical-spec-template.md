@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: technical-spec-template
 title: "Technical Specification Template"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/adr-template
   - /docs/database-schema-documentation-template
+  - /docs/api-changelog-template
+  - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +34,18 @@ seo:
     - design
     - requirements
     - template
+
+
+
 ---
 ## Overview
 
 Technical specifications translate product requirements into an implementable plan. Without a spec, engineers make assumptions that lead to mismatched expectations, missed edge cases, and rework. This template provides a standard structure for documenting goals, constraints, design decisions, and implementation steps.
 
 ## When to Use
+
+
+- For alternatives, see [ADR Template](/docs/adr-template/).
 
 Use this resource when:
 - Starting a capability that affects multiple systems or teams

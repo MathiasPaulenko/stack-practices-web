@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-rag-chroma-local
 title: "a Local RAG Pipeline with ChromaDB and Sentence Transformers"
@@ -14,9 +20,13 @@ tags:
   - sentence transformers
   - local llm
 relatedResources:
-  - /recipes/ai/python-vector-database-pinecone
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-embeddings-cosine
+  - /recipes/python-vector-database-pinecone
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-ollama-local-llm
+  - /recipes/python-huggingface-text-classification
+  - /recipes/python-llm-eval-ragas-metrics
+  - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - sentence transformers
     - retrieval augmented generation
     - local rag
+
+
+
+
+
+
 ---
 
 # Build a Local RAG Pipeline with ChromaDB and Sentence Transformers
@@ -376,6 +392,9 @@ class RerankedRAG(RAGPipeline):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Run LLMs Locally with Ollama for Private Inference](/recipes/python-ollama-local-llm/).
 
 - **Use overlap in chunking** — 10-20% overlap prevents losing context at chunk boundaries
 - **Include source metadata** — lets you cite sources in the generated answer

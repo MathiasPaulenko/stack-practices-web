@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: serverless-db-connection-pooling-pattern
 title: "Patrón Serverless DB Connection Pooling"
@@ -18,9 +23,12 @@ tags:
   - rds-proxy
   - lambda
 relatedResources:
-  - /patterns/design/serverless-throttling-pattern
-  - /patterns/design/serverless-warm-pool-pattern
-  - /patterns/design/serverless-function-composition-pattern
+  - /patterns/serverless-throttling-pattern
+  - /patterns/serverless-warm-pool-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /guides/complete-guide-serverless-databases
+  - /recipes/aws-lambda-cold-start-optimization
+  - /recipes/aws-lambda-python-dependencies
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,11 @@ seo:
     - rds proxy
     - connection pool serverless
     - patron diseno
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -40,6 +53,9 @@ Las funciones serverless escalan horizontalmente creando muchas instancias concu
 El patron Serverless DB Connection Pooling resuelve esto colocando un pooler de conexiones externo entre tus funciones y la base de datos. El pooler mantiene un conjunto pequeno de conexiones persistentes y multiplexa las peticiones de las funciones a traves de ellas.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Serverless Databases](/es/guides/complete-guide-serverless-databases/).
 
 - Ejecutas funciones serverless (Lambda, Cloud Functions, Azure Functions) que se conectan a una base de datos relacional
 - Ves errores `connection refused` o `too many connections` durante picos de trafico

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: api-changelog-template
 title: "Plantilla de Changelog de API"
@@ -15,9 +20,12 @@ tags:
   - documentacion
   - plantilla
 relatedResources:
-  - /docs/architecture/api-lifecycle-management-template
-  - /docs/api/api-deprecation-notice-template
-  - /docs/architecture/technical-spec-template
+  - /docs/api-lifecycle-management-template
+  - /docs/api-deprecation-notice-template
+  - /docs/technical-spec-template
+  - /docs/sla-definition-template
+  - /docs/api-rate-limiting-policy-template
+  - /guides/complete-guide-api-versioning-strategies
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -29,6 +37,11 @@ seo:
     - notas de lanzamiento
     - documentacion api
     - plantilla changelog
+
+
+
+
+
 ---
 
 ## Resumen
@@ -36,6 +49,9 @@ seo:
 Los consumidores de API necesitan saber que cambio, cuando cambio, y si necesitan actuar. Un changelog no estructurado — o la ausencia de changelog — obliga a los consumidores a comparar tu API o descubrir cambios breaking en produccion. Esta plantilla proporciona un formato estandarizado para documentar cada cambio de API con version, fecha, severidad y guia de migracion.
 
 ## Cuando Usar
+
+
+- For alternatives, see [API Deprecation Notice Template](/es/docs/api-deprecation-notice-template/).
 
 Usa este recurso cuando:
 - Lanaces una nueva version o capacidad de API

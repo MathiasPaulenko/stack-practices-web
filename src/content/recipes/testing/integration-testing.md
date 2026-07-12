@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: integration-testing
 title: "Write Integration Tests"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/unit-testing
   - /recipes/handle-errors
   - /recipes/call-rest-api
+  - /recipes/load-testing-k6
+  - /recipes/api-contract-testing
+  - /recipes/load-testing
+  - /recipes/nodejs-supertest-express-api
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,10 @@ seo:
     - junit integration
     - testcontainers
     - end-to-end testing
+
+
+
+
 ---
 
 ## Overview

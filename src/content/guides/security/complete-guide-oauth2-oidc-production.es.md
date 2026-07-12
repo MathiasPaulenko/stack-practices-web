@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-oauth2-oidc-production
 title: "OAuth2 y OIDC: Authorization Code, PKCE, Token Validation"
@@ -18,9 +21,10 @@ tags:
   - authorization
   - security
 relatedResources:
-  - /guides/security/complete-guide-cors-security
-  - /guides/security/complete-guide-content-security-policy
-  - /recipes/security/oauth2-pkce-spa
+  - /guides/complete-guide-cors-security
+  - /guides/complete-guide-content-security-policy
+  - /recipes/oauth2-pkce-spa
+  - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 24
@@ -35,6 +39,9 @@ seo:
     - jwt
     - refresh tokens
     - scopes
+
+
+
 ---
 
 ## Introducción
@@ -402,6 +409,9 @@ const orders = await fetch('https://api.example.com/orders', {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Authentication Patterns](/es/guides/complete-guide-authentication-patterns/).
 
 - Siempre usá PKCE para public clients (SPAs, mobile apps) — prevente code interception
 - Validá JWT signatures usando JWKS — no hardcodees keys, rotan

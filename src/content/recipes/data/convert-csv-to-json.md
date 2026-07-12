@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: convert-csv-to-json
 title: "Convert CSV to JSON"
@@ -16,11 +20,13 @@ tags:
   - java
   - data-processing
 relatedResources:
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-xml-files
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/validate-json-schema
+  - /recipes/convert-json-to-csv
+  - /recipes/parse-csv-files
+  - /recipes/parse-xml-files
+  - /recipes/serialize-deserialize-data
+  - /recipes/validate-json-schema
+  - /recipes/merge-json-files-javascript
+  - /recipes/python-excel-read-write
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - javascript
     - java
     - data-processing
+
+
+
+
 ---
 ## Overview
 
@@ -274,6 +284,9 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **csvkit**: command-line tools for CSV files. csvstat shows statistics, csvcut selects columns, csvjoin merges files. Useful for quick exploration without writing Python scripts
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Convert JSON to CSV](/recipes/convert-json-to-csv/).
 
 - Always specify encoding explicitly (encoding='utf-8'). Never rely on system defaults
 - Use chunked reading for files >500MB. Set chunksize in pandas or iterate line-by-line

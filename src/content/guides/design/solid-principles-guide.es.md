@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: solid-principles-guide
 title: "Principios SOLID Explicados con Ejemplos"
@@ -15,9 +18,11 @@ tags:
   - mantenibilidad
   - guia
 relatedResources:
-  - /guides/design/clean-code-principles-guide
-  - /guides/design/design-patterns-guide
-  - /guides/architecture/domain-driven-design-guide
+  - /guides/clean-code-principles-guide
+  - /guides/design-patterns-guide
+  - /guides/domain-driven-design-guide
+  - /guides/clean-architecture-guide
+  - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +34,9 @@ seo:
     - sustitucion de liskov
     - segregacion de interfaces
     - inversión de dependencias
+
+
+
 ---
 
 # Principios SOLID Explicados con Ejemplos

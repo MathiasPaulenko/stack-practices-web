@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: database-replication-guide
 title: "Database Replication — Master-Slave, Multi-Master"
@@ -22,7 +24,7 @@ relatedResources:
   - /guides/acid-vs-base-guide
   - /guides/indexing-strategies-guide
   - /guides/read-replica-guide
-  - /recipes/databases/connect-to-postgresql
+  - /recipes/connect-to-postgresql
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -35,6 +37,8 @@ seo:
     - conflict-resolution
     - high-availability
     - guide
+
+
 ---
 
 ## Overview
@@ -42,6 +46,9 @@ seo:
 Database replication is the process of copying and maintaining data across multiple database nodes. It provides high availability, read scaling, and disaster recovery. But replication introduces complexity: lag, conflicts, split-brain scenarios, and consistency trade-offs. The following guide covers the replication strategies used in production, from simple master-slave setups to multi-master clusters.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Replication](/guides/complete-guide-postgresql-replication/).
 
 - You need read scaling beyond what a single node can handle
 - High availability requires automatic failover

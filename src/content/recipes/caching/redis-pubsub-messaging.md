@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: redis-pubsub-messaging
 title: "Redis Pub/Sub for Cross-Process Messaging"
@@ -15,9 +19,11 @@ tags:
   - realtime
   - events
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/python-redis-cache-decorator
-  - /patterns/messaging/voucher-pattern
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/python-redis-cache-decorator
+  - /patterns/voucher-pattern
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/redis-sorted-set-leaderboard
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - pub sub pattern
     - redis events
     - cross process communication
+
+
+
+
 ---
 
 # Redis Pub/Sub for Cross-Process Messaging
@@ -294,6 +304,9 @@ def setup_graceful_shutdown(subscriber: EventSubscriber):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Implement Redis Pub/Sub Messaging in Python](/recipes/redis-pub-sub-python/).
 
 - **Use pub/sub for fire-and-forget events** — messages are not persisted; if delivery matters, use Streams
 - **Serialize with JSON** — keep messages small and human-readable; use MessagePack for high throughput

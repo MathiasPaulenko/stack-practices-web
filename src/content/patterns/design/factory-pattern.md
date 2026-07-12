@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: factory-pattern
 title: "Factory Pattern"
@@ -16,9 +21,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/api/call-rest-api
-  - /recipes/data/parse-json
-  - /guides/api/rest-api-design-guide
+  - /recipes/call-rest-api
+  - /recipes/parse-json
+  - /guides/rest-api-design-guide
+  - /patterns/abstract-factory-pattern
+  - /patterns/builder-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/dependency-injection-typescript
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - python factory
     - java factory
     - javascript factory
+
+
+
+
+
 ---
 
 # Factory Pattern

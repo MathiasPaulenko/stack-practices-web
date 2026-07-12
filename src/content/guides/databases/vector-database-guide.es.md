@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: vector-database-guide
 title: "Bases de Datos Vectoriales"
@@ -23,6 +25,7 @@ tags:
 relatedResources:
   - /guides/graph-database-guide
   - /guides/nosql-patterns-guide
+  - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -38,6 +41,8 @@ seo:
     - chroma
     - rag
     - guia
+
+
 ---
 
 ## Overview
@@ -45,6 +50,9 @@ seo:
 Las bases de datos vectoriales almacenan vectores numericos de alta dimension (embeddings) generados por modelos de machine learning y habilitan busqueda por similitud mediante algoritmos de Vecino Mas Cercano Aproximado (ANN). Potencian busqueda semantica, sistemas de recomendacion, recuperacion de imagenes por contenido, y Generacion Aumentada por Recuperacion (RAG) para LLMs. A diferencia de bases de datos tradicionales que buscan por coincidencia exacta o rango, las bases de datos vectoriales encuentran los vectores "mas cercanos" en el espacio de embeddings — la representacion matematica de significado, caracteristicas de imagen o firmas de audio.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Vector Databases](/es/guides/complete-guide-vector-databases/).
 
 - Necesitas busqueda semantica (encontrar significado similar, no solo coincidencia de palabras clave)
 - Los pipelines RAG de LLMs requieren recuperar chunks de contexto relevantes

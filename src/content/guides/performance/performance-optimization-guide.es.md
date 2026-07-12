@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: performance-optimization-guide
 title: "Guía de Optimización de Performance Web"
@@ -22,6 +26,10 @@ relatedResources:
   - /recipes/caching
   - /guides/cicd-pipeline-guide
   - /recipes/middleware
+  - /recipes/caching-strategies
+  - /docs/load-test-execution-plan-template
+  - /recipes/redis-cache-patterns
+  - /recipes/bash-log-rotation
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +41,10 @@ seo:
     - caching
     - lazy loading
     - image optimization
+
+
+
+
 ---
 
 ## Resumen

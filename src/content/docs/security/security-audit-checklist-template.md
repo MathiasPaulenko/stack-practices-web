@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: security-audit-checklist-template
 title: "Security Audit Checklist"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
   - /docs/security-incident-response-template
+  - /docs/data-classification-template
+  - /docs/incident-response-playbook-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +34,18 @@ seo:
     - checklist
     - compliance
     - infrastructure
+
+
+
 ---
 ## Overview
 
 Security audits identify vulnerabilities before attackers do. A repeatable checklist ensures no critical area is overlooked, from authentication and authorization to infrastructure hardening and compliance. This template covers application-level and infrastructure-level security checks.
 
 ## When to Use
+
+
+- For alternatives, see [SOC 2 Compliance — Basics for Engineering Teams](/guides/compliance-soc2-guide/).
 
 Use this resource when:
 - Conducting a quarterly or annual security review

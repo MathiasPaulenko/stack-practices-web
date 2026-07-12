@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: role-pattern
 title: "Role Pattern"
@@ -17,9 +23,13 @@ tags:
   - composition
   - ddd
 relatedResources:
-  - /patterns/design/decorator-pattern
-  - /patterns/design/strategy-pattern
-  - /patterns/design/composite-entity-pattern
+  - /patterns/decorator-pattern
+  - /patterns/strategy-pattern
+  - /patterns/composite-entity-pattern
+  - /patterns/twin-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/context-object-pattern
+  - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +40,12 @@ seo:
     - dynamic
     - composition
     - ddd
+
+
+
+
+
+
 ---
 
 # Role Pattern
@@ -43,6 +59,9 @@ The Role Pattern solves this by separating the **core entity** (who the object i
 This pattern is foundational in Domain-Driven Design (DDD) and is used in authorization systems (RBAC), workflow engines, and multi-tenant applications.
 
 ## When to Use
+
+
+- For alternatives, see [Blackboard Pattern](/patterns/blackboard-pattern/).
 
 Use the Role Pattern when:
 - The same entity can play multiple roles in different contexts

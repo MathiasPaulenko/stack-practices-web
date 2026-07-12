@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: aws-lambda-cold-start-optimization
 title: "Reducir Cold Start de AWS Lambda con Provisioned Concurrency"
@@ -16,10 +21,13 @@ tags:
   - provisioned-concurrency
   - performance
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-react-performance-optimization
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /recipes/serverless-step-functions-workflow
+  - /patterns/serverless-function-composition-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - lambda performance
     - graviton lambda
     - lambda initialization
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 Cold start es el retraso cuando Lambda crea un nuevo entorno de ejecucion para una funcion. Incluye descargar codigo, inicializar el runtime, cargar dependencias y ejecutar codigo de inicializacion. Para APIs sensibles a latencia, cold starts de 1-10 segundos son inaceptables. A continuacion: reducir cold start con provisioned concurrency, ARM64 Graviton, recorte de dependencias, inicializacion lazy y SnapStart (para Java).
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Package Python Dependencies for AWS Lambda with Layers](/es/recipes/aws-lambda-python-dependencies/).
 
 - Funciones Lambda que sirven APIs HTTP sincronas con requerimientos estrictos de latencia
 - Funciones con dependencias pesadas (pandas, SQLAlchemy, clientes SDK)

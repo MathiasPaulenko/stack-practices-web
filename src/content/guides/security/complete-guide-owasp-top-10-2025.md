@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-owasp-top-10-2025
 title: "Complete Guide to OWASP Top 10 2025"
@@ -19,9 +22,10 @@ tags:
   - web-security
   - injection
 relatedResources:
-  - /guides/security/complete-guide-authentication-patterns
-  - /guides/security/complete-guide-api-security
-  - /guides/security/complete-guide-secrets-management
+  - /guides/complete-guide-authentication-patterns
+  - /guides/complete-guide-api-security
+  - /guides/complete-guide-secrets-management
+  - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - security misconfiguration
     - vulnerable components
     - ssrf
+
+
+
 ---
 
 ## Introduction
@@ -744,3 +751,12 @@ Validate all user-supplied URLs before fetching. Block requests to private IP ra
 ### Should I use a WAF (Web Application Firewall)?
 
 Yes, a WAF provides an additional defense layer by filtering malicious requests. It blocks SQL injection, XSS, and other common attacks before they reach your application. Use cloud WAFs (AWS WAF, Cloudflare, Azure Front Door) for ease of setup. But a WAF is not a substitute for fixing vulnerabilities in your code — it is defense in depth.
+
+## See Also
+
+- [Complete Guide to API Security](/guides/complete-guide-api-security/)
+- [Web Application Security (OWASP Top 10)](/guides/web-application-security-guide/)
+- [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/)
+- [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/)
+- [API Gateway Design: Resilience, Routing, and Security](/guides/api-gateway-design-guide/)
+

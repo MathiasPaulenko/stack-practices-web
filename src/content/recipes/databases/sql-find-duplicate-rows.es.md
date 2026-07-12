@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-find-duplicate-rows
 title: "Encontrar y eliminar filas duplicadas en SQL"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/runbook-database-failover
   - /docs/database-schema-documentation-template
   - /guides/full-text-search-guide
+  - /recipes/sql-full-text-search-setup
+  - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - mysql
     - deduplicación
     - cte
+
+
+
 ---
 
 
@@ -37,6 +45,9 @@ seo:
 Las filas duplicadas se cuelan en las tablas por errores de aplicación, scripts de importación o condiciones de carrera. Desperdician espacio, distorsionan análisis y pueden romper restricciones únicas que pretendías aplicar. Encontrarlas requiere agrupar por las columnas que definen unicidad, y eliminarlas de forma segura significa conservar una fila canónica mientras se borran el resto sin perder datos relacionados.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Set Up Database Read Replicas for Scaling](/es/recipes/database-read-replicas/).
 
 Usa este recurso cuando:
 - Necesites identificar registros duplicados en una tabla.

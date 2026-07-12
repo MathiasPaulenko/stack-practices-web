@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: redis-rate-limiting-token-bucket
 title: "Rate Limiting with Redis Token Bucket Algorithm"
@@ -15,9 +20,10 @@ tags:
   - api
   - security
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/redis-sorted-set-leaderboard
-  - /patterns/caching/api-rate-limiting
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-sorted-set-leaderboard
+  - /recipes/redis-distributed-lock
+  - /recipes/python-rate-limiting-fastapi-redis
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,11 @@ seo:
     - api rate limiter
     - distributed rate limiting
     - redis lua script
+
+
+
+
+
 ---
 
 # Rate Limiting with Redis Token Bucket Algorithm
@@ -286,6 +297,9 @@ class FixedWindowRateLimiter:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/).
 
 - **Use Lua scripts for atomicity** — without it, concurrent requests can consume more tokens than allowed
 - **Set TTLs on bucket keys** — prevents memory growth from inactive identifiers

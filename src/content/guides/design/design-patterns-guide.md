@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: design-patterns-guide
 title: "Practical Design Patterns Guide"
@@ -19,10 +23,13 @@ tags:
   - strategy
   - structural
 relatedResources:
-  - /patterns/design/singleton-pattern
-  - /patterns/design/observer-pattern
-  - /patterns/design/strategy-pattern
-  - /patterns/design/repository-pattern
+  - /patterns/singleton-pattern
+  - /patterns/observer-pattern
+  - /patterns/strategy-pattern
+  - /patterns/repository-pattern
+  - /guides/domain-driven-design-guide
+  - /guides/code-review-best-practices-guide
+  - /guides/solid-principles-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +40,10 @@ seo:
     - creational patterns
     - structural patterns
     - behavioral patterns
+
+
+
+
 ---
 
 ## Introduction

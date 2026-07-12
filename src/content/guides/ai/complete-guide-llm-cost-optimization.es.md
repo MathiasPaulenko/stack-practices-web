@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-llm-cost-optimization
 title: "Referencia Detallada de Optimización de Costos LLM"
@@ -19,9 +23,11 @@ tags:
   - model-routing
   - budget
 relatedResources:
-  - /guides/ai/complete-guide-openai-api-mastery
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-local-llm-deployment
+  - /guides/complete-guide-openai-api-mastery
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-local-llm-deployment
+  - /patterns/embedding-cache-pattern
+  - /guides/complete-guide-vector-databases
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +41,10 @@ seo:
     - token management
     - semantic caching
     - llm budget
+
+
+
+
 ---
 
 ## Introducción
@@ -668,3 +678,12 @@ Usa gpt-4o-mini para el generation step (no gpt-4o). Usa text-embedding-3-small 
 ### ¿Cómo manejo budget overruns?
 
 Implementa un BudgetController que trackee daily spending. Checkea budget antes de cada API call. Cuando budget esta bajo, routea a cheaper models o usa cached responses. Setea alerts al 50%, 80%, y 100% de budget. Considera per-user budgets para multi-tenant applications. Implementa circuit breakers que stop API calls cuando budget esta exhausted.
+
+## See Also
+
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to OpenAI API Mastery](/es/guides/complete-guide-openai-api-mastery/)
+- [Complete Guide to GraphQL Caching](/es/guides/complete-guide-graphql-caching/)
+- [Complete Guide to Application-Level Caching](/es/guides/complete-guide-application-level-caching/)
+

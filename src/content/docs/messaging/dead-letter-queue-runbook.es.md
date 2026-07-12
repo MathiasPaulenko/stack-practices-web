@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: dead-letter-queue-runbook
 templateType: runbook
@@ -16,9 +18,9 @@ tags:
   - runbook
   - error-handling
 relatedResources:
-  - /docs/messaging/kafka-topic-naming-convention-template
-  - /docs/messaging/rabbitmq-queue-design-template
-  - /docs/messaging/message-schema-evolution-policy
+  - /docs/kafka-topic-naming-convention-template
+  - /docs/rabbitmq-queue-design-template
+  - /docs/message-schema-evolution-policy
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - message replay
     - error handling
     - failed messages
+
+
 ---
 
 ## Overview
@@ -472,3 +476,12 @@ Usa un separate DLQ per consumer service, no per topic. Esto da a cada team visi
 ### ¿Cómo automatizo DLQ replay?
 
 Buildea un replay service que read de DLQ, checkea si el fix ha sido deployed (via health check o version check) y replayea messages al original topic. Include un dry-run mode que inspecta messages sin replayear. Add rate limiting para avoid overwhelming downstream services. Loggea cada replayed message con su original metadata para auditability. Corre el replay service como un Kubernetes Job o Lambda function triggered manually despues de un fix deployed.
+
+## See Also
+
+- [Dead Letter Queues](/es/recipes/dead-letter-queue/)
+- [Message Queues — RabbitMQ, Kafka, and SQS detailed analysis](/es/guides/message-queue-guide/)
+- [Event Streaming with Apache Kafka and Node.js](/es/recipes/kafka-event-streaming/)
+- [Message Processing Idempotency](/es/recipes/message-idempotency/)
+- [Configure Dead-Letter Queues in RabbitMQ for Failed Messages](/es/recipes/rabbitmq-dead-letter-queue/)
+

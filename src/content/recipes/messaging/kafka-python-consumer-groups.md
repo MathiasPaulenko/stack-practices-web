@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: kafka-python-consumer-groups
 title: "Kafka Consumer Groups with Python for Scalable Streaming"
@@ -16,10 +21,13 @@ tags:
   - streaming
   - event-driven
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/python-celery-task-queue
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-kafka-stream-processing
+  - /recipes/kafka-spring-boot-stream-listener
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - kafka rebalance handling
     - kafka exactly once python
     - kafka partition assignment
+
+
+
+
+
 ---
 
 ## Overview
@@ -400,6 +413,9 @@ consumer.subscribe(['orders.*'], on_assign=on_assign)
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Consume Kafka Topics with Spring Boot Stream Listeners](/recipes/kafka-spring-boot-stream-listener/).
 
 - **Use `cooperative-sticky` assignment**: The default `range` strategy causes stop-the-world rebalances. Cooperative-sticky only moves affected partitions, reducing disruption.
 - **Disable `enable.auto.commit`**: Auto-commit can commit offsets before processing completes. Use manual commits after successful processing.

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: disaster-recovery-guide
 title: "Recuperación ante Desastres"
@@ -20,11 +24,13 @@ tags:
   - resiliencia
   - guia
 relatedResources:
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/chaos-engineering-guide
-  - /guides/devops/multi-cloud-guide
-  - /guides/security/zero-trust-architecture-guide
-  - /guides/planning/capacity-planning-guide
+  - /guides/sre-practices-guide
+  - /guides/chaos-engineering-guide
+  - /guides/multi-cloud-guide
+  - /guides/zero-trust-architecture-guide
+  - /guides/capacity-planning-guide
+  - /guides/data-migration-guide
+  - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -39,6 +45,10 @@ seo:
     - runbook
     - resiliencia
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -48,6 +58,9 @@ La recuperación ante desastres (DR) es el conjunto de políticas, herramientas 
 A continuación: la definición de objetivos de recuperación, estrategias de backup, arquitecturas multi-región y runbooks útiles.
 
 ## When to Use
+
+
+- For alternatives, see [Disaster Recovery Test Plan](/es/docs/disaster-recovery-test-plan/).
 
 - Operas un servicio crítico para el negocio donde downtime es inaceptable
 - Necesitas cumplir con requerimientos regulatorios de protección de datos

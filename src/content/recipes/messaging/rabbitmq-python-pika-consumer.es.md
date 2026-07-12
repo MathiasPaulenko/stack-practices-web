@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: rabbitmq-python-pika-consumer
 title: "Construir un Consumer de RabbitMQ con Python y Pika"
@@ -16,10 +21,13 @@ tags:
   - consumer
   - message-queue
 relatedResources:
-  - /recipes/messaging/rabbitmq-dead-letter-queue
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/rabbitmq-dead-letter-queue
+  - /recipes/python-celery-task-queue
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /recipes/kafka-spring-boot-stream-listener
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/redis-pub-sub-python
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - pika rabbitmq tutorial
     - rabbitmq dead letter queue
     - rabbitmq prefetch qos
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 RabbitMQ es un message broker que enruta mensajes entre productores y consumidores. Pika es el cliente Python estandar. A continuacion: construir un productor y consumer con colas durables, acknowledgments manuales, dead-letter exchanges para mensajes fallidos, ajuste de prefetch para fair dispatch y recuperacion de conexion.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Configure Dead-Letter Queues in RabbitMQ for Failed Messages](/es/recipes/rabbitmq-dead-letter-queue/).
 
 - Distribuir trabajo en background entre multiples workers (procesamiento de imagenes, envio de emails)
 - Desacoplar productores de consumidores en una arquitectura de microservicios

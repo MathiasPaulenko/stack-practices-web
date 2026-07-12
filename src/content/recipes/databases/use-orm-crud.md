@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: use-orm-crud
 title: "Use ORM for CRUD"
@@ -20,6 +22,7 @@ relatedResources:
   - /recipes/connect-to-redis
   - /recipes/execute-raw-sql
   - /patterns/abstract-factory-pattern
+  - /guides/database-normalization-guide
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +34,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 
@@ -446,6 +451,9 @@ await userRepo
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Connect to MySQL](/recipes/connect-to-mysql/).
 
 6. **Use `selectinload` or `joinedload` for relationships.** The default lazy loading causes N+1 queries. SQLAlchemy 1.4+ provides `selectinload` as the preferred strategy:
 

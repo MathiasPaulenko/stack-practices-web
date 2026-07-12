@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: backup-verification-test-template
 title: "Plantilla de Prueba de Verificacion de Backups"
@@ -17,6 +19,7 @@ tags:
 relatedResources:
   - /docs/disaster-recovery-plan-template
   - /docs/runbook-template
+  - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +30,8 @@ seo:
     - validacion de backups
     - pruebas de recuperacion ante desastres
     - verificacion de RTO RPO
+
+
 ---
 
 ## Descripcion General
@@ -34,6 +39,9 @@ seo:
 Un backup que no se puede restaurar no es un backup. Esta plantilla ayuda a los equipos a programar, ejecutar y documentar pruebas de verificacion de backups. Cubre los sistemas en prueba, el procedimiento de restauracion, los criterios de validacion y que hacer cuando una prueba falla.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/es/guides/disaster-recovery-guide/).
 
 - Despues de configurar una nueva politica o herramienta de backup.
 - Antes de una auditoria de cumplimiento o revision de recuperacion ante desastres.

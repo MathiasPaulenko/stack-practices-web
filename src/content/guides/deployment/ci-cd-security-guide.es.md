@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: ci-cd-security-guide
 title: "Seguridad CI/CD: Fortalece tus Pipelines y Previene"
@@ -19,11 +23,13 @@ tags:
   - hardening
   - guia
 relatedResources:
-  - /guides/security/zero-trust-architecture-guide
-  - /guides/security/api-security-checklist-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/platform-engineering-guide
-  - /guides/planning/disaster-recovery-guide
+  - /guides/zero-trust-architecture-guide
+  - /guides/api-security-checklist-guide
+  - /guides/sre-practices-guide
+  - /guides/platform-engineering-guide
+  - /guides/disaster-recovery-guide
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -37,6 +43,10 @@ seo:
     - escaneo-dependencias
     - hardening
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -46,6 +56,9 @@ Los pipelines CI/CD son objetivos de alto valor para ataques. Tienen acceso a c�
 A continuación: técnicas prácticas para fortalecer tu infraestructura CI/CD desde el origen hasta el despliegue.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Secrets Management](/es/guides/complete-guide-secrets-management/).
 
 - Manejas pipelines CI/CD que despliegan a producción
 - Quieres reducir el radio de explosión de un sistema de build comprometido

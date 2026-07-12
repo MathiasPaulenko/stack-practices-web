@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-mongodb-indexing
 title: "Complete Guide to MongoDB Indexing"
@@ -18,9 +23,12 @@ tags:
   - compound-index
   - explain-plan
 relatedResources:
-  - /guides/databases/complete-guide-postgresql-replication
-  - /guides/databases/complete-guide-sql-query-optimization
-  - /guides/databases/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-replication
+  - /guides/complete-guide-sql-query-optimization
+  - /guides/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-tuning
+  - /recipes/seed-database
+  - /guides/complete-guide-redis-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +42,11 @@ seo:
     - esr rule
     - covered query
     - explain plan
+
+
+
+
+
 ---
 
 ## Introduction
@@ -428,3 +441,12 @@ Run `db.collection.find(query).explain("executionStats")`. Look at `winningPlan.
 ### Can I index arrays in MongoDB?
 
 Yes. MongoDB automatically creates a multikey index when a field contains array values. Each array element gets its own index entry. For example, if a document has `tags: ["mongodb", "indexing", "performance"]`, the index on `tags` will have three entries pointing to the same document. You can query `db.articles.find({ tags: "mongodb" })` and it will use the multikey index. You cannot use a multikey index for a compound index where both fields are arrays.
+
+## See Also
+
+- [Complete Guide to SQL Query Optimization](/guides/complete-guide-sql-query-optimization/)
+- [Complete Guide to PostgreSQL Tuning](/guides/complete-guide-postgresql-tuning/)
+- [SQL Performance Tuning — Indexes, Queries, and Explain Plans](/guides/sql-performance-tuning-guide/)
+- [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/)
+- [Full-Text Search — Implement Search That Actually Works](/guides/full-text-search-guide/)
+

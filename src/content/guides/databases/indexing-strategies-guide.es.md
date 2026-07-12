@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: indexing-strategies-guide
 title: "Estrategias de Indexación — Desde B-Trees hasta BRIN"
@@ -21,8 +23,8 @@ relatedResources:
   - /guides/database-normalization-guide
   - /guides/sql-joins-guide
   - /guides/database-replication-guide
-  - /recipes/databases/connect-to-postgresql
-  - /recipes/databases/connect-to-mysql
+  - /recipes/connect-to-postgresql
+  - /recipes/connect-to-mysql
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -35,6 +37,8 @@ seo:
     - indice-compuesto
     - optimizacion-consultas
     - guia
+
+
 ---
 
 ## Overview
@@ -42,6 +46,9 @@ seo:
 Los índices son el mecanismo principal para acelerar consultas de bases de datos. Son estructuras de datos que permiten a la base de datos localizar filas sin escanear cada registro. Pero los índices no son gratis — consumen almacenamiento, ralentizan escrituras y pueden perjudicar el rendimiento si se usan incorrectamente. Entender los diferentes tipos de índice y cuándo aplicarlos es una de las habilidades de mayor valor en bases de datos.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/).
 
 - Consultas filtrando en columnas específicas (WHERE, JOIN)
 - Ordenar grandes conjuntos de resultados (ORDER BY)

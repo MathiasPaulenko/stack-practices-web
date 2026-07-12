@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-index-optimization-analysis
 title: "Analizar y optimizar índices SQL con EXPLAIN"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/postgres-query-optimization
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-recursive-cte-query
+  - /recipes/sql-full-text-search-setup
+  - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - índices
     - explain
     - rendimiento
+
+
+
 ---
 
 
@@ -37,6 +45,9 @@ seo:
 Los índices son la herramienta principal para hacer que las consultas SQL sean rápidas, pero agregarlos a ciegas puede desperdiciar espacio, ralentizar escrituras e incluso hacer consultas más lentas. El enfoque correcto es comenzar con el plan de ejecución. `EXPLAIN` y `EXPLAIN ANALYZE` revelan si la base de datos está escaneando toda la tabla o usando un índice, y estiman el costo de cada paso para que puedas apuntar a los cuellos de botella más grandes primero.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Database Replication](/es/recipes/database-replication/).
 
 Usa este recurso cuando:
 - Una consulta sea más lenta de lo esperado y sospeches un índice faltante.

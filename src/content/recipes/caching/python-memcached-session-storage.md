@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-memcached-session-storage
 title: "Store User Sessions in Memcached with Python"
@@ -16,10 +20,12 @@ tags:
   - distributed-cache
   - pymemcache
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/authentication/python-jwt-refresh-token-rotation
+  - /recipes/python-redis-cache-decorator
+  - /recipes/python-jwt-refresh-token-rotation
   - /guides/complete-guide-api-versioning-strategies
   - /guides/complete-guide-graphql-federation
+  - /recipes/serverless-api-gateway-lambda-authorizer
+  - /recipes/python-django-cache-framework
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - distributed session store
     - session management python
     - memcached ttl
+
+
+
+
 ---
 
 ## Overview
@@ -295,6 +305,9 @@ def update_session_cas(client, session_id, update_fn):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Cache HTTP Responses with httpx and CacheControl in Python](/recipes/python-httpx-cache-responses/).
 
 - **Use cryptographically random session IDs**: `secrets.token_urlsafe(32)` generates 43-character URL-safe strings with 256 bits of entropy.
 - **Set `httponly`, `secure`, `samesite` on cookies**: Prevent XSS-based session theft and CSRF attacks.

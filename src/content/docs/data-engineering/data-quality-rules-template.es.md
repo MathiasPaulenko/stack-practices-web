@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: data-quality-rules-template
 title: "Plantilla de Reglas de Calidad de Datos"
@@ -16,9 +18,9 @@ tags:
   - testing
   - data
 relatedResources:
-  - /docs/data-engineering/data-pipeline-design-document-template
-  - /docs/data-engineering/etl-job-runbook-template
-  - /docs/data-engineering/data-governance-policy-template
+  - /docs/data-pipeline-design-document-template
+  - /docs/etl-job-runbook-template
+  - /docs/data-governance-policy-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - template
     - completeness
     - consistency
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Data quality rules definen qué significa "good data" para cada dataset y columna. Checkean completeness (no nulls), consistency (valid references), accuracy (values en expected ranges), timeliness (data es fresh) y uniqueness (no duplicates). Sin explicit rules, bad data fluye a consumers undetected.
 
 ## When to Use
+
+
+- For alternatives, see [Data Pipeline Design Document Template](/es/docs/data-pipeline-design-document-template/).
 
 - Definiendo quality checks para un new data pipeline
 - Estableciendo data contracts entre producers y consumers

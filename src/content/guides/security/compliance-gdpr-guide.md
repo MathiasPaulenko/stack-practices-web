@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: compliance-gdpr-guide
 title: "GDPR Compliance — A Practical Guide for Developers"
@@ -19,6 +21,7 @@ relatedResources:
   - /guides/compliance-soc2-guide
   - /guides/secrets-management-guide
   - /guides/secure-coding-guide
+  - /recipes/data-privacy-gdpr
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -30,6 +33,8 @@ seo:
     - data-protection
     - privacy-by-design
     - guide
+
+
 ---
 
 ## Overview
@@ -37,6 +42,9 @@ seo:
 The General Data Protection Regulation (GDPR) is the EU's data privacy law, but its reach extends to any organization processing EU residents' data. For developers, compliance is not a legal checkbox — it is a set of technical and architectural requirements: pseudonymization, data minimization, encryption, consent tracking, and deletion capabilities. This guide translates GDPR articles into useful engineering practices.
 
 ## When to Use
+
+
+- For alternatives, see [Data Privacy and GDPR Compliance](/recipes/data-privacy-gdpr/).
 
 - You process personal data of EU residents
 - You need to implement data subject rights (access, erasure, portability)

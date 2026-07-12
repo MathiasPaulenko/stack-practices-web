@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-vector-database-pinecone
 title: "Store and Query Embeddings in Pinecone Vector Database"
@@ -14,9 +19,12 @@ tags:
   - embeddings
   - semantic search
 relatedResources:
-  - /recipes/ai/python-openai-embeddings-cosine
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-llm-eval-ragas-metrics
+  - /patterns/embedding-cache-pattern
+  - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,11 @@ seo:
     - semantic search
     - vector similarity
     - pinecone python
+
+
+
+
+
 ---
 
 # Store and Query Embeddings in Pinecone Vector Database
@@ -344,6 +357,9 @@ for vid, vector in result["vectors"].items():
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Compare Text Semantic Similarity with OpenAI Embeddings](/recipes/python-openai-embeddings-cosine/).
 
 - **Use batch embeddings API** — generating embeddings one at a time is 10x slower than batching
 - **Store truncated text in metadata** — Pinecone does not store full documents; keep text in metadata for retrieval

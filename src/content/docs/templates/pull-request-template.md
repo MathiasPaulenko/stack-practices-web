@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 templateType: pr-template
 slug: pull-request-template
@@ -18,6 +21,9 @@ relatedResources:
   - /docs/contributing-guide
   - /docs/adr-template
   - /guides/cicd-pipeline-guide
+  - /recipes/git-workflow
+  - /guides/code-review-best-practices-guide
+  - /guides/git-branching-strategies-guide
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
@@ -28,6 +34,9 @@ seo:
     - pr template
     - github pull request
     - code review standards
+
+
+
 ---
 
 ## Overview

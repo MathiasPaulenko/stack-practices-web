@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: downtime-communication-template
 title: "Downtime Communication Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/bug-triage-template
   - /docs/change-management-template
   - /docs/cloud-cost-allocation-template
+  - /docs/sla-definition-template
+  - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - outage
     - incident
     - template
+
+
+
 ---
 ## Overview
 
 When your service goes down, silence is worse than bad news. Customers panic, internal teams guess, and executives demand answers you do not have yet. A structured communication plan lets you control the narrative, reduce support ticket volume, and rebuild trust. This template provides pre-drafted messages for internal teams, customers, and status pages at every stage of an incident.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Communication Template](/docs/incident-communication-template/).
 
 Use this resource when:
 - An outage or degradation affects production services

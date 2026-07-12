@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: dependency-audit-template
 templateType: guideline
@@ -15,9 +20,13 @@ tags:
   - encryption
   - owasp
 relatedResources:
-  - /guides/security/web-application-security-guide
-  - /guides/devops/cicd-pipeline-guide
-  - /docs/templates/security-incident-response-template
+  - /guides/web-application-security-guide
+  - /guides/cicd-pipeline-guide
+  - /docs/security-incident-response-template
+  - /recipes/container-security
+  - /recipes/data-privacy-gdpr
+  - /recipes/security-headers
+  - /docs/incident-response-playbook-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - supply chain security
     - license compliance check
     - vulnerability assessment dependencies
+
+
+
+
+
 ---
 
 # Third-Party Dependency Audit Template

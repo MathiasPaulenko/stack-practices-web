@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: javascript-clipboard-copy-paste
 title: "JavaScript Clipboard Copy and Paste"
@@ -31,6 +32,7 @@ seo:
     - clipboard fallback
     - execCommand copy
     - paste event javascript
+
 ---
 
 ## Overview
@@ -38,6 +40,9 @@ seo:
 The Clipboard API lets you copy and paste text programmatically in the browser. `navigator.clipboard.writeText()` is the modern approach, with `document.execCommand("copy")` as a fallback for older browsers. This approach handles copying text, reading from clipboard, handling permissions, and paste event interception.
 
 ## When to Use
+
+
+- For alternatives, see [JavaScript Infinite Scroll Pagination with](/recipes/javascript-infinite-scroll-pagination/).
 
 - You need a "Copy to clipboard" button for code snippets, URLs, or tokens
 - You want to read clipboard content on paste events

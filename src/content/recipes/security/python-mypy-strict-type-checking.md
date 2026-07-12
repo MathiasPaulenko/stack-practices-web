@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-mypy-strict-type-checking
 title: "Strict Type Checking in Python with mypy"
@@ -15,9 +19,11 @@ tags:
   - code-quality
   - recipe
 relatedResources:
-  - /recipes/security/python-bandit-static-analysis
-  - /recipes/security/python-pip-audit-vulnerability-scan
-  - /recipes/devops/github-actions-reusable-workflows
+  - /recipes/python-bandit-static-analysis
+  - /recipes/python-pip-audit-vulnerability-scan
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/java-spotbugs-static-analysis
+  - /recipes/typescript-eslint-strict-config
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - type-checking
     - code-quality
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -446,6 +456,9 @@ if user:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Find Security Issues in Python Code with Bandit](/recipes/python-bandit-static-analysis/).
 
 - Start with `strict = True` for new projects — catching issues early is easier than retrofitting
 - Use `show_error_codes = True` — error codes make `# type: ignore[code]` precise

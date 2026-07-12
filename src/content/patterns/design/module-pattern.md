@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: module-pattern
 title: "Module Pattern"
@@ -16,9 +20,11 @@ tags:
   - javascript
   - scope
 relatedResources:
-  - /patterns/design/facade-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/repository-pattern
+  - /patterns/facade-pattern
+  - /patterns/singleton-pattern
+  - /patterns/repository-pattern
+  - /patterns/mixin-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - javascript module
     - private state
     - iife
+
+
+
+
 ---
 
 # Module Pattern
@@ -41,6 +51,9 @@ The Module Pattern encapsulates private variables and functions inside a self-co
 In JavaScript before ES6, this was achieved with Immediately Invoked Function Expressions (IIFE). Modern languages provide native modules (ES modules, Python packages, Java packages), but the pattern's core idea — hiding internals and exposing interfaces — remains fundamental.
 
 ## When to Use
+
+
+- For alternatives, see [Adapter Pattern](/patterns/adapter-pattern/).
 
 Use the Module Pattern when:
 - You need private state that cannot be accessed from outside the module

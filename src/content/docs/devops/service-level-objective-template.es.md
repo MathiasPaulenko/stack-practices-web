@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: service-level-objective-template
 title: "Plantilla de Objetivos de Nivel de Servicio"
@@ -21,6 +24,8 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/on-call-runbook-template
   - /docs/patch-management-template
+  - /docs/slo-document-template
+  - /guides/sre-practices-guide
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -33,12 +38,18 @@ seo:
     - reliability
     - operations
     - template
+
+
+
 ---
 ## Visión General
 
 Los SLO separan el "teatro de disponibilidad" de la confiabilidad real. Un dashboard que muestra 99.9% de uptime no significa nada si tus usuarios experimentaron errores 500 durante el checkout porque la métrica promedió una interrupción de 10 minutos. Definir objetivos de nivel de servicio (SLOs), indicadores de nivel de servicio (SLIs) y presupuestos de error claros obliga a la ingeniería a ser honesta sobre qué significa "confiable" y cuánta falta de confiabilidad es aceptable antes de detener el trabajo de funcionalidades.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Site Reliability Engineering](/es/guides/sre-practices-guide/).
 
 Usa este recurso cuando:
 - Estás estableciendo objetivos de confiabilidad para un nuevo servicio o API

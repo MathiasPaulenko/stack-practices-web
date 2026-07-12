@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: chain-of-responsibility-middleware
 title: "Chain of Responsibility for Request Processing Middleware"
@@ -15,8 +18,10 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/decorator-pattern-pipeline
-  - /patterns/design/abstract-factory-cross-platform
+  - /patterns/decorator-pattern-pipeline
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/interpreter-pattern-expressions
+  - /patterns/visitor-pattern-operations
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +32,9 @@ seo:
     - request processing
     - behavioral patterns
     - express middleware
+
+
+
 ---
 
 # Chain of Responsibility for Request Processing Middleware

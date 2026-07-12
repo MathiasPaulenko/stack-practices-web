@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: pre-commit-hooks
 title: "Configurar pre-commit hooks"
@@ -19,6 +20,7 @@ relatedResources:
   - /docs/code-of-conduct-template
   - /docs/contributing-guide
   - /docs/disaster-recovery-plan-template
+  - /recipes/bash-scripting-automation
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +32,7 @@ seo:
     - git-hooks
     - calidad-codigo
     - linting
+
 ---
 
 ## Visión General

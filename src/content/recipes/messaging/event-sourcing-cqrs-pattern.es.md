@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: event-sourcing-cqrs-pattern
 title: "Implementar Event Sourcing con CQRS en Python"
@@ -16,10 +19,11 @@ tags:
   - architecture
   - event-driven
 relatedResources:
-  - /recipes/messaging/kafka-python-consumer-groups
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/python-celery-task-queue
   - /guides/domain-driven-design-guide
   - /guides/complete-guide-graphql-federation
+  - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - event store implementation
     - projection rebuild
     - event sourcing snapshots
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +44,9 @@ seo:
 Event sourcing almacena cada cambio de estado como un evento inmutable en un log append-only. El estado actual se deriva reproduciendo eventos. CQRS separa los modelos de lectura (queries) de escritura (commands), permitiendo a cada uno escalar independientemente. A continuacion: construir un event store, aggregate roots, command handlers, proyecciones para lectura, snapshots para rendimiento y procesamiento idempotente de eventos.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [CQRS + Event Sourcing — Combined Guide](/es/guides/cqrs-event-sourcing-combined-guide/).
 
 - Sistemas que requieren trazas de auditoria completas (transacciones financieras, registros de salud)
 - Logica de dominio compleja donde el replay de eventos ayuda a debugging y testing

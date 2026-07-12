@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: graphql-error-extension-pattern
 title: "Patron de Extension de Errores en GraphQL"
@@ -21,6 +24,8 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /patterns/graphql-interface-polymorphism-pattern
+  - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +36,9 @@ seo:
     - graphql-errors
     - error-handling
     - api-design
+
+
+
 ---
 
 ## Descripcion general
@@ -38,6 +46,9 @@ seo:
 Los errores GraphQL vuelven como una lista de objetos `{ message, locations, path }`. El campo `message` es un string legible por humanos, pero los clientes necesitan codigos legibles por maquina para manejar errores programaticamente. El patron de extension de errores adjunta metadatos estructurados a los errores via el campo `extensions` — codigos de error, equivalentes de estado HTTP, rutas de campos y contexto — para que los clientes puedan ramificar segun `code` en lugar de parsear `message`.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Complete Guide to GraphQL Schema Design](/es/guides/complete-guide-graphql-schema-design/).
 
 - Cualquier API GraphQL donde los clientes necesitan manejar errores programaticamente (mostrar UI diferente para auth vs validacion vs no-encontrado)
 - APIs consumidas por apps mobile u otros servicios que necesitan contratos de error estables

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: service-level-objective-template
 title: "Service Level Objective Template"
@@ -21,6 +24,8 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/on-call-runbook-template
   - /docs/patch-management-template
+  - /docs/slo-document-template
+  - /guides/sre-practices-guide
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -33,6 +38,9 @@ seo:
     - reliability
     - operations
     - template
+
+
+
 ---
 ## Overview
 
@@ -338,6 +346,9 @@ groups:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Site Reliability Engineering](/guides/sre-practices-guide/).
 
 1. **Use SLI-based alerting instead of threshold-based alerting.** Instead of alerting when CPU > 80%, alert when the error budget burn rate exceeds 2x normal. This reduces false positives and ties alerts to user impact:
 

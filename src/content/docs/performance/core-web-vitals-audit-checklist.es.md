@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: core-web-vitals-audit-checklist
 templateType: guideline
@@ -18,9 +20,9 @@ tags:
   - web-performance
   - lighthouse
 relatedResources:
-  - /docs/performance/performance-budget-template
-  - /docs/performance/database-query-tuning-checklist
-  - /docs/performance/load-test-plan-template
+  - /docs/performance-budget-template
+  - /docs/database-query-tuning-checklist
+  - /docs/load-test-plan-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - cls optimization
     - web vitals checklist
     - crux data
+
+
 ---
 
 ## Overview
@@ -427,3 +431,12 @@ Setea explicit `width` y `height` attributes en all `<img>` elements. El browser
 ### ¿Qué tan seguido deberia auditar Core Web Vitals?
 
 Corre un full audit quarterly para all page types. Monitora field data continuously via CrUX o RUM — setea up alerts para cuando P75 metrics crosseen thresholds. Corre Lighthouse CI en every PR para catchear regressions antes de deployment. Despues de major changes (new features, architecture changes, third-party additions), corre un targeted audit en affected pages. Antes de major traffic events (product launches, marketing campaigns), audita el pages que recibiran traffic. Trackea audit results over time en un spreadsheet o dashboard para ver trends. Si metrics estan stable, reduce audit frequency. Si metrics estan volatile o worsening, increasea frequency.
+
+## See Also
+
+- [Complete Guide to Web Performance and Core Web Vitals](/es/guides/complete-guide-web-performance-core-web-vitals/)
+- [Performance Budget Template](/es/docs/performance-budget-template/)
+- [Feature Flags: Progressive Release and Safe Experimentation](/es/guides/feature-flags-guide/)
+- [Complete Guide to Bundle Size Optimization](/es/guides/complete-guide-bundle-size-optimization/)
+- [Complete Guide to React 19 Features](/es/guides/complete-guide-react-19-features/)
+

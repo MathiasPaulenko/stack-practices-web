@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: multiton-pattern
 title: "Multiton Pattern"
@@ -15,9 +18,10 @@ tags:
   - registry
   - singleton
 relatedResources:
-  - /patterns/design/singleton-pattern
-  - /patterns/design/factory-pattern
-  - /patterns/design/object-pool-pattern
+  - /patterns/singleton-pattern
+  - /patterns/factory-pattern
+  - /patterns/object-pool-pattern
+  - /patterns/registry-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - creational pattern
     - named singleton
     - registry
+
+
+
 ---
 
 # Multiton Pattern
@@ -39,6 +46,9 @@ The Multiton Pattern extends the Singleton concept to manage multiple named inst
 This pattern is useful when you need a fixed set of related singletons — for example, database connection pools per tenant, logger instances per module, or theme configurations per client.
 
 ## When to Use
+
+
+- For alternatives, see [Singleton Pattern](/patterns/singleton-pattern/).
 
 Use the Multiton Pattern when:
 - You need a controlled set of singleton-like instances identified by keys

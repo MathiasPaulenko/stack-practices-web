@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-web-security-headers
 title: "Complete Guide to Web Security Headers"
@@ -18,9 +22,11 @@ tags:
   - guide
   - security
 relatedResources:
-  - /guides/security/owasp-top-10-guide
-  - /guides/frontend/web-components-guide
-  - /guides/security/secrets-management-guide
+  - /guides/owasp-top-10-guide
+  - /guides/web-components-guide
+  - /guides/secrets-management-guide
+  - /guides/complete-guide-content-security-policy
+  - /guides/complete-guide-cors-security
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +40,10 @@ seo:
     - cors
     - referrer policy
     - permissions policy
+
+
+
+
 ---
 
 # Complete Guide to Web Security Headers
@@ -328,6 +338,9 @@ app.post("/csp-report", express.json({ type: "application/csp-report" }), (req, 
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Content Security Policy: CSP Headers, Nonces, Hashes](/guides/complete-guide-content-security-policy/).
 
 - **Start with CSP report-only** — identify violations before enforcing
 - **Use nonces over hashes for dynamic content** — hashes break when content changes

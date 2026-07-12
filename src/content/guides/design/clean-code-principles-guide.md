@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: clean-code-principles-guide
 title: "Clean Code Principles: Writing Maintainable Software"
@@ -14,9 +17,11 @@ tags:
   - maintainability
   - refactoring
 relatedResources:
-  - /guides/design/solid-principles-guide
-  - /guides/design/code-review-best-practices-guide
-  - /guides/testing/testing-strategy-guide
+  - /guides/solid-principles-guide
+  - /guides/code-review-best-practices-guide
+  - /guides/testing-strategy-guide
+  - /docs/user-story-template
+  - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +33,9 @@ seo:
     - meaningful variable names
     - short functions
     - dry principle
+
+
+
 ---
 
 # Clean Code Principles

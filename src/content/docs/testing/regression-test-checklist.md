@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: regression-test-checklist
 title: "Regression Test Checklist"
@@ -15,10 +17,10 @@ tags:
   - smoke-tests
   - rollback
 relatedResources:
-  - /docs/testing/test-strategy-document-template
-  - /docs/testing/test-case-template
-  - /docs/testing/test-coverage-report-template
-  - /docs/testing/bug-reproduction-steps-template
+  - /docs/test-strategy-document-template
+  - /docs/test-case-template
+  - /docs/test-coverage-report-template
+  - /docs/bug-reproduction-steps-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - rollback
     - pre-deploy checks
     - post-deploy checks
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Regression testing verifies that new changes don't break existing functionality. Every deployment carries risk: a new feature can break an unrelated feature, a dependency upgrade can change behavior, a database migration can corrupt data. This checklist ensures consistent regression coverage across releases.
 
 ## When to Use
+
+
+- For alternatives, see [CI/CD Pipeline Guide](/guides/cicd-pipeline-guide/).
 
 - Before deploying to production
 - After merging a large PR to main

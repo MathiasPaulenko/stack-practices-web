@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: javascript-event-loop
 title: "Event Loop de JavaScript"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/url-encoding-decoding
   - /recipes/brotli-nginx-compression
   - /recipes/spa-code-splitting-lazy
+  - /guides/complete-guide-bundle-size-optimization
+  - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - async
     - javascript
     - performance
+
+
 ---
 ## Visión General
 

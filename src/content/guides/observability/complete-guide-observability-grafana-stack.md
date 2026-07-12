@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-observability-grafana-stack
 title: "Complete Guide to Observability with the Grafana Stack"
@@ -20,9 +26,13 @@ tags:
   - guide
   - observability
 relatedResources:
-  - /guides/observability/distributed-tracing-guide
-  - /guides/devops/complete-guide-ci-cd-github-actions
-  - /guides/architecture/complete-guide-microservices-communication
+  - /guides/distributed-tracing-guide
+  - /guides/complete-guide-ci-cd-github-actions
+  - /guides/complete-guide-microservices-communication
+  - /patterns/health-endpoint-monitoring-pattern
+  - /patterns/circuit-breaker-with-monitoring-pattern
+  - /guides/complete-guide-sentry-error-tracking
+  - /recipes/python-prometheus-metrics-exporter
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -36,6 +46,12 @@ seo:
     - distributed tracing
     - alerting
     - monitoring
+
+
+
+
+
+
 ---
 
 # Complete Guide to Observability with the Grafana Stack
@@ -511,6 +527,9 @@ receivers:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Monitoring and Alerting](/guides/complete-guide-monitoring-and-alerting/).
 
 - **Use the RED method** — Rate, Errors, Duration for every service
 - **Use the USE method** — Utilization, Saturation, Errors for resources

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: secure-coding-guide
 title: "Prácticas de Codificación Segura — Por Lenguaje y Patrón"
@@ -19,6 +22,8 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secrets-management-guide
   - /guides/cryptography-basics-guide
+  - /guides/compliance-gdpr-guide
+  - /guides/threat-modeling-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - authentication
     - defensive-programming
     - guia
+
+
+
 ---
 
 ## Overview
@@ -37,6 +45,9 @@ seo:
 La codificación segura es la práctica de escribir software que sea resistente a vulnerabilidades y ataques. No es una única técnica sino una mentalidad: valida cada suposición, desconfía de toda entrada y diseña para el fallo. A continuación: patrones específicos por lenguaje y técnicas defensivas universales que aplican independientemente de tu stack.
 
 ## When to Use
+
+
+- For alternatives, see [Penetration Test Scope Template](/es/docs/pen-test-scope-template/).
 
 - Escribes código que procesa entrada de usuarios o datos sensibles
 - Necesitas prevenir las clases de vulnerabilidad más comunes

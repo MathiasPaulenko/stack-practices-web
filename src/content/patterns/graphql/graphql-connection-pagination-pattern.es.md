@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: graphql-connection-pagination-pattern
 title: "Patron GraphQL Connection Pagination"
@@ -19,9 +23,11 @@ tags:
   - typescript
   - apollo-server
 relatedResources:
-  - /patterns/graphql/graphql-batched-resolver-pattern
-  - /patterns/graphql/graphql-dataloader-pattern
-  - /recipes/graphql/graphql-pagination-relay-connections
+  - /patterns/graphql-batched-resolver-pattern
+  - /patterns/graphql-dataloader-pattern
+  - /recipes/graphql-pagination-relay-connections
+  - /patterns/graphql-federated-entity-pattern
+  - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +39,10 @@ seo:
     - graphql edges nodes
     - apollo server pagination
     - graphql connection pattern
+
+
+
+
 ---
 
 # Patron GraphQL Connection Pagination
@@ -44,6 +54,9 @@ El patron Connection es el estandar de GraphQL para paginar campos de lista. En 
 La paginacion basada en cursores es mas estable que la basada en offsets. Cuando se insertan o eliminan items entre peticiones, los cursores siguen apuntando a la posicion correcta. Los offsets se desplazan, causando items saltados o duplicados.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [GraphQL Mutation Validation Pattern](/es/patterns/graphql-mutation-validation-pattern/).
 
 - Campos de lista que pueden devolver mas items de los que caben en una respuesta
 - Necesitas paginacion estable que sobrevive a inserciones y eliminaciones entre paginas

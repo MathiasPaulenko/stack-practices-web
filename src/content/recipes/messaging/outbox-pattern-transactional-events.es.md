@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: outbox-pattern-transactional-events
 title: "Patron Outbox Transaccional para Eventos Confiables"
@@ -16,10 +20,12 @@ tags:
   - postgresql
   - event-driven
 relatedResources:
-  - /recipes/messaging/event-sourcing-cqrs-pattern
-  - /recipes/messaging/kafka-python-consumer-groups
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/kafka-python-consumer-groups
   - /guides/domain-driven-design-guide
   - /guides/complete-guide-graphql-federation
+  - /guides/cqrs-event-sourcing-combined-guide
+  - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - reliable event publishing
     - dual write problem
     - transactional outbox python
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +47,9 @@ seo:
 El patron outbox transaccional resuelve el problema dual-write: cuando necesitas actualizar una base de datos y publicar un mensaje, hacer ambos en una sola transaccion no es posible entre sistemas diferentes. En su lugar, escribe el evento a una tabla outbox en la misma transaccion de base de datos que tus datos de negocio. Un proceso relay separado lee el outbox y publica eventos al message broker. A continuacion: diseno de tabla outbox, relay processor, estrategias de polling, garantias de ordenamiento y entrega exactly-once.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Implement Event Sourcing with CQRS in Python](/es/recipes/event-sourcing-cqrs-pattern/).
 
 - Microservicios que deben publicar eventos de forma confiable despues de cambios en base de datos
 - Arquitecturas event-driven donde los eventos perdidos causan inconsistencia de datos

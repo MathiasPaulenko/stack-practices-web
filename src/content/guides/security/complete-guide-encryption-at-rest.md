@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-encryption-at-rest
 title: "Encryption at Rest: AES-256, KMS, Envelope Encryption"
@@ -17,9 +21,11 @@ tags:
   - security
   - cryptography
 relatedResources:
-  - /guides/security/complete-guide-oauth2-oidc-production
-  - /guides/security/complete-guide-content-security-policy
-  - /recipes/security/encryption-at-rest
+  - /guides/complete-guide-oauth2-oidc-production
+  - /guides/complete-guide-content-security-policy
+  - /recipes/encryption-at-rest
+  - /docs/encryption-key-rotation-runbook
+  - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -33,6 +39,10 @@ seo:
     - key rotation
     - field-level encryption
     - database encryption
+
+
+
+
 ---
 
 ## Introduction
@@ -339,6 +349,9 @@ class KeyRotationService {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/).
 
 - Use AES-256-GCM for data encryption — authenticated encryption prevents tampering
 - Never store encryption keys with encrypted data — use a KMS

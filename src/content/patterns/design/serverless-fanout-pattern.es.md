@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: serverless-fanout-pattern
 title: "Patron Serverless Fanout"
@@ -19,9 +21,9 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-function-composition-pattern
-  - /patterns/design/serverless-event-sourcing-pattern
-  - /patterns/design/serverless-throttling-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /patterns/serverless-event-sourcing-pattern
+  - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +35,8 @@ seo:
     - sqs fanout pattern
     - serverless pub sub
     - event broadcast serverless
+
+
 ---
 
 # Patron Serverless Fanout
@@ -44,6 +48,9 @@ El patron fanout difunde un solo evento a multiples consumidores independientes.
 Esto desacopla productores de consumidores. El productor no sabe cuantos consumidores existen ni que hacen. Anadir un consumidor nuevo requiere solo suscribirse al topic, no modificar el productor. Si un consumidor falla, otros continuan procesando.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Serverless Event Sourcing Pattern](/es/patterns/serverless-event-sourcing-pattern/).
 
 - Un evento debe disparar multiples acciones independientes (orden realizada: actualizar inventario, enviar email, generar factura)
 - Quieres anadir o eliminar consumidores sin modificar el productor

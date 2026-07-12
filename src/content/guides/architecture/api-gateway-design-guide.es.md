@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: api-gateway-design-guide
 title: "Diseño de API Gateway: Resiliencia, Enrutamiento y Seguridad"
@@ -24,6 +27,8 @@ relatedResources:
   - /guides/api-security-checklist-guide
   - /guides/rest-api-design-guide
   - /docs/microservice-contract-template
+  - /guides/api-rate-limiting-guide
+  - /patterns/gateway-routing-pattern
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -38,12 +43,18 @@ seo:
     - observabilidad
     - microservicios
     - guia
+
+
+
 ---
 ## Visión General
 
 Toda arquitectura de microservicios eventualmente necesita una puerta de entrada. El API gateway es esa puerta — y si lo diseñas mal, se convierte en un punto único de fallo, un cuello de botella de rendimiento o una brecha de seguridad. Un gateway bien diseñado maneja enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad para que los servicios individuales se enfoquen en la lógica de negocio. A continuación: los patrones principales, trade-offs y estrategias de implementación para construir API gateways resilientes.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to API Security](/es/guides/complete-guide-api-security/).
 
 Usa esta guía cuando:
 - Estás migrando de un monolito a microservicios y necesitas un punto de entrada unificado

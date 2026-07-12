@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-disk-usage-monitor
 title: "Monitorear Uso de Disco con Bash"
@@ -19,6 +21,7 @@ relatedResources:
   - /recipes/bash-scripting-automation
   - /recipes/bash-monitoring-disk-usage
   - /docs/logging-standards-document
+  - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -29,12 +32,17 @@ seo:
     - uso disco linux
     - limpieza automática disco
     - df bash script
+
+
 ---
 ## Visión General
 
 Los problemas de espacio en disco causan crashes de aplicación, writes fallidos y bases de datos corruptas. Un script de monitoreo que verifica el uso de disco y alerta antes de que se llene previene estos problemas. Esta recipe cubre alertas basadas en umbrales, notificaciones por email y limpieza automática de consumidores comunes de espacio.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [AWS CLI Automation with Bash](/es/recipes/bash-aws-cli-scripts/).
 
 - Administras servidores Linux y necesitas alertas proactivas de espacio en disco
 - Quieres automatizar la limpieza de logs viejos, archivos temp o caches de paquetes

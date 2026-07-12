@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-parallel-commands
 title: "Run Shell Commands in Parallel with Bash"
@@ -20,6 +22,7 @@ relatedResources:
   - /recipes/bash-backup-rotation
   - /recipes/bash-scripting-automation
   - /recipes/bash-loop-over-files
+  - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -31,6 +34,8 @@ seo:
     - gnu-parallel
     - concurrency
     - shell
+
+
 ---
 ## Overview
 
@@ -333,6 +338,9 @@ find . -name "*.log" -not -path "./logs/*" | parallel -j 4 process_and_log {}
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Parallel Job Execution with Bash](/recipes/bash-parallel-job-execution/).
 
 1. **Use `--joblog` to track results.** GNU parallel can write a structured log of all jobs:
 

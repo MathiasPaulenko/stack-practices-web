@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: secret-management
 title: "Manage Application Secrets Securely"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/environment-variables
   - /recipes/docker-basics
   - /recipes/api-security-headers
+  - /recipes/ansible-playbook
+  - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - kubernetes secrets
     - secure credentials
     - password rotation
+
+
 ---
 
 ## Overview

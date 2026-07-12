@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: multiton-pattern
 title: "Patrón Multiton"
@@ -15,9 +18,10 @@ tags:
   - registry
   - singleton
 relatedResources:
-  - /patterns/design/singleton-pattern
-  - /patterns/design/factory-pattern
-  - /patterns/design/object-pool-pattern
+  - /patterns/singleton-pattern
+  - /patterns/factory-pattern
+  - /patterns/object-pool-pattern
+  - /patterns/registry-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - creational pattern
     - named singleton
     - registry
+
+
+
 ---
 
 # Patrón Multiton
@@ -39,6 +46,9 @@ El Patrón Multiton extiende el concepto de Singleton para gestionar múltiples 
 Este patrón es útil cuando necesitas un conjunto controlado de singletons relacionados — por ejemplo, pools de conexiones a base de datos por tenant, instancias de logger por módulo o configuraciones de tema por cliente.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Singleton Pattern](/es/patterns/singleton-pattern/).
 
 Usa el Patrón Multiton cuando:
 - Necesitas un conjunto controlado de instancias tipo singleton identificadas por claves

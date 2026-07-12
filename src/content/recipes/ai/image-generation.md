@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: image-generation
 title: "Generate Images Programmatically with AI Models"
@@ -18,6 +20,8 @@ relatedResources:
   - /recipes/ai-agents
   - /recipes/semantic-search
   - /recipes/chatbot-openai
+  - /recipes/ai-agents-tool-use
+  - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - stable diffusion
     - generative images
     - image prompt engineering
+
+
 ---
 
 ## Overview

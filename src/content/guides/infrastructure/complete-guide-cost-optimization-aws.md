@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-cost-optimization-aws
 title: "Complete Guide to AWS Cost Optimization"
@@ -19,9 +25,13 @@ tags:
   - guide
   - infrastructure
 relatedResources:
-  - /guides/devops/complete-guide-terraform-modules
-  - /guides/devops/complete-guide-ci-cd-github-actions
-  - /guides/observability/complete-guide-observability-grafana-stack
+  - /guides/complete-guide-terraform-modules
+  - /guides/complete-guide-ci-cd-github-actions
+  - /guides/complete-guide-observability-grafana-stack
+  - /recipes/bash-aws-cli-scripts
+  - /recipes/load-balancing-haproxy
+  - /recipes/cost-optimization
+  - /recipes/aws-lambda-python-dependencies
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +45,12 @@ seo:
     - savings plans
     - s3 lifecycle
     - cloud cost
+
+
+
+
+
+
 ---
 
 # Complete Guide to AWS Cost Optimization
@@ -422,6 +438,9 @@ def lambda_handler(event, context):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Cloud Cost Optimization](/guides/cost-optimization-cloud-guide/).
 
 - **Enable Cost Explorer** — visibility is the first step to optimization
 - **Set up budget alerts** — catch overruns before they happen

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: read-replica-guide
 title: "Read Replicas: Scale Reads Without Changing Application"
@@ -18,10 +23,13 @@ tags:
   - performance
   - guide
 relatedResources:
-  - /guides/data/database-sharding-implementation-guide
-  - /guides/data/connection-pooling-deep-dive-guide
-  - /guides/data/caching-strategies-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/database-sharding-implementation-guide
+  - /guides/connection-pooling-deep-dive-guide
+  - /guides/caching-strategies-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/complete-guide-serverless-databases
+  - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +42,11 @@ seo:
     - scaling
     - performance
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -43,6 +56,9 @@ Read replicas are copies of your primary database that handle read-only queries.
 Below is a practical guide to replication setup, query routing, replication lag management, and what works operationally.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Replication](/guides/complete-guide-postgresql-replication/).
 
 - Read queries exceed 80% of your database workload
 - Analytical queries (reports, aggregations) slow down transactional writes

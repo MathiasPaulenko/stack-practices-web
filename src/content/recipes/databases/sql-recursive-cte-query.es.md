@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-recursive-cte-query
 title: "Recorrer datos jerárquicos con CTEs recursivas"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/database-schema-documentation-template
   - /guides/full-text-search-guide
   - /guides/read-replica-guide
+  - /recipes/sql-index-optimization-analysis
+  - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - postgresql
     - jerarquía
     - árbol
+
+
+
 ---
 
 
@@ -37,6 +45,9 @@ seo:
 Las bases de datos relacionales son excelentes para tablas, pero muchos problemas del mundo real son árboles: organigramas, hilos de comentarios, listas de materiales y sistemas de archivos. Las CTEs recursivas permiten que SQL recorra estas jerarquías comenzando desde la raíz y uniendo repetidamente hijos hasta que no se encuentren más filas. El resultado es una tabla plana con una columna de profundidad que muestra qué tan lejos está cada nodo del punto de inicio.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [SQL CTEs — Common Table Expressions Explained](/es/guides/sql-cte-guide/).
 
 Usa este recurso cuando:
 - Necesites consultar relaciones padre-hijo almacenadas en la misma tabla.

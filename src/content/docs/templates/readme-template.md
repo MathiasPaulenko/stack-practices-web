@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: readme-template
 templateType: readme
@@ -15,9 +20,13 @@ tags:
   - open-source
   - template
 relatedResources:
-  - /patterns/design/factory-pattern
-  - /recipes/devops/git-workflow
-  - /guides/api/rest-api-design-guide
+  - /patterns/factory-pattern
+  - /recipes/git-workflow
+  - /guides/rest-api-design-guide
+  - /docs/changelog-template
+  - /docs/code-of-conduct-template
+  - /docs/contributing-guide
+  - /docs/onboarding-guide-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - open source readme
     - markdown template
     - software documentation
+
+
+
+
+
 ---
 
 # README Template

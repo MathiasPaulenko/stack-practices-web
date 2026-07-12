@@ -1,4 +1,5 @@
 ---
+
 contentType: docs
 slug: user-story-template
 templateType: user-story
@@ -15,9 +16,9 @@ tags:
   - design-patterns
   - patterns
 relatedResources:
-  - /docs/templates/feature-request-template
-  - /guides/design/clean-code-principles-guide
-  - /guides/testing/test-driven-development-guide
+  - /docs/feature-request-template
+  - /guides/clean-code-principles-guide
+  - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +29,7 @@ seo:
     - definition of done template
     - invest user stories
     - agile story format
+
 ---
 
 # User Story and Acceptance Criteria Template

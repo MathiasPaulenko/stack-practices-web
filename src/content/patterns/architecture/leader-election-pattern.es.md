@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: leader-election-pattern
 title: "Patron de Eleccion de Lider"
@@ -31,6 +32,7 @@ seo:
     - sistemas distribuidos
     - arquitectura
     - consenso
+
 ---
 ## Visión General
 
@@ -39,6 +41,9 @@ El Patron de Eleccion de Lider asegura que exactamente una instancia en un siste
 Es comunmente usado en planificadores distribuidos, gestores de cluster y servicios con estado donde un unico coordinador simplifica la coordinacion.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Distributed Lock Pattern](/es/patterns/distributed-lock-pattern/).
 
 Usa este patron cuando:
 - Multiples nodos podrian realizar la misma operacion pero solo uno deberia hacerlo

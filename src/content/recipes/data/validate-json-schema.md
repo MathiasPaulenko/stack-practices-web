@@ -1,4 +1,9 @@
-﻿---
+---
+
+
+
+
+
 contentType: recipes
 slug: validate-json-schema
 title: "Validate JSON Schema"
@@ -15,10 +20,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-json
-  - /recipes/api/input-validation
-  - /recipes/data/parse-xml-files
-  - /patterns/design/factory-pattern
+  - /recipes/parse-json
+  - /recipes/input-validation
+  - /recipes/parse-xml-files
+  - /patterns/factory-pattern
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
+  - /recipes/diff-json-objects
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
+
 ---
 
 ## Overview
@@ -267,6 +280,9 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - **jsondiffpatch**: JavaScript library for deep diffing and patching JSON objects. Supports arrays, nested objects, and reverse patches. Useful for audit logs and collaborative editing
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Convert CSV to JSON](/recipes/convert-csv-to-json/).
 
 - Validate at system boundaries (API entry, file import, message consumption). Trust internal data
 - Use strict validation for user input, lenient validation for internal data pipelines

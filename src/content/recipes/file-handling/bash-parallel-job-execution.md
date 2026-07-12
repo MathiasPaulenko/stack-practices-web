@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-parallel-job-execution
 title: "Parallel Job Execution with Bash"
@@ -19,6 +21,7 @@ relatedResources:
   - /recipes/bash-backup-rotation-script
   - /recipes/bash-loop-over-files
   - /recipes/bash-text-processing
+  - /recipes/bash-parallel-commands
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +33,8 @@ seo:
     - concurrency
     - xargs
     - gnu-parallel
+
+
 ---
 ## Overview
 
@@ -304,6 +309,9 @@ find "$TARGET_DIR" -type f -name "*.gz" -print0 | \
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Bash Parallel Execution](/recipes/bash-parallel-execution/).
 
 1. **Use `nproc` to auto-detect CPU cores.** Instead of hardcoding `MAX_JOBS`, derive it from the system's CPU count. For I/O-bound tasks, use 2-4x the core count; for CPU-bound tasks, use 1x:
 

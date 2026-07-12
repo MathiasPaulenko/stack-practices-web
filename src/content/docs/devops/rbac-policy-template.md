@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: rbac-policy-template
 title: "RBAC Policy Template"
@@ -15,9 +21,13 @@ tags:
   - policy
   - identity
 relatedResources:
-  - /docs/devops/access-control-review-template
-  - /docs/devops/user-access-audit-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/access-control-review-template
+  - /docs/user-access-audit-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/compliance-gap-analysis-template
+  - /docs/container-security-baseline-template
+  - /docs/network-segmentation-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - authorization policy
     - role assignment
     - access governance
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -274,6 +290,9 @@ violation[{"msg": msg}] {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Access Control Review Template](/docs/access-control-review-template/).
 
 1. **Implement break-glass access with full audit.** Emergency admin access should use a separate account, trigger alerts, and require post-incident review. Never use break-glass accounts for routine operations:
 

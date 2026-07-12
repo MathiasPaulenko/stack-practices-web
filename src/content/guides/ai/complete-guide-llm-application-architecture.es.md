@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-llm-application-architecture
 title: "Referencia Detallada de Arquitectura de Aplicaciones LLM"
@@ -19,9 +25,13 @@ tags:
   - guardrails
   - observability
 relatedResources:
-  - /guides/concurrency/complete-guide-python-asyncio-production
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/resilience/retry-pattern
+  - /guides/complete-guide-python-asyncio-production
+  - /patterns/circuit-breaker-pattern
+  - /patterns/retry-pattern
+  - /guides/complete-guide-ai-agents-production
+  - /guides/complete-guide-langchain-production
+  - /guides/complete-guide-llm-cost-optimization
+  - /guides/complete-guide-llm-evaluation
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +45,12 @@ seo:
     - llm guardrails
     - llm observabilidad
     - llm deployment
+
+
+
+
+
+
 ---
 
 ## Introducción
@@ -710,3 +726,12 @@ Construye un evaluation pipeline con checks automatizados: factuality scoring, h
 ### ¿Qué guardrails necesito?
 
 Input guardrails: length limits, prompt injection detection, blocked patterns, PII detection. Output guardrails: PII redaction, harmful content filtering, format validation, hallucination checks. Usa guardrails rule-based y model-based. Loggea todos los guardrail rejections para auditing.
+
+## See Also
+
+- [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to LLM Security](/es/guides/complete-guide-llm-security/)
+- [Complete Guide to OpenAI API Mastery](/es/guides/complete-guide-openai-api-mastery/)
+

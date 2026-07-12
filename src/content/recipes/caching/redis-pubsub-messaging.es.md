@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: redis-pubsub-messaging
 title: "Redis Pub/Sub para mensajeria entre procesos"
@@ -15,9 +19,11 @@ tags:
   - realtime
   - events
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/python-redis-cache-decorator
-  - /patterns/messaging/voucher-pattern
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/python-redis-cache-decorator
+  - /patterns/voucher-pattern
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/redis-sorted-set-leaderboard
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - pub sub pattern
     - redis events
     - cross process communication
+
+
+
+
 ---
 
 # Redis Pub/Sub para mensajeria entre procesos
@@ -35,6 +45,9 @@ seo:
 Redis pub/sub permite que procesos se comuniquen a traves de canales sin acoplamiento directo. Un publicador envia un mensaje a un canal; todos los procesos suscritos lo reciben. Esto es util para invalidacion de cache entre instancias, notificaciones en tiempo real y arquitecturas event-driven donde los servicios necesitan reaccionar a cambios sin polling.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Implement Redis Pub/Sub Messaging in Python](/es/recipes/redis-pub-sub-python/).
 
 - Invalidacion de cache entre multiples instancias de servidor
 - Notificaciones en tiempo real (usuario conectado, nuevo mensaje, cambio de estado)

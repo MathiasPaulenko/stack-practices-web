@@ -1,4 +1,9 @@
-﻿---
+---
+
+
+
+
+
 contentType: recipes
 slug: spa-code-splitting-lazy
 title: "SPA Performance: Code Splitting and Lazy Loading"
@@ -15,9 +20,13 @@ tags:
   - frontend
   - ui
 relatedResources:
-  - /patterns/design/composite-pattern-ui
-  - /patterns/design/bridge-pattern-ui-themes
+  - /patterns/composite-pattern-ui
+  - /patterns/bridge-pattern-ui-themes
   - /guides/performance-optimization-guide
+  - /recipes/email-templates-mjml
+  - /recipes/javascript-event-loop
+  - /recipes/server-side-rendering
+  - /recipes/web-performance
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - react lazy
     - spa performance
     - live imports
+
+
+
+
+
 ---
 
 # SPA Performance: Code Splitting and Lazy Loading

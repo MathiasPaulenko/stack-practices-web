@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: plugin-pattern
 title: "Patrón Plugin"
@@ -16,9 +20,12 @@ tags:
   - extensibility
   - dynamic-loading
 relatedResources:
-  - /patterns/design/registry-pattern
-  - /patterns/design/module-pattern
-  - /patterns/design/facade-pattern
+  - /patterns/registry-pattern
+  - /patterns/module-pattern
+  - /patterns/facade-pattern
+  - /patterns/aggregate-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/chain-of-responsibility-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +36,10 @@ seo:
     - extensibility
     - dynamic loading
     - extension point
+
+
+
+
 ---
 
 # Patrón Plugin

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: unit-testing
 title: "Unit Testing"
@@ -16,7 +20,10 @@ tags:
 relatedResources:
   - /recipes/handle-errors
   - /recipes/sort-array
-  - /guides/testing/testing-strategy-guide
+  - /guides/testing-strategy-guide
+  - /recipes/integration-testing
+  - /recipes/java-junit5-assertions-soft
+  - /recipes/unit-testing-mocking
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - jest
     - junit
     - test automation
+
+
+
+
 ---
 
 ## Overview

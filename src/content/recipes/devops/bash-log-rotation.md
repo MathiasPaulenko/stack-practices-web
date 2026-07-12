@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-log-rotation
 title: "Log Rotation and Compression in Bash"
@@ -19,6 +22,8 @@ relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/performance-optimization-guide
   - /recipes/ansible-playbook
+  - /recipes/bash-aws-cli-scripts
+  - /recipes/bash-disk-usage-monitor
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - compression
     - logrotate
     - automation
+
+
+
 ---
 ## Overview
 
@@ -396,6 +404,9 @@ echo "Rotation complete: ${ROTATED}.gz"
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [AWS CLI Automation with Bash](/recipes/bash-aws-cli-scripts/).
 
 1. **Use `dateext` for readable rotated filenames.** Default uses `.1`, `.2` suffixes:
 

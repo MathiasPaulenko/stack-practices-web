@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: python-api-rate-limiting
 title: "Python API Rate Limiting with Token Bucket"
@@ -21,6 +23,7 @@ relatedResources:
   - /recipes/nodejs-caching-redis
   - /docs/endpoint-security-checklist-template
   - /guides/rest-api-design-guide
+  - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +35,8 @@ seo:
     - token bucket python
     - redis rate limiter
     - api throttling python
+
+
 ---
 
 ## Overview
@@ -39,6 +44,9 @@ seo:
 Rate limiting protects APIs from abuse, prevents DoS attacks, and ensures fair resource allocation. The token bucket algorithm is one of the most common approaches: it allows bursts of traffic while maintaining a steady average rate. This approach handles implementing token bucket rate limiting in Flask and FastAPI, with both in-memory and Redis-backed distributed variants.
 
 ## When to Use
+
+
+- For alternatives, see [API Rate Limiting](/recipes/api-rate-limiting/).
 
 - You are building a public API and need to prevent abuse
 - You have different pricing tiers with different rate limits

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: serverless-event-sourcing-pattern
 title: "Serverless Event Sourcing Pattern"
@@ -18,9 +20,9 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-function-composition-pattern
-  - /patterns/design/serverless-fanout-pattern
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /patterns/serverless-function-composition-pattern
+  - /patterns/serverless-fanout-pattern
+  - /recipes/serverless-dynamodb-single-table
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - eventbridge event sourcing
     - serverless audit log
     - event replay lambda
+
+
 ---
 
 # Serverless Event Sourcing Pattern
@@ -272,6 +276,9 @@ Event sourcing inverts the traditional state model:
 | Kafka event store | Kafka topic as event log | High throughput, streaming consumers |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Serverless Fanout Pattern](/patterns/serverless-fanout-pattern/).
 
 - **Events are immutable** — never modify or delete an event. If a mistake was made, append a compensating event. This preserves the audit trail.
 - **Use optimistic concurrency** — check the expected version before appending. If another event was appended concurrently, reject the write. This prevents lost updates.

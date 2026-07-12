@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: code-review-checklist-template
 title: "Code Review Checklist Template"
@@ -15,9 +19,11 @@ tags:
   - team-process
   - pull-request
 relatedResources:
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/git-branching-strategy-document
-  - /docs/devops/onboarding-checklist-backend-engineer
+  - /docs/engineering-handbook-template
+  - /docs/git-branching-strategy-document
+  - /docs/onboarding-checklist-backend-engineer
+  - /recipes/git-rebase-interactive-tutorial
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - code quality template
     - review standards
     - developer checklist
+
+
+
+
 ---
 
 ## Overview
@@ -375,6 +385,9 @@ print(f"Defect escape rate: {results['defect_escape_rate']:.0%}")
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Chaos Engineering — Principles, Tools, and Safe Experiments](/guides/chaos-engineering-guide/).
 
 1. **Use review slots to prevent review fatigue.** Assign a maximum of 2-3 reviews per engineer per day. Beyond that, review quality drops considerably:
 

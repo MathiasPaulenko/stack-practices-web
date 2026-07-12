@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: container-presenter-pattern
 title: "Container-Presenter: Separate Data Logic from Rendering"
@@ -19,6 +23,9 @@ relatedResources:
   - /patterns/custom-hook-composition-pattern
   - /patterns/optimistic-update-pattern
   - /patterns/suspense-boundary-pattern
+  - /patterns/css-architecture-pattern
+  - /patterns/progressive-enhancement-pattern
+  - /patterns/state-machine-ui-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +37,10 @@ seo:
     - separation-of-concerns
     - testing
     - pattern
+
+
+
+
 ---
 
 ## Overview
@@ -545,6 +556,9 @@ const UserListContainer = withData('/api/users', UserListPresenter);
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CSS Architecture: Utility-First with Component-Scoped Layers](/patterns/css-architecture-pattern/).
 
 - Keep presenters pure — no side effects, no API calls, no state management beyond UI state
 - Pass callbacks, not data sources — presenters receive `onDelete(id)`, not a fetch function

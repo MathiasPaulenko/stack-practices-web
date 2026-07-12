@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: parse-excel-files
 title: "Parse Excel Files"
@@ -16,11 +20,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-csv-files
-  - /recipes/data/convert-csv-to-json
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/parse-json
+  - /recipes/parse-csv-files
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
+  - /recipes/serialize-deserialize-data
+  - /recipes/parse-json
+  - /recipes/parse-command-line-arguments
+  - /recipes/parse-log-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
 ---
 ## Overview
 
@@ -263,6 +273,9 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **csvkit**: command-line tools for CSV files. csvstat shows statistics, csvcut selects columns, csvjoin merges files. Useful for quick exploration without writing Python scripts
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Parse Command Line Arguments](/recipes/parse-command-line-arguments/).
 
 - Always specify encoding explicitly (encoding='utf-8'). Never rely on system defaults
 - Use chunked reading for files >500MB. Set chunksize in pandas or iterate line-by-line

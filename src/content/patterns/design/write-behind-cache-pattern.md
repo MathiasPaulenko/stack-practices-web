@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: write-behind-cache-pattern
 title: "Write-Behind Cache Pattern"
@@ -19,9 +22,10 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/write-through-cache-pattern
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-aside-pattern
+  - /patterns/write-through-cache-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - eventual consistency cache
     - redis write-behind
     - high throughput caching
+
+
+
 ---
 
 # Write-Behind Cache Pattern
@@ -296,6 +303,9 @@ The key insight is that reads always go to the cache, which has the latest data.
 | WAL-based flush | Write-ahead log for durability | Crash recovery requirements |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Read-Through Cache Pattern](/patterns/read-through-cache-pattern/).
 
 - **Use a durable cache** — if the cache crashes, unflushed writes are lost. Use Redis with persistence (AOF or RDB) to reduce data loss risk.
 - **Batch database writes** — the main performance gain comes from batching. Group multiple writes into a single SQL statement or transaction.

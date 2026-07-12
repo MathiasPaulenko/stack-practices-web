@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-iptables-firewall-rules
 title: "Configure Firewall Rules with iptables"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/bash-ssh-key-management
   - /recipes/bash-scripting-automation
   - /recipes/bash-log-rotation-compression
+  - /recipes/python-zip-file-extraction
+  - /recipes/bash-iptables-firewall
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - firewall
     - security
     - linux
+
+
+
 ---
 ## Overview
 
@@ -373,6 +381,9 @@ systemctl start knockd
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Backup Rotation Script](/recipes/bash-backup-rotation-script/).
 
 1. **Use custom chains for organization.** Group related rules into custom chains to keep the main INPUT chain readable and maintainable:
 

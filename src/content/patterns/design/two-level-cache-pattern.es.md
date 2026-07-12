@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: two-level-cache-pattern
 title: "Patron Two-Level Cache"
@@ -19,9 +22,10 @@ tags:
   - python
   - java
 relatedResources:
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-invalidation-pattern
-  - /patterns/design/cache-aside-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/cache-stampede-prevention-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - multi-level caching
     - cache hierarchy
     - distributed cache pattern
+
+
+
 ---
 
 # Patron Two-Level Cache
@@ -44,6 +51,9 @@ Un two-level cache combina un cache L1 en memoria (rapido, local, tamano limitad
 Las lecturas comprueban L1 primero. En un miss, comprueban L2. En un miss de L2, obtienen de la base de datos y pueblan ambos niveles. Las escrituras actualizan ambos niveles e invalidan L1 en otras instancias via pub/sub o TTL.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Read-Through Cache Pattern](/es/patterns/read-through-cache-pattern/).
 
 - Hot keys se leen frecuentemente y la latencia de red a Redis es perceptible
 - Multiples instancias de aplicacion comparten datos cacheados

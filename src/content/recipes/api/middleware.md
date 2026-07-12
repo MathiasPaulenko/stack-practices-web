@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: middleware
 title: "Middleware"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors
   - /recipes/jwt-authentication
+  - /recipes/api-logging-audit
+  - /recipes/logging
+  - /recipes/rate-limiting
+  - /recipes/send-emails-smtp
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,10 @@ seo:
     - auth middleware
     - logging middleware
     - error handling middleware
+
+
+
+
 ---
 
 ## Overview

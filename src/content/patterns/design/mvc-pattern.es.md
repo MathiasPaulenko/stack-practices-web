@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: mvc-pattern
 title: "Patrón MVC"
@@ -18,9 +22,12 @@ tags:
   - python
   - separation-of-concerns
 relatedResources:
-  - /patterns/design/repository-pattern
-  - /patterns/design/observer-pattern
-  - /guides/api/rest-api-design-guide
+  - /patterns/repository-pattern
+  - /patterns/observer-pattern
+  - /guides/rest-api-design-guide
+  - /recipes/dependency-injection
+  - /docs/adr-template
+  - /guides/software-architecture-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +41,10 @@ seo:
     - python mvc
     - java mvc
     - javascript mvc
+
+
+
+
 ---
 
 # Patrón MVC

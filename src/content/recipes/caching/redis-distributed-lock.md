@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: redis-distributed-lock
 title: "Distributed Locking with Redis and Redlock"
@@ -15,9 +19,11 @@ tags:
   - concurrency
   - mutual exclusion
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/redis-rate-limiting-token-bucket
-  - /patterns/concurrency/distributed-lock-pattern
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-rate-limiting-token-bucket
+  - /patterns/distributed-lock-pattern
+  - /guides/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - redis set nx
     - distributed mutex
     - redis concurrency
+
+
+
+
 ---
 
 # Distributed Locking with Redis and Redlock
@@ -345,6 +355,9 @@ def acquire_with_fencing(redis_client: Redis, lock_name: str, ttl: int = 30) -> 
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Python Asyncio](/guides/complete-guide-python-asyncio/).
 
 - **Always set a TTL** — prevents deadlocks if a process crashes while holding the lock
 - **Use a unique token per lock holder** — prevents accidentally releasing another process's lock

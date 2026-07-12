@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: serverless-architecture-guide
 title: "Arquitectura Serverless — Patrones y Anti-Patrones"
@@ -21,6 +26,10 @@ relatedResources:
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide
   - /guides/gcp-basics-guide
+  - /recipes/aws-lambda-cold-start-optimization
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/azure-functions-python-http
+  - /recipes/gcp-cloud-functions-nodejs
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +43,11 @@ seo:
     - cold-start
     - event-driven
     - guia
+
+
+
+
+
 ---
 
 ## Overview
@@ -41,6 +55,9 @@ seo:
 La arquitectura serverless te permite ejecutar código sin aprovisionar ni gestionar servidores. El proveedor cloud se encarga de infraestructura, escalado y parcheo; tú proporcionas funciones que se ejecutan en respuesta a eventos. Aunque serverless elimina la gestión de servidores, introduce nuevas restricciones: límites de tiempo de ejecución, cold starts, falta de estado y debugging distribuido. A continuación: patrones que funcionan y anti-patrones que causan problemas.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Serverless Architecture](/es/guides/complete-guide-serverless-architecture/).
 
 - Tráfico variable o impredecible (pago por ejecución ahorra dinero)
 - Flujos de trabajo event-driven (subidas de archivo, cambios en BD, tareas programadas)

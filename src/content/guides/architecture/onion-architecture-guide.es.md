@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: onion-architecture-guide
 title: "Arquitectura Onion"
@@ -19,8 +24,11 @@ tags:
 relatedResources:
   - /guides/layered-architecture-guide
   - /guides/vertical-slice-architecture-guide
-  - /patterns/design/dependency-injection-pattern
-  - /patterns/design/repository-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/repository-pattern
+  - /guides/clean-architecture-guide
+  - /guides/cqrs-event-sourcing-combined-guide
+  - /guides/hexagonal-architecture-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +40,11 @@ seo:
     - clean-architecture
     - ports-and-adapters
     - guia
+
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +52,9 @@ seo:
 La Arquitectura Onion, popularizada por Jeffrey Palermo, estructura aplicaciones como capas concéntricas con el modelo de dominio en el centro. A diferencia de la arquitectura tradicional por capas donde las dependencias apuntan hacia abajo (UI → Negocio → Datos), Onion invierte esto: todas las dependencias apuntan hacia adentro hacia el núcleo del dominio. La infraestructura, UI y servicios externos viven en los bordes exteriores y dependen de abstracciones internas, nunca al revés. Esto hace que el modelo de dominio quede completamente aislado de frameworks, bases de datos y mecanismos de entrega.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Hexagonal Architecture — Ports, Adapters, and Testability](/es/guides/hexagonal-architecture-guide/).
 
 - Necesitas un modelo de dominio que sobreviva cambios de framework
 - Tu lógica de negocio es compleja y cambia frecuentemente

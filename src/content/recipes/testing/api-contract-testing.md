@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: api-contract-testing
 title: "Test API Contracts with Consumer-Driven Contracts"
@@ -17,6 +18,7 @@ relatedResources:
   - /recipes/integration-testing
   - /recipes/api-versioning
   - /recipes/call-rest-api
+  - /docs/load-test-report-template
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - api contracts
     - microservices testing
     - openapi validation
+
 ---
 
 ## Overview

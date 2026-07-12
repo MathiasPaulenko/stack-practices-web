@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: data-lake-guide
 title: "Data Lake vs Data Warehouse — Guía de Arquitectura"
@@ -23,6 +25,7 @@ relatedResources:
   - /guides/lakehouse-guide
   - /guides/data-mesh-guide
   - /guides/database-sharding-implementation-guide
+  - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +38,8 @@ seo:
     - lakehouse
     - big-data
     - guia
+
+
 ---
 
 ## Overview
@@ -42,6 +47,9 @@ seo:
 Un Data Lake es un repositorio de almacenamiento centralizado que contiene datos estructurados, semi-estructurados y no estructurados a cualquier escala. A diferencia de un Data Warehouse, que almacena datos procesados con schema-on-write en tablas rígidas, un Data Lake almacena datos crudos en su formato nativo con schema aplicado en lectura (schema-on-read). Esta flexibilidad lo hace ideal para machine learning, análisis exploratorio y almacenar datos cuya estructura aún no se conoce. Sin embargo, sin gobernanza, los lakes pueden convertirse en "data swamps" — desorganizados, no buscables y poco confiables.
 
 ## Cuándo Usar un Data Lake
+
+
+- For alternatives, see [Lakehouse Architecture — The Best of Both Worlds](/es/guides/lakehouse-guide/).
 
 - Necesitas almacenar diversos tipos de datos: JSON, CSV, Parquet, imágenes, videos, logs
 - Las cargas de trabajo de machine learning requieren datos crudos sin procesar

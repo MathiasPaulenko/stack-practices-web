@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: webhook-security-guide
 title: "Webhook Security — Delivery, Verification, and Protection"
@@ -22,6 +25,8 @@ relatedResources:
   - /recipes/api-rate-limiting-redis
   - /recipes/websocket-authentication
   - /recipes/data-validation-zod
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/docker-network-isolation
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -34,12 +39,18 @@ seo:
     - replay-attacks
     - encryption
     - guide
+
+
+
 ---
 ## Overview
 
 Webhooks are the duct tape of the internet: every SaaS product sends them, every integration consumes them, and almost nobody secures them properly. An unprotected webhook endpoint is an open door — anyone who discovers the URL can POST data to your system and trigger actions. Here is a hands-on guide to the essential security controls for webhook producers and consumers: signature verification, replay attack prevention, payload encryption, endpoint hardening, and delivery reliability.
 
 ## When to Use
+
+
+- For alternatives, see [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/).
 
 Use this guide when:
 - You are building a SaaS product that sends webhooks to customer endpoints

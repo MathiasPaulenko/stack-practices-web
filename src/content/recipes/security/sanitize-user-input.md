@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: sanitize-user-input
 title: "Sanitize User Input"
@@ -17,8 +22,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/generate-slugs
-  - /recipes/security/escape-html-entities
+  - /recipes/generate-slugs
+  - /recipes/escape-html-entities
+  - /patterns/voucher-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
+  - /patterns/federated-identity-pattern
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -32,6 +40,11 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
+
 ---
 ## Overview
 
@@ -361,6 +374,9 @@ def validate_and_save_upload(file_bytes: bytes, original_name: str) -> str:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Escape HTML Entities](/recipes/escape-html-entities/).
 
 1. **Use a schema validation library for all API inputs.** Define expected types, ranges, and formats explicitly:
 

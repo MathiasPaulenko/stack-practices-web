@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: webhooks
 title: "Webhooks"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/logging
   - /recipes/middleware
+  - /recipes/real-time-notifications
+  - /recipes/websocket-server
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - idempotencia webhook
     - event driven architecture
     - webhook retries python
+
+
 ---
 ## Visión General
 

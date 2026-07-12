@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: websocket-bidirectional-chat
 title: "Build a Bidirectional Chat with WebSocket and Node.js"
@@ -15,8 +19,11 @@ tags:
   - nodejs
   - api
 relatedResources:
-  - /recipes/api/websocket-authentication
-  - /recipes/api/server-sent-events-go
+  - /recipes/websocket-authentication
+  - /recipes/server-sent-events-go
+  - /recipes/nodejs-websocket-realtime
+  - /recipes/server-sent-events-node
+  - /recipes/websockets-realtime
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - real time messaging
     - socket.io
     - node.js
+
+
+
+
 ---
 
 # Build a Bidirectional Chat with WebSocket and Node.js

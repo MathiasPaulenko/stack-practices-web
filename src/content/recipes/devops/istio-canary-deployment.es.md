@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: istio-canary-deployment
 title: "Despliegues Canary con Istio Service Mesh"
@@ -15,9 +20,13 @@ tags:
   - devops
   - ci-cd
 relatedResources:
-  - /recipes/devops/aws-ecs-fargate
-  - /recipes/devops/terraform-aws-vpc
+  - /recipes/aws-ecs-fargate
+  - /recipes/terraform-aws-vpc
   - /guides/infrastructure-as-code-guide
+  - /docs/environment-configuration-template
+  - /docs/zero-downtime-deployment-checklist
+  - /recipes/blue-green-deployment
+  - /recipes/cost-optimization
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - service mesh
     - traffic splitting
     - kubernetes
+
+
+
+
+
 ---
 
 # Despliegues Canary con Istio Service Mesh

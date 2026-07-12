@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: java-spring-cache-annotations
 title: "Use Spring Cache Annotations with Redis Backend"
@@ -16,9 +19,10 @@ tags:
   - redis
   - declarative-caching
 relatedResources:
-  - /recipes/caching/java-caffeine-cache-configuration
-  - /recipes/caching/nodejs-redis-cache-invalidation
+  - /recipes/java-caffeine-cache-configuration
+  - /recipes/nodejs-redis-cache-invalidation
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - cacheable cacheput cacheevict
     - spring boot caching
     - declarative caching java
+
+
+
 ---
 
 ## Overview
@@ -326,6 +333,9 @@ public class UserService {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Implement Redis Cache Invalidation in Node.js](/recipes/nodejs-redis-cache-invalidation/).
 
 - **Use `@Cacheable` for reads, `@CachePut` for writes, `@CacheEvict` for deletes**: Each annotation has a specific purpose. Don't use `@Cacheable` on mutating methods.
 - **Set per-cache TTLs**: Different data has different freshness requirements. Configure TTLs in the `RedisCacheManager`, not globally.

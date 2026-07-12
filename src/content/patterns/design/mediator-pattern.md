@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: mediator-pattern
 title: "Mediator Pattern"
@@ -18,9 +22,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/observer-pattern
-  - /patterns/design/state-pattern
-  - /patterns/design/singleton-pattern
+  - /patterns/observer-pattern
+  - /patterns/state-pattern
+  - /patterns/singleton-pattern
+  - /patterns/event-bus-pattern
+  - /patterns/facade-pattern
+  - /guides/vertical-slice-architecture-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +41,10 @@ seo:
     - python mediator
     - java mediator
     - javascript mediator
+
+
+
+
 ---
 
 # Mediator Pattern

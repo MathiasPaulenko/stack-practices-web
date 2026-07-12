@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: magic-link-authentication
 title: "Implementar Login Sin Contraseña con Magic Links"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/session-management
   - /recipes/oauth2-login
   - /recipes/two-factor-authentication
+  - /recipes/api-key-authentication
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - login por email
     - link unico
     - token seguro
+
 ---
 
 ## Visión general

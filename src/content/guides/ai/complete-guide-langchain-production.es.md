@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-langchain-production
 title: "Referencia Detallada de LangChain en Producción"
@@ -19,9 +22,10 @@ tags:
   - lcel
   - llm
 relatedResources:
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-rag-production
-  - /guides/ai/complete-guide-ai-agents-production
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-rag-production
+  - /guides/complete-guide-ai-agents-production
+  - /guides/complete-guide-llm-evaluation
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - langchain streaming
     - langchain rag
     - langchain deployment
+
+
+
 ---
 
 ## Introducción
@@ -617,3 +624,12 @@ Usa streaming para mostrar tokens a medida que llegan. Usa modelos mas baratos p
 ### ¿Debería usar LangChain o llamar el OpenAI API directamente?
 
 Usa LangChain cuando necesitas composicion (chains, agents, tools, memory, RAG), multiples LLM providers, o workflows complejos. Llama el API directamente para use cases simples de single-call. LangChain agrega overhead (abstractions, serialization) pero ahorra tiempo significativo de desarrollo para aplicaciones complejas.
+
+## See Also
+
+- [Complete Guide to AI Agents in Production](/es/guides/complete-guide-ai-agents-production/)
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to LLM Security](/es/guides/complete-guide-llm-security/)
+- [Complete Guide to RAG in Production](/es/guides/complete-guide-rag-production/)
+

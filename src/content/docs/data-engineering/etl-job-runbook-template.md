@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: etl-job-runbook-template
 title: "ETL Job Runbook Template"
@@ -16,10 +18,10 @@ tags:
   - troubleshooting
   - data
 relatedResources:
-  - /docs/data-engineering/data-pipeline-design-document-template
-  - /docs/data-engineering/data-quality-rules-template
-  - /docs/data-engineering/data-governance-policy-template
-  - /docs/observability/alert-runbook-template
+  - /docs/data-pipeline-design-document-template
+  - /docs/data-quality-rules-template
+  - /docs/data-governance-policy-template
+  - /docs/alert-runbook-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - template
     - recovery
     - monitoring
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 An ETL job runbook gives operators the procedures to start, stop, monitor, and troubleshoot ETL jobs. It covers health checks, common failure scenarios, diagnostic steps, and recovery procedures. Without a runbook, operators rely on tribal knowledge, leading to longer downtime and inconsistent responses.
 
 ## When to Use
+
+
+- For alternatives, see [Data Pipeline Design Document Template](/docs/data-pipeline-design-document-template/).
 
 - Operating production ETL pipelines
 - Onboarding on-call engineers

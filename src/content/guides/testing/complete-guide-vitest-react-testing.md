@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-vitest-react-testing
 title: "Vitest for React: Component, Hook, and Integration Testing"
@@ -18,9 +23,12 @@ tags:
   - integration
   - mocking
 relatedResources:
-  - /guides/testing/test-driven-development-guide
-  - /guides/testing/testing-strategy-guide
-  - /guides/frontend/complete-guide-react-performance-optimization
+  - /guides/test-driven-development-guide
+  - /guides/testing-strategy-guide
+  - /guides/complete-guide-react-performance-optimization
+  - /recipes/javascript-vitest-snapshot-testing
+  - /recipes/jest-snapshot-testing
+  - /guides/complete-guide-ai-agents-production
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -33,6 +41,11 @@ seo:
     - component testing react
     - hook testing vitest
     - vitest mocking
+
+
+
+
+
 ---
 
 ## Introduction
@@ -610,6 +623,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Vitest Snapshot Testing for React](/recipes/javascript-vitest-snapshot-testing/).
 
 - Test behavior, not implementation — query by role, text, or test-id, not by CSS class
 - Use `userEvent` over `fireEvent` — it simulates real user interactions more accurately

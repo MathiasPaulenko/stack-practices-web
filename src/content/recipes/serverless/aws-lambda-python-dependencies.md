@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: aws-lambda-python-dependencies
 title: "Package Python Dependencies for AWS Lambda with Layers"
@@ -16,10 +21,13 @@ tags:
   - layers
   - deployment
 relatedResources:
-  - /recipes/serverless/aws-lambda-cold-start-optimization
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/aws-lambda-cold-start-optimization
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-cost-optimization-aws
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /recipes/serverless-step-functions-workflow
+  - /docs/zero-downtime-deployment-checklist
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - python lambda packaging
     - native extensions lambda
     - sam serverless python
+
+
+
+
+
 ---
 
 ## Overview
@@ -347,6 +360,9 @@ aws lambda update-function-configuration \
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [AWS Basics — Core Services for Developers](/guides/aws-basics-guide/).
 
 - **Split layers by change frequency**: Put stable dependencies (pandas, numpy) in one layer and frequently changing ones in another. This maximizes layer cache reuse.
 - **Use Docker for any package with C extensions**: Installing locally on macOS/Windows produces binaries that won't work on Lambda's Amazon Linux 2.

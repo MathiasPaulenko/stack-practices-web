@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: page-controller-pattern
 title: "Patrón Page Controller"
@@ -16,9 +17,9 @@ tags:
   - mvc
   - controller
 relatedResources:
-  - /patterns/design/front-controller-pattern
-  - /patterns/design/model-view-presenter-pattern
-  - /patterns/design/model-view-viewmodel-pattern
+  - /patterns/front-controller-pattern
+  - /patterns/model-view-presenter-pattern
+  - /patterns/model-view-viewmodel-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +30,7 @@ seo:
     - web
     - mvc
     - controller
+
 ---
 
 # Patrón Page Controller

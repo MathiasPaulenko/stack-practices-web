@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: cache-invalidation
 title: "Implementar Estrategias de Invalidación de Caché"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/database-indexing
   - /recipes/connection-pooling
   - /recipes/cdn-edge-caching
+  - /recipes/redis-cache-patterns
+  - /recipes/caching-strategies
+  - /recipes/lazy-loading
+  - /patterns/flyweight-pattern-text
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,10 @@ seo:
     - write through
     - cache consistency
     - distributed caching
+
+
+
+
 ---
 
 ## Visión general

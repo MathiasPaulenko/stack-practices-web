@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: prompt-chaining-pattern
 title: "Patrón Prompt Chaining"
@@ -16,9 +17,9 @@ tags:
   - pipeline
   - descomposicion-tareas
 relatedResources:
-  - /patterns/ai/llm-router-pattern
-  - /patterns/ai/agent-tool-selection-pattern
-  - /recipes/ai/python-langchain-chains-composition
+  - /patterns/llm-router-pattern
+  - /patterns/agent-tool-selection-pattern
+  - /recipes/python-langchain-chains-composition
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +32,7 @@ seo:
     - descomposicion de tareas
     - cadena de prompts
     - flujo llm
+
 ---
 
 # Patrón Prompt Chaining

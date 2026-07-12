@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: design-patterns-guide
 title: "Guía Práctica de Design Patterns"
@@ -23,6 +26,9 @@ relatedResources:
   - /recipes/observer-pattern-recipe
   - /recipes/strategy-pattern-recipe
   - /patterns/repository-pattern
+  - /guides/domain-driven-design-guide
+  - /guides/code-review-best-practices-guide
+  - /guides/solid-principles-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +39,9 @@ seo:
     - creational patterns
     - structural patterns
     - behavioral patterns
+
+
+
 ---
 
 ## Resumen

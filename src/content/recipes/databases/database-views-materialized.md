@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: database-views-materialized
 title: "Create and Use Database Views and Materialized Views"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/database-read-replicas
   - /recipes/sql-joins
   - /guides/database-design-guide
+  - /recipes/optimistic-locking
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,7 @@ seo:
     - sql-server
     - performance
     - sql
+
 ---
 ## Overview
 

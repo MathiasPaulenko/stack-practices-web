@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: load-balancing
 title: "Distribute Traffic with Load Balancing Algorithms"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/cdn-edge-caching
   - /recipes/connection-pooling
+  - /recipes/service-mesh
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - least connections
     - consistent hashing
     - traffic distribution
+
 ---
 
 ## Overview

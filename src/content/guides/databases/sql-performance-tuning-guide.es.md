@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: sql-performance-tuning-guide
 title: "Optimización de Rendimiento SQL"
@@ -18,9 +23,13 @@ tags:
   - rendimiento
   - sql
 relatedResources:
-  - /guides/databases/database-design-guide
-  - /guides/performance/performance-optimization-guide
+  - /guides/database-design-guide
+  - /guides/performance-optimization-guide
   - /recipes/pagination
+  - /recipes/database-replication
+  - /recipes/database-views-materialized
+  - /recipes/optimistic-locking
+  - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - explain plan
     - consulta lenta solucion
     - anti-patrones sql
+
+
+
+
+
 ---
 
 # Optimización de Rendimiento SQL

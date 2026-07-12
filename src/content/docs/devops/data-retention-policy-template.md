@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: docs
 slug: data-retention-policy-template
 title: "Data Retention Policy Template"
@@ -15,8 +22,13 @@ tags:
   - privacy
   - governance
 relatedResources:
-  - /docs/devops/user-access-audit-template
-  - /docs/devops/backup-verification-test-template
+  - /docs/user-access-audit-template
+  - /docs/backup-verification-test-template
+  - /recipes/data-privacy-gdpr
+  - /recipes/container-security
+  - /recipes/security-headers
+  - /docs/api-security-review-template
+  - /docs/data-classification-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +39,13 @@ seo:
     - data archiving policy
     - GDPR retention policy
     - compliance data retention
+
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -34,6 +53,9 @@ seo:
 A data retention policy defines how long an organization keeps data, when it moves to lower-cost storage, and when it is permanently deleted. This template helps teams classify data, assign retention periods, implement legal holds, and document compliance controls. A clear policy reduces storage costs, legal risk, and operational complexity.
 
 ## When to Use
+
+
+- For alternatives, see [Disaster Recovery Test Plan](/docs/disaster-recovery-test-plan/).
 
 - Setting up a new data platform or application.
 - Preparing for GDPR, CCPA, HIPAA, or SOC 2 audits.

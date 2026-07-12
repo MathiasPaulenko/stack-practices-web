@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: postmortem-incident-review-template
 title: "Plantilla de Revision de Incidentes Postmortem"
@@ -15,9 +18,10 @@ tags:
   - sre
   - reliability
 relatedResources:
-  - /docs/devops/incident-communication-template
-  - /docs/devops/incident-timeline-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/incident-communication-template
+  - /docs/incident-timeline-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - postmortem sin culpa
     - analisis de causa raiz
     - practicas sre
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +42,9 @@ seo:
 Cada interrupcion es una leccion que alguien repetira a menos que se documente. Los postmortems no son sobre culpa — son sobre entender como un sistema con buenas personas y buenas intenciones aun asi fallo. Un postmortem bien ejecutado reconstruye que paso, identifica la cadena de eventos que llevo al fallo y produce acciones concretas que hacen el proximo incidente menos probable o menos severo.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Blameless Postmortems: Learning from Incidents Without Blame](/es/guides/postmortem-guide/).
 
 Usa esta plantilla cuando:
 - Un incidente con impacto en el servicio ha sido resuelto

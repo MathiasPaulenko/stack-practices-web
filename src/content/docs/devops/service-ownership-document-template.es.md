@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: service-ownership-document-template
 title: "Plantilla de Documento de Ownership de Servicio"
@@ -15,9 +20,12 @@ tags:
   - on-call
   - documentation
 relatedResources:
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/incident-communication-template
-  - /docs/devops/onboarding-checklist-backend-engineer
+  - /docs/engineering-handbook-template
+  - /docs/incident-communication-template
+  - /docs/onboarding-checklist-backend-engineer
+  - /docs/deprecation-timeline-template
+  - /docs/production-readiness-review-template
+  - /docs/system-decommissioning-checklist-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - runbook de servicio
     - responsabilidades de on-call
     - catalogo de servicios
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +48,9 @@ seo:
 Los microservicios se multiplican rapidamente. En una organizacion de ingenieria en crecimiento, es facil perder track de quien es dueno de que, como desplegar un servicio, o a quien llamar cuando falla a las 3 AM. Un documento de ownership de servicio es una pagina unica de verdad para cada servicio en produccion: que hace, quien es dueno, como operarlo, y donde encontrar todo lo demas. Convierte conocimiento tribal en documentacion referenciable y previene la crisis de "nadie sabe como esto funciona".
 
 ## Cuando Usar
+
+
+- For alternatives, see [Monolith to Microservices — Migration Strategies](/es/guides/monolith-to-microservices-migration-guide/).
 
 Usa esta plantilla cuando:
 - Tengas mas de cinco servicios en produccion y el ownership se este volviendo confuso

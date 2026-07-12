@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: connection-pooling-deep-dive-guide
 title: "Connection Pooling: Optimize Database Connections for Scale"
@@ -17,9 +20,10 @@ tags:
   - resource-management
   - guide
 relatedResources:
-  - /guides/data/read-replica-guide
-  - /guides/data/caching-strategies-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/read-replica-guide
+  - /guides/caching-strategies-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/database-sharding-implementation-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - database-performance
     - resource-management
     - guide
+
+
+
 ---
 
 ## Overview
@@ -40,6 +47,9 @@ Database connections are expensive to create. Each connection requires TCP hands
 Below is a practical guide to pool sizing, configuration, monitoring, and troubleshooting for application-level and middleware pools.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Tuning](/guides/complete-guide-postgresql-tuning/).
 
 - Your application opens more than 10 concurrent database connections
 - You see `too many connections` errors under load

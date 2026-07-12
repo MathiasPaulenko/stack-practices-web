@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: patterns
 slug: blackboard-pattern
 title: "Blackboard Pattern"
@@ -17,8 +24,13 @@ tags:
   - collaboration
   - problem-solving
 relatedResources:
-  - /patterns/design/observer-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/observer-pattern
+  - /patterns/strategy-pattern
+  - /patterns/null-object-pattern
+  - /patterns/plugin-pattern
+  - /patterns/role-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/context-object-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +41,13 @@ seo:
     - ai
     - collaboration
     - problem-solving
+
+
+
+
+
+
+
 ---
 
 # Blackboard Pattern
@@ -42,6 +61,9 @@ The pattern shines when no single algorithm can solve a problem, but multiple sp
 Real-world applications include speech recognition, natural language processing, image recognition, and optimization problems where multiple heuristics contribute partial solutions.
 
 ## When to Use
+
+
+- For alternatives, see [Business Delegate Pattern](/patterns/business-delegate-pattern/).
 
 Use the Blackboard Pattern when:
 - No single deterministic algorithm can solve the problem

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: sql-joins-guide
 title: "SQL Joins — Guía Visual con Ejemplos"
@@ -21,8 +25,10 @@ relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-cte-guide
   - /guides/indexing-strategies-guide
-  - /recipes/databases/connect-to-postgresql
-  - /recipes/databases/execute-raw-sql
+  - /recipes/connect-to-postgresql
+  - /recipes/execute-raw-sql
+  - /recipes/parse-csv-files
+  - /guides/database-normalization-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -34,6 +40,10 @@ seo:
     - outer-join
     - optimizacion-consultas
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -41,6 +51,9 @@ seo:
 Los SQL joins combinan filas de dos o más tablas basándose en una columna relacionada. A pesar de ser una de las operaciones SQL más fundamentales, los joins son una fuente común de confusión y problemas de rendimiento. Esta guía provee explicaciones visuales, ejemplos prácticos y estrategias de optimización para cada tipo de join que encontrarás en producción.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/).
 
 - Combinar datos relacionados de múltiples tablas (órdenes + clientes)
 - Filtrar datos basándose en presencia o ausencia en otra tabla

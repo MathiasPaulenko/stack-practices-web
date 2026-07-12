@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: database-views-materialized
 title: "Crear y usar vistas de base de datos y vistas materializadas"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/database-read-replicas
   - /recipes/sql-joins
   - /guides/database-design-guide
+  - /recipes/optimistic-locking
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,7 @@ seo:
     - sql-server
     - rendimiento
     - sql
+
 ---
 
 ## Visión General

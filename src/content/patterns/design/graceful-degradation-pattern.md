@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: graceful-degradation-pattern
 title: "Graceful Degradation Pattern"
@@ -17,9 +23,13 @@ tags:
   - fallback
   - partial-failure
 relatedResources:
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/timeout-pattern
-  - /patterns/design/bulkhead-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/timeout-pattern
+  - /patterns/bulkhead-pattern
+  - /patterns/blue-green-deployment-pattern
+  - /patterns/canary-release-pattern
+  - /patterns/deployment-ring-pattern
+  - /patterns/geode-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +42,12 @@ seo:
     - partial failure
     - fallback features
     - degrade functionality
+
+
+
+
+
+
 ---
 
 # Graceful Degradation Pattern
@@ -43,6 +59,9 @@ When a downstream dependency fails, the default behavior is to return an error t
 The pattern wraps each external dependency with a fallback strategy. When the primary call fails (timeout, circuit breaker open, 5xx), the fallback kicks in. Fallbacks can be cached data, default values, a simplified version of the feature, or skipping the feature entirely while keeping the rest of the page working.
 
 ## When to Use
+
+
+- For alternatives, see [Back-Pressure Pattern](/patterns/back-pressure-pattern/).
 
 Use the Graceful Degradation Pattern when:
 - Your application has optional features that enhance but are not critical to the core experience

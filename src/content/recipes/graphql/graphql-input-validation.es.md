@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-input-validation
 title: "Validacion y sanitizacion de input types en GraphQL en"
@@ -16,9 +20,11 @@ tags:
   - input sanitization
   - security
 relatedResources:
-  - /recipes/graphql/graphql-custom-scalar-types
-  - /recipes/graphql/graphql-error-handling-best-practices
-  - /recipes/data/data-validation-zod
+  - /recipes/graphql-custom-scalar-types
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/data-validation-zod
+  - /recipes/graphql-directives-auth
+  - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - graphql sanitization
     - input type validation
     - graphql security
+
+
+
+
 ---
 
 # Validacion y sanitizacion de input types en GraphQL en el servidor
@@ -36,6 +46,9 @@ seo:
 GraphQL valida que los inputs coincidan con sus tipos declarados, pero no aplica restricciones de negocio — longitud de string, rangos numericos, formato de email o sanitizacion XSS. Sin una capa de validacion, los resolvers reciben input crudo y deben implementar sus propios checks. Centralizar la validacion con schemas Zod mantiene los resolvers limpios y asegura mensajes de error consistentes.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to GraphQL Security](/es/guides/complete-guide-graphql-security/).
 
 - Cualquier mutacion que acepta input del usuario (create, update, delete)
 - APIs expuestas a clientes publicos donde el input no es confiable

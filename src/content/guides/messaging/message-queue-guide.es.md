@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: message-queue-guide
 title: "Colas de Mensajes — Inmersión en RabbitMQ, Kafka y SQS"
@@ -23,6 +26,8 @@ relatedResources:
   - /recipes/event-driven-microservices
   - /recipes/kafka-event-streaming
   - /recipes/rabbitmq-task-queue
+  - /guides/complete-guide-event-driven-systems
+  - /guides/complete-guide-kafka-production
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -36,12 +41,18 @@ seo:
     - mensajeria
     - sistemas distribuidos
     - guia
+
+
+
 ---
 ## Visión General
 
 Las colas de mensajes son el sistema circulatorio de la arquitectura distribuida. Te permiten desacoplar componentes, manejar picos de tráfico, procesar tareas en segundo plano y construir sistemas resilientes. Sin embargo, elegir la tecnología equivocada o usar patrones incorrectos puede llevar a pérdida de mensajes, procesamiento duplicado o cuello de botella en la capacidad de procesamiento. Esta guía compara tres sistemas principales — RabbitMQ, Kafka y AWS SQS — y cubre patrones, throughput, garantías de ordenamiento y pautas operativas.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Apache Kafka in Production](/es/guides/complete-guide-kafka-production/).
 
 Usa esta guía cuando:
 - Necesitas elegir una solución de colas de mensajes para tu arquitectura

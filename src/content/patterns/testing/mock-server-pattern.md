@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: mock-server-pattern
 title: "Mock Server: Stand Up a Mock Server for Integration Test"
@@ -32,6 +33,7 @@ seo:
     - msw
     - integration-tests
     - pattern
+
 ---
 
 ## Overview
@@ -547,6 +549,9 @@ wireMockServer.stubFor(post(urlPathEqualTo("/api/orders/1/ship"))
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Test Pyramid: Balance Unit, Integration](/patterns/test-pyramid-pattern/).
 
 - Clean up between tests — `nock.cleanAll()`, `wireMockServer.resetAll()`, `server.resetHandlers()`
 - Verify requests were made — `nock.isDone()`, `wireMockServer.verify()`

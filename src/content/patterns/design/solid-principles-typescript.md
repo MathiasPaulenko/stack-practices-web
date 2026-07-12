@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: solid-principles-typescript
 title: "SOLID Principles in TypeScript with Practical Examples"
@@ -14,8 +16,9 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/adapter-pattern-api
-  - /patterns/design/decorator-pattern-pipeline
+  - /patterns/adapter-pattern-api
+  - /patterns/decorator-pattern-pipeline
+  - /patterns/value-object-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +29,8 @@ seo:
     - clean code
     - object oriented design
     - dependency inversion
+
+
 ---
 
 # SOLID Principles in TypeScript with Practical Examples

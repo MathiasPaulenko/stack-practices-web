@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: logging
 title: "Logging"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/middleware
   - /recipes/environment-variables
+  - /recipes/api-logging-audit
+  - /recipes/api-versioning
+  - /recipes/send-emails-smtp
+  - /recipes/webhooks
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,10 @@ seo:
     - observabilidad
     - rotación de logs
     - logging en producción
+
+
+
+
 ---
 
 ## Visión general

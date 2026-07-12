@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: deprecation-timeline-template
 title: "Plantilla de Linea de Tiempo de Deprecacion"
@@ -15,9 +17,9 @@ tags:
   - migration
   - communication
 relatedResources:
-  - /docs/devops/system-decommissioning-checklist-template
-  - /docs/devops/service-ownership-document-template
-  - /docs/devops/feature-specification-template
+  - /docs/system-decommissioning-checklist-template
+  - /docs/service-ownership-document-template
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - migracion legacy
     - deprecacion de API
     - plan de fin de vida
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +39,9 @@ seo:
 Deprecar una capacidad o API es facil de anunciar y dificil de terminar. Los usuarios se pierden el correo, las integraciones se rompen en el ultimo minuto y el equipo se queda atascado soportando un sistema que creia muerto. Una linea de tiempo de deprecacion es un contrato entre el equipo y sus consumidores: aqui esta lo que termina, cuando termina, que debes usar en su lugar y como te ayudaremos a migrar.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Monolith to Microservices — Migration Strategies](/es/guides/monolith-to-microservices-migration-guide/).
 
 Usa esta plantilla cuando:
 - Un endpoint de API, capacidad o integracion esta siendo reemplazado por una version mas nueva

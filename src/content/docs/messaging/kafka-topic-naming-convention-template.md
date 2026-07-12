@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: kafka-topic-naming-convention-template
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - governance
   - event-streaming
 relatedResources:
-  - /docs/messaging/rabbitmq-queue-design-template
-  - /docs/messaging/message-schema-evolution-policy
-  - /docs/messaging/dead-letter-queue-runbook
+  - /docs/rabbitmq-queue-design-template
+  - /docs/message-schema-evolution-policy
+  - /docs/dead-letter-queue-runbook
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - topic design
     - kafka partitions
     - kafka retention
+
+
 ---
 
 ## Overview
@@ -351,3 +355,12 @@ Start with the minimum that meets your consumer parallelism needs. You can alway
 ### What retention should I set for replay-able topics?
 
 For topics that consumers may need to replay (e.g., for bug fixes or new consumers), set retention to 7-30 days. For snapshot topics with compaction, retention is infinite since compaction keeps only the latest value per key. For audit topics, set retention to 365 days or use Kafka's log compaction with delete to keep only recent records.
+
+## See Also
+
+- [Complete Guide to Kafka Stream Processing](/guides/complete-guide-kafka-stream-processing/)
+- [Complete Guide to Apache Kafka in Production](/guides/complete-guide-kafka-production/)
+- [Message Queues — RabbitMQ, Kafka, and SQS detailed analysis](/guides/message-queue-guide/)
+- [Idempotent Consumer Pattern](/patterns/idempotent-consumer-pattern/)
+- [Sequential Convoy Pattern](/patterns/sequential-convoy-pattern/)
+

@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: event-driven-functions
 title: "Build Event-Driven Serverless Architectures"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/webhooks
   - /recipes/middleware
+  - /recipes/real-time-websockets
+  - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - async processing
     - serverless architecture
     - event driven microservices
+
+
 ---
 
 ## Overview

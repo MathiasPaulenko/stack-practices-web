@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: svelte-store-reactive-state
 title: "State Management Reactivo con Svelte Stores"
@@ -15,9 +20,12 @@ tags:
   - reactive
   - recipe
 relatedResources:
-  - /recipes/frontend/vue-composition-api-fetch
-  - /recipes/frontend/react-usememo-usecallback-performance
-  - /recipes/frontend/css-container-queries-responsive
+  - /recipes/vue-composition-api-fetch
+  - /recipes/react-usememo-usecallback-performance
+  - /recipes/css-container-queries-responsive
+  - /patterns/optimistic-update-pattern
+  - /patterns/state-machine-ui-pattern
+  - /guides/complete-guide-react-state-management
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - stores
     - reactive
     - recipe
+
+
+
+
+
 ---
 
 ## Overview
@@ -414,6 +427,9 @@ export const searchQuery = debouncedStore("", 300);
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [React State Management: Context, Zustand, TanStack Query](/es/guides/complete-guide-react-state-management/).
 
 - Exporta stores desde archivos separados — mantiene los componentes limpios y los stores reutilizables
 - Usa `readable` para valores que los componentes no deberían modificar (clocks, WebSocket data)

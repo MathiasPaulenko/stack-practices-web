@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-llm-evaluation
 title: "Referencia Detallada de Evaluación de LLM"
@@ -19,9 +23,11 @@ tags:
   - ab-testing
   - quality
 relatedResources:
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-rag-production
-  - /guides/ai/complete-guide-langchain-production
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-rag-production
+  - /guides/complete-guide-langchain-production
+  - /guides/complete-guide-ai-agents-production
+  - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +41,10 @@ seo:
     - hallucination detection
     - toxicity scoring
     - llm regression testing
+
+
+
+
 ---
 
 ## Introducción
@@ -682,3 +692,12 @@ Usa ambas. Evaluacion automatizada (RAGAS, LLM-as-judge) para fast iteration y r
 ### ¿Cómo seteo A/B testing para LLM models?
 
 Splitea traffic deterministicamente por user ID (no randomamente per request, para evitar ver ambos models). Colecciona user feedback (thumbs up/down, ratings). Corre hasta alcanzar statistical significance (tipicamente 100+ samples per variant). Usa z-test para proportion comparison. Trackea secondary metrics (latency, cost) junto con quality.
+
+## See Also
+
+- [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to AI Agents in Production](/es/guides/complete-guide-ai-agents-production/)
+- [Complete Guide to OpenAI API Mastery](/es/guides/complete-guide-openai-api-mastery/)
+

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: external-configuration-store-pattern
 title: "Patron de Almacen Externo de Configuracion"
@@ -22,6 +25,8 @@ relatedResources:
   - /guides/monolith-to-microservices-migration-guide
   - /guides/kubernetes-basics-guide
   - /patterns/compute-resource-consolidation-pattern
+  - /docs/environment-configuration-template
+  - /guides/complete-guide-gitops-production
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - configuracion
     - arquitectura
     - devops
+
+
+
 ---
 ## Visión General
 
@@ -40,6 +48,9 @@ El Patron de Almacen Externo de Configuracion traslada la configuracion de la ap
 Este patron es esencial para sistemas nativos de la nube y microservicios donde la configuracion codificada crea friccion en el despliegue y riesgos de seguridad.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to GitOps in Production](/es/guides/complete-guide-gitops-production/).
 
 Usa este patron cuando:
 - Despliegues el mismo artefacto en desarrollo, staging y produccion

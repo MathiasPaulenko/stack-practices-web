@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: encryption-key-lifecycle-template
 title: "Plantilla de Ciclo de Vida de Claves de Cifrado"
@@ -15,9 +17,9 @@ tags:
   - cryptography
   - compliance
 relatedResources:
-  - /docs/devops/secret-rotation-schedule-template
-  - /docs/devops/ci-cd-pipeline-security-template
-  - /docs/devops/data-breach-response-playbook
+  - /docs/secret-rotation-schedule-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - KMS
     - rotacion de claves
     - politica de criptografia
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +39,9 @@ seo:
 La gestion del ciclo de vida de claves de cifrado define como se crean, almacenan, usan, rotan y retiran las claves. Una mala gestion de claves puede socavar completamente el cifrado al exponerlas, mantenerlas por demasiado tiempo o no revocarlas cuando ya no se necesitan. Esta plantilla proporciona politicas, procedimientos y roles para gestionar claves simetricas y asimetricas en aplicaciones, bases de datos, copias de seguridad y servicios cloud.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Data Retention Policy Template](/es/docs/data-retention-policy-template/).
 
 - Disenar una estrategia de gestion de claves para una nueva aplicacion o plataforma.
 - Seleccionar o configurar un servicio de gestion de claves (KMS) o modulo de seguridad de hardware (HSM).

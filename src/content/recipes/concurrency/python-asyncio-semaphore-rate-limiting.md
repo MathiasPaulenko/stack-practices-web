@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-asyncio-semaphore-rate-limiting
 title: "Rate Limit Async Operations with asyncio.Semaphore"
@@ -16,10 +19,11 @@ tags:
   - rate-limiting
   - concurrency
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/python-thread-pool-executor
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-thread-pool-executor
   - /guides/complete-guide-python-asyncio
   - /guides/concurrency-patterns-guide
+  - /recipes/python-async-gather-concurrent-requests
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - asyncio bounded parallelism
     - python semaphore rate limit
     - asyncio concurrency control
+
+
+
 ---
 
 ## Overview
@@ -381,6 +388,9 @@ class WeightedSemaphore:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/recipes/python-asyncio-gather-task-groups/).
 
 - **Choose the right limit**: For HTTP requests, start with 10-20 concurrent. For database connections, match the connection pool size. Monitor and adjust based on response times and error rates.
 - **Use `async with`**: Always use the context manager form to ensure the semaphore is released, even on exceptions.

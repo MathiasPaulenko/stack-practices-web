@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: incident-response-guide
 title: "Respuesta a Incidentes"
@@ -17,11 +18,11 @@ tags:
   - runbook
   - guide
 relatedResources:
-  - /guides/observability/alert-management-guide
-  - /guides/observability/postmortem-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/chaos-engineering-guide
-  - /guides/planning/disaster-recovery-guide
+  - /guides/alert-management-guide
+  - /guides/postmortem-guide
+  - /guides/sre-practices-guide
+  - /guides/chaos-engineering-guide
+  - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +34,7 @@ seo:
     - communication
     - runbook
     - guide
+
 ---
 
 ## Descripción General

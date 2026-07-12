@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-technical-debt-management
 title: "Technical Debt: Track, Prioritize, Pay Down"
@@ -17,9 +19,9 @@ tags:
   - best-practices
   - project-management
 relatedResources:
-  - /guides/code-quality/complete-guide-clean-code-principles
-  - /guides/code-quality/complete-guide-refactoring-techniques
-  - /guides/code-quality/complete-guide-code-review-best-practices
+  - /guides/complete-guide-clean-code-principles
+  - /guides/complete-guide-refactoring-techniques
+  - /guides/complete-guide-code-review-best-practices
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 18
@@ -33,6 +35,8 @@ seo:
     - prioritization
     - maintainability
     - debt register
+
+
 ---
 
 ## Introduction
@@ -327,6 +331,9 @@ Expected ROI: 30% faster feature delivery in Q4.
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Clean Code: Naming, Functions, Classes, Comments](/guides/complete-guide-clean-code-principles/).
 
 - Make debt visible — maintain a debt register that everyone can see
 - Quantify the interest — measure how much debt costs per sprint

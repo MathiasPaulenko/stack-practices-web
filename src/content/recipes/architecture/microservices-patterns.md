@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: microservices-patterns
 title: "Resilient Microservices with Circuit Breakers, Retries"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/event-driven-functions
   - /recipes/load-balancing
   - /recipes/service-mesh
+  - /recipes/circuit-breaker-pattern-recipe
+  - /recipes/event-driven-architecture
+  - /recipes/saga-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - distributed systems
     - saga pattern
     - resilient architecture
+
+
+
 ---
 
 ## Overview

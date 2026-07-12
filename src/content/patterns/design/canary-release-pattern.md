@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: canary-release-pattern
 title: "Canary Release Pattern"
@@ -17,9 +19,9 @@ tags:
   - rollout
   - risk-reduction
 relatedResources:
-  - /patterns/design/blue-green-deployment-pattern
-  - /patterns/design/deployment-ring-pattern
-  - /patterns/design/graceful-degradation-pattern
+  - /patterns/blue-green-deployment-pattern
+  - /patterns/deployment-ring-pattern
+  - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - canary rollout
     - incremental release
     - risk reduction deployment
+
+
 ---
 
 # Canary Release Pattern
@@ -43,6 +47,9 @@ The Canary Release Pattern routes a small percentage of traffic to a new version
 The pattern works in stages: start at 1%, watch error rates and latency, then increase to 5%, 10%, 25%, 50%, and 100%. At each stage, health metrics determine whether to proceed or roll back. Unlike blue-green (which switches all traffic at once), canary releases gradually shift traffic, giving you time to detect issues that only appear under real user load.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment Pattern](/patterns/blue-green-deployment-pattern/).
 
 Use the Canary Release Pattern when:
 - You want to validate a new version with real users before full rollout

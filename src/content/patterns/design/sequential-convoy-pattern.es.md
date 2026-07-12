@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: sequential-convoy-pattern
 title: "Patron de Convoy Secuencial"
@@ -19,9 +22,10 @@ tags:
   - kafka
   - cola
 relatedResources:
-  - /patterns/design/queue-based-load-leveling-pattern
-  - /patterns/design/idempotent-consumer-pattern
-  - /patterns/design/distributed-lock-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/idempotent-consumer-pattern
+  - /patterns/distributed-lock-pattern
+  - /patterns/claim-check-pattern
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - kafka
     - partition key
     - procesamiento ordenado
+
+
+
 ---
 
 # Patron de Convoy Secuencial
@@ -45,6 +52,9 @@ El Patron de Convoy Secuencial preserva el orden de mensajes relacionados en un 
 Este patron agrupa mensajes relacionados en un **convoy** (secuencia) y asegura que sean procesados por un unico consumidor en orden. Convoys no relacionados pueden procesarse en paralelo, preservando correccion y rendimiento.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Idempotent Consumer Pattern](/es/patterns/idempotent-consumer-pattern/).
 
 - Mensajes para la misma entidad deben procesarse en orden de produccion
 - Event sourcing donde eventos para un agregado deben aplicarse secuencialmente

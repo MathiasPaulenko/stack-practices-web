@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: websocket-server
 title: "Servidor WebSocket"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/api-versioning
   - /recipes/call-rest-api
   - /recipes/handle-cors
+  - /recipes/nodejs-websocket-realtime
+  - /recipes/real-time-notifications
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Visión General
 

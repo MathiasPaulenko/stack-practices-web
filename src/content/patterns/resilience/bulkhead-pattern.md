@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: bulkhead-pattern
 title: "Bulkhead Pattern: Isolate Resources to Limit Blast Radius"
@@ -19,6 +24,10 @@ relatedResources:
   - /patterns/circuit-breaker-half-open-pattern
   - /patterns/retry-with-jitter-pattern
   - /patterns/graceful-shutdown-pattern
+  - /patterns/graceful-degradation-pattern
+  - /patterns/fallover-pattern
+  - /patterns/rate-limiter-token-bucket-pattern
+  - /guides/complete-guide-java-concurrency
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - bulkhead
     - isolation
     - pattern
+
+
+
+
+
 ---
 
 ## Overview
@@ -501,6 +515,9 @@ class CircuitBreakerOpenError(Exception):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Leader Election Pattern](/patterns/leader-election-pattern/).
 
 - Size bulkheads based on SLA — critical services get more resources, non-critical get less
 - Monitor bulkhead utilization — alert when usage exceeds 80%

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: ci-cd-security-guide
 title: "CI/CD Security: Harden Your Pipelines and Prevent Supply"
@@ -19,11 +23,13 @@ tags:
   - hardening
   - guide
 relatedResources:
-  - /guides/security/zero-trust-architecture-guide
-  - /guides/security/api-security-checklist-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/platform-engineering-guide
-  - /guides/planning/disaster-recovery-guide
+  - /guides/zero-trust-architecture-guide
+  - /guides/api-security-checklist-guide
+  - /guides/sre-practices-guide
+  - /guides/platform-engineering-guide
+  - /guides/disaster-recovery-guide
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -37,6 +43,10 @@ seo:
     - dependency-scanning
     - hardening
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -46,6 +56,9 @@ CI/CD pipelines are high-value attack targets. They have access to source code, 
 Here is a hands-on guide to practical techniques to harden your CI/CD infrastructure from source to deployment.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Secrets Management](/guides/complete-guide-secrets-management/).
 
 - You manage CI/CD pipelines that deploy to production
 - You want to reduce the blast radius of a compromised build system

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: message-queue-guide
 title: "Message Queues — RabbitMQ, Kafka, and SQS detailed analysis"
@@ -23,6 +26,8 @@ relatedResources:
   - /recipes/event-driven-microservices
   - /recipes/kafka-event-streaming
   - /recipes/rabbitmq-task-queue
+  - /guides/complete-guide-event-driven-systems
+  - /guides/complete-guide-kafka-production
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -36,12 +41,18 @@ seo:
     - messaging
     - distributed-systems
     - guide
+
+
+
 ---
 ## Overview
 
 Message queues are the nervous system of distributed systems. They decouple producers from consumers, absorb traffic spikes, and enable async workflows that would be impossible with synchronous HTTP alone. But choosing the wrong queue or using it incorrectly turns a resilience tool into a source of data loss, ordering bugs, and operational nightmares. This guide compares RabbitMQ, Kafka, and AWS SQS — the three most common choices — and explains when to use each, how to configure them, and what pitfalls to avoid.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Apache Kafka in Production](/guides/complete-guide-kafka-production/).
 
 Use this guide when:
 - You need to choose between RabbitMQ, Kafka, and SQS for a new architecture

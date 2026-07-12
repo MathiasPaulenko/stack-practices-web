@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: deep-clone-structured
 title: "Deep Clone Objects in JavaScript: Beyond JSON.parse"
@@ -15,8 +17,9 @@ tags:
   - duplication
   - data
 relatedResources:
-  - /patterns/design/prototype-pattern-cloning
-  - /recipes/data/batch-processing-patterns
+  - /patterns/prototype-pattern-cloning
+  - /recipes/batch-processing-patterns
+  - /recipes/javascript-event-loop
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +30,8 @@ seo:
     - javascript
     - object copy
     - circular references
+
+
 ---
 
 # Deep Clone Objects in JavaScript: Beyond JSON.parse

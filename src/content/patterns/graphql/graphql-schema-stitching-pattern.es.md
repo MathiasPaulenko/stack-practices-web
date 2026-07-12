@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: graphql-schema-stitching-pattern
 title: "Patron de Schema Stitching en GraphQL"
@@ -21,6 +24,8 @@ relatedResources:
   - /patterns/graphql-batched-resolver-pattern
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /patterns/graphql-federated-entity-pattern
+  - /patterns/graphql-interface-polymorphism-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +36,9 @@ seo:
     - graphql-federation
     - api-gateway
     - schema-merging
+
+
+
 ---
 
 ## Descripcion general
@@ -40,6 +48,9 @@ Schema stitching fusiona multiples esquemas GraphQL independientes en un unico e
 Esto difiere de federation: stitching trabaja a nivel de esquema (fusionando definiciones de tipos), mientras que federation trabaja a nivel de servicio (cada servicio contribuye con porciones de un grafo compartido). Stitching es mas ligero pero requiere configuracion manual de merge.
 
 ## Cuando Usar
+
+
+- For alternatives, see [GraphQL Error Extension Pattern](/es/patterns/graphql-error-extension-pattern/).
 
 - Multiples equipos poseen APIs GraphQL separadas que necesitan un punto de entrada unificado
 - Migracion gradual de un esquema GraphQL monolitico a servicios distribuidos

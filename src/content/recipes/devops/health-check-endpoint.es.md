@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: health-check-endpoint
 title: "Endpoint de Health Check"
@@ -19,6 +21,8 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
   - /patterns/builder-pattern
+  - /recipes/background-jobs
+  - /recipes/cli-tool-argument-parsing
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - readiness probe python
     - spring boot actuator health
     - monitoring endpoint
+
+
 ---
 ## Visión General
 

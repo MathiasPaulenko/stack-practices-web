@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: graphql-directives-auth
 title: "Field-Level Auth with Custom GraphQL Schema Directives"
@@ -16,9 +22,13 @@ tags:
   - authentication
   - security
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-error-handling-best-practices
-  - /recipes/authentication/jwt-authentication
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/jwt-authentication
+  - /recipes/serverless-api-gateway-lambda-authorizer
+  - /recipes/graphql-input-validation
+  - /guides/complete-guide-graphql-security
+  - /guides/complete-guide-authentication-patterns
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +39,12 @@ seo:
     - graphql authorization
     - schema directives
     - graphql permissions
+
+
+
+
+
+
 ---
 
 # Field-Level Auth with Custom GraphQL Schema Directives
@@ -289,6 +305,9 @@ type Query {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/).
 
 - **Declare auth in the schema** — directives make authorization rules visible and auditable
 - **Use role hierarchy** — `ADMIN` should satisfy `EDITOR` and `VIEWER` requirements

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: logging-standards-document
 title: "Documento de Estandares de Logging"
@@ -15,8 +18,9 @@ tags:
   - monitoring
   - standards
 relatedResources:
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/monitoring-alerting-policy-template
   - /docs/runbook-template
+  - /recipes/bash-disk-usage-monitor
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +31,9 @@ seo:
     - niveles de log
     - retencion de logs
     - observabilidad con logs
+
+
+
 ---
 
 ## Descripcion General
@@ -34,6 +41,9 @@ seo:
 Un Documento de Estandares de Logging define como los servicios, aplicaciones e infraestructura producen logs. Logging consistente facilita la depuracion, el monitoreo, la investigacion de seguridad y el cumplimiento. Esta plantilla cubre niveles de log, formatos estructurados, campos requeridos, retencion, muestreo y reglas de seguridad.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
 
 - Incorporar un nuevo servicio o equipo de desarrollo.
 - Consolidar logs de multiples sistemas en una plataforma central de observabilidad.

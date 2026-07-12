@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: go-rest-api-gin
 title: "Go REST API with Gin and Middleware"
@@ -15,8 +21,13 @@ tags:
   - microservices
   - http
 relatedResources:
-  - /recipes/api/server-sent-events-go
-  - /patterns/design/ambassador-pattern-services
+  - /recipes/server-sent-events-go
+  - /patterns/ambassador-pattern-services
+  - /recipes/grpc-services-typescript
+  - /recipes/api-rate-limiting-redis
+  - /recipes/cursor-pagination-postgresql
+  - /recipes/express-middleware-patterns
+  - /recipes/data-validation-zod
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +38,12 @@ seo:
     - rest api go
     - middleware
     - go microservices
+
+
+
+
+
+
 ---
 
 # Go REST API with Gin and Middleware

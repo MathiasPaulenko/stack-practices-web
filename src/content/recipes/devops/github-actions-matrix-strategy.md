@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: github-actions-matrix-strategy
 title: "Across Multiple OS and Language Versions with GitHub"
@@ -15,9 +18,10 @@ tags:
   - testing
   - recipe
 relatedResources:
-  - /recipes/devops/github-actions-reusable-workflows
-  - /recipes/devops/docker-multi-stage-build-distroless
-  - /recipes/devops/docker-compose-override-environments
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/docker-multi-stage-build-distroless
+  - /recipes/docker-compose-override-environments
+  - /recipes/chaos-engineering
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - matrix
     - testing
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -425,6 +432,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Share Workflow Logic with GitHub Actions Reusable Workflows](/recipes/github-actions-reusable-workflows/).
 
 - Use `fail-fast: false` for cross-platform testing — one OS failure shouldn't cancel others
 - Use `max-parallel` to limit concurrent jobs — avoids hitting GitHub Actions usage limits

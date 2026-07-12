@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: security-headers
 title: "Security Headers"
@@ -19,6 +21,8 @@ relatedResources:
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
   - /docs/security-incident-response-template
+  - /recipes/oauth2-pkce-spa
+  - /recipes/vault-dynamic-credentials
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - csp
     - hsts
     - web-security
+
+
 ---
 ## Visión General
 

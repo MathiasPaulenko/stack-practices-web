@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: git-workflow
 title: "Flujo de Trabajo Git"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/docker-basics
   - /recipes/unit-testing
   - /recipes/github-actions
+  - /recipes/git-rebase-interactive-tutorial
+  - /docs/pull-request-template
+  - /recipes/cron-jobs
+  - /docs/contributing-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,10 @@ seo:
     - rama de feature
     - pull request
     - colaboración en equipo
+
+
+
+
 ---
 
 ## Overview

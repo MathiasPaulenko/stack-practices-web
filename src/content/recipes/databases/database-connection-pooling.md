@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: database-connection-pooling
 title: "Database Connection Pooling"
@@ -15,9 +19,11 @@ tags:
   - mysql
   - jdbc
 relatedResources:
-  - /recipes/databases/postgres-query-optimization
-  - /recipes/databases/database-transactions
-  - /guides/databases/database-normalization-guide
+  - /recipes/postgres-query-optimization
+  - /recipes/database-transactions
+  - /guides/database-normalization-guide
+  - /recipes/database-replication
+  - /recipes/schema-evolution
 lastUpdated: "2026-07-03"
 author: "StackPractices"
 seo:
@@ -27,6 +33,10 @@ seo:
     - databases
     - postgresql
     - performance
+
+
+
+
 ---
 ## Overview
 
@@ -278,6 +288,9 @@ per_service_pool = 100 / 4 = 25 connections
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to PostgreSQL Tuning](/guides/complete-guide-postgresql-tuning/).
 
 6. **Use `pool_pre_ping` for long-lived connections.** Database restarts or network blips leave stale connections. Pre-ping validates the connection before use, adding ~1ms overhead but preventing errors.
 

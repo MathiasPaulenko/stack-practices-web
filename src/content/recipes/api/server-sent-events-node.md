@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: server-sent-events-node
 title: "Server-Sent Events with Node.js and Express"
@@ -15,8 +17,9 @@ tags:
   - express
   - api
 relatedResources:
-  - /recipes/api/websocket-bidirectional-chat
-  - /recipes/messaging/kafka-event-streaming
+  - /recipes/websocket-bidirectional-chat
+  - /recipes/kafka-event-streaming
+  - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +30,8 @@ seo:
     - nodejs
     - express
     - real time push
+
+
 ---
 
 # Server-Sent Events with Node.js and Express

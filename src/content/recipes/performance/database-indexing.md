@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: database-indexing
 title: "Optimize Queries with Database Indexing"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/sql-joins
   - /recipes/database-views-materialized
   - /recipes/connection-pooling
+  - /recipes/cache-invalidation
+  - /recipes/query-optimization
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - sql performance
     - postgresql indexing
     - mysql indexing
+
+
 ---
 
 ## Overview

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: caching-strategies-guide
 title: "Estrategias de Caché"
@@ -18,9 +23,12 @@ tags:
   - performance
   - guide
 relatedResources:
-  - /guides/data/database-sharding-implementation-guide
-  - /guides/data/read-replica-guide
-  - /guides/data/connection-pooling-deep-dive-guide
+  - /guides/database-sharding-implementation-guide
+  - /guides/read-replica-guide
+  - /guides/connection-pooling-deep-dive-guide
+  - /guides/blob-storage-guide
+  - /recipes/caching-strategies
+  - /guides/full-text-search-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - cache-invalidation
     - performance
     - guide
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -42,6 +55,9 @@ La caché es una de las formas más útiles de mejorar el rendimiento de aplicac
 A continuación: caché en cada capa del stack, desde el navegador hasta la base de datos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Blob Storage: S3, GCS, and Azure Blob Patterns for Engineers](/es/guides/blob-storage-guide/).
 
 - Tu base de datos está bajo alta carga de lectura y escalar verticalmente es costoso
 - Los tiempos de respuesta de la API exceden tu SLO de latencia

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: sql-window-functions-guide
 title: "SQL Window Functions — Complete Guide"
@@ -22,6 +24,7 @@ relatedResources:
   - /guides/sql-cte-guide
   - /guides/sql-performance-tuning-guide
   - /guides/sql-joins-guide
+  - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -36,6 +39,8 @@ seo:
     - partition-by
     - analytics
     - guide
+
+
 ---
 
 ## Overview
@@ -43,6 +48,9 @@ seo:
 Window functions in SQL compute a value across a set of rows related to the current row — without collapsing the result set into groups like `GROUP BY`. They enable capable analytical queries: running totals, rankings, moving averages, and row-to-row comparisons. Available in PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.25+, they are essential for anyone writing analytical SQL.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/guides/complete-guide-sql-query-optimization/).
 
 - You need rankings within groups (top-N per category)
 - Running totals or moving averages are required

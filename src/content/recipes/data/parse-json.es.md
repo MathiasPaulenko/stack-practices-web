@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: parse-json
 title: "Parsear JSON"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/read-write-file
   - /recipes/regular-expressions
+  - /recipes/url-encoding
+  - /recipes/convert-json-to-csv
+  - /recipes/date-formatting
+  - /recipes/deep-clone-javascript
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,10 @@ seo:
     - json javascript
     - json java
     - deserializar json
+
+
+
+
 ---
 ## Visión General
 

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: connect-to-mysql
 title: "Conectar a MySQL"
@@ -20,6 +23,8 @@ relatedResources:
   - /patterns/adapter-pattern
   - /patterns/ambassador-pattern
   - /patterns/bridge-pattern
+  - /recipes/connect-to-redis
+  - /recipes/execute-raw-sql
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - javascript
     - java
     - jdbc
+
+
+
 ---
 ## Visión General
 
 MySQL sigue siendo una de las bases de datos relacionales más desplegadas. Ya sea ejecutándose localmente, en AWS RDS o en un clúster gestionado, conectarse de forma segura y eficiente es crítico. A continuacion se cubre conexiones a MySQL con pools, SSL y consultas preparadas en Python, JavaScript y Java.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Connect to PostgreSQL](/es/recipes/connect-to-postgresql/).
 
 Usa este recurso cuando:
 - Desarrollas aplicaciones que usan MySQL como almacén principal de datos

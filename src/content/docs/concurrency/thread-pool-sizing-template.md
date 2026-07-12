@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: thread-pool-sizing-template
 templateType: guideline
@@ -17,8 +22,11 @@ tags:
   - python
   - go
 relatedResources:
-  - /docs/concurrency/async-task-cancellation-runbook
-  - /docs/concurrency/race-condition-debugging-checklist
+  - /docs/async-task-cancellation-runbook
+  - /docs/race-condition-debugging-checklist
+  - /guides/complete-guide-go-concurrency
+  - /guides/complete-guide-java-concurrency
+  - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,11 @@ seo:
     - rejection policy
     - thread pool monitoring
     - concurrency tuning
+
+
+
+
+
 ---
 
 ## Overview
@@ -372,3 +385,12 @@ Too many threads cause excessive context switching — the CPU spends time switc
 ### How do I handle bursty traffic with a fixed pool?
 
 Set the core pool size to handle steady-state traffic and the max pool size to handle bursts. Use a bounded queue to absorb short bursts. When the queue fills, the pool grows toward max size. When the queue and max threads are both full, the rejection policy kicks in. Use `CallerRunsPolicy` for backpressure — it slows the producer by running tasks in the calling thread. This is better than dropping tasks or throwing exceptions. Monitor queue depth and alert before the pool reaches max.
+
+## See Also
+
+- [Complete Guide to Python Asyncio](/guides/complete-guide-python-asyncio/)
+- [Complete Guide to Go Concurrency](/guides/complete-guide-go-concurrency/)
+- [Complete Guide to Java Concurrency](/guides/complete-guide-java-concurrency/)
+- [Complete Guide to Python Asyncio in Production](/guides/complete-guide-python-asyncio-production/)
+- [Thread Pool Pattern](/patterns/thread-pool-pattern/)
+

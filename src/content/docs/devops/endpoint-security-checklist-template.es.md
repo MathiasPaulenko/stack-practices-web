@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: endpoint-security-checklist-template
 title: "Plantilla de Checklist de Seguridad de Endpoints"
@@ -15,9 +17,9 @@ tags:
   - edr
   - compliance
 relatedResources:
-  - /docs/devops/container-security-baseline-template
-  - /docs/devops/network-segmentation-policy-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/container-security-baseline-template
+  - /docs/network-segmentation-policy-template
+  - /docs/secret-rotation-schedule-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - gestion de dispositivos moviles
     - endpoint detection and response
     - seguridad BYOD
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +39,9 @@ seo:
 La seguridad de endpoints es la practica de proteger dispositivos que se conectan a la red de una organizacion, incluyendo laptops, computadoras de escritorio, telefonos moviles y tablets. Esta plantilla de checklist cubre los controles minimos necesarios para reducir el riesgo de malware, perdida de datos, robo de credenciales y acceso no autorizado desde dispositivos de empleados.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Data Retention Policy Template](/es/docs/data-retention-policy-template/).
 
 - Dar de alta a un nuevo empleado o contratista.
 - Entregar una laptop o dispositivo movil corporativo.

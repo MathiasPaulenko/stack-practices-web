@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: encryption-at-rest
 title: "Encripción en Reposo para Bases de Datos y"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/api-security-headers
   - /recipes/password-hashing
   - /recipes/csrf-protection
+  - /recipes/data-privacy-gdpr
+  - /recipes/request-signing-hmac
+  - /docs/security-audit-checklist-template
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - encripcion base de datos
     - gestion de keys kms
     - encripcion de sobre
+
+
+
 ---
 
 ## Visión general

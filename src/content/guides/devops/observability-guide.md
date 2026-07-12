@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: observability-guide
 title: "Observability — Metrics, Logs, and Traces Complete Guide"
@@ -24,6 +29,10 @@ relatedResources:
   - /guides/opentelemetry-guide
   - /guides/sre-practices-guide
   - /guides/service-mesh-guide
+  - /recipes/python-prometheus-metrics-exporter
+  - /docs/load-test-execution-plan-template
+  - /docs/service-level-objective-slo-template
+  - /recipes/docker-logging-fluentd
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -37,6 +46,11 @@ seo:
     - grafana
     - slo
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +58,9 @@ seo:
 Observability is the ability to understand the internal state of a system by examining its outputs. Unlike monitoring, which asks "Is the system up?", observability asks "Why is the system behaving this way?". The three pillars — metrics, logs, and traces — provide complementary views. Metrics show what is happening over time, logs show what individual components are saying, and traces show how requests flow through distributed systems. Together they enable debugging unknown-unknowns: problems you did not anticipate and therefore did not instrument for.
 
 ## When to Use
+
+
+- For alternatives, see [Metrics and Dashboards](/guides/metrics-and-dashboards-guide/).
 
 - You operate distributed systems where failure is normal and expected
 - Debugging requires correlating behavior across multiple services

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: multi-level-cache-l1-l2
 title: "Cache multi-nivel con L1 en memoria y L2 en Redis"
@@ -15,9 +19,11 @@ tags:
   - in-memory cache
   - performance
 relatedResources:
-  - /recipes/caching/nodejs-in-memory-cache-lru
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/redis-pubsub-messaging
+  - /recipes/nodejs-in-memory-cache-lru
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-pubsub-messaging
+  - /recipes/python-redis-cache-decorator
+  - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - in-memory redis cache
     - two-level cache
     - cache invalidation
+
+
+
+
 ---
 
 # Cache multi-nivel con L1 en memoria y L2 en Redis
@@ -35,6 +45,9 @@ seo:
 Una sola capa de cache raramente es optima. Las caches en memoria ofrecen lecturas sub-milisegundo pero son por instancia. Redis ofrece consistencia entre instancias pero anade latencia de red. Una cache de dos niveles combina ambas: L1 (en memoria) para datos calientes con cero overhead de red, y L2 (Redis) para estado compartido entre instancias. El codigo a continuacion implementa una cache L1+L2 con invalidacion basada en pub/sub.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - APIs de alto trafico donde la latencia de round-trip a Redis es un cuello de botella
 - Multiples instancias de servidor que necesitan compartir datos cacheados

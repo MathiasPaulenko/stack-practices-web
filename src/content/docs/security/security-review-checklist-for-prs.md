@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: security-review-checklist-for-prs
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - sast
   - code-quality
 relatedResources:
-  - /docs/security/owasp-top-10-remediation-checklist
-  - /docs/security/secrets-rotation-runbook
-  - /docs/security/api-authentication-design-template
+  - /docs/owasp-top-10-remediation-checklist
+  - /docs/secrets-rotation-runbook
+  - /docs/api-authentication-design-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - input validation
     - secure coding
     - pr security
+
+
 ---
 
 ## Overview
@@ -433,3 +437,12 @@ Automate as much as possible — SAST, dependency scanning, and secret scanning 
 ### What tools should be in my security CI pipeline?
 
 At minimum: SAST (Semgrep or SonarQube), dependency scanning (Snyk or Dependabot), and secret scanning (GitLeaks). Add DAST (OWASP ZAP) for staging environments. Add container scanning (Trivy) if you build Docker images. Add license checking (license-checker) for compliance. Configure all tools to fail the CI build on high-severity findings. Run SAST and secret scanning on every PR. Run dependency scanning on every PR and nightly. Run DAST nightly against staging. Review tool findings weekly to tune false positives.
+
+## See Also
+
+- [Detect Bugs in Java with SpotBugs Static Analysis](/recipes/java-spotbugs-static-analysis/)
+- [Enforce Security Rules in Node.js with](/recipes/nodejs-eslint-security-plugin/)
+- [Find Security Issues in Python Code with Bandit](/recipes/python-bandit-static-analysis/)
+- [Strict Type Checking in Python with mypy](/recipes/python-mypy-strict-type-checking/)
+- [Strict TypeScript ESLint Configuration for Production](/recipes/typescript-eslint-strict-config/)
+

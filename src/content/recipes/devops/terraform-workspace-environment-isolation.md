@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: terraform-workspace-environment-isolation
 title: "Isolate Environments with Terraform Workspaces"
@@ -15,9 +17,9 @@ tags:
   - infrastructure
   - recipe
 relatedResources:
-  - /recipes/devops/terraform-remote-state-s3-backend
-  - /recipes/devops/github-actions-reusable-workflows
-  - /recipes/devops/kubernetes-helm-chart-templating
+  - /recipes/terraform-remote-state-s3-backend
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/kubernetes-helm-chart-templating
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - environments
     - infrastructure
     - recipe
+
+
 ---
 
 ## Overview
@@ -387,6 +391,9 @@ terraform state list
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Store Terraform State in S3 with DynamoDB Locking](/recipes/terraform-remote-state-s3-backend/).
 
 - Use workspaces for similar environments — dev/staging/production with minor variations
 - Keep conditional logic simple — complex conditionals make the code hard to maintain

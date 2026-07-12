@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: runbook-database-failover
 title: "Database Failover Runbook"
@@ -18,11 +21,12 @@ tags:
   - replication
   - disaster-recovery
 relatedResources:
-  - /docs/devops/disaster-recovery-test-plan
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/devops/data-migration-runbook-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/downtime-communication-template
+  - /docs/disaster-recovery-test-plan
+  - /docs/deployment-rollback-runbook
+  - /docs/data-migration-runbook-template
+  - /docs/escalation-policy-template
+  - /docs/downtime-communication-template
+  - /recipes/sql-find-duplicate-rows
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - mysql failover
     - replication
     - disaster recovery
+
+
+
 ---
 
 ## Overview
@@ -505,6 +512,9 @@ print(f"Replication slots healthy: {result.consistency_ok}")
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to PostgreSQL Replication](/guides/complete-guide-postgresql-replication/).
 
 1. **Use connection poolers to minimize failover impact.** PgBouncer or ProxySQL can point to a virtual IP that you update during failover, avoiding application restarts:
 

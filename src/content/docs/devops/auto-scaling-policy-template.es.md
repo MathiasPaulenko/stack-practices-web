@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: auto-scaling-policy-template
 title: "Plantilla de Política de Auto-Scaling"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/bug-report-template
   - /docs/contributing-guide
+  - /docs/network-security-template
+  - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - infraestructura
     - política
     - plantilla
+
+
+
 ---
 ## Visión General
 
 El auto-scaling es el puente entre eficiencia de costos y disponibilidad. Escalar demasiado tarde y tu servicio se cae bajo carga; escalar demasiado temprano y quemas dinero en capacidad ociosa. Esta plantilla documenta las reglas exactas, umbrales y procedimientos que tu equipo de infraestructura usa para escalar cargas de trabajo automáticamente hacia arriba y hacia abajo.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Cloud Cost Allocation Template](/es/docs/cloud-cost-allocation-template/).
 
 Usa este recurso cuando:
 - Defines reglas de escalamiento para un nuevo servicio desplegado en la nube

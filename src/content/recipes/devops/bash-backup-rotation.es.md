@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-backup-rotation
 title: "Script de Rotación de Backups en Bash"
@@ -20,6 +23,8 @@ relatedResources:
   - /guides/cicd-pipeline-guide
   - /recipes/ansible-playbook
   - /recipes/cicd-pipeline-setup
+  - /recipes/bash-parallel-commands
+  - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - retención backups bash
     - tar gzip backup
     - find mtime delete
+
+
+
 ---
 ## Visión General
 
@@ -354,6 +362,9 @@ echo "Backup creado con ${available_gb}GB libres"
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Bash Scripting for DevOps Automation and System Tasks](/es/recipes/bash-scripting-automation/).
 
 1. **Usa backups incrementales con rsync.** Solo transfiere archivos cambiados para ahorrar ancho de banda:
 

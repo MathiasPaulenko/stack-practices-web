@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-ollama-local-llm
 title: "Run LLMs Locally with Ollama for Private Inference"
@@ -14,9 +18,11 @@ tags:
   - open source
   - inference
 relatedResources:
-  - /recipes/ai/python-llm-streaming-responses
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-agent-langgraph-state-machine
+  - /guides/complete-guide-local-llm-deployment
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +33,10 @@ seo:
     - ollama tutorial
     - run llm locally
     - open source llm
+
+
+
+
 ---
 
 # Run LLMs Locally with Ollama for Private Inference
@@ -343,6 +353,9 @@ summaries = batch_generate([
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [a Local RAG Pipeline with ChromaDB and Sentence Transformers](/recipes/python-rag-chroma-local/).
 
 - **Start with `llama3` (8B)** — good balance of quality and speed; needs ~5GB RAM
 - **Use `temperature=0` for factual tasks** — code generation, data extraction, classification

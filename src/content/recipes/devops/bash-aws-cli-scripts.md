@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-aws-cli-scripts
 title: "AWS CLI Automation with Bash"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/bash-backup-rotation
   - /recipes/bash-disk-usage-monitor
   - /recipes/bash-log-rotation
+  - /recipes/bash-parallel-commands
+  - /recipes/aws-ecs-fargate
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - automation
     - cloud
     - infrastructure
+
+
+
 ---
 ## Overview
 
 The AWS CLI wraps AWS API calls in a command-line tool. Combined with bash, you can automate infrastructure provisioning, S3 operations, IAM management, and cost monitoring. The solution below covers common AWS automation patterns using bash scripts.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to AWS Cost Optimization](/guides/complete-guide-cost-optimization-aws/).
 
 - You need to automate EC2 instance provisioning and teardown
 - You want to manage S3 buckets and sync files programmatically

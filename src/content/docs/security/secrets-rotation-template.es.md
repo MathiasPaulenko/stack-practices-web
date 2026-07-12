@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: secrets-rotation-template
 title: "Plantilla de Rotación de Secretos"
@@ -22,6 +25,8 @@ relatedResources:
   - /docs/incident-response-playbook-template
   - /docs/vendor-risk-assessment-template
   - /docs/data-retention-policy-template
+  - /recipes/docker-secrets-management
+  - /docs/secrets-rotation-runbook
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -35,12 +40,18 @@ seo:
     - certificates
     - credentials
     - template
+
+
+
 ---
 ## Visión General
 
 Las credenciales largas de vida son objetivos de alto valor para los atacantes. Un token de API de dos años puede estar en repos Git de ex empleados, en logs de chat, en screenshots de documentación y en 20 servicios que nadie recuerda. La rotación de secretos reduce el tiempo de exposición y limita el blast radius cuando una credencial se filtra. La rotación regular también fuerza la documentación: cuando rotas un secreto, descubres quién realmente lo usa.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Docker Secrets Management Without Hardcoding Credentials](/es/recipes/docker-secrets-management/).
 
 Usa este recurso cuando:
 - Estás estableciendo una política de ciclo de vida de credenciales para tu organización

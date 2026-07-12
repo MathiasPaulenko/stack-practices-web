@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: pen-test-scope-template
 title: "Plantilla de Alcance de Prueba de Penetracion"
@@ -15,9 +18,10 @@ tags:
   - red-team
   - compliance
 relatedResources:
-  - /docs/devops/container-security-baseline-template
-  - /docs/devops/network-segmentation-policy-template
-  - /docs/devops/compliance-gap-analysis-template
+  - /docs/container-security-baseline-template
+  - /docs/network-segmentation-policy-template
+  - /docs/compliance-gap-analysis-template
+  - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - reglas de juego
     - plantilla de pen test
     - evaluacion de vulnerabilidades
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +42,9 @@ seo:
 Una Plantilla de Alcance de Prueba de Penetracion define que se probara, que no se probara, como se conducira la prueba y que espera recibir la organizacion. Un alcance claro protege a la organizacion de interrupciones no deseadas, previene problemas legales para los probadores y asegura que el compromiso entregue valor util.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Secure Coding Practices — By Language and Pattern](/es/guides/secure-coding-guide/).
 
 - Contratar una firma de seguridad externa para una prueba de penetracion.
 - Ejecutar un ejercicio interno de red team o purple team.

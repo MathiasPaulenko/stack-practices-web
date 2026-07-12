@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: javascript-infinite-scroll-pagination
 title: "JavaScript Infinite Scroll Pagination with"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/javascript-clipboard-copy-paste
   - /guides/terraform-best-practices-guide
   - /patterns/eager-loading-pattern
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-service-worker-offline
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - lazy load content javascript
     - infinite scroll implementation
     - javascript pagination observer
+
+
+
 ---
 
 ## Overview
@@ -38,6 +46,9 @@ seo:
 Infinite scroll loads content automatically as the user scrolls down, eliminating pagination buttons. This recipe uses `IntersectionObserver` to detect when a sentinel element enters the viewport, then fetches the next page of data via the fetch API. Covers loading indicators, error handling, debounce, and cleanup.
 
 ## When to Use
+
+
+- For alternatives, see [JavaScript Clipboard Copy and Paste](/recipes/javascript-clipboard-copy-paste/).
 
 - You have a feed-style listing (social posts, search results, images) where pagination buttons hurt UX
 - You want lazy-loading of content without a virtual scroll library

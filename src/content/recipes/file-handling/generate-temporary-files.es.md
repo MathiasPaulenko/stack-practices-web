@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: generate-temporary-files
 title: "Generar Archivos Temporales"
@@ -17,9 +23,13 @@ tags:
   - bash
   - recipe
 relatedResources:
-  - /recipes/file-handling/rotate-log-files
-  - /recipes/file-handling/read-large-files
-  - /guides/data/caching-strategies-guide
+  - /recipes/rotate-log-files
+  - /recipes/read-large-files
+  - /guides/caching-strategies-guide
+  - /recipes/python-image-resize-batch
+  - /recipes/bash-backup-rotation-script
+  - /recipes/bash-loop-over-files
+  - /recipes/python-zip-file-extraction
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - java
     - bash
     - recipe
+
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -453,6 +469,9 @@ echo "Dir temp seguro: $SECURE_DIR"
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Rotate Log Files](/es/recipes/rotate-log-files/).
 
 1. **Crea archivos temporales en el mismo directorio que el destino para escrituras atómicas.** `os.rename()` es atómico solo dentro del mismo filesystem. Si el archivo temporal está en un mount point diferente, el rename se convierte en copy, que no es atómico:
 

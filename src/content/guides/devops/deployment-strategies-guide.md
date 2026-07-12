@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: deployment-strategies-guide
 title: "Blue-Green and Canary Deployments"
@@ -15,9 +20,13 @@ tags:
   - rollback
   - zero-downtime
 relatedResources:
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/devops/infrastructure-as-code-guide
-  - /guides/devops/docker-for-developers-guide
+  - /guides/cicd-pipeline-guide
+  - /guides/infrastructure-as-code-guide
+  - /guides/docker-for-developers-guide
+  - /recipes/blue-green-deployment
+  - /recipes/graceful-shutdown
+  - /recipes/traffic-mirroring
+  - /guides/complete-guide-ci-cd-github-actions
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - zero downtime deployment
     - deployment strategies
     - feature flags production
+
+
+
+
+
 ---
 
 # Blue-Green and Canary Deployments

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: cap-theorem-guide
 title: "CAP Theorem and Database Trade-offs"
@@ -15,9 +20,13 @@ tags:
   - guide
   - databases
 relatedResources:
-  - /guides/databases/nosql-database-selection-guide
-  - /guides/databases/database-sharding-partitioning-guide
-  - /guides/architecture/microservices-architecture-guide
+  - /guides/nosql-database-selection-guide
+  - /guides/database-sharding-partitioning-guide
+  - /guides/microservices-architecture-guide
+  - /recipes/microservices-communication
+  - /recipes/retry-backoff
+  - /recipes/workflow-engine
+  - /recipes/database-deadlocks-retries
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - database trade offs
     - acid vs base
     - eventual consistency
+
+
+
+
+
 ---
 
 # CAP Theorem and Database Trade-offs

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-testcontainers-integration
 title: "Testcontainers: Real Dependencies in Integration Tests"
@@ -17,9 +22,12 @@ tags:
   - python
   - nodejs
 relatedResources:
-  - /guides/testing/test-driven-development-guide
-  - /guides/testing/testing-strategy-guide
-  - /guides/testing/complete-guide-pytest-production
+  - /guides/test-driven-development-guide
+  - /guides/testing-strategy-guide
+  - /guides/complete-guide-pytest-production
+  - /guides/chaos-engineering-guide
+  - /guides/complete-guide-ci-cd-github-actions
+  - /guides/postmortem-guide
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 18
@@ -32,6 +40,11 @@ seo:
     - testcontainers java
     - testcontainers python
     - testcontainers nodejs
+
+
+
+
+
 ---
 
 ## Introduction
@@ -615,6 +628,9 @@ class CustomContainerTest {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Chaos Engineering — Principles, Tools, and Safe Experiments](/guides/chaos-engineering-guide/).
 
 - Use `withReuse(true)` for containers that don't change — speeds up local development
 - Scope containers to `@Container` (per-test) or `static` (per-class) based on isolation needs

@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: docs
 slug: network-segmentation-policy-template
 title: "Plantilla de Politica de Segmentacion de Red"
@@ -15,9 +22,13 @@ tags:
   - firewall
   - compliance
 relatedResources:
-  - /docs/devops/container-security-baseline-template
+  - /docs/container-security-baseline-template
   - /docs/api-security-review-template
-  - /docs/devops/rbac-policy-template
+  - /docs/rbac-policy-template
+  - /recipes/bash-iptables-firewall
+  - /docs/compliance-gap-analysis-template
+  - /docs/endpoint-security-checklist-template
+  - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +39,13 @@ seo:
     - politica de seguridad
     - reglas de firewall
     - red zero trust
+
+
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +53,9 @@ seo:
 Una Politica de Segmentacion de Red define como la red de una organizacion se divide en zonas aisladas segun niveles de confianza, sensibilidad de datos y requisitos funcionales. Esta plantilla documenta el proposito de cada zona, el trafico permitido entre zonas y los controles que hacen cumplir el aislamiento. Soporta la arquitectura de confianza cero y el cumplimiento con estandares como PCI-DSS, HIPAA y SOC 2.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Zero Trust Architecture — Never Trust, Always Verify](/es/guides/zero-trust-architecture-guide/).
 
 - Definir la arquitectura de red para un nuevo entorno cloud o data center.
 - Prepararse para una auditoria de seguridad o certificacion de cumplimiento.

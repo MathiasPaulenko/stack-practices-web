@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: command-pattern
 title: "Command Pattern"
@@ -18,9 +23,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/observer-pattern
-  - /patterns/design/strategy-pattern
-  - /recipes/testing/unit-testing
+  - /patterns/observer-pattern
+  - /patterns/strategy-pattern
+  - /recipes/unit-testing
+  - /patterns/interpreter-pattern
+  - /patterns/memento-pattern
+  - /patterns/template-method-pattern
+  - /patterns/adapter-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +43,11 @@ seo:
     - python command
     - java command
     - javascript command
+
+
+
+
+
 ---
 
 # Command Pattern

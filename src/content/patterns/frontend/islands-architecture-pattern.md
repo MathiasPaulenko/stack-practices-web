@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: islands-architecture-pattern
 title: "Islands Architecture"
@@ -30,6 +31,7 @@ seo:
     - ssr
     - performance
     - pattern
+
 ---
 
 ## Overview
@@ -384,6 +386,9 @@ import FilterPanel from '../components/FilterPanel.jsx';
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Suspense Boundary: Declarative Loading States with React](/patterns/suspense-boundary-pattern/).
 
 - Use `client:visible` by default — most interactive components are below the fold and don't need immediate hydration
 - Use `client:load` only for above-the-fold critical interactions — search boxes, navigation menus

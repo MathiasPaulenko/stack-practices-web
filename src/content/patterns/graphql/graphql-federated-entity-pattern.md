@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: graphql-federated-entity-pattern
 title: "GraphQL Federated Entity Pattern"
@@ -19,9 +24,12 @@ tags:
   - typescript
   - schema-design
 relatedResources:
-  - /patterns/graphql/graphql-schema-stitching-pattern
-  - /patterns/graphql/graphql-connection-pagination-pattern
-  - /recipes/graphql/graphql-federation-gateway-setup
+  - /patterns/graphql-schema-stitching-pattern
+  - /patterns/graphql-connection-pagination-pattern
+  - /recipes/graphql-federation-gateway-setup
+  - /patterns/graphql-mutation-validation-pattern
+  - /docs/graphql-federation-onboarding-template
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +41,11 @@ seo:
     - graphql entity resolution
     - "@key directive graphql"
     - graphql microservices pattern
+
+
+
+
+
 ---
 
 # GraphQL Federated Entity Pattern
@@ -252,6 +265,9 @@ The `__resolveReference` resolver is called when the gateway requests an entity 
 | Shareable fields | `@shareable` | Fields resolved by multiple subgraphs |
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL Connection Pagination Pattern](/patterns/graphql-connection-pagination-pattern/).
 
 - **One owning service per entity** — only one subgraph should own the base type definition. Others use `@extends`.
 - **Use `__resolveReference` efficiently** — the gateway calls it for every entity reference. Batch database calls when multiple entities are requested.

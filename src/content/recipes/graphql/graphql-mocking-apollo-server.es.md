@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: graphql-mocking-apollo-server
 title: "Mocks de resolvers GraphQL para desarrollo frontend"
@@ -16,9 +21,12 @@ tags:
   - frontend
   - testing
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/api/api-mocking
-  - /recipes/graphql/graphql-error-handling-best-practices
+  - /recipes/graphql-apollo-server
+  - /recipes/api-mocking
+  - /recipes/graphql-error-handling-best-practices
+  - /guides/complete-guide-graphql-testing
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - graphql fake data
     - frontend development
     - graphql testing
+
+
+
+
+
 ---
 
 # Mocks de resolvers GraphQL para desarrollo frontend
@@ -36,6 +49,9 @@ seo:
 Cuando el backend no esta listo, los equipos frontend pueden bloquearse por dependencias de API. El mocking integrado de Apollo Server genera datos falsos para cada campo del schema, permitiendo a los desarrolladores de UI construir y probar contra un endpoint GraphQL funcional en minutos. Puedes empezar con mocks auto-generados y reemplazarlos progresivamente con resolvers personalizados conforme el schema se estabiliza.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to GraphQL Testing](/es/guides/complete-guide-graphql-testing/).
 
 - Equipos frontend y backend trabajan en paralelo en una nueva feature
 - Necesitas una API GraphQL corriendo para demos o prototipado

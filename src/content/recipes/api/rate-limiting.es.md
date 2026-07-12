@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: rate-limiting
 title: "Rate Limiting"
@@ -14,9 +19,13 @@ tags:
   - rest
   - http
 relatedResources:
-  - /recipes/api/middleware
-  - /recipes/api/input-validation
+  - /recipes/middleware
+  - /recipes/input-validation
   - /recipes/caching
+  - /recipes/api-versioning
+  - /recipes/handle-cors
+  - /recipes/idempotent-api-endpoints
+  - /recipes/real-time-notifications
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - python rate limit
     - javascript rate limit
     - redis rate limit
+
+
+
+
+
 ---
 
 ## Visión general

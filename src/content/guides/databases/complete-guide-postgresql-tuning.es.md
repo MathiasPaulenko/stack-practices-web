@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-postgresql-tuning
 title: "Referencia Detallada de PostgreSQL Tuning"
@@ -18,9 +24,13 @@ tags:
   - guide
   - databases
 relatedResources:
-  - /guides/databases/database-denormalization-guide
-  - /guides/performance/sql-cte-guide
-  - /guides/data/data-migration-guide
+  - /guides/database-denormalization-guide
+  - /guides/sql-cte-guide
+  - /guides/data-migration-guide
+  - /recipes/seed-database
+  - /guides/full-text-search-guide
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-sql-query-optimization
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - connection pooling
     - postgresql partitioning
     - vacuum postgresql
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de PostgreSQL Tuning
@@ -423,3 +439,12 @@ ORDER BY pg_total_relation_size(schemaname || '.' || indexname) DESC;
 ```
 
 Indexes con `idx_scan = 0` desde el último reset de stats son candidatos para remoción. Usar `DROP INDEX CONCURRENTLY` para evitar locking.
+
+## See Also
+
+- [Complete Guide to MongoDB Indexing](/es/guides/complete-guide-mongodb-indexing/)
+- [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/)
+- [Full-Text Search — Implement Search That Actually Works](/es/guides/full-text-search-guide/)
+- [Read Replicas: Scale Reads Without Changing Application](/es/guides/read-replica-guide/)
+- [SQL Performance Tuning — Indexes, Queries, and Explain Plans](/es/guides/sql-performance-tuning-guide/)
+

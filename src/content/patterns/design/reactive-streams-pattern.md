@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: reactive-streams-pattern
 title: "Reactive Streams Pattern"
@@ -17,9 +21,11 @@ tags:
   - publisher-subscriber
   - flow-control
 relatedResources:
-  - /patterns/design/async-generator-pattern
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/publish-subscribe-pattern
+  - /patterns/async-generator-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/publish-subscribe-pattern
+  - /patterns/lock-free-queue-pattern
+  - /patterns/thread-pool-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - backpressure flow control
     - publisher subscriber async
     - pattern design
+
+
+
+
 ---
 
 ## Overview
@@ -36,6 +46,9 @@ seo:
 In a push-based streaming model, the producer sends data as fast as it can. If the consumer is slower, items buffer in memory until it runs out. Reactive Streams solves this with a pull-based protocol: the subscriber requests a specific number of items, and the publisher sends only that many. This is called backpressure. The publisher cannot push more than the subscriber requested, preventing memory overflow and allowing the consumer to control the flow.
 
 ## When to Use
+
+
+- For alternatives, see [Async Generator Pattern](/patterns/async-generator-pattern/).
 
 - A fast producer streams data to a slower consumer and you need flow control
 - You process large or infinite data streams with bounded memory

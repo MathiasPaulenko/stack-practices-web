@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-ci-cd-github-actions
 title: "Referencia Detallada de CI/CD con GitHub Actions"
@@ -18,9 +25,12 @@ tags:
   - guide
   - devops
 relatedResources:
-  - /guides/devops/deployment-strategies-guide
-  - /guides/devops/complete-guide-gitops-argocd
-  - /guides/testing/contributing-guide
+  - /guides/deployment-strategies-guide
+  - /guides/complete-guide-gitops-argocd
+  - /guides/complete-guide-testcontainers-integration
+  - /recipes/setup-ci-gitlab-pipelines
+  - /guides/complete-guide-cost-optimization-aws
+  - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +43,13 @@ seo:
     - github workflows
     - pipeline automation
     - reusable workflows
+
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de CI/CD con GitHub Actions
@@ -521,3 +538,12 @@ Crear un reusable workflow en un repositorio central, luego llamarlo con `uses: 
   if: failure()
   timeout-minutes: 30
 ```
+
+## See Also
+
+- [CI/CD Pipeline Guide](/es/guides/cicd-pipeline-guide/)
+- [Chaos Engineering — Principles, Tools, and Safe Experiments](/es/guides/chaos-engineering-guide/)
+- [GitHub Actions CI/CD: Workflows, Runners, Secrets](/es/guides/complete-guide-github-actions-ci-cd/)
+- [Blameless Postmortems: Learning from Incidents Without Blame](/es/guides/postmortem-guide/)
+- [Testcontainers: Real Dependencies in Integration Tests](/es/guides/complete-guide-testcontainers-integration/)
+

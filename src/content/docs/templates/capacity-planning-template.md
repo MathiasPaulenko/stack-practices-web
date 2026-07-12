@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: capacity-planning-template
 templateType: capacity-planning
@@ -20,8 +25,12 @@ tags:
   - devops
 relatedResources:
   - /docs/system-diagram-template
-  - /guides/performance/performance-optimization-guide
-  - /guides/devops/infrastructure-as-code-guide
+  - /guides/performance-optimization-guide
+  - /guides/infrastructure-as-code-guide
+  - /recipes/chaos-engineering
+  - /recipes/cost-optimization
+  - /recipes/web-performance
+  - /patterns/compute-resource-consolidation-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - scalability
     - performance
     - infrastructure
+
+
+
+
+
 
 ---
 

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: rag-hybrid-search-pattern
 title: "Patrón RAG Hybrid Search"
@@ -18,9 +20,10 @@ tags:
   - bm25
   - busqueda-vectorial
 relatedResources:
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-vector-database-pinecone
-  - /recipes/ai/python-openai-embeddings-cosine
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-vector-database-pinecone
+  - /recipes/python-openai-embeddings-cosine
+  - /patterns/embedding-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +36,8 @@ seo:
     - retrieval augmented generation
     - busqueda semantica
     - fusion busqueda palabra clave
+
+
 ---
 
 # Patrón RAG Hybrid Search

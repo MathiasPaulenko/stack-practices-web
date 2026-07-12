@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: watch-file-changes
 title: "Watch File Changes"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs
   - /recipes/stream-processing
+  - /recipes/compress-decompress-files
+  - /recipes/copy-move-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - filesystem
+
+
+
 ---
 ## Overview
 
@@ -405,6 +413,9 @@ inotifywait -m -r --format '%w%f|%e' \
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Copy and Move Files](/recipes/copy-move-files/).
 
 1. **Use `awaitWriteFinish` to detect file completion.** When watching for uploads or exports, the file may still be written when the `create` event fires. Wait for the writer to finish:
 

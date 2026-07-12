@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: read-through-cache-pattern
 title: "Patron Read-Through Cache"
@@ -19,9 +25,13 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/cache-aside-pattern
-  - /patterns/design/write-through-cache-pattern
-  - /recipes/caching/python-redis-cache-decorator
+  - /patterns/cache-aside-pattern
+  - /patterns/write-through-cache-pattern
+  - /recipes/python-redis-cache-decorator
+  - /patterns/refresh-ahead-cache-pattern
+  - /patterns/write-behind-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/cache-stampede-prevention-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - cache miss handling
     - python cache
     - java cache
+
+
+
+
+
+
 ---
 
 # Patron Read-Through Cache
@@ -45,6 +61,9 @@ En un read-through cache, la aplicacion habla solo con la capa de cache. En un c
 Esto difiere de cache-aside, donde la aplicacion gestiona la poblacion del cache. Read-through mueve esa responsabilidad a la capa de cache o a una libreria de cache, simplificando el codigo de la aplicacion y asegurando comportamiento de cache consistente en todos los caminos de lectura.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Refresh-Ahead Cache Pattern](/es/patterns/refresh-ahead-cache-pattern/).
 
 - Multiples caminos de lectura acceden a los mismos datos y quieres comportamiento de cache consistente
 - Quieres desacoplar el codigo de aplicacion de la logica de gestion de cache

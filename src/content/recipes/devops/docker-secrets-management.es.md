@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-secrets-management
 title: "Gestión de Secretos Docker Sin Hardcodear Credenciales"
@@ -16,11 +20,13 @@ tags:
   - docker-swarm
   - env-files
 relatedResources:
-  - /recipes/devops/docker-network-isolation
-  - /recipes/devops/docker-health-check-configuration
-  - /recipes/devops/docker-compose-dev-prod-split
+  - /recipes/docker-network-isolation
+  - /recipes/docker-health-check-configuration
+  - /recipes/docker-compose-dev-prod-split
   - /guides/webhook-security-guide
   - /patterns/sidecar-pattern
+  - /docs/secrets-rotation-template
+  - /recipes/docker-image-vulnerability-scan
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - docker credentials security
     - docker secret injection
     - avoid hardcoding secrets docker
+
+
+
+
 ---
 
 ## Visión General
@@ -397,6 +407,9 @@ echo "Rotación completa para $SECRET_NAME"
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Container Image Security Scanning with Trivy](/es/recipes/container-security-scanning/).
 
 1. **Usa IAM roles en lugar de access keys.** En AWS, asigna IAM roles a tareas ECS o pods EKS. Esto elimina la necesidad de gestionar credenciales AWS como secretos:
 

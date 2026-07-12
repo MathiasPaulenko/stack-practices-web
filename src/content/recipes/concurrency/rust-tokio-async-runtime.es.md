@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: rust-tokio-async-runtime
 title: "Construir Sistemas Async con Rust Tokio Runtime"
@@ -16,9 +21,12 @@ tags:
   - runtime
   - concurrency
 relatedResources:
-  - /recipes/concurrency/go-goroutines-channels-patterns
-  - /recipes/concurrency/python-asyncio-gather-task-groups
+  - /recipes/go-goroutines-channels-patterns
+  - /recipes/python-asyncio-gather-task-groups
   - /guides/concurrency-patterns-guide
+  - /recipes/csharp-async-await-task-run
+  - /recipes/java-virtual-threads-project-loom
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - tokio tasks channels
     - rust structured concurrency
     - tokio graceful shutdown
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +49,9 @@ seo:
 Tokio es el runtime async mas utilizado en Rust. Proporciona un scheduler multi-threaded, I/O driver, timer y primitivas de sincronizacion. Lo siguiente cubre spawn de tasks, comunicacion via channels, uso de `select!` para multiplexing, estado compartido con `Arc<Mutex<T>>`, graceful shutdown con `CancellationToken` y concurrencia estructurada con `tokio::task::JoinSet`.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Build Async Pipelines with C# async/await and Task.Run](/es/recipes/csharp-async-await-task-run/).
 
 - Servidores y clientes de red (HTTP, gRPC, WebSocket)
 - Pipelines de procesamiento de datos concurrente

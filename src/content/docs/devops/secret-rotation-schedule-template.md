@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: secret-rotation-schedule-template
 title: "Secret Rotation Schedule Template"
@@ -15,9 +20,12 @@ tags:
   - api-keys
   - compliance
 relatedResources:
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/access-control-review-template
-  - /docs/devops/encryption-key-lifecycle-template
+  - /docs/rbac-policy-template
+  - /docs/access-control-review-template
+  - /docs/encryption-key-lifecycle-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/endpoint-security-checklist-template
+  - /docs/user-access-audit-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - certificate rotation
     - api key rotation
     - secrets management
+
+
+
+
+
 ---
 
 ## Overview
@@ -262,6 +275,9 @@ echo "Secret rotated and deployment updated successfully."
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Secrets Management](/guides/complete-guide-secrets-management/).
 
 1. **Use dual-key rotation for zero-downtime.** Maintain two active keys during rotation. Deploy the new key, verify, then revoke the old one. This prevents service disruption if the new key has issues:
 

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: dead-letter-channel-pattern
 title: "Patrón Dead Letter Channel"
@@ -17,9 +20,10 @@ tags:
   - message-queue
   - dlq
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/message-deferral-pattern
-  - /patterns/design/message-deduplication-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/message-deferral-pattern
+  - /patterns/message-deduplication-pattern
+  - /patterns/publish-subscribe-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - manejo poison message
     - dlq message queue
     - patron diseno
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +43,9 @@ seo:
 Cuando un mensaje falla consistentemente en el procesamiento, reintentarlo para siempre bloquea al consumidor y desperdicia recursos. Esto se llama mensaje venenoso. El patron Dead Letter Channel rutea mensajes que exceden un umbral de reintentos a una cola separada (dead letter queue o DLQ) para inspeccion, debugging y replay manual o automatico posteriores.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Configure Dead-Letter Queues in RabbitMQ for Failed Messages](/es/recipes/rabbitmq-dead-letter-queue/).
 
 - Los mensajes fallan repetidamente y no pueden procesarse (payload malformado, dependencias faltantes, estado invalido)
 - Necesitas preservar mensajes fallidos para debugging y auditoria

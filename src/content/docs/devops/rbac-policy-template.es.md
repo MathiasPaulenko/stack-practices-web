@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: rbac-policy-template
 title: "Plantilla de Politica RBAC"
@@ -15,9 +21,13 @@ tags:
   - policy
   - identity
 relatedResources:
-  - /docs/devops/access-control-review-template
-  - /docs/devops/user-access-audit-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/access-control-review-template
+  - /docs/user-access-audit-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/compliance-gap-analysis-template
+  - /docs/container-security-baseline-template
+  - /docs/network-segmentation-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - politica de autorizacion
     - asignacion de roles
     - gobernanza de acceso
+
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +51,9 @@ seo:
 Una Plantilla de Politica RBAC define como se otorgan los derechos de acceso a traves de roles nombrados. Documenta los roles, los permisos asociados, quien puede asignarlos y con que frecuencia se revisan. Una politica RBAC clara reduce la acumulacion de privilegios, simplifica la incorporacion y apoya auditorias de cumplimiento.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Access Control Review Template](/es/docs/access-control-review-template/).
 
 - Disenando control de acceso para una nueva aplicacion o sistema.
 - Estandarizando permisos a traves de multiples servicios o equipos.

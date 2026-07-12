@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: cross-region-failover-template
 title: "Cross-Region Failover Test Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/deployment-checklist-template
   - /docs/api-status-page-template
+  - /docs/bug-triage-template
+  - /docs/network-security-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - multi-region
     - availability
     - template
+
+
+
 ---
 ## Overview
 
 Disasters do not respect your office hours. Regional outages, fiber cuts, and weather events can make an entire cloud region unavailable. A cross-region failover plan that exists only on paper will fail when you need it most. This template structures a realistic, testable DR procedure that your team can execute under pressure.
 
 ## When to Use
+
+
+- For alternatives, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/guides/disaster-recovery-guide/).
 
 Use this resource when:
 - Your SLA requires > 99.9% availability and a single region is a single point of failure

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: ci-cd-pipeline-security-template
 title: "CI/CD Pipeline Security Template"
@@ -15,9 +19,11 @@ tags:
   - secrets-management
   - devsecops
 relatedResources:
-  - /docs/devops/container-security-baseline-template
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/container-security-baseline-template
+  - /docs/rbac-policy-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/dependency-vulnerability-report-template
+  - /docs/encryption-key-lifecycle-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - pipeline hardening
     - secure deployment pipeline
     - DevSecOps template
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +45,9 @@ seo:
 CI/CD pipelines are a high-value target for attackers because they have access to source code, build secrets, and production deployment paths. A compromised pipeline can introduce malware, exfiltrate data, or deploy unauthorized changes. This template defines controls to protect code integrity, runner security, secrets, and deployment approvals.
 
 ## When to Use
+
+
+- For alternatives, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/guides/ci-cd-security-guide/).
 
 - Setting up a new CI/CD platform.
 - Reviewing or improving an existing pipeline.

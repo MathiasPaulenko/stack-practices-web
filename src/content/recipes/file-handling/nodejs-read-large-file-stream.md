@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: nodejs-read-large-file-stream
 title: "Stream Process Large Files in Node.js Without Memory Issues"
@@ -16,10 +19,10 @@ tags:
   - readline
   - backpressure
 relatedResources:
-  - /recipes/file-handling/javascript-drag-drop-file-upload
-  - /recipes/frontend/javascript-service-worker-offline
+  - /recipes/javascript-drag-drop-file-upload
+  - /recipes/javascript-service-worker-offline
   - /guides/performance-optimization-guide
-  - /patterns/stream-processing-guide
+  - /guides/stream-processing-guide
   - /patterns/voucher-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
@@ -32,6 +35,9 @@ seo:
     - nodejs transform stream
     - nodejs pipeline backpressure
     - memory efficient file processing nodejs
+
+
+
 ---
 
 ## Overview
@@ -39,6 +45,9 @@ seo:
 Reading a large file with `fs.readFile()` loads the entire file into memory. For multi-GB files, this causes out-of-memory crashes. Streams process data in chunks, keeping memory usage constant regardless of file size. The solution below covers reading, transforming, and writing large files using Node.js streams.
 
 ## When to Use
+
+
+- For alternatives, see [Implement an LRU Cache in Node.js](/recipes/nodejs-in-memory-cache-lru/).
 
 - You process files larger than available RAM (logs, CSV, JSON, datasets)
 - You need to transform data while reading (filter, map, convert)

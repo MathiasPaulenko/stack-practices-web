@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: connection-pooling-deep-dive-guide
 title: "Pooling de Conexiones"
@@ -17,9 +20,10 @@ tags:
   - resource-management
   - guide
 relatedResources:
-  - /guides/data/read-replica-guide
-  - /guides/data/caching-strategies-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/read-replica-guide
+  - /guides/caching-strategies-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/database-sharding-implementation-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - database-performance
     - resource-management
     - guide
+
+
+
 ---
 
 ## Descripción General
@@ -40,6 +47,9 @@ Las conexiones de base de datos son costosas de crear. Cada conexión requiere h
 A continuación: el dimensionamiento de pools, configuración, monitoreo y troubleshooting para pools a nivel de aplicación y middleware.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Tuning](/es/guides/complete-guide-postgresql-tuning/).
 
 - Tu aplicación abre más de 10 conexiones concurrentes a base de datos
 - Ves errores de `too many connections` bajo carga

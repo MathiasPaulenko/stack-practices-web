@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: caching-strategies
 title: "Estrategias de Caching"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/redis-cache-patterns
   - /recipes/cache-invalidation
   - /recipes/cdn-edge-caching
+  - /guides/complete-guide-redis-caching-strategies
+  - /guides/caching-strategies-guide
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - performance
     - redis
     - cdn
+
+
 ---
 ## Visión General
 

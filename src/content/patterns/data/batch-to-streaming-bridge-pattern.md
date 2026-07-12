@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: batch-to-streaming-bridge-pattern
 title: "Batch-to-Streaming Bridge"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/etl-extract-transform-load-pattern
   - /patterns/cdc-change-data-capture-pattern
   - /patterns/schema-registry-evolution-pattern
+  - /guides/complete-guide-data-pipeline-architecture
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - lambda
     - kafka
     - pattern
+
+
 ---
 
 ## Overview
@@ -426,6 +431,9 @@ REFRESH MATERIALIZED VIEW warehouse.customer_stats_hourly;
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CDC Pattern: Stream Database Changes to Downstream](/patterns/cdc-change-data-capture-pattern/).
 
 - Use a shared schema registry — both batch and streaming must use the same Avro/Protobuf schema
 - Tag records with `_source` — so you can distinguish batch from streaming in queries

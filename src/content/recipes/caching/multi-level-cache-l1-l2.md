@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: multi-level-cache-l1-l2
 title: "Multi-Level Cache with In-Memory L1 and Redis L2"
@@ -15,9 +19,11 @@ tags:
   - in-memory cache
   - performance
 relatedResources:
-  - /recipes/caching/nodejs-in-memory-cache-lru
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/redis-pubsub-messaging
+  - /recipes/nodejs-in-memory-cache-lru
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-pubsub-messaging
+  - /recipes/python-redis-cache-decorator
+  - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - in-memory redis cache
     - two-level cache
     - cache invalidation
+
+
+
+
 ---
 
 # Multi-Level Cache with In-Memory L1 and Redis L2
@@ -367,6 +377,9 @@ class MultiLevelCache:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - **Set L1 TTL shorter than L2** — L1 refreshes from L2, catching updates from other instances
 - **Use pub/sub for L1 invalidation** — without it, each instance serves stale L1 data until its TTL expires

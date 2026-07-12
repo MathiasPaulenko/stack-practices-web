@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: layered-architecture-guide
 title: "Arquitectura por Capas — N-Tier Explicado"
@@ -19,7 +22,8 @@ tags:
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/vertical-slice-architecture-guide
-  - /patterns/design/repository-pattern
+  - /patterns/repository-pattern
+  - /guides/clean-architecture-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - presentation-layer
     - business-logic-layer
     - guia
+
+
+
 ---
 
 ## Overview
@@ -38,6 +45,9 @@ seo:
 La Arquitectura por Capas (también llamada N-Tier) es el patrón arquitectónico más común en aplicaciones empresariales. Divide la aplicación en capas horizontales, cada una con una responsabilidad específica. El modelo clásico de tres capas separa Presentación, Lógica de Negocio y Acceso a Datos. Esta separación hace que el sistema sea más fácil de entender, probar y mantener — aunque también puede introducir abstracciones innecesarias si se aplica en exceso.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Clean Architecture](/es/guides/clean-architecture-guide/).
 
 - Construyes aplicaciones web o de escritorio empresariales tradicionales
 - La estructura del equipo refleja especialización técnica (frontend, backend, BD)

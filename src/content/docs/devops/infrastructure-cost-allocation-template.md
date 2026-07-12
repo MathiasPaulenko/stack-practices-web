@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: infrastructure-cost-allocation-template
 title: "Infrastructure Cost Allocation Template"
@@ -15,9 +17,9 @@ tags:
   - tagging
   - finops
 relatedResources:
-  - /docs/devops/cloud-resource-tagging-policy-template
-  - /docs/devops/capacity-planning-forecast-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/cloud-resource-tagging-policy-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/monitoring-alerting-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - FinOps template
     - cost tagging
     - shared cost splitting
+
+
 ---
 
 ## Overview
@@ -35,6 +39,9 @@ seo:
 Infrastructure Cost Allocation is the practice of distributing cloud and on-premise infrastructure costs to the teams, products, or environments that consume them. Without clear allocation, budgets drift, teams lack accountability, and finance cannot understand where money is spent. This template provides a framework for tagging, mapping accounts, splitting shared costs, and reporting on cost ownership.
 
 ## When to Use
+
+
+- For alternatives, see [Cloud Cost Optimization](/guides/cost-optimization-cloud-guide/).
 
 - Setting up a FinOps practice or cloud cost management program.
 - Onboarding a new team or product to the cloud platform.

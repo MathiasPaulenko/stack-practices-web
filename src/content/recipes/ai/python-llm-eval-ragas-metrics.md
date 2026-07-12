@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-llm-eval-ragas-metrics
 title: "Evaluate RAG Quality with RAGAS Metrics"
@@ -14,9 +17,10 @@ tags:
   - llm metrics
   - testing
 relatedResources:
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-vector-database-pinecone
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-vector-database-pinecone
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-llm-streaming-responses
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +31,9 @@ seo:
     - llm metrics
     - faithfulness
     - context precision
+
+
+
 ---
 
 # Evaluate RAG Quality with RAGAS Metrics
@@ -305,6 +312,9 @@ def compare_configs(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to LLM Evaluation](/guides/complete-guide-llm-evaluation/).
 
 - **Use `gpt-4o` as evaluator** — cheaper models produce inconsistent judgments
 - **Create diverse test cases** — cover different question types (factual, comparative, procedural)

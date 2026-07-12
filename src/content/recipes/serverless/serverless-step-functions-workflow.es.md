@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: serverless-step-functions-workflow
 title: "Orquestar Workflows Serverless con AWS Step Functions"
@@ -16,10 +21,13 @@ tags:
   - workflow
   - orchestration
 relatedResources:
-  - /recipes/serverless/serverless-event-driven-sqs-lambda
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/serverless-event-driven-sqs-lambda
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-graphql-federation
+  - /recipes/aws-lambda-cold-start-optimization
+  - /recipes/aws-lambda-python-dependencies
+  - /guides/complete-guide-serverless-architecture
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - serverless orchestration
     - step functions lambda
     - aws state machine
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 AWS Step Functions es un orquestador serverless que coordina multiples funciones Lambda (y otros servicios AWS) en workflows de state machine. Maneja reintentos, manejo de errores, branching, ejecucion paralela y gestion de estado — todo declarativamente en JSON. A continuacion: construir workflows secuenciales, ejecucion paralela, map states para batch processing, manejo de errores con catch/retry y workflows Express vs Standard.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Serverless Architecture](/es/guides/complete-guide-serverless-architecture/).
 
 - Procesos multi-paso que requieren coordinacion (procesamiento de ordenes, pipelines ETL, onboarding de usuarios)
 - Workflows con branching condicional y manejo de errores

@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: javascript-clipboard-copy-paste
 title: "Copiar y Pegar con Clipboard en JavaScript"
@@ -31,6 +32,7 @@ seo:
     - clipboard fallback
     - execCommand copy
     - paste event javascript
+
 ---
 
 ## Visión General
@@ -38,6 +40,9 @@ seo:
 La Clipboard API permite copiar y pegar texto programáticamente en el navegador. `navigator.clipboard.writeText()` es el enfoque moderno, con `document.execCommand("copy")` como fallback para navegadores antiguos. Esta recipe cubre copiar texto, leer del portapapeles, manejar permisos e interceptar eventos de pegado.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [JavaScript Infinite Scroll Pagination with](/es/recipes/javascript-infinite-scroll-pagination/).
 
 - Necesitas un botón "Copiar al portapapeles" para snippets de código, URLs o tokens
 - Quieres leer contenido del portapapeles en eventos de pegado

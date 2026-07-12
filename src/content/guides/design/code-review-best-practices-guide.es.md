@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: code-review-best-practices-guide
 title: "Lo que Funciona en Code Review — Para Autores y Revisores"
@@ -16,9 +20,12 @@ tags:
   - practicas-equipo
   - pull-request
 relatedResources:
-  - /guides/design/design-patterns-guide
-  - /guides/testing/testing-strategy-guide
-  - /guides/devops/cicd-pipeline-guide
+  - /guides/design-patterns-guide
+  - /guides/testing-strategy-guide
+  - /guides/cicd-pipeline-guide
+  - /docs/pull-request-template
+  - /guides/clean-code-principles-guide
+  - /guides/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +36,10 @@ seo:
     - checklist code review
     - revision entre pares
     - feedback constructivo codigo
+
+
+
+
 ---
 
 # Lo que Funciona en Code Review

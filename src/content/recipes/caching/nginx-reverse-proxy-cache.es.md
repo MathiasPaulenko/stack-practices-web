@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: nginx-reverse-proxy-cache
 title: "Cachear Respuestas HTTP con Nginx Reverse Proxy"
@@ -16,9 +20,11 @@ tags:
   - caching
   - load-balancer
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/cdn-cache-invalidation-strategies
+  - /recipes/python-redis-cache-decorator
+  - /recipes/cdn-cache-invalidation-strategies
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/nodejs-redis-cache-invalidation
+  - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - nginx cache zone
     - proxy_cache
     - cache ttl nginx
+
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +46,9 @@ seo:
 Nginx puede cachear respuestas de servidores upstream, reduciendo la carga en aplicaciones backend y cortando la latencia para peticiones repetidas. La directiva `proxy_cache` almacena respuestas en una zona de cache configurable en disco, con TTLs por codigo de respuesta, claves de cache basadas en atributos de la peticion, y opciones para bypass de cache para peticiones especificas. A continuacion: configurar un reverse proxy con cache, ajustar zonas de cache, manejar invalidacion de cache y caching condicional.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to CDN Caching Strategy](/es/guides/complete-guide-cdn-caching-strategy/).
 
 - Endpoints de API con respuestas GET cacheables (catalogos de productos, resultados de busqueda, contenido estatico)
 - Reducir la carga en servidores de aplicacion backend durante picos de trafico

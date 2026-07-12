@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-react-state-management
 title: "React State Management: Context, Zustand, TanStack Query"
@@ -16,8 +19,9 @@ tags:
   - context-api
   - frontend
 relatedResources:
-  - /guides/frontend/complete-guide-react-server-components
-  - /guides/frontend/complete-guide-typescript-advanced-types
+  - /guides/complete-guide-react-server-components
+  - /guides/complete-guide-typescript-advanced-types
+  - /recipes/svelte-store-reactive-state
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +35,9 @@ seo:
     - jotai
     - server state
     - optimistic updates
+
+
+
 ---
 
 ## Introduction
@@ -575,6 +582,9 @@ TanStack Query:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to React 19 Features](/guides/complete-guide-react-19-features/).
 
 - Separate client state from server state — don't put API data in Zustand/Context
 - Use TanStack Query for all server state — it handles caching, dedup, and refetching

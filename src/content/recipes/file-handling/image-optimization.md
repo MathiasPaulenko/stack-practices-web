@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: image-optimization
 title: "Image Optimization"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/read-write-file
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
+  - /recipes/compression-gzip
+  - /recipes/export-csv-excel
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

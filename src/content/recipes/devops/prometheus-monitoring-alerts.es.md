@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: prometheus-monitoring-alerts
 title: "Metricas y Alertas con Prometheus"
@@ -15,9 +20,13 @@ tags:
   - observability
   - ci-cd
 relatedResources:
-  - /recipes/devops/helm-chart-deployment
-  - /patterns/design/ambassador-pattern-services
-  - /guides/devops/logging-monitoring-observability-guide
+  - /recipes/helm-chart-deployment
+  - /patterns/ambassador-pattern-services
+  - /guides/logging-monitoring-observability-guide
+  - /recipes/python-prometheus-metrics-exporter
+  - /recipes/grafana-dashboards-observability
+  - /recipes/distributed-tracing
+  - /recipes/log-aggregation
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - alerting
     - monitoring
     - service health
+
+
+
+
+
 ---
 
 # Metricas y Alertas con Prometheus

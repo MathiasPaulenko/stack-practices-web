@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-web-performance-core-web-vitals
 title: "Complete Guide to Web Performance and Core Web Vitals"
@@ -18,9 +23,12 @@ tags:
   - cls
   - web-vitals
 relatedResources:
-  - /guides/frontend/complete-guide-bundle-size-optimization
-  - /guides/frontend/complete-guide-react-19-features
-  - /guides/frontend/complete-guide-css-grid-and-flexbox
+  - /guides/complete-guide-bundle-size-optimization
+  - /guides/complete-guide-react-19-features
+  - /guides/complete-guide-css-grid-and-flexbox
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-event-loop
+  - /recipes/web-performance
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +42,11 @@ seo:
     - image optimization
     - font loading
     - lazy loading
+
+
+
+
+
 ---
 
 ## Introduction
@@ -539,3 +552,12 @@ SSR improves FCP and LCP because the browser receives HTML immediately without w
 ### How do third-party scripts affect Core Web Vitals?
 
 Third-party scripts (analytics, ads, chat widgets, A/B testing) can block the main thread, delay LCP, cause CLS, and increase INP. Audit third-party scripts with the Coverage tab in DevTools. Load non-critical scripts with `async` or `defer`. Use the `loading="lazy"` attribute for iframes. Consider server-side analytics instead of client-side. Use a consent management platform that loads scripts only after consent. Set up a Content Security Policy to control which third-party domains can execute scripts.
+
+## See Also
+
+- [Core Web Vitals Audit Checklist](/docs/core-web-vitals-audit-checklist/)
+- [Complete Guide to Bundle Size Optimization](/guides/complete-guide-bundle-size-optimization/)
+- [Complete Guide to React Performance Optimization](/guides/complete-guide-react-performance-optimization/)
+- [Complete Guide to React 19 Features](/guides/complete-guide-react-19-features/)
+- [SPA Performance: Code Splitting and Lazy Loading](/recipes/spa-code-splitting-lazy/)
+

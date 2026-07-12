@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: runbook-database-failover
 title: "Runbook de Failover de Base de Datos"
@@ -18,11 +21,12 @@ tags:
   - replicacion
   - disaster-recovery
 relatedResources:
-  - /docs/devops/disaster-recovery-test-plan
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/devops/data-migration-runbook-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/downtime-communication-template
+  - /docs/disaster-recovery-test-plan
+  - /docs/deployment-rollback-runbook
+  - /docs/data-migration-runbook-template
+  - /docs/escalation-policy-template
+  - /docs/downtime-communication-template
+  - /recipes/sql-find-duplicate-rows
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - failover mysql
     - replicacion
     - disaster recovery
+
+
+
 ---
 
 ## Overview
@@ -41,6 +48,9 @@ seo:
 Los failovers de base de datos son eventos de alto riesgo donde minutos de retraso significan perdida de ingresos y erosion de confianza. Un runbook manual reduce los errores impulsados por el panico al proporcionar pasos exactos, comandos de verificacion y procedimientos de rollback. Este runbook cubre la promocion de primaria a replica, la reconfiguracion de aplicaciones y la validacion post-failover.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Replication](/es/guides/complete-guide-postgresql-replication/).
 
 Usa este runbook cuando:
 - La base de datos primaria no responde o esta severamente degradada

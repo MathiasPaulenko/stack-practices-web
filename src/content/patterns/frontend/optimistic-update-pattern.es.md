@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: optimistic-update-pattern
 title: "Patrón Optimistic Update: UI Inmediata, Reconciliar"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/container-presenter-pattern
   - /patterns/custom-hook-composition-pattern
   - /patterns/suspense-boundary-pattern
+  - /recipes/svelte-store-reactive-state
+  - /patterns/state-machine-ui-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +35,9 @@ seo:
     - state-management
     - react-query
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -552,6 +560,9 @@ function BulkComplete({ selectedIds, todos, setTodos }) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [State Machine UI: Finite State Machines for UI](/es/patterns/state-machine-ui-pattern/).
 
 - Snapshoteá antes del optimistic update — siempre guardá el previous state para poder roll back
 - Usá temp IDs para new items — `Date.now()` o `crypto.randomUUID()` hasta que el server retorne el real ID

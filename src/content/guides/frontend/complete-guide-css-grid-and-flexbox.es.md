@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-css-grid-and-flexbox
 title: "Referencia Detallada de CSS Grid y Flexbox"
@@ -18,9 +21,10 @@ tags:
   - layout
   - container-queries
 relatedResources:
-  - /guides/frontend/complete-guide-react-19-features
-  - /guides/frontend/complete-guide-web-performance-core-web-vitals
-  - /guides/frontend/complete-guide-bundle-size-optimization
+  - /guides/complete-guide-react-19-features
+  - /guides/complete-guide-web-performance-core-web-vitals
+  - /guides/complete-guide-bundle-size-optimization
+  - /recipes/server-side-rendering
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +38,9 @@ seo:
     - container queries
     - css grid areas
     - flexbox alignment
+
+
+
 ---
 
 ## Introducción
@@ -41,6 +48,9 @@ seo:
 CSS Grid y Flexbox son los dos layout systems que reemplazaron floats, tables, y positioning hacks. Grid handlea two-dimensional layouts (rows y columns). Flexbox handlea one-dimensional layouts (ya sea rows o columns). Lo siguiente es una guia practica para ambos con practical patterns.
 
 ## Cuando usar Grid vs Flexbox
+
+
+- For alternatives, see [Complete Guide to Mobile Responsive Design](/es/guides/complete-guide-mobile-responsive-design/).
 
 ```text
 Usa CSS Grid cuando:

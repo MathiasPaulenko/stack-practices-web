@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-window-functions-ranking
 title: "Clasificar filas y calcular totales acumulados con"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /docs/database-schema-documentation-template
   - /guides/full-text-search-guide
+  - /recipes/database-migrations
+  - /recipes/database-replication
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - postgresql
     - ranking
     - análisis
+
+
+
 ---
 
 
@@ -37,6 +45,9 @@ seo:
 Las funciones de ventana son una de las capacidades más potentes de SQL. Permiten calcular valores a través de un conjunto de filas relacionadas con la fila actual sin colapsar el resultado como `GROUP BY`. El ranking, totales acumulados y promedios móviles se vuelven directos, y a menudo reemplazan self-joins lentos o loops en la capa de aplicación.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [SQL Window Functions — Complete Guide](/es/guides/sql-window-functions-guide/).
 
 Usa este recurso cuando:
 - Necesites clasificar filas dentro de grupos (top-N por categoría).

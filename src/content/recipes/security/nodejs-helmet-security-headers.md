@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: nodejs-helmet-security-headers
 title: "Configure HTTP Security Headers with Helmet in Node.js"
@@ -15,9 +18,10 @@ tags:
   - express
   - owasp
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/security/python-sql-injection-sqlalchemy
-  - /recipes/ai/python-llm-streaming-responses
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/python-llm-streaming-responses
+  - /guides/complete-guide-content-security-policy
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,9 @@ seo:
     - express security
     - csp header
     - hsts header
+
+
+
 ---
 
 # Configure HTTP Security Headers with Helmet in Node.js
@@ -338,6 +345,9 @@ app.use(helmet({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/).
 
 - **Start with report-only CSP** — use `reportOnly: true` to find violations before enforcing
 - **Use nonces for inline scripts** — avoid `'unsafe-inline'` in scriptSrc; use per-request nonces

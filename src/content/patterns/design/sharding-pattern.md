@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: sharding-pattern
 title: "Sharding Pattern"
@@ -18,8 +22,10 @@ tags:
   - partitioning
   - horizontal-scaling
 relatedResources:
-  - /patterns/design/database-per-service-pattern
-  - /patterns/design/materialized-view-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/materialized-view-pattern
+  - /patterns/geode-pattern
+  - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - partitioning
     - horizontal scaling
     - data partitioning
+
+
+
+
 ---
 
 # Sharding Pattern
@@ -43,6 +53,9 @@ The Sharding Pattern divides a large dataset into smaller, manageable chunks cal
 This pattern is essential when a single database server can no longer handle the volume of data, query throughput, or concurrent connections. By distributing data, sharding reduces the load on any individual node and enables near-linear growth.
 
 ## When to Use
+
+
+- For alternatives, see [Database per Service Pattern](/patterns/database-per-service-pattern/).
 
 - Dataset exceeds the storage capacity of a single database node
 - Query throughput exceeds the CPU/IOPS limits of a single server

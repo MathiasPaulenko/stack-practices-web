@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: java-wiremock-stub-external
 title: "Stub External HTTP Services with WireMock"
@@ -16,9 +18,9 @@ tags:
   - stub
   - recipe
 relatedResources:
-  - /recipes/testing/java-testcontainers-integration
-  - /recipes/testing/java-junit5-assertions-soft
-  - /recipes/testing/integration-testing-strategies
+  - /recipes/java-testcontainers-integration
+  - /recipes/java-junit5-assertions-soft
+  - /recipes/integration-testing-strategies
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - http
     - stub
     - recipe
+
+
 ---
 
 ## Overview
@@ -230,6 +234,9 @@ class SpringIntegrationTest {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Mock Network Requests with MSW](/recipes/javascript-msw-mock-service-worker/).
 
 - Use `dynamicPort()` — fixed ports cause conflicts when tests run in parallel
 - Store large response bodies in files under `__files/` — don't inline 500-line JSON in test code

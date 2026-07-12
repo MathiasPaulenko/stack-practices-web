@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: full-text-search-guide
 title: "Full-Text Search — Implement Search That Actually Works"
@@ -18,9 +24,13 @@ tags:
   - relevance
   - guide
 relatedResources:
-  - /guides/data/database-sharding-implementation-guide
-  - /guides/data/read-replica-guide
-  - /guides/data/caching-strategies-guide
+  - /guides/database-sharding-implementation-guide
+  - /guides/read-replica-guide
+  - /guides/caching-strategies-guide
+  - /guides/complete-guide-elasticsearch-cluster-setup
+  - /guides/complete-guide-postgresql-tuning
+  - /recipes/elasticsearch-aggregations
+  - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - indexing
     - relevance
     - guide
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -42,6 +58,9 @@ Full-text search transforms raw text into queryable, ranked results. Unlike simp
 The following walks through PostgreSQL built-in search, Elasticsearch for advanced use cases, query design, and production tuning.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/guides/complete-guide-sql-query-optimization/).
 
 - Users need to search across multiple text fields (title, description, tags, content)
 - `LIKE` queries take longer than 100ms on production data

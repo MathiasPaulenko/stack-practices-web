@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: write-large-files
 title: "Escribir Archivos Grandes"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/generate-pdfs
   - /recipes/stream-processing
   - /patterns/abstract-factory-pattern
+  - /recipes/compress-decompress-files
+  - /recipes/copy-move-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - io
+
+
+
 ---
 ## Visión General
 
@@ -390,6 +398,9 @@ stream_db_export() {
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Read Large Files](/es/recipes/read-large-files/).
 
 1. **Usa `fsync` o `force` para garantías de durabilidad.** Después de escribir datos críticos, fuerza al SO a volcar su page cache al disco físico. Sin esto, un corte de energía puede perder datos incluso después de un `write()` exitoso:
 

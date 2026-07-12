@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: data-breach-response-playbook
 title: "Data Breach Response Playbook"
@@ -15,9 +20,12 @@ tags:
   - compliance
   - privacy
 relatedResources:
-  - /docs/devops/postmortem-incident-review-template
-  - /docs/devops/incident-communication-template
-  - /docs/devops/access-control-review-template
+  - /docs/postmortem-incident-review-template
+  - /docs/incident-communication-template
+  - /docs/access-control-review-template
+  - /docs/disaster-recovery-test-plan
+  - /docs/encryption-key-lifecycle-template
+  - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - security breach
     - data privacy
     - breach notification
+
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +48,9 @@ seo:
 A data breach is not just a technical incident. It is a legal, reputational, and operational crisis. The first 24 hours determine whether the breach becomes a manageable incident or a headline. This playbook provides a structured response: contain the damage, preserve evidence, notify the right people, and remediate the root cause. It is designed to be used under pressure, with clear decision points and owner assignments.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Response: Structured Handling for Production](/guides/incident-response-guide/).
 
 Activate this playbook when:
 - Unauthorized access to sensitive data has been detected or suspected

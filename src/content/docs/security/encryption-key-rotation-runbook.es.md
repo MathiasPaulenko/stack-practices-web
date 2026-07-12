@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: encryption-key-rotation-runbook
 title: "Runbook de Rotación de Claves de Cifrado"
@@ -16,10 +19,11 @@ tags:
   - cryptography
   - infrastructure
 relatedResources:
-  - /docs/security/access-control-policy-template
-  - /docs/security/security-audit-checklist
-  - /docs/security/vulnerability-management-process-template
-  - /docs/security/incident-response-plan-template
+  - /docs/access-control-policy-template
+  - /docs/security-audit-checklist
+  - /docs/vulnerability-management-process-template
+  - /docs/incident-response-plan-template
+  - /docs/penetration-test-report-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - zero downtime
     - cryptography
     - security
+
+
+
 ---
 
 ## Overview
@@ -39,6 +46,9 @@ seo:
 Un encryption key rotation runbook define cómo rotatear encryption keys sin service disruption. Cubre key types, rotation schedules, dual-key migration procedures, verification steps y rollback plans. Key rotation limita el blast radius de un compromised key y es un requirement para most compliance frameworks.
 
 ## When to Use
+
+
+- For alternatives, see [Encryption at Rest: AES-256, KMS, Envelope Encryption](/es/guides/complete-guide-encryption-at-rest/).
 
 - Performiendo scheduled key rotation (quarterly, annual)
 - Rotateando keys después de un suspected compromise

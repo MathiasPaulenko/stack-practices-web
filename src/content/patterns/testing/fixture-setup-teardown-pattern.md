@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: fixture-setup-teardown-pattern
 title: "Fixture Setup/Teardown: Reusable Test Context Lifecycle"
@@ -30,6 +31,7 @@ seo:
     - teardown
     - test-context
     - pattern
+
 ---
 
 ## Overview
@@ -508,6 +510,9 @@ describe('Database migrations', () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Pytest in Production Guide](/guides/complete-guide-pytest-production/).
 
 - Keep fixtures small and focused — one fixture per concern
 - Use `yield` in pytest for guaranteed teardown — even if the test fails

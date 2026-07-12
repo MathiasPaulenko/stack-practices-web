@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: lock-free-queue-pattern
 title: "Lock-Free Queue Pattern"
@@ -17,9 +22,12 @@ tags:
   - cas
   - ring-buffer
 relatedResources:
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/thread-pool-pattern
-  - /patterns/design/reactive-streams-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/thread-pool-pattern
+  - /patterns/reactive-streams-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/distributed-lock-pattern
+  - /patterns/priority-queue-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - atomic operations concurrency
     - cas compare and swap queue
     - pattern design
+
+
+
+
+
 ---
 
 ## Overview
@@ -429,6 +442,9 @@ class BatchLockFreeQueue:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Actor Model Pattern](/patterns/actor-model-pattern/).
 
 1. **Pad data structures to avoid false sharing.** Cache line alignment prevents different threads from contending for the same cache line. Add padding between frequently accessed atomic variables:
 

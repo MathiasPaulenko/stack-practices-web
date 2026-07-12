@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: redis-distributed-lock
 title: "Locking distribuido con Redis y Redlock"
@@ -15,9 +19,11 @@ tags:
   - concurrency
   - mutual exclusion
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/redis-rate-limiting-token-bucket
-  - /patterns/concurrency/distributed-lock-pattern
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-rate-limiting-token-bucket
+  - /patterns/distributed-lock-pattern
+  - /guides/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - redis set nx
     - distributed mutex
     - redis concurrency
+
+
+
+
 ---
 
 # Locking distribuido con Redis y Redlock
@@ -35,6 +45,9 @@ seo:
 Los locks distribuidos aseguran que solo un proceso pueda acceder a un recurso a la vez entre multiples instancias de servidor. Redis hace esto posible con `SET key value NX PX ttl` — una operacion atomica que establece una clave solo si no existe, con una expiracion. Lo siguiente implementa un lock distribuido seguro con release automatico, renovacion de lock y el algoritmo Redlock para confiabilidad multi-nodo.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Python Asyncio](/es/guides/complete-guide-python-asyncio/).
 
 - Cron jobs o tareas programadas que deben ejecutarse en solo una instancia
 - Actualizar recursos compartidos donde escrituras concurrentes causan corrupcion

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: docker-image-hardening-checklist
 templateType: guideline
@@ -16,9 +19,10 @@ tags:
   - containerization
   - ci-cd
 relatedResources:
-  - /docs/devops/kubernetes-resource-quotas-template
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/security/owasp-top-10-remediation-checklist
+  - /docs/kubernetes-resource-quotas-template
+  - /docs/deployment-rollback-runbook
+  - /docs/owasp-top-10-remediation-checklist
+  - /docs/terraform-module-versioning-policy
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - container hardening
     - docker security
     - production containers
+
+
+
 ---
 
 ## Overview
@@ -474,3 +481,12 @@ Use multi-stage builds to copy only production artifacts into the final image. U
 ### What is image signing and why do I need it?
 
 Image signing verifies that an image was built by a trusted source and has not been tampered with. Tools like Cosign (Sigstore) or Notation (Notary v2) sign images with cryptographic keys. When a host pulls a signed image, it can verify the signature before running the container. This prevents running malicious images that may have been substituted in the registry. In a supply chain attack, an attacker could push a malicious image to your registry — image signing detects this. Use Cosign with OIDC (keyless signing) in CI for automatic signing. Enforce signature verification in your deployment platform (Kubernetes with Sigstore policy controller, or Docker Content Trust).
+
+## See Also
+
+- [Docker for Developers — A Complete Guide](/guides/docker-for-developers-guide/)
+- [Deploy Containers to AWS ECS with Fargate](/recipes/aws-ecs-fargate/)
+- [Container Image Security Scanning with Trivy](/recipes/container-security-scanning/)
+- [Docker Basics](/recipes/docker-basics/)
+- [Local Microservices Development with Docker Compose](/recipes/docker-compose-local-dev/)
+

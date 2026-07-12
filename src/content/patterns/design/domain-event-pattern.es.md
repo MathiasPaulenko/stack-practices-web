@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: domain-event-pattern
 title: "Patrón Domain Event"
@@ -17,9 +20,10 @@ tags:
   - decoupling
   - messaging
 relatedResources:
-  - /patterns/design/aggregate-pattern
-  - /patterns/design/outbox-pattern
-  - /patterns/design/event-bus-pattern
+  - /patterns/aggregate-pattern
+  - /patterns/outbox-pattern
+  - /patterns/event-bus-pattern
+  - /patterns/business-delegate-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +34,9 @@ seo:
     - event driven
     - ddd
     - decoupling
+
+
+
 ---
 
 # Patrón Domain Event
@@ -41,6 +48,9 @@ El Patrón Domain Event captura ocurrencias de negocio importantes dentro de un 
 Esto desacopla la lógica de negocio central de efectos secundarios como enviar emails, actualizar analytics o notificar servicios downstream. Los eventos de dominio también habilitan el event sourcing, donde el estado de un aggregate se reconstruye reproduciendo su historial de eventos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Event Bus Pattern](/es/patterns/event-bus-pattern/).
 
 Usa el Patrón Domain Event cuando:
 - Los efectos secundarios no deberían dispararse directamente por la lógica de negocio

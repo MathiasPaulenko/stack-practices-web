@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: kubernetes-resource-quotas-template
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - cluster-management
   - multi-tenant
 relatedResources:
-  - /docs/devops/docker-image-hardening-checklist
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/devops/terraform-module-versioning-policy
+  - /docs/docker-image-hardening-checklist
+  - /docs/deployment-rollback-runbook
+  - /docs/terraform-module-versioning-policy
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - cluster resource management
     - multi-tenant kubernetes
     - cpu memory quotas
+
+
 ---
 
 ## Overview
@@ -460,3 +464,12 @@ If a container in a pod does not specify resource requests, the LimitRange defau
 ### How do I implement quotas across multiple namespaces efficiently?
 
 Use a GitOps approach — define all quotas as YAML in a Git repository and apply them with a tool like ArgoCD or Flux. Create Kustomize overlays for each namespace with the appropriate tier. Use a namespace template that includes ResourceQuota, LimitRange, NetworkPolicy, and default ServiceAccount. Automate namespace provisioning with a self-service portal or CLI tool that creates the namespace and applies the standard resources. Monitor quota usage centrally with Prometheus and alert when teams approach their limits. Review quotas quarterly and adjust based on actual usage patterns.
+
+## See Also
+
+- [Complete Guide to GitOps with ArgoCD](/guides/complete-guide-gitops-argocd/)
+- [Kubernetes Config Management Guide](/guides/complete-guide-kubernetes-config-management/)
+- [Complete Guide to Kubernetes Networking](/guides/complete-guide-kubernetes-networking/)
+- [Kubernetes Basics for Application Developers](/guides/kubernetes-basics-guide/)
+- [Deploy Applications to Kubernetes with Helm Charts](/recipes/helm-chart-deployment/)
+

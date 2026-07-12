@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-react-server-components
 title: "Complete Guide to React Server Components: RSC Architecture"
@@ -16,8 +19,9 @@ tags:
   - streaming
   - frontend
 relatedResources:
-  - /guides/frontend/complete-guide-react-performance-optimization
-  - /guides/frontend/complete-guide-react-state-management
+  - /guides/complete-guide-react-performance-optimization
+  - /guides/complete-guide-react-state-management
+  - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -30,6 +34,9 @@ seo:
     - server actions
     - streaming
     - react 19
+
+
+
 ---
 
 ## Introduction
@@ -507,6 +514,9 @@ export default function NotFound() {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to React 19 Features](/guides/complete-guide-react-19-features/).
 
 - Default to Server Components — only add "use client" when you need interactivity
 - Keep client components small — push them to the leaves of the component tree

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 templateType: changelog
 slug: changelog-template
@@ -18,6 +21,9 @@ relatedResources:
   - /docs/contributing-guide
   - /docs/readme-template
   - /guides/cicd-pipeline-guide
+  - /recipes/chaos-engineering
+  - /recipes/pre-commit-hooks
+  - /docs/dependency-upgrade-template
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
@@ -28,6 +34,9 @@ seo:
     - notas de release
     - versionado semántico
     - historial de versiones
+
+
+
 ---
 
 ## Resumen

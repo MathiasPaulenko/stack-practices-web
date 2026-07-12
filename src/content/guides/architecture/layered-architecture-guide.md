@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: layered-architecture-guide
 title: "Layered Architecture — N-Tier Explained"
@@ -19,7 +22,8 @@ tags:
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/vertical-slice-architecture-guide
-  - /patterns/design/repository-pattern
+  - /patterns/repository-pattern
+  - /guides/clean-architecture-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - presentation-layer
     - business-logic-layer
     - guide
+
+
+
 ---
 
 ## Overview
@@ -38,6 +45,9 @@ seo:
 Layered Architecture (also called N-Tier) is the most common architectural pattern in enterprise applications. It divides the application into horizontal layers, each with a specific responsibility. The classic three-tier model separates Presentation, Business Logic, and Data Access. This separation makes the system easier to understand, test, and maintain — though it can also introduce unnecessary abstraction if over-applied.
 
 ## When to Use
+
+
+- For alternatives, see [Clean Architecture](/guides/clean-architecture-guide/).
 
 - Building traditional enterprise web or desktop applications
 - Team structure mirrors technical specialization (frontend, backend, DB)

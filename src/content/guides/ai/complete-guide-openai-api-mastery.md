@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-openai-api-mastery
 title: "Complete Guide to OpenAI API Mastery"
@@ -19,9 +23,11 @@ tags:
   - fine-tuning
   - streaming
 relatedResources:
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-llm-cost-optimization
-  - /guides/ai/complete-guide-llm-evaluation
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-llm-cost-optimization
+  - /guides/complete-guide-llm-evaluation
+  - /recipes/python-huggingface-text-classification
+  - /guides/api-rate-limiting-guide
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +41,10 @@ seo:
     - fine-tuning openai
     - batch api
     - assistants api
+
+
+
+
 ---
 
 ## Introduction
@@ -738,3 +748,12 @@ Use models with large context windows (gpt-4o supports 128K tokens). For RAG, re
 ### Can I use the OpenAI API in Europe under GDPR?
 
 Yes, but you need a Data Processing Agreement (DPA) with OpenAI. Do not send personal data (PII) to the API without proper legal basis. Use the API for processing non-personal data or anonymized data. For personal data, implement data minimization, get user consent, and consider European data residency options.
+
+## See Also
+
+- [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Cost Optimization](/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to LLM Evaluation](/guides/complete-guide-llm-evaluation/)
+- [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses/)
+- [API Rate Limiting — Design Fair and Useful Throttling](/guides/api-rate-limiting-guide/)
+

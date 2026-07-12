@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-refactoring-techniques
 title: "Refactoring Guide: Extract Method, Replace Conditional,"
@@ -17,9 +19,9 @@ tags:
   - technical-debt
   - best-practices
 relatedResources:
-  - /guides/code-quality/complete-guide-clean-code-principles
-  - /guides/code-quality/complete-guide-technical-debt-management
-  - /guides/code-quality/complete-guide-code-review-best-practices
+  - /guides/complete-guide-clean-code-principles
+  - /guides/complete-guide-technical-debt-management
+  - /guides/complete-guide-code-review-best-practices
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -33,6 +35,8 @@ seo:
     - extract class
     - rename
     - safe refactoring
+
+
 ---
 
 ## Introduction
@@ -418,6 +422,9 @@ function getPayment(employee: Employee): number {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Clean Code: Naming, Functions, Classes, Comments](/guides/complete-guide-clean-code-principles/).
 
 - Refactor in small steps — one change at a time, run tests after each
 - Keep tests green — if tests break, you're changing behavior, not just structure

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: execute-raw-sql
 title: "Ejecutar SQL Crudo"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/connect-to-redis
   - /recipes/escape-html-entities
   - /recipes/sanitize-user-input
+  - /recipes/use-orm-crud
+  - /guides/sql-joins-guide
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Visión General
 
 Incluso con ORMs, SQL crudo a veces es necesario para consultas complejas, migraciones o optimización de rendimiento. Sin embargo, ejecutar SQL sin salvaguardas es una causa principal de vulnerabilidades de inyección SQL. Cómo ejecutar SQL de forma segura usando consultas parametrizadas en Python, JavaScript y Java.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Connect to MySQL](/es/recipes/connect-to-mysql/).
 
 Usa este recurso cuando:
 - Escribes consultas analíticas complejas que los ORMs no pueden expresar eficientemente

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-react-19-features
 title: "Complete Guide to React 19 Features"
@@ -19,9 +21,9 @@ tags:
   - react-compiler
   - use-hook
 relatedResources:
-  - /guides/frontend/complete-guide-web-performance-core-web-vitals
-  - /guides/frontend/complete-guide-bundle-size-optimization
-  - /guides/frontend/complete-guide-css-grid-and-flexbox
+  - /guides/complete-guide-web-performance-core-web-vitals
+  - /guides/complete-guide-bundle-size-optimization
+  - /guides/complete-guide-css-grid-and-flexbox
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +37,8 @@ seo:
     - useoptimistic
     - react compiler
     - form actions
+
+
 ---
 
 ## Introduction
@@ -611,3 +615,12 @@ Server Components require a framework (Next.js, Remix, or a custom RSC setup) be
 ### How do I migrate from forwardRef to ref-as-prop?
 
 Remove the `forwardRef` wrapper and add `ref` to the component's props. Change `React.forwardRef<RefType, Props>((props, ref) => ...)` to `function Component({ ref, ...props }: Props & { ref?: Ref<RefType> })`. The `npx react-codemod` tool can automate this migration. Test that all parent components passing refs still work — the API is backward compatible since `ref` was already being passed, it is just now accessible as a regular prop.
+
+## See Also
+
+- [Complete Guide to React Performance Optimization](/guides/complete-guide-react-performance-optimization/)
+- [Complete Guide to Bundle Size Optimization](/guides/complete-guide-bundle-size-optimization/)
+- [Complete Guide to Web Performance and Core Web Vitals](/guides/complete-guide-web-performance-core-web-vitals/)
+- [SPA Performance: Code Splitting and Lazy Loading](/recipes/spa-code-splitting-lazy/)
+- [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/)
+

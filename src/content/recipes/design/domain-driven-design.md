@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: domain-driven-design
 title: "Model Complex Business Domains with Domain-Driven Design"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/event-driven-functions
   - /recipes/api-contract-testing
   - /recipes/database-migrations
+  - /recipes/observer-pattern-recipe
+  - /recipes/cqrs-pattern-recipe
+  - /recipes/factory-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - aggregates ddd
     - value objects
     - domain events
+
+
+
 ---
 
 ## Overview

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: background-jobs
 title: "Tareas en Segundo Plano (Background Jobs)"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/health-check-endpoint
   - /patterns/command-pattern
   - /patterns/abstract-factory-pattern
+  - /recipes/setup-ci-gitlab-pipelines
+  - /recipes/traffic-mirroring
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - bullmq javascript queue
     - scheduled executor java
     - workers redis tasks
+
+
 ---
 ## Visión General
 

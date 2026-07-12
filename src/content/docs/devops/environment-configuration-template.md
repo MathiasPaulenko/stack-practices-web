@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: environment-configuration-template
 title: "Environment Configuration Template"
@@ -16,8 +22,12 @@ tags:
   - deployment
 relatedResources:
   - /docs/runbook-template
-  - /docs/devops/deployment-checklist-template
-  - /docs/devops/cloud-resource-tagging-policy-template
+  - /docs/deployment-checklist-template
+  - /docs/cloud-resource-tagging-policy-template
+  - /docs/zero-downtime-deployment-checklist
+  - /recipes/istio-canary-deployment
+  - /patterns/external-configuration-store-pattern
+  - /guides/canary-deployment-guide
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - environment settings document
     - deployment configuration template
     - per environment configuration
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +51,9 @@ seo:
 Every application runs in multiple environments such as development, staging, and production. Each environment has its own configuration, endpoints, secrets, and infrastructure settings. This template helps teams document those settings in one place, making onboarding, debugging, and disaster recovery easier.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/guides/blue-green-deployment-guide/).
 
 - Setting up a new application or service.
 - Onboarding a new team member or contractor.

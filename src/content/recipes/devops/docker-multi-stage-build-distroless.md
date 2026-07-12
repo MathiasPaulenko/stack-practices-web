@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-multi-stage-build-distroless
 title: "Slim Production Images with Multi-Stage Docker Builds"
@@ -16,9 +20,11 @@ tags:
   - optimization
   - recipe
 relatedResources:
-  - /recipes/devops/github-actions-reusable-workflows
-  - /recipes/devops/docker-compose-override-environments
-  - /recipes/devops/kubernetes-helm-chart-templating
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/docker-compose-override-environments
+  - /recipes/kubernetes-helm-chart-templating
+  - /recipes/setup-ssl-certificates
+  - /recipes/github-actions-matrix-strategy
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +37,10 @@ seo:
     - security
     - optimization
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -359,6 +369,9 @@ ENTRYPOINT ["/server"]
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Docker in Production](/guides/complete-guide-docker-production/).
 
 - Use `CGO_ENABLED=0` for Go — produces static binaries that work with distroless/static
 - Strip binaries with `-ldflags="-s -w"` — removes debug info, reduces size by ~30%

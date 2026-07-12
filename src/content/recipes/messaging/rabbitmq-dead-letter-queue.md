@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: rabbitmq-dead-letter-queue
 title: "Configure Dead-Letter Queues in RabbitMQ for Failed Messages"
@@ -16,8 +18,8 @@ tags:
   - message-queue
   - error-handling
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/python-celery-task-queue
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
@@ -30,6 +32,8 @@ seo:
     - rabbitmq message ttl
     - rabbitmq retry pattern
     - rabbitmq error handling
+
+
 ---
 
 ## Overview
@@ -367,6 +371,9 @@ channel.queue_declare(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Build a RabbitMQ Consumer with Python and Pika](/recipes/rabbitmq-python-pika-consumer/).
 
 - **Always configure DLQ for critical queues**: Without a DLQ, rejected messages are lost. Always set `x-dead-letter-exchange` on important queues.
 - **Use separate DLQ per queue**: Don't share one DLQ across multiple queues. It makes debugging harder. Name them `<queue>.dlq`.

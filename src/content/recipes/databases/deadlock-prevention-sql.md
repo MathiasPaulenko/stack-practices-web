@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: deadlock-prevention-sql
 title: "Prevent and Resolve Deadlocks in SQL Transactions"
@@ -15,8 +19,11 @@ tags:
   - concurrency
   - databases
 relatedResources:
-  - /recipes/databases/acid-transactions-postgres
-  - /recipes/databases/postgres-query-optimization
+  - /recipes/acid-transactions-postgres
+  - /recipes/postgres-query-optimization
+  - /recipes/database-deadlocks-retries
+  - /recipes/optimistic-locking
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - concurrent transactions
     - lock ordering
     - retry logic
+
+
+
+
 ---
 
 # Prevent and Resolve Deadlocks in SQL Transactions

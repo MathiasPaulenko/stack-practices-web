@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: react-virtual-list-react-window
 title: "Virtualizar Listas Largas con react-window"
@@ -15,9 +17,9 @@ tags:
   - react-window
   - recipe
 relatedResources:
-  - /recipes/frontend/react-usememo-usecallback-performance
-  - /recipes/frontend/react-form-react-hook-form-validation
-  - /recipes/frontend/css-container-queries-responsive
+  - /recipes/react-usememo-usecallback-performance
+  - /recipes/react-form-react-hook-form-validation
+  - /recipes/css-container-queries-responsive
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - virtualization
     - react-window
     - recipe
+
+
 ---
 
 ## Overview
@@ -383,6 +387,9 @@ function OptimizedList({ items }) {
 Pasa data vía prop `itemData` — react-window la pasa a cada fila. Combinado con `memo`, previene re-renders innecesarios cuando la lista scrollea.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to React Performance Optimization](/es/guides/complete-guide-react-performance-optimization/).
 
 - Usa `FixedSizeList` cuando todas las filas tienen la misma altura — es más rápido y simple
 - Usa `VariableSizeList` solo cuando las alturas varían — debes proveer una función `getItemSize`

@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: dead-letter-queue
 title: "Dead Letter Queues"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/rabbitmq-task-queue
   - /docs/api-error-response-template
   - /patterns/bulkhead-pattern
+  - /recipes/message-idempotency
+  - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - messaging
     - resilience
     - error-handling
+
+
 ---
 ## Overview
 

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: architecture-decision-record-adr-template
 title: "Plantilla de Architecture Decision Record (ADR)"
@@ -15,8 +17,8 @@ tags:
   - decision-making
   - technical-planning
 relatedResources:
-  - /docs/devops/feature-specification-template
-  - /docs/devops/engineering-handbook-template
+  - /docs/feature-specification-template
+  - /docs/engineering-handbook-template
   - /docs/system-diagram-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
@@ -28,6 +30,8 @@ seo:
     - documentacion de decisiones tecnicas
     - razonamiento de arquitectura
     - registro de decisiones
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +39,9 @@ seo:
 Cada decision arquitectonica mayor crea contexto que se desvanece en meses. Por que elegimos PostgreSQL sobre MongoDB? Por que el service mesh es Envoy y no Linkerd? Por que shard por tenant ID? Sin registros escritos, nuevos ingenieros re-litigan viejas decisiones, equipos repiten enfoques rechazados, y managers hacen planes que entran en conflicto con restricciones tecnicas. Un Architecture Decision Record (ADR) es un documento unico que captura el contexto, opciones, trade-offs, y consecuencias de una eleccion tecnica mayor.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Engineering Handbook Template](/es/docs/engineering-handbook-template/).
 
 Usa esta plantilla cuando:
 - Una decision afecta a mas de un equipo o servicio

@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: nodejs-oauth2-github-login
 title: "Node.js OAuth2 GitHub Login with Express"
@@ -31,6 +32,7 @@ seo:
     - oauth2 authorization code
     - nodejs social login
     - github oauth flow
+
 ---
 
 ## Overview
@@ -38,6 +40,9 @@ seo:
 OAuth2 GitHub login lets users authenticate with their GitHub account instead of creating a new password. The solution below covers the authorization code flow with Passport.js, manual implementation without Passport, state parameter for CSRF protection, and session management in Express.
 
 ## When to Use
+
+
+- For alternatives, see [Node.js JWT Authentication: Verify and Refresh Tokens](/recipes/nodejs-jwt-authentication/).
 
 - You want to let users log in with GitHub instead of managing passwords
 - You are building a developer tool where users already have GitHub accounts

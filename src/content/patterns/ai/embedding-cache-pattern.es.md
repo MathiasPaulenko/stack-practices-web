@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: embedding-cache-pattern
 title: "Patrón Embedding Cache"
@@ -17,9 +21,11 @@ tags:
   - caching
   - busqueda-vectorial
 relatedResources:
-  - /patterns/ai/rag-hybrid-search-pattern
-  - /recipes/ai/python-openai-embeddings-cosine
-  - /recipes/ai/python-vector-database-pinecone
+  - /patterns/rag-hybrid-search-pattern
+  - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-vector-database-pinecone
+  - /patterns/llm-router-pattern
+  - /guides/complete-guide-llm-cost-optimization
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +38,10 @@ seo:
     - cache vectorial
     - hash contenido embedding
     - reducir llamadas api embedding
+
+
+
+
 ---
 
 # Patrón Embedding Cache
@@ -43,6 +53,9 @@ Generar embeddings via API (OpenAI, Cohere, HuggingFace) cuesta dinero por reque
 La clave del cache combina un hash de contenido (SHA-256 del texto) con el nombre y version del modelo. Esto asegura que cambiar de modelo de embedding invalide el cache automaticamente, previniendo que se sirvan embeddings stale de un modelo diferente.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/).
 
 Usa el patrón Embedding Cache cuando:
 - Tu pipeline RAG re-embedde los mismos documentos en cada query o refresh del indice

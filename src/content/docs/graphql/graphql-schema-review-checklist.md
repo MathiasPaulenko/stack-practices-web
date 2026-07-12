@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: graphql-schema-review-checklist
 templateType: post-deployment-checklist
@@ -16,9 +19,10 @@ tags:
   - performance
   - security
 relatedResources:
-  - /docs/ai/graphql-api-design-guideline
-  - /docs/ai/graphql-deprecation-policy-template
-  - /guides/architecture/complete-guide-graphql-federation
+  - /docs/graphql-api-design-guideline
+  - /docs/graphql-deprecation-policy-template
+  - /guides/complete-guide-graphql-federation
+  - /docs/graphql-federation-onboarding-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - graphql security
     - graphql performance
     - graphql federation
+
+
+
 ---
 
 ## Overview
@@ -441,3 +448,12 @@ Use DataLoader for every resolver that fetches related data. DataLoader batches 
 ### What should I check before enabling federation?
 
 Ensure every entity type has a `@key` directive with a field that uniquely identifies it across subgraphs. Implement `__resolveReference` for each entity. Verify no circular dependencies exist between subgraphs (Subgraph A extends a type from Subgraph B which extends a type from Subgraph A). Ensure custom scalars and enums are defined identically in all subgraphs that use them. Test the composed schema with `rover supergraph compose` before deploying.
+
+## See Also
+
+- [Complete Guide to GraphQL Schema Design](/guides/complete-guide-graphql-schema-design/)
+- [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/)
+- [Batch and Cache Database Queries with GraphQL DataLoader](/recipes/graphql-dataloader-batching/)
+- [Field-Level Auth with Custom GraphQL Schema Directives](/recipes/graphql-directives-auth/)
+- [Validate and Sanitize GraphQL Input Types Server-Side](/recipes/graphql-input-validation/)
+

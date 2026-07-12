@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: sla-definition-template
 title: "Plantilla de Definicion de SLA"
@@ -17,10 +22,13 @@ tags:
   - sre
   - plantilla
 relatedResources:
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/performance-regression-template
-  - /docs/devops/auto-scaling-policy-template
-  - /docs/devops/downtime-communication-template
+  - /docs/escalation-policy-template
+  - /docs/performance-regression-template
+  - /docs/auto-scaling-policy-template
+  - /docs/downtime-communication-template
+  - /docs/api-changelog-template
+  - /docs/api-deprecation-notice-template
+  - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -32,6 +40,11 @@ seo:
     - disponibilidad
     - presupuesto de error
     - sre
+
+
+
+
+
 ---
 
 ## Resumen
@@ -39,6 +52,9 @@ seo:
 Un SLA sin presupuesto de error es solo una promesa que eventualmente romperas. Los equipos de ingenieria necesitan objetivos medibles concretos que equilibren confiabilidad y velocidad. Esta plantilla define compromisos de uptime, latencia y tasa de error — mas los presupuestos de error que permiten a los equipos lanzar cambios mientras respetan esos compromisos.
 
 ## Cuando Usar
+
+
+- For alternatives, see [API Status Page Template](/es/docs/api-status-page-template/).
 
 Usa este recurso cuando:
 - Lances un servicio de produccion del que dependen consumidores externos

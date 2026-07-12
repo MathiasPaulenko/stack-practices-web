@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: python-excel-read-write
 title: "Leer y Escribir Archivos Excel con Python"
@@ -30,6 +31,7 @@ seo:
     - pandas to_excel
     - escribir xlsx python
     - python excel automation
+
 ---
 ## Visión General
 
@@ -290,6 +292,9 @@ ead_only=True o la API streaming de openpyxl para workbooks grandes
 - **csvkit**: herramientas command-line para archivos CSV. csvstat muestra estadisticas, csvcut selecciona columnas, csvjoin mergea archivos. Util para exploracion rapida sin escribir scripts Python
 
 ## Resumen de Best Practices
+
+
+- For a deeper guide, see [Parse CSV Files with Python and Pandas](/es/recipes/parse-csv-python-pandas/).
 
 - Siempre especifica encoding explicitamente (encoding='utf-8'). Nunca confies en defaults del sistema
 - Usa lectura en chunks para archivos >500MB. Setea chunksize en pandas o itera line-by-line

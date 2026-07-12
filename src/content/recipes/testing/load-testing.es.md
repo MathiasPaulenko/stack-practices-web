@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: load-testing
 title: "Realizar Load Testing en APIs"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/integration-testing
   - /recipes/rate-limiting
   - /recipes/connection-pooling
+  - /recipes/load-testing-k6
+  - /recipes/unit-testing-mocking
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - stress testing
     - scalability testing
     - performance benchmarks
+
+
 ---
 
 ## Visión general

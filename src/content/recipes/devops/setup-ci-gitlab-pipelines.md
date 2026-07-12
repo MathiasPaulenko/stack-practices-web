@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: setup-ci-gitlab-pipelines
 title: "Setup CI with GitLab Pipelines"
@@ -18,6 +22,9 @@ relatedResources:
   - /recipes/github-actions
   - /recipes/docker-basics
   - /recipes/environment-variables
+  - /recipes/aws-ecs-fargate
+  - /recipes/background-jobs
+  - /guides/complete-guide-ci-cd-github-actions
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +38,10 @@ seo:
     - automation
     - devops
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -426,6 +437,9 @@ test:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CI/CD with GitHub Actions](/guides/complete-guide-ci-cd-github-actions/).
 
 7. **Use `needs` for DAG pipelines.** Jobs with `needs` can start immediately without waiting for the entire stage:
 

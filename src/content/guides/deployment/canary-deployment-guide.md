@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: canary-deployment-guide
 title: "Canary Deployment: Gradual Rollouts with Safety Controls"
@@ -18,11 +22,13 @@ tags:
   - feature-flags
   - guide
 relatedResources:
-  - /guides/deployment/blue-green-deployment-guide
-  - /guides/deployment/feature-flags-guide
-  - /guides/deployment/a-b-testing-guide
-  - /guides/devops/sre-practices-guide
+  - /guides/blue-green-deployment-guide
+  - /guides/feature-flags-guide
+  - /guides/a-b-testing-guide
+  - /guides/sre-practices-guide
   - /guides/observability-guide
+  - /guides/cost-optimization-cloud-guide
+  - /docs/environment-configuration-template
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - rollback
     - feature-flags
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +54,9 @@ Canary deployment releases a new version to a small subset of users first, then 
 The following guide covers traffic splitting, health metrics, automated promotion, and rollback strategies.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/guides/blue-green-deployment-guide/).
 
 - You want to reduce risk when deploying new capabilities
 - Your service has enough traffic to get meaningful metrics from 1-5% of users

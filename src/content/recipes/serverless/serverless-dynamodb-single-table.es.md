@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: serverless-dynamodb-single-table
 title: "Disenar un Schema Single-Table de DynamoDB para Apps"
@@ -16,10 +21,13 @@ tags:
   - aws
   - serverless
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/aws-lambda-cold-start-optimization
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/aws-lambda-cold-start-optimization
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-mobile-responsive-design
+  - /recipes/serverless-event-driven-sqs-lambda
+  - /recipes/serverless-step-functions-workflow
+  - /patterns/serverless-event-sourcing-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - nosql access patterns
     - dynamodb gsi
     - serverless dynamodb python
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 El diseno single-table de DynamoDB pone todas las entidades (usuarios, ordenes, productos) en una tabla usando composite keys (PK + SK) y GSIs para satisfacer todos los access patterns. Esto contrasta con el diseno relacional (una tabla por entidad) y es contraintuitivo, pero minimiza lecturas, reduce costos y habilita agregaciones de una sola query. A continuacion: disenar access patterns, construir composite keys, usar GSIs y consultar con Python/boto3.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Serverless Databases](/es/guides/complete-guide-serverless-databases/).
 
 - Aplicaciones serverless en AWS que necesitan almacenamiento NoSQL
 - Workloads con access patterns conocidos (listalos antes de disenar)

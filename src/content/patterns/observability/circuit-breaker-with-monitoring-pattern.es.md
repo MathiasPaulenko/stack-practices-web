@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: circuit-breaker-with-monitoring-pattern
 title: "Circuit Breaker con Monitoring"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/health-check-pattern
   - /patterns/metrics-aggregation-pattern
   - /patterns/structured-logging-pattern
+  - /guides/complete-guide-observability-grafana-stack
+  - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +35,9 @@ seo:
     - prometheus
     - alerting
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -595,6 +603,9 @@ monitor.register("user-service", "/api/users")
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
 
 - Exponé state como un gauge — 0 (closed), 1 (open), 2 (half-open). Esto permite alerting en specific states.
 - Trackeá transitions separadamente — contá state changes para detect flapping breakers.

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: database-design-guide
 title: "Database Design Guide"
@@ -18,6 +22,10 @@ relatedResources:
   - /recipes/sql-joins
   - /recipes/database-transactions
   - /patterns/repository-pattern
+  - /recipes/acid-transactions-postgres
+  - /recipes/database-views-materialized
+  - /recipes/elasticsearch-aggregations
+  - /recipes/mongodb-crud-mongoose
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,10 @@ seo:
     - relational databases
     - schema design
     - ER diagrams
+
+
+
+
 ---
 
 ## Introduction

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-ssh-key-manager
 title: "SSH Key Management in Bash"
@@ -20,6 +22,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /guides/api-security-checklist-guide
   - /guides/security-best-practices-guide
+  - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -31,6 +34,8 @@ seo:
     - security
     - authentication
     - automation
+
+
 ---
 ## Overview
 
@@ -382,6 +387,9 @@ echo "Rotation complete for $(wc -l < "$MANIFEST") servers"
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/).
 
 1. **Use `IdentitiesOnly yes` in SSH config.** Without this, SSH tries all keys in `~/.ssh/` for every connection. This can trigger max auth attempts on servers with many keys:
 

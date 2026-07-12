@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: static-content-hosting-pattern
 title: "Patron de Hosting de Contenido Estatico"
@@ -19,8 +24,11 @@ tags:
   - almacenamiento-de-objetos
   - frontend
 relatedResources:
-  - /patterns/design/content-delivery-network-pattern
-  - /patterns/design/sharding-pattern
+  - /patterns/content-delivery-network-pattern
+  - /patterns/sharding-pattern
+  - /patterns/pipes-and-filters-pattern
+  - /patterns/back-pressure-pattern
+  - /patterns/backend-for-frontend-pattern
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - cloudfront
     - almacenamiento de objetos
     - frontend
+
+
+
+
+
 ---
 
 # Patron de Hosting de Contenido Estatico
@@ -44,6 +57,9 @@ El Patron de Hosting de Contenido Estatico despliega archivos estaticos en almac
 Al separarlos de la logica de aplicacion en tiempo real, el servidor origen se enfoca en logica de negocio mientras la CDN maneja contenido de alto volumen y cacheable.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Content Delivery Network (CDN) Pattern](/es/patterns/content-delivery-network-pattern/).
 
 - Servir imagenes, videos, documentos o archivos binarios grandes
 - Hosting de sitios web estaticos

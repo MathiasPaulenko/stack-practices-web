@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: cache-eviction-policy-template
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - memory-management
   - configuration
 relatedResources:
-  - /docs/caching/cache-strategy-decision-template
-  - /docs/caching/cache-warmup-runbook
-  - /docs/caching/cdn-cache-rules-template
+  - /docs/cache-strategy-decision-template
+  - /docs/cache-warmup-runbook
+  - /docs/cdn-cache-rules-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - redis eviction
     - memory management
     - cache configuration
+
+
 ---
 
 ## Overview
@@ -365,3 +369,12 @@ Si. Usa different Redis databases (db 0, db 1, etc.) o separate instances para d
 ### ¿Cómo estimo el right cache size?
 
 Measurea tu working set — los keys que son accessed dentro de un typical time window. Empeza con un cache size que fittee 120% del working set. Monitora eviction rate y hit ratio por one week. Si hit ratio es below 90% y evictions son high, increase el size. Si hit ratio es above 95% y memory usage es below 60%, decrease el size para save costs. Usa Redis MEMORY USAGE en sampled keys para estimate average key size.
+
+## See Also
+
+- [Complete Guide to Application-Level Caching](/es/guides/complete-guide-application-level-caching/)
+- [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/)
+- [Complete Guide to Redis in Production](/es/guides/complete-guide-redis-production/)
+- [Cache Invalidation Pattern](/es/patterns/cache-invalidation-pattern/)
+- [Cache Stampede Prevention Pattern](/es/patterns/cache-stampede-prevention-pattern/)
+

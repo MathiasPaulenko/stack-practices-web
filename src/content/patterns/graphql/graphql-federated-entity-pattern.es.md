@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: graphql-federated-entity-pattern
 title: "Patron GraphQL Federated Entity"
@@ -19,9 +24,12 @@ tags:
   - typescript
   - schema-design
 relatedResources:
-  - /patterns/graphql/graphql-schema-stitching-pattern
-  - /patterns/graphql/graphql-connection-pagination-pattern
-  - /recipes/graphql/graphql-federation-gateway-setup
+  - /patterns/graphql-schema-stitching-pattern
+  - /patterns/graphql-connection-pagination-pattern
+  - /recipes/graphql-federation-gateway-setup
+  - /patterns/graphql-mutation-validation-pattern
+  - /docs/graphql-federation-onboarding-template
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +41,11 @@ seo:
     - graphql entity resolution
     - "@key directive graphql"
     - graphql microservices pattern
+
+
+
+
+
 ---
 
 # Patron GraphQL Federated Entity
@@ -44,6 +57,9 @@ En Apollo Federation, una entidad es un object type compartido entre multiples s
 Las entidades son los bloques de construccion de un grafo federado. Usan la directiva `@key` para declarar una primary key, `@extends` para anadir campos desde otro subgrafo, y `@external` para referenciar campos gestionados por otros servicios. El gateway resuelve entidades llamando al campo `_entities` de cada subgrafo con las keys apropiadas.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [GraphQL Connection Pagination Pattern](/es/patterns/graphql-connection-pagination-pattern/).
 
 - Multiples servicios gestionan diferentes campos de la misma entidad de dominio (ej. User tiene perfil en un servicio, ordenes en otro)
 - Estas construyendo una arquitectura de microservicios con GraphQL

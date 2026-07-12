@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: typescript-eslint-strict-config
 title: "Strict TypeScript ESLint Configuration for Production"
@@ -15,9 +18,10 @@ tags:
   - code-quality
   - recipe
 relatedResources:
-  - /recipes/security/nodejs-eslint-security-plugin
-  - /recipes/security/python-mypy-strict-type-checking
-  - /recipes/devops/github-actions-reusable-workflows
+  - /recipes/nodejs-eslint-security-plugin
+  - /recipes/python-mypy-strict-type-checking
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/java-spotbugs-static-analysis
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - type-checking
     - code-quality
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -449,6 +456,9 @@ export default tseslint.config(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Enforce Security Rules in Node.js with](/recipes/nodejs-eslint-security-plugin/).
 
 - Use `strictTypeChecked` for new projects — catches the most bugs
 - Use `strict` (without type-aware) for faster CI — when build time matters

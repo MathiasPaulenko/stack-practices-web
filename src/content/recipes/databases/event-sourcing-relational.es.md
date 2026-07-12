@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: event-sourcing-relational
 title: "Implementar event sourcing en una base de datos relacional"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/full-text-search
   - /patterns/event-sourcing-pattern
   - /docs/database-migration-runbook-template
+  - /recipes/caching-redis
+  - /recipes/database-migrations-safely
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - snapshotting
     - postgresql
     - relacional
+
+
 ---
 # Implementar event sourcing en una base de datos relacional
 

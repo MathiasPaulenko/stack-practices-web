@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: ai-rag-evaluation-checklist
 templateType: post-deployment-checklist
@@ -17,9 +21,11 @@ tags:
   - retrieval
   - quality-assurance
 relatedResources:
-  - /docs/ai/ai-llm-prompt-template-library
-  - /docs/ai/ai-data-preparation-checklist
-  - /guides/ai/complete-guide-rag-production
+  - /docs/ai-llm-prompt-template-library
+  - /docs/ai-data-preparation-checklist
+  - /guides/complete-guide-rag-production
+  - /docs/ai-llm-incident-response-runbook
+  - /docs/ai-prompt-version-control-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +38,10 @@ seo:
     - context relevance
     - answer correctness
     - rag metrics
+
+
+
+
 ---
 
 ## Overview
@@ -389,3 +399,12 @@ Low faithfulness significa que el LLM esta generando claims no supported por el 
 ### ¿Cómo evaluo multi-hop reasoning en RAG?
 
 Multi-hop queries requireen chaining information desde multiple chunks. Crea test queries donde el answer requiree combining facts desde 2-3 different sources. Evalua si el retrieval system returnea all necessary chunks y si el generation step correctly synthesizea los. Trackea multi-hop accuracy separately de single-hop accuracy — es tipicamente harder de get right.
+
+## See Also
+
+- [Complete Guide to LLM Prompt Engineering](/es/guides/complete-guide-llm-prompt-engineering/)
+- [AI Data Preparation Checklist](/es/docs/ai-data-preparation-checklist/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to RAG in Production](/es/guides/complete-guide-rag-production/)
+- [AI Prompt Version Control Template](/es/docs/ai-prompt-version-control-template/)
+

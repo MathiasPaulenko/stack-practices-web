@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: infrastructure-as-code-guide
 title: "Infrastructure as Code — Terraform y Pulumi"
@@ -14,9 +19,13 @@ tags:
   - pulumi
   - terraform
 relatedResources:
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/devops/docker-for-developers-guide
-  - /guides/devops/kubernetes-basics-guide
+  - /guides/cicd-pipeline-guide
+  - /guides/docker-for-developers-guide
+  - /guides/kubernetes-basics-guide
+  - /recipes/aws-ecs-fargate
+  - /recipes/bash-scripting-automation
+  - /recipes/istio-canary-deployment
+  - /recipes/python-terraform-provider-custom
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +36,11 @@ seo:
     - lo que funciona iac
     - manejo estado terraform
     - infraestructura declarativa
+
+
+
+
+
 ---
 
 # Infrastructure as Code — Terraform y Pulumi

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: access-control-review-template
 title: "Access Control Review Template"
@@ -15,9 +21,13 @@ tags:
   - identity
   - compliance
 relatedResources:
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/user-access-audit-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/rbac-policy-template
+  - /docs/user-access-audit-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/vulnerability-scan-report-template
+  - /docs/compliance-gap-analysis-template
+  - /docs/data-breach-response-playbook
+  - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - least privilege
     - role attestation
     - identity review
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -258,6 +274,9 @@ kubectl get serviceaccounts --all-namespaces -o json | \
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Compliance Gap Analysis Template](/docs/compliance-gap-analysis-template/).
 
 1. **Implement just-in-time access for privileged operations.** Instead of granting permanent admin access, use just-in-time elevation with approval and time limits. This reduces the attack surface and creates an auditable trail:
 

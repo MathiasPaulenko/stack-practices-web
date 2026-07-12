@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: blue-green-deployment-pattern
 title: "Blue-Green Deployment Pattern"
@@ -17,9 +19,9 @@ tags:
   - rollback
   - release
 relatedResources:
-  - /patterns/design/canary-release-pattern
-  - /patterns/design/deployment-ring-pattern
-  - /patterns/design/graceful-degradation-pattern
+  - /patterns/canary-release-pattern
+  - /patterns/deployment-ring-pattern
+  - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - instant rollback
     - release pattern
     - blue green switch
+
+
 ---
 
 # Blue-Green Deployment Pattern
@@ -43,6 +47,9 @@ The Blue-Green Deployment Pattern maintains two identical production environment
 If something goes wrong, you flip the router back to the previous environment. No redeployment, no waiting for builds. The old version is still running and ready to serve traffic immediately. This makes rollback as simple as a DNS change or load balancer switch.
 
 ## When to Use
+
+
+- For alternatives, see [Canary Release Pattern](/patterns/canary-release-pattern/).
 
 Use the Blue-Green Deployment Pattern when:
 - You need zero-downtime deployments for a stateless service

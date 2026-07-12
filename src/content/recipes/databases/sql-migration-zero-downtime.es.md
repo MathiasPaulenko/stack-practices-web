@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: sql-migration-zero-downtime
 title: "Migración de columnas sin downtime"
@@ -19,6 +21,7 @@ relatedResources:
   - /recipes/sql-index-optimization-analysis
   - /recipes/sql-partitioning-strategies
   - /recipes/sql-recursive-cte-query
+  - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +32,8 @@ seo:
     - migración
     - esquema
     - zero-downtime
+
+
 ---
 
 
@@ -37,6 +42,9 @@ seo:
 Renombrar una columna o cambiar su tipo en una tabla ocupada es riesgoso porque `ALTER TABLE` puede adquirir un bloqueo exclusivo y bloquear lecturas y escrituras por minutos u horas. Las migraciones sin downtime evitan esto agregando una nueva columna, rellenando datos incrementalmente, sincronizando escrituras con triggers o vistas, y luego cambiando una vez que los valores antiguos y nuevos coinciden.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Database Migrations Safely](/es/recipes/database-migrations-safely/).
 
 Usa este recurso cuando:
 - Necesites renombrar una columna en una tabla de producción sin downtime.

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-llm-prompt-engineering
 title: "Complete Guide to LLM Prompt Engineering"
@@ -18,8 +21,9 @@ tags:
   - guide
   - ai
 relatedResources:
-  - /guides/concurrency/complete-guide-python-asyncio
-  - /guides/api/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-python-asyncio
+  - /guides/complete-guide-api-versioning-strategies
+  - /docs/ai-llm-prompt-template-library
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +37,9 @@ seo:
     - system prompts
     - temperature tuning
     - function calling
+
+
+
 ---
 
 # Complete Guide to LLM Prompt Engineering
@@ -381,6 +388,9 @@ def evaluate_response(prompt: str, response: str) -> dict:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/).
 
 - **Be specific** — "Summarize in 3 bullet points" beats "Summarize"
 - **Provide context** — tell the model what role it plays and who the audience is

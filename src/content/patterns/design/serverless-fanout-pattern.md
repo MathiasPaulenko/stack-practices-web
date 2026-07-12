@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: serverless-fanout-pattern
 title: "Serverless Fanout Pattern"
@@ -19,9 +21,9 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-function-composition-pattern
-  - /patterns/design/serverless-event-sourcing-pattern
-  - /patterns/design/serverless-throttling-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /patterns/serverless-event-sourcing-pattern
+  - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +35,8 @@ seo:
     - sqs fanout pattern
     - serverless pub sub
     - event broadcast serverless
+
+
 ---
 
 # Serverless Fanout Pattern
@@ -291,6 +295,9 @@ The key benefit is isolation: if the email consumer is slow or fails, the invent
 | SNS + SQS + DLQ | SNS, SQS, dead-letter queue | Production-grade with error handling |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Serverless Event Sourcing Pattern](/patterns/serverless-event-sourcing-pattern/).
 
 - **Use SQS between SNS and Lambda** — direct SNS-to-Lambda invocations fail if Lambda is throttled. SQS buffers messages and retries. This is the recommended production pattern.
 - **Set visibility timeout to 6x Lambda timeout** — if Lambda takes 60s, set SQS visibility timeout to 360s. This prevents duplicate processing while a long-running invocation is in progress.

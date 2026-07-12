@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: graphql-subscriptions-realtime
 title: "Datos en tiempo real con suscripciones GraphQL sobre"
@@ -15,9 +18,10 @@ tags:
   - realtime
   - apollo
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-dataloader-batching
-  - /recipes/api/real-time-websockets
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-dataloader-batching
+  - /recipes/real-time-websockets
+  - /recipes/graphql-federation-gateway-setup
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,9 @@ seo:
     - realtime graphql
     - apollo subscriptions
     - graphql pubsub
+
+
+
 ---
 
 # Datos en tiempo real con suscripciones GraphQL sobre WebSockets
@@ -35,6 +42,9 @@ seo:
 Las suscripciones GraphQL entregan datos a clientes en tiempo real usando una conexion WebSocket persistente. A diferencia de queries y mutaciones, que siguen un ciclo request-response, las suscripciones mantienen la conexion abierta y envian actualizaciones cuando ocurren eventos en el servidor. Aqui hay una implementacion de suscripciones con el motor `PubSub` de Apollo Server y un gateway WebSocket.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [GraphQL Federation in Production](/es/guides/complete-guide-graphql-federation-production/).
 
 - Dashboards en vivo o feeds de actividad que se actualizan al cambiar datos
 - Aplicaciones de chat donde los mensajes aparecen al instante

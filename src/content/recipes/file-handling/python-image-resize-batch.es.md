@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: python-image-resize-batch
 title: "Redimensionar Imágenes en Lote con Python"
@@ -30,6 +31,7 @@ seo:
     - optimizar imágenes webp
     - python pillow thumbnail
     - batch image processing
+
 ---
 ## Visión General
 
@@ -522,6 +524,9 @@ if __name__ == "__main__":
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Compress and Decompress Files](/es/recipes/compress-decompress-files/).
 
 1. **Usa `ImageOps.exif_transpose()` antes de redimensionar.** Las fotos de teléfonos suelen tener tags de orientación EXIF. Sin auto-orientación, la imagen redimensionada puede aparecer rotada:
 

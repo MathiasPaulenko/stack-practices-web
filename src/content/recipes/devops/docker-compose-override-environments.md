@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: docker-compose-override-environments
 title: "Override Docker Compose Configs per Environment"
@@ -15,9 +18,10 @@ tags:
   - configuration
   - recipe
 relatedResources:
-  - /recipes/devops/docker-multi-stage-build-distroless
-  - /recipes/devops/github-actions-reusable-workflows
-  - /recipes/devops/kubernetes-configmap-secret-mounting
+  - /recipes/docker-multi-stage-build-distroless
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/kubernetes-configmap-secret-mounting
+  - /recipes/github-actions-matrix-strategy
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - environments
     - configuration
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -425,6 +432,9 @@ docker compose watch  # Auto-sync changes and rebuild
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Docker Compose Dev/Prod Split: Separate Environments](/recipes/docker-compose-dev-prod-split/).
 
 - Keep `docker-compose.yml` as the base — don't put environment-specific config in it
 - Use `docker-compose.override.yml` for dev — Compose picks it up automatically

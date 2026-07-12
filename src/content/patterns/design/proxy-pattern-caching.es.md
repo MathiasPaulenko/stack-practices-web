@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: proxy-pattern-caching
 title: "Proxy Pattern para Cacheo de Respuestas de API"
@@ -15,9 +19,12 @@ tags:
   - structural
   - design-pattern
 relatedResources:
-  - /patterns/design/decorator-pattern
-  - /patterns/design/adapter-pattern
+  - /patterns/decorator-pattern
+  - /patterns/adapter-pattern
   - /recipes/cache-invalidation
+  - /recipes/caching-strategies
+  - /patterns/builder-pattern-configuration
+  - /patterns/decorator-pattern-pipeline
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - api caching
     - structural pattern
     - response cache
+
+
+
+
 ---
 
 # Proxy Pattern para Cacheo de Respuestas de API

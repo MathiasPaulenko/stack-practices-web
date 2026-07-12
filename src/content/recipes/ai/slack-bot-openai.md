@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: slack-bot-openai
 title: "Build a Slack Bot with OpenAI GPT-4"
@@ -17,6 +18,7 @@ relatedResources:
   - /recipes/chatbot-openai
   - /recipes/llm-fine-tuning
   - /guides/software-architecture-guide
+  - /recipes/ai-agents-tool-use
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +29,7 @@ seo:
     - chatbot
     - gpt-4
     - bolt
+
 ---
 
 # Build a Slack Bot with OpenAI GPT-4

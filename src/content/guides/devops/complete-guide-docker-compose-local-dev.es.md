@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-docker-compose-local-dev
 title: "Docker Compose: Multi-Service Local Development"
@@ -15,8 +20,11 @@ tags:
   - containers
   - dev-environment
 relatedResources:
-  - /guides/devops/complete-guide-github-actions-ci-cd
-  - /guides/devops/complete-guide-helm-charts-production
+  - /guides/complete-guide-github-actions-ci-cd
+  - /guides/complete-guide-helm-charts-production
+  - /guides/complete-guide-docker-production
+  - /guides/docker-for-developers-guide
+  - /guides/kubernetes-basics-guide
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -30,6 +38,11 @@ seo:
     - docker volumes
     - docker profiles
     - dev environment
+
+
+
+
+
 ---
 
 ## Introducción
@@ -475,6 +488,9 @@ docker compose stats
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Docker in Production](/es/guides/complete-guide-docker-production/).
 
 - Usá bind mounts para source code en dev — habilita hot reload sin rebuilds
 - Usá anonymous volumes para `node_modules`, `.venv` — prevente host OS de overriding container packages

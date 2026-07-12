@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: vue-composition-api-fetch
 title: "Data Fetching with Vue 3 Composition API"
@@ -15,9 +18,10 @@ tags:
   - composables
   - recipe
 relatedResources:
-  - /recipes/frontend/react-form-react-hook-form-validation
-  - /recipes/frontend/react-usememo-usecallback-performance
-  - /recipes/frontend/css-container-queries-responsive
+  - /recipes/react-form-react-hook-form-validation
+  - /recipes/react-usememo-usecallback-performance
+  - /recipes/css-container-queries-responsive
+  - /recipes/svelte-store-reactive-state
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - data-fetching
     - composables
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -426,6 +433,9 @@ export function useApi(url) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Container Queries for Component Responsiveness](/recipes/css-container-queries-responsive/).
 
 - Extract fetch logic into composables — don't write `fetch()` calls directly in components
 - Always handle loading and error states — users need feedback during and after fetches

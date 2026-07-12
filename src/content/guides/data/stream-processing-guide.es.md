@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: stream-processing-guide
 title: "Procesamiento de Streams: Pipelines con Kafka y Flink"
@@ -18,9 +20,9 @@ tags:
   - real-time
   - guide
 relatedResources:
-  - /guides/data/real-time-analytics-guide
-  - /guides/data/etl-pipeline-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/real-time-analytics-guide
+  - /guides/etl-pipeline-guide
+  - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +35,8 @@ seo:
     - event-driven
     - real-time
     - guide
+
+
 ---
 
 ## Descripción General
@@ -42,6 +46,9 @@ El procesamiento de streams ingiere, transforma y produce datos continuamente a 
 A continuación: fundamentos de procesamiento de streams, selección de motor, operaciones stateful y patrones de producción con Kafka Streams, Apache Flink y Spark Streaming.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Kafka Stream Processing](/es/guides/complete-guide-kafka-stream-processing/).
 
 - Necesitas procesar eventos a medida que llegan, no en batches por hora o diario
 - Tu sistema debe reaccionar a condiciones en segundos (fraude, anomalías, alertas)

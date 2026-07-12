@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: graphql-dataloader-pattern
 title: "Patron DataLoader en GraphQL"
@@ -20,6 +25,10 @@ relatedResources:
   - /patterns/graphql-batched-resolver-pattern
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /recipes/graphql-n-1-query-detection
+  - /recipes/graphql-dataloader-batching
+  - /patterns/graphql-connection-pagination-pattern
+  - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - batching
     - caching
     - n-plus-1
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -39,6 +53,9 @@ DataLoader es una utilidad generica que consolida llamadas individuales de `load
 El patron no es especifico de GraphQL — funciona en cualquier lugar donde necesites batchear lookups async individuales. Pero brilla en GraphQL donde los resolvers anidados piden datos relacionados de forma independiente.
 
 ## Cuando Usar
+
+
+- For alternatives, see [GraphQL Batched Resolver Pattern](/es/patterns/graphql-batched-resolver-pattern/).
 
 - Resolvers GraphQL que obtienen entidades relacionadas por item padre
 - Cualquier patron de lookup async donde llamadas individuales pueden batchearse (base de datos, REST, gRPC)

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: data-validation-zod
 title: "Schema-Based Data Validation with Zod in TypeScript"
@@ -15,9 +19,12 @@ tags:
   - vulnerabilities
   - encryption
 relatedResources:
-  - /recipes/api/go-rest-api-gin
-  - /patterns/design/builder-pattern
-  - /guides/security/security-best-practices-guide
+  - /recipes/go-rest-api-gin
+  - /patterns/builder-pattern
+  - /guides/security-best-practices-guide
+  - /recipes/express-middleware-patterns
+  - /recipes/graphql-input-validation
+  - /guides/webhook-security-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - typescript
     - data sanitization
     - form validation
+
+
+
+
 ---
 
 # Schema-Based Data Validation with Zod in TypeScript

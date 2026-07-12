@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: change-management-template
 title: "Change Management Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/auto-scaling-policy-template
   - /docs/backup-and-restore-template
   - /docs/cloud-cost-allocation-template
+  - /docs/service-level-objective-template
+  - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - rollback
     - operations
     - template
+
+
+
 ---
 ## Overview
 
 Production changes are risky. A database migration, a configuration update, or a feature flag flip can cascade into an outage. Change management is not bureaucracy—it is a structured way to reduce surprise. This template documents the review, approval, and rollback workflow for any change that touches production, ensuring the right people have reviewed the risk and the rollback path is ready before you start.
 
 ## When to Use
+
+
+- For alternatives, see [Bug Triage Template](/docs/bug-triage-template/).
 
 Use this resource when:
 - Introducing a change to production infrastructure, databases, or configuration

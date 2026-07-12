@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: locks-and-mutexes
 title: "Coordinate Shared Access with Locks, Mutexes, and Semaphores"
@@ -18,6 +20,8 @@ relatedResources:
   - /recipes/thread-pools
   - /recipes/microservices-patterns
   - /recipes/database-transactions
+  - /recipes/concurrent-data-structures
+  - /recipes/csp-communication
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - read write lock
     - race condition
     - thread synchronization
+
+
 ---
 
 ## Overview

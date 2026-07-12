@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: etl-pipeline-guide
 title: "Pipelines ETL: Extract, Transform, Load para Ingenieros"
@@ -18,10 +20,10 @@ tags:
   - batch-processing
   - guide
 relatedResources:
-  - /guides/data/stream-processing-guide
-  - /guides/data/real-time-analytics-guide
-  - /guides/data/data-migration-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/stream-processing-guide
+  - /guides/real-time-analytics-guide
+  - /guides/data-migration-guide
+  - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +36,8 @@ seo:
     - dbt
     - batch-processing
     - guide
+
+
 ---
 
 ## Descripción General
@@ -43,6 +47,9 @@ ETL (Extract, Transform, Load) mueve datos desde sistemas operacionales hacia si
 A continuación: arquitectura de pipelines, estrategias de extracción de datos, patrones de transformación, técnicas de carga y consideraciones operativas de producción.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Data Lake vs Data Warehouse — Architecture Guide](/es/guides/data-lake-guide/).
 
 - Necesitas consolidar datos de múltiples fuentes en una base de datos analítica única
 - Tus consultas analíticas son demasiado lentas o disruptivas para correr en bases de datos de producción

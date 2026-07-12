@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: etl-extract-transform-load-pattern
 title: "ETL Extract-Transform-Load"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/cdc-change-data-capture-pattern
   - /patterns/idempotent-load-pattern
   - /patterns/data-lineage-tracking-pattern
+  - /patterns/batch-to-streaming-bridge-pattern
+  - /patterns/schema-registry-evolution-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +35,9 @@ seo:
     - batch
     - orchestration
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -490,6 +498,9 @@ class ParallelETL:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Batch-to-Streaming Bridge](/patterns/batch-to-streaming-bridge-pattern/).
 
 - Use staging tables — never transform in-place on the source; always extract to a staging area first
 - Make pipelines idempotent — running the same pipeline twice should produce the same result

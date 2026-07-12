@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-data-pipeline-architecture
 title: "Arquitectura de Data Pipelines: Batch, Streaming, Lambda"
@@ -16,8 +20,10 @@ tags:
   - lambda
   - kappa
 relatedResources:
-  - /guides/data/complete-guide-apache-airflow
-  - /guides/data/complete-guide-dbt-data-transformations
+  - /guides/complete-guide-apache-airflow
+  - /guides/complete-guide-dbt-data-transformations
+  - /patterns/batch-to-streaming-bridge-pattern
+  - /guides/complete-guide-data-quality
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -31,6 +37,10 @@ seo:
     - kappa architecture
     - etl
     - elt
+
+
+
+
 ---
 
 ## Introducción
@@ -489,6 +499,9 @@ Cuándo usar ELT:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Batch-to-Streaming Bridge](/es/patterns/batch-to-streaming-bridge-pattern/).
 
 - Empezá con batch, agregá streaming solo cuando needed — batch es simpler y cheaper
 - Usá ELT cuando tu warehouse puede handlearlo — dbt + Snowflake/BigQuery es el modern standard

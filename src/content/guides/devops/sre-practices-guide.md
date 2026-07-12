@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: sre-practices-guide
 title: "Site Reliability Engineering"
@@ -23,6 +28,10 @@ relatedResources:
   - /guides/observability-guide
   - /guides/chaos-engineering-guide
   - /guides/platform-engineering-guide
+  - /docs/service-level-objective-slo-template
+  - /docs/service-level-objective-template
+  - /guides/a-b-testing-guide
+  - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -37,6 +46,11 @@ seo:
     - toil
     - on-call
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +58,9 @@ seo:
 Site Reliability Engineering (SRE), pioneered at Google, applies software engineering principles to operations. Instead of treating reliability as a separate function, SRE teams write code to automate operations, manage infrastructure, and measure system health through Service Level Objectives (SLOs). The core tenet: reliability is a feature, not an afterthought. SRE balances the need for velocity (shipping changes) with the need for stability (keeping systems running) through error budgets, toil budgets, and blameless postmortems.
 
 ## When to Use
+
+
+- For alternatives, see [Observability — Metrics, Logs, and Traces Complete Guide](/guides/observability-guide/).
 
 - You operate production systems where downtime has business impact
 - Development and operations teams are in conflict over release velocity vs stability

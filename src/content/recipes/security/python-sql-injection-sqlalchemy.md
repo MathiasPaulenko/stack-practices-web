@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-sql-injection-sqlalchemy
 title: "Prevent SQL Injection with SQLAlchemy Parameterized Queries"
@@ -15,9 +20,12 @@ tags:
   - security
   - database
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/security/nodejs-helmet-security-headers
-  - /recipes/ai/python-openai-function-calling-structured
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/nodejs-helmet-security-headers
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/vault-dynamic-credentials
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,11 @@ seo:
     - python sql security
     - orm injection
     - database security
+
+
+
+
+
 ---
 
 # Prevent SQL Injection with SQLAlchemy Parameterized Queries
@@ -299,6 +312,9 @@ def search_users_api(params: UserSearchInput):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Live Database Credentials with HashiCorp Vault](/recipes/vault-dynamic-credentials/).
 
 - **Never use f-strings or .format() for SQL** — always use parameterized queries or ORM
 - **Use ORM queries by default** — they are parameterized automatically

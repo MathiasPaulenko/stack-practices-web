@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: read-write-file
 title: "Read and Write Files"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json
   - /recipes/regular-expressions
+  - /recipes/bash-scripting-automation
+  - /recipes/export-csv-excel
+  - /recipes/file-upload-validation
+  - /recipes/generate-pdfs
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,10 @@ seo:
     - python
     - javascript
     - bash
+
+
+
+
 ---
 ## Overview
 

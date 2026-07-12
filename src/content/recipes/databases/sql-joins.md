@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: sql-joins
 title: "SQL Joins"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file
   - /recipes/pagination
+  - /recipes/database-deadlocks-retries
+  - /recipes/database-read-replicas
+  - /recipes/database-transactions
+  - /recipes/database-views-materialized
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +34,10 @@ seo:
     - inner join
     - left join
     - database queries
+
+
+
+
 ---
 
 ## Overview

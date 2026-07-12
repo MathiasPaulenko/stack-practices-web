@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: adapter-pattern-recipe
 title: "Puente entre Interfaces Incompatibles con el Adapter Pattern"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/factory-pattern-recipe
   - /recipes/api-gateway
   - /recipes/singleton-pattern-recipe
+  - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - integracion legacy
     - wrapper terceros
     - patron estructural
+
 ---
 
 ## Visión general

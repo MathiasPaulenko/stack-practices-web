@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: docs
 slug: monitoring-alerting-policy-template
 title: "Monitoring and Alerting Policy Template"
@@ -15,8 +22,13 @@ tags:
   - observability
   - policy
 relatedResources:
-  - /docs/devops/logging-standards-document
-  - /docs/devops/escalation-policy-template
+  - /docs/logging-standards-document
+  - /docs/escalation-policy-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/cloud-resource-tagging-policy-template
+  - /docs/infrastructure-cost-allocation-template
+  - /docs/load-test-execution-plan-template
+  - /docs/postmortem-incident-review-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +39,13 @@ seo:
     - alert escalation
     - observability policy
     - alert routing
+
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -34,6 +53,9 @@ seo:
 A Monitoring and Alerting Policy defines how an organization detects problems, notifies the right people, and escalates when issues are not resolved quickly. Without a clear policy, teams suffer from alert fatigue, missed incidents, or inconsistent response times. This template provides a structured framework for alert thresholds, severity levels, routing rules, escalation paths, and regular review.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - Setting up a new observability platform or monitoring stack.
 - Onboarding a new service or team into the alerting system.

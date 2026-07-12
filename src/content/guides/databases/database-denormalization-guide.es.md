@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: database-denormalization-guide
 title: "Desnormalización de Bases de Datos"
@@ -20,6 +24,9 @@ relatedResources:
   - /guides/database-design-guide
   - /guides/database-normalization-guide
   - /guides/sql-performance-tuning-guide
+  - /guides/complete-guide-elasticsearch-cluster-setup
+  - /guides/complete-guide-postgresql-tuning
+  - /guides/database-replication-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +38,10 @@ seo:
     - redundancia-datos
     - vistas-materializadas
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +49,9 @@ seo:
 La desnormalización es la introducción intencional de redundancia en un esquema de base de datos para mejorar el rendimiento de lectura. Mientras que la normalización elimina la redundancia para garantizar la consistencia, la desnormalización acepta duplicación controlada para reducir JOINs, simplificar consultas y acelerar lecturas. No es una excusa para un mal diseño; es una optimización deliberada aplicada después de establecer una base normalizada.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Cargas de trabajo con alta frecuencia de lectura donde los JOINs son el cuello de botella
 - Consultas agregadas que se ejecutan frecuentemente sobre grandes conjuntos de datos

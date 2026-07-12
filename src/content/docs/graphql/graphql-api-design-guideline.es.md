@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: graphql-api-design-guideline
 templateType: guideline
@@ -16,9 +19,10 @@ tags:
   - best-practices
   - federation
 relatedResources:
-  - /docs/ai/graphql-schema-review-checklist
-  - /docs/ai/graphql-deprecation-policy-template
-  - /guides/architecture/complete-guide-graphql-federation
+  - /docs/graphql-schema-review-checklist
+  - /docs/graphql-deprecation-policy-template
+  - /guides/complete-guide-graphql-federation
+  - /docs/graphql-federation-onboarding-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - graphql mutations
     - graphql pagination
     - graphql federation
+
+
+
 ---
 
 ## Overview
@@ -461,3 +468,12 @@ Unit testea resolvers en isolation mockeando el data layer. Testea el parent arg
 ### ¿Cuándo deberia split un monolithic schema en federation?
 
 Splitea cuando teams necesitan independent deployment cycles, cuando el schema excede 200 types, cuando different domains tienen different scaling requirements, o cuando team boundaries mapean a domain boundaries. No splitees prematuramente — federation agrega operational complexity (gateway, composition, cross-subgraph debugging). Empeza con un modular monolith y splitea cuando el pain de coupling excede el pain de federation.
+
+## See Also
+
+- [GraphQL Federation in Production](/es/guides/complete-guide-graphql-federation-production/)
+- [Complete Guide to GraphQL Federation](/es/guides/complete-guide-graphql-federation/)
+- [Complete Guide to GraphQL Schema Design](/es/guides/complete-guide-graphql-schema-design/)
+- [GraphQL Federated Entity Pattern](/es/patterns/graphql-federated-entity-pattern/)
+- [Set Up a GraphQL Federation Gateway with Apollo](/es/recipes/graphql-federation-gateway-setup/)
+

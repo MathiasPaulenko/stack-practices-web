@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-prometheus-metrics-exporter
 title: "Expose Custom Application Metrics with Python and Prometheus"
@@ -16,11 +21,13 @@ tags:
   - monitoring
   - prometheus-client
 relatedResources:
-  - /recipes/devops/docker-logging-fluentd
-  - /recipes/devops/docker-health-check-configuration
+  - /recipes/docker-logging-fluentd
+  - /recipes/docker-health-check-configuration
   - /guides/observability-guide
-  - /guides/structured-logging
+  - /guides/complete-guide-structured-logging
   - /patterns/claim-check-pattern
+  - /recipes/prometheus-monitoring-alerts
+  - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +39,11 @@ seo:
     - python monitoring metrics
     - prometheus counter gauge histogram
     - application metrics python
+
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +51,9 @@ seo:
 Prometheus is a pull-based monitoring system. Your application exposes a `/metrics` endpoint, and Prometheus scrapes it at regular intervals. The `prometheus_client` Python library provides built-in metric types (counter, gauge, histogram, summary) and an HTTP server to expose them. Here is how to how to instrument a Python app with custom metrics.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - You need application-level metrics (request count, latency, queue depth)
 - You use Prometheus or Grafana for monitoring and alerting

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: incident-communication-template
 title: "Incident Communication Template"
@@ -16,10 +21,13 @@ tags:
   - stakeholder-management
   - sre
 relatedResources:
-  - /docs/devops/incident-timeline-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/downtime-communication-template
-  - /docs/devops/on-call-handoff-template
+  - /docs/incident-timeline-template
+  - /docs/escalation-policy-template
+  - /docs/downtime-communication-template
+  - /docs/on-call-handoff-template
+  - /docs/data-breach-response-playbook
+  - /docs/disaster-recovery-test-plan
+  - /docs/postmortem-incident-review-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - stakeholder communication
     - incident update template
     - customer outage message
+
+
+
+
+
 ---
 
 ## Overview
@@ -512,6 +525,9 @@ print(f"Gaps > 30min: {len(audit['gaps'])}")
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Incident Timeline Template](/docs/incident-timeline-template/).
 
 1. **Maintain a severity-to-audience mapping matrix.** Not every severity level requires notifying every audience. Document who gets notified and when:
 

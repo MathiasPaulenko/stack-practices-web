@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: jwt-authentication
 title: "Autenticación JWT"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/call-rest-api
   - /recipes/password-hashing
+  - /recipes/api-key-authentication
+  - /recipes/magic-link-authentication
+  - /recipes/nodejs-jwt-authentication
+  - /recipes/oauth2-login
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,10 @@ seo:
     - token
     - json web token
     - auth sin estado
+
+
+
+
 ---
 
 ## Overview

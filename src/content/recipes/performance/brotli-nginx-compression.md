@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: brotli-nginx-compression
 title: "Enable Brotli Compression in Nginx for Faster Asset Delivery"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/compression-gzip
   - /recipes/cdn-edge-caching
   - /guides/performance-optimization-guide
+  - /recipes/javascript-event-loop
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - web performance
     - asset compression
     - gzip alternative
+
 ---
 
 # Enable Brotli Compression in Nginx for Faster Asset Delivery

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: incident-timeline-template
 title: "Incident Timeline Template"
@@ -16,10 +18,10 @@ tags:
   - template
   - sre
 relatedResources:
-  - /docs/devops/incident-communication-template
-  - /docs/devops/postmortem-incident-review-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/on-call-handoff-template
+  - /docs/incident-communication-template
+  - /docs/postmortem-incident-review-template
+  - /docs/escalation-policy-template
+  - /docs/on-call-handoff-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +32,8 @@ seo:
     - root cause analysis
     - incident reconstruction
     - timeline template
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 Most incident postmortems fail to identify the real problems because they lack an accurate timeline. Teams remember the big events but forget the 15-minute delay in escalation, the 30 minutes spent looking at the wrong logs, or the gap between the first alert and human acknowledgment. This template structures incident reconstruction around five-minute granularity, exposing the delays that actually drive MTTR.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Communication Template](/docs/incident-communication-template/).
 
 Use this template when:
 - Conducting a postmortem after any P1 or P2 incident

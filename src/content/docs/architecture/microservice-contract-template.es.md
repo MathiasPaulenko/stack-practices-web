@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: microservice-contract-template
 title: "Plantilla de Contrato de Microservicios"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/engineering-handbook-template
   - /guides/rest-api-design-guide
   - /guides/microservices-architecture-guide
+  - /docs/api-deprecation-notice-template
+  - /docs/api-error-handling-guideline
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - api
     - contrato
     - plantilla
+
+
+
 ---
 
 ## Visión General
@@ -36,6 +44,9 @@ seo:
 Los microservicios dependen de contratos explícitos para comunicarse de forma confiable. Sin un acuerdo escrito, los equipos realizan cambios incompatibles que rompen consumidores en tiempo de ejecución. Esta plantilla documenta límites de API, SLAs, reglas de versionado y procedimientos de cambios incompatibles entre servicios.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Backends for Frontends: Dedicated Backend per Client Type](/es/patterns/backends-for-frontends-pattern/).
 
 Usa este recurso cuando:
 - Un nuevo servicio necesita exponer una API a otros servicios internos

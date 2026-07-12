@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: cdc-change-data-capture-pattern
 title: "CDC Pattern: Stream Database Changes to Downstream"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/etl-extract-transform-load-pattern
   - /patterns/idempotent-load-pattern
   - /patterns/schema-registry-evolution-pattern
+  - /patterns/batch-to-streaming-bridge-pattern
+  - /patterns/data-lineage-tracking-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +35,9 @@ seo:
     - kafka
     - debezium
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -483,6 +491,9 @@ FOR EACH ROW EXECUTE FUNCTION customers_audit();
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Batch-to-Streaming Bridge](/patterns/batch-to-streaming-bridge-pattern/).
 
 - Use log-based CDC over polling — it's lower latency, no source impact, and captures deletes
 - Use the outbox pattern for reliable event publishing — ensures events are published in the same transaction as the data change

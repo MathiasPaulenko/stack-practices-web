@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: serverless-function-composition-pattern
 title: "Patron Serverless Function Composition"
@@ -18,9 +23,12 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-event-sourcing-pattern
-  - /patterns/design/serverless-fanout-pattern
-  - /recipes/serverless/aws-lambda-cold-start-optimization
+  - /patterns/serverless-event-sourcing-pattern
+  - /patterns/serverless-fanout-pattern
+  - /recipes/aws-lambda-cold-start-optimization
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /patterns/serverless-throttling-pattern
+  - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - serverless workflow
     - function chaining
     - aws cdk step functions
+
+
+
+
+
 ---
 
 # Patron Serverless Function Composition
@@ -43,6 +56,9 @@ La composicion de funciones encadena multiples funciones serverless en un workfl
 Este patron aborda la limitacion de serverless de funcion unica: limites de tiempo de ejecucion, falta de gestion de estado y sin logica de reintento entre fronteras de funciones. Al descomponer el trabajo en pasos y usar un orquestador, obtienes visibilidad, manejo de errores y la capacidad de reproducir pasos fallidos.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Serverless Warm Pool Pattern](/es/patterns/serverless-warm-pool-pattern/).
 
 - Procesos de negocio multi-paso que requieren estado entre pasos (procesamiento de ordenes, pipelines ETL)
 - Workflows con branching condicional (aprobar/rechazar, reintentar en fallo)

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-huggingface-text-classification
 title: "Fine-Tune and Deploy Text Classifiers with Hugging Face"
@@ -14,9 +18,11 @@ tags:
   - text classification
   - fine-tuning
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-openai-function-calling-structured
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-agent-langgraph-state-machine
+  - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +33,10 @@ seo:
     - bert classification
     - huggingface trainer
     - python nlp
+
+
+
+
 ---
 
 # Fine-Tune and Deploy Text Classifiers with Hugging Face Transformers
@@ -323,6 +333,9 @@ trainer = Trainer(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to OpenAI API Mastery](/guides/complete-guide-openai-api-mastery/).
 
 - **Start with DistilBERT** — it is 40% smaller than BERT with 95% of the performance for most classification tasks
 - **Use `max_length=256` or `512`** — longer sequences improve accuracy but increase training time quadratically

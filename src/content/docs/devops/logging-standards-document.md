@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: logging-standards-document
 title: "Logging Standards Document"
@@ -15,8 +18,9 @@ tags:
   - monitoring
   - standards
 relatedResources:
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/monitoring-alerting-policy-template
   - /docs/runbook-template
+  - /recipes/bash-disk-usage-monitor
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +31,9 @@ seo:
     - log levels
     - log retention
     - observability logging
+
+
+
 ---
 
 ## Overview
@@ -34,6 +41,9 @@ seo:
 A Logging Standards Document defines how services, applications, and infrastructure produce logs. Consistent logging makes debugging, monitoring, security investigation, and compliance easier. This template covers log levels, structured formats, required fields, retention, sampling, and security rules.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - Onboarding a new service or development team.
 - Consolidating logs from multiple systems into a central observability platform.

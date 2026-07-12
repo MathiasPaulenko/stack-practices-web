@@ -1,4 +1,9 @@
-﻿---
+---
+
+
+
+
+
 contentType: recipes
 slug: caching
 title: "Caching & Memoization"
@@ -16,7 +21,11 @@ tags:
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/pagination
-  - /patterns/design/singleton-pattern
+  - /patterns/singleton-pattern
+  - /recipes/url-encoding
+  - /recipes/batch-processing-patterns
+  - /recipes/deep-clone-javascript
+  - /recipes/flatten-unflatten-objects
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - javascript caching
     - java caching
     - performance optimization
+
+
+
+
+
 ---
 
 ## Overview

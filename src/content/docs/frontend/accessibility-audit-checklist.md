@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: accessibility-audit-checklist
 title: "Accessibility Audit Checklist"
@@ -16,9 +18,9 @@ tags:
   - a11y
   - compliance
 relatedResources:
-  - /docs/frontend/frontend-performance-budget-template
-  - /docs/frontend/component-api-documentation-template
-  - /docs/frontend/browser-support-matrix-template
+  - /docs/frontend-performance-budget-template
+  - /docs/component-api-documentation-template
+  - /docs/browser-support-matrix-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - web accessibility
     - screen reader
     - keyboard navigation
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 WCAG 2.2 defines accessibility guidelines across four principles: perceivable, operable, understandable, and robust (POUR). This checklist translates those guidelines into testable criteria with specific tools and remediation steps. Use it to audit existing applications or verify new features before release.
 
 ## When to Use
+
+
+- For alternatives, see [Security Audit Checklist](/docs/security-audit-checklist/).
 
 - Pre-release accessibility verification
 - Quarterly accessibility audits

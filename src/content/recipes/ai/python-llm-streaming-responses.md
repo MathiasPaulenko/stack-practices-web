@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-llm-streaming-responses
 title: "Stream LLM Output with Server-Sent Events (SSE)"
@@ -15,9 +21,13 @@ tags:
   - openai
   - fastapi
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-function-calling-structured
-  - /recipes/ai/python-llm-eval-ragas-metrics
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-llm-eval-ragas-metrics
+  - /recipes/python-web-scraping-beautifulsoup
+  - /recipes/python-agent-langgraph-state-machine
+  - /recipes/python-ollama-local-llm
+  - /recipes/nodejs-helmet-security-headers
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - sse streaming
     - openai streaming
     - fastapi streaming
+
+
+
+
+
+
 ---
 
 # Stream LLM Output with Server-Sent Events (SSE)
@@ -316,6 +332,9 @@ async def stream_with_backpressure(message: str, model: str):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to OpenAI API Mastery](/guides/complete-guide-openai-api-mastery/).
 
 - **Set `X-Accel-Buffering: no`** — prevents Nginx from buffering the stream, which breaks real-time delivery
 - **Handle client disconnection** — if the client closes the connection, the generator should stop consuming the OpenAI stream

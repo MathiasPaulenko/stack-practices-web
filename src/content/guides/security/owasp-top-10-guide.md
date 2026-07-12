@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: owasp-top-10-guide
 title: "OWASP Top 10: Explained with Mitigations"
@@ -19,6 +23,9 @@ relatedResources:
   - /guides/secure-coding-guide
   - /guides/threat-modeling-guide
   - /guides/cryptography-basics-guide
+  - /guides/complete-guide-web-security-headers
+  - /guides/compliance-soc2-guide
+  - /guides/zero-trust-architecture-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -30,6 +37,10 @@ seo:
     - vulnerability-mitigation
     - secure-coding
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -37,6 +48,9 @@ seo:
 The OWASP Top 10 is a standard awareness document for developers and web application security. It represents a broad consensus about the most critical security risks to web applications. Understanding these risks, and more in particular how to prevent them, is a baseline skill for every developer shipping code to production.
 
 ## When to Use
+
+
+- For alternatives, see [Content Security Policy: CSP Headers, Nonces, Hashes](/guides/complete-guide-content-security-policy/).
 
 - You are building or maintaining web applications
 - You need to communicate security risks to stakeholders

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: debounce-throttle
 title: "Debounce and Throttle"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/caching
   - /recipes/caching-redis
   - /patterns/abstract-factory-pattern
+  - /recipes/cdn-edge-caching
+  - /recipes/connection-pooling
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

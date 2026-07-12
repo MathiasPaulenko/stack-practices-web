@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-terraform-modules
 title: "Complete Guide to Terraform Modules"
@@ -18,9 +23,12 @@ tags:
   - guide
   - devops
 relatedResources:
-  - /guides/devops/infrastructure-as-code-guide
-  - /guides/devops/terraform-best-practices-guide
-  - /guides/devops/deployment-strategies-guide
+  - /guides/infrastructure-as-code-guide
+  - /guides/terraform-best-practices-guide
+  - /guides/deployment-strategies-guide
+  - /recipes/python-terraform-provider-custom
+  - /docs/infrastructure-as-code-review-template
+  - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - terraform testing
     - terraform registry
     - infrastructure as code
+
+
+
+
+
 ---
 
 # Complete Guide to Terraform Modules
@@ -349,6 +362,9 @@ git push origin --tags
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Terraform in Production](/guides/complete-guide-terraform-production/).
 
 - **One module per resource type** — a VPC module, an EKS module, an RDS module
 - **Use `for_each` over `count`** when possible — avoids resource recreation on list changes

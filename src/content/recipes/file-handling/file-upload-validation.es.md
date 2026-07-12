@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: file-upload-validation
 title: "Validación de Subida de Archivos"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/regular-expressions
   - /recipes/read-write-file
+  - /recipes/compress-decompress-files
+  - /recipes/copy-move-files
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - file upload seguridad
     - mime type python
     - magic bytes javascript
+
+
 ---
 
 ## Visión General

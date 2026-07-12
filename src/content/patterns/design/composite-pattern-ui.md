@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: composite-pattern-ui
 title: "Composite Pattern for UI Component Trees in React"
@@ -15,8 +19,11 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/decorator-pattern-pipeline
-  - /patterns/design/adapter-pattern-api
+  - /patterns/decorator-pattern-pipeline
+  - /patterns/adapter-pattern-api
+  - /patterns/mediator-pattern-components
+  - /recipes/spa-code-splitting-lazy
+  - /patterns/iterator-pattern-collections
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - react components
     - structural patterns
     - ui hierarchy
+
+
+
+
 ---
 
 # Composite Pattern for UI Component Trees in React

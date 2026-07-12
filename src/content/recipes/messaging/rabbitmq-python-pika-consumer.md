@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: rabbitmq-python-pika-consumer
 title: "Build a RabbitMQ Consumer with Python and Pika"
@@ -16,10 +21,13 @@ tags:
   - consumer
   - message-queue
 relatedResources:
-  - /recipes/messaging/rabbitmq-dead-letter-queue
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/rabbitmq-dead-letter-queue
+  - /recipes/python-celery-task-queue
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /recipes/kafka-spring-boot-stream-listener
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/redis-pub-sub-python
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - pika rabbitmq tutorial
     - rabbitmq dead letter queue
     - rabbitmq prefetch qos
+
+
+
+
+
 ---
 
 ## Overview
@@ -418,6 +431,9 @@ channel.basic_publish(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Configure Dead-Letter Queues in RabbitMQ for Failed Messages](/recipes/rabbitmq-dead-letter-queue/).
 
 - **Always use durable queues and persistent messages**: Without durability, messages are lost on broker restart. Set `delivery_mode=2` on every message.
 - **Use manual acknowledgments**: Auto-ack removes messages before processing completes. If the consumer crashes, the message is lost. Always use manual ack.

@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: api-key-authentication
 title: "Autenticación Segura con API Keys para Servicios y Clientes"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/oauth2-login
   - /recipes/rate-limiting
   - /recipes/secret-management
+  - /recipes/magic-link-authentication
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - firma hmac
     - rotacion api keys
     - api keys seguras
+
 ---
 
 ## Visión general

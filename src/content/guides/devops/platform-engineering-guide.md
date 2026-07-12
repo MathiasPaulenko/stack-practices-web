@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: platform-engineering-guide
 title: "Platform Engineering — Building Internal Developer Platforms"
@@ -22,6 +24,7 @@ relatedResources:
   - /guides/sre-practices-guide
   - /guides/observability-guide
   - /guides/terraform-best-practices-guide
+  - /guides/ci-cd-security-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +37,8 @@ seo:
     - developer-experience
     - backstage
     - guide
+
+
 ---
 
 ## Overview
@@ -41,6 +46,9 @@ seo:
 Platform engineering is the discipline of building and maintaining Internal Developer Platforms (IDPs): self-service layers that abstract infrastructure complexity and allow developers to deploy, operate, and observe their applications without deep platform expertise. Instead of every team reinventing CI/CD, observability, and security patterns, a platform team curates "golden paths" — paved roads with guardrails that make the right thing the easy thing. The goal is not to restrict developers but to accelerate them by removing cognitive load.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Terraform Modules](/guides/complete-guide-terraform-modules/).
 
 - You have 10+ engineering teams with duplicated infrastructure effort
 - Developer onboarding takes days because environments are hand-crafted

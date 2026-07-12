@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: api-status-page-template
 templateType: api-status-page
@@ -20,8 +25,12 @@ tags:
   - devops
 relatedResources:
   - /docs/incident-communication-template
-  - /docs/api/api-deprecation-notice-template
-  - /guides/api/rest-api-design-guide
+  - /docs/api-deprecation-notice-template
+  - /guides/rest-api-design-guide
+  - /docs/sla-definition-template
+  - /recipes/chaos-engineering
+  - /recipes/cicd-pipeline-setup
+  - /recipes/immutable-infrastructure
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - status-page
     - uptime
     - incident-communication
+
+
+
+
+
 
 ---
 

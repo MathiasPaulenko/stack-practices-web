@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: distributed-tracing-guide
 title: "Distributed Tracing: End-to-End Request Flow Across"
@@ -19,10 +22,11 @@ tags:
   - guide
 relatedResources:
   - /guides/observability-guide
-  - /guides/observability/log-aggregation-guide
-  - /guides/observability/metrics-and-dashboards-guide
-  - /guides/devops/service-mesh-guide
-  - /guides/devops/opentelemetry-guide
+  - /guides/log-aggregation-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/service-mesh-guide
+  - /guides/opentelemetry-guide
+  - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - microservices
     - latency
     - guide
+
+
+
 ---
 
 ## Overview
@@ -44,6 +51,9 @@ Distributed tracing captures the full journey of a request as it travels through
 This guide walks through instrumentation, trace context propagation, sampling, and operational practices.
 
 ## When to Use
+
+
+- For alternatives, see [Observability — Metrics, Logs, and Traces Complete Guide](/guides/observability-guide/).
 
 - You operate a microservices architecture with more than 5 services
 - Debugging latency requires correlating logs across multiple services

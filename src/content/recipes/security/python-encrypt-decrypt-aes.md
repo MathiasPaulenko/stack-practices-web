@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-encrypt-decrypt-aes
 title: "Encrypt and Decrypt Data with AES-GCM in Python"
@@ -15,11 +19,12 @@ tags:
   - security
   - pbkdf2
 relatedResources:
-  - /recipes/devops/docker-secrets-management
-  - /recipes/devops/docker-network-isolation
+  - /recipes/docker-secrets-management
+  - /recipes/docker-network-isolation
   - /guides/webhook-security-guide
-  - /patterns/encryption-at-rest
+  - /guides/complete-guide-encryption-at-rest
   - /guides/secrets-management-guide
+  - /recipes/docker-image-vulnerability-scan
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +36,10 @@ seo:
     - pbkdf2 key derivation python
     - authenticated encryption python
     - file encryption python
+
+
+
+
 ---
 
 ## Overview
@@ -569,6 +578,9 @@ if __name__ == "__main__":
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Encryption at Rest: AES-256, KMS, Envelope Encryption](/guides/complete-guide-encryption-at-rest/).
 
 1. **Use Argon2id instead of PBKDF2 when available.** Argon2id is the winner of the Password Hashing Competition and provides better resistance against GPU-based attacks:
 

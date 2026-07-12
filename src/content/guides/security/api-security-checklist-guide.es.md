@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: api-security-checklist-guide
 title: "Checklist de Seguridad de APIs"
@@ -19,9 +24,13 @@ tags:
   - security
   - seguridad-api
 relatedResources:
-  - /guides/security/security-best-practices-guide
-  - /guides/security/web-application-security-guide
-  - /guides/api/rest-api-design-guide
+  - /guides/security-best-practices-guide
+  - /guides/web-application-security-guide
+  - /guides/rest-api-design-guide
+  - /recipes/rate-limiting-security
+  - /recipes/request-signing-hmac
+  - /recipes/api-rate-limiting
+  - /recipes/bash-ssh-key-manager
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +42,11 @@ seo:
     - autorizacion api
     - rate limiting api
     - encriptacion api
+
+
+
+
+
 ---
 
 # Checklist de Seguridad de APIs

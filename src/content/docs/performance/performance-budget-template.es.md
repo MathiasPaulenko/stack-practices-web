@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: performance-budget-template
 templateType: guideline
@@ -17,9 +20,10 @@ tags:
   - ci-cd
   - monitoring
 relatedResources:
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/performance/core-web-vitals-audit-checklist
-  - /docs/performance/load-test-plan-template
+  - /docs/deployment-rollback-runbook
+  - /docs/core-web-vitals-audit-checklist
+  - /docs/load-test-plan-template
+  - /docs/database-query-tuning-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - web performance
     - lcp inp cls
     - resource budget
+
+
+
 ---
 
 ## Overview
@@ -427,3 +434,12 @@ Code split por route — solo loadea JS needed para el current page. Usa dynamic
 ### ¿Qué tan seguido deberia reviewear y updatear performance budgets?
 
 Reviewea budgets monthly durante el first quarter despues de setup, luego quarterly. Trackea budget utilization over time — si consistentemente usas menos de 70% de tu budget, considera tightenearlo. Si consistentemente hitteas el hard limit, investiga el root cause en vez de increasear el budget. Reviewea budgets cuando addeas major features, cambias architecture (e.g., addeando un SPA framework), o cuando user demographics shiftean. Compara tus budgets contra competitors usando tools como WebPageTest o CrUX data. Setea un calendar reminder para quarterly budget reviews e involucrea el full engineering team — performance es responsibility de todos.
+
+## See Also
+
+- [Complete Guide to Web Performance and Core Web Vitals](/es/guides/complete-guide-web-performance-core-web-vitals/)
+- [Core Web Vitals Audit Checklist](/es/docs/core-web-vitals-audit-checklist/)
+- [Feature Flags: Progressive Release and Safe Experimentation](/es/guides/feature-flags-guide/)
+- [Complete Guide to Bundle Size Optimization](/es/guides/complete-guide-bundle-size-optimization/)
+- [Complete Guide to React 19 Features](/es/guides/complete-guide-react-19-features/)
+

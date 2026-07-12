@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: parse-command-line-arguments
 title: "Parse Command Line Arguments"
@@ -15,11 +19,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-yaml-files
-  - /recipes/data/parse-toml-files
-  - /recipes/data/validate-json-schema
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-json
+  - /recipes/parse-yaml-files
+  - /recipes/parse-toml-files
+  - /recipes/validate-json-schema
+  - /recipes/parse-csv-files
+  - /recipes/parse-json
+  - /recipes/parse-log-files
+  - /recipes/parse-excel-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +37,10 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
 ---
 
 ## Overview
@@ -283,6 +293,9 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - **commander.js**: Node.js CLI framework. 40M+ downloads/month. Subcommands, options, help text generation. Used by npm, Vue CLI, and many other popular CLIs
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Parse CSV Files](/recipes/parse-csv-files/).
 
 - Store dates in UTC. Convert to user locale only at the presentation layer
 - Use Decimal or integer cents for money. Never use floating-point for financial calculations

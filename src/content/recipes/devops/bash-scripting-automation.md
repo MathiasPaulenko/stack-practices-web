@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: bash-scripting-automation
 title: "Bash Scripting for DevOps Automation and System Tasks"
@@ -18,6 +22,10 @@ relatedResources:
   - /recipes/read-write-file
   - /recipes/pre-commit-hooks
   - /guides/infrastructure-as-code-guide
+  - /recipes/traffic-mirroring
+  - /recipes/bash-backup-rotation
+  - /recipes/bash-disk-usage-monitor
+  - /recipes/bash-log-rotation
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,10 @@ seo:
     - shell scripting
     - system administration
     - deployment scripts
+
+
+
+
 ---
 
 # Bash Scripting for DevOps Automation and System Tasks

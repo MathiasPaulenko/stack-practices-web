@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: log-aggregation-guide
 title: "Log Aggregation — Centralize, Search"
@@ -18,11 +20,11 @@ tags:
   - splunk
   - guide
 relatedResources:
-  - /guides/observability/distributed-tracing-guide
-  - /guides/observability/metrics-and-dashboards-guide
-  - /guides/observability/alert-management-guide
-  - /guides/devops/observability-guide
-  - /guides/devops/opentelemetry-guide
+  - /guides/distributed-tracing-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/alert-management-guide
+  - /guides/observability-guide
+  - /guides/opentelemetry-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +37,8 @@ seo:
     - elasticsearch
     - splunk
     - guide
+
+
 ---
 
 ## Overview
@@ -44,6 +48,9 @@ Log aggregation collects logs from all services, systems, and infrastructure int
 Below is a practical guide to structured logging, shipping strategies, storage optimization, and platform selection.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - You operate more than 5 services and need to correlate logs across them
 - Debugging requires grepping through multiple servers or containers

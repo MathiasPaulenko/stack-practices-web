@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: on-call-incident-response-guide
 title: "On-Call and Incident Response Playbook"
@@ -17,9 +21,12 @@ tags:
   - postmortem
   - sre
 relatedResources:
-  - /guides/devops/docker-for-developers-guide
-  - /guides/security/web-application-security-guide
-  - /guides/devops/technical-documentation-strategy-guide
+  - /guides/docker-for-developers-guide
+  - /guides/web-application-security-guide
+  - /guides/technical-documentation-strategy-guide
+  - /docs/bug-report-template
+  - /docs/slo-document-template
+  - /guides/monitoring-alerting-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +37,10 @@ seo:
     - site reliability engineering
     - reduce mttr
     - incident postmortem template
+
+
+
+
 ---
 
 # On-Call and Incident Response Playbook

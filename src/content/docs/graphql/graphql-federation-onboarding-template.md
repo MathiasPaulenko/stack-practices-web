@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: graphql-federation-onboarding-template
 templateType: onboarding
@@ -17,9 +22,12 @@ tags:
   - subgraph
   - gateway
 relatedResources:
-  - /docs/ai/graphql-schema-review-checklist
-  - /docs/ai/graphql-api-design-guideline
-  - /docs/ai/graphql-deprecation-policy-template
+  - /docs/graphql-schema-review-checklist
+  - /docs/graphql-api-design-guideline
+  - /docs/graphql-deprecation-policy-template
+  - /recipes/graphql-federation-gateway-setup
+  - /patterns/graphql-federated-entity-pattern
+  - /guides/complete-guide-graphql-federation-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - entity resolver
     - gateway integration
     - graphql microservices
+
+
+
+
+
 ---
 
 ## Overview
@@ -543,3 +556,12 @@ Standard Apollo Federation does not support subscriptions through the gateway. I
 ### How do I debug a failing entity resolution?
 
 Check three things: (1) Is `__resolveReference` implemented for the entity type? (2) Does the resolver return null when the entity is not found? (3) Is the key field in the reference object spelled correctly? Enable query tracing in Apollo Studio to see which subgraph resolved which field. Check gateway logs for `ENTITY_RESOLUTION_FAILED` errors. Test the entity resolver in isolation with a direct subgraph query before testing through the gateway.
+
+## See Also
+
+- [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/)
+- [Complete Guide to GraphQL Federation](/guides/complete-guide-graphql-federation/)
+- [Set Up a GraphQL Federation Gateway with Apollo](/recipes/graphql-federation-gateway-setup/)
+- [GraphQL Federated Entity Pattern](/patterns/graphql-federated-entity-pattern/)
+- [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server/)
+

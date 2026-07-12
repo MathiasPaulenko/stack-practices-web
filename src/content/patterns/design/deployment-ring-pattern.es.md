@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: deployment-ring-pattern
 title: "Patrón Deployment Ring"
@@ -17,9 +19,9 @@ tags:
   - anillos
   - canary
 relatedResources:
-  - /patterns/design/canary-release-pattern
-  - /patterns/design/blue-green-deployment-pattern
-  - /patterns/design/graceful-degradation-pattern
+  - /patterns/canary-release-pattern
+  - /patterns/blue-green-deployment-pattern
+  - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - despliegue por anillos
     - canary rings
     - despliegue incremental
+
+
 ---
 
 # Patrón Deployment Ring
@@ -43,6 +47,9 @@ El patrón Deployment Ring despliega una nueva version en anillos concentricos d
 Este patron reduce el blast radius. Un bug que afectaria a todos los usuarios en un despliegue completo solo afecta al 1% en el anillo 0. Para cuando el rollout llega al 100%, la version ha sido validada a traves de grupos progresivamente mas grandes y diversos.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Blue-Green Deployment Pattern](/es/patterns/blue-green-deployment-pattern/).
 
 Usa el patrón Deployment Ring cuando:
 - Despliegas cambios que conllevan riesgo (nuevos features, cambios de schema, actualizaciones de infra)

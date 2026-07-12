@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: flyweight-pattern-text
 title: "Flyweight Pattern para Comparticion Eficiente de Objetos"
@@ -17,6 +20,9 @@ tags:
 relatedResources:
   - /recipes/cache-invalidation
   - /guides/performance-optimization-guide
+  - /patterns/back-pressure-pattern
+  - /patterns/bridge-pattern-ui-themes
+  - /patterns/content-delivery-network-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +33,9 @@ seo:
     - memory optimization
     - structural patterns
     - large datasets
+
+
+
 ---
 
 # Flyweight Pattern para Comparticion Eficiente de Objetos a Gran Escala

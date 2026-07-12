@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: mvc-pattern-frontend
 title: "MVC Pattern in Modern Frontend Applications"
@@ -15,9 +18,11 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/repository-pattern-typescript
-  - /patterns/design/decorator-pattern-pipeline
+  - /patterns/repository-pattern-typescript
+  - /patterns/decorator-pattern-pipeline
   - /guides/testing-strategy-guide
+  - /recipes/server-side-rendering
+  - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +33,9 @@ seo:
     - react mvc
     - vue mvc
     - component architecture
+
+
+
 ---
 
 # MVC Pattern in Modern Frontend Applications

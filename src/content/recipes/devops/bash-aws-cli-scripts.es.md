@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-aws-cli-scripts
 title: "Automatización de AWS CLI con Bash"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/bash-backup-rotation
   - /recipes/bash-disk-usage-monitor
   - /recipes/bash-log-rotation
+  - /recipes/bash-parallel-commands
+  - /recipes/aws-ecs-fargate
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -30,12 +35,18 @@ seo:
     - aprovisionamiento EC2
     - gestión S3 bash
     - IAM audit bash
+
+
+
 ---
 ## Visión General
 
 El AWS CLI envuelve llamadas a la API de AWS en una herramienta de línea de comandos. Combinado con bash, puedes automatizar aprovisionamiento de infraestructura, operaciones S3, gestión de IAM y monitoreo de costos. Esta recipe cubre patrones comunes de automatización de AWS usando scripts bash.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to AWS Cost Optimization](/es/guides/complete-guide-cost-optimization-aws/).
 
 - Necesitas automatizar aprovisionamiento y teardown de instancias EC2
 - Quieres gestionar buckets S3 y sincronizar archivos programáticamente

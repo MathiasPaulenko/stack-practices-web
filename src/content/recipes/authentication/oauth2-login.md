@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: oauth2-login
 title: "OAuth 2.0 Login"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/middleware
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
+  - /recipes/api-key-authentication
+  - /recipes/magic-link-authentication
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

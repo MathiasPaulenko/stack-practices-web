@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-ssh-key-management
 title: "SSH Key Management"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/bash-log-rotation-compression
   - /recipes/bash-loop-over-files
   - /recipes/bash-parallel-execution
+  - /recipes/python-zip-file-extraction
+  - /recipes/bash-aws-cli-automation
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - security
     - keys
     - automation
+
+
+
 ---
 ## Overview
 
@@ -451,6 +459,9 @@ if weak:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Bash Scripting for DevOps Automation and System Tasks](/recipes/bash-scripting-automation/).
 
 1. **Use `IdentitiesOnly yes` in SSH config.** Without this, SSH tries every key in `~/.ssh` for every connection, which can trigger fail2ban bans or rate limits. Specifying `IdentitiesOnly` ensures only the configured key is offered:
 

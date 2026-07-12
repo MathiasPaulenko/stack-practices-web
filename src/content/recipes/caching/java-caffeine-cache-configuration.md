@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: java-caffeine-cache-configuration
 title: "Configure Caffeine Cache in Java with Eviction Policies"
@@ -16,9 +19,10 @@ tags:
   - eviction
   - spring-boot
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/nodejs-in-memory-cache-lru
+  - /recipes/python-redis-cache-decorator
+  - /recipes/nodejs-in-memory-cache-lru
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/java-spring-cache-annotations
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - spring boot cache
     - in-memory cache java
     - caffeine configuration
+
+
+
 ---
 
 ## Overview
@@ -314,6 +321,9 @@ public class MultiLevelCache {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - **Size your cache**: Set `maximumSize` based on available heap. A cache that's too large causes GC pressure; too small causes evictions.
 - **Use `recordStats()` in production**: Monitor hit rate. Below 50% means the cache is misconfigured or the workload isn't cacheable.

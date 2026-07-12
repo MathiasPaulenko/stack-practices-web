@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: sql-window-functions-guide
 title: "Funciones de Ventana SQL — Referencia Detallada"
@@ -22,6 +24,7 @@ relatedResources:
   - /guides/sql-cte-guide
   - /guides/sql-performance-tuning-guide
   - /guides/sql-joins-guide
+  - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -36,6 +39,8 @@ seo:
     - partition-by
     - analitica
     - guia
+
+
 ---
 
 ## Overview
@@ -43,6 +48,9 @@ seo:
 Las funciones de ventana en SQL calculan un valor sobre un conjunto de filas relacionadas con la fila actual — sin colapsar el resultado en grupos como `GROUP BY`. Desbloquean consultas analiticas potentes: totales acumulados, rankings, promedios moviles y comparaciones entre filas. Disponibles en PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.25+, son esenciales para quienes escriben SQL analitico.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/).
 
 - Necesitas rankings dentro de grupos (top-N por categoria)
 - Se requieren totales acumulados o promedios moviles

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: api-logging-audit
 title: "Implementar logging y audit trails de API"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/api-documentation-openapi
   - /recipes/api-versioning
   - /recipes/call-rest-api
+  - /recipes/graphql-api
+  - /recipes/handle-errors
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Visión General
 

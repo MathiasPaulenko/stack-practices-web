@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: connect-to-postgresql
 title: "Connect to PostgreSQL"
@@ -20,6 +23,8 @@ relatedResources:
   - /patterns/ambassador-pattern
   - /patterns/bridge-pattern
   - /patterns/builder-pattern
+  - /recipes/connect-to-mysql
+  - /recipes/connect-to-redis
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - jdbc
+
+
+
 ---
 ## Overview
 
@@ -320,6 +328,9 @@ public class PostgresPool {
 | Go | `pgx` | Yes | `pgxpool` | High performance |
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Connect to MySQL](/recipes/connect-to-mysql/).
 
 6. **Set `idle_timeout` on connections.** Idle connections can become stale after a database restart or network issue. Set a timeout to recycle them automatically.
 7. **Use `application_name` for debugging.** Set `application_name` in the connection string to identify your application in `pg_stat_activity`:

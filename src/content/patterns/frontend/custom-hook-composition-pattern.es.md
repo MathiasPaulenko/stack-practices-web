@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: custom-hook-composition-pattern
 title: "Custom Hook Composition"
@@ -30,6 +31,7 @@ seo:
     - composition
     - reusability
     - pattern
+
 ---
 
 ## Overview
@@ -555,6 +557,9 @@ function useUserData(userId, options = {}) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Container-Presenter: Separate Data Logic from Rendering](/es/patterns/container-presenter-pattern/).
 
 - Un concern por hook — `useDebounce` solo debounces, `useSort` solo sorts. No mezcles concerns.
 - Componé, no dupliques — si dos hooks comparten logic, extractá un third hook y componé.

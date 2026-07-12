@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: refresh-ahead-cache-pattern
 title: "Refresh-Ahead Cache Pattern"
@@ -19,9 +23,11 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-stampede-prevention-pattern
-  - /patterns/design/cache-invalidation-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-stampede-prevention-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/write-behind-cache-pattern
+  - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +39,10 @@ seo:
     - background cache refresh
     - redis cache refresh
     - cache miss elimination
+
+
+
+
 ---
 
 # Refresh-Ahead Cache Pattern
@@ -314,6 +324,9 @@ The key insight is that reads are always served from cache. The background refre
 | Adaptive refresh | Adjust threshold based on access frequency | Variable traffic patterns |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Read-Through Cache Pattern](/patterns/read-through-cache-pattern/).
 
 - **Only refresh hot keys** — refresh-ahead reloads data regardless of reads. Register only keys that are read frequently enough to justify the background work.
 - **Set a refresh threshold** — refresh when 70-90% of the TTL has elapsed. Too early wastes database load; too late risks a miss if the refresh fails.

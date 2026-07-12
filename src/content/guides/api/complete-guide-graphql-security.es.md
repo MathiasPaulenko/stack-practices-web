@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-security
 title: "Referencia Detallada de Seguridad GraphQL"
@@ -19,9 +24,12 @@ tags:
   - rate-limiting
   - authentication
 relatedResources:
-  - /guides/api/complete-guide-graphql-schema-design
-  - /guides/architecture/graphql-vs-rest-guide
-  - /patterns/design/graphql-interface-polymorphism-pattern
+  - /guides/complete-guide-graphql-schema-design
+  - /guides/graphql-vs-rest-guide
+  - /patterns/graphql-interface-polymorphism-pattern
+  - /recipes/graphql-directives-auth
+  - /guides/complete-guide-graphql-caching
+  - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +42,11 @@ seo:
     - graphql rate limiting
     - graphql autenticacion
     - graphql dos proteccion
+
+
+
+
+
 ---
 
 ## Introducción
@@ -473,3 +486,12 @@ app.use("/graphql", cors({
 ### ¿Debería usar un WAF para GraphQL?
 
 Si. Un Web Application Firewall con soporte GraphQL (como Cloudflare GraphQL Protection o AWS WAF) puede bloquear queries maliciosas antes de que lleguen a tu servidor. Busca WAFs que entiendan tipos de operacion GraphQL, profundidad, y complejidad.
+
+## See Also
+
+- [Validate and Sanitize GraphQL Input Types Server-Side](/es/recipes/graphql-input-validation/)
+- [API Security Checklist — Authentication to Encryption](/es/guides/api-security-checklist-guide/)
+- [Complete Guide to API Security](/es/guides/complete-guide-api-security/)
+- [Complete Guide to Authentication Patterns](/es/guides/complete-guide-authentication-patterns/)
+- [Field-Level Auth with Custom GraphQL Schema Directives](/es/recipes/graphql-directives-auth/)
+

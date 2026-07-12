@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: kubernetes-configmap-secret-mounting
 title: "Mount Configs and Secrets into Kubernetes Pods"
@@ -16,9 +19,10 @@ tags:
   - security
   - recipe
 relatedResources:
-  - /recipes/devops/kubernetes-helm-chart-templating
-  - /recipes/devops/docker-compose-override-environments
-  - /recipes/devops/terraform-remote-state-s3-backend
+  - /recipes/kubernetes-helm-chart-templating
+  - /recipes/docker-compose-override-environments
+  - /recipes/terraform-remote-state-s3-backend
+  - /recipes/setup-ssl-certificates
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - configuration
     - security
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -463,6 +470,9 @@ spec:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Kubernetes Config Management Guide](/guides/complete-guide-kubernetes-config-management/).
 
 - Use ConfigMaps for non-sensitive data, Secrets for sensitive data — never the reverse
 - Set `readOnly: true` on volume mounts — prevents apps from modifying config at runtime

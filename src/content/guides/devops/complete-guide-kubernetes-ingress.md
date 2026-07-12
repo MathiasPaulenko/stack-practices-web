@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-kubernetes-ingress
 title: "Complete Guide to Kubernetes Ingress"
@@ -18,11 +21,12 @@ tags:
   - routing
   - load-balancing
 relatedResources:
-  - /guides/devops/kubernetes-basics-guide
-  - /guides/devops/kubernetes-advanced-guide
-  - /guides/devops/deployment-strategies-guide
-  - /patterns/architecture/gateway-routing-pattern
-  - /patterns/design/sidecar-pattern
+  - /guides/kubernetes-basics-guide
+  - /guides/kubernetes-advanced-guide
+  - /guides/deployment-strategies-guide
+  - /patterns/gateway-routing-pattern
+  - /patterns/sidecar-pattern
+  - /guides/complete-guide-gitops-argocd
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - ingressclass
     - kubernetes networking
     - path-based routing k8s
+
+
+
 ---
 
 # Complete Guide to Kubernetes Ingress
@@ -474,6 +481,9 @@ Kubernetes Gateway API is the successor to Ingress. It provides more expressive 
 | Status | Stable | GA (since K8s 1.25) |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Kubernetes Networking](/guides/complete-guide-kubernetes-networking/).
 
 - **Always set ingressClassName** — without it, the Ingress may not be picked up by any controller
 - **Use cert-manager for TLS** — manual certificate management does not scale

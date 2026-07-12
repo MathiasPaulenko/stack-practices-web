@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: serverless-cold-start-runbook
 templateType: runbook
@@ -16,9 +18,9 @@ tags:
   - runbook
   - optimization
 relatedResources:
-  - /docs/serverless/serverless-function-deployment-checklist
-  - /docs/serverless/serverless-cost-estimation-template
-  - /docs/serverless/serverless-security-checklist
+  - /docs/serverless-function-deployment-checklist
+  - /docs/serverless-cost-estimation-template
+  - /docs/serverless-security-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - serverless performance
     - cold start optimization
     - init phase
+
+
 ---
 
 ## Overview
@@ -408,3 +412,12 @@ Use provisioned concurrency for production APIs with strict latency requirements
 ### How do I measure the impact of cold start optimizations?
 
 Compare p99 duration before and after optimization using CloudWatch Metrics or X-Ray traces. Filter metrics by cold start vs. warm invocations using custom log attributes. Run load tests that include a cold start scenario (deploy, then immediately send traffic). Track the init duration separately from handler duration in X-Ray. Set CloudWatch alarms on p99 duration to detect cold start regressions after deployments.
+
+## See Also
+
+- [Complete Guide to AWS Lambda in Production](/guides/complete-guide-aws-lambda-production/)
+- [Serverless Warm Pool Pattern](/patterns/serverless-warm-pool-pattern/)
+- [Serverless Cost Estimation Template](/docs/serverless-cost-estimation-template/)
+- [Serverless Architecture — Patterns and Anti-Patterns](/guides/serverless-architecture-guide/)
+- [Complete Guide to Serverless Architecture](/guides/complete-guide-serverless-architecture/)
+

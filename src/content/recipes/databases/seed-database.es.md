@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: seed-database
 title: "Sembrar Base de Datos"
@@ -17,9 +22,12 @@ tags:
   - development
   - recipe
 relatedResources:
-  - /recipes/testing/generate-test-data
-  - /recipes/testing/setup-test-fixtures
+  - /recipes/generate-test-data
+  - /recipes/setup-test-fixtures
   - /guides/database-sharding-implementation-guide
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-postgresql-replication
+  - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - prisma
     - development
     - recipe
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -40,6 +53,9 @@ seo:
 Una base de datos sembrada es la forma más rápida de incorporar nuevos desarrolladores, reproducir bugs y ejecutar tests de integración que dependen de distribuciones de datos realistas. Sin seeding, cada entorno comienza vacío, obligando a los desarrolladores a crear manualmente cuentas, órdenes y relaciones antes de poder testear cualquier capacidad. Lo siguiente demuestra estrategias de seeding seguras y repetibles que no polucionan producción.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to MongoDB Indexing](/es/guides/complete-guide-mongodb-indexing/).
 
 - Incorporar nuevos desarrolladores que necesitan una base de datos local funcional en minutos
 - Tests de integración y E2E que requieren que usuarios, productos o transacciones existan

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: schema-evolution
 title: "Evolución de Schema de Base de Datos"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/database-connection-pooling
   - /recipes/database-replication
   - /recipes/postgres-query-optimization
+  - /recipes/caching-redis
+  - /recipes/database-migrations
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - databases
     - devops
     - migrations
+
+
 ---
 ## Visión General
 

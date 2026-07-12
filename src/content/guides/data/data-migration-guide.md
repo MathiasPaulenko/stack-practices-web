@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: data-migration-guide
 title: "Data Migration: Zero-Downtime Strategies That Work"
@@ -17,11 +22,13 @@ tags:
   - database
   - guide
 relatedResources:
-  - /guides/data/database-sharding-implementation-guide
-  - /guides/data/etl-pipeline-guide
+  - /guides/database-sharding-implementation-guide
+  - /guides/etl-pipeline-guide
   - /guides/blue-green-deployment-guide
-  - /guides/planning/disaster-recovery-guide
-  - /guides/testing/testing-strategy-guide
+  - /guides/disaster-recovery-guide
+  - /guides/testing-strategy-guide
+  - /guides/blob-storage-guide
+  - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +40,11 @@ seo:
     - backfill
     - database
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -42,6 +54,9 @@ Data migration is the process of moving data from one system, schema, or format 
 The following guide covers proven patterns for migrating data safely, including dual writes, backfills, schema evolution, and validation strategies.
 
 ## When to Use
+
+
+- For alternatives, see [Data Migration Runbook Template](/docs/data-migration-runbook-template/).
 
 - You are moving from one database to another (MySQL → PostgreSQL, on-prem → cloud)
 - You are restructuring tables or normalizing/denormalizing data

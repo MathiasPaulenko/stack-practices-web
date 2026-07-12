@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: incident-communication-template
 title: "Plantilla de Comunicacion de Incidentes"
@@ -16,10 +21,13 @@ tags:
   - stakeholder-management
   - sre
 relatedResources:
-  - /docs/devops/incident-timeline-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/downtime-communication-template
-  - /docs/devops/on-call-handoff-template
+  - /docs/incident-timeline-template
+  - /docs/escalation-policy-template
+  - /docs/downtime-communication-template
+  - /docs/on-call-handoff-template
+  - /docs/data-breach-response-playbook
+  - /docs/disaster-recovery-test-plan
+  - /docs/postmortem-incident-review-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - comunicacion con stakeholders
     - plantilla de actualizacion de incidente
     - mensaje de interrupcion a clientes
+
+
+
+
+
 ---
 
 ## Overview
@@ -37,6 +50,9 @@ seo:
 Una comunicacion deficiente de incidentes convierte un problema tecnico en un problema de confianza. Cuando los clientes no saben que esta pasando, asumen lo peor. Cuando los ejecutivos se sorprenden, exigen explicaciones en lugar de ofrecer apoyo. Esta plantilla proporciona mensajes pre-redactados para cada audiencia y nivel de severidad, para que tu equipo comunique claramente, consistentemente y rapidamente durante las interrupciones.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Timeline Template](/es/docs/incident-timeline-template/).
 
 Usa esta plantilla cuando:
 - Una interrupcion de produccion impacta clientes o usuarios internos

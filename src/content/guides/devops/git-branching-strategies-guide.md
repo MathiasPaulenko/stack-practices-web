@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: git-branching-strategies-guide
 title: "Git Branching Strategies: A Practical Guide"
@@ -14,9 +18,12 @@ tags:
   - guide
   - ci-cd
 relatedResources:
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/devops/docker-for-developers-guide
-  - /guides/testing/testing-strategy-guide
+  - /guides/cicd-pipeline-guide
+  - /guides/docker-for-developers-guide
+  - /guides/testing-strategy-guide
+  - /recipes/git-rebase-interactive-tutorial
+  - /docs/pull-request-template
+  - /guides/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - git branching model
     - feature branches
     - release branches
+
+
+
+
 ---
 
 # Git Branching Strategies

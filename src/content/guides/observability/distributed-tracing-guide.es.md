@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: distributed-tracing-guide
 title: "Trazas Distribuidas: Flujo de Peticiones en Microservicios"
@@ -19,10 +22,11 @@ tags:
   - guide
 relatedResources:
   - /guides/observability-guide
-  - /guides/observability/log-aggregation-guide
-  - /guides/observability/metrics-and-dashboards-guide
-  - /guides/devops/service-mesh-guide
-  - /guides/devops/opentelemetry-guide
+  - /guides/log-aggregation-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/service-mesh-guide
+  - /guides/opentelemetry-guide
+  - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - microservices
     - latency
     - guide
+
+
+
 ---
 
 ## Descripción General
@@ -44,6 +51,9 @@ Las trazas distribuidas capturan el recorrido completo de una petición a medida
 A continuación: instrumentación, propagación de contexto de traza, muestreo y prácticas operativas.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Observability — Metrics, Logs, and Traces Complete Guide](/es/guides/observability-guide/).
 
 - Operas una arquitectura de microservicios con más de 5 servicios
 - Depurar latencia requiere correlacionar logs entre múltiples servicios

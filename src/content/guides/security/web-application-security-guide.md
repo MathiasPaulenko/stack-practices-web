@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: web-application-security-guide
 title: "Web Application Security (OWASP Top 10)"
@@ -18,9 +23,13 @@ tags:
   - web-security
   - xss
 relatedResources:
-  - /guides/security/api-security-checklist-guide
-  - /guides/security/security-best-practices-guide
-  - /recipes/authentication/jwt-authentication
+  - /guides/api-security-checklist-guide
+  - /guides/security-best-practices-guide
+  - /recipes/jwt-authentication
+  - /recipes/hmac-request-signing
+  - /recipes/security-headers
+  - /docs/dependency-audit-template
+  - /docs/penetration-test-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +42,11 @@ seo:
     - broken access control
     - secure coding
     - capabilities
+
+
+
+
+
 ---
 
 # Web Application Security (OWASP Top 10)

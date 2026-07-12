@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: security-incident-response-template
 title: "Security Incident Response Template"
@@ -16,10 +18,10 @@ tags:
   - recovery
   - infrastructure
 relatedResources:
-  - /docs/security/incident-response-plan-template
-  - /docs/security/security-audit-checklist
-  - /docs/security/access-control-policy-template
-  - /docs/security/vulnerability-management-process-template
+  - /docs/incident-response-plan-template
+  - /docs/security-audit-checklist
+  - /docs/access-control-policy-template
+  - /docs/vulnerability-management-process-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - containment
     - eradication
     - recovery
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 A security incident response template provides a structured playbook for responding to security events. It covers detection, classification, containment, eradication, recovery, communication, and post-incident review. The template defines specific actions, decision points, and escalation criteria for each phase of the response.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Response Plan Template](/docs/incident-response-plan-template/).
 
 - Responding to an active security incident
 - Preparing incident response playbooks for different attack types

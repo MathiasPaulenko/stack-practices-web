@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: event-driven-architecture
 title: "Diseñar Sistemas Event-Driven con Event Buses y Brokers"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/cqrs-pattern-recipe
   - /recipes/serverless-functions
   - /recipes/async-patterns
+  - /recipes/saga-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - event bus
     - kafka eventos
     - patron pub sub
+
 ---
 
 ## Visión general

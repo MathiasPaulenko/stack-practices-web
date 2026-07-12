@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-terraform-production
 title: "Complete Guide to Terraform in Production"
@@ -19,9 +24,12 @@ tags:
   - workspaces
   - drift-detection
 relatedResources:
-  - /guides/devops/complete-guide-docker-production
-  - /guides/devops/complete-guide-gitops-production
-  - /guides/security/complete-guide-secrets-management
+  - /guides/complete-guide-docker-production
+  - /guides/complete-guide-gitops-production
+  - /guides/complete-guide-secrets-management
+  - /patterns/external-configuration-store-pattern
+  - /recipes/python-terraform-provider-custom
+  - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - remote backend
     - terraform ci/cd
     - sentinel policies
+
+
+
+
+
 ---
 
 ## Introduction
@@ -713,3 +726,12 @@ Terraform Cloud provides managed state storage, remote execution, policy as code
 ### How do I prevent destructive changes?
 
 Add `lifecycle { prevent_destroy = true }` to critical resources (databases, S3 buckets with state). This prevents `terraform destroy` from deleting them. Use Sentinel or OPA policies to block destructive changes in CI. Review plans carefully in pull requests. Use `terraform plan` in CI before merge. Require manual approval for production applies. Use `create_before_destroy` lifecycle hook for resources that need zero-downtime replacement.
+
+## See Also
+
+- [Complete Guide to GitOps in Production](/guides/complete-guide-gitops-production/)
+- [Complete Guide to Kubernetes Networking](/guides/complete-guide-kubernetes-networking/)
+- [Complete Guide to Terraform Modules](/guides/complete-guide-terraform-modules/)
+- [Terraform Best Practices — Modules, State, and Workspaces](/guides/terraform-best-practices-guide/)
+- [Multi-Cloud Strategies — Benefits, Pitfalls](/guides/multi-cloud-guide/)
+

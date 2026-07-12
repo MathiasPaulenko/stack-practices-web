@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: microservices-architecture-guide
 title: "Microservices Architecture — When to Use and When Not To"
@@ -15,9 +20,13 @@ tags:
   - monolith
   - scalability
 relatedResources:
-  - /guides/architecture/system-design-interview-guide
-  - /guides/architecture/domain-driven-design-guide
-  - /guides/devops/docker-for-developers-guide
+  - /guides/system-design-interview-guide
+  - /guides/domain-driven-design-guide
+  - /guides/docker-for-developers-guide
+  - /recipes/microservices-communication
+  - /recipes/retry-backoff
+  - /recipes/service-discovery
+  - /recipes/workflow-engine
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - microservices vs monolith
     - service decomposition
     - distributed systems patterns
+
+
+
+
+
 ---
 
 # Microservices Architecture — When to Use and When Not To

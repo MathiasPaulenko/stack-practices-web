@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: database-migrations
 title: "Gestionar Migraciones de Base de Datos de Forma Segura"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/database-indexing
   - /recipes/query-optimization
   - /recipes/connection-pooling
+  - /recipes/optimistic-locking
+  - /recipes/schema-evolution
+  - /recipes/sql-full-text-search-setup
+  - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,10 @@ seo:
     - liquibase
     - sql migrations
     - database deployment
+
+
+
+
 ---
 
 ## Visión general

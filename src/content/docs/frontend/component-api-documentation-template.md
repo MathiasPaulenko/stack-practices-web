@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: component-api-documentation-template
 title: "Component API Documentation Template"
@@ -16,9 +18,9 @@ tags:
   - design-system
   - typescript
 relatedResources:
-  - /docs/frontend/frontend-performance-budget-template
-  - /docs/frontend/accessibility-audit-checklist
-  - /docs/frontend/browser-support-matrix-template
+  - /docs/frontend-performance-budget-template
+  - /docs/accessibility-audit-checklist
+  - /docs/browser-support-matrix-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - slots
     - design system
     - template
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Component API documentation tells developers how to use a component: what props it accepts, what events it emits, what slots it provides, and what methods it exposes. Without clear API docs, developers read source code to understand components, wasting time and leading to incorrect usage.
 
 ## When to Use
+
+
+- For alternatives, see [Browser Support Matrix Template](/docs/browser-support-matrix-template/).
 
 - Documenting design system components
 - Publishing a component library

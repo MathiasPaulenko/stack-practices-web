@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: deployment-ring-pattern
 title: "Deployment Ring Pattern"
@@ -17,9 +19,9 @@ tags:
   - rings
   - canary
 relatedResources:
-  - /patterns/design/canary-release-pattern
-  - /patterns/design/blue-green-deployment-pattern
-  - /patterns/design/graceful-degradation-pattern
+  - /patterns/canary-release-pattern
+  - /patterns/blue-green-deployment-pattern
+  - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - ring deployment
     - canary rings
     - incremental deployment
+
+
 ---
 
 # Deployment Ring Pattern
@@ -43,6 +47,9 @@ The Deployment Ring Pattern rolls out a new version in concentric rings of incre
 This pattern reduces blast radius. A bug that would affect all users in a full deployment only affects 1% in ring 0. By the time the rollout reaches 100%, the version has been validated across progressively larger and more diverse user groups.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment Pattern](/patterns/blue-green-deployment-pattern/).
 
 Use the Deployment Ring Pattern when:
 - You deploy changes that carry risk (new features, schema changes, infrastructure updates)

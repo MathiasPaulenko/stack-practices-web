@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-asyncio-semaphore-rate-limiting
 title: "Rate Limiting de Operaciones Async con asyncio.Semaphore"
@@ -16,10 +19,11 @@ tags:
   - rate-limiting
   - concurrency
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/python-thread-pool-executor
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-thread-pool-executor
   - /guides/complete-guide-python-asyncio
   - /guides/concurrency-patterns-guide
+  - /recipes/python-async-gather-concurrent-requests
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - asyncio bounded parallelism
     - python semaphore rate limit
     - asyncio concurrency control
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +44,9 @@ seo:
 `asyncio.Semaphore` limita el numero de operaciones concurrentes en async Python. Esto previene abrumar servicios externos, agotar connection pools o alcanzar rate limits. A continuacion: uso basico de semaforo, rate limiting de llamadas a API, gestion de connection pools, ajuste dinamico de concurrencia, patron token bucket y combinacion de semaforos con otros primitivos de asyncio.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/es/recipes/python-asyncio-gather-task-groups/).
 
 - Llamadas a API con rate limits (ej., 100 peticiones/minuto)
 - Gestion de connection pool de base de datos

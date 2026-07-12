@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: inbox-pattern
 title: "Patrón Inbox"
@@ -18,9 +20,9 @@ tags:
   - reliability
   - event-driven
 relatedResources:
-  - /patterns/design/outbox-pattern
-  - /patterns/design/saga-pattern
-  - /patterns/design/event-sourcing-pattern
+  - /patterns/outbox-pattern
+  - /patterns/saga-pattern
+  - /patterns/event-sourcing-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +33,8 @@ seo:
     - idempotency
     - reliability
     - event driven
+
+
 ---
 
 # Patrón Inbox
@@ -44,6 +48,9 @@ Este patrón es la contraparte del lado del consumidor al Patrón Outbox. Mientr
 Casos de uso comunes incluyen procesar webhooks de pago, manejar streams de eventos externos e integrar con APIs de terceros que pueden re-entregar mensajes.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Idempotent Consumer Pattern](/es/patterns/idempotent-consumer-pattern/).
 
 Usa el Patrón Inbox cuando:
 - Necesitas procesar eventos externos de manera confiable con garantías de entrega at-least-once

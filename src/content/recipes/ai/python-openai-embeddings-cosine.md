@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-openai-embeddings-cosine
 title: "Compare Text Semantic Similarity with OpenAI Embeddings"
@@ -14,9 +19,12 @@ tags:
   - cosine similarity
   - semantic search
 relatedResources:
-  - /recipes/ai/python-vector-database-pinecone
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-vector-database-pinecone
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-function-calling-structured
+  - /patterns/embedding-cache-pattern
+  - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,11 @@ seo:
     - semantic similarity
     - text embeddings python
     - embedding comparison
+
+
+
+
+
 ---
 
 # Compare Text Semantic Similarity with OpenAI Embeddings and Cosine
@@ -311,6 +324,9 @@ class LocalSimilarityIndex:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Store and Query Embeddings in Pinecone Vector Database](/recipes/python-vector-database-pinecone/).
 
 - **Use batch embedding API** — reduces cost and latency by 10x for multiple texts
 - **Normalize embeddings before storage** — cosine similarity on normalized vectors is a simple dot product

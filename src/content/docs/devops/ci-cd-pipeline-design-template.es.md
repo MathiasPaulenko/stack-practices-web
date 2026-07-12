@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: ci-cd-pipeline-design-template
 title: "Plantilla de Diseño de Pipeline CI/CD"
@@ -16,10 +19,11 @@ tags:
   - automation
   - infrastructure
 relatedResources:
-  - /docs/devops/helm-chart-review-checklist
-  - /docs/devops/kubernetes-pod-disruption-budget-template
-  - /docs/devops/terraform-state-management-policy
-  - /docs/observability/incident-postmortem-template
+  - /docs/helm-chart-review-checklist
+  - /docs/kubernetes-pod-disruption-budget-template
+  - /docs/terraform-state-management-policy
+  - /docs/incident-postmortem-template
+  - /docs/vulnerability-management-process-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - template
     - continuous integration
     - continuous deployment
+
+
+
 ---
 
 ## Overview
@@ -39,6 +46,9 @@ seo:
 Un CI/CD pipeline design document specifica cómo code se mueve desde commit a production. Define pipeline stages, quality gates, environments, deployment strategies y rollback procedures. Sin un design document, pipelines crecen orgánicamente con inconsistent gates y unclear promotion criteria.
 
 ## When to Use
+
+
+- For alternatives, see [CI/CD Pipeline Guide](/es/guides/cicd-pipeline-guide/).
 
 - Diseñando un new CI/CD pipeline
 - Estandarizando pipelines across teams

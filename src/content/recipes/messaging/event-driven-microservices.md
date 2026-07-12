@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: event-driven-microservices
 title: "Event-Driven Microservices"
@@ -19,6 +21,8 @@ relatedResources:
   - /guides/software-architecture-guide
   - /guides/event-driven-architecture-guide
   - /guides/microservices-architecture-guide
+  - /recipes/dead-letter-queue
+  - /recipes/message-idempotency
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - microservices
     - messaging
     - architecture
+
+
 ---
 ## Overview
 

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: registry-pattern
 title: "Registry Pattern"
@@ -16,9 +19,10 @@ tags:
   - decoupling
   - lookup
 relatedResources:
-  - /patterns/design/multiton-pattern
-  - /patterns/design/dependency-injection-pattern
-  - /patterns/design/singleton-pattern
+  - /patterns/multiton-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/singleton-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +33,9 @@ seo:
     - service locator
     - dependency lookup
     - structural pattern
+
+
+
 ---
 
 # Registry Pattern
@@ -40,6 +47,9 @@ The Registry Pattern provides a centralized lookup mechanism for shared services
 While similar to a Service Locator, the Registry Pattern is broader: it can store anything from database connections to feature flags, not just services. It is a pragmatic alternative to full dependency injection when DI frameworks are unavailable.
 
 ## When to Use
+
+
+- For alternatives, see [Bridge Pattern](/patterns/bridge-pattern/).
 
 Use the Registry Pattern when:
 - Multiple components need access to the same shared resource

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: environment-setup-guide-template
 templateType: guideline
@@ -15,9 +18,11 @@ tags:
   - ci-cd
   - automation
 relatedResources:
-  - /docs/templates/onboarding-guide-template
-  - /docs/templates/runbook-template
-  - /guides/devops/docker-for-developers-guide
+  - /docs/onboarding-guide-template
+  - /docs/runbook-template
+  - /guides/docker-for-developers-guide
+  - /docs/bug-report-template
+  - /docs/disaster-recovery-plan-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +33,9 @@ seo:
     - documentacion entorno dev
     - onboarding dev setup
     - entorno reproducible
+
+
+
 ---
 
 # Plantilla de Guía de Configuración de Entorno

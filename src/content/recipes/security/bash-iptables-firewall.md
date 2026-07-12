@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-iptables-firewall
 title: "Configure iptables Firewall Rules with Bash"
@@ -20,6 +22,7 @@ relatedResources:
   - /docs/network-segmentation-policy-template
   - /docs/ssl-certificate-management-template
   - /docs/third-party-vendor-assessment-template
+  - /recipes/docker-network-isolation
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -31,6 +34,8 @@ seo:
     - security
     - networking
     - linux
+
+
 ---
 ## Overview
 
@@ -385,6 +390,9 @@ echo "IPv6 firewall configured"
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Docker Network Isolation and Inter-Container Security](/recipes/docker-network-isolation/).
 
 1. **Use `conntrack` instead of `state` for new setups.** The `state` module is deprecated in favor of `conntrack` which provides the same functionality with better performance:
 

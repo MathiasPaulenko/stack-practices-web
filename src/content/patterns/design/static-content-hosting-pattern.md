@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: static-content-hosting-pattern
 title: "Static Content Hosting Pattern"
@@ -19,8 +24,11 @@ tags:
   - object-storage
   - frontend
 relatedResources:
-  - /patterns/design/content-delivery-network-pattern
-  - /patterns/design/sharding-pattern
+  - /patterns/content-delivery-network-pattern
+  - /patterns/sharding-pattern
+  - /patterns/pipes-and-filters-pattern
+  - /patterns/back-pressure-pattern
+  - /patterns/backend-for-frontend-pattern
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - cloudfront
     - object storage
     - frontend
+
+
+
+
+
 ---
 
 # Static Content Hosting Pattern
@@ -44,6 +57,9 @@ The Static Content Hosting Pattern deploys static files — images, CSS, JavaScr
 Static assets do not change per request and require no server-side processing. By separating them from live application logic, the origin server can focus on business logic while the CDN handles high-volume, cache-friendly content delivery.
 
 ## When to Use
+
+
+- For alternatives, see [Content Delivery Network (CDN) Pattern](/patterns/content-delivery-network-pattern/).
 
 - Serving images, videos, documents, or other large binary files
 - Static website hosting (marketing sites, documentation, blogs)

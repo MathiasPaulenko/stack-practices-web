@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: incident-timeline-template
 title: "Plantilla de Linea de Tiempo de Incidentes"
@@ -16,10 +18,10 @@ tags:
   - template
   - sre
 relatedResources:
-  - /docs/devops/incident-communication-template
-  - /docs/devops/postmortem-incident-review-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/on-call-handoff-template
+  - /docs/incident-communication-template
+  - /docs/postmortem-incident-review-template
+  - /docs/escalation-policy-template
+  - /docs/on-call-handoff-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +32,8 @@ seo:
     - analisis de causa raiz
     - reconstruccion de incidente
     - plantilla de cronologia
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 La mayoria de los postmortems de incidentes no logran identificar los problemas reales porque carecen de una cronologia precisa. Los equipos recuerdan los grandes eventos pero olvidan los 15 minutos de retraso en el escalamiento, los 30 minutos gastados revisando los logs incorrectos, o la brecha entre la primera alerta y el reconocimiento humano. Esta plantilla estructura la reconstruccion de incidentes con granularidad de cinco minutos, exponiendo los retrasos que realmente impulsan el MTTR.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Communication Template](/es/docs/incident-communication-template/).
 
 Usa esta plantilla cuando:
 - Realizas un postmortem despues de cualquier incidente P1 o P2

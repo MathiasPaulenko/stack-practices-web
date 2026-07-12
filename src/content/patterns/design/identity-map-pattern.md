@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: identity-map-pattern
 title: "Identity Map Pattern"
@@ -17,9 +20,10 @@ tags:
   - databases
   - orm
 relatedResources:
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/unit-of-work-pattern
-  - /patterns/design/data-access-object-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/unit-of-work-pattern
+  - /patterns/data-access-object-pattern
+  - /patterns/eager-loading-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +34,9 @@ seo:
     - caching
     - databases
     - orm
+
+
+
 ---
 
 # Identity Map Pattern
@@ -41,6 +48,9 @@ The Identity Map Pattern ensures that each object is loaded only once per transa
 Without this pattern, loading the same database row twice within a transaction results in two different object instances. Modifying one instance and saving it can overwrite changes made to the other, causing lost updates. The Identity Map guarantees object identity: `row_id=42` always maps to the same in-memory object.
 
 ## When to Use
+
+
+- For alternatives, see [Composite Entity Pattern](/patterns/composite-entity-pattern/).
 
 Use the Identity Map Pattern when:
 - The same database row may be loaded multiple times during a single transaction

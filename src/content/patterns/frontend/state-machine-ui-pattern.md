@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: state-machine-ui-pattern
 title: "State Machine UI: Finite State Machines for UI"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/custom-hook-composition-pattern
   - /patterns/container-presenter-pattern
   - /patterns/optimistic-update-pattern
+  - /recipes/svelte-store-reactive-state
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - xstate
     - state-management
     - pattern
+
+
 ---
 
 ## Overview
@@ -716,6 +721,9 @@ const batchUploadMachine = createMachine({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Optimistic Update: Update UI Immediately, Reconcile on](/patterns/optimistic-update-pattern/).
 
 - Model states, not flags — replace `isLoading && !isError` with a single `state.matches('loading')`
 - Define all transitions explicitly — if an event isn't listed for a state, it's ignored. This prevents bugs.

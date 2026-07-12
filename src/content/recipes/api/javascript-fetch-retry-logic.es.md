@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: javascript-fetch-retry-logic
 title: "Lógica de Reintento en JavaScript Fetch con Backoff"
@@ -18,8 +21,9 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/retry-logic-exponential-backoff
   - /recipes/nodejs-websocket-realtime
-  - /guides/api-error-handling-guideline
+  - /guides/rest-api-design-guide
   - /patterns/circuit-breaker-pattern
+  - /recipes/python-async-http-requests
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - fetch abortcontroller timeout
     - javascript http retry
     - fetch error handling
+
+
+
 ---
 
 ## Visión General
@@ -38,6 +45,9 @@ seo:
 Las peticiones de red fallan por muchas razones: timeouts, errores del servidor, rate limiting o pérdida temporal de conectividad. Reintentar con backoff exponencial da tiempo a que los fallos transitorios se resuelvan sin sobrecargar el servidor. Esta recipe cubre un wrapper de fetch con reintento, jitter para evitar thundering herd, timeout con AbortController y un circuit breaker simple.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Handle Errors in APIs](/es/recipes/handle-errors/).
 
 - Llamas a APIs externas que ocasionalmente devuelven 5xx o timeout
 - Necesitas peticiones HTTP resilientes en navegador o Node.js

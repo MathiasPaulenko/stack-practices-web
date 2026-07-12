@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-typescript-advanced-types
 title: "Complete Guide to TypeScript Advanced Types"
@@ -16,9 +19,10 @@ tags:
   - type-safety
   - frontend
 relatedResources:
-  - /guides/frontend/complete-guide-react-server-components
-  - /recipes/frontend/typescript-utility-types-generics
-  - /recipes/frontend/typescript-discriminated-unions-exhaustive
+  - /guides/complete-guide-react-server-components
+  - /recipes/typescript-utility-types-generics
+  - /recipes/typescript-discriminated-unions-exhaustive
+  - /guides/complete-guide-react-state-management
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -31,6 +35,9 @@ seo:
     - template literal types
     - infer
     - type-level programming
+
+
+
 ---
 
 ## Introduction
@@ -464,6 +471,9 @@ getUser(userId);     // OK
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Exhaustive Type Checking with Discriminated Unions](/recipes/typescript-discriminated-unions-exhaustive/).
 
 - Use `infer` to extract types from generic functions — avoid manual type extraction
 - Use branded types for domain IDs — prevents passing a UserId where an OrderId is expected

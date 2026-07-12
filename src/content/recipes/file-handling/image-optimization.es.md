@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: image-optimization
 title: "Optimización de Imágenes"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/read-write-file
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
+  - /recipes/compression-gzip
+  - /recipes/export-csv-excel
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - sharp javascript images
     - webp vs jpeg
     - lazy loading imagenes
+
+
 ---
 ## Visión General
 

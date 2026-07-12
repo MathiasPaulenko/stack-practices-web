@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: merge-json-files-javascript
 title: "Merge JSON Files in JavaScript"
@@ -29,12 +30,16 @@ seo:
     - nodejs
     - data-processing
     - merge
+
 ---
 ## Overview
 
 Merging JSON files is a common task when combining configuration, aggregating API responses, or building data pipelines. JavaScript offers several approaches, from a simple spread operator to recursive deep merge libraries. Below is a practical approach to the main strategies and when to use each.
 
 ## When to Use
+
+
+- For alternatives, see [Merge JSON Files](/recipes/merge-json-files/).
 
 - You need to combine multiple JSON config files into one
 - You are aggregating paginated API responses into a single payload

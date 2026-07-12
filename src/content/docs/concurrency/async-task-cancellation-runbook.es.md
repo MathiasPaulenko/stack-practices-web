@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: async-task-cancellation-runbook
 templateType: runbook
@@ -16,8 +21,11 @@ tags:
   - timeouts
   - context-propagation
 relatedResources:
-  - /docs/concurrency/thread-pool-sizing-template
-  - /docs/concurrency/race-condition-debugging-checklist
+  - /docs/thread-pool-sizing-template
+  - /docs/race-condition-debugging-checklist
+  - /guides/complete-guide-python-asyncio-production
+  - /guides/complete-guide-python-asyncio
+  - /guides/concurrency-patterns-guide
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - async timeout
     - task cancellation
     - concurrent programming
+
+
+
+
+
 ---
 
 ## Overview
@@ -508,3 +521,12 @@ Cleanup deberia completear dentro de 5-10 seconds. Setea un hard timeout en clea
 ### ¿Deberia usar cancellation o simplemente killear el process?
 
 Usa cancellation para graceful shutdown — permite a tasks finishear current work, flushear buffers, closear connections y writear final state. Kill el process solo como last resort cuando cancellation no funciona dentro de un timeout. En Kubernetes, setea `terminationGracePeriodSeconds` a 30 (default) — el pod recibe SIGTERM, tu code deberia cancelar tasks y cleanup, y si no exit dentro de 30s, Kubernetes manda SIGKILL. Siempre handlea SIGTERM para graceful shutdown.
+
+## See Also
+
+- [Complete Guide to Python Asyncio in Production](/es/guides/complete-guide-python-asyncio-production/)
+- [Complete Guide to Python Asyncio](/es/guides/complete-guide-python-asyncio/)
+- [Concurrency Patterns Guide](/es/guides/concurrency-patterns-guide/)
+- [Master Async Patterns with Promises, Futures, and Coroutines](/es/recipes/async-patterns/)
+- [Use Concurrent Data Structures for Thread-Safe Collections](/es/recipes/concurrent-data-structures/)
+

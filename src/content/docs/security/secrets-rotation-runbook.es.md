@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: secrets-rotation-runbook
 templateType: runbook
@@ -16,9 +20,11 @@ tags:
   - aws-secrets-manager
   - zero-downtime
 relatedResources:
-  - /docs/security/owasp-top-10-remediation-checklist
-  - /docs/security/dependency-vulnerability-triage-template
-  - /docs/security/api-authentication-design-template
+  - /docs/owasp-top-10-remediation-checklist
+  - /docs/dependency-vulnerability-triage-template
+  - /docs/api-authentication-design-template
+  - /docs/secrets-rotation-template
+  - /docs/security-review-checklist-for-prs
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +37,10 @@ seo:
     - secret management
     - key rotation
     - security operations
+
+
+
+
 ---
 
 ## Overview
@@ -384,3 +394,12 @@ Rotea el secret immediately — asume que esta compromised. Incluso si removees 
 ### ¿Cómo verifico que all services pickearon el new secret?
 
 Most secrets managers proveen version tracking. Checkea que el current version matchee el newly rotated version. Monitora application logs para authentication errors o connection failures despues de rotation. Usa health checks que verifiquen database connectivity con current credentials. Para distributed systems, ensurea que all instances hayan reloaded — triggerea un rolling restart si el application no supporta hot-reload de secrets. Setea alerts para services still usando old secret versions.
+
+## See Also
+
+- [Complete Guide to Secrets Management](/es/guides/complete-guide-secrets-management/)
+- [Secrets Rotation Template](/es/docs/secrets-rotation-template/)
+- [Security Best Practices Guide](/es/guides/security-best-practices-guide/)
+- [Docker Secrets Management Without Hardcoding Credentials](/es/recipes/docker-secrets-management/)
+- [Live Database Credentials with HashiCorp Vault](/es/recipes/vault-dynamic-credentials/)
+

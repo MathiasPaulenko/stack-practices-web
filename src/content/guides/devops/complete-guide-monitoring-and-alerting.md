@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-monitoring-and-alerting
 title: "Complete Guide to Monitoring and Alerting"
@@ -20,9 +23,10 @@ tags:
   - runbooks
   - sli-slo-sla
 relatedResources:
-  - /guides/devops/complete-guide-kubernetes-networking
-  - /guides/devops/complete-guide-gitops-production
-  - /guides/devops/complete-guide-docker-production
+  - /guides/complete-guide-kubernetes-networking
+  - /guides/complete-guide-gitops-production
+  - /guides/complete-guide-docker-production
+  - /guides/complete-guide-sentry-error-tracking
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -36,6 +40,9 @@ seo:
     - distributed tracing
     - runbooks
     - log aggregation
+
+
+
 ---
 
 ## Introduction
@@ -731,3 +738,12 @@ Use PagerDuty (or Opsgenie) for critical alerts that require immediate human act
 ### How do I instrument code for observability?
 
 Use standard libraries: Prometheus client for metrics, OpenTelemetry SDK for traces, structured JSON logging. Instrument at framework level (middleware) so every request gets metrics automatically. Add business-specific metrics in handlers. Use trace spans for database queries, external API calls, and expensive computations. Set span attributes with relevant context (user ID, request ID, endpoint). Log structured events with correlation IDs that link to traces.
+
+## See Also
+
+- [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/)
+- [Alert Management: On-Call Alerting That Works](/guides/alert-management-guide/)
+- [Log Aggregation — Centralize, Search](/guides/log-aggregation-guide/)
+- [Observability — Metrics, Logs, and Traces Complete Guide](/guides/observability-guide/)
+- [Metrics and Dashboards](/guides/metrics-and-dashboards-guide/)
+

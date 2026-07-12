@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: aggregate-pattern
 title: "Aggregate Pattern"
@@ -16,9 +21,12 @@ tags:
   - entity
   - domain-driven-design
 relatedResources:
-  - /patterns/design/value-object-pattern
-  - /patterns/design/repository-pattern
-  - /patterns/design/outbox-pattern
+  - /patterns/value-object-pattern
+  - /patterns/repository-pattern
+  - /patterns/outbox-pattern
+  - /patterns/domain-event-pattern
+  - /patterns/null-object-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +37,11 @@ seo:
     - domain driven design
     - aggregate root
     - ddd
+
+
+
+
+
 ---
 
 # Aggregate Pattern
@@ -447,6 +460,9 @@ except ConcurrencyError:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Domain Event Pattern](/patterns/domain-event-pattern/).
 
 1. **Design aggregates around business invariants.** The aggregate boundary should align with transactional consistency requirements. If a business rule requires multiple objects to change atomically, they belong in the same aggregate.
 

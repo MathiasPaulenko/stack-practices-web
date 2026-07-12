@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: azure-basics-guide
 title: "Azure Basics — Core Services for Developers"
@@ -22,6 +26,9 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/kubernetes-advanced-guide
   - /guides/aws-basics-guide
+  - /guides/blob-storage-guide
+  - /guides/gcp-basics-guide
+  - /guides/multi-cloud-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -35,6 +42,10 @@ seo:
     - app-service
     - active-directory
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -42,6 +53,9 @@ seo:
 Microsoft Azure is the second-largest cloud platform, deeply integrated with enterprise tools like Microsoft 365, Active Directory, and .NET. For developers, Azure offers a thorough set of services for compute, storage, databases, networking, and identity management. Below is a practical guide to the services you will use most frequently and how they connect in a typical application architecture.
 
 ## When to Use
+
+
+- For alternatives, see [AWS Basics — Core Services for Developers](/guides/aws-basics-guide/).
 
 - Your organization uses Microsoft technologies (.NET, Office 365, Active Directory)
 - You need hybrid cloud capabilities

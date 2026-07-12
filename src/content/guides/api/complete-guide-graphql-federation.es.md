@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-federation
 title: "Referencia Detallada de GraphQL Federation"
@@ -19,9 +25,13 @@ tags:
   - guide
   - api
 relatedResources:
-  - /guides/api/graphql-vs-rest-guide
-  - /guides/api/complete-guide-api-versioning-strategies
-  - /guides/architecture/complete-guide-microservices-communication
+  - /guides/graphql-vs-rest-guide
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-microservices-communication
+  - /patterns/graphql-federated-entity-pattern
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-testing
+  - /recipes/graphql-mocking-apollo-server
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - graphql gateway
     - entity resolution
     - graphql microservices
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de GraphQL Federation
@@ -403,3 +419,12 @@ El gateway construye un query plan. Para una query que fetchea un user y sus ord
 ### ¿Puedo usar federation sin Apollo?
 
 Sí. Federation es una spec abierta. Las alternativas incluyen Apollo Gateway (Node.js), Apollo Router (Rust) y gateways custom. El protocolo de subgraph es language-agnostic — puedes construir subgraphs en Python (Ariadne, Strawberry), Java (DGS), Go (gqlgen) y Ruby (graphql-ruby).
+
+## See Also
+
+- [GraphQL Federation in Production](/es/guides/complete-guide-graphql-federation-production/)
+- [Set Up a GraphQL Federation Gateway with Apollo](/es/recipes/graphql-federation-gateway-setup/)
+- [Complete Guide to GraphQL Schema Design](/es/guides/complete-guide-graphql-schema-design/)
+- [GraphQL vs REST — When to Choose and How to Migrate](/es/guides/graphql-vs-rest-guide/)
+- [GraphQL Error Extension Pattern](/es/patterns/graphql-error-extension-pattern/)
+

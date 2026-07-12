@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: two-level-cache-pattern
 title: "Two-Level Cache Pattern"
@@ -19,9 +22,10 @@ tags:
   - python
   - java
 relatedResources:
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-invalidation-pattern
-  - /patterns/design/cache-aside-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/cache-stampede-prevention-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - multi-level caching
     - cache hierarchy
     - distributed cache pattern
+
+
+
 ---
 
 # Two-Level Cache Pattern
@@ -279,6 +286,9 @@ On a write, both L1 and L2 are invalidated. Other instances still have the old v
 | L1-only (no L2) | LRU / Caffeine | None | Per-instance, no sharing |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Read-Through Cache Pattern](/patterns/read-through-cache-pattern/).
 
 - **Keep L1 small** — L1 is per-instance and consumes application memory. 1000-5000 entries is typical. Use LRU eviction to bound size.
 - **Set a short L1 TTL** — L1 should expire faster than L2 (e.g. 60s vs 1h). This limits staleness when other instances update data.

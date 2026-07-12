@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: javascript-drag-drop-file-upload
 title: "Subida de Archivos con Drag and Drop en JavaScript con"
@@ -18,8 +22,9 @@ relatedResources:
   - /recipes/javascript-clipboard-copy-paste
   - /recipes/javascript-localstorage-expiration
   - /recipes/nodejs-file-upload-validation
-  - /guides/graphql-error-handling-best-practices
-  - /patterns/file-upload-validation
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/file-upload-validation
+  - /recipes/nodejs-read-large-file-stream
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +36,10 @@ seo:
     - formdata file upload
     - javascript file validation
     - drop zone javascript
+
+
+
+
 ---
 
 ## Visión General
@@ -38,6 +47,9 @@ seo:
 La HTML5 Drag and Drop API permite subidas de archivos nativas sin librerías de terceros. Esta recipe cubre configurar una drop zone, validar archivos por tipo y tamaño, subir con FormData y seguimiento de progreso, y dar feedback visual durante operaciones de arrastre.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Compress and Decompress Files](/es/recipes/compress-decompress-files/).
 
 - Necesitas un área de subida donde los usuarios puedan arrastrar archivos en vez de hacer click en un botón
 - Quieres validar archivos del lado del cliente antes de subir

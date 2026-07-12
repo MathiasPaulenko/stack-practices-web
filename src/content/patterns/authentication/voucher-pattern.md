@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: voucher-pattern
 title: "Voucher Pattern"
@@ -20,9 +22,10 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/authentication/federated-identity-pattern
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/ambassador-pattern
+  - /patterns/federated-identity-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/ambassador-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -36,6 +39,8 @@ seo:
     - python voucher pattern
     - java voucher pattern
     - javascript voucher pattern
+
+
 ---
 
 # Voucher Pattern

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: secrets-rotation-template
 title: "Secrets Rotation Template"
@@ -22,6 +25,8 @@ relatedResources:
   - /docs/incident-response-playbook-template
   - /docs/vendor-risk-assessment-template
   - /docs/data-retention-policy-template
+  - /recipes/docker-secrets-management
+  - /docs/secrets-rotation-runbook
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -35,12 +40,18 @@ seo:
     - certificates
     - credentials
     - template
+
+
+
 ---
 ## Overview
 
 A leaked API key is only a disaster if it is still valid. Secrets rotation limits the blast radius of a breach by ensuring credentials expire before attackers can exploit them. But rotation without process is chaos: services break, deployments fail, and teams start sharing the same root password in Slack. A rotation schedule template coordinates who rotates what, when, and how, with zero-downtime procedures and rollback plans.
 
 ## When to Use
+
+
+- For alternatives, see [Docker Secrets Management Without Hardcoding Credentials](/recipes/docker-secrets-management/).
 
 Use this resource when:
 - You are setting up a secrets management policy for the first time

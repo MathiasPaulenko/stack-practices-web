@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-helm-charts-production
 title: "Helm Charts: Estructura, Templating, Dependencias, Registry"
@@ -16,8 +19,9 @@ tags:
   - deployment
   - packaging
 relatedResources:
-  - /guides/devops/complete-guide-github-actions-ci-cd
-  - /guides/devops/complete-guide-kubernetes-config-management
+  - /guides/complete-guide-github-actions-ci-cd
+  - /guides/complete-guide-kubernetes-config-management
+  - /guides/complete-guide-docker-compose-local-dev
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +35,9 @@ seo:
     - helm dependencies
     - helm hooks
     - helm registry
+
+
+
 ---
 
 ## Introducción
@@ -612,6 +619,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Package Kubernetes Manifests with Helm Charts](/es/recipes/kubernetes-helm-chart-templating/).
 
 - Usá `include` over `template` para named templates — `include` es flexible y composable
 - Usá `nindent` over `indent` — handlea leading newlines correctamente en YAML

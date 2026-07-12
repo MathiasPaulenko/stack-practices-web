@@ -1,4 +1,9 @@
-﻿---
+---
+
+
+
+
+
 contentType: recipes
 slug: graphql-dataloader-batching
 title: "Batch and Cache Database Queries with GraphQL DataLoader"
@@ -16,9 +21,12 @@ tags:
   - batching
   - performance
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-pagination-relay-connections
-  - /patterns/graphql/graphql-dataloader-pattern
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-pagination-relay-connections
+  - /patterns/graphql-dataloader-pattern
+  - /recipes/graphql-n-1-query-detection
+  - /recipes/graphql-custom-scalar-types
+  - /recipes/graphql-subscriptions-realtime
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - batch loading
     - graphql performance
     - dataloader batching
+
+
+
+
+
 ---
 
 # Batch and Cache Database Queries with GraphQL DataLoader
@@ -203,6 +216,9 @@ const loader = new DataLoader(batchFn, {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/recipes/graphql-n-1-query-detection/).
 
 - **Create loaders per request** — never share DataLoader instances across requests; the cache leaks data between users
 - **Sort batch results to match input order** — DataLoader expects the return array to align with the input key order

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: mediator-pattern-components
 title: "Mediator Pattern for Loose Component Coupling in"
@@ -15,9 +20,13 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/observer-pattern
-  - /patterns/design/facade-pattern
-  - /patterns/design/backend-for-frontend-pattern
+  - /patterns/observer-pattern
+  - /patterns/facade-pattern
+  - /patterns/backend-for-frontend-pattern
+  - /patterns/interpreter-pattern-expressions
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/bridge-pattern-ui-themes
+  - /patterns/composite-pattern-ui
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - loose coupling
     - behavioral patterns
     - frontend architecture
+
+
+
+
+
 ---
 
 # Mediator Pattern for Loose Component Coupling in Frontend Apps

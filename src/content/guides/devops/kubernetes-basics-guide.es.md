@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: kubernetes-basics-guide
 title: "Kubernetes Básico para Desarrolladores de Aplicaciones"
@@ -16,9 +21,13 @@ tags:
   - kubernetes
   - orquestacion
 relatedResources:
-  - /guides/devops/docker-for-developers-guide
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/architecture/software-architecture-guide
+  - /guides/docker-for-developers-guide
+  - /guides/cicd-pipeline-guide
+  - /guides/software-architecture-guide
+  - /recipes/graceful-shutdown
+  - /recipes/helm-chart-deployment
+  - /patterns/external-configuration-store-pattern
+  - /guides/system-design-interview-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - deployments kubernetes
     - services kubernetes
     - k8s para desarrolladores
+
+
+
+
+
 ---
 
 # Kubernetes Básico para Desarrolladores de Aplicaciones

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-gitops-production
 title: "Referencia Detallada de GitOps en Producción"
@@ -19,9 +22,10 @@ tags:
   - sops
   - multi-cluster
 relatedResources:
-  - /guides/devops/complete-guide-kubernetes-networking
-  - /guides/devops/complete-guide-terraform-production
-  - /guides/devops/complete-guide-monitoring-and-alerting
+  - /guides/complete-guide-kubernetes-networking
+  - /guides/complete-guide-terraform-production
+  - /guides/complete-guide-monitoring-and-alerting
+  - /patterns/external-configuration-store-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - automated rollback
     - progressive delivery
     - sops
+
+
+
 ---
 
 ## Introducción
@@ -597,3 +604,12 @@ Usa un single GitOps repo para cada cluster o environment. Esto hace easy ver el
 ### ¿Cómo hago rollback de un deployment en GitOps?
 
 En Flux: revert el Git commit que introduced el change. Flux va a automatically sync al reverted state. En ArgoCD: usa `argocd app rollback` para pin a un previous revision, o revert el Git commit si auto-sync esta enabled. El key insight es que rollback es just another Git operation — no kubectl commands, no direct cluster access. Esto es uno de los main benefits de GitOps.
+
+## See Also
+
+- [Complete Guide to Kubernetes Networking](/es/guides/complete-guide-kubernetes-networking/)
+- [Complete Guide to Terraform in Production](/es/guides/complete-guide-terraform-production/)
+- [Complete Guide to GitOps with ArgoCD](/es/guides/complete-guide-gitops-argocd/)
+- [Multi-Cloud Strategies — Benefits, Pitfalls](/es/guides/multi-cloud-guide/)
+- [External Configuration Store Pattern](/es/patterns/external-configuration-store-pattern/)
+

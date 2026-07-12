@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: soft-deletes
 title: "Soft Deletes"
@@ -19,6 +21,8 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
   - /patterns/builder-pattern
+  - /recipes/caching-redis
+  - /recipes/database-migrations-safely
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

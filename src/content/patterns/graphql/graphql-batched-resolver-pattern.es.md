@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: graphql-batched-resolver-pattern
 title: "Patron de Resolver Batch en GraphQL"
@@ -20,6 +25,10 @@ relatedResources:
   - /patterns/graphql-dataloader-pattern
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /recipes/graphql-n-1-query-detection
+  - /recipes/graphql-pagination-relay-connections
+  - /patterns/graphql-connection-pagination-pattern
+  - /patterns/graphql-error-extension-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - dataloader
     - n-plus-1
     - graphql-performance
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -39,6 +53,9 @@ Cuando una query GraphQL pide campos anidados a traves de una lista, cada item d
 El patron se combina naturalmente con DataLoader, que maneja batching, caching y deduplicacion por peticion.
 
 ## Cuando Usar
+
+
+- For alternatives, see [GraphQL DataLoader Pattern](/es/patterns/graphql-dataloader-pattern/).
 
 - Resolvers que obtienen datos relacionados por item padre (posts → autor, ordenes → producto)
 - Listas de items donde cada item tiene una relacion anidada

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-observability-grafana-stack
 title: "Referencia Detallada de Observabilidad con el Grafana Stack"
@@ -20,9 +26,13 @@ tags:
   - guide
   - observability
 relatedResources:
-  - /guides/observability/distributed-tracing-guide
-  - /guides/devops/complete-guide-ci-cd-github-actions
-  - /guides/architecture/complete-guide-microservices-communication
+  - /guides/distributed-tracing-guide
+  - /guides/complete-guide-ci-cd-github-actions
+  - /guides/complete-guide-microservices-communication
+  - /patterns/health-endpoint-monitoring-pattern
+  - /patterns/circuit-breaker-with-monitoring-pattern
+  - /guides/complete-guide-sentry-error-tracking
+  - /recipes/python-prometheus-metrics-exporter
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -36,6 +46,12 @@ seo:
     - distributed tracing
     - alerting
     - monitoring
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de Observabilidad con el Grafana Stack
@@ -551,3 +567,12 @@ Configurar `tracesToLogs` de Tempo en el datasource config para linkear a Loki. 
 ### ¿Debo usar Grafana Cloud o self-host?
 
 Grafana Cloud es managed y escala automáticamente — bueno para equipos sin ops capacity. Self-hosting da control total y evita per-metric pricing pero requiere maintenance capacity. Para equipos pequeños, el free tier de Grafana Cloud cubre hasta 10k active metrics y 50GB logs.
+
+## See Also
+
+- [Complete Guide to Monitoring and Alerting](/es/guides/complete-guide-monitoring-and-alerting/)
+- [Observability — Metrics, Logs, and Traces Complete Guide](/es/guides/observability-guide/)
+- [Log Aggregation — Centralize, Search](/es/guides/log-aggregation-guide/)
+- [Alert Management: On-Call Alerting That Works](/es/guides/alert-management-guide/)
+- [Metrics and Dashboards](/es/guides/metrics-and-dashboards-guide/)
+

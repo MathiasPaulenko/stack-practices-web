@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: merge-json-files
 title: "Merge JSON Files"
@@ -16,11 +20,13 @@ tags:
   - java
   - data-processing
 relatedResources:
-  - /recipes/data/convert-csv-to-json
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-xml-files
-  - /recipes/data/serialize-deserialize-data
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
+  - /recipes/parse-csv-files
+  - /recipes/parse-xml-files
+  - /recipes/serialize-deserialize-data
+  - /recipes/merge-json-files-javascript
+  - /recipes/diff-json-objects
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,12 +39,19 @@ seo:
     - javascript
     - java
     - data-processing
+
+
+
+
 ---
 ## Overview
 
 Modern applications often split configuration, localization, and dataset files into multiple JSON files for modularity. Merging them into a single JSON object or array is a common build step, cache warmup, and API aggregation task. The following demonstrates how to deep merging of objects, concatenation of arrays, and handling key conflicts across Python, JavaScript, and Java.
 
 ## When to Use
+
+
+- For alternatives, see [Convert CSV to JSON](/recipes/convert-csv-to-json/).
 
 Use this resource when:
 - Aggregating microservice responses into a single API payload

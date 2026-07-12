@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-react-performance-optimization
 title: "Complete Guide to React Performance Optimization"
@@ -18,9 +24,13 @@ tags:
   - guide
   - frontend
 relatedResources:
-  - /guides/frontend/web-components-guide
-  - /guides/performance/performance-optimization-guide
-  - /guides/frontend/accessibility-wcag-guide
+  - /guides/web-components-guide
+  - /guides/performance-optimization-guide
+  - /guides/accessibility-wcag-guide
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-event-loop
+  - /recipes/web-performance
+  - /recipes/database-query-result-caching
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - react virtualization
     - react profiler
     - core web vitals react
+
+
+
+
+
+
 ---
 
 # Complete Guide to React Performance Optimization
@@ -451,6 +467,9 @@ npx lighthouse https://localhost:3000 --view --preset=desktop
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Bundle Size Optimization](/guides/complete-guide-bundle-size-optimization/).
 
 - **Profile before optimizing** — use React Profiler to find actual bottlenecks
 - **Memoize only expensive operations** — over-memoization adds overhead

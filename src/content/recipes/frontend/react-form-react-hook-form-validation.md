@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: react-form-react-hook-form-validation
 title: "Form Validation with react-hook-form and Zod"
@@ -16,9 +20,11 @@ tags:
   - zod
   - recipe
 relatedResources:
-  - /recipes/frontend/typescript-discriminated-unions-exhaustive
-  - /recipes/frontend/react-usememo-usecallback-performance
-  - /recipes/frontend/typescript-utility-types-generics
+  - /recipes/typescript-discriminated-unions-exhaustive
+  - /recipes/react-usememo-usecallback-performance
+  - /recipes/typescript-utility-types-generics
+  - /recipes/react-virtual-list-react-window
+  - /recipes/vue-composition-api-fetch
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +37,10 @@ seo:
     - react-hook-form
     - zod
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -447,6 +457,9 @@ function EditProfileForm({ defaultValues }: { defaultValues: FormData }) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [When to Use useMemo and useCallback](/recipes/react-usememo-usecallback-performance/).
 
 - Always derive the form type from the Zod schema with `z.infer<typeof schema>` — don't duplicate the type
 - Use `valueAsNumber: true` for number inputs — without it, the value is a string

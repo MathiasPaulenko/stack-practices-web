@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: performance-regression-template
 title: "Plantilla de Regresión de Rendimiento"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/patch-management-template
   - /docs/capacity-planning-template
+  - /docs/weekly-ops-review-template
+  - /docs/sla-definition-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - benchmark
     - operaciones
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Las regresiones de rendimiento son invisibles hasta que son dolorosas. Un aumento del 20% en la latencia después de un release pasa desapercibido durante semanas, y de repente tu cliente más grande se va porque su integración de API expiró. Hacer benchmarking no es suficiente — necesitas una forma estructurada de comparar métricas antes/después, identificar causas raíz y decidir si hacer rollback o avanzar con el arreglo. Esta plantilla crea un proceso repetible para detectar, analizar y resolver regresiones de rendimiento.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Weekly Ops Review Template](/es/docs/weekly-ops-review-template/).
 
 Usa este recurso cuando:
 - Tu pipeline de releases carece de puertas automáticas de rendimiento

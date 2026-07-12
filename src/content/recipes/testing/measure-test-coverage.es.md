@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: measure-test-coverage
 title: "Medir Cobertura de Test"
@@ -16,9 +21,12 @@ tags:
   - ci-cd
   - recipe
 relatedResources:
-  - /recipes/testing/setup-test-fixtures
-  - /recipes/testing/generate-test-data
-  - /guides/testing/testing-strategy-guide
+  - /recipes/setup-test-fixtures
+  - /recipes/generate-test-data
+  - /guides/testing-strategy-guide
+  - /recipes/implement-mutation-testing
+  - /recipes/python-coverage-pytest-cov
+  - /recipes/python-pytest-fixtures-parametrize
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -31,6 +39,11 @@ seo:
     - jacoco
     - ci-cd
     - recipe
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -38,6 +51,9 @@ seo:
 La cobertura de código mide qué líneas, branches y condiciones fueron ejecutadas durante los tests. Es un proxy útil para código no testeado, pero no una medida de calidad de test — 100% de cobertura sin assertions es meaningless. El patron a continuacion demuestra cómo recolectar, reportar y configurar thresholds de cobertura significativos sin crear incentivos perversos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Measure Test Coverage with pytest-cov](/es/recipes/python-coverage-pytest-cov/).
 
 - Necesitas visibilidad sobre qué rutas de código carecen de ejecución de test
 - Los pipelines de CI necesitan una puerta para prevenir código no testeado de ser mergeado

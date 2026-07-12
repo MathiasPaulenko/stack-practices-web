@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: csp-communication
 title: "Coordinate Concurrent Tasks with Communicating"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/thread-pools
   - /recipes/async-patterns
   - /recipes/concurrent-data-structures
+  - /guides/concurrency-patterns-guide
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - goroutines go
     - select statement
     - message passing
+
 ---
 
 ## Overview

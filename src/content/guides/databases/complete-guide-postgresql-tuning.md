@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-postgresql-tuning
 title: "Complete Guide to PostgreSQL Tuning"
@@ -18,9 +24,13 @@ tags:
   - guide
   - databases
 relatedResources:
-  - /guides/databases/database-denormalization-guide
-  - /guides/performance/sql-cte-guide
-  - /guides/data/data-migration-guide
+  - /guides/database-denormalization-guide
+  - /guides/sql-cte-guide
+  - /guides/data-migration-guide
+  - /recipes/seed-database
+  - /guides/full-text-search-guide
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-sql-query-optimization
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - connection pooling
     - postgresql partitioning
     - vacuum postgresql
+
+
+
+
+
+
 ---
 
 # Complete Guide to PostgreSQL Tuning
@@ -377,6 +393,9 @@ FROM pg_stat_database;
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to MongoDB Indexing](/guides/complete-guide-mongodb-indexing/).
 
 - **Set `shared_buffers` to 25% of RAM** — the single most impactful setting
 - **Create indexes before loading data** — or use `CREATE INDEX CONCURRENTLY` on live tables

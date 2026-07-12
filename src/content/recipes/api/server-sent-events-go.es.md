@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: server-sent-events-go
 title: "Implementa Server-Sent Events en Go para Actualizaciones"
@@ -15,8 +18,10 @@ tags:
   - api
   - rest
 relatedResources:
-  - /recipes/api/websocket-authentication
+  - /recipes/websocket-authentication
   - /recipes/real-time-websockets
+  - /recipes/go-rest-api-gin
+  - /recipes/websocket-bidirectional-chat
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +32,9 @@ seo:
     - golang
     - real time api
     - event stream
+
+
+
 ---
 
 # Implementa Server-Sent Events en Go para Actualizaciones en Tiempo Real

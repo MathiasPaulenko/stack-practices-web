@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: shed-load-pattern
 title: "Shed Load Pattern"
@@ -17,9 +20,10 @@ tags:
   - backpressure
   - overload-protection
 relatedResources:
-  - /patterns/design/throttling-pattern
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/graceful-degradation-pattern
+  - /patterns/throttling-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/graceful-degradation-pattern
+  - /patterns/geode-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - overload protection
     - backpressure
     - drop requests
+
+
+
 ---
 
 # Shed Load Pattern
@@ -43,6 +50,9 @@ When a system receives more traffic than it can process, it enters a death spira
 The pattern monitors a load metric (queue depth, CPU usage, memory, active connections). When the metric crosses a threshold, new requests are rejected at the edge before entering the processing pipeline. Existing requests continue processing. When load drops below the threshold, the system resumes accepting new requests.
 
 ## When to Use
+
+
+- For alternatives, see [Back-Pressure Pattern](/patterns/back-pressure-pattern/).
 
 Use the Shed Load Pattern when:
 - Traffic spikes can exceed your system capacity (flash sales, viral events, DDoS)

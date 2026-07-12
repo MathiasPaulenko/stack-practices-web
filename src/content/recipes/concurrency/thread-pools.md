@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: thread-pools
 title: "Manage Concurrent Work with Thread Pools and Executors"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/microservices-patterns
   - /recipes/load-balancing
   - /recipes/serverless-functions
+  - /recipes/csp-communication
+  - /recipes/concurrent-data-structures
+  - /recipes/locks-and-mutexes
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - worker threads
     - concurrent processing
     - thread pool size
+
+
+
 ---
 
 ## Overview

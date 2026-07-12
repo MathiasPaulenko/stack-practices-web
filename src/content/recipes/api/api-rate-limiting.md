@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: api-rate-limiting
 title: "API Rate Limiting"
@@ -16,8 +19,9 @@ tags:
   - sliding-window
 relatedResources:
   - /recipes/api-rate-limiting-redis
-  - /guides/security/api-security-checklist-guide
-  - /recipes/caching/redis-rate-limiting-token-bucket
+  - /guides/api-security-checklist-guide
+  - /recipes/redis-rate-limiting-token-bucket
+  - /recipes/python-api-rate-limiting
 lastUpdated: "2026-07-03"
 author: "StackPractices"
 seo:
@@ -27,6 +31,9 @@ seo:
     - api
     - redis
     - security
+
+
+
 ---
 ## Overview
 
@@ -192,6 +199,9 @@ Use a shared store like Redis. Each node checks and increments the counter in Re
 Start with 100 requests per minute for authenticated users and 10 per minute for anonymous. Monitor usage patterns and adjust. Expensive endpoints (exports, reports) should have separate, lower limits.
 
 ## Best Practices
+
+
+- For a deeper guide, see [API Rate Limiting — Design Fair and Useful Throttling](/guides/api-rate-limiting-guide/).
 
 - **Use sliding window over fixed window**: sliding window provides smoother rate limiting without burst spikes at window boundaries. Redis sorted sets make sliding windows efficient.
 - **Differentiate limits by endpoint cost**: a GET `/users` is cheap; a POST `/reports/export` is expensive. Set lower limits on costly endpoints to protect backend resources.

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: alert-management-guide
 title: "Alert Management: On-Call Alerting That Works"
@@ -18,11 +21,12 @@ tags:
   - opsgenie
   - guide
 relatedResources:
-  - /guides/observability/metrics-and-dashboards-guide
-  - /guides/observability/incident-response-guide
-  - /guides/observability/postmortem-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/observability-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/incident-response-guide
+  - /guides/postmortem-guide
+  - /guides/sre-practices-guide
+  - /guides/observability-guide
+  - /guides/log-aggregation-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - pagerduty
     - opsgenie
     - guide
+
+
+
 ---
 
 ## Overview
@@ -44,6 +51,9 @@ Alerting is how your systems tell you something needs attention. Done poorly, it
 Here is a hands-on guide to alert design, severity classification, on-call structures, escalation policies, and sustainable operational practices.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Monitoring and Alerting](/guides/complete-guide-monitoring-and-alerting/).
 
 - Your team receives more than 5 alerts per person per week
 - Alerts are frequently ignored or treated as noise

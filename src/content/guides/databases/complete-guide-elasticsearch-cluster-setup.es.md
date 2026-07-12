@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-elasticsearch-cluster-setup
 title: "Referencia Detallada de Elasticsearch Cluster Setup"
@@ -19,9 +25,13 @@ tags:
   - databases
   - infrastructure
 relatedResources:
-  - /guides/databases/database-denormalization-guide
-  - /guides/architecture/complete-guide-kafka-stream-processing
-  - /guides/devops/deployment-strategies-guide
+  - /guides/database-denormalization-guide
+  - /guides/complete-guide-kafka-stream-processing
+  - /guides/deployment-strategies-guide
+  - /recipes/elasticsearch-aggregations
+  - /guides/full-text-search-guide
+  - /guides/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-replication
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - elasticsearch production
     - search cluster
     - index templates
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de Elasticsearch Cluster Setup
@@ -424,3 +440,12 @@ POST /_aliases
   ]
 }
 ```
+
+## See Also
+
+- [Full-Text Search — Implement Search That Actually Works](/es/guides/full-text-search-guide/)
+- [Complete Guide to Database Sharding](/es/guides/complete-guide-database-sharding/)
+- [Complete Guide to PostgreSQL Replication](/es/guides/complete-guide-postgresql-replication/)
+- [Complete Guide to Redis in Production](/es/guides/complete-guide-redis-production/)
+- [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/)
+

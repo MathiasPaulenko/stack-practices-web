@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: gateway-routing-pattern
 title: "Patron de Enrutamiento de Gateway"
@@ -22,6 +25,8 @@ relatedResources:
   - /patterns/backend-for-frontend-pattern
   - /patterns/strangler-fig-pattern
   - /guides/rest-api-design-guide
+  - /patterns/health-endpoint-monitoring-pattern
+  - /patterns/compute-resource-consolidation-pattern
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - api gateway
     - arquitectura de microservicios
     - enrutamiento de servicios
+
+
+
 ---
 ## Visión General
 
@@ -40,6 +48,9 @@ El Patron de Enrutamiento de Gateway coloca un unico punto de entrada frente a m
 Este patron es esencial para arquitecturas de microservicios y modulares donde deseas un contrato externo limpio mientras permites que los servicios internos evolucionen de forma independiente.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [API Gateway Design: Resilience, Routing, and Security](/es/guides/api-gateway-design-guide/).
 
 Usa este patron cuando:
 - Tengas multiples servicios backend que los clientes deben alcanzar a traves de una sola direccion

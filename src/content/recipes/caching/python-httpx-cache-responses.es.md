@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-httpx-cache-responses
 title: "Cachear Respuestas HTTP con httpx y CacheControl en Python"
@@ -16,9 +22,13 @@ tags:
   - cachecontrol
   - etag
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/nginx-reverse-proxy-cache
+  - /recipes/python-redis-cache-decorator
+  - /recipes/nginx-reverse-proxy-cache
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/java-spring-cache-annotations
+  - /recipes/python-web-scraping-beautifulsoup
+  - /recipes/database-query-result-caching
+  - /recipes/nodejs-redis-cache-invalidation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +39,12 @@ seo:
     - http caching python
     - etag conditional requests
     - httpx cache backend
+
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +52,9 @@ seo:
 Cuando una aplicacion Python hace peticiones HTTP a APIs externas, cachear respuestas reduce latencia, evita rate limits y disminuye el uso de ancho de banda. `httpx` combinado con `CacheControl` proporciona caching compatible con HTTP que respeta los headers `Cache-Control`, `ETag` y `Last-Modified` — las mismas reglas que siguen los navegadores. A continuacion: configurar httpx con CacheControl, usar backends de archivo y Redis, manejar peticiones condicionales y control manual de cache.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Use Spring Cache Annotations with Redis Backend](/es/recipes/java-spring-cache-annotations/).
 
 - Aplicaciones Python que llaman a APIs externas repetidamente (clima, tasas de cambio, busqueda)
 - Reducir consumo de rate limits en APIs de terceros

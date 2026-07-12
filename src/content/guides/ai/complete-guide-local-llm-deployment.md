@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-local-llm-deployment
 title: "Complete Guide to Local LLM Deployment"
@@ -19,9 +22,10 @@ tags:
   - quantization
   - gpu
 relatedResources:
-  - /guides/ai/complete-guide-llm-cost-optimization
-  - /guides/ai/complete-guide-llm-security
-  - /guides/ai/complete-guide-llm-application-architecture
+  - /guides/complete-guide-llm-cost-optimization
+  - /guides/complete-guide-llm-security
+  - /guides/complete-guide-llm-application-architecture
+  - /recipes/python-ollama-local-llm
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - model quantization
     - gpu requirements
     - on-premise llm
+
+
+
 ---
 
 ## Introduction
@@ -602,3 +609,12 @@ Both Ollama and vLLM provide built-in API servers. Ollama runs on port 11434 wit
 ### Can I fine-tune models locally?
 
 Yes. Use tools like Unsloth, Axolotl, or HuggingFace TRL for fine-tuning. Fine-tuning a 7B model requires ~16 GB VRAM with QLoRA (4-bit quantization + LoRA). Full fine-tuning of a 7B model requires ~60 GB VRAM. Fine-tuning is slower than inference — expect hours to days depending on dataset size and hardware.
+
+## See Also
+
+- [Complete Guide to PostgreSQL Replication](/guides/complete-guide-postgresql-replication/)
+- [Database Replication — Master-Slave, Multi-Master](/guides/database-replication-guide/)
+- [Blue-Green Deployment](/guides/blue-green-deployment-guide/)
+- [Canary Deployment: Gradual Rollouts with Safety Controls](/guides/canary-deployment-guide/)
+- [CI/CD Security: Harden Your Pipelines and Prevent Supply](/guides/ci-cd-security-guide/)
+

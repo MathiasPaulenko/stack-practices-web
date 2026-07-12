@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: graph-database-guide
 title: "Graph Databases — Neo4j and Property Graph Modeling"
@@ -32,6 +33,7 @@ seo:
     - property-graph
     - connected-data
     - guide
+
 ---
 
 ## Overview
@@ -39,6 +41,9 @@ seo:
 Graph databases store data as nodes (entities) and edges (relationships), making them ideal for problems where connections between data points are as important as the data itself. Social networks, fraud detection, recommendation engines, and knowledge graphs all benefit from native graph storage. Neo4j, the leading property graph database, uses the Cypher query language and achieves constant-time traversals regardless of graph depth — something relational databases struggle with due to join explosion.
 
 ## When to Use
+
+
+- For alternatives, see [Data Lake vs Data Warehouse — Architecture Guide](/guides/data-lake-guide/).
 
 - Relationships are the primary query concern, not just attributes
 - You need to traverse many hops efficiently (friend-of-friend, supply chain)

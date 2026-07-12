@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: container-security-scanning
 title: "Container Image Security Scanning with Trivy"
@@ -15,9 +18,11 @@ tags:
   - devops
   - ci-cd
 relatedResources:
-  - /recipes/devops/docker-multi-stage-build-optimization
-  - /recipes/security/sql-injection-prevention
-  - /guides/devops/docker-for-developers-guide
+  - /recipes/docker-multi-stage-build-optimization
+  - /recipes/sql-injection-prevention
+  - /guides/docker-for-developers-guide
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/container-security
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +33,9 @@ seo:
     - trivy
     - vulnerability scanning
     - image security
+
+
+
 ---
 
 # Container Image Security Scanning with Trivy

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-secrets-management
 title: "Complete Guide to Secrets Management"
@@ -19,9 +25,13 @@ tags:
   - doppler
   - secret-rotation
 relatedResources:
-  - /guides/security/complete-guide-owasp-top-10-2025
-  - /guides/security/complete-guide-api-security
-  - /guides/security/complete-guide-authentication-patterns
+  - /guides/complete-guide-owasp-top-10-2025
+  - /guides/complete-guide-api-security
+  - /guides/complete-guide-authentication-patterns
+  - /guides/ci-cd-security-guide
+  - /recipes/python-secrets-management-vault
+  - /docs/vulnerability-management-template
+  - /guides/complete-guide-terraform-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +45,12 @@ seo:
     - doppler
     - secret rotation
     - secrets in ci cd
+
+
+
+
+
+
 ---
 
 ## Introduction
@@ -626,3 +642,12 @@ HashiCorp Vault is self-hosted, supports dynamic secrets, identity-based access,
 ### How do I manage secrets in Kubernetes?
 
 Use the External Secrets Operator to sync secrets from Vault, AWS Secrets Manager, or Azure Key Vault into Kubernetes Secrets. Never store raw secrets in Helm values or ConfigMaps. Use Sealed Secrets for GitOps workflows. Use service account tokens for Vault authentication. Enable etcd encryption at rest in your cluster.
+
+## See Also
+
+- [Secrets Management: Vault, Cloud Managers](/guides/secrets-management-guide/)
+- [CI/CD Security: Harden Your Pipelines and Prevent Supply](/guides/ci-cd-security-guide/)
+- [Complete Guide to Supply Chain Security](/guides/complete-guide-supply-chain-security/)
+- [Complete Guide to Docker in Production](/guides/complete-guide-docker-production/)
+- [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/guides/disaster-recovery-guide/)
+

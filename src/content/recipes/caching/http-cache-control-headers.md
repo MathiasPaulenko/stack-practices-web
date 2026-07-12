@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: http-cache-control-headers
 title: "HTTP Cache-Control Headers for APIs and Static Assets"
@@ -15,8 +18,9 @@ tags:
   - cdn
   - caching
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/redis-cache-aside-pattern
+  - /patterns/cache-aside-pattern
+  - /recipes/cdn-cache-invalidation-strategies
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +31,9 @@ seo:
     - etag
     - cdn caching
     - http caching
+
+
+
 ---
 
 # Configure HTTP Cache-Control Headers for APIs and Static Assets
@@ -220,6 +227,9 @@ res.setHeader("Cache-Control", "max-age=60");
 CDNs use the longer `Surrogate-Control` TTL, while browsers use the shorter `Cache-Control` TTL.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Caching](/guides/complete-guide-graphql-caching/).
 
 - **Hash filenames for static assets** — enables `immutable` caching with `max-age=31536000`
 - **Use `no-store` for sensitive data** — billing, auth tokens, personal information

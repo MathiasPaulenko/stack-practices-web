@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: canary-release-pattern
 title: "Patrón Canary Release"
@@ -17,9 +19,9 @@ tags:
   - rollout
   - reduccion-riesgo
 relatedResources:
-  - /patterns/design/blue-green-deployment-pattern
-  - /patterns/design/deployment-ring-pattern
-  - /patterns/design/graceful-degradation-pattern
+  - /patterns/blue-green-deployment-pattern
+  - /patterns/deployment-ring-pattern
+  - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - canary rollout
     - release incremental
     - despliegue reduccion riesgo
+
+
 ---
 
 # Patrón Canary Release
@@ -43,6 +47,9 @@ El patrón Canary Release rutear un porcentaje pequeno de trafico a una nueva ve
 El patron funciona en etapas: empieza en 1%, observa tasas de error y latencia, luego aumenta a 5%, 10%, 25%, 50% y 100%. En cada etapa, las metricas de salud determinan si proceder o revertir. A diferencia de blue-green (que cambia todo el trafico de una vez), canary release cambia el trafico gradualmente, dandote tiempo para detectar problemas que solo aparecen bajo carga real de usuarios.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Blue-Green Deployment Pattern](/es/patterns/blue-green-deployment-pattern/).
 
 Usa el patrón Canary Release cuando:
 - Quieres validar una nueva version con usuarios reales antes del rollout completo

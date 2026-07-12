@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: cryptography-basics-guide
 title: "Cryptography Basics — Encryption, Hashing, and Signing"
@@ -33,6 +34,7 @@ seo:
     - aes
     - rsa
     - guide
+
 ---
 
 ## Overview
@@ -40,6 +42,9 @@ seo:
 Cryptography is the foundation of digital security. Whether you are storing passwords, transmitting data over TLS, or signing API requests, you are using cryptography. Understanding the primitives — encryption, hashing, and signing — and when to use each prevents a class of vulnerabilities that no framework can protect against. This guide walks through the essential concepts every developer needs without requiring a mathematics degree.
 
 ## When to Use
+
+
+- For alternatives, see [Encryption at Rest: AES-256, KMS, Envelope Encryption](/guides/complete-guide-encryption-at-rest/).
 
 - You need to protect data at rest or in transit
 - You are implementing authentication or authorization

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: registry-pattern
 title: "Patrón Registry"
@@ -16,9 +19,10 @@ tags:
   - decoupling
   - lookup
 relatedResources:
-  - /patterns/design/multiton-pattern
-  - /patterns/design/dependency-injection-pattern
-  - /patterns/design/singleton-pattern
+  - /patterns/multiton-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/singleton-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +33,9 @@ seo:
     - service locator
     - dependency lookup
     - structural pattern
+
+
+
 ---
 
 # Patrón Registry
@@ -40,6 +47,9 @@ El Patrón Registry provee un mecanismo de lookup centralizado para servicios, c
 Aunque similar a un Service Locator, el Patrón Registry es más amplio: puede almacenar cualquier cosa desde conexiones a bases de datos hasta feature flags, no solo servicios. Es una alternativa pragmática a la inyección de dependencias completa cuando los frameworks DI no están disponibles.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Bridge Pattern](/es/patterns/bridge-pattern/).
 
 Usa el Patrón Registry cuando:
 - Múltiples componentes necesitan acceso al mismo recurso compartido

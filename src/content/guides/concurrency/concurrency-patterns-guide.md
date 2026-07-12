@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: concurrency-patterns-guide
 title: "Concurrency Patterns Guide"
@@ -16,8 +21,12 @@ tags:
   - parallel
 relatedResources:
   - /recipes/caching
-  - /patterns/design/singleton-pattern
+  - /patterns/singleton-pattern
   - /guides/software-architecture-guide
+  - /recipes/csp-communication
+  - /recipes/csharp-async-await-task-run
+  - /recipes/go-goroutines-channels-patterns
+  - /recipes/java-completable-future-composition
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - parallelism
     - race conditions
     - synchronization
+
+
+
+
+
 ---
 
 ## Introduction

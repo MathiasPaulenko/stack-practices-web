@@ -1,4 +1,5 @@
 ---
+
 contentType: docs
 slug: release-notes-template
 templateType: release-notes
@@ -16,9 +17,9 @@ tags:
   - template
   - versioning
 relatedResources:
-  - /docs/templates/bug-report-template
-  - /guides/devops/cicd-pipeline-guide
-  - /docs/templates/post-deployment-checklist-template
+  - /docs/bug-report-template
+  - /guides/cicd-pipeline-guide
+  - /docs/post-deployment-checklist-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +30,7 @@ seo:
     - software release notes
     - version release format
     - semver release notes
+
 ---
 
 # Release Notes Template

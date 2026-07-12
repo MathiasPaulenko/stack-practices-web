@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-github-actions-ci-cd
 title: "GitHub Actions CI/CD: Workflows, Runners, Secrets"
@@ -15,8 +18,9 @@ tags:
   - automation
   - deployment
 relatedResources:
-  - /guides/devops/complete-guide-helm-charts-production
-  - /guides/devops/complete-guide-docker-compose-local-dev
+  - /guides/complete-guide-helm-charts-production
+  - /guides/complete-guide-docker-compose-local-dev
+  - /guides/complete-guide-kubernetes-config-management
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +35,9 @@ seo:
     - secrets management
     - runners
     - matrix builds
+
+
+
 ---
 
 ## Introducción
@@ -532,6 +539,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CI/CD with GitHub Actions](/es/guides/complete-guide-ci-cd-github-actions/).
 
 - Usá reusable workflows para shared CI logic — DRY across repositories
 - Usá composite actions para multi-step sequences — cleaner que inline steps

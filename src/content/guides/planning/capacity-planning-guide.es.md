@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: capacity-planning-guide
 title: "Planificación de Capacidad"
@@ -19,10 +23,12 @@ tags:
   - guia
 relatedResources:
   - /guides/performance-optimization-guide
-  - /guides/devops/finops-guide
-  - /guides/devops/multi-cloud-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/architecture/microservices-architecture-guide
+  - /guides/finops-guide
+  - /guides/multi-cloud-guide
+  - /guides/sre-practices-guide
+  - /guides/microservices-architecture-guide
+  - /guides/blue-green-deployment-guide
+  - /guides/cost-optimization-cloud-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - pronostico
     - infraestructura
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +54,9 @@ La planificación de capacidad asegura que tu infraestructura pueda manejar la d
 A continuación: el pronóstico de demanda, pruebas de carga, estrategias de escalado y decisiones de capacidad conscientes de costos para entornos cloud y on-premise.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/es/guides/blue-green-deployment-guide/).
 
 - Estás preparando un lanzamiento de producto, campaña de marketing o pico de tráfico estacional
 - Tu servicio experimenta degradación de rendimiento recurrente durante horas pico

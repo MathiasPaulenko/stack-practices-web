@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: database-migration-runbook-template
 templateType: database-migration-runbook
@@ -15,9 +20,13 @@ tags:
   - template
   - databases
 relatedResources:
-  - /guides/databases/sql-performance-tuning-guide
-  - /guides/databases/database-sharding-partitioning-guide
-  - /docs/templates/disaster-recovery-plan-template
+  - /guides/sql-performance-tuning-guide
+  - /guides/database-sharding-partitioning-guide
+  - /docs/disaster-recovery-plan-template
+  - /recipes/database-deadlocks-retries
+  - /recipes/database-read-replicas
+  - /recipes/event-sourcing-relational
+  - /docs/database-schema-documentation-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - database deployment checklist
     - safe migration procedures
     - rollback database migration
+
+
+
+
+
 ---
 
 # Database Migration Runbook Template

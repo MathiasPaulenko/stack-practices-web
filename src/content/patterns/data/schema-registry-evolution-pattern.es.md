@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: schema-registry-evolution-pattern
 title: "Patrón Schema Registry Evolution"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/cdc-change-data-capture-pattern
   - /patterns/etl-extract-transform-load-pattern
   - /patterns/data-lineage-tracking-pattern
+  - /patterns/batch-to-streaming-bridge-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - kafka
     - streaming
     - pattern
+
+
 ---
 
 ## Overview
@@ -413,6 +418,9 @@ message Customer {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Batch-to-Streaming Bridge](/es/patterns/batch-to-streaming-bridge-pattern/).
 
 - Arrancá con BACKWARD compatibility — es el safest default. New consumers pueden leer old data.
 - Siempre proveé defaults para new fields — `{"name": "phone", "type": ["null", "string"], "default": null}`

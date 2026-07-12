@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: setup-ssl-certificates
 title: "Setup SSL Certificates with Let's Encrypt"
@@ -20,6 +24,9 @@ relatedResources:
   - /recipes/ansible-playbook
   - /recipes/docker-basics
   - /recipes/secret-management
+  - /recipes/docker-multi-stage-build-distroless
+  - /recipes/kubernetes-configmap-secret-mounting
+  - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +40,10 @@ seo:
     - security
     - devops
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -351,6 +362,9 @@ echo | openssl s_client -connect example.com:443 2>/dev/null \
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [SSL Certificate Renewal Template](/docs/ssl-certificate-renewal-template/).
 
 1. **Use ECC certificates when possible.** ECDSA keys are smaller and faster than RSA:
 

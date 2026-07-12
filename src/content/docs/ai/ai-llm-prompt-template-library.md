@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: ai-llm-prompt-template-library
 templateType: guideline
@@ -17,9 +23,13 @@ tags:
   - gpt
   - claude
 relatedResources:
-  - /docs/ai/ai-prompt-version-control-template
-  - /docs/ai/ai-model-selection-matrix
-  - /guides/ai/complete-guide-llm-prompt-engineering
+  - /docs/ai-prompt-version-control-template
+  - /docs/ai-model-selection-matrix
+  - /guides/complete-guide-llm-prompt-engineering
+  - /docs/ai-agent-design-document-template
+  - /docs/ai-data-preparation-checklist
+  - /docs/ai-llm-cost-tracking-template
+  - /docs/ai-rag-evaluation-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +42,12 @@ seo:
     - extraction prompt
     - classification prompt
     - structured output prompt
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -502,3 +518,12 @@ Place untrusted user input inside delimiters (triple quotes, XML tags) and instr
 ### Can I chain these templates together?
 
 Yes. Common chains: extract entities, then classify them; summarize a document, then translate the summary; extract structured data, then validate it with a question answering prompt. When chaining, pass the output of one template as the input variable of the next. Track the combined latency and cost — each chain step adds to both.
+
+## See Also
+
+- [Complete Guide to LLM Prompt Engineering](/guides/complete-guide-llm-prompt-engineering/)
+- [AI Prompt Version Control Template](/docs/ai-prompt-version-control-template/)
+- [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/)
+- [AI Agent Design Document Template](/docs/ai-agent-design-document-template/)
+- [AI LLM Cost Tracking Template](/docs/ai-llm-cost-tracking-template/)
+

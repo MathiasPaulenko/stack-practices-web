@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: rest-api-design
 title: "REST API Design: What Works"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-cors
   - /recipes/idempotent-api-endpoints
+  - /recipes/grpc-api
+  - /recipes/grpc-services-typescript
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - api-design
     - http
     - backend
+
+
 ---
 ## Overview
 

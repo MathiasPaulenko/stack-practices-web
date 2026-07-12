@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: data-breach-response-playbook
 title: "Playbook de Respuesta a Violaciones de Datos"
@@ -15,9 +20,12 @@ tags:
   - compliance
   - privacy
 relatedResources:
-  - /docs/devops/postmortem-incident-review-template
-  - /docs/devops/incident-communication-template
-  - /docs/devops/access-control-review-template
+  - /docs/postmortem-incident-review-template
+  - /docs/incident-communication-template
+  - /docs/access-control-review-template
+  - /docs/disaster-recovery-test-plan
+  - /docs/encryption-key-lifecycle-template
+  - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - brecha de seguridad
     - privacidad de datos
     - notificacion de violacion
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +48,9 @@ seo:
 Una violacion de datos no es solo un incidente tecnico. Es una crisis legal, reputacional y operativa. Las primeras 24 horas determinan si la violacion se convierte en un incidente manejable o en un titular. Este playbook proporciona una respuesta estructurada: contener el dano, preservar evidencia, notificar a las personas correctas y remediar la causa raiz. Esta disenado para usarse bajo presion, con puntos de decision claros y asignaciones de responsables.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Incident Response: Structured Handling for Production](/es/guides/incident-response-guide/).
 
 Activa este playbook cuando:
 - Se ha detectado o sospecha acceso no autorizado a datos sensibles

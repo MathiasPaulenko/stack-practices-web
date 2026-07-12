@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: sql-injection-prevention
 title: "Prevent SQL Injection Attacks"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/database-transactions
   - /recipes/input-validation
   - /recipes/handle-errors
+  - /recipes/vault-dynamic-credentials
+  - /recipes/container-security-scanning
+  - /recipes/api-security-headers
+  - /recipes/xss-prevention
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,10 @@ seo:
     - sql injection examples
     - input sanitization
     - secure coding
+
+
+
+
 ---
 
 ## Overview

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: testing-strategy-guide
 title: "Software Testing Strategy Guide"
@@ -20,8 +25,12 @@ tags:
   - unit-tests
 relatedResources:
   - /recipes/unit-testing
-  - /recipes/api/input-validation
+  - /recipes/input-validation
   - /recipes/github-actions
+  - /recipes/load-testing-k6
+  - /recipes/api-mocking
+  - /recipes/jest-snapshot-testing
+  - /recipes/measure-test-coverage
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +44,11 @@ seo:
     - test coverage
     - mocking
     - test automation
+
+
+
+
+
 ---
 
 ## Introduction

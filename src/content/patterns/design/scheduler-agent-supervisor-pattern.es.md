@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: scheduler-agent-supervisor-pattern
 title: "Patron de Programador-Agente-Supervisor"
@@ -18,9 +20,9 @@ tags:
   - gestion-de-trabajos
   - supervisor
 relatedResources:
-  - /patterns/design/priority-queue-pattern
-  - /patterns/design/queue-based-load-leveling-pattern
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +34,8 @@ seo:
     - resiliencia
     - gestion de trabajos
     - patron supervisor
+
+
 ---
 
 # Patron de Programador-Agente-Supervisor
@@ -43,6 +47,9 @@ El Patron de Programador-Agente-Supervisor estructura el procesamiento de trabaj
 Esta separacion de responsabilidades hace al sistema resiliente ante caidas de agentes, particiones de red y workers no responsivos. El supervisor detecta agentes fallidos, los reinicia, redistribuye su trabajo y asegura que la programacion continua incluso cuando componentes individuales fallan. Es la base de muchos sistemas de orquestacion, desde los arboles de supervision OTP de Erlang hasta los controladores de Kubernetes.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Back-Pressure Pattern](/es/patterns/back-pressure-pattern/).
 
 - Trabajos de larga duracion o de fondo que deben sobrevivir fallas de maquinas individuales
 - Ejecucion de tareas distribuidas donde los workers pueden fallar o volverse inalcanzables

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: serverless-api-gateway-lambda-authorizer
 title: "Asegurar API Gateway con Lambda Authorizers Personalizados"
@@ -16,10 +21,13 @@ tags:
   - jwt
   - authentication
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/security/python-jwt-refresh-token-rotation
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/python-jwt-refresh-token-rotation
   - /guides/serverless-architecture-guide
   - /guides/api-security-checklist-guide
+  - /recipes/python-memcached-session-storage
+  - /recipes/graphql-directives-auth
+  - /guides/complete-guide-authentication-patterns
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - jwt validation lambda
     - iam policy authorizer
     - serverless authentication
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 Los Lambda authorizers de API Gateway interceptan peticiones antes de que lleguen a tu handler, validan tokens y retornan politicas IAM que permiten o niegan acceso. Esto separa la autenticacion de la logica de negocio y funciona con cualquier formato de token (JWT, OAuth, custom). A continuacion: construir un authorizer JWT, generar politicas IAM, pasar contexto a handlers, configurar caching y manejar tipos de authorizer request/response.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Authentication Patterns](/es/guides/complete-guide-authentication-patterns/).
 
 - APIs serverless que necesitan autenticacion personalizada (JWT, OAuth, API keys con lookup en base de datos)
 - Control de acceso fino por ruta o metodo

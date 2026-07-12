@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: bug-report-template
 templateType: bug-report
@@ -15,9 +20,13 @@ tags:
   - ci-cd
   - automation
 relatedResources:
-  - /guides/testing/test-driven-development-guide
-  - /guides/devops/on-call-incident-response-guide
-  - /docs/templates/feature-request-template
+  - /guides/test-driven-development-guide
+  - /guides/on-call-incident-response-guide
+  - /docs/feature-request-template
+  - /docs/environment-setup-guide-template
+  - /docs/slo-document-template
+  - /recipes/chaos-engineering
+  - /recipes/pre-commit-hooks
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - plantilla seguimiento defectos
     - pasos reproduccion template
     - reporte bug software
+
+
+
+
+
 ---
 
 # Plantilla de Reporte de Bug

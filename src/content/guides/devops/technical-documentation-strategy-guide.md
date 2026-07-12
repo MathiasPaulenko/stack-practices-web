@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: technical-documentation-strategy-guide
 title: "Technical Documentation Strategy: Docs as Code"
@@ -16,9 +18,10 @@ tags:
   - markdown
   - technical-writing
 relatedResources:
-  - /guides/design/code-review-best-practices-guide
-  - /guides/architecture/domain-driven-design-guide
-  - /guides/devops/git-branching-strategies-guide
+  - /guides/code-review-best-practices-guide
+  - /guides/domain-driven-design-guide
+  - /guides/git-branching-strategies-guide
+  - /guides/on-call-incident-response-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +32,8 @@ seo:
     - engineering documentation
     - markdown documentation workflow
     - documentation what works
+
+
 ---
 
 # Technical Documentation Strategy: Docs as Code

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-accessibility-wcag
 title: "Referencia Detallada de Accesibilidad Web: WCAG 2.2"
@@ -16,9 +18,9 @@ tags:
   - screen-readers
   - frontend
 relatedResources:
-  - /guides/frontend/complete-guide-css-modern-layout
-  - /recipes/frontend/css-container-queries-responsive
-  - /recipes/frontend/css-custom-properties-design-tokens
+  - /guides/complete-guide-css-modern-layout
+  - /recipes/css-container-queries-responsive
+  - /recipes/css-custom-properties-design-tokens
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -32,6 +34,8 @@ seo:
     - keyboard navigation
     - a11y
     - color contrast
+
+
 ---
 
 ## Introducción
@@ -517,6 +521,9 @@ class AccessibleModal {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [WCAG 2.2 Accessibility: A Developer Guide](/es/guides/accessibility-wcag-guide/).
 
 - Usá semantic HTML first — `<button>`, `<nav>`, `<main>`, `<article>` tienen built-in accessibility
 - Agregá ARIA solo cuando HTML no es sufficient — ARIA no agrega behavior, solo semantics

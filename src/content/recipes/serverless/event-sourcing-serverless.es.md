@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: event-sourcing-serverless
 title: "Implementar Event Sourcing en Arquitecturas Serverless"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/saga-pattern-recipe
   - /recipes/serverless-orchestration
   - /recipes/event-driven-architecture
+  - /recipes/cold-start-optimization
+  - /recipes/scheduled-jobs
+  - /recipes/serverless-functions
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - event store
     - DynamoDB streams
     - audit trail
+
+
+
 ---
 
 ## Visión general

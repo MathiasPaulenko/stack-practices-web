@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: date-formatting
 title: "Formateo de Fechas"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/call-rest-api
   - /recipes/cron-jobs
+  - /recipes/batch-processing-patterns
+  - /recipes/deep-clone-javascript
+  - /recipes/flatten-unflatten-objects
+  - /recipes/money-currency
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,10 @@ seo:
     - java datetime
     - formateo localizado
     - UTC
+
+
+
+
 ---
 
 ## Visión general

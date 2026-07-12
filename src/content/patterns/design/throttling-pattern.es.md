@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: throttling-pattern
 title: "Patron de Throttling"
@@ -19,9 +25,13 @@ tags:
   - leaky-bucket
   - escalabilidad
 relatedResources:
-  - /patterns/design/priority-queue-pattern
-  - /patterns/design/queue-based-load-leveling-pattern
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/circuit-breaker-pattern
+  - /docs/api-rate-limiting-policy-template
+  - /patterns/back-pressure-pattern
+  - /patterns/content-delivery-network-pattern
+  - /patterns/gatekeeper-pattern
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - token bucket
     - leaky bucket
     - escalabilidad
+
+
+
+
+
+
 ---
 
 # Patron de Throttling
@@ -45,6 +61,9 @@ El Patron de Throttling controla la tasa a la que un sistema procesa solicitudes
 Previene fallos en cascada asegurando que servicios downstream y recursos compartidos no sean abrumados.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Content Delivery Network (CDN) Pattern](/es/patterns/content-delivery-network-pattern/).
 
 - Proteger servicios downstream de picos de trafico
 - Aplicar rate limits en APIs

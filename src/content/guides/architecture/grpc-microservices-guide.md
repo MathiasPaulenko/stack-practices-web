@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: grpc-microservices-guide
 title: "gRPC in Microservices — High-Performance RPC Guide"
@@ -23,6 +25,7 @@ relatedResources:
   - /guides/monolith-to-microservices-migration-guide
   - /guides/system-design-interview-guide
   - /guides/rest-api-design-guide
+  - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -36,12 +39,17 @@ seo:
     - load-balancing
     - performance
     - guide
+
+
 ---
 ## Overview
 
 REST APIs are the lingua franca of the web, but they are not designed for high-throughput, low-latency service-to-service communication. JSON is verbose, HTTP/1.1 is head-of-line blocked, and REST's uniform interface is a poor fit for RPC-style operations. gRPC addresses all three problems: Protocol Buffers for compact serialization, HTTP/2 for multiplexed streams, and a strict contract-first approach via `.proto` files. The following walks through gRPC for microservices: when to adopt it, how to implement it, and how to migrate from REST without breaking existing clients.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Microservices Communication](/guides/complete-guide-microservices-communication/).
 
 Use this guide when:
 - Your internal microservices are experiencing high latency or serialization overhead with REST/JSON

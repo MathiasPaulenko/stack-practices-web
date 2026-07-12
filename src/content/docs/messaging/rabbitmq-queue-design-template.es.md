@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: rabbitmq-queue-design-template
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - exchanges
   - dead-letter
 relatedResources:
-  - /docs/messaging/kafka-topic-naming-convention-template
-  - /docs/messaging/message-schema-evolution-policy
-  - /docs/messaging/dead-letter-queue-runbook
+  - /docs/kafka-topic-naming-convention-template
+  - /docs/message-schema-evolution-policy
+  - /docs/dead-letter-queue-runbook
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - rabbitmq ttl
     - queue capacity planning
     - rabbitmq qos
+
+
 ---
 
 ## Overview
@@ -329,3 +333,12 @@ Declara exchanges y queues con `durable=True`. Publica messages con `delivery_mo
 ### ¿Deberia usar RabbitMQ o Kafka para mi use case?
 
 Usa RabbitMQ para point-to-point communication, request-reply patterns, work queues con complex routing y cuando necesitas per-message acknowledgment. Usa Kafka para event streaming, high-throughput log aggregation, replay de historical events y cuando consumers necesitan read a su own pace. RabbitMQ es mejor para transactional messaging; Kafka es mejor para event sourcing y analytics pipelines.
+
+## See Also
+
+- [Complete Guide to RabbitMQ Architecture](/es/guides/complete-guide-rabbitmq-architecture/)
+- [Message Queues — RabbitMQ, Kafka, and SQS detailed analysis](/es/guides/message-queue-guide/)
+- [Event Streaming with Apache Kafka and Node.js](/es/recipes/kafka-event-streaming/)
+- [Message Processing Idempotency](/es/recipes/message-idempotency/)
+- [Task Queues and RPC with RabbitMQ and AMQP](/es/recipes/rabbitmq-task-queue/)
+

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: redis-pub-sub-python
 title: "Implementar Mensajeria Pub/Sub con Redis en Python"
@@ -16,8 +18,8 @@ tags:
   - real-time
   - messaging
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/caching/nodejs-redis-cache-invalidation
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/nodejs-redis-cache-invalidation
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
@@ -30,6 +32,8 @@ seo:
     - redis pattern subscription
     - redis messaging python
     - redis broadcast microservices
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +41,9 @@ seo:
 Redis Pub/Sub es un patron de mensajeria ligero donde los publicadores envian mensajes a canales y los suscriptores los reciben en tiempo real. A diferencia de las colas, no hay persistencia — si no hay suscriptor escuchando, el mensaje se pierde. A continuacion: publicar y suscribir con Python, suscripciones por patron con wildcards, serializacion estructurada de mensajes, gestion de conexiones y patrones de broadcast para comunicacion entre microservicios.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Event-Driven Systems](/es/guides/complete-guide-event-driven-systems/).
 
 - Notificaciones en tiempo real (mensajes de chat, actualizaciones en vivo, cambios de estado)
 - Invalidation de cache entre instancias de servicio

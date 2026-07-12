@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: composite-pattern
 title: "Composite Pattern"
@@ -16,9 +21,13 @@ tags:
   - python
   - structural
 relatedResources:
-  - /patterns/design/decorator-pattern
-  - /patterns/design/chain-of-responsibility-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/decorator-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/strategy-pattern
+  - /patterns/entity-component-system-pattern
+  - /patterns/flyweight-pattern
+  - /patterns/iterator-pattern
+  - /patterns/visitor-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - python composite
     - java composite
     - javascript composite
+
+
+
+
+
 ---
 
 # Composite Pattern

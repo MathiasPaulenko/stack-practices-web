@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-httpx-cache-responses
 title: "Cache HTTP Responses with httpx and CacheControl in Python"
@@ -16,9 +22,13 @@ tags:
   - cachecontrol
   - etag
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/nginx-reverse-proxy-cache
+  - /recipes/python-redis-cache-decorator
+  - /recipes/nginx-reverse-proxy-cache
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/java-spring-cache-annotations
+  - /recipes/python-web-scraping-beautifulsoup
+  - /recipes/database-query-result-caching
+  - /recipes/nodejs-redis-cache-invalidation
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +39,12 @@ seo:
     - http caching python
     - etag conditional requests
     - httpx cache backend
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -295,6 +311,9 @@ class ResilientClient:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Use Spring Cache Annotations with Redis Backend](/recipes/java-spring-cache-annotations/).
 
 - **Use file or Redis backend for production**: In-memory cache is lost on restart and not shared across processes.
 - **Respect `Cache-Control` headers**: Don't override server cache directives unless you have a good reason. The server knows its data freshness requirements.

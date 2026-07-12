@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: data-governance-policy-template
 title: "Data Governance Policy Template"
@@ -16,10 +19,11 @@ tags:
   - security
   - data
 relatedResources:
-  - /docs/data-engineering/data-pipeline-design-document-template
-  - /docs/data-engineering/data-quality-rules-template
-  - /docs/data-engineering/etl-job-runbook-template
-  - /docs/security/access-control-policy-template
+  - /docs/data-pipeline-design-document-template
+  - /docs/data-quality-rules-template
+  - /docs/etl-job-runbook-template
+  - /docs/access-control-policy-template
+  - /docs/security-audit-checklist
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - compliance
     - gdpr
     - policy template
+
+
+
 ---
 
 ## Overview
@@ -39,6 +46,9 @@ seo:
 A data governance policy defines how data is classified, stored, accessed, retained, and disposed of. It establishes roles, responsibilities, and procedures for managing data throughout its lifecycle. Without a governance policy, organizations face compliance violations, data breaches, and inconsistent data practices.
 
 ## When to Use
+
+
+- For alternatives, see [Data Pipeline Design Document Template](/docs/data-pipeline-design-document-template/).
 
 - Establishing data governance for a new organization
 - Preparing for compliance audits (SOC 2, GDPR, CCPA)

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: accessibility-wcag-guide
 title: "WCAG 2.2 Accesibilidad — Guía para Desarrolladores"
@@ -19,7 +23,9 @@ tags:
 relatedResources:
   - /guides/progressive-web-apps-guide
   - /guides/web-components-guide
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/circuit-breaker-pattern
+  - /guides/complete-guide-mobile-responsive-design
+  - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - navegacion-teclado
     - aria
     - guia
+
+
+
+
 ---
 
 ## Visión General
@@ -40,6 +50,9 @@ seo:
 La accesibilidad web (a11y) asegura que las personas con discapacidades puedan percibir, entender, navegar e interactuar con el contenido web. WCAG 2.2 (Pautas de Accesibilidad para Contenido Web) es el estándar actual, organizado en torno a cuatro principios: Perceptible, Operable, Comprensible y Confiable (POUR). A continuación: los criterios de éxito más impactantes con ejemplos de código prácticos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Web Accessibility: WCAG 2.2 Compliance](/es/guides/complete-guide-accessibility-wcag/).
 
 - Estás construyendo sitios o aplicaciones web de acceso público
 - Necesitas cumplir requisitos legales (ADA, EAA, Sección 508)

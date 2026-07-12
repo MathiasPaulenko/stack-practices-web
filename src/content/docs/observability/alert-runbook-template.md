@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: alert-runbook-template
 title: "Alert Runbook Template"
@@ -16,10 +19,11 @@ tags:
   - on-call
   - sre
 relatedResources:
-  - /docs/observability/observability-maturity-assessment-template
-  - /docs/observability/dashboard-design-template
-  - /docs/observability/incident-postmortem-template
-  - /guides/observability/complete-guide-structured-logging
+  - /docs/observability-maturity-assessment-template
+  - /docs/dashboard-design-template
+  - /docs/incident-postmortem-template
+  - /guides/complete-guide-structured-logging
+  - /docs/etl-job-runbook-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - alerting
     - sre
     - escalation
+
+
+
 ---
 
 ## Overview
@@ -39,6 +46,9 @@ seo:
 An alert runbook gives on-call engineers a structured playbook for responding to a specific alert. Without a runbook, engineers waste time figuring out what the alert means, where to look, and what to do. This template standardizes incident response: triage, diagnose, mitigate, resolve, and document.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Postmortem Template](/docs/incident-postmortem-template/).
 
 - Creating runbooks for the top 20 most frequent or critical alerts
 - Onboarding new on-call engineers

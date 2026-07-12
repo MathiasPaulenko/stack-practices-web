@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: import-csv-excel
 title: "Import Data from CSV/Excel"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/generate-pdfs
   - /recipes/image-optimization
   - /recipes/input-validation
+  - /recipes/stream-processing
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +35,7 @@ seo:
     - python
     - javascript
     - java
+
 ---
 ## Overview
 

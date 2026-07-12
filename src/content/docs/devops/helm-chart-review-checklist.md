@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: helm-chart-review-checklist
 title: "Helm Chart Review Checklist"
@@ -16,9 +18,9 @@ tags:
   - deployment
   - infrastructure
 relatedResources:
-  - /docs/devops/ci-cd-pipeline-design-template
-  - /docs/devops/kubernetes-pod-disruption-budget-template
-  - /docs/devops/terraform-state-management-policy
+  - /docs/ci-cd-pipeline-design-template
+  - /docs/kubernetes-pod-disruption-budget-template
+  - /docs/terraform-state-management-policy
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - checklist
     - best practices
     - deployment
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 A Helm chart review checklist ensures charts are secure, maintainable, and follow Kubernetes best practices. It covers values schema, template correctness, security contexts, resource limits, health probes, RBAC, and chart metadata. Without a checklist, chart reviews are inconsistent and miss common issues.
 
 ## When to Use
+
+
+- For alternatives, see [CI/CD Pipeline Design Template](/docs/ci-cd-pipeline-design-template/).
 
 - Reviewing a new Helm chart before publishing
 - Auditing existing charts for security or compliance

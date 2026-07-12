@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: compliance-gap-analysis-template
 title: "Plantilla de Analisis de Brechas de Cumplimiento"
@@ -15,9 +20,12 @@ tags:
   - iso27001
   - audit
 relatedResources:
-  - /docs/devops/access-control-review-template
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/network-segmentation-policy-template
+  - /docs/access-control-review-template
+  - /docs/rbac-policy-template
+  - /docs/network-segmentation-policy-template
+  - /docs/dependency-vulnerability-report-template
+  - /docs/pen-test-scope-template
+  - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - analisis de brechas iso 27001
     - preparacion para auditoria
     - mapeo de controles
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +48,9 @@ seo:
 Un Analisis de Brechas de Cumplimiento compara tus controles de seguridad actuales contra los requisitos de un marco objetivo, como SOC 2, ISO 27001, PCI-DSS o GDPR. Esta plantilla captura el requisito, el control que lo satisface, la evidencia disponible, cualquier pieza faltante y un plan para cerrar las brechas. Es un insumo estandar para la preparacion de auditorias y hojas de ruta de certificacion.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Access Control Review Template](/es/docs/access-control-review-template/).
 
 - Prepararse para una auditoria o certificacion inicial.
 - Renovar una certificacion e identificar cambios desde la ultima auditoria.

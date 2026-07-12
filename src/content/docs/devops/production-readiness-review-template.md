@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: production-readiness-review-template
 title: "Production Readiness Review Template"
@@ -15,9 +18,10 @@ tags:
   - monitoring
   - operations
 relatedResources:
-  - /docs/devops/feature-specification-template
-  - /docs/devops/service-ownership-document-template
-  - /docs/devops/incident-communication-template
+  - /docs/feature-specification-template
+  - /docs/service-ownership-document-template
+  - /docs/incident-communication-template
+  - /docs/capacity-planning-forecast-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - deployment readiness
     - go-live checklist
     - service launch
+
+
+
 ---
 
 ## Overview
@@ -35,6 +42,9 @@ seo:
 Shipping to production is not the finish line. It is the starting line for operational responsibility. A production readiness review (PRR) is a structured checkpoint that verifies a service or feature is ready to run in production: it can be monitored, rolled back, secured, and operated by people other than the author. PRRs prevent the 3 AM surprises where no one knows how to restart a service, what "normal" looks like, or how to roll back a bad deployment.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/guides/blue-green-deployment-guide/).
 
 Use this template when:
 - A new service is being deployed to production for the first time

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: ci-cd-pipeline-security-template
 title: "Plantilla de Seguridad de Pipeline CI/CD"
@@ -15,9 +19,11 @@ tags:
   - secrets-management
   - devsecops
 relatedResources:
-  - /docs/devops/container-security-baseline-template
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/container-security-baseline-template
+  - /docs/rbac-policy-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/dependency-vulnerability-report-template
+  - /docs/encryption-key-lifecycle-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - endurecimiento de pipelines
     - pipeline de despliegue seguro
     - plantilla DevSecOps
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +45,9 @@ seo:
 Los pipelines CI/CD son un objetivo de alto valor para atacantes porque tienen acceso al codigo fuente, secretos de compilacion y rutas de despliegue a produccion. Un pipeline comprometido puede introducir malware, exfiltrar datos o desplegar cambios no autorizados. Esta plantilla define controles para proteger la integridad del codigo, la seguridad de los runners, los secretos y las aprobaciones de despliegue.
 
 ## Cuando Usar
+
+
+- For alternatives, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/es/guides/ci-cd-security-guide/).
 
 - Configurar una nueva plataforma CI/CD.
 - Revisar o mejorar un pipeline existente.

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: ai-model-selection-matrix
 templateType: guideline
@@ -17,9 +21,11 @@ tags:
   - pricing
   - comparison
 relatedResources:
-  - /docs/ai/ai-llm-cost-tracking-template
-  - /docs/ai/ai-llm-prompt-template-library
-  - /docs/ai/ai-agent-design-document-template
+  - /docs/ai-llm-cost-tracking-template
+  - /docs/ai-llm-prompt-template-library
+  - /docs/ai-agent-design-document-template
+  - /docs/ai-data-preparation-checklist
+  - /docs/ai-prompt-version-control-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +38,10 @@ seo:
     - gpt-4o vs claude
     - model cost latency
     - ai model matrix
+
+
+
+
 ---
 
 ## Overview
@@ -312,3 +322,12 @@ Self-host when: (1) you have strict data privacy requirements, (2) your query vo
 ### What is the difference between GPT-4o and GPT-4o-mini?
 
 GPT-4o is the full-capability model with the best reasoning, code generation, and complex task performance. GPT-4o-mini is a smaller, faster, cheaper variant that retains most of the capability at 15x lower cost. For most tasks (classification, simple extraction, summarization of short texts), GPT-4o-mini produces nearly identical results. Use GPT-4o for complex reasoning, long-context tasks, and high-stakes generation where quality matters more than cost.
+
+## See Also
+
+- [Complete Guide to LLM Prompt Engineering](/guides/complete-guide-llm-prompt-engineering/)
+- [Complete Guide to LangChain in Production](/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Cost Optimization](/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to LLM Evaluation](/guides/complete-guide-llm-evaluation/)
+

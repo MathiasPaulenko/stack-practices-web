@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: kafka-spring-boot-stream-listener
 title: "Consume Kafka Topics with Spring Boot Stream Listeners"
@@ -16,10 +19,11 @@ tags:
   - consumer
   - streaming
 relatedResources:
-  - /recipes/messaging/kafka-python-consumer-groups
-  - /recipes/messaging/rabbitmq-python-pika-consumer
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/rabbitmq-python-pika-consumer
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-kafka-stream-processing
+  - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - spring kafka error handling
     - spring kafka dlq
     - spring kafka batch listener
+
+
+
 ---
 
 ## Overview
@@ -392,6 +399,9 @@ public void handlePartition(ConsumerRecord<String, OrderEvent> record) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Kafka Consumer Groups with Python for Scalable Streaming](/recipes/kafka-python-consumer-groups/).
 
 - **Disable auto-commit**: Set `enable-auto-commit: false` and use manual acknowledgment. This prevents offset commits before processing completes.
 - **Set `concurrency` to match partitions**: If the topic has 6 partitions, set `concurrency=6` for maximum parallelism. Extra threads sit idle.

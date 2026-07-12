@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: api-versioning
 title: "API Versioning"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/input-validation
   - /recipes/logging
+  - /recipes/grpc-api
+  - /recipes/grpc-services-typescript
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

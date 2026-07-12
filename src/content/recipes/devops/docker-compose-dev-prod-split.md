@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-compose-dev-prod-split
 title: "Docker Compose Dev/Prod Split: Separate Environments"
@@ -19,6 +23,9 @@ relatedResources:
   - /recipes/docker-health-check-configuration
   - /guides/terraform-best-practices-guide
   - /docs/deployment-checklist-template
+  - /recipes/docker-logging-fluentd
+  - /recipes/docker-network-isolation
+  - /recipes/docker-secrets-management
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -30,6 +37,10 @@ seo:
     - separate environments docker
     - docker compose multi environment
     - docker compose production config
+
+
+
+
 ---
 
 ## Overview
@@ -463,6 +474,9 @@ echo "secrets/" >> .gitignore
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Override Docker Compose Configs per Environment](/recipes/docker-compose-override-environments/).
 
 1. **Use `docker compose config` to validate before deploying.** Catch merge issues early:
 

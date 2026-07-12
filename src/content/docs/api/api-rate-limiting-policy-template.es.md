@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: api-rate-limiting-policy-template
 title: "Plantilla de Politica de Rate Limiting de API"
@@ -17,9 +23,13 @@ tags:
   - plantilla
   - rendimiento
 relatedResources:
-  - /docs/architecture/api-performance-budget-template
-  - /docs/devops/escalation-policy-template
-  - /docs/security/api-security-review-template
+  - /docs/api-performance-budget-template
+  - /docs/escalation-policy-template
+  - /docs/api-security-review-template
+  - /guides/api-rate-limiting-guide
+  - /docs/api-changelog-template
+  - /patterns/throttling-pattern
+  - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -31,6 +41,12 @@ seo:
     - limites de burst
     - tiers de api
     - headers de rate limit
+
+
+
+
+
+
 ---
 
 ## Resumen
@@ -38,6 +54,9 @@ seo:
 El acceso ilimitado a API es una receta para abuso, DDoS accidental y costos impredecibles. El rate limiting protege tu infraestructura mientras da a los consumidores acceso predecible. Sin una politica documentada, los consumidores descubren los limites solo cuando sus solicitudes comienzan a fallar con `429 Too Many Requests`. Esta plantilla define limites de tasa por tier, los comunica transparentemente y proporciona una ruta de escalamiento para quienes necesitan mas.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Throttling Pattern](/es/patterns/throttling-pattern/).
 
 Usa este recurso cuando:
 - Lances una API publica o de partners

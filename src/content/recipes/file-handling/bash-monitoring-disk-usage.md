@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-monitoring-disk-usage
 title: "Monitor Disk Usage"
@@ -19,6 +21,7 @@ relatedResources:
   - /recipes/bash-log-rotation-compression
   - /recipes/bash-loop-over-files
   - /recipes/bash-parallel-execution
+  - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +33,8 @@ seo:
     - disk
     - alerts
     - linux
+
+
 ---
 ## Overview
 
@@ -300,6 +305,9 @@ done
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Backup Rotation Script](/recipes/bash-backup-rotation-script/).
 
 1. **Monitor inode usage separately.** A disk can have free space but run out of inodes (file slots). This happens with workloads that create millions of small files — mail servers, cache directories, session storage. Check inodes with `df -i` and alert on the same thresholds.
 

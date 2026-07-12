@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: graphql-custom-scalar-types
 title: "Custom GraphQL Scalar Types for Dates, Emails, and JSON"
@@ -15,9 +17,9 @@ tags:
   - validation
   - api
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-dataloader-batching
-  - /recipes/graphql/graphql-input-validation
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-dataloader-batching
+  - /recipes/graphql-input-validation
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,8 @@ seo:
     - graphql json scalar
     - graphql email validation
     - custom scalar types
+
+
 ---
 
 # Custom GraphQL Scalar Types for Dates, Emails, and JSON
@@ -287,6 +291,9 @@ export const PositiveIntScalar = new GraphQLScalarType({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Federation](/guides/complete-guide-graphql-federation/).
 
 - **Validate in all three functions** — `serialize`, `parseValue`, and `parseLiteral` should all enforce the same constraints
 - **Throw descriptive errors** — include the invalid value in the error message for debugging

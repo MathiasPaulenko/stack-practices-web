@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: health-check-pattern
 title: "Patrón Health Check: Exponer Liveness y Readiness Probes"
@@ -20,6 +22,7 @@ relatedResources:
   - /patterns/correlation-id-pattern
   - /patterns/structured-logging-pattern
   - /patterns/metrics-aggregation-pattern
+  - /patterns/circuit-breaker-with-monitoring-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +35,8 @@ seo:
     - readiness
     - probes
     - pattern
+
+
 ---
 
 ## Overview
@@ -558,6 +563,9 @@ spec:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Health Endpoint Monitoring Pattern](/es/patterns/health-endpoint-monitoring-pattern/).
 
 - Separá liveness y readiness — liveness checks si el proceso está vivo, readiness checks si puede servir tráfico
 - Mantené liveness simple — no checkees dependencies en liveness, solo el proceso mismo

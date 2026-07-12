@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: data-pipeline-design-document-template
 title: "Data Pipeline Design Document Template"
@@ -16,9 +18,9 @@ tags:
   - data
   - architecture
 relatedResources:
-  - /docs/data-engineering/data-quality-rules-template
-  - /docs/data-engineering/etl-job-runbook-template
-  - /docs/data-engineering/data-governance-policy-template
+  - /docs/data-quality-rules-template
+  - /docs/etl-job-runbook-template
+  - /docs/data-governance-policy-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - template
     - data architecture
     - pipeline documentation
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 A data pipeline design document specifies how data flows from sources through transformations to destinations. It defines schemas, scheduling, error handling, monitoring, and operational procedures. Without a design document, pipelines become opaque systems that only the original author understands.
 
 ## When to Use
+
+
+- For alternatives, see [Data Quality Rules Template](/docs/data-quality-rules-template/).
 
 - Building a new data pipeline
 - Modifying an existing pipeline's sources or transforms

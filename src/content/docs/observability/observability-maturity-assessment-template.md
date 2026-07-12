@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: observability-maturity-assessment-template
 title: "Observability Maturity Assessment Template"
@@ -16,10 +18,10 @@ tags:
   - tracing
   - maturity-model
 relatedResources:
-  - /docs/observability/alert-runbook-template
-  - /docs/observability/dashboard-design-template
-  - /docs/observability/incident-postmortem-template
-  - /guides/observability/complete-guide-structured-logging
+  - /docs/alert-runbook-template
+  - /docs/dashboard-design-template
+  - /docs/incident-postmortem-template
+  - /guides/complete-guide-structured-logging
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - tracing
     - maturity model
     - gap analysis
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 Observability maturity describes how well a team can answer questions about their system without deploying new code. The spectrum runs from "we check logs when something breaks" to "we proactively detect anomalies before users notice." This template provides a structured assessment across logging, metrics, tracing, alerting, and culture.
 
 ## When to Use
+
+
+- For alternatives, see [Alert Runbook Template](/docs/alert-runbook-template/).
 
 - Quarterly reliability reviews
 - Onboarding a new team to observability standards

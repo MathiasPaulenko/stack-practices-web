@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: javascript-fetch-retry-logic
 title: "JavaScript Fetch Retry Logic with Exponential Backoff"
@@ -18,8 +21,9 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/retry-logic-exponential-backoff
   - /recipes/nodejs-websocket-realtime
-  - /guides/api-error-handling-guideline
+  - /guides/rest-api-design-guide
   - /patterns/circuit-breaker-pattern
+  - /recipes/python-async-http-requests
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - fetch abortcontroller timeout
     - javascript http retry
     - fetch error handling
+
+
+
 ---
 
 ## Overview
@@ -38,6 +45,9 @@ seo:
 Network requests fail for many reasons: timeouts, server errors, rate limiting, or temporary connectivity loss. Retrying with exponential backoff gives transient failures time to resolve without overwhelming the server. Below is a practical approach to a fetch retry wrapper, jitter to avoid thundering herd, timeout with AbortController, and a simple circuit breaker.
 
 ## When to Use
+
+
+- For alternatives, see [Handle Errors in APIs](/recipes/handle-errors/).
 
 - You call external APIs that occasionally return 5xx or time out
 - You need resilient HTTP requests in browser or Node.js

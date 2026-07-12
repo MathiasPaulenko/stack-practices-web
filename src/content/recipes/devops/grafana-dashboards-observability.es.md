@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: grafana-dashboards-observability
 title: "Dashboards de Observabilidad con Grafana y Prometheus"
@@ -15,8 +21,13 @@ tags:
   - ci-cd
   - automation
 relatedResources:
-  - /recipes/devops/prometheus-monitoring-alerts
-  - /recipes/devops/helm-chart-deployment
+  - /recipes/prometheus-monitoring-alerts
+  - /recipes/helm-chart-deployment
+  - /docs/service-level-objective-slo-template
+  - /recipes/distributed-tracing
+  - /recipes/log-aggregation
+  - /recipes/metrics-collection
+  - /recipes/prometheus-api-monitoring
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +38,12 @@ seo:
     - observability
     - prometheus
     - visualization
+
+
+
+
+
+
 ---
 
 # Dashboards de Observabilidad con Grafana y Prometheus

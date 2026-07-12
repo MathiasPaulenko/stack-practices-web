@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: backup-and-restore-template
 title: "Backup & Restore Verification Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/bug-report-template
   - /docs/capacity-planning-template
+  - /docs/network-security-template
+  - /recipes/bash-backup-rotation
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - database
     - disaster-recovery
     - template
+
+
+
 ---
 ## Overview
 
 Backups are worthless if you cannot restore from them. Many teams discover this too late: after a ransomware attack, database corruption, or accidental deletion. This template ensures your backup procedures are documented, tested, and verifiable before disaster strikes.
 
 ## When to Use
+
+
+- For alternatives, see [Cross-Region Failover Test Template](/docs/cross-region-failover-template/).
 
 Use this resource when:
 - Setting up backup policies for a new database or file store

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-memcached-session-storage
 title: "Almacenar Sesiones de Usuario en Memcached con Python"
@@ -16,10 +20,12 @@ tags:
   - distributed-cache
   - pymemcache
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/authentication/python-jwt-refresh-token-rotation
+  - /recipes/python-redis-cache-decorator
+  - /recipes/python-jwt-refresh-token-rotation
   - /guides/complete-guide-api-versioning-strategies
   - /guides/complete-guide-graphql-federation
+  - /recipes/serverless-api-gateway-lambda-authorizer
+  - /recipes/python-django-cache-framework
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - distributed session store
     - session management python
     - memcached ttl
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +47,9 @@ seo:
 Memcached es un almacen key-value en memoria distribuido que funciona bien para almacenamiento de sesiones en aplicaciones web. Es simple, rapido y escalable horizontalmente. A diferencia de Redis, no tiene persistencia, estructuras de datos integradas mas alla de strings, ni replicacion — pero para datos de sesion efimeros que pueden regenerarse al re-iniciar sesion, esos tradeoffs son aceptables. A continuacion: usar pymemcache para almacenar sesiones, serializacion, gestion de TTL y failover.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Cache HTTP Responses with httpx and CacheControl in Python](/es/recipes/python-httpx-cache-responses/).
 
 - Almacenamiento de sesiones distribuido entre multiples servidores web
 - Datos de sesion efimeros que toleran perdida (usuarios re-inician sesion al vaciar cache)

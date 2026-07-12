@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: priority-queue-pattern
 title: "Patron de Cola de Prioridad"
@@ -18,9 +24,13 @@ tags:
   - heap
   - cola
 relatedResources:
-  - /patterns/design/queue-based-load-leveling-pattern
-  - /patterns/design/scheduler-agent-supervisor-pattern
-  - /patterns/design/throttling-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/scheduler-agent-supervisor-pattern
+  - /patterns/throttling-pattern
+  - /patterns/lock-free-queue-pattern
+  - /patterns/leader-election-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - heap
     - prioridad de tareas
     - fair queuing
+
+
+
+
+
+
 ---
 
 # Patron de Cola de Prioridad
@@ -44,6 +60,9 @@ El Patron de Cola de Prioridad organiza tareas o mensajes de modo que los elemen
 Este patron es esencial cuando los recursos son limitados y no todas las tareas pueden procesarse inmediatamente. Garantiza que las operaciones criticas — deteccion de fraude, solicitudes de clientes VIP, alertas del sistema — reciban atencion inmediata mientras el trabajo de fondo rutinario espera.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Distributed Lock Pattern](/es/patterns/distributed-lock-pattern/).
 
 - Capacidad de procesamiento limitada con importancia heterogenea de tareas
 - Experiencias de clientes VIP o por niveles donde los usuarios premium obtienen servicio mas rapido

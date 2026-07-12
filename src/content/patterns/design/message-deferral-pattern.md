@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: message-deferral-pattern
 title: "Message Deferral Pattern"
@@ -17,9 +19,9 @@ tags:
   - retry
   - message-queue
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/dead-letter-channel-pattern
-  - /patterns/design/message-deduplication-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/message-deduplication-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - delayed message delivery
     - schedule message processing
     - pattern design
+
+
 ---
 
 ## Overview
@@ -36,6 +40,9 @@ seo:
 Some messages cannot be processed immediately but should not be discarded. A message might depend on a resource that is temporarily unavailable, need to run at a specific time (scheduled notifications), or require a delay before retry (exponential backoff). The Message Deferral pattern moves these messages to a deferred state and delivers them later when conditions are met or a scheduled time arrives.
 
 ## When to Use
+
+
+- For alternatives, see [Dead Letter Channel Pattern](/patterns/dead-letter-channel-pattern/).
 
 - Messages depend on resources that are temporarily unavailable (database maintenance, rate-limited APIs)
 - You need scheduled delivery (send a reminder 24 hours after signup)

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: cache-stampede-prevention-pattern
 title: "Patron Cache Stampede Prevention"
@@ -19,9 +22,10 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-invalidation-pattern
-  - /patterns/design/two-level-cache-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/two-level-cache-pattern
+  - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - cache lock pattern
     - redis distributed lock cache
     - cache miss prevention
+
+
+
 ---
 
 # Patron Cache Stampede Prevention
@@ -44,6 +51,9 @@ Un cache stampede (tambien llamado thundering herd o dogpile) ocurre cuando una 
 El patron stampede prevention asegura que solo una peticion recargue los datos despues de un cache miss. Otras peticiones concurrentes esperan a que la primera termine y luego leen el valor recien cacheado. Esto reduce la carga en base de datos de N queries concurrentes a 1.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Cache Invalidation Pattern](/es/patterns/cache-invalidation-pattern/).
 
 - Una key de cache con alta concurrencia de lectura expira y causa picos en base de datos
 - Ves picos periodicos de latencia correlacionados con la expiracion del TTL de cache

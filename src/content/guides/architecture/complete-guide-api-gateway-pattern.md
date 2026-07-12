@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-api-gateway-pattern
 title: "API Gateway: Routing, Auth, Rate Limiting"
@@ -16,9 +19,10 @@ tags:
   - microservices
   - architecture
 relatedResources:
-  - /guides/architecture/complete-guide-modular-monolith
-  - /guides/architecture/complete-guide-strangler-fig-migration
-  - /guides/architecture/complete-guide-api-gateway-pattern
+  - /guides/complete-guide-modular-monolith
+  - /guides/complete-guide-strangler-fig-migration
+  - /guides/complete-guide-api-gateway-pattern
+  - /guides/complete-guide-event-sourcing-cqrs
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -32,6 +36,9 @@ seo:
     - request shaping
     - response caching
     - protocol translation
+
+
+
 ---
 
 ## Introduction
@@ -490,6 +497,9 @@ spec:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [API Gateway Design: Resilience, Routing, and Security](/guides/api-gateway-design-guide/).
 
 - Keep the gateway stateless — use Redis for rate limiting and caching, not in-memory
 - Use circuit breakers for backend calls — prevent cascading failures

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: sql-cte-recursive-hierarchy
 title: "Recursive CTEs for Hierarchical Data Queries"
@@ -15,9 +17,9 @@ tags:
   - hierarchy
   - recipe
 relatedResources:
-  - /recipes/data/python-pandas-etl-pipeline
-  - /recipes/data/python-dbt-model-transformations
-  - /recipes/data/python-spark-groupby-aggregation
+  - /recipes/python-pandas-etl-pipeline
+  - /recipes/python-dbt-model-transformations
+  - /recipes/python-spark-groupby-aggregation
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - recursive
     - hierarchy
     - recipe
+
+
 ---
 
 ## Overview
@@ -397,6 +401,9 @@ ORDER SIBLINGS BY employee_name;
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Transform Data in the Warehouse with dbt](/recipes/python-dbt-model-transformations/).
 
 - Always include a depth/level column — helps debug and limit recursion
 - Add a safety limit (`WHERE depth < N`) — prevents infinite recursion on cyclic data

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: secrets-management-guide
 title: "Gestión de Secretos: Vault, Cloud Managers y Mejores"
@@ -21,6 +26,10 @@ relatedResources:
   - /guides/secure-coding-guide
   - /guides/cryptography-basics-guide
   - /guides/zero-trust-architecture-guide
+  - /guides/ci-cd-security-guide
+  - /recipes/python-encrypt-decrypt-aes
+  - /guides/blob-storage-guide
+  - /guides/complete-guide-web-security-headers
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -33,6 +42,11 @@ seo:
     - gcp-secret-manager
     - secret-rotation
     - guia
+
+
+
+
+
 ---
 
 ## Overview
@@ -40,6 +54,9 @@ seo:
 Los secretos — contraseñas, claves de API, tokens, certificados — son las llaves de tu reino. Almacenarlos en código fuente, archivos de configuración o variables de entorno es una fuente común de brechas. Una gestión adecuada de secretos asegura que las credenciales estén encriptadas, rotadas, auditadas y accesibles solo para servicios y usuarios autorizados. A continuación: las soluciones líderes de gestión de secretos y las prácticas que las hacen útiles.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Secrets Management](/es/guides/complete-guide-secrets-management/).
 
 - Tienes credenciales, claves de API o certificados para proteger
 - Necesitas compartir secretos entre equipos o servicios

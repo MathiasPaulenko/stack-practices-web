@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: patterns
 slug: business-delegate-pattern
 title: "Patrón Business Delegate"
@@ -17,8 +24,13 @@ tags:
   - decoupling
   - layers
 relatedResources:
-  - /patterns/design/facade-pattern
-  - /patterns/design/proxy-pattern
+  - /patterns/facade-pattern
+  - /patterns/proxy-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/context-object-pattern
+  - /patterns/domain-event-pattern
+  - /patterns/intercepting-filter-pattern
+  - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +41,13 @@ seo:
     - architecture
     - decoupling
     - layers
+
+
+
+
+
+
+
 ---
 
 # Patrón Business Delegate
@@ -40,6 +59,9 @@ El Patrón Business Delegate reduce el acoplamiento entre la capa de presentaci�
 Este patrón es particularmente valioso en aplicaciones enterprise donde los servicios de negocio pueden estar distribuidos, cambiar frecuentemente, o requerir inicialización compleja. El Business Delegate también puede cachear resultados, manejar retries, y proveer una interfaz simplificada a la capa de presentación.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Context Object Pattern](/es/patterns/context-object-pattern/).
 
 Usa el Patrón Business Delegate cuando:
 - La capa de presentación necesita acceder a servicios de negocio remotos o distribuidos

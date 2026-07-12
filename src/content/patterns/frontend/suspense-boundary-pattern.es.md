@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: suspense-boundary-pattern
 title: "Patrón Suspense Boundary"
@@ -30,6 +31,7 @@ seo:
     - loading-states
     - ssr
     - pattern
+
 ---
 
 ## Overview
@@ -453,6 +455,9 @@ function App({ isPremium }) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Container-Presenter: Separate Data Logic from Rendering](/es/patterns/container-presenter-pattern/).
 
 - Ubicá boundaries estratégicamente — wrappeá la smallest unit que debería independentemente showear un loading state
 - Usá nested boundaries — no uses un giant boundary para toda la page; dejá que diferentes sections load independientemente

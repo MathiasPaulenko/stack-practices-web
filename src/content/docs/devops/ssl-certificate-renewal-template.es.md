@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: ssl-certificate-renewal-template
 title: "Plantilla de Renovación de Certificados SSL"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/cross-region-failover-template
   - /docs/deployment-checklist-template
+  - /recipes/setup-ssl-certificates
+  - /docs/patch-management-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - tls
     - seguridad
     - plantilla
+
+
+
 ---
 ## Visión General
 
@@ -265,6 +273,9 @@ kubectl get secrets --all-namespaces -o json | \
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Setup SSL Certificates with Let's Encrypt](/es/recipes/setup-ssl-certificates/).
 
 1. **Usa monitoreo de transparencia de certificados.** Suscribete a CT logs para tus dominios y detecta emisiones no autorizadas de certificados. Configura alertas cuando se emita un nuevo certificado para un dominio que posees:
 

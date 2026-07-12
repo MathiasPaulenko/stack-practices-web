@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: user-access-audit-template
 title: "Plantilla de Auditoria de Acceso de Usuarios"
@@ -15,9 +18,10 @@ tags:
   - rbac
   - compliance
 relatedResources:
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/access-control-review-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/rbac-policy-template
+  - /docs/access-control-review-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - gobernanza de identidades
     - cuenta huerfana
     - plantilla de revision de acceso
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +42,9 @@ seo:
 Una auditoria de acceso de usuarios verifica que cada usuario tenga el nivel correcto de acceso a sistemas, aplicaciones y datos. Es un control fundamental para la gobernanza de identidades, el principio de minimo privilegio y el cumplimiento de estandares como SOC 2, ISO 27001 y PCI-DSS. Esta plantilla proporciona una forma estructurada de recopilar datos de acceso, revisar permisos, certificar accesos y remediar hallazgos.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Access Control Review Template](/es/docs/access-control-review-template/).
 
 - Realizar revisiones de acceso trimestrales o anuales.
 - Prepararse para una auditoria de cumplimiento o certificacion.

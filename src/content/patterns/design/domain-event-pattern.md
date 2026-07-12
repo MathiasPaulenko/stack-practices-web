@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: domain-event-pattern
 title: "Domain Event Pattern"
@@ -17,9 +20,10 @@ tags:
   - decoupling
   - messaging
 relatedResources:
-  - /patterns/design/aggregate-pattern
-  - /patterns/design/outbox-pattern
-  - /patterns/design/event-bus-pattern
+  - /patterns/aggregate-pattern
+  - /patterns/outbox-pattern
+  - /patterns/event-bus-pattern
+  - /patterns/business-delegate-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +34,9 @@ seo:
     - event driven
     - ddd
     - decoupling
+
+
+
 ---
 
 # Domain Event Pattern
@@ -41,6 +48,9 @@ The Domain Event Pattern captures major business occurrences within a domain mod
 This decouples core business logic from side effects like sending emails, updating analytics, or notifying downstream services. Domain events also enable event sourcing, where the state of an aggregate is reconstructed by replaying its event history.
 
 ## When to Use
+
+
+- For alternatives, see [Event Bus Pattern](/patterns/event-bus-pattern/).
 
 Use the Domain Event Pattern when:
 - Side effects should not be triggered directly by business logic

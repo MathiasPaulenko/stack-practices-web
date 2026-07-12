@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: service-level-objective-slo-template
 title: "Service Level Objective (SLO) Template"
@@ -15,8 +20,11 @@ tags:
   - error-budget
   - monitoring
 relatedResources:
-  - /docs/devops/monitoring-alerting-policy-template
-  - /docs/devops/escalation-policy-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/escalation-policy-template
+  - /recipes/grafana-dashboards-observability
+  - /guides/observability-guide
+  - /guides/sre-practices-guide
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +35,11 @@ seo:
     - reliability target
     - error budget
     - SLI
+
+
+
+
+
 ---
 
 ## Overview
@@ -34,6 +47,9 @@ seo:
 A Service Level Objective (SLO) defines a reliability target for a service. It translates user expectations into measurable goals that guide engineering priorities, trade-offs, and investment. This template helps teams define Service Level Indicators (SLIs), set targets, manage error budgets, and review performance over time.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - Launching a new service or product.
 - Setting reliability expectations with stakeholders or customers.

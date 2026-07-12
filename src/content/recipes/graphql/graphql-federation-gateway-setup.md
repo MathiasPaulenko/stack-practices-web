@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: graphql-federation-gateway-setup
 title: "Set Up a GraphQL Federation Gateway with Apollo"
@@ -16,9 +21,12 @@ tags:
   - microservices
   - gateway
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-subscriptions-realtime
-  - /patterns/graphql/federated-identity-pattern
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-subscriptions-realtime
+  - /patterns/federated-identity-pattern
+  - /guides/complete-guide-graphql-federation-production
+  - /docs/graphql-federation-onboarding-template
+  - /patterns/graphql-federated-entity-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - supergraph
     - federated graphql
     - microservices graphql
+
+
+
+
+
 ---
 
 # Set Up a GraphQL Federation Gateway with Apollo
@@ -285,6 +298,9 @@ const gateway = new ApolloGateway({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/).
 
 - **Use managed federation in production** — Apollo Studio handles composition, schema validation, and rollback
 - **Keep subgraphs small and domain-focused** — each team owns one subgraph

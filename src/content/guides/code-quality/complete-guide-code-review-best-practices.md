@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-code-review-best-practices
 title: "Code Reviews: Reviewer Mindset, Feedback, Automation"
@@ -17,9 +19,9 @@ tags:
   - pull-requests
   - team-collaboration
 relatedResources:
-  - /guides/code-quality/complete-guide-clean-code-principles
-  - /guides/code-quality/complete-guide-refactoring-techniques
-  - /guides/code-quality/complete-guide-technical-debt-management
+  - /guides/complete-guide-clean-code-principles
+  - /guides/complete-guide-refactoring-techniques
+  - /guides/complete-guide-technical-debt-management
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 18
@@ -33,6 +35,8 @@ seo:
     - automated checks
     - pull requests
     - review culture
+
+
 ---
 
 ## Introduction
@@ -311,6 +315,9 @@ A few thoughts for future consideration:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Clean Code: Naming, Functions, Classes, Comments](/guides/complete-guide-clean-code-principles/).
 
 - Review within 24 hours — blocked PRs slow the whole team down
 - Keep PRs small — under 300 lines for thorough reviews

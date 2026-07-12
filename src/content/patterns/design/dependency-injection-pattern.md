@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: dependency-injection-pattern
 title: "Dependency Injection Pattern"
@@ -16,9 +21,13 @@ tags:
   - pattern
   - python
 relatedResources:
-  - /patterns/design/factory-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/factory-pattern
+  - /patterns/singleton-pattern
+  - /patterns/strategy-pattern
+  - /patterns/context-object-pattern
+  - /patterns/manager-pattern
+  - /patterns/null-object-pattern
+  - /patterns/registry-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - python di
     - java spring
     - javascript di
+
+
+
+
+
 ---
 
 # Dependency Injection Pattern

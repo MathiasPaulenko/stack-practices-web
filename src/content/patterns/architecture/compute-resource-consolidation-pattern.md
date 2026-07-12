@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: compute-resource-consolidation-pattern
 title: "Compute Resource Consolidation Pattern"
@@ -22,6 +25,8 @@ relatedResources:
   - /patterns/anti-corruption-layer-pattern
   - /docs/capacity-planning-template
   - /guides/system-design-interview-guide
+  - /recipes/cost-optimization
+  - /patterns/external-configuration-store-pattern
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - cost-optimization
     - architecture
     - infrastructure
+
+
+
 ---
 ## Overview
 
@@ -257,6 +265,9 @@ sudo cgexec -g cpu,memory:workload-b python workload-b.py
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Content Delivery Network (CDN) Pattern](/patterns/content-delivery-network-pattern/).
 
 1. **Use resource quotas at multiple levels.** Apply quotas at the cluster level, namespace level, and pod level to enforce limits hierarchically. This prevents one team or application from consuming all resources.
 

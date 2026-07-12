@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-full-text-search-setup
 title: "Configurar índices de búsqueda de texto completo"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/sql-index-optimization-analysis
   - /recipes/sql-migration-zero-downtime
   - /recipes/sql-partitioning-strategies
+  - /recipes/database-migrations
+  - /recipes/database-read-replicas
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - búsqueda de texto completo
     - gin
     - tsvector
+
+
+
 ---
 
 
@@ -37,6 +45,9 @@ seo:
 La búsqueda por patrones con `LIKE '%word%'` es lenta y no puede clasificar resultados por relevancia. La búsqueda de texto completo transforma el texto en tokens buscables, los indexa y permite consultar por significado en lugar de subcadena exacta. PostgreSQL tiene un motor de búsqueda de texto completo maduro integrado, así que puedes agregar búsqueda funcional sin servicios externos como Elasticsearch para muchos casos de uso.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Full-Text Search — Implement Search That Actually Works](/es/guides/full-text-search-guide/).
 
 Usa este recurso cuando:
 - Los usuarios necesiten buscar en columnas de texto largo como artículos, tickets o descripciones de productos.

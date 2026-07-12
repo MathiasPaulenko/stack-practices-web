@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: circuit-breaker-pattern
 title: "Patrón Circuit Breaker"
@@ -18,9 +23,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/proxy-pattern
-  - /patterns/design/observer-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/proxy-pattern
+  - /patterns/observer-pattern
+  - /patterns/strategy-pattern
+  - /patterns/ambassador-pattern-services
+  - /patterns/back-pressure-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +43,11 @@ seo:
     - python circuit breaker
     - java resilience4j
     - javascript circuit breaker
+
+
+
+
+
 ---
 
 # Patrón Circuit Breaker

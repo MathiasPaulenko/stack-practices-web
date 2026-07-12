@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: cdn-edge-caching
 title: "Implementar CDN edge caching"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/debounce-throttle
   - /guides/system-design-interview-guide
   - /guides/logging-monitoring-observability-guide
+  - /recipes/brotli-nginx-compression
+  - /recipes/cache-invalidation
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - cloudfront
     - cloudflare
     - rendimiento
+
+
 ---
 # Implementar CDN edge caching
 

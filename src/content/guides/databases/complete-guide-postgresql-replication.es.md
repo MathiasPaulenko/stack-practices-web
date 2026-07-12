@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-postgresql-replication
 title: "Referencia Detallada de PostgreSQL Replication"
@@ -19,9 +24,12 @@ tags:
   - patroni
   - failover
 relatedResources:
-  - /guides/databases/complete-guide-sql-query-optimization
-  - /guides/databases/complete-guide-database-sharding
-  - /guides/databases/complete-guide-redis-production
+  - /guides/complete-guide-sql-query-optimization
+  - /guides/complete-guide-database-sharding
+  - /guides/complete-guide-redis-production
+  - /guides/complete-guide-elasticsearch-cluster-setup
+  - /recipes/seed-database
+  - /guides/complete-guide-mongodb-indexing
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - replication slots
     - synchronous commit
     - disaster recovery
+
+
+
+
+
 ---
 
 ## Introducción
@@ -489,3 +502,12 @@ Patroni monitorea el primary via el DCS (etcd/Consul). Si el primary se vuelve u
 ### ¿Puedo replicar entre different PostgreSQL versions?
 
 Para streaming replication, tanto primary como replica deben correr el same major version (e.g., ambos 16.x). No podes stream de 15 a 16. Para logical replication, podes replicar entre different major versions — este es el recommended approach para major version upgrades. Setea up logical replication del old version al new version, dejalos sync, luego switchea el application al new version. Esto se llama "logical replication upgrade" y tiene near-zero downtime.
+
+## See Also
+
+- [Database Replication — Master-Slave, Multi-Master](/es/guides/database-replication-guide/)
+- [Database Failover Runbook](/es/docs/runbook-database-failover/)
+- [Read Replicas: Scale Reads Without Changing Application](/es/guides/read-replica-guide/)
+- [Complete Guide to Redis in Production](/es/guides/complete-guide-redis-production/)
+- [Complete Guide to Database Sharding](/es/guides/complete-guide-database-sharding/)
+

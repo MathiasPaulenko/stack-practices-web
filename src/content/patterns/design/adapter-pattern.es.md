@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: adapter-pattern
 title: "Patrón Adapter"
@@ -16,9 +21,13 @@ tags:
   - python
   - structural
 relatedResources:
-  - /patterns/design/decorator-pattern
-  - /patterns/design/command-pattern
-  - /recipes/api/call-rest-api
+  - /patterns/decorator-pattern
+  - /patterns/command-pattern
+  - /recipes/call-rest-api
+  - /patterns/bridge-pattern
+  - /patterns/decorator-pattern-pipeline
+  - /patterns/facade-pattern
+  - /patterns/proxy-pattern-caching
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - python adapter
     - java adapter
     - javascript adapter
+
+
+
+
+
 ---
 
 # Patrón Adapter

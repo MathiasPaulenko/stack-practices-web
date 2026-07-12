@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: service-level-objective-slo-template
 title: "Plantilla de Objetivo de Nivel de Servicio (SLO)"
@@ -15,8 +20,11 @@ tags:
   - error-budget
   - monitoring
 relatedResources:
-  - /docs/devops/monitoring-alerting-policy-template
-  - /docs/devops/escalation-policy-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/escalation-policy-template
+  - /recipes/grafana-dashboards-observability
+  - /guides/observability-guide
+  - /guides/sre-practices-guide
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +35,11 @@ seo:
     - objetivo de confiabilidad
     - presupuesto de error
     - SLI
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -34,6 +47,9 @@ seo:
 Un Objetivo de Nivel de Servicio (SLO) define un objetivo de confiabilidad para un servicio. Traduce las expectativas de los usuarios en metas medibles que orientan las prioridades de ingenieria, las compensaciones y la inversion. Esta plantilla ayuda a los equipos a definir Indicadores de Nivel de Servicio (SLIs), establecer objetivos, gestionar presupuestos de error y revisar el rendimiento en el tiempo.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
 
 - Lanzar un nuevo servicio o producto.
 - Establecer expectativas de confiabilidad con stakeholders o clientes.

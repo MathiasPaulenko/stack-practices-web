@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: nodejs-pino-fast-logging
 title: "Logging de Alta Performance con pino"
@@ -15,9 +17,9 @@ tags:
   - json
   - recipe
 relatedResources:
-  - /recipes/observability/python-structured-logging-json
-  - /recipes/observability/nodejs-sentry-error-tracking
-  - /recipes/observability/nodejs-winston-daily-rotate
+  - /recipes/python-structured-logging-json
+  - /recipes/nodejs-sentry-error-tracking
+  - /recipes/nodejs-winston-daily-rotate
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - pino
     - json
     - recipe
+
+
 ---
 
 ## Overview
@@ -294,6 +298,9 @@ function logWithTrace(msg, data = {}) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Rotate Logs Daily with Winston](/es/recipes/nodejs-winston-daily-rotate/).
 
 - Usa `pino-pretty` solo en desarrollo — añade overhead en producción
 - Usa child loggers para context scoped al request en lugar de repetir campos en cada llamada

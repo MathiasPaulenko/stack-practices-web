@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: data-migration-runbook-template
 title: "Data Migration Runbook Template"
@@ -17,9 +19,9 @@ tags:
   - rollback
   - validation
 relatedResources:
-  - /docs/devops/runbook-database-failover
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/devops/disaster-recovery-test-plan
+  - /docs/runbook-database-failover
+  - /docs/deployment-rollback-runbook
+  - /docs/disaster-recovery-test-plan
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
@@ -31,6 +33,8 @@ seo:
     - migration runbook
     - data validation
     - etl runbook
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Data migrations are among the riskiest operations in software engineering. Unlike code deployments, data migrations cannot be rolled back with a simple `kubectl rollout undo`. A failed migration can corrupt production data, violate compliance requirements, and cause extended outages. This runbook template structures the migration into verifiable phases: preparation, dry run, execution, validation, and rollback.
 
 ## When to Use
+
+
+- For alternatives, see [Data Migration: Zero-Downtime Strategies That Work](/guides/data-migration-guide/).
 
 Use this resource when:
 - Moving data between database versions or engines (MySQL 5.7 to 8.0, PostgreSQL to Aurora)

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: bug-triage-template
 title: "Plantilla de Triaje de Bugs"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/backup-and-restore-template
   - /docs/cloud-cost-allocation-template
   - /docs/cross-region-failover-template
+  - /docs/network-security-template
+  - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - severidad
     - operaciones
     - plantilla
+
+
+
 ---
 ## Visión General
 
@@ -311,6 +319,9 @@ print(format_slack_alert(aged))
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Change Management Template](/es/docs/change-management-template/).
 
 1. **Usa un tablero de triaje de bugs con columnas para cada severidad.** Visualizar bugs por severidad hace inmediatamente claro dónde se necesita atención. Configura transiciones automáticas de columnas basadas en temporizadores de SLA:
 

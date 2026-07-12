@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: penetration-test-remediation-template
 title: "Plantilla de Remediación de Pruebas de Penetración"
@@ -22,6 +24,7 @@ relatedResources:
   - /docs/incident-response-playbook-template
   - /docs/data-retention-policy-template
   - /docs/api-security-review-template
+  - /docs/owasp-top-10-remediation-checklist
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -35,12 +38,17 @@ seo:
     - assessment
     - compliance
     - template
+
+
 ---
 ## Visión General
 
 Una prueba de penetración que produce un PDF con hallazgos de severidad alta no mejora la seguridad hasta que los hallazgos se rastrean, priorizan, corrigen y verifican. Los equipos de ingeniería frecuentemente ignoran resultados de pentesting porque los reportes son abrumadores, no priorizados o carecen de claridad sobre qué es accionable. Esta plantilla transforma los hallazgos de pentesting en tickets rastreables con responsables claros, fechas límite y pasos de validación.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [OWASP Top 10 Remediation Checklist](/es/docs/owasp-top-10-remediation-checklist/).
 
 Usa este recurso cuando:
 - Has recibido un reporte de pentesting y necesitas planificar correcciones

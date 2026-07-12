@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-monitoring-disk-usage
 title: "Monitorear Uso de Disco"
@@ -19,6 +21,7 @@ relatedResources:
   - /recipes/bash-log-rotation-compression
   - /recipes/bash-loop-over-files
   - /recipes/bash-parallel-execution
+  - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +32,8 @@ seo:
     - disco
     - alertas
     - linux
+
+
 ---
 ## Visión General
 
@@ -299,6 +304,9 @@ done
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Backup Rotation Script](/es/recipes/bash-backup-rotation-script/).
 
 1. **Monitorea el uso de inodos por separado.** Un disco puede tener espacio libre pero quedarse sin inodos (slots de archivos). Esto pasa con workloads que crean millones de archivos pequeños — servidores de mail, directorios de caché, almacenamiento de sesiones. Verifica los inodos con `df -i` y alerta con los mismos umbrales.
 

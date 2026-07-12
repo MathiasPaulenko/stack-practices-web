@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: load-test-execution-plan-template
 title: "Plantilla de Plan de Ejecucion de Pruebas de Carga"
@@ -15,9 +20,12 @@ tags:
   - k6
   - observability
 relatedResources:
-  - /docs/devops/capacity-planning-forecast-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/monitoring-alerting-policy-template
   - /docs/runbook-template
+  - /guides/logging-monitoring-observability-guide
+  - /guides/observability-guide
+  - /guides/performance-optimization-guide
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - checklist de pruebas de carga
     - plantilla de escenario de prueba de carga
     - guia de pruebas de rendimiento
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +48,9 @@ seo:
 Las pruebas de carga evaluan como se comporta un sistema bajo trafico realista o de pico. Esta plantilla ayuda a los equipos a definir objetivos de prueba, seleccionar escenarios, preparar entornos, ejecutar pruebas y documentar resultados. Asegura que el trabajo de rendimiento sea repetible y vinculado a criterios de exito claros.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Logging, Monitoring & Observability Guide](/es/guides/logging-monitoring-observability-guide/).
 
 - Antes de un lanzamiento de producto importante o campana de marketing.
 - Despues de cambios mayores de arquitectura o infraestructura.

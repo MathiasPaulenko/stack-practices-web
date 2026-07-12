@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-dbt-data-transformations
 title: "dbt: Modelos, Tests, Macros, Materializations"
@@ -16,8 +19,9 @@ tags:
   - jinja
   - data-engineering
 relatedResources:
-  - /guides/data/complete-guide-data-pipeline-architecture
-  - /guides/data/complete-guide-apache-airflow
+  - /guides/complete-guide-data-pipeline-architecture
+  - /guides/complete-guide-apache-airflow
+  - /guides/complete-guide-data-quality
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +35,9 @@ seo:
     - dbt macros
     - materializations
     - analytics engineering
+
+
+
 ---
 
 ## Introducción
@@ -541,6 +548,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Apache Airflow: DAGs, Operators, Scheduling](/es/guides/complete-guide-apache-airflow/).
 
 - Seguí el staging → intermediate → marts layering — cada layer tiene un clear purpose
 - Usá `ref()` para todos los model references — dbt builda el dependency graph automáticamente

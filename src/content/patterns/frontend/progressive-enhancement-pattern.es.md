@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: progressive-enhancement-pattern
 title: "Patrón Progressive Enhancement"
@@ -28,6 +29,7 @@ seo:
     - accessibility
     - html
     - pattern
+
 ---
 
 ## Overview
@@ -504,6 +506,9 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Web Accessibility: WCAG 2.2 Compliance](/es/guides/complete-guide-accessibility-wcag/).
 
 - Arrancá con HTML que funciona — forms submitean, links navegan, content es readable
 - Usá feature detection, no browser sniffing — checkeá `if ('fetch' in window)` no `if (isChrome)`

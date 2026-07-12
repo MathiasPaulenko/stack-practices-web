@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: role-pattern
 title: "Patrón Role"
@@ -17,9 +23,13 @@ tags:
   - composition
   - ddd
 relatedResources:
-  - /patterns/design/decorator-pattern
-  - /patterns/design/strategy-pattern
-  - /patterns/design/composite-entity-pattern
+  - /patterns/decorator-pattern
+  - /patterns/strategy-pattern
+  - /patterns/composite-entity-pattern
+  - /patterns/twin-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/context-object-pattern
+  - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +40,12 @@ seo:
     - dynamic
     - composition
     - ddd
+
+
+
+
+
+
 ---
 
 # Patrón Role
@@ -43,6 +59,9 @@ El Patrón Role resuelve esto separando la **entidad core** (quién es el objeto
 Este patrón es fundamental en Domain-Driven Design (DDD) y se usa en sistemas de autorización (RBAC), motores de workflow y aplicaciones multi-tenant.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Blackboard Pattern](/es/patterns/blackboard-pattern/).
 
 Usa el Patrón Role cuando:
 - La misma entidad puede desempeñar múltiples roles en diferentes contextos

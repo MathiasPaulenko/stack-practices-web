@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-agent-langgraph-state-machine
 title: "Build Stateful AI Agents with LangGraph State Machines"
@@ -14,9 +20,13 @@ tags:
   - state machine
   - langchain
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-function-calling-structured
-  - /recipes/ai/python-llm-streaming-responses
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-huggingface-text-classification
+  - /recipes/python-ollama-local-llm
+  - /recipes/python-sentiment-analysis-nltk
+  - /patterns/agent-tool-selection-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - state machine langchain
     - langgraph python
     - multi-step agent
+
+
+
+
+
+
 ---
 
 # Build Stateful AI Agents with LangGraph State Machines
@@ -307,6 +323,9 @@ app = build_agent_graph.__wrapped__(memory)
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to LangChain in Production](/guides/complete-guide-langchain-production/).
 
 - **Set `max_attempts`** — prevents infinite loops where the agent keeps calling tools without converging
 - **Use `MemorySaver` for development** — switch to `SqliteSaver` or `PostgresSaver` for production

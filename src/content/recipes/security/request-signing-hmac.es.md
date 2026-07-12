@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: request-signing-hmac
 title: "Implementar firma de peticiones con HMAC"
@@ -19,6 +21,8 @@ relatedResources:
   - /patterns/ambassador-pattern
   - /patterns/bridge-pattern
   - /patterns/builder-pattern
+  - /recipes/api-security-headers
+  - /recipes/encryption-at-rest
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Visión General
 

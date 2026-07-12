@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: cache-invalidation-pattern
 title: "Patron Cache Invalidation"
@@ -19,9 +24,12 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/cache-aside-pattern
-  - /patterns/design/write-through-cache-pattern
-  - /patterns/design/read-through-cache-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/write-through-cache-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-stampede-prevention-pattern
+  - /patterns/refresh-ahead-cache-pattern
+  - /patterns/two-level-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +41,11 @@ seo:
     - redis pub/sub invalidation
     - event-driven cache
     - cache consistency
+
+
+
+
+
 ---
 
 # Patron Cache Invalidation
@@ -44,6 +57,9 @@ La invalidacion de cache elimina o actualiza entradas stale para que las lectura
 Hay cuatro estrategias principales de invalidacion: expiracion basada en TTL, invalidacion explicita en escritura, invalidacion basada en eventos via pub/sub, y keys versionadas. Cada una tiene diferentes garantias de consistencia y niveles de complejidad.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Cache Stampede Prevention Pattern](/es/patterns/cache-stampede-prevention-pattern/).
 
 - Datos cacheados cambian en la base de datos y lecturas stale causan problemas de correccion
 - Necesitas invalidar keys especificas, no todo el cache

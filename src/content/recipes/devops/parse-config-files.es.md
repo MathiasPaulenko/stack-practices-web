@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: parse-config-files
 title: "Analizar y Validar Configuración YAML/JSON"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/cli-tool-argument-parsing
   - /recipes/environment-variables
   - /recipes/health-check-endpoint
+  - /recipes/feature-flags
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,7 @@ seo:
     - python
     - javascript
     - java
+
 ---
 ## Visión General
 

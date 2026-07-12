@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: modular-monolith-guide
 title: "Modular Monolith — A Pragmatic Architecture"
@@ -21,7 +23,7 @@ relatedResources:
   - /guides/monolith-to-microservices-migration-guide
   - /guides/hexagonal-architecture-guide
   - /guides/clean-architecture-guide
-  - /patterns/design/anti-corruption-layer-pattern
+  - /patterns/anti-corruption-layer-pattern
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -34,6 +36,8 @@ seo:
     - module-boundaries
     - domain-driven-design
     - guide
+
+
 ---
 
 ## Overview
@@ -41,6 +45,9 @@ seo:
 A Modular Monolith is a software architecture that keeps the deployment simplicity of a monolith while enforcing the modular boundaries of microservices. Instead of deploying many small services, you build a single deployable unit composed of well-defined, loosely-coupled modules. Each module owns its domain, data, and public interface. Communication between modules happens through explicit APIs, not through shared database tables or direct method calls.
 
 ## When to Use
+
+
+- For alternatives, see [Clean Architecture](/guides/clean-architecture-guide/).
 
 - Your team is not ready for the operational complexity of microservices
 - You need fast deployments and simple debugging but want clear boundaries

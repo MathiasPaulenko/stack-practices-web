@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: service-ownership-document-template
 title: "Service Ownership Document Template"
@@ -15,9 +20,12 @@ tags:
   - on-call
   - documentation
 relatedResources:
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/incident-communication-template
-  - /docs/devops/onboarding-checklist-backend-engineer
+  - /docs/engineering-handbook-template
+  - /docs/incident-communication-template
+  - /docs/onboarding-checklist-backend-engineer
+  - /docs/deprecation-timeline-template
+  - /docs/production-readiness-review-template
+  - /docs/system-decommissioning-checklist-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - service runbook
     - on-call responsibilities
     - service catalog
+
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +48,9 @@ seo:
 Microservices multiply quickly. In a growing engineering organization, it is easy to lose track of who owns what, how to deploy a service, or who to call when it fails at 3 AM. A service ownership document is a single page of truth for each production service: what it does, who owns it, how to operate it, and where to find everything else. It turns tribal knowledge into referenceable documentation and prevents the "no one knows how this works" crisis.
 
 ## When to Use
+
+
+- For alternatives, see [Monolith to Microservices — Migration Strategies](/guides/monolith-to-microservices-migration-guide/).
 
 Use this template when:
 - You have more than five production services and ownership is becoming unclear

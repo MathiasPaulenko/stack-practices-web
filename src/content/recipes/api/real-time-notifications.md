@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: real-time-notifications
 title: "Build Real-Time Notifications with WebSockets"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/server-sent-events
   - /recipes/webhooks
   - /recipes/api-documentation-openapi
+  - /recipes/nodejs-websocket-realtime
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,7 @@ seo:
     - python
     - javascript
     - java
+
 ---
 # Build Real-Time Notifications with WebSockets
 

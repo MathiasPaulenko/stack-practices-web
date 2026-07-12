@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: production-readiness-review-template
 title: "Plantilla de Production Readiness Review"
@@ -15,9 +18,10 @@ tags:
   - monitoring
   - operations
 relatedResources:
-  - /docs/devops/feature-specification-template
-  - /docs/devops/service-ownership-document-template
-  - /docs/devops/incident-communication-template
+  - /docs/feature-specification-template
+  - /docs/service-ownership-document-template
+  - /docs/incident-communication-template
+  - /docs/capacity-planning-forecast-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - preparacion para deployment
     - checklist de go-live
     - lanzamiento de servicio
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +42,9 @@ seo:
 Enviar a produccion no es la linea de meta. Es la linea de salida para la responsabilidad operativa. Un Production Readiness Review (PRR) es un checkpoint estructurado que verifica que un servicio o feature esta listo para correr en produccion: puede monitorearse, revertirse, asegurarse, y operarse por personas distintas al autor. Los PRRs previenen las sorpresas a las 3 AM donde nadie sabe como reiniciar un servicio, como se ve "normal", o como revertir un mal deploy.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Blue-Green Deployment](/es/guides/blue-green-deployment-guide/).
 
 Usa esta plantilla cuando:
 - Un nuevo servicio se despliega a produccion por primera vez

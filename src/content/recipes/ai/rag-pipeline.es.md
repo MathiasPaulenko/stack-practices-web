@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: rag-pipeline
 title: "Construir un pipeline RAG con LangChain y bases de datos"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/llm-fine-tuning
   - /guides/system-design-interview-guide
   - /guides/software-architecture-guide
+  - /recipes/ai-agents
+  - /recipes/prompt-engineering
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - openai
     - embeddings
     - llm
+
+
 ---
 
 ## Visión General

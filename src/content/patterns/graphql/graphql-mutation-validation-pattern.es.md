@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: graphql-mutation-validation-pattern
 title: "Patron GraphQL Mutation Validation"
@@ -18,9 +23,12 @@ tags:
   - typescript
   - apollo-server
 relatedResources:
-  - /patterns/graphql/graphql-error-extension-pattern
-  - /patterns/graphql/graphql-dataloader-pattern
-  - /recipes/graphql/graphql-input-validation
+  - /patterns/graphql-error-extension-pattern
+  - /patterns/graphql-dataloader-pattern
+  - /recipes/graphql-input-validation
+  - /patterns/graphql-federated-entity-pattern
+  - /patterns/backend-for-frontend-pattern
+  - /patterns/graphql-connection-pagination-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - graphql error handling
     - centralized validation graphql
     - graphql custom scalars
+
+
+
+
+
 ---
 
 # Patron GraphQL Mutation Validation
@@ -43,6 +56,9 @@ Las mutaciones GraphQL aceptan input types que necesitan validacion antes de pro
 El patron mutation validation centraliza la validacion en validadores reutilizables. Cada mutacion pasa su input por un pipeline de validacion que devuelve errores estructurados con rutas de campo y codigos legibles por maquina. Los resolvers se enfocan en logica de negocio, no en checking de input.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [GraphQL Connection Pagination Pattern](/es/patterns/graphql-connection-pagination-pattern/).
 
 - Tienes multiples mutaciones que aceptan input de usuario
 - Las reglas de validacion se repiten entre resolvers

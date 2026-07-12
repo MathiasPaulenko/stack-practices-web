@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: capacity-planning-forecast-template
 title: "Capacity Planning Forecast Template"
@@ -15,9 +19,11 @@ tags:
   - scaling
   - performance
 relatedResources:
-  - /docs/devops/production-readiness-review-template
-  - /docs/devops/feature-specification-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/production-readiness-review-template
+  - /docs/feature-specification-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/infrastructure-cost-allocation-template
+  - /docs/load-test-execution-plan-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - scaling template
     - resource planning
     - traffic projection
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +45,9 @@ seo:
 Traffic grows, but infrastructure does not grow by itself. Most outages are not caused by bad code — they are caused by systems that hit a wall nobody measured. Capacity planning is the discipline of looking ahead: how much traffic will we have in six months, what resource will run out first, and what will it cost to stay ahead of demand? A capacity forecast turns panic-driven scaling into a scheduled, budgeted, and tested operation.
 
 ## When to Use
+
+
+- For alternatives, see [Capacity Planning — Forecast, Scale](/guides/capacity-planning-guide/).
 
 Use this template when:
 - You are entering a growth phase (marketing campaign, product launch, seasonal spike)

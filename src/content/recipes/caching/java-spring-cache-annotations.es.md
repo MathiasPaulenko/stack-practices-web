@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: java-spring-cache-annotations
 title: "Usar Anotaciones de Cache de Spring con Backend Redis"
@@ -16,9 +19,10 @@ tags:
   - redis
   - declarative-caching
 relatedResources:
-  - /recipes/caching/java-caffeine-cache-configuration
-  - /recipes/caching/nodejs-redis-cache-invalidation
+  - /recipes/java-caffeine-cache-configuration
+  - /recipes/nodejs-redis-cache-invalidation
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - cacheable cacheput cacheevict
     - spring boot caching
     - declarative caching java
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +43,9 @@ seo:
 Spring Framework proporciona caching declarativo a traves de anotaciones: `@Cacheable`, `@CachePut`, `@CacheEvict` y `@Caching`. Estas anotaciones interceptan llamadas a metodos, verifican el cache antes de la ejecucion, y almacenan resultados despues de la ejecucion — todo sin modificar la logica de negocio. Con un backend Redis, el cache se comparte entre todas las instancias de la aplicacion. A continuacion: configurar Spring Cache con Redis, usar cada anotacion, caching condicional, operaciones multi-cache y gestion de TTL.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Implement Redis Cache Invalidation in Node.js](/es/recipes/nodejs-redis-cache-invalidation/).
 
 - Aplicaciones Spring Boot que necesitan caching sin acoplar logica de negocio a codigo de cache
 - Metodos de capa de servicio con consultas de base de datos costosas o computaciones

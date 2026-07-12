@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: graphql-apollo-server
 title: "Construye una API GraphQL con Apollo Server y TypeScript"
@@ -14,8 +20,13 @@ tags:
   - nodejs
   - rest
 relatedResources:
-  - /patterns/design/adapter-pattern-api
-  - /recipes/api/call-rest-api
+  - /patterns/adapter-pattern-api
+  - /recipes/call-rest-api
+  - /recipes/graphql-custom-scalar-types
+  - /recipes/graphql-dataloader-batching
+  - /recipes/graphql-directives-auth
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/graphql-federation-gateway-setup
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +37,12 @@ seo:
     - typescript
     - dataloader
     - api design
+
+
+
+
+
+
 ---
 
 # Construye una API GraphQL con Apollo Server y TypeScript

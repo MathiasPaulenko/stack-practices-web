@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: caching-redis
 title: "Caching con Redis"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/database-transactions
   - /recipes/full-text-search
   - /recipes/soft-deletes
+  - /recipes/event-sourcing-relational
+  - /recipes/schema-evolution
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - invalidacion cache redis
     - redis ttl estrategias
     - caching python javascript java
+
+
 ---
 ## Visión General
 

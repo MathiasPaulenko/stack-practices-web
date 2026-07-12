@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-django-cache-framework
 title: "Cache Database Queries with Django Cache Framework"
@@ -16,9 +19,10 @@ tags:
   - redis
   - database-optimization
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/python-memcached-session-storage
+  - /recipes/python-redis-cache-decorator
+  - /recipes/python-memcached-session-storage
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/database-query-result-caching
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - django redis cache
     - per-view caching
     - template fragment cache
+
+
+
 ---
 
 ## Overview
@@ -364,6 +371,9 @@ CACHES = {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Cache Database Query Results with Redis and Python](/recipes/database-query-result-caching/).
 
 - **Use `select_related` and `prefetch_related` before caching**: Reduce query count first, then cache the result.
 - **Cache at the right level**: Cache expensive querysets, not individual model attributes. Fragment caching for templates, view caching for full pages.

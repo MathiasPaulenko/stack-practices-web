@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: database-denormalization-guide
 title: "Database Denormalization"
@@ -20,6 +24,9 @@ relatedResources:
   - /guides/database-design-guide
   - /guides/database-normalization-guide
   - /guides/sql-performance-tuning-guide
+  - /guides/complete-guide-elasticsearch-cluster-setup
+  - /guides/complete-guide-postgresql-tuning
+  - /guides/database-replication-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +38,10 @@ seo:
     - data-redundancy
     - materialized-views
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +49,9 @@ seo:
 Denormalization is the intentional introduction of redundancy into a database schema to improve read performance. While normalization eliminates redundancy to ensure consistency, denormalization accepts controlled duplication to reduce joins, simplify queries, and speed up reads. It is not an excuse for poor design — it is a deliberate optimization applied after a normalized baseline is established.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - Read-heavy workloads where joins are the bottleneck
 - Aggregated queries run frequently on large datasets

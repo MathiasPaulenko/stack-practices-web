@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: adapter-pattern-api
 title: "Adapter Pattern for Integrating External REST APIs"
@@ -15,9 +20,13 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/decorator-pattern-pipeline
-  - /patterns/design/facade-pattern
-  - /recipes/api/call-rest-api
+  - /patterns/decorator-pattern-pipeline
+  - /patterns/facade-pattern
+  - /recipes/call-rest-api
+  - /recipes/graphql-apollo-server
+  - /patterns/bridge-pattern-ui-themes
+  - /patterns/composite-pattern-ui
+  - /patterns/repository-pattern-typescript
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - structural pattern
     - data normalization
     - third-party api
+
+
+
+
+
 ---
 
 # Adapter Pattern for Integrating External REST APIs

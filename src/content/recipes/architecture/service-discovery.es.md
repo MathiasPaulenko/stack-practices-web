@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: service-discovery
 title: "Service Discovery"
@@ -19,6 +21,8 @@ relatedResources:
   - /guides/software-architecture-guide
   - /recipes/microservices-communication
   - /docs/adr-template
+  - /recipes/api-gateway
+  - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - architecture
     - microservices
     - consul
+
+
 ---
 ## Visión General
 

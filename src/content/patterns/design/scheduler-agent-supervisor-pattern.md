@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: scheduler-agent-supervisor-pattern
 title: "Scheduler Agent Supervisor Pattern"
@@ -18,9 +20,9 @@ tags:
   - job-management
   - supervisor
 relatedResources:
-  - /patterns/design/priority-queue-pattern
-  - /patterns/design/queue-based-load-leveling-pattern
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +34,8 @@ seo:
     - resilience
     - job management
     - supervisor pattern
+
+
 ---
 
 # Scheduler Agent Supervisor Pattern
@@ -43,6 +47,9 @@ The Scheduler Agent Supervisor Pattern structures distributed job processing int
 This separation of concerns makes the system resilient to agent crashes, network partitions, and unresponsive workers. The supervisor detects failed agents, restarts them, redistributes their work, and ensures scheduling continues even when individual components fail. It is the foundation of many job orchestration systems, from Erlang's OTP supervision trees to Kubernetes controllers.
 
 ## When to Use
+
+
+- For alternatives, see [Back-Pressure Pattern](/patterns/back-pressure-pattern/).
 
 - Long-running or background jobs that must survive individual machine failures
 - Distributed task execution where workers may crash or become unreachable

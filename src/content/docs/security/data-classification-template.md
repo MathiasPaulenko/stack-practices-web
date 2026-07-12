@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: data-classification-template
 title: "Data Classification Template"
@@ -21,6 +24,8 @@ relatedResources:
   - /docs/data-retention-policy-template
   - /docs/api-security-review-template
   - /docs/security-audit-checklist-template
+  - /docs/penetration-test-remediation-template
+  - /docs/secrets-rotation-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -33,12 +38,18 @@ seo:
     - privacy
     - governance
     - template
+
+
+
 ---
 ## Overview
 
 Not all data is equal. A public marketing blog post and a customer credit card number do not deserve the same protection, but teams often apply uniform encryption and access controls because no one defined the difference. Data classification creates a shared vocabulary for risk: public data can be open, internal data needs access control, confidential data needs encryption, and restricted data needs both encryption and strict need-to-know access. Without classification, engineers default to either over-protecting everything (waste) or under-protecting everything (breach risk).
 
 ## When to Use
+
+
+- For alternatives, see [Data Privacy and GDPR Compliance](/recipes/data-privacy-gdpr/).
 
 Use this resource when:
 - You are designing a data storage or access control policy and need consistent labels

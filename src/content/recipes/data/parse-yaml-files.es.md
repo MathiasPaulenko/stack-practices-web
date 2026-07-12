@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: parse-yaml-files
 title: "Analizar Archivos YAML"
@@ -15,11 +19,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-json
-  - /recipes/data/validate-json-schema
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/parse-toml-files
-  - /recipes/data/parse-xml-files
+  - /recipes/parse-json
+  - /recipes/validate-json-schema
+  - /recipes/serialize-deserialize-data
+  - /recipes/parse-toml-files
+  - /recipes/parse-xml-files
+  - /recipes/parse-command-line-arguments
+  - /recipes/parse-markdown-files
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -31,6 +37,10 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
 ---
 
 ## Visión General
@@ -38,6 +48,9 @@ seo:
 YAML es el estándar de facto para archivos de configuración en DevOps, pipelines CI/CD y settings de aplicaciones. Su sintaxis legible por humanos soporta estructuras anidadas, comentarios, anchors y aliases. Analizar YAML programáticamente habilita validación automatizada de configuración, overrides específicos por ambiente y descubrimiento automático de servicios.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Parse TOML Files](/es/recipes/parse-toml-files/).
 
 Usa este recurso cuando:
 - Cargues configuración de aplicación desde `config.yaml` o `docker-compose.yml`

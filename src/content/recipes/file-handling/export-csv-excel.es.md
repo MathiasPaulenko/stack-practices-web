@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: export-csv-excel
 title: "Exportar Datos a CSV/Excel"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/image-optimization
   - /recipes/read-write-file
   - /patterns/abstract-factory-pattern
+  - /recipes/import-csv-excel
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,7 @@ seo:
     - apache poi java excel
     - streaming csv javascript
     - exportar datos grandes
+
 ---
 ## Visión General
 

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-dbt-model-transformations
 title: "Transform Data in the Warehouse with dbt"
@@ -16,9 +19,10 @@ tags:
   - transformations
   - recipe
 relatedResources:
-  - /recipes/data/python-pandas-etl-pipeline
-  - /recipes/data/sql-cte-recursive-hierarchy
-  - /recipes/data/python-airflow-dag-scheduling
+  - /recipes/python-pandas-etl-pipeline
+  - /recipes/sql-cte-recursive-hierarchy
+  - /recipes/python-airflow-dag-scheduling
+  - /recipes/python-data-validation-pandera
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - data-warehouse
     - transformations
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -339,6 +346,9 @@ dbt deps
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Schedule and Monitor DAGs with Apache Airflow](/recipes/python-airflow-dag-scheduling/).
 
 - Use a layered architecture: staging (cleaning) → intermediate (joins) → marts (business logic)
 - Always test primary keys with `unique` and `not_null` — catches data quality issues early

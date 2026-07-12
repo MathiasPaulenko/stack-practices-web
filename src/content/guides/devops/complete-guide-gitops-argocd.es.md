@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-gitops-argocd
 title: "Referencia Detallada de GitOps con ArgoCD"
@@ -18,10 +21,11 @@ tags:
   - guide
   - devops
 relatedResources:
-  - /guides/devops/kubernetes-basics-guide
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/devops/deployment-strategies-guide
-  - /guides/devops/complete-guide-kubernetes-ingress
+  - /guides/kubernetes-basics-guide
+  - /guides/cicd-pipeline-guide
+  - /guides/deployment-strategies-guide
+  - /guides/complete-guide-kubernetes-ingress
+  - /guides/complete-guide-ci-cd-github-actions
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - kustomize argocd
     - applicationset
     - multi-cluster
+
+
+
 ---
 
 # Referencia Detallada de GitOps con ArgoCD
@@ -407,3 +414,12 @@ Depende. Sync automatizado con selfHeal es bueno para dev y staging. Para produc
 ### ¿Cómo manejo secrets en GitOps?
 
 No guardar secrets en plain en Git. Usar Sealed Secrets, SOPS o External Secrets Operator. Estos encriptan secrets at rest en Git y los desencriptan en el cluster. ArgoCD syncea la versión encriptada; el operator maneja la desencriptación.
+
+## See Also
+
+- [Complete Guide to GitOps in Production](/es/guides/complete-guide-gitops-production/)
+- [Complete Guide to Kubernetes Networking](/es/guides/complete-guide-kubernetes-networking/)
+- [Kubernetes Advanced — Beyond the Basics](/es/guides/kubernetes-advanced-guide/)
+- [Complete Guide to Docker in Production](/es/guides/complete-guide-docker-production/)
+- [Complete Guide to Kubernetes Ingress](/es/guides/complete-guide-kubernetes-ingress/)
+

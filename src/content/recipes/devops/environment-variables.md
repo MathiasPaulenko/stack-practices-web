@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: environment-variables
 title: "Environment Variables"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/docker-basics
   - /recipes/jwt-authentication
   - /recipes/password-hashing
+  - /recipes/background-jobs
+  - /recipes/cli-tool-argument-parsing
+  - /recipes/feature-flags
+  - /recipes/generate-sitemaps
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,10 @@ seo:
     - System.getenv
     - os.environ
     - secrets management
+
+
+
+
 ---
 
 ## Overview

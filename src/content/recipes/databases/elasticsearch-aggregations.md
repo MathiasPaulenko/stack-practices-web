@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: elasticsearch-aggregations
 title: "Elasticsearch Aggregations for Analytics and Search"
@@ -15,9 +19,12 @@ tags:
   - sql
   - postgresql
 relatedResources:
-  - /recipes/databases/mongodb-crud-mongoose
+  - /recipes/mongodb-crud-mongoose
   - /recipes/query-optimization
   - /guides/database-design-guide
+  - /guides/full-text-search-guide
+  - /guides/complete-guide-elasticsearch-cluster-setup
+  - /guides/complete-guide-sql-query-optimization
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - faceted search
     - analytics
     - search engine
+
+
+
+
 ---
 
 # Elasticsearch Aggregations for Analytics and Search

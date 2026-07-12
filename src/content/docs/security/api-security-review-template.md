@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-security-review-template
 title: "API Security Review Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/hmac-request-signing
   - /docs/incident-response-playbook-template
   - /docs/data-retention-policy-template
+  - /recipes/bash-ssh-key-manager
+  - /docs/network-segmentation-policy-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - authentication
     - rate-limiting
     - template
+
+
+
 ---
 ## Overview
 
 APIs are the front door to your application. A single missing authorization check or unvalidated input can expose customer data, allow account takeover, or enable Denial of Service attacks. This checklist template provides a systematic review process covering authentication, authorization, input validation, rate limiting, and OWASP Top 10 risks.
 
 ## When to Use
+
+
+- For alternatives, see [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/).
 
 Use this resource when:
 - Releasing a new public or internal API to production

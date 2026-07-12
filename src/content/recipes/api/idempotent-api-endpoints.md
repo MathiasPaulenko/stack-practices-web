@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: idempotent-api-endpoints
 title: "Idempotent API Endpoints"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/api-versioning
   - /recipes/handle-errors
   - /recipes/rate-limiting
+  - /recipes/graphql-api
+  - /recipes/rest-api-design
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

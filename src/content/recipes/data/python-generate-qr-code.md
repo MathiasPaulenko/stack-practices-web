@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: python-generate-qr-code
 title: "Generate QR Codes with Python"
@@ -29,12 +30,16 @@ seo:
     - qrcode
     - generation
     - images
+
 ---
 ## Overview
 
 QR codes bridge physical and digital. Python's `qrcode` library generates them from any string: URLs, contact info, WiFi credentials, payment links. Below is a practical approach to basic generation, styling, error correction levels, and batch creation.
 
 ## When to Use
+
+
+- For alternatives, see [Convert CSV to JSON](/recipes/convert-csv-to-json/).
 
 - You need to generate QR codes for URLs or product pages
 - You are creating vCard contact cards for print or email

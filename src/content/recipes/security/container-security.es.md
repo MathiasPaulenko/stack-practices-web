@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: container-security
 title: "Escaneo de Seguridad de Containers"
@@ -19,6 +21,8 @@ relatedResources:
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
   - /docs/security-incident-response-template
+  - /recipes/docker-image-vulnerability-scan
+  - /guides/complete-guide-docker-production
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - security
     - docker
     - devops
+
+
 ---
 ## Visión General
 

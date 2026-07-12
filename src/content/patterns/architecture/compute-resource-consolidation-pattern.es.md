@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: compute-resource-consolidation-pattern
 title: "Patron de Consolidacion de Recursos de Computo"
@@ -22,6 +25,8 @@ relatedResources:
   - /patterns/anti-corruption-layer-pattern
   - /docs/capacity-planning-template
   - /guides/system-design-interview-guide
+  - /recipes/cost-optimization
+  - /patterns/external-configuration-store-pattern
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - optimizacion de costos
     - arquitectura
     - infraestructura
+
+
+
 ---
 ## Visión General
 
@@ -40,6 +48,9 @@ El Patron de Consolidacion de Recursos de Computo combina cargas de trabajo en m
 Este patron es comun en la optimizacion de costos en la nube, procesamiento por lotes y proyectos de consolidacion de sistemas legados donde la capacidad ociosa es costosa y la sobrecarga administrativa es alta.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Content Delivery Network (CDN) Pattern](/es/patterns/content-delivery-network-pattern/).
 
 Usa este patron cuando:
 - Tengas muchas cargas pequenas con baja utilizacion individual

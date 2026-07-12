@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-sentiment-analysis-nltk
 title: "Sentiment Analysis with Python and NLTK"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/ai-agents
   - /recipes/chatbot-openai
   - /recipes/image-generation
+  - /recipes/llm-fine-tuning
+  - /recipes/prompt-engineering
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - vader
     - nlp
     - text-processing
+
+
+
 ---
 ## Overview
 
@@ -260,6 +268,9 @@ Yes, but with caveats. VADER is fast (no model inference required), making it su
 - **Using VADER for sentiment intensity comparison** — VADER's compound score is not linear. A compound of 0.5 is not "twice as positive" as 0.25. Use it for classification, not for ranking sentiment intensity.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Fine-Tune a Language Model for Code Generation](/recipes/llm-fine-tuning/).
 
 - **Preprocess text consistently**: lowercase all text, normalize whitespace, expand contractions before scoring. This reduces variance in scores for semantically identical inputs.
 - **Calibrate thresholds per domain**: run VADER on a labeled sample of your domain's text. Plot the distribution of compound scores for positive, negative, and neutral labels. Choose thresholds that minimize misclassification for your specific domain.

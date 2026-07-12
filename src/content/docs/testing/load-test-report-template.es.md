@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: load-test-report-template
 title: "Plantilla de Informe de Pruebas de Carga"
@@ -19,6 +21,7 @@ relatedResources:
   - /guides/test-driven-development-guide
   - /guides/testing-strategy-guide
   - /recipes/api-contract-testing
+  - /docs/api-testing-strategy-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,6 +32,8 @@ seo:
     - rendimiento
     - plantilla
     - informe
+
+
 ---
 
 ## Visión General
@@ -36,6 +41,9 @@ seo:
 Los informes de pruebas de carga comunican hallazgos de rendimiento a los interesados y rastrean mejoras a lo largo del tiempo. Sin un formato estándar, los equipos pierden tiempo reexplicando métricas y contexto. Esta plantilla proporciona una estructura consistente para documentar benchmarks, cuellos de botella y recomendaciones.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Test Coverage Report Template](/es/docs/test-coverage-report-template/).
 
 Usa este recurso cuando:
 - Reportes resultados después de un ciclo programado de pruebas de carga

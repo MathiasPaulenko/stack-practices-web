@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: builder-pattern
 title: "Patrón Builder"
@@ -16,9 +20,12 @@ tags:
   - pattern
   - python
 relatedResources:
-  - /patterns/design/factory-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/decorator-pattern
+  - /patterns/factory-pattern
+  - /patterns/singleton-pattern
+  - /patterns/decorator-pattern
+  - /patterns/abstract-factory-pattern
+  - /patterns/prototype-pattern-cloning
+  - /patterns/prototype-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +39,10 @@ seo:
     - python builder
     - java builder
     - javascript builder
+
+
+
+
 ---
 
 # Patrón Builder

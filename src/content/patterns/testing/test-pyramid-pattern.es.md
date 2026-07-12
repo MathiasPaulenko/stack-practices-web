@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: test-pyramid-pattern
 title: "Patrón Test Pyramid: Balancear Proporciones de Unit,"
@@ -20,6 +23,8 @@ relatedResources:
   - /patterns/test-double-pattern
   - /patterns/contract-testing-pattern
   - /patterns/snapshot-testing-pattern
+  - /patterns/golden-master-testing-pattern
+  - /patterns/mock-server-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +37,9 @@ seo:
     - integration-tests
     - e2e-tests
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -445,6 +453,9 @@ class TestSmoke:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Software Testing Strategy Guide](/es/guides/testing-strategy-guide/).
 
 - Apuntá a 70/25/5 — unit/integration/E2E como starting point, ajustá a tu contexto
 - Los unit tests deberían correr en segundos — si toman minutos, son integration tests

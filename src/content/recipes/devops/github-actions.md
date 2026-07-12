@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: github-actions
 title: "GitHub Actions CI/CD"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/unit-testing
   - /recipes/docker-basics
   - /recipes/environment-variables
+  - /recipes/cicd-pipeline-setup
+  - /recipes/git-workflow
+  - /recipes/setup-ci-gitlab-pipelines
+  - /docs/runbook-template
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,10 @@ seo:
     - build matrix
     - caching
     - secrets
+
+
+
+
 ---
 
 ## Overview

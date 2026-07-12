@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: observability-maturity-assessment-template
 title: "Plantilla de Evaluación de Madurez de Observabilidad"
@@ -16,10 +18,10 @@ tags:
   - tracing
   - maturity-model
 relatedResources:
-  - /docs/observability/alert-runbook-template
-  - /docs/observability/dashboard-design-template
-  - /docs/observability/incident-postmortem-template
-  - /guides/observability/complete-guide-structured-logging
+  - /docs/alert-runbook-template
+  - /docs/dashboard-design-template
+  - /docs/incident-postmortem-template
+  - /guides/complete-guide-structured-logging
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - tracing
     - maturity model
     - gap analysis
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 Observability maturity describe qué tan well un team puede answer questions sobre su system sin deployear new code. El spectrum va desde "checkeamos logs cuando algo se rompe" hasta "detectamos anomalies proactivamente antes de que users noten." Esta plantilla provee un structured assessment across logging, metrics, tracing, alerting y culture.
 
 ## When to Use
+
+
+- For alternatives, see [Alert Runbook Template](/es/docs/alert-runbook-template/).
 
 - Quarterly reliability reviews
 - Onboardéando un new team a observability standards

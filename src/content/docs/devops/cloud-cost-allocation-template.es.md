@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: cloud-cost-allocation-template
 title: "Plantilla de Asignación de Costos en la Nube"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/bug-report-template
   - /docs/capacity-planning-template
+  - /docs/weekly-ops-review-template
+  - /docs/bug-triage-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - finops
     - asignacion
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Las facturas de nube crecen en silencio. Un entorno de staging olvidado, una instancia de base de datos sobre-dimensionada o un trabajo de CI descontrolado pueden duplicar tu gasto mensual sin que nadie lo note. Esta plantilla crea un modelo transparente de asignación de costos para que los equipos entiendan quién gasta qué, finanzas puedan pronosticar con precisión y los ingenieros optimicen con datos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Auto-Scaling Policy Template](/es/docs/auto-scaling-policy-template/).
 
 Usa este recurso cuando:
 - Tu factura de nube está creciendo y ningún equipo asume la responsabilidad de investigar

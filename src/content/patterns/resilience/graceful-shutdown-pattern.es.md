@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: graceful-shutdown-pattern
 title: "Patrón Graceful Shutdown"
@@ -29,6 +30,7 @@ seo:
     - shutdown
     - kubernetes
     - pattern
+
 ---
 
 ## Overview
@@ -592,6 +594,9 @@ process.on("SIGTERM", gracefulShutdown);
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Sidecar Pattern: Extend Services with Companion Containers](/es/patterns/sidecar-pattern/).
 
 - Deregistrá del load balancer first — dale time para propagatear antes de parar
 - Seteá health check a 503 immediately — load balancers parán de routear a unhealthy instances

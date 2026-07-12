@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: bridge-pattern
 title: "Bridge Pattern"
@@ -17,9 +19,10 @@ tags:
   - python
   - structural
 relatedResources:
-  - /patterns/design/adapter-pattern
-  - /patterns/design/decorator-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/adapter-pattern
+  - /patterns/decorator-pattern
+  - /patterns/strategy-pattern
+  - /patterns/twin-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +36,8 @@ seo:
     - python bridge
     - java bridge
     - javascript bridge
+
+
 ---
 
 # Bridge Pattern

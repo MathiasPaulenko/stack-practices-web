@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: xss-prevention
 title: "Prevent Cross-Site Scripting (XSS)"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/sql-injection-prevention
   - /recipes/handle-errors
+  - /recipes/api-security-headers
+  - /recipes/csrf-protection
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - dom xss
     - reflected xss
     - stored xss
+
+
 ---
 
 ## Overview

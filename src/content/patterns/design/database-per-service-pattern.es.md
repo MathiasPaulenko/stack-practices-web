@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: database-per-service-pattern
 title: "Patrón Database per Service"
@@ -18,9 +24,13 @@ tags:
   - isolation
   - data-ownership
 relatedResources:
-  - /patterns/design/saga-pattern
-  - /patterns/design/event-sourcing-pattern
-  - /patterns/design/cqrs-pattern
+  - /patterns/saga-pattern
+  - /patterns/event-sourcing-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/geode-pattern
+  - /patterns/health-endpoint-monitoring-pattern
+  - /patterns/event-carried-state-transfer-pattern
+  - /patterns/materialized-view-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +42,12 @@ seo:
     - design pattern
     - saga
     - event sourcing
+
+
+
+
+
+
 ---
 
 # Patrón Database per Service
@@ -45,6 +61,9 @@ En un monolito, múltiples módulos comparten una única base de datos, creando 
 El tradeoff es complejidad: consultar a través de servicios requiere composición de APIs o sincronización basada en eventos, y las transacciones que abarcan múltiples bases de datos necesitan patrones como Saga.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Materialized View Pattern](/es/patterns/materialized-view-pattern/).
 
 Usa el Patrón Database per Service cuando:
 - Construyendo microservicios donde los equipos necesitan velocidad de deployment independiente

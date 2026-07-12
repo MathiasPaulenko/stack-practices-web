@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: dependency-injection
 title: "Inyección de Dependencias"
@@ -19,6 +20,7 @@ relatedResources:
   - /patterns/dependency-injection-pattern
   - /docs/adr-template
   - /docs/database-schema-documentation-template
+  - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -29,6 +31,7 @@ seo:
     - typescript
     - java
     - python
+
 ---
 ## Visión General
 

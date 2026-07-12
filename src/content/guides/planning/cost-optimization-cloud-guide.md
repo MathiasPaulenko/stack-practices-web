@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: cost-optimization-cloud-guide
 title: "Cloud Cost Optimization"
@@ -19,11 +23,13 @@ tags:
   - tagging
   - guide
 relatedResources:
-  - /guides/devops/finops-guide
-  - /guides/devops/multi-cloud-guide
-  - /guides/planning/capacity-planning-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/performance/performance-optimization-guide
+  - /guides/finops-guide
+  - /guides/multi-cloud-guide
+  - /guides/capacity-planning-guide
+  - /guides/sre-practices-guide
+  - /guides/performance-optimization-guide
+  - /guides/blue-green-deployment-guide
+  - /guides/canary-deployment-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -37,6 +43,10 @@ seo:
     - spot-instances
     - tagging
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -46,6 +56,9 @@ Cloud cost optimization is the practice of reducing infrastructure spending whil
 The following guide covers proven strategies to cut cloud bills without cutting corners.
 
 ## When to Use
+
+
+- For alternatives, see [FinOps — Cloud Cost Optimization and Financial Operations](/guides/finops-guide/).
 
 - Your cloud bill is growing faster than your user base or revenue
 - You have unused or underutilized resources running 24/7

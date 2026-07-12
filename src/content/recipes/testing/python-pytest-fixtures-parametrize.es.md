@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-pytest-fixtures-parametrize
 title: "Pytest Fixtures y Parametrize"
@@ -16,9 +20,11 @@ tags:
   - data-driven
   - recipe
 relatedResources:
-  - /recipes/testing/setup-test-fixtures
-  - /recipes/testing/measure-test-coverage
-  - /recipes/testing/python-mock-external-apis-responses
+  - /recipes/setup-test-fixtures
+  - /recipes/measure-test-coverage
+  - /recipes/python-mock-external-apis-responses
+  - /recipes/python-coverage-pytest-cov
+  - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +37,10 @@ seo:
     - parametrize
     - data-driven
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -273,6 +283,9 @@ def test_addition(a, b, expected):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Pytest in Production Guide](/es/guides/complete-guide-pytest-production/).
 
 - Usa `conftest.py` para fixtures compartidos entre múltiples archivos de test — evita imports
 - Prefiere `scope="session"` o `scope="module"` para setup costoso (conexiones DB, servidores HTTP)

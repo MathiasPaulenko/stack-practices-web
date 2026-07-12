@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: terraform-state-management-policy
 title: "Terraform State Management Policy"
@@ -16,9 +18,9 @@ tags:
   - iac
   - backend
 relatedResources:
-  - /docs/devops/ci-cd-pipeline-design-template
-  - /docs/devops/helm-chart-review-checklist
-  - /docs/devops/kubernetes-pod-disruption-budget-template
+  - /docs/ci-cd-pipeline-design-template
+  - /docs/helm-chart-review-checklist
+  - /docs/kubernetes-pod-disruption-budget-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - policy
     - terraform
     - versioning
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Terraform state is the source of truth for infrastructure. A state management policy defines how state is stored, accessed, locked, isolated, and recovered. Without a policy, state files become a liability: concurrent modifications cause conflicts, lost state causes infrastructure drift, and unencrypted state exposes secrets.
 
 ## When to Use
+
+
+- For alternatives, see [CI/CD Pipeline Design Template](/docs/ci-cd-pipeline-design-template/).
 
 - Setting up Terraform for a new project or team
 - Migrating from local to remote state

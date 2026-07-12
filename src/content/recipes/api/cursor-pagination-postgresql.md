@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: cursor-pagination-postgresql
 title: "Cursor-Based Pagination with PostgreSQL"
@@ -15,8 +19,11 @@ tags:
   - rest
   - http
 relatedResources:
-  - /recipes/api/go-rest-api-gin
-  - /recipes/api/api-documentation-openapi
+  - /recipes/go-rest-api-gin
+  - /recipes/api-documentation-openapi
+  - /recipes/database-replication
+  - /recipes/schema-evolution
+  - /recipes/graphql-pagination-relay-connections
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - postgresql
     - offset performance
     - api pagination
+
+
+
+
 ---
 
 # Cursor-Based Pagination with PostgreSQL

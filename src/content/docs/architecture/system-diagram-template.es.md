@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: system-diagram-template
 title: "Plantilla de Diagramas de Sistema"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/adr-template
   - /docs/database-schema-documentation-template
   - /docs/engineering-handbook-template
+  - /docs/api-lifecycle-management-template
+  - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - visualización
     - plantilla
     - estándares
+
+
+
 ---
 ## Visión General
 
 Los diagramas de arquitectura comunican la estructura del sistema a stakeholders técnicos y no técnicos. Sin estándares consistentes, los equipos producen diagramas con niveles de abstracción inconsistentes que confunden más que aclaran. Esta plantilla utiliza el modelo C4 para crear diagramas en cuatro niveles de detalle bien definidos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Service Dependency Map Template](/es/docs/service-dependency-map-template/).
 
 Usa este recurso cuando:
 - Integras nuevos ingenieros que necesitan entender el espacio del sistema

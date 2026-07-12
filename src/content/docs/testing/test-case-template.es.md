@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: test-case-template
 title: "Plantilla de Caso de Prueba"
@@ -15,9 +18,10 @@ tags:
   - test-design
   - traceability
 relatedResources:
-  - /docs/testing/test-strategy-document-template
-  - /docs/testing/test-coverage-report-template
-  - /docs/testing/bug-reproduction-steps-template
+  - /docs/test-strategy-document-template
+  - /docs/test-coverage-report-template
+  - /docs/bug-reproduction-steps-template
+  - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - preconditions
     - expected results
     - traceability
+
+
+
 ---
 
 ## Overview
@@ -37,6 +44,9 @@ seo:
 Un test case es un set de conditions bajo las cuales un tester determina si una aplicación meets requirements. Test cases estandarizados aseguran consistent coverage, reproducible results y traceability desde requirements hasta verification. Esta plantilla provee un structure para escribir test cases que son clear, complete y actionable.
 
 ## When to Use
+
+
+- For alternatives, see [Data Quality Rules Template](/es/docs/data-quality-rules-template/).
 
 - Escribiendo manual test cases para QA cycles
 - Creando test documentation para compliance audits

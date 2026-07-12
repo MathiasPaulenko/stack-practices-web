@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: mock-server-pattern
 title: "Patrón Mock Server: Mock Server para Aislamiento de"
@@ -32,6 +33,7 @@ seo:
     - msw
     - integration-tests
     - pattern
+
 ---
 
 ## Overview
@@ -547,6 +549,9 @@ wireMockServer.stubFor(post(urlPathEqualTo("/api/orders/1/ship"))
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Test Pyramid: Balance Unit, Integration](/es/patterns/test-pyramid-pattern/).
 
 - Limpiá entre tests — `nock.cleanAll()`, `wireMockServer.resetAll()`, `server.resetHandlers()`
 - Verificá que las requests fueron hechas — `nock.isDone()`, `wireMockServer.verify()`

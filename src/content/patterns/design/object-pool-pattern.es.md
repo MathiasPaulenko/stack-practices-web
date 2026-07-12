@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: object-pool-pattern
 title: "Patrón Object Pool"
@@ -15,9 +17,10 @@ tags:
   - performance
   - resource-management
 relatedResources:
-  - /patterns/design/singleton-pattern
-  - /patterns/design/factory-pattern
+  - /patterns/singleton-pattern
+  - /patterns/factory-pattern
   - /guides/connection-pooling-deep-dive-guide
+  - /patterns/multiton-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +32,8 @@ seo:
     - connection pool
     - resource reuse
     - performance
+
+
 ---
 
 # Patrón Object Pool

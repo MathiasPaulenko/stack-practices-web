@@ -1,4 +1,5 @@
 ---
+
 contentType: docs
 slug: rollout-communication-template
 title: "Plantilla de Comunicación de Despliegues"
@@ -31,12 +32,16 @@ seo:
     - release
     - operaciones
     - plantilla
+
 ---
 ## Visión General
 
 Lanzar una capacidad es solo la mitad del trabajo. La otra mitad es contarle a las personas correctas, de la manera correcta, en el momento correcto. Ingeniería sabe qué cambió; soporte necesita responder preguntas de clientes; ventas necesita demostrarlo; ejecutivos necesitan saber que está en vivo. Un plan de comunicación de despliegue asegura que nadie se sorprenda, que soporte esté preparado y que la capacidad realmente se use.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Bug Triage Template](/es/docs/bug-triage-template/).
 
 Usa este recurso cuando:
 - Estás lanzando una capacidad que afecta a usuarios, flujos de trabajo de soporte o procesos internos

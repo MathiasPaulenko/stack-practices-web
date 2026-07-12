@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-kafka-stream-processing
 title: "Referencia Detallada de Kafka Stream Processing"
@@ -19,9 +24,12 @@ tags:
   - guide
   - messaging
 relatedResources:
-  - /guides/architecture/event-driven-architecture-guide
-  - /guides/architecture/complete-guide-microservices-communication
-  - /patterns/architecture/pipes-and-filters-pattern
+  - /guides/event-driven-architecture-guide
+  - /guides/complete-guide-microservices-communication
+  - /patterns/pipes-and-filters-pattern
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/kafka-spring-boot-stream-listener
+  - /guides/complete-guide-elasticsearch-cluster-setup
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +43,11 @@ seo:
     - real-time data pipeline
     - kafka consumers
     - kafka producers
+
+
+
+
+
 ---
 
 # Referencia Detallada de Kafka Stream Processing
@@ -404,3 +417,12 @@ Usar Kafka Streams con `processing.guarantee=exactly_once_v2`. Para loops consum
 ### ¿Cuál es la diferencia entre Kafka Streams y Kafka Consumers?
 
 Kafka Consumers son low-level — manejas offsets, retries y state vos mismo. Kafka Streams es una librería high-level que maneja state management, exactly-once, rebalancing y local state stores. Usar Kafka Streams para stateful processing (aggregations, joins). Usar consumers para simple event processing.
+
+## See Also
+
+- [Stream Processing: Event-Driven Data Pipelines with](/es/guides/stream-processing-guide/)
+- [Real-Time Analytics: From Events to Dashboards in Seconds](/es/guides/real-time-analytics-guide/)
+- [Complete Guide to Event-Driven Systems](/es/guides/complete-guide-event-driven-systems/)
+- [Complete Guide to RabbitMQ Architecture](/es/guides/complete-guide-rabbitmq-architecture/)
+- [Idempotent Consumer Pattern](/es/patterns/idempotent-consumer-pattern/)
+

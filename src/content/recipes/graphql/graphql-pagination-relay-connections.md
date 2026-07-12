@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-pagination-relay-connections
 title: "Cursor-based Pagination with GraphQL Relay Connections"
@@ -15,9 +19,11 @@ tags:
   - cursor
   - api
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/data/cursor-pagination-postgresql
-  - /patterns/graphql/graphql-batched-resolver-pattern
+  - /recipes/graphql-apollo-server
+  - /recipes/cursor-pagination-postgresql
+  - /patterns/graphql-batched-resolver-pattern
+  - /recipes/graphql-dataloader-batching
+  - /patterns/graphql-connection-pagination-pattern
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - cursor pagination
     - graphql edges
     - graphql pageinfo
+
+
+
+
 ---
 
 # Cursor-based Pagination with GraphQL Relay Connections
@@ -266,6 +276,9 @@ const posts = await db.posts.findMany({
 This handles rows with identical `createdAt` values without skipping or duplicating them.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Federation](/guides/complete-guide-graphql-federation/).
 
 - **Cap `first` and `last`** at a reasonable maximum (50–100) to prevent expensive queries
 - **Always sort by a stable column** — sorting by non-unique fields without a tiebreaker causes skipped rows

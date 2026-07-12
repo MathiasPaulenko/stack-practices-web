@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: access-control-policy-template
 title: "Access Control Policy Template"
@@ -16,10 +21,13 @@ tags:
   - policy
   - template
 relatedResources:
-  - /docs/security/security-audit-checklist
-  - /docs/security/incident-response-plan-template
-  - /docs/security/vulnerability-management-process-template
-  - /docs/data-engineering/data-governance-policy-template
+  - /docs/security-audit-checklist
+  - /docs/incident-response-plan-template
+  - /docs/vulnerability-management-process-template
+  - /docs/data-governance-policy-template
+  - /docs/encryption-key-rotation-runbook
+  - /docs/penetration-test-report-template
+  - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - mfa
     - policy template
     - security
+
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +52,9 @@ seo:
 An access control policy defines how users and services authenticate, what they can access, and how access is reviewed and revoked. It covers authentication methods, authorization models, password standards, MFA requirements, session management, and access review procedures. Without a policy, access grows unchecked and becomes a security liability.
 
 ## When to Use
+
+
+- For alternatives, see [Data Governance Policy Template](/docs/data-governance-policy-template/).
 
 - Establishing access control for a new organization
 - Preparing for compliance audits (SOC 2, ISO 27001, HIPAA)

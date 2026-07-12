@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: kubernetes-helm-chart-templating
 title: "Empaquetar Manifests de Kubernetes con Helm Charts"
@@ -15,9 +18,10 @@ tags:
   - packaging
   - recipe
 relatedResources:
-  - /recipes/devops/kubernetes-configmap-secret-mounting
-  - /recipes/devops/docker-multi-stage-build-distroless
-  - /recipes/devops/terraform-remote-state-s3-backend
+  - /recipes/kubernetes-configmap-secret-mounting
+  - /recipes/docker-multi-stage-build-distroless
+  - /recipes/terraform-remote-state-s3-backend
+  - /recipes/terraform-workspace-environment-isolation
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - templating
     - packaging
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -407,6 +414,9 @@ spec:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Helm Charts: Structure, Templating, Dependencies, Registry](/es/guides/complete-guide-helm-charts-production/).
 
 - Usá `include` sobre `template` — `include` permite chaining con `nindent`
 - Siempre usá `nindent` no `indent` — maneja el leading newline correctamente

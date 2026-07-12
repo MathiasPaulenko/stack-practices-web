@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: gcp-cloud-functions-nodejs
 title: "Desplegar Cloud Functions HTTP en Google Cloud con Node.js"
@@ -16,10 +19,10 @@ tags:
   - http-trigger
   - serverless
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/azure-functions-python-http
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/azure-functions-python-http
   - /guides/serverless-architecture-guide
-  - /guides/gcp-cloud-functions-nodejs
+  - /recipes/gcp-cloud-functions-nodejs
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,9 @@ seo:
     - nodejs serverless gcp
     - cloud functions http trigger
     - gcloud deploy functions
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +43,9 @@ seo:
 Google Cloud Functions es la plataforma de compute serverless de GCP. La segunda generacion (Cloud Functions v2) se ejecuta sobre Cloud Run y Eventarc, soportando HTTP triggers, CloudEvent triggers y manejo concurrente de peticiones. A continuacion: crear funciones con HTTP trigger en Node.js, integrar Express para routing, gestionar secrets con Secret Manager y desplegar con gcloud CLI.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Build HTTP-Triggered Azure Functions with Python](/es/recipes/azure-functions-python-http/).
 
 - Construir APIs HTTP serverless en Google Cloud
 - Webhooks y endpoints event-driven

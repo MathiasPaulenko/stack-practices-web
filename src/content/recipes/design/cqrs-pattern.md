@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: cqrs-pattern-recipe
 title: "Scale Read and Write Workloads with CQRS"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-functions
   - /recipes/database-migrations
+  - /recipes/observer-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - read write model
     - event sourcing cqrs
     - scalable queries
+
 ---
 
 ## Overview

@@ -1,4 +1,10 @@
-﻿---
+---
+
+
+
+
+
+
 contentType: recipes
 slug: rabbitmq-task-queue
 title: "Task Queues y RPC con RabbitMQ y AMQP"
@@ -15,9 +21,13 @@ tags:
   - kafka
   - rabbitmq
 relatedResources:
-  - /recipes/messaging/kafka-event-streaming
+  - /recipes/kafka-event-streaming
   - /recipes/event-driven-architecture
-  - /recipes/devops/background-jobs
+  - /recipes/background-jobs
+  - /recipes/dead-letter-queue
+  - /recipes/event-driven-microservices
+  - /recipes/message-idempotency
+  - /guides/message-queue-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - task queue
     - dead letter
     - rpc
+
+
+
+
+
+
 ---
 
 # Task Queues y RPC con RabbitMQ y AMQP

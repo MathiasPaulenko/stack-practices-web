@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: optimistic-locking
 title: "Implement Optimistic Locking with Versioning"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/sql-joins
   - /guides/sql-performance-tuning-guide
+  - /recipes/deadlock-prevention-sql
+  - /recipes/database-migrations-safely
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - postgresql
     - mysql
     - jpa
+
+
 ---
 ## Overview
 

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: oauth2-pkce-spa
 title: "Implementa OAuth 2.0 PKCE para Aplicaciones de Una Sola"
@@ -16,8 +20,11 @@ tags:
   - vulnerabilities
 relatedResources:
   - /recipes/security-headers
-  - /patterns/design/adapter-pattern-api
-  - /guides/security/security-best-practices-guide
+  - /patterns/adapter-pattern-api
+  - /guides/security-best-practices-guide
+  - /recipes/password-hashing-production
+  - /recipes/nodejs-oauth2-github-login
+  - /guides/complete-guide-oauth2-oidc-production
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - authentication
     - security
     - spa auth
+
+
+
+
 ---
 
 # Implementa OAuth 2.0 PKCE para Aplicaciones de Una Sola Pagina

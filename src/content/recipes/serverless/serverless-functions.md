@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: serverless-functions
 title: "Build Serverless Functions"
@@ -17,6 +19,8 @@ relatedResources:
   - /guides/event-driven-architecture-guide
   - /guides/software-architecture-guide
   - /patterns/observer-pattern
+  - /recipes/event-sourcing-serverless
+  - /recipes/cold-start-optimization
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - azure-functions
     - faas
     - event-driven
+
+
 ---
 # Build Serverless Functions
 

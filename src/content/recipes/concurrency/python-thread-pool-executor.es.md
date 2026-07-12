@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-thread-pool-executor
 title: "Paralelizar Trabajo CPU y I/O con ThreadPoolExecutor"
@@ -15,10 +19,12 @@ tags:
   - parallelism
   - concurrent-futures
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/python-asyncio-semaphore-rate-limiting
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-asyncio-semaphore-rate-limiting
   - /guides/concurrency-patterns-guide
   - /guides/complete-guide-python-asyncio
+  - /recipes/java-completable-future-composition
+  - /recipes/race-condition-prevention
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - python thread pool
     - python parallel io
     - future callback python
+
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +46,9 @@ seo:
 `ThreadPoolExecutor` de `concurrent.futures` proporciona una API simple para ejecutar funciones en threads paralelos. Es ideal para trabajo I/O-bound (peticiones HTTP, operaciones de archivos, queries a base de datos) donde el GIL se libera. A continuacion: ejecucion paralela basica, `map` vs `submit`, callbacks de Future, manejo de errores, uso de context manager y mezcla de threads con asyncio.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Python Asyncio in Production](/es/guides/complete-guide-python-asyncio-production/).
 
 - Trabajo I/O-bound paralelo (peticiones HTTP, descargas de archivos, queries a base de datos)
 - Llamar librerias bloqueantes desde codigo async

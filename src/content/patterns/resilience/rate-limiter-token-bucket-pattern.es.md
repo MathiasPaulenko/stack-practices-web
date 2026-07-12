@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: rate-limiter-token-bucket-pattern
 title: "Patrón Token Bucket Rate Limiter"
@@ -29,6 +30,7 @@ seo:
     - rate-limiting
     - token-bucket
     - pattern
+
 ---
 
 ## Overview
@@ -474,6 +476,9 @@ class QueuedRateLimiter:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [API Gateway Design: Resilience, Routing, and Security](/es/guides/api-gateway-design-guide/).
 
 - Seteá rate headers — `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `Retry-After` helpéan a clients self-regulate
 - Usá distributed rate limiting para multi-instance deployments — Redis-based, no in-memory

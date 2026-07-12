@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: blob-storage-guide
 title: "Blob Storage: S3, GCS, and Azure Blob Patterns for Engineers"
@@ -17,10 +21,12 @@ tags:
   - object-storage
   - guide
 relatedResources:
-  - /guides/data/data-migration-guide
-  - /guides/data/caching-strategies-guide
-  - /guides/devops/multi-cloud-guide
-  - /guides/security/secrets-management-guide
+  - /guides/data-migration-guide
+  - /guides/caching-strategies-guide
+  - /guides/multi-cloud-guide
+  - /guides/secrets-management-guide
+  - /guides/aws-basics-guide
+  - /guides/azure-basics-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - azure-blob
     - object-storage
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -41,6 +51,9 @@ Blob (object) storage is the dominant way to store unstructured data in the clou
 The following walks through bucket design, access patterns, security, lifecycle management, and multi-cloud considerations.
 
 ## When to Use
+
+
+- For alternatives, see [Caching Strategies: From Browser to Database, a Complete](/guides/caching-strategies-guide/).
 
 - You store files >1MB that do not need random access (images, videos, PDFs)
 - You need durable, redundant storage without managing disks or RAID

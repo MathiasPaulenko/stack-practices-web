@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: chaos-engineering-guide
 title: "Chaos Engineering — Principles, Tools, and Safe Experiments"
@@ -23,6 +27,9 @@ relatedResources:
   - /guides/observability-guide
   - /guides/service-mesh-guide
   - /recipes/circuit-breaker-pattern-recipe
+  - /guides/complete-guide-testcontainers-integration
+  - /recipes/chaos-engineering
+  - /guides/incident-response-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +42,10 @@ seo:
     - chaos-mesh
     - fault-injection
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -42,6 +53,9 @@ seo:
 Chaos engineering is the discipline of experimenting on a system to build confidence in its capability to withstand turbulent conditions. Instead of waiting for failures to occur in production, you intentionally inject them — pod kills, network latency, CPU exhaustion, disk fill — to validate that your system degrades gracefully and recovers automatically. Originated at Netflix with Chaos Monkey, it has evolved into a structured practice with principles, tools, and safety guardrails.
 
 ## When to Use
+
+
+- For alternatives, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/guides/disaster-recovery-guide/).
 
 - Your system claims to be "highly available" but has never been tested under failure
 - You want to validate autoscaling, failover, and circuit breakers

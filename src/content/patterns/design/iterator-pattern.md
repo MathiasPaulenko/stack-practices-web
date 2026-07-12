@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: iterator-pattern
 title: "Iterator Pattern"
@@ -18,9 +22,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/composite-pattern
-  - /patterns/design/chain-of-responsibility-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/composite-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/strategy-pattern
+  - /patterns/interpreter-pattern
+  - /patterns/template-method-pattern
+  - /patterns/visitor-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +40,10 @@ seo:
     - python iterator
     - java iterator
     - javascript iterator
+
+
+
+
 ---
 
 # Iterator Pattern

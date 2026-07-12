@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-vector-databases
 title: "Complete Guide to Vector Databases"
@@ -19,9 +21,9 @@ tags:
   - pgvector
   - milvus
 relatedResources:
-  - /guides/ai/complete-guide-rag-production
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-llm-cost-optimization
+  - /guides/complete-guide-rag-production
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-llm-cost-optimization
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +37,8 @@ seo:
     - milvus
     - qdrant
     - vector search
+
+
 ---
 
 ## Introduction
@@ -623,3 +627,12 @@ Yes. pgvector handles up to ~10M vectors with good performance using HNSW indexe
 ### How do I optimize vector search latency?
 
 Use HNSW with tuned parameters (M=16-32, ef_search=50-100). Store vectors in memory when possible. Use approximate search instead of exact search. Pre-filter by metadata to reduce the search space. Batch queries to amortize network overhead. Use a database geographically close to your application. Consider caching frequent queries.
+
+## See Also
+
+- [Complete Guide to RAG in Production](/guides/complete-guide-rag-production/)
+- [Vector Databases — AI/ML Embeddings and Similarity Search](/guides/vector-database-guide/)
+- [Complete Guide to AI Agents in Production](/guides/complete-guide-ai-agents-production/)
+- [Complete Guide to LangChain in Production](/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/)
+

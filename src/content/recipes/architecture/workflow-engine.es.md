@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: workflow-engine
 title: "Workflow Engines"
@@ -19,6 +20,7 @@ relatedResources:
   - /guides/cap-theorem-guide
   - /recipes/microservices-communication
   - /docs/adr-template
+  - /recipes/retry-backoff
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - architecture
     - state-machines
     - distributed-systems
+
 ---
 ## Visión General
 

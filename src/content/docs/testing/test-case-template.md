@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: test-case-template
 title: "Test Case Template"
@@ -15,9 +18,10 @@ tags:
   - test-design
   - traceability
 relatedResources:
-  - /docs/testing/test-strategy-document-template
-  - /docs/testing/test-coverage-report-template
-  - /docs/testing/bug-reproduction-steps-template
+  - /docs/test-strategy-document-template
+  - /docs/test-coverage-report-template
+  - /docs/bug-reproduction-steps-template
+  - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - preconditions
     - expected results
     - traceability
+
+
+
 ---
 
 ## Overview
@@ -37,6 +44,9 @@ seo:
 A test case is a set of conditions under which a tester determines whether an application meets requirements. Standardized test cases ensure consistent coverage, reproducible results, and traceability from requirements to verification. This template provides a structure for writing test cases that are clear, complete, and actionable.
 
 ## When to Use
+
+
+- For alternatives, see [Data Quality Rules Template](/docs/data-quality-rules-template/).
 
 - Writing manual test cases for QA cycles
 - Creating test documentation for compliance audits

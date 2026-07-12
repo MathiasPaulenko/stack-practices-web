@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: vertical-slice-architecture-guide
 title: "Arquitectura por Slices Verticales: Organización por Feature"
@@ -19,8 +21,8 @@ tags:
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/layered-architecture-guide
-  - /patterns/design/cqrs-pattern
-  - /patterns/design/mediator-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/mediator-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +34,8 @@ seo:
     - code-organization
     - cohesion
     - guia
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 La Arquitectura por Slices Verticales, popularizada por Jimmy Bogard, invierte el enfoque tradicional por capas. En lugar de organizar código por preocupación técnica (Controladores, Servicios, Repositorios), organizas por feature. Todo el código de una feature — controlador, servicio, consultas, DTOs, validación — vive junto en un solo lugar. Cuando necesitas cambiar "Crear Orden", todo el código relevante está en una carpeta. Esto reduce drásticamente la carga cognitiva de navegar una codebase.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Clean Architecture](/es/guides/clean-architecture-guide/).
 
 - Tu aplicación tiene muchas funcionalidades que evolucionan independientemente
 - Miembros del equipo preguntan frecuentemente "dónde está el código de X?"

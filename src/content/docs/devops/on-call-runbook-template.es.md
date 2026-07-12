@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: on-call-runbook-template
 title: "Plantilla de Runbook de Guardia"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/bug-triage-template
   - /docs/change-management-template
   - /docs/patch-management-template
+  - /docs/dependency-upgrade-template
+  - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - alertas
     - operaciones
     - plantilla
+
+
+
 ---
 ## Visión General
 
@@ -419,6 +427,9 @@ Después de cada incidente, verifica que el runbook se actualice con las leccion
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Escalation Policy Template](/es/docs/escalation-policy-template/).
 
 1. **Incluye el output esperado para cada comando de diagnóstico.** Los ingenieros de guardia bajo estrés pueden no reconocer output anormal. Muestra cómo se ve "normal":
 

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: llm-guardrails-pattern
 title: "LLM Guardrails Pattern"
@@ -17,9 +20,10 @@ tags:
   - output-filtering
   - prompt-injection
 relatedResources:
-  - /patterns/ai/llm-router-pattern
-  - /patterns/ai/human-in-the-loop-pattern
-  - /recipes/ai/python-openai-function-calling-structured
+  - /patterns/llm-router-pattern
+  - /patterns/human-in-the-loop-pattern
+  - /recipes/python-openai-function-calling-structured
+  - /patterns/llm-fallback-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - output filtering llm
     - content moderation ai
     - llm security pattern
+
+
+
 ---
 
 # LLM Guardrails Pattern
@@ -43,6 +50,9 @@ LLM guardrails are validation layers that sit before and after the model call. *
 Without guardrails, an LLM application is a direct pipe from user input to model output. Anyone can attempt prompt injection ("ignore previous instructions and..."), ask for harmful content, or receive responses containing PII that the model should not reveal.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to LLM Security](/guides/complete-guide-llm-security/).
 
 Use the LLM Guardrails Pattern when:
 - Your LLM application serves external users who could submit adversarial inputs

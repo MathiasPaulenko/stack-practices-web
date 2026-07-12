@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-ssh-key-manager
 title: "Gestión de Llaves SSH en Bash"
@@ -20,6 +22,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /guides/api-security-checklist-guide
   - /guides/security-best-practices-guide
+  - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -30,6 +33,8 @@ seo:
     - rotar llaves ssh
     - distribuir llaves ssh
     - deshabilitar password ssh
+
+
 ---
 ## Visión General
 
@@ -381,6 +386,9 @@ echo "Rotation complete for $(wc -l < "$MANIFEST") servers"
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Security](/es/guides/complete-guide-graphql-security/).
 
 1. **Usa `IdentitiesOnly yes` en la config SSH.** Sin esto, SSH prueba todas las llaves en `~/.ssh/` para cada conexión. Esto puede disparar el máximo de intentos de auth en servidores con muchas llaves:
 

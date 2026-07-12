@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: nodejs-in-memory-cache-lru
 title: "Implement an LRU Cache in Node.js"
@@ -15,9 +19,11 @@ tags:
   - caching
   - performance
 relatedResources:
-  - /recipes/caching/caching-redis
-  - /recipes/caching/python-redis-cache-decorator
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/caching-redis
+  - /recipes/python-redis-cache-decorator
+  - /patterns/cache-aside-pattern
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/java-caffeine-cache-configuration
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - in-memory cache nodejs
     - least recently used
     - nodejs caching
+
+
+
+
 ---
 
 # Implement an LRU Cache in Node.js
@@ -323,6 +333,9 @@ const cache = new LRUCache<string, any>({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Multi-Level Cache with In-Memory L1 and Redis L2](/recipes/multi-level-cache-l1-l2/).
 
 - **Set a reasonable capacity** — too large wastes memory, too small causes frequent evictions
 - **Use TTL for stale-prone data** — combine LRU eviction with TTL expiry for best of both worlds

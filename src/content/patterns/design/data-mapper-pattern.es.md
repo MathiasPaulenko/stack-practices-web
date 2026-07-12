@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: data-mapper-pattern
 title: "Patrón Data Mapper"
@@ -17,9 +22,13 @@ tags:
   - persistence
   - databases
 relatedResources:
-  - /patterns/design/active-record-pattern
-  - /patterns/design/data-access-object-pattern
-  - /patterns/design/unit-of-work-pattern
+  - /patterns/active-record-pattern
+  - /patterns/data-access-object-pattern
+  - /patterns/unit-of-work-pattern
+  - /patterns/composite-entity-pattern
+  - /patterns/eager-loading-pattern
+  - /patterns/identity-map-pattern
+  - /patterns/specification-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +39,11 @@ seo:
     - orm
     - persistence
     - databases
+
+
+
+
+
 ---
 
 # Patrón Data Mapper

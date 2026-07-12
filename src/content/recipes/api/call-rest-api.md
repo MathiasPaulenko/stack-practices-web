@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: call-rest-api
 title: "Call a REST API"
@@ -16,7 +21,11 @@ tags:
 relatedResources:
   - /recipes/parse-json
   - /recipes/read-write-file
-  - /recipes/api/middleware
+  - /recipes/middleware
+  - /recipes/grpc-api
+  - /recipes/rest-api-design
+  - /recipes/api-documentation-openapi
+  - /recipes/api-logging-audit
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
+
 ---
 ## Overview
 

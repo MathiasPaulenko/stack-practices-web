@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: front-controller-pattern
 title: "Front Controller Pattern"
@@ -16,9 +18,10 @@ tags:
   - routing
   - mvc
 relatedResources:
-  - /patterns/design/page-controller-pattern
-  - /patterns/design/model-view-presenter-pattern
-  - /patterns/design/facade-pattern
+  - /patterns/page-controller-pattern
+  - /patterns/model-view-presenter-pattern
+  - /patterns/facade-pattern
+  - /patterns/model-view-viewmodel-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +32,8 @@ seo:
     - routing
     - web
     - mvc
+
+
 ---
 
 # Front Controller Pattern

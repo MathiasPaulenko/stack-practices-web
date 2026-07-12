@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: ssl-certificate-management-template
 title: "SSL Certificate Management Template"
@@ -15,9 +19,11 @@ tags:
   - security
   - automation
 relatedResources:
-  - /docs/devops/monitoring-alerting-policy-template
-  - /docs/devops/cloud-resource-tagging-policy-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/cloud-resource-tagging-policy-template
   - /docs/runbook-template
+  - /recipes/bash-iptables-firewall
+  - /recipes/bash-ssh-key-manager
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - certificate inventory
     - certificate expiry monitoring
     - certificate deployment
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +45,9 @@ seo:
 SSL/TLS certificates protect data in transit by encrypting traffic between clients and servers. Expired, misconfigured, or forgotten certificates can cause outages, security warnings, and loss of customer trust. This template provides a process for tracking certificate inventory, planning renewals, deploying certificates, and responding to certificate-related incidents.
 
 ## When to Use
+
+
+- For alternatives, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/guides/ci-cd-security-guide/).
 
 - Setting up a new domain or public-facing service.
 - Migrating from one certificate provider to another.

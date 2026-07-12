@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: cqrs-pattern
 title: "Patrón CQRS"
@@ -19,9 +24,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/event-sourcing-pattern
-  - /patterns/design/saga-pattern
-  - /patterns/design/cache-aside-pattern
+  - /patterns/event-sourcing-pattern
+  - /patterns/saga-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/event-carried-state-transfer-pattern
+  - /patterns/materialized-view-pattern
+  - /guides/vertical-slice-architecture-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +44,11 @@ seo:
     - python cqrs
     - java cqrs
     - javascript cqrs
+
+
+
+
+
 ---
 
 # Patrón CQRS

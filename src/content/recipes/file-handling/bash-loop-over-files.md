@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: bash-loop-over-files
 title: "Bash Loop Over Files"
@@ -15,9 +21,13 @@ tags:
   - shell
   - recipe
 relatedResources:
-  - /recipes/file-handling/bash-parallel-execution
-  - /recipes/file-handling/bash-text-processing
-  - /recipes/file-handling/generate-temporary-files
+  - /recipes/bash-parallel-execution
+  - /recipes/bash-text-processing
+  - /recipes/generate-temporary-files
+  - /recipes/bash-backup-rotation-script
+  - /recipes/bash-log-rotation-compression
+  - /recipes/bash-monitoring-disk-usage
+  - /recipes/bash-parallel-job-execution
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +39,12 @@ seo:
     - globbing
     - shell
     - recipe
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -378,6 +394,9 @@ fi
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Bash Parallel Execution](/recipes/bash-parallel-execution/).
 
 1. **Use `mapfile` for reading file lists into arrays.** It is faster than a `while read` loop for large lists and preserves special characters:
 

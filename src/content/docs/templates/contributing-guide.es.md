@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: contributing-guide
 templateType: guideline
@@ -15,9 +20,13 @@ tags:
   - open-source
   - template
 relatedResources:
-  - /docs/templates/readme-template
-  - /recipes/devops/git-workflow
-  - /guides/testing/testing-strategy-guide
+  - /docs/readme-template
+  - /recipes/git-workflow
+  - /guides/testing-strategy-guide
+  - /recipes/pre-commit-hooks
+  - /docs/auto-scaling-policy-template
+  - /docs/deployment-checklist-template
+  - /docs/changelog-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - directrices open source
     - plantilla pull request
     - onboarding desarrolladores
+
+
+
+
+
 ---
 
 ## Estructura de la plantilla

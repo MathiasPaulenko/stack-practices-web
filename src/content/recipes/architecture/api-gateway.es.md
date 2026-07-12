@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: api-gateway
 title: "Diseñar un API Gateway Escalable para Microservicios"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/load-balancing
   - /recipes/rate-limiting
   - /recipes/jwt-authentication
+  - /recipes/multi-tenancy
+  - /recipes/service-discovery
+  - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - enrutamiento requests
     - patron gateway
     - caching api gateway
+
+
+
 ---
 
 ## Visión general

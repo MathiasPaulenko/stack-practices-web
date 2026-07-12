@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: scheduled-jobs
 title: "Run Scheduled Jobs with Serverless Functions"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/event-driven-functions
   - /recipes/cron-jobs
+  - /recipes/event-sourcing-serverless
+  - /recipes/real-time-websockets
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - serverless automation
     - periodic tasks
     - cron jobs cloud
+
+
 ---
 
 ## Overview

@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: sort-array
 title: "Ordenar un Array"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/unit-testing
   - /recipes/date-formatting
+  - /recipes/money-currency
+  - /recipes/regular-expressions
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +30,8 @@ seo:
     - sorting
     - ordenar lista
     - comparador
+
+
 ---
 
 ## Overview

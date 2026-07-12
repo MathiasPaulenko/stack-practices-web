@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: parse-log-files
 title: "Parse Log Files"
@@ -16,11 +20,13 @@ tags:
   - java
   - devops
 relatedResources:
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-xml-files
-  - /recipes/data/validate-json-schema
-  - /guides/devops/logging-monitoring-observability-guide
+  - /recipes/parse-csv-files
+  - /recipes/parse-xml-files
+  - /recipes/validate-json-schema
+  - /guides/logging-monitoring-observability-guide
   - /recipes/log-aggregation
+  - /recipes/parse-command-line-arguments
+  - /recipes/parse-excel-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - javascript
     - java
     - devops
+
+
+
+
 ---
 
 ## Overview
@@ -273,6 +283,9 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **csvkit**: command-line tools for CSV files. csvstat shows statistics, csvcut selects columns, csvjoin merges files. Useful for quick exploration without writing Python scripts
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Parse Command Line Arguments](/recipes/parse-command-line-arguments/).
 
 - Always specify encoding explicitly (encoding='utf-8'). Never rely on system defaults
 - Use chunked reading for files >500MB. Set chunksize in pandas or iterate line-by-line

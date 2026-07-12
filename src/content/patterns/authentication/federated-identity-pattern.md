@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: federated-identity-pattern
 title: "Federated Identity Pattern"
@@ -21,9 +24,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/ambassador-pattern
-  - /patterns/design/gateway-routing-pattern
-  - /patterns/design/back-pressure-pattern
+  - /patterns/ambassador-pattern
+  - /patterns/gateway-routing-pattern
+  - /patterns/back-pressure-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
+  - /patterns/voucher-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -39,6 +44,9 @@ seo:
     - python federated identity
     - java federated identity
     - javascript federated identity
+
+
+
 ---
 
 # Federated Identity Pattern

@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: session-management
 title: "Implementar Gestión de Sesiones Segura"
@@ -17,6 +18,7 @@ relatedResources:
   - /recipes/jwt-authentication
   - /recipes/oauth2-login
   - /recipes/password-hashing
+  - /recipes/magic-link-authentication
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - redis sessions
     - session expiration
     - web security
+
 ---
 
 ## Visión general

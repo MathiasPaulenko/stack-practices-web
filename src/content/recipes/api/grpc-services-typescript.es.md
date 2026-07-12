@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: grpc-services-typescript
 title: "Servicios gRPC con Protocol Buffers en TypeScript"
@@ -15,8 +19,11 @@ tags:
   - http
   - backend
 relatedResources:
-  - /recipes/api/go-rest-api-gin
-  - /patterns/design/ambassador-pattern-services
+  - /recipes/go-rest-api-gin
+  - /patterns/ambassador-pattern-services
+  - /recipes/grpc-api
+  - /recipes/rest-api-design
+  - /recipes/api-versioning
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - streaming api
     - typescript
     - high performance
+
+
+
+
 ---
 
 # Servicios gRPC con Protocol Buffers en TypeScript

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: on-call-runbook-template
 title: "On-Call Runbook Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/bug-triage-template
   - /docs/change-management-template
   - /docs/patch-management-template
+  - /docs/dependency-upgrade-template
+  - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - alerts
     - operations
     - template
+
+
+
 ---
 ## Overview
 
@@ -419,6 +427,9 @@ After every incident, verify the runbook is updated with lessons learned:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Escalation Policy Template](/docs/escalation-policy-template/).
 
 1. **Include expected output for each diagnostic command.** On-call engineers under stress may not recognize abnormal output. Show what "normal" looks like:
 

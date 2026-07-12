@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: escalation-policy-template
 title: "Escalation Policy Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/change-management-template
   - /docs/runbook-template
   - /docs/backup-and-restore-template
+  - /docs/sla-definition-template
+  - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - on-call
     - operations
     - template
+
+
+
 ---
 ## Overview
 
 When a critical incident strikes at 3 a.m., an on-call engineer must know in 30 seconds whether to wake up the CTO or handle it alone. Most teams assume escalation is "common sense"—until a low-priority ticket wakes the CEO or a data-loss incident sits unresolved for hours because no one knew who to call. This template defines clear severity levels, response times, and escalation paths so your team responds with confidence, not panic.
 
 ## When to Use
+
+
+- For alternatives, see [On-Call Runbook Template](/docs/on-call-runbook-template/).
 
 Use this resource when:
 - You are building or revising an on-call rotation and need explicit escalation rules

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: rotate-log-files
 title: "Rotate Log Files"
@@ -17,8 +22,11 @@ tags:
   - linux
   - recipe
 relatedResources:
-  - /recipes/file-handling/generate-temporary-files
-  - /recipes/observability/structured-logging
+  - /recipes/generate-temporary-files
+  - /recipes/structured-logging
+  - /recipes/compress-decompress-files
+  - /recipes/copy-move-files
+  - /recipes/read-large-files
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +40,11 @@ seo:
     - java
     - linux
     - recipe
+
+
+
+
+
 ---
 
 ## Overview
@@ -568,6 +581,9 @@ for r in results:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Generate Temporary Files](/recipes/generate-temporary-files/).
 
 1. **Use `zstd` instead of `gzip` for faster compression.** zstd offers similar compression ratios with 3-5x faster decompression:
 

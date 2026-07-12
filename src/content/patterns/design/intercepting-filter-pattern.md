@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: intercepting-filter-pattern
 title: "Intercepting Filter Pattern"
@@ -17,9 +23,13 @@ tags:
   - middleware
   - pipeline
 relatedResources:
-  - /patterns/design/chain-of-responsibility-pattern
-  - /patterns/design/decorator-pattern
-  - /patterns/design/proxy-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/decorator-pattern
+  - /patterns/proxy-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/context-object-pattern
+  - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +40,12 @@ seo:
     - architecture
     - middleware
     - pipeline
+
+
+
+
+
+
 ---
 
 # Intercepting Filter Pattern
@@ -41,6 +57,9 @@ The Intercepting Filter Pattern composes cross-cutting concerns into a chain of 
 This pattern is the foundation of HTTP middleware in web frameworks, servlet filters in Java EE, and ASP.NET Core middleware pipelines. It allows concerns to be added, removed, or reordered without modifying the core request handler.
 
 ## When to Use
+
+
+- For alternatives, see [Business Delegate Pattern](/patterns/business-delegate-pattern/).
 
 Use the Intercepting Filter Pattern when:
 - Cross-cutting concerns (auth, logging, caching) should be reused across multiple handlers

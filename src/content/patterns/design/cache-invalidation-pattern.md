@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: cache-invalidation-pattern
 title: "Cache Invalidation Pattern"
@@ -19,9 +24,12 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/cache-aside-pattern
-  - /patterns/design/write-through-cache-pattern
-  - /patterns/design/read-through-cache-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/write-through-cache-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-stampede-prevention-pattern
+  - /patterns/refresh-ahead-cache-pattern
+  - /patterns/two-level-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +41,11 @@ seo:
     - redis pub/sub invalidation
     - event-driven cache
     - cache consistency
+
+
+
+
+
 ---
 
 # Cache Invalidation Pattern
@@ -233,6 +246,9 @@ Each strategy trades complexity for consistency:
 | Tag-based invalidation | Strong (grouped) | High | Related cache entries |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Cache Stampede Prevention Pattern](/patterns/cache-stampede-prevention-pattern/).
 
 - **Always set a TTL as a safety net** — even with explicit invalidation, a TTL catches missed invalidations. Set it to the maximum acceptable staleness duration.
 - **Invalidate derived caches** — if you cache `user:123` and also `user:123:profile`, invalidate both. Track dependencies or use tag-based invalidation.

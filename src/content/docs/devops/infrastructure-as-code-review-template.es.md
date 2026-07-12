@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: infrastructure-as-code-review-template
 title: "Plantilla de Revisión de Infrastructure as Code"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/deployment-checklist-template
   - /docs/api-status-page-template
+  - /docs/weekly-ops-review-template
+  - /guides/complete-guide-terraform-modules
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - cloudformation
     - revision
     - plantilla
+
+
+
 ---
 ## Visión General
 
 El código de infraestructura es software. Debe ser revisado, probado y versionado igual que el código de aplicación. Un solo security group mal configurado o una política IAM demasiado permisiva puede exponer todo tu entorno. Esta plantilla estructura un proceso de revisión de código específicamente para configuraciones de Terraform, CloudFormation, Pulumi o Ansible.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Terraform Modules](/es/guides/complete-guide-terraform-modules/).
 
 Usa este recurso cuando:
 - Agregues un nuevo módulo de Terraform o stack de CloudFormation a producción

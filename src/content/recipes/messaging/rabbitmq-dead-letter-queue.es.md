@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: rabbitmq-dead-letter-queue
 title: "Configurar Dead-Letter Queues en RabbitMQ para Mensajes"
@@ -16,8 +18,8 @@ tags:
   - message-queue
   - error-handling
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/python-celery-task-queue
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
@@ -30,6 +32,8 @@ seo:
     - rabbitmq message ttl
     - rabbitmq retry pattern
     - rabbitmq error handling
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +41,9 @@ seo:
 Las dead-letter queues (DLQ) capturan mensajes que RabbitMQ no puede entregar o procesar — mensajes rechazados, mensajes expirados o overflow de colas llenas. Sin DLQ, los mensajes fallidos desaparecen o se repiten infinitamente como poison pills. A continuacion: configurar DLQ con TTL, max-length, routing por rechazo, patrones de retry con backoff exponencial e inspeccion/replay de mensajes DLQ.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Build a RabbitMQ Consumer with Python and Pika](/es/recipes/rabbitmq-python-pika-consumer/).
 
 - Cualquier cola de RabbitMQ donde la perdida de mensajes es inaceptable
 - Work queues donde los consumers pueden fallar al procesar mensajes especificos

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: nosql-patterns-guide
 title: "NoSQL Data Modeling Patterns"
@@ -22,6 +25,8 @@ relatedResources:
   - /guides/database-design-guide
   - /guides/time-series-database-guide
   - /guides/graph-database-guide
+  - /guides/acid-vs-base-guide
+  - /guides/vector-database-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +40,9 @@ seo:
     - data-modeling
     - embedding
     - guide
+
+
+
 ---
 
 ## Overview
@@ -42,6 +50,9 @@ seo:
 NoSQL databases abandon the rigid table-row model in favor of flexible schemas optimized for specific access patterns. Document stores (MongoDB), key-value stores (Redis), wide-column stores (Cassandra, DynamoDB), and graph databases (Neo4j) each have different data modeling principles. The key rule: model for your queries, not for normalized entities. Start with the read and write patterns your application needs, then design the schema to support them efficiently.
 
 ## When to Use
+
+
+- For alternatives, see [NoSQL Database Selection — MongoDB, DynamoDB, Cassandra](/guides/nosql-database-selection-guide/).
 
 - Schema evolves frequently and cannot be migrated easily
 - Read patterns are well-known and should be served in a single query

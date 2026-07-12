@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: penetration-test-report-template
 title: "Plantilla de Informe de Prueba de Penetración"
@@ -16,10 +19,11 @@ tags:
   - vulnerability
   - infrastructure
 relatedResources:
-  - /docs/security/security-audit-checklist
-  - /docs/security/vulnerability-management-process-template
-  - /docs/security/incident-response-plan-template
-  - /docs/security/access-control-policy-template
+  - /docs/security-audit-checklist
+  - /docs/vulnerability-management-process-template
+  - /docs/incident-response-plan-template
+  - /docs/access-control-policy-template
+  - /docs/encryption-key-rotation-runbook
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - CVSS
     - remediation
     - template
+
+
+
 ---
 
 ## Overview
@@ -39,6 +46,9 @@ seo:
 Un penetration test report documenta los findings de un security assessment. Define el scope, methodology, vulnerabilities discovered, severity ratings, evidence y remediation recommendations. El report sirve como both un technical reference para engineering teams y un compliance artifact para auditors.
 
 ## When to Use
+
+
+- For alternatives, see [Vulnerability Management Process Template](/es/docs/vulnerability-management-process-template/).
 
 - Documentando resultados de un penetration test engagement
 - Proveyendo evidence para compliance audits (PCI-DSS, SOC 2, ISO 27001)

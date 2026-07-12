@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-schema-design
 title: "Complete Guide to GraphQL Schema Design"
@@ -19,9 +25,13 @@ tags:
   - connections
   - deprecation
 relatedResources:
-  - /guides/api/complete-guide-graphql-federation
-  - /guides/architecture/graphql-vs-rest-guide
-  - /patterns/design/graphql-interface-polymorphism-pattern
+  - /guides/complete-guide-graphql-federation
+  - /guides/graphql-vs-rest-guide
+  - /patterns/graphql-interface-polymorphism-pattern
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-caching
+  - /guides/complete-guide-graphql-security
+  - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - schema-first graphql
     - graphql deprecation
     - graphql error handling
+
+
+
+
+
+
 ---
 
 ## Introduction
@@ -430,6 +446,9 @@ type User {
 Track field usage to know when all clients have migrated. Once no client queries the deprecated field, remove it in the next major version.
 
 ### Deprecation Best Practices
+
+
+- For a deeper guide, see [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/).
 
 - Always provide a `reason` in the `@deprecated` directive
 - Document the replacement field or mutation

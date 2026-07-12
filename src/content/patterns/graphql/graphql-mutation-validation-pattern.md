@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: graphql-mutation-validation-pattern
 title: "GraphQL Mutation Validation Pattern"
@@ -18,9 +23,12 @@ tags:
   - typescript
   - apollo-server
 relatedResources:
-  - /patterns/graphql/graphql-error-extension-pattern
-  - /patterns/graphql/graphql-dataloader-pattern
-  - /recipes/graphql/graphql-input-validation
+  - /patterns/graphql-error-extension-pattern
+  - /patterns/graphql-dataloader-pattern
+  - /recipes/graphql-input-validation
+  - /patterns/graphql-federated-entity-pattern
+  - /patterns/backend-for-frontend-pattern
+  - /patterns/graphql-connection-pagination-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - graphql error handling
     - centralized validation graphql
     - graphql custom scalars
+
+
+
+
+
 ---
 
 # GraphQL Mutation Validation Pattern
@@ -315,6 +328,9 @@ The error extension pattern integrates naturally: all validation errors carry `c
 | Joi/Yup schemas | Resolver entry | Complex nested object validation |
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL Connection Pagination Pattern](/patterns/graphql-connection-pagination-pattern/).
 
 - **Validate early, validate once** — use custom scalars for format checks so invalid values never reach the resolver
 - **Return all errors at once** — collect all validation failures before throwing. Clients can display all field errors in one render cycle.

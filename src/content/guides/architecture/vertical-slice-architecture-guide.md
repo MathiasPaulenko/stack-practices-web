@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: vertical-slice-architecture-guide
 title: "Vertical Slice Architecture: Feature-First Organization"
@@ -19,8 +21,8 @@ tags:
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/layered-architecture-guide
-  - /patterns/design/cqrs-pattern
-  - /patterns/design/mediator-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/mediator-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +34,8 @@ seo:
     - code-organization
     - cohesion
     - guide
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 Vertical Slice Architecture, popularized by Jimmy Bogard, flips the traditional layered approach. Instead of organizing code by technical concern (Controllers, Services, Repositories), you organize by feature. All code for a single feature — controller, service, queries, DTOs, validation — lives together in one place. When you need to change "Create Order," all the relevant code is in one folder. This dramatically reduces the cognitive load of navigating a codebase.
 
 ## When to Use
+
+
+- For alternatives, see [Clean Architecture](/guides/clean-architecture-guide/).
 
 - Your application has many capabilities that evolve independently
 - Team members frequently ask "where is the code for X?"

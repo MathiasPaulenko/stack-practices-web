@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-asyncio-gather-task-groups
 title: "Ejecutar Tareas Async Concurrentes con asyncio.gather y"
@@ -16,10 +21,13 @@ tags:
   - async
   - task-groups
 relatedResources:
-  - /recipes/concurrency/python-asyncio-semaphore-rate-limiting
-  - /recipes/concurrency/python-thread-pool-executor
+  - /recipes/python-asyncio-semaphore-rate-limiting
+  - /recipes/python-thread-pool-executor
   - /guides/complete-guide-python-asyncio
   - /guides/concurrency-patterns-guide
+  - /recipes/python-async-gather-concurrent-requests
+  - /recipes/csharp-async-await-task-run
+  - /recipes/go-goroutines-channels-patterns
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - python concurrent async
     - asyncio return_exceptions
     - python structured concurrency
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 `asyncio.gather` y `asyncio.TaskGroup` (Python 3.11+) permiten ejecutar multiples operaciones async concurrentemente, reduciendo el tiempo total de espera de la suma de todas las operaciones a la operacion mas lenta. A continuacion: peticiones HTTP concurrentes, estrategias de manejo de errores, timeouts, rate limiting con semaforos y concurrencia estructurada con TaskGroup.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Rate Limit Async Operations with asyncio.Semaphore](/es/recipes/python-asyncio-semaphore-rate-limiting/).
 
 - Obtener datos de multiples APIs simultaneamente
 - Queries paralelas a base de datos entre shards o servicios

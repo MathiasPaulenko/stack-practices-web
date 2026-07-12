@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: database-migrations-safely
 title: "Database Migrations Safely"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/soft-deletes
   - /recipes/input-validation
   - /recipes/uuid-generation
+  - /recipes/event-sourcing-relational
+  - /recipes/optimistic-locking
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +38,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

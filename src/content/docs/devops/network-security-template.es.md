@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: network-security-template
 title: "Plantilla de Seguridad de Red"
@@ -20,6 +22,7 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/cross-region-failover-template
   - /docs/deployment-checklist-template
+  - /docs/bug-triage-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +34,8 @@ seo:
     - firewall
     - dns
     - plantilla
+
+
 ---
 ## Visión General
 
@@ -366,6 +371,9 @@ done
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Auto-Scaling Policy Template](/es/docs/auto-scaling-policy-template/).
 
 1. **Implementa filtrado de egress para prevenir exfiltración de datos.** Restringe el tráfico saliente a destinos conocidos en lugar de permitir egress `0.0.0.0/0`:
 

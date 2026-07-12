@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: api-changelog-template
 title: "API Changelog Template"
@@ -15,9 +20,12 @@ tags:
   - documentation
   - template
 relatedResources:
-  - /docs/architecture/api-lifecycle-management-template
-  - /docs/api/api-deprecation-notice-template
-  - /docs/architecture/technical-spec-template
+  - /docs/api-lifecycle-management-template
+  - /docs/api-deprecation-notice-template
+  - /docs/technical-spec-template
+  - /docs/sla-definition-template
+  - /docs/api-rate-limiting-policy-template
+  - /guides/complete-guide-api-versioning-strategies
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -29,6 +37,11 @@ seo:
     - release notes
     - api documentation
     - changelog template
+
+
+
+
+
 ---
 
 ## Overview
@@ -36,6 +49,9 @@ seo:
 API consumers need to know what changed, when it changed, and whether they need to act. An unstructured changelog — or no changelog at all — forces consumers to diff your API or discover breaking changes in production. This template provides a standardized format for documenting every API change with version, date, severity, and migration guidance.
 
 ## When to Use
+
+
+- For alternatives, see [API Deprecation Notice Template](/docs/api-deprecation-notice-template/).
 
 Use this resource when:
 - Releasing a new API version or capability

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: user-access-audit-template
 title: "User Access Audit Template"
@@ -15,9 +18,10 @@ tags:
   - rbac
   - compliance
 relatedResources:
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/access-control-review-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/rbac-policy-template
+  - /docs/access-control-review-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - identity governance
     - orphan account
     - access review template
+
+
+
 ---
 
 ## Overview
@@ -349,6 +356,9 @@ auditGitHubOrg("your-org", process.env.GITHUB_TOKEN)
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Access Control Review Template](/docs/access-control-review-template/).
 
 1. **Implement just-in-time (JIT) access for privileged roles.** Instead of standing admin access, grant time-bound elevation with automatic expiration:
 

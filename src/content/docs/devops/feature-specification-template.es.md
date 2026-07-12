@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: feature-specification-template
 title: "Plantilla de Especificacion de Feature"
@@ -15,9 +21,13 @@ tags:
   - product-planning
   - template
 relatedResources:
-  - /docs/devops/architecture-decision-record-adr-template
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/code-review-checklist-template
+  - /docs/architecture-decision-record-adr-template
+  - /docs/engineering-handbook-template
+  - /docs/code-review-checklist-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/data-migration-runbook-template
+  - /docs/deprecation-timeline-template
+  - /docs/production-readiness-review-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - plantilla de spec de producto
     - criterios de aceptacion
     - user stories
+
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +51,9 @@ seo:
 Los bugs mas costosos no estan en el codigo — estan en requerimientos mal entendidos. Una especificacion de feature es un documento que alinea producto, diseno, e ingenieria sobre que construir, por que importa, y como saber que esta listo. Previene las conversaciones de "yo pense que tu querias decir..." que desvian sprints y generan retrabajo. Una buena spec no es un contrato; es un entendimiento compartido que evoluciona a medida que el equipo aprende.
 
 ## Cuando Usar
+
+
+- For alternatives, see [What Works in Code Review — For Authors and Reviewers](/es/guides/code-review-best-practices-guide/).
 
 Usa esta plantilla cuando:
 - Un feature toca multiples sistemas, equipos, o journey de usuarios

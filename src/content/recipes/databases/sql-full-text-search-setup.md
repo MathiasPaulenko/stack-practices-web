@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-full-text-search-setup
 title: "Set Up Full-Text Search Indexes"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/sql-index-optimization-analysis
   - /recipes/sql-migration-zero-downtime
   - /recipes/sql-partitioning-strategies
+  - /recipes/database-migrations
+  - /recipes/database-read-replicas
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - full-text-search
     - gin
     - tsvector
+
+
+
 ---
 
 
@@ -38,6 +46,9 @@ seo:
 Pattern matching with `LIKE '%word%'` is slow and cannot rank results by relevance. Full-text search transforms text into searchable tokens, indexes them, and lets you query by meaning rather than exact substring. PostgreSQL has a mature full-text search engine built in, so you can add capable search without external services like Elasticsearch for many use cases.
 
 ## When to Use
+
+
+- For alternatives, see [Full-Text Search — Implement Search That Actually Works](/guides/full-text-search-guide/).
 
 Use this resource when:
 - Users need to search long text columns such as articles, tickets, or product descriptions.

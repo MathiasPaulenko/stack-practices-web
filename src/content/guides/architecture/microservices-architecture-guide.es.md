@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: microservices-architecture-guide
 title: "Arquitectura de Microservicios — Cuándo Usarla y Cuándo No"
@@ -17,9 +22,13 @@ tags:
   - monolito
   - sistemas-distribuidos
 relatedResources:
-  - /guides/architecture/system-design-interview-guide
-  - /guides/architecture/domain-driven-design-guide
-  - /guides/devops/docker-for-developers-guide
+  - /guides/system-design-interview-guide
+  - /guides/domain-driven-design-guide
+  - /guides/docker-for-developers-guide
+  - /recipes/microservices-communication
+  - /recipes/retry-backoff
+  - /recipes/service-discovery
+  - /recipes/workflow-engine
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - microservicios vs monolito
     - descomposicion de servicios
     - patrones sistemas distribuidos
+
+
+
+
+
 ---
 
 # Arquitectura de Microservicios — Cuándo Usarla y Cuándo No

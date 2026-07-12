@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: java-completable-future-composition
 title: "Compose Asynchronous Pipelines with Java CompletableFuture"
@@ -16,10 +21,13 @@ tags:
   - concurrency
   - composition
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/python-thread-pool-executor
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-thread-pool-executor
   - /guides/concurrency-patterns-guide
   - /guides/complete-guide-graphql-federation
+  - /recipes/csharp-async-await-task-run
+  - /recipes/go-goroutines-channels-patterns
+  - /recipes/java-virtual-threads-project-loom
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - java async pipeline
     - completablefuture allOf
     - java non-blocking composition
+
+
+
+
+
 ---
 
 ## Overview
@@ -400,6 +413,9 @@ public static CompletableFuture<AggregatedReport> buildReport(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/recipes/python-asyncio-gather-task-groups/).
 
 - **Always use custom executors**: By default, `CompletableFuture` runs on the `ForkJoinPool.commonPool()`. This pool is shared across the entire JVM — one slow operation can block others. Always pass a dedicated `Executor`.
 - **Use `thenCompose` for async chaining**: `thenApply` with a `CompletableFuture` return type creates nested futures. Use `thenCompose` to flatten them.

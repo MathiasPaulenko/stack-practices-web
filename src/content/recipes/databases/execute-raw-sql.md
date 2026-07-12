@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: execute-raw-sql
 title: "Execute Raw SQL"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/connect-to-redis
   - /recipes/escape-html-entities
   - /recipes/sanitize-user-input
+  - /recipes/use-orm-crud
+  - /guides/sql-joins-guide
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Overview
 
@@ -271,6 +279,9 @@ def safe_query(table_name, column_name, value):
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Connect to MySQL](/recipes/connect-to-mysql/).
 
 6. **Use `EXPLAIN ANALYZE` to validate query plans.** Raw SQL bypasses ORM optimizations. Always check the execution plan for large tables.
 

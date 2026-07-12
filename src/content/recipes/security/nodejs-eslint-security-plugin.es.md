@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: nodejs-eslint-security-plugin
 title: "Enforzar Reglas de Seguridad en Node.js con"
@@ -15,9 +18,10 @@ tags:
   - code-quality
   - recipe
 relatedResources:
-  - /recipes/security/python-bandit-static-analysis
-  - /recipes/security/typescript-eslint-strict-config
-  - /recipes/devops/github-actions-reusable-workflows
+  - /recipes/python-bandit-static-analysis
+  - /recipes/typescript-eslint-strict-config
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/java-spotbugs-static-analysis
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - static-analysis
     - code-quality
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -368,6 +375,9 @@ export default [
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Detect Bugs in Java with SpotBugs Static Analysis](/es/recipes/java-spotbugs-static-analysis/).
 
 - Empezá con el preset recommended — después customizá basado en tu codebase
 - Deshabilitá `detect-object-injection` — tiene una tasa de false positives muy alta en la mayoría de codebases

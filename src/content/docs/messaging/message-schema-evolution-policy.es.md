@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: message-schema-evolution-policy
 templateType: api-deprecation
@@ -16,9 +18,9 @@ tags:
   - schema-registry
   - compatibility
 relatedResources:
-  - /docs/messaging/kafka-topic-naming-convention-template
-  - /docs/messaging/rabbitmq-queue-design-template
-  - /docs/messaging/dead-letter-queue-runbook
+  - /docs/kafka-topic-naming-convention-template
+  - /docs/rabbitmq-queue-design-template
+  - /docs/dead-letter-queue-runbook
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - avro schema
     - protobuf evolution
     - message versioning
+
+
 ---
 
 ## Overview
@@ -362,3 +366,12 @@ Keepea el old topic por al menos 30 days despues de all consumers hayan migrated
 ### ¿Deberia usar Avro, Protobuf o JSON para message schemas?
 
 Usa Avro si usas el Confluent ecosystem y quieres tight schema registry integration con backward compatibility enforcement. Usa Protobuf si usas gRPC o prefieres un compact binary format con built-in evolution support. Usa JSON Schema si necesitas human-readable messages y tu throughput es low. Avro y Protobuf son ambos compact y efficient. JSON es easier de debug pero larger on the wire. Elige uno y standardiza across tu organization.
+
+## See Also
+
+- [Complete Guide to Kafka Stream Processing](/es/guides/complete-guide-kafka-stream-processing/)
+- [Complete Guide to Event-Driven Systems](/es/guides/complete-guide-event-driven-systems/)
+- [Complete Guide to Apache Kafka in Production](/es/guides/complete-guide-kafka-production/)
+- [Complete Guide to RabbitMQ Architecture](/es/guides/complete-guide-rabbitmq-architecture/)
+- [Message Queues — RabbitMQ, Kafka, and SQS detailed analysis](/es/guides/message-queue-guide/)
+

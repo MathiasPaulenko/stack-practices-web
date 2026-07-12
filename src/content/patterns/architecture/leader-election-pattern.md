@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: leader-election-pattern
 title: "Leader Election Pattern"
@@ -31,6 +32,7 @@ seo:
     - distributed-systems
     - architecture
     - consensus
+
 ---
 ## Overview
 
@@ -377,6 +379,9 @@ class RedisLeaderElection:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Distributed Lock Pattern](/patterns/distributed-lock-pattern/).
 
 1. **Implement graceful leader step-down.** When a leader shuts down, it should explicitly release the lease and notify followers. This prevents split-brain scenarios during planned maintenance.
 

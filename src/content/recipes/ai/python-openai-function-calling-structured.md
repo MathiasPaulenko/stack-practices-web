@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-openai-function-calling-structured
 title: "Structured JSON Output from OpenAI Function Calling"
@@ -14,9 +20,13 @@ tags:
   - structured output
   - pydantic
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-embeddings-cosine
-  - /recipes/ai/python-llm-streaming-responses
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-agent-langgraph-state-machine
+  - /recipes/python-huggingface-text-classification
+  - /patterns/llm-guardrails-pattern
+  - /patterns/llm-router-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - pydantic openai
     - openai json mode
     - python llm structured
+
+
+
+
+
+
 ---
 
 # Structured JSON Output from OpenAI Function Calling
@@ -306,6 +322,9 @@ def extract_batch(reviews: list[str]) -> list[ProductReview]:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses/).
 
 - **Use `strict: true` in `response_format`** — guarantees all fields are present and correctly typed
 - **Add field descriptions to the Pydantic schema** — the model uses them to understand what to extract

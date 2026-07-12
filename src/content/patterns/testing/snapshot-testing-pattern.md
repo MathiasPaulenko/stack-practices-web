@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: snapshot-testing-pattern
 title: "Snapshot Testing: Capture and Compare Serialized Output"
@@ -19,6 +23,9 @@ relatedResources:
   - /patterns/test-double-pattern
   - /patterns/parameterized-test-pattern
   - /patterns/golden-master-testing-pattern
+  - /patterns/contract-testing-pattern
+  - /patterns/fixture-setup-teardown-pattern
+  - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +37,10 @@ seo:
     - jest
     - pytest
     - pattern
+
+
+
+
 ---
 
 ## Overview
@@ -418,6 +429,9 @@ test('welcome email matches snapshot', () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Setup Test Fixtures](/recipes/setup-test-fixtures/).
 
 - Review snapshot diffs in PRs — snapshots can hide bugs if updated blindly
 - Use `--ci` flag in CI — prevents auto-creating new snapshots, forces explicit creation

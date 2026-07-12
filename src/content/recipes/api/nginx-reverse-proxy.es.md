@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: nginx-reverse-proxy
 title: "Configura Nginx como Reverse Proxy y API Gateway"
@@ -15,8 +18,10 @@ tags:
   - api
   - rest
 relatedResources:
-  - /recipes/performance/brotli-nginx-compression
-  - /recipes/devops/terraform-aws-vpc
+  - /recipes/brotli-nginx-compression
+  - /recipes/terraform-aws-vpc
+  - /recipes/docker-compose-local-dev
+  - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +32,9 @@ seo:
     - load balancing
     - ssl termination
     - rate limiting
+
+
+
 ---
 
 # Configura Nginx como Reverse Proxy y API Gateway

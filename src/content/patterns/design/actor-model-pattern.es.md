@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: actor-model-pattern
 title: "Patrón Actor Model"
@@ -17,9 +20,10 @@ tags:
   - isolation
   - erlang
 relatedResources:
-  - /patterns/design/thread-pool-pattern
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/publish-subscribe-pattern
+  - /patterns/thread-pool-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/publish-subscribe-pattern
+  - /patterns/lock-free-queue-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - message passing concurrencia
     - actores estado aislado
     - patron diseno
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +43,9 @@ seo:
 El estado mutable compartido es la raiz de la mayoria de los bugs de concurrencia. Locks, mutexes y condition variables son propensos a errores: olvida un lock y obtienes race conditions; bloquea en el orden equivocado y obtienes deadlocks. El Actor Model toma un enfoque diferente. Cada actor posee su estado privado. Los actores se comunican exclusivamente enviando mensajes entre si. Cada actor procesa un mensaje a la vez, por lo que no hay acceso concurrente a su estado. Sin locks.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Distributed Lock Pattern](/es/patterns/distributed-lock-pattern/).
 
 - Tienes estado mutable accedido por multiples threads y los locks son propensos a errores
 - Necesitas tolerancia a fallos: si un actor falla, otros continuan ejecutando

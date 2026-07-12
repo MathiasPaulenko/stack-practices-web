@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-lifecycle-management-template
 title: "Plantilla de Gestión del Ciclo de Vida de APIs"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/technical-spec-template
   - /docs/adr-template
+  - /docs/api-changelog-template
+  - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - versionado
     - deprecación
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Las APIs son contratos de larga duración entre sistemas. Cambiar o eliminar un endpoint sin un proceso estructurado rompe consumidores downstream, causa caídas y daña la confianza. Esta plantilla proporciona un enfoque basado en checklists para deprecar versiones antiguas, introducir nuevas versiones y cerrar APIs de forma segura.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [API Changelog Template](/es/docs/api-changelog-template/).
 
 Usa este recurso cuando:
 - Planeas deprecar un endpoint o versión de API

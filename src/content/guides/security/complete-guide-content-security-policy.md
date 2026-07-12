@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-content-security-policy
 title: "Content Security Policy: CSP Headers, Nonces, Hashes"
@@ -18,9 +22,11 @@ tags:
   - nonces
   - hashes
 relatedResources:
-  - /guides/security/complete-guide-cors-security
-  - /guides/security/complete-guide-oauth2-oidc-production
-  - /recipes/security/nodejs-helmet-security-headers
+  - /guides/complete-guide-cors-security
+  - /guides/complete-guide-oauth2-oidc-production
+  - /recipes/nodejs-helmet-security-headers
+  - /guides/complete-guide-web-security-headers
+  - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -34,6 +40,10 @@ seo:
     - strict-dynamic
     - xss prevention
     - csp reporting
+
+
+
+
 ---
 
 ## Introduction
@@ -379,6 +389,9 @@ app.use(helmet.contentSecurityPolicy({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CORS Security: Origins, Headers, Preflight, Credentials](/guides/complete-guide-cors-security/).
 
 - Start with Report-Only mode — find violations before enforcing
 - Use nonces for inline scripts — more flexible than hashes for dynamic content

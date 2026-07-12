@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: graphql-subscriptions-realtime
 title: "Real-Time Data with GraphQL WebSocket Subscriptions"
@@ -15,9 +18,10 @@ tags:
   - realtime
   - apollo
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-dataloader-batching
-  - /recipes/api/real-time-websockets
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-dataloader-batching
+  - /recipes/real-time-websockets
+  - /recipes/graphql-federation-gateway-setup
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,9 @@ seo:
     - realtime graphql
     - apollo subscriptions
     - graphql pubsub
+
+
+
 ---
 
 # Real-Time Data with GraphQL WebSocket Subscriptions
@@ -285,6 +292,9 @@ const serverCleanup = useServer(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/).
 
 - **Authenticate on connection** — validate the token in `context` when the WebSocket opens, not per message
 - **Use Redis PubSub in production** — in-memory PubSub does not share events across server instances

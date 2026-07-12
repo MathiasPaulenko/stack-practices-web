@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-terraform-provider-custom
 title: "Construye un Provider Personalizado de Terraform con"
@@ -16,11 +21,13 @@ tags:
   - terraform-plugin-framework
   - iac
 relatedResources:
-  - /recipes/devops/docker-network-isolation
-  - /recipes/devops/docker-health-check-configuration
+  - /recipes/docker-network-isolation
+  - /recipes/docker-health-check-configuration
   - /guides/infrastructure-as-code-guide
-  - /patterns/infrastructure-as-code-guide
+  - /guides/infrastructure-as-code-guide
   - /guides/complete-guide-terraform-modules
+  - /guides/complete-guide-terraform-production
+  - /guides/terraform-best-practices-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +39,11 @@ seo:
     - terraform provider development
     - custom terraform resource
     - infrastructure as code python
+
+
+
+
+
 ---
 
 ## Visión General
@@ -39,6 +51,9 @@ seo:
 Los providers de Terraform gestionan recursos para APIs externas. Cuando ningún provider existente cubre tu servicio, puedes construir uno personalizado. El `terraform-plugin-framework` es el SDK moderno para escribir providers en Go, pero `terraform-plugin-python` (basado en `terraform-plugin-go`) trae el desarrollo de providers a Python. Esta recipe muestra cómo construir un provider que gestiona un recurso de API personalizado.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Terraform Modules](/es/guides/complete-guide-terraform-modules/).
 
 - Tienes una API o servicio interno no cubierto por providers existentes de Terraform
 - Quieres gestionar recursos de infraestructura declarativamente vía Terraform

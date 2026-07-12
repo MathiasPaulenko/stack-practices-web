@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: microservices-communication
 title: "Patrones de Comunicación entre Microservicios"
@@ -19,6 +21,8 @@ relatedResources:
   - /guides/software-architecture-guide
   - /guides/system-design-interview-guide
   - /guides/cap-theorem-guide
+  - /recipes/retry-backoff
+  - /recipes/service-discovery
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - comunicación
     - sistemas distribuidos
     - arquitectura
+
+
 ---
 
 ## Visión General

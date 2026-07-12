@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: strangler-fig-pattern
 title: "Patrón Strangler Fig"
@@ -18,6 +23,10 @@ relatedResources:
   - /patterns/modular-monolith-pattern
   - /patterns/anti-corruption-layer-pattern
   - /patterns/backends-for-frontends-pattern
+  - /patterns/gateway-routing-pattern
+  - /patterns/sidecar-pattern
+  - /guides/complete-guide-strangler-fig-migration
+  - /guides/complete-guide-serverless-architecture
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - legacy
     - strangler-fig
     - pattern
+
+
+
+
+
 ---
 
 ## Overview
@@ -377,6 +391,9 @@ class ParallelRun:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Strangler Fig Migration: Incremental Legacy Replacement](/es/guides/complete-guide-strangler-fig-migration/).
 
 - Arrancá con read-only routes — son más safe de migrar que write operations
 - Usá shadow traffic antes de cutover — sendeá requests a both systems y compará

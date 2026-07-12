@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: incident-response-plan-template
 title: "Plantilla de Plan de Respuesta a Incidentes"
@@ -16,10 +21,13 @@ tags:
   - plan
   - infrastructure
 relatedResources:
-  - /docs/security/access-control-policy-template
-  - /docs/security/security-audit-checklist
-  - /docs/security/vulnerability-management-process-template
-  - /docs/observability/incident-postmortem-template
+  - /docs/access-control-policy-template
+  - /docs/security-audit-checklist
+  - /docs/vulnerability-management-process-template
+  - /docs/incident-postmortem-template
+  - /docs/encryption-key-rotation-runbook
+  - /docs/penetration-test-report-template
+  - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - recovery
     - containment
     - post-incident review
+
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +52,9 @@ seo:
 Un incident response plan define cómo un organization detecta, responde a y recupera de security incidents. Establece severity levels, roles y responsibilities, communication procedures y post-incident review processes. Sin un plan, incidents se handle chaoticamente, leading a longer downtime, greater data loss y regulatory penalties.
 
 ## When to Use
+
+
+- For alternatives, see [Security Incident Response Template](/es/docs/security-incident-response-template/).
 
 - Estableciendo incident response para un new organization
 - Preparándote para compliance audits (SOC 2, ISO 27001, HIPAA)

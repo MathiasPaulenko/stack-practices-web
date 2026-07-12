@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: aggregate-pattern
 title: "Patrón Aggregate"
@@ -16,9 +21,12 @@ tags:
   - entity
   - domain-driven-design
 relatedResources:
-  - /patterns/design/value-object-pattern
-  - /patterns/design/repository-pattern
-  - /patterns/design/outbox-pattern
+  - /patterns/value-object-pattern
+  - /patterns/repository-pattern
+  - /patterns/outbox-pattern
+  - /patterns/domain-event-pattern
+  - /patterns/null-object-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +37,11 @@ seo:
     - domain driven design
     - aggregate root
     - ddd
+
+
+
+
+
 ---
 
 # Patrón Aggregate
@@ -40,6 +53,9 @@ El Patrón Aggregate es un bloque fundamental de Domain-Driven Design (DDD). Un 
 El código externo solo puede referenciar al aggregate root directamente. Las entidades internas y value objects no pueden modificarse independientemente; todos los cambios deben pasar por la raíz. Este límite fuerza invariantes (reglas de negocio) que abarcan múltiples objetos dentro del aggregate.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Domain Event Pattern](/es/patterns/domain-event-pattern/).
 
 Usa el Patrón Aggregate cuando:
 - Una regla de negocio involucra consistencia a través de múltiples objetos relacionados

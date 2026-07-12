@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: url-encoding
 title: "URL Encoding"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json
   - /recipes/regular-expressions
+  - /recipes/caching
+  - /recipes/flatten-unflatten-objects
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - java URLEncoder
     - uri parsing
     - safe url parameters
+
+
 ---
 
 ## Overview

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-modular-monolith
 title: "Modular Monolith: Module Boundaries, Shared Kernel"
@@ -16,9 +19,10 @@ tags:
   - microservices
   - ddd
 relatedResources:
-  - /guides/architecture/complete-guide-strangler-fig-migration
-  - /guides/architecture/complete-guide-api-gateway-pattern
-  - /patterns/architecture/modular-monolith-pattern
+  - /guides/complete-guide-strangler-fig-migration
+  - /guides/complete-guide-api-gateway-pattern
+  - /patterns/modular-monolith-pattern
+  - /guides/complete-guide-event-sourcing-cqrs
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +35,9 @@ seo:
     - dependency rules
     - microservices migration
     - domain driven design
+
+
+
 ---
 
 ## Introduction
@@ -446,6 +453,9 @@ messageBroker.subscribe('order.events', async (event) => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Modular Monolith — A Pragmatic Architecture](/guides/modular-monolith-guide/).
 
 - Define a public API for each module — other modules only interact through it
 - Use domain events for asynchronous communication — decouples modules at runtime

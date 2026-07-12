@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: event-sourcing-cqrs-pattern
 title: "Implement Event Sourcing with CQRS in Python"
@@ -16,10 +19,11 @@ tags:
   - architecture
   - event-driven
 relatedResources:
-  - /recipes/messaging/kafka-python-consumer-groups
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/python-celery-task-queue
   - /guides/domain-driven-design-guide
   - /guides/complete-guide-graphql-federation
+  - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - event store implementation
     - projection rebuild
     - event sourcing snapshots
+
+
+
 ---
 
 ## Overview
@@ -561,6 +568,9 @@ manager = ProjectorManager([
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CQRS + Event Sourcing — Combined Guide](/guides/cqrs-event-sourcing-combined-guide/).
 
 - **Make events immutable**: Never modify or delete events. If a mistake was made, publish a compensating event. The event log is the source of truth.
 - **Use optimistic concurrency**: Check expected version on append. This prevents lost updates when two commands modify the same aggregate concurrently.

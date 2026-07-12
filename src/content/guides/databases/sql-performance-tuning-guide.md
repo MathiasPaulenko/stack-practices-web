@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: sql-performance-tuning-guide
 title: "SQL Performance Tuning — Indexes, Queries, and Explain Plans"
@@ -15,9 +20,13 @@ tags:
   - performance
   - sql
 relatedResources:
-  - /guides/databases/database-design-guide
-  - /guides/performance/performance-optimization-guide
+  - /guides/database-design-guide
+  - /guides/performance-optimization-guide
   - /recipes/pagination
+  - /recipes/database-replication
+  - /recipes/database-views-materialized
+  - /recipes/optimistic-locking
+  - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - explain plan
     - slow query fix
     - sql anti-patterns
+
+
+
+
+
 ---
 
 # SQL Performance Tuning

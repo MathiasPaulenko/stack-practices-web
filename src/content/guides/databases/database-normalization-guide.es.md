@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: database-normalization-guide
 title: "Normalización de Bases de Datos — 1NF a 5NF Explicado"
@@ -23,8 +27,10 @@ relatedResources:
   - /guides/database-denormalization-guide
   - /guides/sql-joins-guide
   - /guides/indexing-strategies-guide
-  - /recipes/databases/database-migrations-safely
-  - /recipes/databases/use-orm-crud
+  - /recipes/database-migrations-safely
+  - /recipes/use-orm-crud
+  - /recipes/database-connection-pooling
+  - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -38,6 +44,10 @@ seo:
     - bases-datos-relacionales
     - diseno-base-datos
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -45,6 +55,9 @@ seo:
 La normalización de bases de datos es el proceso de organizar datos para minimizar la redundancia y eliminar anomalías durante operaciones de inserción, actualización y eliminación. Las formas normales — desde 1NF hasta 5NF — proporcionan reglas progresivas para estructurar bases de datos relacionales. Entender cuándo aplicar cada forma, y cuándo romperlas intencionalmente por rendimiento, separa a diseñadores competentes de expertos.
 
 ## When to Use
+
+
+- For alternatives, see [Composite Entity Pattern](/es/patterns/composite-entity-pattern/).
 
 - Diseñar esquemas relacionales desde cero
 - Refactorizar bases de datos legacy con datos duplicados

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-llm-eval-ragas-metrics
 title: "Evalua calidad RAG con metricas RAGAS"
@@ -14,9 +17,10 @@ tags:
   - llm metrics
   - testing
 relatedResources:
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-vector-database-pinecone
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-vector-database-pinecone
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-llm-streaming-responses
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +31,9 @@ seo:
     - llm metrics
     - faithfulness
     - context precision
+
+
+
 ---
 
 # Evalua calidad RAG con metricas RAGAS
@@ -34,6 +41,9 @@ seo:
 Los pipelines RAG son dificiles de evaluar — como sabes si el contexto recuperado fue relevante o si la respuesta esta fundamentada? RAGAS (Retrieval-Augmented Generation Assessment) proporciona metricas automatizadas usando un enfoque LLM-as-judge. A continuacion: evaluar un pipeline RAG con las cuatro metricas core de RAGAS: fidelidad, relevancia de respuesta, precision de contexto y recall de contexto.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/).
 
 - Evaluar calidad del pipeline RAG antes de desplegar a produccion
 - Comparar diferentes estrategias de chunking, modelos de embedding o LLMs

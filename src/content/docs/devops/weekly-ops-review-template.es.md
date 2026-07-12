@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: weekly-ops-review-template
 title: "Plantilla de Revisión Semanal de Operaciones"
@@ -22,6 +24,7 @@ relatedResources:
   - /docs/change-management-template
   - /docs/cloud-cost-allocation-template
   - /docs/downtime-communication-template
+  - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -35,12 +38,17 @@ seo:
     - cost
     - performance
     - template
+
+
 ---
 ## Visión General
 
 Las revisiones de operaciones son donde los equipos detectan tendencias antes de que se conviertan en incidentes. Una revisión semanal de incidentes, costos y rendimiento transforma alertas dispersas en patrones útiles. Sin estructura, las revisiones de operaciones se convierten en sesiones de quejas o actualizaciones de estado que nadie lee. Esta plantilla crea un formato repetible: qué pasó, qué costó, qué está en tendencia y qué vamos a hacer al respecto.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Performance Regression Template](/es/docs/performance-regression-template/).
 
 Usa este recurso cuando:
 - Tu equipo está reaccionando a incidentes pero nunca analiza patrones

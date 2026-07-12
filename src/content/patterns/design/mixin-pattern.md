@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: mixin-pattern
 title: "Mixin Pattern"
@@ -17,9 +21,11 @@ tags:
   - inheritance
   - javascript
 relatedResources:
-  - /patterns/design/module-pattern
-  - /patterns/design/facade-pattern
-  - /patterns/design/decorator-pattern
+  - /patterns/module-pattern
+  - /patterns/facade-pattern
+  - /patterns/decorator-pattern
+  - /patterns/entity-component-system-pattern
+  - /patterns/partial-class-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - composition
     - code reuse
     - structural pattern
+
+
+
+
 ---
 
 # Mixin Pattern
@@ -41,6 +51,9 @@ The Mixin Pattern adds reusable behavior to classes without using inheritance. A
 This pattern is especially popular in languages that support dynamic method composition, such as JavaScript, Python, and Ruby. It solves the diamond problem of multiple inheritance by favoring composition over deep class hierarchies.
 
 ## When to Use
+
+
+- For alternatives, see [Twin Pattern](/patterns/twin-pattern/).
 
 Use the Mixin Pattern when:
 - Multiple unrelated classes need to share the same behavior

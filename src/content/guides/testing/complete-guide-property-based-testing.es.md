@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-property-based-testing
 title: "Property-Based Testing: Hypothesis, fast-check, QuickCheck"
@@ -17,9 +21,11 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /guides/testing/test-driven-development-guide
-  - /guides/testing/testing-strategy-guide
-  - /guides/testing/complete-guide-pytest-production
+  - /guides/test-driven-development-guide
+  - /guides/testing-strategy-guide
+  - /guides/complete-guide-pytest-production
+  - /recipes/python-hypothesis-property-testing
+  - /recipes/implement-property-based-testing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -32,6 +38,10 @@ seo:
     - quickcheck
     - generative testing
     - test shrinking
+
+
+
+
 ---
 
 ## Introducción
@@ -542,6 +552,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Implement Property-Based Testing](/es/recipes/implement-property-based-testing/).
 
 - Empezá con properties simples — commutativity, associativity, identity
 - Usá roundtrip properties para serialization — encode then decode debería devolver original

@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: correlation-id-pattern
 title: "Correlation ID: Trace Requests Across Distributed Services"
@@ -30,6 +31,7 @@ seo:
     - microservices
     - logging
     - pattern
+
 ---
 
 ## Overview
@@ -444,6 +446,9 @@ class CorrelationIdServerInterceptor(grpc.ServerInterceptor):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Distributed Tracing](/recipes/distributed-tracing/).
 
 - Generate at the edge — create the correlation ID at the entry point (API gateway, load balancer)
 - Always propagate — never drop the correlation ID when calling downstream services

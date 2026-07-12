@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: kubernetes-advanced-guide
 title: "Kubernetes Advanced — Beyond the Basics"
@@ -21,6 +26,10 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/observability-guide
   - /guides/aws-basics-guide
+  - /guides/azure-basics-guide
+  - /guides/complete-guide-kubernetes-ingress
+  - /guides/gcp-basics-guide
+  - /guides/service-mesh-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -34,6 +43,11 @@ seo:
     - security-hardening
     - helm
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -41,6 +55,9 @@ seo:
 Kubernetes has become the standard platform for container orchestration, but understanding its advanced capabilities requires understanding its extensibility model, security model, and operational patterns. The following guide covers operators, custom resources, admission controllers, multi-cluster management, and hardening practices for production environments.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to GitOps with ArgoCD](/guides/complete-guide-gitops-argocd/).
 
 - You are running stateful workloads in Kubernetes
 - You need to enforce organizational policies on cluster resources

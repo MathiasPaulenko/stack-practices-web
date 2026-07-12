@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: pipes-and-filters-pattern
 title: "Patrón Pipes and Filters"
@@ -19,9 +24,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/chain-of-responsibility-pattern
-  - /patterns/design/observer-pattern
-  - /patterns/design/back-pressure-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/observer-pattern
+  - /patterns/back-pressure-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
+  - /patterns/marker-interface-pattern
+  - /guides/complete-guide-kafka-stream-processing
+  - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +44,11 @@ seo:
     - python pipeline
     - java pipeline
     - javascript pipeline
+
+
+
+
+
 ---
 
 # Patrón Pipes and Filters

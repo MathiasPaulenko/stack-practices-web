@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-celery-task-queue
 title: "Distribuir Tareas en Background con Python Celery y Redis"
@@ -16,10 +21,13 @@ tags:
   - task-queue
   - background-jobs
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/caching/database-query-result-caching
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/database-query-result-caching
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/rabbitmq-dead-letter-queue
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - celery beat scheduling
     - celery retry strategy
     - celery chord group chain
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 Celery es la cola de tareas distribuida mas popular de Python. Maneja jobs en background, tareas programadas y workflows complejos (chains, groups, chords) entre multiples workers. Con Redis como broker y result backend, la configuracion es minima. A continuacion: configurar Celery, definir tareas con estrategias de retry, componer workflows, programar con Celery Beat y monitorear con Flower.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Implement Redis Pub/Sub Messaging in Python](/es/recipes/redis-pub-sub-python/).
 
 - Procesamiento en background (envio de emails, generacion de reportes, conversion de archivos)
 - Tareas periodicas/programadas (reportes diarios, jobs de limpieza, sync de datos)

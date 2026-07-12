@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: web-performance
 title: "Web Performance Optimization"
@@ -19,6 +21,8 @@ relatedResources:
   - /docs/capacity-planning-template
   - /guides/system-design-interview-guide
   - /guides/sql-performance-tuning-guide
+  - /guides/complete-guide-bundle-size-optimization
+  - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - performance
     - frontend
     - core-web-vitals
+
+
 ---
 ## Overview
 

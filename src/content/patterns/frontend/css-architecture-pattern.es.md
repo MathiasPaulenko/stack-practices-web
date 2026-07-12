@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: css-architecture-pattern
 title: "Patrón CSS Architecture"
@@ -30,6 +31,7 @@ seo:
     - architecture
     - design-system
     - pattern
+
 ---
 
 ## Overview
@@ -510,6 +512,9 @@ function ProductCard({ product }) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Container-Presenter: Separate Data Logic from Rendering](/es/patterns/container-presenter-pattern/).
 
 - Usá `@layer` para cascade control — declará `@layer base, components, utilities` para que utilities siempre ganen
 - Mantené design tokens en `:root` — colors, spacing, fonts, shadows como CSS custom properties

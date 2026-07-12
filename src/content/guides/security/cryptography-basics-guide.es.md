@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: cryptography-basics-guide
 title: "Bases de Criptografía — Encriptación, Hashing y Firmas"
@@ -33,6 +34,7 @@ seo:
     - aes
     - rsa
     - guia
+
 ---
 
 ## Overview
@@ -40,6 +42,9 @@ seo:
 La criptografía es la base de la seguridad digital. Ya sea que estés almacenando contraseñas, transmitiendo datos por TLS o firmando solicitudes de API, estás usando criptografía. Entender las primitivas — encriptación, hashing y firmas — y cuándo usar cada una previene una clase de vulnerabilidades que ningún framework puede proteger. A continuación: los conceptos esenciales que todo desarrollador necesita sin requerir un título en matemáticas.
 
 ## When to Use
+
+
+- For alternatives, see [Encryption at Rest: AES-256, KMS, Envelope Encryption](/es/guides/complete-guide-encryption-at-rest/).
 
 - Necesitas proteger datos en reposo o en tránsito
 - Estás implementando autenticación o autorización

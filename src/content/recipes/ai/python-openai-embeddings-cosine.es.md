@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-openai-embeddings-cosine
 title: "Compara similitud semantica de texto con embeddings de"
@@ -14,9 +19,12 @@ tags:
   - cosine similarity
   - semantic search
 relatedResources:
-  - /recipes/ai/python-vector-database-pinecone
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-vector-database-pinecone
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-function-calling-structured
+  - /patterns/embedding-cache-pattern
+  - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,11 @@ seo:
     - semantic similarity
     - text embeddings python
     - embedding comparison
+
+
+
+
+
 ---
 
 # Compara similitud semantica de texto con embeddings de OpenAI y coseno
@@ -34,6 +47,9 @@ seo:
 Los embeddings de texto capturan significado semantico como vectores de alta dimension. La similitud coseno mide el angulo entre dos vectores, indicando que tan semanticamente similares son los textos. A continuacion: generar embeddings con OpenAI, calcular similitud coseno y construir un indice simple de busqueda por similitud.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Store and Query Embeddings in Pinecone Vector Database](/es/recipes/python-vector-database-pinecone/).
 
 - Busqueda semantica sobre un corpus de documentos
 - Desduplicacion de contenido semanticamente similar

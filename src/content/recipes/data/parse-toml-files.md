@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: parse-toml-files
 title: "Parse TOML Files"
@@ -15,11 +18,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-yaml-files
-  - /recipes/data/parse-json
-  - /recipes/data/validate-json-schema
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/parse-xml-files
+  - /recipes/parse-yaml-files
+  - /recipes/parse-json
+  - /recipes/validate-json-schema
+  - /recipes/serialize-deserialize-data
+  - /recipes/parse-xml-files
+  - /recipes/parse-command-line-arguments
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 
 ## Overview
@@ -38,6 +45,9 @@ seo:
 TOML (Tom's Obvious, Minimal Language) is a configuration file format designed to be more readable than JSON and simpler than YAML. It is the standard for Rust `Cargo.toml`, Python `pyproject.toml`, and many modern tools. Parsing TOML programmatically enables automated configuration management, environment-specific overrides, and tooling for package managers.
 
 ## When to Use
+
+
+- For alternatives, see [Parse YAML Files](/recipes/parse-yaml-files/).
 
 Use this resource when:
 - Reading `pyproject.toml`, `Cargo.toml`, or `config.toml` in build scripts or CI/CD pipelines

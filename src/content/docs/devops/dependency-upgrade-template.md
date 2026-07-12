@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: dependency-upgrade-template
 title: "Dependency Upgrade Runbook"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/bug-report-template
   - /docs/capacity-planning-template
   - /docs/changelog-template
+  - /docs/on-call-runbook-template
+  - /guides/event-driven-architecture-guide
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - upgrade
     - runbook
     - maintenance
+
+
+
 ---
 ## Overview
 
@@ -246,6 +254,9 @@ if (high.length > 0) {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [On-Call Runbook Template](/docs/on-call-runbook-template/).
 
 1. **Use `npm ci` instead of `npm install` in CI.** The `ci` command deletes `node_modules` and installs exactly from the lock file. It fails if lock file is out of sync with `package.json`, catching incomplete upgrades:
 

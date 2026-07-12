@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: distributed-lock-pattern
 title: "Distributed Lock Pattern"
@@ -19,9 +25,13 @@ tags:
   - coordination
   - consensus
 relatedResources:
-  - /patterns/design/saga-pattern
-  - /patterns/design/idempotent-consumer-pattern
+  - /patterns/saga-pattern
+  - /patterns/idempotent-consumer-pattern
   - /patterns/leader-election-pattern
+  - /patterns/lock-free-queue-pattern
+  - /recipes/redis-distributed-lock
+  - /patterns/sequential-convoy-pattern
+  - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - redis
     - zookeeper
     - coordination
+
+
+
+
+
+
 ---
 
 # Distributed Lock Pattern
@@ -44,6 +60,9 @@ The Distributed Lock Pattern coordinates mutually exclusive access to shared res
 Unlike a local mutex (which works within a single process), a distributed lock must function across network boundaries, process crashes, and clock skew. It requires a consensus mechanism or centralized store that all nodes can access atomically. Common implementations use Redis, ZooKeeper, etcd, Consul, or database advisory locks.
 
 ## When to Use
+
+
+- For alternatives, see [Priority Queue Pattern](/patterns/priority-queue-pattern/).
 
 Use the Distributed Lock Pattern when:
 - Multiple nodes may concurrently modify the same shared resource

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-serverless-databases
 title: "Complete Guide to Serverless Databases"
@@ -19,9 +24,12 @@ tags:
   - planetscale
   - scaling
 relatedResources:
-  - /guides/serverless/complete-guide-serverless-architecture
-  - /guides/serverless/complete-guide-aws-lambda-production
-  - /guides/caching/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-serverless-architecture
+  - /guides/complete-guide-aws-lambda-production
+  - /guides/complete-guide-redis-caching-strategies
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /guides/read-replica-guide
+  - /guides/complete-guide-database-sharding
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - serverless data storage
     - database scaling
     - serverless query patterns
+
+
+
+
+
 ---
 
 ## Introduction
@@ -309,6 +322,9 @@ Idle (0 ACU) → Request arrives → Scales to min ACU → Processes request
 - **Cost**: ~$0.12 per ACU-hour
 
 ### When to Use Aurora Serverless
+
+
+- For alternatives, see [Complete Guide to Database Sharding](/guides/complete-guide-database-sharding/).
 
 - You need relational features (JOINs, transactions, foreign keys)
 - Traffic is variable with idle periods

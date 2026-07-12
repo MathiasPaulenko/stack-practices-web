@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: nodejs-sentry-error-tracking
 title: "Error Tracking with Sentry in Express"
@@ -15,9 +17,9 @@ tags:
   - express
   - recipe
 relatedResources:
-  - /recipes/observability/nodejs-pino-fast-logging
-  - /recipes/observability/nodejs-winston-daily-rotate
-  - /recipes/observability/python-structured-logging-json
+  - /recipes/nodejs-pino-fast-logging
+  - /recipes/nodejs-winston-daily-rotate
+  - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - error-tracking
     - express
     - recipe
+
+
 ---
 
 ## Overview
@@ -307,6 +311,9 @@ function setSentryUser(user: UserContext): void {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Sentry: Error Tracking, Triage, and Resolution](/guides/complete-guide-sentry-error-tracking/).
 
 - Place `Sentry.Handlers.requestHandler()` before all other middleware — it needs to wrap the full request
 - Place `Sentry.Handlers.errorHandler()` after all routes — it catches errors that slip through

@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: server-side-rendering
 title: "Server-Side Rendering"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/email-templates-mjml
   - /recipes/websockets-realtime
   - /recipes/spa-code-splitting-lazy
+  - /guides/complete-guide-css-grid-and-flexbox
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - frontend
     - nextjs
     - astro
+
 ---
 ## Visión General
 

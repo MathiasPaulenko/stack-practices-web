@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-event-driven-systems
 title: "Complete Guide to Event-Driven Systems"
@@ -19,9 +24,12 @@ tags:
   - outbox-pattern
   - eventual-consistency
 relatedResources:
-  - /guides/messaging/complete-guide-kafka-production
-  - /guides/messaging/complete-guide-rabbitmq-architecture
-  - /patterns/design/circuit-breaker-pattern
+  - /guides/complete-guide-kafka-production
+  - /guides/complete-guide-rabbitmq-architecture
+  - /patterns/circuit-breaker-pattern
+  - /guides/message-queue-guide
+  - /recipes/kafka-spring-boot-stream-listener
+  - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - idempotency
     - eventual consistency
     - event driven production
+
+
+
+
+
 ---
 
 ## Introduction
@@ -689,3 +702,12 @@ Use choreography for simple sagas with 2-3 steps. It is simpler to implement and
 ### How do I handle event ordering?
 
 Within a single aggregate, events must be ordered. Use the aggregate ID as the partition key in Kafka to guarantee ordering within a partition. For cross-aggregate ordering, use a saga or orchestrator. Do not rely on global ordering across all events — it is expensive and usually unnecessary.
+
+## See Also
+
+- [Complete Guide to RabbitMQ Architecture](/guides/complete-guide-rabbitmq-architecture/)
+- [CQRS + Event Sourcing — Combined Guide](/guides/cqrs-event-sourcing-combined-guide/)
+- [Kafka Consumer Groups with Python for Scalable Streaming](/recipes/kafka-python-consumer-groups/)
+- [Implement Redis Pub/Sub Messaging in Python](/recipes/redis-pub-sub-python/)
+- [Implement Event Sourcing with CQRS in Python](/recipes/event-sourcing-cqrs-pattern/)
+

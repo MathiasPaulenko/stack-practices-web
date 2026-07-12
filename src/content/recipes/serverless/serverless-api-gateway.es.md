@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: serverless-api-gateway
 title: "Construir APIs Serverless con API Gateway"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/handle-errors
   - /recipes/rate-limiting
+  - /recipes/cold-start-optimization
+  - /recipes/event-driven-functions
+  - /recipes/real-time-websockets
+  - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,10 @@ seo:
     - faas
     - rest api serverless
     - lambda function
+
+
+
+
 ---
 
 ## Visión general

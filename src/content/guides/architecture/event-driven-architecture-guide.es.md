@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: event-driven-architecture-guide
 title: "Arquitectura Orientada a Eventos — Colas, Tópicos y Streams"
@@ -16,9 +21,13 @@ tags:
   - guia
   - saga
 relatedResources:
-  - /guides/architecture/microservices-architecture-guide
-  - /guides/architecture/domain-driven-design-guide
-  - /guides/devops/docker-for-developers-guide
+  - /guides/microservices-architecture-guide
+  - /guides/domain-driven-design-guide
+  - /guides/docker-for-developers-guide
+  - /docs/dependency-upgrade-template
+  - /patterns/external-configuration-store-pattern
+  - /guides/complete-guide-kafka-stream-processing
+  - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - patron saga
     - event sourcing
     - comunicacion asincrona
+
+
+
+
+
 ---
 
 # Arquitectura Orientada a Eventos

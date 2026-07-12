@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: docker-compose-local-dev
 title: "Desarrollo Local de Microservicios con Docker Compose"
@@ -16,8 +21,12 @@ tags:
   - automation
 relatedResources:
   - /recipes/nginx-reverse-proxy
-  - /patterns/design/ambassador-pattern-services
-  - /recipes/databases/redis-cache-patterns
+  - /patterns/ambassador-pattern-services
+  - /recipes/redis-cache-patterns
+  - /recipes/immutable-infrastructure
+  - /recipes/helm-chart-deployment
+  - /recipes/cost-optimization
+  - /recipes/kafka-event-streaming
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - microservices
     - container orchestration
     - dev environment
+
+
+
+
+
 ---
 
 # Desarrollo Local de Microservicios con Docker Compose

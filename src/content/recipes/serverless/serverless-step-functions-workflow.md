@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: serverless-step-functions-workflow
 title: "Orchestrate Serverless Workflows with AWS Step Functions"
@@ -16,10 +21,13 @@ tags:
   - workflow
   - orchestration
 relatedResources:
-  - /recipes/serverless/serverless-event-driven-sqs-lambda
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/serverless-event-driven-sqs-lambda
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-graphql-federation
+  - /recipes/aws-lambda-cold-start-optimization
+  - /recipes/aws-lambda-python-dependencies
+  - /guides/complete-guide-serverless-architecture
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - serverless orchestration
     - step functions lambda
     - aws state machine
+
+
+
+
+
 ---
 
 ## Overview
@@ -464,6 +477,9 @@ OrderWorkflow:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Serverless Architecture](/guides/complete-guide-serverless-architecture/).
 
 - **Use Express for high-throughput, short workflows**: Express workflows are cheaper and faster for event-driven processing under 5 minutes.
 - **Use Standard for long-running workflows**: Standard workflows persist state for up to 1 year and support at-least-once execution.

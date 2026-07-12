@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-api-versioning-strategies
 title: "Referencia Detallada de Estrategias de Versionado de APIs"
@@ -18,9 +24,13 @@ tags:
   - guide
   - api-design
 relatedResources:
-  - /guides/api/rest-api-design-guide
-  - /guides/architecture/graphql-vs-rest-guide
-  - /patterns/architecture/gateway-routing-pattern
+  - /guides/rest-api-design-guide
+  - /guides/graphql-vs-rest-guide
+  - /patterns/gateway-routing-pattern
+  - /docs/api-changelog-template
+  - /docs/api-error-handling-guideline
+  - /recipes/java-spring-cache-annotations
+  - /recipes/nodejs-redis-cache-invalidation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - content negotiation
     - api deprecation
     - backward compatibility
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de Estrategias de Versionado de APIs
@@ -321,3 +337,12 @@ No, GraphQL está diseñado para evolución de schema. Añadir campos, deprecar 
 ### ¿Por cuánto tiempo debo soportar versiones viejas?
 
 Mínimo 6 meses para APIs internas y 12-24 meses para APIs públicas. Usar el header `Sunset` para comunicar la fecha de remoción. Monitorear usage — no remover una versión mientras tenga tráfico significativo.
+
+## See Also
+
+- [Complete Guide to GraphQL Schema Design](/es/guides/complete-guide-graphql-schema-design/)
+- [GraphQL vs REST — When to Choose and How to Migrate](/es/guides/graphql-vs-rest-guide/)
+- [GraphQL Federation in Production](/es/guides/complete-guide-graphql-federation-production/)
+- [Complete Guide to GraphQL Federation](/es/guides/complete-guide-graphql-federation/)
+- [Complete Guide to Microservices Communication](/es/guides/complete-guide-microservices-communication/)
+

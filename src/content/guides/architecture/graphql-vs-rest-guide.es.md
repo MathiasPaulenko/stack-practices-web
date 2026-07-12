@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: graphql-vs-rest-guide
 title: "GraphQL vs REST — Cuándo Elegir y Cómo Migrar"
@@ -23,6 +26,8 @@ relatedResources:
   - /docs/api-performance-budget-template
   - /guides/system-design-interview-guide
   - /docs/api-lifecycle-management-template
+  - /docs/api-error-handling-guideline
+  - /docs/api-rate-limiting-policy-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -36,12 +41,18 @@ seo:
     - caching
     - rendimiento
     - guia
+
+
+
 ---
 ## Visión General
 
 REST ha sido el estándar de facto para APIs web durante más de una década. GraphQL, desarrollado por Facebook en 2012, ofrece un enfoque diferente: en lugar de múltiples endpoints fijos, el cliente solicita exactamente los datos que necesita en una sola consulta. La elección entre ambos no es dogmática — depende de tus clientes, tu equipo, y las restricciones de rendimiento. Esta guía compara casos de uso, trade-offs, caching, herramientas y estrategias de migración.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to API Versioning Strategies](/es/guides/complete-guide-api-versioning-strategies/).
 
 Usa esta guía cuando:
 - Estás diseñando una nueva API y debes elegir entre GraphQL y REST

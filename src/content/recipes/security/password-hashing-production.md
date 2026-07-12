@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: password-hashing-production
 title: "Password Hashing in Production"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/websocket-authentication
   - /recipes/csrf-protection
   - /recipes/oauth2-pkce-spa
+  - /recipes/hmac-request-signing
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - security
     - authentication
     - nodejs
+
 ---
 ## Overview
 

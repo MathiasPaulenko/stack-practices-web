@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: serverless-throttling-pattern
 title: "Patron Serverless Throttling"
@@ -19,9 +23,11 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-fanout-pattern
-  - /patterns/design/serverless-function-composition-pattern
-  - /patterns/messaging/priority-queue-pattern
+  - /patterns/serverless-fanout-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +39,10 @@ seo:
     - lambda concurrency limits
     - token bucket serverless
     - serverless rate control
+
+
+
+
 ---
 
 # Patron Serverless Throttling
@@ -44,6 +54,9 @@ Las funciones serverless escalan automaticamente, pero los servicios downstream 
 Tres enfoques principales: SQS con procesamiento controlado por lotes, limites de concurrencia reservada, y rate limiting con token bucket. Cada uno controla el throughput a un nivel diferente: throttling basado en cola suaviza el trafico en el tiempo, la concurrencia reservada limita las ejecuciones paralelas, y los token buckets imponen una tasa de peticiones precisa.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Serverless Fanout Pattern](/es/patterns/serverless-fanout-pattern/).
 
 - Lambda bursts sobrecargan bases de datos o APIs downstream con limites de conexiones
 - Necesitas mantener una tasa de peticiones especifica a una API de terceros con rate limits

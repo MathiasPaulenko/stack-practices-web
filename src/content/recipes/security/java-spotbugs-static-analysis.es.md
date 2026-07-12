@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: java-spotbugs-static-analysis
 title: "Detectar Bugs en Java con SpotBugs Static Analysis"
@@ -15,9 +19,11 @@ tags:
   - code-quality
   - recipe
 relatedResources:
-  - /recipes/security/python-bandit-static-analysis
-  - /recipes/security/typescript-eslint-strict-config
-  - /recipes/devops/github-actions-reusable-workflows
+  - /recipes/python-bandit-static-analysis
+  - /recipes/typescript-eslint-strict-config
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/nodejs-eslint-security-plugin
+  - /recipes/python-mypy-strict-type-checking
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - static-analysis
     - code-quality
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -493,6 +503,9 @@ mvn spotbugs:check -Dspotbugs.baseline=spotbugs-baseline.xml
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Enforce Security Rules in Node.js with](/es/recipes/nodejs-eslint-security-plugin/).
 
 - Usá `effort=Max` para análisis exhaustivo — más lento pero encuentra más issues
 - Empezá con `threshold=Medium` — High es demasiado strict para la mayoría de proyectos, Low es demasiado ruidoso

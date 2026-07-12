@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: geode-pattern
 title: "Geode Pattern"
@@ -17,9 +22,12 @@ tags:
   - horizontal-scaling
   - distributed-systems
 relatedResources:
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/graceful-degradation-pattern
-  - /patterns/design/shed-load-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/graceful-degradation-pattern
+  - /patterns/shed-load-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/sharding-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - horizontal scaling
     - distributed systems
     - fault isolation
+
+
+
+
+
 ---
 
 # Geode Pattern
@@ -45,6 +58,9 @@ The name comes from geodes: rocks that look ordinary on the outside but contain 
 This pattern solves the shared-state bottleneck. When all nodes read and write to the same database, that database becomes the scalability ceiling. By partitioning data, each node handles only its fraction of the load. Adding more nodes adds more capacity linearly.
 
 ## When to Use
+
+
+- For alternatives, see [Sharding Pattern](/patterns/sharding-pattern/).
 
 Use the Geode Pattern when:
 - A shared database or cache is the scalability bottleneck

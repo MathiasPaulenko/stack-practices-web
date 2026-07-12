@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: onboarding-checklist-backend-engineer
 title: "Checklist de Onboarding para Ingenieros Backend"
@@ -16,10 +18,10 @@ tags:
   - team-process
   - engineering
 relatedResources:
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/git-branching-strategy-document
-  - /docs/devops/code-review-checklist-template
-  - /docs/devops/service-ownership-document-template
+  - /docs/engineering-handbook-template
+  - /docs/git-branching-strategy-document
+  - /docs/code-review-checklist-template
+  - /docs/service-ownership-document-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +32,8 @@ seo:
     - nueva contratacion ingenieria
     - plantilla onboarding
     - primera semana ingeniero
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 Un onboarding desestructurado desperdicia el primer mes de contribucion de un nuevo ingeniero. Sin una checklist, los nuevos contratados pierden dias descubriendo que repositorios clonar, que canales de Slack importan, y como desplegar su primer cambio. Esta checklist estructura las primeras dos semanas para que los nuevos ingenieros backend se conviertan rapidamente en contribuyentes productivos mientras absorben la cultura del equipo y los estandares tecnicos.
 
 ## When to Use
+
+
+- For alternatives, see [Event-Driven Architecture — Queues, Topics, and Streams](/es/guides/event-driven-architecture-guide/).
 
 Usa esta checklist cuando:
 - Un nuevo ingeniero backend se une a tu equipo

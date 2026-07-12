@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: acid-vs-base-guide
 title: "ACID vs BASE — Modelos de Consistencia Explicados"
@@ -22,7 +24,7 @@ relatedResources:
   - /guides/database-replication-guide
   - /guides/nosql-patterns-guide
   - /guides/cqrs-guide
-  - /patterns/design/distributed-lock-pattern
+  - /patterns/distributed-lock-pattern
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -35,6 +37,8 @@ seo:
     - sistemas-distribuidos
     - consistencia-eventual
     - guia
+
+
 ---
 
 ## Overview
@@ -300,3 +304,11 @@ Cassandra y DynamoDB permiten ajustar consistencia por operacion. ONE: lee un no
 
 
 End of document. Review and update quarterly.
+
+## See Also
+
+- [CQRS + Event Sourcing — Combined Guide](/es/guides/cqrs-event-sourcing-combined-guide/)
+- [CAP Theorem and Database Trade-offs](/es/guides/cap-theorem-guide/)
+- [Complete Guide to RAG in Production](/es/guides/complete-guide-rag-production/)
+- [Complete Guide to Vector Databases](/es/guides/complete-guide-vector-databases/)
+- [Data Lake vs Data Warehouse — Architecture Guide](/es/guides/data-lake-guide/)

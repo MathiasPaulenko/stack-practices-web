@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-web-security-headers
 title: "Referencia Detallada de Web Security Headers"
@@ -18,9 +22,11 @@ tags:
   - guide
   - security
 relatedResources:
-  - /guides/security/owasp-top-10-guide
-  - /guides/frontend/web-components-guide
-  - /guides/security/secrets-management-guide
+  - /guides/owasp-top-10-guide
+  - /guides/web-components-guide
+  - /guides/secrets-management-guide
+  - /guides/complete-guide-content-security-policy
+  - /guides/complete-guide-cors-security
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +40,10 @@ seo:
     - cors
     - referrer policy
     - permissions policy
+
+
+
+
 ---
 
 # Referencia Detallada de Web Security Headers
@@ -368,3 +378,12 @@ Chequear la console del browser — las CSP violations se loguean con la URL blo
 ### ¿Debo usar `strict-dynamic` en CSP?
 
 `strict-dynamic` permite que scripts cargados por scripts de confianza (nonces o hashes) carguen otros scripts. Esto reduce la necesidad de mantener una whitelist de script URLs. Es recomendado para aplicaciones con dynamic script loading, pero requiere soporte de CSP Level 3 (Chrome 52+, Firefox 52+, Safari 15.4+).
+
+## See Also
+
+- [Content Security Policy: CSP Headers, Nonces, Hashes](/es/guides/complete-guide-content-security-policy/)
+- [CORS Security: Origins, Headers, Preflight, Credentials](/es/guides/complete-guide-cors-security/)
+- [OWASP Top 10: Explained with Mitigations](/es/guides/owasp-top-10-guide/)
+- [Complete Guide to API Security](/es/guides/complete-guide-api-security/)
+- [Complete Guide to GraphQL Security](/es/guides/complete-guide-graphql-security/)
+

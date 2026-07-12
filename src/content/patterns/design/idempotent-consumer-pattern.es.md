@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: idempotent-consumer-pattern
 title: "Patron de Consumidor Idempotente"
@@ -19,9 +23,11 @@ tags:
   - idempotencia
   - event-driven
 relatedResources:
-  - /patterns/design/event-sourcing-pattern
-  - /patterns/design/saga-pattern
-  - /patterns/design/distributed-lock-pattern
+  - /patterns/event-sourcing-pattern
+  - /patterns/saga-pattern
+  - /patterns/distributed-lock-pattern
+  - /patterns/compensating-transaction-pattern
+  - /patterns/sequential-convoy-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - deduplicacion
     - idempotencia
     - event driven
+
+
+
+
 ---
 
 # Patron de Consumidor Idempotente
@@ -46,6 +56,9 @@ El Patron de Consumidor Idempotente garantiza que los mensajes de una cola o flu
 La idempotencia se logra rastreando mensajes procesados mediante identificadores unicos, realizando upserts en lugar de inserts, o usando actualizaciones condicionales seguras para repetir. Este patron es esencial en sistemas distribuidos donde brokers como Kafka, RabbitMQ, SQS o Azure Service Bus solo garantizan entrega al-menos-una-vez.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Inbox Pattern](/es/patterns/inbox-pattern/).
 
 - Consumir mensajes de una cola o flujo de eventos donde los duplicados son posibles
 - Procesamiento de pagos, cumplimiento de pedidos o actualizaciones de inventario donde duplicados causarian cobros extra, envios dobles o inconsistencias de stock

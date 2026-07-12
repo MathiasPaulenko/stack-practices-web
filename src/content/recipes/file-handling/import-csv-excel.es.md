@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: import-csv-excel
 title: "Importar Datos desde CSV/Excel"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/generate-pdfs
   - /recipes/image-optimization
   - /recipes/input-validation
+  - /recipes/stream-processing
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,7 @@ seo:
     - apache poi importar excel
     - validacion datos importados
     - batch insert base datos
+
 ---
 ## Visión General
 

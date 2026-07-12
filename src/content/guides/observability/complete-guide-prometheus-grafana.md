@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-prometheus-grafana
 title: "Prometheus and Grafana: Metrics, Dashboards, Alerting"
@@ -16,8 +21,11 @@ tags:
   - alerting
   - observability
 relatedResources:
-  - /guides/observability/complete-guide-distributed-tracing
-  - /guides/observability/complete-guide-structured-logging
+  - /guides/complete-guide-distributed-tracing
+  - /guides/complete-guide-structured-logging
+  - /patterns/circuit-breaker-with-monitoring-pattern
+  - /guides/complete-guide-sentry-error-tracking
+  - /recipes/real-user-monitoring
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +39,11 @@ seo:
     - alerting rules
     - observability
     - dashboards
+
+
+
+
+
 ---
 
 ## Introduction
@@ -571,6 +584,9 @@ receivers:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - Use Histograms over Summaries — Histograms allow server-side aggregation across instances
 - Use consistent naming — `unit_suffix` convention: `_seconds`, `_bytes`, `_total`

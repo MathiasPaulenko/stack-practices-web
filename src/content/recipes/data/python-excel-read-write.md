@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: python-excel-read-write
 title: "Read and Write Excel Files with Python"
@@ -31,12 +32,16 @@ seo:
     - pandas
     - data-processing
     - spreadsheets
+
 ---
 ## Overview
 
 Excel files (.xlsx) are everywhere in business. Python can read, write, and format them programmatically using openpyxl (cell-level control) and pandas (data-frame operations). Here is how to both approaches for common tasks like reading sheets, writing data, applying formatting, and handling multi-sheet workbooks.
 
 ## When to Use
+
+
+- For alternatives, see [Parse CSV Files with Python and Pandas](/recipes/parse-csv-python-pandas/).
 
 - You need to read data from Excel files exported by business tools
 - You are generating Excel reports from a database or API

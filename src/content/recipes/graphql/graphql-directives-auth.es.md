@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: graphql-directives-auth
 title: "Auth a nivel campo con directivas personalizadas de GraphQL"
@@ -16,9 +22,13 @@ tags:
   - authentication
   - security
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-error-handling-best-practices
-  - /recipes/authentication/jwt-authentication
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/jwt-authentication
+  - /recipes/serverless-api-gateway-lambda-authorizer
+  - /recipes/graphql-input-validation
+  - /guides/complete-guide-graphql-security
+  - /guides/complete-guide-authentication-patterns
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +39,12 @@ seo:
     - graphql authorization
     - schema directives
     - graphql permissions
+
+
+
+
+
+
 ---
 
 # Auth a nivel campo con directivas personalizadas de GraphQL
@@ -36,6 +52,9 @@ seo:
 Los resolvers de GraphQL a menudo necesitan reglas de autorizacion diferentes para diferentes campos — un usuario puede leer su propio email pero no el de otro, un admin puede ver todos los campos, y un campo publico no requiere auth. Las directivas personalizadas de schema te permiten declarar estas reglas en el propio schema con `@auth` o `@requiresRole(role: "admin")`, manteniendo la logica de autorizacion fuera de los resolvers individuales.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to GraphQL Security](/es/guides/complete-guide-graphql-security/).
 
 - Campos dentro del mismo tipo tienen diferentes niveles de acceso
 - Quieres reglas de autorizacion visibles en el schema, no ocultas en el codigo del resolver

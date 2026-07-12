@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: csharp-async-await-task-run
 title: "Build Async Pipelines with C# async/await and Task.Run"
@@ -16,9 +21,12 @@ tags:
   - task
   - concurrency
 relatedResources:
-  - /recipes/concurrency/java-completable-future-composition
-  - /recipes/concurrency/python-asyncio-gather-task-groups
+  - /recipes/java-completable-future-composition
+  - /recipes/python-asyncio-gather-task-groups
   - /guides/concurrency-patterns-guide
+  - /recipes/java-virtual-threads-project-loom
+  - /recipes/rust-tokio-async-runtime
+  - /recipes/go-goroutines-channels-patterns
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - c# task.whenall
     - c# cancellation token
     - c# channels concurrency
+
+
+
+
+
 ---
 
 ## Overview
@@ -454,6 +467,9 @@ var config = await lazyConfig.Value; // Loads once, caches result
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Concurrent Patterns with Go Goroutines and Channels](/recipes/go-goroutines-channels-patterns/).
 
 - **Use `async`/`await` over `.Result` and `.Wait()`**: Blocking on async code can cause deadlocks, especially in applications with a synchronization context (ASP.NET classic, WPF, WinForms).
 - **Use `ConfigureAwait(false)` in library code**: Prevents capturing the synchronization context, improving performance and avoiding deadlocks.

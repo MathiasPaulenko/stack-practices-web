@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: serialize-deserialize-data
 title: "Serialize and Deserialize Data"
@@ -16,11 +20,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-json
-  - /recipes/data/parse-xml-files
-  - /recipes/data/parse-yaml-files
-  - /recipes/data/validate-json-schema
-  - /recipes/data/convert-json-to-csv
+  - /recipes/parse-json
+  - /recipes/parse-xml-files
+  - /recipes/parse-yaml-files
+  - /recipes/validate-json-schema
+  - /recipes/convert-json-to-csv
+  - /recipes/convert-csv-to-json
+  - /recipes/diff-json-objects
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
 ---
 
 ## Overview
@@ -285,6 +295,9 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - **jsondiffpatch**: JavaScript library for deep diffing and patching JSON objects. Supports arrays, nested objects, and reverse patches. Useful for audit logs and collaborative editing
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Convert CSV to JSON](/recipes/convert-csv-to-json/).
 
 - Validate at system boundaries (API entry, file import, message consumption). Trust internal data
 - Use strict validation for user input, lenient validation for internal data pipelines

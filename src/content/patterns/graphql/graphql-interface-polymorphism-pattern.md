@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: graphql-interface-polymorphism-pattern
 title: "GraphQL Interface Polymorphism Pattern"
@@ -21,6 +24,8 @@ relatedResources:
   - /patterns/graphql-error-extension-pattern
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-schema-design
+  - /guides/complete-guide-graphql-security
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +36,9 @@ seo:
     - graphql-interfaces
     - type-system
     - schema-design
+
+
+
 ---
 
 ## Overview
@@ -329,6 +337,9 @@ type Query {
 Clients query with inline fragments on the union, but both members share the `SearchResult` interface fields.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Schema Design](/guides/complete-guide-graphql-schema-design/).
 
 - Keep interfaces focused on one concern (separation of `Node`, `Timestamped`, `Ownable` instead of one fat interface)
 - Use `__resolveType` with a reliable discriminator field — avoid guessing from data shape

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: rate-limiting-security
 title: "Implement Rate Limiting for APIs and Web Applications"
@@ -17,6 +19,8 @@ relatedResources:
   - /recipes/api-security-headers
   - /recipes/csrf-protection
   - /recipes/api-contract-testing
+  - /guides/api-security-checklist-guide
+  - /guides/complete-guide-api-security
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +31,8 @@ seo:
     - token bucket
     - sliding window
     - redis rate limit
+
+
 ---
 
 ## Overview

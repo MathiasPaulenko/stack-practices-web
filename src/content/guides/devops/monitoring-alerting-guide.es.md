@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: monitoring-alerting-guide
 title: "Monitoreo y Alertas — Métricas, Logs y Dashboards"
@@ -17,9 +21,12 @@ tags:
   - observabilidad
   - traces
 relatedResources:
-  - /guides/devops/on-call-incident-response-guide
-  - /guides/devops/docker-for-developers-guide
-  - /guides/devops/cicd-pipeline-guide
+  - /guides/on-call-incident-response-guide
+  - /guides/docker-for-developers-guide
+  - /guides/cicd-pipeline-guide
+  - /docs/disaster-recovery-plan-template
+  - /docs/post-deployment-checklist-template
+  - /docs/slo-document-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +37,10 @@ seo:
     - metodo red use
     - diseno alertas lo que funciona
     - reducir fatiga alertas
+
+
+
+
 ---
 
 # Monitoreo y Alertas — Métricas, Logs y Dashboards

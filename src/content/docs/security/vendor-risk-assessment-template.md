@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: vendor-risk-assessment-template
 title: "Vendor Risk Assessment Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/security-audit-checklist-template
   - /docs/dependency-audit-template
+  - /docs/penetration-test-remediation-template
+  - /docs/data-classification-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - assessment
     - compliance
     - template
+
+
+
 ---
 ## Overview
 
 Third-party vendors process your data, integrate with your APIs, and often have privileged access to your systems. A vendor breach becomes your breach. Most security questionnaires are ignored after onboarding. This template structures a repeatable risk assessment that evaluates vendors before contract signing, during annual reviews, and after any security incident involving the vendor.
 
 ## When to Use
+
+
+- For alternatives, see [Penetration Test Remediation Template](/docs/penetration-test-remediation-template/).
 
 Use this resource when:
 - Onboarding a new SaaS provider, cloud vendor, or outsourced development team

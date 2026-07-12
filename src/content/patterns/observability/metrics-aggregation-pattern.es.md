@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: metrics-aggregation-pattern
 title: "Patrón Metrics Aggregation"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/structured-logging-pattern
   - /patterns/distributed-tracing-pattern
   - /patterns/health-check-pattern
+  - /patterns/circuit-breaker-with-monitoring-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - opentelemetry
     - dashboards
     - pattern
+
+
 ---
 
 ## Overview
@@ -532,6 +537,9 @@ trackFunnel(userId, 'purchase');
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Observability — Metrics, Logs, and Traces Complete Guide](/es/guides/observability-guide/).
 
 - Usá el right metric type — counters para totals, gauges para current state, histograms para distributions
 - Taggeá con dimensions — endpoint, method, status, region. Los tags enable slicing y dicing en queries.

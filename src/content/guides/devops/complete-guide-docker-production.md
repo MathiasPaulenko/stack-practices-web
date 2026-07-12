@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-docker-production
 title: "Complete Guide to Docker in Production"
@@ -19,9 +23,11 @@ tags:
   - health-checks
   - image-scanning
 relatedResources:
-  - /guides/devops/complete-guide-kubernetes-networking
-  - /guides/devops/complete-guide-monitoring-and-alerting
-  - /guides/security/complete-guide-supply-chain-security
+  - /guides/complete-guide-kubernetes-networking
+  - /guides/complete-guide-monitoring-and-alerting
+  - /guides/complete-guide-supply-chain-security
+  - /recipes/container-security
+  - /guides/complete-guide-terraform-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +41,10 @@ seo:
     - container security
     - docker resource limits
     - multi-arch builds
+
+
+
+
 ---
 
 ## Introduction
@@ -668,3 +678,12 @@ Use Debian-slim or distroless for production. Alpine uses musl libc instead of g
 ### How do I reduce Docker image size?
 
 Use multi-stage builds to exclude build tools from the final image. Use distroless or slim base images. Remove cache files: `pip install --no-cache-dir`, `npm ci` (not `npm install`). Combine RUN commands to reduce layers. Use `.dockerignore` to exclude test files, documentation, and build artifacts. Squash layers with `docker build --squash` (experimental) or use multi-stage builds. Scan with `dive` to analyze layer sizes.
+
+## See Also
+
+- [CI/CD Security: Harden Your Pipelines and Prevent Supply](/guides/ci-cd-security-guide/)
+- [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/guides/disaster-recovery-guide/)
+- [Complete Guide to Secrets Management](/guides/complete-guide-secrets-management/)
+- [Complete Guide to Supply Chain Security](/guides/complete-guide-supply-chain-security/)
+- [Secrets Management: Vault, Cloud Managers](/guides/secrets-management-guide/)
+

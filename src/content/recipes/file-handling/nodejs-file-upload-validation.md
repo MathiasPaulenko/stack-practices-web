@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: nodejs-file-upload-validation
 title: "Node.js File Upload Validation: Type, Size, and Content"
@@ -19,8 +22,8 @@ relatedResources:
   - /recipes/file-upload-validation
   - /recipes/javascript-drag-drop-file-upload
   - /docs/endpoint-security-checklist-template
-  - /guides/graphql-error-handling-best-practices
-  - /patterns/file-upload-validation
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/file-upload-validation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +35,9 @@ seo:
     - file size limit
     - mime type validation
     - express file upload
+
+
+
 ---
 
 ## Overview
@@ -39,6 +45,9 @@ seo:
 File uploads are a common attack vector in web applications. Without proper validation, attackers can upload malicious files, overwrite system files, or execute arbitrary code. This approach handles validating file type, size, extension, and content using multer in Node.js Express applications.
 
 ## When to Use
+
+
+- For alternatives, see [Configure Firewall Rules with iptables](/recipes/bash-iptables-firewall-rules/).
 
 - You are building an API that accepts file uploads from users
 - You need to restrict uploads to specific file types (images, documents)

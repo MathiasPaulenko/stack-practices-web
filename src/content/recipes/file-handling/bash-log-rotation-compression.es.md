@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-log-rotation-compression
 title: "Rotación y Compresión de Logs"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/bash-backup-rotation-script
   - /recipes/bash-loop-over-files
   - /recipes/bash-parallel-execution
+  - /recipes/bash-aws-cli-automation
+  - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - rotación
     - compresión
     - gzip
+
+
+
 ---
 ## Visión General
 
@@ -313,6 +321,9 @@ for i in range(10000):
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Compress and Decompress Files](/es/recipes/compress-decompress-files/).
 
 1. **Usa `dateext` con logrotate para evitar rotaciones numeradas.** Las rotaciones numeradas (`.1`, `.2`, `.3`) cambian en cada rotación, dificultando saber qué archivo corresponde a qué fecha. `dateext` añade la fecha en su lugar:
 

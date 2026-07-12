@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: serverless-warm-pool-pattern
 title: "Patron Serverless Warm Pool"
@@ -19,9 +22,10 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-throttling-pattern
-  - /patterns/design/serverless-function-composition-pattern
-  - /recipes/serverless/aws-lambda-cold-start-optimization
+  - /patterns/serverless-throttling-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /recipes/aws-lambda-cold-start-optimization
+  - /patterns/serverless-db-connection-pooling-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - eventbridge scheduler
     - provisioned concurrency
     - lambda ping keep warm
+
+
+
 ---
 
 # Patron Serverless Warm Pool
@@ -46,6 +53,9 @@ El patron warm pool envia eventos ping periodicos para mantener los entornos de 
 AWS tambien ofrece provisioned concurrency, que mantiene un numero pre-definido de entornos calientes. El patron warm pool es una alternativa mas ligera: usa pings programados en lugar de pagar por instancias siempre calientes.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Serverless Event Sourcing Pattern](/es/patterns/serverless-event-sourcing-pattern/).
 
 - APIs sensibles a latencia donde el cold start degrada la experiencia del usuario
 - Funciones con inicializacion pesada (dependencias grandes, pools de conexiones a DB)

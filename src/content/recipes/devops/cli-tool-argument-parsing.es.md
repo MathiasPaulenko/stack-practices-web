@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: cli-tool-argument-parsing
 title: "Herramienta CLI con Parseo de Argumentos"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/health-check-endpoint
   - /recipes/cron-jobs
   - /patterns/abstract-factory-pattern
+  - /recipes/feature-flags
+  - /recipes/generate-sitemaps
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - picocli java tutorial
     - subcomandos cli herramientas
     - argument parsing best practices
+
+
 ---
 ## Visión General
 

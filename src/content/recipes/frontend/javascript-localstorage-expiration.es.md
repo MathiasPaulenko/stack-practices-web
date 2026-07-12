@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: javascript-localstorage-expiration
 title: "LocalStorage con Expiración TTL en JavaScript"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/javascript-infinite-scroll-pagination
   - /guides/terraform-best-practices-guide
   - /patterns/cache-aside-pattern
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-service-worker-offline
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - browser storage caching
     - localstorage wrapper
     - javascript cache expiry
+
+
+
 ---
 
 ## Visión General
@@ -38,6 +46,9 @@ seo:
 `localStorage` almacena datos permanentemente sin expiración incorporada. Esta recipe envuelve localStorage con soporte TTL (time-to-live) para que las entradas auto-expiren tras una duración establecida. Cubre set/get con expiración, limpieza automática, serialización JSON y manejo de límites de cuota.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [JavaScript Clipboard Copy and Paste](/es/recipes/javascript-clipboard-copy-paste/).
 
 - Necesitas caché del lado del cliente con expiración automática (ej., respuestas de API)
 - Quieres almacenar preferencias de usuario que se resetean tras un período

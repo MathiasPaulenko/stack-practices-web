@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: nodejs-supertest-express-api
 title: "Testear APIs Express con supertest"
@@ -16,9 +18,9 @@ tags:
   - integration
   - recipe
 relatedResources:
-  - /recipes/testing/javascript-vitest-snapshot-testing
-  - /recipes/testing/javascript-msw-mock-service-worker
-  - /recipes/testing/integration-testing
+  - /recipes/javascript-vitest-snapshot-testing
+  - /recipes/javascript-msw-mock-service-worker
+  - /recipes/integration-testing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - api
     - integration
     - recipe
+
+
 ---
 
 ## Overview
@@ -299,6 +303,9 @@ it("uploads a file", async () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Java Testcontainers Integration Tests](/es/recipes/java-testcontainers-integration/).
 
 - Exporta el objeto `app` de Express desde tu archivo de servidor — impórtalo en tests sin arrancar el servidor
 - Usa `request.agent(app)` para persistir cookies a través de múltiples peticiones en un test

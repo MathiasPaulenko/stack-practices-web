@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: implement-sso-saml
 title: "Implementar SSO con SAML"
@@ -16,9 +19,10 @@ tags:
   - xml-signature
   - recipe
 relatedResources:
-  - /recipes/authentication/implement-rbac
-  - /recipes/authentication/implement-abac
-  - /guides/security/secrets-management-guide
+  - /recipes/implement-rbac
+  - /recipes/implement-abac
+  - /guides/secrets-management-guide
+  - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - security
     - xml-signature
     - recipe
+
+
+
 ---
 
 ## Descripción General
@@ -38,6 +45,9 @@ seo:
 SAML 2.0 es el protocolo dominante de single sign-on enterprise. Permite a una organización autenticar usuarios en un Identity Provider (IdP) centralizado — Okta, Azure AD, Keycloak o ADFS — y luego afirmar su identidad a Service Providers (SPs) downstream mediante documentos XML firmados. Implementar SAML correctamente requiere manejar parsing de XML de forma segura, validar firmas, gestionar intercambio de metadatos y prevenir ataques de replay.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Authentication Patterns](/es/guides/complete-guide-authentication-patterns/).
 
 - Tu aplicación sirve clientes enterprise que ya tienen un IdP centralizado
 - Necesitas identidad federada a través de múltiples organizaciones (SaaS multi-tenant)

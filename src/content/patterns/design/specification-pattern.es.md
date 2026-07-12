@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: specification-pattern
 title: "Patrón Specification"
@@ -17,9 +19,9 @@ tags:
   - composition
   - filtering
 relatedResources:
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/repository-pattern
-  - /patterns/design/eager-loading-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/repository-pattern
+  - /patterns/eager-loading-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +32,8 @@ seo:
     - query
     - composition
     - filtering
+
+
 ---
 
 # Patrón Specification
@@ -41,6 +45,9 @@ El Patrón Specification encapsula reglas de negocio para seleccionar objetos co
 Este patrón es particularmente capaz para validación y querying. Una `OverdueInvoiceSpecification` puede reutilizarse tanto para encontrar facturas vencidas como para validar si una sola factura está vencida. Las specifications pueden encadenarse: `isOverdue AND isHighValue AND isFromVIPCustomer`.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Composite Entity Pattern](/es/patterns/composite-entity-pattern/).
 
 Usa el Patrón Specification cuando:
 - La misma lógica de selección es necesaria en múltiples lugares (queries, validación, notificaciones)

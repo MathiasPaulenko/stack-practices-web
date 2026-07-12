@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: azure-functions-python-http
 title: "Build HTTP-Triggered Azure Functions with Python"
@@ -16,8 +18,8 @@ tags:
   - http-trigger
   - serverless
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/gcp-cloud-functions-nodejs
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/gcp-cloud-functions-nodejs
   - /guides/serverless-architecture-guide
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
@@ -29,6 +31,8 @@ seo:
     - python serverless azure
     - azure functions v2
     - azure functions deployment
+
+
 ---
 
 ## Overview
@@ -407,6 +411,9 @@ def process_upload(blob: func.InputStream) -> None:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Deploy HTTP Cloud Functions on Google Cloud with Node.js](/recipes/gcp-cloud-functions-nodejs/).
 
 - **Use the v2 model**: It's cleaner, more Pythonic, and supports decorators. The v1 model with `function.json` is legacy.
 - **Use async for I/O-bound functions**: Async handlers with `aiohttp` and async DB drivers improve throughput for I/O-bound workloads.

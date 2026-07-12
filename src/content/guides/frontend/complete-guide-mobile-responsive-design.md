@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-mobile-responsive-design
 title: "Complete Guide to Mobile Responsive Design"
@@ -18,9 +20,9 @@ tags:
   - guide
   - frontend
 relatedResources:
-  - /guides/frontend/web-components-guide
-  - /guides/frontend/complete-guide-react-performance-optimization
-  - /guides/frontend/accessibility-wcag-guide
+  - /guides/web-components-guide
+  - /guides/complete-guide-react-performance-optimization
+  - /guides/accessibility-wcag-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +35,8 @@ seo:
     - container queries
     - fluid typography
     - responsive images
+
+
 ---
 
 # Complete Guide to Mobile Responsive Design
@@ -413,6 +417,9 @@ table {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CSS Grid and Flexbox](/guides/complete-guide-css-grid-and-flexbox/).
 
 - **Start mobile-first** — base styles target the smallest screen, `min-width` media queries enhance upward
 - **Use `auto-fit` grids** — eliminate media queries for card layouts

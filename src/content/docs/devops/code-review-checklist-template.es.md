@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: code-review-checklist-template
 title: "Plantilla de Checklist para Code Review"
@@ -15,9 +19,11 @@ tags:
   - team-process
   - pull-request
 relatedResources:
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/git-branching-strategy-document
-  - /docs/devops/onboarding-checklist-backend-engineer
+  - /docs/engineering-handbook-template
+  - /docs/git-branching-strategy-document
+  - /docs/onboarding-checklist-backend-engineer
+  - /recipes/git-rebase-interactive-tutorial
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - plantilla de calidad de codigo
     - estandares de revision
     - checklist de desarrollador
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +45,9 @@ seo:
 Las revisiones de codigo son la puerta de calidad mas util en la entrega de software, pero solo cuando son consistentes. Sin una checklist, los revisores se enfocan en lo que les importa personalmente: un ingeniero verifica inyeccion SQL, otro se obsesiona con nombres de variables, y un tercero solo mira cobertura de tests. Una checklist compartida asegura que cada revision cubra las dimensiones que importan al equipo, dejando espacio para el juicio humano en diseno y arquitectura.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Chaos Engineering — Principles, Tools, and Safe Experiments](/es/guides/chaos-engineering-guide/).
 
 Usa esta plantilla cuando:
 - Quieras estandarizar que significa "listo" para la revision de codigo en el equipo

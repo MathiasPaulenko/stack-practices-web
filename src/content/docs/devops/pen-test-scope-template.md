@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: pen-test-scope-template
 title: "Penetration Test Scope Template"
@@ -15,9 +18,10 @@ tags:
   - red-team
   - compliance
 relatedResources:
-  - /docs/devops/container-security-baseline-template
-  - /docs/devops/network-segmentation-policy-template
-  - /docs/devops/compliance-gap-analysis-template
+  - /docs/container-security-baseline-template
+  - /docs/network-segmentation-policy-template
+  - /docs/compliance-gap-analysis-template
+  - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - rules of engagement
     - pen test template
     - vulnerability assessment
+
+
+
 ---
 
 ## Overview
@@ -359,6 +366,9 @@ jira_client.create_tickets(findings)
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Secure Coding Practices — By Language and Pattern](/guides/secure-coding-guide/).
 
 1. **Use a finding severity matrix that maps to business risk.** Technical severity alone does not capture business context. A medium SQL injection on a public-facing payment API is more urgent than a high finding on an internal admin tool behind VPN:
 

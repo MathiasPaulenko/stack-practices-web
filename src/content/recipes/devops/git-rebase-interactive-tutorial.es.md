@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: git-rebase-interactive-tutorial
 title: "Limpia el Historial de Commits con Git Rebase Interactivo"
@@ -15,10 +21,12 @@ tags:
   - squash
   - interactive-rebase
 relatedResources:
-  - /recipes/devops/docker-compose-dev-prod-split
-  - /recipes/devops/docker-multi-stage-build-optimization
-  - /guides/git-workflow
-  - /patterns/code-review-checklist-template
+  - /recipes/docker-compose-dev-prod-split
+  - /recipes/docker-multi-stage-build-optimization
+  - /recipes/git-workflow
+  - /docs/code-review-checklist-template
+  - /docs/git-branching-strategy-document
+  - /guides/git-branching-strategies-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -30,6 +38,12 @@ seo:
     - git clean commit history
     - git fixup reword drop
     - git rebase conflict resolution
+
+
+
+
+
+
 ---
 
 ## Visión General
@@ -37,6 +51,9 @@ seo:
 El rebase interactivo permite reescribir el historial de commits antes de mergear. Puedes hacer squash de commits relacionados, reordenarlos, editar mensajes de commit, dividir commits y eliminar los no deseados. Esto mantiene el historial de tu branch limpio y legible. Esta recipe cubre todas las acciones de rebase interactivo con ejemplos prácticos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Git Branching Strategy Document](/es/docs/git-branching-strategy-document/).
 
 - Quieres limpiar commits antes de mergear una feature branch
 - Tienes commits WIP que deberían hacer squash en uno

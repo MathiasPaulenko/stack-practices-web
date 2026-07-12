@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: graphql-deprecation-policy-template
 templateType: api-deprecation
@@ -16,9 +19,10 @@ tags:
   - versioning
   - migration
 relatedResources:
-  - /docs/ai/graphql-schema-review-checklist
-  - /docs/ai/graphql-api-design-guideline
-  - /guides/architecture/complete-guide-graphql-federation
+  - /docs/graphql-schema-review-checklist
+  - /docs/graphql-api-design-guideline
+  - /guides/complete-guide-graphql-federation
+  - /docs/graphql-federation-onboarding-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - graphql migration
     - "@deprecated directive"
     - schema evolution
+
+
+
 ---
 
 ## Overview
@@ -387,3 +394,12 @@ Enum value usage is harder to track than field usage because the value appears i
 ### What happens if I need to remove a field before the standard timeline?
 
 Use the expedited timeline (30 days) only for security vulnerabilities or data leaks. Document the security justification in the deprecation reason. Notify the security team and management. Apply hard rate limiting from day 1. For non-security urgent removals, shorten the timeline to 90 days with management approval and documented client communication.
+
+## See Also
+
+- [Complete Guide to GraphQL Schema Design](/guides/complete-guide-graphql-schema-design/)
+- [Complete Guide to GraphQL Caching](/guides/complete-guide-graphql-caching/)
+- [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/)
+- [Complete Guide to GraphQL Federation](/guides/complete-guide-graphql-federation/)
+- [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/)
+

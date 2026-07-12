@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-go-concurrency
 title: "Referencia Detallada de Concurrencia en Go"
@@ -19,9 +22,10 @@ tags:
   - context
   - select
 relatedResources:
-  - /guides/concurrency/complete-guide-python-asyncio-production
-  - /guides/concurrency/complete-guide-java-concurrency
-  - /patterns/concurrency/async-generator-pattern
+  - /guides/complete-guide-python-asyncio-production
+  - /guides/complete-guide-java-concurrency
+  - /patterns/async-generator-pattern
+  - /recipes/go-goroutines-channels-patterns
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - go sync primitives
     - go worker pools
     - go pipelines
+
+
+
 ---
 
 ## Introducción
@@ -842,3 +849,12 @@ Una goroutine leakea cuando bloquea para siempre sin forma de salir. Causas comu
 ### ¿Cómo funciona el Go scheduler?
 
 Go usa el modelo GMP: G (goroutine), M (machine/OS thread), P (processor/context). Cada P tiene una local run queue de goroutines. El scheduler corre goroutines en M's usando P's. Cuando una goroutine bloquea en I/O, la M se libera y la P agarra otra goroutine. Work-stealing balancea load entre P's. `GOMAXPROCS` controla el numero de P's.
+
+## See Also
+
+- [Complete Guide to Java Concurrency](/es/guides/complete-guide-java-concurrency/)
+- [Complete Guide to Python Asyncio in Production](/es/guides/complete-guide-python-asyncio-production/)
+- [Concurrent Patterns with Go Goroutines and Channels](/es/recipes/go-goroutines-channels-patterns/)
+- [Complete Guide to Python Asyncio](/es/guides/complete-guide-python-asyncio/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+

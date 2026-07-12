@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: system-decommissioning-checklist-template
 title: "Plantilla de Checklist de Desmantelamiento de Sistemas"
@@ -15,9 +17,9 @@ tags:
   - migration
   - cleanup
 relatedResources:
-  - /docs/devops/deprecation-timeline-template
-  - /docs/devops/service-ownership-document-template
-  - /docs/devops/feature-specification-template
+  - /docs/deprecation-timeline-template
+  - /docs/service-ownership-document-template
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - limpieza de infraestructura
     - checklist de deprecacion
     - apagado de sistemas legacy
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +39,9 @@ seo:
 Los servicios antiguos nunca mueren en silencio. Persisten en registros DNS, confunden a nuevos ingenieros, cuestan dinero y ocasionalmente rompen cosas cuando alguien cambia un certificado o rota un secreto. El desmantelamiento es el proceso disciplinado de apagar un servicio: identificar cada dependencia, migrar cada usuario, eliminar cada recurso y documentar que fue removido. Bien hecho, reduce costos y complejidad. Mal hecho, causa interrupciones en sistemas que pensabas no estaban relacionados.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Blue-Green Deployment](/es/guides/blue-green-deployment-guide/).
 
 Usa esta plantilla cuando:
 - Un servicio ha sido reemplazado por uno nuevo y el trafico ha migrado

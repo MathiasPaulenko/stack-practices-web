@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-vector-databases
 title: "Referencia Detallada de Vector Databases"
@@ -19,9 +21,9 @@ tags:
   - pgvector
   - milvus
 relatedResources:
-  - /guides/ai/complete-guide-rag-production
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-llm-cost-optimization
+  - /guides/complete-guide-rag-production
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-llm-cost-optimization
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +37,8 @@ seo:
     - milvus
     - qdrant
     - vector search
+
+
 ---
 
 ## Introducción
@@ -623,3 +627,12 @@ Si. pgvector maneja hasta ~10M vectors con buen performance usando HNSW indexes.
 ### ¿Cómo optimizo vector search latency?
 
 Usa HNSW con parametros tuneados (M=16-32, ef_search=50-100). Storea vectors en memory cuando sea posible. Usa approximate search en lugar de exact search. Pre-filtra por metadata para reducir el search space. Batch queries para amortizar network overhead. Usa una database geograficamente cerca de tu aplicacion. Considera cachear queries frecuentes.
+
+## See Also
+
+- [Complete Guide to RAG in Production](/es/guides/complete-guide-rag-production/)
+- [Vector Databases — AI/ML Embeddings and Similarity Search](/es/guides/vector-database-guide/)
+- [Complete Guide to AI Agents in Production](/es/guides/complete-guide-ai-agents-production/)
+- [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+

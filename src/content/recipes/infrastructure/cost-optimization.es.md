@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: cost-optimization
 title: "Optimización de Costos Cloud"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/terraform-aws-vpc
   - /recipes/docker-compose-local-dev
   - /recipes/istio-canary-deployment
+  - /recipes/load-balancing-haproxy
+  - /patterns/compute-resource-consolidation-pattern
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - infrastructure
     - aws
     - devops
+
+
 ---
 ## Visión General
 

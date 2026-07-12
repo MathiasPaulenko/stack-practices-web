@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: observer-pattern
 title: "Observer Pattern"
@@ -17,9 +22,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/api/call-rest-api
-  - /patterns/design/singleton-pattern
-  - /patterns/design/strategy-pattern
+  - /recipes/call-rest-api
+  - /patterns/singleton-pattern
+  - /patterns/strategy-pattern
+  - /patterns/pipes-and-filters-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/command-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +42,11 @@ seo:
     - python observer
     - java observer
     - javascript observer
+
+
+
+
+
 ---
 
 # Observer Pattern

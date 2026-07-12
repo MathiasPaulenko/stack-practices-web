@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: metrics-collection
 title: "Metrics Collection"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/grafana-dashboards-observability
   - /recipes/distributed-tracing
   - /recipes/structured-logging
+  - /recipes/real-user-monitoring
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - observability
     - prometheus
     - grafana
+
 ---
 ## Visión General
 

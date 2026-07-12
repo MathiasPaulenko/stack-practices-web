@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: deployment-checklist-template
 title: "Plantilla de Checklist de Despliegue"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/bug-report-template
   - /docs/capacity-planning-template
   - /docs/contributing-guide
+  - /recipes/docker-compose-dev-prod-split
+  - /recipes/docker-health-check-configuration
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - release
     - verificación
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Los despliegues en producción son momentos de alto riesgo. Un solo paso omitido puede causar caídas, pérdida de datos o exposiciones de seguridad. Esta plantilla de checklist asegura que cada release siga los mismos pasos de verificación, desde tests pre-merge hasta validación post-despliegue.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Rollout Communication Template](/es/docs/rollout-communication-template/).
 
 Usa este recurso cuando:
 - Preparas cualquier despliegue a producción o staging

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: runbook-template
 templateType: runbook
@@ -16,9 +21,13 @@ tags:
   - incident-response
   - devops
 relatedResources:
-  - /docs/templates/readme-template
-  - /recipes/devops/github-actions
-  - /guides/testing/testing-strategy-guide
+  - /docs/readme-template
+  - /recipes/github-actions
+  - /guides/testing-strategy-guide
+  - /docs/dependency-upgrade-template
+  - /docs/backup-verification-test-template
+  - /docs/bug-triage-template
+  - /docs/change-management-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - respuesta a incidentes
     - sre playbook
     - tareas de mantenimiento
+
+
+
+
+
 ---
 
 ## Estructura de la plantilla

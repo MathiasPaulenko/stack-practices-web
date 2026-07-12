@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: graphql-error-extension-pattern
 title: "GraphQL Error Extension Pattern"
@@ -21,6 +24,8 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /patterns/graphql-interface-polymorphism-pattern
+  - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +36,9 @@ seo:
     - graphql-errors
     - error-handling
     - api-design
+
+
+
 ---
 
 ## Overview
@@ -314,6 +322,9 @@ throw new GraphQLExtendedError(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Schema Design](/guides/complete-guide-graphql-schema-design/).
 
 - Use a fixed set of error codes — document them in the schema as a custom scalar or directive
 - Never change error code strings after release — clients depend on them

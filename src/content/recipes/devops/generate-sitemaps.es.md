@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: generate-sitemaps
 title: "Generar Sitemaps en Vivo"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/environment-variables
   - /recipes/feature-flags
   - /recipes/health-check-endpoint
+  - /guides/docker-for-developers-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,7 @@ seo:
     - python
     - javascript
     - java
+
 ---
 ## Visión General
 

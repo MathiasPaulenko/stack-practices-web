@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: aws-lambda-cold-start-optimization
 title: "Reduce AWS Lambda Cold Start with Provisioned Concurrency"
@@ -16,10 +21,13 @@ tags:
   - provisioned-concurrency
   - performance
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-react-performance-optimization
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /recipes/serverless-step-functions-workflow
+  - /patterns/serverless-function-composition-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - lambda performance
     - graviton lambda
     - lambda initialization
+
+
+
+
+
 ---
 
 ## Overview
@@ -319,6 +332,9 @@ Resources:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Package Python Dependencies for AWS Lambda with Layers](/recipes/aws-lambda-python-dependencies/).
 
 - **Profile before optimizing**: Use CloudWatch Insights to measure init duration. Don't guess — measure.
 - **Move only expensive init to lazy**: Module-level clients (boto3) are cheap. File reads, heavy imports, and data processing should be lazy.

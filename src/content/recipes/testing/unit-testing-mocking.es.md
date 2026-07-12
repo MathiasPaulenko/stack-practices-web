@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: unit-testing-mocking
 title: "Escribir Unit Tests con Mocks y Stubs"
@@ -17,6 +20,9 @@ relatedResources:
   - /recipes/unit-testing
   - /recipes/integration-testing
   - /recipes/load-testing
+  - /recipes/integration-testing-strategies
+  - /recipes/jest-snapshot-testing
+  - /recipes/python-mock-external-apis-responses
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,9 @@ seo:
     - pytest mock
     - junit mockito
     - stub objects
+
+
+
 ---
 
 ## Visión general

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: llm-router-pattern
 title: "Patrón LLM Router"
@@ -16,9 +21,12 @@ tags:
   - llm
   - enrutamiento
 relatedResources:
-  - /patterns/ai/llm-fallback-pattern
-  - /patterns/ai/prompt-chaining-pattern
-  - /recipes/ai/python-openai-function-calling-structured
+  - /patterns/llm-fallback-pattern
+  - /patterns/prompt-chaining-pattern
+  - /recipes/python-openai-function-calling-structured
+  - /patterns/embedding-cache-pattern
+  - /patterns/agent-tool-selection-pattern
+  - /patterns/llm-guardrails-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,11 @@ seo:
     - seleccion de modelo
     - clasificacion de consultas
     - routing gpt
+
+
+
+
+
 ---
 
 # Patrón LLM Router
@@ -42,6 +55,9 @@ El patrón LLM Router clasifica las consultas entrantes por complejidad y despac
 Un router se ubica entre el usuario y los proveedores de modelos. Inspecciona la consulta, aplica una regla de clasificacion (basada en reglas, similitud de embeddings o un modelo clasificador pequeno) y selecciona un modelo del pool configurado. La respuesta fluye de vuelta por el mismo camino.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Embedding Cache Pattern](/es/patterns/embedding-cache-pattern/).
 
 Usa el patrón LLM Router cuando:
 - Atiendes una mezcla de consultas simples y complejas y quieres reducir costos en las simples

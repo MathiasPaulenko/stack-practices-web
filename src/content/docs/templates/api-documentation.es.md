@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-documentation
 templateType: api-doc
@@ -16,9 +19,11 @@ tags:
   - openapi
   - swagger
 relatedResources:
-  - /guides/api/rest-api-design-guide
-  - /recipes/api/call-rest-api
-  - /recipes/api/handle-errors
+  - /guides/rest-api-design-guide
+  - /recipes/call-rest-api
+  - /recipes/handle-errors
+  - /recipes/grpc-api
+  - /docs/api-error-response-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +34,9 @@ seo:
     - openapi template
     - swagger template
     - documentación endpoints
+
+
+
 ---
 
 ## Estructura de la plantilla

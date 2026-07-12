@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-data-quality
 title: "Guía de Data Quality"
@@ -16,8 +19,9 @@ tags:
   - profiling
   - data-engineering
 relatedResources:
-  - /guides/data/complete-guide-data-pipeline-architecture
-  - /guides/data/complete-guide-dbt-data-transformations
+  - /guides/complete-guide-data-pipeline-architecture
+  - /guides/complete-guide-dbt-data-transformations
+  - /guides/complete-guide-apache-airflow
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -31,6 +35,9 @@ seo:
     - data profiling
     - anomaly detection
     - soda
+
+
+
 ---
 
 ## Introducción
@@ -518,6 +525,9 @@ def detect_null_rate_anomaly(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Apache Airflow: DAGs, Operators, Scheduling](/es/guides/complete-guide-apache-airflow/).
 
 - Profileá data antes de escribir validation rules — no podés validar lo que no entendés
 - Validá en every pipeline stage — raw, staging y marts tienen different quality concerns

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: java-caffeine-cache-configuration
 title: "Configurar Caffeine Cache en Java con Politicas de Eviction"
@@ -16,9 +19,10 @@ tags:
   - eviction
   - spring-boot
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/nodejs-in-memory-cache-lru
+  - /recipes/python-redis-cache-decorator
+  - /recipes/nodejs-in-memory-cache-lru
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/java-spring-cache-annotations
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - spring boot cache
     - in-memory cache java
     - caffeine configuration
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +43,9 @@ seo:
 Caffeine es una libreria de caching Java de alto rendimiento que supera a Guava y ConcurrentHashMap usando una politica de eviction eficiente basada en el algoritmo Window TinyLfu. Soporta eviction por tamano, tiempo y peso, eviction basada en referencias (weak keys/values) y carga asincrona. A continuacion: configurar Caffeine standalone y con Spring Boot, estrategias de eviction, estadisticas de cache y tuning.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Caching local en la aplicacion donde Redis o Memcached son excesivos
 - Workloads de lectura intensa con patrones de acceso predecibles

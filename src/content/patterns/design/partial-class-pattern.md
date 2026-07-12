@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: partial-class-pattern
 title: "Partial Class Pattern"
@@ -17,9 +22,12 @@ tags:
   - organization
   - csharp
 relatedResources:
-  - /patterns/design/mixin-pattern
-  - /patterns/design/decorator-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/mixin-pattern
+  - /patterns/decorator-pattern
+  - /patterns/strategy-pattern
+  - /patterns/marker-interface-pattern
+  - /patterns/twin-pattern
+  - /patterns/type-object-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - code generation
     - organization
     - csharp
+
+
+
+
+
 ---
 
 # Partial Class Pattern
@@ -41,6 +54,9 @@ The Partial Class Pattern splits a single class definition across multiple sourc
 While most associated with C# (`partial class`), the concept exists in other forms: Ruby modules reopen classes, Python allows monkey-patching, and Java's default interface methods plus records achieve similar goals. The core benefit is **organizational separation** without runtime overhead.
 
 ## When to Use
+
+
+- For alternatives, see [Marker Interface Pattern](/patterns/marker-interface-pattern/).
 
 Use the Partial Class Pattern when:
 - Code generators produce large boilerplate that should not be manually edited

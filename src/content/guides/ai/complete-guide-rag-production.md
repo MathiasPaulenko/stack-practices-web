@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-rag-production
 title: "Complete Guide to RAG in Production"
@@ -19,9 +24,12 @@ tags:
   - chunking
   - retrieval
 relatedResources:
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-vector-databases
-  - /guides/caching/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-vector-databases
+  - /guides/complete-guide-redis-caching-strategies
+  - /docs/ai-rag-evaluation-checklist
+  - /guides/complete-guide-langchain-production
+  - /guides/complete-guide-llm-evaluation
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - retrieval optimization
     - reranking
     - hybrid search
+
+
+
+
+
 ---
 
 ## Introduction
@@ -728,3 +741,12 @@ Use the RAGAS framework with four metrics: faithfulness (answer grounded in cont
 ### Should I use a managed vector database or self-host?
 
 Use managed (Pinecone, Weaviate Cloud) for production when you need scalability, uptime, and no operational overhead. Use self-hosted (pgvector, Chroma, local Weaviate) for development, small datasets (<100K vectors), or when data sovereignty requires on-premise storage. pgvector is a good middle ground if you already use PostgreSQL.
+
+## See Also
+
+- [Complete Guide to Vector Databases](/guides/complete-guide-vector-databases/)
+- [Vector Databases — AI/ML Embeddings and Similarity Search](/guides/vector-database-guide/)
+- [Complete Guide to AI Agents in Production](/guides/complete-guide-ai-agents-production/)
+- [Complete Guide to LangChain in Production](/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/)
+

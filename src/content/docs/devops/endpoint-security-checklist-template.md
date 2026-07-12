@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: endpoint-security-checklist-template
 title: "Endpoint Security Checklist Template"
@@ -15,9 +17,9 @@ tags:
   - edr
   - compliance
 relatedResources:
-  - /docs/devops/container-security-baseline-template
-  - /docs/devops/network-segmentation-policy-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/container-security-baseline-template
+  - /docs/network-segmentation-policy-template
+  - /docs/secret-rotation-schedule-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - mobile device management
     - endpoint detection and response
     - BYOD security
+
+
 ---
 
 ## Overview
@@ -288,6 +292,9 @@ WHERE de.action = "added"
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Data Retention Policy Template](/docs/data-retention-policy-template/).
 
 1. **Implement zero-trust network access (ZTNA) for endpoints.** Replace traditional VPN with ZTNA to verify device posture before granting access. Devices that fail compliance checks are blocked automatically:
 

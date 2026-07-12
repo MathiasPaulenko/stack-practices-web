@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: load-test-plan-template
 templateType: guideline
@@ -18,9 +20,9 @@ tags:
   - stress-testing
   - capacity-planning
 relatedResources:
-  - /docs/performance/performance-budget-template
-  - /docs/performance/core-web-vitals-audit-checklist
-  - /docs/performance/database-query-tuning-checklist
+  - /docs/performance-budget-template
+  - /docs/core-web-vitals-audit-checklist
+  - /docs/database-query-tuning-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +35,8 @@ seo:
     - locust
     - stress testing
     - capacity planning
+
+
 ---
 
 ## Overview
@@ -441,3 +445,12 @@ Map real user journeys from your analytics — what percentage of users browse, 
 ### What should I do if the load test fails?
 
 First, determine which threshold was exceeded. If error rate is high, check server logs for exceptions and database logs for connection issues. If response times are high, check CPU and memory usage during the test — if CPU hit 90%, the server is under-provisioned. If database connections are exhausted, increase the pool size. If the system crashed, check for memory leaks (run a soak test) or resource exhaustion. Document the failure in the test report with the specific metric, the actual value, and the root cause. Fix the issue and re-run the test. Do not lower thresholds to make a failing test pass — that defeats the purpose. If the failure is due to test infrastructure (not the application), mark the result as inconclusive and re-run with fixed infrastructure.
+
+## See Also
+
+- [Complete Guide to LLM Evaluation](/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to Go Concurrency](/guides/complete-guide-go-concurrency/)
+- [Complete Guide to Java Concurrency](/guides/complete-guide-java-concurrency/)
+- [Complete Guide to Python Asyncio in Production](/guides/complete-guide-python-asyncio-production/)
+- [Load Testing APIs with k6 and Threshold-Based Assertions](/recipes/load-testing-k6/)
+

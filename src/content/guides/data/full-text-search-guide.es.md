@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: full-text-search-guide
 title: "Búsqueda de Texto Completo"
@@ -18,9 +24,13 @@ tags:
   - relevance
   - guide
 relatedResources:
-  - /guides/data/database-sharding-implementation-guide
-  - /guides/data/read-replica-guide
-  - /guides/data/caching-strategies-guide
+  - /guides/database-sharding-implementation-guide
+  - /guides/read-replica-guide
+  - /guides/caching-strategies-guide
+  - /guides/complete-guide-elasticsearch-cluster-setup
+  - /guides/complete-guide-postgresql-tuning
+  - /recipes/elasticsearch-aggregations
+  - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - indexing
     - relevance
     - guide
+
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -42,6 +58,9 @@ La búsqueda de texto completo transforma texto crudo en resultados consultables
 A continuación: búsqueda integrada de PostgreSQL, Elasticsearch para casos de uso avanzados, diseño de consultas y ajuste de producción.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/).
 
 - Los usuarios necesitan buscar en múltiples campos de texto (título, descripción, etiquetas, contenido)
 - Las consultas `LIKE` tardan más de 100ms en datos de producción

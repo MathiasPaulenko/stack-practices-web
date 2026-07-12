@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-java-concurrency
 title: "Complete Guide to Java Concurrency"
@@ -19,9 +22,10 @@ tags:
   - executors
   - locks
 relatedResources:
-  - /guides/concurrency/complete-guide-python-asyncio-production
-  - /patterns/concurrency/async-generator-pattern
-  - /patterns/resilience/bulkhead-pattern
+  - /guides/complete-guide-python-asyncio-production
+  - /patterns/async-generator-pattern
+  - /patterns/bulkhead-pattern
+  - /guides/complete-guide-go-concurrency
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - java locks
     - concurrent collections
     - java memory model
+
+
+
 ---
 
 ## Introduction
@@ -450,6 +457,9 @@ try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
 ```
 
 ### When to Use Virtual Threads
+
+
+- For alternatives, see [Complete Guide to Go Concurrency](/guides/complete-guide-go-concurrency/).
 
 ```text
 Use virtual threads when:

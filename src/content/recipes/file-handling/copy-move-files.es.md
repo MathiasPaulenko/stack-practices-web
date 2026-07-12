@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: copy-move-files
 title: "Copiar y Mover Archivos"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/write-large-files
   - /patterns/visitor-pattern
   - /recipes/file-upload-validation
+  - /recipes/python-image-resize-batch
+  - /recipes/compress-decompress-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - operations
+
+
+
 ---
 ## Visión General
 
@@ -397,6 +405,9 @@ batch_copy() {
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Watch File Changes](/es/recipes/watch-file-changes/).
 
 1. **Usa archivos temporales para escrituras atómicas.** Escribe a un archivo temp en el mismo directorio, luego renombra. Esto asegura que los lectores nunca vean un archivo parcial:
 

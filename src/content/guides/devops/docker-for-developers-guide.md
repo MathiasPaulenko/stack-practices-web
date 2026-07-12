@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: docker-for-developers-guide
 title: "Docker for Developers — A Complete Guide"
@@ -14,9 +19,13 @@ tags:
   - guide
   - ci-cd
 relatedResources:
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/devops/kubernetes-basics-guide
-  - /recipes/devops/generate-sitemaps
+  - /guides/cicd-pipeline-guide
+  - /guides/kubernetes-basics-guide
+  - /recipes/generate-sitemaps
+  - /recipes/container-security-scanning
+  - /recipes/graceful-shutdown
+  - /recipes/immutable-infrastructure
+  - /docs/environment-setup-guide-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - docker compose
     - docker networking
     - docker volumes
+
+
+
+
+
 ---
 
 # Docker for Developers

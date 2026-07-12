@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: multi-tenancy
 title: "Arquitectura Multi-Tenancy"
@@ -19,6 +21,8 @@ relatedResources:
   - /docs/engineering-handbook-template
   - /guides/rest-api-design-guide
   - /guides/domain-driven-design-guide
+  - /recipes/api-gateway
+  - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - architecture
     - saas
     - databases
+
+
 ---
 ## Visión General
 

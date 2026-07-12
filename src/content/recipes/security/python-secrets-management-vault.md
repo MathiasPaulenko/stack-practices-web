@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-secrets-management-vault
 title: "Manage Application Secrets with HashiCorp Vault and Python"
@@ -15,9 +20,12 @@ tags:
   - hvac
   - security
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/security/python-sql-injection-sqlalchemy
-  - /recipes/security/python-rate-limiting-fastapi-redis
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /guides/ci-cd-security-guide
+  - /guides/complete-guide-secrets-management
+  - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,11 @@ seo:
     - secrets management
     - dynamic secrets
     - vault python
+
+
+
+
+
 ---
 
 # Manage Application Secrets with HashiCorp Vault and Python
@@ -376,6 +389,9 @@ def authenticate_kubernetes(jwt_path: str = "/var/run/secrets/kubernetes.io/serv
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/guides/ci-cd-security-guide/).
 
 - **Use dynamic secrets when possible** — credentials are short-lived and unique per request
 - **Never log secrets** — Vault returns secrets in plaintext; ensure they don't end up in logs

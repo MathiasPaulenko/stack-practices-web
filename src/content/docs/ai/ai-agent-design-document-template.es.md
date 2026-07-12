@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: ai-agent-design-document-template
 templateType: guideline
@@ -17,9 +20,10 @@ tags:
   - tools
   - architecture
 relatedResources:
-  - /docs/ai/ai-llm-prompt-template-library
-  - /docs/ai/ai-llm-incident-response-runbook
-  - /guides/ai/complete-guide-ai-agents-production
+  - /docs/ai-llm-prompt-template-library
+  - /docs/ai-llm-incident-response-runbook
+  - /guides/complete-guide-ai-agents-production
+  - /docs/ai-model-selection-matrix
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - agent safety
     - agent evaluation
     - llm agent template
+
+
+
 ---
 
 ## Overview
@@ -437,3 +444,12 @@ Loggea every tool call, LLM response, y error. Setea alerts para: error rate > 5
 ### ¿Cuándo deberia addear long-term memory a un agent?
 
 Addea long-term memory cuando el agent necesita recallar information de past conversations — user preferences, past orders, o interaction history. Sin eso, every conversation empieza from scratch. Empeza simple: storea user preferences como key-value pairs. Addea vector-based semantic retrieval cuando el memory crece beyond lo que fittea en un system prompt. Siempre dale a users la ability de view y delete sus stored memories para privacy compliance.
+
+## See Also
+
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Prompt Engineering](/es/guides/complete-guide-llm-prompt-engineering/)
+- [AI LLM Cost Tracking Template](/es/docs/ai-llm-cost-tracking-template/)
+- [AI LLM Prompt Template Library](/es/docs/ai-llm-prompt-template-library/)
+- [AI Prompt Version Control Template](/es/docs/ai-prompt-version-control-template/)
+

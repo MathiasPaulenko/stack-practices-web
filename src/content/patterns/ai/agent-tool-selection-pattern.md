@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: agent-tool-selection-pattern
 title: "Agent Tool Selection Pattern"
@@ -16,9 +19,10 @@ tags:
   - dynamic-routing
   - function-calling
 relatedResources:
-  - /patterns/ai/llm-router-pattern
-  - /patterns/ai/prompt-chaining-pattern
-  - /recipes/ai/python-agent-langgraph-state-machine
+  - /patterns/llm-router-pattern
+  - /patterns/prompt-chaining-pattern
+  - /recipes/python-agent-langgraph-state-machine
+  - /patterns/human-in-the-loop-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - function calling
     - tool use pattern
     - agent architecture
+
+
+
 ---
 
 # Agent Tool Selection Pattern
@@ -42,6 +49,9 @@ When an LLM agent has access to many tools (search, calculator, database query, 
 The Agent Tool Selection Pattern narrows the tool set dynamically. Before each agent step, a selector determines which tools are relevant based on the current task, conversation history, and agent state. Only those tool definitions are included in the prompt. This reduces token consumption, improves tool selection accuracy, and lowers latency.
 
 ## When to Use
+
+
+- For alternatives, see [Embedding Cache Pattern](/patterns/embedding-cache-pattern/).
 
 Use the Agent Tool Selection Pattern when:
 - Your agent has access to more than 8-10 tools and token costs are significant

@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: load-testing-k6
 title: "Testing de Carga de APIs con k6 y Aserciones Basadas en"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/load-testing
   - /recipes/integration-testing
   - /guides/testing-strategy-guide
+  - /recipes/api-mocking
+  - /docs/api-testing-strategy-template
+  - /docs/load-test-report-template
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - load test
     - benchmarking
     - slo validation
+
+
+
 ---
 
 # Testing de Carga de APIs con k6 y Aserciones Basadas en Umbrales

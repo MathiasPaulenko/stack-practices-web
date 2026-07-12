@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: react-usememo-usecallback-performance
 title: "When to Use useMemo and useCallback"
@@ -16,9 +22,13 @@ tags:
   - usecallback
   - recipe
 relatedResources:
-  - /recipes/frontend/react-virtual-list-react-window
-  - /recipes/frontend/react-form-react-hook-form-validation
-  - /recipes/frontend/css-container-queries-responsive
+  - /recipes/react-virtual-list-react-window
+  - /recipes/react-form-react-hook-form-validation
+  - /recipes/css-container-queries-responsive
+  - /recipes/css-dark-mode-prefers-color-scheme
+  - /recipes/svelte-store-reactive-state
+  - /recipes/typescript-discriminated-unions-exhaustive
+  - /recipes/typescript-utility-types-generics
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +41,12 @@ seo:
     - usememo
     - usecallback
     - recipe
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -271,6 +287,9 @@ function useFilteredData(data, filterFn) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Virtualize Long Lists with react-window](/recipes/react-virtual-list-react-window/).
 
 - Measure before optimizing — use the React Profiler to identify actual bottlenecks
 - Apply `useMemo` to computations that take more than 1-2ms — cheaper ones aren't worth the hook overhead

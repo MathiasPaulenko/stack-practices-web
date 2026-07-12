@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: auto-scaling-policy-template
 title: "Auto-Scaling Policy Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/bug-report-template
   - /docs/contributing-guide
+  - /docs/network-security-template
+  - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - infrastructure
     - policy
     - template
+
+
+
 ---
 ## Overview
 
 Auto-scaling is the bridge between cost efficiency and availability. Scale too late and your service crashes under load; scale too early and you burn money on idle capacity. This template documents the exact rules, thresholds, and procedures your infrastructure team uses to scale workloads up and down automatically.
 
 ## When to Use
+
+
+- For alternatives, see [Cloud Cost Allocation Template](/docs/cloud-cost-allocation-template/).
 
 Use this resource when:
 - Defining scaling rules for a new service deployed to the cloud

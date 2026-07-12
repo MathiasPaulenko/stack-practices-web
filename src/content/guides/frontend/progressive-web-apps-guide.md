@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: progressive-web-apps-guide
 title: "Progressive Web Apps (PWA) — Complete Guide"
@@ -19,7 +21,7 @@ tags:
 relatedResources:
   - /guides/accessibility-wcag-guide
   - /guides/web-components-guide
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -33,6 +35,8 @@ seo:
     - push-notifications
     - installability
     - guide
+
+
 ---
 
 ## Overview
@@ -40,6 +44,9 @@ seo:
 Progressive Web Apps (PWA) use modern web capabilities to deliver an app-like experience: offline access, push notifications, home screen installation, and background sync. Unlike native apps, they run in the browser and require no app store approval. The following guide covers the core technologies and what works for building production PWAs.
 
 ## When to Use
+
+
+- For alternatives, see [JavaScript Service Worker Offline Caching for PWA](/recipes/javascript-service-worker-offline/).
 
 - You need offline functionality for a web application
 - You want to reduce app store friction while providing native-like UX

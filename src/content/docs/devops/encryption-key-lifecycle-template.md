@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: encryption-key-lifecycle-template
 title: "Encryption Key Lifecycle Template"
@@ -15,9 +17,9 @@ tags:
   - cryptography
   - compliance
 relatedResources:
-  - /docs/devops/secret-rotation-schedule-template
-  - /docs/devops/ci-cd-pipeline-security-template
-  - /docs/devops/data-breach-response-playbook
+  - /docs/secret-rotation-schedule-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - KMS
     - key rotation
     - cryptography policy
+
+
 ---
 
 ## Overview
@@ -35,6 +39,9 @@ seo:
 Encryption key lifecycle management defines how keys are created, stored, used, rotated, and retired. Poor key management can undermine encryption entirely by exposing keys, keeping them too long, or failing to revoke them when no longer needed. This template provides policies, procedures, and roles for managing symmetric and asymmetric keys across applications, databases, backups, and cloud services.
 
 ## When to Use
+
+
+- For alternatives, see [Data Retention Policy Template](/docs/data-retention-policy-template/).
 
 - Designing a key management strategy for a new application or platform.
 - Selecting or configuring a key management service (KMS) or hardware security module (HSM).

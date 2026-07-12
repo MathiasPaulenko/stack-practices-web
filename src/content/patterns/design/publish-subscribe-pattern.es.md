@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: publish-subscribe-pattern
 title: "Patrón Publish-Subscribe"
@@ -17,9 +22,12 @@ tags:
   - message-broker
   - decoupling
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/serverless-fanout-pattern
-  - /patterns/design/dead-letter-channel-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/serverless-fanout-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/message-deduplication-pattern
+  - /patterns/reactive-streams-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - pub sub event driven
     - difundir mensajes suscriptores
     - patron diseno
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +49,9 @@ seo:
 En una cola punto-a-punto, cada mensaje es procesado por exactamente un consumidor. Pero muchos sistemas necesitan multiples reacciones independientes al mismo evento. Cuando se realiza un pedido, el servicio de inventario actualiza stock, el servicio de notificaciones envia email de confirmacion, y el servicio de analitica registra el evento. El patron Publish-Subscribe difunde un mensaje a todos los suscriptores de un topico, para que cada suscriptor reciba su propia copia y la procese independientemente.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Event-Carried State Transfer Pattern](/es/patterns/event-carried-state-transfer-pattern/).
 
 - Multiples servicios necesitan reaccionar al mismo evento independientemente
 - Quieres desacoplar al productor de los consumidores (el productor no sabe quien consume)

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: nodejs-websocket-realtime
 title: "Node.js WebSocket Real-Time Communication with Socket.io"
@@ -18,8 +23,10 @@ relatedResources:
   - /recipes/websocket-server
   - /recipes/websocket-bidirectional-chat
   - /recipes/websocket-authentication
-  - /guides/real-time-notifications
-  - /patterns/redis-pub-sub-python
+  - /recipes/real-time-notifications
+  - /recipes/redis-pub-sub-python
+  - /recipes/javascript-fetch-retry-logic
+  - /recipes/python-async-http-requests
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +38,11 @@ seo:
     - realtime communication nodejs
     - socket.io redis adapter
     - websocket reconnection
+
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +50,9 @@ seo:
 Real-time WebSocket communication enables instant data exchange between server and clients. Socket.io provides a reliable layer over WebSockets with auto-reconnection, rooms, namespaces, and broadcasting. The following demonstrates how to setting up Socket.io with Express, rooms for group messaging, namespaces for separation, authentication middleware, and scaling with the Redis adapter.
 
 ## When to Use
+
+
+- For alternatives, see [Express.js Middleware Composition Patterns](/recipes/express-middleware-patterns/).
 
 - You are building a chat application, notification system, or live dashboard
 - You need server-to-client push without polling

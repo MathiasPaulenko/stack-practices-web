@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: patterns
 slug: business-delegate-pattern
 title: "Business Delegate Pattern"
@@ -17,8 +24,13 @@ tags:
   - decoupling
   - layers
 relatedResources:
-  - /patterns/design/facade-pattern
-  - /patterns/design/proxy-pattern
+  - /patterns/facade-pattern
+  - /patterns/proxy-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/context-object-pattern
+  - /patterns/domain-event-pattern
+  - /patterns/intercepting-filter-pattern
+  - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +41,13 @@ seo:
     - architecture
     - decoupling
     - layers
+
+
+
+
+
+
+
 ---
 
 # Business Delegate Pattern
@@ -40,6 +59,9 @@ The Business Delegate Pattern reduces coupling between the presentation tier and
 This pattern is particularly valuable in enterprise applications where business services may be distributed, change frequently, or require complex initialization. The Business Delegate can also cache results, handle retries, and provide a simplified interface to the presentation layer.
 
 ## When to Use
+
+
+- For alternatives, see [Context Object Pattern](/patterns/context-object-pattern/).
 
 Use the Business Delegate Pattern when:
 - The presentation tier needs to access remote or distributed business services

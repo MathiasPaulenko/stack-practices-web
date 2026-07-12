@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: change-management-template
 title: "Plantilla de Gestión de Cambios"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/auto-scaling-policy-template
   - /docs/backup-and-restore-template
   - /docs/cloud-cost-allocation-template
+  - /docs/service-level-objective-template
+  - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - rollback
     - operaciones
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Los cambios en producción son riesgosos. Una migración de base de datos, una actualización de configuración o un cambio de feature flag pueden desencadenar una interrupción. La gestión de cambios no es burocracia: es una forma estructurada de reducir sorpresas. Esta plantilla documenta el flujo de revisión, aprobación y reversión para cualquier cambio que toque producción, asegurando que las personas correctas hayan revisado el riesgo y que la ruta de reversión esté lista antes de comenzar.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Bug Triage Template](/es/docs/bug-triage-template/).
 
 Usa este recurso cuando:
 - Introduces un cambio en infraestructura de producción, bases de datos o configuración

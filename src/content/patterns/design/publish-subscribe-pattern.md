@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: publish-subscribe-pattern
 title: "Publish-Subscribe Pattern"
@@ -17,9 +22,12 @@ tags:
   - message-broker
   - decoupling
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/serverless-fanout-pattern
-  - /patterns/design/dead-letter-channel-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/serverless-fanout-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/message-deduplication-pattern
+  - /patterns/reactive-streams-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - pub sub event driven
     - broadcast messages subscribers
     - pattern design
+
+
+
+
+
 ---
 
 ## Overview
@@ -36,6 +49,9 @@ seo:
 In a point-to-point queue, each message is processed by exactly one consumer. But many systems need multiple independent reactions to the same event. When an order is placed, the inventory service updates stock, the notification service sends a confirmation email, and the analytics service records the event. The Publish-Subscribe pattern broadcasts a message to all subscribers of a topic, so each subscriber receives its own copy and processes it independently.
 
 ## When to Use
+
+
+- For alternatives, see [Event-Carried State Transfer Pattern](/patterns/event-carried-state-transfer-pattern/).
 
 - Multiple services need to react to the same event independently
 - You want to decouple the producer from the consumers (producer does not know who consumes)

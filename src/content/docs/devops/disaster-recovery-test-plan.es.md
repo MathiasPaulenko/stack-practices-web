@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: disaster-recovery-test-plan
 title: "Plan de Prueba de Recuperacion ante Desastres"
@@ -18,11 +21,12 @@ tags:
   - runbook
   - compliance
 relatedResources:
-  - /docs/devops/runbook-database-failover
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/devops/data-migration-runbook-template
-  - /docs/devops/incident-communication-template
+  - /docs/runbook-database-failover
+  - /docs/deployment-rollback-runbook
+  - /docs/data-migration-runbook-template
+  - /docs/incident-communication-template
   - /docs/data-breach-response-playbook
+  - /docs/vulnerability-management-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - prueba de failover
     - continuidad de negocio
     - plan de recuperacion
+
+
+
 ---
 
 ## Overview
@@ -41,6 +48,9 @@ seo:
 Los planes de recuperacion ante desastres que nunca se han probado son meros deseos. Un desastre real expone vacios en la documentacion, dependencias faltantes y suposiciones poco realistas sobre los tiempos de recuperacion. Esta plantilla de prueba proporciona un enfoque estructurado para validar tus procedimientos de DR a traves de ejercicios controlados de failover, verificacion de integridad de datos y medicion de RTO/RPO.
 
 ## When to Use
+
+
+- For alternatives, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/es/guides/disaster-recovery-guide/).
 
 Usa este recurso cuando:
 - Los requisitos de cumplimiento anuales exigen pruebas de DR (SOC2, ISO 27001)

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: generate-pdfs
 title: "Generate PDFs"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/read-write-file
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
+  - /recipes/export-csv-excel
+  - /recipes/image-optimization
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

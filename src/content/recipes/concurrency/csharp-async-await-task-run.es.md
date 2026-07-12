@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: csharp-async-await-task-run
 title: "Construir Pipelines Async con C# async/await y Task.Run"
@@ -16,9 +21,12 @@ tags:
   - task
   - concurrency
 relatedResources:
-  - /recipes/concurrency/java-completable-future-composition
-  - /recipes/concurrency/python-asyncio-gather-task-groups
+  - /recipes/java-completable-future-composition
+  - /recipes/python-asyncio-gather-task-groups
   - /guides/concurrency-patterns-guide
+  - /recipes/java-virtual-threads-project-loom
+  - /recipes/rust-tokio-async-runtime
+  - /recipes/go-goroutines-channels-patterns
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - c# task.whenall
     - c# cancellation token
     - c# channels concurrency
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +49,9 @@ seo:
 El modelo `async`/`await` de C# proporciona una maquina de estados basada en el compilador que transforma metodos async en callbacks. `Task` y `Task<T>` representan operaciones async. Aqui se explica como basics de `async`/`await`, `Task.WhenAll` para ejecucion paralela, `Task.WhenAny` para primero-en-completar, `CancellationTokenSource` para cancellation, `System.Threading.Channels` para producer-consumer y `Parallel.ForEachAsync` para I/O paralelo limitado.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Concurrent Patterns with Go Goroutines and Channels](/es/recipes/go-goroutines-channels-patterns/).
 
 - Operaciones I/O async (llamadas HTTP, queries a base de datos, I/O de archivos)
 - Llamadas a API concurrentes con agregacion de resultados

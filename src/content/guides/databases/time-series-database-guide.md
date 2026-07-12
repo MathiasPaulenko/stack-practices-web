@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: time-series-database-guide
 title: "Time-Series Databases — InfluxDB, TimescaleDB"
@@ -33,6 +34,7 @@ seo:
     - iot
     - metrics
     - guide
+
 ---
 
 ## Overview
@@ -40,6 +42,9 @@ seo:
 Time-series databases (TSDBs) are optimized for workloads where data is indexed primarily by time: metrics, IoT sensor readings, application logs, financial tick data, and system monitoring. Unlike general-purpose databases, TSDBs use the immutable, append-only nature of time-series data to achieve massive ingestion throughput and efficient time-range queries. Specialized engines like InfluxDB, TimescaleDB, and ClickHouse each offer different trade-offs between ease of use, SQL compatibility, and raw performance.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - You ingest millions of data points per second with a timestamp
 - Queries are predominantly time-range scans (`WHERE time > now() - interval '1 day'`)

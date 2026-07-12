@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: real-time-analytics-guide
 title: "Analítica en Tiempo Real"
@@ -18,9 +20,9 @@ tags:
   - olap
   - guide
 relatedResources:
-  - /guides/data/stream-processing-guide
-  - /guides/data/etl-pipeline-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/stream-processing-guide
+  - /guides/etl-pipeline-guide
+  - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +35,8 @@ seo:
     - kafka
     - olap
     - guide
+
+
 ---
 
 ## Descripción General
@@ -42,6 +46,9 @@ La analítica en tiempo real procesa datos a medida que llegan, entregando insig
 A continuación: recolección de eventos, procesamiento de streams, bases de datos OLAP y diseño de dashboards para analítica sub-segundo.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/).
 
 - Necesitas detectar anomalías o fraude en segundos de que ocurren eventos
 - Operaciones de negocio dependen de visibilidad minuto a minuto (trading, logística, gaming)

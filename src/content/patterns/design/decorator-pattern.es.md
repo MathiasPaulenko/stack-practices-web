@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: decorator-pattern
 title: "Patrón Decorator"
@@ -16,9 +21,13 @@ tags:
   - python
   - structural
 relatedResources:
-  - /patterns/design/adapter-pattern
-  - /patterns/design/strategy-pattern
-  - /recipes/api/call-rest-api
+  - /patterns/adapter-pattern
+  - /patterns/strategy-pattern
+  - /recipes/call-rest-api
+  - /patterns/bridge-pattern
+  - /patterns/builder-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/composite-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - python decorator
     - java decorator
     - javascript decorator
+
+
+
+
+
 ---
 
 # Patrón Decorator

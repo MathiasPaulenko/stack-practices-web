@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: graphql-custom-scalar-types
 title: "Tipos escalares personalizados en GraphQL para fechas,"
@@ -15,9 +17,9 @@ tags:
   - validation
   - api
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-dataloader-batching
-  - /recipes/graphql/graphql-input-validation
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-dataloader-batching
+  - /recipes/graphql-input-validation
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,8 @@ seo:
     - graphql json scalar
     - graphql email validation
     - custom scalar types
+
+
 ---
 
 # Tipos escalares personalizados en GraphQL para fechas, emails y JSON
@@ -35,6 +39,9 @@ seo:
 GraphQL incluye cinco escalares nativos: `Int`, `Float`, `String`, `Boolean` e `ID`. Las aplicaciones reales necesitan tipos mas especificos — fechas que serializan a ISO 8601, emails que validan formato, URLs que exigen protocolo y blobs JSON flexibles. Los escalares personalizados llenan este vacio definiendo tres funciones: `serialize` (servidor a cliente), `parseValue` (variable del cliente al servidor) y `parseLiteral` (AST del cliente al servidor).
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to GraphQL Federation](/es/guides/complete-guide-graphql-federation/).
 
 - Campos de fecha o timestamp que necesitan formato ISO 8601 consistente
 - Campos de email, URL o telefono que necesitan validacion de formato a nivel schema

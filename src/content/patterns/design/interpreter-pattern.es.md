@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: interpreter-pattern
 title: "Patrón Interpreter"
@@ -18,9 +22,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/chain-of-responsibility-pattern
-  - /patterns/design/strategy-pattern
-  - /patterns/design/command-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/strategy-pattern
+  - /patterns/command-pattern
+  - /patterns/memento-pattern
+  - /patterns/template-method-pattern
+  - /patterns/iterator-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +41,10 @@ seo:
     - python interpreter
     - java interpreter
     - javascript interpreter
+
+
+
+
 ---
 
 # Patrón Interpreter

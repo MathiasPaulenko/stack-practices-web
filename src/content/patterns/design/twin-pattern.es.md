@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: twin-pattern
 title: "Patrón Twin"
@@ -17,9 +22,12 @@ tags:
   - inheritance
   - delegation
 relatedResources:
-  - /patterns/design/bridge-pattern
-  - /patterns/design/decorator-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/bridge-pattern
+  - /patterns/decorator-pattern
+  - /patterns/strategy-pattern
+  - /patterns/marker-interface-pattern
+  - /patterns/partial-class-pattern
+  - /patterns/role-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - composition
     - inheritance
     - delegation
+
+
+
+
+
 ---
 
 # Patrón Twin
@@ -43,6 +56,9 @@ Este patrón es útil en lenguajes que no soportan herencia múltiple (Java, C#)
 Un ejemplo clásico es un widget de UI que necesita ser dibujable (renderizado) e interactivo (manejo de eventos). En lugar de un único `DrawableInteractiveWidget`, el Patrón Twin crea un `DrawTwin` y un `InteractTwin` que se conocen entre sí.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Marker Interface Pattern](/es/patterns/marker-interface-pattern/).
 
 Usa el Patrón Twin cuando:
 - Una clase necesita comportamiento de múltiples jerarquías ortogonales

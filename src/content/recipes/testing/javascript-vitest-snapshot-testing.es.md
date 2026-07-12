@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: javascript-vitest-snapshot-testing
 title: "Vitest Snapshot Testing para React"
@@ -16,9 +20,11 @@ tags:
   - frontend
   - recipe
 relatedResources:
-  - /recipes/testing/jest-snapshot-testing
-  - /recipes/testing/nodejs-supertest-express-api
-  - /recipes/frontend/react-usememo-usecallback-performance
+  - /recipes/jest-snapshot-testing
+  - /recipes/nodejs-supertest-express-api
+  - /recipes/react-usememo-usecallback-performance
+  - /guides/complete-guide-vitest-react-testing
+  - /recipes/javascript-msw-mock-service-worker
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +37,10 @@ seo:
     - snapshot
     - frontend
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -235,6 +245,9 @@ describe("SubmitForm", () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Vitest for React: Component, Hook, and Integration Testing](/es/guides/complete-guide-vitest-react-testing/).
 
 - Mantén los snapshots pequeños — snapshot de un solo componente, no un árbol de página entera
 - Usa inline snapshots para outputs pequeños y estables — viven en el archivo de test y son revisables en PRs

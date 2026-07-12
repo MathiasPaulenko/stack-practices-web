@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: two-factor-authentication
 title: "Two-Factor Authentication (2FA / TOTP)"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/middleware
   - /recipes/file-upload-validation
+  - /recipes/magic-link-authentication
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,7 @@ seo:
     - python
     - javascript
     - java
+
 ---
 ## Overview
 

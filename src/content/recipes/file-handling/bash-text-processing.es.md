@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: bash-text-processing
 title: "Procesamiento de Texto en Bash"
@@ -16,9 +20,11 @@ tags:
   - text-processing
   - recipe
 relatedResources:
-  - /recipes/file-handling/bash-loop-over-files
-  - /recipes/file-handling/bash-parallel-execution
-  - /recipes/observability/structured-logging
+  - /recipes/bash-loop-over-files
+  - /recipes/bash-parallel-execution
+  - /recipes/structured-logging
+  - /recipes/bash-backup-rotation-script
+  - /recipes/bash-parallel-job-execution
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +37,10 @@ seo:
     - awk
     - text-processing
     - recipe
+
+
+
+
 ---
 
 ## Descripción General
@@ -455,6 +465,9 @@ awk '{for (i=1; i<=NF; i++) print i, $i}' file.txt
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Bash Loop Over Files](/es/recipes/bash-loop-over-files/).
 
 1. **Usa `LC_ALL=C` para 2-5x de speedup en archivos grandes.** El ordenamiento y comparación byte-wise omite el procesamiento Unicode dependiente de locale:
 

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: clean-architecture-guide
 title: "Clean Architecture"
@@ -21,7 +25,9 @@ relatedResources:
   - /guides/onion-architecture-guide
   - /guides/layered-architecture-guide
   - /guides/solid-principles-guide
-  - /patterns/design/dependency-injection-pattern
+  - /patterns/dependency-injection-pattern
+  - /guides/cqrs-guide
+  - /guides/modular-monolith-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -34,6 +40,10 @@ seo:
     - solid-principles
     - domain-driven-design
     - guía
+
+
+
+
 ---
 
 ## Overview
@@ -185,6 +195,9 @@ class PostgresUserRepository implements UserRepository {
 - **Sobre-abstracción** — agregar interfaces para cosas que nunca cambian
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Hexagonal Architecture — Ports, Adapters, and Testability](/es/guides/hexagonal-architecture-guide/).
 
 - Aplicaciones medianas a grandes con larga vida útil
 - Aplicaciones donde la lógica de dominio es más compleja que el acceso a datos

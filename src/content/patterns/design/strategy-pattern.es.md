@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: strategy-pattern
 title: "Patrón Strategy"
@@ -17,9 +22,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/observer-pattern
-  - /recipes/data/sort-array
-  - /guides/api/rest-api-design-guide
+  - /patterns/observer-pattern
+  - /recipes/sort-array
+  - /guides/rest-api-design-guide
+  - /patterns/blackboard-pattern
+  - /patterns/bridge-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - python strategy
     - java strategy
     - javascript strategy
+
+
+
+
+
 ---
 
 # Patrón Strategy

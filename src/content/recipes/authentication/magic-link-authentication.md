@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: magic-link-authentication
 title: "Implement Passwordless Login with Magic Links"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/session-management
   - /recipes/oauth2-login
   - /recipes/two-factor-authentication
+  - /recipes/api-key-authentication
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - email login
     - one time link
     - secure token
+
 ---
 
 ## Overview

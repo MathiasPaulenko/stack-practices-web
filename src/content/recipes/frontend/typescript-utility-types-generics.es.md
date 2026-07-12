@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: typescript-utility-types-generics
 title: "Construir Utility Types Reutilizables con Generics"
@@ -15,9 +18,10 @@ tags:
   - conditional-types
   - recipe
 relatedResources:
-  - /recipes/frontend/typescript-discriminated-unions-exhaustive
-  - /recipes/frontend/react-form-react-hook-form-validation
-  - /recipes/frontend/react-usememo-usecallback-performance
+  - /recipes/typescript-discriminated-unions-exhaustive
+  - /recipes/react-form-react-hook-form-validation
+  - /recipes/react-usememo-usecallback-performance
+  - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - utility-types
     - conditional-types
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -325,6 +332,9 @@ type Nested = Awaited<Promise<Promise<number>>>; // number (en TypeScript 4.5+)
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to TypeScript Advanced Types](/es/guides/complete-guide-typescript-advanced-types/).
 
 - Nombra los utility types descriptivamente — `RequireFields<T, K>` es más claro que `T & { [P in K]-?: T[P] }`
 - Agrega generic constraints (`K extends keyof T`) para atrapar uso inválido en compile time

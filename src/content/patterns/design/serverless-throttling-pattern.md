@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: serverless-throttling-pattern
 title: "Serverless Throttling Pattern"
@@ -19,9 +23,11 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-fanout-pattern
-  - /patterns/design/serverless-function-composition-pattern
-  - /patterns/messaging/priority-queue-pattern
+  - /patterns/serverless-fanout-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +39,10 @@ seo:
     - lambda concurrency limits
     - token bucket serverless
     - serverless rate control
+
+
+
+
 ---
 
 # Serverless Throttling Pattern
@@ -283,6 +293,9 @@ Each throttling strategy controls throughput at a different level:
 | Semaphore (in-function) | Instance-level | Limiting concurrent async calls |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Serverless Fanout Pattern](/patterns/serverless-fanout-pattern/).
 
 - **Combine SQS with reserved concurrency** — SQS buffers traffic; reserved concurrency caps parallelism. Together they provide both smoothing and hard limits.
 - **Use partial batch failure reporting** — when one message in a batch fails, return only that message ID in `batchItemFailures`. SQS re-delivers only the failed message, not the entire batch.

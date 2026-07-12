@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: backup-and-restore-template
 title: "Plantilla de Verificación de Backup y Restore"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/bug-report-template
   - /docs/capacity-planning-template
+  - /docs/network-security-template
+  - /recipes/bash-backup-rotation
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - base-de-datos
     - disaster-recovery
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Los backups no valen nada si no puedes restaurar desde ellos. Muchos equipos lo descubren demasiado tarde: después de un ataque de ransomware, una corrupción de base de datos o una eliminación accidental. Esta plantilla asegura que tus procedimientos de backup estén documentados, probados y verificables antes de que ocurra un desastre.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Cross-Region Failover Test Template](/es/docs/cross-region-failover-template/).
 
 Usa este recurso cuando:
 - Estés configurando políticas de backup para una nueva base de datos o almacenamiento de archivos

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: aws-basics-guide
 title: "AWS Basics — Core Services for Developers"
@@ -22,6 +27,10 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/kubernetes-advanced-guide
   - /guides/finops-guide
+  - /guides/blob-storage-guide
+  - /guides/azure-basics-guide
+  - /guides/gcp-basics-guide
+  - /guides/multi-cloud-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -35,6 +44,11 @@ seo:
     - lambda
     - vpc
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -42,6 +56,9 @@ seo:
 Amazon Web Services (AWS) is the most widely adopted cloud platform, offering over 200 services. For developers, understanding the core services — compute, storage, databases, networking, and security — is essential for building growth-ready, cost-effective applications. This guide focuses on the services you will use daily and how they fit together in a typical architecture.
 
 ## When to Use
+
+
+- For alternatives, see [Azure Basics — Core Services for Developers](/guides/azure-basics-guide/).
 
 - You are migrating from on-premises to cloud
 - You need growth-ready compute without managing hardware

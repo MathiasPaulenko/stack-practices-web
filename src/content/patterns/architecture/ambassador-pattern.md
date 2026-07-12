@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: ambassador-pattern
 title: "Ambassador: Offload Cross-Cutting Concerns to a Proxy"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/sidecar-pattern
   - /patterns/modular-monolith-pattern
   - /patterns/anti-corruption-layer-pattern
+  - /patterns/health-endpoint-monitoring-pattern
+  - /patterns/backends-for-frontends-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +34,9 @@ seo:
     - proxy
     - networking
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -463,6 +471,9 @@ resp = ambassador.call("payment", "POST", "/charge", json={"amount": 99.99})
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Compute Resource Consolidation Pattern](/patterns/compute-resource-consolidation-pattern/).
 
 - Use connection pooling — the ambassador maintains persistent connections to external services
 - Set appropriate timeouts — both per-request and overall, to prevent hanging

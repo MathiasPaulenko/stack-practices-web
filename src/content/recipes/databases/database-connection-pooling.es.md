@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: database-connection-pooling
 title: "Pool de Conexiones a Base de Datos"
@@ -15,9 +19,11 @@ tags:
   - mysql
   - jdbc
 relatedResources:
-  - /recipes/databases/postgres-query-optimization
-  - /recipes/databases/database-transactions
-  - /guides/databases/database-normalization-guide
+  - /recipes/postgres-query-optimization
+  - /recipes/database-transactions
+  - /guides/database-normalization-guide
+  - /recipes/database-replication
+  - /recipes/schema-evolution
 lastUpdated: "2026-07-03"
 author: "StackPractices"
 seo:
@@ -27,12 +33,19 @@ seo:
     - databases
     - postgresql
     - performance
+
+
+
+
 ---
 ## Visión General
 
 El connection pooling reutiliza conexiones de base de datos establecidas en lugar de crear una nueva por petición. Cada nueva conexión requiere un handshake TCP, negociación TLS y autenticación, añadiendo 20-100ms de overhead. Bajo carga, crear conexiones por petición agota el límite de conexiones de la base de datos y causa fallos en cascada.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Tuning](/es/guides/complete-guide-postgresql-tuning/).
 
 Usa este recurso cuando:
 - Tu aplicación abre demasiadas conexiones y la base de datos rechaza nuevas peticiones

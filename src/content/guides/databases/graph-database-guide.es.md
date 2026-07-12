@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: graph-database-guide
 title: "Bases de Datos de Grafos"
@@ -32,6 +33,7 @@ seo:
     - grafo-propiedades
     - datos-conectados
     - guia
+
 ---
 
 ## Overview
@@ -39,6 +41,9 @@ seo:
 Las bases de datos de grafos almacenan datos como nodos (entidades) y aristas (relaciones), haciendolas ideales para problemas donde las conexiones entre puntos de datos son tan importantes como los datos mismos. Redes sociales, deteccion de fraude, motores de recomendacion y grafos de conocimiento se benefician del almacenamiento nativo de grafos. Neo4j, la principal base de datos de grafos de propiedades, usa el lenguaje de consulta Cypher y logra recorridos de tiempo constante independientemente de la profundidad del grafo — algo con lo que las bases relacionales luchan debido a la explosion de joins.
 
 ## When to Use
+
+
+- For alternatives, see [Data Lake vs Data Warehouse — Architecture Guide](/es/guides/data-lake-guide/).
 
 - Las relaciones son la principal preocupacion de consulta, no solo atributos
 - Necesitas recorrer muchos saltos eficientemente (amigo-de-amigo, cadena de suministro)

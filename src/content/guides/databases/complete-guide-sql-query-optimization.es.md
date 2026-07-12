@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-sql-query-optimization
 title: "Referencia Detallada de SQL Query Optimization"
@@ -19,9 +24,12 @@ tags:
   - n-plus-1
   - performance
 relatedResources:
-  - /guides/databases/complete-guide-postgresql-replication
-  - /guides/databases/complete-guide-mongodb-indexing
-  - /guides/databases/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-replication
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-tuning
+  - /recipes/elasticsearch-aggregations
+  - /recipes/schema-evolution
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - materialized view
     - query caching
     - postgresql optimization
+
+
+
+
+
 ---
 
 ## Introducción
@@ -598,3 +611,12 @@ Si, siempre usa connection pooling en production. Abrir un new database connecti
 ### ¿Cómo optimizo un slow JOIN?
 
 First, asegurate que ambos join columns tengan indexes. El join column en el inner (larger) table debe estar indexed — sin eso, el database hace un nested loop scan. Checkea el EXPLAIN plan para el join method: hash join es efficient para large unsorted inputs, merge join es efficient cuando ambos inputs son sorted, nested loop es efficient cuando un side es small. Filter early — addear WHERE conditions para reduce rows antes de joinear. Considera denormalizar si frecuentemente joineas los same tables. Usa covering indexes para avoid table fetches. Para complex multi-table joins, experimenta con join order hints.
+
+## See Also
+
+- [Full-Text Search — Implement Search That Actually Works](/es/guides/full-text-search-guide/)
+- [Complete Guide to MongoDB Indexing](/es/guides/complete-guide-mongodb-indexing/)
+- [Complete Guide to PostgreSQL Tuning](/es/guides/complete-guide-postgresql-tuning/)
+- [SQL Performance Tuning — Indexes, Queries, and Explain Plans](/es/guides/sql-performance-tuning-guide/)
+- [Database Query Tuning Checklist](/es/docs/database-query-tuning-checklist/)
+

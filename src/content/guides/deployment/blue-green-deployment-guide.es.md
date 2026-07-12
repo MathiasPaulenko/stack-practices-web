@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: blue-green-deployment-guide
 title: "Despliegue Blue-Green"
@@ -18,11 +22,13 @@ tags:
   - infrastructure
   - guia
 relatedResources:
-  - /guides/deployment/canary-deployment-guide
-  - /guides/deployment/feature-flags-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/planning/capacity-planning-guide
-  - /guides/planning/disaster-recovery-guide
+  - /guides/canary-deployment-guide
+  - /guides/feature-flags-guide
+  - /guides/sre-practices-guide
+  - /guides/capacity-planning-guide
+  - /guides/disaster-recovery-guide
+  - /guides/cost-optimization-cloud-guide
+  - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - traffic-switching
     - infrastructure
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +54,9 @@ El despliegue blue-green es una estrategia de release que mantiene dos entornos 
 A continuación: diseño de arquitectura, mecanismos de cambio de tráfico, manejo de migraciones de base de datos y lo que funciona operacionalmente.
 
 ## When to Use
+
+
+- For alternatives, see [Canary Deployment: Gradual Rollouts with Safety Controls](/es/guides/canary-deployment-guide/).
 
 - Necesitas despliegues sin downtime para servicios críticos
 - La velocidad de rollback es más importante que la eficiencia de recursos

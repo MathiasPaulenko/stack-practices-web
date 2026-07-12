@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: go-goroutines-channels-patterns
 title: "Concurrent Patterns with Go Goroutines and Channels"
@@ -16,10 +21,13 @@ tags:
   - channels
   - concurrency
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/java-completable-future-composition
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/java-completable-future-composition
   - /guides/concurrency-patterns-guide
   - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-go-concurrency
+  - /recipes/csharp-async-await-task-run
+  - /recipes/java-virtual-threads-project-loom
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - go worker pool
     - go fan-out fan-in
     - go select context cancellation
+
+
+
+
+
 ---
 
 ## Overview
@@ -538,6 +551,9 @@ func tee[T any](in <-chan T) (<-chan T, <-chan T) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Go Concurrency](/guides/complete-guide-go-concurrency/).
 
 - **Close channels from the sender side**: The goroutine that writes to a channel should close it. Never close from the receiver side — sending on a closed channel panics.
 - **Use `context` for cancellation**: Don't use custom done channels. `context.Context` is the standard way to propagate cancellation. It integrates with HTTP servers, database drivers, and most libraries.

@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: message-idempotency
 title: "Idempotencia en Procesamiento de Mensajes"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/kafka-event-streaming
   - /recipes/rabbitmq-task-queue
   - /guides/microservices-architecture-guide
+  - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - messaging
     - distributed-systems
     - architecture
+
 ---
 ## Visión General
 

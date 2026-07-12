@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: java-virtual-threads-project-loom
 title: "Escalar Aplicaciones Concurrentes con Java Virtual Threads"
@@ -16,9 +20,11 @@ tags:
   - jdk-21
   - concurrency
 relatedResources:
-  - /recipes/concurrency/java-completable-future-composition
-  - /recipes/concurrency/go-goroutines-channels-patterns
+  - /recipes/java-completable-future-composition
+  - /recipes/go-goroutines-channels-patterns
   - /guides/concurrency-patterns-guide
+  - /recipes/csharp-async-await-task-run
+  - /recipes/rust-tokio-async-runtime
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - jdk 21 concurrency
     - structured concurrency java
     - java lightweight threads
+
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +46,9 @@ seo:
 Los virtual threads, introducidos como preview en Java 19 y finalizados en Java 21, son threads ligeros gestionados por la JVM en lugar del OS. Permiten escribir codigo bloqueante sencillo que escala a millones de operaciones concurrentes. La solucion a continuacion cubre creacion de virtual threads, executors de virtual threads, concurrencia estructurada con `StructuredTaskScope` y scoped values como alternativa a ThreadLocal.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Build Async Pipelines with C# async/await and Task.Run](/es/recipes/csharp-async-await-task-run/).
 
 - Aplicaciones servidor de alto throughput que manejan muchas requests concurrentes
 - Workloads I/O-heavy donde operaciones bloqueantes dominan

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: connect-to-redis
 title: "Conectar a Redis"
@@ -20,6 +23,8 @@ relatedResources:
   - /patterns/cache-aside-pattern
   - /recipes/redis-cache-patterns
   - /patterns/abstract-factory-pattern
+  - /recipes/execute-raw-sql
+  - /recipes/use-orm-crud
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Visión General
 
 Redis es un almacén de estructuras de datos en memoria usado para caching, gestión de sesiones, análisis en tiempo real y brokers de mensajes. Conectarse a Redis y usar sus tipos de datos principales de forma eficiente es una habilidad backend fundamental. Lo siguiente cubre operaciones básicas en Python, JavaScript y Java.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Connect to MySQL](/es/recipes/connect-to-mysql/).
 
 Usa este recurso cuando:
 - Implementas capas de cache para reducir la carga de la base de datos

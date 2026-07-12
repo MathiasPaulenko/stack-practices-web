@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: hash-passwords-argon2
 title: "Hash Passwords with Argon2"
@@ -16,9 +19,10 @@ tags:
   - cryptography
   - recipe
 relatedResources:
-  - /recipes/authentication/implement-rbac
-  - /recipes/authentication/implement-sso-saml
-  - /guides/security/secrets-management-guide
+  - /recipes/implement-rbac
+  - /recipes/implement-sso-saml
+  - /guides/secrets-management-guide
+  - /recipes/implement-abac
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - security
     - cryptography
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -38,6 +45,9 @@ seo:
 Argon2 won the 2015 Password Hashing Competition and is the recommended algorithm by OWASP, NIST, and the IETF. It resists GPU-based cracking through memory-hard computation, making brute-force attacks thousands of times more expensive than with SHA-256 or even bcrypt. Argon2id combines the strengths of Argon2d (GPU resistance) and Argon2i (side-channel resistance), making it the default recommendation for all new systems.
 
 ## When to Use
+
+
+- For alternatives, see [Implement ABAC](/recipes/implement-abac/).
 
 - Storing passwords for any system where brute-force resistance matters
 - Replacing bcrypt, PBKDF2, or scrypt in existing systems

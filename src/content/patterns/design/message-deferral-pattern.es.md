@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: message-deferral-pattern
 title: "Patrón Message Deferral"
@@ -17,9 +19,9 @@ tags:
   - retry
   - message-queue
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/dead-letter-channel-pattern
-  - /patterns/design/message-deduplication-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/message-deduplication-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - entrega retrasada de mensajes
     - programar procesamiento de mensajes
     - patron diseno
+
+
 ---
 
 ## Descripción General
@@ -36,6 +40,9 @@ seo:
 Algunos mensajes no pueden procesarse inmediatamente pero no deberian descartarse. Un mensaje puede depender de un recurso temporalmente no disponible, necesitar ejecutarse en un momento especifico (notificaciones programadas) o requerir un retraso antes de reintentar (exponential backoff). El patron Message Deferral mueve estos mensajes a un estado diferido y los entrega despues cuando se cumplen las condiciones o llega el horario programado.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Dead Letter Channel Pattern](/es/patterns/dead-letter-channel-pattern/).
 
 - Los mensajes dependen de recursos temporalmente no disponibles (mantenimiento de DB, APIs con rate limit)
 - Necesitas entrega programada (enviar un recordatorio 24 horas despues del registro)

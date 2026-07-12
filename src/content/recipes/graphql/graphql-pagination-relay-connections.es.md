@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-pagination-relay-connections
 title: "Paginacion por cursores con GraphQL Relay Connections"
@@ -15,9 +19,11 @@ tags:
   - cursor
   - api
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/data/cursor-pagination-postgresql
-  - /patterns/graphql/graphql-batched-resolver-pattern
+  - /recipes/graphql-apollo-server
+  - /recipes/cursor-pagination-postgresql
+  - /patterns/graphql-batched-resolver-pattern
+  - /recipes/graphql-dataloader-batching
+  - /patterns/graphql-connection-pagination-pattern
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - cursor pagination
     - graphql edges
     - graphql pageinfo
+
+
+
+
 ---
 
 # Paginacion por cursores con GraphQL Relay Connections
@@ -35,6 +45,9 @@ seo:
 La especificacion Relay Connection es el estandar de facto para paginar resultados en GraphQL. Modela las colecciones como conexiones que contienen edges, donde cada edge envuelve un node y un cursor. Esta estructura soporta paginacion estable ante inserciones y borrados, a diferencia de los enfoques basados en offset que saltan o duplican filas cuando los datos cambian entre peticiones.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to GraphQL Federation](/es/guides/complete-guide-graphql-federation/).
 
 - Colecciones que crecen con el tiempo y necesitan paginacion estable
 - Clientes que soportan scroll infinito o patrones de "cargar mas"

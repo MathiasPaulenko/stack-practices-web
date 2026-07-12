@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: composite-entity-pattern
 title: "Patrón Composite Entity"
@@ -17,9 +20,10 @@ tags:
   - persistence
   - orm
 relatedResources:
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/active-record-pattern
-  - /patterns/design/unit-of-work-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/active-record-pattern
+  - /patterns/unit-of-work-pattern
+  - /patterns/role-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +34,9 @@ seo:
     - databases
     - persistence
     - orm
+
+
+
 ---
 
 # Patrón Composite Entity
@@ -41,6 +48,9 @@ El Patrón Composite Entity mapea un objeto de entidad coarse-grained a múltipl
 Este patrón fue originalmente diseñado para entity beans EJB 2.x para reducir la cantidad de llamadas remotas fine-grained. En aplicaciones modernas, sigue siendo útil para mapeo ORM donde un aggregate root (como Order) contiene múltiples value objects dependientes (line items, shipping address, payment details) que no existen independientemente.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Data Mapper Pattern](/es/patterns/data-mapper-pattern/).
 
 Usa el Patrón Composite Entity cuando:
 - Un aggregate root contiene múltiples objetos dependientes que deberían persistirse juntos

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: hexagonal-architecture
 title: "Construir Aplicaciones Mantenibles con Arquitectura"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/microservices-patterns
   - /recipes/unit-testing-mocking
   - /recipes/api-contract-testing
+  - /recipes/observer-pattern-recipe
+  - /recipes/adapter-pattern-recipe
+  - /recipes/factory-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - clean architecture
     - aislamiento logica dominio
     - aplicaciones testeables
+
+
+
 ---
 
 ## Visión general

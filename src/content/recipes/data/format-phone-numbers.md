@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: format-phone-numbers
 title: "Format Phone Numbers"
@@ -17,11 +20,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/truncate-text
-  - /recipes/data/validate-json-schema
-  - /recipes/data/convert-csv-to-json
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/diff-json-objects
+  - /recipes/truncate-text
+  - /recipes/validate-json-schema
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
+  - /recipes/diff-json-objects
+  - /recipes/python-generate-qr-code
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Overview
 
@@ -287,6 +294,9 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - **commander.js**: Node.js CLI framework. 40M+ downloads/month. Subcommands, options, help text generation. Used by npm, Vue CLI, and many other popular CLIs
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Truncate Text](/recipes/truncate-text/).
 
 - Store dates in UTC. Convert to user locale only at the presentation layer
 - Use Decimal or integer cents for money. Never use floating-point for financial calculations

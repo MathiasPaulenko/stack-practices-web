@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: python-image-resize-batch
 title: "Batch Resize Images with Python"
@@ -31,6 +32,7 @@ seo:
     - batch-processing
     - resize
     - optimization
+
 ---
 ## Overview
 
@@ -523,6 +525,9 @@ if __name__ == "__main__":
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Compress and Decompress Files](/recipes/compress-decompress-files/).
 
 1. **Use `ImageOps.exif_transpose()` before resizing.** Photos from phones often have EXIF orientation tags. Without auto-orientation, the resized image may appear rotated:
 

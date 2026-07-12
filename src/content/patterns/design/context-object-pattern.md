@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: patterns
 slug: context-object-pattern
 title: "Context Object Pattern"
@@ -17,8 +24,13 @@ tags:
   - decoupling
   - state
 relatedResources:
-  - /patterns/design/dependency-injection-pattern
-  - /patterns/design/facade-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/facade-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/intercepting-filter-pattern
+  - /patterns/manager-pattern
+  - /patterns/role-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +41,13 @@ seo:
     - architecture
     - decoupling
     - state
+
+
+
+
+
+
+
 ---
 
 # Context Object Pattern
@@ -40,6 +59,9 @@ The Context Object Pattern encapsulates state and services needed by multiple co
 This pattern is ubiquitous in modern frameworks. HTTP request contexts in web frameworks, React's Context API, and Android's `Context` class are all implementations. The key benefit is reducing method signature bloat while keeping components decoupled from the specific environment they run in.
 
 ## When to Use
+
+
+- For alternatives, see [Business Delegate Pattern](/patterns/business-delegate-pattern/).
 
 Use the Context Object Pattern when:
 - Multiple methods need access to the same set of cross-cutting concerns

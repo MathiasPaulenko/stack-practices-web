@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: csrf-protection
 title: "Proteger Formularios Web Contra Ataques CSRF"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/api-security-headers
   - /recipes/session-management
   - /recipes/xss-prevention
+  - /recipes/password-hashing-production
+  - /recipes/encryption-at-rest
+  - /recipes/hmac-request-signing
+  - /recipes/rate-limiting-security
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,10 @@ seo:
     - samesite cookies
     - web security
     - owasp
+
+
+
+
 ---
 
 ## Visión general

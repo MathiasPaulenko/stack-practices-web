@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: repository-pattern
 title: "Patrón Repository"
@@ -18,9 +23,13 @@ tags:
   - python
   - repository
 relatedResources:
-  - /patterns/design/mvc-pattern
-  - /recipes/databases/sql-joins
-  - /patterns/design/factory-pattern
+  - /patterns/mvc-pattern
+  - /recipes/sql-joins
+  - /patterns/factory-pattern
+  - /recipes/dependency-injection
+  - /guides/domain-driven-design-guide
+  - /guides/layered-architecture-guide
+  - /guides/onion-architecture-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +43,11 @@ seo:
     - python repository
     - java repository
     - javascript repository
+
+
+
+
+
 ---
 
 # Patrón Repository

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-api-versioning-strategies
 title: "Complete Guide to API Versioning Strategies"
@@ -18,9 +24,13 @@ tags:
   - guide
   - api-design
 relatedResources:
-  - /guides/api/rest-api-design-guide
-  - /guides/architecture/graphql-vs-rest-guide
-  - /patterns/architecture/gateway-routing-pattern
+  - /guides/rest-api-design-guide
+  - /guides/graphql-vs-rest-guide
+  - /patterns/gateway-routing-pattern
+  - /docs/api-changelog-template
+  - /docs/api-error-handling-guideline
+  - /recipes/java-spring-cache-annotations
+  - /recipes/nodejs-redis-cache-invalidation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - content negotiation
     - api deprecation
     - backward compatibility
+
+
+
+
+
+
 ---
 
 # Complete Guide to API Versioning Strategies
@@ -201,6 +217,9 @@ const schema = buildSchema(`
 ```
 
 ### GraphQL versioning best practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Schema Design](/guides/complete-guide-graphql-schema-design/).
 
 - **Add fields, never remove** — old clients keep working
 - **Deprecate before removing** — use `@deprecated` directive

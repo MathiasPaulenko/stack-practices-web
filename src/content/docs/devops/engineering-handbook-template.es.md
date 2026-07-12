@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: engineering-handbook-template
 title: "Plantilla de Engineering Handbook"
@@ -16,10 +21,13 @@ tags:
   - template
   - standards
 relatedResources:
-  - /docs/devops/onboarding-checklist-backend-engineer
-  - /docs/devops/git-branching-strategy-document
-  - /docs/devops/code-review-checklist-template
-  - /docs/devops/service-ownership-document-template
+  - /docs/onboarding-checklist-backend-engineer
+  - /docs/git-branching-strategy-document
+  - /docs/code-review-checklist-template
+  - /docs/service-ownership-document-template
+  - /recipes/multi-tenancy
+  - /patterns/external-configuration-store-pattern
+  - /docs/microservice-contract-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - estandares de ingenieria
     - plantilla de handbook de desarrolladores
     - procesos de equipo
+
+
+
+
+
 ---
 
 ## Overview
@@ -37,6 +50,9 @@ seo:
 Los equipos sin un handbook escrito reinventan su cultura con cada nueva contratacion. Decisiones que eran obvias para los fundadores se convierten en misterios para el decimo ingeniero. Un engineering handbook captura las reglas, normas y razonamientos que definen como tu equipo construye software. No es un reemplazo de la conversacion. Es la referencia que hace las conversaciones productivas en lugar de repetitivas.
 
 ## When to Use
+
+
+- For alternatives, see [SLA Definition Template](/es/docs/sla-definition-template/).
 
 Usa esta plantilla cuando:
 - Tu equipo de ingenieria esta creciendo mas alla del grupo fundador

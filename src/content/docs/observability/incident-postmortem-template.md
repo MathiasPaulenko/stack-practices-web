@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: incident-postmortem-template
 title: "Incident Postmortem Template"
@@ -16,10 +20,12 @@ tags:
   - root-cause
   - sre
 relatedResources:
-  - /docs/observability/alert-runbook-template
-  - /docs/observability/dashboard-design-template
-  - /docs/observability/observability-maturity-assessment-template
-  - /guides/observability/complete-guide-structured-logging
+  - /docs/alert-runbook-template
+  - /docs/dashboard-design-template
+  - /docs/observability-maturity-assessment-template
+  - /guides/complete-guide-structured-logging
+  - /docs/ci-cd-pipeline-design-template
+  - /docs/incident-response-plan-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +38,10 @@ seo:
     - template
     - sre
     - action items
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +49,9 @@ seo:
 A postmortem is a written record of an incident: what happened, why it happened, how it was resolved, and what will change to prevent recurrence. The postmortem process is blameless — it focuses on systemic causes, not individual mistakes. This template ensures consistent, actionable postmortems across the organization.
 
 ## When to Use
+
+
+- For alternatives, see [Blameless Postmortems: Learning from Incidents Without Blame](/guides/postmortem-guide/).
 
 - After any P0 or P1 incident (required within 48 hours)
 - After recurring P2 incidents (third occurrence triggers postmortem)

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-rate-limiting-fastapi-redis
 title: "Distributed Rate Limiting with FastAPI and Redis"
@@ -15,9 +19,11 @@ tags:
   - rate limiting
   - middleware
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/caching/redis-rate-limiting-token-bucket
-  - /recipes/security/python-sql-injection-sqlalchemy
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/redis-rate-limiting-token-bucket
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/python-async-gather-concurrent-requests
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - distributed rate limiting
     - sliding window
     - token bucket python
+
+
+
+
 ---
 
 # Distributed Rate Limiting with FastAPI and Redis
@@ -388,6 +398,9 @@ async def expensive_operation(request: Request):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Cache Database Query Results with Redis and Python](/recipes/database-query-result-caching/).
 
 - **Use sliding window for accuracy** — fixed window allows 2x bursts at window boundaries
 - **Set meaningful Retry-After headers** — clients can back off gracefully

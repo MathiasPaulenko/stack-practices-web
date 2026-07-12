@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: prototype-pattern-cloning
 title: "Prototype Pattern para Clonacion de Objetos y Plantillas"
@@ -14,8 +16,9 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/builder-pattern
-  - /patterns/design/abstract-factory-cross-platform
+  - /patterns/builder-pattern
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/memento-pattern-state
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +29,8 @@ seo:
     - configuration templates
     - creational patterns
     - deep copy
+
+
 ---
 
 # Prototype Pattern para Clonacion de Objetos y Plantillas de Configuracion

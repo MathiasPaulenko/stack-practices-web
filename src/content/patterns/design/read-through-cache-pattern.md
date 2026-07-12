@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: read-through-cache-pattern
 title: "Read-Through Cache Pattern"
@@ -19,9 +25,13 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/cache-aside-pattern
-  - /patterns/design/write-through-cache-pattern
-  - /recipes/caching/python-redis-cache-decorator
+  - /patterns/cache-aside-pattern
+  - /patterns/write-through-cache-pattern
+  - /recipes/python-redis-cache-decorator
+  - /patterns/refresh-ahead-cache-pattern
+  - /patterns/write-behind-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/cache-stampede-prevention-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - cache miss handling
     - python cache
     - java cache
+
+
+
+
+
+
 ---
 
 # Read-Through Cache Pattern
@@ -229,6 +245,9 @@ The key difference from cache-aside is transparency. With cache-aside, the appli
 | ORM second-level cache | ORM layer | Java/Hibernate, automatic entity caching |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Refresh-Ahead Cache Pattern](/patterns/refresh-ahead-cache-pattern/).
 
 - **Set a TTL on every entry** — without a TTL, stale data persists indefinitely. Choose TTLs based on data change frequency.
 - **Use consistent key naming** — `entity:id` format (e.g. `user:123`, `product:456`) makes debugging and invalidation predictable.

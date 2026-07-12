@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-llm-prompt-engineering
 title: "Referencia Detallada de LLM Prompt Engineering"
@@ -18,8 +21,9 @@ tags:
   - guide
   - ai
 relatedResources:
-  - /guides/concurrency/complete-guide-python-asyncio
-  - /guides/api/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-python-asyncio
+  - /guides/complete-guide-api-versioning-strategies
+  - /docs/ai-llm-prompt-template-library
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +37,9 @@ seo:
     - system prompts
     - temperature tuning
     - function calling
+
+
+
 ---
 
 # Referencia Detallada de LLM Prompt Engineering
@@ -421,3 +428,12 @@ Usar RAG para groundear responses en factual data. Setear system prompts que ins
 ### ¿Debo usar GPT-4 o un modelo más pequeño?
 
 Usar GPT-4 o modelos large equivalentes para complex reasoning, code generation y tasks que requieren high accuracy. Usar modelos más pequeños (GPT-3.5, Llama 3 8B) para tasks simples como classification, formatting y basic extraction. Los modelos más pequeños son más rápidos y más baratos — routear a ellos cuando la task es suficientemente simple.
+
+## See Also
+
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to RAG in Production](/es/guides/complete-guide-rag-production/)
+

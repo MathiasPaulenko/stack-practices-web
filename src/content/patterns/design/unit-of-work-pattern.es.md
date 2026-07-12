@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: unit-of-work-pattern
 title: "Patrón Unit of Work"
@@ -17,9 +21,11 @@ tags:
   - databases
   - orm
 relatedResources:
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/data-access-object-pattern
-  - /patterns/design/active-record-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/data-access-object-pattern
+  - /patterns/active-record-pattern
+  - /patterns/composite-entity-pattern
+  - /patterns/identity-map-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - transactions
     - databases
     - orm
+
+
+
+
 ---
 
 # Patrón Unit of Work
@@ -41,6 +51,9 @@ El Patrón Unit of Work mantiene una lista de objetos afectados por una transacc
 Este patrón es esencial para consistencia transaccional. Previene actualizaciones parciales donde un objeto es guardado y otro falla, dejando la base de datos en un estado inconsistente. ORMs como la `Session` de Hibernate y `DbContext` de Entity Framework son implementaciones de Unit of Work.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Composite Entity Pattern](/es/patterns/composite-entity-pattern/).
 
 Usa el Patrón Unit of Work cuando:
 - Múltiples objetos deben ser actualizados atómicamente dentro de una transacción de negocio

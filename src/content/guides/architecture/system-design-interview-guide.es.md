@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: system-design-interview-guide
 title: "Guía de Entrevistas de System Design: Conceptos Clave"
@@ -17,9 +22,13 @@ tags:
   - performance
   - sistemas-distribuidos
 relatedResources:
-  - /guides/architecture/software-architecture-guide
-  - /guides/devops/kubernetes-basics-guide
-  - /patterns/design/cache-aside-pattern
+  - /guides/software-architecture-guide
+  - /guides/kubernetes-basics-guide
+  - /patterns/cache-aside-pattern
+  - /recipes/microservices-communication
+  - /recipes/retry-backoff
+  - /recipes/workflow-engine
+  - /recipes/cdn-edge-caching
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - preguntas escalabilidad
     - disenar twitter
     - disenar url shortener
+
+
+
+
+
 ---
 
 # Guía de Entrevistas de System Design

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-structured-logging-json
 title: "Logging Estructurado JSON con structlog"
@@ -15,9 +20,12 @@ tags:
   - json
   - recipe
 relatedResources:
-  - /recipes/observability/nodejs-pino-fast-logging
-  - /recipes/observability/python-prometheus-custom-metrics
-  - /recipes/observability/python-opentelemetry-tracing
+  - /recipes/nodejs-pino-fast-logging
+  - /recipes/python-prometheus-custom-metrics
+  - /recipes/python-opentelemetry-tracing
+  - /recipes/java-actuator-health-checks
+  - /recipes/nodejs-sentry-error-tracking
+  - /recipes/nodejs-winston-daily-rotate
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - structlog
     - json
     - recipe
+
+
+
+
+
 ---
 
 ## Overview
@@ -291,6 +304,9 @@ def process_order(order_id: str):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [High-Performance Logging with pino](/es/recipes/nodejs-pino-fast-logging/).
 
 - Usa `contextvars` para context scoped al request en frameworks async — se propaga correctamente a través de boundaries `await`
 - Siempre incluye un processor `timestamp` — los log aggregators lo necesitan para ordering

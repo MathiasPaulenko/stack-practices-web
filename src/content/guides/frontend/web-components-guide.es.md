@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: web-components-guide
 title: "Web Components — Custom Elements, Shadow DOM y Templates"
@@ -18,7 +23,10 @@ tags:
 relatedResources:
   - /guides/accessibility-wcag-guide
   - /guides/progressive-web-apps-guide
-  - /patterns/design/factory-pattern
+  - /patterns/factory-pattern
+  - /guides/complete-guide-mobile-responsive-design
+  - /guides/complete-guide-react-performance-optimization
+  - /guides/complete-guide-web-security-headers
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -31,6 +39,11 @@ seo:
     - independiente-framework
     - componentes-reutilizables
     - guia
+
+
+
+
+
 ---
 
 ## Visión General
@@ -38,6 +51,9 @@ seo:
 Web Components son un conjunto de APIs nativas del navegador para crear elementos HTML reutilizables y encapsulados. Funcionan en cualquier framework — o sin ninguno — y proporcionan verdadera encapsulación de estilos y DOM mediante Shadow DOM. A continuación: las tres tecnologías principales: Custom Elements, Shadow DOM y HTML Templates, con ejemplos prácticos que puedes usar hoy.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Feature Flags: Progressive Release and Safe Experimentation](/es/guides/feature-flags-guide/).
 
 - Necesitas elementos UI reutilizables compartidos entre diferentes proyectos o frameworks
 - Quieres encapsulación de estilos sin CSS-in-JS o convenciones de nomenclatura BEM

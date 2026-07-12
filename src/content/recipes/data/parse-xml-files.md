@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: parse-xml-files
 title: "Parse XML Files"
@@ -15,11 +19,13 @@ tags:
   - java
   - data-processing
 relatedResources:
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-json
-  - /recipes/data/regular-expressions
-  - /guides/devops/logging-monitoring-observability-guide
-  - /recipes/file-handling/stream-processing
+  - /recipes/parse-csv-files
+  - /recipes/parse-json
+  - /recipes/regular-expressions
+  - /guides/logging-monitoring-observability-guide
+  - /recipes/stream-processing
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +37,10 @@ seo:
     - javascript
     - java
     - data-processing
+
+
+
+
 ---
 
 ## Overview
@@ -280,6 +290,9 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **csvkit**: command-line tools for CSV files. csvstat shows statistics, csvcut selects columns, csvjoin merges files. Useful for quick exploration without writing Python scripts
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Parse CSV Files](/recipes/parse-csv-files/).
 
 - Always specify encoding explicitly (encoding='utf-8'). Never rely on system defaults
 - Use chunked reading for files >500MB. Set chunksize in pandas or iterate line-by-line

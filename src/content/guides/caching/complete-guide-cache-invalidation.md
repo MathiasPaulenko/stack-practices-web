@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-cache-invalidation
 title: "Complete Guide to Cache Invalidation"
@@ -19,9 +21,9 @@ tags:
   - tag-based
   - consistency
 relatedResources:
-  - /guides/caching/complete-guide-redis-caching-strategies
-  - /guides/caching/complete-guide-application-level-caching
-  - /guides/caching/complete-guide-cdn-caching-strategy
+  - /guides/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-application-level-caching
+  - /guides/complete-guide-cdn-caching-strategy
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +36,8 @@ seo:
     - tag-based purging
     - cache consistency
     - multi-tier invalidation
+
+
 ---
 
 ## Introduction
@@ -550,3 +554,12 @@ Invalidate after writing to the database. If you invalidate before, a concurrent
 ### How do I test cache invalidation?
 
 Write integration tests that verify: writes invalidate cache, subsequent reads fetch fresh data, concurrent reads during writes do not return stale data, invalidation failures fall back to TTL, and pub/sub notifications reach all instances.
+
+## See Also
+
+- [Complete Guide to Application-Level Caching](/guides/complete-guide-application-level-caching/)
+- [Complete Guide to CDN Caching Strategy](/guides/complete-guide-cdn-caching-strategy/)
+- [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/)
+- [Complete Guide to LLM Cost Optimization](/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to GraphQL Caching](/guides/complete-guide-graphql-caching/)
+

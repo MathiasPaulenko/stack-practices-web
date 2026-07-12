@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: sharding-pattern
 title: "Patron de Sharding"
@@ -18,8 +22,10 @@ tags:
   - particionamiento
   - escala-horizontal
 relatedResources:
-  - /patterns/design/database-per-service-pattern
-  - /patterns/design/materialized-view-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/materialized-view-pattern
+  - /patterns/geode-pattern
+  - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - particionamiento
     - escala horizontal
     - particion de datos
+
+
+
+
 ---
 
 # Patron de Sharding
@@ -43,6 +53,9 @@ El Patron de Sharding divide un dataset grande en fragmentos mas pequenos llamad
 Este patron es esencial cuando un servidor unico no puede manejar el volumen de datos, throughput de consultas o conexiones concurrentes.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Database per Service Pattern](/es/patterns/database-per-service-pattern/).
 
 - Dataset excede la capacidad de almacenamiento de un nodo
 - Throughput de consultas excede limites de CPU/IOPS

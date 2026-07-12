@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: type-object-pattern
 title: "Type Object Pattern"
@@ -17,9 +21,11 @@ tags:
   - data-driven
   - flyweight
 relatedResources:
-  - /patterns/design/flyweight-pattern
-  - /patterns/design/prototype-pattern
-  - /patterns/design/entity-component-system-pattern
+  - /patterns/flyweight-pattern
+  - /patterns/prototype-pattern
+  - /patterns/entity-component-system-pattern
+  - /patterns/partial-class-pattern
+  - /patterns/marker-interface-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - game dev
     - data driven
     - flyweight
+
+
+
+
 ---
 
 # Type Object Pattern
@@ -41,6 +51,9 @@ The Type Object Pattern defines game entity types (monsters, items, spells) as r
 This pattern bridges the gap between object-oriented class hierarchies and data-driven design. Instead of `Goblin extends Monster` and `Dragon extends Monster`, you have a single `Monster` class with a `MonsterType` reference that defines behavior, stats, and appearance.
 
 ## When to Use
+
+
+- For alternatives, see [Marker Interface Pattern](/patterns/marker-interface-pattern/).
 
 Use the Type Object Pattern when:
 - Entity types are defined by data (stats, appearance) rather than unique behavior

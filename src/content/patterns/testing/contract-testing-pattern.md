@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: contract-testing-pattern
 title: "Contract Testing: Verify Consumer-Producer API Contracts"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/test-double-pattern
   - /patterns/mock-server-pattern
   - /patterns/snapshot-testing-pattern
+  - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - microservices
     - api
     - pattern
+
+
 ---
 
 ## Overview
@@ -517,6 +522,9 @@ npx pact-broker can-i-deploy \
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Fixture Setup/Teardown: Reusable Test Context Lifecycle](/patterns/fixture-setup-teardown-pattern/).
 
 - Consumer-driven — let consumers define what they need, not what the provider exposes
 - Use matchers — `like()`, `term()`, `eachLike()` instead of exact values for flexibility

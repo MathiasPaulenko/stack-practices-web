@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: patch-management-template
 title: "Patch Management Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/ssl-certificate-renewal-template
   - /docs/runbook-template
+  - /docs/on-call-runbook-template
+  - /docs/performance-regression-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - security
     - operations
     - template
+
+
+
 ---
 ## Overview
 
@@ -281,6 +289,9 @@ echo "Kernel patch applied without reboot. Verify with: kpatch list"
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Bug Triage Template](/docs/bug-triage-template/).
 
 1. **Use canary deployments for OS patches.** Instead of patching all servers at once, patch 5% of your fleet first. Monitor error rates, latency, and resource usage for 24 hours before proceeding:
 

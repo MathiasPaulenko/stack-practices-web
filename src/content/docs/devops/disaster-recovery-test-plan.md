@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: disaster-recovery-test-plan
 title: "Disaster Recovery Test Plan"
@@ -18,11 +21,12 @@ tags:
   - runbook
   - compliance
 relatedResources:
-  - /docs/devops/runbook-database-failover
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/devops/data-migration-runbook-template
-  - /docs/devops/incident-communication-template
+  - /docs/runbook-database-failover
+  - /docs/deployment-rollback-runbook
+  - /docs/data-migration-runbook-template
+  - /docs/incident-communication-template
   - /docs/data-breach-response-playbook
+  - /docs/vulnerability-management-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - failover test
     - business continuity
     - recovery plan
+
+
+
 ---
 
 ## Overview
@@ -497,6 +504,9 @@ LIMIT 12;
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/guides/disaster-recovery-guide/).
 
 1. **Maintain a DR test calendar with rotating scenarios.** Don't test the same scenario every time. Rotate through different failure modes to cover all recovery paths:
 

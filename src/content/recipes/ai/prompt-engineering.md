@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: prompt-engineering
 title: "Apply Prompt Engineering: What Works"
@@ -17,6 +20,9 @@ relatedResources:
   - /recipes/chatbot-openai
   - /recipes/rag-pipeline
   - /recipes/semantic-search
+  - /recipes/python-sentiment-analysis-nltk
+  - /recipes/ai-agents
+  - /recipes/image-generation
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - chain of thought
     - structured output
     - openai prompts
+
+
+
 ---
 
 ## Overview

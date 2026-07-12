@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: active-record-pattern
 title: "Active Record Pattern"
@@ -16,9 +19,11 @@ tags:
   - persistence
   - database
 relatedResources:
-  - /patterns/design/data-access-object-pattern
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/repository-pattern
+  - /patterns/data-access-object-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/repository-pattern
+  - /patterns/composite-entity-pattern
+  - /patterns/unit-of-work-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - orm
     - persistence
     - database
+
+
+
 ---
 
 # Active Record Pattern

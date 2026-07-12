@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: recipes
 slug: bash-parallel-execution
 title: "Bash Parallel Execution"
@@ -16,8 +23,13 @@ tags:
   - performance
   - recipe
 relatedResources:
-  - /recipes/file-handling/bash-loop-over-files
-  - /recipes/file-handling/bash-text-processing
+  - /recipes/bash-loop-over-files
+  - /recipes/bash-text-processing
+  - /recipes/bash-backup-rotation-script
+  - /recipes/bash-log-rotation-compression
+  - /recipes/bash-monitoring-disk-usage
+  - /recipes/bash-parallel-job-execution
+  - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +42,13 @@ seo:
     - concurrency
     - performance
     - recipe
+
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -385,6 +404,9 @@ echo "All conversions complete"
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Parallel Job Execution with Bash](/recipes/bash-parallel-job-execution/).
 
 1. **Use `wait -n` for efficient job slot management.** Bash 4.3+ supports `wait -n`, which waits for the next job to finish. It is more efficient than polling with `sleep`:
 

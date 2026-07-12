@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-kubernetes-networking
 title: "Referencia Detallada de Kubernetes Networking"
@@ -20,9 +24,11 @@ tags:
   - cni
   - service-mesh
 relatedResources:
-  - /guides/devops/complete-guide-docker-production
-  - /guides/devops/complete-guide-monitoring-and-alerting
-  - /guides/security/complete-guide-authentication-patterns
+  - /guides/complete-guide-docker-production
+  - /guides/complete-guide-monitoring-and-alerting
+  - /guides/complete-guide-authentication-patterns
+  - /patterns/external-configuration-store-pattern
+  - /guides/complete-guide-gitops-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -36,6 +42,10 @@ seo:
     - service mesh
     - kubernetes dns
     - mtls
+
+
+
+
 ---
 
 ## Introducción
@@ -635,3 +645,12 @@ CoreDNS corre en el kube-system namespace y sirve DNS queries para el cluster. S
 ### ¿Debería usar un service mesh?
 
 Usa un service mesh cuando necesitas mTLS entre services, advanced traffic routing (canary, circuit breaking, retry), y deep observability (distributed tracing, traffic metrics). El overhead es complexity y resource usage. Para small clusters con simple networking, Kubernetes native resources (Services, Ingress, NetworkPolicies) son sufficient. Para large microservice architectures con many services, un service mesh como Istio o Linkerd provee significant value.
+
+## See Also
+
+- [Complete Guide to GitOps in Production](/es/guides/complete-guide-gitops-production/)
+- [Complete Guide to Terraform in Production](/es/guides/complete-guide-terraform-production/)
+- [Complete Guide to Kubernetes Ingress](/es/guides/complete-guide-kubernetes-ingress/)
+- [Multi-Cloud Strategies — Benefits, Pitfalls](/es/guides/multi-cloud-guide/)
+- [External Configuration Store Pattern](/es/patterns/external-configuration-store-pattern/)
+

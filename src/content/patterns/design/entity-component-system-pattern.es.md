@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: entity-component-system-pattern
 title: "Patrón Entity-Component-System (ECS)"
@@ -17,9 +21,11 @@ tags:
   - composition
   - performance
 relatedResources:
-  - /patterns/design/mixin-pattern
-  - /patterns/design/composite-pattern
-  - /patterns/design/facade-pattern
+  - /patterns/mixin-pattern
+  - /patterns/composite-pattern
+  - /patterns/facade-pattern
+  - /patterns/type-object-pattern
+  - /patterns/value-object-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - design pattern
     - game dev
     - composition
+
+
+
+
 ---
 
 # Patrón Entity-Component-System (ECS)
@@ -43,6 +53,9 @@ ECS favorece la composición sobre la herencia. En lugar de una jerarquía de cl
 Esta arquitectura habilita layouts de datos cache-friendly, serialización fácil y modificación en vivo de comportamiento en runtime.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Eager Loading Pattern](/es/patterns/eager-loading-pattern/).
 
 Usa el Patrón ECS cuando:
 - Las entidades tienen muchas propiedades ortogonales que no encajan en un árbol de herencia limpio

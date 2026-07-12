@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-structured-logging
 title: "Structured Logging: JSON Logs, Correlation IDs, Aggregation"
@@ -16,8 +21,11 @@ tags:
   - loki
   - observability
 relatedResources:
-  - /guides/observability/complete-guide-distributed-tracing
-  - /guides/observability/complete-guide-prometheus-grafana
+  - /guides/complete-guide-distributed-tracing
+  - /guides/complete-guide-prometheus-grafana
+  - /recipes/docker-logging-fluentd
+  - /recipes/python-prometheus-metrics-exporter
+  - /guides/complete-guide-sentry-error-tracking
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -31,6 +39,11 @@ seo:
     - grafana loki
     - structlog
     - pino logger
+
+
+
+
+
 ---
 
 ## Introduction
@@ -573,6 +586,9 @@ sum(rate({job="app"} | json | level="error" [5m])) by (service)
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - Log in JSON format — every log line is a parseable JSON document
 - Always include a timestamp in ISO 8601 format — don't rely on log collection time

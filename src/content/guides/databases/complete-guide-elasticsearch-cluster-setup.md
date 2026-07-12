@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-elasticsearch-cluster-setup
 title: "Complete Guide to Elasticsearch Cluster Setup"
@@ -19,9 +25,13 @@ tags:
   - databases
   - infrastructure
 relatedResources:
-  - /guides/databases/database-denormalization-guide
-  - /guides/architecture/complete-guide-kafka-stream-processing
-  - /guides/devops/deployment-strategies-guide
+  - /guides/database-denormalization-guide
+  - /guides/complete-guide-kafka-stream-processing
+  - /guides/deployment-strategies-guide
+  - /recipes/elasticsearch-aggregations
+  - /guides/full-text-search-guide
+  - /guides/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-replication
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - elasticsearch production
     - search cluster
     - index templates
+
+
+
+
+
+
 ---
 
 # Complete Guide to Elasticsearch Cluster Setup
@@ -374,6 +390,9 @@ helpers.bulk(es, actions, chunk_size=1000, request_timeout=60)
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Full-Text Search — Implement Search That Actually Works](/guides/full-text-search-guide/).
 
 - **Always use 3 master-eligible nodes** — avoid split-brain with quorum
 - **Keep shard size under 50GB** — large shards slow recovery and search

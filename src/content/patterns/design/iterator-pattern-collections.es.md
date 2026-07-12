@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: iterator-pattern-collections
 title: "Iterator Pattern para Traversal de Colecciones Custom en"
@@ -14,8 +17,10 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/composite-pattern-ui
-  - /patterns/design/abstract-factory-cross-platform
+  - /patterns/composite-pattern-ui
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/interpreter-pattern-expressions
+  - /patterns/visitor-pattern-operations
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +31,9 @@ seo:
     - behavioral patterns
     - typescript
     - tree traversal
+
+
+
 ---
 
 # Iterator Pattern para Traversal de Colecciones Custom en TypeScript

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: modular-monolith-guide
 title: "Monolito Modular — Una Arquitectura Pragmática"
@@ -21,7 +23,7 @@ relatedResources:
   - /guides/monolith-to-microservices-migration-guide
   - /guides/hexagonal-architecture-guide
   - /guides/clean-architecture-guide
-  - /patterns/design/anti-corruption-layer-pattern
+  - /patterns/anti-corruption-layer-pattern
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -34,6 +36,8 @@ seo:
     - limites-modulos
     - domain-driven-design
     - guía
+
+
 ---
 
 ## Overview
@@ -41,6 +45,9 @@ seo:
 Un Monolito Modular es una arquitectura de software que mantiene la simplicidad de despliegue de un monolito mientras impone los límites modulares de los microservicios. En lugar de desplegar muchos servicios pequeños, construyes una única unidad desplegable compuesta por módulos bien definidos y débilmente acoplados. Cada módulo posee su dominio, datos e interfaz pública. La comunicación entre módulos ocurre a través de APIs explícitas, no mediante tablas de base de datos compartidas o llamadas directas a métodos.
 
 ## When to Use
+
+
+- For alternatives, see [Clean Architecture](/es/guides/clean-architecture-guide/).
 
 - Tu equipo no está listo para la complejidad operacional de los microservicios
 - Necesitas despliegues rápidos y debugging simple pero quieres límites claros

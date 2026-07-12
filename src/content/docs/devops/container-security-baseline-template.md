@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: container-security-baseline-template
 title: "Container Security Baseline Template"
@@ -15,9 +19,11 @@ tags:
   - hardening
   - compliance
 relatedResources:
-  - /docs/devops/network-segmentation-policy-template
-  - /docs/devops/ci-cd-pipeline-security-template
-  - /docs/devops/rbac-policy-template
+  - /docs/network-segmentation-policy-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/rbac-policy-template
+  - /docs/endpoint-security-checklist-template
+  - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - docker security
     - kubernetes security baseline
     - image scanning
+
+
+
+
 ---
 
 ## Overview
@@ -326,6 +336,9 @@ spec:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/guides/ci-cd-security-guide/).
 
 1. **Use Kubernetes Pod Security Admission standards.** The `restricted` profile enforces non-root, no privileged, dropped capabilities, and seccomp. Apply it at the namespace level:
 

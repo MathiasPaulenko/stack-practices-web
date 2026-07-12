@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-basics
 title: "Fundamentos de Docker"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/git-workflow
   - /recipes/call-rest-api
   - /recipes/environment-variables
+  - /recipes/immutable-infrastructure
+  - /recipes/ansible-playbook
+  - /recipes/cron-jobs
+  - /recipes/github-actions
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,10 @@ seo:
     - dockerfile
     - docker compose
     - devops
+
+
+
+
 ---
 
 ## Overview

@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: docs
 slug: data-retention-policy-template
 title: "Plantilla de Politica de Retencion de Datos"
@@ -15,8 +22,13 @@ tags:
   - privacy
   - governance
 relatedResources:
-  - /docs/devops/user-access-audit-template
-  - /docs/devops/backup-verification-test-template
+  - /docs/user-access-audit-template
+  - /docs/backup-verification-test-template
+  - /recipes/data-privacy-gdpr
+  - /recipes/container-security
+  - /recipes/security-headers
+  - /docs/api-security-review-template
+  - /docs/data-classification-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +39,13 @@ seo:
     - politica de archivado de datos
     - politica de retencion GDPR
     - retencion de datos cumplimiento
+
+
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -34,6 +53,9 @@ seo:
 Una politica de retencion de datos define cuanto tiempo una organizacion conserva los datos, cuando se mueven a un almacenamiento de menor costo y cuando se eliminan permanentemente. Esta plantilla ayuda a los equipos a clasificar datos, asignar periodos de retencion, implementar retenciones legales y documentar controles de cumplimiento. Una politica clara reduce costos de almacenamiento, riesgo legal y complejidad operativa.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Disaster Recovery Test Plan](/es/docs/disaster-recovery-test-plan/).
 
 - Configurar una nueva plataforma de datos o aplicacion.
 - Prepararse para auditorias de GDPR, CCPA, HIPAA o SOC 2.

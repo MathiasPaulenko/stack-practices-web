@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: api-rate-limiting-redis
 title: "Implementar Rate Limiting de APIs con Redis"
@@ -15,8 +19,11 @@ tags:
   - rate-limiting
   - rest
 relatedResources:
-  - /recipes/api/go-rest-api-gin
-  - /recipes/api/api-documentation-openapi
+  - /recipes/go-rest-api-gin
+  - /recipes/api-documentation-openapi
+  - /recipes/api-rate-limiting
+  - /recipes/python-api-rate-limiting
+  - /guides/webhook-security-guide
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - sliding window
     - redis
     - api protection
+
+
+
+
 ---
 
 # Implementar Rate Limiting de APIs con Redis

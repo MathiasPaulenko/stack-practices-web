@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: fallover-pattern
 title: "Patrón Fallover: Switcheá a Standby en Primary Failure"
@@ -31,6 +32,7 @@ seo:
     - failover
     - high-availability
     - pattern
+
 ---
 
 ## Overview
@@ -603,6 +605,9 @@ class CascadingFallover:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Graceful Shutdown: Drain In-Flight Requests Before Exit](/es/patterns/graceful-shutdown-pattern/).
 
 - Usá automated health checks — manual fallover es too slow para production
 - Seteá appropriate failure thresholds — 3 consecutive failures antes de fallover previene flapping

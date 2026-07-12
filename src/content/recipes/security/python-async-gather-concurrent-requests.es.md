@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-async-gather-concurrent-requests
 title: "Peticiones HTTP concurrentes con asyncio.gather y aiohttp"
@@ -15,9 +20,12 @@ tags:
   - concurrent requests
   - performance
 relatedResources:
-  - /recipes/security/python-rate-limiting-fastapi-redis
-  - /recipes/ai/python-llm-streaming-responses
-  - /recipes/caching/redis-rate-limiting-token-bucket
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /recipes/python-llm-streaming-responses
+  - /recipes/redis-rate-limiting-token-bucket
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-asyncio-semaphore-rate-limiting
+  - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,11 @@ seo:
     - python async http
     - concurrent requests python
     - async performance
+
+
+
+
+
 ---
 
 # Peticiones HTTP concurrentes con asyncio.gather y aiohttp
@@ -35,6 +48,9 @@ seo:
 Las peticiones HTTP secuenciales son lentas — obtener 100 endpoints uno por uno toma 100x la latencia de una sola peticion. `asyncio.gather` ejecuta peticiones concurrentemente, reduciendo el tiempo total a la peticion mas lenta. A continuacion: fetching concurrente con `aiohttp`, manejo de errores, rate limiting con semaforos, timeouts y connection pooling.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Python Asyncio in Production](/es/guides/complete-guide-python-asyncio-production/).
 
 - Obtener datos de multiples APIs simultaneamente
 - Web scraping con descargas concurrentes de paginas

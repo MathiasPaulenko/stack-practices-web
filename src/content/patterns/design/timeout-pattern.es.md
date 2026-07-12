@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: timeout-pattern
 title: "Patrón Timeout"
@@ -18,9 +20,10 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/retry-pattern
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/bulkhead-pattern
+  - /patterns/retry-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/bulkhead-pattern
+  - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +37,8 @@ seo:
     - python timeout
     - java timeout
     - javascript timeout
+
+
 ---
 
 # Patrón Timeout

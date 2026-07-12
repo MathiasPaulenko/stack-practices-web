@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: repository-pattern-typescript
 title: "Repository Pattern con Generics de TypeScript"
@@ -15,9 +17,10 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/adapter-pattern-api
+  - /patterns/adapter-pattern-api
   - /recipes/database-indexing
   - /guides/database-design-guide
+  - /patterns/mvc-pattern-frontend
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +31,8 @@ seo:
     - data access layer
     - architecture pattern
     - clean architecture
+
+
 ---
 
 # Repository Pattern con Generics de TypeScript

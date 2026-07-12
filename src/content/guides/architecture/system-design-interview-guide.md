@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: system-design-interview-guide
 title: "System Design Interview Guide: Key Concepts"
@@ -15,9 +20,13 @@ tags:
   - performance
   - scalability
 relatedResources:
-  - /guides/architecture/software-architecture-guide
-  - /guides/devops/kubernetes-basics-guide
-  - /patterns/design/cache-aside-pattern
+  - /guides/software-architecture-guide
+  - /guides/kubernetes-basics-guide
+  - /patterns/cache-aside-pattern
+  - /recipes/microservices-communication
+  - /recipes/retry-backoff
+  - /recipes/workflow-engine
+  - /recipes/cdn-edge-caching
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - scalability interview questions
     - design twitter
     - design url shortener
+
+
+
+
+
 ---
 
 # System Design Interview Guide

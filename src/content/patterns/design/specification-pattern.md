@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: specification-pattern
 title: "Specification Pattern"
@@ -17,9 +19,9 @@ tags:
   - composition
   - filtering
 relatedResources:
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/repository-pattern
-  - /patterns/design/eager-loading-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/repository-pattern
+  - /patterns/eager-loading-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +32,8 @@ seo:
     - query
     - composition
     - filtering
+
+
 ---
 
 # Specification Pattern
@@ -41,6 +45,9 @@ The Specification Pattern encapsulates business rules for selecting objects as r
 This pattern is particularly capable for validation and querying. A `OverdueInvoiceSpecification` can be reused both to find overdue invoices and to validate whether a single invoice is overdue. Specifications can be chained: `isOverdue AND isHighValue AND isFromVIPCustomer`.
 
 ## When to Use
+
+
+- For alternatives, see [Composite Entity Pattern](/patterns/composite-entity-pattern/).
 
 Use the Specification Pattern when:
 - The same selection logic is needed in multiple places (queries, validation, notifications)

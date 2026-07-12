@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: handle-errors
 title: "Manejar Errores en APIs"
@@ -16,7 +21,11 @@ tags:
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/jwt-authentication
-  - /patterns/design/strategy-pattern
+  - /patterns/strategy-pattern
+  - /recipes/api-logging-audit
+  - /recipes/api-documentation-openapi
+  - /recipes/api-versioning
+  - /recipes/graphql-api
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +36,11 @@ seo:
     - rest api
     - códigos de estado http
     - respuesta de error
+
+
+
+
+
 ---
 
 ## Overview

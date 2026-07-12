@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-langchain-chains-composition
 title: "Compose LCEL Chains in LangChain for Multi-Step LLM"
@@ -14,9 +20,13 @@ tags:
   - llm
   - chains
 relatedResources:
-  - /recipes/ai/python-openai-function-calling-structured
-  - /recipes/ai/python-llm-streaming-responses
-  - /recipes/ai/python-agent-langgraph-state-machine
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-agent-langgraph-state-machine
+  - /recipes/python-huggingface-text-classification
+  - /recipes/python-llm-eval-ragas-metrics
+  - /recipes/python-ollama-local-llm
+  - /recipes/python-openai-embeddings-cosine
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - langchain expression language
     - python llm pipeline
     - langchain composition
+
+
+
+
+
+
 ---
 
 # Compose LCEL Chains in LangChain for Multi-Step LLM Workflows
@@ -281,6 +297,9 @@ result = chain_with_history.invoke(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to LangChain in Production](/guides/complete-guide-langchain-production/).
 
 - **Use `StrOutputParser` for simple text output** — it extracts the string content from the AI message
 - **Break complex chains into smaller components** — each component should do one thing

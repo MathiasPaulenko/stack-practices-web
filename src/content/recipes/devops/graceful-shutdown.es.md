@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: graceful-shutdown
 title: "Implementar graceful shutdown y reinicios sin downtime"
@@ -19,6 +21,8 @@ relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/docker-for-developers-guide
   - /guides/kubernetes-basics-guide
+  - /recipes/blue-green-deployment
+  - /recipes/traffic-mirroring
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - contenedores
     - servidor-web
     - despliegue
+
+
 ---
 
 ## Visión General

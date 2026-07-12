@@ -1,4 +1,5 @@
 ---
+
 contentType: docs
 templateType: code-of-conduct
 slug: code-of-conduct-template
@@ -18,6 +19,7 @@ relatedResources:
   - /docs/contributing-guide
   - /docs/readme-template
   - /guides/software-architecture-guide
+  - /recipes/pre-commit-hooks
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
@@ -28,6 +30,7 @@ seo:
     - open source governance
     - contributor covenant
     - harassment policy
+
 ---
 
 ## Overview

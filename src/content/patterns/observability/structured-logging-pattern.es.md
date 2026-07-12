@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: structured-logging-pattern
 title: "Patrón Structured Logging"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/correlation-id-pattern
   - /patterns/metrics-aggregation-pattern
   - /patterns/distributed-tracing-pattern
+  - /patterns/circuit-breaker-with-monitoring-pattern
+  - /patterns/health-check-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +35,9 @@ seo:
     - log-aggregation
     - elk
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -471,6 +479,9 @@ structlog.configure(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Structured Logging: JSON Logs, Correlation IDs, Aggregation](/es/guides/complete-guide-structured-logging/).
 
 - Usá JSON format en production — machine-parseable, searchable en aggregation tools
 - Incluí context, no solo messages — `logger.info("order_created", order_id=123)` no `logger.info("Order 123 created")`

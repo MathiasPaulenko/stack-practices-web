@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: service-dependency-map-template
 title: "Service Dependency Map Template"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/database-schema-documentation-template
   - /docs/engineering-handbook-template
   - /guides/microservices-architecture-guide
+  - /docs/api-lifecycle-management-template
+  - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +34,18 @@ seo:
     - dependencies
     - visualization
     - template
+
+
+
 ---
 ## Overview
 
 In distributed systems, a failure in one service can cascade unpredictably. A dependency map documents which services call which, the nature of those calls, and the blast radius if a dependency fails. This template provides both a textual registry and guidance for creating visual diagrams.
 
 ## When to Use
+
+
+- For alternatives, see [Microservice Contract Template](/docs/microservice-contract-template/).
 
 Use this resource when:
 - Onboarding a new service and documenting its upstream and downstream relationships

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: git-branching-strategy-document
 title: "Documento de Estrategia de Branching en Git"
@@ -16,10 +19,11 @@ tags:
   - ci-cd
   - standards
 relatedResources:
-  - /docs/devops/engineering-handbook-template
-  - /docs/devops/code-review-checklist-template
-  - /docs/devops/deployment-checklist-template
-  - /docs/devops/onboarding-checklist-backend-engineer
+  - /docs/engineering-handbook-template
+  - /docs/code-review-checklist-template
+  - /docs/deployment-checklist-template
+  - /docs/onboarding-checklist-backend-engineer
+  - /recipes/git-rebase-interactive-tutorial
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +34,9 @@ seo:
     - convencion de nomenclatura de ramas
     - estrategia de merge
     - proceso de release
+
+
+
 ---
 
 ## Overview
@@ -37,6 +44,9 @@ seo:
 Cada equipo que usa Git sin una estrategia de branching documentada eventualmente crea caos. Los desarrolladores crean ramas desde el lugar equivocado, los hotfixes evaden revision, los tags de release son inconsistentes, y revertir se convierte en un juego de adivinanzas. Un documento de estrategia de branching define como tu equipo usa Git: de donde vienen las ramas, como se mergean, quien puede aprobar, y como ocurren los releases.
 
 ## When to Use
+
+
+- For alternatives, see [Engineering Handbook Template](/es/docs/engineering-handbook-template/).
 
 Usa este documento cuando:
 - Tu equipo tiene mas de dos desarrolladores commiteando al mismo repositorio

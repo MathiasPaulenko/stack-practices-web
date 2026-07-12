@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: implement-rbac
 title: "Implement RBAC"
@@ -16,9 +19,10 @@ tags:
   - security
   - recipe
 relatedResources:
-  - /recipes/authentication/implement-abac
-  - /recipes/authentication/implement-sso-saml
-  - /guides/security/secrets-management-guide
+  - /recipes/implement-abac
+  - /recipes/implement-sso-saml
+  - /guides/secrets-management-guide
+  - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +35,9 @@ seo:
     - permissions
     - security
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -38,6 +45,9 @@ seo:
 Role-Based Access Control (RBAC) assigns permissions to roles, and roles to users. A user inherits all permissions of their roles. This model is simple, auditable, and scales to hundreds of roles without the complexity of attribute-based systems. RBAC is the right choice when access decisions depend primarily on job function rather than live context.
 
 ## When to Use
+
+
+- For alternatives, see [Implement ABAC](/recipes/implement-abac/).
 
 - Your application has clearly defined job functions (admin, editor, viewer, auditor)
 - Access control changes infrequently — new roles are added quarterly, not per request

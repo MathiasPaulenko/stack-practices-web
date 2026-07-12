@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-caching
 title: "Referencia Detallada de Caching GraphQL"
@@ -19,9 +24,12 @@ tags:
   - apollo-client
   - cache-invalidation
 relatedResources:
-  - /guides/api/complete-guide-graphql-schema-design
-  - /guides/api/complete-guide-graphql-security
-  - /patterns/graphql/graphql-dataloader-pattern
+  - /guides/complete-guide-graphql-schema-design
+  - /guides/complete-guide-graphql-security
+  - /patterns/graphql-dataloader-pattern
+  - /guides/complete-guide-graphql-testing
+  - /guides/complete-guide-cdn-caching-strategy
+  - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +42,11 @@ seo:
     - apollo client cache
     - graphql cache invalidation
     - graphql http caching
+
+
+
+
+
 ---
 
 ## Introducción
@@ -469,3 +482,12 @@ Testea que queries repetidas retornen resultados cacheados (checkea headers de r
 ### ¿Debería usar Redis o Memcached para caching GraphQL?
 
 Redis soporta datos estructurados (hashes, sets, sorted sets), TTLs, y pub/sub para invalidacion de cache. Memcached es mas simple y rapido para caching key-value. Usa Redis si necesitas invalidacion basada en tags o pub/sub. Usa Memcached para caching simple basado en TTL.
+
+## See Also
+
+- [Complete Guide to CDN Caching Strategy](/es/guides/complete-guide-cdn-caching-strategy/)
+- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to Application-Level Caching](/es/guides/complete-guide-application-level-caching/)
+- [Complete Guide to Cache Invalidation](/es/guides/complete-guide-cache-invalidation/)
+- [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/)
+

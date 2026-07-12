@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: setup-test-fixtures
 title: "Configurar Fixtures de Test"
@@ -16,9 +22,13 @@ tags:
   - factory-pattern
   - recipe
 relatedResources:
-  - /recipes/testing/generate-test-data
-  - /recipes/testing/measure-test-coverage
+  - /recipes/generate-test-data
+  - /recipes/measure-test-coverage
   - /patterns/factory-pattern
+  - /recipes/implement-mutation-testing
+  - /recipes/implement-property-based-testing
+  - /recipes/python-mock-external-apis-responses
+  - /recipes/python-pytest-fixtures-parametrize
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +41,12 @@ seo:
     - junit
     - factory-pattern
     - recipe
+
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -38,6 +54,9 @@ seo:
 Los fixtures de test son los datasets y estados de entorno conocidos y controlados que hacen los tests deterministas. Sin fixtures, los tests dependen de bases de datos externas, sistemas de archivos o estado aleatorio, produciendo fallos flaky que desperdician tiempo de debugging. La solucion abajo muestra cómo crear, aislar y limpiar fixtures usando patrones factory y hooks nativos del framework.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Pytest Fixtures and Parametrize](/es/recipes/python-pytest-fixtures-parametrize/).
 
 - Los tests necesitan un usuario de base de datos, archivo u objeto que existe en un estado conocido antes de las aserciones
 - Múltiples tests comparten la misma lógica de setup costosa

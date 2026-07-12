@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: graceful-degradation-pattern
 title: "Patrón Graceful Degradation"
@@ -17,9 +23,13 @@ tags:
   - fallback
   - fallo-parcial
 relatedResources:
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/timeout-pattern
-  - /patterns/design/bulkhead-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/timeout-pattern
+  - /patterns/bulkhead-pattern
+  - /patterns/blue-green-deployment-pattern
+  - /patterns/canary-release-pattern
+  - /patterns/deployment-ring-pattern
+  - /patterns/geode-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +42,12 @@ seo:
     - fallo parcial
     - features fallback
     - degradar funcionalidad
+
+
+
+
+
+
 ---
 
 # Patrón Graceful Degradation
@@ -43,6 +59,9 @@ Cuando una dependencia downstream falla, el comportamiento por defecto es devolv
 El patrón envuelve cada dependencia externa con una estrategia de fallback. Cuando la llamada primaria falla (timeout, circuit breaker abierto, 5xx), el fallback entra en accion. Los fallbacks pueden ser datos cacheados, valores por defecto, una version simplificada del feature, o saltar el feature completamente mientras el resto de la pagina sigue funcionando.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Back-Pressure Pattern](/es/patterns/back-pressure-pattern/).
 
 Usa el patrón Graceful Degradation cuando:
 - Tu aplicacion tiene features opcionales que mejoran pero no son criticas para la experiencia principal

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: compliance-gap-analysis-template
 title: "Compliance Gap Analysis Template"
@@ -15,9 +20,12 @@ tags:
   - iso27001
   - audit
 relatedResources:
-  - /docs/devops/access-control-review-template
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/network-segmentation-policy-template
+  - /docs/access-control-review-template
+  - /docs/rbac-policy-template
+  - /docs/network-segmentation-policy-template
+  - /docs/dependency-vulnerability-report-template
+  - /docs/pen-test-scope-template
+  - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - iso 27001 gap analysis
     - audit readiness
     - control mapping
+
+
+
+
+
 ---
 
 ## Overview
@@ -306,6 +319,9 @@ spec:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Access Control Review Template](/docs/access-control-review-template/).
 
 1. **Use a compliance-as-code approach.** Define controls as code (OPA policies, AWS Config rules, Terraform Sentinel policies) so compliance is continuously verified, not just assessed annually:
 

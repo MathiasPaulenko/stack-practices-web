@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: cold-start-optimization
 title: "Minimize Cold Start Latency in Serverless Functions"
@@ -18,6 +20,8 @@ relatedResources:
   - /recipes/serverless-api-gateway
   - /recipes/lazy-loading
   - /recipes/query-optimization
+  - /recipes/event-sourcing-serverless
+  - /recipes/serverless-orchestration
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - serverless latency
     - provisioned concurrency
     - reduce startup time
+
+
 ---
 
 ## Overview

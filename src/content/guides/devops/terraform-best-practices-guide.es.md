@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: terraform-best-practices-guide
 title: "Terraform Best Practices — Módulos, State y Workspaces"
@@ -23,6 +27,9 @@ relatedResources:
   - /guides/azure-basics-guide
   - /guides/gcp-basics-guide
   - /guides/kubernetes-advanced-guide
+  - /recipes/python-terraform-provider-custom
+  - /recipes/docker-compose-dev-prod-split
+  - /recipes/docker-health-check-configuration
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -36,6 +43,10 @@ seo:
     - workspaces
     - hashicorp
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -43,6 +54,9 @@ seo:
 Terraform es la herramienta de infrastructure-as-code más usada, permitiendo a equipos definir, provisionar y gestionar recursos cloud a través de archivos de configuración declarativos. Mientras empezar con Terraform es sencillo, construir infraestructura de grado productivo requiere disciplina en diseño de módulos, gestión de estado, seguridad y flujos de colaboración. A continuación: las prácticas que separan código Terraform de prototipo de infraestructura enterprise-ready.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Terraform Modules](/es/guides/complete-guide-terraform-modules/).
 
 - Gestionas infraestructura cloud que cambia frecuentemente
 - Múltiples miembros del equipo necesitan colaborar en infraestructura

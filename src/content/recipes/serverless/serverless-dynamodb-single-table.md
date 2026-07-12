@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: serverless-dynamodb-single-table
 title: "Design a DynamoDB Single-Table Schema for Serverless Apps"
@@ -16,10 +21,13 @@ tags:
   - aws
   - serverless
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/aws-lambda-cold-start-optimization
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/aws-lambda-cold-start-optimization
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-mobile-responsive-design
+  - /recipes/serverless-event-driven-sqs-lambda
+  - /recipes/serverless-step-functions-workflow
+  - /patterns/serverless-event-sourcing-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - nosql access patterns
     - dynamodb gsi
     - serverless dynamodb python
+
+
+
+
+
 ---
 
 ## Overview
@@ -339,6 +352,9 @@ def get_orders_by_date_range(start: str, end: str) -> list:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Serverless Databases](/guides/complete-guide-serverless-databases/).
 
 - **List access patterns first**: DynamoDB is query-driven, not schema-driven. If you can't list your access patterns, you can't design the table.
 - **Use `begins_with` for hierarchical SKs**: `USER#<id>` as PK, `ORDER#<id>` as SK lets you query all orders for a user in one call.

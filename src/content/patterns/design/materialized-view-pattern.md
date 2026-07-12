@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: materialized-view-pattern
 title: "Materialized View Pattern"
@@ -18,8 +21,9 @@ tags:
   - performance
   - query-optimization
 relatedResources:
-  - /patterns/design/cqrs-pattern
-  - /patterns/design/database-per-service-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/sharding-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +36,9 @@ seo:
     - performance
     - query optimization
     - denormalization
+
+
+
 ---
 
 # Materialized View Pattern
@@ -45,6 +52,9 @@ Unlike standard database views (which compute results on-the-fly), materialized 
 Common use cases include dashboards, analytics, search indexes, and microservice read models that require data from multiple sources.
 
 ## When to Use
+
+
+- For alternatives, see [Database per Service Pattern](/patterns/database-per-service-pattern/).
 
 - Complex aggregation queries (SUM, COUNT, AVG) over large datasets that run frequently
 - Joins across multiple tables that are too expensive for real-time execution

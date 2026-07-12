@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: python-zip-file-extraction
 title: "Safely Extract Zip Files with Python"
@@ -31,6 +32,7 @@ seo:
     - extraction
     - security
     - archives
+
 ---
 ## Overview
 
@@ -405,6 +407,9 @@ def extract_large_zip(zip_path: str, extract_to: str, buffer_size: int = 65536) 
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Compress and Decompress Files](/recipes/compress-decompress-files/).
 
 1. **Use `Path.resolve()` instead of `os.path.realpath()` for modern code.** `Path.resolve()` handles symlinks and normalizes paths in one call, and works consistently across platforms:
 

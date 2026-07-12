@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-ssh-key-management
 title: "Gestión de Claves SSH"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/bash-log-rotation-compression
   - /recipes/bash-loop-over-files
   - /recipes/bash-parallel-execution
+  - /recipes/python-zip-file-extraction
+  - /recipes/bash-aws-cli-automation
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - seguridad
     - claves
     - automatización
+
+
+
 ---
 ## Visión General
 
@@ -450,6 +458,9 @@ if weak:
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Bash Scripting for DevOps Automation and System Tasks](/es/recipes/bash-scripting-automation/).
 
 1. **Usa `IdentitiesOnly yes` en el config SSH.** Sin esto, SSH intenta cada clave en `~/.ssh` para cada conexión, lo que puede activar bans de fail2ban o rate limits. Especificar `IdentitiesOnly` asegura que solo la clave configurada se ofrezca:
 

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: load-balancing-haproxy
 title: "Load Balancing with HAProxy and Health Checks"
@@ -15,9 +21,13 @@ tags:
   - cloud
   - aws
 relatedResources:
-  - /patterns/design/ambassador-pattern-services
+  - /patterns/ambassador-pattern-services
   - /recipes/nginx-reverse-proxy
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/circuit-breaker-pattern
+  - /recipes/bash-aws-cli-scripts
+  - /recipes/cost-optimization
+  - /recipes/terraform-aws-vpc
+  - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - health checks
     - ssl termination
     - high availability
+
+
+
+
+
+
 ---
 
 # Load Balancing with HAProxy and Health Checks

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: secure-coding-guide
 title: "Secure Coding Practices — By Language and Pattern"
@@ -19,6 +22,8 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secrets-management-guide
   - /guides/cryptography-basics-guide
+  - /guides/compliance-gdpr-guide
+  - /guides/threat-modeling-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - authentication
     - defensive-programming
     - guide
+
+
+
 ---
 
 ## Overview
@@ -37,6 +45,9 @@ seo:
 Secure coding is the practice of writing software that is resistant to vulnerabilities and attacks. It is not a single technique but a mindset: validate every assumption, distrust all input, and design for failure. Below is a practical guide to language-specific patterns and universal defensive techniques that apply regardless of your stack.
 
 ## When to Use
+
+
+- For alternatives, see [Penetration Test Scope Template](/docs/pen-test-scope-template/).
 
 - You are writing code that processes user input or sensitive data
 - You need to prevent the most common vulnerability classes

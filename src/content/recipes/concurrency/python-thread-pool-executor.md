@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-thread-pool-executor
 title: "Parallelize CPU and I/O Work with ThreadPoolExecutor"
@@ -15,10 +19,12 @@ tags:
   - parallelism
   - concurrent-futures
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/python-asyncio-semaphore-rate-limiting
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-asyncio-semaphore-rate-limiting
   - /guides/concurrency-patterns-guide
   - /guides/complete-guide-python-asyncio
+  - /recipes/java-completable-future-composition
+  - /recipes/race-condition-prevention
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - python thread pool
     - python parallel io
     - future callback python
+
+
+
+
 ---
 
 ## Overview
@@ -361,6 +371,9 @@ with ThreadPoolExecutor(max_workers=5) as executor:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Python Asyncio in Production](/guides/complete-guide-python-asyncio-production/).
 
 - **Use threads for I/O, processes for CPU**: Threads are fine for HTTP requests and file I/O (GIL is released). For CPU-bound work, use `ProcessPoolExecutor` to bypass the GIL.
 - **Set `max_workers` appropriately**: For I/O-bound work, 5-20 workers is typical. For CPU-bound work, match the number of CPU cores. Too many workers cause context-switching overhead.

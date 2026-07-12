@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: implement-abac
 title: "Implementar ABAC"
@@ -16,8 +19,9 @@ tags:
   - fine-grained
   - recipe
 relatedResources:
-  - /recipes/authentication/implement-rbac
-  - /recipes/authentication/implement-sso-saml
+  - /recipes/implement-rbac
+  - /recipes/implement-sso-saml
+  - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +34,9 @@ seo:
     - security
     - fine-grained
     - recipe
+
+
+
 ---
 
 ## Descripción General
@@ -37,6 +44,9 @@ seo:
 Attribute-Based Access Control (ABAC) evalúa decisiones de acceso usando atributos del usuario, el recurso, la acción y el entorno. A diferencia de RBAC, que pregunta "¿es Alice admin?", ABAC pregunta "¿Alice, trabajando desde la IP de la oficina, durante horario laboral, en un documento no clasificado, tiene acceso de lectura?" ABAC es la elección correcta cuando el acceso depende de factores contextuales en vivo.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Implement RBAC](/es/recipes/implement-rbac/).
 
 - El acceso debe variar por hora del día, ubicación, nivel de confianza del dispositivo o zona de red
 - El mismo usuario necesita diferentes niveles de acceso para diferentes proyectos, clientes o clasificaciones de datos

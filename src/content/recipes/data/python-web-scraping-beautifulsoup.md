@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-web-scraping-beautifulsoup
 title: "Extract Data from HTML Pages with Python and BeautifulSoup"
@@ -16,10 +21,13 @@ tags:
   - requests
   - data-extraction
 relatedResources:
-  - /recipes/concurrency/python-async-http-requests
-  - /recipes/file-handling/nodejs-read-large-file-stream
+  - /recipes/python-async-http-requests
+  - /recipes/nodejs-read-large-file-stream
   - /guides/data-lake-guide
   - /patterns/circuit-breaker-pattern
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-api-rate-limiting
+  - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +39,11 @@ seo:
     - beautifulsoup css selectors
     - python scrape table html
     - python pagination scraping
+
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +51,9 @@ seo:
 BeautifulSoup is a Python library for parsing HTML and XML documents. It creates a parse tree from page source that you can navigate, search, and modify. Combined with `requests` for fetching pages, it is the standard tool for web scraping in Python. The solution below covers CSS selectors, DOM navigation, table extraction, pagination crawling, and respectful scraping practices.
 
 ## When to Use
+
+
+- For alternatives, see [Stream LLM Output with Server-Sent Events (SSE)](/recipes/python-llm-streaming-responses/).
 
 - You need to extract data from static HTML pages (no JavaScript rendering)
 - You parse tables, lists, or structured content from web pages

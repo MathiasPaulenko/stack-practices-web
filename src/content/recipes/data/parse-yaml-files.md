@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: parse-yaml-files
 title: "Parse YAML Files"
@@ -15,11 +19,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-json
-  - /recipes/data/validate-json-schema
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/parse-toml-files
-  - /recipes/data/parse-xml-files
+  - /recipes/parse-json
+  - /recipes/validate-json-schema
+  - /recipes/serialize-deserialize-data
+  - /recipes/parse-toml-files
+  - /recipes/parse-xml-files
+  - /recipes/parse-command-line-arguments
+  - /recipes/parse-markdown-files
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -31,6 +37,10 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +48,9 @@ seo:
 YAML is the de facto standard for configuration files in DevOps, CI/CD pipelines, and application settings. Its human-readable syntax supports nested structures, comments, anchors, and aliases. Parsing YAML programmatically enables automated configuration validation, environment-specific overrides, and on-demand service discovery.
 
 ## When to Use
+
+
+- For alternatives, see [Parse TOML Files](/recipes/parse-toml-files/).
 
 Use this resource when:
 - Loading application configuration from `config.yaml` or `docker-compose.yml`

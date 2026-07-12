@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: container-presenter-pattern
 title: "Patrón Container-Presenter"
@@ -19,6 +23,9 @@ relatedResources:
   - /patterns/custom-hook-composition-pattern
   - /patterns/optimistic-update-pattern
   - /patterns/suspense-boundary-pattern
+  - /patterns/css-architecture-pattern
+  - /patterns/progressive-enhancement-pattern
+  - /patterns/state-machine-ui-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +37,10 @@ seo:
     - separation-of-concerns
     - testing
     - pattern
+
+
+
+
 ---
 
 ## Overview
@@ -545,6 +556,9 @@ const UserListContainer = withData('/api/users', UserListPresenter);
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CSS Architecture: Utility-First with Component-Scoped Layers](/es/patterns/css-architecture-pattern/).
 
 - Mantené los presenters pure — no side effects, no API calls, no state management más allá de UI state
 - Pasá callbacks, no data sources — los presenters reciben `onDelete(id)`, no una fetch function

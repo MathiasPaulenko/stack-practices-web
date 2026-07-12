@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: cicd-pipeline-setup
 title: "CI/CD Pipeline Setup"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/bash-scripting-automation
   - /recipes/cron-jobs
   - /docs/api-status-page-template
+  - /recipes/bash-backup-rotation
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - devops
     - github-actions
     - automation
+
 ---
 ## Overview
 

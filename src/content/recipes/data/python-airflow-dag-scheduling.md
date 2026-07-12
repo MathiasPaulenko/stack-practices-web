@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: python-airflow-dag-scheduling
 title: "Schedule and Monitor DAGs with Apache Airflow"
@@ -16,9 +18,9 @@ tags:
   - orchestration
   - recipe
 relatedResources:
-  - /recipes/data/python-pandas-etl-pipeline
-  - /recipes/data/python-spark-groupby-aggregation
-  - /recipes/data/python-dbt-model-transformations
+  - /recipes/python-pandas-etl-pipeline
+  - /recipes/python-spark-groupby-aggregation
+  - /recipes/python-dbt-model-transformations
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - dag
     - orchestration
     - recipe
+
+
 ---
 
 ## Overview
@@ -398,6 +402,9 @@ default_args = {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Apache Airflow: DAGs, Operators, Scheduling](/guides/complete-guide-apache-airflow/).
 
 - Set `catchup=False` for new DAGs — prevents accidental backfill of months of runs
 - Use `mode="reschedule"` for sensors with long timeouts — frees worker slots between pokes

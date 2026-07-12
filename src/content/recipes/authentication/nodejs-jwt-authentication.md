@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: nodejs-jwt-authentication
 title: "Node.js JWT Authentication: Verify and Refresh Tokens"
@@ -19,7 +21,7 @@ relatedResources:
   - /recipes/jwt-authentication
   - /recipes/nodejs-oauth2-github-login
   - /docs/endpoint-security-checklist-template
-  - /patterns/python-jwt-refresh-token-rotation
+  - /recipes/python-jwt-refresh-token-rotation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +33,8 @@ seo:
     - jsonwebtoken express
     - token rotation
     - jwt verify
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 JWT (JSON Web Tokens) provide stateless authentication for APIs. A signed token contains user claims and is verified without server-side session storage. This approach handles generating access tokens, refresh tokens, token rotation, and protecting Express routes with JWT verification.
 
 ## When to Use
+
+
+- For alternatives, see [Node.js OAuth2 GitHub Login with Express](/recipes/nodejs-oauth2-github-login/).
 
 - You are building a stateless API and need authentication without server-side sessions
 - You want short-lived access tokens with long-lived refresh tokens

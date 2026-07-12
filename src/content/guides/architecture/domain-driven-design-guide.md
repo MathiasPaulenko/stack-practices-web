@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: domain-driven-design-guide
 title: "Domain-Driven Design (DDD) — A Practical Guide"
@@ -15,9 +20,13 @@ tags:
   - design
   - patterns
 relatedResources:
-  - /guides/architecture/software-architecture-guide
-  - /guides/design/design-patterns-guide
-  - /patterns/design/repository-pattern
+  - /guides/software-architecture-guide
+  - /guides/design-patterns-guide
+  - /patterns/repository-pattern
+  - /recipes/multi-tenancy
+  - /recipes/service-discovery
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - aggregate root
     - entity vs value object
     - ddd architecture
+
+
+
+
+
 ---
 
 # Domain-Driven Design (DDD)

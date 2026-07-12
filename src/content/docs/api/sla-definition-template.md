@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: sla-definition-template
 title: "SLA Definition Template"
@@ -17,10 +22,13 @@ tags:
   - sre
   - template
 relatedResources:
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/performance-regression-template
-  - /docs/devops/auto-scaling-policy-template
-  - /docs/devops/downtime-communication-template
+  - /docs/escalation-policy-template
+  - /docs/performance-regression-template
+  - /docs/auto-scaling-policy-template
+  - /docs/downtime-communication-template
+  - /docs/api-changelog-template
+  - /docs/api-deprecation-notice-template
+  - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -32,6 +40,11 @@ seo:
     - availability
     - error budget
     - sre
+
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +52,9 @@ seo:
 An SLA without an error budget is just a promise you will eventually break. Engineering teams need concrete, measurable targets that balance reliability with velocity. This template defines uptime, latency, and error rate commitments — plus the error budgets that let teams ship changes while respecting those commitments.
 
 ## When to Use
+
+
+- For alternatives, see [API Status Page Template](/docs/api-status-page-template/).
 
 Use this resource when:
 - Launching a production service that external consumers depend on

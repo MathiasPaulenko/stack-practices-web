@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-prometheus-custom-metrics
 title: "Expose Business Metrics with Prometheus"
@@ -15,9 +18,10 @@ tags:
   - flask
   - recipe
 relatedResources:
-  - /recipes/observability/java-micrometer-prometheus
-  - /recipes/observability/python-structured-logging-json
-  - /recipes/observability/python-opentelemetry-tracing
+  - /recipes/java-micrometer-prometheus
+  - /recipes/python-structured-logging-json
+  - /recipes/python-opentelemetry-tracing
+  - /recipes/java-actuator-health-checks
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - metrics
     - flask
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -362,6 +369,9 @@ def process_order(order_id):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Expose Custom Application Metrics with Python and Prometheus](/recipes/python-prometheus-metrics-exporter/).
 
 - Use `_total` suffix for counters — Prometheus convention
 - Use `_seconds` suffix for time-based metrics

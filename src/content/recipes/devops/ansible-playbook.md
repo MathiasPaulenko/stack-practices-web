@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: ansible-playbook
 title: "Ansible Playbook for Server Configuration"
@@ -18,6 +22,9 @@ relatedResources:
   - /recipes/terraform-aws-vpc
   - /recipes/docker-basics
   - /recipes/secret-management
+  - /recipes/bash-backup-rotation
+  - /recipes/bash-log-rotation
+  - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +37,10 @@ seo:
     - automation
     - devops
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -398,6 +409,9 @@ jobs:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Share Workflow Logic with GitHub Actions Reusable Workflows](/recipes/github-actions-reusable-workflows/).
 
 1. **Use `ansible.cfg` for project defaults.** Avoid repeating CLI flags:
 

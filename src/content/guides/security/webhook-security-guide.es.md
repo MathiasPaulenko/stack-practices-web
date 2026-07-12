@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: webhook-security-guide
 title: "Seguridad de Webhooks — Entrega, Verificación y Protección"
@@ -22,6 +25,8 @@ relatedResources:
   - /recipes/api-rate-limiting-redis
   - /recipes/websocket-authentication
   - /recipes/data-validation-zod
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/docker-network-isolation
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -34,12 +39,18 @@ seo:
     - ataques de repeticion
     - cifrado
     - guia
+
+
+
 ---
 ## Visión General
 
 Los webhooks son la infraestructura de integración moderna. Stripe envía eventos de pago a tu endpoint. GitHub notifica tu pipeline CI sobre pushes. Slack envía interacciones de usuario a tu servidor. Pero cada webhook es un request HTTP entrante no solicitado a tu infraestructura — y cada request entrante es una superficie de ataque. A continuación: cómo asegurar webhooks con verificación de firmas, protección contra repetición, cifrado de payloads y endurecimiento de endpoints.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [API Security Checklist — Authentication to Encryption](/es/guides/api-security-checklist-guide/).
 
 Usa esta guía cuando:
 - Estás implementando endpoints webhook por primera vez

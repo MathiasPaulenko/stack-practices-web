@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: abstract-factory-pattern
 title: "Abstract Factory Pattern"
@@ -16,9 +19,11 @@ tags:
   - pattern
   - python
 relatedResources:
-  - /patterns/design/factory-pattern
-  - /patterns/design/builder-pattern
-  - /patterns/design/singleton-pattern
+  - /patterns/factory-pattern
+  - /patterns/builder-pattern
+  - /patterns/singleton-pattern
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/builder-pattern-configuration
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +37,9 @@ seo:
     - python abstract factory
     - java abstract factory
     - javascript abstract factory
+
+
+
 ---
 
 # Abstract Factory Pattern

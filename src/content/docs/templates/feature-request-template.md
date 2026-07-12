@@ -1,4 +1,5 @@
 ---
+
 contentType: docs
 slug: feature-request-template
 templateType: feature-request
@@ -15,9 +16,9 @@ tags:
   - user-story
   - ci-cd
 relatedResources:
-  - /docs/templates/bug-report-template
-  - /docs/templates/user-story-template
-  - /guides/design/clean-code-principles-guide
+  - /docs/bug-report-template
+  - /docs/user-story-template
+  - /guides/clean-code-principles-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +29,7 @@ seo:
     - user story template
     - acceptance criteria template
     - feature proposal
+
 ---
 
 # Feature Request Template

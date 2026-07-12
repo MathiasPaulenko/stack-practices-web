@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-schema-design
 title: "Referencia Detallada de Diseño de Esquemas GraphQL"
@@ -19,9 +25,13 @@ tags:
   - connections
   - deprecation
 relatedResources:
-  - /guides/api/complete-guide-graphql-federation
-  - /guides/architecture/graphql-vs-rest-guide
-  - /patterns/design/graphql-interface-polymorphism-pattern
+  - /guides/complete-guide-graphql-federation
+  - /guides/graphql-vs-rest-guide
+  - /patterns/graphql-interface-polymorphism-pattern
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-caching
+  - /guides/complete-guide-graphql-security
+  - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - schema-first graphql
     - graphql deprecation
     - graphql manejo errores
+
+
+
+
+
+
 ---
 
 ## Introducción
@@ -430,6 +446,9 @@ type User {
 Rastrea el uso de campos para saber cuando todos los clientes han migrado. Una vez que ningun cliente consulta el campo deprecado, eliminalo en la siguiente version major.
 
 ### Mejores Prácticas de Deprecation
+
+
+- For a deeper guide, see [GraphQL Federation in Production](/es/guides/complete-guide-graphql-federation-production/).
 
 - Siempre proporciona un `reason` en la directiva `@deprecated`
 - Documenta el campo o mutacion de reemplazo

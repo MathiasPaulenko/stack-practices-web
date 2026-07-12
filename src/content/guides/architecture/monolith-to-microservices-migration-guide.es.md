@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: monolith-to-microservices-migration-guide
 title: "De Monolito a Microservicios — Estrategias de Migración"
@@ -18,9 +23,13 @@ tags:
   - monolito
   - refactorizacion
 relatedResources:
-  - /guides/architecture/microservices-architecture-guide
-  - /guides/architecture/domain-driven-design-guide
-  - /guides/design/solid-principles-guide
+  - /guides/microservices-architecture-guide
+  - /guides/domain-driven-design-guide
+  - /guides/solid-principles-guide
+  - /recipes/microservices-communication
+  - /recipes/service-discovery
+  - /patterns/external-configuration-store-pattern
+  - /guides/api-gateway-design-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - patron strangler fig
     - branch by abstraction
     - extraccion incremental servicios
+
+
+
+
+
 ---
 
 # De Monolito a Microservicios — Estrategias de Migración

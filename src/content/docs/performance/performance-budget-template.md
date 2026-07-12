@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: performance-budget-template
 templateType: guideline
@@ -17,9 +20,10 @@ tags:
   - ci-cd
   - monitoring
 relatedResources:
-  - /docs/devops/deployment-rollback-runbook
-  - /docs/performance/core-web-vitals-audit-checklist
-  - /docs/performance/load-test-plan-template
+  - /docs/deployment-rollback-runbook
+  - /docs/core-web-vitals-audit-checklist
+  - /docs/load-test-plan-template
+  - /docs/database-query-tuning-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - web performance
     - lcp inp cls
     - resource budget
+
+
+
 ---
 
 ## Overview
@@ -429,3 +436,12 @@ Code split by route — only load JS needed for the current page. Use dynamic im
 ### How often should I review and update performance budgets?
 
 Review budgets monthly during the first quarter after setup, then quarterly. Track budget utilization over time — if you consistently use less than 70% of your budget, consider tightening it. If you consistently hit the hard limit, investigate the root cause rather than increasing the budget. Review budgets when adding major features, changing architecture (e.g., adding a SPA framework), or when user demographics shift. Compare your budgets against competitors using tools like WebPageTest or CrUX data. Set a calendar reminder for quarterly budget reviews and involve the full engineering team — performance is everyone's responsibility.
+
+## See Also
+
+- [Complete Guide to Web Performance and Core Web Vitals](/guides/complete-guide-web-performance-core-web-vitals/)
+- [Core Web Vitals Audit Checklist](/docs/core-web-vitals-audit-checklist/)
+- [Feature Flags: Progressive Release and Safe Experimentation](/guides/feature-flags-guide/)
+- [Complete Guide to Bundle Size Optimization](/guides/complete-guide-bundle-size-optimization/)
+- [Complete Guide to React 19 Features](/guides/complete-guide-react-19-features/)
+

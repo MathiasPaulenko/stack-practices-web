@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: idempotent-load-pattern
 title: "Idempotent Load: Re-run Data Loads Safely Without Duplicates"
@@ -30,6 +31,7 @@ seo:
     - data-quality
     - pipelines
     - pattern
+
 ---
 
 ## Overview
@@ -387,6 +389,9 @@ class ConditionalLoader:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [ETL Extract-Transform-Load](/patterns/etl-extract-transform-load-pattern/).
 
 - Use MERGE (upsert) instead of INSERT — if the row exists, update it; if not, insert it
 - Track load IDs — store metadata about each load run so you can detect and skip re-runs

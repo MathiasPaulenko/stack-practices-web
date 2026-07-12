@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: retry-with-jitter-pattern
 title: "Patrón Retry with Jitter"
@@ -28,6 +29,7 @@ seo:
     - retry
     - backoff
     - pattern
+
 ---
 
 ## Overview
@@ -160,6 +162,13 @@ class DecorrelatedJitterRetry:
 
         raise last_exception
 ```
+
+
+- [Bulkhead Pattern: Isolate Resources to Limit Blast Radius](/es/patterns/bulkhead-pattern/)
+- [Circuit Breaker Half-Open](/es/patterns/circuit-breaker-half-open-pattern/)
+- [Fallover: Switch to Standby on Primary Failure Detection](/es/patterns/fallover-pattern/)
+- [Graceful Shutdown: Drain In-Flight Requests Before Exit](/es/patterns/graceful-shutdown-pattern/)
+- [Token Bucket Rate Limiter: Smooth Traffic with Token Buckets](/es/patterns/rate-limiter-token-bucket-pattern/)
 
 ### Java retry con resilience4j
 

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: gateway-routing-pattern
 title: "Gateway Routing Pattern"
@@ -22,6 +25,8 @@ relatedResources:
   - /patterns/backend-for-frontend-pattern
   - /patterns/strangler-fig-pattern
   - /guides/rest-api-design-guide
+  - /patterns/health-endpoint-monitoring-pattern
+  - /patterns/compute-resource-consolidation-pattern
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - api-gateway
     - architecture
     - microservices
+
+
+
 ---
 ## Overview
 
@@ -317,6 +325,9 @@ class TransformGateway {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [API Gateway Design: Resilience, Routing, and Security](/guides/api-gateway-design-guide/).
 
 1. **Implement request/response transformation at the gateway.** Use middleware to normalize API versions, transform data formats, and handle protocol translation. This keeps backend services simple and consistent.
 

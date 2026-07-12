@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: security-best-practices-guide
 title: "Guía de Mejores Prácticas de Seguridad"
@@ -21,6 +25,10 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/jwt-authentication
   - /recipes/input-validation
+  - /docs/secrets-rotation-template
+  - /recipes/bash-ssh-key-manager
+  - /recipes/data-validation-zod
+  - /recipes/hmac-request-signing
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,10 @@ seo:
     - gestion de secretos
     - validacion de inputs
     - autorizacion
+
+
+
+
 ---
 
 ## Overview

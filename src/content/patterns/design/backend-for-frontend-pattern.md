@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: backend-for-frontend-pattern
 title: "Backend for Frontend (BFF) Pattern"
@@ -19,8 +24,11 @@ tags:
   - web
   - graphql
 relatedResources:
-  - /patterns/design/facade-pattern
-  - /patterns/design/abstract-factory-cross-platform
+  - /patterns/facade-pattern
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/graphql-mutation-validation-pattern
+  - /patterns/gateway-routing-pattern
+  - /patterns/mediator-pattern-components
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - web
     - graphql
     - bff
+
+
+
+
+
 ---
 
 # Backend for Frontend (BFF) Pattern
@@ -46,6 +59,9 @@ A mobile app may need lightweight, aggregated responses to minimize battery and 
 The BFF sits between the client and the core microservices, acting as an aggregator, transformer, and caching layer specific to one client type.
 
 ## When to Use
+
+
+- For alternatives, see [GraphQL vs REST — When to Choose and How to Migrate](/guides/graphql-vs-rest-guide/).
 
 Use the BFF Pattern when:
 - Different frontend clients have incompatible data requirements

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-bundle-size-optimization
 title: "Referencia Detallada de Bundle Size Optimization"
@@ -19,9 +24,12 @@ tags:
   - webpack
   - vite
 relatedResources:
-  - /guides/frontend/complete-guide-web-performance-core-web-vitals
-  - /guides/frontend/complete-guide-react-19-features
-  - /guides/frontend/complete-guide-css-grid-and-flexbox
+  - /guides/complete-guide-web-performance-core-web-vitals
+  - /guides/complete-guide-react-19-features
+  - /guides/complete-guide-css-grid-and-flexbox
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-event-loop
+  - /recipes/web-performance
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - vite optimization
     - lazy loading
     - module federation
+
+
+
+
+
 ---
 
 ## Introducción
@@ -548,3 +561,12 @@ Usa ambos. Brotli comprime 15-25% better que gzip para text files (JS, CSS, HTML
 ### ¿Cómo affectan module federation y micro-frontends el bundle size?
 
 Module federation permite que multiple applications shareean JavaScript bundles at runtime. Cada micro-frontend expone sus modules via un remote entry file. El host app loadea remote modules on demand. Shared dependencies (como React) se loadean once y se sharean across all micro-frontends. Esto reduce duplicate code y permite que teams deployeen independent. Sin embargo, add runtime overhead para loadear remote entries. Usalo para large teams con independent deployments, no para small apps donde un single bundle seria simpler.
+
+## See Also
+
+- [Complete Guide to React Performance Optimization](/es/guides/complete-guide-react-performance-optimization/)
+- [Complete Guide to Web Performance and Core Web Vitals](/es/guides/complete-guide-web-performance-core-web-vitals/)
+- [Complete Guide to React 19 Features](/es/guides/complete-guide-react-19-features/)
+- [SPA Performance: Code Splitting and Lazy Loading](/es/recipes/spa-code-splitting-lazy/)
+- [Feature Flags: Progressive Release and Safe Experimentation](/es/guides/feature-flags-guide/)
+

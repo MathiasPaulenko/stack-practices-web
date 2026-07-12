@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: parse-csv-python-pandas
 title: "Leer Archivos CSV con Python y Pandas"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/parse-csv-files
   - /recipes/merge-json-files
   - /recipes/parse-xml-files
+  - /recipes/python-excel-read-write
+  - /recipes/generate-pdf-report-python
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - procesamiento csv
     - lectura archivos csv
     - python data processing
+
+
+
 ---
 ## Visión General
 
@@ -260,6 +268,9 @@ ead_only=True o la API streaming de openpyxl para workbooks grandes
 - **csvkit**: herramientas command-line para archivos CSV. csvstat muestra estadisticas, csvcut selecciona columnas, csvjoin mergea archivos. Util para exploracion rapida sin escribir scripts Python
 
 ## Resumen de Best Practices
+
+
+- For a deeper guide, see [Convert CSV to JSON](/es/recipes/convert-csv-to-json/).
 
 - Siempre especifica encoding explicitamente (encoding='utf-8'). Nunca confies en defaults del sistema
 - Usa lectura en chunks para archivos >500MB. Setea chunksize en pandas o itera line-by-line

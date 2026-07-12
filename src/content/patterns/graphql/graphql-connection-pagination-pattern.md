@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: graphql-connection-pagination-pattern
 title: "GraphQL Connection Pagination Pattern"
@@ -19,9 +23,11 @@ tags:
   - typescript
   - apollo-server
 relatedResources:
-  - /patterns/graphql/graphql-batched-resolver-pattern
-  - /patterns/graphql/graphql-dataloader-pattern
-  - /recipes/graphql/graphql-pagination-relay-connections
+  - /patterns/graphql-batched-resolver-pattern
+  - /patterns/graphql-dataloader-pattern
+  - /recipes/graphql-pagination-relay-connections
+  - /patterns/graphql-federated-entity-pattern
+  - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +39,10 @@ seo:
     - graphql edges nodes
     - apollo server pagination
     - graphql connection pattern
+
+
+
+
 ---
 
 # GraphQL Connection Pagination Pattern
@@ -252,6 +262,9 @@ Using a sort key cursor instead of an offset cursor is more efficient for large 
 | Hash cursor | Hash of last item | Distributed systems where offset is unknown |
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL Mutation Validation Pattern](/patterns/graphql-mutation-validation-pattern/).
 
 - **Make cursors opaque** — base64-encode them so clients do not try to parse or construct them manually
 - **Always request LIMIT + 1** — fetch one extra row to determine `hasNextPage` without a separate count query

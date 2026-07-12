@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: lock-free-queue-pattern
 title: "Patrón Lock-Free Queue"
@@ -17,9 +22,12 @@ tags:
   - cas
   - ring-buffer
 relatedResources:
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/thread-pool-pattern
-  - /patterns/design/reactive-streams-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/thread-pool-pattern
+  - /patterns/reactive-streams-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/distributed-lock-pattern
+  - /patterns/priority-queue-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - operaciones atomicas concurrencia
     - cas compare and swap cola
     - patron diseno
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +49,9 @@ seo:
 Las colas basadas en locks sufren dos problemas bajo alta contencion: bloqueo de threads (threads en espera consumen CPU y memoria) e inversion de prioridad (un thread de baja prioridad con un lock bloquea a uno de alta prioridad). Las colas lock-free usan operaciones atomicas compare-and-swap (CAS) para actualizar la cola sin locks. Multiples threads pueden encolar y desencolar simultaneamente. Si un CAS falla porque otro thread gano la carrera, el thread reintent. Ningun thread se bloquea esperando un lock.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Actor Model Pattern](/es/patterns/actor-model-pattern/).
 
 - Multiples threads necesitan encolar y desencolar a alta frecuencia
 - La contencion de locks esta causando degradacion de throughput o picos de latencia

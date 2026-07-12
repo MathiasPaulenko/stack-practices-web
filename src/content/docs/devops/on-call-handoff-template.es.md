@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: on-call-handoff-template
 title: "Plantilla de Entrega de Guardia (On-Call Handoff)"
@@ -16,10 +18,10 @@ tags:
   - sre
   - template
 relatedResources:
-  - /docs/devops/incident-communication-template
-  - /docs/devops/incident-timeline-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/downtime-communication-template
+  - /docs/incident-communication-template
+  - /docs/incident-timeline-template
+  - /docs/escalation-policy-template
+  - /docs/downtime-communication-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +32,8 @@ seo:
     - handoff de incidente
     - plantilla sre
     - plantilla on call
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 Las entregas de guardia deficientes son una causa principal de escalamiento de incidentes. Cuando se pierde el contexto entre turnos, el ingeniero entrante pierde minutos preciosos redescubriendo lo que el ingeniente saliente ya sabia. Esta plantilla estandariza el proceso de entrega, asegurando que la informacion critica sobre incidentes activos, alertas en curso y estado del sistema se transfiera completamente y consistentemente.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Communication Template](/es/docs/incident-communication-template/).
 
 Usa esta plantilla cuando:
 - Transfieres responsabilidad de guardia entre turnos o miembros del equipo

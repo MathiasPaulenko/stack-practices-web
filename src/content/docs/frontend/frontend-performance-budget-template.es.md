@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: frontend-performance-budget-template
 title: "Plantilla de Performance Budget Frontend"
@@ -16,9 +18,9 @@ tags:
   - bundle-size
   - web-performance
 relatedResources:
-  - /docs/frontend/accessibility-audit-checklist
-  - /docs/frontend/component-api-documentation-template
-  - /docs/frontend/browser-support-matrix-template
+  - /docs/accessibility-audit-checklist
+  - /docs/component-api-documentation-template
+  - /docs/browser-support-matrix-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - web performance
     - template
     - resource limits
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Un performance budget setea limits en el size y timing de resources que componen un web page. Sin budgets, page weight crece incrementalmente hasta que performance degrades. Esta plantilla define budgets por route, los trackea en CI y establece monitoring thresholds para production.
 
 ## When to Use
+
+
+- For alternatives, see [Browser Support Matrix Template](/es/docs/browser-support-matrix-template/).
 
 - Empezando un new web project
 - Experimentando performance regressions

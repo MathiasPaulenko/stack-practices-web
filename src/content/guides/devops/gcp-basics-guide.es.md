@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: gcp-basics-guide
 title: "GCP Básico: Servicios Core para Desarrolladores"
@@ -24,6 +26,7 @@ relatedResources:
   - /guides/kubernetes-advanced-guide
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide
+  - /guides/multi-cloud-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -38,6 +41,8 @@ seo:
     - cloud-run
     - bigquery
     - guia
+
+
 ---
 
 ## Overview
@@ -45,6 +50,9 @@ seo:
 Google Cloud Platform (GCP) es conocido por su liderazgo en data analytics, AI/ML y Kubernetes. Construido sobre la misma infraestructura que potencia Google Search y YouTube, GCP ofrece a desarrolladores herramientas poderosas para compute, storage, bases de datos y big data. A continuación: los servicios core que necesitas para construir y desplegar aplicaciones en GCP.
 
 ## When to Use
+
+
+- For alternatives, see [AWS Basics — Core Services for Developers](/es/guides/aws-basics-guide/).
 
 - Necesitas servicios de data analytics y AI/ML líderes
 - Estás construyendo aplicaciones containerizadas o serverless

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: technical-spec-template
 title: "Plantilla de Especificación Técnica"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/adr-template
   - /docs/database-schema-documentation-template
+  - /docs/api-changelog-template
+  - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +34,18 @@ seo:
     - diseño
     - requisitos
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Las especificaciones técnicas traducen requisitos de producto en un plan implementable. Sin una especificación, los ingenieros hacen suposiciones que llevan a expectativas desalineadas, casos extremos omitidos y retrabajo. Esta plantilla proporciona una estructura estándar para documentar objetivos, restricciones, decisiones de diseño y pasos de implementación.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [ADR Template](/es/docs/adr-template/).
 
 Usa este recurso cuando:
 - Inicias una capacidad que afecta múltiples sistemas o equipos

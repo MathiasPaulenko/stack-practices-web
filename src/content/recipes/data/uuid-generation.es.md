@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: uuid-generation
 title: "Generación de UUID"
@@ -16,7 +17,7 @@ tags:
 relatedResources:
   - /recipes/parse-json
   - /recipes/caching
-  - /patterns/design/singleton-pattern
+  - /patterns/singleton-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +33,7 @@ seo:
     - python uuid
     - javascript uuid
     - java uuid
+
 ---
 
 ## Visión general

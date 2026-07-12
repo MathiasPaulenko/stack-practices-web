@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: bug-reproduction-steps-template
 title: "Plantilla de Pasos de Reproducción de Bugs"
@@ -15,9 +17,9 @@ tags:
   - qa
   - debugging
 relatedResources:
-  - /docs/testing/test-case-template
-  - /docs/testing/regression-test-checklist
-  - /docs/testing/test-strategy-document-template
+  - /docs/test-case-template
+  - /docs/regression-test-checklist
+  - /docs/test-strategy-document-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +32,8 @@ seo:
     - debugging
     - defect tracking
     - template
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 Un bug report es solo useful si un developer puede reproducir el issue. Vague reports como "the login page is broken" wastean time y llevan a back-and-forth questions. Esta plantilla asegura que bug reports contengan la minimum information needed para reproducir, diagnose y fix el issue.
 
 ## When to Use
+
+
+- For alternatives, see [Data Quality Rules Template](/es/docs/data-quality-rules-template/).
 
 - Filing un bug en tu issue tracker (Jira, GitHub Issues, Linear)
 - Reportando un production incident para el on-call engineer

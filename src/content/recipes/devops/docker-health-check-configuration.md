@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: docker-health-check-configuration
 title: "Docker Health Check Configuration for Container Reliability"
@@ -20,6 +23,8 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /patterns/claim-check-pattern
   - /docs/deployment-checklist-template
+  - /recipes/python-schedule-periodic-tasks
+  - /recipes/docker-logging-fluentd
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - docker health check interval
     - container reliability docker
     - docker healthcheck curl wget
+
+
+
 ---
 
 ## Overview
@@ -437,6 +445,9 @@ setInterval(() => {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Docker Multi-Stage Build Optimization for Smaller Images](/recipes/docker-multi-stage-build-optimization/).
 
 1. **Use `CMD-SHELL` for complex checks.** Allows shell features like pipes and conditionals:
 

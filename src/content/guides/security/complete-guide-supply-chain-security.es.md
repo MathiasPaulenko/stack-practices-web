@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-supply-chain-security
 title: "Referencia Detallada de Supply Chain Security"
@@ -19,9 +25,13 @@ tags:
   - dependency-scanning
   - provenance
 relatedResources:
-  - /guides/security/complete-guide-owasp-top-10-2025
-  - /guides/security/complete-guide-secrets-management
-  - /guides/security/complete-guide-api-security
+  - /guides/complete-guide-owasp-top-10-2025
+  - /guides/complete-guide-secrets-management
+  - /guides/complete-guide-api-security
+  - /guides/ci-cd-security-guide
+  - /recipes/python-secrets-management-vault
+  - /docs/vulnerability-management-template
+  - /guides/complete-guide-docker-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +45,12 @@ seo:
     - provenance attestation
     - typosquatting
     - dependency confusion
+
+
+
+
+
+
 ---
 
 ## Introducción
@@ -711,3 +727,12 @@ Usa un typosquatting detector que compara package names contra una lista de popu
 ### ¿Debería pin GitHub Actions a commit SHAs?
 
 Si. Pinning actions a commit SHAs en vez de tags previene supply chain attacks donde un malicious actor modifica un tag para point a un different commit. Tags son mutable — pueden ser moved. SHAs son immutable. Usa `actions/checkout@<sha>` en vez de `actions/checkout@v4`. Tools como renovatebot pueden automatizar SHA pinning y updates.
+
+## See Also
+
+- [CI/CD Security: Harden Your Pipelines and Prevent Supply](/es/guides/ci-cd-security-guide/)
+- [Complete Guide to Secrets Management](/es/guides/complete-guide-secrets-management/)
+- [Complete Guide to Docker in Production](/es/guides/complete-guide-docker-production/)
+- [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/es/guides/disaster-recovery-guide/)
+- [Secrets Management: Vault, Cloud Managers](/es/guides/secrets-management-guide/)
+

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: sql-cte-guide
 title: "SQL CTEs — Common Table Expressions Explained"
@@ -20,6 +24,9 @@ relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-performance-tuning-guide
   - /guides/sql-joins-guide
+  - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-recursive-cte-query
+  - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +39,10 @@ seo:
     - readability
     - query-organization
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +50,9 @@ seo:
 Common Table Expressions (CTEs), introduced in SQL:1999, provide a named temporary result set that exists for the duration of a single query. They improve readability by breaking complex queries into named blocks, enable recursion for hierarchical data, and can be materialized for performance. Supported by PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.8.3+.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/guides/complete-guide-sql-query-optimization/).
 
 - A query has multiple levels of nested subqueries
 - You need to reference the same subquery multiple times

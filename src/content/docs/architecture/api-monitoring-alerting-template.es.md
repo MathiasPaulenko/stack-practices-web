@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-monitoring-alerting-template
 title: "Plantilla de Monitoreo y Alertas de API"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/service-dependency-map-template
   - /docs/system-diagram-template
   - /docs/technical-spec-template
+  - /docs/api-error-handling-guideline
+  - /docs/api-performance-budget-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - alertas
     - sla
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Las APIs fallan en silencio. Un servicio que devuelve 200 OK puede estar roto para los consumidores si la latencia se dispara o las tasas de error aumentan gradualmente. Esta plantilla define SLIs (Indicadores de Nivel de Servicio), SLOs (Objetivos) y umbrales de alerta para que los equipos detecten la degradación antes de que los consumidores se den cuenta.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [API Lifecycle Management Template](/es/docs/api-lifecycle-management-template/).
 
 Usa este recurso cuando:
 - Lanzas una nueva API o versión que necesita garantías de uptime

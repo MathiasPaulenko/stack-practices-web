@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: deployment-rollback-runbook
 templateType: runbook
@@ -17,9 +22,12 @@ tags:
   - argocd
   - incident-response
 relatedResources:
-  - /docs/devops/docker-image-hardening-checklist
-  - /docs/devops/kubernetes-resource-quotas-template
-  - /docs/devops/terraform-module-versioning-policy
+  - /docs/docker-image-hardening-checklist
+  - /docs/kubernetes-resource-quotas-template
+  - /docs/terraform-module-versioning-policy
+  - /docs/data-migration-runbook-template
+  - /docs/disaster-recovery-test-plan
+  - /docs/runbook-database-failover
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - canary rollback
     - database rollback
     - deployment recovery
+
+
+
+
+
 ---
 
 ## Overview
@@ -485,3 +498,12 @@ Blue-green is simpler — two full environments, instant switch, instant rollbac
 ### How do I prevent bad deployments from reaching production?
 
 Implement multiple gates: automated tests (unit, integration, E2E) in CI, security scanning (SAST, dependency check), canary deployment with automated rollback (Argo Rollouts with error rate and latency analysis), pre-deployment health checks, and manual approval for production deployments. Use feature flags to decouple deployment from release — deploy the new version but keep features disabled until ready. Run chaos engineering tests in staging to verify resilience. Implement deployment freezes during high-traffic periods. Require code review by at least two engineers for production changes. Monitor deployment metrics and set up alerts for deployment failures.
+
+## See Also
+
+- [Complete Guide to GitOps with ArgoCD](/guides/complete-guide-gitops-argocd/)
+- [Helm Charts: Structure, Templating, Dependencies, Registry](/guides/complete-guide-helm-charts-production/)
+- [Blue-Green and Canary Deployments](/guides/deployment-strategies-guide/)
+- [Canary Deployments with Istio Service Mesh](/recipes/istio-canary-deployment/)
+- [Package Kubernetes Manifests with Helm Charts](/recipes/kubernetes-helm-chart-templating/)
+

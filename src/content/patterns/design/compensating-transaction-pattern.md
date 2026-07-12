@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: compensating-transaction-pattern
 title: "Compensating Transaction Pattern"
@@ -19,9 +23,11 @@ tags:
   - eventual-consistency
   - resilience
 relatedResources:
-  - /patterns/design/saga-pattern
-  - /patterns/design/outbox-pattern
-  - /patterns/design/idempotent-consumer-pattern
+  - /patterns/saga-pattern
+  - /patterns/outbox-pattern
+  - /patterns/idempotent-consumer-pattern
+  - /patterns/claim-check-pattern
+  - /patterns/event-carried-state-transfer-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - distributed
     - rollback
     - eventual consistency
+
+
+
+
 ---
 
 # Compensating Transaction Pattern
@@ -44,6 +54,9 @@ The Compensating Transaction Pattern undoes the effects of a completed business 
 In distributed systems, ACID transactions across services are impractical. The Saga Pattern coordinates a sequence of local transactions, and when one step fails, compensating transactions roll back previously completed steps. This enables long-running business processes to maintain eventual consistency without distributed locks or two-phase commit.
 
 ## When to Use
+
+
+- For alternatives, see [Claim Check Pattern](/patterns/claim-check-pattern/).
 
 Use the Compensating Transaction Pattern when:
 - A business process spans multiple distributed services or databases

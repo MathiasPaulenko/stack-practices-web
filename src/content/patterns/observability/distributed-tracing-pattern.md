@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: distributed-tracing-pattern
 title: "Distributed Tracing: Propagate Trace Context Across Services"
@@ -30,6 +31,7 @@ seo:
     - jaeger
     - zipkin
     - pattern
+
 ---
 
 ## Overview
@@ -512,6 +514,9 @@ def process_order(order):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Distributed Tracing: OpenTelemetry, Jaeger, Zipkin](/guides/complete-guide-distributed-tracing/).
 
 - Use automatic instrumentation first — it covers HTTP, DB, and messaging without code changes
 - Add manual spans for business logic — automatic instrumentation doesn't know about your domain

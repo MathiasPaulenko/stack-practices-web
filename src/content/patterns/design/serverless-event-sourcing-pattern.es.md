@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: serverless-event-sourcing-pattern
 title: "Patron Serverless Event Sourcing"
@@ -18,9 +20,9 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-function-composition-pattern
-  - /patterns/design/serverless-fanout-pattern
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /patterns/serverless-function-composition-pattern
+  - /patterns/serverless-fanout-pattern
+  - /recipes/serverless-dynamodb-single-table
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - eventbridge event sourcing
     - serverless audit log
     - event replay lambda
+
+
 ---
 
 # Patron Serverless Event Sourcing
@@ -43,6 +47,9 @@ Event sourcing almacena el estado de la aplicacion como una secuencia de eventos
 Este patron proporciona una pista de auditoria completa, habilita la reproduccion para recuperacion y desacopla los cambios de estado de los consumidores downstream. Cada invocacion Lambda anade un evento y opcionalmente proyecta el estado actual a un read model.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Serverless Fanout Pattern](/es/patterns/serverless-fanout-pattern/).
 
 - Necesitas una pista de auditoria completa de todos los cambios de estado (transacciones financieras, compliance)
 - La recuperacion requiere reproducir eventos para reconstruir estado despues de un fallo

@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: parse-markdown-files
 title: "Analizar Archivos Markdown"
@@ -16,11 +18,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/parse-json
-  - /recipes/data/parse-yaml-files
-  - /recipes/data/parse-xml-files
-  - /recipes/data/convert-csv-to-json
+  - /recipes/serialize-deserialize-data
+  - /recipes/parse-json
+  - /recipes/parse-yaml-files
+  - /recipes/parse-xml-files
+  - /recipes/convert-csv-to-json
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,12 +35,17 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Visión General
 
 Markdown es la lingua franca de documentación de desarrolladores, READMEs y generadores de sitios estáticos. Analizar Markdown programáticamente habilita pipelines automatizados de documentación, migración de contenido, builds de sitios estáticos y linting. Esta recipe cubre conversión de Markdown a HTML, extracción de metadata frontmatter y traversing del AST del documento en Python, JavaScript y Java.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Parse Command Line Arguments](/es/recipes/parse-command-line-arguments/).
 
 Usa este recurso cuando:
 - Construyas generadores de sitios estáticos o plataformas de documentación

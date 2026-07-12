@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: python-dask-parallel-dataframe
 title: "Parallel DataFrame Operations with Dask"
@@ -16,9 +18,9 @@ tags:
   - big-data
   - recipe
 relatedResources:
-  - /recipes/data/python-polars-fast-dataframe
-  - /recipes/data/python-pandas-etl-pipeline
-  - /recipes/data/python-spark-groupby-aggregation
+  - /recipes/python-polars-fast-dataframe
+  - /recipes/python-pandas-etl-pipeline
+  - /recipes/python-spark-groupby-aggregation
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - parallel
     - big-data
     - recipe
+
+
 ---
 
 ## Overview
@@ -308,6 +312,9 @@ result = mean.compute()
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [High-Performance DataFrame Operations with Polars](/recipes/python-polars-fast-dataframe/).
 
 - Use `npartitions` equal to 2-4x the number of cores — enough parallelism without overhead
 - Partition size should be 50-200MB — too small adds overhead, too large reduces parallelism

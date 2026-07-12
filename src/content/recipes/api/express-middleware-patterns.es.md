@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: express-middleware-patterns
 title: "Patrones de Composicion de Middleware en Express.js"
@@ -15,8 +17,9 @@ tags:
   - api
   - rest
 relatedResources:
-  - /recipes/api/go-rest-api-gin
-  - /recipes/security/data-validation-zod
+  - /recipes/go-rest-api-gin
+  - /recipes/data-validation-zod
+  - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +30,8 @@ seo:
     - nodejs patterns
     - async routes
     - error handling
+
+
 ---
 
 # Patrones de Composicion de Middleware en Express.js

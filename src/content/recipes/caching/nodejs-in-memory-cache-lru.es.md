@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: nodejs-in-memory-cache-lru
 title: "Implementar una cache LRU en Node.js"
@@ -15,9 +19,11 @@ tags:
   - caching
   - performance
 relatedResources:
-  - /recipes/caching/caching-redis
-  - /recipes/caching/python-redis-cache-decorator
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/caching-redis
+  - /recipes/python-redis-cache-decorator
+  - /patterns/cache-aside-pattern
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/java-caffeine-cache-configuration
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - in-memory cache nodejs
     - least recently used
     - nodejs caching
+
+
+
+
 ---
 
 # Implementar una cache LRU en Node.js
@@ -35,6 +45,9 @@ seo:
 Una cache LRU (Least Recently Used) evicta la entrada accedida mas antigua cuando alcanza su capacidad. Esto mantiene datos calientes en memoria mientras limita el uso de memoria. El `Map` de JavaScript preserva el orden de insercion, lo que lo hace ideal para LRU — re-insertar una clave la mueve al final, por lo que la primera entrada es siempre la menos recientemente usada.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Multi-Level Cache with In-Memory L1 and Redis L2](/es/recipes/multi-level-cache-l1-l2/).
 
 - Cachear computaciones costosas o consultas a base de datos dentro de un solo proceso
 - Rate limiting o deduplicacion donde entradas viejas deben expirar primero

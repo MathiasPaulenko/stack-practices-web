@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-database-sharding
 title: "Referencia Detallada de Database Sharding"
@@ -19,9 +24,12 @@ tags:
   - citus
   - consistent-hashing
 relatedResources:
-  - /guides/databases/complete-guide-postgresql-replication
-  - /guides/databases/complete-guide-mongodb-indexing
-  - /guides/databases/complete-guide-sql-query-optimization
+  - /guides/complete-guide-postgresql-replication
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-sql-query-optimization
+  - /guides/complete-guide-elasticsearch-cluster-setup
+  - /guides/complete-guide-serverless-databases
+  - /guides/complete-guide-redis-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - hash based sharding
     - vitess
     - citus
+
+
+
+
+
 ---
 
 ## Introducción
@@ -462,3 +475,12 @@ Usa Vitess cuando tenes un MySQL-based application que necesita horizontal scali
 ### ¿Cómo handleo joins across shards?
 
 Cross-shard joins son expensive — el router debe fetchar data desde multiple shards y joinear in memory. Evitalos por: (1) colocando tables con el same shard key en los same shards, (2) usando reference tables (replicated a all shards), (3) denormalizando data para avoid joins, o (4) haciendo joins en application code despues de fetch desde shards. Citus handlea colocated joins eficientemente — si dos tables share el same shard key, joins en ese key son single-shard. Vitess soporta VSchema para similar optimization.
+
+## See Also
+
+- [Database Sharding: Horizontal Partitioning in Practice](/es/guides/database-sharding-implementation-guide/)
+- [Complete Guide to Elasticsearch Cluster Setup](/es/guides/complete-guide-elasticsearch-cluster-setup/)
+- [Complete Guide to Serverless Databases](/es/guides/complete-guide-serverless-databases/)
+- [Sharding Pattern](/es/patterns/sharding-pattern/)
+- [Read Replicas: Scale Reads Without Changing Application](/es/guides/read-replica-guide/)
+

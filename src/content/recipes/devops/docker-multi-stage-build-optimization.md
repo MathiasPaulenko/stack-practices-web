@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-multi-stage-build-optimization
 title: "Docker Multi-Stage Build Optimization for Smaller Images"
@@ -19,6 +23,9 @@ relatedResources:
   - /recipes/docker-compose-dev-prod-split
   - /guides/terraform-best-practices-guide
   - /docs/deployment-checklist-template
+  - /recipes/container-security-scanning
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/docker-network-isolation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -30,6 +37,10 @@ seo:
     - distroless docker images
     - docker build optimization
     - docker multi stage dockerfile
+
+
+
+
 ---
 
 ## Overview
@@ -430,6 +441,9 @@ docker buildx build \
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Container Image Security Scanning with Trivy](/recipes/container-security-scanning/).
 
 1. **Use `COPY --link` for faster builds.** Copies files as a separate layer without invalidating cache:
 

@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: distributed-tracing
 title: "Tracing Distribuido"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/prometheus-api-monitoring
   - /recipes/structured-logging
   - /guides/microservices-architecture-guide
+  - /recipes/log-aggregation
+  - /recipes/metrics-collection
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - observability
     - opentelemetry
     - microservices
+
+
 ---
 ## Visión General
 

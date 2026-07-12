@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-async-http-requests
 title: "Haz Peticiones HTTP Concurrentes con Python y aiohttp"
@@ -16,9 +20,11 @@ tags:
   - http
   - concurrency
 relatedResources:
-  - /recipes/api/javascript-fetch-retry-logic
-  - /recipes/api/nodejs-websocket-realtime
+  - /recipes/javascript-fetch-retry-logic
+  - /recipes/nodejs-websocket-realtime
   - /patterns/circuit-breaker-pattern
+  - /recipes/python-schedule-periodic-tasks
+  - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - python async api calls
     - aiohttp session pooling
     - python async batch requests
+
+
+
+
 ---
 
 ## Visión General
@@ -37,6 +47,9 @@ seo:
 Hacer peticiones HTTP una a la vez es lento cuando necesitas obtener datos de múltiples APIs o endpoints. `asyncio` con `aiohttp` permite ejecutar muchas peticiones concurrentemente, reduciendo el tiempo total de la suma de todos los tiempos de petición al de la petición más larga. Esta recipe cubre fetching concurrente, connection pooling, rate limiting, reintentos y procesamiento por lotes.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/es/recipes/python-asyncio-gather-task-groups/).
 
 - Necesitas obtener datos de múltiples APIs o endpoints simultáneamente
 - Estás construyendo un web scraper que obtiene muchas páginas

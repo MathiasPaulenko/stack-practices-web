@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: full-text-search
 title: "Full-Text Search"
@@ -19,6 +21,8 @@ relatedResources:
   - /patterns/adapter-pattern
   - /patterns/builder-pattern
   - /patterns/command-pattern
+  - /recipes/caching-redis
+  - /recipes/database-deadlocks-retries
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

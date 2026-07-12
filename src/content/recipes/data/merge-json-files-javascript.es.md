@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: merge-json-files-javascript
 title: "Merge de Archivos JSON en JavaScript"
@@ -29,12 +30,16 @@ seo:
     - combinar archivos json
     - object.assign javascript
     - lodash merge
+
 ---
 ## Visión General
 
 Hacer merge de archivos JSON es una tarea común al combinar configuración, agregar respuestas de APIs o construir pipelines de datos. JavaScript ofrece varios enfoques, desde un simple spread operator hasta librerías de deep merge recursivo. Esta recipe cubre las estrategias principales y cuándo usar cada una.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Merge JSON Files](/es/recipes/merge-json-files/).
 
 - Necesitas combinar múltiples archivos de configuración JSON en uno
 - Estás agregando respuestas paginadas de una API en un solo payload

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-microservices-communication
 title: "Complete Guide to Microservices Communication"
@@ -19,11 +23,13 @@ tags:
   - service-mesh
   - guide
 relatedResources:
-  - /guides/architecture/microservices-architecture-guide
-  - /guides/architecture/event-driven-architecture-guide
-  - /guides/architecture/grpc-microservices-guide
-  - /patterns/architecture/pipes-and-filters-pattern
-  - /patterns/design/circuit-breaker-pattern
+  - /guides/microservices-architecture-guide
+  - /guides/event-driven-architecture-guide
+  - /guides/grpc-microservices-guide
+  - /patterns/pipes-and-filters-pattern
+  - /patterns/circuit-breaker-pattern
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-kafka-stream-processing
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -36,6 +42,10 @@ seo:
     - message queue microservices
     - service mesh
     - microservices patterns
+
+
+
+
 ---
 
 # Complete Guide to Microservices Communication
@@ -363,6 +373,9 @@ spec:
 | Request aggregation | GraphQL | HTTP/JSON + schema |
 
 ## Best Practices
+
+
+- For a deeper guide, see [gRPC in Microservices — High-Performance RPC Guide](/guides/grpc-microservices-guide/).
 
 - **Prefer async for write-heavy workflows** — decouples services, improves resilience
 - **Use the Outbox pattern** — ensures events are published exactly once with the DB transaction

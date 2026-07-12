@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: race-condition-prevention
 title: "Prevencion de Race Conditions en Codigo Async de JavaScript"
@@ -15,9 +17,10 @@ tags:
   - async
   - threads
 relatedResources:
-  - /recipes/concurrency/python-thread-pool-executor
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /patterns/messaging/idempotent-consumer-pattern
+  - /recipes/python-thread-pool-executor
+  - /recipes/python-asyncio-gather-task-groups
+  - /patterns/idempotent-consumer-pattern
+  - /recipes/javascript-event-loop
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +31,8 @@ seo:
     - concurrent execution
     - atomic operations
     - promise patterns
+
+
 ---
 
 # Prevencion de Race Conditions en Codigo Async de JavaScript

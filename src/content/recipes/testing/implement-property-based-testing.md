@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: implement-property-based-testing
 title: "Implement Property-Based Testing"
@@ -16,9 +20,11 @@ tags:
   - fuzzing
   - recipe
 relatedResources:
-  - /recipes/testing/generate-test-data
-  - /recipes/testing/setup-test-fixtures
-  - /recipes/testing/implement-mutation-testing
+  - /recipes/generate-test-data
+  - /recipes/setup-test-fixtures
+  - /recipes/implement-mutation-testing
+  - /guides/complete-guide-property-based-testing
+  - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -31,6 +37,10 @@ seo:
     - jqwik
     - fuzzing
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +48,9 @@ seo:
 Traditional example-based tests check one input at a time (`assert reverse("abc") == "cba"`). Property-based tests describe universal properties (`reverse(reverse(s)) == s`) and the framework generates hundreds of random inputs to find violations. This approach discovers edge cases — empty strings, Unicode combining characters, integer overflow, null pointers — that human-chosen examples rarely cover.
 
 ## When to Use
+
+
+- For alternatives, see [Property-Based Testing Guide](/guides/complete-guide-property-based-testing/).
 
 - Pure functions with clear mathematical properties (sorting, parsing, encoding, serialization)
 - Input validation and sanitization routines that must handle arbitrary data

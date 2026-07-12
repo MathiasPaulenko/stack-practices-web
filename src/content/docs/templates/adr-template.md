@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: adr-template
 templateType: adr
@@ -15,9 +20,13 @@ tags:
   - template
   - design
 relatedResources:
-  - /docs/templates/readme-template
-  - /guides/api/rest-api-design-guide
-  - /patterns/design/mvc-pattern
+  - /docs/readme-template
+  - /guides/rest-api-design-guide
+  - /patterns/mvc-pattern
+  - /recipes/dependency-injection
+  - /recipes/multi-tenancy
+  - /recipes/service-discovery
+  - /recipes/workflow-engine
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - decision log
     - software architecture
     - rfc template
+
+
+
+
+
 ---
 
 ## Overview

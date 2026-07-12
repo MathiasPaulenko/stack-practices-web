@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-asyncio-gather-task-groups
 title: "Concurrent Async Tasks with asyncio.gather and Task Groups"
@@ -16,10 +21,13 @@ tags:
   - async
   - task-groups
 relatedResources:
-  - /recipes/concurrency/python-asyncio-semaphore-rate-limiting
-  - /recipes/concurrency/python-thread-pool-executor
+  - /recipes/python-asyncio-semaphore-rate-limiting
+  - /recipes/python-thread-pool-executor
   - /guides/complete-guide-python-asyncio
   - /guides/concurrency-patterns-guide
+  - /recipes/python-async-gather-concurrent-requests
+  - /recipes/csharp-async-await-task-run
+  - /recipes/go-goroutines-channels-patterns
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - python concurrent async
     - asyncio return_exceptions
     - python structured concurrency
+
+
+
+
+
 ---
 
 ## Overview
@@ -334,6 +347,9 @@ async def fetch_with_progress(urls: list) -> list:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Rate Limit Async Operations with asyncio.Semaphore](/recipes/python-asyncio-semaphore-rate-limiting/).
 
 - **Use `TaskGroup` over `gather` in Python 3.11+**: TaskGroup provides structured concurrency — all tasks are guaranteed to complete or be cancelled before exit. It also provides better error messages via `ExceptionGroup`.
 - **Set timeouts**: Without timeouts, a slow operation blocks `gather` indefinitely. Use `asyncio.wait_for` or `async.timeout()` (Python 3.11+).

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: serverless-event-driven-sqs-lambda
 title: "Construir Lambda Event-Driven con Triggers SQS y Batch"
@@ -16,10 +19,11 @@ tags:
   - event-driven
   - batch-processing
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/domain-driven-design-guide
+  - /recipes/serverless-step-functions-workflow
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - sqs batch processing
     - partial batch response
     - sqs dead letter queue
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +44,9 @@ seo:
 Los triggers SQS permiten a Lambda consumir mensajes de una cola automaticamente. Lambda hace polling de SQS, agrupa mensajes e invoca la funcion. Con batch windows, partial batch responses y dead-letter queues, puedes construir pipelines event-driven resilientes que manejan fallos graceful sin perder mensajes. A continuacion: configurar triggers SQS, batch processing, manejo de errores con partial batch responses, configuracion de DLQ y monitoreo.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Serverless Architecture — Patterns and Anti-Patterns](/es/guides/serverless-architecture-guide/).
 
 - Procesamiento asincrono de tareas (thumbnails de imagenes, envio de emails, generacion de reportes)
 - Desacoplar productores de consumidores en arquitecturas event-driven

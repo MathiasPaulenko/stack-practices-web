@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: value-object-pattern
 title: "Patrón Value Object"
@@ -15,9 +17,9 @@ tags:
   - immutability
   - domain-modeling
 relatedResources:
-  - /patterns/design/entity-component-system-pattern
-  - /patterns/design/aggregate-pattern
-  - /patterns/design/solid-principles-typescript
+  - /patterns/entity-component-system-pattern
+  - /patterns/aggregate-pattern
+  - /patterns/solid-principles-typescript
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - ddd
     - immutability
     - domain modeling
+
+
 ---
 
 # Patrón Value Object
@@ -39,6 +43,9 @@ Un Value Object es un objeto inmutable definido enteramente por sus atributos, n
 Este patrón es fundamental en Domain-Driven Design (DDD). Encapsula validación, formateo y lógica de comparación en un wrapper type-safe, previniendo la obsesión por primitivos (representar conceptos de dominio como strings o números).
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Aggregate Pattern](/es/patterns/aggregate-pattern/).
 
 Usa el Patrón Value Object cuando:
 - Un concepto no tiene identidad conceptual (ej., $20 es $20 independientemente del billete)

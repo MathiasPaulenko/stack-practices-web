@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: ai-agents-tool-use
 title: "AI Agents with Tool Use"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/slack-bot-openai
   - /recipes/chatbot-openai
   - /recipes/image-generation
+  - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - ai
     - openai
     - architecture
+
 ---
 ## Overview
 

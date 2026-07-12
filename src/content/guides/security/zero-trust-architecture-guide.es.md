@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: zero-trust-architecture-guide
 title: "Arquitectura Zero Trust — Nunca Confíes, Siempre Verifica"
@@ -20,6 +24,9 @@ relatedResources:
   - /guides/secrets-management-guide
   - /guides/owasp-top-10-guide
   - /guides/api-gateway-design-guide
+  - /guides/ci-cd-security-guide
+  - /guides/disaster-recovery-guide
+  - /guides/threat-modeling-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -31,6 +38,10 @@ seo:
     - least-privilege
     - continuous-validation
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +49,9 @@ seo:
 Zero Trust es un modelo de seguridad que elimina el concepto de perímetro de red confiable. En lugar de asumir que el tráfico dentro de la red es seguro, Zero Trust verifica cada solicitud como si proviniera de una red no confiable. Cada usuario, dispositivo y aplicación debe ser autenticado, autorizado y continuamente validado antes de obtener acceso a recursos.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to LLM Security](/es/guides/complete-guide-llm-security/).
 
 - Tienes una fuerza laboral distribuida con necesidades de acceso remoto
 - Estás migrando de una red basada en perímetro a arquitectura nativa de cloud

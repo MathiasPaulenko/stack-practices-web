@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: kubernetes-pod-disruption-budget-template
 title: "Plantilla de Pod Disruption Budget de Kubernetes"
@@ -16,9 +18,9 @@ tags:
   - disruption
   - infrastructure
 relatedResources:
-  - /docs/devops/ci-cd-pipeline-design-template
-  - /docs/devops/helm-chart-review-checklist
-  - /docs/devops/terraform-state-management-policy
+  - /docs/ci-cd-pipeline-design-template
+  - /docs/helm-chart-review-checklist
+  - /docs/terraform-state-management-policy
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - node drain
     - template
     - maintenance
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Un Pod Disruption Budget (PDB) define el minimum number de pods que deben remain available durante voluntary disruptions. Voluntary disruptions incluyen node drains, cluster upgrades y maintenance. Sin PDBs, un node drain puede evictar all pods de un service simultáneamente, causando downtime.
 
 ## When to Use
+
+
+- For alternatives, see [CI/CD Pipeline Design Template](/es/docs/ci-cd-pipeline-design-template/).
 
 - Deployeando stateless services a Kubernetes
 - Corriendo cluster upgrades que drenan nodes

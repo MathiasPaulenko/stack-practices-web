@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: cqrs-pattern-recipe
 title: "Escalar Cargas de Lectura y Escritura con CQRS"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/microservices-patterns
   - /recipes/event-driven-functions
   - /recipes/database-migrations
+  - /recipes/observer-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - modelo lectura escritura
     - event sourcing cqrs
     - queries escalables
+
 ---
 
 ## Visión general

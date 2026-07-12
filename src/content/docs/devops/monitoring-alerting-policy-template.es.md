@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: docs
 slug: monitoring-alerting-policy-template
 title: "Plantilla de Politica de Monitoreo y Alertas"
@@ -15,8 +22,13 @@ tags:
   - observability
   - policy
 relatedResources:
-  - /docs/devops/logging-standards-document
-  - /docs/devops/escalation-policy-template
+  - /docs/logging-standards-document
+  - /docs/escalation-policy-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/cloud-resource-tagging-policy-template
+  - /docs/infrastructure-cost-allocation-template
+  - /docs/load-test-execution-plan-template
+  - /docs/postmortem-incident-review-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +39,13 @@ seo:
     - escalacion de alertas
     - politica de observabilidad
     - enrutamiento de alertas
+
+
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -34,6 +53,9 @@ seo:
 Una Politica de Monitoreo y Alertas define como una organizacion detecta problemas, notifica a las personas correctas y escala cuando los incidentes no se resuelven rapidamente. Sin una politica clara, los equipos sufren fatiga de alertas, incidentes perdidos o tiempos de respuesta inconsistentes. Esta plantilla proporciona un marco estructurado para umbrales, niveles de severidad, reglas de enrutamiento, caminos de escalacion y revision regular.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
 
 - Configurar una nueva plataforma de observabilidad o stack de monitoreo.
 - Incorporar un nuevo servicio o equipo al sistema de alertas.

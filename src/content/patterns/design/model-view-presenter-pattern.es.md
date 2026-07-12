@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: model-view-presenter-pattern
 title: "Patrón Model-View-Presenter (MVP)"
@@ -16,9 +17,9 @@ tags:
   - ui
   - testing
 relatedResources:
-  - /patterns/design/model-view-viewmodel-pattern
-  - /patterns/design/front-controller-pattern
-  - /patterns/design/page-controller-pattern
+  - /patterns/model-view-viewmodel-pattern
+  - /patterns/front-controller-pattern
+  - /patterns/page-controller-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +30,7 @@ seo:
     - design pattern
     - ui architecture
     - testing
+
 ---
 
 # Patrón Model-View-Presenter (MVP)

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-jwt-refresh-token-rotation
 title: "Secure JWT Refresh Token Rotation with Python"
@@ -15,9 +21,13 @@ tags:
   - authentication
   - security
 relatedResources:
-  - /recipes/security/python-sql-injection-sqlalchemy
-  - /recipes/security/nodejs-helmet-security-headers
-  - /recipes/ai/python-openai-function-calling-structured
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/nodejs-helmet-security-headers
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/nodejs-jwt-authentication
+  - /recipes/python-memcached-session-storage
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - jwt authentication
     - refresh token blacklist
     - python auth
+
+
+
+
+
+
 ---
 
 # Secure JWT Refresh Token Rotation with Python
@@ -374,6 +390,9 @@ async function apiCall(url, options = {}) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Authentication Patterns](/guides/complete-guide-authentication-patterns/).
 
 - **Keep access tokens short-lived** — 15-30 minutes is standard; shorter is safer
 - **Rotate refresh tokens on every use** — one-time-use refresh tokens prevent replay attacks

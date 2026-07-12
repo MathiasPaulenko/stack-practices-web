@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-cdn-caching-strategy
 title: "Complete Guide to CDN Caching Strategy"
@@ -19,9 +23,11 @@ tags:
   - surrogate-keys
   - cloudflare
 relatedResources:
-  - /guides/caching/complete-guide-redis-caching-strategies
-  - /guides/api/complete-guide-graphql-caching
-  - /patterns/design/circuit-breaker-pattern
+  - /guides/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-graphql-caching
+  - /patterns/circuit-breaker-pattern
+  - /guides/complete-guide-cache-invalidation
+  - /guides/complete-guide-application-level-caching
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +40,10 @@ seo:
     - cache invalidation
     - surrogate keys
     - multi-cdn
+
+
+
+
 ---
 
 ## Introduction
@@ -438,3 +448,12 @@ Cache static assets for 1 year (`max-age=31536000`). Use fingerprinted filenames
 ### What is the best CDN for my use case?
 
 Depends on your priorities. Cloudflare has the widest edge network and a generous free tier. Fastly offers instant purging and surrogate keys. CloudFront integrates well with AWS. Akamai is strong for enterprise and large-scale delivery. Test multiple CDNs with real users to find the best fit.
+
+## See Also
+
+- [Cache HTTP Responses with Nginx Reverse Proxy](/recipes/nginx-reverse-proxy-cache/)
+- [Complete Guide to GraphQL Caching](/guides/complete-guide-graphql-caching/)
+- [Complete Guide to Cache Invalidation](/guides/complete-guide-cache-invalidation/)
+- [Caching Strategies: From Browser to Database, a Complete](/guides/caching-strategies-guide/)
+- [Complete Guide to LLM Cost Optimization](/guides/complete-guide-llm-cost-optimization/)
+

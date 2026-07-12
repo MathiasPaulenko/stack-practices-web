@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: real-user-monitoring
 title: "Real User Monitoring"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/distributed-tracing
   - /recipes/log-aggregation
   - /recipes/metrics-collection
+  - /guides/complete-guide-distributed-tracing
+  - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - observability
     - performance
     - frontend
+
+
 ---
 ## Overview
 

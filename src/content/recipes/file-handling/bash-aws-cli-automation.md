@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: bash-aws-cli-automation
 title: "AWS CLI Automation with Bash"
@@ -30,6 +31,7 @@ seo:
     - cli
     - automation
     - cloud
+
 ---
 ## Overview
 
@@ -355,6 +357,9 @@ done
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [AWS CLI Automation with Bash](/recipes/bash-aws-cli-scripts/).
 
 1. **Use AWS CLI pagination for large result sets.** The `--page-size` flag controls how many items are fetched per API call. For listing thousands of S3 objects or EC2 instances, use `--page-size 1000` to reduce the number of API calls and avoid throttling:
 

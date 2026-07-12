@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: connection-pooling
 title: "Configurar connection pooling para bases de datos y"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/cdn-edge-caching
   - /recipes/debounce-throttle
   - /patterns/cache-aside-pattern
+  - /recipes/redis-cache-patterns
+  - /recipes/cache-invalidation
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - redis
     - http-client
     - rendimiento
+
+
 ---
 ## Visión General
 

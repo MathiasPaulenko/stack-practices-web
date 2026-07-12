@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: message-queue-load-leveling-pattern
 title: "Message Queue Load Leveling Pattern"
@@ -17,9 +22,12 @@ tags:
   - async-processing
   - backpressure
 relatedResources:
-  - /patterns/design/priority-queue-pattern
-  - /patterns/design/publish-subscribe-pattern
-  - /patterns/design/dead-letter-channel-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/publish-subscribe-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/message-deduplication-pattern
+  - /patterns/message-deferral-pattern
+  - /patterns/producer-consumer-pattern
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - traffic smoothing queue
     - async processing pattern
     - pattern design
+
+
+
+
+
 ---
 
 ## Overview
@@ -203,6 +216,9 @@ This protects the downstream system from being overwhelmed. The tradeoff is late
 The key insight is **rate decoupling**: the producer's rate and the consumer's rate are independent. The queue absorbs the difference during bursts.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Queue-Based Load Leveling Pattern](/patterns/queue-based-load-leveling-pattern/).
 
 - **Set a max queue depth alert.** When queue depth exceeds 80% of capacity, trigger an alert. This gives you time to scale consumers before the queue fills.
 - **Use exponential backoff for retries.** If a message fails, retry with increasing delays (1s, 2s, 4s, 8s). This prevents retry storms from overwhelming the consumer.

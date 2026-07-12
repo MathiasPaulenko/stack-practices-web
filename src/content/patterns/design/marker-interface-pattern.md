@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: marker-interface-pattern
 title: "Marker Interface Pattern"
@@ -17,9 +22,12 @@ tags:
   - typing
   - java
 relatedResources:
-  - /patterns/design/type-object-pattern
-  - /patterns/design/strategy-pattern
-  - /patterns/design/decorator-pattern
+  - /patterns/type-object-pattern
+  - /patterns/strategy-pattern
+  - /patterns/decorator-pattern
+  - /patterns/partial-class-pattern
+  - /patterns/twin-pattern
+  - /patterns/pipes-and-filters-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - metadata
     - typing
     - java
+
+
+
+
+
 ---
 
 # Marker Interface Pattern
@@ -43,6 +56,9 @@ The canonical example is Java's `java.io.Serializable` and `java.lang.Cloneable`
 While annotations have largely superseded marker interfaces in modern Java, the pattern remains relevant in languages with strong type systems where compile-time guarantees are preferred over runtime metadata.
 
 ## When to Use
+
+
+- For alternatives, see [Pipes and Filters Pattern](/patterns/pipes-and-filters-pattern/).
 
 Use the Marker Interface Pattern when:
 - You need compile-time type safety for metadata classification

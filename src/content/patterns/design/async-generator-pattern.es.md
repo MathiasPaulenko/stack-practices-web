@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: async-generator-pattern
 title: "Patrón Async Generator"
@@ -17,9 +22,12 @@ tags:
   - async-iteration
   - backpressure
 relatedResources:
-  - /patterns/design/reactive-streams-pattern
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/thread-pool-pattern
+  - /patterns/reactive-streams-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/thread-pool-pattern
+  - /guides/complete-guide-go-concurrency
+  - /guides/complete-guide-java-concurrency
+  - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - iteracion async perezosa
     - streaming datos python
     - patron diseno
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +49,9 @@ seo:
 Procesar datasets grandes o streams continuos cargando todo en memoria causa errores de OOM y alta latencia. El patron Async Generator produce valores de forma perezosa: el consumidor pide el siguiente valor y el generador lo produce solo cuando esta listo. Esto habilita el procesamiento de secuencias infinitas, archivos grandes o fuentes I/O lentas con uso constante de memoria.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Reactive Streams Pattern](/es/patterns/reactive-streams-pattern/).
 
 - Procesamiento de archivos o datasets grandes que no caben en memoria
 - Consumo de streams continuos (mensajes WebSocket, eventos SSE, tail de logs)

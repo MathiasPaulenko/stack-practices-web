@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: database-schema-documentation-template
 templateType: database-schema-doc
@@ -18,9 +23,13 @@ tags:
   - data-modeling
   - architecture
 relatedResources:
-  - /docs/templates/database-migration-runbook-template
-  - /guides/databases/database-design-guide
-  - /guides/databases/sql-performance-tuning-guide
+  - /docs/database-migration-runbook-template
+  - /guides/database-design-guide
+  - /guides/sql-performance-tuning-guide
+  - /recipes/dependency-injection
+  - /recipes/multi-tenancy
+  - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - schema
     - documentation
     - sql
+
+
+
+
+
 
 ---
 

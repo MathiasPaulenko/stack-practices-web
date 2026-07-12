@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: typescript-discriminated-unions-exhaustive
 title: "Exhaustive Type Checking with Discriminated Unions"
@@ -15,9 +19,11 @@ tags:
   - exhaustiveness
   - recipe
 relatedResources:
-  - /recipes/frontend/typescript-utility-types-generics
-  - /recipes/frontend/react-usememo-usecallback-performance
-  - /recipes/frontend/react-form-react-hook-form-validation
+  - /recipes/typescript-utility-types-generics
+  - /recipes/react-usememo-usecallback-performance
+  - /recipes/react-form-react-hook-form-validation
+  - /recipes/css-custom-properties-design-tokens
+  - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - type-safety
     - exhaustiveness
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -342,6 +352,9 @@ function summarizeTasks(tasks: Task[]): string {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to TypeScript Advanced Types](/guides/complete-guide-typescript-advanced-types/).
 
 - Always add a `default` case with `never` assertion — this catches missing cases at compile time
 - Use a single discriminant property name across all variants (`status`, `type`, `kind`)

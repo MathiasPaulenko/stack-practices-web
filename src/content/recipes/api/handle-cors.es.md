@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: handle-cors
 title: "Manejo Correcto de CORS"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/rate-limiting
   - /recipes/input-validation
+  - /recipes/api-documentation-openapi
+  - /recipes/graphql-api
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Visión General
 

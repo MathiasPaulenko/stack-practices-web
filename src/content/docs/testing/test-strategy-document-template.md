@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: test-strategy-document-template
 title: "Test Strategy Document Template"
@@ -15,9 +19,11 @@ tags:
   - quality-metrics
   - test-pyramid
 relatedResources:
-  - /docs/testing/api-testing-strategy-template
-  - /docs/testing/test-case-template
-  - /docs/testing/test-coverage-report-template
+  - /docs/api-testing-strategy-template
+  - /docs/test-case-template
+  - /docs/test-coverage-report-template
+  - /docs/bug-reproduction-steps-template
+  - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - quality metrics
     - test coverage
     - template
+
+
+
+
 ---
 
 ## Overview
@@ -37,6 +47,9 @@ seo:
 A test strategy document defines how a team approaches quality assurance across a project or product. It aligns stakeholders on what gets tested, at what level, with which tools, and what gates must pass before deployment. Without a strategy, teams default to ad-hoc testing: some areas get over-tested, critical paths get missed, and nobody knows the overall coverage picture.
 
 ## When to Use
+
+
+- For alternatives, see [Software Testing Strategy Guide](/guides/testing-strategy-guide/).
 
 - Starting a new project or major feature area
 - Onboarding a new team member to testing practices

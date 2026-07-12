@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-polars-fast-dataframe
 title: "High-Performance DataFrame Operations with Polars"
@@ -15,9 +18,10 @@ tags:
   - performance
   - recipe
 relatedResources:
-  - /recipes/data/python-pandas-etl-pipeline
-  - /recipes/data/python-dask-parallel-dataframe
-  - /recipes/data/python-spark-groupby-aggregation
+  - /recipes/python-pandas-etl-pipeline
+  - /recipes/python-dask-parallel-dataframe
+  - /recipes/python-spark-groupby-aggregation
+  - /recipes/python-data-validation-pandera
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - dataframe
     - performance
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -334,6 +341,9 @@ pivoted = (
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Parallel DataFrame Operations with Dask](/recipes/python-dask-parallel-dataframe/).
 
 - Use `scan_*` (lazy) instead of `read_*` (eager) for files — enables query optimization
 - Call `.collect()` only at the end — let Polars optimize the full plan

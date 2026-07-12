@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: microservice-contract-template
 title: "Microservice Contract Template"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/engineering-handbook-template
   - /guides/rest-api-design-guide
   - /guides/microservices-architecture-guide
+  - /docs/api-deprecation-notice-template
+  - /docs/api-error-handling-guideline
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +34,18 @@ seo:
     - api
     - contract
     - template
+
+
+
 ---
 ## Overview
 
 Microservices depend on explicit contracts to communicate reliably. Without a written agreement, teams make incompatible changes that break consumers at runtime. This template documents API boundaries, SLAs, versioning rules, and breaking change procedures between services.
 
 ## When to Use
+
+
+- For alternatives, see [Backends for Frontends: Dedicated Backend per Client Type](/patterns/backends-for-frontends-pattern/).
 
 Use this resource when:
 - A new service needs to expose an API to other internal services

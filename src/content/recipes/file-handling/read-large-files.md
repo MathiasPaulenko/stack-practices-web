@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: read-large-files
 title: "Read Large Files"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/stream-processing
   - /patterns/abstract-factory-pattern
   - /patterns/adapter-pattern
+  - /recipes/compress-decompress-files
+  - /recipes/copy-move-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - io
+
+
+
 ---
 ## Overview
 
@@ -444,6 +452,9 @@ read_line_range() {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Write Large Files](/recipes/write-large-files/).
 
 1. **Use `csv.DictReader` for CSV files instead of manual parsing.** It handles quoted fields, embedded commas, and multi-line records correctly:
 

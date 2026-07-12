@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: back-pressure-pattern
 title: "Back-Pressure Pattern"
@@ -18,9 +22,11 @@ tags:
   - flow-control
   - resilience
 relatedResources:
-  - /patterns/design/throttling-pattern
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/queue-based-load-leveling-pattern
+  - /patterns/throttling-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/flyweight-pattern-text
+  - /patterns/pipes-and-filters-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - reactive
     - flow control
     - resilience
+
+
+
+
 ---
 
 # Back-Pressure Pattern
@@ -49,6 +59,9 @@ Without back-pressure, fast producers and slow consumers lead to:
 Back-pressure is fundamental in reactive systems, stream processing (Kafka, Flink), and async I/O frameworks (Node.js streams, ReactiveX).
 
 ## When to Use
+
+
+- For alternatives, see [Content Delivery Network (CDN) Pattern](/patterns/content-delivery-network-pattern/).
 
 Use the Back-Pressure Pattern when:
 - Producers and consumers operate at different speeds in a sustained way

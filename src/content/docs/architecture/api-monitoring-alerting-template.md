@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-monitoring-alerting-template
 title: "API Monitoring & Alerting Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/service-dependency-map-template
   - /docs/system-diagram-template
   - /docs/technical-spec-template
+  - /docs/api-error-handling-guideline
+  - /docs/api-performance-budget-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - alerting
     - sla
     - template
+
+
+
 ---
 ## Overview
 
 APIs fail silently. A service returning 200 OK can still be broken for consumers if latency spikes or error rates creep upward. This template defines SLIs (Service Level Indicators), SLOs (Objectives), and alert thresholds so teams detect degradation before consumers notice.
 
 ## When to Use
+
+
+- For alternatives, see [API Lifecycle Management Template](/docs/api-lifecycle-management-template/).
 
 Use this resource when:
 - Launching a new API or version that needs uptime guarantees

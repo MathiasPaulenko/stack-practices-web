@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-sentry-error-tracking
 title: "Sentry: Error Tracking, Triage, and Resolution"
@@ -16,8 +22,12 @@ tags:
   - observability
   - debugging
 relatedResources:
-  - /guides/observability/complete-guide-structured-logging
-  - /guides/observability/complete-guide-distributed-tracing
+  - /guides/complete-guide-structured-logging
+  - /guides/complete-guide-distributed-tracing
+  - /recipes/real-user-monitoring
+  - /guides/complete-guide-monitoring-and-alerting
+  - /guides/complete-guide-observability-grafana-stack
+  - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 18
@@ -31,6 +41,12 @@ seo:
     - release tracking
     - performance monitoring
     - observability
+
+
+
+
+
+
 ---
 
 ## Introduction
@@ -466,6 +482,9 @@ rules:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - Set `release` tag on every deployment — Sentry auto-resolves issues when a fix is deployed
 - Upload source maps for minified JavaScript — get readable stack traces

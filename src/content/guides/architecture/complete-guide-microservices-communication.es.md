@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-microservices-communication
 title: "Referencia Detallada de Comunicación entre Microservicios"
@@ -19,11 +23,13 @@ tags:
   - service-mesh
   - guide
 relatedResources:
-  - /guides/architecture/microservices-architecture-guide
-  - /guides/architecture/event-driven-architecture-guide
-  - /guides/architecture/grpc-microservices-guide
-  - /patterns/architecture/pipes-and-filters-pattern
-  - /patterns/design/circuit-breaker-pattern
+  - /guides/microservices-architecture-guide
+  - /guides/event-driven-architecture-guide
+  - /guides/grpc-microservices-guide
+  - /patterns/pipes-and-filters-pattern
+  - /patterns/circuit-breaker-pattern
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-kafka-stream-processing
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -36,6 +42,10 @@ seo:
     - message queue microservices
     - service mesh
     - microservices patterns
+
+
+
+
 ---
 
 # Referencia Detallada de Comunicación entre Microservicios
@@ -399,3 +409,12 @@ En una cola de mensajes (point-to-point), cada mensaje es consumido por exactame
 ### ¿Necesito un service mesh?
 
 Un service mesh es útil cuando tienes muchos microservicios (10+) y necesitas mTLS consistente, traffic splitting, retries y observabilidad sin modificar código de aplicación. Para menos servicios, librerías como resilience4j o Polly pueden manejar retries y circuit breaking in-process.
+
+## See Also
+
+- [gRPC in Microservices — High-Performance RPC Guide](/es/guides/grpc-microservices-guide/)
+- [Complete Guide to API Versioning Strategies](/es/guides/complete-guide-api-versioning-strategies/)
+- [Complete Guide to GraphQL Federation](/es/guides/complete-guide-graphql-federation/)
+- [API Gateway Design: Resilience, Routing, and Security](/es/guides/api-gateway-design-guide/)
+- [GraphQL vs REST — When to Choose and How to Migrate](/es/guides/graphql-vs-rest-guide/)
+

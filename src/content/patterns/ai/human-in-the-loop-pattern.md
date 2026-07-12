@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: human-in-the-loop-pattern
 title: "Human-in-the-Loop Pattern"
@@ -16,9 +18,9 @@ tags:
   - safety
   - decision-gating
 relatedResources:
-  - /patterns/ai/llm-guardrails-pattern
-  - /patterns/ai/agent-tool-selection-pattern
-  - /recipes/ai/python-agent-langgraph-state-machine
+  - /patterns/llm-guardrails-pattern
+  - /patterns/agent-tool-selection-pattern
+  - /recipes/python-agent-langgraph-state-machine
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - ai safety pattern
     - agent pause
     - confidence threshold
+
+
 ---
 
 # Human-in-the-Loop Pattern
@@ -42,6 +46,9 @@ Autonomous LLM agents can take actions that have real consequences: sending emai
 Not every step needs human review. The pattern uses a **confidence threshold** and **action risk level** to decide which steps require approval. Low-risk actions (reading a file, searching the web) proceed automatically. High-risk actions (deploying to production, sending external communications) always pause for review.
 
 ## When to Use
+
+
+- For alternatives, see [Agent Tool Selection Pattern](/patterns/agent-tool-selection-pattern/).
 
 Use the Human-in-the-Loop Pattern when:
 - The agent can take irreversible actions (deleting data, sending communications, deploying)

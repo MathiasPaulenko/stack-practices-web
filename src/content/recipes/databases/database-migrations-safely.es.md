@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: database-migrations-safely
 title: "Migraciones de Base de Datos de Forma Segura"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/soft-deletes
   - /recipes/input-validation
   - /recipes/uuid-generation
+  - /recipes/event-sourcing-relational
+  - /recipes/optimistic-locking
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - flyway java
     - knex migrations
     - zero downtime deploy sql
+
+
 ---
 ## Visión General
 

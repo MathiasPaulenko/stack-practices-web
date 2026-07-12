@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: on-call-incident-response-guide
 title: "Playbook de Guardias e Incidentes (On-Call)"
@@ -16,9 +20,12 @@ tags:
   - postmortem
   - respuesta-a-incidentes
 relatedResources:
-  - /guides/devops/docker-for-developers-guide
-  - /guides/security/web-application-security-guide
-  - /guides/devops/technical-documentation-strategy-guide
+  - /guides/docker-for-developers-guide
+  - /guides/web-application-security-guide
+  - /guides/technical-documentation-strategy-guide
+  - /docs/bug-report-template
+  - /docs/slo-document-template
+  - /guides/monitoring-alerting-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +36,10 @@ seo:
     - ingenieria de confiabilidad
     - reducir mttr
     - plantilla postmortem
+
+
+
+
 ---
 
 # Playbook de Guardias e Incidentes (On-Call)

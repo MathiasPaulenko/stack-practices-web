@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: watch-file-changes
 title: "Observar Cambios en Archivos"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs
   - /recipes/stream-processing
+  - /recipes/compress-decompress-files
+  - /recipes/copy-move-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - filesystem
+
+
+
 ---
 ## Visión General
 
@@ -391,6 +399,9 @@ inotifywait -m -r --format '%w%f|%e' \
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Copy and Move Files](/es/recipes/copy-move-files/).
 
 1. **Usa `awaitWriteFinish` para detectar finalización de escritura.** Al observar uploads o exports, el archivo puede seguir escribiéndose cuando el evento `create` se dispara. Espera a que el escritor termine:
 

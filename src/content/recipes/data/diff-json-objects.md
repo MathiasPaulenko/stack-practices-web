@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: diff-json-objects
 title: "Diff JSON Objects"
@@ -16,11 +20,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/merge-json-files
-  - /recipes/data/convert-csv-to-json
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/validate-json-schema
+  - /recipes/merge-json-files
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
+  - /recipes/serialize-deserialize-data
+  - /recipes/validate-json-schema
+  - /recipes/python-generate-qr-code
+  - /recipes/format-phone-numbers
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
 ---
 ## Overview
 
@@ -280,6 +290,9 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - **jsondiffpatch**: JavaScript library for deep diffing and patching JSON objects. Supports arrays, nested objects, and reverse patches. Useful for audit logs and collaborative editing
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Merge JSON Files](/recipes/merge-json-files/).
 
 - Validate at system boundaries (API entry, file import, message consumption). Trust internal data
 - Use strict validation for user input, lenient validation for internal data pipelines

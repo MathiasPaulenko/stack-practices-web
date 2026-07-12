@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: rust-tokio-async-runtime
 title: "Build Async Systems with Rust Tokio Runtime"
@@ -16,9 +21,12 @@ tags:
   - runtime
   - concurrency
 relatedResources:
-  - /recipes/concurrency/go-goroutines-channels-patterns
-  - /recipes/concurrency/python-asyncio-gather-task-groups
+  - /recipes/go-goroutines-channels-patterns
+  - /recipes/python-asyncio-gather-task-groups
   - /guides/concurrency-patterns-guide
+  - /recipes/csharp-async-await-task-run
+  - /recipes/java-virtual-threads-project-loom
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - tokio tasks channels
     - rust structured concurrency
     - tokio graceful shutdown
+
+
+
+
+
 ---
 
 ## Overview
@@ -437,6 +450,9 @@ async fn main() {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Build Async Pipelines with C# async/await and Task.Run](/recipes/csharp-async-await-task-run/).
 
 - **Use `tokio::sync::Mutex` over `std::sync::Mutex`**: The std Mutex blocks the OS thread while waiting. Tokio's Mutex yields the task, letting other tasks run on the same thread.
 - **Prefer channels over shared state**: Channels provide a cleaner concurrency model. Use `mpsc` for producer-consumer, `broadcast` for pub-sub.

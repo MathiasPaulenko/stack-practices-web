@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: database-deadlocks-retries
 title: "Manejar deadlocks y reintentos en bases de datos"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/sql-joins
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
+  - /recipes/deadlock-prevention-sql
+  - /recipes/event-sourcing-relational
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - niveles-aislamiento
     - postgresql
     - mysql
+
+
 ---
 # Manejar deadlocks y reintentos en bases de datos
 

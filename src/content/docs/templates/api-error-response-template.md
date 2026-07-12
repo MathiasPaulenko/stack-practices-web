@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: api-error-response-template
 templateType: api-error-response
@@ -16,9 +18,10 @@ tags:
   - rfc-7807
   - developer-experience
 relatedResources:
-  - /docs/templates/api-documentation
-  - /docs/api/api-deprecation-notice-template
-  - /guides/api/rest-api-design-guide
+  - /docs/api-documentation
+  - /docs/api-deprecation-notice-template
+  - /guides/rest-api-design-guide
+  - /recipes/rest-api-design
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +32,8 @@ seo:
     - rest api error format
     - api error handling
     - developer friendly errors
+
+
 ---
 
 ## Overview

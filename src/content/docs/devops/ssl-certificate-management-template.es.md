@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: ssl-certificate-management-template
 title: "Plantilla de Gestion de Certificados SSL"
@@ -15,9 +19,11 @@ tags:
   - security
   - automation
 relatedResources:
-  - /docs/devops/monitoring-alerting-policy-template
-  - /docs/devops/cloud-resource-tagging-policy-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/cloud-resource-tagging-policy-template
   - /docs/runbook-template
+  - /recipes/bash-iptables-firewall
+  - /recipes/bash-ssh-key-manager
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - inventario de certificados
     - monitoreo de vencimiento de certificados
     - despliegue de certificados
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +45,9 @@ seo:
 Los certificados SSL/TLS protegen los datos en transito al cifrar el trafico entre clientes y servidores. Certificados vencidos, mal configurados u olvidados pueden causar interrupciones, advertencias de seguridad y perdida de confianza del cliente. Esta plantilla proporciona un proceso para rastrear el inventario de certificados, planificar renovaciones, desplegar certificados y responder a incidentes relacionados con certificados.
 
 ## Cuando Usar
+
+
+- For alternatives, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/es/guides/ci-cd-security-guide/).
 
 - Configurar un nuevo dominio o servicio publico.
 - Migrar de una autoridad certificadora a otra.

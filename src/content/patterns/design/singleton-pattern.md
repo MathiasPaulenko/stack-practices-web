@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: singleton-pattern
 title: "Singleton Pattern"
@@ -16,9 +21,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-json
-  - /patterns/design/factory-pattern
-  - /guides/api/rest-api-design-guide
+  - /recipes/parse-json
+  - /patterns/factory-pattern
+  - /guides/rest-api-design-guide
+  - /patterns/abstract-factory-pattern
+  - /patterns/builder-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/dependency-injection-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - python singleton
     - java singleton
     - javascript singleton
+
+
+
+
+
 ---
 
 # Singleton Pattern

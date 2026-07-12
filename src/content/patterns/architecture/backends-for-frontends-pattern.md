@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: backends-for-frontends-pattern
 title: "Backends for Frontends: Dedicated Backend per Client Type"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/modular-monolith-pattern
   - /patterns/ambassador-pattern
   - /patterns/anti-corruption-layer-pattern
+  - /patterns/strangler-fig-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +32,8 @@ seo:
     - api
     - microservices
     - pattern
+
+
 ---
 
 ## Overview
@@ -571,6 +576,9 @@ server.listen(4000, () => console.log("BFF with WebSocket on port 4000"));
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Gateway Routing Pattern](/patterns/gateway-routing-pattern/).
 
 - One BFF per client type, not per device — web BFF serves both desktop and mobile web
 - Keep BFF thin — aggregation and formatting only, no business logic

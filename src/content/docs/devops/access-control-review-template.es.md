@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: access-control-review-template
 title: "Plantilla de Revision de Control de Acceso"
@@ -15,9 +21,13 @@ tags:
   - identity
   - compliance
 relatedResources:
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/user-access-audit-template
-  - /docs/devops/secret-rotation-schedule-template
+  - /docs/rbac-policy-template
+  - /docs/user-access-audit-template
+  - /docs/secret-rotation-schedule-template
+  - /docs/vulnerability-scan-report-template
+  - /docs/compliance-gap-analysis-template
+  - /docs/data-breach-response-playbook
+  - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +38,12 @@ seo:
     - privilegio minimo
     - atestacion de roles
     - revision de identidad
+
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +51,9 @@ seo:
 Una Plantilla de Revision de Control de Acceso proporciona una forma estructurada de verificar que usuarios y cuentas de servicio tienen solo los permisos requeridos por su rol actual. Documenta quien tiene acceso, por que lo tiene y si todavia esta justificado, apoyando marcos de cumplimiento como SOC 2, ISO 27001 y PCI-DSS.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Compliance Gap Analysis Template](/es/docs/compliance-gap-analysis-template/).
 
 - Durante revisiones de acceso trimestrales o anuales.
 - Antes de una auditoria externa o certificacion.

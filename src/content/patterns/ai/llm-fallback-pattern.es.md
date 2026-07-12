@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: llm-fallback-pattern
 title: "Patrón LLM Fallback"
@@ -16,9 +17,9 @@ tags:
   - cadena-proveedores
   - rate-limit
 relatedResources:
-  - /patterns/ai/llm-router-pattern
-  - /patterns/ai/llm-guardrails-pattern
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/llm-router-pattern
+  - /patterns/llm-guardrails-pattern
+  - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +32,7 @@ seo:
     - fallback de modelo
     - manejo errores llm
     - llm multi proveedor
+
 ---
 
 # Patrón LLM Fallback

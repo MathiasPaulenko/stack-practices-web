@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-rabbitmq-architecture
 title: "Complete Guide to RabbitMQ Architecture"
@@ -19,9 +23,11 @@ tags:
   - routing
   - dead-letter
 relatedResources:
-  - /guides/messaging/complete-guide-kafka-production
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/resilience/retry-pattern
+  - /guides/complete-guide-kafka-production
+  - /patterns/circuit-breaker-pattern
+  - /patterns/retry-pattern
+  - /guides/message-queue-guide
+  - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +41,10 @@ seo:
     - dead letter queue rabbitmq
     - rabbitmq clustering
     - rabbitmq production
+
+
+
+
 ---
 
 ## Introduction
@@ -544,3 +554,12 @@ No. RabbitMQ provides at-least-once delivery. Messages can be duplicated if a co
 ### How many connections and channels should I use?
 
 Use one long-lived connection per process and multiplex with channels. Channels are cheap (virtual). Avoid opening a new connection per request. Limit channels to a few dozen per connection. Monitor connection count — too many connections waste resources.
+
+## See Also
+
+- [Complete Guide to Event-Driven Systems](/guides/complete-guide-event-driven-systems/)
+- [Configure Dead-Letter Queues in RabbitMQ for Failed Messages](/recipes/rabbitmq-dead-letter-queue/)
+- [Build a RabbitMQ Consumer with Python and Pika](/recipes/rabbitmq-python-pika-consumer/)
+- [Implement Redis Pub/Sub Messaging in Python](/recipes/redis-pub-sub-python/)
+- [Message Queues — RabbitMQ, Kafka, and SQS detailed analysis](/guides/message-queue-guide/)
+

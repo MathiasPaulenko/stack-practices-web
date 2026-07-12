@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: message-deduplication-pattern
 title: "Patrón Message Deduplication"
@@ -17,9 +20,10 @@ tags:
   - deduplication
   - message-queue
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/dead-letter-channel-pattern
-  - /patterns/design/publish-subscribe-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/publish-subscribe-pattern
+  - /patterns/message-deferral-pattern
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - clave idempotencia
     - procesamiento exactly once
     - patron diseno
+
+
+
 ---
 
 ## Descripción General
@@ -38,6 +45,9 @@ Los brokers de mensajes garantizan entrega at-least-once, lo que significa que l
 El patron Message Deduplication rastrea IDs de mensaje en un almacen. Antes de procesar, el consumidor verifica si el ID ya fue manejado. Si si, salta el procesamiento. Si no, procesa el mensaje y registra el ID.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Idempotent Consumer Pattern](/es/patterns/idempotent-consumer-pattern/).
 
 - Tu broker de mensajes proporciona entrega at-least-once (la mayoria: SQS, RabbitMQ, Kafka)
 - Procesar un mensaje dos veces causa efectos secundarios (pagos, emails, cambios de inventario)

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: infrastructure-cost-allocation-template
 title: "Plantilla de Asignacion de Costos de Infraestructura"
@@ -15,9 +17,9 @@ tags:
   - tagging
   - finops
 relatedResources:
-  - /docs/devops/cloud-resource-tagging-policy-template
-  - /docs/devops/capacity-planning-forecast-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/cloud-resource-tagging-policy-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/monitoring-alerting-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - plantilla FinOps
     - etiquetado de costos
     - division de costos compartidos
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +39,9 @@ seo:
 La Asignacion de Costos de Infraestructura es la practica de distribuir los costos de infraestructura cloud y on-premise a los equipos, productos o entornos que los consumen. Sin una asignacion clara, los presupuestos se desvian, los equipos carecen de responsabilidad y finanzas no entienden donde se gasta el dinero. Esta plantilla proporciona un marco para etiquetar, mapear cuentas, dividir costos compartidos y reportar la propiedad de los costos.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Cloud Cost Optimization](/es/guides/cost-optimization-cloud-guide/).
 
 - Configurar una practica de FinOps o gestion de costos cloud.
 - Incorporar un nuevo equipo o producto a la plataforma cloud.

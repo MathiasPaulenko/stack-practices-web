@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: github-actions-reusable-workflows
 title: "Share Workflow Logic with GitHub Actions Reusable Workflows"
@@ -15,9 +19,11 @@ tags:
   - automation
   - recipe
 relatedResources:
-  - /recipes/devops/github-actions-matrix-strategy
-  - /recipes/devops/docker-multi-stage-build-distroless
-  - /recipes/devops/terraform-remote-state-s3-backend
+  - /recipes/github-actions-matrix-strategy
+  - /recipes/docker-multi-stage-build-distroless
+  - /recipes/terraform-remote-state-s3-backend
+  - /recipes/docker-compose-override-environments
+  - /recipes/terraform-workspace-environment-isolation
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - reusable-workflows
     - automation
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -447,6 +457,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CI/CD with GitHub Actions](/guides/complete-guide-ci-cd-github-actions/).
 
 - Store shared workflows in `.github` repo — available to all repos in the org
 - Pin to a specific ref (`@v1`, `@main`) — avoid breaking changes from upstream

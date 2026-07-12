@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-n-1-query-detection
 title: "Detectar y corregir consultas N+1 en resolvers GraphQL"
@@ -16,9 +20,11 @@ tags:
   - dataloader
   - debugging
 relatedResources:
-  - /recipes/graphql/graphql-dataloader-batching
-  - /recipes/api/graphql-apollo-server
-  - /recipes/databases/postgres-query-optimization
+  - /recipes/graphql-dataloader-batching
+  - /recipes/graphql-apollo-server
+  - /recipes/postgres-query-optimization
+  - /patterns/graphql-batched-resolver-pattern
+  - /patterns/graphql-dataloader-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - graphql performance
     - dataloader
     - graphql debugging
+
+
+
+
 ---
 
 # Detectar y corregir consultas N+1 en resolvers GraphQL
@@ -36,6 +46,9 @@ seo:
 El problema N+1 es el problema de rendimiento mas comun en APIs GraphQL. Cuando una consulta de lista retorna N items y cada item dispara una llamada separada a la base de datos para un campo relacionado, obtienes 1 + N consultas en lugar de 1. Lo siguiente demuestra como detectar patrones N+1 durante el desarrollo y corregirlos con batching de DataLoader.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Batch and Cache Database Queries with GraphQL DataLoader](/es/recipes/graphql-dataloader-batching/).
 
 - Consultas GraphQL lentas bajo carga pero rapidas para items individuales
 - Conteos de conexiones a base de datos que suben durante consultas de lista

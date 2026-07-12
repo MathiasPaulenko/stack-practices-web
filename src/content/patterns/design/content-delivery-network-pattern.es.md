@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: content-delivery-network-pattern
 title: "Patrón Content Delivery Network (CDN)"
@@ -20,8 +26,12 @@ tags:
   - cloudfront
   - fastly
 relatedResources:
-  - /patterns/design/static-content-hosting-pattern
-  - /patterns/design/throttling-pattern
+  - /patterns/static-content-hosting-pattern
+  - /patterns/throttling-pattern
+  - /patterns/flyweight-pattern-text
+  - /patterns/gatekeeper-pattern
+  - /patterns/compute-resource-consolidation-pattern
+  - /patterns/health-endpoint-monitoring-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - performance
     - cloudfront
     - fastly
+
+
+
+
+
+
 ---
 
 # Patrón Content Delivery Network (CDN)
@@ -44,6 +60,9 @@ El Patrón Content Delivery Network (CDN) distribuye contenido a través de una 
 Los CDNs sirven contenido estático (imágenes, CSS, JavaScript, videos) desde caches edge e incrementalmente soportan aceleración de contenido en vivo, edge computing (Cloudflare Workers, Lambda@Edge), y protección DDoS. Un CDN bien configurado puede reducir los tiempos de carga de página en un 50% o más y absorber picos de tráfico que abrumarían un servidor de origen.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Throttling Pattern](/es/patterns/throttling-pattern/).
 
 Usa el Patrón CDN cuando:
 - Los usuarios están geográficamente distribuidos y la latencia importa

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: test-strategy-document-template
 title: "Plantilla de Documento de Estrategia de Pruebas"
@@ -15,9 +19,11 @@ tags:
   - quality-metrics
   - test-pyramid
 relatedResources:
-  - /docs/testing/api-testing-strategy-template
-  - /docs/testing/test-case-template
-  - /docs/testing/test-coverage-report-template
+  - /docs/api-testing-strategy-template
+  - /docs/test-case-template
+  - /docs/test-coverage-report-template
+  - /docs/bug-reproduction-steps-template
+  - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - quality metrics
     - test coverage
     - template
+
+
+
+
 ---
 
 ## Overview
@@ -37,6 +47,9 @@ seo:
 Un documento de estrategia de pruebas define cómo un equipo abarca el quality assurance a lo largo de un proyecto o producto. Alinea a los stakeholders en qué se testea, en qué nivel, con qué herramientas y qué gates deben pasar antes del deployment. Sin una estrategia, los equipos defaultan a testing ad-hoc: algunas áreas se over-testean, critical paths se missean y nadie sabe el coverage picture overall.
 
 ## When to Use
+
+
+- For alternatives, see [Software Testing Strategy Guide](/es/guides/testing-strategy-guide/).
 
 - Iniciando un new project o major feature area
 - Onboardéando un new team member a testing practices

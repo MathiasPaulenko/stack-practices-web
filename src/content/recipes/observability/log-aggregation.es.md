@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: log-aggregation
 title: "Agregación de Logs"
@@ -19,6 +20,7 @@ relatedResources:
   - /recipes/prometheus-api-monitoring
   - /recipes/structured-logging
   - /recipes/distributed-tracing
+  - /recipes/real-user-monitoring
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - observability
     - elk
     - devops
+
 ---
 ## Visión General
 

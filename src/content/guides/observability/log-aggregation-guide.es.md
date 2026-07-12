@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: log-aggregation-guide
 title: "Agregación de Logs"
@@ -18,11 +20,11 @@ tags:
   - splunk
   - guide
 relatedResources:
-  - /guides/observability/distributed-tracing-guide
-  - /guides/observability/metrics-and-dashboards-guide
-  - /guides/observability/alert-management-guide
-  - /guides/devops/observability-guide
-  - /guides/devops/opentelemetry-guide
+  - /guides/distributed-tracing-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/alert-management-guide
+  - /guides/observability-guide
+  - /guides/opentelemetry-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +37,8 @@ seo:
     - elasticsearch
     - splunk
     - guide
+
+
 ---
 
 ## Descripción General
@@ -44,6 +48,9 @@ La agregación de logs recolecta logs de todos los servicios, sistemas e infraes
 A continuación: logging estructurado, estrategias de envío, optimización de almacenamiento y selección de plataformas.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
 
 - Operas más de 5 servicios y necesitas correlacionar logs entre ellos
 - Depurar requiere buscar a través de múltiples servidores o contenedores

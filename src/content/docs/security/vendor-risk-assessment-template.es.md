@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: vendor-risk-assessment-template
 title: "Plantilla de Evaluación de Riesgos de Proveedores"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/security-audit-checklist-template
   - /docs/dependency-audit-template
+  - /docs/penetration-test-remediation-template
+  - /docs/data-classification-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - evaluacion
     - cumplimiento
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Los proveedores de terceros procesan tus datos, se integran con tus APIs y a menudo tienen acceso privilegiado a tus sistemas. Una violación de seguridad de un proveedor se convierte en tu violación. La mayoría de los cuestionarios de seguridad se ignoran después del onboarding. Esta plantilla estructura una evaluación de riesgos repetible que evalúa proveedores antes de la firma del contrato, durante las revisiones anuales y después de cualquier incidente de seguridad que involucre al proveedor.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Penetration Test Remediation Template](/es/docs/penetration-test-remediation-template/).
 
 Usa este recurso cuando:
 - Incorporas un nuevo proveedor SaaS, de nube o un equipo de desarrollo externalizado

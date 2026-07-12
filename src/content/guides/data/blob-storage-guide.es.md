@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: blob-storage-guide
 title: "Almacenamiento Blob: Patrones S3, GCS y Azure Blob para"
@@ -17,10 +21,12 @@ tags:
   - object-storage
   - guide
 relatedResources:
-  - /guides/data/data-migration-guide
-  - /guides/data/caching-strategies-guide
-  - /guides/devops/multi-cloud-guide
-  - /guides/security/secrets-management-guide
+  - /guides/data-migration-guide
+  - /guides/caching-strategies-guide
+  - /guides/multi-cloud-guide
+  - /guides/secrets-management-guide
+  - /guides/aws-basics-guide
+  - /guides/azure-basics-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - azure-blob
     - object-storage
     - guide
+
+
+
+
 ---
 
 ## Descripción General
@@ -41,6 +51,9 @@ El almacenamiento blob (objeto) es la forma dominante de almacenar datos no estr
 A continuación: diseño de buckets, patrones de acceso, seguridad, gestión de ciclo de vida y consideraciones multi-cloud.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Caching Strategies: From Browser to Database, a Complete](/es/guides/caching-strategies-guide/).
 
 - Almacenas archivos >1MB que no necesitan acceso aleatorio (imágenes, videos, PDFs)
 - Necesitas almacenamiento durable y redundante sin gestionar discos o RAID

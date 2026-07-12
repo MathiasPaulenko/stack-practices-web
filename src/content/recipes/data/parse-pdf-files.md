@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: parse-pdf-files
 title: "Parse PDF Files"
@@ -16,11 +19,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-excel-files
-  - /recipes/data/parse-xml-files
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/serialize-deserialize-data
+  - /recipes/parse-csv-files
+  - /recipes/parse-excel-files
+  - /recipes/parse-xml-files
+  - /recipes/convert-json-to-csv
+  - /recipes/serialize-deserialize-data
+  - /recipes/truncate-text
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +37,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Overview
 
@@ -261,6 +268,9 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **csvkit**: command-line tools for CSV files. csvstat shows statistics, csvcut selects columns, csvjoin merges files. Useful for quick exploration without writing Python scripts
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Parse Command Line Arguments](/recipes/parse-command-line-arguments/).
 
 - Always specify encoding explicitly (encoding='utf-8'). Never rely on system defaults
 - Use chunked reading for files >500MB. Set chunksize in pandas or iterate line-by-line

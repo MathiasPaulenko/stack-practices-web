@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: golden-master-testing-pattern
 title: "Golden Master Testing"
@@ -30,6 +31,7 @@ seo:
     - legacy-code
     - refactoring
     - pattern
+
 ---
 
 ## Overview
@@ -457,6 +459,9 @@ test('refactored API matches golden master', async () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Contract Testing: Verify Consumer-Producer API Contracts](/patterns/contract-testing-pattern/).
 
 - Generate diverse inputs — normal, edge, boundary, and invalid cases
 - Normalize non-deterministic values — timestamps, UUIDs, random IDs before comparison

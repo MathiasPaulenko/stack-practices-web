@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-web-performance-core-web-vitals
 title: "Referencia Detallada de Web Performance y Core Web Vitals"
@@ -18,9 +23,12 @@ tags:
   - cls
   - web-vitals
 relatedResources:
-  - /guides/frontend/complete-guide-bundle-size-optimization
-  - /guides/frontend/complete-guide-react-19-features
-  - /guides/frontend/complete-guide-css-grid-and-flexbox
+  - /guides/complete-guide-bundle-size-optimization
+  - /guides/complete-guide-react-19-features
+  - /guides/complete-guide-css-grid-and-flexbox
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-event-loop
+  - /recipes/web-performance
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +42,11 @@ seo:
     - image optimization
     - font loading
     - lazy loading
+
+
+
+
+
 ---
 
 ## Introducción
@@ -539,3 +552,12 @@ SSR mejora FCP y LCP porque el browser recibe HTML immediately sin esperar JavaS
 ### ¿Cómo affectan third-party scripts los Core Web Vitals?
 
 Third-party scripts (analytics, ads, chat widgets, A/B testing) pueden blockear el main thread, delay LCP, cause CLS, y increase INP. Auditea third-party scripts con el Coverage tab en DevTools. Loadea non-critical scripts con `async` o `defer`. Usa el `loading="lazy"` attribute para iframes. Considera server-side analytics en vez de client-side. Usa una consent management platform que loadea scripts solo despues de consent. Setea up un Content Security Policy para controlar que third-party domains pueden ejecutar scripts.
+
+## See Also
+
+- [Core Web Vitals Audit Checklist](/es/docs/core-web-vitals-audit-checklist/)
+- [Complete Guide to Bundle Size Optimization](/es/guides/complete-guide-bundle-size-optimization/)
+- [Complete Guide to React Performance Optimization](/es/guides/complete-guide-react-performance-optimization/)
+- [Complete Guide to React 19 Features](/es/guides/complete-guide-react-19-features/)
+- [SPA Performance: Code Splitting and Lazy Loading](/es/recipes/spa-code-splitting-lazy/)
+

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-sql-injection-sqlalchemy
 title: "Previene inyeccion SQL con consultas parametrizadas en"
@@ -15,9 +20,12 @@ tags:
   - security
   - database
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/security/nodejs-helmet-security-headers
-  - /recipes/ai/python-openai-function-calling-structured
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/nodejs-helmet-security-headers
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/vault-dynamic-credentials
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,11 @@ seo:
     - python sql security
     - orm injection
     - database security
+
+
+
+
+
 ---
 
 # Previene inyeccion SQL con consultas parametrizadas en SQLAlchemy
@@ -35,6 +48,9 @@ seo:
 La inyeccion SQL ocurre cuando el input del usuario se concatena en strings SQL en lugar de parametrizarse. Encabeza el OWASP Top 10 anio tras anio. Las APIs de consulta ORM y Core de SQLAlchemy parametrizan por defecto, haciendo la inyeccion casi imposible cuando se usan correctamente. A continuacion: patrones seguros e inseguros lado a lado.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Live Database Credentials with HashiCorp Vault](/es/recipes/vault-dynamic-credentials/).
 
 - Cualquier aplicacion Python que interactua con una base de datos SQL
 - Migracion de strings SQL crudos a un ORM

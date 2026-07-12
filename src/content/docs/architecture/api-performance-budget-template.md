@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-performance-budget-template
 title: "API Performance Budget Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/microservice-contract-template
   - /docs/service-dependency-map-template
   - /docs/system-diagram-template
+  - /docs/api-rate-limiting-policy-template
+  - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - budget
     - latency
     - template
+
+
+
 ---
 ## Overview
 
 Every API endpoint consumes resources: CPU, memory, database connections, and network bandwidth. Without explicit budgets, teams add capabilities until the system collapses under load. This template defines performance budgets as a contract between product requirements and infrastructure capacity, making trade-offs explicit before they become outages.
 
 ## When to Use
+
+
+- For alternatives, see [GraphQL vs REST — When to Choose and How to Migrate](/guides/graphql-vs-rest-guide/).
 
 Use this resource when:
 - Designing a new API or adding a new endpoint to an existing one

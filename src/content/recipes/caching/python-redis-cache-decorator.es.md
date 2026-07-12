@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-redis-cache-decorator
 title: "Cache de resultados de funciones con Redis y TTL en Python"
@@ -15,9 +21,13 @@ tags:
   - decorator
   - performance
 relatedResources:
-  - /recipes/caching/caching-redis
-  - /recipes/caching/redis-cache-patterns
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/caching-redis
+  - /recipes/redis-cache-patterns
+  - /patterns/cache-aside-pattern
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/database-query-result-caching
+  - /recipes/java-caffeine-cache-configuration
+  - /recipes/nginx-reverse-proxy-cache
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - redis ttl
     - python caching
     - redis cache invalidation
+
+
+
+
+
+
 ---
 
 # Cache de resultados de funciones con Redis y TTL en Python
@@ -35,6 +51,9 @@ seo:
 Cachear resultados costosos de funciones en Redis reduce latencia y carga de base de datos. Un enfoque con decorador permite agregar caching a cualquier funcion con una sola anotacion `@cached`, manteniendo la logica de negocio limpia. Esta receta construye un decorador de cache respaldado por Redis con generacion automatica de claves, serializacion JSON, TTL configurable e invalidacion manual.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Funciones que retornan el mismo resultado para los mismos argumentos (funciones puras o casi puras)
 - Consultas a base de datos, llamadas a API o computaciones costosas que raramente cambian

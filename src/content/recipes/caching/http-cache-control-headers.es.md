@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: http-cache-control-headers
 title: "Configurar headers HTTP Cache-Control para APIs y assets"
@@ -15,8 +18,9 @@ tags:
   - cdn
   - caching
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/redis-cache-aside-pattern
+  - /patterns/cache-aside-pattern
+  - /recipes/cdn-cache-invalidation-strategies
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +31,9 @@ seo:
     - etag
     - cdn caching
     - http caching
+
+
+
 ---
 
 # Configurar headers HTTP Cache-Control para APIs y assets estaticos
@@ -34,6 +41,9 @@ seo:
 Los headers de caching HTTP le dicen a navegadores y CDN cuanto tiempo cachear una respuesta, cuando revalidar y si la respuesta puede servirse desde una cache compartida. Headers configurados correctamente reducen latencia, bajan la carga del origen y mejoran Core Web Vitals. La solucion a continuacion cubre `Cache-Control`, `ETag`, `Last-Modified` y `stale-while-revalidate` tanto para respuestas API como para assets estaticos.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to GraphQL Caching](/es/guides/complete-guide-graphql-caching/).
 
 - Servir assets estaticos (JS, CSS, imagenes, fuentes) que cambian infrecuentemente
 - Respuestas API que son iguales para todos los usuarios o cambian en intervalos predecibles

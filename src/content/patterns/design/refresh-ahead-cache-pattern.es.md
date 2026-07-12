@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: refresh-ahead-cache-pattern
 title: "Patron Refresh-Ahead Cache"
@@ -19,9 +23,11 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-stampede-prevention-pattern
-  - /patterns/design/cache-invalidation-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-stampede-prevention-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/write-behind-cache-pattern
+  - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +39,10 @@ seo:
     - background cache refresh
     - redis cache refresh
     - cache miss elimination
+
+
+
+
 ---
 
 # Patron Refresh-Ahead Cache
@@ -44,6 +54,9 @@ Refresh-ahead recarga proactivamente entradas de cache antes de que expiren. Un 
 Este patron elimina el pico de latencia que ocurre cuando una key popular expira. En lugar de que una peticion espere un cache miss + recarga de base de datos, los datos ya estan refrescados. El trade-off es trabajo en segundo plano: el sistema recarga datos incluso si nadie los lee.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Read-Through Cache Pattern](/es/patterns/read-through-cache-pattern/).
 
 - Hot keys deben servirse siempre desde cache con latencia de miss cero
 - Cache misses en keys populares causan picos de latencia perceptibles para usuarios

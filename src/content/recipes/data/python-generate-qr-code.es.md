@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: python-generate-qr-code
 title: "Generar Códigos QR con Python"
@@ -29,12 +30,16 @@ seo:
     - codigo qr vcard
     - python qr batch
     - qrcode error correction
+
 ---
 ## Visión General
 
 Los códigos QR conectan lo físico y lo digital. La librería `qrcode` de Python los genera desde cualquier string: URLs, info de contacto, credenciales WiFi, links de pago. Esta recipe cubre generación básica, estilo, niveles de corrección de errores y creación en lote.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Convert CSV to JSON](/es/recipes/convert-csv-to-json/).
 
 - Necesitas generar códigos QR para URLs o páginas de productos
 - Estás creando tarjetas de contacto vCard para print o email

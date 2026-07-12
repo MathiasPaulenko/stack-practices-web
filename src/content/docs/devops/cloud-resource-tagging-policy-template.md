@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: cloud-resource-tagging-policy-template
 title: "Cloud Resource Tagging Policy Template"
@@ -15,9 +19,11 @@ tags:
   - infrastructure
   - policy
 relatedResources:
-  - /docs/devops/infrastructure-cost-allocation-template
-  - /docs/devops/cloud-cost-allocation-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/infrastructure-cost-allocation-template
+  - /docs/cloud-cost-allocation-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/environment-configuration-template
+  - /docs/ssl-certificate-management-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - resource labels
     - cost allocation tags
     - cloud metadata
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +45,9 @@ seo:
 Cloud Resource Tagging is the practice of applying metadata labels to cloud resources such as virtual machines, storage buckets, databases, and network components. Consistent tags enable cost allocation, access control, automated operations, and security auditing. This policy template defines required tags, naming conventions, enforcement mechanisms, and governance checks.
 
 ## When to Use
+
+
+- For alternatives, see [Infrastructure Cost Allocation Template](/docs/infrastructure-cost-allocation-template/).
 
 - Setting up a new cloud account or landing zone.
 - Onboarding a team or workload to the cloud platform.

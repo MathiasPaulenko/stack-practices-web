@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: api-rate-limiting-guide
 title: "API Rate Limiting — Design Fair and Useful Throttling"
@@ -19,11 +23,13 @@ tags:
   - resilience
   - guide
 relatedResources:
-  - /guides/api/rest-api-design-guide
-  - /guides/architecture/api-gateway-design-guide
-  - /guides/security/api-security-checklist-guide
-  - /guides/performance/performance-optimization-guide
-  - /guides/devops/sre-practices-guide
+  - /guides/rest-api-design-guide
+  - /guides/api-gateway-design-guide
+  - /guides/api-security-checklist-guide
+  - /guides/performance-optimization-guide
+  - /guides/sre-practices-guide
+  - /docs/api-rate-limiting-policy-template
+  - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -37,6 +43,10 @@ seo:
     - leaky-bucket
     - resilience
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -46,6 +56,9 @@ Rate limiting controls the number of API requests a client can make in a given t
 The following walks through rate limiting algorithms, implementation strategies, and choosing appropriate limits.
 
 ## When to Use
+
+
+- For alternatives, see [API Rate Limiting Policy Template](/docs/api-rate-limiting-policy-template/).
 
 - Your API is public-facing and could be abused by malicious actors
 - You have limited backend capacity and need to prevent overload

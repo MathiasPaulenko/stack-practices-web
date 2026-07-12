@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: java-actuator-health-checks
 title: "Health Checks Personalizados con Spring Boot Actuator"
@@ -16,9 +18,9 @@ tags:
   - kubernetes
   - recipe
 relatedResources:
-  - /recipes/observability/java-micrometer-prometheus
-  - /recipes/observability/python-prometheus-custom-metrics
-  - /recipes/observability/python-structured-logging-json
+  - /recipes/java-micrometer-prometheus
+  - /recipes/python-prometheus-custom-metrics
+  - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - health-check
     - kubernetes
     - recipe
+
+
 ---
 
 ## Overview
@@ -431,6 +435,9 @@ management:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Expose Metrics with Micrometer and Prometheus](/es/recipes/java-micrometer-prometheus/).
 
 - Setea timeouts en checks externos — un health check colgado bloquea el endpoint y causa que Kubernetes mate el pod
 - Usa health groups para separar checks de infraestructura de checks de APIs externas

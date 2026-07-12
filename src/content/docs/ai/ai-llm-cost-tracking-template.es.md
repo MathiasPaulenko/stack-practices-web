@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: ai-llm-cost-tracking-template
 templateType: capacity-planning
@@ -17,9 +19,9 @@ tags:
   - tokens
   - optimization
 relatedResources:
-  - /docs/ai/ai-model-selection-matrix
-  - /docs/ai/ai-llm-prompt-template-library
-  - /docs/ai/ai-llm-incident-response-runbook
+  - /docs/ai-model-selection-matrix
+  - /docs/ai-llm-prompt-template-library
+  - /docs/ai-llm-incident-response-runbook
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - llm pricing
     - cost per query
     - token budget
+
+
 ---
 
 ## Overview
@@ -409,3 +413,12 @@ Empeza con caching — identical queries nunca deberian hittear el LLM dos veces
 ### ¿Qué causa unexpected cost spikes?
 
 Common causes: (1) un user mandando very long prompts, (2) un bug causando repeated retries, (3) RAG retrieviendo too many chunks, (4) un model upgrade sin updatear pricing calculations, (5) increased traffic desde un single user o bot, (6) forgotten test scripts corriendo en production. Setea per-request cost alerts (> $0.50), per-user daily limits, y per-feature budget caps para catchar spikes early.
+
+## See Also
+
+- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to LLM Prompt Engineering](/es/guides/complete-guide-llm-prompt-engineering/)
+- [AI Agent Design Document Template](/es/docs/ai-agent-design-document-template/)
+- [AI LLM Prompt Template Library](/es/docs/ai-llm-prompt-template-library/)
+- [AI Prompt Version Control Template](/es/docs/ai-prompt-version-control-template/)
+

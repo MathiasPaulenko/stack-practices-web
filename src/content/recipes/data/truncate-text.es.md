@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: truncate-text
 title: "Truncar Texto"
@@ -16,11 +19,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-pdf-files
-  - /recipes/data/convert-csv-to-json
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/diff-json-objects
-  - /recipes/data/generate-slugs
+  - /recipes/parse-pdf-files
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
+  - /recipes/diff-json-objects
+  - /recipes/generate-slugs
+  - /recipes/format-phone-numbers
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +37,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Visión General
 
@@ -282,6 +289,9 @@ ew URL(string) parsea URLs correctamente incluyendo edge cases (IPv6, userinfo, 
 - **commander.js**: framework CLI para Node.js. 40M+ downloads/mes. Subcomandos, opciones, generacion de help text. Usado por npm, Vue CLI y muchos otros CLIs populares
 
 ## Resumen de Best Practices
+
+
+- For a deeper guide, see [Format Phone Numbers](/es/recipes/format-phone-numbers/).
 
 - Almacena fechas en UTC. Convierte a locale del usuario solo en la capa de presentacion
 - Usa Decimal o centavos enteros para dinero. Nunca uses floating-point para calculos financieros

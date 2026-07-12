@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: chaos-engineering
 title: "Chaos Engineering"
@@ -19,6 +21,8 @@ relatedResources:
   - /docs/bug-report-template
   - /docs/capacity-planning-template
   - /docs/changelog-template
+  - /recipes/github-actions-matrix-strategy
+  - /guides/chaos-engineering-guide
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - resilience
     - testing
     - distributed-systems
+
+
 ---
 ## Visión General
 

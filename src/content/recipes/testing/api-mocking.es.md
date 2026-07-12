@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: api-mocking
 title: "API Mocking para Testing"
@@ -18,6 +21,9 @@ relatedResources:
   - /guides/testing-strategy-guide
   - /guides/test-driven-development-guide
   - /recipes/load-testing-k6
+  - /recipes/graphql-mocking-apollo-server
+  - /recipes/javascript-msw-mock-service-worker
+  - /guides/complete-guide-junit5-modern-testing
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -27,6 +33,9 @@ seo:
     - testing
     - mocking
     - automation
+
+
+
 ---
 ## Visión General
 

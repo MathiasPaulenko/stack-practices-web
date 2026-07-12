@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: write-behind-cache-pattern
 title: "Patron Write-Behind Cache"
@@ -19,9 +22,10 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/write-through-cache-pattern
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-aside-pattern
+  - /patterns/write-through-cache-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - eventual consistency cache
     - redis write-behind
     - high throughput caching
+
+
+
 ---
 
 # Patron Write-Behind Cache
@@ -46,6 +53,9 @@ Esto desacopla la latencia de escritura del rendimiento de la base de datos. El 
 El trade-off es consistencia eventual: no se garantiza que el cache y la base de datos esten sincronizados en ningun momento. Si el cache cae antes de volcar, las escrituras confirmadas se pierden.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Read-Through Cache Pattern](/es/patterns/read-through-cache-pattern/).
 
 - Workloads de escritura intensa donde la latencia de escritura debe mantenerse baja
 - La base de datos no puede seguir el ritmo de escritura

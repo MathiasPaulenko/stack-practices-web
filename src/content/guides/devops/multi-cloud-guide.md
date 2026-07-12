@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: multi-cloud-guide
 title: "Multi-Cloud Strategies — Benefits, Pitfalls"
@@ -22,6 +26,9 @@ relatedResources:
   - /guides/azure-basics-guide
   - /guides/gcp-basics-guide
   - /guides/finops-guide
+  - /guides/blob-storage-guide
+  - /guides/capacity-planning-guide
+  - /guides/cost-optimization-cloud-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +41,10 @@ seo:
     - workload-placement
     - data-gravity
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -41,6 +52,9 @@ seo:
 Multi-cloud is the deliberate use of services from two or more cloud providers to run an organization's workloads. Unlike hybrid cloud (on-prem + cloud), multi-cloud means AWS, Azure, and/or GCP operating together. Motivations include avoiding vendor lock-in, accessing best-of-breed services, meeting regulatory requirements for data residency, and improving resilience through provider diversity. However, multi-cloud considerably increases operational complexity, cost, and skill requirements. It should not be the default — it should be a deliberate, justified architectural choice.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to GitOps in Production](/guides/complete-guide-gitops-production/).
 
 - A single provider cannot meet all regulatory or data residency requirements
 - You need best-of-breed services (e.g., BigQuery for analytics, AWS for compute, Azure for enterprise integration)

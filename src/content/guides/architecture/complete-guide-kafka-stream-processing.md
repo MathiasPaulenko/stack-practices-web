@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-kafka-stream-processing
 title: "Complete Guide to Kafka Stream Processing"
@@ -19,9 +24,12 @@ tags:
   - guide
   - messaging
 relatedResources:
-  - /guides/architecture/event-driven-architecture-guide
-  - /guides/architecture/complete-guide-microservices-communication
-  - /patterns/architecture/pipes-and-filters-pattern
+  - /guides/event-driven-architecture-guide
+  - /guides/complete-guide-microservices-communication
+  - /patterns/pipes-and-filters-pattern
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/kafka-spring-boot-stream-listener
+  - /guides/complete-guide-elasticsearch-cluster-setup
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +43,11 @@ seo:
     - real-time data pipeline
     - kafka consumers
     - kafka producers
+
+
+
+
+
 ---
 
 # Complete Guide to Kafka Stream Processing
@@ -367,6 +380,9 @@ Kafka Connect is a framework for connecting Kafka with external systems (databas
 | Repartition | Re-key a stream | Group by customer_id instead of order_id |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Stream Processing: Event-Driven Data Pipelines with](/guides/stream-processing-guide/).
 
 - **Use `acks=all` for producers** — ensures data is written to multiple replicas
 - **Enable idempotent producers** — prevents duplicates on retries

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: event-sourcing-pattern
 title: "Event Sourcing Pattern"
@@ -18,9 +23,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/cqrs-pattern
-  - /patterns/design/saga-pattern
-  - /patterns/design/observer-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/saga-pattern
+  - /patterns/observer-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/event-carried-state-transfer-pattern
+  - /patterns/idempotent-consumer-pattern
+  - /patterns/inbox-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +43,11 @@ seo:
     - python event sourcing
     - java event sourcing
     - javascript event sourcing
+
+
+
+
+
 ---
 
 # Event Sourcing Pattern

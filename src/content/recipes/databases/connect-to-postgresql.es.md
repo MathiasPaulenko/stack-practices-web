@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: connect-to-postgresql
 title: "Conectar a PostgreSQL"
@@ -20,6 +23,8 @@ relatedResources:
   - /patterns/ambassador-pattern
   - /patterns/bridge-pattern
   - /patterns/builder-pattern
+  - /recipes/connect-to-mysql
+  - /recipes/connect-to-redis
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - javascript
     - java
     - jdbc
+
+
+
 ---
 ## Visión General
 
 PostgreSQL es la base de datos relacional open-source más popular. Conectarse de forma fiable requiere manejar connection strings, SSL y pools de conexiones. A continuacion se muestra como cómo conectar y consultar PostgreSQL en Python, JavaScript y Java.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Connect to MySQL](/es/recipes/connect-to-mysql/).
 
 Usa este recurso cuando:
 - Construyes aplicaciones web que persisten datos en PostgreSQL

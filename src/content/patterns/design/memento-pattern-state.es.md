@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: memento-pattern-state
 title: "Memento Pattern para Snapshot y Restauracion de Estado"
@@ -14,8 +18,11 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/command-pattern-undo
-  - /patterns/design/prototype-pattern-cloning
+  - /patterns/command-pattern-undo
+  - /patterns/prototype-pattern-cloning
+  - /patterns/interpreter-pattern-expressions
+  - /patterns/iterator-pattern-collections
+  - /patterns/mediator-pattern-components
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +33,10 @@ seo:
     - undo restore
     - behavioral patterns
     - serialization
+
+
+
+
 ---
 
 # Memento Pattern para Snapshot y Restauracion de Estado

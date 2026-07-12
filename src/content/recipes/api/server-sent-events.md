@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: server-sent-events
 title: "Server-Sent Events (SSE)"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/handle-errors
   - /recipes/idempotent-api-endpoints
+  - /recipes/grpc-api
+  - /recipes/real-time-notifications
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

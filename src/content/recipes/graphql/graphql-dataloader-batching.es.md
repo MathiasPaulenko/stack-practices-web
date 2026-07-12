@@ -1,4 +1,9 @@
-﻿---
+---
+
+
+
+
+
 contentType: recipes
 slug: graphql-dataloader-batching
 title: "Batch y cache de consultas con GraphQL DataLoader"
@@ -16,9 +21,12 @@ tags:
   - batching
   - performance
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-pagination-relay-connections
-  - /patterns/graphql/graphql-dataloader-pattern
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-pagination-relay-connections
+  - /patterns/graphql-dataloader-pattern
+  - /recipes/graphql-n-1-query-detection
+  - /recipes/graphql-custom-scalar-types
+  - /recipes/graphql-subscriptions-realtime
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - batch loading
     - graphql performance
     - dataloader batching
+
+
+
+
+
 ---
 
 # Batch y cache de consultas con GraphQL DataLoader
@@ -36,6 +49,9 @@ seo:
 Cuando una consulta GraphQL resuelve relaciones anidadas — como obtener el autor de cada post en una lista — un resolver naive emite una consulta por item. Este es el problema N+1: una consulta para la lista, mas N consultas para los datos relacionados. DataLoader resuelve esto recolectando peticiones individuales dentro de un mismo tick del event loop y despachandolas como una sola consulta batch.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/es/recipes/graphql-n-1-query-detection/).
 
 - Resolvers que obtienen datos relacionados por foreign key (post.author, user.posts, order.items)
 - Cualquier schema GraphQL con relaciones de tipos anidadas

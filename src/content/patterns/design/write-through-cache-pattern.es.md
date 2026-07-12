@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: write-through-cache-pattern
 title: "Patron Write-Through Cache"
@@ -19,9 +25,13 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/cache-aside-pattern
-  - /patterns/design/read-through-cache-pattern
-  - /recipes/caching/nodejs-redis-cache-invalidation
+  - /patterns/cache-aside-pattern
+  - /patterns/read-through-cache-pattern
+  - /recipes/nodejs-redis-cache-invalidation
+  - /patterns/refresh-ahead-cache-pattern
+  - /patterns/write-behind-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - synchronous write cache
     - python cache
     - java cache
+
+
+
+
+
+
 ---
 
 # Patron Write-Through Cache
@@ -45,6 +61,9 @@ En un write-through cache, cada operacion de escritura va tanto al cache como al
 El trade-off es latencia de escritura: cada escritura incurre el coste de actualizar tanto cache como base de datos. Las lecturas permanecen rapidas porque el cache siempre esta actualizado. Este patron suits workloads de lectura intensa donde la consistencia de datos entre cache y base de datos es critica.
 
 ## Cuando usarlo
+
+
+- For alternatives, see [Read-Through Cache Pattern](/es/patterns/read-through-cache-pattern/).
 
 - Workloads de lectura intensa donde las lecturas superan ampliamente a las escrituras
 - Necesitas consistencia fuerte entre cache y base de datos

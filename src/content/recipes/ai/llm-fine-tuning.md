@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: llm-fine-tuning
 title: "Fine-Tune a Language Model for Code Generation"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/semantic-search
   - /guides/software-architecture-guide
   - /guides/system-design-interview-guide
+  - /recipes/python-sentiment-analysis-nltk
+  - /recipes/slack-bot-openai
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - qlora
     - hugging-face
     - code-generation
+
+
 ---
 ## Overview
 

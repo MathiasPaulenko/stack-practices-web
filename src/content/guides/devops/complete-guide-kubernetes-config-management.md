@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-kubernetes-config-management
 title: "Kubernetes Config Management Guide"
@@ -16,8 +21,11 @@ tags:
   - configuration
   - k8s
 relatedResources:
-  - /guides/devops/complete-guide-helm-charts-production
-  - /guides/devops/complete-guide-github-actions-ci-cd
+  - /guides/complete-guide-helm-charts-production
+  - /guides/complete-guide-github-actions-ci-cd
+  - /recipes/kubernetes-configmap-secret-mounting
+  - /guides/complete-guide-gitops-argocd
+  - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -31,6 +39,11 @@ seo:
     - sealed secrets
     - env injection
     - config rotation
+
+
+
+
+
 ---
 
 ## Introduction
@@ -462,6 +475,9 @@ metadata:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Mount Configs and Secrets into Kubernetes Pods](/recipes/kubernetes-configmap-secret-mounting/).
 
 - Use ConfigMaps for non-sensitive config — environment variables, feature flags, config files
 - Use Secrets for sensitive data — passwords, tokens, API keys, certificates

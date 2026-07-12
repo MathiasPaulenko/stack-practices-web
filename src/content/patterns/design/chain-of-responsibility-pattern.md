@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: chain-of-responsibility-pattern
 title: "Chain of Responsibility Pattern"
@@ -18,9 +23,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/command-pattern
-  - /patterns/design/decorator-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/command-pattern
+  - /patterns/decorator-pattern
+  - /patterns/strategy-pattern
+  - /patterns/interpreter-pattern
+  - /patterns/memento-pattern
+  - /patterns/null-object-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +43,11 @@ seo:
     - python chain
     - java chain
     - javascript middleware
+
+
+
+
+
 ---
 
 # Chain of Responsibility Pattern

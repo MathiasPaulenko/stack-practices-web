@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-jwt-refresh-token-rotation
 title: "Rotacion segura de JWT refresh tokens con Python"
@@ -15,9 +21,13 @@ tags:
   - authentication
   - security
 relatedResources:
-  - /recipes/security/python-sql-injection-sqlalchemy
-  - /recipes/security/nodejs-helmet-security-headers
-  - /recipes/ai/python-openai-function-calling-structured
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/nodejs-helmet-security-headers
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/nodejs-jwt-authentication
+  - /recipes/python-memcached-session-storage
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - jwt authentication
     - refresh token blacklist
     - python auth
+
+
+
+
+
+
 ---
 
 # Rotacion segura de JWT refresh tokens con Python
@@ -35,6 +51,9 @@ seo:
 Los JWT access tokens son de corta duracion (15-30 minutos) para limitar la ventana de exposicion si son robados. Los refresh tokens son de larga duracion pero deben rotarse — cada uso emite un nuevo refresh token e invalida el anterior. A continuacion: rotacion segura de tokens con deteccion de reuso y blacklisting.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Authentication Patterns](/es/guides/complete-guide-authentication-patterns/).
 
 - APIs de autenticacion stateless sin sesiones del lado del servidor
 - Aplicaciones mobile o SPA que necesitan sesiones de login de larga duracion

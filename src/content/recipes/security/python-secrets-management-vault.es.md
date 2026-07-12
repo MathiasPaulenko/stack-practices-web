@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-secrets-management-vault
 title: "Gestiona secretos de aplicacion con HashiCorp Vault y Python"
@@ -15,9 +20,12 @@ tags:
   - hvac
   - security
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/security/python-sql-injection-sqlalchemy
-  - /recipes/security/python-rate-limiting-fastapi-redis
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /guides/ci-cd-security-guide
+  - /guides/complete-guide-secrets-management
+  - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,11 @@ seo:
     - secrets management
     - dynamic secrets
     - vault python
+
+
+
+
+
 ---
 
 # Gestiona secretos de aplicacion con HashiCorp Vault y Python
@@ -35,6 +48,9 @@ seo:
 Los secretos hardcodeados en variables de entorno o archivos de configuracion son un riesgo de seguridad. HashiCorp Vault centraliza el almacenamiento de secretos con cifrado, control de acceso, audit logging y secretos dinamicos. A continuacion: conectarse a Vault con Python (`hvac`), almacenar y recuperar secretos estaticos, usar credenciales dinamicas de base de datos y renovar leases automaticamente.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/es/guides/ci-cd-security-guide/).
 
 - Aplicaciones con multiples secretos (passwords de BD, API keys, certificados TLS)
 - Equipos que necesitan gestion centralizada de secretos con audit trails

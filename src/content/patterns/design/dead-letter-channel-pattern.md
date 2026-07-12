@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: dead-letter-channel-pattern
 title: "Dead Letter Channel Pattern"
@@ -17,9 +20,10 @@ tags:
   - message-queue
   - dlq
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/message-deferral-pattern
-  - /patterns/design/message-deduplication-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/message-deferral-pattern
+  - /patterns/message-deduplication-pattern
+  - /patterns/publish-subscribe-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - poison message handling
     - dlq message queue
     - pattern design
+
+
+
 ---
 
 ## Overview
@@ -36,6 +43,9 @@ seo:
 When a message consistently fails processing, retrying it forever blocks the consumer and wastes resources. This is called a poison message. The Dead Letter Channel pattern routes messages that exceed a retry threshold to a separate queue (the dead letter queue or DLQ) for later inspection, debugging, and manual or automated replay.
 
 ## When to Use
+
+
+- For alternatives, see [Configure Dead-Letter Queues in RabbitMQ for Failed Messages](/recipes/rabbitmq-dead-letter-queue/).
 
 - Messages fail repeatedly and cannot be processed (malformed payload, missing dependencies, invalid state)
 - You need to preserve failed messages for debugging and auditing

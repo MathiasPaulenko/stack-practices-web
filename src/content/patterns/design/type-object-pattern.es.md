@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: type-object-pattern
 title: "Patrón Type Object"
@@ -17,9 +21,11 @@ tags:
   - data-driven
   - flyweight
 relatedResources:
-  - /patterns/design/flyweight-pattern
-  - /patterns/design/prototype-pattern
-  - /patterns/design/entity-component-system-pattern
+  - /patterns/flyweight-pattern
+  - /patterns/prototype-pattern
+  - /patterns/entity-component-system-pattern
+  - /patterns/partial-class-pattern
+  - /patterns/marker-interface-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - game dev
     - data driven
     - flyweight
+
+
+
+
 ---
 
 # Patrón Type Object
@@ -41,6 +51,9 @@ El Patrón Type Object define tipos de entidades de juego (monstruos, items, hec
 Este patrón cierra la brecha entre jerarquías de clases orientadas a objetos y diseño basado en datos. En lugar de `Goblin extends Monster` y `Dragon extends Monster`, tienes una única clase `Monster` con una referencia `MonsterType` que define comportamiento, stats y apariencia.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Marker Interface Pattern](/es/patterns/marker-interface-pattern/).
 
 Usa el Patrón Type Object cuando:
 - Los tipos de entidad son definidos por datos (stats, apariencia) en lugar de comportamiento único

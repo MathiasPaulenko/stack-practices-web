@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: nosql-database-selection-guide
 title: "Selección de Base de Datos NoSQL"
@@ -17,9 +20,11 @@ tags:
   - redis
   - seleccion-base-de-datos
 relatedResources:
-  - /guides/databases/database-design-guide
-  - /guides/databases/sql-performance-tuning-guide
-  - /guides/architecture/system-design-interview-guide
+  - /guides/database-design-guide
+  - /guides/sql-performance-tuning-guide
+  - /guides/system-design-interview-guide
+  - /guides/cap-theorem-guide
+  - /guides/database-sharding-partitioning-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +35,9 @@ seo:
     - cassandra vs mongodb
     - document store vs clave valor
     - elegir base de datos nosql
+
+
+
 ---
 
 # Selección de Base de Datos NoSQL

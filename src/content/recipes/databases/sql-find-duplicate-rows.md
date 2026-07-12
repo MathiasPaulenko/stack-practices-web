@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-find-duplicate-rows
 title: "Find and Remove Duplicate Rows in SQL"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/runbook-database-failover
   - /docs/database-schema-documentation-template
   - /guides/full-text-search-guide
+  - /recipes/sql-full-text-search-setup
+  - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - mysql
     - deduplication
     - cte
+
+
+
 ---
 
 
@@ -38,6 +46,9 @@ seo:
 Duplicate rows creep into tables through application bugs, import scripts, or race conditions. They waste space, distort analytics, and can break unique constraints you intended to enforce. Finding them requires grouping by the columns that define uniqueness, and removing them safely means keeping one canonical row while deleting the rest without losing related data.
 
 ## When to Use
+
+
+- For alternatives, see [Set Up Database Read Replicas for Scaling](/recipes/database-read-replicas/).
 
 Use this resource when:
 - You need to identify duplicate records in a table.

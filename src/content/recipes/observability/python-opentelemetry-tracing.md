@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: python-opentelemetry-tracing
 title: "Distributed Tracing with OpenTelemetry"
@@ -16,9 +18,9 @@ tags:
   - jaeger
   - recipe
 relatedResources:
-  - /recipes/observability/python-structured-logging-json
-  - /recipes/observability/python-prometheus-custom-metrics
-  - /recipes/observability/java-micrometer-prometheus
+  - /recipes/python-structured-logging-json
+  - /recipes/python-prometheus-custom-metrics
+  - /recipes/java-micrometer-prometheus
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - distributed
     - jaeger
     - recipe
+
+
 ---
 
 ## Overview
@@ -281,6 +285,9 @@ provider = TracerProvider(resource=resource, sampler=sampler)
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Distributed Tracing: OpenTelemetry, Jaeger, Zipkin](/guides/complete-guide-distributed-tracing/).
 
 - Use auto-instrumentation first — it covers Flask, requests, SQLAlchemy, Redis without code changes
 - Add manual spans for business logic that auto-instrumentation can't see (e.g., "validate_order", "calculate_pricing")

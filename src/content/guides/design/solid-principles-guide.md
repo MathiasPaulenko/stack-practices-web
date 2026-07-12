@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: solid-principles-guide
 title: "SOLID Principles Explained with Examples"
@@ -14,9 +17,11 @@ tags:
   - solid
   - design-patterns
 relatedResources:
-  - /guides/design/clean-code-principles-guide
-  - /guides/design/design-patterns-guide
-  - /guides/architecture/domain-driven-design-guide
+  - /guides/clean-code-principles-guide
+  - /guides/design-patterns-guide
+  - /guides/domain-driven-design-guide
+  - /guides/clean-architecture-guide
+  - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +33,9 @@ seo:
     - liskov substitution
     - interface segregation
     - dependency inversion
+
+
+
 ---
 
 # SOLID Principles Explained with Examples

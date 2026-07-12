@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: rest-api-design-guide
 title: "REST API Design Guide"
@@ -15,9 +20,13 @@ tags:
   - http
   - rest
 relatedResources:
-  - /recipes/api/call-rest-api
-  - /recipes/api/handle-errors
-  - /patterns/design/factory-pattern
+  - /recipes/call-rest-api
+  - /recipes/handle-errors
+  - /patterns/factory-pattern
+  - /docs/api-error-handling-guideline
+  - /recipes/grpc-api
+  - /recipes/javascript-fetch-retry-logic
+  - /recipes/python-api-rate-limiting
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - http methods
     - api versioning
     - api pagination
+
+
+
+
+
 ---
 
 # REST API Design Guide

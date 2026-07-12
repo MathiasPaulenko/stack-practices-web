@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: metrics-aggregation-pattern
 title: "Metrics Aggregation: Collect, Tag"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/structured-logging-pattern
   - /patterns/distributed-tracing-pattern
   - /patterns/health-check-pattern
+  - /patterns/circuit-breaker-with-monitoring-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - opentelemetry
     - dashboards
     - pattern
+
+
 ---
 
 ## Overview
@@ -532,6 +537,9 @@ trackFunnel(userId, 'purchase');
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Observability — Metrics, Logs, and Traces Complete Guide](/guides/observability-guide/).
 
 - Use the right metric type — counters for totals, gauges for current state, histograms for distributions
 - Tag with dimensions — endpoint, method, status, region. Tags enable slicing and dicing in queries.

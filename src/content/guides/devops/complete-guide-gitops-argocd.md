@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-gitops-argocd
 title: "Complete Guide to GitOps with ArgoCD"
@@ -18,10 +21,11 @@ tags:
   - guide
   - devops
 relatedResources:
-  - /guides/devops/kubernetes-basics-guide
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/devops/deployment-strategies-guide
-  - /guides/devops/complete-guide-kubernetes-ingress
+  - /guides/kubernetes-basics-guide
+  - /guides/cicd-pipeline-guide
+  - /guides/deployment-strategies-guide
+  - /guides/complete-guide-kubernetes-ingress
+  - /guides/complete-guide-ci-cd-github-actions
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - kustomize argocd
     - applicationset
     - multi-cluster
+
+
+
 ---
 
 # Complete Guide to GitOps with ArgoCD
@@ -371,6 +378,9 @@ data:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GitOps in Production](/guides/complete-guide-gitops-production/).
 
 - **Store manifests separately from app code** — separate deploy repo or directory
 - **Use Kustomize overlays** — base + per-environment overlays

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: flyweight-pattern
 title: "Patrón Flyweight"
@@ -18,9 +20,10 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/proxy-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/composite-pattern
+  - /patterns/proxy-pattern
+  - /patterns/singleton-pattern
+  - /patterns/composite-pattern
+  - /patterns/type-object-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +37,8 @@ seo:
     - python flyweight
     - java flyweight
     - javascript flyweight
+
+
 ---
 
 # Patrón Flyweight

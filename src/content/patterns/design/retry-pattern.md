@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: retry-pattern
 title: "Retry Pattern"
@@ -18,9 +21,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/timeout-pattern
-  - /patterns/design/bulkhead-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/timeout-pattern
+  - /patterns/bulkhead-pattern
+  - /patterns/cache-aside-pattern
+  - /patterns/saga-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +39,9 @@ seo:
     - python retry
     - java retry
     - javascript retry
+
+
+
 ---
 
 # Retry Pattern

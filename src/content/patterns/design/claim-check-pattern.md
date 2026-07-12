@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: claim-check-pattern
 title: "Claim Check Pattern"
@@ -19,9 +23,11 @@ tags:
   - large-payload
   - async
 relatedResources:
-  - /patterns/design/queue-based-load-leveling-pattern
-  - /patterns/design/event-carried-state-transfer-pattern
-  - /patterns/design/outbox-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/event-carried-state-transfer-pattern
+  - /patterns/outbox-pattern
+  - /patterns/compensating-transaction-pattern
+  - /patterns/sequential-convoy-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - storage
     - blob
     - large payload
+
+
+
+
 ---
 
 # Claim Check Pattern
@@ -44,6 +54,9 @@ The Claim Check Pattern stores large payloads in external storage and passes onl
 Message brokers (RabbitMQ, Kafka, SQS) typically have message size limits (1MB for Kafka, 256KB for SQS). When payloads exceed these limits — large images, video files, bulk data exports, or complex report generations — the Claim Check Pattern provides a clean alternative to increasing broker limits or splitting messages.
 
 ## When to Use
+
+
+- For alternatives, see [Idempotent Consumer Pattern](/patterns/idempotent-consumer-pattern/).
 
 Use the Claim Check Pattern when:
 - Message payloads exceed broker size limits

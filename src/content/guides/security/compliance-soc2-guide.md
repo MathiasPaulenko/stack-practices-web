@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: compliance-soc2-guide
 title: "SOC 2 Compliance — Basics for Engineering Teams"
@@ -30,6 +31,7 @@ seo:
     - trust-service-criteria
     - security-controls
     - guide
+
 ---
 
 ## Overview
@@ -37,6 +39,9 @@ seo:
 SOC 2 (Service Organization Control 2) is an audit framework developed by the AICPA that evaluates how service organizations manage customer data. Unlike compliance checklists, SOC 2 Type II requires demonstrating that your controls operate well over time. For engineering teams, this means building systems with security, availability, processing integrity, confidentiality, and privacy — and proving they work through evidence.
 
 ## When to Use
+
+
+- For alternatives, see [Compliance Gap Analysis Template](/docs/compliance-gap-analysis-template/).
 
 - Your organization needs a SOC 2 report to sell to enterprise customers
 - You are designing systems that will be audited

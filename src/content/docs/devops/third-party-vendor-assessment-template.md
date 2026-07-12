@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: third-party-vendor-assessment-template
 title: "Third-Party Vendor Assessment Template"
@@ -15,9 +19,11 @@ tags:
   - compliance
   - due-diligence
 relatedResources:
-  - /docs/devops/data-breach-response-playbook
-  - /docs/devops/access-control-review-template
-  - /docs/devops/rbac-policy-template
+  - /docs/data-breach-response-playbook
+  - /docs/access-control-review-template
+  - /docs/rbac-policy-template
+  - /recipes/bash-iptables-firewall
+  - /docs/dependency-vulnerability-report-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - security questionnaire
     - vendor due diligence
     - compliance review
+
+
+
+
 ---
 
 ## Overview
@@ -359,6 +369,9 @@ vendors:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Vulnerability Management Template](/docs/vulnerability-management-template/).
 
 1. **Map vendor access to your data classification levels.** Not every vendor needs access to the same data tier. Document what data each vendor can access and align controls accordingly:
 

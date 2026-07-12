@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: write-through-cache-pattern
 title: "Write-Through Cache Pattern"
@@ -19,9 +25,13 @@ tags:
   - java
   - typescript
 relatedResources:
-  - /patterns/design/cache-aside-pattern
-  - /patterns/design/read-through-cache-pattern
-  - /recipes/caching/nodejs-redis-cache-invalidation
+  - /patterns/cache-aside-pattern
+  - /patterns/read-through-cache-pattern
+  - /recipes/nodejs-redis-cache-invalidation
+  - /patterns/refresh-ahead-cache-pattern
+  - /patterns/write-behind-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - synchronous write cache
     - python cache
     - java cache
+
+
+
+
+
+
 ---
 
 # Write-Through Cache Pattern
@@ -274,6 +290,9 @@ The order matters: database first, cache second. If you write to cache first and
 | Transactional | Both in a transaction | Strong consistency requirements |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Read-Through Cache Pattern](/patterns/read-through-cache-pattern/).
 
 - **Write to database first** — the database is the source of truth. If the cache write fails, the data is still persisted.
 - **Invalidate on cache write failure** — if the cache write fails after the DB write, delete the key so the next read fetches fresh data.

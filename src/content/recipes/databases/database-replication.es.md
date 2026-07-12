@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: database-replication
 title: "Replicación de Bases de Datos"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/postgres-query-optimization
   - /guides/sql-performance-tuning-guide
   - /recipes/cursor-pagination-postgresql
+  - /recipes/sql-window-functions-ranking
+  - /recipes/schema-evolution
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - databases
     - high-availability
     - performance
+
+
 ---
 ## Visión General
 

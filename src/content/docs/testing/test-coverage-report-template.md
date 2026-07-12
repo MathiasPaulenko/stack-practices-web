@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: test-coverage-report-template
 title: "Test Coverage Report Template"
@@ -15,9 +17,9 @@ tags:
   - quality-metrics
   - trend-analysis
 relatedResources:
-  - /docs/testing/test-strategy-document-template
-  - /docs/testing/test-case-template
-  - /docs/testing/regression-test-checklist
+  - /docs/test-strategy-document-template
+  - /docs/test-case-template
+  - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +32,8 @@ seo:
     - gap identification
     - quality metrics
     - template
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 A test coverage report communicates how much of the codebase is exercised by tests. Raw coverage numbers are insufficient: a report must break down coverage by module, feature, and critical path, show trends over time, and identify gaps where coverage is below target. This template provides a structure for reporting coverage to engineering teams and stakeholders.
 
 ## When to Use
+
+
+- For alternatives, see [Load Test Report Template](/docs/load-test-report-template/).
 
 - Sprint reviews and retrospectives
 - Quarterly quality reporting to stakeholders

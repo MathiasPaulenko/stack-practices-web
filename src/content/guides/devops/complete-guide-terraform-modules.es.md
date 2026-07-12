@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-terraform-modules
 title: "Referencia Detallada de Módulos de Terraform"
@@ -18,9 +23,12 @@ tags:
   - guide
   - devops
 relatedResources:
-  - /guides/devops/infrastructure-as-code-guide
-  - /guides/devops/terraform-best-practices-guide
-  - /guides/devops/deployment-strategies-guide
+  - /guides/infrastructure-as-code-guide
+  - /guides/terraform-best-practices-guide
+  - /guides/deployment-strategies-guide
+  - /recipes/python-terraform-provider-custom
+  - /docs/infrastructure-as-code-review-template
+  - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - terraform testing
     - terraform registry
     - infrastructure as code
+
+
+
+
+
 ---
 
 # Referencia Detallada de Módulos de Terraform
@@ -395,3 +408,12 @@ moved {
 ### ¿Deben los módulos gestionar state?
 
 No. Los módulos definen recursos. La configuración root que llama al módulo gestiona state. Esto mantiene los módulos portables across state backends.
+
+## See Also
+
+- [Complete Guide to Terraform in Production](/es/guides/complete-guide-terraform-production/)
+- [Terraform Best Practices — Modules, State, and Workspaces](/es/guides/terraform-best-practices-guide/)
+- [a Custom Terraform Provider with Python and](/es/recipes/python-terraform-provider-custom/)
+- [Complete Guide to Docker in Production](/es/guides/complete-guide-docker-production/)
+- [Complete Guide to GitOps with ArgoCD](/es/guides/complete-guide-gitops-argocd/)
+

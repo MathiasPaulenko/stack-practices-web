@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: zero-downtime-deployment-checklist
 title: "Zero-Downtime Deployment Checklist"
@@ -15,8 +20,11 @@ tags:
   - rollback
   - production
 relatedResources:
-  - /docs/devops/deployment-checklist-template
+  - /docs/deployment-checklist-template
   - /docs/runbook-template
+  - /recipes/istio-canary-deployment
+  - /recipes/aws-lambda-python-dependencies
+  - /docs/environment-configuration-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +35,11 @@ seo:
     - production deployment checklist
     - blue green deployment
     - rollback checklist
+
+
+
+
+
 ---
 
 ## Overview
@@ -34,6 +47,9 @@ seo:
 Zero-downtime deployments update production services without interrupting users. This checklist helps teams verify that health checks, traffic routing, database migrations, and rollback plans are in place before and during a release.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/guides/blue-green-deployment-guide/).
 
 - Releasing a new version of a user-facing service.
 - Deploying schema or data migrations that affect multiple instances.

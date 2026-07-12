@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-event-sourcing-cqrs
 title: "Event Sourcing and CQRS: Event Store, Projections"
@@ -16,9 +21,12 @@ tags:
   - read-models
   - ddd
 relatedResources:
-  - /guides/architecture/complete-guide-modular-monolith
-  - /guides/architecture/complete-guide-api-gateway-pattern
-  - /patterns/architecture/event-sourcing-pattern
+  - /guides/complete-guide-modular-monolith
+  - /guides/complete-guide-api-gateway-pattern
+  - /patterns/event-sourcing-pattern
+  - /guides/cqrs-event-sourcing-combined-guide
+  - /guides/cqrs-guide
+  - /guides/event-sourcing-guide
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 24
@@ -33,6 +41,11 @@ seo:
     - read models
     - snapshots
     - sagas
+
+
+
+
+
 ---
 
 ## Introduction
@@ -577,6 +590,9 @@ class OrderRepository {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CQRS + Event Sourcing — Combined Guide](/guides/cqrs-event-sourcing-combined-guide/).
 
 - Make events immutable and append-only — never update or delete events
 - Use optimistic concurrency control — version numbers prevent conflicting writes

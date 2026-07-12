@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-api-security
 title: "Complete Guide to API Security"
@@ -19,9 +24,12 @@ tags:
   - api-gateway
   - audit-logging
 relatedResources:
-  - /guides/security/complete-guide-owasp-top-10-2025
-  - /guides/security/complete-guide-authentication-patterns
-  - /guides/security/complete-guide-secrets-management
+  - /guides/complete-guide-owasp-top-10-2025
+  - /guides/complete-guide-authentication-patterns
+  - /guides/complete-guide-secrets-management
+  - /patterns/gatekeeper-pattern
+  - /recipes/rate-limiting-security
+  - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - api gateway
     - mass assignment
     - audit logging
+
+
+
+
+
 ---
 
 ## Introduction
@@ -739,3 +752,12 @@ Validate the actual MIME type using content inspection (python-magic, file comma
 ### What security headers should my API return?
 
 Set `X-Content-Type-Options: nosniff` to prevent MIME sniffing. Set `Strict-Transport-Security` to enforce HTTPS. Set `X-Frame-Options: DENY` if your API serves HTML. Remove `Server` and `X-Powered-By` headers to avoid fingerprinting. Add `Cache-Control: no-store` for authenticated responses. Add `X-Request-ID` for tracing. Do not set `Access-Control-Allow-Origin: *` with credentials.
+
+## See Also
+
+- [Complete Guide to OWASP Top 10 2025](/guides/complete-guide-owasp-top-10-2025/)
+- [API Gateway Design: Resilience, Routing, and Security](/guides/api-gateway-design-guide/)
+- [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/)
+- [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/)
+- [Complete Guide to Authentication Patterns](/guides/complete-guide-authentication-patterns/)
+

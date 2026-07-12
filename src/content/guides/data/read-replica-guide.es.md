@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: read-replica-guide
 title: "Réplicas de Lectura: Escala Lecturas Sin Cambiar la"
@@ -18,10 +23,13 @@ tags:
   - performance
   - guide
 relatedResources:
-  - /guides/data/database-sharding-implementation-guide
-  - /guides/data/connection-pooling-deep-dive-guide
-  - /guides/data/caching-strategies-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/database-sharding-implementation-guide
+  - /guides/connection-pooling-deep-dive-guide
+  - /guides/caching-strategies-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/complete-guide-serverless-databases
+  - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +42,11 @@ seo:
     - scaling
     - performance
     - guide
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -43,6 +56,9 @@ Las réplicas de lectura son copias de tu base de datos primaria que manejan con
 A continuación: configuración de replicación, enrutamiento de consultas, manejo de lag de replicación y lo que funciona operativamente.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Replication](/es/guides/complete-guide-postgresql-replication/).
 
 - Las consultas de lectura exceden el 80% de la carga de trabajo de tu base de datos
 - Consultas analíticas (reportes, agregaciones) ralentizan las escrituras transaccionales

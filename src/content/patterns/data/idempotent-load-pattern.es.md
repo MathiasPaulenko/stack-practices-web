@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: idempotent-load-pattern
 title: "Patrón Idempotent Load"
@@ -30,6 +31,7 @@ seo:
     - data-quality
     - pipelines
     - pattern
+
 ---
 
 ## Overview
@@ -387,6 +389,9 @@ class ConditionalLoader:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [ETL Extract-Transform-Load](/es/patterns/etl-extract-transform-load-pattern/).
 
 - Usá MERGE (upsert) en vez de INSERT — si el row existe, updateá; si no, insertá
 - Trackeá load IDs — storeá metadata sobre cada load run para detectar y skippear re-runs

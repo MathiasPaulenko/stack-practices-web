@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: file-upload-validation
 title: "File Upload Validation"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/regular-expressions
   - /recipes/read-write-file
+  - /recipes/compress-decompress-files
+  - /recipes/copy-move-files
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

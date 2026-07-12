@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: dependency-injection-typescript
 title: "Dependency Injection Container en TypeScript"
@@ -14,9 +18,12 @@ tags:
   - testing
   - design-patterns
 relatedResources:
-  - /patterns/design/singleton-pattern
-  - /patterns/design/factory-pattern
-  - /recipes/testing/unit-testing-mocking
+  - /patterns/singleton-pattern
+  - /patterns/factory-pattern
+  - /recipes/unit-testing-mocking
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/bridge-pattern-ui-themes
+  - /patterns/command-pattern-undo
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - typescript
     - inversion of control
     - testable code
+
+
+
+
 ---
 
 # Dependency Injection Container en TypeScript

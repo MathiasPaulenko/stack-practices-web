@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-llm-streaming-responses
 title: "Stream de salida LLM con Server-Sent Events (SSE)"
@@ -15,9 +21,13 @@ tags:
   - openai
   - fastapi
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-function-calling-structured
-  - /recipes/ai/python-llm-eval-ragas-metrics
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-llm-eval-ragas-metrics
+  - /recipes/python-web-scraping-beautifulsoup
+  - /recipes/python-agent-langgraph-state-machine
+  - /recipes/python-ollama-local-llm
+  - /recipes/nodejs-helmet-security-headers
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - sse streaming
     - openai streaming
     - fastapi streaming
+
+
+
+
+
+
 ---
 
 # Stream de salida LLM con Server-Sent Events (SSE)
@@ -35,6 +51,9 @@ seo:
 El streaming de salida LLM mejora la latencia percibida — los usuarios ven tokens a medida que se generan en lugar de esperar la respuesta completa. Server-Sent Events (SSE) es el protocolo estandar para streaming del servidor al cliente sobre HTTP. A continuacion: streaming SSE con FastAPI, la API de streaming de OpenAI y async generators.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to OpenAI API Mastery](/es/guides/complete-guide-openai-api-mastery/).
 
 - Interfaces de chat donde los usuarios esperan respuestas en tiempo real
 - Generacion de texto largo donde esperar la salida completa se siente lento

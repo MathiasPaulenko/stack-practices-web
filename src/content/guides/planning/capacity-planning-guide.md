@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: capacity-planning-guide
 title: "Capacity Planning — Forecast, Scale"
@@ -19,10 +23,12 @@ tags:
   - guide
 relatedResources:
   - /guides/performance-optimization-guide
-  - /guides/devops/finops-guide
-  - /guides/devops/multi-cloud-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/architecture/microservices-architecture-guide
+  - /guides/finops-guide
+  - /guides/multi-cloud-guide
+  - /guides/sre-practices-guide
+  - /guides/microservices-architecture-guide
+  - /guides/blue-green-deployment-guide
+  - /guides/cost-optimization-cloud-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - forecasting
     - infrastructure
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +54,9 @@ Capacity planning ensures your infrastructure can handle current and future dema
 Below is a practical guide to demand forecasting, load testing, scaling strategies, and cost-aware capacity decisions for cloud and on-premise systems.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/guides/blue-green-deployment-guide/).
 
 - You are preparing for a product launch, marketing campaign, or seasonal traffic spike
 - Your service experiences recurring performance degradation during peak hours

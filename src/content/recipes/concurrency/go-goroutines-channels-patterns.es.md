@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: go-goroutines-channels-patterns
 title: "Patrones Concurrentes con Go Goroutines y Channels"
@@ -16,10 +21,13 @@ tags:
   - channels
   - concurrency
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/java-completable-future-composition
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/java-completable-future-composition
   - /guides/concurrency-patterns-guide
   - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-go-concurrency
+  - /recipes/csharp-async-await-task-run
+  - /recipes/java-virtual-threads-project-loom
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - go worker pool
     - go fan-out fan-in
     - go select context cancellation
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 El modelo de concurrencia de Go esta construido sobre goroutines (threads ligeros) y channels (conductos tipados para comunicacion). El statement `select` multiplexa operaciones de channel. A continuacion: basics de goroutines, worker pools, fan-out/fan-in, construccion de pipelines, cancellation basada en context, rate limiting con tickers y manejo de errores con errgroup.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Go Concurrency](/es/guides/complete-guide-go-concurrency/).
 
 - Llamadas a API o procesamiento de datos en paralelo
 - Pipelines producer-consumer con multiples etapas

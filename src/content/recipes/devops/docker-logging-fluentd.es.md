@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-logging-fluentd
 title: "Centraliza Logs de Contenedores con Fluentd y Docker"
@@ -16,11 +20,12 @@ tags:
   - log-aggregation
   - observability
 relatedResources:
-  - /recipes/devops/docker-network-isolation
-  - /recipes/devops/docker-health-check-configuration
-  - /recipes/devops/docker-compose-dev-prod-split
+  - /recipes/docker-network-isolation
+  - /recipes/docker-health-check-configuration
+  - /recipes/docker-compose-dev-prod-split
   - /guides/observability-guide
-  - /guides/structured-logging
+  - /guides/complete-guide-structured-logging
+  - /recipes/python-prometheus-metrics-exporter
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +37,10 @@ seo:
     - docker centralized logging
     - fluentd elasticsearch docker
     - container log management
+
+
+
+
 ---
 
 ## Visión General
@@ -39,6 +48,9 @@ seo:
 Los contenedores Docker generan logs en stdout y stderr. Por defecto, estos van a archivos JSON en el host. Fluentd es un recolector de logs open-source que puede interceptar logs de contenedores, enriquecerlos con metadatos, filtrarlos y reenviarlos a destinos como Elasticsearch, S3, Kafka o stdout. Esta recipe muestra tanto el driver de logging Fluentd de Docker como el patrón sidecar.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
 
 - Necesitas agregación centralizada de logs entre múltiples contenedores
 - Quieres enriquecer logs con metadatos de contenedor (nombre, imagen, labels)

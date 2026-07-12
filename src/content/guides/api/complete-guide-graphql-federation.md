@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-federation
 title: "Complete Guide to GraphQL Federation"
@@ -19,9 +25,13 @@ tags:
   - guide
   - api
 relatedResources:
-  - /guides/api/graphql-vs-rest-guide
-  - /guides/api/complete-guide-api-versioning-strategies
-  - /guides/architecture/complete-guide-microservices-communication
+  - /guides/graphql-vs-rest-guide
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-microservices-communication
+  - /patterns/graphql-federated-entity-pattern
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-testing
+  - /recipes/graphql-mocking-apollo-server
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - graphql gateway
     - entity resolution
     - graphql microservices
+
+
+
+
+
+
 ---
 
 # Complete Guide to GraphQL Federation
@@ -363,6 +379,9 @@ query GetUserWithOrders {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/).
 
 - **One subgraph per team** — ownership boundaries match team boundaries
 - **Use entities for shared types** — `@key` on types referenced across subgraphs

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: weekly-ops-review-template
 title: "Weekly Ops Review Template"
@@ -22,6 +24,7 @@ relatedResources:
   - /docs/change-management-template
   - /docs/cloud-cost-allocation-template
   - /docs/downtime-communication-template
+  - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -35,12 +38,17 @@ seo:
     - cost
     - performance
     - template
+
+
 ---
 ## Overview
 
 Ops reviews are where teams spot trends before they become incidents. A weekly review of incidents, costs, and performance turns scattered alerts into useful patterns. Without structure, ops reviews become complaint sessions or status updates that no one reads. This template creates a repeatable format: what happened, what it cost, what is trending, and what we are doing about it.
 
 ## When to Use
+
+
+- For alternatives, see [Performance Regression Template](/docs/performance-regression-template/).
 
 Use this resource when:
 - Your team is reacting to incidents but never analyzing patterns

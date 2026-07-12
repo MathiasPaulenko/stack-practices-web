@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: security-audit-checklist-template
 title: "Checklist de Auditoría de Seguridad"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
   - /docs/security-incident-response-template
+  - /docs/data-classification-template
+  - /docs/incident-response-playbook-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - checklist
     - cumplimiento
     - infraestructura
+
+
+
 ---
 
 ## Visión General
@@ -36,6 +44,9 @@ seo:
 Las auditorías de seguridad identifican vulnerabilidades antes que los atacantes. Un checklist repetible asegura que ninguna área crítica sea omitida, desde autenticación y autorización hasta endurecimiento de infraestructura y cumplimiento. Esta plantilla cubre verificaciones de seguridad a nivel de aplicación e infraestructura.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [SOC 2 Compliance — Basics for Engineering Teams](/es/guides/compliance-soc2-guide/).
 
 Usa este recurso cuando:
 - Realizas una revisión de seguridad trimestral o anual

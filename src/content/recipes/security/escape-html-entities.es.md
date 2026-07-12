@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: escape-html-entities
 title: "Escapar Entidades HTML"
@@ -17,8 +22,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/security/sanitize-user-input
-  - /recipes/data/parse-markdown-files
+  - /recipes/sanitize-user-input
+  - /recipes/parse-markdown-files
+  - /patterns/voucher-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
+  - /patterns/federated-identity-pattern
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -32,6 +40,11 @@ seo:
     - python
     - javascript
     - java
+
+
+
+
+
 ---
 ## Visión General
 
@@ -360,6 +373,9 @@ function Comment({ text }) {
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Sanitize User Input](/es/recipes/sanitize-user-input/).
 
 1. **Usa motores de templates con auto-escaping específico por contexto.** Los motores de templates modernos detectan el contexto (HTML body, atributo, script, style) y aplican el encoding correcto automáticamente:
 

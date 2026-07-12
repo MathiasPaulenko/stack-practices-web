@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-coverage-pytest-cov
 title: "Medir Cobertura de Tests con pytest-cov"
@@ -16,9 +19,10 @@ tags:
   - ci
   - recipe
 relatedResources:
-  - /recipes/testing/python-pytest-fixtures-parametrize
-  - /recipes/testing/measure-test-coverage
-  - /recipes/testing/python-mock-external-apis-responses
+  - /recipes/python-pytest-fixtures-parametrize
+  - /recipes/measure-test-coverage
+  - /recipes/python-mock-external-apis-responses
+  - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - pytest-cov
     - ci
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -203,6 +210,9 @@ coverage-badge -o coverage-badge.svg
 Genera un SVG badge con el porcentaje de cobertura actual para tu README.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Pytest in Production Guide](/es/guides/complete-guide-pytest-production/).
 
 - Setea un umbral realista (80-85%) — muy alto fomenta tests triviales solo para alcanzar el número
 - Usa branch coverage junto con line coverage — atrapa paths else no testeados

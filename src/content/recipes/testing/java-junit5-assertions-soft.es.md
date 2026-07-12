@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: java-junit5-assertions-soft
 title: "JUnit5 Soft Assertions con AssertJ"
@@ -15,9 +18,10 @@ tags:
   - soft-assertions
   - recipe
 relatedResources:
-  - /recipes/testing/unit-testing
-  - /recipes/testing/java-testcontainers-integration
-  - /recipes/testing/java-wiremock-stub-external
+  - /recipes/unit-testing
+  - /recipes/java-testcontainers-integration
+  - /recipes/java-wiremock-stub-external
+  - /guides/complete-guide-junit5-modern-testing
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - assertj
     - soft-assertions
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -220,6 +227,9 @@ class ServiceTest {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Java Testcontainers Integration Tests](/es/recipes/java-testcontainers-integration/).
 
 - Llama `softly.assertAll()` al final — sin eso, los fallos se ignoran silenciosamente
 - Usa `assertSoftly` lambda para sintaxis más limpia cuando no necesitas reusar el objeto `SoftAssertions`

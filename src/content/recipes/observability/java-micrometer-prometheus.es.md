@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: java-micrometer-prometheus
 title: "Exponer Métricas con Micrometer y Prometheus"
@@ -16,9 +18,9 @@ tags:
   - spring-boot
   - recipe
 relatedResources:
-  - /recipes/observability/python-prometheus-custom-metrics
-  - /recipes/observability/java-actuator-health-checks
-  - /recipes/observability/python-opentelemetry-tracing
+  - /recipes/python-prometheus-custom-metrics
+  - /recipes/java-actuator-health-checks
+  - /recipes/python-opentelemetry-tracing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - metrics
     - spring-boot
     - recipe
+
+
 ---
 
 ## Overview
@@ -356,6 +360,9 @@ class OrderService(registry: MeterRegistry) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Custom Health Checks with Spring Boot Actuator](/es/recipes/java-actuator-health-checks/).
 
 - Usa tags para dimensiones (method, status, endpoint) — no crees nombres de métrica separados por combinación
 - Mantén la cardinalidad baja — evita taggear con user IDs, request IDs u otros valores de alta cardinalidad

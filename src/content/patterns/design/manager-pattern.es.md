@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: manager-pattern
 title: "Patrón Manager"
@@ -17,9 +23,13 @@ tags:
   - coordination
   - lifecycle
 relatedResources:
-  - /patterns/design/facade-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/dependency-injection-pattern
+  - /patterns/facade-pattern
+  - /patterns/singleton-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/context-object-pattern
+  - /patterns/intercepting-filter-pattern
+  - /patterns/role-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +40,12 @@ seo:
     - architecture
     - coordination
     - lifecycle
+
+
+
+
+
+
 ---
 
 # Patrón Manager
@@ -41,6 +57,9 @@ El Patrón Manager encapsula el ciclo de vida, coordinación y control de acceso
 Este patrón es uno de los más comunes en desarrollo de software, aunque a menudo no se nombra. Los entity managers en ORMs, resource managers en juegos, connection managers en redes, y service managers en microservicios todos siguen este patrón. El manager actúa como punto de contacto único para operaciones sobre una colección de objetos gestionados.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Business Delegate Pattern](/es/patterns/business-delegate-pattern/).
 
 Usa el Patrón Manager cuando:
 - Un grupo de objetos relacionados necesita gestión centralizada de ciclo de vida

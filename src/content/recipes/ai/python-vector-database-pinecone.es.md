@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-vector-database-pinecone
 title: "Almacenar y consultar embeddings en Pinecone Vector Database"
@@ -14,9 +19,12 @@ tags:
   - embeddings
   - semantic search
 relatedResources:
-  - /recipes/ai/python-openai-embeddings-cosine
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-llm-eval-ragas-metrics
+  - /patterns/embedding-cache-pattern
+  - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +35,11 @@ seo:
     - semantic search
     - vector similarity
     - pinecone python
+
+
+
+
+
 ---
 
 # Almacenar y consultar embeddings en Pinecone Vector Database
@@ -34,6 +47,9 @@ seo:
 Pinecone es una base de datos vectorial gestionada optimizada para busqueda semantica y RAG. Almacena embeddings de alta dimension y recupera los vectores mas similares en milisegundos. A continuacion: crear un indice, upsertear embeddings con metadatos, consultar con filtros y usar namespaces para aislamiento multi-tenant.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Compare Text Semantic Similarity with OpenAI Embeddings](/es/recipes/python-openai-embeddings-cosine/).
 
 - Busqueda semantica sobre documentos, productos o bases de conocimiento
 - Pipelines RAG (Retrieval-Augmented Generation) que necesitan recuperacion vectorial rapida

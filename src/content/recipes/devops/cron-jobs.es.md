@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: cron-jobs
 title: "Cron Jobs"
@@ -16,7 +21,11 @@ tags:
 relatedResources:
   - /recipes/docker-basics
   - /recipes/git-workflow
-  - /patterns/design/observer-pattern
+  - /patterns/observer-pattern
+  - /recipes/python-schedule-periodic-tasks
+  - /recipes/background-jobs
+  - /recipes/cicd-pipeline-setup
+  - /recipes/cli-tool-argument-parsing
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - node-cron
     - linux cron
     - tareas recurrentes
+
+
+
+
+
 ---
 
 ## Visión general

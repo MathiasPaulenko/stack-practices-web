@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: patterns
 slug: blackboard-pattern
 title: "Patrón Blackboard"
@@ -17,8 +24,13 @@ tags:
   - collaboration
   - problem-solving
 relatedResources:
-  - /patterns/design/observer-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/observer-pattern
+  - /patterns/strategy-pattern
+  - /patterns/null-object-pattern
+  - /patterns/plugin-pattern
+  - /patterns/role-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/context-object-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -29,6 +41,13 @@ seo:
     - ai
     - collaboration
     - problem-solving
+
+
+
+
+
+
+
 ---
 
 # Patrón Blackboard
@@ -42,6 +61,9 @@ El patrón brilla cuando ningún único algoritmo puede resolver un problema, pe
 Aplicaciones del mundo real incluyen reconocimiento de voz, procesamiento de lenguaje natural, reconocimiento de imágenes, y problemas de optimización donde múltiples heurísticas contribuyen soluciones parciales.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Business Delegate Pattern](/es/patterns/business-delegate-pattern/).
 
 Usa el Patrón Blackboard cuando:
 - Ningún algoritmo determinístico puede resolver el problema

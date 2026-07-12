@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: terraform-module-versioning-policy
 templateType: guideline
@@ -17,9 +19,9 @@ tags:
   - ci-cd
   - infrastructure
 relatedResources:
-  - /docs/devops/docker-image-hardening-checklist
-  - /docs/devops/kubernetes-resource-quotas-template
-  - /docs/devops/deployment-rollback-runbook
+  - /docs/docker-image-hardening-checklist
+  - /docs/kubernetes-resource-quotas-template
+  - /docs/deployment-rollback-runbook
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - module publishing
     - iac versioning
     - terraform ci cd
+
+
 ---
 
 ## Overview
@@ -454,3 +458,12 @@ If the bug is critical (breaks infrastructure or causes data loss), yank the rel
 ### How do I test a module before publishing?
 
 Use Terratest or kitchen-terraform for automated testing. Write tests that deploy the module in a test AWS/GCP/Azure account, verify the resources are created correctly, and destroy them after testing. Run tests in CI on every PR. Test against multiple Terraform versions using a matrix build. Test against multiple provider versions if the module supports a range. Use `terraform plan` in CI to catch configuration errors without applying. Run tfsec or checkov for security scanning. Run infracost for cost estimation. Only publish after all tests pass and the PR is reviewed and merged.
+
+## See Also
+
+- [Complete Guide to Terraform Modules](/guides/complete-guide-terraform-modules/)
+- [Complete Guide to Terraform in Production](/guides/complete-guide-terraform-production/)
+- [Infrastructure as Code — Terraform and Pulumi](/guides/infrastructure-as-code-guide/)
+- [Terraform Best Practices — Modules, State, and Workspaces](/guides/terraform-best-practices-guide/)
+- [Background Jobs](/recipes/background-jobs/)
+

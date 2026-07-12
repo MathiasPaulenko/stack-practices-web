@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-llm-security
 title: "Referencia Detallada de Seguridad LLM"
@@ -19,9 +21,9 @@ tags:
   - red-teaming
   - data-leakage
 relatedResources:
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-local-llm-deployment
-  - /guides/ai/complete-guide-ai-agents-production
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-local-llm-deployment
+  - /guides/complete-guide-ai-agents-production
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +37,8 @@ seo:
     - llm red teaming
     - data leakage llm
     - llm input validation
+
+
 ---
 
 ## Introducción
@@ -584,3 +588,12 @@ Si. Tools como NeMo Guardrails (NVIDIA), Guardrails AI, y Llama Guard (Meta) pro
 ### ¿Con qué frecuencia debería red teamear mi LLM application?
 
 Run red team tests antes de every major deployment y monthly en produccion. Adversarial techniques evolucionan rapido — nuevos jailbreak methods aparecen weekly. Automatiza red team testing en CI/CD. Trackea tu attack success rate over time — si aumenta, investiga que new attack patterns estan bypassing tus defenses.
+
+## See Also
+
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to AI Agents in Production](/es/guides/complete-guide-ai-agents-production/)
+- [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/)
+- [Complete Guide to RAG in Production](/es/guides/complete-guide-rag-production/)
+- [Complete Guide to Vector Databases](/es/guides/complete-guide-vector-databases/)
+

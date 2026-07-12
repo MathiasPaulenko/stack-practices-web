@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: api-deprecation-notice-template
 title: "API Deprecation Notice Template"
@@ -15,10 +20,13 @@ tags:
   - communication
   - template
 relatedResources:
-  - /docs/architecture/api-lifecycle-management-template
-  - /docs/architecture/microservice-contract-template
-  - /docs/architecture/technical-spec-template
-  - /docs/devops/rollout-communication-template
+  - /docs/api-lifecycle-management-template
+  - /docs/microservice-contract-template
+  - /docs/technical-spec-template
+  - /docs/rollout-communication-template
+  - /docs/api-changelog-template
+  - /docs/sla-definition-template
+  - /docs/api-error-response-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -29,6 +37,11 @@ seo:
     - migration notice
     - sunset policy
     - api versioning
+
+
+
+
+
 ---
 
 ## Overview
@@ -36,6 +49,9 @@ seo:
 APIs evolve. Fields are renamed, endpoints are replaced, and old versions are retired. Without a clear deprecation notice, consumers discover breaking changes only after their integrations fail. This template provides a standard format for announcing deprecations, communicating timelines, and guiding consumers through migrations.
 
 ## When to Use
+
+
+- For alternatives, see [API Changelog Template](/docs/api-changelog-template/).
 
 Use this resource when:
 - Removing or renaming an API endpoint, field, or parameter

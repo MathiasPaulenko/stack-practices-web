@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: priority-queue-pattern
 title: "Priority Queue Pattern"
@@ -18,9 +24,13 @@ tags:
   - heap
   - queue
 relatedResources:
-  - /patterns/design/queue-based-load-leveling-pattern
-  - /patterns/design/scheduler-agent-supervisor-pattern
-  - /patterns/design/throttling-pattern
+  - /patterns/queue-based-load-leveling-pattern
+  - /patterns/scheduler-agent-supervisor-pattern
+  - /patterns/throttling-pattern
+  - /patterns/lock-free-queue-pattern
+  - /patterns/leader-election-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - heap
     - task priority
     - fair queuing
+
+
+
+
+
+
 ---
 
 # Priority Queue Pattern
@@ -46,6 +62,9 @@ This pattern is essential when resources are constrained and not all tasks can b
 Priority queues are typically implemented as binary heaps, balanced trees, or sorted sets where insertion is O(log n) and extraction of the highest-priority element is O(log n) or O(1).
 
 ## When to Use
+
+
+- For alternatives, see [Distributed Lock Pattern](/patterns/distributed-lock-pattern/).
 
 - Limited processing capacity with heterogeneous task importance
 - VIP or tiered customer experiences where premium users get faster service

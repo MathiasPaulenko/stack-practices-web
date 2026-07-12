@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: acid-transactions-postgres
 title: "Implementa Transacciones ACID en PostgreSQL"
@@ -15,9 +18,11 @@ tags:
   - transactions
   - databases
 relatedResources:
-  - /recipes/databases/mongodb-crud-mongoose
+  - /recipes/mongodb-crud-mongoose
   - /recipes/query-optimization
   - /guides/database-design-guide
+  - /recipes/deadlock-prevention-sql
+  - /recipes/postgres-query-optimization
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +33,9 @@ seo:
     - database consistency
     - isolation levels
     - sql transactions
+
+
+
 ---
 
 # Implementa Transacciones ACID en PostgreSQL

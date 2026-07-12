@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: contract-testing-pattern
 title: "Patrón Contract Testing"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/test-double-pattern
   - /patterns/mock-server-pattern
   - /patterns/snapshot-testing-pattern
+  - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - microservices
     - api
     - pattern
+
+
 ---
 
 ## Overview
@@ -517,6 +522,9 @@ npx pact-broker can-i-deploy \
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Fixture Setup/Teardown: Reusable Test Context Lifecycle](/es/patterns/fixture-setup-teardown-pattern/).
 
 - Consumer-driven — dejá que los consumers definan qué necesitan, no lo que el provider expone
 - Usá matchers — `like()`, `term()`, `eachLike()` en vez de exact values para flexibilidad

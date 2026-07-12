@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: health-endpoint-monitoring-pattern
 title: "Health Endpoint Monitoring Pattern"
@@ -22,6 +25,8 @@ relatedResources:
   - /patterns/content-delivery-network-pattern
   - /guides/api-gateway-design-guide
   - /patterns/database-per-service-pattern
+  - /patterns/ambassador-pattern
+  - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - observability
     - microservices
     - health-check
+
+
+
 ---
 ## Overview
 
@@ -350,6 +358,9 @@ app.get('/health/ready', async (req, res) => {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 1. **Add version information to health endpoints.** Include the service version, build timestamp, and git commit hash in health responses. This helps identify which version is deployed and track deployments.
 

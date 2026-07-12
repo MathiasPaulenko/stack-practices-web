@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: copy-move-files
 title: "Copy and Move Files"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/write-large-files
   - /patterns/visitor-pattern
   - /recipes/file-upload-validation
+  - /recipes/python-image-resize-batch
+  - /recipes/compress-decompress-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - operations
+
+
+
 ---
 ## Overview
 
@@ -397,6 +405,9 @@ batch_copy() {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Watch File Changes](/recipes/watch-file-changes/).
 
 1. **Use temporary files for atomic writes.** Write to a temp file in the same directory, then rename. This ensures readers never see a partial file:
 

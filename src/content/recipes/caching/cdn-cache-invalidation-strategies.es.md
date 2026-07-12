@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: cdn-cache-invalidation-strategies
 title: "Estrategias y patrones de invalidacion de cache CDN"
@@ -15,9 +18,10 @@ tags:
   - fastly
   - performance
 relatedResources:
-  - /recipes/caching/http-cache-control-headers
-  - /recipes/caching/redis-cache-aside-pattern
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/http-cache-control-headers
+  - /recipes/redis-cache-aside-pattern
+  - /patterns/cache-aside-pattern
+  - /recipes/nginx-reverse-proxy-cache
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,9 @@ seo:
     - surrogate keys
     - tag-based invalidation
     - cdn caching
+
+
+
 ---
 
 # Estrategias y patrones de invalidacion de cache CDN
@@ -35,6 +42,9 @@ seo:
 El caching CDN reduce latencia y carga del origen, pero el contenido cacheado puede volverse obsoleto. La invalidacion le dice al CDN que obtenga una copia fresca del origen. El siguiente enfoque cubre cuatro estrategias de invalidacion — purge por URL, invalidacion por surrogate key (tags), URLs versionadas y soft purge — con ejemplos de codigo para Cloudflare y Fastly.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to CDN Caching Strategy](/es/guides/complete-guide-cdn-caching-strategy/).
 
 - Actualizaciones de contenido que deben aparecer inmediatamente (noticias, precios, inventario)
 - Despliegues donde assets viejos no deben persistir en el edge

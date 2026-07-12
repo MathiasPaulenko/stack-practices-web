@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: shed-load-pattern
 title: "Patrón Shed Load"
@@ -17,9 +20,10 @@ tags:
   - backpressure
   - proteccion-sobrecarga
 relatedResources:
-  - /patterns/design/throttling-pattern
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/graceful-degradation-pattern
+  - /patterns/throttling-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/graceful-degradation-pattern
+  - /patterns/geode-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - proteccion sobrecarga
     - backpressure
     - descartar requests
+
+
+
 ---
 
 # Patrón Shed Load
@@ -43,6 +50,9 @@ Cuando un sistema recibe mas trafico del que puede procesar, entra en una espira
 El patrón monitorea una metrica de carga (profundidad de cola, uso de CPU, memoria, conexiones activas). Cuando la metrica cruza un umbral, los nuevos requests se rechazan en el borde antes de entrar al pipeline de procesamiento. Los requests existentes continuan procesandose. Cuando la carga baja del umbral, el sistema resume la aceptacion de nuevos requests.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Back-Pressure Pattern](/es/patterns/back-pressure-pattern/).
 
 Usa el patrón Shed Load cuando:
 - Los picos de trafico pueden exceder la capacidad de tu sistema (flash sales, eventos virales, DDoS)

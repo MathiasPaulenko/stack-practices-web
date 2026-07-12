@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-rag-chroma-local
 title: "Construir un pipeline RAG local con ChromaDB y Sentence"
@@ -14,9 +20,13 @@ tags:
   - sentence transformers
   - local llm
 relatedResources:
-  - /recipes/ai/python-vector-database-pinecone
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-embeddings-cosine
+  - /recipes/python-vector-database-pinecone
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-ollama-local-llm
+  - /recipes/python-huggingface-text-classification
+  - /recipes/python-llm-eval-ragas-metrics
+  - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - sentence transformers
     - retrieval augmented generation
     - local rag
+
+
+
+
+
+
 ---
 
 # Construir un pipeline RAG local con ChromaDB y Sentence Transformers
@@ -34,6 +50,9 @@ seo:
 RAG (Retrieval-Augmented Generation) combina recuperacion de documentos con generacion LLM. ChromaDB es una base de datos vectorial local que corre en proceso — sin servicio externo. Combinado con sentence-transformers para embeddings locales, puedes construir un pipeline RAG completo sin API keys ni dependencias cloud. A continuacion: chunking, embedding, recuperacion y generacion.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Run LLMs Locally with Ollama for Private Inference](/es/recipes/python-ollama-local-llm/).
 
 - Q&A de documentos privados donde los datos no pueden salir de tu maquina
 - Prototipado de pipelines RAG antes de escalar a bases de datos vectoriales gestionadas

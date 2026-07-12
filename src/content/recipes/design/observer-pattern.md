@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: observer-pattern-recipe
 title: "Implement Reactive Systems with the Observer Pattern"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/async-patterns
   - /recipes/factory-pattern-recipe
   - /recipes/microservices-patterns
+  - /recipes/cqrs-pattern-recipe
+  - /recipes/domain-driven-design
+  - /recipes/hexagonal-architecture
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - event emitter
     - reactive programming
     - event driven
+
+
+
 ---
 
 ## Overview

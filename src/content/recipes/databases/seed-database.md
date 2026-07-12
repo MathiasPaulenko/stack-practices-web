@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: seed-database
 title: "Seed Database"
@@ -17,9 +22,12 @@ tags:
   - development
   - recipe
 relatedResources:
-  - /recipes/testing/generate-test-data
-  - /recipes/testing/setup-test-fixtures
+  - /recipes/generate-test-data
+  - /recipes/setup-test-fixtures
   - /guides/database-sharding-implementation-guide
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-postgresql-replication
+  - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - prisma
     - development
     - recipe
+
+
+
+
+
 ---
 
 ## Overview
@@ -343,6 +356,13 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### How do I seed related data with foreign keys?
 
 Insert parent records first, capture their IDs, then insert child records with those IDs. Use a factory function that returns created IDs. For large datasets, disable foreign key checks during seeding and re-enable them after — this is faster but requires careful ordering.
+
+
+- [Complete Guide to MongoDB Indexing](/guides/complete-guide-mongodb-indexing/)
+- [Complete Guide to PostgreSQL Replication](/guides/complete-guide-postgresql-replication/)
+- [Complete Guide to PostgreSQL Tuning](/guides/complete-guide-postgresql-tuning/)
+- [Connect to PostgreSQL](/recipes/connect-to-postgresql/)
+- [Database Connection Pooling](/recipes/database-connection-pooling/)
 
 ### Should I use the same seed data for dev and test?
 

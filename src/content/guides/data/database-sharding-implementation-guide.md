@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: database-sharding-implementation-guide
 title: "Database Sharding: Horizontal Partitioning in Practice"
@@ -18,9 +24,13 @@ tags:
   - citus
   - guide
 relatedResources:
-  - /guides/data/read-replica-guide
-  - /guides/data/connection-pooling-deep-dive-guide
-  - /guides/data/caching-strategies-guide
+  - /guides/read-replica-guide
+  - /guides/connection-pooling-deep-dive-guide
+  - /guides/caching-strategies-guide
+  - /recipes/seed-database
+  - /guides/data-lake-guide
+  - /guides/lakehouse-guide
+  - /guides/data-migration-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - vitess
     - citus
     - guide
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -42,6 +58,9 @@ Database sharding splits a single database into multiple smaller databases (shar
 Here is a hands-on guide to when to shard, how to choose shard keys, query routing, rebalancing, and operational considerations.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Database Sharding](/guides/complete-guide-database-sharding/).
 
 - Your database exceeds 1TB of data and backup/restore times are unacceptable
 - Write throughput exceeds what a single node can handle (>5k writes/sec)

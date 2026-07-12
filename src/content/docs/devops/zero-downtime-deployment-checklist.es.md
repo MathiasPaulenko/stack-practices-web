@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: zero-downtime-deployment-checklist
 title: "Checklist de Despliegue sin Tiempo de Inactividad"
@@ -15,8 +20,11 @@ tags:
   - rollback
   - production
 relatedResources:
-  - /docs/devops/deployment-checklist-template
+  - /docs/deployment-checklist-template
   - /docs/runbook-template
+  - /recipes/istio-canary-deployment
+  - /recipes/aws-lambda-python-dependencies
+  - /docs/environment-configuration-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +35,11 @@ seo:
     - checklist de despliegue en produccion
     - despliegue blue green
     - checklist de rollback
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -34,6 +47,9 @@ seo:
 Los despliegues sin tiempo de inactividad actualizan servicios de produccion sin interrumpir a los usuarios. Este checklist ayuda a los equipos a verificar que los health checks, el enrutamiento de trafico, las migraciones de base de datos y los planes de rollback esten en su lugar antes y durante un release.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Blue-Green Deployment](/es/guides/blue-green-deployment-guide/).
 
 - Liberar una nueva version de un servicio orientado al usuario.
 - Desplegar migraciones de esquema o datos que afecten multiples instancias.

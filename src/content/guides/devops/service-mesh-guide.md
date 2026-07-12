@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: service-mesh-guide
 title: "Service Mesh — Istio, Linkerd, and Sidecar Architecture"
@@ -20,6 +24,9 @@ tags:
 relatedResources:
   - /guides/observability-guide
   - /guides/kubernetes-advanced-guide
+  - /guides/chaos-engineering-guide
+  - /guides/opentelemetry-guide
+  - /guides/distributed-tracing-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +39,10 @@ seo:
     - mtls
     - traffic-management
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +50,9 @@ seo:
 A service mesh is a dedicated infrastructure layer that handles service-to-service communication in a microservices architecture. Instead of each service implementing concerns like retries, timeouts, circuit breaking, and encryption, a service mesh transparently injects these capabilities via a sidecar proxy that intercepts all network traffic. Istio and Linkerd are the two most popular implementations, offering zero-trust security, fine-grained traffic control, and deep observability without application code changes.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
 
 - You run 10+ microservices with complex inter-service call graphs
 - You need mutual TLS (mTLS) between all services without code changes

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-sentiment-analysis-nltk
 title: "Análisis de Sentimiento con Python y NLTK"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/ai-agents
   - /recipes/chatbot-openai
   - /recipes/image-generation
+  - /recipes/llm-fine-tuning
+  - /recipes/prompt-engineering
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -30,12 +35,18 @@ seo:
     - python nlp sentimiento
     - vader lexicon custom
     - sentiment analysis csv
+
+
+
 ---
 ## Visión General
 
 El análisis de sentimiento puntúa texto como positivo, negativo o neutral. VADER de NLTK (Valence Aware Dictionary and sEntiment Reasoner) es un modelo basado en reglas construido para texto de redes sociales. Maneja negación, intensificadores y emoticones sin datos de entrenamiento. Esta recipe cubre puntuación de textos individuales, procesamiento en lote y personalización del léxico.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Fine-Tune a Language Model for Code Generation](/es/recipes/llm-fine-tuning/).
 
 - Necesitas clasificar reviews de clientes o posts de redes sociales
 - Quieres un score rápido de sentimiento sin entrenar un modelo

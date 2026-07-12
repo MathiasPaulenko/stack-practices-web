@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-apache-airflow
 title: "Apache Airflow: DAGs, Operadores, Scheduling"
@@ -16,8 +19,9 @@ tags:
   - scheduling
   - data-engineering
 relatedResources:
-  - /guides/data/complete-guide-data-pipeline-architecture
-  - /guides/data/complete-guide-dbt-data-transformations
+  - /guides/complete-guide-data-pipeline-architecture
+  - /guides/complete-guide-dbt-data-transformations
+  - /guides/complete-guide-data-quality
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +35,9 @@ seo:
     - xcom
     - scheduling
     - pipeline orchestration
+
+
+
 ---
 
 ## Introducción
@@ -484,6 +491,9 @@ def sla_miss_alert(dag, task_list, blocking_task_list, slas, blocking_tis):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Schedule and Monitor DAGs with Apache Airflow](/es/recipes/python-airflow-dag-scheduling/).
 
 - Usá TaskFlow API para new DAGs — cleaner, less boilerplate que traditional operators
 - Seteá `catchup=False` para new DAGs — evitá accidental backfills de years de data

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: anti-corruption-layer-pattern
 title: "Anti-Corruption Layer: Isolate Legacy with Adapters"
@@ -18,6 +23,10 @@ relatedResources:
   - /patterns/strangler-fig-pattern
   - /patterns/modular-monolith-pattern
   - /patterns/ambassador-pattern
+  - /patterns/backends-for-frontends-pattern
+  - /patterns/compute-resource-consolidation-pattern
+  - /patterns/gateway-routing-pattern
+  - /patterns/health-endpoint-monitoring-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - legacy
     - isolation
     - pattern
+
+
+
+
+
 ---
 
 ## Overview
@@ -480,6 +494,9 @@ class CachedCustomerACL:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Strangler Fig: Gradually Replace Legacy by Intercepting](/patterns/strangler-fig-pattern/).
 
 - Keep the ACL stateless — it should only translate, not store business state
 - Make the ACL the only path to the legacy system — no domain code should call legacy directly

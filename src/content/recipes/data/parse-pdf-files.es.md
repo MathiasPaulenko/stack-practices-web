@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: parse-pdf-files
 title: "Analizar Archivos PDF"
@@ -16,11 +19,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-excel-files
-  - /recipes/data/parse-xml-files
-  - /recipes/data/convert-json-to-csv
-  - /recipes/data/serialize-deserialize-data
+  - /recipes/parse-csv-files
+  - /recipes/parse-excel-files
+  - /recipes/parse-xml-files
+  - /recipes/convert-json-to-csv
+  - /recipes/serialize-deserialize-data
+  - /recipes/truncate-text
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +37,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Visión General
 
@@ -261,6 +268,9 @@ ead_only=True o la API streaming de openpyxl para workbooks grandes
 - **csvkit**: herramientas command-line para archivos CSV. csvstat muestra estadisticas, csvcut selecciona columnas, csvjoin mergea archivos. Util para exploracion rapida sin escribir scripts Python
 
 ## Resumen de Best Practices
+
+
+- For a deeper guide, see [Parse Command Line Arguments](/es/recipes/parse-command-line-arguments/).
 
 - Siempre especifica encoding explicitamente (encoding='utf-8'). Nunca confies en defaults del sistema
 - Usa lectura en chunks para archivos >500MB. Setea chunksize en pandas o itera line-by-line

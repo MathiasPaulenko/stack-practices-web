@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: python-data-validation-pandera
 title: "Validar Schemas de DataFrame con Pandera"
@@ -16,9 +18,9 @@ tags:
   - testing
   - recipe
 relatedResources:
-  - /recipes/data/python-pandas-etl-pipeline
-  - /recipes/data/python-polars-fast-dataframe
-  - /recipes/data/python-dbt-model-transformations
+  - /recipes/python-pandas-etl-pipeline
+  - /recipes/python-polars-fast-dataframe
+  - /recipes/python-dbt-model-transformations
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - schema
     - testing
     - recipe
+
+
 ---
 
 ## Overview
@@ -323,6 +327,9 @@ def enrich_orders(df: pd.DataFrame) -> pd.DataFrame:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Schedule and Monitor DAGs with Apache Airflow](/es/recipes/python-airflow-dag-scheduling/).
 
 - Usa `lazy=True` para coleccionar todos los errores a la vez — el modo default para en el primer error
 - Usa `coerce=True` cuando la data viene de CSV (strings) y necesita conversión de tipos

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: code-review-best-practices-guide
 title: "What Works in Code Review — For Authors and Reviewers"
@@ -15,9 +19,12 @@ tags:
   - pull-request
   - design-patterns
 relatedResources:
-  - /guides/design/design-patterns-guide
-  - /guides/testing/testing-strategy-guide
-  - /guides/devops/cicd-pipeline-guide
+  - /guides/design-patterns-guide
+  - /guides/testing-strategy-guide
+  - /guides/cicd-pipeline-guide
+  - /docs/pull-request-template
+  - /guides/clean-code-principles-guide
+  - /guides/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - code review checklist
     - peer review software
     - constructive feedback code
+
+
+
+
 ---
 
 # What Works in Code Review

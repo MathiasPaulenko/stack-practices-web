@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-bandit-static-analysis
 title: "Encontrar Problemas de Seguridad en Código Python con Bandit"
@@ -15,9 +19,11 @@ tags:
   - code-quality
   - recipe
 relatedResources:
-  - /recipes/security/python-pip-audit-vulnerability-scan
-  - /recipes/security/python-mypy-strict-type-checking
-  - /recipes/devops/github-actions-reusable-workflows
+  - /recipes/python-pip-audit-vulnerability-scan
+  - /recipes/python-mypy-strict-type-checking
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/java-spotbugs-static-analysis
+  - /recipes/nodejs-eslint-security-plugin
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - static-analysis
     - code-quality
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -375,6 +385,9 @@ bandit -r src/ -lll -ii
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Detect Bugs in Java with SpotBugs Static Analysis](/es/recipes/java-spotbugs-static-analysis/).
 
 - Corré Bandit en CI/CD — atrapá issues de seguridad antes del merge
 - Usá `-ll` o `-lll` para filtrar ruido — findings de LOW severity son often false positives

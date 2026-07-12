@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: kafka-event-streaming
 title: "Event Streaming with Apache Kafka and Node.js"
@@ -15,9 +21,13 @@ tags:
   - kafka
   - rabbitmq
 relatedResources:
-  - /recipes/devops/docker-compose-local-dev
+  - /recipes/docker-compose-local-dev
   - /recipes/event-driven-architecture
-  - /patterns/design/circuit-breaker-pattern
+  - /patterns/circuit-breaker-pattern
+  - /recipes/dead-letter-queue
+  - /recipes/event-driven-microservices
+  - /recipes/message-idempotency
+  - /recipes/rabbitmq-task-queue
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - message broker
     - consumer groups
     - exactly once
+
+
+
+
+
+
 ---
 
 # Event Streaming with Apache Kafka and Node.js

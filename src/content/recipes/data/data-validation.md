@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: data-validation
 title: "Validate and Sanitize User Input Data"
@@ -17,6 +18,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/api-security-headers
   - /recipes/xss-prevention
+  - /recipes/batch-processing-patterns
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - schema validation
     - zod validation
     - pydantic models
+
 ---
 
 ## Overview

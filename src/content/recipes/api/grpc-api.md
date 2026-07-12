@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: grpc-api
 title: "Implement a gRPC API with Protocol Buffers"
@@ -19,6 +21,8 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /recipes/api-versioning
   - /recipes/call-rest-api
+  - /recipes/grpc-services-typescript
+  - /recipes/rest-api-design
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - microservices
     - streaming
     - interceptor
+
+
 ---
 ## Overview
 

@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: structured-logging
 title: "Logging Estructurado"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/prometheus-api-monitoring
   - /guides/logging-monitoring-observability-guide
   - /guides/monitoring-alerting-guide
+  - /recipes/distributed-tracing
+  - /recipes/log-aggregation
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - observability
     - elk
     - devops
+
+
 ---
 ## Visión General
 

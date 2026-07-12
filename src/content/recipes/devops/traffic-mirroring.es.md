@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: traffic-mirroring
 title: "Traffic Mirroring"
@@ -19,6 +21,8 @@ relatedResources:
   - /guides/deployment-strategies-guide
   - /recipes/blue-green-deployment
   - /recipes/graceful-shutdown
+  - /recipes/background-jobs
+  - /recipes/bash-scripting-automation
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - devops
     - testing
     - deployment
+
+
 ---
 ## Visión General
 

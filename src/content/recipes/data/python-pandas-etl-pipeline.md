@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-pandas-etl-pipeline
 title: "Build an ETL Pipeline with pandas and Parquet"
@@ -15,9 +20,12 @@ tags:
   - parquet
   - recipe
 relatedResources:
-  - /recipes/data/python-polars-fast-dataframe
-  - /recipes/data/python-data-validation-pandera
-  - /recipes/data/sql-cte-recursive-hierarchy
+  - /recipes/python-polars-fast-dataframe
+  - /recipes/python-data-validation-pandera
+  - /recipes/sql-cte-recursive-hierarchy
+  - /recipes/python-airflow-dag-scheduling
+  - /recipes/python-dask-parallel-dataframe
+  - /recipes/python-dbt-model-transformations
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - etl
     - parquet
     - recipe
+
+
+
+
+
 ---
 
 ## Overview
@@ -359,6 +372,9 @@ def run_pipeline_from_config(config_path: str) -> None:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Schedule and Monitor DAGs with Apache Airflow](/recipes/python-airflow-dag-scheduling/).
 
 - Use `errors="coerce"` in `pd.to_numeric` and `pd.to_datetime` — converts invalid values to `NaN` instead of raising
 - Partition by date columns (year, month) — enables efficient reads of specific time ranges

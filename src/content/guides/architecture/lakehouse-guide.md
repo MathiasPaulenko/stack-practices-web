@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: lakehouse-guide
 title: "Lakehouse Architecture — The Best of Both Worlds"
@@ -34,6 +35,7 @@ seo:
     - open-table-format
     - acid-transactions
     - guide
+
 ---
 
 ## Overview
@@ -41,6 +43,9 @@ seo:
 Lakehouse architecture, pioneered by Databricks, unifies the best of Data Lakes and Data Warehouses. It stores data in open formats (Parquet) on low-cost object storage while adding transactional guarantees, schema enforcement, and time travel — capabilities previously only available in proprietary warehouses. Open table formats like Delta Lake, Apache Iceberg, and Hudi make this possible by maintaining metadata layers that track changes, partitions, and statistics without locking data into a vendor-specific format.
 
 ## When to Use
+
+
+- For alternatives, see [Data Lake vs Data Warehouse — Architecture Guide](/guides/data-lake-guide/).
 
 - You need warehouse reliability (ACID, schema enforcement) with lake economics
 - Vendor lock-in in proprietary warehouses is a concern

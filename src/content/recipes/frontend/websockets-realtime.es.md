@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: websockets-realtime
 title: "WebSockets para Comunicación en Tiempo Real"
@@ -19,6 +20,7 @@ relatedResources:
   - /patterns/mvc-pattern-frontend
   - /recipes/express-middleware-patterns
   - /recipes/url-encoding-decoding
+  - /recipes/server-side-rendering
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - real-time
     - nodejs
     - frontend
+
 ---
 ## Visión General
 

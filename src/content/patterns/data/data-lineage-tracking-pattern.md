@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: data-lineage-tracking-pattern
 title: "Data Lineage Tracking: Track Origin End-to-End"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/etl-extract-transform-load-pattern
   - /patterns/cdc-change-data-capture-pattern
   - /patterns/schema-registry-evolution-pattern
+  - /patterns/idempotent-load-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - openlineage
     - governance
     - pattern
+
+
 ---
 
 ## Overview
@@ -541,6 +546,9 @@ models:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Batch-to-Streaming Bridge](/patterns/batch-to-streaming-bridge-pattern/).
 
 - Emit lineage events at both START and COMPLETE — so you can see running pipelines and their results
 - Track column-level lineage when possible — table-level is a start, but column-level enables precise impact analysis

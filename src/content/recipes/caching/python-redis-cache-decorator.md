@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-redis-cache-decorator
 title: "Cache Function Results with Redis and TTL in Python"
@@ -15,9 +21,13 @@ tags:
   - decorator
   - performance
 relatedResources:
-  - /recipes/caching/caching-redis
-  - /recipes/caching/redis-cache-patterns
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/caching-redis
+  - /recipes/redis-cache-patterns
+  - /patterns/cache-aside-pattern
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/database-query-result-caching
+  - /recipes/java-caffeine-cache-configuration
+  - /recipes/nginx-reverse-proxy-cache
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - redis ttl
     - python caching
     - redis cache invalidation
+
+
+
+
+
+
 ---
 
 # Cache Function Results with Redis and TTL in Python
@@ -276,6 +292,9 @@ redis_client.setex(key, ttl, zlib.compress(json.dumps(result).encode()))
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - **Use short TTLs for frequently changing data** — 30-60 seconds for user feeds, 5-10 minutes for reference data
 - **Cache only serializable results** — the decorator uses `json.dumps`; objects with custom types need a `default` serializer

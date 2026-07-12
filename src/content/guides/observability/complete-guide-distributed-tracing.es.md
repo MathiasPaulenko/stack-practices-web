@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-distributed-tracing
 title: "Distributed Tracing: OpenTelemetry, Jaeger, Zipkin"
@@ -16,8 +20,10 @@ tags:
   - observability
   - monitoring
 relatedResources:
-  - /guides/observability/complete-guide-structured-logging
-  - /guides/observability/complete-guide-prometheus-grafana
+  - /guides/complete-guide-structured-logging
+  - /guides/complete-guide-prometheus-grafana
+  - /recipes/real-user-monitoring
+  - /guides/complete-guide-sentry-error-tracking
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +37,10 @@ seo:
     - trace propagation
     - span context
     - observability
+
+
+
+
 ---
 
 ## Introducción
@@ -602,6 +612,9 @@ with tracer.start_as_current_span("process_checkout") as span:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Distributed Tracing: End-to-End Request Flow Across](/es/guides/distributed-tracing-guide/).
 
 - Usá auto-instrumentation primero — cubre HTTP, database y cache calls automáticamente
 - Agregá manual spans para business logic — auto-instrumentation no puede ver tu domain logic

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: serverless-function-deployment-checklist
 templateType: post-deployment-checklist
@@ -16,9 +18,9 @@ tags:
   - ci-cd
   - cloud-functions
 relatedResources:
-  - /docs/serverless/serverless-cost-estimation-template
-  - /docs/serverless/serverless-cold-start-runbook
-  - /docs/serverless/serverless-security-checklist
+  - /docs/serverless-cost-estimation-template
+  - /docs/serverless-cold-start-runbook
+  - /docs/serverless-security-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - azure functions
     - gcp cloud functions
     - serverless ci-cd
+
+
 ---
 
 ## Overview
@@ -355,3 +359,12 @@ Connection pooling es critical porque cada concurrent function invocation puede 
 ### ¿Qué deberia monitorear despues de deployear una serverless function?
 
 Monitorea four key areas: errors (error rate, error types), performance (p50/p99 duration, cold start percentage), concurrency (concurrent executions, throttles), y cost (invocations, GB-seconds). Setea alarms para error rate > 1%, p99 duration > 2x baseline, throttle count > 0, y concurrent executions > 80% de reserved limit. Usa distributed tracing para identificar bottlenecks en downstream services.
+
+## See Also
+
+- [Complete Guide to AWS Lambda in Production](/es/guides/complete-guide-aws-lambda-production/)
+- [Serverless Security Checklist](/es/docs/serverless-security-checklist/)
+- [Serverless Architecture — Patterns and Anti-Patterns](/es/guides/serverless-architecture-guide/)
+- [Complete Guide to Serverless Architecture](/es/guides/complete-guide-serverless-architecture/)
+- [Minimize Cold Start Latency in Serverless Functions](/es/recipes/cold-start-optimization/)
+

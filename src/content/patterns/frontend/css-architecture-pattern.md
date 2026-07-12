@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: css-architecture-pattern
 title: "CSS Architecture: Utility-First with Component-Scoped Layers"
@@ -30,6 +31,7 @@ seo:
     - architecture
     - design-system
     - pattern
+
 ---
 
 ## Overview
@@ -510,6 +512,9 @@ function ProductCard({ product }) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Container-Presenter: Separate Data Logic from Rendering](/patterns/container-presenter-pattern/).
 
 - Use `@layer` for cascade control — declare `@layer base, components, utilities` so utilities always win
 - Keep design tokens in `:root` — colors, spacing, fonts, shadows as CSS custom properties

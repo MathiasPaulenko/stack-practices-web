@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: blue-green-deployment
 title: "Despliegue Blue-Green"
@@ -19,6 +20,7 @@ relatedResources:
   - /guides/cicd-pipeline-guide
   - /recipes/graceful-shutdown
   - /recipes/istio-canary-deployment
+  - /recipes/traffic-mirroring
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - deployment
     - zero-downtime
     - devops
+
 ---
 ## Visión General
 

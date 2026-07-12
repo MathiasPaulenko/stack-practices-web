@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: race-condition-debugging-checklist
 templateType: guideline
@@ -17,8 +22,11 @@ tags:
   - channels
   - synchronization
 relatedResources:
-  - /docs/concurrency/async-task-cancellation-runbook
-  - /docs/concurrency/thread-pool-sizing-template
+  - /docs/async-task-cancellation-runbook
+  - /docs/thread-pool-sizing-template
+  - /guides/complete-guide-go-concurrency
+  - /guides/complete-guide-java-concurrency
+  - /recipes/csp-communication
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,11 @@ seo:
     - synchronization
     - mutex
     - atomic operations
+
+
+
+
+
 ---
 
 ## Overview
@@ -497,3 +510,12 @@ Always acquire locks in a consistent global order. If thread A acquires lock1 th
 ### What is a memory barrier and why does it matter?
 
 A memory barrier (fence) is a CPU instruction that enforces ordering of memory operations. Without barriers, CPUs and compilers can reorder reads and writes for optimization, which can break concurrent code. The `volatile` keyword in Java inserts memory barriers, ensuring that writes are visible to other threads. In Go, channel operations and sync primitives insert barriers automatically. In C/C++, you must use atomic operations or explicit barriers. Missing memory barriers cause stale reads and invisible writes — classic race condition symptoms.
+
+## See Also
+
+- [Complete Guide to Go Concurrency](/guides/complete-guide-go-concurrency/)
+- [Complete Guide to Java Concurrency](/guides/complete-guide-java-concurrency/)
+- [Complete Guide to Python Asyncio](/guides/complete-guide-python-asyncio/)
+- [Coordinate Concurrent Tasks with Communicating](/recipes/csp-communication/)
+- [Concurrent Patterns with Go Goroutines and Channels](/recipes/go-goroutines-channels-patterns/)
+

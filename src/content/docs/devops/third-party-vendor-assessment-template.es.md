@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: third-party-vendor-assessment-template
 title: "Plantilla de Evaluacion de Proveedores Terceros"
@@ -15,9 +19,11 @@ tags:
   - compliance
   - due-diligence
 relatedResources:
-  - /docs/devops/data-breach-response-playbook
-  - /docs/devops/access-control-review-template
-  - /docs/devops/rbac-policy-template
+  - /docs/data-breach-response-playbook
+  - /docs/access-control-review-template
+  - /docs/rbac-policy-template
+  - /recipes/bash-iptables-firewall
+  - /docs/dependency-vulnerability-report-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - cuestionario de seguridad
     - debida diligencia
     - revision de cumplimiento
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +45,9 @@ seo:
 Una Plantilla de Evaluacion de Proveedores Terceros estandariza como tu organizacion evalua a proveedores externos antes de firmar un contrato, integrar un servicio o renovar un acuerdo. Recolecta evidencia sobre los controles de seguridad, certificaciones de cumplimiento, practicas operativas y postura de continuidad del negocio del proveedor para que los equipos puedan tomar decisiones de riesgo informadas.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Vulnerability Management Template](/es/docs/vulnerability-management-template/).
 
 - Antes de incorporar un nuevo proveedor SaaS, cloud o infraestructura.
 - Durante revisiones de seguridad anuales o renovaciones de contrato.

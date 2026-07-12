@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: css-custom-properties-design-tokens
 title: "Design Tokens con CSS Custom Properties"
@@ -15,9 +18,10 @@ tags:
   - theming
   - recipe
 relatedResources:
-  - /recipes/frontend/css-container-queries-responsive
-  - /recipes/frontend/css-dark-mode-prefers-color-scheme
-  - /recipes/frontend/typescript-discriminated-unions-exhaustive
+  - /recipes/css-container-queries-responsive
+  - /recipes/css-dark-mode-prefers-color-scheme
+  - /recipes/typescript-discriminated-unions-exhaustive
+  - /guides/complete-guide-accessibility-wcag
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - custom-properties
     - theming
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -349,6 +356,9 @@ function toggleTheme() {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Dark Mode with prefers-color-scheme and CSS Variables](/es/recipes/css-dark-mode-prefers-color-scheme/).
 
 - Usa nombres semánticos de tokens (`--color-bg`, `--color-text`) en lugar de nombres de color crudos (`--blue-500`) — los tokens semánticos hacen el theming trivial
 - Define escalas de color crudas separadas de los tokens semánticos — las escalas crudas son la paleta, los tokens semánticos son el significado

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: database-query-result-caching
 title: "Cache Database Query Results with Redis and Python"
@@ -16,10 +20,12 @@ tags:
   - cache-aside
   - query-optimization
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/python-django-cache-framework
+  - /recipes/python-redis-cache-decorator
+  - /recipes/python-django-cache-framework
   - /guides/complete-guide-api-versioning-strategies
   - /guides/complete-guide-react-performance-optimization
+  - /recipes/python-httpx-cache-responses
+  - /recipes/python-celery-task-queue
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - python query cache
     - cache invalidation database
     - query result cache redis
+
+
+
+
 ---
 
 ## Overview
@@ -387,6 +397,9 @@ def get_product_swr(product_id: int) -> dict:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - **Cache at the right granularity**: Cache complete query results, not individual rows. One cache key per query + parameters.
 - **Set TTL even with explicit invalidation**: TTL is a safety net. If invalidation fails, stale data self-heals.

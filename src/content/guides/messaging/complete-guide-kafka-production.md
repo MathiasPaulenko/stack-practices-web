@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-kafka-production
 title: "Complete Guide to Apache Kafka in Production"
@@ -19,9 +24,12 @@ tags:
   - replication
   - monitoring
 relatedResources:
-  - /guides/serverless/complete-guide-serverless-architecture
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/resilience/bulkhead-pattern
+  - /guides/complete-guide-serverless-architecture
+  - /patterns/circuit-breaker-pattern
+  - /patterns/bulkhead-pattern
+  - /guides/message-queue-guide
+  - /guides/complete-guide-event-driven-systems
+  - /guides/complete-guide-rabbitmq-architecture
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - kafka performance tuning
     - kafka operations
     - streaming pipelines
+
+
+
+
+
 ---
 
 ## Introduction
@@ -555,3 +568,12 @@ Log compaction retains only the latest value for each key, removing older entrie
 ### How do I achieve exactly-once processing?
 
 Use Kafka's transactional API: create a transactional producer with `transactional_id`, consume-transform-produce within a transaction, and commit the consumer offset as part of the transaction. Consumers must set `isolation_level=read_committed` to only see committed messages.
+
+## See Also
+
+- [Message Queues — RabbitMQ, Kafka, and SQS detailed analysis](/guides/message-queue-guide/)
+- [Complete Guide to Monitoring and Alerting](/guides/complete-guide-monitoring-and-alerting/)
+- [Complete Guide to Event-Driven Systems](/guides/complete-guide-event-driven-systems/)
+- [Complete Guide to RabbitMQ Architecture](/guides/complete-guide-rabbitmq-architecture/)
+- [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/)
+

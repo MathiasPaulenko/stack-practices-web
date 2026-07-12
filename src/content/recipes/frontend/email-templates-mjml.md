@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: email-templates-mjml
 title: "Build Responsive Email Templates with MJML"
@@ -15,9 +17,10 @@ tags:
   - css
   - javascript
 relatedResources:
-  - /recipes/performance/spa-code-splitting-lazy
-  - /recipes/api/go-rest-api-gin
-  - /guides/design/clean-code-principles-guide
+  - /recipes/spa-code-splitting-lazy
+  - /recipes/go-rest-api-gin
+  - /guides/clean-code-principles-guide
+  - /recipes/server-side-rendering
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +31,8 @@ seo:
     - responsive email
     - cross-client email
     - handlebars
+
+
 ---
 
 # Build Responsive Email Templates with MJML

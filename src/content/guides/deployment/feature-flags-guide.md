@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: feature-flags-guide
 title: "Feature Flags: Progressive Release and Safe Experimentation"
@@ -18,10 +21,11 @@ tags:
   - rollout
   - guide
 relatedResources:
-  - /guides/deployment/canary-deployment-guide
-  - /guides/deployment/a-b-testing-guide
-  - /guides/devops/sre-practices-guide
+  - /guides/canary-deployment-guide
+  - /guides/a-b-testing-guide
+  - /guides/sre-practices-guide
   - /guides/observability-guide
+  - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - toggles
     - rollout
     - guide
+
+
+
 ---
 
 ## Overview
@@ -43,6 +50,9 @@ Feature flags (also called feature toggles) decouple deployment from release. Yo
 The following explains flag types, implementation patterns, rollout strategies, and proven operational methods.
 
 ## When to Use
+
+
+- For alternatives, see [A/B Testing: Experimentation Frameworks for Data-Driven](/guides/a-b-testing-guide/).
 
 - You want to deploy incomplete changes without exposing them to users
 - You need to roll out changes gradually to monitor impact

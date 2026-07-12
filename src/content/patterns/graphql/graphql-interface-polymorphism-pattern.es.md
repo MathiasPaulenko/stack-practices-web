@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: graphql-interface-polymorphism-pattern
 title: "Patron de Polimorfismo con Interfaces en GraphQL"
@@ -21,6 +24,8 @@ relatedResources:
   - /patterns/graphql-error-extension-pattern
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-schema-design
+  - /guides/complete-guide-graphql-security
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +36,9 @@ seo:
     - graphql-interfaces
     - type-system
     - schema-design
+
+
+
 ---
 
 ## Descripcion general
@@ -40,6 +48,9 @@ Las interfaces GraphQL definen un contrato que multiples tipos de objeto pueden 
 Las interfaces son el equivalente en GraphQL de tipos abstractos o interfaces en lenguajes orientados a objetos. Modelan relaciones polimorficas — un resultado de busqueda que podria ser User, Post, o Comment — manteniendo el esquema fuertemente tipado.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Complete Guide to GraphQL Schema Design](/es/guides/complete-guide-graphql-schema-design/).
 
 - Un campo puede retornar multiples tipos que comparten campos comunes (resultados de busqueda, notificaciones, items de feed)
 - Necesitas un contrato comun entre tipos pero quieres campos especificos del tipo tambien

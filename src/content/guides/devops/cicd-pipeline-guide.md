@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: cicd-pipeline-guide
 title: "CI/CD Pipeline Guide"
@@ -16,9 +21,13 @@ tags:
   - pipeline
   - testing
 relatedResources:
-  - /recipes/devops/github-actions
-  - /guides/testing/testing-strategy-guide
-  - /docs/templates/runbook-template
+  - /recipes/github-actions
+  - /guides/testing-strategy-guide
+  - /docs/runbook-template
+  - /recipes/chaos-engineering
+  - /recipes/traffic-mirroring
+  - /recipes/bash-backup-rotation
+  - /recipes/bash-log-rotation
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - continuous deployment
     - devops pipeline
     - automated testing
+
+
+
+
+
 ---
 
 ## Overview

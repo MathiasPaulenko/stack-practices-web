@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: aws-ecs-fargate
 title: "Desplegar Contenedores en AWS ECS con Fargate"
@@ -16,6 +21,11 @@ tags:
 relatedResources:
   - /guides/infrastructure-as-code-guide
   - /patterns/facade-pattern
+  - /recipes/bash-aws-cli-scripts
+  - /recipes/immutable-infrastructure
+  - /recipes/setup-ci-gitlab-pipelines
+  - /recipes/istio-canary-deployment
+  - /recipes/terraform-aws-vpc
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +36,11 @@ seo:
     - docker
     - terraform
     - github actions
+
+
+
+
+
 ---
 
 # Desplegar Contenedores en AWS ECS con Fargate

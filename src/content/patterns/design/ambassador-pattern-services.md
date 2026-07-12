@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: ambassador-pattern-services
 title: "Ambassador Pattern for Resilient Remote Service Access"
@@ -15,8 +19,11 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/abstract-factory-cross-platform
+  - /patterns/circuit-breaker-pattern
+  - /patterns/abstract-factory-cross-platform
+  - /recipes/docker-compose-local-dev
+  - /recipes/helm-chart-deployment
+  - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - remote service proxy
     - structural patterns
     - resilience
+
+
+
+
 ---
 
 # Ambassador Pattern for Resilient Remote Service Access

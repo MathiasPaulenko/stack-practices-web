@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: logging-monitoring-observability-guide
 title: "Logging, Monitoring & Observability Guide"
@@ -22,6 +26,10 @@ relatedResources:
   - /docs/runbook-template
   - /guides/cicd-pipeline-guide
   - /recipes/logging
+  - /docs/load-test-execution-plan-template
+  - /recipes/parse-log-files
+  - /recipes/prometheus-monitoring-alerts
+  - /recipes/cdn-edge-caching
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +41,10 @@ seo:
     - metrics
     - distributed tracing
     - alerting
+
+
+
+
 ---
 
 ## Introduction

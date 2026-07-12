@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: outbox-pattern-transactional-events
 title: "Implement the Transactional Outbox Pattern for Reliable"
@@ -16,10 +20,12 @@ tags:
   - postgresql
   - event-driven
 relatedResources:
-  - /recipes/messaging/event-sourcing-cqrs-pattern
-  - /recipes/messaging/kafka-python-consumer-groups
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/kafka-python-consumer-groups
   - /guides/domain-driven-design-guide
   - /guides/complete-guide-graphql-federation
+  - /guides/cqrs-event-sourcing-combined-guide
+  - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - reliable event publishing
     - dual write problem
     - transactional outbox python
+
+
+
+
 ---
 
 ## Overview
@@ -488,6 +498,9 @@ events = conn.execute(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Implement Event Sourcing with CQRS in Python](/recipes/event-sourcing-cqrs-pattern/).
 
 - **Use `FOR UPDATE SKIP LOCKED`**: This enables multiple relay instances without conflicts. Each instance locks and processes different rows.
 - **Order by `created_at`**: Process events in creation order. Use `aggregate_id` as the Kafka key to ensure per-aggregate ordering within a partition.

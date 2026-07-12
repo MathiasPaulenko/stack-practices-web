@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: patch-management-template
 title: "Plantilla de Gestión de Parches"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/ssl-certificate-renewal-template
   - /docs/runbook-template
+  - /docs/on-call-runbook-template
+  - /docs/performance-regression-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - seguridad
     - operaciones
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Los parches de seguridad son invisibles cuando funcionan y catastróficos cuando se olvidan. Equipos de alta madurez tratan la gestión de parches como un proceso de gestión de cambios con cronograma, testing y rollback. Equipos de baja madurez instalan parches de forma reactiva cuando aparece una brecha en las noticias. Esta plantilla convierte la gestión de parches en un proceso repetible: inventario, clasificación, testing, despliegue y verificación. Reduce el riesgo de vulnerabilidades de día cero mientras mantiene la estabilidad del sistema.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Bug Triage Template](/es/docs/bug-triage-template/).
 
 Usa este recurso cuando:
 - Tu política de seguridad requiere aplicación de parches dentro de un SLA definido

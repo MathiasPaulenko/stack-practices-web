@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: unit-of-work-pattern
 title: "Unit of Work Pattern"
@@ -17,9 +21,11 @@ tags:
   - databases
   - orm
 relatedResources:
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/data-access-object-pattern
-  - /patterns/design/active-record-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/data-access-object-pattern
+  - /patterns/active-record-pattern
+  - /patterns/composite-entity-pattern
+  - /patterns/identity-map-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - transactions
     - databases
     - orm
+
+
+
+
 ---
 
 # Unit of Work Pattern
@@ -41,6 +51,9 @@ The Unit of Work Pattern maintains a list of objects affected by a business tran
 This pattern is essential for transactional consistency. It prevents partial updates where one object is saved and another fails, leaving the database in an inconsistent state. ORMs like Hibernate's `Session` and Entity Framework's `DbContext` are implementations of Unit of Work.
 
 ## When to Use
+
+
+- For alternatives, see [Composite Entity Pattern](/patterns/composite-entity-pattern/).
 
 Use the Unit of Work Pattern when:
 - Multiple objects must be updated atomically within a single business transaction

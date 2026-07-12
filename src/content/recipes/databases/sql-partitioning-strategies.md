@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-partitioning-strategies
 title: "Partition Large Tables by Date or Range"
@@ -19,6 +22,8 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/postgres-query-optimization
   - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-full-text-search-setup
+  - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - partitioning
     - performance
     - maintenance
+
+
+
 ---
 
 
@@ -38,6 +46,9 @@ seo:
 When a table grows past hundreds of millions of rows, every query becomes a battle against index size and maintenance time. Partitioning splits the table into smaller, more manageable pieces while keeping the whole thing queryable as a single table. The database prunes partitions that do not match the query, so scans are smaller and index maintenance is cheaper.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Tuning](/guides/complete-guide-postgresql-tuning/).
 
 Use this resource when:
 - A table is growing faster than your hardware budget.

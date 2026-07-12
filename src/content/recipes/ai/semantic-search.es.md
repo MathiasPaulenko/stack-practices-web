@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: semantic-search
 title: "Implementar búsqueda semántica con embeddings"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/llm-fine-tuning
   - /guides/software-architecture-guide
   - /guides/sql-performance-tuning-guide
+  - /recipes/ai-agents-tool-use
+  - /recipes/ai-agents
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - openai
     - faiss
     - nlp
+
+
 ---
 
 ## Visión General

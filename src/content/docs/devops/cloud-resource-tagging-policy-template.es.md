@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: cloud-resource-tagging-policy-template
 title: "Plantilla de Politica de Etiquetado de Recursos Cloud"
@@ -15,9 +19,11 @@ tags:
   - infrastructure
   - policy
 relatedResources:
-  - /docs/devops/infrastructure-cost-allocation-template
-  - /docs/devops/cloud-cost-allocation-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/infrastructure-cost-allocation-template
+  - /docs/cloud-cost-allocation-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/environment-configuration-template
+  - /docs/ssl-certificate-management-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - etiquetas de recursos
     - etiquetas de asignacion de costos
     - metadata cloud
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +45,9 @@ seo:
 El Etiquetado de Recursos Cloud es la practica de aplicar etiquetas de metadatos a recursos cloud como maquinas virtuales, buckets de almacenamiento, bases de datos y componentes de red. Las etiquetas consistentes permiten la asignacion de costos, el control de acceso, las operaciones automatizadas y la auditoria de seguridad. Esta plantilla de politica define etiquetas requeridas, convenciones de nombres, mecanismos de cumplimiento y controles de gobernanza.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Infrastructure Cost Allocation Template](/es/docs/infrastructure-cost-allocation-template/).
 
 - Configurar una nueva cuenta cloud o landing zone.
 - Incorporar un equipo o carga de trabajo a la plataforma cloud.

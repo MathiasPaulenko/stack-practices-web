@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: javascript-debounce-throttle-implementation
 title: "Funciones Debounce y Throttle en JavaScript"
@@ -16,10 +21,13 @@ tags:
   - rate-limiting
   - events
 relatedResources:
-  - /recipes/frontend/javascript-infinite-scroll-pagination
-  - /recipes/frontend/javascript-localstorage-expiration
+  - /recipes/javascript-infinite-scroll-pagination
+  - /recipes/javascript-localstorage-expiration
   - /guides/performance-optimization-guide
   - /patterns/circuit-breaker-pattern
+  - /guides/complete-guide-bundle-size-optimization
+  - /guides/complete-guide-react-performance-optimization
+  - /guides/complete-guide-web-performance-core-web-vitals
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -31,6 +39,11 @@ seo:
     - rate limiting javascript
     - search input debounce
     - scroll throttle javascript
+
+
+
+
+
 ---
 
 ## Visión General
@@ -38,6 +51,9 @@ seo:
 Debounce y throttle son técnicas para controlar la frecuencia con la que se ejecuta una función. Debounce retrasa la ejecución hasta que la actividad se detiene. Throttle limita la ejecución a máximo una vez por intervalo. Ambas previenen problemas de rendimiento por eventos que se disparan muchas veces por segundo como scroll, resize, typing y clicks.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Bundle Size Optimization](/es/guides/complete-guide-bundle-size-optimization/).
 
 - **Debounce**: Search input, autosave, window resize — esperar hasta que el usuario se detenga
 - **Throttle**: Scroll position, mouse move, button spam — limitar a una tasa fija

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: hexagonal-architecture-guide
 title: "Hexagonal Architecture — Ports, Adapters, and Testability"
@@ -21,7 +24,8 @@ relatedResources:
   - /guides/onion-architecture-guide
   - /guides/modular-monolith-guide
   - /guides/cqrs-guide
-  - /patterns/design/dependency-injection-pattern
+  - /patterns/dependency-injection-pattern
+  - /guides/event-sourcing-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -34,6 +38,9 @@ seo:
     - clean-architecture
     - dependency-inversion
     - guide
+
+
+
 ---
 
 ## Overview
@@ -41,6 +48,9 @@ seo:
 Hexagonal Architecture, also known as Ports and Adapters, is a design pattern that isolates the core domain logic from external concerns like frameworks, databases, and UI. Instead of the domain depending on infrastructure, infrastructure depends on the domain through well-defined interfaces called ports. This inversion of dependencies makes applications easier to test, refactor, and adapt to changing requirements.
 
 ## When to Use
+
+
+- For alternatives, see [Onion Architecture — Dependency Inversion in Practice](/guides/onion-architecture-guide/).
 
 - You need to swap frameworks (web, CLI, messaging) without touching business logic
 - You want fast, isolated unit tests without mocking external services

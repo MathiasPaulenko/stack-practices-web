@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: grpc-microservices-guide
 title: "gRPC en Microservicios — Guía de RPC de Alto Rendimiento"
@@ -23,6 +25,7 @@ relatedResources:
   - /guides/monolith-to-microservices-migration-guide
   - /guides/system-design-interview-guide
   - /guides/rest-api-design-guide
+  - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -36,12 +39,17 @@ seo:
     - balanceo de carga
     - rendimiento
     - guia
+
+
 ---
 ## Visión General
 
 gRPC es el protocolo RPC de alto rendimiento desarrollado por Google. Usa HTTP/2 como transporte y Protocol Buffers como formato de serialización, logrando latencias mucho menores y throughput mayor que JSON sobre HTTP/1.1. Es especialmente adecuado para comunicación servicio-a-servicio en microservicios, donde el rendimiento importa y ambos lados del wire son sistemas controlados. A continuación: Protocol Buffers, patrones de streaming, balanceo de carga y estrategias de migración desde REST.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Microservices Communication](/es/guides/complete-guide-microservices-communication/).
 
 Usa esta guía cuando:
 - Estás construyendo microservicios de alta frecuencia que se comunican internamente

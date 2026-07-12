@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: redis-cache-aside-pattern
 title: "Implement the Cache-Aside Pattern with Redis"
@@ -15,9 +21,13 @@ tags:
   - performance
   - database
 relatedResources:
-  - /recipes/caching/caching-redis
-  - /recipes/caching/python-redis-cache-decorator
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/caching-redis
+  - /recipes/python-redis-cache-decorator
+  - /patterns/cache-aside-pattern
+  - /recipes/cdn-cache-invalidation-strategies
+  - /recipes/http-cache-control-headers
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/redis-distributed-lock
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - lazy loading cache
     - write through cache
     - redis caching pattern
+
+
+
+
+
+
 ---
 
 # Implement the Cache-Aside Pattern with Redis
@@ -269,6 +285,9 @@ def process_write_queue():
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - **Set a TTL on every cache entry** — prevents stale data from persisting indefinitely
 - **Invalidate on writes** — update the database first, then delete the cache entry (not the other way around)

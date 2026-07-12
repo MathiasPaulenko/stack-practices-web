@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: bug-reproduction-steps-template
 title: "Bug Reproduction Steps Template"
@@ -15,9 +17,9 @@ tags:
   - qa
   - debugging
 relatedResources:
-  - /docs/testing/test-case-template
-  - /docs/testing/regression-test-checklist
-  - /docs/testing/test-strategy-document-template
+  - /docs/test-case-template
+  - /docs/regression-test-checklist
+  - /docs/test-strategy-document-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +32,8 @@ seo:
     - debugging
     - defect tracking
     - template
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 A bug report is only useful if a developer can reproduce the issue. Vague reports like "the login page is broken" waste time and lead to back-and-forth questions. This template ensures bug reports contain the minimum information needed to reproduce, diagnose, and fix the issue.
 
 ## When to Use
+
+
+- For alternatives, see [Data Quality Rules Template](/docs/data-quality-rules-template/).
 
 - Filing a bug in your issue tracker (Jira, GitHub Issues, Linear)
 - Reporting a production incident for the on-call engineer

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: nodejs-redis-cache-invalidation
 title: "Implementar Invalidation de Cache Redis en Node.js"
@@ -16,9 +21,12 @@ tags:
   - pub-sub
   - caching
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/nginx-reverse-proxy-cache
+  - /recipes/python-redis-cache-decorator
+  - /recipes/nginx-reverse-proxy-cache
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/java-spring-cache-annotations
+  - /recipes/python-httpx-cache-responses
+  - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - cache invalidation strategies
     - redis pub/sub invalidation
     - redis scan pattern
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +49,9 @@ seo:
 La invalidacion de cache es la parte dificil del caching. Redis ofrece varias estrategias: expiracion por TTL (automatica), eliminacion explicita (manual), limpieza por patron (SCAN + DEL), e invalidacion distribuida con pub/sub (notificar a otras instancias). A continuacion: implementar cada estrategia en Node.js con `ioredis`, manejar casos edge y elegir el enfoque correcto por caso de uso.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Use Spring Cache Annotations with Redis Backend](/es/recipes/java-spring-cache-annotations/).
 
 - Cualquier aplicacion Node.js que usa Redis como capa de cache
 - Cuando los datos cacheados cambian y deben prevenirse lecturas stale

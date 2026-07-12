@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: redis-cache-patterns
 title: "Redis Cache Patterns for High-Performance Applications"
@@ -18,6 +22,10 @@ relatedResources:
   - /recipes/cache-invalidation
   - /recipes/connection-pooling
   - /guides/performance-optimization-guide
+  - /recipes/python-redis-cache-decorator
+  - /recipes/connect-to-redis
+  - /recipes/postgres-query-optimization
+  - /recipes/caching-strategies
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,10 @@ seo:
     - cache-aside
     - write-through
     - performance
+
+
+
+
 ---
 
 # Redis Cache Patterns for High-Performance Applications

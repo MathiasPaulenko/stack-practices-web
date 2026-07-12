@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: builder-pattern-configuration
 title: "Builder Pattern for Complex Configuration Objects"
@@ -14,9 +15,9 @@ tags:
   - fluent-interface
   - design-patterns
 relatedResources:
-  - /patterns/design/abstract-factory-pattern
-  - /patterns/design/proxy-pattern-caching
-  - /recipes/api/call-rest-api
+  - /patterns/abstract-factory-pattern
+  - /patterns/proxy-pattern-caching
+  - /recipes/call-rest-api
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +28,7 @@ seo:
     - creational pattern
     - fluent api
     - object construction
+
 ---
 
 # Builder Pattern for Complex Configuration Objects

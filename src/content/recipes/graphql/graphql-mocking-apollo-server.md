@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: graphql-mocking-apollo-server
 title: "Mock GraphQL Resolvers for Frontend Development"
@@ -16,9 +21,12 @@ tags:
   - frontend
   - testing
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/api/api-mocking
-  - /recipes/graphql/graphql-error-handling-best-practices
+  - /recipes/graphql-apollo-server
+  - /recipes/api-mocking
+  - /recipes/graphql-error-handling-best-practices
+  - /guides/complete-guide-graphql-testing
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - graphql fake data
     - frontend development
     - graphql testing
+
+
+
+
+
 ---
 
 # Mock GraphQL Resolvers for Frontend Development
@@ -334,6 +347,9 @@ const mocks = {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Testing](/guides/complete-guide-graphql-testing/).
 
 - **Use realistic data** — `faker` produces names, emails, and dates that look real, making UI reviews more effective
 - **Start with auto-mocks, then customize** — get the server running with `mock: true` first, then replace fields one by one

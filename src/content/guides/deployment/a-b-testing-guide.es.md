@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: a-b-testing-guide
 title: "A/B Testing: Frameworks de Experimentación para"
@@ -18,9 +20,9 @@ tags:
   - hypothesis
   - guia
 relatedResources:
-  - /guides/deployment/feature-flags-guide
-  - /guides/deployment/canary-deployment-guide
-  - /guides/devops/sre-practices-guide
+  - /guides/feature-flags-guide
+  - /guides/canary-deployment-guide
+  - /guides/sre-practices-guide
   - /guides/observability-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
@@ -34,6 +36,8 @@ seo:
     - conversion-optimization
     - hypothesis
     - guia
+
+
 ---
 
 ## Overview
@@ -43,6 +47,9 @@ A/B testing (también llamado split testing) es una metodología de experimentac
 A continuación: diseño de experimentos, rigor estadístico, patrones de implementación y adopción organizacional.
 
 ## When to Use
+
+
+- For alternatives, see [Feature Flags: Progressive Release and Safe Experimentation](/es/guides/feature-flags-guide/).
 
 - Quieres validar una hipótesis sobre comportamiento de usuario
 - Necesitas medir el impacto de un cambio de UI o algoritmo

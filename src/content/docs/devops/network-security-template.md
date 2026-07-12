@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: network-security-template
 title: "Network Security Template"
@@ -20,6 +22,7 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/cross-region-failover-template
   - /docs/deployment-checklist-template
+  - /docs/bug-triage-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +34,8 @@ seo:
     - firewall
     - dns
     - template
+
+
 ---
 ## Overview
 
@@ -366,6 +371,9 @@ done
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Auto-Scaling Policy Template](/docs/auto-scaling-policy-template/).
 
 1. **Implement egress filtering to prevent data exfiltration.** Restrict outbound traffic to known destinations instead of allowing `0.0.0.0/0` egress:
 

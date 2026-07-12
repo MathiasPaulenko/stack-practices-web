@@ -1,4 +1,5 @@
 ---
+
 contentType: docs
 templateType: onboarding
 slug: onboarding-guide-template
@@ -18,6 +19,7 @@ relatedResources:
   - /docs/readme-template
   - /docs/contributing-guide
   - /guides/software-architecture-guide
+  - /docs/environment-setup-guide-template
 lastUpdated: 2026-06-11
 author: StackPractices
 seo:
@@ -28,6 +30,7 @@ seo:
     - developer onboarding
     - team onboarding
     - first week tasks
+
 ---
 
 ## Overview

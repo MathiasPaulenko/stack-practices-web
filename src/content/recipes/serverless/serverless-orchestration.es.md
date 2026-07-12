@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: serverless-orchestration
 title: "Orquestar Workflows Serverless con Step Functions y"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/saga-pattern-recipe
   - /recipes/api-gateway
+  - /recipes/event-sourcing-serverless
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - maquina estados workflow
     - funciones distribuidas
     - workflows serverless
+
 ---
 
 ## Visión general

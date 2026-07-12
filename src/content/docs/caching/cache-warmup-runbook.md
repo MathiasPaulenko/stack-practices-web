@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: cache-warmup-runbook
 templateType: runbook
@@ -16,9 +18,9 @@ tags:
   - deployment
   - incident-response
 relatedResources:
-  - /docs/caching/cache-strategy-decision-template
-  - /docs/caching/cache-eviction-policy-template
-  - /docs/caching/cdn-cache-rules-template
+  - /docs/cache-strategy-decision-template
+  - /docs/cache-eviction-policy-template
+  - /docs/cdn-cache-rules-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - cache thundering herd
     - deployment runbook
     - cache initialization
+
+
 ---
 
 ## Overview
@@ -469,3 +473,12 @@ Connect to each shard directly and warm keys based on their hash slot. Use `redi
 ### Can I warm up cache without downtime?
 
 Yes. Warm the new cache while the old cache is still serving traffic. Once warmup is complete, switch the application to use the new cache. Keep the old cache available for 5-10 minutes as a fallback. This zero-downtime approach requires two cache instances but eliminates cold-start latency entirely.
+
+## See Also
+
+- [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/)
+- [Complete Guide to Redis in Production](/guides/complete-guide-redis-production/)
+- [Cache Invalidation Pattern](/patterns/cache-invalidation-pattern/)
+- [Cache Stampede Prevention Pattern](/patterns/cache-stampede-prevention-pattern/)
+- [Read-Through Cache Pattern](/patterns/read-through-cache-pattern/)
+

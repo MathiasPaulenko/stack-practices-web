@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-openai-function-calling-structured
 title: "Salida JSON estructurada con OpenAI Function Calling"
@@ -14,9 +20,13 @@ tags:
   - structured output
   - pydantic
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-openai-embeddings-cosine
-  - /recipes/ai/python-llm-streaming-responses
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-agent-langgraph-state-machine
+  - /recipes/python-huggingface-text-classification
+  - /patterns/llm-guardrails-pattern
+  - /patterns/llm-router-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - pydantic openai
     - openai json mode
     - python llm structured
+
+
+
+
+
+
 ---
 
 # Salida JSON estructurada con OpenAI Function Calling
@@ -34,6 +50,9 @@ seo:
 Los LLMs generan texto, pero las aplicaciones necesitan datos estructurados. Function calling y structured outputs de OpenAI fuerzan al modelo a retornar JSON que coincide con un esquema. Combinado con Pydantic para validacion, esto te da salida estructurada type-safe y confiable de cualquier llamada LLM. A continuacion: function calling, `response_format` con JSON schema y manejo de errores.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Stream LLM Output with Server-Sent Events (SSE)](/es/recipes/python-llm-streaming-responses/).
 
 - Extraer datos estructurados de texto no estructurado (reviews, emails, documentos)
 - Construir herramientas que el LLM pueda llamar (busqueda, queries de base de datos, calculos)

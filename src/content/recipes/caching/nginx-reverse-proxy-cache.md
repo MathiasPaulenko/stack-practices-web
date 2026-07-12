@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: nginx-reverse-proxy-cache
 title: "Cache HTTP Responses with Nginx Reverse Proxy"
@@ -16,9 +20,11 @@ tags:
   - caching
   - load-balancer
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/cdn-cache-invalidation-strategies
+  - /recipes/python-redis-cache-decorator
+  - /recipes/cdn-cache-invalidation-strategies
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/nodejs-redis-cache-invalidation
+  - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - nginx cache zone
     - proxy_cache
     - cache ttl nginx
+
+
+
+
 ---
 
 ## Overview
@@ -280,6 +290,9 @@ done
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CDN Caching Strategy](/guides/complete-guide-cdn-caching-strategy/).
 
 - **Size `keys_zone` correctly**: 1MB of shared memory holds roughly 8,000 cache keys. For 100K cached items, allocate 13MB.
 - **Use `proxy_cache_lock`**: Prevents cache stampede when many requests hit the same uncached key simultaneously.

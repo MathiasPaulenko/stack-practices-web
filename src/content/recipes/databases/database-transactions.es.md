@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: database-transactions
 title: "Transacciones de Base de Datos"
@@ -16,7 +21,11 @@ tags:
 relatedResources:
   - /recipes/sql-joins
   - /recipes/pagination
-  - /patterns/design/repository-pattern
+  - /patterns/repository-pattern
+  - /recipes/caching-redis
+  - /recipes/database-connection-pooling
+  - /recipes/database-deadlocks-retries
+  - /recipes/database-migrations-safely
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +39,11 @@ seo:
     - python transacciones
     - nodejs transacciones
     - java jdbc
+
+
+
+
+
 ---
 
 ## Visión general

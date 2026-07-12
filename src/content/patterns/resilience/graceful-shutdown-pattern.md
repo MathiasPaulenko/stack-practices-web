@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: graceful-shutdown-pattern
 title: "Graceful Shutdown: Drain In-Flight Requests Before Exit"
@@ -29,6 +30,7 @@ seo:
     - shutdown
     - kubernetes
     - pattern
+
 ---
 
 ## Overview
@@ -592,6 +594,9 @@ process.on("SIGTERM", gracefulShutdown);
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Sidecar Pattern: Extend Services with Companion Containers](/patterns/sidecar-pattern/).
 
 - Deregister from load balancer first — give it time to propagate before stopping
 - Set health check to 503 immediately — load balancers stop routing to unhealthy instances

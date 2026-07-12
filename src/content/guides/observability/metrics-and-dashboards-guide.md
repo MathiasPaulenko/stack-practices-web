@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: metrics-and-dashboards-guide
 title: "Metrics and Dashboards"
@@ -18,11 +22,13 @@ tags:
   - instrumentation
   - guide
 relatedResources:
-  - /guides/observability/distributed-tracing-guide
-  - /guides/observability/log-aggregation-guide
-  - /guides/observability/alert-management-guide
-  - /guides/devops/observability-guide
-  - /guides/devops/sre-practices-guide
+  - /guides/distributed-tracing-guide
+  - /guides/log-aggregation-guide
+  - /guides/alert-management-guide
+  - /guides/observability-guide
+  - /guides/sre-practices-guide
+  - /guides/connection-pooling-deep-dive-guide
+  - /guides/etl-pipeline-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - datadog
     - instrumentation
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +54,9 @@ Metrics are numerical measurements collected over time that tell you how your sy
 The following guide covers metric types, instrumentation patterns, dashboard design, and alert creation.
 
 ## When to Use
+
+
+- For alternatives, see [Observability — Metrics, Logs, and Traces Complete Guide](/guides/observability-guide/).
 
 - You need to monitor system health and performance over time
 - You want to detect trends before they become incidents

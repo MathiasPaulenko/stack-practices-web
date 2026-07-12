@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: decorator-pattern-pipeline
 title: "Decorator Pattern for HTTP Request Pipelines"
@@ -15,9 +20,13 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/proxy-pattern-caching
-  - /patterns/design/adapter-pattern
-  - /recipes/api/call-rest-api
+  - /patterns/proxy-pattern-caching
+  - /patterns/adapter-pattern
+  - /recipes/call-rest-api
+  - /recipes/websocket-authentication
+  - /patterns/adapter-pattern-api
+  - /patterns/chain-of-responsibility-middleware
+  - /patterns/composite-pattern-ui
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - request pipeline
     - structural pattern
     - cross-cutting concerns
+
+
+
+
+
 ---
 
 # Decorator Pattern for HTTP Request Pipelines

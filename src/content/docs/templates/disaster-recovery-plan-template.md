@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: disaster-recovery-plan-template
 templateType: disaster-recovery
@@ -15,9 +20,13 @@ tags:
   - automation
   - deployment
 relatedResources:
-  - /guides/devops/infrastructure-as-code-guide
-  - /docs/templates/runbook-template
-  - /guides/devops/monitoring-alerting-guide
+  - /guides/infrastructure-as-code-guide
+  - /docs/runbook-template
+  - /guides/monitoring-alerting-guide
+  - /docs/environment-setup-guide-template
+  - /docs/slo-document-template
+  - /recipes/pre-commit-hooks
+  - /docs/backup-verification-test-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - failover procedures template
     - business continuity plan
     - dr runbook
+
+
+
+
+
 ---
 
 # Disaster Recovery Plan Template

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: circuit-breaker-pattern-recipe
 title: "Construir Sistemas Resilientes con el Circuit Breaker"
@@ -18,6 +20,8 @@ relatedResources:
   - /recipes/saga-pattern-recipe
   - /recipes/api-gateway
   - /recipes/retry-logic-exponential-backoff
+  - /recipes/multi-tenancy
+  - /recipes/service-discovery
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - fallas en cascada
     - tolerancia a fallas
     - resiliencia distribuida
+
+
 ---
 
 ## Visión general

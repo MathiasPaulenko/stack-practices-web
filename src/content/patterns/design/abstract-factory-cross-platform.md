@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: abstract-factory-cross-platform
 title: "Abstract Factory for Cross-Platform UI Component Families"
@@ -15,8 +21,13 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/bridge-pattern-ui-themes
-  - /patterns/design/abstract-factory-pattern
+  - /patterns/bridge-pattern-ui-themes
+  - /patterns/abstract-factory-pattern
+  - /patterns/dependency-injection-typescript
+  - /patterns/mediator-pattern-components
+  - /patterns/ambassador-pattern-services
+  - /patterns/backend-for-frontend-pattern
+  - /patterns/chain-of-responsibility-middleware
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +38,12 @@ seo:
     - cross platform ui
     - creational patterns
     - platform abstraction
+
+
+
+
+
+
 ---
 
 # Abstract Factory for Cross-Platform UI Component Families

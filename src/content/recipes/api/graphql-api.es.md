@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: graphql-api
 title: "Implementar una API GraphQL"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/handle-errors
   - /recipes/idempotent-api-endpoints
+  - /recipes/api-logging-audit
+  - /recipes/api-documentation-openapi
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 # Implementar una API GraphQL
 

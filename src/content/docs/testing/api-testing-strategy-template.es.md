@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: api-testing-strategy-template
 title: "Plantilla de Estrategia de Testing de API"
@@ -20,6 +22,7 @@ relatedResources:
   - /docs/microservice-contract-template
   - /guides/cicd-pipeline-guide
   - /guides/test-driven-development-guide
+  - /docs/test-strategy-document-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +34,17 @@ seo:
     - integración
     - carga
     - plantilla
+
+
 ---
 ## Visión General
 
 Las APIs evolucionan continuamente. Un cambio en un endpoint puede romper consumidores, degradar rendimiento o introducir agujeros de seguridad. Una estrategia de testing por capas detecta estos problemas en diferentes etapas: los tests de contrato previenen cambios rotos, los tests de integración verifican comportamiento, y los tests de carga validan rendimiento bajo presión.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Test Express APIs with supertest](/es/recipes/nodejs-supertest-express-api/).
 
 Usa este recurso cuando:
 - Diseñas cobertura de testing para una nueva API o microservicio

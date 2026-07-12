@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-partitioning-strategies
 title: "Particionar tablas grandes por fecha o rango"
@@ -19,6 +22,8 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/postgres-query-optimization
   - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-full-text-search-setup
+  - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - particionamiento
     - rendimiento
     - mantenimiento
+
+
+
 ---
 
 
@@ -37,6 +45,9 @@ seo:
 Cuando una tabla crece más allá de cientos de millones de filas, cada consulta se convierte en una batalla contra el tamaño del índice y el tiempo de mantenimiento. La partición divide la tabla en pedazos más pequeños y manejables manteniendo la tabla completa consultable como una sola. La base de datos poda particiones que no coinciden con la consulta, por lo que los escaneos son más pequeños y el mantenimiento de índices es más barato.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to PostgreSQL Tuning](/es/guides/complete-guide-postgresql-tuning/).
 
 Usa este recurso cuando:
 - Una tabla crece más rápido que tu presupuesto de hardware.

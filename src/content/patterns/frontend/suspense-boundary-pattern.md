@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: suspense-boundary-pattern
 title: "Suspense Boundary: Declarative Loading States with React"
@@ -30,6 +31,7 @@ seo:
     - loading-states
     - ssr
     - pattern
+
 ---
 
 ## Overview
@@ -453,6 +455,9 @@ function App({ isPremium }) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Container-Presenter: Separate Data Logic from Rendering](/patterns/container-presenter-pattern/).
 
 - Place boundaries strategically — wrap the smallest unit that should independently show a loading state
 - Use nested boundaries — don't use one giant boundary for the whole page; let different sections load independently

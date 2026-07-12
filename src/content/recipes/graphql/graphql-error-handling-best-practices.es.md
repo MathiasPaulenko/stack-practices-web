@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-error-handling-best-practices
 title: "Errores GraphQL estructurados con codigos de extension"
@@ -15,9 +19,11 @@ tags:
   - api design
   - debugging
 relatedResources:
-  - /recipes/graphql/graphql-input-validation
-  - /recipes/api/graphql-apollo-server
-  - /recipes/api/handle-errors
+  - /recipes/graphql-input-validation
+  - /recipes/graphql-apollo-server
+  - /recipes/handle-errors
+  - /recipes/graphql-directives-auth
+  - /recipes/graphql-mocking-apollo-server
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - graphql error codes
     - structured errors
     - graphql formatError
+
+
+
+
 ---
 
 # Errores GraphQL estructurados con codigos de extension
@@ -35,6 +45,9 @@ seo:
 Los errores de GraphQL son solo objetos con un campo `message`. Sin estructura, los clientes recurren a comparar strings para determinar que fallo. Agregar `extensions.code` da a los clientes una categoria de error legible por maquina, mientras que campos adicionales de extension transportan contexto como detalles de validacion, hints de reintento o campos afectados. A continuacion se muestra como como construir un sistema de errores consistente en tu API GraphQL.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/es/recipes/graphql-n-1-query-detection/).
 
 - Cualquier API GraphQL consumida por multiples clientes (web, movil, terceros)
 - APIs donde los clientes necesitan manejar diferentes tipos de error programaticamente

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: canary-deployment-guide
 title: "Despliegue Canary: Rollouts Graduales con Controles de"
@@ -18,11 +22,13 @@ tags:
   - feature-flags
   - guia
 relatedResources:
-  - /guides/deployment/blue-green-deployment-guide
-  - /guides/deployment/feature-flags-guide
-  - /guides/deployment/a-b-testing-guide
-  - /guides/devops/sre-practices-guide
+  - /guides/blue-green-deployment-guide
+  - /guides/feature-flags-guide
+  - /guides/a-b-testing-guide
+  - /guides/sre-practices-guide
   - /guides/observability-guide
+  - /guides/cost-optimization-cloud-guide
+  - /docs/environment-configuration-template
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - rollback
     - feature-flags
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +54,9 @@ El despliegue canary libera una nueva versión primero a un pequeño subconjunto
 A continuación: división de tráfico, métricas de salud, promoción automatizada y estrategias de rollback.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/es/guides/blue-green-deployment-guide/).
 
 - Quieres reducir riesgo al desplegar nuevas capacidades
 - Tu servicio tiene suficiente tráfico para obtener métricas significativas de 1-5% de usuarios

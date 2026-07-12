@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: data-classification-template
 title: "Plantilla de Clasificación de Datos"
@@ -21,6 +24,8 @@ relatedResources:
   - /docs/data-retention-policy-template
   - /docs/api-security-review-template
   - /docs/security-audit-checklist-template
+  - /docs/penetration-test-remediation-template
+  - /docs/secrets-rotation-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -33,12 +38,18 @@ seo:
     - privacy
     - governance
     - template
+
+
+
 ---
 ## Visión General
 
 No todos los datos son iguales. Un post de blog de marketing público y el número de tarjeta de crédito de un cliente no merecen la misma protección, pero los equipos a menudo aplican cifrado y controles de acceso uniformes porque nadie definió la diferencia. La clasificación de datos crea un vocabulario compartido para el riesgo: los datos públicos pueden ser abiertos, los datos internos necesitan control de acceso, los datos confidenciales necesitan cifrado y los datos restringidos necesitan ambos: cifrado y acceso estricto de necesidad de saber. Sin clasificación, los ingenieros por defecto o sobreprotegen todo (desperdicio) o subprotegen todo (riesgo de brecha).
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Data Privacy and GDPR Compliance](/es/recipes/data-privacy-gdpr/).
 
 Usa este recurso cuando:
 - Estás diseñando una política de almacenamiento o control de acceso de datos y necesitas etiquetas consistentes

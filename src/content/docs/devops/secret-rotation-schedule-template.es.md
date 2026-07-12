@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: secret-rotation-schedule-template
 title: "Plantilla de Cronograma de Rotacion de Secretos"
@@ -15,9 +20,12 @@ tags:
   - api-keys
   - compliance
 relatedResources:
-  - /docs/devops/rbac-policy-template
-  - /docs/devops/access-control-review-template
-  - /docs/devops/encryption-key-lifecycle-template
+  - /docs/rbac-policy-template
+  - /docs/access-control-review-template
+  - /docs/encryption-key-lifecycle-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/endpoint-security-checklist-template
+  - /docs/user-access-audit-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - rotacion de certificados
     - rotacion de api keys
     - gestion de secretos
+
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +48,9 @@ seo:
 Una Plantilla de Cronograma de Rotacion de Secretos te ayuda a rastrear todos los secretos de tu organizacion, su frecuencia de rotacion, duenos y estado actual. Los secretos incluyen claves API, contrasenas, certificados TLS, tokens de firma, llaves de cifrado y credenciales de cuentas de servicio. Un cronograma claro reduce el riesgo de exposicion prolongada de secretos y facilita la respuesta a incidentes.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Complete Guide to Secrets Management](/es/guides/complete-guide-secrets-management/).
 
 - Para construir un inventario de todos los secretos de la organizacion.
 - Cuando se planifica una rotacion regular de credenciales.

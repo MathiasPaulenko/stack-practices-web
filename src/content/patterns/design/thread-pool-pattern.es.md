@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: thread-pool-pattern
 title: "Patrón Thread Pool"
@@ -17,9 +21,11 @@ tags:
   - resource-bounding
   - executor
 relatedResources:
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/actor-model-pattern
-  - /patterns/design/reactive-streams-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/reactive-streams-pattern
+  - /patterns/async-generator-pattern
+  - /patterns/lock-free-queue-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - reutilizacion threads concurrencia
     - executor service patron
     - patron diseno
+
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +46,9 @@ seo:
 Crear un thread es costoso. Cada thread asigna un stack (tipicamente 1MB), requiere setup a nivel kernel y anade overhead de scheduling. Cuando las tareas son cortas y frecuentes, crear un thread por tarea desperdicia recursos y puede agotar memoria bajo carga. El patron Thread Pool mantiene un conjunto fijo de threads trabajadores que toman tareas de una cola. Las tareas se envian al pool y las ejecuta el siguiente thread disponible.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Actor Model Pattern](/es/patterns/actor-model-pattern/).
 
 - Tienes muchas tareas cortas que se ejecutan concurrentemente
 - Crear un thread por tarea es demasiado costoso (alto throughput, corta duracion)

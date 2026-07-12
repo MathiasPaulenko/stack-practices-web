@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: queue-based-load-leveling-pattern
 title: "Patron de Nivelacion de Carga Basada en Colas"
@@ -19,9 +24,12 @@ tags:
   - backpressure
   - desacoplamiento
 relatedResources:
-  - /patterns/design/priority-queue-pattern
-  - /patterns/design/throttling-pattern
-  - /patterns/design/back-pressure-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/throttling-pattern
+  - /patterns/back-pressure-pattern
+  - /patterns/sequential-convoy-pattern
+  - /patterns/claim-check-pattern
+  - /patterns/scheduler-agent-supervisor-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +42,11 @@ seo:
     - nivelacion de carga
     - backpressure
     - desacoplamiento
+
+
+
+
+
 ---
 
 # Patron de Nivelacion de Carga Basada en Colas
@@ -45,6 +58,9 @@ El Patron de Nivelacion de Carga Basada en Colas introduce una cola de mensajes 
 Este desacoplamiento transforma cargas de trabajo impredecibles y con rafagas en flujos de procesamiento suaves y manejables. La cola actua como amortiguador: cuando hay un pico de trafico, los mensajes se acumulan en la cola en lugar de colapsar al consumidor. Cuando el trafico es bajo, la cola se vacia y los recursos pueden reducirse.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Sequential Convoy Pattern](/es/patterns/sequential-convoy-pattern/).
 
 - Los productores generan trabajo mas rapido de lo que los consumidores pueden procesar durante picos
 - Los servicios aguas abajo tienen limites estrictos de tasa o restricciones de capacidad

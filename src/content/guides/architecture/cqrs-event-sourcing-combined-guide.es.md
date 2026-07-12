@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: cqrs-event-sourcing-combined-guide
 title: "CQRS + Event Sourcing — Guía Combinada"
@@ -21,7 +27,11 @@ tags:
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/data-mesh-guide
-  - /patterns/design/saga-pattern
+  - /patterns/saga-pattern
+  - /guides/complete-guide-event-sourcing-cqrs
+  - /recipes/outbox-pattern-transactional-events
+  - /guides/cqrs-guide
+  - /guides/event-sourcing-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - eventual-consistency
     - event-store
     - guia
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -41,6 +57,9 @@ seo:
 CQRS (Command Query Responsibility Segregation) y Event Sourcing se usan frecuentemente juntos pero resuelven problemas diferentes. CQRS separa operaciones de lectura y escritura en modelos optimizados para cada una. Event Sourcing almacena cambios de estado como una secuencia de eventos en lugar de sobrescribir el estado actual. Combinados, crean un patrón capaz donde el modelo de escritura agrega eventos, el modelo de lectura proyecta esos eventos en vistas consultables, y el sistema puede reconstruir cualquier estado pasado reproduciendo el log de eventos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Implement Event Sourcing with CQRS in Python](/es/recipes/event-sourcing-cqrs-pattern/).
 
 - Dominios complejos donde auditar cada cambio de estado es requerido
 - Las cargas de lectura y escritura tienen patrones de acceso fundamentalmente diferentes

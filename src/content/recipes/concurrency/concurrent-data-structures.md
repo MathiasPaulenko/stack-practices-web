@@ -1,4 +1,5 @@
-﻿---
+---
+
 contentType: recipes
 slug: concurrent-data-structures
 title: "Use Concurrent Data Structures for Thread-Safe Collections"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/thread-pools
   - /recipes/async-patterns
   - /recipes/microservices-patterns
+  - /recipes/csp-communication
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - blocking queue
     - concurrent hash map
     - producer consumer
+
 ---
 
 ## Overview

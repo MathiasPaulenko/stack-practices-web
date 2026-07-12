@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: serverless-warm-pool-pattern
 title: "Serverless Warm Pool Pattern"
@@ -19,9 +22,10 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-throttling-pattern
-  - /patterns/design/serverless-function-composition-pattern
-  - /recipes/serverless/aws-lambda-cold-start-optimization
+  - /patterns/serverless-throttling-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /recipes/aws-lambda-cold-start-optimization
+  - /patterns/serverless-db-connection-pooling-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - eventbridge scheduler
     - provisioned concurrency
     - lambda ping keep warm
+
+
+
 ---
 
 # Serverless Warm Pool Pattern
@@ -274,6 +281,9 @@ Provisioned concurrency is the managed alternative. AWS keeps a specified number
 | API Gateway warmup | Endpoint that triggers warmup on first request | Low | On-demand warmup |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Serverless Event Sourcing Pattern](/patterns/serverless-event-sourcing-pattern/).
 
 - **Set the ping interval to 3-5 minutes** — Lambda environments expire after 5-15 minutes of inactivity. Ping every 5 minutes to keep environments warm. Pinging more frequently wastes invocations.
 - **Use async invocations for pings** — set `InvocationType: 'Event'` so the warmup function does not wait for the target to respond. This reduces warmup function execution time and cost.

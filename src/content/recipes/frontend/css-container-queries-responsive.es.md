@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: css-container-queries-responsive
 title: "Container Queries para Responsiveness de Componentes"
@@ -15,9 +21,13 @@ tags:
   - layout
   - recipe
 relatedResources:
-  - /recipes/frontend/css-custom-properties-design-tokens
-  - /recipes/frontend/css-dark-mode-prefers-color-scheme
-  - /recipes/frontend/react-usememo-usecallback-performance
+  - /recipes/css-custom-properties-design-tokens
+  - /recipes/css-dark-mode-prefers-color-scheme
+  - /recipes/react-usememo-usecallback-performance
+  - /recipes/react-virtual-list-react-window
+  - /recipes/svelte-store-reactive-state
+  - /recipes/vue-composition-api-fetch
+  - /guides/complete-guide-accessibility-wcag
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +39,12 @@ seo:
     - responsive
     - layout
     - recipe
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -356,6 +372,9 @@ function App() {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CSS Grid and Flexbox](/es/guides/complete-guide-css-grid-and-flexbox/).
 
 - Usa `container-type: inline-size` para la mayoría de los casos — responde al ancho, que es lo que usualmente necesitas
 - Usa containers nombrados (`container-name`) cuando los componentes están anidados y necesitas targetear un ancestor específico

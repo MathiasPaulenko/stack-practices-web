@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: singleton-pattern-recipe
 title: "Ensure a Single Instance with the Singleton Pattern"
@@ -18,6 +20,8 @@ relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/unit-testing-mocking
   - /recipes/locks-and-mutexes
+  - /recipes/adapter-pattern-recipe
+  - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - lazy initialization
     - thread safe singleton
     - global state
+
+
 ---
 
 ## Overview

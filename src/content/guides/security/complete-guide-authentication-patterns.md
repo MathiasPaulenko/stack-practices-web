@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-authentication-patterns
 title: "Complete Guide to Authentication Patterns"
@@ -19,9 +23,11 @@ tags:
   - mfa
   - sso
 relatedResources:
-  - /guides/security/complete-guide-owasp-top-10-2025
-  - /guides/security/complete-guide-api-security
-  - /guides/security/complete-guide-secrets-management
+  - /guides/complete-guide-owasp-top-10-2025
+  - /guides/complete-guide-api-security
+  - /guides/complete-guide-secrets-management
+  - /recipes/graphql-directives-auth
+  - /recipes/serverless-api-gateway-lambda-authorizer
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +41,10 @@ seo:
     - multi factor auth
     - refresh tokens
     - rbac abac
+
+
+
+
 ---
 
 ## Introduction
@@ -696,3 +706,12 @@ RBAC (Role-Based Access Control) assigns permissions to roles, and users get per
 ### How do I implement secure logout?
 
 For JWT: add the token JTI to a revocation list in Redis with TTL equal to the token's remaining lifetime. For sessions: delete the session from Redis and clear the cookie. Always call `destroy_all_sessions` for "logout everywhere" functionality. Clear both access and refresh tokens on the client. Set cookie expiration to the past. Use `SameSite=Strict` to prevent logout CSRF.
+
+## See Also
+
+- [OAuth2 and OIDC: Authorization Code, PKCE, Token Validation](/guides/complete-guide-oauth2-oidc-production/)
+- [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/)
+- [API Security Checklist — Authentication to Encryption](/guides/api-security-checklist-guide/)
+- [Federated Identity Pattern](/patterns/federated-identity-pattern/)
+- [Implement OAuth 2.0 PKCE for Single-Page Applications](/recipes/oauth2-pkce-spa/)
+

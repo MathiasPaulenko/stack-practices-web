@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-n-1-query-detection
 title: "Detect and Fix N+1 Queries in GraphQL Resolvers"
@@ -16,9 +20,11 @@ tags:
   - dataloader
   - debugging
 relatedResources:
-  - /recipes/graphql/graphql-dataloader-batching
-  - /recipes/api/graphql-apollo-server
-  - /recipes/databases/postgres-query-optimization
+  - /recipes/graphql-dataloader-batching
+  - /recipes/graphql-apollo-server
+  - /recipes/postgres-query-optimization
+  - /patterns/graphql-batched-resolver-pattern
+  - /patterns/graphql-dataloader-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - graphql performance
     - dataloader
     - graphql debugging
+
+
+
+
 ---
 
 # Detect and Fix N+1 Queries in GraphQL Resolvers
@@ -264,6 +274,9 @@ prisma.$use(async (params, next) => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Batch and Cache Database Queries with GraphQL DataLoader](/recipes/graphql-dataloader-batching/).
 
 - **Log query counts in development** — catch N+1 before it reaches staging
 - **Use DataLoader for every relation** — even if you think a list will always have one item

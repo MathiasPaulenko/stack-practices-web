@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-authentication-design-template
 templateType: guideline
@@ -16,9 +19,10 @@ tags:
   - token-lifecycle
   - authorization
 relatedResources:
-  - /docs/security/owasp-top-10-remediation-checklist
-  - /docs/security/secrets-rotation-runbook
-  - /docs/security/security-review-checklist-for-prs
+  - /docs/owasp-top-10-remediation-checklist
+  - /docs/secrets-rotation-runbook
+  - /docs/security-review-checklist-for-prs
+  - /docs/dependency-vulnerability-triage-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - api security
     - bearer token
     - mfa implementation
+
+
+
 ---
 
 ## Overview
@@ -380,6 +387,9 @@ def validate_access_token(token: str) -> dict:
 ---
 
 ## 7. Security Best Practices
+
+
+- For a deeper guide, see [OAuth2 and OIDC: Authorization Code, PKCE, Token Validation](/guides/complete-guide-oauth2-oidc-production/).
 
 ### 7.1 Checklist
 

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: cache-aside-pattern
 title: "Patrón Cache-Aside"
@@ -18,9 +23,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/retry-pattern
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/singleton-pattern
+  - /patterns/retry-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/singleton-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/two-level-cache-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +43,11 @@ seo:
     - python cache
     - java cache
     - javascript cache
+
+
+
+
+
 ---
 
 # Patrón Cache-Aside

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-strangler-fig-migration
 title: "Strangler Fig Migration: Incremental Legacy Replacement"
@@ -16,9 +18,9 @@ tags:
   - routing
   - api-gateway
 relatedResources:
-  - /guides/architecture/complete-guide-modular-monolith
-  - /guides/architecture/complete-guide-api-gateway-pattern
-  - /patterns/architecture/strangler-fig-pattern
+  - /guides/complete-guide-modular-monolith
+  - /guides/complete-guide-api-gateway-pattern
+  - /patterns/strangler-fig-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -32,6 +34,8 @@ seo:
     - feature flags
     - data synchronization
     - rollback strategy
+
+
 ---
 
 ## Introduction
@@ -415,6 +419,9 @@ Phase 5: Decommission
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [API Gateway Design: Resilience, Routing, and Security](/guides/api-gateway-design-guide/).
 
 - Start with read-only endpoints — lower risk than writes, easier to compare
 - Use shadow traffic before canary — validate the new system without affecting users

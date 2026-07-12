@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: nodejs-winston-daily-rotate
 title: "Rotar Logs Diariamente con Winston"
@@ -15,9 +17,9 @@ tags:
   - rotation
   - recipe
 relatedResources:
-  - /recipes/observability/nodejs-pino-fast-logging
-  - /recipes/observability/nodejs-sentry-error-tracking
-  - /recipes/observability/python-structured-logging-json
+  - /recipes/nodejs-pino-fast-logging
+  - /recipes/nodejs-sentry-error-tracking
+  - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +31,8 @@ seo:
     - logging
     - rotation
     - recipe
+
+
 ---
 
 ## Overview
@@ -355,6 +359,9 @@ const logger = winston.createLogger({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [High-Performance Logging with pino](/es/recipes/nodejs-pino-fast-logging/).
 
 - Usa `zippedArchive: true` para comprimir logs viejos — ahorra disk space
 - Setea `maxFiles` con un sufijo de duración (`14d`, `30d`) para retención basada en tiempo

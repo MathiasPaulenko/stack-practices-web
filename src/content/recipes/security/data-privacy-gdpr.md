@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: data-privacy-gdpr
 title: "Data Privacy and GDPR Compliance"
@@ -19,6 +20,7 @@ relatedResources:
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
   - /docs/security-incident-response-template
+  - /guides/compliance-gdpr-guide
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +30,7 @@ seo:
     - privacy
     - compliance
     - data-protection
+
 ---
 ## Overview
 

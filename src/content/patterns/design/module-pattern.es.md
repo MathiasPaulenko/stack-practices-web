@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: module-pattern
 title: "Patrón Module"
@@ -16,9 +20,11 @@ tags:
   - javascript
   - scope
 relatedResources:
-  - /patterns/design/facade-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/repository-pattern
+  - /patterns/facade-pattern
+  - /patterns/singleton-pattern
+  - /patterns/repository-pattern
+  - /patterns/mixin-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +36,10 @@ seo:
     - javascript module
     - private state
     - iife
+
+
+
+
 ---
 
 # Patrón Module
@@ -41,6 +51,9 @@ El Patrón Module encapsula variables y funciones privadas dentro de una unidad 
 En JavaScript antes de ES6, esto se lograba con Immediately Invoked Function Expressions (IIFE). Los lenguajes modernos proveen módulos nativos (ES modules, paquetes Python, paquetes Java), pero la idea central del patrón — ocultar internals y exponer interfaces — sigue siendo fundamental.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Adapter Pattern](/es/patterns/adapter-pattern/).
 
 Usa el Patrón Module cuando:
 - Necesitas estado privado al que no se puede acceder desde fuera del módulo

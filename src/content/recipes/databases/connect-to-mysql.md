@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: connect-to-mysql
 title: "Connect to MySQL"
@@ -20,6 +23,8 @@ relatedResources:
   - /patterns/adapter-pattern
   - /patterns/ambassador-pattern
   - /patterns/bridge-pattern
+  - /recipes/connect-to-redis
+  - /recipes/execute-raw-sql
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - javascript
     - java
     - jdbc
+
+
+
 ---
 ## Overview
 
@@ -326,6 +334,9 @@ with get_db() as conn:
 | Go | `go-sql-driver/mysql` | Yes | `database/sql` | Standard Go driver |
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Connect to PostgreSQL](/recipes/connect-to-postgresql/).
 
 6. **Set `enableKeepAlive` in mysql2.** This prevents idle connections from being dropped by network infrastructure or MySQL's `wait_timeout`:
 

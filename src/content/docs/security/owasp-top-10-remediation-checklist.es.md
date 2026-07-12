@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: owasp-top-10-remediation-checklist
 templateType: guideline
@@ -16,9 +20,11 @@ tags:
   - compliance
   - web-security
 relatedResources:
-  - /docs/security/secrets-rotation-runbook
-  - /docs/security/dependency-vulnerability-triage-template
-  - /docs/security/api-authentication-design-template
+  - /docs/secrets-rotation-runbook
+  - /docs/dependency-vulnerability-triage-template
+  - /docs/api-authentication-design-template
+  - /docs/penetration-test-remediation-template
+  - /docs/security-review-checklist-for-prs
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +37,10 @@ seo:
     - injection prevention
     - xss prevention
     - broken authentication
+
+
+
+
 ---
 
 ## Overview
@@ -452,3 +462,12 @@ Usa los three. SAST (Static Analysis) catchea issues at code level antes de depl
 ### ¿Qué tools deberia usar para automated scanning?
 
 Para dependency scanning: Dependabot (GitHub), Snyk, o OWASP Dependency-Check. Para SAST: SonarQube, Semgrep, o CodeQL. Para DAST: OWASP ZAP o Burp Suite. Para infrastructure scanning: Scout Suite (AWS), Prowler (AWS), o Trivy (containers). Para secrets scanning: GitLeaks o TruffleHog. Integra all en CI/CD con quality gates que blockeen deployment on critical findings. Corre infrastructure scans daily y reviewa results weekly.
+
+## See Also
+
+- [Complete Guide to OWASP Top 10 2025](/es/guides/complete-guide-owasp-top-10-2025/)
+- [Penetration Test Remediation Template](/es/docs/penetration-test-remediation-template/)
+- [Security Best Practices Guide](/es/guides/security-best-practices-guide/)
+- [Implement Encryption at Rest for Databases and File Storage](/es/recipes/encryption-at-rest/)
+- [API Security Checklist — Authentication to Encryption](/es/guides/api-security-checklist-guide/)
+

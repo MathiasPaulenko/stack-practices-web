@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: serverless-event-driven-sqs-lambda
 title: "Event-Driven Lambda with SQS Triggers and Batch Processing"
@@ -16,10 +19,11 @@ tags:
   - event-driven
   - batch-processing
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/domain-driven-design-guide
+  - /recipes/serverless-step-functions-workflow
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - sqs batch processing
     - partial batch response
     - sqs dead letter queue
+
+
+
 ---
 
 ## Overview
@@ -340,6 +347,9 @@ ProcessFunction:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Serverless Architecture — Patterns and Anti-Patterns](/guides/serverless-architecture-guide/).
 
 - **Use `ReportBatchItemFailures`**: Without it, a single failed message rejects the entire batch, causing reprocessing of successful messages. Always return partial batch responses.
 - **Set visibility timeout to 6x Lambda timeout**: If Lambda times out, the message should remain hidden long enough for the next retry attempt.

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: serverless-security-checklist
 templateType: penetration-test
@@ -16,9 +18,9 @@ tags:
   - checklist
   - compliance
 relatedResources:
-  - /docs/serverless/serverless-function-deployment-checklist
-  - /docs/serverless/serverless-cost-estimation-template
-  - /docs/serverless/serverless-cold-start-runbook
+  - /docs/serverless-function-deployment-checklist
+  - /docs/serverless-cost-estimation-template
+  - /docs/serverless-cold-start-runbook
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - function security
     - serverless compliance
     - serverless vulnerabilities
+
+
 ---
 
 ## Overview
@@ -447,3 +451,12 @@ Usa Snyk o Dependabot para dependency scanning. Usa AWS Config rules para IAM y 
 ### ¿Cómo securitizo environment variables en serverless functions?
 
 Usa AWS SSM Parameter Store (free, encrypted con KMS) para non-secret configuration. Usa AWS Secrets Manager para secrets (automatic rotation, audit logging). Nunca stores secrets en plaintext environment variables — son visible en el AWS console y CloudFormation templates. Usa Lambda environment variable encryption con un custom KMS key. Accede secrets at runtime via el SDK, no via environment variables. Cachea secret values para avoid repeated API calls.
+
+## See Also
+
+- [Complete Guide to AWS Lambda in Production](/es/guides/complete-guide-aws-lambda-production/)
+- [Serverless Function Deployment Checklist](/es/docs/serverless-function-deployment-checklist/)
+- [Complete Guide to Serverless Architecture](/es/guides/complete-guide-serverless-architecture/)
+- [Minimize Cold Start Latency in Serverless Functions](/es/recipes/cold-start-optimization/)
+- [Build Event-Driven Serverless Architectures](/es/recipes/event-driven-functions/)
+

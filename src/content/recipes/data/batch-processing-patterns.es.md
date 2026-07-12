@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: batch-processing-patterns
 title: "Patrones de Procesamiento por Lotes"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/date-formatting
   - /recipes/deep-clone-javascript
   - /recipes/flatten-unflatten-objects
+  - /recipes/deep-clone-structured
+  - /recipes/uuid-generation-strategies
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - data
     - performance
     - architecture
+
+
 ---
 ## Visión General
 

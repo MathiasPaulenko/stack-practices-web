@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: software-architecture-guide
 title: "Software Architecture Guide"
@@ -16,10 +20,13 @@ tags:
   - monolith
   - scalability
 relatedResources:
-  - /patterns/design/mvc-pattern
-  - /patterns/design/repository-pattern
-  - /guides/api/rest-api-design-guide
-  - /guides/devops/cicd-pipeline-guide
+  - /patterns/mvc-pattern
+  - /patterns/repository-pattern
+  - /guides/rest-api-design-guide
+  - /guides/cicd-pipeline-guide
+  - /recipes/microservices-communication
+  - /recipes/service-discovery
+  - /guides/domain-driven-design-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +38,10 @@ seo:
     - cqrs pattern
     - event driven architecture
     - system design
+
+
+
+
 ---
 
 ## Overview

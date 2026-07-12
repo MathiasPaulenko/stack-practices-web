@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: state-pattern
 title: "Patrón State"
@@ -18,9 +21,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/strategy-pattern
-  - /patterns/design/command-pattern
-  - /patterns/design/observer-pattern
+  - /patterns/strategy-pattern
+  - /patterns/command-pattern
+  - /patterns/observer-pattern
+  - /patterns/mediator-pattern
+  - /patterns/memento-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +38,9 @@ seo:
     - python state
     - java state machine
     - javascript state machine
+
+
+
 ---
 
 # Patrón State

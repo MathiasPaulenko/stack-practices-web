@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: chatbot-openai
 title: "Create a Chatbot with OpenAI Assistants API"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/llm-fine-tuning
   - /guides/software-architecture-guide
   - /guides/event-driven-architecture-guide
+  - /recipes/ai-agents-tool-use
+  - /recipes/image-generation
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - llm
     - conversation
     - ai
+
+
 ---
 ## Overview
 

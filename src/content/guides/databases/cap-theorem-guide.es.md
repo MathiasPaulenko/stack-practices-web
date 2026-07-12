@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: cap-theorem-guide
 title: "Teorema CAP y Trade-offs de Bases de Datos"
@@ -18,9 +23,13 @@ tags:
   - tolerancia-a-particiones
   - tradeoffs-base-de-datos
 relatedResources:
-  - /guides/databases/nosql-database-selection-guide
-  - /guides/databases/database-sharding-partitioning-guide
-  - /guides/architecture/microservices-architecture-guide
+  - /guides/nosql-database-selection-guide
+  - /guides/database-sharding-partitioning-guide
+  - /guides/microservices-architecture-guide
+  - /recipes/microservices-communication
+  - /recipes/retry-backoff
+  - /recipes/workflow-engine
+  - /recipes/database-deadlocks-retries
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - trade offs base de datos
     - acid vs base
     - consistencia eventual
+
+
+
+
+
 ---
 
 # Teorema CAP y Trade-offs de Bases de Datos

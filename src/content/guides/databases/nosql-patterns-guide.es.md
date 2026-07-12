@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: nosql-patterns-guide
 title: "Patrones de Modelado NoSQL"
@@ -22,6 +25,8 @@ relatedResources:
   - /guides/database-design-guide
   - /guides/time-series-database-guide
   - /guides/graph-database-guide
+  - /guides/acid-vs-base-guide
+  - /guides/vector-database-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +40,9 @@ seo:
     - modelado-datos
     - embebido
     - guia
+
+
+
 ---
 
 ## Overview
@@ -42,6 +50,9 @@ seo:
 Las bases de datos NoSQL abandonan el modelo rigido de tabla-fila en favor de esquemas flexibles optimizados para patrones de acceso especificos. Almacenes de documentos (MongoDB), clave-valor (Redis), columnas anchas (Cassandra, DynamoDB) y grafos (Neo4j) tienen principios de modelado diferentes. La regla clave: modela para tus consultas, no para entidades normalizadas. Comienza con los patrones de lectura y escritura que tu aplicacion necesita, luego disena el esquema para soportarlos eficientemente.
 
 ## When to Use
+
+
+- For alternatives, see [NoSQL Database Selection — MongoDB, DynamoDB, Cassandra](/es/guides/nosql-database-selection-guide/).
 
 - El esquema evoluciona frecuentemente y no puede migrarse facilmente
 - Los patrones de lectura son bien conocidos y deben servirse en una sola consulta

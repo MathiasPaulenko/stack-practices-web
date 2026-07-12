@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: java-completable-future-composition
 title: "Componer Pipelines Asincronos con Java CompletableFuture"
@@ -16,10 +21,13 @@ tags:
   - concurrency
   - composition
 relatedResources:
-  - /recipes/concurrency/python-asyncio-gather-task-groups
-  - /recipes/concurrency/python-thread-pool-executor
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-thread-pool-executor
   - /guides/concurrency-patterns-guide
   - /guides/complete-guide-graphql-federation
+  - /recipes/csharp-async-await-task-run
+  - /recipes/go-goroutines-channels-patterns
+  - /recipes/java-virtual-threads-project-loom
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - java async pipeline
     - completablefuture allOf
     - java non-blocking composition
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 `CompletableFuture` es el primitivo async componible de Java. Encadena operaciones, combina multiples futures, maneja errores declarativamente y ejecuta en thread pools configurables. A continuacion: composicion secuencial con `thenCompose`, combinacion paralela con `thenCombine` y `allOf`, recuperacion de errores con `exceptionally` y `handle`, timeouts y executors personalizados.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/es/recipes/python-asyncio-gather-task-groups/).
 
 - Llamadas a API a multiples servicios que necesitan agregacion
 - Pipelines async multi-paso (fetch → transform → persist)

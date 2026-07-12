@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: generate-test-data
 title: "Generate Test Data"
@@ -17,9 +21,11 @@ tags:
   - java
   - recipe
 relatedResources:
-  - /recipes/testing/setup-test-fixtures
-  - /recipes/testing/measure-test-coverage
+  - /recipes/setup-test-fixtures
+  - /recipes/measure-test-coverage
   - /patterns/factory-pattern
+  - /recipes/python-hypothesis-property-testing
+  - /recipes/implement-property-based-testing
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - javascript
     - java
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -40,6 +50,9 @@ seo:
 Hardcoded test data (`name = "John"`, `email = "test@test.com"`) quickly becomes stale, fails to expose edge cases, and does not represent production data distributions. Generators produce realistic, varied, and deterministic data that makes tests more reliable while reducing manual fixture maintenance.
 
 ## When to Use
+
+
+- For alternatives, see [JUnit5 Soft Assertions with AssertJ](/recipes/java-junit5-assertions-soft/).
 
 - You maintain dozens of hardcoded test objects that drift from the production schema
 - Edge cases (empty strings, Unicode, very long values) are never tested because they are tedious to write

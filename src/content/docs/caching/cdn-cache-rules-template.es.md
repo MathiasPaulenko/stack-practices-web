@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: cdn-cache-rules-template
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - edge-computing
   - performance
 relatedResources:
-  - /docs/caching/cache-strategy-decision-template
-  - /docs/caching/cache-warmup-runbook
-  - /docs/caching/cache-eviction-policy-template
+  - /docs/cache-strategy-decision-template
+  - /docs/cache-warmup-runbook
+  - /docs/cache-eviction-policy-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - cache purge
     - origin shield
     - cdn ttl
+
+
 ---
 
 ## Overview
@@ -358,3 +362,12 @@ Usa purge-by-tag para granular control o purge-everything para simplicity. Para 
 ### ¿Cuál es la diferencia entre edge TTL y browser TTL?
 
 Edge TTL (`s-maxage` o `CDN-Cache-Control`) controla cuanto tiempo el CDN cachea el response. Browser TTL (`max-age`) controla cuanto tiempo el browser del user cachea el response. Para HTML pages, setea edge TTL a 300s y browser TTL a 0 (always revalidate). Para versioned assets, setea ambos a 1 year. El edge TTL deberia siempre ser shorter que o equal al browser TTL para content que cambia.
+
+## See Also
+
+- [Complete Guide to CDN Caching Strategy](/es/guides/complete-guide-cdn-caching-strategy/)
+- [CDN Cache Invalidation Strategies and Patterns](/es/recipes/cdn-cache-invalidation-strategies/)
+- [Complete Guide to GraphQL Caching](/es/guides/complete-guide-graphql-caching/)
+- [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/)
+- [Read-Through Cache Pattern](/es/patterns/read-through-cache-pattern/)
+

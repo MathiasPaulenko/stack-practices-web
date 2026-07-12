@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: serverless-cost-estimation-template
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - budgeting
   - optimization
 relatedResources:
-  - /docs/serverless/serverless-function-deployment-checklist
-  - /docs/serverless/serverless-cold-start-runbook
-  - /docs/serverless/serverless-security-checklist
+  - /docs/serverless-function-deployment-checklist
+  - /docs/serverless-cold-start-runbook
+  - /docs/serverless-security-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - aws lambda cost
     - serverless optimization
     - gb-seconds
+
+
 ---
 
 ## Overview
@@ -301,3 +305,12 @@ Use AWS Budgets to set cost alerts at 50%, 75%, and 100% of your monthly budget.
 ### How do I estimate costs for Step Functions workflows?
 
 Step Functions charges per state transition. Standard workflows cost $0.025 per 1,000 transitions. Express workflows cost $1.00 per 1M invocations plus $0.03 per 1K GB-seconds. For a workflow with 5 steps running 100K times/month, standard costs $12.50/month. Express costs $0.10/month for invocations plus compute charges. Use standard for long-running workflows (> 5 minutes) and express for short, high-volume workflows.
+
+## See Also
+
+- [Serverless Cold Start Runbook](/docs/serverless-cold-start-runbook/)
+- [Complete Guide to AWS Lambda in Production](/guides/complete-guide-aws-lambda-production/)
+- [Complete Guide to Serverless Architecture](/guides/complete-guide-serverless-architecture/)
+- [Minimize Cold Start Latency in Serverless Functions](/recipes/cold-start-optimization/)
+- [Build Event-Driven Serverless Architectures](/recipes/event-driven-functions/)
+

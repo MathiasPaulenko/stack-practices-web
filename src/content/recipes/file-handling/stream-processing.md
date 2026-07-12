@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: stream-processing
 title: "Process Large Files with Streams"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/read-write-file
   - /recipes/import-csv-excel
   - /recipes/image-optimization
+  - /recipes/compression-gzip
+  - /recipes/read-large-files
+  - /recipes/watch-file-changes
+  - /recipes/write-large-files
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,10 @@ seo:
     - python streams
     - nodejs streams
     - java streams
+
+
+
+
 ---
 
 ## Overview

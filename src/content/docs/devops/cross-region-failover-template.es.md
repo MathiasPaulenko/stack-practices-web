@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: cross-region-failover-template
 title: "Plantilla de Prueba de Failover Cross-Region"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/deployment-checklist-template
   - /docs/api-status-page-template
+  - /docs/bug-triage-template
+  - /docs/network-security-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - multi-region
     - disponibilidad
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Los desastres no respetan tu horario de oficina. Cortes regionales, cortes de fibra óptica y eventos climáticos pueden dejar toda una región de nube indisponible. Un plan de failover cross-region que existe solo en papel fallará cuando más lo necesites. Esta plantilla estructura un procedimiento de DR realista y testeable que tu equipo puede ejecutar bajo presión.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/es/guides/disaster-recovery-guide/).
 
 Usa este recurso cuando:
 - Tu SLA requiere > 99.9% de disponibilidad y una sola región es un punto único de fallo

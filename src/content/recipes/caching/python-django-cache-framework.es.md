@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-django-cache-framework
 title: "Cachear Consultas de Base de Datos con Django Cache"
@@ -16,9 +19,10 @@ tags:
   - redis
   - database-optimization
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/python-memcached-session-storage
+  - /recipes/python-redis-cache-decorator
+  - /recipes/python-memcached-session-storage
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/database-query-result-caching
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - django redis cache
     - per-view caching
     - template fragment cache
+
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +43,9 @@ seo:
 Django incluye un framework de cache que soporta multiples backends (Memcached, Redis, base de datos, archivo, memoria local) y cuatro niveles de caching: por-sitio, por-vista, fragmento de template y API de bajo nivel. El framework abstrae el backend para que puedas cambiar de memoria local a Redis sin cambiar codigo de aplicacion. A continuacion: configurar un backend Redis, cachear respuestas de vistas, fragmentos de template, resultados de consultas individuales y patrones de invalidacion de cache.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Cache Database Query Results with Redis and Python](/es/recipes/database-query-result-caching/).
 
 - Aplicaciones Django con consultas de base de datos costosas o rendering de vistas lento
 - Paginas con contenido que cambia infrecuentemente (catalogos de productos, blog posts, dashboards)

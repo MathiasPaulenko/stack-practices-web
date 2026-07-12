@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: postmortem-incident-review-template
 title: "Postmortem Incident Review Template"
@@ -15,9 +18,10 @@ tags:
   - sre
   - reliability
 relatedResources:
-  - /docs/devops/incident-communication-template
-  - /docs/devops/incident-timeline-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/incident-communication-template
+  - /docs/incident-timeline-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +32,9 @@ seo:
     - blameless postmortem
     - root cause analysis
     - sre practices
+
+
+
 ---
 
 ## Overview
@@ -35,6 +42,9 @@ seo:
 Every outage is a lesson that someone will repeat unless it is written down. Postmortems are not about blame — they are about understanding how a system with good people and good intentions still failed. A well-run postmortem reconstructs what happened, identifies the chain of events that led to failure, and produces concrete actions that make the next incident less likely or less severe.
 
 ## When to Use
+
+
+- For alternatives, see [Blameless Postmortems: Learning from Incidents Without Blame](/guides/postmortem-guide/).
 
 Use this template when:
 - A service-impacting incident has been resolved

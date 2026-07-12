@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: redis-sorted-set-leaderboard
 title: "Construir un leaderboard en tiempo real con Redis Sorted"
@@ -15,9 +19,9 @@ tags:
   - real-time
   - data structures
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/redis-pubsub-messaging
-  - /patterns/caching/concurrent-data-structures
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-pubsub-messaging
+  - /recipes/redis-rate-limiting-token-bucket
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,10 @@ seo:
     - zadd zrevrange
     - real-time ranking
     - redis data structures
+
+
+
+
 ---
 
 # Construir un leaderboard en tiempo real con Redis Sorted Sets
@@ -35,6 +43,9 @@ seo:
 Los sorted sets de Redis (ZSETs) almacenan miembros unicos ordenados por puntaje. Son la estructura de datos ideal para leaderboards — puedes actualizar un puntaje, obtener un ranking y consultar el top N de jugadores en tiempo logaritmico. Esta receta construye un servicio de leaderboard con actualizacion de puntajes, consultas de ranking y paginacion.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Leaderboards de juegos con actualizaciones de puntaje en tiempo real
 - Sistemas de ranking para popularidad de contenido o actividad de usuario

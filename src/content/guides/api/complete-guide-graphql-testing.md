@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-testing
 title: "Complete Guide to GraphQL Testing"
@@ -19,9 +25,13 @@ tags:
   - resolver-testing
   - snapshot-testing
 relatedResources:
-  - /guides/api/complete-guide-graphql-schema-design
-  - /guides/api/complete-guide-graphql-security
-  - /guides/api/complete-guide-graphql-caching
+  - /guides/complete-guide-graphql-schema-design
+  - /guides/complete-guide-graphql-security
+  - /guides/complete-guide-graphql-caching
+  - /guides/complete-guide-junit5-modern-testing
+  - /recipes/graphql-mocking-apollo-server
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - graphql mocking
     - graphql snapshot testing
     - graphql performance testing
+
+
+
+
+
+
 ---
 
 ## Introduction
@@ -646,3 +662,12 @@ it("receives subscription updates", (done) => {
   createPostViaMutation();
 });
 ```
+
+## See Also
+
+- [Mock GraphQL Resolvers for Frontend Development](/recipes/graphql-mocking-apollo-server/)
+- [GraphQL Federation in Production](/guides/complete-guide-graphql-federation-production/)
+- [Complete Guide to GraphQL Federation](/guides/complete-guide-graphql-federation/)
+- [Complete Guide to GraphQL Schema Design](/guides/complete-guide-graphql-schema-design/)
+- [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/)
+

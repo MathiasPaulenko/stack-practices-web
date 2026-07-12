@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: async-generator-pattern
 title: "Async Generator Pattern"
@@ -17,9 +22,12 @@ tags:
   - async-iteration
   - backpressure
 relatedResources:
-  - /patterns/design/reactive-streams-pattern
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/thread-pool-pattern
+  - /patterns/reactive-streams-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/thread-pool-pattern
+  - /guides/complete-guide-go-concurrency
+  - /guides/complete-guide-java-concurrency
+  - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - lazy async iteration
     - streaming data python
     - pattern design
+
+
+
+
+
 ---
 
 ## Overview
@@ -207,6 +220,9 @@ The pattern also provides natural **backpressure**. If the consumer is slow, it 
 This pull-based model means the generator never produces data faster than the consumer can handle. Memory usage stays constant regardless of data volume.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Reactive Streams Pattern](/patterns/reactive-streams-pattern/).
 
 - **Yield batches, not individual items.** If you fetch 100 items per API page, yield all 100 as a list. This reduces the number of async context switches and improves throughput.
 - **Use context managers for resource cleanup.** Wrap HTTP sessions, database connections, and file handles in `async with` blocks. This guarantees cleanup even if the consumer breaks early.

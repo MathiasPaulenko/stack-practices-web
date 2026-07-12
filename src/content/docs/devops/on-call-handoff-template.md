@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: on-call-handoff-template
 title: "On-Call Handoff Template"
@@ -16,10 +18,10 @@ tags:
   - sre
   - template
 relatedResources:
-  - /docs/devops/incident-communication-template
-  - /docs/devops/incident-timeline-template
-  - /docs/devops/escalation-policy-template
-  - /docs/devops/downtime-communication-template
+  - /docs/incident-communication-template
+  - /docs/incident-timeline-template
+  - /docs/escalation-policy-template
+  - /docs/downtime-communication-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +32,8 @@ seo:
     - incident handoff
     - sre template
     - on call template
+
+
 ---
 
 ## Overview
@@ -37,6 +41,9 @@ seo:
 Poor on-call handoffs are a leading cause of incident escalation. When context is lost between shifts, the incoming engineer wastes precious minutes re-discovering what the outgoing engineer already knew. This template standardizes the handoff process, ensuring critical information about active incidents, ongoing alerts, and system state is transferred completely and consistently.
 
 ## When to Use
+
+
+- For alternatives, see [Incident Communication Template](/docs/incident-communication-template/).
 
 Use this template when:
 - Transferring on-call responsibility between shifts or team members

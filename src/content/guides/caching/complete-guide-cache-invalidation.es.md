@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-cache-invalidation
 title: "Referencia Detallada de Invalidation de Cache"
@@ -19,9 +21,9 @@ tags:
   - tag-based
   - consistency
 relatedResources:
-  - /guides/caching/complete-guide-redis-caching-strategies
-  - /guides/caching/complete-guide-application-level-caching
-  - /guides/caching/complete-guide-cdn-caching-strategy
+  - /guides/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-application-level-caching
+  - /guides/complete-guide-cdn-caching-strategy
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +36,8 @@ seo:
     - tag-based purging
     - cache consistency
     - multi-tier invalidation
+
+
 ---
 
 ## Introducción
@@ -550,3 +554,12 @@ Invalida despues de escribir a la base de datos. Si invalidas antes, un read con
 ### ¿Cómo testeo la invalidation de cache?
 
 Escribe integration tests que verifiquen: los writes invalidan el cache, los reads subsiguientes fetchean datos frescos, los reads concurrentes durante writes no retornan datos stale, los fallos de invalidation fallan back a TTL, y las notificaciones pub/sub llegan a todas las instancias.
+
+## See Also
+
+- [Complete Guide to Application-Level Caching](/es/guides/complete-guide-application-level-caching/)
+- [Complete Guide to CDN Caching Strategy](/es/guides/complete-guide-cdn-caching-strategy/)
+- [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/)
+- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to GraphQL Caching](/es/guides/complete-guide-graphql-caching/)
+

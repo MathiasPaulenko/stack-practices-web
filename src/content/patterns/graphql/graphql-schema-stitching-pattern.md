@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: graphql-schema-stitching-pattern
 title: "GraphQL Schema Stitching Pattern"
@@ -21,6 +24,8 @@ relatedResources:
   - /patterns/graphql-batched-resolver-pattern
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /patterns/graphql-federated-entity-pattern
+  - /patterns/graphql-interface-polymorphism-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +36,9 @@ seo:
     - graphql-federation
     - api-gateway
     - schema-merging
+
+
+
 ---
 
 ## Overview
@@ -294,6 +302,9 @@ const usersSubschema = {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [GraphQL Error Extension Pattern](/patterns/graphql-error-extension-pattern/).
 
 - Keep subschemas small and focused on one domain
 - Use `selectionSet` on every merged field to avoid over-fetching

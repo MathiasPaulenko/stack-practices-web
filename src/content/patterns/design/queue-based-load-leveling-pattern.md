@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: queue-based-load-leveling-pattern
 title: "Queue-Based Load Leveling Pattern"
@@ -19,9 +24,12 @@ tags:
   - backpressure
   - decoupling
 relatedResources:
-  - /patterns/design/priority-queue-pattern
-  - /patterns/design/throttling-pattern
-  - /patterns/design/back-pressure-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/throttling-pattern
+  - /patterns/back-pressure-pattern
+  - /patterns/sequential-convoy-pattern
+  - /patterns/claim-check-pattern
+  - /patterns/scheduler-agent-supervisor-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -34,6 +42,11 @@ seo:
     - load leveling
     - backpressure
     - decoupling
+
+
+
+
+
 ---
 
 # Queue-Based Load Leveling Pattern
@@ -47,6 +60,9 @@ This decoupling transforms unpredictable, bursty workloads into smooth, manageab
 The pattern is foundational to most asynchronous architectures, from background job processors to event-driven microservices and serverless trigger systems.
 
 ## When to Use
+
+
+- For alternatives, see [Sequential Convoy Pattern](/patterns/sequential-convoy-pattern/).
 
 - Producers generate work faster than consumers can process it during peak periods
 - Downstream services have strict rate limits or capacity constraints

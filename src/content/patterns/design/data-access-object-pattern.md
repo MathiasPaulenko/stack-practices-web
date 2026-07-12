@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: data-access-object-pattern
 title: "Data Access Object (DAO) Pattern"
@@ -17,9 +20,11 @@ tags:
   - repository
   - abstraction
 relatedResources:
-  - /patterns/design/repository-pattern
-  - /patterns/design/active-record-pattern
-  - /patterns/design/data-mapper-pattern
+  - /patterns/repository-pattern
+  - /patterns/active-record-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/identity-map-pattern
+  - /patterns/unit-of-work-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +35,9 @@ seo:
     - design pattern
     - persistence
     - database abstraction
+
+
+
 ---
 
 # Data Access Object (DAO) Pattern

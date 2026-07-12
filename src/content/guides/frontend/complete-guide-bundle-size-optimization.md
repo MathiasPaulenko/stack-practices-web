@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-bundle-size-optimization
 title: "Complete Guide to Bundle Size Optimization"
@@ -19,9 +24,12 @@ tags:
   - webpack
   - vite
 relatedResources:
-  - /guides/frontend/complete-guide-web-performance-core-web-vitals
-  - /guides/frontend/complete-guide-react-19-features
-  - /guides/frontend/complete-guide-css-grid-and-flexbox
+  - /guides/complete-guide-web-performance-core-web-vitals
+  - /guides/complete-guide-react-19-features
+  - /guides/complete-guide-css-grid-and-flexbox
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-event-loop
+  - /recipes/web-performance
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - vite optimization
     - lazy loading
     - module federation
+
+
+
+
+
 ---
 
 ## Introduction
@@ -548,3 +561,12 @@ Use both. Brotli compresses 15-25% better than gzip for text files (JS, CSS, HTM
 ### How do module federation and micro-frontends affect bundle size?
 
 Module federation allows multiple applications to share JavaScript bundles at runtime. Each micro-frontend exposes its modules via a remote entry file. The host app loads remote modules on demand. Shared dependencies (like React) are loaded once and shared across all micro-frontends. This reduces duplicate code and allows teams to deploy independently. However, it adds runtime overhead for loading remote entries. Use it for large teams with independent deployments, not for small apps where a single bundle would be simpler.
+
+## See Also
+
+- [Complete Guide to React Performance Optimization](/guides/complete-guide-react-performance-optimization/)
+- [Complete Guide to Web Performance and Core Web Vitals](/guides/complete-guide-web-performance-core-web-vitals/)
+- [Complete Guide to React 19 Features](/guides/complete-guide-react-19-features/)
+- [SPA Performance: Code Splitting and Lazy Loading](/recipes/spa-code-splitting-lazy/)
+- [Feature Flags: Progressive Release and Safe Experimentation](/guides/feature-flags-guide/)
+

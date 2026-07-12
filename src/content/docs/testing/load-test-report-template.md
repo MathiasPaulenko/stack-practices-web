@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: load-test-report-template
 title: "Load Test Report Template"
@@ -19,6 +21,7 @@ relatedResources:
   - /guides/test-driven-development-guide
   - /guides/testing-strategy-guide
   - /recipes/api-contract-testing
+  - /docs/api-testing-strategy-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +32,17 @@ seo:
     - performance
     - template
     - report
+
+
 ---
 ## Overview
 
 Load test reports communicate performance findings to stakeholders and track improvements over time. Without a standard format, teams waste time re-explaining metrics and context. This template provides a consistent structure for documenting benchmarks, bottlenecks, and recommendations.
 
 ## When to Use
+
+
+- For alternatives, see [Test Coverage Report Template](/docs/test-coverage-report-template/).
 
 Use this resource when:
 - Reporting results after a scheduled load test cycle

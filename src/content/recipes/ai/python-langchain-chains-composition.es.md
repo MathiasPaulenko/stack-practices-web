@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: python-langchain-chains-composition
 title: "Componer cadenas LCEL en LangChain para workflows LLM"
@@ -14,9 +20,13 @@ tags:
   - llm
   - chains
 relatedResources:
-  - /recipes/ai/python-openai-function-calling-structured
-  - /recipes/ai/python-llm-streaming-responses
-  - /recipes/ai/python-agent-langgraph-state-machine
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-agent-langgraph-state-machine
+  - /recipes/python-huggingface-text-classification
+  - /recipes/python-llm-eval-ragas-metrics
+  - /recipes/python-ollama-local-llm
+  - /recipes/python-openai-embeddings-cosine
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +37,12 @@ seo:
     - langchain expression language
     - python llm pipeline
     - langchain composition
+
+
+
+
+
+
 ---
 
 # Componer cadenas LCEL en LangChain para workflows LLM multi-paso
@@ -34,6 +50,9 @@ seo:
 LangChain Expression Language (LCEL) es una forma declarativa de componer workflows LLM usando el operador pipe (`|`). Las cadenas se vuelven componibles, streamables y reintentables sin boilerplate. A continuacion: pipelines multi-paso con prompts, modelos, parsers, ramas paralelas y componentes runnable personalizados.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/).
 
 - Workflows LLM multi-paso (resumir luego traducir, extraer luego clasificar)
 - Pipelines que necesitan streaming, batching o logica de reintento

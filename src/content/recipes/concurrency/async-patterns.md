@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: async-patterns
 title: "Master Async Patterns with Promises, Futures, and Coroutines"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/serverless-functions
   - /recipes/event-driven-functions
   - /recipes/load-testing
+  - /recipes/csp-communication
+  - /recipes/concurrent-data-structures
+  - /recipes/locks-and-mutexes
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - coroutines python
     - non blocking io
     - parallel processing
+
+
+
 ---
 
 ## Overview

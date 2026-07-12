@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-security-review-template
 title: "Plantilla de Revisión de Seguridad de API"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/hmac-request-signing
   - /docs/incident-response-playbook-template
   - /docs/data-retention-policy-template
+  - /recipes/bash-ssh-key-manager
+  - /docs/network-segmentation-policy-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - autenticación
     - rate-limiting
     - plantilla
+
+
+
 ---
 ## Visión General
 
 La seguridad de APIs no es solo un checkpoint previo al lanzamiento. Es un proceso continuo. Los cambios en código, dependencias y configuración introducen nuevos vectores de ataque. Esta plantilla proporciona un checklist completo para revisar la postura de seguridad de cualquier API, cubriendo autenticación, autorización, validación de entrada, rate limiting, logging y manejo de secretos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [API Security Checklist — Authentication to Encryption](/es/guides/api-security-checklist-guide/).
 
 Usa este recurso cuando:
 - Realizas una revisión de seguridad antes de lanzar una nueva API

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-rate-limiting-fastapi-redis
 title: "Rate limiting distribuido con FastAPI y Redis"
@@ -15,9 +19,11 @@ tags:
   - rate limiting
   - middleware
 relatedResources:
-  - /recipes/security/python-jwt-refresh-token-rotation
-  - /recipes/caching/redis-rate-limiting-token-bucket
-  - /recipes/security/python-sql-injection-sqlalchemy
+  - /recipes/python-jwt-refresh-token-rotation
+  - /recipes/redis-rate-limiting-token-bucket
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/python-async-gather-concurrent-requests
+  - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - distributed rate limiting
     - sliding window
     - token bucket python
+
+
+
+
 ---
 
 # Rate limiting distribuido con FastAPI y Redis
@@ -35,6 +45,9 @@ seo:
 El rate limiting protege las APIs de abuso, DDoS y agotamiento de recursos. En despliegues distribuidos con multiples instancias de servidor, los rate limiters en memoria no funcionan — cada instancia tiene su propio contador. Redis proporciona un contador compartido y atomico que funciona en todas las instancias. A continuacion: algoritmos sliding window y token bucket en FastAPI con Redis.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Cache Database Query Results with Redis and Python](/es/recipes/database-query-result-caching/).
 
 - APIs con multiples instancias de servidor detras de un load balancer
 - APIs publicas que necesitan limites por usuario o por IP

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: ai-prompt-version-control-template
 templateType: guideline
@@ -17,9 +19,9 @@ tags:
   - ci-cd
   - evaluation
 relatedResources:
-  - /docs/ai/ai-llm-prompt-template-library
-  - /docs/ai/ai-rag-evaluation-checklist
-  - /docs/ai/ai-model-selection-matrix
+  - /docs/ai-llm-prompt-template-library
+  - /docs/ai-rag-evaluation-checklist
+  - /docs/ai-model-selection-matrix
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - prompt ci cd
     - prompt a b testing
     - llm prompt versioning
+
+
 ---
 
 ## Overview
@@ -408,3 +412,12 @@ Para un 2% accuracy difference con 95% confidence, necesitas approximately 3000 
 ### ¿Deberia los prompts estar en Git o un separate system?
 
 Git trabaja well para teams con fewer de 50 prompts. Storea prompt files, metadata, y test sets en Git alongside tu application code. Para larger teams o prompt-heavy products, considera un dedicated prompt management platform (LangSmith, PromptLayer, Humanloop) que provee versioning, evaluation, A/B testing, y monitoring out of the box. Los principles en esta plantilla aplican regardless del tool.
+
+## See Also
+
+- [Complete Guide to LLM Prompt Engineering](/es/guides/complete-guide-llm-prompt-engineering/)
+- [AI LLM Prompt Template Library](/es/docs/ai-llm-prompt-template-library/)
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [AI Agent Design Document Template](/es/docs/ai-agent-design-document-template/)
+

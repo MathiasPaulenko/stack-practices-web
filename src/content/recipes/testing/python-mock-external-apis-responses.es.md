@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-mock-external-apis-responses
 title: "Mockear APIs Externas con responses"
@@ -16,9 +20,11 @@ tags:
   - requests
   - recipe
 relatedResources:
-  - /recipes/testing/python-pytest-fixtures-parametrize
-  - /recipes/testing/setup-test-fixtures
-  - /recipes/testing/unit-testing-mocking
+  - /recipes/python-pytest-fixtures-parametrize
+  - /recipes/setup-test-fixtures
+  - /recipes/unit-testing-mocking
+  - /recipes/python-coverage-pytest-cov
+  - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +37,10 @@ seo:
     - responses
     - requests
     - recipe
+
+
+
+
 ---
 
 ## Overview
@@ -272,6 +282,9 @@ async def test_async_mock():
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Stub External HTTP Services with WireMock](/es/recipes/java-wiremock-stub-external/).
 
 - Siempre usa `@responses.activate` o el context manager — sin eso, las llamadas HTTP reales pasan
 - Verifica `responses.calls` para comprobar que tu código envió la petición correcta

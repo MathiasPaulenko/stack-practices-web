@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: implement-mutation-testing
 title: "Implement Mutation Testing"
@@ -16,9 +18,9 @@ tags:
   - test-quality
   - recipe
 relatedResources:
-  - /recipes/testing/measure-test-coverage
-  - /recipes/testing/implement-property-based-testing
-  - /recipes/testing/setup-test-fixtures
+  - /recipes/measure-test-coverage
+  - /recipes/implement-property-based-testing
+  - /recipes/setup-test-fixtures
 lastUpdated: "2026-07-09"
 author: "StackPractices"
 seo:
@@ -31,6 +33,8 @@ seo:
     - mutpy
     - test-quality
     - recipe
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Code coverage tells you which lines were executed, but not whether the tests would fail if the behavior changed. Mutation testing addresses this by introducing small, semantically meaningful bugs (mutants) into your code — changing `+` to `-`, inverting a condition, removing a method call — and verifying that at least one test fails. A high mutation score means your tests are genuinely asserting behavior, not just passing through code.
 
 ## When to Use
+
+
+- For alternatives, see [Generate Test Data](/recipes/generate-test-data/).
 
 - Coverage is high (80%+) but bugs still slip through to production
 - You suspect tests lack meaningful assertions (mock-heavy tests that verify nothing)

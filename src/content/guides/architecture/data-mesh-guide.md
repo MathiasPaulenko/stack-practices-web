@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: data-mesh-guide
 title: "Data Mesh Architecture — Decentralized Data Ownership"
@@ -31,6 +32,7 @@ seo:
     - self-serve-data
     - domain-oriented
     - guide
+
 ---
 
 ## Overview
@@ -38,6 +40,9 @@ seo:
 Data Mesh, introduced by Zhamak Dehghani, is a socio-technical approach to data architecture. Instead of a central data team owning all pipelines (the monolithic data lake pattern), Data Mesh distributes ownership to domain teams who treat their data as a product. The platform team provides self-serve infrastructure, enabling domains to publish, discover, and consume data without bottlenecks. This shifts the model from "data as a byproduct" to "data as a product."
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Kafka Stream Processing](/guides/complete-guide-kafka-stream-processing/).
 
 - Your central data team is a bottleneck for the entire organization
 - Domain teams understand their data better than a central team ever could

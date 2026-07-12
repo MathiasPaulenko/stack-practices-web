@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: event-carried-state-transfer-pattern
 title: "Patrón Event-Carried State Transfer"
@@ -18,9 +22,11 @@ tags:
   - kafka
   - microservices
 relatedResources:
-  - /patterns/design/event-sourcing-pattern
-  - /patterns/design/cqrs-pattern
-  - /patterns/design/database-per-service-pattern
+  - /patterns/event-sourcing-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/compensating-transaction-pattern
+  - /patterns/claim-check-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - state replication
     - kafka
     - microservices
+
+
+
+
 ---
 
 # Patrón Event-Carried State Transfer
@@ -45,6 +55,9 @@ A diferencia de Event Sourcing (que almacena una secuencia de eventos de dominio
 Este patrón es particularmente valioso en arquitecturas de microservicios donde los servicios necesitan acceso de solo-lectura a datos poseídos por otros servicios. En lugar de llamadas API síncronas (que crean acoplamiento y latencia), los consumidores mantienen réplicas eventualmente consistentes alimentadas por el stream de eventos.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Idempotent Consumer Pattern](/es/patterns/idempotent-consumer-pattern/).
 
 Usa el Patrón Event-Carried State Transfer cuando:
 - Múltiples servicios necesitan acceso de lectura a datos poseídos por otro servicio

@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-ci-cd-github-actions
 title: "Complete Guide to CI/CD with GitHub Actions"
@@ -18,9 +25,12 @@ tags:
   - guide
   - devops
 relatedResources:
-  - /guides/devops/deployment-strategies-guide
-  - /guides/devops/complete-guide-gitops-argocd
-  - /guides/testing/contributing-guide
+  - /guides/deployment-strategies-guide
+  - /guides/complete-guide-gitops-argocd
+  - /guides/complete-guide-testcontainers-integration
+  - /recipes/setup-ci-gitlab-pipelines
+  - /guides/complete-guide-cost-optimization-aws
+  - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +43,13 @@ seo:
     - github workflows
     - pipeline automation
     - reusable workflows
+
+
+
+
+
+
+
 ---
 
 # Complete Guide to CI/CD with GitHub Actions
@@ -461,6 +478,9 @@ jobs:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CI/CD Pipeline Guide](/guides/cicd-pipeline-guide/).
 
 - **Pin action versions** — use `@v4` not `@main` to avoid supply chain attacks
 - **Use `npm ci` not `npm install`** — deterministic installs from lockfile

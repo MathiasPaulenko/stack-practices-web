@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-network-isolation
 title: "Aislamiento de Red Docker y Seguridad Entre Contenedores"
@@ -16,11 +20,13 @@ tags:
   - bridge
   - overlay
 relatedResources:
-  - /recipes/devops/docker-health-check-configuration
-  - /recipes/devops/docker-compose-dev-prod-split
-  - /recipes/devops/docker-multi-stage-build-optimization
+  - /recipes/docker-health-check-configuration
+  - /recipes/docker-compose-dev-prod-split
+  - /recipes/docker-multi-stage-build-optimization
   - /guides/webhook-security-guide
   - /patterns/sidecar-pattern
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - docker internal network
     - docker network segmentation
     - inter-container communication security
+
+
+
+
 ---
 
 ## Visión General
@@ -473,6 +483,9 @@ volumes:
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Container Image Security Scanning with Trivy](/es/recipes/container-security-scanning/).
 
 1. **Usa network aliases en lugar de nombres de contenedor.** Los aliases están desacoplados de la identidad del contenedor:
 

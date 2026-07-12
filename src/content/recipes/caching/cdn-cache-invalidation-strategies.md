@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: cdn-cache-invalidation-strategies
 title: "CDN Cache Invalidation Strategies and Patterns"
@@ -15,9 +18,10 @@ tags:
   - fastly
   - performance
 relatedResources:
-  - /recipes/caching/http-cache-control-headers
-  - /recipes/caching/redis-cache-aside-pattern
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/http-cache-control-headers
+  - /recipes/redis-cache-aside-pattern
+  - /patterns/cache-aside-pattern
+  - /recipes/nginx-reverse-proxy-cache
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,9 @@ seo:
     - surrogate keys
     - tag-based invalidation
     - cdn caching
+
+
+
 ---
 
 # CDN Cache Invalidation Strategies and Patterns
@@ -291,6 +298,9 @@ async def invalidate_webhook(request: Request):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CDN Caching Strategy](/guides/complete-guide-cdn-caching-strategy/).
 
 - **Use surrogate keys for related content** — purging one key invalidates all related URLs without enumerating them
 - **Prefer versioned URLs for static assets** — eliminates the need for invalidation entirely

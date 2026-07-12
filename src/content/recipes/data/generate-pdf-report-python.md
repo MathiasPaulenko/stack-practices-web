@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: generate-pdf-report-python
 title: "Generate PDF Reports with Python"
@@ -20,6 +23,8 @@ relatedResources:
   - /recipes/merge-json-files
   - /recipes/parse-csv-files
   - /recipes/parse-csv-python-pandas
+  - /recipes/python-generate-qr-code
+  - /recipes/python-excel-read-write
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - fpdf
     - data-processing
     - reports
+
+
+
 ---
 ## Overview
 
@@ -290,6 +298,9 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **csvkit**: command-line tools for CSV files. csvstat shows statistics, csvcut selects columns, csvjoin merges files. Useful for quick exploration without writing Python scripts
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Convert CSV to JSON](/recipes/convert-csv-to-json/).
 
 - Always specify encoding explicitly (encoding='utf-8'). Never rely on system defaults
 - Use chunked reading for files >500MB. Set chunksize in pandas or iterate line-by-line

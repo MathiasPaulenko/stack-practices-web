@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: serverless-api-gateway-lambda-authorizer
 title: "Secure API Gateway with Custom Lambda Authorizers"
@@ -16,10 +21,13 @@ tags:
   - jwt
   - authentication
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/security/python-jwt-refresh-token-rotation
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/python-jwt-refresh-token-rotation
   - /guides/serverless-architecture-guide
   - /guides/api-security-checklist-guide
+  - /recipes/python-memcached-session-storage
+  - /recipes/graphql-directives-auth
+  - /guides/complete-guide-authentication-patterns
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - jwt validation lambda
     - iam policy authorizer
     - serverless authentication
+
+
+
+
+
 ---
 
 ## Overview
@@ -416,6 +429,9 @@ Auth:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Authentication Patterns](/guides/complete-guide-authentication-patterns/).
 
 - **Enable caching**: Set `AuthorizerResultTtlInSeconds` to 300-900 seconds. This reduces authorizer invocations by 90%+ for repeated requests with the same token.
 - **Validate token expiry**: Check `exp` claim before accepting. API Gateway caching may serve stale policies for expired tokens — set TTL shorter than token expiry.

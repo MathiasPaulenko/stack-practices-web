@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: eager-loading-pattern
 title: "Patrón Eager Loading"
@@ -18,9 +20,9 @@ tags:
   - databases
   - n-plus-one
 relatedResources:
-  - /patterns/design/data-mapper-pattern
-  - /patterns/design/identity-map-pattern
-  - /patterns/design/specification-pattern
+  - /patterns/data-mapper-pattern
+  - /patterns/identity-map-pattern
+  - /patterns/specification-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -31,6 +33,8 @@ seo:
     - n plus one
     - performance
     - databases
+
+
 ---
 
 # Patrón Eager Loading
@@ -42,6 +46,9 @@ El Patrón Eager Loading carga datos relacionados junto con la entidad primaria 
 La mayoría de los ORMs y capas de acceso a datos proveen eager loading a través de SQL JOINs, queries batch o subselects. La clave es saber cuándo cargar relaciones upfront y cuándo dejarlas para lazy loading.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Composite Entity Pattern](/es/patterns/composite-entity-pattern/).
 
 Usa el Patrón Eager Loading cuando:
 - Sabes de antemano qué relaciones serán accedidas

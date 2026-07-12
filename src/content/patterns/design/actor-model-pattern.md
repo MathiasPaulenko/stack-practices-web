@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: actor-model-pattern
 title: "Actor Model Pattern"
@@ -17,9 +20,10 @@ tags:
   - isolation
   - erlang
 relatedResources:
-  - /patterns/design/thread-pool-pattern
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/publish-subscribe-pattern
+  - /patterns/thread-pool-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/publish-subscribe-pattern
+  - /patterns/lock-free-queue-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - message passing concurrency
     - isolated state actors
     - pattern design
+
+
+
 ---
 
 ## Overview
@@ -36,6 +43,9 @@ seo:
 Shared mutable state is the root of most concurrency bugs. Locks, mutexes, and condition variables are error-prone: forget one lock and you get race conditions; lock in the wrong order and you get deadlocks. The Actor Model takes a different approach. Each actor owns its private state. Actors communicate exclusively by sending messages to each other. Each actor processes one message at a time, so there is no concurrent access to its state. No locks needed.
 
 ## When to Use
+
+
+- For alternatives, see [Distributed Lock Pattern](/patterns/distributed-lock-pattern/).
 
 - You have mutable state accessed by multiple threads and locks are error-prone
 - You need fault tolerance: if one actor fails, others continue running

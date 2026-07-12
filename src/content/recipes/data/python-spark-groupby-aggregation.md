@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: python-spark-groupby-aggregation
 title: "Large-Scale Aggregation with PySpark"
@@ -16,9 +19,10 @@ tags:
   - big-data
   - recipe
 relatedResources:
-  - /recipes/data/python-polars-fast-dataframe
-  - /recipes/data/python-airflow-dag-scheduling
-  - /recipes/data/python-dask-parallel-dataframe
+  - /recipes/python-polars-fast-dataframe
+  - /recipes/python-airflow-dag-scheduling
+  - /recipes/python-dask-parallel-dataframe
+  - /recipes/sql-cte-recursive-hierarchy
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - aggregation
     - big-data
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -346,6 +353,9 @@ df_cached.unpersist()
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Parallel DataFrame Operations with Dask](/recipes/python-dask-parallel-dataframe/).
 
 - Set `spark.sql.shuffle.partitions` based on data size — 200 is default, use fewer for small data
 - Use `broadcast()` for dimension tables under 10MB — avoids expensive shuffle

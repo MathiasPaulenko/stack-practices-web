@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-ai-agents-production
 title: "Referencia Detallada de AI Agents en Producción"
@@ -19,9 +24,12 @@ tags:
   - planning
   - tools
 relatedResources:
-  - /guides/ai/complete-guide-llm-application-architecture
-  - /guides/ai/complete-guide-langchain-production
-  - /guides/ai/complete-guide-llm-evaluation
+  - /guides/complete-guide-llm-application-architecture
+  - /guides/complete-guide-langchain-production
+  - /guides/complete-guide-llm-evaluation
+  - /guides/complete-guide-vitest-react-testing
+  - /docs/ai-agent-design-document-template
+  - /guides/complete-guide-llm-security
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +43,11 @@ seo:
     - agent memory
     - human in the loop
     - agent safety
+
+
+
+
+
 ---
 
 ## Introducción
@@ -619,3 +632,12 @@ Dale a los agents tools que son specific, well-documented, y con clear input/out
 ### ¿Cómo manejo agent failures en produccion?
 
 Implementa retry logic para transient failures (API timeouts, rate limits). Loggea todas las agent actions e intermediate states para debugging. Setea alerts para agents que hit max iterations o exceden token budgets. Usa fallback responses cuando agents fallan. Implementa circuit breakers para external tools. Considera human-in-the-loop para high-stakes actions.
+
+## See Also
+
+- [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+- [Complete Guide to LLM Security](/es/guides/complete-guide-llm-security/)
+- [Complete Guide to RAG in Production](/es/guides/complete-guide-rag-production/)
+

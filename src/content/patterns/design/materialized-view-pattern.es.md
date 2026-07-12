@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: materialized-view-pattern
 title: "Patron de Vista Materializada"
@@ -18,8 +21,9 @@ tags:
   - rendimiento
   - optimizacion-de-consultas
 relatedResources:
-  - /patterns/design/cqrs-pattern
-  - /patterns/design/database-per-service-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/sharding-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +36,9 @@ seo:
     - rendimiento
     - optimizacion de consultas
     - desnormalizacion
+
+
+
 ---
 
 # Patron de Vista Materializada
@@ -45,6 +52,9 @@ A diferencia de las vistas estandar de base de datos (que computan resultados al
 Casos de uso comunes incluyen dashboards, analiticas, indices de busqueda y modelos de lectura para arquitecturas CQRS que requieren datos de multiples fuentes.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Database per Service Pattern](/es/patterns/database-per-service-pattern/).
 
 - Consultas de agregacion complejas (SUM, COUNT, AVG) sobre grandes datasets que se ejecutan frecuentemente
 - Joins entre multiples tablas que son muy costosos para ejecucion en tiempo real

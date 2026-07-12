@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: factory-pattern-recipe
 title: "Create Objects Flexibly with the Factory Pattern"
@@ -18,6 +21,9 @@ relatedResources:
   - /recipes/domain-driven-design
   - /recipes/unit-testing-mocking
   - /recipes/api-gateway
+  - /recipes/adapter-pattern-recipe
+  - /recipes/observer-pattern-recipe
+  - /recipes/singleton-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,9 @@ seo:
     - abstract factory
     - object creation
     - dependency injection
+
+
+
 ---
 
 ## Overview

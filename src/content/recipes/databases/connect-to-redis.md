@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: connect-to-redis
 title: "Connect to Redis"
@@ -20,6 +23,8 @@ relatedResources:
   - /patterns/cache-aside-pattern
   - /recipes/redis-cache-patterns
   - /patterns/abstract-factory-pattern
+  - /recipes/execute-raw-sql
+  - /recipes/use-orm-crud
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Overview
 
@@ -287,6 +295,9 @@ asyncio.run(main())
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Connect to MySQL](/recipes/connect-to-mysql/).
 
 6. **Use `SCAN` instead of `KEYS` in production.** `KEYS` blocks the entire Redis instance. `SCAN` iterates in small batches:
 

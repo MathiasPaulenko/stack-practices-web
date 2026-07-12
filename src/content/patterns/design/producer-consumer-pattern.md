@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: producer-consumer-pattern
 title: "Producer-Consumer Pattern"
@@ -17,9 +22,12 @@ tags:
   - decoupling
   - buffering
 relatedResources:
-  - /patterns/design/thread-pool-pattern
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/actor-model-pattern
+  - /patterns/thread-pool-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/async-generator-pattern
+  - /patterns/lock-free-queue-pattern
+  - /patterns/reactive-streams-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - decouple production consumption
     - bounded buffer concurrency
     - pattern design
+
+
+
+
+
 ---
 
 ## Overview
@@ -410,6 +423,9 @@ queue.put("regular_task", 10)  # Lower priority
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Priority Queue Pattern](/patterns/priority-queue-pattern/).
 
 1. **Monitor queue metrics.** Track queue depth, producer throughput, consumer throughput, and latency. Set alerts for queue depth exceeding thresholds. A growing queue indicates consumers are too slow or producers are too fast.
 

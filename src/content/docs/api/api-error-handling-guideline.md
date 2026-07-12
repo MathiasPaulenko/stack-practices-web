@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: api-error-handling-guideline
 title: "API Error Handling Guideline"
@@ -16,9 +21,12 @@ tags:
   - graphql
   - guideline
 relatedResources:
-  - /docs/architecture/microservice-contract-template
-  - /docs/security/api-security-review-template
-  - /docs/architecture/api-monitoring-alerting-template
+  - /docs/microservice-contract-template
+  - /docs/api-security-review-template
+  - /docs/api-monitoring-alerting-template
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/rest-api-design-guide
+  - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -30,6 +38,11 @@ seo:
     - rest api
     - graphql errors
     - error responses
+
+
+
+
+
 ---
 
 ## Overview
@@ -37,6 +50,9 @@ seo:
 Inconsistent error responses confuse API consumers and increase integration time. One endpoint returns plain text, another returns nested JSON, and a third returns HTML. This guideline standardizes how your APIs communicate failure so consumers can handle errors programmatically without guessing formats.
 
 ## When to Use
+
+
+- For alternatives, see [GraphQL vs REST — When to Choose and How to Migrate](/guides/graphql-vs-rest-guide/).
 
 Use this resource when:
 - Designing a new API or versioning an existing one

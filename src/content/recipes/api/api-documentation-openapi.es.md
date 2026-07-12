@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: api-documentation-openapi
 title: "Crear documentación de API con OpenAPI"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/graphql-api
   - /recipes/handle-cors
   - /recipes/handle-errors
+  - /recipes/api-logging-audit
+  - /recipes/api-rate-limiting-redis
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Visión General
 

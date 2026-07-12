@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: visitor-pattern
 title: "Patrón Visitor"
@@ -18,9 +19,9 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/composite-pattern
-  - /patterns/design/iterator-pattern
-  - /patterns/design/strategy-pattern
+  - /patterns/composite-pattern
+  - /patterns/iterator-pattern
+  - /patterns/strategy-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +35,7 @@ seo:
     - python visitor
     - java visitor
     - javascript visitor
+
 ---
 
 # Patrón Visitor

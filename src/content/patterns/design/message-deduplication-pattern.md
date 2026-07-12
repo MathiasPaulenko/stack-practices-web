@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: message-deduplication-pattern
 title: "Message Deduplication Pattern"
@@ -17,9 +20,10 @@ tags:
   - deduplication
   - message-queue
 relatedResources:
-  - /patterns/design/message-queue-load-leveling-pattern
-  - /patterns/design/dead-letter-channel-pattern
-  - /patterns/design/publish-subscribe-pattern
+  - /patterns/message-queue-load-leveling-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/publish-subscribe-pattern
+  - /patterns/message-deferral-pattern
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - idempotency key
     - exactly once processing
     - pattern design
+
+
+
 ---
 
 ## Overview
@@ -210,6 +217,9 @@ For the deduplication to work, each message must carry a unique identifier. This
 The atomicity of `SET NX` is critical: without it, two consumers could both check, both see no key, and both process the same message.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Idempotent Consumer Pattern](/patterns/idempotent-consumer-pattern/).
 
 - **Use producer-assigned IDs over content hashes.** Content hashes dedup identical payloads, which may be wrong if the same payload represents different logical operations. Producer-assigned IDs dedup by identity, not content.
 - **Log skipped duplicates.** When a consumer skips a duplicate, log the message ID and timestamp. This helps debug redelivery issues and measure duplicate rates.

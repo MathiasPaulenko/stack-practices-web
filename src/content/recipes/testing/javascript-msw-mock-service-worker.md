@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: javascript-msw-mock-service-worker
 title: "Mock Network Requests with MSW"
@@ -16,9 +18,9 @@ tags:
   - graphql
   - recipe
 relatedResources:
-  - /recipes/testing/javascript-vitest-snapshot-testing
-  - /recipes/testing/nodejs-supertest-express-api
-  - /recipes/testing/api-mocking
+  - /recipes/javascript-vitest-snapshot-testing
+  - /recipes/nodejs-supertest-express-api
+  - /recipes/api-mocking
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - http
     - graphql
     - recipe
+
+
 ---
 
 ## Overview
@@ -292,6 +296,9 @@ export const parameters = {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Stub External HTTP Services with WireMock](/recipes/java-wiremock-stub-external/).
 
 - Share handlers between tests, Storybook, and development — one source of truth for mock data
 - Use `server.resetHandlers()` in `afterEach` to clear per-test overrides

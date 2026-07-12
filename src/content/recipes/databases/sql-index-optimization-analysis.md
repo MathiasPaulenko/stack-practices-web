@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: sql-index-optimization-analysis
 title: "Analyze and Optimize SQL Indexes with EXPLAIN"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/postgres-query-optimization
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-recursive-cte-query
+  - /recipes/sql-full-text-search-setup
+  - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - postgresql indexes
     - query performance
     - index maintenance
+
+
+
 ---
 
 
@@ -37,6 +45,9 @@ seo:
 Indexes are the primary tool for making SQL queries fast, but adding them blindly can waste space, slow writes, and even make queries slower. The right approach is to start with the execution plan. `EXPLAIN` and `EXPLAIN ANALYZE` reveal whether the database is scanning the whole table or using an index, and they estimate the cost of each step so you can target the biggest bottlenecks first.
 
 ## When to Use
+
+
+- For alternatives, see [Database Replication](/recipes/database-replication/).
 
 Use this resource when:
 - A query is slower than expected and you suspect a missing index.

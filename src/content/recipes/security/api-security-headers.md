@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: api-security-headers
 title: "Secure APIs with HTTP Security Headers"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/xss-prevention
   - /recipes/sql-injection-prevention
   - /recipes/handle-cors
+  - /recipes/rate-limiting-security
+  - /recipes/request-signing-hmac
+  - /recipes/csrf-protection
+  - /recipes/encryption-at-rest
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,10 @@ seo:
     - api security
     - cors headers
     - owasp headers
+
+
+
+
 ---
 
 ## Overview

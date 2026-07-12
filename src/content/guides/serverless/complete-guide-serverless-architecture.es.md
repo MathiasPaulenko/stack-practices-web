@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-serverless-architecture
 title: "Referencia Detallada de Arquitectura Serverless"
@@ -19,9 +25,13 @@ tags:
   - cost-optimization
   - vendor-lock-in
 relatedResources:
-  - /guides/caching/complete-guide-redis-caching-strategies
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/strangler-fig-pattern
+  - /guides/complete-guide-redis-caching-strategies
+  - /patterns/circuit-breaker-pattern
+  - /patterns/strangler-fig-pattern
+  - /recipes/serverless-step-functions-workflow
+  - /guides/complete-guide-kafka-production
+  - /guides/complete-guide-aws-lambda-production
+  - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - modelo costo serverless
     - vendor lock-in
     - migracion serverless
+
+
+
+
+
+
 ---
 
 ## Introducción
@@ -540,3 +556,12 @@ Provisioned concurrency mantiene un numero especificado de instancias de funcion
 ### ¿Cómo manejo conexiones de base de datos en serverless?
 
 Cada invocacion de funcion puede abrir una nueva conexion de base de datos, agotando connection pools. Usa un connection proxy como Amazon RDS Proxy o pgBouncer. Alternativamente, usa DynamoDB (sin connection pools) o Aurora Serverless (conexiones auto-scaling).
+
+## See Also
+
+- [Serverless Architecture — Patterns and Anti-Patterns](/es/guides/serverless-architecture-guide/)
+- [Complete Guide to AWS Lambda in Production](/es/guides/complete-guide-aws-lambda-production/)
+- [Orchestrate Serverless Workflows with AWS Step Functions](/es/recipes/serverless-step-functions-workflow/)
+- [Multi-Cloud Strategies — Benefits, Pitfalls](/es/guides/multi-cloud-guide/)
+- [Complete Guide to Event-Driven Systems](/es/guides/complete-guide-event-driven-systems/)
+

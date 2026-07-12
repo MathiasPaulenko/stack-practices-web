@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-aws-lambda-production
 title: "Complete Guide to AWS Lambda in Production"
@@ -19,9 +22,10 @@ tags:
   - security
   - deployment
 relatedResources:
-  - /guides/serverless/complete-guide-serverless-architecture
-  - /guides/caching/complete-guide-redis-caching-strategies
-  - /patterns/design/circuit-breaker-pattern
+  - /guides/complete-guide-serverless-architecture
+  - /guides/complete-guide-redis-caching-strategies
+  - /patterns/circuit-breaker-pattern
+  - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - lambda security hardening
     - lambda connection pooling
     - lambda cost optimization
+
+
+
 ---
 
 ## Introduction
@@ -687,3 +694,12 @@ Lambda has a 15-minute timeout. For longer tasks, use Step Functions to chain mu
 ### How do I test Lambda functions locally?
 
 Use SAM CLI (`sam local invoke`, `sam local start-api`) to test functions locally. Use LocalStack for AWS service emulation. Write unit tests for handler logic and integration tests for AWS service interactions.
+
+## See Also
+
+- [Complete Guide to Serverless Architecture](/guides/complete-guide-serverless-architecture/)
+- [Complete Guide to Serverless Databases](/guides/complete-guide-serverless-databases/)
+- [Complete Guide to Monitoring and Alerting](/guides/complete-guide-monitoring-and-alerting/)
+- [Complete Guide to Apache Kafka in Production](/guides/complete-guide-kafka-production/)
+- [Alert Management: On-Call Alerting That Works](/guides/alert-management-guide/)
+

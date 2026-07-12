@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: css-dark-mode-prefers-color-scheme
 title: "Dark Mode with prefers-color-scheme and CSS Variables"
@@ -15,9 +18,10 @@ tags:
   - theming
   - recipe
 relatedResources:
-  - /recipes/frontend/css-custom-properties-design-tokens
-  - /recipes/frontend/css-container-queries-responsive
-  - /recipes/frontend/react-usememo-usecallback-performance
+  - /recipes/css-custom-properties-design-tokens
+  - /recipes/css-container-queries-responsive
+  - /recipes/react-usememo-usecallback-performance
+  - /guides/complete-guide-css-modern-layout
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,9 @@ seo:
     - prefers-color-scheme
     - theming
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -328,6 +335,9 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () 
 This tells the browser to render native UI elements (scrollbars, form controls) in the matching color scheme.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Design Tokens with CSS Custom Properties](/recipes/css-custom-properties-design-tokens/).
 
 - Use semantic token names (`--color-bg`, `--color-text`) — switching themes means overriding a few variables, not rewriting all CSS
 - Place the anti-FOUC script inline in `<head>` before CSS — it must run before the first paint

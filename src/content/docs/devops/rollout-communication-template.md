@@ -1,4 +1,5 @@
 ---
+
 contentType: docs
 slug: rollout-communication-template
 title: "Rollout Communication Template"
@@ -31,12 +32,16 @@ seo:
     - release
     - operations
     - template
+
 ---
 ## Overview
 
 Releasing a capability is only half the work. The other half is telling the right people, in the right way, at the right time. Engineering knows what changed; support needs to answer customer questions; sales needs to demo it; executives need to know it is live. A rollout communication plan ensures no one is surprised, support is prepared, and the capability actually gets used. This template structures internal announcements, release notes, and stakeholder updates for every deployment.
 
 ## When to Use
+
+
+- For alternatives, see [Bug Triage Template](/docs/bug-triage-template/).
 
 Use this resource when:
 - You are releasing a capability that affects users, support workflows, or internal processes

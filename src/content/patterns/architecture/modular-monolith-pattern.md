@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: modular-monolith-pattern
 title: "Modular Monolith: Single Deployable with Module Boundaries"
@@ -18,6 +22,9 @@ relatedResources:
   - /patterns/strangler-fig-pattern
   - /patterns/anti-corruption-layer-pattern
   - /patterns/backends-for-frontends-pattern
+  - /patterns/ambassador-pattern
+  - /patterns/sidecar-pattern
+  - /guides/complete-guide-modular-monolith
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - modules
     - boundaries
     - pattern
+
+
+
+
 ---
 
 ## Overview
@@ -463,6 +474,9 @@ GRANT USAGE ON SCHEMA customer_module TO customer_app_role;
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Microservices Architecture — When to Use and When Not To](/guides/microservices-architecture-guide/).
 
 - Define a public API for each module — only expose what other modules need
 - Use an event bus for cross-module communication — don't call other modules directly

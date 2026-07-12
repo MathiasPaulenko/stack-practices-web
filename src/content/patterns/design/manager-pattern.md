@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: patterns
 slug: manager-pattern
 title: "Manager Pattern"
@@ -17,9 +23,13 @@ tags:
   - coordination
   - lifecycle
 relatedResources:
-  - /patterns/design/facade-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/dependency-injection-pattern
+  - /patterns/facade-pattern
+  - /patterns/singleton-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/context-object-pattern
+  - /patterns/intercepting-filter-pattern
+  - /patterns/role-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +40,12 @@ seo:
     - architecture
     - coordination
     - lifecycle
+
+
+
+
+
+
 ---
 
 # Manager Pattern
@@ -41,6 +57,9 @@ The Manager Pattern encapsulates the lifecycle, coordination, and access control
 This pattern is one of the most common in software development, though it often goes unnamed. Entity managers in ORMs, resource managers in games, connection managers in networking, and service managers in microservices all follow this pattern. The manager acts as the single point of contact for operations on a collection of managed objects.
 
 ## When to Use
+
+
+- For alternatives, see [Business Delegate Pattern](/patterns/business-delegate-pattern/).
 
 Use the Manager Pattern when:
 - A group of related objects needs centralized lifecycle management

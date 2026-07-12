@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-celery-task-queue
 title: "Distribute Background Tasks with Python Celery and Redis"
@@ -16,10 +21,13 @@ tags:
   - task-queue
   - background-jobs
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/caching/database-query-result-caching
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/database-query-result-caching
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/rabbitmq-dead-letter-queue
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - celery beat scheduling
     - celery retry strategy
     - celery chord group chain
+
+
+
+
+
 ---
 
 ## Overview
@@ -335,6 +348,9 @@ app.conf.beat_scheduler = 'django_celery_beat.schedulers:DatabaseScheduler'
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Implement Redis Pub/Sub Messaging in Python](/recipes/redis-pub-sub-python/).
 
 - **Use `acks_late=True`**: Ensures tasks are redelivered if a worker crashes. Without it, a crash loses the task.
 - **Set `worker_prefetch_multiplier=1` for long tasks**: Prevents one worker from hoarding tasks while others are idle. For fast tasks (< 1 second), use a higher multiplier.

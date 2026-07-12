@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: system-decommissioning-checklist-template
 title: "System Decommissioning Checklist Template"
@@ -15,9 +17,9 @@ tags:
   - migration
   - cleanup
 relatedResources:
-  - /docs/devops/deprecation-timeline-template
-  - /docs/devops/service-ownership-document-template
-  - /docs/devops/feature-specification-template
+  - /docs/deprecation-timeline-template
+  - /docs/service-ownership-document-template
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - infrastructure cleanup
     - deprecation checklist
     - legacy system shutdown
+
+
 ---
 
 ## Overview
@@ -35,6 +39,9 @@ seo:
 Old services never die quietly. They linger in DNS records, confuse new engineers, cost money, and occasionally break things when someone changes a certificate or rotates a secret. Decommissioning is the disciplined process of shutting down a service: identifying every dependency, migrating every user, deleting every resource, and documenting what was removed. Done well, it reduces cost and complexity. Done poorly, it causes outages in systems you thought were unrelated.
 
 ## When to Use
+
+
+- For alternatives, see [Blue-Green Deployment](/guides/blue-green-deployment-guide/).
 
 Use this template when:
 - A service has been replaced by a new system and traffic has migrated

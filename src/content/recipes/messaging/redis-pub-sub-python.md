@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: redis-pub-sub-python
 title: "Implement Redis Pub/Sub Messaging in Python"
@@ -16,8 +18,8 @@ tags:
   - real-time
   - messaging
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/caching/nodejs-redis-cache-invalidation
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/nodejs-redis-cache-invalidation
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
@@ -30,6 +32,8 @@ seo:
     - redis pattern subscription
     - redis messaging python
     - redis broadcast microservices
+
+
 ---
 
 ## Overview
@@ -381,6 +385,9 @@ class RateLimitedPublisher:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Event-Driven Systems](/guides/complete-guide-event-driven-systems/).
 
 - **Use Pub/Sub for fire-and-forget**: Pub/Sub is ideal for notifications, cache invalidation, and real-time updates. For guaranteed delivery, use Redis Streams or RabbitMQ.
 - **Serialize as JSON**: Use JSON for message serialization. It's human-readable, language-agnostic, and supported everywhere. For high throughput, consider MessagePack.

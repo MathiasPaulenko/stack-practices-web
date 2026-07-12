@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: ai-llm-incident-response-runbook
 templateType: runbook
@@ -17,9 +19,9 @@ tags:
   - production
   - on-call
 relatedResources:
-  - /docs/ai/ai-llm-cost-tracking-template
-  - /docs/ai/ai-agent-design-document-template
-  - /docs/ai/ai-rag-evaluation-checklist
+  - /docs/ai-llm-cost-tracking-template
+  - /docs/ai-agent-design-document-template
+  - /docs/ai-rag-evaluation-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - model incident
     - ai on-call
     - llm production incident
+
+
 ---
 
 ## Overview
@@ -409,3 +413,12 @@ Usa multiple layers: (1) input validation con length limits y profanity filters,
 ### ¿Cuán rapido deberia responder a un LLM incident?
 
 SEV-1 (critical): Immediate response, pagea on-call dentro de 1 minute. SEV-2 (high): Pagea on-call dentro de 15 minutes. SEV-3 (medium): Notifica on-call durante business hours. SEV-4 (low): Crea un ticket para el next sprint. El on-call engineer deberia acknowledge el alert dentro del response time, incluso si no puede resolverlo immediately. Escalatea si no podes hacer progress dentro de 15 minutes para SEV-1/2.
+
+## See Also
+
+- [Complete Guide to LLM Prompt Engineering](/es/guides/complete-guide-llm-prompt-engineering/)
+- [Complete Guide to LangChain in Production](/es/guides/complete-guide-langchain-production/)
+- [Complete Guide to LLM Application Architecture](/es/guides/complete-guide-llm-application-architecture/)
+- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
+- [Complete Guide to LLM Evaluation](/es/guides/complete-guide-llm-evaluation/)
+

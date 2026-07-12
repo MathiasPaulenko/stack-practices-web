@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-react-performance-optimization
 title: "Referencia Detallada de Optimización de Performance en React"
@@ -18,9 +24,13 @@ tags:
   - guide
   - frontend
 relatedResources:
-  - /guides/frontend/web-components-guide
-  - /guides/performance/performance-optimization-guide
-  - /guides/frontend/accessibility-wcag-guide
+  - /guides/web-components-guide
+  - /guides/performance-optimization-guide
+  - /guides/accessibility-wcag-guide
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/javascript-event-loop
+  - /recipes/web-performance
+  - /recipes/database-query-result-caching
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - react virtualization
     - react profiler
     - core web vitals react
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de Optimización de Performance en React
@@ -491,3 +507,12 @@ Usar la React Profiler API en development para medir render times. Usar Lighthou
 ### ¿Debo usar Server Components en lugar de memoization?
 
 Server Components reducen el JavaScript client-side renderizando en el server. Eliminan muchos issues de re-render enteramente. Si estás en React 18+ con un framework como Next.js, Server Components es el enfoque preferido. Para apps client-only, memoization sigue siendo la herramienta principal.
+
+## See Also
+
+- [Complete Guide to Bundle Size Optimization](/es/guides/complete-guide-bundle-size-optimization/)
+- [Complete Guide to React 19 Features](/es/guides/complete-guide-react-19-features/)
+- [Complete Guide to Web Performance and Core Web Vitals](/es/guides/complete-guide-web-performance-core-web-vitals/)
+- [SPA Performance: Code Splitting and Lazy Loading](/es/recipes/spa-code-splitting-lazy/)
+- [Enable Brotli Compression in Nginx for Faster Asset Delivery](/es/recipes/brotli-nginx-compression/)
+

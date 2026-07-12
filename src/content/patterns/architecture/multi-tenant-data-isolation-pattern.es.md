@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: multi-tenant-data-isolation-pattern
 title: "Patrón Multi-Tenant Data Isolation"
@@ -21,9 +26,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/authentication/federated-identity-pattern
-  - /patterns/authentication/voucher-pattern
-  - /patterns/design/sidecar-pattern
+  - /patterns/federated-identity-pattern
+  - /patterns/voucher-pattern
+  - /patterns/sidecar-pattern
+  - /patterns/geode-pattern
+  - /recipes/dependency-injection
+  - /recipes/vault-dynamic-credentials
+  - /patterns/pipes-and-filters-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -37,6 +46,11 @@ seo:
     - python multi-tenant
     - java multi-tenant
     - javascript multi-tenant
+
+
+
+
+
 ---
 
 # Patrón Multi-Tenant Data Isolation

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: structured-logging-pattern
 title: "Structured Logging: Emit JSON Logs with Consistent Fields"
@@ -19,6 +22,8 @@ relatedResources:
   - /patterns/correlation-id-pattern
   - /patterns/metrics-aggregation-pattern
   - /patterns/distributed-tracing-pattern
+  - /patterns/circuit-breaker-with-monitoring-pattern
+  - /patterns/health-check-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +35,9 @@ seo:
     - log-aggregation
     - elk
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -476,6 +484,9 @@ structlog.configure(
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Structured Logging: JSON Logs, Correlation IDs, Aggregation](/guides/complete-guide-structured-logging/).
 
 - Use JSON format in production — machine-parseable, searchable in aggregation tools
 - Include context, not just messages — `logger.info("order_created", order_id=123)` not `logger.info("Order 123 created")`

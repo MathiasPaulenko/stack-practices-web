@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: cache-stampede-prevention-pattern
 title: "Cache Stampede Prevention Pattern"
@@ -19,9 +22,10 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/read-through-cache-pattern
-  - /patterns/design/cache-invalidation-pattern
-  - /patterns/design/two-level-cache-pattern
+  - /patterns/read-through-cache-pattern
+  - /patterns/cache-invalidation-pattern
+  - /patterns/two-level-cache-pattern
+  - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,9 @@ seo:
     - cache lock pattern
     - redis distributed lock cache
     - cache miss prevention
+
+
+
 ---
 
 # Cache Stampede Prevention Pattern
@@ -312,6 +319,9 @@ The stampede problem arises because all requests check the cache at the same tim
 | Request coalescing | Single instance | Low | Batch-oriented workloads |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Cache Invalidation Pattern](/patterns/cache-invalidation-pattern/).
 
 - **Set a lock timeout** — if the loader hangs or crashes, the lock must expire so other requests can proceed. Set it to the maximum acceptable wait time (e.g. 30 seconds).
 - **Double-check after acquiring lock** — between the cache miss and lock acquisition, another request may have already populated the cache. Check again before loading.

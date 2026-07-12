@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: incident-response-playbook-template
 title: "Plantilla de Playbook de Respuesta a Incidentes"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/security-audit-checklist-template
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
+  - /docs/api-security-review-template
+  - /docs/data-classification-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +34,18 @@ seo:
     - playbook
     - plantilla
     - cumplimiento
+
+
+
 ---
 ## Visión General
 
 Los incidentes de seguridad requieren una respuesta coordinada y rápida. El pánico y la improvisación extienden el tiempo de caída, aumentan la exposición de datos y violan obligaciones de cumplimiento. Este playbook estructura la respuesta en cinco fases: Detección, Contención, Erradicación, Recuperación y Lecciones Aprendidas (basado en NIST SP 800-61).
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Data Classification Template](/es/docs/data-classification-template/).
 
 Usa este recurso cuando:
 - Se dispara una alerta de seguridad (acceso no autorizado, fuga de datos, malware)

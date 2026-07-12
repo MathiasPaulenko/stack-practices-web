@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: database-read-replicas
 title: "Set Up Database Read Replicas for Scaling"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/sql-joins
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
+  - /recipes/optimistic-locking
+  - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,8 @@ seo:
     - postgresql
     - mysql
     - load-balancing
+
+
 ---
 # Set Up Database Read Replicas for Scaling
 

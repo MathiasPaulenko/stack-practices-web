@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-redis-production
 title: "Complete Guide to Redis in Production"
@@ -19,9 +21,9 @@ tags:
   - persistence
   - failover
 relatedResources:
-  - /guides/databases/complete-guide-postgresql-replication
-  - /guides/databases/complete-guide-mongodb-indexing
-  - /guides/databases/complete-guide-database-sharding
+  - /guides/complete-guide-postgresql-replication
+  - /guides/complete-guide-mongodb-indexing
+  - /guides/complete-guide-database-sharding
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +37,8 @@ seo:
     - redis memory management
     - redis eviction policy
     - redis monitoring
+
+
 ---
 
 ## Introduction
@@ -503,3 +507,12 @@ Use a client library that supports failover. For Sentinel, use `redis-py`'s `Sen
 ### How can I reduce Redis memory usage?
 
 Use efficient data structures. Store small objects in hashes (ziplist encoding uses less memory than individual keys). Use `HSET` for user profiles instead of separate string keys. Set appropriate `hash-max-listpack-entries` and `hash-max-listpack-value` thresholds. Use short key names. Set TTLs on all cache keys. Use `EXPIRE` or `SETEX` to prevent unbounded growth. Run `redis-cli --bigkeys` to find oversized keys. Consider RedisJSON for JSON data instead of storing serialized strings.
+
+## See Also
+
+- [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/)
+- [Complete Guide to PostgreSQL Replication](/guides/complete-guide-postgresql-replication/)
+- [Complete Guide to CDN Caching Strategy](/guides/complete-guide-cdn-caching-strategy/)
+- [Complete Guide to Database Sharding](/guides/complete-guide-database-sharding/)
+- [Complete Guide to Elasticsearch Cluster Setup](/guides/complete-guide-elasticsearch-cluster-setup/)
+

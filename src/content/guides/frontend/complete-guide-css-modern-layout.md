@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-css-modern-layout
 title: "CSS Modern Layout: Grid, Flexbox, Container Queries"
@@ -16,9 +18,9 @@ tags:
   - responsive-design
   - frontend
 relatedResources:
-  - /guides/frontend/complete-guide-accessibility-wcag
-  - /recipes/frontend/css-container-queries-responsive
-  - /recipes/frontend/css-dark-mode-prefers-color-scheme
+  - /guides/complete-guide-accessibility-wcag
+  - /recipes/css-container-queries-responsive
+  - /recipes/css-dark-mode-prefers-color-scheme
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -32,6 +34,8 @@ seo:
     - responsive design
     - css layout
     - logical properties
+
+
 ---
 
 ## Introduction
@@ -426,6 +430,9 @@ p {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to CSS Grid and Flexbox](/guides/complete-guide-css-grid-and-flexbox/).
 
 - Use Grid for 2D layouts (rows + columns), Flexbox for 1D (row OR column)
 - Use `auto-fit` with `minmax()` for responsive grids without media queries

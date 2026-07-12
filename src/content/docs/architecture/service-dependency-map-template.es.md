@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: service-dependency-map-template
 title: "Plantilla de Mapa de Dependencias de Servicios"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/database-schema-documentation-template
   - /docs/engineering-handbook-template
   - /guides/microservices-architecture-guide
+  - /docs/api-lifecycle-management-template
+  - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - dependencias
     - visualización
     - plantilla
+
+
+
 ---
 
 ## Visión General
@@ -36,6 +44,9 @@ seo:
 En sistemas distribuidos, una falla en un servicio puede propagarse de forma impredecible. Un mapa de dependencias documenta qué servicios llaman a cuáles, la naturaleza de esas llamadas y el radio de impacto si una dependencia falla. Esta plantilla proporciona tanto un registro textual como guía para crear diagramas visuales.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Microservice Contract Template](/es/docs/microservice-contract-template/).
 
 Usa este recurso cuando:
 - Integras un nuevo servicio y documentas sus relaciones upstream y downstream

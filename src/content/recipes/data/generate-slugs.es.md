@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: generate-slugs
 title: "Generar Slugs URL"
@@ -15,10 +18,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/parse-csv-files
-  - /recipes/data/parse-json
-  - /recipes/data/regular-expressions
-  - /recipes/api/input-validation
+  - /recipes/parse-csv-files
+  - /recipes/parse-json
+  - /recipes/regular-expressions
+  - /recipes/input-validation
+  - /recipes/truncate-text
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -30,6 +34,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 
 ## Visión General
@@ -37,6 +44,9 @@ seo:
 Los slugs URL son identificadores legibles por humanos usados en direcciones web. Un slug bien formado mejora SEO, usabilidad y compartibilidad. Generar slugs involucra transliterar caracteres no ASCII, remover símbolos especiales, colapsar espacios en blanco y asegurar unicidad.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Convert CSV to JSON](/es/recipes/convert-csv-to-json/).
 
 Usa este recurso cuando:
 - Conviertas títulos de artículos, nombres de productos o contenido generado por usuarios en URLs permanentes

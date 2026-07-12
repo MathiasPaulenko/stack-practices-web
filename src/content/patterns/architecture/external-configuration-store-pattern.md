@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: external-configuration-store-pattern
 title: "External Configuration Store Pattern"
@@ -22,6 +25,8 @@ relatedResources:
   - /guides/monolith-to-microservices-migration-guide
   - /guides/kubernetes-basics-guide
   - /patterns/compute-resource-consolidation-pattern
+  - /docs/environment-configuration-template
+  - /guides/complete-guide-gitops-production
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - configuration
     - architecture
     - devops
+
+
+
 ---
 ## Overview
 
@@ -287,6 +295,9 @@ actual_password = encryptor.decrypt_value(loaded_password)
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GitOps in Production](/guides/complete-guide-gitops-production/).
 
 1. **Implement configuration rollback.** Keep previous versions of configuration available for quick rollback if a change causes issues. Use version numbers or timestamps to track history.
 

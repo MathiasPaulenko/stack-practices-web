@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: python-async-gather-concurrent-requests
 title: "Concurrent HTTP Requests with asyncio.gather and aiohttp"
@@ -15,9 +20,12 @@ tags:
   - concurrent requests
   - performance
 relatedResources:
-  - /recipes/security/python-rate-limiting-fastapi-redis
-  - /recipes/ai/python-llm-streaming-responses
-  - /recipes/caching/redis-rate-limiting-token-bucket
+  - /recipes/python-rate-limiting-fastapi-redis
+  - /recipes/python-llm-streaming-responses
+  - /recipes/redis-rate-limiting-token-bucket
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-asyncio-semaphore-rate-limiting
+  - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +36,11 @@ seo:
     - python async http
     - concurrent requests python
     - async performance
+
+
+
+
+
 ---
 
 # Concurrent HTTP Requests with asyncio.gather and aiohttp
@@ -380,6 +393,9 @@ async def fetch_httpx(urls: list[str]) -> list[dict]:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Python Asyncio in Production](/guides/complete-guide-python-asyncio-production/).
 
 - **Reuse `ClientSession`** — creating a new session per request wastes TCP connections
 - **Set `limit_per_host`** — avoid overwhelming a single server with too many connections

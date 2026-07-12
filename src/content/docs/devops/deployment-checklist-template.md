@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: deployment-checklist-template
 title: "Deployment Checklist Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/bug-report-template
   - /docs/capacity-planning-template
   - /docs/contributing-guide
+  - /recipes/docker-compose-dev-prod-split
+  - /recipes/docker-health-check-configuration
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - release
     - verification
     - template
+
+
+
 ---
 ## Overview
 
 Production deployments are high-risk moments. A single missed step can cause outages, data loss, or security exposures. This checklist template ensures that every release follows the same verification steps, from pre-merge testing through post-deployment validation.
 
 ## When to Use
+
+
+- For alternatives, see [Rollout Communication Template](/docs/rollout-communication-template/).
 
 Use this resource when:
 - Preparing any deployment to production or staging

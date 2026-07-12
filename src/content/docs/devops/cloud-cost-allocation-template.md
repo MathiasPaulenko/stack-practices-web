@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: cloud-cost-allocation-template
 title: "Cloud Cost Allocation Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/bug-report-template
   - /docs/capacity-planning-template
+  - /docs/weekly-ops-review-template
+  - /docs/bug-triage-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - finops
     - allocation
     - template
+
+
+
 ---
 ## Overview
 
 Cloud bills grow silently. A forgotten staging environment, an oversized database instance, or a runaway CI job can double your monthly spend without anyone noticing. This template creates a transparent cost allocation model so teams understand who spends what, finance can forecast accurately, and engineers can optimize with data.
 
 ## When to Use
+
+
+- For alternatives, see [Auto-Scaling Policy Template](/docs/auto-scaling-policy-template/).
 
 Use this resource when:
 - Your cloud bill is growing and no team owns the responsibility to investigate

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: infrastructure-as-code-review-template
 title: "Infrastructure as Code Review Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/deployment-checklist-template
   - /docs/api-status-page-template
+  - /docs/weekly-ops-review-template
+  - /guides/complete-guide-terraform-modules
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - cloudformation
     - review
     - template
+
+
+
 ---
 ## Overview
 
@@ -387,6 +395,9 @@ detector.send_alert(results)
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Terraform Modules](/guides/complete-guide-terraform-modules/).
 
 1. **Use `terraform plan -out` to persist plans for audit.** Saving the plan file creates an immutable record of what was reviewed and applied:
 

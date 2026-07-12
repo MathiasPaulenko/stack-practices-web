@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: saga-pattern-recipe
 title: "Manage Distributed Transactions with the Saga Pattern"
@@ -18,6 +19,7 @@ relatedResources:
   - /recipes/event-driven-architecture
   - /recipes/cqrs-pattern-recipe
   - /recipes/database-transactions
+  - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +30,7 @@ seo:
     - saga orchestration
     - microservices consistency
     - compensation pattern
+
 ---
 
 ## Overview

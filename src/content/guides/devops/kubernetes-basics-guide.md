@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: kubernetes-basics-guide
 title: "Kubernetes Basics for Application Developers"
@@ -15,9 +20,13 @@ tags:
   - guide
   - kubernetes
 relatedResources:
-  - /guides/devops/docker-for-developers-guide
-  - /guides/devops/cicd-pipeline-guide
-  - /guides/architecture/software-architecture-guide
+  - /guides/docker-for-developers-guide
+  - /guides/cicd-pipeline-guide
+  - /guides/software-architecture-guide
+  - /recipes/graceful-shutdown
+  - /recipes/helm-chart-deployment
+  - /patterns/external-configuration-store-pattern
+  - /guides/system-design-interview-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +38,11 @@ seo:
     - kubernetes deployments
     - kubernetes services
     - k8s for developers
+
+
+
+
+
 ---
 
 # Kubernetes Basics for Application Developers

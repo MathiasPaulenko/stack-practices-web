@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: serverless-db-connection-pooling-pattern
 title: "Serverless DB Connection Pooling Pattern"
@@ -18,9 +23,12 @@ tags:
   - rds-proxy
   - lambda
 relatedResources:
-  - /patterns/design/serverless-throttling-pattern
-  - /patterns/design/serverless-warm-pool-pattern
-  - /patterns/design/serverless-function-composition-pattern
+  - /patterns/serverless-throttling-pattern
+  - /patterns/serverless-warm-pool-pattern
+  - /patterns/serverless-function-composition-pattern
+  - /guides/complete-guide-serverless-databases
+  - /recipes/aws-lambda-cold-start-optimization
+  - /recipes/aws-lambda-python-dependencies
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,11 @@ seo:
     - rds proxy
     - connection pool serverless
     - pattern design
+
+
+
+
+
 ---
 
 ## Overview
@@ -40,6 +53,9 @@ Serverless functions scale horizontally by spawning many concurrent instances. E
 The Serverless DB Connection Pooling pattern solves this by placing an external connection pooler between your functions and the database. The pooler maintains a small set of persistent connections to the database and multiplexes function requests across them.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Serverless Databases](/guides/complete-guide-serverless-databases/).
 
 - You run serverless functions (Lambda, Cloud Functions, Azure Functions) that connect to a relational database
 - You see `connection refused` or `too many connections` errors during traffic spikes

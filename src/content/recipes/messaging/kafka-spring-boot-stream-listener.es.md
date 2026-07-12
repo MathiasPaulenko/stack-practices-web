@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: kafka-spring-boot-stream-listener
 title: "Consumir Topicos de Kafka con Spring Boot Stream Listeners"
@@ -16,10 +19,11 @@ tags:
   - consumer
   - streaming
 relatedResources:
-  - /recipes/messaging/kafka-python-consumer-groups
-  - /recipes/messaging/rabbitmq-python-pika-consumer
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/rabbitmq-python-pika-consumer
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-kafka-stream-processing
+  - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +34,9 @@ seo:
     - spring kafka error handling
     - spring kafka dlq
     - spring kafka batch listener
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +44,9 @@ seo:
 La integracion de Kafka con Spring Boot proporciona anotaciones `@KafkaListener` para configuracion declarativa de consumers. A continuacion: configurar consumers de Kafka, consumo concurrente, manejo de errores con DLQ, batch listeners, acknowledgment manual y routing basado en headers.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Kafka Consumer Groups with Python for Scalable Streaming](/es/recipes/kafka-python-consumer-groups/).
 
 - Microservicios de Spring Boot que consumen eventos de Kafka
 - Aplicaciones que necesitan deserializacion tipada de mensajes (JSON a POJO)

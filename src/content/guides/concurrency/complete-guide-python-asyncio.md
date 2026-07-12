@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-python-asyncio
 title: "Complete Guide to Python Asyncio"
@@ -18,9 +24,13 @@ tags:
   - guide
   - concurrency
 relatedResources:
-  - /guides/architecture/complete-guide-kafka-stream-processing
-  - /guides/performance/performance-optimization-guide
-  - /guides/concurrency/concurrency-patterns-guide
+  - /guides/complete-guide-kafka-stream-processing
+  - /guides/performance-optimization-guide
+  - /guides/concurrency-patterns-guide
+  - /recipes/redis-distributed-lock
+  - /recipes/python-schedule-periodic-tasks
+  - /recipes/rust-tokio-async-runtime
+  - /recipes/deadlock-prevention-sql
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -34,6 +44,12 @@ seo:
     - asyncio gather
     - async http client
     - python concurrency
+
+
+
+
+
+
 ---
 
 # Complete Guide to Python Asyncio
@@ -445,6 +461,9 @@ async def good():
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Python Asyncio in Production](/guides/complete-guide-python-asyncio-production/).
 
 - **Use `asyncio.run()` as entry point** — creates and closes the event loop properly
 - **Use `asyncio.gather()` for concurrent I/O** — runs coroutines concurrently, waits for all

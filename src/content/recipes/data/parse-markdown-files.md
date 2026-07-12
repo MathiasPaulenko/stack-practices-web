@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: parse-markdown-files
 title: "Parse Markdown Files"
@@ -16,11 +18,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /recipes/data/serialize-deserialize-data
-  - /recipes/data/parse-json
-  - /recipes/data/parse-yaml-files
-  - /recipes/data/parse-xml-files
-  - /recipes/data/convert-csv-to-json
+  - /recipes/serialize-deserialize-data
+  - /recipes/parse-json
+  - /recipes/parse-yaml-files
+  - /recipes/parse-xml-files
+  - /recipes/convert-csv-to-json
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,12 +35,17 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 
 Markdown is the lingua franca of developer documentation, READMEs, and static site generators. Parsing Markdown programmatically enables automated documentation pipelines, content migration, static site builds, and linting. The following demonstrates how to converting Markdown to HTML, extracting frontmatter metadata, and traversing the document AST across Python, JavaScript, and Java.
 
 ## When to Use
+
+
+- For alternatives, see [Parse Command Line Arguments](/recipes/parse-command-line-arguments/).
 
 Use this resource when:
 - Building static site generators or documentation platforms

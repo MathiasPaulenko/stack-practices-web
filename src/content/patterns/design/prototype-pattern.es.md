@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: prototype-pattern
 title: "Patrón Prototype"
@@ -18,9 +21,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/factory-pattern
-  - /patterns/design/builder-pattern
-  - /patterns/design/singleton-pattern
+  - /patterns/factory-pattern
+  - /patterns/builder-pattern
+  - /patterns/singleton-pattern
+  - /patterns/memento-pattern
+  - /patterns/type-object-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +38,9 @@ seo:
     - python prototype
     - java prototype
     - javascript prototype
+
+
+
 ---
 
 # Patrón Prototype

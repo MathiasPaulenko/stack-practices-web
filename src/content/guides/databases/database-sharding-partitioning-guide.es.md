@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: database-sharding-partitioning-guide
 title: "Sharding y Particionamiento de Bases de Datos"
@@ -16,9 +19,11 @@ tags:
   - rendimiento-base-de-datos
   - sharding
 relatedResources:
-  - /guides/databases/sql-performance-tuning-guide
-  - /guides/databases/nosql-database-selection-guide
-  - /guides/architecture/system-design-interview-guide
+  - /guides/sql-performance-tuning-guide
+  - /guides/nosql-database-selection-guide
+  - /guides/system-design-interview-guide
+  - /docs/database-migration-runbook-template
+  - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +34,9 @@ seo:
     - range vs hash sharding
     - estrategia escalado base de datos
     - seleccion partition key
+
+
+
 ---
 
 # Sharding y Particionamiento de Bases de Datos

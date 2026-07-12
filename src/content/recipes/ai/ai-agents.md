@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: ai-agents
 title: "Build Autonomous AI Agents with Tool Use and Reasoning"
@@ -17,6 +20,9 @@ relatedResources:
   - /recipes/prompt-engineering
   - /recipes/rag-pipeline
   - /recipes/semantic-search
+  - /recipes/ai-agents-tool-use
+  - /recipes/image-generation
+  - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +33,9 @@ seo:
     - tool use llm
     - react pattern
     - function calling
+
+
+
 ---
 
 ## Overview

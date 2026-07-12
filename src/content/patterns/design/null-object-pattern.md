@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: null-object-pattern
 title: "Null Object Pattern"
@@ -15,9 +20,12 @@ tags:
   - safety
   - defaults
 relatedResources:
-  - /patterns/design/strategy-pattern
-  - /patterns/design/singleton-pattern
-  - /patterns/design/dependency-injection-pattern
+  - /patterns/strategy-pattern
+  - /patterns/singleton-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/aggregate-pattern
+  - /patterns/blackboard-pattern
+  - /patterns/chain-of-responsibility-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - behavioral pattern
     - null safety
     - default object
+
+
+
+
+
 ---
 
 # Null Object Pattern
@@ -39,6 +52,9 @@ The Null Object Pattern eliminates null reference checks by providing a default 
 This pattern prevents the billion-dollar mistake of null references. Instead of crashing with `NullPointerException` or scattering defensive checks across the codebase, the null object handles missing data gracefully.
 
 ## When to Use
+
+
+- For alternatives, see [Aggregate Pattern](/patterns/aggregate-pattern/).
 
 Use the Null Object Pattern when:
 - A method may return nothing, but callers expect an object to interact with

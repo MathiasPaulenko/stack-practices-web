@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: health-endpoint-monitoring-pattern
 title: "Patron de Monitoreo de Endpoints de Salud"
@@ -22,6 +25,8 @@ relatedResources:
   - /patterns/content-delivery-network-pattern
   - /guides/api-gateway-design-guide
   - /patterns/database-per-service-pattern
+  - /patterns/ambassador-pattern
+  - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -32,6 +37,9 @@ seo:
     - observabilidad
     - microservicios
     - health check
+
+
+
 ---
 ## Visión General
 
@@ -40,6 +48,9 @@ El Patron de Monitoreo de Endpoints de Salud expone endpoints ligeros que report
 Este patron es la base de los sistemas auto-curativos y es esencial para cualquier servicio que se ejecute en un entorno dinamico donde las instancias pueden fallar o reiniciarse en cualquier momento.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Observability with the Grafana Stack](/es/guides/complete-guide-observability-grafana-stack/).
 
 Usa este patron cuando:
 - Ejecutes servicios en contenedores o detras de un balanceador de carga

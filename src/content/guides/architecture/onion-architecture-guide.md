@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: onion-architecture-guide
 title: "Onion Architecture — Dependency Inversion in Practice"
@@ -19,8 +24,11 @@ tags:
 relatedResources:
   - /guides/layered-architecture-guide
   - /guides/vertical-slice-architecture-guide
-  - /patterns/design/dependency-injection-pattern
-  - /patterns/design/repository-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/repository-pattern
+  - /guides/clean-architecture-guide
+  - /guides/cqrs-event-sourcing-combined-guide
+  - /guides/hexagonal-architecture-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +40,11 @@ seo:
     - clean-architecture
     - ports-and-adapters
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +52,9 @@ seo:
 Onion Architecture, popularized by Jeffrey Palermo, structures applications as concentric layers with the domain model at the center. Unlike traditional layered architecture where dependencies point downward (UI → Business → Data), Onion inverts this: all dependencies point inward toward the domain core. Infrastructure, UI, and external services live at the outer edges and depend on inner abstractions, never the other way around. This makes the domain model completely isolated from frameworks, databases, and delivery mechanisms.
 
 ## When to Use
+
+
+- For alternatives, see [Hexagonal Architecture — Ports, Adapters, and Testability](/guides/hexagonal-architecture-guide/).
 
 - You need a domain model that survives framework changes
 - Your business logic is complex and changes frequently

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: redis-sorted-set-leaderboard
 title: "Build a Real-Time Leaderboard with Redis Sorted Sets"
@@ -15,9 +19,9 @@ tags:
   - real-time
   - data structures
 relatedResources:
-  - /recipes/caching/redis-cache-aside-pattern
-  - /recipes/caching/redis-pubsub-messaging
-  - /patterns/caching/concurrent-data-structures
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-pubsub-messaging
+  - /recipes/redis-rate-limiting-token-bucket
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,10 @@ seo:
     - zadd zrevrange
     - real-time ranking
     - redis data structures
+
+
+
+
 ---
 
 # Build a Real-Time Leaderboard with Redis Sorted Sets
@@ -297,6 +305,9 @@ def get_top_n_with_meta(self, n: int = 10) -> list[dict]:
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - **Use `ZINCRBY` for concurrent updates** — it is atomic and avoids race conditions
 - **Set TTLs on time-based keys** — daily/weekly leaderboards should expire to free memory

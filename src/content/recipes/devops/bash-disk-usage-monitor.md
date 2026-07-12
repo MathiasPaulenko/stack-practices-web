@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: bash-disk-usage-monitor
 title: "Monitor Disk Usage with Bash"
@@ -19,6 +21,7 @@ relatedResources:
   - /recipes/bash-scripting-automation
   - /recipes/bash-monitoring-disk-usage
   - /docs/logging-standards-document
+  - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -29,12 +32,17 @@ seo:
     - monitoring
     - alerts
     - automation
+
+
 ---
 ## Overview
 
 Disk space issues cause application crashes, failed writes, and corrupted databases. A monitoring script that checks disk usage and alerts before the disk fills up prevents these problems. Here is how to threshold-based alerts, email notifications, and automatic cleanup of common space hogs.
 
 ## When to Use
+
+
+- For alternatives, see [AWS CLI Automation with Bash](/recipes/bash-aws-cli-scripts/).
 
 - You manage Linux servers and need proactive disk space alerts
 - You want to automate cleanup of old logs, temp files, or package caches

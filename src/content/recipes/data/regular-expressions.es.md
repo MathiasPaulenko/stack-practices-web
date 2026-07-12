@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: regular-expressions
 title: "Expresiones Regulares"
@@ -17,6 +21,10 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/handle-errors
   - /recipes/sort-array
+  - /recipes/deep-clone-javascript
+  - /recipes/flatten-unflatten-objects
+  - /recipes/generate-slugs
+  - /recipes/money-currency
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +39,10 @@ seo:
     - java regex
     - grupos regex
     - flags regex
+
+
+
+
 ---
 
 ## Visión general

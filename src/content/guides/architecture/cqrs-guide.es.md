@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: cqrs-guide
 title: "CQRS — Segregación de Responsabilidades de Comandos y"
@@ -22,7 +26,9 @@ relatedResources:
   - /guides/cqrs-event-sourcing-combined-guide
   - /guides/hexagonal-architecture-guide
   - /guides/clean-architecture-guide
-  - /patterns/design/event-bus-pattern
+  - /patterns/event-bus-pattern
+  - /guides/complete-guide-event-sourcing-cqrs
+  - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -36,6 +42,10 @@ seo:
     - escalabilidad
     - domain-driven-design
     - guía
+
+
+
+
 ---
 
 ## Overview
@@ -43,6 +53,9 @@ seo:
 CQRS (Command Query Responsibility Segregation) es un patrón arquitectónico que separa los modelos utilizados para escribir datos de los modelos utilizados para leer datos. En lugar de un único modelo que maneja tanto comandos (escrituras) como consultas (lecturas), CQRS los divide en caminos distintos optimizados para sus respectivos propósitos. Esta separación permite ajustar rendimiento, escalar independientemente y simplificar los modelos mentales para dominios complejos.
 
 ## When to Use
+
+
+- For alternatives, see [Event Sourcing — State as a Sequence of Events](/es/guides/event-sourcing-guide/).
 
 - Las cargas de lectura y escritura tienen requisitos fundamentalmente diferentes
 - Necesitas múltiples modelos de lectura para los mismos datos (ej. búsqueda, reportes, APIs)

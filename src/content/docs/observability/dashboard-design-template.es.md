@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: dashboard-design-template
 title: "Plantilla de Diseño de Dashboards"
@@ -16,10 +18,10 @@ tags:
   - error-budget
   - monitoring
 relatedResources:
-  - /docs/observability/observability-maturity-assessment-template
-  - /docs/observability/alert-runbook-template
-  - /docs/observability/incident-postmortem-template
-  - /guides/observability/complete-guide-structured-logging
+  - /docs/observability-maturity-assessment-template
+  - /docs/alert-runbook-template
+  - /docs/incident-postmortem-template
+  - /guides/complete-guide-structured-logging
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - error budget
     - monitoring
     - template
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 Un dashboard es un visual interface que answer questions sobre system health. Good dashboards reducen time-to-diagnosis durante incidents. Bad dashboards addean noise y confusion. Esta plantilla define el structure para service dashboards que on-call engineers pueden rely on a las 3 AM.
 
 ## When to Use
+
+
+- For alternatives, see [Alert Runbook Template](/es/docs/alert-runbook-template/).
 
 - Creando un new service dashboard
 - Rediseñando un existing dashboard que nadie usa

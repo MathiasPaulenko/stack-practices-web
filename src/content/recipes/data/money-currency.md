@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: money-currency
 title: "Money and Currency Handling"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/regular-expressions
   - /recipes/sort-array
+  - /recipes/deep-clone-javascript
+  - /recipes/flatten-unflatten-objects
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

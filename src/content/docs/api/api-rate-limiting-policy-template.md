@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: docs
 slug: api-rate-limiting-policy-template
 title: "API Rate Limiting Policy Template"
@@ -17,9 +23,13 @@ tags:
   - template
   - performance
 relatedResources:
-  - /docs/architecture/api-performance-budget-template
-  - /docs/devops/escalation-policy-template
-  - /docs/security/api-security-review-template
+  - /docs/api-performance-budget-template
+  - /docs/escalation-policy-template
+  - /docs/api-security-review-template
+  - /guides/api-rate-limiting-guide
+  - /docs/api-changelog-template
+  - /patterns/throttling-pattern
+  - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -31,6 +41,12 @@ seo:
     - burst limits
     - api tiers
     - rate limit headers
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -38,6 +54,9 @@ seo:
 Unlimited API access is a recipe for abuse, accidental DDoS, and unpredictable costs. Rate limiting protects your infrastructure while giving consumers predictable access. Without a documented policy, consumers discover limits only when their requests start failing with `429 Too Many Requests`. This template defines rate limits per tier, communicates them transparently, and provides an escalation path for consumers who need more.
 
 ## When to Use
+
+
+- For alternatives, see [Throttling Pattern](/patterns/throttling-pattern/).
 
 Use this resource when:
 - Launching a public or partner API

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: bridge-pattern-ui-themes
 title: "Bridge Pattern para Desacoplar Componentes UI de Temas"
@@ -15,8 +20,12 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/adapter-pattern-api
-  - /patterns/design/abstract-factory-cross-platform
+  - /patterns/adapter-pattern-api
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/dependency-injection-typescript
+  - /patterns/flyweight-pattern-text
+  - /patterns/mediator-pattern-components
+  - /recipes/spa-code-splitting-lazy
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +36,11 @@ seo:
     - ui themes
     - structural patterns
     - platform independence
+
+
+
+
+
 ---
 
 # Bridge Pattern para Desacoplar Componentes UI de Temas

@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: caching-strategies-guide
 title: "Caching Strategies: From Browser to Database, a Complete"
@@ -18,9 +23,12 @@ tags:
   - performance
   - guide
 relatedResources:
-  - /guides/data/database-sharding-implementation-guide
-  - /guides/data/read-replica-guide
-  - /guides/data/connection-pooling-deep-dive-guide
+  - /guides/database-sharding-implementation-guide
+  - /guides/read-replica-guide
+  - /guides/connection-pooling-deep-dive-guide
+  - /guides/blob-storage-guide
+  - /recipes/caching-strategies
+  - /guides/full-text-search-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +41,11 @@ seo:
     - cache-invalidation
     - performance
     - guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -42,6 +55,9 @@ Caching is one of the most useful ways to improve application performance and re
 Below is a practical guide to caching at every layer of the stack, from browser to database.
 
 ## When to Use
+
+
+- For alternatives, see [Blob Storage: S3, GCS, and Azure Blob Patterns for Engineers](/guides/blob-storage-guide/).
 
 - Your database is under high read load and scaling vertically is expensive
 - API response times exceed your latency SLO

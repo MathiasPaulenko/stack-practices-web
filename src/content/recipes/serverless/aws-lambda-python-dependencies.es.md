@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: aws-lambda-python-dependencies
 title: "Empaquetar Dependencias Python para AWS Lambda con Layers"
@@ -16,10 +21,13 @@ tags:
   - layers
   - deployment
 relatedResources:
-  - /recipes/serverless/aws-lambda-cold-start-optimization
-  - /recipes/serverless/serverless-dynamodb-single-table
+  - /recipes/aws-lambda-cold-start-optimization
+  - /recipes/serverless-dynamodb-single-table
   - /guides/serverless-architecture-guide
   - /guides/complete-guide-cost-optimization-aws
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /recipes/serverless-step-functions-workflow
+  - /docs/zero-downtime-deployment-checklist
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - python lambda packaging
     - native extensions lambda
     - sam serverless python
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 AWS Lambda tiene un limite de despliegue de 250MB y se ejecuta en Amazon Linux 2. Los paquetes Python con extensiones nativas (NumPy, pandas, psycopg2) necesitan compilarse para esa plataforma. Lambda Layers resuelve ambos problemas: empaqueta dependencias separadamente del codigo de funcion, pueden compartirse entre funciones y se construyen en el OS correcto. A continuacion: crear layers manualmente, con Docker y con SAM/Serverless Framework.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [AWS Basics — Core Services for Developers](/es/guides/aws-basics-guide/).
 
 - Funciones Lambda que necesitan paquetes Python de terceros (requests, SQLAlchemy, pandas)
 - Paquetes con extensiones C que deben compilarse para Amazon Linux 2

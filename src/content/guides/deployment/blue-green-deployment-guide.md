@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: blue-green-deployment-guide
 title: "Blue-Green Deployment"
@@ -18,11 +22,13 @@ tags:
   - infrastructure
   - guide
 relatedResources:
-  - /guides/deployment/canary-deployment-guide
-  - /guides/deployment/feature-flags-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/planning/capacity-planning-guide
-  - /guides/planning/disaster-recovery-guide
+  - /guides/canary-deployment-guide
+  - /guides/feature-flags-guide
+  - /guides/sre-practices-guide
+  - /guides/capacity-planning-guide
+  - /guides/disaster-recovery-guide
+  - /guides/cost-optimization-cloud-guide
+  - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - traffic-switching
     - infrastructure
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -44,6 +54,9 @@ Blue-green deployment is a release strategy that maintains two identical product
 Below is a practical guide to architecture design, traffic switching mechanisms, database migration handling, and what works operationally.
 
 ## When to Use
+
+
+- For alternatives, see [Canary Deployment: Gradual Rollouts with Safety Controls](/guides/canary-deployment-guide/).
 
 - You need zero-downtime deployments for critical services
 - Rollback speed is more important than resource efficiency

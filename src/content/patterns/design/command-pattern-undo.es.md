@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: command-pattern-undo
 title: "Command Pattern con Undo/Redo en TypeScript"
@@ -14,8 +18,11 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/memento-pattern-state
-  - /patterns/design/abstract-factory-cross-platform
+  - /patterns/memento-pattern-state
+  - /patterns/abstract-factory-cross-platform
+  - /patterns/dependency-injection-typescript
+  - /patterns/interpreter-pattern-expressions
+  - /patterns/visitor-pattern-operations
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +33,10 @@ seo:
     - typescript
     - behavioral patterns
     - operation queue
+
+
+
+
 ---
 
 # Command Pattern con Undo/Redo en TypeScript

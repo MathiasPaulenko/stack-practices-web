@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: test-driven-development-guide
 title: "Desarrollo Guiado por Pruebas (TDD)"
@@ -17,9 +22,13 @@ tags:
   - tdd
   - testing
 relatedResources:
-  - /guides/testing/testing-strategy-guide
-  - /guides/design/clean-code-principles-guide
-  - /guides/design/solid-principles-guide
+  - /guides/testing-strategy-guide
+  - /guides/clean-code-principles-guide
+  - /guides/solid-principles-guide
+  - /recipes/api-mocking
+  - /docs/user-story-template
+  - /docs/api-testing-strategy-template
+  - /docs/load-test-report-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - tdd python
     - tdd javascript
     - flujo de trabajo pruebas unitarias
+
+
+
+
+
 ---
 
 # Desarrollo Guiado por Pruebas (TDD)

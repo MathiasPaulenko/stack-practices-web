@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: memento-pattern
 title: "Patrón Memento"
@@ -18,9 +21,11 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/command-pattern
-  - /patterns/design/state-pattern
-  - /patterns/design/prototype-pattern
+  - /patterns/command-pattern
+  - /patterns/state-pattern
+  - /patterns/prototype-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/interpreter-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +39,9 @@ seo:
     - python memento
     - java memento
     - javascript memento
+
+
+
 ---
 
 # Patrón Memento

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: thread-pool-pattern
 title: "Thread Pool Pattern"
@@ -17,9 +21,11 @@ tags:
   - resource-bounding
   - executor
 relatedResources:
-  - /patterns/design/producer-consumer-pattern
-  - /patterns/design/actor-model-pattern
-  - /patterns/design/reactive-streams-pattern
+  - /patterns/producer-consumer-pattern
+  - /patterns/actor-model-pattern
+  - /patterns/reactive-streams-pattern
+  - /patterns/async-generator-pattern
+  - /patterns/lock-free-queue-pattern
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - thread reuse concurrency
     - executor service pattern
     - pattern design
+
+
+
+
 ---
 
 ## Overview
@@ -36,6 +46,9 @@ seo:
 Creating a thread is expensive. Each thread allocates a stack (typically 1MB), requires kernel-level setup, and adds scheduling overhead. When tasks are short-lived and frequent, creating a thread per task wastes resources and can exhaust memory under load. The Thread Pool pattern maintains a fixed set of worker threads that pick up tasks from a queue. Tasks are submitted to the pool and executed by the next available thread.
 
 ## When to Use
+
+
+- For alternatives, see [Actor Model Pattern](/patterns/actor-model-pattern/).
 
 - You have many short-lived tasks that run concurrently
 - Creating a thread per task is too expensive (high throughput, short duration)

@@ -1,4 +1,6 @@
-﻿---
+---
+
+
 contentType: recipes
 slug: integration-testing-strategies
 title: "Diseñar Tests de Integración Efectivos para Sistemas"
@@ -18,6 +20,8 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/microservices-patterns
   - /recipes/docker-basics
+  - /recipes/java-testcontainers-integration
+  - /recipes/java-wiremock-stub-external
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +32,8 @@ seo:
     - contract testing
     - testing contratos API
     - consumer driven contracts
+
+
 ---
 
 ## Visión general

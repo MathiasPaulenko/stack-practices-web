@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: cache-strategy-decision-template
 templateType: guideline
@@ -16,9 +18,9 @@ tags:
   - ttl
   - invalidation
 relatedResources:
-  - /docs/caching/cache-warmup-runbook
-  - /docs/caching/cache-eviction-policy-template
-  - /docs/caching/cdn-cache-rules-template
+  - /docs/cache-warmup-runbook
+  - /docs/cache-eviction-policy-template
+  - /docs/cdn-cache-rules-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - write-back cache
     - cache TTL
     - cache invalidation
+
+
 ---
 
 ## Overview
@@ -381,3 +385,12 @@ Cachea a ambos levels. CDN cachea HTTP responses al edge para public, cacheable 
 ### ¿Cómo mido cache effectiveness?
 
 Trackea cache hit ratio (hits / total requests), cache miss rate, eviction rate, y average latency. Un healthy cache tiene > 90% hit ratio para hot keys. Monitora memory usage y eviction policy. Si hit ratio es low, o el TTL es too short, o el cache es too small, o el access pattern no es cacheable. Usa Redis INFO o Memcached stats para collect metrics.
+
+## See Also
+
+- [Cache Invalidation Pattern](/es/patterns/cache-invalidation-pattern/)
+- [Complete Guide to Cache Invalidation](/es/guides/complete-guide-cache-invalidation/)
+- [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/)
+- [Node.js Caching with Redis: Cache-Aside and TTL Patterns](/es/recipes/nodejs-caching-redis/)
+- [Complete Guide to Application-Level Caching](/es/guides/complete-guide-application-level-caching/)
+

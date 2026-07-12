@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: docker-network-isolation
 title: "Docker Network Isolation and Inter-Container Security"
@@ -16,11 +20,13 @@ tags:
   - bridge
   - overlay
 relatedResources:
-  - /recipes/devops/docker-health-check-configuration
-  - /recipes/devops/docker-compose-dev-prod-split
-  - /recipes/devops/docker-multi-stage-build-optimization
+  - /recipes/docker-health-check-configuration
+  - /recipes/docker-compose-dev-prod-split
+  - /recipes/docker-multi-stage-build-optimization
   - /guides/webhook-security-guide
   - /patterns/sidecar-pattern
+  - /recipes/docker-image-vulnerability-scan
+  - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +38,10 @@ seo:
     - docker internal network
     - docker network segmentation
     - inter-container communication security
+
+
+
+
 ---
 
 ## Overview
@@ -473,6 +483,9 @@ volumes:
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Container Image Security Scanning with Trivy](/recipes/container-security-scanning/).
 
 1. **Use network aliases instead of container names.** Aliases are decoupled from container identity:
 

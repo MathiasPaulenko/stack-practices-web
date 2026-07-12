@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: backends-for-frontends-pattern
 title: "Patrón Backends for Frontends"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/modular-monolith-pattern
   - /patterns/ambassador-pattern
   - /patterns/anti-corruption-layer-pattern
+  - /patterns/strangler-fig-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +32,8 @@ seo:
     - api
     - microservices
     - pattern
+
+
 ---
 
 ## Overview
@@ -571,6 +576,9 @@ server.listen(4000, () => console.log("BFF with WebSocket on port 4000"));
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Gateway Routing Pattern](/es/patterns/gateway-routing-pattern/).
 
 - Un BFF per client type, no per device — web BFF sirve a both desktop y mobile web
 - Mantené el BFF thin — aggregation y formatting only, no business logic

@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: disaster-recovery-guide
 title: "Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks"
@@ -20,11 +24,13 @@ tags:
   - resilience
   - guide
 relatedResources:
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/chaos-engineering-guide
-  - /guides/devops/multi-cloud-guide
-  - /guides/security/zero-trust-architecture-guide
-  - /guides/planning/capacity-planning-guide
+  - /guides/sre-practices-guide
+  - /guides/chaos-engineering-guide
+  - /guides/multi-cloud-guide
+  - /guides/zero-trust-architecture-guide
+  - /guides/capacity-planning-guide
+  - /guides/data-migration-guide
+  - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -39,6 +45,10 @@ seo:
     - runbook
     - resilience
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -48,6 +58,9 @@ Disaster recovery (DR) is the set of policies, tools, and procedures that enable
 Here is a hands-on guide to defining recovery objectives, backup strategies, multi-region architectures, and useful runbooks.
 
 ## When to Use
+
+
+- For alternatives, see [Disaster Recovery Test Plan](/docs/disaster-recovery-test-plan/).
 
 - You operate a business-critical service where downtime is unacceptable
 - You need to comply with regulatory requirements for data protection

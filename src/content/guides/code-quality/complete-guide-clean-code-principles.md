@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-clean-code-principles
 title: "Clean Code: Naming, Functions, Classes, Comments"
@@ -17,9 +20,10 @@ tags:
   - best-practices
   - maintainability
 relatedResources:
-  - /guides/code-quality/complete-guide-refactoring-techniques
-  - /guides/code-quality/complete-guide-technical-debt-management
-  - /patterns/testing/factory-pattern
+  - /guides/complete-guide-refactoring-techniques
+  - /guides/complete-guide-technical-debt-management
+  - /patterns/factory-pattern
+  - /guides/complete-guide-code-review-best-practices
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
@@ -33,6 +37,9 @@ seo:
     - code quality
     - refactoring
     - maintainability
+
+
+
 ---
 
 ## Introduction
@@ -567,6 +574,9 @@ const result = await orderService.processOrder({
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Refactoring Guide: Extract Method, Replace Conditional,](/guides/complete-guide-refactoring-techniques/).
 
 - Name things to reveal intent — a good name replaces a comment
 - Keep functions small — 4-20 lines, do one thing

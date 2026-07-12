@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: outbox-pattern
 title: "Patrón Outbox"
@@ -17,9 +22,13 @@ tags:
   - reliability
   - distributed-systems
 relatedResources:
-  - /patterns/design/event-bus-pattern
-  - /patterns/design/saga-pattern
-  - /patterns/design/inbox-pattern
+  - /patterns/event-bus-pattern
+  - /patterns/saga-pattern
+  - /patterns/inbox-pattern
+  - /patterns/aggregate-pattern
+  - /patterns/claim-check-pattern
+  - /patterns/compensating-transaction-pattern
+  - /patterns/domain-event-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +39,11 @@ seo:
     - microservices
     - event publishing
     - distributed systems
+
+
+
+
+
 ---
 
 # Patrón Outbox

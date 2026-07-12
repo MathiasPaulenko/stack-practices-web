@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: message-queue-load-leveling-pattern
 title: "Patrón Message Queue Load Leveling"
@@ -17,9 +22,12 @@ tags:
   - async-processing
   - backpressure
 relatedResources:
-  - /patterns/design/priority-queue-pattern
-  - /patterns/design/publish-subscribe-pattern
-  - /patterns/design/dead-letter-channel-pattern
+  - /patterns/priority-queue-pattern
+  - /patterns/publish-subscribe-pattern
+  - /patterns/dead-letter-channel-pattern
+  - /patterns/message-deduplication-pattern
+  - /patterns/message-deferral-pattern
+  - /patterns/producer-consumer-pattern
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - cola suavizado trafico
     - patron async processing
     - patron diseno
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -36,6 +49,9 @@ seo:
 Cuando un servicio recibe trafico irregular, puede saturar sistemas descendentes que no estan disenados para picos. Una base de datos puede manejar 50 consultas por segundo de forma constante pero fallar a 500 consultas por segundo en un pico. El patron Message Queue Load Leveling coloca una cola entre el productor y el consumidor para que el productor escriba mensajes a cualquier ritmo mientras el consumidor los procesa a un ritmo controlado y constante.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Queue-Based Load Leveling Pattern](/es/patterns/queue-based-load-leveling-pattern/).
 
 - El trafico hacia un sistema descendente es irregular y el sistema no maneja picos
 - Necesitas desacoplar la tasa de peticiones de la tasa de procesamiento

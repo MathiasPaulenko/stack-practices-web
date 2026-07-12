@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: compress-decompress-files
 title: "Comprimir y Descomprimir Archivos"
@@ -21,6 +24,8 @@ relatedResources:
   - /recipes/watch-file-changes
   - /recipes/write-large-files
   - /recipes/file-upload-validation
+  - /recipes/python-image-resize-batch
+  - /recipes/python-zip-file-extraction
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -33,6 +38,9 @@ seo:
     - python
     - javascript
     - java
+
+
+
 ---
 ## Visión General
 
@@ -439,6 +447,9 @@ batch_gzip() {
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Copy and Move Files](/es/recipes/copy-move-files/).
 
 1. **Elije el nivel de compresión correcto por caso de uso.** Nivel 1 es el más rápido con compresión mínima; nivel 9 es el más lento con compresión máxima. Nivel 6 (el default para la mayoría de herramientas) ofrece el mejor balance:
 

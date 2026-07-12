@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-cost-optimization-aws
 title: "Referencia Detallada de Optimización de Costos en AWS"
@@ -19,9 +25,13 @@ tags:
   - guide
   - infrastructure
 relatedResources:
-  - /guides/devops/complete-guide-terraform-modules
-  - /guides/devops/complete-guide-ci-cd-github-actions
-  - /guides/observability/complete-guide-observability-grafana-stack
+  - /guides/complete-guide-terraform-modules
+  - /guides/complete-guide-ci-cd-github-actions
+  - /guides/complete-guide-observability-grafana-stack
+  - /recipes/bash-aws-cli-scripts
+  - /recipes/load-balancing-haproxy
+  - /recipes/cost-optimization
+  - /recipes/aws-lambda-python-dependencies
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +45,12 @@ seo:
     - savings plans
     - s3 lifecycle
     - cloud cost
+
+
+
+
+
+
 ---
 
 # Referencia Detallada de Optimización de Costos en AWS
@@ -235,6 +251,9 @@ aws savingsplans create-savings-plan \
 ```
 
 ### Cuándo usar cuál
+
+
+- For alternatives, see [Cloud Cost Optimization](/es/guides/cost-optimization-cloud-guide/).
 
 - **Steady-state EC2** — Standard Reserved Instances (highest discount)
 - **Flexible workloads** — Compute Savings Plans (aplican a cualquier instance family)

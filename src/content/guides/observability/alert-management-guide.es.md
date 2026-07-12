@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: alert-management-guide
 title: "Gestión de Alertas: Alertas en Guardia que Funcionan"
@@ -18,11 +21,12 @@ tags:
   - opsgenie
   - guide
 relatedResources:
-  - /guides/observability/metrics-and-dashboards-guide
-  - /guides/observability/incident-response-guide
-  - /guides/observability/postmortem-guide
-  - /guides/devops/sre-practices-guide
-  - /guides/devops/observability-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/incident-response-guide
+  - /guides/postmortem-guide
+  - /guides/sre-practices-guide
+  - /guides/observability-guide
+  - /guides/log-aggregation-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - pagerduty
     - opsgenie
     - guide
+
+
+
 ---
 
 ## Descripción General
@@ -44,6 +51,9 @@ Las alertas son la forma en que tus sistemas te indican que algo necesita atenci
 A continuación: diseño de alertas, clasificación de severidad, estructuras de guardia, políticas de escalamiento y prácticas operativas sostenibles.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Monitoring and Alerting](/es/guides/complete-guide-monitoring-and-alerting/).
 
 - Tu equipo recibe más de 5 alertas por persona por semana
 - Las alertas son frecuentemente ignoradas o tratadas como ruido

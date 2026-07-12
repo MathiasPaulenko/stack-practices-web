@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: human-in-the-loop-pattern
 title: "Patrón Human-in-the-Loop"
@@ -16,9 +18,9 @@ tags:
   - seguridad
   - gating-decisiones
 relatedResources:
-  - /patterns/ai/llm-guardrails-pattern
-  - /patterns/ai/agent-tool-selection-pattern
-  - /recipes/ai/python-agent-langgraph-state-machine
+  - /patterns/llm-guardrails-pattern
+  - /patterns/agent-tool-selection-pattern
+  - /recipes/python-agent-langgraph-state-machine
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - patron seguridad ia
     - pausa agente
     - umbral confianza
+
+
 ---
 
 # Patrón Human-in-the-Loop
@@ -42,6 +46,9 @@ Los agentes LLM autonomos pueden tomar acciones con consecuencias reales: enviar
 No cada paso necesita revision humana. El patrón usa un **umbral de confianza** y un **nivel de riesgo de la accion** para decidir que pasos requieren aprobacion. Acciones de bajo riesgo (leer un archivo, buscar en la web) proceden automaticamente. Acciones de alto riesgo (desplegar a produccion, enviar comunicaciones externas) siempre se pausan para revision.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Agent Tool Selection Pattern](/es/patterns/agent-tool-selection-pattern/).
 
 Usa el patrón Human-in-the-Loop cuando:
 - El agente puede tomar acciones irreversibles (borrar datos, enviar comunicaciones, desplegar)

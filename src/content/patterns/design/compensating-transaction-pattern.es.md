@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: compensating-transaction-pattern
 title: "Patrón Compensating Transaction"
@@ -19,9 +23,11 @@ tags:
   - eventual-consistency
   - resilience
 relatedResources:
-  - /patterns/design/saga-pattern
-  - /patterns/design/outbox-pattern
-  - /patterns/design/idempotent-consumer-pattern
+  - /patterns/saga-pattern
+  - /patterns/outbox-pattern
+  - /patterns/idempotent-consumer-pattern
+  - /patterns/claim-check-pattern
+  - /patterns/event-carried-state-transfer-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +39,10 @@ seo:
     - distributed
     - rollback
     - eventual consistency
+
+
+
+
 ---
 
 # Patrón Compensating Transaction
@@ -44,6 +54,9 @@ El Patrón Compensating Transaction deshace los efectos de una operación de neg
 En sistemas distribuidos, las transacciones ACID a través de servicios son impracticables. El Patrón Saga coordina una secuencia de transacciones locales, y cuando un paso falla, las transacciones compensatorias revierten los pasos previamente completados. Esto permite que procesos de negocio de larga duración mantengan consistencia eventual sin locks distribuidos o two-phase commit.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Claim Check Pattern](/es/patterns/claim-check-pattern/).
 
 Usa el Patrón Compensating Transaction cuando:
 - Un proceso de negocio abarca múltiples servicios o bases de datos distribuidos

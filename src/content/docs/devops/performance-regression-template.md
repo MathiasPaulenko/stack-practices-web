@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: performance-regression-template
 title: "Performance Regression Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/patch-management-template
   - /docs/capacity-planning-template
+  - /docs/weekly-ops-review-template
+  - /docs/sla-definition-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - benchmark
     - operations
     - template
+
+
+
 ---
 ## Overview
 
 Performance regressions are invisible until they are painful. A 20% latency increase after a release goes unnoticed for weeks, then suddenly your biggest customer churns because their API integration timed out. Benchmarking is not enough—you need a structured way to compare before/after metrics, identify root causes, and decide whether to rollback or fix forward. This template creates a repeatable process for catching, analyzing, and resolving performance regressions.
 
 ## When to Use
+
+
+- For alternatives, see [Weekly Ops Review Template](/docs/weekly-ops-review-template/).
 
 Use this resource when:
 - Your release pipeline lacks automated performance gates

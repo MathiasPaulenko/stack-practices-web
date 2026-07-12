@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: bug-triage-template
 title: "Bug Triage Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/backup-and-restore-template
   - /docs/cloud-cost-allocation-template
   - /docs/cross-region-failover-template
+  - /docs/network-security-template
+  - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - severity
     - operations
     - template
+
+
+
 ---
 ## Overview
 
@@ -311,6 +319,9 @@ print(format_slack_alert(aged))
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Change Management Template](/docs/change-management-template/).
 
 1. **Use a bug triage board with columns for each severity.** Visualizing bugs by severity makes it immediately clear where attention is needed. Configure automatic column transitions based on SLA timers:
 

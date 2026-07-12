@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: url-encoding-decoding
 title: "URL Encoding and Decoding"
@@ -15,8 +19,11 @@ tags:
   - data
   - parsing
 relatedResources:
-  - /recipes/api/go-rest-api-gin
-  - /recipes/security/data-validation-zod
+  - /recipes/go-rest-api-gin
+  - /recipes/data-validation-zod
+  - /recipes/javascript-event-loop
+  - /recipes/server-side-rendering
+  - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +34,10 @@ seo:
     - RFC 3986
     - percent encoding
     - query parameters
+
+
+
+
 ---
 
 # URL Encoding and Decoding: encodeURI, encodeURIComponent, and Beyond

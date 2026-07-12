@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: database-query-result-caching
 title: "Cachear Resultados de Consultas de Base de Datos con"
@@ -16,10 +20,12 @@ tags:
   - cache-aside
   - query-optimization
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/python-django-cache-framework
+  - /recipes/python-redis-cache-decorator
+  - /recipes/python-django-cache-framework
   - /guides/complete-guide-api-versioning-strategies
   - /guides/complete-guide-react-performance-optimization
+  - /recipes/python-httpx-cache-responses
+  - /recipes/python-celery-task-queue
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +36,10 @@ seo:
     - python query cache
     - cache invalidation database
     - query result cache redis
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +47,9 @@ seo:
 El caching de resultados de consultas de base de datos almacena el resultado de consultas costosas en Redis para que peticiones subsecuentes salten la base de datos completamente. El patron cache-aside — verificar cache, obtener de DB en miss, poblar cache — es el enfoque mas comun. A continuacion: implementar cache-aside en Python con Redis, manejar serializacion, invalidacion en writes, prevencion de cache stampede y caching multi-query.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Consultas costosas (agregaciones, joins, full-text search) que se ejecutan frecuentemente
 - Workloads de lectura intensa donde los datos cambian infrecuentemente

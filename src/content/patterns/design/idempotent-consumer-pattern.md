@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: idempotent-consumer-pattern
 title: "Idempotent Consumer Pattern"
@@ -19,9 +23,11 @@ tags:
   - idempotency
   - event-driven
 relatedResources:
-  - /patterns/design/event-sourcing-pattern
-  - /patterns/design/saga-pattern
-  - /patterns/design/distributed-lock-pattern
+  - /patterns/event-sourcing-pattern
+  - /patterns/saga-pattern
+  - /patterns/distributed-lock-pattern
+  - /patterns/compensating-transaction-pattern
+  - /patterns/sequential-convoy-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -35,6 +41,10 @@ seo:
     - deduplication
     - idempotency
     - event driven
+
+
+
+
 ---
 
 # Idempotent Consumer Pattern
@@ -46,6 +56,9 @@ The Idempotent Consumer Pattern ensures messages from a queue or event stream ar
 Idempotency is achieved by tracking processed messages using unique identifiers, performing upserts instead of inserts, or using conditional updates that are safe to repeat. This pattern is essential in distributed systems where message brokers like Kafka, RabbitMQ, SQS, or Azure Service Bus only guarantee at-least-once delivery.
 
 ## When to Use
+
+
+- For alternatives, see [Inbox Pattern](/patterns/inbox-pattern/).
 
 - Consuming messages from a queue or event stream where duplicates are possible
 - Payment processing, order fulfillment, or inventory updates where duplicates would cause over-charging, double-shipping, or stock inconsistencies

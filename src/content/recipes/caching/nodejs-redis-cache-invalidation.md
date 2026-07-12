@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: nodejs-redis-cache-invalidation
 title: "Implement Redis Cache Invalidation in Node.js"
@@ -16,9 +21,12 @@ tags:
   - pub-sub
   - caching
 relatedResources:
-  - /recipes/caching/python-redis-cache-decorator
-  - /recipes/caching/nginx-reverse-proxy-cache
+  - /recipes/python-redis-cache-decorator
+  - /recipes/nginx-reverse-proxy-cache
   - /guides/complete-guide-api-versioning-strategies
+  - /recipes/java-spring-cache-annotations
+  - /recipes/python-httpx-cache-responses
+  - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - cache invalidation strategies
     - redis pub/sub invalidation
     - redis scan pattern
+
+
+
+
+
 ---
 
 ## Overview
@@ -348,6 +361,9 @@ async function cacheWithJitter(key, value, baseTTL = 300) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Use Spring Cache Annotations with Redis Backend](/recipes/java-spring-cache-annotations/).
 
 - **Use TTL as a safety net**: Even with explicit invalidation, always set a TTL. If you forget to invalidate, the cache self-heals.
 - **Prefer explicit deletion over short TTLs**: Short TTLs cause unnecessary cache misses. Set longer TTLs and invalidate explicitly on data changes.

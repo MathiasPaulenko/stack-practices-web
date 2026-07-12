@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: complete-guide-pytest-production
 title: "Guía de Pytest en Producción"
@@ -17,9 +21,11 @@ tags:
   - parallel
   - ci
 relatedResources:
-  - /guides/testing/test-driven-development-guide
-  - /guides/testing/testing-strategy-guide
-  - /recipes/testing/api-mocking
+  - /guides/test-driven-development-guide
+  - /guides/testing-strategy-guide
+  - /recipes/api-mocking
+  - /guides/complete-guide-property-based-testing
+  - /guides/complete-guide-testcontainers-integration
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 25
@@ -33,6 +39,10 @@ seo:
     - pytest markers
     - parametrized tests
     - parallel testing python
+
+
+
+
 ---
 
 ## Introducción
@@ -826,6 +836,9 @@ def test_complex_logic(db, make_order):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Measure Test Coverage with pytest-cov](/es/recipes/python-coverage-pytest-cov/).
 
 - Usá `conftest.py` para fixtures compartidos — no importeés fixtures across modules
 - Mantené unit tests rápidos — mockeá dependencias externas, usá in-memory databases

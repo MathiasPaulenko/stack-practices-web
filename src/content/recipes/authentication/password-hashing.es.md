@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: password-hashing
 title: "Hashing de Contraseñas"
@@ -16,7 +21,11 @@ tags:
 relatedResources:
   - /recipes/jwt-authentication
   - /recipes/handle-errors
-  - /patterns/design/singleton-pattern
+  - /patterns/singleton-pattern
+  - /recipes/oauth2-login
+  - /recipes/session-management
+  - /recipes/two-factor-authentication
+  - /guides/security-best-practices-guide
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +40,11 @@ seo:
     - python bcrypt
     - node bcrypt
     - java password hashing
+
+
+
+
+
 ---
 
 ## Visión general

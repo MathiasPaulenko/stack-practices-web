@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: nodejs-caching-redis
 title: "Node.js Caching with Redis: Cache-Aside and TTL Patterns"
@@ -19,7 +21,7 @@ relatedResources:
   - /recipes/caching-redis
   - /recipes/python-api-rate-limiting
   - /recipes/api-rate-limiting-redis
-  - /guides/caching-strategies
+  - /guides/caching-strategies-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
@@ -32,6 +34,8 @@ seo:
     - ioredis caching
     - cache invalidation
     - api response caching
+
+
 ---
 
 ## Overview
@@ -39,6 +43,9 @@ seo:
 Caching API responses with Redis reduces database load, improves response times, and scales applications efficiently. Here is how to cache-aside, TTL-based expiration, tag-based batch invalidation, and middleware patterns using ioredis in Node.js Express applications.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/guides/complete-guide-redis-caching-strategies/).
 
 - You have API endpoints that return the same data repeatedly
 - Database queries are slow and the data changes infrequently

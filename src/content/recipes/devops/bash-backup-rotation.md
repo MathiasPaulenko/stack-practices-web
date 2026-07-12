@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-backup-rotation
 title: "Backup Rotation Script in Bash"
@@ -20,6 +23,8 @@ relatedResources:
   - /guides/cicd-pipeline-guide
   - /recipes/ansible-playbook
   - /recipes/cicd-pipeline-setup
+  - /recipes/bash-parallel-commands
+  - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - script
     - automation
     - devops
+
+
+
 ---
 ## Overview
 
@@ -355,6 +363,9 @@ echo "Backup created with ${available_gb}GB free space"
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Bash Scripting for DevOps Automation and System Tasks](/recipes/bash-scripting-automation/).
 
 1. **Use incremental backups with rsync.** Only transfer changed files to save bandwidth:
 

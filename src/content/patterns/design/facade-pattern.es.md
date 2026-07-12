@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: facade-pattern
 title: "Patrón Facade"
@@ -15,9 +20,13 @@ tags:
   - api
   - abstraction
 relatedResources:
-  - /patterns/design/adapter-pattern
-  - /patterns/design/proxy-pattern
-  - /patterns/design/mediator-pattern
+  - /patterns/adapter-pattern
+  - /patterns/proxy-pattern
+  - /patterns/mediator-pattern
+  - /patterns/adapter-pattern-api
+  - /patterns/backend-for-frontend-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/context-object-pattern
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -28,6 +37,11 @@ seo:
     - structural pattern
     - api simplification
     - subsystem
+
+
+
+
+
 ---
 
 # Patrón Facade

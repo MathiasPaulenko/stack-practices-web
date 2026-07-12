@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-redis-caching-strategies
 title: "Complete Guide to Redis Caching Strategies"
@@ -19,9 +25,13 @@ tags:
   - ttl
   - performance
 relatedResources:
-  - /guides/api/complete-guide-graphql-caching
-  - /patterns/design/cache-aside-pattern
-  - /patterns/design/write-through-cache-pattern
+  - /guides/complete-guide-graphql-caching
+  - /patterns/cache-aside-pattern
+  - /patterns/write-through-cache-pattern
+  - /guides/complete-guide-cache-invalidation
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/redis-distributed-lock
+  - /recipes/caching-strategies
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +44,12 @@ seo:
     - redis eviction policies
     - redis ttl tuning
     - redis production
+
+
+
+
+
+
 ---
 
 ## Introduction
@@ -258,6 +274,9 @@ threading.Thread(target=write_worker, daemon=True).start()
 - Hard to debug consistency issues
 
 ### When to Use Write-Behind
+
+
+- For alternatives, see [Cache Database Query Results with Redis and Python](/recipes/database-query-result-caching/).
 
 - High-volume writes where slight data loss is acceptable (analytics, counters)
 - Write-heavy workloads where database is the bottleneck

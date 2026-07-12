@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-performance-budget-template
 title: "Plantilla de Presupuesto de Rendimiento de API"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/microservice-contract-template
   - /docs/service-dependency-map-template
   - /docs/system-diagram-template
+  - /docs/api-rate-limiting-policy-template
+  - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - presupuesto
     - latencia
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Cada endpoint de API consume recursos: CPU, memoria, conexiones de base de datos y ancho de banda de red. Sin presupuestos explícitos, los equipos agregan capacidades hasta que el sistema colapsa bajo carga. Esta plantilla define presupuestos de rendimiento como un contrato entre requisitos de producto y capacidad de infraestructura, haciendo explícitos los trade-offs antes de que se conviertan en caídas.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [GraphQL vs REST — When to Choose and How to Migrate](/es/guides/graphql-vs-rest-guide/).
 
 Usa este recurso cuando:
 - Diseñas una nueva API o agregas un nuevo endpoint a una existente

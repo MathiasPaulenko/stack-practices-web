@@ -1,4 +1,5 @@
 ---
+
 contentType: guides
 slug: time-series-database-guide
 title: "Bases de Datos de Series Temporales"
@@ -33,6 +34,7 @@ seo:
     - iot
     - metricas
     - guia
+
 ---
 
 ## Overview
@@ -40,6 +42,9 @@ seo:
 Las bases de datos de series temporales (TSDBs) estan optimizadas para cargas de trabajo donde los datos se indexan principalmente por tiempo: metricas, lecturas de sensores IoT, logs de aplicaciones, datos de ticks financieros y monitoreo de sistemas. A diferencia de las bases de proposito general, las TSDBs usan la naturaleza inmutable y solo-adicion de datos de series temporales para lograr alto rendimiento de ingestion y consultas eficientes por rango de tiempo. Motores especializados como InfluxDB, TimescaleDB y ClickHouse ofrecen diferentes compromisos entre facilidad de uso, compatibilidad SQL y rendimiento crudo.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Ingestas millones de puntos de datos por segundo con una marca de tiempo
 - Las consultas son predominantemente escaneos por rango de tiempo (`WHERE time > now() - interval '1 day'`)

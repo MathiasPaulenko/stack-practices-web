@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: ai-data-preparation-checklist
 templateType: post-deployment-checklist
@@ -17,9 +19,9 @@ tags:
   - data-quality
   - embeddings
 relatedResources:
-  - /docs/ai/ai-rag-evaluation-checklist
-  - /docs/ai/ai-llm-prompt-template-library
-  - /docs/ai/ai-model-selection-matrix
+  - /docs/ai-rag-evaluation-checklist
+  - /docs/ai-llm-prompt-template-library
+  - /docs/ai-model-selection-matrix
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +34,8 @@ seo:
     - embedding preparation
     - data deduplication
     - pii removal ai
+
+
 ---
 
 ## Overview
@@ -482,3 +486,12 @@ Depends on how often your corpus changes. For static documentation, rebuild quar
 ### What should I do if retrieval quality is poor after indexing?
 
 First, check the data quality: are chunks too small or too large? Is the content clean? Are there duplicates confusing the retrieval? Second, check the embedding model — is it appropriate for your content type and language? Third, check the index parameters — is ef_search too low? Fourth, check the query — does it need reformulation? Try testing with exact-match queries first, then progressively more complex ones. If quality is still poor, consider a hybrid search approach (vector + keyword search).
+
+## See Also
+
+- [Complete Guide to LLM Prompt Engineering](/guides/complete-guide-llm-prompt-engineering/)
+- [AI RAG Evaluation Checklist](/docs/ai-rag-evaluation-checklist/)
+- [Complete Guide to RAG in Production](/guides/complete-guide-rag-production/)
+- [Build a RAG Pipeline with LangChain and Vector Databases](/recipes/rag-pipeline/)
+- [Implement Semantic Search with Embeddings](/recipes/semantic-search/)
+

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-kubernetes-ingress
 title: "Referencia Detallada de Kubernetes Ingress"
@@ -18,11 +21,12 @@ tags:
   - routing
   - load-balancing
 relatedResources:
-  - /guides/devops/kubernetes-basics-guide
-  - /guides/devops/kubernetes-advanced-guide
-  - /guides/devops/deployment-strategies-guide
-  - /patterns/architecture/gateway-routing-pattern
-  - /patterns/design/sidecar-pattern
+  - /guides/kubernetes-basics-guide
+  - /guides/kubernetes-advanced-guide
+  - /guides/deployment-strategies-guide
+  - /patterns/gateway-routing-pattern
+  - /patterns/sidecar-pattern
+  - /guides/complete-guide-gitops-argocd
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -35,6 +39,9 @@ seo:
     - ingressclass
     - kubernetes networking
     - path-based routing k8s
+
+
+
 ---
 
 # Referencia Detallada de Kubernetes Ingress
@@ -503,3 +510,12 @@ No puedes directamente. Los Ingress resources deben referenciar servicios en el 
 ### ¿Cuál es la diferencia entre Ingress y LoadBalancer?
 
 Un LoadBalancer Service te da un solo cloud load balancer apuntando a un solo servicio. Ingress te da un entry point con reglas de enrutamiento a muchos servicios — virtual hosting basado en nombres, enrutamiento por path y terminación TLS.
+
+## See Also
+
+- [Complete Guide to Kubernetes Networking](/es/guides/complete-guide-kubernetes-networking/)
+- [Complete Guide to GitOps with ArgoCD](/es/guides/complete-guide-gitops-argocd/)
+- [Kubernetes Advanced — Beyond the Basics](/es/guides/kubernetes-advanced-guide/)
+- [Complete Guide to Local LLM Deployment](/es/guides/complete-guide-local-llm-deployment/)
+- [Complete Guide to PostgreSQL Replication](/es/guides/complete-guide-postgresql-replication/)
+

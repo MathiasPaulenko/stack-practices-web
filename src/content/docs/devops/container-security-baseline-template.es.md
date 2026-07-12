@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: container-security-baseline-template
 title: "Plantilla de Linea Base de Seguridad de Contenedores"
@@ -15,9 +19,11 @@ tags:
   - hardening
   - compliance
 relatedResources:
-  - /docs/devops/network-segmentation-policy-template
-  - /docs/devops/ci-cd-pipeline-security-template
-  - /docs/devops/rbac-policy-template
+  - /docs/network-segmentation-policy-template
+  - /docs/ci-cd-pipeline-security-template
+  - /docs/rbac-policy-template
+  - /docs/endpoint-security-checklist-template
+  - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - seguridad docker
     - linea base kubernetes
     - escaneo de imagenes
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +45,9 @@ seo:
 Una Linea Base de Seguridad de Contenedores define la configuracion de seguridad minima requerida para cada imagen, runtime y entorno de orquestacion. Cubre la procedencia de imagenes, escaneo de vulnerabilidades, restricciones de runtime, control de acceso y politicas de red. Esta linea base ayuda a los equipos a entregar contenedores que cumplen con requisitos de seguridad y cumplimiento sin bloquear la entrega.
 
 ## Cuando Usar
+
+
+- For alternatives, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/es/guides/ci-cd-security-guide/).
 
 - Configurar una nueva plataforma de contenedores o cluster Kubernetes.
 - Incorporar un nuevo servicio o equipo de desarrollo.

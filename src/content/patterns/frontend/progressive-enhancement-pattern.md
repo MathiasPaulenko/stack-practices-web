@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: progressive-enhancement-pattern
 title: "Progressive Enhancement"
@@ -28,6 +29,7 @@ seo:
     - accessibility
     - html
     - pattern
+
 ---
 
 ## Overview
@@ -504,6 +506,9 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to Web Accessibility: WCAG 2.2 Compliance](/guides/complete-guide-accessibility-wcag/).
 
 - Start with HTML that works — forms submit, links navigate, content is readable
 - Use feature detection, not browser sniffing — check `if ('fetch' in window)` not `if (isChrome)`

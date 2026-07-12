@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: flatten-unflatten-objects
 title: "Aplanar y Reconstruir Objetos Anidados"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/parse-json
   - /recipes/regular-expressions
+  - /recipes/url-encoding
+  - /recipes/batch-processing-patterns
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Visión General
 

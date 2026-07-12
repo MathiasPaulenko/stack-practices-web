@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: mongodb-crud-mongoose
 title: "CRUD Operations with MongoDB and Mongoose"
@@ -17,6 +19,8 @@ relatedResources:
   - /guides/database-design-guide
   - /recipes/database-indexing
   - /patterns/repository-pattern
+  - /recipes/acid-transactions-postgres
+  - /recipes/elasticsearch-aggregations
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +31,8 @@ seo:
     - crud
     - nodejs
     - express
+
+
 ---
 
 # CRUD Operations with MongoDB and Mongoose

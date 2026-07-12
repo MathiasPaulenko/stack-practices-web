@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: test-double-pattern
 title: "Test Double: Replace Dependencies with Stubs, Spies, Fakes"
@@ -20,6 +25,10 @@ relatedResources:
   - /patterns/fixture-setup-teardown-pattern
   - /patterns/parameterized-test-pattern
   - /patterns/mock-server-pattern
+  - /patterns/contract-testing-pattern
+  - /patterns/golden-master-testing-pattern
+  - /patterns/snapshot-testing-pattern
+  - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - spies
     - fakes
     - pattern
+
+
+
+
+
 ---
 
 ## Overview
@@ -445,6 +459,9 @@ class OrderServiceTest {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Vitest for React: Component, Hook, and Integration Testing](/guides/complete-guide-vitest-react-testing/).
 
 - Prefer fakes over mocks — fakes test behavior, mocks test implementation
 - Use the simplest double that works — dummy > stub > spy > fake > mock

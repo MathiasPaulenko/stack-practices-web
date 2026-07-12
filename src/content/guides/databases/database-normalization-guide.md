@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: database-normalization-guide
 title: "Database Normalization — 1NF to 5NF Explained"
@@ -23,8 +27,10 @@ relatedResources:
   - /guides/database-denormalization-guide
   - /guides/sql-joins-guide
   - /guides/indexing-strategies-guide
-  - /recipes/databases/database-migrations-safely
-  - /recipes/databases/use-orm-crud
+  - /recipes/database-migrations-safely
+  - /recipes/use-orm-crud
+  - /recipes/database-connection-pooling
+  - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -38,6 +44,10 @@ seo:
     - relational-databases
     - database-design
     - guide
+
+
+
+
 ---
 
 ## Overview
@@ -45,6 +55,9 @@ seo:
 Database normalization is the process of organizing data to minimize redundancy and eliminate anomalies during insert, update, and delete operations. The normal forms — from 1NF to 5NF — provide progressive rules for structuring relational databases. Understanding when to apply each form, and when to intentionally break them for performance, separates competent database designers from great ones.
 
 ## When to Use
+
+
+- For alternatives, see [Composite Entity Pattern](/patterns/composite-entity-pattern/).
 
 - Designing new relational schemas from scratch
 - Refactoring legacy databases with duplicate data

@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: api-testing-strategy-template
 title: "API Testing Strategy Template"
@@ -20,6 +22,7 @@ relatedResources:
   - /docs/microservice-contract-template
   - /guides/cicd-pipeline-guide
   - /guides/test-driven-development-guide
+  - /docs/test-strategy-document-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +34,17 @@ seo:
     - integration
     - load
     - template
+
+
 ---
 ## Overview
 
 APIs evolve continuously. A change in one endpoint can break consumers, degrade performance, or introduce security holes. A layered testing strategy catches these issues at different stages: contract tests prevent breaking changes, integration tests verify behavior, and load tests validate performance under pressure.
 
 ## When to Use
+
+
+- For alternatives, see [Test Express APIs with supertest](/recipes/nodejs-supertest-express-api/).
 
 Use this resource when:
 - Designing testing coverage for a new API or microservice

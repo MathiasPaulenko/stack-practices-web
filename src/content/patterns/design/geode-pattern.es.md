@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: geode-pattern
 title: "Patrón Geode"
@@ -17,9 +22,12 @@ tags:
   - escalado-horizontal
   - sistemas-distribuidos
 relatedResources:
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/graceful-degradation-pattern
-  - /patterns/design/shed-load-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/graceful-degradation-pattern
+  - /patterns/shed-load-pattern
+  - /patterns/multi-tenant-data-isolation-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/sharding-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - escalado horizontal
     - sistemas distribuidos
     - aislamiento de fallos
+
+
+
+
+
 ---
 
 # Patrón Geode
@@ -45,6 +58,9 @@ El nombre viene de las geodas: rocas que parecen ordinarias por fuera pero conti
 Este patron resuelve el cuello de botella del estado compartido. Cuando todos los nodos leen y escriben a la misma base de datos, esa BD se vuelve el techo de escalabilidad. Al particionar datos, cada nodo maneja solo su fraccion de la carga. Anadir mas nodos anade mas capacidad linealmente.
 
 ## Cuándo usarlo
+
+
+- For alternatives, see [Sharding Pattern](/es/patterns/sharding-pattern/).
 
 Usa el patrón Geode cuando:
 - Una BD o cache compartida es el cuello de botella de escalabilidad

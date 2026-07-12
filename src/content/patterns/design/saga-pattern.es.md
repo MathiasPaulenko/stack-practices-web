@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: saga-pattern
 title: "Patrón Saga"
@@ -18,9 +23,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/cqrs-pattern
-  - /patterns/design/circuit-breaker-pattern
-  - /patterns/design/retry-pattern
+  - /patterns/cqrs-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/retry-pattern
+  - /patterns/compensating-transaction-pattern
+  - /patterns/database-per-service-pattern
+  - /patterns/distributed-lock-pattern
+  - /patterns/event-sourcing-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -34,6 +43,11 @@ seo:
     - python saga
     - java saga
     - javascript saga
+
+
+
+
+
 ---
 
 # Patrón Saga

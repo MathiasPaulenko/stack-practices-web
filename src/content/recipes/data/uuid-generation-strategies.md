@@ -1,4 +1,7 @@
-﻿---
+---
+
+
+
 contentType: recipes
 slug: uuid-generation-strategies
 title: "UUID Generation: v4, v7, and ULID Comparison"
@@ -15,8 +18,10 @@ tags:
   - performance
   - data
 relatedResources:
-  - /recipes/databases/postgres-query-optimization
-  - /recipes/data/batch-processing-patterns
+  - /recipes/postgres-query-optimization
+  - /recipes/batch-processing-patterns
+  - /recipes/database-replication
+  - /recipes/schema-evolution
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +32,9 @@ seo:
     - nanoid
     - unique identifiers
     - database indexing
+
+
+
 ---
 
 # UUID Generation: v4, v7, and ULID Comparison

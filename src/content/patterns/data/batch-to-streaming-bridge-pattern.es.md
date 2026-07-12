@@ -1,4 +1,6 @@
 ---
+
+
 contentType: patterns
 slug: batch-to-streaming-bridge-pattern
 title: "Patrón Batch-to-Streaming Bridge"
@@ -19,6 +21,7 @@ relatedResources:
   - /patterns/etl-extract-transform-load-pattern
   - /patterns/cdc-change-data-capture-pattern
   - /patterns/schema-registry-evolution-pattern
+  - /guides/complete-guide-data-pipeline-architecture
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,8 @@ seo:
     - lambda
     - kafka
     - pattern
+
+
 ---
 
 ## Overview
@@ -426,6 +431,9 @@ REFRESH MATERIALIZED VIEW warehouse.customer_stats_hourly;
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [CDC Pattern: Stream Database Changes to Downstream](/es/patterns/cdc-change-data-capture-pattern/).
 
 - Usá un shared schema registry — both batch y streaming deben usar el mismo Avro/Protobuf schema
 - Tageéa records con `_source` — para que podás distinguish batch de streaming en queries

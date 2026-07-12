@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: complete-guide-mobile-responsive-design
 title: "Referencia Detallada de Diseño Mobile Responsive"
@@ -18,9 +20,9 @@ tags:
   - guide
   - frontend
 relatedResources:
-  - /guides/frontend/web-components-guide
-  - /guides/frontend/complete-guide-react-performance-optimization
-  - /guides/frontend/accessibility-wcag-guide
+  - /guides/web-components-guide
+  - /guides/complete-guide-react-performance-optimization
+  - /guides/accessibility-wcag-guide
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -33,6 +35,8 @@ seo:
     - container queries
     - fluid typography
     - responsive images
+
+
 ---
 
 # Referencia Detallada de Diseño Mobile Responsive
@@ -453,3 +457,12 @@ Usar media queries para layout a nivel página (header, sidebar, main grid). Usa
 ### ¿Cómo manejo el issue de mobile viewport height?
 
 Los mobile browsers dinámicamente muestran/ocultan la address bar, cambiando `vh`. Usar `100dvh` (dynamic viewport height) en lugar de `100vh`. Para soporte de browsers más viejos, usar el `viewport` meta tag con `interactive-widget=resizes-content` o JavaScript con `window.innerHeight`.
+
+## See Also
+
+- [Complete Guide to CSS Grid and Flexbox](/es/guides/complete-guide-css-grid-and-flexbox/)
+- [CSS Modern Layout: Grid, Flexbox, Container Queries](/es/guides/complete-guide-css-modern-layout/)
+- [MVC Pattern in Modern Frontend Applications](/es/patterns/mvc-pattern-frontend/)
+- [Static Content Hosting Pattern](/es/patterns/static-content-hosting-pattern/)
+- [Abstract Factory for Cross-Platform UI Component Families](/es/patterns/abstract-factory-cross-platform/)
+

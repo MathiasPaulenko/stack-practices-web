@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: event-bus-pattern
 title: "Patrón Event Bus"
@@ -16,9 +20,12 @@ tags:
   - messaging
   - pub-sub
 relatedResources:
-  - /patterns/design/observer-pattern
-  - /patterns/design/mediator-pattern
-  - /patterns/design/outbox-pattern
+  - /patterns/observer-pattern
+  - /patterns/mediator-pattern
+  - /patterns/outbox-pattern
+  - /patterns/domain-event-pattern
+  - /guides/cqrs-guide
+  - /guides/event-sourcing-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -30,6 +37,10 @@ seo:
     - pub-sub
     - decoupling
     - messaging
+
+
+
+
 ---
 
 # Patrón Event Bus

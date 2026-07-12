@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: python-zip-file-extraction
 title: "Extraer Archivos Zip de Forma Segura con Python"
@@ -30,6 +31,7 @@ seo:
     - path traversal zip
     - validar zip python
     - python extractall
+
 ---
 ## Visión General
 
@@ -404,6 +406,9 @@ def extract_large_zip(zip_path: str, extract_to: str, buffer_size: int = 65536) 
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Compress and Decompress Files](/es/recipes/compress-decompress-files/).
 
 1. **Usa `Path.resolve()` en vez de `os.path.realpath()` para código moderno.** `Path.resolve()` maneja symlinks y normaliza paths en una llamada, y funciona consistentemente entre plataformas:
 

@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: downtime-communication-template
 title: "Plantilla de Comunicación de Tiempo de Inactividad"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/bug-triage-template
   - /docs/change-management-template
   - /docs/cloud-cost-allocation-template
+  - /docs/sla-definition-template
+  - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - interrupcion
     - incidente
     - plantilla
+
+
+
 ---
 ## Visión General
 
 Cuando tu servicio cae, el silencio es peor que las malas noticias. Los clientes entran en pánico, los equipos internos adivinan, y los ejecutivos exigen respuestas que aún no tienes. Un plan de comunicación estructurado te permite controlar la narrativa, reducir el volumen de tickets de soporte y reconstruir la confianza. Esta plantilla proporciona mensajes pre-redactados para equipos internos, clientes y páginas de estado en cada etapa de un incidente.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Incident Communication Template](/es/docs/incident-communication-template/).
 
 Usa este recurso cuando:
 - Una interrupción o degradación afecta servicios de producción

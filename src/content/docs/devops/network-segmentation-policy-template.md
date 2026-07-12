@@ -1,4 +1,11 @@
 ---
+
+
+
+
+
+
+
 contentType: docs
 slug: network-segmentation-policy-template
 title: "Network Segmentation Policy Template"
@@ -15,9 +22,13 @@ tags:
   - firewall
   - compliance
 relatedResources:
-  - /docs/devops/container-security-baseline-template
+  - /docs/container-security-baseline-template
   - /docs/api-security-review-template
-  - /docs/devops/rbac-policy-template
+  - /docs/rbac-policy-template
+  - /recipes/bash-iptables-firewall
+  - /docs/compliance-gap-analysis-template
+  - /docs/endpoint-security-checklist-template
+  - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +39,13 @@ seo:
     - security policy
     - firewall rules
     - zero trust network
+
+
+
+
+
+
+
 ---
 
 ## Overview
@@ -349,6 +367,9 @@ module "prod_segment" {
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Zero Trust Architecture — Never Trust, Always Verify](/guides/zero-trust-architecture-guide/).
 
 1. **Implement service mesh for application-layer segmentation.** Use Istio or Linkerd to enforce traffic policies at the application layer, complementing network-level controls:
 

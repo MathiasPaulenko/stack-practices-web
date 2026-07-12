@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: deprecation-timeline-template
 title: "Deprecation Timeline Template"
@@ -15,9 +17,9 @@ tags:
   - migration
   - communication
 relatedResources:
-  - /docs/devops/system-decommissioning-checklist-template
-  - /docs/devops/service-ownership-document-template
-  - /docs/devops/feature-specification-template
+  - /docs/system-decommissioning-checklist-template
+  - /docs/service-ownership-document-template
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +30,8 @@ seo:
     - legacy migration
     - API deprecation
     - end of life plan
+
+
 ---
 
 ## Overview
@@ -35,6 +39,9 @@ seo:
 Deprecating a capability or API is easy to announce and hard to finish. Users miss the email, integrations break at the last minute, and the team is stuck supporting a system they thought was dead. A deprecation timeline is a contract between the team and its consumers: here is what is ending, when it is ending, what you should use instead, and how we will help you migrate.
 
 ## When to Use
+
+
+- For alternatives, see [Monolith to Microservices — Migration Strategies](/guides/monolith-to-microservices-migration-guide/).
 
 Use this template when:
 - An API endpoint, capability, or integration is being replaced by a newer version

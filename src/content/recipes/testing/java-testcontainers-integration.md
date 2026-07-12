@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: java-testcontainers-integration
 title: "Java Testcontainers Integration Tests"
@@ -16,9 +19,10 @@ tags:
   - integration
   - recipe
 relatedResources:
-  - /recipes/testing/java-junit5-assertions-soft
-  - /recipes/testing/integration-testing-strategies
-  - /recipes/testing/java-wiremock-stub-external
+  - /recipes/java-junit5-assertions-soft
+  - /recipes/integration-testing-strategies
+  - /recipes/java-wiremock-stub-external
+  - /guides/complete-guide-junit5-modern-testing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - docker
     - integration
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -292,6 +299,9 @@ GenericContainer<?> app = new GenericContainer<>("myapp:latest")
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [JUnit5 Soft Assertions with AssertJ](/recipes/java-junit5-assertions-soft/).
 
 - Use `withReuse(true)` and set `testcontainers.reuse.enable=true` in `.testcontainers.properties` to keep containers between test runs
 - Use `static` containers with `@Container` — they start once per test class, not per test

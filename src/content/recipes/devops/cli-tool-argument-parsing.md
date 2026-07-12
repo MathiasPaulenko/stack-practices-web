@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: cli-tool-argument-parsing
 title: "CLI Tool with Argument Parsing"
@@ -19,6 +21,8 @@ relatedResources:
   - /recipes/health-check-endpoint
   - /recipes/cron-jobs
   - /patterns/abstract-factory-pattern
+  - /recipes/feature-flags
+  - /recipes/generate-sitemaps
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +37,8 @@ seo:
     - python
     - javascript
     - java
+
+
 ---
 ## Overview
 

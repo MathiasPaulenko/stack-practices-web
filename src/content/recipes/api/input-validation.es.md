@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: input-validation
 title: "Validación de Input"
@@ -16,7 +21,11 @@ tags:
 relatedResources:
   - /recipes/handle-errors
   - /recipes/regular-expressions
-  - /patterns/design/strategy-pattern
+  - /patterns/strategy-pattern
+  - /recipes/api-versioning
+  - /recipes/handle-cors
+  - /recipes/rate-limiting
+  - /recipes/send-emails-smtp
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +41,11 @@ seo:
     - sanitización de datos
     - python validación
     - javascript validación
+
+
+
+
+
 ---
 
 ## Visión general

@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: database-sharding-implementation-guide
 title: "Sharding de Base de Datos"
@@ -18,9 +24,13 @@ tags:
   - citus
   - guide
 relatedResources:
-  - /guides/data/read-replica-guide
-  - /guides/data/connection-pooling-deep-dive-guide
-  - /guides/data/caching-strategies-guide
+  - /guides/read-replica-guide
+  - /guides/connection-pooling-deep-dive-guide
+  - /guides/caching-strategies-guide
+  - /recipes/seed-database
+  - /guides/data-lake-guide
+  - /guides/lakehouse-guide
+  - /guides/data-migration-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +43,12 @@ seo:
     - vitess
     - citus
     - guide
+
+
+
+
+
+
 ---
 
 ## Descripción General
@@ -42,6 +58,9 @@ El sharding de base de datos divide una única base de datos en múltiples bases
 A continuación: cuándo hacer shard, cómo elegir claves de shard, enrutamiento de consultas, rebalanceo y consideraciones operativas.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Database Sharding](/es/guides/complete-guide-database-sharding/).
 
 - Tu base de datos excede 1TB de datos y los tiempos de respaldo/restauración son inaceptables
 - El throughput de escritura excede lo que un solo nodo puede manejar (>5k escrituras/seg)

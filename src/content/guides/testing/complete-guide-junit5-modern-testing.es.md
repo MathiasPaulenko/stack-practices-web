@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: guides
 slug: complete-guide-junit5-modern-testing
 title: "JUnit 5: Extensions, Tests Parametrizados, Dynamic Tests"
@@ -16,9 +21,12 @@ tags:
   - parameterized
   - dynamic-tests
 relatedResources:
-  - /guides/testing/test-driven-development-guide
-  - /guides/testing/testing-strategy-guide
-  - /recipes/testing/api-mocking
+  - /guides/test-driven-development-guide
+  - /guides/testing-strategy-guide
+  - /recipes/api-mocking
+  - /recipes/java-junit5-assertions-soft
+  - /recipes/java-testcontainers-integration
+  - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
@@ -31,6 +39,11 @@ seo:
     - dynamic tests junit5
     - junit platform
     - java testing
+
+
+
+
+
 ---
 
 ## Introducción
@@ -718,6 +731,9 @@ task integrationTest(type: Test) {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [JUnit5 Soft Assertions with AssertJ](/es/recipes/java-junit5-assertions-soft/).
 
 - Usá `@DisplayName` para nombres de test legibles — los reports de test se vuelven documentation
 - Preferí tests parametrizados sobre métodos de test duplicados

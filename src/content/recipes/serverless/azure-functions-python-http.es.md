@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: azure-functions-python-http
 title: "Construir Azure Functions con HTTP Trigger en Python"
@@ -16,8 +18,8 @@ tags:
   - http-trigger
   - serverless
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/gcp-cloud-functions-nodejs
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/gcp-cloud-functions-nodejs
   - /guides/serverless-architecture-guide
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
@@ -29,6 +31,8 @@ seo:
     - python serverless azure
     - azure functions v2
     - azure functions deployment
+
+
 ---
 
 ## Descripcion general
@@ -36,6 +40,9 @@ seo:
 Azure Functions es la plataforma de compute serverless de Microsoft. El modelo de programacion Python v2 usa decoradores para bindings en lugar de `function.json`, haciendo el codigo mas limpio y Pythonic. A continuacion: crear funciones con HTTP trigger, manejar bindings de entrada/salida, handlers async, inyeccion de dependencias, manejo de errores y desplegar via Azure CLI.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Deploy HTTP Cloud Functions on Google Cloud with Node.js](/es/recipes/gcp-cloud-functions-nodejs/).
 
 - Construir APIs HTTP serverless en Azure
 - Webhooks y endpoints HTTP event-driven

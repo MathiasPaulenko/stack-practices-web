@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: full-text-search
 title: "Búsqueda de Texto Completo"
@@ -19,6 +21,8 @@ relatedResources:
   - /patterns/adapter-pattern
   - /patterns/builder-pattern
   - /patterns/command-pattern
+  - /recipes/caching-redis
+  - /recipes/database-deadlocks-retries
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +33,8 @@ seo:
     - meilisearch python
     - full text search java
     - tsvector postgresql
+
+
 ---
 ## Visión General
 

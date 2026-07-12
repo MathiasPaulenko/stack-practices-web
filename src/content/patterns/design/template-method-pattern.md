@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: template-method-pattern
 title: "Template Method Pattern"
@@ -18,9 +22,12 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/strategy-pattern
-  - /patterns/design/decorator-pattern
-  - /patterns/design/factory-pattern
+  - /patterns/strategy-pattern
+  - /patterns/decorator-pattern
+  - /patterns/factory-pattern
+  - /patterns/command-pattern
+  - /patterns/interpreter-pattern
+  - /patterns/iterator-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +40,10 @@ seo:
     - python template method
     - java template method
     - javascript template method
+
+
+
+
 ---
 
 # Template Method Pattern

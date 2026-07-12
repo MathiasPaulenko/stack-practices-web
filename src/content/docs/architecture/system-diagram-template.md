@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: system-diagram-template
 title: "System Diagram Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/adr-template
   - /docs/database-schema-documentation-template
   - /docs/engineering-handbook-template
+  - /docs/api-lifecycle-management-template
+  - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - visualization
     - template
     - standards
+
+
+
 ---
 ## Overview
 
 Architecture diagrams communicate system structure to technical and non-technical stakeholders. Without consistent standards, teams produce diagrams at inconsistent abstraction levels that confuse more than clarify. This template uses the C4 model to create diagrams at four well-defined levels of detail.
 
 ## When to Use
+
+
+- For alternatives, see [Service Dependency Map Template](/docs/service-dependency-map-template/).
 
 Use this resource when:
 - Onboarding new engineers who need to understand the system space

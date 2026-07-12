@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: slo-document-template
 templateType: slo-document
@@ -15,9 +19,12 @@ tags:
   - template
   - ci-cd
 relatedResources:
-  - /guides/devops/on-call-incident-response-guide
-  - /guides/devops/monitoring-alerting-guide
-  - /docs/templates/incident-postmortem-template
+  - /guides/on-call-incident-response-guide
+  - /guides/monitoring-alerting-guide
+  - /docs/incident-postmortem-template
+  - /docs/service-level-objective-template
+  - /docs/bug-report-template
+  - /docs/disaster-recovery-plan-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - error budget template
     - sre reliability targets
     - slo document format
+
+
+
+
 ---
 
 # Service Level Objective (SLO) Document Template

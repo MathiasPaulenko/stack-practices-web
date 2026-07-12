@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-ollama-local-llm
 title: "Ejecuta LLMs localmente con Ollama para inferencia privada"
@@ -14,9 +18,11 @@ tags:
   - open source
   - inference
 relatedResources:
-  - /recipes/ai/python-llm-streaming-responses
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-langchain-chains-composition
+  - /recipes/python-llm-streaming-responses
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-agent-langgraph-state-machine
+  - /guides/complete-guide-local-llm-deployment
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +33,10 @@ seo:
     - ollama tutorial
     - run llm locally
     - open source llm
+
+
+
+
 ---
 
 # Ejecuta LLMs localmente con Ollama para inferencia privada
@@ -34,6 +44,9 @@ seo:
 Ollama ejecuta LLMs open-source (Llama 3, Mistral, Phi-3, etc.) localmente en tu maquina. Sin API keys, sin costos por token, sin datos saliendo de tu red. A continuacion: instalar Ollama, ejecutar modelos con Python, streaming de respuestas, generar embeddings y usar function calling — todo localmente.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [a Local RAG Pipeline with ChromaDB and Sentence Transformers](/es/recipes/python-rag-chroma-local/).
 
 - Aplicaciones sensibles a privacidad donde los datos no pueden salir de tu maquina
 - Desarrollo y prototipado sin costos de API

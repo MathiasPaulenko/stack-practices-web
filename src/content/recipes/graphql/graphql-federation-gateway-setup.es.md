@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: graphql-federation-gateway-setup
 title: "Configurar un gateway de GraphQL Federation con Apollo"
@@ -16,9 +21,12 @@ tags:
   - microservices
   - gateway
 relatedResources:
-  - /recipes/api/graphql-apollo-server
-  - /recipes/graphql/graphql-subscriptions-realtime
-  - /patterns/graphql/federated-identity-pattern
+  - /recipes/graphql-apollo-server
+  - /recipes/graphql-subscriptions-realtime
+  - /patterns/federated-identity-pattern
+  - /guides/complete-guide-graphql-federation-production
+  - /docs/graphql-federation-onboarding-template
+  - /patterns/graphql-federated-entity-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +37,11 @@ seo:
     - supergraph
     - federated graphql
     - microservices graphql
+
+
+
+
+
 ---
 
 # Configurar un gateway de GraphQL Federation con Apollo
@@ -36,6 +49,9 @@ seo:
 Apollo Federation permite dividir una API GraphQL monolitica en subgrafos desplegables independientemente. Un gateway compone los subgrafos en un unico supergrafo y enruta cada consulta al servicio correcto. Entidades como `User` o `Product` pueden definirse en un subgrafo y extenderse en otros, para que los equipos gestionen sus dominios sin un archivo de schema compartido.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [GraphQL Federation in Production](/es/guides/complete-guide-graphql-federation-production/).
 
 - Multiples equipos necesitan gestionar diferentes partes de una API GraphQL
 - Un servidor GraphQL monolitico ha crecido demasiado para mantenerse como un unico codebase

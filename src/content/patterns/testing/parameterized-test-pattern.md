@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: parameterized-test-pattern
 title: "Parameterized Test: Run the Same Logic Across Multiple"
@@ -28,6 +29,7 @@ seo:
     - data-driven
     - test-cases
     - pattern
+
 ---
 
 ## Overview
@@ -431,6 +433,9 @@ static Stream<DatabaseConfig> databaseConfigs() {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [JUnit 5: Extensions, Parameterized Tests, Dynamic Tests](/guides/complete-guide-junit5-modern-testing/).
 
 - Use descriptive test IDs — `ids` in pytest, template strings in Jest, names in JUnit
 - Keep test data readable — align columns, group related cases

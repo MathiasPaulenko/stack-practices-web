@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: load-test-execution-plan-template
 title: "Load Test Execution Plan Template"
@@ -15,9 +20,12 @@ tags:
   - k6
   - observability
 relatedResources:
-  - /docs/devops/capacity-planning-forecast-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/capacity-planning-forecast-template
+  - /docs/monitoring-alerting-policy-template
   - /docs/runbook-template
+  - /guides/logging-monitoring-observability-guide
+  - /guides/observability-guide
+  - /guides/performance-optimization-guide
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -28,6 +36,11 @@ seo:
     - load testing checklist
     - load test scenario template
     - performance testing guide
+
+
+
+
+
 ---
 
 ## Overview
@@ -35,6 +48,9 @@ seo:
 Load testing evaluates how a system behaves under realistic or peak traffic. This template helps teams define test goals, select scenarios, prepare environments, execute tests, and document results. It ensures that performance work is repeatable and tied to clear success criteria.
 
 ## When to Use
+
+
+- For alternatives, see [Logging, Monitoring & Observability Guide](/guides/logging-monitoring-observability-guide/).
 
 - Before a major product launch or marketing campaign.
 - After major architecture or infrastructure changes.

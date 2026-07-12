@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: ssl-certificate-renewal-template
 title: "SSL Certificate Renewal Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/cross-region-failover-template
   - /docs/deployment-checklist-template
+  - /recipes/setup-ssl-certificates
+  - /docs/patch-management-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,6 +36,9 @@ seo:
     - tls
     - security
     - template
+
+
+
 ---
 ## Overview
 
@@ -265,6 +273,9 @@ kubectl get secrets --all-namespaces -o json | \
 ```
 
 ## Additional Best Practices
+
+
+- For a deeper guide, see [Setup SSL Certificates with Let's Encrypt](/recipes/setup-ssl-certificates/).
 
 1. **Use certificate transparency monitoring.** Subscribe to CT logs for your domains to detect unauthorized certificate issuance. Set up alerts when a new certificate is issued for a domain you own:
 

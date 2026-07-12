@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: nodejs-file-upload-validation
 title: "Validación de Subida de Archivos en Node.js"
@@ -19,8 +22,8 @@ relatedResources:
   - /recipes/file-upload-validation
   - /recipes/javascript-drag-drop-file-upload
   - /docs/endpoint-security-checklist-template
-  - /guides/graphql-error-handling-best-practices
-  - /patterns/file-upload-validation
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/file-upload-validation
 lastUpdated: "2026-07-02"
 author: "StackPractices"
 seo:
@@ -32,6 +35,9 @@ seo:
     - límite tamaño archivo
     - mime type validación
     - express file upload
+
+
+
 ---
 
 ## Visión General
@@ -39,6 +45,9 @@ seo:
 Las subidas de archivos son un vector de ataque común en aplicaciones web. Sin validación adecuada, los atacantes pueden subir archivos maliciosos, sobrescribir archivos del sistema o ejecutar código arbitrario. Esta recipe cubre validar tipo de archivo, tamaño, extensión y contenido usando multer en aplicaciones Node.js Express.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Configure Firewall Rules with iptables](/es/recipes/bash-iptables-firewall-rules/).
 
 - Estás construyendo una API que acepta subidas de archivos de usuarios
 - Necesitas restringir subidas a tipos específicos (imágenes, documentos)

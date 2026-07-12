@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-error-handling-best-practices
 title: "Structured GraphQL Errors with Extension Codes"
@@ -15,9 +19,11 @@ tags:
   - api design
   - debugging
 relatedResources:
-  - /recipes/graphql/graphql-input-validation
-  - /recipes/api/graphql-apollo-server
-  - /recipes/api/handle-errors
+  - /recipes/graphql-input-validation
+  - /recipes/graphql-apollo-server
+  - /recipes/handle-errors
+  - /recipes/graphql-directives-auth
+  - /recipes/graphql-mocking-apollo-server
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +34,10 @@ seo:
     - graphql error codes
     - structured errors
     - graphql formatError
+
+
+
+
 ---
 
 # Structured GraphQL Errors with Extension Codes
@@ -292,6 +302,9 @@ type Mutation {
 This gives clients type-safe error handling without try/catch.
 
 ## Best Practices
+
+
+- For a deeper guide, see [Detect and Fix N+1 Queries in GraphQL Resolvers](/recipes/graphql-n-1-query-detection/).
 
 - **Always include `extensions.code`** — it is the contract between server and client for error handling
 - **Never leak stack traces** in production — `formatError` should strip them

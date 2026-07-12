@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: proxy-pattern
 title: "Proxy Pattern"
@@ -18,9 +23,13 @@ tags:
   - javascript
   - java
 relatedResources:
-  - /patterns/design/decorator-pattern
-  - /patterns/design/adapter-pattern
-  - /patterns/design/factory-pattern
+  - /patterns/decorator-pattern
+  - /patterns/adapter-pattern
+  - /patterns/factory-pattern
+  - /patterns/business-delegate-pattern
+  - /patterns/circuit-breaker-pattern
+  - /patterns/facade-pattern
+  - /patterns/flyweight-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +44,11 @@ seo:
     - python proxy
     - java proxy
     - javascript proxy
+
+
+
+
+
 ---
 
 # Proxy Pattern

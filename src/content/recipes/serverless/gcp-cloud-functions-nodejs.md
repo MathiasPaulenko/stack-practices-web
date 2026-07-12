@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: gcp-cloud-functions-nodejs
 title: "Deploy HTTP Cloud Functions on Google Cloud with Node.js"
@@ -16,10 +19,10 @@ tags:
   - http-trigger
   - serverless
 relatedResources:
-  - /recipes/serverless/aws-lambda-python-dependencies
-  - /recipes/serverless/azure-functions-python-http
+  - /recipes/aws-lambda-python-dependencies
+  - /recipes/azure-functions-python-http
   - /guides/serverless-architecture-guide
-  - /guides/gcp-cloud-functions-nodejs
+  - /recipes/gcp-cloud-functions-nodejs
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +33,9 @@ seo:
     - nodejs serverless gcp
     - cloud functions http trigger
     - gcloud deploy functions
+
+
+
 ---
 
 ## Overview
@@ -342,6 +348,9 @@ gcloud functions deploy scheduled-cleanup \
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Build HTTP-Triggered Azure Functions with Python](/recipes/azure-functions-python-http/).
 
 - **Use Gen 2**: It supports concurrency, has better cold start performance, and is built on Cloud Run. Gen 1 is legacy.
 - **Use Express for complex routing**: For more than one endpoint, Express is cleaner than manual routing in a single function.

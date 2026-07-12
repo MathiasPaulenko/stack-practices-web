@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: patterns
 slug: serverless-function-composition-pattern
 title: "Serverless Function Composition Pattern"
@@ -18,9 +23,12 @@ tags:
   - python
   - typescript
 relatedResources:
-  - /patterns/design/serverless-event-sourcing-pattern
-  - /patterns/design/serverless-fanout-pattern
-  - /recipes/serverless/aws-lambda-cold-start-optimization
+  - /patterns/serverless-event-sourcing-pattern
+  - /patterns/serverless-fanout-pattern
+  - /recipes/aws-lambda-cold-start-optimization
+  - /patterns/serverless-db-connection-pooling-pattern
+  - /patterns/serverless-throttling-pattern
+  - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - serverless workflow
     - function chaining
     - aws cdk step functions
+
+
+
+
+
 ---
 
 # Serverless Function Composition Pattern
@@ -332,6 +345,9 @@ The composition pattern separates orchestration from execution:
 | Chained Lambda (direct invoke) | Function-to-function | Simple 2-3 step flows |
 
 ## Best Practices
+
+
+- For a deeper guide, see [Serverless Warm Pool Pattern](/patterns/serverless-warm-pool-pattern/).
 
 - **Keep steps idempotent** — the orchestrator may retry a step. Each step must produce the same result whether called once or multiple times. Use idempotency keys for payment and inventory operations.
 - **Use compensation steps** — if a step fails after side effects (e.g. payment succeeded but inventory failed), add a compensation step (e.g. refund) to roll back.

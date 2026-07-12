@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: database-query-tuning-checklist
 templateType: guideline
@@ -18,9 +21,10 @@ tags:
   - database-performance
   - explain-plan
 relatedResources:
-  - /docs/performance/performance-budget-template
-  - /docs/performance/load-test-plan-template
-  - /docs/devops/kubernetes-resource-quotas-template
+  - /docs/performance-budget-template
+  - /docs/load-test-plan-template
+  - /docs/kubernetes-resource-quotas-template
+  - /docs/core-web-vitals-audit-checklist
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +36,9 @@ seo:
     - index strategy
     - n+1 queries
     - slow query log
+
+
+
 ---
 
 ## Overview
@@ -461,3 +468,12 @@ Para de usar `OFFSET` — gets slower conforme vas deeper porque el database sca
 ### ¿Cómo encuentro slow queries en production?
 
 Enablea el slow query log. En PostgreSQL, setea `log_min_duration_statement = 100` para loggear queries que toman mas de 100ms. En MySQL, setea `long_query_time = 0.1` y enablea `slow_query_log`. Usa `pg_stat_statements` (PostgreSQL) o `performance_schema` (MySQL) para encontrar queries con high total execution time, high mean execution time o high call count. Focate en queries que son both slow individualmente y called frequentemente — un 50ms query called 1000 times per second es worse que un 500ms query called once per minute. Usa un APM tool (Datadog, New Relic, Sentry) para application-level query tracking con trace context.
+
+## See Also
+
+- [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/)
+- [Full-Text Search — Implement Search That Actually Works](/es/guides/full-text-search-guide/)
+- [Read Replicas: Scale Reads Without Changing Application](/es/guides/read-replica-guide/)
+- [Complete Guide to MongoDB Indexing](/es/guides/complete-guide-mongodb-indexing/)
+- [Complete Guide to PostgreSQL Tuning](/es/guides/complete-guide-postgresql-tuning/)
+

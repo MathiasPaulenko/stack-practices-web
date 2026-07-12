@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: websocket-authentication
 title: "Autenticacion y Patrones de Seguridad para WebSockets"
@@ -15,9 +21,13 @@ tags:
   - real-time
   - api
 relatedResources:
-  - /recipes/api/call-rest-api
+  - /recipes/call-rest-api
   - /recipes/real-time-websockets
-  - /patterns/design/decorator-pattern-pipeline
+  - /patterns/decorator-pattern-pipeline
+  - /recipes/nodejs-websocket-realtime
+  - /recipes/server-sent-events-go
+  - /recipes/websocket-bidirectional-chat
+  - /recipes/hmac-request-signing
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - real-time security
     - token validation
     - room authorization
+
+
+
+
+
+
 ---
 
 # Autenticacion y Patrones de Seguridad para WebSockets

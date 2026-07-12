@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: docs
 slug: capacity-planning-forecast-template
 title: "Plantilla de Pronostico de Planificacion de Capacidad"
@@ -15,9 +19,11 @@ tags:
   - scaling
   - performance
 relatedResources:
-  - /docs/devops/production-readiness-review-template
-  - /docs/devops/feature-specification-template
-  - /docs/devops/monitoring-alerting-policy-template
+  - /docs/production-readiness-review-template
+  - /docs/feature-specification-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/infrastructure-cost-allocation-template
+  - /docs/load-test-execution-plan-template
 lastUpdated: "2026-06-26"
 author: "StackPractices"
 seo:
@@ -28,6 +34,10 @@ seo:
     - plantilla de escalado
     - planificacion de recursos
     - proyeccion de trafico
+
+
+
+
 ---
 
 ## Descripcion General
@@ -35,6 +45,9 @@ seo:
 El trafico crece, pero la infraestructura no crece sola. La mayoria de las interrupciones no son causadas por codigo malo, sino por sistemas que chocan contra un limite que nadie midio. La planificacion de capacidad es la disciplina de mirar hacia adelante: cuanto trafico tendremos en seis meses, que recurso se agotara primero y cuanto costara mantenernos por delante de la demanda. Un pronostico de capacidad convierte el escalado impulsado por el panico en una operacion programada, presupuestada y probada.
 
 ## Cuando Usar
+
+
+- For alternatives, see [Capacity Planning — Forecast, Scale](/es/guides/capacity-planning-guide/).
 
 Usa esta plantilla cuando:
 - Entras en una fase de crecimiento (campaña de marketing, lanzamiento de producto, pico estacional)

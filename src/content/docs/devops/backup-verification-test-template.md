@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: backup-verification-test-template
 title: "Backup Verification Test Template"
@@ -17,6 +19,7 @@ tags:
 relatedResources:
   - /docs/disaster-recovery-plan-template
   - /docs/runbook-template
+  - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
 author: "StackPractices"
 seo:
@@ -27,6 +30,8 @@ seo:
     - backup validation
     - disaster recovery testing
     - RTO RPO verification
+
+
 ---
 
 ## Overview
@@ -34,6 +39,9 @@ seo:
 A backup that cannot be restored is not a backup. This template helps teams schedule, execute, and document backup verification tests. It covers the systems under test, the restore procedure, validation criteria, and what to do when a test fails.
 
 ## When to Use
+
+
+- For alternatives, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/guides/disaster-recovery-guide/).
 
 - After configuring a new backup policy or tool.
 - Before a compliance audit or disaster recovery review.

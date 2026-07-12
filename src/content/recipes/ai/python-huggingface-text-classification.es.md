@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: python-huggingface-text-classification
 title: "Fine-tune y despliega clasificadores de texto con"
@@ -14,9 +18,11 @@ tags:
   - text classification
   - fine-tuning
 relatedResources:
-  - /recipes/ai/python-langchain-chains-composition
-  - /recipes/ai/python-rag-chroma-local
-  - /recipes/ai/python-openai-function-calling-structured
+  - /recipes/python-langchain-chains-composition
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-openai-function-calling-structured
+  - /recipes/python-agent-langgraph-state-machine
+  - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -27,6 +33,10 @@ seo:
     - bert classification
     - huggingface trainer
     - python nlp
+
+
+
+
 ---
 
 # Fine-tune y despliega clasificadores de texto con Hugging Face Transformers
@@ -34,6 +44,9 @@ seo:
 Los modelos transformer pre-entrenados como BERT y DistilBERT alcanzan resultados modern en tareas de clasificacion de texto. La libreria `transformers` de Hugging Face proporciona la API `Trainer` para fine-tunear estos modelos en datasets personalizados con codigo minimo. A continuacion: cargar un dataset, tokenizar, fine-tunear, evaluar y desplegar un clasificador de texto.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to OpenAI API Mastery](/es/guides/complete-guide-openai-api-mastery/).
 
 - Analisis de sentimiento en reviews de clientes o redes sociales
 - Deteccion de spam, clasificacion de temas o reconocimiento de intenciones

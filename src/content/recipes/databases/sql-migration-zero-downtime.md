@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: sql-migration-zero-downtime
 title: "Zero-Downtime Column Rename Migration"
@@ -19,6 +21,7 @@ relatedResources:
   - /recipes/sql-index-optimization-analysis
   - /recipes/sql-partitioning-strategies
   - /recipes/sql-recursive-cte-query
+  - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -30,6 +33,8 @@ seo:
     - migration
     - schema
     - zero-downtime
+
+
 ---
 
 
@@ -38,6 +43,9 @@ seo:
 Renaming a column or changing its type on a busy table is risky because `ALTER TABLE` can acquire an exclusive lock and block reads and writes for minutes or hours. Zero-downtime migrations avoid this by adding a new column, backfilling data incrementally, synchronizing writes with triggers or views, and then switching over once the old and new values match.
 
 ## When to Use
+
+
+- For alternatives, see [Database Migrations Safely](/recipes/database-migrations-safely/).
 
 Use this resource when:
 - You need to rename a column in a production table without downtime.

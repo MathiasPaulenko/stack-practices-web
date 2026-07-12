@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: vault-dynamic-credentials
 title: "Live Database Credentials with HashiCorp Vault"
@@ -17,7 +21,10 @@ tags:
 relatedResources:
   - /recipes/secret-management
   - /recipes/security-headers
-  - /guides/security/security-best-practices-guide
+  - /guides/security-best-practices-guide
+  - /recipes/python-sql-injection-sqlalchemy
+  - /recipes/sql-injection-prevention
+  - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - secret management
     - database security
     - password rotation
+
+
+
+
 ---
 
 # Live Database Credentials with HashiCorp Vault

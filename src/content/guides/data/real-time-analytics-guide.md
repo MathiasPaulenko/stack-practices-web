@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: real-time-analytics-guide
 title: "Real-Time Analytics: From Events to Dashboards in Seconds"
@@ -18,9 +20,9 @@ tags:
   - olap
   - guide
 relatedResources:
-  - /guides/data/stream-processing-guide
-  - /guides/data/etl-pipeline-guide
-  - /guides/observability/metrics-and-dashboards-guide
+  - /guides/stream-processing-guide
+  - /guides/etl-pipeline-guide
+  - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -33,6 +35,8 @@ seo:
     - kafka
     - olap
     - guide
+
+
 ---
 
 ## Overview
@@ -42,6 +46,9 @@ Real-time analytics processes data as it arrives, delivering insights within sec
 The following guide covers event collection, stream processing, OLAP databases, and dashboard design for sub-second analytics.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to LLM Application Architecture](/guides/complete-guide-llm-application-architecture/).
 
 - You need to detect anomalies or fraud within seconds of events occurring
 - Business operations depend on minute-by-minute visibility (trading, logistics, gaming)

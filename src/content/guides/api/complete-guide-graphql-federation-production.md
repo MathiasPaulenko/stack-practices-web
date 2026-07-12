@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: guides
 slug: complete-guide-graphql-federation-production
 title: "GraphQL Federation in Production"
@@ -19,9 +25,13 @@ tags:
   - subgraph
   - gateway
 relatedResources:
-  - /guides/api/complete-guide-graphql-schema-design
-  - /guides/api/complete-guide-graphql-federation
-  - /guides/architecture/microservices-architecture-guide
+  - /guides/complete-guide-graphql-schema-design
+  - /guides/complete-guide-graphql-federation
+  - /guides/microservices-architecture-guide
+  - /guides/complete-guide-graphql-testing
+  - /recipes/graphql-mocking-apollo-server
+  - /docs/graphql-federation-onboarding-template
+  - /recipes/graphql-federation-gateway-setup
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -33,6 +43,12 @@ seo:
     - subgraph composition
     - entity resolution
     - graphql observability
+
+
+
+
+
+
 ---
 
 ## Introduction
@@ -477,3 +493,12 @@ Rover starts a gateway on port 4000 that composes both subgraphs.
 ### Should I use Apollo Router or the JS Gateway?
 
 Apollo Router (Rust-based) is recommended for production. It is faster, uses less memory, and supports native OpenTelemetry. The JS Gateway (`@apollo/gateway`) is useful for development and Node.js-based deployments where you need custom JavaScript plugins.
+
+## See Also
+
+- [Complete Guide to GraphQL Federation](/guides/complete-guide-graphql-federation/)
+- [Set Up a GraphQL Federation Gateway with Apollo](/recipes/graphql-federation-gateway-setup/)
+- [Complete Guide to GraphQL Schema Design](/guides/complete-guide-graphql-schema-design/)
+- [GraphQL Error Extension Pattern](/patterns/graphql-error-extension-pattern/)
+- [GraphQL Interface Polymorphism Pattern](/patterns/graphql-interface-polymorphism-pattern/)
+

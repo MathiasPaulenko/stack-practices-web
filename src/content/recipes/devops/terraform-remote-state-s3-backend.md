@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: terraform-remote-state-s3-backend
 title: "Store Terraform State in S3 with DynamoDB Locking"
@@ -16,9 +19,10 @@ tags:
   - infrastructure
   - recipe
 relatedResources:
-  - /recipes/devops/terraform-workspace-environment-isolation
-  - /recipes/devops/github-actions-reusable-workflows
-  - /recipes/devops/kubernetes-helm-chart-templating
+  - /recipes/terraform-workspace-environment-isolation
+  - /recipes/github-actions-reusable-workflows
+  - /recipes/kubernetes-helm-chart-templating
+  - /recipes/kubernetes-configmap-secret-mounting
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +35,9 @@ seo:
     - state-management
     - infrastructure
     - recipe
+
+
+
 ---
 
 ## Overview
@@ -427,6 +434,9 @@ terraform/
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Isolate Environments with Terraform Workspaces](/recipes/terraform-workspace-environment-isolation/).
 
 - Enable S3 versioning — allows state rollback if corruption occurs
 - Enable server-side encryption — state contains sensitive data (IPs, passwords)

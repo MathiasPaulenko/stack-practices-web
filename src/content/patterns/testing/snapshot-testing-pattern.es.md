@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: snapshot-testing-pattern
 title: "Patrón Snapshot Testing"
@@ -19,6 +23,9 @@ relatedResources:
   - /patterns/test-double-pattern
   - /patterns/parameterized-test-pattern
   - /patterns/golden-master-testing-pattern
+  - /patterns/contract-testing-pattern
+  - /patterns/fixture-setup-teardown-pattern
+  - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +37,10 @@ seo:
     - jest
     - pytest
     - pattern
+
+
+
+
 ---
 
 ## Overview
@@ -418,6 +429,9 @@ test('welcome email matches snapshot', () => {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Setup Test Fixtures](/es/recipes/setup-test-fixtures/).
 
 - Revisá snapshot diffs en PRs — los snapshots pueden esconder bugs si se updatean a ciegas
 - Usá `--ci` flag en CI — previene auto-creating new snapshots, fuerza explicit creation

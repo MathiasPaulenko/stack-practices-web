@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: graphql-input-validation
 title: "Validate and Sanitize GraphQL Input Types Server-Side"
@@ -16,9 +20,11 @@ tags:
   - input sanitization
   - security
 relatedResources:
-  - /recipes/graphql/graphql-custom-scalar-types
-  - /recipes/graphql/graphql-error-handling-best-practices
-  - /recipes/data/data-validation-zod
+  - /recipes/graphql-custom-scalar-types
+  - /recipes/graphql-error-handling-best-practices
+  - /recipes/data-validation-zod
+  - /recipes/graphql-directives-auth
+  - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -29,6 +35,10 @@ seo:
     - graphql sanitization
     - input type validation
     - graphql security
+
+
+
+
 ---
 
 # Validate and Sanitize GraphQL Input Types Server-Side
@@ -267,6 +277,9 @@ input CreatePostInput {
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Complete Guide to GraphQL Security](/guides/complete-guide-graphql-security/).
 
 - **Validate at the boundary** — run validation as the first step in every resolver that accepts input
 - **Sanitize, don't just validate** — use `.trim()` and HTML sanitizers to clean input, not just reject it

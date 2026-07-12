@@ -1,4 +1,8 @@
-﻿---
+---
+
+
+
+
 contentType: recipes
 slug: parse-csv-files
 title: "Parse CSV Files"
@@ -15,11 +19,13 @@ tags:
   - java
   - data-processing
 relatedResources:
-  - /recipes/data/parse-json
-  - /recipes/data/regular-expressions
-  - /recipes/file-handling/import-csv-excel
-  - /recipes/data/validate-json-schema
-  - /guides/databases/sql-joins-guide
+  - /recipes/parse-json
+  - /recipes/regular-expressions
+  - /recipes/import-csv-excel
+  - /recipes/validate-json-schema
+  - /guides/sql-joins-guide
+  - /recipes/parse-command-line-arguments
+  - /recipes/parse-log-files
 lastUpdated: "2026-06-20"
 author: "StackPractices"
 seo:
@@ -31,6 +37,10 @@ seo:
     - javascript
     - java
     - data-processing
+
+
+
+
 ---
 
 ## Overview
@@ -287,6 +297,9 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **csvkit**: command-line tools for CSV files. csvstat shows statistics, csvcut selects columns, csvjoin merges files. Useful for quick exploration without writing Python scripts
 
 ## Best Practices Summary
+
+
+- For a deeper guide, see [Convert CSV to JSON](/recipes/convert-csv-to-json/).
 
 - Always specify encoding explicitly (encoding='utf-8'). Never rely on system defaults
 - Use chunked reading for files >500MB. Set chunksize in pandas or iterate line-by-line

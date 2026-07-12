@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: recipes
 slug: helm-chart-deployment
 title: "Despliegue de Aplicaciones en Kubernetes con Helm Charts"
@@ -15,9 +19,12 @@ tags:
   - ci-cd
   - automation
 relatedResources:
-  - /recipes/devops/docker-compose-local-dev
-  - /patterns/design/ambassador-pattern-services
-  - /guides/devops/kubernetes-basics-guide
+  - /recipes/docker-compose-local-dev
+  - /patterns/ambassador-pattern-services
+  - /guides/kubernetes-basics-guide
+  - /recipes/grafana-dashboards-observability
+  - /recipes/prometheus-monitoring-alerts
+  - /recipes/cost-optimization
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +35,10 @@ seo:
     - package management
     - infrastructure as code
     - release management
+
+
+
+
 ---
 
 # Despliegue de Aplicaciones en Kubernetes con Helm Charts

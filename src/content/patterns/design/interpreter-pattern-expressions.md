@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: patterns
 slug: interpreter-pattern-expressions
 title: "Interpreter Pattern for Domain-Specific Expression Languages"
@@ -14,8 +18,11 @@ tags:
   - design-pattern
   - design-patterns
 relatedResources:
-  - /patterns/design/chain-of-responsibility-middleware
-  - /patterns/design/iterator-pattern-collections
+  - /patterns/chain-of-responsibility-middleware
+  - /patterns/iterator-pattern-collections
+  - /patterns/visitor-pattern-operations
+  - /patterns/command-pattern-undo
+  - /patterns/mediator-pattern-components
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:
@@ -26,6 +33,10 @@ seo:
     - domain specific language
     - behavioral patterns
     - rule engine
+
+
+
+
 ---
 
 # Interpreter Pattern for Domain-Specific Expression Languages

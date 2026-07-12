@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: incident-response-playbook-template
 title: "Incident Response Playbook Template"
@@ -19,6 +22,8 @@ relatedResources:
   - /docs/security-audit-checklist-template
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
+  - /docs/api-security-review-template
+  - /docs/data-classification-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -29,12 +34,18 @@ seo:
     - playbook
     - template
     - compliance
+
+
+
 ---
 ## Overview
 
 Security incidents require coordinated, rapid response. Panic and improvisation extend downtime, increase data exposure, and violate compliance obligations. This playbook template structures the response into five phases: Detection, Containment, Eradication, Recovery, and Lessons Learned (based on NIST SP 800-61).
 
 ## When to Use
+
+
+- For alternatives, see [Data Classification Template](/docs/data-classification-template/).
 
 Use this resource when:
 - A security alert fires (unauthorized access, data leak, malware)

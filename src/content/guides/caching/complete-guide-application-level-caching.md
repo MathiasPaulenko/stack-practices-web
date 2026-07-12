@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: guides
 slug: complete-guide-application-level-caching
 title: "Complete Guide to Application-Level Caching"
@@ -19,9 +22,10 @@ tags:
   - multi-tier
   - thread-safety
 relatedResources:
-  - /guides/caching/complete-guide-redis-caching-strategies
-  - /guides/caching/complete-guide-cdn-caching-strategy
-  - /patterns/design/cache-aside-pattern
+  - /guides/complete-guide-redis-caching-strategies
+  - /guides/complete-guide-cdn-caching-strategy
+  - /patterns/cache-aside-pattern
+  - /guides/complete-guide-cache-invalidation
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
@@ -35,6 +39,9 @@ seo:
     - ttl cache
     - multi-tier caching
     - thread safe cache
+
+
+
 ---
 
 ## Introduction
@@ -155,6 +162,9 @@ public User getUser(Long userId) {
 ```
 
 ### When to Use In-Memory Caches
+
+
+- For alternatives, see [Complete Guide to Cache Invalidation](/guides/complete-guide-cache-invalidation/).
 
 - Data that is small enough to fit in process memory
 - Data that changes infrequently (configurations, reference data)

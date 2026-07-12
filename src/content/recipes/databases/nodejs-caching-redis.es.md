@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: nodejs-caching-redis
 title: "Caché en Node.js con Redis: Cache-Aside, TTL e Invalidation"
@@ -19,7 +21,7 @@ relatedResources:
   - /recipes/caching-redis
   - /recipes/python-api-rate-limiting
   - /recipes/api-rate-limiting-redis
-  - /guides/caching-strategies
+  - /guides/caching-strategies-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
 author: "StackPractices"
@@ -32,6 +34,8 @@ seo:
     - ioredis caching
     - invalidación caché
     - api response caching
+
+
 ---
 
 ## Visión General
@@ -39,6 +43,9 @@ seo:
 Cachear respuestas de API con Redis reduce la carga de la base de datos, mejora los tiempos de respuesta y escala las aplicaciones eficientemente. Esta recipe cubre cache-aside, expiración basada en TTL, invalidación por tags y patrones de middleware usando ioredis en aplicaciones Node.js Express.
 
 ## Cuándo Usar
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Tienes endpoints de API que retornan los mismos datos repetidamente
 - Las queries a la base de datos son lentas y los datos cambian infrecuentemente

@@ -1,4 +1,5 @@
 ---
+
 contentType: patterns
 slug: retry-with-jitter-pattern
 title: "Retry with Jitter: Exponential Backoff and Random Jitter"
@@ -28,6 +29,7 @@ seo:
     - retry
     - backoff
     - pattern
+
 ---
 
 ## Overview
@@ -160,6 +162,13 @@ class DecorrelatedJitterRetry:
 
         raise last_exception
 ```
+
+
+- [Bulkhead Pattern: Isolate Resources to Limit Blast Radius](/patterns/bulkhead-pattern/)
+- [Circuit Breaker Half-Open](/patterns/circuit-breaker-half-open-pattern/)
+- [Fallover: Switch to Standby on Primary Failure Detection](/patterns/fallover-pattern/)
+- [Graceful Shutdown: Drain In-Flight Requests Before Exit](/patterns/graceful-shutdown-pattern/)
+- [Token Bucket Rate Limiter: Smooth Traffic with Token Buckets](/patterns/rate-limiter-token-bucket-pattern/)
 
 ### Java retry with resilience4j
 

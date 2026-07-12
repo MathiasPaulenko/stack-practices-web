@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: recipes
 slug: bash-backup-rotation-script
 title: "Script de Rotación de Backups"
@@ -19,6 +22,8 @@ relatedResources:
   - /recipes/bash-parallel-execution
   - /recipes/bash-text-processing
   - /recipes/generate-temporary-files
+  - /recipes/bash-aws-cli-automation
+  - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
 author: "StackPractices"
 seo:
@@ -29,6 +34,9 @@ seo:
     - retención
     - automatización
     - linux
+
+
+
 ---
 ## Visión General
 
@@ -379,6 +387,9 @@ else:
 ```
 
 ## Mejores Prácticas Adicionales
+
+
+- For a deeper guide, see [Bash Scripting for DevOps Automation and System Tasks](/es/recipes/bash-scripting-automation/).
 
 1. **Usa `trap` para limpiar ante fallos del script.** Si el script de backup falla a mitad de camino, archivos temporales y archives parciales pueden quedar. Usa un trap para limpiar al salir:
 

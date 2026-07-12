@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: postgres-query-optimization
 title: "Optimizacion de Queries e Indexing en PostgreSQL"
@@ -15,9 +20,13 @@ tags:
   - databases
   - postgresql
 relatedResources:
-  - /recipes/databases/acid-transactions-postgres
-  - /recipes/databases/redis-cache-patterns
-  - /patterns/design/repository-pattern
+  - /recipes/acid-transactions-postgres
+  - /recipes/redis-cache-patterns
+  - /patterns/repository-pattern
+  - /recipes/uuid-generation-strategies
+  - /recipes/database-connection-pooling
+  - /recipes/database-replication
+  - /recipes/deadlock-prevention-sql
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +37,11 @@ seo:
     - indexing strategies
     - explain analyze
     - database tuning
+
+
+
+
+
 ---
 
 # Optimizacion de Queries e Indexing en PostgreSQL

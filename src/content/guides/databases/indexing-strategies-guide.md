@@ -1,4 +1,6 @@
 ---
+
+
 contentType: guides
 slug: indexing-strategies-guide
 title: "Database Indexing Strategies — From B-Trees to BRIN"
@@ -21,8 +23,8 @@ relatedResources:
   - /guides/database-normalization-guide
   - /guides/sql-joins-guide
   - /guides/database-replication-guide
-  - /recipes/databases/connect-to-postgresql
-  - /recipes/databases/connect-to-mysql
+  - /recipes/connect-to-postgresql
+  - /recipes/connect-to-mysql
 lastUpdated: "2026-06-24"
 author: "StackPractices"
 seo:
@@ -35,6 +37,8 @@ seo:
     - composite-index
     - query-optimization
     - guide
+
+
 ---
 
 ## Overview
@@ -42,6 +46,9 @@ seo:
 Indexes are the primary mechanism for speeding up database queries. They are data structures that allow the database to locate rows without scanning every record. But indexes are not free — they consume storage, slow down writes, and can hurt performance if used incorrectly. Understanding the different index types and when to apply them is one of the highest-value database skills.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/guides/complete-guide-sql-query-optimization/).
 
 - Queries filtering on specific columns (WHERE, JOIN)
 - Sorting large result sets (ORDER BY)

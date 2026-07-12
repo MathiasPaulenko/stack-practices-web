@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: recipes
 slug: kafka-python-consumer-groups
 title: "Construir Consumer Groups de Kafka con Python para"
@@ -16,10 +21,13 @@ tags:
   - streaming
   - event-driven
 relatedResources:
-  - /recipes/messaging/rabbitmq-python-pika-consumer
-  - /recipes/messaging/python-celery-task-queue
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/python-celery-task-queue
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-kafka-stream-processing
+  - /recipes/kafka-spring-boot-stream-listener
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
@@ -30,6 +38,11 @@ seo:
     - kafka rebalance handling
     - kafka exactly once python
     - kafka partition assignment
+
+
+
+
+
 ---
 
 ## Descripcion general
@@ -37,6 +50,9 @@ seo:
 Los consumer groups de Kafka habilitan procesamiento paralelo de un topico distribuyendo particiones entre consumers. Cada particion se asigna a exactamente un consumer en el grupo, proporcionando escalabilidad horizontal y procesamiento ordenado por particion. A continuacion: crear consumer groups, gestionar offsets, manejar rebalances, estrategias de commit y lograr semantica exactly-once con Python y `confluent-kafka`.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Consume Kafka Topics with Spring Boot Stream Listeners](/es/recipes/kafka-spring-boot-stream-listener/).
 
 - Event streaming de alto throughput (click streams, datos IoT, transacciones financieras)
 - Pipelines de agregacion de logs y analitica en tiempo real

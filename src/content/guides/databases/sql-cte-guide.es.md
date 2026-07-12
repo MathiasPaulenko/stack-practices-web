@@ -1,4 +1,8 @@
 ---
+
+
+
+
 contentType: guides
 slug: sql-cte-guide
 title: "CTEs en SQL — Expresiones de Tablas Comunes Explicadas"
@@ -20,6 +24,9 @@ relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-performance-tuning-guide
   - /guides/sql-joins-guide
+  - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-recursive-cte-query
+  - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
 author: "StackPractices"
 seo:
@@ -32,6 +39,10 @@ seo:
     - legibilidad
     - organizacion-consultas
     - guia
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +50,9 @@ seo:
 Las Expresiones de Tablas Comunes (CTEs), introducidas en SQL:1999, proporcionan un conjunto de resultados temporal con nombre que existe durante la ejecucion de una sola consulta. Mejoran la legibilidad al dividir consultas complejas en bloques nombrados, habilitan recursion para datos jerarquicos y pueden materializarse para rendimiento. Soportadas por PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.8.3+.
 
 ## When to Use
+
+
+- For alternatives, see [Complete Guide to SQL Query Optimization](/es/guides/complete-guide-sql-query-optimization/).
 
 - Una consulta tiene multiples niveles de subconsultas anidadas
 - Necesitas referenciar la misma subconsulta multiples veces

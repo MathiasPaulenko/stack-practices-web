@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: redis-cache-aside-pattern
 title: "Implementar el patron Cache-Aside con Redis"
@@ -15,9 +21,13 @@ tags:
   - performance
   - database
 relatedResources:
-  - /recipes/caching/caching-redis
-  - /recipes/caching/python-redis-cache-decorator
-  - /patterns/caching/cache-aside-pattern
+  - /recipes/caching-redis
+  - /recipes/python-redis-cache-decorator
+  - /patterns/cache-aside-pattern
+  - /recipes/cdn-cache-invalidation-strategies
+  - /recipes/http-cache-control-headers
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/redis-distributed-lock
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - lazy loading cache
     - write through cache
     - redis caching pattern
+
+
+
+
+
+
 ---
 
 # Implementar el patron Cache-Aside con Redis
@@ -35,6 +51,9 @@ seo:
 Cache-aside (tambien llamado lazy loading) es el patron de caching mas comun. La aplicacion verifica la cache primero; en un miss, carga desde la base de datos, escribe el resultado en la cache y lo retorna. En escrituras, la aplicacion actualiza la base de datos e invalida la entrada de cache. A continuacion se implementa cache-aside en Python con Redis, incluyendo proteccion contra thundering herd e invalidacion write-through.
 
 ## Cuando Usar Esto
+
+
+- For alternatives, see [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/).
 
 - Workloads de lectura intensiva donde los mismos datos se acceden repetidamente
 - Datos que cambian infrecuentemente pero son costosos de obtener

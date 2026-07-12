@@ -1,4 +1,9 @@
 ---
+
+
+
+
+
 contentType: docs
 slug: security-audit-checklist
 title: "Checklist de Auditoría de Seguridad"
@@ -16,10 +21,13 @@ tags:
   - review
   - infrastructure
 relatedResources:
-  - /docs/security/access-control-policy-template
-  - /docs/security/incident-response-plan-template
-  - /docs/security/vulnerability-management-process-template
-  - /docs/data-engineering/data-governance-policy-template
+  - /docs/access-control-policy-template
+  - /docs/incident-response-plan-template
+  - /docs/vulnerability-management-process-template
+  - /docs/data-governance-policy-template
+  - /docs/penetration-test-report-template
+  - /docs/encryption-key-rotation-runbook
+  - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -32,6 +40,11 @@ seo:
     - network security
     - application security
     - review
+
+
+
+
+
 ---
 
 ## Overview
@@ -39,6 +52,9 @@ seo:
 Un security audit checklist provee un systematic way para verify que security controls están en place y funcionando. Coverea network security, application security, data protection, access control, monitoring, incident response y compliance. El checklist ensure que audits son consistent, repeatable y coverean all critical areas.
 
 ## When to Use
+
+
+- For alternatives, see [Helm Chart Review Checklist](/es/docs/helm-chart-review-checklist/).
 
 - Conductiendo internal security audits
 - Preparándote para external compliance audits (SOC 2, ISO 27001)

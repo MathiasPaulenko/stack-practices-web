@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: docs
 slug: api-lifecycle-management-template
 title: "API Lifecycle Management Template"
@@ -20,6 +23,8 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/technical-spec-template
   - /docs/adr-template
+  - /docs/api-changelog-template
+  - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
 author: "StackPractices"
 seo:
@@ -31,12 +36,18 @@ seo:
     - versioning
     - deprecation
     - template
+
+
+
 ---
 ## Overview
 
 APIs are long-lived contracts between systems. Changing or removing an endpoint without a structured process breaks downstream consumers, causes outages, and damages trust. This template provides a checklist-driven approach for deprecating old versions, introducing new versions, and sunsetting APIs safely.
 
 ## When to Use
+
+
+- For alternatives, see [API Changelog Template](/docs/api-changelog-template/).
 
 Use this resource when:
 - Planning to deprecate an API endpoint or version

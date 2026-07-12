@@ -1,4 +1,6 @@
 ---
+
+
 contentType: recipes
 slug: hmac-request-signing
 title: "HMAC Request Signing"
@@ -19,6 +21,8 @@ relatedResources:
   - /guides/web-application-security-guide
   - /recipes/websocket-authentication
   - /recipes/csrf-protection
+  - /recipes/password-hashing-production
+  - /docs/api-security-review-template
 lastUpdated: "2026-06-19"
 author: "StackPractices"
 seo:
@@ -28,6 +32,8 @@ seo:
     - security
     - api
     - authentication
+
+
 ---
 ## Overview
 

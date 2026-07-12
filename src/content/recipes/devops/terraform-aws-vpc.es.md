@@ -1,4 +1,10 @@
 ---
+
+
+
+
+
+
 contentType: recipes
 slug: terraform-aws-vpc
 title: "Provisiona una VPC de AWS con Terraform"
@@ -15,9 +21,13 @@ tags:
   - networking
   - ci-cd
 relatedResources:
-  - /recipes/devops/aws-ecs-fargate
+  - /recipes/aws-ecs-fargate
   - /guides/infrastructure-as-code-guide
-  - /patterns/design/builder-pattern-configuration
+  - /patterns/builder-pattern-configuration
+  - /recipes/load-balancing-haproxy
+  - /recipes/nginx-reverse-proxy
+  - /recipes/ansible-playbook
+  - /recipes/istio-canary-deployment
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +38,12 @@ seo:
     - infrastructure as code
     - networking
     - devops
+
+
+
+
+
+
 ---
 
 # Provisiona una VPC de AWS con Terraform

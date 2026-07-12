@@ -1,4 +1,7 @@
 ---
+
+
+
 contentType: patterns
 slug: circuit-breaker-half-open-pattern
 title: "Circuit Breaker Half-Open"
@@ -18,6 +21,8 @@ relatedResources:
   - /patterns/bulkhead-pattern
   - /patterns/retry-with-jitter-pattern
   - /patterns/graceful-shutdown-pattern
+  - /patterns/fallover-pattern
+  - /patterns/rate-limiter-token-bucket-pattern
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -28,6 +33,9 @@ seo:
     - circuit-breaker
     - fault-tolerance
     - pattern
+
+
+
 ---
 
 ## Overview
@@ -553,6 +561,9 @@ def get_product(product_id):
 ```
 
 ## Best Practices
+
+
+- For a deeper guide, see [Graceful Degradation Pattern](/patterns/graceful-degradation-pattern/).
 
 - Set appropriate thresholds — too low causes false opens; too high allows cascading failures
 - Use sliding window for failure counting — not a simple counter that never resets

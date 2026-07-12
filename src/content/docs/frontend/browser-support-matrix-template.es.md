@@ -1,4 +1,6 @@
 ---
+
+
 contentType: docs
 slug: browser-support-matrix-template
 title: "Plantilla de Matriz de Soporte de Navegadores"
@@ -16,9 +18,9 @@ tags:
   - cross-browser
   - caniuse
 relatedResources:
-  - /docs/frontend/frontend-performance-budget-template
-  - /docs/frontend/accessibility-audit-checklist
-  - /docs/frontend/component-api-documentation-template
+  - /docs/frontend-performance-budget-template
+  - /docs/accessibility-audit-checklist
+  - /docs/component-api-documentation-template
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
@@ -31,6 +33,8 @@ seo:
     - fallback
     - caniuse
     - template
+
+
 ---
 
 ## Overview
@@ -38,6 +42,9 @@ seo:
 Un browser support matrix define qué browsers y versions tu application soporta, qué features están available en cada uno y qué polyfills o fallbacks se necesitan. Sin un matrix, teams hacen ad-hoc decisions que lead a inconsistent experiences y difficult debugging.
 
 ## When to Use
+
+
+- For alternatives, see [Component API Documentation Template](/es/docs/component-api-documentation-template/).
 
 - Empezando un new web project
 - Definiendo support requirements para un client project
