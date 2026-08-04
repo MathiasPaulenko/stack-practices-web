@@ -26,7 +26,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/docker-image-vulnerability-scan
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Encripta y desencripta datos con AES-GCM en Python usando cryptography. Derivación de claves con PBKDF2, nonces, encriptación autenticada y encriptación de archivos."
   keywords:

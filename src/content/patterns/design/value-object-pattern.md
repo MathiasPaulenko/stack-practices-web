@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/aggregate-pattern
   - /patterns/solid-principles-typescript
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Value Object Pattern for immutable domain objects defined by their attributes. Examples in Python, Java, and JavaScript."
   keywords:

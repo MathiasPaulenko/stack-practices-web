@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/log-aggregation
   - /recipes/metrics-collection
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Distributed tracing with OpenTelemetry, Jaeger, and Zipkin: trace requests across microservices, identify latency bottlenecks, and optimize performance."
   keywords:

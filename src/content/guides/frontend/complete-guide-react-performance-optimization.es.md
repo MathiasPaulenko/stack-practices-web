@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/web-performance
   - /recipes/database-query-result-caching
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de optimización de performance en React. Master memoization, virtualization, code splitting, bundle analysis, React Profiler y Core Web Vitals."
   keywords:

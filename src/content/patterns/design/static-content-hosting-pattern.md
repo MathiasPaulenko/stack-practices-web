@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/back-pressure-pattern
   - /patterns/backend-for-frontend-pattern
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Static Content Hosting Pattern for serving assets from object storage. Examples in Python, Java, and JavaScript with S3, CloudFront, and CDN configuration."
   keywords:

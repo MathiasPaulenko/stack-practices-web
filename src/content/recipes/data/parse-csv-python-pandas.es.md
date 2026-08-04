@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-excel-read-write
   - /recipes/generate-pdf-report-python
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a leer CSV en Python con pandas y el módulo csv. Filtra y transforma archivos CSV grandes con ejemplos de código prácticos."
   keywords:
@@ -284,9 +284,12 @@ ead_only=True o la API streaming de openpyxl para workbooks grandes
 - Para lecturas repetidas del mismo archivo, cachea el resultado parseado con unctools.lru_cache o Redis
 - Usa csv.field_size_limit() para aumentar el tamaÃ±o maximo de campo si encuentras _csv.Error: field larger than field limit
 - Para XML, prefiere lxml sobre xml.etree.ElementTree. lxml es 5-10x mas rapido para archivos grandes
-- Para Excel, usa openpyxl en modo ead_only=True para archivos >10MB. Streamea rows en lugar de cargar el workbook entero
+- Para Excel, usa openpyxl en modo 
+ead_only=True para archivos >10MB. Streamea rows en lugar de cargar el workbook entero
 - Para extraccion de texto PDF, pdfplumber es mas preciso que PyPDF2 para layouts complejos pero 3-5x mas lento
-- Para archivos de log, usa e.compile() para pre-compilar patrones regex. Regex compilado es 2-5x mas rapido que e.search() con string patterns
+- Para archivos de log, usa 
+e.compile() para pre-compilar patrones regex. Regex compilado es 2-5x mas rapido que 
+e.search() con string patterns
 - Para conversion CSV-a-JSON, usa orjson en lugar de json para serializacion 5-10x mas rapida
 - Para procesamiento de CSV grandes, usa pandas.read_csv(chunksize=10000) y procesa chunks en paralelo con concurrent.futures
 - Para escritura Excel, xlsxwriter es 2-3x mas rapido que openpyxl para archivos grandes de output pero no soporta lectura

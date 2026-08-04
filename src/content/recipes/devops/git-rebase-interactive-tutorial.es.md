@@ -28,7 +28,7 @@ relatedResources:
   - /docs/git-branching-strategy-document
   - /guides/git-branching-strategies-guide
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Limpia el historial de git con rebase interactivo. Squash, reordenar, editar, dividir commits. Cubre pick, squash, fixup, reword, drop y resolución de conflictos."
   keywords:

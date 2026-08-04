@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/docker-compose-dev-prod-split
   - /recipes/docker-health-check-configuration
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn Terraform best practices: module design, remote state, workspaces, and security. Build production-grade infrastructure as code with confidence."
   keywords:

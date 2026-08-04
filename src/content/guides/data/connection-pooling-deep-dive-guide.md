@@ -25,7 +25,7 @@ relatedResources:
   - /guides/metrics-and-dashboards-guide
   - /guides/database-sharding-implementation-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn connection pooling: size pools, handle idle timeouts, detect leaks, and configure HikariCP, PgBouncer, and cloud-native pools for maximum throughput."
   keywords:

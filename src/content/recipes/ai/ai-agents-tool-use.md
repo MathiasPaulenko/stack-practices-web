@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/image-generation
   - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to build autonomous AI agents with tool use, ReAct pattern, and reasoning for complex multi-step task completion and workflow automation."
   keywords:

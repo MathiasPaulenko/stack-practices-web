@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/parse-xml-files
   - /recipes/convert-csv-to-json
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to parse Markdown files in Python, Java, and JavaScript. Convert MD to HTML and extract frontmatter with code examples."
   keywords:

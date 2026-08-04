@@ -22,7 +22,7 @@ relatedResources:
   - /docs/database-schema-documentation-template
   - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Dependency injection patterns in TypeScript, Python, Java, and C#. Write testable, decoupled, maintainable code with DI containers and manual injection."
   keywords:

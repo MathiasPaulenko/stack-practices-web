@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-react-performance-optimization
   - /guides/complete-guide-web-security-headers
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn Web Components: custom elements, Shadow DOM, HTML templates. Practical guide for building reusable, framework-agnostic web components."
   keywords:

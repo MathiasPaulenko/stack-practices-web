@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/distributed-lock-pattern
   - /patterns/claim-check-pattern
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Sequential Convoy Pattern for preserving message ordering. Examples in Python, Java, and JavaScript with sequence IDs, partition keys, and ordered processing."
   keywords:

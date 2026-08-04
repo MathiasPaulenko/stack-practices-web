@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/flyweight-pattern-text
   - /patterns/pipes-and-filters-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Back-Pressure para control de flujo en streaming. Ejemplos en Python, Java y JavaScript con reactive streams y colas acotadas."
   keywords:

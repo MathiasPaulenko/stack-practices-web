@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/docker-secrets-management
   - /docs/secrets-rotation-runbook
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this secrets rotation template to schedule and track the rotation of API keys, tokens, passwords, and certificates across your infrastructure."
   keywords:

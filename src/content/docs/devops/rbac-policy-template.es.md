@@ -29,7 +29,7 @@ relatedResources:
   - /docs/container-security-baseline-template
   - /docs/network-segmentation-policy-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define politicas de control de acceso basado en roles con esta plantilla RBAC. Cubre roles, permisos, reglas de asignacion y frecuencia de revision."
   keywords:

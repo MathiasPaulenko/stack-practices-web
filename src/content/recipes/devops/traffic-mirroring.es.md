@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/background-jobs
   - /recipes/bash-scripting-automation
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Traffic mirroring: shadow deployments, load testing realista, validación de performance y replicación segura de ambientes."
   keywords:

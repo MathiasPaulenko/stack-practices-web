@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/generate-pdf-report-python
   - /recipes/merge-json-files
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Read and write Excel files in Python with openpyxl and pandas. Create, format, and manipulate spreadsheets with practical code examples."
   keywords:

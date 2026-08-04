@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/claim-check-pattern
   - /patterns/event-carried-state-transfer-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Compensating Transaction para deshacer operaciones en sagas. Ejemplos en Python, Java y JavaScript con workflows de rollback, reintentos e idempotencia."
   keywords:

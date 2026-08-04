@@ -22,7 +22,7 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /docs/deployment-checklist-template
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Copy text to clipboard in JavaScript using navigator.clipboard API with fallback for older browsers. Covers execCommand, permissions, and paste event handling."
   keywords:

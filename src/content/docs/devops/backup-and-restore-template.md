@@ -26,7 +26,7 @@ relatedResources:
   - /docs/network-security-template
   - /recipes/bash-backup-rotation
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this backup and restore template to verify database backups, file snapshots, and disaster recovery procedures across environments."
   keywords:

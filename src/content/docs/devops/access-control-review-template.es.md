@@ -29,7 +29,7 @@ relatedResources:
   - /docs/data-breach-response-playbook
   - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Audita derechos de acceso de usuarios con esta plantilla. Cubre verificacion de privilegio minimo, asignaciones de roles, cuentas huerfanas y registros de atestacion."
   keywords:

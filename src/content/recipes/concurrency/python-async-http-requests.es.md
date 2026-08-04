@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-schedule-periodic-tasks
   - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Haz peticiones HTTP concurrentes en Python con asyncio y aiohttp. Connection pooling, rate limiting, reintentos, procesamiento por lotes y manejo de errores."
   keywords:

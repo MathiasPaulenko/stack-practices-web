@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/bash-parallel-execution
   - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Monitor disk usage with Bash: check mount points, set thresholds, send alerts, and trigger cleanup before disk space fills up and services crash."
   keywords:

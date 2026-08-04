@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/identity-map-pattern
   - /patterns/unit-of-work-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the DAO Pattern for abstracting database access. Examples in Python, Java, and JavaScript with clean separation between persistence and business logic."
   keywords:

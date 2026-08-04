@@ -27,7 +27,7 @@ relatedResources:
   - /docs/production-readiness-review-template
   - /docs/system-decommissioning-checklist-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define claramente el ownership de servicios con esta plantilla. Cubre responsabilidades, dependencias, runbooks, contactos y on-call para cada servicio."
   keywords:

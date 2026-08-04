@@ -32,7 +32,7 @@ relatedResources:
   - /guides/lakehouse-guide
   - /guides/data-migration-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende sharding de bases de datos: elige claves de shard, enruta consultas, rebalancea datos y evita errores comunes al escalar más allá de un solo nodo."
   keywords:

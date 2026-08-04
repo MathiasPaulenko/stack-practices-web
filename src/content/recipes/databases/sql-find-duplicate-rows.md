@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Find and remove duplicate rows in SQL using GROUP BY, HAVING, and CTEs. Learn safe deduplication techniques to keep canonical records and clean tables."
   keywords:

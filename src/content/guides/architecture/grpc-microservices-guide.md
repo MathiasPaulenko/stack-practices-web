@@ -27,7 +27,7 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn gRPC for microservices with Protocol Buffers, streaming patterns, load balancing, and REST migration strategies. High-performance RPC guide for engineers."
   keywords:

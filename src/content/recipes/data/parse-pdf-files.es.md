@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/truncate-text
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos PDF en Python, Java y JavaScript. Extrae texto, metadata y tablas con ejemplos prácticos de código."
   keywords:

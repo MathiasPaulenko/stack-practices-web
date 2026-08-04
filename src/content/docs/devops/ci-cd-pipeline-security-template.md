@@ -25,7 +25,7 @@ relatedResources:
   - /docs/dependency-vulnerability-report-template
   - /docs/encryption-key-lifecycle-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Secure CI/CD pipelines with this template. Covers secrets, runner hardening, artifact signing, branch protection, and deployment gates."
   keywords:

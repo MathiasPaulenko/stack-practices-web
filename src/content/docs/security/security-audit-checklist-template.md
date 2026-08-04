@@ -25,7 +25,7 @@ relatedResources:
   - /docs/data-classification-template
   - /docs/incident-response-playbook-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this security audit checklist to review authentication, authorization, data protection, infrastructure security, and compliance gaps."
   keywords:

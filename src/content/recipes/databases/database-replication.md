@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/sql-window-functions-ranking
   - /recipes/schema-evolution
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Database replication setup: primary-replica, multi-primary, synchronous and asynchronous replication, failover, and read scaling for high availability."
   keywords:

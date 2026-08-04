@@ -30,7 +30,7 @@ relatedResources:
   - /guides/gcp-basics-guide
   - /guides/multi-cloud-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende servicios core de Azure para desarrolladores: VMs, App Service, Blob Storage, Azure SQL, Functions. Guía práctica para construir aplicaciones cloud."
   keywords:

@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/compensating-transaction-pattern
   - /patterns/sequential-convoy-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Consumidor Idempotente para procesamiento exactamente una vez. Ejemplos en Python, Java y JavaScript con deduplicacion y claves de idempotencia."
   keywords:

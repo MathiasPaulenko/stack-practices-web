@@ -28,7 +28,7 @@ relatedResources:
   - /docs/data-breach-response-playbook
   - /docs/vulnerability-management-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Planifica y ejecuta pruebas de DR con esta plantilla. Cubre validacion de failover, verificacion de integridad de datos, medicion de RTO/RPO y reportes post-prueba."
   keywords:

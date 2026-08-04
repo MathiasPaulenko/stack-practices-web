@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-content-security-policy
   - /guides/complete-guide-cors-security
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to web security headers. Implement CSP, HSTS, X-Frame-Options, CORS, referrer policy, permissions policy and test with security scanners."
   keywords:

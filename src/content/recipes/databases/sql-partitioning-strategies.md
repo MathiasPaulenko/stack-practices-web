@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Partition large SQL tables by date, range, or list. Learn strategies to improve query performance, prune partitions, and simplify maintenance."
   keywords:

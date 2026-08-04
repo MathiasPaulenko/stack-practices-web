@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/external-configuration-store-pattern
   - /guides/canary-deployment-guide
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Document environment variables, secrets, endpoints, and infrastructure settings per deployment environment with this template."
   keywords:

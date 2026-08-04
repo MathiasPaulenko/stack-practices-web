@@ -27,7 +27,7 @@ relatedResources:
   - /guides/nosql-patterns-guide
   - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn vector databases: embeddings, similarity search, ANN algorithms. Compare Pinecone, Weaviate, pgvector, and Chroma for AI/ML use cases."
   keywords:

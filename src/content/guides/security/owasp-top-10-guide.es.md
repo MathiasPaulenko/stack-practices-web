@@ -27,7 +27,7 @@ relatedResources:
   - /guides/compliance-soc2-guide
   - /guides/zero-trust-architecture-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende los 10 riesgos OWASP con mitigaciones. Entiende inyección, autenticación rota, XSS, deserialización insegura y cómo prevenirlos en tus apps."
   keywords:

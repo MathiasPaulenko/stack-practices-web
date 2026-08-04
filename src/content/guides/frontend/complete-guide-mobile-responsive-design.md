@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-react-performance-optimization
   - /guides/accessibility-wcag-guide
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to mobile responsive design. Master CSS Grid, Flexbox, container queries, fluid typography, mobile-first breakpoints and responsive images."
   keywords:

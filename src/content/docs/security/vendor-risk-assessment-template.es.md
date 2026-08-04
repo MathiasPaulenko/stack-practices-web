@@ -26,7 +26,7 @@ relatedResources:
   - /docs/penetration-test-remediation-template
   - /docs/data-classification-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de evaluación de riesgos de proveedores para evaluar seguridad, cumplimiento y riesgos operativos de terceros antes del onboarding."
   keywords:

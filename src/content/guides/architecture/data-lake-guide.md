@@ -27,7 +27,7 @@ relatedResources:
   - /guides/database-sharding-implementation-guide
   - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn Data Lake architecture: structured vs unstructured storage, lakehouse concepts, ETL vs ELT. Compare lakes vs warehouses and choose the right approach."
   keywords:

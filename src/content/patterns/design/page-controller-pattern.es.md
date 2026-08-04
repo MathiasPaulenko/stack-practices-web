@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/model-view-presenter-pattern
   - /patterns/model-view-viewmodel-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Page Controller con un controlador por página. Ejemplos en Python, Java y JavaScript para manejo de requests y población de views."
   keywords:

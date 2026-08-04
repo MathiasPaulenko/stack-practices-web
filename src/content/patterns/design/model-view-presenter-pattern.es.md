@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/front-controller-pattern
   - /patterns/page-controller-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón MVP para arquitectura UI testeable. Ejemplos en Python, Java y JavaScript separando concerns de model, view y presenter."
   keywords:

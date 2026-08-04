@@ -27,7 +27,7 @@ relatedResources:
   - /docs/encryption-key-lifecycle-template
   - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Respond to data breaches with this playbook. Covers detection, containment, evidence preservation, notification requirements, and post-incident remediation."
   keywords:

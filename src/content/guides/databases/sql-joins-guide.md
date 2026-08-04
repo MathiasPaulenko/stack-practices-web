@@ -30,7 +30,7 @@ relatedResources:
   - /recipes/parse-csv-files
   - /guides/database-normalization-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Master SQL joins with visual diagrams and examples. Learn INNER, LEFT, RIGHT, FULL, CROSS, and SELF joins with performance tips and common mistakes."
   keywords:

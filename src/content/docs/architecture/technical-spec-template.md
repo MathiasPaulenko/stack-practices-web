@@ -25,7 +25,7 @@ relatedResources:
   - /docs/api-changelog-template
   - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this technical specification template to define requirements, design decisions, API contracts, and implementation plans."
   keywords:

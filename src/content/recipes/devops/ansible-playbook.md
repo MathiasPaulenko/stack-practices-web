@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/bash-log-rotation
   - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Write and run Ansible playbooks for provisioning and configuring servers with idempotent tasks, roles, and inventory files."
   keywords:

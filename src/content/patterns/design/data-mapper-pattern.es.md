@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/identity-map-pattern
   - /patterns/specification-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Data Mapper para arquitectura ORM limpia. Ejemplos en Python, Java y JavaScript con mappers, repositories y modelos de dominio."
   keywords:

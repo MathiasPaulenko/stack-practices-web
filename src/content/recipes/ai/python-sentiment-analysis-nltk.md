@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/llm-fine-tuning
   - /recipes/prompt-engineering
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Perform sentiment analysis in Python with NLTK VADER. Score text polarity, handle negation, and build custom sentiment classifiers with code examples."
   keywords:

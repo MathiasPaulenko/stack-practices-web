@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/bash-monitoring-disk-usage
   - /recipes/bash-parallel-job-execution
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Itera de forma segura sobre archivos y directorios en Bash manejando espacios, globs y listas grandes de archivos con patrones correctos."
   keywords:

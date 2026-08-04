@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/claim-check-pattern
   - /patterns/event-carried-state-transfer-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Compensating Transaction Pattern for undoing operations in sagas. Examples in Python, Java, and JavaScript with rollback workflows, retries, and idempotency."
   keywords:

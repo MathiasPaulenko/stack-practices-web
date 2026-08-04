@@ -33,7 +33,7 @@ relatedResources:
   - /patterns/content-delivery-network-pattern
   - /patterns/gatekeeper-pattern
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Throttling para limitar tasa de consumo de recursos. Ejemplos en Python, Java y JavaScript con token bucket, leaky bucket y ventanas fijas."
   keywords:

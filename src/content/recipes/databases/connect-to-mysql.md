@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/connect-to-redis
   - /recipes/execute-raw-sql
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to connect to MySQL databases using Python mysql-connector, Node.js mysql2, and Java JDBC with practical code examples."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /guides/complete-guide-docker-production
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Escaneo de seguridad de containers: detección de vulnerabilidades con Trivy, Clair, Snyk, hardening de imágenes, detección de secrets y gates de seguridad en CI."
   keywords:

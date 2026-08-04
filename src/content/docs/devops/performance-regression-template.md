@@ -26,7 +26,7 @@ relatedResources:
   - /docs/weekly-ops-review-template
   - /docs/sla-definition-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this performance regression template to compare benchmarks before and after releases, identify degradations, and create actionable remediation plans."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /docs/api-status-page-template
   - /recipes/bash-backup-rotation
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "CI/CD pipeline setup with GitHub Actions: automated testing, building, deployment, environment management, and pipeline security what works."
   keywords:

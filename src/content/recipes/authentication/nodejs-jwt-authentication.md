@@ -23,7 +23,7 @@ relatedResources:
   - /docs/endpoint-security-checklist-template
   - /recipes/python-jwt-refresh-token-rotation
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement JWT authentication in Node.js with access tokens, refresh tokens, token rotation, and secure verification using jsonwebtoken and Express."
   keywords:

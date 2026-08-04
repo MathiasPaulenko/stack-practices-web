@@ -22,7 +22,7 @@ relatedResources:
   - /docs/adr-template
   - /recipes/retry-backoff
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Workflow engines y state machines: Temporal, Camunda, patrones de state machine, saga orchestration y coordinación de tareas de larga duración."
   keywords:

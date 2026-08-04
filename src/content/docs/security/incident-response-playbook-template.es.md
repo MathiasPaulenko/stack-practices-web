@@ -25,7 +25,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/data-classification-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de playbook de respuesta a incidentes: documenta detección, contención, erradicación, recuperación y lecciones aprendidas."
   keywords:

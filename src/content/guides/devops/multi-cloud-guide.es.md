@@ -30,7 +30,7 @@ relatedResources:
   - /guides/capacity-planning-guide
   - /guides/cost-optimization-cloud-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias multi-cloud: cuando adoptar, placement de cargas, gravedad de datos, portabilidad. Beneficios, riesgos y guia de implementacion practica."
   keywords:

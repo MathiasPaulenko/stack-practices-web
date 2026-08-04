@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/istio-canary-deployment
   - /recipes/traffic-mirroring
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Blue-green deployment strategy: zero-downtime releases, instant traffic switching, automated rollback, and environment management for production safety."
   keywords:

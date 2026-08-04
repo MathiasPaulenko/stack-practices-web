@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/database-migrations
   - /recipes/database-read-replicas
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura búsqueda de texto completo en PostgreSQL. Crea índices GIN, consulta con tsvector y clasifica resultados por relevancia."
   keywords:

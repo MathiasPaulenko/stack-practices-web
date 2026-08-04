@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/docker-network-isolation
   - /recipes/docker-secrets-management
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Split Docker Compose configs for dev and prod using override files, profiles, and environment variables. Learn multi-environment container setup."
   keywords:

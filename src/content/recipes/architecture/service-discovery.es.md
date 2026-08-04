@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Service discovery: Consul, etcd, Eureka, resolución DNS-based, health checks y registro dinámico de servicios para microservicios."
   keywords:

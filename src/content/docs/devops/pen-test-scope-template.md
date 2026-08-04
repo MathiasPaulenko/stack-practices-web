@@ -23,7 +23,7 @@ relatedResources:
   - /docs/compliance-gap-analysis-template
   - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define penetration testing boundaries with this scope template. Covers targets, exclusions, rules of engagement, deliverables, and schedule."
   keywords:

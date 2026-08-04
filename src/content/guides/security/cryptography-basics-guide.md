@@ -22,7 +22,7 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secure-coding-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn cryptography basics: symmetric/asymmetric encryption, hashing, digital signatures, and key management. Practical guide with code examples."
   keywords:

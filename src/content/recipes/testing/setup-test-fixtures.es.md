@@ -30,7 +30,7 @@ relatedResources:
   - /recipes/python-mock-external-apis-responses
   - /recipes/python-pytest-fixtures-parametrize
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Gestiona fixtures de test con patrones factory, hooks de setup y datos deterministas para tests confiables en Python, JavaScript y Java."
   keywords:

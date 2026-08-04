@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/compensating-transaction-pattern
   - /patterns/sequential-convoy-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Claim Check para pasar payloads grandes via referencias ligeras. Ejemplos en Python, Java y JavaScript con blob storage y brokers de mensajes."
   keywords:

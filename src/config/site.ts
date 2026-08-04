@@ -12,7 +12,7 @@ export const SITE = {
     'A practical knowledge base for software engineers: code recipes, design patterns, and reusable technical documentation across multiple languages.',
   defaultLocale: 'en',
   locales: ['en', 'es'] as const,
-  author: 'StackPractices',
+  author: 'Mathias Paulenko',
   twitter: '@stackpractices',
   themeColor: '#2563eb',
 } as const;
@@ -70,5 +70,6 @@ export const FOOTER_NAV = {
     { label: 'Cookies', href: '/cookies/' },
     { label: 'Legal Notice', href: '/legal-notice/' },
     { label: 'Affiliate Disclosure', href: '/affiliate-disclosure/' },
+    { label: 'Editorial Policy', href: '/editorial-policy/' },
   ],
 } as const;

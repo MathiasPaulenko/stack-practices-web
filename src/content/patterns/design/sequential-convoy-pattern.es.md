@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/distributed-lock-pattern
   - /patterns/claim-check-pattern
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Convoy Secuencial para orden de mensajes. Ejemplos en Python, Java y JavaScript con IDs de secuencia, partition keys y procesamiento ordenado."
   keywords:

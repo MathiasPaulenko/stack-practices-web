@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/python-secrets-management-vault
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende seguridad CI/CD: gestión de secretos, runners de mínimo privilegio, firma de artefactos, escaneo de dependencias y prevención de supply chain."
   keywords:

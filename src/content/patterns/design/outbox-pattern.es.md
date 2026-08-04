@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/compensating-transaction-pattern
   - /patterns/domain-event-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Outbox para publicación confiable de eventos en sistemas distribuidos. Ejemplos en Python, Java y SQL para entrega at-least-once."
   keywords:

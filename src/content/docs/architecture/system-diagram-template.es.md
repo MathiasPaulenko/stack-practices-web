@@ -26,7 +26,7 @@ relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de diagramas de sistema para documentar arquitectura con diagramas de contexto, contenedores, componentes y código del modelo C4."
   keywords:

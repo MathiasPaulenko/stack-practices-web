@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/implement-property-based-testing
   - /recipes/setup-test-fixtures
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use mutation testing with MutPy, Stryker, and PIT to evaluate whether tests assert behavior or merely execute code in Python, Java, and JavaScript."
   keywords:

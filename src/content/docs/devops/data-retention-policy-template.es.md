@@ -30,7 +30,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/data-classification-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define reglas de retencion, archivado y eliminacion de datos con esta plantilla. Cubre categorias, periodos de retencion, retenciones legales y controles de cumplimiento."
   keywords:

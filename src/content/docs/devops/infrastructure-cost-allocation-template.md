@@ -21,7 +21,7 @@ relatedResources:
   - /docs/capacity-planning-forecast-template
   - /docs/monitoring-alerting-policy-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Allocate cloud infrastructure costs to teams and products with this template. Covers tagging, chargeback rules, shared cost splitting, and budget alerts."
   keywords:

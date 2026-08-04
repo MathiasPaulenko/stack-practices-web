@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/docker-compose-dev-prod-split
   - /recipes/docker-health-check-configuration
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this deployment checklist template to verify tests, rollbacks, monitoring, and communication before every production release."
   keywords:

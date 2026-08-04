@@ -22,7 +22,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Idempotent message processing: deduplication strategies, idempotency keys, exactly-once semantics, and safe handling of duplicate deliveries."
   keywords:

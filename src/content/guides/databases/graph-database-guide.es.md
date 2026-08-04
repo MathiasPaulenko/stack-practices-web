@@ -23,7 +23,7 @@ relatedResources:
   - /guides/vector-database-guide
   - /guides/database-design-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende bases de datos de grafos: modelo de grafo de propiedades, consultas Cypher, patrones de modelado. Cuando elegir Neo4j sobre relacional para datos conectados."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/distributed-tracing
   - /recipes/real-user-monitoring
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Agregación de logs para sistemas distribuidos: stack ELK, Fluentd, Grafana Loki, log shipping, parsing y troubleshooting centralizado a escala."
   keywords:

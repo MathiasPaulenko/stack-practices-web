@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/compensating-transaction-pattern
   - /patterns/sequential-convoy-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Idempotent Consumer Pattern for exactly-once message processing. Examples in Python, Java, and JavaScript with deduplication and idempotency keys."
   keywords:

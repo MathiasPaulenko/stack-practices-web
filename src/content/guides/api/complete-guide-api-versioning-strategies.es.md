@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/java-spring-cache-annotations
   - /recipes/nodejs-redis-cache-invalidation
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de versionado de APIs. Compara URI, header, query param, content negotiation y evolución de schema GraphQL para REST y GraphQL."
   keywords:

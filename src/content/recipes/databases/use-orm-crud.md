@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /guides/database-normalization-guide
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn ORM CRUD operations using SQLAlchemy, Prisma, and Hibernate with practical code examples in Python, JavaScript, and Java."
   keywords:

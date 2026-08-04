@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/mixin-pattern
   - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Module para encapsular estado y comportamiento privados. Ejemplos en JavaScript, Python y Java con closures y ES modules."
   keywords:

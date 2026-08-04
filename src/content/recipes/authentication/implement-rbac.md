@@ -24,7 +24,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement role-based access control with hierarchical roles, permission grants, and middleware enforcement across Python, Node.js, and Java."
   keywords:

@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/repository-pattern
   - /patterns/eager-loading-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Specification Pattern for composable query predicates. Examples in Python, Java, and JavaScript with AND, OR, NOT combinators and repository integration."
   keywords:

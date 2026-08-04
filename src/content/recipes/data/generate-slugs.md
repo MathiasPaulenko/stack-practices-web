@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/truncate-text
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to generate URL-friendly slugs from strings in Python, JavaScript, and Java. Clean, SEO-safe slugs for web apps."
   keywords:

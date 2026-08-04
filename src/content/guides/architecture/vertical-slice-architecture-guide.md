@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/cqrs-pattern
   - /patterns/mediator-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn Vertical Slice Architecture: organize code by feature, not layer. Reduce cross-layer navigation, improve cohesion, and simplify changes with practical examples."
   keywords:

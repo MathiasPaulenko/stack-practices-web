@@ -29,7 +29,7 @@ relatedResources:
   - /docs/deprecation-timeline-template
   - /docs/production-readiness-review-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Escribe mejores especificaciones de features con esta plantilla. Cubre objetivos, requerimientos, user stories, criterios de aceptacion y plan de rollout."
   keywords:

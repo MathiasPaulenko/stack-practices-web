@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/docker-network-isolation
   - /recipes/docker-secrets-management
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Divide configs de Docker Compose para dev y prod con override files, profiles y variables de entorno. Configuración multi-entorno de contenedores."
   keywords:

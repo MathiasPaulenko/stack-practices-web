@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/javascript-debounce-throttle-implementation
   - /recipes/javascript-service-worker-offline
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement TTL-based expiration in JavaScript localStorage. Wrapper functions for setItem, getItem with automatic cleanup, JSON serialization, and storage limits."
   keywords:

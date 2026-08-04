@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/python-api-rate-limiting
   - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Extract data from HTML with Python BeautifulSoup. CSS selectors, DOM navigation, table parsing, pagination crawling and rate-limited scraping."
   keywords:

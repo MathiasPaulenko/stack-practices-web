@@ -27,7 +27,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende feature flags: patrones de implementación, rollouts progresivos, kill switches, A/B testing y gestión de ciclo de vida a escala."
   keywords:

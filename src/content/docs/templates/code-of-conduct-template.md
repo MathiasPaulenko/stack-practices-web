@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /recipes/pre-commit-hooks
 lastUpdated: 2026-06-11
-author: StackPractices
+author: Mathias Paulenko
 seo:
   metaDescription: "Open-source code of conduct template with inclusive collaboration standards, expected behavior rules, enforcement guidelines, and reporting procedures."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /docs/service-level-objective-template
   - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this change management template to document CAB reviews, approval workflows, and rollback criteria for production changes."
   keywords:

@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/bash-loop-over-files
   - /recipes/python-zip-file-extraction
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Create temporary files and directories safely in Python, Node.js, Java, and Bash, with automatic cleanup and what works."
   keywords:

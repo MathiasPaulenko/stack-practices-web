@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/circuit-breaker-pattern
   - /recipes/python-async-http-requests
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Retry failed fetch requests with exponential backoff, jitter, AbortController timeout, and circuit breaker in JavaScript."
   keywords:

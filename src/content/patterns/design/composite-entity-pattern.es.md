@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/unit-of-work-pattern
   - /patterns/role-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Composite Entity para persistencia coarse-grained. Ejemplos en Python, Java y JavaScript con objetos dependientes compuestos y mapeo de tablas."
   keywords:

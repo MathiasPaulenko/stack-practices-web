@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/business-delegate-pattern
   - /patterns/context-object-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Blackboard Pattern for collaborative problem-solving. Examples in Python, Java, and JavaScript with knowledge sources and control components."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /guides/sre-practices-guide
   - /guides/observability-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende A/B testing: diseño de experimentos, significancia estadística, tamaño de muestra, pitfalls comunes y cultura de experimentación."
   keywords:

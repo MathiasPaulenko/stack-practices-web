@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/compress-decompress-files
   - /recipes/copy-move-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende técnicas eficientes en memoria para leer archivos grandes en Python, JavaScript y Java usando streaming y procesamiento por chunks."
   keywords:

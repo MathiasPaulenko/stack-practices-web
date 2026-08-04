@@ -25,7 +25,7 @@ relatedResources:
   - /guides/zero-trust-architecture-guide
   - /patterns/gatekeeper-pattern
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende modelado de amenazas con STRIDE, árboles de ataque y diagramas de flujo de datos. Integra revisión de diseño de seguridad en tu proceso de desarrollo."
   keywords:

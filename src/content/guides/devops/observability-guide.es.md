@@ -34,7 +34,7 @@ relatedResources:
   - /docs/service-level-objective-slo-template
   - /recipes/docker-logging-fluentd
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende observabilidad: metricas, logs, traces. Implementa con Prometheus, Grafana, Loki, Jaeger. Construye alertas basadas en SLO para sistemas en produccion."
   keywords:

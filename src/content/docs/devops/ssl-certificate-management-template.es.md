@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/bash-iptables-firewall
   - /recipes/bash-ssh-key-manager
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Gestiona certificados SSL/TLS con esta plantilla. Cubre inventario, renovaciones, despliegues, monitoreo de vencimiento y respuesta a incidentes."
   keywords:

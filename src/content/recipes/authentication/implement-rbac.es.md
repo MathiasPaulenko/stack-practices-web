@@ -24,7 +24,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa control de acceso basado en roles con roles jerárquicos, grants de permisos y middleware de enforce en Python, Node.js y Java."
   keywords:
@@ -305,7 +305,8 @@ Benchmarks en Node.js 20, single core, Redis cache. Resultados reales varian seg
 - **Session token en URL**: si los session tokens se pasan como URL parameters, leakean en logs e history. Usa cookies con HttpOnly y Secure flags en su lugar.
 - **Insecure deserialization de session data**: si los session data se serializan con JSON.parse sin validacion, atacantes pueden inyectar tipos inesperados. Valida el schema de session data despues de deserializacion.
 - **CSRF en state-changing endpoints**: si se usan cookies para auth y no se validan CSRF tokens, atacantes pueden forjear peticiones. Requiere CSRF tokens para todas las operaciones state-changing.
-- **Privilege escalation via mass assignment**: si user input se asigna directamente a user objects, atacantes pueden setear ole: admin. Usa allowlists para updatable fields.
+- **Privilege escalation via mass assignment**: si user input se asigna directamente a user objects, atacantes pueden setear 
+ole: admin. Usa allowlists para updatable fields.
 - **Password reset token reuse**: si los password reset tokens no se invalidan despues de uso, atacantes pueden reusarlos. Elimina reset tokens despues de un password change exitoso.
 - **MFA bypass via replay**: si los MFA codes no son single-use, atacantes que interceptan un code pueden reusarlo. Marca MFA codes como used inmediatamente despues de verificacion.
 - **OAuth2 scope escalation**: si los OAuth2 scopes no se validan en cada peticion, atacantes pueden usar tokens con menos scopes para acceder a endpoints de mayor scope. Valida scopes por endpoint.

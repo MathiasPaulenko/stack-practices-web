@@ -32,7 +32,7 @@ relatedResources:
   - /guides/data-migration-guide
   - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn disaster recovery planning: RTO, RPO, backup strategies, runbooks, and multi-region failover for resilient infrastructure."
   keywords:

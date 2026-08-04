@@ -22,7 +22,7 @@ relatedResources:
   - /docs/database-schema-documentation-template
   - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patrones de inyección de dependencias en TypeScript, Python, Java y C#. Escribe código testeable y desacoplado con contenedores DI e inyección manual."
   keywords:

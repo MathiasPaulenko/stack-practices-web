@@ -26,7 +26,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/opentelemetry-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende agregación de logs: logs estructurados, estrategias de envío, políticas de retención y pipelines consultables con ELK, Loki y soluciones nativas."
   keywords:

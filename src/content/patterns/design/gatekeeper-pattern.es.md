@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-api-security
   - /guides/threat-modeling-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Gatekeeper para validación en el edge. Ejemplos en Python, Java y JavaScript con API gateways, WAF, verificación JWT y sanitización."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/ambassador-pattern
   - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Verify service health with the Health Endpoint Monitoring Pattern. Expose probes for load balancers, orchestrators, and alerting systems."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /guides/metrics-and-dashboards-guide
   - /guides/database-sharding-implementation-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende pooling de conexiones: dimensiona pools, timeouts, fugas y configura HikariCP, PgBouncer y pools nativos en la nube."
   keywords:

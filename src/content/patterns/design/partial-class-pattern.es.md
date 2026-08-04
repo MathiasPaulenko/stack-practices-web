@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/twin-pattern
   - /patterns/type-object-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Partial Class para dividir definiciones de clase en archivos. Ejemplos en Python, Java y JavaScript con mixins, traits y generación de código."
   keywords:

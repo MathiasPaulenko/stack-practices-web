@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/blackboard-pattern
   - /patterns/chain-of-responsibility-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Plugin Pattern for building extensible systems with live module loading. Examples in Python, Java, and JavaScript for extension points."
   keywords:

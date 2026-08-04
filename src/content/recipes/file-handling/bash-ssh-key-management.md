@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-zip-file-extraction
   - /recipes/bash-aws-cli-automation
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Manage SSH keys with Bash: generate Ed25519 key pairs, rotate credentials on schedule, and distribute public keys securely to servers and team members."
   keywords:

@@ -30,7 +30,7 @@ relatedResources:
   - /docs/api-deprecation-notice-template
   - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define Acuerdos de Nivel de Servicio con esta plantilla de SLA. Cubre objetivos de uptime, tiempos de respuesta, presupuestos de error y escalamiento."
   keywords:

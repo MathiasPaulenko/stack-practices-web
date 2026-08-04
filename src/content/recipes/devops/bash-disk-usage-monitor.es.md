@@ -23,7 +23,7 @@ relatedResources:
   - /docs/logging-standards-document
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Monitorea el uso de disco en bash. Configura alertas por umbral, envía notificaciones por email y automatiza limpieza cuando el espacio se agota en servidores Linux."
   keywords:

@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/geode-pattern
   - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Sharding Pattern for horizontal data partitioning. Examples in Python, Java, and JavaScript with hash, range, and directory sharding strategies."
   keywords:

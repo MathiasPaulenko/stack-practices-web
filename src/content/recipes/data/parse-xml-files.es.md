@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/convert-csv-to-json
   - /recipes/convert-json-to-csv
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos XML en Python, Java y JavaScript. Ejemplos de código para parsing DOM, SAX y consultas XPath."
   keywords:

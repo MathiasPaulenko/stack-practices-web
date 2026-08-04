@@ -31,7 +31,7 @@ relatedResources:
   - /patterns/throttling-pattern
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define API rate limits per tier with this template. Covers burst limits, quota windows, headers, and escalation for consumers."
   keywords:

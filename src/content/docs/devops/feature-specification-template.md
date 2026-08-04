@@ -29,7 +29,7 @@ relatedResources:
   - /docs/deprecation-timeline-template
   - /docs/production-readiness-review-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Write better feature specs with this template. Covers goals, requirements, user stories, acceptance criteria, and rollout plan."
   keywords:

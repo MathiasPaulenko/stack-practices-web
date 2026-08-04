@@ -21,7 +21,7 @@ relatedResources:
   - /docs/runbook-template
   - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Verifica que los backups sean restaurables con esta plantilla. Cubre alcance, pasos de restauracion, criterios de validacion y acciones de remediacion."
   keywords:

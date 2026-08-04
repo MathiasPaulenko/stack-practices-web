@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-react-performance-optimization
   - /guides/complete-guide-web-performance-core-web-vitals
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement debounce and throttle in JavaScript. Leading and trailing edge, cancelable timers, search input, scroll handlers, and resize listeners."
   keywords:

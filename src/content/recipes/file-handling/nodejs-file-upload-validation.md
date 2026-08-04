@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/graphql-error-handling-best-practices
   - /recipes/file-upload-validation
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Validate file uploads in Node.js with multer. Check MIME types, enforce size limits, scan content, and prevent malicious uploads in Express."
   keywords:

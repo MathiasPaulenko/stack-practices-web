@@ -30,7 +30,7 @@ relatedResources:
   - /guides/blue-green-deployment-guide
   - /guides/cost-optimization-cloud-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn capacity planning for cloud infrastructure: forecasting demand, load testing, auto-scaling strategies, and avoiding over-provisioning."
   keywords:

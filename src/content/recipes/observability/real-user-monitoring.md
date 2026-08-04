@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-distributed-tracing
   - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Real user monitoring RUM: Core Web Vitals, session replay, performance analytics, JavaScript error tracking, and user experience optimization."
   keywords:

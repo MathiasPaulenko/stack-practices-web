@@ -21,7 +21,7 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /docs/security-audit-checklist-template
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn SOC 2 basics for developers: Trust Service Criteria, evidence collection, access controls, and building compliant systems from day one."
   keywords:

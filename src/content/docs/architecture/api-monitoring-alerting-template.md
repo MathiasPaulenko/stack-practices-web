@@ -26,7 +26,7 @@ relatedResources:
   - /docs/api-error-handling-guideline
   - /docs/api-performance-budget-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this API monitoring template to set up SLA thresholds, error rate alerts, latency dashboards, and on-call runbooks for production APIs."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/compress-decompress-files
   - /recipes/copy-move-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement file system watchers in Python, JavaScript, and Java to monitor file changes and directory updates in real time."
   keywords:

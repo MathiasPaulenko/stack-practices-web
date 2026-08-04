@@ -23,7 +23,7 @@ relatedResources:
   - /docs/incident-communication-template
   - /docs/capacity-planning-forecast-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Asegura la preparacion para produccion con esta checklist de revision. Cubre monitoreo, SLOs, rollback, seguridad, docs y procedimientos operativos."
   keywords:

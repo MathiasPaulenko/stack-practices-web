@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn read replicas: setup replication, route read queries, handle replication lag, and scale read-heavy workloads with PostgreSQL, MySQL, and cloud replicas."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /guides/opentelemetry-guide
   - /guides/distributed-tracing-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende arquitectura de service mesh: patron sidecar, mTLS, gestion de trafico. Compara Istio vs Linkerd y cuando adoptar un service mesh."
   keywords:

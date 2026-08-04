@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/bash-aws-cli-automation
   - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Rotate and compress application logs with Bash. Prevent disk exhaustion by archiving old logs with gzip, timestamps, and a clear retention policy."
   keywords:

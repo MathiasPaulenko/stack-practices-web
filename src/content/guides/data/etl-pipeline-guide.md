@@ -25,7 +25,7 @@ relatedResources:
   - /guides/data-migration-guide
   - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn ETL pipelines: extract from multiple sources, transform with validation and business logic, and load into data warehouses with Python, dbt, and Airflow."
   keywords:

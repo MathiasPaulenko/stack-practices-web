@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/bash-parallel-commands
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Crea un script de rotación de backups en bash con políticas de retención. Automatiza backups diarios, semanales y mensuales con find y tar."
   keywords:

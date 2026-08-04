@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/python-generate-qr-code
   - /recipes/format-phone-numbers
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a comparar objetos JSON en Python, Java y JavaScript. Encuentra claves agregadas, eliminadas y modificadas con ejemplos prácticos de código."
   keywords:

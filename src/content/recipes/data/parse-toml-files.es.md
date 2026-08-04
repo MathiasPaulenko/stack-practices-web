@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/parse-xml-files
   - /recipes/parse-command-line-arguments
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos TOML en Python, Java y JavaScript. Lee configs de aplicaciones con ejemplos prácticos de código."
   keywords:

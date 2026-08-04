@@ -26,7 +26,7 @@ relatedResources:
   - /docs/network-security-template
   - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de triaje de bugs para clasificar reportes por severidad, asignar prioridad y enrutarlos al equipo de ingeniería correcto."
   keywords:

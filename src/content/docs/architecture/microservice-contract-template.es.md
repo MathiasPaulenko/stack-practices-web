@@ -25,7 +25,7 @@ relatedResources:
   - /docs/api-deprecation-notice-template
   - /docs/api-error-handling-guideline
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de contrato de microservicios para documentar acuerdos de API, SLAs, políticas de versionado y procedimientos de cambios incompatibles."
   keywords:

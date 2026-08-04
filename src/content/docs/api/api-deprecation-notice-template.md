@@ -28,7 +28,7 @@ relatedResources:
   - /docs/sla-definition-template
   - /docs/api-error-response-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this API deprecation notice template to communicate breaking changes, migration timelines, and sunset dates to consumers."
   keywords:

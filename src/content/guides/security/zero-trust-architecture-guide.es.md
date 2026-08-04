@@ -28,7 +28,7 @@ relatedResources:
   - /guides/disaster-recovery-guide
   - /guides/threat-modeling-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende arquitectura Zero Trust: verificación de identidad, privilegio mínimo, micro-segmentación y validación continua. Guía práctica para seguridad moderna."
   keywords:

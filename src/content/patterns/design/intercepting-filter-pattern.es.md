@@ -31,7 +31,7 @@ relatedResources:
   - /patterns/context-object-pattern
   - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Intercepting Filter para pipelines de request/response. Ejemplos en Python, Java y JavaScript con cadenas de filtros, decoradores y middleware."
   keywords:

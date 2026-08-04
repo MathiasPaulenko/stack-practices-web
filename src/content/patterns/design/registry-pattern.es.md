@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/singleton-pattern
   - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Registry para lookup centralizado de servicios. Ejemplos en Python, Java y JavaScript para resolución de dependencias desacoplada."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/identity-map-pattern
   - /patterns/specification-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Eager Loading para evitar queries N+1. Ejemplos en Python, Java y JavaScript con JOINs, batch loading y estrategias de prefetch."
   keywords:

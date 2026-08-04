@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/intercepting-filter-pattern
   - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Business Delegate Pattern for decoupling presentation from business tiers. Examples in Python, Java, and JavaScript with service lookup and caching."
   keywords:

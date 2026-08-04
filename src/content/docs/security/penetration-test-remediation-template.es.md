@@ -26,7 +26,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/owasp-top-10-remediation-checklist
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de remediación de pruebas de penetración: rastrea hallazgos, asigna responsables, prioriza riesgos y valida correcciones."
   keywords:

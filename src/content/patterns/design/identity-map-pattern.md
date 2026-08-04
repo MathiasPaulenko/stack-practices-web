@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/data-access-object-pattern
   - /patterns/eager-loading-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Identity Map Pattern to prevent duplicate object instances. Examples in Python, Java, and JavaScript with per-transaction object caching by primary key."
   keywords:

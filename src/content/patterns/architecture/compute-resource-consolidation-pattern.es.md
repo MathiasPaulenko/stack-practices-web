@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/cost-optimization
   - /patterns/external-configuration-store-pattern
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Reduce costos en la nube con el Patron de Consolidacion de Recursos de Computo. Combina cargas, mejora la utilizacion y simplifica operaciones de infraestructura."
   keywords:

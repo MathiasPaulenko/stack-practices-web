@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/javascript-debounce-throttle-implementation
   - /recipes/javascript-service-worker-offline
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye paginación de scroll infinito en JavaScript con IntersectionObserver, fetch API, estados de carga y manejo de errores."
   keywords:

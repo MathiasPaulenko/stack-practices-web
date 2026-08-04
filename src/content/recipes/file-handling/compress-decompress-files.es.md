@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/python-image-resize-batch
   - /recipes/python-zip-file-extraction
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a comprimir y descomprimir archivos ZIP, GZIP y TAR en Python, JavaScript y Java con ejemplos de código prácticos."
   keywords:

@@ -30,7 +30,7 @@ relatedResources:
   - /docs/infrastructure-as-code-review-template
   - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de módulos de Terraform. Construye infraestructura reutilizable con estructura, variables, outputs, versionado, testing y registry."
   keywords:

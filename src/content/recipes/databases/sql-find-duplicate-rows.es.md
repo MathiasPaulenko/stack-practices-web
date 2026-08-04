@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a encontrar y eliminar filas duplicadas en SQL con GROUP BY, HAVING y CTEs. Limpia tablas y conserva registros canónicos."
   keywords:

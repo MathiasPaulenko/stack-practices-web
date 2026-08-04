@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-ingress
   - /guides/complete-guide-ci-cd-github-actions
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de GitOps con ArgoCD. Instala, configura ApplicationSets, estrategias de sync, Helm, Kustomize, RBAC y multi-cluster para Kubernetes."
   keywords:

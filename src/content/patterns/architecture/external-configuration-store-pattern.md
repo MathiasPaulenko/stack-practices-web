@@ -28,7 +28,7 @@ relatedResources:
   - /docs/environment-configuration-template
   - /guides/complete-guide-gitops-production
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Centralize configuration outside deployments with the External Configuration Store Pattern. Support live updates and multi-environment management."
   keywords:

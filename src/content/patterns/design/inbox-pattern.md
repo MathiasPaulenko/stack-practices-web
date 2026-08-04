@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/saga-pattern
   - /patterns/event-sourcing-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Inbox Pattern for idempotent event processing. Examples in Python, Java and JavaScript with inbox tables, deduplication, and at-least-once delivery."
   keywords:

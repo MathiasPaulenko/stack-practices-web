@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/database-migrations
   - /recipes/database-replication
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Rank rows and calculate running totals in SQL with window functions. Learn ROW_NUMBER, RANK, SUM OVER, LAG, and practical analytics use cases."
   keywords:

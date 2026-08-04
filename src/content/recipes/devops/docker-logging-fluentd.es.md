@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-structured-logging
   - /recipes/python-prometheus-metrics-exporter
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Centraliza logs de contenedores Docker con el driver Fluentd. Configura fluentd.conf, filtra logs, reenvía a Elasticsearch, S3 y logging JSON estructurado."
   keywords:

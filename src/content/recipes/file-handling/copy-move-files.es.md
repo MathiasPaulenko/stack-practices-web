@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-image-resize-batch
   - /recipes/compress-decompress-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende operaciones de copia y movimiento de archivos multiplataforma en Python, JavaScript y Java con verificaciones de seguridad y manejo de errores."
   keywords:

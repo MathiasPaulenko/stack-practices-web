@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/twin-pattern
   - /patterns/pipes-and-filters-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Marker Interface para tagging de metadata type-safe. Ejemplos en Python, Java y JavaScript con serialización, cloneable y markers custom."
   keywords:

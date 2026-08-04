@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-postgresql-replication
   - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Seed databases with realistic data for development, testing, and staging using seed scripts, migrations, and factories across PostgreSQL, MongoDB, and Prisma."
   keywords:

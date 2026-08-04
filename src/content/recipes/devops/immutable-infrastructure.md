@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/docker-compose-local-dev
   - /docs/api-status-page-template
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Immutable infrastructure: versioned machine images, container-based deployments, configuration drift elimination, and reproducible infrastructure with Packer and Docker."
   keywords:

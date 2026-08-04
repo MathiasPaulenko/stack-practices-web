@@ -23,7 +23,7 @@ relatedResources:
   - /docs/code-review-checklist-template
   - /docs/service-ownership-document-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Onboard backend engineers with this checklist. Covers environment, codebase, security, deployment, and first-week deliverables."
   keywords:

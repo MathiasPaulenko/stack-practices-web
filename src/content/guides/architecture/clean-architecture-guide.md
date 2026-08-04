@@ -29,7 +29,7 @@ relatedResources:
   - /guides/cqrs-guide
   - /guides/modular-monolith-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn Clean Architecture with the Dependency Rule, layered boundaries, and practical examples. Build maintainable, testable applications."
   keywords:

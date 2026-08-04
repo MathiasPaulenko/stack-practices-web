@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/parse-command-line-arguments
   - /recipes/parse-excel-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to parse and analyze server log files. Extract insights from Apache, Nginx, and application logs with code examples."
   keywords:
@@ -299,9 +299,12 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - For repeated reads of the same file, cache the parsed result with unctools.lru_cache or Redis
 - Use csv.field_size_limit() to increase the max field size if you encounter _csv.Error: field larger than field limit
 - For XML, prefer lxml over xml.etree.ElementTree. lxml is 5-10x faster for large files
-- For Excel, use openpyxl in ead_only=True mode for files >10MB. It streams rows instead of loading the entire workbook
+- For Excel, use openpyxl in 
+ead_only=True mode for files >10MB. It streams rows instead of loading the entire workbook
 - For PDF text extraction, pdfplumber is more accurate than PyPDF2 for complex layouts but 3-5x slower
-- For log files, use e.compile() to pre-compile regex patterns. Compiled regex is 2-5x faster than e.search() with string patterns
+- For log files, use 
+e.compile() to pre-compile regex patterns. Compiled regex is 2-5x faster than 
+e.search() with string patterns
 - For CSV-to-JSON conversion, use orjson instead of json for 5-10x faster serialization
 - For large CSV processing, use pandas.read_csv(chunksize=10000) and process chunks in parallel with concurrent.futures
 - For Excel writing, xlsxwriter is 2-3x faster than openpyxl for large output files but does not support reading

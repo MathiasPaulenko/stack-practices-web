@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/oauth2-pkce-spa
   - /recipes/hmac-request-signing
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de hashing de contraseñas para producción con bcrypt, scrypt y Argon2. Lo que funciona para almacenamiento seguro de credenciales en apps web."
   keywords:

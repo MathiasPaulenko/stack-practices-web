@@ -21,7 +21,7 @@ relatedResources:
   - /docs/service-ownership-document-template
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Retira servicios antiguos de forma segura con esta checklist de desmantelamiento. Cubre mapeo de dependencias, migracion de datos, limpieza y comunicacion."
   keywords:

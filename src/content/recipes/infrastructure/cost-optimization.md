@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/load-balancing-haproxy
   - /patterns/compute-resource-consolidation-pattern
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cloud cost optimization strategies: right-sizing, reserved instances, spot instances, auto-scaling policies, and automated resource scheduling for AWS, GCP, and Azure."
   keywords:

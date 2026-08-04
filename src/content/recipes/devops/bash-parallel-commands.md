@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/bash-loop-over-files
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Run shell commands in parallel with bash. Use xargs, GNU parallel, and background jobs to speed up batch processing with code examples."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /docs/secrets-rotation-template
   - /recipes/docker-image-vulnerability-scan
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Manage Docker secrets securely with Docker Swarm secrets, .env files, external secret managers. Avoid hardcoding credentials in images and compose files."
   keywords:

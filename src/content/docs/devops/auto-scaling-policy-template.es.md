@@ -26,7 +26,7 @@ relatedResources:
   - /docs/network-security-template
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de política de auto-scaling para definir reglas de escalamiento basadas en CPU, memoria y requests para cargas de trabajo en la nube."
   keywords:

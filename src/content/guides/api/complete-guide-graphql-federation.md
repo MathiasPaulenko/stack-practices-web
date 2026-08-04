@@ -33,7 +33,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
   - /recipes/graphql-mocking-apollo-server
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to GraphQL Federation. Build unified APIs across services with Apollo Federation, subgraphs, supergraph composition, entities and gateway."
   keywords:

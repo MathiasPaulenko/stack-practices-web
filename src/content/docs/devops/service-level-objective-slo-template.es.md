@@ -26,7 +26,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/sre-practices-guide
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define SLOs con esta plantilla. Cubre objetivos de confiabilidad, SLIs, presupuestos de error, ventanas de medicion y procesos de revision."
   keywords:

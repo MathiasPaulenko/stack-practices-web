@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/type-object-pattern
   - /patterns/value-object-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the ECS Pattern for flexible game and simulation architecture. Examples in Python, Java, and JavaScript with entities, components, and systems."
   keywords:

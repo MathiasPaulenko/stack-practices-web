@@ -30,7 +30,7 @@ relatedResources:
   - /guides/connection-pooling-deep-dive-guide
   - /guides/etl-pipeline-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende métricas y dashboards: instrumenta aplicaciones, elige tipos de métricas, construye dashboards efectivos y crea pipelines de alertas con Prometheus y Grafana."
   keywords:

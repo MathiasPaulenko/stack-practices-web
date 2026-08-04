@@ -25,7 +25,7 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa token bucket rate limiting en Python Flask y FastAPI. Incluye l\u00edmites distribuidos con Redis, sliding window y patrones de middleware."
   keywords:

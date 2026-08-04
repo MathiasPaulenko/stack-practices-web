@@ -25,7 +25,7 @@ relatedResources:
   - /guides/complete-guide-api-versioning-strategies
   - /docs/ai-llm-prompt-template-library
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de LLM prompt engineering. Master few-shot, chain-of-thought, RAG, system prompts, temperature tuning y evaluación para modelos de IA."
   keywords:

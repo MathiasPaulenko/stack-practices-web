@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/multi-tenant-data-isolation-pattern
   - /patterns/federated-identity-pattern
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a escapar entidades HTML en Python, Java y JavaScript. Previene cross-site scripting con ejemplos prácticos de código."
   keywords:

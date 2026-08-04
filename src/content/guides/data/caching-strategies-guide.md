@@ -30,7 +30,7 @@ relatedResources:
   - /recipes/caching-strategies
   - /guides/full-text-search-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn caching strategies: browser, CDN, Redis, and database query caching. When to use each, how to invalidate, and how to avoid common pitfalls."
   keywords:

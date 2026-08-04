@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/cost-optimization
   - /patterns/external-configuration-store-pattern
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Reduce cloud costs with the Compute Resource Consolidation Pattern. Combine workloads, improve utilization, and simplify infrastructure operations."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/docker-network-isolation
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Asegura webhooks con verificación de firmas, protección contra repetición y cifrado de payloads. Guía práctica de seguridad para desarrolladores."
   keywords:

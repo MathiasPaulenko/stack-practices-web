@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/javascript-fetch-retry-logic
   - /recipes/python-async-http-requests
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build real-time WebSocket apps in Node.js with Socket.io. Covers rooms, namespaces, broadcasting, reconnection, authentication, and scaling with Redis adapter."
   keywords:

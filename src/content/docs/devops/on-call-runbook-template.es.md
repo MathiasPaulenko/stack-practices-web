@@ -26,7 +26,7 @@ relatedResources:
   - /docs/dependency-upgrade-template
   - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de runbook de guardia: documenta alertas comunes, pasos de diagnóstico, procedimientos de respuesta y canales de escalamiento."
   keywords:

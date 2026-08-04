@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/null-object-pattern
   - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Aggregate Pattern in Domain-Driven Design. Examples in Python, Java, and JavaScript for enforcing invariants across entity clusters."
   keywords:

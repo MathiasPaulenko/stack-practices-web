@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/python-coverage-pytest-cov
   - /recipes/python-pytest-fixtures-parametrize
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Measure, report, and enforce code coverage with branch and condition coverage using pytest-cov, nyc, and JaCoCo in CI/CD pipelines."
   keywords:

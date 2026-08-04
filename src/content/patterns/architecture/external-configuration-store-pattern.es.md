@@ -28,7 +28,7 @@ relatedResources:
   - /docs/environment-configuration-template
   - /guides/complete-guide-gitops-production
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Centraliza la configuracion fuera de los despliegues con el Patron de Almacen Externo de Configuracion. Soporta actualizaciones en vivo y gestion multi-entorno."
   keywords:

@@ -32,7 +32,7 @@ relatedResources:
   - /guides/complete-guide-cost-optimization-aws
   - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de CI/CD con GitHub Actions. Construye pipelines desde cero. Master workflows, runners, matrix builds, caching, secrets, environments y deployments."
   keywords:

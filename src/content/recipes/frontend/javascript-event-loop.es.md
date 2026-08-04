@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-bundle-size-optimization
   - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cómo funciona el event loop de JavaScript: call stack, cola de tareas, microtareas y código async eficiente para mejorar el rendimiento de aplicaciones web."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-bundle-size-optimization
   - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Web performance optimization guide: Core Web Vitals, lazy loading, code splitting, bundle analysis, image optimization, and modern build tools for faster websites."
   keywords:

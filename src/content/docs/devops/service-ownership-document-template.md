@@ -27,7 +27,7 @@ relatedResources:
   - /docs/production-readiness-review-template
   - /docs/system-decommissioning-checklist-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define service ownership clearly with this template. Covers responsibilities, dependencies, runbooks, contacts, and on-call for every production service."
   keywords:

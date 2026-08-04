@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/structured-logging
   - /recipes/real-user-monitoring
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Recolección de métricas para aplicaciones e infraestructura: Prometheus, StatsD, OpenTelemetry, métricas custom, histograms, counters y dashboards de Grafana."
   keywords:

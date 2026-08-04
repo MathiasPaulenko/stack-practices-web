@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/bash-iptables-firewall
   - /recipes/bash-ssh-key-manager
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Manage SSL/TLS certificates with this template. Covers inventory tracking, renewal workflows, deployment steps, expiry monitoring, and incident response."
   keywords:

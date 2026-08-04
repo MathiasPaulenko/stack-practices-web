@@ -33,7 +33,7 @@ relatedResources:
   - /guides/cqrs-guide
   - /guides/event-sourcing-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn CQRS + Event Sourcing: separate read/write models, rebuild state from events, handle eventual consistency. Practical guide with code examples."
   keywords:

@@ -23,7 +23,7 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
   - /guides/observability-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn time-series databases: when to use a TSDB, data model, retention policies. Compare InfluxDB, TimescaleDB, and ClickHouse with practical examples."
   keywords:

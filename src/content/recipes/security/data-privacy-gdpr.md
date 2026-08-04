@@ -22,7 +22,7 @@ relatedResources:
   - /docs/security-incident-response-template
   - /guides/compliance-gdpr-guide
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "GDPR compliance and data privacy: consent management, data anonymization, right to erasure, data portability, and privacy-by-design architecture patterns."
   keywords:

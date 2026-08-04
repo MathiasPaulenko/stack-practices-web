@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/grpc-api
   - /recipes/grpc-services-typescript
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "REST API design what works: HTTP methods, status codes, versioning, pagination, HATEOAS, and resource naming conventions for growth-ready backends."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/deep-clone-structured
   - /recipes/uuid-generation-strategies
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Batch processing patterns for large datasets: reliable pipeline design, retry logic, idempotency, and observability what works for ETL and reporting workflows."
   keywords:

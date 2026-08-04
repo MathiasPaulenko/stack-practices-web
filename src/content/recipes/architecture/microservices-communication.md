@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/service-discovery
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Microservices communication patterns: REST, gRPC, messaging, event-driven, sagas, and circuit breakers for distributed system resilience."
   keywords:

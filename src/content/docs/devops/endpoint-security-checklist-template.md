@@ -21,7 +21,7 @@ relatedResources:
   - /docs/network-segmentation-policy-template
   - /docs/secret-rotation-schedule-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Harden endpoints with this security checklist template. Covers encryption, MFA, patching, EDR, backups, and remote wipe policies."
   keywords:

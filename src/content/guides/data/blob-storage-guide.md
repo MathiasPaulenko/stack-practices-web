@@ -28,7 +28,7 @@ relatedResources:
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn blob storage: bucket design, access control, lifecycle policies, multipart uploads, presigned URLs, and cost optimization for S3, GCS, and Azure Blob."
   keywords:

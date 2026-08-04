@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/oauth2-pkce-spa
   - /recipes/hmac-request-signing
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Production-grade password hashing guide with bcrypt, scrypt, and Argon2. What works for secure credential storage in web applications and backend APIs."
   keywords:

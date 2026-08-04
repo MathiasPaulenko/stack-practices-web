@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/sidecar-pattern
   - /guides/complete-guide-gitops-argocd
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de Kubernetes Ingress. Configura NGINX Ingress controller, terminación TLS, enrutamiento por path, anotaciones, IngressClass y troubleshooting."
   keywords:

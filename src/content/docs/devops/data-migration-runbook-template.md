@@ -24,7 +24,7 @@ relatedResources:
   - /docs/disaster-recovery-test-plan
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Migrate data safely with this runbook template. Covers pre-migration checks, execution steps, rollback procedures, and post-migration validation."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/aggregate-pattern
   - /patterns/solid-principles-typescript
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Value Object para objetos de dominio inmutables definidos por sus atributos. Ejemplos en Python, Java y JavaScript."
   keywords:

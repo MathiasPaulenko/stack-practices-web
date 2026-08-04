@@ -26,7 +26,7 @@ relatedResources:
   - /docs/weekly-ops-review-template
   - /docs/sla-definition-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de regresión de rendimiento para comparar benchmarks antes y después de releases, identificar degradaciones y crear planes de remediación accionables."
   keywords:

@@ -33,7 +33,7 @@ relatedResources:
   - /patterns/compute-resource-consolidation-pattern
   - /patterns/health-endpoint-monitoring-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the CDN Pattern for edge caching and content distribution. Examples in JavaScript, Python, and Terraform with CloudFront, Fastly, and Vercel Edge."
   keywords:

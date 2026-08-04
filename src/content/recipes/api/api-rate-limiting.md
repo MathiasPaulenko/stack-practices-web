@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/redis-rate-limiting-token-bucket
   - /recipes/python-api-rate-limiting
 lastUpdated: "2026-07-03"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "API rate limiting strategies: token bucket, sliding window, leaky bucket algorithms, Redis-based rate limiters, and distributed rate limiting."
   keywords:

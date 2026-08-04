@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/facade-pattern
   - /patterns/model-view-viewmodel-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Front Controller Pattern for centralized request handling in web apps. Examples in Python, Java, and JavaScript with routing and dispatch."
   keywords:

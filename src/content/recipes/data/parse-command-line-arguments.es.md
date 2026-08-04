@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/parse-log-files
   - /recipes/parse-excel-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar argumentos CLI en Python, Java y Node.js. Construye herramientas robustas con flags, opciones y subcomandos."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/unit-of-work-pattern
   - /patterns/role-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Composite Entity Pattern for coarse-grained persistence. Examples in Python, Java, and JavaScript with composed dependent objects and table mapping."
   keywords:

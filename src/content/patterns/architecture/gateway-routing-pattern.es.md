@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/health-endpoint-monitoring-pattern
   - /patterns/compute-resource-consolidation-pattern
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Enruta solicitudes a multiples servicios con el Patron de Enrutamiento de Gateway. Centraliza SSL, autenticacion, rate limiting y balanceo de carga."
   keywords:

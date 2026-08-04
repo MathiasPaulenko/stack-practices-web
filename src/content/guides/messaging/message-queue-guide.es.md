@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-event-driven-systems
   - /guides/complete-guide-kafka-production
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."
   keywords:

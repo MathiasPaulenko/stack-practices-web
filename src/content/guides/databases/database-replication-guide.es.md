@@ -26,7 +26,7 @@ relatedResources:
   - /guides/read-replica-guide
   - /recipes/connect-to-postgresql
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende replicación de bases de datos: master-slave, multi-master, síncrona vs async, failover y resolución de conflictos. Guía práctica para sistemas escalables."
   keywords:

@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/blackboard-pattern
   - /patterns/chain-of-responsibility-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Null Object Pattern to eliminate null checks with safe default objects. Examples in Python, Java, and JavaScript."
   keywords:

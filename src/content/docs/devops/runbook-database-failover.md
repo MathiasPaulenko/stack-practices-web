@@ -28,7 +28,7 @@ relatedResources:
   - /docs/downtime-communication-template
   - /recipes/sql-find-duplicate-rows
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Execute database failovers safely with this runbook. Covers promotion, DNS cutover, replication verification, and rollback procedures."
   keywords:

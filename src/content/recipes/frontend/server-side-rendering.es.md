@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/spa-code-splitting-lazy
   - /guides/complete-guide-css-grid-and-flexbox
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de server-side rendering: Next.js, Nuxt, Astro, hydration, streaming SSR, edge rendering y optimización de performance para SEO y Core Web Vitals."
   keywords:

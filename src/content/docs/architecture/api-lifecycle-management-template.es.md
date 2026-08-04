@@ -26,7 +26,7 @@ relatedResources:
   - /docs/api-changelog-template
   - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de gestión del ciclo de vida de APIs para rastrear avisos de deprecación, transiciones de versionado y verificaciones de cierre."
   keywords:

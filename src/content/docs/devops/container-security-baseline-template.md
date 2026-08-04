@@ -25,7 +25,7 @@ relatedResources:
   - /docs/endpoint-security-checklist-template
   - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Harden container images and runtimes with this baseline template. Covers image scanning, runtime policies, RBAC, networking, and secrets."
   keywords:

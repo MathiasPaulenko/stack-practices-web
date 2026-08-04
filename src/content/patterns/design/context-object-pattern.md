@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/manager-pattern
   - /patterns/role-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Context Object Pattern for reducing parameter bloat. Examples in Python, Java, and JavaScript with request contexts, DI containers, and scoping."
   keywords:

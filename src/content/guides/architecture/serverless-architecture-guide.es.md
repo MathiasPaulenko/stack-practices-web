@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/azure-functions-python-http
   - /recipes/gcp-cloud-functions-nodejs
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende arquitectura serverless: diseño de funciones, cold starts, patrones event-driven, gestión de estado. Guía práctica con AWS Lambda, Azure y GCP."
   keywords:

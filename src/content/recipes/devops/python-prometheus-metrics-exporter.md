@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/prometheus-monitoring-alerts
   - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build a custom Prometheus exporter in Python with prometheus_client. Expose counters, gauges, histograms, summaries, and custom metrics endpoints."
   keywords:

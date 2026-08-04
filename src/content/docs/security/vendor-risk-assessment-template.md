@@ -26,7 +26,7 @@ relatedResources:
   - /docs/penetration-test-remediation-template
   - /docs/data-classification-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this vendor risk assessment template to evaluate third-party vendor security, compliance, and operational risks before onboarding."
   keywords:

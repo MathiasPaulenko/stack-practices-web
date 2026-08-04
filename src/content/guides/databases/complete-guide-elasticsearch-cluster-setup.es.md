@@ -33,7 +33,7 @@ relatedResources:
   - /guides/complete-guide-database-sharding
   - /guides/complete-guide-postgresql-replication
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de Elasticsearch cluster setup. Despliega, configura roles, sharding, réplicas, index templates, mapping, snapshots y tuning de producción."
   keywords:

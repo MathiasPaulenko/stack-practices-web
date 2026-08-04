@@ -26,7 +26,7 @@ relatedResources:
   - /guides/cqrs-guide
   - /patterns/distributed-lock-pattern
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn ACID vs BASE consistency models with examples. Understand strong vs eventual consistency, CAP theorem, and when to use each in distributed systems."
   keywords:

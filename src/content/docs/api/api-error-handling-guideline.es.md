@@ -28,7 +28,7 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Estandariza respuestas de error de API con esta guia. Cubre codigos HTTP, payloads de error, IDs de error y estrategias de reintento."
   keywords:

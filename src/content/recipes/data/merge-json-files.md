@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/merge-json-files-javascript
   - /recipes/diff-json-objects
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to merge JSON files in Python, Java, and JavaScript. Combine configs, datasets, and API responses with practical code examples."
   keywords:

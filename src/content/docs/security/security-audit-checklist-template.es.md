@@ -25,7 +25,7 @@ relatedResources:
   - /docs/data-classification-template
   - /docs/incident-response-playbook-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa este checklist de auditoría de seguridad para revisar autenticación, autorización, protección de datos, seguridad de infraestructura y brechas de cumplimiento."
   keywords:

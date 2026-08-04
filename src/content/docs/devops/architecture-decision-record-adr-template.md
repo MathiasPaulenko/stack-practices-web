@@ -21,7 +21,7 @@ relatedResources:
   - /docs/engineering-handbook-template
   - /docs/system-diagram-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Document architectural decisions with this ADR template. Captures context, options, trade-offs, and consequences for future reference."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /docs/sla-definition-template
   - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this downtime communication template to draft internal and external outage messages during service downtime and incidents."
   keywords:

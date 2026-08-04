@@ -25,7 +25,7 @@ relatedResources:
   - /docs/endpoint-security-checklist-template
   - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Endurece imagenes y tiempos de ejecucion de contenedores con esta plantilla. Cubre escaneo de imagenes, politicas de runtime, RBAC, red y secretos."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/copy-move-files
   - /recipes/generate-temporary-files
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Extract zip files safely in Python with zipfile module. Validate archives, prevent path traversal, and handle large extractions with code examples."
   keywords:

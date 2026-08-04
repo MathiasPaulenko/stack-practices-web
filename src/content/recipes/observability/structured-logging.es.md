@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/distributed-tracing
   - /recipes/log-aggregation
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Lo que funciona en logging estructurado: formato JSON, correlation IDs, niveles de log, agregación con ELK/Loki e integración con trazas distribuidas."
   keywords:

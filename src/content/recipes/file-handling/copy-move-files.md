@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-image-resize-batch
   - /recipes/compress-decompress-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn cross-platform file copy and move operations in Python, JavaScript, and Java with safety checks and error handling."
   keywords:

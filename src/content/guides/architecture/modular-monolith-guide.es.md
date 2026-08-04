@@ -25,7 +25,7 @@ relatedResources:
   - /guides/clean-architecture-guide
   - /patterns/anti-corruption-layer-pattern
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende arquitectura de Monolito Modular con bounded contexts, límites entre módulos y rutas de migración a microservicios. Guía para equipos en crecimiento."
   keywords:

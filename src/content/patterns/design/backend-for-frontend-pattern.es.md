@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/gateway-routing-pattern
   - /patterns/mediator-pattern-components
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Backend for Frontend para agregación de APIs por cliente. Ejemplos en Python, Java y JavaScript con GraphQL, optimización mobile y tailoring web."
   keywords:

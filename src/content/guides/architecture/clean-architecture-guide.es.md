@@ -29,7 +29,7 @@ relatedResources:
   - /guides/cqrs-guide
   - /guides/modular-monolith-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Clean Architecture con la Regla de Dependencia, límites entre capas y ejemplos prácticos. Construye aplicaciones mantenibles y testeables."
   keywords:

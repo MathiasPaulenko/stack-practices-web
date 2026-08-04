@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-event-driven-systems
   - /guides/complete-guide-kafka-production
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Complete message queue guide comparing RabbitMQ, Kafka, and AWS SQS. Learn patterns, throughput, ordering guarantees, and operational what works."
   keywords:

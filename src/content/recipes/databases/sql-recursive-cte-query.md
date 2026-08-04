@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/sql-index-optimization-analysis
   - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Traverse hierarchical data in SQL with recursive CTEs. Learn how to query parent-child relationships, org charts, and tree structures safely."
   keywords:

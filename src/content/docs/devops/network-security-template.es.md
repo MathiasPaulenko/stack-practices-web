@@ -24,7 +24,7 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /docs/bug-triage-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de seguridad de red para inventariar reglas de VPC, configuraciones de firewall, ajustes de DNS y controles de acceso a la red."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/business-delegate-pattern
   - /patterns/context-object-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Facade para simplificar subsistemas complejos. Ejemplos en Python, Java y JavaScript para APIs más limpias y menor acoplamiento."
   keywords:

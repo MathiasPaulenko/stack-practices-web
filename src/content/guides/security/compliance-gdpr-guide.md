@@ -23,7 +23,7 @@ relatedResources:
   - /guides/secure-coding-guide
   - /recipes/data-privacy-gdpr
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn GDPR compliance for developers: data subject rights, lawful basis, minimization, privacy by design. Practical guide with code examples."
   keywords:

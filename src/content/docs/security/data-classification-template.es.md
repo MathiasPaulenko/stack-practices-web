@@ -27,7 +27,7 @@ relatedResources:
   - /docs/penetration-test-remediation-template
   - /docs/secrets-rotation-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de clasificación de datos: define niveles públicos, internos, confidenciales y restringidos, con ejemplos, dueños y controles."
   keywords:

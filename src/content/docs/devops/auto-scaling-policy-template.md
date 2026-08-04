@@ -26,7 +26,7 @@ relatedResources:
   - /docs/network-security-template
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this auto-scaling policy template to define CPU, memory, and request-based scale-up and scale-down rules for cloud workloads."
   keywords:

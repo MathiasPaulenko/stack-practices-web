@@ -26,7 +26,7 @@ relatedResources:
   - /docs/sla-definition-template
   - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de política de escalamiento: define niveles de severidad, rutas de escalamiento, SLAs de respuesta y responsables para tu equipo de guardia."
   keywords:

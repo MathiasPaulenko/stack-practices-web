@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/setup-ssl-certificates
   - /docs/patch-management-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de renovación de certificados SSL para rastrear fechas de caducidad, flujos de renovación y verificaciones de validación antes de que expiren."
   keywords:

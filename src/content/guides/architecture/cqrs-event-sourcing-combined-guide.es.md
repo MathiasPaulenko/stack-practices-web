@@ -33,7 +33,7 @@ relatedResources:
   - /guides/cqrs-guide
   - /guides/event-sourcing-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende CQRS + Event Sourcing: separa modelos de lectura/escritura, reconstruye estado desde eventos, maneja consistencia eventual. Guía práctica con ejemplos."
   keywords:

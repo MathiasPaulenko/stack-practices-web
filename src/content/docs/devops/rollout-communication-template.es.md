@@ -22,7 +22,7 @@ relatedResources:
   - /docs/downtime-communication-template
   - /docs/escalation-policy-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de comunicación de despliegues: redacta notas de release, actualizaciones de stakeholders, canales y plan de rollback para releases."
   keywords:

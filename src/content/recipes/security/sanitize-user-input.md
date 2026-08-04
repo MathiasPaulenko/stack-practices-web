@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/multi-tenant-data-isolation-pattern
   - /patterns/federated-identity-pattern
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to sanitize user input in Python, Java, and JavaScript. Prevent XSS, SQL injection, and command injection with code examples."
   keywords:

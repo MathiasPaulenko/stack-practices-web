@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/javascript-msw-mock-service-worker
   - /guides/complete-guide-junit5-modern-testing
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Estrategias de API mocking para testing: WireMock, MockServer, MSW, definiciones de stubs, response templating y testing de casos edge sin dependencias reales."
   keywords:

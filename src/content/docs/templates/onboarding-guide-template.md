@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /docs/environment-setup-guide-template
 lastUpdated: 2026-06-11
-author: StackPractices
+author: Mathias Paulenko
 seo:
   metaDescription: "New developer onboarding guide template covering environment setup, required tools, codebase overview, team conventions, and first-week tasks."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-zip-file-extraction
   - /recipes/bash-iptables-firewall
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configure Linux firewall rules with iptables using Bash. Filter traffic, allow trusted ports, block unwanted IPs, and secure servers from network threats."
   keywords:

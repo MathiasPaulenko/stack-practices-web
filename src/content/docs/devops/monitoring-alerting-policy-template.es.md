@@ -30,7 +30,7 @@ relatedResources:
   - /docs/load-test-execution-plan-template
   - /docs/postmortem-incident-review-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define politicas de monitoreo y alertas con esta plantilla. Cubre umbrales, enrutamiento, escalacion, niveles de severidad y cadencia de revision."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de mapa de dependencias de servicios para documentar dependencias upstream y downstream, rutas críticas y análisis de impacto de fallas."
   keywords:

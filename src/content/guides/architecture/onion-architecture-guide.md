@@ -30,7 +30,7 @@ relatedResources:
   - /guides/cqrs-event-sourcing-combined-guide
   - /guides/hexagonal-architecture-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn Onion Architecture: organize code around the domain, enforce inward dependencies, isolate infrastructure from business logic. Practical guide with examples."
   keywords:

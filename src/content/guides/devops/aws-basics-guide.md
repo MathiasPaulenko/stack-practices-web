@@ -32,7 +32,7 @@ relatedResources:
   - /guides/gcp-basics-guide
   - /guides/multi-cloud-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn AWS core services for developers: EC2, S3, RDS, Lambda, VPC. Practical guide with examples for building and deploying cloud applications."
   keywords:

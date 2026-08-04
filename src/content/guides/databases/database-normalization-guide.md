@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/database-connection-pooling
   - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn database normalization from 1NF to 5NF with examples. Understand functional dependencies, anomalies, and when to denormalize for performance."
   keywords:

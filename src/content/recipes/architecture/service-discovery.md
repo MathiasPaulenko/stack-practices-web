@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Service discovery patterns: Consul, etcd, Eureka, DNS-based resolution, health checks, and dynamic service registration for microservices."
   keywords:

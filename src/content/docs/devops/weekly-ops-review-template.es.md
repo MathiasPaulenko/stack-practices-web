@@ -26,7 +26,7 @@ relatedResources:
   - /docs/downtime-communication-template
   - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de revisión semanal de operaciones para resumir incidentes, costos en la nube, métricas de rendimiento y acciones para tu equipo de operaciones."
   keywords:

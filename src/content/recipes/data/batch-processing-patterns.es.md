@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/deep-clone-structured
   - /recipes/uuid-generation-strategies
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patrones de procesamiento por lotes para grandes datasets: diseño robusto de pipelines, retry, idempotencia y lo que funciona de observabilidad para ETL."
   keywords:

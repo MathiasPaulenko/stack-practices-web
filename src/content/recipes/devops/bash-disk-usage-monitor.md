@@ -23,7 +23,7 @@ relatedResources:
   - /docs/logging-standards-document
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Monitor disk usage in bash. Set threshold alerts, send email notifications, and automate cleanup when disk space runs low on Linux servers."
   keywords:

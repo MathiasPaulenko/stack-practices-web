@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/url-encoding-decoding
   - /recipes/server-side-rendering
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Comunicación en tiempo real con WebSockets: gestión de conexiones, estrategias de reconexión, fallbacks a SSE/long-polling y escalado de servidores WebSocket."
   keywords:

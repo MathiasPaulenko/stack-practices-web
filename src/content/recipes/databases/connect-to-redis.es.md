@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/execute-raw-sql
   - /recipes/use-orm-crud
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a conectar a Redis usando Python redis-py, Node.js ioredis y Java Jedis con ejemplos prácticos para caching y sesiones."
   keywords:

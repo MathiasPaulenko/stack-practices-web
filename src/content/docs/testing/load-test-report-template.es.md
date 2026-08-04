@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/api-contract-testing
   - /docs/api-testing-strategy-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de informe de pruebas de carga para documentar benchmarks de rendimiento, cuellos de botella encontrados y recomendaciones accionables."
   keywords:

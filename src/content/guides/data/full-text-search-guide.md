@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/elasticsearch-aggregations
   - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn full-text search: PostgreSQL tsvector, Elasticsearch indexing, query design, relevance tuning, autocomplete, faceting, and typo tolerance."
   keywords:

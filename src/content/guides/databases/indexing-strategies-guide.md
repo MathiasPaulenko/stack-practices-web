@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/connect-to-postgresql
   - /recipes/connect-to-mysql
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn database indexing strategies: B-Tree, Hash, GIN, GiST, BRIN, partial and composite indexes. Optimize queries and avoid common indexing mistakes."
   keywords:

@@ -27,7 +27,7 @@ relatedResources:
   - /docs/api-rate-limiting-policy-template
   - /guides/complete-guide-api-versioning-strategies
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this API changelog template to document breaking changes, new features, deprecations, and bug fixes with clear versioning."
   keywords:

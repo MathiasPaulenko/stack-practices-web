@@ -23,7 +23,7 @@ relatedResources:
   - /guides/web-components-guide
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build Progressive Web Apps with service workers, offline support, Web App Manifest, push notifications, and installability. Complete PWA guide."
   keywords:

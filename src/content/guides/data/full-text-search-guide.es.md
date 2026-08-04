@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/elasticsearch-aggregations
   - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de búsqueda de texto completo: PostgreSQL tsvector, Elasticsearch, relevancia, autocompletado, faceting e indexación para producción."
   keywords:

@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/multi-tenant-data-isolation-pattern
   - /patterns/voucher-pattern
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Federated Identity Pattern in Python, Java, and JavaScript. Delegate auth to external IdPs with OAuth2, OIDC, SAML and SSO integration."
   keywords:

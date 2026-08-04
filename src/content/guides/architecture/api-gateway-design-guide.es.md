@@ -30,7 +30,7 @@ relatedResources:
   - /guides/api-rate-limiting-guide
   - /patterns/gateway-routing-pattern
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a diseñar API gateways resilientes con enrutamiento, rate limiting, autenticación, circuit breakers y observabilidad. Guía para equipos de ingeniería."
   keywords:

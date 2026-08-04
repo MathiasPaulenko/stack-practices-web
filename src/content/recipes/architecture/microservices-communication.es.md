@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/service-discovery
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patrones de comunicación en microservicios: REST, gRPC, messaging, event-driven, sagas y circuit breakers para sistemas distribuidos resilientes."
   keywords:

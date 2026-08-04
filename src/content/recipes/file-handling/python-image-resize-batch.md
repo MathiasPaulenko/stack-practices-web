@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/image-optimization
   - /recipes/read-large-files
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Batch resize images in Python with Pillow. Learn bulk image processing, format conversion, and optimization for web delivery with code examples."
   keywords:

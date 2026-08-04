@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/event-carried-state-transfer-pattern
   - /patterns/materialized-view-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Database per Service para aislamiento de datos en microservicios. Ejemplos en Python, Java y JavaScript con schemas por servicio y sync de eventos."
   keywords:

@@ -1,8 +1,8 @@
 import { SITE } from '../config/site';
 
-/** Ensures a path ends with a trailing slash (for SSG directory URLs). */
+/** Ensures a URL ends with a trailing slash (for SSG directory URLs). */
 function withSlash(url: string): string {
-  return url === SITE.url ? url : url.endsWith('/') ? url : `${url}/`;
+  return url.endsWith('/') ? url : `${url}/`;
 }
 
 /** Maps difficulty to Schema.org educationalLevel. */
@@ -109,11 +109,11 @@ export function techArticle(opts: {
     ...(opts.datePublished && { datePublished: opts.datePublished }),
     author: {
       '@type': 'Person',
-      name: 'Mathias Vladimir Paulenko Echeverz',
+      name: SITE.author,
       url: 'https://mathiaspaulenko.com',
       sameAs: [
         'https://github.com/MathiasPaulenko',
-        'https://cn.linkedin.com/in/mathias-paulenko-echeverz',
+        'https://www.linkedin.com/in/mathias-paulenko-echeverz',
       ],
     },
     publisher: {

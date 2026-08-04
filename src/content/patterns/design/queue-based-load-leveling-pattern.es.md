@@ -31,7 +31,7 @@ relatedResources:
   - /patterns/claim-check-pattern
   - /patterns/scheduler-agent-supervisor-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Nivelacion de Carga Basada en Colas para suavizar picos de trafico. Ejemplos en Python, Java y JavaScript con colas de mensajes y backpressure."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Secure Docker containers with network isolation, custom bridge networks, internal networks, and access control. Prevent unauthorized inter-container communication."
   keywords:

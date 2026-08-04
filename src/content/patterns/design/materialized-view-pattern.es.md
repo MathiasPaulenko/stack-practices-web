@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/database-per-service-pattern
   - /patterns/sharding-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Vista Materializada para optimizacion de consultas. Ejemplos en Python, Java y SQL con triggers, refresco programado y actualizaciones incrementales."
   keywords:

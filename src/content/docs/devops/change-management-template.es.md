@@ -26,7 +26,7 @@ relatedResources:
   - /docs/service-level-objective-template
   - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de gestión de cambios para documentar revisiones CAB, flujos de aprobación y criterios de reversión para cambios en producción."
   keywords:

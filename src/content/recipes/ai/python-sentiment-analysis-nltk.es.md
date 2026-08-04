@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/llm-fine-tuning
   - /recipes/prompt-engineering
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Realiza análisis de sentimiento en Python con NLTK VADER. Puntúa polaridad de texto, maneja negación y construye clasificadores con ejemplos."
   keywords:

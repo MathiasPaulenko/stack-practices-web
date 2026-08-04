@@ -27,7 +27,7 @@ relatedResources:
   - /guides/distributed-tracing-guide
   - /guides/log-aggregation-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn OpenTelemetry: instrumentation, collectors, OTLP exporters. Wire traces, metrics, and logs to Jaeger, Prometheus, and Grafana."
   keywords:

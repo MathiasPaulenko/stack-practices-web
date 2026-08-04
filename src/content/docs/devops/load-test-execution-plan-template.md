@@ -27,7 +27,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/performance-optimization-guide
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plan and execute load tests with this template. Covers goals, scenarios, baseline metrics, success criteria, environment setup, and remediation."
   keywords:

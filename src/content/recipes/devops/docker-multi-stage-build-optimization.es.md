@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/docker-network-isolation
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Optimiza imágenes Docker con multi-stage builds, layer caching, bases distroless y .dockerignore. Reduce el tamaño hasta un 90 por ciento."
   keywords:

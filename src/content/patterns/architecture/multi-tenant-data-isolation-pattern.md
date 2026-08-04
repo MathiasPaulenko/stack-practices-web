@@ -34,7 +34,7 @@ relatedResources:
   - /recipes/vault-dynamic-credentials
   - /patterns/pipes-and-filters-pattern
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Multi-Tenant Data Isolation Pattern in Python, Java, and JavaScript. Compare row-level, schema-per-tenant, and database-per-tenant strategies."
   keywords:

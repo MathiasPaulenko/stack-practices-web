@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Optimiza índices SQL usando EXPLAIN y planes de ejecución. Detecta índices faltantes, escaneos secuenciales y cuellos de botella."
   keywords:

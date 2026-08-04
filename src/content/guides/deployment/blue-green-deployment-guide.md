@@ -30,7 +30,7 @@ relatedResources:
   - /guides/cost-optimization-cloud-guide
   - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn blue-green deployment: zero-downtime releases, traffic switching, database migrations, and instant rollback strategies."
   keywords:

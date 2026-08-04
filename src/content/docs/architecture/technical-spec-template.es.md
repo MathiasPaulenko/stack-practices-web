@@ -25,7 +25,7 @@ relatedResources:
   - /docs/api-changelog-template
   - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de especificación técnica para definir requisitos, decisiones de diseño, contratos de API y planes de implementación."
   keywords:

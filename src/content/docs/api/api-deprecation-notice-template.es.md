@@ -28,7 +28,7 @@ relatedResources:
   - /docs/sla-definition-template
   - /docs/api-error-response-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de aviso de deprecacion de API para comunicar cambios breaking, plazos de migracion y fechas de retiro a consumidores."
   keywords:

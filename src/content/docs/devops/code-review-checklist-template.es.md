@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/git-rebase-interactive-tutorial
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Estandariza las revisiones de codigo con esta checklist. Cubre logica, seguridad, rendimiento, tests y estilo para feedback consistente y de alta calidad."
   keywords:

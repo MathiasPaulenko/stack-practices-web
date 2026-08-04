@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/message-queue-load-leveling-pattern
   - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Cola de Prioridad para programacion por prioridad. Ejemplos en Python, Java y JavaScript con heaps, sorted sets de Redis y fair queuing."
   keywords:

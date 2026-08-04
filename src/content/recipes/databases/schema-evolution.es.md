@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/caching-redis
   - /recipes/database-migrations
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Evolución de schema de base de datos: cambios backward-compatible, migraciones versionadas, DDL online, patrón expand-contract y cambios seguros en producción."
   keywords:

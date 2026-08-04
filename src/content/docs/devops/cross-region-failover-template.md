@@ -26,7 +26,7 @@ relatedResources:
   - /docs/bug-triage-template
   - /docs/network-security-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this cross-region failover template to plan and execute disaster recovery tests across multiple AWS, GCP, or Azure regions."
   keywords:

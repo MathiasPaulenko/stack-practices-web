@@ -33,7 +33,7 @@ relatedResources:
   - /guides/a-b-testing-guide
   - /guides/blue-green-deployment-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn SRE practices: define SLIs, SLOs, SLAs, manage error budgets, reduce toil, and build on-call rotations for production reliability."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/oauth2-pkce-spa
   - /docs/endpoint-security-checklist-template
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement GitHub OAuth2 login in Node.js with Express and Passport. Covers authorization code flow, state parameter, token exchange, and session management."
   keywords:

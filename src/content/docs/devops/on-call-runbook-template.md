@@ -26,7 +26,7 @@ relatedResources:
   - /docs/dependency-upgrade-template
   - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this on-call runbook template to document common alerts, step-by-step response procedures, and troubleshooting steps for on-call engineers."
   keywords:

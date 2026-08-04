@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/ambassador-pattern
   - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Verifica la salud del servicio con el Patron de Monitoreo de Endpoints de Salud. Expone probes para balanceadores, orquestadores y sistemas de alertas."
   keywords:

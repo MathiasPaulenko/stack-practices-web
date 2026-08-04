@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/composite-entity-pattern
   - /patterns/identity-map-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Unit of Work Pattern for atomic transactions. Examples in Python, Java, and JavaScript with change tracking and batch commit."
   keywords:

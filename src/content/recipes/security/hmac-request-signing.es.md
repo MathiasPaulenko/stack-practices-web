@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/password-hashing-production
   - /docs/api-security-review-template
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa firma de requests HMAC-SHA256 para autenticación segura de APIs. Protege integridad de mensajes y previene ataques de replay entre servicios."
   keywords:

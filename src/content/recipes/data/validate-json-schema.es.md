@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/convert-json-to-csv
   - /recipes/diff-json-objects
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende validación JSON Schema en Python, Java y JavaScript. Valida payloads de API y archivos de configuración con schemas y lo que funciona."
   keywords:
@@ -298,7 +298,8 @@ e.ASCII y anchors explicitos para regexes security-sensitive
 - Para sort de arrays grandes, 
 umpy.argsort() es 2-5x mas rapido que sorted() built-in de Python para datos numericos
 - Para diffing, hashea ambos objetos con hashlib.sha256(json.dumps(obj, sort_keys=True)) y compara hashes primero. Solo haz deep diff si los hashes difieren
-- Para regex, usa e.compile() una vez a nivel modulo. Los patrones compilados son 2-5x mas rapidos que string patterns
+- Para regex, usa 
+e.compile() una vez a nivel modulo. Los patrones compilados son 2-5x mas rapidos que string patterns
 - Para caching de validacion de schema, usa unctools.lru_cache en la funcion de validacion con el hash de input como key
 - Para operaciones de merge, dict.update() es O(n) pero in-place. {**a, **b} crea un dict nuevo. Elije basado en si necesitas el original
 - Para serializacion, msgpack es 3-5x mas rapido que JSON y produce output 50-80% mas pequeÃ±o

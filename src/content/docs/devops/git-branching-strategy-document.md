@@ -25,7 +25,7 @@ relatedResources:
   - /docs/onboarding-checklist-backend-engineer
   - /recipes/git-rebase-interactive-tutorial
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define your team's Git workflow with this branching strategy document. Covers branch naming, merge requirements, release procedures, and rollback practices."
   keywords:

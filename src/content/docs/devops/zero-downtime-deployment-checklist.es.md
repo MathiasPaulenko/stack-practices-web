@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/aws-lambda-python-dependencies
   - /docs/environment-configuration-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Despliega cambios en produccion sin downtime con este checklist. Cubre health checks, despliegues canary, migraciones de base de datos y procedimientos de rollback."
   keywords:

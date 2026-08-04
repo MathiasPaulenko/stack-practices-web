@@ -27,7 +27,7 @@ relatedResources:
   - /guides/cqrs-guide
   - /guides/event-sourcing-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Event Bus Pattern for decoupled component communication. Examples in Python, Java, and JavaScript with sync and async variants."
   keywords:

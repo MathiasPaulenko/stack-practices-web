@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/bash-aws-cli-automation
   - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Automate backups with retention policies using Bash. Rotate daily, weekly, and monthly snapshots, compress archives, and protect data from disk exhaustion."
   keywords:

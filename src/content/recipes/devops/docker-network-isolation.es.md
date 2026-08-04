@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Asegura contenedores Docker con aislamiento de red, redes bridge personalizadas e internas. Previene comunicación no autorizada entre contenedores."
   keywords:

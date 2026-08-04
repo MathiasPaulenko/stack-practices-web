@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/bash-loop-over-files
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ejecuta comandos shell en paralelo con bash. Usa xargs, GNU parallel y background jobs para acelerar procesamiento en lote con ejemplos."
   keywords:

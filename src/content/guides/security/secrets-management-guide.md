@@ -31,7 +31,7 @@ relatedResources:
   - /guides/blob-storage-guide
   - /guides/complete-guide-web-security-headers
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn secrets management with Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager. Rotation, access control, and CI/CD integration guide."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /docs/network-security-template
   - /recipes/bash-backup-rotation
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de backup y restore para verificar backups de bases de datos, snapshots de archivos y procedimientos de disaster recovery."
   keywords:

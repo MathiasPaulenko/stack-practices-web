@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/bash-parallel-commands
   - /recipes/bash-aws-cli-scripts
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Create a bash backup rotation script with retention policies. Automate daily, weekly, monthly backups with find and tar compression examples."
   keywords:

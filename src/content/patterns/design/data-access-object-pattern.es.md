@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/identity-map-pattern
   - /patterns/unit-of-work-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón DAO para abstraer acceso a base de datos. Ejemplos en Python, Java y JavaScript con separación limpia entre persistencia y lógica de negocio."
   keywords:

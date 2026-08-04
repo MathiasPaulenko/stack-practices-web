@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/bash-iptables-firewall
   - /docs/dependency-vulnerability-report-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Evalua proveedores terceros con esta plantilla. Cubre postura de seguridad, cumplimiento, compromisos de SLA y puntuacion de riesgo."
   keywords:

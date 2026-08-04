@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/ambassador-pattern
   - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Voucher Pattern in Python, Java, and JavaScript. Validate signed claims between services without exposing sensitive data or credentials."
   keywords:

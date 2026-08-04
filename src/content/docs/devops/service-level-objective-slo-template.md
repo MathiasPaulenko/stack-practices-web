@@ -26,7 +26,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/sre-practices-guide
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define SLOs with this template. Covers reliability targets, SLIs, error budgets, measurement windows, and review processes."
   keywords:

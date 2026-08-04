@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/event-carried-state-transfer-pattern
   - /patterns/materialized-view-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Database per Service Pattern for microservice data isolation. Examples in Python, Java, and JavaScript with per-service schemas and event sync."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/queue-based-load-leveling-pattern
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Programador-Agente-Supervisor para trabajos resilientes. Ejemplos en Python, Java y JavaScript con supervisores, agentes y monitoreo de salud."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-schedule-periodic-tasks
   - /recipes/docker-logging-fluentd
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configure Docker HEALTHCHECK instructions with curl, wget, and custom scripts. Learn interval, timeout, retries, and start-period for reliable containers."
   keywords:

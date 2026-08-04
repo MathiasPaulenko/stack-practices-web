@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/implement-sso-saml
   - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement attribute-based access control with policy engines, live context evaluation, and fine-grained authorization decisions."
   keywords:

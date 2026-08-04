@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/load-balancing-haproxy
   - /patterns/compute-resource-consolidation-pattern
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Estrategias de optimización de costos cloud: right-sizing, reserved instances, spot instances, políticas de auto-scaling y scheduling automatizado."
   keywords:

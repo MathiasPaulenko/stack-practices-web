@@ -26,7 +26,7 @@ relatedResources:
   - /docs/sla-definition-template
   - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this escalation policy template to define incident severity levels, on-call escalation paths, and response SLAs for your engineering team."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /guides/compliance-gdpr-guide
   - /guides/threat-modeling-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende codificación segura por lenguaje: validación de entrada, seguridad de memoria y patrones defensivos. Guía práctica."
   keywords:

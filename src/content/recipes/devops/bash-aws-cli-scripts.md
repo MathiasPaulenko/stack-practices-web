@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/bash-parallel-commands
   - /recipes/aws-ecs-fargate
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Automate AWS resources with bash and AWS CLI. Script EC2 provisioning, S3 bucket management, and IAM policy automation with practical examples."
   keywords:

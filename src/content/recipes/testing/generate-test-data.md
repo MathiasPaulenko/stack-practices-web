@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/python-hypothesis-property-testing
   - /recipes/implement-property-based-testing
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Generate realistic, deterministic test data with Faker, factory-boy, and type-aware generators in Python, JavaScript, and Java."
   keywords:

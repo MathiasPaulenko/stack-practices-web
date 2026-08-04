@@ -26,7 +26,7 @@ relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this system diagram template to document architecture with C4 model context, container, component, and code diagrams."
   keywords:

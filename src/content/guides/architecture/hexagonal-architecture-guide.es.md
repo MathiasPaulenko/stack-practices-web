@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/dependency-injection-pattern
   - /guides/event-sourcing-guide
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Arquitectura Hexagonal con puertos, adaptadores y aislamiento de dominio. Guía práctica para aplicaciones testeables e independientes de frameworks."
   keywords:

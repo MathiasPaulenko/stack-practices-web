@@ -32,7 +32,7 @@ relatedResources:
   - /guides/lakehouse-guide
   - /guides/data-migration-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn database sharding: choosing shard keys, routing queries, rebalancing data, and avoiding common pitfalls when scaling beyond a single node."
   keywords:

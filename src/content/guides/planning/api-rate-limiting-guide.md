@@ -31,7 +31,7 @@ relatedResources:
   - /docs/api-rate-limiting-policy-template
   - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn API rate limiting design: token bucket, leaky bucket, sliding window, and choosing fair limits for resilient APIs."
   keywords:

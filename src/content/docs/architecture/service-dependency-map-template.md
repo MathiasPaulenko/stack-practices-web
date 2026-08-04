@@ -25,7 +25,7 @@ relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this service dependency map template to document upstream and downstream dependencies, critical paths, and failure impact analysis."
   keywords:

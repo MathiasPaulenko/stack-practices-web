@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio-production
   - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Schedule periodic tasks in Python with APScheduler. Interval, cron and date triggers, persistent job stores, background schedulers and error handling."
   keywords:

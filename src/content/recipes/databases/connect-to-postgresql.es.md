@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/connect-to-mysql
   - /recipes/connect-to-redis
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a conectar a bases de datos PostgreSQL usando Python psycopg2, Node.js pg y Java JDBC con ejemplos de código prácticos."
   keywords:

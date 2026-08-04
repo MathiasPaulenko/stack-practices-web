@@ -30,7 +30,7 @@ relatedResources:
   - /docs/load-test-execution-plan-template
   - /docs/postmortem-incident-review-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define monitoring and alerting policies with this template. Covers alert thresholds, routing, escalation, severity levels, and review cadence."
   keywords:

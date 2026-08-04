@@ -21,7 +21,7 @@ relatedResources:
   - /docs/capacity-planning-forecast-template
   - /docs/monitoring-alerting-policy-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Asigna costos de infraestructura en la nube a equipos y productos con esta plantilla. Cubre etiquetado, chargeback, division de costos compartidos y alertas."
   keywords:

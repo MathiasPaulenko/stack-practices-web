@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/entity-component-system-pattern
   - /patterns/partial-class-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Mixin Pattern for adding reusable behavior to classes without inheritance. Examples in Python, JavaScript, and Java for code reuse."
   keywords:

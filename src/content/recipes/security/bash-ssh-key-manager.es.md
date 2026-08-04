@@ -24,7 +24,7 @@ relatedResources:
   - /guides/security-best-practices-guide
   - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-01"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Gestiona llaves SSH en bash. Genera llaves ed25519, rota llaves comprometidas, distribuye a múltiples servidores y fuerza autenticación por llave."
   keywords:

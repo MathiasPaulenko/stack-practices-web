@@ -26,7 +26,7 @@ relatedResources:
   - /docs/api-rate-limiting-policy-template
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this API performance budget template to define latency targets, throughput limits, and resource constraints for API design."
   keywords:

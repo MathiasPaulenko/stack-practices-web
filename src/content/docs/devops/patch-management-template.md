@@ -26,7 +26,7 @@ relatedResources:
   - /docs/on-call-runbook-template
   - /docs/performance-regression-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this patch management template to schedule security patches, track testing across environments, and deploy updates with minimal downtime."
   keywords:

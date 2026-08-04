@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/background-jobs
   - /guides/complete-guide-ci-cd-github-actions
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura pipelines de GitLab CI/CD para testing, building y deploying con .gitlab-ci.yml, stages, caching y runners propios."
   keywords:

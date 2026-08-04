@@ -26,7 +26,7 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/ci-cd-security-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn platform engineering: build Internal Developer Platforms, golden paths, self-service infrastructure. Tools like Backstage, Crossplane, and Terraform."
   keywords:

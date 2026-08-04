@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Optimize SQL indexes using EXPLAIN and execution plans. Learn to identify missing indexes, slow sequential scans, and query bottlenecks."
   keywords:

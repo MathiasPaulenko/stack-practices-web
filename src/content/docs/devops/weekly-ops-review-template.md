@@ -26,7 +26,7 @@ relatedResources:
   - /docs/downtime-communication-template
   - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this weekly ops review template to summarize incidents, cloud costs, performance metrics, and action items for your operations team."
   keywords:

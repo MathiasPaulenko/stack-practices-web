@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/compress-decompress-files
   - /recipes/copy-move-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Descubre patrones eficientes para escribir archivos grandes en Python, JavaScript y Java con streams bufferizados y escritura por chunks."
   keywords:

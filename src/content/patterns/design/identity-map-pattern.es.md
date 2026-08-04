@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/data-access-object-pattern
   - /patterns/eager-loading-pattern
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Identity Map. Ejemplos en Python, Java y JavaScript con caching de objetos por primary key para prevenir duplicados."
   keywords:

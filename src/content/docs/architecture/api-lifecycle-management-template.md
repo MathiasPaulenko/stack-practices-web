@@ -26,7 +26,7 @@ relatedResources:
   - /docs/api-changelog-template
   - /docs/api-deprecation-notice-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this API lifecycle management template to track deprecation notices, versioning transitions, and sunset readiness checks."
   keywords:

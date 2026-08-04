@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/message-idempotency
   - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Dead letter queues: detección de poison pills, límites de retry, replay de mensajes y estrategias de recuperación para sistemas async."
   keywords:

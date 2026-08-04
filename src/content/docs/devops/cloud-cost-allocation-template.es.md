@@ -26,7 +26,7 @@ relatedResources:
   - /docs/weekly-ops-review-template
   - /docs/bug-triage-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de asignación de costos en la nube para rastrear y atribuir gastos de nube por equipo, entorno y servicio."
   keywords:

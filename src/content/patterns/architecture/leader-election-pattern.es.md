@@ -23,7 +23,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/system-design-interview-guide
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Coordina un unico nodo activo con el Patron de Eleccion de Lider. Evita split-brain, trabajo duplicado y condiciones de carrera en sistemas distribuidos."
   keywords:

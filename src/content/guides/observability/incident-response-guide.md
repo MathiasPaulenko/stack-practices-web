@@ -24,7 +24,7 @@ relatedResources:
   - /guides/chaos-engineering-guide
   - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn incident response: declaring incidents, command structure, communication protocols, and reducing MTTR with structured processes."
   keywords:

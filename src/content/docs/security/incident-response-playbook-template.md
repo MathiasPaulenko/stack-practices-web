@@ -25,7 +25,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/data-classification-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this incident response playbook template to document detection, containment, eradication, recovery, and lessons learned for security incidents."
   keywords:

@@ -27,7 +27,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/performance-optimization-guide
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Planifica y ejecuta pruebas de carga con esta plantilla. Cubre objetivos, escenarios, metricas de linea base, criterios de exito, configuracion del entorno y remediacion."
   keywords:

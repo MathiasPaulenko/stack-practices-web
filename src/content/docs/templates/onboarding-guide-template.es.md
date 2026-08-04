@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /docs/environment-setup-guide-template
 lastUpdated: 2026-06-11
-author: StackPractices
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de onboarding para nuevos desarrolladores. Cubre setup, herramientas, visión general del codebase y tareas de la primera semana."
   keywords:

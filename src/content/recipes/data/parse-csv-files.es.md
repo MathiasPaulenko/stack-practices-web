@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/parse-command-line-arguments
   - /recipes/parse-log-files
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos CSV en Python, Java y JavaScript. Ejemplos de código prácticos para leer y procesar datos tabulares."
   keywords:

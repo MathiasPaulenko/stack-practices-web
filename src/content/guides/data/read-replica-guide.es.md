@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-index-optimization-analysis
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende réplicas de lectura: configura replicación, enruta consultas, maneja lag y escala lecturas con PostgreSQL, MySQL y nube."
   keywords:

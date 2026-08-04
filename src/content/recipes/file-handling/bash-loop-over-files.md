@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/bash-monitoring-disk-usage
   - /recipes/bash-parallel-job-execution
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Safely loop over files and directories in Bash: handle spaces, globs, special characters, and large file lists with correct glob patterns."
   keywords:

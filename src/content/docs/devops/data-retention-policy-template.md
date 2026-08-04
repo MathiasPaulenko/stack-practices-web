@@ -30,7 +30,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/data-classification-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define data retention, archiving, and deletion rules with this template. Covers categories, retention periods, legal holds, and compliance controls."
   keywords:

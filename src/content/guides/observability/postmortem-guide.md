@@ -27,7 +27,7 @@ relatedResources:
   - /guides/testing-strategy-guide
   - /guides/complete-guide-testcontainers-integration
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn blameless postmortems: capture timelines, identify root causes, write useful follow-ups, and build continuous improvement culture."
   keywords:

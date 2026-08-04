@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/sql-index-optimization-analysis
   - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Recorre datos jerárquicos en SQL con CTEs recursivas. Aprende a consultar organigramas, comentarios anidados y listas de materiales."
   keywords:

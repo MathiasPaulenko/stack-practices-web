@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/microservices-communication
   - /recipes/workflow-engine
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patrones de retry con exponential backoff y jitter: implementa clientes HTTP resilientes, evita thundering herds e integra con circuit breakers."
   keywords:

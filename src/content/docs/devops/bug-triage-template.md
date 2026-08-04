@@ -26,7 +26,7 @@ relatedResources:
   - /docs/network-security-template
   - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this bug triage template to classify bug reports by severity, assign priority, and route them to the correct engineering team."
   keywords:

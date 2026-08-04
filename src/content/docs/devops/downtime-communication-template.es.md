@@ -26,7 +26,7 @@ relatedResources:
   - /docs/sla-definition-template
   - /docs/incident-communication-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de comunicación de inactividad para redactar mensajes internos y externos durante interrupciones del servicio e incidentes."
   keywords:

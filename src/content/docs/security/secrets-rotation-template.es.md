@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/docker-secrets-management
   - /docs/secrets-rotation-runbook
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de rotación de secretos para programar y rastrear la rotación de claves API, tokens, contraseñas y certificados en toda tu infraestructura."
   keywords:

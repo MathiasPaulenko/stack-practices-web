@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/rust-tokio-async-runtime
   - /recipes/deadlock-prevention-sql
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia detallada de Python asyncio: coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients y debugging de codigo async."
   keywords:

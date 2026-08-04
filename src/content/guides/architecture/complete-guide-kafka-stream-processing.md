@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/kafka-spring-boot-stream-listener
   - /guides/complete-guide-elasticsearch-cluster-setup
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to Kafka stream processing. Build real-time pipelines with producers, consumers, Kafka Streams, Connect, schema registry and processing patterns."
   keywords:

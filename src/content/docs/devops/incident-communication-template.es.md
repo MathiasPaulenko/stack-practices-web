@@ -29,7 +29,7 @@ relatedResources:
   - /docs/disaster-recovery-test-plan
   - /docs/postmortem-incident-review-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Comunica claramente durante interrupciones. Plantilla con mensajes pre-redactados para clientes, ejecutivos y equipos por severidad."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/convert-csv-to-json
   - /recipes/diff-json-objects
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende serialización y deserialización en Python, Java y JavaScript. Convierte objetos a JSON, XML y YAML con ejemplos de código."
   keywords:

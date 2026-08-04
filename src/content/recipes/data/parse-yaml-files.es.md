@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/parse-command-line-arguments
   - /recipes/parse-markdown-files
 lastUpdated: "2026-07-09"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos YAML en Python, Java y JavaScript. Carga configs, valida schemas y maneja anchors con ejemplos de código."
   keywords:

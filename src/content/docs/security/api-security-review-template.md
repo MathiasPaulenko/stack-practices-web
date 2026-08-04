@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/bash-ssh-key-manager
   - /docs/network-segmentation-policy-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this API security review template to audit authentication, authorization, rate limiting, input validation, and OWASP Top 10 risks."
   keywords:

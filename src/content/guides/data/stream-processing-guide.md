@@ -24,7 +24,7 @@ relatedResources:
   - /guides/etl-pipeline-guide
   - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn stream processing: Kafka Streams, Flink, Spark Streaming, event schemas, stateful operations, and exactly-once processing for real-time data pipelines."
   keywords:

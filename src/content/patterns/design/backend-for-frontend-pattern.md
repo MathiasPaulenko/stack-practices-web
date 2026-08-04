@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/gateway-routing-pattern
   - /patterns/mediator-pattern-components
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Backend for Frontend Pattern for API aggregation per client type. Examples in Python, Java, and JavaScript with GraphQL gateways and mobile optimization."
   keywords:

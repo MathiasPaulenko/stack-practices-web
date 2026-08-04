@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/dead-letter-queue
   - /recipes/message-idempotency
 lastUpdated: "2026-06-19"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Event-driven microservices architecture: message brokers, event sourcing, CQRS, eventual consistency, saga patterns, and outbox pattern implementation."
   keywords:

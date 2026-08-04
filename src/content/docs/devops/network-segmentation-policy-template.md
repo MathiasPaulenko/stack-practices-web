@@ -30,7 +30,7 @@ relatedResources:
   - /docs/endpoint-security-checklist-template
   - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Document network security zones and segmentation rules with this policy template. Covers environments, trust levels, controls, and exceptions."
   keywords:

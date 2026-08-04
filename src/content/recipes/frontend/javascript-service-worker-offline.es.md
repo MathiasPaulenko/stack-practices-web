@@ -22,7 +22,7 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa soporte offline en JavaScript con Service Workers, Cache API, stale-while-revalidate y background sync para PWAs."
   keywords:

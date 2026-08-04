@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/outbox-pattern
   - /guides/complete-guide-event-sourcing-cqrs
 lastUpdated: "2026-06-24"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Event Sourcing con reconstrucción de agregados, event stores, snapshots y proyecciones. Referencia Detallada para sistemas auditables y event-driven."
   keywords:

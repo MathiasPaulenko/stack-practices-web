@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/generate-slugs
   - /recipes/format-phone-numbers
 lastUpdated: "2026-06-20"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to truncate text in Python, Java, and JavaScript. Preserve word boundaries and add ellipsis with practical code examples."
   keywords:

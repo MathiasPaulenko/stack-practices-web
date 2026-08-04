@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-zip-file-extraction
   - /recipes/bash-aws-cli-automation
 lastUpdated: "2026-06-28"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Gestiona claves SSH con Bash: genera pares Ed25519, rota credenciales bajo programación y distribuye claves públicas de forma segura a servidores y miembros del equipo."
   keywords:

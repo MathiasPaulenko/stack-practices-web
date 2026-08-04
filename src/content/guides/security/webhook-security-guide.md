@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/docker-network-isolation
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to secure webhooks with signature verification, replay protection, payload encryption, and endpoint hardening. Practical security guide for developers."
   keywords:

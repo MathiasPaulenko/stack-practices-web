@@ -34,7 +34,7 @@ relatedResources:
   - /guides/complete-guide-sentry-error-tracking
   - /recipes/python-prometheus-metrics-exporter
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to observability with Grafana stack. Set up metrics, logs, traces with Prometheus, Loki, Tempo. Covers dashboards, alerting and distributed tracing."
   keywords:

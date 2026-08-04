@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-postgresql-tuning
   - /guides/database-replication-guide
 lastUpdated: "2026-06-25"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende desnormalización de bases de datos: cuándo intercambiar almacenamiento por rendimiento, patrones comunes y mantener datos derivados consistentes."
   keywords:

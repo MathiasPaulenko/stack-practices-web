@@ -21,7 +21,7 @@ relatedResources:
   - /guides/software-architecture-guide
   - /recipes/pre-commit-hooks
 lastUpdated: 2026-06-11
-author: StackPractices
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de código de conducta para proyectos open-source. Define comportamiento esperado, cumplimiento y procedimientos de reporte."
   keywords:

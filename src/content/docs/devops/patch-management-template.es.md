@@ -26,7 +26,7 @@ relatedResources:
   - /docs/on-call-runbook-template
   - /docs/performance-regression-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de gestión de parches: programa actualizaciones de seguridad, rastrea pruebas, ventanas de mantenimiento y despliegues con mínimo downtime."
   keywords:

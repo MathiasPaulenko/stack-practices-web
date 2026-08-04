@@ -23,7 +23,7 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/on-call-handoff-template
 lastUpdated: "2026-06-26"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Reconstruct incident events accurately with this timeline template. Track detection, response, and resolution timestamps to identify gaps and improve MTTR."
   keywords:

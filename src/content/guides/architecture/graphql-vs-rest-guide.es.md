@@ -29,7 +29,7 @@ relatedResources:
   - /docs/api-error-handling-guideline
   - /docs/api-rate-limiting-policy-template
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía comparativa GraphQL vs REST: casos de uso, rendimiento, caching y estrategias de migración. Elige el estilo de API correcto para tu proyecto."
   keywords:

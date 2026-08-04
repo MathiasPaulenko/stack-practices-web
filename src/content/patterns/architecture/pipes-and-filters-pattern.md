@@ -32,7 +32,7 @@ relatedResources:
   - /guides/complete-guide-kafka-stream-processing
   - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-07-02"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Pipes and Filters Pattern in Python, Java, and JavaScript. Chain independent processing steps with composable data transformation pipelines."
   keywords:

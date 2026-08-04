@@ -26,7 +26,7 @@ relatedResources:
   - /docs/weekly-ops-review-template
   - /guides/complete-guide-terraform-modules
 lastUpdated: "2026-06-21"
-author: "StackPractices"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this infrastructure-as-code review template to validate Terraform, CloudFormation, and Ansible configurations before deployment."
   keywords:
