@@ -103,6 +103,19 @@ def get_h2_template_footprint(pages: list[dict]) -> int:
     return sum(1 for count in h2_sequences.values() if count > 3)
 
 
+def spanish_resource_index_fixed() -> bool:
+    """Verify buildResourceIndex accepts a locale and ES detail pages use it."""
+    content_ts = load_text(BASE / "src" / "lib" / "content.ts")
+    supports_locale = re.search(r"buildResourceIndex\(locale:\s*['\"]en['\"]\s*\|\s*['\"]es['\"]", content_ts) is not None
+    es_pages = list((BASE / "src" / "pages" / "es").rglob("*.astro"))
+    es_calls = 0
+    for path in es_pages:
+        text = load_text(path)
+        if "buildResourceIndex('es')" in text or 'buildResourceIndex("es")' in text:
+            es_calls += 1
+    return supports_locale and es_calls >= 4
+
+
 def derive_metrics(summary: dict, pages: list[dict], linking: dict,
                    sitemap_total: int, sitemap_spaces: int,
                    authors: Counter, header_text: str,
@@ -171,6 +184,7 @@ def derive_metrics(summary: dict, pages: list[dict], linking: dict,
             "editorial-policy" in load_text(BASE / "src" / "components" / "layout" / "Footer.astro")
             or "editorial-policy" in load_text(BASE / "src" / "config" / "site.ts")
         ),
+        "spanish_resource_index_fixed": spanish_resource_index_fixed(),
     }
     return metrics
 
@@ -323,6 +337,7 @@ def determine_status(issue_id: str, metrics: dict) -> str:
         "TECH-009": not metrics["mobile_nav_missing"],
         "CONT-003": metrics["multiple_h1"] == 0,
         "CONT-004": not metrics["author_inconsistent"],
+        "CONT-007": metrics["spanish_resource_index_fixed"],
         "EEAT-002": metrics["editorial_page_linked"],
     }
     return "✅ FIXED" if fixed_by_metric.get(issue_id, False) else "❌ STILL PRESENT"

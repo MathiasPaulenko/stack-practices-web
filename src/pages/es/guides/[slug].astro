@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 
 const d = entry.data;
-const index = await buildResourceIndex();
+const index = await buildResourceIndex('es');
 const related = resolveRelated(d.relatedResources, index, 'es');
 const faqs = extractFaqs(entry.body ?? '');
 ---

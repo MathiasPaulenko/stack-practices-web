@@ -61,13 +61,16 @@ function clean(text: string): string {
     .trim();
 }
 
-/** Builds a lookup map of `/contentType/slug` -> resolved link metadata (English). */
-export async function buildResourceIndex() {
+/** Builds a lookup map of `/contentType/slug` -> resolved link metadata for the requested locale. */
+export async function buildResourceIndex(locale: 'en' | 'es' = 'en') {
   const collections = ['recipes', 'patterns', 'docs', 'guides'] as const;
   const index = new Map<string, { title: string; description: string; contentType: string; slug: string }>();
 
   for (const name of collections) {
-    const entries = await getCollection(name, ({ id }) => !isSpanish(id));
+    const entries = await getCollection(name, ({ id }) => {
+      const isEs = isSpanish(id);
+      return locale === 'es' ? isEs : !isEs;
+    });
     for (const entry of entries) {
       const d = entry.data;
       index.set(`/${d.contentType}/${d.slug}`, {

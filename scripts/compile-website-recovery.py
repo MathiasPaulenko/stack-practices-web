@@ -103,6 +103,12 @@ FIXED = {
         "files": ["src/components/Seo.astro", "src/pages/tags/[tag].astro", "src/pages/es/tags/[tag].astro", "src/content/docs/security/security-audit-checklist.es.md"],
         "method": "Prefix stripping, smart truncation, and locale-specific suffixes ensure every page has a unique <title> and <meta name='description'> within SEO limits.",
     },
+    "CONT-007": {
+        "status": "✅ FIXED",
+        "evidence": "The resource index now accepts a locale ('en' or 'es') and /es/detail pages call buildResourceIndex('es'). Built /es/recipes/bash-aws-cli-automation/index.html renders 'Recursos Relacionados' with Spanish titles (e.g., 'Scripting en Bash para Automatizacion DevOps y Tareas de').",
+        "files": ["src/lib/content.ts", "src/pages/es/recipes/[slug].astro", "src/pages/es/patterns/[slug].astro", "src/pages/es/docs/[slug].astro", "src/pages/es/guides/[slug].astro", "src/pages/recipes/[slug].astro", "src/pages/patterns/[slug].astro", "src/pages/docs/[slug].astro", "src/pages/guides/[slug].astro"],
+        "method": "Astro detail pages build the related-resources index in the correct locale; Spanish pages resolve Spanish content for titles and descriptions.",
+    },
 }
 
 
@@ -190,7 +196,7 @@ def generate_master_roadmap() -> str:
 | --- | --- | --- | --- |
 | P0 — Critical SEO/Indexability | Sitemap, canonical, mobile nav | TECH-001, TECH-002, TECH-008, TECH-009, CONT-004, EEAT-002 | immediate |
 | P1 — High impact technical | Metadata | ~~TECH-005~~ (fixed), ~~TECH-006~~ (fixed) | 48h |
-| P2 — High impact content/IA | Related resources, internal links, Spanish index | CONT-005, CONT-006, CONT-007, CONT-008, CONT-010 | 7 days |
+| P2 — High impact content/IA | Related resources, internal links, Spanish index | CONT-005, CONT-006, ~~CONT-007~~ (fixed), CONT-008, CONT-010 | 7 days |
 | P3 — Medium technical debt | AI-style qualifiers, mobile nav enhancement, search labels, security headers, SRI, cache headers | CONT-001, CONT-002, TECH-010, TECH-011, TECH-012, TECH-014, TECH-015, TECH-016 | 14 days |
 | P4 — Low-hanging | datePublished, alt text on `<img>` elements, minor schema fixes | CONT-009, TECH-016 | 14 days |
 
@@ -203,6 +209,7 @@ def generate_master_roadmap() -> str:
 - [x] P1 meta description length fixed
 - [x] P1 title length fixed
 - [x] P1 duplicate metadata
+- [x] P2 Spanish related resources use Spanish index
 - [ ] P2 internal linking and related-resources graph
 - [ ] P3 medium technical and accessibility fixes
 - [ ] P4 structured data and final polish
@@ -229,8 +236,8 @@ def generate_recovery_report() -> str:
 ## Executive recovery summary
 
 - **Issues verified before recovery:** 27
-- **Issues fixed in this phase:** 11
-- **Issues remaining / needing review:** 16
+- **Issues fixed in this phase:** 13
+- **Issues remaining / needing review:** 14
 - **New issues introduced:** 0
 - **Regressions detected:** 0
 
@@ -266,11 +273,14 @@ def generate_recovery_report() -> str:
 10. **TECH-007 — Missing hreflang**  
    Updated `Seo.astro` to always emit at least a self-referencing hreflang and `x-default`, conditionally including the alternate language only when the corresponding page exists. Removed `hasAlternate={{false}}` from the 404 and search pages so noindex pages also carry full en/es/x-default alternates.
 
+11. **CONT-007 — Spanish related resources**  
+   `buildResourceIndex` in `src/lib/content.ts` now accepts a locale (`'en'` or `'es'`) and stores both English and Spanish entries. All detail pages (`recipes`, `patterns`, `docs`, `guides`) pass the correct locale to `resolveRelated`, so `/es/*` pages render `Recursos Relacionados` with Spanish titles and descriptions.
+
 ## Issues not yet fixed
 
-The remaining 15 issues require dedicated follow-up phases. The most impactful are:
+The remaining 14 issues require dedicated follow-up phases. The most impactful are:
 
-- **CONT-005/CONT-006/CONT-007/CONT-008** — internal linking, content depth, Spanish resource index
+- **CONT-005/CONT-006/CONT-008** — internal linking and content depth
 - **CONT-010** — tag curation and thin tag pages
 
 ## Validation performed
@@ -283,11 +293,12 @@ The remaining 15 issues require dedicated follow-up phases. The most impactful a
 - Multiple H1 check: 0 pages with more than one `<h1>`
 - Meta description length: `descTooLong` is 0 and `descTooShort` is 0
 - Title length: `titleTooLong` is 0
+- Spanish related resources: built `/es/recipes/bash-aws-cli-automation/index.html` renders `Recursos Relacionados` with Spanish titles and descriptions
 
 ## Risk and blockers
 
 - Full build takes ~16 minutes; future iteration should be scheduled with that time budget.
-- Mobile navigation, hreflang, title length, meta description length, and duplicate metadata (titles/descriptions) are now implemented; remaining blockers are internal linking and thin-tag curation.
+- Mobile navigation, hreflang, title length, meta description length, duplicate metadata, and Spanish related resources are now implemented; remaining blockers are internal linking and thin-tag curation.
 - 3,241 thin tag/listing pages still dilute indexability and topical authority.
 """
 
@@ -473,7 +484,7 @@ def generate_before_after_comparison() -> str:
 | Architecture | Astro SSG, 5,742 pages, 2,042 markdown sources, 2,521 sitemap URLs | Astro SSG, 5,742 pages, 2,042 markdown sources, 5,740 sitemap URLs | Sitemap now covers 100% of canonical pages | Thin tag pages, sitemap excludes 404 pages (correctly) |
 | Indexability | 5,738 indexable, 4 noindex, 2 canonical issues | 5,738 indexable, 4 noindex, **0 canonical issues** | Canonical trailing slash fixed | Sitemap still excludes 2 noindex 404 pages (expected) |
 | Rendering | SSG, raw HTML complete, minimal JS | SSG, raw HTML complete, minimal JS | None | Cookie banner / search JS only |
-| Metadata | 781 title too long, 3,930 desc too long | 0 title too long, 0 desc too long | Titles and descriptions now within limits | Duplicate metadata remains |
+| Metadata | 781 title too long, 3,930 desc too long | 0 title too long, 0 desc too long | Titles and descriptions now within limits | None |
 | Structured Data | 15,487 schema objects | 15,487 schema objects | Author name now consistent | datePublished == dateModified |
 | EEAT | Author inconsistency, no editorial link in footer | Author consolidated to `Mathias Paulenko`, editorial policy linked | +5 category points | LinkedIn sameAs still flagged by validator |
 | Accessibility | 3 missing alt, hidden mobile nav, multiple H1 | 3 missing alt, mobile nav implemented, multiple H1 resolved | Mobile nav + H1 fixed | Alt text, labels |
@@ -483,7 +494,7 @@ def generate_before_after_comparison() -> str:
 
 ## Conclusion
 
-P0/P1 fixes directly improved crawl/indexability, metadata, internationalization, and EEAT signals, raising the overall validation score from 72 to 79. Canonicalization, sitemap coverage, hreflang, title length, meta description length, and unique titles/descriptions (TECH-006) are now correct. The remaining critical and high issues require the next phases: internal linking, content depth, and tag curation.
+P0/P1 fixes directly improved crawl/indexability, metadata, internationalization, and EEAT signals, raising the overall validation score from 72 to 79. Canonicalization, sitemap coverage, hreflang, title length, meta description length, unique titles/descriptions (TECH-006), and Spanish related resources (CONT-007) are now correct. The remaining critical and high issues require the next phases: internal linking, content depth, and tag curation.
 """
 
 
@@ -502,8 +513,7 @@ P0 is complete (sitemap, canonical, sitemap spaces, author, editorial policy, mo
 
 ## P2 — Content and internal linking (7 days)
 
-1. **CONT-007 — Spanish related resources**
-   - Build a Spanish resource index and use it for `/es/` pages.
+1. ~~**CONT-007 — Spanish related resources**~~ (fixed) — `buildResourceIndex` now accepts a locale and all detail pages pass the correct language to `resolveRelated`.
 
 2. **CONT-005/CONT-006 — Internal linking**
    - Run `scripts/add-body-links.cjs` and `scripts/fix-bidirectional-gaps.cjs`; validate graph symmetry.
@@ -545,7 +555,7 @@ def generate_final_executive_summary() -> str:
 
 ## What was done
 
-A focused P0/P1 recovery pass was completed, fixing the ten highest-leverage issues that were blocking crawl/index correctness, mobile UX, content structure, metadata, internationalization, and EEAT trust:
+A focused P0/P1 recovery pass was completed, fixing the highest-leverage issues that were blocking crawl/index correctness, mobile UX, content structure, metadata, internationalization, and EEAT trust:
 
 1. **Sitemap coverage gap (TECH-001)** — regenerated to cover 5,740 URLs (was 2,521).
 2. **Canonical trailing slash (TECH-002)** — fixed `Seo.astro` and `src/lib/schema.ts`.
@@ -557,21 +567,23 @@ A focused P0/P1 recovery pass was completed, fixing the ten highest-leverage iss
 8. **Missing hreflang (TECH-007)** — updated `Seo.astro` so every page emits at least a self-referencing hreflang and `x-default`, with conditional alternate language tags; all noindex pages now carry full en/es/x-default alternates.
 9. **Meta description length (TECH-004)** — tag pages now generate concise, unique descriptions; `Seo.astro` truncates any remaining long descriptions to 160 characters at the nearest word boundary.
 10. **Title length (TECH-005)** — `Seo.astro` reserves space for the brand suffix and truncates long titles to 60 rendered characters at the nearest word boundary.
+11. **Duplicate titles/descriptions (TECH-006)** — `Seo.astro` strips generic leading prefixes and appends locale-specific meta-description suffixes so every page has a unique title and description.
+12. **Spanish related resources (CONT-007)** — `buildResourceIndex` now accepts `'en'` or `'es'`; all detail pages pass the correct locale so `/es/*` pages render Spanish titles and descriptions in `Recursos Relacionados`.
 
 ## What remains
 
-15 of 27 verified issues are still open. The most consequential are:
+14 of 27 verified issues are still open. The most consequential are:
 
-- Internal linking and Spanish resource index (CONT-005, CONT-006, CONT-007)
+- Internal linking (CONT-005, CONT-006)
 - Tag curation and thin content (CONT-010, TECH-015)
 
 ## Final questions answered
 
 1. **Which issues were successfully fixed?**  
-   TECH-001, TECH-002, TECH-003, TECH-004, TECH-005, TECH-007, TECH-008, TECH-009, CONT-003, CONT-004, EEAT-002.
+   TECH-001, TECH-002, TECH-003, TECH-004, TECH-005, TECH-006, TECH-007, TECH-008, TECH-009, CONT-003, CONT-004, CONT-007, EEAT-002.
 
 2. **Which issues still remain?**  
-   16 issues remain open — see `UPDATED_MASTER_CHECKLIST.md` and `PARTIALLY_FIXED.csv`.
+   14 issues remain open — see `UPDATED_MASTER_CHECKLIST.md` and `PARTIALLY_FIXED.csv`.
 
 3. **Which issues require manual intervention?**  
    All content-quality issues (CONT-001, CONT-002, CONT-008, CONT-010, TECH-015) require editorial decisions. Metadata template changes require UI/UX work.
@@ -583,7 +595,7 @@ A focused P0/P1 recovery pass was completed, fixing the ten highest-leverage iss
    Sitemap coverage (+3,219 URLs) and canonical correctness. These directly affect crawl/indexability.
 
 6. **Is the website technically ready for Google to crawl again?**  
-   **Yes, with the sitemap, mobile nav, hreflang, title, meta description, and unique metadata fixes.** Content is fully prerendered and the sitemap is complete. Mobile nav, hreflang, title length, meta description length, and duplicate titles/descriptions (TECH-006) are now correct.
+   **Yes, with the sitemap, mobile nav, hreflang, title, meta description, unique metadata, and Spanish related-resource fixes.** Content is fully prerendered and the sitemap is complete. Mobile nav, hreflang, title length, meta description length, duplicate titles/descriptions (TECH-006), and Spanish resource index (CONT-007) are now correct.
 
 7. **Should a new sitemap be submitted?**  
    **Yes.** The new sitemap is valid, complete, and URL-encoded.
