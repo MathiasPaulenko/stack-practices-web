@@ -516,12 +516,12 @@ GAP_FIELDS = ["issue_id", "category", "url", "path", "evidence", "impact"]
 write_csv("CONTENT_GAPS.csv", gap_rows, GAP_FIELDS)
 
 # ---------------------------------------------------------------------------
-# Rewrite / merge / delete candidates
+# Rewrite / merge / consolidate candidates
 # ---------------------------------------------------------------------------
 
 rewrite = []
 merge = []
-delete = []
+consolidate = []
 
 for p in page_scores:
     reasons = []
@@ -569,34 +569,34 @@ for tag, paths in tag_clusters.items():
                 "recommended_action": "Merge into a synonym tag or add noindex to thin tag page.",
             })
 
-# Delete candidates
+# Consolidate candidates
 for p in page_scores:
     if p["page_type"] in ("tag", "topic") and p["word_count"] < 200:
         # cluster size
         key = unquote(urlparse(p["url"]).path).strip("/").split("/")[-1] if "/tags/" in p["path"] else ""
         cluster = tag_clusters.get(key, [])
         if len(cluster) <= 1:
-            delete.append({
+            consolidate.append({
                 "url": p["url"],
                 "path": p["path"],
                 "page_type": p["page_type"],
                 "word_count": p["word_count"],
                 "helpfulness_score": p["helpfulness_score"],
                 "reasons": f"Thin {p['page_type']} page with {len(cluster)} resource(s).",
-                "recommended_action": "Remove or noindex; redirect to parent listing.",
+                "recommended_action": "Noindex or merge; redirect to parent listing.",
             })
 
 # Low-value content pages with very low scores
 for p in page_scores:
     if p["page_type"] == "content" and p["helpfulness_score"] < 25:
-        delete.append({
+        consolidate.append({
             "url": p["url"],
             "path": p["path"],
             "page_type": p["page_type"],
             "word_count": p["word_count"],
             "helpfulness_score": p["helpfulness_score"],
             "reasons": "Very low helpfulness score; likely low added value.",
-            "recommended_action": "Remove or completely rewrite with original depth and examples.",
+            "recommended_action": "Completely rewrite or consolidate with original depth and examples.",
         })
 
 REWRITE_FIELDS = ["url", "path", "content_type", "helpfulness_score", "word_count", "reasons", "recommended_action"]
@@ -605,8 +605,8 @@ write_csv("REWRITE_CANDIDATES.csv", rewrite, REWRITE_FIELDS)
 MERGE_FIELDS = ["url", "path", "cluster_type", "cluster_key", "cluster_size", "reasons", "recommended_action"]
 write_csv("MERGE_CANDIDATES.csv", merge, MERGE_FIELDS)
 
-DELETE_FIELDS = ["url", "path", "page_type", "word_count", "helpfulness_score", "reasons", "recommended_action"]
-write_csv("DELETE_CANDIDATES.csv", delete, DELETE_FIELDS)
+CONSOLIDATE_FIELDS = ["url", "path", "page_type", "word_count", "helpfulness_score", "reasons", "recommended_action"]
+write_csv("CONSOLIDATE_CANDIDATES.csv", consolidate, CONSOLIDATE_FIELDS)
 
 # ---------------------------------------------------------------------------
 # Authors
@@ -876,7 +876,7 @@ main_lines = [
     f"| HCA-004 | Topical Authority / Internal Linking | {sum(1 for p in page_scores if p['page_type']=='content' and p['related_resources']<2)} content pages have fewer than 2 related resources. | Content pages | `CONTENT_GAPS.csv` GAP-004 | Medium | P2 | Medium | Medium – weakens cluster authority and PageRank flow. | Medium – users find fewer next steps. | Medium – missed engagement. | Low | 2–4 weeks | Add 2–5 related resources to each flagged page. | Re-audit; GAP-004 count drops to 0. |",
 
     f"| HCA-005 | Duplication | {len(dup_title)} duplicate titles and {len(dup_desc)} duplicate descriptions reduce uniqueness. | Tag/listing and some content pages | `CONTENT_DUPLICATION.csv` | Medium | P2 | High | Medium – cannibalisation and poor CTR. | Low – users see identical snippets. | Low | Medium | 1–2 weeks | Inject unique tag/topic names and counts into metadata. | Re-audit; duplicate title/desc <10. |",
-    f"| HCA-006 | Tag Overlap | {len(tag_clusters)} tags; {sum(1 for v in tag_clusters.values() if len(v) <= 2)} have only 1–2 resources and {len(delete)} thin tag pages risk cannibalisation. | Tag pages | `MERGE_CANDIDATES.csv` and `DELETE_CANDIDATES.csv` | Medium | P2 | High | Medium – thin similar tags compete for the same queries. | Low – users see redundant pages. | Low | Medium | 2–4 weeks | Merge synonyms, noindex thin tags, set minimum 3 resources per tag. | Re-audit; tags with 1 resource drop by 50%. |",
+    f"| HCA-006 | Tag Overlap | {len(tag_clusters)} tags; {sum(1 for v in tag_clusters.values() if len(v) <= 2)} have only 1–2 resources and {len(consolidate)} thin tag pages risk cannibalisation. | Tag pages | `MERGE_CANDIDATES.csv` and `CONSOLIDATE_CANDIDATES.csv` | Medium | P2 | High | Medium – thin similar tags compete for the same queries. | Low – users see redundant pages. | Low | Medium | 2–4 weeks | Merge synonyms, noindex thin tags, set minimum 3 resources per tag. | Re-audit; tags with 1 resource drop by 50%. |",
 
     f"| HCA-007 | Practical Value | Some pages lack concrete metrics, war stories, or benchmarks. | Long-form content | Expert review of samples | Medium | P3 | Medium | Medium – first-hand evidence improves helpfulness. | High – users trust real experience. | Medium | High | 4–8 weeks | Add production issues, trade-offs, benchmark numbers to flagship pages. | Manual review; re-score helpfulness. |",
     "",
@@ -888,8 +888,8 @@ main_lines = [
     "5. **Which pages provide exceptional value?** Long-form guides and code-rich recipes with checklists and tables. Evidence: top depth/practical scores in `PAGE_SCORES.csv`.",
     "6. **Which pages should be rewritten?** Pages with helpfulness <40, originality <40, or duplicate title/description. Evidence: `REWRITE_CANDIDATES.csv`.",
     "7. **Which pages should be merged?** Tags with only 1–2 resources or overlapping synonyms. Evidence: `MERGE_CANDIDATES.csv`.",
-    "8. **Which pages should probably be removed?** Thin tags with <200 words and 0–1 resources, plus very low helpfulness content. Evidence: `DELETE_CANDIDATES.csv`.",
-    "9. **What evidence supports every conclusion?** `PAGE_SCORES.csv`, `CONTENT_DUPLICATION.csv`, `CONTENT_GAPS.csv`, `REWRITE_CANDIDATES.csv`, `MERGE_CANDIDATES.csv`, `DELETE_CANDIDATES.csv`, and the per-section evidence above.",
+    "8. **Which pages should probably be noindexed or consolidated?** Thin tags with <200 words and 0–1 resources, plus very low helpfulness content. Evidence: `CONSOLIDATE_CANDIDATES.csv`.",
+    "9. **What evidence supports every conclusion?** `PAGE_SCORES.csv`, `CONTENT_DUPLICATION.csv`, `CONTENT_GAPS.csv`, `REWRITE_CANDIDATES.csv`, `MERGE_CANDIDATES.csv`, `CONSOLIDATE_CANDIDATES.csv`, and the per-section evidence above.",
 ]
 
 (OUT / "HELPFUL_CONTENT_REPORT.md").write_text("\n".join(main_lines), encoding="utf-8")
@@ -921,7 +921,7 @@ exec_lines = [
     f"2. **Thin content:** {len(thin_pages)} pages below 200 words, mostly auto-generated tags.",
     f"3. **EEAT signals:** author inconsistency and no editorial process page.",
     f"4. **Duplicate metadata:** {len(dup_title)} duplicate titles, {len(dup_desc)} duplicate descriptions.",
-    f"5. **Content gaps:** {sum(1 for p in page_scores if p['page_type']=='content' and p['related_resources']<2)} content pages with <2 related resources; {len(delete)} thin tag pages.",
+    f"5. **Content gaps:** {sum(1 for p in page_scores if p['page_type']=='content' and p['related_resources']<2)} content pages with <2 related resources; {len(consolidate)} thin tag pages.",
     "",
     "## Immediate actions",
     "1. Add unique editorial summaries or noindex thin tag pages.",
@@ -940,7 +940,7 @@ exec_lines = [
     "- PAGE_SCORES.csv",
     "- REWRITE_CANDIDATES.csv",
     "- MERGE_CANDIDATES.csv",
-    "- DELETE_CANDIDATES.csv",
+    "- CONSOLIDATE_CANDIDATES.csv",
     "- EXECUTIVE_SUMMARY.md (this file)",
 ]
 

@@ -88,6 +88,25 @@ function stripTags(html) {
     .trim();
 }
 
+function localeFromPath(pagePath) {
+  return pagePath.startsWith('/es/') || pagePath === '/es' || pagePath === '/es/' ? 'es' : 'en';
+}
+
+function alternateHreflangTargets(pageUrl, urlSet) {
+  const pagePath = pathFromUrl(pageUrl);
+  const locale = localeFromPath(pagePath);
+  const out = new Set();
+  if (locale === 'es') {
+    const enPath = pagePath === '/es/' ? '/' : pagePath.startsWith('/es/') ? pagePath.slice(3) : pagePath;
+    out.add(`https://stackpractices.com${enPath}`);
+  } else {
+    const esPath = pagePath === '/' ? '/es/' : `/es${pagePath}`;
+    out.add(`https://stackpractices.com${esPath}`);
+  }
+  // Filter to targets that actually exist in the built dist.
+  return [...out].filter(u => urlSet.has(u));
+}
+
 function countWords(text) {
   return text.split(/\s+/).filter(w => w.length > 0).length;
 }
@@ -353,15 +372,21 @@ function main() {
   const multipleH1 = pages.filter(p => p.h1.length > 1).map(p => ({ url: p.url, count: p.h1.length }));
   const missingCanonical = pages.filter(p => !p.canonical).map(p => p.url);
 
-  const missingHreflang = pages.filter(p => p.hreflang.length === 0).map(p => p.url);
+  const urlSet = new Set(pages.map(p => p.url));
+  const missingHreflang = pages
+    .filter(p => p.hreflang.length === 0 && !p.metaRobots?.includes('noindex'))
+    .map(p => p.url);
   const hreflangIssues = [];
   for (const p of pages) {
     if (p.hreflang.length === 0) continue;
+    const expected = alternateHreflangTargets(p.url, urlSet);
+    const hasXDefault = p.hreflang.some(h => h.lang === 'x-default');
     const hasEn = p.hreflang.some(h => h.lang === 'en');
     const hasEs = p.hreflang.some(h => h.lang === 'es');
-    const hasXDefault = p.hreflang.some(h => h.lang === 'x-default');
-    if (!hasEn || !hasEs || !hasXDefault) {
-      hreflangIssues.push({ url: p.url, hasEn, hasEs, hasXDefault });
+    const enExists = expected.some(u => u.startsWith('https://stackpractices.com/') && !u.startsWith('https://stackpractices.com/es/'));
+    const esExists = expected.some(u => u.startsWith('https://stackpractices.com/es/'));
+    if (!hasXDefault || (enExists && !hasEn) || (esExists && !hasEs)) {
+      hreflangIssues.push({ url: p.url, hasEn, hasEs, hasXDefault, expected });
     }
   }
 

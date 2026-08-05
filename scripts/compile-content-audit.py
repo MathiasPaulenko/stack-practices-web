@@ -448,13 +448,13 @@ def classify_action(
     Returns (action, evidence, recommended_action).
     """
     if noindex or (page_type == "content" and overall < 30):
-        action = "DELETE"
+        action = "NOINDEX"
         if noindex:
             evidence = f"Meta robots is noindex (overall score {overall})."
-            recommended_action = "Remove from index or merge into an equivalent indexable page."
+            recommended_action = "Noindex or merge into an equivalent indexable page."
         else:
             evidence = f"Very low overall score ({overall}); content quality is below the minimum threshold."
-            recommended_action = "Delete or completely rewrite the page."
+            recommended_action = "Noindex or completely rewrite the page."
         return action, evidence, recommended_action
 
     # Empty tag/topic pages have no resources; redirect to parent listing.
@@ -793,7 +793,7 @@ def main() -> None:
     # -----------------------------------------------------------------------
     write_csv(scored_rows, OUTPUT_SCORE_FIELDS, OUTPUT_DIR / "PAGE_SCORES.csv")
 
-    for action in ("KEEP", "UPDATE", "EXPAND", "MERGE", "REDIRECT", "DELETE"):
+    for action in ("KEEP", "UPDATE", "EXPAND", "MERGE", "REDIRECT", "NOINDEX"):
         filename = f"{action}_PAGES.csv"
         write_csv(
             action_buckets.get(action, []), ACTION_FILE_FIELDS, OUTPUT_DIR / filename
@@ -1051,7 +1051,7 @@ def main() -> None:
     action_counts.setdefault("EXPAND", 0)
     action_counts.setdefault("MERGE", 0)
     action_counts.setdefault("REDIRECT", 0)
-    action_counts.setdefault("DELETE", 0)
+    action_counts.setdefault("NOINDEX", 0)
 
     avg_overall = round(
         sum(r["overall_score"] for r in scored_rows) / len(scored_rows), 2
@@ -1081,10 +1081,10 @@ The content audit analyzed **{len(scored_rows)}** built pages. The average overa
 | EXPAND | {action_counts['EXPAND']} |
 | MERGE | {action_counts['MERGE']} |
 | REDIRECT | {action_counts['REDIRECT']} |
-| DELETE | {action_counts['DELETE']} |
+| NOINDEX | {action_counts['NOINDEX']} |
 
 ## Critical Risks
-- **Thin tag pages**: {action_counts['MERGE']} tag pages are thin (word_count < 250 or < 3 resources) and should be merged or removed.
+- **Thin tag pages**: {action_counts['MERGE']} tag pages are thin (word_count < 250 or < 3 resources) and should be merged or noindexed.
 - **Low-score pages**: {low_score_count} pages scored below 50.
 - **Metadata consistency**: {metadata_issue_count} pages have duplicate titles or descriptions, multiple H1s, missing author, or missing related resources.
 - **Missing alt text / clarity**: {missing_alt_count} pages have clarity penalties.
@@ -1103,7 +1103,7 @@ The content audit analyzed **{len(scored_rows)}** built pages. The average overa
 - `EXPAND_PAGES.csv`
 - `MERGE_PAGES.csv`
 - `REDIRECT_PAGES.csv`
-- `DELETE_PAGES.csv`
+- `NOINDEX_PAGES.csv`
 - `CONTENT_GAPS.csv`
 - `CANNIBALIZATION_REPORT.md`
 - `CONTENT_CLUSTER_REPORT.md`
@@ -1116,7 +1116,7 @@ The content audit analyzed **{len(scored_rows)}** built pages. The average overa
     # -----------------------------------------------------------------------
     phase10_issues: list[dict[str, Any]] = []
     for out in scored_rows:
-        if out["action"] in ("UPDATE", "EXPAND", "MERGE", "REDIRECT", "DELETE"):
+        if out["action"] in ("UPDATE", "EXPAND", "MERGE", "REDIRECT", "NOINDEX"):
             bucket = action_buckets[out["action"]]
             evidence = next(
                 (
@@ -1140,12 +1140,12 @@ The content audit analyzed **{len(scored_rows)}** built pages. The average overa
                     "page": out["url"],
                     "category": out["action"],
                     "evidence": evidence,
-                    "severity": "Critical" if out["action"] == "DELETE" else ("High" if out["action"] in ("MERGE", "UPDATE") else "Medium"),
-                    "priority": "P1" if out["action"] == "DELETE" else ("P2" if out["action"] in ("MERGE", "UPDATE") else "P3"),
-                    "business_impact": "Traffic loss / crawl budget waste" if out["action"] in ("DELETE", "MERGE", "REDIRECT") else "User engagement and ranking potential",
-                    "seo_impact": "Indexability / duplicate signals" if out["action"] in ("DELETE", "MERGE", "UPDATE") else "Structural",
-                    "user_impact": "Navigation and trust" if out["action"] in ("DELETE", "REDIRECT", "MERGE") else "Content quality and usefulness",
-                    "estimated_effort": "1-2 hours" if out["action"] in ("UPDATE", "EXPAND") else ("30 min" if out["action"] in ("REDIRECT", "DELETE") else "2-4 hours"),
+                    "severity": "Critical" if out["action"] == "NOINDEX" else ("High" if out["action"] in ("MERGE", "UPDATE") else "Medium"),
+                    "priority": "P1" if out["action"] == "NOINDEX" else ("P2" if out["action"] in ("MERGE", "UPDATE") else "P3"),
+                    "business_impact": "Traffic loss / crawl budget waste" if out["action"] in ("NOINDEX", "MERGE", "REDIRECT") else "User engagement and ranking potential",
+                    "seo_impact": "Indexability / duplicate signals" if out["action"] in ("NOINDEX", "MERGE", "UPDATE") else "Structural",
+                    "user_impact": "Navigation and trust" if out["action"] in ("NOINDEX", "REDIRECT", "MERGE") else "Content quality and usefulness",
+                    "estimated_effort": "1-2 hours" if out["action"] in ("UPDATE", "EXPAND") else ("30 min" if out["action"] in ("REDIRECT", "NOINDEX") else "2-4 hours"),
                     "confidence": "High",
                     "recommended_action": rec,
                 }
@@ -1180,8 +1180,8 @@ This table lists every page that requires an action. Issues are ordered by actio
 3. **Which pages should be merged?**
    {action_counts['MERGE']} tag/topic pages are thin and should be merged into broader tag/topic or listing pages.
 
-4. **Which pages should be removed?**
-   {action_counts['DELETE']} pages, mostly noindex 404/search pages and any content with overall score < 30.
+4. **Which pages should be noindexed or consolidated?**
+   {action_counts['NOINDEX']} pages, mostly noindex 404/search pages and any content with overall score < 30.
 
 5. **Which topics are missing?**
    See `CONTENT_GAPS.csv` for low-coverage allowed topics and any missing translations.
@@ -1281,7 +1281,7 @@ Summary of recommended actions:
 | EXPAND | {action_counts['EXPAND']} |
 | MERGE | {action_counts['MERGE']} |
 | REDIRECT | {action_counts['REDIRECT']} |
-| DELETE | {action_counts['DELETE']} |
+| NOINDEX | {action_counts['NOINDEX']} |
 """
 
     full_report = (

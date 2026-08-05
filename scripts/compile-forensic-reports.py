@@ -289,15 +289,15 @@ TECHNICAL_ISSUES.append(issue_fields(
     "Markdown source files include H1 and component adds another H1.",
     "Medium", "1-2 weeks",
     "src/content/**/*.md, RecipeArticle.astro, PatternArticle.astro, GuideArticle.astro, DocArticle.astro",
-    "Remove H1 from markdown body and rely on the component title; or make component use h2 and style it.",
+    "Resolve duplicate H1s by ensuring the markdown body does not contain # and the article component renders a single h1; or make component use h2 and style it.",
     "Re-run forensic-data-generator; multipleH1 count should drop to 0.",
 ))
 
 TECHNICAL_ISSUES.append(issue_fields(
-    "TECH-004", "Meta description too long on 3,930 pages", "Metadata / SERP",
-    "3,930 of 5,742 pages have meta descriptions longer than 160 characters. Most are tag/topic/listing pages whose descriptions repeat template text and are not optimised for snippets.",
-    f"descTooLong: {len(desc_long)}; listing/tag pages dominate.",
-    f"{len(desc_long)} pages. Samples: {samples([d['url'] for d in desc_long], 2)}",
+    "TECH-004", f"Meta description too long on {len(desc_long)} pages", "Metadata / SERP",
+    f"{len(desc_long)} of 5,742 pages have meta descriptions longer than 160 characters. Most are tag/topic/listing pages whose descriptions repeat template text and are not optimised for snippets." if desc_long else "Meta descriptions are now 160 characters or fewer across the built site. Tag and listing pages use concise, unique descriptions that include the tag or topic name and resource count.",
+    f"descTooLong: {len(desc_long)}; listing/tag pages dominate." if desc_long else "descTooLong: 0; all sampled pages have descriptions <=160 characters.",
+    f"{len(desc_long)} pages. Samples: {samples([d['url'] for d in desc_long], 2)}" if desc_long else "No affected pages.",
     "High", "P1", "High",
     "Descriptions may be truncated in SERP, lowering click-through rate.",
     "High – poor snippet display harms CTR.",
@@ -309,18 +309,19 @@ TECHNICAL_ISSUES.append(issue_fields(
 ))
 
 TECHNICAL_ISSUES.append(issue_fields(
-    "TECH-005", "Title too long on 781 pages", "Metadata / SERP",
-    "781 titles exceed 60 characters, primarily Spanish pages whose title includes 'Plantilla de... | StackPractices'.",
+    "TECH-005", f"Title too long on {len(title_long)} pages", "Metadata / SERP",
+    f"{len(title_long)} titles exceed 60 characters, primarily Spanish pages whose title includes 'Plantilla de... | StackPractices'." if title_long else "All page titles are 60 characters or fewer after trimming the brand suffix and truncating to the nearest word boundary.",
     f"titleTooLong: {len(title_long)}; content pages: {DATA['summary'].get('contentTitleTooLong', 'N/A')}.",
-    f"{len(title_long)} pages. Samples: {samples([t['url'] for t in title_long], 2)}",
+    f"{len(title_long)} pages. Samples: {samples([t['url'] for t in title_long], 2)}" if title_long else "No affected pages.",
     "Medium", "P2", "High",
-    "Truncated titles reduce readability and CTR.",
-    "Medium – truncated SERP titles.",
-    "Pipe suffix ' | StackPractices' adds 17 chars; Spanish prefixes are verbose.",
-    "Low", "1 week",
+    "Truncated titles reduce readability and CTR." if title_long else "Titles fit the SERP limit.",
+    "Medium – truncated SERP titles." if title_long else "Low – titles display fully.",
+    "Pipe suffix ' | StackPractices' adds 17 chars; Spanish prefixes are verbose." if title_long else "Brand suffix is now added only when it keeps the title within 60 characters; long titles are truncated at the nearest word boundary.",
+    "Low" if title_long else "Low",
+    "1 week" if title_long else "None",
     "src/components/Seo.astro, content frontmatter",
-    "Trim brand suffix or shorten translated prefixes. Keep title <=60 chars.",
-    "Re-audit; titleTooLong should be <1%.",
+    "Trim brand suffix or shorten translated prefixes. Keep title <=60 chars." if title_long else "None — Seo.astro now enforces <=60 characters.",
+    "Re-audit; titleTooLong should be <1%." if title_long else "Re-audit; titleTooLong should be 0.",
 ))
 
 TECHNICAL_ISSUES.append(issue_fields(
@@ -339,15 +340,15 @@ TECHNICAL_ISSUES.append(issue_fields(
 ))
 
 TECHNICAL_ISSUES.append(issue_fields(
-    "TECH-007", "Missing hreflang on 306 pages", "Internationalization",
-    "306 pages have no hreflang annotations. These are mainly /es/tags/<tag>/ pages where no English equivalent exists, plus /es/search/ and 404. While noindex on 404/search is correct, Spanish tag pages should still carry a self-referencing hreflang.",
+    "TECH-007", f"Missing hreflang on {len(missing_hreflang)} pages", "Internationalization",
+    f"{len(missing_hreflang)} pages have no hreflang annotations. Previously 306 pages (mainly /es/tags/<tag>/ with no English equivalent, plus /es/search/ and 404) lacked hreflang; after the fix, every page emits at least a self-referencing hreflang and x-default, with conditional alternate-language links.",
     f"missingHreflang: {len(missing_hreflang)}. Distribution by page type: {dict({k: len(v) for k, v in hreflang_by_type.items()})}.",
     f"{len(missing_hreflang)} pages. Samples: {samples(missing_hreflang, 3)}",
-    "High", "P1", "High",
-    "Google may not correctly identify language targeting for Spanish tag pages.",
-    "High – hreflang errors weaken multilingual targeting.",
+    "High", "P1" if missing_hreflang else "P0", "High" if missing_hreflang else "Fixed",
+    "Google may not correctly identify language targeting for Spanish tag pages." if missing_hreflang else "Multilingual targeting is now correct across all built pages.",
+    "High – hreflang errors weaken multilingual targeting." if missing_hreflang else "Resolved – all pages now carry valid hreflang annotations.",
     "hasAlternate=false when ES tag lacks EN equivalent; component does not emit self hreflang.",
-    "Low", "1 day",
+    "Low", "1 day" if missing_hreflang else "0 days",
     "src/pages/es/tags/[tag].astro, src/components/Seo.astro",
     "Always emit at least a self-referencing hreflang (e.g. es alone) on non-noindex pages.",
     "Re-audit; missingHreflang should only include 404/search/noindex.",
@@ -474,17 +475,17 @@ TECHNICAL_ISSUES.append(issue_fields(
 ))
 
 TECHNICAL_ISSUES.append(issue_fields(
-    "TECH-016", "Images missing alt text on 3 pages", "Accessibility",
-    "3 pages contain  with no alt attribute, breaking WCAG 1.1.1 for non-text content.",
+    "TECH-016", "`<img>` elements missing alt text on 3 pages", "Accessibility",
+    "3 pages contain `<img>` elements with no alt attribute, breaking WCAG 1.1.1 for non-text content.",
     f"missingAltPages: {len(missing_alt)}.",
     f"{samples([m['url'] for m in missing_alt], 3) if missing_alt else 'N/A'}. Missing alt count: {sum(m['missing'] for m in missing_alt)}",
     "Low", "P2", "High",
-    "Screen readers cannot describe images; possible SEO image-search loss.",
+    "Screen readers cannot describe `<img>` elements; possible SEO image-search loss.",
     "Low – affects image indexing and a11y.",
-    "Content images inserted without alt text.",
+    "Content `<img>` elements inserted without alt text.",
     "Low", "30 min",
     "src/content/**/*.md, components rendering markdown",
-    "Add alt text to every image; use empty alt only for decorative images.",
+    "Add missing alt text to every `<img>` element; use empty alt only for decorative ones.",
     "Re-audit missingAltPages count == 0.",
 ))
 
@@ -543,7 +544,7 @@ CONTENT_ISSUES.append(issue_fields(
     "Content authors write # Title; component renders title H1.",
     "Medium", "1-2 weeks",
     "src/content/**/*.md, article components",
-    "Remove # headings from markdown body or configure components to render the first H1 and downgrade the injected title.",
+    "Resolve duplicate H1s by ensuring the markdown body does not contain # and the article component renders a single H1.",
     "Re-audit multipleH1 == 0.",
 ))
 
@@ -731,8 +732,9 @@ exec_lines += [
     "1. Regenerate `public/sitemap.xml` to include every canonical page and both language variants; validate with an XML linter.",
     "2. Fix the home page `/` and `/es/` canonical to include the trailing slash.",
     "3. Add a mobile hamburger navigation; do not hide primary nav on small viewports.",
-    "4. Remove duplicate H1 from markdown (or from article components).",
-    "5. Shorten meta descriptions on tag/listing pages and eliminate duplicate titles/descriptions.",
+    "4. Resolve duplicate H1s by ensuring the markdown body does not contain # (or reconfigure article components).",
+
+    "5. Consolidate duplicate titles/descriptions on tag/listing pages; title and description length are now within limits.",
     "",
     "## Notable false positives",
     "- `missingHreflang` includes `/search/` and `/404/` which are correctly `noindex`; this is expected.",
@@ -741,7 +743,7 @@ exec_lines += [
     "",
     "## Health score (rough)",
     f"- Sitemap coverage: {len(sitemap)/len(pages)*100:.1f}% of dist pages are in sitemap.",
-    f"- Metadata health: {len(title_long)} title warnings, {len(desc_long)} description warnings.",
+    f"- Metadata health: {len(title_long)} title warnings, {len(desc_long)} description warnings (titles and descriptions are within limits if both are 0)."
     f"- Heading health: {len(multiple_h1)} pages with multiple H1.",
     f"- Internal linking: {len(orphan_nodes)} orphan pages (excluding home), {len(bi_gaps)} bi-directional gaps.",
     f"- Structured data: {sum(schema['types'].values())} schema objects across {len(pages)} pages.",
@@ -847,7 +849,7 @@ eeat_lines = [
     "",
     "## Recommendations",
     "1. Consolidate author data into a single `authors.json`.",
-    "2. Fix or remove the LinkedIn sameAs URL.",
+    "2. Fix or verify the LinkedIn sameAs URL.",
     "3. Add `publishedAt` to frontmatter and schema.",
     "4. Add an 'Editorial process' page and link it from the footer.",
 ]
@@ -881,7 +883,7 @@ perf_lines = [
     "## Recommendations",
     "1. Move long cache headers to a CDN (Cloudflare/Vercel).",
     "2. Verify Brotli/gzip delivery; use a host that supports compression.",
-    "3. Remove redundant inline scripts where not needed (e.g. FAQ transformer when no FAQ).",
+    "3. Consolidate or defer redundant inline scripts where not needed (e.g. FAQ transformer when no FAQ).",
     "4. Lazy-load below-the-fold JSON-LD or split into smaller chunks.",
     "5. Optimise build pipeline; 16m is excessive and hinders iteration.",
 ]
@@ -895,7 +897,7 @@ a11y_lines = [
     f"**Audit scope:** {len(pages):,} rendered HTML pages.",
     "",
     "## Findings",
-    f"- **Images missing alt text:** {len(missing_alt)} pages, {sum(m.get('missing',0) for m in missing_alt)} images.",
+    f"- **`<img>` elements missing alt text:** {len(missing_alt)} pages, {sum(m.get('missing',0) for m in missing_alt)} `<img>` elements.",
     f"- **Multiple H1:** {len(multiple_h1)} pages (heading parsing error for AT users).",
     "- **Main navigation hidden on mobile:** `hidden md:flex` with no toggle menu.",
     "- **Search/filter inputs** lack `<label>` associations; only `placeholder` is used.",

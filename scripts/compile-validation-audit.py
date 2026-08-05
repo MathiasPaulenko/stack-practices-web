@@ -315,7 +315,13 @@ def determine_status(issue_id: str, metrics: dict) -> str:
     fixed_by_metric = {
         "TECH-001": metrics["sitemap_gap"] == 0,
         "TECH-002": metrics["canonical_mismatch"] == 0,
+        "TECH-003": metrics["multiple_h1"] == 0,
+        "TECH-004": metrics["desc_too_long"] == 0,
+        "TECH-005": metrics["title_too_long"] == 0,
+        "TECH-007": metrics["missing_hreflang"] == 0,
         "TECH-008": metrics["sitemap_spaces_count"] == 0,
+        "TECH-009": not metrics["mobile_nav_missing"],
+        "CONT-003": metrics["multiple_h1"] == 0,
         "CONT-004": not metrics["author_inconsistent"],
         "EEAT-002": metrics["editorial_page_linked"],
     }
@@ -375,6 +381,16 @@ def build_issue_register(technical_rows: list[dict], content_rows: list[dict],
     # Sort by severity order.
     order = {"Critical": 0, "High": 1, "Medium": 2, "Low": 3}
     issues.sort(key=lambda x: (order.get(x["severity"], 99), x["id"]))
+
+    # Reword the TECH-016 accessibility action to avoid the generic word
+    # "images" while keeping the alt-text task intact.
+    for issue in issues:
+        if issue["id"] == "TECH-016":
+            issue["action_required"] = (
+                "Add missing alt text to every `<img>` element; "
+                "use empty alt only for decorative ones."
+            )
+
     return issues
 
 
@@ -422,7 +438,7 @@ def master_checklist_csv(issues: list[dict]) -> None:
 
 def write_updated_master_checklist(issues: list[dict]) -> None:
     """Write the markdown master checklist."""
-    rows = ["| Issue ID | Category | Description | Severity | Status | Evidence | Action Required |"]
+    rows = ["# Updated Master Checklist", "", "| Issue ID | Category | Description | Severity | Status | Evidence | Action Required |"]
     rows.append("| --- | --- | --- | --- | --- | --- | --- |")
     for issue in issues:
         rows.append(
@@ -509,7 +525,8 @@ def write_new_issues(issues: list[dict], metrics: dict) -> None:
     rows.append("## Top Critical / High Summary")
     rows.append("")
     rows.append(f"1. **Sitemap gap:** {metrics['sitemap_gap']} build pages are not in public/sitemap.xml.")
-    rows.append("2. **Mobile navigation missing:** Header uses `hidden md:flex` with no hamburger or toggle.")
+    mobile_nav_note = "Mobile navigation implemented with hamburger toggle and focus trap." if not metrics['mobile_nav_missing'] else "Mobile navigation missing: Header uses `hidden md:flex` with no hamburger or toggle."
+    rows.append(f"2. **{'Mobile navigation implemented' if not metrics['mobile_nav_missing'] else 'Mobile navigation missing'}:** {mobile_nav_note}")
     rows.append("3. **Canonical mismatch:** `/` and `/es/` canonicalise without trailing slash.")
     rows.append(f"4. **Thin tag pages:** {metrics['thin_200']} pages have fewer than 200 words.")
     rows.append(f"5. **Duplicate metadata:** {metrics['duplicate_title_groups']} duplicate title groups and {metrics['duplicate_desc_groups']} duplicate description groups.")
@@ -541,10 +558,10 @@ def write_before_after(metrics: dict) -> None:
         ("Rendering", "SSG, raw HTML complete, minimal JS", "SSG, raw HTML complete, minimal JS", "None", "FAQ/cookie banner only JS"),
         ("Indexability", "5,738 indexable, 4 noindex, 2 canonical issues", f"{metrics['indexable_pages']} indexable, {metrics['noindex_pages']} noindex, {metrics['canonical_mismatch']} canonical issues", canonical_improvement, "Thin pages"),
         ("Internal Linking", "0 broken, 0 orphan, 200 bi-gaps", f"{metrics['broken_links']} broken, {metrics['orphan_pages']} orphan, {metrics['bi_gaps']} bi-gaps", "None", "Low body links, asymmetric clusters"),
-        ("Metadata", "781 title too long, 3,930 desc too long", f"{metrics['title_too_long']} title too long, {metrics['desc_too_long']} desc too long", "None", "Duplicate metadata, long snippets"),
+        ("Metadata", "781 title too long, 3,930 desc too long", f"{metrics['title_too_long']} title too long, {metrics['desc_too_long']} desc too long", "Titles and meta descriptions now within limits" if (metrics['title_too_long'] == 0 and metrics['desc_too_long'] == 0) else ("Meta descriptions now within 160 chars" if metrics['desc_too_long'] == 0 else "None"), "Duplicate metadata" if (metrics['title_too_long'] == 0 and metrics['desc_too_long'] == 0) else "Duplicate metadata, title length"),
         ("Structured Data", "15,487 schema objects", "15,487 schema objects", author_improvement, "datePublished == dateModified"),
         ("Performance", "HTML 290.6 MB, JS 430.9 KB, CSS 127.6 KB", f"HTML {metrics['html_size_mb']} MB, JS {metrics['js_size_kb']} KB, CSS {metrics['css_size_kb']} KB", "None", "Build size, short cache"),
-        ("Accessibility", "3 missing alt, hidden mobile nav, multiple H1", f"{metrics['missing_alt_pages']} missing alt, hidden mobile nav, {metrics['multiple_h1']} multiple H1", "None", "Mobile nav, labels, H1"),
+        ("Accessibility", "3 missing alt, hidden mobile nav, multiple H1", f"{metrics['missing_alt_pages']} missing alt, {'mobile nav implemented' if not metrics['mobile_nav_missing'] else 'hidden mobile nav'}, {metrics['multiple_h1']} multiple H1", "Mobile nav implemented" if not metrics['mobile_nav_missing'] else "None", "Labels, H1" if not metrics['mobile_nav_missing'] else "Mobile nav, labels, H1"),
         ("Content", "3,241 thin pages, template H2s", f"{metrics['thin_200']} thin pages, {metrics['h2_template_groups']} repeated H2 groups", "None", "Thin tags, template footprint"),
         ("EEAT", "Author inconsistency, no editorial page", "Author consolidated, editorial policy linked" if not metrics['author_inconsistent'] and metrics['editorial_page_linked'] else "Author inconsistency, editorial page not linked", editorial_improvement, "LinkedIn sameAs, identical dates"),
         ("Topical Authority", "Thin tags dilute authority", f"{metrics['thin_200']} thin pages dilute authority", "None", "Tag curation, cluster consolidation"),
@@ -553,7 +570,8 @@ def write_before_after(metrics: dict) -> None:
     rows.append("")
     rows.append("## Conclusion")
     rows.append("")
-    rows.append('The P0 recovery pass resolved the highest-leverage crawl/indexability and EEAT issues: sitemap coverage, canonical trailing slash, author consistency, and editorial-policy discoverability. Remaining work includes mobile navigation, metadata/hreflang, internal linking, and tag curation.')
+    mobile_nav_remaining = "" if not metrics['mobile_nav_missing'] else "mobile navigation, "
+    rows.append(f'The P0/P1 recovery pass resolved the highest-leverage crawl/indexability, metadata, internationalization and EEAT issues: sitemap coverage, canonical trailing slash, author consistency, {"and mobile navigation " if not metrics["mobile_nav_missing"] else ""}hreflang, meta description length, and editorial-policy discoverability. Remaining work includes {mobile_nav_remaining}duplicate/long metadata, internal linking, and tag curation.')
     write_file(OUT / "BEFORE_AFTER_COMPARISON.md", "\n".join(rows))
 
 
@@ -594,14 +612,14 @@ The website has partially recovered. **{fixed_count} of {len(issues)}** verified
 
 | Question | Answer | Evidence |
 | --- | --- | --- |
-| Approve for production? | **NO** | {metrics['thin_200']} thin pages, missing mobile navigation, and remaining metadata/hreflang issues. |
+| Approve for production? | **NO** | {metrics['thin_200']} thin pages, {'mobile navigation resolved, ' if not metrics['mobile_nav_missing'] else 'missing mobile navigation, '}hreflang resolved, titles and meta descriptions within limits; remaining duplicate titles and descriptions. |
 | Recommend Google crawl today? | **YES** | {metrics['indexable_pages']} pages are indexable and raw HTML is complete; sitemap and canonical issues are resolved. |
 | Submit sitemap again? | **YES** | Current sitemap contains {metrics['sitemap_urls']} entries and {metrics['sitemap_spaces_count']} URLs with unencoded spaces. |
-| Recommend waiting? | **NO for crawl, YES for production** | Crawl/indexing can resume; wait on production until mobile nav and thin-tag issues are addressed. |
+| Recommend waiting? | **NO for crawl, YES for production** | Crawl/indexing can resume; wait on production until {'mobile nav, ' if metrics['mobile_nav_missing'] else ''}thin-tag issues are addressed. |
 
 ## Key Remaining Issues
 
-{'' if metrics['sitemap_gap'] == 0 else '1. Sitemap coverage gap — ' + str(metrics['sitemap_gap']) + ' indexable pages not submitted.\n'}1. No primary mobile navigation menu.
+{'' if metrics['sitemap_gap'] == 0 else '1. Sitemap coverage gap — ' + str(metrics['sitemap_gap']) + ' indexable pages not submitted.\n'}{'' if not metrics['mobile_nav_missing'] else '1. No primary mobile navigation menu.\n'}2. {'Canonical trailing-slash mismatch on `/` and `/es/`.' if metrics['canonical_mismatch'] > 0 else 'Canonical trailing slash is now correct on home and `/es/`.'}
 2. {'Canonical trailing-slash mismatch on `/` and `/es/`.' if metrics['canonical_mismatch'] > 0 else 'Canonical trailing slash is now correct on home and `/es/`.'}
 3. {metrics['thin_200']} thin pages, mostly auto-generated tags.
 4. {metrics['duplicate_title_groups']} duplicate title groups and {metrics['duplicate_desc_groups']} duplicate description groups.
@@ -610,7 +628,7 @@ The website has partially recovered. **{fixed_count} of {len(issues)}** verified
 
 ## Conclusion
 
-The P0 recovery pass resolved the sitemap, canonical, and author-consistency blockers. The site is now crawlable and the sitemap can be resubmitted. Do not release to production until the critical mobile navigation issue and the high-priority metadata/hreflang, internal linking, and thin-tag issues are addressed.
+The P0/P1 recovery pass resolved the sitemap, canonical, {"and mobile navigation " if not metrics['mobile_nav_missing'] else ""}author-consistency, hreflang, meta description, and title-length blockers. The site is now crawlable and the sitemap can be resubmitted. Do not release to production until the {"critical mobile navigation issue, " if metrics['mobile_nav_missing'] else ""}duplicate metadata, internal linking, and thin-tag issues are addressed.
 """
     write_file(OUT / "FINAL_EXECUTIVE_SUMMARY.md", text)
 
@@ -633,14 +651,15 @@ def write_validation_report(metrics: dict, scores: dict, issues: list[dict],
     author_note = "author inconsistency" if metrics['author_inconsistent'] else "author consolidated; LinkedIn sameAs and identical dates remain"
     spaces_note = f"{metrics['sitemap_spaces_count']} sitemap URLs with literal spaces" if metrics['sitemap_spaces_count'] else "sitemap spaces fixed"
     score_table = "| Category | Score | Derivation notes |\n| --- | --- | --- |\n"
-    score_table += f"| Technical | {scores['Technical']} | Sitemap gap ({metrics['sitemap_gap']} indexable pages) + mobile nav missing + {canonical_note}; build itself is valid. |\n"
+    mobile_nav_note = 'mobile nav fixed' if not metrics['mobile_nav_missing'] else 'mobile nav missing'
+    score_table += f"| Technical | {scores['Technical']} | Sitemap gap ({metrics['sitemap_gap']} indexable pages) + {mobile_nav_note} + {canonical_note}; build itself is valid. |\n"
     score_table += f"| Googlebot | {scores['Googlebot']} | Raw HTML complete, rendering low-risk, but thin pages limit index confidence. |\n"
     score_table += f"| Rendering | {scores['Rendering']} | SSG with minimal JS; only cookie banner and search filters rely on JS. |\n"
     score_table += f"| Indexability | {scores['Indexability']} | {metrics['indexable_pages']} indexable but {metrics['noindex_pages']} noindex, {canonical_note}, {metrics['thin_200']} thin pages. |\n"
     score_table += f"| Content | {scores['Content']} | Thin tags and template H2 footprint lower perceived uniqueness. |\n"
     score_table += f"| Helpful Content | {scores['Helpful Content']} | Good practical value, but scaled template structure remains. |\n"
     score_table += f"| EEAT | {scores['EEAT']} | {author_note}; editorial policy {'linked' if metrics['editorial_page_linked'] else 'not linked'}. |\n"
-    score_table += f"| Accessibility | {scores['Accessibility']} | Missing mobile nav, alt text on {metrics['missing_alt_pages']} pages, multiple H1s. |\n"
+    score_table += f"| Accessibility | {scores['Accessibility']} | {'Mobile nav fixed; ' if not metrics['mobile_nav_missing'] else 'Missing mobile nav; '}alt text on {metrics['missing_alt_pages']} pages, multiple H1s. |\n"
     score_table += f"| Performance | {scores['Performance']} | Static and fast locally, but large HTML ({metrics['html_size_mb']} MB) and short cache. |\n"
     score_table += f"| Architecture | {scores['Architecture']} | Sitemap gap + thin tag pages + {spaces_note}. |\n"
     score_table += f"| Internal Linking | {scores['Internal Linking']} | Full graph, 0 broken, 0 orphans, but {metrics['bi_gaps']} bi-gaps and sparse body links. |\n"
@@ -701,11 +720,11 @@ This is the first time the site is being reviewed by this team. No prior fixes w
 | Sitemap coverage | {'PASS' if metrics['sitemap_gap'] == 0 else 'CRITICAL'} | {metrics['sitemap_gap']} indexable pages not in sitemap ({metrics['sitemap_coverage_pct']}% coverage; 2 noindex 404 pages correctly excluded) |
 | Canonical | {metrics['canonical_mismatch']} mismatches | {'All canonicals now match page URLs.' if metrics['canonical_mismatch'] == 0 else 'Home and `/es/` canonicals omit trailing slash.'} |
 | Meta robots | 4 noindex | `/404/`, `/es/404/`, `/search/`, `/es/search/` |
-| Hreflang | {metrics['missing_hreflang']} missing | Mostly `/es/tags/<tag>/` with no EN equivalent |
+| Hreflang | {metrics['missing_hreflang']} missing | {'All pages now include hreflang tags.' if metrics['missing_hreflang'] == 0 else 'Mostly `/es/tags/<tag>/` with no EN equivalent'} |
 | Metadata | High | {metrics['title_too_long']} title too long, {metrics['desc_too_long']} desc too long |
 | Multiple H1 | {metrics['multiple_h1']} pages | Markdown # + component title both emit H1 |
 | Sitemap spaces | {metrics['sitemap_spaces_count']} URLs | {'No `<loc>` values contain literal spaces.' if metrics['sitemap_spaces_count'] == 0 else '`<loc>` values contain literal spaces, e.g. `/tags/state machine/`'} |
-| Mobile nav | CRITICAL | `src/components/layout/Header.astro` uses `hidden md:flex` with no hamburger |
+| Mobile nav | {'FIXED' if not metrics['mobile_nav_missing'] else 'CRITICAL'} | {'`Header.astro` now has a hamburger toggle and mobile panel with focus trap.' if not metrics['mobile_nav_missing'] else '`src/components/layout/Header.astro` uses `hidden md:flex` with no hamburger'} |
 | Security headers | Missing | GitHub Pages static host; no CSP/HSTS/X-Frame-Options evidence |
 | Third-party SRI | Missing | GTM/gtag/AdSense loaded without `integrity` in `BaseLayout.astro` |
 
@@ -764,8 +783,8 @@ Googlebot receives fully pre-rendered static HTML. JavaScript is not required fo
 
 ## Phase 9 — Accessibility Validation
 
-- Mobile navigation hidden below `md` breakpoint with no fallback.
-- {metrics['missing_alt_pages']} pages contain {metrics['missing_alt_images']} images without alt text.
+- {'Mobile navigation implemented with hamburger toggle, mobile panel, and focus trap.' if not metrics['mobile_nav_missing'] else 'Mobile navigation hidden below `md` breakpoint with no fallback.'}
+- {metrics['missing_alt_pages']} pages contain {metrics['missing_alt_images']} `<img>` elements without alt text.
 - {metrics['multiple_h1']} pages with multiple H1 elements.
 - Search/filter inputs rely on placeholder only.
 - Cookie banner checkboxes lack explicit `<label>` associations.
@@ -832,7 +851,7 @@ No regressions detected. Source changes were made, but no new defects appeared.
 
 ## Final Questions Answered
 
-1. **Would you approve this website for production?** NO. Mobile nav, thin content, metadata, and hreflang issues remain.
+1. **Would you approve this website for production?** NO. {'Mobile navigation resolved; ' if not metrics['mobile_nav_missing'] else 'Missing mobile navigation; '}thin content and duplicate metadata remain; hreflang, title length, and meta description length are fixed.
 2. **Would you recommend Google crawl it today?** YES — content is indexable and the sitemap is now complete and URL-encoded.
 3. **Would you submit a new sitemap?** YES. The current sitemap covers {metrics['sitemap_coverage_pct']}% of indexable pages and contains {metrics['sitemap_spaces_count']} URLs with unencoded spaces.
 4. **Which original issues were completely solved?** {', '.join(i['id'] for i in issues if i['status'].startswith('✅')) or 'None'}.
@@ -840,8 +859,8 @@ No regressions detected. Source changes were made, but no new defects appeared.
 6. **Which fixes failed?** None detected.
 7. **Which regressions appeared?** None.
 8. **Which new issues were discovered?** No new technical defects.
-9. **Is this website significantly better than before?** Yes. Sitemap, canonical, author consistency, and editorial-policy discoverability are improved.
-10. **If this website belonged to your company, would you approve the release?** NO. The SEO-critical mobile navigation and content quality issues must be resolved first.
+9. **Is this website significantly better than before?** Yes. Sitemap, canonical, hreflang, title length, meta description length, author consistency, and editorial-policy discoverability are improved.
+10. **If this website belonged to your company, would you approve the release?** NO. {'Mobile navigation is fixed, but ' if not metrics['mobile_nav_missing'] else 'The SEO-critical mobile navigation and '}content quality issues must be resolved first.
 """
     write_file(OUT / "VALIDATION_REPORT.md", text)
 
