@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Saga Pattern
-
 ## Overview
 
 The [Saga](/patterns/design/saga-pattern) Pattern manages distributed transactions across multiple services by breaking a long-running transaction into a sequence of local transactions. For event-driven choreography, see [Event Sourcing](/patterns/design/event-sourcing-pattern). Each local transaction updates a single service and publishes an event or message to trigger the next step. If a step fails, the saga executes compensating transactions to undo the changes made by previous steps.

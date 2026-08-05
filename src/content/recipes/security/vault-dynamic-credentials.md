@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Live Database Credentials with HashiCorp Vault
-
 Hardcoded database credentials in configuration files are a persistent security risk. HashiCorp Vault solves this by generating short-lived, live-managed credentials that are created on demand and automatically revoked after a configurable TTL.
 
 ## When to Use This

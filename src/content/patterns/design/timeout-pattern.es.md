@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Patrón Timeout
-
 ## Resumen
 
 El Patrón Timeout es un patrón de resiliencia que previene que las operaciones se cuelguen indefinidamente imponiendo un tiempo máximo de ejecución. Sin timeouts, un único servicio descendiente lento puede retener hilos, conexiones y peticiones de usuarios indefinidamente, causando fallas en cascada a través del sistema.

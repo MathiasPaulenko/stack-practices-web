@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Graceful Degradation Pattern
-
 ## Overview
 
 When a downstream dependency fails, the default behavior is to return an error to the user. Graceful degradation does the opposite: it detects the failure and serves a reduced-but-functional experience instead. If the recommendation service is down, show products without recommendations. If the search API times out, show cached results. If the payment gateway is unavailable, let users keep shopping and queue the payment for later.

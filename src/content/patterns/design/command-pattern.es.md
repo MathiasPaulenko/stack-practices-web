@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Command
-
 ## Visión general
 
 El Patrón Command es un patrón de diseño conductual que convierte una petición en un objeto independiente que contiene toda la información sobre la petición. Esto te permite parametrizar métodos con diferentes peticiones, retrasar o encolar ejecución y soportar operaciones deshacibles.

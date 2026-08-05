@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Null Object Pattern
-
 ## Overview
 
 The Null Object Pattern eliminates null reference checks by providing a default "do nothing" object that implements the same interface as real objects. Instead of branching on `if (user != null)` everywhere, clients interact with a `NullUser` that returns safe defaults like empty strings, zero counts, or no-op behavior.

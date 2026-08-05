@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Intercepting Filter Pattern
-
 ## Overview
 
 The Intercepting Filter Pattern composes cross-cutting concerns into a chain of pluggable filters that intercept requests and responses. Each filter performs a specific preprocessing or postprocessing task (authentication, logging, compression, validation) and delegates to the next filter in the chain. The final target (a servlet, handler, or controller) processes the core business logic.

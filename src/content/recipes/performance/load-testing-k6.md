@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Load Testing APIs with k6 and Threshold-Based Assertions
-
 k6 is a modern load testing tool built for developers. It uses JavaScript for test scripting and provides built-in metrics, threshold assertions, and modular scenarios that help you validate performance requirements before code reaches production.
 
 ## When to Use This

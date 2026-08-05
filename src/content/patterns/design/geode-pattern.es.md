@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patrón Geode
-
 ## Descripción general
 
 El patrón Geode particiona datos entre multiples nodos para que cada nodo posea un shard no superpuesto. Un request para un dato especifico se rutea al nodo que lo posee. No hay base de datos compartida, no hay cache compartida, no hay estado compartido. Cada nodo es autonomo: contiene sus datos, procesa requests para esos datos y falla independientemente.

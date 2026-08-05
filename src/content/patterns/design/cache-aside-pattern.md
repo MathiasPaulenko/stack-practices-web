@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Cache-Aside Pattern
-
 ## Overview
 
 The Cache-Aside Pattern is a caching strategy where the application is responsible for loading data into the cache from the backing store on demand. The application checks the cache first; if the data is not present (cache miss), it fetches from the database, populates the cache, and returns the result. This gives the application full control over cache logic, invalidation, and consistency.

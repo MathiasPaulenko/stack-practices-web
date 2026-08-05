@@ -127,7 +127,6 @@ A Helm chart review checklist ensures charts are secure, maintainable, and follo
 ### Values Structure
 
 ```yaml
-# values.yaml
 replicaCount: 3
 
 image:

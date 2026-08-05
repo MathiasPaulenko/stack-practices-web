@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Serverless Throttling Pattern
-
 ## Overview
 
 Serverless functions scale automatically, but downstream services (databases, APIs) often cannot handle the burst traffic that Lambda concurrency produces. The throttling pattern controls the rate at which Lambda functions process events, protecting downstream systems from overload.

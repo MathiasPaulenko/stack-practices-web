@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Business Delegate
-
 ## Descripción General
 
 El Patrón Business Delegate reduce el acoplamiento entre la capa de presentación y la capa de servicios de negocio introduciendo una capa intermediaria. En lugar de que la capa de presentación acceda directamente a servicios de negocio (EJBs, APIs remotas, u objetos de servicio complejos), utiliza un Business Delegate que maneja lookup de servicio, creación e invocación.

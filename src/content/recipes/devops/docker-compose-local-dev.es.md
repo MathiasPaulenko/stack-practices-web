@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Desarrollo Local de Microservicios con Docker Compose
-
 Configura un entorno de desarrollo local completo para microservicios usando Docker Compose. Esta recipe cubre definiciones de servicios, redes compartidas, montajes de volumen para hot reload, configuracion de entorno y health checks que replican setups de produccion en maquinas de desarrolladores.
 
 ## Cuando Usar Esto

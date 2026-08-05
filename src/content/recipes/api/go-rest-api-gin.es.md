@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# REST API en Go con Gin y Middleware
-
 Construye APIs REST de alto rendimiento en Go usando el framework Gin. Esta recipe cubre routing, middleware custom para cross-cutting concerns, validacion de requests, manejo estructurado de errores y graceful shutdown usados en microservicios de produccion.
 
 ## Cuando Usar Esto

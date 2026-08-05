@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Serverless Warm Pool Pattern
-
 ## Overview
 
 A cold start occurs when Lambda creates a new execution environment for a function that has no warm instances. The initialization adds latency: downloading code, starting the runtime, loading dependencies. Cold starts typically add 500ms to 5s depending on runtime and package size.

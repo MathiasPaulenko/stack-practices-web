@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Mediator Pattern para Desacoplamiento de Componentes en Apps Frontend
-
 El [Mediator](/patterns/design/mediator-pattern) pattern define un objeto que encapsula como un conjunto de objetos interactuan. En lugar de que componentes se referencien entre si directamente, se refieren a un mediador, reduciendo el numero de conexiones explicitas de many-to-many a many-to-one. Esto es esencial para UIs complejas donde docenas de componentes necesitan mantenerse sincronizados.
 
 ## Cuando Usar Esto

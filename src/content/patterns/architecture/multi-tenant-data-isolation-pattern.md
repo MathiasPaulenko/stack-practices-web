@@ -53,8 +53,6 @@ seo:
 
 ---
 
-# Multi-Tenant Data Isolation Pattern
-
 ## Overview
 
 The [Multi-Tenant Data Isolation](/patterns/architecture/multi-tenant-data-isolation-pattern) Pattern ensures each tenant in a SaaS application can only access their own data. Three primary strategies exist: **database-per-tenant** (strongest isolation), **schema-per-tenant** (good isolation, shared database), and **row-level security** (shared schema, tenant column + RLS). Each strategy trades isolation strength against operational cost and complexity.

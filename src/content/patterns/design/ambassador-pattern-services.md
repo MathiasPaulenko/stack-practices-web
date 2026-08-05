@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Ambassador Pattern for Resilient Remote Service Access
-
 The Ambassador pattern creates a local helper instance that acts on behalf of a remote service. It handles network concerns like retries, timeouts, circuit breaking, and logging, keeping the client code clean and the remote service interface simple. This pattern is common in [microservices](/guides/architecture/microservices-architecture-guide) and containerized deployments.
 
 ## When to Use This

@@ -155,7 +155,7 @@ async def websocket_chat(websocket: WebSocket):
 
 ### Prompt Templates with Jinja2
 
-```python
+````python
 from jinja2 import Template
 from dataclasses import dataclass
 from typing import Any
@@ -196,7 +196,7 @@ messages = code_review_prompt.render(
     language="python",
     code="def add(a, b): return a + b"
 )
-```
+````
 
 ### Prompt Registry
 

@@ -7,7 +7,7 @@ export const SITE = {
   name: 'StackPractices',
   domain: 'stackpractices.com',
   url: 'https://stackpractices.com',
-  title: 'StackPractices — Code Recipes, Patterns & Engineering Docs',
+  title: 'StackPractices — Code Recipes, Patterns and Engineering Docs',
   description:
     'A practical knowledge base for software engineers: code recipes, design patterns, and reusable technical documentation across multiple languages.',
   defaultLocale: 'en',

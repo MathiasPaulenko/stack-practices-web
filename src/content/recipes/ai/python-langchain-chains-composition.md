@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Compose LCEL Chains in LangChain for Multi-Step LLM Workflows
-
 LangChain Expression Language (LCEL) composes LLM workflows with the pipe operator (`|`). Chains become composable, streamable, and retryable without boilerplate. Below: multi-step pipelines with prompts, models, parsers, parallel branches, and custom runnable components.
 
 ## When to Use This

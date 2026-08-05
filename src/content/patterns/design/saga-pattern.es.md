@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Saga
-
 ## Resumen
 
 El [Patrón Saga](/patterns/design/saga-pattern) gestiona transacciones distribuidas a través de múltiples servicios rompiendo una transacción de larga duración en una secuencia de transacciones locales. Para coreografía impulsada por eventos, consulta [Event Sourcing](/patterns/design/event-sourcing-pattern). Cada transacción local actualiza un único servicio y publica un evento o mensaje para disparar el siguiente paso. Si un paso falla, la saga ejecuta **transacciones compensatorias** para deshacer los cambios realizados por los pasos anteriores.

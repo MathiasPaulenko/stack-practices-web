@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Load Balancing con HAProxy y Health Checks
-
 Distribuye trafico entrante entre multiples servidores backend usando HAProxy, un load balancer TCP/HTTP de alto rendimiento. Esta recipe cubre distribucion round-robin, health checks activos, sticky sessions y SSL termination para resiliencia production-grade.
 
 ## Cuando Usar Esto

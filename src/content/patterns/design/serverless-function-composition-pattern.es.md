@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patron Serverless Function Composition
-
 ## Descripcion general
 
 La composicion de funciones encadena multiples funciones serverless en un workflow coordinado. En lugar de una funcion grande que maneja todo, cada funcion maneja un solo paso. Un orquestador (AWS Step Functions, Azure Durable Functions, o un orquestador custom) gestiona la secuencia, maneja reintentos, ramifica segun condiciones y mantiene estado entre pasos.

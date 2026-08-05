@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Patrón Deployment Ring
-
 ## Descripción general
 
 El patrón Deployment Ring despliega una nueva version en anillos concentricos de tamano creciente. El anillo 0 puede ser usuarios internos (1%). El anillo 1 es early adopters (5%). El anillo 2 es un segmento mas grande (25%). El anillo 3 es todos (100%). Entre cada anillo, el sistema verifica metricas de salud (tasa de error, latencia, conversion). Si las metricas se degradan, el rollout se detiene o se revierte. Si las metricas son estables, el siguiente anillo procede.

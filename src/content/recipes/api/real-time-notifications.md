@@ -36,8 +36,6 @@ seo:
     - java
 
 ---
-# Build Real-Time Notifications with WebSockets
-
 ## Overview
 
 Real-time notifications keep users informed without polling. WebSockets provide full-duplex communication between client and server, while Redis pub/sub acts as a message broker to broadcast events across multiple server instances.

@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Human-in-the-Loop Pattern
-
 ## Overview
 
 Autonomous LLM agents can take actions that have real consequences: sending emails, deploying code, modifying databases, making purchases. The Human-in-the-Loop Pattern inserts a checkpoint where a human reviews and approves the agent's proposed action before it executes. The agent pauses, presents its plan, and waits for approval, rejection, or modification.

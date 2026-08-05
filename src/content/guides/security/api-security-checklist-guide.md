@@ -49,8 +49,6 @@ seo:
 
 ---
 
-# API Security Checklist
-
 ## Introduction
 
 APIs are the backbone of modern applications — and a primary attack surface. This checklist covers the essential security controls every API should implement, from authentication to deployment hardening.

@@ -37,8 +37,6 @@ seo:
 
 
 ---
-# Set Up Database Read Replicas for Scaling
-
 ## Overview
 
 Read replicas are copies of your primary database that handle read-only traffic, offloading the primary instance. They are the most common scaling strategy for read-heavy workloads — analytics dashboards, search queries, and API reads can all be directed to replicas while writes go to the primary.

@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Rate Limiting with Redis Token Bucket Algorithm
-
 Rate limiting protects APIs from abuse and ensures fair resource allocation. The token bucket algorithm allows bursts up to a configured capacity while maintaining a steady refill rate. Using Redis with a Lua script makes the check-and-decrement atomic, so the limiter works correctly across multiple server instances.
 
 ## When to Use This

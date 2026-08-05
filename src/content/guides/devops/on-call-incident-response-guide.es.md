@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Playbook de Guardias e Incidentes (On-Call)
-
 ## Introducción
 
 Los incidentes son inevitables. Lo que separa a los equipos resilientes de los frágiles no es la ausencia de fallos, sino la velocidad y calidad de su respuesta. Este playbook proporciona un enfoque estructurado para manejar incidentes en producción — desde la primera alerta hasta el postmortem.

@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Geode Pattern
-
 ## Overview
 
 The Geode Pattern partitions data across multiple nodes so that each node owns a non-overlapping shard. A request for a specific data item routes to the node that owns it. There is no shared database, no shared cache, no shared state. Each node is self-contained: it holds its data, processes requests for that data, and fails independently.

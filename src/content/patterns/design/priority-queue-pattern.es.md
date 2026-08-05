@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Patron de Cola de Prioridad
-
 ## Resumen
 
 El Patron de Cola de Prioridad organiza tareas o mensajes de modo que los elementos de mayor prioridad se procesen antes que los de menor prioridad, independientemente del orden de llegada. En lugar de la cola tradicional FIFO donde las tareas se manejan en orden de envio, una cola de prioridad ordena las tareas por importancia, urgencia o valor de negocio.

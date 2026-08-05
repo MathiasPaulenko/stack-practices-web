@@ -252,19 +252,18 @@ HAVING hours_since_last_ingest > 24
 ```python
 import great_expectations as gx
 
-# Create expectation suite
 suite = gx.ExpectationSuite("fct_orders_suite")
 
-# Completeness
+## Completeness
 suite.add_expectation(gx.expect_column_values_to_not_be_null(column="order_id"))
 suite.add_expectation(gx.expect_column_values_to_not_be_null(column="customer_id"))
 suite.add_expectation(gx.expect_column_values_to_not_be_null(column="order_date"))
 suite.add_expectation(gx.expect_column_values_to_not_be_null(column="total_amount"))
 
-# Uniqueness
+## Uniqueness
 suite.add_expectation(gx.expect_column_values_to_be_unique(column="order_id"))
 
-# Validity
+## Validity
 suite.add_expectation(gx.expect_column_values_to_match_regex(
     column="order_id",
     regex=r"^ord_[a-zA-Z0-9]{5,60}$"
@@ -278,7 +277,7 @@ suite.add_expectation(gx.expect_column_values_to_be_in_set(
     value_set=["USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY", "BRL", "MXN"]
 ))
 
-# Accuracy
+## Accuracy
 suite.add_expectation(gx.expect_column_values_to_be_between(
     column="total_amount",
     min_value=0.01,
@@ -290,7 +289,7 @@ suite.add_expectation(gx.expect_column_values_to_be_between(
     max_value="2026-12-31"
 ))
 
-# Consistency
+## Consistency
 suite.add_expectation(gx.expect_column_pair_values_A_to_be_greater_than_B(
     column_A="total_amount",
     column_B="refund_amount",
@@ -299,7 +298,7 @@ suite.add_expectation(gx.expect_column_pair_values_A_to_be_greater_than_B(
     condition_parser="pandas"
 ))
 
-# Dataset-level
+## Dataset-level
 suite.add_expectation(gx.expect_table_row_count_to_be_between(min_value=100000, max_value=10000000))
 ```
 

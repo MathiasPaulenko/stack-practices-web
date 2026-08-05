@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Canary Deployments with Istio Service Mesh
-
 Istio provides fine-grained traffic management through virtual services and destination rules. By splitting traffic between stable and canary versions of a service, you can validate new releases with real user traffic while maintaining the ability to instantly rollback if errors spike.
 
 ## When to Use This

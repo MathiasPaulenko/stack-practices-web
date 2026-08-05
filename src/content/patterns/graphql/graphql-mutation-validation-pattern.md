@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# GraphQL Mutation Validation Pattern
-
 ## Overview
 
 GraphQL mutations accept input types that need validation before processing. Without a centralized approach, each resolver repeats validation logic: checking required fields, validating email formats, enforcing string lengths, verifying numeric ranges. This leads to inconsistent rules and error formats across mutations.

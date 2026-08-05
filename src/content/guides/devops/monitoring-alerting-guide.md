@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Monitoring and Alerting — Metrics, Logs, and Dashboards
-
 ## Introduction
 
 You cannot improve what you cannot measure. Monitoring tells you when systems are unhealthy; alerting wakes you up when action is needed. But poorly designed alerting creates fatigue, burnout, and ignored pages. Here is a hands-on guide to the three pillars of observability, how to design useful alerts, and how to build dashboards that help during incidents.

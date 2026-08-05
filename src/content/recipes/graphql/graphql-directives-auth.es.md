@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Auth a nivel campo con directivas personalizadas de GraphQL
-
 Los resolvers de GraphQL a menudo necesitan reglas de autorizacion diferentes para diferentes campos — un usuario puede leer su propio email pero no el de otro, un admin puede ver todos los campos, y un campo publico no requiere auth. Las directivas personalizadas de schema te permiten declarar estas reglas en el propio schema con `@auth` o `@requiresRole(role: "admin")`, manteniendo la logica de autorizacion fuera de los resolvers individuales.
 
 ## Cuando Usar Esto

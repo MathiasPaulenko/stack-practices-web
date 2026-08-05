@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Blue-Green and Canary Deployments
-
 ## Introduction
 
 Deploying to production is risky. A bad deployment can take down your service, corrupt data, or degrade user experience for hours. Deployment strategies exist to reduce this risk by controlling how new code reaches users and how quickly you can revert if things go wrong.

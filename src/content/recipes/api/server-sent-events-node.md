@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Server-Sent Events with Node.js and Express
-
 Server-Sent Events (SSE) provide a lightweight, unidirectional channel for pushing real-time updates from server to browser over HTTP. Unlike WebSockets, SSE uses standard HTTP, auto-reconnects, and works directly with existing infrastructure like load balancers. Here is how to Express implementation, event types, connection management, and graceful client reconnection.
 
 ## When to Use This

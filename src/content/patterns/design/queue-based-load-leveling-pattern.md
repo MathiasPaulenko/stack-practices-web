@@ -49,8 +49,6 @@ seo:
 
 ---
 
-# Queue-Based Load Leveling Pattern
-
 ## Overview
 
 The Queue-Based Load Leveling Pattern introduces an intermediate message queue between components that produce work and components that consume it. Instead of producers calling consumers directly (which risks overwhelming the consumer during traffic spikes), producers enqueue tasks and consumers process them at a steady, controlled rate.

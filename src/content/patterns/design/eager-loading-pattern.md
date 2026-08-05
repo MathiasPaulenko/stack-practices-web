@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Eager Loading Pattern
-
 ## Overview
 
 The Eager Loading Pattern loads related data along with the primary entity in a single query, rather than issuing separate queries for each relationship. This prevents the N+1 problem: where loading N entities triggers N additional queries for their related data, resulting in N+1 total database round-trips.

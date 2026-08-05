@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Canary Release Pattern
-
 ## Overview
 
 The Canary Release Pattern routes a small percentage of traffic to a new version while the majority continues receiving the stable version. The name comes from coal miners who carried canaries to detect dangerous gases: the canary served as an early warning system. In software, the canary version serves a small group of users first. If it fails, only that small group is affected.

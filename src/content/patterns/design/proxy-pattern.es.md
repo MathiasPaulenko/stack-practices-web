@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Patrón Proxy
-
 ## Visión General
 
 El [Patrón Proxy](/patterns/design/proxy-pattern-caching) es un patrón de diseño estructural que proporciona un sustituto o marcador de posición para otro objeto. El proxy controla el acceso al sujeto real, agregando una capa de indirección que puede usarse para carga perezosa, control de acceso, caching, logging o monitoreo — sin cambiar el código del sujeto.

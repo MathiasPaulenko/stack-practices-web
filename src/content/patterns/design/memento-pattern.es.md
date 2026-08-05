@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patrón Memento
-
 ## Visión General
 
 El [Patrón Memento](/patterns/design/memento-pattern-state) es un patrón de diseño de comportamiento que te permite guardar y restaurar el estado anterior de un objeto sin revelar su estructura interna. Es la base de la funcionalidad de deshacer/rehacer en aplicaciones como editores de texto, programas de dibujo, y gestión de estado de juegos.

@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Registry Pattern
-
 ## Overview
 
 The Registry Pattern provides a centralized lookup mechanism for shared services, configurations, or objects. Instead of passing dependencies through long chains of constructors, components request what they need from a registry. This decouples consumers from the concrete implementations they use.

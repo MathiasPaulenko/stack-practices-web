@@ -188,7 +188,6 @@ Un test coverage report comunica cuánto del codebase es exercised por tests. Ra
 ### CI Coverage Gate
 
 ```yaml
-# .github/workflows/coverage.yml
 - name: Check coverage
   run: |
     npx vitest run --coverage --reporter=json

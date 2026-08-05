@@ -35,8 +35,6 @@ seo:
 
 
 ---
-# Construir funciones serverless
-
 ## Visión General
 
 La computación serverless te permite ejecutar código sin aprovisionar ni gestionar servidores. Escribes funciones, las subes a un proveedor de nube y la plataforma se encarga del escalado, parches y disponibilidad automáticamente. Pagas solo por el tiempo de ejecución, lo que la hace ideal para cargas de trabajo esporádicas y arquitecturas event-driven.

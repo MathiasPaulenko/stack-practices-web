@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Inbox Pattern
-
 ## Overview
 
 The Inbox Pattern uses a dedicated inbox table or queue to record incoming events, webhooks, or requests before processing them. Instead of handling a message directly upon receipt, the consumer first persists it to an inbox with a unique identifier, then processes it in a background job. If processing fails, the message remains in the inbox for retry; if the same message arrives twice, deduplication prevents double processing.

@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrón Abstract Factory
-
 ## Visión general
 
 El Patrón Abstract Factory es un patrón de diseño creacional que proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas.

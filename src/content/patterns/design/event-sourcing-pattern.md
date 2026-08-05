@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Event Sourcing Pattern
-
 ## Overview
 
 The Event Sourcing Pattern stores the state of an application as a sequence of events rather than storing only the current state. Instead of updating a record in place, you append an event describing what happened. The current state is derived by replaying all events for an entity. This provides a complete audit trail, temporal queries, and the ability to rebuild state at any point in time.

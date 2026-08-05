@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Patron Serverless Event Sourcing
-
 ## Descripcion general
 
 Event sourcing almacena el estado de la aplicacion como una secuencia de eventos inmutables. En lugar de actualizar un registro de estado actual, anades cada cambio de estado como un evento a un log. El estado actual se deriva reproduciendo el log de eventos. En serverless, esto encaja naturalmente: los eventos fluyen a traves de EventBridge o SNS, y DynamoDB o S3 almacena el log de eventos.

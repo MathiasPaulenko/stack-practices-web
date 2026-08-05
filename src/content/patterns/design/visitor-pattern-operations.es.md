@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Visitor Pattern para Operaciones Extensibles sobre Estructuras de Objetos
-
 El [Visitor](/patterns/design/visitor-pattern) pattern separa un algoritmo de la estructura de objetos sobre la que opera. Moviendo operaciones a clases visitor, puedes agregar nuevos comportamientos a una jerarquia de clases sin modificar las clases de elementos existentes. Esto es ideal cuando las operaciones cambian frecuentemente pero la estructura de objetos permanece estable.
 
 ## Cuando Usar Esto

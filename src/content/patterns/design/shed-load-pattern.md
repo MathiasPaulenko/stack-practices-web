@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Shed Load Pattern
-
 ## Overview
 
 When a system receives more traffic than it can process, it enters a death spiral: queues grow, latency spikes, memory exhausts, and the system crashes. Load shedding stops this spiral by proactively rejecting excess requests before they consume resources. Instead of accepting everything and failing slowly, the system accepts only what it can handle and rejects the rest immediately with a clear error (typically HTTP 503).

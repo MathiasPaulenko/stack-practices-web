@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Snapshot Testing de Componentes React con Jest
-
 El snapshot testing captura la salida renderizada de un componente y la compara contra una referencia almacenada. Cuando la salida cambia inesperadamente, el test falla, alertandote sobre potenciales regresiones de UI antes de que lleguen a los usuarios.
 
 ## Cuando Usar Esto

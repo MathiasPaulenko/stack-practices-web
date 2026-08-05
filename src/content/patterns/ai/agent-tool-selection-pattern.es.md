@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Patrón Agent Tool Selection
-
 ## Descripción general
 
 Cuando un agente LLM tiene acceso a muchas herramientas (busqueda, calculadora, consulta a base de datos, llamadas a API, operaciones de archivos), pasar todas las definiciones de herramientas en cada prompt desperdicia tokens y degrada la calidad de las decisiones. El modelo tiene que razonar sobre opciones irrelevantes, aumentando la probabilidad de seleccionar la herramienta equivocada.

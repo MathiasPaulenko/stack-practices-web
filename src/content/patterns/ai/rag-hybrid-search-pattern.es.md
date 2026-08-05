@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Patrón RAG Hybrid Search
-
 ## Descripción general
 
 Hybrid search combina dos estrategias de recuperacion: **busqueda por palabras clave** (BM25 o TF-IDF) que coincide con terminos exactos, y **busqueda semantica** (embeddings vectoriales) que coincide por significado. Ningun enfoque por si solo cubre todos los tipos de consulta. La busqueda por palabras clave no detecta sinonimos ni paráfrasis. La busqueda semantica puede perder coincidencias exactas como codigos de producto o nombres propios. Fusionar ambas listas rankeadas produce resultados mas relevantes que cualquier metodo por separado.

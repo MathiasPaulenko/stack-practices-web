@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patrón Interpreter
-
 ## Resumen
 
 El [Patrón Interpreter](/patterns/design/interpreter-pattern-expressions) es un patrón de diseño de comportamiento que define una representación para la gramática de un lenguaje junto con un intérprete que usa la representación para interpretar oraciones en el lenguaje. Es ideal para construir lenguajes específicos de dominio (DSL), evaluadores de expresiones, analizadores de consultas y motores de reglas.

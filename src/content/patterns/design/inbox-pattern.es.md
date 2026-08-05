@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Patrón Inbox
-
 ## Descripción General
 
 El Patrón Inbox usa una tabla o cola dedicada de inbox para registrar eventos, webhooks o requests entrantes antes de procesarlos. En lugar de manejar un mensaje directamente al recibirlo, el consumidor primero lo persiste en un inbox con un identificador único, luego lo procesa en un job en background. Si el procesamiento falla, el mensaje permanece en el inbox para retry; si el mismo mensaje llega dos veces, la deduplicación previene el doble procesamiento.

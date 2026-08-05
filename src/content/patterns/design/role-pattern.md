@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Role Pattern
-
 ## Overview
 
 The Role Pattern assigns dynamic roles to objects at runtime instead of encoding behavior in fixed class hierarchies. In many domains, the same entity plays different roles in different contexts: a person can be a customer, an employee, and a vendor. Using inheritance for each combination leads to a combinatorial explosion of subclasses.

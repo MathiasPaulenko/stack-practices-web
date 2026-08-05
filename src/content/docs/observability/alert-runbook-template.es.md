@@ -240,18 +240,17 @@ Checkeá el Grafana dashboard para el payment service: [Payment Service Dashboar
 ### Rollback Procedure
 
 ```bash
-# 1. Checkeá current deployment
 kubectl rollout history deployment/payment
 
-# 2. Roll back a previous version
+## 2. Roll back a previous version
 kubectl rollout undo deployment/payment
 
-# 3. Monitoreá rollout status
+## 3. Monitoreá rollout status
 kubectl rollout status deployment/payment --timeout=120s
 
-# 4. Verificá que error rate baje
-# Checkeá Grafana: https://grafana.example.com/d/payment-service
-# Esperá 5 minutes para error rate normalize
+## 4. Verificá que error rate baje
+## Checkeá Grafana: https://grafana.example.com/d/payment-service
+## Esperá 5 minutes para error rate normalize
 ```
 
 ## Escalation

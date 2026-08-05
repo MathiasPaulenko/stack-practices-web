@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Composite Pattern para Arboles de Componentes UI en React
-
 El Composite pattern compone objetos en estructuras de arbol para representar jerarquias parte-todo. Permite que clientes traten objetos individuales y composiciones de objetos uniformemente. En React, este pattern aparece naturalmente al renderizar arboles de componentes anidados donde un contenedor tiene tanto elementos hoja como otros contenedores. Consulta el [Patron Composite](/patterns/design/composite-pattern) general para ejemplos independientes del lenguaje.
 
 ## Cuando Usar Esto

@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Cache Invalidation Pattern
-
 ## Overview
 
 Cache invalidation removes or updates stale entries so subsequent reads fetch fresh data. Without invalidation, the cache serves outdated data indefinitely. The challenge is knowing when data changes and acting on it quickly without adding excessive overhead.

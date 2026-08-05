@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Patrón Iterator
-
 ## Visión General
 
 El [Patrón Iterator](/patterns/design/iterator-pattern-collections) es un patrón de diseño de comportamiento que proporciona una forma de acceder a los elementos de un objeto agregado secuencialmente sin exponer su representación subyacente. Separa la lógica de recorrido de la colección misma, permitiendo múltiples recorridos simultáneos y diferentes estrategias de recorrido.

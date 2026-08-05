@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-go-concurrency
-title: "Referencia Detallada de Concurrencia en Go"
+title: "Concurrencia en Go"
 description: "Concurrencia en Go en produccion. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines, fan-out/fan-in y patrones para aplicaciones Go concurrentes de alto throughput."
 metaDescription: "Concurrencia Go en producción. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines y fan-out/fan-in."
 difficulty: advanced

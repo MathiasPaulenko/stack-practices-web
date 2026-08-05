@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Plantilla README
-
 ## Overview
 
 Un README es la puerta de entrada de tu proyecto. Combínalo con la [Guía de Contribución](/docs/templates/contributing-guide) y el [Código de Conducta](/docs/templates/code-of-conduct-template) para estándares de comunidad. Es lo primero que los desarrolladores ven en GitHub, npm, PyPI o Docker Hub. Un README bien estructurado reduce la fricción de onboarding, responde preguntas comunes y establece expectativas para los contribuidores.
@@ -94,14 +92,14 @@ Copia la plantilla siguiente y reemplaza los marcadores `[entre corchetes]`:
 ### Inicio Rápido
 
 ```bash
-# Clonar el repositorio
+## Clonar el repositorio
 git clone https://github.com/username/repo.git
 cd repo
 
-# Instalar dependencias
+## Instalar dependencias
 npm install
 
-# Ejecutar el proyecto
+## Ejecutar el proyecto
 npm run dev
 ```
 

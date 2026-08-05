@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patrón Back-Pressure
-
 ## Descripción General
 
 El Patrón Back-Pressure previene que un productor upstream abrume a un consumidor downstream propagando señales de control de flujo hacia atrás a través de un pipeline de datos. Cuando el consumidor no puede seguir el ritmo, señaliza al productor para que disminuya la velocidad o pause, previniendo crecimiento de memoria sin límites, timeouts y fallas en cascada.

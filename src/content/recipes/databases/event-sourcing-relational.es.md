@@ -37,8 +37,6 @@ seo:
 
 
 ---
-# Implementar event sourcing en una base de datos relacional
-
 ## Visión General
 
 Event sourcing almacena cambios de estado como una secuencia de eventos inmutables en lugar de sobrescribir el estado actual. En lugar de guardar `balance = 100`, registras `Deposited $50` y `Deposited $50`. El estado actual se deriva reproduciendo todos los eventos. Esto provee un audit trail completo, consultas temporales y la capacidad de reconstruir el estado en cualquier punto del tiempo.

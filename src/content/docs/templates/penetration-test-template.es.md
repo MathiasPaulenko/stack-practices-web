@@ -7,7 +7,7 @@
 contentType: docs
 slug: penetration-test-template
 templateType: guideline
-title: "Plantilla de Reporte de Penetration Test"
+title: "Plantilla de Penetration Test"
 description: "Plantilla de reporte de penetration test para documentar hallazgos, ratings de riesgo, pasos de reproducción y guía de remediación para evaluaciones de seguridad."
 metaDescription: "Plantilla de reporte de penetration test: documenta hallazgos, ratings de riesgo, pasos de reproducción y guía de remediación para evaluaciones de seguridad."
 difficulty: intermediate
@@ -43,8 +43,6 @@ seo:
 
 
 ---
-
-# Plantilla de Reporte de Penetration Test
 
 Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de forma clara y accionable. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para prácticas de seguridad más amplias.
 
@@ -95,7 +93,7 @@ Qué es la vulnerabilidad y por qué importa.
 #### Proof of Concept
 ```bash
 curl "https://example.com/api/v1/users?id=1 OR 1=1"
-# Retorna todos los usuarios — SQL injection confirmado
+## Retorna todos los usuarios — SQL injection confirmado
 ```
 
 #### Impacto

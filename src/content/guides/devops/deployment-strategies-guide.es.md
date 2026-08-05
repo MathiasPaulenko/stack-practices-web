@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Despliegues Blue-Green y Canary
-
 ## Introducción
 
 Desplegar a producción es riesgoso. Un mal deploy puede caer tu servicio, corromper datos o degradar la experiencia de usuario por horas. Las estrategias de deploy existen para reducir este riesgo controlando cómo el nuevo código llega a los usuarios y qué tan rápido puedes revertir si algo sale mal.

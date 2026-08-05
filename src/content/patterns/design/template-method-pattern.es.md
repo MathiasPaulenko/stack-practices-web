@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Patrón Template Method
-
 ## Resumen
 
 El Patrón Template Method es un patrón de diseño de comportamiento que define el esqueleto de un algoritmo en una clase base, permitiendo que las subclases sobreescriban pasos específicos sin cambiar la estructura general del algoritmo. Promueve la reutilización de código extrayendo comportamiento común en una plantilla mientras permite la personalización de pasos individuales.

@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patron Cache Stampede Prevention
-
 ## Descripcion general
 
 Un cache stampede (tambien llamado thundering herd o dogpile) ocurre cuando una key de cache popular expira y muchas peticiones concurrentes fallan simultaneamente. Todas las peticiones fallidas inundan la base de datos con la misma query, causando un pico de carga que puede cascadar a timeouts y caidas.

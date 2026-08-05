@@ -268,24 +268,23 @@ example-tfstate-prod/
 ### State Migration Procedure
 
 ```bash
-# 1. Pulleá current state
 terraform state pull > backup.tfstate
 
-# 2. Disableá old backend
+## 2. Disableá old backend
 terraform init -backend=false
 
-# 3. Configurá new backend en terraform.tf
-# (updateá backend block)
+## 3. Configurá new backend en terraform.tf
+## (updateá backend block)
 
-# 4. Initializeá con new backend
+## 4. Initializeá con new backend
 terraform init -migrate-state
 
-# 5. Verify state
+## 5. Verify state
 terraform state list
 terraform plan  # Should show no changes
 
-# 6. Clean up old state
-# (removeá old S3 objects después de verification)
+## 6. Clean up old state
+## (removeá old S3 objects después de verification)
 ```
 
 ## 5. State Security
@@ -314,8 +313,8 @@ variable "db_password" {
   sensitive = true
 }
 
-# Sensitive values se hide en plan output
-# pero still stored en state file
+## Sensitive values se hide en plan output
+## pero still stored en state file
 ```
 
 ### State File Access Audit
@@ -343,18 +342,18 @@ variable "db_password" {
 #### Recover desde Accidental State Deletion
 
 ```bash
-# 1. Listé previous versions
+## 1. Listé previous versions
 aws s3api list-object-versions \
   --bucket example-tfstate-prod \
   --prefix infrastructure/terraform.tfstate
 
-# 2. Restoreá previous version
+## 2. Restoreá previous version
 aws s3api copy-object \
   --copy-source example-tfstate-prod/infrastructure/terraform.tfstate?versionId=<version-id> \
   --bucket example-tfstate-prod \
   --key infrastructure/terraform.tfstate
 
-# 3. Verify state
+## 3. Verify state
 terraform state list
 terraform plan  # Should show no changes
 ```
@@ -362,32 +361,32 @@ terraform plan  # Should show no changes
 #### Recover desde Corrupted State
 
 ```bash
-# 1. Pulleá current state
+## 1. Pulleá current state
 terraform state pull > corrupted.tfstate
 
-# 2. Restoreá desde S3 version
+## 2. Restoreá desde S3 version
 aws s3api copy-object \
   --copy-source example-tfstate-prod/infrastructure/terraform.tfstate?versionId=<version-id> \
   --bucket example-tfstate-prod \
   --key infrastructure/terraform.tfstate
 
-# 3. Importá missing resources
+## 3. Importá missing resources
 terraform import aws_instance.web i-1234567890abcdef0
 
-# 4. Verify
+## 4. Verify
 terraform plan
 ```
 
 #### Recover desde Stuck Lock
 
 ```bash
-# 1. Checkeá lock info
+## 1. Checkeá lock info
 terraform force-unlock -force <lock-id>
 
-# 2. Verify que no otro Terraform process esté running
-# (checkeá CI/CD pipelines, developer terminals)
+## 2. Verify que no otro Terraform process esté running
+## (checkeá CI/CD pipelines, developer terminals)
 
-# 3. Re-run plan
+## 3. Re-run plan
 terraform plan
 ```
 

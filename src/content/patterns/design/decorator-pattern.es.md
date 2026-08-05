@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patrón Decorator
-
 ## Visión general
 
 El Patrón Decorator es un patrón de diseño estructural que te permite añadir nuevos comportamientos a objetos colocándolos dentro de objetos envolventes que contienen esos comportamientos. Proporciona una alternativa flexible a la herencia para extender funcionalidad.

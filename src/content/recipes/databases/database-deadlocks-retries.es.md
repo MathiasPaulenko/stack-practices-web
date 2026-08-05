@@ -37,8 +37,6 @@ seo:
 
 
 ---
-# Manejar deadlocks y reintentos en bases de datos
-
 ## Visión General
 
 Los deadlocks ocurren cuando dos o más transacciones mantienen locks sobre recursos que la otra necesita, creando una dependencia circular. La base de datos detecta esto y aborta una transacción como "víctima." Aunque los deadlocks son inevitables en sistemas concurrentes, puedes minimizarlos y recuperarte con gracia usando lógica de reintento apropiada.

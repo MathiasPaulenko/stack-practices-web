@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Facade Pattern
-
 ## Overview
 
 The Facade Pattern provides a simplified, unified interface to a complex subsystem. Instead of forcing clients to interact with dozens of interdependent classes, a facade exposes only the operations they need. This reduces coupling, improves readability, and makes the subsystem easier to evolve.

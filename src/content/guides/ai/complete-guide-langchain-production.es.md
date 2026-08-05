@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-langchain-production
-title: "Referencia Detallada de LangChain en Producción"
+title: "LangChain en Producción"
 description: "Ejecutar LangChain en produccion. Cubre chains, agents, memory, tools, LCEL, streaming, callbacks, integracion RAG, evaluacion y patrones de deployment para aplicaciones LangChain confiables."
 metaDescription: "Ejecutar LangChain en produccion. Cubre chains, agents, memory, tools, LCEL, streaming, callbacks, RAG y patrones de deployment."
 difficulty: advanced

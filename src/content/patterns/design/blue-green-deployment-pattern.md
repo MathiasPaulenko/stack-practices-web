@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Blue-Green Deployment Pattern
-
 ## Overview
 
 The Blue-Green Deployment Pattern maintains two identical production environments: blue and green. At any time, one environment serves live traffic (active) while the other sits idle (inactive). To deploy a new version, you deploy to the inactive environment, run smoke tests against it, and then flip the router to send traffic to the newly deployed environment. The switch is instantaneous.

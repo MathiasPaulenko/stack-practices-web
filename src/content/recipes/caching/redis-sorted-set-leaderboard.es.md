@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Construir un leaderboard en tiempo real con Redis Sorted Sets
-
 Los sorted sets de Redis (ZSETs) almacenan miembros unicos ordenados por puntaje. Son la estructura de datos ideal para leaderboards — puedes actualizar un puntaje, obtener un ranking y consultar el top N de jugadores en tiempo logaritmico. Esta receta construye un servicio de leaderboard con actualizacion de puntajes, consultas de ranking y paginacion.
 
 ## Cuando Usar Esto

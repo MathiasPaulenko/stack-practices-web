@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Patrón State
-
 ## Visión General
 
 El [Patrón State](/patterns/design/state-pattern) es un patrón de diseño de comportamiento que permite que un objeto altere su comportamiento cuando cambia su estado interno. En lugar de grandes sentencias switch o condicionales dispersas por todo el código, cada estado se encapsula en su propia clase con comportamiento específico.

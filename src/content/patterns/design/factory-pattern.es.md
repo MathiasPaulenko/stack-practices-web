@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Factory Pattern
-
 ## Overview
 
 El Factory Pattern es un patrón de diseño creacional que proporciona una interfaz para crear objetos sin especificar sus clases exactas. En lugar de llamar a un constructor directamente, llamas a un método de fábrica que devuelve una nueva instancia basada en parámetros de entrada.

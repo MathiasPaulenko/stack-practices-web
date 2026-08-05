@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Deep Clone Objects in JavaScript: Beyond JSON.parse
-
 Copy nested JavaScript objects without shared references using modern and legacy approaches. This recipe compares `JSON.parse`, `structuredClone`, manual recursive cloning, and library solutions while handling edge cases like circular references, functions, and special object types.
 
 ## When to Use This

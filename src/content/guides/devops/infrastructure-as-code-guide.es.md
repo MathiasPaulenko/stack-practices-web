@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Infrastructure as Code — Terraform y Pulumi
-
 ## Introducción
 
 Infrastructure as Code (IaC) es la práctica de gestionar y provisionar infraestructura mediante archivos de definición legibles por máquina en lugar de configuración manual. Convierte cambios de infraestructura en operaciones repetibles, revisables y versionadas. Consulta [CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización de despliegue. Esta guía compara enfoques declarativo e imperativo, cubre Terraform y Pulumi, y proporciona lo que funciona para uso en producción.

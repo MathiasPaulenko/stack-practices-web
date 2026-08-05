@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Configurar un gateway de GraphQL Federation con Apollo
-
 Apollo Federation permite dividir una API GraphQL monolitica en subgrafos desplegables independientemente. Un gateway compone los subgrafos en un unico supergrafo y enruta cada consulta al servicio correcto. Entidades como `User` o `Product` pueden definirse en un subgrafo y extenderse en otros, para que los equipos gestionen sus dominios sin un archivo de schema compartido.
 
 ## Cuando Usar Esto

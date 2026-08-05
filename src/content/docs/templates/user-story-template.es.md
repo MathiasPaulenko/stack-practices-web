@@ -32,8 +32,6 @@ seo:
 
 ---
 
-# Plantilla de User Story y Criterios de Aceptación
-
 Usa esta plantilla para escribir user stories listas para desarrollo y testing. Combínala con la [Plantilla de Solicitud de Feature](/docs/templates/feature-request-template) para propuestas iniciales y la [Guía de Test-Driven Development](/guides/testing/test-driven-development-guide) para workflows test-first.
 
 ## Plantilla

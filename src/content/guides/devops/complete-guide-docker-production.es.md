@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-docker-production
-title: "Referencia Detallada de Docker en Producción"
+title: "Docker en Producción"
 description: "Ejecutar contenedores Docker en produccion con confianza. Cubre multi-stage builds, imagenes distroless, health checks, image scanning, resource limits, logging, secrets, multi-arch builds y seguridad del container runtime con ejemplos practicos de Dockerfiles."
 metaDescription: "Ejecutar Docker en produccion. Cubre multi-stage builds, distroless, health checks, image scanning, resource limits, logging, secrets, multi-arch."
 difficulty: advanced

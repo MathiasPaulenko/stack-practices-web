@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Graceful Degradation
-
 ## Descripción general
 
 Cuando una dependencia downstream falla, el comportamiento por defecto es devolver un error al usuario. Graceful degradation hace lo opuesto: detecta el fallo y sirve una experiencia reducida pero funcional. Si el servicio de recomendaciones esta caido, muestra productos sin recomendaciones. Si la API de busqueda hace timeout, muestra resultados cacheados. Si el gateway de pago no esta disponible, deja a los usuarios seguir comprando y encola el pago para despues.

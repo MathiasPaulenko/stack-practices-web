@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Estrategias y patrones de invalidacion de cache CDN
-
 El caching CDN reduce latencia y carga del origen, pero el contenido cacheado puede volverse obsoleto. La invalidacion le dice al CDN que obtenga una copia fresca del origen. El siguiente enfoque cubre cuatro estrategias de invalidacion — purge por URL, invalidacion por surrogate key (tags), URLs versionadas y soft purge — con ejemplos de codigo para Cloudflare y Fastly.
 
 ## Cuando Usar Esto

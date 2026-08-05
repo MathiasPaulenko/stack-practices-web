@@ -38,8 +38,6 @@ seo:
 
 
 ---
-# Implementar una API GraphQL
-
 ## Visión General
 
 GraphQL es un lenguaje de consultas y un runtime para APIs que permite a los clientes solicitar exactamente los datos que necesitan. A diferencia de REST, donde el servidor define la estructura de la respuesta, GraphQL pone al cliente en control — reduciendo el over-fetching y under-fetching mientras proporciona tipado fuerte a través de schemas.

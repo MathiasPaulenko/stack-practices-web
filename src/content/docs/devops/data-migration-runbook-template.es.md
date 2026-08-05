@@ -71,11 +71,10 @@ Antes de comenzar:
 
 ### Sistema Fuente
 ```bash
-# Verificar integridad del backup
 pg_dump -h source.db.internal -U admin mydb | gzip > /backups/pre-migration.sql.gz
 gunzip -t /backups/pre-migration.sql.gz
 
-# Registrar metricas baseline
+## Registrar metricas baseline
 psql -h source.db.internal -c "SELECT pg_size_pretty(pg_database_size('mydb'));"
 psql -h source.db.internal -c "SELECT COUNT(*) FROM orders;"
 psql -h source.db.internal -c "SELECT MAX(updated_at) FROM orders;"
@@ -118,16 +117,16 @@ psql -h source.db.internal -c "SELECT MAX(updated_at) FROM orders;"
 ## 3. Ejecucion de Prueba en Seco
 
 ```bash
-# Ejecutar migracion en una copia de datos de produccion
-# NO conectar a sistemas de produccion
+## Ejecutar migracion en una copia de datos de produccion
+## NO conectar a sistemas de produccion
 
 cp /backups/pre-migration.sql.gz /tmp/dry-run.sql.gz
 gunzip /tmp/dry-run.sql.gz
 
-# Ejecutar script de migracion
+## Ejecutar script de migracion
 psql -h target-staging.db.internal -f /tmp/dry-run.sql
 
-# Validar prueba en seco
+## Validar prueba en seco
 ./scripts/validate-migration.sh \
   --source source-staging.db.internal \
   --target target-staging.db.internal
@@ -146,7 +145,7 @@ psql -h target-staging.db.internal -f /tmp/dry-run.sql
 
 ### Paso 4a: Backup Final
 ```bash
-# Crear backup point-in-time inmediatamente antes de la migracion
+## Crear backup point-in-time inmediatamente antes de la migracion
 aws rds create-db-snapshot \
   --db-instance-identifier source-db \
   --db-snapshot-identifier pre-migration-$(date +%Y%m%d-%H%M%S)
@@ -154,38 +153,38 @@ aws rds create-db-snapshot \
 
 ### Paso 4b: Detener Escrituras (si se usa Big Bang)
 ```bash
-# Configurar aplicacion a solo lectura
+## Configurar aplicacion a solo lectura
 curl -X POST http://app.internal/admin/maintenance-mode
 
-# Verificar que no hay escrituras activas
+## Verificar que no hay escrituras activas
 psql -h source.db.internal -c "SELECT COUNT(*) FROM pg_stat_activity WHERE state = 'active';"
 ```
 
 ### Paso 4c: Ejecutar Migracion
 ```bash
-# Registrar tiempo de inicio de migracion
+## Registrar tiempo de inicio de migracion
 MIGRATION_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 echo "Migracion iniciada: $MIGRATION_START"
 
-# Ejecutar migracion
+## Ejecutar migracion
 psql -h target.db.internal -f migration-script.sql 2>&1 | tee migration.log
 
-# Registrar tiempo de fin de migracion
+## Registrar tiempo de fin de migracion
 MIGRATION_END=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 echo "Migracion finalizada: $MIGRATION_END"
 ```
 
 ### Paso 4d: Reanudar Escrituras (si aplica)
 ```bash
-# Verificar que destino es saludable antes de cambiar escrituras
+## Verificar que destino es saludable antes de cambiar escrituras
 curl -X POST http://app.internal/admin/target-health-check
 
-# Cambiar aplicacion a destino
+## Cambiar aplicacion a destino
 curl -X POST http://app.internal/admin/switch-datastore \
   -H "Content-Type: application/json" \
   -d '{"target": "new-database"}'
 
-# Reanudar operaciones normales
+## Reanudar operaciones normales
 curl -X POST http://app.internal/admin/normal-mode
 ```
 
@@ -217,10 +216,10 @@ SELECT COUNT(*) FROM target.orders WHERE created_at IS NULL;
 
 ### Smoke Tests de Aplicacion
 ```bash
-# Flujos criticos de usuario
+## Flujos criticos de usuario
 ./scripts/smoke-test.sh --environment=production
 
-# Comparacion de baseline de rendimiento
+## Comparacion de baseline de rendimiento
 ./scripts/performance-test.sh --target=new-db --baseline=old-db
 ```
 
@@ -244,18 +243,18 @@ Rollback si OCURRE CUALQUIERA de los siguientes:
 
 ### Pasos de Rollback
 ```bash
-# 1. Detener escrituras a destino inmediatamente
+## 1. Detener escrituras a destino inmediatamente
 curl -X POST http://app.internal/admin/maintenance-mode
 
-# 2. Cambiar aplicacion de vuelta a fuente
+## 2. Cambiar aplicacion de vuelta a fuente
 curl -X POST http://app.internal/admin/switch-datastore \
   -d '{"target": "source-database"}'
 
-# 3. Reanudar operaciones en fuente
+## 3. Reanudar operaciones en fuente
 curl -X POST http://app.internal/admin/normal-mode
 
-# 4. NO BORRAR datos de destino hasta que se resuelva la causa raiz
-# 5. Documentar todos los hallazgos para el postmortem
+## 4. NO BORRAR datos de destino hasta que se resuelva la causa raiz
+## 5. Documentar todos los hallazgos para el postmortem
 ```
 
 | Paso de Rollback | Estado | Tiempo |

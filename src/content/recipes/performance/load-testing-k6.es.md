@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Testing de Carga de APIs con k6 y Aserciones Basadas en Umbrales
-
 k6 es una herramienta moderna de testing de carga construida para desarrolladores. Usa JavaScript para scripting de tests y proporciona metricas integradas, aserciones de umbrales y escenarios modulares que te ayudan a validar requerimientos de rendimiento antes de que el codigo llegue a produccion.
 
 ## Cuando Usar Esto

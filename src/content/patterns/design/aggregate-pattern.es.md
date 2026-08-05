@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patrón Aggregate
-
 ## Descripción General
 
 El Patrón Aggregate es un bloque fundamental de Domain-Driven Design (DDD). Un aggregate es un cluster de objetos asociados tratado como una única unidad para cambios de datos. Cada aggregate tiene una entidad raíz — el Aggregate Root — que controla el acceso a sus miembros internos.

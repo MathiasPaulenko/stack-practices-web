@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Plantilla de Reporte de Bug
-
 Usa esta plantilla para reportar bugs de manera que ayude a ingenieros a reproducirlos y corregirlos rápidamente.
 
 ## Resumen

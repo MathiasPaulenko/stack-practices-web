@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Abstract Factory para Familias de Componentes UI Cross-Platform
-
 El Abstract Factory pattern provee una interfaz para crear familias de objetos relacionados sin especificar sus clases concretas. Cuando un sistema debe ser independiente de como sus productos son creados, compuestos y representados — especialmente a traves de plataformas o temas — Abstract Factory asegura consistencia dentro de cada familia mientras permite implementaciones intercambiables.
 
 ## Cuando Usar Esto

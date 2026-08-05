@@ -49,8 +49,6 @@ seo:
 
 ---
 
-# Web Application Security (OWASP Top 10)
-
 ## Introduction
 
 The OWASP Top 10 is a standard awareness document for web application security risks. This guide translates each risk into practical prevention techniques with code examples.

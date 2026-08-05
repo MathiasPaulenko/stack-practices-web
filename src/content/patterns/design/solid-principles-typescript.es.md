@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Principios SOLID en TypeScript con Ejemplos Practicos
-
 Los [principios SOLID](/guides/design/solid-principles-guide) proporcionan un marco para escribir codigo orientado a objetos mantenible. Aplicados a TypeScript, ayudan a prevenir los problemas comunes de clases fuertemente acopladas, jerarquias de herencia fragiles y grafos de dependencias inmantenibles.
 
 ## Cuando Usar Esto

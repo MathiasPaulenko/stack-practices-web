@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Outbox Pattern
-
 ## Overview
 
 The Outbox Pattern guarantees reliable delivery of domain events in distributed systems by writing events to an "outbox" database table within the same transaction as the business operation. A separate relay process reads unpublished events from the outbox and forwards them to a message broker.

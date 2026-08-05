@@ -20,12 +20,14 @@ const enTagIndex = await buildTagIndex('en');
 const hasEnVersion = enTagIndex.has(tag);
 
 const heading = `Etiqueta: ${tag}`;
-const description = `Explora ${items.length} recursos prácticos de ingeniería de software etiquetados con "${tag}". Descubre recetas de código, patrones de diseño, plantillas de documentación y guías detalladas para ayudarte a construir, desplegar y mantener soluciones listas para producción con ${tag}.`;
+const resourceCount = items.length;
+const metaDescription = `Explora ${resourceCount} recursos de ${tag}: recetas, patrones, documentación y guías para ingeniería de software en producción.`;
+const pageDescription = `Explora ${resourceCount} recursos prácticos de ingeniería de software etiquetados con "${tag}". Descubre recetas de código, patrones de diseño, plantillas de documentación y guías detalladas para ayudarte a construir, desplegar y mantener soluciones listas para producción con ${tag}.`;
 
 const intro = tagIntros[tag]?.es;
 
 const jsonLd = [
-  webPage({ name: heading, description, url: `/es/tags/${tag}`, locale: 'es' }),
+  webPage({ name: heading, description: metaDescription, url: `/es/tags/${tag}`, locale: 'es' }),
   breadcrumbList([
     { name: 'Inicio', url: '/es/' },
     { name: 'Etiquetas', url: '/es/tags/' },
@@ -34,7 +36,7 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout title={heading} description={description} path={`/tags/${tag}/`} locale="es" keywords={[tag, 'etiquetas', 'ingeniería de software']} jsonLd={jsonLd} hasAlternate={hasEnVersion}>
+<BaseLayout title={heading} description={metaDescription} path={`/tags/${tag}/`} locale="es" keywords={[tag, 'etiquetas', 'ingeniería de software']} jsonLd={jsonLd} hasAlternate={hasEnVersion}>
   <section class="border-b border-slate-800 bg-slate-900">
     <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-400">
@@ -45,7 +47,7 @@ const jsonLd = [
         <span class="font-medium text-slate-300">{tag}</span>
       </nav>
       <h1 class="mt-4 text-3xl font-bold text-white">{heading}</h1>
-      <p class="mt-2 max-w-2xl text-slate-300">{description}</p>
+      <p class="mt-2 max-w-2xl text-slate-300">{pageDescription}</p>
     </div>
   </section>
 

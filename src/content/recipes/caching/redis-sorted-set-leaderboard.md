@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Build a Real-Time Leaderboard with Redis Sorted Sets
-
 Redis sorted sets (ZSETs) store unique members ordered by score. They are the ideal data structure for leaderboards — you can update a score, get a rank, and fetch the top N players in logarithmic time. This recipe builds a leaderboard service with score updates, rank queries, and pagination.
 
 ## When to Use This

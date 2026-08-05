@@ -101,74 +101,73 @@ Before defining the strategy:
 ### Feature Development
 
 ```bash
-# 1. Start from latest develop
 git checkout develop
 git pull origin develop
 
-# 2. Create feature branch
+## 2. Create feature branch
 git checkout -b feature/PROJ-123-add-user-auth
 
-# 3. Work and commit locally
+## 3. Work and commit locally
 git commit -m "feat: add OAuth2 login endpoint"
 git commit -m "test: add auth integration tests"
 
-# 4. Push and open PR when ready
+## 4. Push and open PR when ready
 git push origin feature/PROJ-123-add-user-auth
-# Open PR to develop, fill out template
+## Open PR to develop, fill out template
 
-# 5. After approval and CI green, merge
+## 5. After approval and CI green, merge
 git checkout develop
 git merge --no-ff feature/PROJ-123-add-user-auth
-# Or use squash merge via GitHub/GitLab UI
+## Or use squash merge via GitHub/GitLab UI
 ```
 
 ### Hotfix Workflow
 
 ```bash
-# 1. Start from main
+## 1. Start from main
 git checkout main
 git pull origin main
 
-# 2. Create hotfix branch
+## 2. Create hotfix branch
 git checkout -b hotfix/PROJ-456-fix-payment-webhook
 
-# 3. Fix, test, commit
+## 3. Fix, test, commit
 git commit -m "fix: validate webhook signature before processing"
 
-# 4. Open PR to main (expedited review)
+## 4. Open PR to main (expedited review)
 git push origin hotfix/PROJ-456-fix-payment-webhook
-# Request emergency review; target: main
+## Request emergency review; target: main
 
-# 5. After merge to main, backport to develop
+## 5. After merge to main, backport to develop
 git checkout develop
 git cherry-pick <hotfix-commit>
-# Or merge main into develop
+## Or merge main into develop
 ```
 
 ### Release Workflow
 
 ```bash
-# 1. Create release branch from develop
+## 1. Create release branch from develop
 git checkout develop
 git pull origin develop
 git checkout -b release/v1.2.3
 
-# 2. Version bump, update changelog, final QA
+## 2. Version bump, update changelog, final QA
 git commit -m "chore: bump version to 1.2.3"
 
-# 3. Merge to staging for final validation
+## 3. Merge to staging for final validation
 git checkout staging
 git merge --no-ff release/v1.2.3
 
-# 4. After staging validation, merge to main
+## 4. After staging validation, merge to main
 git checkout main
 git merge --no-ff release/v1.2.3
 
-# 5. Tag the release
+## 5. Tag the release
 git tag -a v1.2.3 -m "Release version 1.2.3"
 git push origin v1.2.3
 
-# 6. Merge back to develop to capture release commits
+## 6. Merge back to develop to capture release commits
 git checkout develop
 git merge --no-ff main
 ```
@@ -254,13 +253,13 @@ We follow [Semantic Versioning](https://semver.org/):
 ### Tag Format
 
 ```bash
-# Production releases
+## Production releases
 git tag -a v1.2.3 -m "Release v1.2.3"
 
-# Pre-releases
+## Pre-releases
 git tag -a v1.2.3-rc.1 -m "Release candidate 1"
 
-# Hotfixes
+## Hotfixes
 git tag -a v1.2.4 -m "Hotfix: fix payment webhook validation"
 ```
 
@@ -280,30 +279,30 @@ git tag -a v1.2.4 -m "Hotfix: fix payment webhook validation"
 ### Rolling Back a Deployment
 
 ```bash
-# Identify last known good tag
+## Identify last known good tag
 git log --oneline --decorate --tags
 
-# Revert to previous tag
+## Revert to previous tag
 git checkout v1.2.2
 
-# Create hotfix branch for rollback
+## Create hotfix branch for rollback
 git checkout -b hotfix/rollback-v1.2.3
 
-# Deploy rollback
+## Deploy rollback
 git push origin hotfix/rollback-v1.2.3
-# Open emergency PR to main
+## Open emergency PR to main
 ```
 
 ### Reverting a Merge
 
 ```bash
-# Find the merge commit
+## Find the merge commit
 git log --oneline --merges
 
-# Revert the merge (creates new revert commit)
+## Revert the merge (creates new revert commit)
 git revert -m 1 <merge-commit-hash>
 
-# Open PR with revert commit
+## Open PR with revert commit
 ```
 
 ---

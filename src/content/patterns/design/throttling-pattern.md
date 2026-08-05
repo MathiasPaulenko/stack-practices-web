@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Throttling Pattern
-
 ## Overview
 
 The Throttling Pattern controls the rate at which a system processes requests or consumes resources to prevent overload and ensure fair resource allocation. Instead of accepting all incoming requests immediately, the system limits the rate based on capacity, user tiers, or resource availability.

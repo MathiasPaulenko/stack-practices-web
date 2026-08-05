@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Cache Function Results with Redis and TTL in Python
-
 Caching expensive function results in Redis reduces latency and database load. A decorator approach lets you add caching to any function with a single `@cached` annotation, keeping business logic clean. This recipe builds a Redis-backed cache decorator with automatic key generation, JSON serialization, configurable TTL, and manual invalidation.
 
 ## When to Use This

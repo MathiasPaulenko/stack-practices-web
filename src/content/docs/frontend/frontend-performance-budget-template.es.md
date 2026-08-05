@@ -171,7 +171,6 @@ Un performance budget setea limits en el size y timing de resources que componen
 ### Bundle Size Check
 
 ```yaml
-# .github/workflows/performance-budget.yml
 name: Performance Budget Check
 on: [pull_request]
 

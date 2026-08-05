@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Cursor-Based Pagination with PostgreSQL
-
 Offset-based pagination (`LIMIT 20 OFFSET 10000`) degrades linearly as offsets grow because PostgreSQL must scan and discard all preceding rows. Cursor-based (keyset) pagination uses indexed columns to seek directly to the starting point, maintaining constant-time performance regardless of dataset size. This implementation provides cursor pagination with PostgreSQL, including cursor encoding, bidirectional navigation, and edge cases with duplicate sort keys.
 
 ## When to Use This

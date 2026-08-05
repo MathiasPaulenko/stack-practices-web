@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Unit of Work Pattern
-
 ## Overview
 
 The Unit of Work Pattern maintains a list of objects affected by a business transaction and coordinates writing out changes to the database as a single atomic operation. Rather than saving each entity change immediately, the Unit of Work tracks insertions, updates, and deletions, then commits them all together — or rolls them all back on failure.

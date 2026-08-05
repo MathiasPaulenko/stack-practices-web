@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Complete Guide to Web Security Headers
-
 ## Introduction
 
 HTTP security headers tell the browser how to behave when handling your site's content. They prevent clickjacking, XSS, MIME-type sniffing, downgrade attacks, and information leakage. Here is a hands-on guide to every major security header, how to configure them, and how to test that they work.

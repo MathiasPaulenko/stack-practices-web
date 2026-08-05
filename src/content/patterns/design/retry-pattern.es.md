@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patrón Retry
-
 ## Resumen
 
 El Patrón Retry es un patrón de resiliencia que maneja fallas transitorias reintentando una operación fallida. Las fallas transitorias son típicamente causadas por condiciones temporales como congestión de red, indisponibilidad temporal de servicios o timeouts. El patrón usa estrategias configurables — delay fijo, lineal o backoff exponencial — para evitar saturar el sistema objetivo.

@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Manager Pattern
-
 ## Overview
 
 The Manager Pattern encapsulates the lifecycle, coordination, and access control for a set of related objects through a dedicated manager class. Rather than scattering object creation, lookup, and cleanup logic across the codebase, a manager centralizes these operations and enforces invariants.

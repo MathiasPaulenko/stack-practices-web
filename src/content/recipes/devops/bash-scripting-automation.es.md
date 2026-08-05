@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Scripting en Bash para Automatizacion DevOps y Tareas de Sistema
-
 Bash sigue siendo la lingua franca de administracion de sistemas y automatizacion DevOps. Un script bien estructurado con manejo de errores apropiado, logging y validacion puede automatizar despliegues, rotar logs, monitorear servicios y realizar mantenimiento rutinario en cualquier ambiente Unix-like sin dependencias externas.
 
 ## Cuando Usar Esto

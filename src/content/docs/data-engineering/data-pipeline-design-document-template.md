@@ -468,20 +468,19 @@ extract_orders >> stage_orders >> run_dbt >> quality_check >> load_redshift >> e
 ### Manual Re-run
 
 ```bash
-# Trigger DAG manually for a specific date
 airflow dags trigger orders_etl_pipeline --conf '{"date": "2026-07-04"}'
 
-# Re-run from a specific task
+## Re-run from a specific task
 airflow tasks run orders_etl_pipeline run_dbt_transforms 2026-07-05
 
-# Clear task state and re-run
+## Clear task state and re-run
 airflow tasks clear orders_etl_pipeline -t run_dbt_transforms -s 2026-07-05 -e 2026-07-05
 ```
 
 ### Backfill Procedure
 
 ```bash
-# Backfill for a date range
+## Backfill for a date range
 airflow dags backfill orders_etl_pipeline \
   --start-date 2026-06-01 \
   --end-date 2026-06-30 \

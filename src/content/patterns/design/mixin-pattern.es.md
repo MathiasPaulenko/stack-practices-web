@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrón Mixin
-
 ## Descripción General
 
 El Patrón Mixin agrega comportamiento reutilizable a clases sin usar herencia. Un mixin es una colección de métodos que pueden copiarse o componerse en una clase destino, dándole nuevas capacidades. A diferencia de la herencia, los mixins no crean una relación "es-un" — simplemente inyectan comportamiento.

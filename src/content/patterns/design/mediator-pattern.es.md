@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patrón Mediator
-
 ## Visión General
 
 El [Patrón Mediator](/patterns/design/mediator-pattern-components) es un patrón de diseño de comportamiento que define un objeto que encapsula cómo interactúa un conjunto de objetos. En lugar de que los objetos se refieran entre sí directamente, se comunican a través de un mediador central. Esto reduce el número de conexiones directas entre componentes y centraliza la lógica de coordinación compleja.

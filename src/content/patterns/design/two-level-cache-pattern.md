@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Two-Level Cache Pattern
-
 ## Overview
 
 A two-level cache combines an L1 in-memory cache (fast, local, limited size) with an L2 distributed cache (slower, shared, larger capacity). L1 serves hot keys at memory speed with zero network overhead. L2 provides shared cache state across application instances and handles the full dataset.

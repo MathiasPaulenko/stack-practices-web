@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Visitor Pattern for Extensible Operations on Object Structures
-
 The [Visitor](/patterns/design/visitor-pattern) pattern separates an algorithm from the object structure it operates on. By moving operations into visitor classes, you can add new behaviors to a class hierarchy without modifying existing element classes. This is ideal when operations change frequently but the object structure remains stable.
 
 ## When to Use This

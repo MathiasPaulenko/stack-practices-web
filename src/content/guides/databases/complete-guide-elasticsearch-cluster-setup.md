@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Complete Guide to Elasticsearch Cluster Setup
-
 ## Introduction
 
 Elasticsearch is a distributed search and analytics engine. It handles full-text search, structured search, analytics, and vector search. Running it in production requires understanding node roles, sharding strategies, mapping, and cluster health. The following walks through cluster architecture, deployment, index management, mapping, snapshots, and production tuning.

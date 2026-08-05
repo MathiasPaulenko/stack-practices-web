@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Patrón Object Pool
-
 ## Descripción General
 
 El Patrón Object Pool reutiliza objetos costosos de crear en lugar de instanciarlos y destruirlos bajo demanda. Los objetos se extraen de un pool pre-inicializado, se usan y se devuelven para futura reutilización. Este patrón es esencial cuando la creación de objetos es costosa en tiempo o memoria, como conexiones de base de datos, threads o bitmaps grandes.

@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Active Record Pattern
-
 ## Overview
 
 The Active Record Pattern wraps a database table in a class where each instance represents a single row. The object carries both data (attributes) and behavior (CRUD methods). Calling `user.save()` persists the object directly to the database without a separate data access layer.

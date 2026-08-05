@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Service Level Objective (SLO) Document Template
-
 Use this template to define reliability targets that balance user happiness with engineering velocity. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for metric collection and [On-Call Incident Response Guide](/guides/devops/on-call-incident-response-guide) for escalation procedures.
 
 ## Template

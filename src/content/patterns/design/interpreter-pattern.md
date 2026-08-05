@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Interpreter Pattern
-
 ## Overview
 
 The [Interpreter](/patterns/design/interpreter-pattern-expressions) Pattern is a behavioral design pattern that defines a representation for a language's grammar along with an interpreter that uses the representation to interpret sentences in the language. It is ideal for building small domain-specific languages (DSLs), expression evaluators, query parsers, and rule engines.

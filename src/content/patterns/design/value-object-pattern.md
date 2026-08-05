@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Value Object Pattern
-
 ## Overview
 
 A Value Object is an immutable object defined entirely by its attributes, not by a unique identity. Two value objects with the same values are considered equal regardless of whether they are the same instance. Money, dates, coordinates, and email addresses are classic examples.

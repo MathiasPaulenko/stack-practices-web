@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Bridge Pattern for Decoupling UI Components from Themes
-
 The Bridge pattern decouples an abstraction from its implementation so that the two can vary independently. Instead of a class hierarchy that combines component types with rendering platforms, Bridge creates two separate hierarchies: one for abstractions (components) and one for implementations (renderers or themes).
 
 ## When to Use This

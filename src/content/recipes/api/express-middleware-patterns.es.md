@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Patrones de Composicion de Middleware en Express.js
-
 El middleware de Express es la columna vertebral de la arquitectura de APIs en Node.js, pero cadenas de middleware profundamente anidadas o duplicadas rapidamente se vuelven inmantenibles. Esta recipe cubre patrones de composicion para [autenticación](/guides/security/api-security-checklist-guide), [validación](/recipes/security/data-validation-zod), [manejo de errores](/recipes/api/handle-errors), propagacion de contexto de request y wrappers de rutas async que mantienen los route handlers limpios y testeables.
 
 ## Cuando Usar Esto

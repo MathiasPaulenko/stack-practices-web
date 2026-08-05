@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patron Cache Invalidation
-
 ## Descripcion general
 
 La invalidacion de cache elimina o actualiza entradas stale para que las lecturas subsiguientes obtengan datos frescos. Sin invalidacion, el cache sirve datos desactualizados indefinidamente. El reto es saber cuando cambian los datos y actuar rapidamente sin anadir overhead excesivo.

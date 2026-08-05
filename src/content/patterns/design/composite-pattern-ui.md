@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Composite Pattern for UI Component Trees in React
-
 The Composite pattern composes objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly. In React, this pattern appears naturally when rendering nested component trees where a container holds both leaf elements and other containers. See the general [Composite Pattern](/patterns/design/composite-pattern) for language-agnostic examples.
 
 ## When to Use This

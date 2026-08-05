@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrón Type Object
-
 ## Descripción General
 
 El Patrón Type Object define tipos de entidades de juego (monstruos, items, hechizos) como datos en runtime en lugar de codificarlos como clases. Cada tipo es representado por un objeto de datos compartido, y las instancias individuales simplemente referencian su tipo. Esto permite a los diseñadores crear nuevas variantes de entidades (ej. una nueva raza de monstruo) editando archivos de datos o bases de datos sin recompilar el codebase.

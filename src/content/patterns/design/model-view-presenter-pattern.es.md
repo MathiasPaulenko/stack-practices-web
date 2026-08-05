@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Patrón Model-View-Presenter (MVP)
-
 ## Descripción General
 
 El Patrón Model-View-Presenter (MVP) separa una aplicación en tres componentes: el **Model** (lógica de negocio y datos), la **View** (display de UI) y el **Presenter** (mediador que maneja input de usuario y actualiza tanto Model como View). La View es pasiva — delega todas las acciones de usuario al Presenter y es actualizada por el Presenter en respuesta.

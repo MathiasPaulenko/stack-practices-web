@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patron GraphQL Federated Entity
-
 ## Descripcion general
 
 En Apollo Federation, una entidad es un object type compartido entre multiples subgrafos. Cada subgrafo contribuye diferentes campos a la misma entidad. El gateway los une para que los clientes consulten un tipo unificado sin saber que servicio gestiona cada campo.

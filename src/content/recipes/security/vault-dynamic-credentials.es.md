@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Credenciales en Vivo de Base de Datos con HashiCorp Vault
-
 Las credenciales de base de datos hardcodeadas en archivos de configuracion son un riesgo persistente de seguridad. HashiCorp Vault resuelve esto generando credenciales gestionadas en vivo que se crean bajo demanda y se revocan automaticamente despues de un TTL configurable.
 
 ## Cuando Usar Esto

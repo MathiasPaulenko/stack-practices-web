@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Patron Serverless Fanout
-
 ## Descripcion general
 
 El patron fanout difunde un solo evento a multiples consumidores independientes. Un productor publica un mensaje en un topic (SNS, EventBridge). El topic entrega una copia a cada suscriptor (cola SQS, Lambda, endpoint HTTP). Cada consumidor procesa el evento independientemente, a su propio ritmo, sin afectar a otros.

@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Proxy Pattern
-
 ## Overview
 
 The [Proxy](/patterns/design/proxy-pattern-caching) Pattern is a structural design pattern that provides a surrogate or placeholder for another object. The proxy controls access to the real subject, adding a layer of indirection that can be used for lazy loading, access control, caching, logging, or monitoring — without changing the subject's code.

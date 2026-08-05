@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Configure Nginx as a Reverse Proxy and API Gateway
-
 Nginx is a high-performance web server that excels as a reverse proxy and API gateway. It handles SSL termination, load balancing across multiple backends, path-based routing, and rate limiting — all with minimal memory overhead and predictable performance under high concurrency.
 
 ## When to Use This

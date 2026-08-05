@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# SOLID Principles Explained with Examples
-
 ## Introduction
 
 SOLID is an acronym for five design principles that make software designs more understandable, flexible, and maintainable. They were introduced by Robert C. Martin and are foundational to object-oriented design.

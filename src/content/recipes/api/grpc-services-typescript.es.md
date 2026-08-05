@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Servicios gRPC con Protocol Buffers en TypeScript
-
 Construye APIs de alto rendimiento e independientes de lenguaje usando gRPC con Protocol Buffers. Esta recipe cubre definiciones de servicios en protobuf, generacion de codigo con TypeScript, llamadas unarias, patrones de streaming, interceptors para cross-cutting concerns y health checking para servicios de produccion.
 
 ## Cuando Usar Esto

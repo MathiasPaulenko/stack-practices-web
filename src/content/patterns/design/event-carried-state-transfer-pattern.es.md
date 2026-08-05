@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patrón Event-Carried State Transfer
-
 ## Descripción General
 
 El Patrón Event-Carried State Transfer (ECST) replica cambios de estado a través de servicios distribuidos publicando eventos que llevan el estado completo actualizado de la entidad. Cuando un servicio modifica una entidad, emite un evento conteniendo el nuevo estado completo de esa entidad. Los servicios consumidores almacenan este estado localmente, eliminando la necesidad de consultar el servicio origen para lecturas.

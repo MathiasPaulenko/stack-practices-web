@@ -38,8 +38,6 @@ seo:
 
 
 ---
-# Create API Documentation with OpenAPI
-
 ## Overview
 
 OpenAPI (formerly Swagger) is the industry standard for describing [REST APIs](/recipes/api/rest-api-design). A well-maintained OpenAPI spec works as the single source of truth for your API — generating interactive documentation, client SDKs, and automated tests from one YAML or JSON file.

@@ -49,8 +49,6 @@ seo:
 
 ---
 
-# Patrón Observer
-
 ## Visión general
 
 El Patrón Observer es un patrón de diseño conductual que define un mecanismo de suscripción para notificar a múltiples objetos sobre eventos que ocurren en el objeto que están observando. Establece una dependencia uno-a-muchos entre objetos.

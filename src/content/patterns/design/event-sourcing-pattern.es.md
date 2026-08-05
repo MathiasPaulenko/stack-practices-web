@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Event Sourcing
-
 ## Resumen
 
 El Patrón Event Sourcing almacena el estado de una aplicación como una secuencia de eventos en lugar de almacenar solo el estado actual. En lugar de actualizar un registro in-place, añades un evento describiendo lo que sucedió. El estado actual se deriva reproduciendo todos los eventos de una entidad. Esto proporciona un trail de auditoría completo, consultas temporales y la capacidad de reconstruir el estado en cualquier momento.

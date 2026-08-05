@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patron Serverless Throttling
-
 ## Descripcion general
 
 Las funciones serverless escalan automaticamente, pero los servicios downstream (bases de datos, APIs) a menudo no pueden manejar el trafico burst que la concurrencia Lambda produce. El patron throttling controla la tasa a la que las funciones Lambda procesan eventos, protegiendo los sistemas downstream de sobrecarga.

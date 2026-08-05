@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Flyweight Pattern for Efficient Large-Scale Object Sharing
-
 The [Flyweight](/patterns/design/flyweight-pattern) pattern minimizes memory usage by sharing as much data as possible between similar objects. When an application needs to create thousands of objects that share most of their state, Flyweight extracts the shared (intrinsic) state into a separate shared object, leaving only the unique (extrinsic) state in each instance.
 
 ## When to Use This

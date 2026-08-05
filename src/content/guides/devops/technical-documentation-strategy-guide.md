@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Technical Documentation Strategy: Docs as Code
-
 ## Introduction
 
 Documentation is the single highest-impact activity in software engineering. A well-documented system reduces onboarding time, prevents repeated mistakes, and preserves context across team changes. Treating docs as code means applying the same rigor — version control, code review, automated checks — to documentation that you apply to source code.

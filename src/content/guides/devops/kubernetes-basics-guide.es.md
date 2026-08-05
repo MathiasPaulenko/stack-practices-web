@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Kubernetes Básico para Desarrolladores de Aplicaciones
-
 ## Introducción
 
 Kubernetes (K8s) es una plataforma open-source de orquestación de contenedores. Automatiza el despliegue, el escalado y la gestión de aplicaciones containerizadas. Como desarrollador, necesitas entender las abstracciones core para desplegar y depurar tus aplicaciones bien.

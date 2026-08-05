@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Bridge Pattern para Desacoplar Componentes UI de Temas
-
 El Bridge pattern desacopla una abstraccion de su implementacion para que ambas puedan variar independientemente. En lugar de una jerarquia de clases que combina tipos de componentes con plataformas de renderizado, Bridge crea dos jerarquias separadas: una para abstracciones (componentes) y otra para implementaciones (renderizadores o temas).
 
 ## Cuando Usar Esto

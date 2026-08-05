@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Operaciones CRUD con MongoDB y Mongoose
-
 Mongoose proporciona una solucion basada en esquemas para modelar datos de aplicaciones en MongoDB. Maneja conversion de tipos, validacion, construccion de consultas y hooks de logica de negocio, haciendolo el ODM mas popular en el ecosistema Node.js.
 
 ## Cuando Usar Esto

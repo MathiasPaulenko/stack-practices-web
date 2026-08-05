@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Secure JWT Refresh Token Rotation with Python
-
 JWT access tokens are short-lived (15-30 minutes) to limit exposure if stolen. Refresh tokens last longer but must be rotated — each use issues a new refresh token and invalidates the old one. Below: secure token rotation with reuse detection and blacklisting.
 
 ## When to Use This

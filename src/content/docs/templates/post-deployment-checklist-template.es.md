@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Plantilla de Checklist Post-Deploy
-
 Usa este checklist antes de declarar un deployment exitoso. Combínalo con la [Plantilla de Release Notes](/docs/templates/release-notes-template) para comunicación y la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización.
 
 ## Resumen

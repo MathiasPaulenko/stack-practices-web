@@ -327,63 +327,62 @@ Un ETL job runbook le da a operators los procedures para start, stop, monitorear
 ### Full Pipeline Re-run
 
 ```bash
-# 1. Cleareá all task states para el date
 airflow tasks clear orders_etl_pipeline -s 2026-07-05 -e 2026-07-05
 
-# 2. Trigger DAG manually
+## 2. Trigger DAG manually
 airflow dags trigger orders_etl_pipeline --conf '{"date": "2026-07-05"}'
 
-# 3. Monitoreá progress
+## 3. Monitoreá progress
 airflow dags state orders_etl_pipeline 2026-07-05
 ```
 
 ### Partial Re-run (desde specific task)
 
 ```bash
-# 1. Cleareá task y downstream tasks
+## 1. Cleareá task y downstream tasks
 airflow tasks clear orders_etl_pipeline -t run_dbt_transforms -d -s 2026-07-05 -e 2026-07-05
 
-# 2. Re-run desde specific task
+## 2. Re-run desde specific task
 airflow tasks run orders_etl_pipeline run_dbt_transforms 2026-07-05
 
-# 3. Monitoreá
+## 3. Monitoreá
 airflow tasks list orders_etl_pipeline --state running
 ```
 
 ### Backfill Procedure
 
 ```bash
-# 1. Pausá el DAG para prevenir concurrent runs
+## 1. Pausá el DAG para prevenir concurrent runs
 airflow dags pause orders_etl_pipeline
 
-# 2. Corré backfill para date range
+## 2. Corré backfill para date range
 airflow dags backfill orders_etl_pipeline \
   --start-date 2026-07-01 \
   --end-date 2026-07-05 \
   --reset-dagruns \
   --run-backwards
 
-# 3. Monitoreá backfill progress
+## 3. Monitoreá backfill progress
 airflow dags list-runs -d orders_etl_pipeline --limit 10
 
-# 4. Unpauseá el DAG
+## 4. Unpauseá el DAG
 airflow dags unpause orders_etl_pipeline
 ```
 
 ### Emergency Shutdown
 
 ```bash
-# 1. Pausá el DAG
+## 1. Pausá el DAG
 airflow dags pause orders_etl_pipeline
 
-# 2. Markeá all running tasks como failed
+## 2. Markeá all running tasks como failed
 airflow tasks clear orders_etl_pipeline -s 2026-07-05 -e 2026-07-05 --only-failed
 
-# 3. Checkeá que no tasks estén running
+## 3. Checkeá que no tasks estén running
 airflow tasks list orders_etl_pipeline --state running
 
-# 4. Notificá team
-# Enviá message a #data-platform Slack channel
+## 4. Notificá team
+## Enviá message a #data-platform Slack channel
 ```
 
 ## 6. Contacts and Escalation

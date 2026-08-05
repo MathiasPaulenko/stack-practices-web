@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Implement Server-Sent Events in Go for Real-Time Updates
-
 Server-Sent Events provide a lightweight, uni-directional channel for pushing real-time updates from server to client over HTTP. Unlike WebSockets, SSE uses standard HTTP connections, requires no protocol upgrade, and automatically handles reconnection through the browser's built-in EventSource API.
 
 ## When to Use This

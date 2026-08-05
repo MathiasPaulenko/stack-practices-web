@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Cache Stampede Prevention Pattern
-
 ## Overview
 
 A cache stampede (also called thundering herd or dogpile) occurs when a popular cache key expires and many concurrent requests miss simultaneously. All miss requests flood the database with the same query, causing a spike in database load that can cascade into timeouts and outages.

@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Complete Guide to Kubernetes Ingress
-
 ## Introduction
 
 Kubernetes Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. It provides name-based virtual hosting, path-based routing, TLS termination, and other Layer 7 features that a plain Service (Layer 4) cannot. Below is a practical guide to installing an Ingress controller, configuring routing rules, enabling TLS, using annotations, and troubleshooting common issues.

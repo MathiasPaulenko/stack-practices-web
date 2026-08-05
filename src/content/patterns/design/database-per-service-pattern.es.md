@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Database per Service
-
 ## Descripción General
 
 El Patrón Database per Service asigna a cada microservicio su propia base de datos privada a la que ningún otro servicio puede acceder directamente. Esto asegura que los servicios estén débilmente acoplados, puedan desplegarse independientemente, y puedan elegir la tecnología de base de datos más adecuada a sus necesidades. Los datos de un servicio solo son accedidos a través de su API, creando un boundary claro y fuente única de verdad para ese dominio.

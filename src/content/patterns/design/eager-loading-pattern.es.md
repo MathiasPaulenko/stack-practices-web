@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Patrón Eager Loading
-
 ## Descripción General
 
 El Patrón Eager Loading carga datos relacionados junto con la entidad primaria en una única query, en lugar de emitir queries separadas para cada relación. Esto previene el problema N+1: donde cargar N entidades dispara N queries adicionales por sus datos relacionados, resultando en N+1 total de round-trips a la base de datos.

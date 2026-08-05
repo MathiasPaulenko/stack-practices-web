@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patron GraphQL Connection Pagination
-
 ## Descripcion general
 
 El patron Connection es el estandar de GraphQL para paginar campos de lista. En lugar de devolver un array plano, una connection envuelve los resultados en `edges` (cada uno conteniendo un `node` y un `cursor`), un objeto `pageInfo` (con `hasNextPage`, `hasPreviousPage`, `startCursor`, `endCursor`) y un `totalCount` opcional.

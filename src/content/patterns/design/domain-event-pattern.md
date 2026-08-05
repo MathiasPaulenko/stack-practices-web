@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Domain Event Pattern
-
 ## Overview
 
 The Domain Event Pattern captures major business occurrences within a domain model as first-class objects. When something meaningful happens — an order is placed, a user is registered, a payment fails — the domain emits an event. Other parts of the system react to these events rather than being called directly.

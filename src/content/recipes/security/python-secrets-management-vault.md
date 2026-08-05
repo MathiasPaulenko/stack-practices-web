@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Manage Application Secrets with HashiCorp Vault and Python
-
 Hardcoded secrets in environment variables or config files are a security risk. HashiCorp Vault centralizes secret storage with encryption, access control, audit logging, and dynamic secrets. Below: connecting to Vault with Python (`hvac`), storing and retrieving static secrets, using dynamic database credentials, and auto-renewing leases.
 
 ## When to Use This

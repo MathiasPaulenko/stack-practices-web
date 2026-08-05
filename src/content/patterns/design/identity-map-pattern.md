@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Identity Map Pattern
-
 ## Overview
 
 The Identity Map Pattern ensures that each object is loaded only once per transaction by maintaining a cache of all objects that have been read from the database in a single unit of work. When an object is requested by ID, the Identity Map checks if an instance already exists in memory before hitting the database again.

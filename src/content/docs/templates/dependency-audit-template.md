@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Third-Party Dependency Audit Template
-
 Use this template to evaluate libraries before adding them or during periodic audits. See [Web Application Security Guide](/guides/security/web-application-security-guide) for broader security practices.
 
 ## Overview

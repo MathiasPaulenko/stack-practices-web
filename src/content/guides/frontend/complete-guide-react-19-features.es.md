@@ -3,7 +3,7 @@
 
 contentType: guides
 slug: complete-guide-react-19-features
-title: "Referencia Detallada de React 19 Features"
+title: "React 19 Features"
 description: "React 19 features. Cubre server components, use() hook, actions, form actions, useActionState, useOptimistic, useFormStatus, ref as prop, document metadata, asset loading y React Compiler con ejemplos practicos de codigo."
 metaDescription: "React 19. Cubre server components, use() hook, actions, useActionState, useOptimistic, useFormStatus, ref as prop, React Compiler."
 difficulty: advanced

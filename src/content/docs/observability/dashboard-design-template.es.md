@@ -184,7 +184,6 @@ Un dashboard es un visual interface que answer questions sobre system health. Go
 ### Alerting Rules
 
 ```yaml
-# Fast burn: 2% de budget en 1 hour
 - alert: PaymentSLOFastBurn
   expr: |
     (
@@ -200,7 +199,7 @@ Un dashboard es un visual interface que answer questions sobre system health. Go
     summary: "Payment SLO fast burn — 2% budget consumed in 1h"
     runbook: "https://runbooks.example.com/payment-slo-burn"
 
-# Slow burn: 5% de budget en 6 hours
+## Slow burn: 5% de budget en 6 hours
 - alert: PaymentSLOSlowBurn
   expr: |
     (

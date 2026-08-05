@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Container Image Security Scanning with Trivy
-
 Container images bundle application code with operating system libraries, making them a major attack surface. Trivy scans images for OS package vulnerabilities, application dependencies, misconfigurations, and exposed secrets. The solution below covers local scanning, CI/CD integration, policy enforcement, and remediation workflows for production container security.
 
 ## When to Use This

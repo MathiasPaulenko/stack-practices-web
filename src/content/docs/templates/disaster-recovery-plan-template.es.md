@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Plantilla de Plan de Recuperación ante Desastres
-
 Usa esta plantilla para prepararte para fallas catastróficas y minimizar tiempo de recuperación. Complémentala con la [Plantilla de Runbook](/docs/templates/runbook-template) para procedimientos operacionales.
 
 ## Plantilla
@@ -92,17 +90,17 @@ Usa esta plantilla para prepararte para fallas catastróficas y minimizar tiempo
 ## Runbook de Recuperación
 
 ```bash
-# 1. Verificar salud de región secundaria
+## 1. Verificar salud de región secundaria
 kubectl --context=dr get nodes
 
-# 2. Promover réplicas de lectura
+## 2. Promover réplicas de lectura
 gcloud sql instances promote-replica dr-replica
 
-# 3. Actualizar DNS
+## 3. Actualizar DNS
 aws route53 change-resource-record-sets --hosted-zone-id Z123 \
   --change-batch file://failover.json
 
-# 4. Verificar
+## 4. Verificar
 ./smoke-tests.sh --env=dr
 ```
 

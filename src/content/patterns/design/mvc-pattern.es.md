@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patrón MVC
-
 ## Visión general
 
 El [Patrón Modelo-Vista-Controlador](/patterns/design/mvc-pattern-frontend) (MVC) es un patrón de diseño arquitectural que separa una aplicación en tres componentes interconectados: Modelo (datos y lógica de negocio), Vista (presentación) y Controlador (manejo de entrada y coordinación).

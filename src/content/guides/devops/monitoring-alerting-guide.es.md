@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Monitoreo y Alertas — Métricas, Logs y Dashboards
-
 ## Introducción
 
 No puedes mejorar lo que no puedes medir. El monitoreo te dice cuándo los sistemas están enfermos; las alertas te despiertan cuando la acción es necesaria. Pero alertas mal diseñadas crean fatiga, burnout y páginas ignoradas. A continuación: los tres pilares de observabilidad, cómo diseñar alertas útiles y cómo construir dashboards que ayudan durante incidentes.

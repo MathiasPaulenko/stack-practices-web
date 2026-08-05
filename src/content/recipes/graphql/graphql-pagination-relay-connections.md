@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Cursor-based Pagination with GraphQL Relay Connections
-
 The Relay Connection specification is the de facto standard for paginating GraphQL results. It models collections as connections containing edges, where each edge wraps a node and a cursor. This structure supports stable pagination across inserts and deletes, unlike offset-based approaches that skip or duplicate rows when data changes between requests.
 
 ## When to Use This

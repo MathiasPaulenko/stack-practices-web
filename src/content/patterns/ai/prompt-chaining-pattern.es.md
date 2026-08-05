@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Patrón Prompt Chaining
-
 ## Descripción general
 
 Prompt chaining divide una tarea compleja en una secuencia de llamadas LLM mas pequenas. Cada llamada recibe la salida de la anterior como entrada, mas su propio prompt enfocado. En lugar de pedirle a un modelo que "investigue, analice, resuma y formatee un reporte" en un solo prompt gigante, encadenas cuatro llamadas separadas: una para investigar, una para analizar, una para resumir, una para formatear.

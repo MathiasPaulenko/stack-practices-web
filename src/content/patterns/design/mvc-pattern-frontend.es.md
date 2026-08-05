@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# MVC Pattern en Aplicaciones Frontend Modernas
-
 [Model-View-Controller](/patterns/design/mvc-pattern) separa una aplicacion en tres componentes: Model (datos y reglas), View (presentacion) y Controller (manejo de entrada y coordinacion). Aunque frameworks como React y Vue difuminan estos limites, aplicar disciplina MVC previene que los componentes se conviertan en mezclas inmantenibles de estado, UI y efectos secundarios.
 
 ## Cuando Usar Esto

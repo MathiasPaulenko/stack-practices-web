@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Git Branching Strategies
-
 ## Introduction
 
 A branching strategy defines how your team uses Git branches to develop, integrate, and release code. The right strategy depends on your team size, release frequency, and CI/CD maturity. This guide compares the three most common approaches.

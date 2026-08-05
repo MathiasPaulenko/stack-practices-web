@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Provisiona una VPC de AWS con Terraform
-
 Una VPC bien estructurada es la fundacion de infraestructura cloud segura. Terraform te permite definir toda la topologia de red — subredes, ruteo, gateways y security groups — como codigo versionado que puede recrearse identicamente entre ambientes.
 
 ## Cuando Usar Esto

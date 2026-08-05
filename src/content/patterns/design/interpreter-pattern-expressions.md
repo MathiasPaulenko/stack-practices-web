@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Interpreter Pattern for Domain-Specific Expression Languages
-
 The [Interpreter](/patterns/design/interpreter-pattern) pattern defines a representation for a language's grammar along with an interpreter that uses the representation to interpret sentences in the language. It turns complex text expressions into executable objects, making business rules, query filters, and mathematical formulas configurable without code changes.
 
 ## When to Use This

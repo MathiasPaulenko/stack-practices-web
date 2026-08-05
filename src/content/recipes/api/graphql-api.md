@@ -38,8 +38,6 @@ seo:
 
 
 ---
-# Implement a GraphQL API
-
 ## Overview
 
 GraphQL is a query language and runtime for APIs that allows clients to request exactly the data they need. Unlike REST, where the server defines the response structure, GraphQL puts the client in control — reducing over-fetching and under-fetching while providing strong typing through schemas.

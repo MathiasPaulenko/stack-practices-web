@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Write-Behind Cache Pattern
-
 ## Overview
 
 In a write-behind cache (also called write-back), writes go to the cache synchronously and to the database asynchronously. The application writes to the cache, gets an immediate acknowledgment, and a background process flushes the cached changes to the database in batches.

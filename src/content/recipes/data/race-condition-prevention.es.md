@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Prevencion de Race Conditions en Codigo Async de JavaScript
-
 Las race conditions ocurren cuando multiples operaciones async acceden a estado compartido sin coordinacion apropiada, llevando a comportamiento no deterministico. Esta recipe cubre identificar, prevenir y corregir race conditions en JavaScript usando actualizaciones atomicas, secuenciacion apropiada de Promise y patrones de locks.
 
 ## Cuando Usar Esto

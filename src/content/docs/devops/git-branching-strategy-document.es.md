@@ -99,9 +99,8 @@ Antes de definir la estrategia:
 ```bash
 git checkout develop && git pull origin develop
 git checkout -b feature/PROJ-123-add-user-auth
-# trabajo y commits locales
 git push origin feature/PROJ-123-add-user-auth
-# abrir PR a develop
+## abrir PR a develop
 ```
 
 ### Flujo de Hotfix
@@ -109,10 +108,10 @@ git push origin feature/PROJ-123-add-user-auth
 ```bash
 git checkout main && git pull origin main
 git checkout -b hotfix/PROJ-456-fix-payment-webhook
-# fix, test, commit
+## fix, test, commit
 git push origin hotfix/PROJ-456-fix-payment-webhook
-# PR a main (revision expeditada)
-# despues del merge, backport a develop
+## PR a main (revision expeditada)
+## despues del merge, backport a develop
 git checkout develop && git cherry-pick <hotfix-commit>
 ```
 
@@ -121,7 +120,7 @@ git checkout develop && git cherry-pick <hotfix-commit>
 ```bash
 git checkout develop && git pull origin develop
 git checkout -b release/v1.2.3
-# version bump, changelog, QA final
+## version bump, changelog, QA final
 git checkout staging && git merge --no-ff release/v1.2.3
 git checkout main && git merge --no-ff release/v1.2.3
 git tag -a v1.2.3 -m "Release version 1.2.3"
@@ -226,7 +225,7 @@ git log --oneline --decorate --tags
 git checkout v1.2.2
 git checkout -b hotfix/rollback-v1.2.3
 git push origin hotfix/rollback-v1.2.3
-# abrir PR de emergencia a main
+## abrir PR de emergencia a main
 ```
 
 ### Revertir un Merge
@@ -234,7 +233,7 @@ git push origin hotfix/rollback-v1.2.3
 ```bash
 git log --oneline --merges
 git revert -m 1 <merge-commit-hash>
-# abrir PR con commit de revert
+## abrir PR con commit de revert
 ```
 
 ## 7. Reglas de Proteccion

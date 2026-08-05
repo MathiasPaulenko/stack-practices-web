@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Mock GraphQL Resolvers for Frontend Development
-
 When the backend is not ready, frontend teams can block on API dependencies. Apollo Server's built-in mocking generates fake data for every field in the schema, letting UI developers build and test against a working GraphQL endpoint within minutes. You can start with auto-generated mocks and progressively replace them with custom resolvers as the schema stabilizes.
 
 ## When to Use This

@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-python-asyncio
-title: "Referencia Detallada de Python Asyncio"
+title: "Python Asyncio"
 description: "Master programación asincrónica en Python con asyncio. Cubre coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients, websockets y debugging."
 metaDescription: "Referencia detallada de Python asyncio: coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients y debugging de codigo async."
 difficulty: advanced
@@ -51,8 +51,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de Python Asyncio
 
 ## Introducción
 

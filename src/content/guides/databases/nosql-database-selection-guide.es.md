@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Selección de Base de Datos NoSQL
-
 ## Introducción
 
 Las bases de datos NoSQL intercambian la consistencia estricta y el modelo relacional del SQL por flexibilidad, crecimiento horizontal y patrones de acceso especializados. Elegir la correcta significa hacer coincidir la forma de tus datos, los patrones de consulta y los requerimientos de consistencia con el store adecuado.

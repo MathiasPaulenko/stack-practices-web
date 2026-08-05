@@ -188,7 +188,6 @@ A test coverage report communicates how much of the codebase is exercised by tes
 ### CI Coverage Gate
 
 ```yaml
-# .github/workflows/coverage.yml
 - name: Check coverage
   run: |
     npx vitest run --coverage --reporter=json

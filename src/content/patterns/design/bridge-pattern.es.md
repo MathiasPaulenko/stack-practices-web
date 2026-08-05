@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Patrón Bridge
-
 ## Visión General
 
 El Patrón Bridge es un patrón de diseño estructural que desacopla una abstracción de su implementación para que ambas puedan variar independientemente. En lugar de tener una jerarquía de clases que combina ambas, divides en dos jerarquías separadas — una para la abstracción y otra para la implementación. Esto es especialmente útil cuando necesitas soportar múltiples plataformas o backends de renderizado.

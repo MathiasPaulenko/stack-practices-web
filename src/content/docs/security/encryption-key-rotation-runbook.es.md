@@ -166,7 +166,6 @@ Un encryption key rotation runbook define cómo rotatear encryption keys sin ser
 ### Dual-Key Configuration
 
 ```yaml
-# Application configuration for dual-key mode
 encryption:
   mode: dual-key
   current_key:
@@ -209,7 +208,7 @@ def migrate_record(record_id):
     db.update_encrypted_field(record_id, new_ciphertext)
     return record_id
 
-# Migrate in batches
+## Migrate in batches
 batch_size = 1000
 record_ids = db.get_all_record_ids()
 
@@ -321,12 +320,12 @@ const jwks = {
 
 ```bash
 #!/bin/bash
-# Verify key rotation completion
+## Verify key rotation completion
 
 NEW_KEY_ID="arn:aws:kms:us-east-1:123:key/new-key-id"
 OLD_KEY_ID="arn:aws:kms:us-east-1:123:key/old-key-id"
 
-# 1. Verify new key is enabled
+## 1. Verify new key is enabled
 NEW_KEY_STATE=$(aws kms describe-key --key-id $NEW_KEY_ID --query 'KeyMetadata.KeyState' --output text)
 if [ "$NEW_KEY_STATE" != "Enabled" ]; then
     echo "FAIL: New key is not enabled (state: $NEW_KEY_STATE)"
@@ -334,7 +333,7 @@ if [ "$NEW_KEY_STATE" != "Enabled" ]; then
 fi
 echo "OK: New key is enabled"
 
-# 2. Verify old key is disabled
+## 2. Verify old key is disabled
 OLD_KEY_STATE=$(aws kms describe-key --key-id $OLD_KEY_ID --query 'KeyMetadata.KeyState' --output text)
 if [ "$OLD_KEY_STATE" != "Disabled" ]; then
     echo "FAIL: Old key is not disabled (state: $OLD_KEY_STATE)"
@@ -342,7 +341,7 @@ if [ "$OLD_KEY_STATE" != "Disabled" ]; then
 fi
 echo "OK: Old key is disabled"
 
-# 3. Test encryption with new key
+## 3. Test encryption with new key
 TEST_DATA="rotation-test-$(date +%s)"
 ENCRYPTED=$(aws kms encrypt --key-id $NEW_KEY_ID --plaintext "$TEST_DATA" --output text --query CiphertextBlob)
 DECRYPTED=$(aws kms decrypt --ciphertext-blob fileb://<(echo "$ENCRYPTED" | base64 --decode) --output text --query Plaintext | base64 --decode)

@@ -6,7 +6,7 @@
 
 contentType: guides
 slug: complete-guide-postgresql-replication
-title: "Referencia Detallada de PostgreSQL Replication"
+title: "PostgreSQL Replication"
 description: "PostgreSQL replication. Cubre streaming replication, logical replication, cascading replicas, synchronous commit, failover con Patroni, monitoring lag, slot management y disaster recovery con ejemplos practicos de configuracion."
 metaDescription: "Master PostgreSQL replication. Covers streaming, logical, cascading replicas, synchronous commit, Patroni failover, lag monitoring, slots, DR."
 difficulty: advanced

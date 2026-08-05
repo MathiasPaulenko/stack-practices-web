@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Plantilla de Runbook de Migración de Base de Datos
-
 Usa esta plantilla para ejecutar cambios de esquema de base de datos sin downtime ni pérdida de datos.
 
 ## Plantilla

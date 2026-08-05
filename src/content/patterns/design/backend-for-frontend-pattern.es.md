@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patrón Backend for Frontend (BFF)
-
 ## Descripción General
 
 El Patrón Backend for Frontend (BFF) crea servicios backend dedicados adaptados a las necesidades específicas de cada tipo de frontend client (web, mobile, IoT, desktop). En lugar de forzar a todos los clientes a consumir una única API de propósito general, cada frontend obtiene un backend que agrega microservicios downstream, optimiza formas de datos, maneja preocupaciones de autenticación, y expone una API perfectamente alineada con los requerimientos de ese cliente.

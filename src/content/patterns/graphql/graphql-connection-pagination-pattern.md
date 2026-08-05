@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# GraphQL Connection Pagination Pattern
-
 ## Overview
 
 The Connection pattern is the GraphQL standard for paginating list fields. Instead of returning a plain array, a connection wraps results in `edges` (each containing a `node` and a `cursor`), a `pageInfo` object (with `hasNextPage`, `hasPreviousPage`, `startCursor`, `endCursor`), and an optional `totalCount`.

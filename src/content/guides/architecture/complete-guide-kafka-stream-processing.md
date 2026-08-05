@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Complete Guide to Kafka Stream Processing
-
 ## Introduction
 
 Apache Kafka is a distributed event streaming platform. It handles trillions of events per day at companies like LinkedIn, Uber, and Netflix. Below is a practical guide to Kafka core concepts, producers, consumers, Kafka Streams API, Kafka Connect, Schema Registry, and common stream processing patterns with code examples in Python, Java, and JavaScript.

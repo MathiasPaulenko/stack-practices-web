@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Patrón Value Object
-
 ## Descripción General
 
 Un Value Object es un objeto inmutable definido enteramente por sus atributos, no por una identidad única. Dos value objects con los mismos valores se consideran iguales independientemente de si son la misma instancia. Dinero, fechas, coordenadas y direcciones de email son ejemplos clásicos.

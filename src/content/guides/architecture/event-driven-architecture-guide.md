@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Event-Driven Architecture
-
 ## Introduction
 
 Event-driven architecture (EDA) is a pattern where services communicate by producing and consuming events rather than direct calls. It decouples producers from consumers, enables growth, and naturally supports temporal decoupling — consumers do not need to be online when events are produced.

@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrón Module
-
 ## Descripción General
 
 El Patrón Module encapsula variables y funciones privadas dentro de una unidad auto-contenida, exponiendo solo una API pública curada. Previene la polución de namespace, evita conflictos de variables globales y crea límites claros entre partes no relacionadas de un codebase.

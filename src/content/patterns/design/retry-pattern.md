@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Retry Pattern
-
 ## Overview
 
 The Retry Pattern is a resilience pattern that handles transient failures by retrying a failed operation. Transient failures are typically caused by temporary conditions such as network congestion, temporary service unavailability, or timeouts. The pattern uses configurable strategies — fixed delay, linear, or exponential backoff — to avoid overwhelming the target system.

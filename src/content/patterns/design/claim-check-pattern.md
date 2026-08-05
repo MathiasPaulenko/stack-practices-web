@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Claim Check Pattern
-
 ## Overview
 
 The Claim Check Pattern stores large payloads in external storage and passes only a lightweight reference token through the messaging infrastructure. When a consumer receives the message, it uses the token to retrieve the full payload from storage. This prevents message brokers from being overwhelmed by large messages, avoids size limit violations, and keeps message traffic lean and fast.

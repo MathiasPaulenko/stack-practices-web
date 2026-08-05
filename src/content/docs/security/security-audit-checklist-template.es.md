@@ -4,7 +4,7 @@
 
 contentType: docs
 slug: security-audit-checklist-template
-title: "Checklist de Auditoría de Seguridad"
+title: "Plantilla de Checklist de Auditoría de Seguridad"
 description: "Un checklist exhaustivo para realizar auditorías de seguridad de aplicaciones e infraestructura."
 metaDescription: "Usa este checklist de auditoría de seguridad para revisar autenticación, autorización, protección de datos, seguridad de infraestructura y brechas de cumplimiento."
 difficulty: intermediate

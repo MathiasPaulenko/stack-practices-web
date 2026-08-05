@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# WebSocket Authentication and Security Patterns
-
 WebSocket connections are long-lived and stateful, which makes authentication and authorization different from REST. Tokens must be validated during the handshake, and ongoing messages must be checked against room-based permissions to prevent unauthorized real-time access.
 
 ## When to Use This

@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Multiton Pattern
-
 ## Overview
 
 The Multiton Pattern extends the Singleton concept to manage multiple named instances. Instead of a single global instance, a Multiton maintains a registry of instances keyed by name or identifier. Requesting the same key always returns the same instance, but different keys produce different instances.

@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Validacion de Datos Basada en Schemas con Zod en TypeScript
-
 Usa Zod para definir schemas que validan datos en runtime mientras infieren automaticamente tipos de TypeScript. Esta recipe cubre schemas basicos, refinements custom, formateo de errores e integracion con formularios y APIs para validacion de datos a prueba de balas.
 
 ## Cuando Usar Esto

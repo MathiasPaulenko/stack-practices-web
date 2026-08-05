@@ -49,8 +49,6 @@ seo:
 
 ---
 
-# Patrón Federated Identity
-
 ## Visión General
 
 El patrón [Federated Identity](/patterns/authentication/federated-identity-pattern) delega la autenticación a proveedores de identidad externos (IdPs) en lugar de gestionar credenciales localmente. Los usuarios inician sesión a través de un tercero de confianza (Google, GitHub, Azure AD, Okta), y la aplicación recibe un token que puede verificar. Esto elimina el almacenamiento de contraseñas, habilita single sign-on (SSO) y permite autenticación cross-organization.

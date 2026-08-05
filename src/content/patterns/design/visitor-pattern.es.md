@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Patrón Visitor
-
 ## Resumen
 
 El Patrón Visitor es un patrón de diseño de comportamiento que te permite definir una nueva operación sobre una estructura de objetos sin cambiar las clases de los elementos sobre los que opera. Separa los algoritmos de los objetos sobre los que operan, haciendo fácil agregar nuevas operaciones a una jerarquía de clases compleja.

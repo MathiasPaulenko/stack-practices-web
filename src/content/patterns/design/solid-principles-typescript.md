@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# SOLID Principles in TypeScript with Practical Examples
-
 The [SOLID](/guides/design/solid-principles-guide) principles provide a framework for writing maintainable object-oriented code. When applied to TypeScript, they help prevent the common pitfalls of tightly coupled classes, brittle inheritance hierarchies, and unmaintainable dependency graphs.
 
 ## When to Use This

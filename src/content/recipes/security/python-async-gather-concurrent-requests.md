@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Concurrent HTTP Requests with asyncio.gather and aiohttp
-
 Fetching 100 endpoints sequentially takes 100x the latency of a single request. `asyncio.gather` runs them concurrently, cutting total time to the slowest request. Below: concurrent fetching with `aiohttp`, error handling, semaphores for rate limiting, timeouts, and connection pooling.
 
 ## When to Use This

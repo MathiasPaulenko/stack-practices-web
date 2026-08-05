@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Plantilla de Guía de Configuración de Entorno
-
 Usa esta plantilla para documentar setup de entorno reproducible para nuevos miembros del equipo y pipelines de CI.
 
 ## Resumen
@@ -78,26 +76,26 @@ Esta plantilla cubre:
 ## Inicio Rápido
 
 ```bash
-# 1. Clonar repositorio
+## 1. Clonar repositorio
 git clone git@github.com:org/project.git
 cd project
 
-# 2. Instalar dependencias
+## 2. Instalar dependencias
 npm install
 
-# 3. Copiar archivo de entorno
+## 3. Copiar archivo de entorno
 cp .env.example .env
 
-# 4. Iniciar servicios
+## 4. Iniciar servicios
 docker compose up -d
 
-# 5. Correr migraciones de base de datos
+## 5. Correr migraciones de base de datos
 npm run db:migrate
 
-# 6. Seed de datos de prueba
+## 6. Seed de datos de prueba
 npm run db:seed
 
-# 7. Iniciar aplicación
+## 7. Iniciar aplicación
 npm run dev
 ```
 
@@ -112,10 +110,10 @@ npm run dev
 ## Verificación
 
 ```bash
-# Health check
+## Health check
 curl http://localhost:3000/health
 
-# Respuesta esperada
+## Respuesta esperada
 {"status":"ok","version":"2.4.1"}
 ```
 
@@ -163,26 +161,26 @@ Cuando pases a nuevas herramientas o cloud providers, actualiza la guía primero
 ## Inicio Rápido
 
 ```bash
-# 1. Clonar repositorio
+## 1. Clonar repositorio
 git clone git@github.com:org/stackpractices-web.git
 cd stackpractices-web
 
-# 2. Instalar dependencias
+## 2. Instalar dependencias
 npm install
 
-# 3. Copiar archivo de entorno
+## 3. Copiar archivo de entorno
 cp .env.example .env
 
-# 4. Iniciar servicios (base de datos, cache)
+## 4. Iniciar servicios (base de datos, cache)
 docker compose up -d
 
-# 5. Correr migraciones de base de datos
+## 5. Correr migraciones de base de datos
 npm run db:migrate
 
-# 6. Seed de datos de prueba
+## 6. Seed de datos de prueba
 npm run db:seed
 
-# 7. Iniciar servidor de desarrollo
+## 7. Iniciar servidor de desarrollo
 npm run dev
 ```
 
@@ -201,16 +199,16 @@ Abre http://localhost:4321 en tu navegador.
 ## Verificación
 
 ```bash
-# Health check
+## Health check
 curl http://localhost:4321/health
 
-# Respuesta esperada
+## Respuesta esperada
 {"status":"ok","version":"2.4.1"}
 
-# Correr tests
+## Correr tests
 npm test
 
-# Check de build
+## Check de build
 npm run build
 ```
 

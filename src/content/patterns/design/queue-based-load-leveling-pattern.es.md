@@ -49,8 +49,6 @@ seo:
 
 ---
 
-# Patron de Nivelacion de Carga Basada en Colas
-
 ## Resumen
 
 El Patron de Nivelacion de Carga Basada en Colas introduce una cola de mensajes intermedia entre componentes que producen trabajo y componentes que lo consumen. En lugar de que los productores llamen a los consumidores directamente (lo que arriesga abrumar al consumidor durante picos de trafico), los productores encolan tareas y los consumidores las procesan a una tasa constante y controlada.

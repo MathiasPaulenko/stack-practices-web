@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patrón Compensating Transaction
-
 ## Descripción General
 
 El Patrón Compensating Transaction deshace los efectos de una operación de negocio completada ejecutando una operación contraria semántica. A diferencia del rollback de base de datos (que deshace cambios no commiteados), las transacciones compensatorias deshacen operaciones que ya fueron commiteadas a sistemas externos — pagos que fueron cobrados, inventario que fue reservado, o emails que fueron enviados.

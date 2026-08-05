@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Static Content Hosting Pattern
-
 ## Overview
 
 The Static Content Hosting Pattern deploys static files — images, CSS, JavaScript, fonts, videos, PDFs — to dedicated storage and serves them through a Content Delivery Network (CDN) rather than from the application origin server. This offloads origin servers from serving large, cacheable files and reduces latency by placing content geographically closer to users.

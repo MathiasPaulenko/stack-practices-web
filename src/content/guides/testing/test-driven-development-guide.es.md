@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Desarrollo Guiado por Pruebas (TDD)
-
 ## Introducción
 
 El Desarrollo Guiado por Pruebas es un proceso de desarrollo de software donde los tests se escriben antes del código de producción. Sigue un ciclo corto y repetitivo: escribe un test que falle, escribe el código mínimo para que pase, luego refactoriza manteniendo los tests verdes.

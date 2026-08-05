@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# LLM Guardrails Pattern
-
 ## Overview
 
 LLM guardrails are validation layers that sit before and after the model call. **Input guardrails** inspect user prompts for prompt injection, prohibited content, and data leakage attempts. **Output guardrails** inspect model responses for toxicity, hallucinated claims, and sensitive data before returning them to the user.

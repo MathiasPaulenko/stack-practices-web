@@ -4,7 +4,7 @@
 
 contentType: recipes
 slug: bash-aws-cli-scripts
-title: "Automatización de AWS CLI con Bash"
+title: "Scripts de Bash para AWS CLI"
 description: "Automatiza el aprovisionamiento de recursos AWS con bash y AWS CLI."
 metaDescription: "Automatiza recursos AWS con bash y AWS CLI. Scripting de aprovisionamiento EC2, gestión de buckets S3 y automatización de políticas IAM con ejemplos prácticos."
 difficulty: intermediate

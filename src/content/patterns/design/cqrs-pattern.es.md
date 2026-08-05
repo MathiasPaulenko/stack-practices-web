@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Patrón CQRS
-
 ## Resumen
 
 CQRS (Command Query Responsibility Segregation) es un patrón arquitectónico que separa las operaciones de lectura y escritura en modelos distintos. En lugar de usar un único modelo de datos para consultas y actualizaciones, CQRS usa un **Modelo de Comandos** para escrituras y un **Modelo de Consultas** para lecturas, cada uno optimizado para su carga de trabajo específica.

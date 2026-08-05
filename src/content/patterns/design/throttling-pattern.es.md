@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Patron de Throttling
-
 ## Resumen
 
 El Patron de Throttling controla la tasa a la que un sistema procesa solicitudes o consume recursos para prevenir sobrecarga y asegurar asignacion justa. En lugar de aceptar todas las solicitudes inmediatamente, el sistema limita la tasa segun capacidad, tiers de usuario o disponibilidad de recursos.

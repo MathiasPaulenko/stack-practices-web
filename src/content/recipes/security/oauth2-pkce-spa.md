@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Implement OAuth 2.0 PKCE for Single-Page Applications
-
 The Proof Key for Code Exchange (PKCE) extension to OAuth 2.0 allows public clients like single-page applications to perform the authorization code flow without a client secret. It prevents authorization code interception attacks by binding the authorization request to the subsequent token exchange.
 
 ## When to Use This

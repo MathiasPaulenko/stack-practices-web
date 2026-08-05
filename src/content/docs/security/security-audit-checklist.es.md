@@ -6,7 +6,7 @@
 
 contentType: docs
 slug: security-audit-checklist
-title: "Checklist de Auditoría de Seguridad"
+title: "Auditoría de Seguridad - Checklist"
 description: "Un checklist para auditorías de seguridad cubriendo network security, application security, data protection, access control, monitoring y compliance."
 metaDescription: "Usá este checklist de auditoría de seguridad para verificar network security, application security, data protection, access control, monitoring y compliance."
 difficulty: intermediate

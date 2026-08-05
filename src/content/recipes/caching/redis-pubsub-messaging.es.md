@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Redis Pub/Sub para mensajeria entre procesos
-
 Redis pub/sub permite que procesos se comuniquen a traves de canales sin acoplamiento directo. Un publicador envia un mensaje a un canal; todos los procesos suscritos lo reciben. Esto es util para invalidacion de cache entre instancias, notificaciones en tiempo real y arquitecturas event-driven donde los servicios necesitan reaccionar a cambios sin polling.
 
 ## Cuando Usar Esto

@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Command Pattern with Undo/Redo in TypeScript
-
 The [Command](/patterns/design/command-pattern) pattern turns a request into a stand-alone object containing all information about the request. This decoupling allows you to parameterize methods with different requests, delay or queue execution, and implement undo/redo operations — essential for interactive applications like editors, drawing tools, and form builders.
 
 ## When to Use This

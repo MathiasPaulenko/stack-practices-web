@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Circuit Breaker
-
 ## Visión General
 
 El Patrón Circuit Breaker es un patrón arquitectural que previene que una aplicación intente repetidamente ejecutar una operación que probablemente fallará. Cuando un servicio está caído o luchando, el circuit breaker "salta" y deja de enviar solicitudes, dándole tiempo al servicio para recuperarse. Esto previene agotamiento de recursos y fallos en cascada en sistemas distribuidos.

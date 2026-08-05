@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Docker for Developers
-
 ## Introduction
 
 Docker is a platform for developing, shipping, and running applications in containers. Containers are lightweight, portable, and consistent across environments, solving the "it works on my machine" problem.

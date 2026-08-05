@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Agent Tool Selection Pattern
-
 ## Overview
 
 When an LLM agent has access to many tools (search, calculator, database query, API calls, file operations), passing all tool definitions in every prompt wastes tokens and degrades decision quality. The model has to reason over irrelevant options, increasing the chance of selecting the wrong tool.

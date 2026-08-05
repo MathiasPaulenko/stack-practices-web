@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Estrategia de Documentación Técnica: Docs as Code
-
 ## Introducción
 
 La documentación es la actividad de mayor apalancamiento en ingeniería de software. Un sistema bien documentado reduce el tiempo de onboarding, previene errores repetidos y preserva contexto a través de cambios de equipo. Tratar docs como código significa aplicar la misma rigurosidad — control de versiones, code review, verificaciones automatizadas — a la documentación que aplicas al código fuente.

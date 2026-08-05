@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Serverless Fanout Pattern
-
 ## Overview
 
 The fanout pattern broadcasts a single event to multiple independent consumers. A producer publishes one message to a topic (SNS, EventBridge). The topic delivers a copy to each subscriber (SQS queue, Lambda, HTTP endpoint). Each consumer processes the event independently, at its own pace, without affecting others.

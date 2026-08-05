@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Serverless Event Sourcing Pattern
-
 ## Overview
 
 Event sourcing stores application state as a sequence of immutable events. Instead of updating a current-state record, you append each state change as an event to a log. The current state is derived by replaying the event log. In serverless, this fits naturally: events flow through EventBridge or SNS, and DynamoDB or S3 stores the event log.

@@ -241,11 +241,10 @@ An unauthenticated attacker can:
 | 6 | Conduct code review for other SQL injection points | High |
 
 ```python
-# Vulnerable code
 query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
 cursor.execute(query)
 
-# Remediated code
+## Remediated code
 query = "SELECT * FROM users WHERE username = %s AND password = %s"
 cursor.execute(query, (username, password))
 ```

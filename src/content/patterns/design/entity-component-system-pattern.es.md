@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrón Entity-Component-System (ECS)
-
 ## Descripción General
 
 El Patrón Entity-Component-System (ECS) es un patrón arquitectónico usado principalmente en desarrollo de juegos y simulaciones. Separa los objetos en tres conceptos: **Entities** (IDs livianos que representan objetos), **Components** (contenedores de datos puros sin comportamiento) y **Systems** (procesos que operan sobre entidades con componentes específicos).

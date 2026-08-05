@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Test-Driven Development (TDD)
-
 ## Introduction
 
 Test-Driven Development is a software development process where tests are written before the production code. It follows a short, repeating cycle: write a failing test, write the minimal code to pass it, then refactor while keeping tests green.

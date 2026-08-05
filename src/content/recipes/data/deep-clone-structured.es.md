@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Deep Clone de Objetos en JavaScript: Mas alla de JSON.parse
-
 Copia objetos JavaScript anidados sin referencias compartidas usando enfoques modernos y legacy. Esta recipe compara `JSON.parse`, `structuredClone`, clonado recursivo manual y soluciones con librerias mientras maneja casos edge como referencias circulares, funciones y tipos especiales de objetos.
 
 ## Cuando Usar Esto

@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Materialized View Pattern
-
 ## Overview
 
 The Materialized View Pattern precomputes and stores expensive query results in a dedicated, read-optimized table or cache. Instead of executing complex aggregations, joins, or full-table scans on every read request, the results are computed once and served directly from the materialized view.

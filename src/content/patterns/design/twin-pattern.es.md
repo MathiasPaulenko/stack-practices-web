@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patrón Twin
-
 ## Descripción General
 
 El Patrón Twin provee una alternativa a la herencia múltiple dividiendo una clase conceptual en dos (o más) clases hermanas vinculadas a través de referencias mutuas. Cada twin maneja un aspecto del comportamiento de la clase original, y delegan entre sí cuando un método invocado pertenece al dominio del otro.

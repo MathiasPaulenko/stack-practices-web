@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Desplegar Contenedores en AWS ECS con Fargate
-
 AWS Fargate elimina la necesidad de gestionar instancias EC2 al proporcionar computacion serverless para contenedores. Combinado con ECS, Application Load Balancer y Terraform, obtienes una plataforma de contenedores lista para produccion sin sobrecarga operativa.
 
 ## Cuando Usar Esto

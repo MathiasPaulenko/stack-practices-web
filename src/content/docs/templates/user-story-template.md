@@ -32,8 +32,6 @@ seo:
 
 ---
 
-# User Story and Acceptance Criteria Template
-
 Use this template to write user stories that are ready for development and testing. Pair it with the [Feature Request Template](/docs/templates/feature-request-template) for initial proposals and [Test-Driven Development Guide](/guides/testing/test-driven-development-guide) for test-first workflows.
 
 ## Template

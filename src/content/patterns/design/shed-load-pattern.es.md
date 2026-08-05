@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Patrón Shed Load
-
 ## Descripción general
 
 Cuando un sistema recibe mas trafico del que puede procesar, entra en una espiral de muerte: las colas crecen, la latencia sube, la memoria se agota y el sistema colapsa. Load shedding detiene esta espiral rechazando proactivamente requests excesivos antes de que consuman recursos. En lugar de aceptar todo y fallar lentamente, el sistema acepta solo lo que puede manejar y rechaza el resto inmediatamente con un error claro (tipicamente HTTP 503).

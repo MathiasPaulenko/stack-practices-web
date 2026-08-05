@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Cache-Aside
-
 ## Resumen
 
 El Patrón Cache-Aside es una estrategia de caché donde la aplicación es responsable de cargar datos en el caché desde el almacenamiento principal bajo demanda. La aplicación verifica el caché primero; si los datos no están presentes (cache miss), los obtiene de la base de datos, pobla el caché y devuelve el resultado. Esto da a la aplicación control total sobre la lógica de caché, invalidación y consistencia.

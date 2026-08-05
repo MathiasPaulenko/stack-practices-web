@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Cache de resultados de funciones con Redis y TTL en Python
-
 Cachear resultados costosos de funciones en Redis reduce latencia y carga de base de datos. Un enfoque con decorador permite agregar caching a cualquier funcion con una sola anotacion `@cached`, manteniendo la logica de negocio limpia. Esta receta construye un decorador de cache respaldado por Redis con generacion automatica de claves, serializacion JSON, TTL configurable e invalidacion manual.
 
 ## Cuando Usar Esto

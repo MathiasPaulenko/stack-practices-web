@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Metricas y Alertas con Prometheus
-
 Instrumenta servicios e infraestructura con metricas Prometheus para obtener visibilidad en tiempo real de rendimiento y salud. Esta recipe cubre metricas counter, gauge, histogram y summary, queries PromQL, reglas de alerting y recording rules para monitoreo de produccion.
 
 ## Cuando Usar Esto

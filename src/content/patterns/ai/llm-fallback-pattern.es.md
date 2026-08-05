@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Patrón LLM Fallback
-
 ## Descripción general
 
 Las APIs LLM fallan. Rate limits, timeouts, ventanas de mantenimiento y errores inesperados son rutina. El patrón LLM Fallback encadena multiples proveedores para que cuando el primario falla, el request automaticamente reintenta en el siguiente proveedor. Si todos los proveedores fallan, se devuelve una respuesta static de fallback.

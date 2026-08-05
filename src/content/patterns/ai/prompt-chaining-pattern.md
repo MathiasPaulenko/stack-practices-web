@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Prompt Chaining Pattern
-
 ## Overview
 
 Prompt chaining breaks a complex task into a sequence of smaller LLM calls. Each call receives the output of the previous one as input, plus its own focused prompt. Instead of asking a model to "research, analyze, summarize, and format a report" in one giant prompt, you chain four separate calls: one to research, one to analyze, one to summarize, one to format.

@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# De Monolito a Microservicios — Estrategias de Migración
-
 ## Introducción
 
 Migrar de un monolito a microservicios es uno de los proyectos de refactorización más riesgosos. Hecho mal, crea un monolito distribuido — más lento y complejo. Hecho bien, habilita autonomía de equipo y delivery más rápido. A continuación: estrategias de descomposición segura.

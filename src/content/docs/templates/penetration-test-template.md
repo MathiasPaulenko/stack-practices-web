@@ -7,7 +7,7 @@
 contentType: docs
 slug: penetration-test-template
 templateType: guideline
-title: "Penetration Test Report Template"
+title: "Penetration Test Template"
 description: "A penetration test report template for documenting findings, risk ratings, reproduction steps, and remediation guidance for security assessments."
 metaDescription: "Penetration test report template: document findings, risk ratings, reproduction steps, and remediation guidance for security assessments."
 difficulty: intermediate
@@ -43,8 +43,6 @@ seo:
 
 
 ---
-
-# Penetration Test Report Template
 
 Use this template to document security assessment findings clearly and actionably. See [Web Application Security Guide](/guides/security/web-application-security-guide) for broader security practices.
 
@@ -95,7 +93,7 @@ What the vulnerability is and why it matters.
 #### Proof of Concept
 ```bash
 curl "https://example.com/api/v1/users?id=1 OR 1=1"
-# Returns all users — SQL injection confirmed
+## Returns all users — SQL injection confirmed
 ```
 
 #### Impact

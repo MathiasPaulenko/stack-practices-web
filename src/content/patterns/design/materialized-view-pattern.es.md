@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Patron de Vista Materializada
-
 ## Resumen
 
 El Patron de Vista Materializada precomputa y almacena resultados de consultas costosas en una tabla o cache dedicada y optimizada para lectura. En lugar de ejecutar agregaciones complejas, joins o escaneos de tabla completa en cada solicitud de lectura, los resultados se computan una vez y se sirven directamente desde la vista materializada.

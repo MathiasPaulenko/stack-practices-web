@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# RAG Hybrid Search Pattern
-
 ## Overview
 
 Hybrid search combines two retrieval strategies: **keyword search** (BM25 or TF-IDF) that matches exact terms, and **semantic search** (vector embeddings) that matches meaning. Neither approach alone covers all query types. Keyword search misses synonyms and paraphrases. Semantic search can miss exact matches like product codes or proper nouns. Fusing both ranked lists produces more relevant results than either method alone.

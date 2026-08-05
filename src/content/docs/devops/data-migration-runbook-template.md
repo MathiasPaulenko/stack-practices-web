@@ -71,11 +71,10 @@ Before starting:
 
 ### Source System
 ```bash
-# Verify backup integrity
 pg_dump -h source.db.internal -U admin mydb | gzip > /backups/pre-migration.sql.gz
 gunzip -t /backups/pre-migration.sql.gz
 
-# Record baseline metrics
+## Record baseline metrics
 psql -h source.db.internal -c "SELECT pg_size_pretty(pg_database_size('mydb'));"
 psql -h source.db.internal -c "SELECT COUNT(*) FROM orders;"
 psql -h source.db.internal -c "SELECT MAX(updated_at) FROM orders;"
@@ -118,16 +117,16 @@ psql -h source.db.internal -c "SELECT MAX(updated_at) FROM orders;"
 ## 3. Dry Run Execution
 
 ```bash
-# Run migration on a copy of production data
-# Do NOT connect to production systems
+## Run migration on a copy of production data
+## Do NOT connect to production systems
 
 cp /backups/pre-migration.sql.gz /tmp/dry-run.sql.gz
 gunzip /tmp/dry-run.sql.gz
 
-# Execute migration script
+## Execute migration script
 psql -h target-staging.db.internal -f /tmp/dry-run.sql
 
-# Validate dry run
+## Validate dry run
 ./scripts/validate-migration.sh \
   --source source-staging.db.internal \
   --target target-staging.db.internal
@@ -146,7 +145,7 @@ psql -h target-staging.db.internal -f /tmp/dry-run.sql
 
 ### Step 4a: Final Backup
 ```bash
-# Create point-in-time backup immediately before migration
+## Create point-in-time backup immediately before migration
 aws rds create-db-snapshot \
   --db-instance-identifier source-db \
   --db-snapshot-identifier pre-migration-$(date +%Y%m%d-%H%M%S)
@@ -154,38 +153,38 @@ aws rds create-db-snapshot \
 
 ### Step 4b: Stop Writes (if using Big Bang)
 ```bash
-# Set application to read-only
+## Set application to read-only
 curl -X POST http://app.internal/admin/maintenance-mode
 
-# Verify no active writes
+## Verify no active writes
 psql -h source.db.internal -c "SELECT COUNT(*) FROM pg_stat_activity WHERE state = 'active';"
 ```
 
 ### Step 4c: Execute Migration
 ```bash
-# Log migration start time
+## Log migration start time
 MIGRATION_START=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 echo "Migration started: $MIGRATION_START"
 
-# Execute migration
+## Execute migration
 psql -h target.db.internal -f migration-script.sql 2>&1 | tee migration.log
 
-# Log migration end time
+## Log migration end time
 MIGRATION_END=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 echo "Migration ended: $MIGRATION_END"
 ```
 
 ### Step 4d: Resume Writes (if applicable)
 ```bash
-# Verify target is healthy before switching writes
+## Verify target is healthy before switching writes
 curl -X POST http://app.internal/admin/target-health-check
 
-# Switch application to target
+## Switch application to target
 curl -X POST http://app.internal/admin/switch-datastore \
   -H "Content-Type: application/json" \
   -d '{"target": "new-database"}'
 
-# Resume normal operations
+## Resume normal operations
 curl -X POST http://app.internal/admin/normal-mode
 ```
 
@@ -217,10 +216,10 @@ SELECT COUNT(*) FROM target.orders WHERE created_at IS NULL;
 
 ### Application Smoke Tests
 ```bash
-# Critical user flows
+## Critical user flows
 ./scripts/smoke-test.sh --environment=production
 
-# Performance baseline comparison
+## Performance baseline comparison
 ./scripts/performance-test.sh --target=new-db --baseline=old-db
 ```
 
@@ -244,18 +243,18 @@ Rollback if ANY of the following occur:
 
 ### Rollback Steps
 ```bash
-# 1. Stop writes to target immediately
+## 1. Stop writes to target immediately
 curl -X POST http://app.internal/admin/maintenance-mode
 
-# 2. Switch application back to source
+## 2. Switch application back to source
 curl -X POST http://app.internal/admin/switch-datastore \
   -d '{"target": "source-database"}'
 
-# 3. Resume operations on source
+## 3. Resume operations on source
 curl -X POST http://app.internal/admin/normal-mode
 
-# 4. DO NOT DELETE target data until root cause is resolved
-# 5. Document all findings for postmortem
+## 4. DO NOT DELETE target data until root cause is resolved
+## 5. Document all findings for postmortem
 ```
 
 | Rollback Step | Status | Time |

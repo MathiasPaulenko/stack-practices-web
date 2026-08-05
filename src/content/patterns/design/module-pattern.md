@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Module Pattern
-
 ## Overview
 
 The Module Pattern encapsulates private variables and functions inside a self-contained unit, exposing only a curated public API. It prevents namespace pollution, avoids global variable conflicts, and creates clear boundaries between unrelated parts of a codebase.

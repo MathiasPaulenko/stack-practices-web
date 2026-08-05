@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Patrón Specification
-
 ## Descripción General
 
 El Patrón Specification encapsula reglas de negocio para seleccionar objetos como objetos predicado reutilizables y componibles. En lugar de hard-codear condiciones de query en repositories o servicios, cada regla es encapsulada en una clase Specification que puede combinarse con otras usando operadores lógicos (AND, OR, NOT).

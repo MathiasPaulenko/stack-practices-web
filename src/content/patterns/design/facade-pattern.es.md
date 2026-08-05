@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patrón Facade
-
 ## Descripción General
 
 El Patrón Facade provee una interfaz simplificada y unificada a un subsistema complejo. En lugar de forzar a los clientes a interactuar con docenas de clases interdependientes, un facade expone solo las operaciones que necesitan. Esto reduce el acoplamiento, mejora la legibilidad y hace que el subsistema sea más fácil de evolucionar.

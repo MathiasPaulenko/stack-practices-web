@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Singleton Pattern
-
 ## Overview
 
 The [Singleton](/patterns/design/singleton-pattern) Pattern is a creational design pattern that restricts a class to a single instance and provides a global point of access to it. It is useful when exactly one object is needed to coordinate actions across the system.

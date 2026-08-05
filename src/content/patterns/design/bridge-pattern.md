@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Bridge Pattern
-
 ## Overview
 
 The Bridge Pattern is a structural design pattern that decouples an abstraction from its implementation so that the two can vary independently. Instead of having one class hierarchy that combines both, you split it into two separate hierarchies — one for the abstraction and one for the implementation. This is especially useful when you need to support multiple platforms or rendering backends.

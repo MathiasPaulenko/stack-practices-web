@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Patrón Data Access Object (DAO)
-
 ## Descripción General
 
 El Patrón Data Access Object (DAO) separa las operaciones de acceso a datos de bajo nivel de la lógica de negocio de alto nivel. Un DAO provee una interfaz limpia para crear, leer, actualizar y eliminar entidades, mientras encapsula los detalles de la base de datos o mecanismo de almacenamiento subyacente.

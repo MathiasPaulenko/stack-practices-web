@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Configura headers de seguridad HTTP con Helmet en Node.js
-
 Los headers de seguridad HTTP protegen tu web app de clickjacking, XSS, MIME sniffing y man-in-the-middle. Helmet es un middleware de Express que los establece automaticamente. A continuacion: configurar Helmet con Content Security Policy (CSP), HSTS, CORS y headers personalizados para cumplimiento OWASP.
 
 ## Cuando Usar Esto

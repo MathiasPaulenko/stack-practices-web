@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Post-Deployment Verification Checklist Template
-
 Use this checklist before declaring a deployment successful. Pair it with [Release Notes Template](/docs/templates/release-notes-template) for communication and [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
 
 ## Overview

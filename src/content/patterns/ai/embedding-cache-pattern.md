@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Embedding Cache Pattern
-
 ## Overview
 
 Generating embeddings via API (OpenAI, Cohere, HuggingFace) costs money per request. When the same text is embedded repeatedly — common in RAG pipelines, semantic search, and deduplication — those API calls are wasted. The Embedding Cache Pattern stores embeddings keyed by a hash of the text and model identifier. On subsequent requests for the same text, the cached embedding is returned without calling the API.

@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Chain of Responsibility for Request Processing Middleware
-
 The [Chain of Responsibility](/patterns/design/chain-of-responsibility-pattern) pattern passes requests along a chain of handlers. Each handler decides either to process the request or to pass it to the next handler on the chain. This pattern decouples senders from receivers, allowing multiple objects to handle a request without the sender knowing which object will ultimately process it.
 
 ## When to Use This

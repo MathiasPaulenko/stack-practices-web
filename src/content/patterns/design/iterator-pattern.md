@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Iterator Pattern
-
 ## Overview
 
 The [Iterator](/patterns/design/iterator-pattern-collections) Pattern is a behavioral design pattern that provides a way to access elements of an aggregate object sequentially without exposing its underlying representation. It separates the traversal logic from the collection itself, allowing multiple simultaneous traversals and different traversal strategies.

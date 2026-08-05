@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Model-View-ViewModel (MVVM) Pattern
-
 ## Overview
 
 The Model-View-ViewModel (MVVM) Pattern separates an application into three layers: the **Model** (data and business logic), the **View** (UI layout and structure), and the **ViewModel** (state and behavior exposed to the View). The View binds to the ViewModel declaratively, and changes in the ViewModel automatically reflect in the View.

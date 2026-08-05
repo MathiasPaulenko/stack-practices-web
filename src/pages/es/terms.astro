@@ -2,11 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { webPage, breadcrumbList } from '../../lib/schema';
 
+const description = 'Lee los términos de servicio de StackPractices, incluyendo uso del contenido, descargos, propiedad intelectual y responsabilidades del usuario.';
+
 const jsonLd = [
   {
     ...webPage({
       name: 'Términos de Servicio',
-      description: 'Términos de servicio para el uso de StackPractices.',
+      description,
       url: '/es/terms',
       locale: 'es',
     }),
@@ -21,7 +23,7 @@ const jsonLd = [
 
 <BaseLayout
   title="Términos de Servicio"
-  description="Términos de servicio para el uso de StackPractices."
+  description={description}
   path="/terms"
   locale="es"
   keywords={['términos', 'tos', 'legal']}

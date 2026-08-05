@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Patrón Registry
-
 ## Descripción General
 
 El Patrón Registry provee un mecanismo de lookup centralizado para servicios, configuraciones u objetos compartidos. En lugar de pasar dependencias a través de largas cadenas de constructores, los componentes solicitan lo que necesitan desde un registry. Esto desacopla a los consumidores de las implementaciones concretas que usan.

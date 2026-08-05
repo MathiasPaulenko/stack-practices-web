@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Compare Text Semantic Similarity with OpenAI Embeddings and Cosine
-
 Text embeddings capture semantic meaning as high-dimensional vectors. Cosine similarity measures the angle between two vectors, indicating how semantically similar the texts are. Below: generating embeddings with OpenAI, computing cosine similarity, and building a simple similarity search index.
 
 ## When to Use This

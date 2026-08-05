@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Aggregate Pattern
-
 ## Overview
 
 The Aggregate Pattern is a core building block of Domain-Driven Design (DDD). An aggregate is a cluster of associated objects treated as a single unit for data changes. Every aggregate has a root entity — the Aggregate Root — that controls access to its internal members.

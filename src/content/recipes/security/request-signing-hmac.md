@@ -39,8 +39,6 @@ seo:
 
 
 ---
-# Implement Request Signing with HMAC
-
 ## Overview
 
 HMAC (Hash-based Message Authentication Code) provides message integrity and authentication. By signing API requests with a shared secret, the server can verify the request was not tampered with in transit and originated from a trusted client.

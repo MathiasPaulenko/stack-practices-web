@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Disaster Recovery Plan Template
-
 Use this template to prepare for catastrophic failures and minimize recovery time. Complement it with the [Runbook Template](/docs/templates/runbook-template) for operational procedures.
 
 ## Template
@@ -92,17 +90,17 @@ Use this template to prepare for catastrophic failures and minimize recovery tim
 ## Recovery Runbook
 
 ```bash
-# 1. Verify secondary region health
+## 1. Verify secondary region health
 kubectl --context=dr get nodes
 
-# 2. Promote read replicas
+## 2. Promote read replicas
 gcloud sql instances promote-replica dr-replica
 
-# 3. Update DNS
+## 3. Update DNS
 aws route53 change-resource-record-sets --hosted-zone-id Z123 \
   --change-batch file://failover.json
 
-# 4. Verify
+## 4. Verify
 ./smoke-tests.sh --env=dr
 ```
 

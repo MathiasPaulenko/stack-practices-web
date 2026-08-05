@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patron GraphQL Mutation Validation
-
 ## Descripcion general
 
 Las mutaciones GraphQL aceptan input types que necesitan validacion antes de procesarse. Sin un enfoque centralizado, cada resolver repite logica de validacion: comprobar campos requeridos, validar formatos de email, exigir longitudes de string, verificar rangos numericos. Esto lleva a reglas y formatos de error inconsistentes entre mutaciones.

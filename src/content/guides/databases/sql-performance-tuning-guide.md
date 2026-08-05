@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# SQL Performance Tuning
-
 ## Introduction
 
 Slow queries are one of the most common causes of application performance problems. This guide walks through practical techniques to identify, diagnose, and fix SQL performance issues across PostgreSQL, MySQL, and SQL Server.

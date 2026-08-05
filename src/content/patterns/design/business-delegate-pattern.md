@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Business Delegate Pattern
-
 ## Overview
 
 The Business Delegate Pattern reduces coupling between the presentation tier and the business services tier by introducing an intermediary layer. Instead of the presentation layer directly accessing business services (EJBs, remote APIs, or complex service objects), it uses a Business Delegate that handles service lookup, creation, and invocation.

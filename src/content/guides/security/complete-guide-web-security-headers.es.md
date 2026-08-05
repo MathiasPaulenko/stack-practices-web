@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-web-security-headers
-title: "Referencia Detallada de Web Security Headers"
+title: "Web Security Headers"
 description: "Implementa CSP, HSTS, X-Frame-Options y headers seguros. Cubre content security policy, CORS, referrer policy, permissions policy y testing con security scanners."
 metaDescription: "Referencia detallada de web security headers. Implementa CSP, HSTS, X-Frame-Options, CORS, referrer policy, permissions policy y testing con security scanners."
 difficulty: intermediate
@@ -45,8 +45,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de Web Security Headers
 
 ## Introducción
 

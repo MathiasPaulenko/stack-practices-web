@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Elasticsearch Aggregations for Analytics and Search
-
 Elasticsearch aggregations allow you to group and summarize indexed data in real time. Unlike relational databases that require explicit GROUP BY queries, Elasticsearch computes aggregations on inverted indexes, making them fast enough to power live search facets and analytics dashboards.
 
 ## When to Use This

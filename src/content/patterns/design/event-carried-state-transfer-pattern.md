@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Event-Carried State Transfer Pattern
-
 ## Overview
 
 The Event-Carried State Transfer (ECST) Pattern replicates state changes across distributed services by publishing events that carry the full updated entity state. When a service modifies an entity, it emits an event containing the complete new state of that entity. Consuming services store this state locally, eliminating the need to query the source service for reads.

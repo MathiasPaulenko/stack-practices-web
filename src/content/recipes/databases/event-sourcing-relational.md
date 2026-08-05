@@ -37,8 +37,6 @@ seo:
 
 
 ---
-# Implement Event Sourcing in a Relational Database
-
 ## Overview
 
 Event sourcing stores state changes as a sequence of immutable events rather than overwriting current state. Instead of saving `balance = 100`, you record `Deposited $50` and `Deposited $50`. The current state is derived by replaying all events. This provides a complete audit trail, temporal querying, and the ability to reconstruct state at any point in time.

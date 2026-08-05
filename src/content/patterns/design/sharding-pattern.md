@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Sharding Pattern
-
 ## Overview
 
 The Sharding Pattern divides a large dataset into smaller, manageable chunks called **shards** and distributes them across multiple servers or database instances. Instead of a single monolithic database handling all read and write traffic, each shard manages a subset of the data, allowing the system to scale horizontally by adding more shard nodes.

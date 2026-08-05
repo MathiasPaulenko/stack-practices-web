@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Complete Guide to React Performance Optimization
-
 ## Introduction
 
 React is fast by default, but as apps grow, unnecessary re-renders, large bundles, and unoptimized lists can degrade performance. The following guide covers memoization, virtualization, code splitting, bundle analysis, React Profiler, concurrent features, and Core Web Vitals tuning.

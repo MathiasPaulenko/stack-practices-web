@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Refresh-Ahead Cache Pattern
-
 ## Overview
 
 Refresh-ahead proactively reloads cache entries before they expire. A background process monitors entries approaching their TTL deadline and refreshes them from the database. The cache always has fresh data, and reads never miss on hot keys.

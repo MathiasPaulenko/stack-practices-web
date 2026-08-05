@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Plantilla de Release Notes
-
 Usa esta plantilla para comunicar qué cambió, por qué importa y qué deben hacer los usuarios. Combínala con la [Plantilla de Changelog](/docs/templates/changelog-template) para tracking y la [Plantilla de Checklist Post-Deploy](/docs/templates/post-deployment-checklist-template) para verificación.
 
 ## Resumen

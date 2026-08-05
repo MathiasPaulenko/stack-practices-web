@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Content Delivery Network (CDN) Pattern
-
 ## Overview
 
 The Content Delivery Network (CDN) Pattern distributes content through a geographically dispersed network of edge servers, placing cached copies of assets closer to end users. Instead of every request traveling to a single origin server, users are routed to the nearest edge location, dramatically reducing latency, improving availability, and offloading traffic from the origin infrastructure.

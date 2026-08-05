@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# GraphQL Federated Entity Pattern
-
 ## Overview
 
 In Apollo Federation, an entity is an object type shared across multiple subgraphs. Each subgraph contributes different fields to the same entity. The gateway stitches them together so clients query a single unified type without knowing which service owns which field.

@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Distributed Lock Pattern
-
 ## Overview
 
 The Distributed Lock Pattern coordinates mutually exclusive access to shared resources across multiple nodes in a distributed system. When multiple processes or services compete for the same resource — a file, a database row, a task queue entry, or a configuration value — a distributed lock ensures that only one node holds the lock at a time, preventing race conditions, duplicate processing, and data corruption.

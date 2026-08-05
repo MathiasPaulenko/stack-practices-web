@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patrón Role
-
 ## Descripción General
 
 El Patrón Role asigna roles dinámicos a objetos en runtime en lugar de codificar comportamiento en jerarquías de clase fijas. En muchos dominios, la misma entidad desempeña diferentes roles en diferentes contextos: una persona puede ser cliente, empleado y vendedor. Usar herencia para cada combinación lleva a una explosión combinatoria de subclases.

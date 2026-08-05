@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Model-View-Presenter (MVP) Pattern
-
 ## Overview
 
 The Model-View-Presenter (MVP) Pattern separates an application into three components: the **Model** (business logic and data), the **View** (UI display), and the **Presenter** (mediator that handles user input and updates both Model and View). The View is passive — it delegates all user actions to the Presenter and is updated by the Presenter in response.

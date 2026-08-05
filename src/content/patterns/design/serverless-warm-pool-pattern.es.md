@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patron Serverless Warm Pool
-
 ## Descripcion general
 
 Un cold start ocurre cuando Lambda crea un nuevo entorno de ejecucion para una funcion que no tiene instancias calientes. La inicializacion anade latencia: descargar codigo, iniciar el runtime, cargar dependencias. Los cold starts tipicamente anaden 500ms a 5s dependiendo del runtime y tamano del paquete.

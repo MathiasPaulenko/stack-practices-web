@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# URL Encoding and Decoding: encodeURI, encodeURIComponent, and Beyond
-
 Correctly encode URLs and URI components to handle special characters, spaces, and Unicode safely across browsers, servers, and APIs. This approach handles `encodeURI`, `encodeURIComponent`, RFC 3986 compliance, form data encoding, and decoding edge cases.
 
 ## When to Use This

@@ -3,7 +3,7 @@
 
 contentType: guides
 slug: complete-guide-mobile-responsive-design
-title: "Referencia Detallada de Diseño Mobile Responsive"
+title: "Diseño Mobile Responsive"
 description: "Construye layouts responsive que funcionan en cualquier dispositivo. Cubre CSS Grid, Flexbox, container queries, fluid typography, mobile-first breakpoints y responsive images."
 metaDescription: "Referencia Detallada de diseño mobile responsive. Master CSS Grid, Flexbox, container queries, fluid typography, mobile-first breakpoints y responsive images."
 difficulty: intermediate
@@ -38,8 +38,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de Diseño Mobile Responsive
 
 ## Introducción
 

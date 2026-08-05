@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patrón Singleton
-
 ## Visión general
 
 El [Patrón Singleton](/patterns/design/singleton-pattern) es un patrón de diseño creacional que restringe una clase a una única instancia y proporciona un punto de acceso global a ella. Es útil cuando se necesita exactamente un objeto para coordinar acciones en todo el sistema.

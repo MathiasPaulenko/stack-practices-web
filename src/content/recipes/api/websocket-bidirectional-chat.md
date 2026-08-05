@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Build a Bidirectional Chat with WebSocket and Node.js
-
 Bidirectional communication allows both client and server to send messages at any time. A chat application demonstrates this pattern perfectly: users send messages to the server, which then broadcasts them to other participants in the same room. WebSocket is the ideal transport for this because it maintains a persistent, low-latency connection.
 
 ## When to Use This

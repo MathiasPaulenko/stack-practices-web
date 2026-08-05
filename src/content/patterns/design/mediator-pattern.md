@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Mediator Pattern
-
 ## Overview
 
 The [Mediator](/patterns/design/mediator-pattern-components) Pattern is a behavioral design pattern that defines an object that encapsulates how a set of objects interact. Instead of objects referring to each other directly, they communicate through a central mediator. This reduces the number of direct connections between components and centralizes complex coordination logic.

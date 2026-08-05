@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Guía de Diseño de APIs REST
-
 ## Overview
 
 REST (Representational State Transfer) es el estilo arquitectónico dominante para diseñar aplicaciones en red. Una API REST bien diseñada es predecible, autodescriptiva y fácil de consumir desde múltiples clientes.

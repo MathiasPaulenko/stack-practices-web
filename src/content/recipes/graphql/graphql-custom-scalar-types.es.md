@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Tipos escalares personalizados en GraphQL para fechas, emails y JSON
-
 GraphQL incluye cinco escalares nativos: `Int`, `Float`, `String`, `Boolean` e `ID`. Las aplicaciones reales necesitan tipos mas especificos — fechas que serializan a ISO 8601, emails que validan formato, URLs que exigen protocolo y blobs JSON flexibles. Los escalares personalizados llenan este vacio definiendo tres funciones: `serialize` (servidor a cliente), `parseValue` (variable del cliente al servidor) y `parseLiteral` (AST del cliente al servidor).
 
 ## Cuando Usar Esto

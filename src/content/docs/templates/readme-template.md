@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# README Template
-
 ## Overview
 
 A README is the front door of your project. Pair it with the [Contributing Guide](/docs/templates/contributing-guide) and [Code of Conduct](/docs/templates/code-of-conduct-template) for community standards. It is the first thing developers see on GitHub, npm, PyPI, or Docker Hub. A well-structured README reduces onboarding friction, answers common questions, and sets expectations for contributors.
@@ -94,14 +92,14 @@ Copy the template below and replace the `[bracketed]` placeholders:
 ### Quick Start
 
 ```bash
-# Clone the repository
+## Clone the repository
 git clone https://github.com/username/repo.git
 cd repo
 
-# Install dependencies
+## Install dependencies
 npm install
 
-# Run the project
+## Run the project
 npm run dev
 ```
 

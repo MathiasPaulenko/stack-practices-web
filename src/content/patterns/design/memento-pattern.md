@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Memento Pattern
-
 ## Overview
 
 The [Memento](/patterns/design/memento-pattern-state) Pattern is a behavioral design pattern that lets you save and restore the previous state of an object without revealing its internal structure. It is the foundation of undo/redo functionality in applications like text editors, drawing programs, and game state management.

@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Docker para Desarrolladores
-
 ## Introducción
 
 Docker es una plataforma para desarrollar, enviar y ejecutar aplicaciones en contenedores. Los contenedores son ligeros, portátiles y consistentes entre entornos, resolviendo el problema clásico de "en mi máquina funciona".

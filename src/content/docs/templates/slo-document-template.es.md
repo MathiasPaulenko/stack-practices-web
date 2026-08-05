@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Plantilla de Documento SLO (Service Level Objective)
-
 Usa esta plantilla para definir targets de confiabilidad que equilibran felicidad de usuarios con velocidad de ingeniería. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para recolección de métricas y la [Guía de Respuesta a Incidentes On-Call](/guides/devops/on-call-incident-response-guide) para procedimientos de escalamiento.
 
 ## Plantilla

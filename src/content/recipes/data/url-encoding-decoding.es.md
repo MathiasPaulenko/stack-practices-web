@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Codificacion y Decodificacion de URLs: encodeURI, encodeURIComponent y Mas
-
 Codifica URLs y componentes URI correctamente para manejar caracteres especiales, espacios y Unicode de forma segura en browsers, servidores y APIs. Esta recipe cubre `encodeURI`, `encodeURIComponent`, cumplimiento RFC 3986, codificacion de form data y casos edge de decodificacion.
 
 ## Cuando Usar Esto

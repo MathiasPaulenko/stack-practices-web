@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Patron Read-Through Cache
-
 ## Descripcion general
 
 En un read-through cache, la aplicacion habla solo con la capa de cache. En un cache hit, el cache devuelve los datos directamente. En un cache miss, el cache obtiene los datos del backing store, los almacena y los devuelve a la aplicacion. La aplicacion nunca interactua con la base de datos directamente para lecturas.

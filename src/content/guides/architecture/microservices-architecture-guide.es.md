@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Arquitectura de Microservicios — Cuándo Usarla y Cuándo No
-
 ## Introducción
 
 La arquitectura de microservicios estructura una aplicación como una colección de servicios débilmente acoplados, cada uno propiedad de un equipo pequeño y desplegable de forma independiente. Resuelve problemas de escalamiento organizacional y técnico, pero introduce complejidad operativa importante. Esta guía te ayuda a decidir cuándo el trade-off vale la pena.

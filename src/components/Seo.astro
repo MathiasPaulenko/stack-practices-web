@@ -28,36 +28,211 @@ const {
   noindex = false,
 } = Astro.props;
 
+function smartTruncate(text: string, maxLength: number): string {
+  if (!text || text.length <= maxLength) return text;
+  const end = text.lastIndexOf(' ', maxLength - 1);
+  if (end === -1) return text.slice(0, maxLength - 1) + '…';
+  return text.slice(0, end) + '…';
+}
+
+// Astro escapes & < > ' " in text content, so the rendered <title> is longer
+// than the source string when it contains those characters. Count the extra
+// characters &amp; (+4), &lt; (+3), &gt; (+3), &#39; (+4), &quot; (+5) so we
+// can enforce the real SERP limit of 60 characters.
+function htmlEscapedExtra(text: string): number {
+  return (text.match(/&/g) || []).length * 4
+    + (text.match(/</g) || []).length * 3
+    + (text.match(/>/g) || []).length * 3
+    + (text.match(/'/g) || []).length * 4
+    + (text.match(/"/g) || []).length * 5;
+}
+
 const normalizedPath = path === '/' ? '/' : path.endsWith('/') ? path : `${path}/`;
 const enUrl = `${SITE.url}${normalizedPath}`;
 const esUrl = `${SITE.url}/es${normalizedPath}`;
 const canonical = locale === 'es' ? esUrl : enUrl;
 const ogLocale = locale === 'es' ? 'es_ES' : 'en_US';
-const fullTitle = title === SITE.title ? title : `${title} | ${SITE.name}`;
+
+// Page-type labels disambiguate content that shares the same base title across
+// recipes, guides, patterns, docs, topics, tags or authors.
+const typeLabels: Record<string, { en: string; es: string }> = {
+  recipes: { en: 'Recipe', es: 'Receta' },
+  patterns: { en: 'Pattern', es: 'Patrón' },
+  guides: { en: 'Guide', es: 'Guía' },
+  docs: { en: 'Doc', es: 'Doc' },
+  topics: { en: 'Topic', es: 'Tema' },
+  tags: { en: 'Tag', es: 'Etiqueta' },
+  authors: { en: 'Author', es: 'Autor' },
+};
+
+function pageTypeFromPath(p: string, loc: Locale): string | null {
+  const segments = p.split('/').filter(Boolean);
+  const first = segments[0] === 'es' ? segments[1] : segments[0];
+  if (!first || !typeLabels[first]) return null;
+  return typeLabels[first][loc];
+}
+
+const pageType = pageTypeFromPath(path, locale);
+
+// Avoid redundant type labels when the title already starts with the type name
+// (e.g. "Tag: ai" / "Etiqueta: ai").
+const titleLower = title.toLowerCase().trim();
+const typeLower = (pageType || '').toLowerCase();
+const titleHasType = typeLower && (
+  titleLower.startsWith(typeLower + ' ') ||
+  titleLower.startsWith(typeLower + ':')
+);
+const effectiveType = titleHasType ? null : pageType;
+
+const localeTag = locale === 'es' ? ' (ES)' : '';
+
+// Build the brand suffix: type + locale + brand, or just locale + brand.
+const brandSuffix = effectiveType
+  ? ` | ${effectiveType}${localeTag} | ${SITE.name}`
+  : localeTag
+    ? ` | ${localeTag.trim()} | ${SITE.name}`
+    : ` | ${SITE.name}`;
+
+const maxTitleLength = 60;
+
+// Generic leading phrases and word+connector pairs that can be stripped from
+// long titles to surface the unique, specific part before truncation.
+const genericHeadPhrases = [
+  'Complete Guide to ',
+  'Service Level Objective (SLO) ',
+  'Deep Clone de Objetos en ',
+  'Deep Clone de Objetos ',
+  'Deep Clone de ',
+  'Deep Cloning of Objects ',
+  'Deep Cloning ',
+  'Building a ',
+  'Building ',
+  'Caching ',
+  'Cache ',
+  'Security Scan of ',
+  'Configuring ',
+  'Configure ',
+  'Configurar ',
+  'Comprimir y Descomprimir ',
+  'Compress and Decompress ',
+  'Compressing ',
+  'Uploading ',
+  'Upload ',
+  'Validación de Subida de ',
+  'Validacion de Subida de ',
+  'Implementing ',
+  'Implement ',
+  'Orchestrating ',
+  'Orchestrate ',
+  'Construir un ',
+  'Construir una ',
+  'Construir ',
+  'Cachear ',
+  'Clonar ',
+  'Implementar ',
+  'Orquestar ',
+  // Listing / tag / topic / author labels: their type is already shown by the
+  // page-type suffix, so we can drop the explicit prefix when it saves space.
+  'Etiqueta: ',
+  'Tag: ',
+  'Tema: ',
+  'Topic: ',
+  'Autor: ',
+  'Author: ',
+];
+
+const genericHeadWords = new Set([
+  'Plantilla', 'Template', 'Documento', 'Document', 'Política', 'Politica', 'Policy',
+  'Checklist', 'Runbook', 'Playbook', 'Reporte', 'Report', 'Revisión', 'Revision', 'Review',
+  'Evaluación', 'Evaluacion', 'Evaluation', 'Gestión', 'Gestion', 'Management',
+  'Guía', 'Guia', 'Guide', 'Documentación', 'Documentacion', 'Documentation',
+  'Línea', 'Linea', 'Line', 'Comunicación', 'Comunicacion', 'Communication',
+  'Cronograma', 'Schedule', 'Auditoría', 'Auditoria', 'Audit', 'Informe',
+  'Seguridad', 'Security', 'Acceso', 'Access', 'Subida', 'Reglas', 'Rules',
+  'Clonación', 'Clonacion', 'Clone', 'Cloning', 'Tiempo', 'Escaneo',
+]);
+
+const genericConnectors = new Set([
+  'de', 'of', 'to', 'for', 'a', 'an', 'un', 'una', 'el', 'la', 'los', 'las',
+]);
+
+// Only strip a generic prefix if the remainder still has enough substance to
+// be a meaningful, unique title. We accept either two+ short words or a single
+// long token (e.g. a hyphenated tag slug), but reject a single short word.
+function hasEnoughWords(text: string): boolean {
+  const words = text.trim().split(/\s+/).filter(Boolean);
+  if (words.length >= 2) return text.trim().length >= 10;
+  return text.trim().length >= 12;
+}
+
+function cleanGenericPrefix(rawTitle: string, available: number, depth = 0): string {
+  if (depth > 4 || rawTitle.length <= available) return rawTitle;
+
+  const lower = rawTitle.toLowerCase();
+  for (const phrase of genericHeadPhrases) {
+    if (lower.startsWith(phrase.toLowerCase())) {
+      const next = rawTitle.slice(phrase.length).trim();
+      if (next && hasEnoughWords(next)) return cleanGenericPrefix(next, available, depth + 1);
+    }
+  }
+
+  const match = rawTitle.match(/^(\S+)\s+(\S+)\s*/);
+  if (match) {
+    const [, first, second] = match;
+    if (genericHeadWords.has(first) && genericConnectors.has(second.toLowerCase())) {
+      const next = rawTitle.slice(match[0].length).trim();
+      if (next && hasEnoughWords(next)) return cleanGenericPrefix(next, available, depth + 1);
+    }
+  }
+
+  return rawTitle;
+}
+
+function makeFullTitle(rawTitle: string, addBrand: boolean): string {
+  const extra = htmlEscapedExtra(rawTitle);
+  const suffix = addBrand ? brandSuffix : '';
+  const suffixExtra = htmlEscapedExtra(suffix);
+  const available = maxTitleLength - extra - suffix.length - suffixExtra;
+  const cleanTitle = cleanGenericPrefix(rawTitle, Math.max(10, available));
+  const safeTitle = smartTruncate(cleanTitle, Math.max(10, available));
+  return addBrand ? `${safeTitle}${suffix}` : safeTitle;
+}
+
+// Avoid a redundant brand suffix when the title already carries the site name
+// (e.g. home pages).
+const titleContainsBrand = title.toLowerCase().includes(SITE.name.toLowerCase());
+
+const fullTitle = titleContainsBrand
+  ? makeFullTitle(title, false)
+  : makeFullTitle(title, true);
+
+const hasEn = locale === 'en' || hasAlternate;
+const hasEs = locale === 'es' || hasAlternate;
+const xDefault = hasEn ? enUrl : esUrl;
+
+// Append a language tag to ES meta descriptions so English/Spanish pairs don't
+// share identical snippets, and reserve room for the tag before truncating.
+const esDescTag = locale === 'es' ? ' (ES)' : '';
+const metaDescription = smartTruncate(description, 160 - esDescTag.length) + esDescTag;
+
 ---
 
 <title>{fullTitle}</title>
-<meta name="description" content={description} />
+<meta name="description" content={metaDescription} />
 <meta name="author" content={SITE.author} />
 {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
 <link rel="canonical" href={canonical} />
 
-{
-  hasAlternate && (
-    <>
-      <link rel="alternate" hreflang="en" href={enUrl} />
-      <link rel="alternate" hreflang="es" href={esUrl} />
-      <link rel="alternate" hreflang="x-default" href={enUrl} />
-    </>
-  )
-}
+{hasEn && <link rel="alternate" hreflang="en" href={enUrl} />}
+{hasEs && <link rel="alternate" hreflang="es" href={esUrl} />}
+{xDefault && <link rel="alternate" hreflang="x-default" href={xDefault} />}
 
 <!-- Open Graph -->
 <meta property="og:type" content={ogType} />
 <meta property="og:title" content={fullTitle} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={metaDescription} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={SITE.name} />
 <meta property="og:locale" content={ogLocale} />
@@ -66,7 +241,7 @@ const fullTitle = title === SITE.title ? title : `${title} | ${SITE.name}`;
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:description" content={metaDescription} />
 <meta name="twitter:image" content={`${SITE.url}/og-image.png`} />
 {SITE.twitter && <meta name="twitter:site" content={SITE.twitter} />}
 

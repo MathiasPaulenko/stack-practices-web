@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Rendimiento SPA: Code Splitting y Lazy Loading
-
 Reduce el tamano del bundle inicial en [single-page applications](/recipes/performance/lazy-loading) dividiendo codigo a nivel de ruta y componente. Esta recipe demuestra React.lazy, imports en vivo y estrategias de preload que mantienen time-to-interactive bajo sin sacrificar experiencia de usuario.
 
 ## Cuando Usar Esto

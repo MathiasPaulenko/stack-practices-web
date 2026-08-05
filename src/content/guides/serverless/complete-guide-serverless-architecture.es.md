@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-serverless-architecture
-title: "Referencia Detallada de Arquitectura Serverless"
+title: "Arquitectura Serverless"
 description: "Decidir cuando ir serverless y cuando no. Cubre patrones FaaS, diseno event-driven, cold starts, modelos de costo, vendor lock-in y estrategias de migracion para aplicaciones serverless de produccion."
 metaDescription: "Decidir cuando ir serverless. Cubre patrones FaaS, event-driven, cold starts, costo, vendor lock-in y migracion para apps de produccion."
 difficulty: advanced

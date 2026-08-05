@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Patrón Multiton
-
 ## Descripción General
 
 El Patrón Multiton extiende el concepto de Singleton para gestionar múltiples instancias nombradas. En lugar de una única instancia global, un Multiton mantiene un registro de instancias indexadas por nombre o identificador. Solicitar la misma clave siempre retorna la misma instancia, pero diferentes claves producen instancias diferentes.

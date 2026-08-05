@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Clean Code Principles
-
 ## Introduction
 
 Clean code is code that is easy to understand, easy to change, and easy to test. It is not about being clever — it is about being clear. This guide walks through the foundational habits that make a codebase sustainable.

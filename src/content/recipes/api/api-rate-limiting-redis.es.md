@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Implementar Rate Limiting de APIs con Redis
-
 Previene abuso de APIs y asegura distribucion justa de recursos usando rate limiters respaldados por Redis. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para estrategias generales de protección de APIs. Esta recipe implementa algoritmos de token bucket y ventana deslizante con coordinacion distribuida, headers custom de rate limit y configuracion por endpoint para APIs de produccion.
 
 ## Cuando Usar Esto

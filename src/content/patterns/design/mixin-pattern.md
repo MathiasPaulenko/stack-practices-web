@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Mixin Pattern
-
 ## Overview
 
 The Mixin Pattern adds reusable behavior to classes without using inheritance. A mixin is a collection of methods that can be copied or composed into a target class, giving it new capabilities. Unlike inheritance, mixins do not create an "is-a" relationship — they simply inject behavior.

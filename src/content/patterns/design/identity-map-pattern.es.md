@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Patrón Identity Map
-
 ## Descripción General
 
 El Patrón Identity Map asegura que cada objeto sea cargado solo una vez por transacción manteniendo un cache de todos los objetos que han sido leídos de la base de datos en una unidad de trabajo. Cuando un objeto es solicitado por ID, el Identity Map chequea si una instancia ya existe en memoria antes de volver a consultar la base de datos.

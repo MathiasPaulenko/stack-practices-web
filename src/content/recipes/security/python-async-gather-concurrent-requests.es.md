@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Peticiones HTTP concurrentes con asyncio.gather y aiohttp
-
 Las peticiones HTTP secuenciales son lentas — obtener 100 endpoints uno por uno toma 100x la latencia de una sola peticion. `asyncio.gather` ejecuta peticiones concurrentemente, reduciendo el tiempo total a la peticion mas lenta. A continuacion: fetching concurrente con `aiohttp`, manejo de errores, rate limiting con semaforos, timeouts y connection pooling.
 
 ## Cuando Usar Esto

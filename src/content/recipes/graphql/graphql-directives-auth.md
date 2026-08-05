@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Field-Level Auth with Custom GraphQL Schema Directives
-
 GraphQL resolvers often need different authorization rules for different fields — a user can read their own email but not someone else's, an admin can see all fields, and a public field requires no auth. Custom schema directives let you declare these rules in the schema itself with `@auth` or `@requiresRole(role: "admin")`, keeping authorization logic out of individual resolvers.
 
 ## When to Use This

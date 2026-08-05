@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Batch and Cache Database Queries with GraphQL DataLoader
-
 When a GraphQL query resolves nested relationships — like fetching the author of each post in a list — a naive resolver issues one database query per item. This is the N+1 problem: one query for the list, plus N queries for the related data. DataLoader solves this by collecting individual load requests within a single event loop tick and dispatching them as a single batched query.
 
 ## When to Use This

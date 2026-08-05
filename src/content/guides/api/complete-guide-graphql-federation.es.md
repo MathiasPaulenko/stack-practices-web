@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-graphql-federation
-title: "Referencia Detallada de GraphQL Federation"
+title: "GraphQL Federation"
 description: "Construye APIs GraphQL unificadas across múltiples servicios con Apollo Federation. Cubre subgraphs, supergraph composition, entity resolution y gateway deployment."
 metaDescription: "Referencia Detallada de GraphQL Federation. Construye APIs unificadas con Apollo Federation, subgraphs, supergraph composition, entities y gateway deployment."
 difficulty: advanced
@@ -51,8 +51,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de GraphQL Federation
 
 ## Introducción
 

@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Back-Pressure Pattern
-
 ## Overview
 
 The Back-Pressure Pattern prevents an upstream producer from overwhelming a downstream consumer by propagating flow-control signals backward through a data pipeline. When the consumer cannot keep up, it signals the producer to slow down or pause, preventing unbounded memory growth, timeouts, and cascading failures.

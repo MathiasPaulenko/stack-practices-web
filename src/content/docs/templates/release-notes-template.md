@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Release Notes Template
-
 Use this template to communicate what changed, why it matters, and what users need to do. Pair it with the [Changelog Template](/docs/templates/changelog-template) for tracking and the [Post-Deployment Checklist](/docs/templates/post-deployment-checklist-template) for verification.
 
 ## Overview

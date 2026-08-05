@@ -8,7 +8,7 @@
 
 contentType: guides
 slug: complete-guide-ci-cd-github-actions
-title: "Referencia Detallada de CI/CD con GitHub Actions"
+title: "CI/CD con GitHub Actions"
 description: "Construye pipelines CI/CD desde cero con GitHub Actions. Cubre workflows, runners, matrix builds, caching, secrets, environments, deployment strategies y reusable workflows."
 metaDescription: "Referencia Detallada de CI/CD con GitHub Actions. Construye pipelines desde cero. Master workflows, runners, matrix builds, caching, secrets, environments y deployments."
 difficulty: intermediate
@@ -51,8 +51,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de CI/CD con GitHub Actions
 
 ## Introducción
 

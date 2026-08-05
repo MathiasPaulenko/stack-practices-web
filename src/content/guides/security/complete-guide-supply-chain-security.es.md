@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-supply-chain-security
-title: "Referencia Detallada de Supply Chain Security"
+title: "Supply Chain Security"
 description: "Asegurar tu software supply chain end-to-end. Cubre generacion de SBOM, dependency scanning, Sigstore, SLSA framework, provenance attestation, package registries, typosquatting, dependency confusion y hardening de CI/CD pipelines con ejemplos de codigo."
 metaDescription: "Asegurar software supply chain. Cubre SBOM, dependency scanning, Sigstore, SLSA, provenance, typosquatting, dependency confusion, CI/CD."
 difficulty: advanced

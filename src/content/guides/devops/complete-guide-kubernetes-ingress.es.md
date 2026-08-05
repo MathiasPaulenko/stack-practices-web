@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-kubernetes-ingress
-title: "Referencia Detallada de Kubernetes Ingress"
+title: "Kubernetes Ingress"
 description: "Configura y soluciona problemas de controladores Ingress de Kubernetes. Cubre NGINX Ingress, TLS, enrutamiento por path, anotaciones, IngressClass y errores comunes."
 metaDescription: "Referencia Detallada de Kubernetes Ingress. Configura NGINX Ingress controller, terminación TLS, enrutamiento por path, anotaciones, IngressClass y troubleshooting."
 difficulty: intermediate
@@ -43,8 +43,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de Kubernetes Ingress
 
 ## Introducción
 

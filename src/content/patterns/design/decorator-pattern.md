@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Decorator Pattern
-
 ## Overview
 
 The Decorator Pattern is a structural design pattern that lets you attach new behaviors to objects by placing them inside wrapper objects that contain the behaviors. It provides a flexible alternative to subclassing for extending functionality.

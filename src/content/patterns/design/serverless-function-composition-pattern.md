@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Serverless Function Composition Pattern
-
 ## Overview
 
 Function composition chains multiple serverless functions into a coordinated workflow. Instead of one large function handling everything, each function handles a single step. An orchestrator (AWS Step Functions, Azure Durable Functions, or a custom orchestrator) manages the sequence, handles retries, branches on conditions, and maintains state between steps.

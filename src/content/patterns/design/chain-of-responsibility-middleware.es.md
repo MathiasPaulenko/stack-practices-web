@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Chain of Responsibility para Middleware de Procesamiento de Peticiones
-
 El [Chain of Responsibility](/patterns/design/chain-of-responsibility-pattern) pattern pasa peticiones a lo largo de una cadena de handlers. Cada handler decide si procesa la peticion o la pasa al siguiente handler en la cadena. Este pattern desacopla emisores de receptores, permitiendo que multiples objetos manejen una peticion sin que el emisor sepa cual objeto la procesara finalmente.
 
 ## Cuando Usar Esto

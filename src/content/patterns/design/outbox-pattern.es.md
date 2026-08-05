@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Patrón Outbox
-
 ## Descripción General
 
 El Patrón Outbox garantiza la entrega confiable de eventos de dominio en sistemas distribuidos escribiendo eventos en una tabla "outbox" de base de datos dentro de la misma transacción que la operación de negocio. Un proceso relay separado lee eventos no publicados del outbox y los reenvía a un message broker.

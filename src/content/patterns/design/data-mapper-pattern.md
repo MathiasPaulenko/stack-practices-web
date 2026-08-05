@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Data Mapper Pattern
-
 ## Overview
 
 The Data Mapper Pattern separates in-memory domain objects from the database by delegating all persistence logic to a dedicated mapper layer. The domain model knows nothing about the database — no SQL, no ORM decorators, no `save()` methods. A separate Data Mapper object handles the translation between the domain model and database records.

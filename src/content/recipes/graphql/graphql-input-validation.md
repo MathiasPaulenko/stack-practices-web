@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Validate and Sanitize GraphQL Input Types Server-Side
-
 GraphQL validates that inputs match their declared types, but it does not enforce business constraints — string length, number ranges, email format, or XSS sanitization. Without a validation layer, resolvers receive raw user input and must each implement their own checks. Centralizing validation with Zod schemas keeps resolvers clean and ensures consistent error messages.
 
 ## When to Use This

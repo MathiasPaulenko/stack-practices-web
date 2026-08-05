@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Repository Pattern con Generics de TypeScript
-
 El [Repository](/patterns/design/repository-pattern) pattern media entre las capas de dominio y mapeo de datos. Actua como una coleccion en memoria de objetos de dominio, abstrayendo detalles de persistencia para que tus servicios permanezcan enfocados en logica de negocio.
 
 ## Cuando Usar Esto

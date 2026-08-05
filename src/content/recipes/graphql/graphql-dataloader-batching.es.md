@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Batch y cache de consultas con GraphQL DataLoader
-
 Cuando una consulta GraphQL resuelve relaciones anidadas — como obtener el autor de cada post en una lista — un resolver naive emite una consulta por item. Este es el problema N+1: una consulta para la lista, mas N consultas para los datos relacionados. DataLoader resuelve esto recolectando peticiones individuales dentro de un mismo tick del event loop y despachandolas como una sola consulta batch.
 
 ## Cuando Usar Esto

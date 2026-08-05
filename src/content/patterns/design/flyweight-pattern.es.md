@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Patrón Flyweight
-
 ## Visión General
 
 El Patrón Flyweight es un patrón de diseño estructural que minimiza el uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares. En lugar de almacenar estado redundante en cada instancia, separas el estado intrínseco (compartido) del estado extrínseco (único por contexto) y reutilizas objetos flyweight a través de múltiples contextos.

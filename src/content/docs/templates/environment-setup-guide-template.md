@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Environment Setup Guide Template
-
 Use this template to document reproducible environment setup for new team members and CI pipelines.
 
 ## Overview
@@ -78,26 +76,26 @@ This template covers:
 ## Quick Start
 
 ```bash
-# 1. Clone repository
+## 1. Clone repository
 git clone git@github.com:org/project.git
 cd project
 
-# 2. Install dependencies
+## 2. Install dependencies
 npm install
 
-# 3. Copy environment file
+## 3. Copy environment file
 cp .env.example .env
 
-# 4. Start services
+## 4. Start services
 docker compose up -d
 
-# 5. Run database migrations
+## 5. Run database migrations
 npm run db:migrate
 
-# 6. Seed test data
+## 6. Seed test data
 npm run db:seed
 
-# 7. Start application
+## 7. Start application
 npm run dev
 ```
 
@@ -112,10 +110,10 @@ npm run dev
 ## Verification
 
 ```bash
-# Health check
+## Health check
 curl http://localhost:3000/health
 
-# Expected response
+## Expected response
 {"status":"ok","version":"2.4.1"}
 ```
 
@@ -163,26 +161,26 @@ When moving to new tools or cloud providers, update the guide first, then migrat
 ## Quick Start
 
 ```bash
-# 1. Clone repository
+## 1. Clone repository
 git clone git@github.com:org/stackpractices-web.git
 cd stackpractices-web
 
-# 2. Install dependencies
+## 2. Install dependencies
 npm install
 
-# 3. Copy environment file
+## 3. Copy environment file
 cp .env.example .env
 
-# 4. Start services (database, cache)
+## 4. Start services (database, cache)
 docker compose up -d
 
-# 5. Run database migrations
+## 5. Run database migrations
 npm run db:migrate
 
-# 6. Seed test data
+## 6. Seed test data
 npm run db:seed
 
-# 7. Start development server
+## 7. Start development server
 npm run dev
 ```
 
@@ -201,16 +199,16 @@ Open http://localhost:4321 in your browser.
 ## Verification
 
 ```bash
-# Health check
+## Health check
 curl http://localhost:4321/health
 
-# Expected response
+## Expected response
 {"status":"ok","version":"2.4.1"}
 
-# Run tests
+## Run tests
 npm test
 
-# Build check
+## Build check
 npm run build
 ```
 

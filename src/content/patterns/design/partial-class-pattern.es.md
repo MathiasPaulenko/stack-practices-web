@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patrón Partial Class
-
 ## Descripción General
 
 El Patrón Partial Class divide la definición de una única clase en múltiples archivos fuente. En tiempo de compilación, los fragmentos se fusionan en un único tipo. Esta separación permite que el código auto-generado (de designers, ORMs o generadores de código) viva en un archivo mientras las customizaciones escritas a mano viven en otro, sin riesgo de que uno sobrescriba al otro.

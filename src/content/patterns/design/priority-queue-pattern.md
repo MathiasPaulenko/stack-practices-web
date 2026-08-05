@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Priority Queue Pattern
-
 ## Overview
 
 The Priority Queue Pattern arranges tasks or messages so that higher-priority items are processed before lower-priority ones, regardless of arrival order. Instead of the traditional FIFO (first-in, first-out) queue where tasks are handled in submission order, a priority queue orders tasks by importance, urgency, or business value.

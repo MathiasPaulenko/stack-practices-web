@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Patrón Active Record
-
 ## Descripción General
 
 El Patrón Active Record envuelve una tabla de base de datos en una clase donde cada instancia representa una sola fila. El objeto lleva tanto datos (atributos) como comportamiento (métodos CRUD). Llamar `user.save()` persiste el objeto directamente a la base de datos sin una capa de acceso a datos separada.

@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Proxy Pattern para Cacheo de Respuestas de API
-
 El [Proxy](/patterns/design/proxy-pattern) pattern intercepta el acceso a un objeto para agregar comportamiento sin cambiar la implementacion original. Cuando se aplica a clientes de API, se convierte en una potente capa de cacheo que almacena respuestas, reduce latencia y protege servicios de peticiones redundantes.
 
 ## Cuando Usar Esto

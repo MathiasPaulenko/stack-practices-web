@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Scheduler Agent Supervisor Pattern
-
 ## Overview
 
 The Scheduler Agent Supervisor Pattern structures distributed job processing into three distinct roles: a **Scheduler** that decides what work to do and when, **Agents** that execute the actual work, and a **Supervisor** that monitors agents, handles failures, and manages the lifecycle of the system.

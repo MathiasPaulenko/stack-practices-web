@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Dashboards de Observabilidad con Grafana y Prometheus
-
 Crea dashboards ricos e interactivos en Grafana para visualizar metricas Prometheus y entender el comportamiento de servicios de un vistazo. Esta recipe cubre tipos de paneles, variables de template, organizacion en rows y practicas dashboard-as-code para observabilidad consistente entre equipos.
 
 ## Cuando Usar Esto

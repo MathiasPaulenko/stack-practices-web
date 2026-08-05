@@ -6,7 +6,7 @@
 
 contentType: guides
 slug: complete-guide-kafka-stream-processing
-title: "Referencia Detallada de Kafka Stream Processing"
+title: "Kafka Stream Processing"
 description: "Construye pipelines de event streaming en tiempo real con Kafka. Cubre producers, consumers, Kafka Streams, Kafka Connect, schema registry y patrones de procesamiento."
 metaDescription: "Referencia Detallada de Kafka stream processing. Construye pipelines en tiempo real con producers, consumers, Kafka Streams, Connect, schema registry y patrones."
 difficulty: advanced
@@ -49,8 +49,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de Kafka Stream Processing
 
 ## Introducción
 

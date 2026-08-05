@@ -31,8 +31,6 @@ seo:
 
 ---
 
-# Builder Pattern para Objetos de Configuracion Complejos
-
 El [Builder](/patterns/design/builder-pattern) pattern separa la construccion de un objeto complejo de su representacion. En lugar de pasar ocho argumentos al constructor o crear un objeto vacio y establecer campos individualmente, el builder proporciona una API legible paso a paso con valores por defecto y validacion.
 
 ## Cuando Usar Esto

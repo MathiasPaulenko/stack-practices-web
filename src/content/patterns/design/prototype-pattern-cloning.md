@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Prototype Pattern for Object Cloning and Configuration Templates
-
 The [Prototype](/patterns/design/prototype-pattern) pattern creates new objects by copying existing ones. Instead of building objects from scratch with constructors, you clone a prototype and optionally customize it. This is capable when object initialization is expensive, when many similar configurations exist, or when the exact type of object is not known until runtime.
 
 ## When to Use This

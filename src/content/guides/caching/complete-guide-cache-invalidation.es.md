@@ -3,7 +3,7 @@
 
 contentType: guides
 slug: complete-guide-cache-invalidation
-title: "Referencia Detallada de Invalidation de Cache"
+title: "Invalidation de Cache"
 description: "estrategias de invalidation de cache: TTL, event-driven, versioned keys, tag-based purging y write-through. Cubre invalidation multi-tier, race conditions y patrones de consistencia."
 metaDescription: "invalidation de cache: TTL, event-driven, versioned keys, tag-based purging, write-through. Cubre multi-tier, race conditions y consistencia."
 difficulty: advanced

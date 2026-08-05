@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Composite
-
 ## Visión General
 
 El Patrón Composite es un patrón de diseño estructural que te permite componer objetos en estructuras de árbol y luego trabajar con esas estructuras como si fueran objetos individuales. Es ideal cuando necesitas tratar elementos individuales y grupos de elementos uniformemente — como [componentes UI](/patterns/design/composite-pattern-ui), sistemas de archivos, o organigramas.

@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Command Pattern
-
 ## Overview
 
 The Command Pattern is a behavioral design pattern that turns a request into a stand-alone object containing all information about the request. This lets you parameterize methods with different requests, delay or queue execution, and support undoable operations.

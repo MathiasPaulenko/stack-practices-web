@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Backend for Frontend (BFF) Pattern
-
 ## Overview
 
 The Backend for Frontend (BFF) Pattern creates dedicated backend services tailored to the specific needs of each frontend client type (web, mobile, IoT, desktop). Instead of forcing all clients to consume a single general-purpose API, each frontend gets a backend that aggregates downstream microservices, optimizes data shapes, handles authentication concerns, and exposes an API perfectly aligned with that client's requirements.

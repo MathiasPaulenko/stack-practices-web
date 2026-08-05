@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Deploy Applications to Kubernetes with Helm Charts
-
 Package and deploy applications to Kubernetes using Helm, the package manager for K8s. The following demonstrates how to chart structure, templating with values, release upgrades and rollbacks, and dependency management for production-grade deployments.
 
 ## When to Use This

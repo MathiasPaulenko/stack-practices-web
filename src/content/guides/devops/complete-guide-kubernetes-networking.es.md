@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-kubernetes-networking
-title: "Referencia Detallada de Kubernetes Networking"
+title: "Kubernetes Networking"
 description: "Kubernetes networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, external traffic, mTLS y troubleshooting con ejemplos practicos de YAML manifests y configuracion."
 metaDescription: "K8s networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, mTLS, troubleshooting."
 difficulty: advanced

@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Patrón Distributed Lock
-
 ## Descripción General
 
 El Patrón Distributed Lock coordina el acceso mutuamente exclusivo a recursos compartidos a través de múltiples nodos en un sistema distribuido. Cuando múltiples procesos o servicios compiten por el mismo recurso — un archivo, una fila de base de datos, una entrada de cola de tareas, o un valor de configuración — un lock distribuido asegura que solo un nodo mantenga el lock en un momento dado, previniendo race conditions, procesamiento duplicado y corrupción de datos.

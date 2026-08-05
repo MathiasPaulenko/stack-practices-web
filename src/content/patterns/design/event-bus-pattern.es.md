@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Patrón Event Bus
-
 ## Descripción General
 
 El Patrón Event Bus habilita la comunicación entre componentes sin dependencias directas. En lugar de llamarse entre sí directamente, los componentes publican eventos a un bus central y se suscriben a eventos que les interesan. El bus rutea eventos a todos los suscriptores interesados, desacoplando publishers de consumers.

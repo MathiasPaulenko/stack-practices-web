@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Kubernetes Basics for Application Developers
-
 ## Introduction
 
 Kubernetes (K8s) is an open-source container orchestration platform. It automates deployment, scaling, and management of containerized applications. As a developer, you need to understand the core abstractions to deploy and debug your applications well.

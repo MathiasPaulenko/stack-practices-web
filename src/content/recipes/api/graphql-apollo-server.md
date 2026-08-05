@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Build a GraphQL API with Apollo Server and TypeScript
-
 GraphQL allows clients to request exactly the data they need in a single query. Apollo Server provides a production-ready framework for building GraphQL APIs with schema-first development, built-in subscription support, and a rich plugin platform.
 
 ## When to Use This

@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Sequential Convoy Pattern
-
 ## Overview
 
 The Sequential Convoy Pattern preserves the order of related messages in a distributed messaging system. While many message brokers guarantee ordering within a single partition or queue, they typically process unrelated messages in parallel for throughput. When messages have a causal relationship — for example, "create user" followed by "update user" — processing them out of order leads to inconsistent state.

@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patrón Claim Check
-
 ## Descripción General
 
 El Patrón Claim Check almacena payloads grandes en almacenamiento externo y pasa solo un token de referencia ligero a través de la infraestructura de mensajería. Cuando un consumidor recibe el mensaje, usa el token para recuperar el payload completo del storage. Esto previene que los brokers de mensajes sean abrumados por mensajes grandes, evita violaciones de límites de tamaño, y mantiene el tráfico de mensajes ligero y rápido.

@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-llm-application-architecture
-title: "Referencia Detallada de Arquitectura de Aplicaciones LLM"
+title: "Arquitectura de Aplicaciones LLM"
 description: "Construir aplicaciones LLM en produccion end-to-end. Cubre capas de API, gestion de prompts, streaming, caching, guardrails, observabilidad, evaluacion y patrones de deployment para sistemas LLM confiables."
 metaDescription: "Construir apps LLM en produccion. Cubre API, prompts, streaming, caching, guardrails, observabilidad, evaluacion y deployment."
 difficulty: advanced
@@ -155,7 +155,7 @@ async def websocket_chat(websocket: WebSocket):
 
 ### Prompt Templates con Jinja2
 
-```python
+````python
 from jinja2 import Template
 from dataclasses import dataclass
 from typing import Any
@@ -196,7 +196,7 @@ messages = code_review_prompt.render(
     language="python",
     code="def add(a, b): return a + b"
 )
-```
+````
 
 ### Prompt Registry
 

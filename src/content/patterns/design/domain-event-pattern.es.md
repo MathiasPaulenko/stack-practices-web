@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Patrón Domain Event
-
 ## Descripción General
 
 El Patrón Domain Event captura ocurrencias de negocio importantes dentro de un modelo de dominio como objetos de primera clase. Cuando algo importante sucede — se realiza un pedido, se registra un usuario, falla un pago — el dominio emite un evento. Otras partes del sistema reaccionan a estos eventos en lugar de ser llamadas directamente.

@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Mediator Pattern for Loose Component Coupling in Frontend Apps
-
 The [Mediator](/patterns/design/mediator-pattern) pattern defines an object that encapsulates how a set of objects interact. Instead of components referring to each other directly, they refer to a mediator, reducing the number of explicit connections from many-to-many to many-to-one. This is essential for complex UIs where dozens of components need to stay synchronized.
 
 ## When to Use This

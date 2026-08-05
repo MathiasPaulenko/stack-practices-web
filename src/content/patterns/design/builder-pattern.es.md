@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patrón Builder
-
 ## Visión general
 
 El Patrón Builder es un patrón de diseño creacional que te permite construir objetos complejos paso a paso. Separa la construcción de un objeto de su representación, permitiendo que el mismo proceso de construcción cree diferentes representaciones.

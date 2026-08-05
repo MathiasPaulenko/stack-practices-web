@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Templates de Email Responsivos con MJML
-
 El HTML de email es notoriamente dificil debido a motores de renderizado inconsistentes entre clientes. MJML abstrae esta complejidad en un lenguaje de markup declarativo que compila a HTML responsivo y probado en batalla con estilos inline. Esta recipe cubre estructura MJML, templating en vivo con Handlebars y envio via SMTP/API.
 
 ## Cuando Usar Esto
@@ -271,7 +269,7 @@ emove_classes y merge_inline para reducir el tamaÃ±o del CSS
 
 - **Testing visual a traves de clientes**: usa Litmus o Email on Acid para capturar screenshots de tu email a traves de 90+ clientes. Testea como minimo: Gmail (web), Outlook (2016/2019/365), Apple Mail (desktop/iOS), Yahoo Mail, Samsung Mail. Fixea issues de renderizado antes de enviar
 - **Testing dark mode**: testea emails en dark mode en iOS, macOS y Outlook. Asegura que el texto sea legible en backgrounds oscuros. Usa media query prefers-color-scheme. Provee colores de fallback para clientes que no soportan media queries
-- **Testing de accesibilidad**: usa accessibility checkers en Litmus o Email on Acid. Asegura alt text para todas las imagenes. Usa HTML semantico (<table>, <h1>, <p>). Manten ratio de contraste de color de 4.5:1 para texto. Testea con screen readers (NVDA, VoiceOver)
+- **Testing de accesibilidad**: usa accessibility checkers en Litmus o Email on Acid. Asegura alt text para todas las imagenes. Usa HTML semantico (&lt;table&gt;, &lt;h1&gt;, &lt;p&gt;). Manten ratio de contraste de color de 4.5:1 para texto. Testea con screen readers (NVDA, VoiceOver)
 - **Testing de links**: testea todos los links antes de enviar. Usa una herramienta link checker. Verifica que los links de unsubscribe funcionen. Verifica que los tracking parameters sean correctos. Testea en dispositivos mobile. Chequea que los links abran en la app correcta (browser vs in-app browser)
 - **Testing de spam**: usa Mail Tester o Litmus spam testing. Un score bajo 8/10 indica issues potenciales. Chequea records SPF, DKIM y DMARC. Evita spam trigger words (FREE, GUARANTEED, ACT NOW). Manten el ratio imagen-a-texto balanceado (60% texto, 40% imagenes)
 - **Envio de emails de prueba**: envia emails de prueba a addresses internas antes del envio completo. Verifica renderizado, links y tracking. Testea en desktop y mobile. Usa una cuenta ESP de staging para tests para evitar afectar la reputacion de sender en produccion

@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Express.js Middleware Composition Patterns
-
 Express middleware is the backbone of Node.js API architecture, but deeply nested or duplicated middleware chains quickly become unmaintainable. This approach handles composition patterns for [authentication](/guides/security/api-security-checklist-guide), [validation](/recipes/security/data-validation-zod), [error handling](/recipes/api/handle-errors), request context propagation, and async route wrappers that keep route handlers clean and testable.
 
 ## When to Use This

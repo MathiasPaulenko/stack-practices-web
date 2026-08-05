@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Prevencion y Resolucion de Deadlocks en Transacciones SQL
-
 Los deadlocks ocurren cuando dos transacciones mantienen locks que la otra necesita, creando una espera circular. Esta recipe cubre detectar patrones de deadlock, aplicar ordenamiento consistente de locks, elegir niveles de aislamiento sabiamente e implementar logica de reintento client-side para resiliencia de base de datos en produccion.
 
 ## Cuando Usar Esto

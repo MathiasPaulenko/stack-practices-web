@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patron Write-Behind Cache
-
 ## Descripcion general
 
 En un write-behind cache (tambien llamado write-back), las escrituras van al cache sincronamente y a la base de datos asincronamente. La aplicacion escribe en el cache, obtiene un acuse de recibo inmediato, y un proceso en segundo plano vuelca los cambios cacheados a la base de datos en lotes.

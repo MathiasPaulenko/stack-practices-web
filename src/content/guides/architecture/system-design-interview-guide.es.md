@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Guía de Entrevistas de System Design
-
 ## Introducción
 
 Las entrevistas de system design evalúan tu capacidad para diseñar sistemas listos para crecimiento, confiables y mantenibles. A diferencia de las entrevistas de código, no hay una única respuesta correcta. El objetivo es demostrar pensamiento estructurado, análisis de trade-offs y profundidad de conocimiento técnico.

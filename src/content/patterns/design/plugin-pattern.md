@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Plugin Pattern
-
 ## Overview
 
 The Plugin Pattern enables a host system to be extended at runtime by loading and executing external modules. The host defines a contract (an interface or protocol) that plugins must implement. Plugins register themselves, and the host invokes them at appropriate extension points.

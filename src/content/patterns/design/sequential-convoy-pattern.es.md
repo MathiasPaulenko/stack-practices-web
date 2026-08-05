@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Patron de Convoy Secuencial
-
 ## Resumen
 
 El Patron de Convoy Secuencial preserva el orden de mensajes relacionados en un sistema de mensajeria distribuido. Cuando los mensajes tienen una relacion causal, procesarlos fuera de orden produce estado inconsistente.

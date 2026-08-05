@@ -73,10 +73,9 @@ Before starting:
 
 ### Check Primary Health
 ```bash
-# PostgreSQL
 psql -h primary.db.internal -U monitor -c "SELECT pg_is_in_recovery();"
 
-# MySQL
+## MySQL
 mysql -h primary.db.internal -u monitor -e "SHOW STATUS LIKE 'Threads_connected';"
 ```
 
@@ -89,10 +88,10 @@ mysql -h primary.db.internal -u monitor -e "SHOW STATUS LIKE 'Threads_connected'
 
 ### Confirm Replica is Ready
 ```bash
-# PostgreSQL
+## PostgreSQL
 psql -h replica.db.internal -U monitor -c "SELECT pg_last_xact_replay_timestamp();"
 
-# MySQL
+## MySQL
 mysql -h replica.db.internal -u monitor -e "SHOW SLAVE STATUS\G" | grep Seconds_Behind_Master
 ```
 
@@ -101,30 +100,30 @@ mysql -h replica.db.internal -u monitor -e "SHOW SLAVE STATUS\G" | grep Seconds_
 ## 2. Stop Writes to Primary (1 minute)
 
 ```bash
-# Set application to read-only mode (if available)
+## Set application to read-only mode (if available)
 curl -X POST http://app.internal/admin/read-only
 
-# Or block at load balancer
-# Block port 5432/3306 at primary security group
+## Or block at load balancer
+## Block port 5432/3306 at primary security group
 ```
 
 ## 3. Promote Replica to Primary (3 minutes)
 
 ### PostgreSQL
 ```bash
-# On the replica
+## On the replica
 sudo -u postgres pg_ctl promote -D /var/lib/postgresql/data
 
-# Verify promotion
+## Verify promotion
 psql -h replica.db.internal -U monitor -c "SELECT pg_is_in_recovery();"  # Should return false
 ```
 
 ### MySQL
 ```bash
-# On the replica
+## On the replica
 mysql -u root -e "STOP SLAVE; RESET SLAVE ALL;"
 
-# Verify
+## Verify
 mysql -u root -e "SHOW SLAVE STATUS\G"  # Should return Empty set
 mysql -u root -e "SHOW MASTER STATUS;"   # Should show binary log position
 ```
@@ -139,13 +138,13 @@ aws rds promote-read-replica \
 ## 4. Update Application Configuration (2 minutes)
 
 ```bash
-# Update environment variable or config map
+## Update environment variable or config map
 export DB_HOST=replica.db.internal
 
-# Reload application (zero-downtime if using connection pool)
+## Reload application (zero-downtime if using connection pool)
 sudo systemctl reload app
 
-# Or for Kubernetes
+## Or for Kubernetes
 kubectl set env deployment/app DB_HOST=replica.db.internal
 kubectl rollout status deployment/app
 ```
@@ -160,7 +159,7 @@ kubectl rollout status deployment/app
 | Kubernetes Service | Update endpoint or service selector | Immediate |
 
 ```bash
-# Example: AWS Route53
+## Example: AWS Route53
 cd aws route53 change-resource-record-sets \
   --hosted-zone-id Z123456789 \
   --change-batch file://failover-dns.json
@@ -169,15 +168,15 @@ cd aws route53 change-resource-record-sets \
 ## 6. Verify Application Functionality (3 minutes)
 
 ```bash
-# Health check
+## Health check
 curl -f http://app.internal/health
 
-# Write test
+## Write test
 curl -X POST http://app.internal/api/test \
   -H "Content-Type: application/json" \
   -d '{"test": "failover-write-2026-06-26"}'
 
-# Read verification
+## Read verification
 curl http://app.internal/api/test/$(id_from_write)
 ```
 
@@ -193,16 +192,16 @@ curl http://app.internal/api/test/$(id_from_write)
 
 ### Option A: Repair Old Primary (if recoverable)
 ```bash
-# Reconfigure old primary as replica
-# PostgreSQL
+## Reconfigure old primary as replica
+## PostgreSQL
 pg_basebackup -h new-primary.db.internal -D /var/lib/postgresql/data -Fp -Xs -P
-# Edit recovery.conf or postgresql.auto.conf with primary_conninfo
+## Edit recovery.conf or postgresql.auto.conf with primary_conninfo
 sudo -u postgres pg_ctl start
 ```
 
 ### Option B: Spin Up New Replica
 ```bash
-# From snapshot or base backup
+## From snapshot or base backup
 aws rds create-db-instance-read-replica \
   --db-instance-identifier new-replica-01 \
   --source-db-instance-identifier new-primary-01

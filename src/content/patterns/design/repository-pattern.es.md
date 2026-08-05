@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Repository
-
 ## Visión general
 
 El [Patrón Repository](/patterns/design/repository-pattern-typescript) es un patrón de diseño arquitectural que media entre la capa de dominio y las capas de mapeo de datos usando una interfaz similar a una colección para acceder a objetos de dominio. Abstrae los detalles de almacenamiento y recuperación de datos.

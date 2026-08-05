@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Autenticacion y Patrones de Seguridad para WebSockets
-
 Las conexiones WebSocket son persistentes y stateful, lo que hace la autenticacion y autorizacion diferente de REST. Los tokens deben validarse durante el handshake, y los mensajes continuous deben verificarse contra permisos basados en salas para prevenir acceso en tiempo real no autorizado.
 
 ## Cuando Usar Esto

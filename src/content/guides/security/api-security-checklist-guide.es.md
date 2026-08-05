@@ -49,8 +49,6 @@ seo:
 
 ---
 
-# Checklist de Seguridad de APIs
-
 ## Introducción
 
 Las APIs son la columna vertebral de las aplicaciones modernas — y una superficie de ataque primaria. Esta checklist cubre los controles de seguridad esenciales que toda API debe implementar, desde autenticación hasta endurecimiento de despliegue.

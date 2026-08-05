@@ -206,7 +206,6 @@ Commit → Build → Test → Security Scan → Package → Deploy Staging → I
 ### Workflow Configuration
 
 ```yaml
-# .github/workflows/ci-cd.yml
 name: CI/CD Pipeline
 on:
   push:
@@ -385,17 +384,17 @@ jobs:
 ### Manual Rollback
 
 ```bash
-# Blue-green rollback: switch back to blue
+## Blue-green rollback: switch back to blue
 kubectl patch service/app --namespace production \
   -p '{"spec":{"selector":{"version":"blue"}}}'
 
-# Rolling deployment rollback
+## Rolling deployment rollback
 kubectl rollout undo deployment/app --namespace production
 
-# Rollback to specific revision
+## Rollback to specific revision
 kubectl rollout undo deployment/app --namespace production --to-revision=3
 
-# Check rollout status
+## Check rollout status
 kubectl rollout status deployment/app --namespace production
 ```
 

@@ -50,8 +50,6 @@ Use this template to create a `CONTRIBUTING.md` file for your repository.
 
 ---
 
-# Contributing to [Project Name]
-
 Thank you for your interest in contributing! This document will guide you through the process.
 
 ## Table of Contents

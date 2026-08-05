@@ -273,32 +273,31 @@ spec:
 ### Drain Commands
 
 ```bash
-# Standard drain (respeta PDBs)
 kubectl drain node-1 --ignore-daemonsets --delete-emptydir-data
 
-# Drain con timeout (PDB puede blockear)
+## Drain con timeout (PDB puede blockear)
 kubectl drain node-1 --ignore-daemonsets --delete-emptydir-data --timeout=5m
 
-# Force drain (bypasses PDB — usá con caution)
+## Force drain (bypasses PDB — usá con caution)
 kubectl drain node-1 --ignore-daemonsets --delete-emptydir-data --force
 
-# Checkeá drain status
+## Checkeá drain status
 kubectl get pods -o wide --field-selector spec.nodeName=node-1
 
-# Uncordon node después de maintenance
+## Uncordon node después de maintenance
 kubectl uncordon node-1
 ```
 
 ### PDB Status Check
 
 ```bash
-# Checkeá PDB status
+## Checkeá PDB status
 kubectl get pdb -n production
 
-# Detailed PDB status
+## Detailed PDB status
 kubectl describe pdb example-app-pdb -n production
 
-# Checkeá qué pods están protected
+## Checkeá qué pods están protected
 kubectl get pods -n production -l app.kubernetes.io/name=example-app
 ```
 
@@ -351,7 +350,7 @@ spec:
 ### Alerting Rules
 
 ```yaml
-# Prometheus alerting rules
+## Prometheus alerting rules
 groups:
   - name: pdb-alerts
     rules:
@@ -389,21 +388,21 @@ groups:
 ### Debugging Steps
 
 ```bash
-# 1. Checkeá PDB status
+## 1. Checkeá PDB status
 kubectl get pdb -n production
 kubectl describe pdb example-app-pdb -n production
 
-# 2. Checkeá pod count vs. PDB requirements
+## 2. Checkeá pod count vs. PDB requirements
 kubectl get pods -n production -l app.kubernetes.io/name=example-app --no-headers | wc -l
 
-# 3. Checkeá si pods son healthy
+## 3. Checkeá si pods son healthy
 kubectl get pods -n production -l app.kubernetes.io/name=example-app
 
-# 4. Checkeá node drain status
+## 4. Checkeá node drain status
 kubectl get nodes -o wide
 kubectl describe node node-1 | grep -A 10 "Conditions:"
 
-# 5. Checkeá eviction events
+## 5. Checkeá eviction events
 kubectl get events -n production --field-selector reason=Eviction
 ```
 ```

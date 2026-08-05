@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# System Design Interview Guide
-
 ## Introduction
 
 System design interviews evaluate your ability to architect growth-ready, reliable, and maintainable systems. Unlike coding interviews, there is no single correct answer. The goal is to demonstrate structured thinking, trade-off analysis, and depth of technical knowledge.

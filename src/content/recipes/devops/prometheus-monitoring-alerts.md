@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Metrics Collection and Alerting with Prometheus
-
 Instrument services and infrastructure with Prometheus metrics to gain real-time visibility into performance and health. The following demonstrates how to counter, gauge, histogram, and summary metrics, PromQL queries, alerting rules, and recording rules for production monitoring.
 
 ## When to Use This

@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Entity-Component-System (ECS) Pattern
-
 ## Overview
 
 The Entity-Component-System (ECS) Pattern is an architectural pattern used primarily in game development and simulations. It separates objects into three concepts: **Entities** (lightweight IDs that represent objects), **Components** (pure data containers with no behavior), and **Systems** (processes that operate on entities with specific components).

@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Patrón Front Controller
-
 ## Descripción General
 
 El Patrón Front Controller enruta todas las peticiones entrantes a través de un único punto de entrada — un handler central que procesa cada request y lo despacha al comando o controlador apropiado. En lugar de que cada página maneje su propio parsing de request, autenticación y logging, el Front Controller centraliza estos concerns transversales.

@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Timeout Pattern
-
 ## Overview
 
 The Timeout Pattern is a resilience pattern that prevents operations from hanging indefinitely by enforcing a maximum execution time. Without timeouts, a single slow downstream service can hold up threads, connections, and user requests indefinitely, causing cascading failures across the system.

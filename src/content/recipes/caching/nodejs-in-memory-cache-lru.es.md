@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Implementar una cache LRU en Node.js
-
 Una cache LRU (Least Recently Used) evicta la entrada accedida mas antigua cuando alcanza su capacidad. Esto mantiene datos calientes en memoria mientras limita el uso de memoria. El `Map` de JavaScript preserva el orden de insercion, lo que lo hace ideal para LRU — re-insertar una clave la mueve al final, por lo que la primera entrada es siempre la menos recientemente usada.
 
 ## Cuando Usar Esto

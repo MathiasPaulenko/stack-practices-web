@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Patrón Data Mapper
-
 ## Descripción General
 
 El Patrón Data Mapper separa objetos de dominio en memoria de la base de datos delegando toda la lógica de persistencia a una capa de mappers dedicada. El modelo de dominio no sabe nada sobre la base de datos — sin SQL, sin decoradores ORM, sin métodos `save()`. Un objeto Data Mapper separado maneja la traducción entre el modelo de dominio y los registros de la base de datos.

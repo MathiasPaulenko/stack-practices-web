@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-cdn-caching-strategy
-title: "Referencia Detallada de Estrategia de Caching CDN"
+title: "Estrategia de Caching CDN"
 description: "Disenar caching CDN para aplicaciones web y APIs. Cubre edge caching, cache keys, cache headers, estrategias de invalidacion, surrogate keys y setups multi-CDN para rendimiento global."
 metaDescription: "Disenar caching CDN para web y APIs. Cubre edge caching, cache keys, headers, invalidacion, surrogate keys y multi-CDN para rendimiento global."
 difficulty: advanced

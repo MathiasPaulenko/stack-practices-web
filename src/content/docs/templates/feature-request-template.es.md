@@ -32,8 +32,6 @@ seo:
 
 ---
 
-# Plantilla de Solicitud de Feature
-
 Usa esta plantilla para proponer nuevas capacidades de manera que ayude a equipos de producto e ingeniería a evaluar valor de usuario y esfuerzo de implementación. Combínala con la [Plantilla de User Story](/docs/templates/user-story-template) para requerimientos en formato narrativo.
 
 ## Resumen

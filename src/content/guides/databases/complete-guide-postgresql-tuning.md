@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Complete Guide to PostgreSQL Tuning
-
 ## Introduction
 
 PostgreSQL is capable but default settings are conservative — designed to run on a machine with 256MB of RAM. Production workloads need tuned configuration, proper indexes, optimized queries, and strategic data partitioning. Here is a hands-on guide to configuration tuning, indexing strategies, query optimization, connection pooling, partitioning, and vacuum management.

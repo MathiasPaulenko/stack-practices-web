@@ -127,7 +127,6 @@ Un Helm chart review checklist ensure que charts son secure, maintainable y foll
 ### Values Structure
 
 ```yaml
-# values.yaml
 replicaCount: 3
 
 image:

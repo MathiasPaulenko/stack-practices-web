@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Circuit Breaker Pattern
-
 ## Overview
 
 The Circuit Breaker Pattern is an architectural pattern that prevents an application from repeatedly trying to execute an operation that is likely to fail. When a service is down or struggling, the circuit breaker "trips" and stops sending requests, giving the service time to recover. This prevents cascading failures and resource exhaustion in distributed systems.

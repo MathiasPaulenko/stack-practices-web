@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Database per Service Pattern
-
 ## Overview
 
 The Database per Service Pattern gives each microservice its own private database that no other service can access directly. This ensures that services are loosely coupled, can be deployed independently, and can choose the database technology best suited to their needs. A service's data is accessed only through its API, creating a clear boundary and single source of truth for that domain.

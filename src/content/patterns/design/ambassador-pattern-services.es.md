@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Ambassador Pattern para Acceso Resiliente a Servicios Remotos
-
 El Ambassador pattern crea una instancia helper local que actua en nombre de un servicio remoto. Maneja preocupaciones de red como reintentos, timeouts, circuit breaking y logging, manteniendo el codigo del cliente limpio y la interfaz del servicio remoto simple. Este pattern es comun en [microservicios](/guides/architecture/microservices-architecture-guide) y despliegues containerizados.
 
 ## Cuando Usar Esto

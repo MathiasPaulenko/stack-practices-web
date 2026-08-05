@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Composite Entity Pattern
-
 ## Overview
 
 The Composite Entity Pattern maps a coarse-grained entity object to multiple fine-grained database tables by composing dependent objects. Rather than exposing individual dependent objects through separate remote interfaces, the composite entity aggregates them into a single object that can be loaded, modified, and persisted in one operation.

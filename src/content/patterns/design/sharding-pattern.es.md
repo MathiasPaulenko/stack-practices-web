@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patron de Sharding
-
 ## Resumen
 
 El Patron de Sharding divide un dataset grande en fragmentos mas pequenos llamados **shards** y los distribuye entre multiples servidores. En lugar de una unica base de datos monolitica, cada shard gestiona un subconjunto de datos, permitiendo crecimiento horizontal.

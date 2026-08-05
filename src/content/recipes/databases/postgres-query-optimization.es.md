@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Optimizacion de Queries e Indexing en PostgreSQL
-
 Identifica y corrige queries lentas en PostgreSQL usando analisis de planes de ejecucion, indexing estrategico y reestructuracion de queries. Esta recipe cubre EXPLAIN ANALYZE, indexes B-tree y partial, covering indexes y anti-patterns comunes que degradan rendimiento.
 
 ## Cuando Usar Esto

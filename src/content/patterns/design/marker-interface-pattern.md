@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Marker Interface Pattern
-
 ## Overview
 
 The Marker Interface Pattern uses empty interfaces (interfaces with no methods) as metadata tags to signal properties or capabilities of a class. Unlike annotations or attributes, marker interfaces are checked at compile time by the type system, providing stronger guarantees than runtime reflection alone.

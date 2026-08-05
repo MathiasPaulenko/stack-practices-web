@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patron Refresh-Ahead Cache
-
 ## Descripcion general
 
 Refresh-ahead recarga proactivamente entradas de cache antes de que expiren. Un proceso en segundo plano monitoriza entradas que se acercan a su deadline de TTL y las refresca desde la base de datos. El cache siempre tiene datos frescos, y las lecturas nunca fallan en hot keys.

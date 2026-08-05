@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# MVC Pattern
-
 ## Overview
 
 The [Model-View-Controller](/patterns/design/mvc-pattern-frontend) (MVC) Pattern is an architectural design pattern that separates an application into three interconnected components: Model (data and business logic), View (presentation), and Controller (input handling and coordination).

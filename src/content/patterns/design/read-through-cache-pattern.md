@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Read-Through Cache Pattern
-
 ## Overview
 
 In a read-through cache, the application talks only to the cache layer. On a cache hit, the cache returns data directly. On a cache miss, the cache fetches data from the backing store, stores it, and returns it to the application. The application never interacts with the database directly for reads.

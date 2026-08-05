@@ -327,63 +327,62 @@ An ETL job runbook gives operators the procedures to start, stop, monitor, and t
 ### Full Pipeline Re-run
 
 ```bash
-# 1. Clear all task states for the date
 airflow tasks clear orders_etl_pipeline -s 2026-07-05 -e 2026-07-05
 
-# 2. Trigger DAG manually
+## 2. Trigger DAG manually
 airflow dags trigger orders_etl_pipeline --conf '{"date": "2026-07-05"}'
 
-# 3. Monitor progress
+## 3. Monitor progress
 airflow dags state orders_etl_pipeline 2026-07-05
 ```
 
 ### Partial Re-run (from specific task)
 
 ```bash
-# 1. Clear task and downstream tasks
+## 1. Clear task and downstream tasks
 airflow tasks clear orders_etl_pipeline -t run_dbt_transforms -d -s 2026-07-05 -e 2026-07-05
 
-# 2. Re-run from specific task
+## 2. Re-run from specific task
 airflow tasks run orders_etl_pipeline run_dbt_transforms 2026-07-05
 
-# 3. Monitor
+## 3. Monitor
 airflow tasks list orders_etl_pipeline --state running
 ```
 
 ### Backfill Procedure
 
 ```bash
-# 1. Pause the DAG to prevent concurrent runs
+## 1. Pause the DAG to prevent concurrent runs
 airflow dags pause orders_etl_pipeline
 
-# 2. Run backfill for date range
+## 2. Run backfill for date range
 airflow dags backfill orders_etl_pipeline \
   --start-date 2026-07-01 \
   --end-date 2026-07-05 \
   --reset-dagruns \
   --run-backwards
 
-# 3. Monitor backfill progress
+## 3. Monitor backfill progress
 airflow dags list-runs -d orders_etl_pipeline --limit 10
 
-# 4. Unpause the DAG
+## 4. Unpause the DAG
 airflow dags unpause orders_etl_pipeline
 ```
 
 ### Emergency Shutdown
 
 ```bash
-# 1. Pause the DAG
+## 1. Pause the DAG
 airflow dags pause orders_etl_pipeline
 
-# 2. Mark all running tasks as failed
+## 2. Mark all running tasks as failed
 airflow tasks clear orders_etl_pipeline -s 2026-07-05 -e 2026-07-05 --only-failed
 
-# 3. Check no tasks are running
+## 3. Check no tasks are running
 airflow tasks list orders_etl_pipeline --state running
 
-# 4. Notify team
-# Send message to #data-platform Slack channel
+## 4. Notify team
+## Send message to #data-platform Slack channel
 ```
 
 ## 6. Contacts and Escalation

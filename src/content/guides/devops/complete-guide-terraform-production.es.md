@@ -6,7 +6,7 @@
 
 contentType: guides
 slug: complete-guide-terraform-production
-title: "Referencia Detallada de Terraform en Producción"
+title: "Terraform en Producción"
 description: "Gestionar infrastructure as code con Terraform en produccion. Cubre modules, state management, workspaces, drift detection, remote backends, variable validation, sentinel policies y CI/CD integration con ejemplos practicos de HCL."
 metaDescription: "Terraform en produccion. Cubre modules, state management, workspaces, drift detection, remote backends, variable validation, CI/CD."
 difficulty: advanced

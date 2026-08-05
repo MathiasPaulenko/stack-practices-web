@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Agregaciones de Elasticsearch para Analitica y Busqueda
-
 Las agregaciones de Elasticsearch te permiten agrupar y resumir datos indexados en tiempo real. A diferencia de bases de datos relacionales que requieren consultas GROUP BY explicitas, Elasticsearch computa agregaciones sobre indices invertidos, haciendolas lo suficientemente rapidas para alimentar facetas de busqueda y dashboards de analitica en vivo.
 
 ## Cuando Usar Esto

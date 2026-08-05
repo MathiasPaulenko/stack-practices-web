@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Despliegue de Aplicaciones en Kubernetes con Helm Charts
-
 Empaqueta y despliega aplicaciones en Kubernetes usando Helm, el package manager de K8s. Esta recipe cubre estructura de charts, templating con values, upgrades y rollbacks de releases, y manejo de dependencias para despliegues production-grade.
 
 ## Cuando Usar Esto

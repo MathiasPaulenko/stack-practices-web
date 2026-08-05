@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patron Two-Level Cache
-
 ## Descripcion general
 
 Un two-level cache combina un cache L1 en memoria (rapido, local, tamano limitado) con un cache L2 distribuido (mas lento, compartido, mayor capacidad). L1 sirve hot keys a velocidad de memoria sin overhead de red. L2 proporciona estado de cache compartido entre instancias y maneja el dataset completo.

@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Visitor Pattern
-
 ## Overview
 
 The Visitor Pattern is a behavioral design pattern that lets you define a new operation on an object structure without changing the classes of the elements on which it operates. It separates algorithms from the objects they operate on, making it easy to add new operations to a complex class hierarchy.

@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Pipes and Filters Pattern
-
 ## Overview
 
 The [Pipes and Filters](/patterns/architecture/pipes-and-filters-pattern) Pattern breaks a complex processing task into a sequence of smaller, independent steps (filters) connected by channels (pipes). Each filter receives input, performs a transformation, and passes output to the next pipe. Filters are reusable, composable, and testable in isolation. This pattern is ideal for data processing pipelines, ETL workflows, and request transformation chains.

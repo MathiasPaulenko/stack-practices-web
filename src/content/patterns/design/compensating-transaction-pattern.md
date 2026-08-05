@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Compensating Transaction Pattern
-
 ## Overview
 
 The Compensating Transaction Pattern undoes the effects of a completed business operation by executing a semantic counter-operation. Unlike database rollback (which undoes uncommitted changes), compensating transactions undo operations that have already been committed to external systems — payments that have been charged, inventory that has been reserved, or emails that have been sent.

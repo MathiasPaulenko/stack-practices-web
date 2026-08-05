@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Patrón Voucher
-
 ## Visión General
 
 El patrón [Voucher](/patterns/authentication/voucher-pattern) emite tokens firmados y de corta duración (vouchers) que prueban un claim sin revelar los datos sensibles subyacentes. Un servicio puede emitir un voucher afirmando "este usuario está autenticado" o "esta petición está autorizada" y pasarlo a servicios downstream. Los servicios downstream verifican la firma del voucher y confían en el claim — nunca necesitan acceso a las credenciales originales o al data store.

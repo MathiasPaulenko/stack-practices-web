@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Rate limiting con Redis y algoritmo Token Bucket
-
 El rate limiting protege las APIs de abuso y asegura una asignacion justa de recursos. El algoritmo token bucket permite bursts hasta una capacidad configurada mientras mantiene una tasa de reabastecimiento constante. Usar Redis con un script Lua hace que el check-and-decrement sea atomico, para que el limiter funcione correctamente entre multiples instancias de servidor.
 
 ## Cuando Usar Esto

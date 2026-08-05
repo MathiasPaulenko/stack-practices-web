@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Repository Pattern with TypeScript Generics
-
 The [Repository](/patterns/design/repository-pattern) pattern mediates between the domain and data mapping layers. It acts like an in-memory collection of domain objects, abstracting away persistence details so your services remain focused on business logic.
 
 ## When to Use This

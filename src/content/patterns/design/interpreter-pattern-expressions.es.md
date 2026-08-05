@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Interpreter Pattern para Lenguajes de Expresion Especificos de Dominio
-
 El [Interpreter](/patterns/design/interpreter-pattern) pattern define una representacion para la gramatica de un lenguaje junto con un interprete que usa la representacion para interpretar oraciones en el lenguaje. Convierte expresiones de texto complejas en objetos ejecutables, haciendo que reglas de negocio, filtros de query y formulas matematicas sean configurables sin cambios de codigo.
 
 ## Cuando Usar Esto

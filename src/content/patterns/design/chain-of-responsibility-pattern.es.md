@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Chain of Responsibility
-
 ## Visión General
 
 El Patrón Chain of Responsibility es un patrón de diseño de comportamiento que te permite pasar solicitudes a lo largo de una cadena de manejadores. Cada manejador decide si procesa la solicitud o la pasa al siguiente manejador en la cadena. Esto desacopla emisores de receptores y permite que múltiples objetos manejen una solicitud sin que el emisor sepa cuál lo hará.

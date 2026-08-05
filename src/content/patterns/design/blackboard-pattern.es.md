@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Patrón Blackboard
-
 ## Descripción General
 
 El Patrón Blackboard es un patrón de diseño behavioral que provee un espacio de conocimiento compartido (el blackboard) donde módulos independientes y especializados llamados Knowledge Sources colaboran para resolver problemas complejos. Cada Knowledge Source lee del blackboard, evalúa el estado actual, y contribuye soluciones parciales cuando puede.

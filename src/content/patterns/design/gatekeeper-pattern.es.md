@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patrón Gatekeeper
-
 ## Descripción General
 
 El Patrón Gatekeeper coloca un boundary de validación y seguridad dedicado en el edge de un sistema para inspeccionar, sanitizar, autenticar y autorizar todas las requests entrantes antes de que alcancen los servicios internos. En lugar de embeber cheques de seguridad en cada servicio, un gatekeeper centralizado maneja preocupaciones cross-cutting — validación de tokens, rate limiting, sanitización de input, terminación TLS, y protección DDoS — en un único chokepoint.

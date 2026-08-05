@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Adapter Pattern for Integrating External REST APIs
-
 The [Adapter](/patterns/design/adapter-pattern) pattern converts the interface of one class into another interface clients expect. When integrating third-party REST APIs, it becomes a translation layer that maps external data formats into clean, stable domain models your application controls.
 
 ## When to Use This

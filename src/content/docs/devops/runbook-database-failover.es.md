@@ -76,10 +76,9 @@ Antes de comenzar:
 
 ### Verificar Salud del Primario
 ```bash
-# PostgreSQL
 psql -h primary.db.internal -U monitor -c "SELECT pg_is_in_recovery();"
 
-# MySQL
+## MySQL
 mysql -h primary.db.internal -u monitor -e "SHOW STATUS LIKE 'Threads_connected';"
 ```
 
@@ -92,10 +91,10 @@ mysql -h primary.db.internal -u monitor -e "SHOW STATUS LIKE 'Threads_connected'
 
 ### Confirmar que la Replica esta Lista
 ```bash
-# PostgreSQL
+## PostgreSQL
 psql -h replica.db.internal -U monitor -c "SELECT pg_last_xact_replay_timestamp();"
 
-# MySQL
+## MySQL
 mysql -h replica.db.internal -u monitor -e "SHOW SLAVE STATUS\G" | grep Seconds_Behind_Master
 ```
 
@@ -104,30 +103,30 @@ mysql -h replica.db.internal -u monitor -e "SHOW SLAVE STATUS\G" | grep Seconds_
 ## 2. Detener Escrituras al Primario (1 minuto)
 
 ```bash
-# Configurar aplicacion a modo solo lectura (si disponible)
+## Configurar aplicacion a modo solo lectura (si disponible)
 curl -X POST http://app.internal/admin/read-only
 
-# O bloquear en balanceador de carga
-# Bloquear puerto 5432/3306 en grupo de seguridad del primario
+## O bloquear en balanceador de carga
+## Bloquear puerto 5432/3306 en grupo de seguridad del primario
 ```
 
 ## 3. Promover Replica a Primario (3 minutos)
 
 ### PostgreSQL
 ```bash
-# En la replica
+## En la replica
 sudo -u postgres pg_ctl promote -D /var/lib/postgresql/data
 
-# Verificar promocion
+## Verificar promocion
 psql -h replica.db.internal -U monitor -c "SELECT pg_is_in_recovery();"  # Debe retornar false
 ```
 
 ### MySQL
 ```bash
-# En la replica
+## En la replica
 mysql -u root -e "STOP SLAVE; RESET SLAVE ALL;"
 
-# Verificar
+## Verificar
 mysql -u root -e "SHOW SLAVE STATUS\G"  # Debe retornar conjunto vacio
 mysql -u root -e "SHOW MASTER STATUS;"   # Debe mostrar posicion del binlog
 ```
@@ -142,13 +141,13 @@ aws rds promote-read-replica \
 ## 4. Actualizar Configuracion de la Aplicacion (2 minutos)
 
 ```bash
-# Actualizar variable de entorno o config map
+## Actualizar variable de entorno o config map
 export DB_HOST=replica.db.internal
 
-# Recargar aplicacion (sin tiempo de inactividad si usa pool de conexiones)
+## Recargar aplicacion (sin tiempo de inactividad si usa pool de conexiones)
 sudo systemctl reload app
 
-# O para Kubernetes
+## O para Kubernetes
 kubectl set env deployment/app DB_HOST=replica.db.internal
 kubectl rollout status deployment/app
 ```
@@ -163,7 +162,7 @@ kubectl rollout status deployment/app
 | Servicio de Kubernetes | Actualizar endpoint o selector de servicio | Inmediato |
 
 ```bash
-# Ejemplo: AWS Route53
+## Ejemplo: AWS Route53
 aws route53 change-resource-record-sets \
   --hosted-zone-id Z123456789 \
   --change-batch file://failover-dns.json
@@ -172,15 +171,15 @@ aws route53 change-resource-record-sets \
 ## 6. Verificar Funcionalidad de la Aplicacion (3 minutos)
 
 ```bash
-# Health check
+## Health check
 curl -f http://app.internal/health
 
-# Prueba de escritura
+## Prueba de escritura
 curl -X POST http://app.internal/api/test \
   -H "Content-Type: application/json" \
   -d '{"test": "failover-write-2026-06-26"}'
 
-# Verificacion de lectura
+## Verificacion de lectura
 curl http://app.internal/api/test/$(id_from_write)
 ```
 
@@ -196,16 +195,16 @@ curl http://app.internal/api/test/$(id_from_write)
 
 ### Opcion A: Reparar el Viejo Primario (si recuperable)
 ```bash
-# Reconfigurar viejo primario como replica
-# PostgreSQL
+## Reconfigurar viejo primario como replica
+## PostgreSQL
 pg_basebackup -h new-primary.db.internal -D /var/lib/postgresql/data -Fp -Xs -P
-# Editar recovery.conf o postgresql.auto.conf con primary_conninfo
+## Editar recovery.conf o postgresql.auto.conf con primary_conninfo
 sudo -u postgres pg_ctl start
 ```
 
 ### Opcion B: Crear Nueva Replica
 ```bash
-# Desde snapshot o backup base
+## Desde snapshot o backup base
 aws rds create-db-instance-read-replica \
   --db-instance-identifier new-replica-01 \
   --source-db-instance-identifier new-primary-01

@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Plantilla de Auditoría de Dependencias de Terceros
-
 Usa esta plantilla para evaluar librerías antes de agregarlas o durante auditorías periódicas. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para prácticas de seguridad más amplias.
 
 ## Resumen

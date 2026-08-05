@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Flyweight Pattern para Comparticion Eficiente de Objetos a Gran Escala
-
 El [Flyweight](/patterns/design/flyweight-pattern) pattern minimiza el uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares. Cuando una aplicacion necesita crear miles de objetos que comparten la mayor parte de su estado, Flyweight extrae el estado compartido (intrinseco) en un objeto compartido separado, dejando solo el estado unico (extrinseco) en cada instancia.
 
 ## Cuando Usar Esto

@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# REST API Design Guide
-
 ## Overview
 
 REST (Representational State Transfer) is the dominant architectural style for designing networked applications. A well-designed REST API is predictable, self-descriptive, and easy to consume across multiple clients.

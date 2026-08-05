@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Principios SOLID Explicados con Ejemplos
-
 ## Introducción
 
 SOLID es un acrónimo de cinco principios de diseño que hacen los diseños de software más comprensibles, flexibles y mantenibles. Fueron introducidos por Robert C. Martin y son fundamentales para el diseño orientado a objetos.

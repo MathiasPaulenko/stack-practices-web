@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patrón Adapter
-
 ## Visión general
 
 El Patrón Adapter es un patrón de diseño estructural que permite que objetos con interfaces incompatibles colaboren. Envuelve una clase existente con una nueva interfaz para que sea compatible con las expectativas del cliente.

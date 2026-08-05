@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Composite Pattern
-
 ## Overview
 
 The Composite Pattern is a structural design pattern that lets you compose objects into tree structures and then work with those structures as if they were individual objects. It is ideal when you need to treat individual items and groups of items uniformly — such as [UI components](/patterns/design/composite-pattern-ui), file systems, or organization charts.

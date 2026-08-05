@@ -37,8 +37,6 @@ seo:
 
 ---
 
-# Patrón Human-in-the-Loop
-
 ## Descripción general
 
 Los agentes LLM autonomos pueden tomar acciones con consecuencias reales: enviar emails, desplegar codigo, modificar bases de datos, hacer compras. El patrón Human-in-the-Loop inserta un checkpoint donde un humano revisa y aprueba la accion propuesta del agente antes de que se ejecute. El agente se pausa, presenta su plan y espera aprobacion, rechazo o modificacion.

@@ -37,8 +37,6 @@ seo:
 
 
 ---
-# Implement CDN Edge Caching
-
 ## Overview
 
 A Content Delivery Network (CDN) distributes your content across geographically dispersed edge servers, reducing latency by serving users from the nearest location, improving [performance](/guides/performance/performance-optimization-guide). Properly configured edge caching can cut page load times by 50–80% and considerably reduce origin server load.

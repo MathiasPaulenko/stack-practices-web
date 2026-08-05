@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Strategy Pattern
-
 ## Overview
 
 The [Strategy](/patterns/design/strategy-pattern) Pattern is a behavioral design pattern that defines a family of algorithms, encapsulates each one as a separate class, and makes them interchangeable at runtime. It lets the algorithm vary independently from the clients that use it.

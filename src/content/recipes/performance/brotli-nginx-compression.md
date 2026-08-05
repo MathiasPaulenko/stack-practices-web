@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Enable Brotli Compression in Nginx for Faster Asset Delivery
-
 Brotli is a modern compression algorithm developed by Google that consistently achieves 15-25% smaller file sizes than Gzip for text-based assets. See [performance optimization](/guides/performance/performance-optimization-guide) for more web performance techniques. When combined with Nginx and proper content-type configuration, it reduces bandwidth usage and improves page load times for all users.
 
 ## When to Use This

@@ -32,8 +32,6 @@ seo:
 
 ---
 
-# Feature Request Template
-
 Use this template to propose new capabilities in a way that helps product and engineering teams evaluate user value and implementation effort. Pair it with the [User Story Template](/docs/templates/user-story-template) for narrative-style requirements.
 
 ## Overview

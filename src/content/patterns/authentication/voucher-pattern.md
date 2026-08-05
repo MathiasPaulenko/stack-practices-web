@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Voucher Pattern
-
 ## Overview
 
 The [Voucher](/patterns/authentication/voucher-pattern) Pattern issues signed, short-lived tokens (vouchers) that prove a claim without revealing the underlying sensitive data. A service can issue a voucher asserting "this user is authenticated" or "this request is authorized" and pass it to downstream services. Downstream services verify the voucher signature and trust the claim — they never need access to the original credentials or data store.

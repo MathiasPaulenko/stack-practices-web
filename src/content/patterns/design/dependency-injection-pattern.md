@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Dependency Injection Pattern
-
 ## Overview
 
 The [Dependency Injection](/patterns/design/dependency-injection-typescript) Pattern is an architectural pattern where dependencies are supplied to a class from the outside rather than being created internally. This inverts control: the class declares what it needs, and an external mechanism provides it. The result is loosely coupled, highly testable code.

@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Gatekeeper Pattern
-
 ## Overview
 
 The Gatekeeper Pattern places a dedicated validation and security boundary at the edge of a system to inspect, sanitize, authenticate, and authorize all incoming requests before they reach internal services. Rather than embedding security checks in every service, a centralized gatekeeper handles cross-cutting concerns — token validation, rate limiting, input sanitization, TLS termination, and DDoS protection — at a single chokepoint.

@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Estrategias de Branching en Git
-
 ## Introducción
 
 Una estrategia de branching define cómo tu equipo usa ramas de Git para desarrollar, integrar y releasear código. La estrategia correcta depende del tamaño del equipo, la frecuencia de releases y la madurez de CI/CD. Esta guía compara los tres enfoques más comunes.

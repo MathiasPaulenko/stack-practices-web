@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Patrón Null Object
-
 ## Descripción General
 
 El Patrón Null Object elimina las verificaciones de referencias null proveyendo un objeto "no-op" por defecto que implementa la misma interfaz que los objetos reales. En lugar de ramificar con `if (user != null)` en todas partes, los clientes interactúan con un `NullUser` que retorna defaults seguros como strings vacíos, conteos en cero o comportamiento no-op.

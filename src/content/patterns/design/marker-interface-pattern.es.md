@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Patrón Marker Interface
-
 ## Descripción General
 
 El Patrón Marker Interface usa interfaces vacías (interfaces sin métodos) como tags de metadata para señalar propiedades o capacidades de una clase. A diferencia de anotaciones o atributos, los marker interfaces son verificados en tiempo de compilación por el sistema de tipos, proveiendo garantías más fuertes que la reflexión en runtime sola.

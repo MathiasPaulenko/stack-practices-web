@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Factory Pattern
-
 ## Overview
 
 The Factory Pattern is a creational design pattern that provides an interface for creating objects without specifying their exact classes. Instead of calling a constructor directly, you call a factory method that returns a new instance based on input parameters.

@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# On-Call and Incident Response Playbook
-
 ## Introduction
 
 Incidents are inevitable. What separates resilient teams from fragile ones is not the absence of failures, but the speed and quality of their response. This playbook provides a structured approach to handling production incidents — from the first alert to the postmortem.

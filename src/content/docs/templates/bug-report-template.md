@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Bug Report Template
-
 Use this template to report bugs in a way that helps engineers reproduce and fix them quickly.
 
 ## Overview

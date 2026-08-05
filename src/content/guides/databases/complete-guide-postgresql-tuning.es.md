@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-postgresql-tuning
-title: "Referencia Detallada de PostgreSQL Tuning"
+title: "PostgreSQL Tuning"
 description: "Optimiza PostgreSQL para alto throughput. Cubre tuning de configuración, estrategias de indexación, optimización de queries, connection pooling, particionado y vacuum."
 metaDescription: "Referencia detallada de PostgreSQL tuning. Optimiza config, indexación, query plans, connection pooling, particionado y vacuum para workloads de alto throughput."
 difficulty: advanced
@@ -51,8 +51,6 @@ seo:
 
 
 ---
-
-# Referencia Detallada de PostgreSQL Tuning
 
 ## Introducción
 

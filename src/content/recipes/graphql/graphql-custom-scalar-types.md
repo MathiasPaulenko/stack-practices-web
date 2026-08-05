@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Custom GraphQL Scalar Types for Dates, Emails, and JSON
-
 GraphQL ships with five built-in scalars: `Int`, `Float`, `String`, `Boolean`, and `ID`. Real applications need more specific types — dates that serialize to ISO 8601, emails that validate format, URLs that enforce protocol, and flexible JSON blobs. Custom scalars fill this gap by defining three functions: `serialize` (server to client), `parseValue` (client variable to server), and `parseLiteral` (client AST to server).
 
 ## When to Use This

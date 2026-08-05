@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Specification Pattern
-
 ## Overview
 
 The Specification Pattern encapsulates business rules for selecting objects as reusable, composable predicate objects. Instead of hard-coding query conditions in repositories or services, each rule is encapsulated in a Specification class that can be combined with others using logical operators (AND, OR, NOT).

@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Mocks de resolvers GraphQL para desarrollo frontend
-
 Cuando el backend no esta listo, los equipos frontend pueden bloquearse por dependencias de API. El mocking integrado de Apollo Server genera datos falsos para cada campo del schema, permitiendo a los desarrolladores de UI construir y probar contra un endpoint GraphQL funcional en minutos. Puedes empezar con mocks auto-generados y reemplazarlos progresivamente con resolvers personalizados conforme el schema se estabiliza.
 
 ## Cuando Usar Esto

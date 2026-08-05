@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Dependency Injection Container in TypeScript
-
 Implement a lightweight [dependency injection](/patterns/design/dependency-injection-pattern) container in TypeScript that resolves class dependencies automatically through decorators or constructor metadata. This pattern decouples object creation from business logic, making code testable, modular, and easier to refactor without heavy frameworks.
 
 ## When to Use This

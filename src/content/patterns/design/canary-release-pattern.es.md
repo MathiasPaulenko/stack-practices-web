@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Patrón Canary Release
-
 ## Descripción general
 
 El patrón Canary Release rutear un porcentaje pequeno de trafico a una nueva version mientras la mayoria continua recibiendo la version estable. El nombre viene de los mineros de carbon que llevaban canarios para detectar gases peligrosos: el canario servia como sistema de alerta temprana. En software, la version canario sirve primero a un grupo pequeno de usuarios. Si falla, solo ese grupo pequeno se ve afectado.

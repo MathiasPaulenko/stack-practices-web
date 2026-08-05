@@ -35,8 +35,6 @@ seo:
 
 
 ---
-# Build Serverless Functions
-
 ## Overview
 
 Serverless computing lets you run code without provisioning or managing servers. You write functions, upload them to a cloud provider, and the platform handles scaling, patching, and availability automatically. You pay only for execution time — making it ideal for sporadic workloads and event-driven architectures.

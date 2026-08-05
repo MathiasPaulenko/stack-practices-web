@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# PostgreSQL Query Optimization and Indexing Strategies
-
 Identify and fix slow queries in PostgreSQL using execution plan analysis, strategic indexing, and query restructuring. Below is a practical approach to EXPLAIN ANALYZE, B-tree and partial indexes, covering indexes, and common anti-patterns that degrade performance.
 
 ## When to Use This

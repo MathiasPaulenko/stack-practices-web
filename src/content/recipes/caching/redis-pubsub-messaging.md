@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Redis Pub/Sub for Cross-Process Messaging
-
 Redis pub/sub lets processes communicate through channels without direct coupling. A publisher sends a message to a channel; all subscribed processes receive it. This is useful for cache invalidation across instances, real-time notifications, and event-driven architectures where services need to react to changes without polling.
 
 ## When to Use This

@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-gitops-production
-title: "Referencia Detallada de GitOps en Producción"
+title: "GitOps en Producción"
 description: "Implementar GitOps con ArgoCD y Flux. Cubre declarative infrastructure, drift reconciliation, automated rollbacks, progressive delivery, multi-cluster management, secret management con SOPS y CI/CD pipeline integration con ejemplos practicos de YAML."
 metaDescription: "GitOps con ArgoCD y Flux. Cubre declarative infrastructure, drift reconciliation, automated rollbacks, progressive delivery, multi-cluster, SOPS."
 difficulty: advanced

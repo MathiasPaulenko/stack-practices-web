@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# State Pattern
-
 ## Overview
 
 The [State](/patterns/design/state-pattern) Pattern is a behavioral design pattern that lets an object alter its behavior when its internal state changes. Instead of large switch statements, each state is encapsulated in its own class with state-specific behavior.

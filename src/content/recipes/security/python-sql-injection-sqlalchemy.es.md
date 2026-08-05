@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Previene inyeccion SQL con consultas parametrizadas en SQLAlchemy
-
 La inyeccion SQL ocurre cuando el input del usuario se concatena en strings SQL en lugar de parametrizarse. Encabeza el OWASP Top 10 anio tras anio. Las APIs de consulta ORM y Core de SQLAlchemy parametrizan por defecto, haciendo la inyeccion casi imposible cuando se usan correctamente. A continuacion: patrones seguros e inseguros lado a lado.
 
 ## Cuando Usar Esto

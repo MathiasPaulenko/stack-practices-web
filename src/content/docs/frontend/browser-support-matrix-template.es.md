@@ -266,7 +266,6 @@ async function getRenderingContext(canvas) {
 ### Browserslist Configuration
 
 ```text
-# .browserslistrc
 [production]
 Chrome >= 110
 Edge >= 110

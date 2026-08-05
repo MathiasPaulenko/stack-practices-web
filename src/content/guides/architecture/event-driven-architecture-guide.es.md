@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Arquitectura Orientada a Eventos
-
 ## Introducción
 
 La arquitectura orientada a eventos (EDA) es un patrón donde los servicios se comunican produciendo y consumiendo eventos en lugar de llamadas directas. Desacopla productores de consumidores, habilita crecimiento y soporta desacoplamiento temporal — los consumidores no necesitan estar online cuando los eventos se producen.

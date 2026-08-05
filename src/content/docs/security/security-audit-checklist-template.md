@@ -4,7 +4,7 @@
 
 contentType: docs
 slug: security-audit-checklist-template
-title: "Security Audit Checklist"
+title: "Security Audit Checklist Template"
 description: "A thorough checklist for conducting security audits of applications and infrastructure."
 metaDescription: "Use this security audit checklist to review authentication, authorization, data protection, infrastructure security, and compliance gaps."
 difficulty: intermediate

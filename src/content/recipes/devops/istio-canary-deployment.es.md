@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Despliegues Canary con Istio Service Mesh
-
 Istio proporciona gestion de trafico granular a traves de virtual services y destination rules. Al dividir trafico entre versiones estable y canary de un servicio, puedes validar nuevos releases con trafico real de usuarios manteniendo la capacidad de rollback instantaneo si los errores aumentan.
 
 ## Cuando Usar Esto

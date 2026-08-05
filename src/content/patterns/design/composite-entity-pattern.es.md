@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Patrón Composite Entity
-
 ## Descripción General
 
 El Patrón Composite Entity mapea un objeto de entidad coarse-grained a múltiples tablas fine-grained de base de datos componiendo objetos dependientes. En lugar de exponer objetos dependientes individuales a través de interfaces remotas separadas, la entidad composite los agrega en un único objeto que puede ser cargado, modificado y persistido en una operación.

@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Patrón LLM Router
-
 ## Descripción general
 
 El patrón LLM Router clasifica las consultas entrantes por complejidad y despacha cada una al modelo mas rentable que pueda manejarla. Preguntas simples como "cuanto es 2+2" no necesitan GPT-4 o Claude Opus. Tareas de razonamiento complejo como "analiza este contrato legal en busca de clausulas de riesgo" no deberian ir a un modelo pequeno que producira una respuesta superficial.

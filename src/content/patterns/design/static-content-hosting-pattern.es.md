@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patron de Hosting de Contenido Estatico
-
 ## Resumen
 
 El Patron de Hosting de Contenido Estatico despliega archivos estaticos en almacenamiento dedicado y los sirve a traves de una CDN en lugar del servidor de origen. Los assets estaticos no cambian por solicitud y no requieren procesamiento del lado del servidor.

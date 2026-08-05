@@ -53,8 +53,6 @@ seo:
 
 ---
 
-# Patrón Multi-Tenant Data Isolation
-
 ## Visión General
 
 El patrón [Multi-Tenant Data Isolation](/patterns/architecture/multi-tenant-data-isolation-pattern) asegura que cada tenant en una aplicación SaaS solo pueda acceder a sus propios datos. Existen tres estrategias principales: **database-per-tenant** (aislamiento más fuerte), **schema-per-tenant** (buen aislamiento, base de datos compartida), y **row-level security** (schema compartido, columna tenant + RLS). Cada estrategia balancea fuerza de aislamiento contra costo operativo y complejidad.

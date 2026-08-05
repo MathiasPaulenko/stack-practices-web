@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patrón Strategy
-
 ## Visión general
 
 El [Patrón Strategy](/patterns/design/strategy-pattern) es un patrón de diseño conductual que define una familia de algoritmos, encapsula cada uno como una clase separada y los hace intercambiables en tiempo de ejecución. Permite que el algoritmo varíe independientemente de los clientes que lo usan.

@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Iterator Pattern para Traversal de Colecciones Custom en TypeScript
-
 El [Iterator](/patterns/design/iterator-pattern) pattern provee una forma de acceder a elementos de un objeto agregado secuencialmente sin exponer su representacion subyacente. Separa el algoritmo de traversal de la estructura de coleccion, permitiendo iterar sobre arrays, arboles, grafos o streams con la misma interfaz.
 
 ## Cuando Usar Esto

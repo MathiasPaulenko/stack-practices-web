@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# LLM Router Pattern
-
 ## Overview
 
 The LLM Router Pattern classifies incoming queries by complexity and dispatches each to the most cost-effective model that can handle it. Simple questions like "what is 2+2" do not need GPT-4 or Claude Opus. Complex reasoning tasks like "analyze this legal contract for risk clauses" should not go to a small model that will produce shallow output.

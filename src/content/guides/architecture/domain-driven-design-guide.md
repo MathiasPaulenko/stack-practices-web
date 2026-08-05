@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Domain-Driven Design (DDD)
-
 ## Introduction
 
 Domain-Driven Design is an approach to software development where the structure and language of the code closely match the business domain. It is most valuable for complex domains where the business logic is the primary source of complexity.

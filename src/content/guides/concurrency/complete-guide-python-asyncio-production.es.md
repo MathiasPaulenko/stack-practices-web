@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-python-asyncio-production
-title: "Referencia Detallada de Python Asyncio en Producción"
+title: "Python Asyncio en Producción"
 description: "Ejecutar Python asyncio en produccion con confianza. Cubre event loops, gestion de tasks, debugging, cancellation, timeouts, backpressure y patrones para aplicaciones async de alta concurrencia."
 metaDescription: "Ejecutar Python asyncio en produccion. Cubre event loops, tasks, debugging, cancellation, timeouts, backpressure y patrones async."
 difficulty: advanced

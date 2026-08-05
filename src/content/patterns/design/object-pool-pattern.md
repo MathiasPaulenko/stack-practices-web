@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Object Pool Pattern
-
 ## Overview
 
 The Object Pool Pattern reuses expensive-to-create objects instead of instantiating and destroying them on demand. Objects are checked out from a pre-initialized pool, used, and returned for future reuse. This pattern is essential when object creation is costly in time or memory, such as database connections, threads, or large bitmaps.

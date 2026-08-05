@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# Build Responsive Email Templates with MJML
-
 Email HTML is notoriously difficult due to inconsistent client rendering engines. MJML abstracts these complexity into a declarative markup language that compiles to battle-tested, responsive HTML with inline styles. The following demonstrates how to MJML structure, live templating with Handlebars, and sending via SMTP/API.
 
 ## When to Use This
@@ -277,7 +275,7 @@ emove_classes and merge_inline options to reduce CSS size
 
 - **Visual testing across clients**: use Litmus or Email on Acid to screenshot your email across 90+ clients. Test at minimum: Gmail (web), Outlook (2016/2019/365), Apple Mail (desktop/iOS), Yahoo Mail, Samsung Mail. Fix rendering issues before sending
 - **Dark mode testing**: test emails in dark mode on iOS, macOS, and Outlook. Ensure text is readable on dark backgrounds. Use prefers-color-scheme media query. Provide fallback colors for clients that do not support media queries
-- **Accessibility testing**: use accessibility checkers in Litmus or Email on Acid. Ensure alt text for all images. Use semantic HTML (<table>, <h1>, <p>). Maintain color contrast ratio of 4.5:1 for text. Test with screen readers (NVDA, VoiceOver)
+- **Accessibility testing**: use accessibility checkers in Litmus or Email on Acid. Ensure alt text for all images. Use semantic HTML (&lt;table&gt;, &lt;h1&gt;, &lt;p&gt;). Maintain color contrast ratio of 4.5:1 for text. Test with screen readers (NVDA, VoiceOver)
 - **Link testing**: test all links before sending. Use a link checker tool. Verify unsubscribe links work. Verify tracking parameters are correct. Test on mobile devices. Check that links open in the correct app (browser vs in-app browser)
 - **Spam testing**: use Mail Tester or Litmus spam testing. Score below 8/10 indicates potential issues. Check SPF, DKIM, and DMARC records. Avoid spam trigger words (FREE, GUARANTEED, ACT NOW). Keep image-to-text ratio balanced (60% text, 40% images)
 - **Send test emails**: send test emails to internal addresses before the full send. Verify rendering, links, and tracking. Test on both desktop and mobile. Use a staging ESP account for tests to avoid affecting production sender reputation

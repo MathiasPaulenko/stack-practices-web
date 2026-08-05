@@ -98,19 +98,18 @@ Usa este recurso cuando:
 ### Runbook de Rotación: `Nombre del Secreto`
 
 ```bash
-# 1. Verificar servicios consumidores
 vault read secret/api-gateway-key --format=json | jq .data.consumers
 
-# 2. Generar nuevo secreto
+## 2. Generar nuevo secreto
 vault write secret/api-gateway-key rotation=auto ttl=90d
 
-# 3. Actualizar servicios consumidores
+## 3. Actualizar servicios consumidores
 ./scripts/update-secret.sh --secret api-gateway-key --services api-gateway,billing-worker
 
-# 4. Verificar salud
+## 4. Verificar salud
 ./scripts/verify-secret.sh --secret api-gateway-key
 
-# 5. Desactivar antiguo (tras 24h de estabilidad)
+## 5. Desactivar antiguo (tras 24h de estabilidad)
 vault delete secret/api-gateway-key/v1
 ```
 

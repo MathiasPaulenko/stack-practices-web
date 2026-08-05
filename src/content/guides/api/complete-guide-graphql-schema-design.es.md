@@ -7,7 +7,7 @@
 
 contentType: guides
 slug: complete-guide-graphql-schema-design
-title: "Referencia Detallada de Diseño de Esquemas GraphQL"
+title: "Diseño de Esquemas GraphQL"
 description: "Disenar esquemas GraphQL para evolucion, rendimiento y mantenibilidad. Cubre diseno de tipos, conexiones, mutaciones, manejo de errores, deprecation y workflows schema-first vs code-first."
 metaDescription: "Referencia Detallada de diseno de esquemas GraphQL. Aprende diseno de tipos, conexiones, mutaciones, manejo de errores, deprecation y schema-first vs code-first."
 difficulty: advanced

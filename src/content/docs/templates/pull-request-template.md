@@ -145,13 +145,12 @@ Fixes #142
 ### Test Evidence
 
 ```bash
-# Rate limit active
 $ curl -I http://localhost:3000/api/v1/users
 HTTP/1.1 200 OK
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 99
 
-# After 100 requests
+## After 100 requests
 $ curl -I http://localhost:3000/api/v1/users
 HTTP/1.1 429 Too Many Requests
 Retry-After: 60

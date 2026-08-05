@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patrón Dependency Injection
-
 ## Visión General
 
 El [Patrón Dependency Injection](/patterns/design/dependency-injection-typescript) es un patrón arquitectural donde las dependencias se suministran a una clase desde fuera en lugar de ser creadas internamente. Esto invierte el control: la clase declara lo que necesita, y un mecanismo externo lo provee. El resultado es código débilmente acoplado y altamente testeable.

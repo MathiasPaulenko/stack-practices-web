@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Patron de Consumidor Idempotente
-
 ## Resumen
 
 El Patron de Consumidor Idempotente garantiza que los mensajes de una cola o flujo de eventos se procesen exactamente una vez, incluso si se entregan multiples veces debido a reintentos de red, fallas del consumidor o garantias de entrega al-menos-una-vez. En lugar de depender del sistema de mensajeria para una semantica exactamente-una-vez, el consumidor se disena para ser idempotente: procesar el mismo mensaje multiples veces produce el mismo resultado que procesarlo una sola vez.

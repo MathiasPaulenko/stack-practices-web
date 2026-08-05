@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Write-Through Cache Pattern
-
 ## Overview
 
 In a write-through cache, every write operation goes to both the cache and the backing store synchronously. The application writes to the cache, the cache writes to the database, and both succeed before the operation returns. This guarantees the cache always reflects the latest data.

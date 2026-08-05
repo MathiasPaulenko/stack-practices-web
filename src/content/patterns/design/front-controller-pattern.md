@@ -36,8 +36,6 @@ seo:
 
 ---
 
-# Front Controller Pattern
-
 ## Overview
 
 The Front Controller Pattern routes all incoming requests through a single entry point — a central handler that processes each request and dispatches it to the appropriate command or controller. Rather than having every page handle its own request parsing, authentication, and logging, the Front Controller centralizes these cross-cutting concerns.

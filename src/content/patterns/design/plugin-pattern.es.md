@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrón Plugin
-
 ## Descripción General
 
 El Patrón Plugin habilita que un sistema host se extienda en runtime cargando y ejecutando módulos externos. El host define un contrato (una interface o protocolo) que los plugins deben implementar. Los plugins se registran y el host los invoca en puntos de extensión apropiados.

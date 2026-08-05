@@ -46,8 +46,6 @@ seo:
 
 ---
 
-# Monolith to Microservices — Migration Strategies
-
 ## Introduction
 
 Migrating from a monolith to microservices is one of the riskiest refactoring projects in software engineering. Done wrong, it creates a distributed monolith — slower, more complex, and harder to operate. Done right, it enables team autonomy, independent scaling, and faster delivery. Below is a practical guide to strategies that decompose safely.

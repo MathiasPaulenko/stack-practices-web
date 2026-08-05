@@ -51,8 +51,6 @@ seo:
 
 ---
 
-# Patrón Content Delivery Network (CDN)
-
 ## Descripción General
 
 El Patrón Content Delivery Network (CDN) distribuye contenido a través de una red geográficamente dispersa de servidores edge, colocando copias cacheadas de assets más cerca de los usuarios finales. En lugar de que cada request viaje a un único servidor de origen, los usuarios son enrutados a la ubicación edge más cercana, reduciendo dramáticamente la latencia, mejorando la disponibilidad y descargando tráfico de la infraestructura de origen.

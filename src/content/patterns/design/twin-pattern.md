@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Twin Pattern
-
 ## Overview
 
 The Twin Pattern provides an alternative to multiple inheritance by splitting a conceptual class into two (or more) sibling classes that are linked through mutual references. Each twin handles one aspect of the original class's behavior, and they delegate to each other when a method is invoked that belongs to the other's domain.

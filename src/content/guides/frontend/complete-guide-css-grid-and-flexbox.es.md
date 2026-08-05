@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-css-grid-and-flexbox
-title: "Referencia Detallada de CSS Grid y Flexbox"
+title: "CSS Grid y Flexbox"
 description: "modern CSS layout con Grid y Flexbox. Cubre grid templates, areas, subgrid, responsive layouts, flexbox alignment, wrapping, gap, container queries y cuando usar Grid vs Flexbox con ejemplos practicos y patterns."
 metaDescription: "Master CSS layout. Covers Grid templates, areas, subgrid, responsive layouts, Flexbox alignment, wrapping, gap, container queries, Grid vs Flexbox."
 difficulty: intermediate

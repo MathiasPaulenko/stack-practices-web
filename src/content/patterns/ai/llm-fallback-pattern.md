@@ -35,8 +35,6 @@ seo:
 
 ---
 
-# LLM Fallback Pattern
-
 ## Overview
 
 LLM APIs fail. Rate limits, timeouts, maintenance windows, and unexpected errors are routine. The LLM Fallback Pattern chains multiple providers so that when the primary fails, the request automatically retries on the next provider. If all providers fail, a static fallback response is returned.

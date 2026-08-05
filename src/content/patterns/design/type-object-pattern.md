@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Type Object Pattern
-
 ## Overview
 
 The Type Object Pattern defines game entity types (monsters, items, spells) as runtime data rather than hard-coding them as classes. Each type is represented by a shared data object, and individual instances simply reference their type. This enables designers to create new entity variants (e.g., a new monster breed) by editing data files or databases without recompiling the codebase.

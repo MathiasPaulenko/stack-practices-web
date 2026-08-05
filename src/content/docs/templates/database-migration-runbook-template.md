@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Database Migration Runbook Template
-
 Use this template to execute database schema changes without downtime or data loss.
 
 ## Template

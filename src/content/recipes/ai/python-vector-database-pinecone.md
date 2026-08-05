@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Store and Query Embeddings in Pinecone Vector Database
-
 Pinecone is a managed vector database optimized for semantic search and RAG. It stores high-dimensional embeddings and retrieves the most similar vectors in milliseconds. Below: creating an index, upserting embeddings with metadata, querying with filters, and using namespaces for multi-tenant isolation.
 
 ## When to Use This

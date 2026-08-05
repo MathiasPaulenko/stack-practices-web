@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Patrón Embedding Cache
-
 ## Descripción general
 
 Generar embeddings via API (OpenAI, Cohere, HuggingFace) cuesta dinero por request. Cuando el mismo texto se embedde repetidamente — comun en pipelines RAG, busqueda semantica y deduplicacion — esas llamadas API son desperdicio. El patrón Embedding Cache almacena embeddings usando como clave un hash del texto y el identificador del modelo. En requests subsiguientes para el mismo texto, el embedding cacheado se devuelve sin llamar a la API.

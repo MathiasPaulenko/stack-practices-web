@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Prototype Pattern
-
 ## Overview
 
 The [Prototype](/patterns/design/prototype-pattern-cloning) Pattern is a creational design pattern that creates new objects by copying existing ones. Instead of building objects from scratch using constructors, you clone a prototype instance and optionally customize it. This is especially useful when object creation is expensive, involves complex configurations, or when you need objects that are similar but not identical.

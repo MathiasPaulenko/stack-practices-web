@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-llm-cost-optimization
-title: "Referencia Detallada de Optimización de Costos LLM"
+title: "Optimización de Costos LLM"
 description: "Optimizar costos LLM en produccion. Cubre model routing, prompt compression, caching, batch API, token management, semantic caching, prompt engineering para costos, monitoring y budget control para aplicaciones LLM."
 metaDescription: "Optimizar costos LLM. Cubre model routing, prompt compression, caching, batch API, token management, semantic caching, budget control."
 difficulty: advanced

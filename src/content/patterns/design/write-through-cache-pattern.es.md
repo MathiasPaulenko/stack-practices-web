@@ -52,8 +52,6 @@ seo:
 
 ---
 
-# Patron Write-Through Cache
-
 ## Descripcion general
 
 En un write-through cache, cada operacion de escritura va tanto al cache como al backing store de forma sincrona. La aplicacion escribe en el cache, el cache escribe en la base de datos, y ambos tienen exito antes de que la operacion devuelva. Esto garantiza que el cache siempre refleje los datos mas recientes.

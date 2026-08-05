@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrón Unit of Work
-
 ## Descripción General
 
 El Patrón Unit of Work mantiene una lista de objetos afectados por una transacción de negocio y coordina la escritura de cambios a la base de datos como una única operación atómica. En lugar de guardar cada cambio de entidad inmediatamente, el Unit of Work trackea inserciones, actualizaciones y eliminaciones, luego las commitea todas juntas — o las hace rollback todas en caso de fallo.

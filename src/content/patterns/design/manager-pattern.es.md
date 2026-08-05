@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patrón Manager
-
 ## Descripción General
 
 El Patrón Manager encapsula el ciclo de vida, coordinación y control de acceso para un conjunto de objetos relacionados a través de una clase manager dedicada. En lugar de dispersar la lógica de creación, búsqueda y limpieza de objetos a través del codebase, un manager centraliza estas operaciones y fuerza invariantes.

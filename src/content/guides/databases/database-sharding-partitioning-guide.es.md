@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Sharding y Particionamiento de Bases de Datos
-
 ## Introducción
 
 Cuando un servidor de base de datos no puede manejar la carga, tienes tres opciones: comprar una máquina más grande (escalado vertical), agregar réplicas de lectura (escalado horizontal de lectura), o dividir los datos entre múltiples servidores (sharding). Consulta [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) antes de escalar horizontalmente. El sharding es el más difícil pero la única opción para escalado horizontal ilimitado. A continuación: estrategias, trade-offs y consideraciones operativas.

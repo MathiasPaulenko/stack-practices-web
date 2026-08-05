@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Context Object Pattern
-
 ## Overview
 
 The Context Object Pattern encapsulates state and services needed by multiple components into a single context object that is passed through the call chain. Instead of threading ten parameters through every method signature, components receive a single context object that provides access to request data, user sessions, configuration, logging, and services.

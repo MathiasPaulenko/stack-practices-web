@@ -309,7 +309,6 @@ Reglas de secrets:
   | Audit log | Quien accedio que secret y cuando |
 
 ```yaml
-# External Secrets Operator - ExternalSecret
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:

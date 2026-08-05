@@ -34,8 +34,6 @@ seo:
 
 ---
 
-# Patrón Model-View-ViewModel (MVVM)
-
 ## Descripción General
 
 El Patrón Model-View-ViewModel (MVVM) separa una aplicación en tres capas: el **Model** (datos y lógica de negocio), la **View** (layout y estructura de UI) y el **ViewModel** (estado y comportamiento expuesto a la View). La View se vincula al ViewModel declarativamente, y los cambios en el ViewModel se reflejan automáticamente en la View.

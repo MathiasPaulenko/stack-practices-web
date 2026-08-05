@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Repository Pattern
-
 ## Overview
 
 The [Repository](/patterns/design/repository-pattern-typescript) Pattern is an architectural design pattern that mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects. It abstracts the details of data storage and retrieval.

@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# Memento Pattern for State Snapshot and Restoration
-
 The [Memento](/patterns/design/memento-pattern) pattern captures and externalizes an object's internal state so the object can be restored to this state later, without violating encapsulation. Unlike [Command](/patterns/design/command-pattern), which stores operations, Memento stores the entire state snapshot. It is the foundation for undo systems, checkpoints in games, and draft saving in editors.
 
 ## When to Use This

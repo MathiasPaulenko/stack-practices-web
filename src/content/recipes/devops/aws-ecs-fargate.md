@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Deploy Containers to AWS ECS with Fargate
-
 AWS Fargate removes the need to manage EC2 instances by providing serverless compute for containers. Combined with ECS, Application Load Balancer, and Terraform, you get a production-ready container platform without operational overhead.
 
 ## When to Use This

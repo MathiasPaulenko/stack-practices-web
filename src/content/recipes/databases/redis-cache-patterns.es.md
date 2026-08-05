@@ -42,8 +42,6 @@ seo:
 
 ---
 
-# Patrones de Cache de Redis para Aplicaciones de Alto Rendimiento
-
 Redis es un almacen de estructuras de datos en memoria que funciona como una capa de cache extremadamente rapida entre tu aplicacion y la base de datos persistente. Elegir el patron de cache correcto — cache-aside, write-through o write-behind — determina como tu aplicacion maneja cache misses, consistencia y escenarios de fallo.
 
 ## Cuando Usar Esto

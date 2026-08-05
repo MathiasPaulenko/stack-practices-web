@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Adapter Pattern
-
 ## Overview
 
 The Adapter Pattern is a structural design pattern that allows objects with incompatible interfaces to collaborate. It wraps an existing class with a new interface so that it becomes compatible with the client's expectations.

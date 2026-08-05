@@ -273,32 +273,31 @@ spec:
 ### Drain Commands
 
 ```bash
-# Standard drain (respects PDBs)
 kubectl drain node-1 --ignore-daemonsets --delete-emptydir-data
 
-# Drain with timeout (PDB may block)
+## Drain with timeout (PDB may block)
 kubectl drain node-1 --ignore-daemonsets --delete-emptydir-data --timeout=5m
 
-# Force drain (bypasses PDB — use with caution)
+## Force drain (bypasses PDB — use with caution)
 kubectl drain node-1 --ignore-daemonsets --delete-emptydir-data --force
 
-# Check drain status
+## Check drain status
 kubectl get pods -o wide --field-selector spec.nodeName=node-1
 
-# Uncordon node after maintenance
+## Uncordon node after maintenance
 kubectl uncordon node-1
 ```
 
 ### PDB Status Check
 
 ```bash
-# Check PDB status
+## Check PDB status
 kubectl get pdb -n production
 
-# Detailed PDB status
+## Detailed PDB status
 kubectl describe pdb example-app-pdb -n production
 
-# Check which pods are protected
+## Check which pods are protected
 kubectl get pods -n production -l app.kubernetes.io/name=example-app
 ```
 
@@ -351,7 +350,7 @@ spec:
 ### Alerting Rules
 
 ```yaml
-# Prometheus alerting rules
+## Prometheus alerting rules
 groups:
   - name: pdb-alerts
     rules:
@@ -389,21 +388,21 @@ groups:
 ### Debugging Steps
 
 ```bash
-# 1. Check PDB status
+## 1. Check PDB status
 kubectl get pdb -n production
 kubectl describe pdb example-app-pdb -n production
 
-# 2. Check pod count vs PDB requirements
+## 2. Check pod count vs PDB requirements
 kubectl get pods -n production -l app.kubernetes.io/name=example-app --no-headers | wc -l
 
-# 3. Check if pods are healthy
+## 3. Check if pods are healthy
 kubectl get pods -n production -l app.kubernetes.io/name=example-app
 
-# 4. Check node drain status
+## 4. Check node drain status
 kubectl get nodes -o wide
 kubectl describe node node-1 | grep -A 10 "Conditions:"
 
-# 5. Check eviction events
+## 5. Check eviction events
 kubectl get events -n production --field-selector reason=Eviction
 ```
 ```

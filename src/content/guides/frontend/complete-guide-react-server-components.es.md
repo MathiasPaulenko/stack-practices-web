@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-react-server-components
-title: "Referencia Detallada de React Server Components: Arquitectura RSC"
+title: "React Server Components: Arquitectura RSC"
 description: "Dominá React Server Components: arquitectura RSC, data loading, streaming, server actions y client component boundaries en Next.js App Router."
 metaDescription: "Dominá React Server Components: arquitectura RSC, data loading, streaming, server actions y client component boundaries en Next.js App Router."
 difficulty: advanced

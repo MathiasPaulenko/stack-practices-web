@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Patrón Intercepting Filter
-
 ## Descripción General
 
 El Patrón Intercepting Filter compone cross-cutting concerns en una cadena de filtros pluggeables que interceptan requests y responses. Cada filtro realiza una tarea específica de preprocesamiento o postprocesamiento (autenticación, logging, compresión, validación) y delega al siguiente filtro en la cadena. El target final (un servlet, handler o controller) procesa la lógica de negocio core.

@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Microservices Architecture — When to Use and When Not To
-
 ## Introduction
 
 Microservices architecture structures an application as a collection of loosely coupled services, each owned by a small team and deployed independently. It solves organizational and technical scaling problems, but introduces major operational complexity. This guide helps you decide when the trade-off is worth it.

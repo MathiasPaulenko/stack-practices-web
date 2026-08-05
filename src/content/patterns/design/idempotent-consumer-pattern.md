@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Idempotent Consumer Pattern
-
 ## Overview
 
 The Idempotent Consumer Pattern ensures messages from a queue or event stream are processed exactly once, even if they are delivered multiple times due to network retries, consumer failures, or at-least-once delivery guarantees. Instead of relying on the messaging system for exactly-once semantics, the consumer itself is designed to be idempotent — processing the same message multiple times produces the same end result as processing it once.

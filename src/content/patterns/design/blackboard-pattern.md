@@ -50,8 +50,6 @@ seo:
 
 ---
 
-# Blackboard Pattern
-
 ## Overview
 
 The Blackboard Pattern is a behavioral design pattern that provides a shared knowledge space (the blackboard) where independent, specialized modules called Knowledge Sources collaborate to solve complex problems. Each Knowledge Source reads from the blackboard, evaluates the current state, and contributes partial solutions when it can.

@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-authentication-patterns
-title: "Referencia Detallada de Patrones de Autenticación"
+title: "Patrones de Autenticación"
 description: "Implementar autenticacion en produccion. Cubre JWT, OAuth2, session-based auth, passkeys, MFA, refresh tokens, token rotation, RBAC, ABAC, SSO con SAML y OpenID Connect, y patrones de logout seguro con ejemplos de codigo."
 metaDescription: "Implementar auth en produccion. Cubre JWT, OAuth2, session-based auth, passkeys, MFA, refresh tokens, RBAC, ABAC, SSO, OpenID Connect."
 difficulty: advanced

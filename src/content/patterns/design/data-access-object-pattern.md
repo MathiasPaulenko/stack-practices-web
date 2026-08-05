@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Data Access Object (DAO) Pattern
-
 ## Overview
 
 The Data Access Object (DAO) Pattern separates low-level data access operations from high-level business logic. A DAO provides a clean interface for creating, reading, updating, and deleting entities, while encapsulating the details of the underlying database or storage mechanism.

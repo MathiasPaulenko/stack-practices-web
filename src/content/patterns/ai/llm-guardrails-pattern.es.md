@@ -41,8 +41,6 @@ seo:
 
 ---
 
-# Patrón LLM Guardrails
-
 ## Descripción general
 
 Los guardrails LLM son capas de validacion que se ubican antes y despues de la llamada al modelo. **Guardrails de entrada** inspeccionan los prompts del usuario en busca de prompt injection, contenido prohibido e intentos de fuga de datos. **Guardrails de salida** inspeccionan las respuestas del modelo en busca de toxicidad, afirmaciones alucinadas y datos sensibles antes de devolverlas al usuario.

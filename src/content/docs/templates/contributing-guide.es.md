@@ -50,8 +50,6 @@ Usa esta plantilla para crear un archivo `CONTRIBUTING.md` en tu repositorio.
 
 ---
 
-# Contribuyendo a [Nombre del Proyecto]
-
 ¡Gracias por tu interés en contribuir! Este documento te guiará a través del proceso.
 
 ## Tabla de contenidos

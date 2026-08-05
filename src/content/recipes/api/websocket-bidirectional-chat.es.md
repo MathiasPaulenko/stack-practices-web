@@ -40,8 +40,6 @@ seo:
 
 ---
 
-# Construye un Chat Bidireccional con WebSocket y Node.js
-
 La comunicacion bidireccional permite tanto al cliente como al servidor enviar mensajes en cualquier momento. Una aplicacion de chat demuestra este patron perfectamente: los usuarios envian mensajes al servidor, que luego los difunde a otros participantes en la misma sala. WebSocket es el transporte ideal para esto porque mantiene una conexion persistente de baja latencia.
 
 ## Cuando Usar Esto

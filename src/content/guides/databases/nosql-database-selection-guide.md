@@ -39,8 +39,6 @@ seo:
 
 ---
 
-# NoSQL Database Selection
-
 ## Introduction
 
 NoSQL databases trade the strict consistency and relational model of SQL for flexibility, horizontal growth, and specialized access patterns. Choosing the right one means matching your data shape, query patterns, and consistency requirements to the right store.

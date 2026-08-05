@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Patron de Programador-Agente-Supervisor
-
 ## Resumen
 
 El Patron de Programador-Agente-Supervisor estructura el procesamiento de trabajos distribuidos en tres roles distintos: un **Programador** que decide que trabajo hacer y cuando, **Agentes** que ejecutan el trabajo real, y un **Supervisor** que monitorea agentes, maneja fallas y gestiona el ciclo de vida del sistema.

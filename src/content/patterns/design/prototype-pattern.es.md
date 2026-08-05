@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Patrón Prototype
-
 ## Visión General
 
 El [Patrón Prototype](/patterns/design/prototype-pattern-cloning) es un patrón de diseño creacional que crea nuevos objetos copiando los existentes. En lugar de construir objetos desde cero usando constructores, clonas una instancia prototipo y opcionalmente la personalizas. Esto es especialmente útil cuando la creación de objetos es costosa, involucra configuraciones complejas, o cuando necesitas objetos similares pero no idénticos.

@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Patrón Blue-Green Deployment
-
 ## Descripción general
 
 El patrón Blue-Green Deployment mantiene dos entornos de produccion identicos: blue y green. En cualquier momento, un entorno sirve trafico en vivo (activo) mientras el otro esta inactivo. Para desplegar una nueva version, despliegas al entorno inactivo, ejecutas smoke tests contra el, y luego cambias el router para enviar trafico al entorno recien desplegado. El switch es instantaneo.

@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Patrón Page Controller
-
 ## Descripción General
 
 El Patrón Page Controller usa un objeto controlador dedicado para cada página lógica en una aplicación web. Cada controlador maneja requests HTTP para una página específica: parseando parámetros, invocando lógica de negocio y seleccionando la view apropiada para renderizar. A diferencia de Front Controller, no hay un único punto de entrada — cada página tiene su propio handler.

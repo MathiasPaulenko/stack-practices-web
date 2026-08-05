@@ -48,8 +48,6 @@ seo:
 
 ---
 
-# Optimización de Rendimiento SQL
-
 ## Introducción
 
 Las consultas lentas son una de las causas más comunes de problemas de rendimiento en aplicaciones. A continuación: técnicas prácticas para identificar, diagnosticar y corregir problemas de rendimiento SQL en PostgreSQL, MySQL y SQL Server.

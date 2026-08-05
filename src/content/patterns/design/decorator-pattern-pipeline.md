@@ -44,8 +44,6 @@ seo:
 
 ---
 
-# Decorator Pattern for HTTP Request Pipelines
-
 The [Decorator](/patterns/design/decorator-pattern) pattern wraps an object to add responsibilities dynamically. When applied to HTTP clients, it becomes a clean way to compose cross-cutting concerns — logging, retries, metrics, authentication — without polluting the core request logic.
 
 ## When to Use This

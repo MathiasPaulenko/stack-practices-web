@@ -33,8 +33,6 @@ seo:
 
 ---
 
-# Page Controller Pattern
-
 ## Overview
 
 The Page Controller Pattern uses a dedicated controller object for each logical page in a web application. Each controller handles HTTP requests for one specific page: parsing parameters, invoking business logic, and selecting the appropriate view to render. Unlike Front Controller, there is no single entry point — each page has its own handler.

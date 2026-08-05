@@ -43,8 +43,6 @@ seo:
 
 ---
 
-# Event Bus Pattern
-
 ## Overview
 
 The Event Bus Pattern enables communication between components without direct dependencies. Instead of calling each other directly, components publish events to a central bus and subscribe to events they care about. The bus routes events to all interested subscribers, decoupling publishers from consumers.

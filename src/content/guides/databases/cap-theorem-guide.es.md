@@ -47,8 +47,6 @@ seo:
 
 ---
 
-# Teorema CAP y Trade-offs de Bases de Datos
-
 ## Introducción
 
 El teorema CAP establece que un almacén de datos distribuido puede garantizar como máximo dos de estas tres propiedades: Consistencia, Disponibilidad y Tolerancia a Particiones. Dado que las particiones de red son inevitables, realmente estás eligiendo entre sistemas CP (Consistencia + Tolerancia a Particiones) y AP (Disponibilidad + Tolerancia a Particiones). Esta guía explica qué significa cada propiedad y cómo elegir el trade-off correcto.

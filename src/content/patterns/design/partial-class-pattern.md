@@ -45,8 +45,6 @@ seo:
 
 ---
 
-# Partial Class Pattern
-
 ## Overview
 
 The Partial Class Pattern splits a single class definition across multiple source files. At compile time, the fragments are merged into a single type. This separation allows auto-generated code (from designers, ORMs, or code generators) to live in one file while hand-written customizations live in another, without the risk of one overwriting the other.

@@ -38,8 +38,6 @@ seo:
 
 ---
 
-# Deployment Ring Pattern
-
 ## Overview
 
 The Deployment Ring Pattern rolls out a new version in concentric rings of increasing size. Ring 0 might be internal users (1%). Ring 1 is early adopters (5%). Ring 2 is a larger segment (25%). Ring 3 is everyone (100%). Between each ring, the system checks health metrics (error rate, latency, conversion rate). If metrics degrade, the rollout stops or rolls back. If metrics are stable, the next ring proceeds.
