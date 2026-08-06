@@ -14,7 +14,7 @@ tags:
   - canary-release
   - pattern
   - design-pattern
-  - estrategia-despliegue
+  - deployment-strategy
   - progressive-delivery
   - rollout
   - risk-reduction

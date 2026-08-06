@@ -16,10 +16,11 @@ topics:
 tags:
   - api
   - error-handling
+  - graphql
+  - guide
+  - guidelines
   - http-status-codes
   - rest
-  - graphql
-  - guideline
 relatedResources:
   - /docs/microservice-contract-template
   - /docs/api-security-review-template

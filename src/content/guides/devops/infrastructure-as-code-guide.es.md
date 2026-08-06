@@ -13,9 +13,10 @@ difficulty: intermediate
 topics:
   - devops
 tags:
+  - ci-cd
+  - cloud
   - devops
   - guide
-  - cloud
   - pulumi
   - terraform
 relatedResources:

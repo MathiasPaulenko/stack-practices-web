@@ -13,11 +13,12 @@ difficulty: intermediate
 topics:
   - devops
 tags:
+  - ci-cd
+  - cloud
   - devops
   - guide
   - pulumi
   - terraform
-  - ci-cd
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/docker-for-developers-guide

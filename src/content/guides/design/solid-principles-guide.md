@@ -12,10 +12,12 @@ topics:
   - design
 tags:
   - architecture
+  - design-pattern
   - guide
   - maintainability
+  - object-oriented-design
+  - principles
   - solid
-  - design-pattern
 relatedResources:
   - /guides/clean-code-principles-guide
   - /guides/design-patterns-guide

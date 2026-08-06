@@ -15,9 +15,13 @@ topics:
   - architecture
 tags:
   - architecture
+  - availability
+  - consistency
   - database
+  - database-tradeoffs
   - distributed-systems
   - guide
+  - partition-tolerance
 relatedResources:
   - /guides/nosql-database-selection-guide
   - /guides/database-sharding-partitioning-guide

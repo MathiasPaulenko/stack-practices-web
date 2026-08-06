@@ -12,11 +12,12 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - security
   - database
-  - java
-  - vulnerabilities
   - encryption
+  - java
+  - owasp
+  - security
+  - vulnerabilities
 relatedResources:
   - /recipes/database-transactions
   - /recipes/input-validation

@@ -12,15 +12,16 @@ topics:
   - databases
   - data
 tags:
-  - nosql
-  - mongodb
-  - dynamodb
   - cassandra
-  - redis
+  - data-embedding
   - data-modeling
+  - dynamodb
   - embedding
-  - referencing
   - guide
+  - mongodb
+  - nosql
+  - redis
+  - referencing
 relatedResources:
   - /guides/database-design-guide
   - /guides/time-series-database-guide

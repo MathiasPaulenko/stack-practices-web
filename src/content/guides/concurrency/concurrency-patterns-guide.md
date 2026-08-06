@@ -15,10 +15,12 @@ topics:
   - architecture
 tags:
   - architecture
-  - concurrency
   - async
-  - threads
+  - concurrency
   - parallel
+  - parallelism
+  - semaphore
+  - threads
 relatedResources:
   - /recipes/caching
   - /patterns/singleton-pattern

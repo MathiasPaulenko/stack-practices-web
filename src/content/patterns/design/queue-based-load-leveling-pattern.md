@@ -20,7 +20,7 @@ tags:
   - design-pattern
   - messaging
   - queue
-  - load-leveling
+  - load-balancing
   - backpressure
   - decoupling
 relatedResources:

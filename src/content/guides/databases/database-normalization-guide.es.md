@@ -20,7 +20,7 @@ tags:
   - bcnf
   - 4nf
   - 5nf
-  - bases-datos-relacionales
+  - relational-databases
   - database-design
   - guide
 relatedResources:

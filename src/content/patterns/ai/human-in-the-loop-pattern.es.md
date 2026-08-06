@@ -10,13 +10,14 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - human-in-the-loop
-  - pattern
-  - ai-pattern
   - agent-approval
-  - human-review
-  - security
+  - ai-pattern
   - decision-gating
+  - human-in-the-loop
+  - human-review
+  - pattern
+  - safety
+  - security
 relatedResources:
   - /patterns/llm-guardrails-pattern
   - /patterns/agent-tool-selection-pattern

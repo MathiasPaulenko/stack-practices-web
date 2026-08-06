@@ -15,9 +15,10 @@ topics:
   - design
 tags:
   - architecture
+  - design
   - domain-driven-design
   - guide
-  - design
+  - pattern
 relatedResources:
   - /guides/software-architecture-guide
   - /guides/design-patterns-guide

@@ -15,9 +15,9 @@ topics:
   - api
 tags:
   - api
-  - autenticacion
-  - autorizacion
-  - encriptacion
+  - authentication
+  - authorization
+  - encryption
   - guide
   - owasp
   - rate-limiting

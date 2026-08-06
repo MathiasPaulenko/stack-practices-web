@@ -17,7 +17,7 @@ tags:
   - cap-theorem
   - distributed-systems
   - eventual-consistency
-  - transacciones
+  - transactions
   - guide
 relatedResources:
   - /guides/database-normalization-guide

@@ -14,11 +14,12 @@ topics:
 tags:
   - devops
   - guide
+  - incident-response
   - mttr
   - observability
   - on-call
   - postmortem
-  - incident-response
+  - sre
 relatedResources:
   - /guides/docker-for-developers-guide
   - /guides/web-application-security-guide

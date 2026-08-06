@@ -17,6 +17,7 @@ tags:
   - api
   - architecture
   - best-practices
+  - design
   - http
   - rest
 relatedResources:

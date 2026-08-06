@@ -21,7 +21,7 @@ tags:
   - guide
   - distributed-systems
   - partition-tolerance
-  - tradeoffs-base-de-datos
+  - database-tradeoffs
 relatedResources:
   - /guides/nosql-database-selection-guide
   - /guides/database-sharding-partitioning-guide

@@ -15,6 +15,7 @@ topics:
   - architecture
 tags:
   - architecture
+  - containers
   - contenedores
   - devops
   - guide

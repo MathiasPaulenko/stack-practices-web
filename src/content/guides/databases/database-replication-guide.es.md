@@ -16,7 +16,7 @@ tags:
   - master-slave
   - multi-master
   - failover
-  - resolucion-conflictos
+  - conflict-resolution
   - high-availability
   - guide
 relatedResources:

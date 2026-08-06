@@ -14,6 +14,7 @@ topics:
   - architecture
 tags:
   - architecture
+  - decomposition
   - distributed-systems
   - guide
   - microservices

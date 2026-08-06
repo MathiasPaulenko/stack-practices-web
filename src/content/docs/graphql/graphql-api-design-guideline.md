@@ -14,7 +14,7 @@ topics:
 tags:
   - graphql
   - api-design
-  - guideline
+  - guidelines
   - schema
   - best-practices
   - federation

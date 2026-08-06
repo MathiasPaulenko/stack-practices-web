@@ -14,9 +14,12 @@ topics:
   - architecture
 tags:
   - architecture
+  - async
   - concurrency
+  - parallel
   - parallelism
   - semaphore
+  - threads
 relatedResources:
   - /recipes/caching
   - /recipes/singleton-pattern-recipe

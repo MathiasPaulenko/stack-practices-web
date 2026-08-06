@@ -15,6 +15,7 @@ tags:
   - clean-code
   - guide
   - maintainability
+  - readability
   - refactoring
 relatedResources:
   - /guides/solid-principles-guide

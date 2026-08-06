@@ -19,7 +19,7 @@ tags:
   - priority-queue
   - pattern
   - design-pattern
-  - programacion
+  - scheduling
   - concurrency
   - heap
   - queue

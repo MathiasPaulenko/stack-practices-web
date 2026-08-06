@@ -16,7 +16,7 @@ tags:
   - design-pattern
   - creational
   - clone
-  - duplicacion
+  - duplication
   - python
   - javascript
   - java

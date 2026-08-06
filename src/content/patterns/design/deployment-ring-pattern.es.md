@@ -15,7 +15,7 @@ tags:
   - pattern
   - design-pattern
   - progressive-rollout
-  - estrategia-despliegue
+  - deployment-strategy
   - rings
   - canary
 relatedResources:

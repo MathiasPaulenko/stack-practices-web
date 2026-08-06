@@ -11,10 +11,11 @@ topics:
   - file-handling
 tags:
   - file-handling
-  - java
-  - io
-  - streams
   - files
+  - io
+  - java
+  - javascript
+  - streams
 relatedResources:
   - /recipes/input-validation
   - /recipes/jwt-authentication

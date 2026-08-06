@@ -13,13 +13,14 @@ topics:
   - databases
   - performance
 tags:
+  - counter-tables
   - data-denormalization
-  - database-design
-  - read-performance
   - data-redundancy
-  - materialized-views
-  - tablas-contadores
+  - database-design
+  - denormalization
   - guide
+  - materialized-views
+  - read-performance
 relatedResources:
   - /guides/database-design-guide
   - /guides/database-normalization-guide

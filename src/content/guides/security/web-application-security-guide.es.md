@@ -17,7 +17,7 @@ tags:
   - api
   - access-control
   - guide
-  - inyeccion
+  - injection
   - owasp-top-10
   - security
   - web-security

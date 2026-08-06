@@ -10,11 +10,12 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - automation
+  - ci-cd
   - community
   - devops
-  - gobernanza
+  - governance
   - open-source
-  - ci-cd
 relatedResources:
   - /docs/contributing-guide
   - /docs/readme-template

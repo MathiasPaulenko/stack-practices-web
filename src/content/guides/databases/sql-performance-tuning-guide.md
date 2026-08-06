@@ -18,6 +18,7 @@ tags:
   - guide
   - indexing
   - performance
+  - query-optimization
   - sql
 relatedResources:
   - /guides/database-design-guide

@@ -10,11 +10,12 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - automation
+  - ci-cd
   - devops
   - documentation
-  - equipo
   - onboarding
-  - ci-cd
+  - team
 relatedResources:
   - /docs/readme-template
   - /docs/contributing-guide

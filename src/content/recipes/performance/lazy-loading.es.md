@@ -1,4 +1,4 @@
-﻿---
+---
 contentType: recipes
 slug: lazy-loading
 title: "Implementar Lazy Loading para Imágenes, Componentes y Datos"
@@ -10,7 +10,7 @@ topics:
 tags:
   - performance
   - lazy-loading
-  - imagenes
+  - images
   - optimization
   - profiling
 relatedResources:

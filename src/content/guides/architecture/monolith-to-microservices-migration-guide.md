@@ -19,6 +19,7 @@ tags:
   - guide
   - microservices
   - migration
+  - modernization
   - monolith
   - refactoring
 relatedResources:

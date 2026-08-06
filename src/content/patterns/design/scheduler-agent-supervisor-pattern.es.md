@@ -12,10 +12,10 @@ topics:
   - architecture
   - devops
 tags:
-  - programador-agente-supervisor
+  - scheduler-agent-supervisor
   - pattern
   - design-pattern
-  - programacion
+  - scheduling
   - resilience
   - job-management
   - supervisor

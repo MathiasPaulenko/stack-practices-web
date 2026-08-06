@@ -14,7 +14,7 @@ tags:
   - blue-green-deployment
   - pattern
   - design-pattern
-  - estrategia-despliegue
+  - deployment-strategy
   - zero-downtime
   - rollback
   - release

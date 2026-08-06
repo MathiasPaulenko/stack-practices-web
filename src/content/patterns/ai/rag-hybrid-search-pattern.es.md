@@ -11,13 +11,14 @@ topics:
   - ai
   - data
 tags:
-  - rag
+  - ai-pattern
+  - bm25
+  - embeddings
   - hybrid-search
   - pattern
-  - ai-pattern
+  - rag
   - recovery
-  - embeddings
-  - bm25
+  - retrieval
   - vector-search
 relatedResources:
   - /recipes/python-rag-chroma-local

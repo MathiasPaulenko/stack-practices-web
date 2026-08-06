@@ -10,6 +10,7 @@ difficulty: intermediate
 topics:
   - design
 tags:
+  - abstraction
   - bridge
   - decoupling
   - design-pattern

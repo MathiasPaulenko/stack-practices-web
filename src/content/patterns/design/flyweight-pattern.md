@@ -15,6 +15,7 @@ tags:
   - flyweight
   - java
   - javascript
+  - memory-optimization
   - pattern
   - python
   - structural

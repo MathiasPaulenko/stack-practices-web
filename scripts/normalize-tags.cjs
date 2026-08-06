@@ -218,6 +218,41 @@ const TAG_MERGE_MAP = {
   monitoring: ['monitoreo'],
   instrumentation: ['instrumentacion'],
   workflow: ['flujo-de-trabajo'],
+  'deployment-strategy': ['estrategia-despliegue'],
+  'memory-optimization': ['optimizacion-de-memoria'],
+  scheduling: ['programacion'],
+  'scheduler-agent-supervisor': ['programador-agente-supervisor'],
+  duplication: ['duplicacion'],
+  'load-balancing': ['load-leveling'],
+  guidelines: ['guideline'],
+  guide: ['guia'],
+  transactions: ['transacciones'],
+  consistency: ['consistencia'],
+  availability: ['disponibilidad'],
+  'partition-tolerance': ['tolerancia-a-particiones'],
+  'database-tradeoffs': ['tradeoffs-base-de-datos'],
+  'database-performance': ['rendimiento-base-datos'],
+  'database-selection': ['seleccion-base-de-datos'],
+  'data-embedding': ['embebido'],
+  'data-modeling': ['modelado-datos'],
+  'database-normalization': ['normalizacion', 'normalizacion-base-datos'],
+  'data-denormalization': ['desnormalizacion'],
+  'counter-tables': ['tablas-contadores'],
+  'relational-databases': ['bases-datos-relacionales'],
+  'conflict-resolution': ['resolucion-conflictos'],
+  governance: ['gobernanza'],
+  team: ['equipo'],
+  'version-control': ['control-de-versiones'],
+  orchestration: ['orquestacion'],
+  alerts: ['alertas'],
+  scaling: ['escalado'],
+  authentication: ['autenticacion'],
+  authorization: ['autorizacion'],
+  encryption: ['encriptacion'],
+  injection: ['inyeccion'],
+  'http-status-codes': ['codigos-http'],
+  'object-oriented-design': ['diseno-orientado-a-objetos'],
+  'database-indexing': ['indexacion-base-datos'],
 };
 
 function normalizeTag(tag) {
@@ -251,11 +286,16 @@ function findFiles(dir, files = []) {
   return files;
 }
 
+function stripBom(content) {
+  return content.charCodeAt(0) === 0xfeff ? content.slice(1) : content;
+}
+
 function normalizeTags(filePath) {
-  const content = fs.readFileSync(filePath, 'utf8');
+  const raw = fs.readFileSync(filePath, 'utf8');
+  const content = stripBom(raw);
   const eol = content.includes('\r\n') ? '\r\n' : '\n';
   const match = content.match(/^(---\r?\n[\s\S]*?\r?\n---)/);
-  if (!match) return { changed: false, content };
+  if (!match) return { changed: false, content: raw };
 
   const frontmatter = match[1];
   const tagsMatch = frontmatter.match(/tags:\r?\n([\s\S]*?)(?=\r?\n[a-zA-Z]|\r?\n---)/);

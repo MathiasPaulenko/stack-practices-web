@@ -10,10 +10,11 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - microservices
-  - communication
-  - distributed-systems
   - architecture
+  - communication
+  - design
+  - distributed-systems
+  - microservices
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/monolith-to-microservices-migration-guide

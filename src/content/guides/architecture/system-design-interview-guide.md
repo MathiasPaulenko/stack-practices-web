@@ -17,6 +17,7 @@ tags:
   - architecture
   - distributed-systems
   - guide
+  - interview
   - performance
   - scalability
 relatedResources:

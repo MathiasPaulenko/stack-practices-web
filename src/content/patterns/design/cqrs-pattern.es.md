@@ -13,16 +13,17 @@ difficulty: advanced
 topics:
   - design
 tags:
-  - cqrs
-  - pattern
-  - design-pattern
+  - architectural
   - architecture
-  - read-model
-  - write-model
-  - scalability
-  - python
-  - javascript
+  - cqrs
+  - design-pattern
   - java
+  - javascript
+  - pattern
+  - python
+  - read-model
+  - scalability
+  - write-model
 relatedResources:
   - /patterns/event-sourcing-pattern
   - /patterns/saga-pattern

@@ -16,9 +16,11 @@ topics:
 tags:
   - architecture
   - containers
+  - contenedores
   - devops
   - guide
   - kubernetes
+  - orchestration
 relatedResources:
   - /guides/docker-for-developers-guide
   - /guides/cicd-pipeline-guide

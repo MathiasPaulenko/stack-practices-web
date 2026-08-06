@@ -16,6 +16,7 @@ tags:
   - architecture
   - database
   - database-design
+  - database-normalization
   - indexing
   - sql
 relatedResources:

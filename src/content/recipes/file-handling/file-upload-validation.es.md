@@ -11,9 +11,10 @@ topics:
   - file-handling
 tags:
   - file-handling
+  - files
+  - io
   - java
   - javascript
-  - io
   - streams
 relatedResources:
   - /recipes/input-validation

@@ -12,6 +12,7 @@ difficulty: intermediate
 topics:
   - devops
 tags:
+  - alerting
   - alerts
   - devops
   - guide

@@ -13,6 +13,7 @@ topics:
   - devops
 tags:
   - alerting
+  - alerts
   - devops
   - guide
   - logs

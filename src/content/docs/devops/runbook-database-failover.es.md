@@ -13,13 +13,14 @@ topics:
   - databases
   - infrastructure
 tags:
-  - runbook
   - database
-  - failover
-  - postgres
-  - mysql
-  - replicacion
   - disaster-recovery
+  - failover
+  - mysql
+  - postgres
+  - replicacion
+  - replication
+  - runbook
 relatedResources:
   - /docs/disaster-recovery-test-plan
   - /docs/deployment-rollback-runbook

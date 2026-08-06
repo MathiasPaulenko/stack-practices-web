@@ -13,12 +13,13 @@ topics:
   - design
   - devops
 tags:
-  - quality
   - code-review
+  - design-pattern
   - devops
   - guide
-  - team-practices
   - pull-request
+  - quality
+  - team-practices
 relatedResources:
   - /guides/design-patterns-guide
   - /guides/testing-strategy-guide

@@ -16,6 +16,7 @@ topics:
 tags:
   - adr
   - architecture
+  - design
   - documentation
   - template
 relatedResources:

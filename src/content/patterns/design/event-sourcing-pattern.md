@@ -13,15 +13,16 @@ difficulty: advanced
 topics:
   - design
 tags:
-  - event-sourcing
-  - pattern
-  - design-pattern
   - architectural
+  - architecture
   - audit
+  - design-pattern
+  - event-sourcing
   - event-store
-  - python
-  - javascript
   - java
+  - javascript
+  - pattern
+  - python
 relatedResources:
   - /patterns/cqrs-pattern
   - /patterns/saga-pattern

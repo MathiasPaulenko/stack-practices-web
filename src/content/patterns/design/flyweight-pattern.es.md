@@ -14,7 +14,7 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - optimizacion-de-memoria
+  - memory-optimization
   - caching
   - python
   - javascript

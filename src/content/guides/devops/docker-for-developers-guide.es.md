@@ -13,6 +13,8 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - ci-cd
+  - containers
   - contenedores
   - development
   - devops

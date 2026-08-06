@@ -13,11 +13,13 @@ difficulty: beginner
 topics:
   - devops
 tags:
+  - ci-cd
   - containers
+  - contenedores
+  - development
   - devops
   - docker
   - guide
-  - ci-cd
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/kubernetes-basics-guide
