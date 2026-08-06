@@ -12,10 +12,9 @@ topics:
   - authentication
 tags:
   - authentication
-  - abac
+  - security
   - authorization
   - policy
-  - security
   - fine-grained
   - recipe
 relatedResources:

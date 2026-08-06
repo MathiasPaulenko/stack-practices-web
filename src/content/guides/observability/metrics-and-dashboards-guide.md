@@ -18,7 +18,7 @@ tags:
   - dashboard
   - prometheus
   - grafana
-  - datadog
+  - observability
   - instrumentation
   - guide
 relatedResources:

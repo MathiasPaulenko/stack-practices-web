@@ -17,7 +17,7 @@ tags:
   - golden-path
   - developer-experience
   - backstage
-  - crossplane
+  - infrastructure
   - terraform
   - guide
 relatedResources:

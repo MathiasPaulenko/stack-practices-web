@@ -16,7 +16,7 @@ tags:
   - input-validation
   - safety
   - authentication
-  - defensive-programming
+  - security
   - guide
 relatedResources:
   - /guides/owasp-top-10-guide

@@ -13,7 +13,7 @@ topics:
 tags:
   - security
   - data
-  - classification
+  - ai
   - compliance
   - privacy
   - governance

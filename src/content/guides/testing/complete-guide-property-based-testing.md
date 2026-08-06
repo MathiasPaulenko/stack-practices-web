@@ -16,7 +16,6 @@ tags:
   - property-based-testing
   - hypothesis
   - fast-check
-  - quickcheck
   - testing
   - python
   - typescript

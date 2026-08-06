@@ -13,8 +13,6 @@ topics:
 tags:
   - pdf
   - python
-  - reportlab
-  - fpdf
   - data-processing
   - report
 relatedResources:

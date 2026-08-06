@@ -15,7 +15,6 @@ tags:
   - data
   - data-warehouse
   - etl
-  - elt
   - lakehouse
   - big-data
   - structured-data

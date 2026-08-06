@@ -12,7 +12,6 @@ topics:
   - api
 tags:
   - architecture
-  - bff
   - api
   - microservices
   - pattern

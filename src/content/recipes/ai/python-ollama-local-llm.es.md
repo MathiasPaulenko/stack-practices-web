@@ -16,7 +16,7 @@ tags:
   - ollama
   - local-llm
   - open-source
-  - inference
+  - ai
 relatedResources:
   - /recipes/python-llm-streaming-responses
   - /recipes/python-rag-chroma-local

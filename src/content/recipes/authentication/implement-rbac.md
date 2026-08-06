@@ -14,8 +14,6 @@ tags:
   - authentication
   - rbac
   - authorization
-  - roles
-  - permissions
   - security
   - recipe
 relatedResources:

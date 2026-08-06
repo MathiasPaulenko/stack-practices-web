@@ -17,7 +17,6 @@ tags:
   - python
   - testing
   - fixtures
-  - plugins
   - parallel
   - ci
 relatedResources:

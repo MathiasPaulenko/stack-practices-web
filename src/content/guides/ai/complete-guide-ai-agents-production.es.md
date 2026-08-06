@@ -21,7 +21,7 @@ tags:
   - agents
   - react
   - multi-agent
-  - planning
+  - agile
   - tools
 relatedResources:
   - /guides/complete-guide-llm-application-architecture

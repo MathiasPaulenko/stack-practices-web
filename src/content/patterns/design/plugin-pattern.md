@@ -12,7 +12,7 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - plugin
+  - architecture
   - pattern
   - design-pattern
   - behavioral

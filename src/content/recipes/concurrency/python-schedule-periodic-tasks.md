@@ -15,7 +15,6 @@ topics:
   - devops
 tags:
   - python
-  - apscheduler
   - scheduling
   - cron
   - background-jobs

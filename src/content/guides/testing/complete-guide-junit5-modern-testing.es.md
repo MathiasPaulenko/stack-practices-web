@@ -19,7 +19,6 @@ tags:
   - testing
   - extensions
   - parameterized
-  - dynamic-tests
 relatedResources:
   - /guides/test-driven-development-guide
   - /guides/testing-strategy-guide

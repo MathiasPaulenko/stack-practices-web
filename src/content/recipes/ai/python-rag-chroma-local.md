@@ -16,8 +16,7 @@ topics:
 tags:
   - python
   - rag
-  - chromadb
-  - sentence-transformers
+  - ai
   - local-llm
 relatedResources:
   - /recipes/python-vector-database-pinecone

@@ -12,7 +12,7 @@ topics:
 tags:
   - database
   - orm
-  - crud
+  - databases
   - python
   - javascript
   - java

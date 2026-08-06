@@ -14,7 +14,7 @@ tags:
   - security
   - vpc
   - firewall
-  - dns
+  - networking
   - template
 relatedResources:
   - /docs/auto-scaling-policy-template

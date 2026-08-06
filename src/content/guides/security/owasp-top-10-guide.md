@@ -16,7 +16,7 @@ tags:
   - owasp
   - owasp-top-10
   - web-security
-  - vulnerability-mitigation
+  - security
   - secure-coding
   - guide
 relatedResources:

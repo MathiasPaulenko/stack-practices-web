@@ -17,8 +17,7 @@ tags:
   - python
   - openai
   - function-calling
-  - structured-output
-  - pydantic
+  - ai
 relatedResources:
   - /recipes/python-langchain-chains-composition
   - /recipes/python-openai-embeddings-cosine

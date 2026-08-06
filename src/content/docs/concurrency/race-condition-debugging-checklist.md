@@ -20,7 +20,6 @@ tags:
   - locks
   - atomics
   - channels
-  - synchronization
 relatedResources:
   - /docs/async-task-cancellation-runbook
   - /docs/thread-pool-sizing-template

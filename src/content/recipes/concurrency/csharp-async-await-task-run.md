@@ -16,9 +16,7 @@ topics:
   - architecture
 tags:
   - csharp
-  - dotnet
   - async
-  - task
   - concurrency
 relatedResources:
   - /recipes/java-completable-future-composition

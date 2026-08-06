@@ -18,11 +18,9 @@ tags:
   - frontend
   - guide
   - bundle-size
-  - tree-shaking
   - code-splitting
   - dynamic-import
-  - webpack
-  - vite
+  - javascript
 relatedResources:
   - /guides/complete-guide-web-performance-core-web-vitals
   - /guides/complete-guide-react-19-features

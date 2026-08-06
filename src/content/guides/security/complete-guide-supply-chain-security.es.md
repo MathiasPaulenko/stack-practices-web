@@ -19,10 +19,7 @@ tags:
   - security
   - guide
   - sbom
-  - sigstore
-  - slsa
   - dependency-scanning
-  - provenance
 relatedResources:
   - /guides/complete-guide-owasp-top-10-2025
   - /guides/complete-guide-secrets-management

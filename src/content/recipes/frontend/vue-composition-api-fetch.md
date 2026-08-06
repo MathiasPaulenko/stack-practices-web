@@ -12,7 +12,7 @@ topics:
   - frontend
 tags:
   - frontend
-  - vue
+  - javascript
   - composition
   - data
   - composables

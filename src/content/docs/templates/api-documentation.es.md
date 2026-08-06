@@ -16,8 +16,6 @@ tags:
   - documentation
   - template
   - rest
-  - openapi
-  - swagger
 relatedResources:
   - /guides/rest-api-design-guide
   - /recipes/call-rest-api

@@ -16,8 +16,6 @@ tags:
   - ai
   - chatgpt
   - rag
-  - chain-of-thought
-  - few-shot
   - guide
 relatedResources:
   - /guides/complete-guide-python-asyncio

@@ -12,7 +12,7 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - module
+  - modules
   - pattern
   - design-pattern
   - structural

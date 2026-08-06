@@ -9,7 +9,6 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - workflow-engine
   - architecture
   - distributed-systems
   - design

@@ -13,7 +13,7 @@ topics:
 tags:
   - devops
   - backup
-  - restore
+  - infrastructure
   - database
   - disaster-recovery
   - template

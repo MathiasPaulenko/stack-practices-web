@@ -19,7 +19,6 @@ tags:
   - grafana
   - prometheus
   - loki
-  - tempo
   - observability
   - monitoring
   - tracing

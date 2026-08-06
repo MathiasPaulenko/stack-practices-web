@@ -13,8 +13,7 @@ topics:
 tags:
   - sql
   - postgresql
-  - indexes
-  - explain
+  - databases
   - performance
 relatedResources:
   - /guides/read-replica-guide

@@ -19,7 +19,7 @@ tags:
   - hashicorp-vault
   - aws-secrets-manager
   - azure-key-vault
-  - gcp-secret-manager
+  - gcp
   - secret-rotation
   - guide
 relatedResources:

@@ -14,11 +14,10 @@ topics:
   - observability
 tags:
   - docker
-  - fluentd
+  - observability
   - logging
   - elasticsearch
   - log-aggregation
-  - observability
 relatedResources:
   - /recipes/docker-network-isolation
   - /recipes/docker-health-check-configuration

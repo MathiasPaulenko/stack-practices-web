@@ -12,11 +12,9 @@ topics:
   - security
   - api
 tags:
-  - webhook
-  - security
   - api
+  - security
   - verification
-  - replay-attacks
   - encryption
   - guide
 relatedResources:

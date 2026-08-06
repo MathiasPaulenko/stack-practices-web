@@ -13,10 +13,9 @@ topics:
   - data
 tags:
   - excel
-  - xlsx
-  - parsing
-  - spreadsheet
   - python
+  - parsing
+  - data
   - javascript
   - java
 relatedResources:

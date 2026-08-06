@@ -13,7 +13,6 @@ topics:
 tags:
   - data
   - python
-  - polars
   - dataframe
   - performance
   - recipe

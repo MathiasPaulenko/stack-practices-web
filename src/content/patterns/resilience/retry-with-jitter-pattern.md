@@ -12,7 +12,6 @@ tags:
   - architecture
   - resilience
   - retry
-  - backoff
   - pattern
 category: behavioral
 relatedResources:

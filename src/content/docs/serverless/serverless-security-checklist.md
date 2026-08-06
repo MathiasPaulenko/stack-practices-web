@@ -14,7 +14,7 @@ tags:
   - serverless
   - security
   - aws-lambda
-  - iam
+  - aws
   - checklist
   - compliance
 relatedResources:

@@ -14,9 +14,7 @@ topics:
 tags:
   - file-handling
   - bash
-  - grep
-  - sed
-  - awk
+  - linux
   - text-processing
   - recipe
 relatedResources:

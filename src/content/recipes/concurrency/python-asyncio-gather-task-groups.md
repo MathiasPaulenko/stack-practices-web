@@ -19,7 +19,6 @@ tags:
   - asyncio
   - concurrency
   - async
-  - task-groups
 relatedResources:
   - /recipes/python-asyncio-semaphore-rate-limiting
   - /recipes/python-thread-pool-executor

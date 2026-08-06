@@ -15,10 +15,9 @@ topics:
   - api
 tags:
   - python
-  - memcached
+  - caching
   - sessions
   - distributed-cache
-  - pymemcache
 relatedResources:
   - /recipes/python-redis-cache-decorator
   - /recipes/python-jwt-refresh-token-rotation

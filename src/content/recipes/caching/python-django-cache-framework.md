@@ -14,7 +14,6 @@ topics:
   - databases
 tags:
   - python
-  - django
   - cache
   - redis
   - optimization

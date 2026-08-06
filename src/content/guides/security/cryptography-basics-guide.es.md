@@ -11,11 +11,8 @@ topics:
 tags:
   - cryptography
   - encryption
-  - hashing
-  - digital-signatures
+  - security
   - key-management
-  - aes
-  - rsa
   - guide
 relatedResources:
   - /guides/secrets-management-guide

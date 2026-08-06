@@ -13,7 +13,7 @@ topics:
   - data
 tags:
   - json
-  - diff
+  - data
   - comparison
   - merge
   - python

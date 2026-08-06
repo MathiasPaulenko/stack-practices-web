@@ -16,9 +16,8 @@ topics:
   - api
 tags:
   - java
-  - completable-future
-  - async
   - concurrency
+  - async
   - composition
 relatedResources:
   - /recipes/python-asyncio-gather-task-groups

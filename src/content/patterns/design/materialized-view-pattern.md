@@ -13,7 +13,7 @@ topics:
   - architecture
   - databases
 tags:
-  - materialized-view
+  - architecture
   - pattern
   - design-pattern
   - database

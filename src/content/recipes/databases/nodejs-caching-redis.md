@@ -13,7 +13,7 @@ tags:
   - nodejs
   - redis
   - caching
-  - ioredis
+  - databases
   - cache-aside
   - ttl
   - performance

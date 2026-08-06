@@ -17,7 +17,7 @@ tags:
   - data-denormalization
   - data
   - database-design
-  - denormalization
+  - databases
   - guide
   - materialized-views
   - performance

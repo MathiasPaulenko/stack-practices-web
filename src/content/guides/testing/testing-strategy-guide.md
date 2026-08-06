@@ -17,11 +17,10 @@ tags:
   - architecture
   - ci-cd
   - coverage
-  - e2e
+  - testing
   - integration-tests
   - mocking
   - test-pyramid
-  - testing
   - unit-tests
 relatedResources:
   - /recipes/unit-testing

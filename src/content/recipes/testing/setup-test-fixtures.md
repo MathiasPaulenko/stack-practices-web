@@ -18,7 +18,7 @@ tags:
   - fixtures
   - pytest
   - jest
-  - junit
+  - java
   - factory-pattern
   - recipe
 relatedResources:

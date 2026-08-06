@@ -14,7 +14,7 @@ topics:
   - performance
 tags:
   - python
-  - threading
+  - concurrency
   - thread-pool
   - parallelism
   - concurrent-futures

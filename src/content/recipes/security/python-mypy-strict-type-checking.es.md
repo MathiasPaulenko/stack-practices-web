@@ -14,7 +14,6 @@ topics:
 tags:
   - security
   - python
-  - mypy
   - type-checking
   - code-quality
   - recipe

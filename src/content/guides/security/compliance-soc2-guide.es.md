@@ -12,7 +12,6 @@ tags:
   - soc2
   - compliance
   - audit
-  - trust-service-criteria
   - security
   - guide
 relatedResources:

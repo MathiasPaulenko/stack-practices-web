@@ -13,9 +13,6 @@ topics:
 tags:
   - data
   - python
-  - spark
-  - pyspark
-  - aggregation
   - big-data
   - recipe
 relatedResources:

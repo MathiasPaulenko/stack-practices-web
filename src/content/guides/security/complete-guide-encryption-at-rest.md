@@ -14,10 +14,9 @@ topics:
 tags:
   - guide
   - encryption
-  - aes-256
+  - security
   - kms
   - key-rotation
-  - security
   - cryptography
 relatedResources:
   - /guides/complete-guide-oauth2-oidc-production

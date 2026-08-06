@@ -14,7 +14,6 @@ topics:
   - databases
 tags:
   - java
-  - caffeine
   - cache
   - eviction
   - spring-boot

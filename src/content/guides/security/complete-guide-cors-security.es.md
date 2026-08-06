@@ -16,8 +16,6 @@ tags:
   - cors
   - security
   - headers
-  - preflight
-  - cross-origin
   - api
 relatedResources:
   - /guides/complete-guide-oauth2-oidc-production

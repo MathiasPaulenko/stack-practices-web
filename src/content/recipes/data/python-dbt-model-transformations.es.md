@@ -16,7 +16,6 @@ tags:
   - dbt
   - sql
   - data-warehouse
-  - transformations
   - recipe
 relatedResources:
   - /recipes/python-pandas-etl-pipeline

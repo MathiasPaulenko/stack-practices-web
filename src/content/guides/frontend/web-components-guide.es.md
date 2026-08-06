@@ -13,9 +13,7 @@ difficulty: intermediate
 topics:
   - frontend
 tags:
-  - web-components
-  - custom-elements
-  - shadow-dom
+  - javascript
   - html
   - framework-agnostic
   - reusable-components

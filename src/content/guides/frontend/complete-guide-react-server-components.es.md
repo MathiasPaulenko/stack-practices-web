@@ -14,7 +14,7 @@ tags:
   - guide
   - react
   - server-components
-  - nextjs
+  - javascript
   - rsc
   - streaming
   - frontend

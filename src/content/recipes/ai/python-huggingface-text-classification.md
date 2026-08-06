@@ -13,8 +13,7 @@ topics:
   - ai
 tags:
   - python
-  - huggingface
-  - transformers
+  - ai
   - text
   - fine-tuning
 relatedResources:

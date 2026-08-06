@@ -15,7 +15,7 @@ topics:
 tags:
   - nodejs
   - websockets
-  - socket-io
+  - javascript
   - realtime
   - express
   - communication

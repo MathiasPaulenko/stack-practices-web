@@ -17,7 +17,7 @@ tags:
   - structural
   - query
   - composition
-  - filtering
+  - api
 relatedResources:
   - /patterns/data-mapper-pattern
   - /patterns/repository-pattern

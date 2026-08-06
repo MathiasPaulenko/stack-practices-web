@@ -16,9 +16,7 @@ tags:
   - management
   - on-call
   - escalation
-  - alert-fatigue
-  - pagerduty
-  - opsgenie
+  - observability
   - guide
 relatedResources:
   - /guides/metrics-and-dashboards-guide

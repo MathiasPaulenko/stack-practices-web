@@ -14,7 +14,6 @@ tags:
   - copy-paste
   - navigator-api
   - browser
-  - dom
 relatedResources:
   - /recipes/javascript-localstorage-expiration
   - /recipes/javascript-drag-drop-file-upload

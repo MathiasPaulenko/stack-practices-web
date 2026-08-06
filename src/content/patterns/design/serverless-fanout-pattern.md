@@ -14,7 +14,7 @@ tags:
   - serverless
   - fanout
   - pattern
-  - sns
+  - messaging
   - eventbridge
   - sqs
   - pub-sub

@@ -12,11 +12,10 @@ topics:
 tags:
   - guide
   - css
-  - grid
+  - frontend
   - flexbox
   - container-queries
   - responsive-design
-  - frontend
 relatedResources:
   - /guides/complete-guide-accessibility-wcag
   - /recipes/css-container-queries-responsive

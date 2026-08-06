@@ -16,7 +16,7 @@ tags:
   - python
   - openai
   - embeddings
-  - cosine-similarity
+  - ai
   - semantic-search
 relatedResources:
   - /recipes/python-vector-database-pinecone

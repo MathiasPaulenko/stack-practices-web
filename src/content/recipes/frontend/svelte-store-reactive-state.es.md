@@ -14,7 +14,7 @@ topics:
   - frontend
 tags:
   - frontend
-  - svelte
+  - javascript
   - state-management
   - stores
   - reactive

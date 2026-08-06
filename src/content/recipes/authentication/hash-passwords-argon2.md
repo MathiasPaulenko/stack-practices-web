@@ -12,10 +12,8 @@ topics:
   - authentication
 tags:
   - authentication
-  - argon2
-  - password-hashing
-  - bcrypt
   - security
+  - bcrypt
   - cryptography
   - recipe
 relatedResources:

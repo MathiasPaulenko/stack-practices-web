@@ -16,7 +16,7 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - parser
+  - data
   - grammar
   - python
   - javascript

@@ -15,7 +15,7 @@ topics:
   - infrastructure
 tags:
   - zero-trust
-  - micro-segmentation
+  - security
   - identity
   - least-privilege
   - validation

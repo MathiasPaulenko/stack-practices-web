@@ -13,7 +13,7 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - facade
+  - architecture
   - pattern
   - design-pattern
   - structural

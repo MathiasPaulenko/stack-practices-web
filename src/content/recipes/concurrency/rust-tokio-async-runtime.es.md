@@ -16,10 +16,9 @@ topics:
   - architecture
 tags:
   - rust
-  - tokio
+  - concurrency
   - async
   - runtime
-  - concurrency
 relatedResources:
   - /recipes/go-goroutines-channels-patterns
   - /recipes/python-asyncio-gather-task-groups

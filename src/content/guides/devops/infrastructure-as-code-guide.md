@@ -17,7 +17,7 @@ tags:
   - cloud
   - devops
   - guide
-  - pulumi
+  - infrastructure
   - terraform
 relatedResources:
   - /guides/cicd-pipeline-guide

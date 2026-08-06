@@ -17,7 +17,6 @@ tags:
   - frontend
   - css
   - container-queries
-  - responsive
   - layout
   - recipe
 relatedResources:

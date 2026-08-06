@@ -15,7 +15,6 @@ topics:
   - devops
 tags:
   - git
-  - rebase
   - commit-history
   - version-control
   - squash

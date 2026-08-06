@@ -12,11 +12,8 @@ topics:
   - architecture
   - design
 tags:
-  - threat-modeling
-  - stride
-  - attack-trees
-  - data
   - security
+  - data
   - risk-assessment
   - guide
 relatedResources:

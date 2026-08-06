@@ -10,7 +10,7 @@ topics:
   - frontend
 tags:
   - frontend
-  - astro
+  - javascript
   - islands
   - ssr
   - performance

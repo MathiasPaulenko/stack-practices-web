@@ -12,7 +12,7 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - serialization
+  - data
   - json
   - xml
   - yaml

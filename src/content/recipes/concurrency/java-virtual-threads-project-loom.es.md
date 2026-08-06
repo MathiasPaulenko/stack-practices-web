@@ -16,8 +16,6 @@ topics:
 tags:
   - java
   - virtual-threads
-  - loom
-  - jdk-21
   - concurrency
 relatedResources:
   - /recipes/java-completable-future-composition

@@ -12,7 +12,7 @@ topics:
   - architecture
 tags:
   - acid
-  - base
+  - databases
   - consistency-models
   - cap-theorem
   - distributed-systems

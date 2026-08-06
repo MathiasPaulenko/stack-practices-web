@@ -9,7 +9,7 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - prompt-chaining
+  - ai
   - pattern
   - ai-pattern
   - llm

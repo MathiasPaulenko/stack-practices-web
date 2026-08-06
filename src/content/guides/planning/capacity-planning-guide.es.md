@@ -18,7 +18,6 @@ tags:
   - capacity-planning
   - forecasting
   - guide
-  - infraestructura
   - infrastructure
   - load-testing
   - scaling

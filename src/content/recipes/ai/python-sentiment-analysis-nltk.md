@@ -11,10 +11,8 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - sentiment-analysis
+  - ai
   - python
-  - nltk
-  - vader
   - nlp
   - text-processing
 relatedResources:

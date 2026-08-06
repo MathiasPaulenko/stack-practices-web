@@ -10,7 +10,6 @@ topics:
   - testing
 tags:
   - testing
-  - golden-master
   - characterization-tests
   - legacy
   - refactoring

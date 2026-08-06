@@ -11,7 +11,6 @@ topics:
 tags:
   - frontend
   - css
-  - tailwind
   - architecture
   - design-system
   - pattern

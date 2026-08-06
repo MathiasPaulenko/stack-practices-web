@@ -14,8 +14,7 @@ tags:
   - sql
   - postgresql
   - full-text-search
-  - gin
-  - tsvector
+  - databases
 relatedResources:
   - /guides/full-text-search-guide
   - /recipes/sql-find-duplicate-rows

@@ -11,7 +11,6 @@ topics:
   - testing
 tags:
   - frontend
-  - components
   - api
   - documentation
   - template

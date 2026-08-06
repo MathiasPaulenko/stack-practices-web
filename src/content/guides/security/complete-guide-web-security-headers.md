@@ -15,12 +15,10 @@ topics:
 tags:
   - security-headers
   - csp
-  - hsts
+  - security
   - cors
-  - x-frame-options
   - http
   - guide
-  - security
 relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/web-components-guide

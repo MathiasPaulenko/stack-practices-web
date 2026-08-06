@@ -17,9 +17,8 @@ tags:
   - kubernetes
   - continuous-deployment
   - helm
-  - kustomize
-  - guide
   - devops
+  - guide
 relatedResources:
   - /guides/kubernetes-basics-guide
   - /guides/cicd-pipeline-guide

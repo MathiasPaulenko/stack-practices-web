@@ -19,7 +19,6 @@ tags:
   - asyncio
   - async
   - concurrency
-  - coroutines
   - event-loop
   - guide
 relatedResources:

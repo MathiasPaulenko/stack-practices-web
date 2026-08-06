@@ -16,7 +16,6 @@ tags:
   - sso
   - identity
   - security
-  - xml-signature
   - recipe
 relatedResources:
   - /recipes/implement-rbac

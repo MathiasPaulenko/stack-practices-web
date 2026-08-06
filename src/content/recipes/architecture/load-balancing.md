@@ -13,7 +13,6 @@ tags:
   - design
   - pattern
   - scalability
-  - systems
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway

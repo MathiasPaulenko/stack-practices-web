@@ -13,7 +13,7 @@ topics:
   - observability
 tags:
   - opentelemetry
-  - otel
+  - observability
   - tracing
   - metrics
   - logs

@@ -11,8 +11,7 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - slug
-  - url
+  - data
   - sanitization
   - python
   - javascript

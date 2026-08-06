@@ -17,7 +17,7 @@ tags:
   - loki
   - structured-logging
   - elasticsearch
-  - splunk
+  - observability
   - guide
 relatedResources:
   - /guides/distributed-tracing-guide

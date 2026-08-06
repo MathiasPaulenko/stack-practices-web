@@ -13,7 +13,7 @@ difficulty: advanced
 topics:
   - design
 tags:
-  - outbox
+  - architecture
   - pattern
   - design-pattern
   - behavioral

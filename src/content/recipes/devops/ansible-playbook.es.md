@@ -13,9 +13,8 @@ topics:
   - devops
 tags:
   - devops
-  - ansible
+  - infrastructure
   - infrastructure-as-code
-  - provisioning
   - automation
   - recipe
 relatedResources:

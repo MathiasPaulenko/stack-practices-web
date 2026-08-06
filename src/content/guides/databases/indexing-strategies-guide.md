@@ -11,7 +11,7 @@ topics:
   - databases
   - performance
 tags:
-  - b-tree
+  - data
   - composite
   - database-indexing
   - gin-index

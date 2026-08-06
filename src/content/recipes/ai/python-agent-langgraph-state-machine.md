@@ -15,7 +15,7 @@ topics:
   - ai
 tags:
   - python
-  - langgraph
+  - ai
   - agents
   - state-machine
   - langchain

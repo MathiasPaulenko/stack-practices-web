@@ -13,7 +13,6 @@ tags:
   - data
   - sql
   - cte
-  - recursive
   - hierarchy
   - recipe
 relatedResources:

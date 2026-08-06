@@ -16,7 +16,6 @@ tags:
   - testing
   - python
   - hypothesis
-  - property-based
   - fuzzing
   - recipe
 relatedResources:

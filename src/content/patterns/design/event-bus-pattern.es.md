@@ -12,12 +12,11 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - event-bus
+  - messaging
   - pattern
   - design-pattern
   - behavioral
   - decoupling
-  - messaging
   - pub-sub
 relatedResources:
   - /patterns/observer-pattern

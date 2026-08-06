@@ -13,7 +13,7 @@ topics:
   - devops
 tags:
   - devops
-  - gitlab
+  - git
   - ci-cd
   - yaml
   - automation

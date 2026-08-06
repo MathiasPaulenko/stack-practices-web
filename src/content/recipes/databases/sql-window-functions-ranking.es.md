@@ -15,7 +15,7 @@ tags:
   - window-functions
   - postgresql
   - analytics
-  - ranking
+  - databases
 relatedResources:
   - /guides/sql-window-functions-guide
   - /recipes/sql-find-duplicate-rows

@@ -9,10 +9,8 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - qr-code
+  - data
   - python
-  - qrcode
-  - generation
   - images
 relatedResources:
   - /recipes/convert-csv-to-json

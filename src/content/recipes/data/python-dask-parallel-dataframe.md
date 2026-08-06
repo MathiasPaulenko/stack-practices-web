@@ -12,7 +12,6 @@ topics:
 tags:
   - data
   - python
-  - dask
   - dataframe
   - parallel
   - big-data

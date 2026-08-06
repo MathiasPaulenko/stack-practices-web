@@ -19,7 +19,6 @@ tags:
   - cloud-computing
   - ec2
   - s3
-  - rds
   - lambda
   - vpc
   - guide

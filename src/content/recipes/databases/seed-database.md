@@ -14,11 +14,10 @@ topics:
   - databases
 tags:
   - database
-  - seeding
+  - databases
   - testing
   - postgresql
   - mongodb
-  - prisma
   - development
   - recipe
 relatedResources:

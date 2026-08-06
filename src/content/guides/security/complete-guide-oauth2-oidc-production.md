@@ -16,10 +16,9 @@ tags:
   - oauth2
   - oidc
   - authentication
-  - pkce
+  - security
   - jwt
   - authorization
-  - security
 relatedResources:
   - /guides/complete-guide-cors-security
   - /guides/complete-guide-content-security-policy

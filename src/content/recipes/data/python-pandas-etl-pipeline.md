@@ -17,7 +17,6 @@ tags:
   - python
   - pandas
   - etl
-  - parquet
   - recipe
 relatedResources:
   - /recipes/python-polars-fast-dataframe

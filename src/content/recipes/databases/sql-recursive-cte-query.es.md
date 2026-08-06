@@ -15,7 +15,7 @@ tags:
   - recursive-cte
   - postgresql
   - hierarchy
-  - trees
+  - data
 relatedResources:
   - /guides/sql-cte-guide
   - /recipes/sql-find-duplicate-rows

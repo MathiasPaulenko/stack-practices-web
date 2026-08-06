@@ -11,7 +11,7 @@ topics:
   - devops
 tags:
   - bash
-  - disk-usage
+  - infrastructure
   - monitoring
   - alerts
   - automation

@@ -12,7 +12,7 @@ topics:
 tags:
   - security
   - penetration
-  - test
+  - testing
   - remediation
   - vulnerabilities
   - assessment

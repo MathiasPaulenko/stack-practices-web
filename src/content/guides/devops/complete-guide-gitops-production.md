@@ -17,7 +17,6 @@ tags:
   - devops
   - guide
   - argocd
-  - flux
   - progressive-delivery
   - sops
   - multi-cluster

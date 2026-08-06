@@ -15,8 +15,7 @@ topics:
   - api
 tags:
   - python
-  - beautifulsoup
-  - web-scraping
+  - data
   - html
   - requests
   - extraction

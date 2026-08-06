@@ -11,11 +11,10 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - phone
+  - data
   - formatting
   - validation
   - international
-  - libphonenumber
   - python
   - javascript
   - java

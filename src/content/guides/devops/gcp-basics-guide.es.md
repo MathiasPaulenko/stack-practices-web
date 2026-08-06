@@ -17,7 +17,6 @@ tags:
   - cloud-computing
   - compute-engine
   - storage
-  - bigquery
   - guide
 relatedResources:
   - /guides/terraform-best-practices-guide

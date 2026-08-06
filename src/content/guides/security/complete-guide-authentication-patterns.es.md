@@ -19,8 +19,6 @@ tags:
   - guide
   - jwt
   - oauth2
-  - passkeys
-  - mfa
   - sso
 relatedResources:
   - /guides/complete-guide-owasp-top-10-2025

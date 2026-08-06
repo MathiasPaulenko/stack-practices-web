@@ -18,7 +18,7 @@ tags:
   - guide
   - cold-start
   - lambda
-  - x-ray
+  - aws
   - security
   - deployment
 relatedResources:

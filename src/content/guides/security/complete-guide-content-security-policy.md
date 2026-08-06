@@ -18,8 +18,6 @@ tags:
   - security
   - headers
   - xss
-  - nonces
-  - hashes
 relatedResources:
   - /guides/complete-guide-cors-security
   - /guides/complete-guide-oauth2-oidc-production

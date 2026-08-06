@@ -11,10 +11,9 @@ topics:
 tags:
   - excel
   - python
-  - openpyxl
   - pandas
   - data-processing
-  - spreadsheets
+  - data
 relatedResources:
   - /recipes/parse-csv-python-pandas
   - /recipes/convert-csv-to-json

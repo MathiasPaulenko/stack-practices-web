@@ -11,7 +11,6 @@ topics:
   - data
 tags:
   - data
-  - lineage
   - metadata
   - openlineage
   - governance

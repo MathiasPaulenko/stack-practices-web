@@ -17,7 +17,7 @@ tags:
   - clickhouse
   - druid
   - kafka
-  - olap
+  - databases
   - guide
 relatedResources:
   - /guides/stream-processing-guide

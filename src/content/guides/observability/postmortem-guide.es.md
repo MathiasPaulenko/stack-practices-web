@@ -17,7 +17,7 @@ tags:
   - blameless
   - incident
   - root-cause
-  - continuous-improvement
+  - observability
   - guide
 relatedResources:
   - /guides/incident-response-guide

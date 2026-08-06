@@ -11,7 +11,7 @@ difficulty: beginner
 topics:
   - data
 tags:
-  - toml
+  - data
   - parsing
   - config
   - python

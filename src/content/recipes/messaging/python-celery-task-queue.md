@@ -15,7 +15,7 @@ topics:
   - architecture
   - performance
 tags:
-  - celery
+  - messaging
   - python
   - redis
   - queue

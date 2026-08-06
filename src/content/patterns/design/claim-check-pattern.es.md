@@ -19,7 +19,7 @@ tags:
   - design-pattern
   - messaging
   - storage
-  - blob
+  - azure
   - large-payload
   - async
 relatedResources:

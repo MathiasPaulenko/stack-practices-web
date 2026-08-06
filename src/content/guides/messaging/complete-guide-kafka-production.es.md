@@ -19,7 +19,6 @@ tags:
   - messaging
   - guide
   - streaming
-  - partitions
   - consumer-group
   - replication
   - monitoring

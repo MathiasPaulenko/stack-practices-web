@@ -17,7 +17,7 @@ tags:
   - istio
   - linkerd
   - sidecar
-  - mtls
+  - networking
   - traffic-management
   - observability
   - guide

@@ -14,7 +14,7 @@ tags:
   - jwt
   - authentication
   - express
-  - jsonwebtoken
+  - javascript
   - security
   - tokens
 relatedResources:

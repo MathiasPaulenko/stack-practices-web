@@ -13,10 +13,9 @@ topics:
   - databases
 tags:
   - guid
-  - uuid
+  - data
   - database
   - performance
-  - data
 relatedResources:
   - /recipes/postgres-query-optimization
   - /recipes/batch-processing-patterns

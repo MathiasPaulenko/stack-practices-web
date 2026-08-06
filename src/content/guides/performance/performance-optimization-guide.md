@@ -13,7 +13,7 @@ topics:
   - performance
   - devops
 tags:
-  - bundle-splitting
+  - performance
   - caching
   - cdn
   - compression
@@ -21,7 +21,6 @@ tags:
   - devops
   - images
   - lazy-loading
-  - performance
 relatedResources:
   - /recipes/caching
   - /guides/cicd-pipeline-guide

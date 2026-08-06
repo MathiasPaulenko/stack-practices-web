@@ -19,8 +19,7 @@ tags:
   - database
   - guide
   - dynamodb
-  - faunadb
-  - planetscale
+  - databases
   - scaling
 relatedResources:
   - /guides/complete-guide-serverless-architecture

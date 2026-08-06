@@ -12,9 +12,8 @@ topics:
   - data
 tags:
   - text
-  - truncation
+  - data
   - formatting
-  - strings
   - python
   - javascript
   - java

@@ -12,7 +12,6 @@ topics:
   - api
 tags:
   - javascript
-  - fetch
   - retry
   - exponential-backoff
   - error-handling

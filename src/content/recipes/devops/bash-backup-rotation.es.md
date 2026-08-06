@@ -14,9 +14,8 @@ tags:
   - bash
   - backup
   - rotation
-  - script
-  - automation
   - devops
+  - automation
 relatedResources:
   - /recipes/bash-scripting-automation
   - /docs/backup-and-restore-template

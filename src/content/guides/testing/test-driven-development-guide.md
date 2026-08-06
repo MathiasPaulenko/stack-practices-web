@@ -15,10 +15,8 @@ topics:
   - design
 tags:
   - guide
-  - red-green-refactor
-  - tdd
-  - test-driven-development
   - testing
+  - tdd
   - unit-testing
   - workflow
 relatedResources:

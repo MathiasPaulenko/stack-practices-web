@@ -11,9 +11,9 @@ topics:
 tags:
   - nodejs
   - oauth2
-  - github
+  - git
   - express
-  - passport
+  - javascript
   - authentication
   - security
 relatedResources:

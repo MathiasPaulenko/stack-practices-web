@@ -10,7 +10,6 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
-  - service-discovery
   - architecture
   - microservices
   - design

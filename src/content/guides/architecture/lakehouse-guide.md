@@ -12,7 +12,7 @@ topics:
   - databases
 tags:
   - lakehouse
-  - delta-lake
+  - data
   - apache-iceberg
   - apache-hudi
   - open-table-format

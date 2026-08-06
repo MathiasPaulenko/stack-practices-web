@@ -17,10 +17,8 @@ topics:
   - performance
 tags:
   - python
-  - httpx
   - http-cache
-  - cachecontrol
-  - etag
+  - caching
 relatedResources:
   - /recipes/python-redis-cache-decorator
   - /recipes/nginx-reverse-proxy-cache

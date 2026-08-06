@@ -10,7 +10,6 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - multi-tenancy
   - architecture
   - database
   - design

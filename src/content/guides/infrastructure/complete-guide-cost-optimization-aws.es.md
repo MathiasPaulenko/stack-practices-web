@@ -21,7 +21,6 @@ tags:
   - ec2
   - spot-instances
   - reserved-instances
-  - savings-plans
   - guide
   - infrastructure
 relatedResources:

@@ -14,10 +14,9 @@ tags:
   - technical-debt
   - code-quality
   - refactoring
-  - prioritization
+  - management
   - maintainability
   - best-practices
-  - management
 relatedResources:
   - /guides/complete-guide-clean-code-principles
   - /guides/complete-guide-refactoring-techniques

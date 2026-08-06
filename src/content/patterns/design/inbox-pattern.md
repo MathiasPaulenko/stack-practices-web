@@ -12,7 +12,7 @@ topics:
   - messaging
   - architecture
 tags:
-  - inbox
+  - architecture
   - pattern
   - design-pattern
   - messaging

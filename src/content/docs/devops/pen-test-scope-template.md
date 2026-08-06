@@ -12,7 +12,6 @@ topics:
   - security
   - testing
 tags:
-  - penetration-test
   - security
   - scope
   - red-team

@@ -19,7 +19,6 @@ tags:
   - azure-functions
   - blob-storage
   - app-service
-  - active-directory
   - guide
 relatedResources:
   - /guides/terraform-best-practices-guide

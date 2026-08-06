@@ -15,7 +15,6 @@ topics:
   - databases
 tags:
   - python
-  - sqlalchemy
   - sql-injection
   - security
   - database

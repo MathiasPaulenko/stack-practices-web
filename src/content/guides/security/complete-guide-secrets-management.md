@@ -22,7 +22,6 @@ tags:
   - vault
   - aws-secrets-manager
   - azure-key-vault
-  - doppler
   - secret-rotation
 relatedResources:
   - /guides/complete-guide-owasp-top-10-2025
