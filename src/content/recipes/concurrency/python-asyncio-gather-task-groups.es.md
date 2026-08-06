@@ -28,6 +28,9 @@ relatedResources:
   - /recipes/python-async-gather-concurrent-requests
   - /recipes/csharp-async-await-task-run
   - /recipes/go-goroutines-channels-patterns
+  - /recipes/java-completable-future-composition
+  - /recipes/rust-tokio-async-runtime
+  - /recipes/race-condition-prevention
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

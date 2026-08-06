@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import RecipeArticle from '../../components/RecipeArticle.astro';
-import { buildResourceIndex, resolveRelated, extractFaqs, isSpanish } from '../../lib/content';
+import { buildResourceIndex, resolveRelated, extractFaqs, isSpanish, getPublicTagSet } from '../../lib/content';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs', ({ id }) => !isSpanish(id));
@@ -18,6 +18,8 @@ const d = entry.data;
 const index = await buildResourceIndex('en');
 const related = resolveRelated(d.relatedResources, index, 'en');
 const faqs = extractFaqs(entry.body ?? '');
+const publicTagSet = await getPublicTagSet('en');
+const publicTags = d.tags.filter((tag) => publicTagSet.has(tag));
 ---
 
 <RecipeArticle
@@ -26,7 +28,7 @@ const faqs = extractFaqs(entry.body ?? '');
   metaDescription={d.metaDescription}
   keywords={d.seo.keywords}
   difficulty={d.difficulty}
-  tags={d.tags}
+  tags={publicTags}
   topics={d.topics}
   lastUpdated={d.lastUpdated}
   author={d.author}

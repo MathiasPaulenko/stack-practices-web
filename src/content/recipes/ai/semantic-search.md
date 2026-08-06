@@ -23,6 +23,8 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/ai-agents-tool-use
   - /recipes/ai-agents
+  - /recipes/image-generation
+  - /recipes/prompt-engineering
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

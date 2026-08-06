@@ -27,6 +27,8 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /patterns/health-endpoint-monitoring-pattern
   - /patterns/compute-resource-consolidation-pattern
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-06-27"
 author: Mathias Paulenko
 seo:

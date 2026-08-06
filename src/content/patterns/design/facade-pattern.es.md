@@ -27,6 +27,13 @@ relatedResources:
   - /patterns/backend-for-frontend-pattern
   - /patterns/business-delegate-pattern
   - /patterns/context-object-pattern
+  - /patterns/entity-component-system-pattern
+  - /patterns/front-controller-pattern
+  - /patterns/manager-pattern
+  - /patterns/mediator-pattern-components
+  - /patterns/mixin-pattern
+  - /patterns/module-pattern
+  - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

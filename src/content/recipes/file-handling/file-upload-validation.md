@@ -23,6 +23,15 @@ relatedResources:
   - /recipes/read-write-file
   - /recipes/compress-decompress-files
   - /recipes/copy-move-files
+  - /recipes/export-csv-excel
+  - /recipes/generate-pdfs
+  - /recipes/image-optimization
+  - /recipes/import-csv-excel
+  - /recipes/javascript-drag-drop-file-upload
+  - /recipes/nodejs-file-upload-validation
+  - /recipes/read-large-files
+  - /recipes/watch-file-changes
+  - /recipes/write-large-files
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

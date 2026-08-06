@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-supply-chain-security
   - /recipes/container-security
   - /guides/complete-guide-terraform-production
+  - /guides/complete-guide-docker-compose-local-dev
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:

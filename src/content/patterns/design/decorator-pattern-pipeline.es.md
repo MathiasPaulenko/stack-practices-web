@@ -27,6 +27,8 @@ relatedResources:
   - /patterns/adapter-pattern-api
   - /patterns/chain-of-responsibility-middleware
   - /patterns/composite-pattern-ui
+  - /patterns/mvc-pattern-frontend
+  - /patterns/solid-principles-typescript
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:

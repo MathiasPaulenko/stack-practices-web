@@ -23,6 +23,13 @@ relatedResources:
   - /recipes/logging
   - /recipes/grpc-api
   - /recipes/grpc-services-typescript
+  - /recipes/api-documentation-openapi
+  - /recipes/api-logging-audit
+  - /recipes/graphql-api
+  - /recipes/handle-cors
+  - /recipes/idempotent-api-endpoints
+  - /recipes/server-sent-events
+  - /recipes/websocket-server
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

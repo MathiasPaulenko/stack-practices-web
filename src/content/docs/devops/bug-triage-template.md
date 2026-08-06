@@ -25,6 +25,14 @@ relatedResources:
   - /docs/cross-region-failover-template
   - /docs/network-security-template
   - /docs/service-level-objective-template
+  - /docs/change-management-template
+  - /docs/downtime-communication-template
+  - /docs/escalation-policy-template
+  - /docs/on-call-runbook-template
+  - /docs/patch-management-template
+  - /docs/performance-regression-template
+  - /docs/rollout-communication-template
+  - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

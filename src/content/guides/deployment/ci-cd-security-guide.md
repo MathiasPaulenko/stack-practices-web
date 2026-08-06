@@ -30,6 +30,9 @@ relatedResources:
   - /guides/disaster-recovery-guide
   - /recipes/docker-image-vulnerability-scan
   - /recipes/python-secrets-management-vault
+  - /guides/complete-guide-secrets-management
+  - /guides/complete-guide-supply-chain-security
+  - /guides/secrets-management-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

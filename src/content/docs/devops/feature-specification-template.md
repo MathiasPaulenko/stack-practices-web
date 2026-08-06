@@ -28,6 +28,7 @@ relatedResources:
   - /docs/data-migration-runbook-template
   - /docs/deprecation-timeline-template
   - /docs/production-readiness-review-template
+  - /docs/system-decommissioning-checklist-template
 lastUpdated: "2026-06-26"
 author: Mathias Paulenko
 seo:

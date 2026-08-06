@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/rate-limiting
   - /recipes/send-emails-smtp
+  - /recipes/webhooks
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

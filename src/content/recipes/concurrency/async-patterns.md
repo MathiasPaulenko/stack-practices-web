@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/csp-communication
   - /recipes/concurrent-data-structures
   - /recipes/locks-and-mutexes
+  - /recipes/thread-pools
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:

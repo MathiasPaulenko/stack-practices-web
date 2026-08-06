@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/image-generation
   - /recipes/llm-fine-tuning
   - /recipes/prompt-engineering
+  - /recipes/python-agent-langgraph-state-machine
 lastUpdated: "2026-07-01"
 author: Mathias Paulenko
 seo:

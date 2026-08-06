@@ -4,6 +4,8 @@ import ListingPage from '../../../components/ListingPage.astro';
 import { isSpanish } from '../../../lib/content';
 import { topicIntros } from '../../../data/topic-intros';
 
+const PAGE_SIZE = 30;
+
 export async function getStaticPaths() {
   const collections = await Promise.all([
     getCollection('recipes'),
@@ -58,6 +60,8 @@ const entries = [...recipes, ...patterns, ...docs, ...guides]
   entries={entries}
   keywords={[topicLabel, 'recetas', 'patrones', 'documentacion', 'guias']}
   hasAlternate={hasEnVersion}
+  jsonEndpoint={`/es/topics/${topic}.json`}
+  initialLimit={PAGE_SIZE}
 >
   {intro && (
     <Fragment slot="intro">

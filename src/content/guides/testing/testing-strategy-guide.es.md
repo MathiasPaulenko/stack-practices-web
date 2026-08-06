@@ -31,6 +31,15 @@ relatedResources:
   - /recipes/api-mocking
   - /recipes/jest-snapshot-testing
   - /recipes/measure-test-coverage
+  - /docs/load-test-report-template
+  - /guides/cicd-pipeline-guide
+  - /guides/postmortem-guide
+  - /guides/complete-guide-junit5-modern-testing
+  - /guides/complete-guide-property-based-testing
+  - /guides/complete-guide-pytest-production
+  - /guides/complete-guide-testcontainers-integration
+  - /guides/complete-guide-vitest-react-testing
+  - /guides/test-driven-development-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

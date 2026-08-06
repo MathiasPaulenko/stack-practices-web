@@ -24,6 +24,9 @@ relatedResources:
   - /docs/security-incident-response-template
   - /docs/data-classification-template
   - /docs/incident-response-playbook-template
+  - /docs/vendor-risk-assessment-template
+  - /docs/vulnerability-management-template
+  - /guides/compliance-soc2-guide
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

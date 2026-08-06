@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/observer-pattern-recipe
   - /recipes/cqrs-pattern-recipe
   - /recipes/factory-pattern-recipe
+  - /recipes/hexagonal-architecture
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:

@@ -29,6 +29,22 @@ relatedResources:
   - /patterns/bridge-pattern
   - /patterns/chain-of-responsibility-pattern
   - /patterns/circuit-breaker-pattern
+  - /patterns/command-pattern
+  - /patterns/composite-pattern
+  - /patterns/decorator-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/interpreter-pattern
+  - /patterns/iterator-pattern
+  - /patterns/marker-interface-pattern
+  - /patterns/null-object-pattern
+  - /patterns/partial-class-pattern
+  - /patterns/role-pattern
+  - /patterns/state-pattern
+  - /patterns/template-method-pattern
+  - /patterns/twin-pattern
+  - /patterns/visitor-pattern-operations
+  - /patterns/visitor-pattern
+  - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

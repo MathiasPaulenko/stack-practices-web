@@ -27,6 +27,10 @@ relatedResources:
   - /recipes/database-connection-pooling
   - /recipes/database-replication
   - /recipes/deadlock-prevention-sql
+  - /recipes/schema-evolution
+  - /recipes/sql-index-optimization-analysis
+  - /recipes/sql-partitioning-strategies
+  - /recipes/graphql-n-1-query-detection
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -32,6 +32,10 @@ relatedResources:
   - /recipes/multi-level-cache-l1-l2
   - /recipes/redis-distributed-lock
   - /recipes/caching-strategies
+  - /guides/complete-guide-rag-production
+  - /guides/complete-guide-application-level-caching
+  - /guides/complete-guide-cdn-caching-strategy
+  - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:

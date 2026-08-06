@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/docker-logging-fluentd
   - /recipes/docker-network-isolation
   - /recipes/docker-secrets-management
+  - /recipes/git-rebase-interactive-tutorial
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

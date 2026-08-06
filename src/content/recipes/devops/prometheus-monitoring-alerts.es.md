@@ -27,6 +27,10 @@ relatedResources:
   - /recipes/grafana-dashboards-observability
   - /recipes/distributed-tracing
   - /recipes/log-aggregation
+  - /recipes/metrics-collection
+  - /recipes/prometheus-api-monitoring
+  - /recipes/real-user-monitoring
+  - /recipes/structured-logging
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

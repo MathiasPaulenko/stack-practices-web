@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/queue-based-load-leveling-pattern
   - /patterns/flyweight-pattern-text
   - /patterns/pipes-and-filters-pattern
+  - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

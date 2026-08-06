@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/python-memcached-session-storage
   - /recipes/python-rate-limiting-fastapi-redis
   - /recipes/python-secrets-management-vault
+  - /recipes/serverless-api-gateway-lambda-authorizer
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

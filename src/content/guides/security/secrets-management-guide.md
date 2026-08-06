@@ -30,6 +30,8 @@ relatedResources:
   - /recipes/python-encrypt-decrypt-aes
   - /guides/blob-storage-guide
   - /guides/complete-guide-web-security-headers
+  - /guides/compliance-gdpr-guide
+  - /guides/compliance-soc2-guide
 lastUpdated: "2026-06-24"
 author: Mathias Paulenko
 seo:

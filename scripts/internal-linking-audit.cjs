@@ -452,7 +452,7 @@ function main() {
     tagStats: tagStats.slice(0, 50),
     broken,
     orphans: orphans.map(o => ({ file: o.file, urlKey: o.urlKey, topics: o.topics, tags: o.tags, contentType: o.contentType })),
-    biGaps: biGaps.slice(0, 200),
+    biGaps,
     suggestions: suggestions.map(s => ({
       file: s.entry.file,
       urlKey: s.entry.urlKey,

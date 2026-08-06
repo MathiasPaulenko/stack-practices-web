@@ -27,6 +27,7 @@ relatedResources:
   - /docs/api-changelog-template
   - /docs/sla-definition-template
   - /docs/api-error-response-template
+  - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
 author: Mathias Paulenko
 seo:

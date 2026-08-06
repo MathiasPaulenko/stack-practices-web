@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/python-secrets-management-vault
   - /docs/vulnerability-management-template
   - /guides/complete-guide-terraform-production
+  - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:

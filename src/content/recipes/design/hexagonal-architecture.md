@@ -24,6 +24,8 @@ relatedResources:
   - /recipes/observer-pattern-recipe
   - /recipes/adapter-pattern-recipe
   - /recipes/factory-pattern-recipe
+  - /recipes/singleton-pattern-recipe
+  - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:

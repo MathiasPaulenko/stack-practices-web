@@ -31,6 +31,7 @@ relatedResources:
   - /guides/data-lake-guide
   - /guides/lakehouse-guide
   - /guides/data-migration-guide
+  - /guides/full-text-search-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

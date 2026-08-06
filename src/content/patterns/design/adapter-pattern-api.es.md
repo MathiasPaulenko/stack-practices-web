@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/bridge-pattern-ui-themes
   - /patterns/composite-pattern-ui
   - /patterns/repository-pattern-typescript
+  - /patterns/solid-principles-typescript
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

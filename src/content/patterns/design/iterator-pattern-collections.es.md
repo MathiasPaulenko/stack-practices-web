@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/abstract-factory-cross-platform
   - /patterns/interpreter-pattern-expressions
   - /patterns/visitor-pattern-operations
+  - /patterns/memento-pattern-state
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

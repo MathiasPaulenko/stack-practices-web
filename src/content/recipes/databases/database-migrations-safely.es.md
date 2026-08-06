@@ -23,6 +23,8 @@ relatedResources:
   - /recipes/uuid-generation
   - /recipes/event-sourcing-relational
   - /recipes/optimistic-locking
+  - /recipes/caching-redis
+  - /guides/database-normalization-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

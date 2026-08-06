@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/cost-optimization
   - /recipes/terraform-aws-vpc
   - /guides/blue-green-deployment-guide
+  - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

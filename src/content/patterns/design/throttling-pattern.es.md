@@ -32,6 +32,7 @@ relatedResources:
   - /patterns/back-pressure-pattern
   - /patterns/content-delivery-network-pattern
   - /patterns/gatekeeper-pattern
+  - /patterns/shed-load-pattern
 lastUpdated: "2026-06-26"
 author: Mathias Paulenko
 seo:

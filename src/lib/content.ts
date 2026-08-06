@@ -61,8 +61,13 @@ function clean(text: string): string {
     .trim();
 }
 
+const resourceIndexCache = new Map<'en' | 'es', Map<string, { title: string; description: string; contentType: string; slug: string }>>();
+
 /** Builds a lookup map of `/contentType/slug` -> resolved link metadata for the requested locale. */
 export async function buildResourceIndex(locale: 'en' | 'es' = 'en') {
+  const cached = resourceIndexCache.get(locale);
+  if (cached) return cached;
+
   const collections = ['recipes', 'patterns', 'docs', 'guides'] as const;
   const index = new Map<string, { title: string; description: string; contentType: string; slug: string }>();
 
@@ -81,11 +86,17 @@ export async function buildResourceIndex(locale: 'en' | 'es' = 'en') {
       });
     }
   }
+  resourceIndexCache.set(locale, index);
   return index;
 }
 
+const tagIndexCache = new Map<'en' | 'es', Map<string, { title: string; href: string; description: string; contentType: string; tags: string[] }[]>>();
+
 /** Builds a tag index: tag -> list of resources with title, href, description, contentType. */
 export async function buildTagIndex(locale: 'en' | 'es') {
+  const cached = tagIndexCache.get(locale);
+  if (cached) return cached;
+
   const collections = ['recipes', 'patterns', 'docs', 'guides'] as const;
   const index = new Map<string, { title: string; href: string; description: string; contentType: string; tags: string[] }[]>();
   const prefix = locale === 'es' ? '/es' : '';
@@ -111,7 +122,22 @@ export async function buildTagIndex(locale: 'en' | 'es') {
       }
     }
   }
+  tagIndexCache.set(locale, index);
   return index;
+}
+
+export const MIN_TAG_RESOURCES = 3;
+
+const MAX_RELATED = 8;
+
+/** Returns a Set of tags that have at least MIN_TAG_RESOURCES resources for the given locale. */
+export async function getPublicTagSet(locale: 'en' | 'es') {
+  const tagIndex = await buildTagIndex(locale);
+  return new Set(
+    Array.from(tagIndex.entries())
+      .filter(([, items]) => items.length >= MIN_TAG_RESOURCES)
+      .map(([tag]) => tag),
+  );
 }
 
 /** Resolves relatedResources paths into renderable link data for a given locale. */
@@ -122,6 +148,7 @@ export function resolveRelated(
 ) {
   const prefix = locale === 'es' ? '/es' : '';
   return paths
+    .slice(0, MAX_RELATED)
     .map((p) => {
       const found = index.get(p);
       if (!found) return null;

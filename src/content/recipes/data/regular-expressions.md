@@ -25,6 +25,9 @@ relatedResources:
   - /recipes/flatten-unflatten-objects
   - /recipes/generate-slugs
   - /recipes/money-currency
+  - /recipes/parse-csv-files
+  - /recipes/parse-xml-files
+  - /recipes/url-encoding
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

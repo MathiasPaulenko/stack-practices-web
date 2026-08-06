@@ -27,6 +27,22 @@ relatedResources:
   - /recipes/grpc-api
   - /recipes/javascript-fetch-retry-logic
   - /recipes/python-api-rate-limiting
+  - /recipes/rest-api-design
+  - /recipes/multi-tenancy
+  - /patterns/gateway-routing-pattern
+  - /patterns/mvc-pattern
+  - /docs/microservice-contract-template
+  - /docs/adr-template
+  - /docs/api-documentation
+  - /docs/api-error-response-template
+  - /docs/api-status-page-template
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/api-gateway-design-guide
+  - /guides/graphql-vs-rest-guide
+  - /guides/grpc-microservices-guide
+  - /guides/software-architecture-guide
+  - /guides/api-rate-limiting-guide
+  - /guides/api-security-checklist-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

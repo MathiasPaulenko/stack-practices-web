@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/abstract-factory-cross-platform
   - /patterns/bridge-pattern-ui-themes
   - /patterns/composite-pattern-ui
+  - /patterns/memento-pattern-state
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

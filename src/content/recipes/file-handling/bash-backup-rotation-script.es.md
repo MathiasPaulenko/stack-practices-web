@@ -24,6 +24,10 @@ relatedResources:
   - /recipes/generate-temporary-files
   - /recipes/bash-aws-cli-automation
   - /recipes/bash-iptables-firewall-rules
+  - /recipes/bash-log-rotation-compression
+  - /recipes/bash-monitoring-disk-usage
+  - /recipes/bash-parallel-job-execution
+  - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-28"
 author: Mathias Paulenko
 seo:

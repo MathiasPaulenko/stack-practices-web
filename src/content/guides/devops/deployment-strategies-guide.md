@@ -27,6 +27,9 @@ relatedResources:
   - /recipes/graceful-shutdown
   - /recipes/traffic-mirroring
   - /guides/complete-guide-ci-cd-github-actions
+  - /guides/complete-guide-gitops-argocd
+  - /guides/complete-guide-kubernetes-ingress
+  - /guides/complete-guide-terraform-modules
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

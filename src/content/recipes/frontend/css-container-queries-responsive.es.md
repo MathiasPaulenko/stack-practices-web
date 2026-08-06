@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/svelte-store-reactive-state
   - /recipes/vue-composition-api-fetch
   - /guides/complete-guide-accessibility-wcag
+  - /guides/complete-guide-css-modern-layout
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

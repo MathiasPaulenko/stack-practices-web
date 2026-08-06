@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/graphql-api
   - /recipes/rest-api-design
+  - /recipes/server-sent-events
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

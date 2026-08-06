@@ -26,6 +26,15 @@ relatedResources:
   - /recipes/bash-backup-rotation
   - /recipes/bash-disk-usage-monitor
   - /recipes/bash-log-rotation
+  - /recipes/bash-parallel-commands
+  - /recipes/cicd-pipeline-setup
+  - /recipes/bash-aws-cli-automation
+  - /recipes/bash-backup-rotation-script
+  - /recipes/bash-iptables-firewall-rules
+  - /recipes/bash-log-rotation-compression
+  - /recipes/bash-monitoring-disk-usage
+  - /recipes/bash-parallel-job-execution
+  - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

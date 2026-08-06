@@ -25,6 +25,8 @@ relatedResources:
   - /patterns/bridge-pattern
   - /recipes/connect-to-redis
   - /recipes/execute-raw-sql
+  - /recipes/use-orm-crud
+  - /guides/indexing-strategies-guide
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

@@ -27,6 +27,9 @@ relatedResources:
   - /recipes/python-llm-eval-ragas-metrics
   - /recipes/python-ollama-local-llm
   - /recipes/python-openai-embeddings-cosine
+  - /recipes/python-rag-chroma-local
+  - /recipes/python-vector-database-pinecone
+  - /patterns/prompt-chaining-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

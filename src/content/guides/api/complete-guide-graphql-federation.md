@@ -32,6 +32,27 @@ relatedResources:
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-testing
   - /recipes/graphql-mocking-apollo-server
+  - /recipes/python-memcached-session-storage
+  - /recipes/go-goroutines-channels-patterns
+  - /recipes/java-completable-future-composition
+  - /recipes/event-sourcing-cqrs-pattern
+  - /recipes/kafka-python-consumer-groups
+  - /recipes/kafka-spring-boot-stream-listener
+  - /recipes/outbox-pattern-transactional-events
+  - /recipes/python-celery-task-queue
+  - /recipes/rabbitmq-dead-letter-queue
+  - /recipes/rabbitmq-python-pika-consumer
+  - /recipes/redis-pub-sub-python
+  - /recipes/serverless-step-functions-workflow
+  - /patterns/graphql-batched-resolver-pattern
+  - /patterns/graphql-dataloader-pattern
+  - /patterns/graphql-error-extension-pattern
+  - /patterns/graphql-interface-polymorphism-pattern
+  - /patterns/graphql-schema-stitching-pattern
+  - /docs/graphql-api-design-guideline
+  - /docs/graphql-deprecation-policy-template
+  - /docs/graphql-schema-review-checklist
+  - /guides/complete-guide-graphql-schema-design
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

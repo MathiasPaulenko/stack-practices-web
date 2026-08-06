@@ -26,6 +26,13 @@ relatedResources:
   - /recipes/graceful-shutdown
   - /recipes/immutable-infrastructure
   - /docs/environment-setup-guide-template
+  - /guides/event-driven-architecture-guide
+  - /guides/complete-guide-docker-compose-local-dev
+  - /guides/deployment-strategies-guide
+  - /guides/git-branching-strategies-guide
+  - /guides/infrastructure-as-code-guide
+  - /guides/monitoring-alerting-guide
+  - /guides/on-call-incident-response-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

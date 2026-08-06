@@ -27,6 +27,10 @@ relatedResources:
   - /patterns/sidecar-pattern
   - /recipes/docker-image-vulnerability-scan
   - /recipes/bash-iptables-firewall
+  - /recipes/docker-logging-fluentd
+  - /recipes/docker-secrets-management
+  - /recipes/python-terraform-provider-custom
+  - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

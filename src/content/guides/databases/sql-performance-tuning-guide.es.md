@@ -30,6 +30,18 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/optimistic-locking
   - /recipes/sql-index-optimization-analysis
+  - /recipes/sql-partitioning-strategies
+  - /recipes/cdn-edge-caching
+  - /recipes/connection-pooling
+  - /recipes/web-performance
+  - /docs/database-migration-runbook-template
+  - /docs/database-schema-documentation-template
+  - /guides/database-denormalization-guide
+  - /guides/database-sharding-partitioning-guide
+  - /guides/nosql-database-selection-guide
+  - /guides/sql-cte-guide
+  - /guides/sql-window-functions-guide
+  - /guides/time-series-database-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

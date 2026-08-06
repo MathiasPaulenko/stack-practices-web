@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/caching-strategies
   - /recipes/lazy-loading
   - /patterns/flyweight-pattern-text
+  - /patterns/proxy-pattern-caching
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:

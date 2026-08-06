@@ -24,6 +24,7 @@ relatedResources:
   - /guides/read-replica-guide
   - /recipes/sql-index-optimization-analysis
   - /recipes/sql-migration-zero-downtime
+  - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-28"
 author: Mathias Paulenko
 seo:

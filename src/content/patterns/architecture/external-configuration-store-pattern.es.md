@@ -27,6 +27,8 @@ relatedResources:
   - /patterns/compute-resource-consolidation-pattern
   - /docs/environment-configuration-template
   - /guides/complete-guide-gitops-production
+  - /guides/complete-guide-kubernetes-networking
+  - /guides/complete-guide-terraform-production
 lastUpdated: "2026-06-27"
 author: Mathias Paulenko
 seo:

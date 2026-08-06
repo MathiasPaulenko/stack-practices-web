@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/bash-parallel-execution
   - /recipes/python-zip-file-extraction
   - /recipes/bash-aws-cli-automation
+  - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
 author: Mathias Paulenko
 seo:

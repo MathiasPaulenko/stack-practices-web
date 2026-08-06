@@ -25,6 +25,7 @@ relatedResources:
   - /docs/dependency-audit-template
   - /docs/penetration-test-remediation-template
   - /docs/data-classification-template
+  - /docs/secrets-rotation-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

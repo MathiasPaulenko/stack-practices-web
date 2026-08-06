@@ -27,6 +27,7 @@ relatedResources:
   - /docs/data-retention-policy-template
   - /recipes/docker-secrets-management
   - /docs/secrets-rotation-runbook
+  - /guides/security-best-practices-guide
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

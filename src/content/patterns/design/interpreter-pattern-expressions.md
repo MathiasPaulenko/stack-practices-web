@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/visitor-pattern-operations
   - /patterns/command-pattern-undo
   - /patterns/mediator-pattern-components
+  - /patterns/memento-pattern-state
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:

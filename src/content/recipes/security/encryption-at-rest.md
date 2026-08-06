@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/data-privacy-gdpr
   - /recipes/request-signing-hmac
   - /docs/security-audit-checklist-template
+  - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:

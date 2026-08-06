@@ -24,6 +24,13 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /docs/api-deprecation-notice-template
   - /docs/api-error-handling-guideline
+  - /docs/api-lifecycle-management-template
+  - /docs/api-monitoring-alerting-template
+  - /docs/api-performance-budget-template
+  - /docs/service-dependency-map-template
+  - /docs/system-diagram-template
+  - /docs/technical-spec-template
+  - /guides/api-gateway-design-guide
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

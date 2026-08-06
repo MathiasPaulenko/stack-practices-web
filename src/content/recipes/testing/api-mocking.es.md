@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/graphql-mocking-apollo-server
   - /recipes/javascript-msw-mock-service-worker
   - /guides/complete-guide-junit5-modern-testing
+  - /guides/complete-guide-pytest-production
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

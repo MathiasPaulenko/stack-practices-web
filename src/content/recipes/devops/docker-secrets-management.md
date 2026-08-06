@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/sidecar-pattern
   - /docs/secrets-rotation-template
   - /recipes/docker-image-vulnerability-scan
+  - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

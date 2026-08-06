@@ -24,6 +24,8 @@ relatedResources:
   - /recipes/bash-parallel-execution
   - /recipes/bash-aws-cli-automation
   - /recipes/bash-iptables-firewall-rules
+  - /recipes/bash-monitoring-disk-usage
+  - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-28"
 author: Mathias Paulenko
 seo:

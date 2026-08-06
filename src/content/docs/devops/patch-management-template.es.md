@@ -25,6 +25,8 @@ relatedResources:
   - /docs/runbook-template
   - /docs/on-call-runbook-template
   - /docs/performance-regression-template
+  - /docs/service-level-objective-template
+  - /docs/vulnerability-management-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

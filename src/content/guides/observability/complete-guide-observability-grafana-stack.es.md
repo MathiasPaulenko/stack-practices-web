@@ -33,6 +33,7 @@ relatedResources:
   - /patterns/circuit-breaker-with-monitoring-pattern
   - /guides/complete-guide-sentry-error-tracking
   - /recipes/python-prometheus-metrics-exporter
+  - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

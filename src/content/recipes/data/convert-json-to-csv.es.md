@@ -27,6 +27,16 @@ relatedResources:
   - /recipes/parse-xml-files
   - /recipes/merge-json-files-javascript
   - /recipes/python-excel-read-write
+  - /recipes/convert-csv-to-json
+  - /recipes/diff-json-objects
+  - /recipes/format-phone-numbers
+  - /recipes/generate-pdf-report-python
+  - /recipes/merge-json-files
+  - /recipes/parse-csv-python-pandas
+  - /recipes/parse-excel-files
+  - /recipes/parse-pdf-files
+  - /recipes/python-generate-qr-code
+  - /recipes/truncate-text
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

@@ -27,6 +27,13 @@ relatedResources:
   - /recipes/convert-csv-to-json
   - /recipes/convert-json-to-csv
   - /recipes/diff-json-objects
+  - /recipes/format-phone-numbers
+  - /recipes/parse-command-line-arguments
+  - /recipes/parse-csv-files
+  - /recipes/parse-log-files
+  - /recipes/parse-toml-files
+  - /recipes/parse-yaml-files
+  - /recipes/serialize-deserialize-data
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

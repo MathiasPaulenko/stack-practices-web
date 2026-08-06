@@ -25,6 +25,7 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/weekly-ops-review-template
   - /guides/complete-guide-terraform-modules
+  - /guides/complete-guide-terraform-production
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

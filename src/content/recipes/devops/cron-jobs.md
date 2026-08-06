@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/background-jobs
   - /recipes/cicd-pipeline-setup
   - /recipes/cli-tool-argument-parsing
+  - /recipes/health-check-endpoint
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

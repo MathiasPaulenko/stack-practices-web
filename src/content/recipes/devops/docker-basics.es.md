@@ -25,6 +25,9 @@ relatedResources:
   - /recipes/ansible-playbook
   - /recipes/cron-jobs
   - /recipes/github-actions
+  - /recipes/secret-management
+  - /recipes/setup-ci-gitlab-pipelines
+  - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

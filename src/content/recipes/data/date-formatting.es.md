@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/deep-clone-javascript
   - /recipes/flatten-unflatten-objects
   - /recipes/money-currency
+  - /recipes/sort-array
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

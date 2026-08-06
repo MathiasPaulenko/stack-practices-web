@@ -25,6 +25,12 @@ relatedResources:
   - /recipes/cli-tool-argument-parsing
   - /recipes/feature-flags
   - /recipes/generate-sitemaps
+  - /recipes/github-actions
+  - /recipes/health-check-endpoint
+  - /recipes/parse-config-files
+  - /recipes/retry-logic-exponential-backoff
+  - /recipes/secret-management
+  - /recipes/setup-ci-gitlab-pipelines
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:

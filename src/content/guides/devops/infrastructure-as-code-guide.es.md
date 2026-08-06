@@ -26,6 +26,11 @@ relatedResources:
   - /recipes/bash-scripting-automation
   - /recipes/istio-canary-deployment
   - /recipes/python-terraform-provider-custom
+  - /recipes/terraform-aws-vpc
+  - /docs/capacity-planning-template
+  - /docs/disaster-recovery-plan-template
+  - /guides/complete-guide-terraform-modules
+  - /guides/deployment-strategies-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

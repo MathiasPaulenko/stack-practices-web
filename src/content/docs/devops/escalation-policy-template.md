@@ -25,6 +25,16 @@ relatedResources:
   - /docs/backup-and-restore-template
   - /docs/sla-definition-template
   - /docs/incident-communication-template
+  - /docs/incident-timeline-template
+  - /docs/monitoring-alerting-policy-template
+  - /docs/on-call-handoff-template
+  - /docs/on-call-runbook-template
+  - /docs/patch-management-template
+  - /docs/performance-regression-template
+  - /docs/rollout-communication-template
+  - /docs/runbook-database-failover
+  - /docs/service-level-objective-slo-template
+  - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

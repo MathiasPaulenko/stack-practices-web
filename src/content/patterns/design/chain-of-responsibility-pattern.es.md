@@ -30,6 +30,10 @@ relatedResources:
   - /patterns/memento-pattern
   - /patterns/null-object-pattern
   - /patterns/plugin-pattern
+  - /patterns/pipes-and-filters-pattern
+  - /patterns/composite-pattern
+  - /patterns/intercepting-filter-pattern
+  - /patterns/iterator-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

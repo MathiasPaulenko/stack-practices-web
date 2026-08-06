@@ -26,6 +26,14 @@ relatedResources:
   - /recipes/csharp-async-await-task-run
   - /recipes/go-goroutines-channels-patterns
   - /recipes/java-completable-future-composition
+  - /recipes/java-virtual-threads-project-loom
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-asyncio-semaphore-rate-limiting
+  - /recipes/python-thread-pool-executor
+  - /recipes/rust-tokio-async-runtime
+  - /patterns/leader-election-pattern
+  - /docs/async-task-cancellation-runbook
+  - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

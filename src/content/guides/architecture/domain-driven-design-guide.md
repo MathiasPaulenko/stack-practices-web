@@ -27,6 +27,11 @@ relatedResources:
   - /recipes/service-discovery
   - /recipes/event-sourcing-cqrs-pattern
   - /recipes/outbox-pattern-transactional-events
+  - /recipes/serverless-event-driven-sqs-lambda
+  - /guides/event-driven-architecture-guide
+  - /guides/microservices-architecture-guide
+  - /guides/monolith-to-microservices-migration-guide
+  - /guides/solid-principles-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

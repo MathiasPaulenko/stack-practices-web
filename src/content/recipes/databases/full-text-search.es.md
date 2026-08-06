@@ -23,6 +23,10 @@ relatedResources:
   - /patterns/command-pattern
   - /recipes/caching-redis
   - /recipes/database-deadlocks-retries
+  - /recipes/database-migrations-safely
+  - /recipes/database-read-replicas
+  - /recipes/event-sourcing-relational
+  - /recipes/soft-deletes
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

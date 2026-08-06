@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/graphql-pagination-relay-connections
   - /patterns/graphql-connection-pagination-pattern
   - /patterns/graphql-error-extension-pattern
+  - /patterns/graphql-schema-stitching-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

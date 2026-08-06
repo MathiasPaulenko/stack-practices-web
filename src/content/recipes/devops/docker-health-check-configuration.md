@@ -25,6 +25,10 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /recipes/python-schedule-periodic-tasks
   - /recipes/docker-logging-fluentd
+  - /recipes/docker-network-isolation
+  - /recipes/docker-secrets-management
+  - /recipes/python-prometheus-metrics-exporter
+  - /recipes/python-terraform-provider-custom
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

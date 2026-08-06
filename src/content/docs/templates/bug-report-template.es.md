@@ -27,6 +27,12 @@ relatedResources:
   - /docs/slo-document-template
   - /recipes/chaos-engineering
   - /recipes/pre-commit-hooks
+  - /docs/auto-scaling-policy-template
+  - /docs/backup-and-restore-template
+  - /docs/cloud-cost-allocation-template
+  - /docs/dependency-upgrade-template
+  - /docs/deployment-checklist-template
+  - /docs/release-notes-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

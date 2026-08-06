@@ -26,6 +26,22 @@ relatedResources:
   - /recipes/rest-api-design
   - /recipes/api-documentation-openapi
   - /recipes/api-logging-audit
+  - /recipes/api-versioning
+  - /recipes/graphql-api
+  - /recipes/graphql-apollo-server
+  - /recipes/handle-cors
+  - /recipes/handle-errors
+  - /recipes/idempotent-api-endpoints
+  - /recipes/pagination
+  - /recipes/send-emails-smtp
+  - /recipes/server-sent-events
+  - /recipes/webhooks
+  - /recipes/websocket-authentication
+  - /recipes/websocket-server
+  - /patterns/adapter-pattern-api
+  - /patterns/decorator-pattern-pipeline
+  - /docs/api-documentation
+  - /guides/rest-api-design-guide
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:

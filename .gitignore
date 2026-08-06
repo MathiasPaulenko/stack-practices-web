@@ -45,3 +45,6 @@ ref.back/*
 *.swp
 *.swo
 *~
+
+# Temporary audit scripts
+scripts/temp-*.cjs

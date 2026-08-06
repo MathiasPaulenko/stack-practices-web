@@ -26,6 +26,8 @@ relatedResources:
   - /recipes/batch-processing-patterns
   - /recipes/deep-clone-javascript
   - /recipes/flatten-unflatten-objects
+  - /recipes/money-currency
+  - /recipes/uuid-generation
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

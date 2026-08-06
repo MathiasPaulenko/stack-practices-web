@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/decorator-pattern-pipeline
   - /patterns/facade-pattern
   - /patterns/proxy-pattern-caching
+  - /patterns/proxy-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

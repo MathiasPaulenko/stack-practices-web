@@ -23,6 +23,12 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /recipes/setup-ci-gitlab-pipelines
   - /recipes/traffic-mirroring
+  - /recipes/cli-tool-argument-parsing
+  - /recipes/feature-flags
+  - /recipes/generate-sitemaps
+  - /recipes/parse-config-files
+  - /recipes/retry-logic-exponential-backoff
+  - /recipes/rabbitmq-task-queue
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

@@ -31,6 +31,10 @@ relatedResources:
   - /recipes/javascript-event-loop
   - /recipes/web-performance
   - /recipes/database-query-result-caching
+  - /recipes/aws-lambda-cold-start-optimization
+  - /guides/complete-guide-mobile-responsive-design
+  - /guides/complete-guide-react-server-components
+  - /guides/complete-guide-vitest-react-testing
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

@@ -25,6 +25,20 @@ relatedResources:
   - /recipes/convert-json-to-csv
   - /recipes/date-formatting
   - /recipes/deep-clone-javascript
+  - /recipes/flatten-unflatten-objects
+  - /recipes/generate-slugs
+  - /recipes/money-currency
+  - /recipes/parse-command-line-arguments
+  - /recipes/parse-csv-files
+  - /recipes/parse-excel-files
+  - /recipes/parse-markdown-files
+  - /recipes/parse-toml-files
+  - /recipes/parse-xml-files
+  - /recipes/parse-yaml-files
+  - /recipes/serialize-deserialize-data
+  - /recipes/sort-array
+  - /recipes/uuid-generation
+  - /recipes/validate-json-schema
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:

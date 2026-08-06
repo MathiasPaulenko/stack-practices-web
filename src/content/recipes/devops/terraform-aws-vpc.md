@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/nginx-reverse-proxy
   - /recipes/ansible-playbook
   - /recipes/istio-canary-deployment
+  - /recipes/cost-optimization
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

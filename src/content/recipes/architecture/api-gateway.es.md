@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/multi-tenancy
   - /recipes/service-discovery
   - /recipes/circuit-breaker-pattern-recipe
+  - /recipes/service-mesh
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:

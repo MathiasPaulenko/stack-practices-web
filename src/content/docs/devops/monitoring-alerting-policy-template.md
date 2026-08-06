@@ -29,6 +29,7 @@ relatedResources:
   - /docs/infrastructure-cost-allocation-template
   - /docs/load-test-execution-plan-template
   - /docs/postmortem-incident-review-template
+  - /docs/service-level-objective-slo-template
 lastUpdated: "2026-06-27"
 author: Mathias Paulenko
 seo:

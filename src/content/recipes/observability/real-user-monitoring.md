@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/metrics-collection
   - /guides/complete-guide-distributed-tracing
   - /guides/complete-guide-prometheus-grafana
+  - /guides/complete-guide-sentry-error-tracking
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

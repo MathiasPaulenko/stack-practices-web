@@ -25,6 +25,8 @@ relatedResources:
   - /recipes/export-csv-excel
   - /recipes/file-upload-validation
   - /recipes/generate-pdfs
+  - /recipes/image-optimization
+  - /recipes/stream-processing
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:

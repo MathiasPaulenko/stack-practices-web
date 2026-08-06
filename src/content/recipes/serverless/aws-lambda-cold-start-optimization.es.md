@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/serverless-db-connection-pooling-pattern
   - /recipes/serverless-step-functions-workflow
   - /patterns/serverless-function-composition-pattern
+  - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

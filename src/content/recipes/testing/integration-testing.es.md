@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/api-contract-testing
   - /recipes/load-testing
   - /recipes/nodejs-supertest-express-api
+  - /recipes/unit-testing-mocking
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:

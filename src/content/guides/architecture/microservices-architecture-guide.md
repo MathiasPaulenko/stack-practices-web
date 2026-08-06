@@ -27,6 +27,17 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/service-discovery
   - /recipes/workflow-engine
+  - /patterns/leader-election-pattern
+  - /docs/microservice-contract-template
+  - /docs/service-dependency-map-template
+  - /guides/complete-guide-graphql-federation-production
+  - /guides/api-gateway-design-guide
+  - /guides/complete-guide-microservices-communication
+  - /guides/event-driven-architecture-guide
+  - /guides/grpc-microservices-guide
+  - /guides/modular-monolith-guide
+  - /guides/monolith-to-microservices-migration-guide
+  - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

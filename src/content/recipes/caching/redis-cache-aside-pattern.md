@@ -28,6 +28,9 @@ relatedResources:
   - /recipes/http-cache-control-headers
   - /recipes/multi-level-cache-l1-l2
   - /recipes/redis-distributed-lock
+  - /recipes/redis-pubsub-messaging
+  - /recipes/redis-rate-limiting-token-bucket
+  - /recipes/redis-sorted-set-leaderboard
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

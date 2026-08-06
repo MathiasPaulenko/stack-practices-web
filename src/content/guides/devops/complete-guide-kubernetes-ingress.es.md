@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/gateway-routing-pattern
   - /patterns/sidecar-pattern
   - /guides/complete-guide-gitops-argocd
+  - /guides/complete-guide-kubernetes-config-management
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

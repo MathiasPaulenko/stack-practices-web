@@ -5,7 +5,6 @@ import CodeTabs from './CodeTabs.astro';
 import type { RelatedItem } from './RelatedResources.astro';
 import {
   techArticle,
-  webPage,
   breadcrumbList,
   faqPage,
 } from '../lib/schema';
@@ -66,7 +65,7 @@ const jsonLd: Record<string, unknown>[] = [
     section: topics[0],
     keywords,
   }),
-  webPage({ name: title, description: metaDescription, url: path, locale: localeTag }),
+
   breadcrumbList([
     { name: locale === 'es' ? 'Inicio' : 'Home', url: locale === 'es' ? '/es/' : '/' },
     { name: listingLabel, url: listingHref },
@@ -75,7 +74,7 @@ const jsonLd: Record<string, unknown>[] = [
 ];
 
 if (faqs.length > 0) {
-  jsonLd.push(faqPage(faqs));
+  jsonLd.push(faqPage(faqs.slice(0, 8)));
 }
 
 const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {

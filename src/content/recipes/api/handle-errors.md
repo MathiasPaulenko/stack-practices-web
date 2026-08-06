@@ -26,6 +26,18 @@ relatedResources:
   - /recipes/api-documentation-openapi
   - /recipes/api-versioning
   - /recipes/graphql-api
+  - /recipes/handle-cors
+  - /recipes/idempotent-api-endpoints
+  - /recipes/input-validation
+  - /recipes/logging
+  - /recipes/middleware
+  - /recipes/pagination
+  - /recipes/send-emails-smtp
+  - /recipes/server-sent-events
+  - /recipes/webhooks
+  - /recipes/graphql-error-handling-best-practices
+  - /docs/api-documentation
+  - /guides/rest-api-design-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

@@ -28,6 +28,14 @@ relatedResources:
   - /recipes/database-query-result-caching
   - /recipes/java-caffeine-cache-configuration
   - /recipes/nginx-reverse-proxy-cache
+  - /recipes/nodejs-in-memory-cache-lru
+  - /recipes/nodejs-redis-cache-invalidation
+  - /recipes/python-django-cache-framework
+  - /recipes/python-httpx-cache-responses
+  - /recipes/python-memcached-session-storage
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/redis-pubsub-messaging
+  - /patterns/read-through-cache-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

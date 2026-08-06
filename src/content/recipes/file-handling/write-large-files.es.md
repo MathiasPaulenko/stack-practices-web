@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /recipes/compress-decompress-files
   - /recipes/copy-move-files
+  - /recipes/watch-file-changes
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

@@ -32,6 +32,7 @@ relatedResources:
   - /patterns/write-behind-cache-pattern
   - /patterns/cache-invalidation-pattern
   - /patterns/cache-stampede-prevention-pattern
+  - /patterns/two-level-cache-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

@@ -32,6 +32,18 @@ relatedResources:
   - /docs/service-level-objective-template
   - /guides/a-b-testing-guide
   - /guides/blue-green-deployment-guide
+  - /guides/canary-deployment-guide
+  - /guides/ci-cd-security-guide
+  - /guides/feature-flags-guide
+  - /guides/opentelemetry-guide
+  - /guides/alert-management-guide
+  - /guides/incident-response-guide
+  - /guides/metrics-and-dashboards-guide
+  - /guides/postmortem-guide
+  - /guides/api-rate-limiting-guide
+  - /guides/capacity-planning-guide
+  - /guides/cost-optimization-cloud-guide
+  - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

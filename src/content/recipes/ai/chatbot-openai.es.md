@@ -23,6 +23,9 @@ relatedResources:
   - /guides/system-design-interview-guide
   - /recipes/ai-agents-tool-use
   - /recipes/image-generation
+  - /recipes/prompt-engineering
+  - /recipes/python-sentiment-analysis-nltk
+  - /recipes/slack-bot-openai
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:

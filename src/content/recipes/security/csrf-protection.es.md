@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/encryption-at-rest
   - /recipes/hmac-request-signing
   - /recipes/rate-limiting-security
+  - /guides/complete-guide-cors-security
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:

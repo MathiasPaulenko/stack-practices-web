@@ -23,6 +23,7 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/deadlock-prevention-sql
   - /recipes/database-migrations-safely
+  - /recipes/database-migrations
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:

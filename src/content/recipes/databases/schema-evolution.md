@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/postgres-query-optimization
   - /recipes/caching-redis
   - /recipes/database-migrations
+  - /guides/complete-guide-sql-query-optimization
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

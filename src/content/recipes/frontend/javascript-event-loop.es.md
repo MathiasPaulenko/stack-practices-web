@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/spa-code-splitting-lazy
   - /guides/complete-guide-bundle-size-optimization
   - /guides/complete-guide-react-performance-optimization
+  - /guides/complete-guide-web-performance-core-web-vitals
 lastUpdated: "2026-07-09"
 author: Mathias Paulenko
 seo:

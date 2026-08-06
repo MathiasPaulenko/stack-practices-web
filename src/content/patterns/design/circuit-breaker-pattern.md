@@ -30,6 +30,11 @@ relatedResources:
   - /patterns/back-pressure-pattern
   - /patterns/cache-aside-pattern
   - /patterns/graceful-degradation-pattern
+  - /patterns/retry-pattern
+  - /patterns/saga-pattern
+  - /patterns/scheduler-agent-supervisor-pattern
+  - /patterns/throttling-pattern
+  - /patterns/timeout-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

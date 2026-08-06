@@ -30,6 +30,8 @@ relatedResources:
   - /recipes/service-discovery
   - /patterns/external-configuration-store-pattern
   - /guides/api-gateway-design-guide
+  - /guides/grpc-microservices-guide
+  - /guides/modular-monolith-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

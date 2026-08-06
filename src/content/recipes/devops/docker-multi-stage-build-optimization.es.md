@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/container-security-scanning
   - /recipes/docker-image-vulnerability-scan
   - /recipes/docker-network-isolation
+  - /recipes/git-rebase-interactive-tutorial
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

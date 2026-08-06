@@ -25,6 +25,10 @@ relatedResources:
   - /recipes/magic-link-authentication
   - /recipes/nodejs-jwt-authentication
   - /recipes/oauth2-login
+  - /recipes/session-management
+  - /recipes/two-factor-authentication
+  - /recipes/graphql-directives-auth
+  - /guides/security-best-practices-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

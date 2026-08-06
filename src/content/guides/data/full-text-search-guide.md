@@ -31,6 +31,9 @@ relatedResources:
   - /guides/complete-guide-postgresql-tuning
   - /recipes/elasticsearch-aggregations
   - /recipes/sql-full-text-search-setup
+  - /recipes/sql-find-duplicate-rows
+  - /recipes/sql-recursive-cte-query
+  - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

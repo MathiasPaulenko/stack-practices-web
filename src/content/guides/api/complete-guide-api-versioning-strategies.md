@@ -31,6 +31,9 @@ relatedResources:
   - /docs/api-error-handling-guideline
   - /recipes/java-spring-cache-annotations
   - /recipes/nodejs-redis-cache-invalidation
+  - /recipes/python-httpx-cache-responses
+  - /recipes/python-memcached-session-storage
+  - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

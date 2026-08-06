@@ -25,6 +25,7 @@ relatedResources:
   - /docs/pull-request-template
   - /recipes/cron-jobs
   - /docs/contributing-guide
+  - /docs/readme-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

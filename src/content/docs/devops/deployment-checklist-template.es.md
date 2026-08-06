@@ -25,6 +25,18 @@ relatedResources:
   - /docs/contributing-guide
   - /recipes/docker-compose-dev-prod-split
   - /recipes/docker-health-check-configuration
+  - /recipes/docker-multi-stage-build-optimization
+  - /docs/auto-scaling-policy-template
+  - /docs/backup-and-restore-template
+  - /docs/cloud-cost-allocation-template
+  - /docs/cross-region-failover-template
+  - /docs/environment-configuration-template
+  - /docs/git-branching-strategy-document
+  - /docs/infrastructure-as-code-review-template
+  - /docs/network-security-template
+  - /docs/rollout-communication-template
+  - /docs/ssl-certificate-renewal-template
+  - /docs/zero-downtime-deployment-checklist
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

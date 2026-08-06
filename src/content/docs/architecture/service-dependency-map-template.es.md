@@ -24,6 +24,9 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
+  - /docs/api-performance-budget-template
+  - /docs/system-diagram-template
+  - /docs/technical-spec-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

@@ -29,6 +29,12 @@ relatedResources:
   - /patterns/blackboard-pattern
   - /patterns/circuit-breaker-pattern
   - /patterns/command-pattern
+  - /patterns/event-bus-pattern
+  - /patterns/event-sourcing-pattern
+  - /patterns/mediator-pattern-components
+  - /patterns/mediator-pattern
+  - /patterns/state-pattern
+  - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

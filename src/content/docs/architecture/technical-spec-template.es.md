@@ -24,6 +24,8 @@ relatedResources:
   - /docs/database-schema-documentation-template
   - /docs/api-changelog-template
   - /docs/api-deprecation-notice-template
+  - /docs/api-lifecycle-management-template
+  - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

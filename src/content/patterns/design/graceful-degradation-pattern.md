@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/canary-release-pattern
   - /patterns/deployment-ring-pattern
   - /patterns/geode-pattern
+  - /patterns/shed-load-pattern
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

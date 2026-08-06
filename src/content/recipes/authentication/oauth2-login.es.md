@@ -23,6 +23,9 @@ relatedResources:
   - /patterns/adapter-pattern
   - /recipes/api-key-authentication
   - /recipes/magic-link-authentication
+  - /recipes/nodejs-oauth2-github-login
+  - /recipes/session-management
+  - /recipes/two-factor-authentication
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

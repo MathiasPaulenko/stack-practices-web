@@ -32,6 +32,9 @@ relatedResources:
   - /recipes/python-schedule-periodic-tasks
   - /recipes/python-async-gather-concurrent-requests
   - /guides/complete-guide-llm-application-architecture
+  - /docs/async-task-cancellation-runbook
+  - /docs/thread-pool-sizing-template
+  - /guides/complete-guide-java-concurrency
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:

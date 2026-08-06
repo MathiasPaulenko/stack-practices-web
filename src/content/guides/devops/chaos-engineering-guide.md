@@ -30,6 +30,8 @@ relatedResources:
   - /guides/complete-guide-testcontainers-integration
   - /recipes/chaos-engineering
   - /guides/incident-response-guide
+  - /guides/postmortem-guide
+  - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

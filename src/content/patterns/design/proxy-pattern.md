@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/circuit-breaker-pattern
   - /patterns/facade-pattern
   - /patterns/flyweight-pattern
+  - /patterns/intercepting-filter-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

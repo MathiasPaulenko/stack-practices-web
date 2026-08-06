@@ -26,6 +26,8 @@ relatedResources:
   - /patterns/async-generator-pattern
   - /patterns/bulkhead-pattern
   - /guides/complete-guide-go-concurrency
+  - /docs/race-condition-debugging-checklist
+  - /docs/thread-pool-sizing-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:

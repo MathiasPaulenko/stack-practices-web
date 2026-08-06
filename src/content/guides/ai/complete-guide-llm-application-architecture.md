@@ -32,6 +32,11 @@ relatedResources:
   - /guides/complete-guide-langchain-production
   - /guides/complete-guide-llm-cost-optimization
   - /guides/complete-guide-llm-evaluation
+  - /guides/complete-guide-llm-security
+  - /guides/complete-guide-local-llm-deployment
+  - /guides/complete-guide-openai-api-mastery
+  - /guides/complete-guide-rag-production
+  - /guides/complete-guide-vector-databases
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:

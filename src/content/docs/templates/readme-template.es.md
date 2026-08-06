@@ -27,6 +27,7 @@ relatedResources:
   - /docs/code-of-conduct-template
   - /docs/contributing-guide
   - /docs/onboarding-guide-template
+  - /docs/runbook-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

@@ -23,6 +23,9 @@ relatedResources:
   - /patterns/adapter-pattern
   - /recipes/compression-gzip
   - /recipes/export-csv-excel
+  - /recipes/import-csv-excel
+  - /recipes/python-image-resize-batch
+  - /recipes/stream-processing
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

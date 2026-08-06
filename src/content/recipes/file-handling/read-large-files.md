@@ -25,6 +25,11 @@ relatedResources:
   - /patterns/adapter-pattern
   - /recipes/compress-decompress-files
   - /recipes/copy-move-files
+  - /recipes/generate-temporary-files
+  - /recipes/python-image-resize-batch
+  - /recipes/rotate-log-files
+  - /recipes/watch-file-changes
+  - /recipes/write-large-files
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

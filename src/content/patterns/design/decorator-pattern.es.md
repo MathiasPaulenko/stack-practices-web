@@ -28,6 +28,15 @@ relatedResources:
   - /patterns/builder-pattern
   - /patterns/chain-of-responsibility-pattern
   - /patterns/composite-pattern
+  - /patterns/intercepting-filter-pattern
+  - /patterns/marker-interface-pattern
+  - /patterns/mixin-pattern
+  - /patterns/partial-class-pattern
+  - /patterns/proxy-pattern-caching
+  - /patterns/proxy-pattern
+  - /patterns/role-pattern
+  - /patterns/template-method-pattern
+  - /patterns/twin-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

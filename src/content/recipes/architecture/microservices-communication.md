@@ -23,6 +23,7 @@ relatedResources:
   - /guides/cap-theorem-guide
   - /recipes/retry-backoff
   - /recipes/service-discovery
+  - /recipes/workflow-engine
 lastUpdated: "2026-06-27"
 author: Mathias Paulenko
 seo:

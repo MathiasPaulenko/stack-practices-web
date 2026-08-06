@@ -28,6 +28,18 @@ relatedResources:
   - /patterns/builder-pattern
   - /patterns/cache-aside-pattern
   - /patterns/dependency-injection-pattern
+  - /patterns/dependency-injection-typescript
+  - /patterns/flyweight-pattern
+  - /patterns/manager-pattern
+  - /patterns/mediator-pattern
+  - /patterns/module-pattern
+  - /patterns/multiton-pattern
+  - /patterns/null-object-pattern
+  - /patterns/object-pool-pattern
+  - /patterns/observer-pattern
+  - /patterns/prototype-pattern
+  - /patterns/registry-pattern
+  - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

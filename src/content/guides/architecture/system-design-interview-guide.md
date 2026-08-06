@@ -27,6 +27,12 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/workflow-engine
   - /recipes/cdn-edge-caching
+  - /recipes/web-performance
+  - /patterns/compute-resource-consolidation-pattern
+  - /patterns/leader-election-pattern
+  - /guides/graphql-vs-rest-guide
+  - /guides/grpc-microservices-guide
+  - /guides/microservices-architecture-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

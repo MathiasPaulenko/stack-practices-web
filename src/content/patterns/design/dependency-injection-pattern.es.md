@@ -28,6 +28,9 @@ relatedResources:
   - /patterns/manager-pattern
   - /patterns/null-object-pattern
   - /patterns/registry-pattern
+  - /guides/clean-architecture-guide
+  - /guides/hexagonal-architecture-guide
+  - /guides/onion-architecture-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

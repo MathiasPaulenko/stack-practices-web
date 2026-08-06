@@ -124,14 +124,21 @@ export function techArticle(opts: {
   };
 }
 
-/** Builds a CollectionPage + ItemList schema for listing pages. */
+/** Builds a CollectionPage + ItemList schema for listing pages.
+ *  Limits the rendered ItemList to the first `maxSchemaItems` entries to
+ *  keep JSON-LD payload reasonable on very large listings; `numberOfItems`
+ *  still reflects the full count.
+ */
 export function collectionPage(opts: {
   name: string;
   description: string;
   url: string;
   locale: string;
   items: { name: string; url: string }[];
+  maxSchemaItems?: number;
 }) {
+  const maxSchemaItems = opts.maxSchemaItems ?? 12;
+  const schemaItems = opts.items.slice(0, maxSchemaItems);
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -142,7 +149,7 @@ export function collectionPage(opts: {
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: opts.items.length,
-      itemListElement: opts.items.map((item, index) => ({
+      itemListElement: schemaItems.map((item, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         name: item.name,

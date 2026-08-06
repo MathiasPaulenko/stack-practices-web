@@ -25,6 +25,8 @@ relatedResources:
   - /recipes/database-read-replicas
   - /recipes/database-transactions
   - /recipes/database-views-materialized
+  - /recipes/optimistic-locking
+  - /guides/database-design-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/retry-backoff
   - /recipes/workflow-engine
   - /recipes/database-deadlocks-retries
+  - /recipes/database-read-replicas
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

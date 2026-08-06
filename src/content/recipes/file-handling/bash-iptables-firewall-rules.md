@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/bash-log-rotation-compression
   - /recipes/python-zip-file-extraction
   - /recipes/bash-iptables-firewall
+  - /recipes/bash-aws-cli-automation
 lastUpdated: "2026-06-28"
 author: Mathias Paulenko
 seo:

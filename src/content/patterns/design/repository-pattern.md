@@ -30,6 +30,9 @@ relatedResources:
   - /guides/domain-driven-design-guide
   - /guides/layered-architecture-guide
   - /guides/onion-architecture-guide
+  - /guides/software-architecture-guide
+  - /guides/database-design-guide
+  - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

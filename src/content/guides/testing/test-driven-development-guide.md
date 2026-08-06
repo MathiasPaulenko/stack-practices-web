@@ -29,6 +29,11 @@ relatedResources:
   - /docs/user-story-template
   - /docs/api-testing-strategy-template
   - /docs/load-test-report-template
+  - /guides/complete-guide-junit5-modern-testing
+  - /guides/complete-guide-property-based-testing
+  - /guides/complete-guide-pytest-production
+  - /guides/complete-guide-testcontainers-integration
+  - /guides/complete-guide-vitest-react-testing
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

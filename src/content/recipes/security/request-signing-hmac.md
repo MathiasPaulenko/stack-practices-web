@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/builder-pattern
   - /recipes/api-security-headers
   - /recipes/encryption-at-rest
+  - /guides/api-security-checklist-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

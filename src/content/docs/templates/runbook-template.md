@@ -28,6 +28,17 @@ relatedResources:
   - /docs/backup-verification-test-template
   - /docs/bug-triage-template
   - /docs/change-management-template
+  - /docs/environment-configuration-template
+  - /docs/escalation-policy-template
+  - /docs/load-test-execution-plan-template
+  - /docs/logging-standards-document
+  - /docs/on-call-runbook-template
+  - /docs/patch-management-template
+  - /docs/zero-downtime-deployment-checklist
+  - /docs/disaster-recovery-plan-template
+  - /docs/environment-setup-guide-template
+  - /guides/cicd-pipeline-guide
+  - /guides/logging-monitoring-observability-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

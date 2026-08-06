@@ -30,6 +30,10 @@ relatedResources:
   - /guides/complete-guide-serverless-databases
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-index-optimization-analysis
+  - /recipes/sql-partitioning-strategies
+  - /recipes/sql-recursive-cte-query
+  - /guides/full-text-search-guide
+  - /guides/database-replication-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

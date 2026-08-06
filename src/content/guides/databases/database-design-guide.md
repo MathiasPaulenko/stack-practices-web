@@ -26,6 +26,13 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/elasticsearch-aggregations
   - /recipes/mongodb-crud-mongoose
+  - /patterns/repository-pattern-typescript
+  - /docs/database-schema-documentation-template
+  - /guides/database-denormalization-guide
+  - /guides/graph-database-guide
+  - /guides/nosql-database-selection-guide
+  - /guides/nosql-patterns-guide
+  - /guides/sql-performance-tuning-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

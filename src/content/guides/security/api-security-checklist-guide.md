@@ -31,6 +31,14 @@ relatedResources:
   - /recipes/request-signing-hmac
   - /recipes/api-rate-limiting
   - /recipes/bash-ssh-key-manager
+  - /recipes/hmac-request-signing
+  - /recipes/password-hashing-production
+  - /recipes/serverless-api-gateway-lambda-authorizer
+  - /docs/api-security-review-template
+  - /guides/api-gateway-design-guide
+  - /guides/ci-cd-security-guide
+  - /guides/api-rate-limiting-guide
+  - /guides/webhook-security-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

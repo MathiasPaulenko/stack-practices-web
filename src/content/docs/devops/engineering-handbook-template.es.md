@@ -28,6 +28,10 @@ relatedResources:
   - /recipes/multi-tenancy
   - /patterns/external-configuration-store-pattern
   - /docs/microservice-contract-template
+  - /docs/service-dependency-map-template
+  - /docs/system-diagram-template
+  - /docs/architecture-decision-record-adr-template
+  - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
 author: Mathias Paulenko
 seo:

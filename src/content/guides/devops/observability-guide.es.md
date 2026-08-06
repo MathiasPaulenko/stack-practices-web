@@ -33,6 +33,18 @@ relatedResources:
   - /docs/load-test-execution-plan-template
   - /docs/service-level-objective-slo-template
   - /recipes/docker-logging-fluentd
+  - /guides/time-series-database-guide
+  - /guides/a-b-testing-guide
+  - /guides/canary-deployment-guide
+  - /guides/feature-flags-guide
+  - /guides/chaos-engineering-guide
+  - /guides/finops-guide
+  - /guides/kubernetes-advanced-guide
+  - /guides/platform-engineering-guide
+  - /guides/alert-management-guide
+  - /guides/distributed-tracing-guide
+  - /guides/log-aggregation-guide
+  - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

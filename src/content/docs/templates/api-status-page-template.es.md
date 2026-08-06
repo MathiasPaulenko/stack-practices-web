@@ -31,6 +31,13 @@ relatedResources:
   - /recipes/chaos-engineering
   - /recipes/cicd-pipeline-setup
   - /recipes/immutable-infrastructure
+  - /docs/auto-scaling-policy-template
+  - /docs/backup-and-restore-template
+  - /docs/cloud-cost-allocation-template
+  - /docs/cross-region-failover-template
+  - /docs/dependency-upgrade-template
+  - /docs/deployment-checklist-template
+  - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

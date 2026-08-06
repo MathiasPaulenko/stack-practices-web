@@ -30,6 +30,9 @@ relatedResources:
   - /patterns/database-per-service-pattern
   - /patterns/distributed-lock-pattern
   - /patterns/event-sourcing-pattern
+  - /patterns/idempotent-consumer-pattern
+  - /patterns/inbox-pattern
+  - /patterns/outbox-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

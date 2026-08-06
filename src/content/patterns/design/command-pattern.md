@@ -30,6 +30,8 @@ relatedResources:
   - /patterns/memento-pattern
   - /patterns/template-method-pattern
   - /patterns/adapter-pattern
+  - /patterns/chain-of-responsibility-pattern
+  - /patterns/state-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

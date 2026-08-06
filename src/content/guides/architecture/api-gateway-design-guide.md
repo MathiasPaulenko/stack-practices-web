@@ -29,6 +29,10 @@ relatedResources:
   - /docs/microservice-contract-template
   - /guides/api-rate-limiting-guide
   - /patterns/gateway-routing-pattern
+  - /patterns/health-endpoint-monitoring-pattern
+  - /guides/graphql-vs-rest-guide
+  - /guides/grpc-microservices-guide
+  - /guides/zero-trust-architecture-guide
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

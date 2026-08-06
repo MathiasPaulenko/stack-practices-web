@@ -26,6 +26,8 @@ relatedResources:
   - /guides/complete-guide-java-concurrency
   - /patterns/async-generator-pattern
   - /recipes/go-goroutines-channels-patterns
+  - /docs/race-condition-debugging-checklist
+  - /docs/thread-pool-sizing-template
 lastUpdated: "2026-07-04"
 author: "Mathias Paulenko"
 seo:

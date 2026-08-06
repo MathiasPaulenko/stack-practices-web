@@ -29,6 +29,12 @@ relatedResources:
   - /recipes/bash-ssh-key-manager
   - /recipes/data-validation-zod
   - /recipes/hmac-request-signing
+  - /recipes/oauth2-pkce-spa
+  - /recipes/password-hashing-production
+  - /recipes/vault-dynamic-credentials
+  - /docs/api-security-review-template
+  - /guides/api-security-checklist-guide
+  - /guides/web-application-security-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

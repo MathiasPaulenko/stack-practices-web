@@ -31,6 +31,8 @@ relatedResources:
   - /guides/capacity-planning-guide
   - /guides/data-migration-guide
   - /guides/blue-green-deployment-guide
+  - /guides/ci-cd-security-guide
+  - /guides/incident-response-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

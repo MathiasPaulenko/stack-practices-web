@@ -25,6 +25,8 @@ relatedResources:
   - /recipes/bash-log-rotation
   - /recipes/bash-parallel-commands
   - /recipes/aws-ecs-fargate
+  - /recipes/load-balancing-haproxy
+  - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-01"
 author: Mathias Paulenko
 seo:

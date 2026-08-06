@@ -26,6 +26,16 @@ relatedResources:
   - /guides/sql-joins-guide
   - /recipes/parse-command-line-arguments
   - /recipes/parse-log-files
+  - /recipes/convert-csv-to-json
+  - /recipes/convert-json-to-csv
+  - /recipes/generate-pdf-report-python
+  - /recipes/generate-slugs
+  - /recipes/merge-json-files-javascript
+  - /recipes/merge-json-files
+  - /recipes/parse-csv-python-pandas
+  - /recipes/parse-excel-files
+  - /recipes/parse-pdf-files
+  - /recipes/parse-xml-files
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

@@ -30,6 +30,10 @@ relatedResources:
   - /recipes/python-terraform-provider-custom
   - /recipes/docker-compose-dev-prod-split
   - /recipes/docker-health-check-configuration
+  - /recipes/docker-multi-stage-build-optimization
+  - /guides/complete-guide-terraform-modules
+  - /guides/finops-guide
+  - /guides/platform-engineering-guide
 lastUpdated: "2026-06-24"
 author: Mathias Paulenko
 seo:

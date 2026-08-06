@@ -30,6 +30,21 @@ relatedResources:
   - /docs/load-test-execution-plan-template
   - /recipes/redis-cache-patterns
   - /recipes/bash-log-rotation
+  - /recipes/nodejs-read-large-file-stream
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/brotli-nginx-compression
+  - /recipes/cdn-edge-caching
+  - /recipes/connection-pooling
+  - /recipes/spa-code-splitting-lazy
+  - /recipes/web-performance
+  - /patterns/flyweight-pattern-text
+  - /docs/capacity-planning-template
+  - /guides/complete-guide-python-asyncio
+  - /guides/sql-performance-tuning-guide
+  - /guides/complete-guide-react-performance-optimization
+  - /guides/api-rate-limiting-guide
+  - /guides/capacity-planning-guide
+  - /guides/cost-optimization-cloud-guide
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

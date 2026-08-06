@@ -25,6 +25,13 @@ relatedResources:
   - /docs/capacity-planning-template
   - /docs/weekly-ops-review-template
   - /docs/bug-triage-template
+  - /docs/change-management-template
+  - /docs/cloud-resource-tagging-policy-template
+  - /docs/cross-region-failover-template
+  - /docs/downtime-communication-template
+  - /docs/infrastructure-as-code-review-template
+  - /docs/network-security-template
+  - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

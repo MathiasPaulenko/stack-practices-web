@@ -23,6 +23,8 @@ relatedResources:
   - /recipes/handle-errors
   - /recipes/api-logging-audit
   - /recipes/api-rate-limiting-redis
+  - /recipes/cursor-pagination-postgresql
+  - /recipes/real-time-notifications
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:

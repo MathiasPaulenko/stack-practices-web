@@ -27,6 +27,9 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/merge-json-files-javascript
   - /recipes/diff-json-objects
+  - /recipes/generate-pdf-report-python
+  - /recipes/parse-csv-python-pandas
+  - /recipes/python-excel-read-write
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

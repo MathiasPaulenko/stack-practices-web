@@ -25,6 +25,11 @@ relatedResources:
   - /docs/data-retention-policy-template
   - /recipes/bash-ssh-key-manager
   - /docs/network-segmentation-policy-template
+  - /docs/data-classification-template
+  - /docs/penetration-test-remediation-template
+  - /docs/secrets-rotation-template
+  - /docs/vendor-risk-assessment-template
+  - /docs/vulnerability-management-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

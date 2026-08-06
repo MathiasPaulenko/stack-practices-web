@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/compute-resource-consolidation-pattern
   - /patterns/gateway-routing-pattern
   - /patterns/health-endpoint-monitoring-pattern
+  - /guides/modular-monolith-guide
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

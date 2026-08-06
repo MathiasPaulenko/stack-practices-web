@@ -25,6 +25,12 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/service-level-objective-template
   - /docs/weekly-ops-review-template
+  - /docs/downtime-communication-template
+  - /docs/escalation-policy-template
+  - /docs/on-call-runbook-template
+  - /docs/patch-management-template
+  - /docs/performance-regression-template
+  - /docs/rollout-communication-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

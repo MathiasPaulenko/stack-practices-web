@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-migration-zero-downtime
+  - /recipes/sql-partitioning-strategies
 lastUpdated: "2026-06-28"
 author: Mathias Paulenko
 seo:

@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/claim-check-pattern
   - /patterns/compensating-transaction-pattern
   - /patterns/domain-event-pattern
+  - /guides/event-sourcing-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

@@ -29,6 +29,8 @@ relatedResources:
   - /patterns/back-pressure-pattern
   - /patterns/multi-tenant-data-isolation-pattern
   - /patterns/voucher-pattern
+  - /recipes/escape-html-entities
+  - /recipes/sanitize-user-input
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

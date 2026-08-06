@@ -27,6 +27,11 @@ relatedResources:
   - /recipes/convert-json-to-csv
   - /recipes/convert-csv-to-json
   - /recipes/diff-json-objects
+  - /recipes/merge-json-files
+  - /recipes/parse-excel-files
+  - /recipes/parse-markdown-files
+  - /recipes/parse-pdf-files
+  - /recipes/parse-toml-files
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

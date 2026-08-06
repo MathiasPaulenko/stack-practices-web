@@ -25,6 +25,16 @@ relatedResources:
   - /docs/contributing-guide
   - /docs/network-security-template
   - /recipes/bash-aws-cli-scripts
+  - /docs/sla-definition-template
+  - /docs/backup-and-restore-template
+  - /docs/bug-triage-template
+  - /docs/change-management-template
+  - /docs/cloud-cost-allocation-template
+  - /docs/cross-region-failover-template
+  - /docs/downtime-communication-template
+  - /docs/escalation-policy-template
+  - /docs/infrastructure-as-code-review-template
+  - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

@@ -28,6 +28,10 @@ relatedResources:
   - /patterns/serverless-db-connection-pooling-pattern
   - /recipes/serverless-step-functions-workflow
   - /docs/zero-downtime-deployment-checklist
+  - /recipes/azure-functions-python-http
+  - /recipes/gcp-cloud-functions-nodejs
+  - /recipes/serverless-api-gateway-lambda-authorizer
+  - /recipes/serverless-event-driven-sqs-lambda
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/parse-json
   - /recipes/parse-command-line-arguments
   - /recipes/parse-log-files
+  - /recipes/parse-pdf-files
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

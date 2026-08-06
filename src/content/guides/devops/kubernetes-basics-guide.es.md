@@ -28,6 +28,10 @@ relatedResources:
   - /recipes/helm-chart-deployment
   - /patterns/external-configuration-store-pattern
   - /guides/system-design-interview-guide
+  - /guides/complete-guide-docker-compose-local-dev
+  - /guides/complete-guide-gitops-argocd
+  - /guides/complete-guide-kubernetes-ingress
+  - /guides/infrastructure-as-code-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

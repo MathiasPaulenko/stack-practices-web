@@ -29,6 +29,8 @@ relatedResources:
   - /guides/sre-practices-guide
   - /guides/connection-pooling-deep-dive-guide
   - /guides/etl-pipeline-guide
+  - /guides/read-replica-guide
+  - /guides/real-time-analytics-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

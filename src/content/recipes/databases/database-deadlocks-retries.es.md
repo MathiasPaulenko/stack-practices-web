@@ -23,6 +23,9 @@ relatedResources:
   - /guides/cap-theorem-guide
   - /recipes/deadlock-prevention-sql
   - /recipes/event-sourcing-relational
+  - /recipes/database-read-replicas
+  - /recipes/database-views-materialized
+  - /recipes/optimistic-locking
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

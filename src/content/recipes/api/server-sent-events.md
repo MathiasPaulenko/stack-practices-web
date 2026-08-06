@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/idempotent-api-endpoints
   - /recipes/grpc-api
   - /recipes/real-time-notifications
+  - /recipes/websocket-server
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

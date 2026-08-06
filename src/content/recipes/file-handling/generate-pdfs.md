@@ -23,6 +23,10 @@ relatedResources:
   - /patterns/adapter-pattern
   - /recipes/export-csv-excel
   - /recipes/image-optimization
+  - /recipes/import-csv-excel
+  - /recipes/read-large-files
+  - /recipes/watch-file-changes
+  - /recipes/write-large-files
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

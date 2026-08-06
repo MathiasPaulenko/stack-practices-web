@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/rabbitmq-task-queue
   - /guides/complete-guide-event-driven-systems
   - /guides/complete-guide-kafka-production
+  - /guides/complete-guide-rabbitmq-architecture
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

@@ -27,6 +27,8 @@ relatedResources:
   - /recipes/data-validation-zod
   - /recipes/docker-image-vulnerability-scan
   - /recipes/docker-network-isolation
+  - /recipes/docker-secrets-management
+  - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

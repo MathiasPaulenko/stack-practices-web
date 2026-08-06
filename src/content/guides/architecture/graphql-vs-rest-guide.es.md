@@ -28,6 +28,10 @@ relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-error-handling-guideline
   - /docs/api-rate-limiting-policy-template
+  - /guides/complete-guide-api-versioning-strategies
+  - /guides/complete-guide-graphql-federation
+  - /guides/complete-guide-graphql-schema-design
+  - /guides/complete-guide-graphql-security
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

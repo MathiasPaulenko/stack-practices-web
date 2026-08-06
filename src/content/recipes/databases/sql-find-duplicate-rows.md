@@ -24,6 +24,10 @@ relatedResources:
   - /guides/full-text-search-guide
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-index-optimization-analysis
+  - /recipes/sql-migration-zero-downtime
+  - /recipes/sql-partitioning-strategies
+  - /recipes/sql-recursive-cte-query
+  - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-28"
 author: Mathias Paulenko
 seo:

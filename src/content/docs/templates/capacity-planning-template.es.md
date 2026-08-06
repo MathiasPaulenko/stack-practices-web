@@ -31,6 +31,12 @@ relatedResources:
   - /recipes/cost-optimization
   - /recipes/web-performance
   - /patterns/compute-resource-consolidation-pattern
+  - /docs/auto-scaling-policy-template
+  - /docs/backup-and-restore-template
+  - /docs/cloud-cost-allocation-template
+  - /docs/dependency-upgrade-template
+  - /docs/deployment-checklist-template
+  - /docs/performance-regression-template
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

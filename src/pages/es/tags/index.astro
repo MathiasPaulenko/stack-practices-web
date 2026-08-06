@@ -3,10 +3,16 @@ import { buildTagIndex } from '../../../lib/content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { webPage, breadcrumbList } from '../../../lib/schema';
 
+const PAGE_SIZE = 30;
+
 const tagIndex = await buildTagIndex('es');
 const sortedTags = Array.from(tagIndex.entries())
   .map(([tag, items]) => ({ tag, count: items.length }))
+  .filter(({ count }) => count >= 3)
   .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+
+const initialTags = sortedTags.slice(0, PAGE_SIZE);
+const hasMore = sortedTags.length > PAGE_SIZE;
 
 const heading = 'Etiquetas';
 const description = 'Explora todos los temas y tecnologías cubiertos en recetas, patrones, documentación y guías.';
@@ -43,6 +49,7 @@ const jsonLd = [
                 type="text"
                 id="tag-search"
                 placeholder="Filtrar etiquetas..."
+                aria-label="Filtrar etiquetas"
                 class="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               />
               <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -51,12 +58,13 @@ const jsonLd = [
             </div>
             <p id="tag-count" class="mb-4 text-sm text-slate-500">{sortedTags.length} etiquetas</p>
             <div id="tag-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {sortedTags.map(({ tag, count }, i) => (
+              {initialTags.map(({ tag, count }, i) => (
                 <a
                   href={`/es/tags/${tag}/`}
                   data-search={tag.toLowerCase()}
+                  data-count={count}
                   class="tag-card group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-md"
-                  style={i >= 30 ? 'display:none' : undefined}
+                  style={i >= PAGE_SIZE ? 'display:none' : undefined}
                 >
                   <div class="flex items-center gap-3">
                     <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand-100 text-sm font-semibold text-brand-700">
@@ -74,8 +82,10 @@ const jsonLd = [
               <button
                 id="load-more"
                 type="button"
+                data-total={sortedTags.length}
+                data-page-size={PAGE_SIZE}
                 class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-brand-700"
-                style={sortedTags.length <= 30 ? 'display:none' : undefined}
+                style={hasMore ? '' : 'display:none'}
               >
                 Cargar más etiquetas
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
@@ -96,7 +106,6 @@ const jsonLd = [
 
   <script is:inline>
     (function () {
-      const PAGE_SIZE = 30;
       const input = document.getElementById('tag-search');
       const grid = document.getElementById('tag-grid');
       const count = document.getElementById('tag-count');
@@ -104,9 +113,23 @@ const jsonLd = [
       const loadMoreBtn = document.getElementById('load-more');
       if (!input || !grid || !count || !empty) return;
 
-      const allCards = Array.from(grid.querySelectorAll('.tag-card'));
+      const PAGE_SIZE = parseInt(loadMoreBtn ? loadMoreBtn.getAttribute('data-page-size') || '30' : '30', 10);
+      let allTags = [];
+      let loaded = false;
       let visibleCount = PAGE_SIZE;
       let isSearching = false;
+
+      const allCards = () => Array.from(grid.querySelectorAll('.tag-card'));
+
+      function createCard(tag, count) {
+        const a = document.createElement('a');
+        a.href = '/es/tags/' + encodeURIComponent(tag) + '/';
+        a.setAttribute('data-search', tag.toLowerCase());
+        a.setAttribute('data-count', count);
+        a.className = 'tag-card group flex items-center justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-md';
+        a.innerHTML = '<div class="flex items-center gap-3"><span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand-100 text-sm font-semibold text-brand-700">' + tag.charAt(0).toUpperCase() + '</span><span class="text-sm font-semibold text-slate-900 group-hover:text-brand-600">' + tag + '</span></div><span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">' + count + ' ' + (count === 1 ? 'recurso' : 'recursos') + '</span>';
+        return a;
+      }
 
       function showCards(cards) {
         cards.forEach((card, i) => {
@@ -118,9 +141,10 @@ const jsonLd = [
         const query = input.value.trim().toLowerCase();
         isSearching = query.length > 0;
         let matched = 0;
+        const cards = allCards();
 
         if (isSearching) {
-          allCards.forEach((card) => {
+          cards.forEach((card) => {
             const index = card.getAttribute('data-search') || '';
             const match = index.includes(query);
             card.style.display = match ? '' : 'none';
@@ -128,17 +152,17 @@ const jsonLd = [
           });
           if (loadMoreBtn) loadMoreBtn.style.display = 'none';
         } else {
-          matched = allCards.filter(c => c.style.display !== 'none').length;
-          showCards(allCards);
+          matched = cards.filter(c => c.style.display !== 'none').length;
+          showCards(cards);
           if (loadMoreBtn) {
-            loadMoreBtn.style.display = visibleCount < allCards.length ? '' : 'none';
+            loadMoreBtn.style.display = visibleCount < cards.length ? '' : 'none';
           }
         }
 
         const label = matched === 1 ? ' etiqueta' : ' etiquetas';
-        count.textContent = (isSearching ? matched : Math.min(visibleCount, allCards.length)) + label;
+        count.textContent = (isSearching ? matched : Math.min(visibleCount, cards.length)) + label;
 
-        const anyVisible = allCards.some(c => c.style.display !== 'none');
+        const anyVisible = cards.some(c => c.style.display !== 'none');
         if (!anyVisible) {
           grid.classList.add('hidden');
           empty.classList.remove('hidden');
@@ -148,19 +172,64 @@ const jsonLd = [
         }
       }
 
+      async function loadMoreTags() {
+        if (loadMoreBtn) {
+          loadMoreBtn.disabled = true;
+          loadMoreBtn.textContent = 'Cargando...';
+        }
+
+        try {
+          const res = await fetch('/es/tags/index.json');
+          if (!res.ok) throw new Error('failed');
+          const data = await res.json();
+          allTags = data.tags || [];
+          const existing = allCards();
+
+          for (let i = existing.length; i < allTags.length; i++) {
+            const t = allTags[i];
+            grid.appendChild(createCard(t.tag, t.count));
+          }
+
+          loaded = true;
+          visibleCount += PAGE_SIZE;
+          update();
+        } catch (e) {
+          if (loadMoreBtn) {
+            loadMoreBtn.textContent = 'Error al cargar';
+          }
+        } finally {
+          if (loadMoreBtn) {
+            loadMoreBtn.disabled = false;
+            if (visibleCount >= allCards().length) {
+              loadMoreBtn.style.display = 'none';
+            } else {
+              loadMoreBtn.innerHTML = 'Cargar más etiquetas <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
+            }
+          }
+        }
+      }
+
       if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', () => {
-          visibleCount += PAGE_SIZE;
-          showCards(allCards);
-          if (visibleCount >= allCards.length) {
-            loadMoreBtn.style.display = 'none';
+          if (loaded) {
+            visibleCount += PAGE_SIZE;
+            update();
+            if (loadMoreBtn && visibleCount >= allCards().length) {
+              loadMoreBtn.style.display = 'none';
+            }
+          } else {
+            loadMoreTags();
           }
-          const label = visibleCount === 1 ? ' etiqueta' : ' etiquetas';
-          count.textContent = visibleCount + label;
         });
       }
 
-      input.addEventListener('input', update);
+      input.addEventListener('input', () => {
+        if (input.value.trim().length > 0 && !loaded) {
+          loadMoreTags().then(update);
+        } else {
+          update();
+        }
+      });
     })();
   </script>
 </BaseLayout>

@@ -24,6 +24,9 @@ relatedResources:
   - /docs/penetration-test-template
   - /docs/api-security-review-template
   - /docs/data-classification-template
+  - /docs/penetration-test-remediation-template
+  - /docs/secrets-rotation-template
+  - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

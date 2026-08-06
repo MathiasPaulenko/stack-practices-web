@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/git-workflow
   - /recipes/setup-ci-gitlab-pipelines
   - /docs/runbook-template
+  - /guides/cicd-pipeline-guide
 lastUpdated: "2026-06-13"
 author: "Mathias Paulenko"
 seo:

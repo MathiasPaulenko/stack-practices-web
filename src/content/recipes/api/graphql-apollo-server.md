@@ -27,6 +27,10 @@ relatedResources:
   - /recipes/graphql-directives-auth
   - /recipes/graphql-error-handling-best-practices
   - /recipes/graphql-federation-gateway-setup
+  - /recipes/graphql-mocking-apollo-server
+  - /recipes/graphql-n-1-query-detection
+  - /recipes/graphql-pagination-relay-connections
+  - /recipes/graphql-subscriptions-realtime
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -30,6 +30,8 @@ relatedResources:
   - /patterns/cqrs-pattern
   - /patterns/read-through-cache-pattern
   - /patterns/two-level-cache-pattern
+  - /patterns/write-behind-cache-pattern
+  - /patterns/write-through-cache-pattern
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

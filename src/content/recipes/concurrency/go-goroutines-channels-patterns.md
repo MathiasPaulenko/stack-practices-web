@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-go-concurrency
   - /recipes/csharp-async-await-task-run
   - /recipes/java-virtual-threads-project-loom
+  - /recipes/rust-tokio-async-runtime
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

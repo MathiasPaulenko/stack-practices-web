@@ -31,6 +31,10 @@ relatedResources:
   - /recipes/python-schedule-periodic-tasks
   - /recipes/rust-tokio-async-runtime
   - /recipes/deadlock-prevention-sql
+  - /recipes/python-asyncio-gather-task-groups
+  - /recipes/python-asyncio-semaphore-rate-limiting
+  - /recipes/python-thread-pool-executor
+  - /docs/async-task-cancellation-runbook
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

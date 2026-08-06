@@ -26,6 +26,15 @@ relatedResources:
   - /recipes/stream-processing
   - /recipes/convert-csv-to-json
   - /recipes/convert-json-to-csv
+  - /recipes/merge-json-files
+  - /recipes/parse-csv-python-pandas
+  - /recipes/parse-log-files
+  - /recipes/parse-markdown-files
+  - /recipes/parse-pdf-files
+  - /recipes/parse-toml-files
+  - /recipes/parse-yaml-files
+  - /recipes/serialize-deserialize-data
+  - /recipes/validate-json-schema
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

@@ -29,6 +29,11 @@ relatedResources:
   - /recipes/security-headers
   - /docs/api-security-review-template
   - /docs/data-classification-template
+  - /docs/incident-response-playbook-template
+  - /docs/penetration-test-remediation-template
+  - /docs/secrets-rotation-template
+  - /docs/security-audit-checklist-template
+  - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-27"
 author: Mathias Paulenko
 seo:

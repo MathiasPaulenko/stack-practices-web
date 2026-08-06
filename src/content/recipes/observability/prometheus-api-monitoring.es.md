@@ -23,6 +23,8 @@ relatedResources:
   - /guides/monitoring-alerting-guide
   - /recipes/distributed-tracing
   - /recipes/log-aggregation
+  - /recipes/metrics-collection
+  - /recipes/structured-logging
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

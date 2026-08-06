@@ -29,6 +29,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/blue-green-deployment-guide
   - /guides/cost-optimization-cloud-guide
+  - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

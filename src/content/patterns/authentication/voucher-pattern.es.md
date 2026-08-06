@@ -26,6 +26,8 @@ relatedResources:
   - /patterns/circuit-breaker-pattern
   - /patterns/ambassador-pattern
   - /patterns/multi-tenant-data-isolation-pattern
+  - /recipes/escape-html-entities
+  - /recipes/sanitize-user-input
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

@@ -27,6 +27,9 @@ relatedResources:
   - /recipes/microservices-communication
   - /recipes/service-discovery
   - /guides/domain-driven-design-guide
+  - /guides/system-design-interview-guide
+  - /guides/concurrency-patterns-guide
+  - /guides/kubernetes-basics-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

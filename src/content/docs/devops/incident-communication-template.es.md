@@ -28,6 +28,9 @@ relatedResources:
   - /docs/data-breach-response-playbook
   - /docs/disaster-recovery-test-plan
   - /docs/postmortem-incident-review-template
+  - /docs/production-readiness-review-template
+  - /docs/service-ownership-document-template
+  - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
 author: Mathias Paulenko
 seo:

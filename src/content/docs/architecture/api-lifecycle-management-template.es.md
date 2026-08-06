@@ -25,6 +25,9 @@ relatedResources:
   - /docs/adr-template
   - /docs/api-changelog-template
   - /docs/api-deprecation-notice-template
+  - /docs/api-monitoring-alerting-template
+  - /docs/api-performance-budget-template
+  - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

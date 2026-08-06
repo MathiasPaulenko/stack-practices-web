@@ -23,6 +23,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /recipes/dead-letter-queue
   - /recipes/message-idempotency
+  - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

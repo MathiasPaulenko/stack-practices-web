@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/docker-compose-override-environments
   - /recipes/terraform-remote-state-s3-backend
   - /recipes/setup-ssl-certificates
+  - /guides/complete-guide-kubernetes-config-management
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

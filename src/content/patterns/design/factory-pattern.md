@@ -28,6 +28,12 @@ relatedResources:
   - /patterns/builder-pattern
   - /patterns/dependency-injection-pattern
   - /patterns/dependency-injection-typescript
+  - /patterns/multiton-pattern
+  - /patterns/object-pool-pattern
+  - /patterns/prototype-pattern
+  - /patterns/proxy-pattern
+  - /patterns/singleton-pattern
+  - /patterns/template-method-pattern
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

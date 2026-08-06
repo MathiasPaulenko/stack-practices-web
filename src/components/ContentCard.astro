@@ -6,9 +6,12 @@ export interface Props {
   difficulty?: string;
   tags?: string[];
   locale?: 'en' | 'es';
+  /** Render a client-side search index attribute. Default true. */
+  searchable?: boolean;
+  style?: string;
 }
 
-const { title, description, href, difficulty, tags = [], locale = 'en' } = Astro.props;
+const { title, description, href, difficulty, tags = [], locale = 'en', searchable = true, style } = Astro.props;
 
 const searchIndex = [title, description, difficulty, ...tags].filter(Boolean).join(' ').toLowerCase();
 const tagPrefix = locale === 'es' ? '/es' : '';
@@ -18,11 +21,21 @@ const difficultyColor: Record<string, string> = {
   intermediate: 'bg-amber-100 text-amber-700',
   advanced: 'bg-red-100 text-red-700',
 };
+
+function smartTruncate(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  const truncated = text.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + '...';
+}
+
+const displayDescription = smartTruncate(description, 140);
 ---
 
 <div
-  data-search={searchIndex}
+  {...searchable ? { 'data-search': searchIndex } : {}}
   class="group flex flex-col rounded-xl border border-slate-200 bg-white p-6 transition hover:border-brand-300 hover:shadow-md"
+  style={style}
 >
   <div class="flex items-center gap-2">
     {
@@ -36,7 +49,7 @@ const difficultyColor: Record<string, string> = {
   <a href={href} class="block">
     <h3 class="mt-3 text-lg font-semibold text-slate-900 group-hover:text-brand-600">{title}</h3>
   </a>
-  <p class="mt-2 flex-1 text-sm text-slate-600">{description}</p>
+  <p class="mt-2 flex-1 text-sm text-slate-600">{displayDescription}</p>
   {
     tags.length > 0 && (
       <div class="mt-4 flex flex-wrap gap-1.5">

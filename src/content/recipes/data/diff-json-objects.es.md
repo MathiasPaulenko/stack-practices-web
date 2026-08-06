@@ -27,6 +27,8 @@ relatedResources:
   - /recipes/validate-json-schema
   - /recipes/python-generate-qr-code
   - /recipes/format-phone-numbers
+  - /recipes/merge-json-files-javascript
+  - /recipes/truncate-text
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

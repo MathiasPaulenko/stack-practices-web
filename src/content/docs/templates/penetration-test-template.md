@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/data-privacy-gdpr
   - /recipes/security-headers
   - /docs/incident-response-playbook-template
+  - /docs/security-audit-checklist-template
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

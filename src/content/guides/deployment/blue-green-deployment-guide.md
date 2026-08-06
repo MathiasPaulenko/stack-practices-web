@@ -29,6 +29,7 @@ relatedResources:
   - /guides/disaster-recovery-guide
   - /guides/cost-optimization-cloud-guide
   - /recipes/load-balancing-haproxy
+  - /guides/data-migration-guide
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

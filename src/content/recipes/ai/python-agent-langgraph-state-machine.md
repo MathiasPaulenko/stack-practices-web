@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/python-ollama-local-llm
   - /recipes/python-sentiment-analysis-nltk
   - /patterns/agent-tool-selection-pattern
+  - /patterns/human-in-the-loop-pattern
 lastUpdated: "2026-07-02"
 author: "Mathias Paulenko"
 seo:

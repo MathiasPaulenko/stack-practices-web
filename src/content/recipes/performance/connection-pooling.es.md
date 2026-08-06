@@ -23,6 +23,8 @@ relatedResources:
   - /patterns/cache-aside-pattern
   - /recipes/redis-cache-patterns
   - /recipes/cache-invalidation
+  - /recipes/database-indexing
+  - /recipes/query-optimization
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

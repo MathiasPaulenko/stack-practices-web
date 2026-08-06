@@ -23,6 +23,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /recipes/log-aggregation
   - /recipes/metrics-collection
+  - /recipes/real-user-monitoring
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

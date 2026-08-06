@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/role-pattern
   - /patterns/business-delegate-pattern
   - /patterns/context-object-pattern
+  - /patterns/intercepting-filter-pattern
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

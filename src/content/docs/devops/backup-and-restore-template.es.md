@@ -25,6 +25,13 @@ relatedResources:
   - /docs/capacity-planning-template
   - /docs/network-security-template
   - /recipes/bash-backup-rotation
+  - /docs/bug-triage-template
+  - /docs/change-management-template
+  - /docs/cross-region-failover-template
+  - /docs/downtime-communication-template
+  - /docs/escalation-policy-template
+  - /docs/infrastructure-as-code-review-template
+  - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

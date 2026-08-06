@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/graphql-dataloader-batching
   - /patterns/graphql-connection-pagination-pattern
   - /patterns/graphql-mutation-validation-pattern
+  - /guides/complete-guide-graphql-caching
 lastUpdated: "2026-07-03"
 author: "Mathias Paulenko"
 seo:

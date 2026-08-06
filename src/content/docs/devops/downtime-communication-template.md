@@ -25,6 +25,10 @@ relatedResources:
   - /docs/cloud-cost-allocation-template
   - /docs/sla-definition-template
   - /docs/incident-communication-template
+  - /docs/on-call-handoff-template
+  - /docs/rollout-communication-template
+  - /docs/runbook-database-failover
+  - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

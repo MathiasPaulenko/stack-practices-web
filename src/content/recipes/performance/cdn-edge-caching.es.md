@@ -23,6 +23,9 @@ relatedResources:
   - /guides/logging-monitoring-observability-guide
   - /recipes/brotli-nginx-compression
   - /recipes/cache-invalidation
+  - /recipes/caching-strategies
+  - /recipes/connection-pooling
+  - /recipes/lazy-loading
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

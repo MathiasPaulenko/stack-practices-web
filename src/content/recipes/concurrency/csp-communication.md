@@ -20,6 +20,7 @@ relatedResources:
   - /recipes/async-patterns
   - /recipes/concurrent-data-structures
   - /guides/concurrency-patterns-guide
+  - /docs/race-condition-debugging-checklist
 lastUpdated: "2026-06-14"
 author: "Mathias Paulenko"
 seo:

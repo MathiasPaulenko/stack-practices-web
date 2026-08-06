@@ -28,6 +28,9 @@ relatedResources:
   - /patterns/ambassador-pattern-services
   - /patterns/backend-for-frontend-pattern
   - /patterns/chain-of-responsibility-middleware
+  - /patterns/command-pattern-undo
+  - /patterns/iterator-pattern-collections
+  - /patterns/prototype-pattern-cloning
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/health-endpoint-monitoring-pattern
   - /patterns/event-carried-state-transfer-pattern
   - /patterns/materialized-view-pattern
+  - /patterns/sharding-pattern
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

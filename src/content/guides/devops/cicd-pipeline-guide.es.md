@@ -28,6 +28,26 @@ relatedResources:
   - /recipes/traffic-mirroring
   - /recipes/bash-backup-rotation
   - /recipes/bash-log-rotation
+  - /recipes/blue-green-deployment
+  - /recipes/cicd-pipeline-setup
+  - /recipes/graceful-shutdown
+  - /recipes/api-mocking
+  - /docs/changelog-template
+  - /docs/post-deployment-checklist-template
+  - /docs/pull-request-template
+  - /docs/release-notes-template
+  - /docs/api-testing-strategy-template
+  - /docs/load-test-report-template
+  - /guides/code-review-best-practices-guide
+  - /guides/complete-guide-gitops-argocd
+  - /guides/deployment-strategies-guide
+  - /guides/docker-for-developers-guide
+  - /guides/git-branching-strategies-guide
+  - /guides/infrastructure-as-code-guide
+  - /guides/kubernetes-basics-guide
+  - /guides/logging-monitoring-observability-guide
+  - /guides/monitoring-alerting-guide
+  - /guides/performance-optimization-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

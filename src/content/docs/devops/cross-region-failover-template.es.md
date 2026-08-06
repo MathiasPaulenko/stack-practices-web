@@ -25,6 +25,7 @@ relatedResources:
   - /docs/api-status-page-template
   - /docs/bug-triage-template
   - /docs/network-security-template
+  - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
 author: Mathias Paulenko
 seo:

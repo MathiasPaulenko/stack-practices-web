@@ -23,6 +23,8 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /recipes/feature-flags
   - /recipes/generate-sitemaps
+  - /recipes/parse-config-files
+  - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-11"
 author: "Mathias Paulenko"
 seo:

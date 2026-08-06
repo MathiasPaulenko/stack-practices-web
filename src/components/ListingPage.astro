@@ -21,9 +21,25 @@ export interface Props {
   locale?: Locale;
   contentType?: string;
   hasAlternate?: boolean;
+  jsonEndpoint?: string;
+  initialLimit?: number;
 }
 
-const { heading, description, path, entries, keywords = [], locale = 'en', contentType, hasAlternate = true } = Astro.props;
+const {
+  heading,
+  description,
+  path,
+  entries,
+  keywords = [],
+  locale = 'en',
+  contentType,
+  hasAlternate = true,
+  jsonEndpoint,
+  initialLimit = 30,
+} = Astro.props;
+
+const isLazy = !!jsonEndpoint && entries.length > initialLimit;
+const initialEntries = isLazy ? entries.slice(0, initialLimit) : entries;
 
 const homeHref = locale === 'es' ? '/es/' : '/';
 const homeLabel = locale === 'es' ? 'Inicio' : 'Home';
@@ -34,13 +50,16 @@ const jsonLd = [
     description,
     url: path,
     locale,
-    items: entries.map((e: ListingEntry) => ({ name: e.title, url: e.href })),
+    items: initialEntries.map((e: ListingEntry) => ({ name: e.title, url: e.href })),
   }),
   breadcrumbList([
     { name: homeLabel, url: homeHref },
     { name: heading, url: path },
   ]),
 ];
+
+const emptyLabel = locale === 'es' ? 'No se encontraron resultados.' : 'No results found.';
+const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelve pronto.' : 'No content published yet. Check back soon.';
 ---
 
 <BaseLayout title={heading} description={description} path={path} locale={locale} keywords={keywords} jsonLd={jsonLd} hasAlternate={hasAlternate}>
@@ -65,6 +84,7 @@ const jsonLd = [
                 type="text"
                 id="listing-search"
                 placeholder={locale === 'es' ? 'Buscar...' : 'Search...'}
+                aria-label={locale === 'es' ? 'Buscar recursos' : 'Search resources'}
                 class="w-full rounded-lg border border-slate-600 bg-slate-800 py-2.5 pl-10 pr-4 text-sm text-white placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
               />
               <svg
@@ -98,7 +118,7 @@ const jsonLd = [
         entries.length > 0 ? (
           <>
             <div id="listing-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {entries.map((entry: ListingEntry) => (
+              {initialEntries.map((entry: ListingEntry) => (
                 <ContentCard
                   title={entry.title}
                   description={entry.description}
@@ -110,13 +130,31 @@ const jsonLd = [
               ))}
             </div>
 
+            {isLazy && (
+              <div class="mt-8 text-center">
+                <button
+                  id="load-more"
+                  type="button"
+                  data-endpoint={jsonEndpoint}
+                  data-locale={locale}
+                  data-total={entries.length}
+                  data-limit={initialLimit}
+                  data-offset={initialEntries.length}
+                  class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-brand-700"
+                >
+                  {locale === 'es' ? 'Cargar más' : 'Load more'}
+                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                </button>
+              </div>
+            )}
+
             <div id="listing-empty" class="hidden rounded-xl border border-dashed border-slate-300 bg-slate-100 p-12 text-center">
-              <p class="text-slate-600">{locale === 'es' ? 'No se encontraron resultados.' : 'No results found.'}</p>
+              <p class="text-slate-600">{emptyLabel}</p>
             </div>
           </>
         ) : (
           <div class="rounded-xl border border-dashed border-slate-300 bg-slate-100 p-12 text-center">
-            <p class="text-slate-600">{locale === 'es' ? 'Aún no hay contenido publicado. Vuelve pronto.' : 'No content published yet. Check back soon.'}</p>
+            <p class="text-slate-600">{noContentLabel}</p>
           </div>
         )
       }
@@ -129,17 +167,20 @@ const jsonLd = [
       const grid = document.getElementById('listing-grid');
       const count = document.getElementById('listing-count');
       const empty = document.getElementById('listing-empty');
+      const loadMoreBtn = document.getElementById('load-more');
       if (!input || !grid || !count || !empty) return;
 
-      const cards = grid.querySelectorAll('[data-search]');
-      const isEs = count.textContent.includes('resultados');
+      const isEs = count.textContent && count.textContent.includes('resultados');
+      let allCards = () => Array.from(grid.querySelectorAll('[data-search]'));
+      let loaded = false;
+      let loading = false;
 
       function update() {
         const query = input.value.trim().toLowerCase();
         const terms = query.split(/\s+/).filter(Boolean);
         let visible = 0;
 
-        cards.forEach((card) => {
+        allCards().forEach((card) => {
           const index = (card.getAttribute('data-search') || '').toLowerCase();
           const match = terms.every((term) => index.includes(term));
           card.style.display = match ? '' : 'none';
@@ -157,7 +198,63 @@ const jsonLd = [
         }
       }
 
-      input.addEventListener('input', update);
+      function createCard(entry) {
+        const a = document.createElement('a');
+        a.href = entry.href;
+        a.setAttribute('data-search', (entry.title + ' ' + (entry.description || '') + ' ' + (entry.tags || []).join(' ')).toLowerCase());
+        a.className = 'group flex h-full flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-md';
+        a.innerHTML = '<h3 class="text-lg font-semibold text-slate-900 group-hover:text-brand-600">' + entry.title + '</h3>' +
+          (entry.difficulty ? '<span class="mt-2 inline-flex w-fit items-center rounded-full px-2 py-0.5 text-xs font-medium ' + (entry.difficulty === 'beginner' ? 'bg-green-100 text-green-700' : entry.difficulty === 'advanced' ? 'bg-purple-100 text-purple-700' : 'bg-yellow-100 text-yellow-700') + '">' + entry.difficulty + '</span>' : '') +
+          '<p class="mt-3 line-clamp-3 text-sm text-slate-600">' + (entry.description || '') + '</p>';
+        return a;
+      }
+
+      async function loadMore() {
+        if (loading) return;
+        loading = true;
+        if (loadMoreBtn) {
+          loadMoreBtn.disabled = true;
+          loadMoreBtn.textContent = isEs ? 'Cargando...' : 'Loading...';
+        }
+
+        try {
+          const endpoint = loadMoreBtn.getAttribute('data-endpoint');
+          const res = await fetch(endpoint);
+          if (!res.ok) throw new Error('failed');
+          const data = await res.json();
+          const entries = data.entries || [];
+          const existing = allCards().length;
+
+          for (let i = existing; i < entries.length; i++) {
+            grid.appendChild(createCard(entries[i]));
+          }
+
+          loaded = true;
+          update();
+          if (loadMoreBtn) {
+            loadMoreBtn.style.display = 'none';
+          }
+        } catch (e) {
+          if (loadMoreBtn) {
+            loadMoreBtn.textContent = isEs ? 'Error al cargar' : 'Error loading';
+            loadMoreBtn.disabled = false;
+          }
+        } finally {
+          loading = false;
+        }
+      }
+
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', loadMore);
+      }
+
+      input.addEventListener('input', () => {
+        if (!loaded && input.value.trim().length > 0) {
+          loadMore().then(update);
+        } else {
+          update();
+        }
+      });
     })();
   </script>
   </div>

@@ -27,6 +27,11 @@ relatedResources:
   - /recipes/multi-tenancy
   - /recipes/service-discovery
   - /recipes/workflow-engine
+  - /docs/api-lifecycle-management-template
+  - /docs/microservice-contract-template
+  - /docs/service-dependency-map-template
+  - /docs/system-diagram-template
+  - /docs/technical-spec-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

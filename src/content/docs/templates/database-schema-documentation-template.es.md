@@ -30,6 +30,12 @@ relatedResources:
   - /recipes/multi-tenancy
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-migration-zero-downtime
+  - /recipes/sql-recursive-cte-query
+  - /recipes/sql-window-functions-ranking
+  - /docs/microservice-contract-template
+  - /docs/service-dependency-map-template
+  - /docs/system-diagram-template
+  - /docs/technical-spec-template
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

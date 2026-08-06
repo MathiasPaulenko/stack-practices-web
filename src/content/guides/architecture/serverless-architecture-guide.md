@@ -30,6 +30,10 @@ relatedResources:
   - /recipes/aws-lambda-python-dependencies
   - /recipes/azure-functions-python-http
   - /recipes/gcp-cloud-functions-nodejs
+  - /recipes/serverless-api-gateway-lambda-authorizer
+  - /recipes/serverless-dynamodb-single-table
+  - /recipes/serverless-event-driven-sqs-lambda
+  - /recipes/serverless-step-functions-workflow
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

@@ -25,6 +25,8 @@ relatedResources:
   - /recipes/cicd-pipeline-setup
   - /recipes/bash-parallel-commands
   - /recipes/bash-aws-cli-scripts
+  - /recipes/bash-disk-usage-monitor
+  - /recipes/bash-log-rotation
 lastUpdated: "2026-07-01"
 author: Mathias Paulenko
 seo:

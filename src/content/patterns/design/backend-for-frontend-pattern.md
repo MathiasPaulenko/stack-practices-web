@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/graphql-mutation-validation-pattern
   - /patterns/gateway-routing-pattern
   - /patterns/mediator-pattern-components
+  - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

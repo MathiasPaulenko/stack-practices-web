@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/event-driven-microservices
   - /recipes/message-idempotency
   - /recipes/rabbitmq-task-queue
+  - /guides/message-queue-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

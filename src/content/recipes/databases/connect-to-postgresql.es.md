@@ -25,6 +25,11 @@ relatedResources:
   - /patterns/builder-pattern
   - /recipes/connect-to-mysql
   - /recipes/connect-to-redis
+  - /recipes/execute-raw-sql
+  - /recipes/use-orm-crud
+  - /guides/database-replication-guide
+  - /guides/indexing-strategies-guide
+  - /guides/sql-joins-guide
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

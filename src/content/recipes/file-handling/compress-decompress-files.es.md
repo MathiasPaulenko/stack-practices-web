@@ -26,6 +26,8 @@ relatedResources:
   - /recipes/file-upload-validation
   - /recipes/python-image-resize-batch
   - /recipes/python-zip-file-extraction
+  - /recipes/bash-log-rotation-compression
+  - /recipes/rotate-log-files
 lastUpdated: "2026-06-20"
 author: Mathias Paulenko
 seo:

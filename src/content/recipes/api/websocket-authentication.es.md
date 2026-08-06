@@ -28,6 +28,8 @@ relatedResources:
   - /recipes/server-sent-events-go
   - /recipes/websocket-bidirectional-chat
   - /recipes/hmac-request-signing
+  - /recipes/password-hashing-production
+  - /guides/webhook-security-guide
 lastUpdated: "2026-06-18"
 author: "Mathias Paulenko"
 seo:

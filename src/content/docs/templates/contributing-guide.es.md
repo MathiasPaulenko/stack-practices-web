@@ -27,6 +27,9 @@ relatedResources:
   - /docs/auto-scaling-policy-template
   - /docs/deployment-checklist-template
   - /docs/changelog-template
+  - /docs/code-of-conduct-template
+  - /docs/onboarding-guide-template
+  - /docs/pull-request-template
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

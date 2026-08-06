@@ -23,6 +23,10 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/api-documentation-openapi
   - /recipes/graphql-api
+  - /recipes/idempotent-api-endpoints
+  - /recipes/rest-api-design
+  - /recipes/server-sent-events
+  - /recipes/websocket-server
 lastUpdated: "2026-07-09"
 author: "Mathias Paulenko"
 seo:

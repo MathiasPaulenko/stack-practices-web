@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/svelte-store-reactive-state
   - /recipes/typescript-discriminated-unions-exhaustive
   - /recipes/typescript-utility-types-generics
+  - /recipes/vue-composition-api-fetch
 lastUpdated: "2026-07-05"
 author: "Mathias Paulenko"
 seo:

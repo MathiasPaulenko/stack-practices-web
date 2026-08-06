@@ -23,6 +23,7 @@ relatedResources:
   - /docs/adr-template
   - /recipes/api-gateway
   - /recipes/circuit-breaker-pattern-recipe
+  - /guides/domain-driven-design-guide
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

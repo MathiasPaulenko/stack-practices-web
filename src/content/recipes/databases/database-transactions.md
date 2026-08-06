@@ -26,6 +26,9 @@ relatedResources:
   - /recipes/database-connection-pooling
   - /recipes/database-deadlocks-retries
   - /recipes/database-migrations-safely
+  - /recipes/full-text-search
+  - /recipes/soft-deletes
+  - /guides/database-design-guide
 lastUpdated: "2026-06-10"
 author: "Mathias Paulenko"
 seo:

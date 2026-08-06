@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/bash-log-rotation-compression
   - /recipes/bash-monitoring-disk-usage
   - /recipes/bash-parallel-job-execution
+  - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-25"
 author: Mathias Paulenko
 seo:

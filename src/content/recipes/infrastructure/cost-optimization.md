@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/istio-canary-deployment
   - /recipes/load-balancing-haproxy
   - /patterns/compute-resource-consolidation-pattern
+  - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-06-19"
 author: Mathias Paulenko
 seo:

@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/security-headers
   - /docs/dependency-audit-template
   - /docs/penetration-test-template
+  - /guides/webhook-security-guide
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

@@ -33,6 +33,8 @@ relatedResources:
   - /recipes/dependency-injection
   - /recipes/vault-dynamic-credentials
   - /patterns/pipes-and-filters-pattern
+  - /recipes/escape-html-entities
+  - /recipes/sanitize-user-input
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

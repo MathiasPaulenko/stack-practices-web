@@ -23,6 +23,8 @@ relatedResources:
   - /guides/cap-theorem-guide
   - /recipes/optimistic-locking
   - /recipes/sql-full-text-search-setup
+  - /recipes/database-views-materialized
+  - /recipes/event-sourcing-relational
 lastUpdated: "2026-06-12"
 author: "Mathias Paulenko"
 seo:

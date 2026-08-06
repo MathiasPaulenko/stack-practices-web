@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/marker-interface-pattern
   - /guides/complete-guide-kafka-stream-processing
   - /guides/complete-guide-microservices-communication
+  - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-07-02"
 author: Mathias Paulenko
 seo:

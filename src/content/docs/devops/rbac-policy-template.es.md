@@ -28,6 +28,7 @@ relatedResources:
   - /docs/compliance-gap-analysis-template
   - /docs/container-security-baseline-template
   - /docs/network-segmentation-policy-template
+  - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-27"
 author: Mathias Paulenko
 seo:
