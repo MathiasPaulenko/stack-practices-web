@@ -788,4 +788,164 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  prometheus: {
+    en: {
+      heading: 'Metrics and Monitoring with Prometheus',
+      paragraphs: [
+        'Prometheus is the dominant open-source metrics and monitoring toolkit in the cloud-native ecosystem. It scrapes time-series data, supports powerful queries with PromQL, and integrates with Grafana for dashboards and Alertmanager for notifications.',
+        'The recipes below cover instrumentation, exporters, service discovery, recording rules, alerting rules, and scaling storage. Each guide focuses on collecting the right metrics and turning them into actionable insight.',
+      ],
+    },
+    es: {
+      heading: 'Metricas y Monitoreo con Prometheus',
+      paragraphs: [
+        'Prometheus es el toolkit open-source dominante de metricas y monitoreo en el ecosistema cloud-native. Recolecta datos de series temporales, soporta queries potentes con PromQL y se integra con Grafana para dashboards y Alertmanager para notificaciones.',
+        'Las recetas a continuacion cubren instrumentacion, exporters, service discovery, recording rules, alerting rules y escalado de almacenamiento. Cada guia se enfoca en recolectar las metricas correctas y convertirlas en informacion accionable.',
+      ],
+    },
+  },
+  jwt: {
+    en: {
+      heading: 'JSON Web Tokens',
+      paragraphs: [
+        'JSON Web Tokens are a compact, self-contained way to transmit claims between parties. They are widely used for stateless authentication, but they must be handled carefully to avoid signature bypasses, token leakage, and revocation issues.',
+        'The resources below cover token structure, signing algorithms, refresh tokens, token storage, revocation, and common vulnerabilities. Each recipe explains how to use JWTs securely in APIs and SPAs.',
+      ],
+    },
+    es: {
+      heading: 'JSON Web Tokens',
+      paragraphs: [
+        'Los JSON Web Tokens son una forma compacta y autocontenida de transmitir claims entre partes. Son ampliamente usados para autenticacion stateless, pero deben manejarse con cuidado para evitar bypass de firma, filtrado de tokens y problemas de revocacion.',
+        'Los recursos a continuacion cubren estructura de tokens, algoritmos de firma, refresh tokens, almacenamiento de tokens, revocacion y vulnerabilidades comunes. Cada receta explica como usar JWTs de forma segura en APIs y SPAs.',
+      ],
+    },
+  },
+  logging: {
+    en: {
+      heading: 'Logging Practices and Tools',
+      paragraphs: [
+        'Logging is the foundation of observability. Good logs are structured, contextual, and searchable. They explain what happened, when, and in which part of the system, without drowning operators in noise.',
+        'The recipes below cover structured logging, log levels, correlation IDs, log aggregation, retention, and cost management. Each guide helps you build logs that answer real questions during incidents and debugging.',
+      ],
+    },
+    es: {
+      heading: 'Practicas y Herramientas de Logging',
+      paragraphs: [
+        'El logging es la fundacion de la observabilidad. Buenos logs son estructurados, contextuales y buscables. Explican que paso, cuando y en que parte del sistema, sin ahogar a los operadores con ruido.',
+        'Las recetas a continuacion cubren logging estructurado, niveles de log, correlation IDs, agregacion de logs, retencion y gestion de costos. Cada guia te ayuda a construir logs que respondan preguntas reales durante incidentes y depuracion.',
+      ],
+    },
+  },
+  cqrs: {
+    en: {
+      heading: 'CQRS Pattern',
+      paragraphs: [
+        'Command Query Responsibility Segregation separates read and write models so each can be optimized independently. It is a powerful pattern for complex domains, but it adds complexity in consistency, synchronization, and mental overhead.',
+        'The resources below cover when to use CQRS, event sourcing pairs, read model projections, consistency trade-offs, and implementation patterns. Each guide explains how to apply the pattern without overengineering the solution.',
+      ],
+    },
+    es: {
+      heading: 'Patron CQRS',
+      paragraphs: [
+        'Command Query Responsibility Segregation separa los modelos de lectura y escritura para que cada uno pueda optimizarse de forma independiente. Es un patron poderoso para dominios complejos, pero anade complejidad en consistencia, sincronizacion y carga cognitiva.',
+        'Los recursos a continuacion cubren cuando usar CQRS, parejas con event sourcing, proyecciones de modelos de lectura, trade-offs de consistencia y patrones de implementacion. Cada guia explica como aplicar el patron sin overengineering la solucion.',
+      ],
+    },
+  },
+  'distributed-systems': {
+    en: {
+      heading: 'Distributed Systems Engineering',
+      paragraphs: [
+        'Distributed systems connect independent components over a network. They enable scale and resilience but introduce failures in communication, consensus, time, and consistency that do not exist in single-node programs.',
+        'The resources below cover CAP theorem, consensus, leader election, idempotency, distributed transactions, failure modes, and observability. Each guide helps you reason about trade-offs and build systems that fail gracefully.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria de Sistemas Distribuidos',
+      paragraphs: [
+        'Los sistemas distribuidos conectan componentes independientes a traves de una red. Permiten escalar y ser resilientes, pero introducen fallas en comunicacion, consenso, tiempo y consistencia que no existen en programas de un solo nodo.',
+        'Los recursos a continuacion cubren el teorema CAP, consenso, eleccion de lider, idempotencia, transacciones distribuidas, modos de falla y observabilidad. Cada guia te ayuda a razonar sobre trade-offs y construir sistemas que fallen de forma elegante.',
+      ],
+    },
+  },
+  'api-gateway': {
+    en: {
+      heading: 'API Gateways',
+      paragraphs: [
+        'An API gateway sits between clients and backend services, handling routing, authentication, rate limiting, caching, and protocol translation. It simplifies the client experience and centralizes cross-cutting concerns.',
+        'The recipes below cover gateway patterns with Kong, NGINX, Envoy, AWS API Gateway, and custom implementations. Each resource explains how to build a gateway that is secure, observable, and easy to evolve.',
+      ],
+    },
+    es: {
+      heading: 'API Gateways',
+      paragraphs: [
+        'Un API gateway se situa entre clientes y servicios backend, manejando routing, autenticacion, rate limiting, cacheo y traduccion de protocolos. Simplifica la experiencia del cliente y centraliza preocupaciones transversales.',
+        'Las recetas a continuacion cubren patrones de gateway con Kong, NGINX, Envoy, AWS API Gateway e implementaciones personalizadas. Cada recurso explica como construir un gateway seguro, observable y facil de evolucionar.',
+      ],
+    },
+  },
+  lambda: {
+    en: {
+      heading: 'AWS Lambda and Function-as-a-Service',
+      paragraphs: [
+        'AWS Lambda lets you run code in response to events without managing servers. It is ideal for event-driven processing, but production use requires managing cold starts, concurrency limits, packaging, observability, and IAM permissions.',
+        'The resources below cover Lambda triggers, deployment, environment variables, layers, provisioned concurrency, and integration with API Gateway and SQS. Each recipe focuses on functions that are cost-effective and reliable.',
+      ],
+    },
+    es: {
+      heading: 'AWS Lambda y Function-as-a-Service',
+      paragraphs: [
+        'AWS Lambda te permite ejecutar codigo en respuesta a eventos sin administrar servidores. Es ideal para procesamiento orientado a eventos, pero el uso en produccion requiere gestionar cold starts, limites de concurrencia, empaquetado, observabilidad y permisos de IAM.',
+        'Los recursos a continuacion cubren triggers de Lambda, despliegue, variables de entorno, layers, provisioned concurrency e integracion con API Gateway y SQS. Cada receta se enfoca en funciones rentables y confiables.',
+      ],
+    },
+  },
+  owasp: {
+    en: {
+      heading: 'OWASP and Application Security',
+      paragraphs: [
+        'OWASP provides community-driven standards, tools, and documentation to improve application security. Its Top 10 and cheat sheets are practical references for identifying and mitigating common vulnerabilities.',
+        'The resources below cover OWASP Top 10 risks, secure coding practices, dependency scanning, input validation, and security testing. Each guide maps security theory to code-level defenses you can implement today.',
+      ],
+    },
+    es: {
+      heading: 'OWASP y Seguridad de Aplicaciones',
+      paragraphs: [
+        'OWASP proporciona estandares, herramientas y documentacion impulsados por la comunidad para mejorar la seguridad de aplicaciones. Su Top 10 y cheat sheets son referencias practicas para identificar y mitigar vulnerabilidades comunes.',
+        'Los recursos a continuacion cubren los riesgos del OWASP Top 10, practicas de codigo seguro, escaneo de dependencias, validacion de input y testing de seguridad. Cada guia mapea la teoria de seguridad a defensas a nivel de codigo que puedes implementar hoy.',
+      ],
+    },
+  },
+  sre: {
+    en: {
+      heading: 'Site Reliability Engineering',
+      paragraphs: [
+        'Site Reliability Engineering applies software engineering practices to operations. SREs use error budgets, SLOs, automation, and observability to balance reliability with the pace of feature delivery.',
+        'The resources below cover reliability principles, on-call practices, incident management, capacity planning, and blameless postmortems. Each guide helps teams build systems that are reliable without slowing down development.',
+      ],
+    },
+    es: {
+      heading: 'Site Reliability Engineering',
+      paragraphs: [
+        'Site Reliability Engineering aplica practicas de ingenieria de software a las operaciones. Los SREs usan presupuestos de error, SLOs, automatizacion y observabilidad para equilibrar confiabilidad con el ritmo de entrega de features.',
+        'Los recursos a continuacion cubren principios de confiabilidad, practicas de on-call, gestion de incidentes, planificacion de capacidad y postmortems sin culpa. Cada guia ayuda a los equipos a construir sistemas confiables sin frenar el desarrollo.',
+      ],
+    },
+  },
+  'incident-response': {
+    en: {
+      heading: 'Incident Response',
+      paragraphs: [
+        'Incident response is the practice of detecting, managing, and learning from production failures. A mature process includes on-call rotation, escalation paths, communication plans, and blameless postmortems.',
+        'The resources below cover incident detection, triage, mitigation, communication, root-cause analysis, and runbooks. Each recipe focuses on reducing mean time to recovery and building organizational resilience.',
+      ],
+    },
+    es: {
+      heading: 'Respuesta a Incidentes',
+      paragraphs: [
+        'La respuesta a incidentes es la practica de detectar, gestionar y aprender de fallas en produccion. Un proceso maduro incluye rotacion de on-call, rutas de escalamiento, planes de comunicacion y postmortems sin culpa.',
+        'Los recursos a continuacion cubren deteccion de incidentes, triage, mitigacion, comunicacion, analisis de causa raiz y runbooks. Cada receta se enfoca en reducir el tiempo medio de recuperacion y construir resiliencia organizacional.',
+      ],
+    },
+  },
 };
