@@ -1428,4 +1428,164 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'data-processing': {
+    en: {
+      heading: 'Data Processing Pipelines',
+      paragraphs: [
+        'Data processing turns raw data into useful information. Production pipelines must handle volume, schema changes, failures, and monitoring while keeping output accurate and timely.',
+        'The resources below cover batch processing, stream processing, ETL, transformations, validation, and orchestration. Each recipe shows how to build data pipelines that are reliable and observable.',
+      ],
+    },
+    es: {
+      heading: 'Pipelines de Procesamiento de Datos',
+      paragraphs: [
+        'El procesamiento de datos convierte datos crudos en informacion util. Los pipelines de produccion deben manejar volumen, cambios de esquema, fallas y monitoreo manteniendo la salida precisa y oportuna.',
+        'Los recursos a continuacion cubren procesamiento por lotes, procesamiento de streams, ETL, transformaciones, validacion y orquestacion. Cada receta muestra como construir data pipelines confiables y observables.',
+      ],
+    },
+  },
+  etl: {
+    en: {
+      heading: 'Extract, Transform, Load',
+      paragraphs: [
+        'ETL is the process of moving data from sources to a target data store through extraction, transformation, and loading. It remains the backbone of data warehouses, reporting, and analytics.',
+        'The resources below cover ETL patterns, batch vs streaming, schema mapping, data quality, incremental loads, and error handling. Each guide explains how to build ETL pipelines that are maintainable and auditable.',
+      ],
+    },
+    es: {
+      heading: 'Extract, Transform, Load',
+      paragraphs: [
+        'ETL es el proceso de mover datos desde fuentes hacia un almacen de datos destino a traves de extraccion, transformacion y carga. Sigue siendo la columna vertebral de data warehouses, reporting y analitica.',
+        'Los recursos a continuacion cubren patrones ETL, batch vs streaming, mapeo de esquemas, calidad de datos, cargas incrementales y manejo de errores. Cada guia explica como construir pipelines ETL mantenibles y auditables.',
+      ],
+    },
+  },
+  containers: {
+    en: {
+      heading: 'Containers and Containerization',
+      paragraphs: [
+        'Containers package applications with their dependencies into isolated, portable units. They simplify deployment, improve consistency, and enable scalable platforms like Kubernetes.',
+        'The resources below cover Docker, container images, multi-stage builds, registries, networking, security contexts, and runtime concerns. Each recipe helps you containerize applications correctly.',
+      ],
+    },
+    es: {
+      heading: 'Contenedores y Contenerizacion',
+      paragraphs: [
+        'Los contenedores empaquetan aplicaciones con sus dependencias en unidades aisladas y portables. Simplifican el despliegue, mejoran la consistencia y habilitan plataformas escalables como Kubernetes.',
+        'Los recursos a continuacion cubren Docker, imagenes de contenedor, multi-stage builds, registries, redes, contextos de seguridad y preocupaciones de runtime. Cada receta te ayuda a contenerizar aplicaciones correctamente.',
+      ],
+    },
+  },
+  streams: {
+    en: {
+      heading: 'Streams and Real-Time Data',
+      paragraphs: [
+        'Streams are unbounded sequences of data that flow continuously. Stream processing enables real-time reactions, analytics, and event-driven behavior with low latency.',
+        'The resources below cover stream APIs, reactive streams, backpressure, windowing, and stream processing platforms. Each guide explains how to work with streams without losing data or overwhelming consumers.',
+      ],
+    },
+    es: {
+      heading: 'Streams y Datos en Tiempo Real',
+      paragraphs: [
+        'Los streams son secuencias de datos ilimitadas que fluyen continuamente. El procesamiento de streams habilita reacciones en tiempo real, analitica y comportamiento orientado a eventos con baja latencia.',
+        'Los recursos a continuacion cubren APIs de streams, reactive streams, backpressure, windowing y plataformas de procesamiento de streams. Cada guia explica como trabajar con streams sin perder datos ni saturar consumidores.',
+      ],
+    },
+  },
+  css: {
+    en: {
+      heading: 'CSS and Modern Styling',
+      paragraphs: [
+        'CSS is the language that controls the visual presentation of the web. Modern CSS includes variables, flexbox, grid, custom properties, container queries, and utility-first frameworks.',
+        'The resources below cover layout, responsive design, animations, performance, preprocessors, and design systems. Each recipe helps you write CSS that is maintainable, accessible, and performant.',
+      ],
+    },
+    es: {
+      heading: 'CSS y Estilos Modernos',
+      paragraphs: [
+        'CSS es el lenguaje que controla la presentacion visual de la web. El CSS moderno incluye variables, flexbox, grid, custom properties, container queries y frameworks utility-first.',
+        'Los recursos a continuacion cubren layout, diseno responsivo, animaciones, rendimiento, preprocesadores y design systems. Cada receta te ayuda a escribir CSS mantenible, accesible y performante.',
+      ],
+    },
+  },
+  rabbitmq: {
+    en: {
+      heading: 'RabbitMQ for Message Queuing',
+      paragraphs: [
+        'RabbitMQ is a mature message broker that supports queues, exchanges, and routing patterns for reliable asynchronous communication. It is widely used for task queues, RPC, and event distribution.',
+        'The resources below cover exchanges, queues, bindings, routing keys, dead-letter queues, acknowledgments, and clustering. Each recipe shows how to build messaging patterns with RabbitMQ that are reliable and observable.',
+      ],
+    },
+    es: {
+      heading: 'RabbitMQ para Colas de Mensajes',
+      paragraphs: [
+        'RabbitMQ es un broker de mensajes maduro que soporta colas, exchanges y patrones de routing para comunicacion asincrona confiable. Es ampliamente usado para task queues, RPC y distribucion de eventos.',
+        'Los recursos a continuacion cubren exchanges, colas, bindings, routing keys, dead-letter queues, acknowledgments y clustering. Cada receta muestra como construir patrones de mensajeria con RabbitMQ confiables y observables.',
+      ],
+    },
+  },
+  authorization: {
+    en: {
+      heading: 'Authorization and Access Control',
+      paragraphs: [
+        'Authorization determines what an authenticated user or service is allowed to do. It is implemented through roles, permissions, policies, attribute-based access control, and resource-level checks.',
+        'The resources below cover RBAC, ABAC, OAuth scopes, JWT claims, permission models, and policy enforcement. Each guide explains how to design authorization that is secure, flexible, and easy to audit.',
+      ],
+    },
+    es: {
+      heading: 'Autorizacion y Control de Acceso',
+      paragraphs: [
+        'La autorizacion determina que puede hacer un usuario o servicio autenticado. Se implementa a traves de roles, permisos, politicas, control de acceso basado en atributos y verificaciones a nivel de recurso.',
+        'Los recursos a continuacion cubren RBAC, ABAC, scopes de OAuth, claims de JWT, modelos de permisos y enforcement de politicas. Cada guia explica como disenar autorizacion segura, flexible y facil de auditar.',
+      ],
+    },
+  },
+  audit: {
+    en: {
+      heading: 'Audit and Compliance Logging',
+      paragraphs: [
+        'Audit logging captures evidence of who did what, when, and where. It is essential for security forensics, compliance, and accountability in regulated environments.',
+        'The resources below cover audit trails, tamper-evident logs, retention, access patterns, and integration with compliance frameworks. Each recipe helps you build audit systems that are trustworthy and complete.',
+      ],
+    },
+    es: {
+      heading: 'Auditoria y Logging de Cumplimiento',
+      paragraphs: [
+        'El logging de auditoria captura evidencia de quien hizo que, cuando y donde. Es esencial para forense de seguridad, cumplimiento y responsabilidad en entornos regulados.',
+        'Los recursos a continuacion cubren audit trails, logs a prueba de manipulacion, retencion, patrones de acceso e integracion con frameworks de cumplimiento. Cada receta te ayuda a construir sistemas de auditoria confiables y completos.',
+      ],
+    },
+  },
+  alerting: {
+    en: {
+      heading: 'Alerting for Production Systems',
+      paragraphs: [
+        'Alerting notifies operators when a metric, log, or trace indicates a problem. Good alerts are actionable, specific, and rare enough to be taken seriously.',
+        'The resources below cover alert thresholds, SLO-based alerting, multi-window alerts, routing, paging, and alert fatigue. Each guide helps you build an alerting culture that responds to real signals.',
+      ],
+    },
+    es: {
+      heading: 'Alertas para Sistemas de Produccion',
+      paragraphs: [
+        'Las alertas notifican a los operadores cuando una metrica, log o traza indica un problema. Buenas alertas son accionables, especificas y lo suficientemente raras como para ser tomadas en serio.',
+        'Los recursos a continuacion cubren umbrales de alerta, alerting basado en SLO, alertas de multi-ventana, routing, paging y fatiga de alertas. Cada guia te ayuda a construir una cultura de alertas que responda a senales reales.',
+      ],
+    },
+  },
+  'on-call': {
+    en: {
+      heading: 'On-Call and Incident Readiness',
+      paragraphs: [
+        'On-call is the practice of having engineers available to respond to production incidents. Effective on-call requires runbooks, escalation paths, alert triage, and a healthy balance with sustainable schedules.',
+        'The resources below cover on-call rotations, incident response, alert fatigue, runbooks, and postmortems. Each guide helps you build on-call practices that protect the service and the team.',
+      ],
+    },
+    es: {
+      heading: 'On-Call y Preparacion para Incidentes',
+      paragraphs: [
+        'El on-call es la practica de tener ingenieros disponibles para responder a incidentes de produccion. Un on-call efectivo requiere runbooks, rutas de escalamiento, triage de alertas y un equilibrio saludable con cronogramas sostenibles.',
+        'Los recursos a continuacion cubren rotaciones de on-call, respuesta a incidentes, fatiga de alertas, runbooks y postmortems. Cada guia te ayuda a construir practicas de on-call que protegen el servicio y el equipo.',
+      ],
+    },
+  },
 };
