@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const matter = require('front-matter');
 
 function findAllMdFiles(dir, files = []) {
   const items = fs.readdirSync(dir);
@@ -15,6 +16,10 @@ function findAllMdFiles(dir, files = []) {
   return files;
 }
 
+function countBodyLinks(body) {
+  return (body.match(/\]\(\/[^)]+\)/g) || []).length;
+}
+
 const contentDir = 'src/content';
 const allFiles = findAllMdFiles(contentDir);
 
@@ -22,36 +27,40 @@ const warnings = [];
 
 for (const file of allFiles) {
   const content = fs.readFileSync(file, 'utf8');
-  const parts = content.split('---');
-  if (parts.length < 3) continue;
-  
-  const body = parts.slice(2).join('---').trim();
-  const internalLinks = (body.match(/\]\(\/[^)]+\)/g) || []).length;
-  
-  if (internalLinks < 3) {
-    warnings.push({file, internalLinks});
+  const parsed = matter(content);
+  const bodyLinks = countBodyLinks(parsed.body);
+  const relatedLinks = Array.isArray(parsed.attributes.relatedResources)
+    ? parsed.attributes.relatedResources.length
+    : 0;
+  const totalInternalLinks = bodyLinks + relatedLinks;
+
+  if (totalInternalLinks < 3) {
+    warnings.push({ file, bodyLinks, relatedLinks, totalInternalLinks });
   }
 }
 
-// Sort by link count ascending
-warnings.sort((a, b) => a.internalLinks - b.internalLinks);
+// Sort by total link count ascending
+warnings.sort((a, b) => a.totalInternalLinks - b.totalInternalLinks);
 
 console.log('========================================');
 console.log('AUDIT: INTERNAL LINKS (ALL BATCHES)');
 console.log('========================================');
-console.log('Files with < 3 internal links:');
+console.log('Files with < 3 total internal links (body + relatedResources):');
 console.log();
 
 for (const w of warnings) {
   const esFile = w.file.replace('.md', '.es.md');
   const hasEs = fs.existsSync(esFile);
-  console.log(`  ${w.internalLinks} links: ${w.file}`);
+  console.log(`  ${w.totalInternalLinks} total links (body: ${w.bodyLinks}, related: ${w.relatedLinks}): ${w.file}`);
   if (hasEs) {
     const esContent = fs.readFileSync(esFile, 'utf8');
-    const esParts = esContent.split('---');
-    const esBody = esParts.slice(2).join('---').trim();
-    const esLinks = (esBody.match(/\]\(\/[^)]+\)/g) || []).length;
-    console.log(`           ES: ${esLinks} links: ${esFile}`);
+    const esParsed = matter(esContent);
+    const esBodyLinks = countBodyLinks(esParsed.body);
+    const esRelatedLinks = Array.isArray(esParsed.attributes.relatedResources)
+      ? esParsed.attributes.relatedResources.length
+      : 0;
+    const esTotal = esBodyLinks + esRelatedLinks;
+    console.log(`           ES: ${esTotal} total links (body: ${esBodyLinks}, related: ${esRelatedLinks}): ${esFile}`);
   }
 }
 
