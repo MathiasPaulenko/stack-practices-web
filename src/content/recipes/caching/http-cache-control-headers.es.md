@@ -13,10 +13,9 @@ topics:
   - performance
 tags:
   - http
-  - cache-control
+  - caching
   - headers
   - cdn
-  - caching
 relatedResources:
   - /recipes/redis-cache-aside-pattern
   - /patterns/cache-aside-pattern

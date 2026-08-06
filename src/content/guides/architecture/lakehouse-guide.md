@@ -16,7 +16,7 @@ tags:
   - apache-iceberg
   - apache-hudi
   - open-table-format
-  - acid-transactions
+  - acid
   - time-travel
   - guide
 relatedResources:

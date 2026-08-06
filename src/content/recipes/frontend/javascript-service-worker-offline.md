@@ -13,7 +13,7 @@ tags:
   - service-worker
   - pwa
   - offline
-  - cache-api
+  - caching
   - progressive-web-app
 relatedResources:
   - /recipes/javascript-infinite-scroll-pagination

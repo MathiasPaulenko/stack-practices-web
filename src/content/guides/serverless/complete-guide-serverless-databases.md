@@ -19,7 +19,6 @@ tags:
   - database
   - guide
   - dynamodb
-  - aurora-serverless
   - faunadb
   - planetscale
   - scaling

@@ -12,7 +12,7 @@ topics:
   - infrastructure
 tags:
   - endpoint-security
-  - device-hardening
+  - hardening
   - mdm
   - edr
   - compliance

@@ -15,7 +15,7 @@ tags:
   - docker
   - docker-compose
   - dev-prod-split
-  - environment
+  - environments
   - configuration
   - devops
 relatedResources:

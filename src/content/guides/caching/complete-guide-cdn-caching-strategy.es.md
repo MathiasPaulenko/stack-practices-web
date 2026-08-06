@@ -17,8 +17,6 @@ tags:
   - cdn
   - caching
   - guide
-  - edge-caching
-  - cache-keys
   - invalidation
   - surrogate-keys
   - cloudflare

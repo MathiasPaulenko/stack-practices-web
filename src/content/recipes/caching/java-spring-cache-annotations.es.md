@@ -15,9 +15,8 @@ topics:
 tags:
   - java
   - spring-boot
-  - cache-annotations
+  - caching
   - redis
-  - declarative-caching
 relatedResources:
   - /recipes/java-caffeine-cache-configuration
   - /recipes/nodejs-redis-cache-invalidation

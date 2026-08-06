@@ -19,7 +19,7 @@ tags:
   - pattern
   - relay
   - cursor
-  - edges
+  - edge
   - typescript
   - apollo-server
 relatedResources:

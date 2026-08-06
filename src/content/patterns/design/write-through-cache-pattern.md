@@ -19,7 +19,6 @@ tags:
   - write-through
   - pattern
   - redis
-  - cache-consistency
   - performance
   - python
   - java

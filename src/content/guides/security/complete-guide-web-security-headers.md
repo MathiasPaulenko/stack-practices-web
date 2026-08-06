@@ -18,7 +18,7 @@ tags:
   - hsts
   - cors
   - x-frame-options
-  - https
+  - http
   - guide
   - security
 relatedResources:

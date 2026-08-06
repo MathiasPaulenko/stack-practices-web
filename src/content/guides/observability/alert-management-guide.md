@@ -13,7 +13,7 @@ topics:
   - devops
   - infrastructure
 tags:
-  - alert-management
+  - management
   - on-call
   - escalation
   - alert-fatigue

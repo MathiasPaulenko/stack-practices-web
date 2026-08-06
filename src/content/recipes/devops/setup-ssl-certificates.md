@@ -17,7 +17,7 @@ tags:
   - tls
   - lets-encrypt
   - certbot
-  - https
+  - http
   - security
   - recipe
 relatedResources:

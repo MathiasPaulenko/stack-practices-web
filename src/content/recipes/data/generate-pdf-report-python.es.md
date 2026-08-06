@@ -16,7 +16,7 @@ tags:
   - reportlab
   - fpdf
   - data-processing
-  - reports
+  - report
 relatedResources:
   - /recipes/convert-csv-to-json
   - /recipes/convert-json-to-csv

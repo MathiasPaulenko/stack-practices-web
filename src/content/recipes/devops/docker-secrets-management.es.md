@@ -17,7 +17,6 @@ tags:
   - secrets
   - security
   - credentials
-  - docker-swarm
   - env-files
 relatedResources:
   - /recipes/docker-network-isolation

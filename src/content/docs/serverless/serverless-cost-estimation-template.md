@@ -12,9 +12,9 @@ topics:
   - serverless
 tags:
   - serverless
-  - cost-estimation
+  - cost
   - aws-lambda
-  - cloud-cost
+  - cloud-costs
   - budgeting
   - optimization
 relatedResources:

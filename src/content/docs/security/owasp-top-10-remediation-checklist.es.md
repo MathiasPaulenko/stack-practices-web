@@ -15,7 +15,7 @@ topics:
 tags:
   - owasp
   - security
-  - vulnerability
+  - vulnerabilities
   - remediation
   - compliance
   - web-security

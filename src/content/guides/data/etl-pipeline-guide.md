@@ -13,7 +13,7 @@ topics:
   - devops
 tags:
   - etl
-  - data-pipeline
+  - pipeline
   - data-warehouse
   - airflow
   - dbt

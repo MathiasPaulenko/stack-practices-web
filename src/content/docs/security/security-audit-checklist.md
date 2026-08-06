@@ -17,7 +17,7 @@ tags:
   - audit
   - checklist
   - compliance
-  - vulnerability
+  - vulnerabilities
   - review
   - infrastructure
 relatedResources:

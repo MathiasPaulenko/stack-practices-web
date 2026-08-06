@@ -18,7 +18,7 @@ tags:
   - docker-compose
   - local-development
   - containers
-  - dev-environment
+  - environments
 relatedResources:
   - /guides/complete-guide-github-actions-ci-cd
   - /guides/complete-guide-helm-charts-production

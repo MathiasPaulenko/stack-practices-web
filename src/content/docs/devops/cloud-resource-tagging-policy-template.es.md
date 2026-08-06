@@ -14,7 +14,7 @@ topics:
   - devops
 tags:
   - tagging
-  - cloud-governance
+  - governance
   - cost-management
   - infrastructure
   - policy

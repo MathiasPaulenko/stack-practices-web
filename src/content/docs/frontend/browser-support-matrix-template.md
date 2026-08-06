@@ -11,11 +11,10 @@ topics:
   - testing
 tags:
   - frontend
-  - browser-support
+  - browser
   - compatibility
   - polyfills
   - template
-  - cross-browser
   - caniuse
 relatedResources:
   - /docs/frontend-performance-budget-template

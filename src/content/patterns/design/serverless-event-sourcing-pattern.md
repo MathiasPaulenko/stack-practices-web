@@ -16,7 +16,7 @@ tags:
   - pattern
   - eventbridge
   - dynamodb
-  - audit-log
+  - audit
   - python
   - typescript
 relatedResources:

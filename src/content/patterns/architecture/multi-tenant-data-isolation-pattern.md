@@ -16,7 +16,7 @@ topics:
   - security
 tags:
   - multi-tenant
-  - data-isolation
+  - isolation
   - pattern
   - design-pattern
   - saas

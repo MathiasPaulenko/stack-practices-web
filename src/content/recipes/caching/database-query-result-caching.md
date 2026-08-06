@@ -16,7 +16,7 @@ topics:
 tags:
   - python
   - redis
-  - database-cache
+  - caching
   - cache-aside
   - query-optimization
 relatedResources:

@@ -17,7 +17,7 @@ tags:
   - pattern
   - design-pattern
   - backpressure
-  - async-stream
+  - async
   - publisher-subscriber
   - flow-control
 relatedResources:

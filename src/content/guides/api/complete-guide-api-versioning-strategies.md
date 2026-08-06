@@ -15,12 +15,11 @@ topics:
   - api
   - architecture
 tags:
-  - api-versioning
+  - versioning
   - rest
   - graphql
-  - versioning
   - deprecation
-  - backward-compatibility
+  - compatibility
   - guide
   - api-design
 relatedResources:

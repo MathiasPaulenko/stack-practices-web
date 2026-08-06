@@ -13,7 +13,7 @@ topics:
 tags:
   - frontend
   - css
-  - design-tokens
+  - tokens
   - custom-properties
   - theming
   - recipe

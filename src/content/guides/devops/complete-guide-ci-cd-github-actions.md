@@ -18,7 +18,7 @@ topics:
 tags:
   - github-actions
   - ci-cd
-  - continuous-integration
+  - integration
   - continuous-deployment
   - pipeline
   - automation

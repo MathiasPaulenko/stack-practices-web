@@ -16,7 +16,7 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - extension
+  - extensions
   - extensibility
   - dynamic-loading
 relatedResources:

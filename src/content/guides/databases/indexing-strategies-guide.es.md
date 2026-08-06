@@ -12,7 +12,7 @@ topics:
   - performance
 tags:
   - b-tree
-  - composite-index
+  - composite
   - database-indexing
   - gin-index
   - guide

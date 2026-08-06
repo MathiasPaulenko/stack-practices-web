@@ -17,7 +17,6 @@ tags:
   - azure
   - cloud-computing
   - azure-functions
-  - azure-sql
   - blob-storage
   - app-service
   - active-directory

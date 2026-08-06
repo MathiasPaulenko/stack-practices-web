@@ -11,7 +11,7 @@ topics:
   - devops
   - architecture
 tags:
-  - deployment-ring
+  - deployment
   - pattern
   - design-pattern
   - progressive-rollout

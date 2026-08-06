@@ -14,7 +14,7 @@ tags:
   - penetration
   - test
   - remediation
-  - vulnerability
+  - vulnerabilities
   - assessment
   - compliance
   - template

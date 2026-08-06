@@ -13,7 +13,7 @@ topics:
 tags:
   - frontend
   - vue
-  - composition-api
+  - composition
   - data-fetching
   - composables
   - recipe

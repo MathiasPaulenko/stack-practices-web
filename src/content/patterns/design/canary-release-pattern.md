@@ -11,7 +11,7 @@ topics:
   - devops
   - architecture
 tags:
-  - canary-release
+  - canary
   - pattern
   - design-pattern
   - deployment-strategy

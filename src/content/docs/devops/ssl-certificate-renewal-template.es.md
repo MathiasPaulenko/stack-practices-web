@@ -13,7 +13,7 @@ topics:
 tags:
   - devops
   - ssl
-  - certificate
+  - certificates
   - tls
   - security
   - template

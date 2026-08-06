@@ -18,7 +18,7 @@ tags:
   - caching
   - redis
   - cdn
-  - browser-cache
+  - browser
   - cache-invalidation
   - performance
   - guide

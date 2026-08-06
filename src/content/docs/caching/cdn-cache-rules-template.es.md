@@ -14,7 +14,6 @@ tags:
   - caching
   - cdn
   - cloudflare
-  - cache-rules
   - edge-computing
   - performance
 relatedResources:

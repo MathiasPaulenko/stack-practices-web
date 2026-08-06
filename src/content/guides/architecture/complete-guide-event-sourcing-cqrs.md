@@ -18,7 +18,7 @@ tags:
   - cqrs
   - event-store
   - projections
-  - read-models
+  - read-model
   - ddd
 relatedResources:
   - /guides/complete-guide-modular-monolith

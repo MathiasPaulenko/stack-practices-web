@@ -15,7 +15,7 @@ topics:
   - architecture
   - api
 tags:
-  - backend-for-frontend
+  - backend
   - pattern
   - design-pattern
   - architecture

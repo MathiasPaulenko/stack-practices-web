@@ -16,7 +16,7 @@ topics:
   - infrastructure
 tags:
   - configuration
-  - environment
+  - environments
   - env-vars
   - secrets
   - deployment

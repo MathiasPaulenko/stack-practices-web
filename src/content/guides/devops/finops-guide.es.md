@@ -14,7 +14,7 @@ topics:
   - infrastructure
 tags:
   - finops
-  - cloud-cost
+  - cloud-costs
   - cost-optimization
   - right-sizing
   - reserved-instances

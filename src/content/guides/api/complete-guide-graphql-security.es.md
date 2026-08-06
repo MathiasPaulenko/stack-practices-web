@@ -20,7 +20,7 @@ tags:
   - guide
   - introspection
   - depth-limiting
-  - cost-analysis
+  - cost
   - rate-limiting
   - authentication
 relatedResources:

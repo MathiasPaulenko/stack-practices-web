@@ -15,7 +15,7 @@ tags:
   - graphql
   - deprecation
   - policy
-  - api-management
+  - management
   - versioning
   - migration
 relatedResources:

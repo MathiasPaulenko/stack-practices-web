@@ -19,7 +19,7 @@ tags:
   - web-scraping
   - html-parsing
   - requests
-  - data-extraction
+  - extraction
 relatedResources:
   - /recipes/python-async-http-requests
   - /recipes/nodejs-read-large-file-stream

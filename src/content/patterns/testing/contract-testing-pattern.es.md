@@ -11,7 +11,7 @@ topics:
   - testing
 tags:
   - testing
-  - contract-testing
+  - contract
   - pact
   - microservices
   - api

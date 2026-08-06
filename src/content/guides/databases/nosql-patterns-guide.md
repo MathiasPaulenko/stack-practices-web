@@ -16,7 +16,7 @@ tags:
   - data-embedding
   - data-modeling
   - dynamodb
-  - embedding
+  - embeddings
   - guide
   - mongodb
   - nosql

@@ -15,7 +15,7 @@ tags:
   - resource-quotas
   - k8s
   - devops
-  - cluster-management
+  - management
   - multi-tenant
 relatedResources:
   - /docs/docker-image-hardening-checklist

@@ -14,12 +14,11 @@ topics:
   - concurrency
   - architecture
 tags:
-  - async-generator
+  - async
   - pattern
   - design-pattern
   - streaming
   - lazy-evaluation
-  - async-iteration
   - backpressure
 relatedResources:
   - /patterns/reactive-streams-pattern

@@ -17,7 +17,7 @@ topics:
 tags:
   - csharp
   - dotnet
-  - async-await
+  - async
   - task
   - concurrency
 relatedResources:

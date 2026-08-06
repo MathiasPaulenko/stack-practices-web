@@ -16,7 +16,7 @@ tags:
   - experimentation
   - statistics
   - data-driven
-  - conversion-optimization
+  - conversion
   - hypothesis
   - guide
 relatedResources:

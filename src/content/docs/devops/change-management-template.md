@@ -12,7 +12,7 @@ topics:
   - devops
 tags:
   - devops
-  - change-management
+  - management
   - cab
   - rollback
   - operations

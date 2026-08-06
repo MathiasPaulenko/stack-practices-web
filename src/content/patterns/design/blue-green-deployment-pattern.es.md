@@ -11,7 +11,7 @@ topics:
   - devops
   - architecture
 tags:
-  - blue-green-deployment
+  - blue-green
   - pattern
   - design-pattern
   - deployment-strategy

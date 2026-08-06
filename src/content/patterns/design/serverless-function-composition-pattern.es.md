@@ -17,7 +17,7 @@ tags:
   - serverless
   - function-composition
   - pattern
-  - aws-step-functions
+  - aws
   - lambda
   - orchestration
   - python

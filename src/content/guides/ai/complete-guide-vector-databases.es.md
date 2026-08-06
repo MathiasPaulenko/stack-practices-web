@@ -12,7 +12,7 @@ topics:
   - databases
   - architecture
 tags:
-  - vector-databases
+  - vector-database
   - ai
   - guide
   - pinecone

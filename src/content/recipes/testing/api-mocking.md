@@ -11,9 +11,8 @@ difficulty: intermediate
 topics:
   - testing
 tags:
-  - api-mocking
-  - testing
   - mocking
+  - testing
   - automation
   - unit-tests
 relatedResources:

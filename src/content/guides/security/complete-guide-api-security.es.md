@@ -22,7 +22,7 @@ tags:
   - cors
   - input-validation
   - api-gateway
-  - audit-logging
+  - audit
 relatedResources:
   - /guides/complete-guide-owasp-top-10-2025
   - /guides/complete-guide-authentication-patterns

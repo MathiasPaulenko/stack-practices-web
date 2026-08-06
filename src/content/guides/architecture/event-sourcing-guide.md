@@ -15,8 +15,8 @@ tags:
   - event-sourcing
   - cqrs
   - event-store
-  - audit-trail
-  - domain-events
+  - audit
+  - events
   - event-driven
   - guide
 relatedResources:

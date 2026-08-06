@@ -19,7 +19,7 @@ tags:
   - design-pattern
   - message-queue
   - traffic-smoothing
-  - async-processing
+  - async
   - backpressure
 relatedResources:
   - /patterns/priority-queue-pattern

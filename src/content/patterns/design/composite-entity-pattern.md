@@ -12,7 +12,7 @@ topics:
   - design
   - databases
 tags:
-  - composite-entity
+  - composite
   - pattern
   - design-pattern
   - structural

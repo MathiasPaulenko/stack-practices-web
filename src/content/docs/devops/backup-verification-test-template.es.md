@@ -11,7 +11,7 @@ topics:
   - devops
   - infrastructure
 tags:
-  - backups
+  - backup
   - disaster-recovery
   - verification
   - runbook

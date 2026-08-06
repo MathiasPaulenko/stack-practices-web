@@ -16,7 +16,7 @@ tags:
   - google-cloud
   - cloud-computing
   - compute-engine
-  - cloud-storage
+  - storage
   - cloud-sql
   - cloud-run
   - bigquery

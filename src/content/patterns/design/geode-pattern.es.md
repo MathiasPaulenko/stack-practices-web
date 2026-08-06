@@ -17,7 +17,7 @@ tags:
   - geode
   - pattern
   - design-pattern
-  - data-partitioning
+  - partitioning
   - database-sharding
   - horizontal-scaling
   - distributed-systems

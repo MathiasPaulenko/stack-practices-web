@@ -12,7 +12,6 @@ topics:
   - data
 tags:
   - guide
-  - apache-airflow
   - airflow
   - dag
   - orchestration

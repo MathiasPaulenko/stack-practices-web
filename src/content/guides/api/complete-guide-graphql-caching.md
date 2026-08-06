@@ -21,7 +21,7 @@ tags:
   - cdn
   - dataloader
   - persisted-queries
-  - apollo-client
+  - apollo
   - cache-invalidation
 relatedResources:
   - /guides/complete-guide-graphql-schema-design

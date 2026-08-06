@@ -10,7 +10,7 @@ topics:
   - design
 tags:
   - design
-  - adapter-pattern
+  - adapter
   - structural-patterns
   - design-pattern
   - pattern

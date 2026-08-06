@@ -13,7 +13,7 @@ tags:
   - schema-evolution
   - database
   - devops
-  - migrations
+  - migration
   - sql
 relatedResources:
   - /recipes/cursor-pagination-postgresql

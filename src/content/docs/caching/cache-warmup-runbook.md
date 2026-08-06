@@ -12,7 +12,6 @@ topics:
   - caching
 tags:
   - caching
-  - cache-warmup
   - runbook
   - redis
   - deployment

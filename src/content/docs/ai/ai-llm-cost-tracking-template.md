@@ -13,7 +13,7 @@ topics:
 tags:
   - ai
   - llm
-  - cost-tracking
+  - cost
   - template
   - budget
   - tokens

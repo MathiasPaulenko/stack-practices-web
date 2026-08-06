@@ -19,7 +19,6 @@ tags:
   - read-through
   - pattern
   - redis
-  - cache-miss
   - performance
   - python
   - java

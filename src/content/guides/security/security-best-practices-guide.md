@@ -19,7 +19,7 @@ tags:
   - secrets
   - encryption
   - authorization
-  - vulnerability
+  - vulnerabilities
   - best-practices
 relatedResources:
   - /recipes/password-hashing

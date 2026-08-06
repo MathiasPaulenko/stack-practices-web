@@ -17,7 +17,7 @@ tags:
   - django
   - cache
   - redis
-  - database-optimization
+  - optimization
 relatedResources:
   - /recipes/python-redis-cache-decorator
   - /recipes/python-memcached-session-storage

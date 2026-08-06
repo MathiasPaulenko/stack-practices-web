@@ -16,7 +16,7 @@ tags:
   - report
   - template
   - remediation
-  - vulnerability
+  - vulnerabilities
   - infrastructure
 relatedResources:
   - /docs/security-audit-checklist

@@ -12,9 +12,8 @@ topics:
   - caching
 tags:
   - caching
-  - cache-strategy
   - redis
-  - decision-matrix
+  - matrix
   - ttl
   - invalidation
 relatedResources:

@@ -18,7 +18,7 @@ tags:
   - federation
   - entity
   - pattern
-  - apollo-federation
+  - apollo
   - subgraph
   - microservices
   - typescript

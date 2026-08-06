@@ -18,7 +18,7 @@ tags:
   - micro-segmentation
   - identity-verification
   - least-privilege
-  - continuous-validation
+  - validation
   - guide
 relatedResources:
   - /guides/secrets-management-guide

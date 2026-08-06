@@ -17,7 +17,7 @@ tags:
   - security
   - guide
   - owasp-top-10
-  - vulnerability
+  - vulnerabilities
   - mitigation
   - web-security
   - injection
