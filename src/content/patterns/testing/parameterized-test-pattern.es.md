@@ -12,7 +12,7 @@ tags:
   - testing
   - parameterized
   - data-driven
-  - test-cases
+  - test-case
   - pattern
 category: architectural
 relatedResources:

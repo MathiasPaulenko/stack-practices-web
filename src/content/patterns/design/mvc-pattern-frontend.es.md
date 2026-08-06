@@ -16,7 +16,6 @@ tags:
   - frontend
   - architecture
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/repository-pattern-typescript
   - /patterns/decorator-pattern-pipeline

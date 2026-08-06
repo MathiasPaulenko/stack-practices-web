@@ -20,7 +20,7 @@ tags:
   - faas
   - guide
   - event-driven
-  - cold-starts
+  - cold-start
   - aws-lambda
   - cost-optimization
   - vendor-lock-in

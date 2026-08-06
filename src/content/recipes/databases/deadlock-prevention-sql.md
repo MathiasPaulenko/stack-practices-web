@@ -17,7 +17,7 @@ tags:
   - isolation-levels
   - sql
   - concurrency
-  - databases
+  - database
 relatedResources:
   - /recipes/acid-transactions-postgres
   - /recipes/postgres-query-optimization

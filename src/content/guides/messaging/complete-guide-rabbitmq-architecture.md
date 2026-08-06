@@ -19,7 +19,7 @@ tags:
   - guide
   - amqp
   - exchanges
-  - queues
+  - queue
   - routing
   - dead-letter
 relatedResources:

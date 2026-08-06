@@ -14,7 +14,6 @@ tags:
   - creational-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/builder-pattern
   - /patterns/abstract-factory-cross-platform

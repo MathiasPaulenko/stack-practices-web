@@ -13,7 +13,7 @@ topics:
   - ai
 tags:
   - ai
-  - agent
+  - agents
   - design-document
   - plantilla
   - llm

@@ -15,7 +15,6 @@ tags:
   - typescript
   - architecture
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/adapter-pattern-api
   - /recipes/database-indexing

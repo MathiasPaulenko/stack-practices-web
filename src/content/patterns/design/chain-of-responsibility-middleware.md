@@ -16,7 +16,6 @@ tags:
   - behavioral-patterns
   - nodejs
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/decorator-pattern-pipeline
   - /patterns/abstract-factory-cross-platform

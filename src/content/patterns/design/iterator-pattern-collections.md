@@ -15,7 +15,6 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/composite-pattern-ui
   - /patterns/abstract-factory-cross-platform

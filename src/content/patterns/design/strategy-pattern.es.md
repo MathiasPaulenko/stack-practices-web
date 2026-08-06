@@ -17,7 +17,7 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - algorithms
+  - algorithm
   - python
   - javascript
   - java

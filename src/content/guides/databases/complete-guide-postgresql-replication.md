@@ -16,7 +16,7 @@ topics:
   - devops
 tags:
   - postgresql
-  - databases
+  - database
   - guide
   - replication
   - streaming-replication

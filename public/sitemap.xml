@@ -12142,6 +12142,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/behavioral/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/es/tags/benchmarks/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/benchmarks/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/benchmarks/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/benchmarks/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/es/tags/best-practices/</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -12502,15 +12511,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/container-security/" />
   </url>
   <url>
-    <loc>https://stackpractices.com/es/tags/container/</loc>
-    <lastmod>2026-08-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/container/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/container/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/container/" />
-  </url>
-  <url>
     <loc>https://stackpractices.com/es/tags/containers/</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -12824,15 +12824,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/design-pattern/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/design-pattern/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/design-pattern/" />
-  </url>
-  <url>
-    <loc>https://stackpractices.com/es/tags/design-patterns/</loc>
-    <lastmod>2026-08-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/design-patterns/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/design-patterns/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/design-patterns/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/design/</loc>
@@ -14336,15 +14327,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pipeline/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pipeline/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pipeline/" />
-  </url>
-  <url>
-    <loc>https://stackpractices.com/es/tags/pipelines/</loc>
-    <lastmod>2026-08-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pipelines/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pipelines/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pipelines/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/plantilla/</loc>
@@ -23680,6 +23662,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/behavioral/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/benchmarks/</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/benchmarks/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/benchmarks/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/benchmarks/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/best-practices/</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -24022,15 +24013,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/container-security/" />
   </url>
   <url>
-    <loc>https://stackpractices.com/tags/container/</loc>
-    <lastmod>2026-08-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/container/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/container/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/container/" />
-  </url>
-  <url>
     <loc>https://stackpractices.com/tags/containers/</loc>
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -24365,9 +24347,6 @@
     <lastmod>2026-08-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/design-patterns/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/design-patterns/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/design-patterns/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/design/</loc>
@@ -25769,15 +25748,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pipeline/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pipeline/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pipeline/" />
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/pipelines/</loc>
-    <lastmod>2026-08-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/pipelines/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/pipelines/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/pipelines/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/policy/</loc>

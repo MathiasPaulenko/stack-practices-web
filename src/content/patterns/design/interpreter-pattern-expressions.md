@@ -16,7 +16,6 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/chain-of-responsibility-middleware
   - /patterns/iterator-pattern-collections

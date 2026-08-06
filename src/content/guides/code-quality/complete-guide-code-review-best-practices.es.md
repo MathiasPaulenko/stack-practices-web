@@ -16,7 +16,7 @@ tags:
   - best-practices
   - feedback
   - automation
-  - pull-requests
+  - pull-request
   - team-collaboration
 relatedResources:
   - /guides/complete-guide-clean-code-principles

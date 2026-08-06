@@ -11,7 +11,7 @@ topics:
 tags:
   - architecture
   - design
-  - patterns
+  - pattern
   - scalability
   - systems
 relatedResources:

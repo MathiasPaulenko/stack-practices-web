@@ -19,7 +19,6 @@ tags:
   - creational-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/bridge-pattern-ui-themes
   - /patterns/abstract-factory-pattern

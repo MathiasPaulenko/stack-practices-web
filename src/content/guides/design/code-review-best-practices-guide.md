@@ -17,7 +17,7 @@ tags:
   - devops
   - guide
   - pull-request
-  - design-patterns
+  - design-pattern
 relatedResources:
   - /guides/design-patterns-guide
   - /guides/testing-strategy-guide

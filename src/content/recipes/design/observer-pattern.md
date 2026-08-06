@@ -13,8 +13,8 @@ topics:
 tags:
   - design
   - observer-pattern
-  - design-patterns
-  - patterns
+  - design-pattern
+  - pattern
   - oop
 relatedResources:
   - /recipes/event-driven-architecture

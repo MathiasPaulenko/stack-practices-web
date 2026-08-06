@@ -12,8 +12,8 @@ topics:
   - design
 tags:
   - design
-  - design-patterns
-  - patterns
+  - design-pattern
+  - pattern
   - oop
   - solid
 relatedResources:

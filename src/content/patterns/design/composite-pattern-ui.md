@@ -17,7 +17,6 @@ tags:
   - structural-patterns
   - react
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/decorator-pattern-pipeline
   - /patterns/adapter-pattern-api

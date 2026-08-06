@@ -13,7 +13,6 @@ tags:
   - mongodb
   - database
   - nodejs
-  - databases
   - sql
 relatedResources:
   - /guides/database-design-guide

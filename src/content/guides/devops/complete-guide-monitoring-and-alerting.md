@@ -20,7 +20,7 @@ tags:
   - prometheus
   - grafana
   - alertmanager
-  - runbooks
+  - runbook
   - sli-slo-sla
 relatedResources:
   - /guides/complete-guide-kubernetes-networking

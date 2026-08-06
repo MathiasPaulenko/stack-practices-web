@@ -18,7 +18,6 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/observer-pattern
   - /patterns/facade-pattern

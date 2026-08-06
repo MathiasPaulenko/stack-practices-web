@@ -17,7 +17,6 @@ tags:
   - structural-patterns
   - microservices
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/circuit-breaker-pattern
   - /patterns/abstract-factory-cross-platform

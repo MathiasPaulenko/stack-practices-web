@@ -17,7 +17,7 @@ tags:
   - llm
   - model-selection
   - matrix
-  - benchmark
+  - benchmarks
   - pricing
   - comparison
 relatedResources:

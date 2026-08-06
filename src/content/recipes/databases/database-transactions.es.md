@@ -16,7 +16,6 @@ tags:
   - database
   - transactions
   - acid
-  - databases
   - sql
 relatedResources:
   - /recipes/sql-joins

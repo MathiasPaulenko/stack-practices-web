@@ -17,7 +17,6 @@ tags:
   - cache
   - database
   - performance
-  - databases
 relatedResources:
   - /recipes/cache-invalidation
   - /recipes/connection-pooling

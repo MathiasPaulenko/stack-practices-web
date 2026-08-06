@@ -13,8 +13,8 @@ topics:
 tags:
   - design
   - hexagonal-architecture
-  - design-patterns
-  - patterns
+  - design-pattern
+  - pattern
   - oop
 relatedResources:
   - /recipes/domain-driven-design

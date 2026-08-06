@@ -13,7 +13,7 @@ tags:
   - architecture
   - circuit-breaker
   - design
-  - patterns
+  - pattern
   - scalability
 relatedResources:
   - /recipes/microservices-patterns

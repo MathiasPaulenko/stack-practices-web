@@ -15,7 +15,7 @@ tags:
   - api-gateway
   - authentication
   - design
-  - patterns
+  - pattern
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/load-balancing

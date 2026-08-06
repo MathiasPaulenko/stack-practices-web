@@ -11,8 +11,8 @@ tags:
   - design
   - strategy-pattern
   - behavioral-patterns
-  - design-patterns
-  - patterns
+  - design-pattern
+  - pattern
 relatedResources:
   - /recipes/factory-pattern-recipe
   - /recipes/adapter-pattern-recipe

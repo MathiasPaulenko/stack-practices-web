@@ -15,7 +15,7 @@ tags:
   - bulkhead
   - circuit-breaker
   - design
-  - patterns
+  - pattern
 relatedResources:
   - /recipes/api-gateway
   - /recipes/event-driven-functions

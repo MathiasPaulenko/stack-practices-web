@@ -13,7 +13,7 @@ topics:
   - infrastructure
 tags:
   - redis
-  - databases
+  - database
   - guide
   - caching
   - redis-cluster

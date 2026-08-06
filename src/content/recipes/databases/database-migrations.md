@@ -14,7 +14,6 @@ topics:
 tags:
   - database
   - ci-cd
-  - databases
   - sql
   - postgresql
 relatedResources:

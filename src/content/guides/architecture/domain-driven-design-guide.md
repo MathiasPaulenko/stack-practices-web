@@ -18,7 +18,7 @@ tags:
   - domain-driven-design
   - guide
   - design
-  - patterns
+  - pattern
 relatedResources:
   - /guides/software-architecture-guide
   - /guides/design-patterns-guide

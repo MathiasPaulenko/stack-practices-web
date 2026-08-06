@@ -16,7 +16,7 @@ tags:
   - testing
   - test-doubles
   - mocking
-  - stubs
+  - stub
   - spies
   - fakes
   - pattern

@@ -14,7 +14,7 @@ tags:
   - guide
   - github-actions
   - ci-cd
-  - workflows
+  - workflow
   - automation
   - deployment
 relatedResources:

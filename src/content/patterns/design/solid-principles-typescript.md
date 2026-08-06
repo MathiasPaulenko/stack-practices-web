@@ -14,7 +14,6 @@ tags:
   - clean-code
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/adapter-pattern-api
   - /patterns/decorator-pattern-pipeline

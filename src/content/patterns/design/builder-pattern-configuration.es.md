@@ -13,7 +13,6 @@ tags:
   - creational
   - design-pattern
   - fluent-interface
-  - design-patterns
 relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/proxy-pattern-caching

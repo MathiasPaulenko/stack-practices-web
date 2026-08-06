@@ -16,7 +16,7 @@ tags:
   - guide
   - structured-logging
   - json-logs
-  - correlation-ids
+  - correlation-id
   - elk
   - loki
   - observability

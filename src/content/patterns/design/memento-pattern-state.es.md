@@ -16,7 +16,6 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/command-pattern-undo
   - /patterns/prototype-pattern-cloning

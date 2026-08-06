@@ -12,7 +12,7 @@ tags:
   - architecture
   - compensation
   - design
-  - patterns
+  - pattern
   - scalability
 relatedResources:
   - /recipes/microservices-patterns

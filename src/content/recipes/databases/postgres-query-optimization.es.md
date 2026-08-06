@@ -17,7 +17,7 @@ tags:
   - postgres
   - sql
   - performance
-  - databases
+  - database
   - postgresql
 relatedResources:
   - /recipes/acid-transactions-postgres

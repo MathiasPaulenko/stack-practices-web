@@ -13,7 +13,7 @@ tags:
   - etl
   - idempotency
   - data-quality
-  - pipelines
+  - pipeline
   - pattern
 category: architectural
 relatedResources:

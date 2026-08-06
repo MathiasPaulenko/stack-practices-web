@@ -16,7 +16,6 @@ tags:
   - structural-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /recipes/cache-invalidation
   - /guides/performance-optimization-guide

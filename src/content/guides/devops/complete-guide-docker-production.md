@@ -20,7 +20,7 @@ tags:
   - containers
   - multi-stage-builds
   - distroless
-  - health-checks
+  - health-check
   - image-scanning
 relatedResources:
   - /guides/complete-guide-kubernetes-networking

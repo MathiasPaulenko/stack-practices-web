@@ -14,7 +14,7 @@ topics:
 tags:
   - guid
   - uuid
-  - databases
+  - database
   - performance
   - data
 relatedResources:

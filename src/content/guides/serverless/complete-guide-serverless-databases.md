@@ -16,7 +16,7 @@ topics:
   - infrastructure
 tags:
   - serverless
-  - databases
+  - database
   - guide
   - dynamodb
   - aurora-serverless

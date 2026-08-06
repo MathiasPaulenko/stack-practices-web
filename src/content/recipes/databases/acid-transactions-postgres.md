@@ -16,7 +16,6 @@ tags:
   - database
   - postgres
   - transactions
-  - databases
 relatedResources:
   - /recipes/mongodb-crud-mongoose
   - /recipes/query-optimization

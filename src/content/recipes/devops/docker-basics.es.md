@@ -14,7 +14,7 @@ topics:
 tags:
   - devops
   - docker
-  - container
+  - containers
   - ci-cd
   - automation
 relatedResources:

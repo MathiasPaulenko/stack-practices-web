@@ -14,7 +14,7 @@ topics:
 tags:
   - graphql
   - subscriptions
-  - websocket
+  - websockets
   - realtime
   - apollo
 relatedResources:

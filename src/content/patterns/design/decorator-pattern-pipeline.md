@@ -18,7 +18,6 @@ tags:
   - middleware
   - structural
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/proxy-pattern-caching
   - /patterns/adapter-pattern

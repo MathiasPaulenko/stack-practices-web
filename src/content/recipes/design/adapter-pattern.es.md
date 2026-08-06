@@ -12,8 +12,8 @@ tags:
   - design
   - adapter-pattern
   - structural-patterns
-  - design-patterns
-  - patterns
+  - design-pattern
+  - pattern
 relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/factory-pattern-recipe

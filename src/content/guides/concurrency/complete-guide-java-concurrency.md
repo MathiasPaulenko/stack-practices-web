@@ -19,7 +19,7 @@ tags:
   - threads
   - completablefuture
   - virtual-threads
-  - executors
+  - executor
   - locks
 relatedResources:
   - /guides/complete-guide-python-asyncio-production

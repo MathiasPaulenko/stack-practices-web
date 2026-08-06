@@ -14,7 +14,6 @@ topics:
 tags:
   - database
   - sql
-  - databases
   - postgresql
   - mysql
 relatedResources:

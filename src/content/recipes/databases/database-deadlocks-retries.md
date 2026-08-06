@@ -13,7 +13,6 @@ tags:
   - database
   - deadlocks
   - isolation-levels
-  - databases
   - sql
 relatedResources:
   - /recipes/database-transactions

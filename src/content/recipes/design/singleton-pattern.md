@@ -13,8 +13,8 @@ tags:
   - design
   - singleton-pattern
   - creational-patterns
-  - design-patterns
-  - patterns
+  - design-pattern
+  - pattern
 relatedResources:
   - /recipes/factory-pattern-recipe
   - /recipes/hexagonal-architecture

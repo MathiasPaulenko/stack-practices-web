@@ -18,7 +18,6 @@ tags:
   - structural-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/adapter-pattern-api
   - /patterns/abstract-factory-cross-platform

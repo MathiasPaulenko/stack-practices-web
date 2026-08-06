@@ -16,7 +16,7 @@ topics:
   - infrastructure
 tags:
   - sharding
-  - databases
+  - database
   - guide
   - partitioning
   - scaling

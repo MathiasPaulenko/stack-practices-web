@@ -12,7 +12,7 @@ tags:
   - istio
   - kubernetes
   - design
-  - patterns
+  - pattern
 relatedResources:
   - /recipes/microservices-patterns
   - /recipes/api-gateway

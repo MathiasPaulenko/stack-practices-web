@@ -18,7 +18,6 @@ tags:
   - api
   - structural
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/decorator-pattern-pipeline
   - /patterns/facade-pattern

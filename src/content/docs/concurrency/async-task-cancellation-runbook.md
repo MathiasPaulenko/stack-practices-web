@@ -18,7 +18,7 @@ tags:
   - cancellation
   - concurrency
   - graceful-shutdown
-  - timeouts
+  - timeout
   - context-propagation
 relatedResources:
   - /docs/thread-pool-sizing-template

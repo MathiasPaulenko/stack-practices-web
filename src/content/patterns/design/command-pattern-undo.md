@@ -16,7 +16,6 @@ tags:
   - behavioral-patterns
   - typescript
   - design-pattern
-  - design-patterns
 relatedResources:
   - /patterns/memento-pattern-state
   - /patterns/abstract-factory-cross-platform

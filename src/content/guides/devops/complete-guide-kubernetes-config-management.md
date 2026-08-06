@@ -15,7 +15,7 @@ topics:
 tags:
   - guide
   - kubernetes
-  - configmaps
+  - configmap
   - secrets
   - external-secrets
   - configuration

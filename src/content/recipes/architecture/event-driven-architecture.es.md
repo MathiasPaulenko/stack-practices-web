@@ -12,7 +12,7 @@ tags:
   - architecture
   - event-driven
   - design
-  - patterns
+  - pattern
   - scalability
 relatedResources:
   - /recipes/microservices-patterns

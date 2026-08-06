@@ -15,7 +15,7 @@ topics:
 tags:
   - pagination
   - api
-  - databases
+  - database
   - rest
   - http
 relatedResources:

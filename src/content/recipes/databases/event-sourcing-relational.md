@@ -13,7 +13,6 @@ tags:
   - database
   - event-sourcing
   - event-store
-  - databases
   - sql
 relatedResources:
   - /recipes/database-deadlocks-retries

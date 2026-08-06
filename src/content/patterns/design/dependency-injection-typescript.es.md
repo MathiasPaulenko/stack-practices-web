@@ -16,7 +16,6 @@ tags:
   - typescript
   - design-pattern
   - testing
-  - design-patterns
 relatedResources:
   - /patterns/singleton-pattern
   - /patterns/factory-pattern

@@ -14,7 +14,7 @@ tags:
   - metrics
   - prometheus
   - opentelemetry
-  - dashboards
+  - dashboard
   - pattern
 category: architectural
 relatedResources:
