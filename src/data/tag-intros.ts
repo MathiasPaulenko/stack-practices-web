@@ -948,4 +948,164 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  ai: {
+    en: {
+      heading: 'Artificial Intelligence in Software',
+      paragraphs: [
+        'Artificial Intelligence is reshaping how software understands, recommends, and automates. Production AI systems require more than model selection; they need robust data pipelines, evaluation, monitoring, cost control, and safeguards.',
+        'The resources below cover LLMs, embeddings, retrieval-augmented generation, agents, prompt engineering, and MLOps basics. Each guide connects AI capabilities to practical engineering decisions.',
+      ],
+    },
+    es: {
+      heading: 'Inteligencia Artificial en Software',
+      paragraphs: [
+        'La Inteligencia Artificial esta transformando como el software entiende, recomienda y automatiza. Los sistemas de IA de produccion requieren mas que seleccion de modelos; necesitan pipelines de datos robustos, evaluacion, monitoreo, control de costos y salvaguardas.',
+        'Los recursos a continuacion cubren LLMs, embeddings, retrieval-augmented generation, agentes, prompt engineering y fundamentos de MLOps. Cada guia conecta las capacidades de IA con decisiones practicas de ingenieria.',
+      ],
+    },
+  },
+  async: {
+    en: {
+      heading: 'Asynchronous Programming',
+      paragraphs: [
+        'Asynchronous programming lets a program handle multiple tasks without blocking execution. It is essential for I/O-bound workloads, responsive UIs, and high-throughput services, but it introduces complexity in error handling, ordering, and cancellation.',
+        'The recipes below cover async/await, promises, futures, callbacks, event loops, backpressure, and concurrency patterns. Each guide explains how to write async code that is readable, correct, and easy to debug.',
+      ],
+    },
+    es: {
+      heading: 'Programacion Asincrona',
+      paragraphs: [
+        'La programacion asincrona permite que un programa maneje multiples tareas sin bloquear la ejecucion. Es esencial para cargas de trabajo con I/O, UIs responsivas y servicios de alto throughput, pero introduce complejidad en manejo de errores, orden y cancelacion.',
+        'Las recetas a continuacion cubren async/await, promises, futures, callbacks, event loops, backpressure y patrones de concurrencia. Cada guia explica como escribir codigo asincrono legible, correcto y facil de depurar.',
+      ],
+    },
+  },
+  validation: {
+    en: {
+      heading: 'Input Validation and Sanitization',
+      paragraphs: [
+        'Input validation is the first line of defense against malformed data, injection attacks, and application errors. Good validation is explicit, rejects bad data early, and separates validation from business logic.',
+        'The resources below cover schema validation, regex, sanitization, whitelisting, custom validators, and error messages. Each recipe shows how to validate and sanitize input safely across forms, APIs, and databases.',
+      ],
+    },
+    es: {
+      heading: 'Validacion y Limpieza de Inputs',
+      paragraphs: [
+        'La validacion de input es la primera linea de defensa contra datos malformados, ataques de inyeccion y errores de aplicacion. Una buena validacion es explicita, rechaza datos malos temprano y separa la validacion de la logica de negocio.',
+        'Los recursos a continuacion cubren validacion de esquemas, regex, sanitizacion, whitelisting, validadores personalizados y mensajes de error. Cada receta muestra como validar y limpiar inputs de forma segura en formularios, APIs y bases de datos.',
+      ],
+    },
+  },
+  pipeline: {
+    en: {
+      heading: 'CI/CD and Data Pipelines',
+      paragraphs: [
+        'Pipelines automate sequences of tasks that move code or data from source to destination. A reliable pipeline is versioned, testable, observable, and easy to debug when a stage fails.',
+        'The recipes below cover CI/CD pipelines, ETL and data pipelines, DAGs, scheduling, artifact management, and pipeline testing. Each guide focuses on building automation that is repeatable and safe to change.',
+      ],
+    },
+    es: {
+      heading: 'Pipelines de CI/CD y Datos',
+      paragraphs: [
+        'Los pipelines automatizan secuencias de tareas que mueven codigo o datos desde el origen al destino. Un pipeline confiable es versionado, testeable, observable y facil de depurar cuando una etapa falla.',
+        'Las recetas a continuacion cubren pipelines de CI/CD, ETL y data pipelines, DAGs, scheduling, gestion de artefactos y testing de pipelines. Cada guia se enfoca en construir automatizacion repetible y segura de cambiar.',
+      ],
+    },
+  },
+  'error-handling': {
+    en: {
+      heading: 'Error Handling in Production',
+      paragraphs: [
+        'Error handling determines how gracefully a system fails. Production code must distinguish between recoverable and fatal errors, provide useful context, log appropriately, and avoid exposing internal details to users.',
+        'The resources below cover exceptions, result types, retries, circuit breakers, error boundaries, and user-friendly messages. Each recipe helps you build error paths that are predictable and easy to operate.',
+      ],
+    },
+    es: {
+      heading: 'Manejo de Errores en Produccion',
+      paragraphs: [
+        'El manejo de errores determina que tan elegantemente falla un sistema. El codigo de produccion debe distinguir entre errores recuperables y fatales, proveer contexto util, loguear adecuadamente y evitar exponer detalles internos a los usuarios.',
+        'Los recursos a continuacion cubren excepciones, tipos de resultado, reintentos, circuit breakers, error boundaries y mensajes amigables. Cada receta te ayuda a construir caminos de error predecibles y faciles de operar.',
+      ],
+    },
+  },
+  metrics: {
+    en: {
+      heading: 'Metrics and SLIs',
+      paragraphs: [
+        'Metrics are quantitative measurements that describe the behavior and health of a system. The right metrics become Service Level Indicators, inform SLOs, and drive alerting without drowning operators in noise.',
+        'The resources below cover counter, gauge, histogram, and summary types, cardinality, instrumentation, dashboards, and metric-driven alerting. Each guide helps you collect signals that are meaningful and actionable.',
+      ],
+    },
+    es: {
+      heading: 'Metricas y SLIs',
+      paragraphs: [
+        'Las metricas son mediciones cuantitativas que describen el comportamiento y la salud de un sistema. Las metricas adecuadas se convierten en Service Level Indicators, informan SLOs y impulsan alertas sin ahogar a los operadores con ruido.',
+        'Los recursos a continuacion cubren tipos counter, gauge, histogram y summary, cardinalidad, instrumentacion, dashboards y alertas basadas en metricas. Cada guia te ayuda a recolectar senales significativas y accionables.',
+      ],
+    },
+  },
+  'unit-tests': {
+    en: {
+      heading: 'Unit Testing',
+      paragraphs: [
+        'Unit tests verify the smallest pieces of code in isolation. They are the fastest feedback loop for developers and the foundation of a reliable test pyramid.',
+        'The resources below cover test frameworks, mocking, assertions, parameterized tests, test isolation, and TDD. Each recipe shows how to write unit tests that are deterministic, fast, and closely aligned with the behavior being tested.',
+      ],
+    },
+    es: {
+      heading: 'Testing Unitario',
+      paragraphs: [
+        'Los tests unitarios verifican las piezas mas pequenas de codigo de forma aislada. Son el ciclo de retroalimentacion mas rapido para desarrolladores y la base de una piramide de tests confiable.',
+        'Los recursos a continuacion cubren frameworks de testing, mocking, assertions, tests parametrizados, aislamiento de tests y TDD. Cada receta muestra como escribir tests unitarios deterministas, rapidos y alineados con el comportamiento bajo prueba.',
+      ],
+    },
+  },
+  integration: {
+    en: {
+      heading: 'Integration Testing',
+      paragraphs: [
+        'Integration testing verifies that multiple components work together correctly. It sits between unit and end-to-end tests, catching issues in interfaces, serialization, and configuration that unit tests miss.',
+        'The resources below cover test databases, testcontainers, service integration, contract testing, and CI strategies. Each guide explains how to build integration tests that are stable enough to trust but focused enough to run frequently.',
+      ],
+    },
+    es: {
+      heading: 'Testing de Integracion',
+      paragraphs: [
+        'El testing de integracion verifica que multiples componentes funcionen correctamente juntos. Se situa entre los tests unitarios y end-to-end, detectando problemas en interfaces, serializacion y configuracion que los tests unitarios no captan.',
+        'Los recursos a continuacion cubren bases de datos de test, testcontainers, integracion de servicios, contract testing y estrategias de CI. Cada guia explica como construir tests de integracion lo suficientemente estables para confiar pero enfocados para ejecutarse frecuentemente.',
+      ],
+    },
+  },
+  backend: {
+    en: {
+      heading: 'Backend Engineering',
+      paragraphs: [
+        'Backend engineering is the discipline of building the services, APIs, and data layers that power applications. It spans architecture, databases, networking, security, and operational concerns that users never see but always feel.',
+        'The resources below cover API design, persistence, caching, authentication, error handling, and scaling. Each recipe focuses on building backends that are reliable, observable, and maintainable under real load.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria Backend',
+      paragraphs: [
+        'La ingenieria backend es la disciplina de construir los servicios, APIs y capas de datos que impulsan las aplicaciones. Abarca arquitectura, bases de datos, redes, seguridad y preocupaciones operativas que los usuarios no ven pero si sienten.',
+        'Los recursos a continuacion cubren diseno de APIs, persistencia, cacheo, autenticacion, manejo de errores y escalado. Cada receta se enfoca en construir backends confiables, observables y mantenibles bajo carga real.',
+      ],
+    },
+  },
+  express: {
+    en: {
+      heading: 'Express.js for Web APIs',
+      paragraphs: [
+        'Express.js is the minimal, flexible Node.js framework behind many production APIs and web applications. Its middleware model makes it easy to extend, but it requires discipline to keep routing, error handling, and structure maintainable.',
+        'The resources below cover routing, middleware, error handling, security, validation, and deployment. Each recipe shows how to build Express applications that are clean, secure, and ready for production traffic.',
+      ],
+    },
+    es: {
+      heading: 'Express.js para APIs Web',
+      paragraphs: [
+        'Express.js es el framework minimal y flexible de Node.js detras de muchas APIs y aplicaciones web de produccion. Su modelo de middleware lo hace facil de extender, pero requiere disciplina para mantener routing, manejo de errores y estructura.',
+        'Los recursos a continuacion cubren routing, middleware, manejo de errores, seguridad, validacion y despliegue. Cada receta muestra como construir aplicaciones Express limpias, seguras y listas para trafico de produccion.',
+      ],
+    },
+  },
 };
