@@ -18,7 +18,7 @@ tags:
   - web-security
   - vulnerability-mitigation
   - secure-coding
-  - guia
+  - guide
 relatedResources:
   - /guides/secure-coding-guide
   - /guides/threat-modeling-guide

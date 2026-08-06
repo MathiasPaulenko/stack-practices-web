@@ -14,10 +14,10 @@ topics:
   - testing
   - design
 tags:
-  - desarrollo-guiado-por-pruebas
-  - flujo-de-trabajo
-  - guia
-  - pruebas-unitarias
+  - test-driven-development
+  - workflow
+  - guide
+  - unit-testing
   - red-green-refactor
   - tdd
   - testing

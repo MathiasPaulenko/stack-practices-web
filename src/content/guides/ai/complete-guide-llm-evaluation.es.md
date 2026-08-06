@@ -17,7 +17,7 @@ tags:
   - llm
   - evaluation
   - ai
-  - guia
+  - guide
   - ragas
   - hallucination
   - ab-testing

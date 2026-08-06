@@ -18,7 +18,7 @@ tags:
   - ai
   - llm
   - prompt-engineering
-  - plantilla
+  - template
   - prompt-template
   - gpt
   - claude

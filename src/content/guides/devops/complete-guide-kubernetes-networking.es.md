@@ -17,7 +17,7 @@ tags:
   - kubernetes
   - networking
   - devops
-  - guia
+  - guide
   - services
   - ingress
   - network-policies

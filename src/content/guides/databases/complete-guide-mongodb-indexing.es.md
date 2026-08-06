@@ -16,7 +16,7 @@ topics:
 tags:
   - mongodb
   - database
-  - guia
+  - guide
   - indexing
   - nosql
   - performance

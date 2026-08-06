@@ -20,7 +20,7 @@ tags:
   - cloud-portability
   - workload-placement
   - data-gravity
-  - guia
+  - guide
 relatedResources:
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide

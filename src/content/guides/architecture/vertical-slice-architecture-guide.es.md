@@ -17,7 +17,7 @@ tags:
   - code-organization
   - cohesion
   - maintainability
-  - guia
+  - guide
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/layered-architecture-guide

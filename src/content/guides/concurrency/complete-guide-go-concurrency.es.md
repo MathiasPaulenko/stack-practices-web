@@ -16,7 +16,7 @@ tags:
   - go
   - golang
   - concurrency
-  - guia
+  - guide
   - goroutines
   - channels
   - context

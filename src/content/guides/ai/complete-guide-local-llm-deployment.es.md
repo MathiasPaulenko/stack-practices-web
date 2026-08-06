@@ -15,7 +15,7 @@ topics:
 tags:
   - local-llm
   - ai
-  - guia
+  - guide
   - ollama
   - vllm
   - llama-cpp

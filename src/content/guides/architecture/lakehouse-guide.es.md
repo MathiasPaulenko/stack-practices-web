@@ -18,7 +18,7 @@ tags:
   - open-table-format
   - acid-transactions
   - time-travel
-  - guia
+  - guide
 relatedResources:
   - /guides/data-lake-guide
   - /guides/data-mesh-guide

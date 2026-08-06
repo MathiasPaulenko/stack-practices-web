@@ -14,7 +14,7 @@ topics:
 tags:
   - llm-security
   - ai
-  - guia
+  - guide
   - prompt-injection
   - owasp-llm
   - guardrails

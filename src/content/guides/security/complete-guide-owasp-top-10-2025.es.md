@@ -15,7 +15,7 @@ topics:
 tags:
   - owasp
   - security
-  - guia
+  - guide
   - owasp-top-10
   - vulnerability
   - mitigation

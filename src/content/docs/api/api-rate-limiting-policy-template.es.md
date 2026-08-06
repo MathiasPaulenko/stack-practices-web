@@ -19,8 +19,8 @@ tags:
   - api
   - rate-limiting
   - throttling
-  - politica
-  - plantilla
+  - policy
+  - template
   - performance
 relatedResources:
   - /docs/api-performance-budget-template

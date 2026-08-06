@@ -14,7 +14,7 @@ topics:
 tags:
   - vector-databases
   - ai
-  - guia
+  - guide
   - pinecone
   - weaviate
   - chroma

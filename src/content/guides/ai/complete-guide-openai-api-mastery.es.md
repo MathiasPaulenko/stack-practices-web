@@ -16,7 +16,7 @@ topics:
 tags:
   - openai
   - ai
-  - guia
+  - guide
   - api
   - gpt-4
   - embeddings

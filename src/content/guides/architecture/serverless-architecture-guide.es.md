@@ -21,7 +21,7 @@ tags:
   - cloud-functions
   - cold-start
   - event-driven
-  - guia
+  - guide
 relatedResources:
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide

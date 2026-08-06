@@ -15,9 +15,9 @@ topics:
   - performance
 tags:
   - architecture
-  - entrevista
+  - interview
   - scalability
-  - guia
+  - guide
   - performance
   - distributed-systems
 relatedResources:

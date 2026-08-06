@@ -15,10 +15,10 @@ topics:
   - devops
 tags:
   - devops
-  - documentacion
+  - documentation
   - markdown
   - open-source
-  - plantilla
+  - template
 relatedResources:
   - /patterns/factory-pattern
   - /recipes/git-workflow

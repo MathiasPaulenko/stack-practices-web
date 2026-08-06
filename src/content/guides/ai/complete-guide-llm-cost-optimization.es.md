@@ -17,7 +17,7 @@ tags:
   - llm
   - cost-optimization
   - ai
-  - guia
+  - guide
   - caching
   - token-management
   - model-routing

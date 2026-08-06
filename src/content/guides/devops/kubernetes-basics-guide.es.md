@@ -17,9 +17,9 @@ tags:
   - architecture
   - contenedores
   - devops
-  - guia
+  - guide
   - kubernetes
-  - orquestacion
+  - orchestration
 relatedResources:
   - /guides/docker-for-developers-guide
   - /guides/cicd-pipeline-guide

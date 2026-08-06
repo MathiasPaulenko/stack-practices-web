@@ -15,8 +15,8 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - deshacer
-  - instantanea-de-estado
+  - undo
+  - state-snapshot
   - python
   - javascript
   - java

@@ -15,13 +15,13 @@ topics:
   - architecture
   - frontend
 tags:
-  - hosting-de-contenido-estatico
+  - static-content-hosting
   - pattern
   - design-pattern
   - cdn
   - s3
   - cloudfront
-  - almacenamiento-de-objetos
+  - object-storage
   - frontend
 relatedResources:
   - /patterns/content-delivery-network-pattern

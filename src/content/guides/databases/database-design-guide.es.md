@@ -14,11 +14,10 @@ topics:
   - architecture
 tags:
   - architecture
-  - bases-de-datos
   - database
   - database-design
-  - indexacion
-  - normalizacion
+  - indexing
+  - database-normalization
   - sql
 relatedResources:
   - /recipes/sql-joins

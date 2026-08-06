@@ -15,12 +15,12 @@ topics:
   - api
 tags:
   - api
-  - control-de-acceso
-  - guia
+  - access-control
+  - guide
   - inyeccion
   - owasp-top-10
   - security
-  - seguridad-web
+  - web-security
   - xss
 relatedResources:
   - /guides/api-security-checklist-guide

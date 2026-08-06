@@ -13,9 +13,9 @@ topics:
 tags:
   - database
   - scalability
-  - escalado-horizontal
-  - guia
-  - particionamiento
+  - horizontal-scaling
+  - guide
+  - partitioning
   - rendimiento-base-de-datos
   - database-sharding
 relatedResources:

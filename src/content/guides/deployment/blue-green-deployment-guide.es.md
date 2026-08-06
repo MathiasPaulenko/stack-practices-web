@@ -20,7 +20,7 @@ tags:
   - rollback
   - traffic-switching
   - infrastructure
-  - guia
+  - guide
 relatedResources:
   - /guides/canary-deployment-guide
   - /guides/feature-flags-guide

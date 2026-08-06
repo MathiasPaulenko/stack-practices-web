@@ -19,8 +19,8 @@ tags:
   - outer-join
   - cross-join
   - self-join
-  - optimizacion-consultas
-  - guia
+  - query-optimization
+  - guide
 relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-cte-guide

@@ -18,7 +18,7 @@ topics:
 tags:
   - supply-chain-security
   - security
-  - guia
+  - guide
   - sbom
   - sigstore
   - slsa

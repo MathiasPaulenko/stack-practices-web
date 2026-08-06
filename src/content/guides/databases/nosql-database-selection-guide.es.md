@@ -14,7 +14,7 @@ tags:
   - cassandra
   - database
   - dynamodb
-  - guia
+  - guide
   - mongodb
   - nosql
   - redis

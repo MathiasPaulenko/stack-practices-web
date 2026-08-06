@@ -18,7 +18,7 @@ tags:
   - presentation-layer
   - business-logic-layer
   - data-access-layer
-  - guia
+  - guide
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/vertical-slice-architecture-guide

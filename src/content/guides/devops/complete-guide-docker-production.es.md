@@ -16,7 +16,7 @@ topics:
 tags:
   - docker
   - devops
-  - guia
+  - guide
   - containers
   - multi-stage-builds
   - distroless

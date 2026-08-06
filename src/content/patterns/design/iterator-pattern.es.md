@@ -16,8 +16,8 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - recorrido
-  - coleccion
+  - traversal
+  - collection
   - python
   - javascript
   - java

@@ -16,7 +16,7 @@ tags:
   - caching
   - in-memory
   - distributed-cache
-  - guia
+  - guide
   - lru
   - ttl
   - multi-tier

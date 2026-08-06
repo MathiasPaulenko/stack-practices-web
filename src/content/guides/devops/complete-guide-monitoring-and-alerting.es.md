@@ -16,7 +16,7 @@ tags:
   - monitoring
   - alerting
   - devops
-  - guia
+  - guide
   - prometheus
   - grafana
   - alertmanager

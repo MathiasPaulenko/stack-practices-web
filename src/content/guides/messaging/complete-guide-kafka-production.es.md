@@ -17,7 +17,7 @@ topics:
 tags:
   - kafka
   - messaging
-  - guia
+  - guide
   - streaming
   - partitions
   - consumer-group

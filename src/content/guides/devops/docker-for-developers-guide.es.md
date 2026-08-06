@@ -14,10 +14,10 @@ topics:
   - devops
 tags:
   - contenedores
-  - desarrollo
+  - development
   - devops
   - docker
-  - guia
+  - guide
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/kubernetes-basics-guide

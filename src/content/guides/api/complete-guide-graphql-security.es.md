@@ -17,7 +17,7 @@ topics:
 tags:
   - graphql
   - security
-  - guia
+  - guide
   - introspection
   - depth-limiting
   - cost-analysis

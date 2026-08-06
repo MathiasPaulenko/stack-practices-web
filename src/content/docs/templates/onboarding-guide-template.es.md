@@ -11,7 +11,7 @@ topics:
   - devops
 tags:
   - devops
-  - documentacion
+  - documentation
   - equipo
   - onboarding
   - ci-cd

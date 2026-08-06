@@ -14,7 +14,7 @@ topics:
 tags:
   - css
   - frontend
-  - guia
+  - guide
   - css-grid
   - flexbox
   - responsive-design

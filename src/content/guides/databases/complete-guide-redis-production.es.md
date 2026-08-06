@@ -14,7 +14,7 @@ topics:
 tags:
   - redis
   - database
-  - guia
+  - guide
   - caching
   - redis-cluster
   - sentinel

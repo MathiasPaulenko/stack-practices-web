@@ -14,7 +14,7 @@ tags:
   - ai
   - llm
   - cost-tracking
-  - plantilla
+  - template
   - budget
   - tokens
   - optimization

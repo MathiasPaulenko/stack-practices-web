@@ -17,10 +17,10 @@ tags:
   - database-sharding
   - pattern
   - design-pattern
-  - bases-de-datos
+  - database
   - growth
-  - particionamiento
-  - escala-horizontal
+  - partitioning
+  - horizontal-scaling
 relatedResources:
   - /patterns/database-per-service-pattern
   - /patterns/materialized-view-pattern

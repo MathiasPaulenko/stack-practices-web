@@ -13,12 +13,12 @@ topics:
   - devops
 tags:
   - devops
-  - guia
+  - guide
   - mttr
-  - observabilidad
+  - observability
   - on-call
   - postmortem
-  - respuesta-a-incidentes
+  - incident-response
 relatedResources:
   - /guides/docker-for-developers-guide
   - /guides/web-application-security-guide

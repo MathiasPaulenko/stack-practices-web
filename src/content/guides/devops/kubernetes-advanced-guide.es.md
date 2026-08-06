@@ -21,7 +21,7 @@ tags:
   - multi-cluster
   - security-hardening
   - helm
-  - guia
+  - guide
 relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/observability-guide

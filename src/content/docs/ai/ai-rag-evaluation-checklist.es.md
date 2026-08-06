@@ -15,7 +15,7 @@ topics:
 tags:
   - ai
   - rag
-  - evaluacion
+  - evaluation
   - checklist
   - llm
   - retrieval

@@ -15,7 +15,7 @@ topics:
 tags:
   - gitops
   - devops
-  - guia
+  - guide
   - argocd
   - flux
   - progressive-delivery

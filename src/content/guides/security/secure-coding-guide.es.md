@@ -17,7 +17,7 @@ tags:
   - memory-safety
   - authentication
   - defensive-programming
-  - guia
+  - guide
 relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secrets-management-guide

@@ -15,12 +15,12 @@ topics:
   - architecture
   - messaging
 tags:
-  - nivelacion-de-carga-basada-en-colas
+  - queue-based-load-leveling
   - pattern
   - design-pattern
-  - mensajeria
+  - messaging
   - queue
-  - nivelacion-de-carga
+  - load-balancing
   - backpressure
   - decoupling
 relatedResources:

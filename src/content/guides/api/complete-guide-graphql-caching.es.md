@@ -17,7 +17,7 @@ topics:
 tags:
   - graphql
   - caching
-  - guia
+  - guide
   - cdn
   - dataloader
   - persisted-queries

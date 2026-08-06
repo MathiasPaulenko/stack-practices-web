@@ -11,14 +11,14 @@ topics:
   - databases
   - performance
 tags:
-  - indexacion-base-datos
+  - database-indexing
   - b-tree
   - indice-hash
   - indice-gin
   - indice-compuesto
   - indice-parcial
-  - optimizacion-consultas
-  - guia
+  - query-optimization
+  - guide
 relatedResources:
   - /guides/database-normalization-guide
   - /guides/sql-joins-guide

@@ -18,7 +18,7 @@ topics:
 tags:
   - secrets-management
   - security
-  - guia
+  - guide
   - vault
   - aws-secrets-manager
   - azure-key-vault

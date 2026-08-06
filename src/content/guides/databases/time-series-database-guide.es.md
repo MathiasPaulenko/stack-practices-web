@@ -10,14 +10,14 @@ topics:
   - databases
   - performance
 tags:
-  - series-temporales
+  - time-series
   - influxdb
   - timescaledb
   - clickhouse
   - iot
-  - metricas
-  - politica-retencion
-  - guia
+  - metrics
+  - retention-policy
+  - guide
 relatedResources:
   - /guides/nosql-patterns-guide
   - /guides/sql-performance-tuning-guide

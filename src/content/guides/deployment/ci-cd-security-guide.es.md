@@ -19,9 +19,9 @@ tags:
   - pipeline
   - secrets-management
   - supply-chain
-  - escaneo-dependencias
+  - dependency-scanning
   - hardening
-  - guia
+  - guide
 relatedResources:
   - /guides/zero-trust-architecture-guide
   - /guides/api-security-checklist-guide

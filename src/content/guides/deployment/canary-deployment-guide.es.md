@@ -20,7 +20,7 @@ tags:
   - traffic-splitting
   - rollback
   - feature-flags
-  - guia
+  - guide
 relatedResources:
   - /guides/blue-green-deployment-guide
   - /guides/feature-flags-guide

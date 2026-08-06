@@ -12,11 +12,11 @@ topics:
   - design
 tags:
   - clean-code
-  - mantenibilidad
-  - legibilidad
+  - maintainability
+  - readability
   - refactoring
-  - mejores-practicas
-  - guia
+  - best-practices
+  - guide
 relatedResources:
   - /guides/solid-principles-guide
   - /guides/code-review-best-practices-guide

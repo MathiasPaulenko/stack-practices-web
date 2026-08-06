@@ -16,9 +16,9 @@ topics:
 tags:
   - api
   - changelog
-  - versionado
-  - documentacion
-  - plantilla
+  - versioning
+  - documentation
+  - template
 relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-deprecation-notice-template

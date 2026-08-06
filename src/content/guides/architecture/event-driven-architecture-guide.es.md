@@ -18,7 +18,7 @@ tags:
   - cqrs
   - devops
   - event-driven
-  - guia
+  - guide
   - saga
 relatedResources:
   - /guides/microservices-architecture-guide

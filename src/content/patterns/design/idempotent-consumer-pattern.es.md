@@ -17,10 +17,10 @@ tags:
   - idempotent-consumer
   - pattern
   - design-pattern
-  - mensajeria
+  - messaging
   - kafka
-  - deduplicacion
-  - idempotencia
+  - deduplication
+  - idempotency
   - event-driven
 relatedResources:
   - /patterns/event-sourcing-pattern

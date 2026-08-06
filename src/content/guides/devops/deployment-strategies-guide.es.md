@@ -13,11 +13,11 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - cero-downtime
+  - zero-downtime
   - deployment
   - devops
   - feature-flags
-  - guia
+  - guide
   - rollback
 relatedResources:
   - /guides/cicd-pipeline-guide

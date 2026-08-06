@@ -18,9 +18,9 @@ tags:
   - cassandra
   - redis
   - modelado-datos
-  - embebido
-  - referenciado
-  - guia
+  - data-embedding
+  - referencing
+  - guide
 relatedResources:
   - /guides/database-design-guide
   - /guides/time-series-database-guide

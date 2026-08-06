@@ -17,11 +17,11 @@ tags:
   - terraform
   - infrastructure-as-code
   - iac
-  - modulos
-  - estado-remoto
+  - modules
+  - remote-state
   - workspaces
   - hashicorp
-  - guia
+  - guide
 relatedResources:
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide

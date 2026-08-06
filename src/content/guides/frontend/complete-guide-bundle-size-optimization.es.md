@@ -16,7 +16,7 @@ topics:
 tags:
   - performance
   - frontend
-  - guia
+  - guide
   - bundle-size
   - tree-shaking
   - code-splitting

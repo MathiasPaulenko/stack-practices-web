@@ -16,7 +16,7 @@ topics:
 tags:
   - rabbitmq
   - messaging
-  - guia
+  - guide
   - amqp
   - exchanges
   - queue

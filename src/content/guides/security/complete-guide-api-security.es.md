@@ -17,7 +17,7 @@ topics:
 tags:
   - api-security
   - security
-  - guia
+  - guide
   - rate-limiting
   - cors
   - input-validation

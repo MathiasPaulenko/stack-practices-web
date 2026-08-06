@@ -17,8 +17,8 @@ tags:
   - pattern
   - design-pattern
   - architecture
-  - modelo-lectura
-  - modelo-escritura
+  - read-model
+  - write-model
   - scalability
   - python
   - javascript

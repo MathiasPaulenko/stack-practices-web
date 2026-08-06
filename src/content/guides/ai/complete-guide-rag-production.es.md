@@ -17,7 +17,7 @@ topics:
 tags:
   - rag
   - ai
-  - guia
+  - guide
   - embeddings
   - vector-search
   - reranking

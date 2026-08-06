@@ -15,8 +15,8 @@ topics:
   - observability
   - performance
 tags:
-  - observabilidad
-  - metricas
+  - observability
+  - metrics
   - logs
   - traces
   - prometheus
@@ -24,7 +24,7 @@ tags:
   - loki
   - jaeger
   - slo
-  - guia
+  - guide
 relatedResources:
   - /guides/opentelemetry-guide
   - /guides/sre-practices-guide

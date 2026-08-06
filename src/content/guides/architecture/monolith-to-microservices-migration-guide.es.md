@@ -16,12 +16,12 @@ topics:
 tags:
   - architecture
   - devops
-  - guia
+  - guide
   - microservices
-  - migracion
-  - modernizacion
-  - monolito
-  - refactorizacion
+  - migration
+  - modernization
+  - monolith
+  - refactoring
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/domain-driven-design-guide

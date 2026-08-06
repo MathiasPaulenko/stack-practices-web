@@ -14,7 +14,7 @@ tags:
   - design-pattern
   - behavioral
   - double-dispatch
-  - operaciones
+  - operations
   - python
   - javascript
   - java

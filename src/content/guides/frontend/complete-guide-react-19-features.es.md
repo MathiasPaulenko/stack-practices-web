@@ -14,7 +14,7 @@ topics:
 tags:
   - react
   - frontend
-  - guia
+  - guide
   - react-19
   - server-components
   - actions

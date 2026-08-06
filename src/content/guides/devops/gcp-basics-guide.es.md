@@ -20,7 +20,7 @@ tags:
   - cloud-sql
   - cloud-run
   - bigquery
-  - guia
+  - guide
 relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/kubernetes-advanced-guide

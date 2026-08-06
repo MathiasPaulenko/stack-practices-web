@@ -15,7 +15,7 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - maquina-de-estados
+  - finite-state-machine
   - fsm
   - python
   - javascript

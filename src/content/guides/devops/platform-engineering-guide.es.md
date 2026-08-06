@@ -19,7 +19,7 @@ tags:
   - backstage
   - crossplane
   - terraform
-  - guia
+  - guide
 relatedResources:
   - /guides/sre-practices-guide
   - /guides/observability-guide

@@ -19,7 +19,7 @@ tags:
   - experimentation
   - toggles
   - rollout
-  - guia
+  - guide
 relatedResources:
   - /guides/canary-deployment-guide
   - /guides/a-b-testing-guide

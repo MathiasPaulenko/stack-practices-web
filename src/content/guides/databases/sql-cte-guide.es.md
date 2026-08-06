@@ -15,11 +15,11 @@ topics:
 tags:
   - sql
   - cte
-  - expresion-tabla-comun
-  - cte-recursiva
-  - legibilidad
-  - organizacion-consultas
-  - guia
+  - common-table-expression
+  - recursive-cte
+  - readability
+  - query-organization
+  - guide
 relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-performance-tuning-guide

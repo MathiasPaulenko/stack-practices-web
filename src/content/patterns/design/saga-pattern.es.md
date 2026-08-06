@@ -18,7 +18,7 @@ tags:
   - design-pattern
   - microservices
   - distributed-transactions
-  - compensacion
+  - compensation
   - python
   - javascript
   - java

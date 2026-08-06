@@ -21,7 +21,7 @@ tags:
   - azure-key-vault
   - gcp-secret-manager
   - secret-rotation
-  - guia
+  - guide
 relatedResources:
   - /guides/secure-coding-guide
   - /guides/cryptography-basics-guide

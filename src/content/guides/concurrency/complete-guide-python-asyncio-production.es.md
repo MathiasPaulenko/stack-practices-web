@@ -18,7 +18,7 @@ topics:
 tags:
   - python
   - asyncio
-  - guia
+  - guide
   - concurrency
   - event-loop
   - async

@@ -21,7 +21,7 @@ tags:
   - blob-storage
   - app-service
   - active-directory
-  - guia
+  - guide
 relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/kubernetes-advanced-guide

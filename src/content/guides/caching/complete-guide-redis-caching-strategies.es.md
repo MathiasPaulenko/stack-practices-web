@@ -18,7 +18,7 @@ topics:
 tags:
   - redis
   - caching
-  - guia
+  - guide
   - cache-aside
   - write-through
   - eviction

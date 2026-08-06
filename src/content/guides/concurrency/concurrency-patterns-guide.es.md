@@ -14,10 +14,9 @@ topics:
   - architecture
 tags:
   - architecture
-  - concurrencia
   - concurrency
-  - paralelismo
-  - semaforo
+  - parallelism
+  - semaphore
 relatedResources:
   - /recipes/caching
   - /recipes/singleton-pattern-recipe

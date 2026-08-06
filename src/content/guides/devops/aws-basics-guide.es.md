@@ -22,7 +22,7 @@ tags:
   - rds
   - lambda
   - vpc
-  - guia
+  - guide
 relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/kubernetes-advanced-guide

@@ -17,7 +17,7 @@ tags:
   - design-pattern
   - behavioral
   - parser
-  - gramatica
+  - grammar
   - python
   - javascript
   - java

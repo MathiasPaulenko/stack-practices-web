@@ -15,9 +15,9 @@ topics:
   - performance
 tags:
   - database
-  - guia
-  - indexacion
-  - optimizacion-de-consultas
+  - guide
+  - indexing
+  - query-optimization
   - performance
   - sql
 relatedResources:

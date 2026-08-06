@@ -15,7 +15,7 @@ topics:
 tags:
   - langchain
   - ai
-  - guia
+  - guide
   - chains
   - agents
   - memory

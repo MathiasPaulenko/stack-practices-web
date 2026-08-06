@@ -14,13 +14,13 @@ topics:
   - infrastructure
   - performance
 tags:
-  - planificacion-capacidad
+  - capacity-planning
   - escalado
   - load-testing
-  - auto-escalado
-  - pronostico
+  - auto-scaling
+  - forecasting
   - infraestructura
-  - guia
+  - guide
 relatedResources:
   - /guides/performance-optimization-guide
   - /guides/finops-guide

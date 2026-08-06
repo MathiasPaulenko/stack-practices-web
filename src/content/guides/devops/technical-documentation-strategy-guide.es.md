@@ -12,10 +12,10 @@ topics:
 tags:
   - devops
   - docs-as-code
-  - documentacion
-  - escritura-tecnica
-  - gestion-del-conocimiento
-  - guia
+  - documentation
+  - technical-writing
+  - knowledge-management
+  - guide
   - markdown
 relatedResources:
   - /guides/code-review-best-practices-guide

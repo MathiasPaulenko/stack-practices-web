@@ -18,7 +18,7 @@ topics:
 tags:
   - llm
   - ai
-  - guia
+  - guide
   - architecture
   - prompt-engineering
   - streaming

@@ -17,7 +17,7 @@ topics:
 tags:
   - serverless
   - database
-  - guia
+  - guide
   - dynamodb
   - aurora-serverless
   - faunadb

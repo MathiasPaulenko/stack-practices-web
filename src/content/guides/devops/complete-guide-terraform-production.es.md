@@ -17,7 +17,7 @@ topics:
 tags:
   - terraform
   - devops
-  - guia
+  - guide
   - iac
   - modules
   - state-management

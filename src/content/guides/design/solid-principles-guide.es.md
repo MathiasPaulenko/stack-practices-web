@@ -12,11 +12,11 @@ topics:
   - design
 tags:
   - solid
-  - diseno-orientado-a-objetos
-  - principios
+  - object-oriented-design
+  - principles
   - architecture
-  - mantenibilidad
-  - guia
+  - maintainability
+  - guide
 relatedResources:
   - /guides/clean-code-principles-guide
   - /guides/design-patterns-guide

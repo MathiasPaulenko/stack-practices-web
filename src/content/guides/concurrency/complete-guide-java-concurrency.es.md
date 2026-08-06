@@ -15,7 +15,7 @@ topics:
 tags:
   - java
   - concurrency
-  - guia
+  - guide
   - threads
   - completablefuture
   - virtual-threads

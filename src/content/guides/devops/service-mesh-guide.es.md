@@ -18,9 +18,9 @@ tags:
   - linkerd
   - sidecar
   - mtls
-  - gestion-trafico
-  - observabilidad
-  - guia
+  - traffic-management
+  - observability
+  - guide
 relatedResources:
   - /guides/observability-guide
   - /guides/kubernetes-advanced-guide

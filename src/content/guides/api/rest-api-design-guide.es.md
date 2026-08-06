@@ -16,9 +16,9 @@ topics:
 tags:
   - api
   - architecture
-  - diseno
+  - design
   - http
-  - mejores-practicas
+  - best-practices
   - rest
 relatedResources:
   - /recipes/call-rest-api

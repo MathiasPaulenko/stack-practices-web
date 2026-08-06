@@ -15,11 +15,11 @@ tags:
   - opentelemetry
   - otel
   - tracing
-  - metricas
+  - metrics
   - logs
   - collector
-  - instrumentacion
-  - guia
+  - instrumentation
+  - guide
 relatedResources:
   - /guides/observability-guide
   - /guides/service-mesh-guide

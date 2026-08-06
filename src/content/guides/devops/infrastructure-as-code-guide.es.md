@@ -14,7 +14,7 @@ topics:
   - devops
 tags:
   - devops
-  - guia
+  - guide
   - cloud
   - pulumi
   - terraform

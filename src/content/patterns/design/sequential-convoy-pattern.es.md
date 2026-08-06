@@ -16,7 +16,7 @@ tags:
   - sequential-convoy
   - pattern
   - design-pattern
-  - mensajeria
+  - messaging
   - ordering
   - sequence
   - kafka

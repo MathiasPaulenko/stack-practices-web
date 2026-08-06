@@ -16,11 +16,11 @@ topics:
   - architecture
   - concurrency
 tags:
-  - cola-de-prioridad
+  - priority-queue
   - pattern
   - design-pattern
   - programacion
-  - concurrencia
+  - concurrency
   - heap
   - queue
 relatedResources:

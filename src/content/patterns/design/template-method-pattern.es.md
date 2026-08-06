@@ -16,8 +16,8 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - algoritmo
-  - herencia
+  - algorithm
+  - inheritance
   - python
   - javascript
   - java

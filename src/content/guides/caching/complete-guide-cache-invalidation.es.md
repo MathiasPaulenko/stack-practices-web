@@ -14,7 +14,7 @@ topics:
 tags:
   - caching
   - invalidation
-  - guia
+  - guide
   - ttl
   - event-driven
   - versioned-keys

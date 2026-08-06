@@ -17,7 +17,7 @@ topics:
 tags:
   - database-sharding
   - database
-  - guia
+  - guide
   - partitioning
   - scaling
   - vitess

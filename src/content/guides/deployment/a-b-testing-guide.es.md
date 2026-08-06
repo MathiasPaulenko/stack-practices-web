@@ -18,7 +18,7 @@ tags:
   - data-driven
   - conversion-optimization
   - hypothesis
-  - guia
+  - guide
 relatedResources:
   - /guides/feature-flags-guide
   - /guides/canary-deployment-guide

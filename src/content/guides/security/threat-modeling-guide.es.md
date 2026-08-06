@@ -18,7 +18,7 @@ tags:
   - data-flow-diagrams
   - security-design
   - risk-assessment
-  - guia
+  - guide
 relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secure-coding-guide

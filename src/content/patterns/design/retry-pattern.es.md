@@ -15,8 +15,8 @@ tags:
   - pattern
   - design-pattern
   - resilience
-  - fallas-transitorias
-  - backoff-exponencial
+  - transient-failures
+  - exponential-backoff
   - python
   - javascript
   - java

@@ -21,7 +21,7 @@ tags:
   - sliding-window
   - leaky-bucket
   - resilience
-  - guia
+  - guide
 relatedResources:
   - /guides/rest-api-design-guide
   - /guides/api-gateway-design-guide

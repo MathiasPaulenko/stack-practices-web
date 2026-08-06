@@ -17,7 +17,7 @@ topics:
 tags:
   - event-driven
   - messaging
-  - guia
+  - guide
   - event-sourcing
   - cqrs
   - saga

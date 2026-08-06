@@ -15,11 +15,11 @@ topics:
   - architecture
 tags:
   - api
-  - manejo-de-errores
+  - error-handling
   - codigos-http
   - rest
   - graphql
-  - guia
+  - guide
 relatedResources:
   - /docs/microservice-contract-template
   - /docs/api-security-review-template

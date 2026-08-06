@@ -17,7 +17,7 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - control-de-acceso
+  - access-control
   - caching
   - python
   - javascript

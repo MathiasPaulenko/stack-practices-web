@@ -20,10 +20,10 @@ tags:
   - slo
   - sli
   - sla
-  - presupuesto-error
+  - error-budget
   - toil
-  - guardia
-  - guia
+  - on-call
+  - guide
 relatedResources:
   - /guides/observability-guide
   - /guides/chaos-engineering-guide

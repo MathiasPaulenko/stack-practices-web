@@ -18,7 +18,7 @@ topics:
 tags:
   - graphql
   - testing
-  - guia
+  - guide
   - unit-testing
   - integration-testing
   - e2e-testing

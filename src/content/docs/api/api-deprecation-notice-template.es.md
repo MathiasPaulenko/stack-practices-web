@@ -15,10 +15,10 @@ topics:
   - architecture
 tags:
   - api
-  - deprecacion
-  - migracion
-  - comunicacion
-  - plantilla
+  - deprecation
+  - migration
+  - communication
+  - template
 relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/microservice-contract-template

@@ -17,7 +17,7 @@ tags:
   - design-pattern
   - behavioral
   - decoupling
-  - coordinacion
+  - coordination
   - python
   - javascript
   - java

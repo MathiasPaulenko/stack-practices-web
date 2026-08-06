@@ -17,7 +17,7 @@ topics:
 tags:
   - sql
   - database
-  - guia
+  - guide
   - query-optimization
   - indexing
   - explain-plan

@@ -18,11 +18,11 @@ tags:
   - autenticacion
   - autorizacion
   - encriptacion
-  - guia
+  - guide
   - owasp
   - rate-limiting
   - security
-  - seguridad-api
+  - api-security
 relatedResources:
   - /guides/security-best-practices-guide
   - /guides/web-application-security-guide

@@ -12,16 +12,16 @@ topics:
   - ai
   - data
 tags:
-  - base-datos-vectorial
+  - vector-database
   - embeddings
-  - busqueda-similitud
+  - similarity-search
   - ann
   - pinecone
   - pgvector
   - weaviate
   - chroma
   - rag
-  - guia
+  - guide
 relatedResources:
   - /guides/graph-database-guide
   - /guides/nosql-patterns-guide

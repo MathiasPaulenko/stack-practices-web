@@ -17,8 +17,8 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - arbol
-  - jerarquia
+  - tree
+  - hierarchy
   - python
   - javascript
   - java

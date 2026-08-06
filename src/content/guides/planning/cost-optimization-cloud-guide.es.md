@@ -15,13 +15,13 @@ topics:
   - performance
 tags:
   - cost-optimization
-  - costos-cloud
+  - cloud-costs
   - finops
-  - dimensionamiento
-  - instancias-reservadas
-  - instancias-spot
-  - etiquetado
-  - guia
+  - right-sizing
+  - reserved-instances
+  - spot-instances
+  - tagging
+  - guide
 relatedResources:
   - /guides/finops-guide
   - /guides/multi-cloud-guide

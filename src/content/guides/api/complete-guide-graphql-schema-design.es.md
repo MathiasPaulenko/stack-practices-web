@@ -19,7 +19,7 @@ tags:
   - graphql
   - schema-design
   - api-design
-  - guia
+  - guide
   - types
   - mutation
   - connection

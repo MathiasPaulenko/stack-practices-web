@@ -16,7 +16,7 @@ topics:
 tags:
   - adr
   - architecture
-  - documentacion
+  - documentation
   - template
 relatedResources:
   - /docs/readme-template

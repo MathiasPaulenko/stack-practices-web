@@ -15,7 +15,7 @@ tags:
   - ai
   - agents
   - design-document
-  - plantilla
+  - template
   - llm
   - tools
   - architecture

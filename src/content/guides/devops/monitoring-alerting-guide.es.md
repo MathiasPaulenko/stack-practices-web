@@ -12,13 +12,13 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - alertas
+  - alerts
   - devops
-  - guia
+  - guide
   - logs
-  - metricas
-  - monitoreo
-  - observabilidad
+  - metrics
+  - monitoring
+  - observability
   - traces
 relatedResources:
   - /guides/on-call-incident-response-guide

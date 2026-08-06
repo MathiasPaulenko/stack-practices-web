@@ -20,7 +20,7 @@ tags:
   - reserved-instances
   - tagging
   - governance
-  - guia
+  - guide
 relatedResources:
   - /guides/aws-basics-guide
   - /guides/terraform-best-practices-guide

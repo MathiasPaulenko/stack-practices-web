@@ -19,7 +19,7 @@ tags:
   - design-pattern
   - data-partitioning
   - database-sharding
-  - escalado-horizontal
+  - horizontal-scaling
   - distributed-systems
 relatedResources:
   - /patterns/circuit-breaker-pattern

@@ -16,7 +16,7 @@ tags:
   - ai
   - llm
   - model-selection
-  - matriz
+  - matrix
   - benchmarks
   - pricing
   - comparison

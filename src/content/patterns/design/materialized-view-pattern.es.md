@@ -16,10 +16,10 @@ tags:
   - materialized-view
   - pattern
   - design-pattern
-  - bases-de-datos
+  - database
   - caching
   - performance
-  - optimizacion-de-consultas
+  - query-optimization
 relatedResources:
   - /patterns/cqrs-pattern
   - /patterns/database-per-service-pattern

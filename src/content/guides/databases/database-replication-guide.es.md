@@ -12,13 +12,13 @@ topics:
   - infrastructure
   - devops
 tags:
-  - replicacion-base-datos
+  - database-replication
   - master-slave
   - multi-master
   - failover
   - resolucion-conflictos
-  - alta-disponibilidad
-  - guia
+  - high-availability
+  - guide
 relatedResources:
   - /guides/database-denormalization-guide
   - /guides/acid-vs-base-guide

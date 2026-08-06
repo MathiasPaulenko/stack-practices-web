@@ -13,7 +13,7 @@ topics:
   - databases
   - design
 tags:
-  - normalizacion-base-datos
+  - database-normalization
   - 1nf
   - 2nf
   - 3nf
@@ -22,7 +22,7 @@ tags:
   - 5nf
   - bases-datos-relacionales
   - database-design
-  - guia
+  - guide
 relatedResources:
   - /guides/database-denormalization-guide
   - /guides/sql-joins-guide

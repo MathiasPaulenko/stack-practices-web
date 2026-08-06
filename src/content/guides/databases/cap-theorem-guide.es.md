@@ -15,12 +15,12 @@ topics:
   - architecture
 tags:
   - architecture
-  - consistencia
+  - consistency
   - database
-  - disponibilidad
-  - guia
+  - availability
+  - guide
   - distributed-systems
-  - tolerancia-a-particiones
+  - partition-tolerance
   - tradeoffs-base-de-datos
 relatedResources:
   - /guides/nosql-database-selection-guide

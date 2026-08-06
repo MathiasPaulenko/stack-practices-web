@@ -16,7 +16,7 @@ topics:
 tags:
   - authentication
   - security
-  - guia
+  - guide
   - jwt
   - oauth2
   - passkeys

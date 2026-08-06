@@ -16,7 +16,7 @@ topics:
 tags:
   - cdn
   - caching
-  - guia
+  - guide
   - edge-caching
   - cache-keys
   - invalidation

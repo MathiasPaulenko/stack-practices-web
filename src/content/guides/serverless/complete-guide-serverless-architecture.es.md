@@ -18,7 +18,7 @@ topics:
 tags:
   - serverless
   - faas
-  - guia
+  - guide
   - event-driven
   - cold-start
   - aws-lambda

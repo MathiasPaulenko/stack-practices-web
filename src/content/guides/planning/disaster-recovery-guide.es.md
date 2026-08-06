@@ -14,7 +14,7 @@ topics:
   - infrastructure
   - security
 tags:
-  - recuperacion-desastres
+  - disaster-recovery
   - rto
   - rpo
   - backup
@@ -22,7 +22,7 @@ tags:
   - multi-region
   - runbook
   - resilience
-  - guia
+  - guide
 relatedResources:
   - /guides/sre-practices-guide
   - /guides/chaos-engineering-guide

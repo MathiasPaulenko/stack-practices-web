@@ -16,7 +16,7 @@ topics:
 tags:
   - architecture
   - domain-driven-design
-  - guia
+  - guide
   - design
 relatedResources:
   - /guides/software-architecture-guide

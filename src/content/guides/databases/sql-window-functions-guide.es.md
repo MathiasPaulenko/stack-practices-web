@@ -12,14 +12,14 @@ topics:
   - data
 tags:
   - sql
-  - funciones-ventana
+  - window-functions
   - row-number
   - rank
   - lead
   - lag
   - partition-by
-  - analitica
-  - guia
+  - analytics
+  - guide
 relatedResources:
   - /guides/sql-cte-guide
   - /guides/sql-performance-tuning-guide

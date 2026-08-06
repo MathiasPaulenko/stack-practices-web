@@ -16,7 +16,7 @@ topics:
 tags:
   - performance
   - frontend
-  - guia
+  - guide
   - core-web-vitals
   - lcp
   - inp

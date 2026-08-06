@@ -23,7 +23,7 @@ tags:
   - eventual-consistency
   - event-store
   - projection
-  - guia
+  - guide
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/data-mesh-guide

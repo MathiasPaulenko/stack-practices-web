@@ -21,7 +21,7 @@ tags:
   - chaos-mesh
   - fault-injection
   - sre
-  - guia
+  - guide
 relatedResources:
   - /guides/sre-practices-guide
   - /guides/observability-guide

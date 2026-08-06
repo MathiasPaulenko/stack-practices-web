@@ -17,7 +17,7 @@ tags:
   - design-pattern
   - programacion
   - resilience
-  - gestion-de-trabajos
+  - job-management
   - supervisor
 relatedResources:
   - /patterns/priority-queue-pattern

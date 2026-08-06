@@ -19,7 +19,7 @@ tags:
   - identity-verification
   - least-privilege
   - continuous-validation
-  - guia
+  - guide
 relatedResources:
   - /guides/secrets-management-guide
   - /guides/owasp-top-10-guide

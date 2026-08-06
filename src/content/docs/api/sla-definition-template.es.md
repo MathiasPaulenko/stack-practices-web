@@ -16,11 +16,11 @@ topics:
   - devops
 tags:
   - sla
-  - acuerdo-de-nivel-de-servicio
+  - service-level-agreement
   - uptime
-  - disponibilidad
+  - availability
   - sre
-  - plantilla
+  - template
 relatedResources:
   - /docs/escalation-policy-template
   - /docs/performance-regression-template

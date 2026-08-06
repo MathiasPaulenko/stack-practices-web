@@ -20,7 +20,7 @@ tags:
   - clean-architecture
   - ports-and-adapters
   - layered-architecture
-  - guia
+  - guide
 relatedResources:
   - /guides/layered-architecture-guide
   - /guides/vertical-slice-architecture-guide

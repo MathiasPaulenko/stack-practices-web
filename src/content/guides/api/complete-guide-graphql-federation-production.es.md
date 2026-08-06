@@ -19,8 +19,8 @@ tags:
   - graphql
   - federation
   - apollo
-  - produccion
-  - guia
+  - production
+  - guide
   - supergraph
   - subgraph
   - gateway

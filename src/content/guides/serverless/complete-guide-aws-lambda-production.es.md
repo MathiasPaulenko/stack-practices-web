@@ -15,7 +15,7 @@ topics:
 tags:
   - aws-lambda
   - serverless
-  - guia
+  - guide
   - cold-start
   - lambda-layers
   - x-ray

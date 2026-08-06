@@ -17,7 +17,7 @@ topics:
 tags:
   - postgresql
   - database
-  - guia
+  - guide
   - replication
   - streaming-replication
   - logical-replication

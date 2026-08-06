@@ -10,14 +10,13 @@ topics:
   - databases
   - data
 tags:
-  - base-datos-grafos
+  - graph-database
   - neo4j
   - cypher
-  - grafo-propiedades
   - relaciones
   - datos-conectados
-  - motor-recomendacion
-  - guia
+  - recommendation-engine
+  - guide
 relatedResources:
   - /guides/nosql-patterns-guide
   - /guides/vector-database-guide

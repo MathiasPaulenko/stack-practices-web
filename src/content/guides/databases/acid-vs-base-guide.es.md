@@ -18,7 +18,7 @@ tags:
   - distributed-systems
   - eventual-consistency
   - transacciones
-  - guia
+  - guide
 relatedResources:
   - /guides/database-normalization-guide
   - /guides/database-replication-guide

@@ -17,7 +17,7 @@ topics:
 tags:
   - ai-agents
   - ai
-  - guia
+  - guide
   - agents
   - react
   - multi-agent

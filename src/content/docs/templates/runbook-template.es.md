@@ -16,7 +16,7 @@ topics:
 tags:
   - runbook
   - template
-  - operaciones
+  - operations
   - sre
   - incident-response
   - devops

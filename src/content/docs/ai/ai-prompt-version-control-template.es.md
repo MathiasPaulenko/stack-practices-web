@@ -15,7 +15,7 @@ tags:
   - llm
   - prompt-engineering
   - version-control
-  - plantilla
+  - template
   - ci-cd
   - evaluation
 relatedResources:

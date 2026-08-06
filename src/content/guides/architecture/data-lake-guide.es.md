@@ -20,7 +20,7 @@ tags:
   - big-data
   - structured-data
   - unstructured-data
-  - guia
+  - guide
 relatedResources:
   - /guides/lakehouse-guide
   - /guides/data-mesh-guide

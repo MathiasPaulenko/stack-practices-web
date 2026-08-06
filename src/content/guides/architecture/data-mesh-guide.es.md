@@ -16,7 +16,7 @@ tags:
   - self-serve-data
   - domain-oriented
   - data-ownership
-  - guia
+  - guide
 relatedResources:
   - /guides/data-lake-guide
   - /guides/lakehouse-guide

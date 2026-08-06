@@ -15,7 +15,7 @@ tags:
   - design-pattern
   - resilience
   - deadlines
-  - operaciones-colgadas
+  - hanging-operations
   - python
   - javascript
   - java

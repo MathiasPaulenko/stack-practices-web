@@ -13,10 +13,10 @@ topics:
   - devops
 tags:
   - branching
-  - control-de-versiones
+  - version-control
   - devops
   - git
-  - guia
+  - guide
 relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/docker-for-developers-guide
