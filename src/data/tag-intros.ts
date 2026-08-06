@@ -1268,4 +1268,164 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  compliance: {
+    en: {
+      heading: 'Compliance and Regulatory Security',
+      paragraphs: [
+        'Compliance ensures that systems meet legal, industry, and organizational requirements. It is not just about checklists; it requires traceability, evidence, access controls, and continuous validation.',
+        'The resources below cover GDPR, SOC 2, ISO 27001, data retention, audit trails, and security policies. Each guide helps you build systems that satisfy both security and regulatory expectations.',
+      ],
+    },
+    es: {
+      heading: 'Cumplimiento y Seguridad Regulatoria',
+      paragraphs: [
+        'El cumplimiento asegura que los sistemas cumplan con requisitos legales, industriales y organizacionales. No se trata solo de checklists; requiere trazabilidad, evidencia, controles de acceso y validacion continua.',
+        'Los recursos a continuacion cubren GDPR, SOC 2, ISO 27001, retencion de datos, audit trails y politicas de seguridad. Cada guia te ayuda a construir sistemas que satisfacen tanto expectativas de seguridad como regulatorias.',
+      ],
+    },
+  },
+  'file-handling': {
+    en: {
+      heading: 'File Handling and Processing',
+      paragraphs: [
+        'File handling is the practice of reading, writing, transforming, and managing files in applications. It involves understanding encoding, streaming, permissions, and safe I/O patterns.',
+        'The resources below cover reading and writing files, CSV, JSON, XML, compression, validation, and batch processing. Each recipe shows how to handle files reliably and efficiently in production.',
+      ],
+    },
+    es: {
+      heading: 'Manejo y Procesamiento de Archivos',
+      paragraphs: [
+        'El manejo de archivos es la practica de leer, escribir, transformar y gestionar archivos en aplicaciones. Implica comprender codificacion, streaming, permisos y patrones de E/S seguros.',
+        'Los recursos a continuacion cubren lectura y escritura de archivos, CSV, JSON, XML, compresion, validacion y procesamiento por lotes. Cada receta muestra como manejar archivos de forma confiable y eficiente en produccion.',
+      ],
+    },
+  },
+  operations: {
+    en: {
+      heading: 'Operations and Platform Engineering',
+      paragraphs: [
+        'Operations is the practice of keeping production systems running reliably. Platform engineering brings product thinking to operations by building internal platforms, self-service tools, and paved roads for developers.',
+        'The resources below cover on-call, incident management, automation, monitoring, capacity planning, and developer experience. Each guide helps you build operational practices that scale with the organization.',
+      ],
+    },
+    es: {
+      heading: 'Operaciones e Ingenieria de Plataforma',
+      paragraphs: [
+        'Las operaciones son la practica de mantener los sistemas de produccion ejecutandose de forma confiable. La ingenieria de plataforma aplica pensamiento de producto a las operaciones construyendo plataformas internas, herramientas self-service y caminos pavimentados para desarrolladores.',
+        'Los recursos a continuacion cubren on-call, gestion de incidentes, automatizacion, monitoreo, planificacion de capacidad y experiencia del desarrollador. Cada guia te ayuda a construir practicas operativas que escalan con la organizacion.',
+      ],
+    },
+  },
+  rollback: {
+    en: {
+      heading: 'Rollback and Recovery',
+      paragraphs: [
+        'Rollback is the process of reverting a system to a previous known-good state. It is a critical safety net for deployments, schema changes, and configuration updates.',
+        'The resources below cover rollback strategies, blue-green deployments, database migrations, feature flags, and disaster recovery. Each recipe shows how to recover quickly and safely when changes go wrong.',
+      ],
+    },
+    es: {
+      heading: 'Rollback y Recuperacion',
+      paragraphs: [
+        'El rollback es el proceso de revertir un sistema a un estado anterior conocido como bueno. Es una red de seguridad critica para despliegues, cambios de esquema y actualizaciones de configuracion.',
+        'Los recursos a continuacion cubren estrategias de rollback, despliegues blue-green, migraciones de bases de datos, feature flags y recuperacion ante desastres. Cada receta muestra como recuperarse rapidamente y con seguridad cuando los cambios salen mal.',
+      ],
+    },
+  },
+  embeddings: {
+    en: {
+      heading: 'Vector Embeddings for AI',
+      paragraphs: [
+        'Embeddings are dense numerical representations of text, images, or other data that capture semantic meaning. They are the foundation of search, recommendation, and retrieval-augmented generation in AI systems.',
+        'The resources below cover embedding models, vector databases, similarity search, chunking, and indexing. Each recipe explains how to build practical AI features using embeddings in production.',
+      ],
+    },
+    es: {
+      heading: 'Embeddings Vectoriales para IA',
+      paragraphs: [
+        'Los embeddings son representaciones numericas densas de texto, imagenes u otros datos que capturan significado semantico. Son la base de la busqueda, recomendacion y retrieval-augmented generation en sistemas de IA.',
+        'Los recursos a continuacion cubren modelos de embeddings, bases de datos vectoriales, busqueda por similitud, chunking e indexacion. Cada receta explica como construir funciones practicas de IA usando embeddings en produccion.',
+      ],
+    },
+  },
+  csv: {
+    en: {
+      heading: 'CSV and Tabular Data',
+      paragraphs: [
+        'CSV is the universal format for tabular data exchange. Despite its simplicity, it is full of edge cases around quoting, delimiters, encoding, headers, and malformed rows.',
+        'The resources below cover parsing, writing, validating, transforming, and importing CSV data. Each recipe shows how to work with CSV reliably across languages and tools.',
+      ],
+    },
+    es: {
+      heading: 'CSV y Datos Tabulares',
+      paragraphs: [
+        'CSV es el formato universal para el intercambio de datos tabulares. A pesar de su simplicidad, esta lleno de casos especiales con comillas, delimitadores, codificacion, headers y filas malformadas.',
+        'Los recursos a continuacion cubren parseo, escritura, validacion, transformacion e importacion de datos CSV. Cada receta muestra como trabajar con CSV de forma confiable en diferentes lenguajes y herramientas.',
+      ],
+    },
+  },
+  io: {
+    en: {
+      heading: 'Input/Output and File Systems',
+      paragraphs: [
+        'Input and output operations connect programs to files, networks, and users. Efficient I/O requires understanding streams, buffers, blocking vs non-blocking calls, and resource cleanup.',
+        'The resources below cover file I/O, network I/O, async I/O, memory mapping, and serialization. Each recipe explains how to read and write data efficiently without leaking resources or blocking threads.',
+      ],
+    },
+    es: {
+      heading: 'Entrada/Salida y Sistemas de Archivos',
+      paragraphs: [
+        'Las operaciones de entrada y salida conectan programas con archivos, redes y usuarios. Una E/S eficiente requiere comprender streams, buffers, llamadas bloqueantes vs no bloqueantes y liberacion de recursos.',
+        'Los recursos a continuacion cubren E/S de archivos, E/S de red, E/S asincrona, memory mapping y serializacion. Cada receta explica como leer y escribir datos eficientemente sin fugas de recursos ni bloquear threads.',
+      ],
+    },
+  },
+  functions: {
+    en: {
+      heading: 'Functions and Serverless Functions',
+      paragraphs: [
+        'Functions are the building blocks of clean code. In serverless contexts, they become independently deployable units triggered by events. Both require attention to scope, side effects, testing, and reuse.',
+        'The resources below cover function design, pure functions, closures, higher-order functions, serverless function patterns, and testing. Each recipe helps you write functions that are predictable and composable.',
+      ],
+    },
+    es: {
+      heading: 'Funciones y Funciones Serverless',
+      paragraphs: [
+        'Las funciones son los bloques de construccion del codigo limpio. En contextos serverless, se convierten en unidades desplegables de forma independiente activadas por eventos. Ambas requieren atencion al alcance, efectos secundarios, testing y reutilizacion.',
+        'Los recursos a continuacion cubren diseno de funciones, funciones puras, closures, higher-order functions, patrones de funciones serverless y testing. Cada receta te ayuda a escribir funciones predecibles y componibles.',
+      ],
+    },
+  },
+  scalability: {
+    en: {
+      heading: 'Scalability and Capacity Planning',
+      paragraphs: [
+        'Scalability is the ability of a system to handle growth without degrading. It requires horizontal and vertical scaling strategies, load balancing, caching, database partitioning, and capacity planning.',
+        'The resources below cover scaling patterns, bottlenecks, load testing, auto-scaling, and cost trade-offs. Each guide explains how to design systems that grow with demand without unnecessary complexity.',
+      ],
+    },
+    es: {
+      heading: 'Escalabilidad y Planificacion de Capacidad',
+      paragraphs: [
+        'La escalabilidad es la capacidad de un sistema de manejar crecimiento sin degradarse. Requiere estrategias de escalado horizontal y vertical, load balancing, cacheo, particionamiento de bases de datos y planificacion de capacidad.',
+        'Los recursos a continuacion cubren patrones de escalado, cuellos de botella, load testing, auto-scaling y trade-offs de costo. Cada guia explica como disenar sistemas que crecen con la demanda sin complejidad innecesaria.',
+      ],
+    },
+  },
+  'machine-learning': {
+    en: {
+      heading: 'Machine Learning Engineering',
+      paragraphs: [
+        'Machine learning engineering is the discipline of building systems that train, deploy, and operate ML models. It combines data pipelines, model versioning, feature stores, evaluation, and monitoring.',
+        'The resources below cover model training, deployment, feature engineering, MLOps, and production monitoring. Each recipe connects ML theory to working systems that improve over time.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria de Machine Learning',
+      paragraphs: [
+        'La ingenieria de machine learning es la disciplina de construir sistemas que entrenan, despliegan y operan modelos de ML. Combina data pipelines, versionado de modelos, feature stores, evaluacion y monitoreo.',
+        'Los recursos a continuacion cubren entrenamiento de modelos, despliegue, feature engineering, MLOps y monitoreo en produccion. Cada receta conecta la teoria de ML con sistemas funcionales que mejoran con el tiempo.',
+      ],
+    },
+  },
 };
