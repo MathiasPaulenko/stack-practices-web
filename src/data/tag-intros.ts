@@ -1108,4 +1108,164 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  data: {
+    en: {
+      heading: 'Data Engineering and Management',
+      paragraphs: [
+        'Data is at the heart of most modern applications. Working with data effectively requires understanding storage, processing, modeling, transformation, quality, and governance across the lifecycle.',
+        'The resources below cover databases, ETL, data pipelines, validation, serialization, cleaning, and analysis. Each recipe connects data operations to practical engineering outcomes.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria y Gestion de Datos',
+      paragraphs: [
+        'Los datos estan en el corazon de la mayoria de las aplicaciones modernas. Trabajar con datos de forma efectiva requiere comprender almacenamiento, procesamiento, modelado, transformacion, calidad y gobernanza a lo largo del ciclo de vida.',
+        'Los recursos a continuacion cubren bases de datos, ETL, data pipelines, validacion, serializacion, limpieza y analisis. Cada receta conecta las operaciones de datos con resultados practicos de ingenieria.',
+      ],
+    },
+  },
+  infrastructure: {
+    en: {
+      heading: 'Cloud and Infrastructure Engineering',
+      paragraphs: [
+        'Infrastructure engineering is the practice of building and operating the platforms that run applications. It includes compute, networking, storage, identity, and automation, all managed with reliability, cost, and security in mind.',
+        'The resources below cover cloud providers, infrastructure as code, containers, Kubernetes, networking, secrets, and cost optimization. Each guide focuses on infrastructure that is reproducible, observable, and secure.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria de Nube e Infraestructura',
+      paragraphs: [
+        'La ingenieria de infraestructura es la practica de construir y operar las plataformas que ejecutan aplicaciones. Incluye computacion, redes, almacenamiento, identidad y automatizacion, todo gestionado con confiabilidad, costo y seguridad en mente.',
+        'Los recursos a continuacion cubren proveedores de nube, infraestructura como codigo, contenedores, Kubernetes, redes, secretos y optimizacion de costos. Cada guia se enfoca en infraestructura reproducible, observable y segura.',
+      ],
+    },
+  },
+  parsing: {
+    en: {
+      heading: 'Parsing and Text Processing',
+      paragraphs: [
+        'Parsing turns raw text into structured data that programs can use. It is the foundation of working with logs, configuration files, markup languages, query languages, and data interchange formats.',
+        'The resources below cover recursive descent, parser combinators, regular expressions, tokenization, ASTs, and validation. Each recipe shows how to parse text safely and maintainably in production code.',
+      ],
+    },
+    es: {
+      heading: 'Parsing y Procesamiento de Texto',
+      paragraphs: [
+        'El parsing convierte texto crudo en datos estructurados que los programas pueden usar. Es la base para trabajar con logs, archivos de configuracion, lenguajes de markup, lenguajes de consulta y formatos de intercambio de datos.',
+        'Los recursos a continuacion cubren recursive descent, parser combinators, expresiones regulares, tokenizacion, ASTs y validacion. Cada receta muestra como parsear texto de forma segura y mantenible en codigo de produccion.',
+      ],
+    },
+  },
+  streaming: {
+    en: {
+      heading: 'Stream Processing',
+      paragraphs: [
+        'Stream processing handles data as it arrives rather than in batches. It enables real-time analytics, event-driven reactions, and low-latency pipelines, but requires careful handling of time, state, and ordering.',
+        'The resources below cover Kafka, Flink, ksqlDB, windowing, watermarks, stateful processing, and exactly-once semantics. Each guide explains how to build stream processing systems that are correct and scalable.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de Streams',
+      paragraphs: [
+        'El procesamiento de streams maneja datos a medida que llegan en lugar de hacerlo por lotes. Habilita analitica en tiempo real, reacciones orientadas a eventos y pipelines de baja latencia, pero requiere manejar cuidadosamente el tiempo, estado y orden.',
+        'Los recursos a continuacion cubren Kafka, Flink, ksqlDB, windowing, watermarks, procesamiento con estado y exactly-once semantics. Cada guia explica como construir sistemas de procesamiento de streams correctos y escalables.',
+      ],
+    },
+  },
+  vulnerabilities: {
+    en: {
+      heading: 'Vulnerability Management',
+      paragraphs: [
+        'Vulnerability management is the continuous process of identifying, assessing, prioritizing, and remediating security weaknesses. It bridges development, operations, and security teams to reduce real risk.',
+        'The resources below cover scanning, dependency audits, CVSS, patch management, secure coding, and incident response. Each recipe shows how to find and fix vulnerabilities before they become incidents.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Vulnerabilidades',
+      paragraphs: [
+        'La gestion de vulnerabilidades es el proceso continuo de identificar, evaluar, priorizar y remediar debilidades de seguridad. Une a los equipos de desarrollo, operaciones y seguridad para reducir el riesgo real.',
+        'Los recursos a continuacion cubren escaneo, auditorias de dependencias, CVSS, gestion de parches, codigo seguro y respuesta a incidentes. Cada receta muestra como encontrar y corregir vulnerabilidades antes de que se conviertan en incidentes.',
+      ],
+    },
+  },
+  optimization: {
+    en: {
+      heading: 'Performance Optimization',
+      paragraphs: [
+        'Optimization is the disciplined process of making a system faster, cheaper, or more efficient. It must be driven by measurement; otherwise it becomes guesswork and premature complexity.',
+        'The resources below cover profiling, query optimization, algorithmic improvements, caching, compression, and runtime tuning. Each recipe connects a bottleneck to a measurable improvement.',
+      ],
+    },
+    es: {
+      heading: 'Optimizacion de Rendimiento',
+      paragraphs: [
+        'La optimizacion es el proceso disciplinado de hacer un sistema mas rapido, barato o eficiente. Debe estar impulsada por medicion; de lo contrario se convierte en conjetura y complejidad prematura.',
+        'Los recursos a continuacion cubren profiling, optimizacion de consultas, mejoras algoritmicas, cacheo, compresion y ajuste de runtime. Cada receta conecta un cuello de botella con una mejora medible.',
+      ],
+    },
+  },
+  'code-quality': {
+    en: {
+      heading: 'Code Quality and Maintainability',
+      paragraphs: [
+        'Code quality is the sum of practices that make software easy to read, test, change, and operate. It includes style, structure, naming, documentation, and automated checks that catch issues before they reach production.',
+        'The resources below cover linting, formatting, static analysis, refactoring, testing, code review, and clean code principles. Each guide helps teams write code that ages well under real maintenance.',
+      ],
+    },
+    es: {
+      heading: 'Calidad y Mantenibilidad del Codigo',
+      paragraphs: [
+        'La calidad del codigo es la suma de practicas que hacen que el software sea facil de leer, testear, cambiar y operar. Incluye estilo, estructura, nombres, documentacion y controles automatizados que detectan problemas antes de llegar a produccion.',
+        'Los recursos a continuacion cubren linting, formateo, analisis estatico, refactorizacion, testing, code review y principios de clean code. Cada guia ayuda a los equipos a escribir codigo que envejece bien bajo mantenimiento real.',
+      ],
+    },
+  },
+  cdn: {
+    en: {
+      heading: 'Content Delivery Networks',
+      paragraphs: [
+        'A Content Delivery Network distributes content closer to users, reducing latency and offloading origin servers. Effective CDN use requires cache policies, purging, SSL, and understanding how content changes propagate.',
+        'The resources below cover caching strategies, cache invalidation, edge computing, origin shield, geo-routing, and security headers. Each recipe explains how to use CDNs to improve speed and availability.',
+      ],
+    },
+    es: {
+      heading: 'Content Delivery Networks',
+      paragraphs: [
+        'Una Content Delivery Network distribuye contenido mas cerca de los usuarios, reduciendo la latencia y descargando los servidores de origen. El uso efectivo de CDN requiere politicas de cache, purgado, SSL y comprender como se propagan los cambios de contenido.',
+        'Los recursos a continuacion cubren estrategias de cache, invalidacion de cache, edge computing, origin shield, geo-routing y headers de seguridad. Cada receta explica como usar CDNs para mejorar velocidad y disponibilidad.',
+      ],
+    },
+  },
+  mysql: {
+    en: {
+      heading: 'MySQL in Production',
+      paragraphs: [
+        'MySQL is one of the most widely used open-source relational databases. Production MySQL requires attention to indexing, replication, backups, connection management, and query optimization.',
+        'The resources below cover schema design, transactions, replication, partitioning, performance tuning, and high availability. Each guide helps you run MySQL reliably for real-world workloads.',
+      ],
+    },
+    es: {
+      heading: 'MySQL en Produccion',
+      paragraphs: [
+        'MySQL es una de las bases de datos relacionales open-source mas usadas. MySQL de produccion requiere atencion a indexacion, replicacion, backups, gestion de conexiones y optimizacion de consultas.',
+        'Los recursos a continuacion cubren diseno de esquemas, transacciones, replicacion, particionamiento, ajuste de rendimiento y alta disponibilidad. Cada guia te ayuda a ejecutar MySQL de forma confiable para cargas de trabajo reales.',
+      ],
+    },
+  },
+  'event-sourcing': {
+    en: {
+      heading: 'Event Sourcing',
+      paragraphs: [
+        'Event sourcing stores the state of a system as a sequence of events rather than the current state. It enables auditability, temporal queries, and flexible projections, but introduces complexity in event versioning, schema evolution, and snapshots.',
+        'The resources below cover event stores, projections, snapshots, CQRS pairs, idempotency, and replay strategies. Each guide explains how to implement event sourcing without overengineering the domain.',
+      ],
+    },
+    es: {
+      heading: 'Event Sourcing',
+      paragraphs: [
+        'Event sourcing almacena el estado de un sistema como una secuencia de eventos en lugar del estado actual. Habilita auditabilidad, consultas temporales y proyecciones flexibles, pero introduce complejidad en versionado de eventos, evolucion de esquemas y snapshots.',
+        'Los recursos a continuacion cubren event stores, proyecciones, snapshots, parejas CQRS, idempotencia y estrategias de replay. Cada guia explica como implementar event sourcing sin overengineering el dominio.',
+      ],
+    },
+  },
 };
