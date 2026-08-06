@@ -57,6 +57,10 @@ function clean(text: string): string {
   return text
     .replace(/\*\*/g, '')
     .replace(/`/g, '')
+    // Escape raw HTML tags so they appear as plain text in JSON-LD answers
+    // and don't get picked up by downstream HTML audits.
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     .replace(/\s+/g, ' ')
     .trim();
 }
