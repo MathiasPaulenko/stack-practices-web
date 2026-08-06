@@ -1588,4 +1588,164 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  design: {
+    en: {
+      heading: 'Software Design',
+      paragraphs: [
+        'Software design is the discipline of structuring code to meet functional and non-functional requirements. Good design balances clarity, flexibility, and maintainability without overcomplicating the solution.',
+        'The resources below cover design principles, patterns, trade-offs, abstraction, and coupling. Each guide helps you make design decisions that hold up under real change and scale.',
+      ],
+    },
+    es: {
+      heading: 'Diseno de Software',
+      paragraphs: [
+        'El diseno de software es la disciplina de estructurar codigo para cumplir requisitos funcionales y no funcionales. Un buen diseno equilibra claridad, flexibilidad y mantenibilidad sin complicar en exceso la solucion.',
+        'Los recursos a continuacion cubren principios de diseno, patrones, trade-offs, abstraccion y acoplamiento. Cada guia te ayuda a tomar decisiones de diseno que resisten el cambio y la escala reales.',
+      ],
+    },
+  },
+  documentation: {
+    en: {
+      heading: 'Technical Documentation',
+      paragraphs: [
+        'Technical documentation turns implicit knowledge into reusable guidance. It includes runbooks, API docs, READMEs, decision records, and onboarding guides that keep teams aligned and systems operable.',
+        'The resources below cover writing, structuring, versioning, and maintaining docs. Each recipe focuses on documentation that is accurate, discoverable, and easy to keep up to date.',
+      ],
+    },
+    es: {
+      heading: 'Documentacion Tecnica',
+      paragraphs: [
+        'La documentacion tecnica convierte el conocimiento implicito en guia reutilizable. Incluye runbooks, docs de APIs, READMEs, decision records y guias de onboarding que mantienen a los equipos alineados y los sistemas operables.',
+        'Los recursos a continuacion cubren escritura, estructuracion, versionado y mantenimiento de documentacion. Cada receta se enfoca en documentacion precisa, descubrible y facil de mantener actualizada.',
+      ],
+    },
+  },
+  policy: {
+    en: {
+      heading: 'Policies and Standards',
+      paragraphs: [
+        'Policies are explicit rules that govern how teams build, operate, and secure systems. Good policies are enforceable, measurable, and reviewed regularly rather than buried in a wiki.',
+        'The resources below cover security policies, coding standards, deployment policies, and compliance rules. Each guide shows how to write and operationalize policies that actually shape behavior.',
+      ],
+    },
+    es: {
+      heading: 'Politicas y Estandares',
+      paragraphs: [
+        'Las politicas son reglas explicitas que gobiernan como los equipos construyen, operan y aseguran sistemas. Buenas politicas son aplicables, medibles y revisadas regularmente en lugar de enterradas en una wiki.',
+        'Los recursos a continuacion cubren politicas de seguridad, estandares de codigo, politicas de despliegue y reglas de cumplimiento. Cada guia muestra como escribir y operacionalizar politicas que realmente moldeen el comportamiento.',
+      ],
+    },
+  },
+  communication: {
+    en: {
+      heading: 'Communication Patterns',
+      paragraphs: [
+        'Communication is how components, services, and teams exchange information. It can be synchronous or asynchronous, direct or mediated by queues, and each choice affects coupling, latency, and reliability.',
+        'The resources below cover REST, messaging, gRPC, WebSockets, event-driven communication, and team communication. Each guide helps you choose and implement the right communication model.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Comunicacion',
+      paragraphs: [
+        'La comunicacion es como los componentes, servicios y equipos intercambian informacion. Puede ser sincrona o asincrona, directa o mediada por colas, y cada eleccion afecta el acoplamiento, latencia y confiabilidad.',
+        'Los recursos a continuacion cubren REST, mensajeria, gRPC, WebSockets, comunicacion orientada a eventos y comunicacion de equipos. Cada guia te ayuda a elegir e implementar el modelo de comunicacion adecuado.',
+      ],
+    },
+  },
+  'real-time': {
+    en: {
+      heading: 'Real-Time Systems',
+      paragraphs: [
+        'Real-time systems process and deliver data with low latency. They are used for live dashboards, notifications, gaming, chat, and stream processing, but require careful handling of state, connections, and backpressure.',
+        'The resources below cover WebSockets, SSE, stream processing, pub/sub, and operational concerns. Each recipe explains how to build real-time features that are responsive and reliable.',
+      ],
+    },
+    es: {
+      heading: 'Sistemas en Tiempo Real',
+      paragraphs: [
+        'Los sistemas en tiempo real procesan y entregan datos con baja latencia. Se usan en dashboards en vivo, notificaciones, juegos, chat y procesamiento de streams, pero requieren manejo cuidadoso de estado, conexiones y backpressure.',
+        'Los recursos a continuacion cubren WebSockets, SSE, procesamiento de streams, pub/sub y preocupaciones operativas. Cada receta explica como construir funciones en tiempo real responsivas y confiables.',
+      ],
+    },
+  },
+  cloud: {
+    en: {
+      heading: 'Cloud Computing',
+      paragraphs: [
+        'Cloud computing provides on-demand compute, storage, and networking without owning physical infrastructure. It enables elasticity, global reach, and managed services, but requires cost, security, and architecture discipline.',
+        'The resources below cover cloud providers, compute, storage, networking, serverless, cost optimization, and security. Each guide helps you build cloud-native systems that are efficient and secure.',
+      ],
+    },
+    es: {
+      heading: 'Computacion en la Nube',
+      paragraphs: [
+        'La computacion en la nube provee computacion, almacenamiento y redes bajo demanda sin poseer infraestructura fisica. Habilita elasticidad, alcance global y servicios administrados, pero requiere disciplina de costos, seguridad y arquitectura.',
+        'Los recursos a continuacion cubren proveedores de nube, computacion, almacenamiento, redes, serverless, optimizacion de costos y seguridad. Cada guia te ayuda a construir sistemas cloud-native eficientes y seguros.',
+      ],
+    },
+  },
+  'input-validation': {
+    en: {
+      heading: 'Input Validation',
+      paragraphs: [
+        'Input validation ensures that data entering the system is correct, safe, and expected. It is the first line of defense against injection, corruption, and malformed requests.',
+        'The resources below cover schema validation, sanitization, custom validators, and error messages. Each recipe shows how to validate input at boundaries without leaking internal details.',
+      ],
+    },
+    es: {
+      heading: 'Validacion de Input',
+      paragraphs: [
+        'La validacion de input asegura que los datos que entran al sistema sean correctos, seguros y esperados. Es la primera linea de defensa contra inyeccion, corrupcion y solicitudes malformadas.',
+        'Los recursos a continuacion cubren validacion de esquemas, sanitizacion, validadores personalizados y mensajes de error. Cada receta muestra como validar input en los limites sin filtrar detalles internos.',
+      ],
+    },
+  },
+  migration: {
+    en: {
+      heading: 'Database and System Migrations',
+      paragraphs: [
+        'Migrations move data, code, or infrastructure from one state to another with minimal disruption. They require planning, rollback paths, validation, and clear success criteria.',
+        'The resources below cover database migrations, schema evolution, zero-downtime deployments, data backfills, and monolith-to-microservices transitions. Each guide helps you execute migrations safely.',
+      ],
+    },
+    es: {
+      heading: 'Migraciones de Base de Datos y Sistemas',
+      paragraphs: [
+        'Las migraciones mueven datos, codigo o infraestructura de un estado a otro con minima disruption. Requieren planificacion, caminos de rollback, validacion y criterios claros de exito.',
+        'Los recursos a continuacion cubren migraciones de bases de datos, evolucion de esquemas, despliegues sin downtime, backfills de datos y transiciones de monolito a microservicios. Cada guia te ayuda a ejecutar migraciones de forma segura.',
+      ],
+    },
+  },
+  'zero-downtime': {
+    en: {
+      heading: 'Zero-Downtime Deployments',
+      paragraphs: [
+        'Zero-downtime deployments release software without interrupting users. Techniques include blue-green, canary, rolling, and feature flags, all backed by health checks and rollback plans.',
+        'The resources below cover deployment patterns, traffic shifting, validation gates, and rollback. Each recipe explains how to ship changes continuously without taking the service down.',
+      ],
+    },
+    es: {
+      heading: 'Despliegues sin Downtime',
+      paragraphs: [
+        'Los despliegues sin downtime liberan software sin interrumpir a los usuarios. Las tecnicas incluyen blue-green, canary, rolling y feature flags, respaldadas por health checks y planes de rollback.',
+        'Los recursos a continuacion cubren patrones de despliegue, traslado de trafico, gates de validacion y rollback. Cada receta explica como enviar cambios continuamente sin bajar el servicio.',
+      ],
+    },
+  },
+  'cost-optimization': {
+    en: {
+      heading: 'Cost Optimization in the Cloud',
+      paragraphs: [
+        'Cost optimization makes cloud spending predictable and aligned with value. It requires measuring usage, right-sizing resources, choosing pricing models, and avoiding waste.',
+        'The resources below cover reserved instances, spot instances, autoscaling, right-sizing, and FinOps practices. Each guide helps you reduce cloud costs without sacrificing reliability.',
+      ],
+    },
+    es: {
+      heading: 'Optimizacion de Costos en la Nube',
+      paragraphs: [
+        'La optimizacion de costos hace que el gasto en nube sea predecible y alineado con el valor. Requiere medir uso, dimensionar recursos correctamente, elegir modelos de precios y evitar desperdicio.',
+        'Los recursos a continuacion cubren instancias reservadas, instancias spot, auto-scaling, right-sizing y practicas FinOps. Cada guia te ayuda a reducir costos en la nube sin sacrificar confiabilidad.',
+      ],
+    },
+  },
 };
