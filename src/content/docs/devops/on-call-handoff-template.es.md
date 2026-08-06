@@ -23,6 +23,7 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/downtime-communication-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Transfiere contexto de guardia entre turnos con esta plantilla. Cubre incidentes activos, alertas en curso, salud del sistema y cambios proximos."

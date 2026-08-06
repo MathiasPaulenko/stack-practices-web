@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-kafka-stream-processing
   - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Consume topicos de Kafka en Spring Boot con @KafkaListener. Usa consumers concurrentes, error handlers, DLQ, batch listeners y ack manual para procesamiento confiable."

@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/deployment-ring-pattern
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Mantener dos entornos identicos y cambiar trafico entre ellos. Desplegar al inactivo, testear, luego cambiar el router para release instantaneo o rollback."

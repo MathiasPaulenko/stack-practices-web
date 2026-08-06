@@ -25,6 +25,7 @@ relatedResources:
   - /guides/zero-trust-architecture-guide
   - /patterns/gatekeeper-pattern
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn threat modeling with STRIDE, attack trees, and data flow diagrams. Integrate security design review into your development process."

@@ -25,6 +25,7 @@ relatedResources:
   - /guides/stream-processing-guide
   - /patterns/voucher-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Procesa archivos grandes en Node.js con streams. Readline, transform streams, pipeline, backpressure, procesamiento por chunks y parsing eficiente en memoria."

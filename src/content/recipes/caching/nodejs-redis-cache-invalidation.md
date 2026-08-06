@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/python-httpx-cache-responses
   - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Invalidate Redis cache in Node.js with TTL, explicit delete, pattern-based SCAN+DEL, and pub/sub distributed cache invalidation strategies."

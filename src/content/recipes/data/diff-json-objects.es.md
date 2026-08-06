@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/merge-json-files-javascript
   - /recipes/truncate-text
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a comparar objetos JSON en Python, Java y JavaScript. Encuentra claves agregadas, eliminadas y modificadas con ejemplos prácticos de código."

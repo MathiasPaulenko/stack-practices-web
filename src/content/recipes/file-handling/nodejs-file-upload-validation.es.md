@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/graphql-error-handling-best-practices
   - /recipes/file-upload-validation
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Valida subidas de archivos en Node.js con multer. Verifica MIME types, impón límites de tamaño, escanea contenido y previene subidas maliciosas en Express."

@@ -32,6 +32,7 @@ relatedResources:
   - /patterns/flyweight-pattern
   - /patterns/intercepting-filter-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Proxy Pattern with practical examples in Python, Java, and JavaScript. Structural design pattern for access control, caching, and lazy loading."

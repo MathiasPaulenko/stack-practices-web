@@ -32,6 +32,7 @@ relatedResources:
   - /patterns/manager-pattern
   - /patterns/role-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Context Object para reducir bloat de parámetros. Ejemplos en Python, Java y JavaScript con request contexts, contenedores DI y scoping."

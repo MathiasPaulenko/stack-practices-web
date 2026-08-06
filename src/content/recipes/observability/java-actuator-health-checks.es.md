@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/python-prometheus-custom-metrics
   - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa health indicators personalizados con Spring Boot Actuator. Verifica DB, Redis, APIs externas y configura liveness y readiness probes de Kubernetes."

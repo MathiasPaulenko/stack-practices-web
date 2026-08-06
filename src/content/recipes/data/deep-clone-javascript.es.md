@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/regular-expressions
   - /recipes/batch-processing-patterns
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende deep cloning en JavaScript con structuredClone, lodash, recursión manual y JSON.parse. Cubre referencias circulares, typed arrays y lo que funciona."

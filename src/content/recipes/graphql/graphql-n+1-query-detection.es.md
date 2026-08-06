@@ -26,6 +26,7 @@ relatedResources:
   - /patterns/graphql-batched-resolver-pattern
   - /patterns/graphql-dataloader-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Detecta y corrige consultas N+1 en resolvers GraphQL. Usa DataLoader por peticion, plugins de logging y analisis de queries para eliminar llamadas DB."

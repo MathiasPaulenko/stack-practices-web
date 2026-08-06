@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/optimistic-locking
   - /guides/database-design-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende JOINs en SQL con ejemplos prácticos. INNER, LEFT, RIGHT y FULL OUTER JOIN explicados con consultas reales y tips de rendimiento."

@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/java-testcontainers-integration
   - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
 seo:

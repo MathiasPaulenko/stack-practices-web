@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/partial-class-pattern
   - /patterns/marker-interface-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Type Object Pattern for runtime entity types in games. Examples in Python, Java and JavaScript with monster definitions, stats tables, and flyweight reuse."

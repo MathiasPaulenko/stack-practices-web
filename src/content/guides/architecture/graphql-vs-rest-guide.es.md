@@ -33,6 +33,7 @@ relatedResources:
   - /guides/complete-guide-graphql-schema-design
   - /guides/complete-guide-graphql-security
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Guía comparativa GraphQL vs REST: casos de uso, rendimiento, caching y estrategias de migración. Elige el estilo de API correcto para tu proyecto."

@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/acid-transactions-postgres
   - /recipes/elasticsearch-aggregations
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Operaciones CRUD con MongoDB y Mongoose. Crea esquemas, realiza consultas, maneja transacciones e implementa paginacion en Node.js."

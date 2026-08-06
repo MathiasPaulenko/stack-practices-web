@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/gcp-cloud-functions-nodejs
   - /guides/serverless-architecture-guide
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye Azure Functions con HTTP trigger en Python. Configura bindings, usa handlers async, inyeccion de dependencias y despliega con Azure CLI."

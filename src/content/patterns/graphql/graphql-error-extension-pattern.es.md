@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/graphql-interface-polymorphism-pattern
   - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Agrega metadatos estructurados a errores GraphQL con codigos de extension. Estandariza el manejo de errores con codigos legibles por maquina y contexto."

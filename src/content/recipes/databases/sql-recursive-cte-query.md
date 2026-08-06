@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/sql-migration-zero-downtime
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Traverse hierarchical data in SQL with recursive CTEs. Learn how to query parent-child relationships, org charts, and tree structures safely."

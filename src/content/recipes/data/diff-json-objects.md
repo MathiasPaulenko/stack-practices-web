@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/merge-json-files-javascript
   - /recipes/truncate-text
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to diff JSON objects in Python, Java, and JavaScript. Find added, removed, and changed keys with practical code examples."

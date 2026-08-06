@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/bash-parallel-job-execution
   - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Safely loop over files and directories in Bash: handle spaces, globs, special characters, and large file lists with correct glob patterns."

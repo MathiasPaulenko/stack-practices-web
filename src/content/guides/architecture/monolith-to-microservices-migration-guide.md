@@ -32,6 +32,7 @@ relatedResources:
   - /guides/grpc-microservices-guide
   - /guides/modular-monolith-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Monolith to microservices migration: strangler fig, branch by abstraction, incremental extraction. Decompose safely without stopping the business."

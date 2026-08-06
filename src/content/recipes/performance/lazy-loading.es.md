@@ -18,6 +18,7 @@ relatedResources:
   - /recipes/cdn-edge-caching
   - /recipes/image-optimization
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende lazy loading para imágenes, componentes y datos. Mejora el tiempo de carga inicial de tu sitio web y optimiza Core Web Vitals con estos ejemplos prácticos."

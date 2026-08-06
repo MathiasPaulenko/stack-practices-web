@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-react-performance-optimization
   - /guides/complete-guide-web-performance-core-web-vitals
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Web performance optimization guide: Core Web Vitals, lazy loading, code splitting, bundle analysis, image optimization, and modern build tools for faster websites."

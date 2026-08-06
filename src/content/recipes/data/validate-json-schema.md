@@ -35,6 +35,7 @@ relatedResources:
   - /recipes/parse-yaml-files
   - /recipes/serialize-deserialize-data
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn JSON Schema validation in Python, Java, and JavaScript. Validate API payloads and configuration files with schemas using what works."

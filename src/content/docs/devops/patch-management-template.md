@@ -28,6 +28,7 @@ relatedResources:
   - /docs/service-level-objective-template
   - /docs/vulnerability-management-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this patch management template to schedule security patches, track testing across environments, and deploy updates with minimal downtime."

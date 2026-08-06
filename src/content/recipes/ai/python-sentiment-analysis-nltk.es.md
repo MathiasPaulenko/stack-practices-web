@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/prompt-engineering
   - /recipes/python-agent-langgraph-state-machine
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Realiza análisis de sentimiento en Python con NLTK VADER. Puntúa polaridad de texto, maneja negación y construye clasificadores con ejemplos."

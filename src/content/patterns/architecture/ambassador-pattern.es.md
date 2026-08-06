@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/health-endpoint-monitoring-pattern
   - /patterns/backends-for-frontends-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Offloadá cross-cutting concerns a un proxy ambassador. Aprende connection pooling, retry logic, circuit breaking, monitoring, y TLS termination para client services."

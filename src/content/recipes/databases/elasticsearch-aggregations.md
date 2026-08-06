@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-elasticsearch-cluster-setup
   - /guides/complete-guide-sql-query-optimization
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Elasticsearch aggregations for analytics. Build faceted search, metrics dashboards, and real-time aggregations with bucket and metric aggregations."

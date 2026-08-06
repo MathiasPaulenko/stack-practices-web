@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/graphql-api
   - /recipes/handle-errors
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement API logging and audit trails with structured output, correlation IDs, and compliance. Examples in Python, JavaScript, and Java."

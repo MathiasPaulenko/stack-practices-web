@@ -22,6 +22,7 @@ relatedResources:
   - /docs/serverless-cost-estimation-template
   - /docs/serverless-cold-start-runbook
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Security checklist for serverless functions: IAM least privilege, secrets, input validation, dependency scanning, network isolation, logging, compliance."

@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/ai-agents
   - /recipes/prompt-engineering
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye un pipeline RAG con LangChain, OpenAI y bases de datos vectoriales. Fragmenta documentos, genera embeddings y recupera contexto para respuestas de LLM."

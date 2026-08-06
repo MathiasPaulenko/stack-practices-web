@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-observability-grafana-stack
   - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 18
 seo:

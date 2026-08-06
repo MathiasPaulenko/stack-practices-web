@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/real-time-notifications
   - /recipes/websocket-server
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn Server-Sent Events in Python, JavaScript, and Java. Covers SSE protocol, event streaming, reconnection handling, and broadcasting to multiple clients."

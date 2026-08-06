@@ -22,6 +22,7 @@ relatedResources:
   - /docs/etl-job-runbook-template
   - /docs/data-governance-policy-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this data pipeline design document template to define sources, transforms, sinks, scheduling, error handling, monitoring, and data schemas."

@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/data-validation-zod
   - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-19"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye apps Express mantenibles con composicion de middleware. Patrones para auth, validacion, manejo de errores, propagacion de contexto y wrappers async."

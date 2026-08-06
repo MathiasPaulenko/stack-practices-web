@@ -33,6 +33,7 @@ relatedResources:
   - /docs/infrastructure-as-code-review-template
   - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this backup and restore template to verify database backups, file snapshots, and disaster recovery procedures across environments."

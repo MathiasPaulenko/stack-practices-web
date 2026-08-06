@@ -24,6 +24,7 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /docs/bug-triage-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this network security template to inventory VPC rules, firewall configurations, DNS settings, and network access controls."

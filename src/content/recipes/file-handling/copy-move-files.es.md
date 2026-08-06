@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/python-zip-file-extraction
   - /recipes/rotate-log-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende operaciones de copia y movimiento de archivos multiplataforma en Python, JavaScript y Java con verificaciones de seguridad y manejo de errores."

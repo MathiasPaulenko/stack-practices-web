@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/kubernetes-helm-chart-templating
   - /recipes/kubernetes-configmap-secret-mounting
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configure Terraform remote state with S3 backend and DynamoDB locking. State isolation, workspace management, encryption, and CI/CD integration patterns."

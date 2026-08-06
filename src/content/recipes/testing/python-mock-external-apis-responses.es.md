@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/python-coverage-pytest-cov
   - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Mockea APIs HTTP externas en tests de Python con la librería responses. Simula códigos de estado, bodies JSON, timeouts y errores de conexión fácilmente."

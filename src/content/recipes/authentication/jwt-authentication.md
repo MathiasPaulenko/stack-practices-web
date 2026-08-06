@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/graphql-directives-auth
   - /guides/security-best-practices-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical JWT authentication examples in Python, JavaScript, and Java. Learn to sign, verify, and refresh tokens securely."

@@ -31,6 +31,7 @@ relatedResources:
   - /guides/complete-guide-cdn-caching-strategy
   - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Cachear GraphQL en cada capa: CDN, gateway, DataLoader, persisted queries, cliente. Cubre cache keys, invalidacion, directivas HTTP y Apollo Client cache."

@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/backend-for-frontend-pattern
   - /patterns/graphql-connection-pagination-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "GraphQL mutation validation: centralize input validation with custom validators and structured error codes. Field-level validation in Apollo Server TypeScript."

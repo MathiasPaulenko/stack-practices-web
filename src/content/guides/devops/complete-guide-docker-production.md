@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-terraform-production
   - /guides/complete-guide-docker-compose-local-dev
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Run Docker in production. Covers multi-stage builds, distroless images, health checks, image scanning, resource limits, logging, secrets, multi-arch."

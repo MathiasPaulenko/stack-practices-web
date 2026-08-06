@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/oauth2-pkce-spa
   - /recipes/vault-dynamic-credentials
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "HTTP security headers for web applications: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and security header implementation guide."

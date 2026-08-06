@@ -19,6 +19,7 @@ relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/singleton-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn strategy pattern to swap algorithms at runtime. Encapsulate interchangeable behaviors with DI, function pointers, and lambda strategies in Java, TypeScript, Python."

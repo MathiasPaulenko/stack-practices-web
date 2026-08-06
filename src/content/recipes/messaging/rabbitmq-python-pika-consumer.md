@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/kafka-python-consumer-groups
   - /recipes/redis-pub-sub-python
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build a RabbitMQ consumer and producer in Python with pika. Use durable queues, acknowledgments, dead-letter exchanges, prefetch, and work dispatching."

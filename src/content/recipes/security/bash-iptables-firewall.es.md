@@ -24,6 +24,7 @@ relatedResources:
   - /docs/third-party-vendor-assessment-template
   - /recipes/docker-network-isolation
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Configura reglas de firewall iptables en bash. Bloquea puertos, permite SSH y HTTP, configura NAT y persiste reglas tras reinicios en Linux."

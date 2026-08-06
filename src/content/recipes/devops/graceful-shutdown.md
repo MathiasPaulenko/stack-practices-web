@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/blue-green-deployment
   - /recipes/traffic-mirroring
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement graceful shutdown and zero-downtime restarts for web servers and containers. Handle SIGTERM, drain connections, and reload safely."

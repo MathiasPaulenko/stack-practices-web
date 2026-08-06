@@ -32,6 +32,7 @@ relatedResources:
   - /docs/penetration-test-template
   - /guides/webhook-security-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "OWASP Top 10 security guide for developers. Prevent injection, XSS, broken access control, insecure design with practical code examples and checklists."

@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/cursor-pagination-postgresql
   - /recipes/real-time-notifications
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Create API documentation with OpenAPI and Swagger. Generate interactive docs from specs in Python, JavaScript, and Java with examples and what works."

@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/postgres-query-optimization
   - /recipes/caching-strategies
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Patrones de cache de Redis para apps de alto rendimiento. Implementa cache-aside, write-through y write-behind para reducir carga de base de datos y mejorar latencia."

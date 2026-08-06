@@ -35,6 +35,7 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn full-text search: PostgreSQL tsvector, Elasticsearch indexing, query design, relevance tuning, autocomplete, faceting, and typo tolerance."

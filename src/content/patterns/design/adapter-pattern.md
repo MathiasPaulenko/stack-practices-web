@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/proxy-pattern-caching
   - /patterns/proxy-pattern
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Adapter Pattern with practical examples in Python, Java, and JavaScript. Structural design pattern for making incompatible interfaces work together."

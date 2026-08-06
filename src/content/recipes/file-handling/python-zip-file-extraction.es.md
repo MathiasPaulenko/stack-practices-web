@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/copy-move-files
   - /recipes/generate-temporary-files
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Extrae archivos zip de forma segura en Python con el módulo zipfile. Valida archivos, evita path traversal y maneja extracciones grandes con ejemplos."

@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/python-async-gather-concurrent-requests
   - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement distributed rate limiting in FastAPI with Redis. Use sliding window and token bucket algorithms for per-user, per-IP, and per-endpoint rate limits."

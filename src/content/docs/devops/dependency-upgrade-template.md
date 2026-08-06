@@ -25,6 +25,7 @@ relatedResources:
   - /docs/on-call-runbook-template
   - /guides/event-driven-architecture-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Follow this dependency upgrade runbook to update packages, test for breaking changes, and roll back safely if issues arise."

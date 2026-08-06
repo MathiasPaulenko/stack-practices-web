@@ -21,6 +21,7 @@ relatedResources:
   - /docs/service-ownership-document-template
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Safely retire old services with this decommissioning checklist. Covers dependency mapping, data migration, cleanup, and communication to prevent outages."

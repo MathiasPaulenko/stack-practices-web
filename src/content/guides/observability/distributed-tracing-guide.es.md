@@ -28,6 +28,7 @@ relatedResources:
   - /guides/opentelemetry-guide
   - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende trazas distribuidas: instrumenta aplicaciones, propaga trazas, estrategias de muestreo y diagnostica latencia con OpenTelemetry, Jaeger y Zipkin."

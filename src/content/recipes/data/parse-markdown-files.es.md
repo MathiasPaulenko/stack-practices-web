@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/parse-xml-files
   - /recipes/convert-csv-to-json
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos Markdown en Python, Java y JavaScript. Convierte MD a HTML y extrae frontmatter con ejemplos de código."

@@ -28,6 +28,7 @@ relatedResources:
   - /docs/service-level-objective-template
   - /docs/vulnerability-management-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de gestión de parches: programa actualizaciones de seguridad, rastrea pruebas, ventanas de mantenimiento y despliegues con mínimo downtime."

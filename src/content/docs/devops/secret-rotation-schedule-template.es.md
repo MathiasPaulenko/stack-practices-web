@@ -27,6 +27,7 @@ relatedResources:
   - /docs/endpoint-security-checklist-template
   - /docs/user-access-audit-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Rastrea y programa la rotacion de secretos con esta plantilla. Cubre claves API, contrasenas, certificados, duenos, frecuencia y pasos de verificacion."

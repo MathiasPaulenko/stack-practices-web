@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/python-prometheus-custom-metrics
   - /recipes/java-micrometer-prometheus
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement distributed tracing in Python with OpenTelemetry SDK. Create spans, propagate context across services, auto-instrument Flask and requests."

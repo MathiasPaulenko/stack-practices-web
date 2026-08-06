@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/encryption-at-rest
   - /guides/api-security-checklist-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa firma de peticiones con HMAC y AWS Signature v4. Autenticación segura de API con integridad de mensajes en Python, JavaScript y Java."

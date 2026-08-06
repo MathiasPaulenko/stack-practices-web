@@ -25,6 +25,7 @@ relatedResources:
   - /docs/load-test-plan-template
   - /docs/database-query-tuning-checklist
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Performance budget template: LCP, INP, CLS targets, JS/CSS/image budgets, third-party limits, Lighthouse CI integration, alerting thresholds, web vitals."

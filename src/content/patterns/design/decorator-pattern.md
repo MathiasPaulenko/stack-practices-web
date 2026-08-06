@@ -38,6 +38,7 @@ relatedResources:
   - /patterns/template-method-pattern
   - /patterns/twin-pattern
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Decorator Pattern with practical examples in Python, Java, and JavaScript. Structural design pattern for dynamic behavior extension."

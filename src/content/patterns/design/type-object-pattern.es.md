@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/partial-class-pattern
   - /patterns/marker-interface-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Type Object para entidades de juego en runtime. Ejemplos en Python, Java y JavaScript con tipos, stats y flyweight."

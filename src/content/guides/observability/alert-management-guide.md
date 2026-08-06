@@ -28,6 +28,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/log-aggregation-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn alert management: reduce alert fatigue, define severity levels, design escalation policies, on-call rotations, and build sustainable alerting."

@@ -22,6 +22,7 @@ relatedResources:
   - /docs/component-api-documentation-template
   - /docs/browser-support-matrix-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this frontend performance budget template to define JS, CSS, image, font limits per route with enforcement strategies and monitoring thresholds."

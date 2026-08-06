@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/graphql-mutation-validation-pattern
   - /guides/complete-guide-graphql-caching
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Coalesce individual GraphQL load requests into batched calls with DataLoader. Per-request caching, deduplication, and automatic batching."

@@ -31,6 +31,7 @@ relatedResources:
   - /guides/indexing-strategies-guide
   - /guides/sql-joins-guide
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a conectar a bases de datos PostgreSQL usando Python psycopg2, Node.js pg y Java JDBC con ejemplos de código prácticos."

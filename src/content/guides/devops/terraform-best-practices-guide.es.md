@@ -35,6 +35,7 @@ relatedResources:
   - /guides/finops-guide
   - /guides/platform-engineering-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende mejores prácticas de Terraform: diseño de módulos, estado remoto, workspaces y seguridad. Construye infraestructura como código con confianza."

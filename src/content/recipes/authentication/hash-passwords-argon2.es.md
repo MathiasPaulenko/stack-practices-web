@@ -24,6 +24,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/implement-abac
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Hashea y verifica contraseñas de forma segura con Argon2id, con tuning correcto de parámetros y estrategias de migración desde bcrypt."

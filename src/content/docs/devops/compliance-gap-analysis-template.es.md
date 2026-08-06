@@ -27,6 +27,7 @@ relatedResources:
   - /docs/pen-test-scope-template
   - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Mapea controles de seguridad a marcos de cumplimiento con esta plantilla. Cubre requisitos, evidencia, brechas y planes de remediacion."

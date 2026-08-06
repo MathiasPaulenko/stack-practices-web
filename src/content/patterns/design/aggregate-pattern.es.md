@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/null-object-pattern
   - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Aggregate en Domain-Driven Design. Ejemplos en Python, Java y JavaScript para forzar invariantes a través de clusters de entidades."

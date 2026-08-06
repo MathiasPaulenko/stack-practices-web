@@ -22,6 +22,7 @@ relatedResources:
   - /guides/connection-pooling-deep-dive-guide
   - /patterns/multiton-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Object Pool para reutilizar objetos costosos eficientemente. Ejemplos en Python, Java y JavaScript para pools de conexiones."

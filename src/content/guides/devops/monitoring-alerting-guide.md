@@ -28,6 +28,7 @@ relatedResources:
   - /docs/post-deployment-checklist-template
   - /docs/slo-document-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Monitoring and alerting guide: RED/USE methods, metrics, logs, traces, alert design. Build observability systems that reduce MTTR and prevent alert fatigue."

@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/uuid-generation
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de caching en Python, JavaScript y Java. Aprende memoización, TTL y estrategias de invalidación de cache."

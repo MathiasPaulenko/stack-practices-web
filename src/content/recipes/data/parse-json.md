@@ -40,6 +40,7 @@ relatedResources:
   - /recipes/uuid-generation
   - /recipes/validate-json-schema
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical JSON parsing examples in Python, JavaScript, and Java with code snippets, edge cases, and what works for developers."

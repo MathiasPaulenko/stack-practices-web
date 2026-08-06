@@ -22,6 +22,7 @@ relatedResources:
   - /docs/cache-warmup-runbook
   - /docs/cache-eviction-policy-template
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Template for CDN cache rules: cache keys, TTL by content type, query params, header forwarding, purge strategies, origin shield, edge behavior, code examples."

@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/singleton-pattern-recipe
   - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn hexagonal architecture for maintainable apps. Use ports and adapters to isolate business logic from frameworks, databases, and external services."

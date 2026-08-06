@@ -18,6 +18,7 @@ relatedResources:
   - /patterns/proxy-pattern-caching
   - /recipes/call-rest-api
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Builder pattern for configuration objects. Construct complex objects with optional parameters, fluent API, and sensible defaults without telescoping constructors."

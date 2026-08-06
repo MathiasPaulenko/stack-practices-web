@@ -22,6 +22,7 @@ relatedResources:
   - /guides/api-security-checklist-guide
   - /guides/complete-guide-api-security
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn API rate limiting strategies. Protect endpoints from abuse using token bucket, sliding window, and fixed window with Redis and in-memory implementations."

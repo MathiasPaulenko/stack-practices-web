@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/graceful-shutdown-pattern
   - /patterns/bulkhead-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Switch to standby on primary failure. Learn active-passive, active-active, health monitoring, DNS fallover, database replication, and automated promotion."

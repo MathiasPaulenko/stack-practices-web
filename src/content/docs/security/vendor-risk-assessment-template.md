@@ -27,6 +27,7 @@ relatedResources:
   - /docs/data-classification-template
   - /docs/secrets-rotation-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this vendor risk assessment template to evaluate third-party vendor security, compliance, and operational risks before onboarding."

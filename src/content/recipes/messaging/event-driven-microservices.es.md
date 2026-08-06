@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/message-idempotency
   - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Arquitectura de microservicios event-driven: message brokers, event sourcing, CQRS, consistencia eventual, patrones saga e implementación del outbox pattern."

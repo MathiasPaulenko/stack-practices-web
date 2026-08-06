@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/batch-to-streaming-bridge-pattern
   - /patterns/data-lineage-tracking-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Stream database changes to downstream consumers with CDC. Learn log-based CDC, Debezium, Kafka Connect, outbox pattern, and consumer reconciliation strategies."

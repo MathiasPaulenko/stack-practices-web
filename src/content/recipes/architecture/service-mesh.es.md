@@ -19,6 +19,7 @@ relatedResources:
   - /recipes/load-balancing
   - /recipes/secret-management
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende service mesh para microservicios. Despliega Istio o Linkerd para agregar mTLS, gestión de tráfico, observabilidad y políticas sin cambiar código."

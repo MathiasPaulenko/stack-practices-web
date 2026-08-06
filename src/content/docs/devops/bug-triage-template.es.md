@@ -34,6 +34,7 @@ relatedResources:
   - /docs/rollout-communication-template
   - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de triaje de bugs para clasificar reportes por severidad, asignar prioridad y enrutarlos al equipo de ingeniería correcto."

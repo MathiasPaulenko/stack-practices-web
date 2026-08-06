@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/event-sourcing-relational
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configura read replicas de base de datos para escalado. Monitoreo de replication lag, split de lectura/escritura y balanceo de carga entre primaria y réplicas."

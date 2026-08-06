@@ -19,6 +19,7 @@ export interface Props {
   tags: string[];
   topics: string[];
   lastUpdated: Date;
+  publishedAt?: Date;
   author: string;
   path: string;
   locale: Locale;
@@ -39,6 +40,7 @@ const {
   tags,
   topics,
   lastUpdated,
+  publishedAt,
   author,
   path,
   locale,
@@ -50,8 +52,10 @@ const {
   contentType,
 } = Astro.props;
 
-const iso = lastUpdated.toISOString();
 const localeTag = locale === 'es' ? 'es' : 'en';
+const effectivePublishedAt = publishedAt || lastUpdated;
+const dateModified = lastUpdated.toISOString();
+const datePublished = effectivePublishedAt.toISOString();
 
 const jsonLd: Record<string, unknown>[] = [
   techArticle({
@@ -59,8 +63,8 @@ const jsonLd: Record<string, unknown>[] = [
     description: metaDescription,
     url: path,
     locale: localeTag,
-    datePublished: iso,
-    dateModified: iso,
+    datePublished,
+    dateModified,
     difficulty,
     section: topics[0],
     keywords,
@@ -125,7 +129,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
               {locale === 'es' ? 'Por' : 'By'} {author}
             </a>
             <span class="h-3 w-px bg-slate-300"></span>
-            <time datetime={iso} class="text-xs font-medium text-slate-400">{dateLabel}</time>
+            <time datetime={dateModified} class="text-xs font-medium text-slate-400">{dateLabel}</time>
           </div>
           <button
             type="button"

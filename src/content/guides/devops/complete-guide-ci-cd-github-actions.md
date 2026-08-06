@@ -32,6 +32,7 @@ relatedResources:
   - /guides/complete-guide-cost-optimization-aws
   - /guides/complete-guide-observability-grafana-stack
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to CI/CD with GitHub Actions. Build pipelines from scratch. Master workflows, runners, matrix builds, caching, secrets, environments and deployments."

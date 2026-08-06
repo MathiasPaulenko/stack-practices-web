@@ -35,6 +35,7 @@ relatedResources:
   - /recipes/serverless-event-driven-sqs-lambda
   - /recipes/serverless-step-functions-workflow
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende arquitectura serverless: diseño de funciones, cold starts, patrones event-driven, gestión de estado. Guía práctica con AWS Lambda, Azure y GCP."

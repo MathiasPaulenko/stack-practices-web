@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/truncate-text
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to parse PDF files in Python, Java, and JavaScript. Extract text, metadata, and tables with practical code examples."

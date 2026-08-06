@@ -22,6 +22,7 @@ relatedResources:
   - /docs/rabbitmq-queue-design-template
   - /docs/message-schema-evolution-policy
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Dead letter queue runbook: DLQ setup, message inspection, root cause analysis, replay strategies, monitoring, automation for Kafka and RabbitMQ."

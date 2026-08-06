@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/python-openai-embeddings-cosine
   - /patterns/embedding-cache-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa RAG hybrid search combinando BM25 con busqueda vectorial semantica y reciprocal rank fusion para mayor precision en la recuperacion de documentos."

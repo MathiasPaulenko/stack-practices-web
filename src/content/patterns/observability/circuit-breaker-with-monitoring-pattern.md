@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-observability-grafana-stack
   - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Expose circuit breaker state as metrics for observability. Learn Prometheus integration, alerting on open breakers, dashboards, and state transition tracking."

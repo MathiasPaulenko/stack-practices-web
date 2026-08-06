@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/event-sourcing-relational
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Set up database read replicas for scaling. Replication lag monitoring, read/write splitting, and load balancing across primary and replicas."

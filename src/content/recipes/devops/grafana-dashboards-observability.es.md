@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/real-user-monitoring
   - /recipes/structured-logging
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye dashboards Grafana para metricas Prometheus. Crea visualizaciones interactivas con paneles, variables y alerts para observabilidad completa."

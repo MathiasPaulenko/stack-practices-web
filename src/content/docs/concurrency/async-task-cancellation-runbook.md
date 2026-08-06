@@ -27,6 +27,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio
   - /guides/concurrency-patterns-guide
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Async task cancellation runbook: cancellation tokens, context propagation, resource cleanup, timeouts, graceful shutdown for Python, JS, Go, Java."

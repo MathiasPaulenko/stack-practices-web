@@ -23,6 +23,7 @@ relatedResources:
   - /docs/compliance-gap-analysis-template
   - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define los limites de una prueba de penetracion con esta plantilla. Cubre objetivos, exclusiones, reglas de juego, entregables y cronograma."

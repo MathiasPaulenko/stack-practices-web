@@ -31,6 +31,7 @@ relatedResources:
   - /docs/postmortem-incident-review-template
   - /docs/service-level-objective-slo-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define politicas de monitoreo y alertas con esta plantilla. Cubre umbrales, enrutamiento, escalacion, niveles de severidad y cadencia de revision."

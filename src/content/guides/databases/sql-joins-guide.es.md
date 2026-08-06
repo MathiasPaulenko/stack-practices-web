@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/parse-csv-files
   - /guides/database-normalization-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Domina SQL joins con diagramas visuales y ejemplos. Aprende INNER, LEFT, RIGHT, FULL, CROSS y SELF joins con tips de rendimiento y errores comunes."

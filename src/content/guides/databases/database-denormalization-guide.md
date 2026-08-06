@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-postgresql-tuning
   - /guides/database-replication-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn database denormalization: when to trade storage for read performance, common patterns, and keeping derived data consistent. Practical guide."

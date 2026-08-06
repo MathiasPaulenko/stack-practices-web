@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/java-junit5-assertions-soft
   - /recipes/integration-testing-strategies
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Stubea servicios HTTP externos en tests de Java con WireMock. Simula respuestas, delays, comportamiento stateful y templating para tests de integración confiables."

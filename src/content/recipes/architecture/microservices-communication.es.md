@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/service-discovery
   - /recipes/workflow-engine
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Patrones de comunicación en microservicios: REST, gRPC, messaging, event-driven, sagas y circuit breakers para sistemas distribuidos resilientes."

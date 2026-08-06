@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/ai-agents
   - /recipes/image-generation
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende prompt engineering para LLMs. Escribe prompts útiles con asignación de roles, few-shot examples, chain-of-thought reasoning y formatos de salida estructurados."

@@ -24,6 +24,7 @@ relatedResources:
   - /docs/disaster-recovery-test-plan
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Migra datos de forma segura con esta plantilla de runbook. Cubre verificaciones pre-migracion, pasos de ejecucion, procedimientos de rollback y validacion post-migracion."

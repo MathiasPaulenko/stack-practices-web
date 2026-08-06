@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/template-method-pattern
   - /patterns/iterator-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Interpreter Pattern in Python, Java, and JavaScript. Behavioral design pattern for parsing and evaluating mini-languages."

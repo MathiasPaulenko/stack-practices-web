@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/interpreter-pattern-expressions
   - /patterns/visitor-pattern-operations
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Command pattern con undo/redo en TypeScript. Encapsula peticiones como objetos para encolamiento, logging y acciones reversibles en aplicaciones interactivas."

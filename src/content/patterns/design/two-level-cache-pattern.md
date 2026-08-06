@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/cache-aside-pattern
   - /patterns/cache-stampede-prevention-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Two-level cache pattern: L1 in-memory plus L2 Redis for low-latency hot keys with distributed consistency. Implement with Python, Java, and TypeScript."

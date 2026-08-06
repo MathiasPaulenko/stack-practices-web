@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/llm-router-pattern
   - /guides/complete-guide-llm-cost-optimization
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Cache LLM embeddings to cut API costs. Store embeddings keyed by content hash, serve from cache on repeated inputs, and invalidate on model changes."

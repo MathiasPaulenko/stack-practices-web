@@ -25,6 +25,7 @@ relatedResources:
   - /docs/access-control-policy-template
   - /docs/encryption-key-rotation-runbook
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá esta plantilla de informe de pentest para documentar alcance, metodología, hallazgos, severidad CVSS, evidencia y recomendaciones de remediación."

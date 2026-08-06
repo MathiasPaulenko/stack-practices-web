@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/rust-tokio-async-runtime
   - /recipes/race-condition-prevention
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Run concurrent async tasks in Python with asyncio.gather and TaskGroup. Handle errors, timeouts, semaphores for rate limiting, and structured concurrency patterns."

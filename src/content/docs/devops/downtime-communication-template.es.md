@@ -30,6 +30,7 @@ relatedResources:
   - /docs/runbook-database-failover
   - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de comunicación de inactividad para redactar mensajes internos y externos durante interrupciones del servicio e incidentes."

@@ -23,6 +23,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/system-design-interview-guide
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Coordinate a single active node with the Leader Election Pattern. Avoid split-brain, duplicate work, and race conditions in distributed systems."

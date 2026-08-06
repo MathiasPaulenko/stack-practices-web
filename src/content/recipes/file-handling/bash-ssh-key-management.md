@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/bash-aws-cli-automation
   - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Manage SSH keys with Bash: generate Ed25519 key pairs, rotate credentials on schedule, and distribute public keys securely to servers and team members."

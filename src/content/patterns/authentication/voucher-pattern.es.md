@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/escape-html-entities
   - /recipes/sanitize-user-input
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el patrón Voucher en Python, Java y JavaScript. Valida claims firmados entre servicios sin exponer datos sensibles ni credenciales."

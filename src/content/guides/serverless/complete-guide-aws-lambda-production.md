@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/circuit-breaker-pattern
   - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Run AWS Lambda in production. Covers cold starts, layers, deployment, X-Ray observability, security, connection pooling, and cost tuning."

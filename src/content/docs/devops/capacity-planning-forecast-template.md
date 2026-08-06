@@ -25,6 +25,7 @@ relatedResources:
   - /docs/infrastructure-cost-allocation-template
   - /docs/load-test-execution-plan-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Plan infrastructure growth with this capacity forecast template. Covers traffic projections, resource bottlenecks, scaling triggers, and budget estimates."

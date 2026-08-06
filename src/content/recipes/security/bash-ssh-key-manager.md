@@ -24,6 +24,7 @@ relatedResources:
   - /guides/security-best-practices-guide
   - /recipes/bash-iptables-firewall
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Manage SSH keys in bash. Generate ed25519 keys, rotate compromised keys, distribute to multiple servers, and enforce key-based authentication."

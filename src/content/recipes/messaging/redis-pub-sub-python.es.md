@@ -23,6 +23,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa mensajeria pub/sub con Redis en Python. Usa suscripciones por patron, serializacion, connection pooling y patrones de broadcast para microservicios."

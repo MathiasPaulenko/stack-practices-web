@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/diff-json-objects
   - /recipes/parse-csv-files
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Merge de archivos JSON en JavaScript con resolución de conflictos. Aprende deep merge, shallow merge y estrategias custom con Node.js."

@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/llm-guardrails-pattern
   - /patterns/llm-router-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Obten JSON estructurado de OpenAI con function calling y esquemas Pydantic. Valida respuestas, maneja rechazos y reintenta en errores de parseo."

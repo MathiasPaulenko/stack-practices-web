@@ -46,6 +46,7 @@ relatedResources:
   - /guides/capacity-planning-guide
   - /guides/cost-optimization-cloud-guide
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn web performance optimization: image compression, lazy loading, caching strategies, bundle splitting, and Core Web Vitals improvement techniques."

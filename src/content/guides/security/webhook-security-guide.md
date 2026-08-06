@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/docker-secrets-management
   - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to secure webhooks with signature verification, replay protection, payload encryption, and endpoint hardening. Practical security guide for developers."

@@ -33,6 +33,7 @@ relatedResources:
   - /docs/infrastructure-as-code-review-template
   - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de backup y restore para verificar backups de bases de datos, snapshots de archivos y procedimientos de disaster recovery."

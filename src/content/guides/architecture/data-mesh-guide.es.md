@@ -22,6 +22,7 @@ relatedResources:
   - /guides/lakehouse-guide
   - /guides/cqrs-event-sourcing-combined-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Guía de Data Mesh: propiedad descentralizada de datos, dominios como productos, infraestructura self-serve y federación de gobernanza."

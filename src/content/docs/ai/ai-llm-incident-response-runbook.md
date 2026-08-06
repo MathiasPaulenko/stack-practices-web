@@ -23,6 +23,7 @@ relatedResources:
   - /docs/ai-agent-design-document-template
   - /docs/ai-rag-evaluation-checklist
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Runbook for LLM production incidents: hallucinations, model outages, cost spikes, safety failures, degraded quality. Severity levels, escalation, diagnostics, recovery."

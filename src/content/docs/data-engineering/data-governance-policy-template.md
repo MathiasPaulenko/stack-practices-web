@@ -25,6 +25,7 @@ relatedResources:
   - /docs/access-control-policy-template
   - /docs/security-audit-checklist
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this data governance policy template to define data classification, retention schedules, access controls, privacy rules, and compliance procedures."

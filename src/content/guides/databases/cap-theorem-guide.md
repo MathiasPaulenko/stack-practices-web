@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "CAP theorem guide: consistency, availability, partition tolerance. Choose the right database trade-offs for your application's requirements."

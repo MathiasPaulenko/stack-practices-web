@@ -27,6 +27,7 @@ relatedResources:
   - /guides/nosql-patterns-guide
   - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende bases de datos vectoriales: embeddings, busqueda por similitud, algoritmos ANN. Compara Pinecone, Weaviate, pgvector y Chroma para casos de uso IA/ML."

@@ -39,6 +39,7 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de página de estado de API con comunicación de incidentes, ventanas de mantenimiento, definiciones de SLA y lo que funciona en reporte transparente."

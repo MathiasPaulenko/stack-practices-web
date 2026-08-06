@@ -25,6 +25,7 @@ relatedResources:
   - /guides/compliance-gdpr-guide
   - /guides/threat-modeling-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn secure coding practices by language. Input validation, memory safety, auth patterns, and defensive coding for Python, Java, JavaScript, and Go."

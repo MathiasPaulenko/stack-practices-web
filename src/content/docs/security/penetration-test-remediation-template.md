@@ -26,6 +26,7 @@ relatedResources:
   - /docs/api-security-review-template
   - /docs/owasp-top-10-remediation-checklist
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this penetration test remediation template to track security findings, assign owners, schedule fixes, and validate remediation after security assessments."

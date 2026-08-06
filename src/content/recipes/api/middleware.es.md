@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/send-emails-smtp
   - /recipes/webhooks
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de middleware en Python, JavaScript y Java. Aprende interceptores de request, logging, auth y manejo de errores."

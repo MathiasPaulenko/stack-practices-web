@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/nodejs-winston-daily-rotate
   - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Integrate Sentry error tracking in Node.js Express apps. Capture errors, monitor performance, track releases, and upload source maps for stack traces."

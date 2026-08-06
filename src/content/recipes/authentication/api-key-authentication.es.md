@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/secret-management
   - /recipes/magic-link-authentication
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende autenticación con API keys para servicios. Genera, valida y rota API keys usando firmas HMAC, scopes y políticas de rate limiting para machine-to-machine auth."

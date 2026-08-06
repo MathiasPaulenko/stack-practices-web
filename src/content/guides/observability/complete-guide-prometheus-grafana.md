@@ -27,6 +27,7 @@ relatedResources:
   - /guides/complete-guide-sentry-error-tracking
   - /recipes/real-user-monitoring
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
 seo:

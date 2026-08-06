@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/front-controller-pattern
   - /patterns/page-controller-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón MVVM para arquitectura UI reactiva. Ejemplos en Python, Java y JavaScript con data binding bidireccional entre view y ViewModel."

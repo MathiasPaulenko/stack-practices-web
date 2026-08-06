@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/chain-of-responsibility-pattern
   - /patterns/interpreter-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Memento Pattern in Python, Java, and JavaScript. Behavioral design pattern for state snapshots and undo functionality."

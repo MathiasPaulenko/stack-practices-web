@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/image-generation
   - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to build autonomous AI agents. Design agents that plan, execute tools, and iterate using ReAct, function calling, and memory architectures."

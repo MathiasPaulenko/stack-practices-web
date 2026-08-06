@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/parse-config-files
   - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to build a health check endpoint in Python, JavaScript, and Java. Includes liveness, readiness, and dependency checks for Kubernetes and load balancers."

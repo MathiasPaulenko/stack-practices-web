@@ -22,6 +22,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Procesamiento de mensajes idempotente: estrategias de deduplicación, idempotency keys, semántica exactly-once y manejo seguro de entregas duplicadas."

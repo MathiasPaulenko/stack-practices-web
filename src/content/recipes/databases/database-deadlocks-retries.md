@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/database-views-materialized
   - /recipes/optimistic-locking
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Handle database deadlocks and retries with automatic retry logic, isolation levels, and query ordering. Examples in PostgreSQL, MySQL, and SQL Server."

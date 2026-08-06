@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-graphql-security
   - /guides/complete-guide-authentication-patterns
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Agrega auth a nivel campo en GraphQL con directivas personalizadas. Verifica roles y permisos por campo con @auth y @requiresRole."

@@ -33,6 +33,7 @@ relatedResources:
   - /patterns/cache-invalidation-pattern
   - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Patron write-through cache: escribe sincronamente en cache y base de datos para mantener consistencia. Implementa con Redis y Python, Java y TypeScript."

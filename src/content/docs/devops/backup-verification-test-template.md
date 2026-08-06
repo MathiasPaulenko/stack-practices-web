@@ -21,6 +21,7 @@ relatedResources:
   - /docs/runbook-template
   - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Verify backups are restorable with this template. Covers scope, restore steps, validation criteria, RTO/RPO checks, and remediation actions."

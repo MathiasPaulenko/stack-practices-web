@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/python-agent-langgraph-state-machine
   - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Fine-tunea clasificadores de texto con Hugging Face Transformers. Usa Trainer API, tokeniza datasets, evalua F1 accuracy y despliega con pipeline."

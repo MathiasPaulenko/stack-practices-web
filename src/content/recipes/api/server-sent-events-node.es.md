@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/kafka-event-streaming
   - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-19"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa Server-Sent Events en Node.js con Express. Push en tiempo real con gestion de conexiones, tipos de eventos, reconexion y manejo de backpressure."

@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/caching-strategies
   - /guides/full-text-search-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias de caché: navegador, CDN, Redis, y caché de consultas de base de datos. Cuándo usar cada una y cómo evitar errores comunes de invalidación."

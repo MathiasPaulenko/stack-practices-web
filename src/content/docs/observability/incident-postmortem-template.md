@@ -27,6 +27,7 @@ relatedResources:
   - /docs/ci-cd-pipeline-design-template
   - /docs/incident-response-plan-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this blameless incident postmortem template to document timeline, impact, root cause, contributing factors, and trackable action items with owners."

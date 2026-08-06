@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/format-phone-numbers
   - /recipes/generate-pdf-report-python
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Genera códigos QR en Python con la librería qrcode. Crea QR personalizados para URLs, texto y vCards con estilo y corrección de errores."

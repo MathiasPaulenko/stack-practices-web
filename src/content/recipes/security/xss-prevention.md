@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/api-security-headers
   - /recipes/csrf-protection
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn XSS prevention techniques. Escape output, sanitize HTML, use CSP headers, and validate input to protect users from cross-site scripting attacks."

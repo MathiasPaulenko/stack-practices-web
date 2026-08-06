@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-bundle-size-optimization
   - /guides/complete-guide-css-grid-and-flexbox
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Master React 19. Covers server components, use() hook, actions, useActionState, useOptimistic, useFormStatus, ref as prop, React Compiler."

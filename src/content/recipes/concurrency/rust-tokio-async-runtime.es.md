@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/java-virtual-threads-project-loom
   - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye sistemas async en Rust con Tokio. Usa tasks, channels, mutexes, graceful shutdown y concurrencia estructurada para networking de alto rendimiento."

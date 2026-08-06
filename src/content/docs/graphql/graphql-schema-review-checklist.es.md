@@ -24,6 +24,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /docs/graphql-federation-onboarding-template
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Checklist for GraphQL schema review: naming, type design, pagination, error handling, security, performance, deprecation, federation readiness with examples."

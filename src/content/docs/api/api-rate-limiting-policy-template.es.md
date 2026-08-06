@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/throttling-pattern
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define limites de tasa de API por tier con esta plantilla. Cubre limites de burst, ventanas de cuota, headers y escalamiento para consumidores."

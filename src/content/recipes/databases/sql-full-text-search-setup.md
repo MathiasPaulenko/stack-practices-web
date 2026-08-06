@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/database-migrations
   - /recipes/database-read-replicas
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Set up full-text search in PostgreSQL. Learn to create GIN indexes, query tsvector columns, rank results, and highlight matching search terms."

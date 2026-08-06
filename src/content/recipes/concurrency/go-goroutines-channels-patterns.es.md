@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/java-virtual-threads-project-loom
   - /recipes/rust-tokio-async-runtime
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye sistemas concurrentes en Go con goroutines y channels. Usa select, worker pools, fan-out/fan-in, pipelines, context cancellation y patrones de rate limiting."

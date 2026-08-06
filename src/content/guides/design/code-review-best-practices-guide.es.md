@@ -27,6 +27,7 @@ relatedResources:
   - /guides/clean-code-principles-guide
   - /guides/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Lo que funciona en code review para autores y revisores. Aprende a escribir código revisable, dar feedback constructivo y mantener revisiones rápidas."

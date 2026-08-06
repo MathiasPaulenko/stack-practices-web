@@ -32,6 +32,7 @@ relatedResources:
   - /guides/complete-guide-terraform-modules
   - /guides/deployment-strategies-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Infrastructure as Code guide: Terraform and Pulumi, declarative vs imperative, state management, modules, and testing infrastructure changes safely."

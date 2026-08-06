@@ -33,6 +33,7 @@ relatedResources:
   - /docs/architecture-decision-record-adr-template
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Document your engineering team's culture and standards with this handbook template. Covers processes, technical standards, communication norms, and operational practices."

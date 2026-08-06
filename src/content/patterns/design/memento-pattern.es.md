@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/chain-of-responsibility-pattern
   - /patterns/interpreter-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Memento en Python, Java y JavaScript. Patrón de comportamiento para instantáneas de estado y funcionalidad de deshacer."

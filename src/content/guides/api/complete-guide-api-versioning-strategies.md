@@ -35,6 +35,7 @@ relatedResources:
   - /recipes/python-memcached-session-storage
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to API versioning. Compare URI, header, query param, content negotiation, and GraphQL schema evolution for REST and GraphQL APIs."

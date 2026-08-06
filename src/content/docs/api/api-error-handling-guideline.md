@@ -28,6 +28,7 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Standardize API error responses with this guideline. Covers HTTP status codes, error payloads, error IDs, and retry strategies for REST and GraphQL."

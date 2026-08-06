@@ -30,6 +30,7 @@ relatedResources:
   - /docs/network-segmentation-policy-template
   - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define politicas de control de acceso basado en roles con esta plantilla RBAC. Cubre roles, permisos, reglas de asignacion y frecuencia de revision."

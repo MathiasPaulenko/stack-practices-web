@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/event-bus-pattern
   - /patterns/business-delegate-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Domain Event para desacoplar lógica de negocio de efectos secundarios. Ejemplos en Python, Java y JavaScript con event sourcing."

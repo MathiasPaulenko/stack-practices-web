@@ -41,6 +41,7 @@ relatedResources:
   - /guides/complete-guide-vitest-react-testing
   - /guides/test-driven-development-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a construir una estrategia de testing con unit tests, integration tests y E2E tests. Cubre pirámide de testing, mocking, integración CI y metas de coverage."

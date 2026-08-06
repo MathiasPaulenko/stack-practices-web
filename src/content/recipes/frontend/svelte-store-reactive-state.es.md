@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/state-machine-ui-pattern
   - /guides/complete-guide-react-state-management
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Maneja estado reactivo en Svelte con writable, readable y derived stores. Construye custom stores con contrato y auto-suscripción en componentes."

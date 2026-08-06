@@ -27,6 +27,7 @@ relatedResources:
   - /guides/distributed-tracing-guide
   - /guides/log-aggregation-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende OpenTelemetry: instrumentacion, collectors, exporters OTLP. Conecta traces, metricas y logs a Jaeger, Prometheus y Grafana."

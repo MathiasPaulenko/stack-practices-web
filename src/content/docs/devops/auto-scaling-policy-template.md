@@ -36,6 +36,7 @@ relatedResources:
   - /docs/infrastructure-as-code-review-template
   - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this auto-scaling policy template to define CPU, memory, and request-based scale-up and scale-down rules for cloud workloads."

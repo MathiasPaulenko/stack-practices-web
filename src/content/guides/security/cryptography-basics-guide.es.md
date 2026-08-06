@@ -22,6 +22,7 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /guides/secure-coding-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende bases de criptografía: encriptación simétrica/asimétrica, hashing, firmas digitales y gestión de claves. Guía práctica con ejemplos de código."

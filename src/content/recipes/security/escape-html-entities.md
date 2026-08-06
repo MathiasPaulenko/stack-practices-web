@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/multi-tenant-data-isolation-pattern
   - /patterns/federated-identity-pattern
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to escape HTML entities in Python, Java, and JavaScript. Prevent cross-site scripting with practical code examples."

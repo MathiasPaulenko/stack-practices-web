@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/deep-clone-javascript
   - /recipes/flatten-unflatten-objects
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a manejar dinero y moneda en Python, JavaScript y Java. Cubre aritmética decimal, formateo, tasas de cambio y errores comunes con punto flotante."

@@ -26,6 +26,7 @@ relatedResources:
   - /patterns/embedding-cache-pattern
   - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Store and query embeddings in Pinecone for semantic search. Upsert vectors, filter by metadata, use namespaces, and optimize recall with sparse vectors."

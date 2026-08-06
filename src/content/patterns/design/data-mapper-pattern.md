@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/identity-map-pattern
   - /patterns/specification-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Data Mapper Pattern for clean ORM architecture. Examples in Python, Java, and JavaScript with mappers, repositories, and domain models."

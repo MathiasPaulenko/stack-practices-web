@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/graceful-degradation-pattern
   - /patterns/geode-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Drop requests proactively under extreme load to protect the system. Reject excess traffic before it consumes resources and causes cascading failures."

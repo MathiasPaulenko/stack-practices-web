@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/python-opentelemetry-tracing
   - /recipes/java-actuator-health-checks
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Expose custom business metrics in Python with prometheus_client. Track counters, gauges, histograms, summaries, and integrate with Flask or FastAPI."

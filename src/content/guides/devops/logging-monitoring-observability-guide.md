@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/prometheus-monitoring-alerts
   - /recipes/cdn-edge-caching
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn observability practices: structured logging, metrics collection, alerting, and distributed tracing for production systems."

@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/bulkhead-pattern
   - /patterns/fallover-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Dreneá in-flight requests antes de exit. Aprende signal handling, health check removal, connection draining, timeout enforcement, y cleanup hooks."

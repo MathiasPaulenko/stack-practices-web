@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/connection-pooling
   - /recipes/service-mesh
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn load balancing algorithms for distributing traffic. Use round-robin, least-connections, weighted, and consistent hashing with health checks and failover."

@@ -21,6 +21,7 @@ relatedResources:
   - /docs/ci-cd-pipeline-security-template
   - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Manage encryption keys with this lifecycle template. Covers key generation, storage, rotation, access control, and destruction procedures."

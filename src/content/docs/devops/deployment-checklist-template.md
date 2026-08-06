@@ -38,6 +38,7 @@ relatedResources:
   - /docs/ssl-certificate-renewal-template
   - /docs/zero-downtime-deployment-checklist
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this deployment checklist template to verify tests, rollbacks, monitoring, and communication before every production release."

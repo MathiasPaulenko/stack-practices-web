@@ -29,6 +29,7 @@ relatedResources:
   - /docs/data-breach-response-playbook
   - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Audit user access rights with this review template. Covers least privilege verification, role assignments, orphan accounts, and attestation records."

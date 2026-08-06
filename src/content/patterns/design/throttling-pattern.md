@@ -34,6 +34,7 @@ relatedResources:
   - /patterns/gatekeeper-pattern
   - /patterns/shed-load-pattern
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Throttling Pattern for rate limiting resource consumption. Examples in Python, Java, and JavaScript with token bucket, leaky bucket, and fixed windows."

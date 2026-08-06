@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/github-actions-reusable-workflows
   - /recipes/java-spotbugs-static-analysis
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configure strict typescript-eslint for production. Enable type-aware linting, handle common rules, custom overrides, and integrate with CI/CD pipelines."

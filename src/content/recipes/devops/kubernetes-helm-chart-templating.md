@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/terraform-remote-state-s3-backend
   - /recipes/terraform-workspace-environment-isolation
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Package Kubernetes manifests with Helm charts. Template with values, conditionals, ranges, hooks, subcharts, and library charts for reusable K8s deployments."

@@ -26,6 +26,7 @@ relatedResources:
   - /guides/read-replica-guide
   - /recipes/connect-to-postgresql
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn database replication: master-slave, multi-master, synchronous vs async, failover, and conflict resolution. Practical guide for scalable systems."

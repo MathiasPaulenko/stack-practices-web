@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/event-sourcing-serverless
   - /recipes/cold-start-optimization
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build serverless functions with AWS Lambda, Cloud Functions, and Azure. Event-driven triggers, cold start optimization, and deployment strategies with examples."

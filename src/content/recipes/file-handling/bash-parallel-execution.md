@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/bash-parallel-job-execution
   - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Run shell commands in parallel with xargs, GNU parallel, and Bash background jobs while controlling concurrency and resource usage."

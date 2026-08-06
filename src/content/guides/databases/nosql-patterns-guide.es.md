@@ -28,6 +28,7 @@ relatedResources:
   - /guides/acid-vs-base-guide
   - /guides/vector-database-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende modelado NoSQL: embebido vs referenciado, diseno basado en patrones de acceso. Patrones para MongoDB, DynamoDB, Cassandra y Redis con ejemplos."

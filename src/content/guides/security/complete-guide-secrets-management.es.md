@@ -34,6 +34,7 @@ relatedResources:
   - /guides/complete-guide-terraform-production
   - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Gestionar secrets de forma segura. Cubre HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, Doppler, rotacion, CI/CD."

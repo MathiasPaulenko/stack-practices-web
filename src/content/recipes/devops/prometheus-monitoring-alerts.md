@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/real-user-monitoring
   - /recipes/structured-logging
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Instrument applications with Prometheus metrics. Configure alerting rules and recording rules for efficient monitoring of service health and infrastructure."

@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/rate-limiting-security
   - /guides/complete-guide-cors-security
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende protección CSRF para formularios web. Previene Cross-Site Request Forgery usando synchronizer tokens, cookies SameSite y patrones double-submit cookie."

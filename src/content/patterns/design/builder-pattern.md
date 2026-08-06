@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/prototype-pattern-cloning
   - /patterns/prototype-pattern
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Builder Pattern with practical examples in Python, Java, and JavaScript. Creational design pattern for step-by-step object construction."

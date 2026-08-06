@@ -37,6 +37,7 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/technical-spec-template
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de documentación de esquema de base de datos con definiciones de entidades, relaciones, indexación y seguimiento de migraciones."

@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/generate-sitemaps
   - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to implement feature flags in Python, JavaScript, and Java. Covers toggle services, A/B testing, rollout strategies, and safe rollbacks."

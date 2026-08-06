@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/redis-pubsub-messaging
   - /recipes/redis-rate-limiting-token-bucket
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build real-time leaderboards with Redis sorted sets. Track ranks, update scores, and query top-N players in O(log N) time with ZADD and ZREVRANGE."

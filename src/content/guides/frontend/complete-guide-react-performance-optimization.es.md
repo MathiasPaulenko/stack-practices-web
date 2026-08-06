@@ -36,6 +36,7 @@ relatedResources:
   - /guides/complete-guide-react-server-components
   - /guides/complete-guide-vitest-react-testing
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de optimización de performance en React. Master memoization, virtualization, code splitting, bundle analysis, React Profiler y Core Web Vitals."

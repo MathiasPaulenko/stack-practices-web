@@ -34,6 +34,7 @@ relatedResources:
   - /docs/rollout-communication-template
   - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this bug triage template to classify bug reports by severity, assign priority, and route them to the correct engineering team."

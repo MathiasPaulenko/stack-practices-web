@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/rest-api-design
   - /recipes/server-sent-events
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn idempotent API design in Python, JavaScript, and Java. Covers idempotency keys, HTTP methods, and safe retry patterns for distributed systems."

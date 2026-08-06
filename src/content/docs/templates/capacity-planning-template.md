@@ -38,6 +38,7 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /docs/performance-regression-template
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "System capacity planning template with resource estimation, load forecasting, bottleneck analysis, and scaling strategies for engineering teams."

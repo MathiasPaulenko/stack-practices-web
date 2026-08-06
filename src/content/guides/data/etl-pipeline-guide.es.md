@@ -25,6 +25,7 @@ relatedResources:
   - /guides/data-migration-guide
   - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende pipelines ETL: extrae de múltiples fuentes, transforma con validación y lógica de negocio, carga en data warehouses con Python, dbt y Airflow."

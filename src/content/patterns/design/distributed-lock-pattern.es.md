@@ -33,6 +33,7 @@ relatedResources:
   - /patterns/sequential-convoy-pattern
   - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Distributed Lock para coordinar nodos con Redis y ZooKeeper. Ejemplos en Python, Java y JavaScript con Redlock, leases y fencing tokens."

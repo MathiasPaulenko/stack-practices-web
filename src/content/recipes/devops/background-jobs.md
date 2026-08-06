@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/retry-logic-exponential-backoff
   - /recipes/rabbitmq-task-queue
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to schedule background jobs in Python, JavaScript, and Java. Covers cron, Celery, BullMQ, and ScheduledExecutorService."

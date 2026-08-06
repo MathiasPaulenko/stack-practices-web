@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/react-usememo-usecallback-performance
   - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Crea utility types reutilizables en TypeScript con conditional types, mapped types, template literals y generic constraints para APIs type-safe más seguras."

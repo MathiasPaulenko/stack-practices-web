@@ -22,6 +22,7 @@ relatedResources:
   - /docs/runbook-template
   - /recipes/bash-disk-usage-monitor
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define structured logging standards with this document template. Covers levels, formats, fields, retention, sampling, and security guidelines."

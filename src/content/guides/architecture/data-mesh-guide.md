@@ -22,6 +22,7 @@ relatedResources:
   - /guides/lakehouse-guide
   - /guides/cqrs-event-sourcing-combined-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn Data Mesh: decentralized data ownership, data as a product, self-serve infrastructure. Practical guide for scaling data beyond the monolithic data lake."

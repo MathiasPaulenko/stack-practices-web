@@ -20,6 +20,7 @@ relatedResources:
   - /patterns/css-architecture-pattern
   - /patterns/container-presenter-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Builda un functional HTML baseline y progressivamente enhancá con JavaScript. Aprende feature detection, graceful degradation, accessibility, y no-JS fallbacks."

@@ -25,6 +25,7 @@ relatedResources:
   - /docs/onboarding-checklist-backend-engineer
   - /recipes/git-rebase-interactive-tutorial
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Documenta la estrategia de branching Git de tu equipo: nomenclatura de ramas, requisitos de merge, flujo de release, rollback y protección de ramas."

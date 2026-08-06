@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/agent-tool-selection-pattern
   - /recipes/python-langchain-chains-composition
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Encadena llamadas LLM secuencialmente donde cada salida alimenta la siguiente entrada. Divide tareas complejas en prompts verificables para mejores resultados."

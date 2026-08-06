@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/queue-based-load-leveling-pattern
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Scheduler Agent Supervisor Pattern for resilient job scheduling. Examples in Python, Java, and JavaScript with supervisors, agents, and health monitoring."

@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/bash-text-processing
   - /recipes/bash-parallel-commands
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Run Bash jobs in parallel using xargs, GNU parallel, and background jobs. Control concurrency, collect exit codes, and speed up batch processing safely."

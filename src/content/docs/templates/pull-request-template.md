@@ -25,6 +25,7 @@ relatedResources:
   - /guides/code-review-best-practices-guide
   - /guides/git-branching-strategies-guide
 lastUpdated: 2026-06-11
+publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
   metaDescription: "Pull request template for standardized code reviews with description, type of change, testing checklist, and related issue references."

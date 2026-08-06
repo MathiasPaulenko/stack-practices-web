@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/setup-ssl-certificates
   - /recipes/github-actions-matrix-strategy
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye imágenes Docker de producción minimales con multi-stage builds y distroless bases. Reduce tamaño y attack surface para Go, Node.js, Python, Java."

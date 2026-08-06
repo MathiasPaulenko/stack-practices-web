@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/redis-rate-limiting-token-bucket
   - /recipes/redis-sorted-set-leaderboard
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement the cache-aside pattern with Redis. Handle cache misses, lazy loading, write-through invalidation, and thundering herd protection."

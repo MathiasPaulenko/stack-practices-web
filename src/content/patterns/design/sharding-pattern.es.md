@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/geode-pattern
   - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Sharding para particionamiento horizontal de datos. Ejemplos en Python, Java y JavaScript con sharding por hash, rango y directorio."

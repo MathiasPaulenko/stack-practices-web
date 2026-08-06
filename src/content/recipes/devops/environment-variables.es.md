@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/secret-management
   - /recipes/setup-ci-gitlab-pipelines
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de variables de entorno en Python, JavaScript y Java. Aprende dotenv, process.env, System.getenv y configuración 12-factor app."

@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/image-optimization
   - /recipes/read-large-files
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Redimensiona imágenes en lote con Python y Pillow. Aprende procesamiento masivo, conversión de formato y optimización para web con ejemplos."

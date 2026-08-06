@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/uuid-generation
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical caching and memoization examples in Python, JavaScript, and Java. Covers LRU, TTL, Redis, and cache invalidation strategies."

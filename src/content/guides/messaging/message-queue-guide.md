@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-kafka-production
   - /guides/complete-guide-rabbitmq-architecture
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete message queue guide comparing RabbitMQ, Kafka, and AWS SQS. Learn patterns, throughput, ordering guarantees, and operational what works."

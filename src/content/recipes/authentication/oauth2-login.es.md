@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/session-management
   - /recipes/two-factor-authentication
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a implementar inicio de sesión OAuth 2.0 en Python, JavaScript y Java. Cubre flujo de código de autorización, PKCE, parámetro state y refresh de tokens."

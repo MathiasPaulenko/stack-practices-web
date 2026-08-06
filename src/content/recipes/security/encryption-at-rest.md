@@ -26,6 +26,7 @@ relatedResources:
   - /docs/security-audit-checklist-template
   - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn encryption at rest for databases and storage. Encrypt sensitive data using AES-256-GCM, envelope encryption, and key management services before storing."

@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/agent-tool-selection-pattern
   - /recipes/python-agent-langgraph-state-machine
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Pause LLM agents for human approval before high-impact actions. Route to a reviewer when confidence is low or stakes are high to prevent errors."

@@ -25,6 +25,7 @@ relatedResources:
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Estrategias de sharding y particionamiento de bases de datos: range, hash y list sharding. Escala horizontalmente sin downtime ni hotspots."

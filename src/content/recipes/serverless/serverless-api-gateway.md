@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/real-time-websockets
   - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn serverless API development with API Gateway and Lambda. Design REST APIs, handle routing, authentication, and deployment with infrastructure as code."

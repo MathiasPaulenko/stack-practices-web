@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/api-logging-audit
   - /recipes/api-documentation-openapi
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build a GraphQL API in Python (Strawberry), JavaScript (Apollo), and Java. Type-safe schemas, resolvers, mutations, and subscriptions with practical examples."

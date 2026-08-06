@@ -23,6 +23,7 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/downtime-communication-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Transfer on-call context between shifts with this template. Covers active incidents, ongoing alerts, system health, and upcoming changes."

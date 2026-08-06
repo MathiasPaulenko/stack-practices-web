@@ -27,6 +27,7 @@ relatedResources:
   - /docs/encryption-key-rotation-runbook
   - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
 seo:

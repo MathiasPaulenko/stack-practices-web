@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/kubernetes-configmap-secret-mounting
   - /recipes/github-actions-matrix-strategy
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use Docker Compose override files for environment-specific configs. Manage dev, test, staging, production with profiles, secrets, and multi-file composition."

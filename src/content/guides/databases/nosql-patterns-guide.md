@@ -28,6 +28,7 @@ relatedResources:
   - /guides/acid-vs-base-guide
   - /guides/vector-database-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn NoSQL data modeling: embedding vs referencing, access pattern-driven design. Patterns for MongoDB, DynamoDB, Cassandra, and Redis with examples."

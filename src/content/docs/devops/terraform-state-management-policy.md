@@ -22,6 +22,7 @@ relatedResources:
   - /docs/helm-chart-review-checklist
   - /docs/kubernetes-pod-disruption-budget-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this Terraform state management policy to define backend configuration, locking, isolation, access control, versioning, and recovery procedures."

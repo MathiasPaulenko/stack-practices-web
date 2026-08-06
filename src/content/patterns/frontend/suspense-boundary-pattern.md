@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/optimistic-update-pattern
   - /patterns/islands-architecture-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use React Suspense boundaries for declarative loading states. Learn data fetching, streaming SSR, nested boundaries, fallbacks, and error integration."

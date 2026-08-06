@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/abstract-factory-cross-platform
   - /patterns/builder-pattern-configuration
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Abstract Factory con ejemplos prácticos en Python, Java y JavaScript. Patrón creacional para familias de objetos relacionados."

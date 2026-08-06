@@ -30,6 +30,7 @@ relatedResources:
   - /docs/api-deprecation-notice-template
   - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define Service Level Agreements with this SLA template. Covers uptime targets, response times, error budgets, and escalation procedures."

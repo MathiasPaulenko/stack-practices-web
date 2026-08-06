@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/circuit-breaker-pattern-recipe
   - /recipes/service-mesh
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn API gateway design for microservices. Route requests, handle auth, rate limiting, caching, and protocol translation between clients and backend services."

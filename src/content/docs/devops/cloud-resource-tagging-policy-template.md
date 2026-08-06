@@ -25,6 +25,7 @@ relatedResources:
   - /docs/environment-configuration-template
   - /docs/ssl-certificate-management-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Enforce consistent cloud resource tagging with this policy template. Covers required tags, naming conventions, automation, and governance checks."

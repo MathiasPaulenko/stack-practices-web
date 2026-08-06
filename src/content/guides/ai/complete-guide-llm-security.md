@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-local-llm-deployment
   - /guides/complete-guide-ai-agents-production
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Secure LLM apps. Covers prompt injection, jailbreaks, data leakage, OWASP LLM Top 10, input validation, output filtering, red teaming, guardrails."

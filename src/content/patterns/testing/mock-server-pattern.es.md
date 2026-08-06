@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/contract-testing-pattern
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aisla integration tests de APIs externas con mock servers. Aprende WireMock, nock, MSW, y Mountebank para stubbing de HTTP responses en entornos de test."

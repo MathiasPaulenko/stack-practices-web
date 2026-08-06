@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/message-idempotency
   - /guides/message-queue-guide
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Dead letter queue patterns: poison pill detection, retry limits, message replay, alerting on DLQ depth, and recovery strategies for async systems."

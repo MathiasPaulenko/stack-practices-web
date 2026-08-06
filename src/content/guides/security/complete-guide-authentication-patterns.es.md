@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/graphql-directives-auth
   - /recipes/serverless-api-gateway-lambda-authorizer
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementar auth en produccion. Cubre JWT, OAuth2, session-based auth, passkeys, MFA, refresh tokens, RBAC, ABAC, SSO, OpenID Connect."

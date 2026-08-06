@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/java-spotbugs-static-analysis
   - /recipes/nodejs-eslint-security-plugin
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Scan Python code for security vulnerabilities with Bandit. Configure ignore lists, integrate with CI/CD, interpret results, and fix common findings."

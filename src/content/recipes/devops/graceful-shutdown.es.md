@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/blue-green-deployment
   - /recipes/traffic-mirroring
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa graceful shutdown y reinicios sin downtime para servidores web y contenedores. Maneja SIGTERM, drena conexiones y recarga de forma segura."

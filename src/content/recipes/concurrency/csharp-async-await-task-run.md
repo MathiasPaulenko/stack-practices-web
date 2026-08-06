@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/rust-tokio-async-runtime
   - /recipes/go-goroutines-channels-patterns
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build async pipelines in C# with async/await, Task.Run, Task.WhenAll, CancellationTokenSource, Channels, and Parallel.ForEachAsync for concurrent I/O and CPU work."

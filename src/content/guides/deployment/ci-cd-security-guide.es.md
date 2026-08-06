@@ -34,6 +34,7 @@ relatedResources:
   - /guides/complete-guide-supply-chain-security
   - /guides/secrets-management-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende seguridad CI/CD: gestión de secretos, runners de mínimo privilegio, firma de artefactos, escaneo de dependencias y prevención de supply chain."

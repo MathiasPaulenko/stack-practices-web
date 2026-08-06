@@ -27,6 +27,7 @@ relatedResources:
   - /guides/database-sharding-implementation-guide
   - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende arquitectura Data Lake: almacenamiento estructurado vs no estructurado, conceptos lakehouse, ETL vs ELT. Compara lakes vs warehouses y elige el enfoque correcto."

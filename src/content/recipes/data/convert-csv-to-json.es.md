@@ -37,6 +37,7 @@ relatedResources:
   - /recipes/python-generate-qr-code
   - /recipes/truncate-text
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a convertir CSV a JSON en Python, Java y JavaScript. Transforma exports de spreadsheets en payloads estructurados de API con ejemplos de código."

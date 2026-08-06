@@ -31,6 +31,7 @@ relatedResources:
   - /docs/onboarding-guide-template
   - /docs/pull-request-template
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this contributing guide template to set up pull request workflows, coding standards, and contributor onboarding for your project."

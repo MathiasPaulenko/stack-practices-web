@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/object-pool-pattern
   - /patterns/registry-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Multiton Pattern to manage named singleton instances. Examples in Python, Java, and JavaScript for keyed object registries."

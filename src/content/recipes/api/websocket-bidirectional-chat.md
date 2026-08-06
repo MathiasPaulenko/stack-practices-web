@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/server-sent-events-node
   - /recipes/websockets-realtime
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Bidirectional WebSocket chat with Node.js. Build real-time messaging with room-based delivery, presence tracking, and message persistence for production."

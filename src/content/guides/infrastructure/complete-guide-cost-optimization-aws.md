@@ -33,6 +33,7 @@ relatedResources:
   - /recipes/cost-optimization
   - /recipes/aws-lambda-python-dependencies
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to AWS cost optimization. Reduce cloud spend 40%. Master EC2 right-sizing, Spot, Reserved Instances, Savings Plans, S3 lifecycle and monitoring."

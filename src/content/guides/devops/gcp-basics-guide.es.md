@@ -28,6 +28,7 @@ relatedResources:
   - /guides/azure-basics-guide
   - /guides/multi-cloud-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende servicios core de GCP para desarrolladores: Compute Engine, Cloud Storage, Cloud SQL, Cloud Run, BigQuery. Guía práctica para aplicaciones cloud."

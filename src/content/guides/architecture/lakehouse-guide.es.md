@@ -24,6 +24,7 @@ relatedResources:
   - /guides/data-mesh-guide
   - /guides/database-sharding-implementation-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende arquitectura Lakehouse: combina flexibilidad de data lake con confiabilidad de warehouse. Guía práctica de Delta Lake, Apache Iceberg y Hudi con ejemplos."

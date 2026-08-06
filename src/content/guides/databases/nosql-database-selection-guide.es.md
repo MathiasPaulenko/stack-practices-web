@@ -26,6 +26,7 @@ relatedResources:
   - /guides/cap-theorem-guide
   - /guides/database-sharding-partitioning-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de selección de bases de datos NoSQL: compara MongoDB, DynamoDB, Cassandra, Redis. Elige el store de documentos, clave-valor o columnas anchas correcto."

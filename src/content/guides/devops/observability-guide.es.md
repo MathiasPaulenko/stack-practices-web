@@ -46,6 +46,7 @@ relatedResources:
   - /guides/log-aggregation-guide
   - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende observabilidad: metricas, logs, traces. Implementa con Prometheus, Grafana, Loki, Jaeger. Construye alertas basadas en SLO para sistemas en produccion."

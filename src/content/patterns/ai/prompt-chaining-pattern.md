@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/agent-tool-selection-pattern
   - /recipes/python-langchain-chains-composition
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Chain multiple LLM calls sequentially where each output feeds the next input. Break complex tasks into smaller verifiable prompts for better LLM results."

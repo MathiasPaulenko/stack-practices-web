@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/scheduled-jobs
   - /recipes/serverless-functions
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende event sourcing en arquitecturas serverless. Captura cambios como eventos inmutables usando Lambda, DynamoDB streams y event stores para audit trails."

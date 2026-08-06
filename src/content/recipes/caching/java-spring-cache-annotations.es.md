@@ -24,6 +24,7 @@ relatedResources:
   - /guides/complete-guide-api-versioning-strategies
   - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa anotaciones de cache Spring con backend Redis. Aplica @Cacheable, @CachePut, @CacheEvict para caching declarativo con TTL y eviction condicional."

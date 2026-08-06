@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/schema-registry-evolution-pattern
   - /guides/complete-guide-data-pipeline-architecture
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Bridge batch and streaming pipelines with a data lake. Learn Lambda architecture, Kafka Connect S3 sink, schema alignment, and unified serving layer design."

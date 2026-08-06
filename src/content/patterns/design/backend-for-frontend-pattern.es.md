@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/mediator-pattern-components
   - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Backend for Frontend para agregación de APIs por cliente. Ejemplos en Python, Java y JavaScript con GraphQL, optimización mobile y tailoring web."

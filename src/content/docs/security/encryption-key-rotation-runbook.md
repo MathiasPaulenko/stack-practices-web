@@ -25,6 +25,7 @@ relatedResources:
   - /docs/incident-response-plan-template
   - /docs/penetration-test-report-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this encryption key rotation runbook to define key types, rotation schedules, zero-downtime dual-key migration, verification, and rollback procedures."

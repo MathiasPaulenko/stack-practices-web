@@ -19,6 +19,7 @@ relatedResources:
   - /recipes/image-optimization
   - /recipes/stream-processing
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn file compression with Gzip and Brotli. Reduce file sizes for APIs, static assets, and logs using streaming compression and content negotiation."

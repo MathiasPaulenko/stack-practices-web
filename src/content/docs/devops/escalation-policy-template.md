@@ -36,6 +36,7 @@ relatedResources:
   - /docs/service-level-objective-slo-template
   - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this escalation policy template to define incident severity levels, on-call escalation paths, and response SLAs for your engineering team."

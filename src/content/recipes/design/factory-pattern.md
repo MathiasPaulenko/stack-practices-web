@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/singleton-pattern-recipe
   - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn factory pattern for flexible object creation. Use factory methods, abstract factories, and DI containers to decouple creation from usage and improve testability."

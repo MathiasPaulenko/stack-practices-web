@@ -30,6 +30,7 @@ relatedResources:
   - /guides/blue-green-deployment-guide
   - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configure HAProxy as a load balancer with health checks, sticky sessions, and SSL termination for resilient distribution of traffic across backend services."

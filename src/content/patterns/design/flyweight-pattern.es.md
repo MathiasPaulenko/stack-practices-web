@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/composite-pattern
   - /patterns/type-object-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Flyweight en Python, Java y JavaScript. Patrón estructural para optimización de memoria mediante compartición de objetos."

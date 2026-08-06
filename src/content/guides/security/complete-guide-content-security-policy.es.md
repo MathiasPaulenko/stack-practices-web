@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-web-security-headers
   - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
 seo:

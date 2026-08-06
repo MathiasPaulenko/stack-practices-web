@@ -30,6 +30,7 @@ relatedResources:
   - /guides/blob-storage-guide
   - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende migración de datos: patrones de doble escritura, backfill, evolución de esquemas, validación y rollback para mover datos sin interrupción de servicio."

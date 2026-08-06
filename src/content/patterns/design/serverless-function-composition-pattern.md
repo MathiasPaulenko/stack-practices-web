@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/serverless-throttling-pattern
   - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Serverless function composition: chain Lambda via Step Functions for multi-step workflows. Implement with AWS CDK, Python, and TypeScript examples."

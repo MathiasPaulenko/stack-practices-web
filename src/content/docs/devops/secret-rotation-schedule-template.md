@@ -27,6 +27,7 @@ relatedResources:
   - /docs/endpoint-security-checklist-template
   - /docs/user-access-audit-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Track and schedule secret rotation with this template. Covers API keys, passwords, certificates, owners, frequency, and verification steps."

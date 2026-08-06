@@ -23,6 +23,7 @@ relatedResources:
   - /docs/bug-reproduction-steps-template
   - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this test case template to write standardized test cases with steps, expected results, preconditions, postconditions, and traceability."

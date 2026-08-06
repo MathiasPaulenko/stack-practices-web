@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/message-deferral-pattern
   - /patterns/producer-consumer-pattern
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Suavizar picos de trafico con una cola entre productor y consumidor. Los productores escriben a cualquier ritmo; los consumidores procesan a ritmo controlado."

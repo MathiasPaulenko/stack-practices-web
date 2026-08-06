@@ -27,6 +27,7 @@ relatedResources:
   - /guides/complete-guide-mobile-responsive-design
   - /guides/complete-guide-react-performance-optimization
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn WCAG 2.2 accessibility: perceivable, operable, understandable, reliable. Practical guide with code examples for accessible web development."

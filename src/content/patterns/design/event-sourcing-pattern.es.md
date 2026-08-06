@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/idempotent-consumer-pattern
   - /patterns/inbox-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Event Sourcing en Python, Java y JavaScript. Patrón arquitectónico para gestión de estado audit-friendly mediante streams de eventos."

@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/circuit-breaker-with-monitoring-pattern
   - /patterns/health-check-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Emit structured JSON logs with consistent fields for searchability. Learn structlog, Winston, Serilog, log levels, and integration with ELK and Datadog."

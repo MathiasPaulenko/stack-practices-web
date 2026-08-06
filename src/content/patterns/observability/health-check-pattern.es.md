@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/metrics-aggregation-pattern
   - /patterns/circuit-breaker-with-monitoring-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa liveness y readiness probes para orchestration. Aprende Kubernetes probe configuration, dependency health checks, y graceful degradation strategies."

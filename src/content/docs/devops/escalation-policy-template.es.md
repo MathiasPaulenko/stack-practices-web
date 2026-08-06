@@ -36,6 +36,7 @@ relatedResources:
   - /docs/service-level-objective-slo-template
   - /docs/service-level-objective-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de política de escalamiento: define niveles de severidad, rutas de escalamiento, SLAs de respuesta y responsables para tu equipo de guardia."

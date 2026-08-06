@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende migraciones de base de datos con Flyway, Alembic y Liquibase. Versiona, aplica y haz rollback de cambios de schema de forma segura en producción."

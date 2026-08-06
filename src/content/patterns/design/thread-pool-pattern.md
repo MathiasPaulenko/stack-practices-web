@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/async-generator-pattern
   - /patterns/lock-free-queue-pattern
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Reuse a fixed set of threads for short-lived tasks. Reduces creation overhead and bounds resource usage under load with a thread pool."

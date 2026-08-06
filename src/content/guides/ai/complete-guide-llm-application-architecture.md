@@ -38,6 +38,7 @@ relatedResources:
   - /guides/complete-guide-rag-production
   - /guides/complete-guide-vector-databases
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build production LLM apps. Covers API layers, prompt management, streaming, caching, guardrails, observability, evaluation, and deployment."

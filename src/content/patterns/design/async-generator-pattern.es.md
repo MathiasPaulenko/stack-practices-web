@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-java-concurrency
   - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Transmitir datos perezosamente con async generators. Producir valores conforme llegan, habilitando procesamiento eficiente en memoria de secuencias grandes o infinitas."

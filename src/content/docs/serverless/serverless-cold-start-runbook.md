@@ -22,6 +22,7 @@ relatedResources:
   - /docs/serverless-cost-estimation-template
   - /docs/serverless-security-checklist
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Runbook for serverless cold starts: causes, measurement, provisioned concurrency, warmers, init tuning, monitoring for Lambda, Azure, GCP."

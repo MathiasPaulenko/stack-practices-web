@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/escape-html-entities
   - /recipes/sanitize-user-input
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Federated Identity Pattern in Python, Java, and JavaScript. Delegate auth to external IdPs with OAuth2, OIDC, SAML and SSO integration."

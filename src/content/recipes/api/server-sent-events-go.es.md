@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/go-rest-api-gin
   - /recipes/websocket-bidirectional-chat
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Server-Sent Events en Go. Construye streams de actualizacion en tiempo real con gestion de conexiones, heartbeats y manejo graceful de desconexiones de clientes."

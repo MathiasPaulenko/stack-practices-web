@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/serverless-fanout-pattern
   - /recipes/serverless-dynamodb-single-table
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Serverless event sourcing: store function state as append-only events. Replay, audit, and recover serverless workflows with DynamoDB and EventBridge."

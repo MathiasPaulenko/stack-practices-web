@@ -37,6 +37,7 @@ relatedResources:
   - /guides/complete-guide-cdn-caching-strategy
   - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "caching con Redis: cache-aside, read-through, write-through, write-behind, refresh-ahead. Cubre eviction, TTL, serializacion y ops de produccion."

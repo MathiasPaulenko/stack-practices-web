@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/java-wiremock-stub-external
   - /guides/complete-guide-junit5-modern-testing
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use Testcontainers in JUnit5 to run real Postgres, Redis, and Kafka containers in integration tests for reliable, reproducible database and messaging testing."

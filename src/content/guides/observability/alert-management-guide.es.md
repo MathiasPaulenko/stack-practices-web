@@ -28,6 +28,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/log-aggregation-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende gestión de alertas: reduce fatiga de alertas, define niveles de severidad, diseña políticas de escalamiento, rotaciones de guardia y alertas sostenibles."

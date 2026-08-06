@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/claim-check-pattern
   - /patterns/scheduler-agent-supervisor-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Queue-Based Load Leveling Pattern for smoothing traffic spikes. Examples in Python, Java, and JavaScript with message queues, backpressure, and worker pools."

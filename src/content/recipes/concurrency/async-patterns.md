@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn async patterns for concurrent programming. Master async/await, promises, futures, and coroutines in JavaScript, Python, and Java for non-blocking I/O."

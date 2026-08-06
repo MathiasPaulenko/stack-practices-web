@@ -36,6 +36,7 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/validate-json-schema
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to parse XML files in Python, Java, and JavaScript. Practical code examples for DOM parsing, SAX, StAX, and XPath queries."

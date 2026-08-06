@@ -33,6 +33,7 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/technical-spec-template
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Architecture Decision Record template for documenting software decisions with context, options, outcomes, and consequences in a structured format."

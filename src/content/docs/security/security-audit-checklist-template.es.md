@@ -28,6 +28,7 @@ relatedResources:
   - /docs/vulnerability-management-template
   - /guides/compliance-soc2-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa este checklist de auditoría de seguridad para revisar autenticación, autorización, protección de datos, seguridad de infraestructura y brechas de cumplimiento."

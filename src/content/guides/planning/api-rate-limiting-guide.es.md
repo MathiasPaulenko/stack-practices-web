@@ -31,6 +31,7 @@ relatedResources:
   - /docs/api-rate-limiting-policy-template
   - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende diseño de rate limiting para APIs: token bucket, leaky bucket, ventana deslizante y elección de límites justos para APIs resilientes."

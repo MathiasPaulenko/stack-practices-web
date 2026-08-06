@@ -33,6 +33,7 @@ relatedResources:
   - /recipes/parse-pdf-files
   - /recipes/parse-toml-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende serialización y deserialización en Python, Java y JavaScript. Convierte objetos a JSON, XML y YAML con ejemplos de código."

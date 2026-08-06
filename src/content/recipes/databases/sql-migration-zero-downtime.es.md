@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Renombra columnas y cambia tipos de datos en SQL sin detener la aplicación. Usa expand-contract, triggers y relleno por lotes."

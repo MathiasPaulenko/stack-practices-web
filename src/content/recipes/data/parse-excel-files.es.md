@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/parse-log-files
   - /recipes/parse-pdf-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos Excel en Python, Java y JavaScript. Lee worksheets, formatea celdas y maneja grandes spreadsheets con ejemplos de código."

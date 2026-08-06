@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/serverless-db-connection-pooling-pattern
   - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Serverless throttling: maneja backpressure con SQS, token buckets y limites de concurrencia Lambda. Protege servicios downstream de trafico burst."

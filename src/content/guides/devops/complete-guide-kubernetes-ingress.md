@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-gitops-argocd
   - /guides/complete-guide-kubernetes-config-management
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to Kubernetes Ingress. Configure NGINX Ingress controller, TLS termination, path-based routing, annotations, IngressClass and troubleshooting."

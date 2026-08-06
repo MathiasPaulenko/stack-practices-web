@@ -33,6 +33,7 @@ relatedResources:
   - /guides/monolith-to-microservices-migration-guide
   - /guides/solid-principles-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de Domain-Driven Design: bounded contexts, entidades, value objects, aggregates y repositorios. DDD práctico para dominios de negocio complejos."

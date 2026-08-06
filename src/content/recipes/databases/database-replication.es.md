@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/sql-window-functions-ranking
   - /recipes/schema-evolution
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Replicación de bases de datos: primaria-réplica, multi-primaria, replicación síncrona/asíncrona, failover y escalado de lecturas para alta disponibilidad."

@@ -34,6 +34,7 @@ relatedResources:
   - /guides/ci-cd-security-guide
   - /guides/incident-response-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn disaster recovery planning: RTO, RPO, backup strategies, runbooks, and multi-region failover for resilient infrastructure."

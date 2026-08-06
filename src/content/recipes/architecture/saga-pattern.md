@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/database-transactions
   - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn saga pattern for distributed transactions. Implement orchestration and choreography to maintain consistency across microservices without 2PC."

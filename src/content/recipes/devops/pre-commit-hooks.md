@@ -22,6 +22,7 @@ relatedResources:
   - /docs/disaster-recovery-plan-template
   - /recipes/bash-scripting-automation
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Set up pre-commit hooks with husky, lint-staged, and pre-commit. Enforce linting, formatting, and tests before every commit with examples."

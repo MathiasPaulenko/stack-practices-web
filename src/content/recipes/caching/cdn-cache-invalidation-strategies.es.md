@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/cache-aside-pattern
   - /recipes/nginx-reverse-proxy-cache
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Invalida caches CDN con purge APIs, surrogate keys e invalidacion por tags. Usa URLs versionadas y soft purges para mantener contenido fresco sin picos."

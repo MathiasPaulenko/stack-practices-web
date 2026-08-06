@@ -20,6 +20,7 @@ relatedResources:
   - /guides/clean-code-principles-guide
   - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "User story template with acceptance criteria, definition of done, and INVEST principles. Connect user needs to implementation clearly."

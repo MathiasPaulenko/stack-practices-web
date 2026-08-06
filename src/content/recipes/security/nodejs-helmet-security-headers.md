@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/python-llm-streaming-responses
   - /guides/complete-guide-content-security-policy
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configure HTTP security headers with Helmet in Node.js Express. Set CSP, HSTS, X-Frame-Options, CORS, and prevent clickjacking, XSS, and MIME sniffing attacks."

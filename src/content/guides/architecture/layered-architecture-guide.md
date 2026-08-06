@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/repository-pattern
   - /guides/clean-architecture-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn Layered Architecture: separate presentation, business, and data layers. Understand N-Tier structure, dependency rules, and when to use it."

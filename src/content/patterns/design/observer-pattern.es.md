@@ -36,6 +36,7 @@ relatedResources:
   - /patterns/state-pattern
   - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Observer con ejemplos prácticos en Python, Java y JavaScript. Patrón conductual para sistemas basados en eventos."

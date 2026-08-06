@@ -30,6 +30,7 @@ relatedResources:
   - /docs/infrastructure-as-code-review-template
   - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to Terraform modules. Build reusable infrastructure with proper structure, variables, outputs, versioning, testing, and registry publishing."

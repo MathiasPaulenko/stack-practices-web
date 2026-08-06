@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/metrics-collection
   - /recipes/structured-logging
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Configura monitoreo Prometheus para APIs REST y gRPC con métricas personalizadas, collectors, reglas de alertamiento y dashboards de Grafana."

@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/intercepting-filter-pattern
   - /patterns/role-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Manager Pattern for object lifecycle and coordination. Examples in Python, Java, and JavaScript with resource pools, entity managers, and service registries."

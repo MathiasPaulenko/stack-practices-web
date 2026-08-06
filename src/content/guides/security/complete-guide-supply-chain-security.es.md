@@ -33,6 +33,7 @@ relatedResources:
   - /docs/vulnerability-management-template
   - /guides/complete-guide-docker-production
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Asegurar software supply chain. Cubre SBOM, dependency scanning, Sigstore, SLSA, provenance, typosquatting, dependency confusion, CI/CD."

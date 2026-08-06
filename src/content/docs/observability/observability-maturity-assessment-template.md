@@ -23,6 +23,7 @@ relatedResources:
   - /docs/incident-postmortem-template
   - /guides/complete-guide-structured-logging
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this observability maturity assessment template to score logging, metrics, tracing maturity, identify gaps, and build an improvement roadmap."

@@ -33,6 +33,7 @@ relatedResources:
   - /patterns/context-object-pattern
   - /patterns/intercepting-filter-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Blackboard Pattern for collaborative problem-solving. Examples in Python, Java, and JavaScript with knowledge sources and control components."

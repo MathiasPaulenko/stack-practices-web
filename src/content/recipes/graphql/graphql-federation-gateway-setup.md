@@ -28,6 +28,7 @@ relatedResources:
   - /docs/graphql-federation-onboarding-template
   - /patterns/graphql-federated-entity-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Set up a GraphQL Federation gateway with Apollo. Compose multiple subgraphs into a supergraph, share entities, and route queries across services."

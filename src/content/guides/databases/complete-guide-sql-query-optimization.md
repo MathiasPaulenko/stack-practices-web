@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/elasticsearch-aggregations
   - /recipes/schema-evolution
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Optimize SQL queries. Covers EXPLAIN plans, index strategies, join optimization, N+1 detection, materialized views, partitioning, caching."

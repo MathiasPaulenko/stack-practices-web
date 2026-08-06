@@ -24,6 +24,7 @@ relatedResources:
   - /guides/test-driven-development-guide
   - /docs/test-strategy-document-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this API testing strategy template to plan contract tests, integration tests, load tests, and chaos experiments for your APIs."

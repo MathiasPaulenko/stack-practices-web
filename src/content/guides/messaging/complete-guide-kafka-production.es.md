@@ -31,6 +31,7 @@ relatedResources:
   - /guides/complete-guide-event-driven-systems
   - /guides/complete-guide-rabbitmq-architecture
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejecutar Kafka en produccion. Cubre particiones, replicacion, consumer groups, monitoreo, tuning de performance y mejores practicas."

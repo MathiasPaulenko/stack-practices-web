@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/caching-redis
   - /guides/database-normalization-guide
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn safe database migration strategies for PostgreSQL, MySQL, and SQLite. Covers zero-downtime deploys, backward-compatible changes, and rollback plans."

@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-terraform-production
   - /guides/terraform-best-practices-guide
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Build a custom Terraform provider in Python using terraform-plugin-framework. Define resources, data sources, CRUD operations, and schema validation."

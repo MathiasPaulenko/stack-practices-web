@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/retry-with-jitter-pattern
   - /patterns/circuit-breaker-half-open-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement token bucket rate limiting for API protection. Learn bucket refill, burst handling, per-key buckets, distributed rate limiting with Redis, and sliding windows."

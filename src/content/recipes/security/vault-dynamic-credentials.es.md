@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/sql-injection-prevention
   - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Credenciales en vivo de base de datos con HashiCorp Vault. Genera passwords de corta duracion, elimina secretos hardcodeados y audita todo acceso a base de datos."

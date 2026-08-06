@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/graphql-federated-entity-pattern
   - /patterns/graphql-interface-polymorphism-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Combina multiples esquemas GraphQL en un solo grafo unificado con schema stitching. Fusiona tipos, delega resolvers y expone un unico endpoint."

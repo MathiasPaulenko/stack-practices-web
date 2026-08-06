@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-api-security
   - /guides/threat-modeling-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Gatekeeper Pattern for edge validation. Examples in Python, Java, and JavaScript with API gateways, WAF, JWT verification, and sanitization."

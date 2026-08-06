@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/css-container-queries-responsive
   - /recipes/svelte-store-reactive-state
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Fetch and manage data in Vue 3 with the Composition API. Use ref, computed, watch, and composables for reusable data fetching logic in components."

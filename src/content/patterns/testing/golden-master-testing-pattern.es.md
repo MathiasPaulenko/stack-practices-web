@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/test-double-pattern
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Caracteriza legacy code con golden master testing. Aprende a capturar baselines, comparar cambios y refactorizar con characterization tests."

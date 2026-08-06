@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/singleton-pattern-recipe
   - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn adapter pattern to integrate incompatible interfaces. Bridge legacy APIs and third-party libraries using object and class adapters in Java, TypeScript, Python."

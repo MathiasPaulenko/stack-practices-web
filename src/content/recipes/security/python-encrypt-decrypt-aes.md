@@ -26,6 +26,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/docker-image-vulnerability-scan
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Encrypt and decrypt data with AES-GCM in Python using cryptography library. Key derivation with PBKDF2, nonce generation, authenticated encryption and file encryption."

@@ -26,6 +26,7 @@ relatedResources:
   - /patterns/embedding-cache-pattern
   - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Almacena y consulta embeddings en Pinecone para busqueda semantica. Upsert de vectores, filtra por metadatos, usa namespaces y optimiza recall."

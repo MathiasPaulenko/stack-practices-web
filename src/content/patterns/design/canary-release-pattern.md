@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/deployment-ring-pattern
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-04"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Route a small percentage of traffic to the new version while the rest stays on stable. Monitor health and gradually increase or roll back based on results."

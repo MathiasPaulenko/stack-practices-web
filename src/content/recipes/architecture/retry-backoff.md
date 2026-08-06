@@ -20,6 +20,7 @@ relatedResources:
   - /recipes/microservices-communication
   - /recipes/workflow-engine
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Retry patterns with exponential backoff and jitter: implement resilient HTTP clients, avoid thundering herds, and integrate with circuit breakers."

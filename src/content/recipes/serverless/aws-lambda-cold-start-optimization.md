@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/serverless-function-composition-pattern
   - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Reduce AWS Lambda cold start with provisioned concurrency, ARM64 Graviton, lighter dependencies, and optimized initialization code patterns."

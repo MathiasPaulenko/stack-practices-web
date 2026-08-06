@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/use-orm-crud
   - /guides/indexing-strategies-guide
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a conectar a bases de datos MySQL usando Python mysql-connector, Node.js mysql2 y Java JDBC con ejemplos de código prácticos."

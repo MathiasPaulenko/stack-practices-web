@@ -27,6 +27,7 @@ relatedResources:
   - /docs/network-security-template
   - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de failover cross-region para planificar y ejecutar pruebas de disaster recovery en múltiples regiones de AWS, GCP o Azure."

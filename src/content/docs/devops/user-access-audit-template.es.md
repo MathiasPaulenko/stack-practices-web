@@ -23,6 +23,7 @@ relatedResources:
   - /docs/secret-rotation-schedule-template
   - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Revisa y certifica el acceso de usuarios con esta plantilla de auditoria. Cubre inventario, roles, certificaciones y remediacion."

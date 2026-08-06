@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/graphql-custom-scalar-types
   - /recipes/graphql-subscriptions-realtime
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Resuelve consultas N+1 en GraphQL con DataLoader. Agrupa llamadas a la base de datos entre resolvers y cachea resultados dentro del ciclo de vida de la peticion."

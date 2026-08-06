@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/pre-commit-hooks
   - /docs/backup-verification-test-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Disaster recovery plan template: define RTO/RPO targets, failover procedures, and recovery runbooks to minimize downtime during catastrophic failures."

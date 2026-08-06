@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-networking
   - /guides/complete-guide-terraform-production
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Centraliza la configuracion fuera de los despliegues con el Patron de Almacen Externo de Configuracion. Soporta actualizaciones en vivo y gestion multi-entorno."

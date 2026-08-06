@@ -18,6 +18,7 @@ relatedResources:
   - /recipes/sql-joins
   - /recipes/connection-pooling
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn database query optimization. Use EXPLAIN, refactor queries, and apply database-specific techniques to fix slow SQL and improve application performance."

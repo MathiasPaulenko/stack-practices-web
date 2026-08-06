@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/compute-resource-consolidation-pattern
   - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Estrategias de optimización de costos cloud: right-sizing, reserved instances, spot instances, políticas de auto-scaling y scheduling automatizado."

@@ -27,6 +27,7 @@ relatedResources:
   - /docs/penetration-test-remediation-template
   - /docs/secrets-rotation-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this data classification template to categorize organizational data into public, internal, confidential, and restricted levels with handling requirements."

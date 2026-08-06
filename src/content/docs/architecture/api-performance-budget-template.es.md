@@ -26,6 +26,7 @@ relatedResources:
   - /docs/api-rate-limiting-policy-template
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de presupuesto de rendimiento de API para definir objetivos de latencia, límites de throughput y restricciones de recursos para diseño de APIs."

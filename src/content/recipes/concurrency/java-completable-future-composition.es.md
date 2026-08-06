@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/go-goroutines-channels-patterns
   - /recipes/java-virtual-threads-project-loom
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye pipelines async en Java con CompletableFuture. Usa thenCompose, thenCombine, allOf, anyOf, manejo de errores, timeouts y executors personalizados."

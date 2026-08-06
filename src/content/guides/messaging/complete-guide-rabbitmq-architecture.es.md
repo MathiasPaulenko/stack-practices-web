@@ -29,6 +29,7 @@ relatedResources:
   - /guides/message-queue-guide
   - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Disenar RabbitMQ para mensajeria confiable. Cubre exchanges, queues, bindings, routing, dead letter queues, clustering y mejores practicas."

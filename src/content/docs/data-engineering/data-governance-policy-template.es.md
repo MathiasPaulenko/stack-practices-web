@@ -25,6 +25,7 @@ relatedResources:
   - /docs/access-control-policy-template
   - /docs/security-audit-checklist
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá esta plantilla de política de gobernanza de datos para definir clasificación, retención, control de acceso, privacidad y cumplimiento."

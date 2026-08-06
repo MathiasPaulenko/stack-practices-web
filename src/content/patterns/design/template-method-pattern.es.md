@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/interpreter-pattern
   - /patterns/iterator-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Template Method en Python, Java y JavaScript. Patrón de comportamiento para esqueletos de algoritmos con pasos personalizables."

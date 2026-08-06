@@ -27,6 +27,7 @@ relatedResources:
   - /guides/complete-guide-terraform-modules
   - /guides/complete-guide-terraform-production
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de revisión de infrastructure-as-code para validar configuraciones de Terraform, CloudFormation y Ansible antes del despliegue."

@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/caching-redis
   - /recipes/database-migrations-safely
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a implementar soft deletes en Python, JavaScript y Java. Cubre columnas de flag, consultas filtradas y estrategias de eliminación permanente."

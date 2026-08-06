@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/sql-migration-zero-downtime
   - /recipes/sql-partitioning-strategies
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Optimize SQL indexes using EXPLAIN and execution plans. Learn to identify missing indexes, slow sequential scans, and query bottlenecks."

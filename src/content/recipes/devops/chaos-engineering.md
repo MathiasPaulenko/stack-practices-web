@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/github-actions-matrix-strategy
   - /guides/chaos-engineering-guide
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Chaos engineering principles: fault injection, game days, automatic rollback, and building confidence in production systems through controlled experiments."

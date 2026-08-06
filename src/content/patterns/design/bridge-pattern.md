@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/strategy-pattern
   - /patterns/twin-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Bridge Pattern in Python, Java, and JavaScript. Structural design pattern for decoupling abstraction from implementation."

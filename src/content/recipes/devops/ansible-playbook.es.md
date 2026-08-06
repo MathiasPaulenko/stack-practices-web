@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/bash-log-rotation
   - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Escribe y ejecuta playbooks de Ansible para provisionar y configurar servidores con tareas idempotentes, roles e inventarios."

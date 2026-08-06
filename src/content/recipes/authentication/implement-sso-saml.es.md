@@ -24,6 +24,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implementa single sign-on SAML 2.0 como Service Provider con verificación de firma XML, manejo de metadatos IdP y gestión de sesiones segura."

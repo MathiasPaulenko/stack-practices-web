@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/typescript-utility-types-generics
   - /recipes/vue-composition-api-fetch
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn when to use React useMemo and useCallback for performance, when they add overhead, and how to measure impact with the React Profiler."

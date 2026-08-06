@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/copy-move-files
   - /recipes/watch-file-changes
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Descubre patrones eficientes para escribir archivos grandes en Python, JavaScript y Java con streams bufferizados y escritura por chunks."

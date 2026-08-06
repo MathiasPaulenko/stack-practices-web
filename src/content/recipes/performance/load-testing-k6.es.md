@@ -25,6 +25,7 @@ relatedResources:
   - /docs/api-testing-strategy-template
   - /docs/load-test-report-template
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Testing de carga de APIs con k6. Mide rendimiento, valida SLOs con aserciones de umbrales e identifica cuellos de botella antes del despliegue a produccion."

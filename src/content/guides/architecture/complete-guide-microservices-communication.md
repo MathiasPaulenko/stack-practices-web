@@ -31,6 +31,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-kafka-stream-processing
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to microservices communication. Compare REST, gRPC, message queues, event-driven patterns, and service mesh for sync vs async interactions."

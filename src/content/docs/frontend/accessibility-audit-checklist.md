@@ -22,6 +22,7 @@ relatedResources:
   - /docs/component-api-documentation-template
   - /docs/browser-support-matrix-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this WCAG 2.2 accessibility audit checklist to verify perceivable, operable, understandable, and robust criteria with testing tools and fixes."

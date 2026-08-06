@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/outbox-pattern
   - /guides/complete-guide-event-sourcing-cqrs
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn Event Sourcing with aggregate reconstruction, event stores, snapshots, and projections. Complete guide for auditable, event-driven systems."

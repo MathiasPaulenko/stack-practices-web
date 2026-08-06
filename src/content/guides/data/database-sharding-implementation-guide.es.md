@@ -33,6 +33,7 @@ relatedResources:
   - /guides/data-migration-guide
   - /guides/full-text-search-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende sharding de bases de datos: elige claves de shard, enruta consultas, rebalancea datos y evita errores comunes al escalar más allá de un solo nodo."

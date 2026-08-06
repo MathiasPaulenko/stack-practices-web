@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/python-sentiment-analysis-nltk
   - /recipes/slack-bot-openai
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Haz fine-tuning de LLMs para generación de código con LoRA y QLoRA. Usa Hugging Face y datasets personalizados para modelos específicos de dominio."

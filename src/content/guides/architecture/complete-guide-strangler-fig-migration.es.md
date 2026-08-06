@@ -22,6 +22,7 @@ relatedResources:
   - /guides/complete-guide-api-gateway-pattern
   - /patterns/strangler-fig-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
 seo:

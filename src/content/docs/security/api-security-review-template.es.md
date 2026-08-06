@@ -31,6 +31,7 @@ relatedResources:
   - /docs/vendor-risk-assessment-template
   - /docs/vulnerability-management-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de revisión de seguridad de API para auditar autenticación, autorización, rate limiting, validación de entrada y riesgos OWASP Top 10."

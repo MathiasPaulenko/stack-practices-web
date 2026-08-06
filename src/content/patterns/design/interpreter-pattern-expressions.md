@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/mediator-pattern-components
   - /patterns/memento-pattern-state
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Interpreter pattern for expression languages. Evaluate formulas and rules by representing grammar as composable objects for configurable business logic."

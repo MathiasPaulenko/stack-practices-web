@@ -25,6 +25,7 @@ relatedResources:
   - /guides/code-review-best-practices-guide
   - /guides/git-branching-strategies-guide
 lastUpdated: 2026-06-11
+publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de pull request para code reviews estandarizados con descripción, tipo de cambio, checklist de testing e issues relacionados."

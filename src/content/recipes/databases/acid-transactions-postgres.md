@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/deadlock-prevention-sql
   - /recipes/postgres-query-optimization
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "ACID transactions in PostgreSQL. Ensure atomicity, consistency, isolation, and durability with proper transaction boundaries, isolation levels, and savepoints."

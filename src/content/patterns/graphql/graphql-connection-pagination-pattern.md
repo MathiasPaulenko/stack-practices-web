@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/graphql-federated-entity-pattern
   - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "GraphQL connection pagination pattern: implement Relay-style cursor pagination with edges, nodes, and pageInfo. Stable pagination for large lists in Apollo Server."

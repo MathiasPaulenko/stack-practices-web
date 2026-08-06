@@ -39,6 +39,7 @@ relatedResources:
   - /docs/api-documentation
   - /guides/rest-api-design-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a implementar manejo de errores REST consistente con códigos de estado HTTP, payloads de error y ejemplos en Python, JavaScript y Java."

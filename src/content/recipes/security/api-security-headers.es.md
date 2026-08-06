@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/csrf-protection
   - /recipes/encryption-at-rest
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende headers de seguridad para APIs. Configura HSTS, CSP, X-Frame-Options y políticas CORS para proteger aplicaciones web de clickjacking, XSS y downgrade attacks."

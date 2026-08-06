@@ -35,6 +35,7 @@ relatedResources:
   - /recipes/python-prometheus-metrics-exporter
   - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de observabilidad con Grafana stack. Configura metrics, logs, traces con Prometheus, Loki, Tempo. Cubre dashboards, alerting y distributed tracing."

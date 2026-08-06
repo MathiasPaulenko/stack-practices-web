@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/regular-expressions
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical array sorting examples in Python, JavaScript, and Java. Learn ascending, descending, and custom comparator patterns."

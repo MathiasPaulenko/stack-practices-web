@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/bulkhead-pattern
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Timeout Pattern in Python, Java, and JavaScript. Resilience pattern for avoiding hanging operations with enforced time limits."

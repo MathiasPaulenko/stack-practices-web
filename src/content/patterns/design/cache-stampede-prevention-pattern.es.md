@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/two-level-cache-pattern
   - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Cache stampede prevention: evita thundering herd con locks y single-flight. Protege bases de datos de recargas concurrentes en Python y TypeScript."

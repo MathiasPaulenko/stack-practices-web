@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/parse-log-files
   - /recipes/parse-excel-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn CLI argument parsing in Python, Java, and Node.js. Build reliable command-line tools with flags, options, and subcommands."

@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/circuit-breaker-pattern-recipe
   - /guides/domain-driven-design-guide
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Service discovery patterns: Consul, etcd, Eureka, DNS-based resolution, health checks, and dynamic service registration for microservices."

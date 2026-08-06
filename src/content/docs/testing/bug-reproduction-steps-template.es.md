@@ -21,6 +21,7 @@ relatedResources:
   - /docs/regression-test-checklist
   - /docs/test-strategy-document-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá esta plantilla de pasos de reproducción de bugs para escribir repro steps mínimos con environment, data, expected vs actual y severity."

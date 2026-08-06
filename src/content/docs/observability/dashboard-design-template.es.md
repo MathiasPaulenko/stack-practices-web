@@ -23,6 +23,7 @@ relatedResources:
   - /docs/incident-postmortem-template
   - /guides/complete-guide-structured-logging
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá esta plantilla de diseño de dashboards para crear observability dashboards con SLOs, error budgets, service health panels e info contextual."

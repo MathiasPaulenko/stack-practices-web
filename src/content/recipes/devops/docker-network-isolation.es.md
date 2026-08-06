@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/python-terraform-provider-custom
   - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Asegura contenedores Docker con aislamiento de red, redes bridge personalizadas e internas. Previene comunicación no autorizada entre contenedores."

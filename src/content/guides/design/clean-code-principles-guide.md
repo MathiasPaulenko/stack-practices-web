@@ -23,6 +23,7 @@ relatedResources:
   - /docs/user-story-template
   - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Clean code principles guide: meaningful names, short functions, DRY, comments, error handling. Write maintainable software that teams enjoy working with."

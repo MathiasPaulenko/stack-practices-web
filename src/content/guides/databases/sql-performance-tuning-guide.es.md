@@ -43,6 +43,7 @@ relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/time-series-database-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de optimización SQL: indexación, reescritura de queries, EXPLAIN plans y anti-patrones. Optimiza consultas lentas en PostgreSQL, MySQL y SQL Server."

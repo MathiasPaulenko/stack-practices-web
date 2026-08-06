@@ -24,6 +24,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implementa control de acceso basado en roles con roles jerárquicos, grants de permisos y middleware de enforce en Python, Node.js y Java."

@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/optimistic-update-pattern
   - /patterns/state-machine-ui-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Compón lógica reusable con custom React hooks. Aprende composition patterns, dependency arrays, context integration, memoization, y testing strategies."

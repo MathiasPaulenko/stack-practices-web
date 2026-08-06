@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/load-balancing-haproxy
   - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Automatiza recursos AWS con bash y AWS CLI. Scripting de aprovisionamiento EC2, gestión de buckets S3 y automatización de políticas IAM con ejemplos prácticos."

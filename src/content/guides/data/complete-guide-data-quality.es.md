@@ -23,6 +23,7 @@ relatedResources:
   - /guides/complete-guide-dbt-data-transformations
   - /guides/complete-guide-apache-airflow
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
 seo:

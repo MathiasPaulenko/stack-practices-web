@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/repository-pattern-typescript
   - /patterns/solid-principles-typescript
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Adapter pattern para APIs REST externas. Normaliza respuestas de terceros en modelos internos consistentes. Separacion limpia entre logica externa y de dominio."

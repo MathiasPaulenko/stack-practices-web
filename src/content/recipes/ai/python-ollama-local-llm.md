@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/python-agent-langgraph-state-machine
   - /guides/complete-guide-local-llm-deployment
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Run LLMs locally with Ollama and Python. Install models, stream responses, generate embeddings, use function calling, and manage models without API costs."

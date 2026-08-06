@@ -30,6 +30,7 @@ relatedResources:
   - /docs/endpoint-security-checklist-template
   - /docs/pen-test-scope-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Documenta zonas de seguridad y reglas de segmentacion con esta plantilla. Cubre ambientes, niveles de confianza, controles y excepciones."

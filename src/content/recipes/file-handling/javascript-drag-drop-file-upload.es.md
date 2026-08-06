@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/file-upload-validation
   - /recipes/nodejs-read-large-file-stream
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Construye subida drag and drop en JavaScript con HTML5 Drag API. Cubre drop zones, validación de archivos, barras de progreso, FormData y feedback visual de drag events."

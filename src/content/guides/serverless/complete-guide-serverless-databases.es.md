@@ -31,6 +31,7 @@ relatedResources:
   - /guides/read-replica-guide
   - /guides/complete-guide-database-sharding
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Elegir bases de datos serverless: DynamoDB, Aurora Serverless, FaunaDB, PlanetScale. Cubre pricing, escalado, query patterns y migracion."

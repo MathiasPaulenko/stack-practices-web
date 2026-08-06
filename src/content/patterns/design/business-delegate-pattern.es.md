@@ -32,6 +32,7 @@ relatedResources:
   - /patterns/intercepting-filter-pattern
   - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Business Delegate para desacoplar presentación de capas de negocio. Ejemplos en Python, Java y JavaScript con service lookup y caching."

@@ -19,6 +19,7 @@ relatedResources:
   - /patterns/decorator-pattern-pipeline
   - /patterns/value-object-pattern
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "SOLID principles in TypeScript. Apply Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion with practical examples."

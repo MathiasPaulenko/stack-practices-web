@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/parameterized-test-pattern
   - /patterns/snapshot-testing-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Create reusable test context with setup/teardown fixtures. Learn beforeEach, factory functions, fixture objects, and cleanup patterns in Python, JS, and Java."

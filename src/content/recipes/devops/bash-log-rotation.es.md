@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/bash-aws-cli-scripts
   - /recipes/bash-disk-usage-monitor
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Rota y comprime logs de aplicación en bash con logrotate y scripts custom. Automatiza limpieza de logs, compresión gzip y políticas de retención."

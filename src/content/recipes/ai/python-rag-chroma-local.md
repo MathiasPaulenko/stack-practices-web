@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/python-llm-eval-ragas-metrics
   - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build a local RAG pipeline with ChromaDB and sentence-transformers. Chunk documents, embed locally, retrieve relevant context, and generate answers."

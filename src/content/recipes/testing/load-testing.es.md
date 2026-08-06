@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/load-testing-k6
   - /recipes/unit-testing-mocking
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende load testing con k6 y JMeter. Simula tráfico, mide tiempos de respuesta de APIs, identifica cuellos de botella y valida escalabilidad bajo carga realista."

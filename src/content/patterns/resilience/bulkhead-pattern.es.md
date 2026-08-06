@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/rate-limiter-token-bucket-pattern
   - /guides/complete-guide-java-concurrency
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Isolá resources per service para limitar blast radius. Aprende thread pool isolation, connection pool partitioning, semaphore-based bulkheads, y resource quotas."

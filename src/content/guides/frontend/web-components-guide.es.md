@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-react-performance-optimization
   - /guides/complete-guide-web-security-headers
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Web Components: custom elements, Shadow DOM, templates HTML. Guía práctica para construir componentes web reutilizables e independientes del framework."

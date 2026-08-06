@@ -37,6 +37,7 @@ relatedResources:
   - /recipes/parse-pdf-files
   - /recipes/parse-xml-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos CSV en Python, Java y JavaScript. Ejemplos de código prácticos para leer y procesar datos tabulares."

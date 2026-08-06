@@ -29,6 +29,7 @@ relatedResources:
   - /docs/penetration-test-report-template
   - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá esta plantilla de plan de respuesta a incidentes para definir severidad, roles, detección, contención, erradicación, recuperación y revisión post-incidente."

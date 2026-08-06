@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/java-junit5-assertions-soft
   - /recipes/unit-testing-mocking
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de pruebas unitarias con pytest, Jest y JUnit. Aprende a estructurar tests, usar mocks y mantener suites rápidas."

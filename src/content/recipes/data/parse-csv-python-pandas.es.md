@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/python-excel-read-write
   - /recipes/generate-pdf-report-python
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a leer CSV en Python con pandas y el módulo csv. Filtra y transforma archivos CSV grandes con ejemplos de código prácticos."

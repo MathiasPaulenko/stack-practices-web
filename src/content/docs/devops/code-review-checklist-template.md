@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/git-rebase-interactive-tutorial
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Standardize code reviews with this checklist. Covers logic, security, performance, tests, and style for consistent, high-quality feedback."

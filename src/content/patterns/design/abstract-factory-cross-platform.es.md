@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/iterator-pattern-collections
   - /patterns/prototype-pattern-cloning
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Abstract Factory pattern para familias UI. Crea objetos relacionados sin especificar clases concretas para familias de componentes cross-platform y theme-specific."

@@ -22,6 +22,7 @@ relatedResources:
   - /guides/complete-guide-docker-compose-local-dev
   - /guides/complete-guide-kubernetes-config-management
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
 seo:

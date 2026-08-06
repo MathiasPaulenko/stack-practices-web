@@ -23,6 +23,7 @@ relatedResources:
   - /docs/data-governance-policy-template
   - /docs/alert-runbook-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this ETL job runbook template to document startup, shutdown, health checks, common failures, diagnostics, and recovery procedures for ETL jobs."

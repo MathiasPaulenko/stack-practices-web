@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/caching
   - /recipes/flatten-unflatten-objects
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical URL encoding examples in Python, JavaScript, and Java. Learn percent-encoding, query string building, URI parsing, and safe parameter handling."

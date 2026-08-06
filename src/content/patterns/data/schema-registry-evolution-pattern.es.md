@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/data-lineage-tracking-pattern
   - /patterns/batch-to-streaming-bridge-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Maneja schema versions para streaming pipelines con un schema registry. Aprende Avro, backward y forward compatibility, evolution rules, y consumer migration."

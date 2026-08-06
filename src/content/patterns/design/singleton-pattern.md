@@ -41,6 +41,7 @@ relatedResources:
   - /patterns/registry-pattern
   - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Singleton Pattern with practical examples in Python, Java, and JavaScript. Creational design pattern for single-instance control."

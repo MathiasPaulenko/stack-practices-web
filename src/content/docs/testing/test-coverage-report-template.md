@@ -21,6 +21,7 @@ relatedResources:
   - /docs/test-case-template
   - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this test coverage report template to track coverage by module, feature, and critical path with trend analysis, gap identification, and action items."

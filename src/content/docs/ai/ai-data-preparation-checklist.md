@@ -23,6 +23,7 @@ relatedResources:
   - /docs/ai-llm-prompt-template-library
   - /docs/ai-model-selection-matrix
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Checklist for AI data prep: collection, cleaning, chunking, embedding, deduplication, PII removal, format validation, quality scoring, indexing with metrics."

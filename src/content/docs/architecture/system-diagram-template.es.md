@@ -29,6 +29,7 @@ relatedResources:
   - /docs/technical-spec-template
   - /docs/architecture-decision-record-adr-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de diagramas de sistema para documentar arquitectura con diagramas de contexto, contenedores, componentes y código del modelo C4."

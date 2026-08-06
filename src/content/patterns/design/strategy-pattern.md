@@ -46,6 +46,7 @@ relatedResources:
   - /patterns/visitor-pattern
   - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Strategy Pattern with practical examples in Python, Java, and JavaScript. Behavioral design pattern for interchangeable algorithms."

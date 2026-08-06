@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/bash-parallel-execution
   - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Monitorea el uso de disco con Bash: verifica mount points, configura umbrales, envía alertas y dispara limpieza antes de que el disco se llene y los servicios fallen."

@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/log-aggregation
   - /recipes/metrics-collection
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "What works in structured logging: JSON format, correlation IDs, log levels, aggregation with ELK/Loki, and distributed tracing integration."

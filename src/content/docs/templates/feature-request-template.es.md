@@ -20,6 +20,7 @@ relatedResources:
   - /docs/user-story-template
   - /guides/clean-code-principles-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de solicitud de capacidades con user story, criterios de aceptación y prioridad. Ayuda a evaluar y construir las correctas más rápido."

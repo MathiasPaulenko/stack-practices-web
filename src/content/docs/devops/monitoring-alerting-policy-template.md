@@ -31,6 +31,7 @@ relatedResources:
   - /docs/postmortem-incident-review-template
   - /docs/service-level-objective-slo-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define monitoring and alerting policies with this template. Covers alert thresholds, routing, escalation, severity levels, and review cadence."

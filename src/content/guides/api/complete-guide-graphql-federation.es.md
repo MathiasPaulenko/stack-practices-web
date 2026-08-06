@@ -54,6 +54,7 @@ relatedResources:
   - /docs/graphql-schema-review-checklist
   - /guides/complete-guide-graphql-schema-design
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de GraphQL Federation. Construye APIs unificadas con Apollo Federation, subgraphs, supergraph composition, entities y gateway deployment."

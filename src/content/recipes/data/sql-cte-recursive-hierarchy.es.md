@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/python-dbt-model-transformations
   - /recipes/python-spark-groupby-aggregation
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Consulta datos jerárquicos con CTEs recursivas en SQL. Recorre árboles, construye org charts, árboles de categorías, detecta ciclos y calcula profundidad con CTEs."

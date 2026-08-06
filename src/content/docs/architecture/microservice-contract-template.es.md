@@ -32,6 +32,7 @@ relatedResources:
   - /docs/technical-spec-template
   - /guides/api-gateway-design-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de contrato de microservicios para documentar acuerdos de API, SLAs, políticas de versionado y procedimientos de cambios incompatibles."

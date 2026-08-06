@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/traffic-mirroring
   - /docs/deployment-checklist-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Checklist post-deployment: health checks, smoke tests, validación de métricas y rollback readiness antes de declarar un deployment exitoso."

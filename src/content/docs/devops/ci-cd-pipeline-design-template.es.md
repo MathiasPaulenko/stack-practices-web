@@ -25,6 +25,7 @@ relatedResources:
   - /docs/incident-postmortem-template
   - /docs/vulnerability-management-process-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá esta plantilla de diseño de pipeline CI/CD para definir stages, quality gates, environments, deployment strategies, rollback y security."

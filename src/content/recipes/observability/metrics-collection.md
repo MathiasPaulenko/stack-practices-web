@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/structured-logging
   - /recipes/real-user-monitoring
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Metrics collection for applications and infrastructure: Prometheus, StatsD, OpenTelemetry, custom metrics, histograms, counters, and Grafana dashboards."

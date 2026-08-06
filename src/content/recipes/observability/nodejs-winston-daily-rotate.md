@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/nodejs-sentry-error-tracking
   - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configure daily log rotation in Node.js with winston and winston-daily-rotate-file. Set size limits, retention policies, compression, and combine transports."

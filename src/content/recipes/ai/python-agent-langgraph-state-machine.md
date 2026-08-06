@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/agent-tool-selection-pattern
   - /patterns/human-in-the-loop-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build stateful AI agents with LangGraph state machines. Define nodes, conditional edges, tool calling, and checkpointing for complex multi-step LLM workflows."

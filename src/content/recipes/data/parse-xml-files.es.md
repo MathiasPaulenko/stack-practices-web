@@ -36,6 +36,7 @@ relatedResources:
   - /recipes/serialize-deserialize-data
   - /recipes/validate-json-schema
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos XML en Python, Java y JavaScript. Ejemplos de código para parsing DOM, SAX y consultas XPath."

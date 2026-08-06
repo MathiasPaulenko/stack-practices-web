@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/copy-move-files
   - /recipes/read-large-files
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implement log rotation by size, date, and count in Python, Node.js, Java, and Linux to prevent disk exhaustion and audit log retention."

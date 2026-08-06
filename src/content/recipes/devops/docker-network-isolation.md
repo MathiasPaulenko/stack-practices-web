@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/python-terraform-provider-custom
   - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Secure Docker containers with network isolation, custom bridge networks, internal networks, and access control. Prevent unauthorized inter-container communication."

@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/type-object-pattern
   - /patterns/value-object-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón ECS para arquitectura de juegos y simulaciones. Ejemplos en Python, Java y JavaScript con entidades, componentes y sistemas."

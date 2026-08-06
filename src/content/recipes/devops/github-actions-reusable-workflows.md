@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/docker-compose-override-environments
   - /recipes/terraform-workspace-environment-isolation
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Create and consume reusable GitHub Actions workflows. Pass inputs and secrets, use conditional jobs, matrix strategy, and share across an organization."

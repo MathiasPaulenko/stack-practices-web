@@ -44,6 +44,7 @@ const baseSchema = z.object({
   tags: z.array(z.string()).min(1),
   relatedResources: z.array(z.string()).default([]),
   lastUpdated: z.coerce.date(),
+  publishedAt: z.coerce.date().optional(),
   author: z.string().default('StackPractices'),
   draft: z.boolean().default(false),
   seo: z.object({

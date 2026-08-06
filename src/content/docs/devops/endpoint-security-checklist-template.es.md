@@ -21,6 +21,7 @@ relatedResources:
   - /docs/network-segmentation-policy-template
   - /docs/secret-rotation-schedule-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Endurece endpoints con esta plantilla de checklist. Cubre cifrado, MFA, parches, EDR, copias de seguridad y politicas de borrado remoto."

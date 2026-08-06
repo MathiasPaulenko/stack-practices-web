@@ -20,6 +20,7 @@ relatedResources:
   - /patterns/fixture-setup-teardown-pattern
   - /patterns/snapshot-testing-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejecuta la misma lógica de test across múltiples inputs con parameterized tests. Aprende pytest parametrize, Jest test.each, JUnit ParameterizedTest y data providers."

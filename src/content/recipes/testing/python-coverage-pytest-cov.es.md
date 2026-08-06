@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/python-mock-external-apis-responses
   - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Mide y exige cobertura de tests en Python con pytest-cov. Genera reportes HTML, branch coverage, excluye líneas y falla CI con umbrales bajos de cobertura."

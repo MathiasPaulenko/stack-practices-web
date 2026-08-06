@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/cache-aside-pattern
   - /patterns/saga-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Retry en Python, Java y JavaScript. Patrón de resiliencia para manejar fallas transitorias con estrategias de backoff."

@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/write-behind-cache-pattern
   - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Refresh-ahead cache pattern: proactively refresh entries before TTL expires. Eliminate cache misses on hot keys with Python, Java, and TypeScript examples."

@@ -31,6 +31,7 @@ relatedResources:
   - /guides/gcp-basics-guide
   - /guides/service-mesh-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Advanced Kubernetes guide: operators, CRDs, admission webhooks, multi-cluster, security hardening. Go beyond basic deployments with production patterns."

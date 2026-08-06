@@ -27,6 +27,7 @@ relatedResources:
   - /guides/testing-strategy-guide
   - /guides/complete-guide-testcontainers-integration
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende postmortems sin culpa: captura timelines, identifica causas raíz, escribe seguimientos útiles y construye cultura de mejora continua."

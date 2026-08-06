@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/react-virtual-list-react-window
   - /recipes/vue-composition-api-fetch
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build type-safe React forms with react-hook-form and Zod. Validate nested fields, async rules, dynamic fields, and integrate with UI libraries."

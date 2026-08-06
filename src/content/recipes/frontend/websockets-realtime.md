@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/url-encoding-decoding
   - /recipes/server-side-rendering
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "WebSocket real-time communication: connection management, reconnection strategies, fallbacks to SSE/long-polling, and scaling WebSocket servers."

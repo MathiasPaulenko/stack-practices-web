@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/typescript-discriminated-unions-exhaustive
   - /guides/complete-guide-react-state-management
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
 seo:

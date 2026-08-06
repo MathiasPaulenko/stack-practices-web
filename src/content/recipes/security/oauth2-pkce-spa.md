@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/nodejs-oauth2-github-login
   - /guides/complete-guide-oauth2-oidc-production
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "OAuth 2.0 PKCE for single-page applications. Securely authenticate users without client secrets, implement code exchange, and handle token refresh in SPAs."

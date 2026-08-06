@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/back-pressure-pattern
   - /patterns/backend-for-frontend-pattern
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Hosting de Contenido Estatico para servir assets desde almacenamiento de objetos. Ejemplos en Python, Java y JavaScript con S3, CloudFront y CDN."

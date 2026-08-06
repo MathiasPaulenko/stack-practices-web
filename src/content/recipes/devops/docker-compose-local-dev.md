@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/cost-optimization
   - /recipes/kafka-event-streaming
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Orchestrate multi-service local environments with Docker Compose. Run databases, caches, message brokers, and apps with hot reload and shared networks."

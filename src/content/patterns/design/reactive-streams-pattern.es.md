@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/lock-free-queue-pattern
   - /patterns/thread-pool-pattern
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Procesar streams async con backpressure. Suscriptores piden N items a la vez, previniendo que productores rapidos saturen a consumidores lentos."

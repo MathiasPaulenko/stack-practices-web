@@ -26,6 +26,7 @@ relatedResources:
   - /guides/complete-guide-property-based-testing
   - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Write property-based tests with Hypothesis, fast-check, and jqwik that generate thousands of inputs to find edge cases traditional tests miss."

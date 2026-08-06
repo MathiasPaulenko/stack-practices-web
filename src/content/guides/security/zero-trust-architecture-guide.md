@@ -28,6 +28,7 @@ relatedResources:
   - /guides/disaster-recovery-guide
   - /guides/threat-modeling-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn Zero Trust architecture: identity verification, least privilege, micro-segmentation, and continuous validation. Practical guide for modern security."

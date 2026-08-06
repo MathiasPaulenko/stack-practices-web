@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/typescript-discriminated-unions-exhaustive
   - /guides/complete-guide-accessibility-wcag
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye un sistema de design tokens con CSS custom properties. Define escalas de color, spacing, tipografía, dark themes y escalado responsivo en CSS puro."

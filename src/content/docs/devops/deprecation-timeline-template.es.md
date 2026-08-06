@@ -21,6 +21,7 @@ relatedResources:
   - /docs/service-ownership-document-template
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Planifica la discontinuacion de funciones legacy con esta plantilla. Cubre hitos, cronogramas de comunicacion, rutas de migracion y fechas finales de apagado."

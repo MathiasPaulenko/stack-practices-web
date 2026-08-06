@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/twin-pattern
   - /patterns/type-object-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Partial Class Pattern for splitting class definitions across files. Examples in Python, Java, and JavaScript with mixins, traits, and code generation."

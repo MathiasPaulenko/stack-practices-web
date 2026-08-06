@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/caching-redis
   - /recipes/database-migrations-safely
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement event sourcing in a relational database. Event stores, projections, and snapshotting patterns with PostgreSQL, MySQL, and SQL Server examples."

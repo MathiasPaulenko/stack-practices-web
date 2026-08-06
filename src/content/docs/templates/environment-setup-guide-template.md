@@ -24,6 +24,7 @@ relatedResources:
   - /docs/bug-report-template
   - /docs/disaster-recovery-plan-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Environment setup guide template: document local dev, staging, and production setup steps for consistent and reproducible onboarding."

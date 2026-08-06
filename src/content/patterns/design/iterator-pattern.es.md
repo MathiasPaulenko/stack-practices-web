@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/template-method-pattern
   - /patterns/visitor-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Iterator en Python, Java y JavaScript. Patrón de comportamiento para recorrido secuencial de colecciones."

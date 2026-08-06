@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/cache-aside-pattern
   - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Write-behind cache pattern: write to cache synchronously, persist to DB asynchronously. High-throughput writes with eventual consistency in Redis and Python."

@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/express-middleware-patterns
   - /recipes/data-validation-zod
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build production REST APIs in Go with Gin framework. Implement custom middleware for logging, auth, validation, and error handling in high-performance services."

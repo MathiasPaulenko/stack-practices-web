@@ -22,6 +22,7 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implement offline support in JavaScript with Service Workers, Cache API, stale-while-revalidate, and background sync for progressive web apps."

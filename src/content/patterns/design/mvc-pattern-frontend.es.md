@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/server-side-rendering
   - /recipes/websockets-realtime
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "MVC pattern en frontend moderno. Separa datos, UI y logica de interaccion en React y Vue para arquitectura de componentes mantenible y flujo de estado predecible."

@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/database-migrations
   - /guides/complete-guide-sql-query-optimization
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Database schema evolution: backward-compatible changes, versioned migrations, online DDL, expand-contract pattern, and safe schema changes in production."

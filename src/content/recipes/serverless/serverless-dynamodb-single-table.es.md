@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/serverless-step-functions-workflow
   - /patterns/serverless-event-sourcing-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Disena un schema single-table de DynamoDB con composite keys, patrones de GSI y access patterns para apps serverless con Python y boto3."

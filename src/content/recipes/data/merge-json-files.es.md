@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/parse-csv-python-pandas
   - /recipes/python-excel-read-write
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a fusionar archivos JSON en Python, Java y JavaScript. Combina configs, datasets y respuestas de API con ejemplos prácticos de código."

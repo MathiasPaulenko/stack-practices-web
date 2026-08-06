@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/multi-tenancy
   - /recipes/service-discovery
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn circuit breaker pattern for resilient distributed systems. Prevent cascading failures with open, closed, and half-open states in Java, TypeScript, and Python."

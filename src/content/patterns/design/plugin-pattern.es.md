@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/blackboard-pattern
   - /patterns/chain-of-responsibility-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Plugin para construir sistemas extensibles con carga en vivo de módulos. Ejemplos en Python, Java y JavaScript para puntos de extensión."

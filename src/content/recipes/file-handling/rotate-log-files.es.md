@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/copy-move-files
   - /recipes/read-large-files
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implementa rotación de logs por tamaño, fecha y cantidad en Python, Node.js, Java y Linux para prevenir la exaustión de disco."

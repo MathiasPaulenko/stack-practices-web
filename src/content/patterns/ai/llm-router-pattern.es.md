@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/agent-tool-selection-pattern
   - /patterns/llm-guardrails-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Enruta consultas LLM por complejidad al modelo adecuado. Reduce costos enviando consultas simples a modelos pequenos y complejas a modelos grandes."

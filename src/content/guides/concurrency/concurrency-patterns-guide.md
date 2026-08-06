@@ -36,6 +36,7 @@ relatedResources:
   - /docs/async-task-cancellation-runbook
   - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn concurrency patterns: thread pools, async/await, futures, semaphores, and race condition prevention. Practical examples in multiple languages."

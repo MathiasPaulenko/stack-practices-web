@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/python-vector-database-pinecone
   - /patterns/prompt-chaining-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Compose LCEL chains in LangChain with pipe operators, parallel branches, and custom runnables. Build multi-step LLM workflows with retries and streaming."

@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/implement-sso-saml
   - /recipes/hash-passwords-argon2
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implementa control de acceso basado en atributos con motores de políticas, evaluación de contexto en vivo y decisiones granulares."

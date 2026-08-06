@@ -35,6 +35,7 @@ relatedResources:
   - /patterns/module-pattern
   - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Facade Pattern to simplify complex subsystems. Examples in Python, Java, and JavaScript for cleaner APIs and reduced coupling."

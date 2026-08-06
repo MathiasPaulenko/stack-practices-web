@@ -36,6 +36,7 @@ relatedResources:
   - /recipes/python-thread-pool-executor
   - /docs/async-task-cancellation-runbook
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to Python asyncio. Master coroutines, tasks, event loops, async/await, gather, semaphores, queues, HTTP clients, websockets and debugging async code."

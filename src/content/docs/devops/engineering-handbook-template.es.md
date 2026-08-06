@@ -33,6 +33,7 @@ relatedResources:
   - /docs/architecture-decision-record-adr-template
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Documenta la cultura de tu equipo de ingenieria con esta plantilla. Cubre procesos, estandares tecnicos y practicas operacionales."

@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/use-orm-crud
   - /guides/sql-joins-guide
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn to execute raw SQL queries safely in Python, JavaScript, and Java using parameterized statements to prevent SQL injection."

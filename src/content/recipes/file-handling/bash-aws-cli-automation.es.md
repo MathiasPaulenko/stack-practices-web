@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/bash-iptables-firewall-rules
   - /recipes/bash-log-rotation-compression
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Automatiza recursos de AWS con Bash y AWS CLI. Aprovisiona recursos, aplica tags consistentes, programa limpiezas y reduce operaciones cloud manuales."

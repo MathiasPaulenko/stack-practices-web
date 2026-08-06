@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/python-dask-parallel-dataframe
   - /recipes/python-dbt-model-transformations
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build an ETL pipeline with pandas and Parquet. Extract from CSV/JSON, transform with type coercion and validation, load to columnar Parquet storage."

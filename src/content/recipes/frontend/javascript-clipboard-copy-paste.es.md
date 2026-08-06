@@ -22,6 +22,7 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /docs/deployment-checklist-template
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Copia texto al portapapeles en JavaScript con navigator.clipboard API y fallback para navegadores antiguos. Cubre execCommand, permisos y manejo de eventos paste."

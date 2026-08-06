@@ -28,6 +28,7 @@ relatedResources:
   - /docs/data-breach-response-playbook
   - /docs/vulnerability-management-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Plan and execute DR tests with this template. Covers failover validation, data integrity checks, RTO/RPO measurement, and post-test reporting."

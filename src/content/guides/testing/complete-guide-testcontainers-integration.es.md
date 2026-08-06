@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-ci-cd-github-actions
   - /guides/postmortem-guide
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 18
 seo:

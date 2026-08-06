@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/bash-iptables-firewall
   - /recipes/bash-aws-cli-automation
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Configure Linux firewall rules with iptables using Bash. Filter traffic, allow trusted ports, block unwanted IPs, and secure servers from network threats."

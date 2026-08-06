@@ -32,6 +32,7 @@ relatedResources:
   - /docs/performance-regression-template
   - /docs/rollout-communication-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de gestión de cambios para documentar revisiones CAB, flujos de aprobación y criterios de reversión para cambios en producción."

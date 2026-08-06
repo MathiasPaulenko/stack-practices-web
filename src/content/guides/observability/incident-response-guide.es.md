@@ -24,6 +24,7 @@ relatedResources:
   - /guides/chaos-engineering-guide
   - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende respuesta a incidentes: declaración, estructura de comando, protocolos de comunicación y reducción de MTTR con procesos estructurados."

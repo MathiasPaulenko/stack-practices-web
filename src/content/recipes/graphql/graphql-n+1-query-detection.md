@@ -26,6 +26,7 @@ relatedResources:
   - /patterns/graphql-batched-resolver-pattern
   - /patterns/graphql-dataloader-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Detect and fix N+1 queries in GraphQL resolvers. Use request-scoped DataLoader, logging plugins, and query analysis to eliminate redundant DB calls."

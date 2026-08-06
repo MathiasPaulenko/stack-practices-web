@@ -26,6 +26,7 @@ relatedResources:
   - /patterns/builder-pattern-configuration
   - /patterns/decorator-pattern-pipeline
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa un proxy de cacheo para respuestas de API. Reduce latencia, evita peticiones redundantes y controla invalidacion de cache con un wrapper limpio."

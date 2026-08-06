@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/partial-class-pattern
   - /patterns/role-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Twin Pattern for multiple inheritance alternative. Examples in Python, Java, and JavaScript with linked classes, mutual delegation, and composition."

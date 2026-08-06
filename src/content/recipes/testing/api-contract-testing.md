@@ -20,6 +20,7 @@ relatedResources:
   - /recipes/call-rest-api
   - /docs/load-test-report-template
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn API contract testing with Pact. Prevent breaking changes between microservices using consumer-driven contracts and OpenAPI validators."

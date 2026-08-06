@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/distributed-tracing
   - /recipes/real-user-monitoring
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Log aggregation for distributed systems: ELK stack, Fluentd, Grafana Loki, log shipping, parsing, and centralized troubleshooting at scale."

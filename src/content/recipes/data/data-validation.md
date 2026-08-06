@@ -20,6 +20,7 @@ relatedResources:
   - /recipes/xss-prevention
   - /recipes/batch-processing-patterns
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn data validation for user input. Validate, sanitize, and constrain data at the application boundary using schemas, type checking, and validation libraries."

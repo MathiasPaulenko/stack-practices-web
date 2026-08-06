@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/object-pool-pattern
   - /patterns/registry-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Multiton para gestionar instancias singleton nombradas. Ejemplos en Python, Java y JavaScript para registros de objetos con clave."

@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/bash-backup-rotation-script
   - /recipes/bash-parallel-job-execution
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Build text processing pipelines with grep, sed, awk, cut, sort, uniq, and tr for log analysis, data transformation, and one-liners."

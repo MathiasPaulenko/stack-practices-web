@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/java-spotbugs-static-analysis
   - /recipes/typescript-eslint-strict-config
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configura mypy strict mode para proyectos Python. Maneja errores de tipo comunes, usa Protocol, TypeGuard, overload e integra con pipelines CI/CD."

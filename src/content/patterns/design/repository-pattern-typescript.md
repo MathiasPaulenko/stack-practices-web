@@ -21,6 +21,7 @@ relatedResources:
   - /guides/database-design-guide
   - /patterns/mvc-pattern-frontend
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Repository pattern in TypeScript with generics. Decouple data access from domain logic with type-safe repositories, interfaces, and clean dependency injection."

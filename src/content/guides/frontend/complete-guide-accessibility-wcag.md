@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/css-container-queries-responsive
   - /recipes/css-custom-properties-design-tokens
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
 seo:

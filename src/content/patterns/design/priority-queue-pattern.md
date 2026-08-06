@@ -32,6 +32,7 @@ relatedResources:
   - /patterns/message-queue-load-leveling-pattern
   - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Priority Queue Pattern for task scheduling by priority. Examples in Python, Java, and JavaScript with heaps, Redis sorted sets, and weighted fair queuing."

@@ -22,6 +22,7 @@ relatedResources:
   - /docs/rabbitmq-queue-design-template
   - /docs/dead-letter-queue-runbook
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Message schema evolution policy: backward and forward compatibility, schema registry, versioning, migration, breaking changes with Avro, Protobuf, JSON examples."

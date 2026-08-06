@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende CTEs SQL: expresiones recursivas y no recursivas, legibilidad, tips de rendimiento. Referencia Detallada con ejemplos para PostgreSQL, SQL Server y MySQL."

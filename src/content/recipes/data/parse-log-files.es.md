@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/parse-command-line-arguments
   - /recipes/parse-excel-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a analizar archivos de log de servidores. Extrae insights de logs de Apache, Nginx y aplicaciones con ejemplos de código."

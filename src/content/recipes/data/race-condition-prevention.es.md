@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/idempotent-consumer-pattern
   - /recipes/javascript-event-loop
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Previene race conditions en JavaScript async. Usa secuenciacion apropiada, operaciones atomicas y patrones Promise para ejecucion concurrente predecible."

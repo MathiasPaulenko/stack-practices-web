@@ -29,6 +29,7 @@ relatedResources:
   - /docs/api-performance-budget-template
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this API lifecycle management template to track deprecation notices, versioning transitions, and sunset readiness checks."

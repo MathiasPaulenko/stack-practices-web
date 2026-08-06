@@ -28,6 +28,7 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/technical-spec-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this service dependency map template to document upstream and downstream dependencies, critical paths, and failure impact analysis."

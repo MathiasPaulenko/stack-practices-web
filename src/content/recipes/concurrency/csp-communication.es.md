@@ -22,6 +22,7 @@ relatedResources:
   - /guides/concurrency-patterns-guide
   - /docs/race-condition-debugging-checklist
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende CSP para coordinaciÃ³n de tareas concurrentes. Usa channels, select statements y goroutines para comunicar sin estado mutable compartido en Go, Rust y JS."

@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/javascript-msw-mock-service-worker
   - /recipes/integration-testing
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Test Express.js REST API endpoints end-to-end with supertest. Verify status codes, JSON bodies, headers, auth, and error responses in Node.js tests."

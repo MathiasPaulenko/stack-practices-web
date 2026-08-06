@@ -35,6 +35,7 @@ relatedResources:
   - /patterns/singleton-pattern
   - /patterns/template-method-pattern
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Factory Pattern with practical examples in Python, Java, and JavaScript. Creational design pattern for flexible object creation."

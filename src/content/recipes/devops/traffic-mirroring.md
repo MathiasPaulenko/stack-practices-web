@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/background-jobs
   - /recipes/bash-scripting-automation
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Traffic mirroring for production testing: shadow deployments, realistic load testing, performance validation, and safe environment replication without user impact."

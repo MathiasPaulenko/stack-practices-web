@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/istio-canary-deployment
   - /recipes/traffic-mirroring
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Despliegue blue-green: releases sin downtime, conmutación instantánea de tráfico, rollback automatizado y gestión de ambientes para seguridad en producción."

@@ -24,6 +24,7 @@ relatedResources:
   - /guides/caching-strategies-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Cache API responses in Node.js with Redis. Implement cache-aside, TTL expiration, cache invalidation, and tag-based batch invalidation with ioredis."

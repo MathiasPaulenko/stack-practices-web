@@ -25,6 +25,7 @@ relatedResources:
   - /docs/on-call-runbook-template
   - /guides/event-driven-architecture-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Sigue este runbook de actualización de dependencias para actualizar paquetes, probar cambios incompatibles y revertir de forma segura si surgen problemas."

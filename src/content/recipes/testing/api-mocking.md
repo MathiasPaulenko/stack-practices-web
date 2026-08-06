@@ -26,6 +26,7 @@ relatedResources:
   - /guides/complete-guide-junit5-modern-testing
   - /guides/complete-guide-pytest-production
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "API mocking strategies for testing: WireMock, MockServer, MSW, stub definitions, response templating, and testing edge cases without real dependencies."

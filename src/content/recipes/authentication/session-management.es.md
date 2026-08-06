@@ -20,6 +20,7 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/magic-link-authentication
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende gestión de sesiones segura. Crea, valida y expira sesiones con cookies HTTP-only, almacenamiento Redis y protección CSRF en aplicaciones web."

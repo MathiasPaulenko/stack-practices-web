@@ -21,6 +21,7 @@ relatedResources:
   - /docs/ci-cd-pipeline-security-template
   - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Gestiona claves de cifrado con esta plantilla de ciclo de vida. Cubre generacion, almacenamiento, rotacion, control de acceso y procedimientos de destruccion."

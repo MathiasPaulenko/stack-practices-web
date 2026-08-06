@@ -29,6 +29,7 @@ relatedResources:
   - /docs/api-error-response-template
   - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this API deprecation notice template to communicate breaking changes, migration timelines, and sunset dates to consumers."

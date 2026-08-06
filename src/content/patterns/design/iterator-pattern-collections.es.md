@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/visitor-pattern-operations
   - /patterns/memento-pattern-state
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Iterator pattern para colecciones custom. Accede a elementos de agregados secuencialmente sin exponer la representacion subyacente para arboles, grafos y streams."

@@ -29,6 +29,7 @@ relatedResources:
   - /guides/multi-cloud-guide
   - /guides/capacity-planning-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende FinOps: optimizacion de costos cloud, estrategias de tagging, right-sizing, instancias reservadas y construir cultura de ingenieria consciente de costos."

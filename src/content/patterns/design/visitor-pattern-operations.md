@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/interpreter-pattern-expressions
   - /patterns/iterator-pattern-collections
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Visitor pattern for extensible operations. Separate algorithms from the objects they operate on to add new operations without modifying existing element classes."

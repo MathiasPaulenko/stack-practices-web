@@ -23,6 +23,7 @@ relatedResources:
   - /guides/complete-guide-typescript-advanced-types
   - /recipes/svelte-store-reactive-state
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 22
 seo:

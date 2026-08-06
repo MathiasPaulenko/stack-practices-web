@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/helm-chart-deployment
   - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ambassador pattern para llamadas resilientes. Usa un proxy local para manejar reintentos, circuit breaking y monitoreo al acceder microservicios remotos."

@@ -31,6 +31,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-ingress
   - /guides/complete-guide-terraform-modules
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Deployment strategies guide: blue-green, canary, rolling, and feature flags. Minimize risk and rollback time when releasing to production safely."

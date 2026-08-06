@@ -26,6 +26,7 @@ relatedResources:
   - /patterns/mediator-pattern-components
   - /recipes/spa-code-splitting-lazy
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Bridge pattern for UI themes. Decouple components from rendering to let abstractions and implementations vary independently for pluggable theming systems."

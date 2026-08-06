@@ -29,6 +29,7 @@ relatedResources:
   - /docs/secrets-rotation-runbook
   - /guides/security-best-practices-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this secrets rotation template to schedule and track the rotation of API keys, tokens, passwords, and certificates across your infrastructure."

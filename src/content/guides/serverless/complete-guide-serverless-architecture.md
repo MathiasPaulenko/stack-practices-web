@@ -33,6 +33,7 @@ relatedResources:
   - /guides/complete-guide-aws-lambda-production
   - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Decide when to go serverless. Covers FaaS patterns, event-driven design, cold starts, cost models, vendor lock-in, and migration strategies for production apps."

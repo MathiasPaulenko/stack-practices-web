@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Multi-tenancy architecture patterns: shared database, isolated schema, dedicated instance per tenant, routing, and data isolation strategies for SaaS."

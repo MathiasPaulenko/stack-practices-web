@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/mediator-pattern-components
   - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Backend for Frontend Pattern for API aggregation per client type. Examples in Python, Java, and JavaScript with GraphQL gateways and mobile optimization."

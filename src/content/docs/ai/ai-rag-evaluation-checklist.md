@@ -27,6 +27,7 @@ relatedResources:
   - /docs/ai-llm-incident-response-runbook
   - /docs/ai-prompt-version-control-template
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Checklist for RAG system quality: retrieval accuracy, generation faithfulness, context relevance, answer correctness, citations, latency, end-to-end testing."

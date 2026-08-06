@@ -24,6 +24,7 @@ relatedResources:
   - /guides/serverless-architecture-guide
   - /recipes/gcp-cloud-functions-nodejs
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Despliega Cloud Functions HTTP en Google Cloud con Node.js. Usa Express, gestiona secrets con Secret Manager y despliega con gcloud CLI o Cloud Build."

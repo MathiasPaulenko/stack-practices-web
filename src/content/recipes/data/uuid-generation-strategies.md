@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/database-replication
   - /recipes/schema-evolution
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Compare UUID v4, v7, ULID and nanoid for unique identifiers. Different tradeoffs in randomness, sortability, performance and database index locality."

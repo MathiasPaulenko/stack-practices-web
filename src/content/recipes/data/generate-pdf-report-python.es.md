@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/python-generate-qr-code
   - /recipes/python-excel-read-write
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Genera reportes PDF en Python con ReportLab y fpdf2. Crea documentos con estilos, tablas y gráficos desde datos con ejemplos de código."

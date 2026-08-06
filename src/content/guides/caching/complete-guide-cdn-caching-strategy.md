@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-cache-invalidation
   - /guides/complete-guide-application-level-caching
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Design CDN caching for web apps and APIs. Covers edge caching, cache keys, headers, invalidation, surrogate keys, and multi-CDN setups for global performance."

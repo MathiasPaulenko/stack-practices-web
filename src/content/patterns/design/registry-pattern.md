@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/singleton-pattern
   - /patterns/plugin-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Registry Pattern for centralized service lookup. Examples in Python, Java, and JavaScript for decoupled dependency resolution."

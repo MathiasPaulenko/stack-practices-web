@@ -32,6 +32,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-ingress
   - /guides/infrastructure-as-code-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Kubernetes basics for developers: Pods, Deployments, Services, ConfigMaps, and kubectl. Practical guide for running containerized apps on K8s."

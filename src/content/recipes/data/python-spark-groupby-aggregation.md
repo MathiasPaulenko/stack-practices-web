@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/python-dask-parallel-dataframe
   - /recipes/sql-cte-recursive-hierarchy
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Perform large-scale group-by aggregations with PySpark. Use window functions, UDFs, broadcast joins, and partition tuning for distributed data processing."

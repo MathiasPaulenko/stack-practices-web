@@ -25,6 +25,7 @@ relatedResources:
   - /guides/concurrency-patterns-guide
   - /recipes/python-async-gather-concurrent-requests
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Rate limit async operations in Python with asyncio.Semaphore. Control concurrency for API calls, database connections, and resource access with bounded parallelism."

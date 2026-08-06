@@ -22,6 +22,7 @@ relatedResources:
   - /docs/serverless-cold-start-runbook
   - /docs/serverless-security-checklist
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Pre-deploy checklist for serverless functions: IAM roles, env vars, memory sizing, timeout, logging, alarms, rollback for Lambda, Azure, GCP."

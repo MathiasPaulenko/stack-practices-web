@@ -26,6 +26,7 @@ relatedResources:
   - /guides/sql-joins-guide
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende funciones de ventana SQL: ROW_NUMBER, RANK, LEAD, LAG, SUM sobre particiones. Referencia Detallada con ejemplos de analitica real."

@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/batch-to-streaming-bridge-pattern
   - /patterns/data-lineage-tracking-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Streamea database changes a downstream consumers con CDC. Aprende log-based CDC, Debezium, Kafka Connect, outbox pattern, y consumer reconciliation strategies."

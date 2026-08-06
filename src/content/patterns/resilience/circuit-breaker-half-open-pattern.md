@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/fallover-pattern
   - /patterns/rate-limiter-token-bucket-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Test service recovery with half-open circuit breaker state transitions. Learn closed, open, half-open states, trial requests, and gradual recovery patterns."

@@ -40,6 +40,7 @@ relatedResources:
   - /guides/cicd-pipeline-guide
   - /guides/logging-monitoring-observability-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa esta plantilla de runbook para documentar procedimientos operacionales, playbooks de respuesta a incidentes y tareas de mantenimiento rutinarias."

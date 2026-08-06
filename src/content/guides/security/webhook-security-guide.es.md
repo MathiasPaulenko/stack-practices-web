@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/docker-secrets-management
   - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Asegura webhooks con verificación de firmas, protección contra repetición y cifrado de payloads. Guía práctica de seguridad para desarrolladores."

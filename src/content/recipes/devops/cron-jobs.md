@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/cli-tool-argument-parsing
   - /recipes/health-check-endpoint
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical cron job examples in Linux, Python (schedule library), and Node.js (node-cron). Learn cron syntax, scheduling patterns, and what works."

@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/python-secrets-management-vault
   - /recipes/serverless-api-gateway-lambda-authorizer
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa rotacion de JWT refresh tokens en Python. Genera access y refresh tokens, detecta reuso, blacklist de tokens comprometidos y renueva automaticamente."

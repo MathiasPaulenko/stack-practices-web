@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/database-migrations
   - /recipes/database-replication
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Clasifica filas y calcula totales acumulados en SQL con funciones de ventana. Usa ROW_NUMBER, RANK, SUM OVER y LAG en consultas analíticas."

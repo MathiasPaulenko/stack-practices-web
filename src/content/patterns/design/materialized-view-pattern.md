@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/database-per-service-pattern
   - /patterns/sharding-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Materialized View Pattern for query optimization. Examples in Python, Java, and SQL with triggers, scheduled refresh, and incremental updates."

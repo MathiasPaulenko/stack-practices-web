@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/soft-deletes
   - /guides/database-design-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de transacciones de base de datos en Python, JavaScript y Java. Aprende ACID, BEGIN/COMMIT/ROLLBACK y niveles de aislamiento."

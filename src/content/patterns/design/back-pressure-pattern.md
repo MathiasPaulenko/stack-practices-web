@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/pipes-and-filters-pattern
   - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Back-Pressure Pattern for flow control in streaming. Examples in Python, Java, and JavaScript with reactive streams, bounded queues, and rate limiters."

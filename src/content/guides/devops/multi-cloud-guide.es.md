@@ -31,6 +31,7 @@ relatedResources:
   - /guides/cost-optimization-cloud-guide
   - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias multi-cloud: cuando adoptar, placement de cargas, gravedad de datos, portabilidad. Beneficios, riesgos y guia de implementacion practica."

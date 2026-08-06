@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-event-sourcing-cqrs
   - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn CQRS with command and query separation, event sourcing integration, and practical implementation patterns. Complete guide for scalable systems."

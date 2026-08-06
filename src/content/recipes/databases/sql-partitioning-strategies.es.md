@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/sql-full-text-search-setup
   - /recipes/sql-migration-zero-downtime
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Particiona tablas SQL grandes por fecha, rango o lista. Mejora el rendimiento, poda particiones y simplifica el mantenimiento."

@@ -30,6 +30,7 @@ relatedResources:
   - /guides/blob-storage-guide
   - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn data migration: dual-write patterns, backfill strategies, schema evolution, validation, and rollback procedures for zero-downtime data moves."

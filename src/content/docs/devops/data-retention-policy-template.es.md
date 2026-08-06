@@ -35,6 +35,7 @@ relatedResources:
   - /docs/security-audit-checklist-template
   - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define reglas de retencion, archivado y eliminacion de datos con esta plantilla. Cubre categorias, periodos de retencion, retenciones legales y controles de cumplimiento."

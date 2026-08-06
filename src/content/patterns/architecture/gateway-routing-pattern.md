@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-api-versioning-strategies
   - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Route client requests to multiple services with the Gateway Routing Pattern. Centralize SSL, authentication, rate limiting, and load balancing."

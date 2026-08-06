@@ -24,6 +24,7 @@ relatedResources:
   - /docs/core-web-vitals-audit-checklist
   - /docs/database-query-tuning-checklist
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Load test plan template: scenarios, user journeys, ramp-up, success criteria, monitoring, k6 JMeter Locust examples, result analysis, reporting."

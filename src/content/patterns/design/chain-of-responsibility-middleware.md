@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/interpreter-pattern-expressions
   - /patterns/visitor-pattern-operations
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Chain of Responsibility for middleware pipelines. Pass requests through a chain of handlers where each decides to process or delegate to the next handler."

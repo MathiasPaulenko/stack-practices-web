@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/iterator-pattern-collections
   - /patterns/mediator-pattern-components
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Memento pattern para snapshots de estado. Captura y restaura estado de objetos sin romper encapsulacion para funcionalidad de undo, serializacion y rollback."

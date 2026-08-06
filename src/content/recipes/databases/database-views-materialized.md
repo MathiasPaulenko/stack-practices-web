@@ -22,6 +22,7 @@ relatedResources:
   - /guides/database-design-guide
   - /recipes/optimistic-locking
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Create database views and materialized views to simplify queries and boost read performance. Use PostgreSQL, MySQL, and SQL Server with examples."

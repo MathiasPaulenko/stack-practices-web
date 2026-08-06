@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/setup-ci-gitlab-pipelines
   - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn Docker fundamentals: write Dockerfiles, build images, run containers, and orchestrate services with Docker Compose."

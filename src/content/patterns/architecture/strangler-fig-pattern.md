@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-strangler-fig-migration
   - /guides/complete-guide-serverless-architecture
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Gradually replace a legacy system by intercepting routes and routing traffic to new services. Learn strangler fig, incremental migration, and cutover strategy."

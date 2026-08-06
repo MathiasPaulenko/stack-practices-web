@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Mockea resolvers GraphQL con Apollo Server para desarrollo frontend. Genera datos falsos, preserva tipos y desbloquea el trabajo de UI."

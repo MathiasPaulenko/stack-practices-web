@@ -32,6 +32,7 @@ relatedResources:
   - /docs/service-ownership-document-template
   - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Communicate clearly during outages with this template. Pre-drafted messages for customers, executives, support teams, and internal stakeholders by severity."

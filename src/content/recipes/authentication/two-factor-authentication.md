@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/file-upload-validation
   - /recipes/magic-link-authentication
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to implement TOTP-based 2FA in Python, JavaScript, and Java. Covers QR code generation, secret storage, verification, and backup codes."

@@ -28,6 +28,7 @@ relatedResources:
   - /docs/vulnerability-management-template
   - /guides/compliance-soc2-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this security audit checklist to review authentication, authorization, data protection, infrastructure security, and compliance gaps."

@@ -31,6 +31,7 @@ relatedResources:
   - /guides/cost-optimization-cloud-guide
   - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende planificación de capacidad para infraestructura cloud: pronóstico de demanda, pruebas de carga, auto-escalado y evitando el sobreaprovisionamiento."

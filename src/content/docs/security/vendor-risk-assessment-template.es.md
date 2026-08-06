@@ -27,6 +27,7 @@ relatedResources:
   - /docs/data-classification-template
   - /docs/secrets-rotation-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de evaluación de riesgos de proveedores para evaluar seguridad, cumplimiento y riesgos operativos de terceros antes del onboarding."

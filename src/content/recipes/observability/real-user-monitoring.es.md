@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-prometheus-grafana
   - /guides/complete-guide-sentry-error-tracking
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Monitoreo de usuarios reales RUM: Core Web Vitals, session replay, análisis de performance, tracking de errores JavaScript y optimización de experiencia de usuario."

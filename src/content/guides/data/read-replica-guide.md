@@ -35,6 +35,7 @@ relatedResources:
   - /guides/full-text-search-guide
   - /guides/database-replication-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn read replicas: setup replication, route read queries, handle replication lag, and scale read-heavy workloads with PostgreSQL, MySQL, and cloud replicas."

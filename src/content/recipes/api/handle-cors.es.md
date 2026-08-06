@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/server-sent-events
   - /recipes/websocket-server
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende configuración de CORS en Python, JavaScript y Java. Cubre preflight requests, credenciales, orígenes permitidos y errores comunes de seguridad CORS."

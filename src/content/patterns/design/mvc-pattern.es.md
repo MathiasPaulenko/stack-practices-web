@@ -29,6 +29,7 @@ relatedResources:
   - /docs/adr-template
   - /guides/software-architecture-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón MVC con ejemplos prácticos en Python, Java y JavaScript. Patrón arquitectural para estructura organizada de aplicaciones."

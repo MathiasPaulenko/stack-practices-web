@@ -30,6 +30,7 @@ relatedResources:
   - /docs/runbook-database-failover
   - /docs/weekly-ops-review-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this downtime communication template to draft internal and external outage messages during service downtime and incidents."

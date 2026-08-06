@@ -28,6 +28,7 @@ relatedResources:
   - /docs/secrets-rotation-template
   - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de playbook de respuesta a incidentes: documenta detección, contención, erradicación, recuperación y lecciones aprendidas."

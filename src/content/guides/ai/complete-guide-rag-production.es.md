@@ -31,6 +31,7 @@ relatedResources:
   - /guides/complete-guide-langchain-production
   - /guides/complete-guide-llm-evaluation
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construir RAG en produccion. Cubre chunking, embeddings, vector stores, retrieval, reranking, hybrid search, evaluacion y deployment."

@@ -21,6 +21,7 @@ relatedResources:
   - /guides/owasp-top-10-guide
   - /docs/security-audit-checklist-template
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende SOC 2 para desarrolladores: Criterios de Servicios de Confianza, evidencias, controles de acceso y sistemas conformes desde el inicio. Guía práctica."

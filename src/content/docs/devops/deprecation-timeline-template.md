@@ -21,6 +21,7 @@ relatedResources:
   - /docs/service-ownership-document-template
   - /docs/feature-specification-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Plan legacy feature sunsets with this deprecation timeline template. Covers milestones, communication schedules, migration paths, and final shutdown dates."

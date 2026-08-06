@@ -29,6 +29,7 @@ relatedResources:
   - /docs/disaster-recovery-test-plan
   - /docs/runbook-database-failover
 lastUpdated: "2026-07-04"
+publishedAt: "2026-06-26"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Deployment rollback runbook: triggers, Kubernetes rollback, blue-green, canary, database migration rollback, verification, kubectl, Helm, ArgoCD."

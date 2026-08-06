@@ -29,6 +29,7 @@ relatedResources:
   - /docs/secrets-rotation-runbook
   - /guides/security-best-practices-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de rotación de secretos para programar y rastrear la rotación de claves API, tokens, contraseñas y certificados en toda tu infraestructura."

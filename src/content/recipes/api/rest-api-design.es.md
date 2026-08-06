@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/grpc-api
   - /recipes/grpc-services-typescript
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Lo que funciona para diseñar APIs REST: métodos HTTP, códigos de estado, versionado, paginación, HATEOAS y convenciones de nomenclatura de recursos."

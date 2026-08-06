@@ -27,6 +27,7 @@ relatedResources:
   - /docs/runbook-template
   - /guides/cicd-pipeline-guide
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de GitHub Actions para CI/CD. Aprende sintaxis de workflows, matrices de build, caching, secrets y workflows reutilizables."

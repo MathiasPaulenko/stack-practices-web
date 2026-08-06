@@ -32,6 +32,7 @@ relatedResources:
   - /guides/complete-guide-mongodb-indexing
   - /guides/complete-guide-sql-query-optimization
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Referencia detallada de PostgreSQL tuning. Optimiza config, indexación, query plans, connection pooling, particionado y vacuum para workloads de alto throughput."

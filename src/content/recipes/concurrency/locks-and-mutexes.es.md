@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/concurrent-data-structures
   - /recipes/csp-communication
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende coordinaciÃ³n de locks para programas concurrentes. Previene race conditions usando mutexes, read-write locks, semÃ¡foros y operaciones atÃ³micas."

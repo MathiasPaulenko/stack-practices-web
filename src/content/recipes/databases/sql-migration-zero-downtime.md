@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /recipes/sql-full-text-search-setup
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Rename columns and change data types with zero downtime in SQL. Learn expand-contract migrations, triggers, and incremental backfill strategies."

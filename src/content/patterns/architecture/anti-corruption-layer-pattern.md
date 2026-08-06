@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/health-endpoint-monitoring-pattern
   - /guides/modular-monolith-guide
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Isolate legacy systems with translation adapters. Learn ACL facade, domain translation, bidirectional mapping, and gradual legacy replacement strategy."

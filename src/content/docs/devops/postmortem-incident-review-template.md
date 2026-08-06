@@ -23,6 +23,7 @@ relatedResources:
   - /docs/monitoring-alerting-policy-template
   - /docs/data-breach-response-playbook
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Run blameless incident reviews with this postmortem template. Covers timeline reconstruction, root cause analysis, action items, and lessons learned."

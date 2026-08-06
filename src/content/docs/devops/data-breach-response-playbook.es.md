@@ -27,6 +27,7 @@ relatedResources:
   - /docs/encryption-key-lifecycle-template
   - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Responde a violaciones de datos con este playbook. Cubre deteccion, contencion, preservacion de evidencia, requisitos de notificacion y remediacion post-incidente."

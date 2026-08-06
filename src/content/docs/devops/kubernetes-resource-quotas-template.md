@@ -22,6 +22,7 @@ relatedResources:
   - /docs/deployment-rollback-runbook
   - /docs/terraform-module-versioning-policy
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Kubernetes resource quotas template: CPU, memory, object count, storage quotas, LimitRanges, priority classes, multi-tenant clusters, monitoring examples."

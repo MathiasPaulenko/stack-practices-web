@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/event-sourcing-serverless
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn serverless orchestration with Step Functions and state machines. Coordinate workflows, manage state, retries, and error handling across distributed functions."

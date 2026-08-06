@@ -33,6 +33,7 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/technical-spec-template
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa esta plantilla de ADR para documentar decisiones de arquitectura con contexto, opciones consideradas, decisión y consecuencias."

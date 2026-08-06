@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/istio-canary-deployment
   - /recipes/terraform-aws-vpc
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Deploy containers to AWS ECS with Fargate. Use Terraform for infrastructure, GitHub Actions for CI/CD, and ALB for load balancing."

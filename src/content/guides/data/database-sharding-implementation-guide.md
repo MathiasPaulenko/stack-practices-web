@@ -33,6 +33,7 @@ relatedResources:
   - /guides/data-migration-guide
   - /guides/full-text-search-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn database sharding: choosing shard keys, routing queries, rebalancing data, and avoiding common pitfalls when scaling beyond a single node."

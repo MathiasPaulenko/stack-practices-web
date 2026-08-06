@@ -22,6 +22,7 @@ relatedResources:
   - /docs/security-incident-response-template
   - /guides/compliance-gdpr-guide
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Cumplimiento GDPR y privacidad de datos: gestión de consentimientos, anonimización de datos, derecho al olvido, portabilidad de datos y patrones de privacy-by-design."

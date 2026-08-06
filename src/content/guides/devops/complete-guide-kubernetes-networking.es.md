@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/external-configuration-store-pattern
   - /guides/complete-guide-gitops-production
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "K8s networking. Cubre Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, mTLS, troubleshooting."

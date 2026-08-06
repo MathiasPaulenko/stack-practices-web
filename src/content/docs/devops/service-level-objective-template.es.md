@@ -27,6 +27,7 @@ relatedResources:
   - /docs/slo-document-template
   - /guides/sre-practices-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de SLO para definir objetivos de nivel de servicio, indicadores, presupuestos de error y paneles de seguimiento para tu equipo de ingeniería."

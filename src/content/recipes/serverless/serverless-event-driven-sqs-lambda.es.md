@@ -25,6 +25,7 @@ relatedResources:
   - /guides/domain-driven-design-guide
   - /recipes/serverless-step-functions-workflow
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye Lambda event-driven con triggers SQS. Usa batch windows, partial batch responses, manejo de errores y DLQ para procesamiento de mensajes resiliente."

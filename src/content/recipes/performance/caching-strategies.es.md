@@ -24,6 +24,7 @@ relatedResources:
   - /guides/complete-guide-redis-caching-strategies
   - /guides/caching-strategies-guide
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Estrategias de caching para aplicaciones web: Redis, CDN, cache de navegador, invalidación de cache, stale-while-revalidate y prevención de stampede."

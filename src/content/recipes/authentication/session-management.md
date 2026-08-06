@@ -20,6 +20,7 @@ relatedResources:
   - /recipes/password-hashing
   - /recipes/magic-link-authentication
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn secure session management. Create, validate, and expire sessions with HTTP-only cookies, Redis storage, and CSRF protection in web applications."

@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/use-orm-crud
   - /guides/sql-joins-guide
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a ejecutar SQL crudo de forma segura en Python, JavaScript y Java usando consultas parametrizadas para prevenir inyección SQL."

@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/circuit-breaker-pattern
   - /recipes/python-async-http-requests
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Reintenta peticiones fetch fallidas con backoff exponencial, jitter, timeout con AbortController y circuit breaker en JavaScript."

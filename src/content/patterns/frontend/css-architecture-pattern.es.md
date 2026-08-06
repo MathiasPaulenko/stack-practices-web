@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/islands-architecture-pattern
   - /patterns/progressive-enhancement-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Organiza CSS con utility-first classes y component-scoped layers. Aprende Tailwind CSS, @layer, BEM, CSS modules, design tokens, y cascade control."

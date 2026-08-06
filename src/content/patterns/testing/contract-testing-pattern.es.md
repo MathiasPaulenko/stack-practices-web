@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/snapshot-testing-pattern
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Verifica agreements de API consumer-producer con contract testing. Aprende Pact consumer-driven contracts, provider verification, e integración CI/CD para microservices."

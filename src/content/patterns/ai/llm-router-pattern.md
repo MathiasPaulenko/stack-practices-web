@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/agent-tool-selection-pattern
   - /patterns/llm-guardrails-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Route LLM queries by complexity to the right model. Reduce costs by sending simple queries to small models and complex ones to large models."

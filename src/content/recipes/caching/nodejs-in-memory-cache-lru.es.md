@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/multi-level-cache-l1-l2
   - /recipes/java-caffeine-cache-configuration
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa una cache LRU en Node.js con operaciones O(1). Usa Map para almacenamiento de claves y seguimiento de orden de eviccion."

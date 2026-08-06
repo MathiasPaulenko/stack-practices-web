@@ -33,6 +33,7 @@ relatedResources:
   - /patterns/materialized-view-pattern
   - /patterns/sharding-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Database per Service Pattern for microservice data isolation. Examples in Python, Java, and JavaScript with per-service schemas and event sync."

@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/escape-html-entities
   - /recipes/sanitize-user-input
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Voucher Pattern in Python, Java, and JavaScript. Validate signed claims between services without exposing sensitive data or credentials."

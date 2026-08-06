@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/graphql-pagination-relay-connections
   - /recipes/graphql-subscriptions-realtime
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye una API GraphQL con Apollo Server y TypeScript. Usa DataLoader para consultas N+1, implementa autenticacion y estructura resolvers limpiamente."

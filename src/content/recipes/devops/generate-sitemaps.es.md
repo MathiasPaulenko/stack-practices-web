@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/health-check-endpoint
   - /guides/docker-for-developers-guide
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende generación en vivo de sitemaps en Python, JavaScript y Java. Cubre estructura XML, paginación de URLs, fechas lastmod y soporte hreflang multi-idioma para SEO."

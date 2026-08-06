@@ -30,6 +30,7 @@ relatedResources:
   - /patterns/snapshot-testing-pattern
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Reemplaza dependencias con test doubles — stubs, spies, fakes, mocks y dummies. Aprende cuándo usar cada tipo con ejemplos en Python, JavaScript y Java."

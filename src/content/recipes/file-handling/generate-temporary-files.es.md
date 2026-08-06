@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/bash-loop-over-files
   - /recipes/python-zip-file-extraction
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Crea archivos y directorios temporales de forma segura en Python, Node.js, Java y Bash, con limpieza automática y lo que funciona."

@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/parse-config-files
   - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to build CLI tools in Python, JavaScript, and Java. Covers argparse, commander.js, picocli, subcommands, flags, and validation."

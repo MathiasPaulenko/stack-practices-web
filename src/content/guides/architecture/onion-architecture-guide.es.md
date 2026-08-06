@@ -30,6 +30,7 @@ relatedResources:
   - /guides/cqrs-event-sourcing-combined-guide
   - /guides/hexagonal-architecture-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Arquitectura Onion: organiza código alrededor del dominio, fuerza dependencias hacia adentro, aisla infraestructura. Guía práctica con ejemplos."

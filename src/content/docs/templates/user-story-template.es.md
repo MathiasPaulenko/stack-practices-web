@@ -20,6 +20,7 @@ relatedResources:
   - /guides/clean-code-principles-guide
   - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de user story con criterios de aceptación, definición de done y principios INVEST. Conecta necesidades de usuarios con implementación claramente."

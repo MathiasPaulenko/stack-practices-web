@@ -33,6 +33,7 @@ relatedResources:
   - /docs/network-security-template
   - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de asignación de costos en la nube para rastrear y atribuir gastos de nube por equipo, entorno y servicio."

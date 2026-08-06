@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/model-view-presenter-pattern
   - /patterns/model-view-viewmodel-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Page Controller Pattern with one controller per page. Examples in Python, Java, and JavaScript for request handling and view population."

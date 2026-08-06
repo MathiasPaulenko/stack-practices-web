@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/bash-parallel-job-execution
   - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Automate backups with retention policies using Bash. Rotate daily, weekly, and monthly snapshots, compress archives, and protect data from disk exhaustion."

@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/facade-pattern
   - /guides/vertical-slice-architecture-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Mediator Pattern in Python, Java, and JavaScript. Behavioral design pattern for reducing coupling between components."

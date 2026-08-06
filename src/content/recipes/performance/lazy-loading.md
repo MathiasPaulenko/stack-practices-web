@@ -18,6 +18,7 @@ relatedResources:
   - /recipes/cdn-edge-caching
   - /recipes/image-optimization
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn lazy loading for images, components, and data. Defer non-critical resources until needed to improve page load time, reduce bandwidth, and optimize Core Web Vitals."

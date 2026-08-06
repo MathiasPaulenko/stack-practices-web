@@ -35,6 +35,7 @@ relatedResources:
   - /patterns/intercepting-filter-pattern
   - /patterns/iterator-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Chain of Responsibility en Python, Java y JavaScript. Patrón de comportamiento para pipelines de manejo de solicitudes y cadenas de middleware."

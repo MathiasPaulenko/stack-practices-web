@@ -27,6 +27,7 @@ relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this technical specification template to define requirements, design decisions, API contracts, and implementation plans."

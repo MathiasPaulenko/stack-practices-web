@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/cqrs-pattern
   - /patterns/mediator-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Slices Verticales: organiza código por feature, no por capa. Reduce navegación cruzada, mejora cohesión y simplifica cambios con ejemplos prácticos."

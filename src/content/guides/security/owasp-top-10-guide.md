@@ -27,6 +27,7 @@ relatedResources:
   - /guides/compliance-soc2-guide
   - /guides/zero-trust-architecture-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn OWASP Top 10 security risks with mitigations. Understand injection, broken auth, XSS, insecure deserialization and how to prevent them in your apps."

@@ -23,6 +23,7 @@ relatedResources:
   - /docs/incident-communication-template
   - /docs/capacity-planning-forecast-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Ensure production readiness with this review checklist. Covers monitoring, SLOs, rollback, security, docs, and operational procedures."

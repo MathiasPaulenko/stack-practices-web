@@ -33,6 +33,7 @@ relatedResources:
   - /recipes/watch-file-changes
   - /recipes/write-large-files
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Validación segura de subidas de archivos: límites de tamaño, verificación de tipo MIME, magic bytes y detección de virus. Ejemplos en Python, JavaScript y Java."

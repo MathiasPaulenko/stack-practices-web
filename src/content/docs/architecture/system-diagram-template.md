@@ -29,6 +29,7 @@ relatedResources:
   - /docs/technical-spec-template
   - /docs/architecture-decision-record-adr-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this system diagram template to document architecture with C4 model context, container, component, and code diagrams."

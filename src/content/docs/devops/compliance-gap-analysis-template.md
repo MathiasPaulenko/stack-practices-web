@@ -27,6 +27,7 @@ relatedResources:
   - /docs/pen-test-scope-template
   - /docs/vulnerability-scan-report-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Map security controls to compliance frameworks with this gap analysis template. Covers requirements, evidence, gaps, and remediation plans."

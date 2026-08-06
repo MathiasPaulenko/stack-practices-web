@@ -34,6 +34,7 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /docs/release-notes-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de reporte de bugs con pasos de reproducción, comportamiento esperado vs actual, detalles de entorno y severidad. Ayuda a arreglar bugs más rápido."

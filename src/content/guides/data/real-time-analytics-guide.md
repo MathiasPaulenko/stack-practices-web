@@ -24,6 +24,7 @@ relatedResources:
   - /guides/etl-pipeline-guide
   - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn real-time analytics: event collection, stream processing, data warehousing, and building sub-second dashboards with Kafka, ClickHouse, Druid, and OLAP."

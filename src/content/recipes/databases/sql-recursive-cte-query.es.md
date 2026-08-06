@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/sql-migration-zero-downtime
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Recorre datos jerárquicos en SQL con CTEs recursivas. Aprende a consultar organigramas, comentarios anidados y listas de materiales."

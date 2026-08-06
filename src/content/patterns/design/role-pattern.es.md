@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/context-object-pattern
   - /patterns/manager-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Role para asignación dinámica de comportamiento en runtime. Ejemplos en Python, Java y JavaScript con role objects y entity delegation."

@@ -23,6 +23,7 @@ relatedResources:
   - /guides/vector-database-guide
   - /guides/database-design-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn graph databases: property graph model, Cypher queries, modeling patterns. When to choose Neo4j over relational for connected data problems."

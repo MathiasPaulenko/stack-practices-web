@@ -26,6 +26,7 @@ relatedResources:
   - /docs/api-error-handling-guideline
   - /docs/api-performance-budget-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de monitoreo de APIs para configurar umbrales de SLA, alertas de tasa de error y monitoreo de latencia para tus APIs."

@@ -45,6 +45,7 @@ relatedResources:
   - /guides/cost-optimization-cloud-guide
   - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende practicas SRE: define SLIs, SLOs, SLAs, gestiona presupuestos de error, reduce toil y construye rotaciones on-call para confiabilidad en produccion."

@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/bash-disk-usage-monitor
   - /recipes/bash-log-rotation
 lastUpdated: "2026-07-01"
+publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
   metaDescription: "Crea un script de rotación de backups en bash con políticas de retención. Automatiza backups diarios, semanales y mensuales con find y tar."

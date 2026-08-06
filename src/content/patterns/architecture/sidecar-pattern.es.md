@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/multi-tenant-data-isolation-pattern
   - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Extendé services con companion containers para cross-cutting concerns. Aprende sidecar containers, shared volumes, health probes, y service mesh sidecar deployment."

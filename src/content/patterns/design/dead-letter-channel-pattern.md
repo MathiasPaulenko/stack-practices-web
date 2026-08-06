@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/message-deduplication-pattern
   - /patterns/publish-subscribe-pattern
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Route unprocessable messages to a dead letter queue for inspection and replay. Prevent poison messages from blocking the main queue indefinitely."

@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/llm-guardrails-pattern
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Recurre a proveedores LLM alternativos cuando el primario falla. Maneja rate limits, timeouts y errores con una cadena de proveedores para apps IA resilientes."

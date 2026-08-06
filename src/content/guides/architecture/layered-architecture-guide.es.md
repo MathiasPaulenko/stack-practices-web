@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/repository-pattern
   - /guides/clean-architecture-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Arquitectura por Capas: separa presentación, negocio y datos. Entiende la estructura N-Tier, reglas de dependencia y cuándo usarla."

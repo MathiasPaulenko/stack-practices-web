@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Find and remove duplicate rows in SQL using GROUP BY, HAVING, and CTEs. Learn safe deduplication techniques to keep canonical records and clean tables."

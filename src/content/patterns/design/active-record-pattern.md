@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/composite-entity-pattern
   - /patterns/unit-of-work-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Active Record Pattern for object-relational mapping. Examples in Python, Java, and JavaScript with built-in persistence methods on domain objects."

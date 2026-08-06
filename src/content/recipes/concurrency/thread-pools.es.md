@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/concurrent-data-structures
   - /recipes/locks-and-mutexes
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende patrones de thread pool para trabajo concurrente. Gestiona worker threads con executors y políticas de rechazo en Java, Python y C# para CPU e I/O."

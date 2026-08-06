@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/database-connection-pooling
   - /guides/acid-vs-base-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende normalización de bases de datos desde 1NF hasta 5NF con ejemplos. Entiende dependencias funcionales, anomalías y cuándo desnormalizar para rendimiento."

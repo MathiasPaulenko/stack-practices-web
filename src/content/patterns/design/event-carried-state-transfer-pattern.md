@@ -28,6 +28,7 @@ relatedResources:
   - /patterns/compensating-transaction-pattern
   - /patterns/claim-check-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Event-Carried State Transfer Pattern for state replication via events. Examples in Python, Java, and JavaScript with Kafka and local projections."

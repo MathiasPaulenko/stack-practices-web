@@ -24,6 +24,7 @@ relatedResources:
   - /guides/complete-guide-api-versioning-strategies
   - /recipes/database-query-result-caching
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Cache database queries with Django cache framework. Configure Redis backend, use per-view cache, template fragments, and low-level cache API."

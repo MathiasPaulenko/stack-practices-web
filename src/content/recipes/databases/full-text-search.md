@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/event-sourcing-relational
   - /recipes/soft-deletes
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to implement full-text search in Python, JavaScript, and Java. Covers Elasticsearch, Meilisearch, and PostgreSQL tsvector."

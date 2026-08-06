@@ -34,6 +34,7 @@ relatedResources:
   - /guides/grpc-microservices-guide
   - /guides/zero-trust-architecture-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to design resilient API gateways with routing, rate limiting, authentication, circuit breakers, and observability. Complete guide for engineering teams."

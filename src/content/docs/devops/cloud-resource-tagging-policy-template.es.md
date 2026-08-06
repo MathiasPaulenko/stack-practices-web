@@ -25,6 +25,7 @@ relatedResources:
   - /docs/environment-configuration-template
   - /docs/ssl-certificate-management-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Impone etiquetado consistente de recursos cloud con esta plantilla. Cubre etiquetas requeridas, convenciones de nombres, automatizacion y controles de gobernanza."

@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/multi-level-cache-l1-l2
   - /recipes/redis-sorted-set-leaderboard
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa Redis pub/sub para mensajeria entre procesos. Difunde eventos, maneja suscripciones y construye sistemas de notificaciones en tiempo real."

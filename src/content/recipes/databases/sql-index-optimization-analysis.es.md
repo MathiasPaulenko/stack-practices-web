@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/sql-migration-zero-downtime
   - /recipes/sql-partitioning-strategies
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Optimiza índices SQL usando EXPLAIN y planes de ejecución. Detecta índices faltantes, escaneos secuenciales y cuellos de botella."

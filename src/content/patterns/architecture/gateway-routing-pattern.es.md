@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-api-versioning-strategies
   - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Enruta solicitudes a multiples servicios con el Patron de Enrutamiento de Gateway. Centraliza SSL, autenticacion, rate limiting y balanceo de carga."

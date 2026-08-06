@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/python-image-resize-batch
   - /recipes/stream-processing
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to resize and optimize images in Python, JavaScript, and Java. Covers compression, responsive images, WebP, and lazy loading."

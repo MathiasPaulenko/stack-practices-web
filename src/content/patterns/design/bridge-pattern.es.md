@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/strategy-pattern
   - /patterns/twin-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Bridge en Python, Java y JavaScript. Patrón estructural para desacoplar abstracción de implementación."

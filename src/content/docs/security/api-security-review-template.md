@@ -31,6 +31,7 @@ relatedResources:
   - /docs/vendor-risk-assessment-template
   - /docs/vulnerability-management-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this API security review template to audit authentication, authorization, rate limiting, input validation, and OWASP Top 10 risks."

@@ -27,6 +27,7 @@ relatedResources:
   - /docs/ai-data-preparation-checklist
   - /docs/ai-prompt-version-control-template
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Compare LLM models by cost, latency, context, accuracy. Decision criteria, benchmarks, pricing. Recommendations for classification, extraction, code, agents."

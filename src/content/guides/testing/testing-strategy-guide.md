@@ -41,6 +41,7 @@ relatedResources:
   - /guides/complete-guide-vitest-react-testing
   - /guides/test-driven-development-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn how to build a software testing strategy with unit tests, integration tests, and E2E tests. Covers test pyramid, mocking, CI integration, and coverage goals."

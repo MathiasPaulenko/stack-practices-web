@@ -31,6 +31,7 @@ relatedResources:
   - /guides/blue-green-deployment-guide
   - /guides/canary-deployment-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn cloud cost optimization strategies: right-sizing, reserved instances, spot instances, tagging, and FinOps practices for savings."

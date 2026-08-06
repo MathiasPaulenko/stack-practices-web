@@ -22,6 +22,7 @@ relatedResources:
   - /patterns/abstract-factory-pattern
   - /recipes/import-csv-excel
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a exportar datos a CSV y Excel en Python, JavaScript y Java. Cubre pandas, xlsx, Apache POI y streaming de datasets grandes."

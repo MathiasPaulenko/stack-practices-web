@@ -23,6 +23,7 @@ relatedResources:
   - /guides/clean-architecture-guide
   - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "SOLID principles guide with practical examples: Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion."

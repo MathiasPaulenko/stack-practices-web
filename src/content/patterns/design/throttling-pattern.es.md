@@ -34,6 +34,7 @@ relatedResources:
   - /patterns/gatekeeper-pattern
   - /patterns/shed-load-pattern
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patron de Throttling para limitar tasa de consumo de recursos. Ejemplos en Python, Java y JavaScript con token bucket, leaky bucket y ventanas fijas."

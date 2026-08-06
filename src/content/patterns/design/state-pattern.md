@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/mediator-pattern
   - /patterns/memento-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the State Pattern in Python, Java, and JavaScript. Behavioral design pattern for finite state machines and state-dependent behavior."

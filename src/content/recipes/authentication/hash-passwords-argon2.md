@@ -24,6 +24,7 @@ relatedResources:
   - /guides/secrets-management-guide
   - /recipes/implement-abac
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Hash and verify passwords securely with Argon2id, the Password Hashing Competition winner, with correct parameter tuning and bcrypt migration strategies."

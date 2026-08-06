@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-networking
   - /guides/complete-guide-terraform-production
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Centralize configuration outside deployments with the External Configuration Store Pattern. Support live updates and multi-environment management."

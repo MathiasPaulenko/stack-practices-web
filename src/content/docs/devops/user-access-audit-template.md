@@ -23,6 +23,7 @@ relatedResources:
   - /docs/secret-rotation-schedule-template
   - /docs/data-retention-policy-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Review and certify user access with this audit template. Covers identity inventory, role mapping, certifications, orphan accounts, and remediation."

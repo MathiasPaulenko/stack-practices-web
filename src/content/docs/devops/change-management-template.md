@@ -32,6 +32,7 @@ relatedResources:
   - /docs/performance-regression-template
   - /docs/rollout-communication-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this change management template to document CAB reviews, approval workflows, and rollback criteria for production changes."

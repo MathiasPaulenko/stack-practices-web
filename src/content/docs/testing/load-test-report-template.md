@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/api-contract-testing
   - /docs/api-testing-strategy-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this load test report template to document performance benchmarks, bottlenecks found, and actionable recommendations after testing."

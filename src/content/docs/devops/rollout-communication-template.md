@@ -22,6 +22,7 @@ relatedResources:
   - /docs/downtime-communication-template
   - /docs/escalation-policy-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this rollout communication template to draft release notes, stakeholder updates, and internal announcements during capability rollouts and deployments."

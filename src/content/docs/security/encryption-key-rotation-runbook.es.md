@@ -25,6 +25,7 @@ relatedResources:
   - /docs/incident-response-plan-template
   - /docs/penetration-test-report-template
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá este runbook de rotación de claves de cifrado para definir tipos, schedules, migración dual-key sin downtime, verificación y procedimientos de rollback."

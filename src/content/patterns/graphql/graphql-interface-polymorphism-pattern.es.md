@@ -27,6 +27,7 @@ relatedResources:
   - /guides/complete-guide-graphql-schema-design
   - /guides/complete-guide-graphql-security
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Modela tipos polimorficos en GraphQL con interfaces. Comparte contratos de campos entre tipos, resuelve campos especificos y consulta unions."

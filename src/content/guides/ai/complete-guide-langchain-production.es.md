@@ -27,6 +27,7 @@ relatedResources:
   - /guides/complete-guide-ai-agents-production
   - /guides/complete-guide-llm-evaluation
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejecutar LangChain en produccion. Cubre chains, agents, memory, tools, LCEL, streaming, callbacks, RAG y patrones de deployment."

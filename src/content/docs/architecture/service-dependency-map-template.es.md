@@ -28,6 +28,7 @@ relatedResources:
   - /docs/system-diagram-template
   - /docs/technical-spec-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de mapa de dependencias de servicios para documentar dependencias upstream y downstream, rutas críticas y análisis de impacto de fallas."

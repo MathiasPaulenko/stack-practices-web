@@ -27,6 +27,7 @@ relatedResources:
   - /docs/slo-document-template
   - /guides/sre-practices-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this SLO template to define service level objectives, indicators, error budgets, and tracking dashboards for your engineering team."

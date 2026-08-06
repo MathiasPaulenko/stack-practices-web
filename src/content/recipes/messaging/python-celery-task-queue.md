@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/kafka-python-consumer-groups
   - /recipes/rabbitmq-dead-letter-queue
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Distribute background tasks with Python Celery and Redis. Use task chaining, groups, chords, retry strategies, Celery Beat scheduling, and result backends."

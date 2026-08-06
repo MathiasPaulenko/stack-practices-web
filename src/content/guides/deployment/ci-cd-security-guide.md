@@ -34,6 +34,7 @@ relatedResources:
   - /guides/complete-guide-supply-chain-security
   - /guides/secrets-management-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn CI/CD security: secrets management, least-privilege runners, artifact signing, dependency scanning, and supply chain attack prevention."

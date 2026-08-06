@@ -24,6 +24,7 @@ relatedResources:
   - /guides/etl-pipeline-guide
   - /guides/metrics-and-dashboards-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende analítica en tiempo real: recolección de eventos, procesamiento de streams, data warehousing y dashboards sub-segundo con Kafka, ClickHouse, Druid y OLAP."

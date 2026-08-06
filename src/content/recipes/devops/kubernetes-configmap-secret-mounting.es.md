@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/setup-ssl-certificates
   - /guides/complete-guide-kubernetes-config-management
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Monta ConfigMaps y Secrets en pods de Kubernetes. Usa env vars, volumes, projected volumes y external secret management para configuración segura."

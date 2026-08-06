@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/github-actions-reusable-workflows
   - /recipes/kubernetes-helm-chart-templating
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aisla entornos con Terraform workspaces. Crea workspaces, conditional resources, variable management y migra a separate state files cuando sea necesario."

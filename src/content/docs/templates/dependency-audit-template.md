@@ -30,6 +30,7 @@ relatedResources:
   - /docs/security-audit-checklist-template
   - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Dependency audit template: evaluate third-party libraries for license compliance, security vulnerabilities, maintenance health, and supply chain risk."

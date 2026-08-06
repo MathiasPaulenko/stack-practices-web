@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/nodejs-sentry-error-tracking
   - /recipes/nodejs-winston-daily-rotate
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Emite logs estructurados JSON en Python con structlog. Bind context, configura processors, integra con standard logging y envía logs a ELK o Loki."

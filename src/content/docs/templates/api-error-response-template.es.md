@@ -23,6 +23,7 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /recipes/rest-api-design
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla estandarizada de respuesta de error de API con RFC 7807 Problem Details, campos estructurados y mejores prácticas para APIs HTTP amigables."

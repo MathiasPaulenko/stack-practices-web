@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/parse-xml-files
   - /recipes/url-encoding
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical regular expression examples in Python, JavaScript, and Java. Learn pattern matching, validation, groups, and common regex patterns for developers."

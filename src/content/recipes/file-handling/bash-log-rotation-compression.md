@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/bash-monitoring-disk-usage
   - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Rotate and compress application logs with Bash. Prevent disk exhaustion by archiving old logs with gzip, timestamps, and a clear retention policy."

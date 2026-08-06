@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/bulkhead-pattern
   - /patterns/fallover-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Drain in-flight requests before process exit. Learn signal handling, health check removal from load balancer, connection draining, timeout enforcement, and cleanup hooks."

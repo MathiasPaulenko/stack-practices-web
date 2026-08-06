@@ -33,6 +33,7 @@ relatedResources:
   - /patterns/compute-resource-consolidation-pattern
   - /patterns/health-endpoint-monitoring-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón CDN para edge caching y distribución de contenido. Ejemplos en JavaScript, Python y Terraform con CloudFront, Fastly y Vercel Edge."

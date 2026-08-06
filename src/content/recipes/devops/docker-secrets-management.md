@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/docker-image-vulnerability-scan
   - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Manage Docker secrets securely with Docker Swarm secrets, .env files, external secret managers. Avoid hardcoding credentials in images and compose files."

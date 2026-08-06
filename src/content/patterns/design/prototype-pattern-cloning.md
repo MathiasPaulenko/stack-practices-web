@@ -19,6 +19,7 @@ relatedResources:
   - /patterns/abstract-factory-cross-platform
   - /patterns/memento-pattern-state
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Prototype pattern for object cloning. Create objects by copying existing ones with pre-configured templates to avoid expensive initialization and subclass explosion."

@@ -26,6 +26,7 @@ relatedResources:
   - /guides/terraform-best-practices-guide
   - /guides/ci-cd-security-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende platform engineering: construye Internal Developer Platforms, golden paths, infraestructura self-service. Herramientas como Backstage, Crossplane y Terraform."

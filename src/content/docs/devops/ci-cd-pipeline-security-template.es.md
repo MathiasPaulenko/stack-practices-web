@@ -25,6 +25,7 @@ relatedResources:
   - /docs/dependency-vulnerability-report-template
   - /docs/encryption-key-lifecycle-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Asegura pipelines CI/CD con esta plantilla. Cubre secretos, endurecimiento de runners, firma de artefactos, proteccion de ramas y puertas de despliegue."

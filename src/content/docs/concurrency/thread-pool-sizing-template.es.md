@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-java-concurrency
   - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Thread pool sizing template: pool types, sizing formulas, CPU vs I/O tuning, queue strategies, rejection policies, monitoring for Java, Python, Go, Node.js."

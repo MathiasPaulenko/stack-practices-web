@@ -19,6 +19,7 @@ relatedResources:
   - /recipes/hexagonal-architecture
   - /recipes/singleton-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende strategy pattern para intercambiar algoritmos en runtime. Encapsula comportamientos intercambiables con DI, function pointers y lambda strategies."

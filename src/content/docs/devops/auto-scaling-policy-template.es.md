@@ -36,6 +36,7 @@ relatedResources:
   - /docs/infrastructure-as-code-review-template
   - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de política de auto-scaling para definir reglas de escalamiento basadas en CPU, memoria y requests para cargas de trabajo en la nube."

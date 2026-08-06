@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/database-migrations
   - /recipes/observer-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende CQRS para escalar lectura y escritura. Separa modelos de lectura y escritura para queries optimizadas, event sourcing, y escalado independiente."

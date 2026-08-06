@@ -28,6 +28,7 @@ relatedResources:
   - /docs/git-branching-strategy-document
   - /guides/git-branching-strategies-guide
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Clean git commit history with interactive rebase. Squash, reorder, edit, split commits. Covers pick, squash, fixup, reword, drop and conflict resolution."

@@ -34,6 +34,7 @@ relatedResources:
   - /patterns/cache-stampede-prevention-pattern
   - /patterns/two-level-cache-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Read-through cache pattern: a transparent cache that loads data on miss without application logic. Implement with Redis and Python, Java, and TypeScript examples."

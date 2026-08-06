@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/send-emails-smtp
   - /recipes/webhooks
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Practical input validation examples in Python, JavaScript, and Java. Learn schema validation, sanitization, and secure form handling."

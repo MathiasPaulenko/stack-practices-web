@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/schema-registry-evolution-pattern
   - /patterns/idempotent-load-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Track data origin and transformations end-to-end. Learn column-level lineage, OpenLineage, Marquez, metadata injection, and impact analysis strategies."

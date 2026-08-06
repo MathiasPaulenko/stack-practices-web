@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/adapter-pattern-recipe
   - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn singleton pattern for single instances. Use lazy initialization, thread-safe creation, and registry-based singletons to ensure one instance per app."

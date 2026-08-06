@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/api-gateway
   - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Patrones de arquitectura multi-tenancy: base de datos compartida, schema aislado, instancia dedicada por tenant, routing y estrategias de aislamiento de datos para SaaS."

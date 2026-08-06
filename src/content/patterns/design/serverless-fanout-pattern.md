@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/serverless-event-sourcing-pattern
   - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Serverless fanout pattern: broadcast one event to many Lambda consumers via SNS or EventBridge. Decouple producers from consumers in AWS examples."

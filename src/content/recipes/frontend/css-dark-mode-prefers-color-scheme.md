@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/react-usememo-usecallback-performance
   - /guides/complete-guide-css-modern-layout
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement dark mode with CSS prefers-color-scheme media query and custom properties. Add manual toggle with localStorage and system preference detection."

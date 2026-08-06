@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/pre-commit-hooks
   - /docs/dependency-upgrade-template
 lastUpdated: 2026-06-11
+publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
   metaDescription: "Standardized changelog template following Keep a Changelog. Track releases, functionality, fixes, and breaking changes consistently."

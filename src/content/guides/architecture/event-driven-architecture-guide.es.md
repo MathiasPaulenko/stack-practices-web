@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-kafka-stream-processing
   - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía de arquitectura orientada a eventos: eventos vs comandos, brokers de mensajes, CQRS, Saga. Aprende cuándo usar colas, tópicos y streams en sistemas distribuidos."

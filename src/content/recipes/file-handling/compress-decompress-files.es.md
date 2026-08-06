@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/bash-log-rotation-compression
   - /recipes/rotate-log-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a comprimir y descomprimir archivos ZIP, GZIP y TAR en Python, JavaScript y Java con ejemplos de código prácticos."

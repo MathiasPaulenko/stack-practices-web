@@ -34,6 +34,7 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /docs/release-notes-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Bug report template with reproduction steps, expected vs actual behavior, environment details, and severity. Help your team fix bugs faster."

@@ -26,6 +26,7 @@ relatedResources:
   - /patterns/sidecar-pattern
   - /guides/complete-guide-modular-monolith
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build a modular monolith with strict internal module boundaries. Learn module isolation, shared kernel, inter-module communication, and migration to microservices."

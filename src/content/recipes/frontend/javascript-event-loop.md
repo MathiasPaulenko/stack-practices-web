@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-react-performance-optimization
   - /guides/complete-guide-web-performance-core-web-vitals
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "How the JavaScript event loop works: call stack, task queue, microtasks, and writing efficient async code for better web app performance."

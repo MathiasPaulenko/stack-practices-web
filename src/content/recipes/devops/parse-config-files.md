@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/health-check-endpoint
   - /recipes/feature-flags
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to parse and validate YAML and JSON config files in Python, JavaScript, and Java. Covers schema validation, environment-specific configs, and secrets management."

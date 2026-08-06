@@ -30,6 +30,7 @@ relatedResources:
   - /guides/cost-optimization-cloud-guide
   - /docs/environment-configuration-template
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende despliegue canary: rollouts graduales, división de tráfico, promoción automatizada, disparadores de rollback y releases seguros."

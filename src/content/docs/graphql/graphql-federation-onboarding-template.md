@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/graphql-federated-entity-pattern
   - /guides/complete-guide-graphql-federation-production
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Template for onboarding a service to federated GraphQL: subgraph setup, entity definitions, resolvers, gateway integration, testing, deployment, monitoring."

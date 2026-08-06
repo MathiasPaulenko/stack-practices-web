@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/database-replication
   - /recipes/schema-evolution
 lastUpdated: "2026-07-03"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Connection pooling de bases de datos: configura, ajusta y monitorea pools para PostgreSQL, MySQL y Redis para prevenir agotamiento y mejorar throughput."

@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/api-documentation-openapi
   - /recipes/nodejs-websocket-realtime
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build real-time notifications with WebSockets and Redis pub/sub. Broadcasting, room management, and scaling strategies in Python, JavaScript, and Java."

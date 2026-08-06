@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/react-virtual-list-react-window
   - /recipes/vue-composition-api-fetch
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye formularios type-safe en React con react-hook-form y Zod. Valida campos anidados, reglas async, campos dinámicos e integra con librerías de UI."

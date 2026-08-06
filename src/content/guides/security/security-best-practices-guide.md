@@ -36,6 +36,7 @@ relatedResources:
   - /guides/api-security-checklist-guide
   - /guides/web-application-security-guide
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn essential security practices: secure authentication, input validation, secrets management, dependency scanning, and preventing OWASP Top 10 vulnerabilities."

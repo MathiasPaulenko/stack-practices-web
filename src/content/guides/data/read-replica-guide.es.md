@@ -35,6 +35,7 @@ relatedResources:
   - /guides/full-text-search-guide
   - /guides/database-replication-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende réplicas de lectura: configura replicación, enruta consultas, maneja lag y escala lecturas con PostgreSQL, MySQL y nube."

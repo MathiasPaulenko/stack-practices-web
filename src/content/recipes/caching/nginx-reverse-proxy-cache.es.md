@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/nodejs-redis-cache-invalidation
   - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Cachear respuestas HTTP con Nginx reverse proxy. Configura zonas de cache, TTL por codigo de respuesta, claves, bypass y estrategias de purge."

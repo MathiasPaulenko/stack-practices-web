@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/load-balancing-haproxy
   - /guides/data-migration-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn blue-green deployment: zero-downtime releases, traffic switching, database migrations, and instant rollback strategies."

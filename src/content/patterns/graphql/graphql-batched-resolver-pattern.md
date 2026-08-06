@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/graphql-error-extension-pattern
   - /patterns/graphql-schema-stitching-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Eliminate GraphQL N+1 queries with batched resolvers. Group field resolutions into a single batch call using DataLoader and per-request caching."

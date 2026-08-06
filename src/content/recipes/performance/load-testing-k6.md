@@ -25,6 +25,7 @@ relatedResources:
   - /docs/api-testing-strategy-template
   - /docs/load-test-report-template
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Load testing APIs with k6. Measure performance, validate SLOs with threshold assertions, and identify bottlenecks before production deployment."

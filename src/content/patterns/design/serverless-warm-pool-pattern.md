@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/aws-lambda-cold-start-optimization
   - /patterns/serverless-db-connection-pooling-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Serverless warm pool pattern: send periodic ping events to Lambda to reduce cold start latency. Implement with EventBridge Scheduler and Python examples."

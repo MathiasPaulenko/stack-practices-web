@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/istio-canary-deployment
   - /recipes/cost-optimization
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Provisiona una VPC de AWS con Terraform. Crea subredes publicas y privadas, NAT gateways, tablas de ruteo y security groups para infraestructura de produccion."

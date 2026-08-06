@@ -31,6 +31,7 @@ relatedResources:
   - /docs/ai-agent-design-document-template
   - /guides/complete-guide-llm-security
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construir AI agents en produccion. Cubre arquitecturas, tool use, planning, memory, multi-agent, ReAct, human-in-the-loop, safety."

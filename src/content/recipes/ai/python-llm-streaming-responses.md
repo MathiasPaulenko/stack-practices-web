@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/python-ollama-local-llm
   - /recipes/nodejs-helmet-security-headers
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Stream LLM output token-by-token with SSE and FastAPI. Use OpenAI streaming API, async generators, and EventSource on the client for real-time responses."

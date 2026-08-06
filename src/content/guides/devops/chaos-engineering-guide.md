@@ -33,6 +33,7 @@ relatedResources:
   - /guides/postmortem-guide
   - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn chaos engineering: build resilient systems by injecting failures. Five principles, tools like Litmus and Chaos Mesh, and safe experiment design."

@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/parse-log-files
   - /recipes/parse-pdf-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to parse Excel files in Python, Java, and JavaScript. Read worksheets, format cells, and handle large spreadsheets with code examples."

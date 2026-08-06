@@ -35,6 +35,7 @@ relatedResources:
   - /docs/security-audit-checklist-template
   - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define data retention, archiving, and deletion rules with this template. Covers categories, retention periods, legal holds, and compliance controls."

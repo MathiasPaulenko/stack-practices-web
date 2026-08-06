@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/event-bus-pattern
   - /patterns/business-delegate-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Domain Event Pattern for decoupling business logic from side effects. Examples in Python, Java, and JavaScript with event sourcing."

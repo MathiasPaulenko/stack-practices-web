@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/external-configuration-store-pattern
   - /guides/canary-deployment-guide
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Documenta variables de entorno, secretos, endpoints y configuraciones de infraestructura por entorno de despliegue con esta plantilla."

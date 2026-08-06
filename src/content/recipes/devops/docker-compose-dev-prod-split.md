@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/docker-secrets-management
   - /recipes/git-rebase-interactive-tutorial
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Split Docker Compose configs for dev and prod using override files, profiles, and environment variables. Learn multi-environment container setup."

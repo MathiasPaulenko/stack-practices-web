@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/deep-clone-javascript
   - /recipes/flatten-unflatten-objects
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to handle money and currency in Python, JavaScript, and Java. Covers decimal arithmetic, formatting, exchange rates, and common pitfalls with floating-point."

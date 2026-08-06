@@ -24,6 +24,7 @@ relatedResources:
   - /guides/caching-strategies-guide
   - /patterns/cache-aside-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implementa caché en Node.js con Redis usando ioredis. Patrones cache-aside, TTL, invalidación por tags, stale-while-revalidate y middleware para Express."

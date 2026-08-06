@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/event-sourcing-relational
   - /recipes/soft-deletes
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende a implementar búsqueda de texto completo en Python, JavaScript y Java. Cubre Elasticsearch, Meilisearch y PostgreSQL tsvector."

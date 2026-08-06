@@ -38,6 +38,7 @@ relatedResources:
   - /docs/deployment-checklist-template
   - /docs/performance-regression-template
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de planificación de capacidad con estimación de recursos, pronóstico de carga y estrategias de escalado para equipos de ingeniería."

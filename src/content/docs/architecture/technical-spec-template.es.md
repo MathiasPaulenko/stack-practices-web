@@ -27,6 +27,7 @@ relatedResources:
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de especificación técnica para definir requisitos, decisiones de diseño, contratos de API y planes de implementación."

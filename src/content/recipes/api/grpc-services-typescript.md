@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/rest-api-design
   - /recipes/api-versioning
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build gRPC services with Protocol Buffers in TypeScript. Implement unary, server streaming, client streaming, and bidirectional streaming for high-performance APIs."

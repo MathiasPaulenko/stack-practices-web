@@ -32,6 +32,7 @@ relatedResources:
   - /guides/read-replica-guide
   - /guides/real-time-analytics-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende métricas y dashboards: instrumenta aplicaciones, elige tipos de métricas, construye dashboards efectivos y crea pipelines de alertas con Prometheus y Grafana."

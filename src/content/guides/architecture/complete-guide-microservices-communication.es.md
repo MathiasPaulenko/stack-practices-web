@@ -31,6 +31,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-kafka-stream-processing
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de comunicación entre microservicios. Compara REST, gRPC, colas de mensajes, patrones event-driven y service mesh para sync vs async."

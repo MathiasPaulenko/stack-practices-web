@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/bridge-pattern-ui-themes
   - /patterns/content-delivery-network-pattern
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Flyweight pattern for memory efficiency. Share intrinsic state between similar objects to minimize memory usage when rendering large datasets and UI trees."

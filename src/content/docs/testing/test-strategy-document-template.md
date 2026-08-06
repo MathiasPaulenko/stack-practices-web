@@ -25,6 +25,7 @@ relatedResources:
   - /docs/bug-reproduction-steps-template
   - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use this test strategy document template to define test pyramid, scope, environments, tools, CI/CD gates, quality metrics, and risk-based coverage."

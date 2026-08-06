@@ -21,6 +21,7 @@ relatedResources:
   - /guides/complete-guide-vitest-react-testing
   - /recipes/javascript-vitest-snapshot-testing
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Snapshot testing React components with Jest. Catch UI regressions, update snapshots intentionally, and integrate with CI for automated visual regression detection."

@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/real-time-websockets
   - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende arquitectura serverless event-driven. Diseña sistemas débilmente acoplados con Lambda, SQS, EventBridge y triggers webhook para procesamiento async escalable."

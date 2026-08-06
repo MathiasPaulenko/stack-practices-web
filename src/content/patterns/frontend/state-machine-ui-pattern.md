@@ -23,6 +23,7 @@ relatedResources:
   - /patterns/optimistic-update-pattern
   - /recipes/svelte-store-reactive-state
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Model UI state transitions with finite state machines in React. Learn XState, statecharts, guarded transitions, and preventing impossible states."

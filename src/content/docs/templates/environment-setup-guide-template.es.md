@@ -24,6 +24,7 @@ relatedResources:
   - /docs/bug-report-template
   - /docs/disaster-recovery-plan-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Plantilla de guía de configuración de entorno: documenta pasos de setup local, staging y producción para onboarding consistente y reproducible."

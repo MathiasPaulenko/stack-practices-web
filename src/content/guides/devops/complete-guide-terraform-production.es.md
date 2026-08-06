@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/python-terraform-provider-custom
   - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Terraform en produccion. Cubre modules, state management, workspaces, drift detection, remote backends, variable validation, CI/CD."

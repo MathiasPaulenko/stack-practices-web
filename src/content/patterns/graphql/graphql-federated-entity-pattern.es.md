@@ -31,6 +31,7 @@ relatedResources:
   - /docs/graphql-federation-onboarding-template
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Patron GraphQL federated entity: comparte tipos entre subgrafos con @key, @external y @extends. Resuelve campos de entidad desde multiples servicios en Apollo Federation."

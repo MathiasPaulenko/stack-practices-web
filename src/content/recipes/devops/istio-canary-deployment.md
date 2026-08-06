@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/blue-green-deployment
   - /recipes/cost-optimization
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Canary deployments with Istio. Split traffic between app versions, monitor metrics, and automate rollback for zero-downtime releases."

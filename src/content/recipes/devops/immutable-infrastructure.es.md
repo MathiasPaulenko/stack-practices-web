@@ -20,6 +20,7 @@ relatedResources:
   - /recipes/docker-compose-local-dev
   - /docs/api-status-page-template
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Infraestructura inmutable: imágenes versionadas, containers, eliminación de configuration drift e infraestructura reproducible con Packer y Docker."

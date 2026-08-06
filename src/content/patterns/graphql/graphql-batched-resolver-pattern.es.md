@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/graphql-error-extension-pattern
   - /patterns/graphql-schema-stitching-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Elimina consultas N+1 en GraphQL con resolvers batch. Agrupa resoluciones de campos en una sola llamada usando DataLoader y cache por peticion."

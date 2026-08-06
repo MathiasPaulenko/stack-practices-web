@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/image-generation
   - /recipes/prompt-engineering
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement semantic search with text embeddings and vector similarity. Use OpenAI, sentence-transformers, and FAISS for intelligent document retrieval."

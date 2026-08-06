@@ -36,6 +36,7 @@ relatedResources:
   - /recipes/escape-html-entities
   - /recipes/sanitize-user-input
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el patrón Multi-Tenant Data Isolation en Python, Java y JavaScript. Compara row-level, schema-per-tenant y database-per-tenant."

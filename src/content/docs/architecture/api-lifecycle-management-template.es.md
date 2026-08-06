@@ -29,6 +29,7 @@ relatedResources:
   - /docs/api-performance-budget-template
   - /guides/graphql-vs-rest-guide
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de gestión del ciclo de vida de APIs para rastrear avisos de deprecación, transiciones de versionado y verificaciones de cierre."

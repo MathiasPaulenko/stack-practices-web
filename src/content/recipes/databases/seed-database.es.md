@@ -29,6 +29,7 @@ relatedResources:
   - /guides/complete-guide-postgresql-replication
   - /guides/complete-guide-postgresql-tuning
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Siembra bases de datos con datos realistas para desarrollo, testing y staging usando scripts de seed, migraciones y factories en PostgreSQL, MongoDB y Prisma."

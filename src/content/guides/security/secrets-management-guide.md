@@ -33,6 +33,7 @@ relatedResources:
   - /guides/compliance-gdpr-guide
   - /guides/compliance-soc2-guide
 lastUpdated: "2026-06-24"
+publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn secrets management with Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager. Rotation, access control, and CI/CD integration guide."

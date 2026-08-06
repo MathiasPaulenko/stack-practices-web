@@ -27,6 +27,7 @@ relatedResources:
   - /guides/cqrs-event-sourcing-combined-guide
   - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa el patron outbox transaccional para publicacion confiable de eventos. Usa relay processor, polling y entrega exactly-once con Python y PostgreSQL."

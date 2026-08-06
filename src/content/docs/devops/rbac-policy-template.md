@@ -30,6 +30,7 @@ relatedResources:
   - /docs/network-segmentation-policy-template
   - /docs/third-party-vendor-assessment-template
 lastUpdated: "2026-06-27"
+publishedAt: "2026-06-27"
 author: Mathias Paulenko
 seo:
   metaDescription: "Define role-based access control policies with this RBAC template. Covers roles, permissions, assignment rules, and review cadence."

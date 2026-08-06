@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/optimistic-locking
   - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Prevent and resolve deadlocks in SQL databases. Apply consistent lock ordering, use isolation levels, and implement retry logic for resilient concurrent transactions."

@@ -21,6 +21,7 @@ relatedResources:
   - /docs/engineering-handbook-template
   - /docs/system-diagram-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Documenta decisiones arquitectonicas con esta plantilla ADR. Captura contexto, opciones, trade-offs y consecuencias para referencia futura."

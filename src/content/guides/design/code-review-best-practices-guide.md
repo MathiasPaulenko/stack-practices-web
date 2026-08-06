@@ -26,6 +26,7 @@ relatedResources:
   - /guides/clean-code-principles-guide
   - /guides/technical-documentation-strategy-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "What works in code review for authors and reviewers. Learn to write reviewable code, give constructive feedback, and keep reviews fast."

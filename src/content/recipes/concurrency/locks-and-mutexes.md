@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/concurrent-data-structures
   - /recipes/csp-communication
 lastUpdated: "2026-06-14"
+publishedAt: "2026-06-14"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn lock coordination for concurrent programs. Prevent race conditions using mutexes, read-write locks, semaphores, and atomic operations in Java, Python, C++."

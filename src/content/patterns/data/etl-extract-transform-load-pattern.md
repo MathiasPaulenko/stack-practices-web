@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/batch-to-streaming-bridge-pattern
   - /patterns/schema-registry-evolution-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build ETL pipelines with extract, transform, and load stages. Learn staging tables, incremental extraction, idempotent loads, orchestration, and scheduling."

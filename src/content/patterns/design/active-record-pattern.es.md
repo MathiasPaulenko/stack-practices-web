@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/composite-entity-pattern
   - /patterns/unit-of-work-pattern
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Active Record para mapeo objeto-relacional. Ejemplos en Python, Java y JavaScript con métodos de persistencia built-in en objetos de dominio."

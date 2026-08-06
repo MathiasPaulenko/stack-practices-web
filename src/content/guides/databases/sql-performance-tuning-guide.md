@@ -40,6 +40,7 @@ relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/time-series-database-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "SQL performance tuning guide: indexing strategies, query rewriting, EXPLAIN plans, and anti-patterns. Optimize slow queries for PostgreSQL, MySQL, and SQL Server."

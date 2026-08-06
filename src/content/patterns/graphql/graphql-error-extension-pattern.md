@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/graphql-interface-polymorphism-pattern
   - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Add structured metadata to GraphQL errors with extension codes. Standardize error handling with machine-readable codes, HTTP status mapping, and context."

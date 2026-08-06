@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/implement-property-based-testing
   - /recipes/setup-test-fixtures
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Usa mutation testing con MutPy, Stryker y PIT para evaluar si tus tests asertan comportamiento o simplemente ejecutan código."

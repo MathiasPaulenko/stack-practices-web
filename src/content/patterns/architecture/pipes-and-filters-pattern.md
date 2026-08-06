@@ -33,6 +33,7 @@ relatedResources:
   - /guides/complete-guide-microservices-communication
   - /patterns/static-content-hosting-pattern
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Pipes and Filters Pattern in Python, Java, and JavaScript. Chain independent processing steps with composable data transformation pipelines."

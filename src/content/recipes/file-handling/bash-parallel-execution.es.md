@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/bash-parallel-job-execution
   - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Ejecuta comandos de shell en paralelo con xargs, GNU parallel y trabajos en segundo plano, controlando concurrencia y recursos."

@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/github-actions-reusable-workflows
   - /recipes/java-spotbugs-static-analysis
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Detecta patrones inseguros en código Node.js con eslint-plugin-security. Configura reglas, maneja false positives e integra con pipelines CI/CD."

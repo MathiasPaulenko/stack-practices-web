@@ -21,6 +21,7 @@ relatedResources:
   - /guides/performance-optimization-guide
   - /recipes/javascript-event-loop
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Enable Brotli compression in Nginx. Reduce asset transfer sizes with better compression ratios than Gzip for JavaScript, CSS, and HTML delivery."

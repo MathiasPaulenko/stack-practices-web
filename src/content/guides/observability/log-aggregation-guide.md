@@ -26,6 +26,7 @@ relatedResources:
   - /guides/observability-guide
   - /guides/opentelemetry-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn log aggregation: structured logging, shipping strategies, retention policies, and searchable pipelines with ELK, Loki, and cloud-native solutions."

@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/password-hashing-production
   - /docs/api-security-review-template
 lastUpdated: "2026-06-19"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implement HMAC-SHA256 request signing for secure API authentication. Protect message integrity and prevent replay attacks in service-to-service communication."

@@ -33,6 +33,7 @@ relatedResources:
   - /patterns/write-behind-cache-pattern
   - /patterns/write-through-cache-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón Cache-Aside en Python, Java y JavaScript. Patrón de caché para lectura de datos con lógica de caché gestionada por la aplicación."

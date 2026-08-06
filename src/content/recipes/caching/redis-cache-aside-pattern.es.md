@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/redis-rate-limiting-token-bucket
   - /recipes/redis-sorted-set-leaderboard
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa el patron cache-aside con Redis. Maneja cache misses, lazy loading, invalidacion write-through y proteccion contra thundering herd."

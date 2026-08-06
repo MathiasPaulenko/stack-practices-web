@@ -25,6 +25,7 @@ relatedResources:
   - /guides/complete-guide-react-performance-optimization
   - /guides/complete-guide-web-performance-core-web-vitals
 lastUpdated: "2026-07-09"
+publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
   metaDescription: "Cómo funciona el event loop de JavaScript: call stack, cola de tareas, microtareas y código async eficiente para mejorar el rendimiento de aplicaciones web."

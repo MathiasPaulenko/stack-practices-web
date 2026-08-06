@@ -20,6 +20,7 @@ relatedResources:
   - /patterns/circuit-breaker-half-open-pattern
   - /patterns/rate-limiter-token-bucket-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Retry failed operations with exponential backoff and random jitter. Learn full jitter, equal jitter, decorrelated jitter, retry budgets, and idempotency requirements."

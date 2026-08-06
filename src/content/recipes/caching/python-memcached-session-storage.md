@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/serverless-api-gateway-lambda-authorizer
   - /recipes/python-django-cache-framework
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Store user sessions in Memcached with Python. Use pymemcache client, set TTL, handle session serialization, and configure failover."

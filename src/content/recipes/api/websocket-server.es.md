@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/nodejs-websocket-realtime
   - /recipes/real-time-notifications
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende servidor WebSocket en Python, JavaScript y Java. Cubre mensajería bidireccional, gestión de conexiones y broadcasting."

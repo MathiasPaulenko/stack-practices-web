@@ -25,6 +25,7 @@ relatedResources:
   - /guides/rest-api-design-guide
   - /recipes/python-web-scraping-beautifulsoup
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Implement token bucket rate limiting in Python Flask and FastAPI. Includes Redis-backed distributed limits, sliding window, and middleware patterns."

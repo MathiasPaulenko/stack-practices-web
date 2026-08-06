@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/setup-ssl-certificates
   - /docs/patch-management-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this SSL certificate renewal template to track certificate expiration dates, renewal workflows, and validation checks before they expire."

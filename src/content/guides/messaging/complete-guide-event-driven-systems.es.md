@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/kafka-spring-boot-stream-listener
   - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Disenar backends event-driven. Cubre event sourcing, CQRS, sagas, outbox pattern, idempotency, eventual consistency y patrones de produccion."

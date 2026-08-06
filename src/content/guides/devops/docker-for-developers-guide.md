@@ -34,6 +34,7 @@ relatedResources:
   - /guides/monitoring-alerting-guide
   - /guides/on-call-incident-response-guide
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Complete Docker guide for developers. Learn images, containers, Dockerfiles, networking, volumes, and Docker Compose for local dev workflows."

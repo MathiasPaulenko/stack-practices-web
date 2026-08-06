@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/image-generation
   - /recipes/prompt-engineering
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implementa búsqueda semántica con embeddings de texto y similitud vectorial. Usa OpenAI, sentence-transformers y FAISS para recuperación inteligente de documentos."

@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-graphql-security
   - /guides/complete-guide-authentication-patterns
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Add field-level auth to GraphQL with custom schema directives. Check roles and permissions per field using @auth and @requiresRole directives."

@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/money-currency
   - /recipes/regular-expressions
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-10"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ejemplos prácticos de ordenamiento de arrays en Python, JavaScript y Java. Aprende orden ascendente, descendente y comparadores personalizados."

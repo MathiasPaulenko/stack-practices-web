@@ -31,6 +31,7 @@ relatedResources:
   - /patterns/domain-event-pattern
   - /guides/event-sourcing-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Outbox Pattern for reliable event publishing in distributed systems. Examples in Python, Java, and SQL for exactly-once delivery."

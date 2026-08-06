@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/docker-network-isolation
   - /recipes/git-rebase-interactive-tutorial
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Optimize Docker images with multi-stage builds, layer caching, distroless bases, and .dockerignore. Reduce image size by up to 90 percent."

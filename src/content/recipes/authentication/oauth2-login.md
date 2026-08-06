@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/session-management
   - /recipes/two-factor-authentication
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn to implement OAuth 2.0 login in Python, JavaScript, and Java. Covers authorization code flow, PKCE, state parameter, and token refresh."

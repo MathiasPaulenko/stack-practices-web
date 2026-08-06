@@ -23,6 +23,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Configura dead-letter queues en RabbitMQ. Usa expiracion TTL, max length, routing por rechazo y patrones de retry con backoff exponencial para mensajes fallidos."

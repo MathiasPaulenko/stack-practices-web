@@ -22,6 +22,7 @@ relatedResources:
   - /docs/kubernetes-pod-disruption-budget-template
   - /docs/terraform-state-management-policy
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usá este checklist de revisión de Helm charts para verificar values, templates, security, resource limits, probes, RBAC y best practices."

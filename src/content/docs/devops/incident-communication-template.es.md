@@ -32,6 +32,7 @@ relatedResources:
   - /docs/service-ownership-document-template
   - /docs/api-status-page-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Comunica claramente durante interrupciones. Plantilla con mensajes pre-redactados para clientes, ejecutivos y equipos por severidad."

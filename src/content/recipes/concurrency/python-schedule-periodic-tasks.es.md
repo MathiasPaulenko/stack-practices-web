@@ -28,6 +28,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio-production
   - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Programa tareas periódicas en Python con APScheduler. Triggers de intervalo, cron y fecha, job stores persistentes, background schedulers y manejo de errores."

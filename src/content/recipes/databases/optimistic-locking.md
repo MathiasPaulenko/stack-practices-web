@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/database-migrations-safely
   - /recipes/database-migrations
 lastUpdated: "2026-06-13"
+publishedAt: "2026-06-13"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Implement optimistic locking with versioning to prevent lost updates. Use row versioning in PostgreSQL, MySQL, and JPA/Hibernate with examples."

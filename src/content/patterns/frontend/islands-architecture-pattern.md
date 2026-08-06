@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/progressive-enhancement-pattern
   - /patterns/suspense-boundary-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Ship interactivity only where needed with islands architecture. Learn Astro islands, partial hydration, React islands, client directives, and performance gains."

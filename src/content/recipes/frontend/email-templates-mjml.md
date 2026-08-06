@@ -22,6 +22,7 @@ relatedResources:
   - /guides/clean-code-principles-guide
   - /recipes/server-side-rendering
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-19"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Build responsive email templates with MJML. Create cross-client compatible emails with live variables and inline CSS for Gmail, Outlook, and Apple Mail."

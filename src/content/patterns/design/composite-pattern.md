@@ -29,6 +29,7 @@ relatedResources:
   - /patterns/iterator-pattern
   - /patterns/visitor-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Composite Pattern in Python, Java, and JavaScript. Structural design pattern for tree structures and part-whole hierarchies."

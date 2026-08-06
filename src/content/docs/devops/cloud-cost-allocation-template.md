@@ -33,6 +33,7 @@ relatedResources:
   - /docs/network-security-template
   - /docs/ssl-certificate-renewal-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this cloud cost allocation template to track and attribute cloud spending by team, environment, and service with detailed tagging policies."

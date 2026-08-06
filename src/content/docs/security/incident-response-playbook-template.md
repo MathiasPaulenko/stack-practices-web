@@ -28,6 +28,7 @@ relatedResources:
   - /docs/secrets-rotation-template
   - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Use this incident response playbook template to document detection, containment, eradication, recovery, and lessons learned for security incidents."

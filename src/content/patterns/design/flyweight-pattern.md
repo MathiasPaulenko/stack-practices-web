@@ -24,6 +24,7 @@ relatedResources:
   - /patterns/composite-pattern
   - /patterns/type-object-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Learn the Flyweight Pattern in Python, Java, and JavaScript. Structural design pattern for memory optimization via object sharing."

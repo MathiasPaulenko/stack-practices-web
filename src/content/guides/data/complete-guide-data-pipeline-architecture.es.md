@@ -25,6 +25,7 @@ relatedResources:
   - /patterns/batch-to-streaming-bridge-pattern
   - /guides/complete-guide-data-quality
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-06"
 author: "Mathias Paulenko"
 estimatedReadTime: 20
 seo:

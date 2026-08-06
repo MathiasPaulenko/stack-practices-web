@@ -28,6 +28,7 @@ relatedResources:
   - /guides/aws-basics-guide
   - /guides/azure-basics-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende almacenamiento blob: diseño de buckets, control de acceso, ciclo de vida y optimización de costos para S3, GCS y Azure."

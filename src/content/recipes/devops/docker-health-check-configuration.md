@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/python-prometheus-metrics-exporter
   - /recipes/python-terraform-provider-custom
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
   metaDescription: "Configure Docker HEALTHCHECK instructions with curl, wget, and custom scripts. Learn interval, timeout, retries, and start-period for reliable containers."

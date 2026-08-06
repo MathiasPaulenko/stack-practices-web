@@ -28,6 +28,7 @@ relatedResources:
   - /recipes/event-sourcing-relational
   - /docs/database-schema-documentation-template
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Database migration runbook template: execute schema changes safely with rollback procedures, verification steps, and communication plans."

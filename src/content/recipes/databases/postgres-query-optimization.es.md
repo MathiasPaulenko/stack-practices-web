@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/sql-partitioning-strategies
   - /recipes/graphql-n-1-query-detection
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Optimiza queries PostgreSQL con EXPLAIN, estrategias de indexing, partial indexes y reescritura de queries para reducir tiempo de ejecucion de segundos a milisegundos."

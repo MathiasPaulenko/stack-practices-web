@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/aws-lambda-python-dependencies
   - /guides/complete-guide-serverless-architecture
 lastUpdated: "2026-07-03"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Orchestrate serverless workflows with AWS Step Functions. Use sequential, parallel, and map states to coordinate Lambda functions and long-running processes."

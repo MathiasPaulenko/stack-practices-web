@@ -24,6 +24,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
   - /docs/graphql-federation-onboarding-template
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Policy template for GraphQL deprecation: fields, types, arguments, enum values. Timeline, communication plan, usage tracking, removal criteria, migration examples."

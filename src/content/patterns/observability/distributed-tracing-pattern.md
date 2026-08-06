@@ -21,6 +21,7 @@ relatedResources:
   - /patterns/structured-logging-pattern
   - /patterns/metrics-aggregation-pattern
 lastUpdated: "2026-07-05"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Propagate trace context across microservices with OpenTelemetry. Learn span creation, W3C trace context, sampling strategies, and trace analysis."

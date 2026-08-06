@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/caching-redis
   - /guides/database-normalization-guide
 lastUpdated: "2026-06-11"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende migraciones seguras de base de datos para PostgreSQL, MySQL y SQLite. Cubre deploys sin downtime y planes de rollback."

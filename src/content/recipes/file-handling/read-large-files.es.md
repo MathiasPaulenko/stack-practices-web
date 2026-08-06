@@ -31,6 +31,7 @@ relatedResources:
   - /recipes/watch-file-changes
   - /recipes/write-large-files
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende técnicas eficientes en memoria para leer archivos grandes en Python, JavaScript y Java usando streaming y procesamiento por chunks."

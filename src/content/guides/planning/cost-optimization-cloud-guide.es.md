@@ -31,6 +31,7 @@ relatedResources:
   - /guides/blue-green-deployment-guide
   - /guides/canary-deployment-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias de optimización de costos cloud: dimensionamiento, instancias reservadas, spot, etiquetado y prácticas FinOps para ahorros."

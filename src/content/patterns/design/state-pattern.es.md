@@ -27,6 +27,7 @@ relatedResources:
   - /patterns/mediator-pattern
   - /patterns/memento-pattern
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Aprende el Patrón State en Python, Java y JavaScript. Patrón de comportamiento para máquinas de estados finitos y comportamiento dependiente del estado."

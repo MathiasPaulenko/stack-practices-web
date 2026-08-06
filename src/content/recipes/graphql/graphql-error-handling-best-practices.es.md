@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/graphql-directives-auth
   - /recipes/graphql-mocking-apollo-server
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Maneja errores GraphQL con codigos de extension estructurados. Clases de error personalizadas, formato consistente y mensajes accionables para clientes."

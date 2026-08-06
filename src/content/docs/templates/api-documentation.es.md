@@ -25,6 +25,7 @@ relatedResources:
   - /recipes/grpc-api
   - /docs/api-error-response-template
 lastUpdated: "2026-06-10"
+publishedAt: "2026-06-11"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Usa esta plantilla de documentación de API para documentar endpoints, schemas de request/response, códigos de error y autenticación para APIs REST y GraphQL."

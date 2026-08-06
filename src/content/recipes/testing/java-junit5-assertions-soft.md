@@ -23,6 +23,7 @@ relatedResources:
   - /recipes/java-wiremock-stub-external
   - /guides/complete-guide-junit5-modern-testing
 lastUpdated: "2026-07-09"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Use AssertJ soft assertions in JUnit5 to collect multiple failures per test, improving feedback and reducing test reruns for complex objects."

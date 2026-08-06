@@ -27,6 +27,7 @@ relatedResources:
   - /recipes/diff-json-objects
   - /recipes/python-generate-qr-code
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a formatear números de teléfono en Python, Java y JavaScript. Valida números internacionales y aplica formatos regionales con ejemplos de código."

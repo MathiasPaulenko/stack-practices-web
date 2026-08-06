@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/python-langchain-chains-composition
   - /recipes/python-llm-streaming-responses
 lastUpdated: "2026-07-02"
+publishedAt: "2026-07-03"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Evalua calidad RAG con metricas RAGAS. Mide fidelidad, relevancia de respuesta, precision y recall de contexto para evaluacion objetiva del pipeline RAG."

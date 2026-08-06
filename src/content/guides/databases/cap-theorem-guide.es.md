@@ -32,6 +32,7 @@ relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas
 lastUpdated: "2026-06-12"
+publishedAt: "2026-06-12"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Guía del teorema CAP: consistencia, disponibilidad, tolerancia a particiones. Elige los trade-offs correctos de base de datos para tus requerimientos."

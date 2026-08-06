@@ -22,6 +22,7 @@ relatedResources:
   - /docs/secrets-rotation-runbook
   - /docs/api-authentication-design-template
 lastUpdated: "2026-07-04"
+publishedAt: "2026-07-05"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Security review checklist for PRs: input validation, auth, secrets, dependencies, injection, XSS, CSRF, logging, automated tooling, secure code patterns."

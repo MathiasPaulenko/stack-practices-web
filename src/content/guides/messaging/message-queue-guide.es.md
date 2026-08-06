@@ -30,6 +30,7 @@ relatedResources:
   - /guides/complete-guide-kafka-production
   - /guides/complete-guide-rabbitmq-architecture
 lastUpdated: "2026-06-21"
+publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de colas de mensajes comparando RabbitMQ, Kafka y AWS SQS. Aprende patrones, throughput, garantías de ordenamiento y lo que funciona operativas."

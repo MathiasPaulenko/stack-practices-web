@@ -30,6 +30,7 @@ relatedResources:
   - /recipes/rabbitmq-task-queue
   - /guides/message-queue-guide
 lastUpdated: "2026-06-18"
+publishedAt: "2026-06-18"
 author: "Mathias Paulenko"
 seo:
   metaDescription: "Construye sistemas event-driven con Apache Kafka. Implementa producers, consumers, consumer groups y semantica exactly-once para messaging asincrono confiable."

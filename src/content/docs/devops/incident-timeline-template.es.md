@@ -23,6 +23,7 @@ relatedResources:
   - /docs/escalation-policy-template
   - /docs/on-call-handoff-template
 lastUpdated: "2026-06-26"
+publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
   metaDescription: "Reconstruye eventos de incidentes con precision. Rastrea marcas de tiempo de deteccion, respuesta y resolucion para identificar brechas."

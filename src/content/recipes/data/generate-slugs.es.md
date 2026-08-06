@@ -24,6 +24,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/truncate-text
 lastUpdated: "2026-06-20"
+publishedAt: "2026-06-20"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a generar slugs amigables para URLs desde strings en Python, JavaScript y Java. Slugs limpios y seguros para SEO en apps web."

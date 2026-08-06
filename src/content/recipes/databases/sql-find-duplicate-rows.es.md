@@ -29,6 +29,7 @@ relatedResources:
   - /recipes/sql-recursive-cte-query
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a encontrar y eliminar filas duplicadas en SQL con GROUP BY, HAVING y CTEs. Limpia tablas y conserva registros canónicos."

@@ -31,6 +31,7 @@ relatedResources:
   - /guides/cost-optimization-cloud-guide
   - /guides/disaster-recovery-guide
 lastUpdated: "2026-06-25"
+publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
   metaDescription: "Learn capacity planning for cloud infrastructure: forecasting demand, load testing, auto-scaling strategies, and avoiding over-provisioning."

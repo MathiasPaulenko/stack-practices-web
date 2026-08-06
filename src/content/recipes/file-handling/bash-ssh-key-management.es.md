@@ -26,6 +26,7 @@ relatedResources:
   - /recipes/bash-aws-cli-automation
   - /recipes/bash-iptables-firewall-rules
 lastUpdated: "2026-06-28"
+publishedAt: "2026-06-28"
 author: Mathias Paulenko
 seo:
   metaDescription: "Gestiona claves SSH con Bash: genera pares Ed25519, rota credenciales bajo programación y distribuye claves públicas de forma segura a servidores y miembros del equipo."
