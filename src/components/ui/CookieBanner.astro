@@ -78,7 +78,7 @@ const isEs = locale === 'es';
             {isEs ? 'Necesarias para el funcionamiento del sitio.' : 'Required for the site to work.'}
           </p>
         </div>
-        <input type="checkbox" checked disabled class="h-5 w-5 accent-brand-600" />
+        <input type="checkbox" checked disabled aria-label={isEs ? 'Cookies esenciales siempre activas' : 'Essential cookies always on'} class="h-5 w-5 accent-brand-600" />
       </div>
 
       <!-- Analytics -->
@@ -89,7 +89,7 @@ const isEs = locale === 'es';
             {isEs ? 'Ayudan a entender cómo se usa el sitio.' : 'Help us understand how the site is used.'}
           </p>
         </div>
-        <input id="toggle-analytics" type="checkbox" class="h-5 w-5 accent-brand-600" />
+        <input id="toggle-analytics" type="checkbox" aria-label={isEs ? 'Permitir cookies de análisis' : 'Allow analytics cookies'} class="h-5 w-5 accent-brand-600" />
       </div>
 
       <!-- Advertising -->
@@ -100,7 +100,7 @@ const isEs = locale === 'es';
             {isEs ? 'Permiten mostrar anuncios relevantes.' : 'Allow us to show relevant ads.'}
           </p>
         </div>
-        <input id="toggle-advertising" type="checkbox" class="h-5 w-5 accent-brand-600" />
+        <input id="toggle-advertising" type="checkbox" aria-label={isEs ? 'Permitir cookies de publicidad' : 'Allow advertising cookies'} class="h-5 w-5 accent-brand-600" />
       </div>
     </div>
 
