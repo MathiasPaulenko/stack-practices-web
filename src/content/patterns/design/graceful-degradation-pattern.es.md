@@ -16,12 +16,12 @@ topics:
   - design
 tags:
   - graceful-degradation
-  - patron
-  - patron-diseno
-  - resiliencia
-  - tolerancia-fallos
+  - pattern
+  - design-pattern
+  - resilience
+  - fault-tolerance
   - fallback
-  - fallo-parcial
+  - partial-failure
 relatedResources:
   - /patterns/circuit-breaker-pattern
   - /patterns/timeout-pattern

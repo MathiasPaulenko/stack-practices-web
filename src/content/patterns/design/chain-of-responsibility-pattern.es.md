@@ -14,9 +14,9 @@ topics:
   - design
 tags:
   - chain-of-responsibility
-  - patron
-  - patron-de-diseno
-  - comportamiento
+  - pattern
+  - design-pattern
+  - behavioral
   - middleware
   - pipeline
   - python

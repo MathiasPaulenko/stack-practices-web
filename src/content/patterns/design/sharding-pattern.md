@@ -14,7 +14,7 @@ topics:
   - architecture
   - databases
 tags:
-  - sharding
+  - database-sharding
   - pattern
   - design-pattern
   - database

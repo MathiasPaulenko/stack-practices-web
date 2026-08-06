@@ -13,8 +13,8 @@ topics:
   - architecture
 tags:
   - message-deduplication
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - idempotency
   - exactly-once
   - deduplication

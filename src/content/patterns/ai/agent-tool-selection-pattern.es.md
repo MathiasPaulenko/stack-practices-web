@@ -11,12 +11,12 @@ difficulty: advanced
 topics:
   - ai
 tags:
-  - seleccion-herramientas-agente
-  - patron
-  - patron-ai
-  - agente-llm
-  - uso-herramientas
-  - enrutamiento-dinamico
+  - agent-tool-selection
+  - pattern
+  - ai-pattern
+  - llm-agent
+  - tool-use
+  - dynamic-routing
   - function-calling
 relatedResources:
   - /patterns/llm-router-pattern

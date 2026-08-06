@@ -13,11 +13,11 @@ topics:
   - security
 tags:
   - llm-guardrails
-  - patron
-  - patron-ai
-  - seguridad-llm
-  - validacion-entrada
-  - filtrado-salida
+  - pattern
+  - ai-pattern
+  - llm-security
+  - input-validation
+  - output-filtering
   - prompt-injection
 relatedResources:
   - /patterns/llm-router-pattern

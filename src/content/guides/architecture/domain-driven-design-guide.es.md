@@ -15,7 +15,6 @@ topics:
   - design
 tags:
   - architecture
-  - arquitectura
   - domain-driven-design
   - guia
   - design

@@ -13,10 +13,10 @@ topics:
   - devops
 tags:
   - programador-agente-supervisor
-  - patron
-  - patron-de-diseno
+  - pattern
+  - design-pattern
   - programacion
-  - resiliencia
+  - resilience
   - gestion-de-trabajos
   - supervisor
 relatedResources:

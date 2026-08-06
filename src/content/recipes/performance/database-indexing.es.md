@@ -11,7 +11,7 @@ topics:
   - performance
 tags:
   - performance
-  - base-de-datos
+  - database
   - indexing
   - optimization
   - profiling

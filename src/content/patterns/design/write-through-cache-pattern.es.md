@@ -17,7 +17,7 @@ topics:
 tags:
   - caching
   - write-through
-  - patron
+  - pattern
   - redis
   - cache-consistency
   - performance

@@ -14,8 +14,8 @@ topics:
   - architecture
 tags:
   - reactive-streams
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - backpressure
   - async-stream
   - publisher-subscriber

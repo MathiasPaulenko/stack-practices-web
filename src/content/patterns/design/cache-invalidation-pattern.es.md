@@ -16,7 +16,7 @@ topics:
 tags:
   - caching
   - invalidation
-  - patron
+  - pattern
   - redis
   - ttl
   - eviction

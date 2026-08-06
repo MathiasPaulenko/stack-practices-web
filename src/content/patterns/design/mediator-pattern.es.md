@@ -13,10 +13,10 @@ topics:
   - design
 tags:
   - mediator
-  - patron
-  - patron-de-diseno
-  - comportamiento
-  - desacoplamiento
+  - pattern
+  - design-pattern
+  - behavioral
+  - decoupling
   - coordinacion
   - python
   - javascript

@@ -10,11 +10,11 @@ topics:
   - ai
 tags:
   - llm-fallback
-  - patron
-  - patron-ai
-  - manejo-errores
-  - resiliencia
-  - cadena-proveedores
+  - pattern
+  - ai-pattern
+  - error-handling
+  - resilience
+  - provider-chain
   - rate-limit
 relatedResources:
   - /patterns/llm-router-pattern

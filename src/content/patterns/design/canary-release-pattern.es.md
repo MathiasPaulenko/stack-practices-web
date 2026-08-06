@@ -12,12 +12,12 @@ topics:
   - architecture
 tags:
   - canary-release
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - estrategia-despliegue
   - progressive-delivery
   - rollout
-  - reduccion-riesgo
+  - risk-reduction
 relatedResources:
   - /patterns/blue-green-deployment-pattern
   - /patterns/deployment-ring-pattern

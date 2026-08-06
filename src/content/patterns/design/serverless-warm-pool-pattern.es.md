@@ -15,7 +15,7 @@ tags:
   - serverless
   - warm-pool
   - cold-start
-  - patron
+  - pattern
   - lambda
   - eventbridge
   - performance

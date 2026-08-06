@@ -13,9 +13,9 @@ topics:
   - design
 tags:
   - interpreter
-  - patron
-  - patron-de-diseno
-  - comportamiento
+  - pattern
+  - design-pattern
+  - behavioral
   - parser
   - gramatica
   - python

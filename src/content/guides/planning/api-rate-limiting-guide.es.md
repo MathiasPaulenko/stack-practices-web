@@ -20,7 +20,7 @@ tags:
   - token-bucket
   - sliding-window
   - leaky-bucket
-  - resiliencia
+  - resilience
   - guia
 relatedResources:
   - /guides/rest-api-design-guide

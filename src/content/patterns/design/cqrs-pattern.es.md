@@ -14,12 +14,12 @@ topics:
   - design
 tags:
   - cqrs
-  - patron
-  - patron-de-diseno
-  - arquitectura
+  - pattern
+  - design-pattern
+  - architecture
   - modelo-lectura
   - modelo-escritura
-  - escalabilidad
+  - scalability
   - python
   - javascript
   - java

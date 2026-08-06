@@ -15,7 +15,7 @@ tags:
   - caching
   - stampede
   - thundering-herd
-  - patron
+  - pattern
   - single-flight
   - distributed-lock
   - redis

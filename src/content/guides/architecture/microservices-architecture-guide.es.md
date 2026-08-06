@@ -14,13 +14,12 @@ topics:
   - architecture
 tags:
   - architecture
-  - arquitectura
   - descomposicion
-  - escalabilidad
+  - scalability
   - guia
-  - microservicios
+  - microservices
   - monolito
-  - sistemas-distribuidos
+  - distributed-systems
 relatedResources:
   - /guides/system-design-interview-guide
   - /guides/domain-driven-design-guide

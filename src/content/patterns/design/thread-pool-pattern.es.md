@@ -14,8 +14,8 @@ topics:
   - architecture
 tags:
   - thread-pool
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - concurrency
   - thread-reuse
   - resource-bounding

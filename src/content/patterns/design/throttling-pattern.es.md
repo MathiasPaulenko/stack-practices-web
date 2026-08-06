@@ -17,13 +17,13 @@ topics:
   - performance
 tags:
   - throttling
-  - patron
-  - patron-de-diseno
+  - pattern
+  - design-pattern
   - rate-limiting
-  - rendimiento
+  - performance
   - token-bucket
   - leaky-bucket
-  - escalabilidad
+  - scalability
 relatedResources:
   - /patterns/priority-queue-pattern
   - /patterns/queue-based-load-leveling-pattern

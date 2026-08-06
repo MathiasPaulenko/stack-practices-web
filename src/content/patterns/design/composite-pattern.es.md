@@ -14,9 +14,9 @@ topics:
   - design
 tags:
   - composite
-  - patron
-  - patron-de-diseno
-  - estructural
+  - pattern
+  - design-pattern
+  - structural
   - arbol
   - jerarquia
   - python

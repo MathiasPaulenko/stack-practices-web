@@ -14,10 +14,10 @@ topics:
   - design
 tags:
   - cache-aside
-  - patron
-  - patron-de-diseno
+  - pattern
+  - design-pattern
   - caching
-  - rendimiento
+  - performance
   - redis
   - python
   - javascript

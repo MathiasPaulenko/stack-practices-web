@@ -19,7 +19,7 @@ tags:
   - database
   - disponibilidad
   - guia
-  - sistemas-distribuidos
+  - distributed-systems
   - tolerancia-a-particiones
   - tradeoffs-base-de-datos
 relatedResources:

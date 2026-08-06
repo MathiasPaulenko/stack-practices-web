@@ -12,9 +12,9 @@ topics:
   - design
 tags:
   - memento
-  - patron
-  - patron-de-diseno
-  - comportamiento
+  - pattern
+  - design-pattern
+  - behavioral
   - deshacer
   - instantanea-de-estado
   - python

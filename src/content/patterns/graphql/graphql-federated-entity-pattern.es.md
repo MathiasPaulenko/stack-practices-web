@@ -17,7 +17,7 @@ tags:
   - graphql
   - federation
   - entity
-  - patron
+  - pattern
   - apollo-federation
   - subgraph
   - microservices

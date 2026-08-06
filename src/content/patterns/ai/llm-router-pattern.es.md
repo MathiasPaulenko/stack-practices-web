@@ -14,12 +14,12 @@ topics:
   - ai
 tags:
   - llm-router
-  - patron
-  - patron-ai
-  - optimizacion-costos
-  - seleccion-modelo
+  - pattern
+  - ai-pattern
+  - cost-optimization
+  - model-selection
   - llm
-  - enrutamiento
+  - routing
 relatedResources:
   - /patterns/llm-fallback-pattern
   - /patterns/prompt-chaining-pattern

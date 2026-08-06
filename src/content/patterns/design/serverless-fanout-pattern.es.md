@@ -13,7 +13,7 @@ topics:
 tags:
   - serverless
   - fanout
-  - patron
+  - pattern
   - sns
   - eventbridge
   - sqs

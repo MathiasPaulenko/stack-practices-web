@@ -16,7 +16,7 @@ tags:
   - graphql
   - pagination
   - connection
-  - patron
+  - pattern
   - relay
   - cursor
   - edges

@@ -13,10 +13,10 @@ topics:
 tags:
   - acid
   - base
-  - modelos-consistencia
-  - teorema-cap
-  - sistemas-distribuidos
-  - consistencia-eventual
+  - consistency-models
+  - cap-theorem
+  - distributed-systems
+  - eventual-consistency
   - transacciones
   - guia
 relatedResources:

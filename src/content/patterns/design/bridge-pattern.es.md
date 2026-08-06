@@ -11,11 +11,11 @@ topics:
   - design
 tags:
   - bridge
-  - patron
-  - patron-de-diseno
-  - estructural
-  - desacoplamiento
-  - abstraccion
+  - pattern
+  - design-pattern
+  - structural
+  - decoupling
+  - abstraction
   - python
   - javascript
   - java

@@ -15,7 +15,7 @@ tags:
   - caching
   - two-level-cache
   - l1-l2
-  - patron
+  - pattern
   - redis
   - in-memory
   - performance

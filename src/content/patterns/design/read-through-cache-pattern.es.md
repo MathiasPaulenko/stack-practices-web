@@ -17,7 +17,7 @@ topics:
 tags:
   - caching
   - read-through
-  - patron
+  - pattern
   - redis
   - cache-miss
   - performance

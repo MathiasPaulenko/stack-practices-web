@@ -10,12 +10,12 @@ topics:
   - ai
 tags:
   - prompt-chaining
-  - patron
-  - patron-ai
+  - pattern
+  - ai-pattern
   - llm
-  - multi-paso
+  - multi-step
   - pipeline
-  - descomposicion-tareas
+  - task-decomposition
 relatedResources:
   - /patterns/llm-router-pattern
   - /patterns/agent-tool-selection-pattern

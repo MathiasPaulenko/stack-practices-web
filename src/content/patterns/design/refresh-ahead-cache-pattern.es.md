@@ -15,7 +15,7 @@ topics:
 tags:
   - caching
   - refresh-ahead
-  - patron
+  - pattern
   - redis
   - proactive-refresh
   - performance

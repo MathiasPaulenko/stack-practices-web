@@ -16,8 +16,8 @@ topics:
   - frontend
 tags:
   - hosting-de-contenido-estatico
-  - patron
-  - patron-de-diseno
+  - pattern
+  - design-pattern
   - cdn
   - s3
   - cloudfront

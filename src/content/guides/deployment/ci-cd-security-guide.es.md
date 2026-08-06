@@ -15,9 +15,9 @@ topics:
   - infrastructure
 tags:
   - ci-cd
-  - seguridad
+  - security
   - pipeline
-  - gestion-secretos
+  - secrets-management
   - supply-chain
   - escaneo-dependencias
   - hardening

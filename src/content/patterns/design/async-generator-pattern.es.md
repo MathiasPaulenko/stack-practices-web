@@ -15,8 +15,8 @@ topics:
   - architecture
 tags:
   - async-generator
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - streaming
   - lazy-evaluation
   - async-iteration

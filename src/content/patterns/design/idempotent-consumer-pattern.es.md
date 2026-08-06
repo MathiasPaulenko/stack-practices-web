@@ -14,9 +14,9 @@ topics:
   - architecture
   - messaging
 tags:
-  - consumidor-idempotente
-  - patron
-  - patron-de-diseno
+  - idempotent-consumer
+  - pattern
+  - design-pattern
   - mensajeria
   - kafka
   - deduplicacion

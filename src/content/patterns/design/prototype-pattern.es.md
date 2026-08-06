@@ -12,9 +12,9 @@ topics:
   - design
 tags:
   - prototype
-  - patron
-  - patron-de-diseno
-  - creacional
+  - pattern
+  - design-pattern
+  - creational
   - clone
   - duplicacion
   - python

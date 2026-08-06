@@ -15,8 +15,8 @@ topics:
   - architecture
 tags:
   - producer-consumer
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - concurrency
   - queue
   - decoupling

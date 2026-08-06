@@ -14,7 +14,7 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - comunidad
+  - community
   - devops
   - onboarding
   - open-source

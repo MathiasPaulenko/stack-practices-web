@@ -14,11 +14,11 @@ topics:
   - design
 tags:
   - dependency-injection
-  - desacoplamiento
+  - decoupling
   - java
   - javascript
-  - patron
-  - patron-arquitectural
+  - pattern
+  - architecture-pattern
   - python
 relatedResources:
   - /patterns/factory-pattern

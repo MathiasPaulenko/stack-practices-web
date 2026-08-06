@@ -13,8 +13,8 @@ topics:
   - architecture
 tags:
   - dead-letter-queue
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - poison-message
   - error-handling
   - message-queue

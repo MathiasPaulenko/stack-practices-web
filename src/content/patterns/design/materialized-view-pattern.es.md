@@ -13,12 +13,12 @@ topics:
   - architecture
   - databases
 tags:
-  - vista-materializada
-  - patron
-  - patron-de-diseno
+  - materialized-view
+  - pattern
+  - design-pattern
   - bases-de-datos
   - caching
-  - rendimiento
+  - performance
   - optimizacion-de-consultas
 relatedResources:
   - /patterns/cqrs-pattern

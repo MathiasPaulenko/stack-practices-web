@@ -17,7 +17,7 @@ tags:
   - graphql
   - mutation
   - validation
-  - patron
+  - pattern
   - input-validation
   - error-handling
   - typescript

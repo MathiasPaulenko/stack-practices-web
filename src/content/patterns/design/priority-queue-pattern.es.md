@@ -17,12 +17,12 @@ topics:
   - concurrency
 tags:
   - cola-de-prioridad
-  - patron
-  - patron-de-diseno
+  - pattern
+  - design-pattern
   - programacion
   - concurrencia
   - heap
-  - cola
+  - queue
 relatedResources:
   - /patterns/queue-based-load-leveling-pattern
   - /patterns/scheduler-agent-supervisor-pattern

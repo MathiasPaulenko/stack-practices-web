@@ -15,8 +15,8 @@ topics:
   - architecture
 tags:
   - publish-subscribe
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - event-driven
   - pub-sub
   - message-broker

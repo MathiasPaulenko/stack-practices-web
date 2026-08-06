@@ -13,14 +13,14 @@ topics:
   - architecture
   - messaging
 tags:
-  - convoy-secuencial
-  - patron
-  - patron-de-diseno
+  - sequential-convoy
+  - pattern
+  - design-pattern
   - mensajeria
-  - ordenamiento
-  - secuencia
+  - ordering
+  - sequence
   - kafka
-  - cola
+  - queue
 relatedResources:
   - /patterns/queue-based-load-leveling-pattern
   - /patterns/idempotent-consumer-pattern

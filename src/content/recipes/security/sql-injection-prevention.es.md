@@ -13,7 +13,7 @@ topics:
   - security
 tags:
   - security
-  - base-de-datos
+  - database
   - java
   - vulnerabilities
   - encryption

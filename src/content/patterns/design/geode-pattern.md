@@ -18,7 +18,7 @@ tags:
   - pattern
   - design-pattern
   - data-partitioning
-  - sharding
+  - database-sharding
   - horizontal-scaling
   - distributed-systems
 relatedResources:

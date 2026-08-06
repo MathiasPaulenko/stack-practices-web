@@ -16,13 +16,13 @@ topics:
   - messaging
 tags:
   - nivelacion-de-carga-basada-en-colas
-  - patron
-  - patron-de-diseno
+  - pattern
+  - design-pattern
   - mensajeria
-  - cola
+  - queue
   - nivelacion-de-carga
   - backpressure
-  - desacoplamiento
+  - decoupling
 relatedResources:
   - /patterns/priority-queue-pattern
   - /patterns/throttling-pattern

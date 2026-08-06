@@ -10,10 +10,10 @@ topics:
   - design
 tags:
   - visitor
-  - patron
-  - patron-de-diseno
-  - comportamiento
-  - doble-despacho
+  - pattern
+  - design-pattern
+  - behavioral
+  - double-dispatch
   - operaciones
   - python
   - javascript

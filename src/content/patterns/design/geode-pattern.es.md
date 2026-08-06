@@ -15,12 +15,12 @@ topics:
   - databases
 tags:
   - geode
-  - patron
-  - patron-diseno
-  - particionamiento-datos
-  - sharding
+  - pattern
+  - design-pattern
+  - data-partitioning
+  - database-sharding
   - escalado-horizontal
-  - sistemas-distribuidos
+  - distributed-systems
 relatedResources:
   - /patterns/circuit-breaker-pattern
   - /patterns/graceful-degradation-pattern

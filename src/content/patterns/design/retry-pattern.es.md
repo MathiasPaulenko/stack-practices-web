@@ -12,9 +12,9 @@ topics:
   - design
 tags:
   - retry
-  - patron
-  - patron-de-diseno
-  - resiliencia
+  - pattern
+  - design-pattern
+  - resilience
   - fallas-transitorias
   - backoff-exponencial
   - python

@@ -14,9 +14,9 @@ topics:
   - design
 tags:
   - factory
-  - patron
+  - pattern
   - design-pattern
-  - creacional
+  - creational
   - python
   - javascript
   - java

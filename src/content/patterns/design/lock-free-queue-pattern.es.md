@@ -15,8 +15,8 @@ topics:
   - architecture
 tags:
   - lock-free
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - concurrency
   - atomic-operations
   - cas

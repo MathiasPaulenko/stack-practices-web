@@ -21,7 +21,7 @@ tags:
   - 4nf
   - 5nf
   - bases-datos-relacionales
-  - diseno-base-datos
+  - database-design
   - guia
 relatedResources:
   - /guides/database-denormalization-guide

@@ -16,7 +16,7 @@ topics:
 tags:
   - serverless
   - function-composition
-  - patron
+  - pattern
   - aws-step-functions
   - lambda
   - orchestration

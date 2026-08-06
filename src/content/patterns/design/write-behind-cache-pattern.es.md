@@ -14,7 +14,7 @@ topics:
 tags:
   - caching
   - write-behind
-  - patron
+  - pattern
   - redis
   - eventual-consistency
   - performance

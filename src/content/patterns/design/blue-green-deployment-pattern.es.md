@@ -12,8 +12,8 @@ topics:
   - architecture
 tags:
   - blue-green-deployment
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - estrategia-despliegue
   - zero-downtime
   - rollback

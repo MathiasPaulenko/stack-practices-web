@@ -14,10 +14,10 @@ topics:
   - design
 tags:
   - event-sourcing
-  - patron
-  - patron-de-diseno
-  - arquitectura
-  - auditoria
+  - pattern
+  - design-pattern
+  - architecture
+  - audit
   - event-store
   - python
   - javascript

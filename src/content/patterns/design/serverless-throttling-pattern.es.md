@@ -16,7 +16,7 @@ tags:
   - serverless
   - throttling
   - backpressure
-  - patron
+  - pattern
   - sqs
   - rate-limiting
   - concurrency

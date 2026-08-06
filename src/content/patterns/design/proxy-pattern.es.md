@@ -14,9 +14,9 @@ topics:
   - design
 tags:
   - proxy
-  - patron
-  - patron-de-diseno
-  - estructural
+  - pattern
+  - design-pattern
+  - structural
   - control-de-acceso
   - caching
   - python

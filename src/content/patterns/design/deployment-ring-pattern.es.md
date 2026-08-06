@@ -12,11 +12,11 @@ topics:
   - architecture
 tags:
   - deployment-ring
-  - patron
-  - patron-diseno
-  - rollout-progresivo
+  - pattern
+  - design-pattern
+  - progressive-rollout
   - estrategia-despliegue
-  - anillos
+  - rings
   - canary
 relatedResources:
   - /patterns/canary-release-pattern

@@ -13,12 +13,12 @@ topics:
   - performance
 tags:
   - shed-load
-  - patron
-  - patron-diseno
-  - resiliencia
+  - pattern
+  - design-pattern
+  - resilience
   - load-shedding
   - backpressure
-  - proteccion-sobrecarga
+  - overload-protection
 relatedResources:
   - /patterns/throttling-pattern
   - /patterns/circuit-breaker-pattern

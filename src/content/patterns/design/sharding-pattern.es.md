@@ -14,11 +14,11 @@ topics:
   - architecture
   - databases
 tags:
-  - sharding
-  - patron
-  - patron-de-diseno
+  - database-sharding
+  - pattern
+  - design-pattern
   - bases-de-datos
-  - crecimiento
+  - growth
   - particionamiento
   - escala-horizontal
 relatedResources:

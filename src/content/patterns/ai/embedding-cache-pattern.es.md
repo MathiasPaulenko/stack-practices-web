@@ -14,12 +14,12 @@ topics:
   - caching
 tags:
   - embedding-cache
-  - patron
-  - patron-ai
-  - optimizacion-costos
+  - pattern
+  - ai-pattern
+  - cost-optimization
   - embeddings
   - caching
-  - busqueda-vectorial
+  - vector-search
 relatedResources:
   - /patterns/rag-hybrid-search-pattern
   - /recipes/python-openai-embeddings-cosine

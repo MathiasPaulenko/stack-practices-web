@@ -16,8 +16,8 @@ topics:
   - infrastructure
 tags:
   - serverless-db-pooling
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - connection-pooling
   - pgbouncer
   - rds-proxy

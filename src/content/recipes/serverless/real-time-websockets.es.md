@@ -10,7 +10,7 @@ topics:
 tags:
   - serverless
   - websockets
-  - tiempo-real
+  - real-time
   - aws-lambda
   - functions
 relatedResources:

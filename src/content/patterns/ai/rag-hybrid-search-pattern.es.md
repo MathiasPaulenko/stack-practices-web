@@ -13,12 +13,12 @@ topics:
 tags:
   - rag
   - hybrid-search
-  - patron
-  - patron-ai
-  - recuperacion
+  - pattern
+  - ai-pattern
+  - recovery
   - embeddings
   - bm25
-  - busqueda-vectorial
+  - vector-search
 relatedResources:
   - /recipes/python-rag-chroma-local
   - /recipes/python-vector-database-pinecone

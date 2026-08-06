@@ -11,9 +11,9 @@ topics:
   - design
 tags:
   - flyweight
-  - patron
-  - patron-de-diseno
-  - estructural
+  - pattern
+  - design-pattern
+  - structural
   - optimizacion-de-memoria
   - caching
   - python

@@ -14,7 +14,7 @@ tags:
   - solid
   - diseno-orientado-a-objetos
   - principios
-  - arquitectura
+  - architecture
   - mantenibilidad
   - guia
 relatedResources:

@@ -10,7 +10,7 @@ difficulty: beginner
 topics:
   - devops
 tags:
-  - comunidad
+  - community
   - devops
   - gobernanza
   - open-source

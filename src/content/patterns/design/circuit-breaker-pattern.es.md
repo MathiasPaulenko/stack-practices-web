@@ -14,11 +14,11 @@ topics:
   - design
 tags:
   - circuit-breaker
-  - patron
-  - patron-arquitectural
-  - resiliencia
-  - microservicios
-  - tolerancia-a-fallos
+  - pattern
+  - architecture-pattern
+  - resilience
+  - microservices
+  - fault-tolerance
   - python
   - javascript
   - java

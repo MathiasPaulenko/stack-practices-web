@@ -14,7 +14,7 @@ topics:
   - infrastructure
   - performance
 tags:
-  - optimizacion-costos
+  - cost-optimization
   - costos-cloud
   - finops
   - dimensionamiento

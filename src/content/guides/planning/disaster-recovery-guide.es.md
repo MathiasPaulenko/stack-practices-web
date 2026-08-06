@@ -21,7 +21,7 @@ tags:
   - failover
   - multi-region
   - runbook
-  - resiliencia
+  - resilience
   - guia
 relatedResources:
   - /guides/sre-practices-guide

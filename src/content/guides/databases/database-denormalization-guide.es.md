@@ -14,9 +14,9 @@ topics:
   - performance
 tags:
   - desnormalizacion
-  - diseno-base-datos
-  - rendimiento-lectura
-  - redundancia-datos
+  - database-design
+  - read-performance
+  - data-redundancy
   - vistas-materializadas
   - tablas-contadores
   - guia

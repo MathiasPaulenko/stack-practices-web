@@ -13,9 +13,9 @@ topics:
   - design
 tags:
   - template-method
-  - patron
-  - patron-de-diseno
-  - comportamiento
+  - pattern
+  - design-pattern
+  - behavioral
   - algoritmo
   - herencia
   - python

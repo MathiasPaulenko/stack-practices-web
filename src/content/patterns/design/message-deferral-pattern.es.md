@@ -12,8 +12,8 @@ topics:
   - architecture
 tags:
   - message-deferral
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - delayed-delivery
   - scheduling
   - retry

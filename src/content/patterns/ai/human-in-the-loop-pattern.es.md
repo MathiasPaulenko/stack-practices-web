@@ -11,12 +11,12 @@ topics:
   - ai
 tags:
   - human-in-the-loop
-  - patron
-  - patron-ai
-  - aprobacion-agente
-  - revision-humana
-  - seguridad
-  - gating-decisiones
+  - pattern
+  - ai-pattern
+  - agent-approval
+  - human-review
+  - security
+  - decision-gating
 relatedResources:
   - /patterns/llm-guardrails-pattern
   - /patterns/agent-tool-selection-pattern

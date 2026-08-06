@@ -14,10 +14,10 @@ topics:
   - design
 tags:
   - saga
-  - patron
-  - patron-de-diseno
-  - microservicios
-  - transacciones-distribuidas
+  - pattern
+  - design-pattern
+  - microservices
+  - distributed-transactions
   - compensacion
   - python
   - javascript

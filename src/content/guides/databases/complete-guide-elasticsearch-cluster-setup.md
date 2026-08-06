@@ -19,7 +19,7 @@ tags:
   - elasticsearch
   - search
   - cluster
-  - sharding
+  - database-sharding
   - opensearch
   - guide
   - database

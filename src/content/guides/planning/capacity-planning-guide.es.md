@@ -16,7 +16,7 @@ topics:
 tags:
   - planificacion-capacidad
   - escalado
-  - pruebas-carga
+  - load-testing
   - auto-escalado
   - pronostico
   - infraestructura

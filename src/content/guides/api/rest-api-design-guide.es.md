@@ -16,7 +16,6 @@ topics:
 tags:
   - api
   - architecture
-  - arquitectura
   - diseno
   - http
   - mejores-practicas

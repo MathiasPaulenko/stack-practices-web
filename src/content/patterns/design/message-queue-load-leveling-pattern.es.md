@@ -15,8 +15,8 @@ topics:
   - architecture
 tags:
   - load-leveling
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - message-queue
   - traffic-smoothing
   - async-processing

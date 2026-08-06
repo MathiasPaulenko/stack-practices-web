@@ -12,9 +12,9 @@ topics:
   - design
 tags:
   - state
-  - patron
-  - patron-de-diseno
-  - comportamiento
+  - pattern
+  - design-pattern
+  - behavioral
   - maquina-de-estados
   - fsm
   - python

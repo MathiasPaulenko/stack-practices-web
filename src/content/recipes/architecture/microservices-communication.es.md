@@ -10,10 +10,9 @@ difficulty: advanced
 topics:
   - architecture
 tags:
-  - microservicios
+  - microservices
   - comunicacion
-  - sistemas-distribuidos
-  - arquitectura
+  - distributed-systems
   - architecture
 relatedResources:
   - /guides/microservices-architecture-guide

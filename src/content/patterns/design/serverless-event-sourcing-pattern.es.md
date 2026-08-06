@@ -13,7 +13,7 @@ topics:
 tags:
   - serverless
   - event-sourcing
-  - patron
+  - pattern
   - eventbridge
   - dynamodb
   - audit-log

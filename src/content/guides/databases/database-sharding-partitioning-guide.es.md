@@ -12,12 +12,12 @@ topics:
   - databases
 tags:
   - database
-  - escalabilidad
+  - scalability
   - escalado-horizontal
   - guia
   - particionamiento
   - rendimiento-base-de-datos
-  - sharding
+  - database-sharding
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /guides/nosql-database-selection-guide

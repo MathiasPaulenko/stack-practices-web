@@ -13,9 +13,9 @@ topics:
   - design
 tags:
   - iterator
-  - patron
-  - patron-de-diseno
-  - comportamiento
+  - pattern
+  - design-pattern
+  - behavioral
   - recorrido
   - coleccion
   - python

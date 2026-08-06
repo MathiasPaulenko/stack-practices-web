@@ -11,9 +11,9 @@ topics:
   - design
 tags:
   - timeout
-  - patron
-  - patron-de-diseno
-  - resiliencia
+  - pattern
+  - design-pattern
+  - resilience
   - deadlines
   - operaciones-colgadas
   - python

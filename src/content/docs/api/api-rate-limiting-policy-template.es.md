@@ -21,7 +21,7 @@ tags:
   - throttling
   - politica
   - plantilla
-  - rendimiento
+  - performance
 relatedResources:
   - /docs/api-performance-budget-template
   - /docs/escalation-policy-template

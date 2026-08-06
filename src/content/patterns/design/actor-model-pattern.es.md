@@ -13,8 +13,8 @@ topics:
   - architecture
 tags:
   - actor-model
-  - patron
-  - patron-diseno
+  - pattern
+  - design-pattern
   - message-passing
   - concurrency
   - isolation

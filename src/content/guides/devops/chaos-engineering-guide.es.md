@@ -15,7 +15,7 @@ topics:
   - infrastructure
 tags:
   - chaos-engineering
-  - resiliencia
+  - resilience
   - litmus
   - gremlin
   - chaos-mesh
