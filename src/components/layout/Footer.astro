@@ -52,7 +52,7 @@ const year = new Date().getFullYear();
         <ul class="mt-3 space-y-2">
           {FOOTER_NAV.content.map((item) => (
             <li>
-              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{item.label}</a>
+              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{locale === 'es' ? item.labelEs : item.label}</a>
             </li>
           ))}
         </ul>
@@ -63,7 +63,7 @@ const year = new Date().getFullYear();
         <ul class="mt-3 space-y-2">
           {FOOTER_NAV.site.map((item) => (
             <li>
-              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{item.label}</a>
+              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{locale === 'es' ? item.labelEs : item.label}</a>
             </li>
           ))}
         </ul>
@@ -74,7 +74,7 @@ const year = new Date().getFullYear();
         <ul class="mt-3 space-y-2">
           {FOOTER_NAV.legal.map((item) => (
             <li>
-              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{item.label}</a>
+              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{locale === 'es' ? item.labelEs : item.label}</a>
             </li>
           ))}
         </ul>
