@@ -15,7 +15,7 @@ tags:
   - architecture
   - behavioral
   - creational
-  - design-patterns
+  - design-pattern
   - factory
   - observer
   - singleton

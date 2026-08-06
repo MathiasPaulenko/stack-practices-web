@@ -17,8 +17,8 @@ tags:
   - python
   - rag
   - chromadb
-  - sentence transformers
-  - local llm
+  - sentence-transformers
+  - local-llm
 relatedResources:
   - /recipes/python-vector-database-pinecone
   - /recipes/python-langchain-chains-composition

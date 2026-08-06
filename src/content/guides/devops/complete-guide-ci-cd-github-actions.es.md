@@ -20,7 +20,7 @@ tags:
   - ci-cd
   - continuous-integration
   - continuous-deployment
-  - pipelines
+  - pipeline
   - automation
   - guide
   - devops

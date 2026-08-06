@@ -15,7 +15,6 @@ tags:
   - guide
   - scalability
   - sharding
-  - databases
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /guides/nosql-database-selection-guide

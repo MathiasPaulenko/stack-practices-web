@@ -33,7 +33,23 @@ const TAG_MERGE_MAP = {
   'correlation-id': ['correlation-ids'],
   dashboard: ['dashboards'],
   'test-case': ['test-cases'],
+  comunicacion: ['comunicación'],
+  documentacion: ['documentación'],
+  'socket-io': ['socket.io'],
+  'n-plus-one': ['n+1'],
 };
+
+function normalizeTag(tag) {
+  return tag
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[.]/g, '-')
+    .replace(/\s+/g, '-')
+    .replace(/-{2,}/g, '-')
+    .replace(/^-|-$/g, '');
+}
 
 const variantToCanonical = new Map();
 for (const [canonical, variants] of Object.entries(TAG_MERGE_MAP)) {
@@ -56,15 +72,16 @@ function findFiles(dir, files = []) {
 
 function normalizeTags(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  const match = content.match(/^(---\n[\s\S]*?\n---)/);
+  const eol = content.includes('\r\n') ? '\r\n' : '\n';
+  const match = content.match(/^(---\r?\n[\s\S]*?\r?\n---)/);
   if (!match) return { changed: false, content };
 
   const frontmatter = match[1];
-  const tagsMatch = frontmatter.match(/tags:\n([\s\S]*?)(?=\n[a-zA-Z]|\n---)/);
+  const tagsMatch = frontmatter.match(/tags:\r?\n([\s\S]*?)(?=\r?\n[a-zA-Z]|\r?\n---)/);
   if (!tagsMatch) return { changed: false, content };
 
   const tagsBlock = tagsMatch[0];
-  const lines = tagsBlock.split('\n');
+  const lines = tagsBlock.split(/\r?\n/);
   const header = lines[0]; // "tags:"
   const tagLines = lines.slice(1);
 
@@ -75,7 +92,10 @@ function normalizeTags(filePath) {
   const seen = new Set();
   const newTags = [];
   for (const tag of originalTags) {
-    const canonical = variantToCanonical.get(tag) || tag;
+    let canonical = variantToCanonical.get(tag) || tag;
+    canonical = normalizeTag(canonical);
+    // If a canonical merge target has its own variant, prefer the mapped canonical.
+    canonical = variantToCanonical.get(canonical) || canonical;
     if (!seen.has(canonical)) {
       seen.add(canonical);
       newTags.push(canonical);
@@ -84,7 +104,9 @@ function normalizeTags(filePath) {
 
   if (newTags.length !== originalTags.length || newTags.some((t, i) => t !== originalTags[i])) {
     const newTagsBlock = [header, ...newTags.map((t) => `  - ${t}`)].join('\n');
-    const newFrontmatter = frontmatter.replace(tagsBlock, newTagsBlock);
+    // Restore CRLF if the file uses it.
+    const newTagsBlockEol = eol === '\r\n' ? newTagsBlock.replace(/\n/g, '\r\n') : newTagsBlock;
+    const newFrontmatter = frontmatter.replace(tagsBlock, newTagsBlockEol);
     const newContent = content.replace(frontmatter, newFrontmatter);
     return { changed: true, content: newContent, originalTags, newTags };
   }

@@ -17,7 +17,7 @@ topics:
 tags:
   - python
   - jwt
-  - refresh token
+  - refresh-token
   - authentication
   - security
 relatedResources:

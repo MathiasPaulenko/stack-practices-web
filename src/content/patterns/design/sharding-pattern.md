@@ -17,7 +17,7 @@ tags:
   - sharding
   - pattern
   - design-pattern
-  - databases
+  - database
   - growth
   - partitioning
   - horizontal-scaling

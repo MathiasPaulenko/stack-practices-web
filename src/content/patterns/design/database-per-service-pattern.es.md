@@ -20,7 +20,7 @@ tags:
   - pattern
   - design-pattern
   - microservices
-  - databases
+  - database
   - isolation
   - data-ownership
 relatedResources:

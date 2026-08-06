@@ -11,7 +11,7 @@ difficulty: beginner
 topics:
   - databases
 tags:
-  - databases
+  - database
   - postgresql
   - python
   - javascript

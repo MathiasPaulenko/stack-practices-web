@@ -14,10 +14,10 @@ topics:
   - concurrency
 tags:
   - redis
-  - distributed lock
+  - distributed-lock
   - redlock
   - concurrency
-  - mutual exclusion
+  - mutual-exclusion
 relatedResources:
   - /recipes/redis-cache-aside-pattern
   - /recipes/redis-rate-limiting-token-bucket

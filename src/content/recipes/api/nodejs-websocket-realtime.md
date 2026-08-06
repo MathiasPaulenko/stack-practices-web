@@ -14,8 +14,8 @@ topics:
   - api
 tags:
   - nodejs
-  - websocket
-  - socket.io
+  - websockets
+  - socket-io
   - realtime
   - express
   - communication

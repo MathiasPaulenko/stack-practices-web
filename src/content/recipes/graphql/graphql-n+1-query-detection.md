@@ -15,7 +15,7 @@ topics:
   - performance
 tags:
   - graphql
-  - n+1
+  - n-plus-one
   - performance
   - dataloader
   - debugging

@@ -14,7 +14,7 @@ topics:
 tags:
   - nodejs
   - helmet
-  - security headers
+  - security-headers
   - express
   - owasp
 relatedResources:

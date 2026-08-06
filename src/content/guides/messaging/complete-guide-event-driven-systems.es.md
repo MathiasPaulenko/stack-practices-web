@@ -20,7 +20,7 @@ tags:
   - guia
   - event-sourcing
   - cqrs
-  - sagas
+  - saga
   - outbox-pattern
   - eventual-consistency
 relatedResources:

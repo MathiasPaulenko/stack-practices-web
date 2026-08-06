@@ -16,7 +16,7 @@ tags:
   - materialized-view
   - pattern
   - design-pattern
-  - databases
+  - database
   - caching
   - performance
   - query-optimization

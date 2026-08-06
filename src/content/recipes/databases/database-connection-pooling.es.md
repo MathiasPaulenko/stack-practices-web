@@ -13,7 +13,7 @@ topics:
   - databases
 tags:
   - connection-pooling
-  - databases
+  - database
   - postgresql
   - performance
   - mysql

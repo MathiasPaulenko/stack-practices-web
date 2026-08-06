@@ -22,7 +22,7 @@ tags:
   - sharding
   - opensearch
   - guide
-  - databases
+  - database
   - infrastructure
 relatedResources:
   - /guides/database-denormalization-guide

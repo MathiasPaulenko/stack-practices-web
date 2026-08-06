@@ -13,7 +13,7 @@ difficulty: beginner
 topics:
   - databases
 tags:
-  - databases
+  - database
   - seeding
   - testing
   - postgresql

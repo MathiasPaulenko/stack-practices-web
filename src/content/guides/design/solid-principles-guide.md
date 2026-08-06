@@ -15,7 +15,7 @@ tags:
   - guide
   - maintainability
   - solid
-  - design-patterns
+  - design-pattern
 relatedResources:
   - /guides/clean-code-principles-guide
   - /guides/design-patterns-guide

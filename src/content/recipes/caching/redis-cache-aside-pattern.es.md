@@ -17,7 +17,7 @@ topics:
 tags:
   - redis
   - cache-aside
-  - caching pattern
+  - caching-pattern
   - performance
   - database
 relatedResources:

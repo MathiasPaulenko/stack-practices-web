@@ -13,7 +13,7 @@ topics:
   - api
 tags:
   - api
-  - documentación
+  - documentacion
   - template
   - rest
   - openapi

@@ -12,7 +12,6 @@ topics:
 tags:
   - database
   - concurrency
-  - databases
   - sql
   - postgresql
 relatedResources:

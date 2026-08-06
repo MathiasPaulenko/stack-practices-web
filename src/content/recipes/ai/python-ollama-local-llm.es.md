@@ -14,8 +14,8 @@ topics:
 tags:
   - python
   - ollama
-  - local llm
-  - open source
+  - local-llm
+  - open-source
   - inference
 relatedResources:
   - /recipes/python-llm-streaming-responses

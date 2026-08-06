@@ -11,7 +11,7 @@ topics:
   - architecture
 tags:
   - microservicios
-  - comunicación
+  - comunicacion
   - sistemas-distribuidos
   - arquitectura
   - architecture

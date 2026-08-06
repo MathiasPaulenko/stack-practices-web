@@ -12,7 +12,6 @@ topics:
 tags:
   - database
   - audit
-  - databases
   - sql
   - postgresql
 relatedResources:

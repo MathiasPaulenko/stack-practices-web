@@ -15,8 +15,8 @@ topics:
   - infrastructure
 tags:
   - python
-  - hashicorp vault
-  - secrets management
+  - hashicorp-vault
+  - secrets-management
   - hvac
   - security
 relatedResources:

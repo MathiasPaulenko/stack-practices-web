@@ -16,7 +16,7 @@ tags:
   - python
   - fastapi
   - redis
-  - rate limiting
+  - rate-limiting
   - middleware
 relatedResources:
   - /recipes/python-jwt-refresh-token-rotation

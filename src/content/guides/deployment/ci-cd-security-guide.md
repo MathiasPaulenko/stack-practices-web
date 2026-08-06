@@ -16,7 +16,7 @@ topics:
 tags:
   - ci-cd
   - security
-  - pipelines
+  - pipeline
   - secrets-management
   - supply-chain
   - dependency-scanning

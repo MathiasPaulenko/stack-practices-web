@@ -10,7 +10,7 @@ difficulty: intermediate
 topics:
   - databases
 tags:
-  - databases
+  - database
   - orm
   - crud
   - python

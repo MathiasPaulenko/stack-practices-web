@@ -18,7 +18,7 @@ tags:
   - design-pattern
   - structural
   - transactions
-  - databases
+  - database
   - orm
 relatedResources:
   - /patterns/data-mapper-pattern

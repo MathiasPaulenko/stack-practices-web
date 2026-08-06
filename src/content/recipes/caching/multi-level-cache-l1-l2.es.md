@@ -14,9 +14,9 @@ topics:
   - performance
 tags:
   - caching
-  - multi-level cache
+  - multi-level-cache
   - redis
-  - in-memory cache
+  - in-memory-cache
   - performance
 relatedResources:
   - /recipes/nodejs-in-memory-cache-lru

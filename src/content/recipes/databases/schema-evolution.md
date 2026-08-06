@@ -11,7 +11,7 @@ topics:
   - databases
 tags:
   - schema-evolution
-  - databases
+  - database
   - devops
   - migrations
   - sql

@@ -22,7 +22,6 @@ tags:
   - coroutines
   - event-loop
   - guide
-  - concurrency
 relatedResources:
   - /guides/complete-guide-kafka-stream-processing
   - /guides/performance-optimization-guide

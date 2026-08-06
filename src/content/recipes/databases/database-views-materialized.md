@@ -10,7 +10,6 @@ topics:
   - databases
 tags:
   - database
-  - databases
   - sql
   - postgresql
   - mysql

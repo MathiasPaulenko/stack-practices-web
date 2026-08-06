@@ -16,8 +16,8 @@ tags:
   - python
   - openai
   - embeddings
-  - cosine similarity
-  - semantic search
+  - cosine-similarity
+  - semantic-search
 relatedResources:
   - /recipes/python-vector-database-pinecone
   - /recipes/python-rag-chroma-local

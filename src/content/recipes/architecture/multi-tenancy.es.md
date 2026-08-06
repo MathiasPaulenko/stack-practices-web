@@ -12,9 +12,9 @@ topics:
 tags:
   - multi-tenancy
   - architecture
-  - databases
+  - database
   - design
-  - patterns
+  - pattern
 relatedResources:
   - /docs/adr-template
   - /docs/database-schema-documentation-template

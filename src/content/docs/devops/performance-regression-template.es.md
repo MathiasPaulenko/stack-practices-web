@@ -14,7 +14,7 @@ tags:
   - devops
   - performance
   - regression
-  - benchmark
+  - benchmarks
   - operations
   - template
 relatedResources:

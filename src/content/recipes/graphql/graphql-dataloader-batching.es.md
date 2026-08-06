@@ -17,7 +17,7 @@ topics:
 tags:
   - graphql
   - dataloader
-  - n+1
+  - n-plus-one
   - batching
   - performance
 relatedResources:

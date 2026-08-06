@@ -13,7 +13,7 @@ topics:
   - performance
 tags:
   - cdn
-  - cache invalidation
+  - cache-invalidation
   - cloudflare
   - fastly
   - performance

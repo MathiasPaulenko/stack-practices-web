@@ -13,7 +13,7 @@ tags:
   - architecture
   - distributed-systems
   - design
-  - patterns
+  - pattern
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/system-design-interview-guide

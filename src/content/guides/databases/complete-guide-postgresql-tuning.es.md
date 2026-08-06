@@ -22,7 +22,7 @@ tags:
   - partitioning
   - connection-pooling
   - guide
-  - databases
+  - database
 relatedResources:
   - /guides/database-denormalization-guide
   - /guides/sql-cte-guide

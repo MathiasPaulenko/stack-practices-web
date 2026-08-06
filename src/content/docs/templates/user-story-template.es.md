@@ -13,8 +13,8 @@ tags:
   - product-management
   - template
   - user-story
-  - design-patterns
-  - patterns
+  - design-pattern
+  - pattern
 relatedResources:
   - /docs/feature-request-template
   - /guides/clean-code-principles-guide

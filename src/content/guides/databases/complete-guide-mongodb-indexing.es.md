@@ -15,7 +15,7 @@ topics:
   - performance
 tags:
   - mongodb
-  - databases
+  - database
   - guia
   - indexing
   - nosql

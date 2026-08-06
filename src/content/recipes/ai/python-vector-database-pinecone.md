@@ -15,9 +15,9 @@ topics:
 tags:
   - python
   - pinecone
-  - vector database
+  - vector-database
   - embeddings
-  - semantic search
+  - semantic-search
 relatedResources:
   - /recipes/python-openai-embeddings-cosine
   - /recipes/python-rag-chroma-local

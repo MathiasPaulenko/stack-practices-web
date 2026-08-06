@@ -14,9 +14,9 @@ topics:
   - api
 tags:
   - graphql
-  - error handling
+  - error-handling
   - extensions
-  - api design
+  - api-design
   - debugging
 relatedResources:
   - /recipes/graphql-input-validation

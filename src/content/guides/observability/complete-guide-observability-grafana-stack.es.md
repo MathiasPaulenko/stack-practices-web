@@ -24,7 +24,6 @@ tags:
   - monitoring
   - tracing
   - guide
-  - observability
 relatedResources:
   - /guides/distributed-tracing-guide
   - /guides/complete-guide-ci-cd-github-actions

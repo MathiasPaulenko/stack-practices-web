@@ -21,8 +21,8 @@ tags:
   - api-design
   - guia
   - types
-  - mutations
-  - connections
+  - mutation
+  - connection
   - deprecation
 relatedResources:
   - /guides/complete-guide-graphql-federation

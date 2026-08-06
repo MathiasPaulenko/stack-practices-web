@@ -20,7 +20,7 @@ tags:
   - guia
   - streaming
   - partitions
-  - consumer-groups
+  - consumer-group
   - replication
   - monitoring
 relatedResources:

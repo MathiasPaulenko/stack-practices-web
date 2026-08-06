@@ -17,7 +17,7 @@ tags:
   - design-pattern
   - structural
   - caching
-  - databases
+  - database
   - orm
 relatedResources:
   - /patterns/data-mapper-pattern

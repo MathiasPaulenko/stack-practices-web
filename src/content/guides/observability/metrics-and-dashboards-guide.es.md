@@ -15,7 +15,7 @@ topics:
   - performance
 tags:
   - metrics
-  - dashboards
+  - dashboard
   - prometheus
   - grafana
   - datadog

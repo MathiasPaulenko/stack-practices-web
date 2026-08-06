@@ -16,8 +16,8 @@ topics:
 tags:
   - python
   - openai
-  - function calling
-  - structured output
+  - function-calling
+  - structured-output
   - pydantic
 relatedResources:
   - /recipes/python-langchain-chains-composition

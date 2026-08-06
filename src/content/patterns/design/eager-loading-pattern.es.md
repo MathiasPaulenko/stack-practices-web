@@ -17,7 +17,7 @@ tags:
   - design-pattern
   - structural
   - performance
-  - databases
+  - database
   - n-plus-one
 relatedResources:
   - /patterns/data-mapper-pattern

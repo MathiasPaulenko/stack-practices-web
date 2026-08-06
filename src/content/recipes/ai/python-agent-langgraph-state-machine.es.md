@@ -17,7 +17,7 @@ tags:
   - python
   - langgraph
   - agents
-  - state machine
+  - state-machine
   - langchain
 relatedResources:
   - /recipes/python-langchain-chains-composition

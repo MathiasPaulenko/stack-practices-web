@@ -14,10 +14,10 @@ topics:
   - performance
 tags:
   - redis
-  - sorted sets
+  - sorted-sets
   - leaderboard
   - real-time
-  - data structures
+  - data-structures
 relatedResources:
   - /recipes/redis-cache-aside-pattern
   - /recipes/redis-pubsub-messaging

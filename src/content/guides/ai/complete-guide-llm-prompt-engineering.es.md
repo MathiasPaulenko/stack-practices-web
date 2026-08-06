@@ -19,7 +19,6 @@ tags:
   - chain-of-thought
   - few-shot
   - guide
-  - ai
 relatedResources:
   - /guides/complete-guide-python-asyncio
   - /guides/complete-guide-api-versioning-strategies

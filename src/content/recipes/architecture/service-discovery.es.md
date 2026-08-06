@@ -14,7 +14,7 @@ tags:
   - architecture
   - microservices
   - design
-  - patterns
+  - pattern
 relatedResources:
   - /guides/microservices-architecture-guide
   - /guides/monolith-to-microservices-migration-guide

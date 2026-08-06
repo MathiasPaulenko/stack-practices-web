@@ -16,7 +16,7 @@ topics:
   - data
 tags:
   - sql
-  - databases
+  - database
   - guia
   - query-optimization
   - indexing

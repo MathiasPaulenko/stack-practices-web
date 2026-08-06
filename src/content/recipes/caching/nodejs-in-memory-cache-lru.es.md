@@ -14,8 +14,8 @@ topics:
   - performance
 tags:
   - nodejs
-  - lru cache
-  - in-memory cache
+  - lru-cache
+  - in-memory-cache
   - caching
   - performance
 relatedResources:

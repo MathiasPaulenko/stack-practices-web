@@ -15,8 +15,8 @@ topics:
   - security
 tags:
   - redis
-  - rate limiting
-  - token bucket
+  - rate-limiting
+  - token-bucket
   - api
   - security
 relatedResources:

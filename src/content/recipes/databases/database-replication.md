@@ -11,7 +11,7 @@ topics:
   - databases
 tags:
   - database-replication
-  - databases
+  - database
   - performance
   - sql
   - postgresql

@@ -20,7 +20,7 @@ tags:
   - structural
   - orm
   - persistence
-  - databases
+  - database
 relatedResources:
   - /patterns/active-record-pattern
   - /patterns/data-access-object-pattern

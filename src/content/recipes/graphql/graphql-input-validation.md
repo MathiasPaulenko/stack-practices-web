@@ -17,7 +17,7 @@ tags:
   - graphql
   - validation
   - zod
-  - input sanitization
+  - input-sanitization
   - security
 relatedResources:
   - /recipes/graphql-custom-scalar-types

@@ -16,7 +16,7 @@ topics:
 tags:
   - python
   - sqlalchemy
-  - sql injection
+  - sql-injection
   - security
   - database
 relatedResources:

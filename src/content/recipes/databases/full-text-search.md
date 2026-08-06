@@ -12,7 +12,6 @@ topics:
 tags:
   - database
   - elasticsearch
-  - databases
   - sql
   - postgresql
 relatedResources:

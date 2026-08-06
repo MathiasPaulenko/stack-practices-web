@@ -15,7 +15,7 @@ tags:
   - docker
   - multi-stage-build
   - image-optimization
-  - container
+  - containers
   - dockerfile
   - devops
 relatedResources:

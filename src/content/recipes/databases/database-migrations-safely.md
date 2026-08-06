@@ -12,7 +12,6 @@ topics:
 tags:
   - database
   - schema
-  - databases
   - sql
   - postgresql
 relatedResources:
