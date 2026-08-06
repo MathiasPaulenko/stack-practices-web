@@ -628,4 +628,164 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  kubernetes: {
+    en: {
+      heading: 'Kubernetes and Container Orchestration',
+      paragraphs: [
+        'Kubernetes has become the standard platform for deploying, scaling, and operating containerized applications. Production use requires understanding pods, services, deployments, networking, storage, and the operator pattern.',
+        'The resources below cover manifests, Helm, scaling strategies, rolling updates, observability, security contexts, and resource limits. Each recipe focuses on making clusters reliable and teams productive.',
+      ],
+    },
+    es: {
+      heading: 'Kubernetes y Orquestacion de Contenedores',
+      paragraphs: [
+        'Kubernetes se ha convertido en la plataforma estandar para desplegar, escalar y operar aplicaciones contenerizadas. El uso en produccion requiere comprender pods, servicios, deployments, redes, almacenamiento y el patron operator.',
+        'Los recursos a continuacion cubren manifests, Helm, estrategias de escalado, rolling updates, observabilidad, contextos de seguridad y limites de recursos. Cada receta se enfoca en hacer clusters confiables y equipos productivos.',
+      ],
+    },
+  },
+  kafka: {
+    en: {
+      heading: 'Apache Kafka for Event Streaming',
+      paragraphs: [
+        'Apache Kafka is a distributed event streaming platform used for building real-time data pipelines and event-driven applications. It excels at high throughput, fault tolerance, and decoupling producers from consumers.',
+        'The recipes below cover producers, consumers, topics, partitions, consumer groups, schemas, exactly-once semantics, and operational concerns. Each guide helps you build streaming systems that are observable and resilient.',
+      ],
+    },
+    es: {
+      heading: 'Apache Kafka para Event Streaming',
+      paragraphs: [
+        'Apache Kafka es una plataforma de event streaming distribuida usada para construir pipelines de datos en tiempo real y aplicaciones orientadas a eventos. Destaca por alto throughput, tolerancia a fallas y desacoplamiento entre productores y consumidores.',
+        'Las recetas a continuacion cubren productores, consumidores, topics, particiones, consumer groups, schemas, exactly-once semantics y preocupaciones operativas. Cada guia te ayuda a construir sistemas de streaming observables y resilientes.',
+      ],
+    },
+  },
+  messaging: {
+    en: {
+      heading: 'Messaging and Queues',
+      paragraphs: [
+        'Messaging decouples services in time and space, enabling asynchronous workflows and resilient communication. Choosing between queues, pub/sub, and event streams depends on ordering, delivery, and durability requirements.',
+        'The resources in this collection cover RabbitMQ, Kafka, SQS, NATS, message patterns, idempotency, dead-letter queues, and delivery semantics. Each recipe shows how to design messaging that survives failures and retries.',
+      ],
+    },
+    es: {
+      heading: 'Mensajeria y Colas',
+      paragraphs: [
+        'La mensajeria desacopla servicios en tiempo y espacio, permitiendo workflows asincronos y comunicacion resiliente. Elegir entre colas, pub/sub y event streams depende de los requisitos de orden, entrega y durabilidad.',
+        'Los recursos de esta coleccion cubren RabbitMQ, Kafka, SQS, NATS, patrones de mensajeria, idempotencia, dead-letter queues y semanticas de entrega. Cada receta muestra como disenar mensajeria que sobreviva a fallas y reintentos.',
+      ],
+    },
+  },
+  bash: {
+    en: {
+      heading: 'Bash Scripting for Operations',
+      paragraphs: [
+        'Bash remains the universal glue for automating servers, containers, and developer workflows. Solid bash scripts handle errors, quote variables, validate inputs, and fail predictably.',
+        'The recipes below cover file processing, loops, conditionals, text manipulation, command substitution, traps, and portable scripting. Each example is focused on automation you can run in CI/CD and production environments.',
+      ],
+    },
+    es: {
+      heading: 'Scripting en Bash para Operaciones',
+      paragraphs: [
+        'Bash sigue siendo el pegamento universal para automatizar servidores, contenedores y flujos de desarrollo. Scripts solidos de Bash manejan errores, entrecomillan variables, validan inputs y fallan de forma predecible.',
+        'Las recetas a continuacion cubren procesamiento de archivos, loops, condicionales, manipulacion de texto, command substitution, traps y scripting portable. Cada ejemplo se enfoca en automatizacion que puedes ejecutar en CI/CD y entornos de produccion.',
+      ],
+    },
+  },
+  react: {
+    en: {
+      heading: 'React for Modern Frontend',
+      paragraphs: [
+        'React popularized component-based UI development with a declarative, function-first model. Production React requires careful state management, rendering optimization, hooks discipline, and testing.',
+        'The resources below cover hooks, context, state libraries, performance patterns, server components, forms, routing, and testing. Each recipe is built around patterns that keep React applications fast and maintainable.',
+      ],
+    },
+    es: {
+      heading: 'React para Frontend Moderno',
+      paragraphs: [
+        'React popularizo el desarrollo de UI basado en componentes con un modelo declarativo y orientado a funciones. React de produccion requiere gestion cuidadosa de estado, optimizacion de renderizado, disciplina con hooks y testing.',
+        'Los recursos a continuacion cubren hooks, context, librerias de estado, patrones de rendimiento, server components, formularios, routing y testing. Cada receta se construye en torno a patrones que mantienen las aplicaciones React rapidas y mantenibles.',
+      ],
+    },
+  },
+  encryption: {
+    en: {
+      heading: 'Encryption and Cryptography',
+      paragraphs: [
+        'Encryption protects data at rest and in transit. Applying it correctly means choosing the right algorithms, managing keys, avoiding deprecated ciphers, and understanding when encryption does not provide authentication.',
+        'The recipes below cover TLS, AES, RSA, hashing, HMAC, secrets management, and secure defaults. Each guide explains how to use cryptography as a defensive layer without introducing subtle vulnerabilities.',
+      ],
+    },
+    es: {
+      heading: 'Cifrado y Criptografia',
+      paragraphs: [
+        'El cifrado protege datos en reposo y en transito. Aplicarlo correctamente significa elegir los algoritmos adecuados, gestionar claves, evitar cifras obsoletas y entender cuando el cifrado no provee autenticacion.',
+        'Las recetas a continuacion cubren TLS, AES, RSA, hashing, HMAC, gestion de secretos y defaults seguros. Cada guia explica como usar criptografia como capa defensiva sin introducir vulnerabilidades sutiles.',
+      ],
+    },
+  },
+  resilience: {
+    en: {
+      heading: 'Resilience Patterns',
+      paragraphs: [
+        'Resilience is the ability of a system to recover from failures and continue operating. It is built from retries, circuit breakers, bulkheads, fallbacks, and graceful degradation rather than a single technique.',
+        'The patterns and recipes below cover circuit breakers, timeouts, retries with backoff, bulkheads, load shedding, and failover. Each resource shows how to limit blast radius and protect users from cascading failures.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Resiliencia',
+      paragraphs: [
+        'La resiliencia es la capacidad de un sistema de recuperarse de fallas y seguir operando. Se construye con reintentos, circuit breakers, bulkheads, fallbacks y degradacion gradual en lugar de una tecnica unica.',
+        'Los patrones y recetas a continuacion cubren circuit breakers, timeouts, reintentos con backoff, bulkheads, load shedding y failover. Cada recurso muestra como limitar el radio de explosion y proteger a los usuarios de fallas en cascada.',
+      ],
+    },
+  },
+  json: {
+    en: {
+      heading: 'Working with JSON',
+      paragraphs: [
+        'JSON is the de facto interchange format for web APIs and configuration. Working with JSON safely means validating schemas, handling large documents, escaping special characters, and choosing the right parsing strategy.',
+        'The resources below cover parsing, serialization, schema validation, JSONPath, streaming, and manipulation across languages. Each recipe helps you transform JSON reliably without losing data or corrupting structure.',
+      ],
+    },
+    es: {
+      heading: 'Trabajando con JSON',
+      paragraphs: [
+        'JSON es el formato de intercambio de facto para APIs web y configuracion. Trabajar con JSON de forma segura significa validar esquemas, manejar documentos grandes, escapar caracteres especiales y elegir la estrategia de parseo correcta.',
+        'Los recursos a continuacion cubren parseo, serializacion, validacion de esquemas, JSONPath, streaming y manipulacion en varios lenguajes. Cada receta te ayuda a transformar JSON de forma confiable sin perder datos ni corromper la estructura.',
+      ],
+    },
+  },
+  'rate-limiting': {
+    en: {
+      heading: 'Rate Limiting and Throttling',
+      paragraphs: [
+        'Rate limiting protects services from abuse, bursts, and cascading overload. The right strategy depends on the client, the resource, and the desired user experience during high traffic.',
+        'The recipes below cover token bucket, sliding window, fixed window, distributed rate limiting with Redis, and client-friendly headers. Each guide explains how to enforce limits without breaking legitimate traffic.',
+      ],
+    },
+    es: {
+      heading: 'Rate Limiting y Throttling',
+      paragraphs: [
+        'El rate limiting protege los servicios contra abuso, rafagas y sobrecarga en cascada. La estrategia correcta depende del cliente, el recurso y la experiencia de usuario deseada durante trafico alto.',
+        'Las recetas a continuacion cubren token bucket, sliding window, fixed window, rate limiting distribuido con Redis y headers amigables para el cliente. Cada guia explica como aplicar limites sin romper el trafico legitimo.',
+      ],
+    },
+  },
+  'event-driven': {
+    en: {
+      heading: 'Event-Driven Architecture',
+      paragraphs: [
+        'Event-driven architecture decouples components by having them react to events instead of calling each other directly. This improves scalability and resilience, but requires careful design around ordering, idempotency, and schema evolution.',
+        'The resources below cover event sourcing, CQRS, stream processing, sagas, choreography, and orchestration. Each pattern explains how to build systems that respond to change without creating hidden dependencies.',
+      ],
+    },
+    es: {
+      heading: 'Arquitectura Orientada a Eventos',
+      paragraphs: [
+        'La arquitectura orientada a eventos desacopla componentes haciendo que reaccionen a eventos en lugar de llamarse directamente. Esto mejora la escalabilidad y resiliencia, pero requiere un diseno cuidadoso de orden, idempotencia y evolucion de esquemas.',
+        'Los recursos a continuacion cubren event sourcing, CQRS, procesamiento de streams, sagas, coreografia y orquestacion. Cada patron explica como construir sistemas que responden al cambio sin crear dependencias ocultas.',
+      ],
+    },
+  },
 };
