@@ -14,12 +14,10 @@ topics:
   - infrastructure
   - architecture
 tags:
-  - multi-cloud
-  - hybrid-cloud
+  - cloud
   - vendor-lock-in
-  - cloud-portability
   - workload-placement
-  - data-gravity
+  - data
   - guide
 relatedResources:
   - /guides/aws-basics-guide

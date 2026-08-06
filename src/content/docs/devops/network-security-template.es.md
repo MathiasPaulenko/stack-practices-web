@@ -11,7 +11,7 @@ topics:
   - devops
 tags:
   - devops
-  - network-security
+  - security
   - vpc
   - firewall
   - dns

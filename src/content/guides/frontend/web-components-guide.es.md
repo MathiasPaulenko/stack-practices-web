@@ -16,7 +16,7 @@ tags:
   - web-components
   - custom-elements
   - shadow-dom
-  - html-templates
+  - html
   - framework-agnostic
   - reusable-components
   - guide

@@ -17,7 +17,7 @@ topics:
   - infrastructure
 tags:
   - network-segmentation
-  - security-policy
+  - security
   - zero-trust
   - firewall
   - compliance

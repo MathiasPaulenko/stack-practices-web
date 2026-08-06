@@ -13,8 +13,8 @@ topics:
 tags:
   - python
   - ragas
-  - rag-evaluation
-  - llm-metrics
+  - evaluation
+  - metrics
   - testing
 relatedResources:
   - /recipes/python-rag-chroma-local

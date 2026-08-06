@@ -12,7 +12,7 @@ topics:
   - ai
 tags:
   - ai
-  - data-preparation
+  - data
   - checklist
   - rag
   - llm

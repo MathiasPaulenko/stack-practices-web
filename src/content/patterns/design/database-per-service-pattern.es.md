@@ -16,11 +16,10 @@ topics:
   - architecture
   - databases
 tags:
-  - database-per-service
+  - database
   - pattern
   - design-pattern
   - microservices
-  - database
   - isolation
   - data-ownership
 relatedResources:

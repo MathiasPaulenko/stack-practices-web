@@ -12,7 +12,7 @@ topics:
   - data
   - databases
 tags:
-  - data-lake
+  - data
   - data-warehouse
   - etl
   - elt

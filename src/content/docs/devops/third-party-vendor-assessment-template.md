@@ -14,7 +14,7 @@ topics:
   - devops
 tags:
   - vendor-assessment
-  - third-party-risk
+  - risk
   - security
   - compliance
   - due-diligence

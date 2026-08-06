@@ -15,10 +15,8 @@ tags:
   - react
   - frontend
   - guide
-  - react-19
   - server-components
   - actions
-  - react-compiler
   - use-hook
 relatedResources:
   - /guides/complete-guide-web-performance-core-web-vitals

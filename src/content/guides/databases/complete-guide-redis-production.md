@@ -16,7 +16,6 @@ tags:
   - database
   - guide
   - caching
-  - redis-cluster
   - sentinel
   - persistence
   - failover

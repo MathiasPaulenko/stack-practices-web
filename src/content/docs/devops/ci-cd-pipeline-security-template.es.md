@@ -13,9 +13,9 @@ topics:
   - security
   - devops
 tags:
-  - ci-cd-security
+  - security
   - supply-chain
-  - pipeline-hardening
+  - pipeline
   - secrets-management
   - devsecops
 relatedResources:

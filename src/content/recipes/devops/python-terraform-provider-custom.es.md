@@ -18,7 +18,6 @@ tags:
   - terraform
   - infrastructure-as-code
   - custom-provider
-  - terraform-plugin-framework
   - iac
 relatedResources:
   - /recipes/docker-network-isolation

@@ -16,8 +16,8 @@ tags:
   - k6
   - jmeter
   - locust
-  - performance-testing
-  - stress-testing
+  - performance
+  - testing
   - capacity-planning
 relatedResources:
   - /docs/performance-budget-template

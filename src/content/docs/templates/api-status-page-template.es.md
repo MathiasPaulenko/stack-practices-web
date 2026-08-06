@@ -19,7 +19,7 @@ tags:
   - status-page
   - template
   - uptime
-  - incident-communication
+  - incident
   - sla
   - transparency
   - devops

@@ -15,7 +15,7 @@ tags:
   - python
   - huggingface
   - transformers
-  - text-classification
+  - text
   - fine-tuning
 relatedResources:
   - /recipes/python-langchain-chains-composition

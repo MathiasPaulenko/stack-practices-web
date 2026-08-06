@@ -9,7 +9,7 @@ difficulty: intermediate
 topics:
   - observability
 tags:
-  - metrics-collection
+  - metrics
   - observability
   - prometheus
   - monitoring

@@ -20,7 +20,7 @@ tags:
   - pattern
   - dataloader
   - n-plus-1
-  - graphql-performance
+  - graphql
 relatedResources:
   - /patterns/graphql-dataloader-pattern
   - /guides/complete-guide-graphql-federation

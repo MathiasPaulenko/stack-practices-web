@@ -21,9 +21,7 @@ tags:
   - guide
   - unit-testing
   - integration-testing
-  - e2e-testing
-  - resolver-testing
-  - snapshot-testing
+  - snapshot
 relatedResources:
   - /guides/complete-guide-graphql-schema-design
   - /guides/complete-guide-graphql-security

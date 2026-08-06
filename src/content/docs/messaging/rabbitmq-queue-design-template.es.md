@@ -12,7 +12,7 @@ topics:
   - messaging
 tags:
   - rabbitmq
-  - queue-design
+  - queue
   - messaging
   - amqp
   - exchanges

@@ -13,7 +13,7 @@ topics:
   - testing
 tags:
   - penetration-test
-  - security-assessment
+  - security
   - scope
   - red-team
   - compliance

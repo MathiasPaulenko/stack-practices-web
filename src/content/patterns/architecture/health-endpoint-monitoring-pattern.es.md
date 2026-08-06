@@ -14,7 +14,7 @@ topics:
   - observability
   - infrastructure
 tags:
-  - health-endpoint-monitoring
+  - monitoring
   - pattern
   - observability
   - microservices

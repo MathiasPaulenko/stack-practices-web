@@ -14,7 +14,7 @@ topics:
 tags:
   - vector-database
   - embeddings
-  - similarity-search
+  - search
   - ann
   - pinecone
   - pgvector

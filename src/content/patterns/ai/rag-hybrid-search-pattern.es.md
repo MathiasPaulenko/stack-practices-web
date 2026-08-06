@@ -14,7 +14,7 @@ tags:
   - ai-pattern
   - bm25
   - embeddings
-  - hybrid-search
+  - search
   - pattern
   - rag
   - recovery

@@ -14,7 +14,7 @@ tags:
   - authentication
   - saml
   - sso
-  - identity-provider
+  - identity
   - security
   - xml-signature
   - recipe

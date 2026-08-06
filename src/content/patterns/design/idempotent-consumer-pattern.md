@@ -14,7 +14,7 @@ topics:
   - architecture
   - messaging
 tags:
-  - idempotent-consumer
+  - consumer
   - pattern
   - design-pattern
   - messaging

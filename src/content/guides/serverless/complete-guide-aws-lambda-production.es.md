@@ -17,7 +17,7 @@ tags:
   - serverless
   - guide
   - cold-start
-  - lambda-layers
+  - lambda
   - x-ray
   - security
   - deployment

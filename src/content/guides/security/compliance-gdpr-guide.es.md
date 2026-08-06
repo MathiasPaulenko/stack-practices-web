@@ -14,8 +14,7 @@ tags:
   - gdpr
   - compliance
   - privacy
-  - data-protection
-  - privacy-by-design
+  - data
   - guide
 relatedResources:
   - /guides/compliance-soc2-guide

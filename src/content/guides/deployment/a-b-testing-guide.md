@@ -12,7 +12,7 @@ topics:
   - performance
   - data
 tags:
-  - a-b-testing
+  - testing
   - experimentation
   - statistics
   - data-driven

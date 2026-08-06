@@ -15,12 +15,12 @@ topics:
   - databases
   - infrastructure
 tags:
-  - serverless-db-pooling
+  - serverless
   - pattern
   - design-pattern
   - connection-pooling
   - pgbouncer
-  - rds-proxy
+  - proxy
   - lambda
 relatedResources:
   - /patterns/serverless-throttling-pattern

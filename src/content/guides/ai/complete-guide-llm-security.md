@@ -16,10 +16,10 @@ tags:
   - ai
   - guide
   - prompt-injection
-  - owasp-llm
+  - owasp
   - guardrails
   - red-teaming
-  - data-leakage
+  - data
 relatedResources:
   - /guides/complete-guide-llm-application-architecture
   - /guides/complete-guide-local-llm-deployment

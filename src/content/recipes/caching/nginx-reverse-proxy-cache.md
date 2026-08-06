@@ -15,7 +15,7 @@ topics:
   - infrastructure
 tags:
   - nginx
-  - reverse-proxy
+  - proxy
   - http-cache
   - caching
   - load-balancer

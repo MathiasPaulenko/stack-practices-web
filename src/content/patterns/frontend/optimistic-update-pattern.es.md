@@ -15,7 +15,6 @@ tags:
   - react
   - optimistic-ui
   - state-management
-  - react-query
   - pattern
 category: architectural
 relatedResources:

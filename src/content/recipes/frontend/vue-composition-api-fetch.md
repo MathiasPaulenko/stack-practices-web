@@ -14,7 +14,7 @@ tags:
   - frontend
   - vue
   - composition
-  - data-fetching
+  - data
   - composables
   - recipe
 relatedResources:

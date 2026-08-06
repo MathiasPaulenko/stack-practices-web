@@ -12,7 +12,7 @@ topics:
   - authentication
   - security
 tags:
-  - federated-identity
+  - identity
   - pattern
   - design-pattern
   - authentication

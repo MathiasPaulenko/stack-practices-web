@@ -14,8 +14,7 @@ tags:
   - testing
   - test-case
   - template
-  - manual-testing
-  - test-design
+  - design
   - traceability
 relatedResources:
   - /docs/test-strategy-document-template

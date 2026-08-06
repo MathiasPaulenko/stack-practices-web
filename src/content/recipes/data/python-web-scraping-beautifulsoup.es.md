@@ -17,7 +17,7 @@ tags:
   - python
   - beautifulsoup
   - web-scraping
-  - html-parsing
+  - html
   - requests
   - extraction
 relatedResources:

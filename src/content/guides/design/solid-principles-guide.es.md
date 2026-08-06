@@ -15,7 +15,7 @@ tags:
   - design-pattern
   - guide
   - maintainability
-  - object-oriented-design
+  - design
   - principles
   - solid
 relatedResources:

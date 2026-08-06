@@ -13,7 +13,7 @@ topics:
   - graphql
 tags:
   - graphql
-  - schema-review
+  - schema
   - checklist
   - api-design
   - performance

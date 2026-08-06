@@ -18,7 +18,7 @@ tags:
   - aws
   - lambda
   - cold-start
-  - provisioned-concurrency
+  - concurrency
   - performance
 relatedResources:
   - /recipes/aws-lambda-python-dependencies

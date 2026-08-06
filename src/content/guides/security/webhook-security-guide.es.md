@@ -15,7 +15,7 @@ tags:
   - webhook
   - security
   - api
-  - signature-verification
+  - verification
   - replay-attacks
   - encryption
   - guide

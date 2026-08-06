@@ -12,12 +12,11 @@ topics:
   - messaging
   - architecture
 tags:
-  - message-deduplication
+  - deduplication
   - pattern
   - design-pattern
   - idempotency
   - exactly-once
-  - deduplication
   - message-queue
 relatedResources:
   - /patterns/message-queue-load-leveling-pattern

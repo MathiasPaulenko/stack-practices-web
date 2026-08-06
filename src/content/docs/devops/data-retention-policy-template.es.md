@@ -16,7 +16,7 @@ topics:
   - security
   - infrastructure
 tags:
-  - data-retention
+  - data
   - compliance
   - gdpr
   - privacy

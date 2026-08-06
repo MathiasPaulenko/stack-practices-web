@@ -12,7 +12,7 @@ difficulty: advanced
 topics:
   - design
 tags:
-  - entity-component-system
+  - entity
   - pattern
   - design-pattern
   - structural

@@ -19,7 +19,7 @@ tags:
   - litmus
   - gremlin
   - chaos-mesh
-  - fault-injection
+  - injection
   - sre
   - guide
 relatedResources:

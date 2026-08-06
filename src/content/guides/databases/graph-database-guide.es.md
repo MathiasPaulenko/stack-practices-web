@@ -10,10 +10,10 @@ topics:
   - databases
   - data
 tags:
-  - connected-data
+  - data
   - cypher
   - datos-conectados
-  - graph-database
+  - database
   - guide
   - neo4j
   - property-graph

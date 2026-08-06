@@ -14,7 +14,7 @@ tags:
   - caching
   - cdn
   - cloudflare
-  - edge-computing
+  - edge
   - performance
 relatedResources:
   - /docs/cache-strategy-decision-template

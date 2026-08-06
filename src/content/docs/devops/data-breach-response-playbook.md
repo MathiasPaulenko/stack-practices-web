@@ -14,9 +14,9 @@ topics:
   - security
   - devops
 tags:
-  - data-breach
+  - data
   - incident-response
-  - security-playbook
+  - security
   - compliance
   - privacy
 relatedResources:

@@ -16,7 +16,7 @@ tags:
   - design-pattern
   - behavioral
   - undo
-  - state-snapshot
+  - state
   - python
   - javascript
   - java

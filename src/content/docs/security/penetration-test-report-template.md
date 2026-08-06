@@ -12,7 +12,7 @@ topics:
   - testing
 tags:
   - security
-  - penetration-testing
+  - testing
   - report
   - template
   - remediation

@@ -16,7 +16,7 @@ topics:
 tags:
   - error-extension
   - pattern
-  - graphql-errors
+  - graphql
   - error-handling
   - api-design
 relatedResources:

@@ -14,7 +14,7 @@ topics:
   - infrastructure
   - api
 tags:
-  - gateway-routing
+  - routing
   - pattern
   - api-gateway
   - architecture

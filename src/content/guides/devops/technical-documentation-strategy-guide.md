@@ -14,7 +14,7 @@ tags:
   - docs-as-code
   - documentation
   - guide
-  - knowledge-management
+  - management
   - markdown
   - technical-writing
 relatedResources:

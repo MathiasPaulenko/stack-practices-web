@@ -12,7 +12,7 @@ topics:
   - design
 tags:
   - design
-  - observer-pattern
+  - observer
   - design-pattern
   - pattern
   - oop

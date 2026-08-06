@@ -18,7 +18,7 @@ tags:
   - infrastructure-as-code
   - iac
   - modules
-  - remote-state
+  - state
   - workspaces
   - hashicorp
   - guide

@@ -14,7 +14,7 @@ tags:
   - ai-pattern
   - decision-gating
   - human-in-the-loop
-  - human-review
+  - review
   - pattern
   - safety
   - security

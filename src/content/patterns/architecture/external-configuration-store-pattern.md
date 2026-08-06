@@ -14,9 +14,8 @@ topics:
   - infrastructure
   - devops
 tags:
-  - external-configuration-store
-  - pattern
   - configuration
+  - pattern
   - architecture
   - devops
 relatedResources:

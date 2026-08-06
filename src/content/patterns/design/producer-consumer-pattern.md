@@ -14,7 +14,7 @@ topics:
   - concurrency
   - architecture
 tags:
-  - producer-consumer
+  - consumer
   - pattern
   - design-pattern
   - concurrency

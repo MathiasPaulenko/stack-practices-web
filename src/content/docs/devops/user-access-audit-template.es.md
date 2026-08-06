@@ -14,7 +14,7 @@ topics:
 tags:
   - access-audit
   - user-access-review
-  - identity-governance
+  - identity
   - rbac
   - compliance
 relatedResources:

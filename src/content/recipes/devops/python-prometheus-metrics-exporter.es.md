@@ -19,7 +19,6 @@ tags:
   - metrics
   - observability
   - monitoring
-  - prometheus-client
 relatedResources:
   - /recipes/docker-logging-fluentd
   - /recipes/docker-health-check-configuration

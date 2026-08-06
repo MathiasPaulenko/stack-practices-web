@@ -16,7 +16,7 @@ topics:
   - performance
 tags:
   - sre
-  - site-reliability-engineering
+  - reliability
   - slo
   - sli
   - sla

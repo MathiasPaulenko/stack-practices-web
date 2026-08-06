@@ -15,7 +15,7 @@ topics:
   - design
 tags:
   - serverless
-  - function-composition
+  - composition
   - pattern
   - aws
   - lambda

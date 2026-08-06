@@ -18,7 +18,6 @@ tags:
   - vitest
   - react
   - testing
-  - component-testing
   - hooks
   - integration
   - mocking

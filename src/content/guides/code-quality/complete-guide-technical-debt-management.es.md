@@ -17,7 +17,7 @@ tags:
   - prioritization
   - maintainability
   - best-practices
-  - project-management
+  - management
 relatedResources:
   - /guides/complete-guide-clean-code-principles
   - /guides/complete-guide-refactoring-techniques

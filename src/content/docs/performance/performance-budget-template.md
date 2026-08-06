@@ -13,7 +13,7 @@ topics:
   - performance
   - frontend
 tags:
-  - performance-budget
+  - performance
   - web-vitals
   - lighthouse
   - core-web-vitals

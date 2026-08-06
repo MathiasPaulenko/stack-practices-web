@@ -13,7 +13,7 @@ tags:
   - compliance
   - audit
   - trust-service-criteria
-  - security-controls
+  - security
   - guide
 relatedResources:
   - /guides/compliance-gdpr-guide

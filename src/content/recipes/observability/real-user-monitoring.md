@@ -10,11 +10,10 @@ difficulty: intermediate
 topics:
   - observability
 tags:
-  - real-user-monitoring
+  - monitoring
   - observability
   - performance
   - frontend
-  - monitoring
 relatedResources:
   - /recipes/grafana-dashboards-observability
   - /recipes/prometheus-monitoring-alerts

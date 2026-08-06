@@ -18,7 +18,7 @@ tags:
   - celery
   - python
   - redis
-  - task-queue
+  - queue
   - background-jobs
 relatedResources:
   - /recipes/rabbitmq-python-pika-consumer

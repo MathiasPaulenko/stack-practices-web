@@ -18,7 +18,7 @@ tags:
   - caching
   - guide
   - invalidation
-  - surrogate-keys
+  - keys
   - cloudflare
 relatedResources:
   - /guides/complete-guide-redis-caching-strategies

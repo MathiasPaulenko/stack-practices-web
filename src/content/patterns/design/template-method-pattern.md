@@ -12,7 +12,7 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - template-method
+  - template
   - pattern
   - design-pattern
   - behavioral

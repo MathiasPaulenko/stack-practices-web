@@ -10,9 +10,7 @@ topics:
   - architecture
   - data
 tags:
-  - data-mesh
-  - decentralized-data
-  - data-as-a-product
+  - data
   - self-serve-data
   - domain-oriented
   - data-ownership

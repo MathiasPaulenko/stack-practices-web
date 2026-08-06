@@ -12,7 +12,7 @@ topics:
   - design
   - databases
 tags:
-  - identity-map
+  - identity
   - pattern
   - design-pattern
   - structural

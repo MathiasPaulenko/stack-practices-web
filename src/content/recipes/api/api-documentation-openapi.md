@@ -11,7 +11,7 @@ topics:
   - api
 tags:
   - api
-  - api-documentation
+  - documentation
   - java
   - rest
   - http

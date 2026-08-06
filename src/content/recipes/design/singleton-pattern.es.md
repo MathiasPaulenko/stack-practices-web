@@ -11,7 +11,7 @@ topics:
   - design
 tags:
   - design
-  - singleton-pattern
+  - singleton
   - creational-patterns
   - design-pattern
   - pattern

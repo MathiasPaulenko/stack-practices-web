@@ -12,7 +12,7 @@ tags:
   - testing
   - golden-master
   - characterization-tests
-  - legacy-code
+  - legacy
   - refactoring
   - pattern
 category: architectural

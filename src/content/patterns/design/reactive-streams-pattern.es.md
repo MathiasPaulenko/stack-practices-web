@@ -13,7 +13,7 @@ topics:
   - concurrency
   - architecture
 tags:
-  - reactive-streams
+  - reactive
   - pattern
   - design-pattern
   - backpressure

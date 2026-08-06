@@ -17,7 +17,7 @@ tags:
   - pattern
   - design-pattern
   - microservices
-  - distributed-transactions
+  - distributed
   - compensation
   - python
   - javascript

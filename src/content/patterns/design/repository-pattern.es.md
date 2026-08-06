@@ -15,7 +15,7 @@ topics:
 tags:
   - architectural
   - architecture
-  - data-access
+  - data
   - design-pattern
   - java
   - javascript

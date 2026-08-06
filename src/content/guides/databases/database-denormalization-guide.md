@@ -15,12 +15,12 @@ topics:
 tags:
   - counter-tables
   - data-denormalization
-  - data-redundancy
+  - data
   - database-design
   - denormalization
   - guide
   - materialized-views
-  - read-performance
+  - performance
 relatedResources:
   - /guides/database-design-guide
   - /guides/database-normalization-guide

@@ -17,9 +17,9 @@ topics:
   - performance
 tags:
   - database-sharding
-  - horizontal-partitioning
+  - partitioning
   - scaling
-  - distributed-databases
+  - distributed
   - vitess
   - citus
   - guide

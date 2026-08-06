@@ -17,7 +17,7 @@ tags:
   - sorted-sets
   - leaderboard
   - real-time
-  - data-structures
+  - data
 relatedResources:
   - /recipes/redis-cache-aside-pattern
   - /recipes/redis-pubsub-messaging

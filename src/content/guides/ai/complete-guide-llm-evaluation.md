@@ -20,7 +20,7 @@ tags:
   - guide
   - ragas
   - hallucination
-  - ab-testing
+  - testing
   - quality
 relatedResources:
   - /guides/complete-guide-llm-application-architecture

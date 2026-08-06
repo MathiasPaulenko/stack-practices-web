@@ -18,7 +18,7 @@ tags:
   - pattern
   - design-pattern
   - streaming
-  - lazy-evaluation
+  - evaluation
   - backpressure
 relatedResources:
   - /patterns/reactive-streams-pattern

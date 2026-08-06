@@ -18,7 +18,7 @@ tags:
   - communication
   - template
   - outage
-  - stakeholder-management
+  - management
   - sre
 relatedResources:
   - /docs/incident-timeline-template

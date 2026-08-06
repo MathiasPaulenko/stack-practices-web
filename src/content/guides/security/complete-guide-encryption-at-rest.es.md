@@ -16,7 +16,6 @@ tags:
   - encryption
   - aes-256
   - kms
-  - envelope-encryption
   - key-rotation
   - security
   - cryptography

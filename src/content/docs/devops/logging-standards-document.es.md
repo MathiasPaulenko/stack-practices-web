@@ -14,7 +14,7 @@ topics:
 tags:
   - logging
   - observability
-  - structured-logs
+  - logs
   - monitoring
   - standards
 relatedResources:

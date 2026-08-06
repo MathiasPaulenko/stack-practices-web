@@ -14,11 +14,10 @@ topics:
   - architecture
   - api
 tags:
-  - schema-stitching
+  - schema
   - pattern
-  - graphql-federation
+  - graphql
   - api-gateway
-  - schema-merging
 relatedResources:
   - /patterns/federated-identity-pattern
   - /patterns/graphql-batched-resolver-pattern

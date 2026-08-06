@@ -13,7 +13,7 @@ topics:
   - ai
   - caching
 tags:
-  - embedding-cache
+  - cache
   - pattern
   - ai-pattern
   - cost-optimization

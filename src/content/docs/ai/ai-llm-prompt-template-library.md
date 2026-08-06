@@ -19,7 +19,6 @@ tags:
   - llm
   - prompt-engineering
   - template
-  - prompt-template
   - gpt
   - claude
 relatedResources:

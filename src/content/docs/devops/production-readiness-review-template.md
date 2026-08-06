@@ -12,7 +12,7 @@ topics:
   - devops
   - infrastructure
 tags:
-  - production-readiness
+  - production
   - checklist
   - deployment
   - monitoring

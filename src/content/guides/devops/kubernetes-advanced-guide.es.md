@@ -19,7 +19,7 @@ tags:
   - crd
   - admission-controller
   - multi-cluster
-  - security-hardening
+  - security
   - helm
   - guide
 relatedResources:

@@ -15,7 +15,7 @@ topics:
 tags:
   - postmortem
   - blameless
-  - incident-analysis
+  - incident
   - root-cause
   - continuous-improvement
   - guide

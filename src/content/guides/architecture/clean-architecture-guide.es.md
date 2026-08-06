@@ -17,7 +17,7 @@ tags:
   - dependency-rule
   - layered-architecture
   - testability
-  - solid-principles
+  - solid
   - domain-driven-design
   - guide
 relatedResources:

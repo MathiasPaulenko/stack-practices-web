@@ -19,7 +19,7 @@ tags:
   - graphql
   - guide
   - guidelines
-  - http-status-codes
+  - http
   - rest
 relatedResources:
   - /docs/microservice-contract-template

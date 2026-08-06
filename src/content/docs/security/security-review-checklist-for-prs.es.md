@@ -11,10 +11,9 @@ difficulty: intermediate
 topics:
   - security
 tags:
-  - security-review
+  - security
   - code-review
   - pull-request
-  - security
   - sast
   - code-quality
 relatedResources:

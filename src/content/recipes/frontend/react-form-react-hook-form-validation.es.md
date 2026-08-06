@@ -16,7 +16,6 @@ tags:
   - react
   - forms
   - validation
-  - react-hook-form
   - zod
   - recipe
 relatedResources:

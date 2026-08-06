@@ -17,7 +17,7 @@ topics:
 tags:
   - aws
   - api-gateway
-  - lambda-authorizer
+  - lambda
   - jwt
   - authentication
 relatedResources:

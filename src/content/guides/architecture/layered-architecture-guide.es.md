@@ -17,7 +17,7 @@ tags:
   - separation-of-concerns
   - presentation-layer
   - business-logic-layer
-  - data-access-layer
+  - data
   - guide
 relatedResources:
   - /guides/onion-architecture-guide

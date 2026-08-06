@@ -17,7 +17,7 @@ tags:
   - deployment-strategy
   - progressive-delivery
   - rollout
-  - risk-reduction
+  - risk
 relatedResources:
   - /patterns/blue-green-deployment-pattern
   - /patterns/deployment-ring-pattern

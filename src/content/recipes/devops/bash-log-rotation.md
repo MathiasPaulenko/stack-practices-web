@@ -12,7 +12,7 @@ topics:
   - devops
 tags:
   - bash
-  - log-rotation
+  - rotation
   - compression
   - logrotate
   - automation

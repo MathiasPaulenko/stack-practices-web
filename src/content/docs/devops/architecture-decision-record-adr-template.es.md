@@ -12,7 +12,7 @@ topics:
   - devops
 tags:
   - adr
-  - architecture-decision-record
+  - architecture
   - documentation
   - decision-making
   - technical-planning

@@ -16,7 +16,7 @@ topics:
 tags:
   - canary
   - deployment
-  - gradual-rollout
+  - rollout
   - traffic-splitting
   - rollback
   - feature-flags

@@ -14,7 +14,7 @@ topics:
   - architecture
   - design
 tags:
-  - onion-architecture
+  - architecture
   - dependency-inversion
   - domain-driven-design
   - clean-architecture

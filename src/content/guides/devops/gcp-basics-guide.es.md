@@ -13,12 +13,10 @@ topics:
   - data
 tags:
   - gcp
-  - google-cloud
+  - cloud
   - cloud-computing
   - compute-engine
   - storage
-  - cloud-sql
-  - cloud-run
   - bigquery
   - guide
 relatedResources:

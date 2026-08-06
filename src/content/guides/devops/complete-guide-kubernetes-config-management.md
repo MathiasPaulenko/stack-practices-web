@@ -17,7 +17,6 @@ tags:
   - kubernetes
   - configmap
   - secrets
-  - external-secrets
   - configuration
   - k8s
 relatedResources:

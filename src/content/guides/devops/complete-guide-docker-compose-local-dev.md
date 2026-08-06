@@ -16,7 +16,7 @@ tags:
   - guide
   - docker
   - docker-compose
-  - local-development
+  - development
   - containers
   - environments
 relatedResources:

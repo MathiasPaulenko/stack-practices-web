@@ -14,7 +14,6 @@ tags:
   - react
   - performance
   - virtualization
-  - react-window
   - recipe
 relatedResources:
   - /recipes/react-usememo-usecallback-performance

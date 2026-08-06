@@ -20,7 +20,7 @@ tags:
   - pattern
   - design-pattern
   - saas
-  - row-level-security
+  - security
   - tenant
   - python
   - javascript

@@ -14,7 +14,7 @@ topics:
 tags:
   - docker
   - multi-stage-build
-  - image-optimization
+  - optimization
   - containers
   - dockerfile
   - devops

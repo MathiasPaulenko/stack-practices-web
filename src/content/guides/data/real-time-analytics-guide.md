@@ -12,7 +12,7 @@ topics:
   - performance
   - architecture
 tags:
-  - real-time-analytics
+  - analytics
   - streaming
   - clickhouse
   - druid

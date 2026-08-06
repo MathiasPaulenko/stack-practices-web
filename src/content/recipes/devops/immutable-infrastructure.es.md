@@ -8,7 +8,7 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - immutable-infrastructure
+  - infrastructure
   - devops
   - docker
   - ci-cd

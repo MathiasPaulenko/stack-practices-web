@@ -14,7 +14,7 @@ tags:
   - javascript
   - infinite-scroll
   - pagination
-  - intersection-observer
+  - observer
   - lazy-loading
   - browser
 relatedResources:

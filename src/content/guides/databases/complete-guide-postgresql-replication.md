@@ -19,8 +19,7 @@ tags:
   - database
   - guide
   - replication
-  - streaming-replication
-  - logical-replication
+  - streaming
   - patroni
   - failover
 relatedResources:

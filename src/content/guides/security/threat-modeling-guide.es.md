@@ -15,8 +15,8 @@ tags:
   - threat-modeling
   - stride
   - attack-trees
-  - data-flow-diagrams
-  - security-design
+  - data
+  - security
   - risk-assessment
   - guide
 relatedResources:

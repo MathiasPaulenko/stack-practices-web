@@ -14,7 +14,7 @@ topics:
 tags:
   - secure-coding
   - input-validation
-  - memory-safety
+  - safety
   - authentication
   - defensive-programming
   - guide

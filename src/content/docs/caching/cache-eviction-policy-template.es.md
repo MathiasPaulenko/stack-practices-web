@@ -12,10 +12,10 @@ topics:
   - caching
 tags:
   - caching
-  - eviction-policy
+  - eviction
   - lru
   - redis
-  - memory-management
+  - management
   - configuration
 relatedResources:
   - /docs/cache-strategy-decision-template

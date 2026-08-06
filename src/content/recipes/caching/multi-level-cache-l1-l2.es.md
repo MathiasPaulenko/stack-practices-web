@@ -14,7 +14,7 @@ topics:
   - performance
 tags:
   - caching
-  - multi-level-cache
+  - cache
   - redis
   - in-memory-cache
   - performance

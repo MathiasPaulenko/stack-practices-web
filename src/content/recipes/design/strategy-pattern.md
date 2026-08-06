@@ -9,7 +9,7 @@ topics:
   - design
 tags:
   - design
-  - strategy-pattern
+  - strategy
   - behavioral-patterns
   - design-pattern
   - pattern

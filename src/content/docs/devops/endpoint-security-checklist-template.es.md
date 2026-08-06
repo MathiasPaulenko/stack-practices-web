@@ -11,7 +11,7 @@ topics:
   - security
   - infrastructure
 tags:
-  - endpoint-security
+  - security
   - hardening
   - mdm
   - edr

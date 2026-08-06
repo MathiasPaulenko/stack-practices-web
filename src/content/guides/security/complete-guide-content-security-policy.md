@@ -15,7 +15,6 @@ topics:
 tags:
   - guide
   - csp
-  - content-security-policy
   - security
   - headers
   - xss

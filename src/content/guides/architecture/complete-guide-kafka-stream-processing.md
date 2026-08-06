@@ -18,8 +18,6 @@ tags:
   - kafka
   - stream-processing
   - event-streaming
-  - kafka-streams
-  - kafka-connect
   - schema-registry
   - guide
   - messaging

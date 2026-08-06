@@ -16,13 +16,12 @@ topics:
   - performance
 tags:
   - postgresql
-  - database-tuning
+  - database
   - indexing
   - performance
   - partitioning
   - connection-pooling
   - guide
-  - database
 relatedResources:
   - /guides/database-denormalization-guide
   - /guides/sql-cte-guide

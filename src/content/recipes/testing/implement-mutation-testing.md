@@ -11,11 +11,10 @@ topics:
   - testing
 tags:
   - testing
-  - mutation-testing
   - stryker
   - pit
   - mutpy
-  - test-quality
+  - quality
   - recipe
 relatedResources:
   - /recipes/measure-test-coverage

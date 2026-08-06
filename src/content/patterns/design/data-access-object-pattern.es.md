@@ -11,7 +11,7 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - data-access-object
+  - data
   - pattern
   - design-pattern
   - structural

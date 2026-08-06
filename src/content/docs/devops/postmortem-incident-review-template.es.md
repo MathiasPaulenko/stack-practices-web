@@ -13,7 +13,7 @@ topics:
   - observability
 tags:
   - postmortem
-  - incident-review
+  - incident
   - root-cause
   - sre
   - reliability

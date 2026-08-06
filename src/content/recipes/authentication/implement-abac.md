@@ -14,7 +14,7 @@ tags:
   - authentication
   - abac
   - authorization
-  - policy-engine
+  - policy
   - security
   - fine-grained
   - recipe

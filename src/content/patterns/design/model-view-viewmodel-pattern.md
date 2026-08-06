@@ -15,7 +15,7 @@ tags:
   - structural
   - mvvm
   - ui
-  - data-binding
+  - data
   - reactive
 relatedResources:
   - /patterns/model-view-presenter-pattern

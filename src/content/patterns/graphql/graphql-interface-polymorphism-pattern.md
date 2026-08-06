@@ -16,7 +16,7 @@ topics:
 tags:
   - interface-polymorphism
   - pattern
-  - graphql-interfaces
+  - graphql
   - type-system
   - schema-design
 relatedResources:

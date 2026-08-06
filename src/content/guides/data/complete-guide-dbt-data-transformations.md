@@ -13,8 +13,8 @@ topics:
 tags:
   - guide
   - dbt
-  - data-transformations
-  - analytics-engineering
+  - data
+  - analytics
   - sql
   - jinja
   - data-engineering

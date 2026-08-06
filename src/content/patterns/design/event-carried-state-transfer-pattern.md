@@ -14,11 +14,10 @@ topics:
   - architecture
   - messaging
 tags:
-  - event-carried-state-transfer
+  - state
   - pattern
   - design-pattern
   - event-driven
-  - state-replication
   - kafka
   - microservices
 relatedResources:

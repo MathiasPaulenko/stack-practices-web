@@ -15,7 +15,7 @@ topics:
   - file-handling
 tags:
   - file-handling
-  - temp-files
+  - files
   - cleanup
   - python
   - nodejs

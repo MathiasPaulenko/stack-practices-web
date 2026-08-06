@@ -16,7 +16,7 @@ topics:
 tags:
   - blob-storage
   - s3
-  - google-cloud-storage
+  - cloud
   - azure
   - object-storage
   - guide

@@ -17,7 +17,7 @@ tags:
   - secrets
   - security
   - credentials
-  - env-files
+  - files
 relatedResources:
   - /recipes/docker-network-isolation
   - /recipes/docker-health-check-configuration

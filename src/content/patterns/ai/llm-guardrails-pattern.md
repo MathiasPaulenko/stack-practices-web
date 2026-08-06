@@ -12,7 +12,7 @@ topics:
   - ai
   - security
 tags:
-  - llm-guardrails
+  - guardrails
   - pattern
   - ai-pattern
   - llm-security

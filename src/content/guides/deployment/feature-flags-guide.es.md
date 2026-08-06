@@ -14,7 +14,7 @@ topics:
   - performance
 tags:
   - feature-flags
-  - progressive-release
+  - release
   - kill-switch
   - experimentation
   - toggles

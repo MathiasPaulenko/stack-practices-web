@@ -16,7 +16,6 @@ topics:
   - devops
   - infrastructure
 tags:
-  - supply-chain-security
   - security
   - guide
   - sbom

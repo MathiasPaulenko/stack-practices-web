@@ -14,7 +14,7 @@ topics:
   - design
   - databases
 tags:
-  - data-mapper
+  - data
   - pattern
   - design-pattern
   - structural

@@ -16,7 +16,7 @@ topics:
   - infrastructure
 tags:
   - aws
-  - step-functions
+  - functions
   - state-machine
   - workflow
   - orchestration

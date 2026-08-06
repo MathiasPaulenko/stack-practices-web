@@ -18,7 +18,6 @@ tags:
   - availability
   - consistency
   - database
-  - database-tradeoffs
   - distributed-systems
   - guide
   - partition-tolerance

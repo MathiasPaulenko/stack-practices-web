@@ -16,7 +16,7 @@ topics:
 tags:
   - zero-trust
   - micro-segmentation
-  - identity-verification
+  - identity
   - least-privilege
   - validation
   - guide

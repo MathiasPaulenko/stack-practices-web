@@ -20,7 +20,7 @@ tags:
   - guide
   - caching
   - token-management
-  - model-routing
+  - routing
   - budget
 relatedResources:
   - /guides/complete-guide-openai-api-mastery

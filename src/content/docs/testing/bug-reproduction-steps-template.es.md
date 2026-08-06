@@ -11,7 +11,7 @@ topics:
   - testing
 tags:
   - testing
-  - bug-report
+  - report
   - template
   - reproduction
   - qa

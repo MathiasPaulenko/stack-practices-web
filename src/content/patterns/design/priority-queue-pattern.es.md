@@ -16,13 +16,12 @@ topics:
   - architecture
   - concurrency
 tags:
-  - priority-queue
+  - queue
   - pattern
   - design-pattern
   - scheduling
   - concurrency
   - heap
-  - queue
 relatedResources:
   - /patterns/queue-based-load-leveling-pattern
   - /patterns/scheduler-agent-supervisor-pattern
