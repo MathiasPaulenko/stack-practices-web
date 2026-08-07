@@ -78,7 +78,7 @@ const jsonLd: Record<string, unknown>[] = [
 ];
 
 if (faqs.length > 0) {
-  jsonLd.push(faqPage(faqs.slice(0, 8)));
+  jsonLd.push(faqPage(faqs.slice(0, 3)));
 }
 
 const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {

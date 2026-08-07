@@ -111,10 +111,6 @@ export function techArticle(opts: {
       '@type': 'Person',
       name: SITE.author,
       url: 'https://mathiaspaulenko.com',
-      sameAs: [
-        'https://github.com/MathiasPaulenko',
-        'https://www.linkedin.com/in/mathias-paulenko-echeverz',
-      ],
     },
     publisher: {
       '@type': 'Organization',

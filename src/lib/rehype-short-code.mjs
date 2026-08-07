@@ -1,4 +1,4 @@
-const MAX_HIGHLIGHT_LINES = 50;
+const MAX_HIGHLIGHT_LINES = 30;
 
 function countLines(text) {
   // Astro/Shiki preserves a trailing newline; ignore it.
