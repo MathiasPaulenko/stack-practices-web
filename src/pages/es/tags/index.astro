@@ -3,7 +3,7 @@ import { buildTagIndex } from '../../../lib/content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { webPage, breadcrumbList } from '../../../lib/schema';
 
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 20;
 
 const tagIndex = await buildTagIndex('es');
 const sortedTags = Array.from(tagIndex.entries())

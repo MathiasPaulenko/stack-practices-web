@@ -13,15 +13,6 @@ export interface Props {
 
 const { title, description, href, difficulty, tags = [], locale = 'en', searchable = true, style } = Astro.props;
 
-const searchIndex = [title, description, difficulty, ...tags].filter(Boolean).join(' ').toLowerCase();
-const tagPrefix = locale === 'es' ? '/es' : '';
-
-const difficultyColor: Record<string, string> = {
-  beginner: 'bg-green-100 text-green-700',
-  intermediate: 'bg-amber-100 text-amber-700',
-  advanced: 'bg-red-100 text-red-700',
-};
-
 function smartTruncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
   const truncated = text.slice(0, maxLength);
@@ -29,7 +20,15 @@ function smartTruncate(text: string, maxLength: number): string {
   return (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + '...';
 }
 
-const displayDescription = smartTruncate(description, 140);
+const displayDescription = smartTruncate(description, 100);
+const searchIndex = [title, displayDescription, difficulty, ...tags].filter(Boolean).join(' ').toLowerCase();
+const tagPrefix = locale === 'es' ? '/es' : '';
+
+const difficultyColor: Record<string, string> = {
+  beginner: 'bg-green-100 text-green-700',
+  intermediate: 'bg-amber-100 text-amber-700',
+  advanced: 'bg-red-100 text-red-700',
+};
 ---
 
 <div

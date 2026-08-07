@@ -5,7 +5,7 @@ import ContentCard from '../../../components/ContentCard.astro';
 import { webPage, breadcrumbList } from '../../../lib/schema';
 import { tagIntros } from '../../../data/tag-intros';
 
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 20;
 
 export async function getStaticPaths() {
   const tagIndex = await buildTagIndex('es');
@@ -110,7 +110,7 @@ const hasMore = items.length > PAGE_SIZE;
   {hasMore && (
     <script is:inline define:vars={{ tag }}>
       (function () {
-        const PAGE_SIZE = 30;
+        const PAGE_SIZE = 20;
         const grid = document.getElementById('tag-grid');
         const loadMoreBtn = document.getElementById('load-more');
         if (!grid || !loadMoreBtn) return;

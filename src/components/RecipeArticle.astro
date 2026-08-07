@@ -77,7 +77,9 @@ const jsonLd: Record<string, unknown>[] = [
   ]),
 ];
 
-if (faqs.length > 0) {
+const lazyFaq = (contentType === 'recipes' || contentType === 'patterns') && faqs.length > 0;
+
+if (faqs.length > 0 && !lazyFaq) {
   jsonLd.push(faqPage(faqs.slice(0, 3)));
 }
 
@@ -386,4 +388,10 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
     })();
   </script>
   </div>
+
+  {lazyFaq && (
+    <script is:inline define:vars={{ path, locale }}>
+      (function(){var p=(locale==='es'?'/es':'')+path+'faq.json';fetch(p).then(function(r){return r.json();}).then(function(d){if(!d.faqSchema)return;var s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(d.faqSchema);document.head.appendChild(s);}).catch(function(){});})();
+    </script>
+  )}
 </BaseLayout>

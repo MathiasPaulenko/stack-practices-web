@@ -53,16 +53,26 @@ export function extractFaqs(markdown: string): { question: string; answer: strin
   return faqs;
 }
 
+function smartTruncate(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text;
+  const truncated = text.slice(0, maxLength);
+  const lastSpace = truncated.lastIndexOf(' ');
+  return (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + '...';
+}
+
 function clean(text: string): string {
-  return text
-    .replace(/\*\*/g, '')
-    .replace(/`/g, '')
-    // Escape raw HTML tags so they appear as plain text in JSON-LD answers
-    // and don't get picked up by downstream HTML audits.
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\s+/g, ' ')
-    .trim();
+  return smartTruncate(
+    text
+      .replace(/\*\*/g, '')
+      .replace(/`/g, '')
+      // Escape raw HTML tags so they appear as plain text in JSON-LD answers
+      // and don't get picked up by downstream HTML audits.
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\s+/g, ' ')
+      .trim(),
+    280
+  );
 }
 
 const resourceIndexCache = new Map<'en' | 'es', Map<string, { title: string; description: string; contentType: string; slug: string }>>();

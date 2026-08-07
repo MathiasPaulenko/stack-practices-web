@@ -76,11 +76,6 @@ export function webPage(opts: {
     description: opts.description,
     url: withSlash(`${SITE.url}${opts.url}`),
     inLanguage: opts.locale,
-    isPartOf: {
-      '@type': 'WebSite',
-      name: SITE.name,
-      url: SITE.url,
-    },
   };
 }
 

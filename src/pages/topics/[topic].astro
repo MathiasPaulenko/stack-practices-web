@@ -4,7 +4,7 @@ import ListingPage from '../../components/ListingPage.astro';
 import { isSpanish } from '../../lib/content';
 import { topicIntros } from '../../data/topic-intros';
 
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 20;
 
 export async function getStaticPaths() {
   const collections = await Promise.all([
