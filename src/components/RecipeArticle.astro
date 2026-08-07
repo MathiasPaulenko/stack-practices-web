@@ -104,92 +104,85 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
 
   <!-- Header section -->
-  <header class="border-b border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-4xl px-4 py-8 sm:px-6">
-      <nav aria-label="Breadcrumb" class="text-sm text-slate-500">
-        <a href={locale === 'es' ? '/es/' : '/'} class="font-medium text-brand-600 hover:text-brand-700 hover:underline">
+  <header class="recipe-header">
+    <div class="recipe-header__inner">
+      <nav aria-label="Breadcrumb" class="recipe-breadcrumb">
+        <a href={locale === 'es' ? '/es/' : '/'}>
           {locale === 'es' ? 'Inicio' : 'Home'}
         </a>
-        <span class="mx-2 text-slate-400">/</span>
-        <a href={listingHref} class="font-medium text-brand-600 hover:text-brand-700 hover:underline">{listingLabel}</a>
-        <span class="mx-2 text-slate-400">/</span>
-        <span class="font-medium text-slate-800">{title}</span>
+        <span class="recipe-breadcrumb__sep">/</span>
+        <a href={listingHref}>{listingLabel}</a>
+        <span class="recipe-breadcrumb__sep">/</span>
+        <span class="recipe-breadcrumb__current">{title}</span>
       </nav>
 
-      <div class="mt-5">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div class="flex flex-wrap items-center gap-3">
-            <span class="inline-flex items-center gap-1.5 rounded-full border border-green-200 bg-white px-2.5 py-0.5 text-xs font-medium capitalize text-green-700">
-              <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
-              {difficulty}
-            </span>
-            <span class="h-3 w-px bg-slate-300"></span>
-            <a
-              href={`${locale === 'es' ? '/es' : ''}/authors/`}
-              class="text-xs font-medium text-brand-600 hover:text-brand-700 hover:underline"
-            >
-              {locale === 'es' ? 'Por' : 'By'} {author}
-            </a>
-            <span class="h-3 w-px bg-slate-300"></span>
-            <time datetime={dateModified} class="text-xs font-medium text-slate-400">{dateLabel}</time>
-          </div>
-          <button
-            type="button"
-            onclick="window.print()"
-            class="hidden rounded-md border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-600 hover:border-brand-400 hover:text-brand-700 sm:inline-flex sm:items-center sm:gap-1"
-            aria-label={locale === 'es' ? 'Imprimir página' : 'Print page'}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-printer"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
-            <span>{locale === 'es' ? 'Imprimir' : 'Print'}</span>
-          </button>
+      <div class="recipe-meta">
+        <div class="recipe-meta__group">
+          <span class={`difficulty-badge difficulty-badge--${difficulty}`}>
+            <span class="recipe-meta__dot"></span>
+            {difficulty}
+          </span>
+          <a href={`${locale === 'es' ? '/es' : ''}/authors/`} class="recipe-meta__author">
+            {locale === 'es' ? 'Por' : 'By'} {author}
+          </a>
+          <time datetime={dateModified} class="recipe-meta__date">{dateLabel}</time>
         </div>
-
-        <h1 class="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{title}</h1>
-        <p class="mt-2 text-lg text-slate-600">{description}</p>
-
-        {
-          tags.length > 0 && (
-            <div class="mt-4 flex flex-wrap gap-2">
-              {tags.map((tag: string) => (
-                <a
-                  href={`${locale === 'es' ? '/es' : ''}/tags/${tag}/`}
-                  class="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-600 transition hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700"
-                >
-                  {tag}
-                </a>
-              ))}
-            </div>
-          )
-        }
-
-        {
-          topics.length > 0 && (
-            <div class="mt-3 flex flex-wrap items-center gap-2 text-xs">
-              <span class="font-medium text-slate-400">{locale === 'es' ? 'Temas' : 'Topics'}:</span>
-              {topics.map((topic: string) => (
-                <a
-                  href={`${locale === 'es' ? '/es' : ''}/topics/${topic}/`}
-                  class="font-medium text-brand-600 hover:text-brand-700 hover:underline"
-                >
-                  {topic.replace('-', ' ')}
-                </a>
-              ))}
-            </div>
-          )
-        }
+        <button
+          type="button"
+          onclick="window.print()"
+          class="recipe-meta__print"
+          aria-label={locale === 'es' ? 'Imprimir página' : 'Print page'}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-printer"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+          <span>{locale === 'es' ? 'Imprimir' : 'Print'}</span>
+        </button>
       </div>
+
+      <h1 class="recipe-title">{title}</h1>
+      <p class="recipe-description">{description}</p>
+
+      {
+        tags.length > 0 && (
+          <div class="recipe-tags">
+            {tags.map((tag: string) => (
+              <a
+                href={`${locale === 'es' ? '/es' : ''}/tags/${tag}/`}
+                class="recipe-tags__item"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        topics.length > 0 && (
+          <div class="recipe-topics">
+            <span class="recipe-topics__label">{locale === 'es' ? 'Temas' : 'Topics'}:</span>
+            {topics.map((topic: string) => (
+              <a
+                href={`${locale === 'es' ? '/es' : ''}/topics/${topic}/`}
+                class="recipe-topics__item"
+              >
+                {topic.replace('-', ' ')}
+              </a>
+            ))}
+          </div>
+        )
+      }
     </div>
   </header>
 
   <!-- Table of Contents -->
-  <nav id="toc-nav" class="bg-white pt-6" style="display:none">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6">
-      <details class="rounded-lg border border-slate-200 bg-white shadow-sm">
-        <summary class="flex cursor-pointer list-none items-center justify-between px-4 py-3 text-sm font-semibold text-slate-800 select-none">
+  <nav id="toc-nav" class="toc-nav" style="display:none">
+    <div class="toc-nav__inner">
+      <details class="toc-nav__details">
+        <summary class="toc-nav__summary">
           <span>{locale === 'es' ? 'Contenido' : 'Table of Contents'}</span>
           <svg class="h-4 w-4 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
         </summary>
-        <div id="toc-list" class="border-t border-slate-100 px-4 py-2 text-sm"></div>
+        <div id="toc-list" class="toc-nav__panel"></div>
       </details>
     </div>
   </nav>
@@ -199,7 +192,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
     locale === 'es' ? (
       <section class="bg-white">
         <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
-          <p class="rounded-lg border border-brand-200 bg-brand-50 px-4 py-3 text-sm text-brand-800">
+          <p class="locale-note locale-note--es">
             <strong>Nota para desarrolladores hispanohablantes:</strong> Esta guía incluye ejemplos y convenciones de nomenclatura adaptadas a equipos que trabajan en español. Cuando existen diferencias significativas en terminología técnica entre el inglés y el español, se indican explícitamente para facilitar la comunicación en equipos multiculturales.
           </p>
         </div>
@@ -207,7 +200,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
     ) : (
       <section class="bg-white">
         <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
-          <p class="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+          <p class="locale-note">
             <strong>Note:</strong> This guide follows English-language naming conventions and terminology standards common in international development teams. Examples use English identifiers and comments to maximize compatibility across codebases and tooling.
           </p>
         </div>
@@ -227,22 +220,47 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   <!-- Related resources -->
   {
     related.length > 0 && (
-      <section class="border-t border-slate-200 bg-white">
+      <section class="bg-slate-50">
         <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-          <RelatedResources items={related} heading={relatedLabel} />
+          <RelatedResources
+            title={relatedLabel}
+            items={related}
+            locale={locale}
+          />
         </div>
       </section>
     )
   }
 
-  <CodeTabs />
-
-
-  </div>
-
-  {lazyFaq && (
-    <script is:inline define:vars={{ path, locale }}>
-      (function(){var p=(locale==='es'?'/es':'')+path+'faq.json';fetch(p).then(function(r){return r.json();}).then(function(d){if(!d.faqSchema)return;var s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(d.faqSchema);document.head.appendChild(s);}).catch(function(){});})();
+  {lazyFaq && faqs.length > 0 && (
+    <script>
+      window.__pageFaqs = JSON.parse(document.getElementById('page-faqs-data')?.textContent || '[]');
     </script>
   )}
+
+  <script is:inline type="application/json" id="page-faqs-data">
+    {JSON.stringify(faqs)}
+  </script>
+
+  <!-- FAQ Section (visible, structured) -->
+  {
+    faqs.length > 0 && !lazyFaq && (
+      <section class="bg-white">
+        <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+          <h2 id="faq" class="text-2xl font-bold text-slate-900">
+            {locale === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions'}
+          </h2>
+          <dl class="mt-6 space-y-4">
+            {faqs.map((faq: { question: string; answer: string }) => (
+              <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+                <dt class="font-semibold text-slate-900">{faq.question}</dt>
+                <dd class="mt-2 text-slate-700">{faq.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    )
+  }
+  </div>
 </BaseLayout>
