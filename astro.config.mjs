@@ -19,7 +19,9 @@ export default defineConfig({
       wrap: false,
       transformers: [shikiShortCode()],
     },
-    remarkPlugins: [[remarkTruncateFaq, { maxFaqs: 5 }]],
+    remarkPlugins: [
+      remarkTruncateFaq,
+    ],
   },
   vite: {
     build: {
