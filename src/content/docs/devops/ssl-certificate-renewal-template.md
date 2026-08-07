@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: ssl-certificate-renewal-template
 title: "SSL Certificate Renewal Template"
@@ -341,3 +338,14 @@ certbot certonly \
 ### What is OCSP stapling and why does it matter?
 
 OCSP stapling allows the server to include a signed OCSP response from the CA in the TLS handshake, so the client does not need to contact the CA's OCSP responder separately. This improves performance and privacy. Enable it in your web server configuration and ensure the OCSP responder is reachable during renewal.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

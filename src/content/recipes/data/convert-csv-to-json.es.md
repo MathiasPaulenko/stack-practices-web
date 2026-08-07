@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: convert-csv-to-json
 title: "Convertir CSV a JSON"
@@ -332,3 +328,14 @@ Haz streaming de filas y escribe JSON incrementalmente. En Python, usa `ijson` p
 ### ¿Cómo manejo archivos CSV sin headers?
 
 Define un array de headers manualmente y haz zip con los valores de fila. Python: `dict(zip(headers, row))`. JavaScript: `Object.fromEntries(headers.map((h, i) => [h, row[i]]))`. Java: Provee un `CsvSchema` con nombres de columna explícitos vía `CsvSchema.builder().addColumn("name")...`.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

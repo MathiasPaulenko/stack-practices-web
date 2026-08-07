@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: retry-pattern
 title: "Retry Pattern"
@@ -43,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Retry Pattern is a resilience pattern that handles transient failures by retrying a failed operation. Transient failures are typically caused by temporary conditions such as network congestion, temporary service unavailability, or timeouts. The pattern uses configurable strategies — fixed delay, linear, or exponential backoff — to avoid overwhelming the target system.
@@ -328,3 +324,14 @@ Lessons:
 ### How do I combine retry with circuit breaker?
 
 The circuit breaker wraps the retry. If the circuit is closed, it executes the retry. If the circuit is open, it fails immediately without retrying. The circuit breaker counts failures per service, not per attempt. Retry handles transient failures; circuit breaker handles sustained failures. Configure circuit breaker with failureThreshold > maxRetries so it does not open from a single request with retries.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: sql-joins-guide
 title: "SQL Joins — Guía Visual con Ejemplos"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Los SQL joins combinan filas de dos o más tablas basándose en una columna relacionada. A pesar de ser una de las operaciones SQL más fundamentales, los joins son una fuente común de confusión y problemas de rendimiento. Esta guía provee explicaciones visuales, ejemplos prácticos y estrategias de optimización para cada tipo de join que encontrarás en producción.
@@ -325,3 +320,14 @@ CREATE INDEX idx_products_category ON products(category_id);
 ### Como evito el problema N+1 en ORMs?
 
 Usa eager loading. En Prisma: `include: { orderItems: true }`. En TypeORM: `relations: ['orderItems']`. En SQLAlchemy: `joinedload(Order.items)`. En Django ORM: `prefetch_related('items')`. El ORM genera un solo JOIN en lugar de N queries separadas. Monitorea con tools como Django Debug Toolbar o Prisma Query Logging.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

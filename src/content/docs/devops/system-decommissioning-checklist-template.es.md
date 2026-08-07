@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: system-decommissioning-checklist-template
 title: "Plantilla de Checklist de Desmantelamiento de Sistemas"
@@ -32,7 +30,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Los servicios antiguos nunca mueren en silencio. Persisten en registros DNS, confunden a nuevos ingenieros, cuestan dinero y ocasionalmente rompen cosas cuando alguien cambia un certificado o rota un secreto. El desmantelamiento es el proceso disciplinado de apagar un servicio: identificar cada dependencia, migrar cada usuario, eliminar cada recurso y documentar que fue removido. Bien hecho, reduce costos y complejidad. Mal hecho, causa interrupciones en sistemas que pensabas no estaban relacionados.
@@ -320,3 +317,14 @@ Si tienes los artefactos (codigo, configuracion, snapshot de datos) almacenados,
 - **Resource exhaustion alerts**: correlate CPU, memory, disk, and network metrics. Identify the top process and whether the load is expected.
 - **Backup restore does not work**: test restores regularly. A backup that cannot be restored is not a backup.
 - **Configuration drift**: compare running instances with the infrastructure-as-code definition. Recreate from the canonical definition when in doubt.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

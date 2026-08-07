@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: websockets-realtime
 title: "WebSockets para Comunicación en Tiempo Real"
@@ -302,3 +301,14 @@ Pasa el token de autenticación en el primer mensaje después de la conexión, n
 Implementa heartbeat/ping-pong cada 30 segundos para detectar conexiones muertas. Setea un idle timeout de 5 minutos para cerrar conexiones inactivas. Usa `ws.terminate()` en lugar de `ws.close()` para conexiones no responsivas. Monitorea el heap usage con `process.memoryUsage()` y alerta si supera el 80% del limite. Usa connection draining en shutdown para cerrar conexiones gracefully. Libera todos los event listeners con `ws.removeAllListeners()` antes de cerrar conexiones para prevenir callback accumulation.
 
 Para detectar leaks temprano, usa Chrome DevTools Memory profiler con `--inspect`. Toma heap snapshots antes y despues de ciclos de conexion/desconexion. Si el heap crece entre snapshots, hay un leak. Comunmente los leaks provienen de closures que capturan la conexion, intervals no limpiados, o Map/Set que acumulan referencias de conexiones cerradas.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: sql-window-functions-guide
 title: "Funciones de Ventana SQL — Referencia Detallada"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Las funciones de ventana en SQL calculan un valor sobre un conjunto de filas relacionadas con la fila actual — sin colapsar el resultado en grupos como `GROUP BY`. Desbloquean consultas analiticas potentes: totales acumulados, rankings, promedios moviles y comparaciones entre filas. Disponibles en PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.25+, son esenciales para quienes escriben SQL analitico.
@@ -313,3 +310,14 @@ Crea indices compuestos que coincidan con PARTITION BY + ORDER BY. Por ejemplo, 
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

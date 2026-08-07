@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: python-excel-read-write
 title: "Leer y Escribir Archivos Excel con Python"
@@ -319,3 +318,14 @@ Usa `xlrd` para leer y `xlwt` para escribir. pandas los soporta con `engine="xlr
 ### ¿Puedo crear gráficos en Excel con Python?
 
 Sí. `openpyxl.chart` soporta gráficos de barras, líneas y pie. `xlsxwriter` también soporta gráficos con una API similar.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

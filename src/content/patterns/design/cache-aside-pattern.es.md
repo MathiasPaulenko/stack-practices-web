@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: cache-aside-pattern
 title: "Patrón Cache-Aside"
@@ -52,7 +47,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 El Patrón Cache-Aside es una estrategia de caché donde la aplicación es responsable de cargar datos en el caché desde el almacenamiento principal bajo demanda. La aplicación verifica el caché primero; si los datos no están presentes (cache miss), los obtiene de la base de datos, pobla el caché y devuelve el resultado. Esto da a la aplicación control total sobre la lógica de caché, invalidación y consistencia.
@@ -335,3 +329,14 @@ Usa un lock distribuido (Redis SETNX): solo el primer request va a DB, los demas
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

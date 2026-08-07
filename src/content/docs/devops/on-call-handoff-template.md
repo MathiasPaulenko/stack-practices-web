@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: on-call-handoff-template
 title: "On-Call Handoff Template"
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Poor on-call handoffs are a leading cause of incident escalation. When context is lost between shifts, the incoming engineer wastes precious minutes re-discovering what the outgoing engineer already knew. This template standardizes the handoff process, ensuring critical information about active incidents, ongoing alerts, and system state is transferred completely and consistently.
@@ -315,3 +312,14 @@ Review handoff documents weekly in the team meeting — highlight good handoffs 
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

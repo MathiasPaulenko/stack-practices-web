@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: scheduled-jobs
 title: "Run Scheduled Jobs with Serverless Functions"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Scheduled tasks — backups, report generation, cache warming, data cleanup — have traditionally run on dedicated servers with cron. If the server restarts or the cron daemon fails, jobs stop running silently. Serverless scheduling replaces this with managed, event-triggered functions that run on time without servers to maintain.
@@ -306,3 +303,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### What are the limitations of scheduled serverless jobs?
 
 Scheduled jobs have some limitations. Minimum interval is typically 1 minute. Long-running jobs may hit timeout limits. Time zone handling requires careful configuration. Overlapping executions need idempotency. Document limitations for your team. Plan mitigation strategies. Test edge cases thoroughly. Monitor for known issues.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

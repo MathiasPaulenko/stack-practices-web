@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: dependency-audit-template
 templateType: guideline
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 Use this template to evaluate libraries before adding them or during periodic audits. See [Web Application Security Guide](/guides/security/web-application-security-guide) for broader security practices.
 
 ## Overview
@@ -324,3 +318,14 @@ MIT, Apache 2.0, and BSD licenses are generally safe for commercial use. Include
 ### How often should I run automated dependency scans?
 
 Run scans on every pull request via CI (e.g., Dependabot, Snyk). Schedule a full audit weekly. For critical projects, run daily scans. Review and triage findings weekly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

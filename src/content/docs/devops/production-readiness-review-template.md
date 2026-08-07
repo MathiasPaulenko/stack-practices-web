@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: production-readiness-review-template
 title: "Production Readiness Review Template"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Shipping to production is not the finish line. It is the starting line for operational responsibility. A production readiness review (PRR) is a structured checkpoint that verifies a service or feature is ready to run in production: it can be monitored, rolled back, secured, and operated by people other than the author. PRRs prevent the 3 AM surprises where no one knows how to restart a service, what "normal" looks like, or how to roll back a bad deployment.
@@ -319,3 +315,14 @@ The SRE or platform engineer is the technical reviewer of the PRR. Their role: v
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

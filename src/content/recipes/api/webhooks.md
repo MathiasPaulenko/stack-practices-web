@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: webhooks
 title: "Webhooks"
@@ -335,3 +333,14 @@ Not recommended. Webhooks are one-way push. For bidirectional, use [WebSockets](
 ### How do I test webhooks locally?
 
 Use a tunneling service like ngrok or Cloudflare Tunnel to expose your localhost to the internet. Alternatively, capture real payloads and replay them in unit tests. Some providers (Stripe CLI) offer built-in forwarding.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

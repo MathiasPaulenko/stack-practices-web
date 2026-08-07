@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: cryptography-basics-guide
 title: "Cryptography Basics — Encryption, Hashing, and Signing"
@@ -34,7 +33,6 @@ seo:
     - guide
 
 ---
-
 ## Overview
 
 Cryptography is the foundation of digital security. Whether you are storing passwords, transmitting data over TLS, or signing API requests, you are using cryptography. Understanding the primitives — encryption, hashing, and signing — and when to use each prevents a class of vulnerabilities that no framework can protect against. This guide walks through the essential concepts every developer needs without requiring a mathematics degree.
@@ -326,3 +324,14 @@ Lessons:
 ### When do I use symmetric vs asymmetric encryption?
 
 Use symmetric (AES) for encrypting data at rest and large volumes: it is fast and secure. Use asymmetric (RSA, ECC) for key exchange, digital signatures, and authentication: it does not require sharing a secret key. In practice, they are combined: asymmetric to exchange DEK, symmetric to encrypt data (envelope encryption).
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

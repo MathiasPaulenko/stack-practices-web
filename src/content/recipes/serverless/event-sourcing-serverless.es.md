@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: event-sourcing-serverless
 title: "Implementar Event Sourcing en Arquitecturas Serverless"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Los sistemas tradicionales almacenan el estado actual. Una orden está "enviada," y la fila de base de datos dice `status = shipped`. Si un usuario pregunta "¿cuándo cambió el estado a enviado?" la base de datos no tiene respuesta — el valor anterior fue sobrescrito. Si un analista pregunta "¿cuántas órdenes fueron canceladas y re-enviadas el mes pasado?" el sistema no puede responder sin agregar columnas de auditoría explícitas que rastreen cada cambio manualmente.
@@ -317,3 +313,14 @@ Las proyecciones son eventualmente consistentes por naturaleza — hay un lag en
 - **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

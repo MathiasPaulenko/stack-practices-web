@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: two-factor-authentication
 title: "Two-Factor Authentication (2FA / TOTP)"
@@ -331,3 +330,14 @@ Yes, by scanning the same QR code on multiple authenticator apps. For security, 
 ### What happens if a user loses their authenticator device?
 
 Provide backup codes during enrollment. If those are lost too, require identity verification (email + password reset with additional confirmation) before disabling 2FA. See [Magic Links](/recipes/authentication/magic-link-authentication) for secure email verification.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

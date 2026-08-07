@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: bug-report-template
 templateType: bug-report
@@ -49,7 +44,6 @@ seo:
 
 
 ---
-
 Use this template to report bugs in a way that helps engineers reproduce and fix them quickly.
 
 ## Overview
@@ -327,3 +321,14 @@ Mandatory: descriptive title, steps to reproduce, expected vs actual behavior, e
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

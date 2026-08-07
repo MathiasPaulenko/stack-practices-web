@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: thread-pool-pattern
 title: "Patrón Thread Pool"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Crear un thread es costoso. Cada thread asigna un stack (tipicamente 1MB), requiere setup a nivel kernel y anade overhead de scheduling. Cuando las tareas son cortas y frecuentes, crear un thread por tarea desperdicia recursos y puede agotar memoria bajo carga. El patron Thread Pool mantiene un conjunto fijo de threads trabajadores que toman tareas de una cola. Las tareas se envian al pool y las ejecuta el siguiente thread disponible.
@@ -342,3 +337,14 @@ Usa worker_threads para tareas CPU-intensivas (procesamiento de imagenes, crypto
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: python-sentiment-analysis-nltk
 title: "Sentiment Analysis with Python and NLTK"
@@ -328,3 +325,14 @@ VADER is free and runs locally. For transformer-based sentiment analysis, self-h
 - **You need sentiment intensity comparison**: VADER's compound score is not linear. A score of 0.5 is not "twice as positive" as 0.25. Use a regression model if you need calibrated intensity scores.
 - **Your domain uses heavy jargon**: VADER's lexicon is general-purpose. Medical, legal, or technical text may score incorrectly. Supplement with a domain-specific lexicon or switch to a fine-tuned model.
 - **You need real-time emotion detection**: VADER classifies as positive, negative, or neutral. If you need emotions (anger, joy, fear, surprise), use a multi-class emotion classifier like GoEmotions.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

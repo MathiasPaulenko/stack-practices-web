@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: observability-guide
 title: "Observability — Metrics, Logs, and Traces Complete Guide"
@@ -65,7 +60,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Observability is the ability to understand the internal state of a system by examining its outputs. Unlike monitoring, which asks "Is the system up?", observability asks "Why is the system behaving this way?". The three pillars — metrics, logs, and traces — provide complementary views. Metrics show what is happening over time, logs show what individual components are saying, and traces show how requests flow through distributed systems. Together they enable debugging unknown-unknowns: problems you did not anticipate and therefore did not instrument for.
@@ -339,3 +333,14 @@ The error budget is the failure allowance your SLO permits. If your SLO is 99.9%
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

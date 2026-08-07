@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: layered-architecture-guide
 title: "Layered Architecture — N-Tier Explained"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Layered Architecture (also called N-Tier) is the most common architectural pattern in enterprise applications. It divides the application into horizontal layers, each with a specific responsibility. The classic three-tier model separates Presentation, Business Logic, and Data Access. This separation makes the system easier to understand, test, and maintain — though it can also introduce unnecessary abstraction if over-applied.
@@ -317,3 +313,14 @@ Yes, but with different purposes. In the application layer, DI coordinates servi
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

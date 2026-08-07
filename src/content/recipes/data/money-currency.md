@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: money-currency
 title: "Money and Currency Handling"
@@ -330,3 +328,14 @@ Use `DECIMAL(19,4)` (or `NUMERIC` in PostgreSQL) to preserve 4 decimal places of
 ### What rounding mode should I use?
 
 `HALF_UP` (round 0.5 away from zero) is standard for most commercial applications. `HALF_EVEN` (banker's rounding) is used in some financial standards (IEEE 754, accounting). Always round consistently within your domain and document the mode for auditors.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

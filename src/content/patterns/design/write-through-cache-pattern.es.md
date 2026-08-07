@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: patterns
 slug: write-through-cache-pattern
 title: "Patron Write-Through Cache"
@@ -51,7 +45,6 @@ seo:
 
 
 ---
-
 ## Descripcion general
 
 En un write-through cache, cada operacion de escritura va tanto al cache como al backing store de forma sincrona. La aplicacion escribe en el cache, el cache escribe en la base de datos, y ambos tienen exito antes de que la operacion devuelva. Esto garantiza que el cache siempre refleje los datos mas recientes.
@@ -331,3 +324,14 @@ Si. Esta es la combinacion mas comun. Las lecturas van a traves del cache con un
 - **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
 - **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
 - **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

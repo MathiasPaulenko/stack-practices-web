@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: service-ownership-document-template
 title: "Plantilla de Documento de Ownership de Servicio"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Los microservicios se multiplican rapidamente. En una organizacion de ingenieria en crecimiento, es facil perder track de quien es dueno de que, como desplegar un servicio, o a quien llamar cuando falla a las 3 AM. Un documento de ownership de servicio es una pagina unica de verdad para cada servicio en produccion: que hace, quien es dueno, como operarlo, y donde encontrar todo lo demas. Convierte conocimiento tribal en documentacion referenciable y previene la crisis de "nadie sabe como esto funciona".
@@ -324,3 +318,14 @@ End of document. Review and update quarterly.
 - **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
 - **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
 - **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

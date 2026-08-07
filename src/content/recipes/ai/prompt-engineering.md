@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: prompt-engineering
 title: "Apply Prompt Engineering: What Works"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Large Language Models (LLMs) are general-purpose reasoning engines, but their output quality depends heavily on how you ask the question. Prompt engineering is the practice of structuring inputs to guide the model toward accurate, relevant, and well-formatted responses. Small changes in phrasing can mean the difference between a vague paragraph and a precise JSON object.
@@ -318,3 +314,14 @@ A: Yes. For code generation, include the programming language, framework version
 - **Use structured output formats**: request JSON, XML, or YAML output instead of free text when you need to parse the response programmatically. This reduces parsing failures and enables validation.
 - **Set timeout and retry policies**: API calls can hang or fail. Set a timeout (e.g., 30 seconds) and retry with exponential backoff. Fall back to a cached or default response after max retries.
 - **Log full request/response pairs**: store the complete prompt, model, parameters, and response for each API call. This is essential for debugging, auditing, and improving prompts over time.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

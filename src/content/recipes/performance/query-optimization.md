@@ -30,7 +30,6 @@ seo:
     - database profiling
     - query refactoring
 ---
-
 ## Overview
 
 Slow database queries are one of the most common causes of application performance degradation. A single unoptimized query can consume 100% of a CPU core, hold locks for seconds, or scan millions of rows unnecessarily. The good news is that most slow queries can be dramatically improved with systematic analysis and targeted refactoring.
@@ -316,3 +315,14 @@ When a table has more than 10 million rows and queries filter on a time range. P
 ### What is a materialized view?
 
 A precomputed result set stored as a table. Useful for complex aggregations that are queried frequently but change infrequently. Refresh periodically with `REFRESH MATERIALIZED VIEW`. The tradeoff: storage space and refresh time vs query speed.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

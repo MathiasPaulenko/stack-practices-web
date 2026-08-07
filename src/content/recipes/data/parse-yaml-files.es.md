@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-yaml-files
 title: "Analizar Archivos YAML"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 YAML es el estándar de facto para archivos de configuración en DevOps, pipelines CI/CD y settings de aplicaciones. Su sintaxis legible por humanos soporta estructuras anidadas, comentarios, anchors y aliases. Analizar YAML programáticamente habilita validación automatizada de configuración, overrides específicos por ambiente y descubrimiento automático de servicios.
@@ -323,3 +318,14 @@ YAML no es recomendado para payloads de API. JSON es el estándar para HTTP APIs
 - **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
 - **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
 - **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: chatbot-openai
 title: "Create a Chatbot with OpenAI Assistants API"
@@ -317,3 +315,14 @@ Validate function outputs against a schema before returning them to the LLM. If 
 ### How do I implement fallback when the OpenAI API is down?
 
 Implement a circuit breaker that trips after N consecutive failures (e.g., 5). When open, return cached responses or a graceful "service temporarily unavailable" message. Use a queue (e.g., BullMQ, Celery) to persist user messages during outages and process them when the API recovers. Configure a fallback model provider (e.g., Anthropic, local LLM) for critical paths. Monitor OpenAI status page and alert on elevated error rates.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

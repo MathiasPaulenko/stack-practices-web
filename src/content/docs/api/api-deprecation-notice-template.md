@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: api-deprecation-notice-template
 title: "API Deprecation Notice Template"
@@ -45,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 APIs evolve. Fields are renamed, endpoints are replaced, and old versions are retired. Without a clear deprecation notice, consumers discover breaking changes only after their integrations fail. This template provides a standard format for announcing deprecations, communicating timelines, and guiding consumers through migrations.
@@ -325,3 +319,14 @@ Prefer per-endpoint versioning for small changes. Reserve full API version bumps
 ### How do I handle deprecation in a webhook-based integration?
 
 Send a `deprecation.notice` webhook event to all subscribed endpoints. Include the same information as the deprecation notice: what changed, sunset date, and migration link. Follow up with reminder events at T-30 and T-7 days.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

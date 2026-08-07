@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: graphql-input-validation
 title: "Validacion y sanitizacion de input types en GraphQL en"
@@ -41,7 +37,6 @@ seo:
 
 
 ---
-
 GraphQL valida que los inputs coincidan con sus tipos declarados, pero no aplica restricciones de negocio — longitud de string, rangos numericos, formato de email o sanitizacion XSS. Sin una capa de validacion, los resolvers reciben input crudo y deben implementar sus propios checks. Centralizar la validacion con schemas Zod mantiene los resolvers limpios y asegura mensajes de error consistentes.
 
 ## Cuando Usar Esto
@@ -326,3 +321,14 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

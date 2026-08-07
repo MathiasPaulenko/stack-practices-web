@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: python-coverage-pytest-cov
 title: "Medir Cobertura de Tests con pytest-cov"
@@ -40,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 `pytest-cov` es un plugin de pytest que integra la librería `coverage.py`. Mide qué líneas de tu código Python se ejecutan durante los tests y reporta el porcentaje. Puedes exigir umbrales mínimos, generar reportes HTML y trackear branch coverage (paths if/else) — no solo line coverage.
@@ -339,3 +335,14 @@ Agrega un step en tu workflow para ejecutar pytest con cobertura y subir el repo
 ```
 
 Codecov publica un comentario en PRs con el diff de cobertura y visualiza líneas no cubiertas. Usa `fail_under` en `.coveragerc` para fallear el job de CI si la cobertura baja de un threshold.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

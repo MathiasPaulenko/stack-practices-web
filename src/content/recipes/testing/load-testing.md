@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: load-testing
 title: "Perform Load Testing on APIs"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Load testing measures how a system behaves under a specific volume of concurrent users or requests. Unlike functional tests that verify correctness, load tests reveal performance limits: at what point does response time degrade from 50ms to 2 seconds? At what load do errors spike from 0.1% to 10%? When does the database connection pool exhaust?
@@ -316,3 +313,14 @@ Cross-Origin Resource Sharing (CORS) adds preflight OPTIONS requests that increa
 ---
 
 *Last updated: 2026-07-09*
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

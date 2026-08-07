@@ -1,5 +1,4 @@
 ---
-
 contentType: docs
 slug: release-notes-template
 templateType: release-notes
@@ -33,7 +32,6 @@ seo:
     - semver release notes
 
 ---
-
 Use this template to communicate what changed, why it matters, and what users need to do. Pair it with the [Changelog Template](/docs/templates/changelog-template) for tracking and the [Post-Deployment Checklist](/docs/templates/post-deployment-checklist-template) for verification.
 
 ## Overview
@@ -310,3 +308,14 @@ Use conventional commits (feat:, fix:, breaking:) so release notes can be auto-g
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

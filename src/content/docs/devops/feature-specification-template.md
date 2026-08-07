@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: docs
 slug: feature-specification-template
 title: "Feature Specification Template"
@@ -45,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The most expensive bugs are not in code — they are in misunderstood requirements. A feature specification is a document that aligns product, design, and engineering on what to build, why it matters, and how to know it is done. It prevents the "I thought you meant..." conversations that derail sprints and create rework. A good spec is not a contract; it is a shared understanding that evolves as the team learns.
@@ -327,3 +320,14 @@ Review the spec in a meeting with all stakeholders before implementation starts.
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: actor-model-pattern
 title: "Patrón Actor Model"
@@ -35,7 +32,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 El estado mutable compartido es la raiz de la mayoria de los bugs de concurrencia. Locks, mutexes y condition variables son propensos a errores: olvida un lock y obtienes race conditions; bloquea en el orden equivocado y obtienes deadlocks. El Actor Model toma un enfoque diferente. Cada actor posee su estado privado. Los actores se comunican exclusivamente enviando mensajes entre si. Cada actor procesa un mensaje a la vez, por lo que no hay acceso concurrente a su estado. Sin locks.
@@ -323,3 +319,14 @@ No. Los actores anaden overhead (serializacion de mensajes, gestion de buzones).
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

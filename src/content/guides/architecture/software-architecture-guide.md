@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: software-architecture-guide
 title: "Software Architecture Guide"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Software architecture defines the structure of a system, the relationships between components, and the principles guiding design and evolution. Good architecture enables teams to move fast without breaking things.
@@ -331,3 +326,14 @@ Lessons learned:
 ### How do I document architectural decisions?
 
 Use ADRs (Architecture Decision Records). Each ADR documents: context, decision, alternatives considered, consequences. Store ADRs in the repository alongside code (docs/adr/ folder). Use sequential numbering (ADR-001, ADR-002). An ADR is never deleted or edited; if the decision changes, create a new ADR that supersedes it. This creates an auditable history of decisions and their reasoning.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

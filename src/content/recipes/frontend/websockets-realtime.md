@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: websockets-realtime
 title: "WebSockets for Real-Time Communication"
@@ -313,3 +312,14 @@ Server-Sent Events (SSE) for server-to-client only communication. Long polling a
 ### How do I scale WebSockets to multiple servers?
 
 Use Redis pub/sub to broadcast messages across instances. A load balancer with sticky sessions routes clients to specific servers. Each server subscribes to Redis to receive messages from other servers. Use a shared presence store (Redis) to track active connections across instances.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

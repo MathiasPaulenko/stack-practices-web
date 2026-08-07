@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: message-queue-load-leveling-pattern
 title: "Patrón Message Queue Load Leveling"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Cuando un servicio recibe trafico irregular, puede saturar sistemas descendentes que no estan disenados para picos. Una base de datos puede manejar 50 consultas por segundo de forma constante pero fallar a 500 consultas por segundo en un pico. El patron Message Queue Load Leveling coloca una cola entre el productor y el consumidor para que el productor escriba mensajes a cualquier ritmo mientras el consumidor los procesa a un ritmo controlado y constante.
@@ -325,3 +319,14 @@ R: Usa escalado automatico basado en profundidad de cola. En SQS, configura Clou
 - **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
 - **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
 - **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

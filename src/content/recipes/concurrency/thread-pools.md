@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: thread-pools
 title: "Manage Concurrent Work with Thread Pools and Executors"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Creating a new thread for every concurrent task is expensive. Each thread consumes memory for its stack (typically 1MB), requires OS scheduling, and adds context-switching overhead. At high concurrency, thread creation becomes a bottleneck — the system spends more time managing threads than doing useful work. Thread pools solve this by maintaining a fixed set of reusable worker threads. Tasks are submitted to a queue; idle workers pick them up. When all workers are busy, tasks wait in the queue instead of spawning new threads.
@@ -337,3 +333,14 @@ In Java, `java.util.concurrent` is the standard. In Python, `concurrent.futures`
 ### How do I implement backpressure with thread pools?
 
 Backpressure occurs when the producer submits tasks faster than the pool can process them. Three strategies: (1) `CallerRunsPolicy` — the caller's thread executes the task, slowing submission. (2) Bounded queue with `AbortPolicy` — rejects tasks and the caller must handle rejection. (3) Semaphore — the caller acquires a permit before submitting, blocking if no permits are available.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

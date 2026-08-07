@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: repository-pattern
 title: "Repository Pattern"
@@ -53,7 +48,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The [Repository](/patterns/design/repository-pattern-typescript) Pattern is an architectural design pattern that mediates between the domain and data mapping layers using a collection-like interface for accessing domain objects. It abstracts the details of data storage and retrieval.
@@ -339,3 +333,14 @@ Lessons:
 ### Repository vs DAO: which do I use?
 
 Use Repository when you think in domain terms (User, Order) and want to abstract storage entirely. Use DAO when you map directly to tables and need specific queries. Repository returns domain aggregates; DAO returns rows. Repository is higher level; DAO is lower level. For microservices, Repository is preferable: the domain should not know SQL.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

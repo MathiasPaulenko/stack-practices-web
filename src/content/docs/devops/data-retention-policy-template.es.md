@@ -1,11 +1,4 @@
 ---
-
-
-
-
-
-
-
 contentType: docs
 slug: data-retention-policy-template
 title: "Plantilla de Politica de Retencion de Datos"
@@ -53,7 +46,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Una politica de retencion de datos define cuanto tiempo una organizacion conserva los datos, cuando se mueven a un almacenamiento de menor costo y cuando se eliminan permanentemente. Esta plantilla ayuda a los equipos a clasificar datos, asignar periodos de retencion, implementar retenciones legales y documentar controles de cumplimiento. Una politica clara reduce costos de almacenamiento, riesgo legal y complejidad operativa.
@@ -336,3 +328,14 @@ Revisa la politica de retencion de datos anualmente y despues de cualquier cambi
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

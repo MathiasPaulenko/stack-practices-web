@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-command-line-arguments
 title: "Analizar Argumentos de Línea de Comandos"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 El análisis de argumentos de línea de comandos es fundamental para construir herramientas de desarrollo, scripts de automatización y pipelines de procesamiento de datos. Un diseño CLI adecuado habilita flags descubribles, inputs tipados, generación automática de texto de ayuda y subcomandos componibles. Esta recipe cubre librerías estándar y populares en Python, JavaScript y Java.
@@ -317,3 +312,14 @@ Invoca el punto de entrada de la CLI como función en lugar de spawnear subproce
 ### ¿Cómo construyo una CLI con subcomandos?
 
 Todos los frameworks principales soportan subcomandos. En `argparse`, usa `add_subparsers()`. En `commander`, llama `.command()` para cada subcomando. En `picocli`, anota clases anidadas con `@Command`. Mantén opciones compartidas en una clase padre o mixin para evitar duplicación.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

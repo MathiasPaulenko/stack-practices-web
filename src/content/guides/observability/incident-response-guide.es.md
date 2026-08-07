@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: incident-response-guide
 title: "Respuesta a Incidentes"
@@ -37,7 +36,6 @@ seo:
     - guide
 
 ---
-
 ## Descripción General
 
 La respuesta a incidentes es el proceso estructurado de reaccionar ante interrupciones de servicio no planificadas. Sin estructura, los incidentes devienen en caos: demasiada gente hablando, sin un responsable claro de decisiones, y comunicación confusa con stakeholders. Un proceso de respuesta definido reduce el tiempo medio de resolución (MTTR), minimiza el impacto al cliente y reduce el estrés de los respondedores.
@@ -345,3 +343,14 @@ Lecciones:
 ### Como preparo a un equipo nuevo para on-call?
 
 Comienza con shadowing: el nuevo ingeniero acompana al on-call durante 2 semanas sin responder pages. Luego responde pages de baja severidad con el senior como backup. Despues de 1 mes, toma turnos completos. Provee un runbook por servicio. Haz game days en staging para practicar respuesta a incidentes.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: diff-json-objects
 title: "Comparar Objetos JSON"
@@ -316,3 +312,14 @@ Sí. `DeepDiff` tiene `ignore_order=True`. Para JS, convierte arrays a sets u or
 ### ¿Cómo genero un reporte de diff legible para humanos?
 
 Convierte el diff machine-readable en oraciones. El método `pretty()` de `DeepDiff` produce salida legible. Para patches RFC 6902, mapea códigos de operación a verbos: `replace` → "cambiado", `add` → "agregado", `remove` → "eliminado". En Java, itera sobre el array de patch `JsonNode` y formatea cada operación con su ruta y valores.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

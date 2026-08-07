@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: database-normalization-guide
 title: "Database Normalization — 1NF to 5NF Explained"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Database normalization is the process of organizing data to minimize redundancy and eliminate anomalies during insert, update, and delete operations. The normal forms — from 1NF to 5NF — provide progressive rules for structuring relational databases. Understanding when to apply each form, and when to intentionally break them for performance, separates competent database designers from great ones.
@@ -314,3 +309,14 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

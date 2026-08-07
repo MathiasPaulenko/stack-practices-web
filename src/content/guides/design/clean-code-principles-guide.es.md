@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: clean-code-principles-guide
 title: "Principios de Código Limpio: Escribir Software Mantenible"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 El código limpio es código que es fácil de entender, fácil de cambiar y fácil de probar. No se trata de ser inteligente, se trata de ser claro. A continuación: los hábitos fundamentales que hacen una base de código sostenible.
@@ -343,3 +339,14 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

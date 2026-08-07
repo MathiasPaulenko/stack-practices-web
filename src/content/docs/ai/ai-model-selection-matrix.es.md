@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: ai-model-selection-matrix
 templateType: guideline
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Esta matriz compara LLM models across cost, latency, context window, accuracy, y task suitability. Usala para selectar el right model para tu use case y budget. Updatea pricing y benchmarks a medida que new models se releasean.
@@ -338,3 +333,14 @@ GPT-4o es el full-capability model con el best reasoning, code generation, y com
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

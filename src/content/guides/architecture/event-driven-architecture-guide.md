@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: event-driven-architecture-guide
 title: "Event-Driven Architecture — Queues, Topics, and Streams"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 Event-driven architecture (EDA) is a pattern where services communicate by producing and consuming events rather than direct calls. It decouples producers from consumers, enables growth, and naturally supports temporal decoupling — consumers do not need to be online when events are produced.
@@ -340,3 +334,14 @@ Schema evolution (Avro + Schema Registry):
 ### How do I test event-driven systems?
 
 Use three levels: (1) Unit tests for event handlers with mocked Kafka, (2) Integration tests with Testcontainers (real Kafka in Docker), (3) Contract tests for event schemas using schema registry compatibility checks. For end-to-end, use a test consumer that subscribes to all topics and verifies the saga completes. Test compensation paths explicitly: inject a payment failure and verify the order is cancelled and notifications are sent.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: two-level-cache-pattern
 title: "Two-Level Cache Pattern"
@@ -40,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A two-level cache combines an L1 in-memory cache (fast, local, limited size) with an L2 distributed cache (slower, shared, larger capacity). L1 serves hot keys at memory speed with zero network overhead. L2 provides shared cache state across application instances and handles the full dataset.
@@ -327,3 +323,14 @@ If your application has a single instance, L2 alone is sufficient. If access pat
 ### How do I size L1?
 
 Monitor access frequency per key. The top 1% of keys typically account for 50-80% of reads. Size L1 to hold those hot keys. Start with 1000 entries and adjust based on hit ratio metrics.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

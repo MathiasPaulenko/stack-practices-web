@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: cap-theorem-guide
 title: "CAP Theorem and Database Trade-offs"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 The CAP theorem states that a distributed data store can guarantee at most two of these three properties: Consistency, Availability, and Partition Tolerance. Since network partitions are inevitable, you are really choosing between CP (Consistency + Partition Tolerance) and AP (Availability + Partition Tolerance) systems. Below is a detailed explanation of what each property means and how to choose the right trade-off.
@@ -324,3 +318,14 @@ Systems like Cassandra and DynamoDB let you adjust the consistency level per ope
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

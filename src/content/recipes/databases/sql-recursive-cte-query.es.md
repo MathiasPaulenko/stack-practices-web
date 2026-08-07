@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: sql-recursive-cte-query
 title: "Recorrer datos jerárquicos con CTEs recursivas"
@@ -40,8 +37,6 @@ seo:
 
 
 ---
-
-
 ## Visión General
 
 Las bases de datos relacionales son excelentes para tablas, pero muchos problemas del mundo real son árboles: organigramas, hilos de comentarios, listas de materiales y sistemas de archivos. Las CTEs recursivas permiten que SQL recorra estas jerarquías comenzando desde la raíz y uniendo repetidamente hijos hasta que no se encuentren más filas. El resultado es una tabla plana con una columna de profundidad que muestra qué tan lejos está cada nodo del punto de inicio.
@@ -329,3 +324,14 @@ SELECT * FROM org_tree;
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

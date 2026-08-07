@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: websocket-bidirectional-chat
 title: "Construye un Chat Bidireccional con WebSocket y Node.js"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 La comunicacion bidireccional permite tanto al cliente como al servidor enviar mensajes en cualquier momento. Una aplicacion de chat demuestra este patron perfectamente: los usuarios envian mensajes al servidor, que luego los difunde a otros participantes en la misma sala. WebSocket es el transporte ideal para esto porque mantiene una conexion persistente de baja latencia.
 
 ## Cuando Usar Esto
@@ -318,3 +313,14 @@ Las conexiones WebSocket pueden bufferizar mensajes si el cliente lee más lento
 Para deployments multi-server, usa un store compartido de backpressure (Redis) para que todas las instancias sepan qué clientes están saturados.
 
 Desconecta clientes que permanezcan saturados más allá de un timeout (ej., 30 segundos) para proteger la estabilidad del servidor.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: oauth2-login
 title: "OAuth 2.0 Login"
@@ -316,3 +314,14 @@ OAuth 2.0 is an **authorization** framework ("Can this app access my data?"). Op
 - **OAuth2 token endpoint CORS**: if the token endpoint has permissive CORS, attackers can exchange codes from any origin. Restrict CORS on the token endpoint to trusted clients only.
 - **OAuth2 implicit flow token exposure**: the implicit flow returns access tokens in the URL fragment, which is accessible to any script on the page. Use authorization code flow with PKCE instead.
 - **OAuth2 mixed content**: if the OAuth2 flow runs over HTTP, tokens can be intercepted. Force HTTPS for all OAuth2 endpoints and redirect HTTP to HTTPS.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

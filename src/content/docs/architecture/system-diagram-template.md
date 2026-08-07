@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: system-diagram-template
 title: "System Diagram Template"
@@ -323,3 +320,14 @@ C4 shows structure, not data flow. For data flow, use a separate DFD or sequence
 ### Can I use C4 with a service mesh?
 
 Yes. Show the service mesh as a container in the Container diagram. Individual services become components in the Component diagram. The mesh handles cross-cutting concerns (mTLS, retries, observability) so you do not need to draw those lines for every service pair.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

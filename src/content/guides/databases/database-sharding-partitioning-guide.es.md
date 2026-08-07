@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: database-sharding-partitioning-guide
 title: "Sharding y Particionamiento de Bases de Datos"
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 Cuando un servidor de base de datos no puede manejar la carga, tienes tres opciones: comprar una máquina más grande (escalado vertical), agregar réplicas de lectura (escalado horizontal de lectura), o dividir los datos entre múltiples servidores (sharding). Consulta [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) antes de escalar horizontalmente. El sharding es el más difícil pero la única opción para escalado horizontal ilimitado. A continuación: estrategias, trade-offs y consideraciones operativas.
@@ -314,3 +310,14 @@ End of document. Review and update quarterly.
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

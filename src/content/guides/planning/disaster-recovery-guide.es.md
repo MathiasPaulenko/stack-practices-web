@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: disaster-recovery-guide
 title: "Recuperación ante Desastres"
@@ -53,7 +49,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La recuperación ante desastres (DR) es el conjunto de políticas, herramientas y procedimientos que permiten la recuperación o continuación de infraestructura tecnológica crítica después de un desastre natural o inducido por humanos. Protege contra pérdida de datos y minimiza downtime cuando ocurre lo inesperado.
@@ -338,3 +333,14 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 ## Conclusion
 
 La recuperación ante desastres es un seguro para tu infraestructura. Define objetivos claros, diseña estrategias apropiadas, documenta runbooks y prueba regularmente. El momento de descubrir un problema con tu plan de DR es durante un drill, no durante un desastre real.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

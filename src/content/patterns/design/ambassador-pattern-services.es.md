@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: ambassador-pattern-services
 title: "Ambassador Pattern para Acceso Resiliente a Servicios"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 El Ambassador pattern crea una instancia helper local que actua en nombre de un servicio remoto. Maneja preocupaciones de red como reintentos, timeouts, circuit breaking y logging, manteniendo el codigo del cliente limpio y la interfaz del servicio remoto simple. Este pattern es comun en [microservicios](/guides/architecture/microservices-architecture-guide) y despliegues containerizados.
 
 ## Cuando Usar Esto
@@ -334,3 +329,14 @@ Lecciones:
 ### Ambassador vs Sidecar: cual uso?
 
 Usa Ambassador cuando necesitas un intermediario que envuelve un servicio externo (legacy, third-party). El ambassador vive en el cliente y traduce/protige las llamadas. Usa Sidecar cuando necesitas funcionalidad complementaria que vive junto al servicio (logging, monitoring, proxy). Ambassador es cliente-side, Sidecar es server-side. Amb pueden ser containers en K8s.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

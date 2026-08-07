@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: middleware
 title: "Middleware"
@@ -45,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Middleware is software that sits between the incoming request and the final route handler. It intercepts, processes, or transforms requests and responses. Common uses include authentication, logging, CORS, rate limiting, request validation, and error handling.
@@ -321,3 +316,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 - **Error-based user enumeration**: different errors for "user not found" vs "wrong password" allow user enumeration. Use the same error message for both cases.
 - **Async error handler memory leaks**: if async error handlers capture large objects in closures, memory leaks occur. Use weak references or clear references after handling.
 - **Error response compression bombs**: if error responses are compressed, attackers can trigger many errors to consume CPU. Disable compression for error responses or rate limit them.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

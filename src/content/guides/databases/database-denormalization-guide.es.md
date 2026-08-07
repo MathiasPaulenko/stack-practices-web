@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: database-denormalization-guide
 title: "Desnormalización de Bases de Datos"
@@ -42,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La desnormalización es la introducción intencional de redundancia en un esquema de base de datos para mejorar el rendimiento de lectura. Mientras que la normalización elimina la redundancia para garantizar la consistencia, la desnormalización acepta duplicación controlada para reducir JOINs, simplificar consultas y acelerar lecturas. No es una excusa para un mal diseño; es una optimización deliberada aplicada después de establecer una base normalizada.
@@ -322,3 +317,14 @@ Usa triggers cuando la sincronizacion debe ser inmediata y el volumen de escritu
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

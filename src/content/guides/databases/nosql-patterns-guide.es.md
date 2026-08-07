@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: nosql-patterns-guide
 title: "Patrones de Modelado NoSQL"
@@ -44,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Las bases de datos NoSQL abandonan el modelo rigido de tabla-fila en favor de esquemas flexibles optimizados para patrones de acceso especificos. Almacenes de documentos (MongoDB), clave-valor (Redis), columnas anchas (Cassandra, DynamoDB) y grafos (Neo4j) tienen principios de modelado diferentes. La regla clave: modela para tus consultas, no para entidades normalizadas. Comienza con los patrones de lectura y escritura que tu aplicacion necesita, luego disena el esquema para soportarlos eficientemente.
@@ -320,3 +316,14 @@ Usa el patron Outbox: cuando actualices una coleccion, escribe un evento en una 
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: format-phone-numbers
 title: "Format Phone Numbers"
@@ -326,3 +323,14 @@ E.164 is the ITU-T recommendation for international phone numbers: a `+` prefix,
 ### Can I detect the carrier or number type?
 
 Yes. libphonenumber returns the number type (`MOBILE`, `FIXED_LINE`, `TOLL_FREE`, etc.) and, in some countries, the carrier name. In Python: `phonenumbers.number_type(parsed)`. In JavaScript: `phone.getType()`. In Java: `util.getNumberType(number)`. Note that carrier data is not available for all regions.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

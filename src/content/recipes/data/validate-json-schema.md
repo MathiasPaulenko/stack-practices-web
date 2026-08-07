@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: validate-json-schema
 title: "Validate JSON Schema"
@@ -52,7 +47,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 JSON Schema defines the structure, types, and constraints of JSON data. It is the industry standard for validating API request bodies, configuration files, and inter-service messages. Implementing schema validation early catches malformed data before it reaches business logic, reducing bugs and security risks.
@@ -334,3 +328,14 @@ Yes. Tools like `json-schema-to-typescript` (npm) and QuickType generate TypeScr
 ### How do I validate deeply nested objects efficiently?
 
 Use `$ref` to modularize sub-schemas and enable compilation (Ajv `compile()`, fastjsonschema). For Python, `fastjsonschema` compiles schemas to Python code, offering 100x+ speedup over interpreted validation.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: chaos-engineering-guide
 title: "Chaos Engineering — Principles, Tools, and Safe Experiments"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Chaos engineering is the discipline of experimenting on a system to build confidence in its capability to withstand turbulent conditions. Instead of waiting for failures to occur in production, you intentionally inject them — pod kills, network latency, CPU exhaustion, disk fill — to validate that your system degrades gracefully and recovers automatically. Originated at Netflix with Chaos Monkey, it has evolved into a structured practice with principles, tools, and safety guardrails.
@@ -323,3 +318,14 @@ Start with a game day in staging. Document findings: each discovered failure is 
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

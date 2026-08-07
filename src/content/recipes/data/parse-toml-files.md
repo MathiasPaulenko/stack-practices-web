@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: parse-toml-files
 title: "Parse TOML Files"
@@ -40,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 TOML (Tom's Obvious, Minimal Language) is a configuration file format designed to be more readable than JSON and simpler than YAML. It is the standard for Rust `Cargo.toml`, Python `pyproject.toml`, and many modern tools. Parsing TOML programmatically enables automated configuration management, environment-specific overrides, and tooling for package managers.
@@ -319,3 +315,14 @@ No. Kubernetes uses YAML for manifests because it supports multi-document files 
 ### How do I convert between TOML and JSON?
 
 Parse the TOML file to a dictionary, then serialize to JSON. In Python: `json.dumps(tomllib.load(f))`. In JavaScript: `JSON.stringify(TOML.parse(content), null, 2)`. The reverse works too — parse JSON and write with `tomli_w.dump()`. This is useful for tooling that expects JSON input but your config is in TOML.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

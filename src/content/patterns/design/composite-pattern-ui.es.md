@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: composite-pattern-ui
 title: "Composite Pattern para Arboles de Componentes UI en React"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 El Composite pattern compone objetos en estructuras de arbol para representar jerarquias parte-todo. Permite que clientes traten objetos individuales y composiciones de objetos uniformemente. En React, este pattern aparece naturalmente al renderizar arboles de componentes anidados donde un contenedor tiene tanto elementos hoja como otros contenedores. Consulta el [Patron Composite](/patterns/design/composite-pattern) general para ejemplos independientes del lenguaje.
 
 ## Cuando Usar Esto
@@ -322,3 +317,14 @@ Lecciones:
 ### Composite vs Decorator: cual uso?
 
 Composite es estructural: arboles de objetos con la misma interfaz. Decorator es estructural: envuelve un objeto para anadir comportamiento. Composite tiene 0..N hijos; Decorator tiene exactamente 1. Composite construye arboles; Decorator construye cadenas. Usa Composite para jerarquias de UI. Usa Decorator para anadir logging, cache, o validacion a un servicio.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

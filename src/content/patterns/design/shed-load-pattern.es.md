@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: shed-load-pattern
 title: "Patrón Shed Load"
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 ## Descripción general
 
 Cuando un sistema recibe mas trafico del que puede procesar, entra en una espiral de muerte: las colas crecen, la latencia sube, la memoria se agota y el sistema colapsa. Load shedding detiene esta espiral rechazando proactivamente requests excesivos antes de que consuman recursos. En lugar de aceptar todo y fallar lentamente, el sistema acepta solo lo que puede manejar y rechaza el resto inmediatamente con un error claro (tipicamente HTTP 503).
@@ -317,3 +313,14 @@ A: Haz load testing de tu sistema para encontrar su punto de quiebre. Define umb
 - **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
 - **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
 - **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

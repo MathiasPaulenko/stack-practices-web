@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: flyweight-pattern
 title: "Flyweight Pattern"
@@ -41,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Flyweight Pattern is a structural design pattern that minimizes memory usage by sharing as much data as possible between similar objects. Instead of storing redundant state in every instance, you separate intrinsic state (shared) from extrinsic state (unique per context) and reuse flyweight objects across multiple contexts.
@@ -343,3 +340,14 @@ Lessons:
 ### When does flyweight NOT make sense?
 
 Do not use flyweight when there are few objects (overhead exceeds savings), when each object has unique state (no sharing possible), or when objects are mutable (flyweight requires immutability). If you have 100 tiles with 90 unique terrains, the factory overhead is not worth it. Flyweight pays off when the ratio of objects to unique intrinsic states is high (e.g: 10000 tiles, 5 terrains).
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

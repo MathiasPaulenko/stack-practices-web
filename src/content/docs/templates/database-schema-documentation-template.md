@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: database-schema-documentation-template
 templateType: database-schema-doc
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Database schemas evolve constantly. Without documentation, every new developer spends hours reverse-engineering table relationships, guessing why a column exists, and wondering whether an index is still used. This template gives you a structure for documenting schemas that stays useful as the database grows.
@@ -338,3 +332,14 @@ Document them separately in an API section of the schema docs. For each function
 ### How do I handle schema branching for feature development?
 
 Document the base schema normally. For feature branches that add tables or columns, add a "Branch schema changes" section listing the temporary objects and their cleanup plan. When the feature merges, move the changes into the main schema documentation and remove the branch section.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

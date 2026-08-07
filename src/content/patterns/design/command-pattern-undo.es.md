@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: command-pattern-undo
 title: "Command Pattern con Undo/Redo en TypeScript"
@@ -38,7 +34,6 @@ seo:
 
 
 ---
-
 El [Command](/patterns/design/command-pattern) pattern convierte una peticion en un objeto independiente que contiene toda la informacion sobre la peticion. Este desacoplamiento permite parametrizar metodos con diferentes peticiones, retrasar o encolar ejecucion, e implementar operaciones undo/redo — esencial para aplicaciones interactivas como editores, herramientas de dibujo y constructores de formularios.
 
 ## Cuando Usar Esto
@@ -333,3 +328,14 @@ Lecciones:
 ### Como implemento macros con Command?
 
 Crea un MacroCommand que contiene una lista de comandos. Execute() llama a execute() de cada comando en orden. Undo() llama a undo() en orden inverso. Esto permite agrupar operaciones atomicas: por ejemplo, "formatear documento" ejecuta 20 comandos individuales, y un solo undo los revierte todos.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

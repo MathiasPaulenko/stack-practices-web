@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: cache-invalidation
 title: "Implement Cache Invalidation Strategies"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Caching improves read performance by storing frequently accessed data in fast, in-memory storage. However, caches introduce a classic [distributed systems](/guides/architecture/microservices-architecture-guide) problem: when the underlying data changes, the cache becomes stale. Serving stale data can lead to incorrect business decisions, security issues, and poor user experiences.
@@ -333,3 +328,14 @@ Version your cache keys (`app:v2:user:42`). When deploying a new schema, the ver
 ### What is cache warming?
 
 Cache warming pre-loads frequently accessed data into the cache before users request it. Run a warming script after deployments or during off-peak hours. This prevents cache stampedes on first access after a flush.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

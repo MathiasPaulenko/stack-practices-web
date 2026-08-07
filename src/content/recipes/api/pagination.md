@@ -32,7 +32,6 @@ seo:
     - javascript pagination
     - sql pagination
 ---
-
 ## Overview
 
 Pagination is the technique of dividing a large dataset into discrete pages, improving performance and user experience. It is essential for APIs, admin dashboards, search results, and any interface that displays more data than fits on a single screen.
@@ -308,3 +307,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 - **Error-based DoS via stack traces**: if stack traces are generated for every error, attackers can trigger many errors to consume CPU. Cache stack traces for repeated identical errors.
 - **Error-based DoS via logging I/O**: if error logging is synchronous, attackers can trigger many errors to saturate disk I/O. Use async logging with a bounded queue.
 - **Error-based DoS via alerting**: if every error triggers an alert, attackers can trigger alert fatigue. Rate limit alerts and aggregate repeated errors.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

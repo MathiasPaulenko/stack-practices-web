@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 templateType: changelog
 slug: changelog-template
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A changelog is a curated, chronologically ordered list of notable changes for each version of a project. It helps users and contributors understand what has changed between releases.
@@ -318,3 +314,14 @@ Use the Keep a Changelog format: Added, Changed, Fixed, Breaking, and Security s
 ### How do we automate the changelog?
 
 Use conventional commits so the changelog can be generated from commits. Tools like changesets, semantic-release, or auto can generate the changelog automatically. Configure CI so each PR adds an entry to the [Unreleased] section. For more control: use a CHANGELOG.md file that engineers update manually in each PR. Use a linter that verifies the changelog has entries for each release. For open source: publish the changelog on GitHub Releases in addition to the file. Automation reduces work but the Product Owner should review that entries are understandable for users.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: readme-template
 templateType: readme
@@ -45,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A README is the front door of your project. Pair it with the [Contributing Guide](/docs/templates/contributing-guide) and [Code of Conduct](/docs/templates/code-of-conduct-template) for community standards. It is the first thing developers see on GitHub, npm, PyPI, or Docker Hub. A well-structured README reduces onboarding friction, answers common questions, and sets expectations for contributors.
@@ -323,3 +317,14 @@ The README should live in the same repo as the code — PRs that change behavior
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

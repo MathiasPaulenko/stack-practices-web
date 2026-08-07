@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: lakehouse-guide
 title: "Lakehouse Architecture — The Best of Both Worlds"
@@ -34,7 +33,6 @@ seo:
     - guide
 
 ---
-
 ## Overview
 
 Lakehouse architecture, pioneered by Databricks, unifies the best of Data Lakes and Data Warehouses. It stores data in open formats (Parquet) on low-cost object storage while adding transactional guarantees, schema enforcement, and time travel — capabilities previously only available in proprietary warehouses. Open table formats like Delta Lake, Apache Iceberg, and Hudi make this possible by maintaining metadata layers that track changes, partitions, and statistics without locking data into a vendor-specific format.
@@ -340,3 +338,14 @@ Estimated monthly cost:
 ### How do I choose between Delta Lake, Iceberg, and Hudi?
 
 Delta Lake is the best option if you use Spark intensively: native integration, maturity, and abundant documentation. Iceberg is better if you need multi-engine support (Trino, Flink, Snowflake, DuckDB) with hidden partitioning and schema evolution. Hudi is better for CDC and incremental processing with record-level upserts. If you do not have a specific requirement, start with Delta Lake for its simplicity and maturity.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

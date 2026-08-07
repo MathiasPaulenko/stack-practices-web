@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: merge-json-files-javascript
 title: "Merge de Archivos JSON en JavaScript"
@@ -318,3 +317,14 @@ const merged = contents.reduce((acc, obj) => deepMerge(acc, obj), {});
 ### ¿Debería usar una librería o escribir mi propio deep merge?
 
 Escribe el tuyo solo si la lógica es simple y quieres cero dependencias. Para código de producción, lodash `_.merge` está bien probado y maneja edge cases como `null`, arrays y referencias circulares.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

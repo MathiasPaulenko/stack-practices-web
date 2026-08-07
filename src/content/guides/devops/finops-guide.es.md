@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: finops-guide
 title: "FinOps — Optimizacion de Costos Cloud y Operaciones"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 FinOps — un portmanteau de "Finance" y "DevOps" — es la practica de traer responsabilidad financiera al modelo de gasto variable de cloud computing. A diferencia de los centros de datos tradicionales con CapEx fijo, los costos cloud escalan con el uso, haciendo la visibilidad y gobernanza criticas. FinOps no se trata de recortar costos a ciegas; se trata de optimizar el gasto cloud para maximizar valor de negocio. Opera en tres fases: Informar (visibilidad), Optimizar (acciones) y Operar (gobernanza y cultura).
@@ -324,3 +319,14 @@ Usa tags consistentes en todos los recursos: team, project, env. Configura AWS C
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

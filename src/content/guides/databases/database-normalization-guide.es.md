@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: database-normalization-guide
 title: "Normalización de Bases de Datos — 1NF a 5NF Explicado"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La normalización de bases de datos es el proceso de organizar datos para minimizar la redundancia y eliminar anomalías durante operaciones de inserción, actualización y eliminación. Las formas normales — desde 1NF hasta 5NF — proporcionan reglas progresivas para estructurar bases de datos relacionales. Entender cuándo aplicar cada forma, y cuándo romperlas intencionalmente por rendimiento, separa a diseñadores competentes de expertos.
@@ -314,3 +309,14 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: prototype-pattern-cloning
 title: "Prototype Pattern for Object Cloning and Configuration"
@@ -32,7 +30,6 @@ seo:
 
 
 ---
-
 The [Prototype](/patterns/design/prototype-pattern) pattern creates new objects by copying existing ones. Instead of building objects from scratch with constructors, you clone a prototype and optionally customize it. This is capable when object initialization is expensive, when many similar configurations exist, or when the exact type of object is not known until runtime.
 
 ## When to Use This
@@ -312,3 +309,14 @@ Use structuredClone() when you need deep clone of plain objects with native type
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

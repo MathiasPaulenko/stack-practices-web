@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: convert-json-to-csv
 title: "Convertir JSON a CSV"
@@ -55,7 +51,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 Convertir JSON a CSV conecta respuestas estructuradas de API con formatos compatibles con hojas de cálculo. Esta transformación es esencial para exports de datos, pipelines de business intelligence e interoperabilidad con flujos de trabajo basados en Excel. La estructura anidada de JSON debe aplanarse en filas y columnas, manejando arrays y objetos anidados cuidadosamente.
@@ -326,3 +321,14 @@ Sí. Carga `@json2csv` vía CDN o bundléalo con tu aplicación frontend. Para a
 ### ¿Cómo manejo arrays dentro de objetos JSON al convertir a CSV?
 
 Opción 1: Desenrolla el array para que cada elemento sea una fila separada (duplicando campos padre). Opción 2: Serializa el array a string JSON dentro de la celda CSV. Opción 3: Crea un archivo CSV relacionado separado y usa una columna ID para vincularlos, similar a normalización de base de datos.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

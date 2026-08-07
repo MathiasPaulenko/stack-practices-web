@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: secret-rotation-schedule-template
 title: "Plantilla de Cronograma de Rotacion de Secretos"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Una Plantilla de Cronograma de Rotacion de Secretos te ayuda a rastrear todos los secretos de tu organizacion, su frecuencia de rotacion, duenos y estado actual. Los secretos incluyen claves API, contrasenas, certificados TLS, tokens de firma, llaves de cifrado y credenciales de cuentas de servicio. Un cronograma claro reduce el riesgo de exposicion prolongada de secretos y facilita la respuesta a incidentes.
@@ -334,3 +328,14 @@ Los secretos estaticos son credenciales de larga vida almacenadas en un vault y 
 ### Como roto secretos en un sistema distribuido sin downtime?
 
 Usa un enfoque de tres fases: (1) Crea el nuevo secret y hazlo disponible junto al viejo. (2) Despliega servicios incrementalmente para usar el nuevo secret, verificando cada instancia. (3) Una vez que todos los servicios usen el nuevo secret, revoca el viejo. Para bases de datos, usa connection pooling con reconexion graceful para manejar el switch de credenciales.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: security-best-practices-guide
 title: "Security Best Practices Guide"
@@ -52,7 +48,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Security is not a feature you add later—it is a foundation you build into every layer of your application. The following guide covers the essential practices for building secure software.
@@ -333,3 +328,14 @@ app.use((req, res, next) => {
 ### Which security headers are mandatory?
 
 X-Content-Type-Options: nosniff (prevent MIME sniffing), Strict-Transport-Security: max-age=31536000 (enforce HTTPS), X-Frame-Options: DENY (prevent clickjacking), Content-Security-Policy: default-src self (prevent XSS), Referrer-Policy: no-referrer (minimize exposed info). Use helmet() in Express to configure all of them automatically.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

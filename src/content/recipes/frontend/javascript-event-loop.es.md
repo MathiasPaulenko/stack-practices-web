@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: javascript-event-loop
 title: "Event Loop de JavaScript"
@@ -328,3 +326,14 @@ setTimeout corre un callback una vez después de un delay. setInterval corre un 
 - **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
 - **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
 - **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

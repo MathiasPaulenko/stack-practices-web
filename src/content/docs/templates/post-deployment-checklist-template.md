@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: post-deployment-checklist-template
 templateType: post-deployment-checklist
@@ -44,7 +39,6 @@ seo:
 
 
 ---
-
 Use this checklist before declaring a deployment successful. Pair it with [Release Notes Template](/docs/templates/release-notes-template) for communication and [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
 
 ## Overview
@@ -321,3 +315,14 @@ Check if the degradation is within acceptable thresholds. If latency p95 increas
 ### Should I run the checklist for staging deployments?
 
 Yes. Staging verification catches issues before production. Run a condensed version: health checks and smoke tests are sufficient. Skip the full metric validation unless staging mirrors production traffic. Staging checks give you confidence before the production deploy.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

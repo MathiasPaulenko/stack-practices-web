@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: validate-json-schema
 title: "Validar JSON Schema"
@@ -52,7 +47,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 JSON Schema define la estructura, tipos y restricciones de datos JSON. Es el estándar de la industria para validar cuerpos de solicitudes de API, archivos de configuración y mensajes entre servicios. Implementar validación de schemas desde el inicio captura datos malformados antes de que lleguen a la lógica de negocio, reduciendo bugs y riesgos de seguridad.
@@ -325,3 +319,14 @@ Sí. Herramientas como `json-schema-to-typescript` (npm) y QuickType generan int
 ### ¿Cómo valido objetos profundamente anidados eficientemente?
 
 Usa `$ref` para modularizar sub-schemas y habilita compilación (Ajv `compile()`, fastjsonschema). En Python, `fastjsonschema` compila schemas a código Python, ofreciendo 100x+ de aceleración sobre validación interpretada.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

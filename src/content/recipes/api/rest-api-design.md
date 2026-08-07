@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: rest-api-design
 title: "REST API Design: What Works"
@@ -314,3 +312,14 @@ Three common strategies: URI path (`/v1/users`), query parameter (`/users?versio
 Return 422 Unprocessable Entity when the request body is syntactically valid but semantically incorrect (e.g., missing required fields, invalid email format). Use 400 Bad Request for malformed JSON or missing content-type headers. Include a `details` array in the error response pointing to specific field errors.
 
 This helps clients render inline validation messages next to each field. See [error handling](/recipes/api/error-handling-patterns) for complete examples.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

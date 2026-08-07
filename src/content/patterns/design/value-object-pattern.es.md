@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: value-object-pattern
 title: "Patrón Value Object"
@@ -31,7 +29,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Un Value Object es un objeto inmutable definido enteramente por sus atributos, no por una identidad única. Dos value objects con los mismos valores se consideran iguales independientemente de si son la misma instancia. Dinero, fechas, coordenadas y direcciones de email son ejemplos clásicos.
@@ -343,3 +340,14 @@ Lecciones:
 ### Value Object vs Entity: cual uso?
 
 Usa Value Object cuando la identidad no importa: Money, Date, Coordinate, Address. Dos Money de 100 USD son intercambiables. Usa Entity cuando la identidad importa: User, Order, Product. Dos Users con el mismo nombre son diferentes personas. Value Objects son inmutables; Entities son mutables. Value Objects se comparan por valor; Entities por id. Prefiere Value Objects cuando sea posible: son mas simples, testeables y no tienen efectos secundarios.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

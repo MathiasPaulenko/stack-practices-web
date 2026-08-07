@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: encryption-key-lifecycle-template
 title: "Encryption Key Lifecycle Template"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Encryption key lifecycle management defines how keys are created, stored, used, rotated, and retired. Poor key management can undermine encryption entirely by exposing keys, keeping them too long, or failing to revoke them when no longer needed. This template provides policies, procedures, and roles for managing symmetric and asymmetric keys across applications, databases, backups, and cloud services.
@@ -316,3 +313,14 @@ Test key recovery procedures annually. A key that cannot be recovered when neede
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

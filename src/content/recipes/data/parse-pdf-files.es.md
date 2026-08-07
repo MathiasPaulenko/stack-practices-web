@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: parse-pdf-files
 title: "Analizar Archivos PDF"
@@ -312,3 +309,14 @@ Sí. PDF.js de Mozilla corre en el navegador y puede renderizar páginas a canva
 ### ¿Cómo manejo PDFs escaneados que no contienen capa de texto?
 
 Ejecuta OCR primero. Usa `pytesseract` + `pdf2image` en Python, o Tesseract.js en el browser, para convertir páginas de imagen en PDFs buscables. Alternativas en cloud incluyen AWS Textract, Google Document AI y Azure Form Recognizer para mayor precisión en formularios y facturas.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

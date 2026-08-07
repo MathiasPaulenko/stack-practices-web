@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: server-sent-events-go
 title: "Implement Server-Sent Events in Go for Real-Time Updates"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 Server-Sent Events provide a lightweight, uni-directional channel for pushing real-time updates from server to client over HTTP. Unlike WebSockets, SSE uses standard HTTP connections, requires no protocol upgrade, and automatically handles reconnection through the browser's built-in EventSource API.
 
 ## When to Use This
@@ -314,3 +310,14 @@ Use sticky sessions (session affinity) so a client always connects to the same b
 ### How do I implement SSE event IDs for replay?
 
 Assign a monotonically increasing ID to each event using the `id:` field in the SSE format. Store events in a ring buffer keyed by ID. When a client reconnects with `Last-Event-ID: 42`, replay events 43+ from the buffer. Set a TTL on stored events (e.g., 5 minutes) to limit memory usage. For events beyond the buffer window, return a `204 No Content` and let the client decide whether to start fresh or show a reconnection message.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

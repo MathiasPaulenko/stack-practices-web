@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: recipes
 slug: react-usememo-usecallback-performance
 title: "Cuándo Usar useMemo y useCallback"
@@ -50,7 +44,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 `useMemo` cachea un valor computado para que React lo reutilice entre renders a menos que sus dependencias cambien. `useCallback` cachea una referencia de función para el mismo propósito. Ambos hooks previenen re-renders innecesarios y cálculos redundantes. Pero tienen su propio costo — almacenar el valor cacheado y comparar dependencias en cada render. Usarlos en valores baratos de computar o funciones que no se pasan a hijos memoizados hace las cosas más lentas.
@@ -338,3 +331,14 @@ No. `useMemo` es sincrónico. Para async, usa `useEffect` con state, o una libre
 ### ¿Cómo sé si un cómputo es lo suficientemente costoso para memoizar?
 
 Usa `console.time` y `console.timeEnd` alrededor del cómputo, o usa el React Profiler. Si un render toma más de 16ms (un frame a 60fps), busca cómputos costosos para memoizar.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

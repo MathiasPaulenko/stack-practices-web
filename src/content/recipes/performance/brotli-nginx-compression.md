@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: brotli-nginx-compression
 title: "Enable Brotli Compression in Nginx for Faster Asset Delivery"
@@ -33,7 +32,6 @@ seo:
     - gzip alternative
 
 ---
-
 Brotli is a modern compression algorithm developed by Google that consistently achieves 15-25% smaller file sizes than Gzip for text-based assets. See [performance optimization](/guides/performance/performance-optimization-guide) for more web performance techniques. When combined with Nginx and proper content-type configuration, it reduces bandwidth usage and improves page load times for all users.
 
 ## When to Use This
@@ -300,3 +298,14 @@ Use curl with `--compressed` flag and check `Content-Encoding` header. Compare r
 ### Should I use Brotli for dynamic content?
 
 Yes, but use level 4 for dynamic content to balance compression ratio and CPU usage. Higher levels (6-11) are better for static assets pre-compressed at build time. Monitor CPU usage when enabling Brotli for dynamic content. Start with level 4 and adjust based on your server capacity and traffic patterns.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

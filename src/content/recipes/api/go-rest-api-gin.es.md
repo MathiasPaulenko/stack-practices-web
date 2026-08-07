@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: recipes
 slug: go-rest-api-gin
 title: "REST API en Go con Gin y Middleware"
@@ -46,7 +40,6 @@ seo:
 
 
 ---
-
 Construye APIs REST de alto rendimiento en Go usando el framework Gin. Esta recipe cubre routing, middleware custom para cross-cutting concerns, validacion de requests, manejo estructurado de errores y graceful shutdown usados en microservicios de produccion.
 
 ## Cuando Usar Esto
@@ -325,3 +318,14 @@ Registra un endpoint `/health` que retorne `200 OK` con un body JSON `{"status":
 ### ¿Cómo aseguro rutas de Gin con JWT?
 
 Usa el middleware `gin-jwt` o implementa un `gin.HandlerFunc` custom que extraiga el JWT del header `Authorization: Bearer <token>`. Valida el token con `jwt.ParseWithClaims` y setea el user ID en el context con `c.Set("userID", claims.Subject)`. Retorna `401 Unauthorized` para tokens inválidos o expirados. Para refresh tokens, implementa un endpoint separado `/refresh` que acepte un refresh token válido y retorne un nuevo access token.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

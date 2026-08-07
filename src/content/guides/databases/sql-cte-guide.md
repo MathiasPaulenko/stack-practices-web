@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: sql-cte-guide
 title: "SQL CTEs — Common Table Expressions Explained"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Common Table Expressions (CTEs), introduced in SQL:1999, provide a named temporary result set that exists for the duration of a single query. They improve readability by breaking complex queries into named blocks, enable recursion for hierarchical data, and can be materialized for performance. Supported by PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.8.3+.
@@ -322,3 +317,14 @@ Add a depth limit (WHERE depth < N) to prevent infinite recursion. Use indexes o
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: llm-fine-tuning
 title: "Fine-Tune a Language Model for Code Generation"
@@ -318,3 +316,14 @@ Fine-tuning is cost-effective when you need domain-specific behavior that prompt
 - **The task changes frequently**: fine-tuned models are frozen at training time. If your task definition shifts monthly, you will retrain repeatedly. Use prompting instead, which adapts instantly.
 - **You need multi-step reasoning**: fine-tuning improves style and tone but does not teach new reasoning capabilities. For complex reasoning, use agents or chain-of-thought prompting.
 - **Latency budget is tight**: fine-tuned 7B models on self-hosted GPUs have higher latency than GPT-4o-mini API calls. For low-latency applications, use hosted APIs with streaming.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

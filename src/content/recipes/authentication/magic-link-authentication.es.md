@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: magic-link-authentication
 title: "Implementar Login Sin Contraseña con Magic Links"
@@ -33,7 +32,6 @@ seo:
     - token seguro
 
 ---
-
 ## Visión general
 
 La fatiga de contraseñas es real. Los usuarios olvidan contraseñas, las reutilizan entre sitios, caen en ataques de phishing o abandonan flujos de registro cuando se les pide crear otra credencial compleja. La autenticación con magic links elimina las contraseñas por completo enviando una URL de tiempo limitado y uso único a la dirección de email del usuario. Al hacer clic en el link, el usuario se autentica instantáneamente, creando una experiencia de login suave sin requerir contraseña alguna.
@@ -309,3 +307,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
 - **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

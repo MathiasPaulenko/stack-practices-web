@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: azure-basics-guide
 title: "Azure Basics — Core Services for Developers"
@@ -45,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Microsoft Azure is the second-largest cloud platform, deeply integrated with enterprise tools like Microsoft 365, Active Directory, and .NET. For developers, Azure offers a thorough set of services for compute, storage, databases, networking, and identity management. Below is a practical guide to the services you will use most frequently and how they connect in a typical application architecture.
@@ -328,3 +323,14 @@ Lessons:
 ### How do I choose between Azure SQL and Cosmos DB?
 
 Use Azure SQL for relational data with stable schema, complex queries, and ACID transactions. Use Cosmos DB for semi-structured data, automatic horizontal scaling, global low latency, and when you need multi-master. If you need both, use SQL for transactional data and Cosmos for catalog/user profile data.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: scheduled-jobs
 title: "Ejecutar Jobs Programados con Funciones Serverless"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Las tareas programadas — backups, generación de reportes, limpieza de caché — han tradicionalmente corrido en servidores dedicados con cron. Si el servidor reinicia o el daemon de cron falla, los jobs dejan de ejecutarse silenciosamente. La programación serverless reemplaza esto con funciones gestionadas disparadas por eventos temporizados que corren sin servidores que mantener.
@@ -305,3 +302,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 ### ¿Cuáles son las limitaciones de scheduled serverless jobs?
 
 Scheduled jobs tienen algunas limitations. Minimum interval es tipicamente 1 minuto. Long-running jobs pueden hit timeout limits. Time zone handling requiere careful configuration. Overlapping executions necesitan idempotency. Documenta limitations para tu team. Planean mitigation strategies. Testea edge cases thoroughly. Monitorea known issues.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: regression-test-checklist
 title: "Checklist de Pruebas de Regresión"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Regression testing verifica que new changes no breakean existing functionality. Every deployment carries risk: un new feature puede breakear un unrelated feature, un dependency upgrade puede cambiar behavior, un database migration puede corromper data. Este checklist asegura consistent regression coverage across releases.
@@ -315,3 +312,14 @@ Usá un deployment pipeline tool (GitHub Actions, GitLab CI, Argo CD) con automa
 ### ¿Cuál es la difference entre regression testing y smoke testing?
 
 Smoke testing es un subset de regression testing. Smoke tests verifican que critical functionality funciona (¿pueden users loguear? ¿pueden placear orders?). Regression testing es broader: verifica que all existing functionality sigue funcionando, incluyendo edge cases y non-critical features. Smoke tests corren después de every deploy; full regression corre antes de major releases.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

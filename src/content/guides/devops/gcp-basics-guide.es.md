@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: gcp-basics-guide
 title: "GCP Básico: Servicios Core para Desarrolladores"
@@ -41,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Google Cloud Platform (GCP) es conocido por su liderazgo en data analytics, AI/ML y Kubernetes. Construido sobre la misma infraestructura que potencia Google Search y YouTube, GCP ofrece a desarrolladores herramientas poderosas para compute, storage, bases de datos y big data. A continuación: los servicios core que necesitas para construir y desplegar aplicaciones en GCP.
@@ -346,3 +343,14 @@ Lecciones:
 ### Como elijo entre Cloud Run y GKE?
 
 Usa Cloud Run para servicios stateless simples que no necesitan Kubernetes. Es serverless, escala a cero y cobra por uso. Usa GKE cuando necesitas control total: service mesh, Helm, operadores, workloads stateful, o multiples servicios con networking complejo. Cloud Run es mas simple y barato; GKE es mas flexible. Empieza con Cloud Run y migra a GKE si lo necesitas.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

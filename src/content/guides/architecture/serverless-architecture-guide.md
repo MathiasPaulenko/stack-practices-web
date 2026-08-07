@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: serverless-architecture-guide
 title: "Serverless Architecture — Patterns and Anti-Patterns"
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Serverless architecture lets you run code without provisioning or managing servers. The cloud provider handles infrastructure, scaling, and patching; you provide functions that execute in response to events. While serverless eliminates server management, it introduces new constraints: execution time limits, cold starts, statelessness, and distributed debugging. The following guide covers patterns that work and anti-patterns that cause pain.
@@ -331,3 +325,14 @@ Use SAM CLI for AWS Lambda: `sam local invoke -e event.json`. For Azure, Azure F
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

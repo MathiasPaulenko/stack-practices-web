@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: sql-cte-guide
 title: "CTEs en SQL — Expresiones de Tablas Comunes Explicadas"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Las Expresiones de Tablas Comunes (CTEs), introducidas en SQL:1999, proporcionan un conjunto de resultados temporal con nombre que existe durante la ejecucion de una sola consulta. Mejoran la legibilidad al dividir consultas complejas en bloques nombrados, habilitan recursion para datos jerarquicos y pueden materializarse para rendimiento. Soportadas por PostgreSQL, SQL Server, MySQL 8+, Oracle y SQLite 3.8.3+.
@@ -322,3 +317,14 @@ Agrega un limite de profundidad (WHERE depth < N) para evitar recursion infinita
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

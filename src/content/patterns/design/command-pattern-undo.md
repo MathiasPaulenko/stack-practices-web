@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: command-pattern-undo
 title: "Command Pattern with Undo/Redo in TypeScript"
@@ -38,7 +34,6 @@ seo:
 
 
 ---
-
 The [Command](/patterns/design/command-pattern) pattern turns a request into a stand-alone object containing all information about the request. This decoupling allows you to parameterize methods with different requests, delay or queue execution, and implement undo/redo operations — essential for interactive applications like editors, drawing tools, and form builders.
 
 ## When to Use This
@@ -333,3 +328,14 @@ Lessons:
 ### How do I implement macros with Command?
 
 Create a MacroCommand that contains a list of commands. Execute() calls execute() on each command in order. Undo() calls undo() in reverse order. This allows grouping atomic operations: for example, "format document" executes 20 individual commands, and a single undo reverses them all.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

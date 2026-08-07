@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: serverless-db-connection-pooling-pattern
 title: "Serverless DB Connection Pooling Pattern"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Serverless functions scale horizontally by spawning many concurrent instances. Each instance may open its own database connection, and during traffic spikes you can have hundreds of simultaneous connections. Most databases cap connections at a few hundred or thousand. When you exceed that limit, new connections fail and the entire system degrades.
@@ -332,3 +326,14 @@ Lessons:
 ### How do I diagnose connection exhaustion in serverless?
 
 Symptoms: "too many connections" errors, query timeouts, Lambda errors. Diagnosis: check CloudWatch for active RDS connections. If there are N concurrent Lambdas with M conns each, total is N*M. Solution: RDS Proxy (manages global pool), reduce max conns per Lambda, or migrate to Data API. Set CloudWatch alarms for DatabaseConnections > 80% of max.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

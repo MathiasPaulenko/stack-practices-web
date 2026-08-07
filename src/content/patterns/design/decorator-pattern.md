@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: decorator-pattern
 title: "Decorator Pattern"
@@ -56,7 +51,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Decorator Pattern is a structural design pattern that lets you attach new behaviors to objects by placing them inside wrapper objects that contain the behaviors. It provides a flexible alternative to subclassing for extending functionality.
@@ -331,3 +325,14 @@ Order matters. Put the cheapest decorator outside (cache) and the most expensive
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

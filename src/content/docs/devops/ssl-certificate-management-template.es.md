@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: ssl-certificate-management-template
 title: "Plantilla de Gestion de Certificados SSL"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Los certificados SSL/TLS protegen los datos en transito al cifrar el trafico entre clientes y servidores. Certificados vencidos, mal configurados u olvidados pueden causar interrupciones, advertencias de seguridad y perdida de confianza del cliente. Esta plantilla proporciona un proceso para rastrear el inventario de certificados, planificar renovaciones, desplegar certificados y responder a incidentes relacionados con certificados.
@@ -322,3 +317,14 @@ Revisa el inventario de certificados mensualmente. Elimina certificados expirado
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

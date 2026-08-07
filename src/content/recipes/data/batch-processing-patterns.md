@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: batch-processing-patterns
 title: "Batch Processing Patterns"
@@ -314,3 +312,14 @@ Data contracts define schema expectations between producers and consumers. Imple
 - [Database Indexing](/recipes/performance/database-indexing) — optimizing query performance for batch reads
 - [Web Performance](/recipes/performance/web-performance) — frontend and backend performance techniques
 - [Load Testing](/recipes/performance/load-testing) — validating batch job performance under load
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

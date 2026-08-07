@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: graphql-pagination-relay-connections
 title: "Cursor-based Pagination with GraphQL Relay Connections"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 The Relay Connection specification is the de facto standard for paginating GraphQL results. It models collections as connections containing edges, where each edge wraps a node and a cursor. This structure supports stable pagination across inserts and deletes, unlike offset-based approaches that skip or duplicate rows when data changes between requests.
 
 ## When to Use This
@@ -324,3 +319,14 @@ Only when the client needs it. `totalCount` requires a separate `COUNT` query th
 ### How do I cap page size without breaking the spec?
 
 Set a maximum for `first` and `last` (e.g., 50–100) in the resolver. If the client requests more, clamp to the max and return the clamped amount. This prevents expensive queries that scan large portions of the table.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

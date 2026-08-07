@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: type-object-pattern
 title: "Patrón Type Object"
@@ -41,7 +37,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 El Patrón Type Object define tipos de entidades de juego (monstruos, items, hechizos) como datos en runtime en lugar de codificarlos como clases. Cada tipo es representado por un objeto de datos compartido, y las instancias individuales simplemente referencian su tipo. Esto permite a los diseñadores crear nuevas variantes de entidades (ej. una nueva raza de monstruo) editando archivos de datos o bases de datos sin recompilar el codebase.
@@ -345,3 +340,14 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

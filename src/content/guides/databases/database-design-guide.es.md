@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: database-design-guide
 title: "Guía de Diseño de Bases de Datos"
@@ -51,7 +47,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 Una base de datos bien diseñada es la fundación de aplicaciones confiables. Un mal diseño conduce a inconsistencias de datos, consultas lentas y migraciones costosas. A continuación: los principios esenciales para diseñar bases de datos relacionales escalables.
@@ -327,3 +322,14 @@ End of document. Review and update quarterly.
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

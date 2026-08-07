@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-xml-files
 title: "Parse XML Files"
@@ -52,7 +48,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 XML remains widely used in enterprise systems, configuration files, SOAP APIs, and document formats like DOCX and RSS. Parsing XML correctly requires understanding the trade-offs between DOM (memory-based), SAX (event-driven), and modern stream parsers.
@@ -332,3 +327,14 @@ Pass a dictionary mapping prefixes to URIs to `ElementTree.findall()`. For examp
 ### Is JSON always better than XML?
 
 Not always. XML supports schemas (XSD), digital signatures, mixed content, and namespaces. JSON is simpler and more compact for APIs. Choose based on your interoperability and validation requirements.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: python-generate-qr-code
 title: "Generar Códigos QR con Python"
@@ -306,3 +305,14 @@ for r in results:
 ### ¿La librería qrcode es gratis para uso comercial?
 
 Sí. La librería `qrcode` tiene licencia BSD. Puedes usarla en proyectos comerciales sin restricciones.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

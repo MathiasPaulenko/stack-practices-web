@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: clean-code-principles-guide
 title: "Clean Code Principles: Writing Maintainable Software"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 Clean code is code that is easy to understand, easy to change, and easy to test. It is not about being clever — it is about being clear. This guide walks through the foundational habits that make a codebase sustainable.
@@ -344,3 +340,14 @@ The tools mentioned throughout this guide are listed in each section. Most are o
 ### How do I measure success after implementing this?
 
 Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

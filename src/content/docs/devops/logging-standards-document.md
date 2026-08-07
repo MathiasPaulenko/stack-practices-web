@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: logging-standards-document
 title: "Logging Standards Document"
@@ -36,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A Logging Standards Document defines how services, applications, and infrastructure produce logs. Consistent logging makes debugging, monitoring, security investigation, and compliance easier. This template covers log levels, structured formats, required fields, retention, sampling, and security rules.
@@ -319,3 +315,14 @@ Add tests that verify: log format is valid JSON, required fields are present (ti
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

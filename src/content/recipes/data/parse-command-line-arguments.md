@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-command-line-arguments
 title: "Parse Command Line Arguments"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Command-line argument parsing is foundational for building developer tools, automation scripts, and data processing pipelines. Proper CLI design enables discoverable flags, typed inputs, help text generation, and composable subcommands. The solution below covers standard libraries and popular packages across Python, JavaScript, and Java.
@@ -326,3 +321,14 @@ Invoke the CLI entry point as a function rather than spawning subprocesses. Pyth
 ### How do I build a CLI with subcommands?
 
 All major frameworks support subcommands. In `argparse`, use `add_subparsers()`. In `commander`, call `.command()` for each subcommand. In `picocli`, annotate nested classes with `@Command`. Keep shared options in a parent class or mixin to avoid duplication.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

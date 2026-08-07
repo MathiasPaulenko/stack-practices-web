@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: incident-timeline-template
 title: "Incident Timeline Template"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Most incident postmortems fail to identify the real problems because they lack an accurate timeline. Teams remember the big events but forget the 15-minute delay in escalation, the 30 minutes spent looking at the wrong logs, or the gap between the first alert and human acknowledgment. This template structures incident reconstruction around five-minute granularity, exposing the delays that actually drive MTTR.
@@ -314,3 +311,14 @@ End of document. Review incident timelines in monthly retrospectives. Track patt
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

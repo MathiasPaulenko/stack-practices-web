@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: slo-document-template
 templateType: slo-document
@@ -41,7 +37,6 @@ seo:
 
 
 ---
-
 Use this template to define reliability targets that balance user happiness with engineering velocity. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for metric collection and [On-Call Incident Response Guide](/guides/devops/on-call-incident-response-guide) for escalation procedures.
 
 ## Template
@@ -319,3 +314,14 @@ To implement SLOs you need: a monitoring system (Prometheus, Datadog) to collect
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

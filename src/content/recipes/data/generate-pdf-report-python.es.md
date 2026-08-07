@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: generate-pdf-report-python
 title: "Generar Reportes PDF con Python"
@@ -323,3 +320,14 @@ Usa los callbacks `onFirstPage` y `onLaterPages` en `doc.build()` como se muestr
 ### ¿Cómo creo un layout multi-columna?
 
 ReportLab soporta frames y templates via `BaseDocTemplate`. Define múltiples frames en una página y asigna flowables a cada uno. Es más complejo pero da layouts estilo revista.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

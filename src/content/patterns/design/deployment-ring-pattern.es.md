@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: deployment-ring-pattern
 title: "Patrón Deployment Ring"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Descripción general
 
 El patrón Deployment Ring despliega una nueva version en anillos concentricos de tamano creciente. El anillo 0 puede ser usuarios internos (1%). El anillo 1 es early adopters (5%). El anillo 2 es un segmento mas grande (25%). El anillo 3 es todos (100%). Entre cada anillo, el sistema verifica metricas de salud (tasa de error, latencia, conversion). Si las metricas se degradan, el rollout se detiene o se revierte. Si las metricas son estables, el siguiente anillo procede.
@@ -334,3 +331,14 @@ A: Si. Para cambios triviales (updates de texto, fixes de CSS), puedes empezar e
 - **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
 - **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
 - **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

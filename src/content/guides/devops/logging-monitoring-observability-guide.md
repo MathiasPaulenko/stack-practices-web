@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: logging-monitoring-observability-guide
 title: "Logging, Monitoring & Observability Guide"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 Observability is the ability to understand a system's internal state by examining its outputs. The three pillars — logs, metrics, and traces — provide different perspectives on system behavior.
@@ -323,3 +318,14 @@ Lessons:
 ### What is SLO burn rate?
 
 Burn rate measures how fast you consume your error budget. If your SLO is 99.9% (43.2 min of error/month), a burn rate of 14x means you are spending the budget 14 times faster than normal. At that rate, you will exhaust the budget in ~3 hours. Alerting on burn rate catches problems before they breach the SLO.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

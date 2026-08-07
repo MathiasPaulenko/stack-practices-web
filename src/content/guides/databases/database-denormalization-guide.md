@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: database-denormalization-guide
 title: "Database Denormalization"
@@ -42,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Denormalization is the intentional introduction of redundancy into a database schema to improve read performance. While normalization eliminates redundancy to ensure consistency, denormalization accepts controlled duplication to reduce joins, simplify queries, and speed up reads. It is not an excuse for poor design — it is a deliberate optimization applied after a normalized baseline is established.
@@ -322,3 +317,14 @@ Use triggers when synchronization must be immediate and write volume is low. Use
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

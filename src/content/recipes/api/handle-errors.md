@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: handle-errors
 title: "Handle Errors in APIs"
@@ -55,7 +50,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Error handling is what separates reliable APIs from fragile ones. A well-designed error response tells the client exactly what went wrong, what to do about it, and how to avoid it in the future — without leaking internal implementation details.
@@ -334,3 +328,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 - **Error response header injection**: if error messages are reflected in HTTP headers, attackers can inject CRLF characters. Sanitize all user input before placing it in HTTP headers.
 - **Error-based XSS via JSON**: if JSON error responses are rendered as HTML by the browser, attackers can inject scripts. Set Content-Type: application/json and X-Content-Type-Options: nosniff.
 - **Error-based open redirect**: if error messages include redirect URLs from user input, attackers can redirect to malicious sites. Validate all redirect URLs against an allowlist.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

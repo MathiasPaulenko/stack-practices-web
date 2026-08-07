@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: ci-cd-pipeline-security-template
 title: "Plantilla de Seguridad de Pipeline CI/CD"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Los pipelines CI/CD son un objetivo de alto valor para atacantes porque tienen acceso al codigo fuente, secretos de compilacion y rutas de despliegue a produccion. Un pipeline comprometido puede introducir malware, exfiltrar datos o desplegar cambios no autorizados. Esta plantilla define controles para proteger la integridad del codigo, la seguridad de los runners, los secretos y las aprobaciones de despliegue.
@@ -324,3 +319,14 @@ Fija todas las GitHub Actions de terceros a un SHA de commit especifico, no a un
 ### Que es un build reproducible y por que importa?
 
 Un build reproducible produce salida identica dado el mismo codigo fuente y entorno de compilacion. Esto significa que cualquiera puede verificar que un binario se construyo desde la fuente reclamada reconstruyendolo y comparando checksums. Los builds reproducibles son un requisito de SLSA Nivel 4. Logra reproducibilidad fijando timestamps, ordenando listas de archivos y eliminando entradas no deterministas como seeds aleatorios o llamadas de red durante el build.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

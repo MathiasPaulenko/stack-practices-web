@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: feature-flags-guide
 title: "Feature Flags: Progressive Release and Safe Experimentation"
@@ -41,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Feature flags (also called feature toggles) decouple deployment from release. You can deploy code to production while keeping new behavior hidden, then turn it on for specific users, regions, or percentages. They also act as kill switches, letting you disable a problematic change instantly without redeploying.
@@ -316,3 +312,13 @@ Define clear metrics before starting: performance benchmarks, error rates, or ma
 
 Feature flags are a practical tool for continuous delivery. They let you deploy with less risk, roll out gradually, and react fast when something breaks. Treat flags as temporary scaffolding, not permanent architecture, and remove them aggressively to keep your codebase clean.
 
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

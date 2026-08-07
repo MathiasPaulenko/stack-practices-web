@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: implement-property-based-testing
 title: "Implement Property-Based Testing"
@@ -42,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Traditional example-based tests check one input at a time (`assert reverse("abc") == "cba"`). Property-based tests describe universal properties (`reverse(reverse(s)) == s`) and the framework generates hundreds of random inputs to find violations. This approach discovers edge cases — empty strings, Unicode combining characters, integer overflow, null pointers — that human-chosen examples rarely cover.
@@ -323,3 +318,14 @@ For pure functions, properties are straightforward: assert invariants like `f(x)
 ### How do I share strategies across test suites?
 
 Extract reusable strategies into a shared module (e.g., `test/strategies.py` or `test/strategies.ts`). Export common generators like `email_strategy`, `date_strategy`, `json_strategy` that encode domain rules. Import them in test files to keep properties DRY. In Hypothesis, use `st.register_type_strategy` to bind a strategy to a custom type so `st.from_type(MyClass)` works automatically. In fast-check, export `fc.Arbitrary` instances from a shared file.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

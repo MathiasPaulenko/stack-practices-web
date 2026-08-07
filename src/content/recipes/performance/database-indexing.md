@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: database-indexing
 title: "Optimize Queries with Database Indexing"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Database indexes are data structures that speed up read operations by providing fast pathways to rows without scanning entire tables. Without proper indexes, even simple `WHERE` clauses force the database to examine every row sequentially — a full table scan that becomes unbearably slow as data grows.
@@ -317,3 +314,14 @@ Enum and boolean columns have low cardinality, making B-tree indexes less effect
 - [Batch Processing Patterns](/recipes/performance/batch-processing-patterns) — optimizing bulk data operations
 - [Web Performance](/recipes/performance/web-performance) — frontend and backend performance techniques
 - [Load Testing](/recipes/performance/load-testing) — validating database performance under load
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

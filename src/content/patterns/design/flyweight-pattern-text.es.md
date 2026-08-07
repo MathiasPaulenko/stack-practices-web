@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: flyweight-pattern-text
 title: "Flyweight Pattern para Comparticion Eficiente de Objetos"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 El [Flyweight](/patterns/design/flyweight-pattern) pattern minimiza el uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares. Cuando una aplicacion necesita crear miles de objetos que comparten la mayor parte de su estado, Flyweight extrae el estado compartido (intrinseco) en un objeto compartido separado, dejando solo el estado unico (extrinseco) en cada instancia.
 
 ## Cuando Usar Esto
@@ -316,3 +312,14 @@ No uses flyweight cuando hay pocos objetos (el overhead de la factory supera el 
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

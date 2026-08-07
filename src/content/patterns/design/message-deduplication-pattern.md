@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: message-deduplication-pattern
 title: "Message Deduplication Pattern"
@@ -36,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Message brokers guarantee at-least-once delivery, which means consumers may receive the same message more than once. Network retries, consumer crashes during processing, and broker redelivery all cause duplicates. Without deduplication, a payment might be processed twice or a notification sent multiple times.
@@ -316,3 +312,14 @@ A: At-least-once means every message is delivered at least once, but may be deli
 
 **Q: How do I handle dedup with HTTP idempotency keys?**
 A: Use the `Idempotency-Key` HTTP header as the dedup key. Store it in Redis before processing the request. If a retry arrives with the same key, return the cached response instead of reprocessing. Stripe uses this pattern for payment APIs. The TTL should match the client's retry window.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

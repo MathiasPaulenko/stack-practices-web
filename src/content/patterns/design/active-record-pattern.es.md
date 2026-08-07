@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: active-record-pattern
 title: "Patrón Active Record"
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 El Patrón Active Record envuelve una tabla de base de datos en una clase donde cada instancia representa una sola fila. El objeto lleva tanto datos (atributos) como comportamiento (métodos CRUD). Llamar `user.save()` persiste el objeto directamente a la base de datos sin una capa de acceso a datos separada.
@@ -336,3 +332,14 @@ Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea centr
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

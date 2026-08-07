@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: indexing-strategies-guide
 title: "Database Indexing Strategies — From B-Trees to BRIN"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Indexes are the primary mechanism for speeding up database queries. They are data structures that allow the database to locate rows without scanning every record. But indexes are not free — they consume storage, slow down writes, and can hurt performance if used incorrectly. Understanding the different index types and when to apply them is one of the highest-value database skills.
@@ -320,3 +317,14 @@ Lessons:
 ### How do I choose between B-Tree and BRIN?
 
 Use B-Tree for random access data with equality or range queries. Use BRIN for very large tables (billions of rows) where data is naturally ordered (time-series, append-only logs). BRIN is ~1% of B-Tree size but only useful when queries filter on the ordered column range.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

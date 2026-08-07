@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: mediator-pattern-components
 title: "Mediator Pattern for Loose Component Coupling in"
@@ -44,7 +39,6 @@ seo:
 
 
 ---
-
 The [Mediator](/patterns/design/mediator-pattern) pattern defines an object that encapsulates how a set of objects interact. Instead of components referring to each other directly, they refer to a mediator, reducing the number of explicit connections from many-to-many to many-to-one. This is essential for complex UIs where dozens of components need to stay synchronized.
 
 ## When to Use This
@@ -322,3 +316,14 @@ Mediator centralizes: components talk to the mediator and it redirects. Observer
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

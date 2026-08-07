@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: capacity-planning-template
 templateType: capacity-planning
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 La planificación de capacidad responde una pregunta simple: ¿nuestros sistemas manejarán la carga que esperamos en los próximos 12-24 meses? La respuesta requiere datos, no suposiciones. Esta plantilla te ayuda a recolectar esos datos, estimar crecimiento y planificar escalado antes de que los cuellos de botella lleguen a producción.
@@ -342,3 +336,14 @@ Usa tu sistema de monitoreo (Prometheus, Datadog, CloudWatch) para datos histór
 - **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
 - **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
 - **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

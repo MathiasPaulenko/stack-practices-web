@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: feature-flags-guide
 title: "Feature Flags: Release Progresivo y Experimentación Segura"
@@ -41,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Los feature flags (también llamados feature toggles) desacoplan el despliegue del release. Permiten desplegar código a producción mientras mantienen funcionalidades ocultas, luego habilitarlas gradualmente para usuarios, regiones o porcentajes específicos. También sirven como kill switches para deshabilitar instantáneamente cambios problemáticos sin redeploy.
@@ -316,3 +312,13 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 
 Los feature flags son esenciales para la entrega continua moderna. Te permiten desplegar con confianza, lanzar gradualmente y reaccionar instantáneamente a problemas. Trata los flags como andamiaje temporal, no arquitectura permanente, y límpialos agresivamente para mantener tu codebase saludable.
 
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

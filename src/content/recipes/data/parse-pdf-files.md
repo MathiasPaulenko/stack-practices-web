@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: parse-pdf-files
 title: "Parse PDF Files"
@@ -321,3 +318,14 @@ Yes. Mozilla's PDF.js runs in the browser and can render pages to canvas and ext
 ### How do I handle scanned PDFs that contain no text layer?
 
 Run OCR first. Use `pytesseract` + `pdf2image` in Python, or Tesseract.js in the browser, to convert image pages into searchable PDFs. Cloud alternatives include AWS Textract, Google Document AI, and Azure Form Recognizer for higher accuracy on forms and invoices.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: serverless-cost-estimation-template
 templateType: guideline
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 This template helps teams estimate serverless costs per workload before deployment and track actual costs against projections. Serverless pricing is based on invocations, execution duration, memory allocation, and data transfer. Underestimating any of these factors leads to budget overruns.
@@ -323,3 +320,13 @@ Step Functions charges per state transition. Standard workflows cost $0.025 per 
 - [Minimize Cold Start Latency in Serverless Functions](/recipes/cold-start-optimization/)
 - [Build Event-Driven Serverless Architectures](/recipes/event-driven-functions/)
 
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

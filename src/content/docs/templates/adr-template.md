@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: adr-template
 templateType: adr
@@ -49,7 +44,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Architecture Decision Records (ADRs) capture the "why" behind technical decisions. Code shows what was built; ADRs explain why it was built that way. Without ADRs, teams re-litigate the same decisions, new members guess at rationale, and reversing decisions feels risky because no one remembers the trade-offs.
@@ -333,3 +327,14 @@ Default to public within your organization. Private ADRs are appropriate for dec
 ### Should I use a tool to manage ADRs?
 
 A `docs/adr/` directory in version control is sufficient for most teams. Tools like `adr-tools` (CLI) and `log4brains` (web UI) add numbering automation and search. Start simple and adopt a tool only if managing ADRs manually becomes a burden.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

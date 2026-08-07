@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: infrastructure-cost-allocation-template
 title: "Plantilla de Asignacion de Costos de Infraestructura"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 La Asignacion de Costos de Infraestructura es la practica de distribuir los costos de infraestructura cloud y on-premise a los equipos, productos o entornos que los consumen. Sin una asignacion clara, los presupuestos se desvian, los equipos carecen de responsabilidad y finanzas no entienden donde se gasta el dinero. Esta plantilla proporciona un marco para etiquetar, mapear cuentas, dividir costos compartidos y reportar la propiedad de los costos.
@@ -314,3 +311,14 @@ La FinOps Foundation define tres niveles de madurez: Crawl (etiquetado basico, r
 ### Con que frecuencia debemos revisar la asignacion de costos?
 
 Revisa las reglas de asignacion trimestralmente. Audita el cumplimiento de etiquetas mensualmente. Ejecuta revisiones de optimizacion de costos mensualmente con cada equipo. Conduce una evaluacion completa de FinOps anualmente para evaluar madurez, herramientas y mejoras de proceso. Ajusta los pesos de asignacion cuando cambien las estructuras de equipo, se agreguen nuevos servicios o se modifique la infraestructura compartida.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

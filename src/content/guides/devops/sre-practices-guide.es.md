@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: sre-practices-guide
 title: "Site Reliability Engineering"
@@ -64,7 +59,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Site Reliability Engineering (SRE), novedoso en Google, aplica principios de ingenieria de software a las operaciones. En lugar de tratar la confiabilidad como una funcion separada, los equipos SRE escriben codigo para automatizar operaciones, gestionar infraestructura y medir la salud del sistema a traves de Service Level Objectives (SLOs). El principio central: la confiabilidad es una capacidad, no una ocurrencia tardia. SRE balancea la necesidad de velocidad (enviar cambios) con la necesidad de estabilidad (mantener sistemas corriendo) a traves de presupuestos de error, presupuestos de toil y postmortems sin culpa.
@@ -338,3 +332,14 @@ Calcula el costo de downtime. Si tu revenue es $100K/hora y tienes 4 incidentes/
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

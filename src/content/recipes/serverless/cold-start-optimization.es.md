@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: cold-start-optimization
 title: "Minimizar la Latencia de Cold Start en Funciones Serverless"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Las funciones serverless se ejecutan en contenedores efímeros creados bajo demanda. Cuando llega un request y no existe un contenedor cálido, el proveedor de cloud inicializa un nuevo runtime, carga tu código, importa dependencias y ejecuta el handler. Esta fase de inicialización — el cold start — agrega latencia que va desde 100ms hasta varios segundos dependiendo del runtime, asignación de memoria y tamaño de dependencias. Para APIs orientadas al usuario, los cold starts se traducen directamente en mala experiencia de usuario.
@@ -305,3 +302,14 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

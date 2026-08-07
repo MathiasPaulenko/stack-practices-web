@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: object-pool-pattern
 title: "Patrón Object Pool"
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 El Patrón Object Pool reutiliza objetos costosos de crear en lugar de instanciarlos y destruirlos bajo demanda. Los objetos se extraen de un pool pre-inicializado, se usan y se devuelven para futura reutilización. Este patrón es esencial cuando la creación de objetos es costosa en tiempo o memoria, como conexiones de base de datos, threads o bitmaps grandes.
@@ -316,3 +313,14 @@ Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea centr
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: api-documentation
 templateType: api-doc
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 ## Template Structure
 
 Use this template as the foundation for documenting any HTTP API. Replace bracketed sections with your API-specific content.
@@ -339,3 +335,14 @@ Document both if you support them. Offset-based uses `page` and `limit` (simpler
 ### Should I include code examples in multiple languages?
 
 If your API has consumers in multiple languages, yes. Include examples in cURL (universal), Python (requests), and JavaScript (fetch). Keep examples short and focused on one endpoint each. For internal APIs with a single consuming language, one language is enough.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

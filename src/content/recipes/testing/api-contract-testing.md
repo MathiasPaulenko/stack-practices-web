@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: api-contract-testing
 title: "Test API Contracts with Consumer-Driven Contracts"
@@ -33,7 +32,6 @@ seo:
     - openapi validation
 
 ---
-
 ## Overview
 
 In a microservices architecture, dozens of services communicate through APIs. When one service changes a response field or drops a status code, downstream consumers break silently — often discovered only in production. Integration tests catch some of these issues, but they are slow and require all services to be running.
@@ -302,3 +300,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### What are the limitations of contract testing?
 
 Contract testing has some limitations. It does not replace end-to-end testing. It does not verify business logic correctness. It only verifies message format compatibility. Consumer and provider must agree on contract format. Document limitations for your team. Plan mitigation strategies. Test edge cases thoroughly. Monitor for contract violations.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

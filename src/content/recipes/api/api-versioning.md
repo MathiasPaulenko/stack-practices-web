@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: api-versioning
 title: "API Versioning"
@@ -323,3 +321,14 @@ URL path versioning has zero routing overhead and the highest cache hit rate bec
 ## Security Considerations
 
 - **Version header injection**: if using header-based versioning, validate the version header to prevent injection attacks. Only accept predefined version values and reject requests with unexpected headers.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

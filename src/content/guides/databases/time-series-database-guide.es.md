@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: time-series-database-guide
 title: "Bases de Datos de Series Temporales"
@@ -32,7 +31,6 @@ seo:
     - guia
 
 ---
-
 ## Overview
 
 Las bases de datos de series temporales (TSDBs) estan optimizadas para cargas de trabajo donde los datos se indexan principalmente por tiempo: metricas, lecturas de sensores IoT, logs de aplicaciones, datos de ticks financieros y monitoreo de sistemas. A diferencia de las bases de proposito general, las TSDBs usan la naturaleza inmutable y solo-adicion de datos de series temporales para lograr alto rendimiento de ingestion y consultas eficientes por rango de tiempo. Motores especializados como InfluxDB, TimescaleDB y ClickHouse ofrecen diferentes compromisos entre facilidad de uso, compatibilidad SQL y rendimiento crudo.
@@ -310,3 +308,14 @@ Lecciones aprendidas:
 ### Como manejo backfill de datos historicos?
 
 TimescaleDB soporta inserts fuera de orden. Para backfill masivo, deshabilita temporalmente las políticas de retencion, inserta en lotes de 100K filas, y re-habilita. Los agregados continuos se actualizan automaticamente. En InfluxDB, usa la opcion timePrecision correcta y evita tags de alta cardinalidad durante el backfill. En ClickHouse, inserta en particiones por fecha para optimizar el merge.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

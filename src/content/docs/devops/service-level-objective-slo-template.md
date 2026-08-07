@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: service-level-objective-slo-template
 title: "Service Level Objective (SLO) Template"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A Service Level Objective (SLO) defines a reliability target for a service. It translates user expectations into measurable goals that guide engineering priorities, trade-offs, and investment. This template helps teams define Service Level Indicators (SLIs), set targets, manage error budgets, and review performance over time.
@@ -324,3 +318,14 @@ During an incident, the SLO is already being missed (budget is being consumed). 
 Review SLO targets after major architecture changes, new feature launches, or significant traffic pattern shifts. Document all target changes with rationale and date.
 
 Track SLO compliance trends over 6-month windows to identify degrading services before they miss targets.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

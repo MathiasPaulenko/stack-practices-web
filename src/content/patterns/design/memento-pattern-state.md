@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: memento-pattern-state
 title: "Memento Pattern for State Snapshot and Restoration"
@@ -38,7 +34,6 @@ seo:
 
 
 ---
-
 The [Memento](/patterns/design/memento-pattern) pattern captures and externalizes an object's internal state so the object can be restored to this state later, without violating encapsulation. Unlike [Command](/patterns/design/command-pattern), which stores operations, Memento stores the entire state snapshot. It is the foundation for undo systems, checkpoints in games, and draft saving in editors.
 
 ## When to Use This
@@ -339,3 +334,14 @@ Lessons:
 ### Memento vs Command for undo: which do I use?
 
 Use Memento when you need to restore full state (forms, visual editors). Use Command when you need to undo individual operations (text, actions). Memento is simpler but uses more memory: saves entire state. Command is more efficient: only saves what is needed to undo. For wizards and multi-step forms, Memento is ideal. For text editors, Command is preferable.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

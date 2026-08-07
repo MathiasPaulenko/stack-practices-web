@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: blue-green-deployment-guide
 title: "Blue-Green Deployment"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Blue-green deployment is a release strategy that maintains two identical production environments — blue (active) and green (idle). New versions deploy to the idle environment, get validated, and then traffic switches instantly. If problems arise, rollback is just another traffic switch.
@@ -321,3 +316,14 @@ Define clear metrics before starting: performance benchmarks, error rates, or ma
 ## Conclusion
 
 Blue-green deployment is the gold standard for zero-downtime releases with instant rollback. It requires double infrastructure but provides unmatched confidence. Combine it with automated health checks, backward-compatible database migrations, and thorough monitoring for a bulletproof release process.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

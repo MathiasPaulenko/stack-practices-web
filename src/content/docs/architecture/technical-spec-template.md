@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: technical-spec-template
 title: "Technical Specification Template"
@@ -327,3 +324,14 @@ Plain Markdown in version control is the most common approach. Tools like Notion
 ### How do I get stakeholders to actually read the spec?
 
 Keep it short. Use a TL;DR section at the top with 3 bullet points. Schedule a 30-minute review meeting with decision-makers. Send the spec 48 hours before the meeting so they can read it asynchronously.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

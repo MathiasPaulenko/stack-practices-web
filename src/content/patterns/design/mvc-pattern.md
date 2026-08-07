@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: mvc-pattern
 title: "MVC Pattern"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The [Model-View-Controller](/patterns/design/mvc-pattern-frontend) (MVC) Pattern is an architectural design pattern that separates an application into three interconnected components: Model (data and business logic), View (presentation), and Controller (input handling and coordination).
@@ -319,3 +314,14 @@ Use MVC for simple apps where the View is static and the Controller handles ever
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

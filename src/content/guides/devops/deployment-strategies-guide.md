@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: deployment-strategies-guide
 title: "Blue-Green and Canary Deployments"
@@ -47,7 +42,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 Deploying to production is risky. A bad deployment can take down your service, corrupt data, or degrade user experience for hours. Deployment strategies exist to reduce this risk by controlling how new code reaches users and how quickly you can revert if things go wrong.
@@ -325,3 +319,14 @@ Use ArgoCD ApplicationSet with multiregion clusters. Deploy sequentially: us-eas
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

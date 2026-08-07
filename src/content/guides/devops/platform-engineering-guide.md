@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: platform-engineering-guide
 title: "Platform Engineering — Building Internal Developer Platforms"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Platform engineering is the discipline of building and maintaining Internal Developer Platforms (IDPs): self-service layers that abstract infrastructure complexity and allow developers to deploy, operate, and observe their applications without deep platform expertise. Instead of every team reinventing CI/CD, observability, and security patterns, a platform team curates "golden paths" — paved roads with guardrails that make the right thing the easy thing. The goal is not to restrict developers but to accelerate them by removing cognitive load.
@@ -313,3 +310,14 @@ Make everything self-service. Templates generate everything automatically. Backs
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

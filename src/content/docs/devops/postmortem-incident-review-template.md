@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: postmortem-incident-review-template
 title: "Postmortem Incident Review Template"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Every outage is a lesson that someone will repeat unless it is written down. Postmortems are not about blame — they are about understanding how a system with good people and good intentions still failed. A well-run postmortem reconstructs what happened, identifies the chain of events that led to failure, and produces concrete actions that make the next incident less likely or less severe.
@@ -319,3 +315,14 @@ The postmortem should be reviewed by: the incident commander (for factual accura
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: secret-rotation-schedule-template
 title: "Secret Rotation Schedule Template"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A Secret Rotation Schedule Template helps teams track every credential that must be rotated, when it was last rotated, when it is due next, and who owns the process. It supports operational reliability and compliance by preventing expired certificates, stale API keys, and forgotten service account passwords.
@@ -330,3 +324,14 @@ Static secrets are long-lived credentials stored in a vault and retrieved by app
 ### How do I rotate secrets in a distributed system with no downtime?
 
 Use a three-phase approach: (1) Create the new secret and make it available alongside the old one. (2) Deploy services incrementally to use the new secret, verifying each instance. (3) Once all services use the new secret, revoke the old one. For databases, use connection pooling with graceful reconnection to handle the credential switch.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

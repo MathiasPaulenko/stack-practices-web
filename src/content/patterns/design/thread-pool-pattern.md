@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: thread-pool-pattern
 title: "Thread Pool Pattern"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Creating a thread is expensive. Each thread allocates a stack (typically 1MB), requires kernel-level setup, and adds scheduling overhead. When tasks are short-lived and frequent, creating a thread per task wastes resources and can exhaust memory under load. The Thread Pool pattern maintains a fixed set of worker threads that pick up tasks from a queue. Tasks are submitted to the pool and executed by the next available thread.
@@ -343,3 +338,14 @@ Lessons:
 ### When do I use threads vs async in Node.js?
 
 Use worker_threads for CPU-intensive tasks (image processing, crypto, compression, parsing large files). The event loop is single-threaded: CPU work blocks it. Use async/await for I/O tasks (DB, HTTP, file reads): the event loop handles I/O efficiently without threads. If your task takes < 10ms, keep it on the event loop. If it takes > 100ms of CPU time, offload to a worker.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

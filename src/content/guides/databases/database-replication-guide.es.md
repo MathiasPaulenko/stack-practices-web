@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: database-replication-guide
 title: "Replicación de Bases de Datos"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La replicación de bases de datos es el proceso de copiar y mantener datos a través de múltiples nodos de base de datos. Provee alta disponibilidad, escalado de lecturas y recuperación ante desastres. Pero la replicación introduce complejidad: lag, conflictos, escenarios de split-brain y trade-offs de consistencia. A continuación: las estrategias de replicación usadas en producción, desde simples setups master-slave hasta clusters multi-master.
@@ -346,3 +343,14 @@ Lecciones:
 ### Como manejo split-brain?
 
 Split-brain ocurre cuando dos nodos creen ser primary. Patroni lo previene con etcd quorum: solo un nodo puede adquirir el lock de leader. Si etcd no esta disponible, Patroni degrada a solo lectura. Nunca configures dos primaries manualmente. Si ocurre split-brain, detiene uno inmediatamente, resuelve conflictos con pg_rewind, y reconecta como replica.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

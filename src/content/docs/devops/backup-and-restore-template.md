@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: backup-and-restore-template
 title: "Backup & Restore Verification Template"
@@ -326,3 +323,14 @@ Start with cloud-native services (AWS Backup, GCP Backup) for simplicity and int
 Use checksums: compute SHA-256 of the backup file after creation and compare on verification. For PostgreSQL, use `pg_verifybackup` to check manifest integrity. For file-level backups, compare file counts and total sizes against the source. A full restore test is still required periodically, but checksums catch corruption between tests.
 
 For large databases (>1TB), consider incremental restore verification: restore only changed blocks and verify checksums on those blocks to reduce test time from hours to minutes.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

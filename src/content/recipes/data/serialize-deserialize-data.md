@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: serialize-deserialize-data
 title: "Serialize and Deserialize Data"
@@ -50,7 +46,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Serialization converts in-memory objects to a format that can be stored or transmitted. Deserialization reverses the process, reconstructing objects from bytes or text. These operations are essential for APIs, caching, message queues, configuration files, and session persistence. Below is a practical approach to JSON, XML, and YAML serialization across Python, JavaScript, and Java.
@@ -333,3 +328,14 @@ Implement a custom `JSONEncoder` subclass or provide a `default` callable to `js
 ### Can I serialize Java objects without getters and setters?
 
 Yes. Jackson can serialize public fields directly if configured with `ObjectMapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY)`. However, using getters/setters is the standard Java convention and ensures encapsulation. Alternatively, use records (Java 14+) which generate canonical constructors and accessor methods automatically.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

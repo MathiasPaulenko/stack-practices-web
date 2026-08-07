@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: rate-limiting
 title: "Rate Limiting"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Rate limiting controls how many requests a client can make to your API in a given time window. It prevents abuse, ensures fair resource allocation, and protects downstream services from overload.
@@ -322,3 +316,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 - **Error-based DoS via file descriptors**: if error handlers open files during error processing, attackers can exhaust file descriptors. Limit file operations in error handlers.
 - **Error-based DoS via memory allocation**: if error handlers allocate large buffers for error messages, attackers can exhaust memory. Cap error message size at 1KB.
 - **Error-based DoS via stack traces**: if stack traces are generated for every error, attackers can trigger many errors to consume CPU. Cache stack traces for repeated identical errors.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

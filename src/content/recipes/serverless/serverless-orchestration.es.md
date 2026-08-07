@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: serverless-orchestration
 title: "Orquestar Workflows Serverless con Step Functions y"
@@ -33,7 +32,6 @@ seo:
     - workflows serverless
 
 ---
-
 ## Visión general
 
 Una sola función AWS Lambda puede procesar una petición HTTP, redimensionar una imagen o validar un formulario. Pero los workflows del mundo real raramente son tan simples. Un pedido de e-commerce implica validar inventario, cobrar pago, enviar confirmación, actualizar analytics y programar envío. Cada paso es una función; el workflow es la lógica de coordinación que decide qué llamar a continuación, qué hacer ante fallas y cómo reintentar errores transitorios.
@@ -313,3 +311,14 @@ Step Functions Standard: hasta 1 año por ejecución. Express: hasta 5 minutos. 
 - **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

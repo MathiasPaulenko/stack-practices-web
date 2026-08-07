@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: ai-agents-tool-use
 title: "AI Agents with Tool Use"
@@ -318,3 +317,14 @@ Mock the LLM responses and tool calls in unit tests. For integration tests, use 
 ### When should I use multi-agent orchestration?
 
 Use multi-agent when a task has distinct phases (research, implement, review) that require different system prompts or tool sets. For simple tasks, a single agent with multiple tools is more efficient and predictable. Multi-agent orchestration adds coordination overhead and cost — use it only when roles are clearly separable.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

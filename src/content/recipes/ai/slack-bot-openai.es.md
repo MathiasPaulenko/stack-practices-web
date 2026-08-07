@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: slack-bot-openai
 title: "Construir un Bot de Slack con OpenAI GPT-4"
@@ -32,7 +31,6 @@ seo:
     - bolt
 
 ---
-
 Un bot de Slack potenciado por un gran modelo de lenguaje puede responder preguntas, resumir hilos y ejecutar comandos a traves de lenguaje natural. Para una implementación general de chatbot, consulta [Chatbot con OpenAI](/recipes/ai/chatbot-openai). A continuacion se muestra como como construir uno usando el framework Slack Bolt y la API de GPT-4 de OpenAI.
 
 ## Cuando Usar Esto
@@ -320,3 +318,14 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

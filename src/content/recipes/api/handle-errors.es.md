@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: handle-errors
 title: "Manejar Errores en APIs"
@@ -55,7 +50,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 El manejo de errores es lo que separa a las APIs fiableas de las frágiles. Una respuesta de error bien diseñada le dice al cliente exactamente qué salió mal, qué hacer al respecto y cómo evitarlo en el futuro, sin filtrar detalles internos de implementación.
@@ -335,3 +329,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **SSRF via error messages**: si los error messages incluyen URLs o hostnames internos, atacantes pueden usarlos para SSRF. Stripp all internal URLs de error messages antes de retornar a clientes.
 - **Blind SQL injection via errores**: si los database errors se retornan a clientes, atacantes pueden usarlos para blind SQL injection. Nunca retornes raw database errors; envolverlos en generic messages.
 - **Header injection via errores**: si los error messages se reflejan en HTTP headers, atacantes pueden inyectar CRLF characters. Sanitiza todo user input antes de colocarlo en HTTP headers.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

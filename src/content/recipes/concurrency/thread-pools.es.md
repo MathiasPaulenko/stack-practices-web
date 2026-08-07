@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: thread-pools
 title: "Gestionar Trabajo Concurrente con Thread Pools y Executors"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Crear un nuevo thread para cada tarea concurrente es costoso. Cada thread consume memoria para su stack (típicamente 1MB), requiere scheduling del SO, y agrega overhead de context-switching. En alta concurrencia, la creación de threads se convierte en cuello de botella — el sistema pasa más tiempo gestionando threads que haciendo trabajo útil. Los thread pools resuelven esto manteniendo un conjunto fijo de worker threads reutilizables. Las tareas se envían a una cola; workers inactivos las toman. Cuando todos los workers están ocupados, las tareas esperan en la cola en lugar de spawnear nuevos threads.
@@ -316,3 +312,14 @@ Para tareas CPU-bound, usa la fórmula de Brian Goetz: `N_threads = N_cores * (1
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

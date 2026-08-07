@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: repository-pattern
 title: "Patrón Repository"
@@ -53,7 +48,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 El [Patrón Repository](/patterns/design/repository-pattern-typescript) es un patrón de diseño arquitectural que media entre la capa de dominio y las capas de mapeo de datos usando una interfaz similar a una colección para acceder a objetos de dominio. Abstrae los detalles de almacenamiento y recuperación de datos.
@@ -338,3 +332,14 @@ Usa Repository cuando piensas en terminos de dominio (User, Order) y quieres abs
 - **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
 - **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
 - **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: cdn-edge-caching
 title: "Implement CDN Edge Caching"
@@ -309,3 +307,14 @@ Configure primary and fallback CDN providers. Use DNS-based failover for automat
 ### Can I use multiple CDNs simultaneously?
 
 Yes. Multi-CDN strategies improve availability and performance. Use DNS routing or CDN load balancers to distribute traffic. Configure geographic routing for regional optimization. Monitor each CDN independently. Document routing rules. Test failover between CDNs. Compare costs across providers.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

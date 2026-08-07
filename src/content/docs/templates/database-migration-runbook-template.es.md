@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: database-migration-runbook-template
 templateType: database-migration-runbook
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 Usa esta plantilla para ejecutar cambios de esquema de base de datos sin downtime ni pérdida de datos.
 
 ## Plantilla
@@ -320,3 +314,14 @@ End of document. Review and update quarterly.
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

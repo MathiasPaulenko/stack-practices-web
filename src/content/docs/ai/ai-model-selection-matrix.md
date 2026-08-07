@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: ai-model-selection-matrix
 templateType: guideline
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 This matrix compares LLM models across cost, latency, context window, accuracy, and task suitability. Use it to select the right model for your use case and budget. Update pricing and benchmarks as new models are released.
@@ -340,3 +335,13 @@ GPT-4o is the full-capability model with the best reasoning, code generation, an
 - [Complete Guide to LLM Cost Optimization](/guides/complete-guide-llm-cost-optimization/)
 - [Complete Guide to LLM Evaluation](/guides/complete-guide-llm-evaluation/)
 
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

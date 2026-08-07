@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: test-case-template
 title: "Test Case Template"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A test case is a set of conditions under which a tester determines whether an application meets requirements. Standardized test cases ensure consistent coverage, reproducible results, and traceability from requirements to verification. This template provides a structure for writing test cases that are clear, complete, and actionable.
@@ -318,3 +314,14 @@ A test scenario is a high-level description of what to test ("verify login works
 ### How many test cases per feature?
 
 Depends on complexity. A simple feature might need 5-10 test cases (happy path, 3-5 negative, 2-3 edge). A complex feature like payment processing might need 50+. Use risk-based testing: more test cases for higher-risk features. Don't write test cases for trivial UI changes.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

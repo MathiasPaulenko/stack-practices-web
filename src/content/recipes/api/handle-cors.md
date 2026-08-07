@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: handle-cors
 title: "Handle CORS Correctly"
@@ -318,3 +316,14 @@ Configure allowed origins per environment using environment variables. In develo
 ### How do I handle CORS with CDN caching?
 
 Add `Vary: Origin` to all CORS responses so the CDN caches different responses per origin. Without `Vary: Origin`, the CDN may serve a response cached for origin A to a request from origin B, causing CORS failures. Configure the CDN to cache CORS responses separately by origin: in Cloudflare, use cache keys that include the `Origin` header. In CloudFront, create a cache behavior that includes `Origin` in the cache key. For APIs with dynamic origin validation, disable CDN caching for CORS responses entirely — set `Cache-Control: no-store` on preflight `OPTIONS` responses.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

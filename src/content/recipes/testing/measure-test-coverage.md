@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: measure-test-coverage
 title: "Measure Test Coverage"
@@ -44,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Code coverage measures which lines, branches, and conditions were executed during tests. It is a useful proxy for untested code, but not a measure of test quality — 100% coverage with no assertions is meaningless. Below is the idiomatic way to how to collect, report, and set meaningful coverage thresholds without creating perverse incentives.
@@ -322,3 +316,14 @@ Upload coverage reports to a tracking service like Codecov, Coveralls, or SonarQ
 Coverage measures which code was executed during tests, not whether the tests actually verify correctness. To measure effectiveness, combine coverage with mutation testing (see `implement-mutation-testing` recipe). Mutation testing modifies the source code and checks if tests catch the change. A high coverage score with a low mutation score means tests execute the code but do not assert meaningful behavior. Use both metrics together for a complete picture of test quality. Track both metrics in CI to catch regressions in test effectiveness over time.
 
 Set separate thresholds for coverage and mutation score — require 80% branch coverage but only 60% mutation score initially, then ratchet up as the suite matures.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

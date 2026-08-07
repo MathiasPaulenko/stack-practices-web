@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: format-phone-numbers
 title: "Formatear Números de Teléfono"
@@ -317,3 +314,14 @@ E.164 es la recomendación ITU-T para números de teléfono internacionales: un 
 ### ¿Puedo detectar la compañía o tipo de número?
 
 Sí. libphonenumber retorna el tipo de número (`MOBILE`, `FIXED_LINE`, `TOLL_FREE`, etc.) y, en algunos países, el nombre de la compañía. En Python: `phonenumbers.number_type(parsed)`. En JavaScript: `phone.getType()`. En Java: `util.getNumberType(number)`. Nota que los datos de compañía no están disponibles para todas las regiones.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

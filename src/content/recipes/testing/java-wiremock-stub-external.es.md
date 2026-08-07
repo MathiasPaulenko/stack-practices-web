@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: java-wiremock-stub-external
 title: "Stubear Servicios HTTP Externos con WireMock"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 WireMock es una librería de Java que arranca un servidor HTTP y te permite definir stub mappings para servicios externos. En lugar de llamar APIs reales de terceros, tu código hittea WireMock, que devuelve respuestas predefinidas. Controlas códigos de estado, headers, bodies, delays e incluso comportamiento stateful — todo desde tu código de test.
@@ -321,3 +318,14 @@ wireMock.stubFor(WireMock.post(WireMock.urlEqualTo("/oauth/token"))
 ```
 
 Configura tu cliente HTTP para usar la URL del servidor WireMock como endpoint de token. Esto evita hitting al IdP real durante los tests mientras still ejercita el flujo de obtención de token.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

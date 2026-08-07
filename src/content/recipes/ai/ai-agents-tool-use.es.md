@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: ai-agents-tool-use
 title: "Agentes de IA con Uso de Herramientas"
@@ -317,3 +316,14 @@ Usa multi-agente cuando una tarea tiene fases distintas (investigar, implementar
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

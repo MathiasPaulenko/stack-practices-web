@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: measure-test-coverage
 title: "Medir Cobertura de Test"
@@ -44,7 +39,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 La cobertura de código mide qué líneas, branches y condiciones fueron ejecutadas durante los tests. Es un proxy útil para código no testeado, pero no una medida de calidad de test — 100% de cobertura sin assertions es meaningless. El patron a continuacion demuestra cómo recolectar, reportar y configurar thresholds de cobertura significativos sin crear incentivos perversos.
@@ -321,3 +315,14 @@ Setea umbrales separados para cobertura y mutation score — requiere 80% branch
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
 - **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
 - **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

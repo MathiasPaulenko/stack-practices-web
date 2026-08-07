@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: grpc-services-typescript
 title: "gRPC Services with Protocol Buffers in TypeScript"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 Build high-performance, language-agnostic APIs using gRPC with Protocol Buffers. The following demonstrates how to service definitions in protobuf, code generation with TypeScript, unary calls, streaming patterns, interceptors for cross-cutting concerns, and health checking for production services.
 
 ## When to Use This
@@ -319,3 +314,14 @@ Set deadlines on every RPC call: `client.GetUser(req, { deadline: Date.now() + 5
 ### How do I test gRPC services in TypeScript?
 
 Use `grpc-js` in-process channel for unit tests: create a server on an ephemeral port and connect a client directly. For integration tests, use `grpcurl` to send requests from the command line: `grpcurl -plaintext -d '{"id":"123"}' localhost:50051 mypackage.MyService/GetUser`. Mock the gRPC client in consumer tests using `jest.mock()` or create a fake server with `createInsecureServer()`. Test all four RPC types: unary, server streaming, client streaming, and bidirectional streaming. Verify error handling by returning specific status codes. Use `buf beta conformance` for protocol conformance testing. Generate test fixtures from proto definitions using `ts-proto` and `@faker-js/faker`.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

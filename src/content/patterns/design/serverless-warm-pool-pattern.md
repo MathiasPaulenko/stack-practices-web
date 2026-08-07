@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: serverless-warm-pool-pattern
 title: "Serverless Warm Pool Pattern"
@@ -41,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A cold start occurs when Lambda creates a new execution environment for a function that has no warm instances. The initialization adds latency: downloading code, starting the runtime, loading dependencies. Cold starts typically add 500ms to 5s depending on runtime and package size.
@@ -327,3 +323,14 @@ No. Warm pool and provisioned concurrency reduce cold starts but do not eliminat
 ### How much does the warm pool pattern cost?
 
 Each ping is one Lambda invocation. At 5-minute intervals with 5 concurrent pings, that is 5 invocations every 5 minutes = 1,440 invocations per day. At $0.20 per million invocations, the cost is negligible. The main cost is the compute time for each ping invocation.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: chaos-engineering-guide
 title: "Chaos Engineering"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Chaos engineering es la disciplina de experimentar en un sistema para construir confianza en su capacidad de soportar condiciones turbulentas. En lugar de esperar a que los fallos ocurran en produccion, los inyectas intencionalmente — kills de pods, latencia de red, agotamiento de CPU, llenado de disco — para validar que tu sistema se degrada gracefulmente y se recupera automaticamente. Originado en Netflix con Chaos Monkey, ha evolucionado hacia una practica estructurada con principios, herramientas y salvaguardas de seguridad.
@@ -323,3 +318,14 @@ Empieza con un game day en staging. Documenta los hallazgos: cada falla descubie
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

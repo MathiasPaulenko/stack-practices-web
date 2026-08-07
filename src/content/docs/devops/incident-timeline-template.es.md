@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: incident-timeline-template
 title: "Plantilla de Linea de Tiempo de Incidentes"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La mayoria de los postmortems de incidentes no logran identificar los problemas reales porque carecen de una cronologia precisa. Los equipos recuerdan los grandes eventos pero olvidan los 15 minutos de retraso en el escalamiento, los 30 minutos gastados revisando los logs incorrectos, o la brecha entre la primera alerta y el reconocimiento humano. Esta plantilla estructura la reconstruccion de incidentes con granularidad de cinco minutos, exponiendo los retrasos que realmente impulsan el MTTR.
@@ -314,3 +311,14 @@ Para incidentes largos, divide el timeline en fases: Deteccion, Investigacion, M
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

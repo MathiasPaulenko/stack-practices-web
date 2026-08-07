@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: express-middleware-patterns
 title: "Express.js Middleware Composition Patterns"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 Express middleware is the backbone of Node.js API architecture, but deeply nested or duplicated middleware chains quickly become unmaintainable. This approach handles composition patterns for [authentication](/guides/security/api-security-checklist-guide), [validation](/recipes/security/data-validation-zod), [error handling](/recipes/api/handle-errors), request context propagation, and async route wrappers that keep route handlers clean and testable.
 
 ## When to Use This
@@ -317,3 +314,14 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

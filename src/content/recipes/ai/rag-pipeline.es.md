@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: rag-pipeline
 title: "Construir un pipeline RAG con LangChain y bases de datos"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 Retrieval-Augmented Generation (RAG) combina un modelo de lenguaje grande con un paso de recuperación de documentos. En lugar de depender únicamente de la memoria paramétrica del LLM, [RAG](/recipes/ai/rag-pipeline) obtiene pasajes relevantes de una base de conocimiento y los inyecta en el prompt. Esto reduce dramáticamente las alucinaciones y permite que el modelo responda preguntas sobre datos privados o recientes.
@@ -319,3 +316,14 @@ Pipeline RAG end-to-end: 200ms-6s por query. El step de LLM generation domina la
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

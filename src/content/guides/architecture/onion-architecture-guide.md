@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: onion-architecture-guide
 title: "Onion Architecture — Dependency Inversion in Practice"
@@ -47,7 +42,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Onion Architecture, popularized by Jeffrey Palermo, structures applications as concentric layers with the domain model at the center. Unlike traditional layered architecture where dependencies point downward (UI → Business → Data), Onion inverts this: all dependencies point inward toward the domain core. Infrastructure, UI, and external services live at the outer edges and depend on inner abstractions, never the other way around. This makes the domain model completely isolated from frameworks, databases, and delivery mechanisms.
@@ -326,3 +320,14 @@ Define an IUnitOfWork interface in the domain. Infrastructure implements it with
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

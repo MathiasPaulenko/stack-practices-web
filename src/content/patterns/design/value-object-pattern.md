@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: value-object-pattern
 title: "Value Object Pattern"
@@ -31,7 +29,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A Value Object is an immutable object defined entirely by its attributes, not by a unique identity. Two value objects with the same values are considered equal regardless of whether they are the same instance. Money, dates, coordinates, and email addresses are classic examples.
@@ -343,3 +340,14 @@ Lessons:
 ### Value Object vs Entity: which do I use?
 
 Use Value Object when identity does not matter: Money, Date, Coordinate, Address. Two Money of 100 USD are interchangeable. Use Entity when identity matters: User, Order, Product. Two Users with the same name are different people. Value Objects are immutable; Entities are mutable. Value Objects compare by value; Entities by id. Prefer Value Objects when possible: they are simpler, testable, and have no side effects.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

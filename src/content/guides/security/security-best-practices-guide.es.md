@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: security-best-practices-guide
 title: "Guía de Mejores Prácticas de Seguridad"
@@ -52,7 +48,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La seguridad no es una feature que agregas después—es un fundamento que construyes en cada capa de tu aplicación. A continuación: las prácticas esenciales para construir software seguro.
@@ -333,3 +328,14 @@ app.use((req, res, next) => {
 ### Que headers de seguridad son obligatorios?
 
 X-Content-Type-Options: nosniff (prevenir MIME sniffing), Strict-Transport-Security: max-age=31536000 (forzar HTTPS), X-Frame-Options: DENY (prevenir clickjacking), Content-Security-Policy: default-src self (prevenir XSS), Referrer-Policy: no-referrer (minimizar info expuesta). Usa helmet() en Express para configurar todos automaticamente.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

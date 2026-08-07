@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: webhook-security-guide
 title: "Webhook Security — Delivery, Verification, and Protection"
@@ -335,3 +332,14 @@ app.post("/webhooks/stripe", (req, res) => {
 ### How do I handle webhooks from multiple providers?
 
 Use separate endpoints per provider: /webhooks/stripe, /webhooks/github, /webhooks/slack. Each endpoint has its own verification logic, IP allowlist, and parsing. A bug in one provider parser does not affect others. Granular monitoring per endpoint. If you need a generic endpoint, route by path or header to provider-specific handlers.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

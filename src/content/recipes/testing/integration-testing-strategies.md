@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: integration-testing-strategies
 title: "Design Effective Integration Tests for Reliable Systems"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Unit tests verify that `calculateTotal()` returns the correct sum. They mock the database, the payment gateway, and the inventory service. Everything passes. Then you deploy to staging and the application fails to start because the database migration was never run. The payment gateway rejects requests because the API version changed. The inventory service returns 503 because the test environment is down.
@@ -310,3 +307,14 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

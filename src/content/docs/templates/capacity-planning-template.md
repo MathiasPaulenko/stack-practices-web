@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: capacity-planning-template
 templateType: capacity-planning
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Capacity planning answers a simple question: will our systems handle the load we expect over the next 12-24 months? The answer requires data, not guesses. This template helps you collect that data, estimate growth, and plan scaling before bottlenecks hit production.
@@ -343,3 +337,14 @@ Set up auto-scaling with aggressive upper bounds, use a CDN for static content, 
 ### What tools should I use for capacity planning?
 
 Use your monitoring system (Prometheus, Datadog, CloudWatch) for historical data. Use load testing tools (k6, Locust, JMeter) for breaking-point data. Use spreadsheets or dedicated capacity planning tools (Kubecost for Kubernetes, AWS Compute Optimizer) for projections. The tool matters less than the discipline of reviewing regularly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

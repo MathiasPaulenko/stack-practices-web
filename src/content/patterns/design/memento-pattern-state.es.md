@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: memento-pattern-state
 title: "Memento Pattern para Snapshot y Restauracion de Estado"
@@ -38,7 +34,6 @@ seo:
 
 
 ---
-
 El [Memento](/patterns/design/memento-pattern) pattern captura y externaliza el estado interno de un objeto para que el objeto pueda ser restaurado a ese estado mas tarde, sin violar encapsulacion. A diferencia de [Command](/patterns/design/command-pattern), que almacena operaciones, Memento almacena el snapshot completo del estado. Es la base para sistemas de undo, checkpoints en juegos y guardado de borradores en editores.
 
 ## Cuando Usar Esto
@@ -339,3 +334,14 @@ Lecciones:
 ### Memento vs Command para undo: cual uso?
 
 Usa Memento cuando necesitas restaurar estado completo (formularios, editores visuales). Usa Command cuando necesitas deshacer operaciones individuales (texto, acciones). Memento es mas simple pero consume mas memoria: guarda todo el estado. Command es mas eficiente: solo guarda lo necesario para deshacer. Para wizards y formularios multi-step, Memento es ideal. Para editores de texto, Command es preferible.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

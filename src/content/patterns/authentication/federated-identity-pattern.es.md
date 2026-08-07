@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: federated-identity-pattern
 title: "Patrón Federated Identity"
@@ -51,7 +48,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 El patrón [Federated Identity](/patterns/authentication/federated-identity-pattern) delega la autenticación a proveedores de identidad externos (IdPs) en lugar de gestionar credenciales localmente. Los usuarios inician sesión a través de un tercero de confianza (Google, GitHub, Azure AD, Okta), y la aplicación recibe un token que puede verificar. Esto elimina el almacenamiento de contraseñas, habilita single sign-on (SSO) y permite autenticación cross-organization.
@@ -316,3 +312,14 @@ Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea centr
 - **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
 - **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

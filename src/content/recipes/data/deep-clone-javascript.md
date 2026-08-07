@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: deep-clone-javascript
 title: "Deep Clone Objects in JavaScript"
@@ -312,3 +311,14 @@ In Node 17.0+, use `structuredClone` (available globally). In older Node version
 ### How do I deep clone objects with getters/setters?
 
 `structuredClone` and `JSON.parse/stringify` do not preserve getters and setters — they evaluate the getter and copy the resulting value. To preserve property descriptors, use `Object.getOwnPropertyDescriptors` combined with `Object.create` to reconstruct the prototype chain. Libraries like Lodash `_.cloneDeep` preserve accessors by default. For class hierarchies with computed properties, write a custom clone method that copies descriptors explicitly.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

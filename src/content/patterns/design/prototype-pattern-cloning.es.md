@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: prototype-pattern-cloning
 title: "Prototype Pattern para Clonacion de Objetos y Plantillas"
@@ -32,7 +30,6 @@ seo:
 
 
 ---
-
 El [Prototype](/patterns/design/prototype-pattern) pattern crea nuevos objetos copiando existentes. En lugar de construir objetos desde cero con constructores, clonas un prototipo y opcionalmente lo customizas. Esto es capaz cuando la inicializacion de objetos es costosa, cuando existen muchas configuraciones similares, o cuando el tipo concreto de objeto no se conoce hasta runtime.
 
 ## Cuando Usar Esto
@@ -312,3 +309,14 @@ Usa structuredClone() cuando necesitas deep clone de objetos planos con tipos na
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

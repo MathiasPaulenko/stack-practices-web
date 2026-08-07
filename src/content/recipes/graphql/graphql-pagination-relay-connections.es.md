@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: graphql-pagination-relay-connections
 title: "Paginacion por cursores con GraphQL Relay Connections"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 La especificacion Relay Connection es el estandar de facto para paginar resultados en GraphQL. Modela las colecciones como conexiones que contienen edges, donde cada edge envuelve un node y un cursor. Esta estructura soporta paginacion estable ante inserciones y borrados, a diferencia de los enfoques basados en offset que saltan o duplican filas cuando los datos cambian entre peticiones.
 
 ## Cuando Usar Esto
@@ -324,3 +319,14 @@ Solo cuando el cliente lo necesita. `totalCount` requiere un query `COUNT` separ
 ### ¿Cómo limito el page size sin romper la spec?
 
 Setea un máximo para `first` y `last` (e.g., 50–100) en el resolver. Si el cliente solicita más, clampea al máximo y retorna la cantidad clampeada. Esto evita queries costosos que escanean grandes porciones de la tabla.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

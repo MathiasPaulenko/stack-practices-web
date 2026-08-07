@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: database-schema-documentation-template
 templateType: database-schema-doc
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 Los esquemas de base de datos evolucionan constantemente. Sin documentación, cada nuevo desarrollador pierde horas descifrando relaciones entre tablas, adivinando por qué existe una columna y preguntándose si un índice sigue en uso. Esta plantilla te da una estructura para documentar esquemas que se mantiene útil a medida que la base de datos crece.
@@ -337,3 +331,14 @@ Documenta el esquema base normalmente. Para feature branches que agregan tablas 
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

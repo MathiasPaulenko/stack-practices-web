@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: sql-window-functions-ranking
 title: "Rank Rows and Calculate Running Totals with Window Functions"
@@ -39,8 +36,6 @@ seo:
 
 
 ---
-
-
 ## Overview
 
 Window functions are one of the most capable capabilities in SQL. They let you compute values across a set of rows related to the current row without collapsing the result set like `GROUP BY`. Ranking, running totals, and moving averages become straightforward, and they often replace slow self-joins or application-layer loops.
@@ -328,3 +323,14 @@ FROM employees;
 -- Refresh weekly
 REFRESH MATERIALIZED VIEW CONCURRENTLY dept_ranking;
 ```
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: threat-modeling-guide
 title: "Threat Modeling — A Practical Guide for Development Teams"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Threat modeling is the process of identifying, communicating, and managing security threats in a system before a single line of code is written. By analyzing the architecture and data flows, teams can anticipate attacks and build mitigations into the design. It is one of the most useful security activities because fixing vulnerabilities in design is orders of magnitude cheaper than fixing them in production.
@@ -315,3 +312,14 @@ Update it on every significant change: new endpoint, new dependency, architectur
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

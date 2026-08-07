@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: onboarding-checklist-backend-engineer
 title: "Checklist de Onboarding para Ingenieros Backend"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Un onboarding desestructurado desperdicia el primer mes de contribucion de un nuevo ingeniero. Sin una checklist, los nuevos contratados pierden dias descubriendo que repositorios clonar, que canales de Slack importan, y como desplegar su primer cambio. Esta checklist estructura las primeras dos semanas para que los nuevos ingenieros backend se conviertan rapidamente en contribuyentes productivos mientras absorben la cultura del equipo y los estandares tecnicos.
@@ -321,3 +318,14 @@ Si un nuevo contratado esta teniendo dificultades: identifica el area especifica
 ### Como mantenemos la checklist actualizada?
 
 Despues de que cada nuevo contratado complete el onboarding: pidele que revise la checklist y anote que falto, que esta desactualizado, o que fue confuso. Actualiza la checklist dentro de 1 semana mientras el feedback es fresco. Revisa la checklist trimestralmente con el equipo — los servicios cambian, las herramientas cambian, los procesos cambian. Asigna un dueno de checklist (usualmente el manager de ingenieria o un ingeniero senior). Versiona la checklist para que los cambios sean rastreados. Comparte actualizaciones con el equipo para que todos sepan que cambio. Una checklist obsoleta es peor que ninguna checklist — engana a los nuevos contratados y erosiona la confianza en el proceso.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: decorator-pattern-pipeline
 title: "Decorator Pattern para Pipelines de Peticiones HTTP"
@@ -45,7 +40,6 @@ seo:
 
 
 ---
-
 El [Decorator](/patterns/design/decorator-pattern) pattern envuelve un objeto para agregar responsabilidades dinamicamente. Cuando se aplica a clientes HTTP, se convierte en una forma limpia de componer preocupaciones transversales — logging, reintentos, metricas, autenticacion — sin contaminar la logica central de la peticion.
 
 ## Cuando Usar Esto
@@ -323,3 +317,14 @@ R: Si. Define una interfaz `GrpcClient` con metodos `unaryCall`, `serverStream` 
 
 **P: Como funciona este patron con contenedores de inyeccion de dependencias?**
 R: Registra cada decorator como un servicio en tu contenedor DI. Inyecta el `HttpClient` interno en el constructor de cada decorator. El contenedor resuelve la cadena automaticamente segun el orden de registro. Funciona bien con NestJS, InversifyJS o frameworks DI similares.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: acid-vs-base-guide
 title: "ACID vs BASE — Consistency Models Explained"
@@ -39,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 ACID and BASE represent two philosophies for handling data consistency in databases. ACID guarantees strong consistency through transactions that are Atomic, Consistent, Isolated, and Durable. BASE prioritizes availability and partition tolerance, accepting that data may be temporarily inconsistent. Understanding when to use each model — and how to combine them — is essential for designing reliable distributed systems.
@@ -320,3 +317,14 @@ End of document. Review and update quarterly.
 - [Complete Guide to RAG in Production](/guides/complete-guide-rag-production/)
 - [Complete Guide to Vector Databases](/guides/complete-guide-vector-databases/)
 - [Data Lake vs Data Warehouse — Architecture Guide](/guides/data-lake-guide/)
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

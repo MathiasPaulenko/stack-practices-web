@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: docs
 slug: feature-specification-template
 title: "Plantilla de Especificacion de Feature"
@@ -45,7 +39,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Los bugs mas costosos no estan en el codigo — estan en requerimientos mal entendidos. Una especificacion de feature es un documento que alinea producto, diseno, e ingenieria sobre que construir, por que importa, y como saber que esta listo. Previene las conversaciones de "yo pense que tu querias decir..." que desvian sprints y generan retrabajo. Una buena spec no es un contrato; es un entendimiento compartido que evoluciona a medida que el equipo aprende.
@@ -326,3 +319,14 @@ End of document. Review and update quarterly.
 - **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
 - **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
 - **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

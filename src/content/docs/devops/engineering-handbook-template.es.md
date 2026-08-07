@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: engineering-handbook-template
 title: "Plantilla de Engineering Handbook"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Los equipos sin un handbook escrito reinventan su cultura con cada nueva contratacion. Decisiones que eran obvias para los fundadores se convierten en misterios para el decimo ingeniero. Un engineering handbook captura las reglas, normas y razonamientos que definen como tu equipo construye software. No es un reemplazo de la conversacion. Es la referencia que hace las conversaciones productivas en lugar de repetitivas.
@@ -330,3 +324,14 @@ Un repo Git te da historial de versiones, revisiones de pull request para cambio
 ### Como medimos si el handbook es util?
 
 Rastrea con que frecuencia los nuevos contratados lo referencian durante onboarding. Pregunta en check-ins de 30 dias: "El handbook respondio tus preguntas?" Monitorea queries de busqueda si tu sitio de docs soporta analiticas. Si las mismas preguntas siguen apareciendo en Slack a pesar de estar documentadas, el handbook puede ser dificil de encontrar o la seccion relevante puede ser poco clara.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

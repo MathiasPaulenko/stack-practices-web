@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: load-test-report-template
 title: "Plantilla de Informe de Pruebas de Carga"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 Los informes de pruebas de carga comunican hallazgos de rendimiento a los interesados y rastrean mejoras a lo largo del tiempo. Sin un formato estándar, los equipos pierden tiempo reexplicando métricas y contexto. Esta plantilla proporciona una estructura consistente para documentar benchmarks, cuellos de botella y recomendaciones.
@@ -317,3 +314,14 @@ End of document. Review and update quarterly.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
 - **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
 - **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: logging
 title: "Logging"
@@ -46,7 +42,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 El logging es la práctica de registrar eventos de aplicación, errores y estado para debugging, monitoreo y auditoría. Un buen logging es estructurado, basado en niveles e incluye metadata contextual (timestamps, request IDs, user IDs) sin exponer datos sensibles.
@@ -319,3 +314,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

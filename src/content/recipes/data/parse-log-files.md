@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-log-files
 title: "Parse Log Files"
@@ -44,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Server logs are a goldmine for debugging, security auditing, and performance analysis. Common formats include Apache Combined Log, Nginx access logs, JSON Lines, and syslog. Parsing these programmatically enables automated monitoring, anomaly detection, and custom analytics dashboards.
@@ -331,3 +326,14 @@ Use `tail -f` or language-specific file tailing libraries (Python `pygtail`, Nod
 ### How do I detect anomalies in logs?
 
 After parsing, aggregate by status code, response time percentiles, and error rate per endpoint. Set thresholds (e.g., >1% 5xx errors) and alert via PagerDuty or Slack. For advanced detection, feed parsed log data into an ML model or use tools like the ELK stack with anomaly detection plugins.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

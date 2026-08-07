@@ -29,7 +29,6 @@ seo:
     - lambda websockets
     - comunicacion bidireccional
 ---
-
 ## Visión general
 
 Los ciclos tradicionales de petición-respuesta HTTP son insuficientes para aplicaciones que requieren actualizaciones en vivo — salas de chat, dashboards en tiempo real, juegos multijugador, tickers de acciones y edición colaborativa. Los WebSockets proporcionan una conexión TCP persistente y bidireccional entre cliente y servidor, permitiendo que los mensajes fluyan en ambas direcciones sin la sobrecarga de handshakes repetidos.
@@ -310,3 +309,14 @@ Usa `sam local start-api` con AWS SAM para emular API Gateway WebSockets localme
 - **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

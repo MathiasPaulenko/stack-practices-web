@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: data-mesh-guide
 title: "Arquitectura Data Mesh — Propiedad de Datos Descentralizada"
@@ -31,7 +30,6 @@ seo:
     - guia
 
 ---
-
 ## Overview
 
 Data Mesh, introducido por Zhamak Dehghani, es un enfoque sociotécnico para la arquitectura de datos. En lugar de un equipo central de datos que posee todos los pipelines (el patrón del data lake monolítico), Data Mesh distribuye la propiedad a equipos de dominio que tratan sus datos como un producto. El equipo de plataforma provee infraestructura self-serve, permitiendo a los dominios publicar, descubrir y consumir datos sin cuellos de botella. Esto cambia el modelo de "datos como subproducto" a "datos como producto".
@@ -311,3 +309,14 @@ Data Mesh es para organizaciones con 50+ ingenieros de datos o 5+ equipos de dom
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

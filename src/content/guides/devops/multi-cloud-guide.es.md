@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: multi-cloud-guide
 title: "Estrategias Multi-Cloud"
@@ -45,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Multi-cloud es el uso deliberado de servicios de dos o mas proveedores cloud para ejecutar las cargas de trabajo de una organizacion. A diferencia del cloud hibrido (on-prem + cloud), multi-cloud significa AWS, Azure y/o GCP operando juntos. Las motivaciones incluyen evitar vendor lock-in, acceder a servicios best-of-breed, cumplir requerimientos regulatorios de residencia de datos y mejorar resiliencia. Sin embargo, multi-cloud aumenta considerablemente la complejidad operacional, costo y requerimientos de skills. No deberia ser el default.
@@ -322,3 +317,14 @@ Usa geo-routing en DNS para enviar usuarios a la region mas cercana. Almacena da
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

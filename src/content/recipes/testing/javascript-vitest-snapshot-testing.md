@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: javascript-vitest-snapshot-testing
 title: "Vitest Snapshot Testing for React"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Snapshot testing captures the rendered output of a component at a point in time. On subsequent test runs, Vitest compares the current output against the stored snapshot. If they differ, the test fails — alerting you to unintended UI changes. Vitest is a Jest-compatible test runner for Vite projects with built-in snapshot support.
@@ -322,3 +317,14 @@ Render the component with `@testing-library/react`, then `await` the result befo
 Wrap the component in an error boundary and trigger an error by passing invalid props or mocking a dependency to throw. Use `expect(container.innerHTML).toMatchSnapshot()` on the boundary's fallback UI. For React error boundaries, create a test component that throws in render and verify the boundary catches it. Test both the error state and the recovery state (when the error is resolved). Use `vi.spyOn(console, 'error')` to suppress React's error logging during the test.
 
 Reset the spy after each test with `afterEach(() => vi.restoreAllMocks())` to avoid leaking suppression into other tests.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

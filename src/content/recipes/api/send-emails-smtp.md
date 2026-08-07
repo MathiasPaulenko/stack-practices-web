@@ -308,3 +308,14 @@ Yes, but SMTP is not optimized for bulk. For newsletters (10k+ recipients), use 
 - **Email template injection**: if email templates include user input without escaping, attackers can inject malicious content into emails. Always escape user input in email templates, even in plain text emails.
 - **BCC leakage in bulk emails**: if bulk emails are sent with all recipients in To or Cc, recipients can see each other's addresses. Always use Bcc or individual messages for bulk sends.
 - **SMTP timing attacks**: if email validation reveals whether an email was sent successfully, attackers can enumerate valid email addresses. Return the same response regardless of whether the email was sent.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

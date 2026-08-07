@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: python-hypothesis-property-testing
 title: "Property-Based Testing con Hypothesis"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Hypothesis es una librería de property-based testing para Python. En lugar de escribir casos de test individuales con inputs específicos, defines propiedades que deben cumplirse para todos los inputs válidos. Hypothesis genera cientos de casos de test automáticamente usando strategies — generadores de datos con conocimiento de tipos. También reduce los inputs que fallan al caso mínimo que reproduce el bug.
@@ -329,3 +323,14 @@ Sí, pero solo para testear lógica pura (métodos de modelo, funciones utilitar
 ### ¿Cómo limito el runtime del test?
 
 Usa `@settings(max_examples=50, deadline=500)` para reducir el número de casos generados y setear un timeout por ejemplo en milisegundos.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

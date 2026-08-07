@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: message-queue-load-leveling-pattern
 title: "Message Queue Load Leveling Pattern"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 When a service receives bursty traffic, it can overwhelm downstream systems that are not designed for spikes. A database might handle 50 queries per second steadily but crash at 500 queries per second in a burst. The Message Queue Load Leveling pattern places a queue between the producer and consumer so the producer can write messages at any rate while the consumer processes them at a controlled, steady pace.
@@ -326,3 +320,14 @@ A: Track queue depth, consumer lag, message age, throughput, error rate, and dea
 **Q: How do I scale consumers automatically?**
 
 A: Use autoscaling based on queue depth. In SQS, configure CloudWatch alarms on `ApproximateNumberOfMessagesVisible` and scale ECS/Lambda concurrency. In Kafka, use consumer lag metrics to scale consumer groups. Set a maximum number of consumers equal to the number of partitions — more consumers than partitions receive no messages. Configure scale-down with a 5-10 minute delay to avoid flapping.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

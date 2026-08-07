@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: locks-and-mutexes
 title: "Coordinar Acceso Compartido con Locks, Mutexes y SemÃ¡foros"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## VisiÃ³n general
 
 Cuando mÃºltiples threads acceden a datos compartidos simultÃ¡neamente, el resultado depende del timing exacto de su ejecuciÃ³n â€” una condiciÃ³n de carrera. El thread A lee un balance bancario de $100, el thread B lee el mismo $100, ambos agregan $50, y ambos escriben $150. El resultado correcto es $200, pero el resultado actual es $150. Los $50 perdidos son una data race causada por acceso no coordinado.
@@ -315,3 +312,14 @@ Empieza con el ejemplo mÃ­nimo de arriba. AÃ±ade logging en cada paso. Prueb
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

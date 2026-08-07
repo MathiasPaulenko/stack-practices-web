@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: ci-cd-pipeline-security-template
 title: "CI/CD Pipeline Security Template"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 CI/CD pipelines are a high-value target for attackers because they have access to source code, build secrets, and production deployment paths. A compromised pipeline can introduce malware, exfiltrate data, or deploy unauthorized changes. This template defines controls to protect code integrity, runner security, secrets, and deployment approvals.
@@ -324,3 +319,14 @@ Pin all third-party GitHub Actions to a specific commit SHA, not a version tag. 
 ### What is a reproducible build and why does it matter?
 
 A reproducible build produces identical output given the same source code and build environment. This means anyone can verify that a binary was built from the claimed source by rebuilding it and comparing checksums. Reproducible builds are a SLSA Level 4 requirement. Achieve reproducibility by fixing timestamps, sorting file lists, and removing non-deterministic inputs like random seeds or network calls during build.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

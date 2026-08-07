@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: factory-pattern
 title: "Factory Pattern"
@@ -53,7 +48,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 El Factory Pattern es un patrón de diseño creacional que proporciona una interfaz para crear objetos sin especificar sus clases exactas. En lugar de llamar a un constructor directamente, llamas a un método de fábrica que devuelve una nueva instancia basada en parámetros de entrada.
@@ -328,3 +322,14 @@ Usa Factory cuando necesitas crear un tipo de objeto con variantes (ej: Database
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

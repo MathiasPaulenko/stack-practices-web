@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: docs
 slug: environment-configuration-template
 title: "Plantilla de Configuracion de Entornos"
@@ -45,7 +39,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Toda aplicacion se ejecuta en multiples entornos como desarrollo, staging y produccion. Cada entorno tiene su propia configuracion, endpoints, secretos y ajustes de infraestructura. Esta plantilla ayuda a los equipos a documentar esos ajustes en un solo lugar, facilitando la incorporacion, la depuracion y la recuperacion ante desastres.
@@ -327,3 +320,14 @@ Revisa los documentos de configuracion de entorno trimestralmente. Elimina varia
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

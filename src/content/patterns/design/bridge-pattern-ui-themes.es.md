@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: bridge-pattern-ui-themes
 title: "Bridge Pattern para Desacoplar Componentes UI de Temas"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 El Bridge pattern desacopla una abstraccion de su implementacion para que ambas puedan variar independientemente. En lugar de una jerarquia de clases que combina tipos de componentes con plataformas de renderizado, Bridge crea dos jerarquias separadas: una para abstracciones (componentes) y otra para implementaciones (renderizadores o temas).
 
 ## Cuando Usar Esto
@@ -321,3 +315,14 @@ Bridge es estructural: separa jerarquia de abstraccion de jerarquia de implement
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

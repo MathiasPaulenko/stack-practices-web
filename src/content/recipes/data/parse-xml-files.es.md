@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-xml-files
 title: "Analizar Archivos XML"
@@ -52,7 +48,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 XML sigue siendo ampliamente utilizado en sistemas empresariales, archivos de configuración, APIs SOAP y formatos de documentos como DOCX y RSS. Analizar XML correctamente requiere entender las compensaciones entre DOM (basado en memoria), SAX (basado en eventos) y parsers modernos de streaming.
@@ -323,3 +318,14 @@ Pasa un diccionario que mapee prefijos a URIs a `ElementTree.findall()`. Por eje
 ### ¿Es JSON siempre mejor que XML?
 
 No siempre. XML soporta schemas (XSD), firmas digitales, contenido mixto y namespaces. JSON es más simple y compacto para APIs. Elige basado en tus requisitos de interoperabilidad y validación.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

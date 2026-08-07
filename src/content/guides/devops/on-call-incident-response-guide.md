@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: on-call-incident-response-guide
 title: "On-Call and Incident Response Playbook"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 Incidents are inevitable. What separates resilient teams from fragile ones is not the absence of failures, but the speed and quality of their response. This playbook provides a structured approach to handling production incidents — from the first alert to the postmortem.
@@ -333,3 +328,14 @@ Lessons:
 ### How do I prepare a new team for on-call?
 
 Start with shadowing: the new engineer shadows the on-call for 2 weeks without responding to pages. Then they respond to low-severity pages with the senior as backup. After 1 month, they take full rotations with the senior available. Provide a runbook per service. Run game days in staging to practice incident response.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

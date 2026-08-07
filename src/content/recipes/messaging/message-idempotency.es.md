@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: message-idempotency
 title: "Idempotencia en Procesamiento de Mensajes"
@@ -305,3 +304,14 @@ Usa un idempotency store centralizado (Redis, DynamoDB) que todos los consumers 
 ### ¿Cuál es el overhead de los idempotency checks?
 
 Tipicamente 1-5% del processing time. Redis SETNX checks toman < 1ms. Database checks toman 2-5ms. El overhead es negligible comparado al costo de duplicate side effects. Mide overhead en tu environment para confirmar. Usa connection pooling y batch operations para minimizar impacto.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

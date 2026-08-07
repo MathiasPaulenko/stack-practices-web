@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: threat-modeling-guide
 title: "Modelado de Amenazas"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 El modelado de amenazas es el proceso de identificar, comunicar y gestionar amenazas de seguridad en un sistema antes de escribir una sola línea de código. Al analizar la arquitectura y los flujos de datos, los equipos pueden anticipar ataques y construir mitigaciones en el diseño. Es una de las actividades de seguridad más útiles porque corregir vulnerabilidades en diseño es órdenes de magnitud más barato que corregirlas en producción.
@@ -315,3 +312,14 @@ Actualizalo en cada cambio significativo: nuevo endpoint, nueva dependencia, cam
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

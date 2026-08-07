@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: service-level-objective-slo-template
 title: "Plantilla de Objetivo de Nivel de Servicio (SLO)"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Un Objetivo de Nivel de Servicio (SLO) define un objetivo de confiabilidad para un servicio. Traduce las expectativas de los usuarios en metas medibles que orientan las prioridades de ingenieria, las compensaciones y la inversion. Esta plantilla ayuda a los equipos a definir Indicadores de Nivel de Servicio (SLIs), establecer objetivos, gestionar presupuestos de error y revisar el rendimiento en el tiempo.
@@ -324,3 +318,14 @@ Durante un incidente, el SLO ya se esta incumpliendo (el presupuesto se esta con
 Revisa objetivos SLO despues de cambios arquitectonicos mayores, lanzamientos de nuevas features, o cambios significativos en patrones de trafico. Documenta todos los cambios de objetivos con justificacion y fecha.
 
 Rastrea tendencias de cumplimiento de SLO en ventanas de 6 meses para identificar servicios que degradan antes de que incumplan objetivos.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

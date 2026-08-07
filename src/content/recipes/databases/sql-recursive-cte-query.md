@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: sql-recursive-cte-query
 title: "Traverse Hierarchical Data with Recursive CTEs"
@@ -41,8 +38,6 @@ seo:
 
 
 ---
-
-
 ## Overview
 
 Relational databases are great at tables, but many real-world problems are trees: org charts, comment threads, bill-of-materials, and file systems. Recursive common table expressions let SQL walk these hierarchies by starting at the root and repeatedly joining children until no more rows are found. The result is a flat table with a depth column that shows how far each node is from the starting point.
@@ -331,3 +326,14 @@ SELECT * FROM org_tree;
 3. **Set `work_mem` higher for deep trees.** Recursive CTEs build up intermediate results in memory. Increase `work_mem` for the session if you hit disk spills.
 
 4. **Use `EXPLAIN ANALYZE` to verify iteration count.** The plan shows how many iterations the recursive member ran. If it runs hundreds of times, check for missing indexes or cycles.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

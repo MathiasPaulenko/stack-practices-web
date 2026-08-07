@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: write-behind-cache-pattern
 title: "Write-Behind Cache Pattern"
@@ -41,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 In a write-behind cache (also called write-back), writes go to the cache synchronously and to the database asynchronously. The application writes to the cache, gets an immediate acknowledgment, and a background process flushes the cached changes to the database in batches.
@@ -345,3 +341,14 @@ Write-behind is better when write throughput is more important than immediate co
 ### Can I combine write-behind with read-through?
 
 Yes. Reads go through the cache with a loader callback. Writes go to the cache with async database persistence. The cache always has the latest data for reads, and the database eventually catches up. This combination handles both high read and high write workloads.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

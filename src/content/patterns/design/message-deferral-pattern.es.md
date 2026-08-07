@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: message-deferral-pattern
 title: "Patrón Message Deferral"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Algunos mensajes no pueden procesarse inmediatamente pero no deberian descartarse. Un mensaje puede depender de un recurso temporalmente no disponible, necesitar ejecutarse en un momento especifico (notificaciones programadas) o requerir un retraso antes de reintentar (exponential backoff). El patron Message Deferral mueve estos mensajes a un estado diferido y los entrega despues cuando se cumplen las condiciones o llega el horario programado.
@@ -330,3 +327,14 @@ Usa un id unico (messageId) y un store (Redis/DB) para trackear el estado. Antes
 - **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
 - **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
 - **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

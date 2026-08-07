@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: semantic-search
 title: "Implement Semantic Search with Embeddings"
@@ -328,3 +326,14 @@ For 1M documents re-embedded monthly: ~$2/month with OpenAI small. Self-hosting 
 - **You need sub-10ms latency**: vector search with HNSW takes 10-50ms. For sub-10ms requirements (autocomplete, typeahead), use trie-based or prefix search instead.
 - **Your content is mostly numeric or coded**: embeddings are designed for natural language. For numeric data (prices, measurements), use range queries. For coded data (ICD codes, ISO standards), use exact match with synonyms.
 - **Compliance requires explainable results**: vector similarity scores are not intuitive to end users. "Why did this document match?" is harder to explain with embeddings than with keyword highlighting. Use BM25 with highlighted terms for transparency.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

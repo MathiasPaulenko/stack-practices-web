@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: async-patterns
 title: "Master Async Patterns with Promises, Futures, and Coroutines"
@@ -40,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Synchronous code blocks the execution thread until an operation completes. When that operation is I/O â€” querying a database, fetching from an API, reading a file â€” the thread sits idle, wasting CPU cycles that could process other requests. Async programming solves this by suspending the current task when it encounters I/O, allowing the runtime to execute other tasks, and resuming the original task when the I/O completes. This enables a single thread to handle thousands of concurrent connections.
@@ -317,3 +313,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 - **Coroutine cancellation ignoring locks**: if a coroutine is cancelled while holding a lock, the lock may not be released. Use context managers or finally blocks to ensure lock release on cancellation
 - **Async deserialization bombs**: parsing large JSON payloads with wait response.json() can consume memory before validation runs. Set Content-Length limits at the gateway and use streaming parsers for large payloads
 - **Event loop starvation via microtask flooding**: if a single request schedules thousands of microtasks (e.g., recursive Promise.resolve().then()), it starves other requests. Limit microtask creation per request
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

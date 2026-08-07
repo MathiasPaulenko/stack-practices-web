@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: observer-pattern
 title: "Patrón Observer"
@@ -55,7 +50,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 El Patrón Observer es un patrón de diseño conductual que define un mecanismo de suscripción para notificar a múltiples objetos sobre eventos que ocurren en el objeto que están observando. Establece una dependencia uno-a-muchos entre objetos.
@@ -327,3 +321,14 @@ End of document. Review and update quarterly.
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

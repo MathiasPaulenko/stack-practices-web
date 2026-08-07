@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: api-status-page-template
 templateType: api-status-page
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 Una página de estado pública les dice a los consumidores de tu API qué está pasando antes de que abran un ticket de soporte. Reduce las solicitudes entrantes durante caídas y genera confianza a través de transparencia. Esta plantilla cubre la estructura, contenido y prácticas operacionales para mantener una página de estado que realmente ayude.
@@ -328,3 +322,14 @@ Sí. Incluso los deployments zero-downtime pueden causar picos breves de latenci
 - **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

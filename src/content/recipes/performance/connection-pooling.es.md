@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: connection-pooling
 title: "Configurar connection pooling para bases de datos y"
@@ -308,3 +306,14 @@ Un pool por base de datos por instancia de aplicación es el estándar. Crear m�
 ### ¿Cómo manejo el agotamiento del pool?
 
 Configura un `connectionTimeout` razonable para que las peticiones fallen rápido en lugar de colgarse indefinidamente. Agrega circuit breakers o reintentos con backoff. Monitorea la saturación del pool y escala la base de datos o los workers antes de que el agotamiento sea crítico.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

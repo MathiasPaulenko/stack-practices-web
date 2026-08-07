@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: date-formatting
 title: "Date Formatting"
@@ -46,7 +42,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Date formatting converts `Date` or `DateTime` objects into human-readable strings (and vice versa). It is essential for APIs, user interfaces, reports, and any system that exchanges temporal data.
@@ -326,3 +321,14 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

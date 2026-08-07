@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: canary-release-pattern
 title: "Patrón Canary Release"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Descripción general
 
 El patrón Canary Release rutear un porcentaje pequeno de trafico a una nueva version mientras la mayoria continua recibiendo la version estable. El nombre viene de los mineros de carbon que llevaban canarios para detectar gases peligrosos: el canario servia como sistema de alerta temprana. En software, la version canario sirve primero a un grupo pequeno de usuarios. Si falla, solo ese grupo pequeno se ve afectado.
@@ -329,3 +326,14 @@ A: Incluye metricas de usuario en tu health check: tasa de tickets de soporte, e
 - **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
 - **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
 - **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

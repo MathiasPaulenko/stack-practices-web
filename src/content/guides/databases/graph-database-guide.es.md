@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: graph-database-guide
 title: "Bases de Datos de Grafos"
@@ -31,7 +30,6 @@ seo:
     - guia
 
 ---
-
 ## Overview
 
 Las bases de datos de grafos almacenan datos como nodos (entidades) y aristas (relaciones), haciendolas ideales para problemas donde las conexiones entre puntos de datos son tan importantes como los datos mismos. Redes sociales, deteccion de fraude, motores de recomendacion y grafos de conocimiento se benefician del almacenamiento nativo de grafos. Neo4j, la principal base de datos de grafos de propiedades, usa el lenguaje de consulta Cypher y logra recorridos de tiempo constante independientemente de la profundidad del grafo — algo con lo que las bases relacionales luchan debido a la explosion de joins.
@@ -310,3 +308,14 @@ Usa relaciones recursivas con profundidad variable. Por ejemplo, una jerarquia o
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

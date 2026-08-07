@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-log-files
 title: "Analizar Archivos de Log"
@@ -44,7 +40,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 Los logs de servidor son una mina de oro para debugging, auditoría de seguridad y análisis de rendimiento. Los formatos comunes incluyen Apache Combined Log, logs de acceso Nginx, JSON Lines y syslog. Analizarlos programáticamente habilita monitoreo automatizado, detección de anomalías y dashboards de análisis personalizados.
@@ -322,3 +317,14 @@ Usa `tail -f` o librerías de file tailing específicas del lenguaje (Python `py
 ### ¿Cómo detecto anomalías en logs?
 
 Después de parsear, agrega por código de estado, percentiles de tiempo de respuesta y tasa de error por endpoint. Establece umbrales (ej. >1% errores 5xx) y alerta vía PagerDuty o Slack. Para detección avanzada, alimenta datos de log parseados a un modelo de ML o usa herramientas como el stack ELK con plugins de detección de anomalías.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

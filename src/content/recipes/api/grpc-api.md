@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: grpc-api
 title: "Implement a gRPC API with Protocol Buffers"
@@ -315,3 +313,14 @@ gRPC metadata (headers) carry tokens. Attach an interceptor on the client to inj
 - **Channel target spoofing**: if channel targets are constructed from user input, attackers can redirect gRPC calls to malicious servers. Hardcode channel targets or validate against an allowlist.
 - **gRPC channel idle timeout**: idle channels keep TCP connections open. Set idle_timeout to 30 seconds to close unused connections and free resources.
 - **gRPC channel idle timeout safety**: ensure idle_timeout is configured to prevent zombie connections from accumulating in long-running services.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

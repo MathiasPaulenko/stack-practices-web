@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: sql-window-functions-ranking
 title: "Clasificar filas y calcular totales acumulados con"
@@ -39,8 +36,6 @@ seo:
 
 
 ---
-
-
 ## Visión General
 
 Las funciones de ventana son una de las capacidades más potentes de SQL. Permiten calcular valores a través de un conjunto de filas relacionadas con la fila actual sin colapsar el resultado como `GROUP BY`. El ranking, totales acumulados y promedios móviles se vuelven directos, y a menudo reemplazan self-joins lentos o loops en la capa de aplicación.
@@ -327,3 +322,14 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY dept_ranking;
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

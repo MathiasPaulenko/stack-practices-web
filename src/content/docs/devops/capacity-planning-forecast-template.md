@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: capacity-planning-forecast-template
 title: "Capacity Planning Forecast Template"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Traffic grows, but infrastructure does not grow by itself. Most outages are not caused by bad code — they are caused by systems that hit a wall nobody measured. Capacity planning is the discipline of looking ahead: how much traffic will we have in six months, what resource will run out first, and what will it cost to stay ahead of demand? A capacity forecast turns panic-driven scaling into a scheduled, budgeted, and tested operation.
@@ -322,3 +317,14 @@ Useful tools: Cloud provider dashboards (AWS CloudWatch, GCP Monitoring, Azure M
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

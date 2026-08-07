@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: microservices-architecture-guide
 title: "Microservices Architecture — When to Use and When Not To"
@@ -55,7 +50,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 Microservices architecture structures an application as a collection of loosely coupled services, each owned by a small team and deployed independently. It solves organizational and technical scaling problems, but introduces major operational complexity. This guide helps you decide when the trade-off is worth it.
@@ -333,3 +327,14 @@ Use a multi-level strategy: unit tests within each service, contract tests betwe
 ### How do I handle configuration in microservices?
 
 Externalize all configuration. Use environment variables for values that change per environment (dev, staging, prod). Use a centralized configuration service (Spring Cloud Config, AWS AppConfig, Consul KV) for values that change at runtime. Never hardcode service URLs, credentials, or feature flags. Secrets must live in a manager (AWS Secrets Manager, HashiCorp Vault), not in files.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

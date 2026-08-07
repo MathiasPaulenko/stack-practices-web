@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: caching-strategies
 title: "Estrategias de Caching"
@@ -317,3 +315,14 @@ Rastrea hit rate, miss rate, eviction rate y latencia promedio. Redis `INFO stat
 - **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
 - **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
 - **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

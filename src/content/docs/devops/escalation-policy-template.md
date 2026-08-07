@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: escalation-policy-template
 title: "Escalation Policy Template"
@@ -333,3 +330,14 @@ Review monthly: percentage of incidents acknowledged within SLA, percentage of e
 ### Should we integrate the escalation policy with our ticketing system?
 
 Yes. Configure PagerDuty or Opsgenie to create a ticket automatically when an incident is resolved, ensuring post-incident action items are tracked. Link the incident to the ticket for traceability. Review open action items monthly to prevent accumulation.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

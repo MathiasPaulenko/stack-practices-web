@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: load-testing
 title: "Realizar Load Testing en APIs"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 El load testing mide cómo se comporta un sistema bajo un volumen específico de usuarios o requests concurrentes. A diferencia de los tests funcionales que verifican correctitud, los load tests revelan límites de rendimiento: ¿en qué punto el tiempo de respuesta degrada de 50ms a 2 segundos? ¿En qué carga los errores saltan de 0.1% a 10%? ¿Cuándo se agota el pool de conexiones a la base de datos?
@@ -314,3 +311,14 @@ Cross-Origin Resource Sharing (CORS) añade preflight OPTIONS requests que incre
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
 - **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
 - **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

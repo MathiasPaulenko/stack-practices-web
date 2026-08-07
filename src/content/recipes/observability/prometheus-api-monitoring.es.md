@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: prometheus-api-monitoring
 title: "Monitoreo de APIs con Prometheus"
@@ -307,3 +305,14 @@ Usa retention periods de 15-30 dias. Habilita downsampling para long-term data. 
 ### ¿Puedo usar Prometheus para business metrics?
 
 Si, pero usa una separate Prometheus instance para business metrics. Business metrics tienen higher cardinality y diferentes retention needs. Usa recording rules para pre-aggregation. Exporta a un warehouse para long-term analysis. Documenta metric definitions claramente.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: real-user-monitoring
 title: "Monitoreo de Usuarios Reales (RUM)"
@@ -307,3 +305,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 ### ¿Cómo elijo la herramienta de RUM correcta?
 
 Considera data volume, budget y features. Datadog RUM para full-stack monitoring. Sentry para error-focused RUM. Google Analytics para marketing-focused data. Open-source options como OpenTelemetry Web para custom needs. Testea en staging primero. Compara data accuracy a traves de tools.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

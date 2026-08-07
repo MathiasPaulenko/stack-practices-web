@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: data-lake-guide
 title: "Data Lake vs Data Warehouse — Guía de Arquitectura"
@@ -39,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Un Data Lake es un repositorio de almacenamiento centralizado que contiene datos estructurados, semi-estructurados y no estructurados a cualquier escala. A diferencia de un Data Warehouse, que almacena datos procesados con schema-on-write en tablas rígidas, un Data Lake almacena datos crudos en su formato nativo con schema aplicado en lectura (schema-on-read). Esta flexibilidad lo hace ideal para machine learning, análisis exploratorio y almacenar datos cuya estructura aún no se conoce. Sin embargo, sin gobernanza, los lakes pueden convertirse en "data swamps" — desorganizados, no buscables y poco confiables.
@@ -315,3 +312,14 @@ Compacta cuando el numero de archivos pequenos (< 10MB) supera los 1000 por part
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

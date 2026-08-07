@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: docs
 slug: access-control-review-template
 title: "Access Control Review Template"
@@ -46,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 An Access Control Review Template provides a structured way to verify that users and service accounts have only the permissions required for their current role. It supports compliance frameworks such as SOC 2, ISO 27001, and PCI-DSS by documenting who has access, why they have it, and whether it is still justified.
@@ -338,3 +331,14 @@ Set expiration dates on all contractor accounts at provisioning time. Use time-b
 ### What is the difference between attestation and certification in access reviews?
 
 Attestation is the act of a reviewer confirming that access is appropriate. Certification is a formal, auditable process where the reviewer signs off on the entire access list, often with legal or compliance significance. Most compliance frameworks require certification, not just attestation.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

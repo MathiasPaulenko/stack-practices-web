@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: api-error-response-template
 templateType: api-error-response
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 API error responses are the most important part of developer experience. When an API call fails, the error response is what the developer reads to fix their code. Good error responses reduce support tickets, speed up integration, and build trust. Bad error responses force developers to guess, file support tickets, or give up.
@@ -343,3 +340,14 @@ Add new fields, never remove or rename existing ones. If you need breaking chang
 ### Should I return different errors for the same problem based on context?
 
 No. The same error condition should produce the same error code and status, regardless of which endpoint triggered it. Context-specific information goes in `detail` and `instance`, not in the error code.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

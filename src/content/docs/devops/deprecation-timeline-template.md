@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: deprecation-timeline-template
 title: "Deprecation Timeline Template"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Deprecating a capability or API is easy to announce and hard to finish. Users miss the email, integrations break at the last minute, and the team is stuck supporting a system they thought was dead. A deprecation timeline is a contract between the team and its consumers: here is what is ending, when it is ending, what you should use instead, and how we will help you migrate.
@@ -315,3 +312,14 @@ End of document. Review and update deprecation timelines quarterly. Ensure all c
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

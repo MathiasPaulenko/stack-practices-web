@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: api-status-page-template
 templateType: api-status-page
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A public status page tells your API consumers what is happening before they open a support ticket. It reduces inbound requests during outages and builds trust through transparency. This template covers the structure, content, and operational practices for running a status page that actually helps.
@@ -329,3 +323,14 @@ Use a secondary status channel (e.g., a dedicated Twitter/X account or a Slack c
 ### Should I post maintenance windows even for zero-downtime deployments?
 
 Yes. Even zero-downtime deployments can cause brief latency spikes or minor errors. Posting a maintenance window with "expected impact: none" sets expectations and gives consumers a window to avoid deploying their own changes simultaneously.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: cache-stampede-prevention-pattern
 title: "Patron Cache Stampede Prevention"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Descripcion general
 
 Un cache stampede (tambien llamado thundering herd o dogpile) ocurre cuando una key de cache popular expira y muchas peticiones concurrentes fallan simultaneamente. Todas las peticiones fallidas inundan la base de datos con la misma query, causando un pico de carga que puede cascadar a timeouts y caidas.
@@ -346,3 +342,14 @@ A medida que el TTL se acerca a cero, cada peticion tiene una probabilidad creci
 ### Debo devolver datos stale mientras refresco?
 
 Si. Si el cache tiene un valor (incluso expirado), devuelvelo mientras una peticion refresca en segundo plano. Esto se llama stale-while-revalidate. Mantiene la aplicacion responsiva mientras el cache se actualiza.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

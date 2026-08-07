@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: capacity-planning-guide
 title: "Planificación de Capacidad"
@@ -48,7 +44,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La planificación de capacidad asegura que tu infraestructura pueda manejar la demanda actual y futura sin desperdiciar recursos. Cierra la brecha entre la extinción de incendios reactiva y el escalado proactivo, ayudando a los equipos a entregar servicios confiables mientras controlan costos.
@@ -331,3 +326,14 @@ Lecciones:
 ### Como calculo el crecimiento compuesto?
 
 Usa la formula: F = P * (1 + r)^n, donde P es el valor actual, r es la tasa de crecimiento mensual, y n es el numero de meses. Ejemplo: 10K usuarios, 15% mensual, 6 meses: 10000 * (1.15)^6 = 23,133 usuarios. Siempre redondea hacia arriba y anade un 20% de buffer para imprevistos.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

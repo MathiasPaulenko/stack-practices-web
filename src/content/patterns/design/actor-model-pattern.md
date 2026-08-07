@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: actor-model-pattern
 title: "Actor Model Pattern"
@@ -35,7 +32,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Shared mutable state is the root of most concurrency bugs. Locks, mutexes, and condition variables are error-prone: forget one lock and you get race conditions; lock in the wrong order and you get deadlocks. The Actor Model takes a different approach. Each actor owns its private state. Actors communicate exclusively by sending messages to each other. Each actor processes one message at a time, so there is no concurrent access to its state. No locks needed.
@@ -323,3 +319,14 @@ For low-contention scenarios, shared memory with locks is faster because direct 
 ### Should I use actors for everything?
 
 No. Actors add overhead (message serialization, mailbox management). For simple parallel computation without shared state, thread pools or async/await are simpler and faster. Use actors when you have stateful concurrent entities that need isolation and fault tolerance.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

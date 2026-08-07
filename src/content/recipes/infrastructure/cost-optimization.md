@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: cost-optimization
 title: "Cloud Cost Optimization"
@@ -315,3 +313,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### How often should I review my cloud costs?
 
 Review costs daily using dashboards. Conduct detailed analysis weekly. Run optimization audits monthly. Present findings to leadership quarterly. Continuous monitoring prevents budget overruns and identifies waste early.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

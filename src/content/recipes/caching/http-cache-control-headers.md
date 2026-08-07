@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: http-cache-control-headers
 title: "HTTP Cache-Control Headers for APIs and Static Assets"
@@ -35,7 +32,6 @@ seo:
 
 
 ---
-
 HTTP caching headers tell browsers and CDNs how long to cache a response, when to revalidate, and whether the response can be served from a shared cache. Properly configured headers reduce latency, lower origin load, and improve Core Web Vitals. The solution below covers `Cache-Control`, `ETag`, `Last-Modified`, and `stale-while-revalidate` for both API responses and static assets.
 
 ## When to Use This
@@ -315,3 +311,14 @@ The `Age` header indicates how long (in seconds) a response has been cached by a
 ### How do I handle caching for A/B testing?
 
 Use `Vary: Cookie` if the A/B variant is set via a cookie. Alternatively, include the experiment variant in the URL (e.g., `?variant=b`) so each variant gets its own cache entry. Do not use `Vary: User-Agent` for A/B testing — it fragments the cache. Set `Cache-Control: private` if the variant is user-specific. For server-side A/B testing, inject the variant assignment before the CDN cache layer so the CDN caches each variant separately.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

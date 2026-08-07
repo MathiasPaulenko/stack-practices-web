@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: observability-maturity-assessment-template
 title: "Observability Maturity Assessment Template"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Observability maturity describes how well a team can answer questions about their system without deploying new code. The spectrum runs from "we check logs when something breaks" to "we proactively detect anomalies before users notice." This template provides a structured assessment across logging, metrics, tracing, alerting, and culture.
@@ -332,3 +329,14 @@ SLOs (Service Level Objectives) are a Level 3-4 practice. They require: defined 
 ### How do we measure the ROI of observability improvements?
 
 Track these metrics before and after improvements: mean time to detection (MTTD) for incidents, mean time to resolution (MTTR), number of incidents detected by monitoring vs. reported by users, false positive alert rate, engineering hours spent on alerting, and on-call satisfaction score. Calculate the cost of incidents before and after. Example: "Before tracing, MTTR was 45 minutes. After tracing, MTTR is 15 minutes. At 4 incidents/month, this saves 20 engineering hours/month." Present ROI in terms of engineering hours saved, incidents prevented, and customer impact reduced.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: serverless-fanout-pattern
 title: "Patron Serverless Fanout"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Descripcion general
 
 El patron fanout difunde un solo evento a multiples consumidores independientes. Un productor publica un mensaje en un topic (SNS, EventBridge). El topic entrega una copia a cada suscriptor (cola SQS, Lambda, endpoint HTTP). Cada consumidor procesa el evento independientemente, a su propio ritmo, sin afectar a otros.
@@ -336,3 +333,14 @@ Configura una dead-letter queue en la cola SQS. Tras `maxReceiveCount` (ej. 5), 
 - **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

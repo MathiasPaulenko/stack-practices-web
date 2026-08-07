@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: aws-basics-guide
 title: "AWS Básico — Servicios Core para Desarrolladores"
@@ -50,7 +45,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Amazon Web Services (AWS) es la plataforma cloud más adoptada, ofreciendo más de 200 servicios. Para desarrolladores, entender los servicios core — compute, storage, bases de datos, networking y seguridad — es esencial para construir aplicaciones listas para crecimiento y rentables. Esta guía se enfoca en los servicios que usarás diariamente y cómo encajan en una arquitectura típica.
@@ -336,3 +330,14 @@ Lecciones:
 ### Como elijo entre ECS y EKS?
 
 Usa ECS si solo necesitas containers sin orquestacion compleja. Es mas simple, mas barato y suficiente para la mayoria de apps. Usa EKS si necesitas Kubernetes nativo, Helm charts, service mesh, o si tu equipo ya conoce K8s. EKS tiene mas overhead operativo pero ofrece mas flexibilidad y un ecosistema mas amplio.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

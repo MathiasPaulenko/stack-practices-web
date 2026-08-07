@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: truncate-text
 title: "Truncar Texto"
@@ -312,3 +309,14 @@ Un cluster de grafema es lo que un humano percibe como un carácter (ej. emoji c
 ### ¿Debo truncar del lado del cliente o del servidor?
 
 Para previews de UI, el truncamiento del cliente con CSS (`text-overflow: ellipsis`) es el más simple y preserva el texto completo para screen readers. Para exports de longitud fija, constraints de base de datos o snippets de resultados de búsqueda, trunca del lado del servidor. El truncamiento del servidor es necesario cuando el texto completo es demasiado grande para transferir al cliente.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: sre-practices-guide
 title: "Site Reliability Engineering"
@@ -64,7 +59,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Site Reliability Engineering (SRE), pioneered at Google, applies software engineering principles to operations. Instead of treating reliability as a separate function, SRE teams write code to automate operations, manage infrastructure, and measure system health through Service Level Objectives (SLOs). The core tenet: reliability is a feature, not an afterthought. SRE balances the need for velocity (shipping changes) with the need for stability (keeping systems running) through error budgets, toil budgets, and blameless postmortems.
@@ -338,3 +332,14 @@ Calculate the cost of downtime. If your revenue is $100K/hour and you have 4 inc
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

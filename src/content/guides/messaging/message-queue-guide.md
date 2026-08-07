@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: message-queue-guide
 title: "Message Queues — RabbitMQ, Kafka, and SQS detailed analysis"
@@ -334,3 +331,14 @@ Lessons:
 ### How do I monitor RabbitMQ health?
 
 Enable the management plugin: `rabbitmq-plugins enable rabbitmq_management`. It exposes the API on :15672. Key metrics: messages_ready (queued backlog), messages_unacknowledged (in flight), consumer_utilization (efficiency). Set alerts: messages_ready > 1000, consumer_utilization < 50%, connections > max. Use Prometheus + rabbitmq_exporter to integrate with Grafana.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

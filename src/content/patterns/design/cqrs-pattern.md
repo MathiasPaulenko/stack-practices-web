@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: cqrs-pattern
 title: "CQRS Pattern"
@@ -52,7 +47,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 CQRS (Command Query Responsibility Segregation) is an architectural pattern that separates read and write operations into distinct models. Instead of using a single data model for both queries and updates, CQRS uses a **Command Model** for writes and a **Query Model** for reads, each optimized for its specific workload.
@@ -346,3 +340,14 @@ Each pattern makes different trade-offs. Review the variants table above and con
 ### Can I partially apply this pattern?
 
 Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

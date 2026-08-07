@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: git-branching-strategies-guide
 title: "Git Branching Strategies: A Practical Guide"
@@ -42,7 +38,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 A branching strategy defines how your team uses Git branches to develop, integrate, and release code. The right strategy depends on your team size, release frequency, and CI/CD maturity. This guide compares the three most common approaches.
@@ -322,3 +317,14 @@ Lessons:
 ### How do I handle hotfixes in trunk-based?
 
 Create a branch from the latest release tag. Apply the fix. Open a PR directly to main. Once merged, cherry-pick to the release tag and create a new tag. If you use feature flags, simply enable the flag for the fix. Most hotfixes do not need a release branch if you deploy from main continuously.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

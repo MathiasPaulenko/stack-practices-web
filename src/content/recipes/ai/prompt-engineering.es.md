@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: prompt-engineering
 title: "Aplicar lo que funciona en Prompt Engineering"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Los Large Language Models (LLMs) son motores de razonamiento de propósito general, pero la calidad de sus outputs depende fuertemente de cómo formules la pregunta. El prompt engineering es la práctica de estructurar inputs para guiar el modelo hacia respuestas precisas, relevantes y bien formateadas. Cambios pequeños en la redacción pueden significar la diferencia entre un párrafo vago y un objeto JSON preciso.
@@ -317,3 +313,14 @@ R: Sí. Para generación de código, incluye el lenguaje de programación, versi
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

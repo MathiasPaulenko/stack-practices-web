@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: opentelemetry-guide
 title: "OpenTelemetry — Implementation Guide for Metrics, Logs"
@@ -42,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 OpenTelemetry (OTel) is a vendor-neutral observability framework for instrumenting, generating, collecting, and exporting telemetry data (traces, metrics, and logs). Maintained by the CNCF, it unifies what was previously fragmented across OpenTracing, OpenCensus, and vendor-specific agents. With OpenTelemetry, you instrument your application once and send data to any backend: Jaeger, Zipkin, Prometheus, Grafana, Datadog, New Relic, or cloud-native solutions.
@@ -320,3 +316,14 @@ Replace the Jaeger SDK with the OpenTelemetry SDK. OTel exporters can send to Ja
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

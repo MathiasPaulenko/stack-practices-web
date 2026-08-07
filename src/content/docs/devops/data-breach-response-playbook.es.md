@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: data-breach-response-playbook
 title: "Playbook de Respuesta a Violaciones de Datos"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Una violacion de datos no es solo un incidente tecnico. Es una crisis legal, reputacional y operativa. Las primeras 24 horas determinan si la violacion se convierte en un incidente manejable o en un titular. Este playbook proporciona una respuesta estructurada: contener el dano, preservar evidencia, notificar a las personas correctas y remediar la causa raiz. Esta disenado para usarse bajo presion, con puntos de decision claros y asignaciones de responsables.
@@ -330,3 +324,14 @@ Si un proveedor experimenta una brecha que afecta tus datos: confirma que datos 
 - **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
 - **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
 - **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

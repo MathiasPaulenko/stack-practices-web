@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: ssl-certificate-management-template
 title: "SSL Certificate Management Template"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 SSL/TLS certificates protect data in transit by encrypting traffic between clients and servers. Expired, misconfigured, or forgotten certificates can cause outages, security warnings, and loss of customer trust. This template provides a process for tracking certificate inventory, planning renewals, deploying certificates, and responding to certificate-related incidents.
@@ -322,3 +317,14 @@ Review certificate inventory monthly. Remove expired certificates from servers a
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: race-condition-prevention
 title: "Prevent Race Conditions in JavaScript Async Code"
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 Race conditions occur when multiple async operations access shared state without proper coordination, leading to non-deterministic behavior. Here is how to identifying, preventing, and fixing race conditions in JavaScript using atomic updates, proper Promise sequencing, and lock patterns.
 
 ## When to Use This
@@ -315,3 +312,14 @@ Yes. JavaScript is single-threaded but asynchronous. When `await` yields control
 ### How do I prevent race conditions in databases?
 
 Use transactions with the appropriate isolation level. For read-then-write, use `SELECT ... FOR UPDATE` (pessimistic locking) or row versions with `WHERE version = X` (optimistic locking). For atomic increments, use `UPDATE accounts SET balance = balance + 100 WHERE id = 1` instead of reading, adding, and writing.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

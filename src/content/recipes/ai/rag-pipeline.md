@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: rag-pipeline
 title: "Build a RAG Pipeline with LangChain and Vector Databases"
@@ -319,3 +317,14 @@ For 10K queries/day with GPT-4o: ~$150/day. Switch to GPT-4o-mini for simple que
 | LLM generation (GPT-4o) | 1-5s | 50 concurrent | Streaming enabled |
 
 End-to-end RAG pipeline: 200ms-6s per query. The LLM generation step dominates total latency. Pre-compute embeddings and cache common queries to reduce p99 latency.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

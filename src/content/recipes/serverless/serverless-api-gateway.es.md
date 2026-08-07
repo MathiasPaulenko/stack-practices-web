@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: serverless-api-gateway
 title: "Construir APIs Serverless con API Gateway"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 La computación serverless te permite ejecutar código sin provisionar o gestionar servidores. AWS Lambda ejecuta tus funciones en respuesta a eventos, y API Gateway provee la puerta de entrada HTTP que enruta requests a esas funciones. Juntas forman una plataforma de API que escala automáticamente y se paga por request, eliminando costos de servidores ociosos.
@@ -311,3 +306,14 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: grpc-microservices-guide
 title: "gRPC in Microservices — High-Performance RPC Guide"
@@ -333,3 +331,14 @@ gRPC uses **status codes** (NOT_FOUND, INVALID_ARGUMENT, UNAVAILABLE, etc.) inst
 ### What about gRPC vs GraphQL for microservices?
 
 gRPC and GraphQL serve different layers. **gRPC is for service-to-service** communication: fast, typed, binary. **GraphQL is for client-facing** aggregation: flexible, discoverable, JSON. A common architecture is: browser/mobile → GraphQL gateway → gRPC microservices → databases. Do not use GraphQL between services; the flexibility is unnecessary overhead and the N+1 problem is worse at the service layer. Use gRPC for the "last mile" between your gateway and backend services.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: environment-setup-guide-template
 templateType: guideline
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 Use this template to document reproducible environment setup for new team members and CI pipelines.
 
 ## Overview
@@ -339,3 +335,14 @@ Document platform-specific steps in separate sections or tables. Use cross-platf
 ### Should I include database seeding in the setup guide?
 
 Yes, if the application requires seed data to function. Include a `npm run db:seed` command and document what data it creates. For large datasets, provide a subset or synthetic data generator. See [Database Schema Documentation Template](/docs/templates/database-schema-documentation-template) for schema context.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

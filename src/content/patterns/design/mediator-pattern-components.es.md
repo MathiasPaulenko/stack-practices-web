@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: mediator-pattern-components
 title: "Mediator Pattern para Desacoplamiento de Componentes en"
@@ -44,7 +39,6 @@ seo:
 
 
 ---
-
 El [Mediator](/patterns/design/mediator-pattern) pattern define un objeto que encapsula como un conjunto de objetos interactuan. En lugar de que componentes se referencien entre si directamente, se refieren a un mediador, reduciendo el numero de conexiones explicitas de many-to-many a many-to-one. Esto es esencial para UIs complejas donde docenas de componentes necesitan mantenerse sincronizados.
 
 ## Cuando Usar Esto
@@ -322,3 +316,14 @@ Mediator centraliza: los componentes hablan al mediator y este redirige. Observe
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

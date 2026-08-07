@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: write-behind-cache-pattern
 title: "Patron Write-Behind Cache"
@@ -41,7 +38,6 @@ seo:
 
 
 ---
-
 ## Descripcion general
 
 En un write-behind cache (tambien llamado write-back), las escrituras van al cache sincronamente y a la base de datos asincronamente. La aplicacion escribe en el cache, obtiene un acuse de recibo inmediato, y un proceso en segundo plano vuelca los cambios cacheados a la base de datos en lotes.
@@ -341,3 +337,14 @@ Si. Las lecturas van a traves del cache con un callback loader. Las escrituras v
 - **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
 - **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
 - **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

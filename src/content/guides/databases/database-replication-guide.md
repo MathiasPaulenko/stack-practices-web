@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: database-replication-guide
 title: "Database Replication — Master-Slave, Multi-Master"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Database replication is the process of copying and maintaining data across multiple database nodes. It provides high availability, read scaling, and disaster recovery. But replication introduces complexity: lag, conflicts, split-brain scenarios, and consistency trade-offs. The following guide covers the replication strategies used in production, from simple master-slave setups to multi-master clusters.
@@ -344,3 +341,14 @@ Lessons:
 ### How do I handle split-brain?
 
 Split-brain occurs when two nodes believe they are primary. Patroni prevents it with etcd quorum: only one node can acquire the leader lock. If etcd is unavailable, Patroni degrades to read-only. Never configure two primaries manually. If split-brain occurs, stop one immediately, resolve conflicts with pg_rewind, and reconnect as replica.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

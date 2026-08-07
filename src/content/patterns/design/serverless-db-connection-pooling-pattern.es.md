@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: serverless-db-connection-pooling-pattern
 title: "Patrón Serverless DB Connection Pooling"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Las funciones serverless escalan horizontalmente creando muchas instancias concurrentes. Cada instancia puede abrir su propia conexion a la base de datos, y durante picos de trafico puedes tener cientos de conexiones simultaneas. La mayoria de bases de datos limitan las conexiones a unos cientos o miles. Cuando excedes ese limite, las nuevas conexiones fallan y todo el sistema se degrada.
@@ -331,3 +325,14 @@ Sintomas: errores "too many connections", timeouts en queries, Lambda errors. Di
 - **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

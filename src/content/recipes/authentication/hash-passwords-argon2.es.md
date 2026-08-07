@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: hash-passwords-argon2
 title: "Hash de Contraseñas con Argon2"
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Argon2 ganó el Password Hashing Competition de 2015 y es el algoritmo recomendado por OWASP, NIST e IETF. Resiste cracking basado en GPU mediante computación memory-hard, haciendo los ataques de fuerza bruta miles de veces más costosos que con SHA-256 o incluso bcrypt. Argon2id combina las fortalezas de Argon2d (resistencia GPU) y Argon2i (resistencia a side-channels), siendo la recomendación por defecto para todos los sistemas nuevos.
@@ -318,3 +314,14 @@ Escribe un script que lea los hashes de la base de datos y verifique: el algorit
 - **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
 - **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

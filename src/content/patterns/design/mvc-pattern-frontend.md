@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: mvc-pattern-frontend
 title: "MVC Pattern in Modern Frontend Applications"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 [Model-View-Controller](/patterns/design/mvc-pattern) separates an application into three components: Model (data and rules), View (presentation), and Controller (input handling and coordination). While frameworks like React and Vue blur these boundaries, applying MVC discipline prevents components from becoming unmaintainable mashups of state, UI, and side effects.
 
 ## When to Use This
@@ -340,3 +336,14 @@ A: Accessibility concerns live in the View. ARIA attributes, keyboard navigation
 
 **Q: How do I handle offline support?**
 A: A service layer detects offline state and queues operations. The Controller sends operations to the service, which stores them for later sync. The Model reflects the optimistic state. When connectivity returns, the service flushes the queue.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

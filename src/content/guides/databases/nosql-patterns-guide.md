@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: nosql-patterns-guide
 title: "NoSQL Data Modeling Patterns"
@@ -44,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 NoSQL databases abandon the rigid table-row model in favor of flexible schemas optimized for specific access patterns. Document stores (MongoDB), key-value stores (Redis), wide-column stores (Cassandra, DynamoDB), and graph databases (Neo4j) each have different data modeling principles. The key rule: model for your queries, not for normalized entities. Start with the read and write patterns your application needs, then design the schema to support them efficiently.
@@ -320,3 +316,14 @@ Use the Outbox pattern: when updating a collection, write an event to an outbox 
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

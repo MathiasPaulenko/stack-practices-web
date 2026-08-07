@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: python-excel-read-write
 title: "Read and Write Excel Files with Python"
@@ -312,3 +311,14 @@ Use `xlrd` for reading and `xlwt` for writing. pandas supports them with `engine
 ### Can I create charts in Excel with Python?
 
 Yes. `openpyxl.chart` supports bar, line, and pie charts. `xlsxwriter` also supports charts with a similar API.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

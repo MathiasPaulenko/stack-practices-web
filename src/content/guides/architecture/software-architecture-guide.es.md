@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: software-architecture-guide
 title: "Guía de Arquitectura de Software"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La arquitectura de software define la estructura de un sistema, las relaciones entre componentes y los principios que guían el diseño y la evolución. Una buena arquitectura permite a los equipos moverse rápido sin romper cosas.
@@ -331,3 +326,14 @@ Lecciones aprendidas:
 ### Como documento decisiones arquitectonicas?
 
 Usa ADRs (Architecture Decision Records). Cada ADR documenta: contexto, decision, alternativas consideradas, consecuencias. Guarda los ADRs en el repositorio junto al codigo (carpeta docs/adr/). Usa numeracion secuencial (ADR-001, ADR-002). Un ADR no se borra ni se edita; si la decision cambia, crea un nuevo ADR que lo suprime. Esto crea un historial auditable de decisiones y su razonamiento.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

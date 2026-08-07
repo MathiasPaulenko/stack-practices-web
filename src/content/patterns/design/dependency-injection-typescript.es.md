@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: dependency-injection-typescript
 title: "Dependency Injection Container en TypeScript"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 Implementa un container de [dependency injection](/patterns/design/dependency-injection-pattern) liviano en TypeScript que resuelve dependencias de clases automaticamente a traves de decorators o metadata de constructores. Este pattern desacopla la creacion de objetos de la logica de negocio, haciendo el codigo testeable, modular y mas facil de refactorizar sin frameworks pesados.
 
 ## Cuando Usar Esto
@@ -320,3 +315,14 @@ Lecciones:
 ### Como testeo con DI?
 
 En tests, crea un container separado y registra mocks. Usa registerSingleton para reemplazar DB con una mock, Logger con un spy. Resuelve el servicio bajo test: sus dependencias seran los mocks. Esto permite testear unitario sin tocar DB real. Para integration tests, usa el container real con Testcontainers para DB.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: deep-clone-structured
 title: "Deep Clone Objects in JavaScript: Beyond JSON.parse"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 Copy nested JavaScript objects without shared references using modern and legacy approaches. This recipe compares `JSON.parse`, `structuredClone`, manual recursive cloning, and library solutions while handling edge cases like circular references, functions, and special object types.
 
 ## When to Use This
@@ -326,3 +323,14 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

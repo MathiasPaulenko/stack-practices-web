@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: generate-test-data
 title: "Generate Test Data"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Hardcoded test data (`name = "John"`, `email = "test@test.com"`) quickly becomes stale, fails to expose edge cases, and does not represent production data distributions. Generators produce realistic, varied, and deterministic data that makes tests more reliable while reducing manual fixture maintenance.
@@ -321,3 +316,14 @@ Generate datasets representative of production: same distribution of record size
 ### How do I clean up generated test data after tests?
 
 Use transactional test fixtures: wrap each test in a database transaction and roll back at the end. In pytest, use the `pytest-postgresql` plugin or `factory-boy`'s `SQLAlchemyModelFactory` with session-scoped fixtures. In Jest, use `beforeEach`/`afterEach` to set up and tear down data. For shared state across tests, use a dedicated test schema or database that is truncated between test runs. Never run tests against a production database. Use `TRUNCATE TABLE` with `CASCADE` for fast cleanup between test suites. For file-based test data, use `tempfile` directories that are automatically cleaned up by the OS.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

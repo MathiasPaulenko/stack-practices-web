@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: service-mesh-guide
 title: "Service Mesh — Istio, Linkerd y Arquitectura Sidecar"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Un service mesh es una capa de infraestructura dedicada que maneja la comunicacion servicio-a-servicio en una arquitectura de microservicios. En lugar de que cada servicio implemente preocupaciones como reintentos, timeouts, circuit breaking y cifrado, un service mesh inyecta estas capacidades transparentemente via un proxy sidecar que intercepta todo el trafico de red. Istio y Linkerd son las dos implementaciones mas populares, ofreciendo seguridad de confianza cero, control de trafico granular y observabilidad profunda sin cambios en el codigo de aplicacion.
@@ -322,3 +317,14 @@ Cuando tienes menos de 5-10 servicios, el overhead operativo excede los benefici
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

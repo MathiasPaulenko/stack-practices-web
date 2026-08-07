@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: system-decommissioning-checklist-template
 title: "System Decommissioning Checklist Template"
@@ -32,7 +30,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Old services never die quietly. They linger in DNS records, confuse new engineers, cost money, and occasionally break things when someone changes a certificate or rotates a secret. Decommissioning is the disciplined process of shutting down a service: identifying every dependency, migrating every user, deleting every resource, and documenting what was removed. Done well, it reduces cost and complexity. Done poorly, it causes outages in systems you thought were unrelated.
@@ -321,3 +318,14 @@ Sum all direct costs (compute, storage, network, licenses) and indirect costs (e
 ### What if we need to restart a decommissioned service?
 
 If you have the artifacts (code, configuration, data snapshot) stored, you can restart temporarily. Follow the documented rollback procedure. Notify that the service is being reactivated temporarily. Set a deadline for permanent migration. If artifacts were deleted, rebuild from the archived repository using the tagged version at decommissioning time. Document the reason for restart and update the tombstone.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

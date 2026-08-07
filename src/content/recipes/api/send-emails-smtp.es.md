@@ -31,7 +31,6 @@ seo:
     - plantillas email
     - email transaccional java
 ---
-
 ## Visión General
 
 El email sigue siendo la columna vertebral de la comunicación con usuarios: resets de contraseña, confirmaciones de orden, newsletters y alertas. Enviar email vía SMTP te da control total sobre entregabilidad, plantillas y tracking. Aqui se explica como el envío de emails de texto plano, HTML y con plantillas usando Python, JavaScript y Java.
@@ -306,3 +305,14 @@ Sí, pero SMTP no está optimizado para bulk. Para newsletters (10k+ destinatari
 - **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

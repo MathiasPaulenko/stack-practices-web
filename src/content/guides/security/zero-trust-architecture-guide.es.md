@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: zero-trust-architecture-guide
 title: "Arquitectura Zero Trust — Nunca Confíes, Siempre Verifica"
@@ -44,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Zero Trust es un modelo de seguridad que elimina el concepto de perímetro de red confiable. En lugar de asumir que el tráfico dentro de la red es seguro, Zero Trust verifica cada solicitud como si proviniera de una red no confiable. Cada usuario, dispositivo y aplicación debe ser autenticado, autorizado y continuamente validado antes de obtener acceso a recursos.
@@ -324,3 +319,14 @@ Para una organizacion mediana (50-200 servicios), espera 12-18 meses. Fase 1 (id
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: dependency-upgrade-template
 title: "Dependency Upgrade Runbook"
@@ -319,3 +316,14 @@ Caret (`^`) allows updates to any version that does not modify the left-most non
 ### Should I use a monorepo tool for dependency management?
 
 Monorepo tools like Nx, Turborepo, or Lerna provide workspace-level dependency hoisting, caching, and batch upgrade commands. They help when multiple packages share dependencies and you need to coordinate upgrades across them. For smaller projects, a single `package.json` with standard tooling is sufficient.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

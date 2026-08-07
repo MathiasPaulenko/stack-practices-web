@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: message-deferral-pattern
 title: "Message Deferral Pattern"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Some messages cannot be processed immediately but should not be discarded. A message might depend on a resource that is temporarily unavailable, need to run at a specific time (scheduled notifications), or require a delay before retry (exponential backoff). The Message Deferral pattern moves these messages to a deferred state and delivers them later when conditions are met or a scheduled time arrives.
@@ -331,3 +328,14 @@ Lessons:
 ### How do I ensure idempotency with deferral?
 
 Use a unique id (messageId) and a store (Redis/DB) to track state. Before processing, check if already processed: if result.status === "completed", skip. If "processing", wait or skip. Use optimistic locking: UPDATE messages SET status=processing WHERE id=X AND status=pending. If affected_rows=0, someone else processed it. Idempotency is mandatory in distributed systems: the same message may be delivered 1+ times.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

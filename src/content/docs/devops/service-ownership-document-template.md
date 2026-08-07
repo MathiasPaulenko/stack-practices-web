@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: service-ownership-document-template
 title: "Service Ownership Document Template"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Microservices multiply quickly. In a growing engineering organization, it is easy to lose track of who owns what, how to deploy a service, or who to call when it fails at 3 AM. A service ownership document is a single page of truth for each production service: what it does, who owns it, how to operate it, and where to find everything else. It turns tribal knowledge into referenceable documentation and prevents the "no one knows how this works" crisis.
@@ -325,3 +319,14 @@ During migrations (e.g., monolith to microservices): maintain ownership docs for
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

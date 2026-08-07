@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: generate-slugs
 title: "Generate URL Slugs"
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 URL slugs are human-readable identifiers used in web addresses. A well-formed slug improves SEO, usability, and shareability. Generating slugs involves transliterating non-ASCII characters, removing special symbols, collapsing whitespace, and ensuring uniqueness.
@@ -318,3 +314,14 @@ Technically, URLs are case-sensitive per RFC 3986. In practice, most servers tre
 ### What libraries handle transliteration for non-Latin scripts?
 
 In Python, `python-slugify` includes transliteration for most scripts. `unidecode` handles many scripts but produces ASCII-only output. In JavaScript, `@sindresorhus/slugify` and `transliteration` package cover Chinese, Cyrillic, and Arabic. In Java, `junidecode` provides similar functionality. Test with your actual content — transliteration quality varies between libraries.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

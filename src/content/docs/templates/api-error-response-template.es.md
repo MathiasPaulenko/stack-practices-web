@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: api-error-response-template
 templateType: api-error-response
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 Las respuestas de error de API son la parte más importante de la experiencia del desarrollador. Cuando una llamada a una API falla, la respuesta de error es lo que el desarrollador lee para arreglar su código. Las buenas respuestas de error reducen tickets de soporte, aceleran la integración y generan confianza. Las malas respuestas obligan a los desarrolladores a adivinar, abrir tickets o rendirse.
@@ -344,3 +341,14 @@ No. La misma condición de error debería producir el mismo código y estado de 
 - **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

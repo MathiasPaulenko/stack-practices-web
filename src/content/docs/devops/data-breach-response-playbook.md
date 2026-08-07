@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: data-breach-response-playbook
 title: "Data Breach Response Playbook"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A data breach is not just a technical incident. It is a legal, reputational, and operational crisis. The first 24 hours determine whether the breach becomes a manageable incident or a headline. This playbook provides a structured response: contain the damage, preserve evidence, notify the right people, and remediate the root cause. It is designed to be used under pressure, with clear decision points and owner assignments.
@@ -329,3 +323,14 @@ If the breach is discovered late: do not panic, but act quickly. Engage legal co
 ### How do we handle a breach at a third-party vendor?
 
 If a vendor experiences a breach affecting your data: confirm what data of yours was involved. Review your Data Processing Agreement (DPA) for notification requirements. Request a detailed incident report from the vendor. Assess whether to continue using the vendor or switch providers. Notify your affected customers if required — you are responsible for their data even when a vendor holds it. Coordinate communication with the vendor to ensure consistent messaging. Document the vendor response and your assessment for legal and compliance records. Consider legal action if the vendor failed to meet contractual security obligations.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

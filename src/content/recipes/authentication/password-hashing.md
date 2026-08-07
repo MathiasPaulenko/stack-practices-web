@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: password-hashing
 title: "Password Hashing"
@@ -47,7 +42,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Password hashing is the process of converting a plaintext password into a fixed-length, irreversible string using a one-way cryptographic function. Never store plaintext passwords. Always hash with a unique salt and a slow algorithm designed for passwords.
@@ -321,3 +315,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 - **Hash upgrade on every login**: if the hash is upgraded on every login even when the algorithm is already strong, this wastes CPU. Only upgrade when the current algorithm is weaker than the target.
 - **Concurrent hash computation race**: if two concurrent logins for the same user compute hashes simultaneously, a race condition may cause incorrect verification. Use a mutex per user during password verification.
 - **Hash truncation in database**: if the database column is too short for the full hash, the hash is silently truncated. Ensure the column size matches the hash output size (bcrypt: 60 chars, Argon2: 96+ chars).
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

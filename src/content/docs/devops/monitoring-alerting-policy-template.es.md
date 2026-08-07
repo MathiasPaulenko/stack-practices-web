@@ -1,11 +1,4 @@
 ---
-
-
-
-
-
-
-
 contentType: docs
 slug: monitoring-alerting-policy-template
 title: "Plantilla de Politica de Monitoreo y Alertas"
@@ -49,7 +42,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Una Politica de Monitoreo y Alertas define como una organizacion detecta problemas, notifica a las personas correctas y escala cuando los incidentes no se resuelven rapidamente. Sin una politica clara, los equipos sufren fatiga de alertas, incidentes perdidos o tiempos de respuesta inconsistentes. Esta plantilla proporciona un marco estructurado para umbrales, niveles de severidad, reglas de enrutamiento, caminos de escalacion y revision regular.
@@ -332,3 +324,14 @@ Para servicios 24/7 con alto volumen de alertas, si. Un NOC o equipo SRE de guar
 Para equipos pequenos, el L1 hace este filtrado. El diseno del NOC debe incluir runbooks automatizados para las top 10 alertas mas frecuentes.
 
 Configura integraciones con tu herramienta de tickets para crear tickets automaticamente cuando se resuelve un incidente.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

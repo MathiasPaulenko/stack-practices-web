@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: test-coverage-report-template
 title: "Test Coverage Report Template"
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A test coverage report communicates how much of the codebase is exercised by tests. Raw coverage numbers are insufficient: a report must break down coverage by module, feature, and critical path, show trends over time, and identify gaps where coverage is below target. This template provides a structure for reporting coverage to engineering teams and stakeholders.
@@ -331,3 +328,14 @@ Use your test runner's built-in coverage (Vitest, Jest) for collection. Use Code
 ### How often should I generate coverage reports?
 
 Generate coverage on every PR (via CI) for immediate feedback. Generate a full report monthly for trend analysis and stakeholder communication. Quarterly reports are sufficient for executive summaries.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

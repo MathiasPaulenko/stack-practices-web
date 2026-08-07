@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: implement-mutation-testing
 title: "Implement Mutation Testing"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Code coverage tells you which lines were executed, but not whether the tests would fail if the behavior changed. Mutation testing addresses this by introducing small, semantically meaningful bugs (mutants) into your code — changing `+` to `-`, inverting a condition, removing a method call — and verifying that at least one test fails. A high mutation score means your tests are genuinely asserting behavior, not just passing through code.
@@ -312,3 +309,14 @@ Only gate on modules with stable, mature tests. Set a threshold (e.g., 70%) and 
 ### How do I integrate mutation testing with GitHub Actions?
 
 Run mutation testing on PRs that touch core modules. Cache the mutation history between runs using `actions/cache`. Post the mutation score as a PR comment using a custom action. Schedule a full run nightly on the default branch to catch regressions.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

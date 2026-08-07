@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: async-generator-pattern
 title: "Patrón Async Generator"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Procesar datasets grandes o streams continuos cargando todo en memoria causa errores de OOM y alta latencia. El patron Async Generator produce valores de forma perezosa: el consumidor pide el siguiente valor y el generador lo produce solo cuando esta listo. Esto habilita el procesamiento de secuencias infinitas, archivos grandes o fuentes I/O lentas con uso constante de memoria.
@@ -322,3 +316,14 @@ R: En Python, `yield from` delega a un sub-generador: `yield from otro_async_gen
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

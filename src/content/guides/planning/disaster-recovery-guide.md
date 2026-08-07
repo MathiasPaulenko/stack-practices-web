@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: disaster-recovery-guide
 title: "Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks"
@@ -53,7 +49,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Disaster recovery (DR) is the set of policies, tools, and procedures that enable the recovery or continuation of business-critical technology infrastructure and systems following a natural or human-induced disaster. It protects against data loss and minimizes downtime when the unexpected happens.
@@ -338,3 +333,14 @@ Define clear metrics before starting: performance benchmarks, error rates, or ma
 ## Conclusion
 
 Disaster recovery is insurance for your infrastructure. Define clear objectives, design appropriate strategies, document runbooks, and test regularly. The time to discover a problem with your DR plan is during a drill, not during a real disaster.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

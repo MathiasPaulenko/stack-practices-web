@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-yaml-files
 title: "Parse YAML Files"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 YAML is the de facto standard for configuration files in DevOps, CI/CD pipelines, and application settings. Its human-readable syntax supports nested structures, comments, anchors, and aliases. Parsing YAML programmatically enables automated configuration validation, environment-specific overrides, and on-demand service discovery.
@@ -324,3 +319,14 @@ PyYAML's `safe_dump` does not preserve comments. Use `ruamel.yaml` which support
 ### Can I use YAML for API payloads?
 
 YAML is not recommended for API payloads. JSON is the standard for HTTP APIs because it is universally supported, compact, and fast to parse. YAML's flexibility (anchors, tags, implicit typing) introduces ambiguity that can cause security issues and parsing inconsistencies across implementations. Use YAML for configuration only.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

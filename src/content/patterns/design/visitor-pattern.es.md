@@ -1,5 +1,4 @@
 ---
-
 contentType: patterns
 slug: visitor-pattern
 title: "Patrón Visitor"
@@ -37,7 +36,6 @@ seo:
     - javascript visitor
 
 ---
-
 ## Resumen
 
 El Patrón Visitor es un patrón de diseño de comportamiento que te permite definir una nueva operación sobre una estructura de objetos sin cambiar las clases de los elementos sobre los que opera. Separa los algoritmos de los objetos sobre los que operan, haciendo fácil agregar nuevas operaciones a una jerarquía de clases compleja.
@@ -307,3 +305,14 @@ Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea centr
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

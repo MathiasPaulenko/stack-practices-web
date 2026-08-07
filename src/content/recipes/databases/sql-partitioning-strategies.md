@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: sql-partitioning-strategies
 title: "Partition Large Tables by Date or Range"
@@ -40,8 +37,6 @@ seo:
 
 
 ---
-
-
 ## Overview
 
 When a table grows past hundreds of millions of rows, every query becomes a battle against index size and maintenance time. Partitioning splits the table into smaller, more manageable pieces while keeping the whole thing queryable as a single table. The database prunes partitions that do not match the query, so scans are smaller and index maintenance is cheaper.
@@ -328,3 +323,14 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 4. **Tune `max_parallel_workers_per_gather`.** Partitioned table scans can benefit from parallel workers. Increase this setting for large partitioned scans.
 
 5. **Use `SET enable_partition_pruning = on`** to ensure pruning is active. It is on by default in PostgreSQL 11+, but verify if queries scan all partitions unexpectedly.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

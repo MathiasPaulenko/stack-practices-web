@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: api-rate-limiting
 title: "API Rate Limiting"
@@ -318,3 +315,14 @@ In-memory rate limiting is 100x faster than Redis but doesn't work across instan
 - **Token bucket overflow in burst scenarios**: token bucket algorithms allow bursts up to the bucket capacity. If the bucket is too large, a single client can overwhelm the server in a burst. Set bucket capacity to 2x the refill rate to balance bursts and sustained traffic.
 - **Rate limit key expiration without cleanup**: if rate limit keys in Redis are not cleaned up after expiration, memory usage grows unboundedly. Use `EXPIRE` on every key and set a max TTL of 24 hours to ensure automatic cleanup.
 - **Client-side rate limit caching**: clients may cache rate limit responses locally and reuse them to avoid hitting the server. Include a `Date` or `ETag` header in rate limit responses to prevent stale caching.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

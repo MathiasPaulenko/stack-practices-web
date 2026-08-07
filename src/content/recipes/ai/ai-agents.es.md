@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: ai-agents
 title: "Construir Agentes de IA Autónomos con Uso de"
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Los agentes de IA son sistemas autónomos potenciados por large language models (LLMs) que pueden percibir su entorno, razonar sobre objetivos y tomar acciones invocando herramientas externas. A diferencia de [chatbots simples](/recipes/ai/chatbot-openai) que solo generan texto, los agentes mantienen estado a través de múltiples turnos, eligen qué herramientas llamar basándose en contexto e iteran hasta que una tarea se completa. Representan la siguiente evolución desde [prompts estáticos](/recipes/ai/prompt-engineering) hasta sistemas orientados a objetivos dinámicos.
@@ -324,3 +320,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

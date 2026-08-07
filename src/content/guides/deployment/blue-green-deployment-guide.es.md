@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: blue-green-deployment-guide
 title: "Despliegue Blue-Green"
@@ -47,7 +43,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 El despliegue blue-green es una estrategia de release que mantiene dos entornos de producción idénticos: blue (activo) y green (inactivo). Las nuevas versiones se despliegan al entorno inactivo, se validan y luego el tráfico cambia instantáneamente. Si surgen problemas, el rollback es simplemente otro cambio de tráfico.
@@ -321,3 +316,14 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 ## Conclusion
 
 El despliegue blue-green es el estándar de oro para releases sin downtime con rollback instantáneo. Requiere infraestructura duplicada pero proporciona confianza sin igual. Combínalo con health checks automatizados, migraciones de base de datos compatibles hacia atrás y monitoreo exhaustivo para un proceso de release a prueba de balas.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: truncate-text
 title: "Truncate Text"
@@ -321,3 +318,14 @@ A grapheme cluster is what a human perceives as one character (e.g., emoji with 
 ### Should I truncate on the client or the server?
 
 For UI previews, client-side truncation with CSS (`text-overflow: ellipsis`) is simplest and preserves the full text for screen readers. For fixed-length exports, database constraints, or search result snippets, truncate on the server. Server truncation is required when the full text is too large to transfer to the client.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

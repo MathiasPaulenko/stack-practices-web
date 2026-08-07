@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 templateType: pr-template
 slug: pull-request-template
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A pull request template standardizes the information provided when submitting code changes. See [Contributing Guide](/docs/templates/contributing-guide) for team standards and [What Works in Code Review](/guides/design/code-review-best-practices-guide) for review culture. It ensures reviewers have context and authors verify their work before requesting review.
@@ -316,3 +312,14 @@ Do not include generated files in the diff. Add them to `.gitattributes` with `l
 ### How do I handle long-running feature branches?
 
 Rebase frequently against main to avoid large merge conflicts. Consider splitting the feature into smaller PRs that can be merged incrementally. Use feature flags to merge incomplete work behind a disabled flag. Long-running branches accumulate conflicts and are harder to review.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

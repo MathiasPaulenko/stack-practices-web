@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: technical-documentation-strategy-guide
 title: "Estrategia de Documentación Técnica: Docs as Code"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 La documentación es la actividad de mayor apalancamiento en ingeniería de software. Un sistema bien documentado reduce el tiempo de onboarding, previene errores repetidos y preserva contexto a través de cambios de equipo. Tratar docs como código significa aplicar la misma rigurosidad — control de versiones, code review, verificaciones automatizadas — a la documentación que aplicas al código fuente.
@@ -302,3 +299,14 @@ Hace que actualizar docs sea parte del Definition of Done. Bloquea PRs que cambi
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

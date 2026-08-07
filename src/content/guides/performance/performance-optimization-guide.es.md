@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: performance-optimization-guide
 title: "Guía de Optimización de Performance Web"
@@ -61,7 +57,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 La performance es un aspecto clave. Los sitios lentos pierden usuarios, ingresos y rankings de búsqueda. A continuación: técnicas prácticas para mejorar Core Web Vitals y ofrecer experiencias rápidas.
@@ -335,3 +330,14 @@ End of document. Review and update quarterly.
 - **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
 - **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
 - **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: unit-testing-mocking
 title: "Escribir Unit Tests con Mocks y Stubs"
@@ -40,7 +37,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Los unit tests verifican que una sola función o clase se comporta correctamente en aislamiento. Pero la mayoría del código depende de sistemas externos — bases de datos, APIs HTTP, sistemas de archivos — que son lentos, poco confiables o no disponibles durante los tests. El mocking reemplaza estas dependencias con sustitutos controlados que devuelven respuestas predeterminadas, lanzan excepciones bajo demanda, o registran cómo fueron llamados.
@@ -310,3 +306,14 @@ Mocking tiene algunas limitations. Excessive mocking hace tests brittle. Mocks p
 ### ¿Cuándo debo usar mocking vs real implementations?
 
 Usa mocking para unit tests de components aislados. Usa real implementations para integration tests. Usa mocking cuando external dependencies son lentas o inestables. Usa real implementations cuando necesitas validar behavior end-to-end. Documenta decision criteria para tu team.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

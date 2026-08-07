@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: compliance-soc2-guide
 title: "SOC 2 Compliance — Basics for Engineering Teams"
@@ -33,7 +32,6 @@ seo:
     - guide
 
 ---
-
 ## Overview
 
 SOC 2 (Service Organization Control 2) is an audit framework developed by the AICPA that evaluates how service organizations manage customer data. Unlike compliance checklists, SOC 2 Type II requires demonstrating that your controls operate well over time. For engineering teams, this means building systems with security, availability, processing integrity, confidentiality, and privacy — and proving they work through evidence.
@@ -316,3 +314,14 @@ Lessons:
 ### How much does a SOC2 audit cost?
 
 A SOC2 Type I audit costs $15K-$30K. Type II costs $30K-$60K for the first year, $20K-$40K in subsequent years. Additional costs: tools (Drata, Vanta: $5K-$20K/year), readiness consultant ($10K-$25K), team time (200-400 hours). Budget $50K-$80K for the full first year.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

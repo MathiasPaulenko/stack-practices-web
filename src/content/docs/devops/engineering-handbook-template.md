@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: engineering-handbook-template
 title: "Engineering Handbook Template"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Teams without a written handbook reinvent their culture with every new hire. Decisions that were obvious to founders become mysteries to the tenth engineer. An engineering handbook captures the rules, norms, and reasoning that define how your team builds software. It is not a replacement for conversation. It is the reference that makes conversations productive instead of repetitive.
@@ -330,3 +324,14 @@ A Git repo gives you version history, pull request reviews for changes, and diff
 ### How do we measure if the handbook is useful?
 
 Track how often new hires reference it during onboarding. Ask in 30-day check-ins: "Did the handbook answer your questions?" Monitor search queries if your docs site supports analytics. If the same questions keep coming up in Slack despite being documented, the handbook may be hard to find or the relevant section may be unclear.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

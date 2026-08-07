@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: hexagonal-architecture-guide
 title: "Hexagonal Architecture — Ports, Adapters, and Testability"
@@ -43,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Hexagonal Architecture, also known as Ports and Adapters, is a design pattern that isolates the core domain logic from external concerns like frameworks, databases, and UI. Instead of the domain depending on infrastructure, infrastructure depends on the domain through well-defined interfaces called ports. This inversion of dependencies makes applications easier to test, refactor, and adapt to changing requirements.
@@ -320,3 +316,14 @@ Define clear metrics before starting: performance benchmarks, error rates, or ma
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

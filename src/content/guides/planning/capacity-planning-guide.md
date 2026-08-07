@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: capacity-planning-guide
 title: "Capacity Planning — Forecast, Scale"
@@ -48,7 +44,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Capacity planning ensures your infrastructure can handle current and future demand without wasting resources. It bridges the gap between reactive firefighting and proactive scaling, helping teams deliver reliable services while controlling costs.
@@ -331,3 +326,14 @@ Lessons:
 ### How do I calculate compounding growth?
 
 Use the formula: F = P * (1 + r)^n, where P is the current value, r is the monthly growth rate, and n is the number of months. Example: 10K users, 15% monthly, 6 months: 10000 * (1.15)^6 = 23,133 users. Always round up and add a 20% buffer for unexpected spikes.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

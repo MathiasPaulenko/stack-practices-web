@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: serverless-event-sourcing-pattern
 title: "Patron Serverless Event Sourcing"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Descripcion general
 
 Event sourcing almacena el estado de la aplicacion como una secuencia de eventos inmutables. En lugar de actualizar un registro de estado actual, anades cada cambio de estado como un evento a un log. El estado actual se deriva reproduciendo el log de eventos. En serverless, esto encaja naturalmente: los eventos fluyen a traves de EventBridge o SNS, y DynamoDB o S3 almacena el log de eventos.
@@ -318,3 +315,14 @@ Escanea todos los eventos del agregado, reproducelos para computar el estado act
 - **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

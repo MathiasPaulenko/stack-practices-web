@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: a-b-testing-guide
 title: "A/B Testing: Frameworks de Experimentación para"
@@ -39,7 +37,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A/B testing (también llamado split testing) es una metodología de experimentación controlada que compara dos versiones de una capacidad de producto para determinar cuál funciona mejor. Elimina la conjetura de las decisiones de producto al dejar que los datos de comportamiento de usuario determinen los ganadores.
@@ -323,3 +320,13 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 
 A/B testing transforma el desarrollo de productos de basado-en-opinión a basado-en-evidencia. Siguiendo un diseño riguroso de experimentos, calculando tamaños de muestra apropiados e interpretando resultados correctamente, tomas decisiones que mejoran consistentemente la experiencia de usuario y los resultados de negocio.
 
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: solid-principles-typescript
 title: "Principios SOLID en TypeScript con Ejemplos Practicos"
@@ -32,7 +30,6 @@ seo:
 
 
 ---
-
 Los [principios SOLID](/guides/design/solid-principles-guide) proporcionan un marco para escribir codigo orientado a objetos mantenible. Aplicados a TypeScript, ayudan a prevenir los problemas comunes de clases fuertemente acopladas, jerarquias de herencia fragiles y grafos de dependencias inmantenibles.
 
 ## Cuando Usar Esto
@@ -346,3 +343,14 @@ Lecciones:
 ### Como aplico SOLID en codigo legacy?
 
 Empieza con SRP: identifica clases que hacen demasiadas cosas y extrae responsabilidades. Usa extraccion de metodos y clases. Luego DIP: introduce interfaces para dependencias externas y usa inyeccion. OCP llega naturalmente: cuando necesitas anadir variacion, crea una nueva clase en lugar de modificar. No intentes aplicar todos los principios a la vez: refactoriza incrementalmente, un principio a la vez, con tests como red de seguridad.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: llm-fine-tuning
 title: "Fine-tuning de un modelo de lenguaje para generación de"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 El fine-tuning adapta un modelo de lenguaje pre-entrenado a una tarea o dominio específico continuando el entrenamiento con un dataset más pequeño y curado. Para generación de código, esto significa enseñarle al modelo los patrones de API de tu empresa, bibliotecas internas o estándares de codificación. Métodos eficientes en parámetros como LoRA y QLoRA permiten hacer fine-tuning de modelos de miles de millones de parámetros en una sola GPU actualizando solo una fracción mínima de pesos.
@@ -318,3 +315,14 @@ Fine-tuning es cost-effective cuando necesitas comportamiento domain-specific qu
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

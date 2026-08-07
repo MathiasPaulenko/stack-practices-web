@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: serverless-architecture-guide
 title: "Arquitectura Serverless — Patrones y Anti-Patrones"
@@ -54,7 +49,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La arquitectura serverless te permite ejecutar código sin aprovisionar ni gestionar servidores. El proveedor cloud se encarga de infraestructura, escalado y parcheo; tú proporcionas funciones que se ejecutan en respuesta a eventos. Aunque serverless elimina la gestión de servidores, introduce nuevas restricciones: límites de tiempo de ejecución, cold starts, falta de estado y debugging distribuido. A continuación: patrones que funcionan y anti-patrones que causan problemas.
@@ -331,3 +325,14 @@ Usa SAM CLI para AWS Lambda: `sam local invoke -e event.json`. Para Azure, Azure
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: chatbot-openai
 title: "Crear un chatbot con la OpenAI Assistants API"
@@ -41,7 +39,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 La OpenAI Assistants API simplifica la construcción de chatbots inteligentes manejando el estado de la conversación, la recuperación de archivos y el function calling automáticamente. En lugar de gestionar memoria de contexto, embeber documentos y formatear herramientas manualmente, defines un asistente con instrucciones y capacidades, y la API se encarga del resto.
@@ -317,3 +314,14 @@ Valida outputs de funciones contra un schema antes de retornarlos al LLM. Si el 
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

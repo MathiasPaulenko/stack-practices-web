@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: serverless-orchestration
 title: "Orchestrate Serverless Workflows with Step Functions and"
@@ -33,7 +32,6 @@ seo:
     - serverless workflows
 
 ---
-
 ## Overview
 
 A single AWS Lambda function can process an HTTP request, resize an image, or validate a form. But real-world workflows are rarely that simple. An e-commerce order involves validating inventory, charging payment, sending confirmation, updating analytics, and scheduling shipment. Each step is a function; the workflow is the coordination logic that decides what to call next, what to do on failure, and how to retry transient errors.
@@ -317,3 +315,14 @@ Step Functions: use versions and aliases to deploy new definitions without affec
 ### What is the maximum workflow duration?
 
 Step Functions Standard: up to 1 year per execution. Express: up to 5 minutes. Temporal: no hard limit — workflows can run indefinitely. Durable Functions: up to the storage retention period (default 7 days, configurable). For workflows longer than the platform limit, use checkpoints and restart the workflow from the last checkpoint.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

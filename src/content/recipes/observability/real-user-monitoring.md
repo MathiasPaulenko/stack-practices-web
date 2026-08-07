@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: real-user-monitoring
 title: "Real User Monitoring"
@@ -307,3 +305,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### How do I choose the right RUM tool?
 
 Consider data volume, budget, and features. Datadog RUM for full-stack monitoring. Sentry for error-focused RUM. Google Analytics for marketing-focused data. Open-source options like OpenTelemetry Web for custom needs. Test in staging first. Compare data accuracy across tools.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

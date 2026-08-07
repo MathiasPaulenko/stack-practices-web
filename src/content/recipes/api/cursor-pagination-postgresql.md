@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: cursor-pagination-postgresql
 title: "Cursor-Based Pagination with PostgreSQL"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 Offset-based pagination (`LIMIT 20 OFFSET 10000`) degrades linearly as offsets grow because PostgreSQL must scan and discard all preceding rows. Cursor-based (keyset) pagination uses indexed columns to seek directly to the starting point, maintaining constant-time performance regardless of dataset size. This implementation provides cursor pagination with PostgreSQL, including cursor encoding, bidirectional navigation, and edge cases with duplicate sort keys.
 
 ## When to Use This
@@ -320,3 +315,14 @@ Start by adding a `created_at` column with an index if one doesn't exist. Implem
 ### How do I handle cursor pagination with concurrent inserts?
 
 Concurrent inserts do not affect cursor pagination correctness. New rows inserted after the first page is returned will appear on subsequent pages if their sort values fall within the cursor range. The `has_next_page` flag is computed by querying `LIMIT + 1` and checking if an extra row exists. For real-time feeds where new rows must appear immediately, use a separate "latest items" endpoint rather than modifying cursor behavior.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

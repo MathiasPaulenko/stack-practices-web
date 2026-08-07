@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: lakehouse-guide
 title: "Arquitectura Lakehouse — Lo Mejor de Ambos Mundos"
@@ -34,7 +33,6 @@ seo:
     - guia
 
 ---
-
 ## Overview
 
 La arquitectura Lakehouse, novedosa de Databricks, unifica lo mejor de Data Lakes y Data Warehouses. Almacena datos en formatos abiertos (Parquet) en almacenamiento de objetos de bajo costo mientras añade garantías transaccionales, enforce de schema y time travel. Los formatos de tabla abiertos como Delta Lake, Apache Iceberg y Hudi hacen esto posible manteniendo capas de metadata que rastrean cambios, particiones y estadísticas.
@@ -341,3 +339,14 @@ Delta Lake es la mejor opcion si usas Spark intensivamente: integracion nativa, 
 ### Como manejo la evolucion de esquemas en Lakehouse?
 
 Los tres formatos soportan evolucion de esquema. Delta Lake: usa `mergeSchema: true` para anadir columnas automaticamente, o `overwriteSchema: true` para cambiar el esquema completo. Iceberg: evolucion de esquemas nativa sin reescribir datos (anadir, renombrar, eliminar columnas). Hudi: soporta evolucion de esquema con `hoodie.schema.on.read.enable=true`. Para cambios mayores, versiona las tablas: `events_v1`, `events_v2`. Documenta los cambios en el catalogo de datos.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

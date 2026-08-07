@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: patterns
 slug: throttling-pattern
 title: "Throttling Pattern"
@@ -53,7 +47,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Throttling Pattern controls the rate at which a system processes requests or consumes resources to prevent overload and ensure fair resource allocation. Instead of accepting all incoming requests immediately, the system limits the rate based on capacity, user tiers, or resource availability.
@@ -328,3 +321,14 @@ Use throttle when the client should wait (e.g: calling external API with limit).
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: message-deduplication-pattern
 title: "Patrón Message Deduplication"
@@ -36,7 +33,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Los brokers de mensajes garantizan entrega at-least-once, lo que significa que los consumidores pueden recibir el mismo mensaje mas de una vez. Reintentos de red, caidas del consumidor durante el procesamiento y reentregas del broker causan duplicados. Sin deduplicacion, un pago puede procesarse dos veces o una notificacion enviarse multiples veces.
@@ -315,3 +311,14 @@ R: Usa el header HTTP `Idempotency-Key` como clave de dedup. Almacenalo en Redis
 - **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
 - **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
 - **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: graphql-dataloader-batching
 title: "Batch and Cache Database Queries with GraphQL DataLoader"
@@ -44,7 +39,6 @@ seo:
 
 
 ---
-
 When a GraphQL query resolves nested relationships — like fetching the author of each post in a list — a naive resolver issues one database query per item. This is the N+1 problem: one query for the list, plus N queries for the related data. DataLoader solves this by collecting individual load requests within a single event loop tick and dispatching them as a single batched query.
 
 ## When to Use This
@@ -324,3 +318,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### Can I use DataLoader with non-database data sources?
 
 Yes. DataLoader works with any batchable data source: REST APIs, microservices, message queues, or in-memory stores. The batch function receives an array of keys and returns a Promise of an array of values. Use it for any N+1 problem, not just database queries.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

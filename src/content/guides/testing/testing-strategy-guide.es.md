@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: testing-strategy-guide
 title: "Guía de Estrategia de Testing"
@@ -59,7 +54,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 El testing no es solo encontrar bugs. Una estrategia bien diseñada provee confianza para refactoring, documenta comportamiento esperado, atrapa regresiones antes de producción y funciona como especificaciones ejecutables.
@@ -331,3 +325,14 @@ End of document. Review and update quarterly.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
 - **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
 - **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

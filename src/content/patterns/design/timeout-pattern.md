@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: timeout-pattern
 title: "Timeout Pattern"
@@ -40,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Timeout Pattern is a resilience pattern that prevents operations from hanging indefinitely by enforcing a maximum execution time. Without timeouts, a single slow downstream service can hold up threads, connections, and user requests indefinitely, causing cascading failures across the system.
@@ -312,3 +309,14 @@ Measure the p99 latency of the service. Set timeout to 2-3x the p99. If Stripe p
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

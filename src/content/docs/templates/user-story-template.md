@@ -1,5 +1,4 @@
 ---
-
 contentType: docs
 slug: user-story-template
 templateType: user-story
@@ -32,7 +31,6 @@ seo:
     - agile story format
 
 ---
-
 Use this template to write user stories that are ready for development and testing. Pair it with the [Feature Request Template](/docs/templates/feature-request-template) for initial proposals and [Test-Driven Development Guide](/guides/testing/test-driven-development-guide) for test-first workflows.
 
 ## Template
@@ -310,3 +308,14 @@ Use the Gherkin format (Given-When-Then) for acceptance criteria. "Given [contex
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

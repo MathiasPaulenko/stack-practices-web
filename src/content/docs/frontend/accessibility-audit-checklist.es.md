@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: accessibility-audit-checklist
 title: "Checklist de Auditoría de Accesibilidad"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 WCAG 2.2 define accessibility guidelines across four principles: perceivable, operable, understandable y robust (POUR). Este checklist translate esas guidelines en testable criteria con specific tools y remediation steps. Usalo para auditar existing applications o verify new features antes de release.
@@ -343,3 +340,14 @@ No. Overlays (como AccessiBe, UserWay) no hacen sites compliant. Pueden interfer
 ### ¿Cómo mantenemos accessibility over time?
 
 Integrá accessibility checks en CI (axe-core en tests), entrená al team en WCAG criteria, incluí accessibility en code review checklists y auditá quarterly. Accessibility no es un one-time project — es un ongoing practice.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

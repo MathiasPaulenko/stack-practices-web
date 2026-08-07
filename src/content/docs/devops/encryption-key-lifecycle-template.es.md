@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: encryption-key-lifecycle-template
 title: "Plantilla de Ciclo de Vida de Claves de Cifrado"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 La gestion del ciclo de vida de claves de cifrado define como se crean, almacenan, usan, rotan y retiran las claves. Una mala gestion de claves puede socavar completamente el cifrado al exponerlas, mantenerlas por demasiado tiempo o no revocarlas cuando ya no se necesitan. Esta plantilla proporciona politicas, procedimientos y roles para gestionar claves simetricas y asimetricas en aplicaciones, bases de datos, copias de seguridad y servicios cloud.
@@ -316,3 +313,14 @@ Prueba los procedimientos de recuperacion de claves anualmente. Una clave que no
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

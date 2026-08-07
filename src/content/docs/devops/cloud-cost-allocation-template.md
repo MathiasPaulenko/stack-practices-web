@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: cloud-cost-allocation-template
 title: "Cloud Cost Allocation Template"
@@ -338,3 +335,14 @@ Cross-region data transfer costs apply on both sides. Track egress by region usi
 ### How do we calculate cost per active user?
 
 Total service cost divided by monthly active users (MAU). Include all direct costs (compute, storage, network) and allocated shared costs. Track this monthly. If cost per user increases while user count stays flat, there is inefficiency. Compare across teams to identify outliers. Set a target cost per user and review quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

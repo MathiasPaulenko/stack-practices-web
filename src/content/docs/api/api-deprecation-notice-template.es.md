@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: api-deprecation-notice-template
 title: "Plantilla de Aviso de Deprecacion de API"
@@ -45,7 +40,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 Las APIs evolucionan. Los campos se renombran, los endpoints se reemplazan y las versiones antiguas se retiran. Sin un aviso de deprecacion claro, los consumidores descubren los cambios breaking solo despues de que sus integraciones fallan. Esta plantilla proporciona un formato estandar para anunciar deprecaciones, comunicar plazos y guiar a los consumidores a traves de las migraciones.
@@ -324,3 +318,14 @@ Enviar un evento de webhook `deprecation.notice` a todos los endpoints suscritos
 - **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

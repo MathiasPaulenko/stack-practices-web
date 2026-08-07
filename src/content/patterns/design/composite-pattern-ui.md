@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: composite-pattern-ui
 title: "Composite Pattern for UI Component Trees in React"
@@ -39,7 +35,6 @@ seo:
 
 
 ---
-
 The Composite pattern composes objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly. In React, this pattern appears naturally when rendering nested component trees where a container holds both leaf elements and other containers. See the general [Composite Pattern](/patterns/design/composite-pattern) for language-agnostic examples.
 
 ## When to Use This
@@ -322,3 +317,14 @@ Lessons:
 ### Composite vs Decorator: which do I use?
 
 Composite is structural: trees of objects with the same interface. Decorator is structural: wraps one object to add behavior. Composite has 0..N children; Decorator has exactly 1. Composite builds trees; Decorator builds chains. Use Composite for UI hierarchies. Use Decorator to add logging, cache, or validation to a service.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: web-components-guide
 title: "Web Components — Custom Elements, Shadow DOM y Templates"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 Web Components son un conjunto de APIs nativas del navegador para crear elementos HTML reutilizables y encapsulados. Funcionan en cualquier framework — o sin ninguno — y proporcionan verdadera encapsulación de estilos y DOM mediante Shadow DOM. A continuación: las tres tecnologías principales: Custom Elements, Shadow DOM y HTML Templates, con ejemplos prácticos que puedes usar hoy.
@@ -332,3 +326,14 @@ Las herramientas mencionadas throughout esta guía se listan en cada sección. L
 ### ¿Cómo mido el éxito después de implementar esto?
 
 Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

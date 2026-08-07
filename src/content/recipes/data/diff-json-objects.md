@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: diff-json-objects
 title: "Diff JSON Objects"
@@ -325,3 +321,14 @@ Yes. `DeepDiff` has `ignore_order=True`. For JS, convert arrays to sets or sort 
 ### How do I generate a human-readable diff report?
 
 Convert the machine-readable diff into sentences. `DeepDiff`'s `pretty()` method produces readable output. For RFC 6902 patches, map operation codes to verbs: `replace` → "changed", `add` → "added", `remove` → "removed". In Java, iterate over the `JsonNode` patch array and format each operation with its path and values.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

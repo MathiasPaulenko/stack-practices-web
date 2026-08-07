@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: flatten-unflatten-objects
 title: "Flatten and Unflatten Nested Objects"
@@ -316,3 +314,14 @@ In JavaScript, `flat` (npm) is the most popular, supporting custom separators, d
 ### How do I flatten TypeScript objects while preserving type information?
 
 Use a generic function with conditional types to infer the flattened key structure. Define a `Flatten<T>` type that recursively constructs keys as ``${Prefix}.${Key}``. At runtime, the flatten function produces string keys; the type tells the compiler what keys to expect. For partial type safety, use `as const` assertions on the flattened output and validate with a Zod schema at the boundary where untrusted data enters the system.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: ai-agents
 title: "Build Autonomous AI Agents with Tool Use and Reasoning"
@@ -38,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 AI agents are autonomous systems powered by large language models (LLMs) that can perceive their environment, reason about goals, and take actions by invoking external tools. Unlike simple [chatbots](/recipes/ai/chatbot-openai) that only generate text, agents maintain state across multiple turns, choose which tools to call based on context, and iterate until a task is complete. They represent the next evolution from [static prompts](/recipes/ai/prompt-engineering) to dynamic, goal-oriented systems.
@@ -325,3 +321,14 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

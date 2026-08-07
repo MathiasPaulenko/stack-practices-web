@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: indexing-strategies-guide
 title: "Estrategias de Indexación — Desde B-Trees hasta BRIN"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Los índices son el mecanismo principal para acelerar consultas de bases de datos. Son estructuras de datos que permiten a la base de datos localizar filas sin escanear cada registro. Pero los índices no son gratis — consumen almacenamiento, ralentizan escrituras y pueden perjudicar el rendimiento si se usan incorrectamente. Entender los diferentes tipos de índice y cuándo aplicarlos es una de las habilidades de mayor valor en bases de datos.
@@ -320,3 +317,14 @@ Lecciones:
 ### Como decido entre B-Tree y BRIN?
 
 Usa B-Tree para datos con acceso aleatorio y consultas de igualdad o rango. Usa BRIN para tablas muy grandes (billones de filas) donde los datos estan naturalmente ordenados (ej: series temporales, logs append-only). BRIN ocupa ~1% del tamano de un B-Tree pero solo es util cuando las consultas filtran por rango del campo ordenado.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

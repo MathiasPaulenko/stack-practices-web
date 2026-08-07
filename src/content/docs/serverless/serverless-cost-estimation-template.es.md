@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: serverless-cost-estimation-template
 templateType: guideline
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Esta plantilla ayuda a teams a estimatear serverless costs por workload antes de deployment y trackear actual costs contra projections. Serverless pricing se basa en invocations, execution duration, memory allocation y data transfer. Subestimar cualquiera de estos factores leada a budget overruns.
@@ -321,3 +318,14 @@ Step Functions chargea per state transition. Standard workflows cuestan $0.025 p
 - **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

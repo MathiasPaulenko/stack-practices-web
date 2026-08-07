@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: multiton-pattern
 title: "Multiton Pattern"
@@ -36,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Multiton Pattern extends the Singleton concept to manage multiple named instances. Instead of a single global instance, a Multiton maintains a registry of instances keyed by name or identifier. Requesting the same key always returns the same instance, but different keys produce different instances.
@@ -318,3 +314,14 @@ Call closeAll() or removeInstance(key) when a tenant is no longer active. Implem
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

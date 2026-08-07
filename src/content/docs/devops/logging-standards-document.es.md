@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: logging-standards-document
 title: "Documento de Estandares de Logging"
@@ -36,7 +33,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Un Documento de Estandares de Logging define como los servicios, aplicaciones e infraestructura producen logs. Logging consistente facilita la depuracion, el monitoreo, la investigacion de seguridad y el cumplimiento. Esta plantilla cubre niveles de log, formatos estructurados, campos requeridos, retencion, muestreo y reglas de seguridad.
@@ -319,3 +315,14 @@ Agrega tests que verifiquen: el formato de log es JSON valido, los campos requer
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

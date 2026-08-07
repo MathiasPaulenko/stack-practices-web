@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: structured-logging
 title: "Structured Logging"
@@ -309,3 +307,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### Should I use JSON or key-value structured logs?
 
 JSON is the industry standard for structured logging. It is parseable by all major log aggregation tools. Key-value format is lighter but less standardized. Use JSON for new services. Use key-value only for high-volume services where serialization overhead matters. Document your format choice.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

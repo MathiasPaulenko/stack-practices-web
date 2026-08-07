@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: patterns
 slug: serverless-throttling-pattern
 title: "Serverless Throttling Pattern"
@@ -45,7 +41,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Serverless functions scale automatically, but downstream services (databases, APIs) often cannot handle the burst traffic that Lambda concurrency produces. The throttling pattern controls the rate at which Lambda functions process events, protecting downstream systems from overload.
@@ -336,3 +331,14 @@ Yes. API Gateway supports usage plans with rate and burst limits. This throttles
 ### What happens when Lambda is throttled?
 
 For synchronous invocations (API Gateway), the caller receives a 429 error. For asynchronous invocations (SNS, EventBridge), the event is retried with exponential backoff. For SQS-triggered functions, the message stays in the queue and is retried on the next poll. Configure DLQs for all cases.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: backup-verification-test-template
 title: "Plantilla de Prueba de Verificacion de Backups"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Un backup que no se puede restaurar no es un backup. Esta plantilla ayuda a los equipos a programar, ejecutar y documentar pruebas de verificacion de backups. Cubre los sistemas en prueba, el procedimiento de restauracion, los criterios de validacion y que hacer cuando una prueba falla.
@@ -317,3 +314,14 @@ La replicacion cross-region copia backups a una region secundaria para recuperac
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

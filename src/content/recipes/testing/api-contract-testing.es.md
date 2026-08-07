@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: api-contract-testing
 title: "Testear Contratos de API con Consumer-Driven Contracts"
@@ -33,7 +32,6 @@ seo:
     - openapi validation
 
 ---
-
 ## Visión general
 
 En una arquitectura de microservicios, decenas de servicios se comunican a través de APIs. Cuando un servicio cambia un campo de respuesta o elimina un status code, los consumidores downstream se rompen silenciosamente — a menudo descubiertos solo en producción. Los tests de integración capturan algunos de estos problemas, pero son lentos y requieren que todos los servicios estén corriendo.
@@ -305,3 +303,14 @@ Contract testing tiene algunas limitations. No reemplaza end-to-end testing. No 
 ### ¿Cómo manejo versioning en contract testing?
 
 Usa versiones semánticas para contracts. Publica contracts en un broker como Pact Broker. Permite que consumers y providers evolucionen independientemente. Verifica compatibilidad antes de deployar. Documenta versioning strategy para tu team.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

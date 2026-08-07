@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: hexagonal-architecture-guide
 title: "Arquitectura Hexagonal — Puertos, Adaptadores y Testabilidad"
@@ -43,7 +40,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La Arquitectura Hexagonal, también conocida como Puertos y Adaptadores, es un patrón de diseño que aísla la lógica central del dominio de preocupaciones externas como frameworks, bases de datos e interfaces de usuario. En lugar de que el dominio dependa de la infraestructura, la infraestructura depende del dominio a través de interfaces bien definidas llamadas puertos. Esta inversión de dependencias hace que las aplicaciones sean más fáciles de probar, refactorizar y adaptar a requisitos cambiantes.
@@ -320,3 +316,14 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: concurrency-patterns-guide
 title: "Guía de Patrones de Concurrencia"
@@ -53,7 +49,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 La concurrencia permite que los programas manejen múltiples tareas simultáneamente. Usada correctamente, mejora el throughput y la capacidad de respuesta. Usada incorrectamente, introduce race conditions, deadlocks y bugs sutiles que son difíciles de reproducir.
@@ -346,3 +341,14 @@ Usa herramientas como ThreadSanitizer (C++/Go), Helgrind (Valgrind) o pytest-asy
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

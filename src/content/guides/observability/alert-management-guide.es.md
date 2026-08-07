@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: guides
 slug: alert-management-guide
 title: "Gestión de Alertas: Alertas en Guardia que Funcionan"
@@ -42,7 +39,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Las alertas son la forma en que tus sistemas te indican que algo necesita atención. Hechas mal, crean ruido, agotamiento y respuesta más lenta a incidentes. Hechas bien, dan a la persona correcta la información correcta en el momento correcto para que pueda actuar con decisión.
@@ -327,3 +323,14 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 ## Conclusión
 
 Buenas alertas son un producto que construyes para tus ingenieros de guardia. Deben ser precisas, accionables y respetuosas de su tiempo. Al diseñar alertas alrededor del impacto de usuario, crear runbooks claros y reducir activamente el ruido, construyes una cultura operativa que es sostenible y confiable.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

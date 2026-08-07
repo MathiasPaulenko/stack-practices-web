@@ -29,7 +29,6 @@ seo:
     - image lazy load
     - component lazy load
 ---
-
 ## Overview
 
 Lazy loading is a performance optimization strategy that defers the loading of non-critical resources until they are actually needed. Instead of downloading every image, component, and data chunk on initial page load, the application only fetches what the user can immediately see or interact with. Resources below the fold, hidden tabs, or off-screen carousels load on demand — typically when the user scrolls, clicks, or hovers.
@@ -301,3 +300,14 @@ Start with native `loading="lazy"` attribute. It is supported by all modern brow
 ### How do I handle SEO with lazy loaded images?
 
 Search engines may not load lazy images during crawling. Provide descriptive `alt` text for all images. Use `noscript` fallback with image tags for crawlers that do not execute JavaScript. Include image URLs in your sitemap. Use structured data for images. Test with Google Search Console URL Inspector. Monitor indexed image count.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

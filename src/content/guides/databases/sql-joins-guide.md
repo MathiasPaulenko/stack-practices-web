@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: sql-joins-guide
 title: "SQL Joins — Visual Guide with Examples"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 SQL joins combine rows from two or more tables based on a related column. Despite being one of the most fundamental SQL operations, joins are a common source of confusion and performance problems. This guide provides visual explanations, practical examples, and optimization strategies for every join type you will encounter in production.
@@ -325,3 +320,14 @@ CREATE INDEX idx_products_category ON products(category_id);
 ### How do I avoid the N+1 problem in ORMs?
 
 Use eager loading. In Prisma: `include: { orderItems: true }`. In TypeORM: `relations: ['orderItems']`. In SQLAlchemy: `joinedload(Order.items)`. In Django ORM: `prefetch_related('items')`. The ORM generates a single JOIN instead of N separate queries. Monitor with tools like Django Debug Toolbar or Prisma Query Logging.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

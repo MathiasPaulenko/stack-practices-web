@@ -1,11 +1,4 @@
 ---
-
-
-
-
-
-
-
 contentType: docs
 slug: data-retention-policy-template
 title: "Data Retention Policy Template"
@@ -53,7 +46,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A data retention policy defines how long an organization keeps data, when it moves to lower-cost storage, and when it is permanently deleted. This template helps teams classify data, assign retention periods, implement legal holds, and document compliance controls. A clear policy reduces storage costs, legal risk, and operational complexity.
@@ -336,3 +328,14 @@ Review the data retention policy annually and after any regulatory change. Updat
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

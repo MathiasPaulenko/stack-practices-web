@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: docs
 slug: access-control-review-template
 title: "Plantilla de Revision de Control de Acceso"
@@ -46,7 +40,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Una Plantilla de Revision de Control de Acceso proporciona una forma estructurada de verificar que usuarios y cuentas de servicio tienen solo los permisos requeridos por su rol actual. Documenta quien tiene acceso, por que lo tiene y si todavia esta justificado, apoyando marcos de cumplimiento como SOC 2, ISO 27001 y PCI-DSS.
@@ -338,3 +331,14 @@ Establece fechas de vencimiento en todas las cuentas de contratistas al momento 
 ### Cual es la diferencia entre atestacion y certificacion en revisiones de acceso?
 
 La atestacion es el acto de un revisor confirmando que el acceso es apropiado. La certificacion es un proceso formal y auditable donde el revisor firma toda la lista de acceso, a menudo con significancia legal o de cumplimiento. La mayoria de marcos de cumplimiento requieren certificacion, no solo atestacion.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

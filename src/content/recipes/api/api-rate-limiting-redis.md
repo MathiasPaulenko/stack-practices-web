@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: api-rate-limiting-redis
 title: "Implement API Rate Limiting with Redis"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 Prevent API abuse and ensure fair resource distribution using Redis-backed rate limiters. See [Security Guide](/guides/security/security-best-practices-guide) for broader API protection strategies. Here is a working implementation of token bucket and sliding window algorithms with distributed coordination, custom rate limit headers, and per-endpoint configuration for production APIs.
 
 ## When to Use This
@@ -328,3 +323,14 @@ In Redis Cluster, keys are distributed across slots using hash tags. For rate li
 ### How do I test rate limiting in integration?
 
 Use a test that makes N rapid requests and verifies that the N+1 response returns 429. In JavaScript, use `supertest` with Express: `await request(app).get('/api').expect(200)` for the first N requests, then `await request(app).get('/api').expect(429)`. In Python, use `pytest` with `httpx.Client`. Mock Redis with `ioredis-mock` or `fakeredis` for unit tests. For integration tests, use a real Redis via `testcontainers`. Verify that the `Retry-After` header is present on 429 responses. Test the circuit breaker: stop Redis and verify that requests pass through without rate limiting.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

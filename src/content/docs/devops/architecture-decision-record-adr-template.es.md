@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: architecture-decision-record-adr-template
 title: "Plantilla de Architecture Decision Record (ADR)"
@@ -32,7 +30,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Cada decision arquitectonica mayor crea contexto que se desvanece en meses. Por que elegimos PostgreSQL sobre MongoDB? Por que el service mesh es Envoy y no Linkerd? Por que shard por tenant ID? Sin registros escritos, nuevos ingenieros re-litigan viejas decisiones, equipos repiten enfoques rechazados, y managers hacen planes que entran en conflicto con restricciones tecnicas. Un Architecture Decision Record (ADR) es un documento unico que captura el contexto, opciones, trade-offs, y consecuencias de una eleccion tecnica mayor.
@@ -313,3 +310,14 @@ End of document. Review and update quarterly.
 - **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
 - **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
 - **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: async-generator-pattern
 title: "Async Generator Pattern"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Processing large datasets or continuous streams by loading everything into memory causes OOM errors and high latency. The Async Generator pattern produces values lazily: the consumer requests the next value and the generator yields it only when ready. This enables processing of infinite sequences, large files, or slow I/O sources with constant memory usage.
@@ -323,3 +317,14 @@ A: Yes, in Python 3.11+ use `async with asyncio.timeout(seconds)` around the `as
 
 **Q: How do I compose async generators with `yield from`?**
 A: In Python, `yield from` delegates to a sub-generator: `yield from another_async_gen()`. This chains generators without manual iteration. In JavaScript, use `yield*` with `async function*`: `yield* anotherAsyncGen()`. This is useful for wrapping a generator with logging or transformation logic while preserving the pull-based model.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

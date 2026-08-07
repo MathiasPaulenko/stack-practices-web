@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: two-factor-authentication
 title: "Autenticación de Dos Factores (2FA / TOTP)"
@@ -330,3 +329,14 @@ Proporciona códigos de respaldo durante el enrolamiento. Si también los pierde
 - **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
 - **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

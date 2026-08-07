@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: parse-csv-files
 title: "Analizar Archivos CSV"
@@ -53,7 +49,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 CSV (Comma-Separated Values) es uno de los formatos más comunes para intercambiar datos tabulares entre sistemas. Ya sea que estés importando datos de hojas de cálculo, exportando reportes o procesando datasets, saber analizar archivos CSV correctamente es esencial para tareas de backend e ingeniería de datos.
@@ -331,3 +326,14 @@ Usa APIs streaming: `csv.reader` de Python con un generador, `csv-parser` de Nod
 ### ¿Cómo manejo archivos CSV con diferentes codificaciones?
 
 Detecta la codificación primero usando librerías como `chardet` (Python) o `jschardet` (JavaScript), luego decodifica en consecuencia. Siempre usa UTF-8 como default para archivos nuevos.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

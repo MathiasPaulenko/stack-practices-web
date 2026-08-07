@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: api-documentation
 templateType: api-doc
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 ## Estructura de la plantilla
 
 Usa esta plantilla como base para documentar cualquier API HTTP. Reemplaza las secciones entre corchetes con el contenido específico de tu API.
@@ -338,3 +334,14 @@ Si tu API tiene consumidores en multiples lenguajes, si. Incluye ejemplos en cUR
 - **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

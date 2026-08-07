@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: serverless-fanout-pattern
 title: "Serverless Fanout Pattern"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The fanout pattern broadcasts a single event to multiple independent consumers. A producer publishes one message to a topic (SNS, EventBridge). The topic delivers a copy to each subscriber (SQS queue, Lambda, HTTP endpoint). Each consumer processes the event independently, at its own pace, without affecting others.
@@ -337,3 +334,14 @@ Use message attributes. Set `FilterPolicy` on the subscription to only receive m
 ### How do I handle poison messages?
 
 Configure a dead-letter queue on the SQS queue. After `maxReceiveCount` (e.g. 5), the message moves to the DLQ. Monitor the DLQ and investigate why the message could not be processed. Fix the consumer or the message format, then redrive from the DLQ.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

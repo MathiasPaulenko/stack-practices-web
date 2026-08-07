@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: database-design-guide
 title: "Database Design Guide"
@@ -51,7 +47,6 @@ seo:
 
 
 ---
-
 ## Introduction
 
 A well-designed database is the foundation of reliable applications. Poor design leads to data inconsistencies, slow queries, and costly migrations. Below is a practical guide to the essential principles for designing relational databases that scale.
@@ -333,3 +328,14 @@ WHERE id = ? AND stock > 0;
 COMMIT;
 ```
 This is atomic and prevents overselling without explicit locks.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: cap-theorem-guide
 title: "Teorema CAP y Trade-offs de Bases de Datos"
@@ -46,7 +41,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 El teorema CAP establece que un almacén de datos distribuido puede garantizar como máximo dos de estas tres propiedades: Consistencia, Disponibilidad y Tolerancia a Particiones. Dado que las particiones de red son inevitables, realmente estás eligiendo entre sistemas CP (Consistencia + Tolerancia a Particiones) y AP (Disponibilidad + Tolerancia a Particiones). Esta guía explica qué significa cada propiedad y cómo elegir el trade-off correcto.
@@ -320,3 +314,14 @@ End of document. Review and update quarterly.
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

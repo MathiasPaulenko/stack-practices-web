@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: onboarding-checklist-backend-engineer
 title: "Backend Engineer Onboarding Checklist"
@@ -34,7 +32,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Unstructured onboarding wastes the first month of a new engineer's contribution. Without a checklist, new hires waste days figuring out which repositories to clone, which Slack channels matter, and how to deploy their first change. This checklist structures the first two weeks so new backend engineers become productive contributors quickly while absorbing team culture and technical standards.
@@ -314,3 +311,14 @@ After each new hire completes onboarding: ask them to review the checklist and n
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

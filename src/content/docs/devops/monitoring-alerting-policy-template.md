@@ -1,11 +1,4 @@
 ---
-
-
-
-
-
-
-
 contentType: docs
 slug: monitoring-alerting-policy-template
 title: "Monitoring and Alerting Policy Template"
@@ -49,7 +42,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 A Monitoring and Alerting Policy defines how an organization detects problems, notifies the right people, and escalates when issues are not resolved quickly. Without a clear policy, teams suffer from alert fatigue, missed incidents, or inconsistent response times. This template provides a structured framework for alert thresholds, severity levels, routing rules, escalation paths, and regular review.
@@ -334,3 +326,14 @@ Alerts scoring below 12 should be deleted immediately. Alerts scoring 12-17 shou
 ### How do we prevent alert fatigue during incidents?
 
 During active incidents, suppress dependent alerts that fire as a direct consequence of the root cause. Use alert grouping in Alertmanager to bundle related alerts into a single notification. Designate an incident commander who triages incoming alerts and assigns ownership. After the incident, review all suppressed alerts to confirm they were correctly silenced. Add causal relationships between alerts to your runbook so on-call engineers know which alerts are downstream symptoms versus root causes.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

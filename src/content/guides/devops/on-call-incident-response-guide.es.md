@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: on-call-incident-response-guide
 title: "Playbook de Guardias e Incidentes (On-Call)"
@@ -43,7 +39,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 Los incidentes son inevitables. Lo que separa a los equipos resilientes de los frágiles no es la ausencia de fallos, sino la velocidad y calidad de su respuesta. Este playbook proporciona un enfoque estructurado para manejar incidentes en producción — desde la primera alerta hasta el postmortem.
@@ -332,3 +327,14 @@ Comienza con shadowing: el nuevo ingeniero acompana al on-call durante 2 semanas
 - **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
 - **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
 - **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

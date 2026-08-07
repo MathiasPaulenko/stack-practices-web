@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: serverless-event-sourcing-pattern
 title: "Serverless Event Sourcing Pattern"
@@ -38,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Event sourcing stores application state as a sequence of immutable events. Instead of updating a current-state record, you append each state change as an event to a log. The current state is derived by replaying the event log. In serverless, this fits naturally: events flow through EventBridge or SNS, and DynamoDB or S3 stores the event log.
@@ -319,3 +316,14 @@ Event sourcing is about how state is stored (as events). CQRS is about separatin
 ### How do I rebuild a read model from the event log?
 
 Scan all events for the aggregate, replay them to compute the current state, and write the result to the read model table. In serverless, use a Lambda that processes the event log in batches and updates the projection. Trigger it manually or via a DynamoDB stream.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

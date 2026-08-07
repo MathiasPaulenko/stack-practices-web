@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: security-audit-checklist-template
 title: "Plantilla de Checklist de Auditoría de Seguridad"
@@ -42,7 +39,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 Las auditorías de seguridad identifican vulnerabilidades antes que los atacantes. Un checklist repetible asegura que ninguna área crítica sea omitida, desde autenticación y autorización hasta endurecimiento de infraestructura y cumplimiento. Esta plantilla cubre verificaciones de seguridad a nivel de aplicación e infraestructura.
@@ -323,3 +319,14 @@ End of document. Review and update quarterly.
 - **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
 - **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
 - **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

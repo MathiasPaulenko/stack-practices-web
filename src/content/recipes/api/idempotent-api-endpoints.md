@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: idempotent-api-endpoints
 title: "Idempotent API Endpoints"
@@ -333,3 +331,14 @@ Generate a UUID v4 on the client side before the first request attempt. Reuse th
 ### Can I implement idempotency without a dedicated store?
 
 Yes, using database constraints. For example, a `payments` table with a unique constraint on `(idempotency_key, merchant_id)` naturally prevents duplicates. The database transaction enforces atomicity without a separate cache. However, this only works when the key maps directly to a database record; for complex multi-step operations, a dedicated store is clearer.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

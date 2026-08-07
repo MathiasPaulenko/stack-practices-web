@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: code-review-best-practices-guide
 title: "Lo que Funciona en Code Review — Para Autores y Revisores"
@@ -42,7 +38,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 La revisión de código es una de las actividades con mayor retorno en el desarrollo de software. Detecta bugs temprano, comparte conocimiento entre el equipo y mantiene la calidad del código consistente. A continuación: prácticas tanto para autores (quienes envían código) como para revisores (quienes lo evalúan).
@@ -318,3 +313,14 @@ End of document. Review and update quarterly.
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

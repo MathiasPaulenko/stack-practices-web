@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: onion-architecture-guide
 title: "Arquitectura Onion"
@@ -47,7 +42,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La Arquitectura Onion, popularizada por Jeffrey Palermo, estructura aplicaciones como capas concéntricas con el modelo de dominio en el centro. A diferencia de la arquitectura tradicional por capas donde las dependencias apuntan hacia abajo (UI → Negocio → Datos), Onion invierte esto: todas las dependencias apuntan hacia adentro hacia el núcleo del dominio. La infraestructura, UI y servicios externos viven en los bordes exteriores y dependen de abstracciones internas, nunca al revés. Esto hace que el modelo de dominio quede completamente aislado de frameworks, bases de datos y mecanismos de entrega.
@@ -326,3 +320,14 @@ Define una interfaz IUnitOfWork en el dominio. La infraestructura la implementa 
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

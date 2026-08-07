@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: dependency-injection-pattern
 title: "Dependency Injection Pattern"
@@ -51,7 +46,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The [Dependency Injection](/patterns/design/dependency-injection-typescript) Pattern is an architectural pattern where dependencies are supplied to a class from the outside rather than being created internally. This inverts control: the class declares what it needs, and an external mechanism provides it. The result is loosely coupled, highly testable code.
@@ -325,3 +319,14 @@ Use DI: dependencies are passed to the constructor, visible and mandatory. Use S
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: data-migration-runbook-template
 title: "Plantilla de Runbook de Migracion de Datos"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Las migraciones de datos estan entre las operaciones mas riesgosas en ingenieria de software. A diferencia de los despliegues de codigo, las migraciones de datos no pueden revertirse con un simple `kubectl rollout undo`. Una migracion fallida puede corromper datos de produccion, violar requisitos de cumplimiento y causar interrupciones extendidas. Esta plantilla de runbook estructura la migracion en fases verificables: preparacion, prueba en seco, ejecucion, validacion y rollback.
@@ -329,3 +326,14 @@ Documenta el cambio en el script de migracion y valida cada campo cambiado. Prob
 ### Cuanto tiempo debo mantener los datos fuente despues de la migracion?
 
 Minimo 30 dias para la mayoria de sistemas. Para datos regulados por cumplimiento, sigue tu politica de retencion (frecuentemente 90 dias o mas). Mantenlos hasta que estes confiado de que la migracion es estable y todos los consumidores downstream han verificado sus integraciones.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

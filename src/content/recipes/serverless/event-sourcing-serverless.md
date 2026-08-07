@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: event-sourcing-serverless
 title: "Implement Event Sourcing in Serverless Architectures"
@@ -39,7 +36,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Traditional systems store the current state. An order is "shipped," and the database row says `status = shipped`. If a user asks "when did the status change to shipped?" the database has no answer — the previous value was overwritten. If an analyst asks "how many orders were cancelled and re-shipped last month?" the system cannot answer without adding explicit audit columns that track every change manually.
@@ -326,3 +322,14 @@ Lambda scales concurrently based on the number of events in the stream. If the p
 ### How do I handle eventual consistency in projections?
 
 Projections are eventually consistent by nature — there is a lag between the event write and the projection update. For reads that require strong consistency, read from the aggregate directly via replay instead of the projection. For UIs, display "last updated" timestamps based on the last processed event. Use CQRS with separate read/write models: the write model validates commands against the aggregate, the read model serves from projections. If the lag is unacceptable, consider updating the projection synchronously within the command handler, but this increases write latency.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

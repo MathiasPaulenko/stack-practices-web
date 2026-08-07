@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: vertical-slice-architecture-guide
 title: "Vertical Slice Architecture: Feature-First Organization"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Vertical Slice Architecture, popularized by Jimmy Bogard, flips the traditional layered approach. Instead of organizing code by technical concern (Controllers, Services, Repositories), you organize by feature. All code for a single feature — controller, service, queries, DTOs, validation — lives together in one place. When you need to change "Create Order," all the relevant code is in one folder. This dramatically reduces the cognitive load of navigating a codebase.
@@ -312,3 +309,14 @@ Shared domain entities (Order, Product, Customer) live in Common/Domain/ or a sh
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Treating the guide as a checklist to complete once rather than a practice to evolve.
+- Adopting every recommendation at once instead of starting with one measured change.
+- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
+- Not updating runbooks and on-call expectations as new practices are introduced.
+- Ignoring real incident data when prioritizing which parts of the guide to apply first.
+- Failing to assign an owner who reviews decisions quarterly.
+- Copying examples without adapting them to the team's actual tooling and constraints.
+- Forgetting to measure outcomes before adding the next improvement.

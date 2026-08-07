@@ -1,6 +1,4 @@
 ---
-
-
 contentType: guides
 slug: vertical-slice-architecture-guide
 title: "Arquitectura por Slices Verticales: Organización por Feature"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 La Arquitectura por Slices Verticales, popularizada por Jimmy Bogard, invierte el enfoque tradicional por capas. En lugar de organizar código por preocupación técnica (Controladores, Servicios, Repositorios), organizas por feature. Todo el código de una feature — controlador, servicio, consultas, DTOs, validación — vive junto en un solo lugar. Cuando necesitas cambiar "Crear Orden", todo el código relevante está en una carpeta. Esto reduce drásticamente la carga cognitiva de navegar una codebase.
@@ -312,3 +309,14 @@ Las entidades de dominio compartidas (Order, Product, Customer) viven en Common/
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

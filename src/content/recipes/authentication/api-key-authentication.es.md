@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: api-key-authentication
 title: "Autenticación Segura con API Keys para Servicios y Clientes"
@@ -33,7 +32,6 @@ seo:
     - api keys seguras
 
 ---
-
 ## Visión general
 
 Las API keys son la forma más simple y ampliamente desplegada de autenticación machine-to-machine. A diferencia de los flujos OAuth2 diseñados para delegación de usuarios, o los tokens JWT que codifican claims, las API keys son strings opacos intercambiados entre servicios confiables. Cuando se implementan correctamente, proporcionan autenticación rápida, revocación simple y control de acceso granular a través de permisos scoped.
@@ -325,3 +323,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
 - **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

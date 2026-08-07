@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: decorator-pattern-pipeline
 title: "Decorator Pattern for HTTP Request Pipelines"
@@ -45,7 +40,6 @@ seo:
 
 
 ---
-
 The [Decorator](/patterns/design/decorator-pattern) pattern wraps an object to add responsibilities dynamically. When applied to HTTP clients, it becomes a clean way to compose cross-cutting concerns — logging, retries, metrics, authentication — without polluting the core request logic.
 
 ## When to Use This
@@ -324,3 +318,14 @@ A: Yes. Define a `GrpcClient` interface with `unaryCall`, `serverStream`, and `c
 
 **Q: How does this pattern work with dependency injection containers?**
 A: Register each decorator as a service in your DI container. Inject the inner `HttpClient` into each decorator's constructor. The container resolves the chain automatically based on registration order. This works well with NestJS, InversifyJS, or similar DI frameworks.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

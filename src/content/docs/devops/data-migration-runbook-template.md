@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: data-migration-runbook-template
 title: "Data Migration Runbook Template"
@@ -37,7 +35,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Data migrations are among the riskiest operations in software engineering. Unlike code deployments, data migrations cannot be rolled back with a simple `kubectl rollout undo`. A failed migration can corrupt production data, violate compliance requirements, and cause extended outages. This runbook template structures the migration into verifiable phases: preparation, dry run, execution, validation, and rollback.
@@ -329,3 +326,14 @@ Document the change in the migration script and validate every changed field. Co
 ### How long should I keep source data after migration?
 
 Minimum 30 days for most systems. For compliance-regulated data, follow your retention policy (often 90 days or longer). Keep until you're confident the migration is stable and all downstream consumers have verified their integrations.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

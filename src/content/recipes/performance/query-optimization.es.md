@@ -30,7 +30,6 @@ seo:
     - database profiling
     - query refactoring
 ---
-
 ## Visión general
 
 Las queries lentas de base de datos son una de las causas más comunes de degradación de rendimiento de aplicaciones. Una sola query no optimizada puede consumir el 100% de un core de CPU, mantener locks por segundos, o escanear millones de filas innecesariamente. La buena noticia es que la mayoría de queries lentas pueden mejorarse dramáticamente con análisis sistemático y refactoring dirigido.
@@ -313,3 +312,14 @@ Un result set precomputado almacenado como tabla. Útil para agregaciones comple
 - **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
 - **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
 - **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

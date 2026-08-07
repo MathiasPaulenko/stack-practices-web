@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: docs
 slug: capacity-planning-forecast-template
 title: "Plantilla de Pronostico de Planificacion de Capacidad"
@@ -40,7 +36,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 El trafico crece, pero la infraestructura no crece sola. La mayoria de las interrupciones no son causadas por codigo malo, sino por sistemas que chocan contra un limite que nadie midio. La planificacion de capacidad es la disciplina de mirar hacia adelante: cuanto trafico tendremos en seis meses, que recurso se agotara primero y cuanto costara mantenernos por delante de la demanda. Un pronostico de capacidad convierte el escalado impulsado por el panico en una operacion programada, presupuestada y probada.
@@ -321,3 +316,14 @@ End of document. Review and update quarterly.
 - **Resource exhaustion alerts**: correlate CPU, memory, disk, and network metrics. Identify the top process and whether the load is expected.
 - **Backup restore does not work**: test restores regularly. A backup that cannot be restored is not a backup.
 - **Configuration drift**: compare running instances with the infrastructure-as-code definition. Recreate from the canonical definition when in doubt.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

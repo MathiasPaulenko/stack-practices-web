@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: convert-csv-to-json
 title: "Convert CSV to JSON"
@@ -341,3 +337,14 @@ Stream rows and write JSON incrementally. In Python, use `ijson` to emit JSON ar
 ### How do I handle CSV files without headers?
 
 Define a header array manually and zip it with row values. Python: `dict(zip(headers, row))`. JavaScript: `Object.fromEntries(headers.map((h, i) => [h, row[i]]))`. Java: Provide a `CsvSchema` with explicit column names via `CsvSchema.builder().addColumn("name")...`.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

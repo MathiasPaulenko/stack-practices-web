@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: api-lifecycle-management-template
 title: "API Lifecycle Management Template"
@@ -332,3 +329,14 @@ Maintain SDKs for the current and previous major version. Drop support for older
 ### How do I automate the sunset readiness check?
 
 Instrument your API gateway or load balancer to tag requests by version. Build a dashboard that shows traffic per version over time. Set an alert when traffic to a deprecated version drops below a threshold for 7 consecutive days, signaling readiness for shutdown.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

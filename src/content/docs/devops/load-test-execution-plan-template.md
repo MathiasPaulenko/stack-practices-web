@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: load-test-execution-plan-template
 title: "Load Test Execution Plan Template"
@@ -43,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Load testing evaluates how a system behaves under realistic or peak traffic. This template helps teams define test goals, select scenarios, prepare environments, execute tests, and document results. It ensures that performance work is repeatable and tied to clear success criteria.
@@ -325,3 +319,14 @@ Run full load tests before every major release (monthly or quarterly). Run regre
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

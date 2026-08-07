@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: cache-aside-pattern
 title: "Cache-Aside Pattern"
@@ -52,7 +47,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Cache-Aside Pattern is a caching strategy where the application is responsible for loading data into the cache from the backing store on demand. The application checks the cache first; if the data is not present (cache miss), it fetches from the database, populates the cache, and returns the result. This gives the application full control over cache logic, invalidation, and consistency.
@@ -336,3 +330,14 @@ Lessons:
 ### How do I prevent cache stampede?
 
 Use a distributed lock (Redis SETNX): only the first request goes to DB, others wait. Alternative: probabilistic early expiration: refresh before TTL if there is traffic. Another option: single-flight in Go or Promise deduplication in JS: if a fetch is already in flight for that key, reuse the promise. This reduces N queries to 1 query during a massive cache miss.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

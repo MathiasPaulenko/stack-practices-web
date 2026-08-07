@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: uuid-generation-strategies
 title: "UUID Generation: v4, v7, and ULID Comparison"
@@ -36,7 +33,6 @@ seo:
 
 
 ---
-
 Choose the right unique identifier strategy for your application by comparing UUID v4 (random), v7 (time-sortable), ULID (lexicographically sortable), and nanoid (compact URL-safe). The solution below covers generation, database index implications, collision probability, and migration considerations.
 
 ## When to Use This
@@ -315,3 +311,14 @@ Performance depends on your data volume and infrastructure. The solutions shown 
 ### How do I debug issues with this approach?
 
 Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: patterns
 slug: write-through-cache-pattern
 title: "Write-Through Cache Pattern"
@@ -51,7 +45,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 In a write-through cache, every write operation goes to both the cache and the backing store synchronously. The application writes to the cache, the cache writes to the database, and both succeed before the operation returns. This guarantees the cache always reflects the latest data.
@@ -332,3 +325,14 @@ The cache is not updated. The operation throws an error. The cache retains the p
 ### Can I combine read-through and write-through?
 
 Yes. This is the most common combination. Reads go through the cache with a loader callback. Writes update both cache and database. The cache is always consistent for both reads and writes. This combination provides the best of both patterns.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

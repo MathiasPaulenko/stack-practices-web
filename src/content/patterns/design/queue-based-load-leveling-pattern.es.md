@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: queue-based-load-leveling-pattern
 title: "Patron de Nivelacion de Carga Basada en Colas"
@@ -48,7 +43,6 @@ seo:
 
 
 ---
-
 ## Resumen
 
 El Patron de Nivelacion de Carga Basada en Colas introduce una cola de mensajes intermedia entre componentes que producen trabajo y componentes que lo consumen. En lugar de que los productores llamen a los consumidores directamente (lo que arriesga abrumar al consumidor durante picos de trafico), los productores encolan tareas y los consumidores las procesan a una tasa constante y controlada.
@@ -337,3 +331,14 @@ Usa CloudWatch alarm en QueueDepth: si > 1000, scale up 2 workers. Si < 100, sca
 - **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

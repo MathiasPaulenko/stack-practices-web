@@ -29,7 +29,6 @@ seo:
     - lambda websockets
     - bidirectional communication
 ---
-
 ## Overview
 
 Traditional HTTP request-response cycles are insufficient for applications that require live updates — chat rooms, live dashboards, multiplayer games, stock tickers, and collaborative editing. WebSockets provide a persistent, bidirectional TCP connection between client and server, enabling messages to flow in both directions without the overhead of repeated handshakes.
@@ -311,3 +310,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### How do I test locally before deploying?
 
 Use `sam local start-api` with AWS SAM to emulate API Gateway WebSockets locally. For DynamoDB, run DynamoDB Local in Docker. Create a test client in JavaScript that connects to the local endpoint and sends messages. Verify that the `$connect` callback registers the connection in DynamoDB and that `$default` processes messages correctly. For load testing, use Artillery with the WebSocket engine to simulate hundreds of concurrent connections.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

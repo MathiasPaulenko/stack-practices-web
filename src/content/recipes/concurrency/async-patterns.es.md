@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: async-patterns
 title: "Patrones Async con Promises, Futures y Coroutines"
@@ -40,7 +37,6 @@ seo:
 
 
 ---
-
 ## VisiÃ³n general
 
 El cÃ³digo sÃ­ncrono bloquea el thread de ejecuciÃ³n hasta que una operaciÃ³n completa. Cuando esa operaciÃ³n es I/O â€” consultar una base de datos, obtener datos de una API, leer un archivo â€” el thread permanece inactivo, desperdiciando ciclos de CPU que podrÃ­an procesar otros requests. La programaciÃ³n async resuelve esto suspendiendo la tarea actual cuando encuentra I/O, permitiendo que el runtime ejecute otras tareas, y reanudando la tarea original cuando el I/O completa. Esto habilita a un solo thread para manejar miles de conexiones concurrentes.
@@ -316,3 +312,14 @@ Empieza con el ejemplo mÃ­nimo de arriba. AÃ±ade logging en cada paso. Prueb
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

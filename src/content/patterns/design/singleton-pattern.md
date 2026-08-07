@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: singleton-pattern
 title: "Singleton Pattern"
@@ -59,7 +54,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The [Singleton](/patterns/design/singleton-pattern) Pattern is a creational design pattern that restricts a class to a single instance and provides a global point of access to it. It is useful when exactly one object is needed to coordinate actions across the system.
@@ -334,3 +328,14 @@ Do not use Singleton when you need multiple instances (e.g: connections to diffe
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: caching-strategies
 title: "Caching Strategies"
@@ -322,3 +320,14 @@ Avoid caching when data changes frequently and staleness is unacceptable (e.g., 
 ### How do I measure cache effectiveness?
 
 Track hit rate, miss rate, eviction rate, and average latency. Redis `INFO stats` provides `keyspace_hits` and `keyspace_misses`. Aim for 80%+ hit rate on hot keys. Use `redis-cli --bigkeys` to identify keys consuming disproportionate memory.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

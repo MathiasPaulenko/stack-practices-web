@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: implement-mutation-testing
 title: "Implementar Mutation Testing"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 La cobertura de código te dice qué líneas fueron ejecutadas, pero no si los tests fallarían si el comportamiento cambiara. El mutation testing aborda esto introduciendo bugs pequeños y semánticamente significativos (mutantes) en tu código — cambiando `+` por `-`, invirtiendo una condición, eliminando una llamada a método — y verificando que al menos un test falle. Un alto mutation score significa que tus tests genuinamente asertan comportamiento, no solo pasan a través del código.
@@ -311,3 +308,14 @@ Ejecuta mutation testing en PRs que tocan módulos core. Cachea la historia de m
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
 - **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
 - **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

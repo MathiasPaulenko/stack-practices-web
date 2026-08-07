@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: mvc-pattern-frontend
 title: "MVC Pattern en Aplicaciones Frontend Modernas"
@@ -37,7 +34,6 @@ seo:
 
 
 ---
-
 [Model-View-Controller](/patterns/design/mvc-pattern) separa una aplicacion en tres componentes: Model (datos y reglas), View (presentacion) y Controller (manejo de entrada y coordinacion). Aunque frameworks como React y Vue difuminan estos limites, aplicar disciplina MVC previene que los componentes se conviertan en mezclas inmantenibles de estado, UI y efectos secundarios.
 
 ## Cuando Usar Esto
@@ -340,3 +336,14 @@ R: Los concerns de accesibilidad viven en la View. Atributos ARIA, navegacion po
 
 **P: Como manejo soporte offline?**
 R: Una capa de servicio detecta el estado offline y encola operaciones. El Controller envia operaciones al servicio, que las almacena para sync posterior. El Model refleja el estado optimista. Cuando la conectividad retorna, el servicio vacia la cola.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

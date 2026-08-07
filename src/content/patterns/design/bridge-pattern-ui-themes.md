@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: bridge-pattern-ui-themes
 title: "Bridge Pattern for Decoupling UI Components from Themes"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 The Bridge pattern decouples an abstraction from its implementation so that the two can vary independently. Instead of a class hierarchy that combines component types with rendering platforms, Bridge creates two separate hierarchies: one for abstractions (components) and one for implementations (renderers or themes).
 
 ## When to Use This
@@ -321,3 +315,14 @@ Bridge is structural: separates abstraction hierarchy from implementation hierar
 
 
 End of document. Review and update quarterly.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

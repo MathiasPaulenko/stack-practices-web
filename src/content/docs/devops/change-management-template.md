@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: docs
 slug: change-management-template
 title: "Change Management Template"
@@ -327,3 +324,14 @@ In a GitOps workflow, the pull request IS the change request. Link the PR to the
 ### What do we do with out-of-hours emergency changes?
 
 Define a separate emergency change process from the normal flow. Require approval from the on-call lead and notify the CAB via Slack channel or PagerDuty. Document the change retrospectively within 24 hours. Conduct a postmortem if the emergency change caused or was related to an incident. Limit emergency changes to critical bug fixes or security patches. Do not use the emergency process to bypass planned change reviews.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

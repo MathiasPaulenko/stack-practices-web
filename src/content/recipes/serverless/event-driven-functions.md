@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: event-driven-functions
 title: "Build Event-Driven Serverless Architectures"
@@ -36,7 +34,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Event-driven architecture decouples services by having them communicate through events rather than direct HTTP calls. When a user uploads an image, an `ImageUploaded` event is published. A thumbnail generator listens for that event and creates a resized version. A metadata extractor also listens and updates the search index. Neither service knows about the other — they only know about the event.
@@ -307,3 +304,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 ### What are the limitations of event-driven functions?
 
 Event-driven functions have some limitations. Debugging distributed workflows is harder. Eventual consistency requires careful handling. Testing end-to-end flows requires integration tests. Monitoring requires distributed tracing. Document limitations for your team. Plan mitigation strategies. Test edge cases thoroughly. Monitor for known issues.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

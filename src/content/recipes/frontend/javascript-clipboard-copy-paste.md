@@ -1,5 +1,4 @@
 ---
-
 contentType: recipes
 slug: javascript-clipboard-copy-paste
 title: "JavaScript Clipboard Copy and Paste"
@@ -32,7 +31,6 @@ seo:
     - paste event javascript
 
 ---
-
 ## Overview
 
 The Clipboard API lets you copy and paste text programmatically in the browser. `navigator.clipboard.writeText()` is the modern approach, with `document.execCommand("copy")` as a fallback for older browsers. This approach handles copying text, reading from clipboard, handling permissions, and paste event interception.
@@ -331,3 +329,14 @@ await navigator.clipboard.write([
     new ClipboardItem({ "image/png": blob })
 ]);
 ```
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

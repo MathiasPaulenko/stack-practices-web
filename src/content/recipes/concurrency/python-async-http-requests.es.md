@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: python-async-http-requests
 title: "Haz Peticiones HTTP Concurrentes con Python y aiohttp"
@@ -42,7 +38,6 @@ seo:
 
 
 ---
-
 ## Visión General
 
 Hacer peticiones HTTP una a la vez es lento cuando necesitas obtener datos de múltiples APIs o endpoints. `asyncio` con `aiohttp` permite ejecutar muchas peticiones concurrentemente, reduciendo el tiempo total de la suma de todos los tiempos de petición al de la petición más larga. Esta recipe cubre fetching concurrente, connection pooling, rate limiting, reintentos y procesamiento por lotes.
@@ -323,3 +318,14 @@ Usar `aioresponses` para mockear peticiones aiohttp en tests. Escribir tests com
 - **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

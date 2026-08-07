@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: cryptography-basics-guide
 title: "Bases de Criptografía — Encriptación, Hashing y Firmas"
@@ -34,7 +33,6 @@ seo:
     - guia
 
 ---
-
 ## Overview
 
 La criptografía es la base de la seguridad digital. Ya sea que estés almacenando contraseñas, transmitiendo datos por TLS o firmando solicitudes de API, estás usando criptografía. Entender las primitivas — encriptación, hashing y firmas — y cuándo usar cada una previene una clase de vulnerabilidades que ningún framework puede proteger. A continuación: los conceptos esenciales que todo desarrollador necesita sin requerir un título en matemáticas.
@@ -326,3 +324,14 @@ Lecciones:
 ### Cuando uso cifrado simetrico vs asimetrico?
 
 Usa simetrico (AES) para cifrar datos en reposo y grandes volumenes: es rapido y seguro. Usa asimetrico (RSA, ECC) para intercambio de claves, firmas digitales y autenticacion: no requiere compartir clave secreta. En la practica, se combinan: asimetrico para intercambiar DEK, simetrico para cifrar datos (envelope encryption).
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

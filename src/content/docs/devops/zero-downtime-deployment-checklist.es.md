@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: docs
 slug: zero-downtime-deployment-checklist
 title: "Checklist de Despliegue sin Tiempo de Inactividad"
@@ -42,7 +37,6 @@ seo:
 
 
 ---
-
 ## Descripcion General
 
 Los despliegues sin tiempo de inactividad actualizan servicios de produccion sin interrumpir a los usuarios. Este checklist ayuda a los equipos a verificar que los health checks, el enrutamiento de trafico, las migraciones de base de datos y los planes de rollback esten en su lugar antes y durante un release.
@@ -325,3 +319,14 @@ Fin del documento. Revisar trimestralmente.
 
 
 End of document. Review and update quarterly.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

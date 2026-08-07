@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: integration-testing
 title: "Escribir Tests de Integración"
@@ -45,7 +41,6 @@ seo:
 
 
 ---
-
 ## Visión general
 
 Los tests unitarios verifican funciones individuales de forma aislada, pero las aplicaciones reales son ensamblajes de bases de datos, servicios HTTP, colas de mensajes y sistemas de archivos trabajando juntos. Los tests de integración verifican que estos componentes se conecten correctamente — que un repositorio pueda realmente leer de una base de datos, que un cliente de API maneje comportamiento real de red, y que los eventos se propaguen a través de brokers de mensajes.
@@ -313,3 +308,14 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 ### ¿Cómo depuro problemas con este enfoque?
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

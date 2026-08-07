@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: human-in-the-loop-pattern
 title: "Patrón Human-in-the-Loop"
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 ## Descripción general
 
 Los agentes LLM autonomos pueden tomar acciones con consecuencias reales: enviar emails, desplegar codigo, modificar bases de datos, hacer compras. El patrón Human-in-the-Loop inserta un checkpoint donde un humano revisa y aprueba la accion propuesta del agente antes de que se ejecute. El agente se pausa, presenta su plan y espera aprobacion, rechazo o modificacion.
@@ -337,3 +334,14 @@ A: Pausa el agente persistiendo su estado. Envia una notificacion (email, Slack,
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
 - **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
 - **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

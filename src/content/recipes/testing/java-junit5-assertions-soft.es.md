@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: java-junit5-assertions-soft
 title: "JUnit5 Soft Assertions con AssertJ"
@@ -36,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Las aserciones estándar de JUnit5 se detienen en el primer fallo. Cuando verificas un objeto con múltiples campos, ves un error y tienes que corregir y volver a ejecutar para encontrar el siguiente. AssertJ soft assertions recolectan todos los fallos y los reportan juntos, dándote el panorama completo en una sola ejecución de test.
@@ -317,3 +313,14 @@ Extiende `AbstractSoftAssertions` para crear clases de soft assertion custom. Im
 ### ¿Cómo deshabilito soft assertions en tests de producción?
 
 Usa la anotación `@Disabled` de JUnit5 en clases de test que contienen soft assertions si necesitas skipearlas temporalmente. Para deshabilitado condicional, usa `@EnabledIfEnvironmentVariable` para correr soft assertion tests solo en CI. No wrap `softly.assertAll()` en try-catch para suprimir failures — esto derrota el propósito. Si las soft assertions son muy lentas en CI, sepáralas en un test suite separado taggeado con `@Tag("soft")` y córrelas con la configuración `groups` de Maven Surefire.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

@@ -1,6 +1,4 @@
 ---
-
-
 contentType: patterns
 slug: bridge-pattern
 title: "Bridge Pattern"
@@ -41,7 +39,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 The Bridge Pattern is a structural design pattern that decouples an abstraction from its implementation so that the two can vary independently. Instead of having one class hierarchy that combines both, you split it into two separate hierarchies — one for the abstraction and one for the implementation. This is especially useful when you need to support multiple platforms or rendering backends.
@@ -319,3 +316,14 @@ Lessons:
 ### Bridge vs Adapter: which do I use?
 
 Bridge is structural: designed from the start to separate abstraction from implementation. Adapter is structural: makes incompatible interfaces work together after the fact. Bridge is proactive: you design both sides. Adapter is reactive: you wrap an existing class. Use Bridge when you control both sides and want independent evolution. Use Adapter when you need to integrate a third-party API with an incompatible interface.
+
+## Common Production Pitfalls
+
+- Applying the pattern where no abstraction is needed, adding accidental complexity.
+- Letting the pattern leak into unrelated modules and blur ownership boundaries.
+- Over-engineering the first implementation instead of starting simple and measuring pain.
+- Skipping contract tests, so refactors silently break consumers.
+- Ignoring failure modes that the pattern does not cover.
+- Using the pattern as a default instead of choosing the right tool for the current scale.
+- Forgetting to document when to stop using the pattern and what replaces it.
+- Missing observability around the pattern's performance and error propagation.

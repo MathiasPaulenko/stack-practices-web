@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: infrastructure-cost-allocation-template
 title: "Infrastructure Cost Allocation Template"
@@ -33,7 +31,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Infrastructure Cost Allocation is the practice of distributing cloud and on-premise infrastructure costs to the teams, products, or environments that consume them. Without clear allocation, budgets drift, teams lack accountability, and finance cannot understand where money is spent. This template provides a framework for tagging, mapping accounts, splitting shared costs, and reporting on cost ownership.
@@ -314,3 +311,14 @@ The FinOps Foundation defines three maturity levels: Crawl (basic tagging, month
 ### How often should we review cost allocation?
 
 Review allocation rules quarterly. Audit tag compliance monthly. Run cost optimization reviews monthly with each team. Conduct a full FinOps assessment annually to evaluate maturity, tooling, and process improvements. Adjust allocation weights when team structures change, new services are added, or shared infrastructure is modified.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

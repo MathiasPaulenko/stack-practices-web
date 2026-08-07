@@ -1,5 +1,4 @@
 ---
-
 contentType: docs
 templateType: code-of-conduct
 slug: code-of-conduct-template
@@ -34,7 +33,6 @@ seo:
     - harassment policy
 
 ---
-
 ## Overview
 
 A code of conduct sets expectations for participant behavior within a project community. It creates a welcoming environment and provides procedures for addressing violations. Without one, maintainers have no framework for handling unacceptable behavior, and contributors do not know what to expect.
@@ -317,3 +315,14 @@ Recuse the accused maintainer from the investigation. If the entire moderation t
 ### Should reports be public or private?
 
 Private. Reports should be handled confidentially to protect both the reporter and the accused. Public reports discourage reporting and can lead to mob behavior. Publish aggregate statistics (number of reports, actions taken) periodically for transparency.
+
+## Common Production Pitfalls
+
+- Leaving required fields blank or using vague one-word answers.
+- Filling the document once and never updating it after scope or decisions change.
+- Storing the document where the team does not look during incidents or reviews.
+- Not assigning an owner, due date, or review cadence.
+- Copying boilerplate without removing sections that do not apply.
+- Skipping version control, which makes rollback and accountability impossible.
+- Failing to link the document to related decisions or follow-up actions.
+- Avoiding quarterly reviews that would retire stale or unused sections.

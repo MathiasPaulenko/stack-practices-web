@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: race-condition-prevention
 title: "Prevencion de Race Conditions en Codigo Async de JavaScript"
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 Las race conditions ocurren cuando multiples operaciones async acceden a estado compartido sin coordinacion apropiada, llevando a comportamiento no deterministico. Esta recipe cubre identificar, prevenir y corregir race conditions en JavaScript usando actualizaciones atomicas, secuenciacion apropiada de Promise y patrones de locks.
 
 ## Cuando Usar Esto
@@ -314,3 +311,14 @@ Usa transacciones con el nivel de aislamiento apropiado. Para read-then-write, u
 ### ¿Qué herramientas uso para detectar race conditions?
 
 Para detección en runtime, usa ThreadSanitizer (TSan) para C/C++/Rust, que detecta data races en tests. En Java, usa `jstack` para detectar threads bloqueados. En Python, usa `threading.settrace` para rastrear acceso concurrente. Para tests, ejecuta casos concurrentes miles de veces con semillas aleatorias diferentes para aumentar la probabilidad de reproducir races.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

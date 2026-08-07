@@ -1,5 +1,4 @@
 ---
-
 contentType: guides
 slug: compliance-soc2-guide
 title: "Cumplimiento SOC 2 — Básicos para Equipos de Ingeniería"
@@ -33,7 +32,6 @@ seo:
     - guia
 
 ---
-
 ## Visión General
 
 SOC 2 (Service Organization Control 2) es un marco de auditoría desarrollado por el AICPA que evalúa cómo las organizaciones de servicios gestionan los datos de los clientes. A diferencia de las listas de verificación de cumplimiento, SOC 2 Tipo II requiere demostrar que tus controles operan bien a lo largo del tiempo. Para equipos de ingeniería, esto significa construir sistemas con seguridad, disponibilidad, integridad del procesamiento, confidencialidad y privacidad — y probar que funcionan mediante evidencias.
@@ -316,3 +314,14 @@ Lecciones:
 ### Cuanto cuesta una auditoria SOC2?
 
 Una auditoria SOC2 Tipo I cuesta $15K-$30K. Tipo II cuesta $30K-$60K por el primer ano, $20K-$40K en anos siguientes. Costos adicionales: herramientas (Drata, Vanta: $5K-$20K/ano), consultor de readiness ($10K-$25K), tiempo del equipo (200-400 horas). Presupuesta $50K-$80K para el primer ano completo.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.

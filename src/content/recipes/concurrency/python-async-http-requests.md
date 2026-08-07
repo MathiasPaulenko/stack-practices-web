@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: recipes
 slug: python-async-http-requests
 title: "Make Concurrent HTTP Requests with Python and aiohttp"
@@ -42,7 +38,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Making HTTP requests one at a time is slow when you need to fetch from multiple APIs or endpoints. `asyncio` with `aiohttp` lets you run many requests concurrently, reducing total time from the sum of all request times to the longest single request. Below is a practical approach to concurrent fetching, connection pooling, rate limiting, retries, and batch processing.
@@ -324,3 +319,14 @@ It depends on the server. Start with 10-50 concurrent requests. Check the API's 
 ### How do I test async HTTP code?
 
 Use `aioresponses` to mock aiohttp requests in tests. Write tests as `async def` and run with `pytest-asyncio`.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

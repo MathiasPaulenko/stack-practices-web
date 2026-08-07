@@ -1,6 +1,4 @@
 ---
-
-
 contentType: docs
 slug: test-coverage-report-template
 title: "Plantilla de Reporte de Cobertura de Pruebas"
@@ -35,7 +33,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Un test coverage report comunica cuánto del codebase es exercised por tests. Raw coverage numbers son insufficient: un report debe break down coverage por module, feature y critical path, mostrar trends over time y identify gaps dónde coverage está below target. Esta plantilla provee un structure para reportar coverage a engineering teams y stakeholders.
@@ -331,3 +328,14 @@ Usá tu test runner's built-in coverage (Vitest, Jest) para collection. Usá Cod
 ### ¿Qué tan seguido debería generar coverage reports?
 
 Generá coverage en every PR (via CI) para immediate feedback. Generá un full report monthly para trend analysis y stakeholder communication. Quarterly reports son sufficient para executive summaries.
+
+## Errores Comunes en Producción
+
+- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
+- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
+- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
+- No asignar un responsable, fecha límite o cadencia de revisión.
+- Copiar texto base sin eliminar secciones que no aplican.
+- Saltar el control de versiones, lo que impide rollback y responsabilidad.
+- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
+- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.

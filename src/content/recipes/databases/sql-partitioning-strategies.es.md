@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: recipes
 slug: sql-partitioning-strategies
 title: "Particionar tablas grandes por fecha o rango"
@@ -39,8 +36,6 @@ seo:
 
 
 ---
-
-
 ## Visión General
 
 Cuando una tabla crece más allá de cientos de millones de filas, cada consulta se convierte en una batalla contra el tamaño del índice y el tiempo de mantenimiento. La partición divide la tabla en pedazos más pequeños y manejables manteniendo la tabla completa consultable como una sola. La base de datos poda particiones que no coinciden con la consulta, por lo que los escaneos son más pequeños y el mantenimiento de índices es más barato.
@@ -326,3 +321,14 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 - **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
 - **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
 - **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

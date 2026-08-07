@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: graphql-dataloader-pattern
 title: "Patron DataLoader en GraphQL"
@@ -47,7 +42,6 @@ seo:
 
 
 ---
-
 ## Descripcion general
 
 DataLoader es una utilidad generica que consolida llamadas individuales de `load()` en una sola peticion batch. Fue construido en Facebook para resolver el problema N+1 en servidores GraphQL. Dentro de un tick del event loop, todas las llamadas a `load(key)` se recolectan, se deduplican, y se pasan a una funcion batch que obtiene todas las claves a la vez. Los resultados se cachean por la vida util de la instancia del loader.
@@ -335,3 +329,14 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 ### ¿Puedo aplicar este patrón parcialmente?
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+
+## Errores Comunes en Producción
+
+- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
+- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
+- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
+- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
+- Ignorar modos de fallo que el patrón no cubre.
+- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
+- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
+- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.

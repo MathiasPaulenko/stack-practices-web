@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: input-validation
 title: "Input Validation"
@@ -49,7 +44,6 @@ seo:
 
 
 ---
-
 ## Overview
 
 Input validation ensures that data entering your application meets expected formats, types, and constraints before processing. It is the first line of defense against injection attacks, data corruption, and application errors.
@@ -323,3 +317,14 @@ Start with the minimal example above. Add logging at each step. Test with small 
 - **Error response timing variation**: if different errors take different time to generate, attackers can infer internal state. Normalize error response time to a fixed duration.
 - **Error-based SSRF**: if error messages include internal URLs or hostnames, attackers can use them for SSRF. Strip all internal URLs from error messages before returning to clients.
 - **Error-based blind SQL injection**: if database errors are returned to clients, attackers can use them for blind SQL injection. Never return raw database errors; wrap them in generic messages.
+
+## Common Production Pitfalls
+
+- Copying the example without adapting it to real data volumes and failure modes.
+- Skipping load and error-injection tests before the first production deployment.
+- Hard-coding values that should be configurable per environment.
+- Forgetting to add logging and monitoring at each step.
+- Deploying without a rollback plan or a tested backup strategy.
+- Assuming the minimal example will scale without adding caching or batching.
+- Not documenting the version and configuration used in production.
+- Letting the recipe sit unchanged when dependencies or scale evolve.

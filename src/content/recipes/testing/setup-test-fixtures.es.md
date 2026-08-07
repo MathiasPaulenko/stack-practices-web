@@ -1,10 +1,4 @@
 ---
-
-
-
-
-
-
 contentType: recipes
 slug: setup-test-fixtures
 title: "Configurar Fixtures de Test"
@@ -49,7 +43,6 @@ seo:
 
 
 ---
-
 ## Descripción General
 
 Los fixtures de test son los datasets y estados de entorno conocidos y controlados que hacen los tests deterministas. Sin fixtures, los tests dependen de bases de datos externas, sistemas de archivos o estado aleatorio, produciendo fallos flaky que desperdician tiempo de debugging. La solucion abajo muestra cómo crear, aislar y limpiar fixtures usando patrones factory y hooks nativos del framework.
@@ -329,3 +322,14 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
 - **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
 - **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
+## Errores Comunes en Producción
+
+- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
+- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
+- Codificar valores fijos que deberían ser configurables por entorno.
+- Olvidar agregar logging y monitoreo en cada paso.
+- Desplegar sin plan de rollback ni estrategia de backup probada.
+- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
+- No documentar la versión y configuración usadas en producción.
+- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.

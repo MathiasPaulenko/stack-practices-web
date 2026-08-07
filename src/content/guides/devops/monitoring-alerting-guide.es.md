@@ -1,8 +1,4 @@
 ---
-
-
-
-
 contentType: guides
 slug: monitoring-alerting-guide
 title: "Monitoreo y Alertas — Métricas, Logs y Dashboards"
@@ -44,7 +40,6 @@ seo:
 
 
 ---
-
 ## Introducción
 
 No puedes mejorar lo que no puedes medir. El monitoreo te dice cuándo los sistemas están enfermos; las alertas te despiertan cuando la acción es necesaria. Pero alertas mal diseñadas crean fatiga, burnout y páginas ignoradas. A continuación: los tres pilares de observabilidad, cómo diseñar alertas útiles y cómo construir dashboards que ayudan durante incidentes.
@@ -319,3 +314,14 @@ End of document. Review and update quarterly.
 - **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
 - **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
 - **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
+## Errores Comunes en Producción
+
+- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
+- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
+- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
+- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
+- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
+- No asignar un responsable que revise decisiones trimestralmente.
+- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
+- Olvidar medir resultados antes de agregar la siguiente mejora.
