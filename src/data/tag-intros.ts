@@ -1844,4 +1844,212 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  pattern: {
+    en: {
+      heading: 'Software Design Patterns',
+      paragraphs: [
+        'Design patterns are reusable solutions to recurring problems in software design. They provide a shared vocabulary and proven templates for building maintainable, scalable, and robust systems.',
+        'The resources below cover creational, structural, and behavioral patterns across different languages and paradigms. Each guide explains the problem, the solution, and when to apply it.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Diseno de Software',
+      paragraphs: [
+        'Los patrones de diseno son soluciones reutilizables para problemas recurrentes en el diseno de software. Proporcionan un vocabulario compartido y plantillas probadas para construir sistemas mantenibles, escalables y robustos.',
+        'Los recursos a continuacion cubren patrones creacionales, estructurales y de comportamiento en diferentes lenguajes y paradigmas. Cada guia explica el problema, la solucion y cuando aplicarla.',
+      ],
+    },
+  },
+  guide: {
+    en: {
+      heading: 'Practical Engineering Guides',
+      paragraphs: [
+        'Long-form guides explore topics in depth, connecting theory with hands-on implementation. They are designed to take you from understanding concepts to applying them in production.',
+        'The resources below cover architecture, design, tooling, and workflows. Each guide includes examples, best practices, and common pitfalls to avoid.',
+      ],
+    },
+    es: {
+      heading: 'Guias Practicas de Ingenieria',
+      paragraphs: [
+        'Las guias largas exploran temas en profundidad, conectando teoria con implementacion practica. Estan disenadas para llevar desde la comprension de conceptos hasta su aplicacion en produccion.',
+        'Los recursos a continuacion cubren arquitectura, diseno, herramientas y flujos de trabajo. Cada guia incluye ejemplos, mejores practicas y errores comunes a evitar.',
+      ],
+    },
+  },
+  template: {
+    en: {
+      heading: 'Reusable Documentation Templates',
+      paragraphs: [
+        'Templates provide a starting point for consistent documentation, runbooks, checklists, and process guides. They reduce friction and help teams capture important details.',
+        'The resources below include templates for incident management, architecture decisions, API documentation, security reviews, and operations. Each template is ready to adapt to your organization.',
+      ],
+    },
+    es: {
+      heading: 'Plantillas de Documentacion Reutilizables',
+      paragraphs: [
+        'Las plantillas proporcionan un punto de partida para documentacion consistente, runbooks, checklists y guias de proceso. Reducen la friccion y ayudan a los equipos a capturar detalles importantes.',
+        'Los recursos a continuacion incluyen plantillas para gestion de incidentes, decisiones de arquitectura, documentacion de APIs, revisiones de seguridad y operaciones. Cada plantilla esta lista para adaptar a tu organizacion.',
+      ],
+    },
+  },
+  recipe: {
+    en: {
+      heading: 'Code Recipes and Copy-Paste Solutions',
+      paragraphs: [
+        'Recipes are short, practical solutions to specific programming problems. Each recipe includes runnable code, a brief explanation, and practical advice.',
+        'The resources below cover a wide range of languages, tools, and domains. Use them as starting points or drop-in solutions for common engineering tasks.',
+      ],
+    },
+    es: {
+      heading: 'Recetas de Codigo y Soluciones Copiar-Pegar',
+      paragraphs: [
+        'Las recetas son soluciones cortas y practicas para problemas de programacion especificos. Cada receta incluye codigo ejecutable, una breve explicacion y consejos practicos.',
+        'Los recursos a continuacion cubren una amplia gama de lenguajes, herramientas y dominios. Usalas como puntos de partida o soluciones listas para tareas comunes de ingenieria.',
+      ],
+    },
+  },
+  structural: {
+    en: {
+      heading: 'Structural Design Patterns',
+      paragraphs: [
+        'Structural patterns focus on how classes and objects are composed to form larger structures. They help keep systems flexible and efficient by simplifying relationships between entities.',
+        'The resources below cover adapter, bridge, composite, decorator, facade, flyweight, and proxy patterns. Each guide shows how to simplify complex object relationships.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Diseno Estructurales',
+      paragraphs: [
+        'Los patrones estructurales se enfocan en como se componen clases y objetos para formar estructuras mas grandes. Ayudan a mantener sistemas flexibles y eficientes simplificando relaciones entre entidades.',
+        'Los recursos a continuacion cubren los patrones adapter, bridge, composite, decorator, facade, flyweight y proxy. Cada guia muestra como simplificar relaciones complejas entre objetos.',
+      ],
+    },
+  },
+  behavioral: {
+    en: {
+      heading: 'Behavioral Design Patterns',
+      paragraphs: [
+        'Behavioral patterns manage communication and responsibility between objects. They define how objects interact, delegate work, and respond to events in maintainable ways.',
+        'The resources below cover observer, strategy, command, iterator, state, template method, and visitor patterns. Each guide explains how to make object collaboration clear and flexible.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Diseno de Comportamiento',
+      paragraphs: [
+        'Los patrones de comportamiento gestionan la comunicacion y la responsabilidad entre objetos. Definen como interactuan, delegan trabajo y responden a eventos de forma mantenible.',
+        'Los recursos a continuacion cubren observer, strategy, command, iterator, state, template method y visitor. Cada guia explica como hacer la colaboracion entre objetos clara y flexible.',
+      ],
+    },
+  },
+  runbook: {
+    en: {
+      heading: 'Operational Runbooks',
+      paragraphs: [
+        'Runbooks are step-by-step guides for operating systems, responding to incidents, and performing routine tasks. They reduce cognitive load and help teams act consistently under pressure.',
+        'The resources below cover incident response, deployment procedures, maintenance tasks, and troubleshooting. Each runbook is designed to be followed during real operations.',
+      ],
+    },
+    es: {
+      heading: 'Runbooks Operacionales',
+      paragraphs: [
+        'Los runbooks son guias paso a paso para operar sistemas, responder a incidentes y realizar tareas rutinarias. Reducen la carga cognitiva y ayudan a los equipos a actuar con consistencia bajo presion.',
+        'Los recursos a continuacion cubren respuesta a incidentes, procedimientos de despliegue, tareas de mantenimiento y troubleshooting. Cada runbook esta disenado para seguirse durante operaciones reales.',
+      ],
+    },
+  },
+  'aws-lambda': {
+    en: {
+      heading: 'AWS Lambda and Serverless Functions',
+      paragraphs: [
+        'AWS Lambda lets you run code without provisioning servers. Serverless functions scale automatically and are ideal for event-driven, bursty, or short-lived workloads.',
+        'The resources below cover Lambda architecture, cold starts, triggers, IAM, testing, deployment, and best practices. Each recipe shows how to build reliable serverless applications on AWS.',
+      ],
+    },
+    es: {
+      heading: 'AWS Lambda y Funciones Serverless',
+      paragraphs: [
+        'AWS Lambda permite ejecutar codigo sin aprovisionar servidores. Las funciones serverless escalan automaticamente y son ideales para cargas de trabajo event-driven, irregulares o de corta duracion.',
+        'Los recursos a continuacion cubren arquitectura Lambda, cold starts, triggers, IAM, testing, despliegue y mejores practicas. Cada receta muestra como construir aplicaciones serverless confiables en AWS.',
+      ],
+    },
+  },
+  checklist: {
+    en: {
+      heading: 'Checklists for Engineering Teams',
+      paragraphs: [
+        'Checklists reduce mistakes and ensure consistency in complex tasks. They are useful for code reviews, deployments, security audits, and incident response.',
+        'The resources below cover production readiness, security reviews, release checklists, and operational procedures. Each checklist is designed to be used before, during, or after critical activities.',
+      ],
+    },
+    es: {
+      heading: 'Checklists para Equipos de Ingenieria',
+      paragraphs: [
+        'Las checklists reducen errores y aseguran consistencia en tareas complejas. Son utiles para code reviews, despliegues, auditorias de seguridad y respuesta a incidentes.',
+        'Los recursos a continuacion cubren preparacion para produccion, revisiones de seguridad, checklists de release y procedimientos operacionales. Cada checklist esta disenada para usarse antes, durante o despues de actividades criticas.',
+      ],
+    },
+  },
+  decoupling: {
+    en: {
+      heading: 'Decoupling and Modularity',
+      paragraphs: [
+        'Decoupling reduces dependencies between components, making systems easier to change, test, and scale. It is a key principle of maintainable architecture.',
+        'The resources below cover dependency injection, interfaces, events, message queues, and modular design. Each guide shows how to reduce coupling without over-engineering.',
+      ],
+    },
+    es: {
+      heading: 'Desacoplamiento y Modularidad',
+      paragraphs: [
+        'El desacoplamiento reduce las dependencias entre componentes, haciendo los sistemas mas faciles de cambiar, probar y escalar. Es un principio clave de la arquitectura mantenible.',
+        'Los recursos a continuacion cubren inyeccion de dependencias, interfaces, eventos, colas de mensajes y diseno modular. Cada guia muestra como reducir el acoplamiento sin sobre-ingenieria.',
+      ],
+    },
+  },
+  management: {
+    en: {
+      heading: 'Engineering Management',
+      paragraphs: [
+        'Engineering management covers the practices, processes, and tools that help teams deliver reliable software at scale. It bridges technical execution with organizational goals.',
+        'The resources below cover on-call, incident management, project planning, team processes, runbooks, and operational excellence. Each guide is aimed at engineers and managers working in production environments.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Ingenieria',
+      paragraphs: [
+        'La gestion de ingenieria abarca las practicas, procesos y herramientas que ayudan a los equipos a entregar software confiable a escala. Conecta la ejecucion tecnica con los objetivos organizacionales.',
+        'Los recursos a continuacion cubren on-call, gestion de incidentes, planificacion de proyectos, procesos de equipo, runbooks y excelencia operacional. Cada guia esta dirigida a ingenieros y gestores en entornos de produccion.',
+      ],
+    },
+  },
+  parallel: {
+    en: {
+      heading: 'Parallel and Concurrent Processing',
+      paragraphs: [
+        'Parallel processing performs multiple computations simultaneously to improve throughput and reduce latency. It is essential for CPU-bound and data-intensive workloads.',
+        'The resources below cover threads, processes, thread pools, parallel streams, map-reduce, and parallel testing. Each recipe shows how to speed up workloads without introducing races or deadlocks.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento Paralelo y Concurrente',
+      paragraphs: [
+        'El procesamiento paralelo realiza multiples computaciones simultaneamente para mejorar throughput y reducir latencia. Es esencial para cargas intensivas en CPU y datos.',
+        'Los recursos a continuacion cubren threads, procesos, thread pools, streams paralelos, map-reduce y testing paralelo. Cada receta muestra como acelerar cargas sin introducir carreras o deadlocks.',
+      ],
+    },
+  },
+  versioning: {
+    en: {
+      heading: 'Versioning and Change Management',
+      paragraphs: [
+        'Versioning is how you communicate and control change in APIs, schemas, dependencies, and releases. Good versioning reduces breaking changes and integration friction.',
+        'The resources below cover semantic versioning, API versioning, schema evolution, dependency updates, and release management. Each guide shows how to evolve systems without surprising consumers.',
+      ],
+    },
+    es: {
+      heading: 'Versionado y Gestion de Cambios',
+      paragraphs: [
+        'El versionado es como se comunica y controla el cambio en APIs, esquemas, dependencias y releases. Un buen versionado reduce breaking changes y friccion de integracion.',
+        'Los recursos a continuacion cubren semantic versioning, versionado de APIs, evolucion de esquemas, actualizacion de dependencias y gestion de releases. Cada guia muestra como evolucionar sistemas sin sorprender a los consumidores.',
+      ],
+    },
+  },
 };
