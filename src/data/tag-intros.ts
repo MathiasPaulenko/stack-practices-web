@@ -11876,4 +11876,420 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  resize: {
+    en: {
+      heading: 'Image and Element Resizing',
+      paragraphs: [
+        'Resizing changes the dimensions of images, elements, or windows. It is common in image processing, responsive design, and UI.',
+        'The resources below cover image resize, CSS, and optimization. Each guide helps you resize content efficiently.',
+      ],
+    },
+    es: {
+      heading: 'Redimensionamiento de Imagenes y Elementos',
+      paragraphs: [
+        'El redimensionamiento cambia las dimensiones de imagenes, elementos o ventanas. Es comun en procesamiento de imagenes, diseno responsivo e UI.',
+        'Los recursos a continuacion cubren redimensionamiento de imagenes, CSS y optimizacion. Cada guia te ayuda a redimensionar contenido eficientemente.',
+      ],
+    },
+  },
+  zipfile: {
+    en: {
+      heading: 'ZIP File Handling',
+      paragraphs: [
+        'ZIP files compress and archive multiple files. They are used for distribution, backups, and storage.',
+        'The resources below cover creating, extracting, and reading ZIP files. Each guide helps you work with ZIP archives.',
+      ],
+    },
+    es: {
+      heading: 'Manejo de Archivos ZIP',
+      paragraphs: [
+        'Los archivos ZIP comprimen y archivan multiples archivos. Se usan para distribucion, backups y almacenamiento.',
+        'Los recursos a continuacion cubren crear, extraer y leer archivos ZIP. Cada guia te ayuda a trabajar con archivos ZIP.',
+      ],
+    },
+  },
+  archives: {
+    en: {
+      heading: 'Archive Formats',
+      paragraphs: [
+        'Archive formats bundle files for storage or transfer. Common formats include ZIP, TAR, and 7z.',
+        'The resources below cover compression, extraction, and archive management. Each guide helps you handle archives.',
+      ],
+    },
+    es: {
+      heading: 'Formatos de Archivo',
+      paragraphs: [
+        'Los formatos de archivo agrupan archivos para almacenamiento o transferencia. Formatos comunes incluyen ZIP, TAR y 7z.',
+        'Los recursos a continuacion cubren compresion, extraccion y gestion de archivos. Cada guia te ayuda a manejar archivos comprimidos.',
+      ],
+    },
+  },
+  watcher: {
+    en: {
+      heading: 'File Watchers',
+      paragraphs: [
+        'File watchers detect changes to files and run actions. They are used in build tools, dev servers, and automation.',
+        'The resources below cover inotify, chokidar, and watch mode. Each guide helps you implement file watching.',
+      ],
+    },
+    es: {
+      heading: 'File Watchers',
+      paragraphs: [
+        'Los file watchers detectan cambios en archivos y ejecutan acciones. Se usan en herramientas de build, servidores de desarrollo y automatizacion.',
+        'Los recursos a continuacion cubren inotify, chokidar y modo watch. Cada guia te ayuda a implementar file watching.',
+      ],
+    },
+  },
+  clipboard: {
+    en: {
+      heading: 'Clipboard Operations',
+      paragraphs: [
+        'Clipboard operations copy and paste data between applications. They are used in web and desktop applications.',
+        'The resources below cover clipboard APIs, permissions, and security. Each guide helps you work with the clipboard.',
+      ],
+    },
+    es: {
+      heading: 'Operaciones del Portapapeles',
+      paragraphs: [
+        'Las operaciones del portapapeles copian y pegan datos entre aplicaciones. Se usan en aplicaciones web y de escritorio.',
+        'Los recursos a continuacion cubren APIs del portapapeles, permisos y seguridad. Cada guia te ayuda a trabajar con el portapapeles.',
+      ],
+    },
+  },
+  debounce: {
+    en: {
+      heading: 'Debounce',
+      paragraphs: [
+        'Debounce delays a function until a pause in calls. It prevents repeated execution for frequent events.',
+        'The resources below cover implementation, use cases, and throttle comparison. Each guide helps you use debounce effectively.',
+      ],
+    },
+    es: {
+      heading: 'Debounce',
+      paragraphs: [
+        'El debounce retrasa una funcion hasta una pausa en las llamadas. Evita la ejecucion repetida para eventos frecuentes.',
+        'Los recursos a continuacion cubren implementacion, casos de uso y comparacion con throttle. Cada guia te ayuda a usar debounce efectivamente.',
+      ],
+    },
+  },
+  throttle: {
+    en: {
+      heading: 'Throttle',
+      paragraphs: [
+        'Throttle limits how often a function runs. It is used for scroll, resize, and input events.',
+        'The resources below cover implementation, leading and trailing edges, and use cases. Each guide helps you throttle functions.',
+      ],
+    },
+    es: {
+      heading: 'Throttle',
+      paragraphs: [
+        'El throttle limita con que frecuencia se ejecuta una funcion. Se usa para eventos de scroll, resize y entrada.',
+        'Los recursos a continuacion cubren implementacion, leading y trailing, y casos de uso. Cada guia te ayuda a hacer throttle de funciones.',
+      ],
+    },
+  },
+  localstorage: {
+    en: {
+      heading: 'Local Storage',
+      paragraphs: [
+        'Local storage persists data in the browser. It is useful for caching and user preferences.',
+        'The resources below cover localStorage, sessionStorage, limits, and alternatives. Each guide helps you use browser storage.',
+      ],
+    },
+    es: {
+      heading: 'Almacenamiento Local',
+      paragraphs: [
+        'El almacenamiento local persiste datos en el navegador. Es util para cache y preferencias de usuario.',
+        'Los recursos a continuacion cubren localStorage, sessionStorage, limites y alternativas. Cada guia te ayuda a usar almacenamiento del navegador.',
+      ],
+    },
+  },
+  forms: {
+    en: {
+      heading: 'HTML Forms',
+      paragraphs: [
+        'HTML forms collect user input. They are the foundation of data entry on the web.',
+        'The resources below cover validation, submission, accessibility, and libraries. Each guide helps you build better forms.',
+      ],
+    },
+    es: {
+      heading: 'Formularios HTML',
+      paragraphs: [
+        'Los formularios HTML recopilan entrada del usuario. Son la base de la entrada de datos en la web.',
+        'Los recursos a continuacion cubren validacion, envio, accesibilidad y librerias. Cada guia te ayuda a construir mejores formularios.',
+      ],
+    },
+  },
+  usememo: {
+    en: {
+      heading: 'useMemo in React',
+      paragraphs: [
+        'useMemo memoizes expensive calculations in React. It prevents unnecessary recomputation.',
+        'The resources below cover dependencies, performance, and when to use useMemo. Each guide helps you optimize React with useMemo.',
+      ],
+    },
+    es: {
+      heading: 'useMemo en React',
+      paragraphs: [
+        'useMemo memoriza calculos costosos en React. Evita recomputacion innecesaria.',
+        'Los recursos a continuacion cubren dependencias, rendimiento y cuando usar useMemo. Cada guia te ayuda a optimizar React con useMemo.',
+      ],
+    },
+  },
+  usecallback: {
+    en: {
+      heading: 'useCallback in React',
+      paragraphs: [
+        'useCallback memoizes function references in React. It helps prevent unnecessary re-renders.',
+        'The resources below cover dependencies, child components, and best practices. Each guide helps you use useCallback correctly.',
+      ],
+    },
+    es: {
+      heading: 'useCallback en React',
+      paragraphs: [
+        'useCallback memoriza referencias de funciones en React. Ayuda a prevenir re-renderizados innecesarios.',
+        'Los recursos a continuacion cubren dependencias, componentes hijos y mejores practicas. Cada guia te ayuda a usar useCallback correctamente.',
+      ],
+    },
+  },
+  stores: {
+    en: {
+      heading: 'State Stores',
+      paragraphs: [
+        'State stores centralize application state. They enable predictable updates and shared access.',
+        'The resources below cover Redux, Pinia, Zustand, and stores. Each guide helps you manage state with stores.',
+      ],
+    },
+    es: {
+      heading: 'Stores de Estado',
+      paragraphs: [
+        'Los stores de estado centralizan el estado de la aplicacion. Habilitan actualizaciones predecibles y acceso compartido.',
+        'Los recursos a continuacion cubren Redux, Pinia, Zustand y stores. Cada guia te ayuda a gestionar estado con stores.',
+      ],
+    },
+  },
+  exhaustiveness: {
+    en: {
+      heading: 'Exhaustiveness Checking',
+      paragraphs: [
+        'Exhaustiveness checking ensures all cases are handled. It catches missing branches in switch statements and unions.',
+        'The resources below cover TypeScript, Rust, and pattern matching. Each guide helps you write exhaustive code.',
+      ],
+    },
+    es: {
+      heading: 'Chequeo de Exhaustividad',
+      paragraphs: [
+        'El chequeo de exhaustividad asegura que todos los casos esten manejados. Detecta ramas faltantes en switch y uniones.',
+        'Los recursos a continuacion cubren TypeScript, Rust y pattern matching. Cada guia te ayuda a escribir codigo exhaustivo.',
+      ],
+    },
+  },
+  generics: {
+    en: {
+      heading: 'Generics',
+      paragraphs: [
+        'Generics let code work with multiple types while preserving type safety. They are common in TypeScript, Java, and C#.',
+        'The resources below cover generic types, constraints, and patterns. Each guide helps you write reusable generic code.',
+      ],
+    },
+    es: {
+      heading: 'Genericos',
+      paragraphs: [
+        'Los genericos permiten que el codigo funcione con multiples tipos manteniendo seguridad de tipos. Son comunes en TypeScript, Java y C#.',
+        'Los recursos a continuacion cubren tipos genericos, constraints y patrones. Cada guia te ayuda a escribir codigo generico reutilizable.',
+      ],
+    },
+  },
+  composables: {
+    en: {
+      heading: 'Vue Composables',
+      paragraphs: [
+        'Composables are reusable stateful functions in Vue. They extract and share logic between components.',
+        'The resources below cover use functions, composables patterns, and testing. Each guide helps you build composables in Vue.',
+      ],
+    },
+    es: {
+      heading: 'Composables de Vue',
+      paragraphs: [
+        'Los composables son funciones reutilizables con estado en Vue. Extraen y comparten logica entre componentes.',
+        'Los recursos a continuacion cubren funciones use, patrones de composables y testing. Cada guia te ayuda a construir composables en Vue.',
+      ],
+    },
+  },
+  scalars: {
+    en: {
+      heading: 'GraphQL Scalars',
+      paragraphs: [
+        'GraphQL scalars are primitive types like Int, String, and Boolean. Custom scalars extend validation and serialization.',
+        'The resources below cover built-in scalars, custom scalars, and coercion. Each guide helps you use scalars in GraphQL.',
+      ],
+    },
+    es: {
+      heading: 'Escalares de GraphQL',
+      paragraphs: [
+        'Los escalares de GraphQL son tipos primitivos como Int, String y Boolean. Los escalares personalizados extienden validacion y serializacion.',
+        'Los recursos a continuacion cubren escalares integrados, escalares personalizados y coercion. Cada guia te ayuda a usar escalares en GraphQL.',
+      ],
+    },
+  },
+  directives: {
+    en: {
+      heading: 'Framework Directives',
+      paragraphs: [
+        'Directives are special attributes that modify behavior in frameworks. They are common in Angular and Vue.',
+        'The resources below cover built-in directives, custom directives, and usage. Each guide helps you use directives effectively.',
+      ],
+    },
+    es: {
+      heading: 'Directivas de Frameworks',
+      paragraphs: [
+        'Las directivas son atributos especiales que modifican comportamiento en frameworks. Son comunes en Angular y Vue.',
+        'Los recursos a continuacion cubren directivas integradas, directivas personalizadas y uso. Cada guia te ayuda a usar directivas efectivamente.',
+      ],
+    },
+  },
+  subscriptions: {
+    en: {
+      heading: 'GraphQL Subscriptions',
+      paragraphs: [
+        'GraphQL subscriptions provide real-time updates via a persistent connection. They are ideal for live data.',
+        'The resources below cover WebSockets, resolvers, and use cases. Each guide helps you build real-time APIs with subscriptions.',
+      ],
+    },
+    es: {
+      heading: 'Subscriptions de GraphQL',
+      paragraphs: [
+        'Las subscriptions de GraphQL proporcionan actualizaciones en tiempo real via conexion persistente. Son ideales para datos en vivo.',
+        'Los recursos a continuacion cubren WebSockets, resolvers y casos de uso. Cada guia te ayuda a construir APIs en tiempo real con subscriptions.',
+      ],
+    },
+  },
+  pika: {
+    en: {
+      heading: 'Pika and Web Interoperability',
+      paragraphs: [
+        'Pika is a Python library for RabbitMQ messaging. It supports queues, exchanges, and AMQP protocols.',
+        'The resources below cover connection, publishing, and consuming. Each guide helps you use Pika with RabbitMQ.',
+      ],
+    },
+    es: {
+      heading: 'Pika y Mensajeria',
+      paragraphs: [
+        'Pika es una libreria de Python para mensajeria con RabbitMQ. Soporta colas, exchanges y protocolos AMQP.',
+        'Los recursos a continuacion cubren conexion, publicacion y consumo. Cada guia te ayuda a usar Pika con RabbitMQ.',
+      ],
+    },
+  },
+  actuator: {
+    en: {
+      heading: 'Spring Boot Actuator',
+      paragraphs: [
+        'Spring Boot Actuator provides production-ready endpoints for monitoring and managing applications.',
+        'The resources below cover metrics, health, info, and security. Each guide helps you operate Spring Boot with Actuator.',
+      ],
+    },
+    es: {
+      heading: 'Spring Boot Actuator',
+      paragraphs: [
+        'Spring Boot Actuator proporciona endpoints listos para produccion para monitorear y gestionar aplicaciones.',
+        'Los recursos a continuacion cubren metricas, health, info y seguridad. Cada guia te ayuda a operar Spring Boot con Actuator.',
+      ],
+    },
+  },
+  micrometer: {
+    en: {
+      heading: 'Micrometer Metrics',
+      paragraphs: [
+        'Micrometer is a metrics facade for JVM applications. It integrates with Prometheus, Datadog, and others.',
+        'The resources below cover counters, timers, registries, and export. Each guide helps you instrument JVM apps with Micrometer.',
+      ],
+    },
+    es: {
+      heading: 'Metricas con Micrometer',
+      paragraphs: [
+        'Micrometer es una fachada de metricas para aplicaciones JVM. Se integra con Prometheus, Datadog y otros.',
+        'Los recursos a continuacion cubren contadores, timers, registros y exportacion. Cada guia te ayuda a instrumentar apps JVM con Micrometer.',
+      ],
+    },
+  },
+  pino: {
+    en: {
+      heading: 'Pino Logger',
+      paragraphs: [
+        'Pino is a fast JSON logger for Node.js. It is designed for high performance and structured logging.',
+        'The resources below cover transport, levels, redaction, and async logging. Each guide helps you log with Pino.',
+      ],
+    },
+    es: {
+      heading: 'Logger Pino',
+      paragraphs: [
+        'Pino es un logger JSON rapido para Node.js. Esta disenado para alto rendimiento y logging estructurado.',
+        'Los recursos a continuacion cubren transport, niveles, redaction y logging asincrono. Cada guia te ayuda a loguear con Pino.',
+      ],
+    },
+  },
+  winston: {
+    en: {
+      heading: 'Winston Logger',
+      paragraphs: [
+        'Winston is a flexible logging library for Node.js. It supports multiple transports and formats.',
+        'The resources below cover transports, levels, and configuration. Each guide helps you set up logging with Winston.',
+      ],
+    },
+    es: {
+      heading: 'Logger Winston',
+      paragraphs: [
+        'Winston es una libreria de logging flexible para Node.js. Soporta multiples transports y formatos.',
+        'Los recursos a continuacion cubren transports, niveles y configuracion. Cada guia te ayuda a configurar logging con Winston.',
+      ],
+    },
+  },
+  structlog: {
+    en: {
+      heading: 'Structured Logging',
+      paragraphs: [
+        'Structured logging outputs logs as machine-readable objects. It improves search, analysis, and observability.',
+        'The resources below cover JSON logs, key-value pairs, and tools. Each guide helps you adopt structured logging.',
+      ],
+    },
+    es: {
+      heading: 'Logging Estructurado',
+      paragraphs: [
+        'El logging estructurado genera logs como objetos legibles por maquina. Mejora busqueda, analisis y observabilidad.',
+        'Los recursos a continuacion cubren logs JSON, pares clave-valor y herramientas. Cada guia te ayuda a adoptar logging estructurado.',
+      ],
+    },
+  },
+  throughput: {
+    en: {
+      heading: 'Throughput Optimization',
+      paragraphs: [
+        'Throughput measures how much work a system handles per unit of time. It is a key performance metric.',
+        'The resources below cover batching, concurrency, and resource tuning. Each guide helps you improve system throughput.',
+      ],
+    },
+    es: {
+      heading: 'Optimizacion de Throughput',
+      paragraphs: [
+        'El throughput mide cuanto trabajo maneja un sistema por unidad de tiempo. Es una metrica clave de rendimiento.',
+        'Los recursos a continuacion cubren batching, concurrencia y ajuste de recursos. Cada guia te ayuda a mejorar el throughput del sistema.',
+      ],
+    },
+  },
+  escaping: {
+    en: {
+      heading: 'Output Escaping',
+      paragraphs: [
+        'Escaping converts special characters into safe representations. It prevents injection and rendering issues.',
+        'The resources below cover HTML, URL, SQL, and shell escaping. Each guide helps you escape output safely.',
+      ],
+    },
+    es: {
+      heading: 'Escapado de Salida',
+      paragraphs: [
+        'El escapado convierte caracteres especiales en representaciones seguras. Previene inyeccion y problemas de renderizado.',
+        'Los recursos a continuacion cubreen escapado HTML, URL, SQL y shell. Cada guia te ayuda a escapar salida de forma segura.',
+      ],
+    },
+  },
 };
