@@ -3620,4 +3620,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  legacy: {
+    en: {
+      heading: 'Legacy Systems',
+      paragraphs: [
+        'Legacy systems are existing applications that continue to operate but are hard to change. They require careful modernization, testing, and incremental migration strategies.',
+        'The resources below cover strangler fig pattern, refactoring, wrapping, API facades, and risk management. Each guide helps you evolve legacy systems without big-bang rewrites.',
+      ],
+    },
+    es: {
+      heading: 'Sistemas Legacy',
+      paragraphs: [
+        'Los sistemas legacy son aplicaciones existentes que siguen operando pero son dificiles de cambiar. Requieren modernizacion cuidadosa, testing y estrategias de migracion incremental.',
+        'Los recursos a continuacion cubren strangler fig pattern, refactoring, wrapping, API facades y gestion de riesgos. Cada guia te ayuda a evolucionar sistemas legacy sin reescrituras big-bang.',
+      ],
+    },
+  },
+  monolith: {
+    en: {
+      heading: 'Monolithic Architectures',
+      paragraphs: [
+        'A monolith is a single deployable unit that contains all application logic. Monoliths are simple to develop and deploy but can become hard to scale and maintain as they grow.',
+        'The resources below cover modular monoliths, migration to microservices, boundaries, and when to keep a monolith. Each guide helps you make informed architectural decisions.',
+      ],
+    },
+    es: {
+      heading: 'Arquitecturas Monoliticas',
+      paragraphs: [
+        'Un monolito es una unidad desplegable unica que contiene toda la logica de la aplicacion. Los monolitos son simples de desarrollar y desplegar pero pueden volverse dificiles de escalar y mantener a medida que crecen.',
+        'Los recursos a continuacion cubren monolitos modulares, migracion a microservicios, limites y cuando mantener un monolito. Cada guia te ayuda a tomar decisiones arquitectonicas informadas.',
+      ],
+    },
+  },
+  persistence: {
+    en: {
+      heading: 'Data Persistence',
+      paragraphs: [
+        'Persistence is how data survives beyond the lifetime of a process. Choosing the right persistence layer affects performance, reliability, and consistency.',
+        'The resources below cover databases, ORMs, transactions, caching, event sourcing, and storage patterns. Each guide helps you persist data in a way that matches your application needs.',
+      ],
+    },
+    es: {
+      heading: 'Persistencia de Datos',
+      paragraphs: [
+        'La persistencia es como los datos sobreviven mas alla de la vida de un proceso. Elegir la capa de persistencia correcta afecta rendimiento, confiabilidad y consistencia.',
+        'Los recursos a continuacion cubren bases de datos, ORMs, transacciones, caching, event sourcing y patrones de almacenamiento. Cada guia te ayuda a persistir datos de forma adecuada a tus necesidades.',
+      ],
+    },
+  },
+  'eventual-consistency': {
+    en: {
+      heading: 'Eventual Consistency',
+      paragraphs: [
+        'Eventual consistency means that if no new updates are made, all replicas will converge to the same value. It is a common trade-off in distributed systems.',
+        'The resources below cover CAP theorem, conflict resolution, read models, CQRS, and designing for eventual consistency. Each guide explains when and how to use this consistency model.',
+      ],
+    },
+    es: {
+      heading: 'Consistencia Eventual',
+      paragraphs: [
+        'La consistencia eventual significa que si no hay nuevas actualizaciones, todas las replicas convergeran al mismo valor. Es un trade-off comun en sistemas distribuidos.',
+        'Los recursos a continuacion cubren teorema CAP, resolucion de conflictos, modelos de lectura, CQRS y diseno para consistencia eventual. Cada guia explica cuando y como usar este modelo de consistencia.',
+      ],
+    },
+  },
+  'access-control': {
+    en: {
+      heading: 'Access Control',
+      paragraphs: [
+        'Access control determines who can do what in a system. It combines authentication, authorization, roles, and policies to enforce least privilege.',
+        'The resources below cover RBAC, ABAC, ACLs, permissions, and zero-trust access. Each guide helps you design access control that is secure and maintainable.',
+      ],
+    },
+    es: {
+      heading: 'Control de Acceso',
+      paragraphs: [
+        'El control de acceso determina quien puede hacer que en un sistema. Combina autenticacion, autorizacion, roles y politicas para imponer el minimo privilegio.',
+        'Los recursos a continuacion cubren RBAC, ABAC, ACLs, permisos y acceso de confianza cero. Cada guia te ayuda a disenar control de acceso seguro y mantenible.',
+      ],
+    },
+  },
+  'code-review': {
+    en: {
+      heading: 'Code Review',
+      paragraphs: [
+        'Code review is a quality practice where peers examine changes before merging. It catches defects, shares knowledge, and maintains team standards.',
+        'The resources below cover review checklists, async reviews, constructive feedback, and tooling. Each guide helps you run reviews that improve code quality without blocking the team.',
+      ],
+    },
+    es: {
+      heading: 'Revision de Codigo',
+      paragraphs: [
+        'La revision de codigo es una practica de calidad donde companeros examinan cambios antes de mergear. Detecta defectos, comparte conocimiento y mantiene estandares del equipo.',
+        'Los recursos a continuacion cubren checklists de revision, revisiones asincronas, feedback constructivo y herramientas. Cada guia te ayuda a realizar revisiones que mejoran la calidad sin bloquear al equipo.',
+      ],
+    },
+  },
+  'pull-request': {
+    en: {
+      heading: 'Pull Requests',
+      paragraphs: [
+        'Pull requests are a collaboration mechanism for proposing, reviewing, and merging code changes. They are central to modern Git workflows.',
+        'The resources below cover PR templates, review etiquette, CI gates, small PRs, and merge strategies. Each guide helps you use pull requests effectively.',
+      ],
+    },
+    es: {
+      heading: 'Pull Requests',
+      paragraphs: [
+        'Los pull requests son un mecanismo de colaboracion para proponer, revisar y mergear cambios de codigo. Son centrales en los flujos modernos de Git.',
+        'Los recursos a continuacion cubren plantillas de PR, etiqueta de revision, gates de CI, PRs pequenos y estrategias de merge. Cada guia te ayuda a usar pull requests efectivamente.',
+      ],
+    },
+  },
+  postmortem: {
+    en: {
+      heading: 'Blameless Postmortems',
+      paragraphs: [
+        'Postmortems capture what happened during an incident, why it happened, and what to improve. Blameless postmortems focus on learning, not punishment.',
+        'The resources below cover timeline reconstruction, root-cause analysis, action items, and blameless culture. Each guide helps you turn incidents into organizational learning.',
+      ],
+    },
+    es: {
+      heading: 'Postmortems sin Culpa',
+      paragraphs: [
+        'Los postmortems capturan que paso durante un incidente, por que paso y que mejorar. Los postmortems sin culpa se enfocan en aprender, no castigar.',
+        'Los recursos a continuacion cubren reconstruccion de timeline, analisis de causa raiz, action items y cultura sin culpa. Cada guia te ayuda a convertir incidentes en aprendizaje organizacional.',
+      ],
+    },
+  },
+  onboarding: {
+    en: {
+      heading: 'Engineering Onboarding',
+      paragraphs: [
+        'Onboarding is the process of integrating new team members and getting them productive. Good onboarding reduces time-to-contribution and improves retention.',
+        'The resources below cover onboarding checklists, documentation, mentorship, dev environment setup, and first tasks. Each guide helps you onboard engineers effectively.',
+      ],
+    },
+    es: {
+      heading: 'Onboarding de Ingenieria',
+      paragraphs: [
+        'El onboarding es el proceso de integrar nuevos miembros del equipo y hacerlos productivos. Un buen onboarding reduce el tiempo hasta la contribucion y mejora la retencion.',
+        'Los recursos a continuacion cubren checklists de onboarding, documentacion, mentorship, setup de entorno de desarrollo y primeras tareas. Cada guia te ayuda a integrar ingenieros efectivamente.',
+      ],
+    },
+  },
+  slo: {
+    en: {
+      heading: 'Service Level Objectives',
+      paragraphs: [
+        'SLOs define the target reliability of a service. They connect user expectations to engineering decisions and help balance feature work with reliability.',
+        'The resources below cover SLOs, SLIs, SLAs, error budgets, and alert policies. Each guide helps you set reliability targets that are meaningful and actionable.',
+      ],
+    },
+    es: {
+      heading: 'Objetivos de Nivel de Servicio',
+      paragraphs: [
+        'Los SLOs definen la confiabilidad objetivo de un servicio. Conectan las expectativas de los usuarios con decisiones de ingenieria y ayudan a equilibrar trabajo de features con confiabilidad.',
+        'Los recursos a continuacion cubren SLOs, SLIs, SLAs, presupuestos de error y politicas de alerta. Cada guia te ayuda a establecer objetivos de confiabilidad significativos y accionables.',
+      ],
+    },
+  },
+  maintainability: {
+    en: {
+      heading: 'Code Maintainability',
+      paragraphs: [
+        'Maintainable code is easy to understand, change, and test. It reduces the cost of ownership and the risk of introducing bugs.',
+        'The resources below cover clean code, refactoring, testing, documentation, and technical debt management. Each guide helps you keep a codebase healthy over time.',
+      ],
+    },
+    es: {
+      heading: 'Mantenibilidad del Codigo',
+      paragraphs: [
+        'El codigo mantenible es facil de entender, cambiar y probar. Reduce el costo de propiedad y el riesgo de introducir errores.',
+        'Los recursos a continuacion cubren clean code, refactoring, testing, documentacion y gestion de deuda tecnica. Cada guia te ayuda a mantener un codebase saludable con el tiempo.',
+      ],
+    },
+  },
+  agents: {
+    en: {
+      heading: 'AI Agents',
+      paragraphs: [
+        'AI agents are systems that use language models to plan, act, and interact with tools or environments. They extend LLMs beyond simple text generation.',
+        'The resources below cover agent architecture, tool use, planning, memory, multi-agent systems, and guardrails. Each guide helps you build agents that are useful and safe.',
+      ],
+    },
+    es: {
+      heading: 'Agentes de IA',
+      paragraphs: [
+        'Los agentes de IA son sistemas que usan modelos de lenguaje para planificar, actuar e interactuar con herramientas o entornos. Extienden los LLMs mas alla de la simple generacion de texto.',
+        'Los recursos a continuacion cubren arquitectura de agentes, uso de herramientas, planificacion, memoria, sistemas multi-agente y guardrails. Cada guia te ayuda a construir agentes utiles y seguros.',
+      ],
+    },
+  },
+  'open-source': {
+    en: {
+      heading: 'Open Source Software',
+      paragraphs: [
+        'Open source software is released with a license that allows others to use, modify, and distribute it. Contributing to and consuming open source requires understanding licenses, governance, and communities.',
+        'The resources below cover licenses, contribution guidelines, maintainership, security, and dependency management. Each guide helps you work with open source responsibly.',
+      ],
+    },
+    es: {
+      heading: 'Software Open Source',
+      paragraphs: [
+        'El software open source se publica con una licencia que permite a otros usar, modificar y distribuir. Contribuir y consumir open source requiere entender licencias, gobernanza y comunidades.',
+        'Los recursos a continuacion cubren licencias, guias de contribucion, mantenimiento, seguridad y gestion de dependencias. Cada guia te ayuda a trabajar con open source de forma responsable.',
+      ],
+    },
+  },
+  golang: {
+    en: {
+      heading: 'Go Programming',
+      paragraphs: [
+        'Go is a statically typed language designed for concurrency, simplicity, and fast builds. It is widely used for cloud-native tools, microservices, and CLI applications.',
+        'The resources below cover Go concurrency, modules, testing, error handling, and standard library patterns. Each recipe helps you write idiomatic Go code.',
+      ],
+    },
+    es: {
+      heading: 'Programacion en Go',
+      paragraphs: [
+        'Go es un lenguaje estaticamente tipado disenado para concurrencia, simplicidad y builds rapidos. Es ampliamente usado para herramientas cloud-native, microservicios y aplicaciones CLI.',
+        'Los recursos a continuacion cubren concurrencia en Go, modulos, testing, manejo de errores y patrones de la biblioteca estandar. Cada receta te ayuda a escribir codigo Go idiomatico.',
+      ],
+    },
+  },
+  retry: {
+    en: {
+      heading: 'Retry Strategies',
+      paragraphs: [
+        'Retry is the practice of re-attempting failed operations. It is essential for transient failures but can make things worse if not bounded.',
+        'The resources below cover exponential backoff, jitter, circuit breakers, idempotency, and retry limits. Each guide helps you implement retries that are safe and effective.',
+      ],
+    },
+    es: {
+      heading: 'Estrategias de Reintento',
+      paragraphs: [
+        'El reintento es la practica de volver a intentar operaciones fallidas. Es esencial para fallas transitorias pero puede empeorar las cosas si no esta acotado.',
+        'Los recursos a continuacion cubren backoff exponencial, jitter, circuit breakers, idempotencia y limites de reintento. Cada guia te ayuda a implementar reintentos seguros y efectivos.',
+      ],
+    },
+  },
+  nginx: {
+    en: {
+      heading: 'Nginx',
+      paragraphs: [
+        'Nginx is a high-performance web server, reverse proxy, and load balancer. It is one of the most popular tools for serving and routing HTTP traffic.',
+        'The resources below cover configuration, reverse proxy, caching, SSL termination, and load balancing. Each guide helps you use Nginx effectively in production.',
+      ],
+    },
+    es: {
+      heading: 'Nginx',
+      paragraphs: [
+        'Nginx es un servidor web de alto rendimiento, reverse proxy y load balancer. Es una de las herramientas mas populares para servir y enrutar trafico HTTP.',
+        'Los recursos a continuacion cubren configuracion, reverse proxy, caching, terminacion SSL y balanceo de carga. Cada guia te ayuda a usar Nginx efectivamente en produccion.',
+      ],
+    },
+  },
+  rbac: {
+    en: {
+      heading: 'Role-Based Access Control',
+      paragraphs: [
+        'RBAC assigns permissions to roles, and roles to users. It simplifies access management in organizations by grouping privileges by responsibility.',
+        'The resources below cover role design, permission hierarchies, groups, and RBAC implementation. Each guide helps you build access control that scales with your team.',
+      ],
+    },
+    es: {
+      heading: 'Control de Acceso Basado en Roles',
+      paragraphs: [
+        'RBAC asigna permisos a roles y roles a usuarios. Simplifica la gestion de acceso en organizaciones agrupando privilegios por responsabilidad.',
+        'Los recursos a continuacion cubren diseno de roles, jerarquias de permisos, grupos e implementacion de RBAC. Cada guia te ayuda a construir control de acceso que escala con tu equipo.',
+      ],
+    },
+  },
+  tokens: {
+    en: {
+      heading: 'Security Tokens',
+      paragraphs: [
+        'Tokens are short-lived credentials used for authentication and authorization. They are central to session management, API access, and single sign-on.',
+        'The resources below cover JWT, access tokens, refresh tokens, opaque tokens, and token storage. Each guide helps you use tokens securely.',
+      ],
+    },
+    es: {
+      heading: 'Tokens de Seguridad',
+      paragraphs: [
+        'Los tokens son credenciales de corta duracion usadas para autenticacion y autorizacion. Son centrales en gestion de sesiones, acceso a APIs y single sign-on.',
+        'Los recursos a continuacion cubren JWT, access tokens, refresh tokens, tokens opacos y almacenamiento de tokens. Cada guia te ayuda a usar tokens de forma segura.',
+      ],
+    },
+  },
+  'cache-invalidation': {
+    en: {
+      heading: 'Cache Invalidation',
+      paragraphs: [
+        'Cache invalidation is the process of removing or refreshing stale data. It is one of the hardest problems in caching because it affects consistency.',
+        'The resources below cover TTL, write-through, write-around, explicit invalidation, and cache-aside. Each guide helps you keep caches consistent with the source of truth.',
+      ],
+    },
+    es: {
+      heading: 'Invalidacion de Cache',
+      paragraphs: [
+        'La invalidacion de cache es el proceso de eliminar o refrescar datos obsoletos. Es uno de los problemas mas dificiles del caching porque afecta la consistencia.',
+        'Los recursos a continuacion cubren TTL, write-through, write-around, invalidacion explicita y cache-aside. Cada guia te ayuda a mantener caches consistentes con la fuente de verdad.',
+      ],
+    },
+  },
+  eviction: {
+    en: {
+      heading: 'Cache Eviction Policies',
+      paragraphs: [
+        'Eviction policies decide which items to remove when a cache is full. Choosing the right policy affects hit rate and performance.',
+        'The resources below cover LRU, LFU, FIFO, TTL, and size-based eviction. Each guide helps you design caches that keep the most valuable data.',
+      ],
+    },
+    es: {
+      heading: 'Politicas de Eviction de Cache',
+      paragraphs: [
+        'Las politicas de eviction deciden que elementos eliminar cuando un cache esta lleno. Elegir la politica correcta afecta la tasa de aciertos y el rendimiento.',
+        'Los recursos a continuacion cubren LRU, LFU, FIFO, TTL y eviction basado en tamano. Cada guia te ayuda a disenar caches que mantengan los datos mas valiosos.',
+      ],
+    },
+  },
+  'event-loop': {
+    en: {
+      heading: 'Event Loop',
+      paragraphs: [
+        'The event loop is the concurrency model behind JavaScript, Node.js, and many asynchronous runtimes. It allows non-blocking I/O by processing events in cycles.',
+        'The resources below cover the JavaScript event loop, promises, async/await, timers, and microtasks. Each guide helps you write async code that is correct and efficient.',
+      ],
+    },
+    es: {
+      heading: 'Event Loop',
+      paragraphs: [
+        'El event loop es el modelo de concurrencia detras de JavaScript, Node.js y muchos runtimes asincronos. Permite I/O no bloqueante procesando eventos en ciclos.',
+        'Los recursos a continuacion cubren el event loop de JavaScript, promises, async/await, timers y microtasks. Cada guia te ayuda a escribir codigo asincrono correcto y eficiente.',
+      ],
+    },
+  },
+  locks: {
+    en: {
+      heading: 'Locking and Synchronization',
+      paragraphs: [
+        'Locks protect shared resources in concurrent programs. They prevent races but can introduce deadlocks and contention if used incorrectly.',
+        'The resources below cover mutexes, semaphores, read-write locks, optimistic locking, and lock-free structures. Each guide helps you synchronize concurrent access safely.',
+      ],
+    },
+    es: {
+      heading: 'Bloqueos y Sincronizacion',
+      paragraphs: [
+        'Los bloqueos protegen recursos compartidos en programas concurrentes. Previenen carreras pero pueden introducir deadlocks y contencion si se usan incorrectamente.',
+        'Los recursos a continuacion cubren mutexes, semaforos, locks de lectura-escritura, locking optimista y estructuras libres de bloqueos. Cada guia te ayuda a sincronizar acceso concurrente de forma segura.',
+      ],
+    },
+  },
+  acid: {
+    en: {
+      heading: 'ACID Transactions',
+      paragraphs: [
+        'ACID stands for Atomicity, Consistency, Isolation, and Durability. It defines the guarantees of reliable database transactions.',
+        'The resources below cover transaction boundaries, isolation levels, commit, rollback, and distributed transactions. Each guide helps you use transactions to maintain data integrity.',
+      ],
+    },
+    es: {
+      heading: 'Transacciones ACID',
+      paragraphs: [
+        'ACID significa Atomicity, Consistency, Isolation y Durability. Define las garantias de las transacciones de bases de datos confiables.',
+        'Los recursos a continuacion cubren limites de transaccion, niveles de aislamiento, commit, rollback y transacciones distribuidas. Cada guia te ayuda a usar transacciones para mantener la integridad de datos.',
+      ],
+    },
+  },
+  transactions: {
+    en: {
+      heading: 'Database Transactions',
+      paragraphs: [
+        'Transactions group database operations into atomic units. They ensure that a set of changes either completes together or rolls back as a unit.',
+        'The resources below cover transaction design, isolation, distributed transactions, saga patterns, and compensation. Each guide helps you implement reliable data changes.',
+      ],
+    },
+    es: {
+      heading: 'Transacciones de Base de Datos',
+      paragraphs: [
+        'Las transacciones agrupan operaciones de base de datos en unidades atomicas. Aseguran que un conjunto de cambios se complete junto o se revierta como unidad.',
+        'Los recursos a continuacion cubren diseno de transacciones, aislamiento, transacciones distribuidas, patrones saga y compensacion. Cada guia te ayuda a implementar cambios de datos confiables.',
+      ],
+    },
+  },
+  'connection-pooling': {
+    en: {
+      heading: 'Connection Pooling',
+      paragraphs: [
+        'Connection pooling reuses database connections to reduce the overhead of opening and closing them. It improves performance and resource usage in high-traffic applications.',
+        'The resources below cover pool sizing, timeouts, health checks, and implementation in different languages. Each guide helps you configure connection pools for your workload.',
+      ],
+    },
+    es: {
+      heading: 'Connection Pooling',
+      paragraphs: [
+        'El connection pooling reutiliza conexiones de base de datos para reducir el overhead de abrir y cerrarlas. Mejora rendimiento y uso de recursos en aplicaciones de alto trafico.',
+        'Los recursos a continuacion cubren tamano de pool, timeouts, health checks e implementacion en diferentes lenguajes. Cada guia te ayuda a configurar pools de conexion para tu carga.',
+      ],
+    },
+  },
 };
