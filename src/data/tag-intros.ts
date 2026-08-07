@@ -2820,4 +2820,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  elasticsearch: {
+    en: {
+      heading: 'Elasticsearch and Search',
+      paragraphs: [
+        'Elasticsearch is a distributed search and analytics engine. It is commonly used for full-text search, log aggregation, and real-time analytics.',
+        'The resources below cover indexing, querying, mappings, aggregations, cluster operations, and performance tuning. Each guide helps you build fast and relevant search experiences.',
+      ],
+    },
+    es: {
+      heading: 'Elasticsearch y Busqueda',
+      paragraphs: [
+        'Elasticsearch es un motor de busqueda y analitica distribuido. Se usa comunmente para busqueda full-text, agregacion de logs y analitica en tiempo real.',
+        'Los recursos a continuacion cubren indexacion, consultas, mappings, agregaciones, operaciones de cluster y ajuste de rendimiento. Cada guia te ayuda a construir experiencias de busqueda rapidas y relevantes.',
+      ],
+    },
+  },
+  orm: {
+    en: {
+      heading: 'Object-Relational Mapping',
+      paragraphs: [
+        'ORMs bridge object-oriented code and relational databases. They reduce boilerplate but introduce abstraction costs and performance trade-offs.',
+        'The resources below cover SQLAlchemy, Hibernate, Prisma, TypeORM, and Entity Framework. Each guide explains how to use ORMs effectively while avoiding common pitfalls.',
+      ],
+    },
+    es: {
+      heading: 'Object-Relational Mapping',
+      paragraphs: [
+        'Los ORMs conectan codigo orientado a objetos y bases de datos relacionales. Reducen codigo repetitivo pero introducen costos de abstraccion y trade-offs de rendimiento.',
+        'Los recursos a continuacion cubren SQLAlchemy, Hibernate, Prisma, TypeORM y Entity Framework. Cada guia explica como usar ORMs de forma efectiva evitando errores comunes.',
+      ],
+    },
+  },
+  compression: {
+    en: {
+      heading: 'Data Compression',
+      paragraphs: [
+        'Compression reduces the size of data for storage or transmission. It improves bandwidth, latency, and cost but adds CPU overhead.',
+        'The resources below cover gzip, brotli, zstd, Snappy, image compression, and protocol-level compression. Each guide shows how to compress efficiently without hurting performance.',
+      ],
+    },
+    es: {
+      heading: 'Compresion de Datos',
+      paragraphs: [
+        'La compresion reduce el tamano de los datos para almacenamiento o transmision. Mejora ancho de banda, latencia y costo pero agrega overhead de CPU.',
+        'Los recursos a continuacion cubren gzip, brotli, zstd, Snappy, compresion de imagenes y compresion a nivel de protocolo. Cada guia muestra como comprimir eficientemente sin afectar rendimiento.',
+      ],
+    },
+  },
+  'health-check': {
+    en: {
+      heading: 'Health Checks and Liveness',
+      paragraphs: [
+        'Health checks tell load balancers and orchestrators whether a service is healthy. They are essential for zero-downtime deployments and automatic recovery.',
+        'The resources below cover HTTP health endpoints, readiness vs liveness, dependencies, and Kubernetes probes. Each guide shows how to design probes that reflect real service health.',
+      ],
+    },
+    es: {
+      heading: 'Health Checks y Liveness',
+      paragraphs: [
+        'Los health checks indican a load balancers y orquestadores si un servicio esta sano. Son esenciales para despliegues sin downtime y recuperacion automatica.',
+        'Los recursos a continuacion cubren endpoints de salud HTTP, readiness vs liveness, dependencias y probes de Kubernetes. Cada guia muestra como disenar probes que reflejen la salud real.',
+      ],
+    },
+  },
+  isolation: {
+    en: {
+      heading: 'Isolation Levels and Concurrency Control',
+      paragraphs: [
+        'Isolation defines how concurrent transactions interact. Stronger isolation prevents anomalies but can reduce throughput.',
+        'The resources below cover read uncommitted, read committed, repeatable read, serializable, MVCC, and locking. Each guide explains how to choose the right isolation level for your workload.',
+      ],
+    },
+    es: {
+      heading: 'Niveles de Aislamiento y Control de Concurrencia',
+      paragraphs: [
+        'El aislamiento define como interactuan las transacciones concurrentes. Un aislamiento mas fuerte previene anomalias pero puede reducir throughput.',
+        'Los recursos a continuacion cubren read uncommitted, read committed, repeatable read, serializable, MVCC y bloqueos. Cada guia explica como elegir el nivel de aislamiento correcto para tu carga.',
+      ],
+    },
+  },
+  workflow: {
+    en: {
+      heading: 'Workflow Automation',
+      paragraphs: [
+        'Workflows coordinate steps, decisions, and people across a process. Automating them reduces manual work and improves consistency.',
+        'The resources below cover workflow engines, state machines, approval flows, DAGs, and BPMN. Each guide helps you design workflows that are reliable and observable.',
+      ],
+    },
+    es: {
+      heading: 'Automatizacion de Workflows',
+      paragraphs: [
+        'Los workflows coordinan pasos, decisiones y personas a lo largo de un proceso. Automatizarlos reduce trabajo manual y mejora consistencia.',
+        'Los recursos a continuacion cubren motores de workflow, maquinas de estado, flujos de aprobacion, DAGs y BPMN. Cada guia te ayuda a disenar workflows confiables y observables.',
+      ],
+    },
+  },
+  helm: {
+    en: {
+      heading: 'Helm for Kubernetes',
+      paragraphs: [
+        'Helm is the package manager for Kubernetes. It lets you define, install, and upgrade complex applications using charts.',
+        'The resources below cover Helm charts, templates, values, releases, rollbacks, and best practices. Each guide helps you manage Kubernetes applications as versioned packages.',
+      ],
+    },
+    es: {
+      heading: 'Helm para Kubernetes',
+      paragraphs: [
+        'Helm es el gestor de paquetes de Kubernetes. Permite definir, instalar y actualizar aplicaciones complejas usando charts.',
+        'Los recursos a continuacion cubren charts, templates, values, releases, rollbacks y mejores practicas de Helm. Cada guia te ayuda a gestionar aplicaciones Kubernetes como paquetes versionados.',
+      ],
+    },
+  },
+  iac: {
+    en: {
+      heading: 'Infrastructure as Code',
+      paragraphs: [
+        'Infrastructure as Code lets you provision and manage infrastructure through code. It enables version control, review, testing, and reproducibility.',
+        'The resources below cover Terraform, Pulumi, Ansible, CloudFormation, and Azure Bicep. Each guide shows how to automate infrastructure safely and consistently.',
+      ],
+    },
+    es: {
+      heading: 'Infraestructura como Codigo',
+      paragraphs: [
+        'La Infraestructura como Codigo permite aprovisionar y gestionar infraestructura a traves de codigo. Habilita control de versiones, revision, testing y reproducibilidad.',
+        'Los recursos a continuacion cubren Terraform, Pulumi, Ansible, CloudFormation y Azure Bicep. Cada guia muestra como automatizar infraestructura de forma segura y consistente.',
+      ],
+    },
+  },
+  'state-management': {
+    en: {
+      heading: 'Application State Management',
+      paragraphs: [
+        'State management defines how an application stores, updates, and shares data across components. Good state management makes UI predictable and testable.',
+        'The resources below cover React state, Redux, Vuex, Zustand, signals, and server state. Each guide helps you choose the right state pattern for your application.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Estado de Aplicaciones',
+      paragraphs: [
+        'La gestion de estado define como una aplicacion almacena, actualiza y comparte datos entre componentes. Una buena gestion hace la UI predecible y testeable.',
+        'Los recursos a continuacion cubren estado de React, Redux, Vuex, Zustand, signals y estado de servidor. Cada guia te ayuda a elegir el patron de estado correcto para tu aplicacion.',
+      ],
+    },
+  },
+  browser: {
+    en: {
+      heading: 'Browser APIs and Frontend',
+      paragraphs: [
+        'The browser is the runtime for most user-facing web applications. Modern frontend development relies on browser APIs, performance, accessibility, and security.',
+        'The resources below cover DOM, fetch, storage, service workers, events, and browser performance. Each guide helps you build applications that work well across browsers.',
+      ],
+    },
+    es: {
+      heading: 'APIs del Navegador y Frontend',
+      paragraphs: [
+        'El navegador es el runtime de la mayoria de aplicaciones web orientadas a usuarios. El desarrollo frontend moderno depende de APIs del navegador, rendimiento, accesibilidad y seguridad.',
+        'Los recursos a continuacion cubren DOM, fetch, almacenamiento, service workers, eventos y rendimiento del navegador. Cada guia te ayuda a construir aplicaciones que funcionen bien en todos los navegadores.',
+      ],
+    },
+  },
+  ui: {
+    en: {
+      heading: 'User Interface Design and Engineering',
+      paragraphs: [
+        'UI is the layer where users interact with software. Good UI is clear, accessible, responsive, and consistent with the design system.',
+        'The resources below cover components, design tokens, forms, validation, responsive design, and accessibility. Each guide helps you build interfaces that are usable and inclusive.',
+      ],
+    },
+    es: {
+      heading: 'Diseno e Ingenieria de Interfaces de Usuario',
+      paragraphs: [
+        'La UI es la capa donde los usuarios interactuan con el software. Una buena UI es clara, accesible, responsive y consistente con el sistema de diseno.',
+        'Los recursos a continuacion cubren componentes, design tokens, formularios, validacion, diseno responsive y accesibilidad. Cada guia te ayuda a construir interfaces usables e inclusivas.',
+      ],
+    },
+  },
+  'api-design': {
+    en: {
+      heading: 'API Design',
+      paragraphs: [
+        'API design is the practice of defining interfaces that are clear, consistent, and easy to consume. Good design reduces integration friction and improves long-term maintainability.',
+        'The resources below cover REST, GraphQL, versioning, pagination, error responses, and OpenAPI. Each guide helps you design APIs that developers enjoy using.',
+      ],
+    },
+    es: {
+      heading: 'Diseno de APIs',
+      paragraphs: [
+        'El diseno de APIs es la practica de definir interfaces claras, consistentes y faciles de consumir. Un buen diseno reduce la friccion de integracion y mejora la mantenibilidad a largo plazo.',
+        'Los recursos a continuacion cubren REST, GraphQL, versionado, paginacion, respuestas de error y OpenAPI. Cada guia te ayuda a disenar APIs que los desarrolladores disfruten usar.',
+      ],
+    },
+  },
+  federation: {
+    en: {
+      heading: 'GraphQL Federation',
+      paragraphs: [
+        'GraphQL federation lets multiple services contribute to a single unified graph. It enables independent teams to own domain-specific schemas while presenting one API.',
+        'The resources below cover Apollo Federation, schema stitching, entity ownership, gateways, and subgraphs. Each guide shows how to build distributed GraphQL architectures.',
+      ],
+    },
+    es: {
+      heading: 'Federacion de GraphQL',
+      paragraphs: [
+        'La federacion de GraphQL permite que multiples servicios contribuyan a un grafo unificado. Habilita a equipos independientes a poseer esquemas de dominio especifico mientras presentan una sola API.',
+        'Los recursos a continuacion cubren Apollo Federation, schema stitching, ownership de entidades, gateways y subgraphs. Cada guia muestra como construir arquitecturas GraphQL distribuidas.',
+      ],
+    },
+  },
+  opentelemetry: {
+    en: {
+      heading: 'OpenTelemetry',
+      paragraphs: [
+        'OpenTelemetry is the open standard for observability. It provides a unified API for traces, metrics, and logs across languages and platforms.',
+        'The resources below cover instrumentation, collectors, exporters, context propagation, and OTLP. Each guide helps you add observability without vendor lock-in.',
+      ],
+    },
+    es: {
+      heading: 'OpenTelemetry',
+      paragraphs: [
+        'OpenTelemetry es el estandar abierto para observabilidad. Proporciona una API unificada para trazas, metricas y logs entre lenguajes y plataformas.',
+        'Los recursos a continuacion cubren instrumentacion, collectors, exporters, propagacion de contexto y OTLP. Cada guia te ayuda a agregar observabilidad sin vendor lock-in.',
+      ],
+    },
+  },
+  'core-web-vitals': {
+    en: {
+      heading: 'Core Web Vitals',
+      paragraphs: [
+        'Core Web Vitals are the key metrics Google uses to measure user experience: LCP, INP, and CLS. They directly impact SEO, conversions, and perceived performance.',
+        'The resources below cover measurement, optimization, lazy loading, image handling, and interaction responsiveness. Each guide helps you improve real-world page performance.',
+      ],
+    },
+    es: {
+      heading: 'Core Web Vitals',
+      paragraphs: [
+        'Core Web Vitals son las metricas clave que Google usa para medir la experiencia de usuario: LCP, INP y CLS. Impactan directamente en SEO, conversiones y rendimiento percibido.',
+        'Los recursos a continuacion cubren medicion, optimizacion, lazy loading, manejo de imagenes y respuesta de interaccion. Cada guia te ayuda a mejorar el rendimiento real de las paginas.',
+      ],
+    },
+  },
+  'secrets-management': {
+    en: {
+      heading: 'Secrets Management',
+      paragraphs: [
+        'Secrets management is the secure storage, access, and rotation of sensitive credentials. It is a foundational practice for cloud, CI/CD, and application security.',
+        'The resources below cover secret managers, vaults, dynamic credentials, zero-trust, and rotation. Each guide helps you keep secrets out of code and under control.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Secretos',
+      paragraphs: [
+        'La gestion de secretos es el almacenamiento, acceso y rotacion seguros de credenciales sensibles. Es una practica fundamental para la seguridad en la nube, CI/CD y aplicaciones.',
+        'Los recursos a continuacion cubren secret managers, vaults, credenciales dinamicas, confianza cero y rotacion. Cada guia te ayuda a mantener secretos fuera del codigo y bajo control.',
+      ],
+    },
+  },
+  'cold-start': {
+    en: {
+      heading: 'Cold Start Optimization',
+      paragraphs: [
+        'Cold starts are the latency of initializing a function or container from scratch. They are a common challenge in serverless and scale-to-zero platforms.',
+        'The resources below cover provisioned concurrency, lazy loading, container optimization, and function design. Each guide helps you reduce or eliminate cold start latency.',
+      ],
+    },
+    es: {
+      heading: 'Optimizacion de Cold Start',
+      paragraphs: [
+        'Los cold starts son la latencia de inicializar una funcion o contenedor desde cero. Son un desafio comun en serverless y plataformas scale-to-zero.',
+        'Los recursos a continuacion cubren provisioned concurrency, lazy loading, optimizacion de contenedores y diseno de funciones. Cada guia te ayuda a reducir o eliminar la latencia de cold start.',
+      ],
+    },
+  },
+  refactoring: {
+    en: {
+      heading: 'Code Refactoring',
+      paragraphs: [
+        'Refactoring changes code without changing behavior. It improves readability, reduces complexity, and prepares the codebase for new features.',
+        'The resources below cover refactoring techniques, test-driven refactoring, removing duplication, and breaking dependencies. Each guide helps you refactor safely and incrementally.',
+      ],
+    },
+    es: {
+      heading: 'Refactoring de Codigo',
+      paragraphs: [
+        'El refactoring cambia el codigo sin cambiar el comportamiento. Mejora la legibilidad, reduce la complejidad y prepara el codigo para nuevas caracteristicas.',
+        'Los recursos a continuacion cubren tecnicas de refactoring, refactoring guiado por tests, eliminacion de duplicacion y ruptura de dependencias. Cada guia te ayuda a refactorizar de forma segura e incremental.',
+      ],
+    },
+  },
+  'disaster-recovery': {
+    en: {
+      heading: 'Disaster Recovery',
+      paragraphs: [
+        'Disaster recovery is the ability to restore systems after a major failure. It requires backups, runbooks, tested recovery procedures, and clear RTO/RPO objectives.',
+        'The resources below cover backup strategies, region failover, data replication, and recovery testing. Each guide helps you prepare for failures that go beyond normal incident response.',
+      ],
+    },
+    es: {
+      heading: 'Recuperacion ante Desastres',
+      paragraphs: [
+        'La recuperacion ante desastres es la capacidad de restaurar sistemas despues de una falla mayor. Requiere backups, runbooks, procedimientos de recuperacion probados y objetivos claros de RTO/RPO.',
+        'Los recursos a continuacion cubren estrategias de backup, failover entre regiones, replicacion de datos y testing de recuperacion. Cada guia te ayuda a prepararte para fallas que van mas alla de la respuesta normal a incidentes.',
+      ],
+    },
+  },
+  scaling: {
+    en: {
+      heading: 'Scaling Systems',
+      paragraphs: [
+        'Scaling is the ability to handle growing load without degrading performance. It requires understanding vertical and horizontal scaling, bottlenecks, and trade-offs.',
+        'The resources below cover load balancing, auto-scaling, database sharding, caching, and stateless design. Each guide helps you scale systems predictably and cost-effectively.',
+      ],
+    },
+    es: {
+      heading: 'Escalado de Sistemas',
+      paragraphs: [
+        'El escalado es la capacidad de manejar carga creciente sin degradar el rendimiento. Requiere entender escalado vertical y horizontal, cuellos de botella y trade-offs.',
+        'Los recursos a continuacion cubren load balancing, auto-scaling, sharding de bases de datos, caching y diseno stateless. Cada guia te ayuda a escalar sistemas de forma predecible y rentable.',
+      ],
+    },
+  },
+  incident: {
+    en: {
+      heading: 'Incident Management',
+      paragraphs: [
+        'Incident management is the process of responding to and recovering from production failures. Effective incident management reduces downtime and preserves customer trust.',
+        'The resources below cover incident response, on-call, triage, communication, postmortems, and runbooks. Each guide helps you build a reliable incident practice.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Incidentes',
+      paragraphs: [
+        'La gestion de incidentes es el proceso de responder y recuperarse de fallas en produccion. Una gestion efectiva reduce el tiempo de inactividad y preserva la confianza del cliente.',
+        'Los recursos a continuacion cubren respuesta a incidentes, on-call, triage, comunicacion, postmortems y runbooks. Cada guia te ayuda a construir una practica de incidentes confiable.',
+      ],
+    },
+  },
+  grafana: {
+    en: {
+      heading: 'Grafana and Visualization',
+      paragraphs: [
+        'Grafana is a leading visualization tool for metrics, logs, and traces. It helps teams build dashboards that reveal system health and trends.',
+        'The resources below cover dashboards, panels, queries, alerts, Loki, and Prometheus integration. Each guide helps you create observability dashboards that are actionable.',
+      ],
+    },
+    es: {
+      heading: 'Grafana y Visualizacion',
+      paragraphs: [
+        'Grafana es una herramienta lider de visualizacion para metricas, logs y trazas. Ayuda a los equipos a construir dashboards que revelan la salud y tendencias del sistema.',
+        'Los recursos a continuacion cubren dashboards, paneles, consultas, alertas, Loki e integracion con Prometheus. Cada guia te ayuda a crear dashboards de observabilidad accionables.',
+      ],
+    },
+  },
+  'batch-processing': {
+    en: {
+      heading: 'Batch Processing',
+      paragraphs: [
+        'Batch processing handles large volumes of data in scheduled jobs. It is efficient for analytics, ETL, and workloads that do not require real-time results.',
+        'The resources below cover batch architecture, job schedulers, idempotency, retries, and data partitioning. Each guide helps you build reliable and scalable batch pipelines.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento por Lotes',
+      paragraphs: [
+        'El procesamiento por lotes maneja grandes volumenes de datos en trabajos programados. Es eficiente para analitica, ETL y cargas que no requieren resultados en tiempo real.',
+        'Los recursos a continuacion cubren arquitectura batch, job schedulers, idempotencia, reintentos y particion de datos. Cada guia te ayuda a construir pipelines batch confiables y escalables.',
+      ],
+    },
+  },
+  pagination: {
+    en: {
+      heading: 'Pagination Strategies',
+      paragraphs: [
+        'Pagination breaks large datasets into smaller chunks for clients. It improves performance, usability, and resource usage in APIs and UIs.',
+        'The resources below cover offset, cursor, and keyset pagination, as well as infinite scroll and page numbers. Each guide helps you choose the right pagination strategy for your use case.',
+      ],
+    },
+    es: {
+      heading: 'Estrategias de Paginacion',
+      paragraphs: [
+        'La paginacion divide grandes conjuntos de datos en fragmentos mas pequenos para los clientes. Mejora rendimiento, usabilidad y uso de recursos en APIs y UIs.',
+        'Los recursos a continuacion cubren paginacion por offset, cursor y keyset, ademas de infinite scroll y numeros de pagina. Cada guia te ayuda a elegir la estrategia de paginacion correcta para tu caso.',
+      ],
+    },
+  },
+  cors: {
+    en: {
+      heading: 'Cross-Origin Resource Sharing',
+      paragraphs: [
+        'CORS controls how web pages can request resources from a different domain. Misconfigured CORS can block legitimate users or expose APIs to unauthorized sites.',
+        'The resources below cover CORS headers, preflight requests, credentials, and security best practices. Each guide helps you configure CORS correctly for web applications.',
+      ],
+    },
+    es: {
+      heading: 'Cross-Origin Resource Sharing',
+      paragraphs: [
+        'CORS controla como las paginas web pueden solicitar recursos de un dominio diferente. Un CORS mal configurado puede bloquear usuarios legitimos o exponer APIs a sitios no autorizados.',
+        'Los recursos a continuacion cubren headers de CORS, preflight requests, credenciales y mejores practicas de seguridad. Cada guia te ayuda a configurar CORS correctamente para aplicaciones web.',
+      ],
+    },
+  },
 };
