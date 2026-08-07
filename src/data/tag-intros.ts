@@ -10804,4 +10804,452 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  files: {
+    en: {
+      heading: 'File Handling',
+      paragraphs: [
+        'File handling covers reading, writing, and managing files. It is a common task in applications, scripts, and data processing.',
+        'The resources below cover file I/O, streaming, permissions, and formats. Each guide helps you work with files reliably.',
+      ],
+    },
+    es: {
+      heading: 'Manejo de Archivos',
+      paragraphs: [
+        'El manejo de archivos cubre lectura, escritura y gestion de archivos. Es una tarea comun en aplicaciones, scripts y procesamiento de datos.',
+        'Los recursos a continuacion cubren I/O de archivos, streaming, permisos y formatos. Cada guia te ayuda a trabajar con archivos de forma confiable.',
+      ],
+    },
+  },
+  modules: {
+    en: {
+      heading: 'Modules and Modularity',
+      paragraphs: [
+        'Modules are self-contained units of code that encapsulate functionality. They improve maintainability and reuse.',
+        'The resources below cover module systems, boundaries, and packaging. Each guide helps you organize code into modules.',
+      ],
+    },
+    es: {
+      heading: 'Modulos y Modularidad',
+      paragraphs: [
+        'Los modulos son unidades de codigo autocontenidas que encapsulan funcionalidad. Mejoran la mantenibilidad y reutilizacion.',
+        'Los recursos a continuacion cubren sistemas de modulos, limites y empaquetado. Cada guia te ayuda a organizar codigo en modulos.',
+      ],
+    },
+  },
+  state: {
+    en: {
+      heading: 'State Management',
+      paragraphs: [
+        'State management handles how data is stored and updated in an application. Good state management prevents bugs and inconsistent UI.',
+        'The resources below cover global state, local state, stores, and patterns. Each guide helps you manage state effectively.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Estado',
+      paragraphs: [
+        'La gestion de estado maneja como se almacenan y actualizan los datos en una aplicacion. Una buena gestion de estado previene errores e interfaces inconsistentes.',
+        'Los recursos a continuacion cubren estado global, estado local, stores y patrones. Cada guia te ayuda a gestionar el estado efectivamente.',
+      ],
+    },
+  },
+  cost: {
+    en: {
+      heading: 'Cloud and Infrastructure Cost',
+      paragraphs: [
+        'Cost management ensures cloud and infrastructure spending aligns with value. It covers optimization, budgeting, and FinOps.',
+        'The resources below cover reserved instances, rightsizing, tagging, and forecasting. Each guide helps you control and optimize costs.',
+      ],
+    },
+    es: {
+      heading: 'Costo de Cloud e Infraestructura',
+      paragraphs: [
+        'La gestion de costos asegura que el gasto en cloud e infraestructura se alinee con el valor. Cubre optimizacion, presupuesto y FinOps.',
+        'Los recursos a continuacion cubren instancias reservadas, rightsizing, tagging y forecasting. Cada guia te ayuda a controlar y optimizar costos.',
+      ],
+    },
+  },
+  consumer: {
+    en: {
+      heading: 'Message Consumers',
+      paragraphs: [
+        'A consumer receives and processes messages from a queue or topic. Consumers are key to scalable and decoupled architectures.',
+        'The resources below cover consumer groups, offsets, idempotency, and scaling. Each guide helps you build reliable consumers.',
+      ],
+    },
+    es: {
+      heading: 'Consumidores de Mensajes',
+      paragraphs: [
+        'Un consumidor recibe y procesa mensajes de una cola o topico. Los consumidores son clave para arquitecturas escalables y desacopladas.',
+        'Los recursos a continuacion cubren grupos de consumidores, offsets, idempotencia y escalado. Cada guia te ayuda a construir consumidores confiables.',
+      ],
+    },
+  },
+  distributed: {
+    en: {
+      heading: 'Distributed Systems',
+      paragraphs: [
+        'Distributed systems consist of independent components that communicate over a network. They enable scale and resilience.',
+        'The resources below cover consensus, replication, messaging, and failure modes. Each guide helps you design and operate distributed systems.',
+      ],
+    },
+    es: {
+      heading: 'Sistemas Distribuidos',
+      paragraphs: [
+        'Los sistemas distribuidos consisten en componentes independientes que se comunican a traves de una red. Habilitan escala y resiliencia.',
+        'Los recursos a continuacion cubren consenso, replicacion, mensajeria y modos de falla. Cada guia te ayuda a disenar y operar sistemas distribuidos.',
+      ],
+    },
+  },
+  dependencies: {
+    en: {
+      heading: 'Dependency Management',
+      paragraphs: [
+        'Dependency management controls the libraries and packages a project uses. It affects security, stability, and build reproducibility.',
+        'The resources below cover package managers, lock files, updates, and vulnerability scanning. Each guide helps you manage dependencies safely.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Dependencias',
+      paragraphs: [
+        'La gestion de dependencias controla las librerias y paquetes que usa un proyecto. Afecta seguridad, estabilidad y reproducibilidad del build.',
+        'Los recursos a continuacion cubren gestores de paquetes, lock files, actualizaciones y escaneo de vulnerabilidades. Cada guia te ayuda a gestionar dependencias de forma segura.',
+      ],
+    },
+  },
+  search: {
+    en: {
+      heading: 'Search Functionality',
+      paragraphs: [
+        'Search lets users find relevant content or data. It involves indexing, querying, ranking, and relevance.',
+        'The resources below cover full-text search, vector search, and search engines. Each guide helps you implement search that works.',
+      ],
+    },
+    es: {
+      heading: 'Funcionalidad de Busqueda',
+      paragraphs: [
+        'La busqueda permite a los usuarios encontrar contenido o datos relevantes. Involucra indexacion, consultas, ranking y relevancia.',
+        'Los recursos a continuacion cubren busqueda full-text, busqueda vectorial y motores de busqueda. Cada guia te ayuda a implementar busqueda que funcione.',
+      ],
+    },
+  },
+  invalidation: {
+    en: {
+      heading: 'Cache Invalidation',
+      paragraphs: [
+        'Cache invalidation removes or updates stale data in a cache. It is one of the hardest problems in caching.',
+        'The resources below cover TTL, write-through, write-behind, and explicit invalidation. Each guide helps you keep caches consistent.',
+      ],
+    },
+    es: {
+      heading: 'Invalidacion de Cache',
+      paragraphs: [
+        'La invalidacion de cache elimina o actualiza datos obsoletos en un cache. Es uno de los problemas mas dificiles del caching.',
+        'Los recursos a continuacion cubren TTL, write-through, write-behind e invalidacion explicita. Cada guia te ayuda a mantener los caches consistentes.',
+      ],
+    },
+  },
+  risk: {
+    en: {
+      heading: 'Risk Management in Engineering',
+      paragraphs: [
+        'Risk management identifies and mitigates threats to projects and systems. It supports better decisions and preparedness.',
+        'The resources below cover risk assessment, mitigation, and monitoring. Each guide helps you manage engineering risk.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Riesgos en Ingenieria',
+      paragraphs: [
+        'La gestion de riesgos identifica y mitiga amenazas para proyectos y sistemas. Soporta mejores decisiones y preparacion.',
+        'Los recursos a continuacion cubren evaluacion de riesgos, mitigacion y monitoreo. Cada guia te ayuda a gestionar riesgos de ingenieria.',
+      ],
+    },
+  },
+  composite: {
+    en: {
+      heading: 'Composite Pattern',
+      paragraphs: [
+        'The composite pattern treats individual objects and compositions uniformly. It is useful for tree structures and recursive hierarchies.',
+        'The resources below cover component, composite, leaf, and client code. Each guide helps you build tree-like structures.',
+      ],
+    },
+    es: {
+      heading: 'Patron Composite',
+      paragraphs: [
+        'El patron composite trata objetos individuales y composiciones de forma uniforme. Es util para estructuras de arbol y jerarquias recursivas.',
+        'Los recursos a continuacion cubren component, composite, leaf y codigo cliente. Cada guia te ayuda a construir estructuras tipo arbol.',
+      ],
+    },
+  },
+  edge: {
+    en: {
+      heading: 'Edge Computing and CDN',
+      paragraphs: [
+        'Edge computing runs logic closer to users for lower latency. CDNs deliver content from edge locations.',
+        'The resources below cover edge functions, CDNs, caching, and serverless edge. Each guide helps you build fast, distributed applications.',
+      ],
+    },
+    es: {
+      heading: 'Edge Computing y CDN',
+      paragraphs: [
+        'El edge computing ejecuta logica mas cerca de los usuarios para menor latencia. Los CDNs entregan contenido desde ubicaciones de edge.',
+        'Los recursos a continuacion cubren edge functions, CDNs, cache y serverless edge. Cada guia te ayuda a construir aplicaciones rapidas y distribuidas.',
+      ],
+    },
+  },
+  architectural: {
+    en: {
+      heading: 'Architectural Design',
+      paragraphs: [
+        'Architectural design defines the high-level structure of a system. It shapes how components interact and evolve.',
+        'The resources below cover architecture styles, patterns, and trade-offs. Each guide helps you design systems that meet your goals.',
+      ],
+    },
+    es: {
+      heading: 'Diseno Arquitectonico',
+      paragraphs: [
+        'El diseno arquitectonico define la estructura de alto nivel de un sistema. Moldea como los componentes interactuan y evolucionan.',
+        'Los recursos a continuacion cubren estilos de arquitectura, patrones y trade-offs. Cada guia te ayuda a disenar sistemas que cumplan tus objetivos.',
+      ],
+    },
+  },
+  budget: {
+    en: {
+      heading: 'Error Budgets',
+      paragraphs: [
+        'Error budgets balance reliability and innovation. They define how much downtime or failure is acceptable over a period.',
+        'The resources below cover SLOs, SLIs, burn rate, and policy. Each guide helps you use error budgets to guide release decisions.',
+      ],
+    },
+    es: {
+      heading: 'Presupuestos de Error',
+      paragraphs: [
+        'Los presupuestos de error equilibran confiabilidad e innovacion. Definen cuanto tiempo de inactividad o falla es aceptable en un periodo.',
+        'Los recursos a continuacion cubren SLOs, SLIs, burn rate y politicas. Cada guia te ayuda a usar presupuestos de error para guiar decisiones de release.',
+      ],
+    },
+  },
+  production: {
+    en: {
+      heading: 'Production Readiness',
+      paragraphs: [
+        'Production readiness ensures a system can run reliably in production. It covers monitoring, rollback, scaling, and incident response.',
+        'The resources below cover checklists, observability, and deployment practices. Each guide helps you prepare systems for production.',
+      ],
+    },
+    es: {
+      heading: 'Readiness de Produccion',
+      paragraphs: [
+        'La readiness de produccion asegura que un sistema pueda ejecutarse de forma confiable en produccion. Cubre monitoreo, rollback, escalado y respuesta a incidentes.',
+        'Los recursos a continuacion cubren checklists, observabilidad y practicas de despliegue. Cada guia te ayuda a preparar sistemas para produccion.',
+      ],
+    },
+  },
+  standards: {
+    en: {
+      heading: 'Engineering Standards',
+      paragraphs: [
+        'Engineering standards define conventions and expectations for code, process, and quality. They improve consistency and collaboration.',
+        'The resources below cover style guides, review, and compliance. Each guide helps you set and follow team standards.',
+      ],
+    },
+    es: {
+      heading: 'Estandares de Ingenieria',
+      paragraphs: [
+        'Los estandares de ingenieria definen convenciones y expectativas para codigo, proceso y calidad. Mejoran consistencia y colaboracion.',
+        'Los recursos a continuacion cubren guias de estilo, revision y cumplimiento. Cada guia te ayuda a establecer y seguir estandares de equipo.',
+      ],
+    },
+  },
+  tagging: {
+    en: {
+      heading: 'Tagging and Categorization',
+      paragraphs: [
+        'Tagging assigns labels to resources for organization, search, and cost allocation. Good tagging enables governance and automation.',
+        'The resources below cover taxonomy, metadata, and cloud tagging. Each guide helps you design and apply effective tags.',
+      ],
+    },
+    es: {
+      heading: 'Etiquetado y Categorizacion',
+      paragraphs: [
+        'El etiquetado asigna etiquetas a recursos para organizacion, busqueda y asignacion de costos. Un buen etiquetado habilita gobernanza y automatizacion.',
+        'Los recursos a continuacion cubren taxonomia, metadatos y etiquetado en cloud. Cada guia te ayuda a disenar y aplicar etiquetas efectivas.',
+      ],
+    },
+  },
+  text: {
+    en: {
+      heading: 'Text Processing',
+      paragraphs: [
+        'Text processing manipulates and analyzes text data. It is used for parsing, cleaning, transformation, and extraction.',
+        'The resources below cover string manipulation, regex, tokenization, and NLP. Each guide helps you work with text data effectively.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de Texto',
+      paragraphs: [
+        'El procesamiento de texto manipula y analiza datos de texto. Se usa para parseo, limpieza, transformacion y extraccion.',
+        'Los recursos a continuacion cubren manipulacion de strings, regex, tokenizacion y NLP. Cada guia te ayuda a trabajar con datos de texto efectivamente.',
+      ],
+    },
+  },
+  auth: {
+    en: {
+      heading: 'Authentication and Authorization',
+      paragraphs: [
+        'Authentication verifies identity, while authorization controls access. Both are essential for application security.',
+        'The resources below cover OAuth, OIDC, RBAC, and tokens. Each guide helps you secure access to applications.',
+      ],
+    },
+    es: {
+      heading: 'Autenticacion y Autorizacion',
+      paragraphs: [
+        'La autenticacion verifica identidad, mientras que la autorizacion controla el acceso. Ambas son esenciales para la seguridad de aplicaciones.',
+        'Los recursos a continuacion cubren OAuth, OIDC, RBAC y tokens. Cada guia te ayuda a asegurar el acceso a aplicaciones.',
+      ],
+    },
+  },
+  events: {
+    en: {
+      heading: 'Event-Driven Architecture',
+      paragraphs: [
+        'Event-driven architecture uses events to trigger and communicate between services. It supports loose coupling and scalability.',
+        'The resources below cover event buses, streams, patterns, and use cases. Each guide helps you build event-driven systems.',
+      ],
+    },
+    es: {
+      heading: 'Arquitectura Orientada a Eventos',
+      paragraphs: [
+        'La arquitectura orientada a eventos usa eventos para desencadenar y comunicar entre servicios. Soporta bajo acoplamiento y escalabilidad.',
+        'Los recursos a continuacion cubren buses de eventos, streams, patrones y casos de uso. Cada guia te ayuda a construir sistemas orientados a eventos.',
+      ],
+    },
+  },
+  go: {
+    en: {
+      heading: 'Go Programming',
+      paragraphs: [
+        'Go is a statically typed language from Google. It is designed for simplicity, concurrency, and efficient compilation.',
+        'The resources below cover language features, concurrency, tooling, and patterns. Each guide helps you write effective Go code.',
+      ],
+    },
+    es: {
+      heading: 'Programacion en Go',
+      paragraphs: [
+        'Go es un lenguaje estaticamente tipado de Google. Esta disenado para simplicidad, concurrencia y compilacion eficiente.',
+        'Los recursos a continuacion cubren caracteristicas del lenguaje, concurrencia, herramientas y patrones. Cada guia te ayuda a escribir codigo Go efectivo.',
+      ],
+    },
+  },
+  conversion: {
+    en: {
+      heading: 'Data Type Conversion',
+      paragraphs: [
+        'Conversion changes data from one type or format to another. It is common in parsing, serialization, and integration.',
+        'The resources below cover type casting, parsing, encoding, and serialization. Each guide helps you convert data safely and correctly.',
+      ],
+    },
+    es: {
+      heading: 'Conversion de Tipos de Datos',
+      paragraphs: [
+        'La conversion cambia datos de un tipo o formato a otro. Es comun en parseo, serializacion e integracion.',
+        'Los recursos a continuacion cubren type casting, parseo, codificacion y serializacion. Cada guia te ayuda a convertir datos de forma segura y correcta.',
+      ],
+    },
+  },
+  comparison: {
+    en: {
+      heading: 'Comparison and Evaluation',
+      paragraphs: [
+        'Comparison evaluates options based on criteria like performance, cost, and complexity. It helps teams make informed decisions.',
+        'The resources below cover decision matrices, benchmarks, and trade-off analysis. Each guide helps you compare technologies and approaches.',
+      ],
+    },
+    es: {
+      heading: 'Comparacion y Evaluacion',
+      paragraphs: [
+        'La comparacion evalua opciones basandose en criterios como rendimiento, costo y complejidad. Ayuda a los equipos a tomar decisiones informadas.',
+        'Los recursos a continuacion cubren matrices de decision, benchmarks y analisis de trade-offs. Cada guia te ayuda a comparar tecnologias y enfoques.',
+      ],
+    },
+  },
+  merge: {
+    en: {
+      heading: 'Git Merge and Integration',
+      paragraphs: [
+        'Merging combines changes from different branches. It is a core Git operation for collaborative development.',
+        'The resources below cover merge strategies, conflict resolution, and rebasing. Each guide helps you integrate code safely.',
+      ],
+    },
+    es: {
+      heading: 'Merge e Integracion en Git',
+      paragraphs: [
+        'El merge combina cambios de diferentes ramas. Es una operacion central de Git para desarrollo colaborativo.',
+        'Los recursos a continuacion cubren estrategias de merge, resolucion de conflictos y rebasing. Cada guia te ayuda a integrar codigo de forma segura.',
+      ],
+    },
+  },
+  development: {
+    en: {
+      heading: 'Software Development Practices',
+      paragraphs: [
+        'Software development practices cover how teams write, review, and ship code. Good practices improve quality and velocity.',
+        'The resources below cover agile, CI/CD, code review, and testing. Each guide helps you build a healthy development process.',
+      ],
+    },
+    es: {
+      heading: 'Practicas de Desarrollo de Software',
+      paragraphs: [
+        'Las practicas de desarrollo de software cubren como los equipos escriben, revisan y envian codigo. Buenas practicas mejoran calidad y velocidad.',
+        'Los recursos a continuacion cubren agile, CI/CD, code review y testing. Cada guia te ayuda a construir un proceso de desarrollo saludable.',
+      ],
+    },
+  },
+  quality: {
+    en: {
+      heading: 'Software Quality',
+      paragraphs: [
+        'Software quality encompasses how well a product meets requirements and user expectations. It includes testing, design, and maintainability.',
+        'The resources below cover quality assurance, metrics, and best practices. Each guide helps you deliver high-quality software.',
+      ],
+    },
+    es: {
+      heading: 'Calidad de Software',
+      paragraphs: [
+        'La calidad de software abarca que tan bien un producto cumple requisitos y expectativas de usuario. Incluye testing, diseno y mantenibilidad.',
+        'Los recursos a continuacion cubren aseguramiento de calidad, metricas y mejores practicas. Cada guia te ayuda a entregar software de alta calidad.',
+      ],
+    },
+  },
+  safety: {
+    en: {
+      heading: 'Safety in Software Systems',
+      paragraphs: [
+        'Safety ensures systems operate without unacceptable risk. It is critical in high-reliability and safety-critical domains.',
+        'The resources below cover failure modes, redundancy, validation, and testing. Each guide helps you design safer systems.',
+      ],
+    },
+    es: {
+      heading: 'Seguridad en Sistemas de Software',
+      paragraphs: [
+        'La seguridad asegura que los sistemas operen sin riesgo inaceptable. Es critica en dominios de alta confiabilidad y criticos para la seguridad.',
+        'Los recursos a continuacion cubren modos de falla, redundancia, validacion y testing. Cada guia te ayuda a disenar sistemas mas seguros.',
+      ],
+    },
+  },
+  batch: {
+    en: {
+      heading: 'Batch Processing',
+      paragraphs: [
+        'Batch processing runs jobs over large volumes of data without user interaction. It is used for ETL, reporting, and data pipelines.',
+        'The resources below cover schedulers, job management, and optimization. Each guide helps you build reliable batch systems.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento por Lotes',
+      paragraphs: [
+        'El procesamiento por lotes ejecuta trabajos sobre grandes volumenes de datos sin interaccion del usuario. Se usa para ETL, reportes y pipelines de datos.',
+        'Los recursos a continuacion cubren schedulers, gestion de trabajos y optimizacion. Cada guia te ayuda a construir sistemas batch confiables.',
+      ],
+    },
+  },
 };
