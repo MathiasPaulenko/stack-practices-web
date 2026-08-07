@@ -6004,4 +6004,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'fault-tolerance': {
+    en: {
+      heading: 'Fault Tolerance',
+      paragraphs: [
+        'Fault tolerance is the ability of a system to continue operating when components fail. It is a cornerstone of reliable distributed systems.',
+        'The resources below cover redundancy, retries, circuit breakers, graceful degradation, and isolation. Each guide helps you design systems that survive failures.',
+      ],
+    },
+    es: {
+      heading: 'Tolerancia a Fallas',
+      paragraphs: [
+        'La tolerancia a fallas es la capacidad de un sistema de seguir operando cuando los componentes fallan. Es una piedra angular de los sistemas distribuidos confiables.',
+        'Los recursos a continuacion cubren redundancia, reintentos, circuit breakers, degradacion elegante y aislamiento. Cada guia te ayuda a disenar sistemas que sobrevivan a fallas.',
+      ],
+    },
+  },
+  'horizontal-scaling': {
+    en: {
+      heading: 'Horizontal Scaling',
+      paragraphs: [
+        'Horizontal scaling adds more nodes to handle load. It is the primary scaling strategy for distributed systems and cloud-native applications.',
+        'The resources below cover load balancing, sharding, stateless services, and auto-scaling. Each guide helps you scale by adding capacity rather than growing existing nodes.',
+      ],
+    },
+    es: {
+      heading: 'Escalado Horizontal',
+      paragraphs: [
+        'El escalado horizontal agrega mas nodos para manejar carga. Es la estrategia principal de escalado para sistemas distribuidos y aplicaciones cloud-native.',
+        'Los recursos a continuacion cubren load balancing, sharding, servicios stateless y auto-scaling. Cada guia te ayuda a escalar agregando capacidad en lugar de agrandar nodos existentes.',
+      ],
+    },
+  },
+  inheritance: {
+    en: {
+      heading: 'Inheritance in OOP',
+      paragraphs: [
+        'Inheritance lets a class acquire properties and methods from another class. It is a powerful reuse mechanism but should be used carefully to avoid fragile hierarchies.',
+        'The resources below cover base classes, overrides, polymorphism, and composition over inheritance. Each guide helps you use inheritance effectively.',
+      ],
+    },
+    es: {
+      heading: 'Herencia en OOP',
+      paragraphs: [
+        'La herencia permite que una clase adquiera propiedades y metodos de otra clase. Es un poderoso mecanismo de reutilizacion pero debe usarse con cuidado para evitar jerarquias fragiles.',
+        'Los recursos a continuacion cubren clases base, overrides, polimorfismo y composicion sobre herencia. Cada guia te ayuda a usar la herencia efectivamente.',
+      ],
+    },
+  },
+  'separation-of-concerns': {
+    en: {
+      heading: 'Separation of Concerns',
+      paragraphs: [
+        'Separation of concerns divides a system into distinct sections, each with a specific responsibility. It improves maintainability, testing, and team autonomy.',
+        'The resources below cover layered architecture, modular design, MVC, and hexagonal architecture. Each guide helps you organize code by responsibility.',
+      ],
+    },
+    es: {
+      heading: 'Separacion de Preocupaciones',
+      paragraphs: [
+        'La separacion de preocupaciones divide un sistema en secciones distintas, cada una con una responsabilidad especifica. Mejora mantenibilidad, testing y autonomia del equipo.',
+        'Los recursos a continuacion cubren arquitectura por capas, diseno modular, MVC y arquitectura hexagonal. Cada guia te ayuda a organizar el codigo por responsabilidad.',
+      ],
+    },
+  },
+  eventbridge: {
+    en: {
+      heading: 'Amazon EventBridge',
+      paragraphs: [
+        'Amazon EventBridge is a serverless event bus. It connects applications, SaaS, and AWS services through events.',
+        'The resources below cover event rules, schemas, event buses, and event-driven patterns. Each guide helps you build event-driven architectures on AWS.',
+      ],
+    },
+    es: {
+      heading: 'Amazon EventBridge',
+      paragraphs: [
+        'Amazon EventBridge es un event bus serverless. Conecta aplicaciones, SaaS y servicios de AWS a traves de eventos.',
+        'Los recursos a continuacion cubren reglas de eventos, esquemas, buses de eventos y patrones event-driven. Cada guia te ayuda a construir arquitecturas event-driven en AWS.',
+      ],
+    },
+  },
+  specification: {
+    en: {
+      heading: 'Specification Pattern',
+      paragraphs: [
+        'The specification pattern encapsulates business rules into reusable objects. It is useful for validation, querying, and combining rules.',
+        'The resources below cover composite specifications, validation, and query filtering. Each guide helps you express business logic in a composable way.',
+      ],
+    },
+    es: {
+      heading: 'Patron Specification',
+      paragraphs: [
+        'El patron specification encapsula reglas de negocio en objetos reutilizables. Es util para validacion, consultas y combinacion de reglas.',
+        'Los recursos a continuacion cubren especificaciones compuestas, validacion y filtrado de consultas. Cada guia te ayuda a expresar logica de negocio de forma componible.',
+      ],
+    },
+  },
+  'schema-design': {
+    en: {
+      heading: 'Schema Design',
+      paragraphs: [
+        'Schema design defines how data is structured and validated. Good schema design balances flexibility, performance, and evolution.',
+        'The resources below cover database schemas, API schemas, normalization, and schema evolution. Each guide helps you design schemas that serve your application over time.',
+      ],
+    },
+    es: {
+      heading: 'Diseno de Esquemas',
+      paragraphs: [
+        'El diseno de esquemas define como se estructuran y validan los datos. Un buen diseno equilibra flexibilidad, rendimiento y evolucion.',
+        'Los recursos a continuacion cubren esquemas de bases de datos, esquemas de APIs, normalizacion y evolucion de esquemas. Cada guia te ayuda a disenar esquemas que sirvan a tu aplicacion con el tiempo.',
+      ],
+    },
+  },
+  zipkin: {
+    en: {
+      heading: 'Zipkin and Distributed Tracing',
+      paragraphs: [
+        'Zipkin is a distributed tracing system. It collects and visualizes traces to help diagnose latency and dependencies.',
+        'The resources below cover instrumentation, sampling, span creation, and integration. Each guide helps you trace requests across services with Zipkin.',
+      ],
+    },
+    es: {
+      heading: 'Zipkin y Trazas Distribuidas',
+      paragraphs: [
+        'Zipkin es un sistema de trazas distribuidas. Recopila y visualiza trazas para ayudar a diagnosticar latencia y dependencias.',
+        'Los recursos a continuacion cubren instrumentacion, sampling, creacion de spans e integracion. Cada guia te ayuda a rastrear solicitudes entre servicios con Zipkin.',
+      ],
+    },
+  },
+  dashboard: {
+    en: {
+      heading: 'Dashboards and Visualization',
+      paragraphs: [
+        'Dashboards display key metrics and data in a visual format. Good dashboards are actionable, focused, and updated in near real time.',
+        'The resources below cover Grafana, Tableau, Metabase, and dashboard design. Each guide helps you build dashboards that drive decisions.',
+      ],
+    },
+    es: {
+      heading: 'Dashboards y Visualizacion',
+      paragraphs: [
+        'Los dashboards muestran metricas y datos clave en formato visual. Buenos dashboards son accionables, enfocados y actualizados casi en tiempo real.',
+        'Los recursos a continuacion cubren Grafana, Tableau, Metabase y diseno de dashboards. Cada guia te ayuda a construir dashboards que impulsen decisiones.',
+      ],
+    },
+  },
+  'structured-logging': {
+    en: {
+      heading: 'Structured Logging',
+      paragraphs: [
+        'Structured logging outputs logs as machine-readable data. It makes logs easier to search, aggregate, and analyze at scale.',
+        'The resources below cover JSON logs, log levels, context, and parsing. Each guide helps you build logging that is useful for both humans and machines.',
+      ],
+    },
+    es: {
+      heading: 'Logging Estructurado',
+      paragraphs: [
+        'El logging estructurado genera logs como datos legibles por maquinas. Hace los logs mas faciles de buscar, agregar y analizar a escala.',
+        'Los recursos a continuacion cubren logs JSON, niveles de log, contexto y parseo. Cada guia te ayuda a construir logging util tanto para humanos como para maquinas.',
+      ],
+    },
+  },
+  elk: {
+    en: {
+      heading: 'ELK Stack',
+      paragraphs: [
+        'The ELK Stack is Elasticsearch, Logstash, and Kibana. It is a popular solution for log aggregation, search, and visualization.',
+        'The resources below cover log shipping, parsing, indexing, and dashboard creation. Each guide helps you set up and operate an ELK stack.',
+      ],
+    },
+    es: {
+      heading: 'ELK Stack',
+      paragraphs: [
+        'ELK Stack es Elasticsearch, Logstash y Kibana. Es una solucion popular para agregacion, busqueda y visualizacion de logs.',
+        'Los recursos a continuacion cubren envio de logs, parseo, indexacion y creacion de dashboards. Cada guia te ayuda a configurar y operar un stack ELK.',
+      ],
+    },
+  },
+  contract: {
+    en: {
+      heading: 'Contract and API Contracts',
+      paragraphs: [
+        'A contract defines the expected inputs, outputs, and behavior of an interface. Contract testing verifies that services adhere to these agreements.',
+        'The resources below cover OpenAPI, Pact, schema contracts, and consumer-driven contracts. Each guide helps you build and maintain reliable service interfaces.',
+      ],
+    },
+    es: {
+      heading: 'Contratos y Contratos de APIs',
+      paragraphs: [
+        'Un contrato define las entradas, salidas y comportamiento esperados de una interfaz. El contract testing verifica que los servicios cumplen estos acuerdos.',
+        'Los recursos a continuacion cubren OpenAPI, Pact, contratos de esquema y consumer-driven contracts. Cada guia te ayuda a construir y mantener interfaces de servicio confiables.',
+      ],
+    },
+  },
+  'integration-tests': {
+    en: {
+      heading: 'Integration Testing',
+      paragraphs: [
+        'Integration testing verifies that multiple components work together. It catches issues that unit tests miss at the boundaries between systems.',
+        'The resources below cover test containers, in-memory databases, service stubs, and CI integration. Each guide helps you write integration tests that are reliable and fast.',
+      ],
+    },
+    es: {
+      heading: 'Tests de Integracion',
+      paragraphs: [
+        'El testing de integracion verifica que multiples componentes trabajen juntos. Detecta problemas que los tests unitarios omiten en los limites entre sistemas.',
+        'Los recursos a continuacion cubren test containers, bases de datos en memoria, stubs de servicios e integracion con CI. Cada guia te ayuda a escribir tests de integracion confiables y rapidos.',
+      ],
+    },
+  },
+  regression: {
+    en: {
+      heading: 'Regression Testing',
+      paragraphs: [
+        'Regression testing ensures that new changes do not break existing functionality. It is essential for maintaining quality in evolving systems.',
+        'The resources below cover test selection, automation, smoke tests, and test suites. Each guide helps you prevent regressions from reaching production.',
+      ],
+    },
+    es: {
+      heading: 'Testing de Regresion',
+      paragraphs: [
+        'El testing de regresion asegura que los nuevos cambios no rompan funcionalidad existente. Es esencial para mantener calidad en sistemas en evolucion.',
+        'Los recursos a continuacion cubren seleccion de tests, automatizacion, smoke tests y suites de test. Cada guia te ayuda a prevenir regresiones en produccion.',
+      ],
+    },
+  },
+  'test-pyramid': {
+    en: {
+      heading: 'Test Pyramid',
+      paragraphs: [
+        'The test pyramid recommends many unit tests, fewer integration tests, and even fewer end-to-end tests. It balances coverage, speed, and confidence.',
+        'The resources below cover unit, integration, and E2E testing, and how to find the right balance. Each guide helps you build a sustainable test strategy.',
+      ],
+    },
+    es: {
+      heading: 'Piramide de Tests',
+      paragraphs: [
+        'La piramide de tests recomienda muchos tests unitarios, menos de integracion y aun menos end-to-end. Equilibra cobertura, velocidad y confianza.',
+        'Los recursos a continuacion cubren testing unit, integracion y E2E, y como encontrar el equilibrio correcto. Cada guia te ayuda a construir una estrategia de testing sostenible.',
+      ],
+    },
+  },
+  changelog: {
+    en: {
+      heading: 'Changelogs and Release Notes',
+      paragraphs: [
+        'A changelog documents notable changes in a project. It helps users and contributors understand what changed and why.',
+        'The resources below cover changelog formats, semantic versioning, release notes, and automation. Each guide helps you keep users informed.',
+      ],
+    },
+    es: {
+      heading: 'Changelogs y Notas de Release',
+      paragraphs: [
+        'Un changelog documenta cambios notables en un proyecto. Ayuda a usuarios y contribuidores a entender que cambio y por que.',
+        'Los recursos a continuacion cubren formatos de changelog, semantic versioning, release notes y automatizacion. Cada guia te ayuda a mantener informados a los usuarios.',
+      ],
+    },
+  },
+  verification: {
+    en: {
+      heading: 'Verification and Validation',
+      paragraphs: [
+        'Verification checks that a system is built correctly, while validation checks that the right system is built. Both are essential for quality.',
+        'The resources below cover testing, proofs, checklists, and review processes. Each guide helps you verify and validate systems effectively.',
+      ],
+    },
+    es: {
+      heading: 'Verificacion y Validacion',
+      paragraphs: [
+        'La verificacion comprueba que un sistema se construyo correctamente, mientras que la validacion comprueba que se construyo el sistema correcto. Ambas son esenciales para la calidad.',
+        'Los recursos a continuacion cubren testing, pruebas, checklists y procesos de revision. Cada guia te ayuda a verificar y validar sistemas efectivamente.',
+      ],
+    },
+  },
+  'vulnerability-management': {
+    en: {
+      heading: 'Vulnerability Management',
+      paragraphs: [
+        'Vulnerability management is the continuous process of identifying, assessing, and remediating security weaknesses. It reduces risk over time.',
+        'The resources below cover scanning, CVE tracking, patching, prioritization, and reporting. Each guide helps you manage vulnerabilities in your stack.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Vulnerabilidades',
+      paragraphs: [
+        'La gestion de vulnerabilidades es el proceso continuo de identificar, evaluar y remediar debilidades de seguridad. Reduce el riesgo con el tiempo.',
+        'Los recursos a continuacion cubren escaneo, seguimiento de CVE, parches, priorizacion y reportes. Cada guia te ayuda a gestionar vulnerabilidades en tu stack.',
+      ],
+    },
+  },
+  argocd: {
+    en: {
+      heading: 'Argo CD',
+      paragraphs: [
+        'Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes. It synchronizes application state from a Git repository.',
+        'The resources below cover application definitions, sync policies, hooks, and rollbacks. Each guide helps you implement GitOps for Kubernetes with Argo CD.',
+      ],
+    },
+    es: {
+      heading: 'Argo CD',
+      paragraphs: [
+        'Argo CD es una herramienta declarativa de entrega continua GitOps para Kubernetes. Sincroniza el estado de aplicaciones desde un repositorio Git.',
+        'Los recursos a continuacion cubren definiciones de aplicaciones, politicas de sync, hooks y rollbacks. Cada guia te ayuda a implementar GitOps para Kubernetes con Argo CD.',
+      ],
+    },
+  },
+  outage: {
+    en: {
+      heading: 'Outage Response',
+      paragraphs: [
+        'An outage is a period when a service is unavailable. Responding effectively requires detection, communication, and rapid recovery.',
+        'The resources below cover incident response, status pages, war rooms, and postmortems. Each guide helps you handle outages with discipline and speed.',
+      ],
+    },
+    es: {
+      heading: 'Respuesta a Interrupciones',
+      paragraphs: [
+        'Un outage es un periodo en el que un servicio no esta disponible. Responder eficazmente requiere deteccion, comunicacion y recuperacion rapida.',
+        'Los recursos a continuacion cubren respuesta a incidentes, paginas de estado, war rooms y postmortems. Cada guia te ayuda a manejar interrupciones con disciplina y velocidad.',
+      ],
+    },
+  },
+  kms: {
+    en: {
+      heading: 'Key Management Services',
+      paragraphs: [
+        'KMS services manage cryptographic keys for encryption, signing, and secret protection. They centralize key lifecycle and access control.',
+        'The resources below cover AWS KMS, Google Cloud KMS, Azure Key Vault, and key rotation. Each guide helps you manage keys securely and at scale.',
+      ],
+    },
+    es: {
+      heading: 'Servicios de Gestion de Claves',
+      paragraphs: [
+        'Los servicios KMS gestionan claves criptograficas para cifrado, firma y proteccion de secretos. Centralizan el ciclo de vida de claves y control de acceso.',
+        'Los recursos a continuacion cubren AWS KMS, Google Cloud KMS, Azure Key Vault y rotacion de claves. Cada guia te ayuda a gestionar claves de forma segura y a escala.',
+      ],
+    },
+  },
+  'incident-management': {
+    en: {
+      heading: 'Incident Management',
+      paragraphs: [
+        'Incident management is the process of responding to and resolving unplanned disruptions. It aims to restore service quickly and minimize impact.',
+        'The resources below cover incident lifecycle, on-call, communication, runbooks, and postmortems. Each guide helps you manage incidents effectively.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Incidentes',
+      paragraphs: [
+        'La gestion de incidentes es el proceso de responder y resolver interrupciones no planificadas. Apunta a restaurar el servicio rapidamente y minimizar el impacto.',
+        'Los recursos a continuacion cubren ciclo de vida de incidentes, on-call, comunicacion, runbooks y postmortems. Cada guia te ayuda a gestionar incidentes efectivamente.',
+      ],
+    },
+  },
+  'root-cause': {
+    en: {
+      heading: 'Root Cause Analysis',
+      paragraphs: [
+        'Root cause analysis identifies the underlying cause of a problem. It goes beyond symptoms to find what really needs to change.',
+        'The resources below cover the 5 Whys, fault trees, timelines, and corrective actions. Each guide helps you solve problems at their source.',
+      ],
+    },
+    es: {
+      heading: 'Analisis de Causa Raiz',
+      paragraphs: [
+        'El analisis de causa raiz identifica la causa subyacente de un problema. Va mas alla de los sintomas para encontrar lo que realmente necesita cambiar.',
+        'Los recursos a continuacion cubren los 5 Whys, arboles de fallas, timelines y acciones correctivas. Cada guia te ayuda a resolver problemas en su origen.',
+      ],
+    },
+  },
+  'secret-rotation': {
+    en: {
+      heading: 'Secret Rotation',
+      paragraphs: [
+        'Secret rotation replaces credentials and keys on a regular basis. It limits the impact of compromised secrets and is a key security practice.',
+        'The resources below cover rotation strategies, automation, zero-downtime rotation, and AWS Secrets Manager. Each guide helps you rotate secrets safely.',
+      ],
+    },
+    es: {
+      heading: 'Rotacion de Secretos',
+      paragraphs: [
+        'La rotacion de secretos reemplaza credenciales y claves regularmente. Limita el impacto de secretos comprometidos y es una practica clave de seguridad.',
+        'Los recursos a continuacion cubren estrategias de rotacion, automatizacion, rotacion sin downtime y AWS Secrets Manager. Cada guia te ayuda a rotar secretos de forma segura.',
+      ],
+    },
+  },
+  flyweight: {
+    en: {
+      heading: 'Flyweight Pattern',
+      paragraphs: [
+        'The flyweight pattern minimizes memory use by sharing data between similar objects. It is useful when many objects have common, extrinsic state.',
+        'The resources below cover intrinsic and extrinsic state, object sharing, and memory optimization. Each guide helps you use the flyweight pattern to reduce memory consumption.',
+      ],
+    },
+    es: {
+      heading: 'Patron Flyweight',
+      paragraphs: [
+        'El patron flyweight minimiza el uso de memoria compartiendo datos entre objetos similares. Es util cuando muchos objetos tienen estado extrinseco comun.',
+        'Los recursos a continuacion cubren estado intrinseco y extrinseco, comparticion de objetos y optimizacion de memoria. Cada guia te ayuda a usar el patron flyweight para reducir el consumo de memoria.',
+      ],
+    },
+  },
 };
