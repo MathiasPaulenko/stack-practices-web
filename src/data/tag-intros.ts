@@ -8804,4 +8804,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  lifecycle: {
+    en: {
+      heading: 'Object and Component Lifecycle',
+      paragraphs: [
+        'Lifecycle defines the stages an object or component goes through. Understanding lifecycle helps prevent leaks and inconsistent state.',
+        'The resources below cover construction, initialization, use, disposal, and cleanup. Each guide helps you manage lifecycle in frameworks and components.',
+      ],
+    },
+    es: {
+      heading: 'Ciclo de Vida de Objetos y Componentes',
+      paragraphs: [
+        'El ciclo de vida define las etapas por las que pasa un objeto o componente. Comprender el ciclo de vida ayuda a prevenir fugas y estado inconsistente.',
+        'Los recursos a continuacion cubren construccion, inicializacion, uso, disposicion y limpieza. Cada guia te ayuda a gestionar el ciclo de vida en frameworks y componentes.',
+      ],
+    },
+  },
+  mediator: {
+    en: {
+      heading: 'Mediator Pattern',
+      paragraphs: [
+        'The mediator pattern centralizes communication between components. It reduces direct connections and simplifies complex interactions.',
+        'The resources below cover mediator interfaces, colleagues, and decoupled communication. Each guide helps you coordinate objects without tight coupling.',
+      ],
+    },
+    es: {
+      heading: 'Patron Mediator',
+      paragraphs: [
+        'El patron mediator centraliza la comunicacion entre componentes. Reduce conexiones directas y simplifica interacciones complejas.',
+        'Los recursos a continuacion cubren interfaces de mediator, colleagues y comunicacion desacoplada. Cada guia te ayuda a coordinar objetos sin acoplamiento fuerte.',
+      ],
+    },
+  },
+  memento: {
+    en: {
+      heading: 'Memento Pattern',
+      paragraphs: [
+        'The memento pattern captures and restores an objects internal state. It is useful for undo, history, and state rollback.',
+        'The resources below cover originator, memento, caretaker, and state storage. Each guide helps you implement state preservation without exposing internals.',
+      ],
+    },
+    es: {
+      heading: 'Patron Memento',
+      paragraphs: [
+        'El patron memento captura y restaura el estado interno de un objeto. Es util para undo, historial y rollback de estado.',
+        'Los recursos a continuacion cubren originator, memento, caretaker y almacenamiento de estado. Cada guia te ayuda a implementar preservacion de estado sin exponer internos.',
+      ],
+    },
+  },
+  scope: {
+    en: {
+      heading: 'Scope and Visibility',
+      paragraphs: [
+        'Scope defines where a variable, function, or resource is accessible. Proper scoping limits coupling and avoids name collisions.',
+        'The resources below cover lexical scope, closures, dependency scope, and request scope. Each guide helps you manage visibility and lifetime.',
+      ],
+    },
+    es: {
+      heading: 'Scope y Visibilidad',
+      paragraphs: [
+        'El scope define donde es accesible una variable, funcion o recurso. Un scoping adecuado limita el acoplamiento y evita colisiones de nombres.',
+        'Los recursos a continuacion cubren scope lexico, closures, scope de dependencias y scope de peticion. Cada guia te ayuda a gestionar visibilidad y tiempo de vida.',
+      ],
+    },
+  },
+  registry: {
+    en: {
+      heading: 'Registry Pattern',
+      paragraphs: [
+        'The registry pattern provides a central place to look up objects or services. It is an alternative to dependency injection in some cases.',
+        'The resources below cover service registries, lookup, and lifecycle. Each guide helps you build flexible object discovery.',
+      ],
+    },
+    es: {
+      heading: 'Patron Registry',
+      paragraphs: [
+        'El patron registry proporciona un lugar central para buscar objetos o servicios. Es una alternativa a la inyeccion de dependencias en algunos casos.',
+        'Los recursos a continuacion cubren service registries, lookup y ciclo de vida. Cada guia te ayuda a construir descubrimiento flexible de objetos.',
+      ],
+    },
+  },
+  'resource-management': {
+    en: {
+      heading: 'Resource Management',
+      paragraphs: [
+        'Resource management allocates, uses, and releases system resources. It is critical for performance and stability.',
+        'The resources below cover pools, limits, cleanup, and monitoring. Each guide helps you manage resources without leaks or exhaustion.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Recursos',
+      paragraphs: [
+        'La gestion de recursos asigna, usa y libera recursos del sistema. Es critica para el rendimiento y la estabilidad.',
+        'Los recursos a continuacion cubren pools, limites, limpieza y monitoreo. Cada guia te ayuda a gestionar recursos sin fugas ni agotamiento.',
+      ],
+    },
+  },
+  prototype: {
+    en: {
+      heading: 'Prototype Pattern',
+      paragraphs: [
+        'The prototype pattern creates new objects by copying an existing one. It is useful when object creation is expensive or complex.',
+        'The resources below cover cloning, prototype registries, and examples. Each guide helps you create objects from prototypes.',
+      ],
+    },
+    es: {
+      heading: 'Patron Prototype',
+      paragraphs: [
+        'El patron prototype crea nuevos objetos copiando uno existente. Es util cuando la creacion de objetos es costosa o compleja.',
+        'Los recursos a continuacion cubren clonado, registries de prototipos y ejemplos. Cada guia te ayuda a crear objetos desde prototipos.',
+      ],
+    },
+  },
+  pgbouncer: {
+    en: {
+      heading: 'PgBouncer Connection Pooling',
+      paragraphs: [
+        'PgBouncer is a lightweight connection pooler for PostgreSQL. It reduces the overhead of creating new database connections.',
+        'The resources below cover session, transaction, and statement pooling modes, and configuration. Each guide helps you optimize PostgreSQL connections.',
+      ],
+    },
+    es: {
+      heading: 'Pooling de Conexiones con PgBouncer',
+      paragraphs: [
+        'PgBouncer es un pooler de conexiones ligero para PostgreSQL. Reduce el overhead de crear nuevas conexiones a la base de datos.',
+        'Los recursos a continuacion cubren modos de pooling session, transaction y statement, y configuracion. Cada guia te ayuda a optimizar conexiones de PostgreSQL.',
+      ],
+    },
+  },
+  'object-storage': {
+    en: {
+      heading: 'Object Storage',
+      paragraphs: [
+        'Object storage stores data as objects in flat buckets. It is the foundation of cloud storage for files, backups, and media.',
+        'The resources below cover S3, buckets, keys, presigned URLs, and lifecycle. Each guide helps you use object storage effectively.',
+      ],
+    },
+    es: {
+      heading: 'Almacenamiento de Objetos',
+      paragraphs: [
+        'El almacenamiento de objetos guarda datos como objetos en buckets planos. Es la base del almacenamiento cloud para archivos, backups y medios.',
+        'Los recursos a continuacion cubren S3, buckets, keys, URLs prefirmadas y ciclo de vida. Cada guia te ayuda a usar almacenamiento de objetos efectivamente.',
+      ],
+    },
+  },
+  algorithm: {
+    en: {
+      heading: 'Algorithms',
+      paragraphs: [
+        'Algorithms are step-by-step procedures for solving problems. Good algorithms improve performance and correctness.',
+        'The resources below cover sorting, searching, graph, and dynamic programming algorithms. Each guide helps you choose and implement the right algorithm.',
+      ],
+    },
+    es: {
+      heading: 'Algoritmos',
+      paragraphs: [
+        'Los algoritmos son procedimientos paso a paso para resolver problemas. Buenos algoritmos mejoran rendimiento y correccion.',
+        'Los recursos a continuacion cubren algoritmos de ordenamiento, busqueda, grafos y programacion dinamica. Cada guia te ayuda a elegir e implementar el algoritmo correcto.',
+      ],
+    },
+  },
+  executor: {
+    en: {
+      heading: 'Task Executors',
+      paragraphs: [
+        'Executors manage the execution of tasks in threads or processes. They abstract thread management and improve concurrency control.',
+        'The resources below cover thread pools, executors, work queues, and shutdown. Each guide helps you run tasks concurrently with proper management.',
+      ],
+    },
+    es: {
+      heading: 'Ejecutores de Tareas',
+      paragraphs: [
+        'Los ejecutores gestionan la ejecucion de tareas en threads o procesos. Abstraen la gestion de threads y mejoran el control de concurrencia.',
+        'Los recursos a continuacion cubren thread pools, ejecutores, colas de trabajo y shutdown. Cada guia te ayuda a ejecutar tareas concurrentemente con gestion adecuada.',
+      ],
+    },
+  },
+  'leaky-bucket': {
+    en: {
+      heading: 'Leaky Bucket Rate Limiting',
+      paragraphs: [
+        'The leaky bucket algorithm smooths traffic by allowing a steady outflow. It is used for rate limiting and traffic shaping.',
+        'The resources below cover bucket capacity, leak rate, and implementation. Each guide helps you control traffic with the leaky bucket pattern.',
+      ],
+    },
+    es: {
+      heading: 'Rate Limiting con Leaky Bucket',
+      paragraphs: [
+        'El algoritmo leaky bucket suaviza el trafico permitiendo un flujo de salida constante. Se usa para rate limiting y shaping de trafico.',
+        'Los recursos a continuacion cubren capacidad del bucket, tasa de fuga e implementacion. Cada guia te ayuda a controlar trafico con el patron leaky bucket.',
+      ],
+    },
+  },
+  timeout: {
+    en: {
+      heading: 'Timeouts in Distributed Systems',
+      paragraphs: [
+        'Timeouts prevent operations from waiting indefinitely. They are essential for resilience and user experience.',
+        'The resources below cover request timeouts, circuit breakers, retries, and fallback. Each guide helps you set and handle timeouts correctly.',
+      ],
+    },
+    es: {
+      heading: 'Timeouts en Sistemas Distribuidos',
+      paragraphs: [
+        'Los timeouts evitan que las operaciones esperen indefinidamente. Son esenciales para resiliencia y experiencia de usuario.',
+        'Los recursos a continuacion cubren timeouts de peticion, circuit breakers, reintentos y fallback. Cada guia te ayuda a configurar y manejar timeouts correctamente.',
+      ],
+    },
+  },
+  'in-memory': {
+    en: {
+      heading: 'In-Memory Data Storage',
+      paragraphs: [
+        'In-memory storage keeps data in RAM for fast access. It is used for caches, sessions, and temporary data.',
+        'The resources below cover in-memory databases, data grids, and TTL. Each guide helps you use in-memory storage for speed.',
+      ],
+    },
+    es: {
+      heading: 'Almacenamiento de Datos en Memoria',
+      paragraphs: [
+        'El almacenamiento en memoria mantiene datos en RAM para acceso rapido. Se usa para caches, sesiones y datos temporales.',
+        'Los recursos a continuacion cubren bases de datos en memoria, data grids y TTL. Cada guia te ayuda a usar almacenamiento en memoria para velocidad.',
+      ],
+    },
+  },
+  visitor: {
+    en: {
+      heading: 'Visitor Pattern',
+      paragraphs: [
+        'The visitor pattern separates operations from the objects on which they operate. It is useful when adding operations without changing classes.',
+        'The resources below cover visitor, elements, double dispatch, and examples. Each guide helps you extend object behavior without modification.',
+      ],
+    },
+    es: {
+      heading: 'Patron Visitor',
+      paragraphs: [
+        'El patron visitor separa las operaciones de los objetos sobre los que operan. Es util cuando se agregan operaciones sin cambiar clases.',
+        'Los recursos a continuacion cubren visitor, elementos, double dispatch y ejemplos. Cada guia te ayuda a extender el comportamiento de objetos sin modificacion.',
+      ],
+    },
+  },
+  'write-through': {
+    en: {
+      heading: 'Write-Through Caching',
+      paragraphs: [
+        'Write-through writes data to the cache and backing store at the same time. It keeps the cache consistent at the cost of higher write latency.',
+        'The resources below cover cache patterns, write-behind, and consistency. Each guide helps you choose write strategies for caching.',
+      ],
+    },
+    es: {
+      heading: 'Cache Write-Through',
+      paragraphs: [
+        'El write-through escribe datos en el cache y en el almacenamiento de respaldo al mismo tiempo. Mantiene el cache consistente a costa de mayor latencia de escritura.',
+        'Los recursos a continuacion cubren patrones de cache, write-behind y consistencia. Cada guia te ayuda a elegir estrategias de escritura para caching.',
+      ],
+    },
+  },
+  'design-system': {
+    en: {
+      heading: 'Design Systems',
+      paragraphs: [
+        'A design system is a collection of reusable components, patterns, and guidelines. It ensures consistency across products.',
+        'The resources below cover tokens, components, documentation, and governance. Each guide helps you build and maintain a design system.',
+      ],
+    },
+    es: {
+      heading: 'Sistemas de Diseno',
+      paragraphs: [
+        'Un sistema de diseno es una coleccion de componentes reutilizables, patrones y guias. Asegura consistencia entre productos.',
+        'Los recursos a continuacion cubren tokens, componentes, documentacion y gobernanza. Cada guia te ayuda a construir y mantener un sistema de diseno.',
+      ],
+    },
+  },
+  reusability: {
+    en: {
+      heading: 'Code Reusability',
+      paragraphs: [
+        'Reusability is the ability to use existing code in multiple contexts. It reduces duplication and improves maintainability.',
+        'The resources below cover components, libraries, abstractions, and modularity. Each guide helps you write code that can be reused.',
+      ],
+    },
+    es: {
+      heading: 'Reutilizacion de Codigo',
+      paragraphs: [
+        'La reutilizacion es la capacidad de usar codigo existente en multiples contextos. Reduce duplicacion y mejora mantenibilidad.',
+        'Los recursos a continuacion cubren componentes, librerias, abstracciones y modularidad. Cada guia te ayuda a escribir codigo que pueda reutilizarse.',
+      ],
+    },
+  },
+  ssr: {
+    en: {
+      heading: 'Server-Side Rendering',
+      paragraphs: [
+        'Server-side rendering generates HTML on the server before sending it to the client. It improves initial load and SEO.',
+        'The resources below cover hydration, rendering strategies, and frameworks. Each guide helps you implement SSR for better performance and discoverability.',
+      ],
+    },
+    es: {
+      heading: 'Renderizado en el Servidor',
+      paragraphs: [
+        'El server-side rendering genera HTML en el servidor antes de enviarlo al cliente. Mejora la carga inicial y el SEO.',
+        'Los recursos a continuacion cubren hydration, estrategias de renderizado y frameworks. Cada guia te ayuda a implementar SSR para mejor rendimiento y descubrimiento.',
+      ],
+    },
+  },
+  connection: {
+    en: {
+      heading: 'Connection Management',
+      paragraphs: [
+        'Connection management controls how clients and servers establish and maintain connections. It affects scalability and reliability.',
+        'The resources below cover connection pools, keep-alive, timeouts, and backpressure. Each guide helps you manage network connections efficiently.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Conexiones',
+      paragraphs: [
+        'La gestion de conexiones controla como clientes y servidores establecen y mantienen conexiones. Afecta escalabilidad y confiabilidad.',
+        'Los recursos a continuacion cubren pools de conexion, keep-alive, timeouts y backpressure. Cada guia te ayuda a gestionar conexiones de red eficientemente.',
+      ],
+    },
+  },
+  'apollo-server': {
+    en: {
+      heading: 'Apollo Server',
+      paragraphs: [
+        'Apollo Server is a GraphQL server for Node.js. It provides schema definition, resolvers, and built-in tooling.',
+        'The resources below cover schema, resolvers, context, plugins, and federation. Each guide helps you build GraphQL APIs with Apollo Server.',
+      ],
+    },
+    es: {
+      heading: 'Apollo Server',
+      paragraphs: [
+        'Apollo Server es un servidor GraphQL para Node.js. Proporciona definicion de esquemas, resolvers y herramientas integradas.',
+        'Los recursos a continuacion cubren esquema, resolvers, contexto, plugins y federacion. Cada guia te ayuda a construir APIs GraphQL con Apollo Server.',
+      ],
+    },
+  },
+  mutation: {
+    en: {
+      heading: 'GraphQL Mutations',
+      paragraphs: [
+        'GraphQL mutations modify data on the server. They are the equivalent of POST, PUT, and DELETE in REST.',
+        'The resources below cover mutation design, input types, validation, and error handling. Each guide helps you write mutations that are safe and clear.',
+      ],
+    },
+    es: {
+      heading: 'Mutations en GraphQL',
+      paragraphs: [
+        'Las mutations de GraphQL modifican datos en el servidor. Son el equivalente de POST, PUT y DELETE en REST.',
+        'Los recursos a continuacion cubren diseno de mutations, tipos de entrada, validacion y manejo de errores. Cada guia te ayuda a escribir mutations seguras y claras.',
+      ],
+    },
+  },
+  'correlation-id': {
+    en: {
+      heading: 'Correlation IDs',
+      paragraphs: [
+        'A correlation ID travels with a request across services. It enables tracing and debugging in distributed systems.',
+        'The resources below cover propagation, logging, and implementation. Each guide helps you track requests end-to-end.',
+      ],
+    },
+    es: {
+      heading: 'IDs de Correlacion',
+      paragraphs: [
+        'Un ID de correlacion viaja con una peticion a traves de servicios. Habilita tracing y debugging en sistemas distribuidos.',
+        'Los recursos a continuacion cubren propagacion, logging e implementacion. Cada guia te ayuda a rastrear peticiones de extremo a extremo.',
+      ],
+    },
+  },
+  'json-logs': {
+    en: {
+      heading: 'JSON Logs',
+      paragraphs: [
+        'JSON logs are machine-readable log entries. They simplify parsing, indexing, and analysis in log management tools.',
+        'The resources below cover structured logging, fields, correlation, and tools. Each guide helps you produce logs that are easy to query.',
+      ],
+    },
+    es: {
+      heading: 'Logs en JSON',
+      paragraphs: [
+        'Los logs JSON son entradas de log legibles por maquinas. Simplifican parseo, indexado y analisis en herramientas de gestion de logs.',
+        'Los recursos a continuacion cubren logging estructurado, campos, correlacion y herramientas. Cada guia te ayuda a producir logs faciles de consultar.',
+      ],
+    },
+  },
+  'high-availability': {
+    en: {
+      heading: 'High Availability',
+      paragraphs: [
+        'High availability minimizes downtime and ensures continuous operation. It requires redundancy, failover, and monitoring.',
+        'The resources below cover clustering, load balancing, failover, and SLAs. Each guide helps you design systems that stay available.',
+      ],
+    },
+    es: {
+      heading: 'Alta Disponibilidad',
+      paragraphs: [
+        'La alta disponibilidad minimiza el tiempo de inactividad y asegura operacion continua. Requiere redundancia, failover y monitoreo.',
+        'Los recursos a continuacion cubren clustering, balanceo de carga, failover y SLAs. Cada guia te ayuda a disenar sistemas que permanecen disponibles.',
+      ],
+    },
+  },
 };
