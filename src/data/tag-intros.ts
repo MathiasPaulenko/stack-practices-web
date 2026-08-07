@@ -4820,4 +4820,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'ai-agents': {
+    en: {
+      heading: 'AI Agents and Agentic Systems',
+      paragraphs: [
+        'AI agents are systems that perceive, reason, and act autonomously. They extend language models with tools, planning, and memory.',
+        'The resources below cover agent loops, tool use, planning, multi-agent systems, and guardrails. Each guide helps you build agents that are useful, safe, and reliable.',
+      ],
+    },
+    es: {
+      heading: 'Agentes de IA y Sistemas Agénticos',
+      paragraphs: [
+        'Los agentes de IA son sistemas que perciben, razonan y actuan de forma autonoma. Extienden modelos de lenguaje con herramientas, planificacion y memoria.',
+        'Los recursos a continuacion cubren loops de agentes, uso de herramientas, planificacion, sistemas multi-agente y guardrails. Cada guia te ayuda a construir agentes utiles, seguros y confiables.',
+      ],
+    },
+  },
+  nlp: {
+    en: {
+      heading: 'Natural Language Processing',
+      paragraphs: [
+        'NLP enables computers to understand, interpret, and generate human language. It powers search, chatbots, translation, and many AI applications.',
+        'The resources below cover tokenization, embeddings, named entity recognition, sentiment analysis, and transformers. Each guide helps you apply NLP to real problems.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de Lenguaje Natural',
+      paragraphs: [
+        'El NLP permite a las computadoras entender, interpretar y generar lenguaje humano. Potencia busqueda, chatbots, traduccion y muchas aplicaciones de IA.',
+        'Los recursos a continuacion cubren tokenizacion, embeddings, reconocimiento de entidades, analisis de sentimiento y transformers. Cada guia te ayuda a aplicar NLP a problemas reales.',
+      ],
+    },
+  },
+  langchain: {
+    en: {
+      heading: 'LangChain',
+      paragraphs: [
+        'LangChain is a framework for building applications with language models. It provides abstractions for chains, agents, tools, and memory.',
+        'The resources below cover LangChain chains, agents, prompts, vector stores, and RAG. Each guide helps you build LLM applications faster.',
+      ],
+    },
+    es: {
+      heading: 'LangChain',
+      paragraphs: [
+        'LangChain es un framework para construir aplicaciones con modelos de lenguaje. Proporciona abstracciones para chains, agentes, herramientas y memoria.',
+        'Los recursos a continuacion cubren chains de LangChain, agentes, prompts, vector stores y RAG. Cada guia te ayuda a construir aplicaciones de LLM mas rapido.',
+      ],
+    },
+  },
+  sse: {
+    en: {
+      heading: 'Server-Sent Events',
+      paragraphs: [
+        'SSE lets servers push real-time updates to clients over HTTP. It is simpler than WebSockets for one-way streams like feeds and notifications.',
+        'The resources below cover SSE protocol, EventSource, reconnection, buffering, and use cases. Each guide helps you implement real-time updates with low complexity.',
+      ],
+    },
+    es: {
+      heading: 'Server-Sent Events',
+      paragraphs: [
+        'SSE permite a los servidores enviar actualizaciones en tiempo real a clientes sobre HTTP. Es mas simple que WebSockets para streams unidireccionales como feeds y notificaciones.',
+        'Los recursos a continuacion cubren protocolo SSE, EventSource, reconexion, buffering y casos de uso. Cada guia te ayuda a implementar actualizaciones en tiempo real con baja complejidad.',
+      ],
+    },
+  },
+  fastapi: {
+    en: {
+      heading: 'FastAPI',
+      paragraphs: [
+        'FastAPI is a modern Python web framework for building APIs. It is fast, type-safe, and auto-generates OpenAPI documentation.',
+        'The resources below cover routes, dependency injection, validation, async, and testing with FastAPI. Each guide helps you build Python APIs quickly and correctly.',
+      ],
+    },
+    es: {
+      heading: 'FastAPI',
+      paragraphs: [
+        'FastAPI es un framework web moderno de Python para construir APIs. Es rapido, type-safe y genera automaticamente documentacion OpenAPI.',
+        'Los recursos a continuacion cubren rutas, inyeccion de dependencias, validacion, async y testing con FastAPI. Cada guia te ayuda a construir APIs Python rapidas y correctas.',
+      ],
+    },
+  },
+  'local-llm': {
+    en: {
+      heading: 'Local LLMs',
+      paragraphs: [
+        'Local LLMs run language models on your own hardware. They offer privacy, offline use, and cost control but require optimization for smaller machines.',
+        'The resources below cover quantization, Ollama, llama.cpp, local inference, and model selection. Each guide helps you deploy and use local language models.',
+      ],
+    },
+    es: {
+      heading: 'LLMs Locales',
+      paragraphs: [
+        'Los LLMs locales ejecutan modelos de lenguaje en tu propio hardware. Ofrecen privacidad, uso offline y control de costos pero requieren optimizacion para maquinas mas pequenas.',
+        'Los recursos a continuacion cubren cuantizacion, Ollama, llama.cpp, inferencia local y seleccion de modelos. Cada guia te ayuda a desplegar y usar modelos de lenguaje locales.',
+      ],
+    },
+  },
+  pinecone: {
+    en: {
+      heading: 'Pinecone and Vector Search',
+      paragraphs: [
+        'Pinecone is a managed vector database designed for similarity search. It is commonly used for RAG, recommendations, and semantic search.',
+        'The resources below cover indexing, metadata, namespaces, hybrid search, and scaling. Each guide helps you build vector search applications with Pinecone.',
+      ],
+    },
+    es: {
+      heading: 'Pinecone y Busqueda Vectorial',
+      paragraphs: [
+        'Pinecone es una base de datos vectorial administrada disenada para busqueda por similitud. Se usa comummente para RAG, recomendaciones y busqueda semantica.',
+        'Los recursos a continuacion cubren indexacion, metadata, namespaces, busqueda hibrida y escalado. Cada guia te ayuda a construir aplicaciones de busqueda vectorial con Pinecone.',
+      ],
+    },
+  },
+  'vector-database': {
+    en: {
+      heading: 'Vector Databases',
+      paragraphs: [
+        'Vector databases store embeddings and enable similarity search. They are essential for RAG, semantic search, and recommendation systems.',
+        'The resources below cover Pinecone, Weaviate, Qdrant, Milvus, and pgvector. Each guide helps you choose and use a vector database for your use case.',
+      ],
+    },
+    es: {
+      heading: 'Bases de Datos Vectoriales',
+      paragraphs: [
+        'Las bases de datos vectoriales almacenan embeddings y habilitan busqueda por similitud. Son esenciales para RAG, busqueda semantica y sistemas de recomendacion.',
+        'Los recursos a continuacion cubren Pinecone, Weaviate, Qdrant, Milvus y pgvector. Cada guia te ayuda a elegir y usar una base de datos vectorial para tu caso.',
+      ],
+    },
+  },
+  'exponential-backoff': {
+    en: {
+      heading: 'Exponential Backoff',
+      paragraphs: [
+        'Exponential backoff increases the wait time between retries after failures. It reduces load and gives transient issues time to recover.',
+        'The resources below cover implementation, jitter, caps, and integration with retries. Each guide helps you retry failed operations safely.',
+      ],
+    },
+    es: {
+      heading: 'Backoff Exponencial',
+      paragraphs: [
+        'El backoff exponencial aumenta el tiempo de espera entre reintentos despues de fallas. Reduce carga y da tiempo a que problemas transitorios se recuperen.',
+        'Los recursos a continuacion cubren implementacion, jitter, limites e integracion con reintentos. Cada guia te ayuda a reintentar operaciones fallidas de forma segura.',
+      ],
+    },
+  },
+  'load-balancer': {
+    en: {
+      heading: 'Load Balancers',
+      paragraphs: [
+        'Load balancers distribute traffic across multiple backend instances. They are critical for scalability, high availability, and zero-downtime deployments.',
+        'The resources below cover Nginx, HAProxy, Envoy, ALBs, NLBs, and health checks. Each guide helps you choose and configure the right load balancer.',
+      ],
+    },
+    es: {
+      heading: 'Load Balancers',
+      paragraphs: [
+        'Los load balancers distribuyen trafico entre multiples instancias backend. Son criticos para escalabilidad, alta disponibilidad y despliegues sin downtime.',
+        'Los recursos a continuacion cubren Nginx, HAProxy, Envoy, ALBs, NLBs y health checks. Cada guia te ayuda a elegir y configurar el load balancer correcto.',
+      ],
+    },
+  },
+  realtime: {
+    en: {
+      heading: 'Real-Time Systems',
+      paragraphs: [
+        'Real-time systems process and deliver data with low latency. They are used in chat, gaming, finance, and live dashboards.',
+        'The resources below cover WebSockets, SSE, pub-sub, event streaming, and operational challenges. Each guide helps you build responsive and reliable real-time experiences.',
+      ],
+    },
+    es: {
+      heading: 'Sistemas en Tiempo Real',
+      paragraphs: [
+        'Los sistemas en tiempo real procesan y entregan datos con baja latencia. Se usan en chat, gaming, finanzas y dashboards en vivo.',
+        'Los recursos a continuacion cubren WebSockets, SSE, pub-sub, event streaming y desafios operacionales. Cada guia te ayuda a construir experiencias en tiempo real responsivas y confiables.',
+      ],
+    },
+  },
+  'dependency-injection': {
+    en: {
+      heading: 'Dependency Injection',
+      paragraphs: [
+        'Dependency injection provides objects with the dependencies they need rather than letting them create their own. It improves testability and decoupling.',
+        'The resources below cover constructor injection, containers, lifetimes, and frameworks like Spring and Angular. Each guide helps you use DI to build modular applications.',
+      ],
+    },
+    es: {
+      heading: 'Inyeccion de Dependencias',
+      paragraphs: [
+        'La inyeccion de dependencias proporciona a los objetos las dependencias que necesitan en lugar de dejar que las creen. Mejora la testeabilidad y el desacoplamiento.',
+        'Los recursos a continuacion cubren constructor injection, containers, lifetimes y frameworks como Spring y Angular. Cada guia te ayuda a usar DI para construir aplicaciones modulares.',
+      ],
+    },
+  },
+  istio: {
+    en: {
+      heading: 'Istio Service Mesh',
+      paragraphs: [
+        'Istio is an open-source service mesh that adds observability, traffic management, and security to Kubernetes applications without changing code.',
+        'The resources below cover sidecars, gateways, mTLS, virtual services, and traffic policies. Each guide helps you operate microservices with Istio.',
+      ],
+    },
+    es: {
+      heading: 'Istio Service Mesh',
+      paragraphs: [
+        'Istio es un service mesh de codigo abierto que agrega observabilidad, gestion de trafico y seguridad a aplicaciones Kubernetes sin cambiar codigo.',
+        'Los recursos a continuacion cubren sidecars, gateways, mTLS, virtual services y politicas de trafico. Cada guia te ayuda a operar microservicios con Istio.',
+      ],
+    },
+  },
+  bcrypt: {
+    en: {
+      heading: 'Password Hashing with bcrypt',
+      paragraphs: [
+        'bcrypt is a password hashing function designed to be slow and resistant to brute force. It is a safe default for storing passwords.',
+        'The resources below cover salt, work factor, comparison, and alternatives like Argon2. Each guide helps you hash passwords correctly.',
+      ],
+    },
+    es: {
+      heading: 'Hashing de Contrasenas con bcrypt',
+      paragraphs: [
+        'bcrypt es una funcion de hashing de contrasenas disenada para ser lenta y resistente a fuerza bruta. Es una opcion segura por defecto para almacenar contrasenas.',
+        'Los recursos a continuacion cubren salt, work factor, comparacion y alternativas como Argon2. Cada guia te ayuda a hashear contrasenas correctamente.',
+      ],
+    },
+  },
+  sso: {
+    en: {
+      heading: 'Single Sign-On',
+      paragraphs: [
+        'Single sign-on lets users authenticate once and access multiple applications. It improves security and user experience in enterprise environments.',
+        'The resources below cover SAML, OIDC, identity providers, and session management. Each guide helps you implement SSO securely.',
+      ],
+    },
+    es: {
+      heading: 'Single Sign-On',
+      paragraphs: [
+        'El single sign-on permite a los usuarios autenticarse una vez y acceder a multiples aplicaciones. Mejora la seguridad y la experiencia de usuario en entornos empresariales.',
+        'Los recursos a continuacion cubren SAML, OIDC, proveedores de identidad y gestion de sesiones. Cada guia te ayuda a implementar SSO de forma segura.',
+      ],
+    },
+  },
+  cloudflare: {
+    en: {
+      heading: 'Cloudflare',
+      paragraphs: [
+        'Cloudflare provides CDN, DDoS protection, DNS, and edge computing. It sits between users and your infrastructure to improve security and performance.',
+        'The resources below cover Cloudflare Workers, caching, WAF, Pages, and DNS. Each guide helps you use Cloudflare to protect and accelerate applications.',
+      ],
+    },
+    es: {
+      heading: 'Cloudflare',
+      paragraphs: [
+        'Cloudflare proporciona CDN, proteccion DDoS, DNS y edge computing. Se situa entre usuarios e infraestructura para mejorar seguridad y rendimiento.',
+        'Los recursos a continuacion cubren Cloudflare Workers, caching, WAF, Pages y DNS. Cada guia te ayuda a usar Cloudflare para proteger y acelerar aplicaciones.',
+      ],
+    },
+  },
+  headers: {
+    en: {
+      heading: 'HTTP Headers and Security',
+      paragraphs: [
+        'HTTP headers control caching, security, content type, and client behavior. Correct header configuration is essential for performance and security.',
+        'The resources below cover security headers, CORS, caching headers, HSTS, and CSP. Each guide helps you configure headers correctly.',
+      ],
+    },
+    es: {
+      heading: 'Headers HTTP y Seguridad',
+      paragraphs: [
+        'Los headers HTTP controlan caching, seguridad, tipo de contenido y comportamiento del cliente. La configuracion correcta de headers es esencial para rendimiento y seguridad.',
+        'Los recursos a continuacion cubren headers de seguridad, CORS, headers de cache, HSTS y CSP. Cada guia te ayuda a configurar headers correctamente.',
+      ],
+    },
+  },
+  decorator: {
+    en: {
+      heading: 'Decorator Pattern',
+      paragraphs: [
+        'The decorator pattern adds behavior to objects dynamically without changing their class. It is a flexible alternative to subclassing.',
+        'The resources below cover decorator implementation, composition, and use cases in Python, TypeScript, and Java. Each guide helps you extend behavior at runtime.',
+      ],
+    },
+    es: {
+      heading: 'Patron Decorator',
+      paragraphs: [
+        'El patron decorator agrega comportamiento a objetos dinamicamente sin cambiar su clase. Es una alternativa flexible a la subclase.',
+        'Los recursos a continuacion cubren implementacion de decorator, composicion y casos de uso en Python, TypeScript y Java. Cada guia te ayuda a extender comportamiento en runtime.',
+      ],
+    },
+  },
+  'distributed-lock': {
+    en: {
+      heading: 'Distributed Locks',
+      paragraphs: [
+        'Distributed locks coordinate access to shared resources across multiple processes or nodes. They prevent race conditions in distributed systems.',
+        'The resources below cover Redis Redlock, ZooKeeper, database locks, and lock timeouts. Each guide helps you implement locks that are safe and reliable.',
+      ],
+    },
+    es: {
+      heading: 'Locks Distribuidos',
+      paragraphs: [
+        'Los locks distribuidos coordinan el acceso a recursos compartidos entre multiples procesos o nodos. Previenen condiciones de carrera en sistemas distribuidos.',
+        'Los recursos a continuacion cubren Redis Redlock, ZooKeeper, locks de base de datos y timeouts. Cada guia te ayuda a implementar locks seguros y confiables.',
+      ],
+    },
+  },
+  'atomic-operations': {
+    en: {
+      heading: 'Atomic Operations',
+      paragraphs: [
+        'Atomic operations complete as a single, indivisible unit. They are essential for safe concurrent updates without explicit locks.',
+        'The resources below cover compare-and-swap, atomic integers, database atomic operations, and transactional updates. Each guide helps you write thread-safe and race-free code.',
+      ],
+    },
+    es: {
+      heading: 'Operaciones Atomicas',
+      paragraphs: [
+        'Las operaciones atomicas se completan como una unidad indivisible. Son esenciales para actualizaciones concurrentes seguras sin locks explicitos.',
+        'Los recursos a continuacion cubren compare-and-swap, enteros atomicos, operaciones atomicas en bases de datos y actualizaciones transaccionales. Cada guia te ayuda a escribir codigo thread-safe y libre de carreras.',
+      ],
+    },
+  },
+  channels: {
+    en: {
+      heading: 'Channels and Communication',
+      paragraphs: [
+        'Channels are a concurrency primitive for communication and synchronization. They are central to Go and other message-passing systems.',
+        'The resources below cover buffered and unbuffered channels, select, fan-in, fan-out, and patterns. Each guide helps you use channels for safe concurrent communication.',
+      ],
+    },
+    es: {
+      heading: 'Canales y Comunicacion',
+      paragraphs: [
+        'Los canales son una primitiva de concurrencia para comunicacion y sincronizacion. Son centrales en Go y otros sistemas de paso de mensajes.',
+        'Los recursos a continuacion cubren canales buffered y unbuffered, select, fan-in, fan-out y patrones. Cada guia te ayuda a usar canales para comunicacion concurrente segura.',
+      ],
+    },
+  },
+  'race-condition': {
+    en: {
+      heading: 'Race Conditions',
+      paragraphs: [
+        'A race condition occurs when the outcome depends on the timing of concurrent operations. They are a common source of bugs in multi-threaded and distributed systems.',
+        'The resources below cover detection, locks, atomics, message passing, and testing. Each guide helps you prevent and fix race conditions.',
+      ],
+    },
+    es: {
+      heading: 'Condiciones de Carrera',
+      paragraphs: [
+        'Una condicion de carrera ocurre cuando el resultado depende del tiempo de operaciones concurrentes. Son una fuente comun de errores en sistemas multihilo y distribuidos.',
+        'Los recursos a continuacion cubren deteccion, locks, atomicos, paso de mensajes y testing. Cada guia te ayuda a prevenir y solucionar condiciones de carrera.',
+      ],
+    },
+  },
+  cron: {
+    en: {
+      heading: 'Cron and Job Scheduling',
+      paragraphs: [
+        'Cron schedules commands or scripts to run at fixed times. It is the simplest way to automate recurring tasks on Unix-like systems.',
+        'The resources below cover cron syntax, cron jobs, alternatives, and scheduling best practices. Each guide helps you run tasks on time without surprises.',
+      ],
+    },
+    es: {
+      heading: 'Cron y Programacion de Tareas',
+      paragraphs: [
+        'Cron programa comandos o scripts para ejecutarse en horarios fijos. Es la forma mas simple de automatizar tareas recurrentes en sistemas tipo Unix.',
+        'Los recursos a continuacion cubren sintaxis de cron, cron jobs, alternativas y mejores practicas de programacion. Cada guia te ayuda a ejecutar tareas a tiempo sin sorpresas.',
+      ],
+    },
+  },
+  'thread-pool': {
+    en: {
+      heading: 'Thread Pools',
+      paragraphs: [
+        'A thread pool reuses a fixed number of threads to execute tasks. It reduces the overhead of creating and destroying threads.',
+        'The resources below cover pool sizing, task queues, rejection policies, and lifecycle. Each guide helps you use thread pools for efficient concurrency.',
+      ],
+    },
+    es: {
+      heading: 'Thread Pools',
+      paragraphs: [
+        'Un thread pool reutiliza un numero fijo de threads para ejecutar tareas. Reduce el overhead de crear y destruir threads.',
+        'Los recursos a continuacion cubren tamano del pool, colas de tareas, politicas de rechazo y ciclo de vida. Cada guia te ayuda a usar thread pools para concurrencia eficiente.',
+      ],
+    },
+  },
+  sanitization: {
+    en: {
+      heading: 'Input Sanitization',
+      paragraphs: [
+        'Sanitization cleans user input to prevent injection, XSS, and other attacks. It is a critical defense layer for web applications.',
+        'The resources below cover validation, escaping, encoding, allowlists, and library-based sanitization. Each guide helps you handle untrusted input safely.',
+      ],
+    },
+    es: {
+      heading: 'Sanitizacion de Entradas',
+      paragraphs: [
+        'La sanitizacion limpia entradas de usuarios para prevenir inyeccion, XSS y otros ataques. Es una capa de defensa critica para aplicaciones web.',
+        'Los recursos a continuacion cubren validacion, escaping, encoding, listas permitidas y sanitizacion basada en librerias. Cada guia te ayuda a manejar entradas no confiables de forma segura.',
+      ],
+    },
+  },
 };
