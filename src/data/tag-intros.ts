@@ -9604,4 +9604,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  rto: {
+    en: {
+      heading: 'Recovery Time Objective',
+      paragraphs: [
+        'RTO is the maximum acceptable time to restore a service after an outage. It is a key disaster recovery target.',
+        'The resources below cover RTO planning, failover, and business continuity. Each guide helps you define and meet recovery time goals.',
+      ],
+    },
+    es: {
+      heading: 'Recovery Time Objective',
+      paragraphs: [
+        'RTO es el tiempo maximo aceptable para restaurar un servicio despues de una interrupcion. Es un objetivo clave de recuperacion ante desastres.',
+        'Los recursos a continuacion cubren planificacion de RTO, failover y continuidad del negocio. Cada guia te ayuda a definir y cumplir objetivos de tiempo de recuperacion.',
+      ],
+    },
+  },
+  rpo: {
+    en: {
+      heading: 'Recovery Point Objective',
+      paragraphs: [
+        'RPO is the maximum acceptable data loss measured in time. It defines how often data must be backed up or replicated.',
+        'The resources below cover RPO planning, replication, and backups. Each guide helps you choose data protection that meets business needs.',
+      ],
+    },
+    es: {
+      heading: 'Recovery Point Objective',
+      paragraphs: [
+        'RPO es la perdida de datos maxima aceptable medida en tiempo. Define con que frecuencia deben respaldarse o replicarse los datos.',
+        'Los recursos a continuacion cubren planificacion de RPO, replicacion y backups. Cada guia te ayuda a elegir proteccion de datos que satisfaga las necesidades del negocio.',
+      ],
+    },
+  },
+  'key-management': {
+    en: {
+      heading: 'Key Management',
+      paragraphs: [
+        'Key management controls the lifecycle of cryptographic keys. It is essential for encryption, signing, and secure communication.',
+        'The resources below cover key generation, rotation, storage, and HSMs. Each guide helps you manage keys securely.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Claves',
+      paragraphs: [
+        'La gestion de claves controla el ciclo de vida de claves criptograficas. Es esencial para cifrado, firma y comunicacion segura.',
+        'Los recursos a continuacion cubren generacion, rotacion, almacenamiento de claves y HSMs. Cada guia te ayuda a gestionar claves de forma segura.',
+      ],
+    },
+  },
+  escalation: {
+    en: {
+      heading: 'Incident Escalation',
+      paragraphs: [
+        'Escalation routes incidents to the right people when resolution requires more authority or expertise. It keeps response times low.',
+        'The resources below cover escalation policies, on-call, and communication. Each guide helps you design escalation paths that work.',
+      ],
+    },
+    es: {
+      heading: 'Escalamiento de Incidentes',
+      paragraphs: [
+        'El escalamiento deriva incidentes a las personas adecuadas cuando la resolucion requiere mas autoridad o experiencia. Mantiene los tiempos de respuesta bajos.',
+        'Los recursos a continuacion cubren politicas de escalamiento, on-call y comunicacion. Cada guia te ayuda a disenar rutas de escalamiento que funcionen.',
+      ],
+    },
+  },
+  branching: {
+    en: {
+      heading: 'Git Branching Strategies',
+      paragraphs: [
+        'Branching strategies define how teams use branches in Git. They affect collaboration, releases, and code quality.',
+        'The resources below cover GitFlow, trunk-based, feature branches, and release branches. Each guide helps you choose a branching model.',
+      ],
+    },
+    es: {
+      heading: 'Estrategias de Branching en Git',
+      paragraphs: [
+        'Las estrategias de branching definen como los equipos usan ramas en Git. Afectan colaboracion, releases y calidad de codigo.',
+        'Los recursos a continuacion cubren GitFlow, trunk-based, feature branches y release branches. Cada guia te ayuda a elegir un modelo de branching.',
+      ],
+    },
+  },
+  k8s: {
+    en: {
+      heading: 'Kubernetes',
+      paragraphs: [
+        'Kubernetes is the leading container orchestration platform. It automates deployment, scaling, and management of containerized applications.',
+        'The resources below cover pods, deployments, services, networking, and operators. Each guide helps you run applications on Kubernetes.',
+      ],
+    },
+    es: {
+      heading: 'Kubernetes',
+      paragraphs: [
+        'Kubernetes es la plataforma lider de orquestacion de contenedores. Automatiza el despliegue, escalado y gestion de aplicaciones containerizadas.',
+        'Los recursos a continuacion cubren pods, deployments, servicios, redes y operators. Cada guia te ayuda a ejecutar aplicaciones en Kubernetes.',
+      ],
+    },
+  },
+  jmeter: {
+    en: {
+      heading: 'Apache JMeter',
+      paragraphs: [
+        'JMeter is an open-source load testing tool. It tests web applications, APIs, and databases under simulated load.',
+        'The resources below cover test plans, threads, assertions, and distributed testing. Each guide helps you measure performance with JMeter.',
+      ],
+    },
+    es: {
+      heading: 'Apache JMeter',
+      paragraphs: [
+        'JMeter es una herramienta de testing de carga de codigo abierto. Prueba aplicaciones web, APIs y bases de datos bajo carga simulada.',
+        'Los recursos a continuacion cubren planes de prueba, threads, assertions y testing distribuido. Cada guia te ayuda a medir rendimiento con JMeter.',
+      ],
+    },
+  },
+  k6: {
+    en: {
+      heading: 'k6 Load Testing',
+      paragraphs: [
+        'k6 is a modern load testing tool for developers. It uses JavaScript to define test scripts and runs in the cloud or locally.',
+        'The resources below cover thresholds, scenarios, checks, and CI integration. Each guide helps you run modern load tests with k6.',
+      ],
+    },
+    es: {
+      heading: 'Testing de Carga con k6',
+      paragraphs: [
+        'k6 es una herramienta moderna de testing de carga para desarrolladores. Usa JavaScript para definir scripts de prueba y se ejecuta en cloud o localmente.',
+        'Los recursos a continuacion cubren thresholds, escenarios, checks e integracion con CI. Cada guia te ayuda a ejecutar tests de carga modernos con k6.',
+      ],
+    },
+  },
+  vpc: {
+    en: {
+      heading: 'Virtual Private Cloud',
+      paragraphs: [
+        'A VPC is an isolated network in the cloud. It lets you control IP ranges, subnets, routing, and security.',
+        'The resources below cover subnets, route tables, NAT, and security groups. Each guide helps you design secure cloud networks.',
+      ],
+    },
+    es: {
+      heading: 'Virtual Private Cloud',
+      paragraphs: [
+        'Una VPC es una red aislada en el cloud. Permite controlar rangos IP, subredes, routing y seguridad.',
+        'Los recursos a continuacion cubren subredes, tablas de ruteo, NAT y security groups. Cada guia te ayuda a disenar redes cloud seguras.',
+      ],
+    },
+  },
+  'zero-trust': {
+    en: {
+      heading: 'Zero Trust Security',
+      paragraphs: [
+        'Zero trust never assumes trust based on network location. Every request is verified before access is granted.',
+        'The resources below cover identity verification, micro-segmentation, and least privilege. Each guide helps you implement zero trust architecture.',
+      ],
+    },
+    es: {
+      heading: 'Seguridad Zero Trust',
+      paragraphs: [
+        'Zero trust nunca asume confianza basada en la ubicacion de la red. Cada peticion se verifica antes de otorgar acceso.',
+        'Los recursos a continuacion cubren verificacion de identidad, micro-segmentacion y minimo privilegio. Cada guia te ayuda a implementar arquitectura zero trust.',
+      ],
+    },
+  },
+  'api-keys': {
+    en: {
+      heading: 'API Key Management',
+      paragraphs: [
+        'API keys authenticate clients to APIs. They are simple but require secure generation, storage, and rotation.',
+        'The resources below cover key generation, scopes, revocation, and best practices. Each guide helps you manage API keys safely.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de API Keys',
+      paragraphs: [
+        'Las API keys autentican clientes hacia APIs. Son simples pero requieren generacion, almacenamiento y rotacion seguros.',
+        'Los recursos a continuacion cubren generacion de keys, scopes, revocacion y mejores practicas. Cada guia te ayuda a gestionar API keys de forma segura.',
+      ],
+    },
+  },
+  sli: {
+    en: {
+      heading: 'Service Level Indicators',
+      paragraphs: [
+        'SLIs measure a specific aspect of service reliability. They feed into SLOs and SLAs.',
+        'The resources below cover latency, error rate, throughput, and availability SLIs. Each guide helps you choose and measure meaningful indicators.',
+      ],
+    },
+    es: {
+      heading: 'Indicadores de Nivel de Servicio',
+      paragraphs: [
+        'Los SLIs miden un aspecto especifico de la confiabilidad del servicio. Alimentan SLOs y SLAs.',
+        'Los recursos a continuacion cubren SLIs de latencia, tasa de error, throughput y disponibilidad. Cada guia te ayuda a elegir y medir indicadores significativos.',
+      ],
+    },
+  },
+  'bundle-size': {
+    en: {
+      heading: 'Bundle Size Optimization',
+      paragraphs: [
+        'Bundle size affects load time and performance. Smaller bundles improve Core Web Vitals and user experience.',
+        'The resources below cover code splitting, tree shaking, compression, and lazy loading. Each guide helps you reduce bundle size.',
+      ],
+    },
+    es: {
+      heading: 'Optimizacion del Tamano del Bundle',
+      paragraphs: [
+        'El tamano del bundle afecta el tiempo de carga y el rendimiento. Bundles mas pequenos mejoran Core Web Vitals y experiencia de usuario.',
+        'Los recursos a continuacion cubren code splitting, tree shaking, compresion y lazy loading. Cada guia te ayuda a reducir el tamano del bundle.',
+      ],
+    },
+  },
+  'event-streaming': {
+    en: {
+      heading: 'Event Streaming',
+      paragraphs: [
+        'Event streaming processes events in real time as they occur. It powers analytics, pipelines, and reactive systems.',
+        'The resources below cover Kafka, Kinesis, consumers, producers, and stream processing. Each guide helps you build real-time event pipelines.',
+      ],
+    },
+    es: {
+      heading: 'Streaming de Eventos',
+      paragraphs: [
+        'El streaming de eventos procesa eventos en tiempo real a medida que ocurren. Potencia analiticas, pipelines y sistemas reactivos.',
+        'Los recursos a continuacion cubren Kafka, Kinesis, consumidores, productores y stream processing. Cada guia te ayuda a construir pipelines de eventos en tiempo real.',
+      ],
+    },
+  },
+  protobuf: {
+    en: {
+      heading: 'Protocol Buffers',
+      paragraphs: [
+        'Protocol Buffers are a language-neutral, efficient data serialization format. They are widely used for RPC and data storage.',
+        'The resources below cover proto definitions, serialization, schema evolution, and gRPC. Each guide helps you use Protocol Buffers effectively.',
+      ],
+    },
+    es: {
+      heading: 'Protocol Buffers',
+      paragraphs: [
+        'Protocol Buffers son un formato de serializacion de datos eficiente e independiente del lenguaje. Se usan ampliamente para RPC y almacenamiento de datos.',
+        'Los recursos a continuacion cubren definiciones proto, serializacion, evolucion de esquemas y gRPC. Cada guia te ayuda a usar Protocol Buffers efectivamente.',
+      ],
+    },
+  },
+  'schema-registry': {
+    en: {
+      heading: 'Schema Registry',
+      paragraphs: [
+        'A schema registry stores and manages schemas for streaming data. It enforces compatibility and supports schema evolution.',
+        'The resources below cover Confluent Schema Registry, Avro, Protobuf, and compatibility rules. Each guide helps you manage schemas for event systems.',
+      ],
+    },
+    es: {
+      heading: 'Schema Registry',
+      paragraphs: [
+        'Un schema registry almacena y gestiona esquemas para datos de streaming. Hace cumplir compatibilidad y soporta evolucion de esquemas.',
+        'Los recursos a continuacion cubren Confluent Schema Registry, Avro, Protobuf y reglas de compatibilidad. Cada guia te ayuda a gestionar esquemas para sistemas de eventos.',
+      ],
+    },
+  },
+  amqp: {
+    en: {
+      heading: 'AMQP',
+      paragraphs: [
+        'AMQP is a messaging protocol for reliable communication. It is used by RabbitMQ and other message brokers.',
+        'The resources below cover exchanges, queues, bindings, and messaging patterns. Each guide helps you build reliable messaging with AMQP.',
+      ],
+    },
+    es: {
+      heading: 'AMQP',
+      paragraphs: [
+        'AMQP es un protocolo de mensajeria para comunicacion confiable. Se usa con RabbitMQ y otros brokers de mensajes.',
+        'Los recursos a continuacion cubren exchanges, colas, bindings y patrones de mensajeria. Cada guia te ayuda a construir mensajeria confiable con AMQP.',
+      ],
+    },
+  },
+  exchanges: {
+    en: {
+      heading: 'AMQP Exchanges',
+      paragraphs: [
+        'Exchanges in AMQP route messages to queues. Different exchange types support different routing patterns.',
+        'The resources below cover direct, fanout, topic, and headers exchanges. Each guide helps you route messages correctly in AMQP.',
+      ],
+    },
+    es: {
+      heading: 'Exchanges de AMQP',
+      paragraphs: [
+        'Los exchanges en AMQP dirigen mensajes a colas. Diferentes tipos de exchange soportan diferentes patrones de ruteo.',
+        'Los recursos a continuacion cubren exchanges direct, fanout, topic y headers. Cada guia te ayuda a enrutar mensajes correctamente en AMQP.',
+      ],
+    },
+  },
+  'dead-letter': {
+    en: {
+      heading: 'Dead Letter Queues',
+      paragraphs: [
+        'Dead letter queues capture messages that cannot be processed. They help diagnose and recover from failures.',
+        'The resources below cover DLQ setup, redrive, monitoring, and patterns. Each guide helps you handle failed messages safely.',
+      ],
+    },
+    es: {
+      heading: 'Dead Letter Queues',
+      paragraphs: [
+        'Las dead letter queues capturan mensajes que no pueden procesarse. Ayudan a diagnosticar y recuperarse de fallas.',
+        'Los recursos a continuacion cubren configuracion de DLQ, redrive, monitoreo y patrones. Cada guia te ayuda a manejar mensajes fallidos de forma segura.',
+      ],
+    },
+  },
+  blameless: {
+    en: {
+      heading: 'Blameless Postmortems',
+      paragraphs: [
+        'Blameless postmortems focus on system and process failures, not individual blame. They encourage learning and psychological safety.',
+        'The resources below cover postmortem templates, facilitation, and action items. Each guide helps you learn from incidents without blame.',
+      ],
+    },
+    es: {
+      heading: 'Postmortems sin Culpa',
+      paragraphs: [
+        'Los postmortems sin culpa se centran en fallas del sistema y del proceso, no en la culpa individual. Fomentan el aprendizaje y la seguridad psicologica.',
+        'Los recursos a continuacion cubren plantillas de postmortem, facilitacion e items de accion. Cada guia te ayuda a aprender de incidentes sin culpa.',
+      ],
+    },
+  },
+  lcp: {
+    en: {
+      heading: 'Largest Contentful Paint',
+      paragraphs: [
+        'LCP measures the time it takes for the largest visible content to render. It is a Core Web Vital for loading performance.',
+        'The resources below cover LCP optimization, resource loading, and rendering. Each guide helps you improve perceived load speed.',
+      ],
+    },
+    es: {
+      heading: 'Largest Contentful Paint',
+      paragraphs: [
+        'LCP mide el tiempo que tarda el contenido visible mas grande en renderizarse. Es un Core Web Vital para rendimiento de carga.',
+        'Los recursos a continuacion cubren optimizacion de LCP, carga de recursos y renderizado. Cada guia te ayuda a mejorar la velocidad de carga percibida.',
+      ],
+    },
+  },
+  inp: {
+    en: {
+      heading: 'Interaction to Next Paint',
+      paragraphs: [
+        'INP measures responsiveness to user interactions. It is a Core Web Vital for interactivity.',
+        'The resources below cover event handlers, long tasks, and optimization. Each guide helps you make interactions feel fast.',
+      ],
+    },
+    es: {
+      heading: 'Interaction to Next Paint',
+      paragraphs: [
+        'INP mide la capacidad de respuesta a las interacciones del usuario. Es un Core Web Vital para interactividad.',
+        'Los recursos a continuacion cubren event handlers, tareas largas y optimizacion. Cada guia te ayuda a hacer que las interacciones se sientan rapidas.',
+      ],
+    },
+  },
+  cls: {
+    en: {
+      heading: 'Cumulative Layout Shift',
+      paragraphs: [
+        'CLS measures unexpected layout shifts as a page loads. It is a Core Web Vital for visual stability.',
+        'The resources below cover image sizing, web fonts, and dynamic content. Each guide helps you reduce layout shifts.',
+      ],
+    },
+    es: {
+      heading: 'Cumulative Layout Shift',
+      paragraphs: [
+        'CLS mide cambios inesperados de layout mientras carga una pagina. Es un Core Web Vital para estabilidad visual.',
+        'Los recursos a continuacion cubren dimensionado de imagenes, fuentes web y contenido dinamico. Cada guia te ayuda a reducir cambios de layout.',
+      ],
+    },
+  },
+  lighthouse: {
+    en: {
+      heading: 'Lighthouse Audits',
+      paragraphs: [
+        'Lighthouse is an open-source tool for auditing web performance, accessibility, and best practices. It provides scores and recommendations.',
+        'The resources below cover Lighthouse metrics, CI integration, and remediation. Each guide helps you improve site quality with Lighthouse.',
+      ],
+    },
+    es: {
+      heading: 'Auditorias con Lighthouse',
+      paragraphs: [
+        'Lighthouse es una herramienta de codigo abierto para auditar rendimiento web, accesibilidad y mejores practicas. Proporciona puntuaciones y recomendaciones.',
+        'Los recursos a continuacion cubren metricas de Lighthouse, integracion con CI y remediacion. Cada guia te ayuda a mejorar la calidad del sitio con Lighthouse.',
+      ],
+    },
+  },
+  'database-performance': {
+    en: {
+      heading: 'Database Performance',
+      paragraphs: [
+        'Database performance covers query speed, throughput, and resource usage. Optimizing it improves application response times.',
+        'The resources below cover indexing, query tuning, connection pooling, and monitoring. Each guide helps you make databases faster.',
+      ],
+    },
+    es: {
+      heading: 'Rendimiento de Base de Datos',
+      paragraphs: [
+        'El rendimiento de base de datos cubre velocidad de consulta, throughput y uso de recursos. Optimizarlo mejora los tiempos de respuesta de las aplicaciones.',
+        'Los recursos a continuacion cubren indexacion, ajuste de consultas, connection pooling y monitoreo. Cada guia te ayuda a hacer bases de datos mas rapidas.',
+      ],
+    },
+  },
 };
