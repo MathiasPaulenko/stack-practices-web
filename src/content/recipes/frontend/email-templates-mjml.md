@@ -289,6 +289,15 @@ emove_classes and merge_inline options to reduce CSS size
 - **ESP integration**: use ESP APIs (SendGrid, Mailgun, Postmark) for programmatic sending. Store API keys in environment variables. Implement retry logic for API failures. Monitor ESP status pages for outages. Have a backup ESP for failover
 - **Template migration**: when switching ESPs, migrate templates carefully. Different ESPs use different templating languages (Handlebars, Mustache, Liquid). Test all templates in the new ESP before switching production traffic
 - **Monitoring and alerting**: monitor bounce rate (< 5%), spam complaint rate (< 0.1%), open rate (baseline per email type). Set up alerts for abnormal rates. Track delivery rate by ESP. Monitor sender reputation via Sender Score
+
+## Troubleshooting
+
+- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
+- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+
 ## FAQ
 
 **Q: Do I need MJML if I use a service like SendGrid?**

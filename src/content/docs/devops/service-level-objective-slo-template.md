@@ -276,6 +276,15 @@ Decision: 42% budget remaining at day 20 of 30.
 - Setting targets based on current performance without improvement goals.
 - Confusing internal SLOs with external SLAs.
 
+
+## Troubleshooting
+
+- **No logs for a failing request**: verify log shipping, retention, and that the request reached the service. Use correlation IDs.
+- **Alert fires but the service is healthy**: tune thresholds and use multi-signal alerts. Avoid alerting on single metric spikes.
+- **Dashboard shows stale data**: check refresh intervals, query range, and data source lag. Verify that the metric still exists.
+- **High cardinality metrics explode costs**: drop high-cardinality labels, aggregate before ingest, or use sampling.
+- **Trace is incomplete across services**: ensure all services propagate trace context. Instrument async and background jobs.
+
 ## FAQ
 
 ### What is the difference between SLI, SLO, and SLA?

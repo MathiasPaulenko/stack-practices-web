@@ -251,6 +251,15 @@ class ReconnectingWebSocket {
 - **Broadcasting to all connections for every message**: not all messages need to reach all clients. Use room-based routing to send messages only to relevant connections.
 - **No error handling in Lambda for unknown routes**: messages with actions that don't match any route return 400. Log unknown actions for debugging and return a meaningful error to the client.
 
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
 ## FAQ
 
 **Q: How many concurrent connections can API Gateway WebSockets handle?**

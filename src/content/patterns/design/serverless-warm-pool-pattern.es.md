@@ -318,3 +318,11 @@ No. Warm pool y provisioned concurrency reducen los cold starts pero no los elim
 ### Cuanto cuesta el patron warm pool?
 
 Cada ping es una invocacion Lambda. A intervalos de 5 minutos con 5 pings concurrentes, son 5 invocaciones cada 5 minutos = 1.440 invocaciones por dia. A $0.20 por millon de invocaciones, el coste es insignificante. El coste principal es el tiempo de compute de cada invocacion ping.
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.

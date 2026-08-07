@@ -303,6 +303,15 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - **URL normalization errors**: if URL parsing fails, log the original URL and the error. Do not attempt to fix the URL automatically â€” malformed URLs may be intentional (e.g., for testing). Return a clear error to the caller
 - **UUID collision handling**: if a UUID collision occurs (extremely rare with v4/v7), regenerate with a new random component. Log the collision for investigation. UUIDv1 collisions indicate a clock or MAC address problem
 - **CLI argument error recovery**: if a required argument is missing, print the help text and exit with code 2. If an argument has an invalid value, print the error, the expected format, and exit with code 2. Never proceed with invalid arguments
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 **Q: Why does `+` sometimes decode to space?**

@@ -299,3 +299,11 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **DoS via file descriptors en errores**: si los error handlers abren files durante error processing, atacantes pueden exhaustar file descriptors. Limita file operations en error handlers.
 - **DoS via memory allocation en errores**: si los error handlers allocatean large buffers para error messages, atacantes pueden exhaustar memoria. Capea error message size a 1KB.
 - **DoS via stack traces en errores**: si se generan stack traces para cada error, atacantes pueden triggerear muchos errores para consumir CPU. Cachea stack traces para errores identicos repetidos.
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.

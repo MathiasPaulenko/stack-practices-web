@@ -309,3 +309,11 @@ Configura orígenes permitidos por entorno usando environment variables. En desa
 ### ¿Cómo manejo CORS con CDN caching?
 
 Agrega `Vary: Origin` a todas las respuestas CORS para que el CDN cachee diferentes respuestas por origen. Sin `Vary: Origin`, el CDN puede servir una respuesta cacheada para el origen A a un request del origen B, causando fallos de CORS. Configura el CDN para cachear respuestas CORS separadamente por origen: en Cloudflare, usa cache keys que incluyan el header `Origin`. En CloudFront, crea un cache behavior que incluya `Origin` en la cache key. Para APIs con validación dinámica de origen, deshabilita el CDN caching para respuestas CORS enteramente — setea `Cache-Control: no-store` en respuestas preflight `OPTIONS`.
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.

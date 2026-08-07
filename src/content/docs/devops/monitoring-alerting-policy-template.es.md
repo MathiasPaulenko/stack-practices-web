@@ -282,6 +282,15 @@ Puntuacion total menor a 18 significa que la alerta necesita ajuste o eliminacio
 - Faltar caminos de escalacion para incidentes severos.
 - No revisar y retirar alertas obsoletas despues de cambios en el sistema.
 
+
+## Troubleshooting
+
+- **No logs for a failing request**: verify log shipping, retention, and that the request reached the service. Use correlation IDs.
+- **Alert fires but the service is healthy**: tune thresholds and use multi-signal alerts. Avoid alerting on single metric spikes.
+- **Dashboard shows stale data**: check refresh intervals, query range, and data source lag. Verify that the metric still exists.
+- **High cardinality metrics explode costs**: drop high-cardinality labels, aggregate before ingest, or use sampling.
+- **Trace is incomplete across services**: ensure all services propagate trace context. Instrument async and background jobs.
+
 ## FAQ
 
 ### Que es la fatiga de alertas y como la evitamos?

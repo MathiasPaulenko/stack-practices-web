@@ -318,3 +318,11 @@ En un flujo de GitOps, el pull request ES la solicitud de cambio. Vincula el PR 
 ### Que hacemos con cambios de emergencia fuera de horario?
 
 Define un proceso de cambio de emergencia separado del flujo normal. Requiere aprobacion del lider de guardia y notificacion al CAB via canal de Slack o PagerDuty. Documenta el cambio retrospectivamente dentro de 24 horas. Realiza un postmortem si el cambio de emergencia causo o estuvo relacionado con un incidente. Limita cambios de emergencia a correcciones de bugs criticos o parches de seguridad. No uses el proceso de emergencia para saltarte revisiones de cambios planificados.
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.

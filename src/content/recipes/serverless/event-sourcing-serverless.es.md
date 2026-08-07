@@ -309,3 +309,11 @@ Lambda escala concurrentemente basado en el número de eventos en el stream. Si 
 ### ¿Cómo manejo consistencia eventual en proyecciones?
 
 Las proyecciones son eventualmente consistentes por naturaleza — hay un lag entre el write del evento y el update de la proyección. Para reads que requieren consistencia strong, lee del aggregate directamente via replay en lugar de la proyección. Para UIs, muestra timestamps de "última actualización" basados en el último evento procesado. Usa CQRS con separate read/write models: el write model valida commands contra el aggregate, el read model sirve desde proyecciones. Si el lag es inaceptable, considera update la proyección synchronously dentro del command handler, pero esto aumenta la latencia del write.
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.

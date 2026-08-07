@@ -315,6 +315,15 @@ redis_client.setex(key, ttl, zlib.compress(json.dumps(result).encode()))
 - **Not setting a TTL** — without `setex`, entries persist indefinitely and consume Redis memory
 - **Including `self` in the key** — the object's `id()` changes between requests, causing cache misses
 
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
 ## FAQ
 
 **Q: Should I use Redis or in-memory caching?**

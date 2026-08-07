@@ -334,3 +334,11 @@ Lecciones:
 ### Cuando uso threads vs async en Node.js?
 
 Usa worker_threads para tareas CPU-intensivas (procesamiento de imagenes, crypto, compresion, parsing de archivos grandes). El event loop es single-threaded: el trabajo CPU lo bloquea. Usa async/await para tareas I/O (DB, HTTP, lectura de archivos): el event loop maneja I/O eficientemente sin threads. Si tu tarea toma < 10ms, mantenla en el event loop. Si toma > 100ms de CPU, offloadea a un worker.
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.

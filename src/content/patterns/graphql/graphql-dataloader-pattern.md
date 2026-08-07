@@ -293,6 +293,15 @@ const stockPriceLoader = new DataLoader(batchStockPrices, {
 - **Using DataLoader for long-lived caching**: DataLoader cache is per-request. Use Redis or application-level cache for cross-request caching
 - **Missing `cacheKeyFn` for object keys**: `{ userId: '1' }` and `{ userId: '1' }` are different object references — cache misses every time
 
+
+## Troubleshooting
+
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
+- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
+- **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
+- **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
+
 ## FAQ
 
 **Is DataLoader only for GraphQL?**

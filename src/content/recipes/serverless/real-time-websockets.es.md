@@ -302,3 +302,11 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 ### ¿Cómo pruebo localmente antes de desplegar?
 
 Usa `sam local start-api` con AWS SAM para emular API Gateway WebSockets localmente. Para DynamoDB, ejecuta DynamoDB Local en Docker. Crea un cliente de prueba en JavaScript que conecte al endpoint local y envíe mensajes. Verifica que el callback `$connect` registre la conexión en DynamoDB y que `$default` procese mensajes correctamente. Para pruebas de carga, usa Artillery con el engine de WebSocket para simular cientos de conexiones concurrentes.
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.

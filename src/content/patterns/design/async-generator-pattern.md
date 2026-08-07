@@ -244,6 +244,15 @@ A browser app connects to a Server-Sent Events endpoint. An async generator wrap
 
 A log analytics service tails log files using `fs.createReadStream` wrapped in an async generator. Each yielded chunk is parsed and sent to an analytics backend. The generator applies natural backpressure — it only reads more data when the analytics backend is ready for the next chunk.
 
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 **Q: How is an async generator different from a regular generator?**

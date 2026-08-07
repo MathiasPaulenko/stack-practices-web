@@ -305,3 +305,11 @@ Usa API Gateway para endpoints HTTP que necesitan autenticación, rate limiting,
 ### ¿Cómo manejo variables de entorno entre stages?
 
 Usa archivos de configuración separados por stage (`serverless.dev.yml`, `serverless.prod.yml`) y referéncialos en tu comando de deployment. Nunca hardcodees secrets — usa AWS Systems Manager Parameter Store o Secrets Manager. Lambda lee estos en runtime vía el execution role de la función. Para configs no sensibles como URLs de API, usa variables de entorno seteadas en la configuración de la función.
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.

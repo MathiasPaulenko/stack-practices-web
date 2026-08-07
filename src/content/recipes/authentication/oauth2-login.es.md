@@ -306,3 +306,11 @@ OAuth 2.0 es un framework de **autorización** ("Puede esta app acceder a mis da
 - **OAuth2 mixed content**: si el OAuth2 flow corre sobre HTTP, los tokens pueden ser interceptados. Forza HTTPS para todos los OAuth2 endpoints y redirige HTTP a HTTPS.
 - **OAuth2 token binding sin mTLS**: si el token no esta bound al cliente via mTLS, un token robado puede usarse desde cualquier cliente. Implementa token binding con mTLS para clientes de alta seguridad.
 - **OAuth2 resource indicator sin validacion**: si el resource parameter no se valida, atacantes pueden acceder a recursos no autorizados con un token valido. Valida el resource parameter contra una allowlist por cliente.
+
+## Troubleshooting
+
+- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings. Look for case sensitivity in identifiers.
+- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew. Short tokens with secure refresh are preferred.
+- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
+- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
+- **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.

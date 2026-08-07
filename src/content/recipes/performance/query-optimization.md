@@ -258,6 +258,15 @@ Reset statistics after making changes to get clean measurements: `SELECT pg_stat
 - **Not testing with production data volume**: a query that runs in 10ms on a development database with 1,000 rows may take 10 seconds on production with 10 million rows.
 - **Premature optimization**: profile first. Do not rewrite perfectly fast queries. Focus on the top 5 slowest queries by total execution time.
 
+
+## Troubleshooting
+
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
+- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+
 ## FAQ
 
 ### How do I know if a query is using an index?

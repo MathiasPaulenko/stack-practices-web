@@ -324,3 +324,11 @@ Lecciones:
 ### Como preparo a un equipo nuevo para on-call?
 
 Comienza con shadowing: el nuevo ingeniero acompana al on-call durante 2 semanas sin responder pages. Luego responde pages de baja severidad con el senior como backup. Despues de 1 mes, toma turnos completos con el senior disponible. Provee un runbook por servicio. Haz game days en staging para practicar respuesta a incidentes.
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.

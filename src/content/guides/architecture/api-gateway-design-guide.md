@@ -319,6 +319,15 @@ Use path-based versioning: /v1/users, /v2/users. The gateway routes to different
 4. Not setting **timeouts** on upstream calls; a slow service can exhaust gateway threads
 5. Ignoring **gateway health** in monitoring; the gateway is infrastructure, not invisible plumbing
 
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
 ## FAQ
 
 ### Should I use one gateway or multiple?

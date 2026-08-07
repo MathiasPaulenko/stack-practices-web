@@ -186,6 +186,15 @@ The outer layers implement interfaces (ports) defined by inner layers. This is t
 - **Anemic domain model** — entities should encapsulate behavior, not just data
 - **Too many layers** — for simple CRUD apps, Onion can be overkill; use it when domain complexity justifies it
 
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
 ## FAQ
 
 **Onion vs Clean Architecture?**

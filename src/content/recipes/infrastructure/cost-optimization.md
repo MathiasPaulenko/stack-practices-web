@@ -280,6 +280,15 @@ spec:
 
 - **Cost policies and guardrails**: implement cost policies using SCPs, Azure Policies, or GCP Organization Policies. Block expensive instance types in dev environments. Enforce mandatory tagging. Prevent resource creation in unapproved regions. Set maximum resource counts per account. Use OPA or Sentinel for policy-as-code. Review and update policies quarterly
 - **Audit trail for cost actions**: log all cost management actions (budget changes, commitment purchases, RI modifications). Use CloudTrail, GCP Audit Logs, or Azure Activity Log. Export logs to centralized logging (Splunk, ELK). Retain logs for 7 years for compliance. Alert on suspicious cost management actions. Review audit logs monthly
+
+## Troubleshooting
+
+- **Instance is unreachable**: check security groups, routes, DNS, and health status in the provider console. Verify that the OS firewall is not blocking the port.
+- **Provisioning fails consistently**: inspect the init script, IAM roles, and image availability. A missing permission is the most common root cause.
+- **Resource exhaustion alerts**: correlate CPU, memory, disk, and network metrics. Identify the top process and whether the load is expected.
+- **Backup restore does not work**: test restores regularly. A backup that cannot be restored is not a backup.
+- **Configuration drift**: compare running instances with the infrastructure-as-code definition. Recreate from the canonical definition when in doubt.
+
 ## FAQ
 
 **Q: Should I use spot instances for production?**

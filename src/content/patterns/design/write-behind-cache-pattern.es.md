@@ -333,3 +333,11 @@ Write-behind es mejor cuando el throughput de escritura es mas importante que la
 ### Puedo combinar write-behind con read-through?
 
 Si. Las lecturas van a traves del cache con un callback loader. Las escrituras van al cache con persistencia asincrona a base de datos. El cache siempre tiene los datos mas recientes para lecturas, y la base de datos eventualmente alcanza. Esta combinacion maneja workloads de lectura y escritura intensa.
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.

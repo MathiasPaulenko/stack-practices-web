@@ -294,6 +294,15 @@ int main() {
 - **Condition variable spoofing**: if condition variables are accessible to untrusted code, 
 otify() can be called spuriously, waking threads that should remain blocked. Keep condition variables private
 - **Lock file race in initialization**: using file-based locks for initialization has TOCTOU (time-of-check-to-time-of-use) races. An attacker can replace the lock file between check and use. Use O_CREAT|O_EXCL with proper error handling
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 **Q: Should I use synchronized or ReentrantLock in Java?**

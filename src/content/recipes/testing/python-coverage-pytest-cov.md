@@ -230,6 +230,15 @@ Generates an SVG badge with the current coverage percentage for your README.
 - **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file. Run `coverage combine` before reporting.
 - **Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.
 
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
 ## FAQ
 
 ### What is the difference between line coverage and branch coverage?

@@ -344,3 +344,11 @@ Los ADRs no son solo documentos — son acuerdos. Para asegurar cumplimiento: en
 ### Donde almacenamos los ADRs?
 
 Almacena los ADRs en el repo del proyecto, usualmente en docs/adr/. Usa nombres numerados: adr-001-titulo.md, adr-002-titulo.md. Manten un indice en docs/adr/README.md con el estado de cada ADR (Propuesto, Aceptado, Rechazado, Superseded). Para decisiones que afectan a multiples servicios: almacena el ADR en el repo de infraestructura o en un repo de documentacion compartida. Versiona los ADRs con git — el historial de cambios es valioso. Nunca almacenes ADRs en un wiki separado del codigo — se desconectan del codigo y se vuelven obsoletos. Los ADRs deben vivir cerca del codigo que afectan.
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.

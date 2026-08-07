@@ -170,6 +170,15 @@ No todo pertenece a un slice vertical. La infraestructura compartida vive en una
 - **Ignorar preocupaciones transversales** — logging, caching y transacciones aún necesitan manejo centralizado
 - **Mezclar horizontal y vertical** — elegir un enfoque por aplicación, no ambos arbitrariamente
 
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
 ## FAQ
 
 **Reemplaza Vertical Slice a Clean Architecture?**

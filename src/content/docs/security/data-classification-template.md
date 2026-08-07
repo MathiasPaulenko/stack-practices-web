@@ -195,6 +195,15 @@ RESTRICTED       | At rest +   | Named        | Required + | Per policy +
 4. Not including third-party vendors in classification rules; a SaaS tool with SSO is still external
 5. Treating classification as a one-time audit; data changes, services evolve, and classifications rot
 
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
 ## FAQ
 
 ### Who decides the classification of a new dataset?

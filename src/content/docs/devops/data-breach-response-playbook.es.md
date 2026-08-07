@@ -322,3 +322,11 @@ Si la brecha se descubre tarde: no entres en panico, pero actua rapidamente. Inv
 ### Como manejamos una brecha en un proveedor externo?
 
 Si un proveedor experimenta una brecha que afecta tus datos: confirma que datos tuyos estuvieron involucrados. Revisa tu Acuerdo de Procesamiento de Datos (DPA) para requisitos de notificacion. Solicita un reporte detallado del incidente al proveedor. Evalua si continuar usando el proveedor o cambiar de proveedor. Notifica a tus clientes afectados si es requerido — eres responsable de sus datos incluso cuando un proveedor los tiene. Coordina la comunicacion con el proveedor para asegurar mensajeria consistente. Documenta la respuesta del proveedor y tu evaluacion para registros legales y de compliance. Considera accion legal si el proveedor no cumplio las obligaciones contractuales de seguridad.
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.

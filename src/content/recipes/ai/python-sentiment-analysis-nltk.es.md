@@ -318,3 +318,11 @@ VADER es gratis y corre localmente. Para análisis de sentimiento con transforme
 - **Necesitas comparación de intensidad de sentimiento**: el compound score de VADER no es lineal. Un score de 0.5 no es "dos veces más positivo" que 0.25. Usa un modelo de regresión si necesitas scores de intensidad calibrados.
 - **Tu dominio usa mucho jerga**: el léxico de VADER es general-purpose. Texto médico, legal o técnico puede puntuar incorrectamente. Suplementa con un léxico domain-specific o switchea a un modelo fine-tuned.
 - **Necesitas detección de emociones en tiempo real**: VADER clasifica como positivo, negativo o neutral. Si necesitas emociones (ira, alegría, miedo, sorpresa), usa un clasificador de emociones multi-clase como GoEmotions.
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.

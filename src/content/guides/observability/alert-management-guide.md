@@ -289,6 +289,15 @@ Actively measure and reduce alert volume:
 - Team-specific ownership: Alerts route to the team that owns the service
 - AI-assisted alerting: Anomaly detection that adjusts thresholds dynamically
 
+
+## Troubleshooting
+
+- **No logs for a failing request**: verify log shipping, retention, and that the request reached the service. Use correlation IDs.
+- **Alert fires but the service is healthy**: tune thresholds and use multi-signal alerts. Avoid alerting on single metric spikes.
+- **Dashboard shows stale data**: check refresh intervals, query range, and data source lag. Verify that the metric still exists.
+- **High cardinality metrics explode costs**: drop high-cardinality labels, aggregate before ingest, or use sampling.
+- **Trace is incomplete across services**: ensure all services propagate trace context. Instrument async and background jobs.
+
 ## FAQ
 
 **Q: How many alerts per week is too many?**

@@ -227,6 +227,15 @@ Semantic search works in three stages:
 4. **Single embedding per document** — long documents should be chunked; one embedding loses detail
 5. **No index updates** — stale embeddings for updated documents silently degrade search quality
 
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
 ## FAQ
 
 ### What is the difference between semantic and keyword search?

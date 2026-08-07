@@ -314,3 +314,11 @@ Para funciones puras, las propiedades son straightforward: aserta invariantes co
 ### ¿Cómo comparto strategies entre test suites?
 
 Extrae strategies reutilizables en un módulo compartido (ej., `test/strategies.py` o `test/strategies.ts`). Exporta generadores comunes como `email_strategy`, `date_strategy`, `json_strategy` que encodeen reglas de dominio. Impórtalos en los test files para mantener las properties DRY. En Hypothesis, usa `st.register_type_strategy` para bindear una strategy a un tipo custom para que `st.from_type(MyClass)` funcione automáticamente. En fast-check, exporta instancias de `fc.Arbitrary` desde un archivo compartido.
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.

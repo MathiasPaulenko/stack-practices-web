@@ -265,6 +265,15 @@ describe("SubmitForm", () => {
 - **Guardar snapshots en un directorio diferente a los tests**: mantén los archivos `.snap` junto a los archivos de test para discoverability.
 - **Usar snapshots como único test**: los snapshots verifican estructura, no comportamiento. Agrega tests de interacción con `@testing-library/react`.
 
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
 ## FAQ
 
 ### ¿Cómo actualizo snapshots después de un cambio intencional?

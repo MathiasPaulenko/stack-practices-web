@@ -286,6 +286,15 @@ const loader = new DataLoader(batchFn, {
 
 - **Sharing DataLoader across requests**: never share a DataLoader instance across HTTP requests in a web server. Each request should get a fresh instance. Sharing leads to cache leakage between users and potential authorization bypass. Use a per-request context pattern
 - **Not handling null keys**: DataLoader batch functions receive null keys when resolvers return null. Handle nulls explicitly in the batch function. Return null for null input keys. Do not pass null to database queries. Validate keys before processing
+
+## Troubleshooting
+
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
+- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
+- **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
+- **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
+
 ## FAQ
 
 **Q: Does DataLoader cache across requests?**

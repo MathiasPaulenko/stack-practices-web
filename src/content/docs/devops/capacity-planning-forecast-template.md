@@ -243,6 +243,15 @@ ACTION: Add 4 instances to auto-scaling group by October 2026
 4. **No confidence levels on assumptions** — marketing campaigns fail; build scenarios for high, medium, and low growth
 5. **Waiting until 90% utilization** — by then you are already in emergency mode; plan at 70%
 
+
+## Troubleshooting
+
+- **Instance is unreachable**: check security groups, routes, DNS, and health status in the provider console. Verify that the OS firewall is not blocking the port.
+- **Provisioning fails consistently**: inspect the init script, IAM roles, and image availability. A missing permission is the most common root cause.
+- **Resource exhaustion alerts**: correlate CPU, memory, disk, and network metrics. Identify the top process and whether the load is expected.
+- **Backup restore does not work**: test restores regularly. A backup that cannot be restored is not a backup.
+- **Configuration drift**: compare running instances with the infrastructure-as-code definition. Recreate from the canonical definition when in doubt.
+
 ## FAQ
 
 ### How far ahead should we forecast?

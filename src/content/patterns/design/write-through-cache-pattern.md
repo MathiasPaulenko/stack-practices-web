@@ -306,6 +306,15 @@ The order matters: database first, cache second. If you write to cache first and
 - **Not setting a TTL** — even with write-through, a TTL catches edge cases where a write is missed. Set a TTL as a safety net.
 - **Caching too much** — write-through writes to cache on every update. Caching rarely-read data wastes memory and adds write latency for no benefit.
 
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
 ## FAQ
 
 ### What is the difference between write-through and write-behind?

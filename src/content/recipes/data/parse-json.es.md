@@ -346,3 +346,11 @@ Python: `json.dumps(data, indent=2)`. JavaScript: `JSON.stringify(data, null, 2)
 ### ¿Cuál es el tamaño máximo de una cadena JSON?
 
 No hay límite en la especificación. Los límites prácticos dependen de tu parser y memoria. El `json` de Python maneja strings hasta la memoria disponible. El `JSON.parse` de JavaScript está limitado por el heap de JS (típicamente 2-4 GB). Para archivos mayores a 1 GB, usa parsers de streaming.
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

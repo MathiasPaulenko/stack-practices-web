@@ -320,6 +320,15 @@ Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary
 - **SSE connection limit per browser**: browsers limit SSE connections per origin (6 in Chrome). If your app opens multiple SSE connections, some will fail. Use a single multiplexed connection instead.
 - **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling. Implement fallback logic on the client and document the degradation strategy.
 
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
 ## FAQ
 
 **Q: SSE vs WebSockets: which to choose?**

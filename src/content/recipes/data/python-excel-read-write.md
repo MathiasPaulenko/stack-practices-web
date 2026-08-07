@@ -286,6 +286,15 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **Idempotent file processing**: processing the same file twice should produce the same result. Use file hash + processing timestamp as a unique key. Skip files that have already been processed successfully
 - **Circuit breaker for external dependencies**: if the file source (FTP, S3, API) is down, open a circuit breaker after 5 consecutive failures. Stop attempting reads for 5 minutes, then try again. This prevents cascading failures
 - **Graceful degradation**: if a non-critical parser fails (e.g., metadata extraction), continue processing with the core data. Log the failure but do not block the pipeline. Only block on critical parsing failures
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### How do I read a specific range of cells?

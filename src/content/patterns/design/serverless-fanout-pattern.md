@@ -311,6 +311,15 @@ The key benefit is isolation: if the email consumer is slow or fails, the invent
 - **Coupling producer to consumers** — if the producer checks consumer status or sends different messages to different consumers, the fanout is not truly decoupled. The producer should publish one event and let the topic handle delivery.
 - **No idempotency in consumers** — SQS at-least-once delivery means consumers may process the same message twice. Use idempotency keys to prevent duplicate side effects.
 
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
 ## FAQ
 
 ### What is the difference between SNS fanout and EventBridge fanout?

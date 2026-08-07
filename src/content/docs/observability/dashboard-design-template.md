@@ -302,6 +302,15 @@ Annotation layers correlate deployments and incidents with metric changes. When 
 7. No variables — forcing engineers to edit queries to filter by endpoint or instance
 8. Too high cardinality — panels with 100 series are unreadable. Aggregate appropriately.
 
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
 ## FAQ
 
 ### How many panels should a dashboard have?

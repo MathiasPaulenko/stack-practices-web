@@ -271,6 +271,15 @@ When aborted, `fetch` rejects with an `AbortError`. This is the standard way to 
 4. **Mixing microtask recursion**: Promise.resolve().then(() => Promise.resolve().then(...)) can deadlock
 5. **Ignoring the render phase**: Heavy microtask queues prevent browser painting
 
+
+## Troubleshooting
+
+- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
+- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+
 ## FAQ
 
 ### Why does Promise.then() run before setTimeout(0)?

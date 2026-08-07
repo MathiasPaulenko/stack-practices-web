@@ -324,3 +324,11 @@ Genera un UUID v4 en el lado del cliente antes del primer intento de request. Re
 ### ¿Puedo implementar idempotencia sin un store dedicado?
 
 Sí, usando constraints de base de datos. Por ejemplo, una tabla `payments` con un constraint único sobre `(idempotency_key, merchant_id)` previene duplicados naturalmente. La transacción de base de datos aplica atomicidad sin un cache separado. Sin embargo, esto solo funciona cuando la clave mapea directamente a un registro de base de datos; para operaciones multi-paso complejas, un store dedicado es más claro.
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.

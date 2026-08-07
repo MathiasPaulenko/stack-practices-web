@@ -212,6 +212,15 @@ Fine-tuning updates a pre-trained model's weights to improve performance on a na
 4. **Ignoring tokenizer mismatch** — ensure your code examples tokenize cleanly; check for unknown tokens
 5. **No evaluation baseline** — always compare against the base model with zero-shot prompting before fine-tuning
 
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
 ## FAQ
 
 ### How much data do I need?

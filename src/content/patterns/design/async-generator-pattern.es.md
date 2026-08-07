@@ -314,3 +314,11 @@ R: Si, en Python 3.11+ usa `async with asyncio.timeout(seconds)` alrededor del l
 
 **P: Como compongo async generators con `yield from`?**
 R: En Python, `yield from` delega a un sub-generador: `yield from otro_async_gen()`. Esto encadena generadores sin iteracion manual. En JavaScript, usa `yield*` con `async function*`: `yield* otroAsyncGen()`. Es util para envolver un generador con logging o logica de transformacion preservando el modelo pull-based.
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.

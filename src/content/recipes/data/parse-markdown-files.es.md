@@ -335,3 +335,11 @@ GFM (GitHub Flavored Markdown) es un superset de CommonMark. Añade tablas, task
 ### ¿Cómo convierto Markdown a otros formatos (PDF, EPUB, docx)?
 
 Usa Pandoc como herramienta CLI: `pandoc input.md -o output.pdf`. Para uso programático, llama Pandoc vía subprocess (Python), `child_process` (Node.js), o `ProcessBuilder` (Java). Alternativamente, usa `markdown-pdf` (Node.js) o `weasyprint` (Python) para conversión HTML-to-PDF después de renderizar Markdown a HTML.
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

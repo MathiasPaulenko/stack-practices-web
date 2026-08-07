@@ -322,3 +322,11 @@ Lecciones:
 ### Como garantizo idempotencia con deferral?
 
 Usa un id unico (messageId) y un store (Redis/DB) para trackear el estado. Antes de procesar, verifica si ya se proceso: si result.status === "completed", skip. Si "processing", esperar o skip. Usa optimistic locking: UPDATE messages SET status=processing WHERE id=X AND status=pending. Si affected_rows=0, alguien mas lo proceso. Idempotencia es obligatoria en sistemas distribuidos: el mismo mensaje puede entregarse 1+ veces.
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.

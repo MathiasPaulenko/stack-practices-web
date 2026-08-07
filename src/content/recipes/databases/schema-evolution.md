@@ -139,6 +139,15 @@ CREATE INDEX idx_user_preferences_theme ON user_preferences(theme);
 4. **Ignoring lock timeouts**: PostgreSQL `statement_timeout` aborts long migrations unpredictably. See [connection pooling](/recipes/performance/connection-pooling).
 5. **No dry runs**: Running migrations directly in production without `EXPLAIN` or staging validation
 
+
+## Troubleshooting
+
+- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
 ## FAQ
 
 **Q: How do I rename a column without downtime?**

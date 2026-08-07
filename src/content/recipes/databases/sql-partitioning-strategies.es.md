@@ -318,3 +318,11 @@ ORDER BY pg_total_relation_size(schemaname||'.'||tablename) DESC;
 4. **Ajusta `max_parallel_workers_per_gather`.** Los escaneos de tablas particionadas pueden beneficiarse de workers paralelos. Aumenta este setting para escaneos grandes de particiones.
 
 5. **Usa `SET enable_partition_pruning = on`** para asegurar que la poda esté activa. Está activado por defecto en PostgreSQL 11+, pero verifica si las consultas escanean todas las particiones inesperadamente.
+
+## Troubleshooting
+
+- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.

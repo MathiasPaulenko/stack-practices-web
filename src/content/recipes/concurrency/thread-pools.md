@@ -277,6 +277,15 @@ Go's goroutines are lightweight (2KB stack vs 1MB for OS threads), so you can sp
 - **Sharing a single pool across unrelated workloads**: CPU-bound and I/O-bound tasks have different optimal pool sizes. If they share a pool, one workload starves the other. Use separate pools per workload type.
 - **Not handling `RejectedExecutionException`**: when using `AbortPolicy`, the pool throws `RejectedExecutionException` under overload. If you do not catch it, the exception propagates and may crash the caller. Catch it and degrade gracefully.
 
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 **Q: How many threads should my pool have?**

@@ -298,6 +298,15 @@ Key concepts:
 - Not handling `return_exceptions=True` results. Exceptions are returned as values, not raised.
 - Using `asyncio.run()` multiple times in the same script. Create one event loop.
 
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 ### Can I use requests with asyncio?

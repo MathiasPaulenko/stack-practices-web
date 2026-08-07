@@ -307,6 +307,15 @@ if __name__ == '__main__':
 - Tratar las etiquetas como metadata opcional en lugar de datos operativos.
 - No reportar recursos sin etiquetar o asignar propiedad de remediacion.
 
+
+## Troubleshooting
+
+- **Instance is unreachable**: check security groups, routes, DNS, and health status in the provider console. Verify that the OS firewall is not blocking the port.
+- **Provisioning fails consistently**: inspect the init script, IAM roles, and image availability. A missing permission is the most common root cause.
+- **Resource exhaustion alerts**: correlate CPU, memory, disk, and network metrics. Identify the top process and whether the load is expected.
+- **Backup restore does not work**: test restores regularly. A backup that cannot be restored is not a backup.
+- **Configuration drift**: compare running instances with the infrastructure-as-code definition. Recreate from the canonical definition when in doubt.
+
 ## FAQ
 
 ### Que pasa si un recurso es compartido por multiples equipos?

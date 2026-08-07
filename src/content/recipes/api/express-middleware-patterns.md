@@ -289,6 +289,15 @@ For 10K req/s: 2x EC2 t3.large ($60/month) + Redis ($15/month) + ALB ($25/month)
 - **Log middleware order violations**: if middleware executes out of order (e.g., auth after body parsing), log a warning. Middleware order bugs are hard to debug in production.
 - **Track memory usage per middleware**: some middleware (body-parser, session) allocates memory per request. Monitor heap growth and set up alerts for memory leaks. Use `--max-old-space-size` to limit heap and force garbage collection.
 
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
 ## FAQ
 
 **Q: Should I use Express or Fastify for new projects?**

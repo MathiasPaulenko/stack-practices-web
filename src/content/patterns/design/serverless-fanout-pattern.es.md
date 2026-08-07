@@ -328,3 +328,11 @@ Usa atributos de mensaje. Establece `FilterPolicy` en la suscripcion para solo r
 ### Como manejo mensajes veneno?
 
 Configura una dead-letter queue en la cola SQS. Tras `maxReceiveCount` (ej. 5), el mensaje pasa a la DLQ. Monitoriza la DLQ e investiga por que el mensaje no pudo procesarse. Arregla el consumidor o el formato del mensaje, luego redrive desde la DLQ.
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.

@@ -272,6 +272,15 @@ El commit manual te da control sobre cuando se guardan los offsets. Solo commite
 - No configurar `max.poll.interval.ms` correctamente — consumers que procesan lentamente son expulsados del group
 - Usar `auto_offset_reset=none` sin offsets commiteados — consumers crashean en la primera ejecucion
 
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
 ## FAQ
 
 **P: En que se diferencia de RabbitMQ?**

@@ -142,6 +142,15 @@ A production batch pipeline needs three properties:
 4. **Silent data loss**: Errors logged but not surfaced to operators
 5. **No rollback strategy**: Failed jobs leave the database in an inconsistent state
 
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### How large should each batch be?

@@ -319,6 +319,15 @@ The key insight is that reads always go to the cache, which has the latest data.
 - **Using write-behind for financial data** — eventual consistency means the database may not reflect the latest state. Use write-through for data that requires immediate persistence.
 - **Not handling cache eviction** — if a dirty entry is evicted from the cache before flushing, the write is lost. Use a separate dirty set or write-ahead log.
 
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
 ## FAQ
 
 ### What is the difference between write-behind and write-through?

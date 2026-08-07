@@ -146,6 +146,15 @@ La revision separa la identificacion del acceso de la aprobacion. Al listar cada
 - Olvidar revisar cuentas de servicio y API keys.
 - Omitir acceso a la consola en la nube al revisar roles de aplicacion.
 
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
 ## FAQ
 
 ### Que es una cuenta huerfana?

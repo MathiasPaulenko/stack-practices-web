@@ -265,6 +265,15 @@ public class AsyncOrderService {
 - **Task cancellation race conditions**: cancelling a task that performs a non-idempotent operation (e.g., charge a credit card) can lead to double charges if the operation completes before cancellation propagates. Use idempotency keys
 - **Async context manager leaks**: failing to use sync with for resources (database connections, HTTP sessions) leaks connections. Use linters that detect unclosed async resources
 - **Backpressure bypass**: if a fast producer feeds a slow consumer without backpressure, memory grows unbounded. Use bounded channels or streams with flow control
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 **Q: Is async always faster than synchronous?**

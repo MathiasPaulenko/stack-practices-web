@@ -306,3 +306,11 @@ Tres estrategias comunes: path URI (`/v1/users`), parámetro de query (`/users?v
 Devuelve 422 Unprocessable Entity cuando el body de la request es sintácticamente válido pero semánticamente incorrecto (e.g., campos requeridos faltantes, formato de email inválido). Usa 400 Bad Request para JSON malformado o headers content-type faltantes. Incluye un array `details` en la respuesta de error apuntando a errores de campos específicos.
 
 Para errores de lógica de negocio (e.g., saldo insuficiente, cuenta suspendida), usa 422 con un código de error específico en el body como `INSUFFICIENT_FUNDS`. Evita 400 para estos casos ya que la request es sintácticamente válida.
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.

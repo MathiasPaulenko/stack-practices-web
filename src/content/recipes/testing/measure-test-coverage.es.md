@@ -313,3 +313,11 @@ Sube reportes de cobertura a un servicio de tracking como Codecov, Coveralls o S
 La cobertura mide qué código fue ejecutado durante los tests, no si los tests realmente verifican corrección. Para medir efectividad, combina cobertura con mutation testing (ver recipe `implement-mutation-testing`). Mutation testing modifica el código fuente y chequea si los tests capturan el cambio. Un score alto de cobertura con un score bajo de mutation significa que los tests ejecutan el código pero no asertan comportamiento significativo. Usa ambas métricas juntas para una imagen completa de la calidad del test. Trackea ambas métricas en CI para capturar regresiones en efectividad del test a lo largo del tiempo.
 
 Setea umbrales separados para cobertura y mutation score — requiere 80% branch coverage pero solo 60% mutation score inicialmente, luego sube el umbral a medida que la suite madura.
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.

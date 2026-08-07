@@ -243,6 +243,15 @@ summary_response = openai.chat.completions.create(
 - **Not setting max_tokens**: without a limit, the model may generate excessively long responses, increasing cost and latency. Set `max_tokens` based on your expected output length.
 - **Prompt injection from user input**: if your prompt includes user-generated text, a malicious user can inject instructions like "ignore all previous instructions." Sanitize and delimit user content.
 
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
 ## FAQ
 
 **Q: How many few-shot examples should I include?**

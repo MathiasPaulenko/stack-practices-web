@@ -306,6 +306,15 @@ Benchmarks en Node.js 20, single core, mensajes 1KB. Resultados reales varian se
 
 ## Preguntas Frecuentes
 
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
 ## FAQ
 
 **P: Debo usar JWT o cookies de sesion para auth de WebSocket?**

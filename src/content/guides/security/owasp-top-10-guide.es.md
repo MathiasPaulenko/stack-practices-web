@@ -232,6 +232,15 @@ Mitigación:
 - Tratar la seguridad como algo posterior. Construye seguridad en el diseño, no como una lista de verificación pre-lanzamiento
 - Ignorar variantes móviles y de API. OWASP tiene listas separadas para seguridad móvil y de APIs
 
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
 ## FAQ
 
 ### ¿Con qué frecuencia actualiza OWASP el Top 10?

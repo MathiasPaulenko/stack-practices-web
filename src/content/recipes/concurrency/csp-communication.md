@@ -288,6 +288,15 @@ et/http/pprof). Protect them with authentication or bind to an internal port
 - **Memory exhaustion via large channel messages**: channels do not limit message size. An attacker can send large payloads through a channel to exhaust memory. Implement size limits at the application level
 - **Goroutine stack growth attacks**: deeply recursive goroutines can grow their stack to the 1GB limit. An attacker can trigger deep recursion via crafted input. Set recursion depth limits
 - **Context cancellation bypass**: if a goroutine does not check ctx.Done(), it ignores cancellation. Audit all goroutines for context checks. Use ctx.Err() to verify cancellation status
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 **Q: Are channels just queues with locking?**

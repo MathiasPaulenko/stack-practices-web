@@ -310,3 +310,11 @@ Event sourcing trata sobre como se almacena el estado (como eventos). CQRS trata
 ### Como reconstruyo un read model desde el log de eventos?
 
 Escanea todos los eventos del agregado, reproducelos para computar el estado actual y escribe el resultado a la tabla del read model. En serverless, usa una Lambda que procese el log de eventos en lotes y actualice la proyeccion. Disparala manualmente o via DynamoDB stream.
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.

@@ -310,3 +310,11 @@ Fine-tuning es cost-effective cuando necesitas comportamiento domain-specific qu
 - **La tarea cambia frecuentemente**: los modelos fine-tuned están frozen al momento del entrenamiento. Si la definición de tu tarea cambia mensualmente, vas a retrainear repetidamente. Usa prompting en su lugar, que se adapta instantáneamente.
 - **Necesitas razonamiento multi-paso**: fine-tuning mejora estilo y tono pero no enseña nuevas capacidades de razonamiento. Para razonamiento complejo, usa agentes o chain-of-thought prompting.
 - **El presupuesto de latencia es tight**: modelos 7B fine-tuned en GPUs self-hosted tienen mayor latencia que llamadas API a GPT-4o-mini. Para aplicaciones de baja latencia, usa APIs hosted con streaming.
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.

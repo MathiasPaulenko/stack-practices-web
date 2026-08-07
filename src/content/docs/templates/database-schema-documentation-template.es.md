@@ -329,3 +329,11 @@ Documentalos por separado en una sección de API de los docs de esquema. Para ca
 ### ¿Cómo manejo schema branching para feature development?
 
 Documenta el esquema base normalmente. Para feature branches que agregan tablas o columnas, añade una sección "Cambios de schema branch" listando los objetos temporales y su plan de cleanup. Cuando el feature mergea, mueve los cambios a la documentación principal del esquema y elimina la sección de branch.
+
+## Troubleshooting
+
+- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.

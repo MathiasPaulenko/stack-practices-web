@@ -313,6 +313,15 @@ const gateway = new ApolloGateway({
 - **Usar `@external` en campos propios** — `@external` significa "este campo se resuelve en otro lugar"
 - **No manejar caida del gateway** — el gateway es un punto unico de fallo; despliega multiples instancias detras de un load balancer
 
+
+## Troubleshooting
+
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
+- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
+- **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
+- **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
+
 ## FAQ
 
 **Q: Puedo agregar un servicio GraphQL no federado al gateway?**

@@ -222,6 +222,15 @@ The dead letter queue is not a luxury — it is a requirement. Without it, poiso
 4. Not configuring **DLQs**; one poison message can block an entire queue
 5. Ignoring **backpressure**; if consumers are slower than producers, your queue grows until it crashes
 
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
 ## FAQ
 
 ### When should I choose Kafka over RabbitMQ?

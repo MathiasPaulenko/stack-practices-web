@@ -323,3 +323,11 @@ El cache no se actualiza. La operacion lanza un error. El cache retiene el valor
 ### Puedo combinar read-through y write-through?
 
 Si. Esta es la combinacion mas comun. Las lecturas van a traves del cache con un callback loader. Las escrituras actualizan tanto cache como base de datos. El cache es siempre consistente para lecturas y escrituras. Esta combinacion proporciona lo mejor de ambos patrones.
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.

@@ -309,3 +309,11 @@ Almacena thread IDs en tu database keyed por user ID. Cuando un usuario retorna,
 ### ¿Cómo manejo alucinaciones en respuestas de function calling?
 
 Valida outputs de funciones contra un schema antes de retornarlos al LLM. Si el LLM alucina parámetros de función (ej., llama `get_user(email="not-a-real-email")`), valida inputs con un schema Zod o Pydantic y retorna un mensaje de error si la validación falla. El LLM reintentará con parámetros corregidos. Loggea todos los function calls y sus resultados para análisis post-hoc. Setea una instrucción en el system prompt: "Solo llama funciones con parámetros que extrajiste del mensaje del usuario o de outputs de tools anteriores."
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.

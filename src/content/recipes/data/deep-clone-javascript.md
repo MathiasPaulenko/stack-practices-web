@@ -286,6 +286,15 @@ Person cloned = DeepCopyUtil.deepCopy(original);
 4. Cloning DOM elements or functions with `structuredClone` — it throws a `DataCloneError` for non-serializable types.
 5. Deep cloning unnecessarily large objects on every render, causing performance bottlenecks. Use memoization or structural sharing instead.
 
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### Why does `{...obj}` not create a deep copy?

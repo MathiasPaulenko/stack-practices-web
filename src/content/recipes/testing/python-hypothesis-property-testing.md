@@ -292,6 +292,15 @@ def test_dataframe_shape(df):
 - **Using Hypothesis for integration tests**: property-based testing is for pure functions. Side effects make generated data unpredictable.
 - **Forgetting to register custom types**: use `st.register_type_strategy(MyClass, my_strategy)` to auto-resolve custom types in `st.from_type()`.
 
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
 ## FAQ
 
 ### How does Hypothesis find edge cases?

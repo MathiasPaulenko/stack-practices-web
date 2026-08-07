@@ -320,3 +320,11 @@ Usa AbortController. Pasa `controller.signal` a fetch, streams y otras APIs asyn
 ### ¿Cuál es la diferencia entre setTimeout y setInterval?
 
 setTimeout corre un callback una vez después de un delay. setInterval corre un callback repetidamente con un delay fijo entre cada ejecución. setInterval no espera que el callback anterior termine — si el callback toma más que el intervalo, las ejecuciones se apilan. Prefiere setTimeout recursivo para scheduling confiable.
+
+## Troubleshooting
+
+- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
+- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.

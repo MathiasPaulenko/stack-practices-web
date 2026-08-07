@@ -315,3 +315,11 @@ El `safe_dump` de PyYAML no preserva comentarios. Usa `ruamel.yaml` que soporta 
 ### ¿Puedo usar YAML para payloads de API?
 
 YAML no es recomendado para payloads de API. JSON es el estándar para HTTP APIs porque es universalmente soportado, compacto y rápido de parsear. La flexibilidad de YAML (anchors, tags, tipado implícito) introduce ambigüedad que puede causar problemas de seguridad e inconsistencias de parsing entre implementaciones. Usa YAML solo para configuración.
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

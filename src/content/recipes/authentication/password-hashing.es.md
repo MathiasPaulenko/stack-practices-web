@@ -312,3 +312,11 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **Hash upgrade on every login**: si el hash se upgradea en cada login incluso cuando el algoritmo ya es fuerte, esto desperdicia CPU. Solo upgradea cuando el algoritmo actual es mas debil que el target.
 - **Concurrent hash computation race**: si dos concurrent logins para el mismo usuario computan hashes simultaneamente, una race condition puede causar verificacion incorrecta. Usa un mutex por usuario durante password verification.
 - **Hash truncation in database**: si la database column es demasiado corta para el hash completo, el hash se trunca silenciosamente. Asegurate que el column size matchee el hash output size (bcrypt: 60 chars, Argon2: 96+ chars).
+
+## Troubleshooting
+
+- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings. Look for case sensitivity in identifiers.
+- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew. Short tokens with secure refresh are preferred.
+- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
+- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
+- **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.

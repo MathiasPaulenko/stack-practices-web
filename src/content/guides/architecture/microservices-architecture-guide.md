@@ -226,6 +226,15 @@ When a service needs data owned by another:
 - Underestimating operational cost — microservices need mature [DevOps practices](/guides/devops/docker-for-developers-guide)
 - Building a custom RPC framework — use proven standards (gRPC, [HTTP/REST](/guides/api/rest-api-design-guide), or [message brokers](/guides/architecture/event-driven-architecture-guide))
 
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
 ## FAQ
 
 ### Should every startup start with microservices?

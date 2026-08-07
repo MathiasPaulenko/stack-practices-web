@@ -306,3 +306,11 @@ En JavaScript, `flat` (npm) es la más popular, soportando separadores custom, l
 ### ¿Cómo aplaneo objetos TypeScript preservando información de tipos?
 
 Usa una función genérica con conditional types para inferir la estructura de claves aplanada. Define un tipo `Flatten<T>` que recursivamente construye claves como ``${Prefix}.${Key}``. En runtime, la función flatten produce claves string; el tipo le dice al compiler qué claves esperar. Para type safety parcial, usa assertions `as const` en el output aplanado y valida con un schema Zod en el boundary donde data no confiable entra al sistema.
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

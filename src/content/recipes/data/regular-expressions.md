@@ -294,6 +294,15 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - **Cache stampede**: when a cache entry expires, all concurrent requests hit the backend simultaneously. Use cache warming, probabilistic early expiration, or request coalescing to prevent stampedes
 - **Deep copy performance traps**: copy.deepcopy() on objects with circular references causes infinite recursion. Use memo parameter or detect cycles. On large objects, deepcopy can take seconds
 - **Sort instability with custom keys**: Python's sorted() is stable, but custom key functions that return equal values for different items can produce unexpected orderings. Document the sort contract explicitly
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 **Q: Should I use regex to parse HTML?**

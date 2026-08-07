@@ -301,6 +301,15 @@ On a write, both L1 and L2 are invalidated. Other instances still have the old v
 - **Caching everything in L1** — L1 is for hot keys only. Caching cold keys in L1 wastes memory and evicts hot keys. Use access frequency to decide what enters L1.
 - **Not handling L2 failures** — if Redis is down, L1 still works but L2 misses become database hits. Implement a circuit breaker or fallback to L1-only mode.
 
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
 ## FAQ
 
 ### What is the difference between L1 and L2 cache?

@@ -311,3 +311,11 @@ Para 10K queries/día con GPT-4o: ~$150/día. Switchea a GPT-4o-mini para querie
 | LLM generation (GPT-4o) | 1-5s | 50 concurrentes | Streaming habilitado |
 
 Pipeline RAG end-to-end: 200ms-6s por query. El step de LLM generation domina la latencia total. Pre-computa embeddings y cachea queries comunes para reducir latencia p99.
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.

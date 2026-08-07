@@ -309,3 +309,11 @@ Mockea las respuestas del LLM y llamadas a herramientas en tests unitarios. Para
 ### ¿Cuándo debo usar orquestación multi-agente?
 
 Usa multi-agente cuando una tarea tiene fases distintas (investigar, implementar, revisar) que requieren diferentes instrucciones de sistema o sets de herramientas. Para tareas simples, un solo agente con múltiples herramientas es más eficiente y predecible. La orquestación multi-agente añade overhead de coordinación y costo — úsala solo cuando los roles son claramente separables.
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.

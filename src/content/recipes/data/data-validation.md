@@ -278,6 +278,15 @@ umpy.argsort() is 2-5x faster than Python's built-in sorted() for numeric data
 - For merge operations, dict.update() is O(n) but in-place. {**a, **b} creates a new dict. Choose based on whether you need the original
 - For serialization, msgpack is 3-5x faster than JSON and produces 50-80% smaller output
 - For sort with custom keys, sorted(key=attrgetter('name')) is faster than sorted(key=lambda x: x.name) because it avoids Python function call overhead
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 **Q: What is the difference between validation and sanitization?**

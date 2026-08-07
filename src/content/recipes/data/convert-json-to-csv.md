@@ -313,6 +313,15 @@ e.search() with string patterns
 - For CSV-to-JSON conversion, use orjson instead of json for 5-10x faster serialization
 - For large CSV processing, use pandas.read_csv(chunksize=10000) and process chunks in parallel with concurrent.futures
 - For Excel writing, xlsxwriter is 2-3x faster than openpyxl for large output files but does not support reading
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### How do I convert deeply nested JSON to CSV?

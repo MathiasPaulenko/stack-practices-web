@@ -303,3 +303,11 @@ En Node 17.0+, usa `structuredClone` (disponible globalmente). En versiones ante
 ### ¿Cómo hago deep clone de objetos con getters/setters?
 
 `structuredClone` y `JSON.parse/stringify` no preservan getters y setters — evalúan el getter y copian el valor resultante. Para preservar property descriptors, usa `Object.getOwnPropertyDescriptors` combinado con `Object.create` para reconstruir la cadena de prototipo. Librerías como Lodash `_.cloneDeep` preservan accessors por defecto. Para jerarquías de clases con propiedades computadas, escribe un método clone custom que copie descriptors explícitamente.
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

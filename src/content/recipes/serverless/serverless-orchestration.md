@@ -282,6 +282,15 @@ export async function orderSaga(workflowId: string, order: Order): Promise<void>
 
 Each step registers a compensation before moving to the next. If any step fails, compensations run in reverse order. This pattern works with all three orchestrators — Step Functions uses `Catch` blocks with compensation Lambda invocations, Durable Functions uses try/catch with activity calls.
 
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
 ## FAQ
 
 **Q: Should I use Step Functions or Temporal?**

@@ -298,3 +298,11 @@ Sí, pero SMTP no está optimizado para bulk. Para newsletters (10k+ destinatari
 - **Email template injection**: si las plantillas de email incluyen user input sin escaping, atacantes pueden inyectar contenido malicioso en emails. Siempre escapa user input en plantillas de email, incluso en plain text emails.
 - **BCC leakage en bulk emails**: si los bulk emails se envian con todos los recipients en To o Cc, los recipients pueden ver las direcciones de los demas. Siempre usa Bcc o mensajes individuales para bulk sends.
 - **SMTP timing attacks**: si la validacion de email revela si un email se envio exitosamente, atacantes pueden enumerar direcciones de email validas. Retorna la misma response independientemente de si el email se envio.
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.

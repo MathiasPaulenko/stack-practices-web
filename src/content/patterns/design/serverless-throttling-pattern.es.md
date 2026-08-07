@@ -327,3 +327,11 @@ Si. API Gateway soporta usage plans con limites de tasa y burst. Esto throttlea 
 ### Que pasa cuando Lambda es throttled?
 
 Para invocaciones sincronas (API Gateway), el llamador recibe un error 429. Para invocaciones asincronas (SNS, EventBridge), el evento se reintenta con backoff exponencial. Para funciones disparadas por SQS, el mensaje permanece en la cola y se reintenta en el siguiente poll. Configura DLQs para todos los casos.
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.

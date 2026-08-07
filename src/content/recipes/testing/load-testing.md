@@ -142,6 +142,15 @@ iterations.....................: 12000
 - **Running short tests**: a 30-second test tells you almost nothing. Meaningful tests run for at least 10 minutes to capture garbage collection cycles and cache warmup.
 - **Not validating responses**: a 200ms response that returns an error page is not a success. Always assert status codes and response body content.
 
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
 ## FAQ
 
 ### How many virtual users do I need to simulate real traffic?

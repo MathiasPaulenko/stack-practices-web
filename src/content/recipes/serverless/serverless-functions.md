@@ -263,6 +263,15 @@ AWS SAM CLI, Azure Functions Core Tools, and Google Cloud Functions Emulator pro
 - **High-frequency invocations**: If your function runs 1000+ times per second, a always-on server may be cheaper
 - **Complex dependencies**: Large native libraries or custom runtimes increase cold start and deployment complexity
 
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
 ## FAQ
 
 **Q: How do I reduce cold start latency?**

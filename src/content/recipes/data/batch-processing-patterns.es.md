@@ -305,3 +305,11 @@ Los data contracts definen expectativas de schema entre producers y consumers. I
 - [Database Indexing](/recipes/performance/database-indexing) — optimización del rendimiento de queries para reads en batch
 - [Rendimiento Web](/recipes/performance/web-performance) — técnicas de rendimiento frontend y backend
 - [Load Testing](/recipes/performance/load-testing) — validación del rendimiento de batch jobs bajo carga
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

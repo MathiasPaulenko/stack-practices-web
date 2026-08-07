@@ -236,6 +236,15 @@ class OrderAggregate {
 - **Not handling event schema evolution**: when an event type changes (adding a field), old events in the log do not have the new field. The aggregate must handle missing fields gracefully. Use schema versioning and default values, or upcast old events on load.
 - **Replaying events from the beginning for every query**: always use snapshots for aggregates with long histories. Replaying 10,000 events for every `GET /order/123` destroys performance. Take snapshots asynchronously and load from them.
 
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
 ## FAQ
 
 ### Is event sourcing more complex than CRUD?

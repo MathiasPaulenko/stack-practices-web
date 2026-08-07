@@ -315,6 +315,15 @@ echo "Rollback complete. All traffic on stable."
 - Geographic canary: Roll out region by region (US-East first, then Europe, then Asia)
 - Time-based canary: Route internal users during business hours, then external users after validation
 
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
 ## FAQ
 
 **Q: What percentage should I start with for a canary?**

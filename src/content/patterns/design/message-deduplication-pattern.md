@@ -240,6 +240,15 @@ An e-commerce platform uses SQS to trigger Lambda for order processing. SQS may 
 
 A streaming pipeline consumes events from Kafka and writes to a database. Kafka's at-least-once delivery means the same event may be consumed twice. The consumer checks Redis before writing to the database. This provides exactly-once semantics without Kafka transactions.
 
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
 ## FAQ
 
 **Q: Is deduplication the same as idempotency?**

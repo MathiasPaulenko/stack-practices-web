@@ -166,6 +166,15 @@ df_with_new_column.write.format("delta") \
 - **Ignorar gobernanza de datos** — sin catálogos de metadata y controles de acceso, los lakes se vuelven inusables
 - **Problema de archivos pequeños** — escribir miles de archivos diminutos mata el rendimiento de consulta; compactar regularmente
 
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
 ## FAQ
 
 **Puedo consultar un Data Lake con SQL?**

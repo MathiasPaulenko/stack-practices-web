@@ -303,6 +303,15 @@ def process_write_queue():
 - **Using `KEYS` instead of `SCAN`** — `KEYS` blocks Redis; `SCAN` is non-blocking and safe for production
 - **Caching too much** — cache only hot data; cold data wastes memory and increases invalidation overhead
 
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
 ## FAQ
 
 **Q: Cache-aside vs. read-through — what is the difference?**

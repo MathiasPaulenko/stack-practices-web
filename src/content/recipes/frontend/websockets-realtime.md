@@ -274,6 +274,15 @@ edis.createClient() once at startup and share across all connections
 - **Memory monitoring**: track RSS, heap used, and heap total per WebSocket server instance. Alert on heap usage > 80% of limit. Monitor for memory leaks by tracking heap growth over time. Use --inspect and Chrome DevTools for heap snapshots
 - **Event loop monitoring**: track event loop lag using perf_hooks.monitorEventLoopDelay(). Alert on lag > 100ms. High lag indicates the server is overloaded. Use cluster mode or horizontal scaling to distribute load. Profile with --prof flag
 - **Distributed tracing for WebSocket**: use OpenTelemetry to trace messages from client to server to Redis to another server to another client. This helps debug message delivery issues in multi-server setups. Use Jaeger for trace visualization
+
+## Troubleshooting
+
+- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
+- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+
 ## FAQ
 
 **Q: How many concurrent WebSocket connections can a server handle?**

@@ -342,3 +342,11 @@ Load testing mide el comportamiento del sistema bajo carga esperada y pico (ej. 
 ### Como medimos regresiones de rendimiento frontend?
 
 Rastrea Core Web Vitals: LCP (Largest Contentful Paint), INP (Interaction to Next Paint), CLS (Cumulative Layout Shift). Usa Lighthouse CI en GitHub Actions para bloquear regresiones en estas metricas. Recopila datos de Real User Monitoring (RUM) desde produccion usando la libreria web-vitals. Establece umbrales: LCP < 2.5s, INP < 200ms, CLS < 0.1. Rastrea el tamano del bundle como indicador principal — un aumento de 50KB eventualmente causara regresion de LCP. Usa source maps para atribuir cambios de tamano de bundle a commits especificos.
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.

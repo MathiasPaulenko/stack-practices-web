@@ -341,3 +341,11 @@ Los metadatos gRPC son el equivalente de headers HTTP. Pasa tokens JWT, API keys
 ### ¿gRPC requiere HTTP/2 en todo el camino?
 
 Sí. gRPC se basa en características de HTTP/2: multiplexación de streams, control de flujo, y frames binarios. Si hay un proxy en el medio que solo soporta HTTP/1.1, gRPC no funcionará. Necesitas proxies que soporten HTTP/2 end-to-end: Envoy, Nginx con módulo gRPC, AWS ALB con soporte gRPC, o service meshes como Istio.
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.

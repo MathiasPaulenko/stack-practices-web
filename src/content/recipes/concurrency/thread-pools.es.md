@@ -308,3 +308,11 @@ Registra métricas clave: tamaño actual del pool, tareas activas, tareas en col
 ### ¿Cómo elijo el tamaño óptimo del pool?
 
 Para tareas CPU-bound, usa la fórmula de Brian Goetz: `N_threads = N_cores * (1 + W/C)` donde W es el tiempo de espera y C es el tiempo de cómputo. Para tareas puramente CPU-bound, W/C ≈ 0, así que `N_threads = N_cores`. Para tareas I/O-bound, W/C puede ser 10-50, resultando en pools mucho más grandes. Mide el ratio real con un profiler antes de ajustar.
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.

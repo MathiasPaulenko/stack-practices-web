@@ -315,3 +315,11 @@ Para escenarios de baja contencion, memoria compartida con locks es mas rapido p
 ### ¿Debería usar actores para todo?
 
 No. Los actores anaden overhead (serializacion de mensajes, gestion de buzones). Para computacion paralela simple sin estado compartido, thread pools o async/await son mas simples y rapidos. Usa actores cuando tienes entidades concurrentes con estado que necesitan aislamiento y tolerancia a fallos.
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.

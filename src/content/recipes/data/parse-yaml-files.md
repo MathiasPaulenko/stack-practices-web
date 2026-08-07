@@ -286,6 +286,15 @@ Block style uses indentation to show structure. Flow style uses `{}` and `[]` li
 - **Simple configs**: For flat key-value configs, TOML or INI are simpler and less error-prone
 - **Machine-to-machine**: JSON is more compact and universally supported for API payloads
 
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### Should I use YAML or JSON for configuration?

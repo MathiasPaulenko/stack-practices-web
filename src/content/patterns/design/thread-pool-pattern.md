@@ -223,6 +223,15 @@ The pool size is the key tuning parameter. CPU-bound tasks should have roughly a
 - **Not shutting down the pool**: Threads keep running and the JVM does not exit. Always call `shutdown()`.
 - **Using pool threads for long-running tasks**: Long tasks starve other tasks. Move them to a separate pool.
 
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 ### How do I choose the right pool size?

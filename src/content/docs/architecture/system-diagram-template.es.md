@@ -314,3 +314,11 @@ C4 muestra estructura, no flujo de datos. Para flujo de datos, usa un DFD separa
 ### ¿Puedo usar C4 con un service mesh?
 
 Sí. Muestra el service mesh como un contenedor en el diagrama de Contenedores. Los servicios individuales se vuelven componentes en el diagrama de Componentes. El mesh maneja preocupaciones transversales (mTLS, reintentos, observabilidad) para que no necesites dibujar esas líneas para cada par de servicios.
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.

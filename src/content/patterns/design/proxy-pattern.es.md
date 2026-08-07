@@ -345,3 +345,11 @@ Lecciones:
 ### Proxy vs Decorator: cual uso?
 
 Proxy controla acceso al objeto: decide si, cuando y como acceder. Decorator anade comportamiento: siempre delega al objeto real. Proxy decide (access, cache, lazy); Decorator enriquece (logging, metrics, retry). Proxy no anade funcionalidad nueva: solo controla. Decorator anade. Usa Proxy para access control, cache, lazy loading. Usa Decorator para logging, metrics, validacion adicional.
+
+## Troubleshooting
+
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
+- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
+- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.

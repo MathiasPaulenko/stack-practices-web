@@ -205,6 +205,15 @@ Lo que funciona:
 - **Almacenar claves con los datos** — las claves deben estar en un límite de confianza separado
 - **Ignorar ataques de side-channel** — análisis de tiempo y potencia pueden filtrar claves
 
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
 ## FAQ
 
 **¿Cuál es la diferencia entre encriptación y hashing?**

@@ -290,6 +290,15 @@ This handles rows with identical `createdAt` values without skipping or duplicat
 - **Forgetting `skip: 1`** after a cursor — without it, the first item of each page repeats the last item of the previous page
 - **Not handling empty results** — return an empty `edges` array with `hasNextPage: false` instead of throwing
 
+
+## Troubleshooting
+
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
+- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
+- **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
+- **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
+
 ## FAQ
 
 **Q: Should I use cursor or offset pagination for GraphQL?**

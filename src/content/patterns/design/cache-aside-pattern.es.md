@@ -327,3 +327,11 @@ Lecciones:
 ### Como evito cache stampede?
 
 Usa un lock distribuido (Redis SETNX): solo el primer request va a DB, los demas esperan. Alternativa: cache con probabilistic early expiration: refrescar antes del TTL si hay trafico. Otra opcion: single-flight en Go o Promise deduplication en JS: si ya hay un fetch en curso para esa key, reutilizar la promesa. Esto reduce N queries a 1 query durante un cache miss masivo.
+
+## Troubleshooting
+
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
+- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
+- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.

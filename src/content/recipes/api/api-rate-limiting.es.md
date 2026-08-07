@@ -309,3 +309,11 @@ Rate limiting in-memory es 100x más rápido que Redis pero no funciona across i
 - **Token bucket overflow en burst scenarios**: token bucket algorithms permiten bursts hasta el bucket capacity. Si el bucket es demasiado grande, un solo cliente puede overwhelm el server en un burst. Setea bucket capacity a 2x el refill rate para balancear bursts y sustained traffic.
 - **Rate limit key expiration sin cleanup**: si los rate limit keys en Redis no se cleanupean después de la expiración, el memory usage crece unboundedly. Usa `EXPIRE` en every key y setea un max TTL de 24 horas para asegurar automatic cleanup.
 - **Client-side rate limit caching**: los clientes pueden cachear rate limit responses localmente y reusarlos para evitar hittear el server. Incluye un `Date` o `ETag` header en rate limit responses para prevenir stale caching.
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.

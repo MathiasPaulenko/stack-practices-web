@@ -307,6 +307,15 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - Log parse errors with file name, line number, and error message for debugging
 - Use streaming parsers (SAX, ijson) for files >1GB to maintain constant memory
 - Compress intermediate files with gzip or zstd. Parquet is 10-20x smaller than CSV
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### How do I add images to a PDF?

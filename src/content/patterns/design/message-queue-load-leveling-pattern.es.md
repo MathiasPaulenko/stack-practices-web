@@ -317,3 +317,11 @@ R: Rastrea profundidad de cola, consumer lag, edad de mensaje, throughput, tasa 
 **P: Como escalo consumidores automaticamente?**
 
 R: Usa escalado automatico basado en profundidad de cola. En SQS, configura CloudWatch alarms sobre `ApproximateNumberOfMessagesVisible` y escala ECS/Lambda concurrency. En Kafka, usa consumer lag metrics para escalar consumer groups. Establece un maximo de consumidores igual al numero de particiones — mas consumidores que particiones no reciben mensajes. Configura scale-down con un delay de 5-10 minutos para evitar flapping.
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.

@@ -241,6 +241,15 @@ Los CDN usan el TTL mas largo de `Surrogate-Control`, mientras los navegadores u
 - **Olvidar `Vary: Accept-Encoding`** — una respuesta gzipped cacheada para un cliente que no soporta gzip causa errores
 - **Usar `Expires` en lugar de `Cache-Control`** — `Expires` es HTTP/1.0 y menos flexible; prefiere `Cache-Control`
 
+
+## Troubleshooting
+
+- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
+
 ## FAQ
 
 **Q: Cual es la diferencia entre `no-cache` y `no-store`?**

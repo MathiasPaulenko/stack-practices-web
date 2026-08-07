@@ -276,6 +276,15 @@ class EventDispatcher {
 - **Cross-thread data poisoning**: if one thread corrupts a shared object's internal state (e.g., a mutable value in a ConcurrentHashMap), all threads see the corruption. Use immutable values or defensive copies
 - **Bounded queue DoS via blocking**: an attacker filling a bounded queue causes put() to block, denying service to producers. Set timeouts on put() operations (offer(timeout)) and implement load shedding
 - **CAS-based attack surface**: compareAndSet operations on AtomicReference can be exploited if the expected value is attacker-controlled. Ensure that CAS operations use internally managed expected values, not user input
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
+
 ## FAQ
 
 **Q: Should I always use concurrent collections in multithreaded code?**

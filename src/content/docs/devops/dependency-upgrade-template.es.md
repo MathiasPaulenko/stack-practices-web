@@ -311,3 +311,11 @@ Caret (`^`) permite actualizaciones a cualquier versión que no modifique el dí
 ### ¿Debo usar una herramienta de monorepo para gestion de dependencias?
 
 Herramientas de monorepo como Nx, Turborepo o Lerna proporcionan hoisting de dependencias a nivel workspace, caching y comandos de actualizacion batch. Ayudan cuando multiples paquetes comparten dependencias y necesitas coordinar upgrades entre ellos. Para proyectos pequenos, un solo `package.json` con tooling estandar es suficiente.
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.

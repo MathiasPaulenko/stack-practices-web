@@ -232,6 +232,15 @@ The core idea is to decouple connection count from invocation count. Without a p
 - **Using prepared statements with PgBouncer transaction mode**: Prepared statements are session-scoped and break when PgBouncer reassigns server connections. Set `prepareThreshold=0`.
 - **Not handling cold start connection latency**: Cold starts pay full connection cost. Use provisioned concurrency or accept the latency hit.
 
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
 ## FAQ
 
 ### Should I use RDS Proxy or PgBouncer?

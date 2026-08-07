@@ -310,3 +310,11 @@ En Python, `python-slugify` incluye transliteracion para la mayoria de scripts. 
 ### ¿Debo usar guiones o underscores en slugs?
 
 Usa guiones. Google trata los guiones como separadores de palabras, lo que mejora el SEO. Los underscores son validos en URLs pero Google no los reconoce como separadores de palabras, por lo que `hello_world` se interpreta como una sola palabra.
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

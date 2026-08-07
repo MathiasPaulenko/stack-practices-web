@@ -310,3 +310,11 @@ Recusa al mantenedor acusado de la investigación. Si todo el equipo de moderaci
 ### Los reportes deberían ser públicos o privados?
 
 Privados. Los reportes deben manejarse confidencialmente para proteger tanto al reportero como al acusado. Los reportes públicos desincentivan el reporte y pueden llevar a comportamiento de turba. Publica estadísticas agregadas (número de reportes, acciones tomadas) periódicamente para transparencia.
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.

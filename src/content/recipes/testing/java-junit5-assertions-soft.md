@@ -243,6 +243,15 @@ class ServiceTest {
 - **Overusing soft assertions for simple checks**: if you have 2 assertions, regular `assertEquals` is fine. Soft assertions shine at 5+ checks.
 - **Not adding descriptive messages**: when 10 assertions fail, you need context to know which is which.
 
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+
 ## FAQ
 
 ### What is the difference between AssertJ soft assertions and JUnit5 assertAll?

@@ -290,6 +290,15 @@ Total score below 18 means the alert needs tuning or removal.
 - Not including service name and environment in alert labels, making triage harder.
 - Alerting on absolute values instead of rates or ratios, causing false positives during traffic spikes.
 
+
+## Troubleshooting
+
+- **No logs for a failing request**: verify log shipping, retention, and that the request reached the service. Use correlation IDs.
+- **Alert fires but the service is healthy**: tune thresholds and use multi-signal alerts. Avoid alerting on single metric spikes.
+- **Dashboard shows stale data**: check refresh intervals, query range, and data source lag. Verify that the metric still exists.
+- **High cardinality metrics explode costs**: drop high-cardinality labels, aggregate before ingest, or use sampling.
+- **Trace is incomplete across services**: ensure all services propagate trace context. Instrument async and background jobs.
+
 ## FAQ
 
 ### What is alert fatigue and how do we avoid it?

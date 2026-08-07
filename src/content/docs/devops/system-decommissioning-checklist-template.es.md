@@ -312,3 +312,11 @@ Suma todos los costos directos (computo, almacenamiento, red, licencias) y costo
 ### Que hacemos si necesitamos reiniciar un servicio desmantelado?
 
 Si tienes los artefactos (codigo, configuracion, snapshot de datos) almacenados, puedes reiniciar temporalmente. Sigue el procedimiento de rollback documentado. Notifica que el servicio se reactiva temporalmente. Establece una fecha limite para la migracion definitiva. Si los artefactos fueron eliminados, reconstruye desde el repositorio archivado usando la version etiquetada en el momento del desmantelamiento. Documenta la razon del reinicio y actualiza la lapida.
+
+## Troubleshooting
+
+- **Instance is unreachable**: check security groups, routes, DNS, and health status in the provider console. Verify that the OS firewall is not blocking the port.
+- **Provisioning fails consistently**: inspect the init script, IAM roles, and image availability. A missing permission is the most common root cause.
+- **Resource exhaustion alerts**: correlate CPU, memory, disk, and network metrics. Identify the top process and whether the load is expected.
+- **Backup restore does not work**: test restores regularly. A backup that cannot be restored is not a backup.
+- **Configuration drift**: compare running instances with the infrastructure-as-code definition. Recreate from the canonical definition when in doubt.

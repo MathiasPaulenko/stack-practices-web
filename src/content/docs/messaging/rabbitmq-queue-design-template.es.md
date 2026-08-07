@@ -343,3 +343,10 @@ Usa RabbitMQ para point-to-point communication, request-reply patterns, work que
 - [Message Processing Idempotency](/es/recipes/message-idempotency/)
 - [Task Queues and RPC with RabbitMQ and AMQP](/es/recipes/rabbitmq-task-queue/)
 
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.

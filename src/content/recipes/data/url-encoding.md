@@ -285,6 +285,15 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - For CLI argument parsing, sys.argv is 100x faster than rgparse for simple cases. Use rgparse only when you need help text and validation
 - For date arithmetic, datetime.timestamp() is faster than datetime.strftime() for epoch calculations. Use integers for date math
 - For URL parsing, urllib.parse.urlparse() caches parsed results. Reuse the ParseResult object instead of re-parsing
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 **Q: What is the difference between `encodeURI` and `encodeURIComponent`?**

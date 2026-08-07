@@ -322,3 +322,11 @@ Versiona tus cache keys (`app:v2:user:42`). Al deployar un nuevo schema, el bump
 ### ¿Qué es cache warming?
 
 El cache warming pre-carga datos frecuentemente accedidos en la caché antes de que los usuarios los pidan. Corre un script de warming después de deploys o durante horas valle. Esto previene cache stampedes en el primer acceso después de un flush.
+
+## Troubleshooting
+
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
+- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.

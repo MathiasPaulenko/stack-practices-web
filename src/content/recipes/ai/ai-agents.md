@@ -212,6 +212,15 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 - **Over-engineering simple tasks**: if a question can be answered with a single [RAG lookup](/recipes/ai/rag-pipeline), do not build a full agent. Agents add complexity, cost, and failure modes. Use them only when multi-step reasoning is genuinely required.
 - **Forgetting to handle tool errors**: if a search API is down, the agent receives an error string and may hallucinate an answer. Catch exceptions, return structured error messages, and teach the agent to retry or escalate.
 
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+
 ## FAQ
 
 **Q: What is the difference between an agent and a chatbot?**

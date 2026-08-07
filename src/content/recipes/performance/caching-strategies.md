@@ -292,6 +292,15 @@ async def warm_single(key, builder):
 
 Cache warming pre-populates Redis before traffic arrives. Run this as a post-deploy step in CI/CD. Identify hot keys from analytics or `redis-cli --hotkeys`. Warm the top 100-500 keys to cover 80% of traffic. This prevents cold-cache latency spikes after deploys.
 
+
+## Troubleshooting
+
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
+- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+
 ## FAQ
 
 ### How do I prevent cache stampedes?

@@ -285,6 +285,15 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - **Compensating transactions for validation failures**: if validation fails after partial processing (e.g., data was written to one service but not another), execute a compensating transaction to undo the partial write
 - **Dead letter queue for invalid records**: records that fail validation go to a dead letter queue for manual inspection. This prevents bad data from blocking the pipeline and provides an audit trail
 - **Schema evolution with backward compatibility**: when updating a schema, ensure backward compatibility. New required fields must have defaults. Removed fields should be optional for one release cycle before deletion. Use schema versioning to manage evolution
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### How do I merge arrays instead of replacing them?

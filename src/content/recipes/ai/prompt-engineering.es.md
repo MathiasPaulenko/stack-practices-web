@@ -309,3 +309,11 @@ R: Sí. Para generación de código, incluye el lenguaje de programación, versi
 - **Usa formatos de output estructurados**: solicita output JSON, XML o YAML en lugar de texto libre cuando necesites parsear la respuesta programáticamente. Esto reduce fallos de parsing y habilita validación.
 - **Setea políticas de timeout y retry**: las llamadas API pueden colgarse o fallar. Setea un timeout (ej., 30 segundos) y reintenta con backoff exponencial. Fallea a una respuesta cacheada o default después de max retries.
 - **Loguea pares completos de request/response**: almacena el prompt completo, modelo, parámetros y respuesta para cada llamada API. Esto es esencial para debugging, auditoría y mejora de prompts a lo largo del tiempo.
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.

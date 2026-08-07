@@ -275,6 +275,15 @@ CDN invalidation is slow (seconds to minutes). Use versioned URLs (`/v2/users/42
 - **Not handling cache failures**: if Redis goes down, the application should degrade gracefully to database queries, not crash.
 - **Using the same TTL for all data**: user profiles might tolerate 10 minutes of staleness; inventory counts might need instant consistency.
 
+
+## Troubleshooting
+
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
+- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+
 ## FAQ
 
 ### How do I prevent cache stampedes?

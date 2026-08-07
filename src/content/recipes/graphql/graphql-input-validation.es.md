@@ -292,6 +292,15 @@ input CreatePostInput {
 - **Lanzar errores sin estructura** — los clientes no pueden manejar errores de validacion programaticamente sin extensions estructuradas
 - **Olvidar sanitizar HTML** — la validacion sola no previene XSS; elimina tags peligrosos antes de almacenar
 
+
+## Troubleshooting
+
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
+- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
+- **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
+- **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
+
 ## FAQ
 
 **Q: Debo usar Zod o escalares personalizados de GraphQL para validacion?**

@@ -310,3 +310,11 @@ Sí, pero ten cuidado con los cold starts. Argon2 con `memory_cost=65536` puede 
 ### ¿Cómo audito la fortaleza de los hashes existentes?
 
 Escribe un script que lea los hashes de la base de datos y verifique: el algoritmo (debe ser Argon2id, no bcrypt ni PBKDF2), los parámetros (memory_cost >= 65536, time_cost >= 3, parallelism >= 4), y la longitud del salt (>= 16 bytes). Marca los hashes que no cumplen para rehashing en el próximo login. Ejecuta este audit trimestralmente. Documenta los resultados para compliance.
+
+## Troubleshooting
+
+- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings. Look for case sensitivity in identifiers.
+- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew. Short tokens with secure refresh are preferred.
+- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
+- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
+- **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.

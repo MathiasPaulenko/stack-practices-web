@@ -310,3 +310,11 @@ No. Kubernetes usa YAML para manifiestos porque soporta archivos multi-documento
 ### ¿Cómo convierto entre TOML y JSON?
 
 Parsea el archivo TOML a un diccionario, luego serializa a JSON. En Python: `json.dumps(tomllib.load(f))`. En JavaScript: `JSON.stringify(TOML.parse(content), null, 2)`. El reverso también funciona — parsea JSON y escribe con `tomli_w.dump()`. Esto es útil para tooling que espera input JSON pero tu config está en TOML.
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.

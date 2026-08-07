@@ -204,6 +204,15 @@ LIMIT 100;
 - Treating NoSQL as "grows better SQL" — the data model is fundamentally different
 - Ignoring operational complexity — Cassandra and sharded MongoDB require dedicated operational expertise
 
+
+## Troubleshooting
+
+- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+
 ## FAQ
 
 ### Should I migrate from PostgreSQL to MongoDB for flexibility?

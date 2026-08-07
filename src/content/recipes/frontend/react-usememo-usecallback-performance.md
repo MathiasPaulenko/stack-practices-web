@@ -308,6 +308,15 @@ function useFilteredData(data, filterFn) {
 - **Not memoizing context values**: a new object literal in a context provider causes all consumers to re-render
 - **Memoizing the wrong thing**: memoizing the result of a cheap operation while ignoring the expensive one
 
+
+## Troubleshooting
+
+- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
+- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+
 ## FAQ
 
 ### Does useMemo guarantee the cached value is reused?

@@ -338,3 +338,11 @@ class CircuitBreaker:
 ### Como testeo codigo concurrente?
 
 Usa herramientas como ThreadSanitizer (C++/Go), Helgrind (Valgrind) o pytest-asyncio para detectar race conditions. Escribe tests que ejecuten operaciones concurrentes bajo carga. Para deadlocks, usa timeouts en tests. Para determinismo, usa modelos de ejecucion controlada como loctest o property-based testing con hipotesis.
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.

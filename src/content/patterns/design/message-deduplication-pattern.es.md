@@ -307,3 +307,11 @@ R: At-least-once significa que cada mensaje se entrega al menos una vez, pero pu
 
 **P: Como manejo dedup con idempotency keys HTTP?**
 R: Usa el header HTTP `Idempotency-Key` como clave de dedup. Almacenalo en Redis antes de procesar el request. Si un reintento llega con la misma clave, retorna la respuesta cacheada en lugar de reprocesar. Stripe usa este patron para APIs de pago. El TTL debe coincidir con la ventana de reintentos del cliente.
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.

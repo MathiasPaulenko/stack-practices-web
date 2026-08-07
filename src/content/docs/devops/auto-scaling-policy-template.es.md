@@ -354,3 +354,11 @@ El warm-up time es el retraso entre el inicio de una instancia y su disponibilid
 ### Como manejamos scaling durante despliegues?
 
 Usa despliegues rolling con max surge y max unavailable para controlar cuantas instancias nuevas se crean. Para despliegues blue-green, escala el entorno green antes de cortar trafico. Para despliegues canary, escala incrementalmente a medida que el trafico se desplaza. Pausa el auto-scaling durante despliegues si el despliegue cambia los patrones de uso de recursos. Reanuda el auto-scaling despues de que el despliegue se estabilice. Documenta el comportamiento de scaling especifico del despliegue en el runbook de despliegue.
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.

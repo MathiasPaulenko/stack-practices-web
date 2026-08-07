@@ -315,3 +315,11 @@ MIT, Apache 2.0 y BSD son generalmente seguras para uso comercial. Incluye el te
 ### ¿Con qué frecuencia debería correr scans automatizados de dependencias?
 
 Corre scans en cada pull request vía CI (e.g., Dependabot, Snyk). Programa un audit completo semanal. Para proyectos críticos, corre scans diarios. Revisa y triagea findings semanalmente.
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.

@@ -331,3 +331,11 @@ Evolucion de esquema (Avro + Schema Registry):
 ### Como testeo sistemas orientados a eventos?
 
 Usa tres niveles: (1) Tests unitarios para handlers de eventos con Kafka mockeado, (2) Tests de integracion con Testcontainers (Kafka real en Docker), (3) Tests de contrato para esquemas de eventos usando compatibility checks del schema registry. Para end-to-end, usa un consumer de test que se suscribe a todos los topics y verifica que la saga completa. Testea rutas de compensacion explicitamente: inyecta un fallo de pago y verifica que la orden se cancele y se envien notificaciones.
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.

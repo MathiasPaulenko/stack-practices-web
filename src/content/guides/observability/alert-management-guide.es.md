@@ -289,6 +289,15 @@ Mide y reduce activamente el volumen de alertas:
 - Propiedad por equipo: Las alertas se enrutan al equipo que posee el servicio
 - Alertas asistidas por IA: Detección de anomalías que ajusta umbrales dinámicamente
 
+
+## Troubleshooting
+
+- **No logs for a failing request**: verify log shipping, retention, and that the request reached the service. Use correlation IDs.
+- **Alert fires but the service is healthy**: tune thresholds and use multi-signal alerts. Avoid alerting on single metric spikes.
+- **Dashboard shows stale data**: check refresh intervals, query range, and data source lag. Verify that the metric still exists.
+- **High cardinality metrics explode costs**: drop high-cardinality labels, aggregate before ingest, or use sampling.
+- **Trace is incomplete across services**: ensure all services propagate trace context. Instrument async and background jobs.
+
 ## FAQ
 
 **P: ¿Cuántas alertas por semana son demasiadas?**

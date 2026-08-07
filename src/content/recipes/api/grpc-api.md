@@ -273,6 +273,15 @@ Benchmarks run on Node.js 20, single core, 1KB payload, 100 concurrent streams. 
 - **Stream hijacking**: a malicious client can open many streaming connections and hold them open, exhausting server resources. Set `max_concurrent_streams` and `max_connection_idle` on the server.
 - **Metadata header injection**: gRPC metadata is HTTP/2 headers. Validate all metadata values for header injection attacks. Do not pass raw user input into metadata keys or values.
 
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+
 ## FAQ
 
 ### Can I use gRPC from a browser?

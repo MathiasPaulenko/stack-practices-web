@@ -304,6 +304,15 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - Use UUIDv4 or UUIDv7 for unique IDs. Avoid UUIDv1 (leaks MAC address and timestamp)
 - Pin date and locale library versions. Timezone databases update frequently
 - Test formatting with edge cases: empty strings, Unicode, DST transitions, leap seconds
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### How do I handle phone numbers without a country code?

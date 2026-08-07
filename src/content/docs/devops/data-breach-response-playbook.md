@@ -286,6 +286,15 @@ will be published on [DATE].
 4. Communicating over compromised channels. Assume the attacker is reading your incident chat. Use out-of-band communication
 5. No follow-through on remediation. The breach is not over when the attacker is out; it is over when the system is demonstrably safer
 
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
 ## FAQ
 
 ### Should we pay the ransom?

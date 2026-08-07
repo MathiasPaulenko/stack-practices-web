@@ -225,6 +225,15 @@ TOTAL: 30 minutos (RTO objetivo: 30 min — CUMPLIDO)
 4. **Olvidar la brecha de deteccion** — el tiempo entre cuando empezo el problema y cuando disparo la alerta frecuentemente es la brecha mas grande
 5. **No conectar la cronologia a items de accion** — una cronologia sin seguimiento es solo una historia
 
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
 ## FAQ
 
 ### Como reconstruimos una cronologia si no capturamos marcas de tiempo durante el incidente?

@@ -316,3 +316,11 @@ Genera datasets representativos de producción: misma distribución de tamaños 
 ### ¿Cómo limpio datos de test generados después de los tests?
 
 Usa transactional test fixtures: wrappea cada test en una database transaction y roll back al final. En pytest, usa el plugin `pytest-postgresql` o `factory-boy`'s `SQLAlchemyModelFactory` con fixtures session-scoped. En Jest, usa `beforeEach`/`afterEach` para setear y tear down data. Para estado compartido across tests, usa un schema o database dedicado que se trunca entre test runs. Nunca corras tests contra un production database. Usa `TRUNCATE TABLE` con `CASCADE` para fast cleanup entre test suites. Para file-based test data, usa directorios `tempfile` que se limpian automáticamente por el OS.
+
+## Troubleshooting
+
+- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.

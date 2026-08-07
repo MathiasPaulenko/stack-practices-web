@@ -329,3 +329,11 @@ Lecciones:
 ### Como configuro el auto-scaling del worker?
 
 Usa CloudWatch alarm en QueueDepth: si > 1000, scale up 2 workers. Si < 100, scale down 1. Configura cooldown de 300s para evitar thrashing. En K8s, usa KEDA con SQS scaler: scale basado en ApproximateNumberOfMessages. Min replicas: 2 (HA), max: 20. Target: 100 mensajes por worker. El worker lee en batches de 10 para eficiencia.
+
+## Troubleshooting
+
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
+- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
+- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.

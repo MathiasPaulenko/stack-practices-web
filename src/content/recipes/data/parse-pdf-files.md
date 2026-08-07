@@ -299,6 +299,15 @@ e.search() with string patterns
 - For memory-mapped PDF reading, use `mmap.mmap()` on the file descriptor. This avoids loading the entire file into memory
 - For batch PDF text extraction, use `pdfplumber` with `page.extract_text()` in a loop. Close each file explicitly to free file handles
 - For encrypted PDFs, use `pikepdf` to remove encryption before parsing. `PyPDF2` can decrypt with `decrypt(password)` but supports fewer encryption schemes
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### How do I extract tables from PDFs accurately?

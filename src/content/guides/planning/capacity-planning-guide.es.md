@@ -230,6 +230,15 @@ Crea un documento de plan de capacidad que incluya:
 - **Planificación de capacidad on-premise:** Enfocarse en ciclos de adquisición de hardware, densidad de virtualización y restricciones de energía/refrigeración.
 - **Planificación de capacidad de base de datos:** Monitorear rendimiento de consultas, límites de conexión, crecimiento de almacenamiento y retraso de replicación.
 
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
 ## FAQ
 
 **Q: ¿Qué tan lejos debo pronosticar la capacidad?**

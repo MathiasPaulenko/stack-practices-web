@@ -297,6 +297,15 @@ Provisioned concurrency is the managed alternative. AWS keeps a specified number
 - **Using warm pool for low-traffic functions** — if the function is rarely invoked, the warmup cost exceeds the cold start cost. Only warm functions with frequent, latency-sensitive traffic.
 - **Ignoring provisioned concurrency** — for production APIs with strict SLAs, provisioned concurrency is more reliable. Pings can miss the window if traffic arrives between pings.
 
+
+## Troubleshooting
+
+- **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
+- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+
 ## FAQ
 
 ### How long does a Lambda environment stay warm?

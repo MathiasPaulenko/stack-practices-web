@@ -318,3 +318,11 @@ Markdown plano en control de versiones es el enfoque más común. Herramientas c
 ### ¿Cómo logro que los stakeholders realmente lean la especificación?
 
 Mantenla corta. Usa una sección TL;DR al inicio con 3 puntos clave. Agenda una reunión de revisión de 30 minutos con los tomadores de decisiones. Envía la especificación 48 horas antes de la reunión para que puedan leerla asincrónicamente.
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.

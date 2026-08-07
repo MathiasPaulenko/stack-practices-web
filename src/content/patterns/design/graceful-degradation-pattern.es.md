@@ -322,3 +322,11 @@ A: Circuit breaker previene llamadas a un servicio que falla para evitar fallos 
 
 **Q: Por cuanto tiempo debo cachear datos de fallback?**
 A: Ajusta el TTL del cache a que tan stale pueden estar los datos sin causar problemas. Las recomendaciones de producto pueden cachearse por horas. Los datos de precios quizas solo minutos. Define el TTL basado en requisitos de negocio, no conveniencia tecnica.
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.

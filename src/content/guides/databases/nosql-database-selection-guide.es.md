@@ -306,3 +306,11 @@ Evita transacciones ACID cross-store. Usa el patron Saga con compensaciones: cad
 
 
 End of document. Review and update quarterly.
+
+## Troubleshooting
+
+- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.

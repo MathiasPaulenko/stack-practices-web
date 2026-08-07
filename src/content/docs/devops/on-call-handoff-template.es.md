@@ -218,6 +218,15 @@ La plantilla estructura la entrega en **incidentes** (que esta roto), **alertas*
 4. **Saltar la ruta de escalamiento** — pierde minutos encontrando a quien llamar durante un P1
 5. **Entregar durante un incidente activo** — la transferencia de contexto mientras se depura es incompleta; pausa la investigacion por 5 minutos para documentar
 
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
 ## FAQ
 
 ### Que tan detallado debe ser el resumen del incidente?

@@ -240,6 +240,15 @@ A trading platform receives market data bursts at market open. RabbitMQ queues b
 
 An IoT platform collects telemetry from millions of devices. Device messages arrive in bursts when devices reconnect after network outages. Service Bus queues buffer the bursts while backend services process at a controlled rate, preventing database overload.
 
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
 ## FAQ
 
 **Q: How is this different from the Producer-Consumer pattern?**

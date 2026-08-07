@@ -307,6 +307,15 @@ const serverCleanup = useServer(
 - **Not handling reconnection** — WebSocket connections drop; configure `retryAttempts` and `reconnecting` on the client
 - **Publishing sensitive data** — the subscription event goes to every subscriber on that topic; filter by user or permission
 
+
+## Troubleshooting
+
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
+- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
+- **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
+- **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
+
 ## FAQ
 
 **Q: Are subscriptions supported over HTTP/2?**

@@ -230,6 +230,15 @@ There are three main approaches to message deferral:
 - **Deferring instead of fixing**: If a message always fails because of a bug, deferral just delays the problem. Fix the root cause.
 - **Deferral for messages that should be rejected**: Some messages are invalid and will never succeed. Reject them to a dead-letter queue instead of deferring.
 
+
+## Troubleshooting
+
+- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
+- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+
 ## FAQ
 
 ### How is deferral different from retry?

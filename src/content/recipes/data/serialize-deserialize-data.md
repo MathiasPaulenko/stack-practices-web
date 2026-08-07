@@ -311,6 +311,15 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - Cache validation results by input hash to avoid redundant processing
 - Use Decimal for money, int for counts, str for IDs. Never use loat for exact values
 - Log validation failures with field path, value, and expected type for debugging
+
+## Troubleshooting
+
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
+- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+
 ## FAQ
 
 ### Which serialization format should I choose for microservices?

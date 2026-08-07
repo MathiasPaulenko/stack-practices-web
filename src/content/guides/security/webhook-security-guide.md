@@ -220,6 +220,15 @@ Webhook security rests on three pillars: **authenticity** (did this really come 
 4. **Not checking Content-Type**; attackers can send crafted multipart requests to exploit parsers
 5. **Ignoring failed deliveries**; if your endpoint returns 500, the provider will retry — potentially amplifying damage
 
+
+## Troubleshooting
+
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
+- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+
 ## FAQ
 
 ### What if my webhook provider doesn't sign payloads?

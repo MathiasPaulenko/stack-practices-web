@@ -314,3 +314,11 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 - **Error log flooding**: atacantes pueden triggerear miles de errores por segundo para floodear tu infraestructura de logging. Rate limita error logging y samplea errores identicos repetidos.
 - **Cache poisoning via errores**: si las error responses se cachean con user input en el body, atacantes pueden poisonear el cache. Nunca incluyas user input en cached error responses.
 - **Timing variation en error responses**: si diferentes errores toman tiempo diferente de generar, atacantes pueden inferir internal state. Normaliza el tiempo de error response a una duracion fija.
+
+## Troubleshooting
+
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.

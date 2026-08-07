@@ -320,3 +320,11 @@ Para 1M documentos re-embebidos mensualmente: ~$2/mes con OpenAI small. Self-hos
 - **Necesitas latencia sub-10ms**: la búsqueda vectorial con HNSW toma 10-50ms. Para requerimientos sub-10ms (autocomplete, typeahead), usa trie-based o prefix search en su lugar.
 - **Tu contenido es mayormente numérico o codificado**: los embeddings están diseñados para lenguaje natural. Para datos numéricos (precios, medidas), usa range queries. Para datos codificados (códigos ICD, standards ISO), usa exact match con sinónimos.
 - **Compliance requiere resultados explainable**: los scores de similitud vectorial no son intuitivos para end users. "¿Por qué matcheó este documento?" es más difícil de explicar con embeddings que con keyword highlighting. Usa BM25 con términos highlighted para transparencia.
+
+## Troubleshooting
+
+- **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
+- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.

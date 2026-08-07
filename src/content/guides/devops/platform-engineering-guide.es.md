@@ -156,6 +156,15 @@ El equipo de plataforma define este CRD. Crossplane lo compone en instancias RDS
 - **Ignorando la cola larga** — el caso del 80% es facil; la plataforma debe manejar el 20% sin romper
 - **Sin path de migracion** — los servicios existentes necesitan un path hacia la plataforma, no solo templates greenfield
 
+
+## Troubleshooting
+
+- **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+
 ## FAQ
 
 **Cual es la diferencia entre platform engineering y DevOps?**

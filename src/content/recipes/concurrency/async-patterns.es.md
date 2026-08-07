@@ -308,3 +308,11 @@ Empieza con el ejemplo mÃ­nimo de arriba. AÃ±ade logging en cada paso. Prueb
 - **Cancelacion de coroutine ignorando locks**: si una coroutine se cancela mientras mantiene un lock, el lock puede no liberarse. Usa context managers o bloques finally para asegurar la liberacion del lock al cancelar
 - **Async deserialization bombs**: parsear payloads JSON grandes con wait response.json() puede consumir memoria antes de que la validacion se ejecute. Setea limites de Content-Length en el gateway y usa streaming parsers para payloads grandes
 - **Event loop starvation via microtask flooding**: si un solo request agenda miles de microtasks (ej. Promise.resolve().then() recursivo), starva otros requests. Limita la creacion de microtasks por request
+
+## Troubleshooting
+
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
+- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.

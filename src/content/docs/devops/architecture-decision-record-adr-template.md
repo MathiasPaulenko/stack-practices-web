@@ -253,6 +253,15 @@ Migrate to PostgreSQL 16 as the primary database.
 4. **Letting ADRs go stale** — update status to "Deprecated" or "Superseded" when decisions change
 5. **Making them hard to find** — ADRs should be linked from READMEs, onboarding docs, and architecture overviews
 
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+
 ## FAQ
 
 ### How is an ADR different from a design doc?

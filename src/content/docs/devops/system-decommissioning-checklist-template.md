@@ -278,6 +278,15 @@ Documentation:
 4. Forgetting DNS. A DNS record pointing to a deleted IP can be hijacked or cause strange errors
 5. Ignoring certificates. Expired certificates for deleted services still trigger renewal alerts and automation
 
+
+## Troubleshooting
+
+- **Instance is unreachable**: check security groups, routes, DNS, and health status in the provider console. Verify that the OS firewall is not blocking the port.
+- **Provisioning fails consistently**: inspect the init script, IAM roles, and image availability. A missing permission is the most common root cause.
+- **Resource exhaustion alerts**: correlate CPU, memory, disk, and network metrics. Identify the top process and whether the load is expected.
+- **Backup restore does not work**: test restores regularly. A backup that cannot be restored is not a backup.
+- **Configuration drift**: compare running instances with the infrastructure-as-code definition. Recreate from the canonical definition when in doubt.
+
 ## FAQ
 
 ### How long should we wait between shutdown and cleanup?

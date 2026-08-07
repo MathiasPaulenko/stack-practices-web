@@ -334,3 +334,11 @@ Si. Los presupuestos de latencia deben contabilizar la distancia geografica. Un 
 ### Que herramientas debo usar para rastrear el cumplimiento del presupuesto?
 
 Usa Prometheus para recoleccion de metricas, Grafana para dashboards, y k6 o Locust para load testing en CI. Para alertas de presupuesto, configura Prometheus alertmanager para notificar a on-call cuando la tasa de violacion de presupuesto exceda 1% en 5 minutos.
+
+## Troubleshooting
+
+- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
