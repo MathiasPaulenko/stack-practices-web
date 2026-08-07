@@ -256,7 +256,7 @@ jobs:
 - No rotar credenciales de pipeline despues de un compromiso.
 - Confiar en artefactos sin verificar su firma.
 
-## FAQs
+## FAQ
 
 ### Cual es el riesgo mas grande en CI/CD?
 

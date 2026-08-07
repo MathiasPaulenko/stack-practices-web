@@ -285,7 +285,7 @@ Before publishing a diagram, verify:
 6. Adding more than 15 elements to a single diagram, making it unreadable
 7. Using custom icons that do not render in all viewers (GitHub, IDE, wiki)
 
-## Frequently Asked Questions
+## FAQ
 
 ### Do I need to create all four levels?
 

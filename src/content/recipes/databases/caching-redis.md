@@ -204,7 +204,7 @@ This pattern is simple, works with any database, and handles cache failures grac
 - **Not invalidating on writes**: Updating a user's email but not clearing the cached profile means stale data for minutes or hours.
 - **Using Redis as a primary database**: Redis is an in-memory store. If the server restarts without persistence (AOF/RDB), data is lost. Always keep the primary source in a real database.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I prevent cache stampede?
 

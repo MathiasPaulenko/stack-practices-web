@@ -449,7 +449,7 @@ Emergency rotation follows a compressed timeline. When a key is suspected compro
 6. Not rotating keys after personnel departure — departed employee still has key access
 7. No monitoring during rotation — issues detected days later
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is envelope encryption and how does it relate to key rotation?
 

@@ -316,7 +316,7 @@ git push origin develop
 4. **Squash-merging hotfixes** — pierde la habilidad de cherry-pickar o identificar el commit del fix
 5. **No borrar ramas mergeadas** — el desorden dificulta encontrar trabajo activo
 
-## Frequently Asked Questions
+## FAQ
 
 ### Debemos usar GitFlow, GitHub Flow, o trunk-based development?
 

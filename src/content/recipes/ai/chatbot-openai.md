@@ -255,7 +255,7 @@ Unlike Chat Completions, you do not send the full message history on every reque
 4. **Not handling run failures** — check `run.status` for `failed`, `expired`, or `cancelled`
 5. **Assuming real-time** — runs are asynchronous; polling or streaming is required
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between Assistants and Chat Completions?
 

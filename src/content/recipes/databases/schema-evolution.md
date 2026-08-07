@@ -139,7 +139,7 @@ CREATE INDEX idx_user_preferences_theme ON user_preferences(theme);
 4. **Ignoring lock timeouts**: PostgreSQL `statement_timeout` aborts long migrations unpredictably. See [connection pooling](/recipes/performance/connection-pooling).
 5. **No dry runs**: Running migrations directly in production without `EXPLAIN` or staging validation
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I rename a column without downtime?**
 A: Add new column → dual write → migrate data → update readers → drop old column. Never rename in place.

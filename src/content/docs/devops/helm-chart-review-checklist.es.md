@@ -458,7 +458,7 @@ Health probes le dicen a Kubernetes cuándo un pod está alive y ready. Liveness
 6. Usando :latest tag — unpredictable deployments
 7. No values.schema.json — type errors no se catchean hasta deployment
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Deberíamos pinear image digests en vez de tags?
 

@@ -158,7 +158,7 @@ La segmentacion limita el radio de explosion de una brecha al impedir que los at
 - Ignorar el trafico este-oeste entre servicios de aplicacion.
 - Depender solo de firewalls perimetrales sin segmentacion interna.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre una VLAN y la microsegmentacion?
 
@@ -476,7 +476,7 @@ jobs:
             --fail-on-violation
 ```
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Como manejamos la segmentacion para funciones serverless?
 

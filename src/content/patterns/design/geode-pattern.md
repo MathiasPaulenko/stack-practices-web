@@ -402,7 +402,7 @@ The cluster works in three steps:
 - Not monitoring shard size, letting one shard grow until it runs out of disk
 - Using random partitioning instead of a natural key, losing data locality
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is the Geode Pattern different from standard database sharding?**
 A: Database sharding partitions a single logical database across multiple instances. The Geode Pattern goes further: each node is fully independent with its own storage, no shared database backend. There is no central coordinator or shared storage layer.

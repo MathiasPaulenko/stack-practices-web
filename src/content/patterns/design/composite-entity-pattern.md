@@ -428,7 +428,7 @@ Domain-Driven Design uses Aggregate Roots (like Order) that encapsulate entities
 
 MongoDB naturally supports composite entities by embedding related documents, making it well-suited for aggregate-heavy domains.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Composite Entity and Composite Pattern?**
 A: Composite Pattern (GoF) is about tree structures where leaf and composite nodes share the same interface. Composite Entity is about persistence mapping of aggregate objects.

@@ -257,7 +257,7 @@ Check-in: Manager + skip-level, confirm successful onboarding
 4. Not explaining "why" behind processes. Following rules without understanding creates cargo cult behavior.
 5. Forgetting to check in after week 2. Onboarding continues for 3-6 months; the checklist is just the beginning.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should onboarding take?
 

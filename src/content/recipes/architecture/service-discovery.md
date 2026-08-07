@@ -170,7 +170,7 @@ public class OrderProcessor {
 4. **Hard-coding fallback IPs**: Defeats the purpose of live discovery
 5. **Skipping retries**: One failed instance should trigger a retry on another, not fail the request. Use [retry with exponential backoff](/recipes/architecture/retry-backoff) for resilient clients.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use client-side or server-side discovery?**
 A: Client-side is faster (no extra hop) but requires smart clients. Server-side is simpler but adds latency. DNS-based is the simplest for Kubernetes.

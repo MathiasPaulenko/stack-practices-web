@@ -283,7 +283,7 @@ Multi-agent orchestration assigns specialized roles to different agents. Each ag
 - **Real-time systems**: Agent loops with multiple LLM calls add 5-30 seconds of latency
 - **Cost-sensitive workloads**: Each iteration is a full LLM call; 5 iterations can cost $0.10+ per query
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between RAG and an agent?**
 A: [RAG](/recipes/ai/semantic-search) retrieves documents and answers once. Agents can take multiple actions, use tools, and iterate until a goal is met.

@@ -402,7 +402,7 @@ The pattern operates in four phases:
 - Switching DNS without low TTL, so clients cache the old IP for too long
 - Long-running connections (WebSocket, file uploads) that do not transfer cleanly during switch
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is blue-green different from canary deployment?**
 A: Blue-green switches 100% of traffic at once between two environments. Canary gradually shifts a percentage of traffic to the new version. Blue-green gives instant rollback. Canary gives gradual validation. They can be combined.

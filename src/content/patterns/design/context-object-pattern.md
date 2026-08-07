@@ -343,7 +343,7 @@ React's `createContext` / `useContext` passes data through the component tree wi
 
 Android's `Context` class provides access to resources, preferences, and system services throughout the app lifecycle.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Context Object and Dependency Injection?**
 A: DI wires services into objects at construction time. Context Object passes runtime state through the call chain. They often work together.

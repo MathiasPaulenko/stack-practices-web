@@ -313,7 +313,7 @@ customer.last_order_first_item_price()
 - Comments that drift out of sync with the code they describe
 - Deep nesting ("arrow code") that obscures the happy path
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I refactor legacy code that isn't broken?**
 A: Follow the Boy Scout Rule: clean up the parts you touch. Don't start large rewrites without business justification and test coverage.

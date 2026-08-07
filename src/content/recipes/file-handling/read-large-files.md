@@ -159,7 +159,7 @@ public class LargeFileReader {
 4. Not closing file handles, leading to "too many open files" errors
 5. Ignoring backpressure when piping to slow consumers
 
-## Frequently Asked Questions
+## FAQ
 
 ### How large is "large"?
 

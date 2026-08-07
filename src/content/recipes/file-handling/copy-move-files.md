@@ -488,7 +488,7 @@ except Exception:
     raise
 ```
 
-## Frequently Asked Questions
+## FAQ
 
 ### Is `move` always atomic?
 

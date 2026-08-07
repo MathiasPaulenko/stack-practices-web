@@ -307,7 +307,7 @@ The runbook separates **preparation** (backups, dry runs) from **execution** (th
 4. **Deleting source data too early** — validation may reveal issues hours after migration
 5. **Not monitoring application behavior** — database migration success != application success
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle very large migrations (TB+)?
 

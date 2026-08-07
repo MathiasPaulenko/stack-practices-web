@@ -244,7 +244,7 @@ Next Actions:
 4. **Ignoring enterprise contracts** — some customers have SLAs that require advance notice
 5. **Forgetting about documentation** — old blog posts, Stack Overflow answers, and READMEs live forever
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much notice should we give?
 

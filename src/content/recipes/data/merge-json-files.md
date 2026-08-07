@@ -332,7 +332,7 @@ result = merge_and_dedupe(['data1.json', 'data2.json'], key='id')
 - **Assuming all files have the same structure**: One file may be an array, another an object; normalize before merging
 - **Ignoring circular references**: Deep merge algorithms on JSON with circular refs will stack overflow; sanitize inputs first
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I merge JSON files with different schemas?
 

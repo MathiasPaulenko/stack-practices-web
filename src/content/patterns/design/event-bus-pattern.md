@@ -269,7 +269,7 @@ Vue's `$emit` / `$on` provides component-level event buses. Global state managem
 
 Google's Java library provides annotation-driven subscription (`@Subscribe`) with synchronous and async delivery options.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Event Bus and Observer?**
 A: [Observer](/patterns/design/observer-pattern) is one-to-many between a subject and its observers. Event Bus is many-to-many through a central mediator that neither publisher nor subscriber owns.

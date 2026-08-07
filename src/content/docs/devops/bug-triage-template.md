@@ -149,7 +149,7 @@ The template forces **structured classification** before routing. Many teams ski
 4. Routing security bugs through the standard queue instead of directly to security
 5. Ignoring duplicates; ten reports of the same bug look like ten separate problems
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if a bug report is vague or missing reproduction steps?
 

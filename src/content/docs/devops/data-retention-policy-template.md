@@ -267,7 +267,7 @@ VACUUM ANALYZE event_logs;
 - Ignoring data in third-party services or caches.
 - Not reviewing retention policies after new regulations.
 
-## FAQs
+## FAQ
 
 ### What is the difference between archiving and deleting data?
 

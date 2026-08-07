@@ -287,7 +287,7 @@ public class UserRepositoryTest {
 - **Test suite optimization**: optimize test suite for speed and reliability. Remove duplicate tests. Merge similar tests. Skip tests for unchanged code. Use test prioritization. Document optimization strategy. Test suite performance. Monitor execution time. Alert on slow suites. Review suite regularly. Keep suite lean
 - **Test environment optimization**: optimize test environments for speed. Use containerized environments. Use in-memory databases. Use mock services. Cache environment setup. Document optimization strategy. Test environment performance. Monitor environment health. Alert on environment issues. Review environments regularly
 - **Test data optimization**: optimize test data for speed and reliability. Use minimal data sets. Use factories for on-demand data. Use seeders for consistent state. Cache test data. Document optimization strategy. Test data performance. Monitor data quality. Alert on data issues. Review test data regularly. Keep data minimal
-## Frequently Asked Questions
+## FAQ
 
 **Q: How are integration tests different from end-to-end tests?**
 A: Integration tests verify a specific pair or small group of components. [E2E tests](/recipes/testing/e2e-testing) exercise the entire application through the UI or public API, often using tools like Selenium, Playwright, or Cypress.

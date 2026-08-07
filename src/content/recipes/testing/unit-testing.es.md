@@ -259,7 +259,7 @@ Los tests parametrizados te permiten ejecutar la misma lógica contra múltiples
 - **Over-mocking**: mockear cada función interna crea tests que pasan pero no prueban nada sobre el comportamiento real. Mockea solo en los boundaries.
 - **Ignorar tests flaky**: un test que pasa el 90% del tiempo esconde bugs reales. Arregla los tests flaky inmediatamente o cuarenténalos.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: ¿Cuántos asserts debe tener una prueba unitaria?**
 A: Un concepto lógico por test. Múltiples asserts están bien si verifican diferentes aspectos del mismo resultado (ej. un objeto creado tiene el ID correcto y el nombre correcto). Si los conceptos divergen, divide el test.

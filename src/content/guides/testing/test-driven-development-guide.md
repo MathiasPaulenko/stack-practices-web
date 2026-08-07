@@ -264,7 +264,7 @@ Use caution with:
 - **Avoid test interdependence** — each test should create its own state
 - **Refactor tests too** — duplicated test setup is a smell; use fixtures and helpers
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does TDD slow down development?**
 A: Initially yes, but it pays back in reduced debugging and safer refactoring. Studies show TDD can reduce defect rates by 40-90%.

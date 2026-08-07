@@ -280,7 +280,7 @@ La plantilla separa las comunicaciones por **audiencia** (los clientes necesitan
 4. Olvidar notificar a equipos internos. La comunicacion al cliente es visible, pero los equipos internos tambien necesitan coordinacion
 5. Enviar resolucion antes de verificar. Confirmar resolucion prematuramente lleva a reaperturas
 
-## Frequently Asked Questions
+## FAQ
 
 ### Como manejamos incidentes donde aun no conocemos la causa raiz?
 
@@ -582,7 +582,7 @@ are operating normally.
 
 2. **No asignar un responsable de comunicacion dedicado para incidentes P1.** Cuando el comandante del incidente tambien maneja la comunicacion, ambos sufren. El comandante pierde foco en la mitigacion, y la comunicacion se retrasa. Para incidentes P1, siempre asigna un responsable de comunicacion separado cuyo unico trabajo sea redactar y enviar actualizaciones.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Como manejamos la comunicacion cuando el incidente es causado por un proveedor externo?
 

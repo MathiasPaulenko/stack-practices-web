@@ -394,7 +394,7 @@ The `aggregate` method runs multiple service calls independently. Each call degr
 - Fallback functions that themselves call another failing dependency
 - Not logging degradation events, making it hard to identify weak services
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I decide which features are degradable?**
 A: Ask: if this feature is missing, can the user still complete their primary task? If yes, it is degradable. Product details and cart are critical. Recommendations and related articles are degradable.

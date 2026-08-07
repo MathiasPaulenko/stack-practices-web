@@ -600,7 +600,7 @@ Guardrails are composable and ordered. The pipeline runs them sequentially and s
 - Not logging guardrail decisions, making it impossible to audit or improve rules
 - Running guardrails in the wrong order (expensive classifiers before cheap regex checks)
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Are regex-based guardrails enough?**
 A: They catch obvious attacks but miss sophisticated prompt injection. For production systems, combine regex with a classifier model (like OpenAI's moderation API or a fine-tuned BERT) for better coverage.

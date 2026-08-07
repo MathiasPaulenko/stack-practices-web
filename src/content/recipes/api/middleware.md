@@ -259,7 +259,7 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing. Generate correlation IDs server-side and ignore client-provided ones.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Can middleware modify the response body?**
 A: Yes, but it is complex in some frameworks. Prefer modifying headers or status codes. For body transformation, use response wrappers or post-route hooks.

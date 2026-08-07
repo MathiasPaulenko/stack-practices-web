@@ -359,7 +359,7 @@ The changelog uses a **version-date-entry** hierarchy so consumers can scan for 
 8. **Using inconsistent date formats** across versions — stick to ISO 8601
 9. **Burying breaking changes** at the bottom of a release entry instead of listing them first
 
-## Frequently Asked Questions
+## FAQ
 
 ### How far back should the changelog go?
 

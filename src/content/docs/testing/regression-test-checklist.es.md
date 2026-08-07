@@ -285,7 +285,7 @@ La rollback section es el safety net. Si el deployment fail, el team necesita sa
 6. Apurar sign-off — approvals sin review son rubber stamps
 7. No updatear el checklist después de incidents — cada incident debería addear un new check
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cuánto debería tomar regression testing?
 

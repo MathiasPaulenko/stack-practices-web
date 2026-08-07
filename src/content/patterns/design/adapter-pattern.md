@@ -405,7 +405,7 @@ class LoggingAdapter {
 9. **Skipping documentation.** Failing to document the translation logic makes future maintenance difficult.
 10. **Mixing concerns.** Combining adapter logic with other concerns like logging, caching, or retry logic in a single class.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Adapter and Facade?**
 A: Adapter makes one incompatible interface compatible. [Facade](/patterns/design/facade-pattern) simplifies a complex subsystem by providing a single unified interface to multiple classes.

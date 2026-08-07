@@ -144,7 +144,7 @@ The generated spec (`openapi.json`) drives:
 - **Ignoring nullable fields**: OpenAPI 3.0 requires `nullable: true` explicitly
 - **Hardcoding server URLs**: Use variables (`{serverUrl}`) for different environments
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use code-first or design-first?
 

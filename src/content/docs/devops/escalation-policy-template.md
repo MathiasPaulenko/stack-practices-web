@@ -262,7 +262,7 @@ Preventive action: <what we are doing to prevent recurrence>
 6. Escalating to individuals instead of roles; people leave, roles persist
 7. Not updating contact info after team changes; stale phone numbers cause critical delays
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if the on-call engineer cannot classify severity immediately?
 

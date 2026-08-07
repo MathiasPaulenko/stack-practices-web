@@ -449,7 +449,7 @@ Monitoring PDBs is important. A PDB that blocks all disruptions is a configurati
 6. Forgetting PDB when scaling down — PDB may prevent scale-down
 7. Using policy/v1beta1 (deprecated) — use policy/v1
 
-## Frequently Asked Questions
+## FAQ
 
 ### What happens if a PDB blocks a node drain?
 

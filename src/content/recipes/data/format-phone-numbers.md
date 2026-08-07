@@ -304,7 +304,7 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - Use UUIDv4 or UUIDv7 for unique IDs. Avoid UUIDv1 (leaks MAC address and timestamp)
 - Pin date and locale library versions. Timezone databases update frequently
 - Test formatting with edge cases: empty strings, Unicode, DST transitions, leap seconds
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle phone numbers without a country code?
 

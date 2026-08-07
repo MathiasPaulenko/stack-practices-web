@@ -259,7 +259,7 @@ Remediacion:
 - Probar con demasiada poca frecuencia para detectar desviacion de configuracion.
 - Ignorar el crecimiento del tamano de backup y las tendencias de tiempo de restauracion.
 
-## FAQs
+## FAQ
 
 ### Con que frecuencia debemos verificar los backups?
 

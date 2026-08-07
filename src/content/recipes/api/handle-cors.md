@@ -248,7 +248,7 @@ public class SecurityConfig {
 4. Not setting `Vary: Origin`, leading to CDN cache poisoning where one origin's response is served to another.
 5. Enabling `allowCredentials` on public APIs without origin validation, exposing authenticated endpoints to malicious sites. See [API Security Checklist](/guides/security/api-security-checklist-guide) for origin validation.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Why does my API work in Postman but fail in the browser?
 

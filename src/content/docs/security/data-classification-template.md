@@ -195,7 +195,7 @@ RESTRICTED       | At rest +   | Named        | Required + | Per policy +
 4. Not including third-party vendors in classification rules; a SaaS tool with SSO is still external
 5. Treating classification as a one-time audit; data changes, services evolve, and classifications rot
 
-## Frequently Asked Questions
+## FAQ
 
 ### Who decides the classification of a new dataset?
 

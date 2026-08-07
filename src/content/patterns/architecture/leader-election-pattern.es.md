@@ -429,7 +429,7 @@ class LeaderElectionWithFencing:
 
 2. **Ignorar el sesgo del reloj en sistemas distribuidos.** Las diferencias de reloj entre nodos pueden causar problemas de expiracion del lease. Usa relojes monotonicos o duraciones de lease que tengan en cuenta el sesgo de reloj esperado.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Cómo manejo particiones de red durante la eleccion de lider?
 

@@ -188,7 +188,7 @@ PostgreSQL `tsvector` is great for simple use cases with no extra infrastructure
 - **Storing all data in the search engine**: Use search IDs to fetch full records from the database. See [Data Validation](/recipes/data/data-validation) for data integrity.
 - **No query timeout**: A malformed query can hang for minutes on unoptimized indexes.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use PostgreSQL full-text search or a dedicated engine?
 

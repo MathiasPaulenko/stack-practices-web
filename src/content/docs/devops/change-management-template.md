@@ -280,7 +280,7 @@ Follow-up Actions:
 4. Approving changes via Slack DM instead of a documented record
 5. Not reviewing the change after execution; lessons are lost if you do not close the loop
 
-## Frequently Asked Questions
+## FAQ
 
 ### When does a change need CAB approval?
 

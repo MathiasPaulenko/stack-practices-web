@@ -313,7 +313,7 @@ Error rate > 1% for 2+ minutes (P1)
 6. Not testing alert delivery (PagerDuty rotation, Slack webhook) before an incident
 7. Creating alerts without runbooks, leaving on-call engineers to guess mitigation steps
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is an error budget and how do I calculate it?
 

@@ -259,7 +259,7 @@ Parameterized tests let you run the same logic against multiple inputs without d
 - **Over-mocking**: mocking every internal function creates tests that pass but prove nothing about real behavior. Mock at boundaries only.
 - **Ignoring flaky tests**: a test that passes 90% of the time hides real bugs. Fix flaky tests immediately or quarantine them.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many asserts should a unit test have?**
 A: One logical concept per test. Multiple asserts are fine if they verify different aspects of the same outcome (e.g., a created object has both the right ID and the right name). If the concepts diverge, split the test.

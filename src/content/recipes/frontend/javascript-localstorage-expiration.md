@@ -340,7 +340,7 @@ Key considerations:
 - Storing large objects in localStorage. It has a 5-10 MB limit per origin.
 - Storing sensitive data like JWT tokens. localStorage is accessible via XSS.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much data can I store in localStorage?
 

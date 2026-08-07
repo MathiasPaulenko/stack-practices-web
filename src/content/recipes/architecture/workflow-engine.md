@@ -174,7 +174,7 @@ order.ship()     # paid -> shipped
 4. **Ignoring workflow history**: Old completed workflows fill storage; implement retention policies
 5. **No replay testing**: Temporal and similar engines replay history; non-deterministic code breaks
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use a workflow engine instead of a message queue?**
 A: Use [message queues](/guides/architecture/event-driven-architecture-guide) for independent, parallel tasks. Use workflow engines for coordinated, sequential processes with state.

@@ -153,7 +153,7 @@ app.add_middleware(SecurityHeadersMiddleware)
 - **Forgetting API endpoints**: security headers are often configured for HTML routes but omitted from JSON API responses. Apply them globally.
 - **Setting HSTS without HTTPS ready**: if your site still serves HTTP traffic, HSTS will break it for users who have visited the HTTPS version before.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Do security headers protect APIs consumed by mobile apps?**
 A: Most security headers are browser-specific. Mobile native apps using HTTP clients are not affected by CSP or X-Frame-Options. Focus on authentication, input validation, and TLS for API-to-app communication.

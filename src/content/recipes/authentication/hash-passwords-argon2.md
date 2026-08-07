@@ -330,7 +330,7 @@ async def login(email, password):
 - **Setting memory too high.** Argon2 with 1 GiB memory may crash under load or cause OOM kills. Start with 64 MiB and increase gradually based on server capacity.
 - **Not upgrading parameters over time.** Hardware gets faster. Schedule annual reviews of your hashing parameters and rehash passwords on login.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Why is Argon2id preferred over bcrypt?**
 A: Argon2id is memory-hard, which makes GPU and ASIC attacks much more expensive. bcrypt is still secure, but Argon2id is the current recommendation from OWASP and NIST for new systems.

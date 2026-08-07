@@ -284,7 +284,7 @@ def handle_request(headers):
 - **W3C Trace Context**: use W3C Trace Context headers for trace propagation. Standard 	raceparent and 	racestate headers. Supported by all major frameworks. Test context propagation across services. Monitor for missing headers. Document propagation strategy. Verify compatibility with proxies and load balancers. Review propagation coverage
 - **Prometheus exposition format**: use Prometheus text format for metric exposition. Standard format with HELP, TYPE, and metric lines. Support for OpenMetrics format. Document metric naming conventions. Use consistent labels. Test exposition format. Monitor scrape success rate. Review metric naming quarterly
 - **CloudEvents for event-driven observability**: use CloudEvents specification for event data. Standard event format with required attributes. Enables interoperability between systems. Document CloudEvents usage. Test event format compliance. Monitor event processing. Review CloudEvents adoption. Use with event-driven observability
-## Frequently Asked Questions
+## FAQ
 
 **Q: Do I need to change my code for every function?**
 A: No. Auto-instrumentation covers HTTP, DB, and queue clients. Only add manual spans for critical business operations.

@@ -210,7 +210,7 @@ awk '{print $9}' access.log | sort | uniq -c | \
 - **Using `cat` unnecessarily.** `cat file | grep pattern` is a useless use of `cat`. Use `grep pattern file`.
 - **Not handling empty input.** Many pipelines fail silently on empty files — add `| cat` at the end or check file size first.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use awk instead of sed?**
 A: Use `awk` for field-based processing, arithmetic, and structured records. Use `sed` for simple substitutions, deletions, and line-oriented transformations.

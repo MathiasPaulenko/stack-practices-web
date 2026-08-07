@@ -150,7 +150,7 @@ Containers share the host kernel, so a misconfigured container can compromise th
 - Not isolating production and staging workloads.
 - Relying only on image scanning without runtime controls.
 
-## FAQs
+## FAQ
 
 ### What is the difference between an image scanner and a runtime security tool?
 

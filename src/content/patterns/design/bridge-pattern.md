@@ -223,7 +223,7 @@ The abstraction holds a reference to the implementation and delegates work to it
 - Allowing the abstraction to leak implementation details to clients
 - Creating deep hierarchies on both sides, reintroducing the complexity the bridge was meant to solve
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Bridge and Adapter?**
 A: [Adapter](/patterns/design/adapter-pattern) makes incompatible interfaces work together. Bridge separates an abstraction from its implementation so both can evolve independently. The intent and structure differ.

@@ -227,7 +227,7 @@ The proxy can intercept operations to add caching, logging, access control, or l
 - Implementing caching proxies without cache invalidation, leading to stale data
 - Not synchronizing access in multi-threaded environments, causing race conditions in lazy initialization
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Proxy and Decorator?**
 A: Both wrap objects and add behavior. Proxy controls access to the wrapped object (often for structural reasons like lazy loading or remote access). See [Caching Proxy](/patterns/design/proxy-pattern-caching) for a concrete example. Decorator adds responsibilities dynamically, usually for functional enhancement. The intent differs even if the structure looks similar.

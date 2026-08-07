@@ -339,7 +339,7 @@ The key insight is that reads are always served from cache. The background refre
 - **Threshold too low** — refreshing at 10% remaining TTL leaves almost no time to recover from a failed refresh. Set the threshold to at least 20% remaining.
 - **Not monitoring database load** — refresh-ahead adds steady database load. If the database is already under pressure, the refreshes make it worse.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How is refresh-ahead different from read-through?
 

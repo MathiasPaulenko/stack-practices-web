@@ -155,7 +155,7 @@ Segmentation limits the blast radius of a breach by preventing attackers from mo
 - Ignoring east-west traffic between application services.
 - Relying only on perimeter firewalls without internal segmentation.
 
-## FAQs
+## FAQ
 
 ### What is the difference between a VLAN and microsegmentation?
 

@@ -303,7 +303,7 @@ Event Sourcing replaces the traditional CRUD model with an append-only event log
 - Storing large binary payloads inside events instead of references
 - Not handling duplicate event delivery in distributed systems
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I handle schema changes in events?**
 A: Version your event types (`OrderPlaced_v1`, `OrderPlaced_v2`). During replay, use an upcaster that transforms old events into the current schema before applying them.

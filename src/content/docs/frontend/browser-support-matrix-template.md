@@ -383,7 +383,7 @@ The testing matrix defines which browsers are tested, how, and how often. CI tes
 6. No analytics to inform decisions — supporting browsers nobody uses wastes effort
 7. Not updating the matrix — browser versions move fast, stale matrices give false confidence
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do we decide which browsers to support?
 

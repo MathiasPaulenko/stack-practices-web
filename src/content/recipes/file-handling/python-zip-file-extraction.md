@@ -167,7 +167,7 @@ Zip bombs are archives that decompress to enormous sizes (e.g., 42KB file that e
 - Forgetting to handle password-protected archives. `zf.extractall(pwd=b"secret")` raises `RuntimeError` on wrong passwords.
 - Not closing the ZipFile context. Use `with` to ensure the file handle is released.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I extract a password-protected zip?
 

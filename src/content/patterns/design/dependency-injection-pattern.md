@@ -222,7 +222,7 @@ The core idea is **Inversion of Control**: instead of a class creating its own d
 - Allowing circular dependencies between injected services, causing initialization failures
 - Forgetting to register all dependencies in the container, leading to runtime resolution errors
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is DI the same as Inversion of Control?**
 A: DI is a specific form of IoC. IoC is the broader principle of delegating control to external code. DI achieves IoC by injecting dependencies from outside.

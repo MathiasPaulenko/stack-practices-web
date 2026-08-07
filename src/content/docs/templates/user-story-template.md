@@ -117,7 +117,7 @@ Then [expected handling]
 - No definition of done — teams disagree on when a story is finished. Use [Pull Request Template](/docs/templates/pull-request-template) for merge standards.
 - Skipping edge cases — the edge case you did not specify will be the bug reported in production
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should every story have acceptance criteria?
 

@@ -348,7 +348,7 @@ SQLAlchemy supports declarative (Active Record-like) and classical (Data Mapper)
 
 PHP's Doctrine ORM uses Data Mapper with XML/YAML/annotation mappings to separate entity classes from persistence details.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Data Mapper and Active Record?**
 A: [Active Record](/patterns/design/active-record-pattern) bundles data and persistence in the same class. Data Mapper separates them into a distinct mapper object.

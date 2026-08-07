@@ -492,7 +492,7 @@ async def good():
 - Creating tasks without keeping references — garbage collector may cancel them
 - Not using `async with` for resources — connections leak without proper cleanup
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I use asyncio vs threading vs multiprocessing?
 

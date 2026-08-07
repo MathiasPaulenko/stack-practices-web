@@ -155,7 +155,7 @@ public class Compressor {
 4. Applying compression to already-compressed formats (e.g., JPEG, MP4)
 5. Ignoring encoding when compressing text files across platforms
 
-## Frequently Asked Questions
+## FAQ
 
 ### Which format should I use?
 

@@ -289,7 +289,7 @@ class OrderSaga {
 - **High memory usage**: check for large message payloads. Verify message TTL is set. Check for unacked messages piling up. Monitor consumer memory usage. Use prefetch limits to control memory. Consider message compression. Check for memory leaks in consumer code. Profile consumer processes regularly
 - **Connection drops**: check network stability between consumers and broker. Verify heartbeat settings. Check broker resource limits. Review firewall and load balancer timeouts. Use automatic recovery in client libraries. Monitor connection events. Log reconnection attempts. Set appropriate connection timeout
 - **Uneven message distribution**: check prefetch settings (too high causes uneven distribution). Verify all consumers have equal capacity. Check for slow consumers. Use prefetch=1 for strict fair dispatch. Monitor consumer processing times. Scale consumers based on lag. Consider consumer priority for weighted distribution
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use event sourcing vs. traditional CRUD?**
 A: Use event sourcing for domains where audit history, temporal queries, or replay are critical (finance, logistics). Use CRUD for simple CRUD domains.

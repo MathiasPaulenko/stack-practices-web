@@ -148,7 +148,7 @@ function Dashboard() {
 4. **Hydrating everything**: [Islands architecture](/recipes/performance/spa-code-splitting-lazy) (Astro, Fresh) ships zero JS for static content
 5. **Ignoring mobile**: 70% of users are on mobile; test on real devices, not just DevTools
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What's the single biggest performance win?**
 A: Image optimization. Images are typically 60-80% of page weight. Use modern formats, responsive sizing, and lazy loading.

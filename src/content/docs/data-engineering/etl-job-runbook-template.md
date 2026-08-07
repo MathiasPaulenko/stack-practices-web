@@ -439,7 +439,7 @@ The contacts section ensures operators know who to escalate to and how. The esca
 6. No tested procedures — runbook steps that don't work in practice
 7. No failure scenarios — only covers happy path, not what actually goes wrong
 
-## Frequently Asked Questions
+## FAQ
 
 ### How detailed should the runbook be?
 

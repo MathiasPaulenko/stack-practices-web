@@ -285,7 +285,7 @@ SOLID principles reinforce each other:
 - Splitting interfaces so finely that the system becomes fragmented
 - Injecting dependencies everywhere including trivial, stable utilities
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I apply all SOLID principles to every class?
 

@@ -280,7 +280,7 @@ This is known as **double dispatch**: the first dispatch is `shape.accept(visito
 - Using Visitor when a simple polymorphic method override would suffice
 - Creating a separate visitor class for every tiny operation, creating class explosion
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Why not just add methods to the element classes directly?**
 A: If the operation is specific to a client use case (e.g., PDF export) and not intrinsic to the element, adding it directly violates the [Single Responsibility Principle](/patterns/design/solid-principles-typescript). Visitor keeps element classes focused.

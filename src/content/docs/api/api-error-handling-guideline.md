@@ -359,7 +359,7 @@ Set the `Content-Type` header to `application/problem+json` for RFC 9457 respons
 7. **Not logging 4xx errors** — client errors reveal API misuse patterns worth tracking
 8. **Returning the error ID only in logs** — consumers need it in the response to reference it
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should GraphQL APIs return HTTP 200 for all requests?
 

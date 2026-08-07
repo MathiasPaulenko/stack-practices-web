@@ -257,7 +257,7 @@ export default function () {
 - Ejecutar las pruebas una sola vez y no repetirlas despues de cambios.
 - No correlacionar metricas de infraestructura con la latencia de aplicacion.
 
-## FAQs
+## FAQ
 
 ### Que herramientas se usan comúnmente para pruebas de carga?
 

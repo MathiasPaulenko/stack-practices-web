@@ -338,7 +338,7 @@ Security controls protegen data de unauthorized access. Encryption at rest y in 
 6. Policy no communicated — un policy que nadie conoce es useless
 7. No automation — manual governance processes no scalean
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cómo clasificamos existing data que nunca fue classified?
 

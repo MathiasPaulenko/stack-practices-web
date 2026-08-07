@@ -227,7 +227,7 @@ Semantic search works in three stages:
 4. **Single embedding per document** — long documents should be chunked; one embedding loses detail
 5. **No index updates** — stale embeddings for updated documents silently degrade search quality
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between semantic and keyword search?
 

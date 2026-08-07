@@ -624,7 +624,7 @@ Kubernetes controllers act as supervisors. A Deployment controller monitors Pods
 
 Airflow's executor model uses a scheduler that parses DAGs and places tasks on workers (agents). The scheduler monitors task state in the metadata database and retries failed tasks according to configured policies. Celery or Kubernetes executors distribute work across agent pools.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What's the difference between this and a simple task queue with workers?**
 A: A task queue delegates execution but doesn't actively monitor worker health or automatically replace failed workers. The supervisor adds the lifecycle management and self-healing layer.

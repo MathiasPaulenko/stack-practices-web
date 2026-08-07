@@ -162,7 +162,7 @@ Ejecutar: `docker compose up --build`
 - **Ignorar `.dockerignore`**: sin él, `COPY . .` envía todo tu repo — incluyendo archivos sensibles — al daemon de Docker.
 - **No manejar señales**: aplicaciones que ignoran `SIGTERM` son matadas con `SIGKILL` después de un timeout, arriesgando corrupción de datos.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: ¿Cuál es la diferencia entre una imagen Docker y un contenedor?**
 A: Una imagen es una plantilla de solo lectura con tu código y dependencias. Un contenedor es una instancia en ejecución de esa imagen. Puedes ejecutar muchos contenedores de la misma imagen.

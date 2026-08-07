@@ -330,7 +330,7 @@ Revisa la estrategia cuando el equipo cambie de tamano, estructura o dominio. Si
 6. No allocatear tiempo para test maintenance junto con feature work
 7. No tener documented test environments, llevando a "works on my machine"
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cuánto test coverage es enough?
 

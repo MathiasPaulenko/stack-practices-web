@@ -507,7 +507,7 @@ jobs:
 - Not using `if: failure()` for notifications — failures go unnoticed
 - Not testing workflows locally — use `act` to run workflows before pushing
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I run GitHub Actions locally?
 

@@ -406,7 +406,7 @@ Communication is critical. Internal stakeholders need regular updates. Customers
 6. Blame-focused reviews — people hide issues instead of reporting them
 7. Action items not tracked — corrective actions are identified but never implemented
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between an incident and an event?
 

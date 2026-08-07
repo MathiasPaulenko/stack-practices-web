@@ -333,7 +333,7 @@ Production monitoring catches issues that CI can't. CI tests in a clean environm
 6. Using raw sizes instead of gzipped — 200 KB raw might be 60 KB gzipped
 7. No route-level breakdown — a global 200 KB JS budget doesn't account for route-specific needs
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I determine the right budget for my app?
 

@@ -198,7 +198,7 @@ done
 - **Using `cat` to feed a single file to a program:** `cat "$file" | grep pattern` is a useless use of `cat`. Use `grep pattern "$file"`.
 - **Not handling the no-match case:** An empty directory with a naive loop can produce unexpected behavior or errors.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Why should I avoid `for f in $(ls)`?**
 A: It breaks on filenames with spaces or special characters. Use a glob pattern like `for f in *.txt` or `while IFS= read -r` with `find -print0`.

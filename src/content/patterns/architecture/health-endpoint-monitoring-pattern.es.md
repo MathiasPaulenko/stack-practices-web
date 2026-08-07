@@ -421,7 +421,7 @@ app.get('/health/ready', (req, res) => {
 
 2. **Olvidar manejar solicitudes concurrentes de health checks.** Multiples solicitudes de health check de balanceadores de carga pueden abrumar el servicio. Implementa rate limiting o cache para respuestas de health check.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Con que frecuencia deben llamarse los health checks?
 

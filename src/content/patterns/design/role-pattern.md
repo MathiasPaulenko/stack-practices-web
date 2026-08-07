@@ -412,7 +412,7 @@ In Domain-Driven Design, a `Person` entity may hold `Customer` and `Employee` va
 
 Game entities often have role components: `WarriorRole`, `MerchantRole`, `QuestGiverRole` that are attached to a base `Character` entity.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Role and Strategy?**
 A: Strategy swaps algorithmic behavior. Role swaps identity and capability. A person can have multiple roles simultaneously; typically only one strategy is active.

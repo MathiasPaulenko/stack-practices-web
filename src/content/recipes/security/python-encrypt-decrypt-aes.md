@@ -282,7 +282,7 @@ Key concepts:
 - Storing the key and ciphertext together. If an attacker gets the file, they get the key too.
 - Not handling `InvalidTag` exceptions. A failed decryption should not crash the app silently.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between AES-GCM and AES-CBC?
 

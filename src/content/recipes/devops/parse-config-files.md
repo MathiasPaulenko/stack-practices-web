@@ -205,7 +205,7 @@ public class ConfigLoader {
 4. Not reloading configs after deployment changes, requiring restarts for trivial updates.
 5. Mixing configuration logic with application code instead of a dedicated config layer.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use YAML or JSON for configuration?
 

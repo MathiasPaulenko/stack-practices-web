@@ -294,7 +294,7 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - **Cache stampede**: when a cache entry expires, all concurrent requests hit the backend simultaneously. Use cache warming, probabilistic early expiration, or request coalescing to prevent stampedes
 - **Deep copy performance traps**: copy.deepcopy() on objects with circular references causes infinite recursion. Use memo parameter or detect cycles. On large objects, deepcopy can take seconds
 - **Sort instability with custom keys**: Python's sorted() is stable, but custom key functions that return equal values for different items can produce unexpected orderings. Document the sort contract explicitly
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use regex to parse HTML?**
 A: No. HTML is not a regular language. Use a proper HTML parser (BeautifulSoup, DOM API, Jsoup).

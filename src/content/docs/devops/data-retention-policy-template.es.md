@@ -267,7 +267,7 @@ VACUUM ANALYZE event_logs;
 - Ignorar datos en servicios de terceros o caches.
 - No revisar politicas de retencion despues de nuevas regulaciones.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre archivar y eliminar datos?
 

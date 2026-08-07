@@ -268,7 +268,7 @@ class CachedData {
 | **Go** | Goroutines | Built-in channels | `sync.WaitGroup`, `select` |
 | **Rust** | `std::thread` | `tokio` | `Arc<Mutex<T>>`, `mpsc` |
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I use async/await vs threads?
 

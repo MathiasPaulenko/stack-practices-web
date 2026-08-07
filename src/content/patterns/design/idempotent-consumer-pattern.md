@@ -370,7 +370,7 @@ SQS FIFO queues provide exactly-once processing via **deduplication IDs**. When 
 
 Uber's Kafka consumer framework uses a **dual-write pattern**: consumers write processed offsets to both Kafka and a local Cassandra deduplication table. If a consumer restarts, it queries Cassandra to find its last processed position, preventing duplicate processing during rebalancing.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is this different from Kafka's exactly-once semantics (EOS)?**
 A: EOS provides exactly-once processing within Kafka Streams between Kafka topics. The Idempotent Consumer Pattern works for any consumer writing to any external system (database, API, file) and doesn't require Kafka transactions.

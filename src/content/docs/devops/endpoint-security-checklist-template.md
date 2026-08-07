@@ -137,7 +137,7 @@ Endpoints are the first target for phishing, malware, and credential theft. A ha
 - Not testing remote wipe procedures before an incident.
 - Failing to revoke access during offboarding.
 
-## FAQs
+## FAQ
 
 ### What counts as an endpoint?
 

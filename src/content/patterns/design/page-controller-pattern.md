@@ -300,7 +300,7 @@ Each `.aspx` page has a code-behind file that acts as its Page Controller, handl
 
 While Rails uses Front Controller at the framework level, each controller class (`UsersController`, `OrdersController`) follows Page Controller principles for its actions.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Page Controller and Front Controller?**
 A: [Front Controller](/patterns/design/front-controller-pattern) routes everything through one handler. Page Controller gives each page its own handler.

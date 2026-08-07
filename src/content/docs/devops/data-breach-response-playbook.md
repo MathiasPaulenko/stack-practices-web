@@ -286,7 +286,7 @@ will be published on [DATE].
 4. Communicating over compromised channels. Assume the attacker is reading your incident chat. Use out-of-band communication
 5. No follow-through on remediation. The breach is not over when the attacker is out; it is over when the system is demonstrably safer
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should we pay the ransom?
 

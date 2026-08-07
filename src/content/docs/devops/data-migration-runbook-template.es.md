@@ -307,7 +307,7 @@ El runbook separa **preparacion** (backups, pruebas en seco) de **ejecucion** (l
 4. **Eliminar datos fuente demasiado pronto** — la validacion puede revelar problemas horas despues de la migracion
 5. **No monitorear el comportamiento de la aplicacion** — exito de migracion de base de datos != exito de aplicacion
 
-## Frequently Asked Questions
+## FAQ
 
 ### Como manejo migraciones muy grandes (TB+)?
 

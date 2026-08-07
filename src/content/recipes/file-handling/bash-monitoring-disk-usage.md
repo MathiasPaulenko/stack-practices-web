@@ -107,7 +107,7 @@ The script uses `df -Hl` to list local filesystems and their usage percentages. 
 4. **Sending alerts to individuals.** Use a team alias or on-call rotation so vacations do not break alerting.
 5. **Not handling mail failures.** If the MTA is down, the alert never arrives; log to a second channel.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I monitor multiple servers?**
 A: Run the script on each server via cron and send alerts to a centralized logging or alerting system. Better yet, use a configuration management tool to deploy the script.

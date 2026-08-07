@@ -305,7 +305,7 @@ This catches compile-time dependencies but misses runtime ones like HTTP calls t
 6. Forgetting to document retry and timeout settings for each dependency
 7. Not mapping database replication topology, causing confusion during failover
 
-## Frequently Asked Questions
+## FAQ
 
 ### What tool should I use to draw dependency maps?
 

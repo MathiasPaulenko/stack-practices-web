@@ -206,7 +206,7 @@ This structure lets you add new notification channels (e.g., Push, Slack) withou
 - **Null returns**: Returning `null` instead of throwing makes bugs harder to trace
 - **Tight coupling**: Factory depending on concrete classes instead of abstractions
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Factory Method and Abstract Factory?**
 A: [Factory Method](/patterns/design/factory-pattern) lets subclasses decide which class to instantiate. [Abstract Factory](/patterns/design/abstract-factory-pattern) creates families of related objects (e.g., UI components for Windows vs. Mac).

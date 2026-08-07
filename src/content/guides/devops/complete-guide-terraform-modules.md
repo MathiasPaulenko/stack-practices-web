@@ -390,7 +390,7 @@ git push origin --tags
 - Not versioning modules — consumers cannot pin a known-good version
 - Ignoring `terraform validate` — syntax errors surface at apply time
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use the Terraform Registry or private Git repos?
 

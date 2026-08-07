@@ -162,7 +162,7 @@ Run: `docker compose up --build`
 - **Ignoring `.dockerignore`**: without it, `COPY . .` sends your entire repo — including sensitive files — to the Docker daemon.
 - **Not handling signals**: apps that ignore `SIGTERM` get killed with `SIGKILL` after a timeout, risking data corruption.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a Docker image and a container?**
 A: An image is a read-only template with your code and dependencies. A container is a running instance of that image. You can run many containers from the same image.

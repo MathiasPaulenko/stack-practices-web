@@ -242,7 +242,7 @@ The plan structures DR testing into **declared objectives** (RTO/RPO targets), *
 4. **Testing during low-traffic periods only** — doesn't validate capacity assumptions
 5. **Not updating runbooks after test findings** — the same gaps appear in next year's test
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should we run DR tests?
 

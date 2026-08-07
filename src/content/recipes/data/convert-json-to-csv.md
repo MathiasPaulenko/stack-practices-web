@@ -313,7 +313,7 @@ e.search() with string patterns
 - For CSV-to-JSON conversion, use orjson instead of json for 5-10x faster serialization
 - For large CSV processing, use pandas.read_csv(chunksize=10000) and process chunks in parallel with concurrent.futures
 - For Excel writing, xlsxwriter is 2-3x faster than openpyxl for large output files but does not support reading
-## Frequently Asked Questions
+## FAQ
 
 ### How do I convert deeply nested JSON to CSV?
 

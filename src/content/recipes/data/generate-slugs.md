@@ -272,7 +272,7 @@ func generateSlug(text string) string {
 - **Using underscores instead of hyphens**: underscores are valid in URLs but Google treats hyphens as word separators, improving SEO
 - **Not stripping consecutive separators**: `hello---world` looks broken. Always collapse multiple hyphens into one
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle completely non-Latin scripts like Chinese or Arabic?
 

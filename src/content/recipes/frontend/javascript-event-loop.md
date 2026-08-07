@@ -271,7 +271,7 @@ When aborted, `fetch` rejects with an `AbortError`. This is the standard way to 
 4. **Mixing microtask recursion**: Promise.resolve().then(() => Promise.resolve().then(...)) can deadlock
 5. **Ignoring the render phase**: Heavy microtask queues prevent browser painting
 
-## Frequently Asked Questions
+## FAQ
 
 ### Why does Promise.then() run before setTimeout(0)?
 

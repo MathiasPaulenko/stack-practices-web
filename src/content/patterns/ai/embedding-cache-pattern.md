@@ -507,7 +507,7 @@ The batch variant is important for RAG pipelines. Instead of checking the cache 
 - Caching in-memory only on a single instance, missing cache hits on other instances
 - Forgetting to invalidate the cache when switching embedding models
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How much can I save with an embedding cache?**
 A: If 60% of your embedding requests are for repeated text, you save 60% of API costs. For RAG systems that re-embed the same corpus, savings can reach 80-90% after the first indexing pass.

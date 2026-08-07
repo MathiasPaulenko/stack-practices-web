@@ -284,7 +284,7 @@ def add_security_headers(response):
 - Missing pagination limits (DoS via huge `?limit=999999`)
 - CORS set to `*` in production
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use OAuth 2.0 or API keys for my API?**
 A: OAuth 2.0 for user-facing APIs with third-party integrations. API keys are fine for server-to-server where the key is kept secret.

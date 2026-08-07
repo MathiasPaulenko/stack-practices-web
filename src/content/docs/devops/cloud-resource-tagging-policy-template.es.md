@@ -307,7 +307,7 @@ if __name__ == '__main__':
 - Tratar las etiquetas como metadata opcional en lugar de datos operativos.
 - No reportar recursos sin etiquetar o asignar propiedad de remediacion.
 
-## FAQs
+## FAQ
 
 ### Que pasa si un recurso es compartido por multiples equipos?
 

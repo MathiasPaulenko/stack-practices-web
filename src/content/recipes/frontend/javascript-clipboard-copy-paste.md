@@ -284,7 +284,7 @@ Key constraints:
 - Trying to read clipboard without a user gesture. Browsers block this for security.
 - Not sanitizing pasted HTML. Pasting from Word or browsers can inject malicious markup.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Why does navigator.clipboard not work on localhost with HTTP?
 

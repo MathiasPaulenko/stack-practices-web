@@ -256,7 +256,7 @@ jobs:
 - Not rotating pipeline credentials after a compromise.
 - Trusting artifacts without signature verification.
 
-## FAQs
+## FAQ
 
 ### What is the biggest risk in CI/CD?
 

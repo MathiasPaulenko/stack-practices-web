@@ -222,7 +222,7 @@ The dead letter queue is not a luxury — it is a requirement. Without it, poiso
 4. Not configuring **DLQs**; one poison message can block an entire queue
 5. Ignoring **backpressure**; if consumers are slower than producers, your queue grows until it crashes
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I choose Kafka over RabbitMQ?
 

@@ -158,7 +158,7 @@ La plantilla de alcance alinea a la organizacion y a los probadores antes de env
 - Saltarse el re-test y asumir que las correcciones estan completas.
 - No informar al SOC o NOC que ocurrira la prueba.
 
-## FAQs
+## FAQ
 
 ### Que es una prueba de caja gris?
 
@@ -426,7 +426,7 @@ aws rds restore-db-instance-from-db-snapshot \
 - [ ] Confirmation of cleanup provided in writing
 ```
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Como definimos el alcance de una prueba de penetracion para microservicios?
 

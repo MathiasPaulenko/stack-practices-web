@@ -231,7 +231,7 @@ The custom script approach uses `stat` to check file size and `mv` + `gzip` to r
 - Using `copytruncate` without understanding it copies the entire file first, doubling disk usage briefly.
 - Running rotation too frequently for small logs. Daily is enough for most applications.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between postrotate and prerotate?
 

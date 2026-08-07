@@ -355,7 +355,7 @@ Key patterns:
 - Not cleaning up resources. Orphaned EBS volumes and old snapshots incur costs.
 - Using `--output json` and parsing with `jq` when `--query` can do it natively.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle AWS CLI errors in bash?
 

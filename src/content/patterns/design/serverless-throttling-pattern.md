@@ -310,7 +310,7 @@ Each throttling strategy controls throughput at a different level:
 - **Ignoring downstream capacity** — throttling at the Lambda level does not help if the downstream service has its own connection limits. Monitor downstream health and adjust concurrency accordingly.
 - **Not handling 429 from downstream** — when a downstream API returns 429, the Lambda should retry with backoff or fail the message for later reprocessing, not crash.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between throttling and rate limiting?
 

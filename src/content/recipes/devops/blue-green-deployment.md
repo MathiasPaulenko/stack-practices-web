@@ -167,7 +167,7 @@ aws route53 change-resource-record-sets \
 4. **Database schema conflicts**: Breaking schema changes deployed before both apps are compatible
 5. **Leaving old environments running**: Unused environments incur cloud costs; automate cleanup
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How much does blue-green cost?**
 A: Roughly double during deploy windows. You can scale down blue to minimal instances between deploys.

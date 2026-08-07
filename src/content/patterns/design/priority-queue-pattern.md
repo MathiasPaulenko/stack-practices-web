@@ -446,7 +446,7 @@ RabbitMQ supports priority queues via the `x-max-priority` argument. Messages wi
 
 Lambda's event source mappings from SQS queues respect priority through separate queues. Organizations use multiple queues (critical, normal, background) with different Lambda concurrency allocations to achieve priority-based processing.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What's the difference between a priority queue and weighted fair queuing?**
 A: A priority queue always processes the highest-priority item first. Weighted fair queuing allocates a proportional share of resources to each priority class, preventing starvation by guaranteeing minimum throughput to lower priorities.

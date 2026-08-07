@@ -193,7 +193,7 @@ public class UserRepository {
 4. Not handling `LazyInitializationException` in Hibernate outside sessions
 5. Forgetting to close sessions or Prisma clients, causing connection leaks
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use an ORM or raw SQL?
 

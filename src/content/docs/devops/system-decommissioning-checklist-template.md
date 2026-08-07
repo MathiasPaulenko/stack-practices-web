@@ -278,7 +278,7 @@ Documentation:
 4. Forgetting DNS. A DNS record pointing to a deleted IP can be hijacked or cause strange errors
 5. Ignoring certificates. Expired certificates for deleted services still trigger renewal alerts and automation
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should we wait between shutdown and cleanup?
 

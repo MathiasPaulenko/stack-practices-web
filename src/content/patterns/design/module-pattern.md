@@ -249,7 +249,7 @@ The Module Pattern relies on:
 
 `NgModule` decorators group components, services, and directives into cohesive feature units with explicit exports and imports.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is the Module Pattern the same as a class?**
 A: No. A class is an instantiable blueprint. A module is a singleton namespace. Use modules for organization; classes for object creation.

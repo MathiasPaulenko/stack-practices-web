@@ -419,7 +419,7 @@ File upload validation has multiple layers:
 - Not setting `files` limit. An attacker can upload thousands of files in one request.
 - Serving uploaded files from the same directory as application code. This enables path traversal and code execution.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I upload files directly to S3 instead of local disk?
 

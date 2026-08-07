@@ -310,7 +310,7 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - Log parse errors with file name, line number, and error message for debugging
 - Use streaming parsers (SAX, ijson) for files >1GB to maintain constant memory
 - Compress intermediate files with gzip or zstd. Parquet is 10-20x smaller than CSV
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between DOM and SAX parsing?
 

@@ -308,7 +308,7 @@ Once you receive the body, see [Parse JSON](/recipes/data/parse-json) for turnin
 
 For 1M API calls/day: the client-side cost is effectively $0 (library + connection pool). Server-side API Gateway adds ~$105/month. The main cost is developer time for implementing retry logic, circuit breakers, and monitoring.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does `fetch` throw on a 404 response?**
 A: No. `fetch` only rejects on network failures. A `404` resolves normally — check `response.ok` or `response.status` before processing the body.

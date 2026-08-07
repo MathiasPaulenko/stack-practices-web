@@ -150,7 +150,7 @@ Buffered writers reduce the number of system calls by accumulating data in memor
 4. Not flushing before process exit, losing buffered data
 5. Overwriting original files in-place without a backup strategy
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use append mode or rewrite?
 

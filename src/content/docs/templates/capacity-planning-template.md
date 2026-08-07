@@ -305,7 +305,7 @@ On-premise requires longer lead times for hardware procurement (4-8 weeks). Plan
 
 Serverless reduces capacity planning for compute but introduces new constraints: cold start latency, concurrent execution limits, and per-function timeouts. Plan for: peak concurrency, memory allocation per invocation, and total cost at projected volume.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How far ahead should I plan?
 

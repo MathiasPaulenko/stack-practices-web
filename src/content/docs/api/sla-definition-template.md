@@ -336,7 +336,7 @@ groups:
 7. **Not accounting for planned maintenance** — exclude it from calculations or consumers will see false violations
 8. **Choosing 99.99% without infrastructure to support it** — each nine costs exponentially more
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between SLA, SLO, and SLI?
 

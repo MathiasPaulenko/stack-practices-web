@@ -299,7 +299,7 @@ public class TestFixtures {
 - **Hardcoding time in tests.** Tests that depend on `new Date()` fail at midnight or in different time zones. Use a clock fixture.
 - **Not cleaning up external resources.** Temporary files, database connections, and network stubs left open leak resources and cause cascading failures.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a fixture and a mock?**
 A: A fixture provides the test environment or data (e.g., a seeded database). A mock replaces a real dependency to isolate the code under test.

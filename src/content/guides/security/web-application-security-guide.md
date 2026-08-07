@@ -329,7 +329,7 @@ def safe_webhook_call(user_url, data):
 - Ignoring security headers because "they're just headers"
 - Not logging authentication failures (missed brute-force detection)
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I fix all OWASP Top 10 items before shipping?**
 A: Address critical items (Access Control, Injection, Cryptographic Failures) before launch. Others can be phased in based on risk assessment.

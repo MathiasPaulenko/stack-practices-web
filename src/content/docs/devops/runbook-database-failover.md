@@ -246,7 +246,7 @@ The runbook separates **verification** (confirm failure, confirm replica health)
 4. **Not verifying writes post-failover** — silent failures go unnoticed for hours
 5. **Skipping new replica setup** — running without redundancy after failover
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I know if the replica is caught up?
 

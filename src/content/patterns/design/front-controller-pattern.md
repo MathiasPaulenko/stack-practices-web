@@ -282,7 +282,7 @@ Django's WSGI application acts as a Front Controller. URL routing (`urls.py`) ma
 
 Express apps use a central app object with middleware. `app.use(auth)` and `app.get('/user', handler)` build a Front Controller pipeline.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Front Controller and Page Controller?**
 A: [Page Controller](/patterns/design/page-controller-pattern) uses one controller per page. Front Controller uses a single entry point for the entire application.

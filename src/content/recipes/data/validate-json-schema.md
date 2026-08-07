@@ -312,7 +312,7 @@ e.compile() once at module level. Compiled patterns are 2-5x faster than string 
 - For merge operations, dict.update() is O(n) but in-place. {**a, **b} creates a new dict. Choose based on whether you need the original
 - For serialization, msgpack is 3-5x faster than JSON and produces 50-80% smaller output
 - For sort with custom keys, sorted(key=attrgetter('name')) is faster than sorted(key=lambda x: x.name) because it avoids Python function call overhead
-## Frequently Asked Questions
+## FAQ
 
 ### Which JSON Schema draft should I use?
 

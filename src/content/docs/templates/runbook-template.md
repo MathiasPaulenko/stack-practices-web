@@ -149,7 +149,7 @@ If this runbook does not resolve the issue within [timeframe], escalate to:
 - Outdated contact information
 - Assuming context the reader doesn't have
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between a runbook and a playbook?
 

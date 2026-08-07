@@ -340,7 +340,7 @@ Both approaches use **compensating transactions** to undo work when a step fails
 - Not making steps idempotent, causing duplicate side effects on retry
 - Mixing synchronous and async compensations inconsistently
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Saga and 2PC?**
 A: 2PC locks resources across services until commit, ensuring strong consistency but blocking and brittle. For event-driven alternatives, see [CQRS](/patterns/design/cqrs-pattern). Saga releases locks immediately after each local transaction, achieving eventual consistency with better availability and performance.

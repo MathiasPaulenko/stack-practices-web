@@ -126,7 +126,7 @@ Budget remaining | Policy
 - Tracking SLIs no one looks at — every SLI needs an owner and a review cadence
 - Ignoring error budget burn — the budget exists to protect engineering velocity, not to be ignored. See [Incident Postmortem Template](/docs/templates/incident-postmortem-template) for when SLOs are breached.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between SLO and SLA?
 

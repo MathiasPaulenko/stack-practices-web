@@ -278,7 +278,7 @@ umpy.argsort() is 2-5x faster than Python's built-in sorted() for numeric data
 - For merge operations, dict.update() is O(n) but in-place. {**a, **b} creates a new dict. Choose based on whether you need the original
 - For serialization, msgpack is 3-5x faster than JSON and produces 50-80% smaller output
 - For sort with custom keys, sorted(key=attrgetter('name')) is faster than sorted(key=lambda x: x.name) because it avoids Python function call overhead
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between validation and sanitization?**
 A: Validation checks whether data meets criteria ("is this a valid email?"). Sanitization transforms data to make it safe ("strip HTML tags, trim whitespace"). Do both.

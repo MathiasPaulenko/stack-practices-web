@@ -271,7 +271,7 @@ For Docker images, scan the base image and all installed packages. Tools: Trivy,
 
 For monorepos, audit shared dependencies across all packages. Use workspace-level lockfiles. Track which packages consume each dependency to assess blast radius.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should I audit dependencies?
 

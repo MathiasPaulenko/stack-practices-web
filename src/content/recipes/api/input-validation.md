@@ -256,7 +256,7 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing. Generate correlation IDs server-side and ignore client-provided ones.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I validate in the controller or the service layer?**
 A: Validate at the boundary (controller / API layer). The service layer should assume clean, validated data.

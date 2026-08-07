@@ -300,7 +300,7 @@ Keep schema docs as Markdown files in the same repository as the application cod
 
 For organizations with existing wiki infrastructure, adapt the template sections into wiki pages. Link each table to its corresponding migration history and postmortem entries.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I auto-generate schema docs from the database?
 

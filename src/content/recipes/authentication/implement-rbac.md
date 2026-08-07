@@ -355,7 +355,7 @@ public class ResourcePermissionEvaluator implements PermissionEvaluator {
 - **Ignoring the principle of least privilege.** Default roles with broad permissions (`user` can read everything) expose data that should be restricted.
 - **Not testing authorization logic.** Unit tests verify business logic but rarely test that `viewer` cannot call `DELETE /users/1`. Add explicit authorization test cases.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the main benefit of RBAC?**
 A: RBAC simplifies access control by grouping permissions into roles. Users are assigned roles, and administrators manage permissions at the role level instead of per user.

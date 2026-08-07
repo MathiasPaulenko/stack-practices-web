@@ -262,7 +262,7 @@ Remediation:
 - Testing too infrequently to catch configuration drift.
 - Ignoring backup size growth and restore time trends.
 
-## FAQs
+## FAQ
 
 ### How often should we verify backups?
 

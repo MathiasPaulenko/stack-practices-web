@@ -274,7 +274,7 @@ annotations:
 8. **Extending the sunset date repeatedly** — undermines trust in future deadlines
 9. **Forgetting to update SDKs and client libraries** alongside the API change
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much notice should I give?
 

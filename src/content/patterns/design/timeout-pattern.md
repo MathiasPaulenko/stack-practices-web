@@ -187,7 +187,7 @@ This prevents thread pool exhaustion, connection leaks, and poor user experience
 - Not canceling the underlying operation when the timeout fires (resource leaks)
 - Ignoring timeout propagation, causing cascading deadline misses
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What timeout value should I use?**
 A: Base it on your SLA and the downstream service's P99 latency. If your API promises 500ms response time, and a DB call takes 100ms at P99, set the DB timeout to ~150ms to leave room for retries and processing.

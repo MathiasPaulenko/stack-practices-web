@@ -348,7 +348,7 @@ function sendMessage(room, text) {
 4. Assuming WebSocket connections are authenticated simply because they passed through an authenticated HTTP endpoint. WebSocket upgrades are separate requests; always verify auth tokens on the upgrade handshake.
 5. Forgetting to handle backpressure. If a client is slow to consume messages (slow network, busy CPU), unbounded message queuing on the server will eventually exhaust memory. Implement flow control or drop old messages.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many concurrent WebSocket connections can a server handle?
 

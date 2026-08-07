@@ -308,7 +308,7 @@ if __name__ == '__main__':
 4. Not establishing thresholds in advance; ad-hoc thresholds lead to inconsistent decisions
 5. Failing to verify after a fix; the first fix often only partially addresses the issue
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I establish performance baselines?
 

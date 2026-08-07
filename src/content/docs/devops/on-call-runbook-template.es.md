@@ -469,7 +469,7 @@ If STATUS is not `Running` or RESTARTS > 0, proceed to diagnostic step 2.
 
 2. **Escribir runbooks en aislamiento.** Los runbooks escritos por un solo ingeniero senior a menudo omiten pasos que les parecen obvios pero no lo son para un ingeniero junior de guardia a las 3 a.m. Haz que un ingeniero junior recorra cada procedimiento durante un periodo de calma y anote dónde se atasca. Esos son los pasos que necesitan más detalle.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Cómo mantenemos los comandos del runbook sin que se vuelvan obsoletos?
 

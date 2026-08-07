@@ -145,7 +145,7 @@ Gap analysis turns compliance from a vague checklist into a useful project. By m
 - Over-documenting trivial controls while missing critical gaps.
 - Not linking gap analysis to incident history or risk assessments.
 
-## FAQs
+## FAQ
 
 ### How long does a gap analysis take?
 

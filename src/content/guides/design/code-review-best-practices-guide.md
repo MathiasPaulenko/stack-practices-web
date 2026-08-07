@@ -182,7 +182,7 @@ Rotate reviewers so knowledge spreads evenly. Avoid having only senior engineers
 - **Delayed feedback**: Waiting days to review, forcing the author to re-learn context
 - **No follow-up**: Suggesting changes but never checking if they were made
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I review code in an unfamiliar language or domain?**
 A: Focus on what you can evaluate: test coverage, variable naming, obvious logic errors, and documentation clarity. Ask domain experts for the technical nuances.

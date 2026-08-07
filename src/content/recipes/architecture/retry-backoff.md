@@ -175,7 +175,7 @@ var result = await retryPolicy.ExecuteAsync(() => httpClient.GetAsync(url));
 4. **Blocking the caller**: Synchronous retries in request handlers increase response times
 5. **Retrying inside transactions**: Database transactions + retries = lock escalation
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What's the right number of retries?**
 A: Usually 3-5. More retries increase latency without considerably improving success rates.

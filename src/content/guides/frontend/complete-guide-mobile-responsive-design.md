@@ -444,7 +444,7 @@ table {
 - Not setting `min-width: 0` on flex children — content overflows containers
 - Ignoring landscape orientation — phones in landscape have different constraints
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use container queries or media queries?
 

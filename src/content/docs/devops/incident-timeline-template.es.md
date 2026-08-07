@@ -225,7 +225,7 @@ TOTAL: 30 minutos (RTO objetivo: 30 min — CUMPLIDO)
 4. **Olvidar la brecha de deteccion** — el tiempo entre cuando empezo el problema y cuando disparo la alerta frecuentemente es la brecha mas grande
 5. **No conectar la cronologia a items de accion** — una cronologia sin seguimiento es solo una historia
 
-## Frequently Asked Questions
+## FAQ
 
 ### Como reconstruimos una cronologia si no capturamos marcas de tiempo durante el incidente?
 

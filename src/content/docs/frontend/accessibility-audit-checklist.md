@@ -313,7 +313,7 @@ The failed criteria summary prioritizes issues by severity and maps each to a sp
 6. Ignoring color contrast — gray text is the most common contrast failure
 7. Not testing dynamic content — SPAs need aria-live for status updates
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long does a full accessibility audit take?
 

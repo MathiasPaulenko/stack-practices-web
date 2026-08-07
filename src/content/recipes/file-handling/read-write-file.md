@@ -142,7 +142,7 @@ To turn file contents into structured data, see [Parse JSON](/recipes/data/parse
 - **Reading entire files into memory**: loading a 10 GB log file into a string will crash your process. Always check the file size or use streaming for anything over a few megabytes.
 - **Writing to the same file you are reading**: overwriting an input file in-place can truncate it before you finish reading, resulting in data loss.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I append instead of overwrite?**
 A: Open in append mode: `open(p, "a")` in Python, `appendFile` in Node, or `>>` in Bash. This preserves existing content and adds new data at the end.

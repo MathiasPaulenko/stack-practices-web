@@ -388,7 +388,7 @@ Stripe's API accepts webhooks and payment requests synchronously but processes r
 
 The K8s HPA can scale deployments based on custom metrics including queue depth. Applications expose their queue size as a metric; HPA adds pods when depth exceeds a threshold, creating a feedback loop that maintains steady processing capacity.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is this different from the Back-Pressure Pattern?**
 A: Back-pressure signals upstream to slow down. Load leveling accepts all work and buffers it in a queue. They can be combined: a full queue signals backpressure while still providing load leveling for acceptable workloads.

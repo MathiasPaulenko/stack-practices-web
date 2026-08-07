@@ -383,7 +383,7 @@ El testing matrix define qué browsers se testean, cómo y qué tan seguido. CI 
 6. No analytics para inform decisions — soportar browsers que nadie usa wastean effort
 7. No updatear el matrix — browser versions mueven fast, stale matrices dan false confidence
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cómo decidimos qué browsers soportar?
 

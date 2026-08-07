@@ -282,7 +282,7 @@ Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary
 - **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling. Implement fallback logic on the client and document the degradation strategy.
 
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use SMTP or a transactional email API?
 

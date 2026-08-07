@@ -141,7 +141,7 @@ By checking dependencies such as databases, caches, and message queues, readines
 - Forgetting to test readiness probes during deployment rollouts
 - Exposing health endpoints publicly without authentication or rate limiting
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should a liveness probe check the database?**
 A: No. Liveness should only verify that the process is running. If the database is down, a readiness probe should fail, not the liveness probe.

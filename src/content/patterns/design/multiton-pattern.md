@@ -210,7 +210,7 @@ Log4j and SLF4J maintain named loggers per class or module. `LoggerFactory.getLo
 
 Multi-tenant SaaS applications often maintain one database pool per tenant, accessed by `PoolManager.get(tenantId)`.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Multiton and a regular Map?**
 A: A Multiton controls instance creation (private constructor) and guarantees the same instance for the same key. A Map just stores externally created objects.

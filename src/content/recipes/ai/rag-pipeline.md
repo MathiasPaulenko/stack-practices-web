@@ -199,7 +199,7 @@ A RAG pipeline has four stages:
 4. **Storing raw HTML/PDF** — always extract clean text before embedding
 5. **No evaluation** — measure retrieval accuracy and answer correctness with a test set
 
-## Frequently Asked Questions
+## FAQ
 
 ### What chunk size should I use?
 

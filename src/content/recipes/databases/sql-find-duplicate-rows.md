@@ -246,7 +246,7 @@ The first query groups rows by the column that should be unique and uses `HAVING
 6. **Not adding a unique constraint after cleanup.** Without it, duplicates will reappear.
 7. **Using `DELETE` instead of `TRUNCATE` for full table dedup.** If all rows are duplicates, export the canonical rows, `TRUNCATE`, and re-import.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What if duplicates have different values in other columns?**
 A: Choose the canonical row by business rules, then either merge the data or keep the row with the most complete or most recent data. You can use `COALESCE` to pick non-null values from duplicates.

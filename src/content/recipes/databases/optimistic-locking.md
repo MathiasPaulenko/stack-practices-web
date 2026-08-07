@@ -208,7 +208,7 @@ If `rowsAffected == 0`, the version changed between read and write. The applicat
 4. **Using pessimistic locking for everything** — kills throughput; reserve `FOR UPDATE` for true inventory or banking scenarios. See [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) for lock patterns.
 5. **Ignoring the conflict in UI** — users need clear feedback that their data is stale and must be refreshed
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use optimistic or pessimistic locking?
 

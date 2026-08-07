@@ -134,7 +134,7 @@ The template separates **inventory** (what certificates you have) from **workflo
 4. Not including all required SANs in the CSR (e.g., `www.` and apex domain)
 5. Letting the old certificate expire before validating the new one on all endpoints
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle wildcard certificates?
 

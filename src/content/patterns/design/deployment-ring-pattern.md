@@ -371,7 +371,7 @@ The deployment proceeds through each ring sequentially:
 - Rolling back only the failed ring, leaving earlier rings on the new version
 - Not testing the rollback procedure itself
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is ring deployment different from canary release?**
 A: Canary release is a single step: route a small percentage to the new version, watch, then go to 100%. Ring deployment is multi-step: multiple rings of increasing size with health checks between each. Ring deployment is canary release with more granular control.

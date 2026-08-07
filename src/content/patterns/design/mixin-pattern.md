@@ -245,7 +245,7 @@ While not pure mixins, HOCs in React add behavior (data fetching, analytics) to 
 
 Java 8 default methods on interfaces act like static mixins. `List.sort()` is a default method added to all `List` implementations without breaking existing code.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a Mixin and a Trait?**
 A: Traits are a stricter form of mixin that resolves conflicts explicitly. Mixins are more loosely defined and vary by language.

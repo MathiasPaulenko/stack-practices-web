@@ -417,7 +417,7 @@ helpers.bulk(es, actions, chunk_size=1000, request_timeout=60)
 - Not monitoring unassigned shards — data may be unavailable
 - Forcing cluster reroute manually — usually masks a deeper config issue
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many shards should I use?
 

@@ -259,7 +259,7 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing. Generate correlation IDs server-side and ignore client-provided ones.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I log every API request?**
 A: Yes, at INFO level with method, path, status code, and duration. Use [middleware](/recipes/api/middleware) for automatic request logging.

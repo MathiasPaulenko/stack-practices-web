@@ -302,7 +302,7 @@ Annotation layers correlate deployments and incidents with metric changes. When 
 7. No variables — forcing engineers to edit queries to filter by endpoint or instance
 8. Too high cardinality — panels with 100 series are unreadable. Aggregate appropriately.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many panels should a dashboard have?
 

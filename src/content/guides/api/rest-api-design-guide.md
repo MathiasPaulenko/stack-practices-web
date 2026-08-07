@@ -204,7 +204,7 @@ Return a consistent error envelope:
 - **No rate limiting** — invites abuse and accidental DDoS
 - **Tight coupling to database schema** — leak implementation details
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use PUT or PATCH for updates?**
 A: Use `PUT` for full replacements (client sends the complete resource) and `PATCH` for partial updates. If you only support one, document it clearly.

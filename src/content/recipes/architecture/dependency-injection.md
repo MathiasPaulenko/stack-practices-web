@@ -158,7 +158,7 @@ DI inverts control: instead of components finding or creating their dependencies
 4. **Ignoring lifecycle**: Scoped services resolved as singletons cause memory leaks
 5. **Circular dependencies**: Refactor into events or a [mediator](/patterns/design/mediator-pattern) if A depends on B and B on A
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is DI only for object-oriented languages?**
 A: No. Functional languages achieve similar decoupling via higher-order functions and partial application.

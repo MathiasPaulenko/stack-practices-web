@@ -339,7 +339,7 @@ Key concepts:
 - Not setting memory limits on Fluentd. High log volume can cause OOM kills.
 - Forgetting to rotate Fluentd buffer files. They can fill disk space over time.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What happens if Fluentd is down when using the logging driver?
 

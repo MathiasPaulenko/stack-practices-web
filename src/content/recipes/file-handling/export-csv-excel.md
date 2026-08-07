@@ -187,7 +187,7 @@ For Excel specifically, `.xlsx` files are ZIP archives of XML. Libraries like `o
 - **Blocking the event loop**: In Node.js, generating large files synchronously blocks all requests. Use streams or offload to a worker.
 - **Forgetting to close file handles**: In Java, not closing `Workbook` or `OutputStream` leaks memory and locks the file.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I export a million rows without crashing?
 

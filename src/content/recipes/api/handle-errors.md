@@ -290,7 +290,7 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing. Generate correlation IDs server-side and ignore client-provided ones.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use RFC 7807 or a simpler custom format?**
 A: RFC 7807 is recommended for public APIs and microservices. For internal tools, a simpler `{ error, message }` object is fine if it is consistent across all endpoints.

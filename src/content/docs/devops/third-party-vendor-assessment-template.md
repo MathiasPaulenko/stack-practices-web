@@ -149,7 +149,7 @@ The template collects consistent evidence across vendors, which makes it easier 
 - Assigning scoring to a single person without peer review.
 - Ignoring subcontractors or fourth-party dependencies used by the vendor.
 
-## FAQs
+## FAQ
 
 ### What if a vendor refuses to share a SOC 2 report?
 

@@ -292,7 +292,7 @@ The key benefit is that the memento's internal state is opaque to the caretaker,
 - Forgetting to validate mementos before restoration (corrupted or incompatible snapshots)
 - Allowing originators to modify mementos after creation, causing unpredictable undo behavior
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is Memento different from Prototype?**
 A: [Prototype](/patterns/design/prototype-pattern) creates a new object by copying an existing one. Memento saves an object's state so it can be restored later. Prototype is about duplication; Memento is about time-travel.

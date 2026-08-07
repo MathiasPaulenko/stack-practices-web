@@ -254,7 +254,7 @@ For internal services, add deployment context: which environments were updated, 
 
 Hotfixes need a shorter format: "Fixed [bug] that caused [symptom]. Deployed to [environment]. Monitoring for [metric]. Rollback: [command]." No highlights or new capabilities — just the fix and the operational context.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How detailed should release notes be for internal services?
 

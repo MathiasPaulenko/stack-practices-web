@@ -218,7 +218,7 @@ The template structures the handoff into **incidents** (what's broken), **alerts
 4. **Skipping the escalation path** — wastes minutes finding who to call during a P1
 5. **Handing off during an active incident** — context transfer while debugging is lossy; pause the investigation for 5 minutes to document
 
-## Frequently Asked Questions
+## FAQ
 
 ### How detailed should the incident summary be?
 

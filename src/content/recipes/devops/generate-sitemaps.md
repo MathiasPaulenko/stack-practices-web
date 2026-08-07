@@ -286,7 +286,7 @@ public class SitemapController {
 4. Using the current date for all `lastmod` values, making the attribute meaningless and potentially ignored by crawlers.
 5. Omitting the sitemap index for sites with 100,000+ URLs, resulting in oversized individual sitemap files that violate the 50,000 URL / 50MB limit.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should I regenerate the sitemap?
 

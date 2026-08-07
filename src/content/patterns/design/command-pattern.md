@@ -713,7 +713,7 @@ class MetricsCommand(Command):
 
 10. **Test commands in isolation.** Write unit tests for each command independently, then integration tests for command chains and macros.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Command and Strategy?**
 A: [Strategy](/patterns/design/strategy-pattern) encapsulates interchangeable algorithms. Command encapsulates a request to perform an action, often with support for undo, queuing, and logging.

@@ -185,7 +185,7 @@ Python's `bleach` is ideal for rich-text fields because it allows an explicit al
 - **Encoding once and reusing everywhere**: HTML-encoded output is unsafe inside JavaScript strings; encode per context
 - **Trusting client-side validation**: Client-side checks improve UX but are trivial to bypass; always re-validate server-side
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I sanitize input on the client or server?
 

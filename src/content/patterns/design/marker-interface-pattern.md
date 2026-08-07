@@ -295,7 +295,7 @@ The key advantage over annotations is compile-time type checking. If a method re
 
 JPA uses marker interfaces like `Entity` (though technically annotated) and `Serializable` to determine which classes should be managed by the persistence context.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Why not just use annotations?**
 A: Annotations are more flexible (can have parameters) but are only checked at runtime. Marker interfaces provide compile-time type safety.

@@ -434,7 +434,7 @@ Key concepts:
 - Not invalidating cache on writes. Users see old data after updating.
 - Storing large objects in cache. Redis is in-memory. Large values consume RAM quickly.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I choose the right TTL?
 

@@ -229,7 +229,7 @@ CREATE TABLE products (
 - Missing `ON DELETE` / `ON UPDATE` rules on foreign keys. See [data validation](/recipes/security/data-validation-zod) principles.
 - Storing derived/calculated data instead of computing on read
 
-## Frequently Asked Questions
+## FAQ
 
 ### What database normalization form should I use?
 

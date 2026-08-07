@@ -243,7 +243,7 @@ ACTION: Add 4 instances to auto-scaling group by October 2026
 4. **No confidence levels on assumptions** — marketing campaigns fail; build scenarios for high, medium, and low growth
 5. **Waiting until 90% utilization** — by then you are already in emergency mode; plan at 70%
 
-## Frequently Asked Questions
+## FAQ
 
 ### How far ahead should we forecast?
 

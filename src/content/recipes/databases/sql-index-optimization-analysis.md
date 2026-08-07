@@ -243,7 +243,7 @@ CREATE INDEX idx_metrics_time_brin ON metrics USING BRIN (recorded_at);
 6. **Creating indexes without CONCURRENTLY in production.** This locks the table and causes downtime.
 7. **Ignoring index bloat.** Fragmented indexes grow larger than needed and slow down scans. Run `REINDEX CONCURRENTLY` periodically.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between EXPLAIN and EXPLAIN ANALYZE?**
 A: EXPLAIN shows the planned execution. EXPLAIN ANALYZE actually runs the query and reports real timing and rows processed.

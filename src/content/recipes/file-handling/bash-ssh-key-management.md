@@ -125,7 +125,7 @@ The script first ensures the `~/.ssh` directory exists with the correct permissi
 4. **Leaving old keys on servers after rotation.** A rotation is incomplete until the old public key is removed from authorized_keys.
 5. **Using short RSA keys.** RSA keys below 4096 bits are no longer recommended for production.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I add a passphrase to an existing key?**
 A: Use `ssh-keygen -p -f ~/.ssh/id_ed25519`. You can also use ssh-agent to cache the passphrase for the session.

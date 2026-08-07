@@ -289,7 +289,7 @@ Configure three protections: (1) maxDepth to limit query depth (e.g., 7 levels),
 4. **Not analyzing query complexity** — a single malicious query can DoS your API
 5. **Mixing REST and GraphQL** on the same endpoint; it creates confusion and tooling problems
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I use both REST and GraphQL in the same project?
 

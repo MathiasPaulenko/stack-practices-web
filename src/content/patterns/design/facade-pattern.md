@@ -246,7 +246,7 @@ Express.js `app.get('/users', handler)` is a facade over HTTP parsing, middlewar
 
 AWS S3 `upload_file(bucket, key, path)` hides multipart uploads, retry logic, checksum validation, and credential refresh behind one method call.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Facade and Adapter?**
 A: [Adapter](/patterns/design/adapter-pattern) changes an interface to match what a client expects. Facade simplifies a complex interface without changing its contracts.

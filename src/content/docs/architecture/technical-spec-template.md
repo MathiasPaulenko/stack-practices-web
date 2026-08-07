@@ -289,7 +289,7 @@ Before circulating the spec for approval:
 6. Writing vague NFRs like "should be fast" instead of measurable targets like "p95 < 200ms"
 7. Not assigning owners to implementation phases, leading to diffusion of responsibility
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should a technical spec be?
 

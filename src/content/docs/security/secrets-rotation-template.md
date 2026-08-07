@@ -209,7 +209,7 @@ echo "Rotation complete. Old user dropped."
 4. Rotating all secrets at once; a failed mass rotation is a total outage
 5. Not documenting the rotation procedure; the next engineer will guess and break things
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I rotate a secret without downtime?
 

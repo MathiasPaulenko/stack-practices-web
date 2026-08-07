@@ -275,7 +275,7 @@ Last Updated: 2026-07-11 by alice
 4. **Not assigning a single owner** — "the backend team owns it" is not ownership; name a team and a person
 5. **Hiding it in a wiki no one uses** — the doc should be linked from the repo README, monitoring dashboard, and CI pipeline
 
-## Frequently Asked Questions
+## FAQ
 
 ### How is this different from a README?
 

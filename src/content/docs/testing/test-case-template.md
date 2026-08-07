@@ -288,7 +288,7 @@ BDD (Given-When-Then) is useful when working with product managers or stakeholde
 6. Overly detailed steps for automated tests — the script is the documentation
 7. Not updating test cases when requirements change — stale tests waste time
 
-## Frequently Asked Questions
+## FAQ
 
 ### How detailed should test steps be?
 

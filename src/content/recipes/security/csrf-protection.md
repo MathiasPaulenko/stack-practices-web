@@ -145,7 +145,7 @@ public class CookieConfig implements WebMvcConfigurer {
 - **Using GET for state-changing actions**: `GET /delete-account?id=123` is trivially exploitable via an image tag or link. Always use POST, PUT, DELETE for mutations.
 - **Storing tokens in localStorage**: [XSS](/recipes/security/xss-prevention) can steal localStorage. Store the server-side token in a hidden form field or a non-HttpOnly cookie (for double-submit pattern).
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is CSRF still relevant with SameSite cookies?**
 A: Yes. SameSite blocks most CSRF but not all scenarios (cross-site GET requests, embedded iframes, API endpoints that accept form data). Defense in depth with tokens is recommended.

@@ -220,7 +220,7 @@ Webhook security rests on three pillars: **authenticity** (did this really come 
 4. **Not checking Content-Type**; attackers can send crafted multipart requests to exploit parsers
 5. **Ignoring failed deliveries**; if your endpoint returns 500, the provider will retry — potentially amplifying damage
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if my webhook provider doesn't sign payloads?
 

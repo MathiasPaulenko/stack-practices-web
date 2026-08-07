@@ -261,7 +261,7 @@ The `-m recent` module tracks source IPs and enables rate limiting. It stores co
 - Forgetting IPv6. `ip6tables` is separate. An open IPv6 port bypasses IPv4 iptables rules.
 - Using `DROP` everywhere. `DROP` makes troubleshooting harder. Use `REJECT` for internal traffic.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between iptables and nftables?
 

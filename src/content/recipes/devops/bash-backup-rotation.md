@@ -209,7 +209,7 @@ Tiered retention uses file naming prefixes (`daily_`, `weekly_`, `monthly_`) to 
 - Not setting `mkdir -p` for the backup directory. The script fails if the directory does not exist.
 - Forgetting to make the script executable: `chmod +x backup.sh`.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I encrypt backups in bash?
 

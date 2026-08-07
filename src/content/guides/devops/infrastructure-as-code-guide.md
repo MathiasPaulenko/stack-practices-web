@@ -253,7 +253,7 @@ func TestVpc(t *testing.T) {
 - Ignoring plan output — the plan tells you what will be destroyed; read it
 - Using `count` or `for_each` with resources that cannot be recreated without downtime
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I use Terraform and Pulumi together?
 

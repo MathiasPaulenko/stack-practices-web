@@ -261,7 +261,7 @@ The key difference from cache-aside is transparency. With cache-aside, the appli
 - **Large objects in cache** — caching a 10MB object consumes cache memory and increases serialization overhead. Cache projections, not full entities.
 - **Ignoring cache stampede** — when a popular key expires, many requests miss simultaneously and flood the database. Use a lock or single-flight pattern.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between read-through and cache-aside?
 

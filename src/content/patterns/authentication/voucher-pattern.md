@@ -310,7 +310,7 @@ The Voucher Pattern creates a trust chain between services without sharing sensi
 - Passing vouchers in URL query strings — URLs are logged by proxies and load balancers
 - Not rotating keys — long-lived keys increase the blast radius of a compromise
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is the Voucher Pattern different from JWT?**
 A: JWT is a specific token format (header.payload.signature). The Voucher Pattern is the architectural concept of issuing signed, short-lived claims between services. JWT is one implementation of the Voucher Pattern. You can use HMAC-signed tokens, opaque tokens, or any signed format.

@@ -174,7 +174,7 @@ spec:
 4. **No traffic filtering**: Mirroring health checks and monitoring requests pollutes staging data
 5. **Forgetting to disable side effects**: Staging sends real emails to real customers
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does mirroring impact production performance?**
 A: Minimal if implemented correctly. Network-level mirroring has near-zero overhead. Application-level mirrors should use async fire-and-forget.

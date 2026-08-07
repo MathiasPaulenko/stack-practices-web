@@ -421,7 +421,7 @@ Spring Data's `Specification<T>` interface extends JPA's `Criteria` API, allowin
 
 The Criteria API lets you compose restrictions (`Restrictions.and`, `Restrictions.or`) that mirror the Specification Pattern.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Specification and Strategy?**
 A: Strategy switches between interchangeable algorithms. Specification encapsulates a predicate for selection/validation. They can overlap, but their intent differs.

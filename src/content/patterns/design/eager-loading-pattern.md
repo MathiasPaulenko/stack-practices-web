@@ -355,7 +355,7 @@ JOIN authors ON books.author_id = authors.id
 
 Batches requests for the same field across multiple parent objects, solving N+1 at the API layer.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the N+1 problem?**
 A: Loading N entities, then making one additional query per entity for related data, resulting in N+1 total queries instead of 1-2.

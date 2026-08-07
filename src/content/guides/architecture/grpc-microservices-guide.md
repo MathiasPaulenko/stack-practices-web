@@ -311,7 +311,7 @@ Never change field numbers for existing fields. Adding new fields with new numbe
 4. **Forgetting to set `max_message_length`**; default limits can silently truncate large payloads
 5. **Changing field numbers** in `.proto` files; this breaks wire compatibility for all clients
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I replace all my REST APIs with gRPC?
 

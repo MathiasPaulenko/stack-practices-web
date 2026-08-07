@@ -243,7 +243,7 @@ summary_response = openai.chat.completions.create(
 - **Not setting max_tokens**: without a limit, the model may generate excessively long responses, increasing cost and latency. Set `max_tokens` based on your expected output length.
 - **Prompt injection from user input**: if your prompt includes user-generated text, a malicious user can inject instructions like "ignore all previous instructions." Sanitize and delimit user content.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many few-shot examples should I include?**
 A: Three to five high-quality examples usually outperform ten mediocre ones. Include edge cases and diverse phrasings.

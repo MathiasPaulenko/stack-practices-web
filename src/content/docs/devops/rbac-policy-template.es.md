@@ -146,7 +146,7 @@ RBAC simplifica la gestion de acceso al agrupar permisos en roles en lugar de as
 - No definir separacion de deberes para operaciones sensibles.
 - Usar roles genericos como admin para tareas diarias.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre RBAC y ABAC?
 

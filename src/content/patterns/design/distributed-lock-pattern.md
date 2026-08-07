@@ -371,7 +371,7 @@ Stripe uses Redis-based distributed locks to prevent duplicate charge processing
 
 Airbnb's Spinaltap CDC system uses ZooKeeper distributed locks to coordinate MySQL binlog readers across a cluster, ensuring exactly one reader processes each partition.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is Redlock safe?**
 A: Martin Kleppmann argued that Redlock is not strictly safe under arbitrary clock skew. For most practical cases with proper fencing tokens and reasonable TTLs, it works well. For strong correctness guarantees, use ZooKeeper or etcd.

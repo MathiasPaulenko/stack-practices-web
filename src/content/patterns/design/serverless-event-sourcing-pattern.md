@@ -293,7 +293,7 @@ Event sourcing inverts the traditional state model:
 - **Large events** — storing the full aggregate in each event wastes space. Store only the delta (changed fields).
 - **Not handling schema evolution** — event schemas change over time. Use upcasters or versioned event types to handle old events during replay.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is an aggregate in event sourcing?
 

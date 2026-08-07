@@ -470,7 +470,7 @@ std::atomic_load_explicit(&buffer[idx], std::memory_order_acquire);
 
 2. **No manejar overflow de cola gracefulmente.** Los ring buffers lock-free son limitados. Cuando están llenos, la operación de enqueue debe bloquear, drop el item, o retornar failure. Spinning para siempre desperdicia CPU. Implementa backoff o provee una cola de overflow fallback.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Cómo mido si lock-free vale la pena?
 

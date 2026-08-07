@@ -115,7 +115,7 @@ The script shows three common approaches. `xargs -P` is portable and available o
 4. **Writing to the same output file.** Concurrent writes interleave output; use one file per job or lock the file.
 5. **No timeout.** A stuck job can block the whole batch; add `timeout` to each command.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between xargs and GNU parallel?**
 A: xargs is a coreutils tool with limited parallelism capabilities. GNU parallel is designed for concurrency, offering better output ordering, resumability, and progress bars.

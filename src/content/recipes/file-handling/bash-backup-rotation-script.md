@@ -128,7 +128,7 @@ The script takes a source directory and a backup directory as arguments. It crea
 4. **Ignoring exit codes.** A failed backup should stop the retention cleanup so you do not delete old backups while creating none.
 5. **Running as root without need.** Use a dedicated backup user with read-only access to the source directory.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I restore a backup?**
 A: Extract the tarball with `tar -xzf app-YYYY-MM-DD.tar.gz -C /restore/path`. Verify the extracted contents before overwriting production data.

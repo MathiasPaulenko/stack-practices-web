@@ -226,7 +226,7 @@ Recommendations:
 - Not reviewing allocation rules after major architecture changes.
 - Failing to communicate cost changes to affected teams.
 
-## FAQs
+## FAQ
 
 ### What is the difference between chargeback and showback?
 

@@ -259,7 +259,7 @@ Rollback command: ./scripts/rollback.sh API v2.3.0
 4. Deploying multiple unrelated changes in the same release
 5. Allowing deployers to work alone without a second pair of eyes
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should every deployment use this full checklist?
 

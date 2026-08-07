@@ -282,7 +282,7 @@ public class FlattenUtil {
 4. Attempting to unflatten keys with inconsistent separators (mixing `.` and `_`) leading to malformed output.
 5. Treating all numeric string keys as array indices, which turns object keys like `"123"` into arrays unexpectedly.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I flatten only to a specific depth?
 

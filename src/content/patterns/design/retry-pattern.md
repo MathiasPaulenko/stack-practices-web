@@ -211,7 +211,7 @@ The Retry Pattern has three configurable dimensions:
 - Retrying on non-transient errors (e.g., 400 Bad Request, authentication failures)
 - Ignoring retry storms — many clients retrying simultaneously after a brief outage
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Retry and Circuit Breaker?**
 A: Retry handles individual transient failures. [Circuit Breaker](/patterns/design/circuit-breaker-pattern) prevents cascading failures by stopping requests to a failing service. They work best together: Retry handles temporary blips, Circuit Breaker handles prolonged outages.

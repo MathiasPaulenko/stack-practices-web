@@ -224,7 +224,7 @@ Use DDD when:
 - Ignoring the bounded context boundaries, creating a "big ball of mud"
 - Confusing application services with domain services
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between an entity and an aggregate root?**
 A: An aggregate root is a special entity that works as the entry point to an aggregate. All external references to the aggregate go through the root, and all modifications are done via the root's methods.

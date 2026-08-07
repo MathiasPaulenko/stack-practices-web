@@ -209,7 +209,7 @@ The template treats vendor assessment as a **structured, evidence-based process*
 4. Ignoring sub-processors; many breaches happen at the fourth-party level
 5. Having no exit plan; vendors know migration costs keep you locked in
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I assess a startup that has no SOC 2 yet?
 

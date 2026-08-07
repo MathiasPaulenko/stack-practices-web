@@ -372,7 +372,7 @@ El execution schedule separa rules por cuándo deberían correr. Column-level ru
 6. Rules too strict — 100% completeness en optional fields blockea valid data
 7. No documentation — rules sin context se remueven cuando failan
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cuántas quality rules deberíamos tener?
 

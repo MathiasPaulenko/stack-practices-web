@@ -205,7 +205,7 @@ record UserV2(Long id, String fullName, String email) {}
 4. Not validating version identifiers, causing `v1.0` and `v1` to be treated as different versions accidentally.
 5. Returning different status codes or error shapes across versions without documenting them.
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I release a new API version?
 

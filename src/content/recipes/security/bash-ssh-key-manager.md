@@ -232,7 +232,7 @@ Disabling password authentication is the single most effective SSH hardening ste
 - Disabling password auth before verifying key-based login works. You lock yourself out.
 - Sharing private keys between users. Each user should have their own key pair.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I use a specific key for a specific server?
 

@@ -439,7 +439,7 @@ La contacts section ensure que operators saben a quién escalar y cómo. El esca
 6. No tested procedures — runbook steps que no funcionan en practice
 7. No failure scenarios — solo coverea happy path, no lo que actually va mal
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Qué tan detailed debería ser el runbook?
 

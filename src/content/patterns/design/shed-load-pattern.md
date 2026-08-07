@@ -361,7 +361,7 @@ The key insight is that shedding is proactive, not reactive. The system does not
 - Not differentiating between priority levels, shedding critical and non-critical traffic equally
 - Shedding at the application layer instead of the edge, wasting network and processing resources
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is load shedding different from rate limiting (throttling)?**
 A: Rate limiting caps requests per client over time (100 req/min). Load shedding caps total system load based on health metrics (CPU, queue depth). Rate limiting protects against individual clients. Load shedding protects the system as a whole.

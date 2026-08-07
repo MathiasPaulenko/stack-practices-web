@@ -139,7 +139,7 @@ Specific steps to fix. Include code examples if applicable.
 - Missing retest date — remediation without verification is incomplete. Track follow-ups with the [Security Incident Response Template](/docs/templates/security-incident-response-template).
 - Scoring by CVSS alone — business context matters more than formula
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I prioritize findings when everything seems critical?
 

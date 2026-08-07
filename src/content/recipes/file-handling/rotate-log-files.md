@@ -247,7 +247,7 @@ public class LogRotationExample {
 - **Ignoring time zones in `TimedRotatingFileHandler`.** Use `utc=True` to avoid ambiguous behavior around daylight saving time transitions.
 - **Running multiple application instances with the same log file.** Concurrent writers without a locking mechanism interleave log lines or corrupt the file.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is log rotation and why does it matter?**
 A: Log rotation archives or deletes old log files to prevent disk exhaustion. Without rotation, a single service can fill the entire disk.

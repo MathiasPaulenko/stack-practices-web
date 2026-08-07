@@ -165,7 +165,7 @@ A production CI/CD pipeline typically includes:
 4. **No rollback plan**: Failed deployments need instant revert via blue-green or previous image
 5. **Ignoring flaky tests**: Random failures erode trust in the pipeline
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I deploy on every commit to main?**
 A: Yes for staging. For production, use a manual gate or deploy on tagged releases.

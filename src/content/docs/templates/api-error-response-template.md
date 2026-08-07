@@ -309,7 +309,7 @@ gRPC uses status codes (0-16) instead of HTTP status codes. Map gRPC status code
 
 For webhooks, return errors as event payloads. Include the original event ID, error code, and a timestamp. Provide a retry webhook endpoint for clients to replay failed deliveries.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use RFC 7807 for internal APIs?
 

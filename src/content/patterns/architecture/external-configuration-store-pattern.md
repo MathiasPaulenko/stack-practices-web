@@ -131,7 +131,7 @@ A typical external configuration system includes:
 - Forgetting to restart or refresh caches after configuration changes
 - Granting overly broad access to the configuration store
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does this pattern require a dedicated configuration service?**
 A: No. You can start with environment variables, ConfigMaps, or a secrets manager. A dedicated service adds centralization and live updates as you scale.

@@ -185,7 +185,7 @@ session.execute(
 - Using a CP database for an AP workload (or vice versa) — match the tool to the requirement. See [NoSQL selection](/guides/databases/nosql-database-selection-guide).
 - Ignoring [replication lag](/recipes/databases/database-replication) in read-after-write scenarios — users may not see their own writes immediately
 
-## Frequently Asked Questions
+## FAQ
 
 ### Is it possible to have all three CAP properties?
 

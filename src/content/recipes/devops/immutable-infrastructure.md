@@ -159,7 +159,7 @@ resource "aws_autoscaling_group" "app" {
 4. **Forgetting data volumes**: Read-only rootfs means logs and uploads need external storage
 5. **No image lifecycle policy**: Old images accumulate storage costs and become security liabilities
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is immutable infrastructure more expensive?**
 A: Slightly higher storage for images, but lower operational cost due to eliminated drift-related incidents.

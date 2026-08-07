@@ -234,7 +234,7 @@ Previous Week Items:
 4. Allowing "no incidents this week" to mean "no discussion needed"; always review trends
 5. Not escalating risks early; waiting until a risk becomes an incident wastes the review
 
-## Frequently Asked Questions
+## FAQ
 
 ### Who should attend the ops review?
 

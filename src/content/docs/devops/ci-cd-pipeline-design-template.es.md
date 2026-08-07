@@ -455,7 +455,7 @@ Rollback procedures definen cómo reverse un deployment. Automated rollback trig
 6. Long pipeline duration — developers pierden context esperando feedback
 7. No security scanning — vulnerabilities shippean a production undetected
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cuánto debería tomar un CI/CD pipeline?
 

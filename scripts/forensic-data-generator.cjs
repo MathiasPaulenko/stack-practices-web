@@ -62,8 +62,7 @@ function isLegitVitalMatch(match, body) {
 
 const TEMPLATE_HEADINGS = [
   'overview', 'when to use', 'solution', 'explanation', 'variants',
-  'best practices', 'common mistakes', 'frequently asked questions', 'faq',
-  'references', 'related resources',
+  'best practices', 'common mistakes', 'faq',
 ];
 
 function walk(dir, callback) {

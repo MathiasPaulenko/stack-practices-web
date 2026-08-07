@@ -155,7 +155,7 @@ async function eraseUserData(userId) {
 4. **Ignoring backup deletion**: Erased user data persists in old database snapshots
 5. **One-size-fits-all consent**: Marketing and functional cookies need separate consent
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does GDPR apply if my company is outside the EU?**
 A: Yes, if you process data of EU residents. The regulation has extraterritorial reach.

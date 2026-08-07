@@ -271,7 +271,7 @@ spec:
 - Limpiar versiones antiguas demasiado pronto.
 - Desplegar durante picos de trafico sin planificacion de capacidad.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre despliegue rolling y canary?
 

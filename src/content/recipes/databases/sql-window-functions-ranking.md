@@ -239,7 +239,7 @@ SUM(amount) OVER (PARTITION BY category
 6. **LAST_VALUE without full frame.** `LAST_VALUE` defaults to the current row, not the last row of the partition. Always specify `ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING`.
 7. **Using RANGE instead of ROWS unintentionally.** `RANGE` includes peers (rows with the same order value), which can produce unexpected results in running totals.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between RANK and DENSE_RANK?**
 A: RANK leaves gaps after ties (1, 1, 3). DENSE_RANK does not (1, 1, 2).

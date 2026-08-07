@@ -247,7 +247,7 @@ Sentry DSN:
 - Omitting the reason for environment differences.
 - Not including third-party service endpoints or credentials.
 
-## FAQs
+## FAQ
 
 ### Should we store secrets in this document?
 

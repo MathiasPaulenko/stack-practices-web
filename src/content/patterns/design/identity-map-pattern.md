@@ -357,7 +357,7 @@ EF Core tracks entities by key within a `DbContext` instance. Querying the same 
 
 SQLAlchemy's `Session` maintains an identity map. Loading the same row twice yields identical Python objects (`user1 is user2` is `True`).
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Identity Map and a general cache?**
 A: A general cache stores data for performance. An Identity Map preserves object identity within a transaction scope. Its primary goal is correctness, not speed.

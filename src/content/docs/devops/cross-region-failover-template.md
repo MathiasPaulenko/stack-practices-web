@@ -271,7 +271,7 @@ Post-Test:
 4. Overlooking that write-heavy workloads create larger replication lag than read-heavy ones
 5. Failing to verify data integrity after failover; consistency matters more than speed
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should I run a cross-region failover test?
 

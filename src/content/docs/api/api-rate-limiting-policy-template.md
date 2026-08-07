@@ -350,7 +350,7 @@ For multi-instance deployments, use a shared store (Redis, Memcached) instead of
 7. **Not returning Retry-After header** — consumers guess when to retry, causing thundering herd
 8. **Rate limiting by IP only** — NAT and proxies make IP-based limits unreliable for paid tiers
 
-## Frequently Asked Questions
+## FAQ
 
 ### What happens if I exceed both per-minute and per-hour limits?
 

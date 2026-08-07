@@ -245,7 +245,7 @@ Without the mediator, each user would need a reference to every other user. With
 - Not documenting the mediator's role, making it hard to understand why components don't communicate directly
 - Allowing the mediator to leak colleague details to other colleagues
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is Mediator the same as Observer?**
 A: Related but different. [Observer](/patterns/design/observer-pattern) is a one-to-many dependency where subjects notify observers. Mediator centralizes many-to-many communication. An event bus can serve as both.

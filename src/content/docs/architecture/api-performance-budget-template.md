@@ -293,7 +293,7 @@ The green/yellow/red thresholds map directly to the budget: green is within 80% 
 6. Not accounting for cold starts in serverless architectures
 7. Setting budgets without input from the product team, leading to unrealistic targets
 
-## Frequently Asked Questions
+## FAQ
 
 ### What happens when an endpoint exceeds its budget?
 

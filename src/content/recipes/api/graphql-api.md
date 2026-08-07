@@ -180,7 +180,7 @@ Key differences across languages:
 - **Ignoring schema versioning**: While GraphQL avoids versioning, deprecation and field tracking still matter
 - **Storing state in resolvers**: Resolvers must be stateless; use context for request-scoped data
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I migrate my REST API to GraphQL?**
 A: Not necessarily. GraphQL shines when clients need flexibility. If your API has simple, stable consumers, [REST](/recipes/api/call-rest-api) may be simpler and more cacheable.

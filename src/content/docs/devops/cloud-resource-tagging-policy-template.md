@@ -306,7 +306,7 @@ if __name__ == '__main__':
 - Treating tags as optional metadata rather than operational data.
 - Not reporting on untagged resources or assigning remediation ownership.
 
-## FAQs
+## FAQ
 
 ### What if a resource is shared by multiple teams?
 

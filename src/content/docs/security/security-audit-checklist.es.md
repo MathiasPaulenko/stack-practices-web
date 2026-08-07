@@ -427,7 +427,7 @@ Compliance verify que controls meet regulatory requirements. SOC 2, GDPR y ISO 2
 6. Scope too narrow — missing cloud, K8s o application security
 7. No risk rating — all findings treated equally, critical issues se pierden
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cuán seguido deberíamos conductir security audits?
 

@@ -303,7 +303,7 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - Cache validation results by input hash to avoid redundant processing
 - Use Decimal for money, int for counts, str for IDs. Never use loat for exact values
 - Log validation failures with field path, value, and expected type for debugging
-## Frequently Asked Questions
+## FAQ
 
 ### How do I ignore specific fields when diffing JSON?
 

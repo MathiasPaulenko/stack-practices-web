@@ -499,7 +499,7 @@ npx lighthouse https://localhost:3000 --view --preset=desktop
 - Ignoring Lighthouse warnings — Core Web Vitals affect SEO and UX
 - Using context for everything — global state causes global re-renders
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I use `React.memo` vs `useMemo` vs `useCallback`?
 

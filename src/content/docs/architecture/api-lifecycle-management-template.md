@@ -294,7 +294,7 @@ def check_sunset_readiness(grafana_url, dashboard_id, api_token):
 6. Not providing a sandbox environment for consumers to test the new version
 7. Shutting down without monitoring for 404s from unknown consumers post-shutdown
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should I keep a deprecated API alive?
 

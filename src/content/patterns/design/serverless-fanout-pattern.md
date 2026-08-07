@@ -311,7 +311,7 @@ The key benefit is isolation: if the email consumer is slow or fails, the invent
 - **Coupling producer to consumers** — if the producer checks consumer status or sends different messages to different consumers, the fanout is not truly decoupled. The producer should publish one event and let the topic handle delivery.
 - **No idempotency in consumers** — SQS at-least-once delivery means consumers may process the same message twice. Use idempotency keys to prevent duplicate side effects.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between SNS fanout and EventBridge fanout?
 

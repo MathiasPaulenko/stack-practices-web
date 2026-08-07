@@ -373,7 +373,7 @@ The retry pattern works by catching transient failures and re-attempting the req
 - Not adding jitter. When many clients retry at the same time, the server gets overwhelmed again.
 - Forgetting to clear the timeout on success. This causes memory leaks and false aborts.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I retry 4xx errors?
 

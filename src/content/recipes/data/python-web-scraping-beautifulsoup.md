@@ -356,7 +356,7 @@ Key concepts:
 - Not encoding output properly. Use `encoding="utf-8"` for CSV and JSON with non-English text.
 - Parsing JavaScript-rendered content with BeautifulSoup. BeautifulSoup does not execute JS. Use Selenium or Playwright.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can BeautifulSoup scrape JavaScript-rendered pages?
 

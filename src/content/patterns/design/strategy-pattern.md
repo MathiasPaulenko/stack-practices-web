@@ -222,7 +222,7 @@ This eliminates large conditional blocks and makes adding new strategies as simp
 - **Inconsistent interfaces**: Strategies with different method signatures break interchangeability
 - **State management**: Strategies holding mutable state can cause unexpected side effects
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Strategy and State patterns?**
 A: Strategy is about interchangeable algorithms chosen by the client. [State](/patterns/design/state-pattern) is about changing behavior based on the object's internal state transitions.

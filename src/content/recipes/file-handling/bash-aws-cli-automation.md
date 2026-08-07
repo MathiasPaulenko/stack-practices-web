@@ -108,7 +108,7 @@ The script reads the AWS region from an environment variable and accepts project
 4. **Using the default region silently.** Always set `AWS_REGION` or pass `--region` explicitly.
 5. **Ignoring API rate limits.** Large scripts can hit throttling; add retries or slow down with `aws configure` retry mode.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I run this in CI?**
 A: Use OIDC or short-lived credentials from AWS SSO. Never commit access keys to CI variables.

@@ -283,7 +283,7 @@ Java applications use HikariCP or C3P0 to maintain a pool of database connection
 
 Game engines pool vertex buffers and texture objects on the GPU. Uploading a texture to VRAM is slow; rendering reuses pooled buffers across frames.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is Object Pool the same as Singleton?**
 A: No. A [Singleton](/patterns/design/singleton-pattern) ensures one instance exists globally. An Object Pool manages multiple instances, reusing them among many consumers.

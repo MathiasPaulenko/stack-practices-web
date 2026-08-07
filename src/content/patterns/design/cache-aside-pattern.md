@@ -244,7 +244,7 @@ The application is the **single point of control** — it decides when to read f
 - Storing too much data in cache, causing memory pressure or eviction of hot keys
 - Cache stampede: many requests hit a cold cache simultaneously, overloading the DB
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Cache-Aside and Read-Through?**
 A: In Cache-Aside, the application controls cache logic. In Read-Through, the cache provider (e.g., Redis with a cache loader) fetches from the DB transparently. Cache-Aside is more explicit and portable; Read-Through delegates control to the cache layer.

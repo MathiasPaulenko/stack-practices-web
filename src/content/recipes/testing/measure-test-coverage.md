@@ -273,7 +273,7 @@ jobs:
 - **Comparing coverage across languages.** Python branch coverage and Java line coverage are not comparable metrics — track trends within each codebase.
 - **Ignoring coverage on integration tests.** Slow integration tests often cover the most important paths; excluding them from coverage hides real gaps.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is 100% coverage a good goal?**
 A: 100% line coverage is achievable but can be misleading. A high coverage number with weak assertions does not mean the code is well tested. Aim for meaningful coverage of critical paths.

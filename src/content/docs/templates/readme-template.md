@@ -243,7 +243,7 @@ Tests:
 - **No license** — legally blocks usage and contribution
 - **Copy-paste from another project** — stale links and wrong project names
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How long should a README be?**
 A: As short as possible while answering: What is this? How do I install it? How do I use it? Where do I get help?

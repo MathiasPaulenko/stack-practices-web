@@ -281,7 +281,7 @@ sudo cgexec -g cpu,memory:workload-b python workload-b.py
 
 2. **Olvidar la contencion de I/O de disco.** Cargas de base de datos y aplicaciones con logs pesados compartiendo el mismo disco pueden causar espera de I/O. Usa discos separados o SSDs para cargas intensivas en I/O.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Cómo manejo interrupciones de instancias spot?
 

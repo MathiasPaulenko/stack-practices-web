@@ -257,7 +257,7 @@ Check-in: Manager + skip-level, confirmar onboarding exitoso
 4. No explicar el "por que" detras de procesos. Seguir reglas sin entender crea comportamiento de culto de carga.
 5. Olvidar hacer check-in despues de la semana 2. El onboarding continua por 3-6 meses; la checklist es solo el inicio.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Cuanto deberia durar el onboarding?
 

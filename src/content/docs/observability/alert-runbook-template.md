@@ -352,7 +352,7 @@ The resolution and post-incident sections ensure the incident is properly closed
 6. No post-incident steps — incidents without postmortems repeat.
 7. Runbooks not linked from alerts — engineers have to search for the runbook instead of clicking a link.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many runbooks do we need?
 

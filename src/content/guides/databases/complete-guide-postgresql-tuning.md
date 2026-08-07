@@ -420,7 +420,7 @@ FROM pg_stat_database;
 - Using `SELECT *` with large tables — fetches unnecessary data, prevents index-only scans
 - Not testing config changes — always benchmark before and after
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much RAM should I allocate to PostgreSQL?
 

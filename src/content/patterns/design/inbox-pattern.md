@@ -445,7 +445,7 @@ In CQRS architectures, read models consume domain events from a bus. An inbox en
 
 When polling external APIs for changes, an inbox stores the raw API response before transformation. This decouples fetching from processing and provides a replay log for debugging.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Inbox and Outbox?**
 A: Inbox handles incoming messages reliably. Outbox handles outgoing messages reliably. Inbox prevents duplicate consumption; Outbox prevents lost publications.

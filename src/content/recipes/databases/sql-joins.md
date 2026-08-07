@@ -161,7 +161,7 @@ Returns all users and all orders, with NULLs where there is no match on either s
 - **Missing indexes**: JOINs on unindexed columns are fast in development with 100 rows and catastrophic in production with millions.
 - **Implicit joins**: comma-separated tables in the `FROM` clause (`FROM users, orders`) are error-prone; always use explicit JOIN syntax.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between JOIN and INNER JOIN?**
 A: They are identical. `JOIN` is shorthand for `INNER JOIN`. Writing the full keyword is clearer for readers.

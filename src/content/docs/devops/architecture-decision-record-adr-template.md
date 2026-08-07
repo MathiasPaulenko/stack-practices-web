@@ -253,7 +253,7 @@ Migrate to PostgreSQL 16 as the primary database.
 4. **Letting ADRs go stale** — update status to "Deprecated" or "Superseded" when decisions change
 5. **Making them hard to find** — ADRs should be linked from READMEs, onboarding docs, and architecture overviews
 
-## Frequently Asked Questions
+## FAQ
 
 ### How is an ADR different from a design doc?
 

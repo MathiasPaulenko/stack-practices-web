@@ -158,7 +158,7 @@ Infrastructure reviews differ from application code reviews because **the blast 
 4. Forgetting to update documentation when the infrastructure changes
 5. Running `terraform apply` locally instead of through a CI/CD pipeline with audit logging
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should infrastructure changes require the same approval as application deployments?
 

@@ -226,7 +226,7 @@ When a service needs data owned by another:
 - Underestimating operational cost — microservices need mature [DevOps practices](/guides/devops/docker-for-developers-guide)
 - Building a custom RPC framework — use proven standards (gRPC, [HTTP/REST](/guides/api/rest-api-design-guide), or [message brokers](/guides/architecture/event-driven-architecture-guide))
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should every startup start with microservices?
 

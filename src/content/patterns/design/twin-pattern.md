@@ -352,7 +352,7 @@ Unity's Entity-Component-System separates data (Components) from behavior (Syste
 
 Hibernate's proxy objects split the entity into a proxy twin (lazy-loading) and a target twin (the actual data). The proxy delegates to the target when initialized.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Twin and Bridge?**
 A: Bridge separates abstraction from implementation hierarchies. Twin splits a single class into two cooperating parts. Bridge is about independent hierarchies; Twin is about decomposing one class.

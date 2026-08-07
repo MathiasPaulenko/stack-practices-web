@@ -407,7 +407,7 @@ Key concepts:
 - Hardcoding the API URL. Always make it configurable via the provider schema.
 - Not testing the provider with `terraform plan` before `apply`. Plan reveals schema issues safely.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I write a Terraform provider in Python?
 

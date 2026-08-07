@@ -248,7 +248,7 @@ All errors follow this structure. For a dedicated error response template, see [
 4. Add code examples in Python, JavaScript, and Java
 5. Link to your OpenAPI/Swagger spec for interactive documentation
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I document every endpoint or only public ones?
 

@@ -138,7 +138,7 @@ const clean = DOMPurify.sanitize(dirty);
 - **Overly permissive CSP**: `script-src 'unsafe-inline' 'unsafe-eval' *` disables most of CSP's protection. Be specific with your policy.
 - **Trusting client-side validation**: attackers bypass frontend checks entirely. All escaping and validation must be enforced server-side.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is React's `dangerouslySetInnerHTML` safe if I escape the input?**
 A: Only if you escape or sanitize correctly. A single mistake in your escaping logic exposes your users. Prefer sanitization libraries like DOMPurify over manual escaping.

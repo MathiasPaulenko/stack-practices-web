@@ -262,7 +262,7 @@ Automated crash reports from error tracking (Sentry, Bugsnag, Crashlytics) shoul
 
 Security reports need a different template: do not include reproduction steps in a public ticket. Use a private vulnerability disclosure channel. Include: affected component, attack vector, potential impact, and suggested mitigation. See [Security Audit Checklist](/docs/templates/security-audit-checklist) for security-specific templates.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if I cannot reproduce the bug consistently?
 

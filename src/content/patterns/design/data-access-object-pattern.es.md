@@ -591,7 +591,7 @@ def find_users_with_orders(self):
         # Mapea a usuarios con orders
 ```
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Cómo manejo migraciones de schema con DAOs?
 

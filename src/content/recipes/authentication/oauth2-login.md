@@ -284,7 +284,7 @@ Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary 
 - **Session timeout too long**: if sessions never expire, stolen sessions remain valid indefinitely. Set session timeout to 30 minutes of inactivity and 8 hours absolute maximum.
 
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I use OAuth 2.0 for machine-to-machine authentication?
 

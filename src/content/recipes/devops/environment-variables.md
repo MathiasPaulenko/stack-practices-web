@@ -174,7 +174,7 @@ Add `.env` to `.gitignore`:
 - **Printing secrets in error messages**: Stack traces and error responses should never include database passwords or API keys. Attackers scan logs and public error pages for exactly this mistake.
 - **Using the same secrets across all environments**: Development and production should use different credentials. A leaked dev database password should not grant access to production.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Can I use environment variables in the browser?**
 A: Only at build time via bundler substitution. Never expose server secrets in client-side code. Use public variables prefixed with your framework's convention (e.g., `VITE_`, `NEXT_PUBLIC_`, `REACT_APP_`). The browser has no access to the server's environment.

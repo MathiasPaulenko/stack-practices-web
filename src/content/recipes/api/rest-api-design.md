@@ -242,7 +242,7 @@ If the ETag no longer matches (someone else modified the resource), return 412 P
 4. **Over-fetching**: Returning huge nested objects when clients need a subset
 5. **Missing content negotiation**: Not respecting Accept and Content-Type headers
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use PUT or PATCH for updates?
 

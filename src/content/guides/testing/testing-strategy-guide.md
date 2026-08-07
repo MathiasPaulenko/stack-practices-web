@@ -219,7 +219,7 @@ jobs:
 - [ ] Coverage tracked and reported
 - [ ] Flaky tests identified and fixed promptly
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the testing pyramid?
 

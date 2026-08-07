@@ -141,7 +141,7 @@ public class StreamProcessor {
 - **Not handling partial multibyte characters**: a chunk boundary may split a UTF-8 multibyte character. Buffer incomplete characters across chunks.
 - **Writing to the same file you read from**: overwriting a file while streaming from it corrupts data. Write to a temporary file and rename atomically.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I process a file that does not fit on disk either?**
 A: Use network streaming or process chunks from cloud storage (S3 GetObject with Range headers) without downloading the entire file.

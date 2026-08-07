@@ -223,7 +223,7 @@ No. Use Testcontainers (PostgreSQL in Docker) with the same version and configur
 4. Allowing tests to depend on external services outside your control
 5. Skipping contract tests because "both teams are in the same room"
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much test coverage is enough?
 

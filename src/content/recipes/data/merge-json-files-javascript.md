@@ -285,7 +285,7 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - **Compensating transactions for validation failures**: if validation fails after partial processing (e.g., data was written to one service but not another), execute a compensating transaction to undo the partial write
 - **Dead letter queue for invalid records**: records that fail validation go to a dead letter queue for manual inspection. This prevents bad data from blocking the pipeline and provides an audit trail
 - **Schema evolution with backward compatibility**: when updating a schema, ensure backward compatibility. New required fields must have defaults. Removed fields should be optional for one release cycle before deletion. Use schema versioning to manage evolution
-## Frequently Asked Questions
+## FAQ
 
 ### How do I merge arrays instead of replacing them?
 

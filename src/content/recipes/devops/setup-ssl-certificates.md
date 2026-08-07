@@ -240,7 +240,7 @@ sudo crontab -e
 - **Not testing renewal with `--dry-run`.** A working initial issuance does not guarantee renewal will work. Test it before the 90-day deadline.
 - **Running Certbot as root unnecessarily.** Use `sudo` for installation, but consider running the renewal as a dedicated user with limited privileges.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a self-signed and a CA-signed certificate?**
 A: A self-signed certificate is issued by you and will cause browser warnings. A CA-signed certificate is trusted by default because browsers trust the issuing Certificate Authority.

@@ -340,7 +340,7 @@ Key concepts:
 - Forgetting `misfire_grace_time`. Jobs that miss their window run immediately on startup, potentially overloading the system.
 - Not using unique job IDs. Duplicate jobs are created on restart with `MemoryJobStore`.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can APScheduler replace Celery?
 

@@ -204,7 +204,7 @@ LIMIT 100;
 - Treating NoSQL as "grows better SQL" — the data model is fundamentally different
 - Ignoring operational complexity — Cassandra and sharded MongoDB require dedicated operational expertise
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I migrate from PostgreSQL to MongoDB for flexibility?
 

@@ -190,7 +190,7 @@ Each layer catches different threats. Never rely on a single check.
 - **Saving to public directories**: If the file is executable, it may be served and run.
 - **No virus scanning**: Malicious files may pass type checks but still harm users.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I validate on the client or server?
 

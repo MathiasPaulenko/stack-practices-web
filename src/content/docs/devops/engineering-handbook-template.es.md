@@ -300,7 +300,7 @@ El template de handbook organiza el conocimiento del equipo en cuatro areas: fil
 4. Saltarse el "por que". Reglas sin razonamiento se sienten arbitrarias y se ignoran.
 5. No hacerlo descubrible. Enterrado en un wiki que nadie consulta es como no existir.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Como mantenemos el handbook actualizado?
 

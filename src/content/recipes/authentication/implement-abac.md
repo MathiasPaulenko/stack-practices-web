@@ -313,7 +313,7 @@ public class DocumentController {
 - **Storing policies in the database without versioning.** A policy change that accidentally opens access cannot be rolled back quickly. Version policies in git and load them from files or a policy bundle.
 - **Over-engineering simple access control.** If the policy is "admins can do everything, everyone else can read", ABAC is overkill. Start with RBAC and evolve to ABAC when requirements demand it.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is ABAC different from RBAC?**
 A: RBAC grants access based on roles (e.g., admin, editor). ABAC grants access based on attributes of the user, resource, action, and environment, enabling finer-grained policies.

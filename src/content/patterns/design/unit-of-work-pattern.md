@@ -390,7 +390,7 @@ Hibernate's `Session` is a Unit of Work. Flushing writes all pending changes. `T
 
 Django does not have a classical Unit of Work, but atomic transactions via `transaction.atomic()` achieve the same goal.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Unit of Work and a database transaction?**
 A: A database transaction is the ACID boundary at the DB level. Unit of Work is the application-level coordinator that tracks changes and drives the transaction.

@@ -299,7 +299,7 @@ e.search() with string patterns
 - For memory-mapped PDF reading, use `mmap.mmap()` on the file descriptor. This avoids loading the entire file into memory
 - For batch PDF text extraction, use `pdfplumber` with `page.extract_text()` in a loop. Close each file explicitly to free file handles
 - For encrypted PDFs, use `pikepdf` to remove encryption before parsing. `PyPDF2` can decrypt with `decrypt(password)` but supports fewer encryption schemes
-## Frequently Asked Questions
+## FAQ
 
 ### How do I extract tables from PDFs accurately?
 

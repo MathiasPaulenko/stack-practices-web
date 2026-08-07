@@ -228,7 +228,7 @@ ansible-playbook site.yml --vault-password-file .vault_pass
 - **Hardcoding IP addresses** in inventory files. Use DNS names or dynamic inventory scripts (AWS, GCP) that stay current as infrastructure scales.
 - **Not using `handlers` for service restarts.** A playbook that restarts Nginx on every task is unnecessary; handlers only trigger once at the end when notified.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the advantage of Ansible over shell scripts?**
 A: Ansible playbooks are idempotent and declarative. Running the same playbook twice produces the same state without duplicating configuration or causing errors.

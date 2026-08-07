@@ -273,7 +273,7 @@ Benchmarks run on Node.js 20, single core, 1KB payload, 100 concurrent streams. 
 - **Stream hijacking**: a malicious client can open many streaming connections and hold them open, exhausting server resources. Set `max_concurrent_streams` and `max_connection_idle` on the server.
 - **Metadata header injection**: gRPC metadata is HTTP/2 headers. Validate all metadata values for header injection attacks. Do not pass raw user input into metadata keys or values.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I use gRPC from a browser?
 

@@ -268,7 +268,7 @@ cart.checkout(99.99)
 - Pattern explosion: using too many patterns in one module
 - Ignoring language idioms: not all patterns fit all languages
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I use a design pattern?
 

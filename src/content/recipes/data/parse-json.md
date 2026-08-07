@@ -297,7 +297,7 @@ if (!validate(data)) {
 - **Confusing `loads` and `load`**: in Python, `loads` takes a string, `load` takes a file object.
 - **Trusting key case**: JSON keys are case-sensitive; `Name` and `name` are different fields.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I parse JSON from a file in Python?
 

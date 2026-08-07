@@ -350,7 +350,7 @@ Shopify merchants' product images, theme assets, and storefront files are automa
 
 GitHub serves raw file content, release assets, and repository archives through its CDN. When you download a release ZIP or view a raw file, it is served from edge caches rather than GitHub's application servers.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I put my entire SPA on a CDN?**
 A: Yes — the HTML, CSS, JS, and static assets should be CDN-hosted. API calls go to your origin server. This is the standard architecture for modern SPAs.

@@ -278,7 +278,7 @@ The client builds an AST and then calls `interpret()` on the root node, which re
 - Building the AST manually instead of using a parser for larger grammars
 - Ignoring operator precedence, leading to incorrect evaluation order
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use Interpreter instead of a parser generator?**
 A: Use Interpreter for very simple grammars with few rules that change infrequently. For anything beyond basic arithmetic or boolean expressions, use ANTLR, PEG.js, or a similar tool.

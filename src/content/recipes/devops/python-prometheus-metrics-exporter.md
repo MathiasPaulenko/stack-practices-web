@@ -379,7 +379,7 @@ The `prometheus_client` library exposes metrics in the Prometheus text expositio
 - Using summaries instead of histograms. Summaries cannot be aggregated across instances. Use histograms for distributed systems.
 - Not instrumenting error paths. If you only track successful requests, your error rate appears as zero.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between a histogram and a summary?
 

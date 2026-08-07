@@ -229,7 +229,7 @@ The approach is called expand-contract. First expand the schema by adding the ne
 6. **Not setting `statement_timeout`.** A long-running DDL can block all queries. Set a timeout to abort migrations that take too long.
 7. **Dropping the trigger before all app instances are updated.** During a rolling deploy, old instances may still write to the old column.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How long should a backfill take?**
 A: It depends on table size and write rate. Typical strategies process a few thousand rows per batch with a short sleep between batches to avoid peak-load impact. A 10M-row table might take 1-4 hours with 1000-row batches and 100ms sleeps.

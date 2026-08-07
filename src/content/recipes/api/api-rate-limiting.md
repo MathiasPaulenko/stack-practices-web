@@ -185,7 +185,7 @@ public class LeakyBucket {
 4. Using the same rate limit for all endpoints regardless of cost or sensitivity
 5. Ignoring rate limit violations instead of logging them for security analysis
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I fail open or closed when Redis is down?
 

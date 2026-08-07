@@ -201,7 +201,7 @@ Git hooks are executable scripts in `.git/hooks/` that run at specific lifecycle
 4. **Hooks that modify files but don't re-stage** — if a hook reformats code, it must add the file back to the index or the commit will use the old version
 5. **Relying only on hooks** — developers can use `--no-verify`; CI must enforce the same rules
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I skip hooks for a specific commit?
 

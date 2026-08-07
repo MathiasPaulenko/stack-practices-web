@@ -251,7 +251,7 @@ CMD ["node", "dist/main.js"]
 - Ignoring `.dockerignore`, bloating the build context
 - Hardcoding configuration in images instead of using env vars
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a VM and a container?**
 A: VMs virtualize hardware and include a full OS. Containers virtualize the OS kernel and share it with the host, making them much lighter and faster to start.

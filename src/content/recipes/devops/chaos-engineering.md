@@ -151,7 +151,7 @@ print(f"Experiment started: {response['experiment']['id']}")
 1. **Testing only failures**: Also test recovery (does auto-healing actually heal?)
 1. **Ignoring blast radius**: One experiment shouldn't affect all customers
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is chaos engineering just breaking things randomly?**
 A: No. It's hypothesis-driven experimentation with measured outcomes and automatic safety guards.

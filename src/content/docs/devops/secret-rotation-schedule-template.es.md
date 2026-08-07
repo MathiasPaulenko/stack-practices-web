@@ -145,7 +145,7 @@ La rotacion de secretos es un control preventivo, no solo correctivo. El cronogr
 - No programar rotacion de certificados y descubrir el vencimiento en produccion.
 - Perder la trazabilidad de quien aprobo o ejecuto una rotacion.
 
-## FAQs
+## FAQ
 
 ### Cada cuanto se deben rotar los secretos?
 

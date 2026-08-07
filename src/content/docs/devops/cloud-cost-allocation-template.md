@@ -295,7 +295,7 @@ MONTHLY TOTAL: $17,700
 4. Allocating purely by headcount when one team runs 90% of the workloads
 5. Buying reserved capacity before understanding actual usage patterns
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle multi-cloud cost aggregation?
 

@@ -361,7 +361,7 @@ This site uses GitHub Pages with Cloudflare in front. Static HTML, CSS, and JS a
 
 Shopify uses Fastly to serve millions of storefronts. Each store's theme assets are cached at edge locations, enabling sub-second page loads globally even though the origin platform is centralized.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does a CDN only work for static content?**
 A: No. Modern CDNs accelerate live content by optimizing TCP connections, routing, and TLS termination. Edge computing also enables live logic at the edge.

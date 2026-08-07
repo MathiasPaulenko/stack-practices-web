@@ -245,7 +245,7 @@ REGLAS:
 - Conservar logs por siempre y aumentar costos de almacenamiento innecesariamente.
 - No correlacionar logs entre servicios durante un incidente.
 
-## FAQs
+## FAQ
 
 ### Debemos registrar a nivel DEBUG en produccion?
 

@@ -142,7 +142,7 @@ iterations.....................: 12000
 - **Running short tests**: a 30-second test tells you almost nothing. Meaningful tests run for at least 10 minutes to capture garbage collection cycles and cache warmup.
 - **Not validating responses**: a 200ms response that returns an error page is not a success. Always assert status codes and response body content.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many virtual users do I need to simulate real traffic?
 

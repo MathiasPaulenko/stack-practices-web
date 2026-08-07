@@ -185,7 +185,7 @@ The key difference: a **failing liveness probe triggers a restart**, while a **f
 - **Returning 500 for readiness**: Some load balancers only check for 200; use 503 for intentional unavailability.
 - **Ignoring startup probes**: Apps with long initialization get killed by the liveness probe before they finish starting.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What HTTP status code should a failing readiness probe return?
 

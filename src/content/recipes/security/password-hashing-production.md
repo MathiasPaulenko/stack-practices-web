@@ -145,7 +145,7 @@ func hashPassword(password string) (string, error) {
 4. **Forgetting to update cost factors**: Hardware gets faster; re-tune annually
 5. **Storing passwords in plain text**: Even "temporarily" is a catastrophic risk. See [what works for security](/guides/security/security-best-practices-guide).
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Which algorithm should I choose in 2025?**
 A: Argon2id is the recommended choice for new systems. bcrypt is acceptable if Argon2 libraries are unavailable.

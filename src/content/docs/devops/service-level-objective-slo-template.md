@@ -276,7 +276,7 @@ Decision: 42% budget remaining at day 20 of 30.
 - Setting targets based on current performance without improvement goals.
 - Confusing internal SLOs with external SLAs.
 
-## FAQs
+## FAQ
 
 ### What is the difference between SLI, SLO, and SLA?
 

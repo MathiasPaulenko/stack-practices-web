@@ -399,7 +399,7 @@ Key points:
 - Forgetting to append files to `FormData` with a field name.
 - Not providing a click-to-browse fallback. Drag-and-drop is not intuitive for all users.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I prevent the browser from opening the file when dropped outside the drop zone?
 

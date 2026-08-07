@@ -143,7 +143,7 @@ refactor: extract payment service
 - **Ignoring merge conflicts**: resolving conflicts hastily without understanding both sides introduces bugs.
 - **Messy commit history**: "fix", "fix again", "actually fix" makes `git blame` useless. Squash or amend before pushing.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use merge or rebase?**
 A: Use rebase to keep your feature branch up to date with `main` locally. Use merge (or squash-merge) when integrating the feature into `main` via a pull request. Never rebase branches that other people are working on.

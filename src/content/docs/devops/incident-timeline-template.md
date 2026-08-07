@@ -225,7 +225,7 @@ TOTAL: 30 minutes (Target RTO: 30 min — MET)
 4. **Forgetting the detection gap** — the time between when the problem started and when the alert fired is often the largest gap
 5. **Not connecting timeline to action items** — a timeline without follow-up actions is just a story
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do we reconstruct a timeline if we did not capture timestamps during the incident?
 

@@ -410,7 +410,7 @@ API Gateway acts as a gatekeeper for Lambda and EC2 backends. It handles throttl
 
 GitHub's edge infrastructure uses HAProxy with custom Lua modules for request routing, abuse detection, and rate limiting. Only validated, non-abusive requests reach the Rails application servers.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Gatekeeper and API Gateway?**
 A: An API Gateway is a type of gatekeeper with additional capabilities (request routing, protocol translation, caching). A gatekeeper focuses specifically on validation and security.

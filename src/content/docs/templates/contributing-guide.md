@@ -182,7 +182,7 @@ Contributors will be:
 - Join our [Discord/Slack](link) for real-time chat
 - Email [contact email] for private inquiries
 
-## Frequently Asked Questions
+## FAQ
 
 ### Do I need to sign a CLA before contributing?
 

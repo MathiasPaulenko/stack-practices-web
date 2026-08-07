@@ -271,7 +271,7 @@ spec:
 - Cleaning up old versions too early.
 - Deploying during peak traffic without traffic capacity planning.
 
-## FAQs
+## FAQ
 
 ### What is the difference between rolling and canary deployment?
 

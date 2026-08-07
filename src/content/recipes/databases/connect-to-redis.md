@@ -164,7 +164,7 @@ Redis stores data **in memory**, making reads and writes extremely fast (sub-mil
 4. Forgetting to set TTLs, leading to memory exhaustion and OOM kills
 5. Using `KEYS` command in production, which blocks the entire Redis instance
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use Redis as my primary database?
 

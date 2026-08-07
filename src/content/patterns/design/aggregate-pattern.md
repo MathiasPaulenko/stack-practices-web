@@ -275,7 +275,7 @@ An `Account` aggregate contains `Transaction` entities. The root ensures the bal
 
 A `Cart` aggregate holds `CartItem` entities. Adding an item for an existing product increments quantity instead of adding a duplicate line.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How large should an aggregate be?**
 A: As small as possible while still protecting invariants. If two objects can be changed independently, they belong in separate aggregates.

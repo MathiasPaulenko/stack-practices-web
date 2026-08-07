@@ -137,7 +137,7 @@ Look for:
 - **Ignoring index maintenance**: fragmented indexes on high-churn tables degrade over time. See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide). Schedule `REINDEX` or `OPTIMIZE TABLE` periodically.
 - **Using indexes on tiny tables**: tables with fewer than a few thousand rows are often faster with sequential scans because reading the index and then the table is more overhead than a full scan.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many indexes should a table have?**
 A: There is no universal rule, but a good heuristic is 3-5 indexes for tables under 1 million rows, and 5-10 for larger tables. More than that usually indicates redundant or unused indexes.

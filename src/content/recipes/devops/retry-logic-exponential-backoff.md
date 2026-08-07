@@ -257,7 +257,7 @@ public class RetryExecutor {
 4. Retrying all exceptions indiscriminately, including 4xx client errors that will never succeed.
 5. Omitting jitter, leading to thundering herd problems during service recovery.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I always use exponential backoff?
 

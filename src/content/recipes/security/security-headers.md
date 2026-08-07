@@ -144,7 +144,7 @@ curl -sI "$URL" | grep -iE \
 4. **Unreported violations**: Without `report-uri`, you won't know when legitimate content is blocked
 5. **Inconsistent headers**: Nginx proxy overriding application headers creates gaps
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Do security headers protect APIs?**
 A: Partially. CORS, HSTS, and CSP matter for browser clients. For machine-to-machine APIs, focus on [authentication](/recipes/authentication/jwt-authentication) and TLS.

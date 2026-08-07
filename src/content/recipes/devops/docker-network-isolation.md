@@ -253,7 +253,7 @@ Security principles:
 - Forgetting that containers on different networks cannot resolve each other's names. DNS only works within the same network.
 - Connecting a container to too many networks. This increases the attack surface.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can containers on different networks communicate?
 

@@ -256,7 +256,7 @@ class StackMachine {
 - **Slow or non-terminating generators.** Generating recursive structures without depth limits can cause infinite loops during test execution.
 - **Flaky properties due to global state.** A property that modifies a module-level counter fails unpredictably depending on execution order.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is property-based testing?**
 A: Instead of writing example inputs, you define properties that should always hold for a function. The framework generates hundreds of random inputs and tries to find a counterexample.

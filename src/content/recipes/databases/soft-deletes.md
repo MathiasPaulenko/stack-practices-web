@@ -196,7 +196,7 @@ For true removal, implement a "hard delete" or "purge" operation that runs `DELE
 - **Cascading soft deletes**: If `posts` belong to `users`, deleting a user should probably soft-delete their posts too. Implement this in your service layer.
 - **Querying deleted records by default**: Some ORMs (Django, Sequelize) handle this automatically, but raw SQL and some ORMs don't.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle unique constraints with soft deletes?
 

@@ -304,7 +304,7 @@ public class SamlSecurityConfig {
 - **Ignoring clock skew.** IdP and SP clocks that differ by more than the assertion lifetime cause legitimate logins to fail. Allow a small skew (1-5 minutes) but log warnings.
 - **Not validating the `InResponseTo` field.** Without this check, an attacker can capture a legitimate assertion and replay it against a different authentication request.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between SAML and OAuth 2.0?**
 A: SAML is an XML-based standard for authentication and authorization, often used for enterprise SSO. OAuth 2.0 is a framework for delegated authorization, commonly used for API access and social login.

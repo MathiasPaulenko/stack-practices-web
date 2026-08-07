@@ -301,7 +301,7 @@ Investiga antes de actuar. Si el refactor elimino codigo muerto, la baja de cobe
 6. Incluir test files en coverage measurement — infla numbers. Excluí test files de coverage.
 7. No reviewear previous action items — crea un backlog de ignored commitments.
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cuál es la difference entre line y branch coverage?
 

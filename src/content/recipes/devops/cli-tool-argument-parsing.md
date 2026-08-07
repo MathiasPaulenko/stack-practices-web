@@ -210,7 +210,7 @@ A good CLI framework handles the boring parts so you can focus on business logic
 - **Ignoring stderr**: Print progress and diagnostics to `stderr` so `stdout` stays clean for piping to other tools.
 - **No input validation**: Accepting `deploy prod --replicas=-5` will crash later. Validate ranges, enums, and file paths at parse time.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use a framework or parse arguments manually?
 

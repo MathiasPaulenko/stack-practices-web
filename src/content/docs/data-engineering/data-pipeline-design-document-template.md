@@ -533,7 +533,7 @@ Monitoring and alerting track pipeline health metrics: duration, record counts, 
 6. Outdated documentation — pipeline changes without doc updates
 7. No data lineage — consumers can't trace a metric back to its source
 
-## Frequently Asked Questions
+## FAQ
 
 ### How detailed should the transformation logic be?
 

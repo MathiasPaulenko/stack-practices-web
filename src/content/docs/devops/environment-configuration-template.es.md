@@ -248,7 +248,7 @@ Sentry DSN:
 - Omitir la razon de las diferencias entre entornos.
 - No incluir endpoints o credenciales de servicios de terceros.
 
-## FAQs
+## FAQ
 
 ### Debemos almacenar secretos en este documento?
 

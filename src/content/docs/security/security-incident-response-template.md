@@ -384,7 +384,7 @@ Post-incident review is where learning happens. A blameless review identifies wh
 6. Blame-focused reviews — people hide issues instead of reporting them
 7. Corrective actions not tracked — identified but never implemented
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between an incident response plan and an incident response template?
 

@@ -319,7 +319,7 @@ The key insight is that reads always go to the cache, which has the latest data.
 - **Using write-behind for financial data** — eventual consistency means the database may not reflect the latest state. Use write-through for data that requires immediate persistence.
 - **Not handling cache eviction** — if a dirty entry is evicted from the cache before flushing, the write is lost. Use a separate dirty set or write-ahead log.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between write-behind and write-through?
 

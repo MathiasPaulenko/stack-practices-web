@@ -496,7 +496,7 @@ Kubernetes Gateway API is the successor to Ingress. It provides more expressive 
 - **Keep the controller updated** — security patches and bug fixes
 - **Run multiple replicas** — a single Ingress controller is a single point of failure
 
-## Frequently Asked Questions
+## FAQ
 
 ### Do I need an Ingress controller?
 

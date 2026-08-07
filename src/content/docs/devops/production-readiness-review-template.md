@@ -242,7 +242,7 @@ tracked with due dates but do not block launch.
 4. Checking boxes without verifying. "We have monitoring" is not enough; confirm dashboards are useful and alerts are useful
 5. Forgetting the human side. On-call engineers need training, not just documentation; verify they have run through the runbooks
 
-## Frequently Asked Questions
+## FAQ
 
 ### Who runs the production readiness review?
 

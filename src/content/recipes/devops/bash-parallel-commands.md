@@ -204,7 +204,7 @@ Background jobs (`&`) send a process to the background and return immediately. `
 - Not exporting functions when using them with `parallel`. The function is not available in subshells.
 - Mixing output from parallel jobs without `-k`. Output interleaves and becomes unreadable.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I limit parallelism to the number of CPU cores?
 

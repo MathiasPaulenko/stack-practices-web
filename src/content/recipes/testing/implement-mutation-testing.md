@@ -277,7 +277,7 @@ Exclude `StringLiteral` and `BooleanLiteral` mutations when your tests use those
 - **Using mutation score as a team KPI.** It encourages writing tests specifically to kill mutants rather than testing real requirements.
 - **Running mutation tests on unmocked integration tests.** Database calls and HTTP requests make mutation testing impossibly slow; target unit tests.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is mutation testing different from code coverage?**
 A: Code coverage measures which lines were executed. Mutation testing measures whether the tests can detect small, artificial bugs (mutants) introduced into the code.

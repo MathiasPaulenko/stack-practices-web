@@ -355,7 +355,7 @@ def revoke_token(token: str, secret: str) -> None:
 - **Usar secretos débiles**: un secreto corto hace factible la fuerza bruta de la firma HMAC.
 - **Confiar en que el cliente elimine tokens**: siempre enforce la expiración del lado del servidor; los clientes pueden ser comprometidos.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: ¿Debería almacenar JWTs en localStorage o cookies?**
 A: Los tokens de acceso deben vivir en memoria (variables). Los tokens de refresco deben almacenarse en cookies `HttpOnly`, `Secure`, `SameSite=Strict` para prevenir robo por XSS.

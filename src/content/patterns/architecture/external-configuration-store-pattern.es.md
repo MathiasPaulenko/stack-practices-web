@@ -330,7 +330,7 @@ production:
 
 2. **Ignorar el drift de configuracion entre entornos.** Con el tiempo, los valores de configuracion pueden divergir inesperadamente entre dev, staging y produccion. Implementa herramientas de deteccion y reconciliacion de drift.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Cómo manejo la configuracion durante despliegues blue-green?
 

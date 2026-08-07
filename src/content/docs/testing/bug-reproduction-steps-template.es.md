@@ -357,7 +357,7 @@ Para bugs de UI si, especialmente si el bug involucra interacciones complejas (d
 6. Assumir que el developer sabe tu workflow — stateá preconditions explícitamente
 7. No severity assessment — sin severity, el team no puede priorizar
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cómo encuentro la minimal reproduction?
 

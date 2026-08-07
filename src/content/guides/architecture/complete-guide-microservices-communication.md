@@ -398,7 +398,7 @@ spec:
 - Mixing sync and async for the same operation — pick one pattern per workflow
 - Not monitoring queue depth — growing queues indicate consumer lag
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use REST or gRPC for internal communication?
 

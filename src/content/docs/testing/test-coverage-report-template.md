@@ -301,7 +301,7 @@ Investigate before acting. If the refactor removed dead code, the coverage drop 
 6. Including test files in coverage measurement — inflates numbers. Exclude test files from coverage.
 7. Not reviewing previous action items — creates a backlog of ignored commitments.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between line and branch coverage?
 

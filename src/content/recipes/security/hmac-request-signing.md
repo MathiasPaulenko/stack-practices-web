@@ -136,7 +136,7 @@ SHA-256 without HMAC is vulnerable to length-extension attacks. HMAC uses two ne
 4. **String comparison instead of timingSafeEqual**: Vulnerable to timing attacks
 5. **Storing secrets in environment variables without encryption**: Use a [secret manager](/recipes/security/vault-dynamic-credentials)
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is HMAC better than JWT for service-to-service auth?**
 A: HMAC is simpler and stateless for internal services. JWT is better when you need identity claims and third-party verification. For a full API security overview, see the [API security checklist](/guides/security/api-security-checklist-guide).

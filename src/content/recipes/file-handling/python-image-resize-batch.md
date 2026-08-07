@@ -184,7 +184,7 @@ For web optimization, convert to WebP format with `quality=85`. WebP produces fi
 - Not setting `optimize=True` for JPEG. It reduces file size with no quality loss.
 - Overwriting original files. Always write to a separate directory to avoid data loss.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I resize images without Pillow?
 

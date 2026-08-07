@@ -469,7 +469,7 @@ Azure Service Bus supports messages up to 256KB (Standard) or 1MB (Premium). For
 
 Kafka's default message limit is 1MB. Organizations that need larger messages use the Claim Check Pattern with S3/HDFS for storage, keeping Kafka topics lean and fast.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Claim Check and Event Sourcing?**
 A: Event Sourcing stores all events as the source of truth. Claim Check stores a snapshot/reference to data that is too large for the message bus. They are complementary, not competing.

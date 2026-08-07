@@ -253,7 +253,7 @@ done
 - Ignorar procedimientos de respuesta a compromiso de claves.
 - Mantener claves viejas indefinidamente despues de la rotacion.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre una DEK y una KEK?
 

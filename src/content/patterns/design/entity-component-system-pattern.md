@@ -388,7 +388,7 @@ Rust game engine built entirely on ECS. Systems are Rust functions with componen
 
 A C/C++ ECS framework focused on performance and growth. Used in games and simulations requiring millions of entities.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between ECS and traditional OOP?**
 A: OOP bundles data and behavior in classes. ECS separates them entirely: data in components, behavior in systems, identity in entities.

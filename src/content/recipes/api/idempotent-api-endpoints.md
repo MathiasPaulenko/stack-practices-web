@@ -311,7 +311,7 @@ public class OrderController {
 4. Using idempotency keys on GET requests, which are already idempotent by HTTP specification and don't need keys.
 5. Not removing the "processing" marker on failure, permanently blocking retries for that key.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Which HTTP methods are naturally idempotent?
 

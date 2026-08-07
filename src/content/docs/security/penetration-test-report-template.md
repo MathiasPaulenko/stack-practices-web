@@ -492,7 +492,7 @@ The remediation tracker assigns owners and due dates. This transforms the report
 6. No comparison to previous tests — can't measure improvement
 7. Over-rating severity — loses credibility with engineering teams
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between a penetration test and a vulnerability scan?
 

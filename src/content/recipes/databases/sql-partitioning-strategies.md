@@ -270,7 +270,7 @@ EXECUTE get_orders('2024-01-15');
 6. **Not automating partition creation.** Forgetting to create next month's partition causes insert failures.
 7. **Ignoring default partition size.** A default partition that grows large becomes a performance bottleneck.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Do I need to change application queries?**
 A: No. Partitioned tables look like normal tables to applications. The planner handles pruning automatically.

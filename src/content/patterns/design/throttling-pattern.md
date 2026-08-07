@@ -221,7 +221,7 @@ GitHub enforces rate limits per authenticated user (5000 requests/hour) and per 
 
 API Gateway supports throttling at account, stage, and method levels using token bucket algorithms, with burst capacity for traffic spikes.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between throttling and backpressure?**
 A: Throttling rejects or delays requests at the entry point. Backpressure signals upstream to slow down production. They are often used together.

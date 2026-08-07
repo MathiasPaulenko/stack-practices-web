@@ -255,7 +255,7 @@ Per-partition thresholds let you be more lenient with `/var` (logs are expected 
 - Forgetting to set up cron. The script runs once and is never checked again.
 - Only monitoring root partition. `/var` or `/home` can fill up independently.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I monitor inode usage instead of disk space?
 

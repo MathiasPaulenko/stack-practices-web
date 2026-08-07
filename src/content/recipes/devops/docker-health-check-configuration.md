@@ -258,7 +258,7 @@ In Docker Compose, `depends_on` with `condition: service_healthy` waits for a de
 - Returning HTTP 200 for error pages. Some frameworks return 200 for all responses, breaking the check.
 - Not using `depends_on` with `condition: service_healthy`. Containers start before dependencies are ready.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What happens when a container is marked unhealthy?
 

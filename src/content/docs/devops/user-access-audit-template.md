@@ -147,7 +147,7 @@ The template connects identities to permissions, business justification, and acc
 - Failing to verify that revocations actually happened.
 - Storing review evidence in scattered emails or documents.
 
-## FAQs
+## FAQ
 
 ### Who should certify access?
 

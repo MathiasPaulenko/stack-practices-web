@@ -231,7 +231,7 @@ Graceful shutdown is a three-phase process:
 1. **Database connection pool not closed** — leaked connections cause the next startup to fail with "too many connections"
 1. **Ignoring the preStop hook** — Kubernetes may send SIGTERM before the pod is removed from the service endpoints; a `sleep 5` preStop hook prevents this race
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between SIGTERM and SIGKILL?
 

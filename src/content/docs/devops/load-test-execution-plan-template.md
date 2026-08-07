@@ -257,7 +257,7 @@ export default function () {
 - Running tests once and never repeating them after changes.
 - Failing to correlate infrastructure metrics with application latency.
 
-## FAQs
+## FAQ
 
 ### What tools are commonly used for load testing?
 

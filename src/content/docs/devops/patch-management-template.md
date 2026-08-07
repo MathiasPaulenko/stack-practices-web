@@ -140,7 +140,7 @@ The template separates **patch inventory** (what needs fixing) from **patch work
 4. Patching during peak traffic without a maintenance window
 5. Ignoring container base images; application dependencies get attention, OS libraries do not
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle a zero-day vulnerability with no patch available?
 

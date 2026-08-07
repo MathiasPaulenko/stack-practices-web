@@ -285,7 +285,7 @@ The roadmap sequences improvements by quarter, balancing quick wins (tuning aler
 6. No action items — assessment without improvement plan is wasted effort
 7. Comparing teams publicly without context — different services have different needs
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long does an assessment take?
 

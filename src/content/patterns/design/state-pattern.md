@@ -303,7 +303,7 @@ The State Pattern involves two roles:
 - Creating circular state transitions that can cause infinite loops
 - Mixing state logic with business logic, making the pattern hard to test
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between State and Strategy?**
 A: Both encapsulate behavior in interchangeable objects. State is about changing behavior based on internal state transitions. [Strategy](/patterns/design/strategy-pattern) is about selecting an algorithm from the outside. The intent differs: State manages lifecycle, Strategy provides options.

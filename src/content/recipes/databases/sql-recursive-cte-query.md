@@ -273,7 +273,7 @@ SELECT * FROM org_tree WHERE NOT is_cycle;
 6. **Not indexing the join column.** The recursive member joins on `manager_id`; without an index, each iteration scans the full table.
 7. **Using depth limit without understanding data.** A `WHERE depth < 5` may silently truncate legitimate deep hierarchies.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Can recursive CTEs handle cycles?**
 A: Yes, but you must track visited nodes with an array or use PostgreSQL's `CYCLE` clause (14+). Without protection, cycles cause infinite recursion.

@@ -146,7 +146,7 @@ trufflehog filesystem --directory=.
 4. **Secrets in ENV**: `ENV AWS_SECRET_ACCESS_KEY=...` is visible to anyone who pulls the image. Follow [secrets management](/guides/security/security-best-practices-guide).
 5. **Forgetting runtime scanning**: Image is clean at build time; runtime vulnerabilities (mounted volumes, sidecars) need monitoring too
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I block deployment on medium-severity CVEs?**
 A: Start with critical/high only. As your security posture matures, tighten to medium. Balance speed vs. security.

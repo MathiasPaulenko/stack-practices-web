@@ -286,7 +286,7 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **Idempotent file processing**: processing the same file twice should produce the same result. Use file hash + processing timestamp as a unique key. Skip files that have already been processed successfully
 - **Circuit breaker for external dependencies**: if the file source (FTP, S3, API) is down, open a circuit breaker after 5 consecutive failures. Stop attempting reads for 5 minutes, then try again. This prevents cascading failures
 - **Graceful degradation**: if a non-critical parser fails (e.g., metadata extraction), continue processing with the core data. Log the failure but do not block the pipeline. Only block on critical parsing failures
-## Frequently Asked Questions
+## FAQ
 
 ### How do I read a specific range of cells?
 

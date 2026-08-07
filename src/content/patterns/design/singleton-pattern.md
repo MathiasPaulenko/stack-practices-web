@@ -187,7 +187,7 @@ In-memory caches ([Redis](/patterns/design/cache-aside-pattern) clients, local L
 
 Logging frameworks often use a registry of named loggers that behave as singletons. Retrieving `Logger.getLogger("my.module")` multiple times returns the same instance.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is Singleton an anti-pattern?**
 A: Not inherently, but overuse leads to tight coupling and hidden dependencies. Use it sparingly for true single-instance resources.

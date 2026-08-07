@@ -253,7 +253,7 @@ SLF4J's NOP logger is a null object that silently discards log statements when n
 
 React's conditional rendering often uses empty components or fragments as null objects — rendering `<></>` instead of `null` avoids layout shifts.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is Null Object the same as Optional?**
 A: No. `Optional` forces callers to handle absence explicitly. Null Object hides absence behind normal method calls. Use Optional for APIs; Null Object for internal object graphs.

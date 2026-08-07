@@ -196,7 +196,7 @@ Cron jobs are a special case: instead of being triggered by user events, they ru
 - **Not handling worker crashes**: If a worker dies mid-job, the job may be lost. Use acknowledgments and visibility timeouts.
 - **Overloading the queue**: Enqueuing 100K jobs at once can overwhelm workers. Use rate limiting or batch enqueue.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use Redis or RabbitMQ for my task queue?
 

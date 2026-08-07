@@ -231,7 +231,7 @@ The `to_tsvector` function parses text into a list of normalized tokens called l
 6. **Using `plainto_tsquery` for complex queries.** Use `to_tsquery` for boolean operators (`&`, `|`, `!`) and `phraseto_tsquery` for phrases.
 7. **Ignoring `ts_headline` performance.** Generating snippets is expensive; only use it for the final paginated results, not for the full result set.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Can I search across multiple columns?**
 A: Yes. Combine columns into a single `tsvector` with `to_tsvector('english', coalesce(title, '') || ' ' || coalesce(body, ''))`.

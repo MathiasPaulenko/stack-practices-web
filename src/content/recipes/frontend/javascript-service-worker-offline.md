@@ -332,7 +332,7 @@ Caching strategies:
 - Forgetting to call `event.respondWith()`. The browser falls through to network, bypassing the SW.
 - Serving opaque responses incorrectly. Cross-origin responses with `type: "opaque"` cannot be inspected.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I force the service worker to update?
 

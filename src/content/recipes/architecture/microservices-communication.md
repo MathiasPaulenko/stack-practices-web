@@ -163,7 +163,7 @@ async function publishOrderCreated(order) {
 4. **Sharing a database between services.** Direct database coupling defeats the purpose of microservices and blocks independent deployment.
 5. **Blocking the caller with a slow consumer.** If the consumer cannot keep up, queues grow and producers eventually back-pressure or crash.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use REST instead of gRPC?**
 A: Use REST for public APIs, browser clients, and teams that value human-readable payloads. Use gRPC for internal high-throughput, low-latency service calls where strongly typed Protobuf contracts and streaming are beneficial.

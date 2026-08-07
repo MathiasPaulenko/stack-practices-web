@@ -335,7 +335,7 @@ Key concepts:
 - Not cleaning up tenant data on offboarding — deleted tenants' data persists in shared tables
 - Using tenant_id in URLs without validation — tenant ID spoofing allows cross-tenant access
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Which strategy should I choose?**
 A: Start with row-level security if you have many small tenants and cost is a concern. Use schema-per-tenant for mid-size SaaS with moderate isolation needs. Use database-per-tenant for enterprise customers with strict compliance requirements or per-tenant SLAs.

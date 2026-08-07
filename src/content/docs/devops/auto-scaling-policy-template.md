@@ -320,7 +320,7 @@ Thrashing detected: No (min 2h between opposing events)
 4. Scaling only on CPU and ignoring memory, network, or custom metrics
 5. Allowing scale-down to zero for stateful services that need persistent connections
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I scale on CPU or requests per second?
 

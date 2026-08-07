@@ -295,7 +295,7 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - For CLI argument parsing, sys.argv is 100x faster than rgparse for simple cases. Use rgparse only when you need help text and validation
 - For date arithmetic, datetime.timestamp() is faster than datetime.strftime() for epoch calculations. Use integers for date math
 - For URL parsing, urllib.parse.urlparse() caches parsed results. Reuse the ParseResult object instead of re-parsing
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use timestamps or formatted strings in my database?**
 A: Use native `TIMESTAMP WITH TIME ZONE` types. They store precise instants in time and handle conversions automatically. See [Database Transactions](/recipes/databases/database-transactions) for data integrity.

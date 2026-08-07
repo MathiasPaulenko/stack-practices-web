@@ -211,7 +211,7 @@ The checklist follows a **defense-in-depth** model: authentication at the edge, 
 4. Forgetting to validate the `audience` claim in JWT tokens
 5. Rate limiting by IP only, ignoring authenticated consumer IDs
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should I review my APIs?
 

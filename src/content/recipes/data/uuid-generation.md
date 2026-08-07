@@ -274,7 +274,7 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 - **UUID collision in practice**: UUIDv4 collision probability is negligible (1 in 2.7x10^36 for 50% chance). But UUIDv1 collision can happen if the MAC address is reused or the clock is set backward. Use v4 or v7 for safety
 - **URL encoding of special characters**: !, ', (, ) are technically safe in URLs but some servers reject them. encodeURIComponent encodes them; encodeURI does not. Use encodeURIComponent for query parameter values
 - **Truncation with HTML**: truncating HTML by character count can break tags. Use a proper HTML parser to truncate at tag boundaries. Alternatively, strip HTML tags before truncating for plain-text previews
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use UUID v4 or v7 for new projects?**
 A: Use v7 (or ULID) for database keys. They are time-ordered, reducing index fragmentation. Use v4 only for non-sortable identifiers like session tokens.

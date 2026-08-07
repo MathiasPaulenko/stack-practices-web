@@ -119,7 +119,7 @@ The runbook breaks upgrades into **five phases** to reduce risk. Preparation pre
 4. Not reviewing transitive dependency changes in lock files
 5. Deploying during peak traffic without a soak period
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should I upgrade dependencies?
 

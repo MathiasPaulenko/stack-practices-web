@@ -262,7 +262,7 @@ Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary 
 - **Session timeout too long**: if sessions never expire, stolen sessions remain valid indefinitely. Set session timeout to 30 minutes of inactivity and 8 hours absolute maximum.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use SHA-256 for password hashing?**
 A: No. SHA-256 is designed to be fast. Password hashing must be intentionally slow to resist brute force. Use bcrypt, Argon2, or PBKDF2 instead.

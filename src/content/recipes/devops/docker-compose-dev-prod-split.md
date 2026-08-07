@@ -281,7 +281,7 @@ Profiles let you include optional services only when needed. Services without a 
 - Forgetting that lists are replaced, not merged. Adding a port in the override removes all base ports.
 - Not using `depends_on` with `condition: service_healthy` for startup ordering.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How does Docker Compose merge multiple files?
 

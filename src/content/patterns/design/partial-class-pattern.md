@@ -247,7 +247,7 @@ EF's scaffolding tools generate partial entity classes, allowing developers to a
 
 Razor pages compile markup (`.cshtml`) and code-behind (`.cshtml.cs`) into a single partial class, separating presentation from logic.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Partial Class and Inheritance?**
 A: Partial classes are merged at compile time into a single type. Inheritance creates a runtime relationship between two distinct types. Partial classes cannot add fields that other partials depend on at initialization.

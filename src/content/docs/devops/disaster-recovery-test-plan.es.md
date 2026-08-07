@@ -245,7 +245,7 @@ La plantilla estructura las pruebas de DR en **objetivos declarados** (metas de 
 4. **Probar solo durante periodos de bajo trafico** — no valida las suposiciones de capacidad
 5. **No actualizar los runbooks despues de los hallazgos** — las mismas brechas aparecen en la prueba del proximo ano
 
-## Frequently Asked Questions
+## FAQ
 
 ### Con que frecuencia deberiamos ejecutar pruebas de DR?
 
@@ -543,7 +543,7 @@ curl -X POST http://app.internal/admin/test-circuit-breaker \
 
 2. **Usar el mismo backup para cada prueba.** Si siempre restauras desde el mismo snapshot, estas probando ese snapshot, no tu sistema de backup. Usa el backup mas reciente para cada prueba. Esto valida que tu pipeline de backup esta produciendo snapshots recuperables consistentemente.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Cual es la diferencia entre una prueba de DR y un game day de chaos engineering?
 

@@ -446,7 +446,7 @@ The key design decision is distinguishing retryable from non-retryable errors. R
 - No backoff between retries, worsening rate limit issues
 - Not logging fallback events, making it impossible to detect provider degradation
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many providers should I have in the chain?**
 A: 2-3 is typical. One primary, one fallback for resilience, and optionally a local model as a last resort. More than 3 adds complexity without much benefit.

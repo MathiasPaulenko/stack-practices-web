@@ -493,7 +493,7 @@ class OrderAggregate:
 
 2. **Mantener referencias a otros aggregates.** Referencias directas de objetos entre aggregates rompen el límite y causan cascadas de carga. Siempre referencia otros aggregates solo por ID. Cárgalos lazy cuando se necesiten.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Cómo manejo validación entre aggregates?
 

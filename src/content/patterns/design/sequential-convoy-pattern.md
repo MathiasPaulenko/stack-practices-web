@@ -393,7 +393,7 @@ Service Bus sessions provide FIFO ordering within a session. An e-commerce platf
 
 Event Store DB uses optimistic concurrency control on streams. Each aggregate (e.g., an order) is a stream, and events are appended with expected version numbers. Concurrent writers fail if the stream has been modified, preserving ordering.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is this different from just using a single queue?**
 A: A single queue forces ALL messages to be sequential, destroying throughput. The convoy pattern only sequences messages for the same entity; different entities process in parallel.

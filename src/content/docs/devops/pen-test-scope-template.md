@@ -155,7 +155,7 @@ The scope template aligns the organization and testers before any traffic is sen
 - Skipping retest and assuming fixes are complete.
 - Not informing SOC or NOC that testing will occur.
 
-## FAQs
+## FAQ
 
 ### What is a gray box test?
 

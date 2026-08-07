@@ -207,7 +207,7 @@ Retry logic uses [exponential backoff](/recipes/architecture/retry-backoff) with
 - **Holding locks while doing I/O**: Network calls inside a transaction extend lock duration
 - **Ignoring deadlock hints**: Some ORMs swallow exceptions; always check for and log deadlock errors
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Can I eliminate deadlocks entirely?**
 A: In practice, no — but you can reduce them to negligible levels. Use consistent access ordering, short transactions, and proper indexing. If deadlocks are frequent, redesign the transaction boundaries.

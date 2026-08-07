@@ -142,7 +142,7 @@ A production batch pipeline needs three properties:
 4. **Silent data loss**: Errors logged but not surfaced to operators
 5. **No rollback strategy**: Failed jobs leave the database in an inconsistent state
 
-## Frequently Asked Questions
+## FAQ
 
 ### How large should each batch be?
 

@@ -278,7 +278,7 @@ Django's ORM abstracts table access through Model managers. `User.objects.filter
 
 Knex provides a query builder that acts as a DAO layer. `knex('users').where({ id: 42 }).first()` abstracts raw SQL.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between DAO and Repository?**
 A: DAO is persistence-centric (one per table, CRUD-focused). [Repository](/patterns/design/repository-pattern) is domain-centric (one per aggregate, query-focused).

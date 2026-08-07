@@ -322,7 +322,7 @@ Socket.io wraps the WebSocket protocol with additional features:
 - Not handling reconnection events. Users lose their room memberships after reconnect.
 - Emitting sensitive data to all sockets instead of specific rooms or users.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I get the socket ID of a specific user?
 

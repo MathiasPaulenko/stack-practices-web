@@ -471,7 +471,7 @@ Shopify replicates merchant data (products, inventory, orders) to search service
 
 LinkedIn uses Brooklin (their data streaming platform) to replicate data between microservices. Member profiles, connection graphs, and activity feeds are all distributed as state transfer events to services that need read access.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between ECST and Event Sourcing?**
 A: In Event Sourcing, a sequence of domain events is the source of truth. In ECST, events are a distribution mechanism carrying full state snapshots. The database remains the source of truth in ECST.

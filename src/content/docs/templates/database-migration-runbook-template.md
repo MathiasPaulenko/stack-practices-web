@@ -158,7 +158,7 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 - No rollback plan — "we will figure it out" is not a plan
 - Migrating during peak traffic — even safe migrations add load; schedule off-peak
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use a migration tool or raw SQL?
 

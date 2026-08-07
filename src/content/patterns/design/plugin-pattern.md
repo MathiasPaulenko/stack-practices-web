@@ -277,7 +277,7 @@ Extensions implement the VS Code API to add languages, themes, debuggers, and co
 
 Jenkins is essentially a plugin framework. CI pipelines, source control integrations, and notification systems are all plugins.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Plugin and Strategy?**
 A: [Strategy](/patterns/design/strategy-pattern) selects an algorithm at runtime. Plugin is a broader architectural pattern for external extensibility.

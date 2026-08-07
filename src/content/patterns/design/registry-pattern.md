@@ -265,7 +265,7 @@ Django's `settings` object is a registry of configuration values. Modules import
 
 `DriverManager.getConnection(url)` is a registry that looks up the appropriate database driver based on the URL prefix.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Registry and Service Locator?**
 A: Service Locator is a specific type of registry focused on resolving service dependencies. Registry is broader and can store any shared object.

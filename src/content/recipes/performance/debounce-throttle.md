@@ -321,7 +321,7 @@ public class RateLimiters {
 4. Using throttle without trailing edge, dropping the final event of a burst (e.g., last scroll position).
 5. Not handling race conditions in multi-threaded environments where timers can overlap.
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I use debounce vs throttle?
 

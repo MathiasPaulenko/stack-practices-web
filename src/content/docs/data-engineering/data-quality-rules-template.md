@@ -372,7 +372,7 @@ The execution schedule separates rules by when they should run. Column-level rul
 6. Rules too strict — 100% completeness on optional fields blocks valid data
 7. No documentation — rules without context get removed when they fail
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many quality rules should we have?
 

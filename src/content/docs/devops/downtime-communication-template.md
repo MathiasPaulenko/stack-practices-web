@@ -240,7 +240,7 @@ Thank you for your patience.
 4. Forgetting to notify internal support before external customers
 5. Skipping the post-mortem or making it so technical that non-engineers cannot understand it
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I communicate if only a small percentage of users are affected?
 

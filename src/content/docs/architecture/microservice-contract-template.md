@@ -317,7 +317,7 @@ buf breaking --against ".git#branch=main"
 6. Not versioning the contract independently of the service deployment
 7. Adding optional fields without documenting default values
 
-## Frequently Asked Questions
+## FAQ
 
 ### Who owns the contract when multiple consumers use the same API?
 

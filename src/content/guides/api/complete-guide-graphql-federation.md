@@ -429,7 +429,7 @@ query GetUserWithOrders {
 - Exposing internal IDs across subgraph boundaries — leak implementation details
 - Not using DataLoader for entity batching — one query triggers hundreds of subgraph calls
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between schema stitching and federation?
 

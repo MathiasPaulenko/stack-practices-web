@@ -226,7 +226,7 @@ Recomendaciones:
 - No revisar las reglas de asignacion despues de cambios arquitectonicos mayores.
 - No comunicar los cambios de costo a los equipos afectados.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre chargeback y showback?
 

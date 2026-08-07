@@ -222,7 +222,7 @@ Modern languages integrate iterators deeply — Python's `__iter__`, JavaScript'
 - Creating iterators that don't implement the language's native iterator protocol
 - Forgetting to reset iterator state, causing unexpected behavior on reuse
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Do I need to implement the Iterator Pattern manually?**
 A: Rarely. Most languages provide built-in iterator support. Only implement a custom iterator when you need a non-standard traversal (e.g., [tree traversal](/patterns/design/iterator-pattern-collections), graph traversal, or filtered iteration).

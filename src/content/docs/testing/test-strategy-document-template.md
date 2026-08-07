@@ -330,7 +330,7 @@ Review the strategy when team size, structure, or domain changes. If the team gr
 6. Not allocating time for test maintenance alongside feature work
 7. Having no documented test environments, leading to "works on my machine"
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much test coverage is enough?
 

@@ -265,7 +265,7 @@ immediately without page refresh.
 4. **Not updating when scope changes** — specs that diverge from reality mislead QA, support, and future maintainers
 5. **Forgetting rollout and rollback** — the feature is not done when code is merged; it is done when users are successfully using it
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should a feature spec be?
 

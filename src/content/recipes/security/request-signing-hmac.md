@@ -175,7 +175,7 @@ AWS Signature v4 extends this with credential scopes, signed headers, and region
 - **No replay protection**: Without timestamps, captured requests can be replayed indefinitely
 - **Storing secrets in environment variables**: Use [secret management](/guides/security/security-best-practices-guide) services instead
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is HMAC better than raw SHA-256 hashing?**
 A: Yes. HMAC uses a key and adds structural protections against length-extension attacks. Never use raw SHA-256 for authentication.

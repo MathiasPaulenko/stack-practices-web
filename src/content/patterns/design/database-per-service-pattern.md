@@ -521,7 +521,7 @@ Netflix uses Cassandra for some services, Elasticsearch for others, and S3 for y
 
 Uber migrated from a monolithic Postgres database to microservices with separate databases. The trip service, payment service, and driver service each have dedicated data stores, with change data capture (CDC) streaming events between them.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I query across multiple services?**
 A: Use API composition (call multiple services and aggregate) or build a read model via event consumption. CQRS and materialized views are common solutions.

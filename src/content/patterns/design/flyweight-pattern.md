@@ -227,7 +227,7 @@ The **Flyweight Factory** (`TreeType.get()`) manages a cache of shared flyweight
 - Over-engineering the factory with complex eviction logic for small datasets
 - Storing extrinsic state inside the flyweight, defeating the purpose
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is Flyweight the same as a Singleton?**
 A: No. [Singleton](/patterns/design/singleton-pattern) enforces exactly one instance of a class. Flyweight creates one instance per unique intrinsic state combination. A singleton is a special case where all state is shared.

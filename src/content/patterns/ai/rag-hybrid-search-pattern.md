@@ -412,7 +412,7 @@ RRF is preferred over score-based fusion because BM25 and cosine similarity prod
 - Not deduplicating documents that appear in both result lists before fusion
 - Re-embedding the entire corpus when only a few documents change
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Why not just use semantic search for everything?**
 A: Semantic search struggles with exact term matching. If a user searches for "error code ERR_4021", a keyword search finds it instantly while embeddings may rank it lower. Hybrid search covers both cases.

@@ -204,7 +204,7 @@ Devuelve un envelope de error consistente:
 - **Sin rate limiting** — invita abuso y DDoS accidental
 - **Acoplamiento fuerte al schema de BD** — filtra detalles de implementación
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: ¿Debería usar PUT o PATCH para actualizaciones?**
 A: Usa `PUT` para reemplazos completos (el cliente envía el recurso completo) y `PATCH` para actualizaciones parciales. Si solo soportas uno, documéntalo claramente.

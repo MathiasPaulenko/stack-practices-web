@@ -465,7 +465,7 @@ Computer vision systems often use blackboard architectures where edge detectors,
 
 Constraint satisfaction problems and optimization solvers (like those used in scheduling and routing) use multiple heuristics that iteratively refine a shared solution space.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Blackboard and Pipeline patterns?**
 A: Pipelines pass data linearly from one stage to the next. Blackboard allows any Knowledge Source to contribute at any time based on the current state.

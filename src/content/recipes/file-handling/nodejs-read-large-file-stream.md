@@ -369,7 +369,7 @@ Key concepts:
 - Forgetting to call `callback()` in Transform. The stream hangs waiting for the callback.
 - Not closing file descriptors on error. Use `pipeline()` or `stream.destroy()` to clean up.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the maximum file size I can process with streams?
 

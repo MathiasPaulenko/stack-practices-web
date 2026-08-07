@@ -319,7 +319,7 @@ Use path-based versioning: /v1/users, /v2/users. The gateway routes to different
 4. Not setting **timeouts** on upstream calls; a slow service can exhaust gateway threads
 5. Ignoring **gateway health** in monitoring; the gateway is infrastructure, not invisible plumbing
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use one gateway or multiple?
 

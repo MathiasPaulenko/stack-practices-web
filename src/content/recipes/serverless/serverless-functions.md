@@ -263,7 +263,7 @@ AWS SAM CLI, Azure Functions Core Tools, and Google Cloud Functions Emulator pro
 - **High-frequency invocations**: If your function runs 1000+ times per second, a always-on server may be cheaper
 - **Complex dependencies**: Large native libraries or custom runtimes increase cold start and deployment complexity
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I reduce cold start latency?**
 A: Use smaller runtimes (Node.js, Python) over Java. Reduce package size. Use provisioned concurrency. Keep connections (database, HTTP) warm between invocations by initializing outside the handler.

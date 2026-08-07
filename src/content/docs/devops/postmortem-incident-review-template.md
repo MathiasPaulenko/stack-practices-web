@@ -247,7 +247,7 @@ active sessions.
 4. **Skipping "what went well"** — postmortems are not just complaints; they reinforce practices that worked
 5. **No follow-up** — if nobody checks whether action items are done, the postmortem was a waste of time
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if someone clearly made a mistake?
 

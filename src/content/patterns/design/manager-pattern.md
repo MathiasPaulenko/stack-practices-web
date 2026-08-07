@@ -348,7 +348,7 @@ Android's `ServiceManager` registers and looks up system services by name, actin
 
 Game engines use managers for sprites, particles, physics bodies, and audio sources. Each manager handles creation, updates, and destruction of its object type.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Manager and Repository?**
 A: A Repository is a persistence abstraction (DDD). A Manager is broader: it handles lifecycle, coordination, and sometimes business rules, not just storage.

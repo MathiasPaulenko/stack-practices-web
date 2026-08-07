@@ -199,7 +199,7 @@ return old_checkout.handle(request)
 - Ignoring canary metrics because "the tests passed" — production traffic is the only real test
 - Forgetting [database schema compatibility](/recipes/databases/schema-evolution) in blue-green — old and new code must coexist during the switch
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should every deploy use canary?
 

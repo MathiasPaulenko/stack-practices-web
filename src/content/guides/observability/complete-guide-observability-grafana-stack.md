@@ -555,7 +555,7 @@ receivers:
 - Ignoring USE metrics for infrastructure — CPU and disk saturation missed
 - Not testing alert rules — alerts fire incorrectly or not at all
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between metrics, logs, and traces?
 

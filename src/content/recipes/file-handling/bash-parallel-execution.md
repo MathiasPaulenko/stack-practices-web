@@ -201,7 +201,7 @@ sem --id api_calls --wait
 - **Passing shell variables into xargs incorrectly.** Single quotes in `sh -c` prevent variable expansion. Use double quotes and escape carefully, or pass variables as positional arguments.
 - **Using GNU parallel without citation notice acceptance.** It prints a citation reminder on first use; use `--will-cite` or `--cite` to silence it in CI.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the risk of running too many jobs in parallel?**
 A: You can exhaust CPU, memory, or file descriptors, and overwhelm downstream services or APIs. Always cap concurrency to a tested limit.

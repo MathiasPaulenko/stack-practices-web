@@ -121,7 +121,7 @@ The script iterates over `*.log` files in the target directory. If a log exceeds
 4. **Running as root unnecessarily.** Use the service account that owns the log files.
 5. **Forgetting to reopen file descriptors.** The app may keep writing to the moved file; send HUP or use copytruncate.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use logrotate instead of a custom script?**
 A: Use logrotate for standard Linux servers. Use a custom script when you need behavior that logrotate cannot express, or when logrotate is not available.

@@ -191,7 +191,7 @@ Separate operational logs (debugging) from audit logs (compliance). Audit logs s
 - **Forgetting to clear MDC/ context**: Leaked context between requests causes confusion
 - **Storing audit logs with application logs**: Audit trails need separate, restricted access
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How long should I retain API logs?**
 A: Operational logs: 7-30 days. Audit logs: 1-7 years depending on compliance (PCI-DSS requires 1 year, SOC 2 requires per policy). Always check your regulatory requirements.

@@ -283,7 +283,7 @@ await consumer.run({
 
 - **Energy-efficient message processing**: optimize consumer code to reduce CPU cycles per message. Batch messages to reduce per-message overhead. Use efficient serialization formats (Avro, Protobuf) to reduce network transfer. Right-size consumer infrastructure to avoid idle energy consumption. Schedule non-urgent batch processing during off-peak hours when grid carbon intensity is lower
 - **Green messaging architecture**: prefer managed messaging services that share infrastructure across tenants, reducing per-message carbon footprint. Use auto-scaling to match consumer capacity to demand, eliminating idle resources. Choose cloud regions with renewable energy. Archive old messages to cold storage to reduce active storage energy. Monitor carbon footprint of messaging infrastructure
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I automatically replay DLQ messages?**
 A: Only after identifying and fixing the root cause. Blind replay wastes resources and may re-trigger the same error.

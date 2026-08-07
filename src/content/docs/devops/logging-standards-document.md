@@ -245,7 +245,7 @@ RULES:
 - Keeping logs forever and increasing storage costs unnecessarily.
 - Not correlating logs across services during an incident.
 
-## FAQs
+## FAQ
 
 ### Should we log in production at DEBUG level?
 

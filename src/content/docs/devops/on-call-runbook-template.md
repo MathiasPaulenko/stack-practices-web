@@ -251,7 +251,7 @@ The runbook treats every alert as a **diagnostic workflow**, not just a problem 
 4. Creating runbooks but not linking them from the alerting system
 5. Treating runbooks as static documents; they must be updated after every incident
 
-## Frequently Asked Questions
+## FAQ
 
 ### How detailed should a runbook be?
 

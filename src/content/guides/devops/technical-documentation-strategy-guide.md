@@ -198,7 +198,7 @@ If resolution fails after 15 minutes, escalate to Database Team on-call.
 - Over-documenting — if the code is self-explanatory, do not explain it; explain the intent instead
 - Separating docs and code in different repos — the friction of context switching guarantees docs will not be updated
 
-## Frequently Asked Questions
+## FAQ
 
 ### Who should write documentation?
 

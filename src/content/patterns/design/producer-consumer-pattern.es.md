@@ -453,7 +453,7 @@ class GracefulQueue:
 
 2. **No manejar poison pill para múltiples consumidores.** Un solo poison pill detiene solo un consumidor. Para múltiples consumidores, envía un poison pill por consumidor o usa un flag de shutdown que todos los consumidores checkean.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Cómo manejo backpressure en una cola sin límite?
 

@@ -333,7 +333,7 @@ The stampede problem arises because all requests check the cache at the same tim
 - **Locking the entire cache** — locking per key, not globally. A global lock serializes all cache misses, creating a bottleneck.
 - **Not handling lock acquisition failure** — if `SET NX` fails, the request must wait and retry, not proceed to load independently. This defeats the purpose of the lock.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between cache stampede and cache penetration?
 

@@ -143,7 +143,7 @@ Watchers register with the OS kernel, which then pushes events to your process r
 4. Ignoring `rename` events, which appear as separate create + delete on some OSes
 5. Processing files immediately on `create` before the writer has closed them
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I watch remote or network paths?
 

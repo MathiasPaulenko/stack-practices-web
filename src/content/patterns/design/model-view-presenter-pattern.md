@@ -305,7 +305,7 @@ GWT applications commonly used MVP to separate widget code (View) from applicati
 
 Microsoft's early UI frameworks used a variation of MVP where code-behind files acted as Presenters between the declarative view and the data model.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between MVP and MVC?**
 A: In MVC, the View observes the Model directly. In MVP, all communication goes through the Presenter and the View is passive.

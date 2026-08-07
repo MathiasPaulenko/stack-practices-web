@@ -259,7 +259,7 @@ Set up synthetic monitoring that hits your health endpoints every 60 seconds. Co
 
 Configure your deployment system to auto-rollback when error rate exceeds a threshold within the first 15 minutes. Kubernetes canaries with Argo Rollouts or AWS CodeDeploy support this natively.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should I monitor after deployment?
 

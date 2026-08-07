@@ -145,7 +145,7 @@ The template forces a **quantified reliability contract** between engineering an
 4. Not defining an error budget policy; SLOs without consequences are just dashboards
 5. Separating SLO review from incident review; every SEV 1 should trigger an SLO impact assessment
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many nines should my SLO target?
 

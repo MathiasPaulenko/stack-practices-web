@@ -336,7 +336,7 @@ Access reviews ensure que access stays current. Quarterly reviews por managers v
 6. No offboarding process — departed employees retain access
 7. Overly broad permissions — users get more access que lo que necesitan
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Cuál es la difference entre authentication y authorization?
 

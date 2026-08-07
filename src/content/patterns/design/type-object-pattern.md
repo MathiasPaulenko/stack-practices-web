@@ -323,7 +323,7 @@ Blocks and items are defined by numeric IDs referencing registries. New block ty
 
 Unity's `ScriptableObject` is explicitly designed for type object data. Game designers create asset files defining weapon stats, enemy configurations, and quest parameters that instances reference.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Type Object and Prototype?**
 A: Prototype creates instances by cloning a template object. Type Object separates type data (shared) from instance data (unique). A Prototype goblin is a goblin instance you clone; a Type Object goblin references shared goblin data.

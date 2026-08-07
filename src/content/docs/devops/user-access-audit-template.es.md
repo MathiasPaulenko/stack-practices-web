@@ -150,7 +150,7 @@ La plantilla conecta identidades con permisos, justificacion de negocio y reviso
 - No verificar que las revocaciones realmente ocurrieron.
 - Almacenar evidencia de revision en correos o documentos dispersos.
 
-## FAQs
+## FAQ
 
 ### Quien debe certificar el acceso?
 

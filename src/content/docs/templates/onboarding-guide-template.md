@@ -157,7 +157,7 @@ Slack: `@username` | Email: `name@company.com`
 - **Missing credentials**: Access requests that take days
 - **No buddy system**: New hire isolated without help
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should onboarding take?
 

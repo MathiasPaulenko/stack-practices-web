@@ -212,7 +212,7 @@ Fine-tuning updates a pre-trained model's weights to improve performance on a na
 4. **Ignoring tokenizer mismatch** — ensure your code examples tokenize cleanly; check for unknown tokens
 5. **No evaluation baseline** — always compare against the base model with zero-shot prompting before fine-tuning
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much data do I need?
 

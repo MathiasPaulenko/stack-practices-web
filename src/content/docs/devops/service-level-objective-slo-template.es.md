@@ -276,7 +276,7 @@ Decision: 42% del presupuesto restante al dia 20 de 30.
 - Establecer objetivos basados solo en el rendimiento actual sin metas de mejora.
 - Confundir SLOs internos con SLAs externos.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre SLI, SLO y SLA?
 

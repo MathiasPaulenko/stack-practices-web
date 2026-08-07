@@ -131,7 +131,7 @@ The pattern often involves:
 - Removing too much capacity, leaving no room for scaling or failures
 - Forgetting to update monitoring and alerting thresholds after consolidation
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is consolidation the same as autoscaling?**
 A: No. Consolidation reduces the number of resources you use. Autoscaling adjusts the number of resources based on demand. They can work together.

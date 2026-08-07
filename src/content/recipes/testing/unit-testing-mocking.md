@@ -282,7 +282,7 @@ class PaymentServiceTest {
 - **Test reviews**: review tests in pull requests. Check test coverage for new code. Verify test quality. Check for edge cases. Review test naming. Document review checklist. Train team on test reviews. Monitor review effectiveness. Alert on missing test reviews. Use test review templates
 - **Knowledge sharing**: share testing knowledge across the team. Conduct testing lunch-and-learns. Share testing best practices. Document testing patterns. Create testing guidelines. Monitor knowledge sharing. Review team testing skills. Alert on knowledge gaps. Use pair testing. Mentor junior developers
 - **Testing culture**: build a strong testing culture. Celebrate testing achievements. Recognize good test practices. Encourage test-first development. Make testing visible. Document culture initiatives. Monitor testing culture. Review team engagement. Alert on culture degradation. Lead by example
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use a real dependency instead of a mock?**
 A: When the dependency is fast, deterministic, and simple — for example, an in-memory Map or a pure function. The closer your test is to production, the more confidence it provides.

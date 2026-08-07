@@ -214,7 +214,7 @@ Business logic depends only on the interface, so you can swap implementations fo
 - **Ignoring transactions**: Multiple repository operations that should be atomic but are not wrapped in a transaction
 - **Eager loading everything**: Fetching more data than needed because the abstraction hides the query cost
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is Repository the same as DAO (Data Access Object)?**
 A: Similar, but DAO is typically lower-level and closer to the database. Repository is higher-level and works with domain aggregates. In practice, the terms are often used interchangeably.

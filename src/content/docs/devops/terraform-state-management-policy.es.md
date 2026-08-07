@@ -461,7 +461,7 @@ CI/CD integration automatiza state operations. Plans corren en every PR para rev
 6. Manual terraform apply — inconsistent, not auditable
 7. No backup strategy — state loss significa infrastructure drift
 
-## Frequently Asked Questions
+## FAQ
 
 ### ¿Por qué no usar Terraform workspaces para environment isolation?
 

@@ -312,7 +312,7 @@ A database designed for event sourcing. Streams of domain events are persisted a
 
 Stripe publishes `charge.succeeded`, `invoice.paid`, and other domain events to webhooks. Your application reacts to them asynchronously.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a Domain Event and an Integration Event?**
 A: Domain events stay within a bounded context. Integration events cross service boundaries and are usually published via a message broker.

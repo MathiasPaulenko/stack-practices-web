@@ -196,7 +196,7 @@ A dashboard should tell you if the system is healthy in 5 seconds.
 - Dashboards without owners — someone must own and maintain each dashboard
 - No post-[incident](/guides/devops/on-call-incident-response-guide) metric review — after every incident, ask "what metric would have caught this earlier?"
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I build my own monitoring or buy a SaaS?
 

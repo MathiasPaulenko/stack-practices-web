@@ -253,7 +253,7 @@ done
 - Ignoring compromised key response procedures.
 - Storing old keys indefinitely after rotation.
 
-## FAQs
+## FAQ
 
 ### What is the difference between a DEK and a KEK?
 

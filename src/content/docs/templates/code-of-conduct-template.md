@@ -283,7 +283,7 @@ For conferences and meetups, add sections for event-specific rules: photography 
 
 For small projects with 1-2 maintainers, use a simplified version: pledge, 5 positive behaviors, 5 unacceptable behaviors, and a reporting email. Skip enforcement levels — the maintainer handles each case individually.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Is a code of conduct legally binding?
 

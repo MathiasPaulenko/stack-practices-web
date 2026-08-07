@@ -280,7 +280,7 @@ spec:
 
 - **Cost policies and guardrails**: implement cost policies using SCPs, Azure Policies, or GCP Organization Policies. Block expensive instance types in dev environments. Enforce mandatory tagging. Prevent resource creation in unapproved regions. Set maximum resource counts per account. Use OPA or Sentinel for policy-as-code. Review and update policies quarterly
 - **Audit trail for cost actions**: log all cost management actions (budget changes, commitment purchases, RI modifications). Use CloudTrail, GCP Audit Logs, or Azure Activity Log. Export logs to centralized logging (Splunk, ELK). Retain logs for 7 years for compliance. Alert on suspicious cost management actions. Review audit logs monthly
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use spot instances for production?**
 A: Only for stateless, fault-tolerant workloads with proper fallback to on-demand. Never for databases or singleton services.

@@ -190,7 +190,7 @@ For web delivery, combine server-side optimization with `<picture>` elements tha
 - **No fallback for WebP**: Safari <14 doesn't support WebP. Provide JPEG fallback.
 - **Forgetting AVIF**: For critical above-the-fold images, AVIF's smaller size justifies the encoding time.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I optimize images on upload or on request?
 

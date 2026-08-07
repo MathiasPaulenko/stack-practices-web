@@ -291,7 +291,7 @@ Self-hosted options like [Cachet](https://cachethq.io) or [Upptime](https://uppt
 
 For internal services, use a simpler page without subscriptions or public incident history. A Slack channel with automated alerts often suffices. See [Alert Management Guide](/guides/observability/alert-management-guide) for alerting strategies.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should the status page be public or internal-only?
 

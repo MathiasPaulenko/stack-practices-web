@@ -153,7 +153,7 @@ Los contenedores comparten el kernel del host, asi que un contenedor mal configu
 - No aislar cargas de produccion y staging.
 - Depender solo del escaneo de imagenes sin controles de runtime.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre un escaner de imagenes y una herramienta de seguridad de runtime?
 

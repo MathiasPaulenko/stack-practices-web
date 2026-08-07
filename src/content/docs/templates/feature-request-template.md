@@ -242,7 +242,7 @@ When collecting requests from customers, use a simplified form with only: Summar
 
 For technical capabilities (API changes, architecture decisions), expand the template into an RFC with sections for: Background, Goals, Non-goals, Proposed approach, Alternatives considered, Risks. See [ADR Template](/docs/templates/adr-template) for architecture decision records.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if the requester proposes a bad solution?
 

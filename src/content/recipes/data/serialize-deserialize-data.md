@@ -311,7 +311,7 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - Cache validation results by input hash to avoid redundant processing
 - Use Decimal for money, int for counts, str for IDs. Never use loat for exact values
 - Log validation failures with field path, value, and expected type for debugging
-## Frequently Asked Questions
+## FAQ
 
 ### Which serialization format should I choose for microservices?
 

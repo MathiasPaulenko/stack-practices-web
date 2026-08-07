@@ -142,7 +142,7 @@ Key responsibilities of the gateway include:
 - Forgetting to **validate TLS certificates** on upstream connections
 - Routing based on fragile rules such as query strings that change frequently
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Gateway Routing and an API Gateway?**
 A: Gateway Routing is the routing capability. An API Gateway usually adds authentication, rate limiting, transformation, and developer portal capabilities on top of routing.

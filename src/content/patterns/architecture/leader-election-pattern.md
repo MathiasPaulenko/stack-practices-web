@@ -123,7 +123,7 @@ A typical leader election mechanism includes:
 - Implementing leader election without a strong fencing token
 - Forgetting to release the lease on graceful shutdown
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between leader election and distributed locking?**
 A: Leader election is a specialized form of locking that selects one active coordinator for a long period. Distributed locking is more general and can protect arbitrary resources.

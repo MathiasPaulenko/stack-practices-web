@@ -239,7 +239,7 @@ The key challenge is deciding between **shallow copy** (copies references) and *
 - Cloning objects that contain external resources (file handles, sockets) without re-initializing those resources
 - Not handling circular references during deep cloning, leading to infinite recursion or stack overflow
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Prototype and Factory?**
 A: [Factory](/patterns/design/factory-pattern) creates objects using a separate creation method/class. Prototype creates objects by copying an existing instance. Use Factory when creation logic is complex; use Prototype when objects are expensive to construct from scratch.

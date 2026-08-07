@@ -302,7 +302,7 @@ For VS Code users, a `.devcontainer/devcontainer.json` standardizes the environm
 
 Use the same setup commands in CI as in the guide. This ensures the guide stays accurate — if CI breaks, the guide needs updating too.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use Docker for local development?
 

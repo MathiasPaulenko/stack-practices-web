@@ -275,7 +275,7 @@ CDN invalidation is slow (seconds to minutes). Use versioned URLs (`/v2/users/42
 - **Not handling cache failures**: if Redis goes down, the application should degrade gracefully to database queries, not crash.
 - **Using the same TTL for all data**: user profiles might tolerate 10 minutes of staleness; inventory counts might need instant consistency.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I prevent cache stampedes?
 

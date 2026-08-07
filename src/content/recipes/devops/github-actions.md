@@ -223,7 +223,7 @@ jobs:
 - **Hardcoding environment values** in workflow files instead of using repository variables. This forces you to edit YAML every time a URL or version changes, creating unnecessary commits.
 - **Granting overly broad permissions** like `permissions: write-all`. If a third-party action is compromised, it could rewrite your code, create releases, or modify secrets. Use the principle of least privilege.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I run a workflow manually?**
 A: Add `workflow_dispatch:` to the `on:` block. You can then trigger it from the Actions tab, optionally providing input parameters that your workflow can consume.

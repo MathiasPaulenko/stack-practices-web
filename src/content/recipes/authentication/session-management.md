@@ -350,7 +350,7 @@ Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary 
 - **Session timeout too long**: if sessions never expire, stolen sessions remain valid indefinitely. Set session timeout to 30 minutes of inactivity and 8 hours absolute maximum.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use sessions or JWT for authentication?**
 A: Use server-side sessions for traditional web apps where you need instant revocation. Use [JWT](/recipes/authentication/jwt-authentication) for stateless APIs and SPAs where you want to avoid database lookups on every request.

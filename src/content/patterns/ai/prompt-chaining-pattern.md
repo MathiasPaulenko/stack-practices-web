@@ -373,7 +373,7 @@ The pattern trades latency for quality. A 4-step chain takes 4x the latency of a
 - Not handling partial failures — if step 3 fails, the user gets no output instead of partial results
 - Passing raw output without cleaning or formatting between steps
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many steps should a chain have?**
 A: 3-6 steps works best. Beyond that, latency and failure probability compound. If you need more steps, consider breaking into sub-chains or using an agent loop.

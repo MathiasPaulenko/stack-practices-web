@@ -204,7 +204,7 @@ Read replicas use streaming replication (physical) or logical replication:
 - **Over-replicating**: Each replica adds load to the primary; find the right ratio (usually 1:3 to 1:5)
 - **No failover plan**: When the primary fails, promote a replica quickly — practice this regularly
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How much replication lag is acceptable?**
 A: For user-facing reads: <100ms. For analytics: seconds to minutes. For cache invalidation: <1s. Monitor and alert based on your use case.

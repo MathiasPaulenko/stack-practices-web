@@ -228,7 +228,7 @@ Use think time (pauses between actions) to match real user patterns. Distribute 
 4. Omitting error rates and focusing only on throughput
 5. Not assigning owners to action items, so nothing gets fixed
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I define targets for latency and throughput?
 

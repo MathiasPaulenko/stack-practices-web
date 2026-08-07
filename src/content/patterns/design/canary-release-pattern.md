@@ -343,7 +343,7 @@ The canary release proceeds through predefined stages:
 - Users bouncing between versions due to lack of sticky sessions
 - Decommissioning the stable version before the canary is fully promoted
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is canary release different from blue-green deployment?**
 A: Blue-green switches 100% of traffic between two environments instantly. Canary gradually shifts a percentage of traffic to the new version while the old version continues serving the rest. Canary gives more granular control and earlier detection.

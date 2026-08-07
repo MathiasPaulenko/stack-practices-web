@@ -306,7 +306,7 @@ The order matters: database first, cache second. If you write to cache first and
 - **Not setting a TTL** — even with write-through, a TTL catches edge cases where a write is missed. Set a TTL as a safety net.
 - **Caching too much** — write-through writes to cache on every update. Caching rarely-read data wastes memory and adds write latency for no benefit.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between write-through and write-behind?
 

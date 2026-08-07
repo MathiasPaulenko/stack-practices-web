@@ -146,7 +146,7 @@ La revision separa la identificacion del acceso de la aprobacion. Al listar cada
 - Olvidar revisar cuentas de servicio y API keys.
 - Omitir acceso a la consola en la nube al revisar roles de aplicacion.
 
-## FAQs
+## FAQ
 
 ### Que es una cuenta huerfana?
 

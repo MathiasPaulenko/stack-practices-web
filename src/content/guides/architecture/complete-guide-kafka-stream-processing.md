@@ -404,7 +404,7 @@ Kafka Connect is a framework for connecting Kafka with external systems (databas
 - Not using Schema Registry — schema changes break consumers silently
 - Producing without a key — events are distributed randomly, losing ordering guarantees
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many partitions should a topic have?
 

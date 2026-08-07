@@ -249,7 +249,7 @@ El runbook separa **verificacion** (confirmar falla, confirmar salud de replica)
 4. **No verificar escrituras post-failover** — fallas silenciosas pasan desapercibidas por horas
 5. **Omitir configurar nueva replica** — ejecutando sin redundancia despues del failover
 
-## Frequently Asked Questions
+## FAQ
 
 ### Como se si la replica esta al dia?
 
@@ -578,7 +578,7 @@ curl -X PATCH http://grafana.internal/api/datasources/1 \
   -d '{"url":"http://new-primary.db.internal:5432"}'
 ```
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Cual es la diferencia entre replicacion sincrona y asincrona para failover?
 

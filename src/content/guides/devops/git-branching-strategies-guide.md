@@ -228,7 +228,7 @@ git push origin --delete feature/add-search
 - Merging without review or CI checks
 - Not tagging releases, making rollbacks difficult
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Can I mix GitFlow and GitHub Flow?**
 A: Yes. Some teams use GitHub Flow for day-to-day development and GitFlow-style release branches only for major version releases.

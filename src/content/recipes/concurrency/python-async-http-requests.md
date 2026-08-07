@@ -298,7 +298,7 @@ Key concepts:
 - Not handling `return_exceptions=True` results. Exceptions are returned as values, not raised.
 - Using `asyncio.run()` multiple times in the same script. Create one event loop.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I use requests with asyncio?
 

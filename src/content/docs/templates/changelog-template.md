@@ -275,7 +275,7 @@ For internal services, add deployment context: which environments received the r
 
 In a monorepo, maintain separate changelogs per package or use a unified changelog with package tags. Tools like `changesets` and `lerna` manage per-package versioning and changelog generation.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What format should a changelog follow?
 

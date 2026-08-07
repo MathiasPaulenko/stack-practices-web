@@ -208,7 +208,7 @@ Decorators can be nested arbitrarily. You can wrap a `MilkDecorator` with a `Sug
 - **Over-decoration**: Too many nested decorators make debugging and profiling difficult
 - **State conflicts**: Multiple decorators holding conflicting state about the same component
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Decorator and Proxy?**
 A: Decorator adds responsibilities dynamically. [Proxy](/patterns/design/proxy-pattern) controls access to an object (lazy initialization, access control, logging). They have similar structure but different intent.

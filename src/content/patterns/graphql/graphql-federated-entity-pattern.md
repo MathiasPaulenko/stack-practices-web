@@ -282,7 +282,7 @@ The `__resolveReference` resolver is called when the gateway requests an entity 
 - **Circular entity references** — Subgraph A extends User with orders, Subgraph B extends Order with user. The gateway handles this, but deep circular queries create expensive query plans.
 - **Not testing the query plan** — use Apollo Studio's query plan viewer to verify the gateway fetches fields from the right subgraphs in the right order.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How does federation differ from schema stitching?
 

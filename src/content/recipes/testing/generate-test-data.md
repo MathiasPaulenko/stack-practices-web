@@ -243,7 +243,7 @@ List<User> users = Instancio.ofList(User.class).size(100).create();
 - **Not regenerating static fixture files.** Exporting a JSON fixture once and checking it into git means the data never exercises new validation rules added after the export.
 - **Generators that depend on each other.** `createOrder()` calling `createUser()` internally hides the user from the test, making assertions on the relationship impossible.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Why should I use factories instead of static fixtures?
 

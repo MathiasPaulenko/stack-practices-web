@@ -138,7 +138,7 @@ The schedule makes secret lifecycle visible. Without it, credentials expire unex
 - Not assigning a clear owner for each secret.
 - Skipping post-rotation validation.
 
-## FAQs
+## FAQ
 
 ### How often should API keys be rotated?
 

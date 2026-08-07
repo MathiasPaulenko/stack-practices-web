@@ -220,7 +220,7 @@ groups:
 - Alerting on CPU usage instead of [user-facing symptoms](/guides/devops/monitoring-alerting-guide)
 - Storing logs indefinitely without a retention policy
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between logs, metrics, and traces?
 

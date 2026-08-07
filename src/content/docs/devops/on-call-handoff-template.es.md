@@ -218,7 +218,7 @@ La plantilla estructura la entrega en **incidentes** (que esta roto), **alertas*
 4. **Saltar la ruta de escalamiento** — pierde minutos encontrando a quien llamar durante un P1
 5. **Entregar durante un incidente activo** — la transferencia de contexto mientras se depura es incompleta; pausa la investigacion por 5 minutos para documentar
 
-## Frequently Asked Questions
+## FAQ
 
 ### Que tan detallado debe ser el resumen del incidente?
 

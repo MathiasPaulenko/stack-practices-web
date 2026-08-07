@@ -365,7 +365,7 @@ app.post("/csp-report", express.json({ type: "application/csp-report" }), (req, 
 - Using `unsafe-eval` in CSP — required by some frameworks but weakens security
 - Not monitoring CSP reports — violations go unnoticed in production
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between CSP `frame-ancestors` and `X-Frame-Options`?
 

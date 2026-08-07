@@ -300,7 +300,7 @@ The handbook template organizes team knowledge into four areas: philosophy (why 
 4. Skipping the "why". Rules without reasoning feel arbitrary and get ignored.
 5. Not making it discoverable. Buried in a wiki no one checks is as good as not existing.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do we keep the handbook from becoming outdated?
 

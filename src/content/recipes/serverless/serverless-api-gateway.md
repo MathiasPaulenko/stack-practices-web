@@ -285,7 +285,7 @@ resource "aws_lambda_function" "handler" {
 - **Provisioned concurrency tuning**: tune provisioned concurrency for optimal performance. Start with minimum provisioned concurrency. Monitor cold start frequency. Adjust based on traffic patterns. Use auto-scaling for provisioned concurrency. Document tuning strategy. Test configuration changes. Monitor cost impact. Review configuration monthly. Optimize for cost and performance balance
 - **Memory tuning**: tune function memory for optimal performance. Test with different memory values. Monitor execution time changes. Find optimal memory-to-duration ratio. Document memory tuning strategy. Test memory changes in staging. Monitor cost impact. Review memory allocation quarterly. Use AWS Lambda Power Tuning for optimization
 - **Code optimization**: optimize function code for performance. Minimize cold start dependencies. Use lazy initialization. Optimize database queries. Cache frequently accessed data. Use efficient data structures. Document code optimization strategy. Review code regularly. Monitor performance impact. Use profiling tools for optimization
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I handle database connections in Lambda?**
 A: Use connection pooling with a lightweight proxy like RDS Proxy, or implement your own connection reuse logic. Opening a new database connection on every invocation is slow and can exhaust the database's connection limit.

@@ -301,7 +301,7 @@ On a write, both L1 and L2 are invalidated. Other instances still have the old v
 - **Caching everything in L1** — L1 is for hot keys only. Caching cold keys in L1 wastes memory and evicts hot keys. Use access frequency to decide what enters L1.
 - **Not handling L2 failures** — if Redis is down, L1 still works but L2 misses become database hits. Implement a circuit breaker or fallback to L1-only mode.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between L1 and L2 cache?
 

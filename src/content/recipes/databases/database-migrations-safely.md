@@ -159,7 +159,7 @@ This pattern guarantees that any running instance of your app (including during 
 - **No rollback plan**: Every migration should have a tested `downgrade` or revert script.
 - **Ignoring lock timeouts**: Long-running migrations can exceed statement timeouts and leave the database in a half-migrated state.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I rename a column without downtime?
 

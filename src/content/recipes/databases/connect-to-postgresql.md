@@ -153,7 +153,7 @@ All three examples use **prepared statements** (parameterized queries) to preven
 4. Disabling SSL verification in production (`sslmode=disable`)
 5. Using Python f-strings or JS template literals for SQL queries
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between psycopg2 and psycopg3?
 

@@ -258,7 +258,7 @@ Reset statistics after making changes to get clean measurements: `SELECT pg_stat
 - **Not testing with production data volume**: a query that runs in 10ms on a development database with 1,000 rows may take 10 seconds on production with 10 million rows.
 - **Premature optimization**: profile first. Do not rewrite perfectly fast queries. Focus on the top 5 slowest queries by total execution time.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I know if a query is using an index?
 

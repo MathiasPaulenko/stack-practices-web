@@ -206,7 +206,7 @@ Esta estructura permite agregar nuevos canales de notificación sin modificar el
 - **Devolver null**: Devolver `null` en lugar de lanzar excepciones hace más difícil rastrear bugs
 - **Acoplamiento fuerte**: Fábrica dependiendo de clases concretas en lugar de abstracciones
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: ¿Cuál es la diferencia entre Factory Method y Abstract Factory?**
 A: [Factory Method](/patterns/design/factory-pattern) permite que las subclases decidan qué clase instanciar. [Abstract Factory](/patterns/design/abstract-factory-pattern) crea familias de objetos relacionados (ej. componentes UI para Windows vs. Mac).

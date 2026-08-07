@@ -263,7 +263,7 @@ Each strategy trades complexity for consistency:
 - **Relying only on TTL** — a 5-minute TTL means data can be stale for 5 minutes. If the data changes, users see old data until the TTL expires. Add explicit invalidation for time-sensitive data.
 - **Race condition on invalidate** — thread A reads from DB, thread B writes to DB and deletes cache key, thread A writes stale data to cache. Use versioned keys or locks to prevent this.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the best cache invalidation strategy?
 

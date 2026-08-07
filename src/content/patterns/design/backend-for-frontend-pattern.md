@@ -466,7 +466,7 @@ Spotify's mobile and desktop clients consume different BFFs. The mobile BFF aggr
 
 SoundCloud's API migrated from a single API to BFFs for web, mobile, and embedded players. This allowed the mobile team to reduce API calls from 6 per screen to 1, dramatically improving startup time.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between BFF and API Gateway?**
 A: An API Gateway is a shared, generic entry point. A BFF is a client-specific backend. You may have an API Gateway in front of multiple BFFs.

@@ -357,7 +357,7 @@ source.addEventListener("update", (e) => {
 4. Using SSE for bidirectional communication. SSE is uni-directional; for chat or two-way data, use [WebSockets](/recipes/api/websocket-bidirectional-chat) instead.
 5. Sending binary data directly. SSE only supports UTF-8 text. Base64-encode binary payloads or use WebSockets for binary streaming.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How is SSE different from WebSockets?
 

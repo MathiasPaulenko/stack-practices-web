@@ -328,7 +328,7 @@ async def parallel_run(v1_handler, v2_handler, request):
 - Using multiple versioning strategies simultaneously — pick one and be consistent
 - Not testing old versions after deploying new ones — regressions in v1 go unnoticed
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I create a new API version?
 

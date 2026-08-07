@@ -277,7 +277,7 @@ The template separates communications by **audience** (customers need reassuranc
 4. Forgetting to notify internal teams. Customer communication is visible, but internal teams need coordination too
 5. Sending resolution before verification. Confirming resolution prematurely leads to reopening
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do we handle incidents where we do not know the root cause yet?
 

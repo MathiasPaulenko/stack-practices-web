@@ -241,7 +241,7 @@ JSR-354 `MonetaryAmount` is a standardized value object for money, handling curr
 
 The upcoming `Temporal.PlainDate` will replace `Date` as an immutable value object for calendar dates without time zone confusion.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Value Object and Entity?**
 A: An Entity is defined by identity (a user with ID 42). A Value Object is defined by attributes ($20 USD). Entities change; value objects are replaced.

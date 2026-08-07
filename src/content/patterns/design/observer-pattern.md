@@ -185,7 +185,7 @@ When the Subject's state changes, it iterates over its observers and calls their
 - **Tight coupling**: Giving observers access to the full subject instead of just the data they need
 - **Synchronous blocking**: Running slow observers in the main notification thread
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Observer and Pub/Sub?**
 A: Observer is a direct subject-observer relationship. Pub/Sub adds an event broker ([Mediator](/patterns/design/mediator-pattern)) that decouples publishers from subscribers completely.

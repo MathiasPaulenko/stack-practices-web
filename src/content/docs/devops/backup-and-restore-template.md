@@ -286,7 +286,7 @@ groups:
 6. Not testing restores under time pressure; a restore that works in 4 hours during a drill may take 8 during an incident
 7. Forgetting to backup configuration files, secrets, and IAM policies alongside data
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should I test restores?
 

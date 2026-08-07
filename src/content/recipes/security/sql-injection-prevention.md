@@ -167,7 +167,7 @@ with Session(engine) as session:
 - **Using `LIKE` without escaping wildcards**: `%` and `_` in user input can cause unexpected matches even in parameterized queries.
 - **Assuming stored procedures are safe**: procedures that build live SQL internally are still vulnerable unless they use parameterized queries themselves.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is it safe to use string formatting for table names or column names?**
 A: No. Table and column names are identifiers, not data values, and cannot be parameterized. Use an allowlist of permitted identifiers and reject anything else.

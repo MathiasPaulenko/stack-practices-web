@@ -297,7 +297,7 @@ Provisioned concurrency is the managed alternative. AWS keeps a specified number
 - **Using warm pool for low-traffic functions** — if the function is rarely invoked, the warmup cost exceeds the cold start cost. Only warm functions with frequent, latency-sensitive traffic.
 - **Ignoring provisioned concurrency** — for production APIs with strict SLAs, provisioned concurrency is more reliable. Pings can miss the window if traffic arrives between pings.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long does a Lambda environment stay warm?
 

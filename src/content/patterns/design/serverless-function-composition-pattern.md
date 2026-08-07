@@ -362,7 +362,7 @@ The composition pattern separates orchestration from execution:
 - **Over-orchestration** — do not use Step Functions for a simple 2-step process. Direct invocation or EventBridge is simpler and cheaper.
 - **Passing large payloads between steps** — Step Functions has a 256KB payload limit. Pass references (S3 keys, database IDs) instead of full data.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between orchestration and choreography?
 

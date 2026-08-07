@@ -325,7 +325,7 @@ Key concepts:
 - Panicking during a rebase gone wrong. Use `git rebase --abort` to cancel and return to the original state.
 - Not using `git reflog` for recovery. Reflog has all head movements, even after a bad rebase.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Is interactive rebase safe?
 

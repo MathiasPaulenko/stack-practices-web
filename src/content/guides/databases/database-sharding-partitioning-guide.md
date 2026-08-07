@@ -251,7 +251,7 @@ When shards become uneven, you must move data.
 - Not planning for rebalancing until a shard is 90% full
 - Sharding too early (< 10M rows or < 1K writes/second). See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide).
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I start sharding?
 

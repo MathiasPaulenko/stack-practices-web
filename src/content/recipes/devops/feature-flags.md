@@ -267,7 +267,7 @@ public class FeatureFlags {
 4. Over-targeting flags to individual users instead of groups, making management unscalable.
 5. Releasing a feature under a flag without monitoring or alerting, missing production issues.
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I remove a feature flag?
 

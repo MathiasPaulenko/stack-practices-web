@@ -289,7 +289,7 @@ The relational database schema is simple: an `events` table with `aggregate_id`,
 - **Mutable events**: Events must be immutable — never update or delete historical events
 - **Missing event schema evolution**: Old events need migration strategies as the domain model changes
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Doesn't event sourcing use too much storage?**
 A: Events are typically small (hundreds of bytes). For a system with 1M transactions/day, that's ~100MB/day. With compression and archiving, storage costs are usually negligible compared to the audit value.

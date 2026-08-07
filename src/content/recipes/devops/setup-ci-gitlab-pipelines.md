@@ -195,7 +195,7 @@ test:
 - **Storing secrets in `.gitlab-ci.yml`** — always use CI/CD variables from the project settings.
 - **Forgetting `tags` for self-hosted runners** causes jobs to queue indefinitely on shared runners.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is a GitLab Runner?**
 A: A GitLab Runner is the agent that executes pipeline jobs. It can be shared, group-specific, or project-specific, and runs on Linux, Windows, macOS, or Kubernetes.

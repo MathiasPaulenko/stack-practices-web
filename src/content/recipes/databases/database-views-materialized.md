@@ -201,7 +201,7 @@ A **materialized view** stores the query result on disk. Reads are as fast as qu
 4. **Complex views with no underlying indexes** — a view does not create indexes; ensure base tables are indexed
 5. **Using views for real-time transactional queries** — views add query overhead; use them for reporting, not OLTP hot paths. See [Database Transactions](/recipes/databases/database-transactions) for transactional patterns.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I update data through a view?
 

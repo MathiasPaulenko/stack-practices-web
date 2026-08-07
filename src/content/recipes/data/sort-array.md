@@ -288,7 +288,7 @@ e.ASCII and explicit anchors for security-sensitive regexes
 - Cache validation results by input hash to avoid redundant processing
 - Use Decimal for money, int for counts, str for IDs. Never use loat for exact values
 - Log validation failures with field path, value, and expected type for debugging
-## Frequently Asked Questions
+## FAQ
 
 **Q: Why does `[10, 2].sort()` return `[10, 2]` in JavaScript?**
 A: The default `sort()` converts elements to strings and compares UTF-16 code units. `"10"` comes before `"2"` lexicographically. Always pass `(a, b) => a - b` for numeric sorts.

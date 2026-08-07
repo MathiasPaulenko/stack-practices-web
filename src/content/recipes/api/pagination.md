@@ -227,7 +227,7 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing. Generate correlation IDs server-side and ignore client-provided ones.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Which pagination method should I use for a REST API?**
 A: Cursor-based for public/high-traffic APIs (feeds, search). Offset-based for admin/internal tools where users need page numbers.

@@ -286,7 +286,7 @@ Person cloned = DeepCopyUtil.deepCopy(original);
 4. Cloning DOM elements or functions with `structuredClone` — it throws a `DataCloneError` for non-serializable types.
 5. Deep cloning unnecessarily large objects on every render, causing performance bottlenecks. Use memoization or structural sharing instead.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Why does `{...obj}` not create a deep copy?
 

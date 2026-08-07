@@ -238,7 +238,7 @@ v2.4.1 introduced a retry loop that leaked database connections.
 - Not having a secondary on-call for escalation
 - Keeping the same person on-call for weeks
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if I do not know how to fix the issue?
 

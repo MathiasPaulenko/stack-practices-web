@@ -384,7 +384,7 @@ Node.js `readable.pipe(writable)` automatically handles back-pressure. When the 
 
 Reactive Streams implementations use explicit demand signaling. A downstream subscriber calls `request(n)`, granting the upstream permission to send `n` more elements.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between back-pressure and throttling?**
 A: Back-pressure is reactive: the consumer signals the producer to slow down. Throttling is proactive: the producer limits its own rate regardless of consumer capacity.

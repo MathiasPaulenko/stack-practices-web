@@ -217,7 +217,7 @@ UNIQUE_PATH="${TMPDIR:-/tmp}/batch_$(date +%s)_$$_$RANDOM.csv"
 - **Using `Date.now()` as the only randomizer in Node.js.** Millisecond collisions are possible under load — combine with crypto-random bytes.
 - **Creating temp files in the working directory.** Pollutes the project and may be committed accidentally.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Why is `mktemp` safer than creating files in /tmp manually?**
 A: `mktemp` generates unique filenames with restrictive permissions, preventing race conditions and predictable paths that attackers could exploit.

@@ -498,7 +498,7 @@ class PluginLifecycle:
 
 2. **No manejar conflictos de versión de plugins.** Dos plugins pueden depender de versiones incompatibles de una librería compartida. Implementa resolución de dependencias y detección de conflictos antes de cargar. Falla rápido con mensajes de error claros en lugar de crashear en runtime.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### Cómo manejo configuración de plugins?
 

@@ -425,7 +425,7 @@ The key insight is that tool definitions consume tokens. A tool with 5 parameter
 - Forgetting to include a read/search tool in every phase, leaving the agent unable to gather information
 - Making the selector too aggressive, removing tools the agent actually needs
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many tools should I limit to per step?**
 A: Research shows LLM tool selection accuracy degrades beyond 7-10 tools. Aim for 4-6 relevant tools per step. If you need more, consider hierarchical selection.

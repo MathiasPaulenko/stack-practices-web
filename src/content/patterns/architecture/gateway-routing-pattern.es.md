@@ -355,7 +355,7 @@ routes:
 
 2. **Sobrecargar el gateway con logica de transformacion.** Las transformaciones complejas aumentan la latencia y dificultan el debugging. Mueve la logica de transformacion pesada a servicios BFF (Backend for Frontend) dedicados.
 
-## FAQs Adicionales
+## FAQ Adicionales
 
 ### ¿Cómo manejo la autenticacion en el gateway?
 

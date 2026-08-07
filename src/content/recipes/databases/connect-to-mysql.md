@@ -153,7 +153,7 @@ MySQL uses **prepared statements** through protocol-level placeholders (`%s` in 
 4. Using `SELECT *` in production without considering column count and network overhead
 5. Opening connections in loops instead of reusing pooled connections
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use `mysql-connector-python` or `PyMySQL`?
 

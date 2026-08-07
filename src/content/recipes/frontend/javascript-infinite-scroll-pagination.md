@@ -399,7 +399,7 @@ Key concepts:
 - Appending thousands of items to the DOM without virtual scrolling. This degrades performance severely.
 - Not including a `hasMore` flag. The observer keeps firing forever, making unnecessary API calls.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How is IntersectionObserver better than scroll events?
 

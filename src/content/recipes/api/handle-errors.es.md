@@ -293,7 +293,7 @@ Benchmarks en Node.js 20, single core, 1000 error responses. Los resultados vari
 
 ## Preguntas Frecuentes
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: ¿Debería usar RFC 7807 o un formato personalizado más simple?**
 A: RFC 7807 es recomendado para APIs públicas y microservicios. Para herramientas internas, un objeto `{ error, message }` más simple está bien si es consistente en todos los endpoints.

@@ -314,7 +314,7 @@ if __name__ == "__main__":
 - **Using production dumps as seeds.** A production SQL dump may contain PII, GDPR-sensitive data, or internal IDs that should not be in git or developer machines.
 - **Non-deterministic seeds.** Randomly generated seed data makes reproducing bugs across environments impossible. Use a fixed seed for random generators in seed scripts.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between seeding and migrating a database?**
 A: Migrations change the schema structure (tables, indexes). Seeding populates the database with reference data or test records after the schema is ready.

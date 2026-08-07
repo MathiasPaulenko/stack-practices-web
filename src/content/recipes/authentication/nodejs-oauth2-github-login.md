@@ -407,7 +407,7 @@ Key concepts:
 - Not handling the denial case. GitHub redirects back with `error=access_denied`.
 - Storing access tokens in localStorage. XSS attacks can steal them. Use httpOnly cookies or server-side sessions.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I get a GitHub OAuth client ID and secret?
 

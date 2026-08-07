@@ -143,7 +143,7 @@ The review separates identification of access from approval. By listing every ac
 - Failing to review service accounts and API keys.
 - Missing cloud console access when reviewing application roles.
 
-## FAQs
+## FAQ
 
 ### What is an orphan account?
 

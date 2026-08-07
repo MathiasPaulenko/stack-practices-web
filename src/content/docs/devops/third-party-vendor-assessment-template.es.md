@@ -152,7 +152,7 @@ La plantilla recolecta evidencia consistente entre proveedores, lo que facilita 
 - Asignar la puntuacion a una sola persona sin revision entre pares.
 - Ignorar subcontratistas o dependencias de cuarto nivel usadas por el proveedor.
 
-## FAQs
+## FAQ
 
 ### Que pasa si un proveedor se niega a compartir un reporte SOC 2?
 

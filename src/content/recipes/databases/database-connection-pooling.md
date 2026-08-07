@@ -176,7 +176,7 @@ A connection pool maintains a set of open database connections. When a request n
 4. Not monitoring wait times, letting slow queries block the entire pool
 5. Forgetting to set max lifetime, causing stale connections after database restarts
 
-## Frequently Asked Questions
+## FAQ
 
 ### How many connections should my pool have?
 

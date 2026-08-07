@@ -151,7 +151,7 @@ spec:
 - **Logging secrets**: never log the full value of a secret. If you must log access, log the secret name and timestamp, never the password itself.
 - **Using Kubernetes Secrets without etcd encryption**: by default, Kubernetes Secrets are base64-encoded, not encrypted. Enable etcd encryption at rest.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I use a `.env` file in production?**
 A: Only as a last resort. `.env` files are readable by anyone with server access. Prefer a secret manager that provides encryption, access control, and rotation.

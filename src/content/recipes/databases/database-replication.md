@@ -164,7 +164,7 @@ await query('UPDATE users SET last_login = NOW() WHERE id = $1', [userId]);
 4. **Single network path**: Replicas in the same AZ as primary share the same failure domain
 5. **Reading from lagging replicas**: Showing stale data to users who just wrote causes confusion
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How much replication lag is acceptable?**
 A: For analytics: minutes. For user-facing reads: <1 second. For financial data: use synchronous replication.

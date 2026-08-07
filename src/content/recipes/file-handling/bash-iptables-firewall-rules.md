@@ -121,7 +121,7 @@ The script starts by flushing existing rules and resetting counters. It sets a d
 4. **Ignoring IPv6.** `ip6tables` needs its own rule set; many servers are dual-stack.
 5. **Relying only on iptables.** Use cloud security groups and network ACLs as additional layers.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between iptables and nftables?**
 A: iptables is the legacy framework. nftables is the modern replacement with a simpler syntax and better performance. Many distros now use nftables as the backend.

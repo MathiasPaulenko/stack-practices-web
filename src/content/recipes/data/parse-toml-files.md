@@ -277,7 +277,7 @@ Arrays of tables use `[[table_name]]` syntax to define multiple entries with the
 - **Large data files**: TOML is for configuration, not data storage; use JSON or a database for large datasets
 - **Legacy systems**: If your toolchain only supports INI or JSON, adding TOML support may not be worth the migration cost
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use TOML or YAML for my project configuration?
 

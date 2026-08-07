@@ -218,7 +218,7 @@ The reliable pattern is:
 - **No rate limiting on uploads**: A 500MB Excel file will crash most import processes. Enforce max file sizes and use background jobs for large imports.
 - **Silent data loss**: Truncating `VARCHAR(255)` columns without warning loses data. Validate length constraints explicitly.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I handle a 1GB CSV file?
 

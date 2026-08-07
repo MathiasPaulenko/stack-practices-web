@@ -279,7 +279,7 @@ Common namespace strategies:
 - Not handling SIGTERM, causing abrupt shutdowns and data loss
 - Deploying everything to the `default` namespace without isolation
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a Pod and a Deployment?**
 A: A Pod is a single instance. A Deployment is a controller that manages multiple Pod replicas, handles rolling updates, and self-heals if Pods fail.

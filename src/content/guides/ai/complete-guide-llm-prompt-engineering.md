@@ -413,7 +413,7 @@ def evaluate_response(prompt: str, response: str) -> dict:
 - Not setting system constraints — the model may produce off-topic or unsafe content
 - Forgetting context limits — long conversations exceed token windows
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between zero-shot and few-shot prompting?
 

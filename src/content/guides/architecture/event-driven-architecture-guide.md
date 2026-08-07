@@ -223,7 +223,7 @@ def on_payment_failed(event):
 - Building custom message brokers — use proven systems (Kafka, RabbitMQ, NATS, AWS SNS/SQS)
 - Using events for simple request/response — adds unnecessary complexity
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I debug an event-driven system?
 

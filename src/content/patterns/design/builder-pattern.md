@@ -484,7 +484,7 @@ MarkdownReport markdown = builder.buildMarkdown();
 
 10. **Keep builders focused.** A builder should construct one type of object. Don't add unrelated construction logic.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Builder and Factory?**
 A: [Factory](/patterns/design/factory-pattern) decides which class to instantiate. Builder assembles a single complex object step by step. They solve different problems and can be used together.

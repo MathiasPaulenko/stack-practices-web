@@ -393,7 +393,7 @@ Vue templates bind to reactive data: `<input v-model="message">`. The `data()` f
 
 `ViewModel` + `LiveData` + `Data Binding` form Android's MVVM stack. The ViewModel survives configuration changes like screen rotation.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between MVVM and MVP?**
 A: [MVP](/patterns/design/model-view-presenter-pattern) uses explicit method calls through an interface. MVVM uses declarative data binding where the ViewModel exposes properties that the View observes.

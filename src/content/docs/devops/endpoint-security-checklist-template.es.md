@@ -140,7 +140,7 @@ Los endpoints son el primer objetivo de phishing, malware y robo de credenciales
 - No probar los procedimientos de borrado remoto antes de un incidente.
 - No revocar el acceso durante la baja de un empleado.
 
-## FAQs
+## FAQ
 
 ### Que cuenta como un endpoint?
 

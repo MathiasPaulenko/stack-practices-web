@@ -305,7 +305,7 @@ This prevents resource exhaustion from repeated failed calls and gives failing s
 - Not providing fallback behavior, leading to poor user experience when circuits are open
 - Ignoring half-open state, never allowing recovery testing after a failure
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is Circuit Breaker different from Retry?**
 A: [Retry](/patterns/design/retry-pattern) attempts the same operation multiple times. Circuit Breaker stops calling a failing service altogether. They work well together: retry for transient failures, circuit breaker for persistent outages.

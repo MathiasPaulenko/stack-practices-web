@@ -286,7 +286,7 @@ The Federated Identity Pattern separates authentication from the application:
 - Not implementing logout — users stay logged in across apps even after explicit logout
 - Trusting unverified claims — always verify the issuer and audience before using claims
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between OAuth2 and OIDC?**
 A: OAuth2 is an authorization framework — it grants access to resources. OIDC is an authentication layer built on top of OAuth2 — it proves who the user is via ID tokens. Use OIDC when you need authentication, OAuth2 when you need delegated access.

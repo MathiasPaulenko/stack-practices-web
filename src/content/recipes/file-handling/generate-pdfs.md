@@ -189,7 +189,7 @@ HTML-to-PDF is the dominant approach today because it separates presentation (CS
 - **Hardcoding paths**: Use temp directories or streams, not `/tmp/output.pdf`.
 - **Forgetting to close the browser / document**: Leaks memory and file handles.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Can I generate a PDF from a React/Vue component?
 

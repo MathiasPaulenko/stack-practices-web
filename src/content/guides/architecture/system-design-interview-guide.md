@@ -217,7 +217,7 @@ Network partitions are unavoidable, so you choose between CP (consistent) or AP 
 - Forgetting [monitoring](/recipes/devops/prometheus-monitoring-alerts), [security](/guides/security/security-best-practices-guide), and operational concerns
 - Designing for infinite scale when the requirements don't justify it
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How deep should I go into a technology?**
 A: Deep enough to explain why you chose it and its limitations. If you mention Redis, be ready to explain eviction policies and persistence options.

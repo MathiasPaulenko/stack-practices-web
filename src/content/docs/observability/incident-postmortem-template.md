@@ -328,7 +328,7 @@ Action items are the output that matters. Each action item should have an owner,
 6. Skipping "what went well" — acknowledging good responses reinforces them
 7. Making postmortems private — sharing across teams prevents similar incidents elsewhere
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should we write a postmortem?
 

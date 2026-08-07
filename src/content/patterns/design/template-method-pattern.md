@@ -276,7 +276,7 @@ The Template Method Pattern has two types of methods in the base class:
 - Introducing deep inheritance hierarchies just to vary a single step
 - Overriding concrete methods in subclasses when hooks would suffice
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Template Method and Strategy?**
 A: Template Method uses inheritance to vary parts of an algorithm. [Strategy](/patterns/design/strategy-pattern) uses composition to swap entire algorithms. Prefer Strategy when you need runtime flexibility or many variations.

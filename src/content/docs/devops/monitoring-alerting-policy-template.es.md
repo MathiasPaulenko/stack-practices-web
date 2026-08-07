@@ -282,7 +282,7 @@ Puntuacion total menor a 18 significa que la alerta necesita ajuste o eliminacio
 - Faltar caminos de escalacion para incidentes severos.
 - No revisar y retirar alertas obsoletas despues de cambios en el sistema.
 
-## FAQs
+## FAQ
 
 ### Que es la fatiga de alertas y como la evitamos?
 

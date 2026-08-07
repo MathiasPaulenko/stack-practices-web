@@ -261,7 +261,7 @@ WHERE id IN (1, 2, 3, ...);
 - **Use appropriate data types** — `INTEGER` is faster than `VARCHAR` for IDs
 - **[Partition large tables](/guides/databases/database-sharding-partitioning-guide)** by date or range when they exceed 10M rows
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many indexes is too many?**
 A: There is no fixed number, but each index slows INSERT/UPDATE/DELETE. Audit indexes quarterly and drop unused ones. PostgreSQL's `pg_stat_user_indexes` shows index usage.

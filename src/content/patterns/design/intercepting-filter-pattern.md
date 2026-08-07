@@ -437,7 +437,7 @@ Express middleware functions are Intercepting Filters: `app.use((req, res, next)
 
 ASP.NET Core builds the request pipeline with `app.Use()`, `app.Map()`, and custom middleware classes implementing `Invoke()`.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Intercepting Filter and Chain of Responsibility?**
 A: Chain of Responsibility has multiple handlers, any of which may process the request. Intercepting Filter has a single target, with all filters contributing preprocessing/postprocessing.

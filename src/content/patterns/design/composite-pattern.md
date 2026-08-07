@@ -267,7 +267,7 @@ Clients interact with all objects through the Component interface, making the tr
 - Forgetting to handle the edge case of empty composites in recursive operations
 - Mixing composite logic with domain logic, making the pattern hard to test
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: When should I use Composite instead of a flat list?**
 A: Use Composite when your data is naturally hierarchical and you need to perform recursive operations. For flat or shallow structures, a simple list with grouping is usually sufficient. If you need to add behavior to individual objects without tree semantics, use [Decorator](/patterns/design/decorator-pattern) instead.

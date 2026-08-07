@@ -254,7 +254,7 @@ Configure GitHub to auto-assign reviewers based on CODEOWNERS file. This ensures
 
 Use GitHub merge queues to serialize merges and prevent conflicts. Each PR is rebased on the latest main before merging, catching integration issues early.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should every pull request use a template?
 

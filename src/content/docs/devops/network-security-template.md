@@ -150,7 +150,7 @@ The template treats your network as a **defense-in-depth system**. Segmentation 
 4. Not monitoring VPC flow logs, missing lateral movement during a breach
 5. Hardcoding IP addresses in DNS instead of using CNAMEs to load balancers
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I audit existing security groups quickly?
 

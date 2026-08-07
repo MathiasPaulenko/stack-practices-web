@@ -159,7 +159,7 @@ The checklist is organized by concern rather than by file type. This prevents re
 4. Reviewing alone. Pair reviews on critical changes catch issues solo reviewers miss
 5. Focusing only on the diff. Reviewers should also check that the PR description, tests, and documentation are consistent
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should a code review take?
 

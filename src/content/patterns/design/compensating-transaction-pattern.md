@@ -542,7 +542,7 @@ Booking a trip involves flights, hotels, and car rentals. If the hotel booking f
 
 An inter-bank transfer saga debits the source account, initiates a wire, and credits the destination. If the wire fails, the saga credits the source account back (compensating the debit).
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between compensating transaction and database rollback?**
 A: Rollback undoes uncommitted changes within a single database transaction. Compensation undoes committed changes across distributed systems by executing counter-business-operations.

@@ -373,7 +373,7 @@ The reviewer can be a human via CLI, a web UI, a Slack approval button, or even 
 - Not logging approvals, making audits impossible
 - Treating rejections as failures instead of feedback for the agent to adjust
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I determine the risk level of an action?**
 A: Ask: is this action reversible? Does it affect external systems? Does it cost money? If yes to any, classify as high risk. Read-only operations are low risk. Internal state changes with no external effect are medium risk.

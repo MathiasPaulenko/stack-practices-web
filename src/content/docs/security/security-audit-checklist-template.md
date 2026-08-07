@@ -205,7 +205,7 @@ Notes: [OBSERVATIONS]
 4. Not updating the checklist as the threat space evolves
 5. Keeping audit results in a silo instead of sharing with engineering teams
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long should a security audit take?
 

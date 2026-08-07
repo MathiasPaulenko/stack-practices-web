@@ -290,7 +290,7 @@ Total score below 18 means the alert needs tuning or removal.
 - Not including service name and environment in alert labels, making triage harder.
 - Alerting on absolute values instead of rates or ratios, causing false positives during traffic spikes.
 
-## FAQs
+## FAQ
 
 ### What is alert fatigue and how do we avoid it?
 

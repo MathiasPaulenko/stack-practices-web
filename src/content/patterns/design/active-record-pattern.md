@@ -306,7 +306,7 @@ The class is both a domain model and a gateway to the database. This simplicity 
 
 `User::find(1)` and `$user->save()` follow Active Record. Eloquent also supports relationships, scopes, and query builders.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Active Record and Data Mapper?**
 A: Active Record puts persistence methods on the domain object. [Data Mapper](/patterns/design/data-mapper-pattern) uses a separate class to map objects to the database, keeping the domain model pure.

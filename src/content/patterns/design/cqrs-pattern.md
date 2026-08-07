@@ -315,7 +315,7 @@ The two models are synchronized either synchronously (same transaction) or async
 - Over-engineering with separate databases before proving the need
 - Not handling read model rebuilds when projection logic changes
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does CQRS require Event Sourcing?**
 A: No. CQRS can be used with any persistence model. [Event Sourcing](/patterns/design/event-sourcing-pattern) is often paired with CQRS because events make natural source data for read model projections, but they are independent patterns.

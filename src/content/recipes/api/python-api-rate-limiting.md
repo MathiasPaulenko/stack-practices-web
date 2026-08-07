@@ -380,7 +380,7 @@ The Lua script in the Redis variant is important: without atomic execution, conc
 - Not returning `Retry-After`. Clients cannot implement backoff without it.
 - Forgetting to clean up Redis keys. Inactive client keys accumulate and consume memory.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I test rate limiting locally?
 

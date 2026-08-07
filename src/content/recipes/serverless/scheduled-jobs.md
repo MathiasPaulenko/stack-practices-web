@@ -276,7 +276,7 @@ job:
 - **Provisioned concurrency**: allocate provisioned concurrency for critical functions. AWS Lambda provisioned concurrency keeps functions warm. Azure Functions premium plan provides pre-warmed instances. Google Cloud Functions min instances for warm functions. Document provisioned concurrency strategy. Monitor provisioned concurrency utilization. Alert on provisioned concurrency exhaustion. Review configuration monthly. Balance cost and performance. Use auto-scaling with provisioned concurrency
 - **Lazy initialization**: initialize heavy resources lazily inside the handler. Load dependencies only when needed. Defer database connections until first use. Cache initialized resources between invocations. Document lazy initialization strategy. Test cold start impact. Monitor initialization time. Review lazy initialization code regularly. Optimize initialization sequence
 - **Package optimization**: minimize package size for faster cold starts. Remove unnecessary dependencies. Use tree shaking. Minify production code. Use Lambda layers for shared dependencies. Document package optimization strategy. Test package size impact. Monitor cold start duration. Review package contents regularly. Use bundlers for optimization
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the maximum frequency for serverless scheduled functions?**
 A: AWS EventBridge supports rates as low as 1 minute. GCP Cloud Scheduler supports 1 minute. For sub-minute intervals, use CloudWatch Events with custom logic or switch to a continuously running process.

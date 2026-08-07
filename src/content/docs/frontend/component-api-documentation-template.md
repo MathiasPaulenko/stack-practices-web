@@ -437,7 +437,7 @@ The migration guide helps with version upgrades. List every breaking change with
 6. No testing examples — consumers don't know how to test with the component
 7. Vague descriptions — "sets the color" doesn't explain what colors are valid
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do we keep documentation in sync with code?
 

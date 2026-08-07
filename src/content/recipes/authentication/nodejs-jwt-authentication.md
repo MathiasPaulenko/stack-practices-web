@@ -390,7 +390,7 @@ Key concepts:
 - Not implementing refresh token revocation. Users cannot log out if tokens are only stateless.
 - Setting long expiration on access tokens. If stolen, the attacker has access for the full duration.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use JWT or server-side sessions?
 

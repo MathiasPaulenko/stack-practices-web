@@ -325,7 +325,7 @@ window.addEventListener("scroll", updateScrollProgress, { passive: true });
 - Forgetting to pass `this` and `args` through. The debounced function loses context and arguments.
 - Debouncing with a very long delay. The user thinks the app is broken. Keep delays under 1 second for UI feedback.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between debounce and throttle?
 

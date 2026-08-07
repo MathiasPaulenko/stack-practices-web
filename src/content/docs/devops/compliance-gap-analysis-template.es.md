@@ -148,7 +148,7 @@ El analisis de brechas convierte el cumplimiento en un proyecto útil. Al mapear
 - Sobre-documentar controles triviales mientras se omiten brechas criticas.
 - No vincular el analisis de brechas con historial de incidentes o evaluaciones de riesgo.
 
-## FAQs
+## FAQ
 
 ### Cuanto tiempo toma un analisis de brechas?
 

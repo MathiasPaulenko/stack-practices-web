@@ -702,7 +702,7 @@ print(chain({}))                    # Unauthorized
 
 10. **Test handlers in isolation.** Write unit tests for each handler independently, then integration tests for the complete chain.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is this the same as middleware in web frameworks?**
 A: Yes. Express.js middleware, Django middleware, and ASP.NET Core middleware are all implementations of the [Chain of Responsibility](/patterns/design/chain-of-responsibility-middleware) Pattern. Each middleware decides whether to process the request, pass it along, or short-circuit with a response.

@@ -302,7 +302,7 @@ Instagram shards its PostgreSQL database by user ID. Each user's data (photos, l
 
 Discord shards its massive message store by server (guild) ID. Each Discord server has a shard assignment, and messages for that server are stored on that shard. This keeps message history queries fast and localized.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is sharding different from partitioning?**
 A: Partitioning splits data within a single database instance. Sharding distributes partitions across multiple independent servers, each capable of operating autonomously.

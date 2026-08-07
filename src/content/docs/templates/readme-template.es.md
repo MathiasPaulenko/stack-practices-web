@@ -243,7 +243,7 @@ Tests:
 - **Sin licencia** — bloquea legalmente el uso y la contribución
 - **Copiar de otro proyecto** — links obsoletos y nombres de proyectos incorrectos
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: ¿Qué tan largo debe ser un README?**
 A: Lo más corto posible mientras responda: ¿Qué es esto? ¿Cómo lo instalo? ¿Cómo lo uso? ¿Dónde obtengo ayuda?

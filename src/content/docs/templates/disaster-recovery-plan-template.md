@@ -156,7 +156,7 @@ If your database backups run every hour and your RPO is 15 minutes, your backup 
 - Ignoring data consistency during failover — split-brain writes corrupt data
 - RTO/RPO set by managers without engineering input — if the target is physically impossible, the plan is theater
 
-## Frequently Asked Questions
+## FAQ
 
 ### How often should I test disaster recovery?
 

@@ -293,7 +293,7 @@ Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary
 - **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling. Implement fallback logic on the client and document the degradation strategy.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How many concurrent WebSockets can one server handle?**
 A: Node.js handles ~10k-50k, Go ~100k+, Java (Netty) ~1M+. Use load testing with your actual payload size to determine real limits.

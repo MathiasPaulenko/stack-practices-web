@@ -249,7 +249,7 @@ ORDER BY expiry_date ASC;
 - Usar certificados auto-firmados para servicios publicos.
 - No revocar certificados despues de una compromiso.
 
-## FAQs
+## FAQ
 
 ### Cual es la diferencia entre SSL y TLS?
 

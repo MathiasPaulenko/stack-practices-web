@@ -299,7 +299,7 @@ For large organizations, expand the template with: Background, Goals, Non-goals,
 
 MADR is a structured markdown format for ADRs with specific frontmatter fields. It adds `status`, `deciders`, `date`, and `tags` as machine-readable metadata. Useful when you want to generate an ADR index or dashboard automatically.
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I write an ADR?
 

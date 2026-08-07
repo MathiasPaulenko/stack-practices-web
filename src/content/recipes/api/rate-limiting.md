@@ -243,7 +243,7 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing. Generate correlation IDs server-side and ignore client-provided ones.
 
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should I rate limit at the edge or in the application?**
 A: Both. Use edge/CDN (Cloudflare, AWS WAF) for DDoS protection and application-level limits for business logic.

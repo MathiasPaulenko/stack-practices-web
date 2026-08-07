@@ -286,7 +286,7 @@ Block style uses indentation to show structure. Flow style uses `{}` and `[]` li
 - **Simple configs**: For flat key-value configs, TOML or INI are simpler and less error-prone
 - **Machine-to-machine**: JSON is more compact and universally supported for API payloads
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use YAML or JSON for configuration?
 

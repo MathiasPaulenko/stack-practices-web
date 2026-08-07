@@ -350,7 +350,7 @@ The Pipes and Filters Pattern decomposes processing into independent components:
 - Not typing filter inputs/outputs — runtime errors from type mismatches are hard to debug
 - Ignoring backpressure in streaming pipelines — slow filters cause memory buildup in pipes
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How is this different from Chain of Responsibility?**
 A: In Chain of Responsibility, each handler decides whether to pass the request along or stop. In Pipes and Filters, every filter processes the data and passes it to the next. Pipes and Filters is about transformation; Chain of Responsibility is about handling.

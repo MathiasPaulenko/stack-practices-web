@@ -279,7 +279,7 @@ edux). Tree-shake unused exports
 - **Log aggregation**: structure logs as JSON with timestamp, level, route, requestId, and message. Use pino for fast structured logging in Node.js. Ship logs to Elasticsearch or CloudWatch. Set up log-based alerts for errors
 - **Error tracking**: use Sentry or Bugsnag to capture SSR errors. Include request context (URL, headers, user). Set up release tracking to correlate errors with deployments. Alert on new errors and error rate spikes
 - **Synthetic monitoring**: use Checkly or Uptime Robot to ping critical pages every 5 minutes. Verify HTTP status, response time, and content. Alert on downtime. Test from multiple geographic regions
-## Frequently Asked Questions
+## FAQ
 
 **Q: Does SSR hurt performance?**
 A: It improves initial load but adds server cost. Use SSG or ISR for content that doesn't change per user.

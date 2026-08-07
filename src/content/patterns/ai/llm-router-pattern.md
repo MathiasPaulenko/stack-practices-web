@@ -401,7 +401,7 @@ The classification step is the critical component. Rules-based classification is
 - Routing based on user tier instead of query complexity, causing quality inconsistency
 - Not measuring routing accuracy — without feedback loops, bad routing rules persist
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How much cost can I save with an LLM router?**
 A: Typically 40-70% for applications with mixed query complexity. If 80% of queries are simple and you route them to a model that costs 30x less, the savings compound quickly.

@@ -360,7 +360,7 @@ GitHub's contribution graphs and repository statistics are materialized views. C
 
 Shopify uses materialized views for merchant analytics dashboards. Revenue, order counts, and inventory levels are aggregated nightly into materialized views. Merchants see "yesterday's" data instantly rather than waiting for live aggregation across billions of rows.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I choose between a standard view and a materialized view?**
 A: Use a standard view when data freshness is critical and query performance is acceptable. Use a materialized view when the query is expensive and staleness of minutes/hours is acceptable.

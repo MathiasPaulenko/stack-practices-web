@@ -290,7 +290,7 @@ Parsing Markdown is CPU-bound, not I/O-bound. For large documentation sites (100
 - **Malicious PDF content**: PDF files can contain JavaScript, embedded files, or launch actions. Use PyPDF2 with strict mode or run PDF parsing in a sandboxed container
 - **Log injection via newline in parsed data**: if parsed data is written to log files, embedded newlines can forge log entries. Strip or escape newline characters before logging
 - **Resource exhaustion via deeply nested structures**: JSON or XML with 10,000+ nesting levels causes stack overflow in recursive parsers. Set recursion depth limits before parsing
-## Frequently Asked Questions
+## FAQ
 
 ### How do I add custom syntax highlighting to code blocks?
 

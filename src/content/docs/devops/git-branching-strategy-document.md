@@ -353,7 +353,7 @@ The document separates branching strategy into **branch types** (what they are c
 4. **Squash-merging hotfixes** — loses the ability to cherry-pick or identify the fix commit
 5. **Not deleting merged branches** — clutter makes it harder to find active work
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should we use GitFlow, GitHub Flow, or trunk-based development?
 

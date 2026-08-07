@@ -221,7 +221,7 @@ def create_order(order):
 - Removing the monolith too early — it is your safety net until services are stable
 - Not investing in developer experience — local development and [testing](/guides/testing/testing-strategy-guide) become much harder with microservices
 
-## Frequently Asked Questions
+## FAQ
 
 ### How long does a monolith-to-microservices migration take?
 

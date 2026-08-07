@@ -255,7 +255,7 @@ Questions?
 4. Not documenting known issues; support discovers them from angry customers
 5. Treating every release the same; a security patch needs different messaging than a new feature
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I communicate every release, or only major ones?
 

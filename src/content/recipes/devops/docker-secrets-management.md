@@ -289,7 +289,7 @@ Key principles:
 - Not rotating secrets. Compromised secrets should be replaceable without downtime.
 - Using the same secret across environments. Dev, staging, and prod should have different secrets.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Are Docker Compose secrets as secure as Swarm secrets?
 

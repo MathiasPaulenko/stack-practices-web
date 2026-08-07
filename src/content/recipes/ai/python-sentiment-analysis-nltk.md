@@ -223,7 +223,7 @@ The `compound` score is a normalized, weighted sum of all lexicon scores in the 
 - Ignoring the `neu` score. A high neutral ratio means the text is mostly informational, not opinionated.
 - Comparing VADER scores across languages. VADER is English-only. For Spanish, use `pysentimiento` or a multilingual transformer.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Does VADER support languages other than English?
 

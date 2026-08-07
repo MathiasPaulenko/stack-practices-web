@@ -357,7 +357,7 @@ For UI bugs yes, especially if the bug involves complex interactions (drag-and-d
 6. Assuming the developer knows your workflow — state preconditions explicitly
 7. No severity assessment — without severity, the team can't prioritize
 
-## Frequently Asked Questions
+## FAQ
 
 ### How do I find the minimal reproduction?
 

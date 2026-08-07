@@ -189,7 +189,7 @@ The template creates a **closed-loop system**: findings enter the tracker, get a
 4. Ignoring informational findings; they often reveal architecture gaps that become critical later
 5. Not updating the threat model after a pen-test; new findings should change your risk assumptions
 
-## Frequently Asked Questions
+## FAQ
 
 ### What if we cannot meet the SLA for a Critical finding?
 

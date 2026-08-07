@@ -466,7 +466,7 @@ def lambda_handler(event, context):
 - Using CloudWatch Logs with no retention — log volumes grow unbounded
 - Ignoring data transfer costs — cross-AZ and cross-region add up fast
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much can I save with AWS cost optimization?
 

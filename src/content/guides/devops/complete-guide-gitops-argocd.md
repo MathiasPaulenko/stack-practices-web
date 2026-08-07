@@ -403,7 +403,7 @@ data:
 - Not monitoring drift — enable notifications for out-of-sync status
 - Forgetting to prune — old resources persist if `prune: false`
 
-## Frequently Asked Questions
+## FAQ
 
 ### How is GitOps different from CI/CD?
 

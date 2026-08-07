@@ -143,7 +143,7 @@ def migrate_tenant_schema(tenant_id: str):
 4. **Hard-coded schemas**: Mixing tenant data in application code creates security holes
 5. **No tenant-aware logging**: Debugging production issues requires filtering logs by tenant
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Can I migrate from shared DB to schema-per-tenant later?**
 A: Yes, but it requires a major migration. Start with tenant_id columns and RLS even if you plan to split later.

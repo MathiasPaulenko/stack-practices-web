@@ -230,7 +230,7 @@ The playbook enforces a **single Incident Commander** to avoid conflicting decis
 4. Failing to rotate all secrets in the affected blast radius
 5. Treating the incident as closed as soon as systems are restored
 
-## Frequently Asked Questions
+## FAQ
 
 ### When should I involve legal or compliance?
 

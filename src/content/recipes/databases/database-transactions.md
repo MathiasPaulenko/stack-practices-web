@@ -174,7 +174,7 @@ COMMIT;
 - Not handling [deadlock exceptions](/recipes/databases/database-deadlocks-retries) (error code 40P01 in PostgreSQL)
 - Nesting transactions without savepoints
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between a transaction and a batch?**
 A: A batch sends multiple statements at once for efficiency. A transaction wraps them in ACID guarantees. You can batch inside a transaction.

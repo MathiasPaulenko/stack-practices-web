@@ -336,7 +336,7 @@ While Spring's dependency injection reduces the need for manual delegates, `@Ser
 
 API gateways in microservice architectures often implement Business Delegate logic, aggregating multiple backend services into a single client-facing interface.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Business Delegate and Facade?**
 A: A Facade simplifies a complex subsystem interface. A Business Delegate specifically mediates between presentation and remote/distributed business services.

@@ -279,7 +279,7 @@ Using a sort key cursor instead of an offset cursor is more efficient for large 
 - **Forgetting `hasPreviousPage`** — backward pagination requires tracking whether items exist before the current page. Calculate it from the offset or a reverse query.
 - **Not handling empty pages** — if a query returns zero edges, `startCursor` and `endCursor` must be `null`, not undefined. GraphQL requires explicit nulls.
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between offset and cursor pagination?
 

@@ -371,7 +371,7 @@ Netflix uses outbox tables to reliably publish workflow events from their task e
 
 Most order services use an outbox to publish `OrderPlaced` events. Payment, inventory, and shipping services consume these events independently.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: What is the difference between Outbox and Inbox?**
 A: [Outbox](/patterns/design/outbox-pattern) stores events your service publishes. [Inbox](/patterns/design/inbox-pattern) stores incoming events from other services to prevent duplicate processing.

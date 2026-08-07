@@ -163,7 +163,7 @@ liquibase --changeLogFile=db.changelog.xml update
 - **Locking tables during peak hours**: adding an index or altering a large table can lock for minutes. Schedule heavy migrations during maintenance windows or use online schema change tools.
 - **Forgetting about replicas**: migrations applied to a primary database may not replicate correctly if they contain non-deterministic functions or temporary tables.
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Should migrations be in the same repository as application code?**
 A: Yes. Keeping migrations and code together ensures every branch contains the schema it needs, and CI can validate both simultaneously.

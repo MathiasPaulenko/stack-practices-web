@@ -163,7 +163,7 @@ public class RawSQL {
 4. Forgetting to commit transactions, leaving data in an inconsistent state
 5. Using `Statement` instead of `PreparedStatement` in Java
 
-## Frequently Asked Questions
+## FAQ
 
 ### Is `cursor.execute(f"SELECT * FROM {table}")` safe?
 

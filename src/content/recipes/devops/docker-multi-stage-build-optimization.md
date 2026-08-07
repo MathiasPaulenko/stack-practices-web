@@ -254,7 +254,7 @@ Key concepts:
 - Not stripping debug symbols in Go binaries. `-s -w` removes symbol and debug info, saving megabytes.
 - Forgetting to clean package caches. `apt-get`, `pip`, and `npm` all cache files that bloat the image.
 
-## Frequently Asked Questions
+## FAQ
 
 ### How much can multi-stage builds reduce image size?
 

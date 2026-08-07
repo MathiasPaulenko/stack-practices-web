@@ -295,7 +295,7 @@ o-transform header for already compressed content. Monitor for compression-relat
 
 - **Performance SLAs**: define performance SLAs for critical endpoints. API response time under 200ms. Page load time under 3 seconds. Track SLA compliance. Alert on SLA violations. Document SLA definitions. Review SLAs quarterly. Communicate SLA status. Test SLA monitoring. Use SLA for prioritization
 - **Performance reporting**: generate weekly performance reports. Include key metrics and trends. Highlight regressions and improvements. Share with stakeholders. Document reporting methodology. Automate report generation. Review report content. Track performance over time. Use reports for planning
-## Frequently Asked Questions
+## FAQ
 
 ### What is the optimal pool size?
 

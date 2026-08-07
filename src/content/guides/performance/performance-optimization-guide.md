@@ -238,7 +238,7 @@ brotli_types text/plain text/css application/json application/javascript;
 - Loading all images eagerly on long pages
 - Not [compressing API responses](/recipes/performance/brotli-nginx-compression) (JSON)
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the most useful performance optimization for web apps?
 

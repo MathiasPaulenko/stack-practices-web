@@ -200,7 +200,7 @@ In modern web frameworks, the Controller often maps HTTP routes to Model operati
 - **Over-engineering**: Using full MVC for a simple script where separation adds no value
 - **Ignoring data flow**: Allowing views to modify models directly, bypassing the controller
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: Is MVC still relevant with modern frontend frameworks?**
 A: Yes, though often in evolved forms. React uses a unidirectional data flow that separates concerns similarly. Angular implements MVVM, which is a direct descendant.

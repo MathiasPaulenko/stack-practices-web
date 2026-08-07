@@ -175,7 +175,7 @@ Special characters:
 - Ignoring daylight saving time changes
 - Running too frequent jobs without rate limiting or backoff
 
-## Frequently Asked Questions
+## FAQ
 
 **Q: How do I see which cron jobs are running?**
 A: Use `crontab -l` for the current user, or `sudo cat /var/spool/cron/crontabs/` for system jobs.

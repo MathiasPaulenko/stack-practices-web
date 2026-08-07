@@ -173,7 +173,7 @@ Python's `html.escape` covers the five critical characters. `MarkupSafe` is the 
 - **Using `innerHTML` for user text**: Even if the source is "trusted," `innerHTML` is unnecessary and risky; prefer `textContent`
 - **Ignoring attribute context**: `href="{{ userUrl }}"` needs URL encoding, not just HTML encoding
 
-## Frequently Asked Questions
+## FAQ
 
 ### What is the difference between HTML escaping and HTML sanitization?
 

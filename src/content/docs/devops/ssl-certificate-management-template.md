@@ -249,7 +249,7 @@ ORDER BY expiry_date ASC;
 - Using self-signed certificates for public-facing services.
 - Not revoking certificates after a compromise.
 
-## FAQs
+## FAQ
 
 ### What is the difference between SSL and TLS?
 

@@ -345,7 +345,7 @@ The error extension pattern integrates naturally: all validation errors carry `c
 - **Inconsistent error formats** — some resolvers return `field: "email"`, others return `path: ["input", "email"]`. Standardize the format.
 - **Skipping validation on updates** — `updatePost` mutations need validation too, even though some fields are optional. Validate present fields.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Should I use custom scalars or rule-based validators?
 
