@@ -2452,4 +2452,372 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'behavioral-patterns': {
+    en: {
+      heading: 'Behavioral Design Patterns',
+      paragraphs: [
+        'Behavioral patterns define how objects communicate and distribute responsibility. They help make complex interactions easier to understand, maintain, and extend.',
+        'The resources below cover observer, state, strategy, command, iterator, mediator, memento, and visitor. Each guide shows how to model behavior that is flexible and reusable.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Diseno de Comportamiento',
+      paragraphs: [
+        'Los patrones de comportamiento definen como los objetos se comunican y distribuyen responsabilidades. Ayudan a hacer interacciones complejas mas faciles de entender, mantener y extender.',
+        'Los recursos a continuacion cubren observer, state, strategy, command, iterator, mediator, memento y visitor. Cada guia muestra como modelar comportamiento flexible y reutilizable.',
+      ],
+    },
+  },
+  oauth2: {
+    en: {
+      heading: 'OAuth 2.0',
+      paragraphs: [
+        'OAuth 2.0 is the industry standard for delegated authorization. It enables users to grant third-party applications limited access to their resources without sharing credentials.',
+        'The resources below cover authorization code, client credentials, implicit, device code, PKCE, and scopes. Each guide explains how to implement OAuth 2.0 securely for web and mobile apps.',
+      ],
+    },
+    es: {
+      heading: 'OAuth 2.0',
+      paragraphs: [
+        'OAuth 2.0 es el estandar de la industria para autorizacion delegada. Permite a los usuarios otorgar a aplicaciones de terceros acceso limitado a sus recursos sin compartir credenciales.',
+        'Los recursos a continuacion cubren authorization code, client credentials, implicit, device code, PKCE y scopes. Cada guia explica como implementar OAuth 2.0 de forma segura para web y mobile.',
+      ],
+    },
+  },
+  partitioning: {
+    en: {
+      heading: 'Data Partitioning and Sharding',
+      paragraphs: [
+        'Partitioning splits large datasets into smaller pieces to improve performance, availability, and manageability. Sharding is a common form of horizontal partitioning used in distributed databases.',
+        'The resources below cover range, hash, and list partitioning, sharding strategies, rebalancing, and partition pruning. Each guide shows how to scale data layers without hitting single-node limits.',
+      ],
+    },
+    es: {
+      heading: 'Particionamiento y Sharding de Datos',
+      paragraphs: [
+        'El particionamiento divide conjuntos grandes de datos en partes mas pequenas para mejorar rendimiento, disponibilidad y manejabilidad. El sharding es una forma comun de particionamiento horizontal en bases de datos distribuidas.',
+        'Los recursos a continuacion cubren particionamiento por rango, hash y lista, estrategias de sharding, rebalancing y partition pruning. Cada guia muestra como escalar capas de datos sin alcanzar limites de un solo nodo.',
+      ],
+    },
+  },
+  rotation: {
+    en: {
+      heading: 'Secret and Credential Rotation',
+      paragraphs: [
+        'Rotation is the practice of regularly replacing secrets, credentials, and keys to reduce the blast radius of compromise. It is a foundational security practice.',
+        'The resources below cover API key rotation, certificate rotation, token refresh, database credential rotation, and zero-downtime secrets updates. Each guide shows how to rotate secrets without breaking services.',
+      ],
+    },
+    es: {
+      heading: 'Rotacion de Secretos y Credenciales',
+      paragraphs: [
+        'La rotacion es la practica de reemplazar regularmente secretos, credenciales y claves para reducir el radio de impacto de una compromiso. Es una practica de seguridad fundamental.',
+        'Los recursos a continuacion cubren rotacion de API keys, certificados, token refresh, credenciales de bases de datos y actualizacion de secretos sin downtime. Cada guia muestra como rotar secretos sin romper servicios.',
+      ],
+    },
+  },
+  'github-actions': {
+    en: {
+      heading: 'GitHub Actions',
+      paragraphs: [
+        'GitHub Actions is a CI/CD and automation platform built into GitHub. It lets you define workflows as YAML files triggered by Git events.',
+        'The resources below cover workflow syntax, reusable workflows, matrix builds, secrets, caching, and deployment patterns. Each guide helps you automate testing, building, and releasing.',
+      ],
+    },
+    es: {
+      heading: 'GitHub Actions',
+      paragraphs: [
+        'GitHub Actions es una plataforma de CI/CD y automatizacion integrada en GitHub. Permite definir workflows como archivos YAML activados por eventos de Git.',
+        'Los recursos a continuacion cubren sintaxis de workflow, reusable workflows, matrix builds, secrets, caching y patrones de despliegue. Cada guia te ayuda a automatizar testing, build y release.',
+      ],
+    },
+  },
+  configuration: {
+    en: {
+      heading: 'Configuration Management',
+      paragraphs: [
+        'Configuration management defines how an application is set up, tuned, and deployed across environments. Good practices keep configuration separate from code and version-controlled.',
+        'The resources below cover environment variables, config files, feature flags, secrets management, and validation. Each guide shows how to manage configuration safely and consistently.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Configuracion',
+      paragraphs: [
+        'La gestion de configuracion define como se configura, ajusta y despliega una aplicacion en diferentes entornos. Las buenas practicas mantienen la configuracion separada del codigo y bajo control de versiones.',
+        'Los recursos a continuacion cubren variables de entorno, archivos de configuracion, feature flags, gestion de secretos y validacion. Cada guia muestra como gestionar configuracion de forma segura y consistente.',
+      ],
+    },
+  },
+  secrets: {
+    en: {
+      heading: 'Secrets Management',
+      paragraphs: [
+        'Secrets such as API keys, tokens, and passwords must be stored and accessed securely. Hardcoded secrets are a common and serious source of breaches.',
+        'The resources below cover secret managers, environment variables, encrypted vaults, rotation, and least-privilege access. Each guide explains how to protect credentials throughout the development lifecycle.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Secretos',
+      paragraphs: [
+        'Los secretos como API keys, tokens y contrasenas deben almacenarse y accederse de forma segura. Los secretos hardcodeados son una fuente comun y grave de brechas.',
+        'Los recursos a continuacion cubren secret managers, variables de entorno, vaults cifrados, rotacion y acceso de minimo privilegio. Cada guia explica como proteger credenciales a lo largo del ciclo de desarrollo.',
+      ],
+    },
+  },
+  latency: {
+    en: {
+      heading: 'Latency and Response Time',
+      paragraphs: [
+        'Latency is the time it takes for a system to respond. Reducing latency improves user experience and allows systems to handle more load within the same time window.',
+        'The resources below cover network latency, database query latency, caching, CDN, connection pooling, and profiling. Each guide helps you measure and reduce latency across the stack.',
+      ],
+    },
+    es: {
+      heading: 'Latencia y Tiempo de Respuesta',
+      paragraphs: [
+        'La latencia es el tiempo que tarda un sistema en responder. Reducir la latencia mejora la experiencia de usuario y permite manejar mas carga en la misma ventana de tiempo.',
+        'Los recursos a continuacion cubren latencia de red, latencia de consultas, caching, CDN, connection pooling y profiling. Cada guia te ayuda a medir y reducir latencia en toda la pila.',
+      ],
+    },
+  },
+  faas: {
+    en: {
+      heading: 'Functions as a Service',
+      paragraphs: [
+        'FaaS lets developers run functions without managing servers. Providers handle scaling, patching, and availability, while you pay for execution time.',
+        'The resources below cover AWS Lambda, Azure Functions, Google Cloud Functions, triggers, cold starts, and FaaS patterns. Each guide shows how to build event-driven functions at scale.',
+      ],
+    },
+    es: {
+      heading: 'Functions as a Service',
+      paragraphs: [
+        'FaaS permite a los desarrolladores ejecutar funciones sin gestionar servidores. Los proveedores se encargan del escalado, parches y disponibilidad, mientras tu pagas por tiempo de ejecucion.',
+        'Los recursos a continuacion cubren AWS Lambda, Azure Functions, Google Cloud Functions, triggers, cold starts y patrones FaaS. Cada guia muestra como construir funciones event-driven a escala.',
+      ],
+    },
+  },
+  pytest: {
+    en: {
+      heading: 'pytest for Python Testing',
+      paragraphs: [
+        'pytest is the most popular testing framework for Python. It offers fixtures, parametrization, plugins, and a simple assert style that scales from unit tests to integration suites.',
+        'The resources below cover fixtures, marks, parametrization, plugins, coverage, and test organization. Each recipe helps you write clean and maintainable Python tests.',
+      ],
+    },
+    es: {
+      heading: 'pytest para Testing en Python',
+      paragraphs: [
+        'pytest es el framework de testing mas popular para Python. Ofrece fixtures, parametrizacion, plugins y un estilo de assert simple que escala desde pruebas unitarias hasta suites de integracion.',
+        'Los recursos a continuacion cubren fixtures, marks, parametrizacion, plugins, cobertura y organizacion de tests. Cada receta te ayuda a escribir pruebas Python limpias y mantenibles.',
+      ],
+    },
+  },
+  ddd: {
+    en: {
+      heading: 'Domain-Driven Design',
+      paragraphs: [
+        'Domain-Driven Design aligns software design with business domains. It emphasizes bounded contexts, ubiquitous language, aggregates, and entities.',
+        'The resources below cover strategic and tactical DDD, bounded contexts, aggregates, value objects, repositories, and anti-corruption layers. Each guide helps you model software around real business concepts.',
+      ],
+    },
+    es: {
+      heading: 'Domain-Driven Design',
+      paragraphs: [
+        'Domain-Driven Design alinea el diseno del software con los dominios de negocio. Enfatiza bounded contexts, lenguaje ubicuo, agregados y entidades.',
+        'Los recursos a continuacion cubren DDD estrategico y tactico, bounded contexts, agregados, value objects, repositories y anti-corruption layers. Cada guia te ayuda a modelar software alrededor de conceptos reales de negocio.',
+      ],
+    },
+  },
+  'domain-driven-design': {
+    en: {
+      heading: 'Domain-Driven Design Patterns',
+      paragraphs: [
+        'Domain-driven design patterns help model complex business logic in code. They separate core domains from supporting domains and keep business rules close to the data they govern.',
+        'The resources below cover entities, value objects, aggregates, domain services, repositories, and domain events. Each guide shows how to build a domain model that reflects real-world business behavior.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Domain-Driven Design',
+      paragraphs: [
+        'Los patrones de domain-driven design ayudan a modelar logica de negocio compleja en codigo. Separan dominios centrales de dominios de soporte y mantienen las reglas de negocio cerca de los datos que rigen.',
+        'Los recursos a continuacion cubren entities, value objects, agregados, domain services, repositories y domain events. Cada guia muestra como construir un modelo de dominio que refleje el comportamiento real del negocio.',
+      ],
+    },
+  },
+  'neural-networks': {
+    en: {
+      heading: 'Neural Networks and Deep Learning',
+      paragraphs: [
+        'Neural networks are the foundation of modern deep learning. They power image recognition, natural language processing, recommendation systems, and generative models.',
+        'The resources below cover feedforward networks, CNNs, RNNs, transformers, training, and inference. Each guide explains how to build and deploy neural networks in production.',
+      ],
+    },
+    es: {
+      heading: 'Redes Neuronales y Deep Learning',
+      paragraphs: [
+        'Las redes neuronales son la base del deep learning moderno. Potencian reconocimiento de imagenes, procesamiento de lenguaje natural, sistemas de recomendacion y modelos generativos.',
+        'Los recursos a continuacion cubren feedforward networks, CNNs, RNNs, transformers, entrenamiento e inferencia. Cada guia explica como construir y desplegar redes neuronales en produccion.',
+      ],
+    },
+  },
+  throttling: {
+    en: {
+      heading: 'Throttling and Rate Control',
+      paragraphs: [
+        'Throttling limits the rate at which operations are executed. It protects downstream services, controls cost, and improves fairness in shared systems.',
+        'The resources below cover request throttling, token bucket, leaky bucket, concurrency limits, and adaptive throttling. Each guide shows how to slow down traffic without breaking clients.',
+      ],
+    },
+    es: {
+      heading: 'Throttling y Control de Tasa',
+      paragraphs: [
+        'El throttling limita la tasa a la que se ejecutan operaciones. Protege servicios downstream, controla costos y mejora la equidad en sistemas compartidos.',
+        'Los recursos a continuacion cubren request throttling, token bucket, leaky bucket, limites de concurrencia y throttling adaptativo. Cada guia muestra como reducir trafico sin romper clientes.',
+      ],
+    },
+  },
+  'token-bucket': {
+    en: {
+      heading: 'Token Bucket Rate Limiting',
+      paragraphs: [
+        'The token bucket algorithm is a classic rate-limiting approach. It allows bursts up to a bucket size while enforcing an average rate over time.',
+        'The resources below cover token bucket implementation, Redis-based buckets, distributed rate limiting, and burst handling. Each recipe shows how to implement fair and scalable throttling.',
+      ],
+    },
+    es: {
+      heading: 'Rate Limiting con Token Bucket',
+      paragraphs: [
+        'El algoritmo de token bucket es un enfoque clasico de rate limiting. Permite rafagas hasta el tamano del bucket mientras impone una tasa promedio en el tiempo.',
+        'Los recursos a continuacion cubren implementacion de token bucket, buckets basados en Redis, rate limiting distribuido y manejo de rafagas. Cada receta muestra como implementar throttling justo y escalable.',
+      ],
+    },
+  },
+  middleware: {
+    en: {
+      heading: 'Middleware Patterns',
+      paragraphs: [
+        'Middleware sits between a request and the application logic, handling cross-cutting concerns such as logging, authentication, error handling, and compression.',
+        'The resources below cover Express, Koa, ASP.NET, HTTP middleware, and pipeline patterns. Each guide shows how to compose middleware that is reusable and testable.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Middleware',
+      paragraphs: [
+        'El middleware se situa entre una solicitud y la logica de la aplicacion, gestionando preocupaciones transversales como logging, autenticacion, manejo de errores y compresion.',
+        'Los recursos a continuacion cubren Express, Koa, ASP.NET, middleware HTTP y patrones de pipeline. Cada guia muestra como componer middleware reutilizable y testeable.',
+      ],
+    },
+  },
+  'circuit-breaker': {
+    en: {
+      heading: 'Circuit Breaker Pattern',
+      paragraphs: [
+        'The circuit breaker pattern prevents cascading failures by stopping requests to a failing service. It gives the service time to recover while avoiding unnecessary load.',
+        'The resources below cover closed, open, and half-open states, failure thresholds, recovery, and integration with retries. Each guide shows how to add resilience to service calls.',
+      ],
+    },
+    es: {
+      heading: 'Patron Circuit Breaker',
+      paragraphs: [
+        'El patron circuit breaker previene fallas en cascada deteniendo solicitudes a un servicio que esta fallando. Da tiempo al servicio para recuperarse evitando carga innecesaria.',
+        'Los recursos a continuacion cubren estados closed, open y half-open, umbrales de falla, recuperacion e integracion con reintentos. Cada guia muestra como agregar resiliencia a llamadas entre servicios.',
+      ],
+    },
+  },
+  cryptography: {
+    en: {
+      heading: 'Cryptography for Developers',
+      paragraphs: [
+        'Cryptography protects data and communications. Applied correctly, it provides confidentiality, integrity, and authenticity. Applied incorrectly, it creates a false sense of security.',
+        'The resources below cover hashing, encryption, digital signatures, TLS, key management, and common mistakes. Each guide helps you use cryptographic primitives safely.',
+      ],
+    },
+    es: {
+      heading: 'Criptografia para Desarrolladores',
+      paragraphs: [
+        'La criptografia protege datos y comunicaciones. Aplicada correctamente, proporciona confidencialidad, integridad y autenticidad. Aplicada incorrectamente, crea una falsa sensacion de seguridad.',
+        'Los recursos a continuacion cubren hashing, cifrado, firmas digitales, TLS, gestion de claves y errores comunes. Cada guia te ayuda a usar primitivas criptograficas de forma segura.',
+      ],
+    },
+  },
+  'cache-aside': {
+    en: {
+      heading: 'Cache-Aside Pattern',
+      paragraphs: [
+        'Cache-aside, or lazy loading, means the application is responsible for loading data into the cache and keeping it up to date. It gives full control over cache population and invalidation.',
+        'The resources below cover cache-aside implementation, read-through and write-through alternatives, TTL, and invalidation. Each recipe shows how to reduce database load while avoiding stale data.',
+      ],
+    },
+    es: {
+      heading: 'Patron Cache-Aside',
+      paragraphs: [
+        'Cache-aside, o lazy loading, significa que la aplicacion es responsable de cargar datos en el cache y mantenerlos actualizados. Otorga control total sobre la poblacion e invalidacion del cache.',
+        'Los recursos a continuacion cubren implementacion de cache-aside, alternativas read-through y write-through, TTL e invalidacion. Cada receta muestra como reducir carga de base de datos evitando datos obsoletos.',
+      ],
+    },
+  },
+  asyncio: {
+    en: {
+      heading: 'Python asyncio',
+      paragraphs: [
+        'asyncio is Python standard library for writing concurrent code using the async/await syntax. It is well suited for I/O-bound workloads such as network requests and database calls.',
+        'The resources below cover coroutines, tasks, event loops, gather, queues, and common pitfalls. Each guide helps you write fast and correct asynchronous Python code.',
+      ],
+    },
+    es: {
+      heading: 'Python asyncio',
+      paragraphs: [
+        'asyncio es la biblioteca estandar de Python para escribir codigo concurrente con sintaxis async/await. Es adecuada para cargas I/O-bound como solicitudes de red y llamadas a bases de datos.',
+        'Los recursos a continuacion cubren coroutines, tareas, event loops, gather, colas y errores comunes. Cada guia te ayuda a escribir codigo asincrono Python rapido y correcto.',
+      ],
+    },
+  },
+  scheduling: {
+    en: {
+      heading: 'Task Scheduling',
+      paragraphs: [
+        'Scheduling decides when and how tasks run. It is used for cron jobs, batch processing, distributed scheduling, and job queues.',
+        'The resources below cover cron, at, systemd timers, schedulers, and job orchestration. Each guide shows how to run recurring and one-off tasks reliably.',
+      ],
+    },
+    es: {
+      heading: 'Programacion de Tareas',
+      paragraphs: [
+        'La programacion de tareas decide cuando y como se ejecutan las tareas. Se usa para cron jobs, procesamiento por lotes, programacion distribuida y colas de trabajo.',
+        'Los recursos a continuacion cubren cron, at, timers de systemd, schedulers y orquestacion de trabajos. Cada guia muestra como ejecutar tareas recurrentes y puntuales de forma confiable.',
+      ],
+    },
+  },
+  logs: {
+    en: {
+      heading: 'Logging and Log Management',
+      paragraphs: [
+        'Logging captures runtime events that help debug, audit, and monitor systems. Good logging is structured, leveled, and actionable.',
+        'The resources below cover structured logging, log aggregation, retention, parsing, and tools like ELK, Loki, and Splunk. Each guide helps you build logs that are useful at scale.',
+      ],
+    },
+    es: {
+      heading: 'Logging y Gestion de Logs',
+      paragraphs: [
+        'El logging captura eventos de tiempo de ejecucion que ayudan a depurar, auditar y monitorear sistemas. Un buen logging es estructurado, con niveles y accionable.',
+        'Los recursos a continuacion cubren logging estructurado, agregacion de logs, retencion, parsing y herramientas como ELK, Loki y Splunk. Cada guia te ayuda a construir logs utiles a escala.',
+      ],
+    },
+  },
+  orchestration: {
+    en: {
+      heading: 'Workflow and Pipeline Orchestration',
+      paragraphs: [
+        'Orchestration coordinates multiple tasks, services, and dependencies into a coherent workflow. It ensures that steps execute in the right order and handle failures gracefully.',
+        'The resources below cover workflow engines, DAGs, Airflow, Temporal, Camunda, and CI/CD orchestration. Each guide shows how to design reliable multi-step processes.',
+      ],
+    },
+    es: {
+      heading: 'Orquestacion de Workflows y Pipelines',
+      paragraphs: [
+        'La orquestacion coordina multiples tareas, servicios y dependencias en un workflow coherente. Asegura que los pasos se ejecuten en el orden correcto y manejen fallas con elegancia.',
+        'Los recursos a continuacion cubren motores de workflow, DAGs, Airflow, Temporal, Camunda y orquestacion de CI/CD. Cada guia muestra como disenar procesos multi-paso confiables.',
+      ],
+    },
+  },
 };
