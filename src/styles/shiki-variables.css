@@ -1,0 +1,33 @@
+:root {
+  --astro-code-foreground: #E1E4E8;
+  --astro-code-background: #24292E;
+  --astro-code-token-comment: #6A737D;
+  --astro-code-token-constant: #79B8FF;
+  --astro-code-token-function: #B392F0;
+  --astro-code-token-keyword: #F97583;
+  --astro-code-token-parameter: #FFAB70;
+  --astro-code-token-punctuation: #E1E4E8;
+  --astro-code-token-string: #9ECBFF;
+  --astro-code-token-string-expression: #9ECBFF;
+}
+
+pre.astro-code.sb,
+pre.astro-code.sb span { background-color: var(--astro-code-background); }
+pre.astro-code .sf,
+pre.astro-code .sf span { color: var(--astro-code-foreground); }
+pre.astro-code .sc,
+pre.astro-code .sc span { color: var(--astro-code-token-comment); }
+pre.astro-code .sn,
+pre.astro-code .sn span { color: var(--astro-code-token-constant); }
+pre.astro-code .sfu,
+pre.astro-code .sfu span { color: var(--astro-code-token-function); }
+pre.astro-code .sk,
+pre.astro-code .sk span { color: var(--astro-code-token-keyword); }
+pre.astro-code .sp,
+pre.astro-code .sp span { color: var(--astro-code-token-parameter); }
+pre.astro-code .spu,
+pre.astro-code .spu span { color: var(--astro-code-token-punctuation); }
+pre.astro-code .ss,
+pre.astro-code .ss span { color: var(--astro-code-token-string); }
+pre.astro-code .sse,
+pre.astro-code .sse span { color: var(--astro-code-token-string-expression); }

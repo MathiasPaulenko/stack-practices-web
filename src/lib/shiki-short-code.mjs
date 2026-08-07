@@ -1,4 +1,4 @@
-const MAX_HIGHLIGHT_LINES = 15;
+const MAX_HIGHLIGHT_LINES = 10;
 
 /**
  * Shiki transformer that renders code blocks with more than MAX_HIGHLIGHT_LINES

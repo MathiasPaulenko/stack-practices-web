@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./shiki-variables.css";
 @plugin "@tailwindcss/typography";
 
 /* Prevent Tailwind from scanning Markdown content for arbitrary class names. */
