@@ -10404,4 +10404,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'ports-and-adapters': {
+    en: {
+      heading: 'Ports and Adapters',
+      paragraphs: [
+        'Ports and adapters, also known as hexagonal architecture, isolate the application core from external systems. This improves testability and adaptability.',
+        'The resources below cover ports, adapters, driven and driving actors, and dependency inversion. Each guide helps you build a clean, testable core.',
+      ],
+    },
+    es: {
+      heading: 'Ports and Adapters',
+      paragraphs: [
+        'Ports and adapters, tambien conocido como arquitectura hexagonal, aisla el nucleo de la aplicacion de los sistemas externos. Esto mejora la testeabilidad y adaptabilidad.',
+        'Los recursos a continuacion cubren ports, adapters, actores driven y driving, e inversion de dependencias. Cada guia te ayuda a construir un nucleo limpio y testeable.',
+      ],
+    },
+  },
+  'dependency-inversion': {
+    en: {
+      heading: 'Dependency Inversion Principle',
+      paragraphs: [
+        'The dependency inversion principle states that high-level modules should not depend on low-level modules. Both should depend on abstractions.',
+        'The resources below cover interfaces, abstractions, and decoupling. Each guide helps you write loosely coupled code.',
+      ],
+    },
+    es: {
+      heading: 'Principio de Inversion de Dependencias',
+      paragraphs: [
+        'El principio de inversion de dependencias establece que los modulos de alto nivel no deberian depender de los de bajo nivel. Ambos deberian depender de abstracciones.',
+        'Los recursos a continuacion cubren interfaces, abstracciones y desacoplamiento. Cada guia te ayuda a escribir codigo debilmente acoplado.',
+      ],
+    },
+  },
+  'azure-functions': {
+    en: {
+      heading: 'Azure Functions',
+      paragraphs: [
+        'Azure Functions is a serverless compute service by Microsoft. It runs code in response to events without managing servers.',
+        'The resources below cover triggers, bindings, deployment, and scaling. Each guide helps you build serverless applications on Azure.',
+      ],
+    },
+    es: {
+      heading: 'Azure Functions',
+      paragraphs: [
+        'Azure Functions es un servicio de computo serverless de Microsoft. Ejecuta codigo en respuesta a eventos sin gestionar servidores.',
+        'Los recursos a continuacion cubren triggers, bindings, despliegue y escalado. Cada guia te ayuda a construir aplicaciones serverless en Azure.',
+      ],
+    },
+  },
+  consistency: {
+    en: {
+      heading: 'Consistency Models',
+      paragraphs: [
+        'Consistency defines how and when updates become visible across a system. It ranges from strong consistency to eventual consistency.',
+        'The resources below cover ACID, BASE, CAP theorem, and distributed consistency. Each guide helps you choose the right consistency for your workload.',
+      ],
+    },
+    es: {
+      heading: 'Modelos de Consistencia',
+      paragraphs: [
+        'La consistencia define como y cuando las actualizaciones se vuelven visibles en un sistema. Va desde consistencia fuerte hasta consistencia eventual.',
+        'Los recursos a continuacion cubren ACID, BASE, teorema CAP y consistencia distribuida. Cada guia te ayuda a elegir la consistencia adecuada para tu carga.',
+      ],
+    },
+  },
+  'technical-debt': {
+    en: {
+      heading: 'Technical Debt',
+      paragraphs: [
+        'Technical debt is the cost of future rework caused by choosing quick solutions over better approaches. It accumulates when shortcuts are not addressed.',
+        'The resources below cover debt identification, refactoring, and prioritization. Each guide helps you manage and reduce technical debt.',
+      ],
+    },
+    es: {
+      heading: 'Deuda Tecnica',
+      paragraphs: [
+        'La deuda tecnica es el costo de retrabajo futuro causado por elegir soluciones rapidas en lugar de mejores enfoques. Se acumula cuando los atajos no se abordan.',
+        'Los recursos a continuacion cubren identificacion de deuda, refactoring y priorizacion. Cada guia te ayuda a gestionar y reducir la deuda tecnica.',
+      ],
+    },
+  },
+  'blob-storage': {
+    en: {
+      heading: 'Blob Storage',
+      paragraphs: [
+        'Blob storage stores large binary objects like images, videos, and backups. It is a core service of cloud object storage.',
+        'The resources below cover containers, access tiers, lifecycle, and SDK usage. Each guide helps you use blob storage effectively.',
+      ],
+    },
+    es: {
+      heading: 'Almacenamiento de Blobs',
+      paragraphs: [
+        'El almacenamiento de blobs guarda objetos binarios grandes como imagenes, videos y backups. Es un servicio central del almacenamiento de objetos en cloud.',
+        'Los recursos a continuacion cubren contenedores, niveles de acceso, ciclo de vida y uso del SDK. Cada guia te ayuda a usar almacenamiento de blobs efectivamente.',
+      ],
+    },
+  },
+  vitess: {
+    en: {
+      heading: 'Vitess',
+      paragraphs: [
+        'Vitess is a database clustering system for MySQL. It provides sharding, scaling, and resilience for large MySQL deployments.',
+        'The resources below cover sharding, vtgate, vttablet, and topology. Each guide helps you scale MySQL with Vitess.',
+      ],
+    },
+    es: {
+      heading: 'Vitess',
+      paragraphs: [
+        'Vitess es un sistema de clustering de bases de datos para MySQL. Proporciona sharding, escalado y resiliencia para despliegues grandes de MySQL.',
+        'Los recursos a continuacion cubren sharding, vtgate, vttablet y topologia. Cada guia te ayuda a escalar MySQL con Vitess.',
+      ],
+    },
+  },
+  citus: {
+    en: {
+      heading: 'Citus',
+      paragraphs: [
+        'Citus is a PostgreSQL extension for distributed tables. It shards and replicates data across nodes for horizontal scaling.',
+        'The resources below cover distributed tables, coordinator, workers, and query planning. Each guide helps you scale PostgreSQL with Citus.',
+      ],
+    },
+    es: {
+      heading: 'Citus',
+      paragraphs: [
+        'Citus es una extension de PostgreSQL para tablas distribuidas. Fragmenta y replica datos entre nodos para escalado horizontal.',
+        'Los recursos a continuacion cubren tablas distribuidas, coordinator, workers y planificacion de consultas. Cada guia te ayuda a escalar PostgreSQL con Citus.',
+      ],
+    },
+  },
+  clickhouse: {
+    en: {
+      heading: 'ClickHouse',
+      paragraphs: [
+        'ClickHouse is a fast, columnar database for analytics. It is optimized for high ingestion and aggregation workloads.',
+        'The resources below cover tables, engines, queries, and use cases. Each guide helps you use ClickHouse for analytical workloads.',
+      ],
+    },
+    es: {
+      heading: 'ClickHouse',
+      paragraphs: [
+        'ClickHouse es una base de datos columnar rapida para analitica. Esta optimizada para cargas de alta ingesta y agregacion.',
+        'Los recursos a continuacion cubren tablas, motores, consultas y casos de uso. Cada guia te ayuda a usar ClickHouse para cargas analiticas.',
+      ],
+    },
+  },
+  'database-normalization': {
+    en: {
+      heading: 'Database Normalization',
+      paragraphs: [
+        'Normalization organizes data to reduce redundancy and improve integrity. It uses normal forms to guide schema design.',
+        'The resources below cover first, second, and third normal forms, and denormalization trade-offs. Each guide helps you design clean database schemas.',
+      ],
+    },
+    es: {
+      heading: 'Normalizacion de Bases de Datos',
+      paragraphs: [
+        'La normalizacion organiza datos para reducir redundancia y mejorar integridad. Usa formas normales para guiar el diseno del esquema.',
+        'Los recursos a continuacion cubren primera, segunda y tercera forma normal, y trade-offs de desnormalizacion. Cada guia te ayuda a disenar esquemas de base de datos limpios.',
+      ],
+    },
+  },
+  cassandra: {
+    en: {
+      heading: 'Apache Cassandra',
+      paragraphs: [
+        'Cassandra is a distributed NoSQL database. It is designed for high availability and linear scalability across commodity hardware.',
+        'The resources below cover CQL, replication, consistency, and data modeling. Each guide helps you build distributed applications with Cassandra.',
+      ],
+    },
+    es: {
+      heading: 'Apache Cassandra',
+      paragraphs: [
+        'Cassandra es una base de datos NoSQL distribuida. Esta disenada para alta disponibilidad y escalabilidad lineal en hardware estandar.',
+        'Los recursos a continuacion cubren CQL, replicacion, consistencia y modelado de datos. Cada guia te ayuda a construir aplicaciones distribuidas con Cassandra.',
+      ],
+    },
+  },
+  readability: {
+    en: {
+      heading: 'Code Readability',
+      paragraphs: [
+        'Readable code is easy to understand and maintain. It uses clear names, structure, and comments where needed.',
+        'The resources below cover naming, formatting, complexity, and refactoring. Each guide helps you write code that others can read.',
+      ],
+    },
+    es: {
+      heading: 'Legibilidad del Codigo',
+      paragraphs: [
+        'El codigo legible es facil de entender y mantener. Usa nombres claros, estructura y comentarios donde se necesitan.',
+        'Los recursos a continuacion cubren nombres, formateo, complejidad y refactoring. Cada guia te ayuda a escribir codigo que otros puedan leer.',
+      ],
+    },
+  },
+  experimentation: {
+    en: {
+      heading: 'Experimentation and A/B Testing',
+      paragraphs: [
+        'Experimentation tests changes with real users to measure impact. A/B testing is the most common form.',
+        'The resources below cover hypothesis design, metrics, randomization, and analysis. Each guide helps you run experiments that produce reliable insights.',
+      ],
+    },
+    es: {
+      heading: 'Experimentacion y A/B Testing',
+      paragraphs: [
+        'La experimentacion prueba cambios con usuarios reales para medir impacto. El A/B testing es la forma mas comun.',
+        'Los recursos a continuacion cubren diseno de hipotesis, metricas, aleatorizacion y analisis. Cada guia te ayuda a ejecutar experimentos que produzcan insights confiables.',
+      ],
+    },
+  },
+  'dependency-scanning': {
+    en: {
+      heading: 'Dependency Scanning',
+      paragraphs: [
+        'Dependency scanning detects known vulnerabilities in project dependencies. It is a key supply chain security practice.',
+        'The resources below cover SCA, CVE databases, SBOMs, and CI integration. Each guide helps you find and fix vulnerable dependencies.',
+      ],
+    },
+    es: {
+      heading: 'Escaneo de Dependencias',
+      paragraphs: [
+        'El escaneo de dependencias detecta vulnerabilidades conocidas en las dependencias del proyecto. Es una practica clave de seguridad de la cadena de suministro.',
+        'Los recursos a continuacion cubren SCA, bases de datos de CVE, SBOMs e integracion con CI. Cada guia te ayuda a encontrar y corregir dependencias vulnerables.',
+      ],
+    },
+  },
+  ec2: {
+    en: {
+      heading: 'Amazon EC2',
+      paragraphs: [
+        'Amazon EC2 provides resizable compute capacity in the cloud. It is the foundation of many AWS architectures.',
+        'The resources below cover instances, AMIs, security groups, and scaling. Each guide helps you run workloads on EC2.',
+      ],
+    },
+    es: {
+      heading: 'Amazon EC2',
+      paragraphs: [
+        'Amazon EC2 proporciona capacidad de computo redimensionable en la nube. Es la base de muchas arquitecturas de AWS.',
+        'Los recursos a continuacion cubren instancias, AMIs, security groups y escalado. Cada guia te ayuda a ejecutar cargas de trabajo en EC2.',
+      ],
+    },
+  },
+  'continuous-deployment': {
+    en: {
+      heading: 'Continuous Deployment',
+      paragraphs: [
+        'Continuous deployment automatically releases changes that pass tests. It extends continuous delivery by removing manual gates.',
+        'The resources below cover pipelines, feature flags, monitoring, and rollback. Each guide helps you deploy safely and frequently.',
+      ],
+    },
+    es: {
+      heading: 'Despliegue Continuo',
+      paragraphs: [
+        'El despliegue continuo libera automaticamente cambios que pasan los tests. Extiende la entrega continua eliminando validaciones manuales.',
+        'Los recursos a continuacion cubren pipelines, feature flags, monitoreo y rollback. Cada guia te ayuda a desplegar de forma segura y frecuente.',
+      ],
+    },
+  },
+  gitops: {
+    en: {
+      heading: 'GitOps',
+      paragraphs: [
+        'GitOps uses Git as the source of truth for infrastructure and application configuration. Changes are made through Git and applied automatically.',
+        'The resources below cover ArgoCD, Flux, pull-based deployments, and drift detection. Each guide helps you operate cloud native systems with GitOps.',
+      ],
+    },
+    es: {
+      heading: 'GitOps',
+      paragraphs: [
+        'GitOps usa Git como fuente de verdad para infraestructura y configuracion de aplicaciones. Los cambios se realizan a traves de Git y se aplican automaticamente.',
+        'Los recursos a continuacion cubren ArgoCD, Flux, despliegues pull-based y deteccion de drift. Cada guia te ayuda a operar sistemas cloud native con GitOps.',
+      ],
+    },
+  },
+  'multi-cluster': {
+    en: {
+      heading: 'Multi-Cluster Kubernetes',
+      paragraphs: [
+        'Multi-cluster Kubernetes runs workloads across multiple clusters. It improves availability, scale, and geographic distribution.',
+        'The resources below cover cluster federation, service mesh, and global load balancing. Each guide helps you manage Kubernetes across clusters.',
+      ],
+    },
+    es: {
+      heading: 'Kubernetes Multi-Cluster',
+      paragraphs: [
+        'Kubernetes multi-cluster ejecuta cargas de trabajo a traves de multiples clusters. Mejora disponibilidad, escala y distribucion geografica.',
+        'Los recursos a continuacion cubren federacion de clusters, service mesh y balanceo de carga global. Cada guia te ayuda a gestionar Kubernetes entre clusters.',
+      ],
+    },
+  },
+  ingress: {
+    en: {
+      heading: 'Kubernetes Ingress',
+      paragraphs: [
+        'Ingress exposes HTTP and HTTPS routes from outside a cluster to services inside. It centralizes routing and TLS termination.',
+        'The resources below cover Ingress resources, controllers, annotations, and TLS. Each guide helps you route traffic into Kubernetes.',
+      ],
+    },
+    es: {
+      heading: 'Ingress de Kubernetes',
+      paragraphs: [
+        'Ingress expone rutas HTTP y HTTPS desde fuera de un cluster a servicios internos. Centraliza el enrutamiento y terminacion TLS.',
+        'Los recursos a continuacion cubren recursos Ingress, controladores, anotaciones y TLS. Cada guia te ayuda a enrutar trafico hacia Kubernetes.',
+      ],
+    },
+  },
+  contenedores: {
+    en: {
+      heading: 'Containers',
+      paragraphs: [
+        'Containers package applications with their dependencies for consistent deployment. They are the foundation of modern cloud native systems.',
+        'The resources below cover Docker, container runtimes, images, and orchestration. Each guide helps you build and run containerized applications.',
+      ],
+    },
+    es: {
+      heading: 'Contenedores',
+      paragraphs: [
+        'Los contenedores empaquetan aplicaciones con sus dependencias para despliegue consistente. Son la base de los sistemas cloud native modernos.',
+        'Los recursos a continuacion cubren Docker, runtimes de contenedores, imagenes y orquestacion. Cada guia te ayuda a construir y ejecutar aplicaciones containerizadas.',
+      ],
+    },
+  },
+  'right-sizing': {
+    en: {
+      heading: 'Right-Sizing Resources',
+      paragraphs: [
+        'Right-sizing matches resource allocation to actual workload needs. It improves performance and reduces cost.',
+        'The resources below cover CPU, memory, storage, and monitoring. Each guide helps you choose the right resource sizes.',
+      ],
+    },
+    es: {
+      heading: 'Right-Sizing de Recursos',
+      paragraphs: [
+        'El right-sizing ajusta la asignacion de recursos a las necesidades reales de la carga. Mejora rendimiento y reduce costos.',
+        'Los recursos a continuacion cubren CPU, memoria, almacenamiento y monitoreo. Cada guia te ayuda a elegir los tamanos de recursos adecuados.',
+      ],
+    },
+  },
+  traces: {
+    en: {
+      heading: 'Distributed Tracing',
+      paragraphs: [
+        'Distributed tracing follows requests through multiple services. It helps identify latency and failures in microservices.',
+        'The resources below cover OpenTelemetry, spans, trace context, and visualization. Each guide helps you trace requests across services.',
+      ],
+    },
+    es: {
+      heading: 'Trazas Distribuidas',
+      paragraphs: [
+        'Las trazas distribuidas siguen peticiones a traves de multiples servicios. Ayudan a identificar latencia y fallas en microservicios.',
+        'Los recursos a continuacion cubren OpenTelemetry, spans, contexto de traza y visualizacion. Cada guia te ayuda a rastrear peticiones entre servicios.',
+      ],
+    },
+  },
+  'vendor-lock-in': {
+    en: {
+      heading: 'Vendor Lock-In',
+      paragraphs: [
+        'Vendor lock-in occurs when a system becomes dependent on a specific provider. Avoiding it improves flexibility and portability.',
+        'The resources below cover multi-cloud, abstraction layers, open standards, and exit strategies. Each guide helps you reduce vendor dependency.',
+      ],
+    },
+    es: {
+      heading: 'Dependencia de Proveedor',
+      paragraphs: [
+        'La dependencia de proveedor ocurre cuando un sistema se vuelve dependiente de un proveedor especifico. Evitarla mejora flexibilidad y portabilidad.',
+        'Los recursos a continuacion cubren multi-cloud, capas de abstraccion, estandares abiertos y estrategias de salida. Cada guia te ayuda a reducir la dependencia de proveedores.',
+      ],
+    },
+  },
+  mttr: {
+    en: {
+      heading: 'Mean Time To Recovery',
+      paragraphs: [
+        'MTTR measures the average time to recover from a failure. It is a key reliability metric for operational teams.',
+        'The resources below cover monitoring, runbooks, automation, and postmortems. Each guide helps you reduce recovery time.',
+      ],
+    },
+    es: {
+      heading: 'Tiempo Medio de Recuperacion',
+      paragraphs: [
+        'MTTR mide el tiempo promedio para recuperarse de una falla. Es una metrica clave de confiabilidad para equipos de operaciones.',
+        'Los recursos a continuacion cubren monitoreo, runbooks, automatizacion y postmortems. Cada guia te ayuda a reducir el tiempo de recuperacion.',
+      ],
+    },
+  },
+  instrumentation: {
+    en: {
+      heading: 'Instrumentation',
+      paragraphs: [
+        'Instrumentation adds code to measure application behavior. It produces metrics, logs, and traces for observability.',
+        'The resources below cover metrics collection, OpenTelemetry, and observability pillars. Each guide helps you instrument systems effectively.',
+      ],
+    },
+    es: {
+      heading: 'Instrumentacion',
+      paragraphs: [
+        'La instrumentacion agrega codigo para medir el comportamiento de aplicaciones. Produce metricas, logs y trazas para observabilidad.',
+        'Los recursos a continuacion cubren recopilacion de metricas, OpenTelemetry y pilares de observabilidad. Cada guia te ayuda a instrumentar sistemas efectivamente.',
+      ],
+    },
+  },
 };
