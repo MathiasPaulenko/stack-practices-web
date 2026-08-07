@@ -3220,4 +3220,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'database-sharding': {
+    en: {
+      heading: 'Database Sharding',
+      paragraphs: [
+        'Sharding splits a database horizontally across multiple nodes. It enables massive scale but introduces complexity in routing, rebalancing, and transactions.',
+        'The resources below cover shard keys, range and hash sharding, cross-shard queries, rebalancing, and sharding strategies. Each guide helps you scale databases beyond single-node limits.',
+      ],
+    },
+    es: {
+      heading: 'Sharding de Bases de Datos',
+      paragraphs: [
+        'El sharding divide una base de datos horizontalmente entre multiples nodos. Permite escala masiva pero introduce complejidad en routing, rebalancing y transacciones.',
+        'Los recursos a continuacion cubren shard keys, sharding por rango y hash, consultas cross-shard, rebalancing y estrategias de sharding. Cada guia te ayuda a escalar bases de datos mas alla de los limites de un solo nodo.',
+      ],
+    },
+  },
+  deprecation: {
+    en: {
+      heading: 'Deprecation and End-of-Life',
+      paragraphs: [
+        'Deprecation is the process of phasing out old APIs, features, or dependencies without breaking consumers. It requires clear communication, timelines, and migration paths.',
+        'The resources below cover deprecation notices, version policies, migration guides, sunset processes, and breaking change management. Each guide helps you retire technology safely.',
+      ],
+    },
+    es: {
+      heading: 'Deprecacion y Fin de Vida',
+      paragraphs: [
+        'La deprecacion es el proceso de eliminar gradualmente APIs, features o dependencias antiguas sin romper consumidores. Requiere comunicacion clara, timelines y caminos de migracion.',
+        'Los recursos a continuacion cubren avisos de deprecacion, politicas de versionado, guias de migracion, procesos de sunset y gestion de breaking changes. Cada guia te ayuda a retirar tecnologia de forma segura.',
+      ],
+    },
+  },
+  evaluation: {
+    en: {
+      heading: 'Evaluation and Metrics',
+      paragraphs: [
+        'Evaluation measures whether a system, model, or process meets its goals. It requires defining clear metrics, collecting data, and interpreting results honestly.',
+        'The resources below cover model evaluation, A/B testing, system benchmarking, validation, and error analysis. Each guide helps you measure the right things and act on the findings.',
+      ],
+    },
+    es: {
+      heading: 'Evaluacion y Metricas',
+      paragraphs: [
+        'La evaluacion mide si un sistema, modelo o proceso cumple sus objetivos. Requiere definir metricas claras, recolectar datos e interpretar resultados honestamente.',
+        'Los recursos a continuacion cubren evaluacion de modelos, A/B testing, benchmarking de sistemas, validacion y analisis de errores. Cada guia te ayuda a medir lo correcto y actuar segun los hallazgos.',
+      ],
+    },
+  },
+  websockets: {
+    en: {
+      heading: 'WebSockets and Real-Time Communication',
+      paragraphs: [
+        'WebSockets provide a persistent, low-latency, bidirectional channel between client and server. They are ideal for real-time features like chat, live updates, and gaming.',
+        'The resources below cover Socket.io, WS, connection management, reconnection, scaling, and fallback strategies. Each guide helps you build reliable real-time systems.',
+      ],
+    },
+    es: {
+      heading: 'WebSockets y Comunicacion en Tiempo Real',
+      paragraphs: [
+        'WebSockets proporcionan un canal persistente, de baja latencia y bidireccional entre cliente y servidor. Son ideales para features en tiempo real como chat, actualizaciones en vivo y gaming.',
+        'Los recursos a continuacion cubren Socket.io, WS, gestion de conexiones, reconexion, escalado y estrategias de fallback. Cada guia te ayuda a construir sistemas en tiempo real confiables.',
+      ],
+    },
+  },
+  'spring-boot': {
+    en: {
+      heading: 'Spring Boot',
+      paragraphs: [
+        'Spring Boot simplifies Java application development with auto-configuration, embedded servers, and a vast ecosystem. It is the most common way to build production Java services.',
+        'The resources below cover starters, configuration, testing, data access, security, and deployment. Each guide helps you build and operate Spring Boot applications efficiently.',
+      ],
+    },
+    es: {
+      heading: 'Spring Boot',
+      paragraphs: [
+        'Spring Boot simplifica el desarrollo de aplicaciones Java con auto-configuracion, servidores embebidos y un vasto ecosistema. Es la forma mas comun de construir servicios Java en produccion.',
+        'Los recursos a continuacion cubren starters, configuracion, testing, acceso a datos, seguridad y despliegue. Cada guia te ayuda a construir y operar aplicaciones Spring Boot eficientemente.',
+      ],
+    },
+  },
+  proxy: {
+    en: {
+      heading: 'Proxies and Reverse Proxies',
+      paragraphs: [
+        'A proxy acts as an intermediary between clients and servers. Reverse proxies provide load balancing, SSL termination, caching, and security at the edge.',
+        'The resources below cover Nginx, Envoy, HAProxy, API gateways, and forward vs reverse proxies. Each guide shows how to route and protect traffic with proxies.',
+      ],
+    },
+    es: {
+      heading: 'Proxies y Reverse Proxies',
+      paragraphs: [
+        'Un proxy actua como intermediario entre clientes y servidores. Los reverse proxies proporcionan balanceo de carga, terminacion SSL, caching y seguridad en el edge.',
+        'Los recursos a continuacion cubren Nginx, Envoy, HAProxy, API gateways y proxies forward vs reverse. Cada guia muestra como enrutar y proteger trafico con proxies.',
+      ],
+    },
+  },
+  'pub-sub': {
+    en: {
+      heading: 'Publish-Subscribe Messaging',
+      paragraphs: [
+        'Pub-sub decouples senders and receivers through topics. Multiple consumers can receive the same message, making it ideal for broadcasting and event-driven systems.',
+        'The resources below cover Redis Pub/Sub, Google Pub/Sub, SNS, Kafka, and fan-out patterns. Each guide helps you implement scalable pub-sub messaging.',
+      ],
+    },
+    es: {
+      heading: 'Mensajeria Publish-Subscribe',
+      paragraphs: [
+        'Pub-sub desacopla emisores y receptores a traves de topics. Multiples consumidores pueden recibir el mismo mensaje, lo que lo hace ideal para broadcasting y sistemas event-driven.',
+        'Los recursos a continuacion cubren Redis Pub/Sub, Google Pub/Sub, SNS, Kafka y patrones fan-out. Cada guia te ayuda a implementar mensajeria pub-sub escalable.',
+      ],
+    },
+  },
+  report: {
+    en: {
+      heading: 'Reports and Documentation',
+      paragraphs: [
+        'Reports capture findings, status, and recommendations for teams and stakeholders. Good reports are clear, actionable, and tailored to the audience.',
+        'The resources below cover incident reports, security reports, status updates, and documentation templates. Each guide helps you communicate complex information effectively.',
+      ],
+    },
+    es: {
+      heading: 'Reportes y Documentacion',
+      paragraphs: [
+        'Los reportes capturan hallazgos, estado y recomendaciones para equipos y partes interesadas. Buenos reportes son claros, accionables y adaptados a la audiencia.',
+        'Los recursos a continuacion cubren reportes de incidentes, reportes de seguridad, actualizaciones de estado y plantillas de documentacion. Cada guia te ayuda a comunicar informacion compleja de forma efectiva.',
+      ],
+    },
+  },
+  html: {
+    en: {
+      heading: 'HTML Fundamentals',
+      paragraphs: [
+        'HTML is the foundation of the web. Semantic, accessible, and well-structured HTML improves SEO, screen reader support, and maintainability.',
+        'The resources below cover semantic elements, forms, accessibility, templates, and email HTML. Each guide helps you write HTML that works for users and machines.',
+      ],
+    },
+    es: {
+      heading: 'Fundamentos de HTML',
+      paragraphs: [
+        'HTML es la base de la web. HTML semantico, accesible y bien estructurado mejora SEO, soporte de lectores de pantalla y mantenibilidad.',
+        'Los recursos a continuacion cubren elementos semanticos, formularios, accesibilidad, templates y HTML para email. Cada guia te ayuda a escribir HTML que funcione para usuarios y maquinas.',
+      ],
+    },
+  },
+  images: {
+    en: {
+      heading: 'Image Optimization',
+      paragraphs: [
+        'Images are often the largest assets on a page. Optimizing them improves load times, bandwidth, and user experience without sacrificing quality.',
+        'The resources below cover compression, lazy loading, responsive images, WebP, AVIF, and CDNs. Each guide helps you deliver images faster and smarter.',
+      ],
+    },
+    es: {
+      heading: 'Optimizacion de Imagenes',
+      paragraphs: [
+        'Las imagenes suelen ser los activos mas grandes de una pagina. Optimizarlas mejora tiempos de carga, ancho de banda y experiencia de usuario sin sacrificar calidad.',
+        'Los recursos a continuacion cubren compresion, lazy loading, imagenes responsive, WebP, AVIF y CDNs. Cada guia te ayuda a entregar imagenes mas rapido e inteligentemente.',
+      ],
+    },
+  },
+  'event-store': {
+    en: {
+      heading: 'Event Sourcing and Event Stores',
+      paragraphs: [
+        'Event sourcing persists the state of an application as a sequence of events. The event store becomes the source of truth and enables auditability, replay, and projections.',
+        'The resources below cover event sourcing patterns, event stores, snapshots, projections, and CQRS. Each guide helps you build systems that capture every state change.',
+      ],
+    },
+    es: {
+      heading: 'Event Sourcing y Event Stores',
+      paragraphs: [
+        'Event sourcing persiste el estado de una aplicacion como una secuencia de eventos. El event store se convierte en la fuente de verdad y habilita auditabilidad, replay y proyecciones.',
+        'Los recursos a continuacion cubren patrones de event sourcing, event stores, snapshots, proyecciones y CQRS. Cada guia te ayuda a construir sistemas que capturan cada cambio de estado.',
+      ],
+    },
+  },
+  'structural-patterns': {
+    en: {
+      heading: 'Structural Design Patterns',
+      paragraphs: [
+        'Structural patterns focus on how classes and objects are composed to form larger structures. They help simplify relationships and make systems more flexible.',
+        'The resources below cover adapter, bridge, composite, decorator, facade, flyweight, and proxy patterns. Each guide shows how to organize objects and classes for clarity and reuse.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Diseno Estructurales',
+      paragraphs: [
+        'Los patrones estructurales se enfocan en como se componen clases y objetos para formar estructuras mas grandes. Ayudan a simplificar relaciones y hacer sistemas mas flexibles.',
+        'Los recursos a continuacion cubren adapter, bridge, composite, decorator, facade, flyweight y proxy. Cada guia muestra como organizar objetos y clases para claridad y reutilizacion.',
+      ],
+    },
+  },
+  'infrastructure-as-code': {
+    en: {
+      heading: 'Infrastructure as Code',
+      paragraphs: [
+        'Infrastructure as Code lets you manage infrastructure through versioned, tested, and reusable code. It brings software engineering practices to operations.',
+        'The resources below cover Terraform, CloudFormation, Pulumi, Ansible, and GitOps. Each guide helps you provision, update, and destroy infrastructure reliably.',
+      ],
+    },
+    es: {
+      heading: 'Infraestructura como Codigo',
+      paragraphs: [
+        'La Infraestructura como Codigo permite gestionar infraestructura a traves de codigo versionado, probado y reusable. Aporta practicas de ingenieria de software a las operaciones.',
+        'Los recursos a continuacion cubren Terraform, CloudFormation, Pulumi, Ansible y GitOps. Cada guia te ayuda a aprovisionar, actualizar y destruir infraestructura de forma confiable.',
+      ],
+    },
+  },
+  backup: {
+    en: {
+      heading: 'Backups and Recovery',
+      paragraphs: [
+        'Backups protect data against accidental deletion, corruption, and disasters. A good backup strategy covers frequency, retention, testing, and recovery procedures.',
+        'The resources below cover database backups, filesystem backups, cloud snapshots, point-in-time recovery, and restore testing. Each guide helps you recover data when it matters.',
+      ],
+    },
+    es: {
+      heading: 'Backups y Recuperacion',
+      paragraphs: [
+        'Los backups protegen los datos contra eliminacion accidental, corrupcion y desastres. Una buena estrategia de backup cubre frecuencia, retencion, testing y procedimientos de recuperacion.',
+        'Los recursos a continuacion cubren backups de bases de datos, backups de filesystem, snapshots en la nube, point-in-time recovery y testing de restauracion. Cada guia te ayuda a recuperar datos cuando importa.',
+      ],
+    },
+  },
+  environments: {
+    en: {
+      heading: 'Deployment Environments',
+      paragraphs: [
+        'Environments isolate stages of the software lifecycle, such as development, staging, and production. They help teams test changes safely before releasing.',
+        'The resources below cover environment parity, configuration, promotion pipelines, and multi-tenant setups. Each guide helps you manage environments consistently and securely.',
+      ],
+    },
+    es: {
+      heading: 'Entornos de Despliegue',
+      paragraphs: [
+        'Los entornos aisan etapas del ciclo de vida del software, como desarrollo, staging y produccion. Ayudan a los equipos a probar cambios de forma segura antes de liberarlos.',
+        'Los recursos a continuacion cubren paridad de entornos, configuracion, pipelines de promocion y configuraciones multi-tenant. Cada guia te ayuda a gestionar entornos de forma consistente y segura.',
+      ],
+    },
+  },
+  dataloader: {
+    en: {
+      heading: 'DataLoader and Batching',
+      paragraphs: [
+        'DataLoader is a pattern for batching and deduplicating data requests. It solves the N+1 query problem in GraphQL and other data-fetching layers.',
+        'The resources below cover DataLoader in Node.js, Java, Python, caching, batching, and key design. Each guide helps you load data efficiently across service boundaries.',
+      ],
+    },
+    es: {
+      heading: 'DataLoader y Batching',
+      paragraphs: [
+        'DataLoader es un patron para batching y deduplicacion de solicitudes de datos. Resuelve el problema de consultas N+1 en GraphQL y otras capas de obtencion de datos.',
+        'Los recursos a continuacion cubren DataLoader en Node.js, Java, Python, caching, batching y diseno de keys. Cada guia te ayuda a cargar datos eficientemente entre limites de servicios.',
+      ],
+    },
+  },
+  debugging: {
+    en: {
+      heading: 'Debugging Techniques',
+      paragraphs: [
+        'Debugging is the process of finding and fixing defects. It requires observation, hypothesis testing, and the right tools.',
+        'The resources below cover logs, stack traces, breakpoints, profilers, distributed tracing, and post-mortem debugging. Each guide helps you diagnose issues faster and with less guesswork.',
+      ],
+    },
+    es: {
+      heading: 'Tecnicas de Debugging',
+      paragraphs: [
+        'El debugging es el proceso de encontrar y corregir defectos. Requiere observacion, prueba de hipotesis y las herramientas correctas.',
+        'Los recursos a continuacion cubren logs, stack traces, breakpoints, profilers, trazas distribuidas y debugging post-mortem. Cada guia te ayuda a diagnosticar problemas mas rapido y con menos conjeturas.',
+      ],
+    },
+  },
+  'distributed-tracing': {
+    en: {
+      heading: 'Distributed Tracing',
+      paragraphs: [
+        'Distributed tracing follows requests across services and components. It is essential for understanding latency and failures in microservices architectures.',
+        'The resources below cover trace context, spans, sampling, OpenTelemetry, Jaeger, and Zipkin. Each guide helps you implement tracing that reveals how requests flow through your system.',
+      ],
+    },
+    es: {
+      heading: 'Trazas Distribuidas',
+      paragraphs: [
+        'Las trazas distribuidas siguen solicitudes a traves de servicios y componentes. Son esenciales para entender latencia y fallas en arquitecturas de microservicios.',
+        'Los recursos a continuacion cubren contexto de traza, spans, sampling, OpenTelemetry, Jaeger y Zipkin. Cada guia te ayuda a implementar trazas que revelan como fluyen las solicitudes en tu sistema.',
+      ],
+    },
+  },
+  tracing: {
+    en: {
+      heading: 'Tracing and Observability',
+      paragraphs: [
+        'Tracing records the path of a request through a system. It provides visibility into timing, dependencies, and errors that logs and metrics alone cannot reveal.',
+        'The resources below cover request tracing, distributed tracing, sampling, and correlation IDs. Each guide helps you add traces that make complex systems understandable.',
+      ],
+    },
+    es: {
+      heading: 'Tracing y Observabilidad',
+      paragraphs: [
+        'El tracing registra el camino de una solicitud a traves de un sistema. Proporciona visibilidad de tiempos, dependencias y errores que logs y metricas solos no pueden revelar.',
+        'Los recursos a continuacion cubren request tracing, trazas distribuidas, sampling y correlation IDs. Cada guia te ayuda a agregar trazas que hacen sistemas complejos comprensibles.',
+      ],
+    },
+  },
+  jaeger: {
+    en: {
+      heading: 'Jaeger and Tracing',
+      paragraphs: [
+        'Jaeger is an open-source distributed tracing system. It helps monitor and troubleshoot microservices by visualizing request flows and latency.',
+        'The resources below cover Jaeger deployment, instrumentation, sampling, and integration with OpenTelemetry. Each guide helps you set up tracing for cloud-native applications.',
+      ],
+    },
+    es: {
+      heading: 'Jaeger y Tracing',
+      paragraphs: [
+        'Jaeger es un sistema de trazas distribuidas de codigo abierto. Ayuda a monitorear y solucionar problemas en microservicios visualizando flujos de solicitudes y latencia.',
+        'Los recursos a continuacion cubren despliegue de Jaeger, instrumentacion, sampling e integracion con OpenTelemetry. Cada guia te ayuda a configurar trazas para aplicaciones cloud-native.',
+      ],
+    },
+  },
+  'api-security': {
+    en: {
+      heading: 'API Security',
+      paragraphs: [
+        'API security protects interfaces from unauthorized access, data leakage, and abuse. It requires authentication, authorization, input validation, rate limiting, and monitoring.',
+        'The resources below cover OAuth, API keys, JWT, TLS, OWASP API Top 10, and attack prevention. Each guide helps you secure APIs against common threats.',
+      ],
+    },
+    es: {
+      heading: 'Seguridad de APIs',
+      paragraphs: [
+        'La seguridad de APIs protege las interfaces contra accesos no autorizados, fugas de datos y abuso. Requiere autenticacion, autorizacion, validacion de entrada, rate limiting y monitoreo.',
+        'Los recursos a continuacion cubren OAuth, API keys, JWT, TLS, OWASP API Top 10 y prevencion de ataques. Cada guia te ayuda a asegurar APIs contra amenazas comunes.',
+      ],
+    },
+  },
+  privacy: {
+    en: {
+      heading: 'Privacy and Data Protection',
+      paragraphs: [
+        'Privacy is the responsible handling of personal and sensitive data. It overlaps with security but also requires transparency, consent, and compliance.',
+        'The resources below cover GDPR, data minimization, PII handling, encryption, and privacy by design. Each guide helps you build systems that respect user privacy.',
+      ],
+    },
+    es: {
+      heading: 'Privacidad y Proteccion de Datos',
+      paragraphs: [
+        'La privacidad es el manejo responsable de datos personales y sensibles. Se superpone con la seguridad pero tambien requiere transparencia, consentimiento y cumplimiento.',
+        'Los recursos a continuacion cubren GDPR, minimizacion de datos, manejo de PII, cifrado y privacy by design. Cada guia te ayuda a construir sistemas que respeten la privacidad del usuario.',
+      ],
+    },
+  },
+  'web-security': {
+    en: {
+      heading: 'Web Security',
+      paragraphs: [
+        'Web security protects users, applications, and data from threats that come through browsers and HTTP. It covers a broad set of defenses against common attacks.',
+        'The resources below cover HTTPS, CSP, XSS, CSRF, clickjacking, HSTS, and secure cookies. Each guide helps you harden web applications against real-world threats.',
+      ],
+    },
+    es: {
+      heading: 'Seguridad Web',
+      paragraphs: [
+        'La seguridad web protege a usuarios, aplicaciones y datos de amenazas que provienen de navegadores y HTTP. Cubre un amplio conjunto de defensas contra ataques comunes.',
+        'Los recursos a continuacion cubren HTTPS, CSP, XSS, CSRF, clickjacking, HSTS y cookies seguras. Cada guia te ayuda a endurecer aplicaciones web contra amenazas del mundo real.',
+      ],
+    },
+  },
+  dynamodb: {
+    en: {
+      heading: 'Amazon DynamoDB',
+      paragraphs: [
+        'DynamoDB is a fully managed NoSQL database from AWS. It offers fast, predictable performance at any scale but requires careful data modeling and partition design.',
+        'The resources below cover table design, partition keys, GSIs, LSIs, streams, and best practices. Each guide helps you use DynamoDB effectively in serverless and microservices.',
+      ],
+    },
+    es: {
+      heading: 'Amazon DynamoDB',
+      paragraphs: [
+        'DynamoDB es una base de datos NoSQL totalmente administrada de AWS. Ofrece rendimiento rapido y predecible a cualquier escala, pero requiere modelado de datos y diseno de particiones cuidadoso.',
+        'Los recursos a continuacion cubren diseno de tablas, partition keys, GSIs, LSIs, streams y mejores practicas. Cada guia te ayuda a usar DynamoDB eficientemente en serverless y microservicios.',
+      ],
+    },
+  },
+  review: {
+    en: {
+      heading: 'Code and Design Reviews',
+      paragraphs: [
+        'Reviews are a quality gate where peers examine code, designs, and plans. They catch defects, spread knowledge, and align the team on standards.',
+        'The resources below cover code review checklists, design review processes, async reviews, and constructive feedback. Each guide helps you run reviews that improve code without slowing the team.',
+      ],
+    },
+    es: {
+      heading: 'Revisiones de Codigo y Diseno',
+      paragraphs: [
+        'Las revisiones son una puerta de calidad donde companeros examinan codigo, disenos y planes. Detectan defectos, difunden conocimiento y alinean al equipo en estandares.',
+        'Los recursos a continuacion cubren checklists de code review, procesos de design review, revisiones asincronas y feedback constructivo. Cada guia te ayuda a realizar revisiones que mejoren el codigo sin frenar al equipo.',
+      ],
+    },
+  },
 };
