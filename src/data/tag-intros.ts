@@ -8404,4 +8404,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'prompt-injection': {
+    en: {
+      heading: 'Prompt Injection Attacks',
+      paragraphs: [
+        'Prompt injection manipulates LLM behavior through crafted input. It is a critical security risk for AI applications.',
+        'The resources below cover indirect, direct, and jailbreak prompt injection, plus mitigations. Each guide helps you defend LLM-powered applications.',
+      ],
+    },
+    es: {
+      heading: 'Ataques de Prompt Injection',
+      paragraphs: [
+        'El prompt injection manipula el comportamiento de un LLM a traves de entrada disenada. Es un riesgo de seguridad critico para aplicaciones de IA.',
+        'Los recursos a continuacion cubren prompt injection indirecto, directo y jailbreak, ademas de mitigaciones. Cada guia te ayuda a defender aplicaciones basadas en LLM.',
+      ],
+    },
+  },
+  'model-selection': {
+    en: {
+      heading: 'LLM Model Selection',
+      paragraphs: [
+        'Model selection is the process of choosing the right LLM for a task. It balances cost, latency, quality, and capability.',
+        'The resources below cover model benchmarks, cost analysis, fine-tuning, and use case matching. Each guide helps you pick the best model for your needs.',
+      ],
+    },
+    es: {
+      heading: 'Seleccion de Modelos LLM',
+      paragraphs: [
+        'La seleccion de modelos es el proceso de elegir el LLM adecuado para una tarea. Equilibra costo, latencia, calidad y capacidad.',
+        'Los recursos a continuacion cubren benchmarks de modelos, analisis de costos, fine-tuning y correspondencia de casos de uso. Cada guia te ayuda a elegir el mejor modelo para tus necesidades.',
+      ],
+    },
+  },
+  ambassador: {
+    en: {
+      heading: 'Ambassador Pattern',
+      paragraphs: [
+        'The ambassador pattern offloads common client tasks to a helper container or process. It simplifies language-specific clients and adds features like retries or logging.',
+        'The resources below cover sidecar proxies, service mesh, and client-side ambassadors. Each guide helps you build resilient and observable clients.',
+      ],
+    },
+    es: {
+      heading: 'Patron Ambassador',
+      paragraphs: [
+        'El patron ambassador descarga tareas comunes del cliente en un contenedor o proceso auxiliar. Simplifica clientes especificos de lenguaje y agrega funciones como reintentos o logging.',
+        'Los recursos a continuacion cubren proxies sidecar, service mesh y ambassadors del lado del cliente. Cada guia te ayuda a construir clientes resilientes y observables.',
+      ],
+    },
+  },
+  consensus: {
+    en: {
+      heading: 'Distributed Consensus',
+      paragraphs: [
+        'Distributed consensus lets multiple nodes agree on a value or state. It is the foundation of reliable distributed systems.',
+        'The resources below cover Raft, Paxos, leader election, and consensus algorithms. Each guide helps you build systems that agree under failures.',
+      ],
+    },
+    es: {
+      heading: 'Consenso Distribuido',
+      paragraphs: [
+        'El consenso distribuido permite que multiples nodos acuerden un valor o estado. Es la base de los sistemas distribuidos confiables.',
+        'Los recursos a continuacion cubren Raft, Paxos, eleccion de lider y algoritmos de consenso. Cada guia te ayuda a construir sistemas que acuerden bajo fallas.',
+      ],
+    },
+  },
+  'multi-tenant': {
+    en: {
+      heading: 'Multi-Tenant Architectures',
+      paragraphs: [
+        'Multi-tenancy serves multiple customers from a single deployment. It requires isolation, scalability, and efficient resource sharing.',
+        'The resources below cover tenant isolation, SaaS patterns, data separation, and billing. Each guide helps you design multi-tenant applications.',
+      ],
+    },
+    es: {
+      heading: 'Arquitecturas Multi-Tenant',
+      paragraphs: [
+        'El multi-tenancy atiende a multiples clientes desde un solo despliegue. Requiere aislamiento, escalabilidad y comparticion eficiente de recursos.',
+        'Los recursos a continuacion cubren aislamiento de tenants, patrones SaaS, separacion de datos y facturacion. Cada guia te ayuda a disenar aplicaciones multi-tenant.',
+      ],
+    },
+  },
+  sidecar: {
+    en: {
+      heading: 'Sidecar Pattern',
+      paragraphs: [
+        'The sidecar pattern deploys a helper container alongside the main application. It adds functionality without changing the main container.',
+        'The resources below cover service mesh, logging sidecars, and lifecycle management. Each guide helps you use sidecars to extend application behavior.',
+      ],
+    },
+    es: {
+      heading: 'Patron Sidecar',
+      paragraphs: [
+        'El patron sidecar despliega un contenedor auxiliar junto a la aplicacion principal. Agrega funcionalidad sin cambiar el contenedor principal.',
+        'Los recursos a continuacion cubren service mesh, sidecars de logging y gestion del ciclo de vida. Cada guia te ayuda a usar sidecars para extender el comportamiento de aplicaciones.',
+      ],
+    },
+  },
+  'strangler-fig': {
+    en: {
+      heading: 'Strangler Fig Pattern',
+      paragraphs: [
+        'The strangler fig pattern gradually replaces a legacy system by routing functionality to new components. It reduces migration risk.',
+        'The resources below cover incremental migration, routing, and feature toggles. Each guide helps you modernize systems without big-bang rewrites.',
+      ],
+    },
+    es: {
+      heading: 'Patron Strangler Fig',
+      paragraphs: [
+        'El patron strangler fig reemplaza gradualmente un sistema legacy dirigiendo funcionalidad a nuevos componentes. Reduce el riesgo de migracion.',
+        'Los recursos a continuacion cubren migracion incremental, routing y feature toggles. Cada guia te ayuda a modernizar sistemas sin reescrituras big-bang.',
+      ],
+    },
+  },
+  oidc: {
+    en: {
+      heading: 'OpenID Connect',
+      paragraphs: [
+        'OpenID Connect is an identity layer on top of OAuth 2.0. It enables authentication and user info sharing in a standardized way.',
+        'The resources below cover ID tokens, userinfo, flows, and integration. Each guide helps you implement modern authentication with OIDC.',
+      ],
+    },
+    es: {
+      heading: 'OpenID Connect',
+      paragraphs: [
+        'OpenID Connect es una capa de identidad sobre OAuth 2.0. Habilita autenticacion y comparticion de informacion de usuario de forma estandarizada.',
+        'Los recursos a continuacion cubren ID tokens, userinfo, flujos e integracion. Cada guia te ayuda a implementar autenticacion moderna con OIDC.',
+      ],
+    },
+  },
+  delegation: {
+    en: {
+      heading: 'Delegation Pattern',
+      paragraphs: [
+        'Delegation passes responsibility from one object to another. It is an alternative to inheritance and promotes composition.',
+        'The resources below cover delegation, composition, and design examples. Each guide helps you build flexible object relationships.',
+      ],
+    },
+    es: {
+      heading: 'Patron Delegacion',
+      paragraphs: [
+        'La delegacion pasa la responsabilidad de un objeto a otro. Es una alternativa a la herencia y promueve la composicion.',
+        'Los recursos a continuacion cubren delegacion, composicion y ejemplos de diseno. Cada guia te ayuda a construir relaciones de objetos flexibles.',
+      ],
+    },
+  },
+  metadata: {
+    en: {
+      heading: 'Metadata Management',
+      paragraphs: [
+        'Metadata is data that describes other data. It is used for discovery, indexing, governance, and tooling.',
+        'The resources below cover metadata schemas, catalogs, annotations, and lineage. Each guide helps you manage metadata effectively.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Metadatos',
+      paragraphs: [
+        'Los metadatos son datos que describen otros datos. Se usan para descubrimiento, indexacion, gobernanza y herramientas.',
+        'Los recursos a continuacion cubren esquemas de metadatos, catalogos, anotaciones y lineage. Cada guia te ayuda a gestionar metadatos efectivamente.',
+      ],
+    },
+  },
+  avro: {
+    en: {
+      heading: 'Apache Avro',
+      paragraphs: [
+        'Avro is a binary data serialization format with schemas. It is widely used for data lakes, Kafka, and RPC.',
+        'The resources below cover schema definition, serialization, compatibility, and integration. Each guide helps you use Avro for efficient data exchange.',
+      ],
+    },
+    es: {
+      heading: 'Apache Avro',
+      paragraphs: [
+        'Avro es un formato de serializacion de datos binario con esquemas. Se usa ampliamente para data lakes, Kafka y RPC.',
+        'Los recursos a continuacion cubren definicion de esquemas, serializacion, compatibilidad e integracion. Cada guia te ayuda a usar Avro para intercambio de datos eficiente.',
+      ],
+    },
+  },
+  'abstract-factory': {
+    en: {
+      heading: 'Abstract Factory Pattern',
+      paragraphs: [
+        'The abstract factory pattern provides an interface for creating families of related objects. It decouples object creation from client code.',
+        'The resources below cover factory families, interfaces, and practical examples. Each guide helps you create consistent object families.',
+      ],
+    },
+    es: {
+      heading: 'Patron Abstract Factory',
+      paragraphs: [
+        'El patron abstract factory proporciona una interfaz para crear familias de objetos relacionados. Desacopla la creacion de objetos del codigo cliente.',
+        'Los recursos a continuacion cubren familias de factories, interfaces y ejemplos practicos. Cada guia te ayuda a crear familias de objetos consistentes.',
+      ],
+    },
+  },
+  'flow-control': {
+    en: {
+      heading: 'Flow Control in Systems',
+      paragraphs: [
+        'Flow control manages the rate at which data or work moves through a system. It prevents overload and backpressure.',
+        'The resources below cover backpressure, throttling, rate limiting, and buffering. Each guide helps you keep systems stable under load.',
+      ],
+    },
+    es: {
+      heading: 'Control de Flujo en Sistemas',
+      paragraphs: [
+        'El control de flujo gestiona la tasa a la que los datos o el trabajo se mueven a traves de un sistema. Previene sobrecarga y backpressure.',
+        'Los recursos a continuacion cubren backpressure, throttling, rate limiting y buffering. Cada guia te ayuda a mantener sistemas estables bajo carga.',
+      ],
+    },
+  },
+  builder: {
+    en: {
+      heading: 'Builder Pattern',
+      paragraphs: [
+        'The builder pattern constructs complex objects step by step. It separates object construction from representation.',
+        'The resources below cover fluent builders, immutable builders, and director patterns. Each guide helps you create readable object construction.',
+      ],
+    },
+    es: {
+      heading: 'Patron Builder',
+      paragraphs: [
+        'El patron builder construye objetos complejos paso a paso. Separa la construccion del objeto de su representacion.',
+        'Los recursos a continuacion cubren builders fluidos, builders inmutables y patrones director. Cada guia te ayuda a crear construccion de objetos legible.',
+      ],
+    },
+  },
+  'progressive-delivery': {
+    en: {
+      heading: 'Progressive Delivery',
+      paragraphs: [
+        'Progressive delivery releases changes gradually to selected users. It combines feature flags, canary, and A/B testing for safer deployments.',
+        'The resources below cover rings, canary, feature flags, and rollout strategies. Each guide helps you deliver features with less risk.',
+      ],
+    },
+    es: {
+      heading: 'Entrega Progresiva',
+      paragraphs: [
+        'La entrega progresiva libera cambios gradualmente a usuarios seleccionados. Combina feature flags, canary y A/B testing para despliegues mas seguros.',
+        'Los recursos a continuacion cubren anillos, canary, feature flags y estrategias de rollout. Cada guia te ayuda a entregar funciones con menos riesgo.',
+      ],
+    },
+  },
+  'chain-of-responsibility': {
+    en: {
+      heading: 'Chain of Responsibility',
+      paragraphs: [
+        'The chain of responsibility passes a request along a chain of handlers. Each handler decides whether to process or forward the request.',
+        'The resources below cover chains, handlers, middleware, and filters. Each guide helps you build flexible processing pipelines.',
+      ],
+    },
+    es: {
+      heading: 'Cadena de Responsabilidad',
+      paragraphs: [
+        'La cadena de responsabilidad pasa una solicitud a lo largo de una cadena de handlers. Cada handler decide si procesa o reenvia la solicitud.',
+        'Los recursos a continuacion cubren cadenas, handlers, middleware y filtros. Cada guia te ayuda a construir pipelines de procesamiento flexibles.',
+      ],
+    },
+  },
+  'architecture-pattern': {
+    en: {
+      heading: 'Architecture Patterns',
+      paragraphs: [
+        'Architecture patterns are reusable solutions for high-level structure. They guide the organization of systems and components.',
+        'The resources below cover layered, hexagonal, microservices, and event-driven patterns. Each guide helps you choose architecture that fits your goals.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Arquitectura',
+      paragraphs: [
+        'Los patrones de arquitectura son soluciones reutilizables para la estructura de alto nivel. Guian la organizacion de sistemas y componentes.',
+        'Los recursos a continuacion cubren patrones en capas, hexagonal, microservicios y event-driven. Cada guia te ayuda a elegir una arquitectura que se ajuste a tus objetivos.',
+      ],
+    },
+  },
+  command: {
+    en: {
+      heading: 'Command Pattern',
+      paragraphs: [
+        'The command pattern encapsulates a request as an object. It enables queuing, undo, and parameterization of operations.',
+        'The resources below cover command objects, invokers, receivers, and undo. Each guide helps you build flexible and reversible operations.',
+      ],
+    },
+    es: {
+      heading: 'Patron Command',
+      paragraphs: [
+        'El patron command encapsula una solicitud como un objeto. Permite encolar, deshacer y parametrizar operaciones.',
+        'Los recursos a continuacion cubren objetos command, invokers, receivers y undo. Cada guia te ayuda a construir operaciones flexibles y reversibles.',
+      ],
+    },
+  },
+  undo: {
+    en: {
+      heading: 'Undo and Redo Patterns',
+      paragraphs: [
+        'Undo and redo allow users to reverse and reapply actions. They are essential for interactive applications.',
+        'The resources below cover command stacks, history, memento, and state snapshots. Each guide helps you implement reliable undo/redo.',
+      ],
+    },
+    es: {
+      heading: 'Patrones Undo y Redo',
+      paragraphs: [
+        'Undo y redo permiten a los usuarios revertir y reaplicar acciones. Son esenciales para aplicaciones interactivas.',
+        'Los recursos a continuacion cubren pilas de comandos, historial, memento y snapshots de estado. Cada guia te ayuda a implementar undo/redo confiable.',
+      ],
+    },
+  },
+  cloudfront: {
+    en: {
+      heading: 'Amazon CloudFront',
+      paragraphs: [
+        'CloudFront is AWS content delivery network. It caches content at edge locations to reduce latency and improve performance.',
+        'The resources below cover distributions, origins, cache behaviors, and signed URLs. Each guide helps you deliver content faster with CloudFront.',
+      ],
+    },
+    es: {
+      heading: 'Amazon CloudFront',
+      paragraphs: [
+        'CloudFront es la red de entrega de contenido de AWS. Cachea contenido en ubicaciones de edge para reducir latencia y mejorar rendimiento.',
+        'Los recursos a continuacion cubren distribuciones, origenes, comportamientos de cache y URLs firmadas. Cada guia te ayuda a entregar contenido mas rapido con CloudFront.',
+      ],
+    },
+  },
+  'data-ownership': {
+    en: {
+      heading: 'Data Ownership and Governance',
+      paragraphs: [
+        'Data ownership defines who is responsible for data quality, access, and lifecycle. It is a foundation for governance and compliance.',
+        'The resources below cover data stewards, lineage, catalogs, and access control. Each guide helps you establish clear data ownership.',
+      ],
+    },
+    es: {
+      heading: 'Propiedad y Gobernanza de Datos',
+      paragraphs: [
+        'La propiedad de datos define quien es responsable de la calidad, acceso y ciclo de vida de los datos. Es una base para la gobernanza y el cumplimiento.',
+        'Los recursos a continuacion cubren data stewards, lineage, catalogos y control de acceso. Cada guia te ayuda a establecer propiedad de datos clara.',
+      ],
+    },
+  },
+  'game-dev': {
+    en: {
+      heading: 'Game Development Patterns',
+      paragraphs: [
+        'Game development uses specialized patterns for state, physics, rendering, and networking. Good patterns keep game code maintainable.',
+        'The resources below cover game loops, ECS, state machines, and networking. Each guide helps you build game systems with solid architecture.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Desarrollo de Juegos',
+      paragraphs: [
+        'El desarrollo de juegos usa patrones especializados para estado, fisica, renderizado y redes. Buenos patrones mantienen el codigo de juegos mantenible.',
+        'Los recursos a continuacion cubren game loops, ECS, maquinas de estado y redes. Cada guia te ayuda a construir sistemas de juegos con arquitectura solida.',
+      ],
+    },
+  },
+  factory: {
+    en: {
+      heading: 'Factory Pattern',
+      paragraphs: [
+        'The factory pattern creates objects without exposing instantiation logic. It centralizes creation and supports polymorphism.',
+        'The resources below cover simple, static, and abstract factories. Each guide helps you create objects cleanly and flexibly.',
+      ],
+    },
+    es: {
+      heading: 'Patron Factory',
+      paragraphs: [
+        'El patron factory crea objetos sin exponer la logica de instanciacion. Centraliza la creacion y soporta polimorfismo.',
+        'Los recursos a continuacion cubren factories simples, estaticas y abstractas. Cada guia te ayuda a crear objetos limpia y flexiblemente.',
+      ],
+    },
+  },
+  interpreter: {
+    en: {
+      heading: 'Interpreter Pattern',
+      paragraphs: [
+        'The interpreter pattern defines a representation for a grammar and an interpreter. It is useful for domain-specific languages.',
+        'The resources below cover grammar, abstract syntax trees, and evaluation. Each guide helps you build small interpreters and parsers.',
+      ],
+    },
+    es: {
+      heading: 'Patron Interpreter',
+      paragraphs: [
+        'El patron interpreter define una representacion para una gramatica y un interprete. Es util para lenguajes especificos de dominio.',
+        'Los recursos a continuacion cubren gramaticas, arboles de sintaxis abstracta y evaluacion. Cada guia te ayuda a construir pequenos interpretes y parsers.',
+      ],
+    },
+  },
+  iterator: {
+    en: {
+      heading: 'Iterator Pattern',
+      paragraphs: [
+        'The iterator pattern provides sequential access to elements without exposing internal structure. It is fundamental to collections.',
+        'The resources below cover iterators, generators, foreach, and custom collections. Each guide helps you traverse collections cleanly.',
+      ],
+    },
+    es: {
+      heading: 'Patron Iterator',
+      paragraphs: [
+        'El patron iterator proporciona acceso secuencial a elementos sin exponer la estructura interna. Es fundamental para colecciones.',
+        'Los recursos a continuacion cubren iterators, generators, foreach y colecciones personalizadas. Cada guia te ayuda a recorrer colecciones limpiamente.',
+      ],
+    },
+  },
 };
