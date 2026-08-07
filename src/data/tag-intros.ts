@@ -2052,4 +2052,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  composition: {
+    en: {
+      heading: 'Object Composition',
+      paragraphs: [
+        'Composition is a design principle where objects are built by combining simpler objects rather than inheriting from a base class. It favors flexibility and avoids the rigidity of deep inheritance hierarchies.',
+        'The resources below cover object composition, mixins, dependency injection, decorator patterns, and composable components. Each guide shows how to build systems that are easier to change and test.',
+      ],
+    },
+    es: {
+      heading: 'Composicion de Objetos',
+      paragraphs: [
+        'La composicion es un principio de diseno donde los objetos se construyen combinando objetos mas simples en lugar de heredar de una clase base. Favorece la flexibilidad y evita la rigidez de las jerarquias de herencia profundas.',
+        'Los recursos a continuacion cubren composicion de objetos, mixins, inyeccion de dependencias, patrones decorator y componentes componibles. Cada guia muestra como construir sistemas mas faciles de cambiar y probar.',
+      ],
+    },
+  },
+  schema: {
+    en: {
+      heading: 'Schema Design and Management',
+      paragraphs: [
+        'Schemas define the structure of data, APIs, databases, and messages. Good schema design balances flexibility, validation, and evolution over time.',
+        'The resources below cover database schemas, JSON Schema, Protocol Buffers, Avro, OpenAPI, and schema migration. Each guide helps you design schemas that can evolve without breaking consumers.',
+      ],
+    },
+    es: {
+      heading: 'Diseno y Gestion de Esquemas',
+      paragraphs: [
+        'Los esquemas definen la estructura de datos, APIs, bases de datos y mensajes. Un buen diseno de esquemas equilibra flexibilidad, validacion y evolucion a lo largo del tiempo.',
+        'Los recursos a continuacion cubren esquemas de bases de datos, JSON Schema, Protocol Buffers, Avro, OpenAPI y migracion de esquemas. Cada guia te ayuda a disenar esquemas que evolucionan sin romper consumidores.',
+      ],
+    },
+  },
+  routing: {
+    en: {
+      heading: 'Routing and Navigation',
+      paragraphs: [
+        'Routing maps incoming requests or UI states to the right handler. It is a fundamental part of web frameworks, APIs, and network infrastructure.',
+        'The resources below cover HTTP routing, dynamic routes, nested routing, API gateways, reverse proxies, and frontend routers. Each guide explains how to design routing that is clear and scalable.',
+      ],
+    },
+    es: {
+      heading: 'Routing y Navegacion',
+      paragraphs: [
+        'El routing mapea solicitudes entrantes o estados de UI al handler correcto. Es una parte fundamental de frameworks web, APIs e infraestructura de red.',
+        'Los recursos a continuacion cubren routing HTTP, rutas dinamicas, routing anidado, API gateways, reverse proxies y routers frontend. Cada guia explica como disenar routing claro y escalable.',
+      ],
+    },
+  },
+  creational: {
+    en: {
+      heading: 'Creational Design Patterns',
+      paragraphs: [
+        'Creational patterns deal with object creation mechanisms. They help make a system independent of how its objects are created, composed, and represented.',
+        'The resources below cover singleton, factory, builder, prototype, and abstract factory patterns. Each guide shows how to create objects in a way that is flexible and reusable.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Diseno Creacionales',
+      paragraphs: [
+        'Los patrones creacionales tratan los mecanismos de creacion de objetos. Ayudan a hacer un sistema independiente de como se crean, componen y representan sus objetos.',
+        'Los recursos a continuacion cubren singleton, factory, builder, prototype y abstract factory. Cada guia muestra como crear objetos de forma flexible y reutilizable.',
+      ],
+    },
+  },
+  cache: {
+    en: {
+      heading: 'Caching for Performance',
+      paragraphs: [
+        'Caching stores copies of data closer to where it is needed to reduce latency and load. It is one of the most effective performance optimizations but requires careful invalidation.',
+        'The resources below cover in-memory caches, distributed caches, CDNs, TTL, cache invalidation, and eviction policies. Each recipe shows how to speed up access while keeping data consistent.',
+      ],
+    },
+    es: {
+      heading: 'Caching para Rendimiento',
+      paragraphs: [
+        'El caching almacena copias de datos mas cerca de donde se necesitan para reducir latencia y carga. Es una de las optimizaciones de rendimiento mas efectivas, pero requiere invalidacion cuidadosa.',
+        'Los recursos a continuacion cubren caches en memoria, caches distribuidos, CDNs, TTL, invalidacion de cache y politicas de eviction. Cada receta muestra como acelerar el acceso manteniendo datos consistentes.',
+      ],
+    },
+  },
+  threads: {
+    en: {
+      heading: 'Multithreading and Threading Models',
+      paragraphs: [
+        'Threads allow a program to run multiple tasks concurrently within the same process. They are the foundation of parallelism but introduce synchronization and safety challenges.',
+        'The resources below cover thread pools, locks, mutexes, semaphores, thread-local storage, and virtual threads. Each guide helps you write multithreaded code that is safe and efficient.',
+      ],
+    },
+    es: {
+      heading: 'Multithreading y Modelos de Threads',
+      paragraphs: [
+        'Los threads permiten que un programa ejecute multiples tareas concurrentemente dentro del mismo proceso. Son la base del paralelismo, pero introducen desafios de sincronizacion y seguridad.',
+        'Los recursos a continuacion cubren thread pools, locks, mutexes, semaforos, almacenamiento local de threads y virtual threads. Cada guia te ayuda a escribir codigo multithread seguro y eficiente.',
+      ],
+    },
+  },
+  reliability: {
+    en: {
+      heading: 'Reliability Engineering',
+      paragraphs: [
+        'Reliability engineering ensures that systems operate correctly under expected and unexpected conditions. It combines design, testing, monitoring, and operational practices.',
+        'The resources below cover fault tolerance, redundancy, graceful degradation, SLOs, error budgets, and chaos engineering. Each guide helps you build systems that users can trust.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria de Confiabilidad',
+      paragraphs: [
+        'La ingenieria de confiabilidad asegura que los sistemas operen correctamente bajo condiciones esperadas e inesperadas. Combina diseno, testing, monitoreo y practicas operacionales.',
+        'Los recursos a continuacion cubren tolerancia a fallas, redundancia, degradacion elegante, SLOs, presupuestos de error y chaos engineering. Cada guia te ayuda a construir sistemas en los que los usuarios puedan confiar.',
+      ],
+    },
+  },
+  backpressure: {
+    en: {
+      heading: 'Backpressure and Flow Control',
+      paragraphs: [
+        'Backpressure is a mechanism that lets a slow consumer signal to a fast producer to slow down. Without it, systems can overflow queues, run out of memory, or drop data.',
+        'The resources below cover reactive streams, bounded queues, load shedding, and throttling. Each guide shows how to keep data flows stable under varying load.',
+      ],
+    },
+    es: {
+      heading: 'Backpressure y Control de Flujo',
+      paragraphs: [
+        'El backpressure es un mecanismo que permite a un consumidor lento senalar a un productor rapido que reduzca la velocidad. Sin el, los sistemas pueden desbordar colas, quedarse sin memoria o perder datos.',
+        'Los recursos a continuacion cubren reactive streams, colas acotadas, load shedding y throttling. Cada guia muestra como mantener flujos de datos estables bajo carga variable.',
+      ],
+    },
+  },
+  apollo: {
+    en: {
+      heading: 'Apollo and GraphQL Tools',
+      paragraphs: [
+        'Apollo provides a suite of tools for building and operating GraphQL APIs, including the Apollo Client, Apollo Server, and federation. It is widely used for unified graphs and type-safe APIs.',
+        'The resources below cover Apollo Client, Apollo Server, federation, schema stitching, and caching. Each recipe shows how to build, query, and scale GraphQL services with Apollo.',
+      ],
+    },
+    es: {
+      heading: 'Apollo y Herramientas GraphQL',
+      paragraphs: [
+        'Apollo proporciona un conjunto de herramientas para construir y operar APIs GraphQL, incluyendo Apollo Client, Apollo Server y federation. Es ampliamente usado para grafos unificados y APIs type-safe.',
+        'Los recursos a continuacion cubren Apollo Client, Apollo Server, federation, schema stitching y caching. Cada receta muestra como construir, consultar y escalar servicios GraphQL con Apollo.',
+      ],
+    },
+  },
+  mocking: {
+    en: {
+      heading: 'Mocking and Test Doubles',
+      paragraphs: [
+        'Mocking replaces real dependencies with controlled substitutes during tests. It helps isolate units, simulate failures, and speed up test execution.',
+        'The resources below cover mocks, stubs, fakes, spies, dependency injection, and mock servers. Each guide shows how to test components in isolation without hitting real services.',
+      ],
+    },
+    es: {
+      heading: 'Mocking y Test Doubles',
+      paragraphs: [
+        'El mocking reemplaza dependencias reales con sustitutos controlados durante las pruebas. Ayuda a aislar unidades, simular fallas y acelerar la ejecucion de tests.',
+        'Los recursos a continuacion cubren mocks, stubs, fakes, spies, inyeccion de dependencias y mock servers. Cada guia muestra como probar componentes de forma aislada sin tocar servicios reales.',
+      ],
+    },
+  },
+  queue: {
+    en: {
+      heading: 'Queues and Job Processing',
+      paragraphs: [
+        'Queues decouple producers and consumers, allowing work to be processed asynchronously. They are essential for background jobs, retries, and load leveling.',
+        'The resources below cover message queues, task queues, job workers, retries, priority queues, and dead-letter queues. Each recipe shows how to build reliable asynchronous processing.',
+      ],
+    },
+    es: {
+      heading: 'Colas y Procesamiento de Trabajos',
+      paragraphs: [
+        'Las colas desacoplan productores y consumidores, permitiendo que el trabajo se procese de forma asincrona. Son esenciales para background jobs, reintentos y balanceo de carga.',
+        'Los recursos a continuacion cubren message queues, task queues, workers de jobs, reintentos, colas de prioridad y dead-letter queues. Cada receta muestra como construir procesamiento asincrono confiable.',
+      ],
+    },
+  },
+  'message-queue': {
+    en: {
+      heading: 'Message Queue Patterns',
+      paragraphs: [
+        'Message queues enable asynchronous communication between services. They improve reliability, scalability, and decoupling in distributed systems.',
+        'The resources below cover RabbitMQ, SQS, Kafka, pub-sub, point-to-point, and message durability. Each guide shows how to choose and implement the right queue pattern.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de Colas de Mensajes',
+      paragraphs: [
+        'Las colas de mensajes permiten comunicacion asincrona entre servicios. Mejoran la confiabilidad, escalabilidad y desacoplamiento en sistemas distribuidos.',
+        'Los recursos a continuacion cubren RabbitMQ, SQS, Kafka, pub-sub, point-to-point y durabilidad de mensajes. Cada guia muestra como elegir e implementar el patron de cola correcto.',
+      ],
+    },
+  },
+  profiling: {
+    en: {
+      heading: 'Performance Profiling',
+      paragraphs: [
+        'Profiling identifies where a program spends time and resources. It is the first step in performance optimization, turning assumptions into data.',
+        'The resources below cover CPU profiling, memory profiling, flame graphs, heap analysis, and profiling tools. Each recipe shows how to find and fix bottlenecks in different languages.',
+      ],
+    },
+    es: {
+      heading: 'Profiling de Rendimiento',
+      paragraphs: [
+        'El profiling identifica donde un programa gasta tiempo y recursos. Es el primer paso en la optimizacion de rendimiento, convirtiendo suposiciones en datos.',
+        'Los recursos a continuacion cubren profiling de CPU, profiling de memoria, flame graphs, analisis de heap y herramientas de profiling. Cada receta muestra como encontrar y solucionar cuellos de botella en diferentes lenguajes.',
+      ],
+    },
+  },
+  indexing: {
+    en: {
+      heading: 'Database Indexing',
+      paragraphs: [
+        'Indexes are data structures that speed up queries at the cost of write performance and storage. Choosing the right indexes is one of the highest-impact database optimizations.',
+        'The resources below cover B-tree, hash, composite, partial, covering, and full-text indexes. Each guide explains how to design indexes for read-heavy and write-heavy workloads.',
+      ],
+    },
+    es: {
+      heading: 'Indexacion de Bases de Datos',
+      paragraphs: [
+        'Los indices son estructuras de datos que aceleran consultas a costa del rendimiento de escritura y almacenamiento. Elegir los indices correctos es una de las optimizaciones de mayor impacto.',
+        'Los recursos a continuacion cubren B-tree, hash, compuestos, parciales, covering y full-text. Cada guia explica como disenar indices para cargas con muchas lecturas o escrituras.',
+      ],
+    },
+  },
+  'ai-pattern': {
+    en: {
+      heading: 'AI and LLM Patterns',
+      paragraphs: [
+        'AI patterns capture proven approaches to building systems with language models, embeddings, and agents. They help manage cost, latency, reliability, and user experience.',
+        'The resources below cover RAG, prompt chaining, agents, function calling, guardrails, and model routing. Each guide shows how to build AI systems that are reliable and cost-effective.',
+      ],
+    },
+    es: {
+      heading: 'Patrones de IA y LLM',
+      paragraphs: [
+        'Los patrones de IA capturan enfoques probados para construir sistemas con modelos de lenguaje, embeddings y agentes. Ayudan a gestionar costo, latencia, confiabilidad y experiencia de usuario.',
+        'Los recursos a continuacion cubren RAG, prompt chaining, agentes, function calling, guardrails y model routing. Cada guia muestra como construir sistemas de IA confiables y rentables.',
+      ],
+    },
+  },
+  governance: {
+    en: {
+      heading: 'Data and API Governance',
+      paragraphs: [
+        'Governance defines policies, standards, and processes for managing data, APIs, and technology. It ensures consistency, compliance, and accountability across teams.',
+        'The resources below cover data governance, API governance, schema standards, access policies, and compliance. Each guide helps you establish controls without slowing delivery.',
+      ],
+    },
+    es: {
+      heading: 'Gobernanza de Datos y APIs',
+      paragraphs: [
+        'La gobernanza define politicas, estandares y procesos para gestionar datos, APIs y tecnologia. Asegura consistencia, cumplimiento y responsabilidad entre equipos.',
+        'Los recursos a continuacion cubren gobernanza de datos, gobernanza de APIs, estandares de esquemas, politicas de acceso y cumplimiento. Cada guia ayuda a establecer controles sin frenar la entrega.',
+      ],
+    },
+  },
+  failover: {
+    en: {
+      heading: 'Failover and High Availability',
+      paragraphs: [
+        'Failover is the process of switching to a redundant or standby system when the primary fails. It is a key component of high-availability architectures.',
+        'The resources below cover active-passive, active-active, load balancer failover, database replicas, and disaster recovery. Each guide shows how to design systems that recover quickly.',
+      ],
+    },
+    es: {
+      heading: 'Failover y Alta Disponibilidad',
+      paragraphs: [
+        'El failover es el proceso de cambiar a un sistema redundante o en espera cuando el primario falla. Es un componente clave de las arquitecturas de alta disponibilidad.',
+        'Los recursos a continuacion cubren activo-pasivo, activo-activo, failover de load balancers, replicas de bases de datos y recuperacion ante desastres. Cada guia muestra como disenar sistemas que se recuperan rapidamente.',
+      ],
+    },
+  },
+  'data-engineering': {
+    en: {
+      heading: 'Data Engineering',
+      paragraphs: [
+        'Data engineering builds the pipelines and infrastructure that transform raw data into usable products. It requires skills in storage, processing, orchestration, and quality.',
+        'The resources below cover ETL, data lakes, pipelines, orchestration, data quality, and streaming. Each guide helps you build data systems that are reliable and scalable.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria de Datos',
+      paragraphs: [
+        'La ingenieria de datos construye los pipelines e infraestructura que transforman datos crudos en productos usables. Requiere habilidades en almacenamiento, procesamiento, orquestacion y calidad.',
+        'Los recursos a continuacion cubren ETL, data lakes, pipelines, orquestacion, calidad de datos y streaming. Cada guia te ayuda a construir sistemas de datos confiables y escalables.',
+      ],
+    },
+  },
+  'best-practices': {
+    en: {
+      heading: 'Engineering Best Practices',
+      paragraphs: [
+        'Best practices are proven conventions and guidelines that help teams write better software. They cover code style, testing, security, operations, and collaboration.',
+        'The resources below cover coding standards, review processes, documentation, incident handling, and continuous improvement. Each guide helps you establish practices that reduce risk and speed.',
+      ],
+    },
+    es: {
+      heading: 'Mejores Practicas de Ingenieria',
+      paragraphs: [
+        'Las mejores practicas son convenciones y guias probadas que ayudan a los equipos a escribir mejor software. Cubren estilo de codigo, testing, seguridad, operaciones y colaboracion.',
+        'Los recursos a continuacion cubren estandares de codigo, procesos de revision, documentacion, manejo de incidentes y mejora continua. Cada guia ayuda a establecer practicas que reducen riesgo y aceleran.',
+      ],
+    },
+  },
+  openai: {
+    en: {
+      heading: 'OpenAI and LLM APIs',
+      paragraphs: [
+        'OpenAI provides large language models and APIs that power chat, completion, embedding, and vision workloads. Production use requires prompt design, cost management, and safety.',
+        'The resources below cover GPT models, the OpenAI API, fine-tuning, embeddings, function calling, and guardrails. Each recipe shows how to integrate OpenAI safely and efficiently.',
+      ],
+    },
+    es: {
+      heading: 'OpenAI y APIs de LLM',
+      paragraphs: [
+        'OpenAI proporciona modelos de lenguaje grandes y APIs que impulsan cargas de chat, completion, embedding y vision. El uso en produccion requiere diseno de prompts, gestion de costos y seguridad.',
+        'Los recursos a continuacion cubren modelos GPT, la API de OpenAI, fine-tuning, embeddings, function calling y guardrails. Cada receta muestra como integrar OpenAI de forma segura y eficiente.',
+      ],
+    },
+  },
+  rag: {
+    en: {
+      heading: 'Retrieval-Augmented Generation',
+      paragraphs: [
+        'RAG combines language models with external knowledge retrieval to improve accuracy, reduce hallucinations, and ground responses in real data.',
+        'The resources below cover vector databases, embeddings, chunking strategies, retrieval pipelines, and evaluation. Each guide helps you build RAG systems that produce trustworthy answers.',
+      ],
+    },
+    es: {
+      heading: 'Generacion Aumentada por Recuperacion',
+      paragraphs: [
+        'RAG combina modelos de lenguaje con recuperacion de conocimiento externo para mejorar precision, reducir alucinaciones y fundamentar respuestas en datos reales.',
+        'Los recursos a continuacion cubren bases de datos vectoriales, embeddings, estrategias de chunking, pipelines de recuperacion y evaluacion. Cada guia te ayuda a construir sistemas RAG que generan respuestas confiables.',
+      ],
+    },
+  },
+  oauth: {
+    en: {
+      heading: 'OAuth and Authorization Delegation',
+      paragraphs: [
+        'OAuth is a standard for delegated authorization. It lets users grant limited access to their resources without sharing passwords.',
+        'The resources below cover OAuth 2.0 flows, scopes, tokens, PKCE, and secure implementation. Each guide explains how to add third-party authorization without introducing vulnerabilities.',
+      ],
+    },
+    es: {
+      heading: 'OAuth y Delegacion de Autorizacion',
+      paragraphs: [
+        'OAuth es un estandar para la autorizacion delegada. Permite a los usuarios otorgar acceso limitado a sus recursos sin compartir contrasenas.',
+        'Los recursos a continuacion cubren flujos de OAuth 2.0, scopes, tokens, PKCE e implementacion segura. Cada guia explica como agregar autorizacion de terceros sin introducir vulnerabilidades.',
+      ],
+    },
+  },
+  identity: {
+    en: {
+      heading: 'Identity and Access Management',
+      paragraphs: [
+        'Identity management is the practice of authenticating and authorizing users and services. It is the foundation of application and cloud security.',
+        'The resources below cover authentication, federation, single sign-on, identity providers, and zero-trust access. Each guide helps you design identity systems that are secure and user-friendly.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Identidad y Acceso',
+      paragraphs: [
+        'La gestion de identidad es la practica de autenticar y autorizar usuarios y servicios. Es la base de la seguridad de aplicaciones y nube.',
+        'Los recursos a continuacion cubren autenticacion, federacion, single sign-on, proveedores de identidad y acceso de confianza cero. Cada guia te ayuda a disenar sistemas de identidad seguros y faciles de usar.',
+      ],
+    },
+  },
+  'query-optimization': {
+    en: {
+      heading: 'Query Optimization',
+      paragraphs: [
+        'Query optimization improves the performance and resource usage of database queries. It is essential for scalable applications that read or write large datasets.',
+        'The resources below cover query plans, indexes, joins, subqueries, and database-specific optimizers. Each recipe shows how to write queries that run fast and scale well.',
+      ],
+    },
+    es: {
+      heading: 'Optimizacion de Consultas',
+      paragraphs: [
+        'La optimizacion de consultas mejora el rendimiento y uso de recursos de las consultas a bases de datos. Es esencial para aplicaciones escalables que leen o escriben grandes conjuntos de datos.',
+        'Los recursos a continuacion cubren planes de consulta, indices, joins, subconsultas y optimizadores especificos de bases de datos. Cada receta muestra como escribir consultas rapidas y escalables.',
+      ],
+    },
+  },
+  ttl: {
+    en: {
+      heading: 'Time-To-Live and Expiration',
+      paragraphs: [
+        'TTL defines how long data remains valid before it expires. It is widely used in caching, session management, DNS, and data retention policies.',
+        'The resources below cover cache TTL, DNS TTL, session expiration, and data retention. Each guide helps you choose TTL values that balance freshness and cost.',
+      ],
+    },
+    es: {
+      heading: 'Time-To-Live y Expiracion',
+      paragraphs: [
+        'TTL define cuanto tiempo los datos permanecen validos antes de expirar. Se usa ampliamente en caching, gestion de sesiones, DNS y politicas de retencion de datos.',
+        'Los recursos a continuacion cubren TTL de cache, TTL de DNS, expiracion de sesiones y retencion de datos. Cada guia te ayuda a elegir valores de TTL que equilibren frescura y costo.',
+      ],
+    },
+  },
 };
