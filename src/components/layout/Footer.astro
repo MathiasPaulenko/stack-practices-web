@@ -10,12 +10,12 @@ const prefix = locale === 'es' ? '/es' : '';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-slate-700 bg-slate-900" data-pagefind-ignore>
-  <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+<footer class="site-footer" data-pagefind-ignore>
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
       <div>
-        <a href={`${prefix}/`} class="flex items-center gap-2 font-bold text-white">
-          <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-brand-500">
+        <a href={`${prefix}/`} class="site-footer__logo">
+          <span class="site-footer__logo-mark">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
               <path d="M10 7C8.5 7 7.5 8 7.5 10v3c0 1.5-1 2.5-2.5 3 1.5.5 2.5 1.5 2.5 3v3c0 2 1 3 2.5 3" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M22 7c1.5 0 2.5 1 2.5 3v3c0 1.5 1 2.5 2.5 3-1.5.5-2.5 1.5-2.5 3v3c0 2-1 3-2.5 3" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -26,7 +26,7 @@ const year = new Date().getFullYear();
           </span>
           <span>{SITE.name}</span>
         </a>
-        <p class="mt-3 text-sm text-slate-400">
+        <p class="site-footer__desc">
           {locale === 'es'
             ? 'Recetas de código, patrones de diseño y documentación de ingeniería de software.'
             : 'Practical code recipes, design patterns, and software engineering docs.'}
@@ -35,54 +35,53 @@ const year = new Date().getFullYear();
           href="https://ko-fi.com/C6E4212B3X"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-3 inline-block transition hover:scale-105 hover:brightness-110"
+          class="site-footer__kofi"
           aria-label={locale === 'es' ? 'Apóyanos en Ko-fi' : 'Support us on Ko-fi'}
         >
           <img
             src="/kofi3.png"
             alt={locale === 'es' ? 'Apóyanos en ko-fi.com' : 'Buy Me a Coffee at ko-fi.com'}
-            class="block h-10"
             loading="lazy"
           />
         </a>
       </div>
 
       <div>
-        <h2 class="text-sm font-semibold text-white">Content</h2>
-        <ul class="mt-3 space-y-2">
+        <h2 class="site-footer__heading">Content</h2>
+        <ul class="site-footer__list">
           {FOOTER_NAV.content.map((item) => (
             <li>
-              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{locale === 'es' ? item.labelEs : item.label}</a>
+              <a href={`${prefix}${item.href}`}>{locale === 'es' ? item.labelEs : item.label}</a>
             </li>
           ))}
         </ul>
       </div>
 
       <div>
-        <h2 class="text-sm font-semibold text-white">Site</h2>
-        <ul class="mt-3 space-y-2">
+        <h2 class="site-footer__heading">Site</h2>
+        <ul class="site-footer__list">
           {FOOTER_NAV.site.map((item) => (
             <li>
-              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{locale === 'es' ? item.labelEs : item.label}</a>
+              <a href={`${prefix}${item.href}`}>{locale === 'es' ? item.labelEs : item.label}</a>
             </li>
           ))}
         </ul>
       </div>
 
       <div>
-        <h2 class="text-sm font-semibold text-white">Legal</h2>
-        <ul class="mt-3 space-y-2">
+        <h2 class="site-footer__heading">Legal</h2>
+        <ul class="site-footer__list">
           {FOOTER_NAV.legal.map((item) => (
             <li>
-              <a href={`${prefix}${item.href}`} class="text-sm text-slate-400 hover:text-brand-400">{locale === 'es' ? item.labelEs : item.label}</a>
+              <a href={`${prefix}${item.href}`}>{locale === 'es' ? item.labelEs : item.label}</a>
             </li>
           ))}
         </ul>
       </div>
     </div>
 
-    <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-slate-700 pt-6 sm:flex-row">
-      <p class="text-sm text-slate-500">
+    <div class="site-footer__bottom">
+      <p class="site-footer__copy">
         &copy; {year} {SITE.name}. All rights reserved.
       </p>
     </div>

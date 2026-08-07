@@ -1,6 +1,33 @@
 (function () {
   'use strict';
 
+  // Consent / AdSense helper
+  window.spConsent = window.spConsent || {
+    STORAGE_KEY: 'sp-cookie-consent',
+    getStoredConsent: function() {
+      try {
+        var raw = localStorage.getItem(this.STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch (e) { return null; }
+    },
+    loadAdSense: function() {
+      if (window.spAdsLoaded) return;
+      window.spAdsLoaded = true;
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9762280383707953';
+      script.crossOrigin = 'anonymous';
+      document.head.appendChild(script);
+    }
+  };
+  (function() {
+    var consent = window.spConsent.getStoredConsent();
+    if (consent && consent.ad_storage === 'granted') {
+      window.spConsent.loadAdSense();
+    }
+  })();
+
   // Mobile menu
   (function () {
     const toggle = document.getElementById('mobile-menu-toggle');
