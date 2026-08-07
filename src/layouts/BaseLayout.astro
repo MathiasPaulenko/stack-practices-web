@@ -17,6 +17,7 @@ export interface Props {
   hasAlternate?: boolean;
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
+  trailingSlash?: boolean;
 }
 
 const {
@@ -29,6 +30,7 @@ const {
   hasAlternate = true,
   jsonLd = [],
   noindex = false,
+  trailingSlash = true,
 } = Astro.props;
 ---
 
@@ -87,6 +89,7 @@ const {
       hasAlternate={hasAlternate}
       jsonLd={jsonLd}
       noindex={noindex}
+      trailingSlash={trailingSlash}
     />
 
   </head>

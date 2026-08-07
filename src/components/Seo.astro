@@ -14,6 +14,8 @@ export interface Props {
   /** Optional JSON-LD objects to inject (already structured). */
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
+  /** Whether the canonical URL should end with a trailing slash. Default true. */
+  trailingSlash?: boolean;
 }
 
 const {
@@ -26,6 +28,7 @@ const {
   hasAlternate = true,
   jsonLd = [],
   noindex = false,
+  trailingSlash = true,
 } = Astro.props;
 
 function smartTruncate(text: string, maxLength: number): string {
@@ -47,7 +50,16 @@ function htmlEscapedExtra(text: string): number {
     + (text.match(/"/g) || []).length * 5;
 }
 
-const normalizedPath = path === '/' ? '/' : path.endsWith('/') ? path : `${path}/`;
+const normalizedPath =
+  path === '/'
+    ? '/'
+    : trailingSlash
+      ? path.endsWith('/')
+        ? path
+        : `${path}/`
+      : path.endsWith('/')
+        ? path.slice(0, -1)
+        : path;
 const enUrl = `${SITE.url}${normalizedPath}`;
 const esUrl = `${SITE.url}/es${normalizedPath}`;
 const canonical = locale === 'es' ? esUrl : enUrl;
