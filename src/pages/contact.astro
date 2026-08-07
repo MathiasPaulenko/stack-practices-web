@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { webPage, breadcrumbList } from '../lib/schema';
+import { PRIMARY_AUTHOR } from '../data/authors';
 
 const jsonLd = [
   {
@@ -131,8 +132,8 @@ const jsonLd = [
               <div>
                 <h3 class="text-base font-semibold text-slate-900">Email</h3>
                 <p class="mt-1 text-sm text-slate-600">
-                  <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:text-brand-700 hover:underline">
-                    mathias.paulenko@outlook.com
+                  <a href={`mailto:${PRIMARY_AUTHOR.email}`} class="text-brand-600 hover:text-brand-700 hover:underline">
+                    {PRIMARY_AUTHOR.email}
                   </a>
                 </p>
                 <p class="mt-1 text-xs text-slate-500">We aim to respond within 2–3 business days.</p>

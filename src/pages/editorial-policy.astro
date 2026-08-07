@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { webPage, breadcrumbList, organization, faqPage } from '../lib/schema';
+import { PRIMARY_AUTHOR } from '../data/authors';
 
 const jsonLd = [
   {
@@ -61,8 +62,8 @@ const jsonLd = [
       <div class="max-w-3xl">
         <h2 class="text-2xl font-bold text-slate-900">Who We Are</h2>
         <p class="mt-4 text-lg leading-relaxed text-slate-700">
-          StackPractices is curated by <strong>Mathias Paulenko</strong>, a
-          Software Engineer and Solutions Architect with <strong>12+ years of experience</strong>
+          StackPractices is curated by <strong>{PRIMARY_AUTHOR.name}</strong>, a
+          {PRIMARY_AUTHOR.jobTitle} and Solutions Architect with <strong>12+ years of experience</strong>
           in software engineering, system architecture, and full-stack development.
         </p>
         <p class="mt-4 leading-relaxed text-slate-600">
@@ -73,7 +74,7 @@ const jsonLd = [
         </p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a
-            href="https://github.com/MathiasPaulenko"
+            href={PRIMARY_AUTHOR.sameAs[0]}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
@@ -82,7 +83,7 @@ const jsonLd = [
             GitHub
           </a>
           <a
-            href="https://cn.linkedin.com/in/mathias-paulenko-echeverz"
+            href={PRIMARY_AUTHOR.sameAs[1]}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"
@@ -91,7 +92,7 @@ const jsonLd = [
             LinkedIn
           </a>
           <a
-            href="https://mathiaspaulenko.com"
+            href={PRIMARY_AUTHOR.url}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:border-brand-400 hover:text-brand-700"

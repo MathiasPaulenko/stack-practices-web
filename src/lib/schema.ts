@@ -1,4 +1,5 @@
 import { SITE } from '../config/site';
+import { PRIMARY_AUTHOR } from '../data/authors';
 
 /** Ensures a URL ends with a trailing slash (for SSG directory URLs). */
 function withSlash(url: string): string {
@@ -109,8 +110,8 @@ export function techArticle(opts: {
     ...(opts.datePublished && { datePublished: opts.datePublished }),
     author: {
       '@type': 'Person',
-      name: SITE.author,
-      url: 'https://mathiaspaulenko.com',
+      name: PRIMARY_AUTHOR.name,
+      url: PRIMARY_AUTHOR.url,
     },
     publisher: {
       '@type': 'Organization',

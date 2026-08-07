@@ -3,6 +3,8 @@
  * Single source of truth for SEO defaults, navigation, and brand metadata.
  */
 
+import { PRIMARY_AUTHOR } from '../data/authors';
+
 export const SITE = {
   name: 'StackPractices',
   domain: 'stackpractices.com',
@@ -12,7 +14,7 @@ export const SITE = {
     'A practical knowledge base for software engineers: code recipes, design patterns, and reusable technical documentation across multiple languages.',
   defaultLocale: 'en',
   locales: ['en', 'es'] as const,
-  author: 'Mathias Paulenko',
+  author: PRIMARY_AUTHOR.name,
   twitter: '@stackpractices',
   themeColor: '#2563eb',
 } as const;

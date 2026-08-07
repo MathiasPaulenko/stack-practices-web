@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { webPage, breadcrumbList } from '../lib/schema';
+import { PRIMARY_AUTHOR } from '../data/authors';
 
 const jsonLd = [
   {
@@ -51,7 +52,7 @@ const jsonLd = [
         <p>
           StackPractices is operated by an independent developer. For any inquiries, legal notices,
           or takedown requests, please contact us at
-          <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:underline">mathias.paulenko@outlook.com</a>.
+          <a href={`mailto:${PRIMARY_AUTHOR.email}`} class="text-brand-600 hover:underline">{PRIMARY_AUTHOR.email}</a>.
           We aim to respond to all communications within 5 business days.
         </p>
 
@@ -90,7 +91,7 @@ const jsonLd = [
         <p>
           We respect intellectual property rights. If you believe content on StackPractices infringes
           your copyright, please send a detailed takedown notice to
-          <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:underline">mathias.paulenko@outlook.com</a>
+          <a href={`mailto:${PRIMARY_AUTHOR.email}`} class="text-brand-600 hover:underline">{PRIMARY_AUTHOR.email}</a>
           including: (1) your contact information, (2) identification of the copyrighted work,
           (3) identification of the infringing material, (4) a statement of good faith, and (5) your
           signature. We will investigate and respond promptly.

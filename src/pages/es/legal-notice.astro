@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { webPage, breadcrumbList } from '../../lib/schema';
+import { PRIMARY_AUTHOR } from '../../data/authors';
 
 const jsonLd = [
   {
@@ -52,7 +53,7 @@ const jsonLd = [
         <p>
           StackPractices es operado por un desarrollador independiente. Para cualquier consulta,
           avisos legales o solicitudes de retirada de contenido, por favor contáctanos en
-          <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:underline">mathias.paulenko@outlook.com</a>.
+          <a href={`mailto:${PRIMARY_AUTHOR.email}`} class="text-brand-600 hover:underline">{PRIMARY_AUTHOR.email}</a>.
           Intentamos responder a todas las comunicaciones dentro de 5 días hábiles.
         </p>
 
@@ -92,7 +93,7 @@ const jsonLd = [
         <p>
           Respetamos los derechos de propiedad intelectual. Si crees que contenido en StackPractices
           infringe tus derechos de autor, por favor envía un aviso detallado de retirada a
-          <a href="mailto:mathias.paulenko@outlook.com" class="text-brand-600 hover:underline">mathias.paulenko@outlook.com</a>
+          <a href={`mailto:${PRIMARY_AUTHOR.email}`} class="text-brand-600 hover:underline">{PRIMARY_AUTHOR.email}</a>
           incluyendo: (1) tu información de contacto, (2) identificación de la obra protegida,
           (3) identificación del material infractor, (4) una declaración de buena fe, y (5) tu firma.
           Investigaremos y responderemos con prontitud.
