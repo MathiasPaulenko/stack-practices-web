@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-import rehypeShortCode from './src/lib/rehype-short-code.mjs';
+import shikiShortCode from './src/lib/shiki-short-code.mjs';
 import remarkTruncateFaq from './src/lib/remark-truncate-faq.mjs';
 
 // https://astro.build/config
@@ -17,9 +17,9 @@ export default defineConfig({
     shikiConfig: {
       theme: 'github-dark',
       wrap: false,
+      transformers: [shikiShortCode()],
     },
     remarkPlugins: [[remarkTruncateFaq, { maxFaqs: 5 }]],
-    rehypePlugins: [rehypeShortCode],
   },
   vite: {
     build: {
