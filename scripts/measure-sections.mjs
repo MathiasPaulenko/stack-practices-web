@@ -11,34 +11,33 @@ function walk(dir) {
 }
 walk('dist');
 
-const sectionTotals = {};
-const sectionCounts = {};
-const h2Re = /<h2\b[^>]*?\sid="([^"]+)"[^>]*>/gi;
-const nextH2Re = /<h2\b/gi;
+const sections = [
+  { name: 'head', re: /^[\s\S]*?<\/head>/ },
+  { name: 'header', re: /<header[\s\S]*?<\/header>/ },
+  { name: 'footer', re: /<footer[\s\S]*?<\/footer>/ },
+  { name: 'hero', re: /<section[^>]*class="[^"]*hero/ },
+  { name: 'prose', re: /<div[^>]*class="[^"]*prose[^"]*"[\s\S]*?<!-- Main content -->|<section class="bg-white">[\s\S]*?<!-- Related resources -->/ },
+  { name: 'after_body', re: /<\/footer>[\s\S]*$/ },
+];
+
+const totals = {};
+for (const s of sections) totals[s.name] = { total: 0, count: 0 };
+let total = 0;
+
 for (const f of files) {
   const html = fs.readFileSync(f, 'utf8');
-  const positions = [];
-  let m;
-  while ((m = h2Re.exec(html)) !== null) {
-    positions.push({ id: m[1], idx: m.index });
-  }
-  for (let i = 0; i < positions.length; i++) {
-    nextH2Re.lastIndex = positions[i].idx + 3;
-    const next = nextH2Re.exec(html);
-    const end = next ? next.index : html.length;
-    const size = end - positions[i].idx;
-    sectionTotals[positions[i].id] = (sectionTotals[positions[i].id] || 0) + size;
-    sectionCounts[positions[i].id] = (sectionCounts[positions[i].id] || 0) + 1;
+  total += html.length;
+  for (const s of sections) {
+    const m = html.match(s.re);
+    if (m) {
+      totals[s.name].total += m[0].length;
+      totals[s.name].count++;
+    }
   }
 }
-const sorted = Object.entries(sectionTotals).sort((a, b) => b[1] - a[1]);
-for (const [id, total] of sorted.slice(0, 40)) {
-  console.log(
-    (total / 1024 / 1024).toFixed(2) + ' MB',
-    id,
-    'avg',
-    (total / sectionCounts[id] / 1024).toFixed(1) + ' KB',
-    'count',
-    sectionCounts[id]
-  );
+
+console.log('Total HTML:', (total / 1024 / 1024).toFixed(2), 'MB');
+for (const [name, { total, count }] of Object.entries(totals)) {
+  if (count === 0) continue;
+  console.log(name, ':', (total / 1024 / 1024).toFixed(2), 'MB avg', (total / count / 1024).toFixed(1), 'KB count', count);
 }

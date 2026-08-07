@@ -11,39 +11,30 @@ const isEs = locale === 'es';
 
 <div
   id="cookie-banner"
-  class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-slate-700 bg-slate-900/95 backdrop-blur"
+  class="cookie-banner"
   role="dialog"
   aria-label={isEs ? 'Consentimiento de cookies' : 'Cookie consent'}
 >
-  <div class="mx-auto max-w-6xl px-4 py-4 sm:px-6 sm:py-5">
-    <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div class="text-sm text-slate-300 sm:max-w-2xl">
+  <div class="cookie-banner__inner">
+    <div class="cookie-banner__row">
+      <div class="cookie-banner__text">
         <p>
           {isEs
             ? 'StackPractices utiliza cookies esenciales, de análisis y publicidad. Puedes personalizar tus preferencias o aceptar todas. Consulta nuestra '
             : 'StackPractices uses essential, analytics, and advertising cookies. You can customize your preferences or accept all. See our '}
-          <a href={`${isEs ? '/es' : ''}/cookies`} class="font-medium text-brand-400 hover:text-brand-300 hover:underline">
+          <a href={`${isEs ? '/es' : ''}/cookies`}>
             {isEs ? 'Política de Cookies' : 'Cookie Policy'}
           </a>.
         </p>
       </div>
-      <div class="flex flex-shrink-0 flex-wrap items-center gap-2">
-        <button
-          id="cookie-reject"
-          class="rounded-md border border-slate-600 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
-        >
+      <div class="cookie-banner__actions">
+        <button id="cookie-reject" class="cookie-banner__btn">
           {isEs ? 'Rechazar' : 'Decline'}
         </button>
-        <button
-          id="cookie-manage"
-          class="rounded-md border border-slate-600 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
-        >
+        <button id="cookie-manage" class="cookie-banner__btn">
           {isEs ? 'Gestionar' : 'Manage'}
         </button>
-        <button
-          id="cookie-accept"
-          class="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
-        >
+        <button id="cookie-accept" class="cookie-banner__btn--primary">
           {isEs ? 'Aceptar todo' : 'Accept All'}
         </button>
       </div>
@@ -54,67 +45,61 @@ const isEs = locale === 'es';
 <!-- Consent Preferences Modal -->
 <div
   id="cookie-modal"
-  class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm"
+  class="cookie-modal"
   role="dialog"
   aria-modal="true"
   aria-label={isEs ? 'Preferencias de cookies' : 'Cookie preferences'}
 >
-  <div class="mx-4 w-full max-w-lg rounded-xl border border-slate-600 bg-slate-900 p-6 shadow-2xl">
-    <h2 class="text-lg font-semibold text-white">
+  <div class="cookie-modal__panel">
+    <h2 class="cookie-modal__title">
       {isEs ? 'Preferencias de cookies' : 'Cookie Preferences'}
     </h2>
-    <p class="mt-2 text-sm text-slate-300">
+    <p class="cookie-modal__desc">
       {isEs
         ? 'Selecciona qué tipos de cookies aceptas. Las esenciales son necesarias para el funcionamiento del sitio.'
         : 'Select which types of cookies you accept. Essential cookies are required for the site to function.'}
     </p>
 
-    <div class="mt-5 space-y-3">
+    <div class="cookie-modal__options">
       <!-- Essential -->
-      <div class="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3">
+      <div class="cookie-modal__option">
         <div>
-          <p class="text-sm font-medium text-white">{isEs ? 'Esenciales' : 'Essential'}</p>
-          <p class="text-xs text-slate-400">
+          <p class="cookie-modal__option-title">{isEs ? 'Esenciales' : 'Essential'}</p>
+          <p class="cookie-modal__option-help">
             {isEs ? 'Necesarias para el funcionamiento del sitio.' : 'Required for the site to work.'}
           </p>
         </div>
-        <input type="checkbox" checked disabled aria-label={isEs ? 'Cookies esenciales siempre activas' : 'Essential cookies always on'} class="h-5 w-5 accent-brand-600" />
+        <input type="checkbox" checked disabled aria-label={isEs ? 'Cookies esenciales siempre activas' : 'Essential cookies always on'} class="cookie-modal__checkbox" />
       </div>
 
       <!-- Analytics -->
-      <div class="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3">
+      <div class="cookie-modal__option">
         <div>
-          <p class="text-sm font-medium text-white">{isEs ? 'Análisis' : 'Analytics'}</p>
-          <p class="text-xs text-slate-400">
+          <p class="cookie-modal__option-title">{isEs ? 'Análisis' : 'Analytics'}</p>
+          <p class="cookie-modal__option-help">
             {isEs ? 'Ayudan a entender cómo se usa el sitio.' : 'Help us understand how the site is used.'}
           </p>
         </div>
-        <input id="toggle-analytics" type="checkbox" aria-label={isEs ? 'Permitir cookies de análisis' : 'Allow analytics cookies'} class="h-5 w-5 accent-brand-600" />
+        <input id="toggle-analytics" type="checkbox" aria-label={isEs ? 'Permitir cookies de análisis' : 'Allow analytics cookies'} class="cookie-modal__checkbox" />
       </div>
 
       <!-- Advertising -->
-      <div class="flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3">
+      <div class="cookie-modal__option">
         <div>
-          <p class="text-sm font-medium text-white">{isEs ? 'Publicidad' : 'Advertising'}</p>
-          <p class="text-xs text-slate-400">
+          <p class="cookie-modal__option-title">{isEs ? 'Publicidad' : 'Advertising'}</p>
+          <p class="cookie-modal__option-help">
             {isEs ? 'Permiten mostrar anuncios relevantes.' : 'Allow us to show relevant ads.'}
           </p>
         </div>
-        <input id="toggle-advertising" type="checkbox" aria-label={isEs ? 'Permitir cookies de publicidad' : 'Allow advertising cookies'} class="h-5 w-5 accent-brand-600" />
+        <input id="toggle-advertising" type="checkbox" aria-label={isEs ? 'Permitir cookies de publicidad' : 'Allow advertising cookies'} class="cookie-modal__checkbox" />
       </div>
     </div>
 
-    <div class="mt-6 flex justify-end gap-3">
-      <button
-        id="modal-cancel"
-        class="rounded-md border border-slate-600 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
-      >
+    <div class="cookie-modal__actions">
+      <button id="modal-cancel" class="cookie-banner__btn">
         {isEs ? 'Cancelar' : 'Cancel'}
       </button>
-      <button
-        id="modal-save"
-        class="rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
-      >
+      <button id="modal-save" class="cookie-banner__btn--primary">
         {isEs ? 'Guardar preferencias' : 'Save Preferences'}
       </button>
     </div>

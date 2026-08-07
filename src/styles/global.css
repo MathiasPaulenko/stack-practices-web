@@ -285,6 +285,63 @@ pre.astro-code .copy-btn.copied {
   @apply text-sm text-slate-500;
 }
 
+/* Cookie banner */
+.cookie-banner {
+  @apply fixed inset-x-0 bottom-0 z-50 hidden border-t border-slate-700 bg-slate-900/95 backdrop-blur;
+}
+.cookie-banner__inner {
+  @apply mx-auto max-w-6xl px-4 py-4 sm:px-6 sm:py-5;
+}
+.cookie-banner__row {
+  @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+}
+.cookie-banner__text {
+  @apply text-sm text-slate-300 sm:max-w-2xl;
+}
+.cookie-banner__text a {
+  @apply font-medium text-brand-400 hover:text-brand-300 hover:underline;
+}
+.cookie-banner__actions {
+  @apply flex flex-shrink-0 flex-wrap items-center gap-2;
+}
+.cookie-banner__btn {
+  @apply rounded-md border border-slate-600 px-3 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white;
+}
+.cookie-banner__btn--primary {
+  @apply rounded-md bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700;
+}
+
+.cookie-modal {
+  @apply fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 backdrop-blur-sm;
+}
+.cookie-modal__panel {
+  @apply mx-4 w-full max-w-lg rounded-xl border border-slate-600 bg-slate-900 p-6 shadow-2xl;
+}
+.cookie-modal__title {
+  @apply text-lg font-semibold text-white;
+}
+.cookie-modal__desc {
+  @apply mt-2 text-sm text-slate-300;
+}
+.cookie-modal__options {
+  @apply mt-5 space-y-3;
+}
+.cookie-modal__option {
+  @apply flex items-center justify-between rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-3;
+}
+.cookie-modal__option-title {
+  @apply text-sm font-medium text-white;
+}
+.cookie-modal__option-help {
+  @apply text-xs text-slate-400;
+}
+.cookie-modal__checkbox {
+  @apply h-5 w-5 accent-brand-600;
+}
+.cookie-modal__actions {
+  @apply mt-6 flex justify-end gap-3;
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   html {
