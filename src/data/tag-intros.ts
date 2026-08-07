@@ -11492,4 +11492,388 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  sessions: {
+    en: {
+      heading: 'Session Management',
+      paragraphs: [
+        'Sessions track user state across requests. They are essential for authentication, personalization, and shopping carts.',
+        'The resources below cover session storage, cookies, tokens, and security. Each guide helps you manage sessions safely.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Sesiones',
+      paragraphs: [
+        'Las sesiones rastrean el estado del usuario a traves de peticiones. Son esenciales para autenticacion, personalizacion y carritos de compra.',
+        'Los recursos a continuacion cubren almacenamiento de sesiones, cookies, tokens y seguridad. Cada guia te ayuda a gestionar sesiones de forma segura.',
+      ],
+    },
+  },
+  redlock: {
+    en: {
+      heading: 'Redlock Distributed Lock',
+      paragraphs: [
+        'Redlock is a distributed locking algorithm for Redis. It coordinates access to shared resources across multiple nodes.',
+        'The resources below cover lock acquisition, retries, and failure handling. Each guide helps you use Redlock for distributed coordination.',
+      ],
+    },
+    es: {
+      heading: 'Redlock Distributed Lock',
+      paragraphs: [
+        'Redlock es un algoritmo de bloqueo distribuido para Redis. Coordina el acceso a recursos compartidos entre multiples nodos.',
+        'Los recursos a continuacion cubren adquisicion de bloqueos, reintentos y manejo de fallas. Cada guia te ayuda a usar Redlock para coordinacion distribuida.',
+      ],
+    },
+  },
+  leaderboard: {
+    en: {
+      heading: 'Leaderboards',
+      paragraphs: [
+        'Leaderboards rank users or entities by score. They are common in gaming, competitions, and analytics.',
+        'The resources below cover sorted sets, scoring, and real-time updates. Each guide helps you build and maintain leaderboards.',
+      ],
+    },
+    es: {
+      heading: 'Tablas de Clasificacion',
+      paragraphs: [
+        'Las tablas de clasificacion ordenan usuarios o entidades por puntuacion. Son comunes en juegos, competencias y analiticas.',
+        'Los recursos a continuacion cubren sorted sets, puntuacion y actualizaciones en tiempo real. Cada guia te ayuda a construir y mantener tablas de clasificacion.',
+      ],
+    },
+  },
+  runtime: {
+    en: {
+      heading: 'Language Runtimes',
+      paragraphs: [
+        'A runtime provides the environment where a program executes. It includes the interpreter, garbage collector, and standard libraries.',
+        'The resources below cover Node.js, Python, JVM, and .NET runtimes. Each guide helps you understand and optimize runtime behavior.',
+      ],
+    },
+    es: {
+      heading: 'Runtimes de Lenguaje',
+      paragraphs: [
+        'Un runtime proporciona el entorno donde se ejecuta un programa. Incluye el interprete, recolector de basura y librerias estandar.',
+        'Los recursos a continuacion cubren runtimes de Node.js, Python, JVM y .NET. Cada guia te ayuda a entender y optimizar el comportamiento del runtime.',
+      ],
+    },
+  },
+  international: {
+    en: {
+      heading: 'Internationalization',
+      paragraphs: [
+        'Internationalization prepares software for different languages and regions. It covers text, dates, numbers, and cultural conventions.',
+        'The resources below cover i18n libraries, locale management, and translation. Each guide helps you build globally ready applications.',
+      ],
+    },
+    es: {
+      heading: 'Internacionalizacion',
+      paragraphs: [
+        'La internacionalizacion prepara el software para diferentes idiomas y regiones. Cubre texto, fechas, numeros y convenciones culturales.',
+        'Los recursos a continuacion cubren librerias i18n, gestion de locales y traduccion. Cada guia te ayuda a construir aplicaciones listas para el mundo.',
+      ],
+    },
+  },
+  combine: {
+    en: {
+      heading: 'Combining Data and Operations',
+      paragraphs: [
+        'Combining data or operations is a common pattern in functional and reactive programming. It merges streams, collections, or results.',
+        'The resources below cover combinators, operators, and pipelines. Each guide helps you combine data cleanly.',
+      ],
+    },
+    es: {
+      heading: 'Combinar Datos y Operaciones',
+      paragraphs: [
+        'Combinar datos u operaciones es un patron comun en programacion funcional y reactiva. Une streams, colecciones o resultados.',
+        'Los recursos a continuacion cubren combinators, operadores y pipelines. Cada guia te ayuda a combinar datos de forma limpia.',
+      ],
+    },
+  },
+  arguments: {
+    en: {
+      heading: 'Command Line Arguments',
+      paragraphs: [
+        'Command line arguments let users configure programs at startup. Parsing them correctly improves usability and scripting.',
+        'The resources below cover arg parsers, validation, and conventions. Each guide helps you handle CLI arguments effectively.',
+      ],
+    },
+    es: {
+      heading: 'Argumentos de Linea de Comandos',
+      paragraphs: [
+        'Los argumentos de linea de comandos permiten a los usuarios configurar programas al inicio. Parsearlos correctamente mejora usabilidad y scripting.',
+        'Los recursos a continuacion cubren parsers de argumentos, validacion y convenciones. Cada guia te ayuda a manejar argumentos CLI efectivamente.',
+      ],
+    },
+  },
+  frontmatter: {
+    en: {
+      heading: 'Frontmatter',
+      paragraphs: [
+        'Frontmatter is metadata at the top of a markdown file. It is used by static site generators and content management systems.',
+        'The resources below cover YAML, schemas, and parsing. Each guide helps you work with frontmatter in content files.',
+      ],
+    },
+    es: {
+      heading: 'Frontmatter',
+      paragraphs: [
+        'El frontmatter es metadata al inicio de un archivo markdown. Se usa en generadores de sitios estaticos y sistemas de gestion de contenido.',
+        'Los recursos a continuacion cubren YAML, esquemas y parseo. Cada guia te ayuda a trabajar con frontmatter en archivos de contenido.',
+      ],
+    },
+  },
+  logrotate: {
+    en: {
+      heading: 'Log Rotation',
+      paragraphs: [
+        'Log rotation prevents log files from growing indefinitely. It archives, compresses, and deletes old logs based on policy.',
+        'The resources below cover logrotate, policies, and retention. Each guide helps you manage log files over time.',
+      ],
+    },
+    es: {
+      heading: 'Rotacion de Logs',
+      paragraphs: [
+        'La rotacion de logs evita que los archivos de log crezcan indefinidamente. Archiva, comprime y elimina logs antiguos segun politica.',
+        'Los recursos a continuacion cubren logrotate, politicas y retencion. Cada guia te ayuda a gestionar archivos de log con el tiempo.',
+      ],
+    },
+  },
+  trivy: {
+    en: {
+      heading: 'Trivy Security Scanner',
+      paragraphs: [
+        'Trivy is a vulnerability scanner for containers, code, and infrastructure. It finds CVEs and misconfigurations.',
+        'The resources below cover Trivy commands, CI integration, and reporting. Each guide helps you scan for vulnerabilities with Trivy.',
+      ],
+    },
+    es: {
+      heading: 'Escanner de Seguridad Trivy',
+      paragraphs: [
+        'Trivy es un escanner de vulnerabilidades para contenedores, codigo e infraestructura. Encuentra CVEs y configuraciones incorrectas.',
+        'Los recursos a continuacion cubren comandos de Trivy, integracion con CI y reportes. Cada guia te ayuda a escanear vulnerabilidades con Trivy.',
+      ],
+    },
+  },
+  grype: {
+    en: {
+      heading: 'Grype Vulnerability Scanner',
+      paragraphs: [
+        'Grype scans container images and filesystems for vulnerabilities. It is fast and integrates well with SBOM tools.',
+        'The resources below cover Grype usage, databases, and CI pipelines. Each guide helps you scan images and projects with Grype.',
+      ],
+    },
+    es: {
+      heading: 'Escanner de Vulnerabilidades Grype',
+      paragraphs: [
+        'Grype escanea imagenes de contenedores y sistemas de archivos en busca de vulnerabilidades. Es rapido y se integra bien con herramientas de SBOM.',
+        'Los recursos a continuacion cubren uso de Grype, bases de datos y pipelines de CI. Cada guia te ayuda a escanear imagenes y proyectos con Grype.',
+      ],
+    },
+  },
+  overlay: {
+    en: {
+      heading: 'Docker Overlay Networks',
+      paragraphs: [
+        'Overlay networks connect Docker containers across multiple hosts. They are used in Docker Swarm and multi-node setups.',
+        'The resources below cover overlay drivers, encryption, and routing. Each guide helps you configure Docker overlay networking.',
+      ],
+    },
+    es: {
+      heading: 'Redes Overlay de Docker',
+      paragraphs: [
+        'Las redes overlay conectan contenedores Docker a traves de multiples hosts. Se usan en Docker Swarm y configuraciones multi-nodo.',
+        'Los recursos a continuacion cubren drivers overlay, cifrado y ruteo. Cada guia te ayuda a configurar redes overlay de Docker.',
+      ],
+    },
+  },
+  squash: {
+    en: {
+      heading: 'Squashing Docker Layers',
+      paragraphs: [
+        'Squashing combines multiple image layers into one. It reduces image size and hides intermediate build steps.',
+        'The resources below cover docker-squash, multi-stage builds, and layer optimization. Each guide helps you build smaller Docker images.',
+      ],
+    },
+    es: {
+      heading: 'Squash de Capas de Docker',
+      paragraphs: [
+        'El squash combina multiples capas de imagen en una. Reduce el tamano de la imagen y oculta pasos intermedios de build.',
+        'Los recursos a continuacion cubren docker-squash, builds multi-stage y optimizacion de capas. Cada guia te ayuda a construir imagenes Docker mas pequenas.',
+      ],
+    },
+  },
+  runner: {
+    en: {
+      heading: 'CI/CD Runners',
+      paragraphs: [
+        'Runners execute CI/CD jobs on specific machines or containers. They are the workers behind pipelines.',
+        'The resources below cover self-hosted, cloud, and ephemeral runners. Each guide helps you configure and scale runners.',
+      ],
+    },
+    es: {
+      heading: 'Runners de CI/CD',
+      paragraphs: [
+        'Los runners ejecutan trabajos de CI/CD en maquinas o contenedores especificos. Son los trabajadores detras de los pipelines.',
+        'Los recursos a continuacion cubren runners self-hosted, cloud y efimeros. Cada guia te ayuda a configurar y escalar runners.',
+      ],
+    },
+  },
+  certbot: {
+    en: {
+      heading: 'Certbot SSL Certificates',
+      paragraphs: [
+        'Certbot automates the issuance and renewal of Let Encrypt SSL certificates. It is widely used for free HTTPS.',
+        'The resources below cover certbot commands, hooks, and renewal. Each guide helps you secure sites with Certbot.',
+      ],
+    },
+    es: {
+      heading: 'Certificados SSL con Certbot',
+      paragraphs: [
+        'Certbot automatiza la emision y renovacion de certificados SSL de Let Encrypt. Se usa ampliamente para HTTPS gratuito.',
+        'Los recursos a continuacion cubren comandos de certbot, hooks y renovacion. Cada guia te ayuda a asegurar sitios con Certbot.',
+      ],
+    },
+  },
+  retention: {
+    en: {
+      heading: 'Data Retention',
+      paragraphs: [
+        'Data retention defines how long data is kept. It balances storage cost, compliance, and business value.',
+        'The resources below cover policies, lifecycle, and deletion. Each guide helps you implement data retention.',
+      ],
+    },
+    es: {
+      heading: 'Retencion de Datos',
+      paragraphs: [
+        'La retencion de datos define cuanto tiempo se conservan los datos. Equilibra costo de almacenamiento, cumplimiento y valor de negocio.',
+        'Los recursos a continuacion cubren politicas, ciclo de vida y eliminacion. Cada guia te ayuda a implementar retencion de datos.',
+      ],
+    },
+  },
+  loops: {
+    en: {
+      heading: 'Loops and Iteration',
+      paragraphs: [
+        'Loops repeat a block of code until a condition is met. They are fundamental to almost every programming language.',
+        'The resources below cover for, while, recursion, and iteration patterns. Each guide helps you use loops effectively.',
+      ],
+    },
+    es: {
+      heading: 'Bucles e Iteracion',
+      paragraphs: [
+        'Los bucles repiten un bloque de codigo hasta que se cumple una condicion. Son fundamentales en casi todos los lenguajes de programacion.',
+        'Los recursos a continuacion cubren for, while, recursion y patrones de iteracion. Cada guia te ayuda a usar bucles efectivamente.',
+      ],
+    },
+  },
+  globbing: {
+    en: {
+      heading: 'Glob Patterns',
+      paragraphs: [
+        'Globbing matches files and paths using patterns with wildcards. It is used in shells, build tools, and tests.',
+        'The resources below cover glob syntax, braces, and negation. Each guide helps you match files with glob patterns.',
+      ],
+    },
+    es: {
+      heading: 'Patrones Glob',
+      paragraphs: [
+        'El globbing coincide archivos y rutas usando patrones con comodines. Se usa en shells, herramientas de build y tests.',
+        'Los recursos a continuacion cubren sintaxis glob, braces y negacion. Cada guia te ayuda a coincidir archivos con patrones glob.',
+      ],
+    },
+  },
+  disk: {
+    en: {
+      heading: 'Disk Management',
+      paragraphs: [
+        'Disk management covers storage, partitions, usage, and monitoring. It is essential for system health and capacity planning.',
+        'The resources below cover disk usage, I/O, cleanup, and alerts. Each guide helps you manage disk resources.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Disco',
+      paragraphs: [
+        'La gestion de disco cubre almacenamiento, particiones, uso y monitoreo. Es esencial para la salud del sistema y planificacion de capacidad.',
+        'Los recursos a continuacion cubren uso de disco, I/O, limpieza y alertas. Cada guia te ayuda a gestionar recursos de disco.',
+      ],
+    },
+  },
+  html5: {
+    en: {
+      heading: 'HTML5 Features',
+      paragraphs: [
+        'HTML5 introduces semantic elements, APIs, and multimedia support. It is the modern foundation of the web.',
+        'The resources below cover semantic tags, forms, canvas, and storage APIs. Each guide helps you use HTML5 effectively.',
+      ],
+    },
+    es: {
+      heading: 'Caracteristicas de HTML5',
+      paragraphs: [
+        'HTML5 introduce elementos semanticos, APIs y soporte multimedia. Es la base moderna de la web.',
+        'Los recursos a continuacion cubren etiquetas semanticas, formularios, canvas y APIs de almacenamiento. Cada guia te ayuda a usar HTML5 efectivamente.',
+      ],
+    },
+  },
+  formdata: {
+    en: {
+      heading: 'FormData API',
+      paragraphs: [
+        'FormData builds and sends HTML form data programmatically. It is used for file uploads and API requests.',
+        'The resources below cover creating, appending, and submitting FormData. Each guide helps you work with forms in JavaScript.',
+      ],
+    },
+    es: {
+      heading: 'API FormData',
+      paragraphs: [
+        'FormData construye y envia datos de formularios HTML programaticamente. Se usa para subidas de archivos y peticiones API.',
+        'Los recursos a continuacion cubren creacion, append y envio de FormData. Cada guia te ayuda a trabajar con formularios en JavaScript.',
+      ],
+    },
+  },
+  multer: {
+    en: {
+      heading: 'Multer File Upload',
+      paragraphs: [
+        'Multer is a Node.js middleware for handling multipart/form-data. It is commonly used for file uploads in Express.',
+        'The resources below cover upload configuration, storage, and validation. Each guide helps you handle uploads with Multer.',
+      ],
+    },
+    es: {
+      heading: 'Subida de Archivos con Multer',
+      paragraphs: [
+        'Multer es un middleware de Node.js para manejar multipart/form-data. Se usa comunmente para subidas de archivos en Express.',
+        'Los recursos a continuacion cubren configuracion de subida, almacenamiento y validacion. Cada guia te ayuda a manejar subidas con Multer.',
+      ],
+    },
+  },
+  readline: {
+    en: {
+      heading: 'Readline Interfaces',
+      paragraphs: [
+        'Readline handles line-by-line input from streams or user input. It is used for CLI prompts and log processing.',
+        'The resources below cover readline APIs, prompts, and event handling. Each guide helps you process input line by line.',
+      ],
+    },
+    es: {
+      heading: 'Interfaces Readline',
+      paragraphs: [
+        'Readline maneja entrada linea por linea desde streams o entrada de usuario. Se usa para prompts CLI y procesamiento de logs.',
+        'Los recursos a continuacion cubren APIs readline, prompts y manejo de eventos. Cada guia te ayuda a procesar entrada linea por linea.',
+      ],
+    },
+  },
+  pillow: {
+    en: {
+      heading: 'Pillow Image Library',
+      paragraphs: [
+        'Pillow is the friendly fork of PIL for image processing in Python. It supports opening, editing, and saving images.',
+        'The resources below cover image manipulation, formats, and transformations. Each guide helps you process images with Pillow.',
+      ],
+    },
+    es: {
+      heading: 'Libreria de Imagenes Pillow',
+      paragraphs: [
+        'Pillow es el fork amigable de PIL para procesamiento de imagenes en Python. Soporta abrir, editar y guardar imagenes.',
+        'Los recursos a continuacion cubren manipulacion de imagenes, formatos y transformaciones. Cada guia te ayuda a procesar imagenes con Pillow.',
+      ],
+    },
+  },
 };
