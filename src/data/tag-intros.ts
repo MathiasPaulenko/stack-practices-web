@@ -8004,4 +8004,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  cursor: {
+    en: {
+      heading: 'Database Cursors',
+      paragraphs: [
+        'A cursor is a pointer to a result set in a database. It allows row-by-row processing and is useful for large datasets.',
+        'The resources below cover cursor creation, iteration, fetching, and closing. Each guide helps you use cursors to handle large result sets efficiently.',
+      ],
+    },
+    es: {
+      heading: 'Cursores de Base de Datos',
+      paragraphs: [
+        'Un cursor es un puntero a un conjunto de resultados en una base de datos. Permite procesamiento fila por fila y es util para grandes conjuntos de datos.',
+        'Los recursos a continuacion cubren creacion de cursores, iteracion, fetching y cierre. Cada guia te ayuda a usar cursores para manejar grandes conjuntos de resultados eficientemente.',
+      ],
+    },
+  },
+  'consumer-group': {
+    en: {
+      heading: 'Consumer Groups in Messaging',
+      paragraphs: [
+        'Consumer groups allow multiple consumers to process a stream in parallel. Each message is delivered to only one consumer in the group.',
+        'The resources below cover Kafka consumer groups, partitions, rebalancing, and offset management. Each guide helps you scale message consumption.',
+      ],
+    },
+    es: {
+      heading: 'Grupos de Consumidores en Mensajeria',
+      paragraphs: [
+        'Los grupos de consumidores permiten que multiples consumidores procesen un stream en paralelo. Cada mensaje se entrega a un solo consumidor del grupo.',
+        'Los recursos a continuacion cubren grupos de consumidores de Kafka, particiones, rebalancing y gestion de offsets. Cada guia te ayuda a escalar el consumo de mensajes.',
+      ],
+    },
+  },
+  'outbox-pattern': {
+    en: {
+      heading: 'Outbox Pattern',
+      paragraphs: [
+        'The outbox pattern ensures reliable event publishing by first storing events in a database table. It guarantees eventual delivery and consistency.',
+        'The resources below cover outbox implementation, event relay, idempotency, and ordering. Each guide helps you publish events reliably from transactions.',
+      ],
+    },
+    es: {
+      heading: 'Patron Outbox',
+      paragraphs: [
+        'El patron outbox asegura la publicacion confiable de eventos almacenando primero los eventos en una tabla de base de datos. Garantiza entrega eventual y consistencia.',
+        'Los recursos a continuacion cubren implementacion del outbox, relay de eventos, idempotencia y ordenamiento. Cada guia te ayuda a publicar eventos de forma confiable desde transacciones.',
+      ],
+    },
+  },
+  dlq: {
+    en: {
+      heading: 'Dead Letter Queues',
+      paragraphs: [
+        'A dead letter queue holds messages that could not be processed successfully. It is essential for debugging and handling poison messages.',
+        'The resources below cover DLQ configuration, redrive, monitoring, and patterns. Each guide helps you build resilient messaging with dead letter queues.',
+      ],
+    },
+    es: {
+      heading: 'Colas de Mensajes Muertos',
+      paragraphs: [
+        'Una cola de mensajes muertos contiene mensajes que no pudieron procesarse correctamente. Es esencial para debugging y manejo de mensajes venenosos.',
+        'Los recursos a continuacion cubren configuracion de DLQ, redrive, monitoreo y patrones. Cada guia te ayuda a construir mensajeria resiliente con dead letter queues.',
+      ],
+    },
+  },
+  sentry: {
+    en: {
+      heading: 'Sentry and Error Monitoring',
+      paragraphs: [
+        'Sentry is an error tracking and performance monitoring platform. It helps teams detect, diagnose, and fix issues in production.',
+        'The resources below cover Sentry setup, breadcrumbs, releases, alerts, and tracing. Each guide helps you monitor application health with Sentry.',
+      ],
+    },
+    es: {
+      heading: 'Sentry y Monitoreo de Errores',
+      paragraphs: [
+        'Sentry es una plataforma de seguimiento de errores y monitoreo de rendimiento. Ayuda a los equipos a detectar, diagnosticar y solucionar problemas en produccion.',
+        'Los recursos a continuacion cubren configuracion de Sentry, breadcrumbs, releases, alertas y tracing. Cada guia te ayuda a monitorear la salud de aplicaciones con Sentry.',
+      ],
+    },
+  },
+  'error-tracking': {
+    en: {
+      heading: 'Error Tracking',
+      paragraphs: [
+        'Error tracking collects and aggregates errors in production. It provides context for debugging and prioritizing fixes.',
+        'The resources below cover logging, exception tracking, crash reporting, and integrations. Each guide helps you track and resolve errors effectively.',
+      ],
+    },
+    es: {
+      heading: 'Seguimiento de Errores',
+      paragraphs: [
+        'El seguimiento de errores recopila y agrega errores en produccion. Proporciona contexto para debugging y priorizar correcciones.',
+        'Los recursos a continuacion cubren logging, seguimiento de excepciones, crash reporting e integraciones. Cada guia te ayuda a rastrear y resolver errores efectivamente.',
+      ],
+    },
+  },
+  spa: {
+    en: {
+      heading: 'Single Page Applications',
+      paragraphs: [
+        'Single page applications load a single HTML page and update content dynamically. They offer app-like experiences in the browser.',
+        'The resources below cover routing, state, hydration, performance, and SEO. Each guide helps you build SPAs that are fast and maintainable.',
+      ],
+    },
+    es: {
+      heading: 'Aplicaciones de Pagina Unica',
+      paragraphs: [
+        'Las single page applications cargan una sola pagina HTML y actualizan el contenido dinamicamente. Ofrecen experiencias tipo app en el navegador.',
+        'Los recursos a continuacion cubren routing, estado, hydration, rendimiento y SEO. Cada guia te ayuda a construir SPAs rapidas y mantenibles.',
+      ],
+    },
+  },
+  eslint: {
+    en: {
+      heading: 'ESLint and Static Analysis',
+      paragraphs: [
+        'ESLint is a static analyzer for JavaScript and TypeScript. It finds problems, enforces style, and supports custom rules.',
+        'The resources below cover configuration, plugins, rules, and autofix. Each guide helps you keep JavaScript code clean and consistent.',
+      ],
+    },
+    es: {
+      heading: 'ESLint y Analisis Estatico',
+      paragraphs: [
+        'ESLint es un analizador estatico para JavaScript y TypeScript. Encuentra problemas, hace cumplir el estilo y soporta reglas personalizadas.',
+        'Los recursos a continuacion cubren configuracion, plugins, reglas y autofix. Cada guia te ayuda a mantener codigo JavaScript limpio y consistente.',
+      ],
+    },
+  },
+  'type-checking': {
+    en: {
+      heading: 'Type Checking',
+      paragraphs: [
+        'Type checking verifies that a program uses types correctly. It catches errors before runtime and improves code quality.',
+        'The resources below cover TypeScript, mypy, type hints, and type guards. Each guide helps you add and enforce type safety.',
+      ],
+    },
+    es: {
+      heading: 'Verificacion de Tipos',
+      paragraphs: [
+        'La verificacion de tipos comprueba que un programa usa los tipos correctamente. Detecta errores antes de runtime y mejora la calidad del codigo.',
+        'Los recursos a continuacion cubren TypeScript, mypy, type hints y type guards. Cada guia te ayuda a agregar y hacer cumplir la seguridad de tipos.',
+      ],
+    },
+  },
+  'hashicorp-vault': {
+    en: {
+      heading: 'HashiCorp Vault',
+      paragraphs: [
+        'Vault is a tool for managing secrets and protecting sensitive data. It provides dynamic secrets, encryption, and access control.',
+        'The resources below cover Vault setup, secrets engines, policies, and integration. Each guide helps you manage secrets at scale with Vault.',
+      ],
+    },
+    es: {
+      heading: 'HashiCorp Vault',
+      paragraphs: [
+        'Vault es una herramienta para gestionar secretos y proteger datos sensibles. Proporciona secretos dinamicos, cifrado y control de acceso.',
+        'Los recursos a continuacion cubren setup de Vault, secrets engines, politicas e integracion. Cada guia te ayuda a gestionar secretos a escala con Vault.',
+      ],
+    },
+  },
+  'sql-injection': {
+    en: {
+      heading: 'SQL Injection Prevention',
+      paragraphs: [
+        'SQL injection is an attack that inserts malicious SQL into queries. Preventing it is essential for application security.',
+        'The resources below cover parameterized queries, ORMs, input validation, and WAF rules. Each guide helps you write SQL that attackers cannot exploit.',
+      ],
+    },
+    es: {
+      heading: 'Prevencion de Inyeccion SQL',
+      paragraphs: [
+        'La inyeccion SQL es un ataque que inserta SQL malicioso en consultas. Prevenirla es esencial para la seguridad de las aplicaciones.',
+        'Los recursos a continuacion cubren consultas parametrizadas, ORMs, validacion de entradas y reglas de WAF. Cada guia te ayuda a escribir SQL que los atacantes no puedan explotar.',
+      ],
+    },
+  },
+  layers: {
+    en: {
+      heading: 'Architectural Layers',
+      paragraphs: [
+        'Layers group related functionality into separate levels. They reduce coupling and improve maintainability in large applications.',
+        'The resources below cover presentation, domain, persistence, and infrastructure layers. Each guide helps you structure applications with clear boundaries.',
+      ],
+    },
+    es: {
+      heading: 'Capas Arquitectonicas',
+      paragraphs: [
+        'Las capas agrupan funcionalidad relacionada en niveles separados. Reducen el acoplamiento y mejoran la mantenibilidad en aplicaciones grandes.',
+        'Los recursos a continuacion cubren capas de presentacion, dominio, persistencia e infraestructura. Cada guia te ayuda a estructurar aplicaciones con limites claros.',
+      ],
+    },
+  },
+  'http-trigger': {
+    en: {
+      heading: 'HTTP Triggers and Webhooks',
+      paragraphs: [
+        'HTTP triggers invoke functions or workflows through HTTP requests. They are the foundation of serverless functions and webhooks.',
+        'The resources below cover trigger configuration, routing, authentication, and retry. Each guide helps you build event-driven integrations over HTTP.',
+      ],
+    },
+    es: {
+      heading: 'Triggers HTTP y Webhooks',
+      paragraphs: [
+        'Los triggers HTTP invocan funciones o workflows a traves de peticiones HTTP. Son la base de funciones serverless y webhooks.',
+        'Los recursos a continuacion cubren configuracion de triggers, routing, autenticacion y reintentos. Cada guia te ayuda a construir integraciones event-driven sobre HTTP.',
+      ],
+    },
+  },
+  'consumer-driven-contracts': {
+    en: {
+      heading: 'Consumer-Driven Contracts',
+      paragraphs: [
+        'Consumer-driven contracts let consumers define the expected behavior of a service. They improve API compatibility and collaboration.',
+        'The resources below cover Pact, contract tests, provider verification, and CI. Each guide helps you align services around consumer expectations.',
+      ],
+    },
+    es: {
+      heading: 'Contratos Dirigidos por Consumidores',
+      paragraphs: [
+        'Los contratos dirigidos por consumidores permiten que los consumidores definan el comportamiento esperado de un servicio. Mejoran compatibilidad de APIs y colaboracion.',
+        'Los recursos a continuacion cubren Pact, tests de contrato, verificacion de proveedores y CI. Cada guia te ayuda a alinear servicios con las expectativas de los consumidores.',
+      ],
+    },
+  },
+  'property-based-testing': {
+    en: {
+      heading: 'Property-Based Testing',
+      paragraphs: [
+        'Property-based testing verifies that properties hold for a wide range of generated inputs. It finds edge cases that manual tests miss.',
+        'The resources below cover invariants, generators, shrinking, and frameworks. Each guide helps you write tests that explore many scenarios.',
+      ],
+    },
+    es: {
+      heading: 'Testing Basado en Propiedades',
+      paragraphs: [
+        'El testing basado en propiedades verifica que las propiedades se cumplen para una amplia gama de entradas generadas. Encuentra casos extremos que los tests manuales omiten.',
+        'Los recursos a continuacion cubren invariantes, generadores, shrinking y frameworks. Cada guia te ayuda a escribir tests que exploran muchos escenarios.',
+      ],
+    },
+  },
+  'fast-check': {
+    en: {
+      heading: 'fast-check and Property Testing',
+      paragraphs: [
+        'fast-check is a property-based testing library for JavaScript. It generates inputs and finds minimal failing cases.',
+        'The resources below cover arbitraries, properties, shrinking, and integration. Each guide helps you add property-based tests to JavaScript projects.',
+      ],
+    },
+    es: {
+      heading: 'fast-check y Testing de Propiedades',
+      paragraphs: [
+        'fast-check es una libreria de testing basado en propiedades para JavaScript. Genera entradas y encuentra casos minimos de falla.',
+        'Los recursos a continuacion cubren arbitraries, propiedades, shrinking e integracion. Cada guia te ayuda a agregar tests basados en propiedades a proyectos JavaScript.',
+      ],
+    },
+  },
+  fuzzing: {
+    en: {
+      heading: 'Fuzz Testing',
+      paragraphs: [
+        'Fuzz testing feeds random or unexpected input to a program. It discovers crashes, security flaws, and robustness issues.',
+        'The resources below cover fuzzers, coverage-guided fuzzing, and integration. Each guide helps you find vulnerabilities through automated fuzzing.',
+      ],
+    },
+    es: {
+      heading: 'Fuzz Testing',
+      paragraphs: [
+        'El fuzz testing alimenta a un programa con entradas aleatorias o inesperadas. Descubre crashes, fallas de seguridad y problemas de robustez.',
+        'Los recursos a continuacion cubren fuzzers, fuzzing guiado por cobertura e integracion. Cada guia te ayuda a encontrar vulnerabilidades mediante fuzzing automatizado.',
+      ],
+    },
+  },
+  testcontainers: {
+    en: {
+      heading: 'Testcontainers',
+      paragraphs: [
+        'Testcontainers is a library that spins up real services in Docker for tests. It improves integration tests by using actual databases and message brokers.',
+        'The resources below cover setup, lifecycle, networking, and common use cases. Each guide helps you write tests against real dependencies.',
+      ],
+    },
+    es: {
+      heading: 'Testcontainers',
+      paragraphs: [
+        'Testcontainers es una libreria que levanta servicios reales en Docker para tests. Mejora los tests de integracion usando bases de datos y brokers de mensajes reales.',
+        'Los recursos a continuacion cubren setup, ciclo de vida, networking y casos de uso comunes. Cada guia te ayuda a escribir tests contra dependencias reales.',
+      ],
+    },
+  },
+  wiremock: {
+    en: {
+      heading: 'WireMock',
+      paragraphs: [
+        'WireMock is a mock server for HTTP-based APIs. It is used for stubbing and simulating services during testing.',
+        'The resources below cover stubs, mappings, request matching, and verification. Each guide helps you mock external HTTP services in tests.',
+      ],
+    },
+    es: {
+      heading: 'WireMock',
+      paragraphs: [
+        'WireMock es un servidor mock para APIs basadas en HTTP. Se usa para stubbing y simulacion de servicios durante testing.',
+        'Los recursos a continuacion cubren stubs, mappings, matching de peticiones y verificacion. Cada guia te ayuda a simular servicios HTTP externos en tests.',
+      ],
+    },
+  },
+  stub: {
+    en: {
+      heading: 'Stubs and Mocks',
+      paragraphs: [
+        'Stubs provide canned responses for tests. They are simpler than full mocks and help isolate the unit under test.',
+        'The resources below cover stubbing patterns, mock servers, and when to use each. Each guide helps you test components in isolation.',
+      ],
+    },
+    es: {
+      heading: 'Stubs y Mocks',
+      paragraphs: [
+        'Los stubs proporcionan respuestas predefinidas para tests. Son mas simples que mocks completos y ayudan a aislar la unidad bajo test.',
+        'Los recursos a continuacion cubren patrones de stubbing, servidores mock y cuando usar cada uno. Cada guia te ayuda a testear componentes de forma aislada.',
+      ],
+    },
+  },
+  msw: {
+    en: {
+      heading: 'Mock Service Worker',
+      paragraphs: [
+        'MSW is a tool for mocking HTTP requests. It works in the browser and in Node, making tests resilient and fast.',
+        'The resources below cover handlers, interceptors, integration, and best practices. Each guide helps you mock network requests in JavaScript tests.',
+      ],
+    },
+    es: {
+      heading: 'Mock Service Worker',
+      paragraphs: [
+        'MSW es una herramienta para simular peticiones HTTP. Funciona en el navegador y en Node, haciendo los tests resilientes y rapidos.',
+        'Los recursos a continuacion cubren handlers, interceptors, integracion y mejores practicas. Cada guia te ayuda a simular peticiones de red en tests JavaScript.',
+      ],
+    },
+  },
+  vitest: {
+    en: {
+      heading: 'Vitest',
+      paragraphs: [
+        'Vitest is a fast unit testing framework powered by Vite. It is designed for modern JavaScript and TypeScript projects.',
+        'The resources below cover configuration, mocking, watch mode, and coverage. Each guide helps you write fast and effective tests with Vitest.',
+      ],
+    },
+    es: {
+      heading: 'Vitest',
+      paragraphs: [
+        'Vitest es un framework de testing unitario rapido impulsado por Vite. Esta disenado para proyectos modernos de JavaScript y TypeScript.',
+        'Los recursos a continuacion cubren configuracion, mocking, watch mode y cobertura. Cada guia te ayuda a escribir tests rapidos y efectivos con Vitest.',
+      ],
+    },
+  },
+  'pytest-cov': {
+    en: {
+      heading: 'pytest-cov and Coverage',
+      paragraphs: [
+        'pytest-cov is a plugin for measuring test coverage in Python. It integrates coverage.py with pytest.',
+        'The resources below cover configuration, reporting, thresholds, and CI. Each guide helps you track and improve Python test coverage.',
+      ],
+    },
+    es: {
+      heading: 'pytest-cov y Cobertura',
+      paragraphs: [
+        'pytest-cov es un plugin para medir la cobertura de tests en Python. Integra coverage.py con pytest.',
+        'Los recursos a continuacion cubren configuracion, reportes, umbrales y CI. Cada guia te ayuda a rastrear y mejorar la cobertura de tests Python.',
+      ],
+    },
+  },
+  ci: {
+    en: {
+      heading: 'Continuous Integration',
+      paragraphs: [
+        'Continuous Integration is the practice of merging code changes frequently and running automated tests. It catches issues early and improves team velocity.',
+        'The resources below cover CI pipelines, GitHub Actions, test automation, and build checks. Each guide helps you set up CI that keeps code healthy.',
+      ],
+    },
+    es: {
+      heading: 'Integracion Continua',
+      paragraphs: [
+        'La integracion continua es la practica de fusionar cambios de codigo con frecuencia y ejecutar tests automatizados. Detecta problemas temprano y mejora la velocidad del equipo.',
+        'Los recursos a continuacion cubren pipelines de CI, GitHub Actions, automatizacion de tests y verificaciones de build. Cada guia te ayuda a configurar CI que mantenga el codigo saludable.',
+      ],
+    },
+  },
+  'llm-security': {
+    en: {
+      heading: 'LLM Security',
+      paragraphs: [
+        'LLM security protects applications and models from misuse, data leaks, and adversarial inputs. It is an emerging and critical field.',
+        'The resources below cover prompt injection, output filtering, model safety, and governance. Each guide helps you deploy LLMs securely.',
+      ],
+    },
+    es: {
+      heading: 'Seguridad de LLM',
+      paragraphs: [
+        'La seguridad de LLM protege aplicaciones y modelos contra uso indebido, fugas de datos y entradas adversariales. Es un campo emergente y critico.',
+        'Los recursos a continuacion cubren prompt injection, filtrado de salidas, seguridad de modelos y gobernanza. Cada guia te ayuda a desplegar LLMs de forma segura.',
+      ],
+    },
+  },
 };
