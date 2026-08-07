@@ -9204,4 +9204,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  parameterized: {
+    en: {
+      heading: 'Parameterized Testing',
+      paragraphs: [
+        'Parameterized tests run the same test logic with different inputs. They reduce duplication and improve coverage.',
+        'The resources below cover test parameters, data providers, and examples. Each guide helps you write tests that cover more cases with less code.',
+      ],
+    },
+    es: {
+      heading: 'Testing Parametrizado',
+      paragraphs: [
+        'Los tests parametrizados ejecutan la misma logica de test con diferentes entradas. Reducen duplicacion y mejoran cobertura.',
+        'Los recursos a continuacion cubren parametros de test, proveedores de datos y ejemplos. Cada guia te ayuda a escribir tests que cubren mas casos con menos codigo.',
+      ],
+    },
+  },
+  'test-case': {
+    en: {
+      heading: 'Test Case Design',
+      paragraphs: [
+        'A test case defines inputs, actions, and expected results for a specific scenario. Good test cases are clear and repeatable.',
+        'The resources below cover test case design, equivalence partitioning, and boundary analysis. Each guide helps you write effective test cases.',
+      ],
+    },
+    es: {
+      heading: 'Diseno de Casos de Prueba',
+      paragraphs: [
+        'Un caso de prueba define entradas, acciones y resultados esperados para un escenario especifico. Buenos casos de prueba son claros y repetibles.',
+        'Los recursos a continuacion cubren diseno de casos de prueba, particion de equivalencia y analisis de limites. Cada guia te ayuda a escribir casos de prueba efectivos.',
+      ],
+    },
+  },
+  'test-strategy': {
+    en: {
+      heading: 'Test Strategy',
+      paragraphs: [
+        'A test strategy defines how testing is planned and executed. It covers scope, levels, tools, and quality goals.',
+        'The resources below cover test pyramids, automation, manual testing, and risk. Each guide helps you build a strategy that fits your project.',
+      ],
+    },
+    es: {
+      heading: 'Estrategia de Pruebas',
+      paragraphs: [
+        'Una estrategia de pruebas define como se planifican y ejecutan las pruebas. Cubre alcance, niveles, herramientas y objetivos de calidad.',
+        'Los recursos a continuacion cubren piramides de test, automatizacion, testing manual y riesgo. Cada guia te ayuda a construir una estrategia que se ajuste a tu proyecto.',
+      ],
+    },
+  },
+  'design-document': {
+    en: {
+      heading: 'Design Documentation',
+      paragraphs: [
+        'Design documents capture decisions, trade-offs, and architecture. They align teams and preserve context over time.',
+        'The resources below cover ADRs, RFCs, diagrams, and templates. Each guide helps you write documents that explain and justify design choices.',
+      ],
+    },
+    es: {
+      heading: 'Documentacion de Diseno',
+      paragraphs: [
+        'Los documentos de diseno capturan decisiones, trade-offs y arquitectura. Alinean equipos y preservan contexto con el tiempo.',
+        'Los recursos a continuacion cubren ADRs, RFCs, diagramas y plantillas. Cada guia te ayuda a escribir documentos que expliquen y justifiquen decisiones de diseno.',
+      ],
+    },
+  },
+  tools: {
+    en: {
+      heading: 'Developer Tools',
+      paragraphs: [
+        'Developer tools improve productivity, code quality, and collaboration. They range from editors to CI/CD and monitoring.',
+        'The resources below cover IDEs, CLI tools, linters, and workflow automation. Each guide helps you choose and use the right tools.',
+      ],
+    },
+    es: {
+      heading: 'Herramientas para Desarrolladores',
+      paragraphs: [
+        'Las herramientas para desarrolladores mejoran productividad, calidad de codigo y colaboracion. Van desde editores hasta CI/CD y monitoreo.',
+        'Los recursos a continuacion cubren IDEs, herramientas CLI, linters y automatizacion de workflows. Cada guia te ayuda a elegir y usar las herramientas adecuadas.',
+      ],
+    },
+  },
+  'quality-assurance': {
+    en: {
+      heading: 'Quality Assurance',
+      paragraphs: [
+        'Quality assurance ensures that products meet requirements and user expectations. It includes testing, reviews, and process improvement.',
+        'The resources below cover QA processes, automation, metrics, and culture. Each guide helps you build confidence in product quality.',
+      ],
+    },
+    es: {
+      heading: 'Aseguramiento de la Calidad',
+      paragraphs: [
+        'El aseguramiento de la calidad asegura que los productos cumplan requisitos y expectativas de usuario. Incluye testing, revisiones y mejora de procesos.',
+        'Los recursos a continuacion cubren procesos de QA, automatizacion, metricas y cultura. Cada guia te ayuda a generar confianza en la calidad del producto.',
+      ],
+    },
+  },
+  guidelines: {
+    en: {
+      heading: 'Development Guidelines',
+      paragraphs: [
+        'Guidelines define how teams should write code, document, and collaborate. They improve consistency and reduce friction.',
+        'The resources below cover style guides, contribution guidelines, and conventions. Each guide helps you establish and follow team standards.',
+      ],
+    },
+    es: {
+      heading: 'Guias de Desarrollo',
+      paragraphs: [
+        'Las guias definen como los equipos deben escribir codigo, documentar y colaborar. Mejoran consistencia y reducen friccion.',
+        'Los recursos a continuacion cubren guias de estilo, guias de contribucion y convenciones. Cada guia te ayuda a establecer y seguir estandares de equipo.',
+      ],
+    },
+  },
+  uptime: {
+    en: {
+      heading: 'Uptime and Availability',
+      paragraphs: [
+        'Uptime measures how long a system is operational. It is a key metric for reliability and service commitments.',
+        'The resources below cover SLAs, monitoring, redundancy, and maintenance windows. Each guide helps you maximize uptime.',
+      ],
+    },
+    es: {
+      heading: 'Uptime y Disponibilidad',
+      paragraphs: [
+        'El uptime mide cuanto tiempo un sistema esta operativo. Es una metrica clave para confiabilidad y compromisos de servicio.',
+        'Los recursos a continuacion cubren SLAs, monitoreo, redundancia y ventanas de mantenimiento. Cada guia te ayuda a maximizar el uptime.',
+      ],
+    },
+  },
+  visualization: {
+    en: {
+      heading: 'Data Visualization',
+      paragraphs: [
+        'Data visualization presents information in graphical form. It helps users understand patterns, trends, and outliers.',
+        'The resources below cover charts, dashboards, libraries, and best practices. Each guide helps you create clear and useful visualizations.',
+      ],
+    },
+    es: {
+      heading: 'Visualizacion de Datos',
+      paragraphs: [
+        'La visualizacion de datos presenta informacion en forma grafica. Ayuda a los usuarios a entender patrones, tendencias y valores atipicos.',
+        'Los recursos a continuacion cubren graficos, dashboards, librerias y mejores practicas. Cada guia te ayuda a crear visualizaciones claras y utiles.',
+      ],
+    },
+  },
+  requirements: {
+    en: {
+      heading: 'Software Requirements',
+      paragraphs: [
+        'Requirements define what a system must do. They guide design, testing, and acceptance.',
+        'The resources below cover functional and non-functional requirements, user stories, and traceability. Each guide helps you capture and manage requirements.',
+      ],
+    },
+    es: {
+      heading: 'Requisitos de Software',
+      paragraphs: [
+        'Los requisitos definen lo que un sistema debe hacer. Guian el diseno, testing y aceptacion.',
+        'Los recursos a continuacion cubren requisitos funcionales y no funcionales, historias de usuario y trazabilidad. Cada guia te ayuda a capturar y gestionar requisitos.',
+      ],
+    },
+  },
+  lru: {
+    en: {
+      heading: 'LRU Cache Eviction',
+      paragraphs: [
+        'LRU evicts the least recently used items first. It is a common cache replacement policy for bounded caches.',
+        'The resources below cover LRU implementation, ordered maps, and alternatives. Each guide helps you manage cache size with LRU.',
+      ],
+    },
+    es: {
+      heading: 'Eviction de Cache LRU',
+      paragraphs: [
+        'LRU elimina primero los elementos menos recientemente usados. Es una politica comun de reemplazo de cache para caches acotados.',
+        'Los recursos a continuacion cubren implementacion de LRU, mapas ordenados y alternativas. Cada guia te ayuda a gestionar el tamano del cache con LRU.',
+      ],
+    },
+  },
+  cancellation: {
+    en: {
+      heading: 'Operation Cancellation',
+      paragraphs: [
+        'Cancellation stops an operation before it completes. It is important for responsive applications and resource cleanup.',
+        'The resources below cover cancellation tokens, signals, and cooperative cancellation. Each guide helps you design operations that can be stopped safely.',
+      ],
+    },
+    es: {
+      heading: 'Cancelacion de Operaciones',
+      paragraphs: [
+        'La cancelacion detiene una operacion antes de que se complete. Es importante para aplicaciones responsivas y limpieza de recursos.',
+        'Los recursos a continuacion cubren tokens de cancelacion, signals y cancelacion cooperativa. Cada guia te ayuda a disenar operaciones que puedan detenerse de forma segura.',
+      ],
+    },
+  },
+  'least-privilege': {
+    en: {
+      heading: 'Principle of Least Privilege',
+      paragraphs: [
+        'Least privilege grants only the permissions needed for a task. It limits blast radius and improves security.',
+        'The resources below cover IAM, roles, access control, and auditing. Each guide helps you apply least privilege in systems.',
+      ],
+    },
+    es: {
+      heading: 'Principio de Minimo Privilegio',
+      paragraphs: [
+        'El minimo privilegio otorga solo los permisos necesarios para una tarea. Limita el radio de impacto y mejora la seguridad.',
+        'Los recursos a continuacion cubren IAM, roles, control de acceso y auditoria. Cada guia te ayuda a aplicar el minimo privilegio en sistemas.',
+      ],
+    },
+  },
+  adr: {
+    en: {
+      heading: 'Architecture Decision Records',
+      paragraphs: [
+        'ADRs capture important architectural decisions and their context. They help future maintainers understand why choices were made.',
+        'The resources below cover ADR templates, lifecycle, and examples. Each guide helps you record decisions that matter.',
+      ],
+    },
+    es: {
+      heading: 'Registros de Decisiones de Arquitectura',
+      paragraphs: [
+        'Los ADRs capturan decisiones arquitectonicas importantes y su contexto. Ayudan a futuros mantenedores a entender por que se tomaron ciertas decisiones.',
+        'Los recursos a continuacion cubren plantillas de ADR, ciclo de vida y ejemplos. Cada guia te ayuda a registrar las decisiones que importan.',
+      ],
+    },
+  },
+  'auto-scaling': {
+    en: {
+      heading: 'Auto-Scaling',
+      paragraphs: [
+        'Auto-scaling adjusts resources based on demand. It improves cost efficiency and handles traffic spikes.',
+        'The resources below cover horizontal and vertical scaling, metrics, and policies. Each guide helps you design scalable infrastructure.',
+      ],
+    },
+    es: {
+      heading: 'Auto-Scaling',
+      paragraphs: [
+        'El auto-scaling ajusta los recursos en funcion de la demanda. Mejora la eficiencia de costos y maneja picos de trafico.',
+        'Los recursos a continuacion cubren escalado horizontal y vertical, metricas y politicas. Cada guia te ayuda a disenar infraestructura escalable.',
+      ],
+    },
+  },
+  triage: {
+    en: {
+      heading: 'Incident Triage',
+      paragraphs: [
+        'Triage is the process of prioritizing incidents and issues. It ensures the most critical problems are addressed first.',
+        'The resources below cover severity levels, on-call, and triage workflows. Each guide helps you respond to incidents effectively.',
+      ],
+    },
+    es: {
+      heading: 'Triage de Incidentes',
+      paragraphs: [
+        'El triage es el proceso de priorizar incidentes y problemas. Asegura que los problemas mas criticos se aborden primero.',
+        'Los recursos a continuacion cubren niveles de severidad, on-call y workflows de triage. Cada guia te ayuda a responder a incidentes efectivamente.',
+      ],
+    },
+  },
+  forecasting: {
+    en: {
+      heading: 'Capacity Forecasting',
+      paragraphs: [
+        'Forecasting predicts future resource needs based on trends and plans. It supports capacity and cost planning.',
+        'The resources below cover metrics, models, and planning cycles. Each guide helps you anticipate demand before it becomes a problem.',
+      ],
+    },
+    es: {
+      heading: 'Pronostico de Capacidad',
+      paragraphs: [
+        'El pronostico predice las necesidades futuras de recursos basandose en tendencias y planes. Soporta la planificacion de capacidad y costos.',
+        'Los recursos a continuacion cubren metricas, modelos y ciclos de planificacion. Cada guia te ayuda a anticipar la demanda antes de que se convierta en un problema.',
+      ],
+    },
+  },
+  'supply-chain': {
+    en: {
+      heading: 'Software Supply Chain',
+      paragraphs: [
+        'The software supply chain includes all the components, tools, and processes that build and deliver software. Securing it is essential for supply chain integrity.',
+        'The resources below cover SBOMs, dependency scanning, signing, and provenance. Each guide helps you secure your supply chain.',
+      ],
+    },
+    es: {
+      heading: 'Cadena de Suministro de Software',
+      paragraphs: [
+        'La cadena de suministro de software incluye todos los componentes, herramientas y procesos que construyen y entregan software. Asegurarla es esencial para la integridad de la cadena.',
+        'Los recursos a continuacion cubren SBOMs, escaneo de dependencias, firma y procedencia. Cada guia te ayuda a asegurar tu cadena de suministro.',
+      ],
+    },
+  },
+  'cost-management': {
+    en: {
+      heading: 'Cloud Cost Management',
+      paragraphs: [
+        'Cost management tracks, optimizes, and controls cloud spending. It prevents waste and improves budget visibility.',
+        'The resources below cover FinOps, tagging, reserved capacity, and rightsizing. Each guide helps you manage cloud costs.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Costos Cloud',
+      paragraphs: [
+        'La gestion de costos rastrea, optimiza y controla el gasto en cloud. Previene desperdicio y mejora la visibilidad del presupuesto.',
+        'Los recursos a continuacion cubren FinOps, tagging, capacidad reservada y rightsizing. Cada guia te ayuda a gestionar costos de cloud.',
+      ],
+    },
+  },
+  'team-process': {
+    en: {
+      heading: 'Engineering Team Processes',
+      paragraphs: [
+        'Team processes define how engineers collaborate, plan, and deliver. Good processes improve velocity and quality.',
+        'The resources below cover agile, sprints, code review, and retrospectives. Each guide helps you build effective engineering processes.',
+      ],
+    },
+    es: {
+      heading: 'Procesos de Equipos de Ingenieria',
+      paragraphs: [
+        'Los procesos de equipo definen como los ingenieros colaboran, planifican y entregan. Buenos procesos mejoran velocidad y calidad.',
+        'Los recursos a continuacion cubren agile, sprints, code review y retrospectivas. Cada guia te ayuda a construir procesos de ingenieria efectivos.',
+      ],
+    },
+  },
+  soc2: {
+    en: {
+      heading: 'SOC 2 Compliance',
+      paragraphs: [
+        'SOC 2 is a framework for managing customer data based on trust service principles. It is important for SaaS providers.',
+        'The resources below cover controls, audits, policies, and evidence. Each guide helps you prepare for and maintain SOC 2 compliance.',
+      ],
+    },
+    es: {
+      heading: 'Cumplimiento SOC 2',
+      paragraphs: [
+        'SOC 2 es un marco para gestionar datos de clientes basado en principios de servicios de confianza. Es importante para proveedores de SaaS.',
+        'Los recursos a continuacion cubren controles, auditorias, politicas y evidencia. Cada guia te ayuda a prepararte y mantener el cumplimiento SOC 2.',
+      ],
+    },
+  },
+  'multi-region': {
+    en: {
+      heading: 'Multi-Region Architecture',
+      paragraphs: [
+        'Multi-region architecture deploys applications across geographic regions. It improves latency, availability, and disaster recovery.',
+        'The resources below cover data replication, failover, routing, and compliance. Each guide helps you design global applications.',
+      ],
+    },
+    es: {
+      heading: 'Arquitectura Multi-Region',
+      paragraphs: [
+        'La arquitectura multi-region despliega aplicaciones a traves de regiones geograficas. Mejora latencia, disponibilidad y recuperacion ante desastres.',
+        'Los recursos a continuacion cubren replicacion de datos, failover, routing y cumplimiento. Cada guia te ayuda a disenar aplicaciones globales.',
+      ],
+    },
+  },
+  'data-migration': {
+    en: {
+      heading: 'Data Migration',
+      paragraphs: [
+        'Data migration moves data between systems. It requires planning, validation, and rollback strategies.',
+        'The resources below cover migration patterns, ETL, validation, and cutover. Each guide helps you move data safely and accurately.',
+      ],
+    },
+    es: {
+      heading: 'Migracion de Datos',
+      paragraphs: [
+        'La migracion de datos mueve datos entre sistemas. Requiere planificacion, validacion y estrategias de rollback.',
+        'Los recursos a continuacion cubren patrones de migracion, ETL, validacion y cutover. Cada guia te ayuda a mover datos de forma segura y precisa.',
+      ],
+    },
+  },
+  'security-report': {
+    en: {
+      heading: 'Security Reporting',
+      paragraphs: [
+        'Security reports document findings, vulnerabilities, and remediation. They support compliance and risk management.',
+        'The resources below cover vulnerability reports, incident reports, and pentest findings. Each guide helps you communicate security issues clearly.',
+      ],
+    },
+    es: {
+      heading: 'Reportes de Seguridad',
+      paragraphs: [
+        'Los reportes de seguridad documentan hallazgos, vulnerabilidades y remediacion. Soportan cumplimiento y gestion de riesgos.',
+        'Los recursos a continuacion cubren reportes de vulnerabilidades, reportes de incidentes y hallazgos de pentest. Cada guia te ayuda a comunicar problemas de seguridad claramente.',
+      ],
+    },
+  },
+  sbom: {
+    en: {
+      heading: 'Software Bill of Materials',
+      paragraphs: [
+        'An SBOM lists the components in a software product. It supports supply chain transparency and vulnerability management.',
+        'The resources below cover SBOM formats, generation tools, and integration. Each guide helps you track what is in your software.',
+      ],
+    },
+    es: {
+      heading: 'SBOM',
+      paragraphs: [
+        'Un SBOM lista los componentes de un producto de software. Soporta transparencia de la cadena de suministro y gestion de vulnerabilidades.',
+        'Los recursos a continuacion cubren formatos de SBOM, herramientas de generacion e integracion. Cada guia te ayuda a rastrear lo que hay en tu software.',
+      ],
+    },
+  },
 };
