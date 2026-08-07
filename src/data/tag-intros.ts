@@ -11252,4 +11252,244 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  entity: {
+    en: {
+      heading: 'Entity Modeling',
+      paragraphs: [
+        'An entity represents a distinct object or concept in a domain. Entity modeling is central to databases and domain-driven design.',
+        'The resources below cover entities, relationships, identity, and repositories. Each guide helps you model and manage domain entities.',
+      ],
+    },
+    es: {
+      heading: 'Modelado de Entidades',
+      paragraphs: [
+        'Una entidad representa un objeto o concepto distintivo en un dominio. El modelado de entidades es central para bases de datos y domain-driven design.',
+        'Los recursos a continuacion cubren entidades, relaciones, identidad y repositorios. Cada guia te ayuda a modelar y gestionar entidades del dominio.',
+      ],
+    },
+  },
+  web: {
+    en: {
+      heading: 'Web Development',
+      paragraphs: [
+        'Web development covers the technologies and practices used to build websites and web applications. It spans frontend, backend, and infrastructure.',
+        'The resources below cover web standards, frameworks, performance, and security. Each guide helps you build modern web applications.',
+      ],
+    },
+    es: {
+      heading: 'Desarrollo Web',
+      paragraphs: [
+        'El desarrollo web cubre las tecnologias y practicas usadas para construir sitios y aplicaciones web. Abarca frontend, backend e infraestructura.',
+        'Los recursos a continuacion cubren estandares web, frameworks, rendimiento y seguridad. Cada guia te ayuda a construir aplicaciones web modernas.',
+      ],
+    },
+  },
+  'deployment-strategy': {
+    en: {
+      heading: 'Deployment Strategies',
+      paragraphs: [
+        'Deployment strategies define how new versions are released. Options include rolling, blue-green, canary, and recreate deployments.',
+        'The resources below cover patterns, rollback, and risk mitigation. Each guide helps you choose the right deployment strategy.',
+      ],
+    },
+    es: {
+      heading: 'Estrategias de Despliegue',
+      paragraphs: [
+        'Las estrategias de despliegue definen como se liberan nuevas versiones. Las opciones incluyen rolling, blue-green, canary y recreate.',
+        'Los recursos a continuacion cubren patrones, rollback y mitigacion de riesgos. Cada guia te ayuda a elegir la estrategia de despliegue adecuada.',
+      ],
+    },
+  },
+  abstraction: {
+    en: {
+      heading: 'Abstraction in Software Design',
+      paragraphs: [
+        'Abstraction hides complexity and exposes only what is essential. It is a fundamental principle for building maintainable systems.',
+        'The resources below cover abstraction layers, interfaces, and modeling. Each guide helps you use abstraction effectively.',
+      ],
+    },
+    es: {
+      heading: 'Abstraccion en Diseno de Software',
+      paragraphs: [
+        'La abstraccion oculta complejidad y expone solo lo esencial. Es un principio fundamental para construir sistemas mantenibles.',
+        'Los recursos a continuacion cubren capas de abstraccion, interfaces y modelado. Cada guia te ayuda a usar la abstraccion efectivamente.',
+      ],
+    },
+  },
+  repository: {
+    en: {
+      heading: 'Repository Pattern',
+      paragraphs: [
+        'The repository pattern abstracts data access behind a consistent interface. It decouples domain logic from data storage.',
+        'The resources below cover repositories, aggregates, and persistence. Each guide helps you implement clean data access.',
+      ],
+    },
+    es: {
+      heading: 'Patron Repository',
+      paragraphs: [
+        'El patron repository abstrae el acceso a datos detras de una interfaz consistente. Desacopla la logica de dominio del almacenamiento de datos.',
+        'Los recursos a continuacion cubren repositories, aggregates y persistencia. Cada guia te ayuda a implementar acceso a datos limpio.',
+      ],
+    },
+  },
+  coordination: {
+    en: {
+      heading: 'Coordination in Distributed Systems',
+      paragraphs: [
+        'Coordination manages how distributed components agree and synchronize. It is essential for consistency and workflow execution.',
+        'The resources below cover consensus, leader election, locks, and workflow orchestration. Each guide helps you coordinate distributed work.',
+      ],
+    },
+    es: {
+      heading: 'Coordinacion en Sistemas Distribuidos',
+      paragraphs: [
+        'La coordinacion gestiona como los componentes distribuidos acuerdan y sincronizan. Es esencial para consistencia y ejecucion de workflows.',
+        'Los recursos a continuacion cubren consenso, leader election, locks y orquestacion de workflows. Cada guia te ayuda a coordinar trabajo distribuido.',
+      ],
+    },
+  },
+  'n-plus-1': {
+    en: {
+      heading: 'N+1 Query Problem',
+      paragraphs: [
+        'The N+1 query problem occurs when an application makes one query and then N additional queries for related data. It hurts performance.',
+        'The resources below cover eager loading, batching, and query optimization. Each guide helps you avoid N+1 queries.',
+      ],
+    },
+    es: {
+      heading: 'Problema de Consultas N+1',
+      paragraphs: [
+        'El problema de consultas N+1 ocurre cuando una aplicacion hace una consulta y luego N consultas adicionales por datos relacionados. Afecta el rendimiento.',
+        'Los recursos a continuacion cubren eager loading, batching y optimizacion de consultas. Cada guia te ayuda a evitar consultas N+1.',
+      ],
+    },
+  },
+  aria: {
+    en: {
+      heading: 'ARIA Accessibility',
+      paragraphs: [
+        'ARIA is a set of attributes that improve accessibility for rich web applications. It helps screen readers understand complex widgets.',
+        'The resources below cover roles, states, properties, and best practices. Each guide helps you make web content more accessible.',
+      ],
+    },
+    es: {
+      heading: 'Accesibilidad ARIA',
+      paragraphs: [
+        'ARIA es un conjunto de atributos que mejoran la accesibilidad de aplicaciones web ricas. Ayuda a los lectores de pantalla a entender widgets complejos.',
+        'Los recursos a continuacion cubren roles, estados, propiedades y mejores practicas. Cada guia te ayuda a hacer contenido web mas accesible.',
+      ],
+    },
+  },
+  'code-splitting': {
+    en: {
+      heading: 'Code Splitting',
+      paragraphs: [
+        'Code splitting breaks bundles into smaller pieces that can be loaded on demand. It reduces initial load time and improves performance.',
+        'The resources below cover route-based, component-based, and dynamic imports. Each guide helps you split code effectively.',
+      ],
+    },
+    es: {
+      heading: 'Code Splitting',
+      paragraphs: [
+        'El code splitting divide los bundles en partes mas pequenas que se pueden cargar bajo demanda. Reduce el tiempo de carga inicial y mejora el rendimiento.',
+        'Los recursos a continuacion cubren imports por ruta, por componente y dinamicos. Cada guia te ayuda a dividir el codigo efectivamente.',
+      ],
+    },
+  },
+  'css-grid': {
+    en: {
+      heading: 'CSS Grid',
+      paragraphs: [
+        'CSS Grid is a layout system for two-dimensional designs. It makes responsive and complex layouts easier to implement.',
+        'The resources below cover grid containers, tracks, areas, and responsive design. Each guide helps you build layouts with CSS Grid.',
+      ],
+    },
+    es: {
+      heading: 'CSS Grid',
+      paragraphs: [
+        'CSS Grid es un sistema de layout para disenos bidimensionales. Facilita la implementacion de layouts responsivos y complejos.',
+        'Los recursos a continuacion cubren contenedores grid, tracks, areas y diseno responsivo. Cada guia te ayuda a construir layouts con CSS Grid.',
+      ],
+    },
+  },
+  'server-components': {
+    en: {
+      heading: 'React Server Components',
+      paragraphs: [
+        'Server components render React on the server and stream HTML to the client. They reduce bundle size and improve initial load.',
+        'The resources below cover RSC, hydration, and frameworks. Each guide helps you adopt server components in React applications.',
+      ],
+    },
+    es: {
+      heading: 'Server Components de React',
+      paragraphs: [
+        'Los server components renderizan React en el servidor y transmiten HTML al cliente. Reducen el tamano del bundle y mejoran la carga inicial.',
+        'Los recursos a continuacion cubren RSC, hidratacion y frameworks. Cada guia te ayuda a adoptar server components en aplicaciones React.',
+      ],
+    },
+  },
+  'spot-instances': {
+    en: {
+      heading: 'Spot Instances',
+      paragraphs: [
+        'Spot instances use spare cloud capacity at lower cost. They are cost-effective for interruptible workloads.',
+        'The resources below cover bidding, interruption, and use cases. Each guide helps you use spot instances effectively.',
+      ],
+    },
+    es: {
+      heading: 'Instancias Spot',
+      paragraphs: [
+        'Las instancias spot usan capacidad cloud sobrante a menor costo. Son rentables para cargas de trabajo interrumpibles.',
+        'Los recursos a continuacion cubren ofertas, interrupcion y casos de uso. Cada guia te ayuda a usar instancias spot efectivamente.',
+      ],
+    },
+  },
+  csp: {
+    en: {
+      heading: 'Content Security Policy',
+      paragraphs: [
+        'CSP is a security header that helps prevent XSS and data injection. It controls which resources a page can load.',
+        'The resources below cover directives, reporting, and best practices. Each guide helps you configure CSP effectively.',
+      ],
+    },
+    es: {
+      heading: 'Content Security Policy',
+      paragraphs: [
+        'CSP es un header de seguridad que ayuda a prevenir XSS e inyeccion de datos. Controla que recursos puede cargar una pagina.',
+        'Los recursos a continuacion cubren directivas, reportes y mejores practicas. Cada guia te ayuda a configurar CSP efectivamente.',
+      ],
+    },
+  },
+  'azure-key-vault': {
+    en: {
+      heading: 'Azure Key Vault',
+      paragraphs: [
+        'Azure Key Vault is a cloud service for secrets, keys, and certificates. It helps secure application credentials.',
+        'The resources below cover secrets, keys, access policies, and integration. Each guide helps you manage secrets with Azure Key Vault.',
+      ],
+    },
+    es: {
+      heading: 'Azure Key Vault',
+      paragraphs: [
+        'Azure Key Vault es un servicio cloud para secretos, claves y certificados. Ayuda a asegurar credenciales de aplicaciones.',
+        'Los recursos a continuacion cubren secretos, claves, politicas de acceso e integracion. Cada guia te ayuda a gestionar secretos con Azure Key Vault.',
+      ],
+    },
+  },
+  'secure-coding': {
+    en: {
+      heading: 'Secure Coding',
+      paragraphs: [
+        'Secure coding practices reduce vulnerabilities in software. They cover input validation, output encoding, and secure defaults.',
+        'The resources below cover OWASP, secure patterns, and reviews. Each guide helps you write code that resists attacks.',
+      ],
+    },
+    es: {
+      heading: 'Codigo Seguro',
+      paragraphs: [
+        'Las practicas de codigo seguro reducen vulnerabilidades en el software. Cubren validacion de entrada, codificacion de salida y valores seguros por defecto.',
+        'Los recursos a continuacion cubren OWASP, patrones seguros y revisiones. Cada guia te ayuda a escribir codigo que resista ataques.',
+      ],
+    },
+  },
 };
