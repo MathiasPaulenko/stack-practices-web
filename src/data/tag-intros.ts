@@ -5220,4 +5220,388 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  analytics: {
+    en: {
+      heading: 'Data Analytics',
+      paragraphs: [
+        'Analytics transforms raw data into insights. It helps teams understand behavior, measure performance, and make data-driven decisions.',
+        'The resources below cover dashboards, metrics, SQL analytics, event analytics, and visualization. Each guide helps you build analytics that answer real questions.',
+      ],
+    },
+    es: {
+      heading: 'Analitica de Datos',
+      paragraphs: [
+        'La analitica transforma datos crudos en conocimiento. Ayuda a los equipos a entender comportamiento, medir rendimiento y tomar decisiones basadas en datos.',
+        'Los recursos a continuacion cubren dashboards, metricas, analitica SQL, analitica de eventos y visualizacion. Cada guia te ayuda a construir analitica que responda preguntas reales.',
+      ],
+    },
+  },
+  cli: {
+    en: {
+      heading: 'Command-Line Interfaces',
+      paragraphs: [
+        'CLI tools let users interact with software through text commands. Well-designed CLIs are fast, scriptable, and composable.',
+        'The resources below cover CLI design, argument parsing, shell scripts, and tools like Click, Commander, and Clap. Each guide helps you build command-line tools that users love.',
+      ],
+    },
+    es: {
+      heading: 'Interfaces de Linea de Comandos',
+      paragraphs: [
+        'Las herramientas CLI permiten a los usuarios interactuar con software mediante comandos de texto. CLI bien disenados son rapidos, scripteables y componibles.',
+        'Los recursos a continuacion cubren diseno de CLI, parseo de argumentos, shell scripts y herramientas como Click, Commander y Clap. Cada guia te ayuda a construir herramientas de linea de comandos que los usuarios amen.',
+      ],
+    },
+  },
+  pandas: {
+    en: {
+      heading: 'Pandas for Data Analysis',
+      paragraphs: [
+        'Pandas is the most popular Python library for data manipulation and analysis. It provides DataFrames for tabular data and powerful operations.',
+        'The resources below cover data loading, cleaning, filtering, grouping, merging, and time series. Each recipe helps you work with data efficiently in Python.',
+      ],
+    },
+    es: {
+      heading: 'Pandas para Analisis de Datos',
+      paragraphs: [
+        'Pandas es la biblioteca de Python mas popular para manipulacion y analisis de datos. Proporciona DataFrames para datos tabulares y operaciones poderosas.',
+        'Los recursos a continuacion cubren carga de datos, limpieza, filtrado, agrupacion, merge y series temporales. Cada receta te ayuda a trabajar con datos eficientemente en Python.',
+      ],
+    },
+  },
+  markdown: {
+    en: {
+      heading: 'Markdown',
+      paragraphs: [
+        'Markdown is a lightweight markup language for formatting text. It is widely used for documentation, READMEs, and content authoring.',
+        'The resources below cover Markdown syntax, tables, code blocks, frontmatter, and conversion. Each guide helps you write clear and portable documents.',
+      ],
+    },
+    es: {
+      heading: 'Markdown',
+      paragraphs: [
+        'Markdown es un lenguaje de marcado ligero para formatear texto. Es ampliamente usado para documentacion, READMEs y creacion de contenido.',
+        'Los recursos a continuacion cubren sintaxis de Markdown, tablas, bloques de codigo, frontmatter y conversion. Cada guia te ayuda a escribir documentos claros y portables.',
+      ],
+    },
+  },
+  extraction: {
+    en: {
+      heading: 'Data Extraction',
+      paragraphs: [
+        'Data extraction pulls data from sources like files, APIs, databases, and websites. It is the first step in ETL, analytics, and migration pipelines.',
+        'The resources below cover scraping, API pagination, file parsing, change data capture, and extraction patterns. Each guide helps you extract data reliably.',
+      ],
+    },
+    es: {
+      heading: 'Extraccion de Datos',
+      paragraphs: [
+        'La extraccion de datos obtiene datos de fuentes como archivos, APIs, bases de datos y sitios web. Es el primer paso en pipelines de ETL, analitica y migracion.',
+        'Los recursos a continuacion cubren scraping, paginacion de APIs, parseo de archivos, change data capture y patrones de extraccion. Cada guia te ayuda a extraer datos de forma confiable.',
+      ],
+    },
+  },
+  yaml: {
+    en: {
+      heading: 'YAML Configuration',
+      paragraphs: [
+        'YAML is a human-friendly data serialization format. It is commonly used for configuration files, CI/CD pipelines, and Kubernetes manifests.',
+        'The resources below cover YAML syntax, anchors, multi-documents, validation, and parsing. Each guide helps you write and maintain YAML configuration safely.',
+      ],
+    },
+    es: {
+      heading: 'Configuracion YAML',
+      paragraphs: [
+        'YAML es un formato de serializacion de datos amigable para humanos. Se usa comummente para archivos de configuracion, pipelines de CI/CD y manifiestos de Kubernetes.',
+        'Los recursos a continuacion cubren sintaxis YAML, anchors, multi-documentos, validacion y parseo. Cada guia te ayuda a escribir y mantener configuracion YAML de forma segura.',
+      ],
+    },
+  },
+  airflow: {
+    en: {
+      heading: 'Apache Airflow',
+      paragraphs: [
+        'Airflow is a platform for orchestrating complex workflows as directed acyclic graphs. It is widely used for data pipelines and ETL.',
+        'The resources below cover DAGs, operators, sensors, scheduling, and deployment. Each guide helps you build and maintain data workflows with Airflow.',
+      ],
+    },
+    es: {
+      heading: 'Apache Airflow',
+      paragraphs: [
+        'Airflow es una plataforma para orquestar workflows complejos como grafos aciclicos dirigidos. Se usa ampliamente para pipelines de datos y ETL.',
+        'Los recursos a continuacion cubren DAGs, operators, sensors, programacion y despliegue. Cada guia te ayuda a construir y mantener workflows de datos con Airflow.',
+      ],
+    },
+  },
+  dbt: {
+    en: {
+      heading: 'dbt',
+      paragraphs: [
+        'dbt is a transformation workflow for data analysts and engineers. It brings software engineering practices to SQL-based analytics.',
+        'The resources below cover dbt models, tests, snapshots, packages, and documentation. Each guide helps you build reliable data transformations in SQL.',
+      ],
+    },
+    es: {
+      heading: 'dbt',
+      paragraphs: [
+        'dbt es un workflow de transformacion para analistas e ingenieros de datos. Aporta practicas de ingenieria de software a la analitica basada en SQL.',
+        'Los recursos a continuacion cubren modelos dbt, tests, snapshots, packages y documentacion. Cada guia te ayuda a construir transformaciones de datos confiables en SQL.',
+      ],
+    },
+  },
+  'data-warehouse': {
+    en: {
+      heading: 'Data Warehousing',
+      paragraphs: [
+        'A data warehouse is a centralized repository for structured, historical data. It supports reporting, analytics, and business intelligence.',
+        'The resources below cover warehouse design, ETL, modeling, Snowflake, BigQuery, and Redshift. Each guide helps you build a warehouse that scales with your data.',
+      ],
+    },
+    es: {
+      heading: 'Data Warehousing',
+      paragraphs: [
+        'Un data warehouse es un repositorio centralizado de datos estructurados e historicos. Soporta reportes, analitica e inteligencia de negocio.',
+        'Los recursos a continuacion cubren diseno de warehouses, ETL, modelado, Snowflake, BigQuery y Redshift. Cada guia te ayuda a construir un warehouse que escale con tus datos.',
+      ],
+    },
+  },
+  cte: {
+    en: {
+      heading: 'Common Table Expressions',
+      paragraphs: [
+        'CTEs are temporary named result sets in SQL. They make complex queries more readable and easier to maintain.',
+        'The resources below cover recursive CTEs, non-recursive CTEs, performance, and readability. Each guide helps you write cleaner SQL with CTEs.',
+      ],
+    },
+    es: {
+      heading: 'Expresiones de Tabla Comunes',
+      paragraphs: [
+        'Las CTE son conjuntos de resultados temporales con nombre en SQL. Hacen las consultas complejas mas legibles y faciles de mantener.',
+        'Los recursos a continuacion cubren CTEs recursivas, CTEs no recursivas, rendimiento y legibilidad. Cada guia te ayuda a escribir SQL mas limpio con CTEs.',
+      ],
+    },
+  },
+  encoding: {
+    en: {
+      heading: 'Character Encoding',
+      paragraphs: [
+        'Character encoding defines how text is represented as bytes. Incorrect encoding causes garbled text and bugs.',
+        'The resources below cover UTF-8, ASCII, Unicode, BOM, and encoding conversion. Each guide helps you handle text correctly across systems.',
+      ],
+    },
+    es: {
+      heading: 'Codificacion de Caracteres',
+      paragraphs: [
+        'La codificacion de caracteres define como se representa el texto en bytes. Una codificacion incorrecta causa texto corrupto y errores.',
+        'Los recursos a continuacion cubren UTF-8, ASCII, Unicode, BOM y conversion de codificacion. Cada guia te ayuda a manejar texto correctamente entre sistemas.',
+      ],
+    },
+  },
+  postgres: {
+    en: {
+      heading: 'PostgreSQL',
+      paragraphs: [
+        'PostgreSQL is an advanced open-source relational database. It supports ACID transactions, extensions, JSON, and powerful querying.',
+        'The resources below cover installation, indexing, JSONB, partitioning, and administration. Each guide helps you use PostgreSQL effectively.',
+      ],
+    },
+    es: {
+      heading: 'PostgreSQL',
+      paragraphs: [
+        'PostgreSQL es una base de datos relacional avanzada de codigo abierto. Soporta transacciones ACID, extensiones, JSON y consultas poderosas.',
+        'Los recursos a continuacion cubren instalacion, indexacion, JSONB, particionamiento y administracion. Cada guia te ayuda a usar PostgreSQL efectivamente.',
+      ],
+    },
+  },
+  jdbc: {
+    en: {
+      heading: 'JDBC and Database Connectivity',
+      paragraphs: [
+        'JDBC is the Java API for connecting to relational databases. It provides a standard interface for queries, updates, and transactions.',
+        'The resources below cover drivers, connection management, prepared statements, and connection pools. Each guide helps you use JDBC to access databases from Java.',
+      ],
+    },
+    es: {
+      heading: 'JDBC y Conectividad a Bases de Datos',
+      paragraphs: [
+        'JDBC es la API de Java para conectarse a bases de datos relacionales. Proporciona una interfaz estandar para consultas, actualizaciones y transacciones.',
+        'Los recursos a continuacion cubren drivers, gestion de conexiones, prepared statements y pools de conexion. Cada guia te ayuda a usar JDBC para acceder a bases de datos desde Java.',
+      ],
+    },
+  },
+  'schema-evolution': {
+    en: {
+      heading: 'Schema Evolution',
+      paragraphs: [
+        'Schema evolution is the process of changing database or API schemas over time while maintaining compatibility. It is critical for long-lived systems.',
+        'The resources below cover backward and forward compatibility, migration tools, versioning, and event schemas. Each guide helps you evolve schemas safely.',
+      ],
+    },
+    es: {
+      heading: 'Evolucion de Esquemas',
+      paragraphs: [
+        'La evolucion de esquemas es el proceso de cambiar esquemas de bases de datos o APIs con el tiempo manteniendo compatibilidad. Es critica para sistemas de larga vida.',
+        'Los recursos a continuacion cubren compatibilidad hacia atras y hacia adelante, herramientas de migracion, versionado y esquemas de eventos. Cada guia te ayuda a evolucionar esquemas de forma segura.',
+      ],
+    },
+  },
+  deduplication: {
+    en: {
+      heading: 'Data Deduplication',
+      paragraphs: [
+        'Deduplication removes duplicate records from datasets. It is essential for data quality, storage efficiency, and accurate analytics.',
+        'The resources below cover exact and fuzzy deduplication, deterministic and probabilistic matching, and tooling. Each guide helps you clean duplicates effectively.',
+      ],
+    },
+    es: {
+      heading: 'Deduplicacion de Datos',
+      paragraphs: [
+        'La deduplicacion elimina registros duplicados de conjuntos de datos. Es esencial para calidad de datos, eficiencia de almacenamiento y analitica precisa.',
+        'Los recursos a continuacion cubren deduplicacion exacta y difusa, coincidencia deterministica y probabilistica y herramientas. Cada guia te ayuda a limpiar duplicados efectivamente.',
+      ],
+    },
+  },
+  adapter: {
+    en: {
+      heading: 'Adapter Pattern',
+      paragraphs: [
+        'The adapter pattern allows incompatible interfaces to work together. It wraps one interface to expose another, enabling integration without changing existing code.',
+        'The resources below cover object adapters, class adapters, and real-world use cases. Each guide helps you integrate components with mismatched interfaces.',
+      ],
+    },
+    es: {
+      heading: 'Patron Adapter',
+      paragraphs: [
+        'El patron adapter permite que interfaces incompatibles trabajen juntas. Envuelve una interfaz para exponer otra, habilitando integracion sin cambiar codigo existente.',
+        'Los recursos a continuacion cubren object adapters, class adapters y casos de uso reales. Cada guia te ayuda a integrar componentes con interfaces incompatibles.',
+      ],
+    },
+  },
+  'factory-pattern': {
+    en: {
+      heading: 'Factory Pattern',
+      paragraphs: [
+        'The factory pattern creates objects without specifying the exact class. It centralizes object creation and makes code more flexible.',
+        'The resources below cover simple factories, factory method, abstract factory, and dependency injection. Each guide helps you create objects cleanly.',
+      ],
+    },
+    es: {
+      heading: 'Patron Factory',
+      paragraphs: [
+        'El patron factory crea objetos sin especificar la clase exacta. Centraliza la creacion de objetos y hace el codigo mas flexible.',
+        'Los recursos a continuacion cubren simple factories, factory method, abstract factory e inyeccion de dependencias. Cada guia te ayuda a crear objetos limpiamente.',
+      ],
+    },
+  },
+  strategy: {
+    en: {
+      heading: 'Strategy Pattern',
+      paragraphs: [
+        'The strategy pattern defines a family of algorithms and makes them interchangeable. It lets behavior vary independently from clients.',
+        'The resources below cover strategy interfaces, context, and selecting algorithms at runtime. Each guide helps you design flexible and extensible behavior.',
+      ],
+    },
+    es: {
+      heading: 'Patron Strategy',
+      paragraphs: [
+        'El patron strategy define una familia de algoritmos y los hace intercambiables. Permite que el comportamiento varie independientemente de los clientes.',
+        'Los recursos a continuacion cubren interfaces de estrategia, contexto y seleccion de algoritmos en runtime. Cada guia te ayuda a disenar comportamiento flexible y extensible.',
+      ],
+    },
+  },
+  xargs: {
+    en: {
+      heading: 'xargs and Shell Pipelines',
+      paragraphs: [
+        'xargs builds and executes commands from standard input. It is a powerful tool for batch processing and chaining in shell pipelines.',
+        'The resources below cover xargs options, parallel execution, find + xargs, and safety. Each guide helps you process large numbers of files and arguments.',
+      ],
+    },
+    es: {
+      heading: 'xargs y Pipelines de Shell',
+      paragraphs: [
+        'xargs construye y ejecuta comandos desde la entrada estandar. Es una herramienta poderosa para procesamiento por lotes y encadenamiento en pipelines de shell.',
+        'Los recursos a continuacion cubren opciones de xargs, ejecucion paralela, find + xargs y seguridad. Cada guia te ayuda a procesar grandes cantidades de archivos y argumentos.',
+      ],
+    },
+  },
+  'blue-green': {
+    en: {
+      heading: 'Blue-Green Deployments',
+      paragraphs: [
+        'Blue-green deployment keeps two identical environments and switches traffic between them. It enables zero-downtime releases and instant rollback.',
+        'The resources below cover environment parity, traffic switching, database changes, and rollback. Each guide helps you deploy without interrupting users.',
+      ],
+    },
+    es: {
+      heading: 'Despliegues Blue-Green',
+      paragraphs: [
+        'El despliegue blue-green mantiene dos entornos identicos y cambia el trafico entre ellos. Permite releases sin downtime y rollback instantaneo.',
+        'Los recursos a continuacion cubren paridad de entornos, cambio de trafico, cambios de base de datos y rollback. Cada guia te ayuda a desplegar sin interrumpir usuarios.',
+      ],
+    },
+  },
+  'docker-compose': {
+    en: {
+      heading: 'Docker Compose',
+      paragraphs: [
+        'Docker Compose defines and runs multi-container applications. It is ideal for local development, testing, and simple deployments.',
+        'The resources below cover compose files, networking, volumes, environment variables, and multi-service orchestration. Each guide helps you manage containerized applications locally.',
+      ],
+    },
+    es: {
+      heading: 'Docker Compose',
+      paragraphs: [
+        'Docker Compose define y ejecuta aplicaciones multi-contenedor. Es ideal para desarrollo local, testing y despliegues simples.',
+        'Los recursos a continuacion cubren archivos compose, networking, volumenes, variables de entorno y orquestacion multi-servicio. Cada guia te ayuda a gestionar aplicaciones contenerizadas localmente.',
+      ],
+    },
+  },
+  cve: {
+    en: {
+      heading: 'CVE and Vulnerability Management',
+      paragraphs: [
+        'CVEs are standardized identifiers for publicly known cybersecurity vulnerabilities. They are the foundation of vulnerability databases and patch management.',
+        'The resources below cover CVE lookup, severity scoring, patch management, and scanning. Each guide helps you track and remediate known vulnerabilities.',
+      ],
+    },
+    es: {
+      heading: 'CVE y Gestion de Vulnerabilidades',
+      paragraphs: [
+        'Los CVE son identificadores estandarizados para vulnerabilidades de ciberseguridad conocidas publicamente. Son la base de bases de datos de vulnerabilidades y gestion de parches.',
+        'Los recursos a continuacion cubren busqueda de CVE, puntuacion de severidad, gestion de parches y escaneo. Cada guia te ayuda a rastrear y remediar vulnerabilidades conocidas.',
+      ],
+    },
+  },
+  bridge: {
+    en: {
+      heading: 'Bridge Pattern',
+      paragraphs: [
+        'The bridge pattern separates an abstraction from its implementation so that the two can vary independently. It is useful for complex class hierarchies.',
+        'The resources below cover abstraction, implementation, decoupling, and bridge use cases. Each guide helps you reduce coupling between layers.',
+      ],
+    },
+    es: {
+      heading: 'Patron Bridge',
+      paragraphs: [
+        'El patron bridge separa una abstraccion de su implementacion para que ambas puedan variar independientemente. Es util para jerarquias de clases complejas.',
+        'Los recursos a continuacion cubren abstraccion, implementacion, desacoplamiento y casos de uso de bridge. Cada guia te ayuda a reducir el acoplamiento entre capas.',
+      ],
+    },
+  },
+  'big-data': {
+    en: {
+      heading: 'Big Data',
+      paragraphs: [
+        'Big data refers to datasets that are too large or complex for traditional tools. It requires distributed storage and processing.',
+        'The resources below cover Hadoop, Spark, data lakes, batch and stream processing, and storage formats. Each guide helps you work with large-scale data.',
+      ],
+    },
+    es: {
+      heading: 'Big Data',
+      paragraphs: [
+        'El big data se refiere a conjuntos de datos demasiado grandes o complejos para herramientas tradicionales. Requiere almacenamiento y procesamiento distribuido.',
+        'Los recursos a continuacion cubren Hadoop, Spark, data lakes, procesamiento batch y streaming, y formatos de almacenamiento. Cada guia te ayuda a trabajar con datos a gran escala.',
+      ],
+    },
+  },
 };
