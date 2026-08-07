@@ -4020,4 +4020,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  oop: {
+    en: {
+      heading: 'Object-Oriented Programming',
+      paragraphs: [
+        'Object-oriented programming organizes code around objects that combine data and behavior. It provides abstractions like encapsulation, inheritance, and polymorphism.',
+        'The resources below cover classes, objects, inheritance, composition, polymorphism, and design principles. Each guide helps you use OOP effectively without over-engineering.',
+      ],
+    },
+    es: {
+      heading: 'Programacion Orientada a Objetos',
+      paragraphs: [
+        'La programacion orientada a objetos organiza el codigo alrededor de objetos que combinan datos y comportamiento. Proporciona abstracciones como encapsulamiento, herencia y polimorfismo.',
+        'Los recursos a continuacion cubren clases, objetos, herencia, composicion, polimorfismo y principios de diseno. Cada guia te ayuda a usar POO efectivamente sin over-engineering.',
+      ],
+    },
+  },
+  'creational-patterns': {
+    en: {
+      heading: 'Creational Design Patterns',
+      paragraphs: [
+        'Creational patterns handle object creation mechanisms. They make a system independent of how its objects are created, composed, and represented.',
+        'The resources below cover factory, abstract factory, builder, prototype, and singleton. Each guide shows how to create objects in a flexible and reusable way.',
+      ],
+    },
+    es: {
+      heading: 'Patrones Creacionales',
+      paragraphs: [
+        'Los patrones creacionales manejan los mecanismos de creacion de objetos. Hacen un sistema independiente de como se crean, componen y representan sus objetos.',
+        'Los recursos a continuacion cubren factory, abstract factory, builder, prototype y singleton. Cada guia muestra como crear objetos de forma flexible y reutilizable.',
+      ],
+    },
+  },
+  observer: {
+    en: {
+      heading: 'Observer Pattern',
+      paragraphs: [
+        'The observer pattern defines a one-to-many dependency between objects. When one object changes state, all its dependents are notified automatically.',
+        'The resources below cover push and pull models, event listeners, publish-subscribe, and reactive patterns. Each guide helps you implement loose coupling between components.',
+      ],
+    },
+    es: {
+      heading: 'Patron Observer',
+      paragraphs: [
+        'El patron observer define una dependencia uno a muchos entre objetos. Cuando un objeto cambia de estado, todos sus dependientes se notifican automaticamente.',
+        'Los recursos a continuacion cubren modelos push y pull, event listeners, publish-subscribe y patrones reactivos. Cada guia te ayuda a implementar bajo acoplamiento entre componentes.',
+      ],
+    },
+  },
+  singleton: {
+    en: {
+      heading: 'Singleton Pattern',
+      paragraphs: [
+        'The singleton pattern ensures a class has only one instance and provides a global point of access. It is useful for shared resources but easy to misuse.',
+        'The resources below cover thread-safe singletons, lazy initialization, alternatives, and when to avoid singletons. Each guide helps you decide if a singleton is the right choice.',
+      ],
+    },
+    es: {
+      heading: 'Patron Singleton',
+      paragraphs: [
+        'El patron singleton asegura que una clase tenga solo una instancia y proporciona un punto de acceso global. Es util para recursos compartidos pero facil de malusar.',
+        'Los recursos a continuacion cubren singletons thread-safe, lazy initialization, alternativas y cuando evitar singletons. Cada guia te ayuda a decidir si singleton es la eleccion correcta.',
+      ],
+    },
+  },
+  alerts: {
+    en: {
+      heading: 'Alerting and Notifications',
+      paragraphs: [
+        'Alerting turns observability data into action. Good alerts are actionable, specific, and routed to the right people without creating noise.',
+        'The resources below cover alert thresholds, SLO-based alerts, routing, escalation, and runbooks. Each guide helps you build an alerting strategy that people trust.',
+      ],
+    },
+    es: {
+      heading: 'Alerting y Notificaciones',
+      paragraphs: [
+        'El alerting convierte datos de observabilidad en accion. Buenas alertas son accionables, especificas y dirigidas a las personas correctas sin crear ruido.',
+        'Los recursos a continuacion cubren umbrales de alerta, alertas basadas en SLO, routing, escalamiento y runbooks. Cada guia te ayuda a construir una estrategia de alertas en la que la gente confie.',
+      ],
+    },
+  },
+  'log-aggregation': {
+    en: {
+      heading: 'Log Aggregation',
+      paragraphs: [
+        'Log aggregation collects logs from many sources into a central system for searching, analysis, and alerting. It is essential for operating distributed systems.',
+        'The resources below cover ELK, Loki, Fluentd, Splunk, and cloud logging services. Each guide helps you centralize logs without losing context.',
+      ],
+    },
+    es: {
+      heading: 'Agregacion de Logs',
+      paragraphs: [
+        'La agregacion de logs recolecta logs de muchas fuentes en un sistema central para busqueda, analisis y alertas. Es esencial para operar sistemas distribuidos.',
+        'Los recursos a continuacion cubren ELK, Loki, Fluentd, Splunk y servicios de logging en la nube. Cada guia te ayuda a centralizar logs sin perder contexto.',
+      ],
+    },
+  },
+  'feature-flags': {
+    en: {
+      heading: 'Feature Flags',
+      paragraphs: [
+        'Feature flags let you change behavior at runtime without deploying code. They enable gradual rollouts, A/B testing, and kill switches.',
+        'The resources below cover flag design, lifecycle management, cleanup, and security. Each guide helps you use feature flags safely and avoid technical debt.',
+      ],
+    },
+    es: {
+      heading: 'Feature Flags',
+      paragraphs: [
+        'Los feature flags permiten cambiar comportamiento en runtime sin desplegar codigo. Habilitan rollouts graduales, A/B testing y kill switches.',
+        'Los recursos a continuacion cubren diseno de flags, gestion del ciclo de vida, limpieza y seguridad. Cada guia te ayuda a usar feature flags de forma segura y evitar deuda tecnica.',
+      ],
+    },
+  },
+  'version-control': {
+    en: {
+      heading: 'Version Control',
+      paragraphs: [
+        'Version control tracks changes to code and other files over time. It enables collaboration, history, branching, and safe experimentation.',
+        'The resources below cover Git, branching strategies, merge workflows, commit hygiene, and repository organization. Each guide helps you use version control effectively.',
+      ],
+    },
+    es: {
+      heading: 'Control de Versiones',
+      paragraphs: [
+        'El control de versiones rastrea cambios en codigo y otros archivos a lo largo del tiempo. Habilita colaboracion, historial, ramas y experimentacion segura.',
+        'Los recursos a continuacion cubren Git, estrategias de branching, flujos de merge, higiene de commits y organizacion de repositorios. Cada guia te ayuda a usar control de versiones efectivamente.',
+      ],
+    },
+  },
+  vault: {
+    en: {
+      heading: 'HashiCorp Vault',
+      paragraphs: [
+        'Vault is a tool for managing secrets and protecting sensitive data. It provides dynamic secrets, encryption as a service, and identity-based access.',
+        'The resources below cover Vault setup, secret engines, policies, PKI, and integration patterns. Each guide helps you manage secrets with Vault in production.',
+      ],
+    },
+    es: {
+      heading: 'HashiCorp Vault',
+      paragraphs: [
+        'Vault es una herramienta para gestionar secretos y proteger datos sensibles. Proporciona secretos dinamicos, cifrado como servicio y acceso basado en identidad.',
+        'Los recursos a continuacion cubren setup de Vault, secret engines, politicas, PKI y patrones de integracion. Cada guia te ayuda a gestionar secretos con Vault en produccion.',
+      ],
+    },
+  },
+  tls: {
+    en: {
+      heading: 'TLS and Transport Security',
+      paragraphs: [
+        'TLS encrypts data in transit between clients and servers. It provides confidentiality, integrity, and authentication for network communication.',
+        'The resources below cover certificates, handshake, mTLS, certificate pinning, and TLS configuration. Each guide helps you secure transport layers correctly.',
+      ],
+    },
+    es: {
+      heading: 'TLS y Seguridad de Transporte',
+      paragraphs: [
+        'TLS cifra datos en transito entre clientes y servidores. Proporciona confidencialidad, integridad y autenticacion para comunicacion de red.',
+        'Los recursos a continuacion cubren certificados, handshake, mTLS, certificate pinning y configuracion de TLS. Cada guia te ayuda a asegurar capas de transporte correctamente.',
+      ],
+    },
+  },
+  s3: {
+    en: {
+      heading: 'Amazon S3 and Object Storage',
+      paragraphs: [
+        'S3 is object storage from AWS. It is durable, scalable, and widely used for backups, media, logs, and static website hosting.',
+        'The resources below cover buckets, objects, lifecycle policies, IAM, versioning, and performance. Each guide helps you use S3 and object storage effectively.',
+      ],
+    },
+    es: {
+      heading: 'Amazon S3 y Almacenamiento de Objetos',
+      paragraphs: [
+        'S3 es almacenamiento de objetos de AWS. Es durable, escalable y ampliamente usado para backups, media, logs y hosting de sitios estaticos.',
+        'Los recursos a continuacion cubren buckets, objetos, politicas de ciclo de vida, IAM, versionado y rendimiento. Cada guia te ayuda a usar S3 y almacenamiento de objetos efectivamente.',
+      ],
+    },
+  },
+  firewall: {
+    en: {
+      heading: 'Firewalls and Network Security',
+      paragraphs: [
+        'Firewalls control network traffic based on rules. They are a foundational layer of defense against unauthorized access and network attacks.',
+        'The resources below cover network firewalls, web application firewalls, cloud security groups, and rule design. Each guide helps you configure firewalls that block threats without blocking business.',
+      ],
+    },
+    es: {
+      heading: 'Firewalls y Seguridad de Red',
+      paragraphs: [
+        'Los firewalls controlan el trafico de red basado en reglas. Son una capa fundamental de defensa contra accesos no autorizados y ataques de red.',
+        'Los recursos a continuacion cubren firewalls de red, web application firewalls, security groups en la nube y diseno de reglas. Cada guia te ayuda a configurar firewalls que bloqueen amenazas sin bloquear el negocio.',
+      ],
+    },
+  },
+  'container-queries': {
+    en: {
+      heading: 'CSS Container Queries',
+      paragraphs: [
+        'Container queries allow components to respond to the size of their container rather than the viewport. They enable truly reusable and responsive components.',
+        'The resources below cover container query syntax, container types, use cases, and progressive enhancement. Each guide helps you build components that adapt to their context.',
+      ],
+    },
+    es: {
+      heading: 'Container Queries en CSS',
+      paragraphs: [
+        'Las container queries permiten que los componentes respondan al tamano de su contenedor en lugar del viewport. Habilitan componentes realmente reusables y responsive.',
+        'Los recursos a continuacion cubren sintaxis de container queries, tipos de contenedor, casos de uso y mejora progresiva. Cada guia te ayuda a construir componentes que se adaptan a su contexto.',
+      ],
+    },
+  },
+  reactive: {
+    en: {
+      heading: 'Reactive Programming',
+      paragraphs: [
+        'Reactive programming models data and events as streams. It is the foundation of frameworks like RxJS, React, and many modern UI and backend systems.',
+        'The resources below cover observables, operators, backpressure, and reactive streams. Each guide helps you build systems that respond to change predictably.',
+      ],
+    },
+    es: {
+      heading: 'Programacion Reactiva',
+      paragraphs: [
+        'La programacion reactiva modela datos y eventos como streams. Es la base de frameworks como RxJS, React y muchos sistemas UI y backend modernos.',
+        'Los recursos a continuacion cubren observables, operadores, backpressure y reactive streams. Cada guia te ayuda a construir sistemas que responden al cambio de forma predecible.',
+      ],
+    },
+  },
+  'dead-letter-queue': {
+    en: {
+      heading: 'Dead Letter Queues',
+      paragraphs: [
+        'Dead letter queues store messages that cannot be processed successfully. They prevent poison messages from blocking the main queue and enable later inspection.',
+        'The resources below cover DLQ design, retry policies, monitoring, and reprocessing. Each guide helps you build resilient messaging systems.',
+      ],
+    },
+    es: {
+      heading: 'Dead Letter Queues',
+      paragraphs: [
+        'Las dead letter queues almacenan mensajes que no pueden procesarse correctamente. Evitan que mensajes envenenados bloqueen la cola principal y permiten inspeccion posterior.',
+        'Los recursos a continuacion cubren diseno de DLQ, politicas de reintento, monitoreo y reprocesamiento. Cada guia te ayuda a construir sistemas de mensajeria resilientes.',
+      ],
+    },
+  },
+  benchmarks: {
+    en: {
+      heading: 'Benchmarking',
+      paragraphs: [
+        'Benchmarking measures the performance of code or systems under controlled conditions. It provides objective data for optimization decisions.',
+        'The resources below cover microbenchmarks, load testing, latency benchmarks, and statistical rigor. Each guide helps you measure performance accurately and avoid common pitfalls.',
+      ],
+    },
+    es: {
+      heading: 'Benchmarking',
+      paragraphs: [
+        'El benchmarking mide el rendimiento de codigo o sistemas bajo condiciones controladas. Proporciona datos objetivos para decisiones de optimizacion.',
+        'Los recursos a continuacion cubren microbenchmarks, load testing, benchmarks de latencia y rigor estadistico. Cada guia te ayuda a medir rendimiento con precision y evitar errores comunes.',
+      ],
+    },
+  },
+  xss: {
+    en: {
+      heading: 'Cross-Site Scripting',
+      paragraphs: [
+        'XSS is a web security vulnerability that lets attackers inject malicious scripts into pages viewed by other users. It is one of the most common web attacks.',
+        'The resources below cover stored, reflected, and DOM-based XSS, sanitization, CSP, and escaping. Each guide helps you prevent XSS in applications and templates.',
+      ],
+    },
+    es: {
+      heading: 'Cross-Site Scripting',
+      paragraphs: [
+        'XSS es una vulnerabilidad de seguridad web que permite a atacantes inyectar scripts maliciosos en paginas vistas por otros usuarios. Es uno de los ataques web mas comunes.',
+        'Los recursos a continuacion cubren XSS almacenado, reflejado y basado en DOM, sanitizacion, CSP y escaping. Cada guia te ayuda a prevenir XSS en aplicaciones y templates.',
+      ],
+    },
+  },
+  nosql: {
+    en: {
+      heading: 'NoSQL Databases',
+      paragraphs: [
+        'NoSQL databases provide flexible data models and horizontal scalability. They include document, key-value, wide-column, and graph databases.',
+        'The resources below cover MongoDB, DynamoDB, Cassandra, Redis, and Neo4j. Each guide helps you choose and use the right NoSQL database for your workload.',
+      ],
+    },
+    es: {
+      heading: 'Bases de Datos NoSQL',
+      paragraphs: [
+        'Las bases de datos NoSQL proporcionan modelos de datos flexibles y escalabilidad horizontal. Incluyen documentos, key-value, wide-column y grafos.',
+        'Los recursos a continuacion cubren MongoDB, DynamoDB, Cassandra, Redis y Neo4j. Cada guia te ayuda a elegir y usar la base NoSQL correcta para tu carga.',
+      ],
+    },
+  },
+  sqs: {
+    en: {
+      heading: 'Amazon SQS',
+      paragraphs: [
+        'Amazon SQS is a managed message queue service. It decouples components and enables reliable asynchronous communication at scale.',
+        'The resources below cover standard vs FIFO queues, visibility timeout, dead-letter queues, and integration with Lambda. Each guide helps you build reliable queues on AWS.',
+      ],
+    },
+    es: {
+      heading: 'Amazon SQS',
+      paragraphs: [
+        'Amazon SQS es un servicio de colas de mensajes administrado. Desacopla componentes y habilita comunicacion asincrona confiable a escala.',
+        'Los recursos a continuacion cubren colas standard vs FIFO, visibility timeout, dead-letter queues e integracion con Lambda. Cada guia te ayuda a construir colas confiables en AWS.',
+      ],
+    },
+  },
+  hypothesis: {
+    en: {
+      heading: 'Property-Based Testing',
+      paragraphs: [
+        'Property-based testing generates many random inputs to check that properties hold. Hypothesis is the leading library for property-based testing in Python.',
+        'The resources below cover strategies, invariants, shrinking, and stateful testing. Each guide helps you find edge cases that example-based tests miss.',
+      ],
+    },
+    es: {
+      heading: 'Property-Based Testing',
+      paragraphs: [
+        'El property-based testing genera muchas entradas aleatorias para verificar que propiedades se cumplen. Hypothesis es la biblioteca lider para testing basado en propiedades en Python.',
+        'Los recursos a continuacion cubren estrategias, invariantes, shrinking y testing stateful. Cada guia te ayuda a encontrar casos limite que los tests basados en ejemplos omiten.',
+      ],
+    },
+  },
+  tdd: {
+    en: {
+      heading: 'Test-Driven Development',
+      paragraphs: [
+        'TDD is the practice of writing tests before code. It drives design, improves confidence, and creates a fast feedback loop for developers.',
+        'The resources below cover red-green-refactor, unit testing, acceptance TDD, and common mistakes. Each guide helps you adopt TDD effectively.',
+      ],
+    },
+    es: {
+      heading: 'Test-Driven Development',
+      paragraphs: [
+        'TDD es la practica de escribir tests antes que codigo. Impulsa el diseno, mejora la confianza y crea un ciclo de feedback rapido para desarrolladores.',
+        'Los recursos a continuacion cubren red-green-refactor, pruebas unitarias, acceptance TDD y errores comunes. Cada guia te ayuda a adoptar TDD efectivamente.',
+      ],
+    },
+  },
+  coverage: {
+    en: {
+      heading: 'Test Coverage',
+      paragraphs: [
+        'Test coverage measures how much code is exercised by tests. It is a useful signal but not a guarantee of quality.',
+        'The resources below cover line, branch, and mutation coverage, coverage targets, and anti-patterns. Each guide helps you use coverage as a tool, not a goal.',
+      ],
+    },
+    es: {
+      heading: 'Cobertura de Tests',
+      paragraphs: [
+        'La cobertura de tests mide cuanto codigo es ejercido por las pruebas. Es una senal util pero no una garantia de calidad.',
+        'Los recursos a continuacion cubren cobertura de linea, branch y mutation, objetivos de cobertura y anti-patrones. Cada guia te ayuda a usar la cobertura como herramienta, no como meta.',
+      ],
+    },
+  },
+  fixtures: {
+    en: {
+      heading: 'Test Fixtures',
+      paragraphs: [
+        'Fixtures provide consistent, reusable test data and environment setup. They reduce duplication and make tests more reliable.',
+        'The resources below cover setup and teardown, dependency injection, factory fixtures, and mocking. Each guide helps you build test fixtures that are easy to maintain.',
+      ],
+    },
+    es: {
+      heading: 'Fixtures de Tests',
+      paragraphs: [
+        'Las fixtures proporcionan datos de prueba consistentes y configuracion reusable del entorno. Reducen duplicacion y hacen los tests mas confiables.',
+        'Los recursos a continuacion cubren setup y teardown, inyeccion de dependencias, factory fixtures y mocking. Cada guia te ayuda a construir fixtures de test faciles de mantener.',
+      ],
+    },
+  },
+  'data-driven': {
+    en: {
+      heading: 'Data-Driven Testing',
+      paragraphs: [
+        'Data-driven testing separates test logic from test data. The same test runs against many input and expected-output pairs.',
+        'The resources below cover parametrization, CSV-driven tests, property-based testing, and fixture combinations. Each guide helps you scale test suites without duplicating code.',
+      ],
+    },
+    es: {
+      heading: 'Testing Data-Driven',
+      paragraphs: [
+        'El testing data-driven separa la logica de test de los datos de prueba. El mismo test se ejecuta contra muchos pares de entrada y salida esperada.',
+        'Los recursos a continuacion cubren parametrizacion, tests con CSV, property-based testing y combinaciones de fixtures. Cada guia te ayuda a escalar suites de test sin duplicar codigo.',
+      ],
+    },
+  },
+  idempotency: {
+    en: {
+      heading: 'Idempotency',
+      paragraphs: [
+        'Idempotency means that performing an operation multiple times has the same effect as performing it once. It is essential for retries, webhooks, and distributed systems.',
+        'The resources below cover idempotent APIs, keys, retries, and state machines. Each guide helps you design operations that are safe to repeat.',
+      ],
+    },
+    es: {
+      heading: 'Idempotencia',
+      paragraphs: [
+        'La idempotencia significa que realizar una operacion multiples veces tiene el mismo efecto que realizarla una vez. Es esencial para reintentos, webhooks y sistemas distribuidos.',
+        'Los recursos a continuacion cubren APIs idempotentes, keys, reintentos y maquinas de estado. Cada guia te ayuda a disenar operaciones seguras de repetir.',
+      ],
+    },
+  },
 };
