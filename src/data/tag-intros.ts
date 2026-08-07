@@ -6404,4 +6404,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  wcag: {
+    en: {
+      heading: 'WCAG Guidelines',
+      paragraphs: [
+        'The Web Content Accessibility Guidelines define how to make web content accessible. They are the global standard for web accessibility.',
+        'The resources below cover WCAG levels, success criteria, testing, and implementation. Each guide helps you build sites that meet accessibility standards.',
+      ],
+    },
+    es: {
+      heading: 'Guia WCAG',
+      paragraphs: [
+        'Las Web Content Accessibility Guidelines definen como hacer contenido web accesible. Son el estandar global de accesibilidad web.',
+        'Los recursos a continuacion cubren niveles WCAG, criterios de exito, testing e implementacion. Cada guia te ayuda a construir sitios que cumplen estandares de accesibilidad.',
+      ],
+    },
+  },
+  a11y: {
+    en: {
+      heading: 'A11y and Web Accessibility',
+      paragraphs: [
+        'A11y is the common abbreviation for accessibility. It covers practices, tools, and standards that make digital products usable for everyone.',
+        'The resources below cover a11y testing, screen readers, focus management, and semantic HTML. Each guide helps you build inclusive interfaces.',
+      ],
+    },
+    es: {
+      heading: 'A11y y Accesibilidad Web',
+      paragraphs: [
+        'A11y es la abreviatura comun de accesibilidad. Cubre practicas, herramientas y estandares que hacen productos digitales usables para todos.',
+        'Los recursos a continuacion cubren testing de a11y, lectores de pantalla, gestion de foco y HTML semantico. Cada guia te ayuda a construir interfaces inclusivas.',
+      ],
+    },
+  },
+  compatibility: {
+    en: {
+      heading: 'Browser and Platform Compatibility',
+      paragraphs: [
+        'Compatibility ensures software works across browsers, devices, and platforms. It is a key concern for frontend and API development.',
+        'The resources below cover feature detection, polyfills, vendor prefixes, and cross-browser testing. Each guide helps you build reliable, widely compatible solutions.',
+      ],
+    },
+    es: {
+      heading: 'Compatibilidad de Navegador y Plataforma',
+      paragraphs: [
+        'La compatibilidad asegura que el software funcione en diferentes navegadores, dispositivos y plataformas. Es una preocupacion clave para frontend y desarrollo de APIs.',
+        'Los recursos a continuacion cubren deteccion de caracteristicas, polyfills, prefijos de vendedor y testing cross-browser. Cada guia te ayuda a construir soluciones confiables y ampliamente compatibles.',
+      ],
+    },
+  },
+  assessment: {
+    en: {
+      heading: 'Security and Risk Assessment',
+      paragraphs: [
+        'Assessment is the process of evaluating security, architecture, or design. It identifies strengths, weaknesses, and areas for improvement.',
+        'The resources below cover security assessments, architecture review, risk analysis, and checklists. Each guide helps you evaluate systems objectively.',
+      ],
+    },
+    es: {
+      heading: 'Evaluacion de Seguridad y Riesgo',
+      paragraphs: [
+        'La evaluacion es el proceso de valorar seguridad, arquitectura o diseno. Identifica fortalezas, debilidades y areas de mejora.',
+        'Los recursos a continuacion cubren evaluaciones de seguridad, revision de arquitectura, analisis de riesgo y checklists. Cada guia te ayuda a evaluar sistemas objetivamente.',
+      ],
+    },
+  },
+  'explain-plan': {
+    en: {
+      heading: 'EXPLAIN and Query Plans',
+      paragraphs: [
+        'EXPLAIN is a SQL command that shows how a database executes a query. Query plans are essential for diagnosing slow queries.',
+        'The resources below cover reading query plans, indexes, cost estimation, and optimization. Each guide helps you understand and improve query execution.',
+      ],
+    },
+    es: {
+      heading: 'EXPLAIN y Planes de Consulta',
+      paragraphs: [
+        'EXPLAIN es un comando SQL que muestra como una base de datos ejecuta una consulta. Los planes de consulta son esenciales para diagnosticar consultas lentas.',
+        'Los recursos a continuacion cubren lectura de planes de consulta, indices, estimacion de costos y optimizacion. Cada guia te ayuda a entender y mejorar la ejecucion de consultas.',
+      ],
+    },
+  },
+  'aws-secrets-manager': {
+    en: {
+      heading: 'AWS Secrets Manager',
+      paragraphs: [
+        'AWS Secrets Manager helps you rotate, manage, and retrieve secrets. It integrates with many AWS services and supports automatic rotation.',
+        'The resources below cover secret retrieval, rotation, IAM policies, and integration. Each guide helps you manage secrets safely in AWS.',
+      ],
+    },
+    es: {
+      heading: 'AWS Secrets Manager',
+      paragraphs: [
+        'AWS Secrets Manager ayuda a rotar, gestionar y recuperar secretos. Se integra con muchos servicios de AWS y soporta rotacion automatica.',
+        'Los recursos a continuacion cubren recuperacion de secretos, rotacion, politicas IAM e integracion. Cada guia te ayuda a gestionar secretos de forma segura en AWS.',
+      ],
+    },
+  },
+  'clean-architecture': {
+    en: {
+      heading: 'Clean Architecture',
+      paragraphs: [
+        'Clean Architecture is a layered design by Robert C. Martin. It keeps business logic independent of frameworks, UI, and databases.',
+        'The resources below cover entities, use cases, interfaces, dependency rule, and testing. Each guide helps you build systems with maintainable boundaries.',
+      ],
+    },
+    es: {
+      heading: 'Clean Architecture',
+      paragraphs: [
+        'Clean Architecture es un diseno en capas de Robert C. Martin. Mantiene la logica de negocio independiente de frameworks, UI y bases de datos.',
+        'Los recursos a continuacion cubren entidades, casos de uso, interfaces, regla de dependencias y testing. Cada guia te ayuda a construir sistemas con limites mantenibles.',
+      ],
+    },
+  },
+  'layered-architecture': {
+    en: {
+      heading: 'Layered Architecture',
+      paragraphs: [
+        'Layered architecture organizes code into horizontal layers. Each layer has a responsibility and depends only on layers below it.',
+        'The resources below cover presentation, business, persistence, and database layers. Each guide helps you structure applications with clear separation.',
+      ],
+    },
+    es: {
+      heading: 'Arquitectura por Capas',
+      paragraphs: [
+        'La arquitectura por capas organiza el codigo en capas horizontales. Cada capa tiene una responsabilidad y depende solo de las capas inferiores.',
+        'Los recursos a continuacion cubren capas de presentacion, negocio, persistencia y base de datos. Cada guia te ayuda a estructurar aplicaciones con separacion clara.',
+      ],
+    },
+  },
+  'service-mesh': {
+    en: {
+      heading: 'Service Mesh',
+      paragraphs: [
+        'A service mesh manages service-to-service communication in microservices. It adds observability, security, and traffic control without changing application code.',
+        'The resources below cover Istio, Linkerd, sidecars, mTLS, and canary deployments. Each guide helps you operate microservices at scale.',
+      ],
+    },
+    es: {
+      heading: 'Service Mesh',
+      paragraphs: [
+        'Un service mesh gestiona la comunicacion entre servicios en microservicios. Agrega observabilidad, seguridad y control de trafico sin cambiar codigo de aplicacion.',
+        'Los recursos a continuacion cubren Istio, Linkerd, sidecars, mTLS y despliegues canary. Cada guia te ayuda a operar microservicios a escala.',
+      ],
+    },
+  },
+  'database-design': {
+    en: {
+      heading: 'Database Design',
+      paragraphs: [
+        'Database design defines schemas, relationships, constraints, and indexes. Good design balances normalization, performance, and flexibility.',
+        'The resources below cover ER diagrams, normalization, keys, indexing, and design patterns. Each guide helps you design databases that meet your workload.',
+      ],
+    },
+    es: {
+      heading: 'Diseno de Bases de Datos',
+      paragraphs: [
+        'El diseno de bases de datos define esquemas, relaciones, restricciones e indices. Un buen diseno equilibra normalizacion, rendimiento y flexibilidad.',
+        'Los recursos a continuacion cubren diagramas ER, normalizacion, claves, indexacion y patrones de diseno. Cada guia te ayuda a disenar bases de datos adecuadas a tu carga.',
+      ],
+    },
+  },
+  'cloud-computing': {
+    en: {
+      heading: 'Cloud Computing',
+      paragraphs: [
+        'Cloud computing delivers computing resources over the internet. It offers scalable compute, storage, and networking without owning hardware.',
+        'The resources below cover IaaS, PaaS, SaaS, serverless, and cloud migration. Each guide helps you use cloud services effectively.',
+      ],
+    },
+    es: {
+      heading: 'Cloud Computing',
+      paragraphs: [
+        'El cloud computing entrega recursos de computo por internet. Ofrece computo, almacenamiento y redes escalables sin poseer hardware.',
+        'Los recursos a continuacion cubren IaaS, PaaS, SaaS, serverless y migracion a la nube. Cada guia te ayuda a usar servicios cloud efectivamente.',
+      ],
+    },
+  },
+  injection: {
+    en: {
+      heading: 'Dependency Injection and Inversion',
+      paragraphs: [
+        'Dependency injection and inversion of control decouple components by supplying dependencies from outside. They improve testability and flexibility.',
+        'The resources below cover constructor injection, containers, service locators, and IoC. Each guide helps you build loosely coupled systems.',
+      ],
+    },
+    es: {
+      heading: 'Inyeccion de Dependencias e Inversion de Control',
+      paragraphs: [
+        'La inyeccion de dependencias y la inversion de control desacoplan componentes suministrando dependencias desde fuera. Mejoran testeabilidad y flexibilidad.',
+        'Los recursos a continuacion cubren constructor injection, containers, service locators e IoC. Cada guia te ayuda a construir sistemas poco acoplados.',
+      ],
+    },
+  },
+  'reserved-instances': {
+    en: {
+      heading: 'Reserved Instances and Savings Plans',
+      paragraphs: [
+        'Reserved instances are pre-purchased cloud compute capacity at a discount. They reduce costs for predictable workloads.',
+        'The resources below cover AWS, Azure, and Google Cloud reservations, savings plans, and cost trade-offs. Each guide helps you optimize cloud spend.',
+      ],
+    },
+    es: {
+      heading: 'Reserved Instances y Savings Plans',
+      paragraphs: [
+        'Las instancias reservadas son capacidad de computo en la nube prepagada con descuento. Reducen costos para cargas predecibles.',
+        'Los recursos a continuacion cubren reservas de AWS, Azure y Google Cloud, savings plans y trade-offs de costo. Cada guia te ayuda a optimizar gasto cloud.',
+      ],
+    },
+  },
+  flexbox: {
+    en: {
+      heading: 'CSS Flexbox',
+      paragraphs: [
+        'Flexbox is a one-dimensional CSS layout model. It is ideal for aligning items, building navigation bars, and responsive component layouts.',
+        'The resources below cover flex direction, justify content, align items, and practical patterns. Each guide helps you build flexible and responsive layouts.',
+      ],
+    },
+    es: {
+      heading: 'CSS Flexbox',
+      paragraphs: [
+        'Flexbox es un modelo de layout CSS unidimensional. Es ideal para alinear elementos, construir barras de navegacion y layouts de componentes responsivos.',
+        'Los recursos a continuacion cubren flex direction, justify content, align items y patrones practicos. Cada guia te ayuda a construir layouts flexibles y responsivos.',
+      ],
+    },
+  },
+  'responsive-design': {
+    en: {
+      heading: 'Responsive Design',
+      paragraphs: [
+        'Responsive design makes web pages work across screen sizes. It uses fluid grids, flexible images, and media queries.',
+        'The resources below cover media queries, mobile-first design, breakpoints, and viewport handling. Each guide helps you build sites that look good on any device.',
+      ],
+    },
+    es: {
+      heading: 'Diseno Responsivo',
+      paragraphs: [
+        'El diseno responsivo hace que las paginas web funcionen en diferentes tamanos de pantalla. Usa grids fluidos, imagenes flexibles y media queries.',
+        'Los recursos a continuacion cubren media queries, diseno mobile-first, breakpoints y manejo del viewport. Cada guia te ayuda a construir sitios que se vean bien en cualquier dispositivo.',
+      ],
+    },
+  },
+  'owasp-top-10': {
+    en: {
+      heading: 'OWASP Top 10',
+      paragraphs: [
+        'The OWASP Top 10 is a standard list of the most critical web application security risks. It is a starting point for building secure web applications.',
+        'The resources below cover injection, broken access control, XSS, insecure design, and more. Each guide helps you address the most common web vulnerabilities.',
+      ],
+    },
+    es: {
+      heading: 'OWASP Top 10',
+      paragraphs: [
+        'El OWASP Top 10 es una lista estandar de los riesgos de seguridad de aplicaciones web mas criticos. Es un punto de partida para construir aplicaciones web seguras.',
+        'Los recursos a continuacion cubren inyeccion, control de acceso roto, XSS, diseno inseguro y mas. Cada guia te ayuda a abordar las vulnerabilidades web mas comunes.',
+      ],
+    },
+  },
+  'fine-tuning': {
+    en: {
+      heading: 'Fine-Tuning Language Models',
+      paragraphs: [
+        'Fine-tuning adapts a pre-trained model to a specific task or domain. It can improve accuracy beyond prompt engineering alone.',
+        'The resources below cover datasets, training, LoRA, evaluation, and deployment. Each guide helps you fine-tune models for your use case.',
+      ],
+    },
+    es: {
+      heading: 'Fine-Tuning de Modelos de Lenguaje',
+      paragraphs: [
+        'El fine-tuning adapta un modelo preentrenado a una tarea o dominio especifico. Puede mejorar la precision mas alla del prompt engineering.',
+        'Los recursos a continuacion cubren datasets, entrenamiento, LoRA, evaluacion y despliegue. Cada guia te ayuda a ajustar modelos para tu caso de uso.',
+      ],
+    },
+  },
+  lcel: {
+    en: {
+      heading: 'LangChain Expression Language',
+      paragraphs: [
+        'LCEL is a declarative way to compose LangChain components. It makes chains easier to build, inspect, and stream.',
+        'The resources below cover chain composition, streaming, parallel execution, and fallback chains. Each guide helps you use LCEL to build flexible LLM pipelines.',
+      ],
+    },
+    es: {
+      heading: 'LCEL de LangChain',
+      paragraphs: [
+        'LCEL es una forma declarativa de componer componentes de LangChain. Hace que las cadenas sean mas faciles de construir, inspeccionar y stremear.',
+        'Los recursos a continuacion cubren composicion de cadenas, streaming, ejecucion paralela y cadenas de fallback. Cada guia te ayuda a usar LCEL para construir pipelines de LLM flexibles.',
+      ],
+    },
+  },
+  chains: {
+    en: {
+      heading: 'LangChain Chains',
+      paragraphs: [
+        'Chains in LangChain connect components like prompts, models, and parsers into a sequence. They are the basic building block of LLM applications.',
+        'The resources below cover simple chains, sequential chains, routing, and custom chains. Each guide helps you build composable LLM workflows.',
+      ],
+    },
+    es: {
+      heading: 'Chains de LangChain',
+      paragraphs: [
+        'Las chains en LangChain conectan componentes como prompts, modelos y parsers en una secuencia. Son el bloque basico de construccion de aplicaciones de LLM.',
+        'Los recursos a continuacion cubren chains simples, cadenas secuenciales, routing y chains personalizadas. Cada guia te ayuda a construir workflows de LLM componibles.',
+      ],
+    },
+  },
+  ragas: {
+    en: {
+      heading: 'RAG Evaluation with RAGAS',
+      paragraphs: [
+        'RAGAS is a framework for evaluating RAG pipelines. It provides metrics for context precision, recall, answer relevancy, and faithfulness.',
+        'The resources below cover RAGAS setup, metrics, evaluation datasets, and interpretation. Each guide helps you measure and improve RAG quality.',
+      ],
+    },
+    es: {
+      heading: 'Evaluacion RAG con RAGAS',
+      paragraphs: [
+        'RAGAS es un framework para evaluar pipelines de RAG. Proporciona metricas para precision de contexto, recall, relevancia de respuesta y fidelidad.',
+        'Los recursos a continuacion cubren setup de RAGAS, metricas, datasets de evaluacion e interpretacion. Cada guia te ayuda a medir y mejorar la calidad de RAG.',
+      ],
+    },
+  },
+  ollama: {
+    en: {
+      heading: 'Ollama',
+      paragraphs: [
+        'Ollama is a tool for running and managing local large language models. It simplifies downloading, configuring, and serving models.',
+        'The resources below cover model pull, Modelfiles, REST API, and integration. Each guide helps you run local LLMs with Ollama.',
+      ],
+    },
+    es: {
+      heading: 'Ollama',
+      paragraphs: [
+        'Ollama es una herramienta para ejecutar y gestionar modelos grandes de lenguaje locales. Simplifica descargar, configurar y servir modelos.',
+        'Los recursos a continuacion cubren pull de modelos, Modelfiles, API REST e integracion. Cada guia te ayuda a ejecutar LLMs locales con Ollama.',
+      ],
+    },
+  },
+  'semantic-search': {
+    en: {
+      heading: 'Semantic Search',
+      paragraphs: [
+        'Semantic search finds results based on meaning rather than exact keyword matches. It uses embeddings and vector search.',
+        'The resources below cover dense retrieval, embedding models, reranking, and hybrid search. Each guide helps you build search that understands user intent.',
+      ],
+    },
+    es: {
+      heading: 'Busqueda Semantica',
+      paragraphs: [
+        'La busqueda semantica encuentra resultados basandose en significado en lugar de coincidencias exactas de palabras clave. Usa embeddings y busqueda vectorial.',
+        'Los recursos a continuacion cubren recuperacion densa, modelos de embeddings, reranking y busqueda hibrida. Cada guia te ayuda a construir busqueda que entienda la intencion del usuario.',
+      ],
+    },
+  },
+  'function-calling': {
+    en: {
+      heading: 'Function Calling in LLMs',
+      paragraphs: [
+        'Function calling lets LLMs invoke external tools or APIs. It is the foundation of agents and tool-augmented applications.',
+        'The resources below cover tool definitions, schema, parsing, and execution. Each guide helps you connect LLMs to real-world capabilities.',
+      ],
+    },
+    es: {
+      heading: 'Function Calling en LLMs',
+      paragraphs: [
+        'El function calling permite a los LLMs invocar herramientas o APIs externas. Es la base de agentes y aplicaciones aumentadas con herramientas.',
+        'Los recursos a continuacion cubren definiciones de herramientas, esquemas, parseo y ejecucion. Cada guia te ayuda a conectar LLMs a capacidades del mundo real.',
+      ],
+    },
+  },
+  'text-processing': {
+    en: {
+      heading: 'Text Processing',
+      paragraphs: [
+        'Text processing transforms and analyzes text. It is used for parsing, cleaning, tokenization, and feature extraction.',
+        'The resources below cover regex, string manipulation, tokenization, and libraries like spaCy and NLTK. Each guide helps you work with text data.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de Texto',
+      paragraphs: [
+        'El procesamiento de texto transforma y analiza texto. Se usa para parseo, limpieza, tokenizacion y extraccion de caracteristicas.',
+        'Los recursos a continuacion cubren regex, manipulacion de strings, tokenizacion y librerias como spaCy y NLTK. Cada guia te ayuda a trabajar con datos de texto.',
+      ],
+    },
+  },
+  'sliding-window': {
+    en: {
+      heading: 'Sliding Window Pattern',
+      paragraphs: [
+        'The sliding window pattern is an efficient algorithmic technique. It is used to solve problems over contiguous subarrays or substrings.',
+        'The resources below cover fixed and dynamic windows, two pointers, and common interview problems. Each guide helps you recognize and apply sliding window solutions.',
+      ],
+    },
+    es: {
+      heading: 'Patron Sliding Window',
+      paragraphs: [
+        'El patron sliding window es una tecnica algoritmica eficiente. Se usa para resolver problemas sobre subarreglos o subcadenas contiguos.',
+        'Los recursos a continuacion cubren ventanas fijas y dinamicas, two pointers y problemas comunes de entrevistas. Cada guia te ayuda a reconocer y aplicar soluciones de sliding window.',
+      ],
+    },
+  },
 };
