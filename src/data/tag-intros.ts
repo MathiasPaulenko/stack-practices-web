@@ -5604,4 +5604,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  hierarchy: {
+    en: {
+      heading: 'Data and UI Hierarchies',
+      paragraphs: [
+        'Hierarchies organize data or components into parent-child relationships. They are common in org charts, file systems, taxonomies, and UI trees.',
+        'The resources below cover tree structures, recursive queries, nested sets, and hierarchy design. Each guide helps you model and query hierarchical data.',
+      ],
+    },
+    es: {
+      heading: 'Jerarquias de Datos y UI',
+      paragraphs: [
+        'Las jerarquias organizan datos o componentes en relaciones padre-hijo. Son comunes en organigramas, sistemas de archivos, taxonomias y arboles de UI.',
+        'Los recursos a continuacion cubren estructuras de arbol, consultas recursivas, conjuntos anidados y diseno de jerarquias. Cada guia te ayuda a modelar y consultar datos jerarquicos.',
+      ],
+    },
+  },
+  matrix: {
+    en: {
+      heading: 'Build and Test Matrices',
+      paragraphs: [
+        'A matrix runs a job or test across multiple combinations of parameters. It is essential for testing against multiple versions, platforms, and configurations.',
+        'The resources below cover CI/CD matrices, parameter combinations, and matrix design. Each guide helps you run comprehensive cross-environment tests.',
+      ],
+    },
+    es: {
+      heading: 'Matrices de Build y Test',
+      paragraphs: [
+        'Una matrix ejecuta un trabajo o test a traves de multiples combinaciones de parametros. Es esencial para probar contra multiples versiones, plataformas y configuraciones.',
+        'Los recursos a continuacion cubren matrices de CI/CD, combinaciones de parametros y diseno de matrices. Cada guia te ayuda a ejecutar tests completos en multiples entornos.',
+      ],
+    },
+  },
+  ssl: {
+    en: {
+      heading: 'SSL and TLS',
+      paragraphs: [
+        'SSL and TLS are protocols that encrypt communications over a network. TLS is the modern successor to SSL and is used by HTTPS, email, and many other protocols.',
+        'The resources below cover certificates, handshakes, configuration, and certificate management. Each guide helps you secure connections correctly.',
+      ],
+    },
+    es: {
+      heading: 'SSL y TLS',
+      paragraphs: [
+        'SSL y TLS son protocolos que cifran comunicaciones sobre una red. TLS es el sucesor moderno de SSL y es usado por HTTPS, email y muchos otros protocolos.',
+        'Los recursos a continuacion cubren certificados, handshakes, configuracion y gestion de certificados. Cada guia te ayuda a asegurar conexiones correctamente.',
+      ],
+    },
+  },
+  workspaces: {
+    en: {
+      heading: 'Monorepos and Workspaces',
+      paragraphs: [
+        'Workspaces let you manage multiple packages in a single repository. They share dependencies and simplify builds across related projects.',
+        'The resources below cover npm, pnpm, Yarn, Lerna, and Nx workspaces. Each guide helps you set up and maintain monorepos effectively.',
+      ],
+    },
+    es: {
+      heading: 'Monorepos y Workspaces',
+      paragraphs: [
+        'Los workspaces permiten gestionar multiples paquetes en un solo repositorio. Comparten dependencias y simplifican builds entre proyectos relacionados.',
+        'Los recursos a continuacion cubren workspaces de npm, pnpm, Yarn, Lerna y Nx. Cada guia te ayuda a configurar y mantener monorepos efectivamente.',
+      ],
+    },
+  },
+  keys: {
+    en: {
+      heading: 'API Keys and Credentials',
+      paragraphs: [
+        'API keys are simple tokens used to authenticate clients to APIs. They are easy to use but require careful management to avoid leaks.',
+        'The resources below cover key generation, rotation, storage, scopes, and revocation. Each guide helps you use API keys securely.',
+      ],
+    },
+    es: {
+      heading: 'API Keys y Credenciales',
+      paragraphs: [
+        'Los API keys son tokens simples usados para autenticar clientes en APIs. Son faciles de usar pero requieren gestion cuidadosa para evitar filtraciones.',
+        'Los recursos a continuacion cubren generacion, rotacion, almacenamiento, scopes y revocacion de keys. Cada guia te ayuda a usar API keys de forma segura.',
+      ],
+    },
+  },
+  'lazy-loading': {
+    en: {
+      heading: 'Lazy Loading',
+      paragraphs: [
+        'Lazy loading defers loading resources until they are needed. It reduces initial load time and improves performance for large applications.',
+        'The resources below cover image lazy loading, component lazy loading, code splitting, and virtual scrolling. Each guide helps you load content only when required.',
+      ],
+    },
+    es: {
+      heading: 'Lazy Loading',
+      paragraphs: [
+        'El lazy loading retrasa la carga de recursos hasta que se necesitan. Reduce el tiempo de carga inicial y mejora el rendimiento para aplicaciones grandes.',
+        'Los recursos a continuacion cubren lazy loading de imagenes, componentes, code splitting y virtual scrolling. Cada guia te ayuda a cargar contenido solo cuando se requiera.',
+      ],
+    },
+  },
+  storage: {
+    en: {
+      heading: 'Data Storage',
+      paragraphs: [
+        'Storage is the persistence layer of an application. Choosing the right storage technology depends on access patterns, scale, and consistency needs.',
+        'The resources below cover object storage, block storage, file systems, databases, and caching. Each guide helps you choose storage that fits your workload.',
+      ],
+    },
+    es: {
+      heading: 'Almacenamiento de Datos',
+      paragraphs: [
+        'El almacenamiento es la capa de persistencia de una aplicacion. Elegir la tecnologia correcta depende de patrones de acceso, escala y necesidades de consistencia.',
+        'Los recursos a continuacion cubren almacenamiento de objetos, bloques, sistemas de archivos, bases de datos y caching. Cada guia te ayuda a elegir almacenamiento adecuado para tu carga.',
+      ],
+    },
+  },
+  hooks: {
+    en: {
+      heading: 'Git Hooks',
+      paragraphs: [
+        'Git hooks are scripts that run at specific points in the Git lifecycle. They help enforce standards, run tests, and automate tasks before commits and pushes.',
+        'The resources below cover pre-commit, pre-push, commit-msg hooks, and tools like Husky. Each guide helps you automate Git workflows.',
+      ],
+    },
+    es: {
+      heading: 'Git Hooks',
+      paragraphs: [
+        'Los hooks de Git son scripts que se ejecutan en puntos especificos del ciclo de vida de Git. Ayudan a hacer cumplir estandares, ejecutar tests y automatizar tareas antes de commits y pushes.',
+        'Los recursos a continuacion cubren pre-commit, pre-push, commit-msg hooks y herramientas como Husky. Cada guia te ayuda a automatizar flujos de Git.',
+      ],
+    },
+  },
+  'n-plus-one': {
+    en: {
+      heading: 'N+1 Query Problem',
+      paragraphs: [
+        'The N+1 problem happens when code executes one query for the main data and then additional queries for each related item. It causes severe performance degradation.',
+        'The resources below cover eager loading, joins, data loaders, and query optimization. Each guide helps you detect and fix N+1 issues.',
+      ],
+    },
+    es: {
+      heading: 'Problema N+1 de Consultas',
+      paragraphs: [
+        'El problema N+1 ocurre cuando el codigo ejecuta una consulta para los datos principales y luego consultas adicionales para cada elemento relacionado. Causa degradacion severa del rendimiento.',
+        'Los recursos a continuacion cubren eager loading, joins, data loaders y optimizacion de consultas. Cada guia te ayuda a detectar y solucionar problemas N+1.',
+      ],
+    },
+  },
+  extensions: {
+    en: {
+      heading: 'File Extensions and Parsing',
+      paragraphs: [
+        'File extensions identify the format of files. Correct handling of extensions is important for parsing, validation, and content negotiation.',
+        'The resources below cover common extensions, MIME types, file type detection, and parsing strategies. Each guide helps you work with files by type.',
+      ],
+    },
+    es: {
+      heading: 'Extensiones de Archivo y Parseo',
+      paragraphs: [
+        'Las extensiones de archivo identifican el formato de los archivos. El manejo correcto de extensiones es importante para parseo, validacion y negociacion de contenido.',
+        'Los recursos a continuacion cubren extensiones comunes, tipos MIME, deteccion de tipo de archivo y estrategias de parseo. Cada guia te ayuda a trabajar con archivos por tipo.',
+      ],
+    },
+  },
+  gateway: {
+    en: {
+      heading: 'API Gateways',
+      paragraphs: [
+        'An API gateway sits between clients and backend services. It handles routing, authentication, rate limiting, and protocol translation.',
+        'The resources below cover Kong, AWS API Gateway, Envoy, and gateway patterns. Each guide helps you design gateways that simplify client communication.',
+      ],
+    },
+    es: {
+      heading: 'API Gateways',
+      paragraphs: [
+        'Un API gateway se situa entre clientes y servicios backend. Maneja routing, autenticacion, rate limiting y traduccion de protocolos.',
+        'Los recursos a continuacion cubren Kong, AWS API Gateway, Envoy y patrones de gateway. Cada guia te ayuda a disenar gateways que simplifiquen la comunicacion de clientes.',
+      ],
+    },
+  },
+  'web-performance': {
+    en: {
+      heading: 'Web Performance',
+      paragraphs: [
+        'Web performance is how quickly pages load and respond to user input. It affects user experience, conversion, and SEO.',
+        'The resources below cover Core Web Vitals, rendering, resource loading, caching, and optimization. Each guide helps you make websites faster and smoother.',
+      ],
+    },
+    es: {
+      heading: 'Rendimiento Web',
+      paragraphs: [
+        'El rendimiento web es la rapidez con que las paginas se cargan y responden a la entrada del usuario. Afecta la experiencia de usuario, conversion y SEO.',
+        'Los recursos a continuacion cubren Core Web Vitals, renderizado, carga de recursos, caching y optimizacion. Cada guia te ayuda a hacer sitios web mas rapidos y fluidos.',
+      ],
+    },
+  },
+  'container-security': {
+    en: {
+      heading: 'Container Security',
+      paragraphs: [
+        'Container security protects containerized applications from build time to runtime. It involves images, registries, orchestration, and runtime hardening.',
+        'The resources below cover image scanning, non-root users, read-only filesystems, and runtime policies. Each guide helps you run containers securely.',
+      ],
+    },
+    es: {
+      heading: 'Seguridad de Contenedores',
+      paragraphs: [
+        'La seguridad de contenedores protege aplicaciones contenerizadas desde build time hasta runtime. Involucra imagenes, registros, orquestacion y endurecimiento de runtime.',
+        'Los recursos a continuacion cubren escaneo de imagenes, usuarios no root, sistemas de archivos solo lectura y politicas de runtime. Cada guia te ayuda a ejecutar contenedores de forma segura.',
+      ],
+    },
+  },
+  gdpr: {
+    en: {
+      heading: 'GDPR and Data Privacy',
+      paragraphs: [
+        'The GDPR is a European regulation on data protection and privacy. It gives individuals rights over their personal data and imposes obligations on organizations.',
+        'The resources below cover consent, data subject rights, breach notification, and compliance by design. Each guide helps you build systems that respect user privacy.',
+      ],
+    },
+    es: {
+      heading: 'GDPR y Privacidad de Datos',
+      paragraphs: [
+        'El GDPR es un reglamento europeo sobre proteccion de datos y privacidad. Otorga derechos a las personas sobre sus datos personales e impone obligaciones a las organizaciones.',
+        'Los recursos a continuacion cubren consentimiento, derechos de los titulares de datos, notificacion de brechas y cumplimiento por diseno. Cada guia te ayuda a construir sistemas que respeten la privacidad del usuario.',
+      ],
+    },
+  },
+  'static-analysis': {
+    en: {
+      heading: 'Static Analysis',
+      paragraphs: [
+        'Static analysis examines code without running it. It finds bugs, style issues, and security problems early in development.',
+        'The resources below cover linters, type checkers, SAST, and IDE integration. Each guide helps you catch issues before they reach production.',
+      ],
+    },
+    es: {
+      heading: 'Analisis Estatico',
+      paragraphs: [
+        'El analisis estatico examina codigo sin ejecutarlo. Encuentra errores, problemas de estilo y problemas de seguridad temprano en el desarrollo.',
+        'Los recursos a continuacion cubren linters, type checkers, SAST e integracion con IDEs. Cada guia te ayuda a detectar problemas antes de que lleguen a produccion.',
+      ],
+    },
+  },
+  'security-headers': {
+    en: {
+      heading: 'HTTP Security Headers',
+      paragraphs: [
+        'Security headers instruct browsers on how to behave. Correct headers protect against XSS, clickjacking, and other common attacks.',
+        'The resources below cover CSP, HSTS, X-Frame-Options, X-Content-Type-Options, and Referrer-Policy. Each guide helps you harden web responses.',
+      ],
+    },
+    es: {
+      heading: 'Headers de Seguridad HTTP',
+      paragraphs: [
+        'Los headers de seguridad instruyen a los navegadores sobre como comportarse. Headers correctos protegen contra XSS, clickjacking y otros ataques comunes.',
+        'Los recursos a continuacion cubren CSP, HSTS, X-Frame-Options, X-Content-Type-Options y Referrer-Policy. Cada guia te ayuda a endurecer respuestas web.',
+      ],
+    },
+  },
+  'cloud-functions': {
+    en: {
+      heading: 'Cloud Functions',
+      paragraphs: [
+        'Cloud functions are event-driven compute services. They run in response to triggers and scale automatically.',
+        'The resources below cover AWS Lambda, Azure Functions, Google Cloud Functions, and triggers. Each guide helps you build serverless functions in the cloud.',
+      ],
+    },
+    es: {
+      heading: 'Cloud Functions',
+      paragraphs: [
+        'Las cloud functions son servicios de computo event-driven. Se ejecutan en respuesta a triggers y escalan automaticamente.',
+        'Los recursos a continuacion cubren AWS Lambda, Azure Functions, Google Cloud Functions y triggers. Cada guia te ayuda a construir funciones serverless en la nube.',
+      ],
+    },
+  },
+  'api-testing': {
+    en: {
+      heading: 'API Testing',
+      paragraphs: [
+        'API testing validates that application interfaces work correctly. It covers functional, contract, performance, and security testing of APIs.',
+        'The resources below cover tools like Postman, REST Assured, Karate, and contract testing. Each guide helps you build reliable API test suites.',
+      ],
+    },
+    es: {
+      heading: 'Testing de APIs',
+      paragraphs: [
+        'El testing de APIs valida que las interfaces de aplicacion funcionen correctamente. Cubre testing funcional, de contrato, de rendimiento y de seguridad de APIs.',
+        'Los recursos a continuacion cubren herramientas como Postman, REST Assured, Karate y contract testing. Cada guia te ayuda a construir suites de test de APIs confiables.',
+      ],
+    },
+  },
+  junit5: {
+    en: {
+      heading: 'JUnit 5',
+      paragraphs: [
+        'JUnit 5 is the latest version of the popular Java testing framework. It introduces a new extension model and improved parameterization.',
+        'The resources below cover JUnit Jupiter, extensions, parameterized tests, and assertions. Each guide helps you write modern Java tests.',
+      ],
+    },
+    es: {
+      heading: 'JUnit 5',
+      paragraphs: [
+        'JUnit 5 es la ultima version del popular framework de testing para Java. Introduce un nuevo modelo de extensiones y parametrizacion mejorada.',
+        'Los recursos a continuacion cubren JUnit Jupiter, extensiones, tests parametrizados y assertions. Cada guia te ayuda a escribir tests Java modernos.',
+      ],
+    },
+  },
+  snapshot: {
+    en: {
+      heading: 'Snapshot Testing',
+      paragraphs: [
+        'Snapshot testing captures the output of a component or function and compares future runs to it. It is useful for detecting unintended changes in UI or serialization.',
+        'The resources below cover Jest snapshots, approval tests, and best practices. Each guide helps you use snapshots without creating brittle tests.',
+      ],
+    },
+    es: {
+      heading: 'Snapshot Testing',
+      paragraphs: [
+        'El snapshot testing captura la salida de un componente o funcion y compara ejecuciones futuras contra ella. Es util para detectar cambios no intencionales en UI o serializacion.',
+        'Los recursos a continuacion cubren snapshots de Jest, approval tests y mejores practicas. Cada guia te ayuda a usar snapshots sin crear tests fragiles.',
+      ],
+    },
+  },
+  'vector-search': {
+    en: {
+      heading: 'Vector Search',
+      paragraphs: [
+        'Vector search finds items based on semantic similarity. It uses embeddings and is the basis of modern RAG and recommendation systems.',
+        'The resources below cover embeddings, vector databases, similarity metrics, and indexing. Each guide helps you implement semantic search.',
+      ],
+    },
+    es: {
+      heading: 'Busqueda Vectorial',
+      paragraphs: [
+        'La busqueda vectorial encuentra elementos basandose en similitud semantica. Usa embeddings y es la base de sistemas modernos de RAG y recomendacion.',
+        'Los recursos a continuacion cubren embeddings, bases de datos vectoriales, metricas de similitud e indexacion. Cada guia te ayuda a implementar busqueda semantica.',
+      ],
+    },
+  },
+  guardrails: {
+    en: {
+      heading: 'AI Guardrails',
+      paragraphs: [
+        'Guardrails are safety controls for AI systems. They prevent harmful, biased, or off-topic outputs and enforce policy.',
+        'The resources below cover prompt filtering, output validation, content moderation, and safety frameworks. Each guide helps you deploy LLMs responsibly.',
+      ],
+    },
+    es: {
+      heading: 'Guardrails para IA',
+      paragraphs: [
+        'Los guardrails son controles de seguridad para sistemas de IA. Previenen salidas daninas, sesgadas o fuera de tema y hacen cumplir politicas.',
+        'Los recursos a continuacion cubren filtrado de prompts, validacion de salidas, moderacion de contenido y frameworks de seguridad. Cada guia te ayuda a desplegar LLMs de forma responsable.',
+      ],
+    },
+  },
+  recovery: {
+    en: {
+      heading: 'Disaster Recovery and Business Continuity',
+      paragraphs: [
+        'Recovery is the process of restoring systems and data after a failure. It requires planning, backups, and tested procedures.',
+        'The resources below cover RTO, RPO, backup strategies, failover, and recovery testing. Each guide helps you prepare for and recover from outages.',
+      ],
+    },
+    es: {
+      heading: 'Recuperacion y Continuidad de Negocio',
+      paragraphs: [
+        'La recuperacion es el proceso de restaurar sistemas y datos despues de una falla. Requiere planificacion, backups y procedimientos probados.',
+        'Los recursos a continuacion cubren RTO, RPO, estrategias de backup, failover y testing de recuperacion. Cada guia te ayuda a prepararte y recuperarte de interrupciones.',
+      ],
+    },
+  },
+  retrieval: {
+    en: {
+      heading: 'Information Retrieval',
+      paragraphs: [
+        'Retrieval is the process of finding relevant information from a collection. It underpins search, RAG, and recommendation systems.',
+        'The resources below cover indexing, ranking, vector search, and retrieval metrics. Each guide helps you build systems that find the right information.',
+      ],
+    },
+    es: {
+      heading: 'Recuperacion de Informacion',
+      paragraphs: [
+        'La recuperacion es el proceso de encontrar informacion relevante de una coleccion. Sustenta busqueda, RAG y sistemas de recomendacion.',
+        'Los recursos a continuacion cubren indexacion, ranking, busqueda vectorial y metricas de recuperacion. Cada guia te ayuda a construir sistemas que encuentren la informacion correcta.',
+      ],
+    },
+  },
+  'write-model': {
+    en: {
+      heading: 'Write Models and CQRS',
+      paragraphs: [
+        'The write model handles commands and updates in CQRS. It is optimized for consistency and business rule enforcement.',
+        'The resources below cover CQRS, write models, aggregates, event sourcing, and consistency. Each guide helps you design systems that separate read and write concerns.',
+      ],
+    },
+    es: {
+      heading: 'Modelos de Escritura y CQRS',
+      paragraphs: [
+        'El modelo de escritura maneja comandos y actualizaciones en CQRS. Esta optimizado para consistencia y cumplimiento de reglas de negocio.',
+        'Los recursos a continuacion cubren CQRS, modelos de escritura, agregados, event sourcing y consistencia. Cada guia te ayuda a disenar sistemas que separan preocupaciones de lectura y escritura.',
+      ],
+    },
+  },
 };
