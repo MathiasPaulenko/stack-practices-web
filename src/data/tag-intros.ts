@@ -7204,4 +7204,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  processing: {
+    en: {
+      heading: 'Data and Stream Processing',
+      paragraphs: [
+        'Processing transforms raw input into useful output. It covers batch, stream, and event-driven data processing patterns.',
+        'The resources below cover pipelines, ETL, stream processing, and transformation patterns. Each guide helps you build systems that process data efficiently and reliably.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de Datos y Streams',
+      paragraphs: [
+        'El procesamiento transforma entrada cruda en salida util. Cubre patrones de procesamiento batch, streaming y event-driven.',
+        'Los recursos a continuacion cubren pipelines, ETL, stream processing y patrones de transformacion. Cada guia te ayuda a construir sistemas que procesan datos eficientemente y de forma confiable.',
+      ],
+    },
+  },
+  clone: {
+    en: {
+      heading: 'Object Cloning',
+      paragraphs: [
+        'Cloning creates a copy of an object. The depth and behavior of cloning affect whether the copy shares references with the original.',
+        'The resources below cover shallow copy, deep copy, copy constructors, and serialization. Each guide helps you clone objects correctly in your language.',
+      ],
+    },
+    es: {
+      heading: 'Clonacion de Objetos',
+      paragraphs: [
+        'La clonacion crea una copia de un objeto. La profundidad y el comportamiento de la clonacion afectan si la copia comparte referencias con el original.',
+        'Los recursos a continuacion cubren shallow copy, deep copy, copy constructors y serializacion. Cada guia te ayuda a clonar objetos correctamente en tu lenguaje.',
+      ],
+    },
+  },
+  duplication: {
+    en: {
+      heading: 'Code and Data Duplication',
+      paragraphs: [
+        'Duplication is the repetition of code or data. It increases maintenance burden and the risk of inconsistent updates.',
+        'The resources below cover DRY, deduplication, refactoring, and normalization. Each guide helps you reduce duplication and keep systems consistent.',
+      ],
+    },
+    es: {
+      heading: 'Duplicacion de Codigo y Datos',
+      paragraphs: [
+        'La duplicacion es la repeticion de codigo o datos. Aumenta la carga de mantenimiento y el riesgo de actualizaciones inconsistentes.',
+        'Los recursos a continuacion cubren DRY, deduplicacion, refactoring y normalizacion. Cada guia te ayuda a reducir duplicacion y mantener sistemas consistentes.',
+      ],
+    },
+  },
+  formatting: {
+    en: {
+      heading: 'Code and Text Formatting',
+      paragraphs: [
+        'Formatting ensures code and text follow consistent style. It improves readability and reduces noise in diffs.',
+        'The resources below cover formatters, linters, style guides, and pre-commit hooks. Each guide helps you enforce consistent formatting.',
+      ],
+    },
+    es: {
+      heading: 'Formateo de Codigo y Texto',
+      paragraphs: [
+        'El formateo asegura que el codigo y el texto sigan un estilo consistente. Mejora la legibilidad y reduce ruido en los diffs.',
+        'Los recursos a continuacion cubren formateadores, linters, guias de estilo y hooks pre-commit. Cada guia te ayuda a hacer cumplir un formateo consistente.',
+      ],
+    },
+  },
+  pdf: {
+    en: {
+      heading: 'PDF Handling',
+      paragraphs: [
+        'PDF is a portable document format used for reports, invoices, and forms. Working with PDFs requires special libraries and considerations.',
+        'The resources below cover PDF generation, parsing, manipulation, and libraries. Each guide helps you work with PDF files in applications.',
+      ],
+    },
+    es: {
+      heading: 'Manejo de PDF',
+      paragraphs: [
+        'PDF es un formato de documento portatil usado para reportes, facturas y formularios. Trabajar con PDFs requiere librerias especiales y consideraciones.',
+        'Los recursos a continuacion cubren generacion, parseo, manipulacion y librerias de PDF. Cada guia te ayuda a trabajar con archivos PDF en aplicaciones.',
+      ],
+    },
+  },
+  excel: {
+    en: {
+      heading: 'Excel and Spreadsheet Processing',
+      paragraphs: [
+        'Excel files store tabular data and are widely used for reporting. Programmatic processing requires libraries that understand XLSX and other formats.',
+        'The resources below cover reading, writing, formatting, and formula handling. Each guide helps you process spreadsheets automatically.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de Excel y Hojas de Calculo',
+      paragraphs: [
+        'Los archivos Excel almacenan datos tabulares y se usan ampliamente para reportes. El procesamiento programatico requiere librerias que entiendan XLSX y otros formatos.',
+        'Los recursos a continuacion cubren lectura, escritura, formateo y manejo de formulas. Cada guia te ayuda a procesar hojas de calculo automaticamente.',
+      ],
+    },
+  },
+  config: {
+    en: {
+      heading: 'Application Configuration',
+      paragraphs: [
+        'Configuration controls how an application behaves without changing code. Good configuration management keeps secrets safe and supports different environments.',
+        'The resources below cover config files, environment variables, feature flags, and secrets. Each guide helps you manage configuration safely and flexibly.',
+      ],
+    },
+    es: {
+      heading: 'Configuracion de Aplicaciones',
+      paragraphs: [
+        'La configuracion controla como se comporta una aplicacion sin cambiar codigo. Una buena gestion de configuracion mantiene secretos seguros y soporta diferentes entornos.',
+        'Los recursos a continuacion cubren archivos de configuracion, variables de entorno, feature flags y secretos. Cada guia te ayuda a gestionar configuracion de forma segura y flexible.',
+      ],
+    },
+  },
+  xml: {
+    en: {
+      heading: 'XML Processing',
+      paragraphs: [
+        'XML is a markup language for structured data. It is used in configuration, SOAP, RSS, and document formats.',
+        'The resources below cover parsing, validation, XPath, XSLT, and serialization. Each guide helps you work with XML correctly and safely.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de XML',
+      paragraphs: [
+        'XML es un lenguaje de marcado para datos estructurados. Se usa en configuracion, SOAP, RSS y formatos de documentos.',
+        'Los recursos a continuacion cubren parseo, validacion, XPath, XSLT y serializacion. Cada guia te ayuda a trabajar con XML correcta y seguramente.',
+      ],
+    },
+  },
+  dag: {
+    en: {
+      heading: 'Directed Acyclic Graphs',
+      paragraphs: [
+        'A DAG is a graph with directed edges and no cycles. It is used in workflow scheduling, build systems, and blockchain.',
+        'The resources below cover topological sort, dependency resolution, and DAG-based tools. Each guide helps you model dependencies without cycles.',
+      ],
+    },
+    es: {
+      heading: 'Grafos Dirigidos Aciclicos',
+      paragraphs: [
+        'Un DAG es un grafo con aristas dirigidas y sin ciclos. Se usa en programacion de workflows, sistemas de build y blockchain.',
+        'Los recursos a continuacion cubren orden topologico, resolucion de dependencias y herramientas basadas en DAG. Cada guia te ayuda a modelar dependencias sin ciclos.',
+      ],
+    },
+  },
+  dataframe: {
+    en: {
+      heading: 'DataFrames',
+      paragraphs: [
+        'A DataFrame is a two-dimensional, labeled data structure. It is the primary abstraction in Pandas, Spark, and many data tools.',
+        'The resources below cover DataFrame operations, indexing, grouping, and transformations. Each guide helps you manipulate tabular data efficiently.',
+      ],
+    },
+    es: {
+      heading: 'DataFrames',
+      paragraphs: [
+        'Un DataFrame es una estructura de datos bidimensional etiquetada. Es la abstraccion principal en Pandas, Spark y muchas herramientas de datos.',
+        'Los recursos a continuacion cubren operaciones con DataFrames, indexado, agrupacion y transformaciones. Cada guia te ayuda a manipular datos tabulares eficientemente.',
+      ],
+    },
+  },
+  pandera: {
+    en: {
+      heading: 'Pandera and Data Validation',
+      paragraphs: [
+        'Pandera is a data validation library for Pandas and other DataFrames. It lets you define schemas and validate data at runtime.',
+        'The resources below cover schema definition, checks, validation, and integration. Each guide helps you add robust validation to data pipelines.',
+      ],
+    },
+    es: {
+      heading: 'Pandera y Validacion de Datos',
+      paragraphs: [
+        'Pandera es una libreria de validacion de datos para Pandas y otros DataFrames. Permite definir esquemas y validar datos en runtime.',
+        'Los recursos a continuacion cubren definicion de esquemas, checks, validacion e integracion. Cada guia te ayuda a agregar validacion robusta a pipelines de datos.',
+      ],
+    },
+  },
+  requests: {
+    en: {
+      heading: 'HTTP Requests',
+      paragraphs: [
+        'HTTP requests are the foundation of web and API communication. Every request has a method, headers, body, and a response.',
+        'The resources below cover clients, retries, timeouts, authentication, and status codes. Each guide helps you make reliable HTTP calls.',
+      ],
+    },
+    es: {
+      heading: 'Peticiones HTTP',
+      paragraphs: [
+        'Las peticiones HTTP son la base de la comunicacion web y de APIs. Cada peticion tiene un metodo, headers, cuerpo y una respuesta.',
+        'Los recursos a continuacion cubren clientes, reintentos, timeouts, autenticacion y codigos de estado. Cada guia te ayuda a realizar llamadas HTTP confiables.',
+      ],
+    },
+  },
+  guid: {
+    en: {
+      heading: 'GUIDs and UUIDs',
+      paragraphs: [
+        'GUIDs and UUIDs are unique identifiers. They are useful for distributed systems where central coordination is impractical.',
+        'The resources below cover UUID versions, generation, storage, and collision risks. Each guide helps you use identifiers that are unique without coordination.',
+      ],
+    },
+    es: {
+      heading: 'GUIDs y UUIDs',
+      paragraphs: [
+        'Los GUIDs y UUIDs son identificadores unicos. Son utiles en sistemas distribuidos donde la coordinacion central es impracticable.',
+        'Los recursos a continuacion cubren versiones de UUID, generacion, almacenamiento y riesgos de colision. Cada guia te ayuda a usar identificadores unicos sin coordinacion.',
+      ],
+    },
+  },
+  deadlocks: {
+    en: {
+      heading: 'Deadlocks',
+      paragraphs: [
+        'A deadlock occurs when two or more threads block each other forever, waiting for resources. It is a common concurrency bug.',
+        'The resources below cover lock ordering, timeouts, detection, and prevention. Each guide helps you write concurrent code that avoids deadlocks.',
+      ],
+    },
+    es: {
+      heading: 'Deadlocks',
+      paragraphs: [
+        'Un deadlock ocurre cuando dos o mas threads se bloquean mutuamente para siempre, esperando recursos. Es un error comun de concurrencia.',
+        'Los recursos a continuacion cubren orden de locks, timeouts, deteccion y prevencion. Cada guia te ayuda a escribir codigo concurrente que evite deadlocks.',
+      ],
+    },
+  },
+  'isolation-levels': {
+    en: {
+      heading: 'Database Isolation Levels',
+      paragraphs: [
+        'Isolation levels define how transactions interact with each other. They balance consistency and concurrency in databases.',
+        'The resources below cover read uncommitted, read committed, repeatable read, and serializable. Each guide helps you choose the right isolation for your workload.',
+      ],
+    },
+    es: {
+      heading: 'Niveles de Aislamiento de Base de Datos',
+      paragraphs: [
+        'Los niveles de aislamiento definen como las transacciones interactuan entre si. Equilibran consistencia y concurrencia en bases de datos.',
+        'Los recursos a continuacion cubren read uncommitted, read committed, repeatable read y serializable. Cada guia te ayuda a elegir el aislamiento correcto para tu carga.',
+      ],
+    },
+  },
+  'database-replication': {
+    en: {
+      heading: 'Database Replication',
+      paragraphs: [
+        'Database replication copies data across multiple database nodes. It improves availability, read performance, and disaster recovery.',
+        'The resources below cover primary-replica, multi-primary, synchronous, and asynchronous replication. Each guide helps you implement replication strategies.',
+      ],
+    },
+    es: {
+      heading: 'Replicacion de Bases de Datos',
+      paragraphs: [
+        'La replicacion de bases de datos copia datos entre multiples nodos. Mejora disponibilidad, rendimiento de lectura y recuperacion ante desastres.',
+        'Los recursos a continuacion cubren primary-replica, multi-primary, replicacion sincrona y asincrona. Cada guia te ayuda a implementar estrategias de replicacion.',
+      ],
+    },
+  },
+  'full-text-search': {
+    en: {
+      heading: 'Full-Text Search',
+      paragraphs: [
+        'Full-text search finds text in documents based on relevance. It powers search engines and application search features.',
+        'The resources below cover indexing, tokenization, stemming, ranking, and engines like Elasticsearch and PostgreSQL full-text search. Each guide helps you implement search that finds relevant content.',
+      ],
+    },
+    es: {
+      heading: 'Busqueda Full-Text',
+      paragraphs: [
+        'La busqueda full-text encuentra texto en documentos basandose en relevancia. Potencia motores de busqueda y funciones de busqueda de aplicaciones.',
+        'Los recursos a continuacion cubren indexacion, tokenizacion, stemming, ranking y motores como Elasticsearch y busqueda full-text de PostgreSQL. Cada guia te ayuda a implementar busqueda que encuentre contenido relevante.',
+      ],
+    },
+  },
+  maintenance: {
+    en: {
+      heading: 'Software Maintenance',
+      paragraphs: [
+        'Maintenance is the ongoing work of keeping software operational. It includes bug fixes, updates, refactoring, and dependency management.',
+        'The resources below cover technical debt, refactoring, upgrades, and monitoring. Each guide helps you keep systems healthy over time.',
+      ],
+    },
+    es: {
+      heading: 'Mantenimiento de Software',
+      paragraphs: [
+        'El mantenimiento es el trabajo continuo de mantener el software operativo. Incluye correccion de errores, actualizaciones, refactoring y gestion de dependencias.',
+        'Los recursos a continuacion cubren deuda tecnica, refactoring, actualizaciones y monitoreo. Cada guia te ayuda a mantener sistemas saludables con el tiempo.',
+      ],
+    },
+  },
+  'recursive-cte': {
+    en: {
+      heading: 'Recursive CTEs',
+      paragraphs: [
+        'Recursive CTEs are common table expressions that reference themselves. They are used to query hierarchical and graph data.',
+        'The resources below cover recursive query syntax, base case, recursive case, and termination. Each guide helps you traverse hierarchies with SQL.',
+      ],
+    },
+    es: {
+      heading: 'CTEs Recursivas',
+      paragraphs: [
+        'Las CTEs recursivas son expresiones de tabla comunes que se referencian a si mismas. Se usan para consultar datos jerarquicos y de grafos.',
+        'Los recursos a continuacion cubren sintaxis de consulta recursiva, caso base, caso recursivo y terminacion. Cada guia te ayuda a recorrer jerarquias con SQL.',
+      ],
+    },
+  },
+  'window-functions': {
+    en: {
+      heading: 'SQL Window Functions',
+      paragraphs: [
+        'Window functions perform calculations across a set of rows related to the current row. They are useful for rankings, moving averages, and cumulative sums.',
+        'The resources below cover OVER, PARTITION BY, ROW_NUMBER, RANK, and LAG. Each guide helps you write powerful SQL without self-joins.',
+      ],
+    },
+    es: {
+      heading: 'Funciones de Ventana SQL',
+      paragraphs: [
+        'Las funciones de ventana realizan calculos sobre un conjunto de filas relacionadas con la fila actual. Son utiles para rankings, promedios moviles y sumas acumuladas.',
+        'Los recursos a continuacion cubren OVER, PARTITION BY, ROW_NUMBER, RANK y LAG. Cada guia te ayuda a escribir SQL poderoso sin self-joins.',
+      ],
+    },
+  },
+  'hexagonal-architecture': {
+    en: {
+      heading: 'Hexagonal Architecture',
+      paragraphs: [
+        'Hexagonal architecture, or ports and adapters, keeps the core application independent of external concerns. It improves testability and adaptability.',
+        'The resources below cover ports, adapters, domain logic, and dependency inversion. Each guide helps you build systems with a clean, testable core.',
+      ],
+    },
+    es: {
+      heading: 'Arquitectura Hexagonal',
+      paragraphs: [
+        'La arquitectura hexagonal, o ports and adapters, mantiene el nucleo de la aplicacion independiente de preocupaciones externas. Mejora testeabilidad y adaptabilidad.',
+        'Los recursos a continuacion cubren ports, adapters, logica de dominio e inversion de dependencias. Cada guia te ayuda a construir sistemas con un nucleo limpio y testeable.',
+      ],
+    },
+  },
+  'gnu-parallel': {
+    en: {
+      heading: 'GNU Parallel',
+      paragraphs: [
+        'GNU Parallel is a shell tool for executing commands in parallel. It simplifies running jobs across multiple cores or machines.',
+        'The resources below cover command-line usage, xargs alternatives, and distributed execution. Each guide helps you speed up shell workflows with GNU Parallel.',
+      ],
+    },
+    es: {
+      heading: 'GNU Parallel',
+      paragraphs: [
+        'GNU Parallel es una herramienta de shell para ejecutar comandos en paralelo. Simplifica ejecutar trabajos en multiples nucleos o maquinas.',
+        'Los recursos a continuacion cubren uso de linea de comandos, alternativas a xargs y ejecucion distribuida. Cada guia te ayuda a acelerar flujos de shell con GNU Parallel.',
+      ],
+    },
+  },
+  shell: {
+    en: {
+      heading: 'Shell Scripting',
+      paragraphs: [
+        'Shell scripting automates tasks using command-line interpreters. It is essential for system administration, CI/CD, and developer productivity.',
+        'The resources below cover Bash, POSIX sh, scripting patterns, and best practices. Each guide helps you write reliable shell scripts.',
+      ],
+    },
+    es: {
+      heading: 'Scripting de Shell',
+      paragraphs: [
+        'El scripting de shell automatiza tareas usando interpretes de linea de comandos. Es esencial para administracion de sistemas, CI/CD y productividad del desarrollador.',
+        'Los recursos a continuacion cubren Bash, POSIX sh, patrones de scripting y mejores practicas. Cada guia te ayuda a escribir scripts de shell confiables.',
+      ],
+    },
+  },
+  'chaos-engineering': {
+    en: {
+      heading: 'Chaos Engineering',
+      paragraphs: [
+        'Chaos engineering deliberately introduces failures to test system resilience. It helps find weaknesses before they cause real outages.',
+        'The resources below cover fault injection, game days, chaos monkeys, and failure analysis. Each guide helps you build confidence in production systems.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria del Caos',
+      paragraphs: [
+        'La ingenieria del caos introduce fallas deliberadamente para probar la resiliencia del sistema. Ayuda a encontrar debilidades antes de que causen interrupciones reales.',
+        'Los recursos a continuacion cubren inyeccion de fallas, game days, chaos monkeys y analisis de fallas. Cada guia te ayuda a generar confianza en sistemas de produccion.',
+      ],
+    },
+  },
+  dockerfile: {
+    en: {
+      heading: 'Dockerfile Best Practices',
+      paragraphs: [
+        'A Dockerfile defines how to build a Docker image. Good Dockerfiles are small, secure, fast to build, and easy to maintain.',
+        'The resources below cover multi-stage builds, layer caching, base images, and security. Each guide helps you write Dockerfiles that produce efficient images.',
+      ],
+    },
+    es: {
+      heading: 'Mejores Practicas de Dockerfile',
+      paragraphs: [
+        'Un Dockerfile define como construir una imagen Docker. Buenos Dockerfiles son pequenos, seguros, rapidos de construir y faciles de mantener.',
+        'Los recursos a continuacion cubren multi-stage builds, cache de capas, imagenes base y seguridad. Cada guia te ayuda a escribir Dockerfiles que produzcan imagenes eficientes.',
+      ],
+    },
+  },
 };
