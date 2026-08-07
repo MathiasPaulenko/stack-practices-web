@@ -11746,6 +11746,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/xss-prevention/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/es/search/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/search/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/search/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/search/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/es/tags/</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>weekly</changefreq>
@@ -23633,6 +23642,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/xss-prevention/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/recipes/xss-prevention/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/recipes/xss-prevention/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/search/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/search/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/search/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/search/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/</loc>

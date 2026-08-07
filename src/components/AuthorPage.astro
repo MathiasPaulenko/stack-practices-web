@@ -24,10 +24,15 @@ const basePath = isEs ? '/es/authors/mathias-paulenko' : '/authors/mathias-paule
 const seoPath = page === 1 ? '/authors/mathias-paulenko/' : `/authors/mathias-paulenko/${page}/`;
 const totalWorks = (totalPages - 1) * 24 + works.length;
 
-const title = PRIMARY_AUTHOR.name;
+const pageSuffix = page > 1 ? ` (Page ${page})` : '';
+const pageSuffixEs = page > 1 ? ` (Página ${page})` : '';
+
+const title = isEs
+  ? `${PRIMARY_AUTHOR.name}${pageSuffixEs}`
+  : `${PRIMARY_AUTHOR.name}${pageSuffix}`;
 const description = isEs
-  ? `Perfil de ${PRIMARY_AUTHOR.name} en StackPractices — ingeniero de software, recetas, patrones y guías.`
-  : `${PRIMARY_AUTHOR.name}'s author profile on StackPractices — software engineer, recipes, patterns, and guides.`;
+  ? `Perfil de ${PRIMARY_AUTHOR.name} en StackPractices — ingeniero de software, recetas, patrones y guías.${pageSuffixEs}`
+  : `${PRIMARY_AUTHOR.name}'s author profile on StackPractices — software engineer, recipes, patterns, and guides.${pageSuffix}`;
 
 const labels = {
   en: {

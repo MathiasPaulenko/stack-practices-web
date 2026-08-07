@@ -26,7 +26,7 @@ const hasEsVersion = esTagIndex.has(tag);
 const heading = `Tag: ${tag}`;
 const resourceCount = items.length;
 const metaDescription = `Browse ${resourceCount} ${tag} resources — recipes, patterns, docs, and guides for production-ready software engineering.`;
-const pageDescription = `Browse ${resourceCount} practical software engineering resources tagged with "${tag}". Discover code recipes, design patterns, documentation templates, and in-depth guides to help you build, deploy, and maintain production-ready solutions involving ${tag}.`;
+const pageDescription = `Browse ${resourceCount} practical software engineering resources tagged with "${tag}". Discover code recipes, design patterns, documentation templates, and in-depth guides to help you build, deploy, and maintain production-ready solutions involving ${tag}. Each resource is written for engineers who ship real systems, with copy-paste examples and practical trade-offs.`;
 
 const intro = tagIntros[tag]?.en;
 
@@ -58,13 +58,31 @@ const hasMore = items.length > PAGE_SIZE;
     </div>
   </section>
 
-  {intro && (
+  {intro ? (
     <section class="border-b border-slate-200 bg-white">
       <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 class="text-xl font-semibold text-slate-900">{intro.heading}</h2>
         {intro.paragraphs.map((p) => (
           <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">{p}</p>
         ))}
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          Every resource includes clear explanations, copy-paste code, and practical warnings. Use them to make informed decisions, avoid production pitfalls, and speed up your delivery. If you are just getting started, read the beginner-friendly articles first; if you are experienced, jump straight to the advanced patterns and architecture guides. New resources are added regularly, so bookmark this page and check back for the latest patterns.
+        </p>
+      </div>
+    </section>
+  ) : (
+    <section class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <h2 class="text-xl font-semibold text-slate-900">{tag} — Resources and Best Practices</h2>
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          {tag} is a recurring theme across production software engineering. The resources below collect practical recipes, design patterns, documentation templates, and guides that show how to use {tag} effectively in real systems.
+        </p>
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          Each resource includes clear explanations, copy-paste code, and practical warnings. Use them to make informed decisions, avoid production pitfalls, and speed up your delivery. If you are just getting started, read the beginner-friendly articles first; if you are experienced, jump straight to the advanced patterns and architecture guides.
+        </p>
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          New resources are added regularly, so bookmark this page and check back for the latest patterns. You can also cross-reference related tags and topics to build a complete mental model before implementing {tag} in your own stack. Start with the simplest recipe and progress toward the architecture guide when you are ready to design larger systems.
+        </p>
       </div>
     </section>
   )}

@@ -16,6 +16,7 @@ const hasMore = sortedTags.length > PAGE_SIZE;
 
 const heading = 'Etiquetas';
 const description = 'Explora todos los temas y tecnologías cubiertos en recetas, patrones, documentación y guías.';
+const pageDescription = 'Explora el indice completo de etiquetas de StackPractices. Cada etiqueta conecta recetas, patrones, plantillas de documentacion y guias detalladas que comparten una tecnologia, concepto o practica comun. Usa el filtro para encontrar el tema que necesitas y sumergete en recursos con codigo listo para copiar y consejos listos para produccion.';
 
 const jsonLd = [
   webPage({ name: heading, description, url: '/es/tags', locale: 'es' }),
@@ -35,7 +36,19 @@ const jsonLd = [
         <span class="font-medium text-slate-300">{heading}</span>
       </nav>
       <h1 class="mt-4 text-3xl font-bold text-white">{heading}</h1>
-      <p class="mt-2 max-w-2xl text-slate-300">{description}</p>
+      <p class="mt-2 max-w-2xl text-slate-300">{pageDescription}</p>
+    </div>
+  </section>
+
+  <section class="border-b border-slate-200 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <h2 class="text-xl font-semibold text-slate-900">Como se organiza este indice de etiquetas</h2>
+      <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+        Las etiquetas se ordenan por la cantidad de recursos que contienen. Las etiquetas mas populares cubren temas fundamentales que aparecen en muchas recetas y guias. Haz clic en una etiqueta para ver recursos seleccionados, ejemplos practicos y errores comunes de ese tema.
+      </p>
+      <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+        Usa el filtro para acortar la lista o comienza con una de las etiquetas principales para construir una base solida antes de pasar a temas mas especializados.
+      </p>
     </div>
   </section>
 

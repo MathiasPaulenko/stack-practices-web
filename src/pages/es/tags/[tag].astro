@@ -58,13 +58,31 @@ const hasMore = items.length > PAGE_SIZE;
     </div>
   </section>
 
-  {intro && (
+  {intro ? (
     <section class="border-b border-slate-200 bg-white">
       <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <h2 class="text-xl font-semibold text-slate-900">{intro.heading}</h2>
         {intro.paragraphs.map((p) => (
           <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">{p}</p>
         ))}
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          Cada recurso incluye explicaciones claras, ejemplos de codigo y advertencias sobre errores comunes. Usa estos materiales para tomar decisiones informadas, evitar problemas en produccion y acelerar tu flujo de trabajo. Si estas empezando, lee primero los articulos marcados como principiante; si ya tienes experiencia, ve directo a los patrones avanzados y las guias de arquitectura.
+        </p>
+      </div>
+    </section>
+  ) : (
+    <section class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+        <h2 class="text-xl font-semibold text-slate-900">{tag} — Recursos y Mejores Practicas</h2>
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          {tag} es un tema recurrente en la ingenieria de software de produccion. Los recursos a continuacion recopilan recetas practicas, patrones de diseno, plantillas de documentacion y guias que muestran como usar {tag} de forma efectiva en sistemas reales.
+        </p>
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          Cada recurso incluye explicaciones claras, ejemplos de codigo y advertencias sobre errores comunes. Usa estos materiales para tomar decisiones informadas, evitar problemas en produccion y acelerar tu flujo de trabajo. Si estas empezando, lee primero los articulos marcados como principiante; si ya tienes experiencia, ve directo a los patrones avanzados y las guias de arquitectura.
+        </p>
+        <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+          Se agregan nuevos recursos regularmente, asi que guarda esta pagina y vuelve a consultarla para los ultimos patrones. Tambien puedes consultar etiquetas y temas relacionados para construir un modelo mental completo antes de implementar {tag} en tu propio stack. Comienza con la receta mas simple y avanza hacia la guia de arquitectura cuando estes listo para disenar sistemas mas grandes.
+        </p>
       </div>
     </section>
   )}
