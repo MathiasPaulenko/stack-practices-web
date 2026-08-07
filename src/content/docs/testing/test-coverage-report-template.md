@@ -309,7 +309,7 @@ Line coverage measures the percentage of code lines executed by tests. Branch co
 
 ### Should I aim for 100% coverage?
 
-No. 100% coverage is expensive and often means writing low-value tests just to hit a number. Aim for 80-85% overall, 95% for critical paths. Focus on meaningful assertions rather than covering every line.
+No. 100% coverage is expensive and often means writing low-value tests just to hit a number. Aim for 80-85% project-wide, 95% for critical paths. Focus on meaningful assertions rather than covering every line.
 
 ### How do I measure critical path coverage?
 

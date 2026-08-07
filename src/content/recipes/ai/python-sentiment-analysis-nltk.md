@@ -80,7 +80,7 @@ print(score)
 # {'neg': 0.577, 'neu': 0.423, 'pos': 0.0, 'compound': -0.4767}
 ```
 
-The `compound` score ranges from -1 (most negative) to +1 (most positive). Use it as the overall sentiment metric.
+The `compound` score ranges from -1 (most negative) to +1 (most positive). Use it as the aggregate sentiment metric.
 
 ### Classify sentiment
 

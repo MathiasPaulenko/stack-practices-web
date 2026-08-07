@@ -174,7 +174,7 @@ Evaluate on these criteria (0-10 each):
 3. Clarity: Is it clear and well-structured?
 4. Helpfulness: Is it useful to the user?
 
-Return JSON: {{"accuracy": N, "completeness": N, "clarity": N, "helpfulness": N, "overall": N, "reasoning": "..."}}"""
+Return JSON: {{"accuracy": N, "completeness": N, "clarity": N, "helpfulness": N, "aggregate": N, "reasoning": "..."}}"""
 
 async def llm_judge(question: str, response: str, reference: str) -> dict:
     prompt = JUDGE_PROMPT.format(
@@ -198,7 +198,7 @@ evaluation = await llm_judge(
     response="The GIL is a lock that prevents multiple threads from running Python code simultaneously.",
     reference="The Global Interpreter Lock (GIL) is a mutex that protects access to Python objects, preventing multiple threads from executing Python bytecodes at once."
 )
-print(f"Overall: {evaluation['overall']}/10")
+print(f"Aggregate: {evaluation['aggregate']}/10")
 print(f"Reasoning: {evaluation['reasoning']}")
 ```
 

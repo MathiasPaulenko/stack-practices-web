@@ -248,7 +248,7 @@ A: Use a gateway for north-south traffic (external clients to cluster). Use a se
 A: Use a GraphQL gateway (Apollo Router, Hasura) that composes subgraphs from multiple services. Each microservice exposes a GraphQL subgraph. The gateway stitches them into a supergraph and routes queries to the appropriate service.
 
 **Q: Does a gateway add latency?**
-A: Yes, but typically 1-5ms for well-tuned gateways. The benefits — caching, connection pooling, centralized auth — usually reduce overall latency. A request that hits a gateway cache avoids a 50ms database call entirely.
+A: Yes, but typically 1-5ms for well-tuned gateways. The benefits — caching, connection pooling, centralized auth — usually reduce end-to-end latency. A request that hits a gateway cache avoids a 50ms database call entirely.
 
 **Q: How do I secure service-to-service calls behind a gateway?**
 A: The gateway validates external tokens. For internal calls, use mTLS (service mesh) or signed internal tokens. Never trust user-facing auth headers for internal service communication — an attacker who compromises one service could forge them.

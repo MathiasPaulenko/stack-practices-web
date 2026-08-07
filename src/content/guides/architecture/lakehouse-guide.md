@@ -209,7 +209,7 @@ Gold (Curated)
 Yes. Snowflake supports Iceberg tables natively. BigQuery supports BigLake tables over Iceberg and Delta via connectors.
 
 **Is Lakehouse cheaper than a traditional warehouse?**
-Storage is considerably cheaper (S3/GCS vs proprietary storage). Compute costs depend on engine choice. Overall TCO is usually lower, especially for large datasets.
+Storage is considerably cheaper (S3/GCS vs proprietary storage). Compute costs depend on engine choice. TCO is usually lower, especially for large datasets.
 
 ### How do I get started with this in an existing project?
 

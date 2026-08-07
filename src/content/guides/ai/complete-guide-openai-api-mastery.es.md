@@ -100,7 +100,7 @@ print(response.choices[0].message.content)
 
 ```text
 Seleccion de Model:
-  gpt-4o: Best overall, multimodal, rapido, cost-effective para tasks complejos
+  gpt-4o: Best all-around, multimodal, rapido, cost-effective para tasks complejos
   gpt-4o-mini: Rapido, barato, bueno para tasks simples y high-volume
   gpt-4-turbo: Legacy, usar gpt-4o instead
   o1: Reasoning model, lento pero best para complex reasoning

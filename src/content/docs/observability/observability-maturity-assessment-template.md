@@ -189,7 +189,7 @@ Observability maturity describes how well a team can answer questions about thei
 | Tracing | 2.3 | 4.0 | 1.7 |
 | Alerting | 2.0 | 4.0 | 2.0 |
 | Culture | 2.4 | 4.0 | 1.6 |
-| **Overall** | **2.3** | **4.0** | **1.7** |
+| **Aggregate** | **2.3** | **4.0** | **1.7** |
 
 ## 7. Improvement Roadmap
 
@@ -209,7 +209,7 @@ Observability maturity describes how well a team can answer questions about thei
 
 ## Explanation
 
-The assessment uses a 5-level maturity model across five dimensions: logging, metrics, tracing, alerting, and culture. Each dimension is scored independently, then averaged for an overall score. The scoring is evidence-based: every score must include concrete evidence (tools used, policies in place, metrics collected).
+The assessment uses a 5-level maturity model across five dimensions: logging, metrics, tracing, alerting, and culture. Each dimension is scored independently, then averaged for an aggregate score. The scoring is evidence-based: every score must include concrete evidence (tools used, policies in place, metrics collected).
 
 The gap analysis is the actionable output. For each criterion below target, the template identifies what's missing, what needs to happen, and the estimated effort. This feeds directly into the improvement roadmap.
 

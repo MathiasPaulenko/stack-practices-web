@@ -309,7 +309,7 @@ Line coverage mide el percentage de code lines executed por tests. Branch covera
 
 ### ¿Debería apuntar a 100% coverage?
 
-No. 100% coverage es expensive y often significa escribir low-value tests solo para hit un number. Apuntá a 80-85% overall, 95% para critical paths. Focus en meaningful assertions en vez de coverear every line.
+No. 100% coverage es expensive y often significa escribir low-value tests solo para hit un number. Apuntá a 80-85% en todo el proyecto, 95% para critical paths. Focus en meaningful assertions en vez de coverear every line.
 
 ### ¿Cómo mido critical path coverage?
 

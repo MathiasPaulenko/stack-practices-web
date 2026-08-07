@@ -337,7 +337,7 @@ A burn rate alert fires when you are consuming your error budget too fast. For a
 
 ### Should I monitor individual endpoints or aggregate?
 
-Both. Aggregate monitoring tells you if the API is healthy overall. Per-endpoint monitoring tells you which endpoint is causing the problem. Set SLOs at the endpoint level for critical paths and at the aggregate level for overall health.
+Both. Aggregate monitoring tells you if the API is healthy at the aggregate level. Per-endpoint monitoring tells you which endpoint is causing the problem. Set SLOs at the endpoint level for critical paths and at the aggregate level for service-wide health.
 
 ### What tools should I use for API monitoring?
 

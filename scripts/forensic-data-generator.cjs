@@ -24,6 +24,42 @@ const AI_PHRASES = [
   'a number of', 'in order to', 'due to the fact that',
 ];
 
+// Contexts where "overall" is standard technical terminology, not an empty qualifier.
+const OVERALL_LEGITIMACY_REGEX = /\boverall\b\s+(line|branch|statement|function|coverage|risk|rating|result|score|trend|status|methodology|framework|health|picture|numbers|costs|deadline|timeout|structure|flow|system|request processing time|test result|verdict|coordination|TCO|pipeline status|JSON|result:|trend|numbers|system|flow|structure|costs)|\b(overall)\b[:\-]/gi;
+
+// Contexts where "vital" is standard terminology (e.g. "Core Web Vitals").
+const VITAL_LEGITIMACY_REGEX = /core web vital|web vital|vitals?\s+(library|metric|report|score|threshold|target|data|field|lab|audits?)/gi;
+
+function isLegitOverallMatch(match, body) {
+  // Check the surrounding text (30 chars before and 50 after) for standard technical phrases.
+  const before = body.slice(Math.max(0, match.index - 30), match.index).toLowerCase();
+  const after = body.slice(match.index, match.index + match[0].length + 50).toLowerCase();
+  const context = (before + ' ' + after).replace(/\s+/g, ' ');
+
+  const legitFollowing = ['line', 'branch', 'statement', 'function', 'coverage', 'risk', 'rating', 'result', 'score', 'trend', 'status', 'methodology', 'framework', 'health', 'picture', 'numbers', 'costs', 'deadline', 'timeout', 'structure', 'flow', 'system', 'request processing time', 'test result', 'verdict', 'coordination', 'TCO', 'pipeline status', 'JSON', 'result:', 'trend:', 'numbers:', 'system:', 'flow:', 'structure:', 'costs:', 'coverage:', 'score:', 'risk:', 'rating:', 'status:'];
+  const joined = context.replace(/[^a-z0-9\s:]/g, ' ').trim();
+  for (const word of legitFollowing) {
+    if (joined.includes('overall ' + word.toLowerCase())) return true;
+  }
+
+  // Treat "overall" as legitimate when used as a JSON key, variable, or code label.
+  if (/["']?overall["']?\s*[:=]/.test(context) || /=\s*overall\b/.test(context) || /\boverall\s*=/.test(context)) return true;
+
+  return false;
+}
+
+function isLegitVitalMatch(match, body) {
+  const before = body.slice(Math.max(0, match.index - 40), match.index).toLowerCase();
+  const after = body.slice(match.index, match.index + match[0].length + 40).toLowerCase();
+  const context = (before + ' ' + after).replace(/\s+/g, ' ');
+
+  const vitalPhrases = ['core web vital', 'web vital', 'vitals library', 'vitals metric', 'vitals report', 'vitals score', 'vitals threshold', 'vitals target', 'vitals data', 'vitals field', 'vitals lab', 'vitals audit'];
+  for (const phrase of vitalPhrases) {
+    if (context.includes(phrase)) return true;
+  }
+  return false;
+}
+
 const TEMPLATE_HEADINGS = [
   'overview', 'when to use', 'solution', 'explanation', 'variants',
   'best practices', 'common mistakes', 'frequently asked questions', 'faq',
@@ -239,8 +275,17 @@ function analyzeMarkdown(filePath) {
   const lowerBody = body.toLowerCase();
   const aiPhrases = {};
   for (const phrase of AI_PHRASES) {
-    const re = new RegExp(phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
-    const count = (lowerBody.match(re) || []).length;
+    const isSingleWord = /^[a-z]+$/.test(phrase);
+    const pattern = isSingleWord ? `\\b${phrase}\\b` : phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(pattern, 'gi');
+    let count = 0;
+    let match;
+    while ((match = re.exec(lowerBody)) !== null) {
+      if (phrase === 'overall' && isLegitOverallMatch(match, lowerBody)) continue;
+      if (phrase === 'vital' && isLegitVitalMatch(match, lowerBody)) continue;
+      count++;
+    }
+
     if (count) aiPhrases[phrase] = count;
   }
 

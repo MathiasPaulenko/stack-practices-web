@@ -263,7 +263,7 @@ A full postmortem will be published within [3-5 business days] at [link].
 - **Be honest about degraded performance** — Do not mark a service "operational" when latency is 10x normal. See [Performance Optimization](/guides/performance/performance-optimization-guide) for monitoring metrics.
 - **Link to [incident postmortems](/docs/templates/incident-postmortem-template)** — Transparency after resolution builds long-term trust
 - **Define severity levels publicly** — Consumers need to understand what "High severity" means for their integration
-- **Include per-service status, not just overall** — A single "all operational" banner hides partial degradations
+- **Include per-service status, not just a single aggregate status** — A single "all operational" banner hides partial degradations
 - **Timestamp every update in UTC** — Consumers across timezones need a consistent reference
 
 ## Common Mistakes

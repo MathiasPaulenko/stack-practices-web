@@ -477,7 +477,7 @@ resp = ambassador.call("payment", "POST", "/charge", json={"amount": 99.99})
 - For a deeper guide, see [Compute Resource Consolidation Pattern](/es/patterns/compute-resource-consolidation-pattern/).
 
 - Usá connection pooling — el ambassador maintainéa persistent connections a external services
-- Seteá appropriate timeouts — both per-request y overall, para prevent hanging
+- Seteá appropriate timeouts — both per-request y end-to-end, para prevent hanging
 - Implementá circuit breaking — pará de llamar a un failing service para dejarlo recover
 - Collectéa metrics — trackeá request count, error rate, latency per endpoint
 - Usá exponential backoff para retries — 1s, 2s, 4s, no fixed intervals

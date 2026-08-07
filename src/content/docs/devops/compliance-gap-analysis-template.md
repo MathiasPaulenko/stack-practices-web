@@ -95,7 +95,7 @@ A Compliance Gap Analysis compares your current security controls against the re
 | Change management | 6 | 3 | 2 | 1 | High |
 | Vendor management | 5 | 2 | 2 | 1 | Medium |
 | Incident response | 7 | 5 | 1 | 1 | High |
-| Overall | 38 | 23 | 11 | 4 | High |
+| Total | 38 | 23 | 11 | 4 | High |
 
 #### 4. Remediation Plan
 

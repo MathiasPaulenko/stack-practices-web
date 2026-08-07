@@ -188,7 +188,7 @@ For HTTP clients, `keep-alive` reuses the underlying TCP connection across multi
 
 1. Set `max pool size` to roughly the number of concurrent workers (threads, processes, or event loop concurrency)
 2. Always `release()` or `putconn()` connections in a `finally` block to prevent leaks
-3. Set `connectionTimeout` lower than your application's overall request timeout
+3. Set `connectionTimeout` lower than your application's end-to-end request timeout
 4. Monitor pool metrics: active, idle, waiting, and total connections
 5. Use prepared statement caching at the pool level when available (e.g., HikariCP `cachePrepStmts`)
 

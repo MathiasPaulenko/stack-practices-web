@@ -159,8 +159,8 @@ def print_eval_report(results) -> None:
             print(f"  Q{i+1}: {score:.3f}")
 
     print("\n" + "=" * 60)
-    overall = sum(df[m].mean() for m in metrics) / len(metrics)
-    print(f"Overall Score: {overall:.3f}")
+    aggregate_score = sum(df[m].mean() for m in metrics) / len(metrics)
+    print(f"Aggregate Score: {aggregate_score:.3f}")
 
 print_eval_report(results)
 ```

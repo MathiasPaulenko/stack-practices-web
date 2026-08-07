@@ -45,7 +45,7 @@ seo:
 
 ## Overview
 
-A test strategy document defines how a team approaches quality assurance across a project or product. It aligns stakeholders on what gets tested, at what level, with which tools, and what gates must pass before deployment. Without a strategy, teams default to ad-hoc testing: some areas get over-tested, critical paths get missed, and nobody knows the overall coverage picture.
+A test strategy document defines how a team approaches quality assurance across a project or product. It aligns stakeholders on what gets tested, at what level, with which tools, and what gates must pass before deployment. Without a strategy, teams default to ad-hoc testing: some areas get over-tested, critical paths get missed, and nobody knows the project-wide coverage picture.
 
 ## When to Use
 

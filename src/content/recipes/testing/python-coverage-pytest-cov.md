@@ -219,7 +219,7 @@ Generates an SVG badge with the current coverage percentage for your README.
 - Use branch coverage alongside line coverage — it catches untested else paths
 - Exclude migration files, `__init__.py`, and test files from coverage measurement
 - Use `# pragma: no cover` for debug-only code, `__repr__`, and `if __name__` blocks
-- Review coverage reports regularly — find gaps in critical paths, not just overall percentage
+- Review coverage reports regularly — find gaps in critical paths, not just the aggregate percentage
 - Generate XML coverage for CI tools (SonarQube, Codecov, Coveralls)
 
 ## Common Mistakes

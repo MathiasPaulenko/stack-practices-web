@@ -603,7 +603,7 @@ Use a materialized view when the underlying query is expensive (aggregations, mu
 
 ### How do I know if my index is being used?
 
-In PostgreSQL, query `pg_stat_user_indexes` to see index usage statistics. The `idx_scan` column shows how many times the index has been used. If `idx_scan` is 0, the index is unused and can be dropped. In MySQL, use `SHOW INDEX FROM table` and check the `Cardinality` column. You can also use the `sys.schema_unused_indexes` view. Run `EXPLAIN` on your queries to verify the index appears in the plan. Remember that the planner may choose not to use an index if the table is small or if most rows match.
+In PostgreSQL, query `pg_stat_user_indexes` to see index usage statistics. The `idx_scan` column shows how many times the index has been used. If `idx_scan` is 0, the index is unused and can be dropped. In MySQL, use `SHOW INDEX FROM table` and check the `Cardinality` column. You can also use the `sys.schema_unused_indexes` view. Run `EXPLAIN` on your queries to verify the index appears in the plan. The planner may choose not to use an index if the table is small or if most rows match.
 
 ### Should I use connection pooling?
 

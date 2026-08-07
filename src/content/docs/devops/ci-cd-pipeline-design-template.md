@@ -117,7 +117,7 @@ Commit → Build → Test → Security Scan → Package → Deploy Staging → I
 | Check | Threshold | Tool | Action on Failure |
 |-------|-----------|------|-------------------|
 | Unit test pass rate | 100% | Vitest | Stop pipeline |
-| Code coverage | > 80% overall | Vitest + c8 | Stop pipeline |
+| Code coverage | > 80% project-wide | Vitest + c8 | Stop pipeline |
 | Coverage per file | > 60% | Vitest + c8 | Warning |
 | Mutation testing | > 70% | Stryker (weekly) | Warning |
 | Test duration | < 5 min | Vitest | Warning |

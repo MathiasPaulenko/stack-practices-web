@@ -200,7 +200,7 @@ except pybreaker.CircuitBreakerError:
 - **Closed state**: the circuit is closed and requests pass through to the downstream service. Failures are counted in a sliding window. If the failure rate or count exceeds the threshold, the circuit opens. In the closed state, a small number of failures is tolerated — networks are inherently unreliable.
 - **Open state**: the circuit is open and all requests fail fast with a `CircuitBreakerOpen` exception (or similar). The downstream service is not called, preventing resource exhaustion. The circuit stays open for a configured recovery timeout (e.g., 30 seconds), giving the failing service time to heal.
 - **Half-open state**: after the recovery timeout, the circuit transitions to half-open. A limited number of test requests are allowed through. If they succeed, the circuit closes. If any fail, the circuit opens again with a fresh timeout. This automatic recovery testing removes the need for manual intervention.
-- **Sliding window**: failures are tracked in a sliding window (e.g., last 10 calls or last 60 seconds). This prevents a circuit from opening due to a single spike if the overall rate is healthy. It also allows recovery if failures stop occurring.
+- **Sliding window**: failures are tracked in a sliding window (e.g., last 10 calls or last 60 seconds). This prevents a circuit from opening due to a single spike if the aggregate rate is healthy. It also allows recovery if failures stop occurring.
 
 ## Variants
 

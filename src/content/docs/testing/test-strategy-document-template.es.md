@@ -45,7 +45,7 @@ seo:
 
 ## Overview
 
-Un documento de estrategia de pruebas define cómo un equipo abarca el quality assurance a lo largo de un proyecto o producto. Alinea a los stakeholders en qué se testea, en qué nivel, con qué herramientas y qué gates deben pasar antes del deployment. Sin una estrategia, los equipos defaultan a testing ad-hoc: algunas áreas se over-testean, critical paths se missean y nadie sabe el coverage picture overall.
+Un documento de estrategia de pruebas define cómo un equipo abarca el quality assurance a lo largo de un proyecto o producto. Alinea a los stakeholders en qué se testea, en qué nivel, con qué herramientas y qué gates deben pasar antes del deployment. Sin una estrategia, los equipos defaultan a testing ad-hoc: algunas áreas se over-testean, critical paths se missean y nadie sabe el panorama de cobertura del proyecto.
 
 ## When to Use
 
