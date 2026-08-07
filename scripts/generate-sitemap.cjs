@@ -1,7 +1,9 @@
 const fs = require('fs');
+const path = require('path');
+const matter = require('front-matter');
 
 const SITE_URL = 'https://stackpractices.com';
-const TODAY = '2026-06-12';
+const TODAY = new Date().toISOString().split('T')[0];
 
 const staticPages = [
   { path: '/', priority: '1.0' },
@@ -20,52 +22,33 @@ const staticPages = [
   { path: '/affiliate-disclosure', priority: '0.3' },
 ];
 
-function parseFrontmatter(content) {
-  const match = content.match(/^---\s*\n([\s\S]*?)\n---\s*\n/);
-  if (!match) return {};
-  const yaml = match[1];
-  const data = {};
-  let currentArr = null;
-  let currentKey = null;
-  for (const line of yaml.split('\n')) {
-    const arrMatch = line.match(/^  - (.+)$/);
-    if (arrMatch && currentArr !== null) {
-      currentArr.push(arrMatch[1].trim());
-      continue;
-    }
-    const keyMatch = line.match(/^([a-zA-Z0-9_]+):\s*(.*)$/);
-    if (keyMatch) {
-      const key = keyMatch[1];
-      const val = keyMatch[2].trim();
-      if (val.startsWith('[') && val.endsWith(']')) {
-        data[key] = val.slice(1, -1).split(',').map(s => s.trim().replace(/^["']|["']$/g, ''));
-      } else {
-        data[key] = val.replace(/^["']|["']$/g, '');
-      }
-      if (line.trim().endsWith(':')) {
-        currentArr = [];
-        data[key] = currentArr;
-      } else {
-        currentArr = null;
-      }
-      currentKey = key;
-    }
-  }
-  return data;
-}
-
 function walkContent(dir) {
   const slugs = [];
   for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
-    const p = dir + '/' + f.name;
+    const p = path.join(dir, f.name);
     if (f.isDirectory()) slugs.push(...walkContent(p));
     else if (f.name.endsWith('.md') && !f.name.endsWith('.es.md')) {
-      const content = fs.readFileSync(p, 'utf8');
-      const data = parseFrontmatter(content);
-      if (data.slug) slugs.push(data.slug);
+      const raw = fs.readFileSync(p, 'utf8');
+      const content = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
+      const m = matter(content);
+      if (m.attributes.slug) slugs.push(m.attributes.slug);
     }
   }
   return slugs;
+}
+
+function collectTagsAndTopics(dir, topics, tags) {
+  for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, f.name);
+    if (f.isDirectory()) collectTagsAndTopics(p, topics, tags);
+    else if (f.name.endsWith('.md') && !f.name.endsWith('.es.md')) {
+      const raw = fs.readFileSync(p, 'utf8');
+      const content = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
+      const m = matter(content);
+      if (m.attributes.topics) m.attributes.topics.forEach(t => topics.add(t));
+      if (m.attributes.tags) m.attributes.tags.forEach(t => tags.add(t));
+    }
+  }
 }
 
 const recipes = walkContent('src/content/recipes').map(s => ({ path: '/recipes/' + s, priority: '0.8' }));
@@ -75,19 +58,8 @@ const guides = walkContent('src/content/guides').map(s => ({ path: '/guides/' + 
 
 const topics = new Set();
 const tags = new Set();
-
 for (const dir of ['src/content/recipes', 'src/content/patterns', 'src/content/docs', 'src/content/guides']) {
-  for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (!f.isDirectory()) continue;
-    for (const file of fs.readdirSync(dir + '/' + f.name, { withFileTypes: true })) {
-      if (file.name.endsWith('.md') && !file.name.endsWith('.es.md')) {
-        const content = fs.readFileSync(dir + '/' + f.name + '/' + file.name, 'utf8');
-        const data = parseFrontmatter(content);
-        if (data.topics) data.topics.forEach(t => topics.add(t));
-        if (data.tags) data.tags.forEach(t => tags.add(t));
-      }
-    }
-  }
+  collectTagsAndTopics(dir, topics, tags);
 }
 
 const topicPages = Array.from(topics).map(t => ({ path: '/topics/' + t, priority: '0.7' }));

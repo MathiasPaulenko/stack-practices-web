@@ -47,6 +47,12 @@ def url_encode_path(path: str) -> str:
     return "/".join(encoded)
 
 
+def is_noindex(html_file: Path) -> bool:
+    with html_file.open("r", encoding="utf-8") as f:
+        head = f.read(2048)
+    return 'name="robots"' in head and 'noindex' in head
+
+
 def collect_urls() -> list[tuple[str, datetime]]:
     urls: list[tuple[str, datetime]] = []
     for html_file in DIST_DIR.rglob("index.html"):
@@ -59,6 +65,10 @@ def collect_urls() -> list[tuple[str, datetime]]:
 
         # Exclude generated/utility directories and 404 pages.
         if any(seg in EXCLUDED_SEGMENTS for seg in dir_parts):
+            continue
+
+        # Exclude pages marked noindex
+        if is_noindex(html_file):
             continue
 
         if len(dir_parts) == 0:
