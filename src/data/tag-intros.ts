@@ -6804,4 +6804,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'web-services': {
+    en: {
+      heading: 'Web Services',
+      paragraphs: [
+        'Web services expose functionality over the web using standards like HTTP, XML, and JSON. They enable communication between distributed systems.',
+        'The resources below cover REST, SOAP, WSDL, and service design. Each guide helps you build web services that are reliable and interoperable.',
+      ],
+    },
+    es: {
+      heading: 'Servicios Web',
+      paragraphs: [
+        'Los servicios web exponen funcionalidad a traves de la web usando estandares como HTTP, XML y JSON. Habilitan la comunicacion entre sistemas distribuidos.',
+        'Los recursos a continuacion cubren REST, SOAP, WSDL y diseno de servicios. Cada guia te ayuda a construir servicios web confiables e interoperables.',
+      ],
+    },
+  },
+  flask: {
+    en: {
+      heading: 'Flask',
+      paragraphs: [
+        'Flask is a lightweight Python web framework. It is minimal and extensible, making it a popular choice for web APIs and microservices.',
+        'The resources below cover routes, blueprints, Jinja, extensions, and testing. Each guide helps you build Python web apps with Flask.',
+      ],
+    },
+    es: {
+      heading: 'Flask',
+      paragraphs: [
+        'Flask es un framework web ligero de Python. Es minimal y extensible, lo que lo hace popular para APIs web y microservicios.',
+        'Los recursos a continuacion cubren rutas, blueprints, Jinja, extensiones y testing. Cada guia te ayuda a construir aplicaciones web Python con Flask.',
+      ],
+    },
+  },
+  'rest-api': {
+    en: {
+      heading: 'REST API Design',
+      paragraphs: [
+        'REST is an architectural style for networked applications. REST APIs use HTTP methods and resource-based URLs to expose data and operations.',
+        'The resources below cover resources, HTTP verbs, status codes, versioning, and statelessness. Each guide helps you design clean and predictable REST APIs.',
+      ],
+    },
+    es: {
+      heading: 'Diseno de APIs REST',
+      paragraphs: [
+        'REST es un estilo arquitectonico para aplicaciones en red. Las APIs REST usan metodos HTTP y URLs basadas en recursos para exponer datos y operaciones.',
+        'Los recursos a continuacion cubren recursos, verbos HTTP, codigos de estado, versionado y statelessness. Cada guia te ayuda a disenar APIs REST limpias y predecibles.',
+      ],
+    },
+  },
+  email: {
+    en: {
+      heading: 'Email Integration and Sending',
+      paragraphs: [
+        'Email integration lets applications send notifications, newsletters, and transactional messages. It requires SMTP, templates, deliverability, and compliance.',
+        'The resources below cover SMTP, DKIM, SPF, templates, and sending libraries. Each guide helps you send email reliably from applications.',
+      ],
+    },
+    es: {
+      heading: 'Integracion y Envio de Email',
+      paragraphs: [
+        'La integracion de email permite a las aplicaciones enviar notificaciones, newsletters y mensajes transaccionales. Requiere SMTP, plantillas, entregabilidad y cumplimiento.',
+        'Los recursos a continuacion cubren SMTP, DKIM, SPF, plantillas y librerias de envio. Cada guia te ayuda a enviar email de forma confiable desde aplicaciones.',
+      ],
+    },
+  },
+  'server-sent-events': {
+    en: {
+      heading: 'Server-Sent Events',
+      paragraphs: [
+        'Server-Sent Events allow servers to push real-time updates to clients over an HTTP connection. They are simple and efficient for unidirectional streaming.',
+        'The resources below cover EventSource, MIME types, reconnection, and use cases. Each guide helps you implement real-time server-to-client updates.',
+      ],
+    },
+    es: {
+      heading: 'Eventos Enviados por el Servidor',
+      paragraphs: [
+        'Server-Sent Events permiten a los servidores enviar actualizaciones en tiempo real a los clientes sobre una conexion HTTP. Son simples y eficientes para streaming unidireccional.',
+        'Los recursos a continuacion cubren EventSource, tipos MIME, reconexion y casos de uso. Cada guia te ayuda a implementar actualizaciones en tiempo real de servidor a cliente.',
+      ],
+    },
+  },
+  bidirectional: {
+    en: {
+      heading: 'Bidirectional Communication',
+      paragraphs: [
+        'Bidirectional communication allows both client and server to send messages at any time. WebSockets and WebRTC are common protocols for this pattern.',
+        'The resources below cover WebSockets, full-duplex protocols, and design patterns. Each guide helps you build interactive, real-time applications.',
+      ],
+    },
+    es: {
+      heading: 'Comunicacion Bidireccional',
+      paragraphs: [
+        'La comunicacion bidireccional permite que tanto cliente como servidor envien mensajes en cualquier momento. WebSockets y WebRTC son protocolos comunes para este patron.',
+        'Los recursos a continuacion cubren WebSockets, protocolos full-duplex y patrones de diseno. Cada guia te ayuda a construir aplicaciones interactivas en tiempo real.',
+      ],
+    },
+  },
+  bulkhead: {
+    en: {
+      heading: 'Bulkhead Pattern',
+      paragraphs: [
+        'The bulkhead pattern isolates failures by partitioning resources. It prevents a failure in one part of a system from cascading to others.',
+        'The resources below cover thread pools, resource pools, compartments, and fault isolation. Each guide helps you build resilient systems with bulkheads.',
+      ],
+    },
+    es: {
+      heading: 'Patron Bulkhead',
+      paragraphs: [
+        'El patron bulkhead aísla fallas mediante la particion de recursos. Evita que una falla en una parte del sistema se propague a otras.',
+        'Los recursos a continuacion cubren thread pools, pools de recursos, compartimentos y aislamiento de fallas. Cada guia te ayuda a construir sistemas resilientes con bulkheads.',
+      ],
+    },
+  },
+  compensation: {
+    en: {
+      heading: 'Compensating Transactions',
+      paragraphs: [
+        'Compensating transactions undo the effects of completed operations. They are used in saga patterns to recover from failures in distributed systems.',
+        'The resources below cover compensation logic, saga orchestration, and idempotency. Each guide helps you build distributed workflows that can be safely rolled back.',
+      ],
+    },
+    es: {
+      heading: 'Transacciones Compensatorias',
+      paragraphs: [
+        'Las transacciones compensatorias deshacen los efectos de operaciones completadas. Se usan en patrones saga para recuperarse de fallas en sistemas distribuidos.',
+        'Los recursos a continuacion cubren logica de compensacion, orquestacion de sagas e idempotencia. Cada guia te ayuda a construir workflows distribuidos que pueden revertirse de forma segura.',
+      ],
+    },
+  },
+  hmac: {
+    en: {
+      heading: 'HMAC',
+      paragraphs: [
+        'HMAC is a message authentication code using a cryptographic hash function and a secret key. It verifies both integrity and authenticity.',
+        'The resources below cover HMAC-SHA256, signing, verification, and common use cases. Each guide helps you use HMAC to protect messages.',
+      ],
+    },
+    es: {
+      heading: 'HMAC',
+      paragraphs: [
+        'HMAC es un codigo de autenticacion de mensajes que usa una funcion hash criptografica y una clave secreta. Verifica tanto integridad como autenticidad.',
+        'Los recursos a continuacion cubren HMAC-SHA256, firma, verificacion y casos de uso comunes. Cada guia te ayuda a usar HMAC para proteger mensajes.',
+      ],
+    },
+  },
+  saml: {
+    en: {
+      heading: 'SAML Authentication',
+      paragraphs: [
+        'SAML is an XML-based standard for single sign-on and identity federation. It is widely used in enterprise identity management.',
+        'The resources below cover identity providers, service providers, assertions, and flows. Each guide helps you implement SAML-based authentication.',
+      ],
+    },
+    es: {
+      heading: 'Autenticacion SAML',
+      paragraphs: [
+        'SAML es un estandar basado en XML para single sign-on y federacion de identidad. Se usa ampliamente en gestion de identidades empresarial.',
+        'Los recursos a continuacion cubren proveedores de identidad, proveedores de servicio, assertions y flujos. Cada guia te ayuda a implementar autenticacion basada en SAML.',
+      ],
+    },
+  },
+  cookies: {
+    en: {
+      heading: 'HTTP Cookies',
+      paragraphs: [
+        'Cookies are small pieces of data stored by the browser. They are used for sessions, preferences, tracking, and authentication.',
+        'The resources below cover secure, HttpOnly, SameSite, expiration, and cookie security. Each guide helps you use cookies safely and effectively.',
+      ],
+    },
+    es: {
+      heading: 'Cookies HTTP',
+      paragraphs: [
+        'Las cookies son pequenos datos almacenados por el navegador. Se usan para sesiones, preferencias, seguimiento y autenticacion.',
+        'Los recursos a continuacion cubren secure, HttpOnly, SameSite, expiracion y seguridad de cookies. Cada guia te ayuda a usar cookies de forma segura y efectiva.',
+      ],
+    },
+  },
+  fastly: {
+    en: {
+      heading: 'Fastly Edge Cloud',
+      paragraphs: [
+        'Fastly is an edge cloud platform that provides CDN, compute, and security services. It allows logic to run at the edge for low latency.',
+        'The resources below cover VCL, Compute, edge caching, and security services. Each guide helps you build fast and secure edge applications.',
+      ],
+    },
+    es: {
+      heading: 'Fastly Edge Cloud',
+      paragraphs: [
+        'Fastly es una plataforma de edge cloud que proporciona CDN, computo y servicios de seguridad. Permite ejecutar logica en el edge para baja latencia.',
+        'Los recursos a continuacion cubren VCL, Compute, caching en el edge y servicios de seguridad. Cada guia te ayuda a construir aplicaciones rapidas y seguras en el edge.',
+      ],
+    },
+  },
+  'in-memory-cache': {
+    en: {
+      heading: 'In-Memory Caching',
+      paragraphs: [
+        'In-memory caching stores data in RAM for fast access. It is ideal for hot data, session stores, and reducing database load.',
+        'The resources below cover Redis, Memcached, eviction, TTL, and cache patterns. Each guide helps you implement fast, low-latency caching.',
+      ],
+    },
+    es: {
+      heading: 'Cache en Memoria',
+      paragraphs: [
+        'El cache en memoria almacena datos en RAM para acceso rapido. Es ideal para datos calientes, almacenes de sesion y reducir carga de base de datos.',
+        'Los recursos a continuacion cubren Redis, Memcached, eviction, TTL y patrones de cache. Cada guia te ayuda a implementar caching rapido y de baja latencia.',
+      ],
+    },
+  },
+  'http-cache': {
+    en: {
+      heading: 'HTTP Caching',
+      paragraphs: [
+        'HTTP caching uses headers to control how clients and intermediaries cache responses. It reduces bandwidth and improves load times.',
+        'The resources below cover Cache-Control, ETag, Last-Modified, and validation. Each guide helps you optimize responses with HTTP caching.',
+      ],
+    },
+    es: {
+      heading: 'Cache HTTP',
+      paragraphs: [
+        'El cache HTTP usa headers para controlar como clientes e intermediarios almacenan respuestas. Reduce ancho de banda y mejora tiempos de carga.',
+        'Los recursos a continuacion cubren Cache-Control, ETag, Last-Modified y validacion. Cada guia te ayuda a optimizar respuestas con cache HTTP.',
+      ],
+    },
+  },
+  'distributed-cache': {
+    en: {
+      heading: 'Distributed Caching',
+      paragraphs: [
+        'A distributed cache shares state across multiple nodes. It is used for session replication, rate limit counters, and fast lookups in scalable systems.',
+        'The resources below cover Redis Cluster, Hazelcast, cache consistency, and eviction. Each guide helps you operate caches across nodes.',
+      ],
+    },
+    es: {
+      heading: 'Cache Distribuido',
+      paragraphs: [
+        'Un cache distribuido comparte estado entre multiples nodos. Se usa para replicacion de sesiones, contadores de rate limit y busquedas rapidas en sistemas escalables.',
+        'Los recursos a continuacion cubren Redis Cluster, Hazelcast, consistencia de cache y eviction. Cada guia te ayuda a operar caches entre nodos.',
+      ],
+    },
+  },
+  pubsub: {
+    en: {
+      heading: 'Pub/Sub Messaging',
+      paragraphs: [
+        'Publish-subscribe is a messaging pattern where senders publish messages and receivers subscribe to topics. It decouples producers and consumers.',
+        'The resources below cover topics, subscriptions, fan-out, and platforms like Google Pub/Sub and Redis Pub/Sub. Each guide helps you build scalable event distribution.',
+      ],
+    },
+    es: {
+      heading: 'Mensajeria Pub/Sub',
+      paragraphs: [
+        'Publish-subscribe es un patron de mensajeria donde los emisores publican mensajes y los receptores se suscriben a topicos. Desacopla productores y consumidores.',
+        'Los recursos a continuacion cubren topicos, suscripciones, fan-out y plataformas como Google Pub/Sub y Redis Pub/Sub. Cada guia te ayuda a construir distribucion de eventos escalable.',
+      ],
+    },
+  },
+  csharp: {
+    en: {
+      heading: 'C# Development',
+      paragraphs: [
+        'C# is a modern, type-safe language for building applications on .NET. It is used for web, desktop, games, and cloud services.',
+        'The resources below cover language features, ASP.NET Core, LINQ, async/await, and patterns. Each guide helps you write effective C# code.',
+      ],
+    },
+    es: {
+      heading: 'Desarrollo en C#',
+      paragraphs: [
+        'C# es un lenguaje moderno y type-safe para construir aplicaciones en .NET. Se usa para web, escritorio, juegos y servicios cloud.',
+        'Los recursos a continuacion cubren caracteristicas del lenguaje, ASP.NET Core, LINQ, async/await y patrones. Cada guia te ayuda a escribir codigo C# efectivo.',
+      ],
+    },
+  },
+  goroutines: {
+    en: {
+      heading: 'Go Goroutines',
+      paragraphs: [
+        'Goroutines are lightweight, concurrent functions in Go. They make concurrent programming accessible and efficient.',
+        'The resources below cover goroutine creation, channels, sync primitives, and patterns. Each guide helps you write concurrent Go programs.',
+      ],
+    },
+    es: {
+      heading: 'Goroutines en Go',
+      paragraphs: [
+        'Las goroutines son funciones concurrentes ligeras en Go. Hacen que la programacion concurrente sea accesible y eficiente.',
+        'Los recursos a continuacion cubren creacion de goroutines, canales, primitivas de sincronizacion y patrones. Cada guia te ayuda a escribir programas Go concurrentes.',
+      ],
+    },
+  },
+  'virtual-threads': {
+    en: {
+      heading: 'Virtual Threads in Java',
+      paragraphs: [
+        'Virtual threads are lightweight threads in Java that simplify high-concurrency applications. They reduce the cost of creating and managing threads.',
+        'The resources below cover Project Loom, structured concurrency, executors, and migration. Each guide helps you adopt virtual threads in Java.',
+      ],
+    },
+    es: {
+      heading: 'Virtual Threads en Java',
+      paragraphs: [
+        'Los virtual threads son threads ligeros en Java que simplifican aplicaciones de alta concurrencia. Reducen el costo de crear y gestionar threads.',
+        'Los recursos a continuacion cubren Project Loom, concurrencia estructurada, executors y migracion. Cada guia te ayuda a adoptar virtual threads en Java.',
+      ],
+    },
+  },
+  aiohttp: {
+    en: {
+      heading: 'aiohttp',
+      paragraphs: [
+        'aiohttp is an asynchronous HTTP client and server framework for Python. It is built on asyncio and suitable for high-concurrency applications.',
+        'The resources below cover client, server, routing, middleware, and websockets. Each guide helps you build async web services with aiohttp.',
+      ],
+    },
+    es: {
+      heading: 'aiohttp',
+      paragraphs: [
+        'aiohttp es un framework asincrono de cliente y servidor HTTP para Python. Esta construido sobre asyncio y es adecuado para aplicaciones de alta concurrencia.',
+        'Los recursos a continuacion cubren cliente, servidor, routing, middleware y websockets. Cada guia te ayuda a construir servicios web async con aiohttp.',
+      ],
+    },
+  },
+  semaphore: {
+    en: {
+      heading: 'Semaphores',
+      paragraphs: [
+        'A semaphore controls access to a common resource by multiple threads. It is used to limit concurrency and coordinate execution.',
+        'The resources below cover counting and binary semaphores, acquisition, release, and bounded resources. Each guide helps you use semaphores for concurrency control.',
+      ],
+    },
+    es: {
+      heading: 'Semaforos',
+      paragraphs: [
+        'Un semaforo controla el acceso a un recurso comun por multiples threads. Se usa para limitar concurrencia y coordinar ejecucion.',
+        'Los recursos a continuacion cubren semaforos contadores y binarios, adquisicion, liberacion y recursos acotados. Cada guia te ayuda a usar semaforos para control de concurrencia.',
+      ],
+    },
+  },
+  'background-jobs': {
+    en: {
+      heading: 'Background Jobs',
+      paragraphs: [
+        'Background jobs run work outside the main request flow. They are used for processing, sending emails, and running scheduled tasks.',
+        'The resources below cover job queues, workers, retries, scheduling, and monitoring. Each guide helps you build reliable background processing.',
+      ],
+    },
+    es: {
+      heading: 'Trabajos en Segundo Plano',
+      paragraphs: [
+        'Los trabajos en segundo plano ejecutan tareas fuera del flujo principal de la solicitud. Se usan para procesamiento, envio de emails y tareas programadas.',
+        'Los recursos a continuacion cubren colas de trabajo, workers, reintentos, programacion y monitoreo. Cada guia te ayuda a construir procesamiento en segundo plano confiable.',
+      ],
+    },
+  },
+  parallelism: {
+    en: {
+      heading: 'Parallelism vs Concurrency',
+      paragraphs: [
+        'Parallelism executes multiple tasks at the same time. It requires multiple cores and is different from concurrency, which manages multiple tasks over time.',
+        'The resources below cover parallel streams, multiprocessing, thread pools, and parallel algorithms. Each guide helps you write programs that execute work simultaneously.',
+      ],
+    },
+    es: {
+      heading: 'Paralelismo vs Concurrencia',
+      paragraphs: [
+        'El paralelismo ejecuta multiples tareas al mismo tiempo. Requiere multiples nucleos y es diferente de la concurrencia, que gestiona varias tareas a lo largo del tiempo.',
+        'Los recursos a continuacion cubren parallel streams, multiprocesamiento, thread pools y algoritmos paralelos. Cada guia te ayuda a escribir programas que ejecuten trabajo simultaneamente.',
+      ],
+    },
+  },
+  'data-validation': {
+    en: {
+      heading: 'Data Validation',
+      paragraphs: [
+        'Data validation ensures that input and output meet expected rules. It is essential for security, correctness, and user experience.',
+        'The resources below cover schema validation, type checking, libraries, and validation patterns. Each guide helps you validate data at boundaries.',
+      ],
+    },
+    es: {
+      heading: 'Validacion de Datos',
+      paragraphs: [
+        'La validacion de datos asegura que las entradas y salidas cumplen reglas esperadas. Es esencial para seguridad, correccion y experiencia de usuario.',
+        'Los recursos a continuacion cubren validacion de esquemas, type checking, librerias y patrones de validacion. Cada guia te ayuda a validar datos en los limites.',
+      ],
+    },
+  },
+  'deep-clone': {
+    en: {
+      heading: 'Deep Cloning',
+      paragraphs: [
+        'Deep cloning creates an independent copy of an object and all objects it references. It is needed when shallow copies would share mutable state.',
+        'The resources below cover deep copy techniques, serialization, and language-specific implementations. Each guide helps you copy objects without unintended side effects.',
+      ],
+    },
+    es: {
+      heading: 'Clonado Profundo',
+      paragraphs: [
+        'El clonado profundo crea una copia independiente de un objeto y todos los objetos a los que referencia. Es necesario cuando las copias superficiales compartirian estado mutable.',
+        'Los recursos a continuacion cubren tecnicas de copia profunda, serializacion e implementaciones especificas por lenguaje. Cada guia te ayuda a copiar objetos sin efectos secundarios no deseados.',
+      ],
+    },
+  },
 };
