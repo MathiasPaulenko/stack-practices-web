@@ -21,13 +21,13 @@ const { locale, page, totalPages, works } = Astro.props;
 
 const isEs = locale === 'es';
 const basePath = isEs ? '/es/authors/mathias-paulenko' : '/authors/mathias-paulenko';
+const seoPath = page === 1 ? '/authors/mathias-paulenko/' : `/authors/mathias-paulenko/${page}/`;
 const totalWorks = (totalPages - 1) * 24 + works.length;
 
 const title = PRIMARY_AUTHOR.name;
 const description = isEs
   ? `Perfil de ${PRIMARY_AUTHOR.name} en StackPractices — ingeniero de software, recetas, patrones y guías.`
   : `${PRIMARY_AUTHOR.name}'s author profile on StackPractices — software engineer, recipes, patterns, and guides.`;
-const path = page === 1 ? `${basePath}/` : `${basePath}/${page}/`;
 
 const labels = {
   en: {
@@ -69,7 +69,7 @@ const jsonLd = [
       description: isEs
         ? `Conoce a ${PRIMARY_AUTHOR.name}, el ingeniero de software detrás de StackPractices. Más de 12 años construyendo sistemas de producción.`
         : `Meet ${PRIMARY_AUTHOR.name}, the software engineer behind StackPractices. 12+ years building production systems.`,
-      url: path,
+      url: seoPath,
       locale,
     }),
     datePublished: '2026-06-13',
@@ -98,7 +98,7 @@ if (page < totalPages) paginationLinks.push({ label: t.next, href: `${basePath}/
 <BaseLayout
   {title}
   {description}
-  {path}
+  path={seoPath}
   {locale}
   keywords={['mathias paulenko', isEs ? 'autor' : 'author', isEs ? 'ingeniero de software' : 'software engineer', 'stackpractices']}
   jsonLd={jsonLd}
