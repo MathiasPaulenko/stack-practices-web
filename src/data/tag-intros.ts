@@ -4420,4 +4420,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'data-quality': {
+    en: {
+      heading: 'Data Quality',
+      paragraphs: [
+        'Data quality ensures that data is accurate, complete, consistent, and fit for use. Poor data quality leads to bad decisions and unreliable systems.',
+        'The resources below cover validation, profiling, cleansing, monitoring, and data quality frameworks. Each guide helps you build systems that trust their data.',
+      ],
+    },
+    es: {
+      heading: 'Calidad de Datos',
+      paragraphs: [
+        'La calidad de datos asegura que los datos sean precisos, completos, consistentes y adecuados para su uso. La mala calidad conduce a malas decisiones y sistemas poco confiables.',
+        'Los recursos a continuacion cubren validacion, profiling, limpieza, monitoreo y frameworks de calidad de datos. Cada guia te ayuda a construir sistemas que confien en sus datos.',
+      ],
+    },
+  },
+  release: {
+    en: {
+      heading: 'Release Management',
+      paragraphs: [
+        'Release management is the process of planning, scheduling, and deploying software changes. It coordinates code, artifacts, approvals, and communication.',
+        'The resources below cover release pipelines, versioning, release notes, rollback, and cadence. Each guide helps you ship changes predictably and safely.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Releases',
+      paragraphs: [
+        'La gestion de releases es el proceso de planificar, programar y desplegar cambios de software. Coordina codigo, artefactos, aprobaciones y comunicacion.',
+        'Los recursos a continuacion cubren pipelines de release, versionado, release notes, rollback y cadencia. Cada guia te ayuda a entregar cambios de forma predecible y segura.',
+      ],
+    },
+  },
+  canary: {
+    en: {
+      heading: 'Canary Deployments',
+      paragraphs: [
+        'Canary deployments roll out changes to a small subset of users before full release. They reduce the blast radius of bad deployments and provide early feedback.',
+        'The resources below cover canary analysis, traffic splitting, metrics, rollback, and feature flags. Each guide helps you release with confidence.',
+      ],
+    },
+    es: {
+      heading: 'Despliegues Canary',
+      paragraphs: [
+        'Los despliegues canary lanzan cambios a un pequeno subconjunto de usuarios antes del release completo. Reducen el radio de impacto de malos despliegues y proporcionan feedback temprano.',
+        'Los recursos a continuacion cubren analisis canary, division de trafico, metricas, rollback y feature flags. Cada guia te ayuda a lanzar con confianza.',
+      ],
+    },
+  },
+  rollout: {
+    en: {
+      heading: 'Gradual Rollouts',
+      paragraphs: [
+        'Gradual rollouts release changes incrementally to larger audiences. They balance speed and safety by validating behavior at each stage.',
+        'The resources below cover percentage rollouts, rings, feature flags, monitoring, and promotion. Each guide helps you expand releases without losing control.',
+      ],
+    },
+    es: {
+      heading: 'Rollouts Graduales',
+      paragraphs: [
+        'Los rollouts graduales liberan cambios incrementalmente a audiencias mas grandes. Equilibran velocidad y seguridad validando el comportamiento en cada etapa.',
+        'Los recursos a continuacion cubren rollouts por porcentaje, anillos, feature flags, monitoreo y promocion. Cada guia te ayuda a expandir releases sin perder control.',
+      ],
+    },
+  },
+  saga: {
+    en: {
+      heading: 'Saga Pattern',
+      paragraphs: [
+        'The saga pattern manages long-running transactions by breaking them into a sequence of local transactions. If one step fails, compensating actions undo previous steps.',
+        'The resources below cover choreography, orchestration, compensation, and saga implementation. Each guide helps you build reliable distributed transactions.',
+      ],
+    },
+    es: {
+      heading: 'Patron Saga',
+      paragraphs: [
+        'El patron saga gestiona transacciones de larga duracion dividiendolas en una secuencia de transacciones locales. Si un paso falla, acciones compensatorias deshacen pasos anteriores.',
+        'Los recursos a continuacion cubren coreografia, orquestacion, compensacion e implementacion de sagas. Cada guia te ayuda a construir transacciones distribuidas confiables.',
+      ],
+    },
+  },
+  mvc: {
+    en: {
+      heading: 'Model-View-Controller',
+      paragraphs: [
+        'MVC separates an application into three components: model, view, and controller. It improves organization and testability by separating concerns.',
+        'The resources below cover MVC implementation, routing, templates, and common variations. Each guide helps you use MVC to build maintainable applications.',
+      ],
+    },
+    es: {
+      heading: 'Modelo-Vista-Controlador',
+      paragraphs: [
+        'MVC separa una aplicacion en tres componentes: modelo, vista y controlador. Mejora la organizacion y testeabilidad separando responsabilidades.',
+        'Los recursos a continuacion cubren implementacion de MVC, routing, templates y variaciones comunes. Cada guia te ayuda a usar MVC para construir aplicaciones mantenibles.',
+      ],
+    },
+  },
+  'load-balancing': {
+    en: {
+      heading: 'Load Balancing',
+      paragraphs: [
+        'Load balancing distributes traffic across multiple servers. It improves availability, scalability, and response times by preventing any single server from becoming a bottleneck.',
+        'The resources below cover round-robin, least connections, health checks, global load balancing, and layer 4 vs layer 7. Each guide helps you design effective traffic distribution.',
+      ],
+    },
+    es: {
+      heading: 'Balanceo de Carga',
+      paragraphs: [
+        'El balanceo de carga distribuye trafico entre multiples servidores. Mejora disponibilidad, escalabilidad y tiempos de respuesta evitando que un solo servidor sea un cuello de botella.',
+        'Los recursos a continuacion cubren round-robin, least connections, health checks, global load balancing y capa 4 vs capa 7. Cada guia te ayuda a disenar distribucion de trafico efectiva.',
+      ],
+    },
+  },
+  'clean-code': {
+    en: {
+      heading: 'Clean Code',
+      paragraphs: [
+        'Clean code is code that is easy to read, understand, and change. It emphasizes clarity, simplicity, and disciplined naming.',
+        'The resources below cover naming, functions, comments, error handling, and refactoring. Each guide helps you write code that others can maintain with confidence.',
+      ],
+    },
+    es: {
+      heading: 'Codigo Limpio',
+      paragraphs: [
+        'El codigo limpio es codigo facil de leer, entender y cambiar. Enfatiza claridad, simplicidad y nomenclatura disciplinada.',
+        'Los recursos a continuacion cubren nombres, funciones, comentarios, manejo de errores y refactoring. Cada guia te ayuda a escribir codigo que otros puedan mantener con confianza.',
+      ],
+    },
+  },
+  accessibility: {
+    en: {
+      heading: 'Web Accessibility',
+      paragraphs: [
+        'Accessibility ensures that websites and applications can be used by people with disabilities. It is a legal, ethical, and business imperative.',
+        'The resources below cover WCAG, semantic HTML, ARIA, keyboard navigation, screen readers, and color contrast. Each guide helps you build inclusive experiences.',
+      ],
+    },
+    es: {
+      heading: 'Accesibilidad Web',
+      paragraphs: [
+        'La accesibilidad asegura que sitios y aplicaciones puedan ser usados por personas con discapacidades. Es un imperativo legal, etico y de negocio.',
+        'Los recursos a continuacion cubren WCAG, HTML semantico, ARIA, navegacion por teclado, lectores de pantalla y contraste de color. Cada guia te ayuda a construir experiencias inclusivas.',
+      ],
+    },
+  },
+  subgraph: {
+    en: {
+      heading: 'GraphQL Subgraphs',
+      paragraphs: [
+        'A subgraph is a GraphQL service that contributes part of a federated graph. Federation lets teams own domain-specific schemas while exposing a unified API.',
+        'The resources below cover Apollo Federation, subgraph design, entities, resolvers, and schema composition. Each guide helps you build modular GraphQL architectures.',
+      ],
+    },
+    es: {
+      heading: 'Subgrafos GraphQL',
+      paragraphs: [
+        'Un subgraph es un servicio GraphQL que contribuye con parte de un grafo federado. La federacion permite a equipos poseer esquemas de dominio especifico mientras exponen una API unificada.',
+        'Los recursos a continuacion cubren Apollo Federation, diseno de subgraphs, entidades, resolvers y composicion de esquemas. Cada guia te ayuda a construir arquitecturas GraphQL modulares.',
+      ],
+    },
+  },
+  'read-model': {
+    en: {
+      heading: 'Read Models and Projections',
+      paragraphs: [
+        'Read models are optimized views of data built for specific query patterns. They separate read concerns from write concerns in CQRS and event sourcing.',
+        'The resources below cover projections, denormalization, materialized views, and read model updates. Each guide helps you query data efficiently without hitting the write model.',
+      ],
+    },
+    es: {
+      heading: 'Modelos de Lectura y Proyecciones',
+      paragraphs: [
+        'Los modelos de lectura son vistas optimizadas de datos construidas para patrones de consulta especificos. Separan las preocupaciones de lectura de las de escritura en CQRS y event sourcing.',
+        'Los recursos a continuacion cubren proyecciones, desnormalizacion, vistas materializadas y actualizacion de modelos de lectura. Cada guia te ayuda a consultar datos eficientemente sin tocar el modelo de escritura.',
+      ],
+    },
+  },
+  availability: {
+    en: {
+      heading: 'High Availability',
+      paragraphs: [
+        'Availability is the proportion of time a system is operational and accessible. High availability requires redundancy, failover, and fast recovery.',
+        'The resources below cover SLAs, redundancy, health checks, failover, and disaster recovery. Each guide helps you build systems that stay up when things go wrong.',
+      ],
+    },
+    es: {
+      heading: 'Alta Disponibilidad',
+      paragraphs: [
+        'La disponibilidad es la proporcion de tiempo que un sistema esta operativo y accesible. La alta disponibilidad requiere redundancia, failover y recuperacion rapida.',
+        'Los recursos a continuacion cubren SLAs, redundancia, health checks, failover y recuperacion ante desastres. Cada guia te ayuda a construir sistemas que permanecen activos cuando las cosas salen mal.',
+      ],
+    },
+  },
+  certificates: {
+    en: {
+      heading: 'Digital Certificates',
+      paragraphs: [
+        'Digital certificates bind a public key to an identity. They are the foundation of TLS, code signing, and many authentication protocols.',
+        'The resources below cover X.509, certificate authorities, issuance, rotation, and validation. Each guide helps you manage certificates in your infrastructure.',
+      ],
+    },
+    es: {
+      heading: 'Certificados Digitales',
+      paragraphs: [
+        'Los certificados digitales vinculan una clave publica a una identidad. Son la base de TLS, firma de codigo y muchos protocolos de autenticacion.',
+        'Los recursos a continuacion cubren X.509, autoridades de certificacion, emision, rotacion y validacion. Cada guia te ayuda a gestionar certificados en tu infraestructura.',
+      ],
+    },
+  },
+  replication: {
+    en: {
+      heading: 'Data Replication',
+      paragraphs: [
+        'Replication copies data across multiple nodes to improve availability, durability, and read performance. It introduces consistency and conflict challenges.',
+        'The resources below cover leader-follower, multi-leader, synchronous, and asynchronous replication. Each guide helps you choose a replication strategy for your needs.',
+      ],
+    },
+    es: {
+      heading: 'Replicacion de Datos',
+      paragraphs: [
+        'La replicacion copia datos entre multiples nodos para mejorar disponibilidad, durabilidad y rendimiento de lectura. Introduce desafios de consistencia y conflictos.',
+        'Los recursos a continuacion cubren leader-follower, multi-leader, replicacion sincrona y asincrona. Cada guia te ayuda a elegir una estrategia de replicacion para tus necesidades.',
+      ],
+    },
+  },
+  'error-budget': {
+    en: {
+      heading: 'Error Budgets',
+      paragraphs: [
+        'An error budget is the acceptable amount of unreliability before SLOs are violated. It helps balance innovation and reliability by giving teams room to take risks.',
+        'The resources below cover budget calculation, burn rate alerts, freezing releases, and policy. Each guide helps you use error budgets to make better trade-offs.',
+      ],
+    },
+    es: {
+      heading: 'Presupuestos de Error',
+      paragraphs: [
+        'Un presupuesto de error es la cantidad aceptable de falta de confiabilidad antes de violar SLOs. Ayuda a equilibrar innovacion y confiabilidad dando a los equipos margen para asumir riesgos.',
+        'Los recursos a continuacion cubren calculo de presupuestos, alertas de burn rate, congelamiento de releases y politicas. Cada guia te ayuda a usar presupuestos de error para mejores trade-offs.',
+      ],
+    },
+  },
+  remediation: {
+    en: {
+      heading: 'Security Remediation',
+      paragraphs: [
+        'Remediation is the process of fixing identified security issues. It requires prioritization, validation, and verification that the fix works.',
+        'The resources below cover vulnerability patching, configuration hardening, code fixes, and validation. Each guide helps you close security gaps effectively.',
+      ],
+    },
+    es: {
+      heading: 'Remediacion de Seguridad',
+      paragraphs: [
+        'La remediacion es el proceso de corregir problemas de seguridad identificados. Requiere priorizacion, validacion y verificacion de que la solucion funciona.',
+        'Los recursos a continuacion cubren parcheo de vulnerabilidades, endurecimiento de configuracion, correcciones de codigo y validacion. Cada guia te ayuda a cerrar brechas de seguridad efectivamente.',
+      ],
+    },
+  },
+  loki: {
+    en: {
+      heading: 'Grafana Loki',
+      paragraphs: [
+        'Loki is a log aggregation system designed to be cost-effective and easy to operate. It indexes labels rather than full log text, making it cheaper at scale.',
+        'The resources below cover Loki setup, Promtail, LogQL, retention, and Grafana integration. Each guide helps you aggregate logs without the cost of traditional solutions.',
+      ],
+    },
+    es: {
+      heading: 'Grafana Loki',
+      paragraphs: [
+        'Loki es un sistema de agregacion de logs disenado para ser rentable y facil de operar. Indexa etiquetas en lugar de texto completo, haciendolo mas barato a escala.',
+        'Los recursos a continuacion cubren setup de Loki, Promtail, LogQL, retencion e integracion con Grafana. Cada guia te ayuda a agregar logs sin el costo de soluciones tradicionales.',
+      ],
+    },
+  },
+  'load-testing': {
+    en: {
+      heading: 'Load Testing',
+      paragraphs: [
+        'Load testing evaluates how a system behaves under expected or extreme load. It identifies bottlenecks, capacity limits, and failure modes before production.',
+        'The resources below cover tools, scenarios, metrics, ramp-up strategies, and result analysis. Each guide helps you validate that your system can handle real traffic.',
+      ],
+    },
+    es: {
+      heading: 'Pruebas de Carga',
+      paragraphs: [
+        'Las pruebas de carga evaluan como se comporta un sistema bajo carga esperada o extrema. Identifican cuellos de botella, limites de capacidad y modos de falla antes de produccion.',
+        'Los recursos a continuacion cubren herramientas, escenarios, metricas, estrategias de ramp-up y analisis de resultados. Cada guia te ayuda a validar que tu sistema puede manejar trafico real.',
+      ],
+    },
+  },
+  hardening: {
+    en: {
+      heading: 'Security Hardening',
+      paragraphs: [
+        'Hardening reduces the attack surface of systems, applications, and configurations. It involves removing unnecessary features, applying patches, and enforcing secure defaults.',
+        'The resources below cover OS hardening, container hardening, network hardening, and application hardening. Each guide helps you make systems more resistant to attacks.',
+      ],
+    },
+    es: {
+      heading: 'Endurecimiento de Seguridad',
+      paragraphs: [
+        'El endurecimiento reduce la superficie de ataque de sistemas, aplicaciones y configuraciones. Implica eliminar caracteristicas innecesarias, aplicar parches y hacer cumplir valores seguros por defecto.',
+        'Los recursos a continuacion cubren endurecimiento de SO, contenedores, red y aplicaciones. Cada guia te ayuda a hacer sistemas mas resistentes a ataques.',
+      ],
+    },
+  },
+  'cloud-costs': {
+    en: {
+      heading: 'Cloud Cost Management',
+      paragraphs: [
+        'Cloud cost management optimizes spending on cloud resources. It requires visibility, budgeting, right-sizing, and continuous review.',
+        'The resources below cover cost monitoring, reserved instances, spot, tagging, and FinOps. Each guide helps you control cloud costs without sacrificing performance.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Costos en la Nube',
+      paragraphs: [
+        'La gestion de costos en la nube optimiza el gasto en recursos cloud. Requiere visibilidad, presupuestos, right-sizing y revision continua.',
+        'Los recursos a continuacion cubren monitoreo de costos, reserved instances, spot, tagging y FinOps. Cada guia te ayuda a controlar costos cloud sin sacrificar rendimiento.',
+      ],
+    },
+  },
+  'capacity-planning': {
+    en: {
+      heading: 'Capacity Planning',
+      paragraphs: [
+        'Capacity planning ensures that systems have enough resources to meet demand. It balances availability, performance, and cost by forecasting and scaling.',
+        'The resources below cover demand forecasting, headroom, scaling strategies, and cost trade-offs. Each guide helps you plan capacity before growth becomes a problem.',
+      ],
+    },
+    es: {
+      heading: 'Planificacion de Capacidad',
+      paragraphs: [
+        'La planificacion de capacidad asegura que los sistemas tengan recursos suficientes para satisfacer la demanda. Equilibra disponibilidad, rendimiento y costo mediante pronostico y escalado.',
+        'Los recursos a continuacion cubren pronostico de demanda, margen, estrategias de escalado y trade-offs de costo. Cada guia te ayuda a planificar capacidad antes de que el crecimiento sea un problema.',
+      ],
+    },
+  },
+  finops: {
+    en: {
+      heading: 'FinOps',
+      paragraphs: [
+        'FinOps is a practice that brings financial accountability to cloud spending. It connects engineering, finance, and business teams to optimize cloud value.',
+        'The resources below cover cost allocation, showback, chargeback, unit economics, and cloud financial management. Each guide helps you build a FinOps culture.',
+      ],
+    },
+    es: {
+      heading: 'FinOps',
+      paragraphs: [
+        'FinOps es una practica que trae responsabilidad financiera al gasto en la nube. Conecta equipos de ingenieria, finanzas y negocio para optimizar el valor del cloud.',
+        'Los recursos a continuacion cubren asignacion de costos, showback, chargeback, economia unitaria y gestion financiera de la nube. Cada guia te ayuda a construir una cultura FinOps.',
+      ],
+    },
+  },
+  sla: {
+    en: {
+      heading: 'Service Level Agreements',
+      paragraphs: [
+        'SLAs are formal commitments about service availability, performance, or support. They define consequences for non-compliance and set customer expectations.',
+        'The resources below cover SLA design, SLOs, SLIs, penalties, and communication. Each guide helps you create agreements that are realistic and enforceable.',
+      ],
+    },
+    es: {
+      heading: 'Acuerdos de Nivel de Servicio',
+      paragraphs: [
+        'Los SLA son compromisos formales sobre disponibilidad, rendimiento o soporte de un servicio. Definen consecuencias por incumplimiento y establecen expectativas del cliente.',
+        'Los recursos a continuacion cubren diseno de SLA, SLOs, SLIs, penalizaciones y comunicacion. Cada guia te ayuda a crear acuerdos realistas y exigibles.',
+      ],
+    },
+  },
+  'prompt-engineering': {
+    en: {
+      heading: 'Prompt Engineering',
+      paragraphs: [
+        'Prompt engineering is the practice of designing inputs to LLMs to get useful, accurate, and safe outputs. It is central to building applications with language models.',
+        'The resources below cover zero-shot, few-shot, chain-of-thought, structured output, and prompt templates. Each guide helps you write prompts that produce reliable results.',
+      ],
+    },
+    es: {
+      heading: 'Prompt Engineering',
+      paragraphs: [
+        'El prompt engineering es la practica de disenar entradas para LLMs para obtener salidas utiles, precisas y seguras. Es central para construir aplicaciones con modelos de lenguaje.',
+        'Los recursos a continuacion cubren zero-shot, few-shot, chain-of-thought, salida estructurada y plantillas de prompt. Cada guia te ayuda a escribir prompts que produzcan resultados confiables.',
+      ],
+    },
+  },
+  'state-machine': {
+    en: {
+      heading: 'State Machines',
+      paragraphs: [
+        'A state machine models behavior as a set of states, events, and transitions. It makes complex logic explicit and easier to reason about.',
+        'The resources below cover finite state machines, statecharts, workflow design, and implementation patterns. Each guide helps you model behavior that is predictable and testable.',
+      ],
+    },
+    es: {
+      heading: 'Maquinas de Estado',
+      paragraphs: [
+        'Una maquina de estado modela el comportamiento como un conjunto de estados, eventos y transiciones. Hace que la logica compleja sea explicita y mas facil de razonar.',
+        'Los recursos a continuacion cubren finite state machines, statecharts, diseno de workflows y patrones de implementacion. Cada guia te ayuda a modelar comportamiento predecible y testeable.',
+      ],
+    },
+  },
 };
