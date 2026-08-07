@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/idempotent-load-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Trackea data origin y transformations end-to-end. Aprende column-level lineage, OpenLineage, Marquez, metadata injection, y impact analysis strategies."
   keywords:

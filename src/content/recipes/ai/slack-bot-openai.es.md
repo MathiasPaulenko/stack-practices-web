@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/ai-agents-tool-use
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye un bot de Slack con OpenAI GPT-4. Maneja menciones, mensajes directos, historial de conversaciones y llamadas a funciones para un chatbot listo para produccion."
   keywords:

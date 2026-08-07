@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/database-migrations-safely
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa event sourcing en una base de datos relacional. Event stores, proyecciones y patrones de snapshotting con ejemplos en PostgreSQL, MySQL y SQL Server."
   keywords:

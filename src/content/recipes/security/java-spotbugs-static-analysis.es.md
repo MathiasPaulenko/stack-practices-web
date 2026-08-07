@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-mypy-strict-type-checking
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Detecta bugs en código Java con SpotBugs. Configura Maven y Gradle, interpreta bug patterns, suprime false positives e integra con CI/CD."
   keywords:

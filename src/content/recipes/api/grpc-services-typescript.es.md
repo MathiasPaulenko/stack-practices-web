@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/api-versioning
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye servicios gRPC con Protocol Buffers en TypeScript. Implementa llamadas unarias y streaming bidireccional para APIs de alto rendimiento."
   keywords:

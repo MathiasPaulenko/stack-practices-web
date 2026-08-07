@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/import-csv-excel
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn to export data to CSV and Excel in Python, JavaScript, and Java. Covers pandas, xlsx, Apache POI, and streaming large datasets."
   keywords:

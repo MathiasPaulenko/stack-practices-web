@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/rust-tokio-async-runtime
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Escala apps Java con virtual threads de Project Loom. Usa Thread.ofVirtual, concurrencia estructurada y scoped values para millones de threads."
   keywords:

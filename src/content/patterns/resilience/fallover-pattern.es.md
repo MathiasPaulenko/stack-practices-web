@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/bulkhead-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Switcheá a standby en primary failure. Aprende active-passive, active-active, health monitoring, DNS fallover, database replication, y automated promotion."
   keywords:

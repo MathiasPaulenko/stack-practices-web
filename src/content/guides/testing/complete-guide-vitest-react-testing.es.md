@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-ai-agents-production
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá Vitest para testing en React: component tests con Testing Library, hook tests con renderHook, integration tests, mocking, snapshot testing y ejecución paralela."

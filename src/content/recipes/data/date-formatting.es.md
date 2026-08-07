@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/sort-array
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ejemplos prácticos de formateo de fechas en Python, JavaScript y Java. Aprende ISO 8601, manejo de timezones y formateo localizado."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/csp-communication
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estructuras de datos concurrentes para thread safety. Usa blocking queues, concurrent maps, copy-on-write lists y atomic counters en Java, Python y C++."
   keywords:

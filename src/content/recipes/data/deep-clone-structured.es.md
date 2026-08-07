@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/javascript-event-loop
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Compara estrategias de deep clone en JavaScript: JSON.parse, structuredClone, recursion manual y librerias para copiar objetos anidados con referencias circulares."
   keywords:

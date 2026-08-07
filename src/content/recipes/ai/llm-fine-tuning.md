@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/slack-bot-openai
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Fine-tune LLMs for code generation with LoRA and QLoRA. Use Hugging Face, custom datasets, and parameter-efficient training for domain-specific models."
   keywords:

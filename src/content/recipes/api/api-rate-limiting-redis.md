@@ -26,7 +26,7 @@ relatedResources:
   - /guides/webhook-security-guide
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-19"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement API rate limiting with Redis. Use token bucket and sliding window algorithms with burst handling, distributed coordination, and client feedback headers."
   keywords:

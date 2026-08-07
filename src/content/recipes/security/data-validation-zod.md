@@ -27,7 +27,7 @@ relatedResources:
   - /guides/webhook-security-guide
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Validate data with Zod schemas in TypeScript. Use type inference, custom refinements, and error formatting for reliable API and form validation."
   keywords:

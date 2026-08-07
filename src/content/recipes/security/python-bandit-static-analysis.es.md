@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/nodejs-eslint-security-plugin
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Escanea código Python en busca de vulnerabilidades de seguridad con Bandit. Configura ignore lists, integra con CI/CD, interpreta resultados y corrige findings comunes."
   keywords:

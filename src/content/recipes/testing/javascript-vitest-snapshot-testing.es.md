@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/javascript-msw-mock-service-worker
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa Vitest snapshot testing para detectar cambios no intencionados en React UI, con inline snapshots, flujos de actualización e integración con CI."
   keywords:

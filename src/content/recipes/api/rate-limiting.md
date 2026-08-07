@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/real-time-notifications
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Practical rate limiting examples in Python, JavaScript, and Java. Learn token bucket, sliding window, and fixed window algorithms for API throttling."
   keywords:

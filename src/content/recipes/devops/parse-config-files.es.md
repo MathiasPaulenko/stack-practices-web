@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/feature-flags
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Analiza y valida archivos de configuración YAML y JSON en Python, JavaScript y Java. Validación de esquemas, configs por entorno y gestión de secretos."
   keywords:

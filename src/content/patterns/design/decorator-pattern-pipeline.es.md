@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/solid-principles-typescript
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Decorator pattern para pipelines HTTP. Compone logging, reintentos y metricas alrededor de peticiones sin modificar logica central. Middleware limpio y testeable."
   keywords:

@@ -31,7 +31,7 @@ relatedResources:
   - /patterns/graphql-connection-pagination-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron GraphQL mutation validation: centraliza validacion de inputs con validadores y codigos de error. Validacion a nivel de campo en Apollo Server."
   keywords:

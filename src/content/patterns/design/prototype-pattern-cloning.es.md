@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/memento-pattern-state
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Prototype pattern para clonacion de objetos. Crea objetos copiando existentes con plantillas pre-configuradas para evitar inicializacion costosa y explosion de subclases."
   keywords:

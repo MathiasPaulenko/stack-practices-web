@@ -23,7 +23,7 @@ relatedResources:
   - /docs/vulnerability-management-process-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this security incident response template to define detection, classification, containment, eradication, recovery, communication, and post-incident review."
   keywords:

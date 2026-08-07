@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/real-time-notifications
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Crea documentación de API con OpenAPI y Swagger. Genera docs interactivos desde specs en Python, JavaScript y Java con ejemplos y lo que funciona."
   keywords:

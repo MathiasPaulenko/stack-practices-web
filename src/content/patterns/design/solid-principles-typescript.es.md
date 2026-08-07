@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/value-object-pattern
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Principios SOLID en TypeScript. Aplica Responsabilidad Unica, Abierto/Cerrado, Sustitucion de Liskov, Segregacion de Interfaces e Inversion de Dependencias."
   keywords:

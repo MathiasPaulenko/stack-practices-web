@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/python-spark-groupby-aggregation
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa Dask para operaciones paralelas de DataFrame en datasets mas grandes que la memoria. Lazy evaluation, particiones, computations custom y scheduling distribuido."
   keywords:

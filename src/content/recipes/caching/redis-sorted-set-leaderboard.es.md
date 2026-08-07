@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/redis-rate-limiting-token-bucket
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye leaderboards en tiempo real con Redis sorted sets. Actualiza puntajes, consulta rankings y obtiene top-N en O(log N) con ZADD y ZREVRANGE."
   keywords:

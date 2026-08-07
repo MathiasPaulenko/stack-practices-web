@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/css-custom-properties-design-tokens
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Master web accessibility with WCAG 2.2: ARIA roles, keyboard navigation, screen reader support, color contrast, focus management, and accessible forms for all users."

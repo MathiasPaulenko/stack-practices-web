@@ -29,7 +29,7 @@ relatedResources:
   - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this incident response plan template to define severity levels, roles, detection, containment, eradication, recovery, and post-incident review procedures."
   keywords:

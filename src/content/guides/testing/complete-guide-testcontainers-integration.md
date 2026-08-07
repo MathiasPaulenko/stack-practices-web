@@ -30,7 +30,7 @@ relatedResources:
   - /guides/postmortem-guide
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Master Testcontainers for integration testing: real databases, message brokers, and APIs in Docker containers. Covers Java, Python, and Node.js with test fixtures."

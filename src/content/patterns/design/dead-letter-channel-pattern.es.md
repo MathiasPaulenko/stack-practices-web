@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/publish-subscribe-pattern
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Rutar mensajes no procesables a una dead letter queue para inspeccion y replay. Evitar que mensajes venenosos bloqueen la cola principal indefinidamente."
   keywords:

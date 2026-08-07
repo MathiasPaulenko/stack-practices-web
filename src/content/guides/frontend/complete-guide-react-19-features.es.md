@@ -22,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-css-grid-and-flexbox
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "React 19. Cubre server components, use() hook, actions, useActionState, useOptimistic, useFormStatus, ref as prop, React Compiler."
   keywords:

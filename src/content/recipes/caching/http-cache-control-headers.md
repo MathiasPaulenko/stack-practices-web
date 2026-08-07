@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/cdn-cache-invalidation-strategies
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configure HTTP Cache-Control headers for APIs and static assets. Use ETag, Last-Modified, max-age, and stale-while-revalidate for CDN caching."
   keywords:

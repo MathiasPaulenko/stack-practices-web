@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/sql-cte-recursive-hierarchy
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Realiza agregaciones group-by a gran escala con PySpark. Usa window functions, UDFs, broadcast joins y tuning de particiones para procesamiento distribuido."
   keywords:

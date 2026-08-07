@@ -22,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-technical-debt-management
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Dominá code review: reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing y cómo construir una strong review culture en teams."

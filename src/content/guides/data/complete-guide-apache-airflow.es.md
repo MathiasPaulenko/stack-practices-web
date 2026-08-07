@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-data-quality
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Dominá Apache Airflow: DAGs, operadores, sensores, XCom, scheduling, backfilling, connections, variables y patrones de producción para orquestación de pipelines."

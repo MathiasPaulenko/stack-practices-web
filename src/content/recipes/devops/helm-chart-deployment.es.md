@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/cost-optimization
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Despliega aplicaciones en Kubernetes con Helm charts. Empaqueta, versiona y maneja releases con value overrides, funciones de template e infraestructura reproducible."
   keywords:

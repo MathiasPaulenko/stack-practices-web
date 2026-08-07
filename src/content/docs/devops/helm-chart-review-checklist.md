@@ -23,7 +23,7 @@ relatedResources:
   - /docs/terraform-state-management-policy
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this Helm chart review checklist to verify values, templates, security, resource limits, probes, RBAC, and chart best practices."
   keywords:

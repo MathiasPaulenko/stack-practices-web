@@ -32,7 +32,7 @@ relatedResources:
   - /guides/kubernetes-basics-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn software architecture fundamentals: monolith vs microservices, layered architecture, data flow patterns, CQRS, event-driven design, and technology selection."
   keywords:

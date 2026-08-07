@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/hexagonal-architecture
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende observer pattern para sistemas reactivos. Construye sistemas event-driven con pub/sub, event emitters y reactive streams en JavaScript, Java y Python."
   keywords:

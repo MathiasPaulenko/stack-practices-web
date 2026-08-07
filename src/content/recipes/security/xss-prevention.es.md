@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/csrf-protection
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende técnicas de prevención XSS. Escapa output, sanitiza HTML, usa headers CSP y valida input para proteger a los usuarios de ataques de cross-site scripting."
   keywords:

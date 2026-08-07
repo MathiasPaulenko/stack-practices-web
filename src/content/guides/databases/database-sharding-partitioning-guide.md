@@ -25,7 +25,7 @@ relatedResources:
   - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Database sharding and partitioning strategies: range, hash, and list sharding. Scale databases horizontally without downtime or hotspots."
   keywords:

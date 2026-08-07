@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/serverless-orchestration
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende optimización de cold starts para funciones serverless. Reduce latencia en Lambda, Azure Functions y Cloud Run usando concurrencia provisionada."
   keywords:

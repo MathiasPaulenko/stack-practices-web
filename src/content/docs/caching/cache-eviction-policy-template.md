@@ -23,7 +23,7 @@ relatedResources:
   - /docs/cdn-cache-rules-template
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Template for cache eviction policies: LRU, LFU, TTL, FIFO, random. Selection matrix, per-layer configuration, memory limits, monitoring rules, code examples."
   keywords:

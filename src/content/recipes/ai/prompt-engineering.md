@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/image-generation
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn prompt engineering for LLMs. Write useful prompts with role assignment, few-shot examples, chain-of-thought reasoning, and structured output formats."
   keywords:

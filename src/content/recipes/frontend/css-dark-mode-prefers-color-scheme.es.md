@@ -22,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-css-modern-layout
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa dark mode con CSS prefers-color-scheme media query y custom properties. Agrega toggle manual con localStorage y detección de preferencia del sistema."
   keywords:

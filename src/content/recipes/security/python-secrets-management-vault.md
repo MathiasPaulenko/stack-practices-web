@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Manage application secrets with HashiCorp Vault and Python. Store and retrieve secrets, use dynamic database credentials, and auto-renew leases with hvac."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ambassador pattern for resilient service calls. Use a local proxy to handle retries, circuit breaking, and monitoring when accessing remote microservices."
   keywords:

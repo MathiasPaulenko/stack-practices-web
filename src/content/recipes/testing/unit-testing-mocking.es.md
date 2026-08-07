@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-mock-external-apis-responses
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende unit testing con mocks y stubs. Aísla código bajo test reemplazando dependencias externas como bases de datos, APIs y sistemas de archivos para tests confiables."
   keywords:

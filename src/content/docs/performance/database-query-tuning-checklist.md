@@ -27,7 +27,7 @@ relatedResources:
   - /docs/core-web-vitals-audit-checklist
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Database query tuning checklist: EXPLAIN analysis, index strategy, N+1 detection, join optimization, pagination, connection pooling, slow query log, PostgreSQL MySQL."
   keywords:

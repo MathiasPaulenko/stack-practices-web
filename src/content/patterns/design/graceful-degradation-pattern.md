@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/shed-load-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-04"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Degrade functionality instead of failing when dependencies go down. Serve partial results, cached data, or fallback features to keep users running."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá Content Security Policy: CSP directives, nonces, hashes, reporting, strict-dynamic y patrones de despliegue en producción."

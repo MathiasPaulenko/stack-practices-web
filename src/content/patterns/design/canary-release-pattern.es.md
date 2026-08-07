@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-04"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Rutear un porcentaje pequeno de trafico a la nueva version mientras el resto se queda en estable. Monitorear salud y aumentar gradualmente o revertir segun resultados."
   keywords:

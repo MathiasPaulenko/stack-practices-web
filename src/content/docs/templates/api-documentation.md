@@ -24,7 +24,7 @@ relatedResources:
   - /docs/api-error-response-template
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this API documentation template to document endpoints, request/response schemas, error codes, and authentication for REST and GraphQL APIs."
   keywords:

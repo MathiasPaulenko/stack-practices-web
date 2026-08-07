@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement Redis pub/sub messaging in Python. Use pattern subscriptions, message serialization, connection pooling, and broadcast patterns for microservices."
   keywords:

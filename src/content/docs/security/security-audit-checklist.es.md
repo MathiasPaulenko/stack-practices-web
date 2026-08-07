@@ -30,7 +30,7 @@ relatedResources:
   - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá este checklist de auditoría de seguridad para verificar network security, application security, data protection, access control, monitoring y compliance."
   keywords:

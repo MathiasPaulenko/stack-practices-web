@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron refresh-ahead cache: refresca entradas antes de que el TTL expire. Elimina cache misses en hot keys con Python, Java y TypeScript."
   keywords:

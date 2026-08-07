@@ -34,7 +34,7 @@ relatedResources:
   - /recipes/serverless-event-driven-sqs-lambda
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Package Python dependencies for AWS Lambda with Lambda Layers, Docker builds for native extensions, and SAM or Serverless Framework deployment."
   keywords:

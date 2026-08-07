@@ -37,7 +37,7 @@ relatedResources:
   - /patterns/timeout-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Circuit Breaker en Python, Java y JavaScript. Patrón arquitectural para microservicios resilientes y tolerancia a fallos."
   keywords:

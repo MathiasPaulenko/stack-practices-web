@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/llm-router-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Get structured JSON from OpenAI with function calling and Pydantic schemas. Validate responses, handle refusals, and retry on parse errors."
   keywords:

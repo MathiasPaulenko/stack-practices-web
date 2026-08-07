@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/serverless-event-sourcing-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Design a DynamoDB single-table schema with composite keys, GSI patterns, and access patterns for serverless apps using Python and boto3."
   keywords:

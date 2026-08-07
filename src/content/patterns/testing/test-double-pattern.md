@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Replace dependencies with test doubles — stubs, spies, fakes, mocks, and dummies. Learn when to use each type with Python, JavaScript, and Java examples."
   keywords:

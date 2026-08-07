@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/aws-lambda-python-dependencies
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Manage database connections in serverless functions using external poolers like PgBouncer. Avoid connection exhaustion from concurrent Lambda invocations."
   keywords:

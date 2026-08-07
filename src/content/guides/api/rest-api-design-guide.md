@@ -46,7 +46,7 @@ relatedResources:
   - /guides/api-security-checklist-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn REST API design best practices: URL structure, HTTP methods, status codes, versioning, pagination, and error handling."
   keywords:

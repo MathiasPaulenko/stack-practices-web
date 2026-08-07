@@ -36,7 +36,7 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn database design principles: normalization forms, primary and foreign keys, indexing strategies, and relationship modeling for scalable applications."
   keywords:

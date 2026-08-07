@@ -30,7 +30,7 @@ relatedResources:
   - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende fundamentos de Docker: escribe Dockerfiles, construye imágenes, ejecuta contenedores y orquesta servicios con Docker Compose."
   keywords:

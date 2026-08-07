@@ -31,7 +31,7 @@ relatedResources:
   - /guides/complete-guide-rabbitmq-architecture
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Run Kafka in production. Covers partitions, replication, consumer groups, monitoring, performance tuning, and operational best practices."
   keywords:

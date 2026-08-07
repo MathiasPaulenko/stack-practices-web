@@ -30,7 +30,7 @@ relatedResources:
   - /docs/slo-document-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de monitoreo y alertas: métodos RED/USE, métricas, logs, traces, diseño de alertas. Construye sistemas de observabilidad que reducen MTTR y previenen fatiga."
   keywords:

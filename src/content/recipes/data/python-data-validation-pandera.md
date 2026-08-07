@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/python-dbt-model-transformations
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Validate pandas and Polars DataFrame schemas with Pandera. Enforce column types, constraints, custom checks, hypothesis testing, and schema inheritance in pipelines."
   keywords:

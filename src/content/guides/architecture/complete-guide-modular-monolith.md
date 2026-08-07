@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-event-sourcing-cqrs
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Master modular monolith architecture: module boundaries, shared kernel, dependency rules, communication patterns, and incremental migration to microservices."

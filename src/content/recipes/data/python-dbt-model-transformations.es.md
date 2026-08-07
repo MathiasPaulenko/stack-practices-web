@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/python-data-validation-pandera
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Transforma datos en el warehouse con dbt. Define SQL models, ejecuta schema tests, usa materializations, macros e incremental loads para analytics confiables."
   keywords:

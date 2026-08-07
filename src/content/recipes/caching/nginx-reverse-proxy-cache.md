@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/python-httpx-cache-responses
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cache HTTP responses with Nginx reverse proxy. Configure cache zones, TTL by response code, cache keys, bypass, and purge strategies."
   keywords:

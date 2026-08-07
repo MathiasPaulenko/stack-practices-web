@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/llm-fallback-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Anade guardrails a aplicaciones LLM con validacion de entrada, filtrado de salida y clasificadores. Previene prompt injection, toxicidad y fuga de datos sensibles."
   keywords:

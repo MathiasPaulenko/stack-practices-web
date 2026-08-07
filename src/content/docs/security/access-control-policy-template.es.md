@@ -30,7 +30,7 @@ relatedResources:
   - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de política de control de acceso para definir autenticación, autorización, RBAC, MFA, contraseñas, sesiones y revisiones."
   keywords:

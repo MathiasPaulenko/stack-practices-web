@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Verify consumer-producer API agreements with contract testing. Learn Pact consumer-driven contracts, provider verification, and CI/CD integration for microservices."
   keywords:

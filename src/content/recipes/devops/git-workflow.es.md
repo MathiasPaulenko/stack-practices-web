@@ -28,7 +28,7 @@ relatedResources:
   - /docs/readme-template
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende un flujo de trabajo Git práctico para equipos. Ramas de feature, pull requests, rebase y mantener un historial de commits limpio."
   keywords:

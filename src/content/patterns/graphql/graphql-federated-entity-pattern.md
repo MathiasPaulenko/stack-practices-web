@@ -32,7 +32,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "GraphQL federated entity pattern: share types across subgraphs with @key, @external, and @extends. Resolve entity fields from multiple services in Apollo Federation."
   keywords:

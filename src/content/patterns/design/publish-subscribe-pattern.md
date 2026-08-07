@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/reactive-streams-pattern
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Broadcast events to multiple independent subscribers via a topic. Publishers send without knowing subscribers, enabling loose coupling between producers and consumers."
   keywords:

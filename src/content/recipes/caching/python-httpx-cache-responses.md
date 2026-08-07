@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/nodejs-redis-cache-invalidation
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cache HTTP responses in Python with httpx and CacheControl. Handle ETags, conditional requests, cache headers, and custom cache backends."
   keywords:

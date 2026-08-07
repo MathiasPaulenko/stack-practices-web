@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-llm-cost-optimization
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cachea embeddings LLM para reducir costos API. Almacena embeddings por hash de contenido, sirve desde cache en repetidos e invalida al cambiar de modelo."
   keywords:

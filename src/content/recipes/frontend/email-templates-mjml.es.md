@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/server-side-rendering
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-19"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables en vivo y CSS inline para Gmail, Outlook y Apple Mail."
   keywords:

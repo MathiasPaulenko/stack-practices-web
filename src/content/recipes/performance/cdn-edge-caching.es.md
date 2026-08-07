@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/lazy-loading
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa CDN edge caching con reglas de caché, invalidación y geo-optimización. Configura CloudFront, Cloudflare y Fastly para contenido estático y en vivo."
   keywords:

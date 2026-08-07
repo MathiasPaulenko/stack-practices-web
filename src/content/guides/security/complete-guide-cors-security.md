@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-web-security-headers
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Master CORS security: same-origin policy, CORS headers, preflight requests, credential handling, common misconfigurations, and production security patterns for web APIs."

@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Mitigar riesgos OWASP Top 10 2025 con codigo. Cubre broken access control, crypto failures, injection, SSRF, insecure design, misconfiguration."
   keywords:

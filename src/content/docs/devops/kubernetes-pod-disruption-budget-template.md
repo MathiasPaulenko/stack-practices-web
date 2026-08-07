@@ -21,7 +21,7 @@ relatedResources:
   - /docs/terraform-state-management-policy
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this Kubernetes Pod Disruption Budget template to control voluntary disruptions during node drains, cluster upgrades, and maintenance windows."
   keywords:

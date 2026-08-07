@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use pytest fixtures and parametrize to write data-driven tests with reusable setup, teardown, and deterministic inputs across Python projects."
   keywords:

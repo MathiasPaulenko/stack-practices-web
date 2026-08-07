@@ -33,7 +33,7 @@ relatedResources:
   - /recipes/graphql-subscriptions-realtime
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build a GraphQL API with Apollo Server and TypeScript. Use DataLoader for N+1 queries, implement authentication, and structure resolvers cleanly."
   keywords:

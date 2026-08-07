@@ -31,7 +31,7 @@ relatedResources:
   - /guides/message-queue-guide
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build event-driven systems with Apache Kafka. Implement producers, consumers, consumer groups, and exactly-once semantics for reliable asynchronous messaging."
   keywords:

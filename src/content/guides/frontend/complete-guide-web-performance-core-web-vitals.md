@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/web-performance
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Optimize Core Web Vitals. Covers LCP, INP, CLS measurement, image optimization, font loading, render-blocking, lazy loading, caching, monitoring."
   keywords:

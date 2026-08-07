@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-data-quality
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Master dbt for data transformations: models, tests, macros, materializations, seeds, snapshots, Jinja templating, and production patterns for analytics engineering."

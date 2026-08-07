@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Validate GraphQL input types server-side with Zod schemas. Sanitize strings, enforce constraints, and return structured validation errors."
   keywords:

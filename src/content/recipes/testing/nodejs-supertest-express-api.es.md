@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/integration-testing
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Testea endpoints REST de Express.js end-to-end con supertest. Verifica códigos de estado, bodies JSON, headers, auth y respuestas de error en tests Node.js."
   keywords:

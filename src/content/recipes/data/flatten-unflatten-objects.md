@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/batch-processing-patterns
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn flatten and unflatten operations in Python, JavaScript, and Java. Covers dot-notation, deep nesting, array handling, and round-trip conversion."
   keywords:

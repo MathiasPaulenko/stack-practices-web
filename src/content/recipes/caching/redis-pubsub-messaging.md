@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/redis-sorted-set-leaderboard
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement Redis pub/sub for cross-process messaging. Broadcast events, handle subscriptions, and build real-time notification systems."
   keywords:

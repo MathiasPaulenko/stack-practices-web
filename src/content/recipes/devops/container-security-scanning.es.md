@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/container-security
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-19"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Escanea imagenes Docker para vulnerabilidades con Trivy. Integra escaneo de seguridad en CI/CD y aplica politicas de imagen antes del deployment a produccion."
   keywords:

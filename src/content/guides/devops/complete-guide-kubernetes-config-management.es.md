@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá Kubernetes config management: ConfigMaps, Secrets, External Secrets Operator, sealed secrets, env injection, volume mounts y patrones de config rotation."

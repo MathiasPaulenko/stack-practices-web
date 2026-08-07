@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/suspense-boundary-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Shippeá interactivity solo donde se necesita con islands architecture. Aprende Astro islands, partial hydration, React islands, client directives, y performance gains."
   keywords:

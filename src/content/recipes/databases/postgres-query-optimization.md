@@ -33,7 +33,7 @@ relatedResources:
   - /recipes/graphql-n-1-query-detection
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Optimize PostgreSQL queries with EXPLAIN, indexing strategies, partial indexes, and query rewriting to reduce execution time from seconds to milliseconds."
   keywords:

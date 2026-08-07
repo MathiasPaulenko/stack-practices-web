@@ -41,7 +41,7 @@ relatedResources:
   - /guides/webhook-security-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Checklist de seguridad de APIs: autenticación, autorización, rate limiting, encriptación, validación de entrada, logging. Asegura APIs REST y GraphQL paso a paso."
   keywords:

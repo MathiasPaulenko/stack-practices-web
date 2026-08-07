@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/memento-pattern-state
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Mediator pattern for loose component coupling. Centralize communication between UI components to eliminate explicit peer references and simplify dependencies."
   keywords:

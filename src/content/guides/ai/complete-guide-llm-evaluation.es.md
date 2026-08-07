@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Evaluar apps LLM. Cubre RAGAS, LLM-as-judge, eval humana, A/B testing, hallucination detection, toxicity, regression testing."
   keywords:

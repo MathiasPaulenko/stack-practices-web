@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/health-check-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Tracea requests across microservices con correlation IDs. Aprende HTTP header propagation, message queue tracing, e integración con structured logging."
   keywords:

@@ -34,7 +34,7 @@ relatedResources:
   - /guides/complete-guide-vitest-react-testing
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de Desarrollo Guiado por Pruebas: ciclo Red-Green-Refactor con ejemplos prácticos. Aprende TDD en Python, JavaScript y Java paso a paso."
   keywords:

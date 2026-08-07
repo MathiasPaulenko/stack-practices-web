@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-19"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement Server-Sent Events in Node.js with Express. Real-time server-to-client push with connection management, event types, reconnection and backpressure handling."
   keywords:

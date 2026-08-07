@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/bash-scripting-automation
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura pre-commit hooks con husky, lint-staged y pre-commit. Enforce linting, formatting y tests antes de cada commit con ejemplos."
   keywords:

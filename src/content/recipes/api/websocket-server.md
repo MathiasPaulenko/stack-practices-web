@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/real-time-notifications
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn WebSocket server implementation in Python, JavaScript, and Java. Covers bidirectional messaging, connection management, and broadcasting."
   keywords:

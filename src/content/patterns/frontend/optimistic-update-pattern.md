@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/state-machine-ui-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Update UI immediately and reconcile on server response in React. Learn rollback on error, conflict resolution, React Query, and optimistic transactions."
   keywords:

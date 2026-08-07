@@ -27,7 +27,7 @@ relatedResources:
   - /docs/security-review-checklist-for-prs
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Secrets rotation runbook: inventory, schedule, zero-downtime rotation, dual-key periods, AWS Secrets Manager, HashiCorp Vault, emergency rotation."
   keywords:

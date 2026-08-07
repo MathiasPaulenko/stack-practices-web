@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/visitor-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Iterator Pattern in Python, Java, and JavaScript. Behavioral design pattern for sequential traversal of collections."
   keywords:

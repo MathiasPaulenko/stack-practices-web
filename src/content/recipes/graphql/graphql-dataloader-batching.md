@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/graphql-subscriptions-realtime
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Solve GraphQL N+1 queries with DataLoader. Batch database calls across resolver fields and cache results within a single request lifecycle."
   keywords:

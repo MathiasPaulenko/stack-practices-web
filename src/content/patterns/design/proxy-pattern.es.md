@@ -33,7 +33,7 @@ relatedResources:
   - /patterns/intercepting-filter-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Proxy con ejemplos prácticos en Python, Java y JavaScript. Patrón estructural para control de acceso, caching y carga perezosa."
   keywords:

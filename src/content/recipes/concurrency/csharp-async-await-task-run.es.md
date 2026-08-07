@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/go-goroutines-channels-patterns
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye pipelines async en C# con async/await, Task.Run, Task.WhenAll, CancellationTokenSource, Channels y Parallel.ForEachAsync para I/O y CPU concurrente."
   keywords:

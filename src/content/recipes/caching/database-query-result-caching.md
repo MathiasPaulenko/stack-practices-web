@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/python-celery-task-queue
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cache database query results in Redis with Python. Use cache-aside pattern, set TTL, invalidate on writes, and handle cache stampedes."
   keywords:

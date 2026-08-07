@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/slack-bot-openai
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Crea un chatbot de IA con la OpenAI Assistants API. Maneja conversaciones, function calling, recuperación de archivos y gestión de threads con ejemplos."
   keywords:

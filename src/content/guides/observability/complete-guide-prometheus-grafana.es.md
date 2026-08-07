@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/real-user-monitoring
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Dominá Prometheus y Grafana: metric types, PromQL queries, service instrumentation, alerting rules, dashboards y deployment en producción para monitoring."

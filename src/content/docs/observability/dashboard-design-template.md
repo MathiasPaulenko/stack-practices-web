@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-structured-logging
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this dashboard design template to create observability dashboards with SLOs, error budgets, service health panels, and contextual on-call information."
   keywords:

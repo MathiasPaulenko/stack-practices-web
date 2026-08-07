@@ -22,7 +22,7 @@ relatedResources:
   - /docs/cdn-cache-rules-template
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cache strategy decision template: no-cache, cache-aside, read-through, write-through, write-back, refresh-ahead with decision matrix and TTL rules."
   keywords:

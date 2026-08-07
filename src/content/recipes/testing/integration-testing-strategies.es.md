@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/java-wiremock-stub-external
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias de testing de integración para sistemas confiables. Verifica interacciones con test containers, contratos de API y consumer-driven contract testing."
   keywords:

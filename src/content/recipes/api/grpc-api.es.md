@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/rest-api-design
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa una API gRPC con Protocol Buffers. Construye servicios de alto rendimiento en Python, Node.js y Java con streaming e interceptores."
   keywords:

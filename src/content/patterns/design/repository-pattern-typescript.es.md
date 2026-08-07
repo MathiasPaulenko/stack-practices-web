@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/mvc-pattern-frontend
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Repository pattern en TypeScript con generics. Desacopla acceso a datos de logica de dominio con repositorios type-safe, interfaces e inyeccion de dependencias limpia."
   keywords:

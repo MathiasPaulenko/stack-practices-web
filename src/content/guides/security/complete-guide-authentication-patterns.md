@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/serverless-api-gateway-lambda-authorizer
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement auth in production. Covers JWT, OAuth2, session-based auth, passkeys, MFA, refresh tokens, RBAC, ABAC, SSO, OpenID Connect."
   keywords:

@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/visitor-pattern-operations
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Chain of Responsibility para pipelines de middleware. Pasa peticiones a traves de una cadena de handlers donde cada uno decide procesar o delegar al siguiente."
   keywords:

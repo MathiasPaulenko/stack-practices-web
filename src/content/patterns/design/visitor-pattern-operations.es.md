@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/iterator-pattern-collections
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Visitor pattern para operaciones extensibles. Separa algoritmos de los objetos sobre los que operan para agregar nuevas operaciones sin modificar clases existentes."
   keywords:

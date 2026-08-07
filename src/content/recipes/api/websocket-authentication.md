@@ -32,7 +32,7 @@ relatedResources:
   - /guides/webhook-security-guide
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "WebSocket authentication and security patterns. Validate tokens on connection, implement room-based authorization, and prevent unauthorized real-time access."
   keywords:

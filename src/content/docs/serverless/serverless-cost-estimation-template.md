@@ -22,7 +22,7 @@ relatedResources:
   - /docs/serverless-security-checklist
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Serverless cost estimation template: invocation pricing, GB-second calc, data transfer, API Gateway, hidden costs, optimization strategies, budget."
   keywords:

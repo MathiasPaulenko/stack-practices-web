@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-04"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Roll out changes progressively in rings of increasing size. Start with a small group, verify health, then expand to larger rings before full deployment."
   keywords:

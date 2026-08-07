@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/github-actions-matrix-strategy
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa Docker Compose override files para configs específicas por entorno. Maneja dev, test, staging, production con profiles, secrets y multi-file composition."
   keywords:

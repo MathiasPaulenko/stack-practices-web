@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Serverless throttling: handle backpressure with SQS, token buckets, and Lambda concurrency limits. Protect downstream services from burst traffic."
   keywords:

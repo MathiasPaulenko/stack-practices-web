@@ -26,7 +26,7 @@ relatedResources:
   - /guides/database-sharding-partitioning-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "NoSQL database selection guide: compare MongoDB, DynamoDB, Cassandra, Redis. Choose the right document, key-value, or wide-column store for your workload."
   keywords:

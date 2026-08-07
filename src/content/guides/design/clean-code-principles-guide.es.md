@@ -25,7 +25,7 @@ relatedResources:
   - /guides/test-driven-development-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de código limpio: nombres significativos, funciones cortas, DRY, comentarios, manejo de errores. Escribe software mantenible."
   keywords:

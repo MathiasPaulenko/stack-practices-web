@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn event-driven serverless architecture. Design loosely coupled systems with Lambda, SQS, EventBridge, and webhook triggers for growth-ready async processing."
   keywords:

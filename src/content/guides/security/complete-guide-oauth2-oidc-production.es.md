@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 24
 seo:
   metaDescription: "Dominá OAuth2 y OIDC para producción: auth code flow con PKCE, token validation, refresh tokens, scopes, JWT verification y security best practices."

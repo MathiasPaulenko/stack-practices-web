@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Isolate integration tests from external APIs with mock servers. Learn WireMock, nock, MSW, and Mountebank for stubbing HTTP responses in test environments."
   keywords:

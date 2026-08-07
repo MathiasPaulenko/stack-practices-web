@@ -21,7 +21,7 @@ relatedResources:
   - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de reporte de cobertura para trackear cobertura por módulo, feature y critical path con análisis de tendencias, gaps y action items."
   keywords:

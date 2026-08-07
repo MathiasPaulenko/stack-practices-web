@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Characterize legacy code with golden master testing. Learn to capture output baselines, compare against changes, and refactor safely with characterization tests."
   keywords:

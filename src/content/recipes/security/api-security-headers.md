@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/encryption-at-rest
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn API security headers. Configure HSTS, CSP, X-Frame-Options, and CORS policies to protect web apps from clickjacking, XSS, and downgrade attacks."
   keywords:

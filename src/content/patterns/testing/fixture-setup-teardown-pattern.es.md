@@ -19,7 +19,7 @@ relatedResources:
   - /patterns/snapshot-testing-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Crea contexto de test reutilizable con fixtures de setup/teardown. Aprende beforeEach, factory functions, fixture objects y cleanup en Python, JS y Java."
   keywords:

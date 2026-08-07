@@ -34,7 +34,7 @@ relatedResources:
   - /recipes/graphql-federation-gateway-setup
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "GraphQL federation en produccion. Aprende composicion de subgrafos, deployment de gateway, resolucion de entidades, coordinacion de esquemas y observabilidad."
   keywords:

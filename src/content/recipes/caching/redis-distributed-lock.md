@@ -25,7 +25,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement distributed locks with Redis using SET NX and Redlock. Ensure mutual exclusion across processes with TTL-based locks and safe release."
   keywords:

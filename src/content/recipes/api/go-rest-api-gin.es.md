@@ -30,7 +30,7 @@ relatedResources:
   - /recipes/data-validation-zod
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye APIs REST production-ready en Go con Gin. Implementa middleware custom para logging, auth, validacion y manejo de errores en servicios de alto rendimiento."
   keywords:

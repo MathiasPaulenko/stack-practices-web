@@ -22,7 +22,7 @@ relatedResources:
   - /guides/on-call-incident-response-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Estrategia de documentación técnica: docs as code, versionado, flujos de review, estructura. Mantén documentación de ingeniería precisa, descubrible y mantenible."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /docs/etl-job-runbook-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this alert runbook template to standardize incident response with triage, diagnosis, mitigation, resolution steps, escalation paths, and contacts."
   keywords:

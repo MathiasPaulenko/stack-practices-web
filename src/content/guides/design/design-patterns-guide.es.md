@@ -31,7 +31,7 @@ relatedResources:
   - /guides/solid-principles-guide
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende cuándo y cómo usar design patterns: Singleton, Factory, Observer, Strategy, Repository y más. Ejemplos prácticos con criterios de selección."
   keywords:

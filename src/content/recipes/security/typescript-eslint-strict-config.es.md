@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/java-spotbugs-static-analysis
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura typescript-eslint estricto para producción. Habilita type-aware linting, maneja reglas comunes, overrides custom e integra con pipelines CI/CD."
   keywords:

@@ -38,7 +38,7 @@ relatedResources:
   - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Master Redis caching: cache-aside, read-through, write-through, write-behind, refresh-ahead. Covers eviction policies, TTL tuning, serialization, and production ops."
   keywords:

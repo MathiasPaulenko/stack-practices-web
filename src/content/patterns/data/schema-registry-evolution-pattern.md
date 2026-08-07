@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/batch-to-streaming-bridge-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Manage schema versions for streaming pipelines with a schema registry. Learn Avro, backward and forward compatibility, evolution rules, and consumer migration."
   keywords:

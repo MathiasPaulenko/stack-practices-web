@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/circuit-breaker-pattern-recipe
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende saga pattern para transacciones distribuidas. Implementa orquestación y coreografía para mantener consistencia entre microservicios sin 2PC."
   keywords:

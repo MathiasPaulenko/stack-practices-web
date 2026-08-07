@@ -38,7 +38,7 @@ relatedResources:
   - /docs/technical-spec-template
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Database schema documentation template with entity definitions, relationship diagrams, field constraints, indexing strategy, and migration tracking for engineering teams."
   keywords:

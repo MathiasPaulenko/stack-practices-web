@@ -19,7 +19,7 @@ relatedResources:
   - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn to build real-time APIs with WebSockets on serverless. Implement bidirectional communication with API Gateway, Lambda, DynamoDB, and connection management."
   keywords:

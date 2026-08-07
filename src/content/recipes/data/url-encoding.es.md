@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/flatten-unflatten-objects
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ejemplos prácticos de URL encoding en Python, JavaScript y Java. Aprende percent-encoding, query strings y parsing de URIs."
   keywords:

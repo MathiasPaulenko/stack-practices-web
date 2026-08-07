@@ -42,7 +42,7 @@ relatedResources:
   - /guides/design-patterns-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Singleton con ejemplos prácticos en Python, Java y JavaScript. Patrón creacional para el control de instancias únicas."
   keywords:

@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/rust-tokio-async-runtime
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build concurrent systems in Go with goroutines and channels. Use select, worker pools, fan-out/fan-in, pipelines, context cancellation, and rate limiting patterns."
   keywords:

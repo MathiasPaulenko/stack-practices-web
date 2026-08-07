@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/observer-pattern-recipe
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn CQRS to scale read and write workloads. Separate read and write models for optimized queries, event sourcing, and independent scaling of paths."
   keywords:

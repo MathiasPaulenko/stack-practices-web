@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Master Sentry for production error tracking: SDK integration in Python, Node.js, Java, release tracking, source maps, performance monitoring, and alerting rules."

@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-database-sharding
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Choose serverless databases: DynamoDB, Aurora Serverless, FaunaDB, PlanetScale. Covers pricing, scaling, query patterns, and migration strategies."
   keywords:

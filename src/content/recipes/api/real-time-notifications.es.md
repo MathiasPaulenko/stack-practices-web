@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/nodejs-websocket-realtime
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye notificaciones en tiempo real con WebSockets y Redis pub/sub. Broadcasting, gestión de rooms y estrategias de escalado en Python, JavaScript y Java."
   keywords:

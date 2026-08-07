@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/schema-evolution
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Compara UUID v4, v7, ULID y nanoid para identificadores unicos. Diferentes tradeoffs en aleatoriedad, ordenamiento, rendimiento y localidad de indices."
   keywords:

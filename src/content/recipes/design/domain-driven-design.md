@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/hexagonal-architecture
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn Domain-Driven Design for complex business domains. Use bounded contexts, aggregates, entities, value objects, and domain events to manage application complexity."
   keywords:

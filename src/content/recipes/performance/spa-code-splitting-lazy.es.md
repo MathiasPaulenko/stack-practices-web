@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/web-performance
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Mejora rendimiento de SPAs con code splitting y lazy loading. Divide bundles a nivel de ruta y componente usando React.lazy e imports en vivo para cargas mas rapidas."
   keywords:

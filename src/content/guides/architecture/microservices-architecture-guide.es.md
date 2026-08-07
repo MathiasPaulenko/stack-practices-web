@@ -40,7 +40,7 @@ relatedResources:
   - /guides/cap-theorem-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de arquitectura de microservicios: cuándo usarla, trade-offs, estrategias de descomposición y patrones comunes. Elige la arquitectura correcta para tu escala."
   keywords:

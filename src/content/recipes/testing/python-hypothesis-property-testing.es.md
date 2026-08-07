@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/implement-property-based-testing
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa Hypothesis para property-based testing en Python. Genera cientos de casos de test automáticamente con strategies, encontrando edge cases que missarías manualmente."
   keywords:

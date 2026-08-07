@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-react-state-management
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Manage reactive state in Svelte with writable, readable, and derived stores. Build custom stores with contract-based updates and auto-subscriptions in components."
   keywords:

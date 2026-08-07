@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Consume Kafka topics in Spring Boot with @KafkaListener. Use concurrent consumers, error handlers, DLQ, batch listeners, and manual ack for reliable processing."
   keywords:

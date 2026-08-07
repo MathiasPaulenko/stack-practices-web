@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/chaos-engineering
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Test across multiple OS and language versions with GitHub Actions matrix strategy. Use include, exclude, dynamic matrices, and fail-fast for detailed CI."
   keywords:

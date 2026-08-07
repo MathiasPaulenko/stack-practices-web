@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende generación de imágenes con IA usando DALL-E, Stable Diffusion y Midjourney. Crea, edita y optimiza imágenes con prompt engineering, lotes y moderación."
   keywords:

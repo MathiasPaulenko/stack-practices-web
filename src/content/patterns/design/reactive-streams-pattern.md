@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/thread-pool-pattern
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Process async data streams with backpressure. Subscribers request N items at a time, preventing fast producers from overwhelming slow consumers."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-sentry-error-tracking
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá structured logging: JSON logs, correlation IDs, log levels y aggregation. Cubre Python structlog, Node.js pino, Java SLF4J, stacks ELK y Loki."

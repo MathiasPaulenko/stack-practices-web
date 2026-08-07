@@ -30,7 +30,7 @@ relatedResources:
   - /docs/runbook-template
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Production-ready README template for documenting software projects with installation, usage, contributing, and license sections."
   keywords:

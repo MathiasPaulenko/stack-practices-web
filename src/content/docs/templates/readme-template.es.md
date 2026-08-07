@@ -30,7 +30,7 @@ relatedResources:
   - /docs/runbook-template
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla README lista para producción para documentar proyectos de software con secciones de instalación, uso, contribución y licencia."
   keywords:

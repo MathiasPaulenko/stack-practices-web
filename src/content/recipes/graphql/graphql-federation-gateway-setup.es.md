@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/graphql-federated-entity-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura un gateway de GraphQL Federation con Apollo. Compone subgrafos en un supergrafo, comparte entidades y enruta consultas entre servicios."
   keywords:

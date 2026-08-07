@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/real-time-websockets
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende jobs programados serverless. Reemplaza cron con Lambda, Cloud Scheduler o Azure Timer Triggers para backups automatizados, reportes y tareas de mantenimiento."
   keywords:

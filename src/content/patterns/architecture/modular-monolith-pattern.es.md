@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-modular-monolith
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye un modular monolith con strict internal module boundaries. Aprende module isolation, shared kernel, inter-module communication, y migration a microservices."
   keywords:

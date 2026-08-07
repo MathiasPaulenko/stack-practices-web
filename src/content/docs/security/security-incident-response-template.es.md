@@ -23,7 +23,7 @@ relatedResources:
   - /docs/vulnerability-management-process-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de respuesta a incidentes de seguridad para definir detección, clasificación, contención, erradicación, recuperación, comunicación y revisión."
   keywords:

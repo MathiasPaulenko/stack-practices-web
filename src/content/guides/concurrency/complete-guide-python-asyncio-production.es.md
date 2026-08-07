@@ -37,7 +37,7 @@ relatedResources:
   - /guides/complete-guide-java-concurrency
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ejecutar Python asyncio en produccion. Cubre event loops, tasks, debugging, cancellation, timeouts, backpressure y patrones async."
   keywords:

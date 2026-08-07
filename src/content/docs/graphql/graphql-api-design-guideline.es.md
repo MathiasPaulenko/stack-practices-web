@@ -25,7 +25,7 @@ relatedResources:
   - /docs/graphql-federation-onboarding-template
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Internal guidelines for GraphQL API design: schema structure, naming, mutations, errors, pagination, auth, rate limiting, versioning, federation rules."
   keywords:

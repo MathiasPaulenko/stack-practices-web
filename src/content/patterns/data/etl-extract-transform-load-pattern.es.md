@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/schema-registry-evolution-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye ETL pipelines con extract, transform, y load stages. Aprende staging tables, incremental extraction, idempotent loads, orchestration, y scheduling."
   keywords:

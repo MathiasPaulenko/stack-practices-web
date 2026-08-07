@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/event-sourcing-serverless
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende orquestación serverless con Step Functions y máquinas de estados. Coordina workflows, gestiona estado, reintentos y errores entre funciones distribuidas."
   keywords:

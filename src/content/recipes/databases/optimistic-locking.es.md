@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/database-migrations
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa optimistic locking con versionado para prevenir actualizaciones perdidas. Usa versionado de filas en PostgreSQL, MySQL y JPA/Hibernate con ejemplos."
   keywords:

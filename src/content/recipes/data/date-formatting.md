@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/sort-array
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Practical date formatting examples in Python, JavaScript, and Java. Learn ISO 8601, timezone handling, and locale formatting."
   keywords:

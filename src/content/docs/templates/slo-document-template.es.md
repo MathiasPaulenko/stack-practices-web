@@ -27,7 +27,7 @@ relatedResources:
   - /docs/disaster-recovery-plan-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de documento SLO: define targets de confiabilidad, presupuestos de error y políticas de escalación para servicios. Construye cultura SRE."
   keywords:

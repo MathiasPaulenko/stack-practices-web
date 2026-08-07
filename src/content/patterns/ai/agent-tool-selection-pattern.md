@@ -21,7 +21,7 @@ relatedResources:
   - /patterns/human-in-the-loop-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Dynamically select tools for LLM agents based on task context. Reduce token usage and improve agent decision quality by narrowing available tools per step."
   keywords:

@@ -33,7 +33,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de diseno de esquemas GraphQL. Aprende diseno de tipos, conexiones, mutaciones, manejo de errores, deprecation y schema-first vs code-first."
   keywords:

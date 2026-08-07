@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/multi-tenant-data-isolation-pattern
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Live database credentials with HashiCorp Vault. Generate short-lived passwords, eliminate hardcoded secrets, and audit all database access with Vault."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/java-spring-cache-annotations
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura Caffeine cache en Java con eviction por tamano, tiempo y peso. Usa integracion con Spring Boot, registra estadisticas y ajusta el rendimiento."
   keywords:

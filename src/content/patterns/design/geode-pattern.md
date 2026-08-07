@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/sharding-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-04"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Distribute data across nodes with partitioning so each node owns a shard. Scale horizontally without shared state, with locality and fault isolation per partition."
   keywords:

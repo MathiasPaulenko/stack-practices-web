@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Previene y resuelve deadlocks en SQL. Aplica ordenamiento de locks, niveles de aislamiento y reintento para transacciones concurrentes."
   keywords:

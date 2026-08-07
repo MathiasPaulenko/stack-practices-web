@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/python-dbt-model-transformations
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Define, programa y monitorea DAGs en Apache Airflow. Usa operators, sensors, XCom, dependencias de tareas y catchup para orquestación confiable de pipelines."
   keywords:

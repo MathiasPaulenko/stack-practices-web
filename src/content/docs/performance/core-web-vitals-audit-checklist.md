@@ -25,7 +25,7 @@ relatedResources:
   - /docs/load-test-plan-template
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Core Web Vitals audit checklist: LCP, INP, CLS optimization, field vs lab data, CrUX, remediation tracking, image font JS CSS fixes per page."
   keywords:

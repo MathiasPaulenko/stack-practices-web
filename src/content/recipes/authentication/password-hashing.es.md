@@ -28,7 +28,7 @@ relatedResources:
   - /guides/security-best-practices-guide
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ejemplos prácticos de hashing de contraseñas en Python, JavaScript y Java. Usa bcrypt, argon2 y PBKDF2 con salt para almacenar contraseñas de forma segura."
   keywords:

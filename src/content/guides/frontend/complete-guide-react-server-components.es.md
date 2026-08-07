@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Dominá React Server Components: arquitectura RSC, data loading, streaming, server actions y client component boundaries en Next.js App Router."

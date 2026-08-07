@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/service-mesh
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende algoritmos de load balancing para distribuir tráfico. Usa round-robin, least-connections, weighted y consistent hashing con health checks y failover."
   keywords:

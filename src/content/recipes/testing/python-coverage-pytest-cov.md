@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Measure and enforce Python test coverage with pytest-cov. Generate HTML reports, branch coverage, exclude lines, and fail CI on low coverage thresholds."
   keywords:

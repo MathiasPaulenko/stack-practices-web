@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/container-presenter-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build a functional HTML baseline and progressively enhance with JavaScript. Learn feature detection, graceful degradation, accessibility, and no-JS fallbacks."
   keywords:

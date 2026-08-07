@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-database-sharding
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Run Redis in production. Covers persistence RDB AOF, clustering, sentinel, failover, memory management, eviction, pipelining, Lua, monitoring."
   keywords:

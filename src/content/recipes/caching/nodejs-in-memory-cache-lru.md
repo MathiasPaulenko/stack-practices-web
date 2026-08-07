@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/java-caffeine-cache-configuration
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement an LRU cache in Node.js with O(1) operations. Use Map for key storage and a doubly linked list for eviction order tracking."
   keywords:

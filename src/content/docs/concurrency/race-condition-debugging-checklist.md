@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/csp-communication
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Race condition debugging checklist: symptoms, reproduction, tools, common patterns, fixes with locks, atomics, channels, prevention for Python, Java, Go."
   keywords:

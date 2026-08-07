@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/state-machine-ui-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Separate data-fetching logic from rendering in React with container-presenter. Learn hooks migration, testing isolation, reusability, and trade-offs."
   keywords:

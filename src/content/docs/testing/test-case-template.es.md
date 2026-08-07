@@ -22,7 +22,7 @@ relatedResources:
   - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de caso de prueba para escribir tests estandarizados con pasos, resultados esperados, precondiciones, postcondiciones y trazabilidad."
   keywords:

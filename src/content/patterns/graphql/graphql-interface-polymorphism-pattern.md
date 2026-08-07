@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-graphql-security
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Model polymorphic GraphQL types with interfaces. Share field contracts across object types, resolve type-specific fields, and query unions."
   keywords:

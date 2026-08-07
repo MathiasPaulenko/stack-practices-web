@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/content-delivery-network-pattern
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Flyweight pattern para eficiencia de memoria. Comparte estado entre objetos similares para minimizar uso de memoria al renderizar datasets grandes."
   keywords:

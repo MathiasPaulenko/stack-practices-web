@@ -33,7 +33,7 @@ relatedResources:
   - /recipes/setup-ci-gitlab-pipelines
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Practical environment variable examples in Python, JavaScript, and Java. Learn dotenv, process.env, System.getenv, and 12-factor app configuration."
   keywords:

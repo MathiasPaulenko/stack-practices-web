@@ -23,7 +23,7 @@ relatedResources:
   - /docs/data-governance-policy-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de diseño de data pipeline para definir sources, transforms, sinks, scheduling, error handling, monitoring y data schemas."
   keywords:

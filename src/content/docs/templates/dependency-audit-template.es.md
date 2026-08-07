@@ -31,7 +31,7 @@ relatedResources:
   - /docs/vendor-risk-assessment-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de auditoría de dependencias: evalúa librerías de terceros para cumplimiento de licencias, vulnerabilidades, salud de mantenimiento y riesgo de supply chain."
   keywords:

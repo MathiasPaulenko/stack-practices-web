@@ -24,7 +24,7 @@ relatedResources:
   - /docs/ai-llm-incident-response-runbook
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Track LLM token usage and costs per feature, model, user. Includes pricing tables, budget alerts, optimization strategies, and reporting templates."
   keywords:

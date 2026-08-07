@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-encrypt-decrypt-aes
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Master encryption at rest: AES-256-GCM, KMS, envelope encryption, key rotation, database encryption, field-level encryption, and production security patterns."

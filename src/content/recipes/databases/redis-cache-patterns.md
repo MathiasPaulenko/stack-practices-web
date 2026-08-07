@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/caching-strategies
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Redis cache patterns for high-performance apps. Implement cache-aside, write-through, and write-behind patterns to reduce database load and improve latency."
   keywords:

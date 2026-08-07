@@ -36,7 +36,7 @@ relatedResources:
   - /patterns/iterator-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Chain of Responsibility Pattern in Python, Java, and JavaScript. Behavioral pattern for request handling pipelines and middleware chains."
   keywords:

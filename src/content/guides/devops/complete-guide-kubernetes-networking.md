@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-gitops-production
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Master K8s networking. Covers Services, Ingress, NetworkPolicies, CNI plugins, DNS, service mesh, load balancing, mTLS, troubleshooting."
   keywords:

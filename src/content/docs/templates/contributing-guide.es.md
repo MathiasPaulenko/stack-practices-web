@@ -32,7 +32,7 @@ relatedResources:
   - /docs/pull-request-template
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa esta plantilla de guía de contribución para configurar flujos de pull request, estándares de código y onboarding de contribuidores."
   keywords:

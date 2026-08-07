@@ -37,7 +37,7 @@ relatedResources:
   - /guides/on-call-incident-response-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Referencia Detallada de Docker para desarrolladores. Aprende imágenes, contenedores, Dockerfiles, redes, volúmenes y Docker Compose para flujos de desarrollo local."
   keywords:

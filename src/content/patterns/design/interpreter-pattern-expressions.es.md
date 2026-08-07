@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/memento-pattern-state
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Interpreter pattern para lenguajes de expresion. Evalua formulas y reglas representando gramatica como objetos componibles para logica de negocio configurable."
   keywords:

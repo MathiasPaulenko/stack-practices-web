@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/race-condition-prevention
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Paraleliza trabajo I/O en Python con ThreadPoolExecutor. Usa callbacks de Future, recoleccion thread-safe, manejo de errores y mezcla threads con asyncio."
   keywords:

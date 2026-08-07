@@ -36,7 +36,7 @@ relatedResources:
   - /guides/sql-performance-tuning-guide
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende principios de diseño de bases de datos: formas normales, claves primarias y foráneas, estrategias de indexación y modelado de relaciones."
   keywords:

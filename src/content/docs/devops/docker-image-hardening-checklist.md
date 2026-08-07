@@ -24,7 +24,7 @@ relatedResources:
   - /docs/terraform-module-versioning-policy
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Docker image hardening checklist: base images, user permissions, filesystem, network, resource limits, secrets, vulnerability scanning, CI/CD, Dockerfile examples."
   keywords:

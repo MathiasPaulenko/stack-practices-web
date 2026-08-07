@@ -21,7 +21,7 @@ relatedResources:
   - /docs/load-test-report-template
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende API contract testing con Pact. Previene cambios breaking entre microservicios usando consumer-driven contracts y validadores de OpenAPI."
   keywords:

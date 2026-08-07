@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/graphql-input-validation
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Crea escalares GraphQL personalizados para fechas, emails, URLs y JSON. Implementa serialize, parseValue y parseLiteral con validacion."
   keywords:

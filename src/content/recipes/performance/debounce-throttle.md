@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/connection-pooling
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn debounce and throttle patterns in Python, JavaScript, and Java. Covers leading/trailing edge, rate limiting, and event handler optimization."
   keywords:

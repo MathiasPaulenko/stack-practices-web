@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Create reusable TypeScript utility types with conditional types, mapped types, template literals, and generic constraints for safer type-safe APIs."
   keywords:

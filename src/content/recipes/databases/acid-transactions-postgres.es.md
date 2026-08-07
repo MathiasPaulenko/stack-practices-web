@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/postgres-query-optimization
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Transacciones ACID en PostgreSQL. Asegura atomicidad, consistencia, aislamiento y durabilidad con boundaries y niveles de aislamiento apropiados."
   keywords:

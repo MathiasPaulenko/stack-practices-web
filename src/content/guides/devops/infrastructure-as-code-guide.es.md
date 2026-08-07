@@ -34,7 +34,7 @@ relatedResources:
   - /guides/deployment-strategies-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de Infrastructure as Code: Terraform y Pulumi, declarativo vs imperativo, manejo de estado, módulos y testing seguro de cambios de infraestructura."
   keywords:

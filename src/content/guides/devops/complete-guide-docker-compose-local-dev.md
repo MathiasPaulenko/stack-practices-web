@@ -27,7 +27,7 @@ relatedResources:
   - /guides/kubernetes-basics-guide
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Master Docker Compose for local development: multi-service environments, networking, volumes, profiles, overrides, hot reload, debugging, and production-like setups."

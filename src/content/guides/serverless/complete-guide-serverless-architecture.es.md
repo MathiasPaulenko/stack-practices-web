@@ -34,7 +34,7 @@ relatedResources:
   - /guides/complete-guide-serverless-databases
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Decidir cuando ir serverless. Cubre patrones FaaS, event-driven, cold starts, costo, vendor lock-in y migracion para apps de produccion."
   keywords:

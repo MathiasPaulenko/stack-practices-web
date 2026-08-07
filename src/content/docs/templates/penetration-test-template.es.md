@@ -30,7 +30,7 @@ relatedResources:
   - /docs/security-audit-checklist-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de reporte de penetration test: documenta hallazgos, ratings de riesgo, pasos de reproducción y guía de remediación para evaluaciones de seguridad."
   keywords:

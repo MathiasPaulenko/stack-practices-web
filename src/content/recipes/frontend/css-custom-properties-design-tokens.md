@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-accessibility-wcag
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build a design token system with CSS custom properties. Define color scales, spacing, typography, dark themes, and responsive scaling in pure CSS."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/data-lineage-tracking-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Re-run data loads safely without duplicates. Learn deduplication keys, MERGE upserts, load IDs, partition overwrite, and transactional load strategies."
   keywords:

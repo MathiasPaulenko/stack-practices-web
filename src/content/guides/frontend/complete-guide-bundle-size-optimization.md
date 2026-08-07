@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/web-performance
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Reduce JS bundle size. Covers tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression."
   keywords:

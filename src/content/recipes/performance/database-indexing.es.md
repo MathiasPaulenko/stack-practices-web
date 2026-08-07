@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/query-optimization
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias de indexación de bases de datos. Crea índices B-tree y compuestos, analiza planes de ejecución y optimiza SELECT en PostgreSQL y MySQL."
   keywords:

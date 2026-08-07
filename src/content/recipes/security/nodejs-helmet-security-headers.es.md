@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-content-security-policy
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura headers de seguridad HTTP con Helmet en Node.js Express. Establece CSP, HSTS, X-Frame-Options, CORS y previene clickjacking, XSS y MIME sniffing."
   keywords:

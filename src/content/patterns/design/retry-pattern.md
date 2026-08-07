@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/saga-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Retry Pattern in Python, Java, and JavaScript. Resilience pattern for handling transient failures with backoff strategies."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /guides/complete-guide-data-quality
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá arquitectura de data pipelines: batch processing, streaming, patrones lambda y kappa, ETL vs ELT y cómo elegir el approach correcto para tus workloads."

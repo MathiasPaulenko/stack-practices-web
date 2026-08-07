@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Timeout en Python, Java y JavaScript. Patrón de resiliencia para evitar operaciones colgadas con límites de tiempo forzados."
   keywords:

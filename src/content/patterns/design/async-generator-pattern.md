@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Stream data lazily with async generators. Yield values as they arrive, enabling memory-efficient processing of large or infinite data sequences."
   keywords:

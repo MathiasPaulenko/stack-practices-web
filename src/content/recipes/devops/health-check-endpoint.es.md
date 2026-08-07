@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/retry-logic-exponential-backoff
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a construir un endpoint de health check en Python, JavaScript y Java. Liveness, readiness y verificación de dependencias para Kubernetes y load balancers."
   keywords:

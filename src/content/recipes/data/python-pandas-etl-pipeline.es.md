@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/python-dbt-model-transformations
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye un pipeline ETL con pandas y Parquet. Extrae de CSV/JSON, transforma con coerción de tipos y validación, carga a almacenamiento columnar Parquet."
   keywords:

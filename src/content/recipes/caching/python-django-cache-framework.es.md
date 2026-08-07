@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/database-query-result-caching
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cachear consultas con Django cache framework. Configura backend Redis, usa cache por vista, fragmentos de template y API de cache de bajo nivel."
   keywords:

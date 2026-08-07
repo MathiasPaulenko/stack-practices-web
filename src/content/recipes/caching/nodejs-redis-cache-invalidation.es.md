@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/write-through-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Invalida cache Redis en Node.js con TTL, delete explicito, SCAN+DEL por patron, e invalidacion distribuida con pub/sub para multiples instancias."
   keywords:

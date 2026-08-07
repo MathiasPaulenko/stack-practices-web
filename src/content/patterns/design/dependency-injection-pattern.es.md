@@ -33,7 +33,7 @@ relatedResources:
   - /guides/onion-architecture-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Dependency Injection en Python, Java y JavaScript. Patrón arquitectural para código desacoplado, testeable y mantenible."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa event sourcing con CQRS en Python. Usa event store, proyecciones, snapshots y handlers idempotentes para arquitecturas auditables."
   keywords:

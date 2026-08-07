@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-04"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Run two identical environments and switch traffic between them. Deploy to idle, test, then flip the router for instant release or rollback."
   keywords:

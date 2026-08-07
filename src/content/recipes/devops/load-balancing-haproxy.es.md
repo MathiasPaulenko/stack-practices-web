@@ -31,7 +31,7 @@ relatedResources:
   - /guides/complete-guide-cost-optimization-aws
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura HAProxy como load balancer con health checks, sticky sessions y SSL termination para distribucion resiliente de trafico entre backend services."
   keywords:

@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Domina la codificacion de URLs en JavaScript con encodeURI, encodeURIComponent, cumplimiento RFC 3986, manejo plus-safe y casos edge de decodificacion."
   keywords:

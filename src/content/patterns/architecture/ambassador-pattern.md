@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/backends-for-frontends-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Offload cross-cutting concerns to a proxy ambassador. Learn connection pooling, retry logic, circuit breaking, monitoring, and TLS termination for client services."
   keywords:

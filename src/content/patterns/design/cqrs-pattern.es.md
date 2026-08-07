@@ -34,7 +34,7 @@ relatedResources:
   - /guides/vertical-slice-architecture-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón CQRS en Python, Java y JavaScript. Patrón arquitectónico que separa modelos de lectura y escritura para rendimiento y escalabilidad."
   keywords:

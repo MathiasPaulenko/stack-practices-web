@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/scheduled-jobs
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende desarrollo de APIs serverless con API Gateway y Lambda. Diseña APIs REST, maneja routing, autenticación y despliegue con infrastructure as code."
   keywords:

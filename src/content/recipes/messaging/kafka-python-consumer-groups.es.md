@@ -30,7 +30,7 @@ relatedResources:
   - /recipes/outbox-pattern-transactional-events
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye consumer groups de Kafka en Python. Gestiona particiones, offsets, commit, rebalance y semantica exactly-once para stream processing escalable."
   keywords:

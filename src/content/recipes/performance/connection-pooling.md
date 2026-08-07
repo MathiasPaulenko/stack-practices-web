@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/query-optimization
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Set up connection pooling for PostgreSQL, MySQL, Redis, and HTTP clients. Improve throughput, reduce latency, and prevent connection exhaustion."
   keywords:

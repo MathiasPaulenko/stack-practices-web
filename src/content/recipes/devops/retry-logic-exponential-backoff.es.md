@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/health-check-endpoint
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende retry con backoff exponencial en Python, JavaScript y Java. Cubre jitter, circuit breakers, max retries e idempotencia para sistemas resilientes."
   keywords:

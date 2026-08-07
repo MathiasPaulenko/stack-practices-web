@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-19"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build maintainable Express apps with middleware composition. Patterns for auth, validation, error handling, context propagation and async route wrappers."
   keywords:

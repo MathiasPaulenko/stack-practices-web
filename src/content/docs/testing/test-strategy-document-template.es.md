@@ -26,7 +26,7 @@ relatedResources:
   - /docs/regression-test-checklist
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de estrategia de pruebas para definir pirámide, alcance, entornos, herramientas, gates de CI/CD, métricas y cobertura basada en riesgo."
   keywords:

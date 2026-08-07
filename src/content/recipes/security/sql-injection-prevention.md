@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/xss-prevention
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn SQL injection prevention techniques. Use parameterized queries, prepared statements, and ORMs to secure database access in Python, JavaScript, and Java."
   keywords:

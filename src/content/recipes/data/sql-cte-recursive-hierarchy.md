@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/python-spark-groupby-aggregation
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Query hierarchical data with recursive CTEs in SQL. Traverse trees, build org charts, category trees, detect cycles, and compute depth with Common Table Expressions."
   keywords:

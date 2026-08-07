@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/mediator-pattern-components
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Memento pattern for state snapshots. Capture and restore object state without breaking encapsulation for undo, serialization, and rollback functionality."
   keywords:

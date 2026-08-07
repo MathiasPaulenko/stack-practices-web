@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/graphql-mutation-validation-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron GraphQL connection pagination: paginacion con cursores estilo Relay, edges, nodes y pageInfo. Paginacion estable para listas grandes en Apollo Server."
   keywords:

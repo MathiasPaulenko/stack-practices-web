@@ -28,7 +28,7 @@ relatedResources:
   - /guides/event-sourcing-guide
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 24
 seo:
   metaDescription: "Master event sourcing and CQRS: event store design, aggregate roots, projections, read models, snapshots, sagas, and production patterns for event-driven systems."

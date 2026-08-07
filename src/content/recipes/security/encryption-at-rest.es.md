@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende encripción en reposo para bases de datos y storage. Encripta datos sensibles usando AES-256-GCM, encripción de sobre y servicios de gestión de keys."
   keywords:

@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/web-performance
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Improve SPA performance with code splitting and lazy loading. Split bundles at route and component level using React.lazy and live imports for faster loads."
   keywords:

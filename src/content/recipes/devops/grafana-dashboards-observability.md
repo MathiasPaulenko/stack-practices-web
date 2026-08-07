@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/structured-logging
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build Grafana dashboards for Prometheus metrics. Create interactive visualizations with panels, variables, and alerts for thorough service observability."
   keywords:

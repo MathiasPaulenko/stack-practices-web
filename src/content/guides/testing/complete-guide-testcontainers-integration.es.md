@@ -30,7 +30,7 @@ relatedResources:
   - /guides/postmortem-guide
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Dominá Testcontainers para integration testing: databases reales, message brokers y APIs en Docker containers. Cubre Java, Python y Node.js con test fixtures."

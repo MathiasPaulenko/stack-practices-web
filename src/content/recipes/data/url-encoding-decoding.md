@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/websockets-realtime
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Master URL encoding in JavaScript with encodeURI, encodeURIComponent, RFC 3986 compliance, plus-safe handling, and decoding edge cases."
   keywords:

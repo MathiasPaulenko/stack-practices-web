@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-docker-compose-local-dev
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Dominá Helm charts para Kubernetes: estructura, templating, values, dependencias, hooks, library charts, registry y patrones de despliegue en producción."

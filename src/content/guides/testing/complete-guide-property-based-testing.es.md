@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/implement-property-based-testing
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá property-based testing: Hypothesis para Python, fast-check para TypeScript y QuickCheck. Generá test cases, encontrá edge cases y shrinkéá failures."

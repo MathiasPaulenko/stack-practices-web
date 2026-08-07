@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/spa-code-splitting-lazy
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Bridge pattern para temas UI. Desacopla componentes del renderizado para que abstracciones e implementaciones varien independientemente en sistemas de theming."
   keywords:

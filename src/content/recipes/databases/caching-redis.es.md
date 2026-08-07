@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/schema-evolution
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a implementar caching con Redis en Python, JavaScript y Java. Cubre cache-aside, TTL, invalidación de caché y serialización."
   keywords:

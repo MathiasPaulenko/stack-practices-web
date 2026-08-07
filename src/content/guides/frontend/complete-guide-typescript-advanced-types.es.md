@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-react-state-management
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá TypeScript advanced types: conditional types, mapped types, template literal types, infer y distributive types para type-level programming seguro."

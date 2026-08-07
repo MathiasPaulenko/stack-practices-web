@@ -30,7 +30,7 @@ relatedResources:
   - /guides/software-architecture-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the MVC Pattern with practical examples in Python, Java, and JavaScript. Architectural design pattern for organized application structure."
   keywords:

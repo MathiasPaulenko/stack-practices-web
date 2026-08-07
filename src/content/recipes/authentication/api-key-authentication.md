@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/magic-link-authentication
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn API key authentication for services. Generate, validate, and rotate API keys using HMAC signatures, scopes, and rate-limited policies for machine-to-machine auth."
   keywords:

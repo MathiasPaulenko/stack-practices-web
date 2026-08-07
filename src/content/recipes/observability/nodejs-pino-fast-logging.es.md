@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/nodejs-winston-daily-rotate
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa pino para logging estructurado JSON rápido en Node.js. Configura niveles, child loggers, transports e integra con Express y Fastify apps."
   keywords:

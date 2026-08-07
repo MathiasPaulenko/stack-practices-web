@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/javascript-event-loop
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Habilita compresion Brotli en Nginx. Reduce tamanos de transferencia de assets con mejores ratios de compresion que Gzip para JavaScript, CSS y HTML."
   keywords:

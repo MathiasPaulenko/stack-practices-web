@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/vue-composition-api-fetch
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende cuándo usar React useMemo y useCallback para performance, cuándo añaden overhead, y cómo medir impacto con el React Profiler."
   keywords:

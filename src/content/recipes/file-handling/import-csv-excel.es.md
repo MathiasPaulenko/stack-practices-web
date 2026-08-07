@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/stream-processing
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a importar datos desde CSV y Excel en Python, JavaScript y Java. Cubre pandas, csv-parser, Apache POI y estrategias de validación."
   keywords:

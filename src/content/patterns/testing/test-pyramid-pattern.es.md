@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/mock-server-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Balancea unit, integration y E2E tests con el patrón test pyramid. Aprende testing trophy, ice cream cone anti-pattern, y diseño de test suite proporcional."
   keywords:

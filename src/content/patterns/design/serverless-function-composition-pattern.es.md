@@ -31,7 +31,7 @@ relatedResources:
   - /patterns/serverless-warm-pool-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Serverless function composition: encadena Lambda via Step Functions para workflows multi-paso. Implementa con AWS CDK, Python y TypeScript."
   keywords:

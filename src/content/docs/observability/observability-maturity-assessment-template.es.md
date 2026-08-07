@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-structured-logging
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de evaluación de madurez de observabilidad para scorear logging, metrics, tracing, identify gaps y buildear un improvement roadmap."
   keywords:

@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/api-mocking
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Intercept network requests in JavaScript tests with MSW. Mock REST and GraphQL APIs for development, unit tests, and integration tests without code changes."
   keywords:

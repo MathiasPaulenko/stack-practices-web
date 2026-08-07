@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cache stampede prevention: stop thundering herd misses with locks and single-flight. Protect databases from concurrent reloads in Python and TypeScript."
   keywords:

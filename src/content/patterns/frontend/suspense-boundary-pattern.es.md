@@ -20,7 +20,7 @@ relatedResources:
   - /patterns/islands-architecture-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa React Suspense boundaries para declarative loading states. Aprende data fetching, streaming SSR, nested boundaries, fallbacks, y error integration."
   keywords:

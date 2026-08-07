@@ -28,7 +28,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Dominá JUnit 5 para testing moderno en Java: extensions, tests parametrizados, dynamic tests, test interfaces, lifecycle, conditional execution y JUnit Platform."

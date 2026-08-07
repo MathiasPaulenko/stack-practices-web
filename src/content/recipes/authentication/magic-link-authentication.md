@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api-key-authentication
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn passwordless login with magic links. Build secure authentication using time-limited links sent via email, with token generation, validation, and replay prevention."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/llm-fallback-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Add guardrails to LLM applications with input validation, output filtering, and content classifiers. Prevent prompt injection, toxicity, and data leakage."
   keywords:

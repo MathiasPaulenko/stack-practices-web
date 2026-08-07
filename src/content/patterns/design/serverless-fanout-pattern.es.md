@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/serverless-throttling-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron serverless fanout: difunde un evento a muchos consumidores Lambda via SNS o EventBridge. Desacopla productores de consumidores en AWS."
   keywords:

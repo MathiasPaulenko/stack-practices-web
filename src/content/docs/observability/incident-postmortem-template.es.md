@@ -28,7 +28,7 @@ relatedResources:
   - /docs/incident-response-plan-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de postmortem blameless para documentar timeline, impact, root cause, contributing factors y action items trackeables con owners."
   keywords:

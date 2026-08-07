@@ -33,7 +33,7 @@ relatedResources:
   - /guides/onion-architecture-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Dependency Injection Pattern in Python, Java, and JavaScript. Architectural pattern for decoupled, testable, and maintainable code."
   keywords:

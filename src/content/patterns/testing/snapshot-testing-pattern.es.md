@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/test-pyramid-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Detecta cambios no intencionales en output con snapshot testing. Aprende Jest snapshots, pytest-snapshot, inline vs external snapshots, y cuándo actualizar baselines."
   keywords:

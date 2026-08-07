@@ -22,7 +22,7 @@ relatedResources:
   - /docs/bug-reproduction-steps-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá este checklist de regresión para verificar funcionalidad existente después de cambios con pre-deploy checks, smoke tests post-deploy y procedimientos de rollback."
   keywords:

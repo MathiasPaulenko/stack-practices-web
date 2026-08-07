@@ -29,7 +29,7 @@ relatedResources:
   - /guides/monitoring-alerting-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Playbook de guardias e incidentes: triage, escalamiento, comunicación, postmortems. Reduce MTTR y construye una cultura de respuesta a incidentes resiliente."
   keywords:

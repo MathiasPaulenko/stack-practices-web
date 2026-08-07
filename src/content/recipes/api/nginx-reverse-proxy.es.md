@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/load-balancing-haproxy
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Nginx reverse proxy y API gateway. Configura load balancing, SSL termination, rate limiting y routing basado en paths para servicios backend en produccion."
   keywords:

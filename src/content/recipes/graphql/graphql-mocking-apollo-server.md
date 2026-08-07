@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Mock GraphQL resolvers with Apollo Server for frontend development. Generate fake data, preserve types, and unblock UI work before backend is ready."
   keywords:

@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/command-pattern-undo
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye un DI container liviano en TypeScript. Resuelve dependencias de clases automaticamente para aplicaciones testeables y debilmente acopladas."
   keywords:

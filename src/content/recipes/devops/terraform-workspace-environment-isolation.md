@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/kubernetes-helm-chart-templating
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Isolate environments with Terraform workspaces. Create workspaces, conditional resources, variable management, and migrate to separate state files when needed."
   keywords:

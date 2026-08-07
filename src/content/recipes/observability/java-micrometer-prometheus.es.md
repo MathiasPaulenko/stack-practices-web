@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/python-opentelemetry-tracing
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Expon métricas personalizadas en Spring Boot con Micrometer y Prometheus. Trackea counters, gauges, timers e histograms para observabilidad."
   keywords:

@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/svelte-store-reactive-state
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Master React state management: Context API, Zustand, Jotai, and TanStack Query for server state with patterns, persistence, and optimistic updates."

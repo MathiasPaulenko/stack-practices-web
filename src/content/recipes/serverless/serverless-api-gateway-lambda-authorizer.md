@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-authentication-patterns
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Secure API Gateway with custom Lambda authorizers. Validate JWT tokens, generate IAM policies, enable caching, and handle authorization context in Python."
   keywords:

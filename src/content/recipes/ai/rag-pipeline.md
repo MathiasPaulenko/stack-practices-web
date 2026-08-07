@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/prompt-engineering
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build a RAG pipeline with LangChain, OpenAI, and vector databases. Chunk documents, generate embeddings, and retrieve context for LLM answers."
   keywords:

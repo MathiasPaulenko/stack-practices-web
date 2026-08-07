@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/lock-free-queue-pattern
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Reutilizar un conjunto fijo de threads para tareas cortas. Reduce overhead de creacion y limita el uso de recursos bajo carga con un thread pool."
   keywords:

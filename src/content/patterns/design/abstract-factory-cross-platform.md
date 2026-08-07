@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/prototype-pattern-cloning
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Abstract Factory pattern for UI families. Create related objects without specifying concrete classes for cross-platform and theme-specific component families."
   keywords:

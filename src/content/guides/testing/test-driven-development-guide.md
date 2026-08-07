@@ -34,7 +34,7 @@ relatedResources:
   - /guides/complete-guide-vitest-react-testing
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Test-Driven Development guide: Red-Green-Refactor cycle with practical examples. Learn TDD in Python, JavaScript, and Java with step-by-step workflows."
   keywords:

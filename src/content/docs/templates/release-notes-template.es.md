@@ -22,7 +22,7 @@ relatedResources:
   - /docs/post-deployment-checklist-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de release notes con categorías, instrucciones de upgrade e issues conocidos. Comunica cambios de software claramente a usuarios y operadores."
   keywords:

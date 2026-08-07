@@ -29,7 +29,7 @@ relatedResources:
   - /docs/backup-verification-test-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de plan de recuperación ante desastres: define targets RTO/RPO, procedimientos de failover y runbooks de recuperación para minimizar downtime."
   keywords:

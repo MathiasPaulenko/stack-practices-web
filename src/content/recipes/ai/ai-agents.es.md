@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-sentiment-analysis-nltk
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a construir agentes de IA autónomos. Diseña agentes que planifiquen, ejecuten herramientas e iteren usando ReAct, function calling y arquitecturas de memoria."
   keywords:

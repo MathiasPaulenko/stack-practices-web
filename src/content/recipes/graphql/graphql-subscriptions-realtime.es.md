@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/graphql-federation-gateway-setup
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye suscripciones GraphQL en tiempo real con WebSockets y PubSub. Envia actualizaciones en vivo a clientes ante cambios con Apollo Server."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/java-actuator-health-checks
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Expon métricas de negocio personalizadas en Python con prometheus_client. Trackea counters, gauges, histograms, summaries e integra con Flask o FastAPI."
   keywords:

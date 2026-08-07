@@ -28,7 +28,7 @@ relatedResources:
   - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye un pipeline RAG local con ChromaDB y sentence-transformers. Divide documentos, embed localmente, recupera contexto relevante y genera respuestas."
   keywords:

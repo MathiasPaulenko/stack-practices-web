@@ -30,7 +30,7 @@ relatedResources:
   - /docs/security-audit-checklist-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Penetration test report template: document findings, risk ratings, reproduction steps, and remediation guidance for security assessments."
   keywords:

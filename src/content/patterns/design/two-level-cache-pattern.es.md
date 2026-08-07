@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/cache-stampede-prevention-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron two-level cache: L1 en memoria mas L2 Redis para hot keys de baja latencia con consistencia distribuida. Implementa con Python, Java y TypeScript."
   keywords:

@@ -50,7 +50,7 @@ relatedResources:
   - /guides/performance-optimization-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to build reliable CI/CD pipelines: GitHub Actions workflows, automated testing, deployment strategies, and production rollbacks."
   keywords:

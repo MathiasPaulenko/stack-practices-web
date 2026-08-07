@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/saga-pattern-recipe
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn event-driven architecture with event buses and brokers. Build loosely coupled systems using events, message brokers, and event sourcing for async communication."
   keywords:

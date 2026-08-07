@@ -36,7 +36,7 @@ relatedResources:
   - /patterns/template-method-pattern
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Factory Pattern con ejemplos prácticos en Python, Java y JavaScript. Patrón creacional para la creación flexible de objetos."
   keywords:

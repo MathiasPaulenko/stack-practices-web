@@ -35,7 +35,7 @@ relatedResources:
   - /guides/microservices-architecture-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Guía de entrevistas de system design: escalabilidad, bases de datos, caching, load balancing, microservicios. Estructura respuestas para entrevistas técnicas."
   keywords:

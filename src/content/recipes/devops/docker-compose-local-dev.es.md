@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/kafka-event-streaming
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Orquesta entornos locales multi-servicio con Docker Compose. Corre bases de datos, caches, message brokers y apps con hot reload y redes compartidas."
   keywords:

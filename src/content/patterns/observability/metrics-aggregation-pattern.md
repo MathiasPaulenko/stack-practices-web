@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/circuit-breaker-with-monitoring-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Collect, tag, and aggregate business metrics with Prometheus and OpenTelemetry. Learn counters, gauges, histograms, custom metrics, and dashboarding."
   keywords:

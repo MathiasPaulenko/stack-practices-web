@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/terraform-workspace-environment-isolation
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Empaqueta manifests de Kubernetes con Helm charts. Templetea con values, conditionals, ranges, hooks, subcharts y library charts para deployments K8s reusables."
   keywords:

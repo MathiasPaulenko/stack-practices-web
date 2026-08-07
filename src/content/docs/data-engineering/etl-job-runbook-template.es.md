@@ -23,7 +23,7 @@ relatedResources:
   - /docs/alert-runbook-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de runbook ETL para documentar startup, shutdown, health checks, common failures, diagnostics y recovery procedures."
   keywords:

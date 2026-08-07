@@ -32,7 +32,7 @@ relatedResources:
   - /guides/complete-guide-graphql-federation
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Test GraphQL at every layer: unit tests for resolvers, integration tests for schema, E2E for operations. Covers mocking, fixtures, snapshots, and performance testing."
   keywords:

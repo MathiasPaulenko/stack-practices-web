@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/python-agent-langgraph-state-machine
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Pausa agentes LLM para aprobacion humana antes de acciones de alto impacto. Enruta a un revisor cuando la confianza es baja o los riesgos son altos."
   keywords:

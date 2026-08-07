@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/locks-and-mutexes
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn thread pool patterns for concurrent work. Manage worker threads with executors and rejection policies in Java, Python, and C# for CPU and I/O workloads."
   keywords:

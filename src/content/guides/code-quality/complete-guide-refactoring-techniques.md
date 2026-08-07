@@ -22,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-code-review-best-practices
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Master refactoring techniques: extract method, replace conditional with polymorphism, move function, extract class, rename, and safe refactoring workflows with tests."

@@ -29,7 +29,7 @@ relatedResources:
   - /guides/monitoring-alerting-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "On-call and incident response playbook: triage, escalation, communication, postmortems. Reduce MTTR and build a resilient incident response culture."
   keywords:

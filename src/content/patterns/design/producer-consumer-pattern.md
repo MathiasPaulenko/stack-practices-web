@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/reactive-streams-pattern
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Decouple production and consumption with a shared queue. Producers generate items at their own pace; consumers process them independently via a buffer."
   keywords:

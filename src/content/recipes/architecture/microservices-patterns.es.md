@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/saga-pattern-recipe
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende patrones de microservicios para sistemas resilientes. Implementa circuit breakers, bulkheads, retries con backoff y sagas tolerantes a fallos."
   keywords:

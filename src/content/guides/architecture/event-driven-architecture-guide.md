@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-microservices-communication
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Event-driven architecture guide: events vs commands, message brokers, CQRS, Saga pattern. Learn when to use queues, topics, and streams in distributed systems."
   keywords:

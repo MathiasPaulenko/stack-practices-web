@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/graphql-pagination-relay-connections
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-19"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement cursor-based pagination in PostgreSQL. Efficient keyset pagination for large datasets avoiding OFFSET degradation with indexed ordering and stable cursors."
   keywords:

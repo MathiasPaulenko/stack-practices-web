@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/two-level-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron cache invalidation: mantén datos cacheados frescos con TTL, eviccion explicita, invalidacion por eventos. Implementa con Redis pub/sub y Python."
   keywords:

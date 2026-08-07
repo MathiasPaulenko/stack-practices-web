@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye una cache multi-nivel con L1 en memoria y L2 en Redis. Lecturas sub-milisegundo desde L1, consistencia entre instancias desde L2 y pub/sub."
   keywords:

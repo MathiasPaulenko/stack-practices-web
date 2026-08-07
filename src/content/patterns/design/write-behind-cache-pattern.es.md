@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/refresh-ahead-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron write-behind cache: escribe en cache sincrono, persiste a DB asincrono. Escrituras de alto throughput con consistencia eventual en Redis y Python."
   keywords:

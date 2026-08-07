@@ -22,7 +22,7 @@ relatedResources:
   - /docs/browser-support-matrix-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this component API documentation template to document props, events, slots, methods, accessibility attributes, and usage examples with types."
   keywords:

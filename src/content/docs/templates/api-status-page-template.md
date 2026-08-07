@@ -38,7 +38,7 @@ relatedResources:
   - /docs/infrastructure-as-code-review-template
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "API status page template with incident communication, maintenance windows, SLA definitions, and what works for transparent uptime reporting."
   keywords:

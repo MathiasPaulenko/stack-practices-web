@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/websocket-server
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende Server-Sent Events en Python, JavaScript y Java. Cubre protocolo SSE, streaming de eventos, manejo de reconexión y broadcasting a múltiples clientes."
   keywords:

@@ -31,7 +31,7 @@ relatedResources:
   - /recipes/rabbitmq-task-queue
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a programar tareas en segundo plano en Python, JavaScript y Java. Cubre cron, Celery, BullMQ y ScheduledExecutorService."
   keywords:

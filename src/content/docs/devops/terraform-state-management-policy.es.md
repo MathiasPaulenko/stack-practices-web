@@ -23,7 +23,7 @@ relatedResources:
   - /docs/kubernetes-pod-disruption-budget-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta política de gestión de Terraform state para definir backend, locking, isolation, access control, versioning y recovery procedures."
   keywords:

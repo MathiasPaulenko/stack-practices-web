@@ -30,7 +30,7 @@ relatedResources:
   - /patterns/human-in-the-loop-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye agentes IA con estado con maquinas de estados LangGraph. Define nodos, aristas condicionales, tool calling y checkpointing para workflows LLM multi-paso."
   keywords:

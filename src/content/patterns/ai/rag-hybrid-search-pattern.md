@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/embedding-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement RAG hybrid search by combining BM25 keyword search with vector semantic search and reciprocal rank fusion for better retrieval accuracy."
   keywords:

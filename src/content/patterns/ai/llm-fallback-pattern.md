@@ -19,7 +19,7 @@ relatedResources:
   - /patterns/circuit-breaker-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Fall back to alternative LLM providers when the primary fails. Handle rate limits, timeouts, and errors with a provider chain for resilient AI apps."
   keywords:

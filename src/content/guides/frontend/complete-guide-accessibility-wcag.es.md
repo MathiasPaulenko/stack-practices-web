@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/css-custom-properties-design-tokens
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá accesibilidad web con WCAG 2.2: roles ARIA, navegación por teclado, soporte para screen readers, contraste de color y formularios accesibles para todos."

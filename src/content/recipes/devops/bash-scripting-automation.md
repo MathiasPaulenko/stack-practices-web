@@ -37,7 +37,7 @@ relatedResources:
   - /recipes/bash-ssh-key-management
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Bash scripting for DevOps automation. Write reliable scripts for deployments, monitoring, log rotation, and maintenance with error handling and logging."
   keywords:

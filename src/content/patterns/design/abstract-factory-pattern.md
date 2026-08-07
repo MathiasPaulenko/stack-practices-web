@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/builder-pattern-configuration
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Abstract Factory Pattern with practical examples in Python, Java, and JavaScript. Creational design pattern for families of related objects."
   keywords:

@@ -33,7 +33,7 @@ relatedResources:
   - /guides/complete-guide-redis-caching-strategies
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Write-through cache pattern: synchronously write to cache and database so data stays consistent. Implement with Redis and Python, Java, and TypeScript examples."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura rotación diaria de logs en Node.js con winston y winston-daily-rotate-file. Setea límites de tamaño, retención, compresión y combina transports."
   keywords:

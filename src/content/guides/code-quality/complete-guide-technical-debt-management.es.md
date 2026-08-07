@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-code-review-best-practices
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Dominá technical debt management: identificá debt types, trackeá con registers, priorizá con impact vs effort, agendá paydown sprints y medí debt reduction."

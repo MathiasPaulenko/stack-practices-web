@@ -29,7 +29,7 @@ relatedResources:
   - /guides/complete-guide-docker-compose-local-dev
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ejecutar Docker en produccion. Cubre multi-stage builds, distroless, health checks, image scanning, resource limits, logging, secrets, multi-arch."
   keywords:

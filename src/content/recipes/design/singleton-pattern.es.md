@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/strategy-pattern-recipe
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende singleton pattern para instancias únicas. Inicialización perezosa, creación thread-safe y singletons basados en registro para asegurar una instancia por app."
   keywords:

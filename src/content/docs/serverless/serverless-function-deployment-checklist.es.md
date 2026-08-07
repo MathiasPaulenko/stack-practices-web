@@ -23,7 +23,7 @@ relatedResources:
   - /docs/serverless-security-checklist
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Checklist pre-deploy para funciones serverless: IAM, env vars, memory, timeout, logging, alarmas, rollback. Cubre Lambda, Azure, GCP."
   keywords:

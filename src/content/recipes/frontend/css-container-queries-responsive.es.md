@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-css-modern-layout
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa CSS container queries para layouts responsivos a nivel de componente. Los componentes se adaptan a su contenedor, no al viewport, permitiendo modularidad real."
   keywords:

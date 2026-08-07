@@ -20,7 +20,7 @@ relatedResources:
   - /docs/component-api-documentation-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de matriz de soporte de navegadores para trackear browsers soportados, compatibilidad de features, polyfills y fallbacks."
   keywords:

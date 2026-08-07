@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/stream-processing
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a redimensionar y optimizar imágenes en Python, JavaScript y Java. Cubre compresión, imágenes responsivas, WebP y lazy loading."
   keywords:

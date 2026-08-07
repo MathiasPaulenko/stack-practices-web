@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/sharding-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-04"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Particionar datos entre nodos para que cada uno posea un shard. Escala horizontal sin estado compartido, con localidad y aislamiento de fallos."
   keywords:

@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/websocket-server
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias de versionado de APIs REST y GraphQL en Python, JavaScript y Java. Cubre versionado por URL, header y media-type con patrones de migración."
   keywords:

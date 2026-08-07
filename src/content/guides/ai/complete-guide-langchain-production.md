@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-llm-evaluation
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Run LangChain in production. Covers chains, agents, memory, tools, LCEL, streaming, callbacks, RAG integration, and deployment patterns."
   keywords:

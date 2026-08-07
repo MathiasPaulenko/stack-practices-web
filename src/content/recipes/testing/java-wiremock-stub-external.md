@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/integration-testing-strategies
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Stub external HTTP services in Java tests with WireMock. Simulate responses, delays, stateful behavior, and response templating for reliable integration tests."
   keywords:

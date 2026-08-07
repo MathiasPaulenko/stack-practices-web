@@ -30,7 +30,7 @@ relatedResources:
   - /guides/database-design-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Practical database transaction examples in Python, JavaScript, and Java. Learn ACID, BEGIN/COMMIT/ROLLBACK, and isolation levels."
   keywords:

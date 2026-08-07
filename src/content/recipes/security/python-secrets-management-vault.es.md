@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-supply-chain-security
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Gestiona secretos de aplicacion con HashiCorp Vault y Python. Almacena y recupera secretos, usa credenciales dinamicas de BD y renueva leases con hvac."
   keywords:

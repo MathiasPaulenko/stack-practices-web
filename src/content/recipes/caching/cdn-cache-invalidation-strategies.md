@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/nginx-reverse-proxy-cache
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Invalidate CDN caches with purge APIs, surrogate keys, and tag-based invalidation. Use versioned URLs and soft purges to keep content fresh without spikes."
   keywords:

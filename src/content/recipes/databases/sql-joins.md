@@ -28,7 +28,7 @@ relatedResources:
   - /guides/database-design-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn SQL JOINs with practical examples. INNER, LEFT, RIGHT, and FULL OUTER JOINs explained with real-world queries and performance tips."
   keywords:

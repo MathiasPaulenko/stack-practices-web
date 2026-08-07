@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-sentry-error-tracking
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Dominá distributed tracing con OpenTelemetry, Jaeger y Zipkin. Trace propagation, span context, sampling strategies y debugging en producción entre servicios."

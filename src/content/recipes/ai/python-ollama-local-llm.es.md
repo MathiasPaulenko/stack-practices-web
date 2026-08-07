@@ -25,7 +25,7 @@ relatedResources:
   - /guides/complete-guide-local-llm-deployment
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Ejecuta LLMs localmente con Ollama y Python. Instala modelos, stream de respuestas, genera embeddings, usa function calling y gestiona modelos sin costos."
   keywords:

@@ -31,7 +31,7 @@ relatedResources:
   - /patterns/visitor-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Composite en Python, Java y JavaScript. Patrón estructural para estructuras de árbol y jerarquías parte-todo."
   keywords:

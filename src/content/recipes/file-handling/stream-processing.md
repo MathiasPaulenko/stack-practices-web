@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/write-large-files
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn stream processing for large files. Read, transform, and write files efficiently without loading them into memory using Python, Node.js, and Java streams."
   keywords:

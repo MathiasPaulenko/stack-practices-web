@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/kubernetes-configmap-secret-mounting
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Configura Terraform remote state con S3 backend y DynamoDB locking. State isolation, workspace management, encryption e integración con CI/CD."
   keywords:

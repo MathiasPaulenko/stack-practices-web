@@ -21,7 +21,7 @@ relatedResources:
   - /guides/clean-code-principles-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Capability request template with user story, acceptance criteria, and priority. Help your team evaluate and build the right capabilities faster."
   keywords:

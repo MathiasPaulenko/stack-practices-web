@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-config-management
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Master GitHub Actions for CI/CD: workflows, reusable workflows, composite actions, secrets, runners, matrix builds, caching, and deployment patterns for production."

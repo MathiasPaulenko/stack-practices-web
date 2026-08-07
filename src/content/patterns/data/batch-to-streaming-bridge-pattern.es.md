@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-data-pipeline-architecture
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Bridgea batch y streaming pipelines con un data lake. Aprende Lambda architecture, Kafka Connect S3 sink, schema alignment, y unified serving layer design."
   keywords:

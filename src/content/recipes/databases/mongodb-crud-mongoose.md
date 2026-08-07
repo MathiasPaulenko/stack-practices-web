@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/elasticsearch-aggregations
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "CRUD operations with MongoDB and Mongoose. Create schemas, perform queries, handle transactions, and implement pagination in Node.js."
   keywords:

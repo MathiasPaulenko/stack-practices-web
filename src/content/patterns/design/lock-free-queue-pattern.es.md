@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/priority-queue-pattern
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construir colas de alto throughput con operaciones atomicas en lugar de locks. Threads encolan y desencolan sin bloqueo ni overhead de context-switch."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/visitor-pattern-operations
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Command pattern with undo/redo in TypeScript. Encapsulate requests as objects for operation queuing, logging, and reversible actions in interactive applications."
   keywords:

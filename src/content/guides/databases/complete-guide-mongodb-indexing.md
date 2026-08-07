@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-redis-production
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Master MongoDB indexing. Covers single, compound, text, geospatial, TTL, wildcard, hashed indexes, ESR rule, covered queries, explain plans."
   keywords:

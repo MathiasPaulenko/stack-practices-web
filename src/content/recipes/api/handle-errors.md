@@ -40,7 +40,7 @@ relatedResources:
   - /guides/rest-api-design-guide
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to implement consistent REST API error handling with proper HTTP status codes, error payloads, and language examples in Python, JavaScript, and Java."
   keywords:

@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/service-discovery
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende circuit breaker pattern para sistemas distribuidos resilientes. Previene fallas en cascada con estados open, closed y half-open en Java, TypeScript y Python."
   keywords:

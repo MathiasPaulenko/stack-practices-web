@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/sql-window-functions-ranking
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn database migrations with Flyway, Alembic, and Liquibase. Version, apply, and rollback schema changes safely in production environments."
   keywords:

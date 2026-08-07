@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-llm-security
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Build production AI agents. Covers architectures, tool use, planning, memory, multi-agent, ReAct, human-in-the-loop, safety."
   keywords:

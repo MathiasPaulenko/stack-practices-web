@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/css-dark-mode-prefers-color-scheme
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Master modern CSS layout: CSS Grid, Flexbox, container queries, subgrid, logical properties, and responsive design patterns without media queries for flexible UIs."

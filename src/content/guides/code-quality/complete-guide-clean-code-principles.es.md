@@ -25,7 +25,7 @@ relatedResources:
   - /guides/complete-guide-code-review-best-practices
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá clean code principles: meaningful naming, small functions, single responsibility, comments, formatting, error handling y patrones de code quality."

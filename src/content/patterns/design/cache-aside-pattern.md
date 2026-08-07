@@ -34,7 +34,7 @@ relatedResources:
   - /patterns/write-through-cache-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Cache-Aside Pattern in Python, Java, and JavaScript. Caching pattern for read-through data with application-managed cache logic."
   keywords:

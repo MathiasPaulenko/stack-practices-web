@@ -28,7 +28,7 @@ relatedResources:
   - /docs/thread-pool-sizing-template
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Concurrencia Go en producción. Cubre goroutines, channels, context, select, sync primitives, worker pools, pipelines y fan-out/fan-in."
   keywords:

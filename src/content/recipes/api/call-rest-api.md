@@ -44,7 +44,7 @@ relatedResources:
   - /guides/rest-api-design-guide
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn how to call a REST API in Python, JavaScript, and Java with practical HTTP request examples, error handling, and what works."
   keywords:

@@ -22,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-technical-debt-management
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Master code review best practices: reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing, and building a strong review culture in teams."

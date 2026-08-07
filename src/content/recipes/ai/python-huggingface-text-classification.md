@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-openai-api-mastery
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Fine-tune text classifiers with Hugging Face Transformers. Use Trainer API, tokenize datasets, evaluate F1 accuracy, and deploy with pipeline for inference."
   keywords:

@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/server-side-rendering
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Master CSS layout. Covers Grid templates, areas, subgrid, responsive layouts, Flexbox alignment, wrapping, gap, container queries, Grid vs Flexbox."
   keywords:

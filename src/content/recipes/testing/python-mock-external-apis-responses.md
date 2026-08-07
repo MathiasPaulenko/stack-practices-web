@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-hypothesis-property-testing
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Mock external HTTP APIs in Python tests with the responses library. Simulate status codes, JSON bodies, timeouts, and connection errors easily."
   keywords:

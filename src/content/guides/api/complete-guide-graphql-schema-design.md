@@ -33,7 +33,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Complete guide to GraphQL schema design. Learn type design, connections, mutations, error handling, deprecation, and schema-first vs code-first workflows."
   keywords:

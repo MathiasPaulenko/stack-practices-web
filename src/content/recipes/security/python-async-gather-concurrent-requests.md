@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio-production
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Make concurrent HTTP requests with asyncio.gather and aiohttp. Handle errors, set timeouts, limit concurrency with semaphores, and reuse connections."
   keywords:

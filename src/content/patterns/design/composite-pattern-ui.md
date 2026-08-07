@@ -25,7 +25,7 @@ relatedResources:
   - /patterns/iterator-pattern-collections
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Composite pattern for UI trees in React. Compose objects into tree structures to treat individual elements and compositions uniformly in component hierarchies."
   keywords:

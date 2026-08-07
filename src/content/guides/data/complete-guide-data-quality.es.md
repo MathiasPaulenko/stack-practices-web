@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-apache-airflow
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Dominá data quality: validación, profiling, anomaly detection y monitoreo con Great Expectations, Pandera y Soda para pipelines confiables."

@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/message-deferral-pattern
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Prevenir procesamiento duplicado con claves de idempotencia. Rastrear IDs de mensaje en un almacen y saltar mensajes ya procesados en los consumidores."
   keywords:

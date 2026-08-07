@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Prevent SQL injection with SQLAlchemy parameterized queries and ORM. Validate inputs, inspect generated SQL, and apply safe patterns for secure database access."
   keywords:

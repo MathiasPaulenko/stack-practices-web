@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/webhooks
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Practical logging examples in Python, JavaScript, and Java. Learn structured logging, log levels, rotation, and production observability patterns."
   keywords:

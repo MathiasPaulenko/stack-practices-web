@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-event-driven-systems
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement the transactional outbox pattern for reliable event publishing. Use a relay processor, polling, and exactly-once delivery with Python and PostgreSQL."
   keywords:

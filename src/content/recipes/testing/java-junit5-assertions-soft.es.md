@@ -22,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-junit5-modern-testing
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa AssertJ soft assertions en JUnit5 para recolectar múltiples fallos por test, mejorando el feedback y reduciendo reruns para objetos complejos."
   keywords:

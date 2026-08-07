@@ -31,7 +31,7 @@ relatedResources:
   - /patterns/proxy-pattern
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Adapter con ejemplos prácticos en Python, Java y JavaScript. Patrón estructural para hacer que interfaces incompatibles trabajen juntas."
   keywords:

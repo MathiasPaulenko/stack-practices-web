@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/python-structured-logging-json
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Integra Sentry error tracking en apps Node.js Express. Captura errores, monitorea performance, trackea releases y sube source maps para stack traces."
   keywords:

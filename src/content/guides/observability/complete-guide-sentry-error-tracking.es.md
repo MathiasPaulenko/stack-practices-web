@@ -30,7 +30,7 @@ relatedResources:
   - /guides/complete-guide-prometheus-grafana
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 18
 seo:
   metaDescription: "Dominá Sentry para error tracking en producción: SDK integration en Python, Node.js, Java, release tracking, source maps, performance monitoring y alerting rules."

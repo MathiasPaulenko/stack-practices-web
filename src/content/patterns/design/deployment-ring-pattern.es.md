@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/graceful-degradation-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-04"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Desplegar cambios en anillos de tamano creciente. Empezar con un grupo pequeno, verificar salud y expandir antes del despliegue total."
   keywords:

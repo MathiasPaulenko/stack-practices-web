@@ -38,7 +38,7 @@ relatedResources:
   - /patterns/read-through-cache-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cachea resultados de funciones Python en Redis con un decorador TTL. Genera claves de cache automaticamente, maneja serializacion e invalida entradas."
   keywords:

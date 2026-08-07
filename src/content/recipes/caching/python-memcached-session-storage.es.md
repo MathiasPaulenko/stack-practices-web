@@ -27,7 +27,7 @@ relatedResources:
   - /recipes/python-django-cache-framework
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Almacena sesiones de usuario en Memcached con Python. Usa el cliente pymemcache, configura TTL, serializa sesiones y maneja failover."
   keywords:

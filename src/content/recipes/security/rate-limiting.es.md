@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-api-security
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende estrategias de rate limiting para APIs. Protege endpoints del abuso usando token bucket, sliding window y fixed window con Redis y memoria."
   keywords:

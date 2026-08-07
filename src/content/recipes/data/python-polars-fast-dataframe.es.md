@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/python-data-validation-pandera
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usa Polars para operaciones rápidas de DataFrame con lazy evaluation, expression API, streaming engine e interop con pandas. Procesa datasets grandes eficientemente."
   keywords:

@@ -30,7 +30,7 @@ relatedResources:
   - /guides/message-queue-guide
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa task queues y RPC con RabbitMQ. Usa durable queues, dead-letter exchanges y prefetch para distribucion confiable de tareas y concurrencia controlada."
   keywords:

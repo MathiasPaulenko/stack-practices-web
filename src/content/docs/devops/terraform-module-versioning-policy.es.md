@@ -24,7 +24,7 @@ relatedResources:
   - /docs/deployment-rollback-runbook
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Terraform module versioning policy: semver rules, breaking changes, registry publishing, changelog, deprecation, CI/CD, Terraform Cloud, private registries."
   keywords:

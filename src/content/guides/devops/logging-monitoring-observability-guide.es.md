@@ -32,7 +32,7 @@ relatedResources:
   - /recipes/cdn-edge-caching
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende prácticas de observabilidad: logging estructurado, recolección de métricas, alerting y tracing distribuido para sistemas en producción."
   keywords:

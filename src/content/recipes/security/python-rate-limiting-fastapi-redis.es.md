@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-secrets-management-vault
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa rate limiting distribuido en FastAPI con Redis. Usa algoritmos sliding window y token bucket para limites por usuario, IP y endpoint."
   keywords:

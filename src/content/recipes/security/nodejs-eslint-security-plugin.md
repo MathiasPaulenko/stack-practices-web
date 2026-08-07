@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/java-spotbugs-static-analysis
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Detect insecure patterns in Node.js code with eslint-plugin-security. Configure rules, handle false positives, and integrate with CI/CD pipelines."
   keywords:

@@ -28,7 +28,7 @@ relatedResources:
   - /recipes/unit-testing-mocking
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn integration testing with real dependencies. Test API endpoints, database layers, and service interactions in Python, JavaScript, and Java."
   keywords:

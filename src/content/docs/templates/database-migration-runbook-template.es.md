@@ -28,7 +28,7 @@ relatedResources:
   - /docs/database-schema-documentation-template
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Plantilla de runbook de migración de base de datos: ejecuta cambios de esquema de forma segura con rollback, verificación y comunicación."
   keywords:

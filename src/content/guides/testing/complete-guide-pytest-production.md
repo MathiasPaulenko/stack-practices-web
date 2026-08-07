@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-testcontainers-integration
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 25
 seo:
   metaDescription: "Master pytest for production: advanced fixtures, plugins, custom markers, parametrized tests, parallel execution with pytest-xdist, and CI integration patterns."

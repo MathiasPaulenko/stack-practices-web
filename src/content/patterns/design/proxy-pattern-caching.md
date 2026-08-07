@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/decorator-pattern-pipeline
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement a caching proxy pattern for API responses. Reduce latency, avoid redundant requests, and control cache invalidation with a clean wrapper."
   keywords:

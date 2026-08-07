@@ -32,7 +32,7 @@ relatedResources:
   - /guides/complete-guide-graphql-caching
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Consolida llamadas de carga individuales en llamadas batch con DataLoader. Cache por peticion, deduplicacion y batching automatico."
   keywords:

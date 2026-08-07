@@ -23,7 +23,7 @@ relatedResources:
   - /docs/browser-support-matrix-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de performance budget frontend para definir límites de JS, CSS, imágenes, fonts por ruta con enforcement y monitoreo."
   keywords:

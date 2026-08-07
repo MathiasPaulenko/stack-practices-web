@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/middleware
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a enviar emails con SMTP en Python, JavaScript y Java. Incluye plantillas, autenticación, adjuntos y manejo de errores."
   keywords:

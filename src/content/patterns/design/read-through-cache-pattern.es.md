@@ -33,7 +33,7 @@ relatedResources:
   - /patterns/two-level-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Patron read-through cache: un cache transparente que carga datos en miss sin logica de aplicacion. Implementa con Redis y Python, Java y TypeScript."
   keywords:

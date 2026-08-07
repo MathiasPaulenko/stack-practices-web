@@ -26,7 +26,7 @@ relatedResources:
   - /patterns/graphql-connection-pagination-pattern
 lastUpdated: "2026-07-09"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implementa paginacion por cursores en GraphQL con la especificacion Relay Connections. Edges, nodes, cursores y pageInfo para recorrido eficiente."
   keywords:

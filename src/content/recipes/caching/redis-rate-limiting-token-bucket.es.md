@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/python-rate-limiting-fastapi-redis
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Construye un rate limiter distribuido con Redis token bucket. Usa scripts Lua para check-and-decrement atomico entre multiples instancias de servidor."
   keywords:

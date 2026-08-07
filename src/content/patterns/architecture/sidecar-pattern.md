@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-kubernetes-ingress
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Extend services with companion containers for cross-cutting concerns. Learn sidecar containers, shared volumes, health probes, and service mesh sidecar deployment."
   keywords:

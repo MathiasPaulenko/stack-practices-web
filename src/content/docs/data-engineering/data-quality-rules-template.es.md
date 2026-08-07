@@ -23,7 +23,7 @@ relatedResources:
   - /docs/data-governance-policy-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Usá esta plantilla de reglas de calidad de datos para definir validación por dataset y columna: completeness, consistency, accuracy, timeliness, uniqueness."
   keywords:

@@ -39,7 +39,7 @@ relatedResources:
   - /patterns/twin-pattern
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende el Patrón Decorator con ejemplos prácticos en Python, Java y JavaScript. Patrón estructural para extensión dinámica de comportamiento."
   keywords:

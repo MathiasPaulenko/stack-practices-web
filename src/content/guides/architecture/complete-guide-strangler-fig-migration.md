@@ -22,7 +22,7 @@ relatedResources:
   - /patterns/strangler-fig-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 20
 seo:
   metaDescription: "Master the strangler fig pattern for incremental legacy migration: routing layer, feature flags, data synchronization, rollback strategies, and production patterns."

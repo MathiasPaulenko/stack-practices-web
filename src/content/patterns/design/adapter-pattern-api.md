@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/solid-principles-typescript
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Adapter pattern for external REST APIs. Normalize third-party responses into consistent internal models. Clean separation between external and domain logic."
   keywords:

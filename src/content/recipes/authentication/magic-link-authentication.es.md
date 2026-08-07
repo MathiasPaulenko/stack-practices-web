@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/api-key-authentication
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende login sin contraseña con magic links. Links de tiempo limitado por email con generación de tokens, validación y prevención replay."
   keywords:

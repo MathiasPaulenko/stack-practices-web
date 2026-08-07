@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/two-level-cache-pattern
 lastUpdated: "2026-07-03"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Cache invalidation pattern: keep cached data fresh with TTL, explicit eviction, event-driven invalidation. Implement with Redis pub/sub and Python, TypeScript."
   keywords:

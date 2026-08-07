@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/css-container-queries-responsive
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Renderiza listas grandes eficientemente en React con react-window. Virtualiza filas de altura fija y variable, grids e infinite scroll con nodos DOM mínimos."
   keywords:

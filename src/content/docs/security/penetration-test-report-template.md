@@ -26,7 +26,7 @@ relatedResources:
   - /docs/encryption-key-rotation-runbook
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this penetration test report template to document scope, methodology, findings, CVSS severity, evidence, and remediation recommendations."
   keywords:

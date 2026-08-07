@@ -28,7 +28,7 @@ relatedResources:
   - /guides/cicd-pipeline-guide
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Practical GitHub Actions examples for CI/CD. Learn workflow syntax, build matrices, caching, secrets, and reusable workflows."
   keywords:

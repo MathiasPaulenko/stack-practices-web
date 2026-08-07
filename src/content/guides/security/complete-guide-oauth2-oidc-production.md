@@ -26,7 +26,7 @@ relatedResources:
   - /guides/complete-guide-encryption-at-rest
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 24
 seo:
   metaDescription: "Master OAuth2 and OpenID Connect for production: auth code flow with PKCE, token validation, refresh tokens, scopes, JWT verification, and security best practices."

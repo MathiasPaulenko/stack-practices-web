@@ -26,7 +26,7 @@ relatedResources:
   - /guides/api-security-checklist-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Implement request signing with HMAC and AWS Signature v4. Secure API authentication with message integrity in Python, JavaScript, and Java."
   keywords:

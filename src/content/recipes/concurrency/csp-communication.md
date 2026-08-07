@@ -23,7 +23,7 @@ relatedResources:
   - /docs/race-condition-debugging-checklist
 lastUpdated: "2026-06-14"
 publishedAt: "2026-06-14"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn CSP for concurrent task coordination. Use channels, select statements, and goroutines to communicate safely without shared mutable state in Go, Rust, and JS."
   keywords:

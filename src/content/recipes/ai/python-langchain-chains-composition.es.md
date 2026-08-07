@@ -32,7 +32,7 @@ relatedResources:
   - /patterns/prompt-chaining-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Compone cadenas LCEL en LangChain con operadores pipe, ramas paralelas y runnables personalizados. Construye workflows LLM multi-paso con reintentos."
   keywords:

@@ -27,7 +27,7 @@ relatedResources:
   - /guides/complete-guide-testcontainers-integration
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 25
 seo:
   metaDescription: "Dominá pytest para producción: fixtures avanzados, plugins, markers personalizados, tests parametrizados, ejecución paralela con pytest-xdist e integración con CI."

@@ -29,7 +29,7 @@ relatedResources:
   - /recipes/stream-processing
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-10"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende a leer y escribir archivos en Python, JavaScript y Bash con ejemplos prácticos, consejos de codificación y lo que funciona para manejo de errores."
   keywords:

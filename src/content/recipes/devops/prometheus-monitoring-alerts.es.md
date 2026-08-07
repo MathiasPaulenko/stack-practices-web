@@ -33,7 +33,7 @@ relatedResources:
   - /recipes/structured-logging
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Instrumenta aplicaciones con metricas Prometheus. Configura reglas de alerting y recording rules para monitoreo eficiente de salud de servicios e infraestructura."
   keywords:

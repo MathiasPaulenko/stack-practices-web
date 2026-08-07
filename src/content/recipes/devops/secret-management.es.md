@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/setup-ssl-certificates
 lastUpdated: "2026-06-13"
 publishedAt: "2026-06-13"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende gestión de secretos. Almacena, rota e inyecta API keys y contraseñas de forma segura sin hardcodearlas en código fuente."
   keywords:

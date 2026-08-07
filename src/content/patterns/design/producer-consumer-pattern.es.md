@@ -29,7 +29,7 @@ relatedResources:
   - /patterns/reactive-streams-pattern
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Desacoplar produccion y consumo con una cola compartida. Productores generan items a su ritmo; consumidores los procesan independientemente via un buffer."
   keywords:

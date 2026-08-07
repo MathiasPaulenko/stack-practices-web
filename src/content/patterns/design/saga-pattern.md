@@ -35,7 +35,7 @@ relatedResources:
   - /patterns/outbox-pattern
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the Saga Pattern in Python, Java, and JavaScript. Microservices pattern for distributed transactions with compensating actions."
   keywords:

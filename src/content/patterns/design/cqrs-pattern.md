@@ -34,7 +34,7 @@ relatedResources:
   - /guides/vertical-slice-architecture-guide
 lastUpdated: "2026-06-12"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn the CQRS Pattern in Python, Java, and JavaScript. Architectural pattern separating read and write models for performance and scalability."
   keywords:

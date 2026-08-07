@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Compare text semantic similarity with OpenAI embeddings and cosine similarity. Generate vectors, compute distances, and build a similarity search index."
   keywords:

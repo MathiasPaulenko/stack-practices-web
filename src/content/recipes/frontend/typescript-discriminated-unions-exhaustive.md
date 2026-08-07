@@ -25,7 +25,7 @@ relatedResources:
   - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use TypeScript discriminated unions for exhaustive type checking. Ensure all cases are handled at compile time with never type assertions and switch statements."
   keywords:

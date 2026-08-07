@@ -23,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-typescript-advanced-types
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
   metaDescription: "Master React Server Components: RSC architecture, data loading, streaming, server actions, and client component boundaries in Next.js App Router applications."

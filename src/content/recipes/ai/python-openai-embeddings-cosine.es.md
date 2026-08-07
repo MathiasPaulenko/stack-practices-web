@@ -27,7 +27,7 @@ relatedResources:
   - /patterns/rag-hybrid-search-pattern
 lastUpdated: "2026-07-02"
 publishedAt: "2026-07-03"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Compara similitud semantica con embeddings de OpenAI y coseno. Genera vectores, calcula distancias y construye un indice de busqueda por similitud."
   keywords:

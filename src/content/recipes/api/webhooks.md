@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/websocket-server
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Learn to implement webhooks in Python, JavaScript, and Java. Includes signature verification, retries, idempotency, and event schema design."
   keywords:

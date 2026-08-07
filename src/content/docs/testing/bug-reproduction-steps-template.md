@@ -20,7 +20,7 @@ relatedResources:
   - /docs/test-strategy-document-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this bug reproduction steps template to write minimal repro steps with environment, data, expected vs actual behavior, and severity classification."
   keywords:

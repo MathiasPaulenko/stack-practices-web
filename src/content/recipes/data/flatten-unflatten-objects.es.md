@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/batch-processing-patterns
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-12"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Aprende operaciones flatten y unflatten en Python, JavaScript y Java. Cubre notación por puntos, anidamiento profundo, manejo de arrays y conversión round-trip."
   keywords:

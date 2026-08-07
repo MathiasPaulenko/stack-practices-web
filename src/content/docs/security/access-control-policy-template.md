@@ -30,7 +30,7 @@ relatedResources:
   - /docs/security-incident-response-template
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-06"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Use this access control policy template to define authentication, authorization, RBAC, MFA, password policies, session management, and access reviews."
   keywords:

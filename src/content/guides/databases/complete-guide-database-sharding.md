@@ -31,7 +31,7 @@ relatedResources:
   - /guides/complete-guide-redis-production
 lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Master database sharding. Covers range, hash, directory partitioning, consistent hashing, shard keys, cross-shard queries, resharding, Vitess."
   keywords:

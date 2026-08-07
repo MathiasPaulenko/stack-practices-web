@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/strangler-fig-pattern
 lastUpdated: "2026-07-05"
 publishedAt: "2026-07-05"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Create dedicated backends per client type. Learn BFF for web, mobile, desktop, API aggregation, client-specific optimization, and GraphQL BFF pattern."
   keywords:

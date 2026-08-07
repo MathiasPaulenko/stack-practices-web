@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/rest-api-design
 lastUpdated: "2026-06-18"
 publishedAt: "2026-06-18"
-author: "Mathias Paulenko"
+author: Mathias Paulenko
 seo:
   metaDescription: "Standardized API error response template with RFC 7807 Problem Details, structured fields, and best practices for developer-friendly HTTP APIs."
   keywords:
