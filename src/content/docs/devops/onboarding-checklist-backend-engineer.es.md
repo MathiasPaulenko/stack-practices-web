@@ -14,9 +14,7 @@ tags:
   - onboarding
   - checklist
   - backend
-  - new-hire
   - team-process
-  - engineering
 relatedResources:
   - /docs/engineering-handbook-template
   - /docs/git-branching-strategy-document

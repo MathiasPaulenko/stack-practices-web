@@ -9,11 +9,9 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - model-view-viewmodel
   - pattern
   - design-pattern
   - structural
-  - mvvm
   - ui
   - data
   - reactive

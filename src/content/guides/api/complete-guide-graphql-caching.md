@@ -20,7 +20,6 @@ tags:
   - guide
   - cdn
   - dataloader
-  - persisted-queries
   - apollo
   - cache-invalidation
 relatedResources:

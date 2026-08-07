@@ -19,7 +19,6 @@ tags:
   - guide
   - pull-request
   - quality
-  - team-practices
 relatedResources:
   - /guides/design-patterns-guide
   - /guides/testing-strategy-guide

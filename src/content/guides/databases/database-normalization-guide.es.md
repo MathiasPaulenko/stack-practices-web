@@ -14,13 +14,6 @@ topics:
   - design
 tags:
   - database-normalization
-  - 1nf
-  - 2nf
-  - 3nf
-  - bcnf
-  - 4nf
-  - 5nf
-  - relational-databases
   - database-design
   - guide
 relatedResources:

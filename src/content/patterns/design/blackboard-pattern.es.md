@@ -16,13 +16,10 @@ topics:
   - design
   - architecture
 tags:
-  - blackboard
   - pattern
   - design-pattern
   - behavioral
   - ai
-  - collaboration
-  - problem-solving
 relatedResources:
   - /patterns/observer-pattern
   - /patterns/strategy-pattern

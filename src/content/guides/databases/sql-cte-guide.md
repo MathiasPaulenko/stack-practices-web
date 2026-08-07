@@ -15,10 +15,8 @@ topics:
 tags:
   - sql
   - cte
-  - common-table-expression
   - recursive-cte
   - readability
-  - query-organization
   - guide
 relatedResources:
   - /guides/sql-window-functions-guide

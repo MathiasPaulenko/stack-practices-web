@@ -14,10 +14,8 @@ topics:
   - architecture
   - api
 tags:
-  - interface-polymorphism
   - pattern
   - graphql
-  - type-system
   - schema-design
 relatedResources:
   - /patterns/graphql-schema-stitching-pattern

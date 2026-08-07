@@ -19,7 +19,6 @@ tags:
   - ai
   - guide
   - ragas
-  - hallucination
   - testing
   - quality
 relatedResources:

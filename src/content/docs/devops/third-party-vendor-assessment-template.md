@@ -13,11 +13,9 @@ topics:
   - security
   - devops
 tags:
-  - vendor-assessment
   - risk
   - security
   - compliance
-  - due-diligence
 relatedResources:
   - /docs/data-breach-response-playbook
   - /docs/access-control-review-template

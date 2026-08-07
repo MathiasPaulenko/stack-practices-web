@@ -15,7 +15,6 @@ tags:
   - runbook
   - operations
   - template
-  - troubleshooting
   - data
 relatedResources:
   - /docs/data-pipeline-design-document-template

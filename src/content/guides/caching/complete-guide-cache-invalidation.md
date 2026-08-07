@@ -17,8 +17,6 @@ tags:
   - guide
   - ttl
   - event-driven
-  - versioned-keys
-  - tag-based
   - consistency
 relatedResources:
   - /guides/complete-guide-redis-caching-strategies

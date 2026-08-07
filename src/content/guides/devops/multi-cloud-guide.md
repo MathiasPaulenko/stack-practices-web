@@ -16,7 +16,6 @@ topics:
 tags:
   - cloud
   - vendor-lock-in
-  - workload-placement
   - data
   - guide
 relatedResources:

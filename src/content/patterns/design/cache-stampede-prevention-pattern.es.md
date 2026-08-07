@@ -13,10 +13,7 @@ topics:
   - design
 tags:
   - caching
-  - stampede
-  - thundering-herd
   - pattern
-  - single-flight
   - distributed-lock
   - redis
   - python

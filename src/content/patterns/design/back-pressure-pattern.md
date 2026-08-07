@@ -14,7 +14,6 @@ topics:
   - architecture
   - performance
 tags:
-  - back-pressure
   - pattern
   - design-pattern
   - streaming

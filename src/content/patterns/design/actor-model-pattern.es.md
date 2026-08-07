@@ -12,13 +12,10 @@ topics:
   - concurrency
   - architecture
 tags:
-  - actor-model
   - pattern
   - design-pattern
-  - message-passing
   - concurrency
   - isolation
-  - erlang
 relatedResources:
   - /patterns/thread-pool-pattern
   - /patterns/producer-consumer-pattern

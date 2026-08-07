@@ -10,7 +10,6 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - object-pool
   - pattern
   - design-pattern
   - creational

@@ -14,7 +14,6 @@ topics:
   - security
 tags:
   - disaster-recovery
-  - test-plan
   - rto
   - rpo
   - failover

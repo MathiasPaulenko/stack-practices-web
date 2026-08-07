@@ -17,7 +17,6 @@ tags:
   - thread-pool
   - concurrency
   - performance
-  - tuning
   - java
   - python
   - go

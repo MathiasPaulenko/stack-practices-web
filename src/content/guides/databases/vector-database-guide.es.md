@@ -15,7 +15,6 @@ tags:
   - vector-database
   - embeddings
   - search
-  - ann
   - pinecone
   - pgvector
   - weaviate

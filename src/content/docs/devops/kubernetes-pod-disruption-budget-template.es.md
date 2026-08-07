@@ -12,10 +12,8 @@ topics:
 tags:
   - devops
   - kubernetes
-  - pdb
   - availability
   - template
-  - disruption
   - infrastructure
 relatedResources:
   - /docs/ci-cd-pipeline-design-template

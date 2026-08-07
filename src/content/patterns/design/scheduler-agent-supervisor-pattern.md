@@ -12,13 +12,11 @@ topics:
   - architecture
   - devops
 tags:
-  - scheduler-agent-supervisor
   - pattern
   - design-pattern
   - scheduling
   - resilience
   - management
-  - supervisor
 relatedResources:
   - /patterns/priority-queue-pattern
   - /patterns/queue-based-load-leveling-pattern

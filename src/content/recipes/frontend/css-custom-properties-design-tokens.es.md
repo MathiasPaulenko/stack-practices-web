@@ -14,7 +14,6 @@ tags:
   - frontend
   - css
   - tokens
-  - custom-properties
   - theming
   - recipe
 relatedResources:

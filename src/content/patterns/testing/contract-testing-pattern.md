@@ -12,7 +12,6 @@ topics:
 tags:
   - testing
   - contract
-  - pact
   - microservices
   - api
   - pattern

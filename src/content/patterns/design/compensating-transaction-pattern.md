@@ -14,7 +14,6 @@ topics:
   - architecture
   - messaging
 tags:
-  - compensating-transaction
   - pattern
   - design-pattern
   - saga

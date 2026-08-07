@@ -14,7 +14,6 @@ tags:
   - pwa
   - offline
   - caching
-  - progressive-web-app
 relatedResources:
   - /recipes/javascript-infinite-scroll-pagination
   - /recipes/javascript-localstorage-expiration

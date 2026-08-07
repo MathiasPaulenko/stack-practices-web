@@ -17,7 +17,6 @@ tags:
   - concurrency
   - thread-pool
   - parallelism
-  - concurrent-futures
 relatedResources:
   - /recipes/python-asyncio-gather-task-groups
   - /recipes/python-asyncio-semaphore-rate-limiting

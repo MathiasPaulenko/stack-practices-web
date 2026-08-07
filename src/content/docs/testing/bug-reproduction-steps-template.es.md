@@ -13,8 +13,6 @@ tags:
   - testing
   - report
   - template
-  - reproduction
-  - qa
   - debugging
 relatedResources:
   - /docs/test-case-template

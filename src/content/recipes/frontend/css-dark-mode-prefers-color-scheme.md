@@ -13,8 +13,6 @@ topics:
 tags:
   - frontend
   - css
-  - dark-mode
-  - prefers-color-scheme
   - theming
   - recipe
 relatedResources:

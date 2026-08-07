@@ -20,8 +20,6 @@ tags:
   - guide
   - embeddings
   - vector-search
-  - reranking
-  - chunking
   - retrieval
 relatedResources:
   - /guides/complete-guide-llm-application-architecture

@@ -18,10 +18,8 @@ tags:
   - devops
   - guide
   - containers
-  - multi-stage-builds
   - distroless
   - health-check
-  - image-scanning
 relatedResources:
   - /guides/complete-guide-kubernetes-networking
   - /guides/complete-guide-monitoring-and-alerting

@@ -18,7 +18,6 @@ tags:
   - template
   - operations
   - recovery
-  - plan
   - infrastructure
 relatedResources:
   - /docs/access-control-policy-template

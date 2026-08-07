@@ -11,8 +11,6 @@ topics:
   - data
 tags:
   - data
-  - self-serve-data
-  - domain-oriented
   - data-ownership
   - guide
 relatedResources:

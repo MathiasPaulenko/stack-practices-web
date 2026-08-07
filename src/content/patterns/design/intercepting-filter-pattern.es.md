@@ -15,7 +15,6 @@ topics:
   - design
   - architecture
 tags:
-  - intercepting-filter
   - pattern
   - design-pattern
   - behavioral

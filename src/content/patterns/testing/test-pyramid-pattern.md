@@ -16,7 +16,6 @@ tags:
   - test-strategy
   - unit-tests
   - integration-tests
-  - e2e-tests
   - pattern
 category: architectural
 relatedResources:

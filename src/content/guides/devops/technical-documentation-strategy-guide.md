@@ -11,12 +11,10 @@ topics:
   - devops
 tags:
   - devops
-  - docs-as-code
   - documentation
   - guide
   - management
   - markdown
-  - technical-writing
 relatedResources:
   - /guides/code-review-best-practices-guide
   - /guides/domain-driven-design-guide

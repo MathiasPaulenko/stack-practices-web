@@ -15,7 +15,6 @@ topics:
   - databases
 tags:
   - outbox-pattern
-  - transactional-events
   - python
   - postgresql
   - event-driven

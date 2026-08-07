@@ -16,7 +16,6 @@ topics:
   - performance
   - api
 tags:
-  - batched-resolver
   - pattern
   - dataloader
   - n-plus-1

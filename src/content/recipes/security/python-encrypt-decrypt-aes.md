@@ -14,10 +14,8 @@ topics:
 tags:
   - python
   - cryptography
-  - aes-gcm
   - encryption
   - security
-  - pbkdf2
 relatedResources:
   - /recipes/docker-secrets-management
   - /recipes/docker-network-isolation

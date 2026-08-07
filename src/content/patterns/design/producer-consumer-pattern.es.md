@@ -20,7 +20,6 @@ tags:
   - concurrency
   - queue
   - decoupling
-  - buffering
 relatedResources:
   - /patterns/thread-pool-pattern
   - /patterns/message-queue-load-leveling-pattern

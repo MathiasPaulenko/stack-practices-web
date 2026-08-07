@@ -13,12 +13,9 @@ topics:
   - architecture
   - messaging
 tags:
-  - sequential-convoy
   - pattern
   - design-pattern
   - messaging
-  - ordering
-  - sequence
   - kafka
   - queue
 relatedResources:

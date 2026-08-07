@@ -16,7 +16,6 @@ tags:
   - database
   - guide
   - caching
-  - sentinel
   - persistence
   - failover
 relatedResources:

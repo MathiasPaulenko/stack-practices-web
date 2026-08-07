@@ -22,7 +22,6 @@ tags:
   - write-model
   - eventual-consistency
   - event-store
-  - projection
   - guide
 relatedResources:
   - /guides/onion-architecture-guide

@@ -13,7 +13,6 @@ topics:
   - design
   - architecture
 tags:
-  - type-object
   - pattern
   - design-pattern
   - structural

@@ -10,7 +10,6 @@ topics:
   - testing
 tags:
   - testing
-  - characterization-tests
   - legacy
   - refactoring
   - pattern

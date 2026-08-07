@@ -14,10 +14,8 @@ tags:
   - code-review
   - code-quality
   - best-practices
-  - feedback
   - automation
   - pull-request
-  - team-collaboration
 relatedResources:
   - /guides/complete-guide-clean-code-principles
   - /guides/complete-guide-refactoring-techniques

@@ -14,7 +14,6 @@ tags:
   - modular-monolith
   - monolith
   - microservices
-  - bounded-contexts
   - module-boundaries
   - domain-driven-design
   - guide

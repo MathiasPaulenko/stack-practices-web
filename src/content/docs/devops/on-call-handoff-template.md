@@ -12,7 +12,6 @@ topics:
   - infrastructure
 tags:
   - on-call
-  - handoff
   - runbook
   - incident-management
   - sre

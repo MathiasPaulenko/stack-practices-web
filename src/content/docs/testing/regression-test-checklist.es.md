@@ -14,7 +14,6 @@ tags:
   - regression
   - checklist
   - deployment
-  - smoke-tests
   - rollback
 relatedResources:
   - /docs/test-strategy-document-template

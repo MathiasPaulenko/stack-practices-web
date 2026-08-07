@@ -14,9 +14,7 @@ tags:
   - responsive-design
   - css-grid
   - flexbox
-  - mobile-first
   - container-queries
-  - fluid-typography
   - guide
   - frontend
 relatedResources:

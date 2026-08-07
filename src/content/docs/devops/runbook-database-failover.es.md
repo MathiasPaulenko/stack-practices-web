@@ -18,7 +18,6 @@ tags:
   - failover
   - mysql
   - postgres
-  - replicacion
   - replication
   - runbook
 relatedResources:

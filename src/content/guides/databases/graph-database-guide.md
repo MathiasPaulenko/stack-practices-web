@@ -11,15 +11,8 @@ topics:
   - data
 tags:
   - data
-  - cypher
-  - datos-conectados
   - database
   - guide
-  - neo4j
-  - property-graph
-  - recommendation-engine
-  - relaciones
-  - relationships
 relatedResources:
   - /guides/nosql-patterns-guide
   - /guides/vector-database-guide

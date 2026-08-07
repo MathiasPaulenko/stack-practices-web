@@ -15,7 +15,6 @@ topics:
   - performance
   - infrastructure
 tags:
-  - read-replicas
   - replication
   - postgresql
   - mysql

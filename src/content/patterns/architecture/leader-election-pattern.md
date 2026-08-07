@@ -11,7 +11,6 @@ topics:
   - architecture
   - concurrency
 tags:
-  - leader-election
   - pattern
   - distributed-systems
   - architecture

@@ -16,8 +16,6 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - traversal
-  - collection
   - python
   - javascript
   - java

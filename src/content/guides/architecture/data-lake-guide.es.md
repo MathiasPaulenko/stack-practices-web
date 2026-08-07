@@ -17,8 +17,6 @@ tags:
   - etl
   - lakehouse
   - big-data
-  - structured-data
-  - unstructured-data
   - guide
 relatedResources:
   - /guides/lakehouse-guide

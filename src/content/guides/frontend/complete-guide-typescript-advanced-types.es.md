@@ -13,9 +13,7 @@ topics:
 tags:
   - guide
   - typescript
-  - advanced-types
   - conditional-types
-  - mapped-types
   - type-safety
   - frontend
 relatedResources:

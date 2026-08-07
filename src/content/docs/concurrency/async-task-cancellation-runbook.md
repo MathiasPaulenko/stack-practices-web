@@ -17,9 +17,7 @@ tags:
   - async
   - cancellation
   - concurrency
-  - graceful-shutdown
   - timeout
-  - context-propagation
 relatedResources:
   - /docs/thread-pool-sizing-template
   - /docs/race-condition-debugging-checklist

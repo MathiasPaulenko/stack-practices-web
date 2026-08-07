@@ -14,11 +14,8 @@ topics:
   - testing
 tags:
   - testing
-  - test-doubles
   - mocking
   - stub
-  - spies
-  - fakes
   - pattern
 category: architectural
 relatedResources:

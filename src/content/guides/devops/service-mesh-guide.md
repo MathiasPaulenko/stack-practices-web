@@ -15,10 +15,8 @@ topics:
 tags:
   - service-mesh
   - istio
-  - linkerd
   - sidecar
   - networking
-  - traffic-management
   - observability
   - guide
 relatedResources:

@@ -12,8 +12,6 @@ topics:
   - architecture
 tags:
   - architecture
-  - c4-model
-  - diagram
   - visualization
   - template
   - standards

@@ -14,7 +14,6 @@ tags:
   - frontend
   - typescript
   - generics
-  - utility-types
   - conditional-types
   - recipe
 relatedResources:

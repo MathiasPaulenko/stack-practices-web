@@ -16,7 +16,6 @@ topics:
   - architecture
 tags:
   - dynamodb
-  - single-table
   - nosql
   - aws
   - serverless

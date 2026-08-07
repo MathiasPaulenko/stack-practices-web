@@ -18,7 +18,6 @@ tags:
   - deployment
   - zero-downtime
   - rollback
-  - traffic-switching
   - infrastructure
   - guide
 relatedResources:

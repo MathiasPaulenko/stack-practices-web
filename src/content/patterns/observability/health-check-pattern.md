@@ -13,9 +13,6 @@ tags:
   - observability
   - health-check
   - kubernetes
-  - liveness
-  - readiness
-  - probes
   - pattern
 category: architectural
 relatedResources:

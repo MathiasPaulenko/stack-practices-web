@@ -16,7 +16,6 @@ tags:
   - pytest
   - python
   - fixtures
-  - parametrize
   - data-driven
   - recipe
 relatedResources:

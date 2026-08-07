@@ -14,7 +14,6 @@ topics:
   - design
 tags:
   - clean-architecture
-  - dependency-rule
   - layered-architecture
   - testability
   - solid

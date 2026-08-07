@@ -14,12 +14,10 @@ topics:
   - messaging
   - architecture
 tags:
-  - publish-subscribe
   - pattern
   - design-pattern
   - event-driven
   - pub-sub
-  - message-broker
   - decoupling
 relatedResources:
   - /patterns/message-queue-load-leveling-pattern

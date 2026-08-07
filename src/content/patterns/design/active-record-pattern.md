@@ -11,7 +11,6 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - active-record
   - pattern
   - design-pattern
   - structural

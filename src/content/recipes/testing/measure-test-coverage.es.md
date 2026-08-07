@@ -16,8 +16,6 @@ tags:
   - testing
   - coverage
   - pytest-cov
-  - nyc
-  - jacoco
   - ci-cd
   - recipe
 relatedResources:

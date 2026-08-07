@@ -10,13 +10,8 @@ topics:
   - databases
   - performance
 tags:
-  - time-series
-  - influxdb
-  - timescaledb
   - clickhouse
-  - iot
   - metrics
-  - retention-policy
   - guide
 relatedResources:
   - /guides/nosql-patterns-guide

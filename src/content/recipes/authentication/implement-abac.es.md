@@ -15,7 +15,6 @@ tags:
   - security
   - authorization
   - policy
-  - fine-grained
   - recipe
 relatedResources:
   - /recipes/implement-rbac

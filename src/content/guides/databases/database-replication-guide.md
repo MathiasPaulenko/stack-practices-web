@@ -13,10 +13,7 @@ topics:
   - devops
 tags:
   - database-replication
-  - master-slave
-  - multi-master
   - failover
-  - conflict-resolution
   - high-availability
   - guide
 relatedResources:

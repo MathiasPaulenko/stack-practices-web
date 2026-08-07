@@ -22,7 +22,6 @@ tags:
   - scaling
   - vitess
   - citus
-  - consistent-hashing
 relatedResources:
   - /guides/complete-guide-postgresql-replication
   - /guides/complete-guide-mongodb-indexing

@@ -12,7 +12,6 @@ topics:
 tags:
   - architecture
   - resilience
-  - shutdown
   - kubernetes
   - pattern
 category: behavioral

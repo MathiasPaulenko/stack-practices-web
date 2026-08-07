@@ -12,7 +12,6 @@ topics:
   - databases
   - performance
 tags:
-  - eager-loading
   - pattern
   - design-pattern
   - structural

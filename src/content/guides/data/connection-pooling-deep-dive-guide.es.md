@@ -14,7 +14,6 @@ topics:
   - devops
 tags:
   - connection-pooling
-  - hikaricp
   - pgbouncer
   - database-performance
   - resource-management

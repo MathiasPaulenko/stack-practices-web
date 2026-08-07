@@ -16,7 +16,6 @@ tags:
   - data
   - analytics
   - sql
-  - jinja
   - data-engineering
 relatedResources:
   - /guides/complete-guide-data-pipeline-architecture

@@ -18,9 +18,7 @@ topics:
 tags:
   - elasticsearch
   - search
-  - cluster
   - database-sharding
-  - opensearch
   - guide
   - database
   - infrastructure

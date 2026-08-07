@@ -13,9 +13,7 @@ tags:
   - pattern
   - ai-pattern
   - llm
-  - multi-step
   - pipeline
-  - task-decomposition
 relatedResources:
   - /patterns/llm-router-pattern
   - /patterns/agent-tool-selection-pattern

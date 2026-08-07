@@ -12,7 +12,6 @@ topics:
   - architecture
 tags:
   - deprecation
-  - sunset
   - legacy
   - migration
   - communication

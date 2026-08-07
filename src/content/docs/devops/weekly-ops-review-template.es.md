@@ -11,7 +11,6 @@ topics:
   - devops
 tags:
   - devops
-  - weekly
   - review
   - operations
   - incident

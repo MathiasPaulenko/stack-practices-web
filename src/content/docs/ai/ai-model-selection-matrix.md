@@ -18,7 +18,6 @@ tags:
   - model-selection
   - matrix
   - benchmarks
-  - pricing
   - comparison
 relatedResources:
   - /docs/ai-llm-cost-tracking-template

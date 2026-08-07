@@ -14,7 +14,6 @@ tags:
   - pattern
   - design-pattern
   - resilience
-  - deadlines
   - operations
   - python
   - javascript

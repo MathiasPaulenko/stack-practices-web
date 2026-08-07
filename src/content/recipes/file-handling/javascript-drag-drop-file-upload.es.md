@@ -13,7 +13,6 @@ topics:
   - file-handling
 tags:
   - javascript
-  - drag-and-drop
   - file-upload
   - html5
   - formdata

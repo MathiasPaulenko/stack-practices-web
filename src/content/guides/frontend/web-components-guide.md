@@ -15,8 +15,6 @@ topics:
 tags:
   - javascript
   - html
-  - framework-agnostic
-  - reusable-components
   - guide
 relatedResources:
   - /guides/accessibility-wcag-guide

@@ -11,8 +11,6 @@ topics:
 tags:
   - javascript
   - clipboard
-  - copy-paste
-  - navigator-api
   - browser
 relatedResources:
   - /recipes/javascript-localstorage-expiration

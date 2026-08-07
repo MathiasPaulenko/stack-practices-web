@@ -18,10 +18,7 @@ tags:
   - networking
   - devops
   - guide
-  - services
   - ingress
-  - network-policies
-  - cni
   - service-mesh
 relatedResources:
   - /guides/complete-guide-docker-production

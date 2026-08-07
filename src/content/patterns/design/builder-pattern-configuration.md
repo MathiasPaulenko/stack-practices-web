@@ -12,7 +12,6 @@ tags:
   - builder
   - creational
   - design-pattern
-  - fluent-interface
 relatedResources:
   - /patterns/abstract-factory-pattern
   - /patterns/proxy-pattern-caching

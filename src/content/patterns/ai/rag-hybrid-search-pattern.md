@@ -12,7 +12,6 @@ topics:
   - data
 tags:
   - ai-pattern
-  - bm25
   - embeddings
   - search
   - pattern

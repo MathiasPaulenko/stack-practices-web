@@ -15,13 +15,10 @@ topics:
   - architecture
   - design
 tags:
-  - graceful-degradation
   - pattern
   - design-pattern
   - resilience
   - fault-tolerance
-  - fallback
-  - partial-failure
 relatedResources:
   - /patterns/circuit-breaker-pattern
   - /patterns/timeout-pattern

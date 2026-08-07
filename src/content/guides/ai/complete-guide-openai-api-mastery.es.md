@@ -18,7 +18,6 @@ tags:
   - ai
   - guide
   - api
-  - gpt-4
   - embeddings
   - fine-tuning
   - streaming

@@ -9,7 +9,6 @@ difficulty: intermediate
 topics:
   - frontend
 tags:
-  - server-side-rendering
   - frontend
   - ui
   - css

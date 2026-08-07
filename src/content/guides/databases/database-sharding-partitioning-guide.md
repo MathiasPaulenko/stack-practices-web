@@ -16,7 +16,6 @@ tags:
   - guide
   - horizontal-scaling
   - partitioning
-  - rendimiento-base-de-datos
   - scalability
 relatedResources:
   - /guides/sql-performance-tuning-guide

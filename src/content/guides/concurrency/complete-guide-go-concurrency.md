@@ -19,8 +19,6 @@ tags:
   - guide
   - goroutines
   - channels
-  - context
-  - select
 relatedResources:
   - /guides/complete-guide-python-asyncio-production
   - /guides/complete-guide-java-concurrency

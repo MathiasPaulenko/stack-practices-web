@@ -11,12 +11,8 @@ difficulty: advanced
 topics:
   - ai
 tags:
-  - agent-tool-selection
   - pattern
   - ai-pattern
-  - llm-agent
-  - tool-use
-  - dynamic-routing
   - function-calling
 relatedResources:
   - /patterns/llm-router-pattern

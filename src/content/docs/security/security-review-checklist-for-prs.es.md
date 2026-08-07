@@ -14,7 +14,6 @@ tags:
   - security
   - code-review
   - pull-request
-  - sast
   - code-quality
 relatedResources:
   - /docs/owasp-top-10-remediation-checklist

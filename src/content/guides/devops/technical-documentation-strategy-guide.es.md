@@ -11,9 +11,7 @@ topics:
   - devops
 tags:
   - devops
-  - docs-as-code
   - documentation
-  - technical-writing
   - management
   - guide
   - markdown

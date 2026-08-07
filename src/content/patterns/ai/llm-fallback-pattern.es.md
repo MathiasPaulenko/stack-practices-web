@@ -9,13 +9,10 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - llm-fallback
   - pattern
   - ai-pattern
   - error-handling
   - resilience
-  - provider-chain
-  - rate-limit
 relatedResources:
   - /patterns/llm-router-pattern
   - /patterns/llm-guardrails-pattern

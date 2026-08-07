@@ -18,7 +18,6 @@ tags:
   - prompt-injection
   - owasp
   - guardrails
-  - red-teaming
   - data
 relatedResources:
   - /guides/complete-guide-llm-application-architecture

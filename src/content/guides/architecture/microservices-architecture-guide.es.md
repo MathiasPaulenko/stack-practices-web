@@ -14,7 +14,6 @@ topics:
   - architecture
 tags:
   - architecture
-  - decomposition
   - scalability
   - guide
   - microservices

@@ -17,7 +17,6 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - tree
   - hierarchy
   - python
   - javascript

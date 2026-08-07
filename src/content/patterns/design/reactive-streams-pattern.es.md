@@ -18,7 +18,6 @@ tags:
   - design-pattern
   - backpressure
   - async
-  - publisher-subscriber
   - flow-control
 relatedResources:
   - /patterns/async-generator-pattern

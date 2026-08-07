@@ -12,7 +12,6 @@ topics:
   - devops
 tags:
   - devops
-  - patch
   - management
   - security
   - operations

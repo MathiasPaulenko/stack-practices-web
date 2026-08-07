@@ -14,8 +14,6 @@ tags:
   - testing
   - java
   - junit5
-  - assertj
-  - soft-assertions
   - recipe
 relatedResources:
   - /recipes/unit-testing

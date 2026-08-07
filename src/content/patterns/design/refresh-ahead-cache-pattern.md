@@ -14,10 +14,8 @@ topics:
   - design
 tags:
   - caching
-  - refresh-ahead
   - pattern
   - redis
-  - proactive-refresh
   - performance
   - python
   - java

@@ -14,9 +14,6 @@ tags:
   - guide
   - react
   - state-management
-  - zustand
-  - tanstack-query
-  - context-api
   - frontend
 relatedResources:
   - /guides/complete-guide-react-server-components

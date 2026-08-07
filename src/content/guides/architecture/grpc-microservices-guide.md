@@ -14,7 +14,6 @@ tags:
   - grpc
   - microservices
   - protobuf
-  - rpc
   - streaming
   - load-balancing
   - performance

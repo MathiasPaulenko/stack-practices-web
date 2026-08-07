@@ -20,7 +20,6 @@ tags:
   - indexing
   - nosql
   - performance
-  - compound-index
   - explain-plan
 relatedResources:
   - /guides/complete-guide-postgresql-replication

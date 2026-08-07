@@ -13,8 +13,6 @@ topics:
   - testing
 tags:
   - testing
-  - test-data
-  - faker
   - factory-pattern
   - python
   - javascript

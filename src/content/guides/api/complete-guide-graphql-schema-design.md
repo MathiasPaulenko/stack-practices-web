@@ -20,7 +20,6 @@ tags:
   - schema-design
   - api-design
   - guide
-  - types
   - mutation
   - connection
   - deprecation

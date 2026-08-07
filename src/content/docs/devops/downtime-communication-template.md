@@ -12,7 +12,6 @@ topics:
   - devops
 tags:
   - devops
-  - downtime
   - communication
   - outage
   - incident

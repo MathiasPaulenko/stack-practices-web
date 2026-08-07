@@ -16,7 +16,6 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - encapsulation
   - javascript
   - scope
 relatedResources:

@@ -12,9 +12,7 @@ topics:
   - infrastructure
 tags:
   - incident-management
-  - timeline
   - postmortem
-  - root-cause-analysis
   - template
   - sre
 relatedResources:

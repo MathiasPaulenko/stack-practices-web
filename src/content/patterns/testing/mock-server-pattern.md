@@ -10,9 +10,7 @@ topics:
   - testing
 tags:
   - testing
-  - mock-server
   - wiremock
-  - nock
   - msw
   - integration-tests
   - pattern

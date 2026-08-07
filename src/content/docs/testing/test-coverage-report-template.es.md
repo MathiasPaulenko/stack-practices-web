@@ -15,7 +15,6 @@ tags:
   - report
   - template
   - quality-metrics
-  - trend-analysis
 relatedResources:
   - /docs/test-strategy-document-template
   - /docs/test-case-template

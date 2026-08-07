@@ -13,7 +13,6 @@ topics:
   - data
 tags:
   - cassandra
-  - data-embedding
   - data-modeling
   - dynamodb
   - embeddings
@@ -21,7 +20,6 @@ tags:
   - mongodb
   - nosql
   - redis
-  - referencing
 relatedResources:
   - /guides/database-design-guide
   - /guides/time-series-database-guide

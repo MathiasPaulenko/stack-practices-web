@@ -21,7 +21,6 @@ tags:
   - postgresql
   - search
   - indexing
-  - relevance
   - guide
 relatedResources:
   - /guides/database-sharding-implementation-guide

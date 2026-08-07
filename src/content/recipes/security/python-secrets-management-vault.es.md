@@ -17,7 +17,6 @@ tags:
   - python
   - hashicorp-vault
   - secrets-management
-  - hvac
   - security
 relatedResources:
   - /recipes/python-jwt-refresh-token-rotation

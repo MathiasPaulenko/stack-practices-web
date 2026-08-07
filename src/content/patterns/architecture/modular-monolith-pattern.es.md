@@ -15,7 +15,6 @@ tags:
   - architecture
   - monolith
   - modules
-  - boundaries
   - pattern
 category: architectural
 relatedResources:

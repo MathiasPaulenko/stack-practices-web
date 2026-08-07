@@ -14,7 +14,6 @@ tags:
   - incident-response
   - template
   - playbook
-  - containment
   - recovery
   - infrastructure
 relatedResources:

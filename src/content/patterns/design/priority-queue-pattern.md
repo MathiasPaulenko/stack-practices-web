@@ -21,7 +21,6 @@ tags:
   - design-pattern
   - scheduling
   - concurrency
-  - heap
 relatedResources:
   - /patterns/queue-based-load-leveling-pattern
   - /patterns/scheduler-agent-supervisor-pattern

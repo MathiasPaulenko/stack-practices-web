@@ -12,10 +12,8 @@ topics:
   - data
 tags:
   - data
-  - cdc
   - streaming
   - kafka
-  - debezium
   - pattern
 category: architectural
 relatedResources:

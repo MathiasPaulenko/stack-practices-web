@@ -13,7 +13,6 @@ topics:
 tags:
   - devops
   - management
-  - cab
   - rollback
   - operations
   - template

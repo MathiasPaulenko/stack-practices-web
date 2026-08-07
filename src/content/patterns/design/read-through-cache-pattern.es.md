@@ -16,7 +16,6 @@ topics:
   - design
 tags:
   - caching
-  - read-through
   - pattern
   - redis
   - performance

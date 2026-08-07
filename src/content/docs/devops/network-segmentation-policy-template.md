@@ -16,7 +16,6 @@ topics:
   - security
   - infrastructure
 tags:
-  - network-segmentation
   - security
   - zero-trust
   - firewall

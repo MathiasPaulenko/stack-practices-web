@@ -12,7 +12,6 @@ topics:
   - messaging
 tags:
   - kafka
-  - naming-convention
   - messaging
   - governance
   - event-streaming

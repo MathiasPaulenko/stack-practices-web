@@ -17,8 +17,6 @@ tags:
   - pattern
   - design-pattern
   - concurrency
-  - thread-reuse
-  - resource-bounding
   - executor
 relatedResources:
   - /patterns/producer-consumer-pattern

@@ -16,12 +16,10 @@ topics:
   - devops
 tags:
   - api
-  - status-page
   - template
   - uptime
   - incident
   - sla
-  - transparency
   - devops
 relatedResources:
   - /docs/incident-communication-template

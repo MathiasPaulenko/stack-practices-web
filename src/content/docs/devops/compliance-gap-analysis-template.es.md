@@ -15,9 +15,7 @@ topics:
   - devops
 tags:
   - compliance
-  - gap-analysis
   - soc2
-  - iso27001
   - audit
 relatedResources:
   - /docs/access-control-review-template

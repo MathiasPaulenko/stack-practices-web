@@ -15,7 +15,6 @@ tags:
   - load-testing
   - k6
   - jmeter
-  - locust
   - performance
   - testing
   - capacity-planning

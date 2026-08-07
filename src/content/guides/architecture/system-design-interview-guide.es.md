@@ -15,7 +15,6 @@ topics:
   - performance
 tags:
   - architecture
-  - interview
   - scalability
   - guide
   - performance

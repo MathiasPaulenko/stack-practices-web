@@ -16,7 +16,6 @@ topics:
   - devops
 tags:
   - sla
-  - service-level-agreement
   - uptime
   - availability
   - sre

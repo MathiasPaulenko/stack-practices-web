@@ -13,7 +13,6 @@ topics:
   - design
 tags:
   - caching
-  - write-behind
   - pattern
   - redis
   - eventual-consistency

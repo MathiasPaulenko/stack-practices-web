@@ -10,10 +10,7 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - agent-approval
   - ai-pattern
-  - decision-gating
-  - human-in-the-loop
   - review
   - pattern
   - safety

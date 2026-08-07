@@ -13,7 +13,6 @@ topics:
 tags:
   - graphql
   - scalars
-  - custom-types
   - validation
   - api
 relatedResources:

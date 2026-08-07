@@ -12,7 +12,6 @@ topics:
 tags:
   - architecture
   - resilience
-  - fallover
   - failover
   - high-availability
   - pattern

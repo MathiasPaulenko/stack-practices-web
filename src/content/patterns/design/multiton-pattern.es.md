@@ -11,7 +11,6 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - multiton
   - pattern
   - design-pattern
   - creational

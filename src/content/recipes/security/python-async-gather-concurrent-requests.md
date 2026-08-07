@@ -17,7 +17,6 @@ tags:
   - python
   - asyncio
   - aiohttp
-  - concurrent-requests
   - performance
 relatedResources:
   - /recipes/python-rate-limiting-fastapi-redis

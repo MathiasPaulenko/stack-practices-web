@@ -13,9 +13,7 @@ tags:
   - frontend
   - browser
   - compatibility
-  - polyfills
   - template
-  - caniuse
 relatedResources:
   - /docs/frontend-performance-budget-template
   - /docs/accessibility-audit-checklist

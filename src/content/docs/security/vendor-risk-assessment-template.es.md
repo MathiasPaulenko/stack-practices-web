@@ -12,7 +12,6 @@ topics:
   - security
 tags:
   - security
-  - vendor
   - risk
   - assessment
   - compliance

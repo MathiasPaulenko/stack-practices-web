@@ -18,7 +18,6 @@ tags:
   - mongodb
   - nosql
   - redis
-  - database-selection
 relatedResources:
   - /guides/database-design-guide
   - /guides/sql-performance-tuning-guide

@@ -20,7 +20,6 @@ tags:
   - modules
   - state
   - workspaces
-  - hashicorp
   - guide
 relatedResources:
   - /guides/aws-basics-guide

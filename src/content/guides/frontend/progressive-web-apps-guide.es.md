@@ -11,12 +11,8 @@ topics:
   - frontend
 tags:
   - pwa
-  - progressive-web-apps
   - service-worker
   - offline
-  - web-app-manifest
-  - push-notifications
-  - installability
   - guide
 relatedResources:
   - /guides/accessibility-wcag-guide

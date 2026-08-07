@@ -17,7 +17,6 @@ topics:
 tags:
   - configuration
   - environments
-  - env-vars
   - secrets
   - deployment
 relatedResources:

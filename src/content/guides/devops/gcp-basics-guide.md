@@ -15,7 +15,6 @@ tags:
   - gcp
   - cloud
   - cloud-computing
-  - compute-engine
   - storage
   - guide
 relatedResources:

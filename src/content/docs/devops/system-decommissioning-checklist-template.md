@@ -11,8 +11,6 @@ topics:
   - infrastructure
   - devops
 tags:
-  - decommissioning
-  - retirement
   - infrastructure
   - migration
   - cleanup

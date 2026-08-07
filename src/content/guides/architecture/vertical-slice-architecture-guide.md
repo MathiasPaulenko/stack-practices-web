@@ -11,11 +11,6 @@ topics:
   - architecture
   - design
 tags:
-  - vertical-slice-architecture
-  - feature-based
-  - feature-folder
-  - code-organization
-  - cohesion
   - maintainability
   - guide
 relatedResources:

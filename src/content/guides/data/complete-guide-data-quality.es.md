@@ -14,7 +14,6 @@ tags:
   - guide
   - data-quality
   - validation
-  - great-expectations
   - pandera
   - profiling
   - data-engineering

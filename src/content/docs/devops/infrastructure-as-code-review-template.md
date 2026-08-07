@@ -14,7 +14,6 @@ tags:
   - devops
   - infrastructure-as-code
   - terraform
-  - cloudformation
   - review
   - template
 relatedResources:

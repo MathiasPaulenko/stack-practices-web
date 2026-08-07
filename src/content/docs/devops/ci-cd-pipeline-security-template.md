@@ -17,7 +17,6 @@ tags:
   - supply-chain
   - pipeline
   - secrets-management
-  - devsecops
 relatedResources:
   - /docs/container-security-baseline-template
   - /docs/rbac-policy-template

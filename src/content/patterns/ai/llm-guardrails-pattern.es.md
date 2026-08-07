@@ -17,7 +17,6 @@ tags:
   - ai-pattern
   - llm-security
   - input-validation
-  - output-filtering
   - prompt-injection
 relatedResources:
   - /patterns/llm-router-pattern

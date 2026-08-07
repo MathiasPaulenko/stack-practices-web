@@ -14,12 +14,9 @@ topics:
   - design
   - architecture
 tags:
-  - partial-class
   - pattern
   - design-pattern
   - structural
-  - code-generation
-  - organization
   - csharp
 relatedResources:
   - /patterns/mixin-pattern

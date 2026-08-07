@@ -21,7 +21,6 @@ tags:
   - pattern
   - python
   - structural
-  - tree
 relatedResources:
   - /patterns/decorator-pattern
   - /patterns/chain-of-responsibility-pattern

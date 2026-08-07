@@ -9,13 +9,11 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - page-controller
   - pattern
   - design-pattern
   - structural
   - web
   - mvc
-  - controller
 relatedResources:
   - /patterns/front-controller-pattern
   - /patterns/model-view-presenter-pattern

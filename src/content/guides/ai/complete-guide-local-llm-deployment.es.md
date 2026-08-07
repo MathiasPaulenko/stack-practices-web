@@ -17,10 +17,6 @@ tags:
   - ai
   - guide
   - ollama
-  - vllm
-  - llama-cpp
-  - quantization
-  - gpu
 relatedResources:
   - /guides/complete-guide-llm-cost-optimization
   - /guides/complete-guide-llm-security

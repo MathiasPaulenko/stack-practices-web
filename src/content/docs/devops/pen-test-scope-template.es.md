@@ -14,7 +14,6 @@ topics:
 tags:
   - security
   - scope
-  - red-team
   - compliance
 relatedResources:
   - /docs/container-security-baseline-template

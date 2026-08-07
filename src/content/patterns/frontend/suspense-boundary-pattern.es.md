@@ -11,8 +11,6 @@ topics:
 tags:
   - frontend
   - react
-  - suspense
-  - loading-states
   - ssr
   - pattern
 category: architectural

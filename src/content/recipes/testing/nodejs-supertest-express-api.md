@@ -13,7 +13,6 @@ tags:
   - testing
   - nodejs
   - express
-  - supertest
   - api
   - integration
   - recipe

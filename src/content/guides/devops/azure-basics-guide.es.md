@@ -18,7 +18,6 @@ tags:
   - cloud-computing
   - azure-functions
   - blob-storage
-  - app-service
   - guide
 relatedResources:
   - /guides/terraform-best-practices-guide

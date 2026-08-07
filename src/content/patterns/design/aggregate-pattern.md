@@ -13,7 +13,6 @@ difficulty: advanced
 topics:
   - design
 tags:
-  - aggregate
   - pattern
   - design-pattern
   - behavioral

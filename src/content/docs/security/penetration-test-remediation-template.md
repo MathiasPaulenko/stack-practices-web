@@ -11,7 +11,6 @@ topics:
   - security
 tags:
   - security
-  - penetration
   - testing
   - remediation
   - vulnerabilities

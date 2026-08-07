@@ -14,7 +14,6 @@ tags:
   - api
   - contract
   - integration
-  - load
   - template
 relatedResources:
   - /docs/load-test-report-template

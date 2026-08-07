@@ -11,7 +11,6 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - domain-event
   - pattern
   - design-pattern
   - behavioral

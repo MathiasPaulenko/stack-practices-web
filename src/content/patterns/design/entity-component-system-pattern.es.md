@@ -16,7 +16,6 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - ecs
   - game-dev
   - composition
   - performance

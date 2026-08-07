@@ -14,10 +14,7 @@ topics:
 tags:
   - accessibility
   - wcag
-  - wcag-2-2
   - a11y
-  - screen-reader
-  - keyboard-navigation
   - aria
   - guide
 relatedResources:

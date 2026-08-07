@@ -10,12 +10,9 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - value-object
   - pattern
   - design-pattern
   - ddd
-  - immutability
-  - domain-modeling
 relatedResources:
   - /patterns/entity-component-system-pattern
   - /patterns/aggregate-pattern

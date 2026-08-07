@@ -18,7 +18,6 @@ tags:
   - pattern
   - design-pattern
   - message-queue
-  - traffic-smoothing
   - async
   - backpressure
 relatedResources:

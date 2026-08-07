@@ -15,7 +15,6 @@ tags:
   - error-handling
   - template
   - rest-api
-  - rfc-7807
   - developer-experience
 relatedResources:
   - /docs/api-documentation

@@ -16,7 +16,6 @@ tags:
   - logging
   - metrics
   - tracing
-  - maturity-model
 relatedResources:
   - /docs/alert-runbook-template
   - /docs/dashboard-design-template

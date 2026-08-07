@@ -15,7 +15,6 @@ tags:
   - test-case
   - template
   - design
-  - traceability
 relatedResources:
   - /docs/test-strategy-document-template
   - /docs/test-coverage-report-template

@@ -14,7 +14,6 @@ tags:
   - guide
   - clean-code
   - code-quality
-  - naming
   - functions
   - refactoring
   - best-practices

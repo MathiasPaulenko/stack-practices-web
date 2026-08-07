@@ -14,7 +14,6 @@ tags:
   - strangler-fig
   - migration
   - legacy
-  - incremental
   - routing
   - api-gateway
 relatedResources:

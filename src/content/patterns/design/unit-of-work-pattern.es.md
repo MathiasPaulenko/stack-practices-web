@@ -13,7 +13,6 @@ topics:
   - design
   - databases
 tags:
-  - unit-of-work
   - pattern
   - design-pattern
   - structural

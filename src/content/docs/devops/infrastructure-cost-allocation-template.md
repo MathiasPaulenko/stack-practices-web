@@ -13,7 +13,6 @@ topics:
 tags:
   - cost-management
   - cloud-costs
-  - chargeback
   - tagging
   - finops
 relatedResources:

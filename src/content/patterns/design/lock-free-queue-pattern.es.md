@@ -14,13 +14,10 @@ topics:
   - concurrency
   - architecture
 tags:
-  - lock-free
   - pattern
   - design-pattern
   - concurrency
   - atomic-operations
-  - cas
-  - ring-buffer
 relatedResources:
   - /patterns/producer-consumer-pattern
   - /patterns/thread-pool-pattern

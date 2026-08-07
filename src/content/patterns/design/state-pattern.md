@@ -15,7 +15,6 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - fsm
   - python
   - javascript
   - java

@@ -22,7 +22,6 @@ tags:
   - modules
   - state-management
   - workspaces
-  - drift-detection
 relatedResources:
   - /guides/complete-guide-docker-production
   - /guides/complete-guide-gitops-production

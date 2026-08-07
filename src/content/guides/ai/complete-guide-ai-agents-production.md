@@ -20,8 +20,6 @@ tags:
   - guide
   - agents
   - react
-  - multi-agent
-  - agile
   - tools
 relatedResources:
   - /guides/complete-guide-llm-application-architecture

@@ -10,7 +10,6 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - front-controller
   - pattern
   - design-pattern
   - structural

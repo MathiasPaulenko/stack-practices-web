@@ -13,7 +13,6 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - double-dispatch
   - operations
   - python
   - javascript

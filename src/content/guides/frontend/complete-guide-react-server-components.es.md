@@ -15,7 +15,6 @@ tags:
   - react
   - server-components
   - javascript
-  - rsc
   - streaming
   - frontend
 relatedResources:

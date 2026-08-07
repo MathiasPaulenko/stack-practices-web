@@ -14,7 +14,6 @@ topics:
 tags:
   - stream-processing
   - kafka
-  - flink
   - streaming
   - event-driven
   - real-time

@@ -18,7 +18,6 @@ tags:
   - pattern
   - design-pattern
   - database
-  - growth
   - partitioning
   - horizontal-scaling
 relatedResources:

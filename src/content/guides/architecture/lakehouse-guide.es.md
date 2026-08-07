@@ -13,11 +13,7 @@ topics:
 tags:
   - lakehouse
   - data
-  - apache-iceberg
-  - apache-hudi
-  - open-table-format
   - acid
-  - time-travel
   - guide
 relatedResources:
   - /guides/data-lake-guide

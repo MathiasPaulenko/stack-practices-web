@@ -17,7 +17,6 @@ tags:
   - file-upload
   - validation
   - security
-  - mime-type
 relatedResources:
   - /recipes/file-upload-validation
   - /recipes/javascript-drag-drop-file-upload

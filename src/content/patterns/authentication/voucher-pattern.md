@@ -11,12 +11,9 @@ topics:
   - authentication
   - security
 tags:
-  - voucher
   - pattern
   - design-pattern
   - security
-  - token-based-auth
-  - claims
   - delegation
   - python
   - javascript

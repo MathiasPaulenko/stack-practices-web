@@ -16,7 +16,6 @@ topics:
   - design
   - architecture
 tags:
-  - context-object
   - pattern
   - design-pattern
   - behavioral

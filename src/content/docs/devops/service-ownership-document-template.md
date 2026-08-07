@@ -14,7 +14,6 @@ topics:
   - devops
   - architecture
 tags:
-  - service-ownership
   - microservices
   - runbook
   - on-call

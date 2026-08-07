@@ -14,9 +14,6 @@ topics:
   - devops
   - architecture
 tags:
-  - handbook
-  - team-culture
-  - engineering-process
   - documentation
   - template
   - standards

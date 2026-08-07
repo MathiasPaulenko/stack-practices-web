@@ -16,7 +16,6 @@ tags:
   - property-based-testing
   - hypothesis
   - fast-check
-  - jqwik
   - fuzzing
   - recipe
 relatedResources:

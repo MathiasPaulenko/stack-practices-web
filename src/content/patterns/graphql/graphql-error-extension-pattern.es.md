@@ -14,7 +14,6 @@ topics:
   - api
   - architecture
 tags:
-  - error-extension
   - pattern
   - graphql
   - error-handling

@@ -19,7 +19,6 @@ tags:
   - guide
   - bundle-size
   - code-splitting
-  - dynamic-import
   - javascript
 relatedResources:
   - /guides/complete-guide-web-performance-core-web-vitals

@@ -18,7 +18,6 @@ tags:
   - guide
   - argocd
   - progressive-delivery
-  - sops
   - multi-cluster
 relatedResources:
   - /guides/complete-guide-kubernetes-networking

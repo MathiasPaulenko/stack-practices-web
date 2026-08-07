@@ -10,7 +10,6 @@ difficulty: intermediate
 topics:
   - devops
 tags:
-  - traffic-mirroring
   - devops
   - testing
   - deployment

@@ -17,8 +17,6 @@ tags:
   - design-pattern
   - behavioral
   - extensions
-  - extensibility
-  - dynamic-loading
 relatedResources:
   - /patterns/registry-pattern
   - /patterns/module-pattern

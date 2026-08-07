@@ -13,7 +13,6 @@ tags:
   - frontend
   - react
   - state-machine
-  - xstate
   - state-management
   - pattern
 category: architectural

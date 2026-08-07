@@ -13,13 +13,10 @@ topics:
   - databases
   - performance
 tags:
-  - counter-tables
-  - data-denormalization
   - data
   - database-design
   - databases
   - guide
-  - materialized-views
   - performance
 relatedResources:
   - /guides/database-design-guide

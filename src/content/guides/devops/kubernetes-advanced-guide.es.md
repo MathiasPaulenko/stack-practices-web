@@ -15,9 +15,6 @@ topics:
   - infrastructure
 tags:
   - kubernetes
-  - operators
-  - crd
-  - admission-controller
   - multi-cluster
   - security
   - helm

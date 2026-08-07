@@ -20,7 +20,6 @@ tags:
   - design-pattern
   - architecture
   - api
-  - mobile
   - web
   - graphql
 relatedResources:

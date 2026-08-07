@@ -15,7 +15,6 @@ topics:
   - architecture
   - frontend
 tags:
-  - static-content-hosting
   - pattern
   - design-pattern
   - cdn

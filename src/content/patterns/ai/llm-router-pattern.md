@@ -13,7 +13,6 @@ difficulty: intermediate
 topics:
   - ai
 tags:
-  - llm-router
   - pattern
   - ai-pattern
   - cost-optimization

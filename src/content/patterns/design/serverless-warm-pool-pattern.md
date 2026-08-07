@@ -13,7 +13,6 @@ topics:
   - design
 tags:
   - serverless
-  - warm-pool
   - cold-start
   - pattern
   - lambda

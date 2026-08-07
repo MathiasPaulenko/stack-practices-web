@@ -11,9 +11,6 @@ topics:
 tags:
   - testing
   - fixtures
-  - setup
-  - teardown
-  - test-context
   - pattern
 category: architectural
 relatedResources:

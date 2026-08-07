@@ -9,11 +9,9 @@ difficulty: intermediate
 topics:
   - design
 tags:
-  - model-view-presenter
   - pattern
   - design-pattern
   - structural
-  - mvp
   - ui
   - testing
 relatedResources:

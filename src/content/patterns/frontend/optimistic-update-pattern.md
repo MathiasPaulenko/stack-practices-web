@@ -13,7 +13,6 @@ topics:
 tags:
   - frontend
   - react
-  - optimistic-ui
   - state-management
   - pattern
 category: architectural

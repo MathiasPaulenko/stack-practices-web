@@ -14,7 +14,6 @@ topics:
 tags:
   - devops
   - docker
-  - multi-stage
   - distroless
   - security
   - optimization

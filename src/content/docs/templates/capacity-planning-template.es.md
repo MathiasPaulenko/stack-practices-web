@@ -21,7 +21,6 @@ tags:
   - scalability
   - performance
   - infrastructure
-  - resource-estimation
   - devops
 relatedResources:
   - /docs/system-diagram-template

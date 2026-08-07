@@ -14,7 +14,6 @@ topics:
 tags:
   - security
   - java
-  - spotbugs
   - static-analysis
   - code-quality
   - recipe

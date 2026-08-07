@@ -18,7 +18,6 @@ tags:
   - concurrency
   - debugging
   - locks
-  - atomics
   - channels
 relatedResources:
   - /docs/async-task-cancellation-runbook

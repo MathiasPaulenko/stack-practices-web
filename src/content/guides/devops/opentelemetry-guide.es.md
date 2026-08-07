@@ -17,7 +17,6 @@ tags:
   - tracing
   - metrics
   - logs
-  - collector
   - instrumentation
   - guide
 relatedResources:

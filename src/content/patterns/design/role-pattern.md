@@ -19,7 +19,6 @@ tags:
   - pattern
   - design-pattern
   - behavioral
-  - dynamic
   - composition
   - ddd
 relatedResources:

@@ -21,7 +21,6 @@ tags:
   - design-pattern
   - concurrency
   - redis
-  - zookeeper
   - coordination
   - consensus
 relatedResources:

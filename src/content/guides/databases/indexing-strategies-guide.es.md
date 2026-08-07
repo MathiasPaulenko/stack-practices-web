@@ -13,15 +13,7 @@ topics:
 tags:
   - data
   - composite
-  - database-indexing
-  - gin-index
   - guide
-  - hash-index
-  - indice-compuesto
-  - indice-gin
-  - indice-hash
-  - indice-parcial
-  - partial-index
   - query-optimization
 relatedResources:
   - /guides/database-normalization-guide

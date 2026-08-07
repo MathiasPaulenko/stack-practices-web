@@ -14,7 +14,6 @@ topics:
 tags:
   - frontend
   - typescript
-  - discriminated-unions
   - type-safety
   - exhaustiveness
   - recipe

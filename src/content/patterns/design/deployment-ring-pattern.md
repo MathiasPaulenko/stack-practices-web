@@ -14,9 +14,7 @@ tags:
   - deployment
   - pattern
   - design-pattern
-  - progressive-rollout
   - deployment-strategy
-  - rings
   - canary
 relatedResources:
   - /patterns/canary-release-pattern

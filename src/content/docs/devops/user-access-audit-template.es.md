@@ -12,8 +12,6 @@ topics:
   - security
   - devops
 tags:
-  - access-audit
-  - user-access-review
   - identity
   - rbac
   - compliance

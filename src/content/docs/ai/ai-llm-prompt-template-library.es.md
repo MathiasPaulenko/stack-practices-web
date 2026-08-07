@@ -19,8 +19,6 @@ tags:
   - llm
   - prompt-engineering
   - template
-  - gpt
-  - claude
 relatedResources:
   - /docs/ai-prompt-version-control-template
   - /docs/ai-model-selection-matrix

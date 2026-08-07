@@ -15,7 +15,6 @@ tags:
   - devops
   - github-actions
   - ci-cd
-  - reusable-workflows
   - automation
   - recipe
 relatedResources:

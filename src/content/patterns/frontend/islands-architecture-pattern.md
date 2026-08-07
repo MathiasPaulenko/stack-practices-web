@@ -11,7 +11,6 @@ topics:
 tags:
   - frontend
   - javascript
-  - islands
   - ssr
   - performance
   - pattern

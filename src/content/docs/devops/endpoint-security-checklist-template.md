@@ -13,8 +13,6 @@ topics:
 tags:
   - security
   - hardening
-  - mdm
-  - edr
   - compliance
 relatedResources:
   - /docs/container-security-baseline-template

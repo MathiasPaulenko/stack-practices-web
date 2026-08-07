@@ -19,9 +19,7 @@ tags:
   - isolation
   - pattern
   - design-pattern
-  - saas
   - security
-  - tenant
   - python
   - javascript
   - java

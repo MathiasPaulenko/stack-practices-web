@@ -19,9 +19,7 @@ tags:
   - guide
   - prometheus
   - grafana
-  - alertmanager
   - runbook
-  - sli-slo-sla
 relatedResources:
   - /guides/complete-guide-kubernetes-networking
   - /guides/complete-guide-gitops-production

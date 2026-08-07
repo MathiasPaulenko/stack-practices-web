@@ -20,7 +20,6 @@ tags:
   - guide
   - replication
   - streaming
-  - patroni
   - failover
 relatedResources:
   - /guides/complete-guide-sql-query-optimization

@@ -13,7 +13,6 @@ topics:
   - devops
 tags:
   - docker
-  - multi-stage-build
   - optimization
   - containers
   - dockerfile

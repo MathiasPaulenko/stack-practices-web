@@ -19,8 +19,6 @@ tags:
   - guide
   - lru
   - ttl
-  - multi-tier
-  - thread-safety
 relatedResources:
   - /guides/complete-guide-redis-caching-strategies
   - /guides/complete-guide-cdn-caching-strategy

@@ -14,7 +14,6 @@ topics:
   - performance
 tags:
   - redis
-  - sorted-sets
   - leaderboard
   - real-time
   - data

@@ -17,7 +17,6 @@ tags:
   - concurrency
   - guide
   - threads
-  - completablefuture
   - virtual-threads
   - executor
   - locks

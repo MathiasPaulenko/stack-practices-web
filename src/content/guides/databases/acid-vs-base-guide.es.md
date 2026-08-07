@@ -13,8 +13,6 @@ topics:
 tags:
   - acid
   - databases
-  - consistency-models
-  - cap-theorem
   - distributed-systems
   - eventual-consistency
   - transactions

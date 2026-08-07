@@ -15,7 +15,6 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - query
   - composition
   - api
 relatedResources:

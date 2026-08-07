@@ -17,7 +17,6 @@ tags:
   - event-sourcing
   - cqrs
   - event-store
-  - projections
   - read-model
   - ddd
 relatedResources:

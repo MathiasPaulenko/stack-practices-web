@@ -12,7 +12,6 @@ topics:
 tags:
   - data
   - metadata
-  - openlineage
   - governance
   - pattern
 category: architectural

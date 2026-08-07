@@ -13,8 +13,6 @@ tags:
   - guide
   - refactoring
   - code-quality
-  - extract-method
-  - polymorphism
   - clean-code
   - technical-debt
   - best-practices

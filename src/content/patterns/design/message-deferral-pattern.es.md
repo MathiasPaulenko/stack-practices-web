@@ -11,10 +11,8 @@ topics:
   - messaging
   - architecture
 tags:
-  - message-deferral
   - pattern
   - design-pattern
-  - delayed-delivery
   - scheduling
   - retry
   - message-queue

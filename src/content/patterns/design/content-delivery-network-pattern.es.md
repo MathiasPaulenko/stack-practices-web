@@ -17,7 +17,6 @@ topics:
   - infrastructure
   - performance
 tags:
-  - content-delivery-network
   - pattern
   - design-pattern
   - edge

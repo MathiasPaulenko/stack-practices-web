@@ -18,7 +18,6 @@ tags:
   - data-migration
   - zero-downtime
   - schema-evolution
-  - backfill
   - database
   - guide
 relatedResources:

@@ -16,9 +16,6 @@ topics:
 tags:
   - chaos-engineering
   - resilience
-  - litmus
-  - gremlin
-  - chaos-mesh
   - injection
   - sre
   - guide

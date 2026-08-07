@@ -15,7 +15,6 @@ tags:
   - cloud
   - cost
   - finops
-  - allocation
   - template
 relatedResources:
   - /docs/auto-scaling-policy-template

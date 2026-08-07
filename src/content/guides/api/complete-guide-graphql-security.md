@@ -18,8 +18,6 @@ tags:
   - graphql
   - security
   - guide
-  - introspection
-  - depth-limiting
   - cost
   - rate-limiting
   - authentication

@@ -14,7 +14,6 @@ topics:
 tags:
   - security
   - python
-  - bandit
   - static-analysis
   - code-quality
   - recipe

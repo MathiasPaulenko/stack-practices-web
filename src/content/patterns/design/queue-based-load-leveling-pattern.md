@@ -15,7 +15,6 @@ topics:
   - architecture
   - messaging
 tags:
-  - queue-based-load-leveling
   - pattern
   - design-pattern
   - messaging

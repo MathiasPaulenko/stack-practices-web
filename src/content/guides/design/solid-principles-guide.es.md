@@ -16,7 +16,6 @@ tags:
   - guide
   - maintainability
   - design
-  - principles
   - solid
 relatedResources:
   - /guides/clean-code-principles-guide

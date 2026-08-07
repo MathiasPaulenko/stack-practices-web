@@ -14,7 +14,6 @@ topics:
   - design
 tags:
   - cqrs
-  - command-query-segregation
   - event-sourcing
   - read-model
   - write-model

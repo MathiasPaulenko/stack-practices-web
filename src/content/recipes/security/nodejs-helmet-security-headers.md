@@ -13,7 +13,6 @@ topics:
   - api
 tags:
   - nodejs
-  - helmet
   - security-headers
   - express
   - owasp

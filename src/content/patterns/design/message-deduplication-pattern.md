@@ -16,7 +16,6 @@ tags:
   - pattern
   - design-pattern
   - idempotency
-  - exactly-once
   - message-queue
 relatedResources:
   - /patterns/message-queue-load-leveling-pattern

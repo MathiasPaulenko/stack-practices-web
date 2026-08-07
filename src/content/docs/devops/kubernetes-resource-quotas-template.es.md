@@ -12,7 +12,6 @@ topics:
   - devops
 tags:
   - kubernetes
-  - resource-quotas
   - k8s
   - devops
   - management

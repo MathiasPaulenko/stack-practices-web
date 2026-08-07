@@ -14,7 +14,6 @@ tags:
   - llm
   - prompt-engineering
   - ai
-  - chatgpt
   - rag
   - guide
 relatedResources:

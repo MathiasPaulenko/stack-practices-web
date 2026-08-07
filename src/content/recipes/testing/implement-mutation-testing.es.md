@@ -11,9 +11,6 @@ topics:
   - testing
 tags:
   - testing
-  - stryker
-  - pit
-  - mutpy
   - quality
   - recipe
 relatedResources:

@@ -17,7 +17,6 @@ tags:
   - design-pattern
   - behavioral
   - data
-  - grammar
   - python
   - javascript
   - java

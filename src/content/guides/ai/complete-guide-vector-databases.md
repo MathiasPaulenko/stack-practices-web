@@ -19,7 +19,6 @@ tags:
   - weaviate
   - chroma
   - pgvector
-  - milvus
 relatedResources:
   - /guides/complete-guide-rag-production
   - /guides/complete-guide-llm-application-architecture

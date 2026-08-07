@@ -17,7 +17,6 @@ tags:
   - python
   - terraform
   - infrastructure-as-code
-  - custom-provider
   - iac
 relatedResources:
   - /recipes/docker-network-isolation

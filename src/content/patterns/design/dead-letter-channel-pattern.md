@@ -15,7 +15,6 @@ tags:
   - dead-letter-queue
   - pattern
   - design-pattern
-  - poison-message
   - error-handling
   - message-queue
   - dlq

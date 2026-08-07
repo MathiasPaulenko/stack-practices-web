@@ -13,8 +13,6 @@ topics:
   - design
 tags:
   - caching
-  - two-level-cache
-  - l1-l2
   - pattern
   - redis
   - in-memory

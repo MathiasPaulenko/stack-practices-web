@@ -14,7 +14,6 @@ topics:
   - infrastructure
   - performance
 tags:
-  - compute-resource-consolidation
   - pattern
   - cost-optimization
   - architecture

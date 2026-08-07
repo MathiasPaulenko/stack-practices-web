@@ -15,7 +15,6 @@ tags:
   - devops
   - documentation
   - onboarding
-  - team
 relatedResources:
   - /docs/readme-template
   - /docs/contributing-guide

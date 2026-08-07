@@ -13,11 +13,6 @@ topics:
 tags:
   - sql
   - window-functions
-  - row-number
-  - rank
-  - lead
-  - lag
-  - partition-by
   - analytics
   - guide
 relatedResources:

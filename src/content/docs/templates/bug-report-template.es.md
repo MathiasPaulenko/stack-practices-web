@@ -15,7 +15,6 @@ topics:
   - devops
 tags:
   - devops
-  - issue-tracking
   - template
   - ci-cd
   - automation

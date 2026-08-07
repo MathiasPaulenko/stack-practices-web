@@ -15,7 +15,6 @@ tags:
   - modular-monolith
   - architecture
   - module-boundaries
-  - shared-kernel
   - microservices
   - ddd
 relatedResources:

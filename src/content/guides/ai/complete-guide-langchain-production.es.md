@@ -18,7 +18,6 @@ tags:
   - guide
   - chains
   - agents
-  - memory
   - lcel
   - llm
 relatedResources:

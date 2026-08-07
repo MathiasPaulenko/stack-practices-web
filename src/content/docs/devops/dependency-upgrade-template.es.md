@@ -13,7 +13,6 @@ topics:
 tags:
   - devops
   - dependencies
-  - upgrade
   - runbook
   - maintenance
 relatedResources:

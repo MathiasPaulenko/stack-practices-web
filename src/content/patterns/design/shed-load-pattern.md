@@ -12,13 +12,10 @@ topics:
   - architecture
   - performance
 tags:
-  - shed-load
   - pattern
   - design-pattern
   - resilience
-  - load-shedding
   - backpressure
-  - overload-protection
 relatedResources:
   - /patterns/throttling-pattern
   - /patterns/circuit-breaker-pattern

@@ -14,14 +14,12 @@ topics:
   - architecture
   - security
 tags:
-  - gatekeeper
   - pattern
   - design-pattern
   - security
   - edge
   - validation
   - api-gateway
-  - waf
 relatedResources:
   - /patterns/throttling-pattern
   - /patterns/content-delivery-network-pattern

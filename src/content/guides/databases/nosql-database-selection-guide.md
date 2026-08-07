@@ -13,7 +13,6 @@ topics:
 tags:
   - cassandra
   - database
-  - database-selection
   - dynamodb
   - guide
   - mongodb

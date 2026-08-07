@@ -17,7 +17,6 @@ tags:
   - distributed-lock
   - redlock
   - concurrency
-  - mutual-exclusion
 relatedResources:
   - /recipes/redis-cache-aside-pattern
   - /recipes/redis-rate-limiting-token-bucket

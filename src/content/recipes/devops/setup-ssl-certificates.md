@@ -15,7 +15,6 @@ tags:
   - devops
   - ssl
   - tls
-  - lets-encrypt
   - certbot
   - http
   - security

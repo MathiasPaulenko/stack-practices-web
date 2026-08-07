@@ -18,7 +18,6 @@ tags:
   - react
   - performance
   - optimization
-  - memoization
   - code-splitting
   - virtualization
   - guide

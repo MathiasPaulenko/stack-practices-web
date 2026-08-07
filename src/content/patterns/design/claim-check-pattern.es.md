@@ -14,13 +14,11 @@ topics:
   - architecture
   - messaging
 tags:
-  - claim-check
   - pattern
   - design-pattern
   - messaging
   - storage
   - azure
-  - large-payload
   - async
 relatedResources:
   - /patterns/queue-based-load-leveling-pattern

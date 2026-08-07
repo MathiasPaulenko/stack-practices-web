@@ -13,10 +13,7 @@ topics:
   - design
 tags:
   - layered-architecture
-  - n-tier
   - separation-of-concerns
-  - presentation-layer
-  - business-logic-layer
   - data
   - guide
 relatedResources:

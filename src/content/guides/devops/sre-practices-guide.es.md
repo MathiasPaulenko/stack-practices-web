@@ -21,7 +21,6 @@ tags:
   - sli
   - sla
   - error-budget
-  - toil
   - on-call
   - guide
 relatedResources:

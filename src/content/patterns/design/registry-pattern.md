@@ -15,9 +15,7 @@ tags:
   - pattern
   - design-pattern
   - structural
-  - service-locator
   - decoupling
-  - lookup
 relatedResources:
   - /patterns/multiton-pattern
   - /patterns/dependency-injection-pattern

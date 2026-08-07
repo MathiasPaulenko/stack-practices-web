@@ -12,7 +12,6 @@ topics:
   - frontend
 tags:
   - javascript
-  - infinite-scroll
   - pagination
   - observer
   - lazy-loading

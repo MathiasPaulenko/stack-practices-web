@@ -11,12 +11,7 @@ topics:
   - devops
   - infrastructure
 tags:
-  - platform-engineering
-  - idp
-  - internal-developer-platform
-  - golden-path
   - developer-experience
-  - backstage
   - infrastructure
   - terraform
   - guide

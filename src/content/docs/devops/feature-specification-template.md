@@ -16,9 +16,7 @@ topics:
   - design
 tags:
   - specification
-  - feature-request
   - requirements
-  - product-planning
   - template
 relatedResources:
   - /docs/architecture-decision-record-adr-template

@@ -14,7 +14,6 @@ topics:
   - architecture
   - databases
 tags:
-  - geode
   - pattern
   - design-pattern
   - partitioning

@@ -12,9 +12,7 @@ topics:
   - devops
 tags:
   - devops
-  - bug
   - triage
-  - severity
   - operations
   - template
 relatedResources:

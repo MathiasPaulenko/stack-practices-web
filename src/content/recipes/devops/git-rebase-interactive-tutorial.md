@@ -15,10 +15,8 @@ topics:
   - devops
 tags:
   - git
-  - commit-history
   - version-control
   - squash
-  - interactive-rebase
 relatedResources:
   - /recipes/docker-compose-dev-prod-split
   - /recipes/docker-multi-stage-build-optimization

@@ -20,7 +20,6 @@ tags:
   - availability
   - guide
   - distributed-systems
-  - partition-tolerance
 relatedResources:
   - /guides/nosql-database-selection-guide
   - /guides/database-sharding-partitioning-guide

@@ -14,7 +14,6 @@ topics:
 tags:
   - testing
   - experimentation
-  - statistics
   - data-driven
   - conversion
   - hypothesis

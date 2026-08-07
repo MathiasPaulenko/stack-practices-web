@@ -15,9 +15,7 @@ topics:
 tags:
   - feature-flags
   - release
-  - kill-switch
   - experimentation
-  - toggles
   - rollout
   - guide
 relatedResources:

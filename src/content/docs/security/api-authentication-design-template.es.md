@@ -16,7 +16,6 @@ tags:
   - api-security
   - jwt
   - oauth2
-  - token-lifecycle
   - authorization
 relatedResources:
   - /docs/owasp-top-10-remediation-checklist

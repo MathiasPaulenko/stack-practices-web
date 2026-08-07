@@ -14,12 +14,10 @@ topics:
   - design
   - architecture
 tags:
-  - marker-interface
   - pattern
   - design-pattern
   - structural
   - metadata
-  - typing
   - java
 relatedResources:
   - /patterns/type-object-pattern

@@ -16,8 +16,6 @@ tags:
   - frontend
   - guide
   - server-components
-  - actions
-  - use-hook
 relatedResources:
   - /guides/complete-guide-web-performance-core-web-vitals
   - /guides/complete-guide-bundle-size-optimization

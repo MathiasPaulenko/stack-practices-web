@@ -13,12 +13,10 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - null-object
   - pattern
   - design-pattern
   - behavioral
   - safety
-  - defaults
 relatedResources:
   - /patterns/strategy-pattern
   - /patterns/singleton-pattern

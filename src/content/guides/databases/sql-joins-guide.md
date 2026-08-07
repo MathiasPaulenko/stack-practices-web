@@ -13,12 +13,6 @@ topics:
   - databases
   - data
 tags:
-  - sql-joins
-  - inner-join
-  - left-join
-  - outer-join
-  - cross-join
-  - self-join
   - query-optimization
   - guide
 relatedResources:

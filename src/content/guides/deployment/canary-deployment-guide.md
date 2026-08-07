@@ -17,7 +17,6 @@ tags:
   - canary
   - deployment
   - rollout
-  - traffic-splitting
   - rollback
   - feature-flags
   - guide

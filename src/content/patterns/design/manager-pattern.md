@@ -15,7 +15,6 @@ topics:
   - design
   - architecture
 tags:
-  - manager
   - pattern
   - design-pattern
   - behavioral

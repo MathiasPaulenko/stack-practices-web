@@ -16,7 +16,6 @@ topics:
   - design
   - architecture
 tags:
-  - business-delegate
   - pattern
   - design-pattern
   - behavioral

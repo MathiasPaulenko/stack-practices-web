@@ -14,7 +14,6 @@ topics:
   - design
   - architecture
 tags:
-  - twin
   - pattern
   - design-pattern
   - structural

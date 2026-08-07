@@ -15,7 +15,6 @@ topics:
   - performance
   - architecture
 tags:
-  - rust
   - concurrency
   - async
   - runtime

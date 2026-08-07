@@ -14,8 +14,6 @@ tags:
   - adr
   - architecture
   - documentation
-  - decision-making
-  - technical-planning
 relatedResources:
   - /docs/feature-specification-template
   - /docs/engineering-handbook-template

@@ -14,12 +14,10 @@ topics:
   - architecture
   - design
 tags:
-  - pipes-and-filters
   - pattern
   - design-pattern
   - pipeline
   - data
-  - composable
   - python
   - javascript
   - java

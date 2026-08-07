@@ -16,7 +16,6 @@ tags:
   - python
   - mocking
   - http
-  - responses
   - requests
   - recipe
 relatedResources:

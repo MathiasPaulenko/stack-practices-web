@@ -12,7 +12,6 @@ topics:
   - design
 tags:
   - serverless
-  - fanout
   - pattern
   - messaging
   - eventbridge

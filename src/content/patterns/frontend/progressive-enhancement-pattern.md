@@ -10,7 +10,6 @@ topics:
   - frontend
 tags:
   - frontend
-  - progressive-enhancement
   - accessibility
   - html
   - pattern

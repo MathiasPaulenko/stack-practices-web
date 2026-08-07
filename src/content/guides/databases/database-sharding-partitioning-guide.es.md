@@ -16,7 +16,6 @@ tags:
   - horizontal-scaling
   - guide
   - partitioning
-  - rendimiento-base-de-datos
   - database-sharding
 relatedResources:
   - /guides/sql-performance-tuning-guide

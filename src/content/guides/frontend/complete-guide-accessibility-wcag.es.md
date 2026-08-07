@@ -15,7 +15,6 @@ tags:
   - wcag
   - aria
   - a11y
-  - screen-readers
   - frontend
 relatedResources:
   - /guides/complete-guide-css-modern-layout

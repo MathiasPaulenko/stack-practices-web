@@ -15,7 +15,6 @@ tags:
   - cost
   - aws-lambda
   - cloud-costs
-  - budgeting
   - optimization
 relatedResources:
   - /docs/serverless-function-deployment-checklist

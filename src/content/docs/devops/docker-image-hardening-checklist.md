@@ -16,7 +16,6 @@ tags:
   - container-security
   - hardening
   - devops
-  - containerization
   - ci-cd
 relatedResources:
   - /docs/kubernetes-resource-quotas-template

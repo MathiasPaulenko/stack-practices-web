@@ -12,12 +12,10 @@ difficulty: beginner
 topics:
   - design
 tags:
-  - mixin
   - pattern
   - design-pattern
   - structural
   - composition
-  - code-reuse
   - inheritance
   - javascript
 relatedResources:

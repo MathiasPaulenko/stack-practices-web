@@ -14,7 +14,6 @@ tags:
   - guide
   - helm
   - kubernetes
-  - charts
   - templating
   - deployment
   - packaging

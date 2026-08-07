@@ -18,7 +18,6 @@ tags:
   - batch
   - streaming
   - lambda
-  - kappa
 relatedResources:
   - /guides/complete-guide-apache-airflow
   - /guides/complete-guide-dbt-data-transformations

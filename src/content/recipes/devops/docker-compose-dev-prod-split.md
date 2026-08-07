@@ -14,7 +14,6 @@ topics:
 tags:
   - docker
   - docker-compose
-  - dev-prod-split
   - environments
   - configuration
   - devops
