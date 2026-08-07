@@ -7604,4 +7604,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  distroless: {
+    en: {
+      heading: 'Distroless Containers',
+      paragraphs: [
+        'Distroless images contain only your application and its runtime dependencies. They reduce attack surface and image size by excluding package managers and shells.',
+        'The resources below cover building distroless images, debugging, and use cases. Each guide helps you build more secure and minimal container images.',
+      ],
+    },
+    es: {
+      heading: 'Contenedores Distroless',
+      paragraphs: [
+        'Las imagenes distroless contienen solo tu aplicacion y sus dependencias de runtime. Reducen la superficie de ataque y el tamano de la imagen al excluir gestores de paquetes y shells.',
+        'Los recursos a continuacion cubren construccion de imagenes distroless, debugging y casos de uso. Cada guia te ayuda a construir imagenes de contenedor mas seguras y minimas.',
+      ],
+    },
+  },
+  credentials: {
+    en: {
+      heading: 'Credential Management',
+      paragraphs: [
+        'Credentials are secrets used to authenticate users and systems. Managing them safely is critical for security.',
+        'The resources below cover credential storage, rotation, vaults, and least privilege. Each guide helps you protect credentials in your applications.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Credenciales',
+      paragraphs: [
+        'Las credenciales son secretos usados para autenticar usuarios y sistemas. Gestionarlas de forma segura es critico para la seguridad.',
+        'Los recursos a continuacion cubren almacenamiento de credenciales, rotacion, vaults y privilegio minimo. Cada guia te ayuda a proteger credenciales en tus aplicaciones.',
+      ],
+    },
+  },
+  configmap: {
+    en: {
+      heading: 'Kubernetes ConfigMaps',
+      paragraphs: [
+        'ConfigMaps store non-confidential configuration in Kubernetes. They decouple config from container images.',
+        'The resources below cover creation, mounting, environment variables, and updates. Each guide helps you manage Kubernetes configuration.',
+      ],
+    },
+    es: {
+      heading: 'ConfigMaps de Kubernetes',
+      paragraphs: [
+        'Los ConfigMaps almacenan configuracion no confidencial en Kubernetes. Desacoplan la configuracion de las imagenes de contenedor.',
+        'Los recursos a continuacion cubren creacion, montaje, variables de entorno y actualizaciones. Cada guia te ayuda a gestionar configuracion en Kubernetes.',
+      ],
+    },
+  },
+  templating: {
+    en: {
+      heading: 'Templating and Code Generation',
+      paragraphs: [
+        'Templating generates text or code by substituting values into a template. It is used for web pages, configuration, and reports.',
+        'The resources below cover template engines, logic-less templates, and code generation. Each guide helps you use templating effectively.',
+      ],
+    },
+    es: {
+      heading: 'Templating y Generacion de Codigo',
+      paragraphs: [
+        'El templating genera texto o codigo sustituyendo valores en una plantilla. Se usa para paginas web, configuracion y reportes.',
+        'Los recursos a continuacion cubren motores de plantillas, plantillas sin logica y generacion de codigo. Cada guia te ayuda a usar templating efectivamente.',
+      ],
+    },
+  },
+  packaging: {
+    en: {
+      heading: 'Software Packaging',
+      paragraphs: [
+        'Packaging bundles code, dependencies, and metadata for distribution. It includes libraries, containers, and application installers.',
+        'The resources below cover package managers, wheels, jars, npm, and container images. Each guide helps you package software for reuse and deployment.',
+      ],
+    },
+    es: {
+      heading: 'Empaquetado de Software',
+      paragraphs: [
+        'El empaquetado agrupa codigo, dependencias y metadatos para distribucion. Incluye librerias, contenedores e instaladores de aplicaciones.',
+        'Los recursos a continuacion cubren gestores de paquetes, wheels, jars, npm e imagenes de contenedor. Cada guia te ayuda a empaquetar software para reutilizacion y despliegue.',
+      ],
+    },
+  },
+  'secret-management': {
+    en: {
+      heading: 'Secret Management',
+      paragraphs: [
+        'Secret management is the practice of storing, accessing, and rotating sensitive data. It is essential for protecting API keys, passwords, and certificates.',
+        'The resources below cover vaults, secret stores, rotation, and access control. Each guide helps you manage secrets securely.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Secretos',
+      paragraphs: [
+        'La gestion de secretos es la practica de almacenar, acceder y rotar datos sensibles. Es esencial para proteger API keys, contrasenas y certificados.',
+        'Los recursos a continuacion cubren vaults, secret stores, rotacion y control de acceso. Cada guia te ayuda a gestionar secretos de forma segura.',
+      ],
+    },
+  },
+  iptables: {
+    en: {
+      heading: 'iptables and Firewall Rules',
+      paragraphs: [
+        'iptables is a user-space tool to configure Linux kernel firewall rules. It controls network traffic by packet filtering.',
+        'The resources below cover chains, rules, NAT, filtering, and common patterns. Each guide helps you secure Linux network traffic with iptables.',
+      ],
+    },
+    es: {
+      heading: 'iptables y Reglas de Firewall',
+      paragraphs: [
+        'iptables es una herramienta de espacio de usuario para configurar reglas de firewall del kernel de Linux. Controla el trafico de red mediante filtrado de paquetes.',
+        'Los recursos a continuacion cubren cadenas, reglas, NAT, filtrado y patrones comunes. Cada guia te ayuda a asegurar el trafico de red de Linux con iptables.',
+      ],
+    },
+  },
+  gzip: {
+    en: {
+      heading: 'gzip Compression',
+      paragraphs: [
+        'gzip is a file compression format and utility. It reduces size for storage and transfer and is widely supported by web servers.',
+        'The resources below cover gzip usage, streaming, decompression, and integration. Each guide helps you compress and decompress data efficiently.',
+      ],
+    },
+    es: {
+      heading: 'Compresion gzip',
+      paragraphs: [
+        'gzip es un formato y utilidad de compresion de archivos. Reduce el tamano para almacenamiento y transferencia y es ampliamente soportado por servidores web.',
+        'Los recursos a continuacion cubren uso de gzip, streaming, descompresion e integracion. Cada guia te ayuda a comprimir y descomprimir datos eficientemente.',
+      ],
+    },
+  },
+  ssh: {
+    en: {
+      heading: 'SSH and Secure Remote Access',
+      paragraphs: [
+        'SSH provides encrypted remote access to servers. It is the standard for secure administration and file transfer.',
+        'The resources below cover keys, configuration, port forwarding, and bastion hosts. Each guide helps you use SSH safely.',
+      ],
+    },
+    es: {
+      heading: 'SSH y Acceso Remoto Seguro',
+      paragraphs: [
+        'SSH proporciona acceso remoto cifrado a servidores. Es el estandar para administracion segura y transferencia de archivos.',
+        'Los recursos a continuacion cubren claves, configuracion, port forwarding y bastion hosts. Cada guia te ayuda a usar SSH de forma segura.',
+      ],
+    },
+  },
+  zip: {
+    en: {
+      heading: 'ZIP Files',
+      paragraphs: [
+        'ZIP is a popular archive and compression format. It bundles multiple files and is supported across platforms.',
+        'The resources below cover compression, extraction, password protection, and libraries. Each guide helps you work with ZIP archives.',
+      ],
+    },
+    es: {
+      heading: 'Archivos ZIP',
+      paragraphs: [
+        'ZIP es un formato popular de archivo y compresion. Agrupa multiples archivos y es soportado en todas las plataformas.',
+        'Los recursos a continuacion cubren compresion, extraccion, proteccion por contrasena y librerias. Cada guia te ayuda a trabajar con archivos ZIP.',
+      ],
+    },
+  },
+  brotli: {
+    en: {
+      heading: 'Brotli Compression',
+      paragraphs: [
+        'Brotli is a modern compression algorithm optimized for web content. It often outperforms gzip and is supported by browsers.',
+        'The resources below cover Brotli encoding, web server configuration, and trade-offs. Each guide helps you serve compressed content efficiently.',
+      ],
+    },
+    es: {
+      heading: 'Compresion Brotli',
+      paragraphs: [
+        'Brotli es un algoritmo moderno de compresion optimizado para contenido web. A menudo supera a gzip y es soportado por navegadores.',
+        'Los recursos a continuacion cubren codificacion Brotli, configuracion de servidores web y trade-offs. Cada guia te ayuda a servir contenido comprimido eficientemente.',
+      ],
+    },
+  },
+  filesystem: {
+    en: {
+      heading: 'File Systems',
+      paragraphs: [
+        'A file system organizes how data is stored and retrieved. It affects performance, reliability, and access patterns.',
+        'The resources below cover file system types, operations, permissions, and monitoring. Each guide helps you understand and work with file systems.',
+      ],
+    },
+    es: {
+      heading: 'Sistemas de Archivos',
+      paragraphs: [
+        'Un sistema de archivos organiza como se almacenan y recuperan los datos. Afecta rendimiento, confiabilidad y patrones de acceso.',
+        'Los recursos a continuacion cubren tipos de sistemas de archivos, operaciones, permisos y monitoreo. Cada guia te ayuda a entender y trabajar con sistemas de archivos.',
+      ],
+    },
+  },
+  cleanup: {
+    en: {
+      heading: 'Resource Cleanup',
+      paragraphs: [
+        'Cleanup releases resources after use. It prevents leaks, locks, and stale state in long-running applications.',
+        'The resources below cover finally blocks, try-with-resources, destructors, and cleanup patterns. Each guide helps you manage resource lifecycles.',
+      ],
+    },
+    es: {
+      heading: 'Limpieza de Recursos',
+      paragraphs: [
+        'La limpieza libera recursos despues de su uso. Previene fugas, locks y estado obsoleto en aplicaciones de larga duracion.',
+        'Los recursos a continuacion cubren bloques finally, try-with-resources, destructores y patrones de limpieza. Cada guia te ayuda a gestionar ciclos de vida de recursos.',
+      ],
+    },
+  },
+  'file-upload': {
+    en: {
+      heading: 'File Uploads',
+      paragraphs: [
+        'File uploads let users send files to a server. They require validation, storage, and security considerations.',
+        'The resources below cover multipart forms, storage, validation, and size limits. Each guide helps you handle file uploads safely.',
+      ],
+    },
+    es: {
+      heading: 'Subida de Archivos',
+      paragraphs: [
+        'La subida de archivos permite a los usuarios enviar archivos a un servidor. Requiere validacion, almacenamiento y consideraciones de seguridad.',
+        'Los recursos a continuacion cubren formularios multipart, almacenamiento, validacion y limites de tamano. Cada guia te ayuda a manejar subidas de archivos de forma segura.',
+      ],
+    },
+  },
+  layout: {
+    en: {
+      heading: 'UI Layout and Composition',
+      paragraphs: [
+        'Layout defines how UI elements are arranged. Good layout creates clear hierarchy and responsive interfaces.',
+        'The resources below cover CSS layout, grids, flexbox, and design patterns. Each guide helps you build interfaces that are easy to navigate and understand.',
+      ],
+    },
+    es: {
+      heading: 'Layout y Composicion de UI',
+      paragraphs: [
+        'El layout define como se organizan los elementos de UI. Un buen layout crea jerarquia clara e interfaces responsivas.',
+        'Los recursos a continuacion cubren layout CSS, grids, flexbox y patrones de diseno. Cada guia te ayuda a construir interfaces faciles de navegar y entender.',
+      ],
+    },
+  },
+  theming: {
+    en: {
+      heading: 'Theming and Design Tokens',
+      paragraphs: [
+        'Theming defines the visual style of an application. Design tokens are reusable values for colors, spacing, and typography.',
+        'The resources below cover CSS variables, theme switching, Tailwind config, and dark mode. Each guide helps you build consistent and themeable UIs.',
+      ],
+    },
+    es: {
+      heading: 'Theming y Design Tokens',
+      paragraphs: [
+        'El theming define el estilo visual de una aplicacion. Los design tokens son valores reutilizables para colores, espaciado y tipografia.',
+        'Los recursos a continuacion cubren variables CSS, cambio de tema, configuracion de Tailwind y modo oscuro. Cada guia te ayuda a construir UIs consistentes y tematizables.',
+      ],
+    },
+  },
+  'service-worker': {
+    en: {
+      heading: 'Service Workers',
+      paragraphs: [
+        'Service workers run in the background and enable offline support, caching, and push notifications in web applications.',
+        'The resources below cover registration, lifecycle, caching strategies, and Workbox. Each guide helps you build resilient web experiences.',
+      ],
+    },
+    es: {
+      heading: 'Service Workers',
+      paragraphs: [
+        'Los service workers se ejecutan en segundo plano y habilitan soporte offline, cache y notificaciones push en aplicaciones web.',
+        'Los recursos a continuacion cubren registro, ciclo de vida, estrategias de cache y Workbox. Cada guia te ayuda a construir experiencias web resilientes.',
+      ],
+    },
+  },
+  pwa: {
+    en: {
+      heading: 'Progressive Web Apps',
+      paragraphs: [
+        'Progressive Web Apps combine the reach of web with the experience of native apps. They work offline, installable, and responsive.',
+        'The resources below cover service workers, manifests, offline, and PWA best practices. Each guide helps you build app-like web experiences.',
+      ],
+    },
+    es: {
+      heading: 'Progressive Web Apps',
+      paragraphs: [
+        'Las Progressive Web Apps combinan el alcance de la web con la experiencia de aplicaciones nativas. Funcionan offline, son instalables y responsivas.',
+        'Los recursos a continuacion cubren service workers, manifests, offline y mejores practicas de PWA. Cada guia te ayuda a construir experiencias web tipo app.',
+      ],
+    },
+  },
+  offline: {
+    en: {
+      heading: 'Offline Support',
+      paragraphs: [
+        'Offline support allows applications to function without network connectivity. It requires caching, synchronization, and graceful degradation.',
+        'The resources below cover service workers, local storage, background sync, and offline-first design. Each guide helps you build apps that work without a connection.',
+      ],
+    },
+    es: {
+      heading: 'Soporte Offline',
+      paragraphs: [
+        'El soporte offline permite que las aplicaciones funcionen sin conectividad de red. Requiere cache, sincronizacion y degradacion elegante.',
+        'Los recursos a continuacion cubren service workers, almacenamiento local, sincronizacion en segundo plano y diseno offline-first. Cada guia te ayuda a construir apps que funcionen sin conexion.',
+      ],
+    },
+  },
+  zod: {
+    en: {
+      heading: 'Zod Schema Validation',
+      paragraphs: [
+        'Zod is a TypeScript-first schema validation library. It lets you define, validate, and infer types from schemas.',
+        'The resources below cover schema definition, parsing, refinements, and error handling. Each guide helps you add type-safe validation to your applications.',
+      ],
+    },
+    es: {
+      heading: 'Validacion de Esquemas con Zod',
+      paragraphs: [
+        'Zod es una libreria de validacion de esquemas pensada primero para TypeScript. Permite definir, validar e inferir tipos desde esquemas.',
+        'Los recursos a continuacion cubren definicion de esquemas, parseo, refinements y manejo de errores. Cada guia te ayuda a agregar validacion type-safe a tus aplicaciones.',
+      ],
+    },
+  },
+  virtualization: {
+    en: {
+      heading: 'Virtualization and Hypervisors',
+      paragraphs: [
+        'Virtualization abstracts physical hardware to run multiple virtual machines. It is the foundation of cloud computing.',
+        'The resources below cover hypervisors, VMs, containers vs VMs, and resource allocation. Each guide helps you understand virtualization technology.',
+      ],
+    },
+    es: {
+      heading: 'Virtualizacion e Hipervisores',
+      paragraphs: [
+        'La virtualizacion abstrae el hardware fisico para ejecutar multiples maquinas virtuales. Es la base del cloud computing.',
+        'Los recursos a continuacion cubren hipervisores, VMs, contenedores vs VMs y asignacion de recursos. Cada guia te ayuda a entender la tecnologia de virtualizacion.',
+      ],
+    },
+  },
+  'type-safety': {
+    en: {
+      heading: 'Type Safety',
+      paragraphs: [
+        'Type safety prevents invalid operations by enforcing correct types at compile or runtime. It reduces bugs and improves code quality.',
+        'The resources below cover static typing, TypeScript, type guards, and runtime validation. Each guide helps you write code with fewer type-related errors.',
+      ],
+    },
+    es: {
+      heading: 'Seguridad de Tipos',
+      paragraphs: [
+        'La seguridad de tipos previene operaciones invalidas al exigir tipos correctos en compile o runtime. Reduce errores y mejora la calidad del codigo.',
+        'Los recursos a continuacion cubren tipado estatico, TypeScript, type guards y validacion en runtime. Cada guia te ayuda a escribir codigo con menos errores relacionados con tipos.',
+      ],
+    },
+  },
+  'conditional-types': {
+    en: {
+      heading: 'Conditional Types in TypeScript',
+      paragraphs: [
+        'Conditional types in TypeScript select a type based on a condition. They enable powerful type-level logic and utility types.',
+        'The resources below cover conditional type syntax, infer, mapped types, and examples. Each guide helps you write flexible and reusable type definitions.',
+      ],
+    },
+    es: {
+      heading: 'Tipos Condicionales en TypeScript',
+      paragraphs: [
+        'Los tipos condicionales en TypeScript seleccionan un tipo basado en una condicion. Habilitan logica poderosa a nivel de tipos y utility types.',
+        'Los recursos a continuacion cubren sintaxis de tipos condicionales, infer, mapped types y ejemplos. Cada guia te ayuda a escribir definiciones de tipo flexibles y reutilizables.',
+      ],
+    },
+  },
+  batching: {
+    en: {
+      heading: 'Request Batching',
+      paragraphs: [
+        'Batching combines multiple requests into a single operation. It reduces overhead and improves throughput for APIs and databases.',
+        'The resources below cover batch APIs, data loaders, and batch processing patterns. Each guide helps you optimize communication with batched operations.',
+      ],
+    },
+    es: {
+      heading: 'Batching de Peticiones',
+      paragraphs: [
+        'El batching combina multiples peticiones en una sola operacion. Reduce el overhead y mejora el rendimiento de APIs y bases de datos.',
+        'Los recursos a continuacion cubren APIs de batch, data loaders y patrones de procesamiento por lotes. Cada guia te ayuda a optimizar la comunicacion con operaciones agrupadas.',
+      ],
+    },
+  },
+  relay: {
+    en: {
+      heading: 'Relay and GraphQL Pagination',
+      paragraphs: [
+        'Relay is a GraphQL client developed by Meta. It provides conventions for colocation, pagination, and data fetching.',
+        'The resources below cover Relay fragments, connections, pagination, and the store. Each guide helps you build scalable GraphQL clients with Relay.',
+      ],
+    },
+    es: {
+      heading: 'Relay y Paginacion GraphQL',
+      paragraphs: [
+        'Relay es un cliente GraphQL desarrollado por Meta. Proporciona convenciones para colocacion, paginacion y obtencion de datos.',
+        'Los recursos a continuacion cubren fragmentos de Relay, conexiones, paginacion y el store. Cada guia te ayuda a construir clientes GraphQL escalables con Relay.',
+      ],
+    },
+  },
 };
