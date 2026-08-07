@@ -10004,4 +10004,404 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  'web-vitals': {
+    en: {
+      heading: 'Core Web Vitals',
+      paragraphs: [
+        'Core Web Vitals are Googles user-centric page experience metrics. They measure loading, interactivity, and visual stability.',
+        'The resources below cover LCP, INP, CLS, and optimization techniques. Each guide helps you improve real-world page experience.',
+      ],
+    },
+    es: {
+      heading: 'Core Web Vitals',
+      paragraphs: [
+        'Core Web Vitals son las metricas de experiencia de pagina centradas en el usuario de Google. Miden carga, interactividad y estabilidad visual.',
+        'Los recursos a continuacion cubren LCP, INP, CLS y tecnicas de optimizacion. Cada guia te ayuda a mejorar la experiencia de pagina en el mundo real.',
+      ],
+    },
+  },
+  patching: {
+    en: {
+      heading: 'Patching and Updates',
+      paragraphs: [
+        'Patching applies fixes and updates to software. It is critical for security and bug fixes.',
+        'The resources below cover patch management, zero-day, rollback, and maintenance windows. Each guide helps you keep systems up to date.',
+      ],
+    },
+    es: {
+      heading: 'Parcheo y Actualizaciones',
+      paragraphs: [
+        'El parcheo aplica correcciones y actualizaciones al software. Es critico para la seguridad y correccion de errores.',
+        'Los recursos a continuacion cubren gestion de parches, zero-day, rollback y ventanas de mantenimiento. Cada guia te ayuda a mantener sistemas actualizados.',
+      ],
+    },
+  },
+  'key-rotation': {
+    en: {
+      heading: 'Key Rotation',
+      paragraphs: [
+        'Key rotation periodically replaces cryptographic keys. It reduces the impact of compromised keys and supports compliance.',
+        'The resources below cover rotation strategies, automation, and key ceremonies. Each guide helps you rotate keys safely.',
+      ],
+    },
+    es: {
+      heading: 'Rotacion de Claves',
+      paragraphs: [
+        'La rotacion de claves reemplaza periodicamente claves criptograficas. Reduce el impacto de claves comprometidas y soporta cumplimiento.',
+        'Los recursos a continuacion cubren estrategias de rotacion, automatizacion y ceremonias de claves. Cada guia te ayuda a rotar claves de forma segura.',
+      ],
+    },
+  },
+  playbook: {
+    en: {
+      heading: 'Incident Playbooks',
+      paragraphs: [
+        'Playbooks are step-by-step guides for responding to incidents. They reduce panic and improve response consistency.',
+        'The resources below cover runbooks, escalation, communication, and automation. Each guide helps you document incident response.',
+      ],
+    },
+    es: {
+      heading: 'Playbooks de Incidentes',
+      paragraphs: [
+        'Los playbooks son guias paso a paso para responder a incidentes. Reducen el panico y mejoran la consistencia de respuesta.',
+        'Los recursos a continuacion cubren runbooks, escalamiento, comunicacion y automatizacion. Cada guia te ayuda a documentar la respuesta a incidentes.',
+      ],
+    },
+  },
+  'risk-assessment': {
+    en: {
+      heading: 'Risk Assessment',
+      paragraphs: [
+        'Risk assessment identifies, evaluates, and prioritizes risks. It informs decisions about security, reliability, and compliance.',
+        'The resources below cover threat modeling, scoring, and mitigation planning. Each guide helps you manage risk systematically.',
+      ],
+    },
+    es: {
+      heading: 'Evaluacion de Riesgos',
+      paragraphs: [
+        'La evaluacion de riesgos identifica, evalua y prioriza riesgos. Informa decisiones sobre seguridad, confiabilidad y cumplimiento.',
+        'Los recursos a continuacion cubren modelado de amenazas, puntuacion y planificacion de mitigacion. Cada guia te ayuda a gestionar riesgos sistematicamente.',
+      ],
+    },
+  },
+  'developer-experience': {
+    en: {
+      heading: 'Developer Experience',
+      paragraphs: [
+        'Developer experience covers the tools, workflows, and environment that help engineers be productive. Good DX reduces friction and improves quality.',
+        'The resources below cover tooling, documentation, onboarding, and automation. Each guide helps you improve how developers work.',
+      ],
+    },
+    es: {
+      heading: 'Experiencia del Desarrollador',
+      paragraphs: [
+        'La experiencia del desarrollador cubre herramientas, workflows y entorno que ayudan a los ingenieros a ser productivos. Una buena DX reduce friccion y mejora calidad.',
+        'Los recursos a continuacion cubren tooling, documentacion, onboarding y automatizacion. Cada guia te ayuda a mejorar como trabajan los desarrolladores.',
+      ],
+    },
+  },
+  'release-notes': {
+    en: {
+      heading: 'Release Notes',
+      paragraphs: [
+        'Release notes document what changed in a release. They help users and teams understand new features and fixes.',
+        'The resources below cover changelogs, versioning, and communication. Each guide helps you write clear release notes.',
+      ],
+    },
+    es: {
+      heading: 'Notas de Release',
+      paragraphs: [
+        'Las notas de release documentan que cambio en una version. Ayudan a usuarios y equipos a entender nuevas funciones y correcciones.',
+        'Los recursos a continuacion cubren changelogs, versionado y comunicacion. Cada guia te ayuda a escribir notas de release claras.',
+      ],
+    },
+  },
+  semver: {
+    en: {
+      heading: 'Semantic Versioning',
+      paragraphs: [
+        'Semantic Versioning defines version numbers as MAJOR.MINOR.PATCH. It communicates the nature of changes to consumers.',
+        'The resources below cover version bumps, compatibility, and release workflows. Each guide helps you version software clearly.',
+      ],
+    },
+    es: {
+      heading: 'Versionado Semantico',
+      paragraphs: [
+        'Semantic Versioning define los numeros de version como MAJOR.MINOR.PATCH. Comunica la naturaleza de los cambios a los consumidores.',
+        'Los recursos a continuacion cubren cambios de version, compatibilidad y workflows de release. Cada guia te ayuda a versionar software claramente.',
+      ],
+    },
+  },
+  community: {
+    en: {
+      heading: 'Developer Communities',
+      paragraphs: [
+        'Communities connect developers to share knowledge and collaborate. They accelerate learning and ecosystem growth.',
+        'The resources below cover forums, open source, events, and knowledge sharing. Each guide helps you build or engage with developer communities.',
+      ],
+    },
+    es: {
+      heading: 'Comunidades de Desarrolladores',
+      paragraphs: [
+        'Las comunidades conectan a desarrolladores para compartir conocimiento y colaborar. Aceleran el aprendizaje y el crecimiento del ecosistema.',
+        'Los recursos a continuacion cubren foros, codigo abierto, eventos y compartir conocimiento. Cada guia te ayuda a construir o participar en comunidades de desarrolladores.',
+      ],
+    },
+  },
+  'data-modeling': {
+    en: {
+      heading: 'Data Modeling',
+      paragraphs: [
+        'Data modeling defines the structure, relationships, and constraints of data. It is foundational for databases and applications.',
+        'The resources below cover conceptual, logical, and physical models, and normalization. Each guide helps you design data that fits your use case.',
+      ],
+    },
+    es: {
+      heading: 'Modelado de Datos',
+      paragraphs: [
+        'El modelado de datos define la estructura, relaciones y restricciones de los datos. Es fundamental para bases de datos y aplicaciones.',
+        'Los recursos a continuacion cubren modelos conceptual, logico y fisico, y normalizacion. Cada guia te ayuda a disenar datos que se ajusten a tu caso de uso.',
+      ],
+    },
+  },
+  'product-management': {
+    en: {
+      heading: 'Product Management',
+      paragraphs: [
+        'Product management guides the discovery, prioritization, and delivery of product value. It connects user needs and business goals.',
+        'The resources below cover roadmaps, prioritization, metrics, and user feedback. Each guide helps you manage products effectively.',
+      ],
+    },
+    es: {
+      heading: 'Gestion de Producto',
+      paragraphs: [
+        'La gestion de producto guia el descubrimiento, la priorizacion y la entrega de valor del producto. Conecta necesidades de usuario y objetivos de negocio.',
+        'Los recursos a continuacion cubren roadmaps, priorizacion, metricas y feedback de usuarios. Cada guia te ayuda a gestionar productos efectivamente.',
+      ],
+    },
+  },
+  'user-story': {
+    en: {
+      heading: 'User Stories',
+      paragraphs: [
+        'User stories capture a user need in a concise format. They support agile planning and conversation.',
+        'The resources below cover story writing, acceptance criteria, and estimation. Each guide helps you write stories that drive valuable work.',
+      ],
+    },
+    es: {
+      heading: 'Historias de Usuario',
+      paragraphs: [
+        'Las historias de usuario capturan una necesidad de usuario en un formato conciso. Soportan planificacion agil y conversacion.',
+        'Los recursos a continuacion cubren escritura de historias, criterios de aceptacion y estimacion. Cada guia te ayuda a escribir historias que impulsen trabajo valioso.',
+      ],
+    },
+  },
+  'quality-metrics': {
+    en: {
+      heading: 'Quality Metrics',
+      paragraphs: [
+        'Quality metrics measure aspects of code, process, and product quality. They guide improvement and decision-making.',
+        'The resources below cover test coverage, defect rates, cyclomatic complexity, and lead time. Each guide helps you choose meaningful quality metrics.',
+      ],
+    },
+    es: {
+      heading: 'Metricas de Calidad',
+      paragraphs: [
+        'Las metricas de calidad miden aspectos de calidad de codigo, proceso y producto. Guian la mejora y la toma de decisiones.',
+        'Los recursos a continuacion cubren cobertura de tests, tasas de defectos, complejidad ciclomatica y lead time. Cada guia te ayuda a elegir metricas de calidad significativas.',
+      ],
+    },
+  },
+  weaviate: {
+    en: {
+      heading: 'Weaviate',
+      paragraphs: [
+        'Weaviate is an open-source vector database. It supports semantic search and retrieval-augmented generation.',
+        'The resources below cover schemas, vectors, hybrid search, and integrations. Each guide helps you use Weaviate for AI-powered search.',
+      ],
+    },
+    es: {
+      heading: 'Weaviate',
+      paragraphs: [
+        'Weaviate es una base de datos vectorial de codigo abierto. Soporta busqueda semantica y retrieval-augmented generation.',
+        'Los recursos a continuacion cubren esquemas, vectores, busqueda hibrida e integraciones. Cada guia te ayuda a usar Weaviate para busqueda impulsada por IA.',
+      ],
+    },
+  },
+  chroma: {
+    en: {
+      heading: 'Chroma Vector Database',
+      paragraphs: [
+        'Chroma is an open-source embedding database. It stores and queries embeddings for LLM applications.',
+        'The resources below cover collections, embeddings, queries, and integrations. Each guide helps you build RAG and semantic search with Chroma.',
+      ],
+    },
+    es: {
+      heading: 'Base de Datos Vectorial Chroma',
+      paragraphs: [
+        'Chroma es una base de datos de embeddings de codigo abierto. Almacena y consulta embeddings para aplicaciones LLM.',
+        'Los recursos a continuacion cubren colecciones, embeddings, consultas e integraciones. Cada guia te ayuda a construir RAG y busqueda semantica con Chroma.',
+      ],
+    },
+  },
+  pgvector: {
+    en: {
+      heading: 'pgvector',
+      paragraphs: [
+        'pgvector adds vector support to PostgreSQL. It enables similarity search and RAG within a familiar database.',
+        'The resources below cover vector columns, indexes, and queries. Each guide helps you use PostgreSQL as a vector database.',
+      ],
+    },
+    es: {
+      heading: 'pgvector',
+      paragraphs: [
+        'pgvector agrega soporte de vectores a PostgreSQL. Habilita busqueda por similitud y RAG dentro de una base de datos familiar.',
+        'Los recursos a continuacion cubren columnas vectoriales, indices y consultas. Cada guia te ayuda a usar PostgreSQL como base de datos vectorial.',
+      ],
+    },
+  },
+  supergraph: {
+    en: {
+      heading: 'Supergraph and Apollo Federation',
+      paragraphs: [
+        'A supergraph combines multiple GraphQL services into one unified schema. Apollo Federation is the leading implementation.',
+        'The resources below cover subgraphs, federation directives, and schema composition. Each guide helps you build unified GraphQL APIs.',
+      ],
+    },
+    es: {
+      heading: 'Supergraph y Apollo Federation',
+      paragraphs: [
+        'Un supergraph combina multiples servicios GraphQL en un esquema unificado. Apollo Federation es la implementacion lider.',
+        'Los recursos a continuacion cubren subgraphs, directivas de federacion y composicion de esquemas. Cada guia te ayuda a construir APIs GraphQL unificadas.',
+      ],
+    },
+  },
+  'unit-testing': {
+    en: {
+      heading: 'Unit Testing',
+      paragraphs: [
+        'Unit testing verifies small units of code in isolation. It is the foundation of fast, reliable test suites.',
+        'The resources below cover test doubles, assertions, mocking, and TDD. Each guide helps you write effective unit tests.',
+      ],
+    },
+    es: {
+      heading: 'Testing Unitario',
+      paragraphs: [
+        'El testing unitario verifica pequenas unidades de codigo de forma aislada. Es la base de suites de test rapidas y confiables.',
+        'Los recursos a continuacion cubren test doubles, assertions, mocking y TDD. Cada guia te ayuda a escribir tests unitarios efectivos.',
+      ],
+    },
+  },
+  'integration-testing': {
+    en: {
+      heading: 'Integration Testing',
+      paragraphs: [
+        'Integration testing verifies that components work together. It catches issues at the boundaries between modules.',
+        'The resources below cover test databases, APIs, containers, and contracts. Each guide helps you build integration tests that find real bugs.',
+      ],
+    },
+    es: {
+      heading: 'Testing de Integracion',
+      paragraphs: [
+        'El testing de integracion verifica que los componentes funcionen juntos. Encuentra problemas en los limites entre modulos.',
+        'Los recursos a continuacion cubren bases de datos de test, APIs, contenedores y contratos. Cada guia te ayuda a construir tests de integracion que encuentren errores reales.',
+      ],
+    },
+  },
+  testability: {
+    en: {
+      heading: 'Testability',
+      paragraphs: [
+        'Testability is the ease of testing a system. It depends on design, isolation, and observability.',
+        'The resources below cover dependency injection, seams, interfaces, and design for test. Each guide helps you build code that is easy to test.',
+      ],
+    },
+    es: {
+      heading: 'Testeabilidad',
+      paragraphs: [
+        'La testeabilidad es la facilidad para probar un sistema. Depende del diseno, aislamiento y observabilidad.',
+        'Los recursos a continuacion cubren inyeccion de dependencias, seams, interfaces y diseno para test. Cada guia te ayuda a construir codigo facil de probar.',
+      ],
+    },
+  },
+  'stream-processing': {
+    en: {
+      heading: 'Stream Processing',
+      paragraphs: [
+        'Stream processing continuously analyzes and transforms data as it arrives. It supports real-time analytics and reactions.',
+        'The resources below cover stream processors, windows, state, and event time. Each guide helps you build real-time data pipelines.',
+      ],
+    },
+    es: {
+      heading: 'Procesamiento de Streams',
+      paragraphs: [
+        'El procesamiento de streams analiza y transforma datos continuamente a medida que llegan. Soporta analiticas y reacciones en tiempo real.',
+        'Los recursos a continuacion cubren procesadores de stream, ventanas, estado y event time. Cada guia te ayuda a construir pipelines de datos en tiempo real.',
+      ],
+    },
+  },
+  grpc: {
+    en: {
+      heading: 'gRPC',
+      paragraphs: [
+        'gRPC is a high-performance RPC framework using Protocol Buffers and HTTP/2. It is ideal for service-to-service communication.',
+        'The resources below cover proto files, services, stubs, and streaming. Each guide helps you build efficient microservices with gRPC.',
+      ],
+    },
+    es: {
+      heading: 'gRPC',
+      paragraphs: [
+        'gRPC es un framework de RPC de alto rendimiento que usa Protocol Buffers y HTTP/2. Es ideal para comunicacion entre servicios.',
+        'Los recursos a continuacion cubren archivos proto, servicios, stubs y streaming. Cada guia te ayuda a construir microservicios eficientes con gRPC.',
+      ],
+    },
+  },
+  'modular-monolith': {
+    en: {
+      heading: 'Modular Monolith',
+      paragraphs: [
+        'A modular monolith builds independent modules inside a single deployable unit. It balances simplicity and separation.',
+        'The resources below cover module boundaries, APIs, and migration to microservices. Each guide helps you structure a maintainable monolith.',
+      ],
+    },
+    es: {
+      heading: 'Monolito Modular',
+      paragraphs: [
+        'Un monolito modular construye modulos independientes dentro de una unidad desplegable unica. Equilibra simplicidad y separacion.',
+        'Los recursos a continuacion cubren limites de modulos, APIs y migracion a microservicios. Cada guia te ayuda a estructurar un monolito mantenible.',
+      ],
+    },
+  },
+  'module-boundaries': {
+    en: {
+      heading: 'Module Boundaries',
+      paragraphs: [
+        'Module boundaries define the responsibilities and interfaces of modules. Good boundaries improve maintainability and reuse.',
+        'The resources below cover encapsulation, package structure, and dependency rules. Each guide helps you design clear module boundaries.',
+      ],
+    },
+    es: {
+      heading: 'Limites de Modulos',
+      paragraphs: [
+        'Los limites de modulos definen las responsabilidades e interfaces de los modulos. Buenos limites mejoran mantenibilidad y reutilizacion.',
+        'Los recursos a continuacion cubren encapsulacion, estructura de paquetes y reglas de dependencias. Cada guia te ayuda a disenar limites de modulos claros.',
+      ],
+    },
+  },
+  lakehouse: {
+    en: {
+      heading: 'Data Lakehouse',
+      paragraphs: [
+        'A data lakehouse combines data lake and data warehouse capabilities. It supports structured and unstructured data with ACID guarantees.',
+        'The resources below cover Delta Lake, Apache Iceberg, and query engines. Each guide helps you build modern data lakehouses.',
+      ],
+    },
+    es: {
+      heading: 'Data Lakehouse',
+      paragraphs: [
+        'Un data lakehouse combina capacidades de data lake y data warehouse. Soporta datos estructurados y no estructurados con garantias ACID.',
+        'Los recursos a continuacion cubren Delta Lake, Apache Iceberg y motores de consulta. Cada guia te ayuda a construir data lakehouses modernos.',
+      ],
+    },
+  },
 };
