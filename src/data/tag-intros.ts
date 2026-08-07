@@ -1748,4 +1748,100 @@ export const tagIntros: Record<string, TagIntro> = {
       ],
     },
   },
+  databases: {
+    en: {
+      heading: 'Database Engineering',
+      paragraphs: [
+        'Databases are the persistent heart of most applications. Choosing the right model, schema, indexing strategy, and consistency guarantees has outsized impact on reliability and cost.',
+        'The resources below cover SQL, NoSQL, indexing, sharding, replication, transactions, migrations, and query optimization. Each recipe helps you design and operate databases that scale with your workload.',
+      ],
+    },
+    es: {
+      heading: 'Ingenieria de Bases de Datos',
+      paragraphs: [
+        'Las bases de datos son el corazon persistente de la mayoria de aplicaciones. Elegir el modelo, esquema, estrategia de indexacion y garantias de consistencia correctas tiene un impacto desproporcionado en la confiabilidad y el costo.',
+        'Los recursos a continuacion cubren SQL, NoSQL, indexacion, sharding, replicacion, transacciones, migraciones y optimizacion de consultas. Cada receta te ayuda a disenar y operar bases de datos que escalan con tu carga.',
+      ],
+    },
+  },
+  gcp: {
+    en: {
+      heading: 'Google Cloud Platform',
+      paragraphs: [
+        'GCP offers a strong data, ML, and Kubernetes ecosystem. Production GCP requires understanding identity, networking, managed services, and pricing.',
+        'The resources below cover BigQuery, Cloud Run, Cloud Storage, Pub/Sub, GKE, and cost optimization. Each recipe helps you build reliable and cost-effective workloads on GCP.',
+      ],
+    },
+    es: {
+      heading: 'Google Cloud Platform',
+      paragraphs: [
+        'GCP ofrece un ecosistema solido de datos, ML y Kubernetes. GCP en produccion requiere entender identidad, redes, servicios administrados y precios.',
+        'Los recursos a continuacion cubren BigQuery, Cloud Run, Cloud Storage, Pub/Sub, GKE y optimizacion de costos. Cada receta te ayuda a construir cargas de trabajo confiables y rentables en GCP.',
+      ],
+    },
+  },
+  azure: {
+    en: {
+      heading: 'Microsoft Azure',
+      paragraphs: [
+        'Azure is the cloud platform of choice for many enterprises. Production Azure requires understanding Active Directory, networking, compute, storage, and managed databases.',
+        'The resources below cover Azure Functions, Blob Storage, Azure SQL, AKS, and security best practices. Each recipe focuses on building reliable workloads on Azure.',
+      ],
+    },
+    es: {
+      heading: 'Microsoft Azure',
+      paragraphs: [
+        'Azure es la plataforma de nube preferida por muchas empresas. Azure en produccion requiere entender Active Directory, redes, computo, almacenamiento y bases de datos administradas.',
+        'Los recursos a continuacion cubren Azure Functions, Blob Storage, Azure SQL, AKS y mejores practicas de seguridad. Cada receta se enfoca en construir cargas de trabajo confiables en Azure.',
+      ],
+    },
+  },
+  linux: {
+    en: {
+      heading: 'Linux System Administration',
+      paragraphs: [
+        'Linux is the foundation of most servers, containers, and cloud workloads. Proficiency requires understanding the shell, process management, networking, and security.',
+        'The resources below cover shell scripting, systemd, cron, file permissions, text processing, and troubleshooting. Each recipe is practical for daily operations.',
+      ],
+    },
+    es: {
+      heading: 'Administracion de Sistemas Linux',
+      paragraphs: [
+        'Linux es la base de la mayoria de servidores, contenedores y cargas de trabajo en la nube. La competencia requiere entender la shell, gestion de procesos, redes y seguridad.',
+        'Los recursos a continuacion cubren shell scripting, systemd, cron, permisos de archivos, procesamiento de texto y troubleshooting. Cada receta es practica para operaciones diarias.',
+      ],
+    },
+  },
+  networking: {
+    en: {
+      heading: 'Computer Networking',
+      paragraphs: [
+        'Networking connects applications, services, and users. It requires understanding protocols, DNS, load balancing, proxies, firewalls, and TLS.',
+        'The resources below cover TCP/IP, DNS, CDN, reverse proxies, VPCs, mTLS, and troubleshooting. Each guide focuses on patterns that are secure and scalable.',
+      ],
+    },
+    es: {
+      heading: 'Redes de Computadoras',
+      paragraphs: [
+        'Las redes conectan aplicaciones, servicios y usuarios. Requieren entender protocolos, DNS, balanceo de carga, proxies, firewalls y TLS.',
+        'Los recursos a continuacion cubren TCP/IP, DNS, CDN, reverse proxies, VPCs, mTLS y troubleshooting. Cada guia se enfoca en patrones seguros y escalables.',
+      ],
+    },
+  },
+  git: {
+    en: {
+      heading: 'Version Control with Git',
+      paragraphs: [
+        'Git is the standard for source control. Effective use requires branching strategies, clean history, code review, and release workflows.',
+        'The resources below cover branching, rebasing, commits, tags, hooks, and collaboration. Each recipe helps you use Git without fear.',
+      ],
+    },
+    es: {
+      heading: 'Control de Versiones con Git',
+      paragraphs: [
+        'Git es el estandar para control de fuentes. El uso efectivo requiere estrategias de ramas, historial limpio, revision de codigo y flujos de release.',
+        'Los recursos a continuacion cubren branching, rebasing, commits, tags, hooks y colaboracion. Cada receta te ayuda a usar Git sin miedo.',
+      ],
+    },
+  },
 };
