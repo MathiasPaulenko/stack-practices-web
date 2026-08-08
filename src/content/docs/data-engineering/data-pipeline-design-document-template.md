@@ -446,7 +446,7 @@ extract_orders >> stage_orders >> run_dbt >> quality_check >> load_redshift >> e
 
 | Dashboard | URL | Purpose |
 |-----------|-----|---------|
-| Pipeline Health | https://grafana.example.com/d/pipeline-health | Overall pipeline status |
+| Pipeline Health | https://grafana.example.com/d/pipeline-health | Aggregate pipeline status |
 | Data Quality | https://grafana.example.com/d/data-quality | Quality check results |
 | Data Volume | https://grafana.example.com/d/data-volume | Record counts and trends |
 | Pipeline Latency | https://grafana.example.com/d/pipeline-latency | Runtime trends |

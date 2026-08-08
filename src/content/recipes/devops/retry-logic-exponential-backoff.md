@@ -449,14 +449,14 @@ if response.status_code == 429:
     time.sleep(retry_after)
 ```
 
-2. **Not propagating context deadlines.** Each retry should respect the overall timeout, not just its own delay:
+2. **Not propagating context deadlines.** Each retry should respect the total timeout, not just its own delay:
 
 ```python
 import time
 deadline = time.time() + 30  # 30s total budget
 for attempt in range(max_retries):
     if time.time() >= deadline:
-        raise TimeoutError("Overall deadline exceeded")
+        raise TimeoutError("Total deadline exceeded")
     # ... retry logic
 ```
 

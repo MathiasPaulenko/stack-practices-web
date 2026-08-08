@@ -57,13 +57,13 @@ A test coverage report communicates how much of the codebase is exercised by tes
 
 | Metric | Current | Target | Trend |
 |--------|---------|--------|-------|
-| Overall line coverage | 82.3% | 80% | ↑ +2.1% |
-| Overall branch coverage | 71.5% | 70% | ↑ +1.8% |
+| Aggregate line coverage | 82.3% | 80% | ↑ +2.1% |
+| Aggregate branch coverage | 71.5% | 70% | ↑ +1.8% |
 | Critical path coverage | 94.2% | 95% | ↓ -0.3% |
 | New code coverage | 91.0% | 90% | → 0% |
 | Flaky test rate | 0.8% | < 1% | ↓ -0.4% |
 
-**Summary**: Overall coverage improved this sprint. Critical path coverage dropped slightly due to new payment endpoint lacking tests. One action item: add integration tests for payment refund flow.
+**Summary**: Aggregate coverage improved this sprint from 82.3% to 84.4%. Critical path coverage dropped slightly due to new payment endpoint lacking tests. One action item: add integration tests for payment refund flow.
 
 ## 2. Coverage by Module
 
@@ -281,8 +281,8 @@ Investigate before acting. If the refactor removed dead code, the coverage drop 
 ## What Works
 
 1. Report monthly — frequent enough to spot trends, not so frequent it's noise
-2. Break down by module and feature — overall numbers hide problem areas
-3. Track critical paths separately — 90% overall coverage can hide 60% critical path coverage
+2. Break down by module and feature — summary metrics hide problem areas
+3. Track critical paths separately — 90% aggregate coverage can hide 60% critical path coverage
 4. Include action items with owners — reports without actions don't improve coverage
 5. Show trends over 6 months — single data points don't tell a story
 6. Track flaky tests alongside coverage — high coverage with high flakiness is false confidence
@@ -292,7 +292,7 @@ Investigate before acting. If the refactor removed dead code, the coverage drop 
 
 1. Chasing 100% coverage — diminishing returns above 85%. Focus on meaningful tests, not line counts.
 2. Ignoring branch coverage — line coverage can be high while branch coverage is low, hiding untested conditionals.
-3. Not tracking critical paths separately — overall coverage can mask critical gaps.
+3. Not tracking critical paths separately — aggregate coverage can mask critical gaps.
 4. No trend data — a single coverage number is useless without historical context.
 5. No action items — reports that just present data don't drive improvement.
 6. Including test files in coverage measurement — inflates numbers. Exclude test files from coverage.
@@ -319,7 +319,7 @@ No. 100% coverage is expensive and often means writing low-value tests just to h
 
 ### How do I measure critical path coverage?
 
-Map each critical user journey to specific code paths. Tag tests that cover those paths. Calculate coverage as: (covered critical path steps / total critical path steps). This is more meaningful than overall coverage for risk assessment.
+Map each critical user journey to specific code paths. Tag tests that cover those paths. Calculate coverage as: (covered critical path steps / total critical path steps). This is more meaningful than aggregate coverage for risk assessment.
 
 ### What tools should I use for coverage tracking?
 

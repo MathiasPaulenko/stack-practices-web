@@ -360,4 +360,4 @@ Tests first. Si los tests no coveren el right behavior, el implementation está 
 
 ### ¿Cómo handleo un PR que es too large?
 
-Pedile al author que lo breakee en smaller PRs. Si no es possible, hacé un first pass focuseando en el overall structure y design, luego un second pass focuseando en details. Usá el PR description para entender el scope antes de divear en el code.
+Pedile al author que lo divida en PRs más chicos. Si no es posible, hacé una primera pasada enfocándote en la estructura y diseño de alto nivel, y una segunda pasada enfocándote en los detalles. Usá el PR description para entender el alcance antes de entrar en el código.

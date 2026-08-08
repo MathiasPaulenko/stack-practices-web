@@ -360,4 +360,4 @@ Tests first. If the tests don't cover the right behavior, the implementation is 
 
 ### How do I handle a PR that's too large?
 
-Ask the author to break it into smaller PRs. If that's not possible, do a first pass focusing on the overall structure and design, then a second pass focusing on details. Use the PR description to understand the scope before diving into the code.
+Ask the author to break it into smaller PRs. If that's not possible, do a first pass focusing on the high-level structure and design, then a second pass focusing on details. Use the PR description to understand the scope before diving into the code.

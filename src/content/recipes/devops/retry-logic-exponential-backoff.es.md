@@ -456,7 +456,7 @@ import time
 deadline = time.time() + 30  # 30s budget total
 for attempt in range(max_retries):
     if time.time() >= deadline:
-        raise TimeoutError("Overall deadline exceeded")
+        raise TimeoutError("Deadline total excedido")
     # ... lógica de retry
 ```
 

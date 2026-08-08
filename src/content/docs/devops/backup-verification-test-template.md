@@ -118,7 +118,7 @@ A backup that cannot be restored is not a backup. This template helps teams sche
 | Data freshness | < 4 hours | 3 hours | Pass |
 | Application smoke tests | 100% pass | 100% pass | Pass |
 | Runbook accuracy | No deviations | 2 minor deviations | Pass with notes |
-| Overall test result | Pass | | Pass |
+| Aggregate test result | Pass | | Pass |
 
 #### 6. Issue Log and Remediation
 

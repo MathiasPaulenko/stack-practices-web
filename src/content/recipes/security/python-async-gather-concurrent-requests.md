@@ -291,7 +291,7 @@ async def fetch_with_progress(urls: list[str]) -> list[dict | Exception]:
 2. **`aiohttp.ClientSession`** manages a connection pool. Reusing a session across requests avoids creating new TCP connections for each request, reducing overhead.
 3. **`asyncio.Semaphore`** limits the number of concurrent operations. When `max_concurrent` tasks are running, additional tasks wait until a slot is released.
 4. **`return_exceptions=True`** makes `gather` return exceptions as values instead of raising them. This prevents one failed request from canceling all other in-flight requests.
-5. **`ClientTimeout`** sets per-request deadlines. `total` is the overall timeout; `connect` is the TCP connection timeout; `sock_read` is the timeout for reading response data.
+5. **`ClientTimeout`** sets per-request deadlines. `total` is the total timeout; `connect` is the TCP connection timeout; `sock_read` is the timeout for reading response data.
 
 ## Variants
 

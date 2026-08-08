@@ -582,7 +582,7 @@ The pattern separates concerns into three layers:
 - **Agent:** Executes assigned jobs and reports progress. Agents are disposable — if one fails, the supervisor replaces it. Agents should be stateless; all job state lives in the scheduler's job store.
 - **Supervisor:** Watches agents via heartbeats, detects failures, restarts agents, and redistributes failed jobs. It is the resilience layer that makes the system self-healing.
 
-The key insight is that **agents are cattle, not pets**. The supervisor treats them as ephemeral resources that can be created, destroyed, and replaced without affecting the overall system.
+The key insight is that **agents are cattle, not pets**. The supervisor treats them as ephemeral resources that can be created, destroyed, and replaced without affecting the broader system.
 
 ## Variants
 

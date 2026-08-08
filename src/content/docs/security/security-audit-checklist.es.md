@@ -80,7 +80,7 @@ Un security audit checklist provee un systematic way para verify que security co
 | Last Audit | 2026-01-10 |
 | Audit Period | Jan 2026 - Jun 2026 |
 | Compliance Frameworks | SOC 2, ISO 27001, GDPR |
-| Overall Risk Rating | Medium |
+| Riesgo agregado Rating | Medium |
 
 ## 1. Network Security
 

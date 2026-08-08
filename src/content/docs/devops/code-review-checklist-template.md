@@ -125,7 +125,7 @@ Before adopting this checklist:
 |-------------|-------|----------|--------|
 | ______ | ______ | Nit / Suggestion / Blocker | ______ |
 
-**Overall verdict:** Approve / Request changes / Comment
+**Final verdict:** Approve / Request changes / Comment
 **Merge readiness:** Ready / Needs work / Blocked
 ```
 

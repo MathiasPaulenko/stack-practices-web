@@ -423,12 +423,12 @@ async function fetchWithRetry(url) {
 ### Retry with deadline
 
 ```python
-# retry/with_deadline.py — Retry with overall deadline
+# retry/with_deadline.py — Retry with total deadline
 import time
 import random
 
 class RetryWithDeadline:
-    """Retries until an overall deadline expires.
+    """Retries until a total deadline expires.
     Prevents indefinite retrying when the deadline is strict."""
 
     def __init__(self, max_retries=5, base_delay=1.0, deadline=30.0):

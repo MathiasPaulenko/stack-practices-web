@@ -55,7 +55,7 @@ Use this template to document security assessment findings clearly and actionabl
 | **Scope** | [in-scope and out-of-scope URLs / IPs] |
 | **Test period** | [YYYY-MM-DD to YYYY-MM-DD] |
 | **Tester** | [internal team / vendor] |
-| **Overall risk** | [Critical / High / Medium / Low] |
+| **Aggregate risk** | [Critical / High / Medium / Low] |
 
 ## Risk Summary
 

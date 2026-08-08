@@ -86,7 +86,7 @@ Un penetration test report documenta los findings de un security assessment. Def
 | Testers | 2 senior penetration testers |
 | Scope | 3 web apps, 2 APIs, 1 mobile app, internal network |
 | Findings | 14 total (2 critical, 4 high, 5 medium, 3 low) |
-| Overall risk | High |
+| Riesgo agregado | High |
 | Previous test | 2025-12-10 (12 findings, 8 remediated) |
 
 ### Risk Summary
@@ -150,7 +150,7 @@ Un penetration test report documenta los findings de un security assessment. Def
 |----------|----------|
 | OWASP Testing Guide v4.2 | Web application tests |
 | OWASP API Security Top 10 | API tests |
-| PTES (Penetration Testing Execution Standard) | Overall methodology |
+| PTES (Penetration Testing Execution Standard) | Metodología general |
 | NIST SP 800-115 | Technical guide to testing |
 | MITRE ATT&CK | Post-exploitation mapping |
 

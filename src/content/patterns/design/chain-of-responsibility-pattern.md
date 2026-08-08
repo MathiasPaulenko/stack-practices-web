@@ -864,7 +864,7 @@ A: Add compression/decompression handlers that handle content encoding (gzip, de
 A: Yes. Preprocessing chains where each handler performs a specific preprocessing step (parsing, normalization, enrichment) prepare requests for main processing logic.
 
 **Q: How do I implement request context timeout?**
-A: Add a timeout handler that tracks overall request processing time and short-circuits if the total time exceeds a threshold, preventing long-running requests from consuming resources.
+A: Add a timeout handler that tracks total request processing time and short-circuits if the total time exceeds a threshold, preventing long-running requests from consuming resources.
 
 **Q: Can chains be used for request post-processing?**
 A: Yes. Post-processing chains where each handler performs operations after main processing (response formatting, logging, cleanup, metrics) are effective for response handling.

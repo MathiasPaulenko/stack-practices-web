@@ -90,7 +90,7 @@ The template covers:
         <!-- Current Status Section -->
         <section id="current">
             <h2>Current Status</h2>
-            <!-- Overall status banner -->
+            <!-- Aggregate status banner -->
             <div class="status-banner operational">
                 All systems operational
             </div>

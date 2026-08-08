@@ -388,7 +388,7 @@ Post-incident review es donde learning pasa. Un blameless review identify qué p
 
 ### ¿Cuál es la difference entre un incident response plan y un incident response template?
 
-Un incident response plan define el overall framework: roles, responsibilities, severity levels, communication procedures y escalation criteria. Un incident response template es el operational playbook usado durante un specific incident. El plan dice "el Technical Lead containea el threat." El template dice "para malware, isolateá el host usando kubectl cordon, captureá un disk image, luego corré un full EDR scan."
+Un incident response plan define el marco de alto nivel: roles, responsibilities, severity levels, communication procedures y escalation criteria. Un incident response template es el operational playbook usado durante un specific incident. El plan dice "el Technical Lead containea el threat." El template dice "para malware, isolateá el host usando kubectl cordon, captureá un disk image, luego corré un full EDR scan."
 
 ### ¿Cuándo deberíamos involve law enforcement?
 

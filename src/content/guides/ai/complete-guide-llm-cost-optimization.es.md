@@ -657,7 +657,7 @@ print(json.dumps(monitor.summary(24), indent=2))
 
 ### ¿Cuánto puedo ahorrar con model routing?
 
-Routeando 50% de requests a gpt-4o-mini en lugar de gpt-4o ahorra aproximadamente 90% en esos requests. Si 50% de tu traffic son tasks simples (classification, extraction, short answers), puedes reducir overall costs en 40-50%. Mide tu task distribution para estimar savings.
+Routeando 50% de requests a gpt-4o-mini en lugar de gpt-4o ahorra aproximadamente 90% en esos requests. Si el 50% de tu tráfico son tareas simples (clasificación, extracción, respuestas cortas), puedes reducir los costos totales en un 40-50%. Medí la distribución de tareas para estimar el ahorro.
 
 ### ¿Vale la pena el semantic caching por el embedding cost?
 

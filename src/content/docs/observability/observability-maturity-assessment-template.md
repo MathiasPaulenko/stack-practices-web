@@ -177,7 +177,7 @@ Observability maturity describes how well a team can answer questions about thei
 | No observability onboarding | Level 1 | Level 3 | Create onboarding guide for logging, metrics, tracing tools | 2 days |
 | Action items overdue | Level 2 | Level 4 | Monthly review of postmortem action items, assign owners | 0.5 days |
 
-## 6. Overall Score
+## 6. Aggregated Score
 
 | Dimension | Score | Target | Gap |
 |-----------|-------|--------|-----|

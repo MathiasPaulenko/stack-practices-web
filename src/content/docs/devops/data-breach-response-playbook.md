@@ -165,7 +165,7 @@ Before a breach occurs:
 
 | Role | Responsibilities | Primary | Backup |
 |------|------------------|---------|--------|
-| Incident Commander | Overall coordination, decision authority, stakeholder updates | ______ | ______ |
+| Incident Commander | Primary coordination, decision authority, stakeholder updates | ______ | ______ |
 | Technical Lead | Containment, forensics, remediation | ______ | ______ |
 | Legal Counsel | Notification requirements, regulatory compliance, privilege | ______ | ______ |
 | Communications Lead | Customer, media, and internal messaging | ______ | ______ |

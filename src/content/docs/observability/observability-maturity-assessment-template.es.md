@@ -180,7 +180,7 @@ Observability maturity describe qué tan well un team puede answer questions sob
 | No observability onboarding | Level 1 | Level 3 | Creá onboarding guide para logging, metrics, tracing tools | 2 days |
 | Action items overdue | Level 2 | Level 4 | Monthly review de postmortem action items, assigná owners | 0.5 days |
 
-## 6. Overall Score
+## 6. Puntaje Agregado
 
 | Dimension | Score | Target | Gap |
 |-----------|-------|--------|-----|

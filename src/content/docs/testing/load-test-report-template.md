@@ -62,7 +62,7 @@ Use this resource when:
 | Environment | `staging / production-like` |
 | Tool Used | `k6 / JMeter / Gatling / Locust` |
 | Tester | `name` |
-| Overall Result | `PASS / PASS with warnings / FAIL` |
+| Aggregate Result | `PASS / PASS with warnings / FAIL` |
 
 - **Goal**: Briefly state what was tested and why.
 - **Key Finding**: One-line summary of the most important result.
