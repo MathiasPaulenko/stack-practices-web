@@ -77,9 +77,7 @@ const jsonLd: Record<string, unknown>[] = [
   ]),
 ];
 
-const lazyFaq = (contentType === 'recipes' || contentType === 'patterns') && faqs.length > 0;
-
-if (faqs.length > 0 && !lazyFaq) {
+if (faqs.length > 0) {
   jsonLd.push(faqPage(faqs.slice(0, 3)));
 }
 
@@ -101,7 +99,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
 >
   <div data-pagefind-filter={contentType ? `contentType[${contentType}]` : undefined}>
   <!-- Subtle brand accent line -->
-  <div class="h-[3px] bg-gradient-to-r from-brand-500 via-brand-400 to-transparent"></div>
+  <div class="brand-accent"></div>
 
   <!-- Header section -->
   <header class="recipe-header">
@@ -191,7 +189,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   {
     locale === 'es' ? (
       <section class="bg-white">
-        <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
+        <div class="article-prose article-prose--top">
           <p class="locale-note locale-note--es">
             <strong>Nota para desarrolladores hispanohablantes:</strong> Esta guía incluye ejemplos y convenciones de nomenclatura adaptadas a equipos que trabajan en español. Cuando existen diferencias significativas en terminología técnica entre el inglés y el español, se indican explícitamente para facilitar la comunicación en equipos multiculturales.
           </p>
@@ -199,7 +197,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
       </section>
     ) : (
       <section class="bg-white">
-        <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-2 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6">
+        <div class="article-prose article-prose--top">
           <p class="locale-note">
             <strong>Note:</strong> This guide follows English-language naming conventions and terminology standards common in international development teams. Examples use English identifiers and comments to maximize compatibility across codebases and tooling.
           </p>
@@ -210,7 +208,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
 
   <!-- Main content -->
   <section class="bg-white">
-    <div class="prose prose-lg prose-slate mx-auto max-w-4xl px-4 pt-4 pb-10 prose-headings:scroll-mt-20 prose-a:text-brand-600 prose-pre:rounded-lg sm:px-6">
+    <div class="article-prose article-prose--main">
       <slot />
     </div>
   </section>
@@ -220,8 +218,8 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
   <!-- Related resources -->
   {
     related.length > 0 && (
-      <section class="bg-slate-50">
-        <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+      <section class="related-section">
+        <div class="related-section__inner">
           <RelatedResources
             title={relatedLabel}
             items={related}
@@ -232,29 +230,19 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
     )
   }
 
-  {lazyFaq && faqs.length > 0 && (
-    <script>
-      window.__pageFaqs = JSON.parse(document.getElementById('page-faqs-data')?.textContent || '[]');
-    </script>
-  )}
-
-  <script is:inline type="application/json" id="page-faqs-data">
-    {JSON.stringify(faqs)}
-  </script>
-
   <!-- FAQ Section (visible, structured) -->
   {
-    faqs.length > 0 && !lazyFaq && (
-      <section class="bg-white">
-        <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-          <h2 id="faq" class="text-2xl font-bold text-slate-900">
+    faqs.length > 0 && (
+      <section class="faq-section">
+        <div class="faq-section__inner">
+          <h2 id="faq" class="faq-section__title">
             {locale === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions'}
           </h2>
-          <dl class="mt-6 space-y-4">
+          <dl class="faq-list">
             {faqs.map((faq: { question: string; answer: string }) => (
-              <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
-                <dt class="font-semibold text-slate-900">{faq.question}</dt>
-                <dd class="mt-2 text-slate-700">{faq.answer}</dd>
+              <div class="faq-item">
+                <dt class="faq-item__question">{faq.question}</dt>
+                <dd class="faq-item__answer">{faq.answer}</dd>
               </div>
             ))}
           </dl>

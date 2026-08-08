@@ -54,6 +54,51 @@ body {
   @apply bg-slate-50 text-slate-900 antialiased;
 }
 
+/* Skip link */
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.skip-link:focus {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 50;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  border-radius: 0.375rem;
+  background: var(--color-brand-600, #2563eb);
+  color: #fff;
+}
+
+/* Brand accent line */
+.brand-accent {
+  height: 3px;
+  background: linear-gradient(to right, var(--color-brand-500, #3b82f6), var(--color-brand-400, #60a5fa), transparent);
+}
+
+/* Article prose container */
+.article-prose {
+  @apply prose prose-lg prose-slate mx-auto max-w-4xl px-4 prose-headings:scroll-mt-20 prose-a:text-brand-600 sm:px-6;
+}
+.article-prose--top {
+  @apply pt-4 pb-2;
+}
+.article-prose--main {
+  @apply pt-4 pb-10 prose-pre:rounded-lg;
+}
+
 code,
 pre,
 kbd {
@@ -580,6 +625,130 @@ pre.astro-code .copy-btn.copied {
 .recipe-topics__item:hover {
   color: var(--color-brand-700, #1d4ed8);
   text-decoration: underline;
+}
+
+/* Related resources */
+.related-section {
+  background: var(--color-slate-50, #f8fafc);
+}
+.related-section__inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 56rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+@media (min-width: 640px) {
+  .related-section__inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+.related-heading {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: var(--color-slate-900, #0f172a);
+}
+.related-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .related-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.related-card {
+  display: block;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-slate-200, #e2e8f0);
+  background: #fff;
+  padding: 1.25rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.related-card:hover {
+  border-color: var(--color-brand-300, #93c5fd);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.related-card__type {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: var(--color-brand-600, #2563eb);
+}
+.related-card__title {
+  margin-top: 0.25rem;
+  font-weight: 600;
+  color: var(--color-slate-900, #0f172a);
+}
+.related-card:hover .related-card__title {
+  color: var(--color-brand-700, #1d4ed8);
+}
+.related-card__desc {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-slate-500, #64748b);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* FAQ section */
+.faq-section {
+  background: #fff;
+}
+.faq-section__inner {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 56rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+@media (min-width: 640px) {
+  .faq-section__inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+.faq-section__title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: var(--color-slate-900, #0f172a);
+}
+.faq-list {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.faq-item {
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-slate-200, #e2e8f0);
+  background: var(--color-slate-50, #f8fafc);
+  padding: 1rem;
+}
+.faq-item__question {
+  font-weight: 600;
+  color: var(--color-slate-900, #0f172a);
+}
+.faq-item__answer {
+  margin-top: 0.5rem;
+  color: var(--color-slate-700, #334155);
 }
 
 /* Table of contents */
