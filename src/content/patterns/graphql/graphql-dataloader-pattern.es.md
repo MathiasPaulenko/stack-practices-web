@@ -330,6 +330,14 @@ Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y c
 
 Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
 
+
+## Puntos Clave
+
+- **Aplica patron dataloader en graphql** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.

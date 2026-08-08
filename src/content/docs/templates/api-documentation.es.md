@@ -244,6 +244,14 @@ Todos los errores siguen esta estructura. Para una plantilla dedicada de respues
 4. Agrega ejemplos de código en Python, JavaScript y Java
 5. Linkea a tu spec de OpenAPI/Swagger para documentación interactiva
 
+
+## Puntos Clave
+
+- **Aplica plantilla de documentación de api** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### Debería documentar cada endpoint o solo los públicos?

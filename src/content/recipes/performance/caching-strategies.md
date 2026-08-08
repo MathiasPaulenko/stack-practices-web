@@ -299,6 +299,22 @@ Cache warming pre-populates Redis before traffic arrives. Run this as a post-dep
 - **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
 - **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
 
+
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply caching strategies** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### How do I prevent cache stampedes?

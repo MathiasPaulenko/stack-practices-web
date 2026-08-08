@@ -279,6 +279,44 @@ sum by (service) (
 - **Generacion automatizada de dashboards**: genera dashboards desde service definitions. Usa infrastructure as code para dashboards. Version control dashboard definitions. Auto-crea dashboards para new services. Estandariza dashboard templates. Monitorea dashboard usage. Remueve unused dashboards. Documenta dashboard standards. Testea dashboard generation
 - **Generacion automatizada de alerts**: genera alerts desde SLO definitions. Usa alerting as code. Version control alert rules. Auto-crea alerts para new services. Estandariza alert templates. Monitorea alert effectiveness. Remueve noisy alerts. Documenta alert standards. Testea alert generation. Revisa alert coverage
 - **Health checks de observability**: implementa health checks para observability infrastructure. Chequea collector availability. Chequea storage health. Chequea query performance. Chequea alert delivery. Alerta en observability failures. Documenta health check procedures. Testea health checks. Revisa health check coverage. Usa external monitoring
+
+
+
+
+
+## Glosario
+
+- **Agregación de Logs**: técnica o patrón central descrito en este artículo.
+- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
+- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de log-aggregation y observability para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica agregación de logs** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Cómo manejo costos de alto volumen de logs?**

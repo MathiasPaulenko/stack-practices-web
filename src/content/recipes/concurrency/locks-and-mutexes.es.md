@@ -278,6 +278,30 @@ int main() {
 - **Spoofing de condition variables**: si las condition variables son accesibles a cÃ³digo no confiable, 
 otify() puede ser llamado espuriamente, despertando threads que deberÃ­an permanecer bloqueados. MantÃ©n las condition variables privadas
 - **Race de lock file en inicializaciÃ³n**: usar locks basados en archivos para inicializaciÃ³n tiene races TOCTOU (time-of-check-to-time-of-use). Un atacante puede reemplazar el lock file entre el check y el uso. Usa O_CREAT|O_EXCL con manejo de errores apropiado
+
+
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de concurrency y atomic-operations para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica coordinar acceso compartido con locks, mutexes y semã¡foros** cuando necesites una solución práctica para concurrency.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: Â¿DeberÃ­a usar synchronized o ReentrantLock en Java?**

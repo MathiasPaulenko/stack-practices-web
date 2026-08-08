@@ -294,6 +294,14 @@ Mantén los docs de esquema como archivos Markdown en el mismo repositorio que e
 
 Para organizaciones con infraestructura wiki existente, adapta las secciones de la plantilla en páginas wiki. Linkea cada tabla a su historial de migraciones y entradas de postmortem correspondientes.
 
+
+## Puntos Clave
+
+- **Aplica plantilla de documentación de esquema de base de datos** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Debería auto-generar docs de esquema desde la base de datos?

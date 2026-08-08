@@ -299,6 +299,22 @@ El orden importa: base de datos primero, cache segundo. Si escribes en cache pri
 - **No establecer un TTL** — incluso con write-through, un TTL captura casos edge donde se pierde una escritura. Establece un TTL como red de seguridad.
 - **Cachear demasiado** — write-through escribe en cache en cada update. Cachear datos raramente leidos desperdicia memoria y anade latencia de escritura sin beneficio.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica patron write-through cache** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 ### Cual es la diferencia entre write-through y write-behind?

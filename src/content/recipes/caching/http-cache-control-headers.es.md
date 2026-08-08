@@ -312,6 +312,37 @@ El header `Age` indica cuánto tiempo (en segundos) una respuesta ha estado cach
 
 Usa `Vary: Cookie` si la variante A/B se setea via cookie. Alternativamente, incluye la variante del experimento en la URL (ej., `?variant=b`) para que cada variante tenga su propia cache entry. No uses `Vary: User-Agent` para A/B testing — fragmenta el cache. Setea `Cache-Control: private` si la variante es user-specific. Para server-side A/B testing, inyecta la asignación de variante antes de la capa de CDN cache para que el CDN cachee cada variante separadamente.
 
+
+
+
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de http y caching para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica configurar headers http cache-control para apis y assets** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.

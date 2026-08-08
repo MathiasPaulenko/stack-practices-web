@@ -281,6 +281,37 @@ def test_create_order_and_query(db_engine, api_client):
 - **Testing standards**: sigue industry testing standards. ISTQB para testing terminology. ISO/IEC 25010 para software quality. IEEE 829 para test documentation. Documenta standards usage. Testea compliance con standards. Monitorea standards adoption. Revisa standards regularmente. Entrena team en standards. Usa standards para test design
 - **Test-driven development**: practica TDD donde sea apropiado. Escribe tests antes de code. Red-green-refactor cycle. Empieza con failing test. Escribe minimal code para pass. Refactoriza despues de passing. Documenta TDD practices. Testea TDD adoption. Monitorea TDD effectiveness. Revisa TDD code quality. Usa TDD para critical features
 - **Behavior-driven development**: practica BDD para acceptance criteria. Escribe scenarios en Given-When-Then format. Usa Cucumber o SpecFlow para BDD. Documenta BDD practices. Testea BDD scenarios. Monitorea BDD adoption. Revisa BDD effectiveness. Usa BDD para user-facing features. Manten scenarios readable. Automatiza BDD scenarios
+
+
+
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de testing y api-testing para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica diseñar tests de integración efectivos para sistemas** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Cuántos tests de integración debería tener?**

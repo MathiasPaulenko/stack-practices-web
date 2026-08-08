@@ -278,6 +278,30 @@ Use dependency injection at the entry point (Application.java in Spring Boot). T
 - **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
 - **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
 
+
+
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the hexagonal-architecture and ports-and-adapters guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply hexagonal architecture — ports, adapters, and testability** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **How is Hexagonal different from Clean Architecture?**

@@ -293,6 +293,37 @@ o-transform header para content ya compressed. Monitorea compression-related vul
 
 - **Performance SLAs**: define performance SLAs para critical endpoints. API response time under 200ms. Page load time under 3 segundos. Trackea SLA compliance. Alerta en SLA violations. Documenta SLA definitions. Revisa SLAs trimestralmente. Comunica SLA status. Testea SLA monitoring. Usa SLA para priorizacion
 - **Performance reporting**: genera weekly performance reports. Incluye key metrics y trends. Highlighta regressions y improvements. Comparte con stakeholders. Documenta reporting methodology. Automatiza report generation. Revisa report content. Trackea performance en el tiempo. Usa reports para planning
+
+
+
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de performance y database para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica configurar connection pooling para bases de datos y** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Cuál es el tamaño óptimo del pool?

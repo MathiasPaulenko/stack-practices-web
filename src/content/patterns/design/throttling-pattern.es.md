@@ -179,6 +179,22 @@ Los algoritmos de throttling balancean justicia y eficiencia:
 - **GitHub API:** Rate limits por usuario autenticado (5000/hora) y por IP (60/hora). Exceder limites retorna `403` con `X-RateLimit-Reset`.
 - **AWS API Gateway:** Throttling a nivel de cuenta, stage y metodo usando token bucket, con capacidad de rafaga.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica patron de throttling** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Cual es la diferencia entre throttling y backpressure?**

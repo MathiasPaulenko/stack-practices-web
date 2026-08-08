@@ -206,6 +206,14 @@ terraform show -json tfplan > plan.json
 - Escribir configs monolíticas gigantes en lugar de componentes modulares
 - Ignorar output del plan — el plan te dice qué se destruirá; léelo
 
+
+## Puntos Clave
+
+- **Aplica infrastructure as code — terraform y pulumi** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Puedo usar Terraform y Pulumi juntos?

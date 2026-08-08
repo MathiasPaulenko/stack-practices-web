@@ -305,6 +305,14 @@ Cada estrategia de throttling controla el throughput a un nivel diferente:
 - **Ignorar la capacidad downstream** — throttling a nivel Lambda no ayuda si el servicio downstream tiene sus propios limites de conexiones. Monitoriza la salud downstream y ajusta la concurrencia.
 - **No manejar 429 del downstream** — cuando una API downstream devuelve 429, Lambda deberia reintentar con backoff o fallar el mensaje para reprocesamiento posterior, no crashar.
 
+
+## Puntos Clave
+
+- **Aplica patron serverless throttling** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 ### Cual es la diferencia entre throttling y rate limiting?

@@ -137,6 +137,14 @@ CREATE INDEX idx_user_preferences_theme ON user_preferences(theme);
 4. **Ignorar timeouts de lock**: `statement_timeout` de PostgreSQL aborta migraciones largas impredeciblemente. Consulta [connection pooling](/recipes/performance/connection-pooling).
 5. **Sin dry runs**: Ejecutar migraciones directamente en producción sin `EXPLAIN` o validación de staging
 
+
+## Puntos Clave
+
+- **Aplica evolución de schema de base de datos** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Cómo renombro una columna sin downtime?**

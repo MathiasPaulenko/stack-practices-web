@@ -286,6 +286,22 @@ et/http/pprof). Protegelos con autenticaciÃ³n o bindÃ©alos a un puerto inter
 - **Agotamiento de memoria vÃ­a mensajes grandes en channel**: los channels no limitan el tamaÃ±o de mensajes. Un atacante puede enviar payloads grandes a travÃ©s de un channel para agotar memoria. Implementa lÃ­mites de tamaÃ±o a nivel aplicaciÃ³n
 - **Ataques de crecimiento de stack de goroutines**: goroutines con recursiÃ³n profunda pueden crecer su stack hasta el lÃ­mite de 1GB. Un atacante puede triggerar recursiÃ³n profunda vÃ­a input craftado. Setea lÃ­mites de profundidad de recursiÃ³n
 - **Bypass de context cancellation**: si una goroutine no chequea ctx.Done(), ignora la cancelaciÃ³n. Audita todas las goroutines para verificar checks de context. Usa ctx.Err() para verificar el estado de cancelaciÃ³n
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica coordinar tareas concurrentes con communicating** cuando necesites una solución práctica para concurrency.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: Â¿Son channels solo colas con locks?**

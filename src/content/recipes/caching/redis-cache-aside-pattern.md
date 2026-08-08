@@ -305,6 +305,14 @@ def process_write_queue():
 - **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
 - **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
 
+
+## Key Takeaways
+
+- **Apply implement the cache-aside pattern with redis** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: Cache-aside vs. read-through — what is the difference?**

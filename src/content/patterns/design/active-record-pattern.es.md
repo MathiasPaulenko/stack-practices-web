@@ -302,6 +302,14 @@ La clase es tanto un modelo de dominio como un gateway a la base de datos. Esta 
 
 `User::find(1)` y `$user->save()` siguen Active Record. Eloquent también soporta relaciones, scopes y query builders.
 
+
+## Puntos Clave
+
+- **Aplica patrón active record** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Active Record y Data Mapper?**

@@ -282,6 +282,37 @@ public class UserRepositoryTest {
 - **Test suite optimization**: optimize test suite for speed and reliability. Remove duplicate tests. Merge similar tests. Skip tests for unchanged code. Use test prioritization. Document optimization strategy. Test suite performance. Monitor execution time. Alert on slow suites. Review suite regularly. Keep suite lean
 - **Test environment optimization**: optimize test environments for speed. Use containerized environments. Use in-memory databases. Use mock services. Cache environment setup. Document optimization strategy. Test environment performance. Monitor environment health. Alert on environment issues. Review environments regularly
 - **Test data optimization**: optimize test data for speed and reliability. Use minimal data sets. Use factories for on-demand data. Use seeders for consistent state. Cache test data. Document optimization strategy. Test data performance. Monitor data quality. Alert on data issues. Review test data regularly. Keep data minimal
+
+
+
+
+## Quick Reference
+
+- **Main command**: run the base solution from the article and verify the expected result.
+- **Validation**: confirm tests pass and key metrics did not degrade.
+- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the testing and pytest guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply write integration tests** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: How are integration tests different from end-to-end tests?**

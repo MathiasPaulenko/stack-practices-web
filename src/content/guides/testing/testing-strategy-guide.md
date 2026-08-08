@@ -222,6 +222,22 @@ jobs:
 - **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
 - **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
 
+
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply software testing strategy guide** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### What is the testing pyramid?

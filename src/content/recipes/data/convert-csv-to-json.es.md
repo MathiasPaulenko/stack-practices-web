@@ -315,6 +315,14 @@ e.search() con string patterns
 - Para conversion CSV-a-JSON, usa orjson en lugar de json para serializacion 5-10x mas rapida
 - Para procesamiento de CSV grandes, usa pandas.read_csv(chunksize=10000) y procesa chunks en paralelo con concurrent.futures
 - Para escritura Excel, xlsxwriter es 2-3x mas rapido que openpyxl para archivos grandes de output pero no soporta lectura
+
+## Puntos Clave
+
+- **Aplica convertir csv a json** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Cómo convierto CSV con estructuras JSON anidadas?

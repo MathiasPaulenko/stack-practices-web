@@ -329,6 +329,14 @@ app.use((req, res, next) => {
 
 X-Content-Type-Options: nosniff (prevenir MIME sniffing), Strict-Transport-Security: max-age=31536000 (forzar HTTPS), X-Frame-Options: DENY (prevenir clickjacking), Content-Security-Policy: default-src self (prevenir XSS), Referrer-Policy: no-referrer (minimizar info expuesta). Usa helmet() en Express para configurar todos automaticamente.
 
+
+## Puntos Clave
+
+- **Aplica guía de mejores prácticas de seguridad** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.

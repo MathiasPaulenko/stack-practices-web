@@ -301,6 +301,44 @@ El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones 
 
 Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
 
+
+
+
+
+
+## Glosario
+
+- **Generacion de UUID: v4, v7 y Comparacion con ULID**: técnica o patrón central descrito en este artículo.
+- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
+- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de guid y data para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica generacion de uuid: v4, v7 y comparacion con ulid** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.

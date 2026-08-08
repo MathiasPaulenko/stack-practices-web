@@ -309,6 +309,14 @@ public class OrderController {
 4. Usar idempotency keys en requests GET, que ya son idempotentes por especificación HTTP y no necesitan claves.
 5. No remover el marcador de "processing" ante falla, bloqueando permanentemente retries para esa clave.
 
+
+## Puntos Clave
+
+- **Aplica endpoints de api idempotentes** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Cuáles métodos HTTP son naturalmente idempotentes?

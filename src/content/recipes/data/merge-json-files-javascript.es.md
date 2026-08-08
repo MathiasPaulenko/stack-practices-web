@@ -284,6 +284,30 @@ e.ASCII y anchors explicitos para regexes security-sensitive
 - **Transacciones compensatorias para fallos de validacion**: si la validacion falla despues de procesamiento parcial (ej. datos fueron escritos a un servicio pero no a otro), ejecuta una transaccion compensatoria para deshacer la escritura parcial
 - **Dead letter queue para records invalidos**: records que fallan validacion van a una dead letter queue para inspeccion manual. Esto previene que datos malos bloqueen el pipeline y provee un audit trail
 - **Evolucion de schema con compatibilidad backward**: cuando actualizas un schema, asegura compatibilidad backward. Nuevos campos requeridos deben tener defaults. Campos removidos deben ser opcionales por un ciclo de release antes de la eliminacion. Usa versionado de schema para manejar la evolucion
+
+
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de json y javascript para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica merge de archivos json en javascript** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Cómo hago merge de arrays en vez de reemplazarlos?

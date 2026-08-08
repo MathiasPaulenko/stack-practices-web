@@ -332,6 +332,14 @@ No. `useMemo` es sincrónico. Para async, usa `useEffect` con state, o una libre
 
 Usa `console.time` y `console.timeEnd` alrededor del cómputo, o usa el React Profiler. Si un render toma más de 16ms (un frame a 60fps), busca cómputos costosos para memoizar.
 
+
+## Puntos Clave
+
+- **Aplica cuándo usar usememo y usecallback** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.

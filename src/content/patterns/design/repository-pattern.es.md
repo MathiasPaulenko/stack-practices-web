@@ -208,6 +208,14 @@ La lógica de negocio depende solo de la interfaz, por lo que puedes intercambia
 - **Ignorar transacciones**: Múltiples operaciones de repository que deberían ser atómicas pero no están envueltas en una transacción
 - **Carga eager de todo**: Traer más datos de los necesarios porque la abstracción oculta el costo de la query
 
+
+## Puntos Clave
+
+- **Aplica patrón repository** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Es Repository lo mismo que DAO (Data Access Object)?**

@@ -212,6 +212,22 @@ record UserV2(Long id, String fullName, String email) {}
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
 
+
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply api versioning** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### When should I release a new API version?

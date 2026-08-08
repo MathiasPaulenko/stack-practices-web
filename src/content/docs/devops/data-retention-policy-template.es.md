@@ -329,6 +329,14 @@ Revisa la politica de retencion de datos anualmente y despues de cualquier cambi
 
 End of document. Review and update quarterly.
 
+
+## Puntos Clave
+
+- **Aplica plantilla de politica de retencion de datos** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.

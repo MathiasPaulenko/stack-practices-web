@@ -247,6 +247,14 @@ The application is the **single point of control** — it decides when to read f
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
+
+## Key Takeaways
+
+- **Apply cache-aside pattern** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: What is the difference between Cache-Aside and Read-Through?**

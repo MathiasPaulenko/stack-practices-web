@@ -291,6 +291,14 @@ def check_sunset_readiness(grafana_url, dashboard_id, api_token):
 6. No proporcionar un entorno sandbox para que los consumidores prueben la nueva versión
 7. Cerrar sin monitorear 404s de consumidores desconocidos post-cierre
 
+
+## Puntos Clave
+
+- **Aplica plantilla de gestión del ciclo de vida de apis** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Cuánto tiempo debería mantener viva una API deprecada?

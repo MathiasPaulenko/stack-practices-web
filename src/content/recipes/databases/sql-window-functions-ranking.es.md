@@ -234,6 +234,22 @@ SUM(amount) OVER (PARTITION BY category
 6. **LAST_VALUE sin marco completo.** `LAST_VALUE` por defecto usa la fila actual, no la última de la partición. Siempre especifica `ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING`.
 7. **Usar RANGE en vez de ROWS sin intención.** `RANGE` incluye pares (filas con el mismo valor de orden), lo que puede producir resultados inesperados en totales acumulados.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica clasificar filas y calcular totales acumulados con** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre RANK y DENSE_RANK?**

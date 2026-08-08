@@ -208,6 +208,22 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 - **Over-engineering de tareas simples**: si una pregunta puede responderse con una sola [búsqueda RAG](/recipes/ai/rag-pipeline), no construyas un agente completo. Los agentes agregan complejidad, costo y modos de fallo. Úsalos solo cuando el razonamiento multi-paso sea genuinamente requerido.
 - **Olvidar manejar errores de herramientas**: si una API de búsqueda está caída, el agente recibe un string de error y puede alucinar una respuesta. Captura excepciones, retorna mensajes de error estructurados y enseña al agente a reintentar o escalar.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica construir agentes de ia autónomos con uso de** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre un agente y un chatbot?**

@@ -336,6 +336,14 @@ Agrega un step en tu workflow para ejecutar pytest con cobertura y subir el repo
 
 Codecov publica un comentario en PRs con el diff de cobertura y visualiza líneas no cubiertas. Usa `fail_under` en `.coveragerc` para fallear el job de CI si la cobertura baja de un threshold.
 
+
+## Puntos Clave
+
+- **Aplica medir cobertura de tests con pytest-cov** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.

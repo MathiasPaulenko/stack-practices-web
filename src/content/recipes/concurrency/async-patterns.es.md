@@ -261,6 +261,30 @@ public class AsyncOrderService {
 - **Condiciones de carrera en cancelaciÃ³n de tasks**: cancelar una task que realiza una operaciÃ³n no idempotente (ej. cobrar una tarjeta) puede llevar a cobros dobles si la operaciÃ³n completa antes de que la cancelaciÃ³n propague. Usa idempotency keys
 - **Leaks de async context managers**: no usar sync with para recursos (conexiones de BD, sesiones HTTP) leakea conexiones. Usa linters que detecten recursos async no cerrados
 - **Bypass de backpressure**: si un productor rÃ¡pido alimenta un consumidor lento sin backpressure, la memoria crece sin lÃ­mite. Usa channels acotados o streams con flow control
+
+
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de concurrency y event-loop para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica patrones async con promises, futures y coroutines** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: Â¿Es async siempre mÃ¡s rÃ¡pido que sÃ­ncrono?**

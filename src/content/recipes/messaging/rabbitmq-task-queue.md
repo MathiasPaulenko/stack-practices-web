@@ -288,6 +288,37 @@ volumes:
 - **Broker migration**: migrate from one broker to another (e.g., RabbitMQ to Kafka). Run both brokers in parallel during transition. Dual-publish to both brokers. Switch consumers one by one. Verify message parity. Decommission old broker after all consumers migrate. Plan for schema compatibility across brokers
 - **Queue refactoring**: split a monolithic queue into multiple specialized queues. Use a router service to forward messages to new queues. Run both queues in parallel. Switch consumers to new queues. Monitor for message loss or duplication. Decommission old queue after verification. Document new queue architecture
 - **Protocol migration**: migrate from AMQP to MQTT or vice versa. Use a protocol bridge during transition. Validate message semantics across protocols. Test performance characteristics of new protocol. Train team on new protocol. Monitor for compatibility issues. Document protocol-specific behaviors
+
+
+
+
+## Quick Reference
+
+- **Main command**: run the base solution from the article and verify the expected result.
+- **Validation**: confirm tests pass and key metrics did not degrade.
+- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the messaging and microservices guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply task queues and rpc with rabbitmq and amqp** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: How is this different from Kafka?**

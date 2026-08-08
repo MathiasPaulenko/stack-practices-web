@@ -285,6 +285,37 @@ def create_order(items, total):
 - **Canary observability**: monitor canary deployments with enhanced observability. Compare metrics between canary and baseline. Use statistical analysis for comparison. Alert on significant deviations. Auto-rollback on anomalies. Document canary observability strategy. Test canary detection. Review canary thresholds. Monitor canary effectiveness
 - **Chaos observability**: verify observability during chaos experiments. Ensure traces and logs capture chaos events. Verify alerts fire correctly. Test dashboard accuracy during chaos. Document chaos observability procedures. Test chaos observability. Review chaos observability coverage. Improve based on findings. Run chaos tests regularly
 - **Multi-cluster observability**: aggregate observability data across Kubernetes clusters. Use federation or remote write. Centralize dashboards and alerts. Per-cluster filtering and labeling. Document multi-cluster strategy. Test cross-cluster queries. Monitor federation health. Review multi-cluster architecture. Optimize cross-cluster queries
+
+
+
+
+## Quick Reference
+
+- **Main command**: run the base solution from the article and verify the expected result.
+- **Validation**: confirm tests pass and key metrics did not degrade.
+- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the metrics and observability guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply metrics collection** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: How do I choose between Prometheus and StatsD?**

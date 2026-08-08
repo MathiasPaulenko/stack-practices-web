@@ -256,6 +256,14 @@ Comando rollback: ./scripts/rollback.sh API v2.3.0
 4. Desplegar múltiples cambios no relacionados en el mismo release
 5. Permitir que desplegadores trabajen solos sin un segundo par de ojos
 
+
+## Puntos Clave
+
+- **Aplica plantilla de checklist de despliegue** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Debería usar este checklist completo para cada despliegue?

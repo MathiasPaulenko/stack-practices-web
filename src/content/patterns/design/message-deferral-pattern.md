@@ -236,6 +236,14 @@ There are three main approaches to message deferral:
 - **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
 - **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
 
+
+## Key Takeaways
+
+- **Apply message deferral pattern** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### How is deferral different from retry?

@@ -331,6 +331,14 @@ Lecciones:
 
 Usa ECS si solo necesitas containers sin orquestacion compleja. Es mas simple, mas barato y suficiente para la mayoria de apps. Usa EKS si necesitas Kubernetes nativo, Helm charts, service mesh, o si tu equipo ya conoce K8s. EKS tiene mas overhead operativo pero ofrece mas flexibilidad y un ecosistema mas amplio.
 
+
+## Puntos Clave
+
+- **Aplica aws básico — servicios core para desarrolladores** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.

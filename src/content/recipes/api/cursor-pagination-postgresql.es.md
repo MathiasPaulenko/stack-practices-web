@@ -313,6 +313,30 @@ Empieza agregando una columna `created_at` con un índice si no existe. Implemen
 
 Los inserts concurrentes no afectan la corrección de la paginación por cursor. Las nuevas filas insertadas después de que la primera página es retornada aparecerán en páginas subsiguientes si sus valores de sort caen dentro del rango del cursor. El flag `has_next_page` se computa consultando `LIMIT + 1` y chequeando si existe una fila extra. Para feeds en tiempo real donde las nuevas filas deben aparecer inmediatamente, usa un endpoint separado de "latest items" en lugar de modificar el comportamiento del cursor.
 
+
+
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de pagination y api para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica paginacion por cursor con postgresql** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.

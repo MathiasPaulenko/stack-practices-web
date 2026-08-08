@@ -233,6 +233,30 @@ The circuit breaker tracks consecutive failures. After `threshold` errors, it op
 - **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
 - **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
+
+
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the decorator and middleware guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply decorator pattern for http request pipelines** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### How is this different from middleware in Express?

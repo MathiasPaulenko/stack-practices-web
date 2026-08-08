@@ -282,6 +282,14 @@ Go's goroutines are lightweight (2KB stack vs 1MB for OS threads), so you can sp
 - **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
+
+## Key Takeaways
+
+- **Apply manage concurrent work with thread pools and executors** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: How many threads should my pool have?**

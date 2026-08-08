@@ -287,6 +287,37 @@ class OrderSaga {
 - **High memory usage**: check for large message payloads. Verify message TTL is set. Check for unacked messages piling up. Monitor consumer memory usage. Use prefetch limits to control memory. Consider message compression. Check for memory leaks in consumer code. Profile consumer processes regularly
 - **Connection drops**: check network stability between consumers and broker. Verify heartbeat settings. Check broker resource limits. Review firewall and load balancer timeouts. Use automatic recovery in client libraries. Monitor connection events. Log reconnection attempts. Set appropriate connection timeout
 - **Uneven message distribution**: check prefetch settings (too high causes uneven distribution). Verify all consumers have equal capacity. Check for slow consumers. Use prefetch=1 for strict fair dispatch. Monitor consumer processing times. Scale consumers based on lag. Consider consumer priority for weighted distribution
+
+
+
+
+## Quick Reference
+
+- **Main command**: run the base solution from the article and verify the expected result.
+- **Validation**: confirm tests pass and key metrics did not degrade.
+- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the event-driven and microservices guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply event-driven microservices** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: When should I use event sourcing vs. traditional CRUD?**

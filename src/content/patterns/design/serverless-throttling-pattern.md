@@ -314,6 +314,14 @@ Each throttling strategy controls throughput at a different level:
 - **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
 - **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
 
+
+## Key Takeaways
+
+- **Apply serverless throttling pattern** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### What is the difference between throttling and rate limiting?

@@ -309,6 +309,14 @@ public class SamlSecurityConfig {
 - **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
 
+
+## Key Takeaways
+
+- **Apply implement sso with saml** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: What is the difference between SAML and OAuth 2.0?**

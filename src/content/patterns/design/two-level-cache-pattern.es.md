@@ -295,6 +295,22 @@ En una escritura, tanto L1 como L2 se invalidan. Otras instancias siguen teniend
 - **Cachear todo en L1** — L1 es solo para hot keys. Cachear cold keys en L1 desperdicia memoria y evicte hot keys. Usa la frecuencia de acceso para decidir que entra en L1.
 - **No manejar fallos de L2** — si Redis esta caido, L1 sigue funcionando pero los misses de L2 se convierten en hits a base de datos. Implementa un circuit breaker o fallback a modo solo L1.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica patron two-level cache** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 ### Cual es la diferencia entre cache L1 y L2?

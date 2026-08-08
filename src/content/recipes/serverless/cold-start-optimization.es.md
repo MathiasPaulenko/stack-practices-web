@@ -276,6 +276,44 @@ gcloud run deploy api-service \
 - **Microservices con serverless**: descompone applications en functions chicas e independientes. Cada function maneja una specific business capability. Usa API Gateway para routing. Usa event bus para inter-service communication. Documenta service boundaries. Testea services independientemente. Deploya services independientemente. Monitorea service health. Usa circuit breakers para service calls. Maneja service failures gracefulmente
 - **Arquitectura event-driven**: usa events como primary communication mechanism. Producers publican events sin knowing consumers. Consumers subscriben a events que les importan. Usa EventBridge o Kafka para event routing. Documenta event schemas. Versiona event schemas. Testea event flows. Monitorea event processing latency. Maneja event ordering cuidadosamente. Usa dead letter queues para failed events
 - **CQRS con serverless**: separa read y write operations. Usa Lambda para command handling. Usa Lambda con DynamoDB Streams para read model updates. Usa API Gateway para query endpoints. Documenta CQRS implementation. Testea command y query paths separadamente. Monitorea read y write performance. Maneja eventual consistency. Usa projections para optimized reads
+
+
+
+
+
+## Glosario
+
+- **Minimizar la Latencia de Cold Start en Funciones Serverless**: técnica o patrón central descrito en este artículo.
+- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
+- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de serverless y lambda para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica minimizar la latencia de cold start en funciones serverless** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Puedo eliminar completamente los cold starts?**

@@ -273,6 +273,44 @@ async function publishOrderPlaced(order) {
 - **Provisioned concurrency**: allocatea provisioned concurrency para critical functions. AWS Lambda provisioned concurrency mantiene functions warm. Azure Functions premium plan provee pre-warmed instances. Google Cloud Functions min instances para warm functions. Documenta provisioned concurrency strategy. Monitorea provisioned concurrency utilization. Alerta en provisioned concurrency exhaustion. Revisa configuration mensualmente. Balancea cost y performance. Usa auto-scaling con provisioned concurrency
 - **Lazy initialization**: inicializa heavy resources lazily dentro del handler. Carga dependencies solo cuando se necesitan. Difiere database connections hasta first use. Cachea initialized resources entre invocations. Documenta lazy initialization strategy. Testea cold start impact. Monitorea initialization time. Revisa lazy initialization code regularmente. Optimiza initialization sequence
 - **Package optimization**: minimiza package size para faster cold starts. Remueve unnecessary dependencies. Usa tree shaking. Minifica production code. Usa Lambda layers para shared dependencies. Documenta package optimization strategy. Testea package size impact. Monitorea cold start duration. Revisa package contents regularmente. Usa bundlers para optimization
+
+
+
+
+
+## Glosario
+
+- **Construir Arquitecturas Serverless Event-Driven**: técnica o patrón central descrito en este artículo.
+- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
+- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de serverless y event-driven para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica construir arquitecturas serverless event-driven** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Cómo se diferencia event-driven de request-response?**

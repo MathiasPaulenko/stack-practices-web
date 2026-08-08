@@ -282,6 +282,14 @@ Restricciones clave:
 - Intentar leer el portapapeles sin un gesto del usuario. Los navegadores lo bloquean por seguridad.
 - No sanitizar HTML pegado. Pegar desde Word o navegadores puede inyectar markup malicioso.
 
+
+## Puntos Clave
+
+- **Aplica copiar y pegar con clipboard en javascript** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Por qué navigator.clipboard no funciona en localhost con HTTP?

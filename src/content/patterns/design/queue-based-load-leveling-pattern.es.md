@@ -220,6 +220,14 @@ La cola actua como un **buffer** entre productores y consumidores:
 - **Stripe**: Acepta solicitudes sincronicamente pero procesa analisis de riesgo, verificaciones de fraude y liquidacion asincronicamente.
 - **Kubernetes HPA**: Puede escalar deployments basandose en metricas de profundidad de cola.
 
+
+## Puntos Clave
+
+- **Aplica patron de nivelacion de carga basada en colas** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Como difiere del Patron de Back-Pressure?**

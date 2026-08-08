@@ -272,6 +272,37 @@ class PaymentServiceTest {
 - **Test reviews**: revisa tests en pull requests. Chequea test coverage para new code. Verifica test quality. Chequea edge cases. Revisa test naming. Documenta review checklist. Entrena team en test reviews. Monitorea review effectiveness. Alerta en missing test reviews. Usa test review templates
 - **Knowledge sharing**: comparte testing knowledge across el team. Conduce testing lunch-and-learns. Comparte testing best practices. Documenta testing patterns. Crea testing guidelines. Monitorea knowledge sharing. Revisa team testing skills. Alerta en knowledge gaps. Usa pair testing. Mentorea junior developers
 - **Testing culture**: construye una strong testing culture. Celebra testing achievements. Reconoce good test practices. Encourages test-first development. Haz testing visible. Documenta culture initiatives. Monitorea testing culture. Revisa team engagement. Alerta en culture degradation. Lidera by example
+
+
+
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de testing y jest para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica escribir unit tests con mocks y stubs** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Cuándo debería usar una dependencia real en lugar de un mock?**

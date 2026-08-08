@@ -329,6 +329,14 @@ Lecciones:
 
 Crea un MacroCommand que contiene una lista de comandos. Execute() llama a execute() de cada comando en orden. Undo() llama a undo() en orden inverso. Esto permite agrupar operaciones atomicas: por ejemplo, "formatear documento" ejecuta 20 comandos individuales, y un solo undo los revierte todos.
 
+
+## Puntos Clave
+
+- **Aplica command pattern con undo/redo en typescript** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.

@@ -308,6 +308,14 @@ Benchmarks en Node.js 20, single core, Redis cache. Resultados reales varian seg
 - **Session timeout demasiado largo**: si las sesiones nunca expiran, las sesiones robadas permanecen validas indefinidamente. Setea session timeout a 30 minutos de inactividad y 8 horas maximo absoluto.
 
 
+
+## Puntos Clave
+
+- **Aplica autenticación de dos factores (2fa / totp)** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Cómo manejo la desviación de reloj entre servidor y cliente?

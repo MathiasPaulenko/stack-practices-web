@@ -334,6 +334,14 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 
 La recuperación ante desastres es un seguro para tu infraestructura. Define objetivos claros, diseña estrategias apropiadas, documenta runbooks y prueba regularmente. El momento de descubrir un problema con tu plan de DR es durante un drill, no durante un desastre real.
 
+
+## Puntos Clave
+
+- **Aplica recuperación ante desastres** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.

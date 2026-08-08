@@ -218,6 +218,14 @@ def on_payment_failed(event):
 - Construir brokers de mensajes custom — usa sistemas probados (Kafka, RabbitMQ, NATS, AWS SNS/SQS)
 - Usar eventos para request/response simple — agrega complejidad innecesaria
 
+
+## Puntos Clave
+
+- **Aplica arquitectura orientada a eventos — colas, tópicos y streams** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Cómo debuggeo un sistema orientado a eventos?

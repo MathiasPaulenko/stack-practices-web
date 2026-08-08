@@ -298,6 +298,14 @@ For VS Code users, a `.devcontainer/devcontainer.json` standardizes the environm
 
 Use the same setup commands in CI as in the guide. This ensures the guide stays accurate — if CI breaks, the guide needs updating too.
 
+
+## Key Takeaways
+
+- **Apply environment setup guide template** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### Should I use Docker for local development?

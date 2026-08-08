@@ -322,6 +322,14 @@ aws iam list-access-keys --user-name deploy-bot --query 'AccessKeyMetadata[].{Ke
 aws iam get-account-authorization-details --output json > access-snapshot-$(date +%Y%m%d).json
 ```
 
+
+## Puntos Clave
+
+- **Aplica plantilla de revision de control de acceso** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes Adicionales
 
 ### Como manejo revisiones de acceso para contratistas y personal temporal?

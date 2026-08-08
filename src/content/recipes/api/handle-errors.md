@@ -293,6 +293,14 @@ Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary wi
 - **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
 - **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
 
+
+## Key Takeaways
+
+- **Apply handle errors in apis** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: Should I use RFC 7807 or a simpler custom format?**

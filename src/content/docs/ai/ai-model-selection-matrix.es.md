@@ -296,6 +296,14 @@ async def call_with_fallback(prompt: str, **kwargs):
     raise Exception("All models in fallback chain failed")
 ```
 
+
+## Puntos Clave
+
+- **Aplica matriz de seleccion de modelos de ai** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Con qué frecuencia deberia re-evaluar mi model choice?

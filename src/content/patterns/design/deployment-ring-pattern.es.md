@@ -310,6 +310,14 @@ El despliegue procede a traves de cada anillo secuencialmente:
 - Revertir solo el anillo fallido, dejando anillos anteriores en la nueva version
 - No probar el procedimiento de rollback mismo
 
+
+## Puntos Clave
+
+- **Aplica patrón deployment ring** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **Q: Como se diferencia el despliegue por anillos del canary release?**

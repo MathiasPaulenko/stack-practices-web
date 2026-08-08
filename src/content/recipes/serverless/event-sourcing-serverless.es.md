@@ -224,6 +224,30 @@ class OrderAggregate {
 - **No manejar la evolución de schema de eventos**: cuando un tipo de evento cambia (agregando un campo), eventos viejos en el log no tienen el nuevo campo. El agregado debe manejar campos faltantes gracefulmente. Usa versionado de schema y valores por defecto, o upcast eventos viejos al cargar.
 - **Reproducir eventos desde el inicio para cada query**: siempre usa snapshots para agregados con historias largas. Reproducir 10,000 eventos para cada `GET /order/123` destruye el rendimiento. Toma snapshots asíncronamente y carga desde ellos.
 
+
+
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de serverless y cqrs para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica implementar event sourcing en arquitecturas serverless** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 ### ¿Es event sourcing más complejo que CRUD?

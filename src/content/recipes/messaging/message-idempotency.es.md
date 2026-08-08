@@ -274,6 +274,44 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 
 - **Procesamiento de mensajes energy-efficient**: optimiza consumer code para reducir CPU cycles por mensaje. Batchea mensajes para reducir per-message overhead. Usa formatos de serializacion eficientes (Avro, Protobuf) para reducir network transfer. Right-sizea consumer infrastructure para evitar idle energy consumption. Programa non-urgent batch processing durante off-peak hours cuando grid carbon intensity es lower
 - **Arquitectura de messaging green**: prefiere managed messaging services que sharean infraestructura a traves de tenants, reduciendo per-message carbon footprint. Usa auto-scaling para matchear consumer capacity a demand, eliminando idle resources. Elije cloud regions con renewable energy. Archiva mensajes viejos a cold storage para reducir active storage energy. Monitorea carbon footprint de messaging infrastructure
+
+
+
+
+
+## Glosario
+
+- **Idempotencia en Procesamiento de Mensajes**: técnica o patrón central descrito en este artículo.
+- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
+- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de messaging y distributed-systems para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica idempotencia en procesamiento de mensajes** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre idempotencia y deduplicación?**

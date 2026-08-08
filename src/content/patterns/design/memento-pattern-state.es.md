@@ -335,6 +335,14 @@ Lecciones:
 
 Usa Memento cuando necesitas restaurar estado completo (formularios, editores visuales). Usa Command cuando necesitas deshacer operaciones individuales (texto, acciones). Memento es mas simple pero consume mas memoria: guarda todo el estado. Command es mas eficiente: solo guarda lo necesario para deshacer. Para wizards y formularios multi-step, Memento es ideal. Para editores de texto, Command es preferible.
 
+
+## Puntos Clave
+
+- **Aplica memento pattern para snapshot y restauracion de estado** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.

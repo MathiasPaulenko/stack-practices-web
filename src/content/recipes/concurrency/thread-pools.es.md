@@ -245,6 +245,30 @@ Las goroutines de Go son ligeras (2KB de stack vs 1MB para OS threads), por lo q
 - **Compartir un solo pool entre workloads no relacionados**: las tareas CPU-bound e I/O-bound tienen diferentes tamaños óptimos de pool. Si comparten un pool, un workload priva al otro. Usa pools separados por tipo de workload.
 - **No manejar `RejectedExecutionException`**: cuando usas `AbortPolicy`, el pool lanza `RejectedExecutionException` bajo sobrecarga. Si no lo capturas, la excepción propaga y puede crashear al llamador. Captúralo y degrada gracefulmente.
 
+
+
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de concurrency y async para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica gestionar trabajo concurrente con thread pools y executors** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Cuántos threads debería tener mi pool?**

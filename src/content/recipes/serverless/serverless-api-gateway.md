@@ -280,6 +280,37 @@ resource "aws_lambda_function" "handler" {
 - **Provisioned concurrency tuning**: tune provisioned concurrency for optimal performance. Start with minimum provisioned concurrency. Monitor cold start frequency. Adjust based on traffic patterns. Use auto-scaling for provisioned concurrency. Document tuning strategy. Test configuration changes. Monitor cost impact. Review configuration monthly. Optimize for cost and performance balance
 - **Memory tuning**: tune function memory for optimal performance. Test with different memory values. Monitor execution time changes. Find optimal memory-to-duration ratio. Document memory tuning strategy. Test memory changes in staging. Monitor cost impact. Review memory allocation quarterly. Use AWS Lambda Power Tuning for optimization
 - **Code optimization**: optimize function code for performance. Minimize cold start dependencies. Use lazy initialization. Optimize database queries. Cache frequently accessed data. Use efficient data structures. Document code optimization strategy. Review code regularly. Monitor performance impact. Use profiling tools for optimization
+
+
+
+
+## Quick Reference
+
+- **Main command**: run the base solution from the article and verify the expected result.
+- **Validation**: confirm tests pass and key metrics did not degrade.
+- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the serverless and api-gateway guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply build serverless apis with api gateway** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: How do I handle database connections in Lambda?**

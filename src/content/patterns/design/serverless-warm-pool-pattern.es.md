@@ -293,6 +293,22 @@ Provisioned concurrency es la alternativa gestionada. AWS mantiene un numero esp
 - **Usar warm pool para funciones de bajo trafico** — si la funcion raramente se invoca, el coste de warmup excede el coste de cold start. Solo calienta funciones con trafico frecuente y sensible a latencia.
 - **Ignorar provisioned concurrency** — para APIs de produccion con SLAs estrictos, provisioned concurrency es mas fiable. Los pings pueden perder la ventana si el trafico llega entre pings.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica patron serverless warm pool** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 ### Cuanto tiempo permanece caliente un entorno Lambda?

@@ -281,6 +281,37 @@ def test_create_order_and_query(db_engine, api_client):
 - **Testing standards**: follow industry testing standards. ISTQB for testing terminology. ISO/IEC 25010 for software quality. IEEE 829 for test documentation. Document standards usage. Test compliance with standards. Monitor standards adoption. Review standards regularly. Train team on standards. Use standards for test design
 - **Test-driven development**: practice TDD where appropriate. Write tests before code. Red-green-refactor cycle. Start with failing test. Write minimal code to pass. Refactor after passing. Document TDD practices. Test TDD adoption. Monitor TDD effectiveness. Review TDD code quality. Use TDD for critical features
 - **Behavior-driven development**: practice BDD for acceptance criteria. Write scenarios in Given-When-Then format. Use Cucumber or SpecFlow for BDD. Document BDD practices. Test BDD scenarios. Monitor BDD adoption. Review BDD effectiveness. Use BDD for user-facing features. Keep scenarios readable. Automate BDD scenarios
+
+
+
+
+## Quick Reference
+
+- **Main command**: run the base solution from the article and verify the expected result.
+- **Validation**: confirm tests pass and key metrics did not degrade.
+- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
+
+## Further Reading
+
+- **Official documentation**: check the current reference for the framework or tool used.
+- **Related guides**: explore the testing and api-testing guides for deeper coverage.
+- **Complementary patterns**: review design patterns applicable to your technology stack.
+- **Public postmortems**: study real incidents from teams that faced similar production issues.
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply design effective integration tests for reliable systems** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: How many integration tests should I have?**

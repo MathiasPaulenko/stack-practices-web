@@ -279,6 +279,14 @@ CDN invalidation is slow (seconds to minutes). Use versioned URLs (`/v2/users/42
 - **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
 - **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
 
+
+## Key Takeaways
+
+- **Apply implement cache invalidation strategies** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 ### How do I prevent cache stampedes?

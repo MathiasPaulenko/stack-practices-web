@@ -296,6 +296,14 @@ const stockPriceLoader = new DataLoader(batchStockPrices, {
 - **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
 - **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
 
+
+## Key Takeaways
+
+- **Apply graphql dataloader pattern** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Is DataLoader only for GraphQL?**

@@ -313,6 +313,14 @@ El revisor puede ser un humano via CLI, una UI web, un boton de aprobacion en Sl
 - No registrar aprobaciones, haciendo imposible las auditorias
 - Tratar rechazos como fallos en lugar de feedback para que el agente se ajuste
 
+
+## Puntos Clave
+
+- **Aplica patrón human-in-the-loop** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **Q: Como determino el nivel de riesgo de una accion?**

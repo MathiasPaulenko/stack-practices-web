@@ -329,6 +329,14 @@ Usá tu test runner's built-in coverage (Vitest, Jest) para collection. Usá Cod
 
 Generá coverage en every PR (via CI) para immediate feedback. Generá un full report monthly para trend analysis y stakeholder communication. Quarterly reports son sufficient para executive summaries.
 
+
+## Puntos Clave
+
+- **Aplica plantilla de reporte de cobertura de pruebas** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.

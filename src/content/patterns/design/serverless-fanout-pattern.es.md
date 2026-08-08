@@ -308,6 +308,14 @@ El beneficio clave es aislamiento: si el consumidor de email es lento o falla, l
 - **Acoplar productor a consumidores** — si el productor comprueba el estado del consumidor o envia diferentes mensajes a diferentes consumidores, el fanout no esta verdaderamente desacoplado. El productor debe publicar un evento y dejar que el topic maneje la entrega.
 - **Sin idempotencia en consumidores** — la entrega at-least-once de SQS significa que los consumidores pueden procesar el mismo mensaje dos veces. Usa idempotency keys para prevenir efectos secundarios duplicados.
 
+
+## Puntos Clave
+
+- **Aplica patron serverless fanout** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 ### Cual es la diferencia entre SNS fanout y EventBridge fanout?

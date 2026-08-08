@@ -285,6 +285,14 @@ Benchmarks en Node.js 20, single core, 1000 error responses. Los resultados vari
 - **Error response caching**: caches pueden almacenar error responses y servirlas a usuarios legitimos. Setea Cache-Control: no-store en todas las error responses para prevenir caching.
 - **Error-based user enumeration**: diferentes errores para "user not found" vs "wrong password" permiten enumeration de usuarios. Usa el mismo error message para ambos casos.
 
+
+## Puntos Clave
+
+- **Aplica manejar errores en apis** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 

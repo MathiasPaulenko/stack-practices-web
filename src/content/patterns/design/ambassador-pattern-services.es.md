@@ -330,6 +330,14 @@ Lecciones:
 
 Usa Ambassador cuando necesitas un intermediario que envuelve un servicio externo (legacy, third-party). El ambassador vive en el cliente y traduce/protige las llamadas. Usa Sidecar cuando necesitas funcionalidad complementaria que vive junto al servicio (logging, monitoring, proxy). Ambassador es cliente-side, Sidecar es server-side. Amb pueden ser containers en K8s.
 
+
+## Puntos Clave
+
+- **Aplica ambassador pattern para acceso resiliente a servicios** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.

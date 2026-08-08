@@ -327,6 +327,22 @@ Documenta el cambio en el script de migracion y valida cada campo cambiado. Prob
 
 Minimo 30 dias para la mayoria de sistemas. Para datos regulados por cumplimiento, sigue tu politica de retencion (frecuentemente 90 dias o mas). Mantenlos hasta que estes confiado de que la migracion es estable y todos los consumidores downstream han verificado sus integraciones.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica plantilla de runbook de migracion de datos** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Errores Comunes en Producción
 
 - Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.

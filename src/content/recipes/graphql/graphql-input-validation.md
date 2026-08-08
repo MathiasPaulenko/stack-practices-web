@@ -296,6 +296,22 @@ input CreatePostInput {
 - **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
 - **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.
 
+
+
+## Production Notes
+
+- **Deploy gradually** using canary or blue-green to catch regressions early.
+- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
+- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
+- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+
+## Key Takeaways
+
+- **Apply validate and sanitize graphql input types server-side** when you need a practical solution for your use case.
+- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
+- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
+- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+
 ## FAQ
 
 **Q: Should I use Zod or GraphQL custom scalars for validation?**

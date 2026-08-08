@@ -227,6 +227,22 @@ Hay tres enfoques principales para la diferencia de mensajes:
 - **Diferir en lugar de corregir**: Si un mensaje siempre falla por un bug, diferir solo retrasa el problema. Corrige la causa raiz.
 - **Diferir mensajes que deberían rechazarse**: Algunos mensajes son invalidos y nunca funcionaran. Rechazalos a una dead-letter queue en lugar de diferirlos.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica patrón message deferral** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿En qué se diferencia deferral de retry?

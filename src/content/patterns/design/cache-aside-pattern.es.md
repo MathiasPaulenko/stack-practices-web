@@ -238,6 +238,14 @@ La aplicación es el **único punto de control** — decide cuándo leer del cac
 - Almacenar demasiados datos en caché, causando presión de memoria o eviction de claves calientes
 - Cache stampede: muchas peticiones golpean un caché frío simultáneamente, sobrecargando la DB
 
+
+## Puntos Clave
+
+- **Aplica patrón cache-aside** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Cache-Aside y Read-Through?**

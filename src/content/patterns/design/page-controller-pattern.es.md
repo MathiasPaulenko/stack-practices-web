@@ -298,6 +298,14 @@ Cada página `.aspx` tiene un archivo code-behind que actúa como su Page Contro
 
 Aunque Rails usa Front Controller a nivel de framework, cada clase de controlador (`UsersController`, `OrdersController`) sigue principios de Page Controller para sus acciones.
 
+
+## Puntos Clave
+
+- **Aplica patrón page controller** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Page Controller y Front Controller?**

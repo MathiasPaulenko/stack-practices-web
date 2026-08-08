@@ -170,6 +170,14 @@ const Dashboard = () => import('./pages/Dashboard.js');
 - Cargar todas las imágenes eager en páginas largas
 - No [comprimir respuestas de API](/recipes/performance/brotli-nginx-compression) (JSON)
 
+
+## Puntos Clave
+
+- **Aplica guía de optimización de performance web** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### Cuál es la optimización de performance más útil para web apps?

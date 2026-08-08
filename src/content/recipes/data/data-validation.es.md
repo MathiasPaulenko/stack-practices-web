@@ -275,6 +275,44 @@ umpy.argsort() es 2-5x mas rapido que sorted() built-in de Python para datos num
 - Para operaciones de merge, dict.update() es O(n) pero in-place. {**a, **b} crea un dict nuevo. Elije basado en si necesitas el original
 - Para serializacion, msgpack es 3-5x mas rapido que JSON y produce output 50-80% mas pequeÃ±o
 - Para sort con keys custom, sorted(key=attrgetter('name')) es mas rapido que sorted(key=lambda x: x.name) porque evita overhead de function call de Python
+
+
+
+
+
+## Glosario
+
+- **Validar y Sanitizar Datos de Input de Usuario**: técnica o patrón central descrito en este artículo.
+- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
+- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de data y data-validation para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica validar y sanitizar datos de input de usuario** cuando necesites una solución práctica para data.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre validación y sanitización?**

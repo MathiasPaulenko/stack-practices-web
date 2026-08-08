@@ -300,6 +300,14 @@ public class SamlSecurityConfig {
 - **Ignorar clock skew.** IdP y SP con relojes que difieren más que el lifetime del assertion causan logins legítimos fallidos. Permite un pequeño skew (1-5 minutos) pero loggea warnings.
 - **No validar el campo `InResponseTo`.** Sin este check, un atacante puede capturar un assertion legítimo y reutilizarlo contra una request de autenticación diferente.
 
+
+## Puntos Clave
+
+- **Aplica implementar sso con saml** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **Q: ¿Cuál es la diferencia entre SAML y OAuth 2.0?**

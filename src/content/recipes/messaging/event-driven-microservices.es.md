@@ -287,6 +287,37 @@ class OrderSaga {
 - **High memory usage**: chequea large message payloads. Verifica que message TTL este seteado. Chequea unacked messages piling up. Monitorea consumer memory usage. Usa prefetch limits para controlar memoria. Considera message compression. Chequea memory leaks en consumer code. Profilea consumer processes regularmente
 - **Connection drops**: chequea network stability entre consumers y broker. Verifica heartbeat settings. Chequea broker resource limits. Revisa firewall y load balancer timeouts. Usa automatic recovery en client libraries. Monitorea connection events. Loguea reconnection attempts. Setea appropriate connection timeout
 - **Distribucion uneven de mensajes**: chequea prefetch settings (muy alto causa uneven distribution). Verifica que todos los consumers tengan equal capacity. Chequea slow consumers. Usa prefetch=1 para strict fair dispatch. Monitorea consumer processing times. Scalea consumers basado en lag. Considera consumer priority para weighted distribution
+
+
+
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de event-driven y microservices para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica microservicios event-driven** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Cuándo debo usar event sourcing vs. CRUD tradicional?**

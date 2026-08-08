@@ -269,6 +269,22 @@ Cuando se aborta, `fetch` rechaza con un `AbortError`. Esta es la forma estánda
 4. **Recursión de microtareas**: Promise.resolve().then(() => Promise.resolve().then(...)) puede bloquear
 5. **Ignorar la fase de renderizado**: Colas pesadas de microtareas impiden el pintado del navegador
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica event loop de javascript** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 ### ¿Por qué Promise.then() corre antes que setTimeout(0)?

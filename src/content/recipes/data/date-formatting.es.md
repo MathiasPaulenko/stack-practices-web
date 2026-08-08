@@ -290,6 +290,30 @@ ew URL(string) parsea URLs correctamente incluyendo edge cases (IPv6, userinfo, 
 - Para parsing de argumentos CLI, sys.argv es 100x mas rapido que rgparse para casos simples. Usa rgparse solo cuando necesitas help text y validacion
 - Para aritmetica de fechas, datetime.timestamp() es mas rapido que datetime.strftime() para calculos de epoch. Usa enteros para math de fechas
 - Para parsing de URL, urllib.parse.urlparse() cachea resultados parseados. Reusaea el objeto ParseResult en lugar de re-parsing
+
+
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de data y parsing para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica formateo de fechas** cuando necesites una solución práctica para data.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas frecuentes
 
 **P: ¿Debería usar timestamps o strings formateados en mi base de datos?**

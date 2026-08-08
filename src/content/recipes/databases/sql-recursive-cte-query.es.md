@@ -267,6 +267,22 @@ SELECT * FROM org_tree WHERE NOT is_cycle;
 6. **No indexar la columna de join.** El miembro recursivo une por `manager_id`; sin índice, cada iteración escanea toda la tabla.
 7. **Usar límite de profundidad sin entender los datos.** Un `WHERE depth < 5` puede truncar silenciosamente jerarquías legítimamente profundas.
 
+
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica recorrer datos jerárquicos con ctes recursivas** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Las CTEs recursivas pueden manejar ciclos?**

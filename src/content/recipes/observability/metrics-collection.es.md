@@ -285,6 +285,37 @@ def create_order(items, total):
 - **Canary observability**: monitorea canary deployments con enhanced observability. Compara metrics entre canary y baseline. Usa statistical analysis para comparison. Alerta en significant deviations. Auto-rollback en anomalies. Documenta canary observability strategy. Testea canary detection. Revisa canary thresholds. Monitorea canary effectiveness
 - **Chaos observability**: verifica observability durante chaos experiments. Asegura que traces y logs capturen chaos events. Verifica que alerts fireen correctamente. Testea dashboard accuracy durante chaos. Documenta chaos observability procedures. Testea chaos observability. Revisa chaos observability coverage. Mejora basado en findings. Corre chaos tests regularmente
 - **Multi-cluster observability**: agrega observability data a traves de Kubernetes clusters. Usa federation o remote write. Centraliza dashboards y alerts. Per-cluster filtering y labeling. Documenta multi-cluster strategy. Testea cross-cluster queries. Monitorea federation health. Revisa multi-cluster architecture. Optimiza cross-cluster queries
+
+
+
+
+## Referencia Rápida
+
+- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
+- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
+- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
+
+## Lectura Adicional
+
+- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
+- **Guías relacionadas**: explora las guías de metrics y observability para profundizar.
+- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
+- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
+
+## Notas de Producción
+
+- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
+- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
+- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
+- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
+
+## Puntos Clave
+
+- **Aplica metrics collection** cuando necesites una solución práctica para tu caso de uso.
+- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
+- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
+- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+
 ## Preguntas Frecuentes
 
 **P: ¿Cómo elijo entre Prometheus y StatsD?**
