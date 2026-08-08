@@ -9,9 +9,11 @@ export interface Props {
   /** Render a client-side search index attribute. Default true. */
   searchable?: boolean;
   style?: string;
+  /** Show tag links. Default true. */
+  showTags?: boolean;
 }
 
-const { title, description, href, difficulty, tags = [], locale = 'en', searchable = true, style } = Astro.props;
+const { title, description, href, difficulty, tags = [], locale = 'en', searchable = true, style, showTags = true } = Astro.props;
 
 function smartTruncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
@@ -46,7 +48,7 @@ const difficultyClass = difficulty ? `difficulty-badge difficulty-badge--${diffi
   </a>
   <p class="content-card__desc">{displayDescription}</p>
   {
-    tags.length > 0 && (
+    tags.length > 0 && showTags && (
       <div class="content-card__tags">
         {tags.slice(0, 4).map((tag: string) => (
           <a
