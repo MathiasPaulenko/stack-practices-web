@@ -76,7 +76,7 @@ const latestGuides = [...guides]
   keywords={['recetas de código', 'patrones de diseño', 'ingeniería de software']}
   jsonLd={jsonLd}
 >
-  <section class="hero-animated-bg bg-slate-900">
+  <section class="home-hero hero-animated-bg bg-slate-900">
     <span class="hero-dot" aria-hidden="true"></span>
     <span class="hero-dot" aria-hidden="true"></span>
     <span class="hero-dot" aria-hidden="true"></span>
@@ -91,121 +91,119 @@ const latestGuides = [...guides]
     <span class="hero-code-symbol" aria-hidden="true">[ ]</span>
     <span class="hero-code-symbol" aria-hidden="true">&&</span>
     <span class="hero-code-symbol" aria-hidden="true">;;</span>
-    <div class="relative z-10 mx-auto max-w-6xl px-4 py-20 text-center sm:px-6 sm:py-28">
-      <h1 class="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+    <div class="home-hero__inner">
+      <h1 class="home-hero__title">
         Conocimiento práctico de ingeniería de software, listo para reutilizar
       </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
+      <p class="home-hero__desc">
         Encuentra recetas de código reales, patrones de diseño y documentación reutilizable
         en Python, Java, JavaScript, SQL y más.
       </p>
-      <div class="relative z-10 mx-auto mt-10 flex flex-wrap justify-center gap-8 sm:gap-12">
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">{totalCount}</div>
-          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Total</div>
+      <div class="home-hero__stats home-hero-stats">
+        <div class="home-hero-stat">
+          <div class="home-hero-stat__value">{totalCount}</div>
+          <div class="home-hero-stat__label">Total</div>
         </div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">{recipesCount}</div>
-          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Recetas</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat__value">{recipesCount}</div>
+          <div class="home-hero-stat__label">Recetas</div>
         </div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">{patternsCount}</div>
-          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Patrones</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat__value">{patternsCount}</div>
+          <div class="home-hero-stat__label">Patrones</div>
         </div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">{docsCount}</div>
-          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Documentación</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat__value">{docsCount}</div>
+          <div class="home-hero-stat__label">Documentación</div>
         </div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">{guidesCount}</div>
-          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Guías</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat__value">{guidesCount}</div>
+          <div class="home-hero-stat__label">Guías</div>
         </div>
-        <div class="text-center">
-          <div class="text-2xl font-bold text-white">{topicsCount}</div>
-          <div class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">Temas</div>
+        <div class="home-hero-stat">
+          <div class="home-hero-stat__value">{topicsCount}</div>
+          <div class="home-hero-stat__label">Temas</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Search -->
-  <section class="border-b border-slate-200 bg-white">
-    <div class="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-      <form action="/es/search/" method="get" class="relative">
-        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
-          <svg class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-          </svg>
-        </div>
+  <section class="home-search-section">
+    <div class="home-search-inner">
+      <form action="/es/search/" method="get" class="home-search-form">
+        <svg class="home-search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
         <input
           type="search"
           name="q"
           placeholder="Buscar recetas, patrones, documentación y guías..."
           aria-label="Buscar recetas, patrones, documentación y guías"
-          class="w-full rounded-xl border border-slate-300 bg-white py-4 pl-12 pr-4 text-base text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+          class="home-search-input"
         />
         <button
           type="submit"
-          class="absolute inset-y-1.5 right-1.5 rounded-lg bg-brand-500 px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-600"
+          class="home-search-btn"
         >
           Buscar
         </button>
       </form>
-      <p class="mt-3 text-center text-sm text-slate-500">
-        Prueba: <a href="/es/search/?q=python" class="text-brand-600 hover:underline">python</a>,
-        <a href="/es/search/?q=api" class="text-brand-600 hover:underline">api</a>,
-        <a href="/es/search/?q=docker" class="text-brand-600 hover:underline">docker</a>,
-        <a href="/es/search/?q=testing" class="text-brand-600 hover:underline">testing</a>
+      <p class="home-search-hint">
+        Prueba: <a href="/es/search/?q=python">python</a>,
+        <a href="/es/search/?q=api">api</a>,
+        <a href="/es/search/?q=docker">docker</a>,
+        <a href="/es/search/?q=testing">testing</a>
       </p>
     </div>
   </section>
 
   <!-- Why StackPractices -->
-  <section class="border-y border-brand-100 bg-brand-50">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div class="text-center">
-        <h2 class="text-2xl font-bold text-slate-900">¿Por qué StackPractices?</h2>
-        <p class="mx-auto mt-3 max-w-2xl text-slate-600">Hecho para desarrolladores que valoran la velocidad, la claridad y el conocimiento reutilizable.</p>
+  <section class="home-why-section">
+    <div class="home-section__inner">
+      <div class="home-why-header">
+        <h2 class="home-why-header__title">¿Por qué StackPractices?</h2>
+        <p class="home-why-header__desc">Hecho para desarrolladores que valoran la velocidad, la claridad y el conocimiento reutilizable.</p>
       </div>
-      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="text-center">
-          <span class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-brand-600 shadow-sm">
+      <div class="home-why-grid">
+        <div class="home-why-item">
+          <span class="home-why-item__icon">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
           </span>
-          <h3 class="mt-4 text-sm font-semibold text-slate-900">Listo para copiar</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-500">Código que puedes copiar y ejecutar en tu proyecto inmediatamente.</p>
+          <h3 class="home-why-item__title">Listo para copiar</h3>
+          <p class="home-why-item__desc">Código que puedes copiar y ejecutar en tu proyecto inmediatamente.</p>
         </div>
-        <div class="text-center">
-          <span class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-brand-600 shadow-sm">
+        <div class="home-why-item">
+          <span class="home-why-item__icon">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M2 6h20"/><path d="M2 18h20"/></svg>
           </span>
-          <h3 class="mt-4 text-sm font-semibold text-slate-900">Multi-lenguaje</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-500">Ejemplos en Python, Java, JavaScript, TypeScript, SQL, Bash y más.</p>
+          <h3 class="home-why-item__title">Multi-lenguaje</h3>
+          <p class="home-why-item__desc">Ejemplos en Python, Java, JavaScript, TypeScript, SQL, Bash y más.</p>
         </div>
-        <div class="text-center">
-          <span class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-brand-600 shadow-sm">
+        <div class="home-why-item">
+          <span class="home-why-item__icon">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </span>
-          <h3 class="mt-4 text-sm font-semibold text-slate-900">Impulsado por la comunidad</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-500">Base de conocimiento abierta basada en desafíos reales de ingeniería.</p>
+          <h3 class="home-why-item__title">Impulsado por la comunidad</h3>
+          <p class="home-why-item__desc">Base de conocimiento abierta basada en desafíos reales de ingeniería.</p>
         </div>
-        <div class="text-center">
-          <span class="mx-auto grid h-12 w-12 place-items-center rounded-full bg-white text-brand-600 shadow-sm">
+        <div class="home-why-item">
+          <span class="home-why-item__icon">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
           </span>
-          <h3 class="mt-4 text-sm font-semibold text-slate-900">Documentación estructurada</h3>
-          <p class="mt-2 text-sm leading-relaxed text-slate-500">Plantillas y guías consistentes para documentación mantenible.</p>
+          <h3 class="home-why-item__title">Documentación estructurada</h3>
+          <p class="home-why-item__desc">Plantillas y guías consistentes para documentación mantenible.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Browse by Type -->
-  <section class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <h2 class="text-2xl font-bold text-slate-900">Explorar por tipo</h2>
-      <p class="mt-2 text-slate-600">Elige el tipo de recurso que necesitas para tu proyecto.</p>
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+  <section class="home-section home-section--white">
+    <div class="home-section__inner">
+      <h2 class="home-section__heading">Explorar por tipo</h2>
+      <p class="home-section__subheading">Elige el tipo de recurso que necesitas para tu proyecto.</p>
+      <div class="home-type-grid">
         {contentTypes.map((type) => {
           const count = type.slug === 'recipes' ? recipesCount : type.slug === 'patterns' ? patternsCount : type.slug === 'docs' ? docsCount : guidesCount;
           const icon = type.slug === 'recipes' ? (
@@ -218,21 +216,18 @@ const latestGuides = [...guides]
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
           );
           return (
-            <a
-              href={`/es/${type.slug}/`}
-              class="group relative flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:border-brand-400 hover:shadow-lg"
-            >
-              <div class="flex items-start gap-3">
-                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-slate-800 text-white">{icon}</span>
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center justify-between gap-2">
-                    <h3 class="text-base font-semibold text-slate-900 group-hover:text-brand-600">{type.label}</h3>
-                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">{count}</span>
+            <a href={`/es/${type.slug}/`} class="home-type-card">
+              <div class="home-type-card__header">
+                <span class="home-type-card__icon">{icon}</span>
+                <div class="home-type-card__body">
+                  <div class="home-type-card__title-row">
+                    <h3 class="home-type-card__title">{type.label}</h3>
+                    <span class="home-type-card__count">{count}</span>
                   </div>
-                  <p class="mt-1 text-sm text-slate-500">{type.description}</p>
+                  <p class="home-type-card__desc">{type.description}</p>
                 </div>
               </div>
-              <div class="mt-3 flex items-center text-sm font-medium text-brand-600">
+              <div class="home-type-card__footer">
                 Explorar
                 <svg class="ml-1.5 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
               </div>
@@ -244,30 +239,27 @@ const latestGuides = [...guides]
   </section>
 
   <!-- Browse by Tag -->
-  <section class="border-t border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div class="flex items-center justify-between">
+  <section class="home-section home-section--slate">
+    <div class="home-section__inner">
+      <div class="home-section__header">
         <div>
-          <h2 class="text-2xl font-bold text-slate-900">Explorar por etiqueta</h2>
-          <p class="mt-2 text-slate-600">Acceso rápido a los temas más populares en todo el contenido.</p>
+          <h2 class="home-section__heading">Explorar por etiqueta</h2>
+          <p class="home-section__subheading">Acceso rápido a los temas más populares en todo el contenido.</p>
         </div>
-        <a href="/es/tags/" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
+        <a href="/es/tags/" class="home-view-all">
           Ver todas las etiquetas
           <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
-      <div class="mt-8 flex flex-wrap gap-2">
+      <div class="home-tag-cloud">
         {popularTags.map(({ tag, count }) => (
-          <a
-            href={`/es/tags/${tag}/`}
-            class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:border-brand-400 hover:bg-brand-50 hover:text-brand-700"
-          >
-            <span class="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-semibold text-brand-700">{count}</span>
+          <a href={`/es/tags/${tag}/`} class="home-tag-pill">
+            <span class="home-tag-pill__count">{count}</span>
             {tag}
           </a>
         ))}
       </div>
-      <a href="/es/tags/" class="mt-6 inline-flex items-center text-sm font-semibold text-brand-600 hover:text-brand-700 sm:hidden">
+      <a href="/es/tags/" class="home-view-all home-view-all--mobile">
         Ver todas las etiquetas
         <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </a>
@@ -275,18 +267,15 @@ const latestGuides = [...guides]
   </section>
 
   <!-- Explore Topics CTA -->
-  <section class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div class="rounded-2xl bg-slate-900 px-6 py-12 text-center sm:px-12 sm:py-16">
-        <h2 class="text-2xl font-bold text-white sm:text-3xl">Explorar por Tema y Tecnología</h2>
-        <p class="mx-auto mt-4 max-w-xl text-slate-300">
+  <section class="home-section home-section--white">
+    <div class="home-section__inner">
+      <div class="home-cta-box">
+        <h2 class="home-cta-box__title">Explorar por Tema y Tecnología</h2>
+        <p class="home-cta-box__desc">
           Navega todos los recursos organizados por conceptos de ingeniería de software como API Design,
           Autenticación y Testing — o por tu lenguaje de programación favorito.
         </p>
-        <a
-          href="/es/topics/"
-          class="mt-8 inline-flex items-center rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-brand-600 hover:shadow-xl"
-        >
+        <a href="/es/topics/" class="home-cta-btn">
           Explorar temas
           <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
@@ -296,74 +285,71 @@ const latestGuides = [...guides]
     </div>
   </section>
 
-  <section class="border-t border-slate-200 bg-slate-50">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div class="flex items-center justify-between">
+  <!-- Latest Recipes -->
+  <section class="home-section home-section--slate">
+    <div class="home-section__inner">
+      <div class="home-section__header">
         <div>
-          <h2 class="text-2xl font-bold text-slate-900">Últimas recetas</h2>
-          <p class="mt-2 text-slate-600">Nuevas soluciones de código añadidas a la base de conocimiento.</p>
+          <h2 class="home-section__heading">Últimas recetas</h2>
+          <p class="home-section__subheading">Nuevas soluciones de código añadidas a la base de conocimiento.</p>
         </div>
-        <a href="/es/recipes/" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
+        <a href="/es/recipes/" class="home-view-all">
           Ver todas
           <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="home-content-grid">
         {latestRecipes.map((recipe) => (
-          <a href={`/es/recipes/${recipe.data.slug}/`} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-lg">
-            <div class="flex items-center gap-2">
-              <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold uppercase text-slate-600">{recipe.data.difficulty}</span>
-              <span class="text-xs text-slate-400">{recipe.data.topics[0]?.replace(/-/g, ' ')}</span>
+          <a href={`/es/recipes/${recipe.data.slug}/`} class="home-content-card">
+            <div class="home-content-card__meta">
+              <span class="home-content-card__difficulty">{recipe.data.difficulty}</span>
+              <span class="home-content-card__topic">{recipe.data.topics[0]?.replace(/-/g, ' ')}</span>
             </div>
-            <h3 class="mt-3 text-base font-semibold text-slate-900 group-hover:text-brand-600">{recipe.data.title}</h3>
-            <p class="mt-1 flex-1 text-sm text-slate-500">{recipe.data.description}</p>
-            <div class="mt-4 flex flex-wrap gap-2">
+            <h3 class="home-content-card__title">{recipe.data.title}</h3>
+            <p class="home-content-card__desc">{recipe.data.description}</p>
+            <div class="home-content-card__tags">
               {recipe.data.tags.slice(0, 3).map((tag: string) => (
-                <span class="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs text-slate-600">{tag}</span>
+                <span class="home-content-card__tag">{tag}</span>
               ))}
             </div>
           </a>
         ))}
       </div>
-      <div class="mt-6 text-center sm:hidden">
-        <a href="/es/recipes/" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Ver todas las recetas →</a>
-      </div>
+      <a href="/es/recipes/" class="home-view-all home-view-all--mobile">Ver todas las recetas →</a>
     </div>
   </section>
 
-  <!-- Últimas Guías -->
-  <section class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-      <div class="flex items-center justify-between">
+  <!-- Latest Guides -->
+  <section class="home-section home-section--white">
+    <div class="home-section__inner">
+      <div class="home-section__header">
         <div>
-          <h2 class="text-2xl font-bold text-slate-900">Últimas guías</h2>
-          <p class="mt-2 text-slate-600">Guías de ingeniería detalladas que conectan recetas y patrones.</p>
+          <h2 class="home-section__heading">Últimas guías</h2>
+          <p class="home-section__subheading">Guías de ingeniería detalladas que conectan recetas y patrones.</p>
         </div>
-        <a href="/es/guides/" class="hidden text-sm font-semibold text-brand-600 hover:text-brand-700 sm:flex sm:items-center">
+        <a href="/es/guides/" class="home-view-all">
           Ver todas
           <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
-      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="home-content-grid">
         {latestGuides.map((guide) => (
-          <a href={`/es/guides/${guide.data.slug}/`} class="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-brand-400 hover:shadow-lg">
-            <div class="flex items-center gap-2">
-              <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold uppercase text-slate-600">{guide.data.difficulty}</span>
-              <span class="text-xs text-slate-400">{guide.data.topics[0]?.replace(/-/g, ' ')}</span>
+          <a href={`/es/guides/${guide.data.slug}/`} class="home-content-card">
+            <div class="home-content-card__meta">
+              <span class="home-content-card__difficulty">{guide.data.difficulty}</span>
+              <span class="home-content-card__topic">{guide.data.topics[0]?.replace(/-/g, ' ')}</span>
             </div>
-            <h3 class="mt-3 text-base font-semibold text-slate-900 group-hover:text-brand-600">{guide.data.title}</h3>
-            <p class="mt-1 flex-1 text-sm text-slate-500">{guide.data.description}</p>
-            <div class="mt-4 flex flex-wrap gap-2">
+            <h3 class="home-content-card__title">{guide.data.title}</h3>
+            <p class="home-content-card__desc">{guide.data.description}</p>
+            <div class="home-content-card__tags">
               {guide.data.tags.slice(0, 3).map((tag: string) => (
-                <span class="rounded-full border border-slate-200 bg-white px-2 py-0.5 text-xs text-slate-600">{tag}</span>
+                <span class="home-content-card__tag">{tag}</span>
               ))}
             </div>
           </a>
         ))}
       </div>
-      <div class="mt-6 text-center sm:hidden">
-        <a href="/es/guides/" class="text-sm font-semibold text-brand-600 hover:text-brand-700">Ver todas las guías →</a>
-      </div>
+      <a href="/es/guides/" class="home-view-all home-view-all--mobile">Ver todas las guías →</a>
     </div>
   </section>
 </BaseLayout>

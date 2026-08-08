@@ -95,7 +95,7 @@ const currentPath = Astro.url.pathname;
     class="mobile-nav"
     aria-label="Main navigation"
   >
-    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 sm:px-6">
+    <div class="mobile-nav__inner">
       {
         MAIN_NAV.map((item) => {
           const href = `${prefix}${item.href}`;
