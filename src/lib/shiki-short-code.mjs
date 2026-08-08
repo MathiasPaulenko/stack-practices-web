@@ -32,6 +32,17 @@ export default function shikiShortCode() {
       if (node.properties && node.properties.tabindex !== undefined) {
         delete node.properties.tabindex;
       }
+
+      // Remove data-language; it is not used by JS and Shiki reports language via
+      // the language-specific class name. This saves ~253 KB across ~15,800 blocks.
+      if (node.properties) {
+        if (node.properties['data-language'] !== undefined) {
+          delete node.properties['data-language'];
+        }
+        if (node.properties.dataLanguage !== undefined) {
+          delete node.properties.dataLanguage;
+        }
+      }
     },
   };
 }
