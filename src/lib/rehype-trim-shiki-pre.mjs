@@ -12,6 +12,9 @@ const REDUNDANT_PRE_CLASSES = ['css-variables', 'sb', 'sf'];
 export default function rehypeTrimShikiPre() {
   return (tree) => {
     visit(tree, 'element', (node) => {
+      if (node.tagName === 'pre' && node.properties?.class?.includes('astro-code')) {
+        console.error('FOUND PRE, props keys:', Object.keys(node.properties || {}).join(','));
+      }
       if (node.tagName !== 'pre' || !node.properties?.class?.includes('astro-code')) return;
 
       // Remove redundant classes
@@ -29,6 +32,14 @@ export default function rehypeTrimShikiPre() {
       // Remove tabindex
       if (node.properties.tabindex !== undefined) {
         delete node.properties.tabindex;
+      }
+
+      // Remove data-language (not used in JS; Shiki reports language via CSS class)
+      if (node.properties.dataLanguage !== undefined) {
+        delete node.properties.dataLanguage;
+      }
+      if (node.properties['data-language'] !== undefined) {
+        delete node.properties['data-language'];
       }
 
       // Trim inline style: keep overflow-x (or other non-color styles),
