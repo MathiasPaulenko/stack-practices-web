@@ -177,8 +177,8 @@ public void transferFunds(Connection conn, int fromId, int toId, BigDecimal amou
 ## Explicación
 
 Los deadlocks requieren tres condiciones: exclusión mutua, espera-y-retención, y espera circular. No puedes eliminar la exclusión mutua (eso es lo que hacen las transacciones), pero puedes romper las otras dos:
-- **Espera-y-retención**: Adquiere todos los locks a la vez usando `SELECT ... FOR UPDATE` con ordenamiento consistente
-- **Espera circular**: Siempre accede a las filas en el mismo orden (ej. por clave primaria ascendente)
+- **Espera-y-retención**: Adquiere todos los locks a la vez usando `SELECT ...
+- **Espera circular**: Siempre accede a las filas en el mismo orden (ej.
 
 La lógica de reintento usa [backoff exponencial](/recipes/architecture/retry-backoff) con jitter para prevenir "thundering herd" — donde todas las transacciones reintentantes colisionan de nuevo.
 

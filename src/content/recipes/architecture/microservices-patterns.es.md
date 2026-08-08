@@ -196,10 +196,10 @@ await orderSaga.execute();
 
 ## Explicación
 
-- **Circuit breaker**: previene fallos en cascada deteniendo requests a un servicio fallido. Cuando los fallos exceden un umbral, el breaker se abre y retorna errores inmediatamente. Después de un timeout, entra en estado half-open permitiendo requests limitados de prueba. Si estos tienen éxito, se cierra nuevamente. Esto da a servicios sobrecargados tiempo para recuperarse.
-- **Backoff exponencial**: reintentar inmediatamente después de un fallo frecuentemente golpea el mismo servicio en dificultades. El backoff incrementa el delay entre retries exponencialmente (1s, 2s, 4s, 8s...), distribuyendo la carga y permitiendo recuperación. Agregar jitter previene tormentas de retry sincronizadas.
-- **Patrón bulkhead**: aísla fallos limitando recursos (threads, conexiones, memoria) asignados a cada dependencia de servicio. Si el servicio de pagos es lento, el bulkhead asegura que solo threads relacionados a pagos se bloqueen, dejando threads de inventario y catálogo sin afectar.
-- **Patrón saga**: las transacciones ACID distribuidas son impracticables entre microservicios. Las sagas descomponen una transacción de negocio en transacciones locales, cada una con un rollback compensatorio. Si el paso 3 falla, los pasos 2 y 1 se deshacen, manteniendo consistencia eventual.
+- **Circuit breaker**: previene fallos en cascada deteniendo requests a un servicio fallido.   Cuando los fallos exceden un umbral, el breaker se abre y retorna errores inmediatamente.   Después de un timeout, entra en estado half-open permitiendo requests limitados de prueba.   Si estos tienen éxito, se cierra nuevamente.   Esto da a servicios sobrecargados tiempo para recuperarse.
+- **Backoff exponencial**: reintentar inmediatamente después de un fallo frecuentemente golpea el mismo servicio en dificultades.   El backoff incrementa el delay entre retries exponencialmente (1s, 2s, 4s, 8s...  ), distribuyendo la carga y permitiendo recuperación.   Agregar jitter previene tormentas de retry sincronizadas.
+- **Patrón bulkhead**: aísla fallos limitando recursos (threads, conexiones, memoria) asignados a cada dependencia de servicio.
+- **Patrón saga**: las transacciones ACID distribuidas son impracticables entre microservicios.   Las sagas descomponen una transacción de negocio en transacciones locales, cada una con un rollback compensatorio.   Si el paso 3 falla, los pasos 2 y 1 se deshacen, manteniendo consistencia eventual.
 
 ## Variantes
 
@@ -213,18 +213,18 @@ await orderSaga.execute();
 
 ## Lo que funciona
 
-- **Establece budgets de timeout apropiados**: cada llamada saliente debería tener un timeout más corto que el timeout del llamador. Si tu API tiene un SLA de 2 segundos, las llamadas downstream deberían timeoutear a los 500ms para dejar margen para retries y fallbacks.
-- **Implementa degradación graceful**: cuando un servicio no está disponible, retorna datos cacheados, valores por defecto o funcionalidad reducida en lugar de fallar completamente. Una página de producto sin recomendaciones es mejor que un error 500.
-- **Monitorea el estado del circuit breaker**: expone estados de breakers (closed/open/half-open) como métricas. Alerta cuando los breakers se abren frecuentemente — esto indica problemas sistémicos, no solo fallos transitorios.
-- **Idempotencia para retries**: los retries pueden causar operaciones duplicadas. Asegura que todos los endpoints de mutación sean idempotentes. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación. Sin idempotencia, los retries crean datos inconsistentes.
-- **Testea inyección de fallos**: usa herramientas como Chaos Monkey, Gremlin o Toxiproxy para introducir aleatoriamente latencia, errores y particiones de red en staging. Si tus patrones de resiliencia solo funcionan en teoría, fallarán en producción.
+- **Establece budgets de timeout apropiados**: cada llamada saliente debería tener un timeout más corto que el timeout del llamador.   Si tu API tiene un SLA de 2 segundos, las llamadas downstream deberían timeoutear a los 500ms para dejar margen para retries y fallbacks.
+- **Implementa degradación graceful**: cuando un servicio no está disponible, retorna datos cacheados, valores por defecto o funcionalidad reducida en lugar de fallar completamente.   Una página de producto sin recomendaciones es mejor que un error 500.
+- **Monitorea el estado del circuit breaker**: expone estados de breakers (closed/open/half-open) como métricas.   Alerta cuando los breakers se abren frecuentemente — esto indica problemas sistémicos, no solo fallos transitorios.
+- **Idempotencia para retries**: los retries pueden causar operaciones duplicadas.   Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación.   Sin idempotencia, los retries crean datos inconsistentes.
+- **Testea inyección de fallos**: Si tus patrones de resiliencia solo funcionan en teoría, fallarán en producción.
 
 ## Errores comunes
 
-- **Reintentar en todos los errores**: un 404 Not Found o 401 Unauthorized no tendrá éxito al reintentar. Solo reintenta operaciones idempotentes que fallen con 5xx, timeouts o errores de red. Reintentar 400 Bad Request desperdicia recursos y genera ruido en logs.
-- **Loops infinitos de retry**: sin un máximo de reintentos o timeout, una dependencia fallida puede crear un loop infinito de retries, consumiendo threads y memoria. Siempre limita retries a 3-5 intentos con un budget total bajo 30 segundos.
-- **Ignorar pools de threads**: los retries bloqueantes consumen threads. En runtimes async (Node.js, Go), esto agota el event loop. Usa bibliotecas de retry async y pools de threads acotados para prevenir agotamiento de recursos.
-- **Faltar compensaciones en sagas**: una saga sin compensación es solo una secuencia de requests esperanzados. Si el paso 3 falla pero los pasos 1-2 no tienen rollback, el sistema queda en un estado inconsistente. Cada paso de saga debe tener una compensación testeada.
+- **Reintentar en todos los errores**: un 404 Not Found o 401 Unauthorized no tendrá éxito al reintentar.   Solo reintenta operaciones idempotentes que fallen con 5xx, timeouts o errores de red.
+- **Loops infinitos de retry**: sin un máximo de reintentos o timeout, una dependencia fallida puede crear un loop infinito de retries, consumiendo threads y memoria.   Siempre limita retries a 3-5 intentos con un budget total bajo 30 segundos.
+- **Ignorar pools de threads**: los retries bloqueantes consumen threads.   En runtimes async (Node.  js, Go), esto agota el event loop.
+- **Faltar compensaciones en sagas**: una saga sin compensación es solo una secuencia de requests esperanzados.   Si el paso 3 falla pero los pasos 1-2 no tienen rollback, el sistema queda en un estado inconsistente.   Cada paso de saga debe tener una compensación testeada.
 
 ## Preguntas frecuentes
 

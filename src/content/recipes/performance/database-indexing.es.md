@@ -104,10 +104,10 @@ Busca:
 
 ## Explicación
 
-- **Índices B-tree**: El tipo de índice por defecto. Excelente para queries de igualdad y rango (`=`, `<`, `>`, `BETWEEN`). La mayoría de bases de datos usan B-tree para claves primarias automáticamente.
-- **Índices compuestos**: La base de datos puede usar el índice para cualquier prefijo de la lista de columnas. Un índice en `(a, b, c)` soporta queries en `(a)`, `(a, b)`, y `(a, b, c)`, pero no `(b)` o `(c)` solos.
-- **Índices covering**: Si todas las columnas que un query necesita están en el índice, la base de datos puede responder el query sin tocar la tabla. Esto se llama "index-only scan" y es dramáticamente más rápido.
-- **Índices parciales**: Índices más pequeños que solo cubren un subconjunto de filas. Útiles para tablas donde la mayoría de queries filtran por una condición específica (ej. `active = true`).
+- **Índices B-tree**: El tipo de índice por defecto.   Excelente para queries de igualdad y rango (`=`, `<`, `>`, `BETWEEN`).   La mayoría de bases de datos usan B-tree para claves primarias automáticamente.
+- **Índices compuestos**: La base de datos puede usar el índice para cualquier prefijo de la lista de columnas.   Un índice en `(a, b, c)` soporta queries en `(a)`, `(a, b)`, y `(a, b, c)`, pero no `(b)` o `(c)` solos.
+- **Índices covering**: Si todas las columnas que un query necesita están en el índice, la base de datos puede responder el query sin tocar la tabla.   Esto se llama "index-only scan" y es dramáticamente más rápido.
+- **Índices parciales**: Índices más pequeños que solo cubren un subconjunto de filas.   Útiles para tablas donde la mayoría de queries filtran por una condición específica (ej.   `active = true`).
 
 ## Variantes
 
@@ -122,16 +122,16 @@ Busca:
 
 - **Indexa las columnas de tu cláusula WHERE**: si un query filtra por `user_id` y `status`, un índice en `(user_id, status)` es lo primero que probar.
 - **Pon columnas de igualdad antes que columnas de rango**: en `(a, b)` donde `a = 1` y `b > 100`, el índice en `(a, b)` es mucho más útil que `(b, a)`.
-- **Evita indexar columnas de baja cardinalidad solas**: una columna `status` con solo 3 valores (active, pending, archived) no se beneficia de un índice standalone. Combínala con una columna de alta cardinalidad.
-- **Elimina índices no usados**: cada índice ralentiza escrituras. Monitorea estadísticas de uso de índices y elimina índices que nunca se escanean.
-- **Indexa columnas de foreign key**: las bases de datos no siempre indexan automáticamente foreign keys. Índices faltantes en columnas `JOIN` causan escaneos costosos de nested loop. Consulta [diseño de bases de datos](/guides/databases/database-design-guide). Consulta [SQL Joins](/recipes/databases/sql-joins) para optimización de joins.
+- **Evita indexar columnas de baja cardinalidad solas**: una columna `status` con solo 3 valores (active, pending, archived) no se beneficia de un índice standalone.   Combínala con una columna de alta cardinalidad.
+- **Elimina índices no usados**: cada índice ralentiza escrituras.
+- **Indexa columnas de foreign key**: las bases de datos no siempre indexan automáticamente foreign keys.   Índices faltantes en columnas `JOIN` causan escaneos costosos de nested loop.   Consulta [diseño de bases de datos](/guides/databases/database-design-guide).   Consulta [SQL Joins](/recipes/databases/sql-joins) para optimización de joins.
 
 ## Errores comunes
 
 - **Indexar cada columna**: esto desperdicia espacio en disco, ralentiza dramáticamente escrituras, y confunde al optimizador de queries con demasiadas opciones.
 - **Orden incorrecto de columnas en índices compuestos**: un índice en `(created_at, user_id)` no puede ayudar a un query que filtra solo por `user_id`.
 - **Indexar columnas que nunca se consultan**: revisa tus logs de queries antes de crear índices.
-- **Ignorar el mantenimiento de índices**: los índices fragmentados en tablas de alta rotación se degradan con el tiempo. Consulta [tuning SQL](/guides/databases/sql-performance-tuning-guide). Programa `REINDEX` o `OPTIMIZE TABLE` periódicamente.
+- **Ignorar el mantenimiento de índices**: los índices fragmentados en tablas de alta rotación se degradan con el tiempo.   Consulta [tuning SQL](/guides/databases/sql-performance-tuning-guide).   Programa `REINDEX` o `OPTIMIZE TABLE` periódicamente.
 - **Usar índices en tablas pequeñas**: tablas con menos de unos miles de filas a menudo son más rápidas con escaneos secuenciales porque leer el índice y luego la tabla es más overhead que un escaneo completo.
 
 
@@ -332,11 +332,11 @@ Las columnas enum y boolean tienen cardinalidad baja, haciendo los B-tree indexe
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.   Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.   Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.   Scale horizontally only after optimizing the hot path.
 
 ## Errores Comunes en Producción
 

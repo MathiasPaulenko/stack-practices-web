@@ -219,12 +219,12 @@ La idea central es desacoplar el conteo de conexiones del conteo de invocaciones
 
 ## Errores Comunes
 
-- **Abrir una nueva conexion por peticion**: Causa agotamiento bajo carga. Reutiliza conexiones en el ambito del modulo.
-- **Usar session pooling con PgBouncer**: Session pooling mantiene conexiones del servidor durante toda la sesion del cliente, anulando el proposito. Usa transaction pooling.
-- **Olvidar cerrar conexiones en caso de error**: Filtra conexiones. Siempre usa try/finally o context managers.
-- **Establecer `max` muy alto en HikariCP**: Cada contenedor Lambda es un proceso separado. 100 contenedores × 10 conexiones = 1000 conexiones. Manten `max=1`.
-- **Usar prepared statements con PgBouncer modo transaccion**: Los prepared statements son de ambito de sesion y se rompen cuando PgBouncer reasigna conexiones. Establece `prepareThreshold=0`.
-- **No manejar la latencia de conexion en cold start**: Los cold starts pagan el costo completo de conexion. Usa provisioned concurrency o acepta la latencia.
+- **Abrir una nueva conexion por peticion**: Causa agotamiento bajo carga.   Reutiliza conexiones en el ambito del modulo.
+- **Usar session pooling con PgBouncer**: Session pooling mantiene conexiones del servidor durante toda la sesion del cliente, anulando el proposito.
+- **Olvidar cerrar conexiones en caso de error**: Filtra conexiones.
+- **Establecer `max` muy alto en HikariCP**: Cada contenedor Lambda es un proceso separado.   100 contenedores × 10 conexiones = 1000 conexiones.
+- **Usar prepared statements con PgBouncer modo transaccion**: Los prepared statements son de ambito de sesion y se rompen cuando PgBouncer reasigna conexiones.   Establece `prepareThreshold=0`.
+- **No manejar la latencia de conexion en cold start**: Los cold starts pagan el costo completo de conexion.
 
 
 
@@ -337,10 +337,10 @@ Sintomas: errores "too many connections", timeouts en queries, Lambda errors. Di
 ## Troubleshooting
 
 - **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
-- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
-- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
-- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
-- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic.   Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless.   Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets.
+- **Event ordering issues**: many event sources are at-least-once and unordered.   Design for idempotency and explicit sequencing.
 
 ## Errores Comunes en Producción
 

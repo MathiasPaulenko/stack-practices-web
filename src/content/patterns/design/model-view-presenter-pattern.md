@@ -258,9 +258,9 @@ presenter.loadUser('1');
 
 MVP divides responsibility as follows:
 
-- **Model**: Contains data structures and business rules. Has no knowledge of the UI.
-- **View**: Displays data and forwards user actions to the Presenter. Contains zero logic.
-- **Presenter**: Acts as the middleman. Receives user input from the View, manipulates the Model, and updates the View with results.
+- **Model**: Contains data structures and business rules.  Has no knowledge of the UI.
+- **View**: Displays data and forwards user actions to the Presenter.  Contains zero logic.
+- **Presenter**: Acts as the middleman.  Receives user input from the View, manipulates the Model, and updates the View with results.
 
 The key characteristic is that the **View is passive** — it does not pull data from the Model. All data flows through the Presenter.
 
@@ -306,11 +306,11 @@ Microsoft's early UI frameworks used a variation of MVP where code-behind files 
 
 ## Troubleshooting
 
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
-- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
-- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).  A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.  Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
+- **Tests break when the design changes**: favor stable contracts over internal structure.
+- **Performance regression from indirection**: measure before and after.  Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
 
 ## Key Takeaways

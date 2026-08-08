@@ -159,7 +159,7 @@ const Dashboard = () => import('./pages/Dashboard.js');
 
 - **Establecer width/height explícitos** en imágenes para prevenir CLS
 - **Diferir JavaScript no crítico** con `defer` o `async`
-- **Preload recursos críticos**: fuentes, imágenes hero, CSS principal. Consulta [lazy loading](/recipes/performance/lazy-loading).
+- **Preload recursos críticos**: fuentes, imágenes hero, CSS principal.   Consulta [lazy loading](/recipes/performance/lazy-loading).
 - **Usar resource hints**: `dns-prefetch`, `preconnect`, `prefetch`
 - **Medir antes de optimizar**: Perfilear con DevTools primero
 
@@ -333,11 +333,11 @@ End of document. Review and update quarterly.
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.   Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.   Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.   Scale horizontally only after optimizing the hot path.
 
 ## Errores Comunes en Producción
 

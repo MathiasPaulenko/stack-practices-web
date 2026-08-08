@@ -143,10 +143,10 @@ Python 3.11 agregó `tomllib` a la librería estándar, eliminando la necesidad 
 ## Errores Comunes
 
 - **Usar `tomllib` para escribir TOML**: Es solo lectura; usa `tomli-w` para serialización
-- **Olvidar modo `rb` en Python**: `tomllib.load()` requiere modo binario, no texto
-- **Mezclar dotted keys con headers de tabla**: `key = 1` bajo `[section]` y `[section.key]` son diferentes
+- **Olvidar modo `rb` en Python**: `tomllib.
+- **Mezclar dotted keys con headers de tabla**: `key = 1` bajo `[section]` y `[section.
 - **Asumir que TOML preserva orden de claves**: La spec garantiza orden para arrays pero no necesariamente para tablas en todos los parsers
-- **No escapar backslashes en strings básicas**: Usa strings literales (`'...'`) para paths Windows y regex patterns
+- **No escapar backslashes en strings básicas**: Usa strings literales (`'...
 
 ## Avanzado: Merge de Config Específico por Ambiente
 
@@ -333,11 +333,11 @@ Parsea el archivo TOML a un diccionario, luego serializa a JSON. En Python: `jso
 
 ## Troubleshooting
 
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
-- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
+- **Data quality degrades over time**: add data validation checks and anomaly detection.   Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.   Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.   Archive cold data and set lifecycle policies.
 
 ## Errores Comunes en Producción
 

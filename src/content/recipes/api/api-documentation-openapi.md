@@ -139,17 +139,17 @@ The generated spec (`openapi.json`) drives:
 - **Drift between code and spec**: Code changes but spec is not updated — use code-first to avoid this
 - **Missing security definitions**: Document auth requirements ([Bearer](/recipes/security/oauth2-pkce-spa), OAuth2, API key)
 - **Over-sharing internal models**: Expose DTOs, not [database entities](/guides/databases/database-design-guide), in the spec
-- **Ignoring nullable fields**: OpenAPI 3.0 requires `nullable: true` explicitly
+- **Ignoring nullable fields**: OpenAPI 3.
 - **Hardcoding server URLs**: Use variables (`{serverUrl}`) for different environments
 
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 
 

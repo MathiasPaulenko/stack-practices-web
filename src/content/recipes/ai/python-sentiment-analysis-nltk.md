@@ -224,10 +224,10 @@ The `compound` score is a normalized, weighted sum of all lexicon scores in the 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 
@@ -294,12 +294,12 @@ Yes, but with caveats. VADER is fast (no model inference required), making it su
 
 - For a deeper guide, see [Fine-Tune a Language Model for Code Generation](/recipes/llm-fine-tuning/).
 
-- **Preprocess text consistently**: lowercase all text, normalize whitespace, expand contractions before scoring. This reduces variance in scores for semantically identical inputs.
-- **Calibrate thresholds per domain**: run VADER on a labeled sample of your domain's text. Plot the distribution of compound scores for positive, negative, and neutral labels. Choose thresholds that minimize misclassification for your specific domain.
-- **Combine VADER with rule-based filters**: use VADER as a first pass, then apply domain-specific rules for known edge cases (e.g., flip sentiment for detected sarcasm markers, boost sentiment for product-specific positive terms).
-- **Track sentiment over time**: for brand monitoring or product feedback, compute daily/weekly sentiment aggregates. Plot trends to detect shifts in public perception. Use rolling averages to smooth noise.
-- **Log scores with context**: when storing sentiment results, include the full VADER output (pos, neg, neu, compound), text length, and any preprocessing applied. This enables post-hoc analysis and threshold recalibration.
-- **Validate against human labels periodically**: even if VADER worked well initially, language evolves. Re-validate against fresh human-labeled data every 3-6 months to ensure your thresholds and lexicon are still accurate.
+- **Preprocess text consistently**: lowercase all text, normalize whitespace, expand contractions before scoring.  This reduces variance in scores for semantically identical inputs.
+- **Calibrate thresholds per domain**: run VADER on a labeled sample of your domain's text.  Plot the distribution of compound scores for positive, negative, and neutral labels.  Choose thresholds that minimize misclassification for your specific domain.
+- **Combine VADER with rule-based filters**: use VADER as a first pass, then apply domain-specific rules for known edge cases (e. g. , flip sentiment for detected sarcasm markers, boost sentiment for product-specific positive terms).
+- **Track sentiment over time**: for brand monitoring or product feedback, compute daily/weekly sentiment aggregates.  Plot trends to detect shifts in public perception.
+- **Log scores with context**: when storing sentiment results, include the full VADER output (pos, neg, neu, compound), text length, and any preprocessing applied.  This enables post-hoc analysis and threshold recalibration.
+- **Validate against human labels periodically**: even if VADER worked well initially, language evolves.  Re-validate against fresh human-labeled data every 3-6 months to ensure your thresholds and lexicon are still accurate.
 
 ## Production Checklist
 
@@ -318,10 +318,10 @@ Yes, but with caveats. VADER is fast (no model inference required), making it su
 
 When running sentiment analysis at scale, consider these factors:
 
-- **Throughput**: VADER processes 10K-50K texts per second on a single CPU core. For higher throughput, use multiprocessing or distribute across workers. For streaming workloads, batch texts into groups of 100-1000 before processing to reduce Python overhead.
-- **Memory usage**: VADER's lexicon is ~15 KB and loaded once into memory. The main memory bottleneck is the text data itself. For batch processing of large datasets, stream texts from disk or database instead of loading everything into memory.
-- **Multi-language support**: VADER is optimized for English. For other languages, use multilingual models like `cardiffnlp/twitter-xlm-roberta-base-sentiment` or translate text to English before scoring. Mixing VADER with translated text introduces translation errors that compound sentiment misclassification.
-- **Real-time dashboards**: for brand monitoring, compute sentiment on a rolling window (e.g., last 24 hours). Use a time-series database (InfluxDB, TimescaleDB) to store hourly sentiment aggregates. Alert when sentiment drops below a historical baseline by more than 2 standard deviations.
+- **Throughput**: VADER processes 10K-50K texts per second on a single CPU core.  For higher throughput, use multiprocessing or distribute across workers.  For streaming workloads, batch texts into groups of 100-1000 before processing to reduce Python overhead.
+- **Memory usage**: VADER's lexicon is ~15 KB and loaded once into memory.  The main memory bottleneck is the text data itself.  For batch processing of large datasets, stream texts from disk or database instead of loading everything into memory.
+- **Multi-language support**: VADER is optimized for English.  For other languages, use multilingual models like `cardiffnlp/twitter-xlm-roberta-base-sentiment` or translate text to English before scoring.  Mixing VADER with translated text introduces translation errors that compound sentiment misclassification.
+- **Real-time dashboards**: for brand monitoring, compute sentiment on a rolling window (e. g. , last 24 hours).  Alert when sentiment drops below a historical baseline by more than 2 standard deviations.
 
 ## Cost Estimation
 
@@ -336,11 +336,11 @@ VADER is free and runs locally. For transformer-based sentiment analysis, self-h
 
 ## When Not to Use VADER
 
-- **You need aspect-based sentiment**: VADER scores the whole text. If you need to know that a review praises the camera but criticizes the battery, use aspect-based sentiment analysis with a transformer model.
-- **Your text is highly sarcastic or ironic**: VADER detects basic negation but misses sarcasm. For social media analysis where sarcasm is common, use a transformer model fine-tuned on sarcastic text.
-- **You need sentiment intensity comparison**: VADER's compound score is not linear. A score of 0.5 is not "twice as positive" as 0.25. Use a regression model if you need calibrated intensity scores.
-- **Your domain uses heavy jargon**: VADER's lexicon is general-purpose. Medical, legal, or technical text may score incorrectly. Supplement with a domain-specific lexicon or switch to a fine-tuned model.
-- **You need real-time emotion detection**: VADER classifies as positive, negative, or neutral. If you need emotions (anger, joy, fear, surprise), use a multi-class emotion classifier like GoEmotions.
+- **You need aspect-based sentiment**: VADER scores the whole text.  If you need to know that a review praises the camera but criticizes the battery, use aspect-based sentiment analysis with a transformer model.
+- **Your text is highly sarcastic or ironic**: VADER detects basic negation but misses sarcasm.  For social media analysis where sarcasm is common, use a transformer model fine-tuned on sarcastic text.
+- **You need sentiment intensity comparison**: VADER's compound score is not linear.  A score of 0. 5 is not "twice as positive" as 0. 25.
+- **Your domain uses heavy jargon**: VADER's lexicon is general-purpose.  Medical, legal, or technical text may score incorrectly.  Supplement with a domain-specific lexicon or switch to a fine-tuned model.
+- **You need real-time emotion detection**: VADER classifies as positive, negative, or neutral.  If you need emotions (anger, joy, fear, surprise), use a multi-class emotion classifier like GoEmotions.
 
 ## Common Production Pitfalls
 

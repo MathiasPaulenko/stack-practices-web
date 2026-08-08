@@ -244,8 +244,8 @@ public class FederatedIdentityApp {
 
 El patrón Federated Identity separa la autenticación de la aplicación:
 
-- **Identity Provider (IdP)**: Google, GitHub, Azure AD, Okta. Almacena credenciales, maneja login flows.
-- **Relying Party (RP)**: Tu aplicación. Confía en el IdP, recibe tokens, nunca ve contraseñas.
+- **Identity Provider (IdP)**: Google, GitHub, Azure AD, Okta.
+- **Relying Party (RP)**: Tu aplicación.   Confía en el IdP, recibe tokens, nunca ve contraseñas.
 - **Protocolos**: OAuth2 (autorización), OIDC (capa de autenticación sobre OAuth2), SAML (enterprise SSO).
 - **Token Flow**: Usuario → IdP (login) → Authorization Code → App intercambia code por tokens → App verifica ID token → Usuario autenticado.
 - **Single Sign-On (SSO)**: Una vez autenticado con el IdP, el usuario puede acceder a múltiples RPs sin re-ingresar credenciales.
@@ -331,10 +331,10 @@ Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea centr
 
 ## Troubleshooting
 
-- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings. Look for case sensitivity in identifiers.
-- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew. Short tokens with secure refresh are preferred.
-- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
-- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
+- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings.   Look for case sensitivity in identifiers.
+- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew.   Short tokens with secure refresh are preferred.
+- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly.
+- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
 
 ## Errores Comunes en Producción

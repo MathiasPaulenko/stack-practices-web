@@ -280,7 +280,7 @@ La orquestación multi-agente asigna roles especializados a diferentes agentes. 
 - **Q&A simple**: Si una sola llamada al LLM responde la pregunta, los agentes añaden latencia y costo innecesarios
 - **Decisiones de alto riesgo**: Diagnóstico médico, asesoría legal, trading financiero — los agentes pueden alucinar argumentos de herramientas
 - **Sistemas en tiempo real**: Los loops de agentes con múltiples llamadas LLM añaden 5-30 segundos de latencia
-- **Workloads sensibles a costo**: Cada iteración es una llamada completa al LLM; 5 iteraciones pueden costar $0.10+ por query
+- **Workloads sensibles a costo**: Cada iteración es una llamada completa al LLM; 5 iteraciones pueden costar $0.
 
 
 
@@ -336,10 +336,10 @@ Usa multi-agente cuando una tarea tiene fases distintas (investigar, implementar
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

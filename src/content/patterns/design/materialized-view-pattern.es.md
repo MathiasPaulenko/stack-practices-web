@@ -216,7 +216,7 @@ Las vistas materializadas resuelven el **compromiso de lectura/escritura** separ
 
 ## Ejemplos del Mundo Real
 
-- **Airbnb**: Usa vistas materializadas en su infraestructura de busqueda. El indice de busqueda es una vista reconstruida periodicamente.
+- **Airbnb**: El indice de busqueda es una vista reconstruida periodicamente.
 - **GitHub**: Los graficos de contribucion y estadisticas de repositorios son vistas materializadas.
 - **Shopify**: Usa vistas materializadas para dashboards de analiticas de comerciantes, agregando ingresos y niveles de inventario.
 
@@ -337,11 +337,11 @@ En lugar de REFRESH completo, actualiza solo las filas nuevas. Opcion 1: trigger
 
 ## Troubleshooting
 
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
-- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
-- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).   A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.   Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
+- **Tests break when the design changes**: favor stable contracts over internal structure.
+- **Performance regression from indirection**: measure before and after.   Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
 ## Errores Comunes en Producción
 

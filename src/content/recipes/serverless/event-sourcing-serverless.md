@@ -202,10 +202,10 @@ class OrderAggregate {
 
 ## Explanation
 
-- **Event store**: the event store is an append-only log. Events are never updated or deleted. Each event has a unique ID, an aggregate ID (the entity it belongs to), a type, a payload, and a version. The version ensures ordering and prevents concurrent writes (optimistic concurrency control via `ConditionExpression`).
-- **Aggregate reconstruction**: the current state of an entity is not stored directly. Instead, you load all events for an aggregate and replay them in order. The aggregate object starts empty and applies each event, mutating its internal state. This is deterministic — the same sequence of events always produces the same state.
-- **Projections (read models)**: read models are built by subscribing to the event stream. When an event is appended, a Lambda (triggered by DynamoDB streams) updates the read-optimized view. You can have multiple projections for the same events — one for the customer dashboard, one for analytics, one for search indexing.
-- **Snapshots**: replaying thousands of events for a long-lived aggregate is slow. Snapshots cache the aggregate state at a specific version. To reconstruct, load the latest snapshot and replay only events after that version. Store snapshots periodically (e.g., every 100 events) and asynchronously.
+- **Event store**: the event store is an append-only log.  Events are never updated or deleted.  Each event has a unique ID, an aggregate ID (the entity it belongs to), a type, a payload, and a version.  The version ensures ordering and prevents concurrent writes (optimistic concurrency control via `ConditionExpression`).
+- **Aggregate reconstruction**: the current state of an entity is not stored directly.  Instead, you load all events for an aggregate and replay them in order.  The aggregate object starts empty and applies each event, mutating its internal state.  This is deterministic — the same sequence of events always produces the same state.
+- **Projections (read models)**: read models are built by subscribing to the event stream.  When an event is appended, a Lambda (triggered by DynamoDB streams) updates the read-optimized view.  You can have multiple projections for the same events — one for the customer dashboard, one for analytics, one for search indexing.
+- **Snapshots**: replaying thousands of events for a long-lived aggregate is slow.  Snapshots cache the aggregate state at a specific version.  To reconstruct, load the latest snapshot and replay only events after that version. g. , every 100 events) and asynchronously.
 
 ## Variants
 
@@ -219,27 +219,27 @@ class OrderAggregate {
 
 ## What Works
 
-- **Version every event**: include a monotonically increasing version per aggregate. Use DynamoDB `ConditionExpression` to reject writes with stale versions. This prevents lost updates when two users simultaneously modify the same aggregate.
-- **Make events immutable and self-contained**: an event should carry all data needed to understand it, not just deltas. `OrderCreated` should include customer ID, shipping address, and line items — not just "order 123 was created." Future consumers should not need to query other systems to interpret the event.
-- **Use correlation IDs across the event chain**: when an event triggers another event (e.g., `OrderShipped` triggers `InventoryDecremented`), propagate the correlation ID. This enables end-to-end tracing and debugging across distributed event chains.
-- **Implement idempotent projections**: Lambda functions retry on failure. A projection that increments a counter on each invocation will overcount. Design projections to be idempotent — write the event ID to the projection row and skip if already processed.
-- **Archive old events to cold storage**: DynamoDB is expensive for long-term storage of millions of events. Move events older than 90 days to S3 using DynamoDB TTL or export jobs. Keep the event store lean and query archived data via Athena when needed.
+- **Version every event**: include a monotonically increasing version per aggregate.  This prevents lost updates when two users simultaneously modify the same aggregate.
+- **Make events immutable and self-contained**: an event should carry all data needed to understand it, not just deltas.  `OrderCreated` should include customer ID, shipping address, and line items — not just "order 123 was created. " Future consumers should not need to query other systems to interpret the event.
+- **Use correlation IDs across the event chain**: when an event triggers another event (e. g. , `OrderShipped` triggers `InventoryDecremented`), propagate the correlation ID.  This enables end-to-end tracing and debugging across distributed event chains.
+- **Implement idempotent projections**: Lambda functions retry on failure.  A projection that increments a counter on each invocation will overcount.  Design projections to be idempotent — write the event ID to the projection row and skip if already processed.
+- **Archive old events to cold storage**: DynamoDB is expensive for long-term storage of millions of events.  Move events older than 90 days to S3 using DynamoDB TTL or export jobs.
 
 ## Common mistakes
 
-- **Storing current state alongside events**: if you maintain both an event log and a current state table, they can diverge. A bug in the projection writes state A while the log contains events for state B. The source of truth is the event store; projections are derived. Do not treat the projection as primary state.
-- **Exposing event types to external systems**: external consumers should not depend on internal event schemas. Use a public event schema (e.g., `OrderConfirmed`) and map internal events to public ones. Internal refactoring of event types should not break external integrations.
-- **Not handling event schema evolution**: when an event type changes (adding a field), old events in the log do not have the new field. The aggregate must handle missing fields gracefully. Use schema versioning and default values, or upcast old events on load.
-- **Replaying events from the beginning for every query**: always use snapshots for aggregates with long histories. Replaying 10,000 events for every `GET /order/123` destroys performance. Take snapshots asynchronously and load from them.
+- **Storing current state alongside events**: if you maintain both an event log and a current state table, they can diverge.  A bug in the projection writes state A while the log contains events for state B.  The source of truth is the event store; projections are derived.  Do not treat the projection as primary state.
+- **Exposing event types to external systems**: external consumers should not depend on internal event schemas. g. , `OrderConfirmed`) and map internal events to public ones.  Internal refactoring of event types should not break external integrations.
+- **Not handling event schema evolution**: when an event type changes (adding a field), old events in the log do not have the new field.  The aggregate must handle missing fields gracefully.
+- **Replaying events from the beginning for every query**: always use snapshots for aggregates with long histories.  Replaying 10,000 events for every `GET /order/123` destroys performance.  Take snapshots asynchronously and load from them.
 
 
 ## Troubleshooting
 
 - **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
-- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
-- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
-- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
-- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic.  Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless.  Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets.
+- **Event ordering issues**: many event sources are at-least-once and unordered.  Design for idempotency and explicit sequencing.
 
 
 

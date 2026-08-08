@@ -190,10 +190,10 @@ const resolvers = {
 
 ## Explanation
 
-- **Batching**: All `load()` calls within one event loop tick are collected. DataLoader then calls the batch function once with all keys
-- **Deduplication**: Duplicate keys in the same batch are requested once. All callers receive the same Promise
-- **Per-request cache**: The cache is a `Map` on the loader instance. Since a new loader is created per request, cache is isolated
-- **Order contract**: The batch function must return an array of the same length as the input, in the same order. DataLoader matches results to callers by index
+- **Batching**: All `load()` calls within one event loop tick are collected.
+- **Deduplication**: Duplicate keys in the same batch are requested once.
+- **Per-request cache**: The cache is a `Map` on the loader instance.
+- **Order contract**: The batch function must return an array of the same length as the input, in the same order.
 - **Error handling**: Return an `Error` object at a specific index to reject only that caller, not the entire batch
 
 ## Variants
@@ -281,17 +281,17 @@ const stockPriceLoader = new DataLoader(batchStockPrices, {
 ## Common Mistakes
 
 - **Sharing a DataLoader across requests**: Cross-request caching leaks data between users and causes stale reads
-- **Throwing in batch function**: Rejects the entire batch. Return `new Error()` at the failing index instead
-- **Wrong result order**: DataLoader matches by position. Misaligned results silently return wrong data
+- **Throwing in batch function**: Rejects the entire batch.
+- **Wrong result order**: DataLoader matches by position.
 - **Not clearing after mutations**: Stale cached data is returned for updated entities
-- **Using DataLoader for long-lived caching**: DataLoader cache is per-request. Use Redis or application-level cache for cross-request caching
+- **Using DataLoader for long-lived caching**: DataLoader cache is per-request.
 - **Missing `cacheKeyFn` for object keys**: `{ userId: '1' }` and `{ userId: '1' }` are different object references — cache misses every time
 
 
 ## Troubleshooting
 
-- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
-- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization.
+- **N+1 query performance issue**: use DataLoader or equivalent batching.  Inspect resolver execution traces.
 - **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
 - **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
 - **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.

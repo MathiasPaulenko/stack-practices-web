@@ -133,7 +133,7 @@ function Dashboard() {
 ## Lo que funciona
 
 - **Mide usuarios reales, no tests de lab**: Field data de Chrome UX Report refleja condiciones actuales
-- **Optimiza el critical path**: Cualquier cosa bloqueando `<head>` debería estar bajo 50KB total. Consulta [server-side rendering](/recipes/performance/spa-code-splitting-lazy).
+- **Optimiza el critical path**: Cualquier cosa bloqueando `<head>` debería estar bajo 50KB total.   Consulta [server-side rendering](/recipes/performance/spa-code-splitting-lazy).
 - **Self-host fonts y analytics**: Conexiones de terceros agregan overhead de DNS + TLS + TCP
 - **Usa `content-visibility: auto`**: Los browsers skip rendering de contenido off-screen
 - **Defer JavaScript no crítico**: `defer` o `type="module"` para scripts no necesarios inmediatamente
@@ -331,11 +331,11 @@ Usa `<link rel="preconnect">` para establecer early connections: `<link rel="pre
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.   Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.   Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.   Scale horizontally only after optimizing the hot path.
 
 ## Errores Comunes en Producción
 

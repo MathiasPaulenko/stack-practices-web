@@ -303,10 +303,10 @@ public class SamlSecurityConfig {
 
 ## Troubleshooting
 
-- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings. Look for case sensitivity in identifiers.
-- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew. Short tokens with secure refresh are preferred.
-- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
-- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
+- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings.  Look for case sensitivity in identifiers.
+- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew.  Short tokens with secure refresh are preferred.
+- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly.
+- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
 
 

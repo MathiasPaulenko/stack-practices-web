@@ -255,19 +255,19 @@ describe("SubmitForm", () => {
 ## Common Mistakes
 
 - **Actualizar snapshots a ciegas**: correr `vitest -u` sin revisar el diff oculta regresiones reales.
-- **Snapshottear demasiado**: un snapshot de 200 líneas es ilegible y falla en cualquier cambio menor de CSS. Divídelo en snapshots de componentes más pequeños.
+- **Snapshottear demasiado**: un snapshot de 200 líneas es ilegible y falla en cualquier cambio menor de CSS.   Divídelo en snapshots de componentes más pequeños.
 - **No usar property matchers para datos dinámicos**: si tu output incluye un timestamp, el snapshot fallará en cada ejecución.
-- **Guardar snapshots en un directorio diferente a los tests**: mantén los archivos `.snap` junto a los archivos de test para discoverability.
-- **Usar snapshots como único test**: los snapshots verifican estructura, no comportamiento. Agrega tests de interacción con `@testing-library/react`.
+- **Guardar snapshots en un directorio diferente a los tests**: snap` junto a los archivos de test para discoverability.
+- **Usar snapshots como único test**: los snapshots verifican estructura, no comportamiento.   Agrega tests de interacción con `@testing-library/react`.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.   Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.   Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.   Pin tool versions.
+- **Debugging a failing integration test**: Reset state before each test.
 
 ## FAQ
 

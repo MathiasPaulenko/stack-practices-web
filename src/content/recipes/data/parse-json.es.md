@@ -72,9 +72,9 @@ Usa esta receta cuando:
 
 ## Cuándo Evitar
 
-- **YAML o TOML para config editada por humanos**: JSON no tiene comentarios ni strings multi-línea. Usa TOML o YAML para configuración escrita a mano.
-- **Datos binarios**: JSON codifica binario como base64, inflando el tamaño un 33%. Usa Protobuf, MessagePack o CBOR para payloads con mucho binario.
-- **Archivos enormes que no caben en memoria**: usa parsers de streaming (ver sección Avanzado) en lugar de `json.loads` / `JSON.parse`.
+- **YAML o TOML para config editada por humanos**: JSON no tiene comentarios ni strings multi-línea.
+- **Datos binarios**: JSON codifica binario como base64, inflando el tamaño un 33%.
+- **Archivos enormes que no caben en memoria**: usa parsers de streaming (ver sección Avanzado) en lugar de `json.  loads` / `JSON.  parse`.
 
 ## Solución
 
@@ -285,7 +285,7 @@ if (!validate(data)) {
 
 - **Maneja siempre los errores de parseo**: envuelve el parseo en `try/except` (Python) o `try/catch` (JS/Java); el JSON externo no es de confianza.
 - **Prefiere modelos tipados en Java**: mapea a POJOs con `readValue()` en lugar de navegar `JsonNode` por claves de texto.
-- **Nunca uses `eval()` en JavaScript**: ejecuta código arbitrario; usa siempre `JSON.parse()`.
+- **Nunca uses `eval()` en JavaScript**: parse()`.
 - **Procesa payloads grandes en streaming**: usa `ijson` (Python) o el `JsonParser` de Jackson para no cargar archivos enormes en memoria.
 - **Valida contra un esquema**: para APIs propias, valida con JSON Schema antes de confiar en la estructura.
 
@@ -293,7 +293,7 @@ if (!validate(data)) {
 
 - **Ignorar la codificación**: JSON es UTF-8; leer un archivo con la codificación incorrecta corrompe los caracteres.
 - **No capturar nada**: el JSON malformado lanza una excepción; fallar en silencio es peor que devolver un 400 claro.
-- **Precisión numérica en JavaScript**: los enteros mayores que `Number.MAX_SAFE_INTEGER` pierden precisión; parsea los IDs grandes como cadenas.
+- **Precisión numérica en JavaScript**: los enteros mayores que `Number.  MAX_SAFE_INTEGER` pierden precisión; parsea los IDs grandes como cadenas.
 - **Confundir `loads` y `load`**: en Python, `loads` recibe una cadena y `load` recibe un archivo.
 - **Confiar en el caso de las claves**: las claves JSON distinguen mayúsculas; `Name` y `name` son campos distintos.
 
@@ -349,8 +349,8 @@ No hay límite en la especificación. Los límites prácticos dependen de tu par
 
 ## Troubleshooting
 
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
-- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
+- **Data quality degrades over time**: add data validation checks and anomaly detection.   Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.   Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.   Archive cold data and set lifecycle policies.

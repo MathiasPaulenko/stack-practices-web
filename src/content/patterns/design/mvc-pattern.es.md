@@ -165,8 +165,8 @@ controller.updateName("Alicia");
 
 MVC divide la responsabilidad en tres capas:
 
-- **Modelo**: Gestiona datos y reglas de negocio. Notifica a las vistas cuando los datos cambian.
-- **Vista**: Renderiza los datos del modelo. En aplicaciones modernas, esto suele ser una plantilla o componente.
+- **Modelo**: Gestiona datos y reglas de negocio.   Notifica a las vistas cuando los datos cambian.
+- **Vista**: Renderiza los datos del modelo.   En aplicaciones modernas, esto suele ser una plantilla o componente.
 - **Controlador**: Acepta entrada de usuario, la procesa y actualiza el modelo o la vista según corresponda.
 
 En frameworks web modernos, el Controlador suele mapear rutas HTTP a operaciones del Modelo, mientras que la Vista se renderiza del lado del servidor o como aplicación de página única.
@@ -332,11 +332,11 @@ End of document. Review and update quarterly.
 
 ## Troubleshooting
 
-- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+- **High latency between services**: trace the request path.   Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy.   Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas.   Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
 
 ## Errores Comunes en Producción
 

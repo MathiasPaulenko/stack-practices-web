@@ -199,10 +199,10 @@ def invalidate_user(user_id):
 
 ## Explanation
 
-- **TTL expiration**: The simplest approach. Data expires after a fixed time. Suitable for data that changes infrequently or where brief staleness is acceptable. Easy to implement but can serve stale data for the duration of the TTL.
-- **Write-through**: Updates the cache synchronously when the database is written. Guarantees consistency but adds latency to write operations and increases cache load.
-- **Write-behind (write-back)**: Writes go to the cache first, which asynchronously persists to the database. Extremely fast writes but risks data loss if the cache fails before flushing.
-- **Event-driven invalidation**: Services publish [events](/recipes/messaging/event-driven-microservices) when data changes. Cache listeners delete or refresh affected keys. Loose coupling but requires a message broker.
+- **TTL expiration**: The simplest approach.  Data expires after a fixed time.  Suitable for data that changes infrequently or where brief staleness is acceptable.  Easy to implement but can serve stale data for the duration of the TTL.
+- **Write-through**: Updates the cache synchronously when the database is written.  Guarantees consistency but adds latency to write operations and increases cache load.
+- **Write-behind (write-back)**: Writes go to the cache first, which asynchronously persists to the database.  Extremely fast writes but risks data loss if the cache fails before flushing.
+- **Event-driven invalidation**: Services publish [events](/recipes/messaging/event-driven-microservices) when data changes.  Cache listeners delete or refresh affected keys.  Loose coupling but requires a message broker.
 
 ## Variants
 
@@ -257,27 +257,27 @@ CDN invalidation is slow (seconds to minutes). Use versioned URLs (`/v2/users/42
 
 ## What Works
 
-- **Use cache-aside for reads**: check cache, fall back to database, populate cache. This is the most common and resilient pattern.
-- **Set appropriate TTLs**: too short and you defeat the purpose of caching; too long and stale data persists. Base TTL on business requirements.
-- **Implement cache stampede protection**: when TTL expires, many concurrent requests may hit the database simultaneously. Use a mutex or probabilistic early expiration.
-- **Version cache keys**: include a schema version in the key (`user:v2:123`). When data format changes, old cached entries are ignored naturally.
+- **Use cache-aside for reads**: check cache, fall back to database, populate cache.  This is the most common and resilient pattern.
+- **Set appropriate TTLs**: too short and you defeat the purpose of caching; too long and stale data persists.  Base TTL on business requirements.
+- **Implement cache stampede protection**: when TTL expires, many concurrent requests may hit the database simultaneously.
+- **Version cache keys**: include a schema version in the key (`user:v2:123`).  When data format changes, old cached entries are ignored naturally.
 - **Monitor cache hit rates**: a hit rate below 80% usually indicates poor key selection or TTL tuning.
 
 ## Common Mistakes
 
-- **Caching everything**: some data is already fast to query or changes too frequently to benefit from caching. Profile before adding cache layers.
-- **Forgetting to invalidate**: updates to the database that do not clear the cache cause persistent stale data. Automated invalidation pipelines help.
+- **Caching everything**: some data is already fast to query or changes too frequently to benefit from caching.  Profile before adding cache layers.
+- **Forgetting to invalidate**: updates to the database that do not clear the cache cause persistent stale data.  Automated invalidation pipelines help.
 - **Not handling cache failures**: if Redis goes down, the application should degrade gracefully to database queries, not crash.
 - **Using the same TTL for all data**: user profiles might tolerate 10 minutes of staleness; inventory counts might need instant consistency.
 
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.  Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.  Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.  Scale horizontally only after optimizing the hot path.
 
 
 ## Key Takeaways

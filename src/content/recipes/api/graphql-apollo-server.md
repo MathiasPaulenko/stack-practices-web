@@ -202,11 +202,11 @@ export const authDirective = (schema: GraphQLSchema) =>
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 
 
@@ -237,12 +237,12 @@ A: For simple CRUD with few relationships, [REST](/recipes/api/call-rest-api) is
 
 ## Best Practices
 
-- **Use schema-first design**: define your schema before writing resolvers. This forces you to think about the API contract first, not the implementation. Tools like Apollo Studio visualize the schema for stakeholders.
-- **Enable Apollo Sandbox only in development**: Sandbox exposes introspection and query building. Disable it in production to prevent schema leakage. Set `introspection: false` in production Apollo Server config.
-- **Use context for per-request shared state**: pass authentication, database connections, and request-scoped data through the GraphQL context. Avoid global state — it breaks with concurrent requests.
-- **Implement field-level resolvers only when needed**: Apollo Server resolves fields using default resolvers that read object properties. Add custom resolvers only for computed fields or fields requiring separate data sources.
-- **Use `@cacheControl` directives**: annotate fields with cache hints (maxAge, scope). Apollo Server and CDN layers use these to cache responses automatically, reducing resolver calls by 50-90% for read-heavy schemas.
-- **Validate schema changes with `graphql-inspector`**: run schema diffing in CI to detect breaking changes before deployment. Block PRs that remove fields or change types without deprecation.
+- **Use schema-first design**: define your schema before writing resolvers.  This forces you to think about the API contract first, not the implementation.  Tools like Apollo Studio visualize the schema for stakeholders.
+- **Enable Apollo Sandbox only in development**: Sandbox exposes introspection and query building.  Disable it in production to prevent schema leakage.  Set `introspection: false` in production Apollo Server config.
+- **Use context for per-request shared state**: pass authentication, database connections, and request-scoped data through the GraphQL context.
+- **Implement field-level resolvers only when needed**: Apollo Server resolves fields using default resolvers that read object properties.  Add custom resolvers only for computed fields or fields requiring separate data sources.
+- **Use `@cacheControl` directives**: annotate fields with cache hints (maxAge, scope).  Apollo Server and CDN layers use these to cache responses automatically, reducing resolver calls by 50-90% for read-heavy schemas.
+- **Validate schema changes with `graphql-inspector`**: run schema diffing in CI to detect breaking changes before deployment.  Block PRs that remove fields or change types without deprecation.
 
 ## Production Checklist
 
@@ -259,10 +259,10 @@ A: For simple CRUD with few relationships, [REST](/recipes/api/call-rest-api) is
 
 ## Scaling Considerations
 
-- **Resolver performance**: each field resolver runs sequentially within a selection set. A query with 50 fields and 5ms per resolver takes 250ms. Use `Promise.all` for independent resolvers to parallelize them.
-- **Memory usage with large result sets**: GraphQL builds the full response object in memory before serializing. For queries returning 10K+ items, use streaming or pagination. Apollo Server's `@stream` directive enables incremental delivery for large lists.
-- **Multi-instance deployments**: Apollo Server is stateless, so horizontal scaling works out of the box. However, subscriptions require a shared pub/sub backend (Redis, NATS) to broadcast events across instances.
-- **Cold start with serverless**: Apollo Server on Lambda has 500-1500ms cold starts due to schema validation. Use Apollo Server's `serverlessExport` to pre-build the schema at deploy time, reducing cold start to 200-400ms.
+- **Resolver performance**: each field resolver runs sequentially within a selection set.  A query with 50 fields and 5ms per resolver takes 250ms. all` for independent resolvers to parallelize them.
+- **Memory usage with large result sets**: GraphQL builds the full response object in memory before serializing.  For queries returning 10K+ items, use streaming or pagination.  Apollo Server's `@stream` directive enables incremental delivery for large lists.
+- **Multi-instance deployments**: Apollo Server is stateless, so horizontal scaling works out of the box.  However, subscriptions require a shared pub/sub backend (Redis, NATS) to broadcast events across instances.
+- **Cold start with serverless**: Apollo Server on Lambda has 500-1500ms cold starts due to schema validation.
 
 ## Cost Estimation
 
@@ -278,9 +278,9 @@ For 50K requests/day: self-hosted Apollo Server on 1x EC2 t3.small ($10/month) +
 
 ## When Not to Use This Approach
 
-- **Simple REST replacement**: if your API is already REST with 5-10 endpoints and no nested relationships, migrating to Apollo Server adds complexity without value. Stay with REST and use OpenAPI for documentation.
-- **Edge-deployed APIs**: Apollo Server's cold start (500-1500ms on Lambda) makes it unsuitable for edge functions (Cloudflare Workers, Vercel Edge). Use a lightweight GraphQL executor like `graphql-helix` for edge environments.
-- **Bandwidth-critical mobile apps**: Apollo Client downloads the full schema for code generation (50-200KB). On mobile networks with data caps, this is significant. Use persisted queries or switch to REST for bandwidth-critical flows.
+- **Simple REST replacement**: if your API is already REST with 5-10 endpoints and no nested relationships, migrating to Apollo Server adds complexity without value.  Stay with REST and use OpenAPI for documentation.
+- **Edge-deployed APIs**: Apollo Server's cold start (500-1500ms on Lambda) makes it unsuitable for edge functions (Cloudflare Workers, Vercel Edge).
+- **Bandwidth-critical mobile apps**: Apollo Client downloads the full schema for code generation (50-200KB).  On mobile networks with data caps, this is significant.
 
 ## Performance Benchmarks
 
@@ -296,24 +296,24 @@ Apollo Server on a dedicated Node.js instance outperforms Lambda deployments by 
 
 ## Testing Strategy
 
-- **Test Apollo context injection**: create a test Apollo Server instance with mock context (auth, data sources, cache). Verify resolvers receive the correct context shape and fail gracefully when required fields are missing.
-- **Test schema validation**: use `graphql-tools` `assertValidSchema` in CI to catch schema changes that break existing clients. Run `apollo service:check` to compare schema against the registry and detect breaking changes.
-- **Test cache control headers**: send queries with `@cacheControl` directives and verify the response includes correct `Cache-Control` headers. Test that mutations bypass the cache and that cached queries return `X-Cache: HIT` on subsequent requests.
-- **Test subscription cleanup**: connect a WebSocket subscription, verify it receives data, then close the connection. Verify the server removes the subscription from the pub/sub system and frees resources within 5 seconds.
+- **Test Apollo context injection**: create a test Apollo Server instance with mock context (auth, data sources, cache).  Verify resolvers receive the correct context shape and fail gracefully when required fields are missing.
+- **Test schema validation**: use `graphql-tools` `assertValidSchema` in CI to catch schema changes that break existing clients.  Run `apollo service:check` to compare schema against the registry and detect breaking changes.
+- **Test cache control headers**: send queries with `@cacheControl` directives and verify the response includes correct `Cache-Control` headers.
+- **Test subscription cleanup**: connect a WebSocket subscription, verify it receives data, then close the connection.  Verify the server removes the subscription from the pub/sub system and frees resources within 5 seconds.
 
 ## Common Pitfalls
 
-- **Enabling GraphQL Playground in production**: Apollo Server enables Playground by default in development. Forgetting to disable it in production exposes your schema and allows arbitrary queries. Set `introspection: false` and `playground: false` in production.
-- **Not using DataLoader for batched loading**: without DataLoader, each resolver fetches data independently. A query returning 50 orders with customer details triggers 50 separate customer fetches. DataLoader batches these into a single fetch per request.
-- **Ignoring Apollo Studio schema registration**: without schema registration, there's no visibility into schema changes or client usage. Register your schema with Apollo Studio for free to get change tracking, client usage analytics, and breaking change detection.
-- **Over-fetching in resolvers**: returning full database rows when the client only requests 2 fields wastes bandwidth and CPU. Use `info` parameter to parse the selection set and only fetch requested fields from the database.
+- **Enabling GraphQL Playground in production**: Apollo Server enables Playground by default in development.  Forgetting to disable it in production exposes your schema and allows arbitrary queries.  Set `introspection: false` and `playground: false` in production.
+- **Not using DataLoader for batched loading**: without DataLoader, each resolver fetches data independently.  A query returning 50 orders with customer details triggers 50 separate customer fetches.  DataLoader batches these into a single fetch per request.
+- **Ignoring Apollo Studio schema registration**: without schema registration, there's no visibility into schema changes or client usage.  Register your schema with Apollo Studio for free to get change tracking, client usage analytics, and breaking change detection.
+- **Over-fetching in resolvers**: returning full database rows when the client only requests 2 fields wastes bandwidth and CPU.
 
 ## Monitoring and Observability
 
-- **Track Apollo Server cold starts**: if deploying on Lambda, monitor cold start frequency and duration. Cold starts >2 seconds indicate the schema build is too slow. Pre-build the schema with `serverlessExport` to reduce cold start time.
-- **Monitor cache hit/miss ratio**: track how many queries are served from cache vs executed. A hit ratio <50% suggests cache directives are missing or TTLs are too short. Use Apollo Studio's cache metrics dashboard for visibility.
-- **Track DataLoader batch sizes**: monitor the average batch size per DataLoader instance. Small batch sizes (1-2 items) indicate the request pattern doesn't benefit from batching. Large batches (>100) may cause database query timeouts.
-- **Monitor WebSocket subscription memory**: each active subscription holds memory for the pub/sub connection. Track memory per subscription and set limits to prevent OOM. Alert if subscription memory exceeds 10% of total heap.
+- **Track Apollo Server cold starts**: if deploying on Lambda, monitor cold start frequency and duration.  Cold starts >2 seconds indicate the schema build is too slow.  Pre-build the schema with `serverlessExport` to reduce cold start time.
+- **Monitor cache hit/miss ratio**: track how many queries are served from cache vs executed.  A hit ratio <50% suggests cache directives are missing or TTLs are too short.
+- **Track DataLoader batch sizes**: monitor the average batch size per DataLoader instance.  Small batch sizes (1-2 items) indicate the request pattern doesn't benefit from batching.  Large batches (>100) may cause database query timeouts.
+- **Monitor WebSocket subscription memory**: each active subscription holds memory for the pub/sub connection.  Alert if subscription memory exceeds 10% of total heap.
 
 ## Deployment Checklist
 

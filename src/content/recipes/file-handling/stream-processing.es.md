@@ -112,10 +112,10 @@ public class StreamProcessor {
 
 ## Explicación
 
-- **Evaluación lazy**: Los streams no leen el archivo completo por adelantado. Extraen datos bajo demanda — unos pocos kilobytes o líneas a la vez. Esto mantiene el uso de memoria plano incluso para archivos de escala de terabytes.
-- **Backpressure**: En Node.js, los streams manejan automáticamente casos donde el writer es más lento que el reader. El reader pausa hasta que el writer se recupera, previniendo que la memoria se llene con chunks sin procesar.
-- **Pipelines componibles**: Múltiples transformaciones (decodificar CSV, filtrar filas, agregar, codificar JSON) se encadenan como un pipeline. Cada etapa procesa chunks independientemente.
-- **Manejo de errores**: Los errores de stream pueden ocurrir en cualquier etapa. Handlers de error centralizados capturan fallas sin filtrar recursos o dejar archivos de output parciales.
+- **Evaluación lazy**: Los streams no leen el archivo completo por adelantado.   Extraen datos bajo demanda — unos pocos kilobytes o líneas a la vez.   Esto mantiene el uso de memoria plano incluso para archivos de escala de terabytes.
+- **Backpressure**: En Node.  js, los streams manejan automáticamente casos donde el writer es más lento que el reader.   El reader pausa hasta que el writer se recupera, previniendo que la memoria se llene con chunks sin procesar.
+- **Pipelines componibles**: Múltiples transformaciones (decodificar CSV, filtrar filas, agregar, codificar JSON) se encadenan como un pipeline.   Cada etapa procesa chunks independientemente.
+- **Manejo de errores**: Los errores de stream pueden ocurrir en cualquier etapa.   Handlers de error centralizados capturan fallas sin filtrar recursos o dejar archivos de output parciales.
 
 ## Variantes
 
@@ -128,18 +128,18 @@ public class StreamProcessor {
 
 ## Lo que funciona
 
-- **Usa I/O buffered**: las lecturas y escrituras sin buffer emiten una system call por byte. Los buffers (8KB default en la mayoría de lenguajes) amortizan este overhead.
-- **Maneja encoding explícitamente**: los encodings default varían por plataforma. Especifica `utf-8` para evitar corrupción con texto internacional.
-- **Valida input temprano**: datos malformados en un stream pueden causar errores downstream. Sanitiza o salta registros malos.
+- **Usa I/O buffered**: las lecturas y escrituras sin buffer emiten una system call por byte.   Los buffers (8KB default en la mayoría de lenguajes) amortizan este overhead.
+- **Maneja encoding explícitamente**: los encodings default varían por plataforma.
+- **Valida input temprano**: datos malformados en un stream pueden causar errores downstream.   Sanitiza o salta registros malos.
 - **Implementa reporte de progreso**: para streams de larga duración, emite eventos de progreso o loguea conteos de bytes procesados para que operadores sepan que el job progresa.
-- **Cierra recursos apropiadamente**: usa `with` (Python), `try-with-resources` (Java), o `pipeline` (Node.js) para asegurar que los file handles se liberen.
+- **Cierra recursos apropiadamente**: usa `with` (Python), `try-with-resources` (Java), o `pipeline` (Node.
 
 ## Errores comunes
 
-- **Cargar archivos completos en arrays**: `readlines()` o `readFile()` lee todo en memoria. Para archivos grandes, usa equivalentes de streaming.
-- **Ignorar backpressure**: en Node.js, escribir a un consumidor lento sin manejar eventos `drain` causa que la memoria crezca sin límites.
-- **No manejar caracteres multibyte parciales**: un límite de chunk puede dividir un carácter UTF-8 multibyte. Buffer caracteres incompletos a través de chunks.
-- **Escribir al mismo archivo desde el que lees**: sobreescribir un archivo mientras haces streaming desde él corrompe los datos. Escribe a un archivo temporal y renombra atómicamente.
+- **Cargar archivos completos en arrays**: `readlines()` o `readFile()` lee todo en memoria.
+- **Ignorar backpressure**: en Node.
+- **No manejar caracteres multibyte parciales**: un límite de chunk puede dividir un carácter UTF-8 multibyte.   Buffer caracteres incompletos a través de chunks.
+- **Escribir al mismo archivo desde el que lees**: sobreescribir un archivo mientras haces streaming desde él corrompe los datos.   Escribe a un archivo temporal y renombra atómicamente.
 
 ## Preguntas frecuentes
 

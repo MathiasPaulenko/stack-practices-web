@@ -242,17 +242,17 @@ if (canCopy === false) {
 
 The Clipboard API has two main methods:
 
-- **`navigator.clipboard.writeText(text)`**: Writes text to the clipboard. Returns a promise. Requires a secure context (HTTPS or localhost) and must be triggered by a user gesture (click, keypress).
-- **`navigator.clipboard.readText()`**: Reads text from the clipboard. Returns a promise. Requires the `clipboard-read` permission, which browsers typically prompt for on first use.
+- **`navigator.clipboard.writeText(text)`**: Writes text to the clipboard.  Returns a promise.  Requires a secure context (HTTPS or localhost) and must be triggered by a user gesture (click, keypress).
+- **`navigator.clipboard.readText()`**: Reads text from the clipboard.  Returns a promise.  Requires the `clipboard-read` permission, which browsers typically prompt for on first use.
 
 The fallback `document.execCommand("copy")` is deprecated but still works in older browsers. It requires a visible or off-screen textarea element that is selected before calling `execCommand`.
 
 Key constraints:
 
-- **Secure context**: `navigator.clipboard` only works on HTTPS or `localhost`. On HTTP, use the fallback.
-- **User gesture**: Clipboard operations must be triggered by a user action (click, tap, keypress). You cannot copy programmatically without user interaction.
-- **Permissions**: Reading clipboard requires explicit permission. Writing is usually allowed with a user gesture.
-- **Paste events**: The `paste` event fires on focusable elements (inputs, textareas, contenteditable). Use `event.clipboardData` to access pasted content and `event.preventDefault()` to override default behavior.
+- **Secure context**: `navigator. clipboard` only works on HTTPS or `localhost`.  On HTTP, use the fallback.
+- **User gesture**: Clipboard operations must be triggered by a user action (click, tap, keypress).  You cannot copy programmatically without user interaction.
+- **Permissions**: Reading clipboard requires explicit permission.  Writing is usually allowed with a user gesture.
+- **Paste events**: The `paste` event fires on focusable elements (inputs, textareas, contenteditable). clipboardData` to access pasted content and `event. preventDefault()` to override default behavior.
 
 ## Variants
 
@@ -285,11 +285,11 @@ Key constraints:
 
 ## Troubleshooting
 
-- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
-- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
-- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
-- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
-- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+- **Component does not re-render**: verify state reference, props, and memoization.  A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins.  Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast.
+- **Hydration mismatch**: ensure server and client render the same initial HTML. random, or window during SSR.
 
 
 ## Key Takeaways

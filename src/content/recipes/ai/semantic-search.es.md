@@ -283,13 +283,13 @@ Verifica en orden: (1) ¿Los embeddings están normalizados? (2) ¿La métrica d
 
 ## Buenas Prácticas
 
-- **Usa búsqueda híbrida para producción**: combina búsqueda vectorial con BM25 keyword search. Usa reciprocal rank fusion (RRF) para mergeear resultados. Esto captura tanto coincidencias semánticas como coincidencias de términos exactos, mejorando el recall considerablemente.
-- **Implementa understanding de queries**: antes de embeber la query, clasifica el intent (informacional, navegacional, transaccional). Rutea diferentes intents a diferentes estrategias de búsqueda. Esto mejora la relevancia para tipos diversos de queries.
-- **Usa búsqueda vectorial filtrada**: adjunta tags de metadatos (categoría, fecha, idioma, autor) a los embeddings. Filtra por metadatos antes de la búsqueda vectorial para reducir el espacio de búsqueda y mejorar tanto velocidad como relevancia.
-- **Benchmarkea diferentes modelos de embedding**: testea 3-5 modelos de embedding en tu test set domain-specific. Compara recall@k y MRR. Modelos como `e5-large-v2`, `bge-large` y `text-embedding-3-large` pueden outperformar el default de OpenAI en ciertos dominios.
-- **Setea A/B testing para calidad de búsqueda**: rutea un porcentaje de búsquedas a una nueva configuración (diferente modelo, tamaño de fragmento o threshold). Mide métricas de engagement del usuario (click-through rate, tiempo para encontrar, zero-result rate). Promueve configuraciones que mejoren el engagement.
-- **Monitorea queries con cero resultados**: trackea queries que no retornan resultados above threshold. Estas indican gaps en tu corpus o issues con tu modelo de embedding. Úsalas para identificar contenido faltante o cambios de modelo necesarios.
-- **Implementa autocomplete y sugerencias de query**: usa un índice keyword ligero para sugerencias de autocomplete. Esto reduce la carga en búsqueda vectorial y mejora el UX guiando a los usuarios hacia queries que retornarán resultados.
+- **Usa búsqueda híbrida para producción**: combina búsqueda vectorial con BM25 keyword search.   Esto captura tanto coincidencias semánticas como coincidencias de términos exactos, mejorando el recall considerablemente.
+- **Implementa understanding de queries**: antes de embeber la query, clasifica el intent (informacional, navegacional, transaccional).   Rutea diferentes intents a diferentes estrategias de búsqueda.   Esto mejora la relevancia para tipos diversos de queries.
+- **Usa búsqueda vectorial filtrada**: adjunta tags de metadatos (categoría, fecha, idioma, autor) a los embeddings.   Filtra por metadatos antes de la búsqueda vectorial para reducir el espacio de búsqueda y mejorar tanto velocidad como relevancia.
+- **Benchmarkea diferentes modelos de embedding**: Modelos como `e5-large-v2`, `bge-large` y `text-embedding-3-large` pueden outperformar el default de OpenAI en ciertos dominios.
+- **Setea A/B testing para calidad de búsqueda**: rutea un porcentaje de búsquedas a una nueva configuración (diferente modelo, tamaño de fragmento o threshold).   Promueve configuraciones que mejoren el engagement.
+- **Monitorea queries con cero resultados**: Estas indican gaps en tu corpus o issues con tu modelo de embedding.
+- **Implementa autocomplete y sugerencias de query**: Esto reduce la carga en búsqueda vectorial y mejora el UX guiando a los usuarios hacia queries que retornarán resultados.
 
 ## Checklist de Producción
 
@@ -308,10 +308,10 @@ Verifica en orden: (1) ¿Los embeddings están normalizados? (2) ¿La métrica d
 
 Al desplegar búsqueda semántica a escala, considera estos factores:
 
-- **Tamaño de índice y memoria**: un embedding de 1536 dimensiones (OpenAI) toma ~6 KB por documento. Para 1M documentos, el índice es ~6 GB en memoria. Usa quantization (int8 o binary) para reducir memoria por 4-32x con pérdida mínima de accuracy. FAISS y Qdrant soportan índices quantized nativamente.
-- **Targets de latencia de query**: para e-commerce o búsqueda orientada al usuario, targetea <100ms p99 latency. Índices HNSW logran esto para hasta 10M vectores en una sola máquina. Para índices más grandes, sharda across múltiples nodos y mergeea resultados.
-- **Estrategia de re-indexación**: cuando cambias de modelo de embedding o actualizas la lógica de chunking, debes re-indexar todo. Para corpora grandes, haz esto en un despliegue blue-green: construye el índice nuevo alongside el viejo, luego switchea el tráfico cuando el índice nuevo esté listo.
-- **Optimización de costos**: las llamadas API de embedding son baratas ($0.02/1M tokens) pero se compounded a escala. Para 1M documentos actualizados semanalmente, embedding cuesta ~$10/semana. Cachea embeddings por content hash para evitar re-embeber documentos sin cambios. Usa modelos open-source (e5, bge) para inferencia self-hosted y eliminar costos de API enteramente.
+- **Tamaño de índice y memoria**: un embedding de 1536 dimensiones (OpenAI) toma ~6 KB por documento.   Para 1M documentos, el índice es ~6 GB en memoria.   FAISS y Qdrant soportan índices quantized nativamente.
+- **Targets de latencia de query**: para e-commerce o búsqueda orientada al usuario, targetea <100ms p99 latency.   Índices HNSW logran esto para hasta 10M vectores en una sola máquina.   Para índices más grandes, sharda across múltiples nodos y mergeea resultados.
+- **Estrategia de re-indexación**: cuando cambias de modelo de embedding o actualizas la lógica de chunking, debes re-indexar todo.   Para corpora grandes, haz esto en un despliegue blue-green: construye el índice nuevo alongside el viejo, luego switchea el tráfico cuando el índice nuevo esté listo.
+- **Optimización de costos**: las llamadas API de embedding son baratas ($0.  02/1M tokens) pero se compounded a escala.   Para 1M documentos actualizados semanalmente, embedding cuesta ~$10/semana.
 
 ## Estimación de Costos
 
@@ -328,19 +328,19 @@ Para 1M documentos re-embebidos mensualmente: ~$2/mes con OpenAI small. Self-hos
 
 ## Cuándo No Usar Búsqueda Semántica
 
-- **El match exacto es el use case principal**: si los usuarios buscan por product IDs, SKUs o error codes, keyword search (BM25, Elasticsearch) es más rápido y más accurate. La búsqueda semántica agrega ruido retornando resultados "similares" pero no matching.
-- **Tu corpus es <1000 documentos**: para corpora pequeños, keyword search con buen ranking es suficiente. El overhead de generación de embeddings y mantenimiento de índice vectorial no se justifica.
-- **Necesitas latencia sub-10ms**: la búsqueda vectorial con HNSW toma 10-50ms. Para requerimientos sub-10ms (autocomplete, typeahead), usa trie-based o prefix search en su lugar.
-- **Tu contenido es mayormente numérico o codificado**: los embeddings están diseñados para lenguaje natural. Para datos numéricos (precios, medidas), usa range queries. Para datos codificados (códigos ICD, standards ISO), usa exact match con sinónimos.
-- **Compliance requiere resultados explainable**: los scores de similitud vectorial no son intuitivos para end users. "¿Por qué matcheó este documento?" es más difícil de explicar con embeddings que con keyword highlighting. Usa BM25 con términos highlighted para transparencia.
+- **El match exacto es el use case principal**: si los usuarios buscan por product IDs, SKUs o error codes, keyword search (BM25, Elasticsearch) es más rápido y más accurate.   La búsqueda semántica agrega ruido retornando resultados "similares" pero no matching.
+- **Tu corpus es <1000 documentos**: para corpora pequeños, keyword search con buen ranking es suficiente.   El overhead de generación de embeddings y mantenimiento de índice vectorial no se justifica.
+- **Necesitas latencia sub-10ms**: la búsqueda vectorial con HNSW toma 10-50ms.
+- **Tu contenido es mayormente numérico o codificado**: los embeddings están diseñados para lenguaje natural.   Para datos codificados (códigos ICD, standards ISO), usa exact match con sinónimos.
+- **Compliance requiere resultados explainable**: los scores de similitud vectorial no son intuitivos para end users.   "¿Por qué matcheó este documento?  " es más difícil de explicar con embeddings que con keyword highlighting.
 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

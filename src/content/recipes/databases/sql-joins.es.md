@@ -130,10 +130,10 @@ Devuelve todos los usuarios y todas las órdenes, con NULLs donde no hay coincid
 
 ## Explicación
 
-- **INNER JOIN**: devuelve solo filas donde la condición de join coincide en ambas tablas. Úsalo cuando solo te importen pares completos y válidos.
-- **LEFT JOIN**: devuelve cada fila de la tabla izquierda, más filas coincidentes de la derecha. Úsalo cuando quieras todos los registros primarios aunque algunos carezcan de datos relacionados.
-- **RIGHT JOIN**: el espejo de LEFT JOIN. Raramente usado porque invertir el orden de las tablas y usar LEFT JOIN es más intuitivo.
-- **FULL OUTER JOIN**: devuelve todas las filas de ambas tablas. Útil para encontrar registros completamente no coincidentes en cualquier lado.
+- **INNER JOIN**: devuelve solo filas donde la condición de join coincide en ambas tablas.   Úsalo cuando solo te importen pares completos y válidos.
+- **LEFT JOIN**: devuelve cada fila de la tabla izquierda, más filas coincidentes de la derecha.   Úsalo cuando quieras todos los registros primarios aunque algunos carezcan de datos relacionados.
+- **RIGHT JOIN**: el espejo de LEFT JOIN.   Raramente usado porque invertir el orden de las tablas y usar LEFT JOIN es más intuitivo.
+- **FULL OUTER JOIN**: devuelve todas las filas de ambas tablas.   Útil para encontrar registros completamente no coincidentes en cualquier lado.
 
 ## Variantes
 
@@ -147,17 +147,17 @@ Devuelve todos los usuarios y todas las órdenes, con NULLs donde no hay coincid
 
 ## Lo que funciona
 
-- **Indexa claves foráneas**: la columna de join (`orders.user_id`) debería tener un índice o constraint de foreign key. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para indexación. Sin él, tablas grandes hacen full scans.
+- **Indexa claves foráneas**: la columna de join (`orders.  user_id`) debería tener un índice o constraint de foreign key.   Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para indexación.   Sin él, tablas grandes hacen full scans.
 - **Usa aliases de tabla**: `users u` hace las consultas legibles y más cortas.
 - **Sé explícito**: escribe `INNER JOIN` en lugar de solo `JOIN` — comunica la intención claramente.
-- **Filtra en la cláusula ON para lógica de join, WHERE para filtrado de resultados**: `ON u.id = o.user_id AND o.amount > 100` se comporta diferente que `WHERE o.amount > 100` con LEFT JOINs.
+- **Filtra en la cláusula ON para lógica de join, WHERE para filtrado de resultados**: `ON u.  id = o.  user_id AND o.  amount > 100` se comporta diferente que `WHERE o.  amount > 100` con LEFT JOINs.
 - **Cuidado con productos cartesianos**: olvidar la cláusula `ON` multiplica cada fila de la tabla A por cada fila de la tabla B.
 
 ## Errores Comunes
 
 - **Usar LEFT JOIN cuando se necesita INNER JOIN**: esto produce filas NULL que el código downstream puede no esperar.
-- **Join en la columna equivocada**: `ON u.name = o.user_id` compila pero da resultados sin sentido.
-- **Consultas N+1 en código de aplicación**: obtener una lista de usuarios y luego consultar órdenes para cada uno individualmente es más lento que un solo JOIN. Consulta [Caching](/recipes/databases/redis-cache-patterns) para reducción de queries.
+- **Join en la columna equivocada**: `ON u.  name = o.  user_id` compila pero da resultados sin sentido.
+- **Consultas N+1 en código de aplicación**: obtener una lista de usuarios y luego consultar órdenes para cada uno individualmente es más lento que un solo JOIN.   Consulta [Caching](/recipes/databases/redis-cache-patterns) para reducción de queries.
 - **Índices faltantes**: JOINs en columnas sin indexar son rápidos en desarrollo con 100 filas y catastróficos en producción con millones.
 - **Joins implícitos**: tablas separadas por coma en la cláusula `FROM` (`FROM users, orders`) son propensos a errores; siempre usa sintaxis de JOIN explícita.
 

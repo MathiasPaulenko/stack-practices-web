@@ -216,10 +216,10 @@ Parameterized tests let you run the same logic against multiple inputs without d
 
 ## Explanation
 
-- **Arrange-Act-Assert (AAA)**: every test should set up state (arrange), execute the code under test (act), and verify the outcome (assert). This structure makes tests easy to scan.
-- **Determinism**: unit tests should never depend on the network, filesystem, or current time. If they do, they are integration tests.
-- **Isolation**: each test should run independently. Global state or shared mutable fixtures cause flaky, order-dependent failures.
-- **Fast feedback**: a unit test suite should run in seconds, not minutes. Slow suites discourage running them locally.
+- **Arrange-Act-Assert (AAA)**: every test should set up state (arrange), execute the code under test (act), and verify the outcome (assert).  This structure makes tests easy to scan.
+- **Determinism**: unit tests should never depend on the network, filesystem, or current time.  If they do, they are integration tests.
+- **Isolation**: each test should run independently.  Global state or shared mutable fixtures cause flaky, order-dependent failures.
+- **Fast feedback**: a unit test suite should run in seconds, not minutes.  Slow suites discourage running them locally.
 
 ## Variants
 
@@ -234,13 +234,13 @@ Parameterized tests let you run the same logic against multiple inputs without d
 ## What Works
 
 - **Name tests after behavior**: `test_addNegativeNumbers` is better than `test_add2` because it describes intent.
-- **One concept per test**: if you need multiple asserts, ensure they verify a single logical outcome. Otherwise, split the test.
+- **One concept per test**: if you need multiple asserts, ensure they verify a single logical outcome.  Otherwise, split the test.
 - **Avoid logic in tests**: no `if` statements or loops in tests — they make failures harder to diagnose.
 - **Use fakes over mocks when possible**: a fake in-memory repository is simpler than [mocking](/recipes/testing/unit-testing) every method call.
 - **Keep tests close to the code**: place test files next to the source (co-location) or in a mirrored `tests/` directory.
 - **Test boundary conditions**: zero, negative numbers, empty collections, maximum values, and null inputs are where most bugs hide.
 - **Use setup and teardown consistently**: shared setup belongs in `beforeEach` / `setUp`, not duplicated across tests.
-- **Run tests in random order**: order-dependent tests hide bugs. Use `pytest --randomly-seed` or Jest's `--randomize` to catch them.
+- **Run tests in random order**: order-dependent tests hide bugs.
 
 ## Common Mistakes
 
@@ -248,20 +248,20 @@ Parameterized tests let you run the same logic against multiple inputs without d
 - **Ignoring edge cases**: empty strings, zero, null/undefined, and very large inputs are where bugs hide.
 - **Shared mutable state**: a test that mutates a global counter breaks every test that runs after it.
 - **Slow unit tests**: calling a real database or HTTP service turns unit tests into [integration tests](/recipes/testing/integration-testing) and slows the suite.
-- **Noisy output**: `console.log` or `System.out.println` in tests clutters CI logs. Use proper assertion failures instead.
-- **Testing too much per test**: a test with 20 assertions is hard to debug when it fails. Split into focused tests.
-- **Not testing error paths**: many developers only test the happy path. Test what happens when inputs are invalid, dependencies fail, or exceptions are thrown.
-- **Over-mocking**: mocking every internal function creates tests that pass but prove nothing about real behavior. Mock at boundaries only.
-- **Ignoring flaky tests**: a test that passes 90% of the time hides real bugs. Fix flaky tests immediately or quarantine them.
+- **Noisy output**: `console. log` or `System. out. println` in tests clutters CI logs.
+- **Testing too much per test**: a test with 20 assertions is hard to debug when it fails.  Split into focused tests.
+- **Not testing error paths**: many developers only test the happy path.
+- **Over-mocking**: mocking every internal function creates tests that pass but prove nothing about real behavior.  Mock at boundaries only.
+- **Ignoring flaky tests**: a test that passes 90% of the time hides real bugs.  Fix flaky tests immediately or quarantine them.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.  Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.  Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.  Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database.  Reset state before each test.
 
 
 

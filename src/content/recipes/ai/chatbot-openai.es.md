@@ -221,10 +221,10 @@ public class OpenAIChatbot {
 
 La OpenAI Assistants API abstrae la complejidad de los chatbots:
 
-- **Asistente**: Configuración persistente (instrucciones, modelo, herramientas). Se crea una vez y se reutiliza.
-- **Thread**: Un objeto de conversación que almacena automáticamente el historial de mensajes. Los threads persisten en la infraestructura de OpenAI, por lo que no necesitas base de datos para el historial.
-- **Run**: Un ciclo de procesamiento donde el asistente lee el thread, toma decisiones y genera respuestas. Puede requerir acciones externas (tool calls).
-- **Tool Calling**: Si el asistente decide que necesita datos, emite una llamada a función. Tu código ejecuta la función y devuelve el resultado. El asistente continúa hasta generar la respuesta final.
+- **Asistente**: Configuración persistente (instrucciones, modelo, herramientas).   Se crea una vez y se reutiliza.
+- **Thread**: Los threads persisten en la infraestructura de OpenAI, por lo que no necesitas base de datos para el historial.
+- **Run**: Puede requerir acciones externas (tool calls).
+- **Tool Calling**: Si el asistente decide que necesita datos, emite una llamada a función.   Tu código ejecuta la función y devuelve el resultado.
 
 **Compromisos:**
 - Conveniente pero vendor-locked a OpenAI
@@ -334,10 +334,10 @@ Valida outputs de funciones contra un schema antes de retornarlos al LLM. Si el 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

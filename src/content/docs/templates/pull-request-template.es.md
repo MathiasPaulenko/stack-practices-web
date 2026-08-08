@@ -177,16 +177,16 @@ Retry-After: 60
 
 - **Manténlo conciso**: Plantillas largas desaniman completarlas
 - **Usa checkboxes**: Fáciles de escanear, difíciles de olvidar
-- **Enlaza issues**: Siempre referencia tickets relacionados. Usa la [Plantilla de Reporte de Bug](/docs/templates/bug-report-template) o la [Plantilla de Solicitud de Feature](/docs/templates/feature-request-template) para estructura de issues.
+- **Enlaza issues**: Siempre referencia tickets relacionados.
 - **Incluye screenshots**: Para cambios UI, la prueba visual es esencial
-- **Automatiza donde sea posible**: Deja que CI verifique lo que los bots pueden. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización.
+- **Automatiza donde sea posible**: Deja que CI verifique lo que los bots pueden.   Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización.
 - **Requiere evidencia de testing**: Screenshots, logs o comandos prueban que el cambio funciona
 - **Agrega sección de breaking changes**: Destaca cualquier cosa que requiera migración
 
 ## Errores Comunes
 
 - **Plantillas vacías**: Enviar sin completar las secciones requeridas
-- **Tests faltantes**: Olvidar actualizar o agregar tests. Consulta la [Guía de Estrategia de Testing](/guides/testing/testing-strategy-guide) para estándares de cobertura.
+- **Tests faltantes**: Consulta la [Guía de Estrategia de Testing](/guides/testing/testing-strategy-guide) para estándares de cobertura.
 - **Sin enlaces a issues**: Hace más difícil rastrear el contexto
 - **PRs grandes**: Cambios de más de 500 líneas son difíciles de revisar; divide en PRs más pequeños
 - **Sin descripción del porqué**: Los reviewers necesitan la motivación, no solo el qué
@@ -338,10 +338,10 @@ Rebasea frecuentemente contra main para evitar grandes conflictos de merge. Cons
 ## Troubleshooting
 
 - **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
-- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
-- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
-- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
-- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly.   Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes.   A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers.   Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts.
 
 ## Errores Comunes en Producción
 

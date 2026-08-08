@@ -154,7 +154,7 @@ The Timeout Pattern enforces a hard deadline on operations:
 
 - **Deadline**: The maximum time an operation is allowed to run
 - **Cancellation**: When the deadline expires, the operation is interrupted or abandoned
-- **Propagation**: Timeouts should propagate through call chains — if an API call has 5s, and it calls a DB that takes 4s, the DB call should use a shorter timeout (e.g., 3s) to leave margin
+- **Propagation**: Timeouts should propagate through call chains — if an API call has 5s, and it calls a DB that takes 4s, the DB call should use a shorter timeout (e. g.
 
 This prevents thread pool exhaustion, connection leaks, and poor user experience from unresponsive dependencies.
 
@@ -187,11 +187,11 @@ This prevents thread pool exhaustion, connection leaks, and poor user experience
 
 ## Troubleshooting
 
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
-- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
-- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).  A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.  Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
+- **Tests break when the design changes**: favor stable contracts over internal structure.
+- **Performance regression from indirection**: measure before and after.  Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
 
 

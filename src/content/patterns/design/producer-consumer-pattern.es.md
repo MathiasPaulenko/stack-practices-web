@@ -275,12 +275,12 @@ Multiples productores y consumidores pueden compartir la misma cola. La cola es 
 
 ## Errores Comunes
 
-- **Buffer sin limite con productor rapido**: La memoria crece hasta OOM. Siempre considera un limite.
-- **Cuello de botella de consumidor unico**: Un consumidor no da abasto con multiples productores. Escala consumidores.
-- **No manejar fallos del consumidor**: Si un consumidor crashea despues de tomar un item, el item se pierde. Usa acks o transacciones.
-- **Busy-waiting en lugar de bloqueo**: Polling de la cola en un loop desperdicia CPU. Usa operaciones bloqueantes (`put`, `take`, `get`, `await`).
+- **Buffer sin limite con productor rapido**: La memoria crece hasta OOM.   Siempre considera un limite.
+- **Cuello de botella de consumidor unico**: Un consumidor no da abasto con multiples productores.   Escala consumidores.
+- **No manejar fallos del consumidor**: Si un consumidor crashea despues de tomar un item, el item se pierde.
+- **Busy-waiting en lugar de bloqueo**: Polling de la cola en un loop desperdicia CPU.
 - **Olvidar detener consumidores**: Sin sentinel o senal de close, los consumidores esperan para siempre el siguiente item.
-- **Bloquear la cola externamente**: La cola ya es thread-safe. Locks externos causan deadlocks.
+- **Bloquear la cola externamente**: La cola ya es thread-safe.   Locks externos causan deadlocks.
 
 ## Preguntas Frecuentes
 

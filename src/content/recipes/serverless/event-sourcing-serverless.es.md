@@ -194,10 +194,10 @@ class OrderAggregate {
 
 ## Explicación
 
-- **Event store**: el event store es un log append-only. Los eventos nunca se actualizan ni eliminan. Cada evento tiene un ID único, un aggregate ID (la entidad a la que pertenece), un tipo, un payload y una versión. La versión asegura ordenamiento y previene escrituras concurrentes (control de concurrencia optimista vía `ConditionExpression`).
-- **Reconstrucción de agregado**: el estado actual de una entidad no se almacena directamente. En su lugar, cargas todos los eventos de un agregado y los reproduces en orden. El objeto agregado comienza vacío y aplica cada evento, mutando su estado interno. Esto es determinista — la misma secuencia de eventos siempre produce el mismo estado.
-- **Proyecciones (modelos de lectura)**: los modelos de lectura se construyen suscribiéndose al stream de eventos. Cuando un evento es agregado, una Lambda (disparada por DynamoDB streams) actualiza la vista optimizada para lectura. Puedes tener múltiples proyecciones para los mismos eventos — una para el dashboard del cliente, otra para analytics, otra para indexación de búsqueda.
-- **Snapshots**: reproducir miles de eventos para un agregado de larga vida es lento. Los snapshots cachean el estado del agregado en una versión específica. Para reconstruir, carga el último snapshot y reproduce solo eventos después de esa versión. Almacena snapshots periódicamente (ej. cada 100 eventos) y asíncronamente.
+- **Event store**: el event store es un log append-only.   Los eventos nunca se actualizan ni eliminan.   Cada evento tiene un ID único, un aggregate ID (la entidad a la que pertenece), un tipo, un payload y una versión.
+- **Reconstrucción de agregado**: En su lugar, cargas todos los eventos de un agregado y los reproduces en orden.   El objeto agregado comienza vacío y aplica cada evento, mutando su estado interno.   Esto es determinista — la misma secuencia de eventos siempre produce el mismo estado.
+- **Proyecciones (modelos de lectura)**: los modelos de lectura se construyen suscribiéndose al stream de eventos.   Puedes tener múltiples proyecciones para los mismos eventos — una para el dashboard del cliente, otra para analytics, otra para indexación de búsqueda.
+- **Snapshots**: reproducir miles de eventos para un agregado de larga vida es lento.   Los snapshots cachean el estado del agregado en una versión específica.   Para reconstruir, carga el último snapshot y reproduce solo eventos después de esa versión.   cada 100 eventos) y asíncronamente.
 
 ## Variantes
 
@@ -211,18 +211,18 @@ class OrderAggregate {
 
 ## Lo que funciona
 
-- **Versiona cada evento**: incluye una versión monotónicamente creciente por agregado. Usa `ConditionExpression` de DynamoDB para rechazar escrituras con versiones stale. Esto previene updates perdidos cuando dos usuarios modifican simultáneamente el mismo agregado.
-- **Haz los eventos inmutables y autocontenidos**: un evento debería llevar todos los datos necesarios para entenderlo, no solo deltas. `OrderCreated` debería incluir customer ID, dirección de envío y líneas de items — no solo "la orden 123 fue creada." Consumidores futuros no deberían necesitar consultar otros sistemas para interpretar el evento.
-- **Usa correlation IDs a través de la cadena de eventos**: cuando un evento dispara otro (ej. `OrderShipped` dispara `InventoryDecremented`), propaga el correlation ID. Esto habilita tracing end-to-end y debugging a través de cadenas de eventos distribuidas.
-- **Implementa proyecciones idempotentes**: las funciones Lambda reintentan ante fallas. Una proyección que incrementa un contador en cada invocación sobrecuentará. Diseña proyecciones idempotentes — escribe el event ID en la fila de proyección y salta si ya fue procesado.
-- **Archiva eventos viejos a cold storage**: DynamoDB es caro para almacenamiento a largo plazo de millones de eventos. Mueve eventos mayores a 90 días a S3 usando TTL de DynamoDB o jobs de export. Mantén el event store lean y consulta datos archivados vía Athena cuando sea necesario.
+- **Versiona cada evento**: Esto previene updates perdidos cuando dos usuarios modifican simultáneamente el mismo agregado.
+- **Haz los eventos inmutables y autocontenidos**: un evento debería llevar todos los datos necesarios para entenderlo, no solo deltas.  " Consumidores futuros no deberían necesitar consultar otros sistemas para interpretar el evento.
+- **Usa correlation IDs a través de la cadena de eventos**: cuando un evento dispara otro (ej.   `OrderShipped` dispara `InventoryDecremented`), propaga el correlation ID.   Esto habilita tracing end-to-end y debugging a través de cadenas de eventos distribuidas.
+- **Implementa proyecciones idempotentes**: las funciones Lambda reintentan ante fallas.   Una proyección que incrementa un contador en cada invocación sobrecuentará.   Diseña proyecciones idempotentes — escribe el event ID en la fila de proyección y salta si ya fue procesado.
+- **Archiva eventos viejos a cold storage**: DynamoDB es caro para almacenamiento a largo plazo de millones de eventos.   Mueve eventos mayores a 90 días a S3 usando TTL de DynamoDB o jobs de export.
 
 ## Errores comunes
 
-- **Almacenar estado actual junto a eventos**: si mantienes tanto un log de eventos como una tabla de estado actual, pueden divergir. Un bug en la proyección escribe estado A mientras el log contiene eventos para estado B. La fuente de verdad es el event store; las proyecciones son derivadas. No trates la proyección como estado primario.
-- **Exponer tipos de evento a sistemas externos**: los consumidores externos no deberían depender de schemas internos de eventos. Usa un schema de evento público (ej. `OrderConfirmed`) y mapea eventos internos a públicos. El refactoring interno de tipos de evento no debería romper integraciones externas.
-- **No manejar la evolución de schema de eventos**: cuando un tipo de evento cambia (agregando un campo), eventos viejos en el log no tienen el nuevo campo. El agregado debe manejar campos faltantes gracefulmente. Usa versionado de schema y valores por defecto, o upcast eventos viejos al cargar.
-- **Reproducir eventos desde el inicio para cada query**: siempre usa snapshots para agregados con historias largas. Reproducir 10,000 eventos para cada `GET /order/123` destruye el rendimiento. Toma snapshots asíncronamente y carga desde ellos.
+- **Almacenar estado actual junto a eventos**: si mantienes tanto un log de eventos como una tabla de estado actual, pueden divergir.   Un bug en la proyección escribe estado A mientras el log contiene eventos para estado B.   La fuente de verdad es el event store; las proyecciones son derivadas.   No trates la proyección como estado primario.
+- **Exponer tipos de evento a sistemas externos**: los consumidores externos no deberían depender de schemas internos de eventos.   `OrderConfirmed`) y mapea eventos internos a públicos.   El refactoring interno de tipos de evento no debería romper integraciones externas.
+- **No manejar la evolución de schema de eventos**: cuando un tipo de evento cambia (agregando un campo), eventos viejos en el log no tienen el nuevo campo.
+- **Reproducir eventos desde el inicio para cada query**: siempre usa snapshots para agregados con historias largas.   Reproducir 10,000 eventos para cada `GET /order/123` destruye el rendimiento.   Toma snapshots asíncronamente y carga desde ellos.
 
 
 
@@ -333,10 +333,10 @@ Las proyecciones son eventualmente consistentes por naturaleza — hay un lag en
 ## Troubleshooting
 
 - **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
-- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
-- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
-- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
-- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic.   Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless.   Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets.
+- **Event ordering issues**: many event sources are at-least-once and unordered.   Design for idempotency and explicit sequencing.
 
 ## Errores Comunes en Producción
 

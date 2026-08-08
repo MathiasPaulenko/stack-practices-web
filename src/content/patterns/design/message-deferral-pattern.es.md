@@ -221,11 +221,11 @@ Hay tres enfoques principales para la diferencia de mensajes:
 
 ## Errores Comunes
 
-- **Loops de diferimiento infinitos**: Un mensaje que siempre falla se difiere para siempre. Establece un maximo de reintentos y enruta a dead-letter despues.
-- **TTL por mensaje en RabbitMQ**: RabbitMQ solo verifica la cabeza de la cola para expiracion de TTL. Un mensaje con TTL largo bloquea mensajes detras con TTLs mas cortos.
-- **No rastrear mensajes diferidos**: Si el broker se reinicia, los mensajes diferidos pueden perderse. Usa colas durables y mensajes persistentes.
-- **Diferir en lugar de corregir**: Si un mensaje siempre falla por un bug, diferir solo retrasa el problema. Corrige la causa raiz.
-- **Diferir mensajes que deberían rechazarse**: Algunos mensajes son invalidos y nunca funcionaran. Rechazalos a una dead-letter queue en lugar de diferirlos.
+- **Loops de diferimiento infinitos**: Un mensaje que siempre falla se difiere para siempre.   Establece un maximo de reintentos y enruta a dead-letter despues.
+- **TTL por mensaje en RabbitMQ**: RabbitMQ solo verifica la cabeza de la cola para expiracion de TTL.   Un mensaje con TTL largo bloquea mensajes detras con TTLs mas cortos.
+- **No rastrear mensajes diferidos**: Si el broker se reinicia, los mensajes diferidos pueden perderse.
+- **Diferir en lugar de corregir**: Si un mensaje siempre falla por un bug, diferir solo retrasa el problema.   Corrige la causa raiz.
+- **Diferir mensajes que deberían rechazarse**: Algunos mensajes son invalidos y nunca funcionaran.   Rechazalos a una dead-letter queue en lugar de diferirlos.
 
 
 
@@ -338,11 +338,11 @@ Usa un id unico (messageId) y un store (Redis/DB) para trackear el estado. Antes
 
 ## Troubleshooting
 
-- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
-- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
-- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
-- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
-- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+- **Messages are lost on restart**: persist messages before acknowledging.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic.
+- **Duplicate messages**: design consumers to be idempotent.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts.   Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues.   Restart gracefully.
 
 ## Errores Comunes en Producción
 

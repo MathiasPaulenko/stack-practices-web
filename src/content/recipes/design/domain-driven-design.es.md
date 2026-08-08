@@ -192,10 +192,10 @@ public class OrderToShipmentAdapter {
 
 ## Explicación
 
-- **Bounded context**: un límite lógico dentro del cual un modelo de dominio es consistente. El término "cliente" significa algo diferente en billing (perfil de pago) que en soporte (historial de tickets). Cada contexto tiene su propio modelo, lenguaje y esquema de base de datos. Los contextos se integran vía APIs, eventos o anti-corruption layers.
-- **Aggregate**: un clúster de entidades y value objects tratados como una única unidad para cambios de datos. La aggregate root es la única entidad que código externo puede referenciar directamente. Todos los cambios dentro del aggregate deben pasar por la root, asegurando que los invariantes sean respetados. Ejemplo: un aggregate `Order` contiene value objects `OrderLine`.
-- **Value object**: un objeto inmutable definido por sus atributos, no por identidad. Dos objetos `Money` con amount 100 y currency USD son iguales e intercambiables. Los value objects embeben reglas de negocio (ej. currency debe ser código ISO de 3 letras) y previenen estados inválidos.
-- **Domain event**: una notificación de que algo significativo ocurrió en el dominio. `OrderPlaced` se publica cuando una orden es enviada. Otros contextos se suscriben a estos eventos para reaccionar — inventario decrementa stock, billing crea una factura, shipping prepara un paquete.
+- **Bounded context**: un límite lógico dentro del cual un modelo de dominio es consistente.   El término "cliente" significa algo diferente en billing (perfil de pago) que en soporte (historial de tickets).   Cada contexto tiene su propio modelo, lenguaje y esquema de base de datos.   Los contextos se integran vía APIs, eventos o anti-corruption layers.
+- **Aggregate**: un clúster de entidades y value objects tratados como una única unidad para cambios de datos.   La aggregate root es la única entidad que código externo puede referenciar directamente.   Todos los cambios dentro del aggregate deben pasar por la root, asegurando que los invariantes sean respetados.   Ejemplo: un aggregate `Order` contiene value objects `OrderLine`.
+- **Value object**: un objeto inmutable definido por sus atributos, no por identidad.   Dos objetos `Money` con amount 100 y currency USD son iguales e intercambiables.   Los value objects embeben reglas de negocio (ej.   currency debe ser código ISO de 3 letras) y previenen estados inválidos.
+- **Domain event**: una notificación de que algo significativo ocurrió en el dominio.   `OrderPlaced` se publica cuando una orden es enviada.   Otros contextos se suscriben a estos eventos para reaccionar — inventario decrementa stock, billing crea una factura, shipping prepara un paquete.
 
 ## Variantes
 
@@ -209,18 +209,18 @@ public class OrderToShipmentAdapter {
 
 ## Lo que funciona
 
-- **Mantén aggregates pequeños**: un aggregate debería caber cómodamente en memoria y ser escribible en una sola transacción. Si cargar una orden requiere unir 50 tablas, tu aggregate es demasiado grande. Separa en aggregates más pequeños y usa consistencia eventual vía domain events.
-- **Diseña para invariantes, no CRUD**: en lugar de métodos genéricos `create`, `update`, `delete`, expón métodos orientados a comportamiento como `add_item`, `submit`, `cancel`. Estos métodos enforce reglas de negocio (ej. "no se puede cancelar una orden enviada") en la capa de dominio.
-- **Usa el lenguaje ubicuo**: nombra clases, métodos y variables usando los mismos términos que usan los expertos de dominio. Si los contadores dicen "postear un asiento contable", tu código debería tener `journal.post_entry()`, no `create_transaction_record()`. Esto cierra la brecha entre código y conversación.
-- **Publica domain events antes de persistencia**: el patrón es — mutar aggregate, colectar eventos, persistir aggregate, publicar eventos. Consulta [Transacciones de Base de Datos](/recipes/databases/database-transactions) para consistencia atómica. Si la persistencia falla, los eventos nunca fueron publicados, manteniendo consistencia. Nunca publiques eventos antes de que la transacción se confirme.
-- **Evita modelos de dominio anémicos**: un modelo anémico tiene entidades con solo getters y setters, mientras toda la lógica vive en clases de servicio. Esto es solo un esquema de base de datos en código. Empuja las reglas de negocio hacia entidades y value objects donde pertenecen.
+- **Mantén aggregates pequeños**: un aggregate debería caber cómodamente en memoria y ser escribible en una sola transacción.   Si cargar una orden requiere unir 50 tablas, tu aggregate es demasiado grande.
+- **Diseña para invariantes, no CRUD**: en lugar de métodos genéricos `create`, `update`, `delete`, expón métodos orientados a comportamiento como `add_item`, `submit`, `cancel`.   Estos métodos enforce reglas de negocio (ej.   "no se puede cancelar una orden enviada") en la capa de dominio.
+- **Usa el lenguaje ubicuo**: nombra clases, métodos y variables usando los mismos términos que usan los expertos de dominio.   Si los contadores dicen "postear un asiento contable", tu código debería tener `journal.  post_entry()`, no `create_transaction_record()`.   Esto cierra la brecha entre código y conversación.
+- **Publica domain events antes de persistencia**: el patrón es — mutar aggregate, colectar eventos, persistir aggregate, publicar eventos.   Consulta [Transacciones de Base de Datos](/recipes/databases/database-transactions) para consistencia atómica.   Si la persistencia falla, los eventos nunca fueron publicados, manteniendo consistencia.   Nunca publiques eventos antes de que la transacción se confirme.
+- **Evita modelos de dominio anémicos**: un modelo anémico tiene entidades con solo getters y setters, mientras toda la lógica vive en clases de servicio.   Esto es solo un esquema de base de datos en código.   Empuja las reglas de negocio hacia entidades y value objects donde pertenecen.
 
 ## Errores comunes
 
-- **Un bounded context gigante**: modelar toda una empresa como un único contexto crea un enredo. Si dos equipos frecuentemente conflictúan sobre la definición de un término, necesitan contextos separados. Fusiona contextos solo cuando el costo de traducción excede el costo de coordinación.
-- **Filtrar persistencia al dominio**: los aggregates no deberían saber sobre anotaciones de ORM, queries SQL o esquemas de documentos. La capa de dominio define repositories como interfaces; la infraestructura los implementa. Esto permite testear lógica de negocio sin base de datos.
-- **Sobre-ingeniería dominios simples**: DDD es capaz pero costoso. Un panel de administración CRUD para un catálogo de 10 entidades no necesita aggregates, domain events y mapas de contexto. Usa DDD cuando la complejidad del negocio justifique el costo de abstracción.
-- **Faltar anti-corruption layers**: al integrar con sistemas externos, usar directamente sus modelos de datos contamina tu dominio. Crea una anti-corruption layer que traduzca conceptos externos a tu lenguaje ubicuo, protegiendo tu modelo de cambios externos.
+- **Un bounded context gigante**: modelar toda una empresa como un único contexto crea un enredo.   Si dos equipos frecuentemente conflictúan sobre la definición de un término, necesitan contextos separados.   Fusiona contextos solo cuando el costo de traducción excede el costo de coordinación.
+- **Filtrar persistencia al dominio**: los aggregates no deberían saber sobre anotaciones de ORM, queries SQL o esquemas de documentos.   La capa de dominio define repositories como interfaces; la infraestructura los implementa.   Esto permite testear lógica de negocio sin base de datos.
+- **Sobre-ingeniería dominios simples**: DDD es capaz pero costoso.   Un panel de administración CRUD para un catálogo de 10 entidades no necesita aggregates, domain events y mapas de contexto.
+- **Faltar anti-corruption layers**: al integrar con sistemas externos, usar directamente sus modelos de datos contamina tu dominio.   Crea una anti-corruption layer que traduzca conceptos externos a tu lenguaje ubicuo, protegiendo tu modelo de cambios externos.
 
 ## Preguntas frecuentes
 

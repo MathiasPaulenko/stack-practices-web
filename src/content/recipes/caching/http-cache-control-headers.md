@@ -240,10 +240,10 @@ CDNs use the longer `Surrogate-Control` TTL, while browsers use the shorter `Cac
 
 ## Troubleshooting
 
-- **Cache and database are out of sync**: define a TTL or invalidation policy. Use write-through or write-behind with a clear ownership model.
-- **Hit rate dropped after a deployment**: check cache key generation and serialization changes. A new version may use different keys.
+- **Cache and database are out of sync**: define a TTL or invalidation policy.
+- **Hit rate dropped after a deployment**: check cache key generation and serialization changes.  A new version may use different keys.
 - **Cold cache causes thundering herd**: use cache warming, request coalescing, or single-flight patterns for hot keys.
-- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration. Audit large values.
+- **Memory usage grows uncontrollably**: set max memory policies, eviction thresholds, and key expiration.  Audit large values.
 - **Stale data served to users**: implement cache invalidation on write and cache-bust URLs for static assets.
 
 

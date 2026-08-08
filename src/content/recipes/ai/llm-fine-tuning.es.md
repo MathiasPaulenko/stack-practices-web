@@ -281,13 +281,13 @@ Rank (`r`) controla el tamaño de las matrices de update — mayor rank signific
 
 ## Buenas Prácticas
 
-- **Comienza con un subset pequeño**: entrena en 50-100 ejemplos primero para verificar que el pipeline funciona end-to-end. Debuguea issues de formateo, tokenización y loop de entrenamiento antes de escalar al dataset completo.
-- **Usa weight decay para regularización**: setea `weight_decay` a 0.01-0.1 en la config de tu optimizer. Esto previene que los adaptadores LoRA overfiteen a ruido en los datos de entrenamiento.
-- **Loguea métricas de entrenamiento a Weights & Biases o TensorBoard**: trackea loss, learning rate y métricas de validación en tiempo real. Visualizar curvas de entrenamiento ayuda a detectar divergencia temprano.
-- **Testea con inputs diversos después de entrenar**: evalúa el modelo en inputs que difieran de los ejemplos de entrenamiento en estilo, longitud y complejidad. Esto revela si el modelo generalizó o memorizó.
-- **Mergea pesos de LoRA antes del despliegue**: mergeear reduce la latencia de inferencia porque el modelo ya no necesita computar adaptadores LoRA en runtime. Usa `merge_and_unload()` en PEFT.
-- **Mantén datos de entrenamiento bajo version control**: almacena datasets en Git LFS o DVC. Taggea cada run de entrenamiento con la versión del dataset, config del modelo y script de entrenamiento usado. Esto asegura reproducibilidad.
-- **Setea pipelines de evaluación automatizados**: crea un script que ejecute el modelo en un test set fijo y reporte métricas después de cada run de entrenamiento. Compara contra runs previos para detectar regresiones.
+- **Comienza con un subset pequeño**: entrena en 50-100 ejemplos primero para verificar que el pipeline funciona end-to-end.   Debuguea issues de formateo, tokenización y loop de entrenamiento antes de escalar al dataset completo.
+- **Usa weight decay para regularización**: setea `weight_decay` a 0.  01-0.  1 en la config de tu optimizer.   Esto previene que los adaptadores LoRA overfiteen a ruido en los datos de entrenamiento.
+- **Loguea métricas de entrenamiento a Weights & Biases o TensorBoard**: Visualizar curvas de entrenamiento ayuda a detectar divergencia temprano.
+- **Testea con inputs diversos después de entrenar**: evalúa el modelo en inputs que difieran de los ejemplos de entrenamiento en estilo, longitud y complejidad.   Esto revela si el modelo generalizó o memorizó.
+- **Mergea pesos de LoRA antes del despliegue**: mergeear reduce la latencia de inferencia porque el modelo ya no necesita computar adaptadores LoRA en runtime.
+- **Mantén datos de entrenamiento bajo version control**: Taggea cada run de entrenamiento con la versión del dataset, config del modelo y script de entrenamiento usado.
+- **Setea pipelines de evaluación automatizados**: crea un script que ejecute el modelo en un test set fijo y reporte métricas después de cada run de entrenamiento.
 
 ## Checklist de Producción
 
@@ -306,11 +306,11 @@ Rank (`r`) controla el tamaño de las matrices de update — mayor rank signific
 
 Al hacer fine-tuning a escala, considera estos factores:
 
-- **Límites de memoria GPU**: LoRA reduce los requisitos de memoria, pero aún necesitas suficiente VRAM para el modelo base. Un modelo 7B necesita ~14 GB VRAM en precisión 16-bit. Usa gradient checkpointing y 4-bit quantization (QLoRA) para fittear modelos más grandes en GPUs más pequeñas.
-- **Tiempo de entrenamiento**: fine-tunear un modelo 7B en 10K ejemplos por 3 epochs toma 2-6 horas en una sola A100. Para datasets o modelos más grandes, usa entrenamiento distribuido across múltiples GPUs con DeepSpeed o FSDP.
-- **Tamaño de dataset vs. calidad**: 500 ejemplos de alta calidad a menudo outperforman 5000 mediocres. Fócate en accuracy de etiquetas, phrasing diverso y edge cases. Un dataset demasiado grande con etiquetas ruidosas degrada el rendimiento del modelo.
-- **Costo de inferencia después del fine-tuning**: un modelo 7B fine-tuned servido vía vLLM o TGI cuesta ~$0.001 por 1K tokens en una GPU self-hosted. Compara esto contra GPT-4o-mini a $0.00015 por 1K tokens. Fine-tuning gana cuando necesitas comportamiento domain-specific que prompting no puede lograr.
-- **Infraestructura de serving de modelo**: usa vLLM, Text Generation Inference (TGI) u Ollama para servir modelos fine-tuned. vLLM soporta PagedAttention para inferencia batched eficiente. Setea auto-scaling basado en la profundidad de la cola de requests.
+- **Límites de memoria GPU**: LoRA reduce los requisitos de memoria, pero aún necesitas suficiente VRAM para el modelo base.   Un modelo 7B necesita ~14 GB VRAM en precisión 16-bit.
+- **Tiempo de entrenamiento**: fine-tunear un modelo 7B en 10K ejemplos por 3 epochs toma 2-6 horas en una sola A100.
+- **Tamaño de dataset vs. calidad**: 500 ejemplos de alta calidad a menudo outperforman 5000 mediocres.   Fócate en accuracy de etiquetas, phrasing diverso y edge cases.   Un dataset demasiado grande con etiquetas ruidosas degrada el rendimiento del modelo.
+- **Costo de inferencia después del fine-tuning**: un modelo 7B fine-tuned servido vía vLLM o TGI cuesta ~$0.  001 por 1K tokens en una GPU self-hosted.  00015 por 1K tokens.   Fine-tuning gana cuando necesitas comportamiento domain-specific que prompting no puede lograr.
+- **Infraestructura de serving de modelo**: vLLM soporta PagedAttention para inferencia batched eficiente.   Setea auto-scaling basado en la profundidad de la cola de requests.
 
 ## Estimación de Costos
 
@@ -326,19 +326,19 @@ Fine-tuning es cost-effective cuando necesitas comportamiento domain-specific qu
 
 ## Cuándo No Hacer Fine-Tuning
 
-- **Prompt engineering resuelve el problema**: prueba few-shot prompting, chain-of-thought y formatos de output estructurados primero. Fine-tuning es costoso y time-consuming comparado con iteración de prompts.
-- **Tu dataset es <100 ejemplos**: LoRA necesita al menos 200-500 ejemplos para aprender patrones meaningful. Por debajo de eso, estás overfiteando a ruido.
-- **La tarea cambia frecuentemente**: los modelos fine-tuned están frozen al momento del entrenamiento. Si la definición de tu tarea cambia mensualmente, vas a retrainear repetidamente. Usa prompting en su lugar, que se adapta instantáneamente.
-- **Necesitas razonamiento multi-paso**: fine-tuning mejora estilo y tono pero no enseña nuevas capacidades de razonamiento. Para razonamiento complejo, usa agentes o chain-of-thought prompting.
-- **El presupuesto de latencia es tight**: modelos 7B fine-tuned en GPUs self-hosted tienen mayor latencia que llamadas API a GPT-4o-mini. Para aplicaciones de baja latencia, usa APIs hosted con streaming.
+- **Prompt engineering resuelve el problema**: prueba few-shot prompting, chain-of-thought y formatos de output estructurados primero.   Fine-tuning es costoso y time-consuming comparado con iteración de prompts.
+- **Tu dataset es <100 ejemplos**: LoRA necesita al menos 200-500 ejemplos para aprender patrones meaningful.   Por debajo de eso, estás overfiteando a ruido.
+- **La tarea cambia frecuentemente**: los modelos fine-tuned están frozen al momento del entrenamiento.   Si la definición de tu tarea cambia mensualmente, vas a retrainear repetidamente.
+- **Necesitas razonamiento multi-paso**: fine-tuning mejora estilo y tono pero no enseña nuevas capacidades de razonamiento.
+- **El presupuesto de latencia es tight**: modelos 7B fine-tuned en GPUs self-hosted tienen mayor latencia que llamadas API a GPT-4o-mini.
 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

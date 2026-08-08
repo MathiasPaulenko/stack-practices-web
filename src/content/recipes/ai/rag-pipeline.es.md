@@ -269,13 +269,13 @@ Sí. Usa `pgvector` (extensión de PostgreSQL) para almacenar embeddings junto a
 
 ## Buenas Prácticas
 
-- **Usa modelos de re-ranking**: después de recuperar top-20 fragmentos vía búsqueda vectorial, re-rankea con un modelo cross-encoder como `bge-reranker` o Cohere Rerank. Re-ranking mejora precisión scoreando pares query-fragmento directamente en lugar de depender solo en similitud de embedding.
-- **Implementa expansión de queries**: transforma la query del usuario en múltiples variaciones antes de la recuperación. Usa un LLM para generar 2-3 paráfrasis de la query, embebe todas las variaciones, y mergea resultados. Esto captura documentos que usan terminología diferente.
-- **Añade una capa de guardrails**: antes de enviar el contexto recuperado al LLM, filtra fragmentos por PII, contenido tóxico o material off-topic. Esto previene que el LLM genere respuestas basadas en contexto inapropiado.
-- **Trackea métricas de recuperación en producción**: loguea los top-k fragmentos recuperados para cada query, sus scores de similitud, y si el usuario encontró útil la respuesta. Usa este feedback para tunear tamaño de fragmento, modelo de embedding y parámetros de recuperación.
-- **Usa parent-child chunking**: almacena fragmentos pequeños (200 tokens) para recuperación precisa pero fetchea el fragmento padre (1000 tokens) para contexto. Esto le da al LLM suficiente contexto circundante sin diluir la precisión de recuperación.
-- **Implementa indexación incremental**: en lugar de re-indexar todo el corpus en cada update, trackea versiones de documentos y solo re-embebe documentos cambiados. Usa un content hash para detectar qué documentos necesitan re-indexación.
-- **Setea monitoreo de calidad de recuperación**: trackea métricas como recall@k, mean reciprocal rank y relevancia de respuestas a lo largo del tiempo. Alerta cuando la calidad caiga, lo que puede indicar embeddings stale, cambios de modelo o problemas de datos.
+- **Usa modelos de re-ranking**: después de recuperar top-20 fragmentos vía búsqueda vectorial, re-rankea con un modelo cross-encoder como `bge-reranker` o Cohere Rerank.   Re-ranking mejora precisión scoreando pares query-fragmento directamente en lugar de depender solo en similitud de embedding.
+- **Implementa expansión de queries**: transforma la query del usuario en múltiples variaciones antes de la recuperación.   Esto captura documentos que usan terminología diferente.
+- **Añade una capa de guardrails**: antes de enviar el contexto recuperado al LLM, filtra fragmentos por PII, contenido tóxico o material off-topic.
+- **Trackea métricas de recuperación en producción**: loguea los top-k fragmentos recuperados para cada query, sus scores de similitud, y si el usuario encontró útil la respuesta.
+- **Usa parent-child chunking**: Esto le da al LLM suficiente contexto circundante sin diluir la precisión de recuperación.
+- **Implementa indexación incremental**: en lugar de re-indexar todo el corpus en cada update, trackea versiones de documentos y solo re-embebe documentos cambiados.
+- **Setea monitoreo de calidad de recuperación**: trackea métricas como recall@k, mean reciprocal rank y relevancia de respuestas a lo largo del tiempo.   Alerta cuando la calidad caiga, lo que puede indicar embeddings stale, cambios de modelo o problemas de datos.
 
 ## Checklist de Producción
 
@@ -294,11 +294,11 @@ Sí. Usa `pgvector` (extensión de PostgreSQL) para almacenar embeddings junto a
 
 Al desplegar pipelines RAG a escala, considera estos factores:
 
-- **Elección de vector store**: para <100K documentos, pgvector es suficiente y evita un servicio separado. Para 100K-1M documentos, usa Pinecone o Weaviate con infraestructura managed. Para 1M+ documentos, self-hostea Milvus o Qdrant con búsqueda GPU-accelerated.
-- **Costo de embedding**: indexar 100K documentos con `text-embedding-3-small` cuesta ~$1. Re-indexar en cada cambio de documento es costoso. Implementa indexación incremental: trackea content hashes de documentos y solo re-embebe documentos cambiados.
-- **Latencia de recuperación**: búsqueda vectorial en 1M documentos toma 10-50 ms con un índice optimizado (HNSW). Re-ranking con un cross-encoder agrega 50-100 ms. Para latencia total sub-100ms, usa approximate nearest neighbor (ANN) search y limita el re-ranking a top-20 resultados.
-- **Gestión del context window**: el context window del LLM limita cuántos fragmentos puedes alimentarle. GPT-4o soporta 128K tokens, pero alimentar más de 10K tokens de contexto aumenta el costo y puede reducir la calidad de la respuesta. Selecciona top 3-5 fragmentos después del re-ranking.
-- **Frecuencia de actualización de documentos**: para contenido frecuentemente actualizado (noticias, catálogos de productos), setea un pipeline de re-indexación triggered por webhooks. Para contenido estático (documentación, políticas), un batch re-index nocturno es suficiente.
+- **Elección de vector store**: Para 1M+ documentos, self-hostea Milvus o Qdrant con búsqueda GPU-accelerated.
+- **Costo de embedding**: indexar 100K documentos con `text-embedding-3-small` cuesta ~$1.   Re-indexar en cada cambio de documento es costoso.
+- **Latencia de recuperación**: búsqueda vectorial en 1M documentos toma 10-50 ms con un índice optimizado (HNSW).   Re-ranking con un cross-encoder agrega 50-100 ms.
+- **Gestión del context window**: el context window del LLM limita cuántos fragmentos puedes alimentarle.   GPT-4o soporta 128K tokens, pero alimentar más de 10K tokens de contexto aumenta el costo y puede reducir la calidad de la respuesta.   Selecciona top 3-5 fragmentos después del re-ranking.
+- **Frecuencia de actualización de documentos**: para contenido frecuentemente actualizado (noticias, catálogos de productos), setea un pipeline de re-indexación triggered por webhooks.   Para contenido estático (documentación, políticas), un batch re-index nocturno es suficiente.
 
 ## Estimación de Costos
 
@@ -315,11 +315,11 @@ Para 10K queries/día con GPT-4o: ~$150/día. Switchea a GPT-4o-mini para querie
 
 ## Cuándo No Usar RAG
 
-- **Tu base de conocimiento es pequeña (<50 documentos)**: con pocos documentos, fittalos todos en el context window del LLM directamente. RAG agrega complejidad de infraestructura sin beneficio cuando el corpus entero fittea en un solo prompt.
-- **Las respuestas requieren quotes exactos, no resúmenes**: RAG recupera fragmentos, no documentos completos. Si los usuarios necesitan texto verbatim (cláusulas legales, samples de código), retorna documentos completos con keyword search en su lugar.
-- **Tus documentos son altamente estructurados (tablas, formularios)**: los embeddings strugglean con datos tabulares. Usa un enfoque text-to-SQL o structured query language en lugar de vector search para bases de datos y spreadsheets.
-- **Se requiere data real-time**: los índices RAG son eventually consistent. Si necesitas respuestas que reflejen data que cambió hace segundos, queryea la fuente directamente en lugar de depender del índice.
-- **Necesitas fuentes citadas para cada claim**: aunque RAG puede proporcionar source chunks, no garantiza que cada oración en la respuesta sea traceable. Para use cases académicos o legales, usa un enfoque quote-based donde el LLM solo puede outputear texto de pasajes recuperados.
+- **Tu base de conocimiento es pequeña (<50 documentos)**: con pocos documentos, fittalos todos en el context window del LLM directamente.   RAG agrega complejidad de infraestructura sin beneficio cuando el corpus entero fittea en un solo prompt.
+- **Las respuestas requieren quotes exactos, no resúmenes**: RAG recupera fragmentos, no documentos completos.   Si los usuarios necesitan texto verbatim (cláusulas legales, samples de código), retorna documentos completos con keyword search en su lugar.
+- **Tus documentos son altamente estructurados (tablas, formularios)**: los embeddings strugglean con datos tabulares.
+- **Se requiere data real-time**: los índices RAG son eventually consistent.   Si necesitas respuestas que reflejen data que cambió hace segundos, queryea la fuente directamente en lugar de depender del índice.
+- **Necesitas fuentes citadas para cada claim**: aunque RAG puede proporcionar source chunks, no garantiza que cada oración en la respuesta sea traceable.
 
 ## Benchmarks de Rendimiento
 
@@ -336,10 +336,10 @@ Pipeline RAG end-to-end: 200ms-6s por query. El step de LLM generation domina la
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

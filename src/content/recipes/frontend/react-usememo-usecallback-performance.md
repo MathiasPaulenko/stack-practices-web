@@ -51,14 +51,14 @@ seo:
 ## When to Use
 
 - **Expensive computations**: filtering a list of 10,000 items, parsing large JSON, complex math
-- **Stable references for memoized children**: passing callbacks to `React.memo` components that would otherwise re-render on every parent render
+- **Stable references for memoized children**: passing callbacks to `React.
 - **Stable dependencies for other hooks**: a value used in a `useEffect` dependency array that shouldn't trigger the effect on every render
 - **Context value stabilization**: preventing all context consumers from re-rendering when the provider's state changes
 
 ## When NOT to Use
 
 - **Cheap computations**: simple arithmetic, string concatenation, small array operations — the hook overhead exceeds the savings
-- **Functions passed only to non-memoized children**: if the child doesn't use `React.memo`, a new function reference doesn't cause extra renders
+- **Functions passed only to non-memoized children**: if the child doesn't use `React.
 - **Primitive values**: `useMemo(() => 42, [])` — primitives are compared by value, not reference
 - **Every variable and function**: wrapping everything in hooks is cargo-cult programming, not optimization
 
@@ -297,18 +297,18 @@ function useFilteredData(data, filterFn) {
 
 - **Wrapping everything in hooks**: `useMemo(() => a + b, [a, b])` for simple addition is slower than `const sum = a + b`
 - **Empty dependency arrays with changing values**: `useMemo(() => compute(x), [])` — `x` is captured once and never updates
-- **Using useMemo for side effects**: `useMemo` is for pure computations. Use `useEffect` for side effects.
+- **Using useMemo for side effects**: `useMemo` is for pure computations.
 - **Not memoizing context values**: a new object literal in a context provider causes all consumers to re-render
 - **Memoizing the wrong thing**: memoizing the result of a cheap operation while ignoring the expensive one
 
 
 ## Troubleshooting
 
-- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
-- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
-- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
-- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
-- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+- **Component does not re-render**: verify state reference, props, and memoization.  A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins.  Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast.
+- **Hydration mismatch**: ensure server and client render the same initial HTML. random, or window during SSR.
 
 
 ## Key Takeaways

@@ -244,8 +244,8 @@ public class FederatedIdentityApp {
 
 The Federated Identity Pattern separates authentication from the application:
 
-- **Identity Provider (IdP)**: Google, GitHub, Azure AD, Okta. Stores credentials, handles login flows.
-- **Relying Party (RP)**: Your application. Trusts the IdP, receives tokens, never sees passwords.
+- **Identity Provider (IdP)**: Google, GitHub, Azure AD, Okta.  Stores credentials, handles login flows.
+- **Relying Party (RP)**: Your application.  Trusts the IdP, receives tokens, never sees passwords.
 - **Protocols**: OAuth2 (authorization), OIDC (authentication layer on OAuth2), SAML (enterprise SSO).
 - **Token Flow**: User → IdP (login) → Authorization Code → App exchanges code for tokens → App verifies ID token → User is authenticated.
 - **Single Sign-On (SSO)**: Once authenticated with the IdP, the user can access multiple RPs without re-entering credentials.
@@ -285,10 +285,10 @@ The Federated Identity Pattern separates authentication from the application:
 
 ## Troubleshooting
 
-- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings. Look for case sensitivity in identifiers.
-- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew. Short tokens with secure refresh are preferred.
-- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
-- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
+- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings.  Look for case sensitivity in identifiers.
+- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew.  Short tokens with secure refresh are preferred.
+- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly.
+- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
 
 

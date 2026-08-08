@@ -132,7 +132,7 @@ If this runbook does not resolve the issue within [timeframe], escalate to:
 - **Keep it short**: One page per routine procedure
 - **Use checkboxes**: Make it easy to follow under pressure
 - **Include commands**: Copy-paste ready scripts
-- **Test periodically**: Run through runbooks during calm periods. See [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template) for drill planning.
+- **Test periodically**: Run through runbooks during calm periods.  See [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template) for drill planning.
 - **Version control**: Store in `docs/runbooks/` with your code
 
 ## Common Anti-Patterns

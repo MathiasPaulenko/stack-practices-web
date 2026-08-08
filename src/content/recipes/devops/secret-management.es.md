@@ -119,10 +119,10 @@ spec:
 
 ## Explicación
 
-- **Encriptación at rest**: Los secretos se encriptan antes de escribirse a disco. AWS usa KMS, Vault usa su propio motor de encriptación, y Kubernetes almacena secrets base64-encoded (siempre habilita encriptación de etcd para K8s).
-- **Secretos en vivo**: Vault y AWS pueden generar credenciales de corta duración bajo demanda. Un rol de PostgreSQL podría ser válido por 1 hora y luego revocarse automáticamente, minimizando el blast radius si se filtran.
-- **Control de acceso**: Políticas IAM, políticas de Vault y RBAC de Kubernetes restringen qué servicios o usuarios pueden leer qué secretos. Nunca otorgues acceso de lectura a todos los secretos.
-- **Audit logging**: cada lectura, escritura y rotación de secreto se loguea. Reenvía estos logs a herramientas SIEM para detección de anomalías.
+- **Encriptación at rest**: Los secretos se encriptan antes de escribirse a disco.
+- **Secretos en vivo**: Un rol de PostgreSQL podría ser válido por 1 hora y luego revocarse automáticamente, minimizando el blast radius si se filtran.
+- **Control de acceso**: Políticas IAM, políticas de Vault y RBAC de Kubernetes restringen qué servicios o usuarios pueden leer qué secretos.   Nunca otorgues acceso de lectura a todos los secretos.
+- **Audit logging**: cada lectura, escritura y rotación de secreto se loguea.   Reenvía estos logs a herramientas SIEM para detección de anomalías.
 
 ## Variantes
 
@@ -136,18 +136,18 @@ spec:
 
 ## Lo que funciona
 
-- **Nunca commitees secretos a Git**: usa `.gitignore` para archivos `.env` y hooks pre-commit (como `git-secrets` o `truffleHog`) para escanear commits accidentales.
+- **Nunca commitees secretos a Git**: gitignore` para archivos `.  env` y hooks pre-commit (como `git-secrets` o `truffleHog`) para escanear commits accidentales.
 - **Rota secretos regularmente**: configura políticas de rotación automática (30-90 días) y rota inmediatamente si un secreto es expuesto o un empleado se va.
-- **Usa acceso least-privilege**: otorga a cada servicio exactamente los secretos que necesita. Un servidor web no necesita la clave de encriptación de backups.
-- **Cachea secretos brevemente, no para siempre**: obtén secretos al inicio y refréscalos periódicamente. No llames al secret manager en cada request.
+- **Usa acceso least-privilege**: otorga a cada servicio exactamente los secretos que necesita.   Un servidor web no necesita la clave de encriptación de backups.
+- **Cachea secretos brevemente, no para siempre**: obtén secretos al inicio y refréscalos periódicamente.   No llames al secret manager en cada request.
 - **Separa secretos por entorno**: `prod/db/password`, `staging/db/password` y `dev/db/password` deberían ser valores diferentes en diferentes paths de vault.
 
 ## Errores comunes
 
-- **Almacenar secretos en variables de entorno en hosts compartidos**: las variables de entorno son visibles por todos los procesos en la misma máquina. Usa inyección basada en archivos o sidecars de secretos dedicados en su lugar.
-- **Olvidar rotar después de brechas**: cambiar la contraseña de aplicación no es suficiente. Rota API keys, certificados y secretos de sesión de forma comprehensiva.
-- **Loguear secretos**: nunca loguees el valor completo de un secreto. Si debes loguear acceso, loguea el nombre del secreto y timestamp, nunca la contraseña misma.
-- **Usar Kubernetes Secrets sin encriptación de etcd**: por default, los Kubernetes Secrets están base64-encoded, no encriptados. Habilita encriptación at rest de etcd.
+- **Almacenar secretos en variables de entorno en hosts compartidos**: las variables de entorno son visibles por todos los procesos en la misma máquina.
+- **Olvidar rotar después de brechas**: cambiar la contraseña de aplicación no es suficiente.   Rota API keys, certificados y secretos de sesión de forma comprehensiva.
+- **Loguear secretos**: nunca loguees el valor completo de un secreto.   Si debes loguear acceso, loguea el nombre del secreto y timestamp, nunca la contraseña misma.
+- **Usar Kubernetes Secrets sin encriptación de etcd**: por default, los Kubernetes Secrets están base64-encoded, no encriptados.   Habilita encriptación at rest de etcd.
 
 ## Preguntas frecuentes
 

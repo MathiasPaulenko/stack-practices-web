@@ -223,17 +223,17 @@ Generates an SVG badge with the current coverage percentage for your README.
 - **Chasing 100% coverage**: writing trivial tests (`assert True`) to cover lines without verifying behavior.
 - **Not using branch coverage**: line coverage of 100% can still miss `else` branches.
 - **Including test files in coverage**: `tests/` should be excluded — you're measuring production code.
-- **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file. Run `coverage combine` before reporting.
+- **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file.  Run `coverage combine` before reporting.
 - **Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.  Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.  Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.  Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database.  Reset state before each test.
 
 
 ## Key Takeaways

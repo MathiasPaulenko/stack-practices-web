@@ -216,7 +216,7 @@ La cola actua como un **buffer** entre productores y consumidores:
 
 ## Ejemplos del Mundo Real
 
-- **Amazon SQS**: La implementacion canonica de nivelacion de carga basada en colas. Las funciones Lambda procesan a una concurrencia configurable.
+- **Amazon SQS**: La implementacion canonica de nivelacion de carga basada en colas.   Las funciones Lambda procesan a una concurrencia configurable.
 - **Stripe**: Acepta solicitudes sincronicamente pero procesa analisis de riesgo, verificaciones de fraude y liquidacion asincronicamente.
 - **Kubernetes HPA**: Puede escalar deployments basandose en metricas de profundidad de cola.
 
@@ -334,11 +334,11 @@ Usa CloudWatch alarm en QueueDepth: si > 1000, scale up 2 workers. Si < 100, sca
 
 ## Troubleshooting
 
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
-- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
-- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).   A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.   Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
+- **Tests break when the design changes**: favor stable contracts over internal structure.
+- **Performance regression from indirection**: measure before and after.   Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
 ## Errores Comunes en Producción
 

@@ -251,9 +251,9 @@ El insight clave: **ningun thread espera un lock**. Si un CAS falla, el thread r
 
 Los algoritmos de cola lock-free mas comunes son:
 
-- **Michael & Scott**: Cola de lista enlazada sin limite. Usada por `ConcurrentLinkedQueue` de Java.
-- **SPSC Ring Buffer**: Buffer circular single-producer, single-consumer. Sin CAS: el productor escribe head, el consumidor escribe tail, sin contencion.
-- **MPMC Ring Buffer**: Buffer circular multi-productor, multi-consumidor. Usa CAS en head y tail.
+- **Michael & Scott**: Cola de lista enlazada sin limite.   Usada por `ConcurrentLinkedQueue` de Java.
+- **SPSC Ring Buffer**: Buffer circular single-producer, single-consumer.   Sin CAS: el productor escribe head, el consumidor escribe tail, sin contencion.
+- **MPMC Ring Buffer**: Buffer circular multi-productor, multi-consumidor.
 
 ## Variantes
 
@@ -277,12 +277,12 @@ Los algoritmos de cola lock-free mas comunes son:
 
 ## Errores Comunes
 
-- **Usar lock-free cuando no se necesita**: Las colas basadas en locks son mas simples y suficientemente rapidas para la mayoria de casos. Lock-free anade complejidad por ganancias marginales a contencion moderada.
-- **Problema ABA**: Un thread lee valor A, otro thread lo cambia a B y de vuelta a A. El CAS del primer thread tiene exito pero la cola se corrompe. Usa punteros versionados (tagged pointers) para detectar el cambio.
-- **Bugs de memory ordering**: Usar `store`/`load` sin memory ordering adecuado causa problemas de visibilidad en modelos de memoria debiles (ARM, POWER). Usa semantica acquire/release.
-- **Spinning sin limite**: Si la cola esta consistentemente llena o vacia, los threads hacen spin para siempre desperdiciando CPU. Anade backoff o yield.
-- **No manejar ABA en colas de lista enlazada**: El algoritmo Michael & Scott usa CAS versionado para prevenir ABA. Una cola naive sin versionado se corrompe bajo ABA.
-- **Asumir que lock-free significa wait-free**: Lock-free garantiza progreso a nivel sistema (algun thread progresa), pero threads individuales pueden starve. Wait-free garantiza progreso por thread pero es mas dificil de implementar.
+- **Usar lock-free cuando no se necesita**: Las colas basadas en locks son mas simples y suficientemente rapidas para la mayoria de casos.   Lock-free anade complejidad por ganancias marginales a contencion moderada.
+- **Problema ABA**: Un thread lee valor A, otro thread lo cambia a B y de vuelta a A.   El CAS del primer thread tiene exito pero la cola se corrompe.
+- **Bugs de memory ordering**: Usar `store`/`load` sin memory ordering adecuado causa problemas de visibilidad en modelos de memoria debiles (ARM, POWER).
+- **Spinning sin limite**: Si la cola esta consistentemente llena o vacia, los threads hacen spin para siempre desperdiciando CPU.   Anade backoff o yield.
+- **No manejar ABA en colas de lista enlazada**: Una cola naive sin versionado se corrompe bajo ABA.
+- **Asumir que lock-free significa wait-free**: Lock-free garantiza progreso a nivel sistema (algun thread progresa), pero threads individuales pueden starve.   Wait-free garantiza progreso por thread pero es mas dificil de implementar.
 
 ## Preguntas Frecuentes
 

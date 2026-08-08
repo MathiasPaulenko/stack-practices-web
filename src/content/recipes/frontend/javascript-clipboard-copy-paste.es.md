@@ -242,17 +242,17 @@ if (canCopy === false) {
 
 La Clipboard API tiene dos métodos principales:
 
-- **`navigator.clipboard.writeText(text)`**: Escribe texto al portapapeles. Retorna una promesa. Requiere un contexto seguro (HTTPS o localhost) y debe ser disparado por un gesto del usuario (click, keypress).
-- **`navigator.clipboard.readText()`**: Lee texto del portapapeles. Retorna una promesa. Requiere el permiso `clipboard-read`, que los navegadores suelen solicitar en el primer uso.
+- **`navigator.clipboard.writeText(text)`**: Escribe texto al portapapeles.   Retorna una promesa.   Requiere un contexto seguro (HTTPS o localhost) y debe ser disparado por un gesto del usuario (click, keypress).
+- **`navigator.clipboard.readText()`**: Lee texto del portapapeles.   Retorna una promesa.   Requiere el permiso `clipboard-read`, que los navegadores suelen solicitar en el primer uso.
 
 El fallback `document.execCommand("copy")` está deprecado pero sigue funcionando en navegadores antiguos. Requiere un elemento textarea visible u off-screen que esté seleccionado antes de llamar `execCommand`.
 
 Restricciones clave:
 
-- **Contexto seguro**: `navigator.clipboard` solo funciona en HTTPS o `localhost`. En HTTP, usar el fallback.
-- **Gesto del usuario**: Las operaciones del portapapeles deben ser disparadas por una acción del usuario (click, tap, keypress). No se puede copiar programáticamente sin interacción del usuario.
-- **Permisos**: Leer el portapapeles requiere permiso explícito. Escribir suele estar permitido con un gesto del usuario.
-- **Eventos de pegado**: El evento `paste` se dispara en elementos focusable (inputs, textareas, contenteditable). Usa `event.clipboardData` para acceder al contenido pegado y `event.preventDefault()` para sobreescribir el comportamiento por defecto.
+- **Contexto seguro**: `navigator.  clipboard` solo funciona en HTTPS o `localhost`.   En HTTP, usar el fallback.
+- **Gesto del usuario**: Las operaciones del portapapeles deben ser disparadas por una acción del usuario (click, tap, keypress).   No se puede copiar programáticamente sin interacción del usuario.
+- **Permisos**: Leer el portapapeles requiere permiso explícito.   Escribir suele estar permitido con un gesto del usuario.
+- **Eventos de pegado**: El evento `paste` se dispara en elementos focusable (inputs, textareas, contenteditable).  clipboardData` para acceder al contenido pegado y `event.  preventDefault()` para sobreescribir el comportamiento por defecto.
 
 ## Variantes
 
@@ -331,11 +331,11 @@ await navigator.clipboard.write([
 
 ## Troubleshooting
 
-- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
-- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
-- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
-- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
-- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+- **Component does not re-render**: verify state reference, props, and memoization.   A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins.   Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast.
+- **Hydration mismatch**: ensure server and client render the same initial HTML.  random, or window during SSR.
 
 ## Errores Comunes en Producción
 

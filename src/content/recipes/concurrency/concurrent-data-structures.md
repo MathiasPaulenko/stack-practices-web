@@ -173,10 +173,10 @@ class EventDispatcher {
 
 ## Explanation
 
-- **BlockingQueue**: a queue that blocks producers when full and consumers when empty. This provides natural backpressure â€” a fast producer cannot overwhelm a slow consumer. `ArrayBlockingQueue` uses a single lock; `LinkedBlockingQueue` uses separate locks for head and tail, allowing higher concurrency for mixed read/write workloads.
-- **ConcurrentHashMap**: unlike `Collections.synchronizedMap()`, which locks the entire map for every operation, `ConcurrentHashMap` uses lock striping â€” segmenting the map into independently lockable regions similar to [load balancing](/recipes/architecture/load-balancing). Reads are usually lock-free. `computeIfAbsent` atomically checks and inserts, preventing the classic double-loading race in caches.
-- **CopyOnWriteArrayList**: every write creates a full copy of the backing array. Reads are lock-free and fast. Writes are expensive, so this is ideal for collections with few writes and many reads â€” like event listener lists. An iterator over a copy-on-write list sees a snapshot from the time of iteration creation.
-- **AtomicInteger / AtomicLong**: these are not collections, but they are the building blocks of concurrent counters, sequence generators, and statistics. `incrementAndGet()` uses a CPU `CAS` instruction, making it lock-free and typically faster than `synchronized` for simple counters.
+- **BlockingQueue**: a queue that blocks producers when full and consumers when empty.  This provides natural backpressure â€” a fast producer cannot overwhelm a slow consumer.  `ArrayBlockingQueue` uses a single lock; `LinkedBlockingQueue` uses separate locks for head and tail, allowing higher concurrency for mixed read/write workloads.
+- **ConcurrentHashMap**: unlike `Collections. synchronizedMap()`, which locks the entire map for every operation, `ConcurrentHashMap` uses lock striping â€” segmenting the map into independently lockable regions similar to [load balancing](/recipes/architecture/load-balancing).  Reads are usually lock-free.  `computeIfAbsent` atomically checks and inserts, preventing the classic double-loading race in caches.
+- **CopyOnWriteArrayList**: every write creates a full copy of the backing array.  Reads are lock-free and fast.  Writes are expensive, so this is ideal for collections with few writes and many reads â€” like event listener lists.  An iterator over a copy-on-write list sees a snapshot from the time of iteration creation.
+- **AtomicInteger / AtomicLong**: these are not collections, but they are the building blocks of concurrent counters, sequence generators, and statistics.  `incrementAndGet()` uses a CPU `CAS` instruction, making it lock-free and typically faster than `synchronized` for simple counters.
 
 ## Variants
 
@@ -190,64 +190,64 @@ class EventDispatcher {
 
 ## What Works
 
-- **Prefer `ConcurrentHashMap` over `Collections.synchronizedMap()`**: synchronized wrappers lock the entire map for every operation, including `get()`. `ConcurrentHashMap` allows concurrent reads and finer-grained write locking. The performance difference is dramatic under thread contention.
-- **Use `computeIfAbsent` for lazy cache initialization**: `if (!map.containsKey(key)) map.put(key, load())` is a race condition. Two threads may both load and put. `map.computeIfAbsent(key, k -> load())` atomically checks and inserts, ensuring the loader runs at most once per key.
-- **Size bounded queues for backpressure**: an unbounded `LinkedBlockingQueue` can grow until the JVM runs out of memory under a fast producer. Always set a maximum size and use `put()` (blocking) instead of `offer()` (non-blocking) when you want to apply [backpressure](/recipes/api/rate-limiting).
-- **Copy-on-write for listener lists**: if your application registers event listeners at startup and rarely changes them, `CopyOnWriteArrayList` gives lock-free reads. Do not use it for frequently updated lists â€” the copy cost per write becomes prohibitive.
-- **Iterate with `Iterator`, not `for-each` on synchronized collections**: `for (Item item : synchronizedList)` is not atomic. Another thread can modify the list between iterator steps, throwing `ConcurrentModificationException`. Use explicit `synchronized(list) { ... }` blocks around iteration, or use concurrent collections.
+- **Prefer `ConcurrentHashMap` over `Collections.synchronizedMap()`**: synchronized wrappers lock the entire map for every operation, including `get()`.  `ConcurrentHashMap` allows concurrent reads and finer-grained write locking.  The performance difference is dramatic under thread contention.
+- **Use `computeIfAbsent` for lazy cache initialization**: `if (! map. containsKey(key)) map. put(key, load())` is a race condition.  Two threads may both load and put.  `map. computeIfAbsent(key, k -> load())` atomically checks and inserts, ensuring the loader runs at most once per key.
+- **Size bounded queues for backpressure**: an unbounded `LinkedBlockingQueue` can grow until the JVM runs out of memory under a fast producer.  Always set a maximum size and use `put()` (blocking) instead of `offer()` (non-blocking) when you want to apply [backpressure](/recipes/api/rate-limiting).
+- **Copy-on-write for listener lists**: if your application registers event listeners at startup and rarely changes them, `CopyOnWriteArrayList` gives lock-free reads.  Do not use it for frequently updated lists â€” the copy cost per write becomes prohibitive.
+- **Iterate with `Iterator`, not `for-each` on synchronized collections**: `for (Item item : synchronizedList)` is not atomic.  Another thread can modify the list between iterator steps, throwing `ConcurrentModificationException`.  }` blocks around iteration, or use concurrent collections.
 
 ## Common mistakes
 
-- **Using `size()` for queue decisions**: checking `if (queue.size() > 0) queue.take()` is a race condition. The queue may become empty between the `size()` check and the `take()` call. Use blocking methods (`take()`, `put()`) or non-blocking methods (`poll()`, `offer()`) directly without pre-checking.
-- **Modifying a collection while iterating**: even `ConcurrentHashMap` does not support modifying the map via the value returned by `iterator()`. Use `Iterator.remove()` or bulk operations (`removeIf`, `replaceAll`) instead of mutating inside a `for` loop.
-- **Expecting ordering from `ConcurrentHashMap`**: `ConcurrentHashMap` does not guarantee iteration order. If you need sorted concurrent access, use `ConcurrentSkipListMap`, which provides `TreeMap`-like ordering with lock-free reads.
-- **Forgetting `task_done()` in Python `Queue`**: `queue.task_done()` must be called after processing each item to signal completion to `queue.join()`. Missing calls cause `join()` to hang indefinitely, waiting for tasks that are already processed.
+- **Using `size()` for queue decisions**: checking `if (queue. size() > 0) queue. take()` is a race condition.  The queue may become empty between the `size()` check and the `take()` call.
+- **Modifying a collection while iterating**: even `ConcurrentHashMap` does not support modifying the map via the value returned by `iterator()`. remove()` or bulk operations (`removeIf`, `replaceAll`) instead of mutating inside a `for` loop.
+- **Expecting ordering from `ConcurrentHashMap`**: `ConcurrentHashMap` does not guarantee iteration order.  If you need sorted concurrent access, use `ConcurrentSkipListMap`, which provides `TreeMap`-like ordering with lock-free reads.
+- **Forgetting `task_done()` in Python `Queue`**: `queue. task_done()` must be called after processing each item to signal completion to `queue. join()`.  Missing calls cause `join()` to hang indefinitely, waiting for tasks that are already processed.
 
 ## When Not to Use This Approach
 
-- **Single-threaded code**: concurrent collections add 2-10x overhead per operation. If only one thread accesses the data, use standard collections (HashMap, ArrayList, dict)
-- **Read-heavy workloads with infrequent writes**: a CopyOnWriteArrayList copies the entire array on every write. If writes happen more than 5% of the time, the copy cost exceeds lock contention savings
-- **Bulk operations on small collections**: ConcurrentHashMap.putAll() on a 10-element map is slower than synchronized(map) { putAll() } because per-segment locking adds overhead for small sizes
-- **When iteration order matters**: ConcurrentHashMap does not guarantee iteration order. If you need FIFO or sorted iteration, use ConcurrentSkipListMap or ConcurrentLinkedDeque with awareness of their tradeoffs
-- **Memory-constrained environments**: concurrent collections use more memory than standard ones (segment arrays, CAS metadata, extra padding). On devices with <256MB RAM, the overhead may be unacceptable
-- **Immutable data sharing**: if data is written once and read by many threads, use immutable structures or olatile references instead of concurrent collections. No synchronization needed for read-only immutable data
-- **Low-contention scenarios**: if contention is rare (e.g., a counter updated once per minute), a plain variable with occasional synchronized blocks is simpler and faster than AtomicLong or ConcurrentHashMap
+- **Single-threaded code**: concurrent collections add 2-10x overhead per operation.
+- **Read-heavy workloads with infrequent writes**: a CopyOnWriteArrayList copies the entire array on every write.
+- **Bulk operations on small collections**: ConcurrentHashMap.
+- **When iteration order matters**: ConcurrentHashMap does not guarantee iteration order.
+- **Memory-constrained environments**: concurrent collections use more memory than standard ones (segment arrays, CAS metadata, extra padding).
+- **Immutable data sharing**: if data is written once and read by many threads, use immutable structures or olatile references instead of concurrent collections.
+- **Low-contention scenarios**: if contention is rare (e. g.
 
 ## Performance Benchmarks
 
-- **ConcurrentHashMap vs HashMap**: single-threaded put() on ConcurrentHashMap is 1.5-2x slower than HashMap. Under 16-thread contention, ConcurrentHashMap is 5-10x faster than synchronized(HashMap)
-- **AtomicInteger vs synchronized**: AtomicInteger.incrementAndGet() takes ~5ns vs ~50ns for synchronized counter. The gap widens under contention: at 8 threads, atomic is 20x faster
-- **ConcurrentLinkedQueue vs ArrayBlockingQueue**: ConcurrentLinkedQueue offers 2-3x higher throughput for non-blocking enqueue/dequeue. ArrayBlockingQueue is better when backpressure is needed (bounded capacity)
-- **CopyOnWriteArrayList**: reads are 1.2x faster than ArrayList (no synchronization). Writes are 10-100x slower due to array copy. Break-even at 99% reads, 1% writes
-- **ConcurrentSkipListMap vs TreeMap**: ConcurrentSkipListMap is 1.5-2x slower than TreeMap for single-threaded operations. Under 8-thread contention, it scales linearly while TreeMap with locks does not
-- **Python queue.Queue vs collections.deque**: queue.Queue adds ~2us per put/get for thread safety. deque with manual locking is 1.5x faster but error-prone. queue.SimpleQueue is a good middle ground
-- **Memory overhead**: ConcurrentHashMap uses ~50% more memory than HashMap due to segment arrays. CopyOnWriteArrayList uses 2x memory (two array copies during writes)
+- **ConcurrentHashMap vs HashMap**: single-threaded put() on ConcurrentHashMap is 1. 5-2x slower than HashMap.
+- **AtomicInteger vs synchronized**: AtomicInteger. incrementAndGet() takes ~5ns vs ~50ns for synchronized counter.
+- **ConcurrentLinkedQueue vs ArrayBlockingQueue**: ConcurrentLinkedQueue offers 2-3x higher throughput for non-blocking enqueue/dequeue.
+- **CopyOnWriteArrayList**: reads are 1. 2x faster than ArrayList (no synchronization).  Writes are 10-100x slower due to array copy.
+- **ConcurrentSkipListMap vs TreeMap**: ConcurrentSkipListMap is 1. 5-2x slower than TreeMap for single-threaded operations.
+- **Python queue.Queue vs collections.deque**: queue. Queue adds ~2us per put/get for thread safety.  deque with manual locking is 1. 5x faster but error-prone.  queue.
+- **Memory overhead**: ConcurrentHashMap uses ~50% more memory than HashMap due to segment arrays.
 
 ## Testing Strategy
 
-- **Stress test with thread counts matching production**: test with 2x the expected thread count. If production uses 8 threads, test with 16. Race conditions often appear only at specific thread counts
-- **Verify atomicity of compound operations**: test computeIfAbsent under concurrent access. Assert that the mapping function is called exactly once per key. Use a ConcurrentHashMap with a counting mapper
-- **Test iteration consistency**: concurrent collection iterators are weakly consistent. Verify that iterations do not throw ConcurrentModificationException and reflect some state, not necessarily the latest
-- **Test bounded queue blocking behavior**: verify put() blocks when the queue is full and 	ake() blocks when empty. Use timeouts to detect deadlocks
+- **Stress test with thread counts matching production**: test with 2x the expected thread count.  If production uses 8 threads, test with 16.
+- **Verify atomicity of compound operations**: test computeIfAbsent under concurrent access.  Assert that the mapping function is called exactly once per key.
+- **Test iteration consistency**: concurrent collection iterators are weakly consistent.
+- **Test bounded queue blocking behavior**: verify put() blocks when the queue is full and 	ake() blocks when empty.
 - **Test bulk operations**: putAll, clear, and eplaceAll on concurrent collections may have non-atomic semantics. Verify behavior under concurrent modification
-- **Test memory leaks**: long-running tests with millions of put/remove cycles. Monitor heap usage for leaks in internal structures (e.g., ConcurrentHashMap segment arrays)
-- **Test with realistic data distribution**: skew and hot keys behave differently than uniform distribution. Test with production-like key patterns to identify contention hotspots
+- **Test memory leaks**: long-running tests with millions of put/remove cycles. g.
+- **Test with realistic data distribution**: skew and hot keys behave differently than uniform distribution.
 
 ## Cost Estimation
 
-- **Memory overhead budget**: concurrent collections use 1.5-2x more memory. For a 10GB in-memory cache, this means 15-20GB. Plan instance sizing accordingly
-- **Development time**: choosing the right concurrent collection takes 2-4 hours of analysis per use case. The wrong choice leads to bugs that take days to diagnose
-- **Training cost**: team members need to understand happens-before semantics, weakly consistent iterators, and CAS operations. Budget 1-2 days of training per developer
+- **Memory overhead budget**: concurrent collections use 1. 5-2x more memory.  For a 10GB in-memory cache, this means 15-20GB.
+- **Development time**: choosing the right concurrent collection takes 2-4 hours of analysis per use case.
+- **Training cost**: team members need to understand happens-before semantics, weakly consistent iterators, and CAS operations.
 - **Server cost savings**: using concurrent collections instead of coarse-grained locking can reduce response times by 30-60%, allowing fewer servers to handle the same load
-- **Debugging cost**: bugs in concurrent collections are hard to reproduce. A single race condition can take 20-40 hours to diagnose. Invest in stress testing early
+- **Debugging cost**: bugs in concurrent collections are hard to reproduce.  A single race condition can take 20-40 hours to diagnose.
 
 ## Monitoring and Observability
 
-- **Collection size**: monitor the size of concurrent queues and maps. A growing queue indicates consumers cannot keep up. Alert when size exceeds 80% of capacity
-- **Contention metrics**: track lock contention on synchronized collections. Use jstack or async-profiler to identify hot locks. High contention indicates a need for finer-grained locking or concurrent alternatives
-- **Operation latency**: monitor put, get, 	ake latencies. P99 >10ms on a concurrent queue indicates contention or GC pressure
-- **Memory usage**: track the memory overhead of concurrent collections. Compare against expected size. Unexpected growth may indicate a leak in internal structures
-- **Thread wait time**: monitor thread state distribution. High BLOCKED or WAITING thread counts indicate lock contention or empty queue waits
+- **Collection size**: monitor the size of concurrent queues and maps.  A growing queue indicates consumers cannot keep up.
+- **Contention metrics**: track lock contention on synchronized collections.
+- **Operation latency**: monitor put, get, 	ake latencies.
+- **Memory usage**: track the memory overhead of concurrent collections.
+- **Thread wait time**: monitor thread state distribution.
 
 ## Deployment Checklist
 
@@ -260,27 +260,27 @@ class EventDispatcher {
 
 ## Security Considerations
 
-- **Denial of service via collection flooding**: an attacker can fill an unbounded ConcurrentLinkedQueue until memory is exhausted. Use bounded queues (ArrayBlockingQueue) for user-facing operations
+- **Denial of service via collection flooding**: an attacker can fill an unbounded ConcurrentLinkedQueue until memory is exhausted.
 - **Deserialization attacks on concurrent collections**: Java's eadObject on ConcurrentHashMap does not call computeIfAbsent. Custom deserialization can bypass concurrency guarantees. Validate deserialized data
-- **Information leakage via weakly consistent iterators**: iterators on concurrent collections reflect a past state. If sensitive data is removed between iterations, a stale iterator may still expose it. Clear sensitive data atomically
-- **Race conditions in check-then-act**: if (!map.containsKey(k)) map.put(k, v) is not atomic on ConcurrentHashMap. Use computeIfAbsent or putIfAbsent to prevent race conditions that could insert duplicate or unauthorized entries
-- **Memory exhaustion via large keys**: concurrent collections do not limit key size. An attacker can insert entries with large keys to exhaust memory. Implement size limits at the application level
-- **Poison pill attacks**: a malicious producer can insert a "poison" object into a shared queue that causes consumers to crash. Validate queue elements before processing
-- **Thread starvation via priority inversion**: a low-priority thread holding a lock on a concurrent collection can block high-priority threads. Use fair locking policies (ReentrantLock(fair=true)) in security-sensitive contexts
-- **Side-channel timing attacks**: concurrent collection operations have timing variations based on internal state. An attacker measuring response times can infer collection size or contents. Add constant-time checks for security-sensitive operations
-- **Unsafe publication via concurrent collections**: placing an object in a ConcurrentHashMap publishes it safely (happens-before). But objects placed in a regular HashMap accessed by multiple threads are not safely published and may be seen in an inconsistent state
+- **Information leakage via weakly consistent iterators**: iterators on concurrent collections reflect a past state.  If sensitive data is removed between iterations, a stale iterator may still expose it.
+- **Race conditions in check-then-act**: if (! map. containsKey(k)) map. put(k, v) is not atomic on ConcurrentHashMap.
+- **Memory exhaustion via large keys**: concurrent collections do not limit key size.  An attacker can insert entries with large keys to exhaust memory.
+- **Poison pill attacks**: a malicious producer can insert a "poison" object into a shared queue that causes consumers to crash.
+- **Thread starvation via priority inversion**: a low-priority thread holding a lock on a concurrent collection can block high-priority threads.
+- **Side-channel timing attacks**: concurrent collection operations have timing variations based on internal state.  An attacker measuring response times can infer collection size or contents.
+- **Unsafe publication via concurrent collections**: placing an object in a ConcurrentHashMap publishes it safely (happens-before).
 - **Resource cleanup race**: removing an entry from a concurrent map does not guarantee its resources (file handles, connections) are cleaned up. Use computeIfPresent with a cleanup function or emove(key, value) for atomic removal-and-cleanup
-- **Iterator invalidation in concurrent contexts**: iterators from ConcurrentHashMap are weakly consistent and do not throw ConcurrentModificationException. This can mask bugs where elements are removed during iteration. Use explicit synchronization if consistent iteration is required
-- **Cross-thread data poisoning**: if one thread corrupts a shared object's internal state (e.g., a mutable value in a ConcurrentHashMap), all threads see the corruption. Use immutable values or defensive copies
-- **Bounded queue DoS via blocking**: an attacker filling a bounded queue causes put() to block, denying service to producers. Set timeouts on put() operations (offer(timeout)) and implement load shedding
-- **CAS-based attack surface**: compareAndSet operations on AtomicReference can be exploited if the expected value is attacker-controlled. Ensure that CAS operations use internally managed expected values, not user input
+- **Iterator invalidation in concurrent contexts**: iterators from ConcurrentHashMap are weakly consistent and do not throw ConcurrentModificationException.  This can mask bugs where elements are removed during iteration.
+- **Cross-thread data poisoning**: if one thread corrupts a shared object's internal state (e. g. , a mutable value in a ConcurrentHashMap), all threads see the corruption.
+- **Bounded queue DoS via blocking**: an attacker filling a bounded queue causes put() to block, denying service to producers.
+- **CAS-based attack surface**: compareAndSet operations on AtomicReference can be exploited if the expected value is attacker-controlled.
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.  Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: monitor queue length and rejection policy.  Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 

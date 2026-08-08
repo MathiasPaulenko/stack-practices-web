@@ -147,32 +147,32 @@ Agrega `.env` a `.gitignore`:
 
 ## Explicación
 
-- **`os.environ` / `process.env` / `System.getenv()`**: Acceso en tiempo de ejecución a variables de entorno. Estas se heredan del proceso padre (shell, systemd, Docker) y no pueden ser modificadas por procesos hijos de forma que afecten al padre.
-- **`load_dotenv()` / `require('dotenv').config()`**: Carga variables desde un archivo `.env` en desarrollo. Este archivo nunca debe ser commiteado — es una conveniencia solo para desarrollo local.
-- **Defaults**: Siempre proporciona valores por defecto sensatos para valores no sensibles. Las variables requeridas faltantes deberían hacer que la aplicación falle rápidamente al inicio con un mensaje de error claro.
-- **Coerción de tipos**: Las variables de entorno son siempre strings — haz cast a int/boolean explícitamente. Un valor de `"false"` es truthy en JavaScript si no lo comparas apropiadamente.
-- **Scope**: Las variables establecidas en el shell están disponibles para el proceso actual y sus hijos. Usa `export` en Bash o `setx` en Windows para persistirlas entre sesiones.
+- **`os.environ` / `process.env` / `System.getenv()`**: Acceso en tiempo de ejecución a variables de entorno.   Estas se heredan del proceso padre (shell, systemd, Docker) y no pueden ser modificadas por procesos hijos de forma que afecten al padre.
+- **`load_dotenv()` / `require('dotenv').config()`**: Carga variables desde un archivo `.  env` en desarrollo.   Este archivo nunca debe ser commiteado — es una conveniencia solo para desarrollo local.
+- **Defaults**: Siempre proporciona valores por defecto sensatos para valores no sensibles.   Las variables requeridas faltantes deberían hacer que la aplicación falle rápidamente al inicio con un mensaje de error claro.
+- **Coerción de tipos**: Las variables de entorno son siempre strings — haz cast a int/boolean explícitamente.   Un valor de `"false"` es truthy en JavaScript si no lo comparas apropiadamente.
+- **Scope**: Las variables establecidas en el shell están disponibles para el proceso actual y sus hijos.
 
 ## Lo que funciona
 
-- **Nunca commitees secretos**: Agrega `.env` a `.gitignore` inmediatamente. Un solo archivo `.env` commiteado con credenciales de producción es un liability de seguridad permanente, incluso si lo borras después — el historial de Git lo retiene para siempre.
-- **Usa un `.env.example`**: Documenta las variables requeridas sin valores reales. Los nuevos desarrolladores pueden copiar este archivo a `.env` y llenar sus propias credenciales.
-- **Valida al inicio**: Falla rápido si faltan variables requeridas. No dejes que tu aplicación se ejecute en un estado parcialmente configurado que produce errores crípticos horas después.
-- **Scope por entorno**: `.env.development`, `.env.production`. Algunos frameworks cargan estos automáticamente basándose en `NODE_ENV` o equivalente.
-- **Usa un secrets manager en producción**: AWS Secrets Manager, Azure Key Vault, HashiCorp Vault. Estos proporcionan rotación, logging de auditoría y control de acceso granular que los archivos `.env` no pueden igualar.
-- **Loguea configuración (no secretos)**: Imprime la config cargada para debugging, pero redacta claves sensibles. Una línea de log como `DATABASE_URL=***` te dice que la variable está seteada sin exponer credenciales.
-- **Prefija variables públicas en frontend**: Frameworks como Vite, Next.js y Create React App solo exponen variables `VITE_*`, `NEXT_PUBLIC_*` o `REACT_APP_*` al navegador. Todo lo demás permanece del lado del servidor.
-- **Rota secretos regularmente**: incluso el mejor almacenamiento puede ser comprometido. Establece un recordatorio de calendario para rotar claves API y contraseñas de base de datos trimestralmente.
+- **Nunca commitees secretos**: Agrega `.  env` a `.  gitignore` inmediatamente.   Un solo archivo `.  env` commiteado con credenciales de producción es un liability de seguridad permanente, incluso si lo borras después — el historial de Git lo retiene para siempre.
+- **Usa un `.env.example`**: Los nuevos desarrolladores pueden copiar este archivo a `.  env` y llenar sus propias credenciales.
+- **Valida al inicio**: Falla rápido si faltan variables requeridas.   No dejes que tu aplicación se ejecute en un estado parcialmente configurado que produce errores crípticos horas después.
+- **Scope por entorno**: `.  env.  development`, `.  env.  production`.   Algunos frameworks cargan estos automáticamente basándose en `NODE_ENV` o equivalente.
+- **Usa un secrets manager en producción**: AWS Secrets Manager, Azure Key Vault, HashiCorp Vault.   Estos proporcionan rotación, logging de auditoría y control de acceso granular que los archivos `.  env` no pueden igualar.
+- **Loguea configuración (no secretos)**: Imprime la config cargada para debugging, pero redacta claves sensibles.   Una línea de log como `DATABASE_URL=***` te dice que la variable está seteada sin exponer credenciales.
+- **Prefija variables públicas en frontend**: Frameworks como Vite, Next.  js y Create React App solo exponen variables `VITE_*`, `NEXT_PUBLIC_*` o `REACT_APP_*` al navegador.   Todo lo demás permanece del lado del servidor.
+- **Rota secretos regularmente**: incluso el mejor almacenamiento puede ser comprometido.   Establece un recordatorio de calendario para rotar claves API y contraseñas de base de datos trimestralmente.
 
 ## Errores comunes
 
-- **Commitear archivos `.env` con secretos reales a GitHub**: Incluso si borras el archivo después, permanece en el historial de Git para siempre. Usa `git filter-repo` o BFG Repo-Cleaner para eliminarlo si ya lo commiteaste.
-- **Asumir que las variables de entorno existen sin defaults**: Tu aplicación se caerá con errores confusos. Siempre valida variables requeridas y proporciona defaults sensatos para las opcionales.
+- **Commitear archivos `.env` con secretos reales a GitHub**: Incluso si borras el archivo después, permanece en el historial de Git para siempre.
+- **Asumir que las variables de entorno existen sin defaults**: Tu aplicación se caerá con errores confusos.   Siempre valida variables requeridas y proporciona defaults sensatos para las opcionales.
 - **No validar variables requeridas al inicio de la aplicación**: La configuración faltante a menudo causa fallos profundos en el call stack que son difíciles de rastrear hasta una variable de entorno ausente.
-- **Usar variables de entorno para datos estructurados complejos**: Las variables de entorno son strings key-value planos. Usa archivos de config JSON o YAML para configuración anidada, y cárgalos desde una ruta especificada por una variable de entorno.
-- **Confundir variables de build-time y runtime en bundlers de frontend**: Las variables referenciadas en código frontend se embeben en build time, no se leen en runtime. Cambiar una variable de entorno después de build no tiene efecto en el bundle del cliente.
-- **Imprimir secretos en mensajes de error**: Los stack traces y respuestas de error nunca deben incluir contraseñas de base de datos o claves API. Los atacantes escanean logs y páginas de error públicas exactamente por este error.
-- **Usar los mismos secretos en todos los entornos**: Desarrollo y producción deben usar credenciales diferentes. Una contraseña de base de datos de dev filtrada no debería otorgar acceso a producción.
+- **Usar variables de entorno para datos estructurados complejos**: Las variables de entorno son strings key-value planos.
+- **Confundir variables de build-time y runtime en bundlers de frontend**: Las variables referenciadas en código frontend se embeben en build time, no se leen en runtime.   Cambiar una variable de entorno después de build no tiene efecto en el bundle del cliente.
+- **Imprimir secretos en mensajes de error**: Los atacantes escanean logs y páginas de error públicas exactamente por este error.
+- **Usar los mismos secretos en todos los entornos**: Desarrollo y producción deben usar credenciales diferentes.   Una contraseña de base de datos de dev filtrada no debería otorgar acceso a producción.
 
 ## Preguntas frecuentes
 

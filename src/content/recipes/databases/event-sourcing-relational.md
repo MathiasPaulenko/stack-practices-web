@@ -274,15 +274,15 @@ The relational database schema is simple: an `events` table with `aggregate_id`,
 ## What Works
 
 - **Version every event**: Optimistic concurrency control prevents lost updates
-- **Use JSONB/JSON for payloads**: Schema flexibility without migrations; validate at the application layer. See [Parse JSON](/recipes/data/parse-json) for structured data.
+- **Use JSONB/JSON for payloads**: Schema flexibility without migrations; validate at the application layer.  See [Parse JSON](/recipes/data/parse-json) for structured data.
 - **Create snapshots every N events**: Balance between storage and replay performance
 - **Keep events small**: Large payloads slow down replay and increase storage
-- **Separate projections from the event store**: Projections can be rebuilt; events are the source of truth. See [Redis Caching](/recipes/databases/caching-redis) for read-model caching.
+- **Separate projections from the event store**: Projections can be rebuilt; events are the source of truth.  See [Redis Caching](/recipes/databases/caching-redis) for read-model caching.
 
 ## Common Mistakes
 
 - **Not versioning events**: Without version numbers, you can't detect concurrent modifications
-- **Storing current state AND events**: This creates dual writes and consistency risks. See [Database Transactions](/recipes/databases/database-transactions) for atomic writes.
+- **Storing current state AND events**: This creates dual writes and consistency risks.  See [Database Transactions](/recipes/databases/database-transactions) for atomic writes.
 - **Replaying all events on every read**: Use snapshots or dedicated projection tables
 - **Mutable events**: Events must be immutable — never update or delete historical events
 - **Missing event schema evolution**: Old events need migration strategies as the domain model changes
@@ -290,11 +290,11 @@ The relational database schema is simple: an `events` table with `aggregate_id`,
 
 ## Troubleshooting
 
-- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
-- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
-- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
-- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
-- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+- **Query is slow after an index change**: check execution plans and cardinality estimates.  Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: monitor network, disk I/O, and long transactions.  Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order.
 
 
 

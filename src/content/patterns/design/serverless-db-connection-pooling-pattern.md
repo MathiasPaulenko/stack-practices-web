@@ -219,21 +219,21 @@ The core idea is to decouple connection count from invocation count. Without a p
 
 ## Common Mistakes
 
-- **Opening a new connection per request**: Causes connection exhaustion under load. Reuse connections at module scope.
-- **Using session pooling with PgBouncer**: Session pooling holds server connections for the entire client session, defeating the purpose. Use transaction pooling.
-- **Forgetting to close connections on error**: Leaks connections. Always use try/finally or context managers.
-- **Setting `max` too high in HikariCP**: Each Lambda container is a separate process. 100 containers × 10 connections = 1000 connections. Keep `max=1`.
-- **Using prepared statements with PgBouncer transaction mode**: Prepared statements are session-scoped and break when PgBouncer reassigns server connections. Set `prepareThreshold=0`.
-- **Not handling cold start connection latency**: Cold starts pay full connection cost. Use provisioned concurrency or accept the latency hit.
+- **Opening a new connection per request**: Causes connection exhaustion under load.  Reuse connections at module scope.
+- **Using session pooling with PgBouncer**: Session pooling holds server connections for the entire client session, defeating the purpose.
+- **Forgetting to close connections on error**: Leaks connections.  Always use try/finally or context managers.
+- **Setting `max` too high in HikariCP**: Each Lambda container is a separate process.  100 containers × 10 connections = 1000 connections.
+- **Using prepared statements with PgBouncer transaction mode**: Prepared statements are session-scoped and break when PgBouncer reassigns server connections.  Set `prepareThreshold=0`.
+- **Not handling cold start connection latency**: Cold starts pay full connection cost.
 
 
 ## Troubleshooting
 
 - **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
-- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
-- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
-- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
-- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic.  Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless.  Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets.
+- **Event ordering issues**: many event sources are at-least-once and unordered.  Design for idempotency and explicit sequencing.
 
 
 

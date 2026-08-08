@@ -174,8 +174,8 @@ public class UserService {
 ## Explicación
 
 Las read replicas usan replicación streaming (física) o lógica:
-- **Replicación física**: Copia bloques de WAL (Write-Ahead Log) directamente. Rápida pero replica todo.
-- **Replicación lógica**: Replica cambios a nivel de fila. Selectiva pero con más overhead.
+- **Replicación física**: Copia bloques de WAL (Write-Ahead Log) directamente.   Rápida pero replica todo.
+- **Replicación lógica**: Replica cambios a nivel de fila.   Selectiva pero con más overhead.
 
 **Replication lag** es el retraso entre una escritura en la primaria y su aparición en la réplica. Las causas incluyen latencia de red, carga de la réplica y transacciones grandes. Las aplicaciones deben manejar lecturas stale o enrutar queries críticas de consistencia a la primaria.
 
@@ -192,9 +192,9 @@ Las read replicas usan replicación streaming (física) o lógica:
 
 - **Monitorea el replication lag**: Alerta cuando el lag excede 1–5 segundos dependiendo del caso de uso
 - **Enruta lecturas sensibles al tiempo a la primaria**: Lecturas de perfil de usuario después de editar deben ir a la primaria
-- **Usa connection pooling por réplica**: No crees conexiones directamente; usa PgBouncer o ProxySQL. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para configuración.
+- **Usa connection pooling por réplica**: Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para configuración.
 - **Distribuye réplicas entre zonas de disponibilidad**: Protege contra fallos de zona
-- **Prueba procedimientos de failover**: Las réplicas pueden promoverse a primaria durante outages. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para patrones de resiliencia.
+- **Prueba procedimientos de failover**: Las réplicas pueden promoverse a primaria durante outages.   Consulta [Retry Logic](/recipes/architecture/retry-backoff) para patrones de resiliencia.
 
 ## Errores Comunes
 

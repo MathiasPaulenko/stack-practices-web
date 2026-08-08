@@ -248,11 +248,11 @@ El commit manual te da control sobre cuando se guardan los offsets. Solo commite
 
 ## Mejores Practicas
 
-- **Usa nombres de topic significativos**: `orders.created` no `topic1`. Namespacea por dominio y tipo de evento.
-- **Particiona por clave**: usa una clave significativa (e.g., `userId`, `orderId`) para asegurar orden dentro de una particion.
-- **Batchea los sends del producer**: enviar mensajes en batches mejora el throughput. Configura `batch.size` y `linger.ms`.
+- **Usa nombres de topic significativos**: `orders.  created` no `topic1`.   Namespacea por dominio y tipo de evento.
+- **Particiona por clave**: g.
+- **Batchea los sends del producer**: enviar mensajes en batches mejora el throughput.  size` y `linger.  ms`.
 - **Maneja rebalances gracefulmente**: implementa un rebalance listener para commitear offsets y limpiar recursos antes de que las particiones sean revocadas.
-- **Usa producers idempotentes**: setea `enable.idempotence=true` para prevenir mensajes duplicados por retries.
+- **Usa producers idempotentes**: setea `enable.  idempotence=true` para prevenir mensajes duplicados por retries.
 
 ## Errores Comunes
 
@@ -268,11 +268,11 @@ El commit manual te da control sobre cuando se guardan los offsets. Solo commite
 
 ## Troubleshooting
 
-- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
-- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
-- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
-- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
-- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+- **Messages are lost on restart**: persist messages before acknowledging.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic.
+- **Duplicate messages**: design consumers to be idempotent.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts.   Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues.   Restart gracefully.
 
 ## FAQ
 

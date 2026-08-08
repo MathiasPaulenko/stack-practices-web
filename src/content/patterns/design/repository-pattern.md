@@ -195,7 +195,7 @@ Business logic depends only on the interface, so you can swap implementations fo
 ## What Works
 
 - **Return domain objects, not raw data rows**: Map database results to rich domain objects
-- **Use interfaces for repositories**: This is what makes them testable and swappable. See [Dependency Injection](/patterns/design/dependency-injection-pattern) for wiring strategies.
+- **Use interfaces for repositories**: This is what makes them testable and swappable.  See [Dependency Injection](/patterns/design/dependency-injection-pattern) for wiring strategies.
 - **Keep repositories focused on data access**: Business logic belongs in services, not repositories
 - **Return `Optional` or nullable types** instead of throwing exceptions for missing data
 - **Consider pagination** for `findAll` operations to prevent loading massive datasets
@@ -211,11 +211,11 @@ Business logic depends only on the interface, so you can swap implementations fo
 
 ## Troubleshooting
 
-- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+- **High latency between services**: trace the request path.  Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy.  Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas.  Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: right-size instances and use autoscaling with limits.  Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
 
 
 ## Key Takeaways

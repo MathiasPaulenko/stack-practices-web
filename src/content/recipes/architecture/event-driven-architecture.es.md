@@ -141,10 +141,10 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 
 ## Explicación
 
-- **Evento vs command**: un evento establece que algo sucedió (`OrderPlaced`). Es inmutable y broadcast. Un command instruye una acción (`PlaceOrder`). Es dirigido a un handler específico. No los mezcles — un servicio que recibe un command no debería publicarlo como evento sin transformación.
-- **Patrones de message broker**: publish-subscribe (pub/sub) broadcast a todos los suscriptores. Point-to-point envía a un consumidor. Competing consumers escalan point-to-point agregando workers. Elige basado en si todos los servicios necesitan el evento o solo uno.
-- **Ordenamiento de eventos**: los brokers no garantizan ordenamiento global. Si `OrderPlaced` y `OrderCancelled` llegan fuera de secuencia, el sistema de inventario puede intentar cancelar stock que nunca fue reservado. Usa ordenamiento scoped por aggregate (mismo order ID siempre enruta a la misma partición) o handlers idempotentes.
-- **Dead-letter queues**: el procesamiento fallido de eventos no debe bloquear la cola. Después de N reintentos, envía el mensaje a una dead-letter queue para inspección manual. Monitorea la profundidad del DLQ como alerta crítica — DLQs crecientes indican problemas sistémicos.
+- **Evento vs command**: un evento establece que algo sucedió (`OrderPlaced`).   Es inmutable y broadcast.   Un command instruye una acción (`PlaceOrder`).   Es dirigido a un handler específico.   No los mezcles — un servicio que recibe un command no debería publicarlo como evento sin transformación.
+- **Patrones de message broker**: publish-subscribe (pub/sub) broadcast a todos los suscriptores.   Point-to-point envía a un consumidor.   Competing consumers escalan point-to-point agregando workers.   Elige basado en si todos los servicios necesitan el evento o solo uno.
+- **Ordenamiento de eventos**: los brokers no garantizan ordenamiento global.   Si `OrderPlaced` y `OrderCancelled` llegan fuera de secuencia, el sistema de inventario puede intentar cancelar stock que nunca fue reservado.
+- **Dead-letter queues**: el procesamiento fallido de eventos no debe bloquear la cola.   Después de N reintentos, envía el mensaje a una dead-letter queue para inspección manual.
 
 ## Variantes
 
@@ -158,18 +158,18 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 
 ## Lo que funciona
 
-- **Diseña eventos, no mensajes**: un evento debería describir qué sucedió, no qué debería hacer el consumidor. Consulta [Microservices Patterns](/guides/architecture/microservices-architecture-guide) para estrategias de comunicación entre servicios. `OrderPlaced` es correcto. `DecrementInventory` es un command disfrazado de evento. Los eventos son hechos; los commands son instrucciones.
-- **Usa validación de esquemas**: eventos sin validar son fuente de bugs sutiles. Usa Avro, JSON Schema o Protobuf para definir contratos de eventos. Valida en los boundaries de publisher y consumer. Versiona esquemas y mantén compatibilidad hacia atrás.
-- **Haz consumidores idempotentes**: retries de red y redeliveries de brokers significan que el mismo evento puede procesarse múltiples veces. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación. Diseña handlers para que procesar el mismo evento dos veces produzca el mismo estado. Usa `UPSERT` o trackea IDs de eventos procesados en una tabla de deduplicación.
-- **Monitorea consumer lag**: lag es el número de mensajes no procesados en una partición. Lag alto indica que el consumidor es más lento que el productor. Alerta en umbrales de lag. Escala consumidores horizontalmente u optimiza el rendimiento del handler.
-- **Publica eventos de dominio, no eventos de infraestructura**: `PaymentProcessed` es un evento de dominio con significado de negocio. `DatabaseRowInserted` es ruido de infraestructura. Los consumidores se preocupan por cambios de estado de negocio, no detalles de implementación.
+- **Diseña eventos, no mensajes**: un evento debería describir qué sucedió, no qué debería hacer el consumidor.   Consulta [Microservices Patterns](/guides/architecture/microservices-architecture-guide) para estrategias de comunicación entre servicios.   `OrderPlaced` es correcto.   `DecrementInventory` es un command disfrazado de evento.   Los eventos son hechos; los commands son instrucciones.
+- **Usa validación de esquemas**: eventos sin validar son fuente de bugs sutiles.   Valida en los boundaries de publisher y consumer.
+- **Haz consumidores idempotentes**: retries de red y redeliveries de brokers significan que el mismo evento puede procesarse múltiples veces.   Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación.   Diseña handlers para que procesar el mismo evento dos veces produzca el mismo estado.
+- **Monitorea consumer lag**: lag es el número de mensajes no procesados en una partición.   Lag alto indica que el consumidor es más lento que el productor.
+- **Publica eventos de dominio, no eventos de infraestructura**: `PaymentProcessed` es un evento de dominio con significado de negocio.   `DatabaseRowInserted` es ruido de infraestructura.   Los consumidores se preocupan por cambios de estado de negocio, no detalles de implementación.
 
 ## Errores comunes
 
-- **Coreografía sin visibilidad**: un request que se dispara a 5 eventos, cada uno triggerando 3 más, crea un workflow invisible. Cuando falla, debuggear requiere chequear 15 servicios. Agrega correlation IDs y distributed tracing para seguir la cadena.
-- **Procesamiento síncrono de eventos**: un consumer que procesa eventos síncronamente dentro de un HTTP request reintroduce el acoplamiento que el event bus estaba destinado a eliminar. Los eventos deberían procesarse asíncronamente, desacoplados del request orientado al usuario.
-- **Sin manejo de error para mensajes envenenados**: un evento malformado que crashea al consumer será redelivered indefinidamente, bloqueando la cola. Implementa un máximo de reintentos y un handler de poison pill.
-- **Almacenar estado en el broker**: usar el broker como base de datos (ej. hacer queries a Kafka para estado actual) es un anti-pattern. Los brokers son para transporte, no almacenamiento. Usa event sourcing o un read model para queries de estado.
+- **Coreografía sin visibilidad**: un request que se dispara a 5 eventos, cada uno triggerando 3 más, crea un workflow invisible.   Cuando falla, debuggear requiere chequear 15 servicios.   Agrega correlation IDs y distributed tracing para seguir la cadena.
+- **Procesamiento síncrono de eventos**: un consumer que procesa eventos síncronamente dentro de un HTTP request reintroduce el acoplamiento que el event bus estaba destinado a eliminar.   Los eventos deberían procesarse asíncronamente, desacoplados del request orientado al usuario.
+- **Sin manejo de error para mensajes envenenados**: un evento malformado que crashea al consumer será redelivered indefinidamente, bloqueando la cola.
+- **Almacenar estado en el broker**: usar el broker como base de datos (ej.   hacer queries a Kafka para estado actual) es un anti-pattern.   Los brokers son para transporte, no almacenamiento.
 
 ## Preguntas frecuentes
 

@@ -166,10 +166,10 @@ app.post('/users', async (req, res) => {
 
 ## Explicación
 
-- **Dominio**: el centro del hexágono. Contiene entidades de negocio, value objects y domain services. Tiene cero dependencias de frameworks, bases de datos o APIs externas. Solo conoce ports — interfaces que necesita para hacer su trabajo.
-- **Ports**: interfaces definidas por el dominio. `UserRepository` describe qué operaciones de persistencia necesita el dominio. `EmailService` describe qué capacidades de notificación necesita. El dominio depende de abstracciones, no implementaciones.
-- **Adapters**: implementaciones concretas de ports. Un adapter PostgreSQL implementa `UserRepository` usando SQL. Un adapter en memoria implementa la misma interfaz usando un Map. El dominio no distingue entre ellos. Los adapters también adaptan concerns externos — los HTTP controllers adaptan requests entrantes a llamadas de métodos de dominio.
-- **Inversión de dependencias**: el dominio no depende de PostgreSQL. PostgreSQL depende del dominio (vía la interfaz `UserRepository`). Este es el principio SOLID de inversión de dependencias. La flecha de dependencia apunta hacia adentro, hacia el dominio.
+- **Dominio**: el centro del hexágono.   Contiene entidades de negocio, value objects y domain services.   Tiene cero dependencias de frameworks, bases de datos o APIs externas.   Solo conoce ports — interfaces que necesita para hacer su trabajo.
+- **Ports**: interfaces definidas por el dominio.   `UserRepository` describe qué operaciones de persistencia necesita el dominio.   `EmailService` describe qué capacidades de notificación necesita.   El dominio depende de abstracciones, no implementaciones.
+- **Adapters**: implementaciones concretas de ports.   Un adapter en memoria implementa la misma interfaz usando un Map.   El dominio no distingue entre ellos.   Los adapters también adaptan concerns externos — los HTTP controllers adaptan requests entrantes a llamadas de métodos de dominio.
+- **Inversión de dependencias**: el dominio no depende de PostgreSQL.   PostgreSQL depende del dominio (vía la interfaz `UserRepository`).   Este es el principio SOLID de inversión de dependencias.   La flecha de dependencia apunta hacia adentro, hacia el dominio.
 
 ## Variantes
 
@@ -182,18 +182,18 @@ app.post('/users', async (req, res) => {
 
 ## Lo que funciona
 
-- **Mantén el dominio puro**: sin imports de `node_modules` en código de dominio. Solo primitivas del lenguaje y biblioteca estándar. Si ves `import express` o `import typeorm` en el dominio, el límite está violado.
-- **Usa inyección de dependencias**: pasa adapters a los domain services vía constructores. No uses service locators o singletons globales. La inyección por constructor hace las dependencias explícitas y testeables.
-- **Escribe tests contra adapters en memoria**: los unit tests para lógica de dominio deberían usar repositories en memoria, no bases de datos de test. Consulta [Soft Deletes](/recipes/databases/soft-deletes) para patrones de repository. Corren en milisegundos, no requieren setup, y prueban que la lógica de dominio funciona independientemente de infraestructura.
-- **Un composition root**: el archivo de bootstrap de la aplicación (frecuentemente `main.ts` o `index.js`) es el único lugar donde los adapters se instancian y conectan. Este es el único archivo que sabe sobre PostgreSQL, Express y SMTP. Todo lo demás es agnóstico a la tecnología.
-- **No filtres tipos de framework al dominio**: si tu domain service acepta un objeto `Request` o retorna un `Response`, está acoplado a HTTP. El dominio debería aceptar primitivas y objetos de dominio. Los adapters extraen datos de requests HTTP y llaman métodos de dominio.
+- **Mantén el dominio puro**: sin imports de `node_modules` en código de dominio.   Solo primitivas del lenguaje y biblioteca estándar.   Si ves `import express` o `import typeorm` en el dominio, el límite está violado.
+- **Usa inyección de dependencias**: pasa adapters a los domain services vía constructores.   No uses service locators o singletons globales.   La inyección por constructor hace las dependencias explícitas y testeables.
+- **Escribe tests contra adapters en memoria**: los unit tests para lógica de dominio deberían usar repositories en memoria, no bases de datos de test.   Consulta [Soft Deletes](/recipes/databases/soft-deletes) para patrones de repository.   Corren en milisegundos, no requieren setup, y prueban que la lógica de dominio funciona independientemente de infraestructura.
+- **Un composition root**: el archivo de bootstrap de la aplicación (frecuentemente `main.  ts` o `index.  js`) es el único lugar donde los adapters se instancian y conectan.   Este es el único archivo que sabe sobre PostgreSQL, Express y SMTP.   Todo lo demás es agnóstico a la tecnología.
+- **No filtres tipos de framework al dominio**: si tu domain service acepta un objeto `Request` o retorna un `Response`, está acoplado a HTTP.   El dominio debería aceptar primitivas y objetos de dominio.   Los adapters extraen datos de requests HTTP y llaman métodos de dominio.
 
 ## Errores comunes
 
-- **Modelo de dominio anémico**: un dominio con solo getters y setters, donde toda la lógica vive en application services. Esto es solo data transfer objects. Empuja comportamiento a las entidades — `order.submit()`, no `orderService.submit(order)`.
-- **Filtrar entidades de ORM al dominio**: usar modelos de TypeORM o Prisma directamente como entidades de dominio ata el dominio al esquema de base de datos. Mantén entidades de dominio separadas y mapea entre ellas en el adapter de repository.
-- **Sobre-ingeniería CRUD simple**: un todo list con create, read, update, delete no necesita ports, adapters e inversión de dependencias. Usa arquitectura hexagonal cuando la complejidad de negocio justifique el costo de abstracción.
-- **Dependencias circulares**: la capa de aplicación orquesta casos de uso llamando domain services y adapters. Si la capa de aplicación importa un adapter, y el adapter importa la capa de aplicación, tienes una dependencia circular. Los adapters deben depender solo del dominio.
+- **Modelo de dominio anémico**: un dominio con solo getters y setters, donde toda la lógica vive en application services.   Esto es solo data transfer objects.   Empuja comportamiento a las entidades — `order.  submit()`, no `orderService.  submit(order)`.
+- **Filtrar entidades de ORM al dominio**: usar modelos de TypeORM o Prisma directamente como entidades de dominio ata el dominio al esquema de base de datos.
+- **Sobre-ingeniería CRUD simple**: un todo list con create, read, update, delete no necesita ports, adapters e inversión de dependencias.
+- **Dependencias circulares**: la capa de aplicación orquesta casos de uso llamando domain services y adapters.   Si la capa de aplicación importa un adapter, y el adapter importa la capa de aplicación, tienes una dependencia circular.   Los adapters deben depender solo del dominio.
 
 ## Preguntas frecuentes
 

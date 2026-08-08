@@ -264,7 +264,7 @@ System.out.println("Balance: " + account.balance); // 120.0
 Event Sourcing reemplaza el modelo CRUD tradicional con un log de eventos append-only:
 
 - **Event Store**: Log append-only de todos los eventos de dominio por entidad
-- **Eventos**: Registros inmutables describiendo lo que sucedió (ej. `Deposited`, `Withdrawn`)
+- **Eventos**: Registros inmutables describiendo lo que sucedió (ej.
 - **Rehidratación de Entidades**: Reconstruir el estado actual reproduciendo todos los eventos de una entidad
 - **Proyecciones**: Crear vistas optimizadas para lectura suscribiéndose al stream de eventos
 - **Snapshots**: Guardar periódicamente el estado computado para evitar reproducir miles de eventos
@@ -337,11 +337,11 @@ Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea centr
 
 ## Troubleshooting
 
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
-- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
-- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).   A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.   Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
+- **Tests break when the design changes**: favor stable contracts over internal structure.
+- **Performance regression from indirection**: measure before and after.   Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
 ## Errores Comunes en Producción
 

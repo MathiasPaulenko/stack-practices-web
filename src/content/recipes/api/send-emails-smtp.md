@@ -184,17 +184,17 @@ For high volume, consider a **message queue** ([Kafka](/recipes/messaging/kafka-
 
 - **Sending from localhost without SPF**: Your emails will land in spam folders.
 - **No HTML + plain text fallback**: Some clients (watch, CLI) only render text.
-- **Embedding secrets in code**: Use environment variables or a secrets manager. See [Security Guide](/guides/security/security-best-practices-guide) for secrets management.
+- **Embedding secrets in code**: See [Security Guide](/guides/security/security-best-practices-guide) for secrets management.
 - **Ignoring SMTP rate limits**: You'll get temporarily blocked or blacklisted.
 - **Synchronous sending in requests**: Use a [background worker](/recipes/api/middleware) to avoid HTTP timeouts.
 
 ## When Not to Use This Approach
 
-- **Browser-facing APIs with no real-time need**: if your API only serves request-response patterns, adding WebSocket/SSE infrastructure is unnecessary overhead. Stick with REST.
-- **Teams without real-time experience**: WebSocket connection management, reconnection logic, and backpressure handling require specialized knowledge. If your team is small, REST polling may be more reliable.
-- **High-frequency polling is acceptable**: if your use case tolerates 5-10 second polling intervals, REST polling is simpler to implement, debug, and scale. Real-time infrastructure is only justified when latency matters.
-- **Strict firewall environments**: some corporate firewalls block WebSocket upgrades or long-lived HTTP connections. Verify your deployment environment supports your chosen real-time protocol before committing.
-- **Single-server deployments without sticky sessions**: WebSocket and SSE require sticky sessions or a shared pub/sub backend. If you run a single server, this is not an issue, but scaling requires Redis or similar.
+- **Browser-facing APIs with no real-time need**: if your API only serves request-response patterns, adding WebSocket/SSE infrastructure is unnecessary overhead.  Stick with REST.
+- **Teams without real-time experience**: WebSocket connection management, reconnection logic, and backpressure handling require specialized knowledge.  If your team is small, REST polling may be more reliable.
+- **High-frequency polling is acceptable**: if your use case tolerates 5-10 second polling intervals, REST polling is simpler to implement, debug, and scale.  Real-time infrastructure is only justified when latency matters.
+- **Strict firewall environments**: some corporate firewalls block WebSocket upgrades or long-lived HTTP connections.  Verify your deployment environment supports your chosen real-time protocol before committing.
+- **Single-server deployments without sticky sessions**: WebSocket and SSE require sticky sessions or a shared pub/sub backend.  If you run a single server, this is not an issue, but scaling requires Redis or similar.
 
 ## Performance Benchmarks
 
@@ -211,28 +211,28 @@ Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary
 
 ## Testing Strategy
 
-- **Test connection lifecycle**: verify connect, authenticate, message exchange, and disconnect work correctly. Test that server cleans up resources after disconnect.
-- **Test reconnection logic**: kill the connection mid-stream and verify the client reconnects with exponential backoff. Verify no messages are lost during reconnection (use sequence numbers).
-- **Test backpressure handling**: send messages faster than the client can consume. Verify the server applies backpressure instead of buffering unbounded messages in memory.
-- **Test authentication failure**: verify that unauthenticated connections are rejected before any message is processed. Test expired tokens, invalid tokens, and missing auth headers.
+- **Test connection lifecycle**: verify connect, authenticate, message exchange, and disconnect work correctly.
+- **Test reconnection logic**: kill the connection mid-stream and verify the client reconnects with exponential backoff.  Verify no messages are lost during reconnection (use sequence numbers).
+- **Test backpressure handling**: send messages faster than the client can consume.  Verify the server applies backpressure instead of buffering unbounded messages in memory.
+- **Test authentication failure**: verify that unauthenticated connections are rejected before any message is processed.
 - **Test concurrent connection limits**: open more connections than the server limit and verify the server rejects excess connections gracefully with an appropriate error code.
-- **Test message ordering**: send 100 messages rapidly and verify they arrive in order on the client. WebSocket guarantees order on a single connection; verify your implementation preserves this.
+- **Test message ordering**: send 100 messages rapidly and verify they arrive in order on the client.  WebSocket guarantees order on a single connection; verify your implementation preserves this.
 
 ## Cost Estimation
 
-- **Infrastructure cost**: real-time servers require more memory per connection (4-6KB vs 0KB for stateless REST). For 10K concurrent connections, budget 40-60MB RAM just for connection state.
-- **Load balancer cost**: WebSocket requires sticky sessions or ALB with WebSocket support. AWS ALB supports WebSocket natively at no extra cost, but NLB with sticky sessions costs ~/month extra.
-- **Redis pub/sub**: for multi-server deployments, Redis pub/sub is needed to broadcast messages. A small Redis instance (~/month) handles up to 10K subscriptions.
-- **Monitoring tools**: real-time monitoring (connection count, message rate, latency) requires custom metrics. Budget -50/month for Datadog or Grafana Cloud.
-- **Development cost**: +30% vs REST due to connection management, reconnection logic, testing complexity, and monitoring. Amortized over the API lifetime.
+- **Infrastructure cost**: real-time servers require more memory per connection (4-6KB vs 0KB for stateless REST).  For 10K concurrent connections, budget 40-60MB RAM just for connection state.
+- **Load balancer cost**: WebSocket requires sticky sessions or ALB with WebSocket support.  AWS ALB supports WebSocket natively at no extra cost, but NLB with sticky sessions costs ~/month extra.
+- **Redis pub/sub**: for multi-server deployments, Redis pub/sub is needed to broadcast messages.  A small Redis instance (~/month) handles up to 10K subscriptions.
+- **Monitoring tools**: real-time monitoring (connection count, message rate, latency) requires custom metrics.  Budget -50/month for Datadog or Grafana Cloud.
+- **Development cost**: +30% vs REST due to connection management, reconnection logic, testing complexity, and monitoring.  Amortized over the API lifetime.
 
 ## Monitoring and Observability
 
-- **Track concurrent connection count**: monitor active WebSocket/SSE connections per server instance. Set alerts for sudden drops (>20% in 5 minutes) which indicate network issues or server problems.
-- **Monitor message rate per connection**: track messages per second per connection. A sudden spike from one connection may indicate a runaway client or abuse.
-- **Track reconnection rate**: monitor how often clients reconnect. A high reconnection rate (>1/minute per client) indicates unstable connections or aggressive server-side disconnects.
-- **Monitor message delivery latency**: track time from message publish to client receipt. Latency >100ms indicates server backlog or network issues.
-- **Track authentication failures**: monitor failed auth attempts per IP. A spike may indicate credential stuffing or token replay attacks.
+- **Track concurrent connection count**: monitor active WebSocket/SSE connections per server instance.  Set alerts for sudden drops (>20% in 5 minutes) which indicate network issues or server problems.
+- **Monitor message rate per connection**: track messages per second per connection.  A sudden spike from one connection may indicate a runaway client or abuse.
+- **Track reconnection rate**: monitor how often clients reconnect.  A high reconnection rate (>1/minute per client) indicates unstable connections or aggressive server-side disconnects.
+- **Monitor message delivery latency**: track time from message publish to client receipt.  Latency >100ms indicates server backlog or network issues.
+- **Track authentication failures**: monitor failed auth attempts per IP.  A spike may indicate credential stuffing or token replay attacks.
 
 ## Deployment Checklist
 
@@ -249,47 +249,47 @@ Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary
 
 ## Security Considerations
 
-- **Origin validation**: WebSocket connections send an Origin header. Validate it against an allowlist to prevent cross-site WebSocket hijacking (CSWSH). Reject connections from unknown origins.
-- **Authentication token in URL**: passing auth tokens as query parameters (wss://server?token=abc) leaks tokens in server logs and proxy access logs. Use the Sec-WebSocket-Protocol header or a cookie instead.
-- **Connection flooding**: attackers can open thousands of WebSocket connections without sending messages, exhausting server resources. Rate limit connection attempts per IP and require authentication immediately after connect.
-- **Message size limits**: set a max message size on the server. Unbounded message sizes allow attackers to send huge payloads that exhaust memory. A 1MB limit is reasonable for most use cases.
-- **Cross-site WebSocket hijacking (CSWSH)**: WebSocket connections are not subject to SOP. Any web page can open a WebSocket to your server. Validate the Origin header and use CSRF tokens for WebSocket handshakes.
-- **Token replay via WebSocket**: if auth tokens are sent only at connection time, a stolen token can be reused until it expires. Implement per-message authentication for sensitive operations or use short-lived tokens.
-- **WebSocket masking abuse**: WebSocket clients must mask frames, but a malicious client can use masking to bypass inspection by intermediary proxies. Configure your proxy to inspect WebSocket traffic if compliance requires it.
-- **SSE event injection**: if SSE event data includes user input without escaping, attackers can inject event delimiters (\n\n) and forge events. Always sanitize user input in SSE messages.
-- **Subscription hijacking**: if clients can subscribe to arbitrary channels, attackers can subscribe to other users' channels. Validate that the client is authorized for each subscription.
-- **Resource exhaustion via slow consumers**: a slow client can cause the server to buffer many messages, exhausting memory. Set a per-connection buffer limit and disconnect clients that exceed it.
-- **Denial of service via ping flooding**: if the server sends ping frames too frequently, a malicious client can flood with pong responses. Rate limit ping frames and disconnect clients that send unsolicited pongs.
-- **WebSocket extension abuse**: WebSocket extensions (e.g., permessage-deflate) can be abused to send highly compressed frames that decompress to huge payloads. Set a max decompressed frame size.
-- **Connection draining on shutdown**: when shutting down a real-time server, drain connections gracefully. Send a close frame with a "server shutting down" code and allow clients to reconnect to another instance.
-- **Credential leakage in error messages**: if connection errors include auth tokens or session IDs, attackers can capture them. Never include sensitive data in error messages sent to clients.
-- **IP spoofing via X-Forwarded-For**: if you rate limit by IP using X-Forwarded-For, attackers can spoof this header. Configure your load balancer to overwrite X-Forwarded-For from trusted proxies only.
-- **Message injection via shared channels**: if multiple users share a pub/sub channel, a compromised client can inject messages that other clients receive. Use per-user channels or sign messages with HMAC.
-- **Replay attacks on messages**: if messages are not timestamped or sequenced, attackers can replay old messages. Include a timestamp and sequence number in each message and reject duplicates.
-- **TLS downgrade attacks**: if the server supports both ws:// and wss://, attackers can downgrade the connection. Disable ws:// in production and redirect to wss://.
-- **Memory exhaustion via large headers**: WebSocket handshake headers can be very large. Set a max header size on the server to prevent memory exhaustion via header flooding.
-- **Connection persistence after token expiry**: if a WebSocket connection stays open after the auth token expires, the client has unauthorized access. Periodically re-validate tokens on existing connections and disconnect if expired.
-- **Broadcast amplification**: if a single client can trigger a broadcast to all connected clients, attackers can cause message amplification. Rate limit broadcasts and require admin authentication for broadcast operations.
-- **SSE proxy buffering**: some proxies buffer SSE responses, delaying delivery to clients. Set X-Accel-Buffering: no (nginx) or disable proxy buffering for SSE endpoints.
-- **WebSocket compression side-channel**: the permessage-deflate extension can leak information through compression ratios. Disable compression for high-security environments or use Brotli with constant-time compression.
-- **Channel enumeration**: if channel names are guessable (e.g., user-123), attackers can enumerate channels. Use random, unguessable channel IDs or validate authorization per subscription.
-- **Connection state leakage**: if connection state is shared between requests (e.g., in a shared channel object), data from one user may leak to another. Use per-connection isolated state objects.
-- **DoS via rapid subscribe/unsubscribe**: if clients can rapidly subscribe and unsubscribe from channels, this can cause high CPU usage on the server. Rate limit subscription changes per connection.
-- **Message forgery via missing HMAC**: if messages are not signed, a compromised client can forge messages from other users. Sign each message with an HMAC using a per-user secret.
-- **Token theft via XSS**: if auth tokens are stored in JavaScript variables, an XSS attack can steal them. Use HttpOnly cookies for session tokens and avoid storing tokens in JavaScript-accessible storage.
-- **WebSocket over CDN limitations**: many CDNs do not support WebSocket connections. Ensure your CDN supports WebSocket or bypass the CDN for WebSocket traffic.
-- **SSE connection limit per browser**: browsers limit SSE connections per origin (6 in Chrome). If your app opens multiple SSE connections, some will fail. Use a single multiplexed connection instead.
-- **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling. Implement fallback logic on the client and document the degradation strategy.
+- **Origin validation**: WebSocket connections send an Origin header.  Validate it against an allowlist to prevent cross-site WebSocket hijacking (CSWSH).  Reject connections from unknown origins.
+- **Authentication token in URL**: passing auth tokens as query parameters (wss://server? token=abc) leaks tokens in server logs and proxy access logs.
+- **Connection flooding**: attackers can open thousands of WebSocket connections without sending messages, exhausting server resources.  Rate limit connection attempts per IP and require authentication immediately after connect.
+- **Message size limits**: set a max message size on the server.  Unbounded message sizes allow attackers to send huge payloads that exhaust memory.  A 1MB limit is reasonable for most use cases.
+- **Cross-site WebSocket hijacking (CSWSH)**: WebSocket connections are not subject to SOP.  Any web page can open a WebSocket to your server.  Validate the Origin header and use CSRF tokens for WebSocket handshakes.
+- **Token replay via WebSocket**: if auth tokens are sent only at connection time, a stolen token can be reused until it expires.
+- **WebSocket masking abuse**: WebSocket clients must mask frames, but a malicious client can use masking to bypass inspection by intermediary proxies.
+- **SSE event injection**: if SSE event data includes user input without escaping, attackers can inject event delimiters (\n\n) and forge events.  Always sanitize user input in SSE messages.
+- **Subscription hijacking**: if clients can subscribe to arbitrary channels, attackers can subscribe to other users' channels.  Validate that the client is authorized for each subscription.
+- **Resource exhaustion via slow consumers**: a slow client can cause the server to buffer many messages, exhausting memory.  Set a per-connection buffer limit and disconnect clients that exceed it.
+- **Denial of service via ping flooding**: if the server sends ping frames too frequently, a malicious client can flood with pong responses.  Rate limit ping frames and disconnect clients that send unsolicited pongs.
+- **WebSocket extension abuse**: WebSocket extensions (e. g. , permessage-deflate) can be abused to send highly compressed frames that decompress to huge payloads.  Set a max decompressed frame size.
+- **Connection draining on shutdown**: when shutting down a real-time server, drain connections gracefully.  Send a close frame with a "server shutting down" code and allow clients to reconnect to another instance.
+- **Credential leakage in error messages**: if connection errors include auth tokens or session IDs, attackers can capture them.  Never include sensitive data in error messages sent to clients.
+- **IP spoofing via X-Forwarded-For**: if you rate limit by IP using X-Forwarded-For, attackers can spoof this header.
+- **Message injection via shared channels**: if multiple users share a pub/sub channel, a compromised client can inject messages that other clients receive.
+- **Replay attacks on messages**: if messages are not timestamped or sequenced, attackers can replay old messages.
+- **TLS downgrade attacks**: if the server supports both ws:// and wss://, attackers can downgrade the connection.  Disable ws:// in production and redirect to wss://.
+- **Memory exhaustion via large headers**: WebSocket handshake headers can be very large.  Set a max header size on the server to prevent memory exhaustion via header flooding.
+- **Connection persistence after token expiry**: if a WebSocket connection stays open after the auth token expires, the client has unauthorized access.  Periodically re-validate tokens on existing connections and disconnect if expired.
+- **Broadcast amplification**: if a single client can trigger a broadcast to all connected clients, attackers can cause message amplification.  Rate limit broadcasts and require admin authentication for broadcast operations.
+- **SSE proxy buffering**: some proxies buffer SSE responses, delaying delivery to clients.  Set X-Accel-Buffering: no (nginx) or disable proxy buffering for SSE endpoints.
+- **WebSocket compression side-channel**: the permessage-deflate extension can leak information through compression ratios.  Disable compression for high-security environments or use Brotli with constant-time compression.
+- **Channel enumeration**: if channel names are guessable (e. g. , user-123), attackers can enumerate channels.
+- **Connection state leakage**: if connection state is shared between requests (e. g. , in a shared channel object), data from one user may leak to another.
+- **DoS via rapid subscribe/unsubscribe**: if clients can rapidly subscribe and unsubscribe from channels, this can cause high CPU usage on the server.  Rate limit subscription changes per connection.
+- **Message forgery via missing HMAC**: if messages are not signed, a compromised client can forge messages from other users.  Sign each message with an HMAC using a per-user secret.
+- **Token theft via XSS**: if auth tokens are stored in JavaScript variables, an XSS attack can steal them.
+- **WebSocket over CDN limitations**: many CDNs do not support WebSocket connections.
+- **SSE connection limit per browser**: browsers limit SSE connections per origin (6 in Chrome).  If your app opens multiple SSE connections, some will fail.
+- **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling.
 
 
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 
 
@@ -335,10 +335,10 @@ Authenticate with SPF, DKIM, and DMARC. Use a consistent "From" address. Avoid s
 ### Can I send bulk newsletters via SMTP?
 
 Yes, but SMTP is not optimized for bulk. For newsletters (10k+ recipients), use a dedicated email marketing platform (Mailchimp, ConvertKit, Brevo). For transactional + small bulk, SMTP works fine with queue-based throttling.
-- **SMTP connection pooling**: reuse SMTP connections across email sends to avoid TCP+TLS handshake overhead. Set max pool size to 10 and idle timeout to 30 seconds.
-- **Email template injection**: if email templates include user input without escaping, attackers can inject malicious content into emails. Always escape user input in email templates, even in plain text emails.
-- **BCC leakage in bulk emails**: if bulk emails are sent with all recipients in To or Cc, recipients can see each other's addresses. Always use Bcc or individual messages for bulk sends.
-- **SMTP timing attacks**: if email validation reveals whether an email was sent successfully, attackers can enumerate valid email addresses. Return the same response regardless of whether the email was sent.
+- **SMTP connection pooling**: reuse SMTP connections across email sends to avoid TCP+TLS handshake overhead.  Set max pool size to 10 and idle timeout to 30 seconds.
+- **Email template injection**: if email templates include user input without escaping, attackers can inject malicious content into emails.  Always escape user input in email templates, even in plain text emails.
+- **BCC leakage in bulk emails**: if bulk emails are sent with all recipients in To or Cc, recipients can see each other's addresses.  Always use Bcc or individual messages for bulk sends.
+- **SMTP timing attacks**: if email validation reveals whether an email was sent successfully, attackers can enumerate valid email addresses.  Return the same response regardless of whether the email was sent.
 
 ## Common Production Pitfalls
 

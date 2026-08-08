@@ -50,9 +50,9 @@ Usa este recurso cuando:
 
 ## Cuándo Evitar
 
-- **Trabajo CPU-bound**: El event loop es single-threaded. Usa Web Workers para computación pesada (procesamiento de imágenes, crypto, parsing).
+- **Trabajo CPU-bound**: El event loop es single-threaded.
 - **Procesamiento de audio/video en tiempo real**: Usa Web Audio API o WebRTC, que corren en threads separados.
-- **Paralelismo server-side**: Los worker threads de Node.js o child processes son mejores para tareas CPU-bound en el servidor.
+- **Paralelismo server-side**: Los worker threads de Node.  js o child processes son mejores para tareas CPU-bound en el servidor.
 
 ## Solución
 
@@ -337,11 +337,11 @@ setTimeout corre un callback una vez después de un delay. setInterval corre un 
 
 ## Troubleshooting
 
-- **Component does not re-render**: verify state reference, props, and memoization. A mutated object can bypass change detection.
-- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins. Purge unused styles carefully.
-- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file. Test in a fresh environment.
-- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast. Use a screen reader for manual verification.
-- **Hydration mismatch**: ensure server and client render the same initial HTML. Avoid using Date, Math.random, or window during SSR.
+- **Component does not re-render**: verify state reference, props, and memoization.   A mutated object can bypass change detection.
+- **Style does not apply in production**: check that CSS is loaded, class names are not mangled, and specificity wins.   Purge unused styles carefully.
+- **Build fails after dependency update**: read the changelog, pin versions, and clean the lock file.
+- **Accessibility audit fails**: add labels, landmarks, focus management, and color contrast.
+- **Hydration mismatch**: ensure server and client render the same initial HTML.  random, or window during SSR.
 
 ## Errores Comunes en Producción
 

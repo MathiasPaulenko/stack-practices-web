@@ -151,9 +151,9 @@ users 1───∞ orders
   └── user_preferences (1:1, optional)
 ```
 
-- **users → orders**: One user can have many orders. CASCADE DELETE removes orders when a user is hard-deleted (rare; soft delete is preferred).
-- **orders → order_items**: One order has many line items. CASCADE DELETE.
-- **users → user_preferences**: One-to-one, LEFT JOIN. Preferences are optional.
+- **users → orders**: One user can have many orders.  CASCADE DELETE removes orders when a user is hard-deleted (rare; soft delete is preferred).
+- **orders → order_items**: One order has many line items.  CASCADE DELETE.
+- **users → user_preferences**: One-to-one, LEFT JOIN.  Preferences are optional.
 
 ## Enum Reference
 
@@ -297,11 +297,11 @@ For organizations with existing wiki infrastructure, adapt the template sections
 
 ## Troubleshooting
 
-- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
-- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
-- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
-- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
-- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+- **Query is slow after an index change**: check execution plans and cardinality estimates.  Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: monitor network, disk I/O, and long transactions.  Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order.
 
 
 ## Key Takeaways

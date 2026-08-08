@@ -197,12 +197,12 @@ The pattern also provides natural **backpressure**. If the consumer is slow, it 
 
 ## Common Mistakes
 
-- **Collecting all yielded values into a list**: `list(async_generator())` loads everything into memory, defeating the purpose. Process values as you iterate.
-- **Not closing the generator**: If you break out of an async for loop early, the generator stays suspended. Use `aclose()` to clean up.
-- **Blocking I/O inside the generator**: Using `requests.get()` instead of `aiohttp` blocks the event loop. Use async I/O libraries.
-- **No timeout on yielded operations**: A slow API call hangs the generator forever. Set timeouts.
+- **Collecting all yielded values into a list**: `list(async_generator())` loads everything into memory, defeating the purpose.  Process values as you iterate.
+- **Not closing the generator**: If you break out of an async for loop early, the generator stays suspended.
+- **Blocking I/O inside the generator**: Using `requests. get()` instead of `aiohttp` blocks the event loop.
+- **No timeout on yielded operations**: A slow API call hangs the generator forever.  Set timeouts.
 - **Mixing sync and async iteration**: Using `for item in async_gen` instead of `async for item in async_gen` raises a TypeError.
-- **Ignoring backpressure signals**: If the consumer is slow, the generator should not pre-fetch. Let the pull-based model work.
+- **Ignoring backpressure signals**: If the consumer is slow, the generator should not pre-fetch.  Let the pull-based model work.
 
 ## How It Works
 
@@ -241,10 +241,10 @@ A log analytics service tails log files using `fs.createReadStream` wrapped in a
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.  Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: monitor queue length and rejection policy.  Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 

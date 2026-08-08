@@ -216,10 +216,10 @@ Los tests parametrizados te permiten ejecutar la misma lógica contra múltiples
 
 ## Explanation
 
-- **Arrange-Act-Assert (AAA)**: cada prueba debe preparar el estado (arrange), ejecutar el código bajo prueba (act) y verificar el resultado (assert). Esta estructura hace que los tests sean fáciles de escanear.
-- **Determinismo**: las pruebas unitarias nunca deben depender de la red, el sistema de archivos o la hora actual. Si lo hacen, son pruebas de integración.
-- **Aislamiento**: cada prueba debe ejecutarse independientemente. El estado global o fixtures mutables compartidos causan fallos flaky dependientes del orden.
-- **Retroalimentación rápida**: una suite de pruebas unitarias debe ejecutarse en segundos, no minutos. Las suites lentas desalientan ejecutarlas localmente.
+- **Arrange-Act-Assert (AAA)**: cada prueba debe preparar el estado (arrange), ejecutar el código bajo prueba (act) y verificar el resultado (assert).   Esta estructura hace que los tests sean fáciles de escanear.
+- **Determinismo**: las pruebas unitarias nunca deben depender de la red, el sistema de archivos o la hora actual.   Si lo hacen, son pruebas de integración.
+- **Aislamiento**: cada prueba debe ejecutarse independientemente.   El estado global o fixtures mutables compartidos causan fallos flaky dependientes del orden.
+- **Retroalimentación rápida**: una suite de pruebas unitarias debe ejecutarse en segundos, no minutos.   Las suites lentas desalientan ejecutarlas localmente.
 
 ## Variants
 
@@ -234,13 +234,13 @@ Los tests parametrizados te permiten ejecutar la misma lógica contra múltiples
 ## Lo que funciona
 
 - **Nombra tests según comportamiento**: `sumaNumerosNegativos` es mejor que `test_add2` porque describe la intención.
-- **Un concepto por test**: si necesitas múltiples asserts, asegúrate de que verifiquen un solo resultado lógico. De lo contrario, divide el test.
+- **Un concepto por test**: si necesitas múltiples asserts, asegúrate de que verifiquen un solo resultado lógico.   De lo contrario, divide el test.
 - **Evita lógica en tests**: sin sentencias `if` ni bucles en tests — hacen que los fallos sean más difíciles de diagnosticar.
 - **Usa fakes sobre mocks cuando sea posible**: un repositorio en memoria fake es más simple que [mockear](/recipes/testing/unit-testing) cada llamada a método.
 - **Mantén los tests cerca del código**: coloca los archivos de test junto al fuente (co-locación) o en un directorio `tests/` espejado.
 - **Prueba condiciones boundary**: cero, números negativos, colecciones vacías, valores máximos y entradas null son donde se esconden la mayoría de los bugs.
 - **Usa setup y teardown consistentemente**: el setup compartido pertenece a `beforeEach` / `setUp`, no duplicado entre tests.
-- **Ejecuta tests en orden aleatorio**: los tests dependientes del orden esconden bugs. Usa `pytest --randomly-seed` o `--randomize` de Jest para detectarlos.
+- **Ejecuta tests en orden aleatorio**: los tests dependientes del orden esconden bugs.
 
 ## Common Mistakes
 
@@ -248,20 +248,20 @@ Los tests parametrizados te permiten ejecutar la misma lógica contra múltiples
 - **Ignorar casos edge**: cadenas vacías, cero, null/undefined y entradas muy grandes son donde se esconden los bugs.
 - **Estado mutable compartido**: un test que muta un contador global rompe todos los tests que se ejecutan después.
 - **Pruebas unitarias lentas**: llamar a una base de datos real o servicio HTTP convierte pruebas unitarias en [pruebas de integración](/recipes/testing/integration-testing) y ralentiza la suite.
-- **Salida ruidosa**: `console.log` o `System.out.println` en tests ensucian los logs de CI. Usa fallos de assertion apropiados en su lugar.
-- **Probar demasiado por test**: un test con 20 assertions es difícil de depurar cuando falla. Divide en tests enfocados.
-- **No probar caminos de error**: muchos desarrolladores solo prueban el happy path. Prueba qué pasa cuando las entradas son inválidas, las dependencias fallan, o se lanzan excepciones.
-- **Over-mocking**: mockear cada función interna crea tests que pasan pero no prueban nada sobre el comportamiento real. Mockea solo en los boundaries.
-- **Ignorar tests flaky**: un test que pasa el 90% del tiempo esconde bugs reales. Arregla los tests flaky inmediatamente o cuarenténalos.
+- **Salida ruidosa**: `console.  log` o `System.  out.  println` en tests ensucian los logs de CI.
+- **Probar demasiado por test**: un test con 20 assertions es difícil de depurar cuando falla.   Divide en tests enfocados.
+- **No probar caminos de error**: muchos desarrolladores solo prueban el happy path.   Prueba qué pasa cuando las entradas son inválidas, las dependencias fallan, o se lanzan excepciones.
+- **Over-mocking**: mockear cada función interna crea tests que pasan pero no prueban nada sobre el comportamiento real.   Mockea solo en los boundaries.
+- **Ignorar tests flaky**: un test que pasa el 90% del tiempo esconde bugs reales.   Arregla los tests flaky inmediatamente o cuarenténalos.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.   Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.   Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.   Pin tool versions.
+- **Debugging a failing integration test**: Reset state before each test.
 
 ## FAQ
 

@@ -185,10 +185,10 @@ order_subject.on_next({'id': '124', 'total': 250})
 
 ## Explicación
 
-- **Subject y observer**: el subject mantiene estado y notifica a observers cuando cambia. Los observers registran interés y reciben callbacks. El subject no sabe qué hacen los observers — simplemente broadcastea el evento.
-- **Push vs pull**: en el observer pattern, los datos se empujan a los observers. Esto es más eficiente que polling, donde los observers chequean repetidamente al subject. Los sistemas basados en push reaccionan inmediatamente a los cambios.
-- **Hot vs cold observables**: un hot observable (como un stock ticker en vivo) emite eventos independientemente de si alguien está suscrito. Un cold observable (como una lectura de archivo) comienza a emitir solo cuando se suscribe, y reproduce la secuencia a cada suscriptor. Los event emitters son típicamente hot.
-- **Memory leaks**: si los observers no se desuscriben, el subject mantiene referencias para siempre. En aplicaciones de larga vida (browsers, servidores), siempre retorna una función de unsubscribe y llámala cuando el componente se destruye.
+- **Subject y observer**: el subject mantiene estado y notifica a observers cuando cambia.   Los observers registran interés y reciben callbacks.   El subject no sabe qué hacen los observers — simplemente broadcastea el evento.
+- **Push vs pull**: en el observer pattern, los datos se empujan a los observers.   Esto es más eficiente que polling, donde los observers chequean repetidamente al subject.   Los sistemas basados en push reaccionan inmediatamente a los cambios.
+- **Hot vs cold observables**: un hot observable (como un stock ticker en vivo) emite eventos independientemente de si alguien está suscrito.   Un cold observable (como una lectura de archivo) comienza a emitir solo cuando se suscribe, y reproduce la secuencia a cada suscriptor.   Los event emitters son típicamente hot.
+- **Memory leaks**: si los observers no se desuscriben, el subject mantiene referencias para siempre.   En aplicaciones de larga vida (browsers, servidores), siempre retorna una función de unsubscribe y llámala cuando el componente se destruye.
 
 ## Variantes
 
@@ -202,18 +202,18 @@ order_subject.on_next({'id': '124', 'total': 250})
 
 ## Lo que funciona
 
-- **Siempre provee un mecanismo de unsubscribe**: suscripciones colgantes son la causa principal de memory leaks en sistemas basados en observers. Retorna una función de cleanup desde `subscribe()` y asegura que los componentes la llamen al desmontar.
-- **No mutues la lista de observers durante notificación**: si un observer desuscribe a otro observer mientras maneja un evento, la lista de iteración cambia en medio del vuelo. Copia la lista antes de iterar, o usa una estructura copy-on-write.
-- **Maneja excepciones en observers independientemente**: si un observer lanza una excepción, no debería prevenir que otros reciban el evento. Envuelve cada llamada a observer en try/catch (o Promise.catch) y loguea el error sin detener el broadcast.
-- **Usa eventos tipados**: en TypeScript, define interfaces de eventos (`OrderCreated`, `PaymentProcessed`) en lugar de eventos genéricos `string`. Esto habilita verificación en tiempo de compilación de las formas de payload y previene bugs de typos en nombres de eventos.
-- **Prefiere reactive streams para flujos complejos**: RxJS y RxPY proveen operadores (map, filter, merge, debounce) que componen elegantemente. Consulta [Redis Cache Patterns](/recipes/databases/redis-cache-patterns) para backends pub/sub. Para notificación simple uno-a-muchos, un event emitter básico es suficiente. Para pipelines de datos y coordinación async, reactive streams valen la curva de aprendizaje.
+- **Siempre provee un mecanismo de unsubscribe**: suscripciones colgantes son la causa principal de memory leaks en sistemas basados en observers.
+- **No mutues la lista de observers durante notificación**: si un observer desuscribe a otro observer mientras maneja un evento, la lista de iteración cambia en medio del vuelo.
+- **Maneja excepciones en observers independientemente**: si un observer lanza una excepción, no debería prevenir que otros reciban el evento.   Envuelve cada llamada a observer en try/catch (o Promise.  catch) y loguea el error sin detener el broadcast.
+- **Usa eventos tipados**: en TypeScript, define interfaces de eventos (`OrderCreated`, `PaymentProcessed`) en lugar de eventos genéricos `string`.   Esto habilita verificación en tiempo de compilación de las formas de payload y previene bugs de typos en nombres de eventos.
+- **Prefiere reactive streams para flujos complejos**: RxJS y RxPY proveen operadores (map, filter, merge, debounce) que componen elegantemente.   Consulta [Redis Cache Patterns](/recipes/databases/redis-cache-patterns) para backends pub/sub.   Para notificación simple uno-a-muchos, un event emitter básico es suficiente.   Para pipelines de datos y coordinación async, reactive streams valen la curva de aprendizaje.
 
 ## Errores comunes
 
-- **Updates circulares**: el observer A actualiza el subject, que notifica al observer B, que actualiza el subject, que notifica al observer A. Esto crea un loop infinito. Usa una flag para suprimir notificaciones durante updates programáticos, o usa emitters debounced.
-- **Filtrar referencias de suscripción**: almacenar `emitter.on(...)` sin capturar la función de unsubscribe retornada significa que el listener vive para siempre. Siempre almacena la función de unsubscribe y llámala en los handlers de cleanup.
-- **Sobre-notificar**: emitir un evento por cada cambio de estado menor (ej. cada keystroke) abruma a los observers. Batch cambios y emite una vez, o usa emitters debounced. Considera si los observers realmente necesitan estados intermedios o solo el final.
-- **Usar observers para commands**: `emitter.emit('saveOrder')` es un command, no un evento. Los observers deberían reaccionar a hechos (`OrderCreated`), no ejecutar acciones. Los commands deberían ir a través de un command bus o llamadas directas de método con valores de retorno claros.
+- **Updates circulares**: Esto crea un loop infinito.
+- **Filtrar referencias de suscripción**: on(...  )` sin capturar la función de unsubscribe retornada significa que el listener vive para siempre.
+- **Sobre-notificar**: emitir un evento por cada cambio de estado menor (ej.   cada keystroke) abruma a los observers.   Considera si los observers realmente necesitan estados intermedios o solo el final.
+- **Usar observers para commands**: `emitter.  emit('saveOrder')` es un command, no un evento.   Los observers deberían reaccionar a hechos (`OrderCreated`), no ejecutar acciones.   Los commands deberían ir a través de un command bus o llamadas directas de método con valores de retorno claros.
 
 ## Preguntas frecuentes
 

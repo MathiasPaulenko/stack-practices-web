@@ -166,10 +166,10 @@ node app.js
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## FAQ
 
@@ -250,23 +250,23 @@ if __name__ == "__main__":
 
 ## Consideraciones Adicionales de Producción
 
-- **Usa un store de conversación persistente**: Redis o Postgres en lugar de maps en memoria. Esto sobrevive reinicios y funciona across múltiples instancias del bot.
+- **Usa un store de conversación persistente**: Redis o Postgres en lugar de maps en memoria.   Esto sobrevive reinicios y funciona across múltiples instancias del bot.
 - **Implementa truncación consciente de tokens**: en lugar de mantener los últimos 10 mensajes, usa `tiktoken` para contar tokens y recortar el historial para no exceder el context window del modelo.
-- **Añade lógica de retry con backoff exponencial**: las llamadas a la API de OpenAI pueden fallar por rate limits o problemas de red. Usa `tenacity` (Python) o `p-retry` (JavaScript) para reintentar fallos transitorios.
-- **Registra todas las interacciones**: guarda user ID, canal, timestamp, prompt y respuesta para auditoría y debugging. Usa structured logging con correlation IDs.
+- **Añade lógica de retry con backoff exponencial**: las llamadas a la API de OpenAI pueden fallar por rate limits o problemas de red.
+- **Registra todas las interacciones**: guarda user ID, canal, timestamp, prompt y respuesta para auditoría y debugging.
 - **Añade un endpoint de health check**: si ejecutas como servicio web, expón un endpoint `/health` que verifique conectividad con Slack y OpenAI.
-- **Setea rate limits por usuario**: evita que un solo usuario consuma todo tu presupuesto de OpenAI. Trackea requests por usuario y enforce límites diarios.
+- **Setea rate limits por usuario**: evita que un solo usuario consuma todo tu presupuesto de OpenAI.
 
 ## Errores Comunes
 
-- **No manejar los retries de Slack**: Slack reintenta eventos si no recibe un 200 OK en 3 segundos. Acknowledge eventos inmediatamente y procesa asincrónicamente.
-- **Guardar API keys en código**: siempre usa variables de entorno o un secrets manager. Nunca commitees archivos `.env` a version control.
-- **No filtrar los mensajes del propio bot**: sin un check, el bot puede entrar en un loop infinito respondiéndose a sí mismo. Verifica `message.bot_id` y skip.
-- **Ignorar el contexto del thread**: cuando un usuario hace una pregunta de seguimiento en un thread, incluye los mensajes previos del thread para contexto. Usa la API `conversations.replies` para fetchear el historial del thread.
-- **No setear max_tokens**: una respuesta sin límite puede consumir todo tu presupuesto de API en una sola llamada. Setea un límite razonable según tu caso de uso.
-- **Usar el modelo equivocado para la tarea**: GPT-4o-mini es cost-effective para Q&A simple. Usa GPT-4o para razonamiento complejo, generación de código o planning multi-paso.
-- **No manejar mensajes vacíos o solo whitespace**: los usuarios pueden enviar mensajes vacíos o solo mentions. Valida el input antes de llamar a la API de OpenAI.
-- **Olvidar manejar rate limits de Slack**: Slack permite 1 mensaje por segundo por canal. Batchea respuestas o encola mensajes para evitar hitting limits.
+- **No manejar los retries de Slack**: Slack reintenta eventos si no recibe un 200 OK en 3 segundos.   Acknowledge eventos inmediatamente y procesa asincrónicamente.
+- **Guardar API keys en código**: Nunca commitees archivos `.  env` a version control.
+- **No filtrar los mensajes del propio bot**: sin un check, el bot puede entrar en un loop infinito respondiéndose a sí mismo.   Verifica `message.  bot_id` y skip.
+- **Ignorar el contexto del thread**: replies` para fetchear el historial del thread.
+- **No setear max_tokens**: una respuesta sin límite puede consumir todo tu presupuesto de API en una sola llamada.   Setea un límite razonable según tu caso de uso.
+- **Usar el modelo equivocado para la tarea**: GPT-4o-mini es cost-effective para Q&A simple.
+- **No manejar mensajes vacíos o solo whitespace**: los usuarios pueden enviar mensajes vacíos o solo mentions.   Valida el input antes de llamar a la API de OpenAI.
+- **Olvidar manejar rate limits de Slack**: Slack permite 1 mensaje por segundo por canal.
 
 
 

@@ -140,7 +140,7 @@ Cada sección sirve un propósito específico:
 - **Instalación**: Reduce la barrera para el primer éxito; incluye comandos copiar-pegar
 - **Uso**: Muestra un ejemplo mínimo antes de explicar casos límite
 - **Referencia API**: Enlaza a documentación detallada; mantén el README escaneable
-- **Contribución**: Establece expectativas para PRs, issues y estilo de código. Enlaza a la [Guía de Contribución](/docs/templates/contributing-guide) para detalles.
+- **Contribución**: Establece expectativas para PRs, issues y estilo de código.   Enlaza a la [Guía de Contribución](/docs/templates/contributing-guide) para detalles.
 - **Licencia**: Protege legalmente tanto a autores como usuarios
 
 ## Ejemplo de README
@@ -241,10 +241,10 @@ Tests:
 ## Troubleshooting
 
 - **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
-- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
-- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
-- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
-- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly.   Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes.   A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers.   Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts.
 
 ## FAQ
 

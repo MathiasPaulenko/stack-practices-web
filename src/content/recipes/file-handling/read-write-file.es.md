@@ -125,21 +125,21 @@ Para convertir el contenido de un archivo en datos estructurados, consulta [Pars
 ## Lo que funciona
 
 - **Define siempre la codificación**: un `utf-8` explícito evita valores por defecto dependientes de la plataforma que pueden corromper caracteres no-ASCII en Windows o macOS.
-- **Usa context managers / APIs async**: `with` en Python, `fs/promises` en Node, para evitar fugas de descriptores y bloqueos del event loop. Estas abstracciones garantizan limpieza incluso cuando ocurren excepciones.
-- **Comprueba que la ruta existe**: maneja los archivos ausentes con elegancia en lugar de fallar. En Python, usa `pathlib.Path.exists()`; en Node, usa `fs.access()` o `fs.stat()`.
-- **Procesa archivos grandes en streaming**: lee línea a línea en vez de cargar gigabytes en memoria. Python proporciona `for line in f`; Node proporciona `readline` o `createReadStream`; Bash proporciona `while read line`.
-- **Escribe de forma atómica**: escribe en un archivo temporal y luego renómbralo, para no corromper datos ante un fallo. Si el proceso muere durante la escritura, el archivo original permanece intacto.
-- **Usa rutas absolutas en scripts**: las rutas relativas se rompen cuando cambia el directorio de trabajo. Resuelve rutas con `pathlib` (Python) o `path.resolve()` (Node) antes de abrir archivos.
+- **Usa context managers / APIs async**: `with` en Python, `fs/promises` en Node, para evitar fugas de descriptores y bloqueos del event loop.   Estas abstracciones garantizan limpieza incluso cuando ocurren excepciones.
+- **Comprueba que la ruta existe**: Path.  access()` o `fs.  stat()`.
+- **Procesa archivos grandes en streaming**: lee línea a línea en vez de cargar gigabytes en memoria.   Python proporciona `for line in f`; Node proporciona `readline` o `createReadStream`; Bash proporciona `while read line`.
+- **Escribe de forma atómica**: escribe en un archivo temporal y luego renómbralo, para no corromper datos ante un fallo.   Si el proceso muere durante la escritura, el archivo original permanece intacto.
+- **Usa rutas absolutas en scripts**: las rutas relativas se rompen cuando cambia el directorio de trabajo.   Resuelve rutas con `pathlib` (Python) o `path.  resolve()` (Node) antes de abrir archivos.
 - **Establece permisos restrictivos en archivos sensibles**: los archivos de configuración que contienen secrets deben ser legibles solo por el owner (`chmod 600`).
 
 ## Errores Comunes
 
 - **Olvidar cerrar el descriptor**: provoca fugas de descriptores y eventualmente agota el límite del proceso; usa siempre `with` o `try/finally`.
-- **Bloquear el event loop en Node**: evita `readFileSync` en los manejadores de peticiones. Una sola lectura síncrona puede congelar todo tu servidor para todos los usuarios concurrentes.
+- **Bloquear el event loop en Node**: Una sola lectura síncrona puede congelar todo tu servidor para todos los usuarios concurrentes.
 - **Codificación incorrecta**: leer UTF-8 como ASCII corrompe los caracteres no ingleses y puede producir mojibake en logs o output orientado al usuario.
 - **Sobrescribir con `>`**: usar `>` en lugar de `>>` en Bash borra el archivo en silencio sin undo ni confirmación.
-- **Ignorar errores**: un archivo ausente o un error de permisos debe manejarse, no tragarse con un catch vacío. Registra el error y falla con elegancia.
-- **Leer archivos completos en memoria**: cargar un archivo de logs de 10 GB en un string hará crash tu proceso. Siempre verifica el tamaño del archivo o usa streaming para cualquier cosa superior a unos pocos megabytes.
+- **Ignorar errores**: un archivo ausente o un error de permisos debe manejarse, no tragarse con un catch vacío.   Registra el error y falla con elegancia.
+- **Leer archivos completos en memoria**: cargar un archivo de logs de 10 GB en un string hará crash tu proceso.
 - **Escribir en el mismo archivo que estás leyendo**: sobrescribir un archivo de entrada in-place puede truncarlo antes de que termines de leer, resultando en pérdida de datos.
 
 ## Preguntas Frecuentes

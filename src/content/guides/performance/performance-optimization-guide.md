@@ -222,7 +222,7 @@ brotli_types text/plain text/css application/json application/javascript;
 
 - **Set explicit width/height** on images to prevent CLS
 - **Defer non-critical JavaScript** with `defer` or `async`
-- **Preload critical resources**: fonts, hero images, main CSS. See [lazy loading](/recipes/performance/lazy-loading).
+- **Preload critical resources**: fonts, hero images, main CSS.  See [lazy loading](/recipes/performance/lazy-loading).
 - **Use resource hints**: `dns-prefetch`, `preconnect`, `prefetch`
 - **Measure before optimizing**: Profile with DevTools first
 
@@ -236,11 +236,11 @@ brotli_types text/plain text/css application/json application/javascript;
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.  Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.  Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.  Scale horizontally only after optimizing the hot path.
 
 
 ## Key Takeaways

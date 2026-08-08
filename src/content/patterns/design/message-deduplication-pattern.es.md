@@ -199,10 +199,10 @@ Para que la deduplicacion funcione, cada mensaje debe llevar un identificador un
 
 ## Errores Comunes
 
-- **Check-then-set sin atomicidad**: Dos consumidores verifican simultaneamente, ambos ven que no hay clave, ambos procesan. Siempre usa `SET NX` atomico.
-- **TTL demasiado corto**: Si el TTL expira antes de que el broker deje de reentregar, los duplicados pasan. Establece TTL al menos 2x la ventana de reentrega.
-- **Usar memoria del proceso para dedup**: Se pierde al reiniciar, no se comparte entre instancias. Usa un almacen externo.
-- **No manejar fallos del almacen de dedup**: Si Redis cae, dedup falla. Decide si procesar (riesgo de duplicados) o rechazar (perder mensajes).
+- **Check-then-set sin atomicidad**: Dos consumidores verifican simultaneamente, ambos ven que no hay clave, ambos procesan.
+- **TTL demasiado corto**: Si el TTL expira antes de que el broker deje de reentregar, los duplicados pasan.   Establece TTL al menos 2x la ventana de reentrega.
+- **Usar memoria del proceso para dedup**: Se pierde al reiniciar, no se comparte entre instancias.
+- **No manejar fallos del almacen de dedup**: Si Redis cae, dedup falla.   Decide si procesar (riesgo de duplicados) o rechazar (perder mensajes).
 - **Clave de dedup basada en campos mutables**: Si la clave incluye campos que cambian, el mismo mensaje logico obtiene claves diferentes y se procesa dos veces.
 
 ## Como Funciona
@@ -337,11 +337,11 @@ R: Usa el header HTTP `Idempotency-Key` como clave de dedup. Almacenalo en Redis
 
 ## Troubleshooting
 
-- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
-- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
-- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
-- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
-- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+- **Messages are lost on restart**: persist messages before acknowledging.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic.
+- **Duplicate messages**: design consumers to be idempotent.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts.   Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues.   Restart gracefully.
 
 ## Errores Comunes en Producción
 

@@ -197,10 +197,10 @@ def invalidate_user(user_id):
 
 ## Explicación
 
-- **Expiración TTL**: El enfoque más simple. Los datos expiran después de un tiempo fijo. Adecuado para datos que cambian infrecuentemente o donde la obsolescencia breve es aceptable. Fácil de implementar pero puede servir datos obsoletos durante la duración del TTL.
-- **Write-through**: Actualiza la caché sincrónicamente cuando se escribe en la base de datos. Garantiza consistencia pero agrega latencia a las escrituras e incrementa la carga de la caché.
-- **Write-behind (write-back)**: Las escrituras van primero a la caché, que persiste asíncronamente en la base de datos. Escrituras extremadamente rápidas pero riesgo de pérdida de datos si la caché falla antes de flush.
-- **Event-driven**: Los servicios publican [eventos](/recipes/messaging/event-driven-microservices) cuando los datos cambian. Los listeners de caché eliminan o refrescan las keys afectadas. Acoplamiento débil pero requiere un message broker.
+- **Expiración TTL**: El enfoque más simple.   Los datos expiran después de un tiempo fijo.   Adecuado para datos que cambian infrecuentemente o donde la obsolescencia breve es aceptable.   Fácil de implementar pero puede servir datos obsoletos durante la duración del TTL.
+- **Write-through**: Garantiza consistencia pero agrega latencia a las escrituras e incrementa la carga de la caché.
+- **Write-behind (write-back)**: Las escrituras van primero a la caché, que persiste asíncronamente en la base de datos.   Escrituras extremadamente rápidas pero riesgo de pérdida de datos si la caché falla antes de flush.
+- **Event-driven**: Los servicios publican [eventos](/recipes/messaging/event-driven-microservices) cuando los datos cambian.   Los listeners de caché eliminan o refrescan las keys afectadas.   Acoplamiento débil pero requiere un message broker.
 
 ## Variantes
 
@@ -255,16 +255,16 @@ La invalidación de CDN es lenta (segundos a minutos). Usa URLs versionadas (`/v
 
 ## Lo que funciona
 
-- **Usa cache-aside para lecturas**: revisa caché, fallback a base de datos, popula caché. Es el patrón más común y resiliente.
-- **Configura TTLs apropiados**: demasiado corto y derrotas el propósito del caching; demasiado largo y los datos obsoletos persisten. Basado en requerimientos de negocio.
-- **Implementa protección contra cache stampede**: cuando el TTL expira, muchos requests concurrentes pueden golpear la base de datos simultáneamente. Usa un mutex o expiración temprana probabilística.
-- **Versiona keys de caché**: incluye una versión de schema en la key (`user:v2:123`). Cuando el formato de datos cambia, las entradas cacheadas viejas se ignoran naturalmente.
+- **Usa cache-aside para lecturas**: Es el patrón más común y resiliente.
+- **Configura TTLs apropiados**: demasiado corto y derrotas el propósito del caching; demasiado largo y los datos obsoletos persisten.   Basado en requerimientos de negocio.
+- **Implementa protección contra cache stampede**: cuando el TTL expira, muchos requests concurrentes pueden golpear la base de datos simultáneamente.
+- **Versiona keys de caché**: Cuando el formato de datos cambia, las entradas cacheadas viejas se ignoran naturalmente.
 - **Monitorea tasas de cache hit**: una tasa de hit bajo del 80% generalmente indica mala selección de keys o ajuste de TTL.
 
 ## Errores comunes
 
-- **Cachear todo**: algunos datos ya son rápidos de consultar o cambian demasiado frecuentemente para beneficiarse del caching. Profile antes de agregar capas de caché.
-- **Olvidar invalidar**: actualizaciones a la base de datos que no limpian la caché causan datos obsoletos persistentes. Los pipelines de invalidación automatizada ayudan.
+- **Cachear todo**: algunos datos ya son rápidos de consultar o cambian demasiado frecuentemente para beneficiarse del caching.   Profile antes de agregar capas de caché.
+- **Olvidar invalidar**: actualizaciones a la base de datos que no limpian la caché causan datos obsoletos persistentes.   Los pipelines de invalidación automatizada ayudan.
 - **No manejar fallas de caché**: si Redis cae, la aplicación debería degradar graciosamente a queries de base de datos, no crashear.
 - **Usar el mismo TTL para todos los datos**: los perfiles de usuario pueden tolerar 10 minutos de obsolescencia; los conteos de inventario pueden necesitar consistencia instantánea.
 
@@ -336,11 +336,11 @@ El cache warming pre-carga datos frecuentemente accedidos en la caché antes de 
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.   Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.   Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.   Scale horizontally only after optimizing the hot path.
 
 ## Errores Comunes en Producción
 

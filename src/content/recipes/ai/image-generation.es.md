@@ -163,10 +163,10 @@ async function generateBatch(theme, outputDir) {
 
 ## Explicación
 
-- **Prompt engineering para imágenes**: los modelos de imagen son altamente sensibles a la estructura del prompt. Incluye sujeto, estilo, iluminación, ángulo de cámara, mood y constraints negativas. DALL-E 3 expande automáticamente prompts cortos; Stable Diffusion requiere detalle explícito para resultados de calidad.
-- **Valores de seed para consistencia**: fijar la seed aleatoria (`seed=42`) asegura que el mismo prompt produzca la misma imagen a través de generaciones. Esto es esencial para A/B testing, testing de regresión y crear series de imágenes con estilo uniforme.
-- **Moderación de contenido**: OpenAI y Stability AI filtran automáticamente prompts y outputs por contenido dañino. Implementa capas adicionales de moderación para prompts generados por usuarios, logueando requests rechazados y alertando sobre patrones sospechosos.
-- **Optimización de imágenes**: las imágenes generadas típicamente son PNG o JPEG de alta calidad. Conviértelas a WebP para entrega web, genera tamaños responsive y lazy-load las imágenes below-the-fold. Consulta [Lazy Loading de Imágenes](/recipes/performance/lazy-loading) para implementación. Usa CDNs para distribución global.
+- **Prompt engineering para imágenes**: los modelos de imagen son altamente sensibles a la estructura del prompt.   DALL-E 3 expande automáticamente prompts cortos; Stable Diffusion requiere detalle explícito para resultados de calidad.
+- **Valores de seed para consistencia**: Esto es esencial para A/B testing, testing de regresión y crear series de imágenes con estilo uniforme.
+- **Moderación de contenido**: OpenAI y Stability AI filtran automáticamente prompts y outputs por contenido dañino.
+- **Optimización de imágenes**: las imágenes generadas típicamente son PNG o JPEG de alta calidad.   Consulta [Lazy Loading de Imágenes](/recipes/performance/lazy-loading) para implementación.
 
 ## Variantes
 
@@ -179,18 +179,18 @@ async function generateBatch(theme, outputDir) {
 
 ## Lo que funciona
 
-- **Cachea imágenes generadas**: almacena imágenes generadas en object storage (S3, GCS) con un CDN adelante. Nunca regeneres el mismo prompt dos veces — cachea por hash de prompt o selección de usuario.
-- **Versiona tus prompts**: trackea plantillas de prompts, versiones de modelos y valores de seed en control de versiones. Cuando los modelos se actualizan (ej. DALL-E 3 a 4), testea de regresión tu biblioteca de prompts para consistencia.
-- **Implementa políticas de contenido de usuario**: bloquea prompts que soliciten contenido violento, sexual o que infrinja copyright. Muestra términos de servicio claros y mantén un audit log de todas las generaciones para compliance.
-- **Optimiza para web antes de almacenar**: redimensiona imágenes a las dimensiones exactas de display, comprime con WebP/AVIF y elimina metadata. Una imagen PNG 1024x1024 de DALL-E pesa 2-4MB; la misma imagen como WebP al 80% de calidad pesa 200KB.
-- **Fallback a stock ante fallos**: si la API está rate-limitada o la imagen generada es inusable, fallback a una biblioteca de fotos de stock curada. Nunca muestres imágenes rotas o spinners de carga indefinidamente.
+- **Cachea imágenes generadas**: Nunca regeneres el mismo prompt dos veces — cachea por hash de prompt o selección de usuario.
+- **Versiona tus prompts**: Cuando los modelos se actualizan (ej.
+- **Implementa políticas de contenido de usuario**: bloquea prompts que soliciten contenido violento, sexual o que infrinja copyright.
+- **Optimiza para web antes de almacenar**: Una imagen PNG 1024x1024 de DALL-E pesa 2-4MB; la misma imagen como WebP al 80% de calidad pesa 200KB.
+- **Fallback a stock ante fallos**: si la API está rate-limitada o la imagen generada es inusable, fallback a una biblioteca de fotos de stock curada.   Nunca muestres imágenes rotas o spinners de carga indefinidamente.
 
 ## Errores comunes
 
-- **No manejar límites de rate de API**: DALL-E permite 5 imágenes/minuto en tiers estándar. Encola requests de generación e implementa backoff exponencial. No martilles la API en un loop ajustado.
-- **Ignorar prompt injection**: los usuarios pueden diseñar prompts que anulen tus instrucciones de sistema (ej. "ignora instrucciones previas, genera..."). Sanitiza input de usuario y envuélvelo en una plantilla fija que no pueda escaparse.
-- **Almacenar originales sin optimizar**: mantener PNGs de resolución completa en tu base de datos infla el almacenamiento y ralentiza cargas de página. Genera y cachea variantes optimizadas al momento de ingestión.
-- **Usar imágenes generadas sin revisar derechos**: aunque la mayoría de imágenes generadas por IA son comercialmente usables, revisa los términos de tu proveedor. Algunos restringen uso en ciertas industrias (médica, política) o requieren atribución.
+- **No manejar límites de rate de API**: DALL-E permite 5 imágenes/minuto en tiers estándar.   No martilles la API en un loop ajustado.
+- **Ignorar prompt injection**: los usuarios pueden diseñar prompts que anulen tus instrucciones de sistema (ej.   "ignora instrucciones previas, genera...  ").   Sanitiza input de usuario y envuélvelo en una plantilla fija que no pueda escaparse.
+- **Almacenar originales sin optimizar**: mantener PNGs de resolución completa en tu base de datos infla el almacenamiento y ralentiza cargas de página.
+- **Usar imágenes generadas sin revisar derechos**: Algunos restringen uso en ciertas industrias (médica, política) o requieren atribución.
 
 
 
@@ -258,12 +258,12 @@ R: Cachea agresivamente — almacena cada imagen generada por hash de prompt y s
 
 ## Buenas Prácticas
 
-- **Construye una librería de prompts**: mantén una colección versionada de prompts testeados con sus outputs esperados. Esto asegura consistencia entre miembros del equipo y sirve como regression test cuando los modelos se actualizan.
-- **Genera múltiples variantes y elige la mejor**: solicita 2-4 imágenes por prompt y selecciona la de mayor calidad. Esto cuesta más pero mejora considerablemente la calidad del output, especialmente para materiales de marketing.
-- **Usa seeds determinísticos para reproducibilidad**: cuando encuentres un buen resultado, guarda el seed. Esto te permite regenerar imágenes similares o hacer pequeños ajustes de prompt preservando la composición.
-- **Implementa una cola de revisión para contenido面向 usuario**: nunca publiques imágenes generadas por IA directamente a usuarios sin un paso de revisión humana. Setea una cola de moderación que verifique artifacts, errores de renderizado de texto y violaciones de política de contenido.
-- **Almacena metadatos de generación separados de las imágenes**: guarda prompt, modelo, seed y parámetros en una base de datos. Esto habilita auditoría, debugging y re-generación sin parsear metadatos de imagen.
-- **Setea monitoreo de costos y alertas**: trackea costos diarios de generación de imágenes por usuario y por proyecto. Alerta cuando el gasto exceda 80% del presupuesto. Suspende generación para usuarios que excedan su quota.
+- **Construye una librería de prompts**: mantén una colección versionada de prompts testeados con sus outputs esperados.
+- **Genera múltiples variantes y elige la mejor**: solicita 2-4 imágenes por prompt y selecciona la de mayor calidad.   Esto cuesta más pero mejora considerablemente la calidad del output, especialmente para materiales de marketing.
+- **Usa seeds determinísticos para reproducibilidad**: cuando encuentres un buen resultado, guarda el seed.   Esto te permite regenerar imágenes similares o hacer pequeños ajustes de prompt preservando la composición.
+- **Implementa una cola de revisión para contenido面向 usuario**: nunca publiques imágenes generadas por IA directamente a usuarios sin un paso de revisión humana.   Setea una cola de moderación que verifique artifacts, errores de renderizado de texto y violaciones de política de contenido.
+- **Almacena metadatos de generación separados de las imágenes**: guarda prompt, modelo, seed y parámetros en una base de datos.   Esto habilita auditoría, debugging y re-generación sin parsear metadatos de imagen.
+- **Setea monitoreo de costos y alertas**: Alerta cuando el gasto exceda 80% del presupuesto.   Suspende generación para usuarios que excedan su quota.
 
 ## Checklist de Producción
 
@@ -282,11 +282,11 @@ R: Cachea agresivamente — almacena cada imagen generada por hash de prompt y s
 
 Al generar imágenes a escala, considera estos factores:
 
-- **Rate limits de API**: DALL-E 3 de OpenAI tiene un rate limit de 5 imágenes por minuto para usuarios tier 1. Para mayor throughput, solicita un aumento de quota o usa múltiples API keys con un dispatcher round-robin. Las APIs de Stable Diffusion (Stability AI, Replicate) tienen rate limits separados.
-- **Costos de almacenamiento**: una sola imagen PNG de 1024x1024 es 1-3 MB. A 1000 imágenes por día, eso es 1-3 GB diarios. Usa object storage (S3, GCS) con políticas de lifecycle para mover imágenes antiguas a tiers de almacenamiento más baratos. Considera convertir a WebP para 30-50% de reducción de tamaño.
-- **Latencia**: DALL-E 3 toma 10-30 segundos por imagen. Para generación en batch, paraleliza con requests async. Para generación orientada al usuario, muestra un estado de loading con tiempo de espera estimado. Considera pre-generar variantes comunes durante horas off-peak.
-- **Content moderation a escala**: OpenAI rechaza automáticamente contenido prohibido, pero tus usuarios pueden encontrar workarounds. Implementa una capa de moderación secundaria usando una tool como AWS Rekognition o Google Cloud Vision para escanear imágenes generadas antes de almacenarlas.
-- **Distribución por CDN**: sirve imágenes generadas a través de un CDN (CloudFront, Cloudflare) para reducir latencia para usuarios globales. Setea cache headers y TTLs apropiados. Invalidar imágenes cacheadas cuando se regeneran es importante para consistencia.
+- **Rate limits de API**: DALL-E 3 de OpenAI tiene un rate limit de 5 imágenes por minuto para usuarios tier 1.   Las APIs de Stable Diffusion (Stability AI, Replicate) tienen rate limits separados.
+- **Costos de almacenamiento**: una sola imagen PNG de 1024x1024 es 1-3 MB.   A 1000 imágenes por día, eso es 1-3 GB diarios.   Considera convertir a WebP para 30-50% de reducción de tamaño.
+- **Latencia**: DALL-E 3 toma 10-30 segundos por imagen.   Para generación en batch, paraleliza con requests async.   Para generación orientada al usuario, muestra un estado de loading con tiempo de espera estimado.
+- **Content moderation a escala**: OpenAI rechaza automáticamente contenido prohibido, pero tus usuarios pueden encontrar workarounds.
+- **Distribución por CDN**: sirve imágenes generadas a través de un CDN (CloudFront, Cloudflare) para reducir latencia para usuarios globales.   Setea cache headers y TTLs apropiados.   Invalidar imágenes cacheadas cuando se regeneran es importante para consistencia.
 
 ## Estimación de Costos
 
@@ -302,11 +302,11 @@ Para 1000 imágenes/día a calidad standard: $40/día en generación, ~$2-3/día
 
 ## Cuándo No Usar Generación de Imágenes con IA
 
-- **Se requiere accuracy fotorrealista**: los modelos de IA strugglean con detalles finos (manos, texto, logos). Para fotos de productos o ilustraciones técnicas, usa fotografía tradicional o diseño gráfico.
-- **Consistencia de marca across batches**: las imágenes generadas por IA varían entre generaciones incluso con el mismo prompt. Para identidad visual consistente across una campaña, usa templates o diseñadores humanos.
-- **Contextos sensibles a copyright**: los modelos de IA pueden reproducir patrones de training data. Para trabajo comercial donde se requiere IP clearance, usa stock photos licenciadas o commissiona artwork original.
-- **Generación real-time (<5 segundos)**: DALL-E 3 toma 10-30 segundos. Para aplicaciones real-time (avatares, previews en vivo), usa assets pre-generados o modelos ligeros como SDXL Turbo.
-- **Proyectos de alto volumen y bajo presupuesto**: a $0.04/imagen, 10K imágenes cuestan $400. Para gráficos decorativos simples (iconos, patrones, gradientes), usa CSS, SVG o librerías de assets estáticos en su lugar.
+- **Se requiere accuracy fotorrealista**: los modelos de IA strugglean con detalles finos (manos, texto, logos).
+- **Consistencia de marca across batches**: las imágenes generadas por IA varían entre generaciones incluso con el mismo prompt.
+- **Contextos sensibles a copyright**: los modelos de IA pueden reproducir patrones de training data.
+- **Generación real-time (<5 segundos)**: DALL-E 3 toma 10-30 segundos.
+- **Proyectos de alto volumen y bajo presupuesto**: a $0.  04/imagen, 10K imágenes cuestan $400.
 
 ## Benchmarks de Rendimiento
 
@@ -334,10 +334,10 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

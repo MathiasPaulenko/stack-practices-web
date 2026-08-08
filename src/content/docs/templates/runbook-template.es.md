@@ -132,7 +132,7 @@ Si este runbook no resuelve el problema dentro de [tiempo], escalar a:
 - **Mantenlo corto**: Una página por procedimiento rutinario
 - **Usa checkboxes**: Facilita seguirlo bajo presión
 - **Incluye comandos**: Scripts listos para copiar y pegar
-- **Prueba periódicamente**: Ejecuta los runbooks en períodos de calma. Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template) para planificación de drills.
+- **Prueba periódicamente**: Ejecuta los runbooks en períodos de calma.   Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template) para planificación de drills.
 - **Control de versiones**: Guarda en `docs/runbooks/` con tu código
 
 ## Anti-patrones comunes

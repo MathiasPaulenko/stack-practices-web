@@ -220,10 +220,10 @@ def order_orchestrator(context: df.DurableOrchestrationContext):
 
 ## Explanation
 
-- **State machines**: Step Functions represents workflows as JSON state machines. Each state is a step (Task, Choice, Parallel, Wait, Pass). Transitions define the flow. The state machine itself is persisted by AWS, so if a Lambda times out, Step Functions retries it according to the configured policy without losing workflow context.
-- **Durable execution (Temporal)**: Temporal workflows are code, not JSON. A workflow function runs as a deterministic event replay — every activity execution is recorded as an event. If the worker crashes, another worker replays the workflow from the last recorded event, skipping already-completed activities. This makes workflows durable without explicit state management.
-- **Fan-out / fan-in**: parallel branches (sending email and updating analytics simultaneously) reduce total workflow duration. In Step Functions, use a `Parallel` state. In Temporal, use `Promise.all()`. In Durable Functions, use `task.all()`. The orchestrator waits for all branches to complete before continuing.
-- **External events**: workflows can wait for external signals. A workflow may pause at "Wait for manual approval" for hours or days. Step Functions supports callbacks and wait-for-callback tasks. Temporal supports signals — external messages that a workflow can await. Durable Functions supports external events via `wait_for_external_event()`.
+- **State machines**: Step Functions represents workflows as JSON state machines.  Each state is a step (Task, Choice, Parallel, Wait, Pass).  Transitions define the flow.  The state machine itself is persisted by AWS, so if a Lambda times out, Step Functions retries it according to the configured policy without losing workflow context.
+- **Durable execution (Temporal)**: Temporal workflows are code, not JSON.  A workflow function runs as a deterministic event replay — every activity execution is recorded as an event.  If the worker crashes, another worker replays the workflow from the last recorded event, skipping already-completed activities.  This makes workflows durable without explicit state management.
+- **Fan-out / fan-in**: parallel branches (sending email and updating analytics simultaneously) reduce total workflow duration.  In Step Functions, use a `Parallel` state.  In Temporal, use `Promise. all()`.  In Durable Functions, use `task. all()`.  The orchestrator waits for all branches to complete before continuing.
+- **External events**: workflows can wait for external signals.  A workflow may pause at "Wait for manual approval" for hours or days.  Step Functions supports callbacks and wait-for-callback tasks.  Temporal supports signals — external messages that a workflow can await.  Durable Functions supports external events via `wait_for_external_event()`.
 
 ## Variants
 
@@ -236,18 +236,18 @@ def order_orchestrator(context: df.DurableOrchestrationContext):
 
 ## What Works
 
-- **Keep Lambda functions stateless and idempotent**: the orchestrator handles state; functions should be pure. If a function is retried, it must produce the same result without side effects. Use idempotency keys passed from the orchestrator to deduplicate operations in downstream systems.
-- **Use exponential backoff with jitter for retries**: retrying every 1 second creates thundering herds. Configure `BackoffRate: 2` with a maximum interval. Add random jitter to spread retries. Step Functions supports this natively; in Temporal, configure retry policies on activities.
-- **Set timeouts on every activity**: an unbounded wait for an external API can stall a workflow forever. Set per-activity timeouts (e.g., 30 seconds for payment processing, 5 minutes for human approval). Distinguish between retryable (timeout, 5xx) and non-retryable (4xx, validation) errors.
-- **Store workflow input/output in S3 for large payloads**: Step Functions has a 256KB payload limit. If your workflow passes large files or datasets, store them in S3 and pass URIs through the state machine. Temporal has a 2MB gRPC limit; use blob storage similarly for large data.
-- **Monitor workflow execution metrics**: track success rate, average duration, retry count per activity, and state transition cost. Alert on workflows stuck in a state for longer than expected. Use AWS CloudWatch, Temporal Web UI, or Azure Application Insights.
+- **Keep Lambda functions stateless and idempotent**: the orchestrator handles state; functions should be pure.  If a function is retried, it must produce the same result without side effects.
+- **Use exponential backoff with jitter for retries**: retrying every 1 second creates thundering herds.  Add random jitter to spread retries.  Step Functions supports this natively; in Temporal, configure retry policies on activities.
+- **Set timeouts on every activity**: an unbounded wait for an external API can stall a workflow forever.  Set per-activity timeouts (e. g. , 30 seconds for payment processing, 5 minutes for human approval).  Distinguish between retryable (timeout, 5xx) and non-retryable (4xx, validation) errors.
+- **Store workflow input/output in S3 for large payloads**: Step Functions has a 256KB payload limit.  If your workflow passes large files or datasets, store them in S3 and pass URIs through the state machine.  Temporal has a 2MB gRPC limit; use blob storage similarly for large data.
+- **Monitor workflow execution metrics**: track success rate, average duration, retry count per activity, and state transition cost.
 
 ## Common mistakes
 
-- **Putting business logic in the state machine**: Step Functions JSON is for coordination, not business rules. Complex conditionals and transformations belong in Lambda functions. A state machine with dozens of `Choice` states is unmaintainable — refactor logic into the functions.
-- **Passing secrets through workflow state**: workflow state is logged and visible in the orchestrator console. Never pass API keys, tokens, or PII in state payloads. Pass references (e.g., order ID) and let functions retrieve secrets from AWS Secrets Manager or Azure Key Vault.
-- **Ignoring idempotency on activity retries**: Step Functions may retry a Lambda that partially succeeded (e.g., charged the customer but timed out before returning). The retry charges the customer again. Always design activities to check idempotency keys before mutating state.
-- **Not versioning state machines**: changing a live state machine definition affects in-flight executions. Use Step Functions versions and aliases (or Temporal workflow versioning) to deploy changes without breaking running workflows. Test new versions with a canary before full rollout.
+- **Putting business logic in the state machine**: Step Functions JSON is for coordination, not business rules.  Complex conditionals and transformations belong in Lambda functions.  A state machine with dozens of `Choice` states is unmaintainable — refactor logic into the functions.
+- **Passing secrets through workflow state**: workflow state is logged and visible in the orchestrator console.  Never pass API keys, tokens, or PII in state payloads.  Pass references (e. g. , order ID) and let functions retrieve secrets from AWS Secrets Manager or Azure Key Vault.
+- **Ignoring idempotency on activity retries**: Step Functions may retry a Lambda that partially succeeded (e. g. , charged the customer but timed out before returning).  The retry charges the customer again.  Always design activities to check idempotency keys before mutating state.
+- **Not versioning state machines**: changing a live state machine definition affects in-flight executions.
 
 ## Advanced: Saga Pattern with Compensation
 
@@ -284,10 +284,10 @@ Each step registers a compensation before moving to the next. If any step fails,
 ## Troubleshooting
 
 - **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
-- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
-- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
-- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
-- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic.  Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless.  Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets.
+- **Event ordering issues**: many event sources are at-least-once and unordered.  Design for idempotency and explicit sequencing.
 
 
 

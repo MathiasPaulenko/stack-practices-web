@@ -104,10 +104,10 @@ Look for:
 
 ## Explanation
 
-- **B-tree indexes**: The default index type. Excellent for equality and range queries (`=`, `<`, `>`, `BETWEEN`). Most databases use B-tree for primary keys automatically.
-- **Composite indexes**: The database can use the index for any prefix of the column list. An index on `(a, b, c)` supports queries on `(a)`, `(a, b)`, and `(a, b, c)`, but not `(b)` or `(c)` alone.
-- **Covering indexes**: If all columns a query needs are in the index, the database can answer the query without touching the table. This is called an "index-only scan" and is dramatically faster.
-- **Partial indexes**: Smaller indexes that only cover a subset of rows. Useful for tables where most queries filter on a specific condition (e.g., `active = true`).
+- **B-tree indexes**: The default index type.  Excellent for equality and range queries (`=`, `<`, `>`, `BETWEEN`).  Most databases use B-tree for primary keys automatically.
+- **Composite indexes**: The database can use the index for any prefix of the column list.  An index on `(a, b, c)` supports queries on `(a)`, `(a, b)`, and `(a, b, c)`, but not `(b)` or `(c)` alone.
+- **Covering indexes**: If all columns a query needs are in the index, the database can answer the query without touching the table.  This is called an "index-only scan" and is dramatically faster.
+- **Partial indexes**: Smaller indexes that only cover a subset of rows.  Useful for tables where most queries filter on a specific condition (e. g. , `active = true`).
 
 ## Variants
 
@@ -122,26 +122,26 @@ Look for:
 
 - **Index the columns in your WHERE clause**: if a query filters on `user_id` and `status`, an index on `(user_id, status)` is the first thing to try.
 - **Put equality columns before range columns**: in `(a, b)` where `a = 1` and `b > 100`, the index on `(a, b)` is far more useful than `(b, a)`.
-- **Avoid indexing low-cardinality columns alone**: a `status` column with only 3 values (active, pending, archived) does not benefit from a standalone index. Combine it with a high-cardinality column.
-- **Remove unused indexes**: every index slows down writes. Monitor index usage statistics and drop indexes that are never scanned.
-- **Index foreign key columns**: databases do not always auto-index foreign keys. Missing indexes on `JOIN` columns cause expensive nested loop scans. See [database design](/guides/databases/database-design-guide). See [SQL Joins](/recipes/databases/sql-joins) for join optimization.
+- **Avoid indexing low-cardinality columns alone**: a `status` column with only 3 values (active, pending, archived) does not benefit from a standalone index.  Combine it with a high-cardinality column.
+- **Remove unused indexes**: every index slows down writes.
+- **Index foreign key columns**: databases do not always auto-index foreign keys.  Missing indexes on `JOIN` columns cause expensive nested loop scans.  See [database design](/guides/databases/database-design-guide).  See [SQL Joins](/recipes/databases/sql-joins) for join optimization.
 
 ## Common Mistakes
 
 - **Indexing every column**: this wastes disk space, slows writes dramatically, and confuses the query optimizer with too many choices.
 - **Wrong column order in composite indexes**: an index on `(created_at, user_id)` cannot help a query that filters only on `user_id`.
 - **Indexing columns that are never queried**: check your query logs before creating indexes.
-- **Ignoring index maintenance**: fragmented indexes on high-churn tables degrade over time. See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide). Schedule `REINDEX` or `OPTIMIZE TABLE` periodically.
+- **Ignoring index maintenance**: fragmented indexes on high-churn tables degrade over time.  See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide).
 - **Using indexes on tiny tables**: tables with fewer than a few thousand rows are often faster with sequential scans because reading the index and then the table is more overhead than a full scan.
 
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.  Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.  Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.  Scale horizontally only after optimizing the hot path.
 
 
 

@@ -205,10 +205,10 @@ app.listen(3000, () => console.log('Gateway running on port 3000'));
 
 ## Explicación
 
-- **Enrutamiento de requests**: el gateway mapea paths de URL entrantes a servicios backend. `/api/v1/users` enruta al servicio de usuarios, `/api/v1/orders` al de órdenes. Esto desacopla clientes de ubicaciones de servicios — los backends pueden moverse sin actualizaciones de clientes.
-- **Concerns cross-cutting**: auth, rate limiting, logging y caching se implementan una vez en la capa de gateway en lugar de duplicarse en cada servicio. Esto reduce repetición de código y asegura enforcement consistente de políticas.
-- **Traducción de protocolos**: un gateway GraphQL puede agregar backends REST en un schema unificado. El gateway recibe una query GraphQL, dispara múltiples requests REST a microservicios, y ensambla la respuesta. Los clientes obtienen una API tipada única mientras los backends permanecen REST simples.
-- **Terminación SSL**: el gateway maneja encriptación/desencriptación TLS. La comunicación servicio-a-servicio interna puede usar HTTP plano dentro de una VPC confiable, reduciendo overhead computacional y complejidad de gestión de certificados.
+- **Enrutamiento de requests**: el gateway mapea paths de URL entrantes a servicios backend.   `/api/v1/users` enruta al servicio de usuarios, `/api/v1/orders` al de órdenes.   Esto desacopla clientes de ubicaciones de servicios — los backends pueden moverse sin actualizaciones de clientes.
+- **Concerns cross-cutting**: auth, rate limiting, logging y caching se implementan una vez en la capa de gateway en lugar de duplicarse en cada servicio.
+- **Traducción de protocolos**: un gateway GraphQL puede agregar backends REST en un schema unificado.   El gateway recibe una query GraphQL, dispara múltiples requests REST a microservicios, y ensambla la respuesta.   Los clientes obtienen una API tipada única mientras los backends permanecen REST simples.
+- **Terminación SSL**: La comunicación servicio-a-servicio interna puede usar HTTP plano dentro de una VPC confiable, reduciendo overhead computacional y complejidad de gestión de certificados.
 
 ## Variantes
 
@@ -221,18 +221,18 @@ app.listen(3000, () => console.log('Gateway running on port 3000'));
 
 ## Lo que funciona
 
-- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en el gateway**: si un servicio backend está fallando, el gateway debería dejar de enviar requests y retornar una respuesta cacheada o 503. Esto previene fallos en cascada y da a servicios en dificultades tiempo para recuperarse.
-- **Usa versionado de paths**: incluye la versión de API en el path (`/api/v1/users`) en lugar de headers. Esto hace el enrutamiento explícito, soporta múltiples versiones simultáneamente, y simplifica generación de cache keys.
-- **Centraliza observabilidad**: el gateway es el lugar ideal para tracing distribuido, métricas y logging. Inyecta trace IDs en el edge y propágalos a todos los servicios downstream. Cada request fluye a través del gateway — usa esa visibilidad.
-- **Descarga autenticación**: [valida JWTs](/recipes/authentication/jwt-authentication) o API keys en el gateway. Reenvía solo requests autenticadas con headers de contexto de usuario a los backends. Los servicios no deberían necesitar validar tokens ellos mismos, pero aún deben enforce autorización.
-- **Cachea agresivamente en el edge**: endpoints de lectura intensiva como catálogos de productos, perfiles de usuario y datos de configuración deberían cachearse en el gateway con TTLs cortos. Esto reduce carga de backend y mejora tiempos de respuesta dramáticamente.
+- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en el gateway**: si un servicio backend está fallando, el gateway debería dejar de enviar requests y retornar una respuesta cacheada o 503.   Esto previene fallos en cascada y da a servicios en dificultades tiempo para recuperarse.
+- **Usa versionado de paths**: Esto hace el enrutamiento explícito, soporta múltiples versiones simultáneamente, y simplifica generación de cache keys.
+- **Centraliza observabilidad**: el gateway es el lugar ideal para tracing distribuido, métricas y logging.   Inyecta trace IDs en el edge y propágalos a todos los servicios downstream.
+- **Descarga autenticación**: [valida JWTs](/recipes/authentication/jwt-authentication) o API keys en el gateway.   Reenvía solo requests autenticadas con headers de contexto de usuario a los backends.   Los servicios no deberían necesitar validar tokens ellos mismos, pero aún deben enforce autorización.
+- **Cachea agresivamente en el edge**: endpoints de lectura intensiva como catálogos de productos, perfiles de usuario y datos de configuración deberían cachearse en el gateway con TTLs cortos.   Esto reduce carga de backend y mejora tiempos de respuesta dramáticamente.
 
 ## Errores comunes
 
-- **Poner lógica de negocio en el gateway**: el gateway debería enrutar, autenticar y rate limit — no calcular precios, aplicar descuentos o validar reglas de negocio. La lógica de negocio pertenece a servicios de dominio. Un gateway sobrecargado se convierte en un nuevo monolito.
-- **Sin estrategia de timeout o retry**: reenviar requests sin budgets de timeout causa que threads se bloqueen indefinidamente cuando un backend es lento. Consulta [Lógica de Retry](/recipes/architecture/retry-backoff) para estrategias de backoff. Establece timeouts por-ruta e implementa retries con backoff solo para operaciones idempotentes.
-- **Punto único de fallo**: una única instancia de gateway es un cuello de botella. Despliega múltiples instancias detrás de un [load balancer](/recipes/api/nginx-reverse-proxy) con health checks. Usa despliegues blue/green o canary para actualizaciones de gateway que prevengan downtime.
-- **Ignorar necesidades específicas de clientes**: las apps mobile necesitan payloads más pequeños y menos round trips que las apps web. Implementa gateways backend-for-frontend (BFF) — uno optimizado para mobile, otro para web — en lugar de forzar a todos los clientes a través de una API genérica.
+- **Poner lógica de negocio en el gateway**: el gateway debería enrutar, autenticar y rate limit — no calcular precios, aplicar descuentos o validar reglas de negocio.   La lógica de negocio pertenece a servicios de dominio.   Un gateway sobrecargado se convierte en un nuevo monolito.
+- **Sin estrategia de timeout o retry**: reenviar requests sin budgets de timeout causa que threads se bloqueen indefinidamente cuando un backend es lento.   Consulta [Lógica de Retry](/recipes/architecture/retry-backoff) para estrategias de backoff.
+- **Punto único de fallo**: una única instancia de gateway es un cuello de botella.   Despliega múltiples instancias detrás de un [load balancer](/recipes/api/nginx-reverse-proxy) con health checks.
+- **Ignorar necesidades específicas de clientes**: las apps mobile necesitan payloads más pequeños y menos round trips que las apps web.
 
 ## Preguntas frecuentes
 

@@ -107,9 +107,9 @@ const clean = DOMPurify.sanitize(dirty);
 
 ## Explicación
 
-- **Escaping HTML**: Convierte caracteres como `<`, `>`, `"`, y `&` en entidades HTML para que los navegadores los traten como texto, no como markup. Esta es la defensa más importante y debe aplicarse a todos los datos no confiables.
-- **Escaping automático de React/Vue/Angular**: Los frameworks modernos escapan valores interpolados por defecto. Las vulnerabilidades XSS usualmente ocurren cuando desarrolladores bypassan esto con `dangerouslySetInnerHTML`, `v-html`, o escape hatches similares.
-- **Content Security Policy (CSP)**: Un mecanismo de seguridad del navegador que restringe dónde pueden cargarse scripts, estilos y otros recursos. Incluso si un atacante inyecta un `<script>` tag, CSP previene su ejecución si la fuente no está en la lista blanca.
+- **Escaping HTML**: Convierte caracteres como `<`, `>`, `"`, y `&` en entidades HTML para que los navegadores los traten como texto, no como markup.   Esta es la defensa más importante y debe aplicarse a todos los datos no confiables.
+- **Escaping automático de React/Vue/Angular**: Los frameworks modernos escapan valores interpolados por defecto.   Las vulnerabilidades XSS usualmente ocurren cuando desarrolladores bypassan esto con `dangerouslySetInnerHTML`, `v-html`, o escape hatches similares.
+- **Content Security Policy (CSP)**: Un mecanismo de seguridad del navegador que restringe dónde pueden cargarse scripts, estilos y otros recursos.   Incluso si un atacante inyecta un `<script>` tag, CSP previene su ejecución si la fuente no está en la lista blanca.
 - **Sanitización de HTML**: Cuando necesitas permitir algo de HTML (como `<b>` o `<a>` tags en comentarios), usa un sanitizer para eliminar tags y atributos peligrosos mientras preservas markup seguro.
 
 ## Variantes
@@ -124,19 +124,19 @@ const clean = DOMPurify.sanitize(dirty);
 ## Lo que funciona
 
 - **Escapa todos los datos no confiables**: parámetros de URL, inputs de formularios, campos de base de datos, respuestas de API, [uploads de archivos](/recipes/file-handling/file-upload-validation), e incluso headers HTTP pueden ser manipulados por atacantes.
-- **Usa los defaults del framework**: deja que React, Vue o Angular manejen el escaping. Solo usa inserción de HTML raw cuando sea absolutamente necesario y sanitiza el input primero.
-- **Implementa un CSP estricto**: empieza con `default-src 'self'` y pon en lista blanca solo los dominios requeridos. Evita `'unsafe-inline'` y `'unsafe-eval'` para scripts.
-- **Configura `HttpOnly` y `Secure` en cookies**: `HttpOnly` previene que JavaScript lea cookies de sesión, mitigando el impacto de XSS. `Secure` asegura que las cookies solo se envíen sobre HTTPS.
-- **Valida input, no solo output**: rechaza caracteres inesperados en el boundary (ej. solo permite usernames alfanuméricos) para que datos malos nunca entren a tu sistema.
-- **Audita dependencias**: XSS también puede venir de paquetes npm comprometidos o scripts de terceros. Usa `npm audit` y [audita dependencias](/guides/security/security-best-practices-guide) cargadas desde dominios externos.
+- **Usa los defaults del framework**: deja que React, Vue o Angular manejen el escaping.
+- **Implementa un CSP estricto**: empieza con `default-src 'self'` y pon en lista blanca solo los dominios requeridos.
+- **Configura `HttpOnly` y `Secure` en cookies**: `HttpOnly` previene que JavaScript lea cookies de sesión, mitigando el impacto de XSS.
+- **Valida input, no solo output**: rechaza caracteres inesperados en el boundary (ej.   solo permite usernames alfanuméricos) para que datos malos nunca entren a tu sistema.
+- **Audita dependencias**: XSS también puede venir de paquetes npm comprometidos o scripts de terceros.
 
 ## Errores comunes
 
-- **Usar `innerHTML` con input de usuario**: esta es la causa más común de XSS en JavaScript vanilla. Usa `textContent` en su lugar para texto plano.
-- **Escapar solo una vez**: si escapas datos antes de almacenarlos en la base de datos (`&lt;` se convierte en `&amp;lt;`), corrompes los datos. Escapa en la capa de output, no en la capa de input.
-- **Olvidar URLs y CSS**: `javascript:alert(1)` en un `href` o `expression()` en CSS pueden ejecutar código. Valida URLs con listas blancas y sanitiza CSS.
-- **CSP demasiado permisiva**: `script-src 'unsafe-inline' 'unsafe-eval' *` desactiva la mayor parte de la protección de CSP. Sé específico con tu policy.
-- **Confiar en validación client-side**: los atacantes bypassan checks del frontend por completo. Todo escaping y validación debe ser enforceado server-side.
+- **Usar `innerHTML` con input de usuario**: esta es la causa más común de XSS en JavaScript vanilla.
+- **Escapar solo una vez**: si escapas datos antes de almacenarlos en la base de datos (`&lt;` se convierte en `&amp;lt;`), corrompes los datos.   Escapa en la capa de output, no en la capa de input.
+- **Olvidar URLs y CSS**: `javascript:alert(1)` en un `href` o `expression()` en CSS pueden ejecutar código.   Valida URLs con listas blancas y sanitiza CSS.
+- **CSP demasiado permisiva**: `script-src 'unsafe-inline' 'unsafe-eval' *` desactiva la mayor parte de la protección de CSP.   Sé específico con tu policy.
+- **Confiar en validación client-side**: los atacantes bypassan checks del frontend por completo.   Todo escaping y validación debe ser enforceado server-side.
 
 ## Preguntas frecuentes
 

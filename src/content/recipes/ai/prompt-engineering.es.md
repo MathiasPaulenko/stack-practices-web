@@ -199,12 +199,12 @@ summary_response = openai.chat.completions.create(
 
 ## Explicación
 
-- **Asignación de rol**: Los LLMs adaptan tono, profundidad y formato basado en la persona que asignas. Un "experto legal" da diferente consejo que un "tutor amigable" para la misma pregunta.
-- **Few-shot learning**: Proporcionar ejemplos de input/output en el context enseña al modelo tu formato esperado sin fine-tuning. Tres a cinco ejemplos usualmente bastan.
-- **Chain-of-thought**: Pedir explícitamente al modelo que razone paso a paso mejora dramáticamente la precisión en tareas complejas (matemáticas, lógica, planificación multi-paso). También facilita el debugging porque puedes ver dónde falló el razonamiento.
+- **Asignación de rol**: Los LLMs adaptan tono, profundidad y formato basado en la persona que asignas.   Un "experto legal" da diferente consejo que un "tutor amigable" para la misma pregunta.
+- **Few-shot learning**: Proporcionar ejemplos de input/output en el context enseña al modelo tu formato esperado sin fine-tuning.   Tres a cinco ejemplos usualmente bastan.
+- **Chain-of-thought**: Pedir explícitamente al modelo que razone paso a paso mejora dramáticamente la precisión en tareas complejas (matemáticas, lógica, planificación multi-paso).   También facilita el debugging porque puedes ver dónde falló el razonamiento.
 - **Salida estructurada**: Restringir respuestas a JSON, XML o formatos específicos elimina errores de parsing y hace que el procesamiento downstream sea confiable.
-- **Function calling**: En lugar de parsear respuestas en texto libre para determinar acciones, el modelo devuelve tool calls estructurados con parámetros tipados. Tu código ejecuta la función y alimenta los resultados de vuelta, creando un loop de feedback para workflows agénticos.
-- **Prompt chaining**: Dividir tareas complejas en pasos secuenciales (extraer → resumir → formatear) produce mejores resultados que un solo mega-prompt. Cada paso recibe contexto enfocado y puede testearse independientemente.
+- **Function calling**: En lugar de parsear respuestas en texto libre para determinar acciones, el modelo devuelve tool calls estructurados con parámetros tipados.   Tu código ejecuta la función y alimenta los resultados de vuelta, creando un loop de feedback para workflows agénticos.
+- **Prompt chaining**: Dividir tareas complejas en pasos secuenciales (extraer → resumir → formatear) produce mejores resultados que un solo mega-prompt.   Cada paso recibe contexto enfocado y puede testearse independientemente.
 
 ## Variantes
 
@@ -220,24 +220,24 @@ summary_response = openai.chat.completions.create(
 
 ## Lo que funciona
 
-- **Sé específico y explícito**: los prompts vagos producen respuestas vagas. En lugar de "resume esto," di "resume en 3 bullets enfocándote en impacto financiero."
-- **Usa delimitadores para inputs largos**: envuelve el contenido del usuario en tags XML (`<article>...</article>`) o triples backticks para que el modelo distinga instrucciones de datos.
-- **Configura temperatura apropiadamente**: usa `temperature=0` para tareas determinísticas (clasificación, extracción). Usa `temperature=0.7+` para generación creativa.
-- **Valida y sanitiza outputs**: los LLMs pueden alucinar, producir JSON inválido o ignorar instrucciones. Siempre parsea defensivamente y ten lógica de fallback.
-- **Versiona y trackea prompts**: almacena prompts en control de versiones. Un cambio pequeño de redacción puede alterar drásticamente la calidad del output, y necesitas poder hacer rollback.
-- **Testea con múltiples modelos**: un prompt que funciona en GPT-4 puede fallar en Llama o Claude. Testea entre tus modelos objetivo y mantén variantes específicas cuando sea necesario.
-- **Usa system prompts para instrucciones fijas**: pon rol, formato y restricciones en el mensaje del sistema en lugar del mensaje del usuario. Esto reduce uso de tokens en turnos subsiguientes y mantiene las instrucciones consistentes.
+- **Sé específico y explícito**: los prompts vagos producen respuestas vagas.   En lugar de "resume esto," di "resume en 3 bullets enfocándote en impacto financiero.
+- **Usa delimitadores para inputs largos**: envuelve el contenido del usuario en tags XML (`<article>...  </article>`) o triples backticks para que el modelo distinga instrucciones de datos.
+- **Configura temperatura apropiadamente**: Usa `temperature=0.  7+` para generación creativa.
+- **Valida y sanitiza outputs**: los LLMs pueden alucinar, producir JSON inválido o ignorar instrucciones.   Siempre parsea defensivamente y ten lógica de fallback.
+- **Versiona y trackea prompts**: Un cambio pequeño de redacción puede alterar drásticamente la calidad del output, y necesitas poder hacer rollback.
+- **Testea con múltiples modelos**: un prompt que funciona en GPT-4 puede fallar en Llama o Claude.
+- **Usa system prompts para instrucciones fijas**: pon rol, formato y restricciones en el mensaje del sistema en lugar del mensaje del usuario.   Esto reduce uso de tokens en turnos subsiguientes y mantiene las instrucciones consistentes.
 
 ## Errores comunes
 
-- **Sobrecargar context**: enviar 50 ejemplos desperdicia tokens y puede confundir al modelo. Curate los ejemplos más relevantes.
-- **Confiar en outputs sin validación**: los LLMs generan información incorrecta con confianza. Siempre verifica hechos, especialmente en dominios de alto riesgo como medicina o finanzas.
-- **Ignorar límites de tokens**: un prompt con 10,000 tokens deja poco espacio para la respuesta. Monitorea uso de tokens y trunca inputs cuando sea necesario.
-- **No manejar rechazos**: algunas queries disparan filtros de seguridad. Tu aplicación debería manejar graciosamente rechazos y respuestas parciales.
-- **Instrucciones ambiguas**: "mejóralo" o "arregla esto" no le da al modelo ninguna dirección accionable. Especifica qué significa "mejor": más corto, más formal, conforme a una guía de estilo.
-- **Formato inconsistente en few-shot**: si tus ejemplos usan patrones de formato diferentes, el modelo se confunde. Mantén todos los ejemplos en el mismo formato de input/output.
-- **No setear max_tokens**: sin un límite, el modelo puede generar respuestas excesivamente largas, aumentando costo y latencia. Setea `max_tokens` según tu longitud esperada de output.
-- **Prompt injection desde input de usuario**: si tu prompt incluye texto generado por usuarios, un usuario malicioso puede inyectar instrucciones como "ignora todas las instrucciones anteriores." Sanitiza y delimita el contenido del usuario.
+- **Sobrecargar context**: enviar 50 ejemplos desperdicia tokens y puede confundir al modelo.   Curate los ejemplos más relevantes.
+- **Confiar en outputs sin validación**: los LLMs generan información incorrecta con confianza.   Siempre verifica hechos, especialmente en dominios de alto riesgo como medicina o finanzas.
+- **Ignorar límites de tokens**: un prompt con 10,000 tokens deja poco espacio para la respuesta.
+- **No manejar rechazos**: algunas queries disparan filtros de seguridad.
+- **Instrucciones ambiguas**: "mejóralo" o "arregla esto" no le da al modelo ninguna dirección accionable.   Especifica qué significa "mejor": más corto, más formal, conforme a una guía de estilo.
+- **Formato inconsistente en few-shot**: si tus ejemplos usan patrones de formato diferentes, el modelo se confunde.
+- **No setear max_tokens**: Setea `max_tokens` según tu longitud esperada de output.
+- **Prompt injection desde input de usuario**: " Sanitiza y delimita el contenido del usuario.
 
 
 
@@ -320,23 +320,23 @@ R: Sí. Para generación de código, incluye el lenguaje de programación, versi
 
 ## Buenas Prácticas
 
-- **Versiona tus prompts**: almacena prompts en un archivo dedicado o base de datos con números de versión. Taggea cada despliegue con la versión de prompt usada. Esto te permite correlacionar cambios de calidad con modificaciones de prompt.
-- **Construye un use de evaluación de prompts**: crea un script que ejecute un prompt contra un test set y reporte tasas de pass/fail. Ejecútalo antes y después de cualquier cambio de prompt. Esto detecta regresiones antes de que lleguen a producción.
-- **Usa prompts separados para tareas separadas**: un solo prompt que intenta clasificar, resumir y extraer entidades hará las tres cosas mal. Divide en llamadas API separadas con prompts enfocados.
-- **Setea A/B testing de prompts**: rutea un porcentaje del tráfico al nuevo prompt y compara outcomes (satisfacción del usuario, accuracy, costo). Promueve el ganador solo después de resultados estadísticamente significativos.
-- **Cachea respuestas para prompts determinísticos**: si el mismo prompt + input siempre produce el mismo output (temperature=0), cachea la respuesta. Esto elimina llamadas API redundantes y reduce latencia.
-- **Monitorea prompt drift**: trackea métricas de calidad de output a lo largo del tiempo. Si la calidad degrada sin ningún cambio de prompt, el modelo subyacente puede haber sido actualizado silenciosamente. Alerta en caídas de calidad.
-- **Usa formatos de output estructurados**: solicita output JSON, XML o YAML en lugar de texto libre cuando necesites parsear la respuesta programáticamente. Esto reduce fallos de parsing y habilita validación.
-- **Setea políticas de timeout y retry**: las llamadas API pueden colgarse o fallar. Setea un timeout (ej., 30 segundos) y reintenta con backoff exponencial. Fallea a una respuesta cacheada o default después de max retries.
-- **Loguea pares completos de request/response**: almacena el prompt completo, modelo, parámetros y respuesta para cada llamada API. Esto es esencial para debugging, auditoría y mejora de prompts a lo largo del tiempo.
+- **Versiona tus prompts**: Taggea cada despliegue con la versión de prompt usada.   Esto te permite correlacionar cambios de calidad con modificaciones de prompt.
+- **Construye un use de evaluación de prompts**: Ejecútalo antes y después de cualquier cambio de prompt.   Esto detecta regresiones antes de que lleguen a producción.
+- **Usa prompts separados para tareas separadas**: un solo prompt que intenta clasificar, resumir y extraer entidades hará las tres cosas mal.   Divide en llamadas API separadas con prompts enfocados.
+- **Setea A/B testing de prompts**: Promueve el ganador solo después de resultados estadísticamente significativos.
+- **Cachea respuestas para prompts determinísticos**: si el mismo prompt + input siempre produce el mismo output (temperature=0), cachea la respuesta.
+- **Monitorea prompt drift**: Si la calidad degrada sin ningún cambio de prompt, el modelo subyacente puede haber sido actualizado silenciosamente.
+- **Usa formatos de output estructurados**: solicita output JSON, XML o YAML en lugar de texto libre cuando necesites parsear la respuesta programáticamente.   Esto reduce fallos de parsing y habilita validación.
+- **Setea políticas de timeout y retry**: las llamadas API pueden colgarse o fallar.   Setea un timeout (ej.  , 30 segundos) y reintenta con backoff exponencial.   Fallea a una respuesta cacheada o default después de max retries.
+- **Loguea pares completos de request/response**: Esto es esencial para debugging, auditoría y mejora de prompts a lo largo del tiempo.
 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

@@ -280,20 +280,20 @@ def test_dataframe_shape(df):
 
 ## Common Mistakes
 
-- **Testing too many properties in one test**: each `@given` test should verify one property. Multiple properties in one test make failures hard to diagnose.
-- **Not using `assume()` for preconditions**: `if` guards cause Hypothesis to waste examples on invalid inputs. `assume()` tells it to skip and generate a new one.
-- **Ignoring shrinking output**: when a test fails, Hypothesis shows the minimal failing input. Use it to understand the bug — don't just fix the test.
-- **Using Hypothesis for integration tests**: property-based testing is for pure functions. Side effects make generated data unpredictable.
-- **Forgetting to register custom types**: use `st.register_type_strategy(MyClass, my_strategy)` to auto-resolve custom types in `st.from_type()`.
+- **Testing too many properties in one test**: each `@given` test should verify one property.  Multiple properties in one test make failures hard to diagnose.
+- **Not using `assume()` for preconditions**: `if` guards cause Hypothesis to waste examples on invalid inputs.  `assume()` tells it to skip and generate a new one.
+- **Ignoring shrinking output**: when a test fails, Hypothesis shows the minimal failing input.
+- **Using Hypothesis for integration tests**: property-based testing is for pure functions.  Side effects make generated data unpredictable.
+- **Forgetting to register custom types**: use `st. register_type_strategy(MyClass, my_strategy)` to auto-resolve custom types in `st. from_type()`.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.  Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.  Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.  Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database.  Reset state before each test.
 
 
 

@@ -199,12 +199,12 @@ summary_response = openai.chat.completions.create(
 
 ## Explanation
 
-- **Role assignment**: LLMs adapt tone, depth, and format based on the persona you assign. A "legal expert" gives different advice than a "friendly tutor" for the same question.
-- **Few-shot learning**: Providing input/output examples in the context teaches the model your expected format without fine-tuning. Three to five examples usually suffice.
-- **Chain-of-thought**: Explicitly asking the model to reason step-by-step dramatically improves accuracy on complex tasks (math, logic, multi-step planning). It also makes debugging easier because you can see where reasoning went wrong.
+- **Role assignment**: LLMs adapt tone, depth, and format based on the persona you assign.  A "legal expert" gives different advice than a "friendly tutor" for the same question.
+- **Few-shot learning**: Providing input/output examples in the context teaches the model your expected format without fine-tuning.  Three to five examples usually suffice.
+- **Chain-of-thought**: Explicitly asking the model to reason step-by-step dramatically improves accuracy on complex tasks (math, logic, multi-step planning).  It also makes debugging easier because you can see where reasoning went wrong.
 - **Structured output**: Constraining responses to JSON, XML, or specific formats eliminates parsing errors and makes downstream processing reliable.
-- **Function calling**: Instead of parsing free-text responses to determine actions, the model returns structured tool calls with typed parameters. Your code executes the function and feeds results back, creating a feedback loop for agentic workflows.
-- **Prompt chaining**: Breaking complex tasks into sequential steps (extract → summarize → format) produces better results than a single mega-prompt. Each step gets focused context and can be tested independently.
+- **Function calling**: Instead of parsing free-text responses to determine actions, the model returns structured tool calls with typed parameters.  Your code executes the function and feeds results back, creating a feedback loop for agentic workflows.
+- **Prompt chaining**: Breaking complex tasks into sequential steps (extract → summarize → format) produces better results than a single mega-prompt.  Each step gets focused context and can be tested independently.
 
 ## Variants
 
@@ -220,33 +220,33 @@ summary_response = openai.chat.completions.create(
 
 ## What Works
 
-- **Be specific and explicit**: vague prompts produce vague answers. Instead of "summarize this," say "summarize in 3 bullet points focusing on financial impact."
-- **Use delimiters for long inputs**: wrap the user content in XML tags (`<article>...</article>`) or triple backticks so the model distinguishes instructions from data.
-- **Set temperature appropriately**: use `temperature=0` for deterministic tasks (classification, extraction). Use `temperature=0.7+` for creative generation.
-- **Validate and sanitize outputs**: LLMs can hallucinate, produce invalid JSON, or ignore instructions. Always parse defensively and have fallback logic.
-- **Version and track prompts**: store prompts in version control. A small wording change can drastically alter output quality, and you need to be able to roll back.
-- **Test with multiple models**: a prompt that works on GPT-4 may fail on Llama or Claude. Test across your target models and keep model-specific variants when needed.
-- **Use system prompts for fixed instructions**: put role, format, and constraint instructions in the system message rather than the user message. This reduces token usage on follow-up turns and keeps instructions consistent.
+- **Be specific and explicit**: vague prompts produce vague answers.  Instead of "summarize this," say "summarize in 3 bullet points focusing on financial impact.
+- **Use delimiters for long inputs**: wrap the user content in XML tags (`<article>... </article>`) or triple backticks so the model distinguishes instructions from data.
+- **Set temperature appropriately**: use `temperature=0` for deterministic tasks (classification, extraction). 7+` for creative generation.
+- **Validate and sanitize outputs**: LLMs can hallucinate, produce invalid JSON, or ignore instructions.  Always parse defensively and have fallback logic.
+- **Version and track prompts**: store prompts in version control.  A small wording change can drastically alter output quality, and you need to be able to roll back.
+- **Test with multiple models**: a prompt that works on GPT-4 may fail on Llama or Claude.
+- **Use system prompts for fixed instructions**: put role, format, and constraint instructions in the system message rather than the user message.  This reduces token usage on follow-up turns and keeps instructions consistent.
 
 ## Common Mistakes
 
-- **Overloading context**: sending 50 examples wastes tokens and can confuse the model. Curate the most relevant examples.
-- **Trusting outputs without validation**: LLMs confidently generate incorrect information. Always verify facts, especially in high-stakes domains like medicine or finance.
-- **Ignoring token limits**: a prompt with 10,000 tokens leaves little room for the response. Monitor token usage and truncate inputs when necessary.
-- **Not handling refusals**: some queries trigger safety filters. Your application should gracefully handle refusals and partial responses.
-- **Ambiguous instructions**: "make it better" or "fix this" gives the model no actionable direction. Specify what "better" means: shorter, more formal, compliant with a style guide.
-- **Inconsistent few-shot format**: if your examples use different formatting patterns, the model gets confused. Keep all examples in the same input/output format.
-- **Not setting max_tokens**: without a limit, the model may generate excessively long responses, increasing cost and latency. Set `max_tokens` based on your expected output length.
-- **Prompt injection from user input**: if your prompt includes user-generated text, a malicious user can inject instructions like "ignore all previous instructions." Sanitize and delimit user content.
+- **Overloading context**: sending 50 examples wastes tokens and can confuse the model.  Curate the most relevant examples.
+- **Trusting outputs without validation**: LLMs confidently generate incorrect information.  Always verify facts, especially in high-stakes domains like medicine or finance.
+- **Ignoring token limits**: a prompt with 10,000 tokens leaves little room for the response.
+- **Not handling refusals**: some queries trigger safety filters.  Your application should gracefully handle refusals and partial responses.
+- **Ambiguous instructions**: "make it better" or "fix this" gives the model no actionable direction.  Specify what "better" means: shorter, more formal, compliant with a style guide.
+- **Inconsistent few-shot format**: if your examples use different formatting patterns, the model gets confused.
+- **Not setting max_tokens**: without a limit, the model may generate excessively long responses, increasing cost and latency.  Set `max_tokens` based on your expected output length.
+- **Prompt injection from user input**: if your prompt includes user-generated text, a malicious user can inject instructions like "ignore all previous instructions. " Sanitize and delimit user content.
 
 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 
@@ -329,15 +329,15 @@ A: Yes. For code generation, include the programming language, framework version
 
 ## Best Practices
 
-- **Version control your prompts**: store prompts in a dedicated file or database with version numbers. Tag each deployment with the prompt version used. This lets you correlate quality changes with prompt modifications.
-- **Build a prompt evaluation use**: create a script that runs a prompt against a test set and reports pass/fail rates. Run it before and after any prompt change. This catches regressions before they reach production.
-- **Use separate prompts for separate tasks**: a single prompt that tries to classify, summarize, and extract entities will do all three poorly. Split into separate API calls with focused prompts.
-- **Set up prompt A/B testing**: route a percentage of traffic to the new prompt and compare outcomes (user satisfaction, accuracy, cost). Promote the winner only after statistically significant results.
-- **Cache responses for deterministic prompts**: if the same prompt + input always produces the same output (temperature=0), cache the response. This eliminates redundant API calls and reduces latency.
-- **Monitor prompt drift**: track output quality metrics over time. If quality degrades without any prompt change, the underlying model may have been silently updated. Alert on quality drops.
-- **Use structured output formats**: request JSON, XML, or YAML output instead of free text when you need to parse the response programmatically. This reduces parsing failures and enables validation.
-- **Set timeout and retry policies**: API calls can hang or fail. Set a timeout (e.g., 30 seconds) and retry with exponential backoff. Fall back to a cached or default response after max retries.
-- **Log full request/response pairs**: store the complete prompt, model, parameters, and response for each API call. This is essential for debugging, auditing, and improving prompts over time.
+- **Version control your prompts**: store prompts in a dedicated file or database with version numbers.  Tag each deployment with the prompt version used.  This lets you correlate quality changes with prompt modifications.
+- **Build a prompt evaluation use**: create a script that runs a prompt against a test set and reports pass/fail rates.  Run it before and after any prompt change.  This catches regressions before they reach production.
+- **Use separate prompts for separate tasks**: a single prompt that tries to classify, summarize, and extract entities will do all three poorly.  Split into separate API calls with focused prompts.
+- **Set up prompt A/B testing**: route a percentage of traffic to the new prompt and compare outcomes (user satisfaction, accuracy, cost).  Promote the winner only after statistically significant results.
+- **Cache responses for deterministic prompts**: if the same prompt + input always produces the same output (temperature=0), cache the response.  This eliminates redundant API calls and reduces latency.
+- **Monitor prompt drift**: track output quality metrics over time.  If quality degrades without any prompt change, the underlying model may have been silently updated.
+- **Use structured output formats**: request JSON, XML, or YAML output instead of free text when you need to parse the response programmatically.  This reduces parsing failures and enables validation.
+- **Set timeout and retry policies**: API calls can hang or fail.  Set a timeout (e. g. , 30 seconds) and retry with exponential backoff.  Fall back to a cached or default response after max retries.
+- **Log full request/response pairs**: store the complete prompt, model, parameters, and response for each API call.  This is essential for debugging, auditing, and improving prompts over time.
 
 ## Common Production Pitfalls
 

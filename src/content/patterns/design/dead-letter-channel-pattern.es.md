@@ -256,12 +256,12 @@ La mayoria de brokers soportan DLQs nativamente. SQS usa redrive policies. Rabbi
 
 ## Errores Comunes
 
-- **Sin retry antes de DLQ**: Un solo fallo envia el mensaje a DLQ. Los fallos transitorios (caidas de red) deben reintentarse primero.
-- **Reintentos infinitos sin DLQ**: El mensaje loop para siempre, bloqueando la cola. Siempre establece un maximo de reintentos.
+- **Sin retry antes de DLQ**: Un solo fallo envia el mensaje a DLQ.   Los fallos transitorios (caidas de red) deben reintentarse primero.
+- **Reintentos infinitos sin DLQ**: El mensaje loop para siempre, bloqueando la cola.   Siempre establece un maximo de reintentos.
 - **No preservar mensaje original**: El mensaje de DLQ debe contener el payload original, no solo el error.
-- **Sin monitoreo de DLQ**: Los mensajes se acumulan en la DLQ sin ser notados. Configura alarmas en la profundidad de DLQ.
+- **Sin monitoreo de DLQ**: Los mensajes se acumulan en la DLQ sin ser notados.
 - **Replay sin corregir**: Mover mensajes de vuelta a la cola principal sin corregir el bug causa que fallen de nuevo.
-- **DLQ como basurero**: La DLQ es para inspeccion y replay, no almacenamiento permanente. Procesa o archiva mensajes regularmente.
+- **DLQ como basurero**: La DLQ es para inspeccion y replay, no almacenamiento permanente.
 
 ## Preguntas Frecuentes
 

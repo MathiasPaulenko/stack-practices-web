@@ -119,10 +119,10 @@ La paginación keyset (cursor) es O(1) independientemente de la profundidad de p
 
 ## Explicación
 
-- **EXPLAIN ANALYZE**: Ejecuta la query y muestra el plan de ejecución actual, incluyendo conteos de filas, condiciones de filtro y operaciones de I/O. Busca sequential scans, nested loops con altos conteos de filas, y operaciones de sort sin índices.
-- **Queries N+1**: Ocurren cuando el código itera sobre un result set y ejecuta una query adicional por iteración. Una sola JOIN o cláusula `IN` bien elaborada reemplaza cientos de queries individuales.
-- **Índices covering**: Cuando todas las columnas que una query necesita están en el índice, la base de datos puede responder la query sin tocar la tabla. Esto se llama "index-only scan" y puede ser 10x más rápido.
-- **Reescritura de queries**: A veces la query misma es el problema. Convertir `NOT IN` a `NOT EXISTS`, usar `UNION ALL` en lugar de `UNION`, o filtrar temprano con subqueries puede mejorar dramáticamente el rendimiento.
+- **EXPLAIN ANALYZE**: Ejecuta la query y muestra el plan de ejecución actual, incluyendo conteos de filas, condiciones de filtro y operaciones de I/O.   Busca sequential scans, nested loops con altos conteos de filas, y operaciones de sort sin índices.
+- **Queries N+1**: Ocurren cuando el código itera sobre un result set y ejecuta una query adicional por iteración.   Una sola JOIN o cláusula `IN` bien elaborada reemplaza cientos de queries individuales.
+- **Índices covering**: Cuando todas las columnas que una query necesita están en el índice, la base de datos puede responder la query sin tocar la tabla.   Esto se llama "index-only scan" y puede ser 10x más rápido.
+- **Reescritura de queries**: A veces la query misma es el problema.   Convertir `NOT IN` a `NOT EXISTS`, usar `UNION ALL` en lugar de `UNION`, o filtrar temprano con subqueries puede mejorar dramáticamente el rendimiento.
 
 ## Variantes
 
@@ -149,13 +149,13 @@ LIMIT 100;
 
 Cosas clave a buscar en el output:
 
-- **Seq Scan**: Full table scan. Generalmente malo para tablas grandes. Agrega un índice.
+- **Seq Scan**: Full table scan.   Generalmente malo para tablas grandes.   Agrega un índice.
 - **Index Scan**: Bien — usando un índice para encontrar filas.
 - **Index Only Scan**: Mejor — todos los datos del índice, sin acceso a tabla.
-- **Hash Join**: Bien para joins grandes. Construye una hash table en la relación más pequeña.
-- **Nested Loop**: Bien para result sets pequeños. Malo para grandes (O(n*m)).
-- **Sort**: Costoso para result sets grandes. Agrega un índice en la columna de sort.
-- **Buffers: shared hit=X read=Y**: `hit` = caché, `read` = disco. Alto `read` significa I/O de disco.
+- **Hash Join**: Bien para joins grandes.   Construye una hash table en la relación más pequeña.
+- **Nested Loop**: Bien para result sets pequeños.   Malo para grandes (O(n*m)).
+- **Sort**: Costoso para result sets grandes.   Agrega un índice en la columna de sort.
+- **Buffers: shared hit=X read=Y**: `hit` = caché, `read` = disco.   Alto `read` significa I/O de disco.
 - **Rows removed by filter**: Si es mucho mayor que las filas devueltas, el índice no es suficientemente selectivo.
 
 ## Avanzado: Caching de Query Plans
@@ -242,18 +242,18 @@ Resetea las estadísticas después de hacer cambios para obtener mediciones limp
 
 ## Lo que funciona
 
-- **Filtra temprano**: aplica condiciones `WHERE` en columnas indexadas antes de joins y sorts. Cuantas menos filas fluyan a través del pipeline de la query, más rápido corre.
+- **Filtra temprano**: aplica condiciones `WHERE` en columnas indexadas antes de joins y sorts.   Cuantas menos filas fluyan a través del pipeline de la query, más rápido corre.
 - **Evita `SELECT *`**: traer columnas innecesarias desperdicia I/O y memoria. Selecciona solo las columnas que necesitas.
 - **Usa `EXISTS` en lugar de `IN` para subqueries grandes**: `EXISTS` hace short-circuit en el primer match, mientras que `IN` puede construir un result set intermedio completo.
-- **Actualiza estadísticas de tabla**: el query optimizer depende de estadísticas para elegir planes. Corre `ANALYZE` después de bulk loads o cambios de datos mayores.
-- **Monitorea planes de ejecución a lo largo del tiempo**: los planes pueden cambiar a medida que la distribución de datos se desplaza. Configura alertas cuando una query previamente rápida se vuelve lenta repentinamente.
+- **Actualiza estadísticas de tabla**: el query optimizer depende de estadísticas para elegir planes.
+- **Monitorea planes de ejecución a lo largo del tiempo**: los planes pueden cambiar a medida que la distribución de datos se desplaza.
 
 ## Errores comunes
 
 - **Indexar sin analizar**: agregar un índice en una columna de baja cardinalidad (como un booleano) raramente ayuda y siempre ralentiza escrituras.
-- **Ignorar hints del query planner**: a veces el optimizer elige un mal plan. Usa hints (`USE INDEX`, `SET enable_seqscan = off`) juiciosamente cuando sabes más.
+- **Ignorar hints del query planner**: a veces el optimizer elige un mal plan.
 - **No testear con volumen de datos de producción**: una query que corre en 10ms en una base de datos de desarrollo con 1,000 filas puede tardar 10 segundos en producción con 10 millones de filas.
-- **Optimización prematura**: profile primero. No reescribas queries que ya son rápidas. Enfócate en las top 5 queries más lentas por tiempo total de ejecución.
+- **Optimización prematura**: profile primero.   No reescribas queries que ya son rápidas.   Enfócate en las top 5 queries más lentas por tiempo total de ejecución.
 
 
 
@@ -331,11 +331,11 @@ Un result set precomputado almacenado como tabla. Útil para agregaciones comple
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.   Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.   Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.   Scale horizontally only after optimizing the hot path.
 
 ## Errores Comunes en Producción
 

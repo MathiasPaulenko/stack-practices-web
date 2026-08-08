@@ -217,7 +217,7 @@ ORDER BY expiry_date ASC;
 
 ## Variants
 
-- **Let's Encrypt automation**: Uses Certbot, acme.sh, or ACME clients with automated renewal and deployment.
+- **Let's Encrypt automation**: Uses Certbot, acme. sh, or ACME clients with automated renewal and deployment.
 - **Managed certificate service**: Uses AWS ACM, Azure Key Vault, or Cloudflare SSL for fully managed certificates.
 - **Enterprise CA workflow**: Uses internal certificate authorities with approval workflows and domain validation.
 - **Multi-cloud certificate management**: Centralizes certificates across providers using a vault or certificate manager.
@@ -247,11 +247,11 @@ ORDER BY expiry_date ASC;
 
 ## Troubleshooting
 
-- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
-- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
-- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
-- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
-- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints.
+- **False positives in scanning tools**: tune rules against the risk profile.  Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys.  Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce.  Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises.
 
 
 

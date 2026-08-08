@@ -211,10 +211,10 @@ Las goroutines de Go son ligeras (2KB de stack vs 1MB para OS threads), por lo q
 
 ## Explicación
 
-- **Core vs máximo pool size**: el core size es el número de threads mantenidos vivos incluso cuando están inactivos. El máximo es el límite superior. Cuando las tareas exceden el core size, nuevos threads se crean hasta el máximo. Threads por encima del core se terminan después del timeout de keep-alive si están inactivos. Esto permite al pool escalar entre una línea base y un pico.
-- **Cola de trabajo**: las tareas enviadas cuando todos los threads están ocupados esperan en una cola. Una cola ilimitada (`LinkedBlockingQueue`) acepta tareas infinitas pero riesga `OutOfMemoryError`. Una cola acotada limita memoria pero requiere una política de rechazo cuando se llena.
-- **Políticas de rechazo**: cuando el pool y la cola están saturados, Java ofrece cuatro políticas. `AbortPolicy` (default) lanza excepción. `CallerRunsPolicy` ejecuta la tarea en el thread del llamador, ralentizando submission. `DiscardPolicy` descarta la tarea silenciosamente. `DiscardOldestPolicy` descarta la tarea más antigua en cola.
-- **Thread-per-task vs pools**: crear un thread por tarea funciona para algunas pocas docenas de operaciones concurrentes. A cientos o miles, el overhead de creación de threads domina. Los pools amortizan el costo de creación a través de la vida de la aplicación y proveen uso acotado de recursos.
+- **Core vs máximo pool size**: el core size es el número de threads mantenidos vivos incluso cuando están inactivos.   El máximo es el límite superior.   Cuando las tareas exceden el core size, nuevos threads se crean hasta el máximo.   Threads por encima del core se terminan después del timeout de keep-alive si están inactivos.   Esto permite al pool escalar entre una línea base y un pico.
+- **Cola de trabajo**: las tareas enviadas cuando todos los threads están ocupados esperan en una cola.   Una cola ilimitada (`LinkedBlockingQueue`) acepta tareas infinitas pero riesga `OutOfMemoryError`.   Una cola acotada limita memoria pero requiere una política de rechazo cuando se llena.
+- **Políticas de rechazo**: cuando el pool y la cola están saturados, Java ofrece cuatro políticas.   `AbortPolicy` (default) lanza excepción.   `CallerRunsPolicy` ejecuta la tarea en el thread del llamador, ralentizando submission.   `DiscardPolicy` descarta la tarea silenciosamente.   `DiscardOldestPolicy` descarta la tarea más antigua en cola.
+- **Thread-per-task vs pools**: crear un thread por tarea funciona para algunas pocas docenas de operaciones concurrentes.   A cientos o miles, el overhead de creación de threads domina.   Los pools amortizan el costo de creación a través de la vida de la aplicación y proveen uso acotado de recursos.
 
 ## Variantes
 
@@ -228,22 +228,22 @@ Las goroutines de Go son ligeras (2KB de stack vs 1MB para OS threads), por lo q
 
 ## Lo que funciona
 
-- **Dimensiona pools CPU al número de cores**: para trabajo CPU-bound, usa `Runtime.getRuntime().availableProcessors()` o `os.cpu_count()`. Threads adicionales solo compiten por cores, causando context switches sin ganancias de throughput. Consulta [Load Balancing](/recipes/architecture/load-balancing) para distribuir trabajo entre cores.
-- **Dimensiona pools I/O más alto que core count**: para trabajo I/O-bound, los threads se bloquean en red/disco. Un thread esperando una respuesta no usa un core. Usa 2x-4x core count para pools I/O, dependiendo de latencia. Mide para encontrar el punto óptimo.
-- **Siempre shutdown gracefulmente**: un executor no terminado filtra threads y previene salida del proceso JVM/Python. Llama `shutdown()`, espera terminación, luego `shutdownNow()` si es necesario. Usa try-with-resources en Python (`with ThreadPoolExecutor`).
-- **Usa colas acotadas con políticas de rechazo**: las colas ilimitadas ocultan backpressure. Un sistema que acepta tareas infinitas eventualmente se cae. Usa colas acotadas y maneja rechazo sheddando carga o ralentizando al submitter. Consulta [Rate Limiting](/recipes/api/rate-limiting) para gestionar sobrecarga.
-- **Nombra tus threads**: debuggear un thread dump de 50 threads sin nombre es imposible. Usa thread factories custom para nombrar threads (`worker-1`, `worker-2`). Esto hace profiling, logging y debugging triviales.
-- **Monitorea metricas del pool**: rastrea threads activos, tamano de cola, tareas completadas y conteo de rechazos. `ThreadPoolExecutor` de Java expone estos via getters. En Python, envuelve el executor para rastrear submissions y completions. Alerta cuando la profundidad de cola excede un umbral.
-- **Usa `shutdownNow()` con cuidado**: `shutdownNow()` interrumpe threads en ejecucion. Si tus tareas no chequean `Thread.interrupted()` o manejan `InterruptedException`, continuaran ejecutandose. Disena tareas cooperativas y responsivas a interrupcion.
+- **Dimensiona pools CPU al número de cores**: getRuntime().  availableProcessors()` o `os.  cpu_count()`.   Threads adicionales solo compiten por cores, causando context switches sin ganancias de throughput.   Consulta [Load Balancing](/recipes/architecture/load-balancing) para distribuir trabajo entre cores.
+- **Dimensiona pools I/O más alto que core count**: para trabajo I/O-bound, los threads se bloquean en red/disco.   Usa 2x-4x core count para pools I/O, dependiendo de latencia.
+- **Siempre shutdown gracefulmente**: un executor no terminado filtra threads y previene salida del proceso JVM/Python.   Llama `shutdown()`, espera terminación, luego `shutdownNow()` si es necesario.
+- **Usa colas acotadas con políticas de rechazo**: las colas ilimitadas ocultan backpressure.   Un sistema que acepta tareas infinitas eventualmente se cae.   Consulta [Rate Limiting](/recipes/api/rate-limiting) para gestionar sobrecarga.
+- **Nombra tus threads**: debuggear un thread dump de 50 threads sin nombre es imposible.   Esto hace profiling, logging y debugging triviales.
+- **Monitorea metricas del pool**: rastrea threads activos, tamano de cola, tareas completadas y conteo de rechazos.   `ThreadPoolExecutor` de Java expone estos via getters.   En Python, envuelve el executor para rastrear submissions y completions.   Alerta cuando la profundidad de cola excede un umbral.
+- **Usa `shutdownNow()` con cuidado**: `shutdownNow()` interrumpe threads en ejecucion.   Si tus tareas no chequean `Thread.  interrupted()` o manejan `InterruptedException`, continuaran ejecutandose.   Disena tareas cooperativas y responsivas a interrupcion.
 
 ## Errores comunes
 
-- **Bloquear al llamador con `Future.get()` sin timeout**: `future.get()` espera indefinidamente. Si el worker thread se cuelga (loop infinito, deadlock), el llamador se cuelga para siempre. Siempre usa `future.get(timeout, TimeUnit.SECONDS)`.
-- **Usar threads para trabajo CPU-bound en Python**: el GIL de Python previene paralelismo real de threads para trabajo CPU. Un `ThreadPoolExecutor` con 8 threads en una máquina de 8 cores ejecuta tareas secuencialmente, no en paralelo. Usa `ProcessPoolExecutor` para trabajo CPU-bound en Python.
-- **Ignorar excepciones en tareas fire-and-forget**: enviar una tarea e ignorar el future traga excepciones. La tarea falla silenciosamente. Siempre captura futures y chequea excepciones, o usa un callback de completación.
-- **Crear un nuevo pool por request**: un web handler que crea un nuevo `ExecutorService` para cada request entrante derrota el propósito. Crea un pool en el startup de la aplicación y reutilízalo. Pásalo como dependencia a los handlers.
-- **Compartir un solo pool entre workloads no relacionados**: las tareas CPU-bound e I/O-bound tienen diferentes tamaños óptimos de pool. Si comparten un pool, un workload priva al otro. Usa pools separados por tipo de workload.
-- **No manejar `RejectedExecutionException`**: cuando usas `AbortPolicy`, el pool lanza `RejectedExecutionException` bajo sobrecarga. Si no lo capturas, la excepción propaga y puede crashear al llamador. Captúralo y degrada gracefulmente.
+- **Bloquear al llamador con `Future.get()` sin timeout**: `future.  get()` espera indefinidamente.   Si el worker thread se cuelga (loop infinito, deadlock), el llamador se cuelga para siempre.  get(timeout, TimeUnit.  SECONDS)`.
+- **Usar threads para trabajo CPU-bound en Python**: el GIL de Python previene paralelismo real de threads para trabajo CPU.   Un `ThreadPoolExecutor` con 8 threads en una máquina de 8 cores ejecuta tareas secuencialmente, no en paralelo.
+- **Ignorar excepciones en tareas fire-and-forget**: enviar una tarea e ignorar el future traga excepciones.   La tarea falla silenciosamente.
+- **Crear un nuevo pool por request**: un web handler que crea un nuevo `ExecutorService` para cada request entrante derrota el propósito.   Crea un pool en el startup de la aplicación y reutilízalo.   Pásalo como dependencia a los handlers.
+- **Compartir un solo pool entre workloads no relacionados**: las tareas CPU-bound e I/O-bound tienen diferentes tamaños óptimos de pool.   Si comparten un pool, un workload priva al otro.
+- **No manejar `RejectedExecutionException`**: cuando usas `AbortPolicy`, el pool lanza `RejectedExecutionException` bajo sobrecarga.   Si no lo capturas, la excepción propaga y puede crashear al llamador.   Captúralo y degrada gracefulmente.
 
 
 
@@ -331,10 +331,10 @@ Para tareas CPU-bound, usa la fórmula de Brian Goetz: `N_threads = N_cores * (1
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.   Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 ## Errores Comunes en Producción

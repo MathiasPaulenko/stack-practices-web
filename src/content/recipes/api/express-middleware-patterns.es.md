@@ -226,11 +226,11 @@ function validateParams(schema: ZodSchema) {
 
 ## Mejores Prácticas
 
-- **El orden importa**: registra middleware en la secuencia correcta — logging primero, luego autenticación, luego autorización, luego rate limiting, luego lógica de negocio. Un stack mal ordenado puede permitir peticiones no autenticadas a endpoints costosos.
-- **Mantén middleware delgado**: cada middleware debería hacer una sola cosa. Evita combinar auth, logging y validación en una sola función. Middleware delgado es más fácil de testear, reutilizar y debuggear.
-- **Usa `express.Router()` para stacks modulares**: monta routers con diferentes stacks de middleware para diferentes grupos de rutas. Rutas de API get middleware de auth; rutas públicas get solo logging y CORS.
-- **Siempre maneja errores async**: wrappea middleware async en try/catch y pasa errores a `next(err)`. Usa `express-async-errors` o una función wrapper para evitar try/catch manual en cada middleware.
-- **Setea `req.locals` para data compartida**: pasa data entre middleware usando `req.locals` en lugar de mutar `req` directamente. Esta es la convención de Express y funciona con la mayoría de middleware de terceros.
+- **El orden importa**: registra middleware en la secuencia correcta — logging primero, luego autenticación, luego autorización, luego rate limiting, luego lógica de negocio.   Un stack mal ordenado puede permitir peticiones no autenticadas a endpoints costosos.
+- **Mantén middleware delgado**: cada middleware debería hacer una sola cosa.   Middleware delgado es más fácil de testear, reutilizar y debuggear.
+- **Usa `express.Router()` para stacks modulares**: monta routers con diferentes stacks de middleware para diferentes grupos de rutas.   Rutas de API get middleware de auth; rutas públicas get solo logging y CORS.
+- **Siempre maneja errores async**: wrappea middleware async en try/catch y pasa errores a `next(err)`.
+- **Setea `req.locals` para data compartida**: pasa data entre middleware usando `req.  locals` en lugar de mutar `req` directamente.   Esta es la convención de Express y funciona con la mayoría de middleware de terceros.
 
 ## Checklist de Producción
 
@@ -247,22 +247,22 @@ function validateParams(schema: ZodSchema) {
 
 ## Consideraciones de Escalado
 
-- **Overhead de middleware a escala**: cada middleware agrega 0.1-1ms por petición. Con 10 funciones middleware, eso es 1-10ms de overhead antes de la lógica de negocio. Profilea middleware con `express-status-monitor` o timing middleware custom para identificar bottlenecks.
-- **Memory leaks en procesos long-running**: middleware que acumula estado (caches, connection pools) puede leakear memoria over días/semanas. Monitorea heap usage y restartea workers periódicamente con PM2 cluster mode o Kubernetes rolling restarts.
-- **Escalado horizontal**: middleware de Express corre por instancia. Middleware stateful (sessions, rate limiting) necesita shared storage (Redis, Memcached) al escalar a múltiples instancias. Middleware stateless (logging, CORS) funciona sin cambios.
+- **Overhead de middleware a escala**: cada middleware agrega 0.  1-1ms por petición.   Con 10 funciones middleware, eso es 1-10ms de overhead antes de la lógica de negocio.
+- **Memory leaks en procesos long-running**: middleware que acumula estado (caches, connection pools) puede leakear memoria over días/semanas.
+- **Escalado horizontal**: middleware de Express corre por instancia.   Middleware stateful (sessions, rate limiting) necesita shared storage (Redis, Memcached) al escalar a múltiples instancias.   Middleware stateless (logging, CORS) funciona sin cambios.
 
 ## Cuándo No Usar Este Enfoque
 
-- **APIs de alto rendimiento (>50K req/s)**: Express agrega overhead de la ejecución de la middleware chain y el JavaScript runtime. Para throughput extremo, usa Fastify (2-3x más rápido), Go con Gin/Fiber, o Rust con Actix.
-- **Funciones serverless**: las middleware chains de Express no cold-startean eficientemente en Lambda. Usa framework-native handlers (AWS Lambda handler, Vercel edge functions) para despliegues serverless.
-- **Servir archivos estáticos simple**: si tu app solo sirve archivos estáticos, Express middleware es excesivo. Usa Nginx, Caddy, o un CDN directamente para 10-100x mejor throughput.
+- **APIs de alto rendimiento (>50K req/s)**: Express agrega overhead de la ejecución de la middleware chain y el JavaScript runtime.
+- **Funciones serverless**: las middleware chains de Express no cold-startean eficientemente en Lambda.
+- **Servir archivos estáticos simple**: si tu app solo sirve archivos estáticos, Express middleware es excesivo.
 
 ## Estrategia de Testing
 
-- **Unit test middleware en aislamiento**: crea una app Express minimal con `supertest`, monta solo el middleware bajo test y haz HTTP requests. Asserta sobre response status, headers y body. Mockea `next()` para verificar call order.
-- **Integration test el stack completo de middleware**: monta la app Express completa y testea el flow end-to-end de peticiones. Verifica middleware ordering, error handling y response transformations.
-- **Testea error paths explícitamente**: envía peticiones malformadas, triggerea timeouts y simula downstream failures. Verifica que error-handling middleware catchee y formatee errores correctamente.
-- **Performance test middleware overhead**: usa `autocannon` para benchmarkear middleware overhead. Compara baseline (sin middleware) vs stack completo para identificar bottlenecks. Target <5ms total middleware overhead por petición.
+- **Unit test middleware en aislamiento**: crea una app Express minimal con `supertest`, monta solo el middleware bajo test y haz HTTP requests.   Asserta sobre response status, headers y body.   Mockea `next()` para verificar call order.
+- **Integration test el stack completo de middleware**: Verifica middleware ordering, error handling y response transformations.
+- **Testea error paths explícitamente**: envía peticiones malformadas, triggerea timeouts y simula downstream failures.   Verifica que error-handling middleware catchee y formatee errores correctamente.
+- **Performance test middleware overhead**: Target <5ms total middleware overhead por petición.
 
 ## Estimación de Costos
 
@@ -278,19 +278,19 @@ Para 10K req/s: 2x EC2 t3.large ($60/mes) + Redis ($15/mes) + ALB ($25/mes) = ~$
 
 ## Monitoring y Observabilidad
 
-- **Trackea execution time de middleware por petición**: usa `express-status-monitor` o custom timing middleware para registrar cuánto tarda cada middleware. Alerta si cualquier middleware excede 10ms p95.
-- **Monitorea error rates de middleware**: cuenta errores por función middleware. Setea alertas para error rate >1% en middleware critical (auth, CORS, rate limiting). Usa `prom-client` para exponer Prometheus metrics.
-- **Loggea violaciones de middleware order**: si middleware ejecuta out of order (e.g., auth después de body parsing), loggea un warning. Bugs de middleware order son hard to debug en producción.
-- **Trackea memory usage por middleware**: algún middleware (body-parser, session) allocatea memoria por petición. Monitorea heap growth y setea alertas para memory leaks. Usa `--max-old-space-size` para limitar heap y forzar garbage collection.
+- **Trackea execution time de middleware por petición**: Alerta si cualquier middleware excede 10ms p95.
+- **Monitorea error rates de middleware**: cuenta errores por función middleware.   Setea alertas para error rate >1% en middleware critical (auth, CORS, rate limiting).
+- **Loggea violaciones de middleware order**: si middleware ejecuta out of order (e.  g.  , auth después de body parsing), loggea un warning.   Bugs de middleware order son hard to debug en producción.
+- **Trackea memory usage por middleware**: algún middleware (body-parser, session) allocatea memoria por petición.
 
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.   Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.   Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.   Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 ## FAQ
 

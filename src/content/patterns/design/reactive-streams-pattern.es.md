@@ -190,9 +190,9 @@ public class ReactiveStreamsExample {
 
 El protocolo Reactive Streams define cuatro interfaces:
 
-- **Publisher**: Produce items y los envia a suscriptores. Respeta la demanda.
-- **Subscriber**: Consume items. Llama `request(n)` para senalar demanda de n items.
-- **Subscription**: Representa el enlace entre publicador y suscriptor. Se usa para pedir items o cancelar.
+- **Publisher**: Produce items y los envia a suscriptores.   Respeta la demanda.
+- **Subscriber**: Consume items.   Llama `request(n)` para senalar demanda de n items.
+- **Subscription**: Representa el enlace entre publicador y suscriptor.
 - **Processor**: Actua como publicador y suscriptor (para etapas intermedias).
 
 La regla clave: **el publicador no debe enviar mas items de los solicitados**. Si el suscriptor pide 5, el publicador envia maximo 5. El suscriptor los procesa, luego pide 5 mas. Esto crea un flujo pull-based donde el consumidor controla el ritmo.
@@ -221,8 +221,8 @@ Backpressure es el mecanismo que previene que un productor rapido sature a un co
 
 ## Errores Comunes
 
-- **Solicitar demanda sin limite**: Llamar `request(Long.MAX_VALUE)` desactiva backpressure, revirtiendo a push-based. Solo hazlo cuando el consumidor es siempre mas rapido.
-- **Bloquear en el suscriptor**: Una llamada bloqueante en `onNext` bloquea el thread del publicador. Descarga a un scheduler separado.
+- **Solicitar demanda sin limite**: Llamar `request(Long.  MAX_VALUE)` desactiva backpressure, revirtiendo a push-based.   Solo hazlo cuando el consumidor es siempre mas rapido.
+- **Bloquear en el suscriptor**: Una llamada bloqueante en `onNext` bloquea el thread del publicador.   Descarga a un scheduler separado.
 - **No manejar errores**: Si `onError` no se implementa, las excepciones se tragan y el stream se detiene silenciosamente.
 - **Ignorar cancelacion**: Si el consumidor termino pero no cancela, el publicador sigue produciendo y desperdiciando recursos.
 - **Mezclar push y pull**: Llamar `onNext` sin un `request` correspondiente viola el protocolo y puede causar errores.

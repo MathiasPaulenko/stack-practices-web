@@ -229,10 +229,10 @@ Semantic search works in three stages:
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 
@@ -292,13 +292,13 @@ OpenAI's `text-embedding-3-small` costs $0.02 per 1M tokens. Indexing 100,000 do
 
 ## Best Practices
 
-- **Use hybrid search for production**: combine vector search with BM25 keyword search. Use reciprocal rank fusion (RRF) to merge results. This catches both semantic matches and exact term matches, improving recall considerably.
-- **Implement query understanding**: before embedding the query, classify intent (informational, navigational, transactional). Route different intents to different search strategies. This improves relevance for diverse query types.
-- **Use filtered vector search**: attach metadata tags (category, date, language, author) to embeddings. Filter by metadata before vector search to reduce the search space and improve both speed and relevance.
-- **Benchmark different embedding models**: test 3-5 embedding models on your domain-specific test set. Compare recall@k and MRR. Models like `e5-large-v2`, `bge-large`, and `text-embedding-3-large` can outperform OpenAI's default on certain domains.
-- **Set up A/B testing for search quality**: route a percentage of searches to a new configuration (different model, chunk size, or threshold). Measure user engagement metrics (click-through rate, time to find, zero-result rate). Promote configurations that improve engagement.
-- **Monitor zero-result queries**: track queries that return no results above threshold. These indicate gaps in your corpus or issues with your embedding model. Use them to identify missing content or needed model changes.
-- **Implement autocomplete and query suggestions**: use a lightweight keyword index for autocomplete suggestions. This reduces the load on vector search and improves UX by guiding users toward queries that will return results.
+- **Use hybrid search for production**: combine vector search with BM25 keyword search.  This catches both semantic matches and exact term matches, improving recall considerably.
+- **Implement query understanding**: before embedding the query, classify intent (informational, navigational, transactional).  Route different intents to different search strategies.  This improves relevance for diverse query types.
+- **Use filtered vector search**: attach metadata tags (category, date, language, author) to embeddings.  Filter by metadata before vector search to reduce the search space and improve both speed and relevance.
+- **Benchmark different embedding models**: test 3-5 embedding models on your domain-specific test set.  Models like `e5-large-v2`, `bge-large`, and `text-embedding-3-large` can outperform OpenAI's default on certain domains.
+- **Set up A/B testing for search quality**: route a percentage of searches to a new configuration (different model, chunk size, or threshold).  Promote configurations that improve engagement.
+- **Monitor zero-result queries**: track queries that return no results above threshold.  These indicate gaps in your corpus or issues with your embedding model.
+- **Implement autocomplete and query suggestions**: use a lightweight keyword index for autocomplete suggestions.  This reduces the load on vector search and improves UX by guiding users toward queries that will return results.
 
 ## Production Checklist
 
@@ -317,10 +317,10 @@ OpenAI's `text-embedding-3-small` costs $0.02 per 1M tokens. Indexing 100,000 do
 
 When deploying semantic search at scale, consider these factors:
 
-- **Index size and memory**: a 1536-dimensional embedding (OpenAI) takes ~6 KB per document. For 1M documents, the index is ~6 GB in memory. Use quantization (int8 or binary) to reduce memory by 4-32x with minimal accuracy loss. FAISS and Qdrant support quantized indices natively.
-- **Query latency targets**: for e-commerce or user-facing search, target <100ms p99 latency. HNSW indices achieve this for up to 10M vectors on a single machine. For larger indices, shard across multiple nodes and merge results.
-- **Re-indexing strategy**: when you switch embedding models or update chunking logic, you must re-index everything. For large corpora, do this in a blue-green deployment: build the new index alongside the old one, then switch traffic when the new index is ready.
-- **Cost optimization**: embedding API calls are cheap ($0.02/1M tokens) but compound at scale. For 1M documents updated weekly, embedding costs ~$10/week. Cache embeddings by content hash to avoid re-embedding unchanged documents. Use open-source models (e5, bge) for self-hosted inference to eliminate API costs entirely.
+- **Index size and memory**: a 1536-dimensional embedding (OpenAI) takes ~6 KB per document.  For 1M documents, the index is ~6 GB in memory.  FAISS and Qdrant support quantized indices natively.
+- **Query latency targets**: for e-commerce or user-facing search, target <100ms p99 latency.  HNSW indices achieve this for up to 10M vectors on a single machine.  For larger indices, shard across multiple nodes and merge results.
+- **Re-indexing strategy**: when you switch embedding models or update chunking logic, you must re-index everything.  For large corpora, do this in a blue-green deployment: build the new index alongside the old one, then switch traffic when the new index is ready.
+- **Cost optimization**: embedding API calls are cheap ($0. 02/1M tokens) but compound at scale.  For 1M documents updated weekly, embedding costs ~$10/week.  Cache embeddings by content hash to avoid re-embedding unchanged documents.
 
 ## Cost Estimation
 
@@ -337,11 +337,11 @@ For 1M documents re-embedded monthly: ~$2/month with OpenAI small. Self-hosting 
 
 ## When Not to Use Semantic Search
 
-- **Exact match is the primary use case**: if users search for product IDs, SKUs, or error codes, keyword search (BM25, Elasticsearch) is faster and more accurate. Semantic search adds noise by returning "similar" but non-matching results.
-- **Your corpus is <1000 documents**: for small corpora, keyword search with good ranking is sufficient. The overhead of embedding generation and vector index maintenance is not justified.
-- **You need sub-10ms latency**: vector search with HNSW takes 10-50ms. For sub-10ms requirements (autocomplete, typeahead), use trie-based or prefix search instead.
-- **Your content is mostly numeric or coded**: embeddings are designed for natural language. For numeric data (prices, measurements), use range queries. For coded data (ICD codes, ISO standards), use exact match with synonyms.
-- **Compliance requires explainable results**: vector similarity scores are not intuitive to end users. "Why did this document match?" is harder to explain with embeddings than with keyword highlighting. Use BM25 with highlighted terms for transparency.
+- **Exact match is the primary use case**: if users search for product IDs, SKUs, or error codes, keyword search (BM25, Elasticsearch) is faster and more accurate.  Semantic search adds noise by returning "similar" but non-matching results.
+- **Your corpus is <1000 documents**: for small corpora, keyword search with good ranking is sufficient.  The overhead of embedding generation and vector index maintenance is not justified.
+- **You need sub-10ms latency**: vector search with HNSW takes 10-50ms.  For sub-10ms requirements (autocomplete, typeahead), use trie-based or prefix search instead.
+- **Your content is mostly numeric or coded**: embeddings are designed for natural language.  For numeric data (prices, measurements), use range queries.  For coded data (ICD codes, ISO standards), use exact match with synonyms.
+- **Compliance requires explainable results**: vector similarity scores are not intuitive to end users.  "Why did this document match? " is harder to explain with embeddings than with keyword highlighting.
 
 ## Common Production Pitfalls
 

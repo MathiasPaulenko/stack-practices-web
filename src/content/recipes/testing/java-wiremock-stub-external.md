@@ -245,20 +245,20 @@ class SpringIntegrationTest {
 
 ## Common Mistakes
 
-- **Using fixed ports**: port 8080 might be in use. Always use `dynamicPort()`.
-- **Not resetting between tests**: stubs from one test leak into the next. Call `resetAll()` in `@AfterEach`.
-- **Stubbing too broadly**: `urlMatching(".*")` catches every request, hiding missing stubs for other endpoints.
+- **Using fixed ports**: port 8080 might be in use.  Always use `dynamicPort()`.
+- **Not resetting between tests**: stubs from one test leak into the next.  Call `resetAll()` in `@AfterEach`.
+- **Stubbing too broadly**: `urlMatching(". *")` catches every request, hiding missing stubs for other endpoints.
 - **Not verifying requests**: stubbing responses without verifying the request misses bugs in how your code calls the API.
-- **Ignoring WireMock logs**: enable verbose logging with `.notifier(new ConsoleNotifier(true))` to debug stub matching issues.
+- **Ignoring WireMock logs**: enable verbose logging with `. notifier(new ConsoleNotifier(true))` to debug stub matching issues.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.  Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.  Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.  Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database.  Reset state before each test.
 
 
 

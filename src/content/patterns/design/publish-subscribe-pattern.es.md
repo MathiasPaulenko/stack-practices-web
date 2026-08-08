@@ -253,12 +253,12 @@ El beneficio clave es **acoplamiento ligero**: el publicador no sabe ni le impor
 
 ## Errores Comunes
 
-- **Cola compartida para multiples suscriptores**: Todos los suscriptores compiten por mensajes en lugar de cada uno obtener una copia. Cada suscriptor necesita su propia cola.
-- **Redis Pub/Sub para eventos criticos**: Los mensajes se pierden si un suscriptor esta offline. Usa Redis Streams o un broker durable para eventos que no deben perderse.
-- **Suscriptores sincronos bloqueando al publicador**: Si el publicador espera acknowledgments de suscriptores, los suscriptores lentos bloquean al publicador. Usa entrega asincrona.
-- **Sin filtrado por tipo de evento**: Los suscriptores procesan cada evento incluso si solo les importa un tipo. Usa topic exchanges o filtra en el consumidor.
-- **Agregar suscriptores sin escalar el broker**: Mas suscriptores significa mas copias de mensajes. Asegura que el broker pueda manejar el throughput aumentado.
-- **No manejar consumidores lentos**: Un suscriptor que no puede mantener el ritmo acumula mensajes. Establece max depth de cola y alertas.
+- **Cola compartida para multiples suscriptores**: Todos los suscriptores compiten por mensajes en lugar de cada uno obtener una copia.   Cada suscriptor necesita su propia cola.
+- **Redis Pub/Sub para eventos criticos**: Los mensajes se pierden si un suscriptor esta offline.
+- **Suscriptores sincronos bloqueando al publicador**: Si el publicador espera acknowledgments de suscriptores, los suscriptores lentos bloquean al publicador.
+- **Sin filtrado por tipo de evento**: Los suscriptores procesan cada evento incluso si solo les importa un tipo.
+- **Agregar suscriptores sin escalar el broker**: Mas suscriptores significa mas copias de mensajes.
+- **No manejar consumidores lentos**: Un suscriptor que no puede mantener el ritmo acumula mensajes.   Establece max depth de cola y alertas.
 
 ## Preguntas Frecuentes
 

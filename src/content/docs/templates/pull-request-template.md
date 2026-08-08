@@ -177,16 +177,16 @@ Retry-After: 60
 
 - **Keep it concise**: Long templates discourage completion
 - **Use checkboxes**: Easy to scan, hard to miss
-- **Link issues**: Always reference related tickets. Use [Bug Report Template](/docs/templates/bug-report-template) or [Feature Request Template](/docs/templates/feature-request-template) for issue structure.
+- **Link issues**: Always reference related tickets.
 - **Include screenshots**: For UI changes, visual proof is essential
-- **Automate where possible**: Let CI check what bots can verify. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
+- **Automate where possible**: Let CI check what bots can verify.  See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
 - **Require test evidence**: Screenshots, logs, or commands prove the change works
 - **Add a breaking change section**: Call out anything that requires migration
 
 ## Common Mistakes
 
 - **Empty templates**: Submitting without filling required sections
-- **Missing tests**: Forgetting to update or add tests. See [Testing Strategy Guide](/guides/testing/testing-strategy-guide) for coverage standards.
+- **Missing tests**: Forgetting to update or add tests.  See [Testing Strategy Guide](/guides/testing/testing-strategy-guide) for coverage standards.
 - **No issue links**: Makes tracking context harder
 - **Large PRs**: Changes over 500 lines are hard to review; split into smaller PRs
 - **No description of why**: Reviewers need the motivation, not just the what
@@ -254,10 +254,10 @@ Use GitHub merge queues to serialize merges and prevent conflicts. Each PR is re
 ## Troubleshooting
 
 - **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
-- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
-- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
-- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
-- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly.  Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes.  A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers.  Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts.
 
 
 

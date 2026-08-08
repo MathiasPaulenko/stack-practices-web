@@ -186,10 +186,10 @@ total = checkout.get_total(order)
 
 ## Explicación
 
-- **Encapsulación del algoritmo**: cada estrategia es un objeto o función autocontenido con su propio estado y comportamiento. El contexto (checkout service) conoce solo la interfaz de la estrategia, no los detalles de implementación. Esto desacopla el contexto de la evolución del algoritmo.
-- **Selección en runtime**: las estrategias se seleccionan en runtime basado en configuración, input del usuario o reglas de negocio. Una factory o registro puede mapear claves a instancias de estrategia. El contexto no hardcodea qué estrategia usar — recibe la estrategia como dependencia.
-- **Principio open-closed**: agregar un nuevo método de envío significa escribir una nueva clase que implementa `ShippingStrategy`. El checkout service, las estrategias existentes y los tests permanecen intactos. Esta es la esencia del principio open-closed: abierto para extensión, cerrado para modificación.
-- **Strategy vs función simple**: en lenguajes con funciones de primera clase (Python, JavaScript, Go), una estrategia puede ser una función en lugar de una clase. Esto reduce boilerplate para algoritmos stateless. Usa clases cuando la estrategia necesita configuración, estado interno o múltiples métodos.
+- **Encapsulación del algoritmo**: cada estrategia es un objeto o función autocontenido con su propio estado y comportamiento.   El contexto (checkout service) conoce solo la interfaz de la estrategia, no los detalles de implementación.   Esto desacopla el contexto de la evolución del algoritmo.
+- **Selección en runtime**: las estrategias se seleccionan en runtime basado en configuración, input del usuario o reglas de negocio.   Una factory o registro puede mapear claves a instancias de estrategia.   El contexto no hardcodea qué estrategia usar — recibe la estrategia como dependencia.
+- **Principio open-closed**: El checkout service, las estrategias existentes y los tests permanecen intactos.   Esta es la esencia del principio open-closed: abierto para extensión, cerrado para modificación.
+- **Strategy vs función simple**: en lenguajes con funciones de primera clase (Python, JavaScript, Go), una estrategia puede ser una función en lugar de una clase.   Esto reduce boilerplate para algoritmos stateless.
 
 ## Variantes
 
@@ -203,18 +203,18 @@ total = checkout.get_total(order)
 
 ## Lo que funciona
 
-- **Usa inyección de dependencias para selección de estrategia**: en lugar de que el contexto construya su propia estrategia, inyéctala vía constructor o setter. Esto hace el contexto testeable con mocks de estrategia y permite al llamador controlar la selección de algoritmo sin modificar el contexto.
-- **Mantén las interfaces de estrategia enfocadas**: una interfaz de estrategia debería tener un método principal. Si te encuentras agregando `init()`, `validate()` y `cleanup()` a la interfaz, la estrategia está haciendo demasiado. Separa en interfaces distintas o usa un wrapper de lifecycle.
-- **Documenta precondiciones y efectos secundarios de estrategias**: algunas estrategias mutan estado (ej. una estrategia de pago que cobra una tarjeta). Documenta si la estrategia es idempotente, qué excepciones lanza y qué estado espera. Los consumidores deben entender el contrato.
-- **Considera la null strategy**: si el contexto siempre espera una estrategia pero a veces no se necesita comportamiento, implementa un null object strategy que no hace nada. Esto evita null checks y lógica condicional en el contexto.
-- **Compón estrategias con decorators**: un decorator de caching envuelve una estrategia y memoiza resultados. Un decorator de validación chequea inputs antes de delegar. Esto mantiene las estrategias individuales simples mientras agrega concerns transversales externamente.
+- **Usa inyección de dependencias para selección de estrategia**: en lugar de que el contexto construya su propia estrategia, inyéctala vía constructor o setter.   Esto hace el contexto testeable con mocks de estrategia y permite al llamador controlar la selección de algoritmo sin modificar el contexto.
+- **Mantén las interfaces de estrategia enfocadas**: una interfaz de estrategia debería tener un método principal.   Si te encuentras agregando `init()`, `validate()` y `cleanup()` a la interfaz, la estrategia está haciendo demasiado.
+- **Documenta precondiciones y efectos secundarios de estrategias**: algunas estrategias mutan estado (ej.   una estrategia de pago que cobra una tarjeta).   Los consumidores deben entender el contrato.
+- **Considera la null strategy**: si el contexto siempre espera una estrategia pero a veces no se necesita comportamiento, implementa un null object strategy que no hace nada.
+- **Compón estrategias con decorators**: un decorator de caching envuelve una estrategia y memoiza resultados.   Esto mantiene las estrategias individuales simples mientras agrega concerns transversales externamente.
 
 ## Errores comunes
 
-- **Sobre-ingeniería condicionales simples**: si tienes dos estrategias que son cada una una línea, un strategy pattern agrega más boilerplate que valor. Usa una simple función o condicional inline hasta que tengas tres o más algoritmos, o los algoritmos crezcan en complejidad.
-- **Poner selección de estrategia dentro del contexto**: `if (region === 'US') strategy = new UsTaxStrategy()` dentro del contexto viola separación de concerns. El contexto debería recibir la estrategia. La lógica de selección pertenece a una factory, parser de configuración o controlador.
-- **Estrategias accediendo a internals del contexto**: una estrategia no debería alcanzar hacia atrás al objeto contexto. Pasa todos los datos necesarios como parámetros al método de estrategia. El acoplamiento bidireccional hace tanto al contexto como a la estrategia más difíciles de testear y razonar.
-- **Interfaces de estrategia inconsistentes**: si una estrategia retorna un número y otra retorna un string formateado, el contexto debe manejar ambos casos. Define la interfaz precisamente — tipos de retorno, contratos de excepción y formas de parámetros deben ser uniformes entre todas las estrategias.
+- **Sobre-ingeniería condicionales simples**: si tienes dos estrategias que son cada una una línea, un strategy pattern agrega más boilerplate que valor.
+- **Poner selección de estrategia dentro del contexto**: `if (region === 'US') strategy = new UsTaxStrategy()` dentro del contexto viola separación de concerns.   El contexto debería recibir la estrategia.   La lógica de selección pertenece a una factory, parser de configuración o controlador.
+- **Estrategias accediendo a internals del contexto**: una estrategia no debería alcanzar hacia atrás al objeto contexto.   Pasa todos los datos necesarios como parámetros al método de estrategia.   El acoplamiento bidireccional hace tanto al contexto como a la estrategia más difíciles de testear y razonar.
+- **Interfaces de estrategia inconsistentes**: Define la interfaz precisamente — tipos de retorno, contratos de excepción y formas de parámetros deben ser uniformes entre todas las estrategias.
 
 ## Preguntas frecuentes
 

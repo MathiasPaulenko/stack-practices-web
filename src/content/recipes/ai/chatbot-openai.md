@@ -219,9 +219,9 @@ Assistant assistant = client.beta().assistants().create(AssistantCreateParams.bu
 The Assistants API separates three concerns: the **assistant** (configuration + tools), the **thread** (conversation state), and the **run** (execution of a single turn).
 
 **Key concepts:**
-- **Thread**: A conversation session. Messages persist across API calls.
-- **Run**: One execution cycle. The assistant reads the thread, decides which tools to call, and generates a response.
-- **Function calling**: The assistant can emit JSON tool calls. Your code executes them and returns results.
+- **Thread**: A conversation session.  Messages persist across API calls.
+- **Run**: One execution cycle.  The assistant reads the thread, decides which tools to call, and generates a response.
+- **Function calling**: The assistant can emit JSON tool calls.  Your code executes them and returns results.
 - **Retrieval**: Automatically indexes attached files and retrieves relevant passages at query time.
 - **Code interpreter**: A sandboxed Python environment for math, data analysis, and file processing.
 
@@ -257,10 +257,10 @@ Unlike Chat Completions, you do not send the full message history on every reque
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 

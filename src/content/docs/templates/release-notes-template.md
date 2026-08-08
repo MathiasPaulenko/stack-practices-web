@@ -204,16 +204,16 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 ## Bug Fixes
 
 - **#456**: 500 error when creating account with email longer than 50 chars
-- **#459**: Push notifications not sent on iOS 17.4+
+- **#459**: Push notifications not sent on iOS 17.
 - **#462**: Notification counter did not reset when all were read
 - **#465**: Timestamps in API showed incorrect timezone
 
 ## Breaking Changes
 
-- **API v1 deprecated**: API v1 will be removed in v3.0. Migrate to v2.
+- **API v1 deprecated**: API v1 will be removed in v3. 0.  Migrate to v2.
   Migration guide: docs/api-migration-v1-to-v2.md
 
-- **user.name field removed**: Replaced by user.firstName and user.lastName.
+- **user.name field removed**: Replaced by user. firstName and user. lastName.
   Clients using user.name will receive a 400 error.
 
 ## Security Notes
@@ -256,10 +256,10 @@ Hotfixes need a shorter format: "Fixed [bug] that caused [symptom]. Deployed to 
 ## Troubleshooting
 
 - **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
-- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
-- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
-- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
-- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly.  Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes.  A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers.  Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts.
 
 
 

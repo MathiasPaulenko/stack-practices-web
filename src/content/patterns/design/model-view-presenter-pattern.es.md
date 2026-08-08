@@ -258,9 +258,9 @@ presenter.loadUser('1');
 
 MVP divide la responsabilidad de la siguiente manera:
 
-- **Model**: Contiene estructuras de datos y reglas de negocio. No tiene conocimiento de la UI.
-- **View**: Muestra datos y reenvía acciones de usuario al Presenter. Contiene cero lógica.
-- **Presenter**: Actúa como intermediario. Recibe input de usuario de la View, manipula el Model y actualiza la View con resultados.
+- **Model**: Contiene estructuras de datos y reglas de negocio.   No tiene conocimiento de la UI.
+- **View**: Muestra datos y reenvía acciones de usuario al Presenter.   Contiene cero lógica.
+- **Presenter**: Actúa como intermediario.
 
 La característica clave es que la **View es pasiva** — no extrae datos del Model. Todos los datos fluyen a través del Presenter.
 
@@ -336,11 +336,11 @@ Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea centr
 
 ## Troubleshooting
 
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling). A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify. Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward. Use dependency inversion to break accidental coupling.
-- **Tests break when the design changes**: favor stable contracts over internal structure. Test observable behavior, not private helpers.
-- **Performance regression from indirection**: measure before and after. Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).   A pattern is only appropriate when its trade-offs match your constraints.
+- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.   Not every module needs a factory, decorator, or strategy.
+- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
+- **Tests break when the design changes**: favor stable contracts over internal structure.
+- **Performance regression from indirection**: measure before and after.   Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
 
 ## Errores Comunes en Producción
 

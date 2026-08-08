@@ -274,15 +274,15 @@ El esquema de base de datos relacional es simple: una tabla `events` con `aggreg
 ## Lo que funciona
 
 - **Versiona cada evento**: El control de concurrencia optimista previene actualizaciones perdidas
-- **Usa JSONB/JSON para payloads**: Flexibilidad de esquema sin migraciones; valida en la capa de aplicación. Consulta [Parse JSON](/recipes/data/parse-json) para datos estructurados.
+- **Usa JSONB/JSON para payloads**: Flexibilidad de esquema sin migraciones; valida en la capa de aplicación.   Consulta [Parse JSON](/recipes/data/parse-json) para datos estructurados.
 - **Crea snapshots cada N eventos**: Balance entre almacenamiento y rendimiento de reproducción
 - **Mantén los eventos pequeños**: Payloads grandes ralentizan la reproducción y aumentan el almacenamiento
-- **Separa proyecciones del event store**: Las proyecciones pueden reconstruirse; los eventos son la fuente de verdad. Consulta [Redis Caching](/recipes/databases/caching-redis) para cache de read models.
+- **Separa proyecciones del event store**: Las proyecciones pueden reconstruirse; los eventos son la fuente de verdad.   Consulta [Redis Caching](/recipes/databases/caching-redis) para cache de read models.
 
 ## Errores Comunes
 
 - **No versionar eventos**: Sin números de versión no puedes detectar modificaciones concurrentes
-- **Almacenar estado actual Y eventos**: Esto crea escrituras duales y riesgos de consistencia. Consulta [Database Transactions](/recipes/databases/database-transactions) para escrituras atomicas.
+- **Almacenar estado actual Y eventos**: Esto crea escrituras duales y riesgos de consistencia.   Consulta [Database Transactions](/recipes/databases/database-transactions) para escrituras atomicas.
 - **Reproducir todos los eventos en cada lectura**: Usa snapshots o tablas de proyección dedicadas
 - **Eventos mutables**: Los eventos deben ser inmutables — nunca actualices o borres eventos históricos
 - **Falta de evolución de esquema de eventos**: Eventos antiguos necesitan estrategias de migración a medida que el modelo de dominio cambia
@@ -336,11 +336,11 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 
 ## Troubleshooting
 
-- **Query is slow after an index change**: check execution plans and cardinality estimates. Rebuild statistics and verify the index is being used.
-- **Replication lag grows**: monitor network, disk I/O, and long transactions. Split large writes and consider parallel replication.
-- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections. Use prepared statements and close connections in finally blocks.
-- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling. Test restore times against RTO targets.
-- **Deadlocks in high concurrency**: access tables and rows in a consistent order. Keep transactions short and retry deadlocked operations.
+- **Query is slow after an index change**: check execution plans and cardinality estimates.   Rebuild statistics and verify the index is being used.
+- **Replication lag grows**: Split large writes and consider parallel replication.
+- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections.
+- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling.
+- **Deadlocks in high concurrency**: access tables and rows in a consistent order.
 
 ## Errores Comunes en Producción
 

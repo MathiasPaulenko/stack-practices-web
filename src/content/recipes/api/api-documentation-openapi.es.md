@@ -139,7 +139,7 @@ El spec generado (`openapi.json`) alimenta:
 - **Divergencia entre código y spec**: El código cambia pero el spec no se actualiza — usa code-first para evitarlo
 - **Definiciones de seguridad ausentes**: Documenta requisitos de auth ([Bearer](/recipes/security/oauth2-pkce-spa), OAuth2, API key)
 - **Compartir modelos internos**: Expón DTOs, no [entidades de base de datos](/guides/databases/database-design-guide), en el spec
-- **Ignorar campos nullable**: OpenAPI 3.0 requiere `nullable: true` explícitamente
+- **Ignorar campos nullable**: OpenAPI 3.
 - **URLs de servidor hardcodeadas**: Usa variables (`{serverUrl}`) para diferentes entornos
 
 
@@ -334,11 +334,11 @@ Documenta APIs async basadas en Kafka usando extensiones OpenAPI. Define topics 
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.   Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.   Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.   Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 ## Errores Comunes en Producción
 

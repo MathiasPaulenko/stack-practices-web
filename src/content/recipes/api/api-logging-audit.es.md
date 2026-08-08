@@ -175,7 +175,7 @@ Separa logs operacionales (debugging) de logs de auditoría (compliance). Los au
 
 ## Lo que funciona
 
-- **Nunca logues datos sensibles**: Excluye contraseñas, tokens, PII — enmáscara o hashealos. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para protección de datos.
+- **Nunca logues datos sensibles**: Excluye contraseñas, tokens, PII — enmáscara o hashealos.   Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para protección de datos.
 - **Usa correlation IDs**: Pasa `X-Correlation-Id` a través de cada llamada a servicio
 - **Loguea asíncronamente**: Usa buffering para evitar bloquear el thread de la petición
 - **Rota y archiva**: Comprime logs antiguos y muévelos a almacenamiento frío (S3 Glacier)
@@ -226,12 +226,12 @@ R: Sanitiza entrada del usuario antes de loguear. Nunca concatenes entrada de us
 
 ## Mejores Prácticas
 
-- **Nunca loguees secrets**: redacta API keys, passwords, tokens y PII antes de escribir a logs. Usa un middleware de sanitización que masque campos sensibles conocidos.
-- **Usa logging estructurado**: logs JSON con nombres de campo consistentes son más fáciles de queryear y alertar que mensajes free-text. Herramientas como Datadog, Loki y CloudWatch parsean JSON nativamente.
-- **Incluye request IDs en cada entrada de log**: propaga un correlation ID desde el API gateway through todos los servicios downstream. Esto permite trazar una sola petición across service boundaries.
-- **Separa logs operacionales de logs de auditoría**: los logs operacionales son efímeros y de alto volumen. Los logs de auditoría son de bajo volumen, larga retención y a menudo legalmente requeridos. Guárdalos en sinks separados con diferentes políticas de retención.
-- **Loguea en el nivel correcto**: INFO para operaciones normales, WARN para comportamiento degradado, ERROR para fallos que requieren intervención, DEBUG solo para desarrollo. Usar niveles incorrectamente dificulta el análisis de logs.
-- **Batchea escrituras de log para alto throughput**: escribir una entrada de log por llamada API a un sink remoto agrega latencia. Usa un buffer local y flushea periódicamente (cada 1-5 segundos o cada N entradas).
+- **Nunca loguees secrets**: redacta API keys, passwords, tokens y PII antes de escribir a logs.
+- **Usa logging estructurado**: logs JSON con nombres de campo consistentes son más fáciles de queryear y alertar que mensajes free-text.   Herramientas como Datadog, Loki y CloudWatch parsean JSON nativamente.
+- **Incluye request IDs en cada entrada de log**: propaga un correlation ID desde el API gateway through todos los servicios downstream.   Esto permite trazar una sola petición across service boundaries.
+- **Separa logs operacionales de logs de auditoría**: los logs operacionales son efímeros y de alto volumen.   Los logs de auditoría son de bajo volumen, larga retención y a menudo legalmente requeridos.   Guárdalos en sinks separados con diferentes políticas de retención.
+- **Loguea en el nivel correcto**: INFO para operaciones normales, WARN para comportamiento degradado, ERROR para fallos que requieren intervención, DEBUG solo para desarrollo.   Usar niveles incorrectamente dificulta el análisis de logs.
+- **Batchea escrituras de log para alto throughput**: escribir una entrada de log por llamada API a un sink remoto agrega latencia.
 
 ## Checklist de Producción
 
@@ -248,10 +248,10 @@ R: Sanitiza entrada del usuario antes de loguear. Nunca concatenes entrada de us
 
 ## Consideraciones de Escalado
 
-- **Volumen de logs a escala**: un servicio que maneja 10K peticiones/segundo genera 10K-50K entradas de log/segundo. Escribir todos los logs a un solo cluster de Elasticsearch crea bottlenecks. Usa un pipeline de log aggregation (Fluentd, Vector, Logstash) con buffering y múltiples output shards.
-- **Costos de almacenamiento**: logs de auditoría retenidos por 7 años a 1GB/día acumulan 2.5TB. Usa storage tiered: hot (SSD, 7-30 días), warm (HDD, 30-90 días), cold (S3 Glacier, 90+ días). Queryea hot storage para análisis real-time, cold storage para compliance audits.
-- **Performance de queries**: buscar 30 días de logs (900GB) para un request ID específico toma segundos con indexación proper. Indexa en timestamp, request_id y level. Evita wildcard queries en campos sin indexar — triggeran full scans.
-- **Correlación multi-servicio**: en una arquitectura de microservicios, una sola petición de usuario puede tocar 5-15 servicios. Distributed tracing (Jaeger, Zipkin) complementa los logs proveyendo el call graph completo. Usa OpenTelemetry para estandarizar trace propagation.
+- **Volumen de logs a escala**: Escribir todos los logs a un solo cluster de Elasticsearch crea bottlenecks.
+- **Costos de almacenamiento**: logs de auditoría retenidos por 7 años a 1GB/día acumulan 2.  5TB.   Queryea hot storage para análisis real-time, cold storage para compliance audits.
+- **Performance de queries**: buscar 30 días de logs (900GB) para un request ID específico toma segundos con indexación proper.   Indexa en timestamp, request_id y level.
+- **Correlación multi-servicio**: en una arquitectura de microservicios, una sola petición de usuario puede tocar 5-15 servicios.   Distributed tracing (Jaeger, Zipkin) complementa los logs proveyendo el call graph completo.
 
 ## Estimación de Costos
 
@@ -267,9 +267,9 @@ Para 10M logs/día: ELK self-hosted escala linealmente (~$2K-$5K/mes). Servicios
 
 ## Cuándo No Usar Este Enfoque
 
-- **Herramientas internas de bajo tráfico**: si tu API maneja <100 peticiones/día, un pipeline completo de audit logging es excesivo. Usa file-based logging simple con logrotate y grep para debugging.
-- **APIs de streaming real-time**: audit logging agrega 2-5ms por petición. Para requisitos de latencia sub-10ms (gaming, trading), loguea async via una fire-and-forget queue para evitar bloquear el response path.
-- **Entornos con memoria restringida**: structured JSON logging incrementa memory usage 2-3x comparado con texto plano. En dispositivos IoT o edge con <512MB RAM, usa text logging minimal en su lugar.
+- **Herramientas internas de bajo tráfico**: si tu API maneja <100 peticiones/día, un pipeline completo de audit logging es excesivo.
+- **APIs de streaming real-time**: audit logging agrega 2-5ms por petición.
+- **Entornos con memoria restringida**: structured JSON logging incrementa memory usage 2-3x comparado con texto plano.
 
 ## Benchmarks de Rendimiento
 
@@ -285,24 +285,24 @@ Async logging via local buffer + background flush agrega <0.5ms de overhead. Syn
 
 ## Estrategia de Testing
 
-- **Testea redacción de logs**: envía peticiones con API keys, passwords y PII en headers y bodies. Verifica que el output de logs contenga `[REDACTED]` o `***` en lugar de los valores reales. Automatiza este test en CI para prevenir regresiones.
-- **Testea propagación de correlation ID**: haz una petición y verifica que el mismo correlation ID aparezca en todas las entradas de log para esa petición. Testea que el ID se propague a downstream service calls via headers.
+- **Testea redacción de logs**: envía peticiones con API keys, passwords y PII en headers y bodies.   Verifica que el output de logs contenga `[REDACTED]` o `***` en lugar de los valores reales.
+- **Testea propagación de correlation ID**: haz una petición y verifica que el mismo correlation ID aparezca en todas las entradas de log para esa petición.
 - **Testea inmutabilidad de audit logs**: escribe una audit entry, intenta modificarla y verifica que el log storage (append-only file, WORM S3 bucket) rechaza la modificación.
-- **Testea políticas de retención de logs**: crea logs más antiguos que el período de retención y verifica que se eliminen o archiven automáticamente. Testea que los logs ERROR se retengan más tiempo que los INFO si usas retención tiered.
+- **Testea políticas de retención de logs**: crea logs más antiguos que el período de retención y verifica que se eliminen o archiven automáticamente.
 
 ## Errores Comunes Adicionales
 
-- **Loguear data sensible por defecto**: muchos frameworks loguean bodies completos de request/response incluyendo passwords, API keys y tokens. Siempre configura redaction filters antes de habilitar debug logging en producción.
-- **Synchronous logging bloqueando el event loop**: Winston, Pino y Log4j todos soportan async modes. Olvidar habilitar async mode causa que cada log write bloquee la petición, agregando 2-50ms por log entry.
-- **Missing correlation IDs en distributed traces**: sin un correlation ID, tracear una petición across 5 microservicios requiere matchear timestamps manualmente. Siempre genera y propaga un correlation ID via headers.
-- **Log rotation no configurado**: procesos long-running de Node.js pueden llenar el disk space en horas. Configura `winston-daily-rotate-file` o `logrotate` para cappear file sizes y retener solo N días de logs.
+- **Loguear data sensible por defecto**: muchos frameworks loguean bodies completos de request/response incluyendo passwords, API keys y tokens.
+- **Synchronous logging bloqueando el event loop**: Winston, Pino y Log4j todos soportan async modes.   Olvidar habilitar async mode causa que cada log write bloquee la petición, agregando 2-50ms por log entry.
+- **Missing correlation IDs en distributed traces**: sin un correlation ID, tracear una petición across 5 microservicios requiere matchear timestamps manualmente.
+- **Log rotation no configurado**: procesos long-running de Node.  js pueden llenar el disk space en horas.
 
 ## Monitoring y Observabilidad
 
-- **Trackea log volume por servicio**: monitorea logs/minuto por servicio. Spikes súbitos indican errores o log levels mal configurados. Setea alertas para >2x normal log volume dentro de una ventana de 5 minutos.
-- **Monitorea log ingestion lag**: si los logs tardan >30 segundos en llegar a Elasticsearch/Datadog, troubleshooting se vuelve más difícil. Trackea ingestion latency y alerta si p95 excede 60 segundos.
-- **Checks de completitud de audit logs**: verifica periódicamente que los audit logs contengan todos los fields requeridos (user ID, action, timestamp, resource, IP). Fields faltantes indican bugs en resolvers o middleware que skipean logging.
-- **Dashboard para log-based metrics**: crea dashboards para error rate, warn rate y top error messages. Usa Grafana con Loki o Kibana con Elasticsearch para visualizar log trends over time.
+- **Trackea log volume por servicio**: Spikes súbitos indican errores o log levels mal configurados.   Setea alertas para >2x normal log volume dentro de una ventana de 5 minutos.
+- **Monitorea log ingestion lag**: si los logs tardan >30 segundos en llegar a Elasticsearch/Datadog, troubleshooting se vuelve más difícil.
+- **Checks de completitud de audit logs**: verifica periódicamente que los audit logs contengan todos los fields requeridos (user ID, action, timestamp, resource, IP).   Fields faltantes indican bugs en resolvers o middleware que skipean logging.
+- **Dashboard para log-based metrics**: crea dashboards para error rate, warn rate y top error messages.
 
 ## Checklist de Despliegue
 
@@ -331,11 +331,11 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.   Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.   Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.   Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 ## Errores Comunes en Producción
 

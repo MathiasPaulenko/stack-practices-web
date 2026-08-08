@@ -214,10 +214,10 @@ Fine-tuning updates a pre-trained model's weights to improve performance on a na
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 
@@ -290,13 +290,13 @@ Rank (`r`) controls the size of the update matrices — higher rank means more c
 
 ## Best Practices
 
-- **Start with a small subset**: train on 50-100 examples first to verify the pipeline works end-to-end. Debug formatting, tokenization, and training loop issues before scaling to the full dataset.
-- **Use weight decay for regularization**: set `weight_decay` to 0.01-0.1 in your optimizer config. This prevents the LoRA adapters from overfitting to noise in the training data.
-- **Log training metrics to Weights & Biases or TensorBoard**: track loss, learning rate, and validation metrics in real-time. Visualizing training curves helps detect divergence early.
-- **Test with diverse inputs after training**: evaluate the model on inputs that differ from training examples in style, length, and complexity. This reveals whether the model generalized or memorized.
-- **Merge LoRA weights before deployment**: merging reduces inference latency because the model no longer needs to compute LoRA adapters at runtime. Use `merge_and_unload()` in PEFT.
-- **Keep training data under version control**: store datasets in Git LFS or DVC. Tag each training run with the dataset version, model config, and training script used. This ensures reproducibility.
-- **Set up automated evaluation pipelines**: create a script that runs the model on a fixed test set and reports metrics after each training run. Compare against previous runs to detect regressions.
+- **Start with a small subset**: train on 50-100 examples first to verify the pipeline works end-to-end.  Debug formatting, tokenization, and training loop issues before scaling to the full dataset.
+- **Use weight decay for regularization**: set `weight_decay` to 0. 01-0. 1 in your optimizer config.  This prevents the LoRA adapters from overfitting to noise in the training data.
+- **Log training metrics to Weights & Biases or TensorBoard**: track loss, learning rate, and validation metrics in real-time.  Visualizing training curves helps detect divergence early.
+- **Test with diverse inputs after training**: evaluate the model on inputs that differ from training examples in style, length, and complexity.  This reveals whether the model generalized or memorized.
+- **Merge LoRA weights before deployment**: merging reduces inference latency because the model no longer needs to compute LoRA adapters at runtime.
+- **Keep training data under version control**: store datasets in Git LFS or DVC.  Tag each training run with the dataset version, model config, and training script used.  This ensures reproducibility.
+- **Set up automated evaluation pipelines**: create a script that runs the model on a fixed test set and reports metrics after each training run.
 
 ## Production Checklist
 
@@ -315,11 +315,11 @@ Rank (`r`) controls the size of the update matrices — higher rank means more c
 
 When fine-tuning at scale, consider these factors:
 
-- **GPU memory limits**: LoRA reduces memory requirements, but you still need enough VRAM for the base model. A 7B model needs ~14 GB VRAM in 16-bit precision. Use gradient checkpointing and 4-bit quantization (QLoRA) to fit larger models on smaller GPUs.
-- **Training time**: fine-tuning a 7B model on 10K examples for 3 epochs takes 2-6 hours on a single A100. For larger datasets or models, use distributed training across multiple GPUs with DeepSpeed or FSDP.
-- **Dataset size vs. quality**: 500 high-quality examples often outperform 5000 mediocre ones. Focus on label accuracy, diverse phrasing, and edge cases. A dataset that is too large with noisy labels degrades model performance.
-- **Inference cost after fine-tuning**: a fine-tuned 7B model served via vLLM or TGI costs ~$0.001 per 1K tokens on a self-hosted GPU. Compare this against GPT-4o-mini at $0.00015 per 1K tokens. Fine-tuning wins when you need domain-specific behavior that prompting cannot achieve.
-- **Model serving infrastructure**: use vLLM, Text Generation Inference (TGI), or Ollama for serving fine-tuned models. vLLM supports PagedAttention for efficient batched inference. Set up auto-scaling based on request queue depth.
+- **GPU memory limits**: LoRA reduces memory requirements, but you still need enough VRAM for the base model.  A 7B model needs ~14 GB VRAM in 16-bit precision.
+- **Training time**: fine-tuning a 7B model on 10K examples for 3 epochs takes 2-6 hours on a single A100.  For larger datasets or models, use distributed training across multiple GPUs with DeepSpeed or FSDP.
+- **Dataset size vs. quality**: 500 high-quality examples often outperform 5000 mediocre ones.  Focus on label accuracy, diverse phrasing, and edge cases.  A dataset that is too large with noisy labels degrades model performance.
+- **Inference cost after fine-tuning**: a fine-tuned 7B model served via vLLM or TGI costs ~$0. 001 per 1K tokens on a self-hosted GPU. 00015 per 1K tokens.  Fine-tuning wins when you need domain-specific behavior that prompting cannot achieve.
+- **Model serving infrastructure**: use vLLM, Text Generation Inference (TGI), or Ollama for serving fine-tuned models.  vLLM supports PagedAttention for efficient batched inference.  Set up auto-scaling based on request queue depth.
 
 ## Cost Estimation
 
@@ -335,11 +335,11 @@ Fine-tuning is cost-effective when you need domain-specific behavior that prompt
 
 ## When Not to Fine-Tune
 
-- **Prompt engineering solves the problem**: try few-shot prompting, chain-of-thought, and structured output formats first. Fine-tuning is expensive and time-consuming compared to prompt iteration.
-- **Your dataset is <100 examples**: LoRA needs at least 200-500 examples to learn meaningful patterns. Below that, you are overfitting to noise.
-- **The task changes frequently**: fine-tuned models are frozen at training time. If your task definition shifts monthly, you will retrain repeatedly. Use prompting instead, which adapts instantly.
-- **You need multi-step reasoning**: fine-tuning improves style and tone but does not teach new reasoning capabilities. For complex reasoning, use agents or chain-of-thought prompting.
-- **Latency budget is tight**: fine-tuned 7B models on self-hosted GPUs have higher latency than GPT-4o-mini API calls. For low-latency applications, use hosted APIs with streaming.
+- **Prompt engineering solves the problem**: try few-shot prompting, chain-of-thought, and structured output formats first.  Fine-tuning is expensive and time-consuming compared to prompt iteration.
+- **Your dataset is <100 examples**: LoRA needs at least 200-500 examples to learn meaningful patterns.  Below that, you are overfitting to noise.
+- **The task changes frequently**: fine-tuned models are frozen at training time.  If your task definition shifts monthly, you will retrain repeatedly.
+- **You need multi-step reasoning**: fine-tuning improves style and tone but does not teach new reasoning capabilities.  For complex reasoning, use agents or chain-of-thought prompting.
+- **Latency budget is tight**: fine-tuned 7B models on self-hosted GPUs have higher latency than GPT-4o-mini API calls.  For low-latency applications, use hosted APIs with streaming.
 
 ## Common Production Pitfalls
 

@@ -194,11 +194,11 @@ This protects the downstream system from being overwhelmed. The tradeoff is late
 
 ## Common Mistakes
 
-- **No queue depth monitoring**: A growing queue means consumers cannot keep up. Without monitoring, you find out when the queue runs out of storage.
-- **Consumer too slow for sustained traffic**: Load leveling handles bursts, not sustained overload. If average production rate exceeds consumption rate, the queue grows forever.
-- **Not handling poison messages**: A message that always fails blocks the consumer. Use a dead-letter queue after N retries.
-- **Synchronous producer waiting for consumer**: Defeats the purpose. The producer should fire-and-forget.
-- **Ignoring message ordering**: If ordering matters, a single consumer or partitioning strategy is needed. Multiple consumers break ordering.
+- **No queue depth monitoring**: A growing queue means consumers cannot keep up.  Without monitoring, you find out when the queue runs out of storage.
+- **Consumer too slow for sustained traffic**: Load leveling handles bursts, not sustained overload.  If average production rate exceeds consumption rate, the queue grows forever.
+- **Not handling poison messages**: A message that always fails blocks the consumer.
+- **Synchronous producer waiting for consumer**: Defeats the purpose.  The producer should fire-and-forget.
+- **Ignoring message ordering**: If ordering matters, a single consumer or partitioning strategy is needed.  Multiple consumers break ordering.
 
 ## How It Works
 
@@ -237,11 +237,11 @@ An IoT platform collects telemetry from millions of devices. Device messages arr
 
 ## Troubleshooting
 
-- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
-- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
-- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
-- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
-- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+- **Messages are lost on restart**: persist messages before acknowledging.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic.
+- **Duplicate messages**: design consumers to be idempotent.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts.  Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues.  Restart gracefully.
 
 
 

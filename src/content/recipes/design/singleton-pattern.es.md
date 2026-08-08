@@ -164,10 +164,10 @@ public class OrderService {
 
 ## Explicación
 
-- **Double-checked locking**: el ejemplo de Java chequea `instance == null` dos veces — una sin lock (ruta rápida) y otra con lock (ruta lenta). Después del primer chequeo exitoso, otro thread podría haber inicializado la instancia entre el chequeo y el lock, así que el segundo chequeo dentro del bloque sincronizado es necesario. `volatile` asegura visibilidad entre threads.
-- **Singleton a nivel de módulo (Python)**: los módulos de Python se importan una vez y se cachean en `sys.modules`. Una clase definida en un módulo e instanciada a nivel de módulo se comporta como singleton. Todos los imports referencian el mismo objeto. Es más simple que `__new__` pero menos explícito.
-- **Patrón registro**: en lugar de hardcodear `getInstance()` en cada clase, un registro central mapea claves a instancias singleton. Esto desacopla la creación de la clase, soporta singletons parametrizados y permite reset fácil para testing. El registro mismo es un singleton.
-- **Singleton con DI container**: frameworks modernos (Spring, ASP.NET, Angular) gestionan el ciclo de vida de singletons declarativamente. Declaras un binding como singleton scope y el container crea una instancia que inyecta en todas partes. Es el enfoque más testeable — los tests usan un container separado con mocks.
+- **Double-checked locking**: Después del primer chequeo exitoso, otro thread podría haber inicializado la instancia entre el chequeo y el lock, así que el segundo chequeo dentro del bloque sincronizado es necesario.
+- **Singleton a nivel de módulo (Python)**: los módulos de Python se importan una vez y se cachean en `sys.  modules`.   Una clase definida en un módulo e instanciada a nivel de módulo se comporta como singleton.   Todos los imports referencian el mismo objeto.   Es más simple que `__new__` pero menos explícito.
+- **Patrón registro**: en lugar de hardcodear `getInstance()` en cada clase, un registro central mapea claves a instancias singleton.   Esto desacopla la creación de la clase, soporta singletons parametrizados y permite reset fácil para testing.   El registro mismo es un singleton.
+- **Singleton con DI container**: frameworks modernos (Spring, ASP.  NET, Angular) gestionan el ciclo de vida de singletons declarativamente.   Declaras un binding como singleton scope y el container crea una instancia que inyecta en todas partes.   Es el enfoque más testeable — los tests usan un container separado con mocks.
 
 ## Variantes
 
@@ -183,18 +183,18 @@ public class OrderService {
 
 ## Lo que funciona
 
-- **Prefiere DI sobre singletons manuales**: un container de inyección de dependencias gestiona singletons declarativamente. Configuras `services.AddSingleton<IConfig, AppConfig>()` y el container maneja creación, cacheo y disposición. Las dependencias son explícitas y el testing es trivial.
-- **Haz singletons stateless o inmutables**: un singleton mutable es estado global, y el estado global es el enemigo del testing y la concurrencia. Consulta [Prevención de Race Conditions](/recipes/data/race-condition-prevention) para seguridad concurrente. Si el singleton debe mantener estado, hazlo thread-safe (usa locks u operaciones atómicas) y documenta las garantías de thread-safety.
-- **Evita singletons para lógica de negocio**: un `UserService` no debería ser singleton. Las reglas de negocio cambian por request (usuarios distintos, contextos distintos). Reserva singletons para infraestructura: pools de conexiones, caches, loggers, lectores de configuración.
-- **Implementa IDisposable / Closeable**: un singleton frecuentemente mantiene recursos (conexiones, threads, file handles). Implementa métodos de limpieza y llámalos durante el shutdown de la aplicación. En Spring o ASP.NET, registra hooks de disposición con el container.
-- **Documenta thread-safety**: si el singleton no es thread-safe, documentalo claramente. Los consumidores deben sincronizar externamente. Si es thread-safe, documenta qué operaciones son atómicas y cuáles no.
+- **Prefiere DI sobre singletons manuales**: un container de inyección de dependencias gestiona singletons declarativamente.   Configuras `services.   Las dependencias son explícitas y el testing es trivial.
+- **Haz singletons stateless o inmutables**: un singleton mutable es estado global, y el estado global es el enemigo del testing y la concurrencia.   Consulta [Prevención de Race Conditions](/recipes/data/race-condition-prevention) para seguridad concurrente.
+- **Evita singletons para lógica de negocio**: un `UserService` no debería ser singleton.   Las reglas de negocio cambian por request (usuarios distintos, contextos distintos).   Reserva singletons para infraestructura: pools de conexiones, caches, loggers, lectores de configuración.
+- **Implementa IDisposable / Closeable**: un singleton frecuentemente mantiene recursos (conexiones, threads, file handles).   En Spring o ASP.  NET, registra hooks de disposición con el container.
+- **Documenta thread-safety**: si el singleton no es thread-safe, documentalo claramente.   Los consumidores deben sincronizar externamente.
 
 ## Errores comunes
 
-- **Testing con singletons mutables**: un test que llama `Config.setDebug(true)` filtra ese setting a todos los tests subsecuentes. Usa un registro con capacidad de reset, o mejor, evita objetos de configuración singleton. Pasa configuración como parámetros de constructor.
-- **Inicialización perezosa en código multithread sin sincronización**: dos threads llamando `getInstance()` simultáneamente pueden crear dos instancias antes de que alguna asigne al campo estático. Siempre sincroniza la inicialización perezosa o usa un holder de inicialización thread-safe.
-- **Singletons con estado de ámbito de request**: un cache singleton que almacena datos por usuario es una fuga de memoria. Usa objetos de ámbito request o session para estado específico de usuario. Los singletons deben mantener solo datos de ámbito aplicación.
-- **Dependencias circulares en singletons**: si `ConnectionPool` es singleton que depende de `ConfigManager`, y `ConfigManager` es singleton que depende de `ConnectionPool`, ninguno puede construirse. Los containers DI detectan esto y lanzan excepciones, pero los singletons manuales se bloquean durante la inicialización estática.
+- **Testing con singletons mutables**: un test que llama `Config.  setDebug(true)` filtra ese setting a todos los tests subsecuentes.   Pasa configuración como parámetros de constructor.
+- **Inicialización perezosa en código multithread sin sincronización**: dos threads llamando `getInstance()` simultáneamente pueden crear dos instancias antes de que alguna asigne al campo estático.
+- **Singletons con estado de ámbito de request**: Los singletons deben mantener solo datos de ámbito aplicación.
+- **Dependencias circulares en singletons**: si `ConnectionPool` es singleton que depende de `ConfigManager`, y `ConfigManager` es singleton que depende de `ConnectionPool`, ninguno puede construirse.   Los containers DI detectan esto y lanzan excepciones, pero los singletons manuales se bloquean durante la inicialización estática.
 
 ## Preguntas frecuentes
 

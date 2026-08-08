@@ -482,7 +482,7 @@ Create new content      → Content Generation
 
 - **Testea con edge cases**: empty input, very long input, adversarial input
 - **Versiona tus prompts**: trackea changes y su impact en output quality
-- **Setea temperature appropriately**: 0 para extraction/classification, 0.3-0.7 para generation
+- **Setea temperature appropriately**: 0 para extraction/classification, 0.  3-0.
 - **Usa system prompts para instructions**: keep user prompts focused en el input
 - **Valida structured output**: parsea JSON en tu application y handlea parse errors
 - **Rate limita tus calls**: batchea inputs y cachea results cuando possible

@@ -254,28 +254,28 @@ func generateSlug(text string) string {
 - **Avoid trailing/leading hyphens** that look unprofessional and may break relative URL resolution
 - **Use lowercase exclusively**; URLs are case-sensitive on most Unix servers
 - **Test with edge cases**: empty strings, strings with only special characters, very long strings, and strings with mixed scripts
-- **Consider locale-specific rules**: German ae (not a), Turkish i. Use locale-aware libraries when these distinctions matter
+- **Consider locale-specific rules**: German ae (not a), Turkish i.
 - **Cache generated slugs**: if you generate slugs on every page load, cache them to avoid repeated CPU-intensive normalization
 
 ## Common Mistakes
 
 - **Stripping accents without NFKD normalization**: accented characters stay intact instead of becoming their base form
-- **Allowing reserved URL characters**: `#`, `%`, `?`, `&` have special meaning in URLs and must be removed
+- **Allowing reserved URL characters**: `#`, `%`, `?
 - **Not limiting slug length**: Extremely long slugs hurt readability and may exceed database column limits
 - **Ignoring duplicate slugs**: Two articles with the same title will collide without a uniqueness strategy
 - **Translating instead of transliterating**: Translating "hello" to Spanish is not the same as making it URL-safe
-- **Not handling empty slugs**: if the input is entirely special characters, the slug becomes empty. Add a fallback like `untitled` or a random ID
+- **Not handling empty slugs**: if the input is entirely special characters, the slug becomes empty.
 - **Using underscores instead of hyphens**: underscores are valid in URLs but Google treats hyphens as word separators, improving SEO
-- **Not stripping consecutive separators**: `hello---world` looks broken. Always collapse multiple hyphens into one
+- **Not stripping consecutive separators**: `hello---world` looks broken.
 
 
 ## Troubleshooting
 
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
-- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
+- **Data quality degrades over time**: add data validation checks and anomaly detection.  Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.  Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.  Archive cold data and set lifecycle policies.
 
 
 

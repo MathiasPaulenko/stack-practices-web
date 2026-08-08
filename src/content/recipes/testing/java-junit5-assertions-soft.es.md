@@ -235,18 +235,18 @@ class ServiceTest {
 ## Common Mistakes
 
 - **Olvidar `assertAll()`**: soft assertions sin `assertAll()` siempre pasan, incluso cuando las aserciones fallan.
-- **Usar soft assertions para tests independientes**: cada test debería verificar un comportamiento. Soft assertions son para múltiples checks en la misma unidad lógica.
-- **Sobreusar soft assertions para checks simples**: si tienes 2 aserciones, `assertEquals` regular está bien. Soft assertions brillan con 5+ checks.
+- **Usar soft assertions para tests independientes**: cada test debería verificar un comportamiento.   Soft assertions son para múltiples checks en la misma unidad lógica.
+- **Sobreusar soft assertions para checks simples**: si tienes 2 aserciones, `assertEquals` regular está bien.   Soft assertions brillan con 5+ checks.
 - **No agregar mensajes descriptivos**: cuando 10 aserciones fallan, necesitas contexto para saber cuál es cuál.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.   Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.   Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.   Pin tool versions.
+- **Debugging a failing integration test**: Reset state before each test.
 
 ## FAQ
 

@@ -134,9 +134,9 @@ liquibase --changeLogFile=db.changelog.xml update
 
 ## Explicación
 
-- **Scripts versionados**: Cada archivo de migración tiene un identificador único. Las herramientas registran las migraciones aplicadas en una tabla de historial (`flyway_schema_history`, `alembic_version`, `databasechangelog`), previniendo ejecución duplicada.
-- **Migraciones forward (up)**: Cambios de schema que avanzan la base de datos — crear tablas, agregar columnas, crear índices. Estas corren automáticamente durante el deployment.
-- **Migraciones rollback (down)**: Operaciones inversas que deshacen migraciones forward — eliminar columnas, remover índices, eliminar tablas. Testéalos en staging antes de emergencias en producción.
+- **Scripts versionados**: Cada archivo de migración tiene un identificador único.   Las herramientas registran las migraciones aplicadas en una tabla de historial (`flyway_schema_history`, `alembic_version`, `databasechangelog`), previniendo ejecución duplicada.
+- **Migraciones forward (up)**: Cambios de schema que avanzan la base de datos — crear tablas, agregar columnas, crear índices.   Estas corren automáticamente durante el deployment.
+- **Migraciones rollback (down)**: Testéalos en staging antes de emergencias en producción.
 - **Baseline y repair**: Cuando introduces migraciones a una base de datos existente, las herramientas pueden hacer baseline del estado actual del schema sin intentar recrear tablas existentes.
 
 ## Variantes
@@ -150,17 +150,17 @@ liquibase --changeLogFile=db.changelog.xml update
 
 ## Lo que funciona
 
-- **Nunca modifiques una migración ya aplicada**: una vez que una migración corre en cualquier entorno compartido, trátala como inmutable. Crea una nueva migración para corregir errores.
+- **Nunca modifiques una migración ya aplicada**: una vez que una migración corre en cualquier entorno compartido, trátala como inmutable.   Crea una nueva migración para corregir errores.
 - **Haz migraciones idempotentes cuando sea posible**: `CREATE TABLE IF NOT EXISTS` y `DROP INDEX IF EXISTS` previenen fallas durante ejecución repetida.
-- **Separa DDL y DML**: los cambios de schema (CREATE, ALTER) y los cambios de datos (INSERT, UPDATE) deberían estar en migraciones diferentes. DDL frecuentemente bloquea tablas; DML puede batcherse.
-- **Testea rollbacks en cada cambio**: una migración sin rollback testeado es una puerta de un solo sentido. Practica downgrades en staging para confirmar que funcionan.
-- **Corre migraciones antes del inicio de la aplicación**: deploy el cambio de schema, luego deploy el código que depende de él. Nunca asumas que la columna existe antes de que la migración corra.
+- **Separa DDL y DML**: los cambios de schema (CREATE, ALTER) y los cambios de datos (INSERT, UPDATE) deberían estar en migraciones diferentes.   DDL frecuentemente bloquea tablas; DML puede batcherse.
+- **Testea rollbacks en cada cambio**: una migración sin rollback testeado es una puerta de un solo sentido.   Practica downgrades en staging para confirmar que funcionan.
+- **Corre migraciones antes del inicio de la aplicación**: deploy el cambio de schema, luego deploy el código que depende de él.   Nunca asumas que la columna existe antes de que la migración corra.
 
 ## Errores comunes
 
-- **Agregar columnas non-nullable sin defaults**: las filas existentes causarán que la migración falle. Agrega la columna como nullable, backfillea datos, luego agrega el constraint `NOT NULL` en una migración follow-up. Consulta [Safe Migrations](/recipes/databases/database-migrations-safely) para el patrón expand-contract.
-- **Eliminar datos sin backups**: eliminar una columna destruye datos permanentemente. Siempre haz backup o copia datos antes de cambios destructivos.
-- **Bloquear tablas durante horas pico**: agregar un índice o alterar una tabla grande puede bloquear por minutos. Programa migraciones pesadas durante ventanas de mantenimiento o usa herramientas de schema change online.
+- **Agregar columnas non-nullable sin defaults**: las filas existentes causarán que la migración falle.   Agrega la columna como nullable, backfillea datos, luego agrega el constraint `NOT NULL` en una migración follow-up.   Consulta [Safe Migrations](/recipes/databases/database-migrations-safely) para el patrón expand-contract.
+- **Eliminar datos sin backups**: Siempre haz backup o copia datos antes de cambios destructivos.
+- **Bloquear tablas durante horas pico**: agregar un índice o alterar una tabla grande puede bloquear por minutos.
 - **Olvidar réplicas**: las migraciones aplicadas a una base de datos primaria pueden no replicarse correctamente si contienen funciones no determinísticas o tablas temporales.
 
 ## Preguntas frecuentes

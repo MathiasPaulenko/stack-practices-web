@@ -48,10 +48,10 @@ Use this resource when:
 
 ## When to Avoid
 
-- **Real-time bidirectional communication**: Use WebSockets or Server-Sent Events instead. REST is request-response only.
-- **Complex client-driven queries**: GraphQL lets clients request exactly the fields they need. REST over-fetches or under-fetches.
+- **Real-time bidirectional communication**: REST is request-response only.
+- **Complex client-driven queries**: GraphQL lets clients request exactly the fields they need.  REST over-fetches or under-fetches.
 - **High-performance internal calls**: gRPC with Protobuf is 5-10x faster than REST/JSON for internal microservices.
-- **Streaming large payloads**: REST buffers entire responses. Use chunked transfer or a streaming protocol.
+- **Streaming large payloads**: REST buffers entire responses.
 
 ## Solution
 
@@ -169,9 +169,9 @@ X-RateLimit-Reset: 1719900000
 
 REST uses HTTP as an application protocol, not just a transport:
 
-- **Idempotency**: GET, PUT, DELETE should be safe to retry. See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for patterns. POST is not idempotent.
+- **Idempotency**: GET, PUT, DELETE should be safe to retry.  See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for patterns.  POST is not idempotent.
 - **Statelessness**: Each request contains all information needed; no server-side session.
-- **Cacheability**: Use Cache-Control, ETag, and Last-Modified headers aggressively. See [Handle CORS](/recipes/api/handle-cors) for header configuration.
+- **Cacheability**: Use Cache-Control, ETag, and Last-Modified headers aggressively.
 - **HATEOAS**: Include links to related resources (optional but improves discoverability).
 
 ## Variants
@@ -229,8 +229,8 @@ If the ETag no longer matches (someone else modified the resource), return 412 P
 - **Use plural nouns**: /orders, not /order or /getOrder
 - **Version in URL**: /v1/users (more explicit than headers)
 - **Return consistent envelope**: { data, error, meta } structure
-- **Support filtering**: GET /users?role=admin&active=true
-- **Rate limit early**: Return 429 with Retry-After header. See [Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for implementation.
+- **Support filtering**: GET /users?
+- **Rate limit early**: Return 429 with Retry-After header.  See [Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for implementation.
 
 ## Common Mistakes
 
@@ -243,11 +243,11 @@ If the ETag no longer matches (someone else modified the resource), return 412 P
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 
 

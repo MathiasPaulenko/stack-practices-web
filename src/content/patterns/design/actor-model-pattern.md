@@ -282,20 +282,20 @@ Because each actor processes messages sequentially, there are no race conditions
 
 ## Common Mistakes
 
-- **Sharing mutable state outside the actor**: If external code modifies the actor's state, the isolation guarantee breaks. All state access must go through messages.
-- **Blocking inside the actor**: A blocking call (synchronous I/O, long computation) stops the actor from processing other messages. Offload to a worker.
-- **Synchronous request-reply**: Actors are designed for async messaging. Forcing synchronous calls creates deadlocks and reduces throughput.
-- **Too many fine-grained actors**: Each actor has overhead (mailbox, thread). Too many actors waste memory and context-switching. Group related state into one actor.
-- **Not handling failures**: If an actor crashes, its mailbox messages are lost. Use supervisors to restart actors and replay critical messages.
-- **Large messages**: Sending large objects between actors (especially across a network) is expensive. Send references or IDs instead.
+- **Sharing mutable state outside the actor**: If external code modifies the actor's state, the isolation guarantee breaks.  All state access must go through messages.
+- **Blocking inside the actor**: A blocking call (synchronous I/O, long computation) stops the actor from processing other messages.  Offload to a worker.
+- **Synchronous request-reply**: Actors are designed for async messaging.  Forcing synchronous calls creates deadlocks and reduces throughput.
+- **Too many fine-grained actors**: Each actor has overhead (mailbox, thread).  Too many actors waste memory and context-switching.  Group related state into one actor.
+- **Not handling failures**: If an actor crashes, its mailbox messages are lost.
+- **Large messages**: Sending large objects between actors (especially across a network) is expensive.  Send references or IDs instead.
 
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.  Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: monitor queue length and rejection policy.  Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 

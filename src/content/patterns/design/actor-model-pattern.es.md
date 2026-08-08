@@ -283,12 +283,12 @@ Como cada actor procesa mensajes secuencialmente, no hay race conditions dentro 
 
 ## Errores Comunes
 
-- **Compartir estado mutable fuera del actor**: Si codigo externo modifica el estado del actor, la garantia de aislamiento se rompe. Todo acceso al estado debe ir por mensajes.
-- **Bloquear dentro del actor**: Una llamada bloqueante (I/O sincrono, computacion larga) detiene al actor de procesar otros mensajes. Descarga a un worker.
-- **Request-reply sincrono**: Los actores estan disenados para mensajeria async. Forzar llamadas sincronas crea deadlocks y reduce throughput.
-- **Demasiados actores de grano fino**: Cada actor tiene overhead (buzon, thread). Demasiados actores desperdician memoria y context-switching. Agrupa estado relacionado en un actor.
-- **No manejar fallos**: Si un actor crasheaa, los mensajes de su buzon se pierden. Usa supervisores para reiniciar actores y reproducir mensajes criticos.
-- **Mensajes grandes**: Enviar objetos grandes entre actores (especialmente a traves de red) es costoso. Envia referencias o IDs.
+- **Compartir estado mutable fuera del actor**: Si codigo externo modifica el estado del actor, la garantia de aislamiento se rompe.   Todo acceso al estado debe ir por mensajes.
+- **Bloquear dentro del actor**: Una llamada bloqueante (I/O sincrono, computacion larga) detiene al actor de procesar otros mensajes.   Descarga a un worker.
+- **Request-reply sincrono**: Los actores estan disenados para mensajeria async.   Forzar llamadas sincronas crea deadlocks y reduce throughput.
+- **Demasiados actores de grano fino**: Cada actor tiene overhead (buzon, thread).   Demasiados actores desperdician memoria y context-switching.   Agrupa estado relacionado en un actor.
+- **No manejar fallos**: Si un actor crasheaa, los mensajes de su buzon se pierden.
+- **Mensajes grandes**: Enviar objetos grandes entre actores (especialmente a traves de red) es costoso.   Envia referencias o IDs.
 
 
 
@@ -338,10 +338,10 @@ No. Los actores anaden overhead (serializacion de mensajes, gestion de buzones).
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.   Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 ## Errores Comunes en Producción

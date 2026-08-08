@@ -164,10 +164,10 @@ class FieldEncryption {
 
 ## Explicación
 
-- **Encripción de sobre**: cada registro se encripta con una data encryption key (DEK) única. La DEK misma se encripta por una key encryption key (KEK) gestionada en un KMS. Esto significa que puedes rotar la KEK sin re-encriptar todos los datos, y puedes revocar acceso a un solo registro eliminando su DEK.
-- **AES-256-GCM**: el estándar de la industria para encripción autenticada. El modo GCM provee confidencialidad (encripción) e integridad (tag de autenticación) en una sola operación. Siempre verifica el tag de autenticación antes de desencriptar para detectar tampering.
-- **Derivación de keys**: en lugar de almacenar DEKs separadamente, derívalas determinísticamente de una master key y un record ID usando HKDF. Esto elimina almacenamiento de DEK pero hace la rotación de keys más compleja — cambiar la master key requiere re-encriptar todos los registros.
-- **Integración con cloud KMS**: AWS KMS, Azure Key Vault y GCP KMS proveen hardware security modules FIPS 140-2 Level 2+. Para prácticas de gestión de secretos, consulta la [guía de gestión de secretos](/guides/security/security-best-practices-guide). Manejan generación de keys, rotación, políticas de acceso y audit logging. Nunca almacenes master keys en archivos de configuración de aplicación.
+- **Encripción de sobre**: cada registro se encripta con una data encryption key (DEK) única.   La DEK misma se encripta por una key encryption key (KEK) gestionada en un KMS.   Esto significa que puedes rotar la KEK sin re-encriptar todos los datos, y puedes revocar acceso a un solo registro eliminando su DEK.
+- **AES-256-GCM**: el estándar de la industria para encripción autenticada.   El modo GCM provee confidencialidad (encripción) e integridad (tag de autenticación) en una sola operación.   Siempre verifica el tag de autenticación antes de desencriptar para detectar tampering.
+- **Derivación de keys**: en lugar de almacenar DEKs separadamente, derívalas determinísticamente de una master key y un record ID usando HKDF.
+- **Integración con cloud KMS**: AWS KMS, Azure Key Vault y GCP KMS proveen hardware security modules FIPS 140-2 Level 2+.   Para prácticas de gestión de secretos, consulta la [guía de gestión de secretos](/guides/security/security-best-practices-guide).   Manejan generación de keys, rotación, políticas de acceso y audit logging.   Nunca almacenes master keys en archivos de configuración de aplicación.
 
 ## Variantes
 
@@ -180,18 +180,18 @@ class FieldEncryption {
 
 ## Lo que funciona
 
-- **Encripta antes de que llegue a la base de datos**: la encripción a nivel de aplicación protege contra breaches a nivel de base de datos. Si la base de datos es comprometida pero el servidor de aplicación no, los atacantes ven solo ciphertext.
-- **Usa encripción autenticada (AEAD)**: AES-GCM y ChaCha20-Poly1305 proveen tags de autenticación. Nunca uses modos no autenticados como AES-CBC o AES-ECB, que son vulnerables a ataques de padding oracle y tampering.
-- **Rota keys regularmente**: establece una política de rotación de keys (anualmente para KEKs, por registro para DEKs). Cloud KMS soporta rotación automática de master keys. Documenta el procedimiento de rotación y testéalo en staging.
-- **Encripción searchable**: la encripción estándar rompe indexación y búsqueda de base de datos. Usa encripción determinística (mismo plaintext → mismo ciphertext) para queries de exact match, o encripción order-preserving para queries de rango. Sé consciente de que estos filtran algo de información.
-- **Key separada por tenant**: en SaaS multi-tenant, encripta los datos de cada tenant con una KEK diferente. Esto asegura que comprometer la key de un tenant no exponga los datos de otros tenants.
+- **Encripta antes de que llegue a la base de datos**: la encripción a nivel de aplicación protege contra breaches a nivel de base de datos.   Si la base de datos es comprometida pero el servidor de aplicación no, los atacantes ven solo ciphertext.
+- **Usa encripción autenticada (AEAD)**: AES-GCM y ChaCha20-Poly1305 proveen tags de autenticación.   Nunca uses modos no autenticados como AES-CBC o AES-ECB, que son vulnerables a ataques de padding oracle y tampering.
+- **Rota keys regularmente**: establece una política de rotación de keys (anualmente para KEKs, por registro para DEKs).   Cloud KMS soporta rotación automática de master keys.
+- **Encripción searchable**: la encripción estándar rompe indexación y búsqueda de base de datos.   Sé consciente de que estos filtran algo de información.
+- **Key separada por tenant**: en SaaS multi-tenant, encripta los datos de cada tenant con una KEK diferente.
 
 ## Errores comunes
 
-- **Hardcodear keys de encripción en código fuente**: embeber una master key en `config.py` o una variable de entorno en un servidor compartido anula el propósito. Usa un [secret manager](/recipes/security/vault-dynamic-credentials) con controles de IAM.
-- **Ignorar el tag de autenticación**: desencriptar AES-GCM sin verificar el tag de autenticación remueve detección de tampering. Siempre verifica el tag antes de procesar datos desencriptados.
-- **Encriptar todo indiscriminadamente**: la encripción agrega latencia, overhead de almacenamiento y complejidad. Solo encripta campos genuinamente sensibles (PII, credenciales, datos de salud). Catálogos de productos públicos no necesitan encripción en reposo.
-- **Perder la master key**: si la master key de KMS es eliminada o inaccesible, todos los datos encriptados se pierden permanentemente. Habilita protección contra eliminación de keys, mantén réplicas cross-region y testea procedimientos de disaster recovery.
+- **Hardcodear keys de encripción en código fuente**: embeber una master key en `config.  py` o una variable de entorno en un servidor compartido anula el propósito.
+- **Ignorar el tag de autenticación**: Siempre verifica el tag antes de procesar datos desencriptados.
+- **Encriptar todo indiscriminadamente**: la encripción agrega latencia, overhead de almacenamiento y complejidad.   Solo encripta campos genuinamente sensibles (PII, credenciales, datos de salud).   Catálogos de productos públicos no necesitan encripción en reposo.
+- **Perder la master key**: si la master key de KMS es eliminada o inaccesible, todos los datos encriptados se pierden permanentemente.
 
 ## Preguntas frecuentes
 

@@ -109,7 +109,7 @@ app.get('/api/products', (req, res) => {
 **Cache invalidation approaches**:
 - **Time-based (TTL)**: Simple but can serve stale data
 - **Key-based**: Include version or hash in cache key
-- **Event-based**: Invalidate on data change via message bus. See [cache invalidation](/recipes/performance/cache-invalidation).
+- **Event-based**: Invalidate on data change via message bus.  See [cache invalidation](/recipes/performance/cache-invalidation).
 
 ## Variants
 
@@ -293,11 +293,11 @@ Cache warming pre-populates Redis before traffic arrives. Run this as a post-dep
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.  Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.  Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.  Scale horizontally only after optimizing the hot path.
 
 
 

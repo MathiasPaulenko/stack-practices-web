@@ -136,10 +136,10 @@ server {
 
 ## Explicación
 
-- **Token bucket**: un bucket contiene un número fijo de tokens. Cada petición consume un token. Los tokens se recargan a tasa constante. Esto permite ráfagas controladas mientras se hace cumplir una tasa promedio a lo largo del tiempo. Ideal para APIs que toleran picos cortos.
-- **Sliding window log**: almacena un log de timestamps de peticiones por cliente. En cada petición, poda entradas fuera de la ventana actual y cuenta el restante. El más preciso pero intensivo en memoria a gran escala.
-- **Fixed window**: divide el tiempo en ventanas discretas (por ejemplo, buckets de 1 minuto). Un contador se incrementa por ventana. Simple y eficiente en memoria, pero una ráfaga en el límite de la ventana cuenta dos veces.
-- **Limitación distribuida**: los contadores en memoria son rápidos pero fallan entre múltiples instancias de servidor. Redis proporciona estado compartido con operaciones atómicas (`INCR`, `EXPIRE`, scripts Lua) para rate limiting distribuido.
+- **Token bucket**: un bucket contiene un número fijo de tokens.   Cada petición consume un token.   Los tokens se recargan a tasa constante.   Esto permite ráfagas controladas mientras se hace cumplir una tasa promedio a lo largo del tiempo.   Ideal para APIs que toleran picos cortos.
+- **Sliding window log**: En cada petición, poda entradas fuera de la ventana actual y cuenta el restante.   El más preciso pero intensivo en memoria a gran escala.
+- **Fixed window**: divide el tiempo en ventanas discretas (por ejemplo, buckets de 1 minuto).   Un contador se incrementa por ventana.   Simple y eficiente en memoria, pero una ráfaga en el límite de la ventana cuenta dos veces.
+- **Limitación distribuida**: los contadores en memoria son rápidos pero fallan entre múltiples instancias de servidor.   Redis proporciona estado compartido con operaciones atómicas (`INCR`, `EXPIRE`, scripts Lua) para rate limiting distribuido.
 
 ## Variantes
 
@@ -152,18 +152,18 @@ server {
 
 ## Lo que funciona
 
-- **Retorna 429 con `Retry-After`**: cuando un cliente alcanza un límite, responde con HTTP 429 e incluye un header `Retry-After` indicando cuándo puede reintentar. Esto ayuda a clientes bien comportados a retroceder automáticamente.
-- **Usa diferentes límites por endpoint**: los endpoints de autenticación deberían ser más estrictos (5 intentos/minuto) que los endpoints de datos de solo lectura (100 peticiones/minuto). Adapta los límites al costo y sensibilidad de cada operación.
-- **Identifica clientes correctamente**: limita por ID de usuario autenticado cuando esté disponible, no solo por dirección IP. Los NATs compartidos y VPNs pueden causar falsos positivos al limitar solo por IP.
-- **Implementa límites por tier**: los usuarios gratuitos obtienen 100 peticiones/hora, los pagados 10,000. Almacena la configuración de tier junto a los perfiles de usuario y aplícala dinámicamente en middleware.
-- **Monitorea peticiones rechazadas**: un pico repentino en respuestas 429 puede indicar un ataque o un bug de cliente. Alerta sobre eventos de rate limiting vía tu [stack de monitoreo](/guides/devops/monitoring-alerting-guide).
+- **Retorna 429 con `Retry-After`**: Esto ayuda a clientes bien comportados a retroceder automáticamente.
+- **Usa diferentes límites por endpoint**: los endpoints de autenticación deberían ser más estrictos (5 intentos/minuto) que los endpoints de datos de solo lectura (100 peticiones/minuto).   Adapta los límites al costo y sensibilidad de cada operación.
+- **Identifica clientes correctamente**: limita por ID de usuario autenticado cuando esté disponible, no solo por dirección IP.   Los NATs compartidos y VPNs pueden causar falsos positivos al limitar solo por IP.
+- **Implementa límites por tier**: los usuarios gratuitos obtienen 100 peticiones/hora, los pagados 10,000.
+- **Monitorea peticiones rechazadas**: un pico repentino en respuestas 429 puede indicar un ataque o un bug de cliente.
 
 ## Errores comunes
 
-- **No manejar skew de reloj**: los sistemas distribuidos con desviación de reloj pueden calcular mal los límites de ventana. Usa relojes monotónicos cuando estén disponibles y tolera pequeños offsets.
-- **Rate limiting solo en el edge**: los gateways edge capturan la mayoría de abusos, pero un servicio interno comprometido puede aún saturar bases de datos downstream. Aplica límites en múltiples capas.
-- **Bloquear usuarios legítimos después de una ráfaga**: un usuario que legítimamente dispara una ráfaga (por ejemplo, paginando resultados) no debería ser bloqueado permanentemente. Usa token bucket o sliding window, no cortes duros.
-- **Olvidar limpiar claves Redis**: en implementaciones de sliding window, los timestamps antiguos se acumulan indefinidamente. Establece TTLs en claves Redis para auto-expirar datos obsoletos.
+- **No manejar skew de reloj**: los sistemas distribuidos con desviación de reloj pueden calcular mal los límites de ventana.
+- **Rate limiting solo en el edge**: los gateways edge capturan la mayoría de abusos, pero un servicio interno comprometido puede aún saturar bases de datos downstream.   Aplica límites en múltiples capas.
+- **Bloquear usuarios legítimos después de una ráfaga**: un usuario que legítimamente dispara una ráfaga (por ejemplo, paginando resultados) no debería ser bloqueado permanentemente.
+- **Olvidar limpiar claves Redis**: en implementaciones de sliding window, los timestamps antiguos se acumulan indefinidamente.   Establece TTLs en claves Redis para auto-expirar datos obsoletos.
 
 ## Preguntas frecuentes
 

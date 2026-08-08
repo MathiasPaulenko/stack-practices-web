@@ -138,11 +138,11 @@ A test coverage report communicates how much of the codebase is exercised by tes
 
 ### Trend Analysis
 
-- **Line coverage**: Steady improvement of +1-2% per month. On track to reach 85% by Q4.
-- **Branch coverage**: Improving but lagging line coverage by ~10%. Focus on conditional logic tests.
-- **Critical path coverage**: Dipped this month due to new payment endpoints. Needs immediate attention.
-- **New code coverage**: Consistently above 90% target. PR-level enforcement working.
-- **Flaky test rate**: Down from 2.1% to 0.8%. Quarantine policy is effective.
+- **Line coverage**: Steady improvement of +1-2% per month.  On track to reach 85% by Q4.
+- **Branch coverage**: Improving but lagging line coverage by ~10%.  Focus on conditional logic tests.
+- **Critical path coverage**: Dipped this month due to new payment endpoints.  Needs immediate attention.
+- **New code coverage**: Consistently above 90% target.  PR-level enforcement working.
+- **Flaky test rate**: Down from 2. 1% to 0. 8%.  Quarantine policy is effective.
 
 ## 6. Test Suite Health
 
@@ -301,11 +301,11 @@ Investigate before acting. If the refactor removed dead code, the coverage drop 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.  Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.  Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.  Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database.  Reset state before each test.
 
 
 ## Key Takeaways

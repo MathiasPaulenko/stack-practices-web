@@ -196,10 +196,10 @@ For the deduplication to work, each message must carry a unique identifier. This
 
 ## Common Mistakes
 
-- **Check-then-set without atomicity**: Two consumers check simultaneously, both see no key, both process. Always use atomic `SET NX`.
-- **TTL too short**: If the TTL expires before the broker stops redelivering, duplicates slip through. Set TTL to at least 2x the redelivery window.
-- **Using process memory for dedup**: Lost on restart, not shared across consumer instances. Use an external store.
-- **Not handling dedup store failures**: If Redis is down, dedup fails. Decide whether to process (risk duplicates) or reject (lose messages).
+- **Check-then-set without atomicity**: Two consumers check simultaneously, both see no key, both process.  Always use atomic `SET NX`.
+- **TTL too short**: If the TTL expires before the broker stops redelivering, duplicates slip through.  Set TTL to at least 2x the redelivery window.
+- **Using process memory for dedup**: Lost on restart, not shared across consumer instances.
+- **Not handling dedup store failures**: If Redis is down, dedup fails.  Decide whether to process (risk duplicates) or reject (lose messages).
 - **Dedup key based on mutable fields**: If the key includes fields that change, the same logical message gets different keys and is processed twice.
 
 ## How It Works
@@ -239,11 +239,11 @@ A streaming pipeline consumes events from Kafka and writes to a database. Kafka'
 
 ## Troubleshooting
 
-- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
-- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
-- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
-- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
-- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+- **Messages are lost on restart**: persist messages before acknowledging.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic.
+- **Duplicate messages**: design consumers to be idempotent.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts.  Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues.  Restart gracefully.
 
 
 

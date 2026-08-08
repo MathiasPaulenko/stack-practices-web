@@ -115,9 +115,9 @@ public class CookieConfig implements WebMvcConfigurer {
 
 ## Explicación
 
-- **Synchronizer tokens**: El servidor genera un token aleatorio por sesión (o por request) y lo incrusta en cada formulario. El token se almacena server-side y se valida en el envío. Como `evil.com` no puede leer el token del DOM o cookies de `bank.com`, no puede forjar requests válidos.
-- **Double-submit cookie**: Un token aleatorio se configura como cookie y también se envía en un campo de formulario o header. El servidor verifica que ambos valores coinciden. Es stateless — no requiere almacenamiento server-side — pero depende de que el atacante no pueda leer la cookie.
-- **SameSite cookies**: Configurar `SameSite=Strict` o `Lax` en cookies de sesión previene que el navegador las envíe con requests cross-origin. Es la defensa más simple y confiable, pero no todos los navegadores y escenarios la soportan perfectamente.
+- **Synchronizer tokens**: Como `evil.  com` no puede leer el token del DOM o cookies de `bank.  com`, no puede forjar requests válidos.
+- **Double-submit cookie**: El servidor verifica que ambos valores coinciden.   Es stateless — no requiere almacenamiento server-side — pero depende de que el atacante no pueda leer la cookie.
+- **SameSite cookies**: Configurar `SameSite=Strict` o `Lax` en cookies de sesión previene que el navegador las envíe con requests cross-origin.   Es la defensa más simple y confiable, pero no todos los navegadores y escenarios la soportan perfectamente.
 
 ## Variantes
 
@@ -130,18 +130,18 @@ public class CookieConfig implements WebMvcConfigurer {
 
 ## Lo que funciona
 
-- **Usa SameSite=Strict en cookies de sesión**: esto solo bloquea la mayoría de ataques CSRF. Combínalo con tokens para defensa en profundidad.
-- **Rota tokens CSRF por sesión, no por request**: los tokens por-request rompen el botón de atrás y los workflows multi-tab. Los tokens por sesión son seguros y usables.
-- **Valida tokens para todos los métodos que cambian estado**: verifica protección CSRF en POST, PUT, PATCH y DELETE. Los métodos seguros (GET, HEAD) no deberían cambiar estado de todos modos.
+- **Usa SameSite=Strict en cookies de sesión**: esto solo bloquea la mayoría de ataques CSRF.   Combínalo con tokens para defensa en profundidad.
+- **Rota tokens CSRF por sesión, no por request**: los tokens por-request rompen el botón de atrás y los workflows multi-tab.   Los tokens por sesión son seguros y usables.
+- **Valida tokens para todos los métodos que cambian estado**: verifica protección CSRF en POST, PUT, PATCH y DELETE.   Los métodos seguros (GET, HEAD) no deberían cambiar estado de todos modos.
 - **Incluye tokens en headers de AJAX**: para SPAs, lee el token desde un meta tag o cookie y envíalo como header custom (`X-CSRF-Token`).
-- **Rechaza tokens faltantes con 403**: no ignores silenciosamente tokens faltantes. Un 403 señala una mala configuración o un intento de ataque.
+- **Rechaza tokens faltantes con 403**: no ignores silenciosamente tokens faltantes.   Un 403 señala una mala configuración o un intento de ataque.
 
 ## Errores comunes
 
-- **Confiar solo en SameSite sin tokens**: navegadores más antiguos y ciertos patrones de navegación cross-site pueden no enforce SameSite. Los tokens proveen una defensa de respaldo.
-- **No proteger formularios de login**: login CSRF es real. Un atacante puede forzar a una víctima a loguearse en una cuenta controlada por el atacante, habilitando ataques subsecuentes.
-- **Usar GET para acciones que cambian estado**: `GET /delete-account?id=123` es trivialmente explotable vía una image tag o enlace. Siempre usa POST, PUT, DELETE para mutaciones.
-- **Almacenar tokens en localStorage**: [XSS](/recipes/security/xss-prevention) puede robar localStorage. Almacena el token server-side en un campo de formulario oculto o una cookie non-HttpOnly (para el patrón double-submit).
+- **Confiar solo en SameSite sin tokens**: navegadores más antiguos y ciertos patrones de navegación cross-site pueden no enforce SameSite.   Los tokens proveen una defensa de respaldo.
+- **No proteger formularios de login**: login CSRF es real.   Un atacante puede forzar a una víctima a loguearse en una cuenta controlada por el atacante, habilitando ataques subsecuentes.
+- **Usar GET para acciones que cambian estado**: `GET /delete-account?  id=123` es trivialmente explotable vía una image tag o enlace.
+- **Almacenar tokens en localStorage**: [XSS](/recipes/security/xss-prevention) puede robar localStorage.
 
 ## Preguntas frecuentes
 

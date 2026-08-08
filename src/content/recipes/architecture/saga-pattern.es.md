@@ -203,10 +203,10 @@ async function orderSaga(orderData: OrderData): Promise<void> {
 
 ## Explicación
 
-- **Coreografía**: cada servicio publica un evento después de completar su paso. Otros servicios se suscriben y reaccionan. No hay un controlador central. La saga emerge de la interacción de servicios independientes. Es altamente desacoplado pero puede volverse difícil de trazar a medida que crece el número de servicios.
-- **Orquestación**: un orquestador de saga dedicado ejecuta pasos secuencialmente, llamando a cada servicio directamente. El orquestador mantiene el estado de la saga y maneja compensaciones si un paso falla. Centraliza la lógica y hace el flujo explícito, pero introduce un punto de control único.
-- **Transacciones compensatorias**: a diferencia de los rollbacks de base de datos, las compensaciones son operaciones de negocio explícitas. Reembolsar un pago no es lo mismo que deshacer un `BEGIN...ROLLBACK`. La compensación puede fallar por sí misma, requiriendo reintento o intervención humana. Diseña compensaciones idempotentes que puedan reintentarse de forma segura.
-- **Idempotencia**: cada paso de saga y compensación debe ser idempotente. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación. Si la red se agota, el orquestador puede reintentar un paso que ya tuvo éxito. El servicio debe reconocer la solicitud duplicada y devolver el resultado anterior, no ejecutar la operación de nuevo.
+- **Coreografía**: cada servicio publica un evento después de completar su paso.   Otros servicios se suscriben y reaccionan.   No hay un controlador central.   La saga emerge de la interacción de servicios independientes.   Es altamente desacoplado pero puede volverse difícil de trazar a medida que crece el número de servicios.
+- **Orquestación**: un orquestador de saga dedicado ejecuta pasos secuencialmente, llamando a cada servicio directamente.   Centraliza la lógica y hace el flujo explícito, pero introduce un punto de control único.
+- **Transacciones compensatorias**: a diferencia de los rollbacks de base de datos, las compensaciones son operaciones de negocio explícitas.   Reembolsar un pago no es lo mismo que deshacer un `BEGIN...  ROLLBACK`.   La compensación puede fallar por sí misma, requiriendo reintento o intervención humana.   Diseña compensaciones idempotentes que puedan reintentarse de forma segura.
+- **Idempotencia**: cada paso de saga y compensación debe ser idempotente.   Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación.   Si la red se agota, el orquestador puede reintentar un paso que ya tuvo éxito.   El servicio debe reconocer la solicitud duplicada y devolver el resultado anterior, no ejecutar la operación de nuevo.
 
 ## Variantes
 
@@ -218,18 +218,18 @@ async function orderSaga(orderData: OrderData): Promise<void> {
 
 ## Lo que funciona
 
-- **Haz cada paso idempotente**: una saga puede reintentar pasos por timeouts de red. Si `reserveInventory` se llama dos veces para la misma orden, debe devolver el mismo ID de reserva en lugar de crear una duplicada. Usa IDs de orden como claves de deduplicación.
-- **Diseña compensaciones antes de implementar pasos**: para cada acción hacia adelante, define la compensación correspondiente antes de escribir la acción. Si no puedes definir una compensación (ej. enviar un email no se puede deshacer), reconsidera si el saga pattern encaja.
-- **Persiste el estado de la saga**: el orquestador debe almacenar el progreso de la saga en una base de datos, no solo en memoria. Si el orquestador falla en medio de una saga, una nueva instancia debe poder reanudar desde el último paso completado y ejecutar las compensaciones apropiadas.
-- **Configura timeouts en cada paso**: un paso de saga que se cuelga indefinitivamente bloquea toda la saga. Configura timeouts por paso (ej. 5 segundos para reserva de inventario, 10 segundos para pago). Si un timeout se dispara, trátalo como falla y compensa.
-- **Monitorea la tasa de completitud de sagas**: rastrea el porcentaje de sagas que completan exitosamente vs. las que requieren compensación. Una alta tasa de compensación indica problemas sistémicos — pagos fallando, inventario insuficiente, o servicios downstream inestables. Arregla la causa raíz, no solo los síntomas.
+- **Haz cada paso idempotente**: una saga puede reintentar pasos por timeouts de red.   Si `reserveInventory` se llama dos veces para la misma orden, debe devolver el mismo ID de reserva en lugar de crear una duplicada.
+- **Diseña compensaciones antes de implementar pasos**: para cada acción hacia adelante, define la compensación correspondiente antes de escribir la acción.   Si no puedes definir una compensación (ej.   enviar un email no se puede deshacer), reconsidera si el saga pattern encaja.
+- **Persiste el estado de la saga**: Si el orquestador falla en medio de una saga, una nueva instancia debe poder reanudar desde el último paso completado y ejecutar las compensaciones apropiadas.
+- **Configura timeouts en cada paso**: un paso de saga que se cuelga indefinitivamente bloquea toda la saga.   5 segundos para reserva de inventario, 10 segundos para pago).   Si un timeout se dispara, trátalo como falla y compensa.
+- **Monitorea la tasa de completitud de sagas**: rastrea el porcentaje de sagas que completan exitosamente vs.   las que requieren compensación.   Una alta tasa de compensación indica problemas sistémicos — pagos fallando, inventario insuficiente, o servicios downstream inestables.   Arregla la causa raíz, no solo los síntomas.
 
 ## Errores comunes
 
-- **Compensación faltante para un paso**: la saga debita el pago pero no tiene compensación para la reserva de inventario. Si el pago falla después de la reserva, el inventario permanece reservado para siempre. Cada paso debe tener una transacción compensatoria correspondiente.
-- **Orden de compensación incorrecto**: compensar en el orden equivocado puede causar fallas. Si reembolsas el pago antes de cancelar el envío, el servicio de envío puede cobrar de nuevo. Compensa en orden inverso a los pasos hacia adelante: deshaz el último paso primero.
-- **Tratar sagas como transacciones ACID**: las sagas proveen consistencia eventual, no atomicidad. Entre el paso de pago y el de envío, el pago está comprometido y el envío aún no está programado. Hay una ventana donde el sistema es inconsistente. Diseña la UI y los procesos downstream para manejar esto.
-- **Falta de visibilidad de saga**: una saga atascada (compensación fallando repetidamente) es invisible sin monitoreo dedicado. Construye un dashboard de sagas mostrando activas, completadas y en compensación. Alerta sobre sagas atascadas en compensación por más de 5 minutos.
+- **Compensación faltante para un paso**: la saga debita el pago pero no tiene compensación para la reserva de inventario.   Si el pago falla después de la reserva, el inventario permanece reservado para siempre.   Cada paso debe tener una transacción compensatoria correspondiente.
+- **Orden de compensación incorrecto**: compensar en el orden equivocado puede causar fallas.   Si reembolsas el pago antes de cancelar el envío, el servicio de envío puede cobrar de nuevo.   Compensa en orden inverso a los pasos hacia adelante: deshaz el último paso primero.
+- **Tratar sagas como transacciones ACID**: las sagas proveen consistencia eventual, no atomicidad.   Entre el paso de pago y el de envío, el pago está comprometido y el envío aún no está programado.   Hay una ventana donde el sistema es inconsistente.
+- **Falta de visibilidad de saga**: una saga atascada (compensación fallando repetidamente) es invisible sin monitoreo dedicado.   Construye un dashboard de sagas mostrando activas, completadas y en compensación.
 
 ## Preguntas frecuentes
 

@@ -169,10 +169,10 @@ url = storage.upload("report.pdf", pdf_bytes)
 
 ## Explicación
 
-- **Object adapter**: el adapter mantiene una referencia al adaptee (la clase de terceros) y delega las llamadas a él. Es el enfoque más flexible — funciona con clases final, soporta composición sobre herencia, y permite adaptar múltiples adaptees simultáneamente.
-- **Class adapter**: el adapter hereda del adaptee e implementa la interfaz objetivo. Requiere que el adaptee no sea final y funciona solo en lenguajes de herencia simple donde el adapter no extiende otra clase. Es menos flexible pero ligeramente más rápido.
-- **Two-way adapter**: cuando dos sistemas deben interoperar y ninguno puede cambiarse, un two-way adapter implementa ambas interfaces. Traduce llamadas en ambas direcciones, actuando como un puente durante migraciones incrementales.
-- **Adapter registry**: cuando se soportan múltiples proveedores (Stripe, PayPal, Braintree), un registro mapea nombres de proveedor a clases adapter. La factory instancia el adapter correcto basado en configuración, aislando la selección del adapter de la lógica de negocio.
+- **Object adapter**: el adapter mantiene una referencia al adaptee (la clase de terceros) y delega las llamadas a él.   Es el enfoque más flexible — funciona con clases final, soporta composición sobre herencia, y permite adaptar múltiples adaptees simultáneamente.
+- **Class adapter**: Requiere que el adaptee no sea final y funciona solo en lenguajes de herencia simple donde el adapter no extiende otra clase.   Es menos flexible pero ligeramente más rápido.
+- **Two-way adapter**: Traduce llamadas en ambas direcciones, actuando como un puente durante migraciones incrementales.
+- **Adapter registry**: cuando se soportan múltiples proveedores (Stripe, PayPal, Braintree), un registro mapea nombres de proveedor a clases adapter.   La factory instancia el adapter correcto basado en configuración, aislando la selección del adapter de la lógica de negocio.
 
 ## Variantes
 
@@ -186,18 +186,18 @@ url = storage.upload("report.pdf", pdf_bytes)
 
 ## Lo que funciona
 
-- **Adapta en el límite, no en todas partes**: introduce adapters en los límites del sistema donde las interfaces externas se encuentran con abstracciones internas. No dejes que los tipos de terceros se filtren a la lógica de negocio.
-- **Documenta el comportamiento de traducción**: los adapters hacen más que renombrar métodos. Pueden convertir unidades, transformar tipos de error, o batch requests. Documenta estas traducciones claramente.
-- **Maneja errores con elegancia**: las APIs de terceros lanzan excepciones específicas del vendor. El adapter debe capturarlas y mapearlas a la taxonomía de errores de tu aplicación. `StripeCardError` se convierte en `PaymentDeclinedError`.
-- **Mantén los adapters delgados**: un adapter con cientos de líneas de lógica es un servicio, no un adapter. Las transformaciones complejas pertenecen a servicios de aplicación. El adapter debe traducir llamadas y errores, y luego salir del camino.
-- **Testea adapters con contract tests**: escribe tests que verifiquen que el adapter satisface la interfaz objetivo, no tests que verifiquen el SDK de terceros. Usa mocks del adaptee para testear el adapter en aislamiento. Consulta [Input Validation](/recipes/api/input-validation) para contratos de límite.
+- **Adapta en el límite, no en todas partes**: introduce adapters en los límites del sistema donde las interfaces externas se encuentran con abstracciones internas.   No dejes que los tipos de terceros se filtren a la lógica de negocio.
+- **Documenta el comportamiento de traducción**: los adapters hacen más que renombrar métodos.   Pueden convertir unidades, transformar tipos de error, o batch requests.
+- **Maneja errores con elegancia**: las APIs de terceros lanzan excepciones específicas del vendor.   El adapter debe capturarlas y mapearlas a la taxonomía de errores de tu aplicación.   `StripeCardError` se convierte en `PaymentDeclinedError`.
+- **Mantén los adapters delgados**: un adapter con cientos de líneas de lógica es un servicio, no un adapter.   Las transformaciones complejas pertenecen a servicios de aplicación.   El adapter debe traducir llamadas y errores, y luego salir del camino.
+- **Testea adapters con contract tests**: escribe tests que verifiquen que el adapter satisface la interfaz objetivo, no tests que verifiquen el SDK de terceros.   Consulta [Input Validation](/recipes/api/input-validation) para contratos de límite.
 
 ## Errores comunes
 
-- **Filtrar detalles del adaptee**: retornar objetos de respuesta nativos del adaptee desde el adapter fuerza a los consumidores a entender la API de terceros. Siempre retorna tipos de dominio desde el adapter.
-- **Adapter inflado**: poner caching, reintentos y métricas dentro del adapter lo hace difícil de testear y reusar. Usa decorators o interceptores para concerns transversales. Mantén el adapter enfocado en traducción de interfaz.
-- **No manejar null/undefined**: las APIs de terceros pueden retornar `null` donde tu interfaz espera un objeto vacío o una excepción. Define el contrato de null del adapter y traduce consistentemente.
-- **Acoplamiento fuerte a versiones de SDK**: cuando el SDK de terceros lanza un cambio breaking, el adapter lo absorbe. Si llamas al SDK directamente desde código de negocio, cada cambio breaking se propaga por todas partes. El adapter es tu amortiguador de choque.
+- **Filtrar detalles del adaptee**: retornar objetos de respuesta nativos del adaptee desde el adapter fuerza a los consumidores a entender la API de terceros.   Siempre retorna tipos de dominio desde el adapter.
+- **Adapter inflado**: poner caching, reintentos y métricas dentro del adapter lo hace difícil de testear y reusar.
+- **No manejar null/undefined**: las APIs de terceros pueden retornar `null` donde tu interfaz espera un objeto vacío o una excepción.   Define el contrato de null del adapter y traduce consistentemente.
+- **Acoplamiento fuerte a versiones de SDK**: cuando el SDK de terceros lanza un cambio breaking, el adapter lo absorbe.   Si llamas al SDK directamente desde código de negocio, cada cambio breaking se propaga por todas partes.   El adapter es tu amortiguador de choque.
 
 ## Preguntas frecuentes
 

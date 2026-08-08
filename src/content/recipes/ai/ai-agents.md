@@ -179,10 +179,10 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 
 ## Explanation
 
-- **ReAct (Reasoning + Acting)**: the agent interleaves chain-of-thought reasoning with tool execution. Each reasoning step explains why a tool is needed; each action step invokes the tool. This transparency makes debugging easier and improves accuracy over direct tool calling.
-- **Function calling**: modern LLMs (GPT-4, Claude, Gemini) support structured function calling. The model outputs JSON with a tool name and arguments, which the application parses and executes. The result is fed back into the conversation as a `tool` message.
-- **Agent loop**: the core execution loop continues until the model produces a final text response instead of a tool call, or until a maximum iteration limit is reached. This prevents infinite loops from poorly defined tools or ambiguous goals.
-- **Memory**: without memory, each agent invocation is stateless. Conversation buffers store prior turns, while vector stores retain long-term facts extracted from tool results. Short-term memory handles the current session; long-term memory enables personalization across sessions.
+- **ReAct (Reasoning + Acting)**: the agent interleaves chain-of-thought reasoning with tool execution.  Each reasoning step explains why a tool is needed; each action step invokes the tool.  This transparency makes debugging easier and improves accuracy over direct tool calling.
+- **Function calling**: modern LLMs (GPT-4, Claude, Gemini) support structured function calling.  The model outputs JSON with a tool name and arguments, which the application parses and executes.  The result is fed back into the conversation as a `tool` message.
+- **Agent loop**: the core execution loop continues until the model produces a final text response instead of a tool call, or until a maximum iteration limit is reached.  This prevents infinite loops from poorly defined tools or ambiguous goals.
+- **Memory**: without memory, each agent invocation is stateless.  Conversation buffers store prior turns, while vector stores retain long-term facts extracted from tool results.  Short-term memory handles the current session; long-term memory enables personalization across sessions.
 
 ## Variants
 
@@ -195,27 +195,27 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 
 ## What Works
 
-- **Define tools precisely**: tool names and descriptions are prompts. A vague description like "search stuff" leads to incorrect tool selection. Be specific: "Search the web for current news and facts."
-- **Validate tool outputs**: never trust raw LLM output as safe input to tools. Validate JSON schema, sanitize arguments, and handle errors gracefully. A malicious prompt should not execute arbitrary code.
-- **Set iteration limits**: agents can loop indefinitely if a tool keeps returning errors or the goal is unreachable. Cap iterations at 5-10 and return a failure message if exceeded.
-- **Log reasoning traces**: store the full chain-of-thought and tool execution history. This is essential for debugging, auditing, and improving the agent over time.
+- **Define tools precisely**: tool names and descriptions are prompts.  A vague description like "search stuff" leads to incorrect tool selection.  Be specific: "Search the web for current news and facts.
+- **Validate tool outputs**: never trust raw LLM output as safe input to tools.  Validate JSON schema, sanitize arguments, and handle errors gracefully.  A malicious prompt should not execute arbitrary code.
+- **Set iteration limits**: agents can loop indefinitely if a tool keeps returning errors or the goal is unreachable.  Cap iterations at 5-10 and return a failure message if exceeded.
+- **Log reasoning traces**: store the full chain-of-thought and tool execution history.  This is essential for debugging, auditing, and improving the agent over time.
 - **Use structured output for final answers**: when the agent must return data (not just chat), request JSON output via response format constraints to avoid parsing free text.
 
 ## Common mistakes
 
-- **Giving the agent dangerous tools by default**: an agent with shell access or database write permissions can cause irreversible damage. Apply least-privilege tool access and require human approval for destructive actions.
-- **Ignoring latency**: each tool call adds an LLM API round-trip. A 5-step agent with 2-second API latency takes 10+ seconds. Use parallel tool calling and caching to reduce perceived latency.
-- **Over-engineering simple tasks**: if a question can be answered with a single [RAG lookup](/recipes/ai/rag-pipeline), do not build a full agent. Agents add complexity, cost, and failure modes. Use them only when multi-step reasoning is genuinely required.
-- **Forgetting to handle tool errors**: if a search API is down, the agent receives an error string and may hallucinate an answer. Catch exceptions, return structured error messages, and teach the agent to retry or escalate.
+- **Giving the agent dangerous tools by default**: an agent with shell access or database write permissions can cause irreversible damage.  Apply least-privilege tool access and require human approval for destructive actions.
+- **Ignoring latency**: each tool call adds an LLM API round-trip.  A 5-step agent with 2-second API latency takes 10+ seconds.
+- **Over-engineering simple tasks**: if a question can be answered with a single [RAG lookup](/recipes/ai/rag-pipeline), do not build a full agent.  Agents add complexity, cost, and failure modes.
+- **Forgetting to handle tool errors**: if a search API is down, the agent receives an error string and may hallucinate an answer.  Catch exceptions, return structured error messages, and teach the agent to retry or escalate.
 
 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 
@@ -275,13 +275,13 @@ A: Persist the agent's conversation history, tool results, and intermediate reas
 
 ## Best Practices
 
-- **Start simple, then add complexity**: begin with a single-tool agent. Add tools one at a time and test after each addition. This isolates which tool causes regressions.
-- **Use structured outputs**: when the agent needs to return data (not just text), request JSON output with a defined schema. Parse and validate server-side before acting on it.
+- **Start simple, then add complexity**: begin with a single-tool agent.  Add tools one at a time and test after each addition.  This isolates which tool causes regressions.
+- **Use structured outputs**: when the agent needs to return data (not just text), request JSON output with a defined schema.  Parse and validate server-side before acting on it.
 - **Implement human-in-the-loop for high-stakes actions**: for actions that cost money, send emails, or modify production data, require user confirmation before the agent executes.
-- **Version your agent configuration**: track changes to system prompts, tool definitions, and model parameters. This lets you roll back when a change degrades performance.
-- **Monitor agent cost per session**: track token usage and tool call count per session. Set a budget and abort if exceeded. This prevents runaway agents from consuming your entire API budget.
-- **Cache tool results when possible**: if a tool returns the same result for the same input (e.g., a search query), cache the result. This reduces latency and API calls in multi-step reasoning.
-- **Use streaming for long-running agents**: stream the agent's reasoning to the user so they see progress. This improves UX and lets users abort if the agent goes in the wrong direction.
+- **Version your agent configuration**: track changes to system prompts, tool definitions, and model parameters.  This lets you roll back when a change degrades performance.
+- **Monitor agent cost per session**: track token usage and tool call count per session.  Set a budget and abort if exceeded.  This prevents runaway agents from consuming your entire API budget.
+- **Cache tool results when possible**: if a tool returns the same result for the same input (e. g. , a search query), cache the result.  This reduces latency and API calls in multi-step reasoning.
+- **Use streaming for long-running agents**: stream the agent's reasoning to the user so they see progress.  This improves UX and lets users abort if the agent goes in the wrong direction.
 
 ## Production Checklist
 
@@ -300,10 +300,10 @@ A: Persist the agent's conversation history, tool results, and intermediate reas
 
 When deploying agents at scale, consider these factors:
 
-- **Token consumption grows quadratically**: each tool call adds tokens to the context window. After 10 iterations with verbose tool outputs, you may hit the model's context limit. Implement context window management: summarize old tool results or drop them after N turns.
-- **Concurrent agent sessions**: each session maintains its own state and conversation history. Use a stateless API design where session state is loaded from Redis or Postgres at the start of each turn. This lets you scale horizontally across multiple server instances.
-- **Model latency compounds**: an agent that makes 5 sequential tool calls with 2-second LLM response times takes 10+ seconds. For user-facing agents, stream intermediate results so users see progress. For background agents, use async processing with a job queue.
-- **Cost control at scale**: a single agent session can consume 10K-50K tokens. At GPT-4 pricing, that's $0.30-$1.50 per session. Set per-session cost limits and switch to cheaper models (GPT-4o-mini) for simple tool-routing decisions.
+- **Token consumption grows quadratically**: each tool call adds tokens to the context window.  After 10 iterations with verbose tool outputs, you may hit the model's context limit.
+- **Concurrent agent sessions**: each session maintains its own state and conversation history.  This lets you scale horizontally across multiple server instances.
+- **Model latency compounds**: an agent that makes 5 sequential tool calls with 2-second LLM response times takes 10+ seconds.  For user-facing agents, stream intermediate results so users see progress.  For background agents, use async processing with a job queue.
+- **Cost control at scale**: a single agent session can consume 10K-50K tokens.  At GPT-4 pricing, that's $0. 30-$1. 50 per session.  Set per-session cost limits and switch to cheaper models (GPT-4o-mini) for simple tool-routing decisions.
 
 ## Cost Estimation
 
@@ -320,11 +320,11 @@ For 1000 sessions/day: $150-$850/day. Switch to GPT-4o-mini for routing decision
 
 Agents are capable but not always the right tool. Avoid them when:
 
-- **The task is a single LLM call**: if you just need a summary or classification, call the LLM directly. Wrapping it in an agent loop adds latency, cost, and failure modes without benefit.
-- **Deterministic execution is required**: agents are non-deterministic by nature. If the same input must always produce the same output, use a fixed pipeline with no LLM-based routing.
-- **Latency budget is <2 seconds**: agent loops take 5-30 seconds due to multiple LLM calls. For sub-second responses, use pre-computed responses or a single LLM call with no tools.
-- **The tool set is unstable**: if your APIs change frequently, the agent's tool definitions break. Use a fixed pipeline where you control the integration points directly.
-- **Cost sensitivity is high**: each agent session costs 10-50x more than a single LLM call. For high-volume, low-complexity tasks, a prompt chain is more cost-effective.
+- **The task is a single LLM call**: if you just need a summary or classification, call the LLM directly.  Wrapping it in an agent loop adds latency, cost, and failure modes without benefit.
+- **Deterministic execution is required**: agents are non-deterministic by nature.  If the same input must always produce the same output, use a fixed pipeline with no LLM-based routing.
+- **Latency budget is <2 seconds**: agent loops take 5-30 seconds due to multiple LLM calls.  For sub-second responses, use pre-computed responses or a single LLM call with no tools.
+- **The tool set is unstable**: if your APIs change frequently, the agent's tool definitions break.
+- **Cost sensitivity is high**: each agent session costs 10-50x more than a single LLM call.  For high-volume, low-complexity tasks, a prompt chain is more cost-effective.
 
 ### Is this solution production-ready?
 

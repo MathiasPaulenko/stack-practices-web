@@ -201,10 +201,10 @@ A RAG pipeline has four stages:
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 
@@ -278,13 +278,13 @@ Yes. Use `pgvector` (PostgreSQL extension) to store embeddings alongside your re
 
 ## Best Practices
 
-- **Use re-ranking models**: after retrieving top-20 chunks via vector search, re-rank them with a cross-encoder model like `bge-reranker` or Cohere Rerank. Re-ranking improves precision by scoring query-chunk pairs directly instead of relying on embedding similarity alone.
-- **Implement query expansion**: transform the user's query into multiple variations before retrieval. Use an LLM to generate 2-3 paraphrases of the query, embed all variations, and merge results. This catches documents that use different terminology.
-- **Add a guardrails layer**: before sending the retrieved context to the LLM, filter chunks for PII, toxic content, or off-topic material. This prevents the LLM from generating responses based on inappropriate context.
-- **Track retrieval metrics in production**: log the top-k chunks retrieved for each query, their similarity scores, and whether the user found the answer useful. Use this feedback to tune chunk size, embedding model, and retrieval parameters.
-- **Use parent-child chunking**: store small chunks (200 tokens) for precise retrieval but fetch the parent chunk (1000 tokens) for context. This gives the LLM enough surrounding context without diluting retrieval precision.
-- **Implement incremental indexing**: instead of re-indexing the entire corpus on every update, track document versions and only re-embed changed documents. Use a content hash to detect which documents need re-indexing.
-- **Set up monitoring for retrieval quality**: track metrics like recall@k, mean reciprocal rank, and answer relevance over time. Alert when quality drops, which may indicate stale embeddings, model changes, or data issues.
+- **Use re-ranking models**: after retrieving top-20 chunks via vector search, re-rank them with a cross-encoder model like `bge-reranker` or Cohere Rerank.  Re-ranking improves precision by scoring query-chunk pairs directly instead of relying on embedding similarity alone.
+- **Implement query expansion**: transform the user's query into multiple variations before retrieval.  This catches documents that use different terminology.
+- **Add a guardrails layer**: before sending the retrieved context to the LLM, filter chunks for PII, toxic content, or off-topic material.  This prevents the LLM from generating responses based on inappropriate context.
+- **Track retrieval metrics in production**: log the top-k chunks retrieved for each query, their similarity scores, and whether the user found the answer useful.
+- **Use parent-child chunking**: store small chunks (200 tokens) for precise retrieval but fetch the parent chunk (1000 tokens) for context.  This gives the LLM enough surrounding context without diluting retrieval precision.
+- **Implement incremental indexing**: instead of re-indexing the entire corpus on every update, track document versions and only re-embed changed documents.
+- **Set up monitoring for retrieval quality**: track metrics like recall@k, mean reciprocal rank, and answer relevance over time.  Alert when quality drops, which may indicate stale embeddings, model changes, or data issues.
 
 ## Production Checklist
 
@@ -303,11 +303,11 @@ Yes. Use `pgvector` (PostgreSQL extension) to store embeddings alongside your re
 
 When deploying RAG pipelines at scale, consider these factors:
 
-- **Vector store choice**: for <100K documents, pgvector is sufficient and avoids a separate service. For 100K-1M documents, use Pinecone or Weaviate with managed infrastructure. For 1M+ documents, self-host Milvus or Qdrant with GPU-accelerated search.
-- **Embedding cost**: indexing 100K documents with `text-embedding-3-small` costs ~$1. Re-indexing on every document change is expensive. Implement incremental indexing: track document content hashes and only re-embed changed documents.
-- **Retrieval latency**: vector search on 1M documents takes 10-50 ms with an optimized index (HNSW). Re-ranking with a cross-encoder adds 50-100 ms. For sub-100ms total latency, use approximate nearest neighbor (ANN) search and limit re-ranking to top-20 results.
-- **Context window management**: the LLM's context window limits how many chunks you can feed it. GPT-4o supports 128K tokens, but feeding more than 10K tokens of context increases cost and may reduce answer quality. Select top 3-5 chunks after re-ranking.
-- **Document update frequency**: for frequently updated content (news, product catalogs), set up a webhook-triggered re-indexing pipeline. For static content (documentation, policies), a nightly batch re-index is sufficient.
+- **Vector store choice**: for <100K documents, pgvector is sufficient and avoids a separate service.  For 100K-1M documents, use Pinecone or Weaviate with managed infrastructure.  For 1M+ documents, self-host Milvus or Qdrant with GPU-accelerated search.
+- **Embedding cost**: indexing 100K documents with `text-embedding-3-small` costs ~$1.  Re-indexing on every document change is expensive.
+- **Retrieval latency**: vector search on 1M documents takes 10-50 ms with an optimized index (HNSW).  Re-ranking with a cross-encoder adds 50-100 ms.  For sub-100ms total latency, use approximate nearest neighbor (ANN) search and limit re-ranking to top-20 results.
+- **Context window management**: the LLM's context window limits how many chunks you can feed it.  GPT-4o supports 128K tokens, but feeding more than 10K tokens of context increases cost and may reduce answer quality.  Select top 3-5 chunks after re-ranking.
+- **Document update frequency**: for frequently updated content (news, product catalogs), set up a webhook-triggered re-indexing pipeline.  For static content (documentation, policies), a nightly batch re-index is sufficient.
 
 ## Cost Estimation
 
@@ -324,11 +324,11 @@ For 10K queries/day with GPT-4o: ~$150/day. Switch to GPT-4o-mini for simple que
 
 ## When Not to Use RAG
 
-- **Your knowledge base is small (<50 documents)**: with few documents, fit them all into the LLM's context window directly. RAG adds infrastructure complexity without benefit when the entire corpus fits in a single prompt.
-- **Answers require exact quotes, not summaries**: RAG retrieves chunks, not full documents. If users need verbatim text (legal clauses, code samples), return full documents with keyword search instead.
-- **Your documents are highly structured (tables, forms)**: embeddings struggle with tabular data. Use a text-to-SQL approach or structured query language instead of vector search for databases and spreadsheets.
-- **Real-time data is required**: RAG indexes are eventually consistent. If you need answers reflecting data that changed seconds ago, query the source directly instead of relying on the index.
-- **You need cited sources for every claim**: while RAG can provide source chunks, it does not guarantee that every sentence in the answer is traceable. For academic or legal use cases, use a quote-based approach where the LLM can only output text from retrieved passages.
+- **Your knowledge base is small (<50 documents)**: with few documents, fit them all into the LLM's context window directly.  RAG adds infrastructure complexity without benefit when the entire corpus fits in a single prompt.
+- **Answers require exact quotes, not summaries**: RAG retrieves chunks, not full documents.  If users need verbatim text (legal clauses, code samples), return full documents with keyword search instead.
+- **Your documents are highly structured (tables, forms)**: embeddings struggle with tabular data.
+- **Real-time data is required**: RAG indexes are eventually consistent.  If you need answers reflecting data that changed seconds ago, query the source directly instead of relying on the index.
+- **You need cited sources for every claim**: while RAG can provide source chunks, it does not guarantee that every sentence in the answer is traceable.  For academic or legal use cases, use a quote-based approach where the LLM can only output text from retrieved passages.
 
 ## Performance Benchmarks
 

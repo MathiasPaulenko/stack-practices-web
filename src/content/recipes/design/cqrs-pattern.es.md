@@ -169,10 +169,10 @@ class OrderProjection {
 
 ## Explicación
 
-- **Command model**: maneja cambios de estado. Cada command es validado contra invariantes, muta el modelo de escritura, y produce domain events. El modelo de escritura es normalizado y transaccional — enforce reglas de negocio a costa de complejidad de query.
-- **Event sourcing**: en lugar de almacenar estado actual, almacena la secuencia de eventos que llevaron a él. El modelo de escritura agrega eventos a un event store. El estado se rehidrata reproduciendo eventos. Esto provee historial de auditoría completo y queries temporales.
-- **Read model (proyección)**: una vista desnormalizada y optimizada para queries construida desde eventos. Un read model de `customer_orders` podría aplanar items de orden, nombres de clientes y estado de envío en una sola tabla con índices apropiados. Se construye y actualiza asíncronamente.
-- **Consistencia eventual**: cuando un command completa, el read model no se actualiza inmediatamente. Hay una breve ventana (milisegundos a segundos) donde el modelo de escritura refleja el cambio pero el read model no. Esto es consistencia eventual — aceptable para la mayoría de sistemas de lectura intensiva.
+- **Command model**: Cada command es validado contra invariantes, muta el modelo de escritura, y produce domain events.   El modelo de escritura es normalizado y transaccional — enforce reglas de negocio a costa de complejidad de query.
+- **Event sourcing**: El modelo de escritura agrega eventos a un event store.   El estado se rehidrata reproduciendo eventos.   Esto provee historial de auditoría completo y queries temporales.
+- **Read model (proyección)**: una vista desnormalizada y optimizada para queries construida desde eventos.   Un read model de `customer_orders` podría aplanar items de orden, nombres de clientes y estado de envío en una sola tabla con índices apropiados.
+- **Consistencia eventual**: Hay una breve ventana (milisegundos a segundos) donde el modelo de escritura refleja el cambio pero el read model no.   Esto es consistencia eventual — aceptable para la mayoría de sistemas de lectura intensiva.
 
 ## Variantes
 
@@ -185,18 +185,18 @@ class OrderProjection {
 
 ## Lo que funciona
 
-- **Mantén read models simples y desechables**: un read model es un cache, no una fuente de verdad. Si se corrompe, reconstrúyelo reproduciendo eventos desde el inicio. No pongas lógica de negocio u operaciones de escritura en read models.
-- **Versiona tus eventos**: a medida que los esquemas evolucionan, proyecciones más antiguas aún deben entender eventos históricos. Incluye un campo de versión en eventos y escribe handlers para cada versión. Esto permite migración gradual sin downtime.
-- **Usa proyecciones idempotentes**: los event handlers pueden ejecutarse múltiples veces (entrega al-menos-una-vez). Diseña proyecciones para que procesar el mismo evento dos veces produzca el mismo resultado. Usa `UPSERT` en lugar de `INSERT`.
-- **Monitorea lag de proyección**: el delay entre escritura y actualización de read model debe estar acotado. Alerta si el lag de proyección excede tu SLA (ej. 5 segundos). Proyecciones lentas indican backpressure o event handlers ineficientes.
-- **Empieza simple, evoluciona a CQRS**: no construyas CQRS desde el día uno en un proyecto greenfield. Empieza con un modelo único. Cuando la complejidad o performance de lectura se vuelve un problema, extrae un read model. CQRS prematuro agrega complejidad innecesaria.
+- **Mantén read models simples y desechables**: un read model es un cache, no una fuente de verdad.   Si se corrompe, reconstrúyelo reproduciendo eventos desde el inicio.   No pongas lógica de negocio u operaciones de escritura en read models.
+- **Versiona tus eventos**: a medida que los esquemas evolucionan, proyecciones más antiguas aún deben entender eventos históricos.   Esto permite migración gradual sin downtime.
+- **Usa proyecciones idempotentes**: los event handlers pueden ejecutarse múltiples veces (entrega al-menos-una-vez).   Diseña proyecciones para que procesar el mismo evento dos veces produzca el mismo resultado.
+- **Monitorea lag de proyección**: el delay entre escritura y actualización de read model debe estar acotado.   Alerta si el lag de proyección excede tu SLA (ej.   5 segundos).   Proyecciones lentas indican backpressure o event handlers ineficientes.
+- **Empieza simple, evoluciona a CQRS**: no construyas CQRS desde el día uno en un proyecto greenfield.   Empieza con un modelo único.   Cuando la complejidad o performance de lectura se vuelve un problema, extrae un read model.   CQRS prematuro agrega complejidad innecesaria.
 
 ## Errores comunes
 
-- **CQRS sin razón**: si tu aplicación tiene CRUD simple con ratios iguales de lectura/escritura, CQRS agrega complejidad sin beneficio. Úsalo cuando la asimetría de lectura/escritura o complejidad de query justifique la separación.
-- **Poner reglas de negocio en read models**: los read models son para querying. Si te encuentras validando o mutando estado en una proyección, has violado la separación. Las reglas de negocio pertenecen a los command handlers.
-- **Ignorar consistencia eventual en UX**: los usuarios pueden enviar un form e inmediatamente refrescar, viendo datos obsoletos. Diseña la UI para manejar esto — muestra un mensaje de éxito, actualiza optimistamente, o redirige a una página de confirmación en lugar de inmediatamente consultar el read model.
-- **Reproducir eventos desde el inicio en cada deploy**: en desarrollo, es tentador limpiar el read model y reconstruir desde cero. En producción con billones de eventos, esto toma días. Implementa snapshotting — guarda periódicamente estado de aggregate para que las reproducciones empiecen desde el snapshot, no desde el evento 1.
+- **CQRS sin razón**: si tu aplicación tiene CRUD simple con ratios iguales de lectura/escritura, CQRS agrega complejidad sin beneficio.   Úsalo cuando la asimetría de lectura/escritura o complejidad de query justifique la separación.
+- **Poner reglas de negocio en read models**: los read models son para querying.   Si te encuentras validando o mutando estado en una proyección, has violado la separación.   Las reglas de negocio pertenecen a los command handlers.
+- **Ignorar consistencia eventual en UX**: los usuarios pueden enviar un form e inmediatamente refrescar, viendo datos obsoletos.
+- **Reproducir eventos desde el inicio en cada deploy**: En producción con billones de eventos, esto toma días.
 
 ## Preguntas frecuentes
 

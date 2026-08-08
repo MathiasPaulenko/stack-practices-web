@@ -185,11 +185,11 @@ public class LeakyBucket {
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 
 
@@ -234,12 +234,12 @@ Start with 100 requests per minute for authenticated users and 10 per minute for
 
 - For a deeper guide, see [API Rate Limiting — Design Fair and Useful Throttling](/guides/api-rate-limiting-guide/).
 
-- **Use sliding window over fixed window**: sliding window provides smoother rate limiting without burst spikes at window boundaries. Redis sorted sets make sliding windows efficient.
-- **Differentiate limits by endpoint cost**: a GET `/users` is cheap; a POST `/reports/export` is expensive. Set lower limits on costly endpoints to protect backend resources.
-- **Return meaningful 429 responses**: include `Retry-After` header, current limit, remaining quota, and reset timestamp in response headers. Clients can use this to implement backoff correctly.
-- **Exempt internal service-to-service calls**: rate limiting inter-service traffic can cascade failures. Use mTLS or network policies for internal auth instead of rate limits.
-- **Store rate limit counters in Redis, not memory**: in-memory counters don't work across multiple instances. Redis provides atomic INCR with TTL, ideal for distributed rate limiting.
-- **Monitor rate limit hit rates**: if >5% of requests are rate-limited, either your limits are too low or a client is misbehaving. Alert on sudden spikes in 429 responses.
+- **Use sliding window over fixed window**: sliding window provides smoother rate limiting without burst spikes at window boundaries.  Redis sorted sets make sliding windows efficient.
+- **Differentiate limits by endpoint cost**: a GET `/users` is cheap; a POST `/reports/export` is expensive.  Set lower limits on costly endpoints to protect backend resources.
+- **Return meaningful 429 responses**: include `Retry-After` header, current limit, remaining quota, and reset timestamp in response headers.  Clients can use this to implement backoff correctly.
+- **Exempt internal service-to-service calls**: rate limiting inter-service traffic can cascade failures.
+- **Store rate limit counters in Redis, not memory**: in-memory counters don't work across multiple instances.  Redis provides atomic INCR with TTL, ideal for distributed rate limiting.
+- **Monitor rate limit hit rates**: if >5% of requests are rate-limited, either your limits are too low or a client is misbehaving.
 
 ## Production Checklist
 
@@ -256,10 +256,10 @@ Start with 100 requests per minute for authenticated users and 10 per minute for
 
 ## Scaling Considerations
 
-- **Redis throughput at scale**: a single Redis instance handles ~100K operations/second. For 1M requests/second, you need Redis Cluster with sharding by API key. Each rate limit check requires 2 Redis operations (INCR + EXPIRE), so plan for 2M ops/second at peak.
-- **Latency impact**: each rate limit check adds 1-3ms (Redis round-trip). For APIs with sub-10ms latency budgets, use local token buckets with periodic Redis sync (every 100ms). This trades precision for speed — limits may be off by ~10% under contention.
-- **Multi-region deployments**: if your API runs in multiple regions, Redis must be co-located with each region's API instances. Cross-region Redis calls add 50-200ms latency. Use regional Redis clusters and accept slightly different limits per region.
-- **Cold start protection**: serverless functions (Lambda, Cloud Run) may scale from 0 to 1000 instances in seconds. Each new instance starts with an empty local bucket. Use Redis-backed limits to avoid burst traffic overwhelming backend services during cold start waves.
+- **Redis throughput at scale**: a single Redis instance handles ~100K operations/second.  For 1M requests/second, you need Redis Cluster with sharding by API key.  Each rate limit check requires 2 Redis operations (INCR + EXPIRE), so plan for 2M ops/second at peak.
+- **Latency impact**: each rate limit check adds 1-3ms (Redis round-trip).  For APIs with sub-10ms latency budgets, use local token buckets with periodic Redis sync (every 100ms).  This trades precision for speed — limits may be off by ~10% under contention.
+- **Multi-region deployments**: if your API runs in multiple regions, Redis must be co-located with each region's API instances.  Cross-region Redis calls add 50-200ms latency.
+- **Cold start protection**: serverless functions (Lambda, Cloud Run) may scale from 0 to 1000 instances in seconds.  Each new instance starts with an empty local bucket.
 
 ## Cost Estimation
 
@@ -275,9 +275,9 @@ For 10K requests/second: Redis Cluster ($150/month) handles 200K ops/second with
 
 ## When Not to Use This Approach
 
-- **Internal microservices with trusted callers**: rate limiting inter-service traffic adds latency and complexity. Use circuit breakers and bulkheads instead to protect downstream services.
-- **Webhook receivers with signature verification**: if you verify HMAC signatures on every request, invalid requests are rejected before hitting rate limits. Rate limiting adds no security value here.
-- **Batch processing APIs**: APIs designed for bulk data transfer (ETL pipelines, batch exports) should use queue-based throttling, not per-request rate limits. A batch job sending 10K requests in 10 seconds is expected behavior, not abuse.
+- **Internal microservices with trusted callers**: rate limiting inter-service traffic adds latency and complexity.
+- **Webhook receivers with signature verification**: if you verify HMAC signatures on every request, invalid requests are rejected before hitting rate limits.  Rate limiting adds no security value here.
+- **Batch processing APIs**: APIs designed for bulk data transfer (ETL pipelines, batch exports) should use queue-based throttling, not per-request rate limits.  A batch job sending 10K requests in 10 seconds is expected behavior, not abuse.
 
 ## Performance Benchmarks
 
@@ -293,24 +293,24 @@ In-memory rate limiting is 100x faster than Redis but doesn't work across instan
 
 ## Testing Strategy
 
-- **Test rate limit enforcement**: send N+1 requests rapidly and verify the (N+1)th returns 429 with correct headers (`Retry-After`, `X-RateLimit-Remaining`). Test with different client IDs to verify per-client isolation.
-- **Test window reset behavior**: send requests up to the limit, wait for the window to reset, and verify requests succeed again. Test edge cases at window boundaries (e.g., request at 59.9s and 60.1s).
-- **Test Redis failover**: simulate Redis connection loss and verify the rate limiter fails open (allows requests) or fails closed (blocks all) according to your policy. Document the chosen behavior for the operations team.
-- **Test distributed consistency**: run multiple instances simultaneously and verify that the aggregate rate limit is enforced correctly across all instances. Use a load tester to generate traffic from multiple sources.
+- **Test rate limit enforcement**: send N+1 requests rapidly and verify the (N+1)th returns 429 with correct headers (`Retry-After`, `X-RateLimit-Remaining`).
+- **Test window reset behavior**: send requests up to the limit, wait for the window to reset, and verify requests succeed again. g. , request at 59. 9s and 60. 1s).
+- **Test Redis failover**: simulate Redis connection loss and verify the rate limiter fails open (allows requests) or fails closed (blocks all) according to your policy.
+- **Test distributed consistency**: run multiple instances simultaneously and verify that the aggregate rate limit is enforced correctly across all instances.
 
 ## Common Pitfalls
 
-- **Using fixed windows without jitter**: fixed window rate limiting causes thundering herd at window boundaries. All clients retry simultaneously at the start of each window. Add jitter (random delay 0-500ms) to retry logic.
-- **Forgetting to rate limit by IP behind a proxy**: if your API sits behind a load balancer, `req.ip` returns the proxy IP, not the client IP. Configure `trust proxy` and use `X-Forwarded-For` to identify real clients.
-- **Redis rate limiter failing closed**: if Redis goes down and the rate limiter blocks all requests, your API goes offline. Configure fail-open behavior (allow requests when Redis is unreachable) for non-critical endpoints.
-- **Not differentiating authenticated vs anonymous limits**: anonymous users should have lower limits than authenticated users. Use a tiered approach: 10 req/min for anonymous, 100 req/min for authenticated, 1000 req/min for premium API keys.
+- **Using fixed windows without jitter**: fixed window rate limiting causes thundering herd at window boundaries.  All clients retry simultaneously at the start of each window.  Add jitter (random delay 0-500ms) to retry logic.
+- **Forgetting to rate limit by IP behind a proxy**: if your API sits behind a load balancer, `req. ip` returns the proxy IP, not the client IP.
+- **Redis rate limiter failing closed**: if Redis goes down and the rate limiter blocks all requests, your API goes offline.
+- **Not differentiating authenticated vs anonymous limits**: anonymous users should have lower limits than authenticated users.
 
 ## Monitoring and Observability
 
-- **Track 429 response rate**: monitor the percentage of requests returning 429. A sudden increase may indicate a misconfigured limit or an abusive client. Alert if 429 rate exceeds 5% of total traffic.
-- **Monitor Redis latency for rate limit checks**: track the time taken for Redis `INCR` and `EXPIRE` commands. If p95 exceeds 5ms, consider switching to in-memory rate limiting for non-critical endpoints or adding Redis replicas.
-- **Track rate limit key count**: monitor the number of unique rate limit keys in Redis. If key count grows unboundedly, clients may be generating unique IDs to bypass limits. Set a max key count and evict old keys with `EXPIRE`.
-- **Alert on rate limiter failures**: if the rate limiter crashes or Redis becomes unreachable, alert the on-call engineer immediately. A failed rate limiter either blocks all traffic (fail-closed) or allows unlimited traffic (fail-open), both requiring immediate attention.
+- **Track 429 response rate**: monitor the percentage of requests returning 429.  A sudden increase may indicate a misconfigured limit or an abusive client.  Alert if 429 rate exceeds 5% of total traffic.
+- **Monitor Redis latency for rate limit checks**: track the time taken for Redis `INCR` and `EXPIRE` commands.  If p95 exceeds 5ms, consider switching to in-memory rate limiting for non-critical endpoints or adding Redis replicas.
+- **Track rate limit key count**: monitor the number of unique rate limit keys in Redis.  If key count grows unboundedly, clients may be generating unique IDs to bypass limits.  Set a max key count and evict old keys with `EXPIRE`.
+- **Alert on rate limiter failures**: if the rate limiter crashes or Redis becomes unreachable, alert the on-call engineer immediately.  A failed rate limiter either blocks all traffic (fail-closed) or allows unlimited traffic (fail-open), both requiring immediate attention.
 
 ## Deployment Checklist
 
@@ -327,18 +327,18 @@ In-memory rate limiting is 100x faster than Redis but doesn't work across instan
 
 ## Security Considerations
 
-- **Rate limit key spoofing**: if clients can manipulate their IP or user ID, they can bypass rate limits. Always validate the `X-Forwarded-For` header against trusted proxy IPs. Use authenticated user IDs as the rate limit key for logged-in users.
-- **Distributed denial-of-service via rate limit exhaustion**: attackers can send just-under-limit traffic from many IPs to exhaust server resources without triggering 429. Combine rate limiting with connection limits and request body size limits.
-- **Redis as a single point of failure**: if Redis goes down, the rate limiter either blocks all traffic or allows unlimited traffic. Run Redis in sentinel or cluster mode for high availability.
-- **Timing attacks on rate limit checks**: if rate limit decisions take different time for allowed vs denied requests, attackers can infer the rate limit state. Use constant-time comparisons for rate limit checks to prevent timing-based side channels.
-- **Rate limit header information leakage**: `X-RateLimit-Remaining` and `X-RateLimit-Limit` headers reveal your rate limit configuration to attackers. Consider omitting these headers for unauthenticated requests or returning approximate values.
-- **Shared IP rate limiting for NAT**: users behind a corporate NAT share the same IP. Aggressive per-IP limits can block legitimate users. Use a combination of IP and authenticated user ID for rate limit keys, and set higher limits for shared IPs.
-- **Rate limit bypass via HTTP method switching**: if rate limits are applied only to GET requests, attackers can switch to POST or PUT to bypass them. Apply rate limits to all HTTP methods, including OPTIONS and HEAD.
-- **Race conditions in distributed rate limiting**: concurrent requests may read the same counter value before any of them increments it, allowing more requests than the limit. Use Redis atomic operations (`INCR` with `EXPIRE`) or Lua scripts to ensure atomicity.
-- **Rate limit evasion via path variation**: attackers can vary the URL path (e.g., `/api/users?x=1` vs `/api/users?x=2`) to bypass per-endpoint rate limits. Normalize URLs before applying rate limit keys and rate limit by API endpoint pattern, not full URL.
-- **Token bucket overflow in burst scenarios**: token bucket algorithms allow bursts up to the bucket capacity. If the bucket is too large, a single client can overwhelm the server in a burst. Set bucket capacity to 2x the refill rate to balance bursts and sustained traffic.
-- **Rate limit key expiration without cleanup**: if rate limit keys in Redis are not cleaned up after expiration, memory usage grows unboundedly. Use `EXPIRE` on every key and set a max TTL of 24 hours to ensure automatic cleanup.
-- **Client-side rate limit caching**: clients may cache rate limit responses locally and reuse them to avoid hitting the server. Include a `Date` or `ETag` header in rate limit responses to prevent stale caching.
+- **Rate limit key spoofing**: if clients can manipulate their IP or user ID, they can bypass rate limits.  Always validate the `X-Forwarded-For` header against trusted proxy IPs.
+- **Distributed denial-of-service via rate limit exhaustion**: attackers can send just-under-limit traffic from many IPs to exhaust server resources without triggering 429.  Combine rate limiting with connection limits and request body size limits.
+- **Redis as a single point of failure**: if Redis goes down, the rate limiter either blocks all traffic or allows unlimited traffic.  Run Redis in sentinel or cluster mode for high availability.
+- **Timing attacks on rate limit checks**: if rate limit decisions take different time for allowed vs denied requests, attackers can infer the rate limit state.
+- **Rate limit header information leakage**: `X-RateLimit-Remaining` and `X-RateLimit-Limit` headers reveal your rate limit configuration to attackers.  Consider omitting these headers for unauthenticated requests or returning approximate values.
+- **Shared IP rate limiting for NAT**: users behind a corporate NAT share the same IP.  Aggressive per-IP limits can block legitimate users.
+- **Rate limit bypass via HTTP method switching**: if rate limits are applied only to GET requests, attackers can switch to POST or PUT to bypass them.  Apply rate limits to all HTTP methods, including OPTIONS and HEAD.
+- **Race conditions in distributed rate limiting**: concurrent requests may read the same counter value before any of them increments it, allowing more requests than the limit.
+- **Rate limit evasion via path variation**: attackers can vary the URL path (e. g. , `/api/users? x=1` vs `/api/users? x=2`) to bypass per-endpoint rate limits.  Normalize URLs before applying rate limit keys and rate limit by API endpoint pattern, not full URL.
+- **Token bucket overflow in burst scenarios**: token bucket algorithms allow bursts up to the bucket capacity.  If the bucket is too large, a single client can overwhelm the server in a burst.  Set bucket capacity to 2x the refill rate to balance bursts and sustained traffic.
+- **Rate limit key expiration without cleanup**: if rate limit keys in Redis are not cleaned up after expiration, memory usage grows unboundedly.
+- **Client-side rate limit caching**: clients may cache rate limit responses locally and reuse them to avoid hitting the server.
 
 ## Common Production Pitfalls
 

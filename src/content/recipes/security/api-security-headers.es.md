@@ -122,10 +122,10 @@ app.add_middleware(SecurityHeadersMiddleware)
 
 ## Explicación
 
-- **Strict-Transport-Security (HSTS)**: Indica a los navegadores que siempre usen HTTPS para tu dominio. Previene ataques de SSL stripping donde un man-in-the-middle downgradearía la conexión a HTTP.
-- **Content-Security-Policy (CSP)**: Restringe dónde pueden cargarse scripts, estilos, imágenes y otros recursos. Un CSP estricto bloquea scripts inline y dominios externos no autorizados, neutralizando XSS incluso si un atacante inyecta markup.
-- **X-Frame-Options**: Previene que tu sitio sea incrustado en un `<iframe>` en otro dominio. Esto bloquea ataques de clickjacking donde atacantes superponen iframes invisibles para engañar usuarios a hacer clic en elementos maliciosos.
-- **X-Content-Type-Options**: Configurar `nosniff` previene que navegadores interpreten archivos como un tipo MIME diferente al declarado. Esto mitiga ataques donde un archivo `.txt` subido por un usuario se ejecuta como JavaScript.
+- **Strict-Transport-Security (HSTS)**: Indica a los navegadores que siempre usen HTTPS para tu dominio.   Previene ataques de SSL stripping donde un man-in-the-middle downgradearía la conexión a HTTP.
+- **Content-Security-Policy (CSP)**: Restringe dónde pueden cargarse scripts, estilos, imágenes y otros recursos.   Un CSP estricto bloquea scripts inline y dominios externos no autorizados, neutralizando XSS incluso si un atacante inyecta markup.
+- **X-Frame-Options**: Previene que tu sitio sea incrustado en un `<iframe>` en otro dominio.   Esto bloquea ataques de clickjacking donde atacantes superponen iframes invisibles para engañar usuarios a hacer clic en elementos maliciosos.
+- **X-Content-Type-Options**: Configurar `nosniff` previene que navegadores interpreten archivos como un tipo MIME diferente al declarado.   Esto mitiga ataques donde un archivo `.  txt` subido por un usuario se ejecuta como JavaScript.
 
 ## Variantes
 
@@ -141,16 +141,16 @@ app.add_middleware(SecurityHeadersMiddleware)
 ## Lo que funciona
 
 - **Usa Helmet como baseline**: el middleware Helmet para Express configura defaults sensatos para todos los headers principales con una sola línea de código.
-- **Empieza con un CSP restrictivo y relaja gradualmente**: comienza con `default-src 'self'` y agrega dominios solo cuando la funcionalidad se rompe. Un CSP demasiado permisivo es casi inútil.
+- **Empieza con un CSP restrictivo y relaja gradualmente**: comienza con `default-src 'self'` y agrega dominios solo cuando la funcionalidad se rompe.   Un CSP demasiado permisivo es casi inútil.
 - **Envía a listas de preload de HSTS**: después de correr HSTS por algunas semanas sin problemas, envía tu dominio a la lista de preload de Chrome para que navegadores enforce HTTPS antes de la primera visita.
-- **Incluye headers en todas las respuestas**: las páginas de error (404, 500) y respuestas de API deben incluir los mismos headers que las páginas HTML. Los atacantes también apuntan a páginas de error.
+- **Incluye headers en todas las respuestas**: Los atacantes también apuntan a páginas de error.
 - **Testea con securityheader.io o Mozilla Observatory**: estas herramientas escanean tu sitio y califican tu configuración de headers con pasos específicos de remediación.
 
 ## Errores comunes
 
-- **Usar `ALLOW-FROM` en X-Frame-Options**: los navegadores modernos no soportan este valor. Usa `SAMEORIGIN` o `DENY` en su lugar.
-- **Habilitar `unsafe-inline` para scripts en CSP**: esto desactiva la protección XSS de CSP. Usa nonces o hashes si scripts inline son inevitables.
-- **Olvidar endpoints de API**: los headers de seguridad a menudo se configuran para rutas HTML pero se omiten de respuestas JSON de API. Aplícalos globalmente.
+- **Usar `ALLOW-FROM` en X-Frame-Options**: los navegadores modernos no soportan este valor.
+- **Habilitar `unsafe-inline` para scripts en CSP**: esto desactiva la protección XSS de CSP.
+- **Olvidar endpoints de API**: los headers de seguridad a menudo se configuran para rutas HTML pero se omiten de respuestas JSON de API.   Aplícalos globalmente.
 - **Configurar HSTS sin HTTPS listo**: si tu sitio todavía sirve tráfico HTTP, HSTS lo romperá para usuarios que hayan visitado la versión HTTPS antes.
 
 ## Preguntas frecuentes

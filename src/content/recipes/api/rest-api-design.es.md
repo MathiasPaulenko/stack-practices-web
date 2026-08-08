@@ -49,10 +49,10 @@ Usa este recurso cuando:
 
 ## Cuándo Evitar
 
-- **Comunicación bidireccional en tiempo real**: Usa WebSockets o Server-Sent Events. REST es solo request-response.
-- **Queries complejas controladas por el cliente**: GraphQL permite a los clientes pedir exactamente los campos que necesitan. REST hace over-fetch o under-fetch.
+- **Comunicación bidireccional en tiempo real**: REST es solo request-response.
+- **Queries complejas controladas por el cliente**: GraphQL permite a los clientes pedir exactamente los campos que necesitan.   REST hace over-fetch o under-fetch.
 - **Llamadas internas de alto rendimiento**: gRPC con Protobuf es 5-10x más rápido que REST/JSON para microservicios internos.
-- **Streaming de payloads grandes**: REST bufferiza respuestas completas. Usa chunked transfer o un protocolo de streaming.
+- **Streaming de payloads grandes**: REST bufferiza respuestas completas.
 
 ## Solución
 
@@ -170,9 +170,9 @@ X-RateLimit-Reset: 1719900000
 
 REST aprovecha HTTP como protocolo de aplicación, no solo como transporte:
 
-- **Idempotencia**: GET, PUT, DELETE deben ser seguros de reintentar. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones. POST no es idempotente.
+- **Idempotencia**: GET, PUT, DELETE deben ser seguros de reintentar.   Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones.   POST no es idempotente.
 - **Sin estado**: Cada request contiene toda la información necesaria; sin sesión del lado del servidor.
-- **Cacheabilidad**: Usa Cache-Control, ETag y Last-Modified agresivamente. Consulta [Manejo de CORS](/recipes/api/handle-cors) para configuración de headers.
+- **Cacheabilidad**: Consulta [Manejo de CORS](/recipes/api/handle-cors) para configuración de headers.
 - **HATEOAS**: Incluye links a recursos relacionados (opcional pero mejora descubribilidad).
 
 ## Variantes
@@ -230,8 +230,8 @@ Si el ETag ya no coincide (alguien más modificó el recurso), devuelve 412 Prec
 - **Usa sustantivos plurales**: /orders, no /order ni /getOrder
 - **Versiona en la URL**: /v1/users (más explícito que headers)
 - **Devuelve estructura consistente**: { data, error, meta }
-- **Soporta filtrado**: GET /users?role=admin&active=true
-- **Rate limit desde el inicio**: Devuelve 429 con header Retry-After. Consulta [Rate Limiting con Redis](/recipes/api/api-rate-limiting-redis) para implementación.
+- **Soporta filtrado**: GET /users?
+- **Rate limit desde el inicio**: Devuelve 429 con header Retry-After.   Consulta [Rate Limiting con Redis](/recipes/api/api-rate-limiting-redis) para implementación.
 
 ## Errores Comunes
 
@@ -331,11 +331,11 @@ Para errores de lógica de negocio (e.g., saldo insuficiente, cuenta suspendida)
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
+- **CORS errors in the browser**: confirm allowed origins, methods, and headers.   Preflight requests must return the right headers before the actual request.
+- **Unexpected 404s**: verify route definitions, path parameters, and base paths.   Watch for trailing slashes and URL encoding differences.
+- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.   Log rejected tokens without exposing secrets.
+- **Slow response times**: profile the slowest percentiles.
 
 ## Errores Comunes en Producción
 

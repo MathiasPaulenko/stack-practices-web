@@ -190,11 +190,11 @@ The template creates a **closed-loop system**: findings enter the tracker, get a
 
 ## Troubleshooting
 
-- **Authentication bypass in tests**: ensure test users cannot reach production endpoints. Use separate credentials and environments for CI.
-- **False positives in scanning tools**: tune rules against the risk profile. Distinguish between reachable vulnerabilities and theoretical issues.
-- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys. Audit log sinks for sensitive patterns.
-- **CSP breaks legitimate functionality**: use report-only mode first, then enforce. Iterate on allowed sources based on real violations.
-- **Incident response stalls**: run tabletop exercises. Document escalation paths, evidence collection steps, and communication templates in advance.
+- **Authentication bypass in tests**: ensure test users cannot reach production endpoints.
+- **False positives in scanning tools**: tune rules against the risk profile.  Distinguish between reachable vulnerabilities and theoretical issues.
+- **Secrets appear in logs**: configure log filters to redact tokens, passwords, and keys.  Audit log sinks for sensitive patterns.
+- **CSP breaks legitimate functionality**: use report-only mode first, then enforce.  Iterate on allowed sources based on real violations.
+- **Incident response stalls**: run tabletop exercises.
 
 
 

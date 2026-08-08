@@ -121,10 +121,10 @@ Keyset (cursor) pagination is O(1) regardless of page depth. OFFSET pagination i
 
 ## Explanation
 
-- **EXPLAIN ANALYZE**: Executes the query and shows the actual execution plan, including row counts, filter conditions, and I/O operations. Look for sequential scans, nested loops with high row counts, and sort operations without indexes.
-- **N+1 queries**: Occur when code loops over a result set and executes an additional query per iteration. A single well-crafted JOIN or `IN` clause replaces hundreds of individual queries.
-- **Covering indexes**: When all columns a query needs are in the index, the database can answer the query without touching the table. This is called an "index-only scan" and can be 10x faster.
-- **Query rewriting**: Sometimes the query itself is the problem. Converting `NOT IN` to `NOT EXISTS`, using `UNION ALL` instead of `UNION`, or filtering early with subqueries can dramatically improve performance.
+- **EXPLAIN ANALYZE**: Executes the query and shows the actual execution plan, including row counts, filter conditions, and I/O operations.  Look for sequential scans, nested loops with high row counts, and sort operations without indexes.
+- **N+1 queries**: Occur when code loops over a result set and executes an additional query per iteration.  A single well-crafted JOIN or `IN` clause replaces hundreds of individual queries.
+- **Covering indexes**: When all columns a query needs are in the index, the database can answer the query without touching the table.  This is called an "index-only scan" and can be 10x faster.
+- **Query rewriting**: Sometimes the query itself is the problem.  Converting `NOT IN` to `NOT EXISTS`, using `UNION ALL` instead of `UNION`, or filtering early with subqueries can dramatically improve performance.
 
 ## Variants
 
@@ -151,13 +151,13 @@ LIMIT 100;
 
 Key things to look for in the output:
 
-- **Seq Scan**: Full table scan. Usually bad for large tables. Add an index.
+- **Seq Scan**: Full table scan.  Usually bad for large tables.  Add an index.
 - **Index Scan**: Good — using an index to find rows.
 - **Index Only Scan**: Best — all data from the index, no table access.
-- **Hash Join**: Good for large joins. Builds a hash table on the smaller relation.
-- **Nested Loop**: Good for small result sets. Bad for large ones (O(n*m)).
-- **Sort**: Expensive for large result sets. Add an index on the sort column.
-- **Buffers: shared hit=X read=Y**: `hit` = cache, `read` = disk. High `read` means disk I/O.
+- **Hash Join**: Good for large joins.  Builds a hash table on the smaller relation.
+- **Nested Loop**: Good for small result sets.  Bad for large ones (O(n*m)).
+- **Sort**: Expensive for large result sets.  Add an index on the sort column.
+- **Buffers: shared hit=X read=Y**: `hit` = cache, `read` = disk.  High `read` means disk I/O.
 - **Rows removed by filter**: If this is much higher than rows returned, the index is not selective enough.
 
 ## Advanced: Query Plan Caching
@@ -244,27 +244,27 @@ Reset statistics after making changes to get clean measurements: `SELECT pg_stat
 
 ## What works
 
-- **Filter early**: apply `WHERE` conditions on indexed columns before joins and sorts. The fewer rows that flow through the query pipeline, the faster it runs.
+- **Filter early**: apply `WHERE` conditions on indexed columns before joins and sorts.  The fewer rows that flow through the query pipeline, the faster it runs.
 - **Avoid `SELECT *`**: fetching unnecessary columns wastes I/O and memory. Select only the columns you need.
 - **Use `EXISTS` instead of `IN` for large subqueries**: `EXISTS` short-circuits on the first match, while `IN` may build a complete intermediate result set.
-- **Update table statistics**: the query optimizer relies on statistics to choose plans. Run `ANALYZE` after bulk loads or major data changes.
-- **Monitor query plans over time**: execution plans can change as data distribution shifts. Set up alerts when a previously fast query suddenly slows down.
+- **Update table statistics**: the query optimizer relies on statistics to choose plans.  Run `ANALYZE` after bulk loads or major data changes.
+- **Monitor query plans over time**: execution plans can change as data distribution shifts.  Set up alerts when a previously fast query suddenly slows down.
 
 ## Common Mistakes
 
 - **Indexing without analyzing**: adding an index on a low-cardinality column (like a boolean) rarely helps and always slows writes.
-- **Ignoring query planner hints**: sometimes the optimizer chooses a bad plan. Use hints (`USE INDEX`, `SET enable_seqscan = off`) judiciously when you know better.
+- **Ignoring query planner hints**: sometimes the optimizer chooses a bad plan.
 - **Not testing with production data volume**: a query that runs in 10ms on a development database with 1,000 rows may take 10 seconds on production with 10 million rows.
-- **Premature optimization**: profile first. Do not rewrite perfectly fast queries. Focus on the top 5 slowest queries by total execution time.
+- **Premature optimization**: profile first.  Do not rewrite perfectly fast queries.  Focus on the top 5 slowest queries by total execution time.
 
 
 ## Troubleshooting
 
-- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time. Use real-user monitoring to confirm lab metrics.
-- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies. Lazy-load non-critical components.
-- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns. Ensure cacheable responses have correct headers.
-- **Database CPU spikes**: find the top queries by execution time and frequency. Add indexes, rewrite queries, or cache results.
-- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads. Scale horizontally only after optimizing the hot path.
+- **Largest Contentful Paint is high**: optimize images, preload critical resources, and reduce server response time.
+- **JavaScript bundle size grows**: analyze the bundle, split code by route, and tree-shake unused dependencies.  Lazy-load non-critical components.
+- **Cache hit rate is low**: review cache keys, TTLs, and invalidation patterns.
+- **Database CPU spikes**: find the top queries by execution time and frequency.  Add indexes, rewrite queries, or cache results.
+- **Throughput drops under load**: profile for contention, garbage collection, and blocked threads.  Scale horizontally only after optimizing the hot path.
 
 
 

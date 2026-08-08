@@ -195,7 +195,7 @@ La lógica de negocio depende solo de la interfaz, por lo que puedes intercambia
 ## Lo que funciona
 
 - **Retorna objetos de dominio, no filas de datos crudos**: Mapea resultados de base de datos a objetos de dominio ricos
-- **Usa interfaces para repositories**: Esto es lo que los hace testeables e intercambiables. Consulta [Inyección de Dependencias](/patterns/design/dependency-injection-pattern) para estrategias de wiring.
+- **Usa interfaces para repositories**: Esto es lo que los hace testeables e intercambiables.   Consulta [Inyección de Dependencias](/patterns/design/dependency-injection-pattern) para estrategias de wiring.
 - **Mantén los repositories enfocados en acceso a datos**: La lógica de negocio pertenece a servicios, no a repositories
 - **Retorna `Optional` o tipos nullable** en lugar de lanzar excepciones para datos faltantes
 - **Considera paginación** para operaciones `findAll` para prevenir cargar datasets masivos
@@ -335,11 +335,11 @@ Usa Repository cuando piensas en terminos de dominio (User, Order) y quieres abs
 
 ## Troubleshooting
 
-- **High latency between services**: trace the request path. Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy. Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas. Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: right-size instances and use autoscaling with limits. Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps. Use observability to validate the diagrams.
+- **High latency between services**: trace the request path.   Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
+- **Single point of failure**: identify components without redundancy.   Add replicas, failover, or circuit breakers before scaling traffic.
+- **Unexpected coupling between services**: review shared databases, libraries, and schemas.   Bound contexts should own their data and expose stable interfaces.
+- **Cost spikes after scaling**: Reserved capacity or spot instances can reduce steady-state spend.
+- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
 
 ## Errores Comunes en Producción
 

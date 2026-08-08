@@ -193,10 +193,10 @@ const resolvers = {
 
 ## Explicacion
 
-- **Batching**: Todas las llamadas `load()` dentro de un tick del event loop se recolectan. DataLoader luego llama la funcion batch una vez con todas las claves
-- **Deduplicacion**: Claves duplicadas en el mismo batch se piden una vez. Todos los callers reciben la misma Promise
-- **Cache por peticion**: El cache es un `Map` en la instancia del loader. Como se crea un loader nuevo por peticion, el cache esta aislado
-- **Contrato de orden**: La funcion batch debe retornar un array de la misma longitud que la entrada, en el mismo orden. DataLoader empareja resultados a callers por indice
+- **Batching**: Todas las llamadas `load()` dentro de un tick del event loop se recolectan.
+- **Deduplicacion**: Claves duplicadas en el mismo batch se piden una vez.
+- **Cache por peticion**: El cache es un `Map` en la instancia del loader.
+- **Contrato de orden**: La funcion batch debe retornar un array de la misma longitud que la entrada, en el mismo orden.
 - **Manejo de errores**: Retornar un objeto `Error` en un indice especifico para rechazar solo ese caller, no todo el batch
 
 ## Variantes
@@ -281,17 +281,17 @@ const stockPriceLoader = new DataLoader(batchStockPrices, {
 ## Errores Comunes
 
 - **Compartir un DataLoader entre peticiones**: El cache entre peticiones filtra datos entre usuarios y causa lecturas stale
-- **Lanzar en funcion batch**: Rechaza todo el batch. Retornar `new Error()` en el indice fallido en su lugar
-- **Orden de resultados incorrecto**: DataLoader empareja por posicion. Resultados desalineados silenciosamente devuelven datos incorrectos
+- **Lanzar en funcion batch**: Rechaza todo el batch.
+- **Orden de resultados incorrecto**: DataLoader empareja por posicion.
 - **No limpiar despues de mutaciones**: Datos cacheados stale se retornan para entidades actualizadas
-- **Usar DataLoader para caching de larga duracion**: El cache de DataLoader es por peticion. Usar Redis o cache a nivel aplicacion para caching entre peticiones
+- **Usar DataLoader para caching de larga duracion**: El cache de DataLoader es por peticion.
 - **Falta `cacheKeyFn` para claves objeto**: `{ userId: '1' }` y `{ userId: '1' }` son referencias de objeto diferentes — cache miss cada vez
 
 
 ## Troubleshooting
 
-- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization. Check for nullable fields that fail silently.
-- **N+1 query performance issue**: use DataLoader or equivalent batching. Inspect resolver execution traces.
+- **Query returns null unexpectedly**: verify resolvers, data loaders, and authorization.
+- **N+1 query performance issue**: Inspect resolver execution traces.
 - **Introspection disabled in production breaks tools**: enable it only in development, or use schema artifacts in CI.
 - **Mutation input rejected**: confirm input validation, custom scalars, and whether variables are passed as the right type.
 - **Subscription stops receiving events**: check the pub/sub backend, event filtering, and that the resolver is emitting events.

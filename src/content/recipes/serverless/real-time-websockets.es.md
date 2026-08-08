@@ -215,10 +215,10 @@ class ReconnectingWebSocket {
 
 ## Explicación
 
-- **WebSocket API Gateway**: gestiona el handshake WebSocket, mantiene las conexiones abiertas y enruta los mensajes entrantes a Lambda basándose en la `route_selection_expression`. Las rutas `$connect` y `$disconnect` son gestionadas por el sistema.
-- **Persistencia de conexiones**: DynamoDB almacena `connectionId`, `domainName` y `stage` para cada cliente conectado. Esto es necesario porque las funciones Lambda son stateless — no pueden mantener referencias de conexión en memoria.
-- **Broadcasting**: para enviar un mensaje a todos los clientes, escanea la tabla de conexiones y llama `postToConnection` para cada `connectionId`. Maneja errores `410 Gone` eliminando conexiones obsoletas.
-- **Consideraciones de escalado**: el escaneo de DynamoDB para broadcasting es aceptable para audiencias pequeñas. Para miles de conexiones, usa DynamoDB streams, fan-out vía SNS/SQS, o particiona conexiones por sala/tema.
+- **WebSocket API Gateway**: gestiona el handshake WebSocket, mantiene las conexiones abiertas y enruta los mensajes entrantes a Lambda basándose en la `route_selection_expression`.   Las rutas `$connect` y `$disconnect` son gestionadas por el sistema.
+- **Persistencia de conexiones**: Esto es necesario porque las funciones Lambda son stateless — no pueden mantener referencias de conexión en memoria.
+- **Broadcasting**: para enviar un mensaje a todos los clientes, escanea la tabla de conexiones y llama `postToConnection` para cada `connectionId`.
+- **Consideraciones de escalado**: el escaneo de DynamoDB para broadcasting es aceptable para audiencias pequeñas.
 
 ## Variantes
 
@@ -232,8 +232,8 @@ class ReconnectingWebSocket {
 
 ## Lo que funciona
 
-- **Usa salas o canales**: en lugar de transmitir a todas las conexiones, agrúpalas por tema, sala o usuario. Consulta solo las conexiones relevantes para reducir costos de DynamoDB y latencia.
-- **Maneja conexiones obsoletas**: las conexiones pueden caer sin disparar `$disconnect`. Escanea y limpia conexiones periódicamente más antiguas que un umbral de heartbeat.
+- **Usa salas o canales**: en lugar de transmitir a todas las conexiones, agrúpalas por tema, sala o usuario.   Consulta solo las conexiones relevantes para reducir costos de DynamoDB y latencia.
+- **Maneja conexiones obsoletas**: las conexiones pueden caer sin disparar `$disconnect`.
 - **Habilita logging de CloudWatch**: registra `$connect`, `$disconnect` e invocaciones de rutas personalizadas para debugging y monitoreo de salud de conexiones.
 - **Asegura la conexión**: valida tokens de autenticación en la ruta `$connect` usando authorizers Lambda o lógica personalizada antes de permitir que el handshake WebSocket se complete.
 - **Implementa lógica de reconexión**: los clientes deberían reconectarse automáticamente con backoff exponencial si la conexión cae, resuscribiéndose a canales previos al reconectar.
@@ -242,13 +242,13 @@ class ReconnectingWebSocket {
 
 ## Errores comunes
 
-- **Almacenar estado de conexión en memoria Lambda**: las instancias Lambda son efímeras. Cualquier mapa de conexiones en memoria se pierde cuando el contenedor de la función se destruye. Siempre usa DynamoDB o Redis.
-- **Escanear DynamoDB para audiencias grandes**: un escaneo completo de tabla en miles de conexiones es lento y costoso. Usa GSIs o streams para transmisiones dirigidas.
-- **Olvidar manejar errores `postToConnection` 410**: cuando un cliente se desconecta abruptamente, `postToConnection` arroja un error 410. Fallar en capturarlo y limpiar filtra registros de conexión.
-- **No configurar `route_selection_expression` de API Gateway**: sin `$request.body.action`, las rutas personalizadas como `sendMessage` no se evaluarán y los mensajes retornarán 400.
-- **Sin mecanismo de heartbeat**: las conexiones inactivas se desconectan después de 10 minutos. Sin mensajes ping del lado del cliente, las conexiones caen silenciosamente y los usuarios dejan de recibir actualizaciones.
-- **Transmitir a todas las conexiones por cada mensaje**: no todos los mensajes necesitan llegar a todos los clientes. Usa routing basado en salas para enviar mensajes solo a las conexiones relevantes.
-- **Sin manejo de errores en Lambda para rutas desconocidas**: los mensajes con acciones que no coinciden con ninguna ruta retornan 400. Loggea acciones desconocidas para debugging y retorna un error significativo al cliente.
+- **Almacenar estado de conexión en memoria Lambda**: las instancias Lambda son efímeras.   Cualquier mapa de conexiones en memoria se pierde cuando el contenedor de la función se destruye.
+- **Escanear DynamoDB para audiencias grandes**: un escaneo completo de tabla en miles de conexiones es lento y costoso.
+- **Olvidar manejar errores `postToConnection` 410**: cuando un cliente se desconecta abruptamente, `postToConnection` arroja un error 410.
+- **No configurar `route_selection_expression` de API Gateway**: sin `$request.  body.  action`, las rutas personalizadas como `sendMessage` no se evaluarán y los mensajes retornarán 400.
+- **Sin mecanismo de heartbeat**: las conexiones inactivas se desconectan después de 10 minutos.   Sin mensajes ping del lado del cliente, las conexiones caen silenciosamente y los usuarios dejan de recibir actualizaciones.
+- **Transmitir a todas las conexiones por cada mensaje**: no todos los mensajes necesitan llegar a todos los clientes.
+- **Sin manejo de errores en Lambda para rutas desconocidas**: los mensajes con acciones que no coinciden con ninguna ruta retornan 400.
 
 
 
@@ -336,10 +336,10 @@ Usa `sam local start-api` con AWS SAM para emular API Gateway WebSockets localme
 ## Troubleshooting
 
 - **Cold start latency is high**: increase provisioned concurrency, reduce package size, and avoid initializing heavy clients per invocation.
-- **Function times out**: check downstream dependencies, memory allocation, and retry logic. Increase timeout only after optimizing the code.
-- **State lost between invocations**: serverless functions are stateless. Persist state in a database, cache, or durable queue.
-- **Deployment package too large**: exclude dev dependencies and unused assets. Use layers for shared libraries.
-- **Event ordering issues**: many event sources are at-least-once and unordered. Design for idempotency and explicit sequencing.
+- **Function times out**: check downstream dependencies, memory allocation, and retry logic.   Increase timeout only after optimizing the code.
+- **State lost between invocations**: serverless functions are stateless.   Persist state in a database, cache, or durable queue.
+- **Deployment package too large**: exclude dev dependencies and unused assets.
+- **Event ordering issues**: many event sources are at-least-once and unordered.   Design for idempotency and explicit sequencing.
 
 ## Errores Comunes en Producción
 

@@ -257,11 +257,11 @@ async def fetch_authenticated(urls: list[str], token: str) -> list[dict]:
 
 Conceptos clave:
 
-- **ClientSession**: El equivalente a `requests.Session`. Reusa conexiones TCP entre peticiones. Siempre usar una sola sesión para todas las peticiones en un workflow.
-- **asyncio.gather**: Ejecuta múltiples coroutines concurrentemente y retorna resultados en orden. Si una falla, todas fallan a menos que se use `return_exceptions=True`.
-- **Semaphore**: Limita operaciones concurrentes. Usar para evitar sobrecargar el servidor o hitting rate limits.
-- **as_completed**: Retorna resultados a medida que terminan, no en orden de envío. Útil para reporte de progreso.
-- **TCPConnector**: Controla connection pooling. `limit` establece el máximo de conexiones totales, `limit_per_host` establece el máximo por host.
+- **ClientSession**: El equivalente a `requests.  Session`.   Reusa conexiones TCP entre peticiones.   Siempre usar una sola sesión para todas las peticiones en un workflow.
+- **asyncio.gather**: Ejecuta múltiples coroutines concurrentemente y retorna resultados en orden.
+- **Semaphore**: Limita operaciones concurrentes.
+- **as_completed**: Retorna resultados a medida que terminan, no en orden de envío.
+- **TCPConnector**: Controla connection pooling.   `limit` establece el máximo de conexiones totales, `limit_per_host` establece el máximo por host.
 
 ## Variantes
 
@@ -337,10 +337,10 @@ Usar `aioresponses` para mockear peticiones aiohttp en tests. Escribir tests com
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.   Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 ## Errores Comunes en Producción

@@ -257,13 +257,13 @@ func generateSlug(text string) string {
 ## Errores Comunes
 
 - **Quitar acentos sin normalización NFKD**: `é` permanece como `é` en lugar de convertirse en `e`
-- **Permitir caracteres reservados de URL**: `#`, `%`, `?`, `&` tienen significado especial en URLs y deben removerse
+- **Permitir caracteres reservados de URL**: `#`, `%`, `?
 - **No limitar longitud del slug**: Slugs extremadamente largos dañan legibilidad y pueden exceder límites de columnas de base de datos
 - **Ignorar slugs duplicados**: Dos artículos con el mismo título colisionarán sin una estrategia de unicidad
 - **Traducir en lugar de transliterar**: Traducir "hello" al español no es lo mismo que hacerlo seguro para URLs
-- **No manejar slugs vacios**: si el input es completamente caracteres especiales, el slug queda vacio. Agrega un fallback como `untitled` o un ID aleatorio
+- **No manejar slugs vacios**: si el input es completamente caracteres especiales, el slug queda vacio.
 - **Usar underscores en lugar de guiones**: los underscores son validos en URLs pero Google trata los guiones como separadores de palabras, mejorando SEO
-- **No colapsar separadores consecutivos**: `hello---world` se ve roto. Siempre colapsa multiples guiones en uno solo
+- **No colapsar separadores consecutivos**: `hello---world` se ve roto.
 
 
 
@@ -333,11 +333,11 @@ Usa guiones. Google trata los guiones como separadores de palabras, lo que mejor
 
 ## Troubleshooting
 
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step. Compare a sample of outputs against source data.
-- **Data quality degrades over time**: add data validation checks and anomaly detection. Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention. Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution. Test producers and consumers in a staging environment first.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies. Archive cold data and set lifecycle policies.
+- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
+- **Data quality degrades over time**: add data validation checks and anomaly detection.   Define SLIs for freshness, completeness, and accuracy.
+- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.   Retry with idempotency and bounded backoff.
+- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
+- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.   Archive cold data and set lifecycle policies.
 
 ## Errores Comunes en Producción
 

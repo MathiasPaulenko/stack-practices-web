@@ -109,10 +109,10 @@ iterations.....................: 12000
 
 ## Explicación
 
-- **Virtual Users (VUs)**: Usuarios concurrentes simulados que hacen requests. 100 VUs no significan 100 requests por segundo — depende del think time (`sleep`) y la latencia de respuesta.
-- **Ramp-up**: Incrementar VUs gradualmente previene una avalancha repentina que distorsionaría los resultados. Un ramp de 2 minutos a 100 VUs es más realista que 100 VUs instantáneos.
-- **Thresholds**: Criterios de pass/fail definidos antes del test. Si la latencia p(95) excede 500ms, k6 sale con código no cero, fallando el build de CI.
-- **Escenarios**: Diferentes comportamientos de usuario modelados simultáneamente. Un test realista de e-commerce podría tener 80% de usuarios navegando, 15% agregando al carrito, y 5% haciendo checkout.
+- **Virtual Users (VUs)**: Usuarios concurrentes simulados que hacen requests.   100 VUs no significan 100 requests por segundo — depende del think time (`sleep`) y la latencia de respuesta.
+- **Ramp-up**: Incrementar VUs gradualmente previene una avalancha repentina que distorsionaría los resultados.   Un ramp de 2 minutos a 100 VUs es más realista que 100 VUs instantáneos.
+- **Thresholds**: Criterios de pass/fail definidos antes del test.   Si la latencia p(95) excede 500ms, k6 sale con código no cero, fallando el build de CI.
+- **Escenarios**: Diferentes comportamientos de usuario modelados simultáneamente.   Un test realista de e-commerce podría tener 80% de usuarios navegando, 15% agregando al carrito, y 5% haciendo checkout.
 
 ## Variantes
 
@@ -125,18 +125,18 @@ iterations.....................: 12000
 
 ## Lo que funciona
 
-- **Testea contra un entorno similar a producción**: testear localhost con CPU single-core da resultados sin sentido. Usa staging con hardware e idéntico volumen de datos.
-- **Calienta el sistema primero**: caches, pools de conexiones y compilación JIT necesitan tiempo para estabilizarse. Corre un warm-up de 5 minutos antes de medir.
+- **Testea contra un entorno similar a producción**: testear localhost con CPU single-core da resultados sin sentido.
+- **Calienta el sistema primero**: caches, pools de conexiones y compilación JIT necesitan tiempo para estabilizarse.
 - **Monitorea métricas server-side durante el test**: correlaciona picos de latencia de k6 con logs de queries lentas de base de datos, uso de CPU y presión de memoria.
-- **Usa distribuciones de datos realistas**: si el 1% de usuarios genera el 50% de carga (power users), modela eso. Las distribuciones uniformes raramente coinciden con la realidad.
+- **Usa distribuciones de datos realistas**: Las distribuciones uniformes raramente coinciden con la realidad.
 - **Testea endpoints idempotentes**: los writes no idempotentes (pagos, deducciones de inventario) requieren manejo especial para evitar corromper datos de producción.
 
 ## Errores comunes
 
-- **Testear desde una sola máquina**: tu generador de carga puede convertirse en el cuello de botella. Usa k6 cloud o JMeter distribuido cuando empujas miles de RPS.
-- **Ignorar latencia de red**: testear una API en el mismo datacenter subestima la latencia real del mundo. Agrega delay de red realista o testea desde regiones remotas.
-- **Correr tests cortos**: un test de 30 segundos te dice casi nada. Tests significativos corren por al menos 10 minutos para capturar ciclos de garbage collection y warmup de cache.
-- **No validar respuestas**: una respuesta de 200ms que devuelve una página de error no es un éxito. Siempre asserta status codes y contenido del body.
+- **Testear desde una sola máquina**: tu generador de carga puede convertirse en el cuello de botella.
+- **Ignorar latencia de red**: testear una API en el mismo datacenter subestima la latencia real del mundo.
+- **Correr tests cortos**: un test de 30 segundos te dice casi nada.   Tests significativos corren por al menos 10 minutos para capturar ciclos de garbage collection y warmup de cache.
+- **No validar respuestas**: una respuesta de 200ms que devuelve una página de error no es un éxito.   Siempre asserta status codes y contenido del body.
 
 
 
@@ -337,11 +337,11 @@ Cross-Origin Resource Sharing (CORS) añade preflight OPTIONS requests que incre
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.   Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.   Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.   Pin tool versions.
+- **Debugging a failing integration test**: Reset state before each test.
 
 ## Errores Comunes en Producción
 

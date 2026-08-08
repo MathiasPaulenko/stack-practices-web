@@ -184,7 +184,7 @@ El Patrón Command separa la invocación de la acción de su ejecución:
 - **Interfaz Command**: Declara `execute()` y opcionalmente `undo()`
 - **Command concreto** (`TurnOnCommand`): Vincula un receptor (`Light`) a una acción (`turnOn`)
 - **Receptor** (`Light`): El objeto que realiza el trabajo real
-- **Invocador**: Llama `execute()` en los commands (ej. un botón, scheduler o control remoto)
+- **Invocador**: Llama `execute()` en los commands (ej.
 
 Al encapsular peticiones como objetos, ganas la habilidad de encolar, loggear y revertir operaciones.
 

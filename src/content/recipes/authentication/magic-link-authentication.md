@@ -157,10 +157,10 @@ async function sendMagicLink(email, magicLink) {
 
 ## Explanation
 
-- **Token generation**: magic link tokens must be unpredictable. Use `secrets.token_urlsafe(32)` or a signed serializer like `itsdangerous` to generate tokens that are both random and integrity-protected.
-- **Single-use enforcement**: the core security property. Each token is marked `used = TRUE` immediately upon first validation. Any subsequent attempt with the same token fails, preventing replay attacks where an intercepted link is reused.
-- **Time limits**: tokens expire after 15 minutes by default. This limits the window of opportunity for an attacker who intercepts an email. Do not make tokens valid for hours or days.
-- **Email normalization**: normalize email addresses to lowercase and trim whitespace before storage and lookup. This prevents `User@Example.com` and `user@example.com` from being treated as different identities.
+- **Token generation**: magic link tokens must be unpredictable. token_urlsafe(32)` or a signed serializer like `itsdangerous` to generate tokens that are both random and integrity-protected.
+- **Single-use enforcement**: the core security property.  Each token is marked `used = TRUE` immediately upon first validation.  Any subsequent attempt with the same token fails, preventing replay attacks where an intercepted link is reused.
+- **Time limits**: tokens expire after 15 minutes by default.  This limits the window of opportunity for an attacker who intercepts an email.  Do not make tokens valid for hours or days.
+- **Email normalization**: normalize email addresses to lowercase and trim whitespace before storage and lookup.  This prevents `User@Example. com` and `user@example. com` from being treated as different identities.
 
 ## Variants
 
@@ -173,26 +173,26 @@ async function sendMagicLink(email, magicLink) {
 
 ## What Works
 
-- **Send from a dedicated subdomain**: use `auth@login.yourapp.com` or similar. This helps users recognize legitimate emails and allows you to implement DMARC, DKIM, and SPF policies specifically for authentication emails.
-- **Include plain text fallback**: always provide a plain-text version of the magic link alongside HTML. Some email clients disable HTML or render it poorly. The link must be clickable or copyable in text form.
-- **Invalidate on new request**: if a user requests a second magic link before using the first, invalidate the previous token. This prevents confusion from multiple valid links and limits the attack surface.
-- **Log suspicious patterns**: alert when multiple magic link requests target different emails from the same IP address, or when a single email receives dozens of requests in a short window. Both may indicate enumeration attacks.
-- **Combine with [device trust](/recipes/authentication/two-factor-authentication)**: for additional security, require email verification on new devices or browsers. Store a device fingerprint cookie after first successful login and prompt for re-verification on unrecognized devices.
+- **Send from a dedicated subdomain**: use `auth@login. yourapp. com` or similar.  This helps users recognize legitimate emails and allows you to implement DMARC, DKIM, and SPF policies specifically for authentication emails.
+- **Include plain text fallback**: always provide a plain-text version of the magic link alongside HTML.  Some email clients disable HTML or render it poorly.  The link must be clickable or copyable in text form.
+- **Invalidate on new request**: if a user requests a second magic link before using the first, invalidate the previous token.  This prevents confusion from multiple valid links and limits the attack surface.
+- **Log suspicious patterns**: alert when multiple magic link requests target different emails from the same IP address, or when a single email receives dozens of requests in a short window.  Both may indicate enumeration attacks.
+- **Combine with [device trust](/recipes/authentication/two-factor-authentication)**: for additional security, require email verification on new devices or browsers.
 
 ## Common mistakes
 
-- **Allowing token reuse**: a magic link that can be clicked twice is as dangerous as a reusable password. Always mark tokens as consumed on first use and reject subsequent attempts with the same hash.
-- **Sending tokens in URL parameters on HTTP**: magic links must use `https://` exclusively. A token sent over HTTP is exposed to network sniffers, DNS poisoning, and man-in-the-middle attacks.
-- **Not [rate-limiting](/recipes/api/rate-limiting) link requests**: without rate limiting, an attacker can flood a victim's inbox with thousands of login emails, constituting harassment and potentially masking a real attack. Limit to 3-5 requests per email per hour.
-- **Storing raw tokens in logs**: never log the full magic link URL. Log only the email address, timestamp, and a success/failure flag. If logs leak, raw tokens grant immediate access.
+- **Allowing token reuse**: a magic link that can be clicked twice is as dangerous as a reusable password.  Always mark tokens as consumed on first use and reject subsequent attempts with the same hash.
+- **Sending tokens in URL parameters on HTTP**: magic links must use `https://` exclusively.  A token sent over HTTP is exposed to network sniffers, DNS poisoning, and man-in-the-middle attacks.
+- **Not [rate-limiting](/recipes/api/rate-limiting) link requests**: without rate limiting, an attacker can flood a victim's inbox with thousands of login emails, constituting harassment and potentially masking a real attack.  Limit to 3-5 requests per email per hour.
+- **Storing raw tokens in logs**: never log the full magic link URL.  Log only the email address, timestamp, and a success/failure flag.  If logs leak, raw tokens grant immediate access.
 
 ## When Not to Use This Approach
 
-- **Internal tools with trusted users**: if your API is only used by your own team and runs on a private network, API keys may be sufficient. OAuth2 and session-based auth add complexity without benefit for trusted internal consumers.
-- **Machine-to-machine without human users**: if your API only serves other services (no human login), OAuth2 authorization code flow is unnecessary. Use client credentials grant or mutual TLS instead.
-- **Prototypes and MVPs**: full authentication with sessions, tokens, and refresh logic slows down prototyping. Use a simple API key for the MVP and add proper auth before production.
-- **Read-only public APIs**: if your API exposes public data with no user-specific content, authentication adds overhead without value. Consider rate limiting without auth for public endpoints.
-- **Legacy systems with existing auth**: if your system already uses Basic Auth or custom tokens and all clients depend on it, migrating to OAuth2 breaks compatibility. Plan a gradual migration with dual auth.
+- **Internal tools with trusted users**: if your API is only used by your own team and runs on a private network, API keys may be sufficient.  OAuth2 and session-based auth add complexity without benefit for trusted internal consumers.
+- **Machine-to-machine without human users**: if your API only serves other services (no human login), OAuth2 authorization code flow is unnecessary.
+- **Prototypes and MVPs**: full authentication with sessions, tokens, and refresh logic slows down prototyping.
+- **Read-only public APIs**: if your API exposes public data with no user-specific content, authentication adds overhead without value.  Consider rate limiting without auth for public endpoints.
+- **Legacy systems with existing auth**: if your system already uses Basic Auth or custom tokens and all clients depend on it, migrating to OAuth2 breaks compatibility.  Plan a gradual migration with dual auth.
 
 ## Performance Benchmarks
 
@@ -209,28 +209,28 @@ Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary 
 
 ## Testing Strategy
 
-- **Test authentication bypass**: verify that protected endpoints reject requests without auth headers. Test with missing, empty, and malformed auth tokens.
-- **Test token expiration**: verify that expired tokens are rejected. Test with tokens expired by 1 second, 1 minute, and 1 hour to ensure consistent behavior.
-- **Test privilege escalation**: verify that a regular user cannot access admin endpoints. Test with user tokens, admin tokens, and tampered tokens.
-- **Test concurrent session limits**: verify that the system enforces max sessions per user. Test opening N+1 sessions and verify the oldest is evicted.
-- **Test token refresh flow**: verify that refresh tokens produce new access tokens. Test with valid, expired, and revoked refresh tokens.
-- **Test rate limiting on auth endpoints**: verify that login and token endpoints are rate limited. Test with 100 requests in 1 second and verify 429 responses.
+- **Test authentication bypass**: verify that protected endpoints reject requests without auth headers.
+- **Test token expiration**: verify that expired tokens are rejected.
+- **Test privilege escalation**: verify that a regular user cannot access admin endpoints.
+- **Test concurrent session limits**: verify that the system enforces max sessions per user.
+- **Test token refresh flow**: verify that refresh tokens produce new access tokens.
+- **Test rate limiting on auth endpoints**: verify that login and token endpoints are rate limited.
 
 ## Cost Estimation
 
-- **Session storage**: Redis for session storage costs ~/month for a small instance. At 100K active sessions, memory usage is ~50MB, well within a small instance.
-- **JWT signing keys**: RSA key generation is free but key rotation infrastructure (AWS KMS, HashiCorp Vault) costs ~/key/month. Budget /month for 5 keys.
-- **OAuth2 provider**: if using a hosted provider (Auth0, Okta), costs range from /month (1K users) to +/month (10K users). Self-hosted Keycloak is free but requires ~/month in server costs.
-- **Password hashing**: bcrypt with cost factor 12 uses ~250ms CPU per hash. At 100 logins/second, this requires 25 CPU cores. Budget ~/month for compute during peak login traffic.
-- **Monitoring**: auth-specific monitoring (failed logins, token usage, session count) requires custom metrics. Budget -30/month for Datadog or Grafana Cloud.
+- **Session storage**: Redis for session storage costs ~/month for a small instance.  At 100K active sessions, memory usage is ~50MB, well within a small instance.
+- **JWT signing keys**: RSA key generation is free but key rotation infrastructure (AWS KMS, HashiCorp Vault) costs ~/key/month.  Budget /month for 5 keys.
+- **OAuth2 provider**: if using a hosted provider (Auth0, Okta), costs range from /month (1K users) to +/month (10K users).  Self-hosted Keycloak is free but requires ~/month in server costs.
+- **Password hashing**: bcrypt with cost factor 12 uses ~250ms CPU per hash.  At 100 logins/second, this requires 25 CPU cores.  Budget ~/month for compute during peak login traffic.
+- **Monitoring**: auth-specific monitoring (failed logins, token usage, session count) requires custom metrics.  Budget -30/month for Datadog or Grafana Cloud.
 
 ## Monitoring and Observability
 
-- **Track failed login rate**: monitor failed authentication attempts per IP and per user. Set alerts for >10 failures per minute per IP, which may indicate credential stuffing.
-- **Monitor active session count**: track the number of active sessions. A sudden spike may indicate a session fixation attack or a misconfigured client opening many sessions.
-- **Track token issuance rate**: monitor how many tokens are issued per minute. A spike may indicate a compromised client or a token leak.
-- **Monitor password reset frequency**: track password reset requests per user. Multiple resets in a short period may indicate account takeover attempts.
-- **Track MFA enrollment rate**: monitor how many users have MFA enabled. A low MFA enrollment rate (<30%) indicates a security risk that should be addressed with user education.
+- **Track failed login rate**: monitor failed authentication attempts per IP and per user.  Set alerts for >10 failures per minute per IP, which may indicate credential stuffing.
+- **Monitor active session count**: track the number of active sessions.  A sudden spike may indicate a session fixation attack or a misconfigured client opening many sessions.
+- **Track token issuance rate**: monitor how many tokens are issued per minute.  A spike may indicate a compromised client or a token leak.
+- **Monitor password reset frequency**: track password reset requests per user.  Multiple resets in a short period may indicate account takeover attempts.
+- **Track MFA enrollment rate**: monitor how many users have MFA enabled.  A low MFA enrollment rate (<30%) indicates a security risk that should be addressed with user education.
 
 ## Deployment Checklist
 
@@ -247,44 +247,44 @@ Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary 
 
 ## Security Considerations
 
-- **Timing attacks on login**: if login responses for valid vs invalid usernames take different time, attackers can enumerate users. Use constant-time comparisons and return the same error for both cases.
-- **Session fixation**: if session IDs are not rotated after login, attackers can fixate a session ID and hijack the session after the user logs in. Always regenerate session IDs after successful login.
-- **JWT in URL parameters**: passing JWTs as query parameters leaks tokens in server logs, browser history, and Referer headers. Use Authorization headers or HttpOnly cookies instead.
-- **Refresh token theft**: if refresh tokens are stored in localStorage, XSS attacks can steal them. Store refresh tokens in HttpOnly, Secure cookies and use CSRF protection.
-- **Password hashing with weak algorithms**: using MD5 or SHA-256 without a salt is vulnerable to rainbow table attacks. Always use bcrypt, scrypt, or Argon2 with a unique salt per password.
-- **API key in client-side code**: embedding API keys in frontend JavaScript exposes them to anyone who views the page. Use server-side proxy endpoints for API calls that require keys.
-- **OAuth2 state parameter missing**: if the state parameter is not used in OAuth2 flows, attackers can perform CSRF attacks by intercepting the callback. Always use a random state parameter and validate it.
-- **Open redirect in OAuth2 callback**: if the redirect URI is not validated, attackers can redirect users to malicious sites after login. Validate redirect URIs against an allowlist.
-- **Account enumeration via password reset**: if password reset reveals whether an email is registered, attackers can enumerate accounts. Always show the same success message regardless of whether the email exists.
-- **Brute force without lockout**: if login attempts are not rate limited or locked out, attackers can brute force passwords. Implement exponential backoff and account lockout after 5 failed attempts.
-- **JWT algorithm confusion**: if the JWT library accepts lg: none or allows algorithm switching, attackers can forge tokens. Pin the expected algorithm (RS256 or HS256) in the verification config.
-- **Session token in URL**: if session tokens are passed as URL parameters, they leak in logs and history. Use cookies with HttpOnly and Secure flags instead.
-- **Insecure deserialization of session data**: if session data is serialized with JSON.parse without validation, attackers can inject unexpected types. Validate session data schema after deserialization.
-- **CSRF on state-changing endpoints**: if cookies are used for auth and CSRF tokens are not validated, attackers can forge requests. Require CSRF tokens for all state-changing operations.
+- **Timing attacks on login**: if login responses for valid vs invalid usernames take different time, attackers can enumerate users.
+- **Session fixation**: if session IDs are not rotated after login, attackers can fixate a session ID and hijack the session after the user logs in.  Always regenerate session IDs after successful login.
+- **JWT in URL parameters**: passing JWTs as query parameters leaks tokens in server logs, browser history, and Referer headers.
+- **Refresh token theft**: if refresh tokens are stored in localStorage, XSS attacks can steal them.
+- **Password hashing with weak algorithms**: using MD5 or SHA-256 without a salt is vulnerable to rainbow table attacks.  Always use bcrypt, scrypt, or Argon2 with a unique salt per password.
+- **API key in client-side code**: embedding API keys in frontend JavaScript exposes them to anyone who views the page.
+- **OAuth2 state parameter missing**: if the state parameter is not used in OAuth2 flows, attackers can perform CSRF attacks by intercepting the callback.  Always use a random state parameter and validate it.
+- **Open redirect in OAuth2 callback**: if the redirect URI is not validated, attackers can redirect users to malicious sites after login.  Validate redirect URIs against an allowlist.
+- **Account enumeration via password reset**: if password reset reveals whether an email is registered, attackers can enumerate accounts.  Always show the same success message regardless of whether the email exists.
+- **Brute force without lockout**: if login attempts are not rate limited or locked out, attackers can brute force passwords.
+- **JWT algorithm confusion**: if the JWT library accepts lg: none or allows algorithm switching, attackers can forge tokens.  Pin the expected algorithm (RS256 or HS256) in the verification config.
+- **Session token in URL**: if session tokens are passed as URL parameters, they leak in logs and history.
+- **Insecure deserialization of session data**: if session data is serialized with JSON. parse without validation, attackers can inject unexpected types.  Validate session data schema after deserialization.
+- **CSRF on state-changing endpoints**: if cookies are used for auth and CSRF tokens are not validated, attackers can forge requests.  Require CSRF tokens for all state-changing operations.
 - **Privilege escalation via mass assignment**: if user input is directly assigned to user objects, attackers can set ole: admin. Use allowlists for updatable fields.
-- **Password reset token reuse**: if password reset tokens are not invalidated after use, attackers can reuse them. Delete reset tokens after a successful password change.
-- **MFA bypass via replay**: if MFA codes are not single-use, attackers who intercept a code can reuse it. Mark MFA codes as used immediately after verification.
-- **OAuth2 scope escalation**: if OAuth2 scopes are not validated on each request, attackers can use tokens with fewer scopes to access higher-scope endpoints. Validate scopes per endpoint.
-- **Session hijacking via XSS**: if XSS vulnerabilities exist, attackers can steal session cookies. Use Content Security Policy and HttpOnly cookies to mitigate.
-- **Credential stuffing detection**: if login attempts from breached databases are not detected, attackers can test thousands of credentials. Implement IP-based rate limiting and credential breach checking.
-- **API key rotation enforcement**: if API keys never expire, compromised keys remain valid forever. Enforce key rotation every 90 days and alert users with expiring keys.
-- **Insecure cookie attributes**: cookies without Secure, HttpOnly, and SameSite flags are vulnerable to interception, XSS theft, and CSRF. Always set all three attributes on auth cookies.
-- **Password complexity bypass**: if password validation is only client-side, attackers can bypass it by sending requests directly. Validate password complexity on the server.
-- **Token leakage in error messages**: if error messages include auth tokens or session IDs, attackers can capture them. Never include sensitive data in error responses.
-- **Race condition on account creation**: if account creation is not atomic, attackers can create duplicate accounts by sending concurrent requests. Use database unique constraints and transactions.
-- **Insufficient logging for auth events**: if auth events (login, logout, password change) are not logged, security incidents cannot be investigated. Log all auth events with user ID, IP, and timestamp.
-- **Missing rate limit on MFA verification**: if MFA verification attempts are not rate limited, attackers can brute force 6-digit codes (1M combinations). Rate limit to 5 attempts per 5 minutes.
-- **Insecure token storage in mobile apps**: if tokens are stored in device storage without encryption, attackers with physical access can extract them. Use platform secure storage (Keychain, Keystore).
-- **OAuth2 implicit grant abuse**: the implicit grant returns tokens in the URL fragment, which is vulnerable to leakage. Use authorization code grant with PKCE instead.
-- **Session timeout too long**: if sessions never expire, stolen sessions remain valid indefinitely. Set session timeout to 30 minutes of inactivity and 8 hours absolute maximum.
+- **Password reset token reuse**: if password reset tokens are not invalidated after use, attackers can reuse them.
+- **MFA bypass via replay**: if MFA codes are not single-use, attackers who intercept a code can reuse it.  Mark MFA codes as used immediately after verification.
+- **OAuth2 scope escalation**: if OAuth2 scopes are not validated on each request, attackers can use tokens with fewer scopes to access higher-scope endpoints.  Validate scopes per endpoint.
+- **Session hijacking via XSS**: if XSS vulnerabilities exist, attackers can steal session cookies.
+- **Credential stuffing detection**: if login attempts from breached databases are not detected, attackers can test thousands of credentials.
+- **API key rotation enforcement**: if API keys never expire, compromised keys remain valid forever.  Enforce key rotation every 90 days and alert users with expiring keys.
+- **Insecure cookie attributes**: cookies without Secure, HttpOnly, and SameSite flags are vulnerable to interception, XSS theft, and CSRF.  Always set all three attributes on auth cookies.
+- **Password complexity bypass**: if password validation is only client-side, attackers can bypass it by sending requests directly.  Validate password complexity on the server.
+- **Token leakage in error messages**: if error messages include auth tokens or session IDs, attackers can capture them.  Never include sensitive data in error responses.
+- **Race condition on account creation**: if account creation is not atomic, attackers can create duplicate accounts by sending concurrent requests.
+- **Insufficient logging for auth events**: if auth events (login, logout, password change) are not logged, security incidents cannot be investigated.  Log all auth events with user ID, IP, and timestamp.
+- **Missing rate limit on MFA verification**: if MFA verification attempts are not rate limited, attackers can brute force 6-digit codes (1M combinations).  Rate limit to 5 attempts per 5 minutes.
+- **Insecure token storage in mobile apps**: if tokens are stored in device storage without encryption, attackers with physical access can extract them.
+- **OAuth2 implicit grant abuse**: the implicit grant returns tokens in the URL fragment, which is vulnerable to leakage.
+- **Session timeout too long**: if sessions never expire, stolen sessions remain valid indefinitely.  Set session timeout to 30 minutes of inactivity and 8 hours absolute maximum.
 
 
 ## Troubleshooting
 
-- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings. Look for case sensitivity in identifiers.
-- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew. Short tokens with secure refresh are preferred.
-- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly. Test in the target browser.
-- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA. Monitor failed authentication patterns.
+- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings.  Look for case sensitivity in identifiers.
+- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew.  Short tokens with secure refresh are preferred.
+- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly.
+- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA.
 - **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
 
 

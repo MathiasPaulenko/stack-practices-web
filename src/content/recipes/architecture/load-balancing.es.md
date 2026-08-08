@@ -159,10 +159,10 @@ user_server = ring.get_node("user-123")
 
 ## Explicación
 
-- **Round-robin**: distribuye requests secuencialmente entre todos los backends saludables. El servidor 1 recibe el request 1, el servidor 2 el request 2, y así sucesivamente. Es simple, equitativo y stateless. Mejor cuando todos los servidores tienen capacidad igual y los requests son uniformes.
-- **Least connections**: envía cada request al servidor con menos conexiones activas. Esto considera variabilidad de duración de requests — un servidor manejando dos uploads de larga duración debería recibir menos nuevos requests que un servidor inactivo. Mejor para cargas de trabajo mixtas.
-- **Algoritmos weighted**: asigna pesos a servidores basado en capacidad. Un servidor con 32GB RAM recibe peso 4; uno con 8GB recibe peso 1. Weighted round-robin y weighted least-connections distribuyen proporcionalmente.
-- **Consistent hashing**: hashea un atributo de request (user ID, session ID, URL) y lo mapea a un servidor. Agregar o remover servidores solo afecta una pequeña fracción de mapeos. Ideal para caching — el mismo usuario siempre golpea el mismo servidor de cache, maximizando hit rates.
+- **Round-robin**: distribuye requests secuencialmente entre todos los backends saludables.   El servidor 1 recibe el request 1, el servidor 2 el request 2, y así sucesivamente.   Es simple, equitativo y stateless.   Mejor cuando todos los servidores tienen capacidad igual y los requests son uniformes.
+- **Least connections**: envía cada request al servidor con menos conexiones activas.   Esto considera variabilidad de duración de requests — un servidor manejando dos uploads de larga duración debería recibir menos nuevos requests que un servidor inactivo.   Mejor para cargas de trabajo mixtas.
+- **Algoritmos weighted**: asigna pesos a servidores basado en capacidad.   Un servidor con 32GB RAM recibe peso 4; uno con 8GB recibe peso 1.   Weighted round-robin y weighted least-connections distribuyen proporcionalmente.
+- **Consistent hashing**: hashea un atributo de request (user ID, session ID, URL) y lo mapea a un servidor.   Ideal para caching — el mismo usuario siempre golpea el mismo servidor de cache, maximizando hit rates.
 
 ## Variantes
 
@@ -176,18 +176,18 @@ user_server = ring.get_node("user-123")
 
 ## Lo que funciona
 
-- **Implementa health checks activos**: el monitoreo pasivo (detectar fallos de conexión) es demasiado lento. Configura health checks HTTP que golpean `/health` cada 5 segundos. Un servidor retornando 500s debería ser removido de rotación antes de degradar la experiencia de usuario.
-- **Usa [connection pooling](/recipes/performance/connection-pooling)**: crear una nueva conexión TCP para cada request agrega latencia y overhead de CPU. Configura conexiones `keepalive` entre el load balancer y los backends para que las conexiones se reutilicen entre requests.
-- **Termina SSL en el load balancer**: maneja el handshake TLS en el edge, reenviando HTTP plano a backends dentro de una red segura. Esto reduce gestión de certificados y carga de CPU en servidores de aplicación.
-- **Expone IPs reales de clientes**: los backends detrás de un load balancer ven la IP del balancer, no la del cliente. Reenvía headers `X-Forwarded-For` y `X-Real-IP`. Asegura que los backends solo confíen en la IP del load balancer para prevenir spoofing de IP.
-- **Planifica para persistencia de sesión**: si tu aplicación almacena estado de sesión en memoria, usa sesiones pegajosas (basadas en cookies o hash de IP) para que usuarios golpeen consistentemente el mismo backend. Mejor aún, almacena sesiones en [Redis](/recipes/api/real-time-notifications) y haz todos los requests stateless.
+- **Implementa health checks activos**: el monitoreo pasivo (detectar fallos de conexión) es demasiado lento.   Un servidor retornando 500s debería ser removido de rotación antes de degradar la experiencia de usuario.
+- **Usa [connection pooling](/recipes/performance/connection-pooling)**: crear una nueva conexión TCP para cada request agrega latencia y overhead de CPU.
+- **Termina SSL en el load balancer**: Esto reduce gestión de certificados y carga de CPU en servidores de aplicación.
+- **Expone IPs reales de clientes**: los backends detrás de un load balancer ven la IP del balancer, no la del cliente.   Reenvía headers `X-Forwarded-For` y `X-Real-IP`.
+- **Planifica para persistencia de sesión**: si tu aplicación almacena estado de sesión en memoria, usa sesiones pegajosas (basadas en cookies o hash de IP) para que usuarios golpeen consistentemente el mismo backend.
 
 ## Errores comunes
 
-- **Sin health checks con round-robin**: un servidor fallido aún recibe 1/N del tráfico, causando errores visibles para usuarios. Siempre combina load balancing con health checks activos que remuevan nodos no saludables.
-- **Ignorar el thundering herd**: cuando un servidor fallido se recupera, enviarle tráfico completo inmediatamente puede abrumarlo. Usa slow-start — incrementa gradualmente el peso de servidores recuperándose durante 30-60 segundos.
-- **IP hash para usuarios mobile**: los clientes mobile cambian direcciones IP frecuentemente (cambiando entre WiFi y celular). IP hash causa pérdida de sesión. Usa stickiness basado en cookies en su lugar.
-- **Olvidar la capacidad del load balancer**: el load balancer mismo puede convertirse en cuello de botella. Monitorea su CPU, conexiones y throughput. Escala horizontalmente con DNS round-robin o Anycast cuando un solo balancer es insuficiente.
+- **Sin health checks con round-robin**: un servidor fallido aún recibe 1/N del tráfico, causando errores visibles para usuarios.   Siempre combina load balancing con health checks activos que remuevan nodos no saludables.
+- **Ignorar el thundering herd**: cuando un servidor fallido se recupera, enviarle tráfico completo inmediatamente puede abrumarlo.
+- **IP hash para usuarios mobile**: los clientes mobile cambian direcciones IP frecuentemente (cambiando entre WiFi y celular).   IP hash causa pérdida de sesión.
+- **Olvidar la capacidad del load balancer**: el load balancer mismo puede convertirse en cuello de botella.   Escala horizontalmente con DNS round-robin o Anycast cuando un solo balancer es insuficiente.
 
 ## Preguntas frecuentes
 

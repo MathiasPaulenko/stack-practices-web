@@ -110,10 +110,10 @@ iterations.....................: 12000
 
 ## Explanation
 
-- **Virtual Users (VUs)**: Simulated concurrent users making requests. 100 VUs does not mean 100 requests per second — it depends on think time (`sleep`) and response latency.
-- **Ramp-up**: Gradually increasing VUs prevents a sudden thundering herd that would distort results. A 2-minute ramp to 100 VUs is more realistic than instant 100 VUs.
-- **Thresholds**: Pass/fail criteria defined before the test. If p(95) latency exceeds 500ms, k6 exits with a non-zero code, failing the CI build.
-- **Scenarios**: Different user behaviors modeled simultaneously. A realistic e-commerce test might have 80% browsing users, 15% adding to cart, and 5% checking out.
+- **Virtual Users (VUs)**: Simulated concurrent users making requests.  100 VUs does not mean 100 requests per second — it depends on think time (`sleep`) and response latency.
+- **Ramp-up**: Gradually increasing VUs prevents a sudden thundering herd that would distort results.  A 2-minute ramp to 100 VUs is more realistic than instant 100 VUs.
+- **Thresholds**: Pass/fail criteria defined before the test.  If p(95) latency exceeds 500ms, k6 exits with a non-zero code, failing the CI build.
+- **Scenarios**: Different user behaviors modeled simultaneously.  A realistic e-commerce test might have 80% browsing users, 15% adding to cart, and 5% checking out.
 
 ## Variants
 
@@ -126,27 +126,27 @@ iterations.....................: 12000
 
 ## What Works
 
-- **Test against a production-like environment**: testing localhost with a single-core CPU gives meaningless results. Use staging with identical hardware and data volume.
-- **Warm up the system first**: caches, connection pools, and JIT compilation need time to stabilize. Run a 5-minute warm-up before measuring.
+- **Test against a production-like environment**: testing localhost with a single-core CPU gives meaningless results.
+- **Warm up the system first**: caches, connection pools, and JIT compilation need time to stabilize.  Run a 5-minute warm-up before measuring.
 - **Monitor server-side metrics during the test**: correlate k6 latency spikes with database slow query logs, CPU usage, and memory pressure.
-- **Use realistic data distributions**: if 1% of users generate 50% of load (power users), model that. Uniform random distributions rarely match reality.
+- **Use realistic data distributions**: if 1% of users generate 50% of load (power users), model that.  Uniform random distributions rarely match reality.
 - **Test idempotent endpoints**: non-idempotent writes (payments, inventory deductions) require special handling to avoid corrupting production data.
 
 ## Common Mistakes
 
-- **Testing from a single machine**: your load generator can become the bottleneck. Use k6 cloud or distributed JMeter when pushing thousands of RPS.
-- **Ignoring network latency**: testing an API on the same datacenter underestimates real-world latency. Add realistic network delay or test from remote regions.
-- **Running short tests**: a 30-second test tells you almost nothing. Meaningful tests run for at least 10 minutes to capture garbage collection cycles and cache warmup.
-- **Not validating responses**: a 200ms response that returns an error page is not a success. Always assert status codes and response body content.
+- **Testing from a single machine**: your load generator can become the bottleneck.
+- **Ignoring network latency**: testing an API on the same datacenter underestimates real-world latency.  Add realistic network delay or test from remote regions.
+- **Running short tests**: a 30-second test tells you almost nothing.  Meaningful tests run for at least 10 minutes to capture garbage collection cycles and cache warmup.
+- **Not validating responses**: a 200ms response that returns an error page is not a success.  Always assert status codes and response body content.
 
 
 ## Troubleshooting
 
-- **Flaky tests**: isolate shared state, time, and randomness. Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness. Add mutation testing, property-based tests, or contract tests.
+- **Flaky tests**: isolate shared state, time, and randomness.  Make tests independent and deterministic; quarantine persistently flaky tests.
+- **High coverage but bugs in production**: coverage does not guarantee correctness.  Add mutation testing, property-based tests, or contract tests.
 - **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions. Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database. Reset state before each test.
+- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.  Pin tool versions.
+- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database.  Reset state before each test.
 
 
 

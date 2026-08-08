@@ -188,9 +188,9 @@ result = processor.charge(99.99, "USD")
 
 ## Explicación
 
-- **Factory method**: un método en una clase que las subclasses overridean para instanciar objetos. La clase base define el algoritmo (`notifyUser`); la subclass decide qué notifier concreto crear. La clase base depende de la interfaz `Notifier`, no de `EmailNotifier` o `SmsNotifier`.
-- **Abstract factory**: una familia de factories relacionadas. `WindowsUIFactory` crea un `WindowsButton` y `WindowsCheckbox` que comparten un tema visual. Cambiar temas significa cambiar factories, no instanciaciones individuales de objetos. Esto asegura consistencia entre productos relacionados.
-- **Simple factory**: una sola función o clase que crea objetos basado en un parámetro. No es un patrón GoF pero se usa comúnmente en la práctica. Centraliza lógica de creación pero no invierte la dependencia tan fuertemente como factory method o abstract factory.
+- **Factory method**: un método en una clase que las subclasses overridean para instanciar objetos.   La clase base define el algoritmo (`notifyUser`); la subclass decide qué notifier concreto crear.   La clase base depende de la interfaz `Notifier`, no de `EmailNotifier` o `SmsNotifier`.
+- **Abstract factory**: una familia de factories relacionadas.   `WindowsUIFactory` crea un `WindowsButton` y `WindowsCheckbox` que comparten un tema visual.   Cambiar temas significa cambiar factories, no instanciaciones individuales de objetos.
+- **Simple factory**: una sola función o clase que crea objetos basado en un parámetro.   Centraliza lógica de creación pero no invierte la dependencia tan fuertemente como factory method o abstract factory.
 
 ## Variantes
 
@@ -204,17 +204,17 @@ result = processor.charge(99.99, "USD")
 
 ## Lo que funciona
 
-- **Retorna abstracciones, no concreciones**: un factory method debería retornar `Notifier`, no `EmailNotifier`. Esto permite a los llamadores tratar todos los productos uniformemente y habilita sustitución. Si el tipo de retorno es concreto, la factory no provee desacoplamiento.
-- **Mantén las factories stateless**: una factory no debería mantener estado de aplicación. Crea y retorna objetos — nada más. Las factories con estado son difíciles de testear y oscurecen lifetimes de objetos. Pasa configuración como parámetros.
-- **Usa DI containers para grafos complejos**: cuando un servicio requiere un repository, que requiere un connection pool, que requiere un config loader, el wiring manual de factory se vuelve tedioso. Usa un DI container para declarativamente bind interfaces a implementaciones y resolver dependencias transitivas.
-- **No sobre-uses para objetos triviales**: una factory para un objeto `Date` o un `Point` con dos coordenadas es sobre-ingeniería. Usa `new` para simples value objects. Reserva factories para objetos con dependencias, configuración o polimorfismo en runtime.
+- **Retorna abstracciones, no concreciones**: un factory method debería retornar `Notifier`, no `EmailNotifier`.   Esto permite a los llamadores tratar todos los productos uniformemente y habilita sustitución.   Si el tipo de retorno es concreto, la factory no provee desacoplamiento.
+- **Mantén las factories stateless**: una factory no debería mantener estado de aplicación.   Crea y retorna objetos — nada más.   Las factories con estado son difíciles de testear y oscurecen lifetimes de objetos.   Pasa configuración como parámetros.
+- **Usa DI containers para grafos complejos**: cuando un servicio requiere un repository, que requiere un connection pool, que requiere un config loader, el wiring manual de factory se vuelve tedioso.
+- **No sobre-uses para objetos triviales**: una factory para un objeto `Date` o un `Point` con dos coordenadas es sobre-ingeniería.   Reserva factories para objetos con dependencias, configuración o polimorfismo en runtime.
 
 ## Errores comunes
 
-- **God factory**: una sola factory que crea cada objeto en la aplicación. Crece a cientos de líneas y viola el principio de responsabilidad única. Separa factories por dominio o capa — `NotificationFactory`, `PaymentFactory`, `RepositoryFactory`.
-- **Factory que hace lógica de negocio**: una factory debería crear objetos, no validar reglas de negocio, trigger side effects u orquestar workflows. Si tu factory chequea si el usuario tiene permiso antes de crear un notifier, esa lógica pertenece a un service, no a la factory.
-- **Ignorar lifecycle de disposición**: las factories crean objetos pero frecuentemente no manejan su destrucción. Si la factory mantiene referencias a objetos creados, se convierte en memory leak. Usa scopes de dependencia (singleton, request, transient) y asegura cleanup al shutdown.
-- **Hardcodear configuración en factories**: `new DatabaseConnection("postgres://localhost")` embebe config en código. Inyecta configuración en la factory para que el mismo código de factory funcione en development, staging y production sin modificación.
+- **God factory**: una sola factory que crea cada objeto en la aplicación.   Crece a cientos de líneas y viola el principio de responsabilidad única.   Separa factories por dominio o capa — `NotificationFactory`, `PaymentFactory`, `RepositoryFactory`.
+- **Factory que hace lógica de negocio**: una factory debería crear objetos, no validar reglas de negocio, trigger side effects u orquestar workflows.
+- **Ignorar lifecycle de disposición**: las factories crean objetos pero frecuentemente no manejan su destrucción.   Si la factory mantiene referencias a objetos creados, se convierte en memory leak.
+- **Hardcodear configuración en factories**: `new DatabaseConnection("postgres://localhost")` embebe config en código.   Inyecta configuración en la factory para que el mismo código de factory funcione en development, staging y production sin modificación.
 
 ## Preguntas frecuentes
 

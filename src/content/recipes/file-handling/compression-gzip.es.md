@@ -130,10 +130,10 @@ brotli_types text/plain text/css application/javascript application/json image/s
 
 ## Explicación
 
-- **Gzip (DEFLATE)**: el estándar de compresión universal soportado por cada navegador y cliente HTTP desde 1998. Usa LZ77 y codificación Huffman para eliminar redundancia. El nivel de compresión 6 provee el mejor balance entre costo de CPU y reducción de tamaño.
-- **Brotli**: desarrollado por Google, Brotli logra 15-25% mejor compresión que Gzip para assets de texto. Usa un diccionario predefinido de términos web comunes (tags HTML, propiedades CSS, keywords JavaScript) para mejorar ratios. Soportado en todos los navegadores modernos.
-- **Compresión streaming**: en lugar de cargar un archivo completo en memoria, el streaming lee chunks desde disco, los comprime y escribe al output. Esto maneja archivos multi-gigabyte sin agotar la RAM.
-- **Negociación de contenido**: los navegadores envían `Accept-Encoding: gzip, deflate, br` para indicar algoritmos soportados. Los servidores responden con `Content-Encoding: br` y el payload comprimido. Si el cliente no soporta compresión, el servidor retorna datos sin comprimir.
+- **Gzip (DEFLATE)**: el estándar de compresión universal soportado por cada navegador y cliente HTTP desde 1998.   El nivel de compresión 6 provee el mejor balance entre costo de CPU y reducción de tamaño.
+- **Brotli**: desarrollado por Google, Brotli logra 15-25% mejor compresión que Gzip para assets de texto.   Soportado en todos los navegadores modernos.
+- **Compresión streaming**: en lugar de cargar un archivo completo en memoria, el streaming lee chunks desde disco, los comprime y escribe al output.
+- **Negociación de contenido**: los navegadores envían `Accept-Encoding: gzip, deflate, br` para indicar algoritmos soportados.   Los servidores responden con `Content-Encoding: br` y el payload comprimido.   Si el cliente no soporta compresión, el servidor retorna datos sin comprimir.
 
 ## Variantes
 
@@ -146,18 +146,18 @@ brotli_types text/plain text/css application/javascript application/json image/s
 
 ## Lo que funciona
 
-- **Pre-comprime assets estáticos durante build**: en lugar de comprimir en cada request, ejecuta `brotli -q 11` y `gzip -k` durante tu pipeline CI/CD. Almacena variantes `.br` y `.gz` junto a los originales. Nginx puede servirlos directamente con `brotli_static on`.
-- **No compres formatos ya comprimidos**: imágenes (JPEG, PNG, WebP), videos (MP4) y archivos (ZIP) ya están comprimidos. Ejecutar Gzip sobre ellos desperdicia CPU y puede aumentar el tamaño del archivo. Salta compresión para estos MIME types.
-- **Usa filtros de threshold**: comprimir una response JSON de 200 bytes agrega más overhead (headers, framing) de lo que ahorra. Establece un tamaño mínimo de 1KB y solo comprime `text/*`, `application/json` e `image/svg+xml`.
-- **Habilita `Vary: Accept-Encoding`**: los caches y CDNs deben almacenar variantes separadas para responses comprimidas y sin comprimir. El header `Vary` indica a intermediarios que usen el header `Accept-Encoding` como clave de cache, previniendo servir gzip a clientes que no pueden descomprimir.
-- **Monitorea overhead de CPU**: la compresión es intensiva en CPU. En APIs de alto tráfico, la pre-compresión o appliances de compresión dedicados (CDNs) descargan trabajo de los servidores de aplicación. Profilea tu aplicación para asegurar que la compresión no sature el manejo de requests.
+- **Pre-comprime assets estáticos durante build**: en lugar de comprimir en cada request, ejecuta `brotli -q 11` y `gzip -k` durante tu pipeline CI/CD.  br` y `.  gz` junto a los originales.   Nginx puede servirlos directamente con `brotli_static on`.
+- **No compres formatos ya comprimidos**: imágenes (JPEG, PNG, WebP), videos (MP4) y archivos (ZIP) ya están comprimidos.   Ejecutar Gzip sobre ellos desperdicia CPU y puede aumentar el tamaño del archivo.   Salta compresión para estos MIME types.
+- **Usa filtros de threshold**: comprimir una response JSON de 200 bytes agrega más overhead (headers, framing) de lo que ahorra.   Establece un tamaño mínimo de 1KB y solo comprime `text/*`, `application/json` e `image/svg+xml`.
+- **Habilita `Vary: Accept-Encoding`**: El header `Vary` indica a intermediarios que usen el header `Accept-Encoding` como clave de cache, previniendo servir gzip a clientes que no pueden descomprimir.
+- **Monitorea overhead de CPU**: la compresión es intensiva en CPU.   En APIs de alto tráfico, la pre-compresión o appliances de compresión dedicados (CDNs) descargan trabajo de los servidores de aplicación.
 
 ## Errores comunes
 
-- **Doble compresión**: aplicar Gzip a una response que ya está comprimida con Brotli, o viceversa, corrompe los datos. Asegúrate de que tu stack de middleware no aplique múltiples capas de compresión.
-- **Comprimir en cada request**: la compresión en vivo para assets estáticos es desperdiciadora. Pre-comprime una vez al momento de build y sirve el archivo pre-comprimido directamente. La compresión en vivo debería aplicarse solo a responses genuinamente en vivo.
-- **Olvidar descomprimir en el cliente**: los clientes de API deben descomprimir responses explícitamente o usar bibliotecas que manejen `Content-Encoding` transparentemente. Bytes crudos de Gzip pasados a un parser JSON lanzarán errores de sintaxis.
-- **Ignorar límites de memoria**: descomprimir input no confiable de usuario puede desencadenar ataques de zip bomb (un archivo comprimido pequeño que expande a terabytes). Limita tamaños de buffer de descompresión y usa APIs de streaming que procesen chunks incrementalmente.
+- **Doble compresión**: aplicar Gzip a una response que ya está comprimida con Brotli, o viceversa, corrompe los datos.   Asegúrate de que tu stack de middleware no aplique múltiples capas de compresión.
+- **Comprimir en cada request**: la compresión en vivo para assets estáticos es desperdiciadora.   Pre-comprime una vez al momento de build y sirve el archivo pre-comprimido directamente.   La compresión en vivo debería aplicarse solo a responses genuinamente en vivo.
+- **Olvidar descomprimir en el cliente**: los clientes de API deben descomprimir responses explícitamente o usar bibliotecas que manejen `Content-Encoding` transparentemente.   Bytes crudos de Gzip pasados a un parser JSON lanzarán errores de sintaxis.
+- **Ignorar límites de memoria**: descomprimir input no confiable de usuario puede desencadenar ataques de zip bomb (un archivo comprimido pequeño que expande a terabytes).
 
 ## Preguntas frecuentes
 

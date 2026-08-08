@@ -192,10 +192,10 @@ int main() {
 
 ## Explanation
 
-- **Mutex**: ensures mutual exclusion â€” only one thread holds the lock at a time. Other threads block until the lock is released. Simple and useful, but can become a bottleneck if the critical section is large or frequently accessed.
-- **Read-write lock**: allows multiple concurrent readers but only one writer. Ideal for read-heavy workloads where writes are rare. A reader does not block other readers, but a writer blocks everyone. Downgrading from write to read is supported in some implementations.
-- **Semaphore**: a generalized lock with a counter. A mutex is a semaphore with count 1. A pool semaphore with count 10 allows 10 threads to enter simultaneously. Useful for [resource pools](/recipes/performance/connection-pooling), throttling, and backpressure.
-- **Atomic operations**: lock-free updates using CPU instructions like `CAS` (compare-and-swap). Faster than locks for simple operations but limited in scope. Use for counters and flags. Complex updates still require locks.
+- **Mutex**: ensures mutual exclusion â€” only one thread holds the lock at a time.  Other threads block until the lock is released.  Simple and useful, but can become a bottleneck if the critical section is large or frequently accessed.
+- **Read-write lock**: allows multiple concurrent readers but only one writer.  Ideal for read-heavy workloads where writes are rare.  A reader does not block other readers, but a writer blocks everyone.  Downgrading from write to read is supported in some implementations.
+- **Semaphore**: a generalized lock with a counter.  A mutex is a semaphore with count 1.  A pool semaphore with count 10 allows 10 threads to enter simultaneously.  Useful for [resource pools](/recipes/performance/connection-pooling), throttling, and backpressure.
+- **Atomic operations**: lock-free updates using CPU instructions like `CAS` (compare-and-swap).  Faster than locks for simple operations but limited in scope.  Complex updates still require locks.
 
 ## Variants
 
@@ -209,63 +209,63 @@ int main() {
 
 ## What works
 
-- **Keep critical sections small**: the smaller the locked region, the less contention. Lock, update one variable, unlock. Do not perform I/O, calculations, or external calls while holding a lock. Long critical sections serialize threads and defeat the purpose of concurrency.
-- **Always unlock in finally**: a thread that throws an exception while holding a lock will never release it, deadlocking other threads. Use try/finally (Java), `with` (Python), or RAII (C++ `std::lock_guard`) to ensure unlock happens even on exceptions.
-- **Avoid nested locks**: acquiring lock A then lock B, while another thread acquires B then A, creates a classic deadlock. If nested locks are unavoidable, always acquire them in a consistent global order. Better yet, redesign to avoid nesting.
-- **Prefer read-write locks for read-heavy data**: if 99% of accesses are reads, a mutex serializes 99% of operations unnecessarily. A read-write lock allows parallel reads, dramatically improving throughput on caches, configuration, and lookup tables.
-- **Use atomics for simple counters**: an `AtomicInteger` or `std::atomic<int>` for a counter is faster than a mutex and eliminates deadlock risk. Do not use atomics for compound operations â€” those require a lock. See [Thread Pools](/recipes/concurrency/thread-pools) for managing concurrent workers.
+- **Keep critical sections small**: the smaller the locked region, the less contention.  Lock, update one variable, unlock.  Do not perform I/O, calculations, or external calls while holding a lock.  Long critical sections serialize threads and defeat the purpose of concurrency.
+- **Always unlock in finally**: a thread that throws an exception while holding a lock will never release it, deadlocking other threads.
+- **Avoid nested locks**: acquiring lock A then lock B, while another thread acquires B then A, creates a classic deadlock.  If nested locks are unavoidable, always acquire them in a consistent global order.  Better yet, redesign to avoid nesting.
+- **Prefer read-write locks for read-heavy data**: if 99% of accesses are reads, a mutex serializes 99% of operations unnecessarily.  A read-write lock allows parallel reads, dramatically improving throughput on caches, configuration, and lookup tables.
+- **Use atomics for simple counters**: an `AtomicInteger` or `std::atomic<int>` for a counter is faster than a mutex and eliminates deadlock risk.  Do not use atomics for compound operations â€” those require a lock.  See [Thread Pools](/recipes/concurrency/thread-pools) for managing concurrent workers.
 
 ## Common mistakes
 
-- **Locking on mutable objects**: `synchronized(someList)` fails if the reference changes. Another thread may synchronize on a different object. Use a final private field as the lock monitor, never the data itself.
-- **Forgetting to unlock after early return**: a method with multiple return paths may return without unlocking. This is why Java's `ReentrantLock` requires explicit `unlock()` â€” it forces you to think about every exit path. Use try/finally religiously.
-- **Over-locking (locking too much)**: wrapping an entire method in `synchronized` may protect data but serializes all callers, making the code well single-threaded. Identify the exact shared state that needs protection and lock only that.
-- **Testing without concurrency stress**: a race condition may not manifest with 2 threads on a development machine. Use stress tests with hundreds of threads, loop millions of iterations, and run on multi-core hardware. Tools like ThreadSanitizer detect data races at runtime.
+- **Locking on mutable objects**: `synchronized(someList)` fails if the reference changes.  Another thread may synchronize on a different object.
+- **Forgetting to unlock after early return**: a method with multiple return paths may return without unlocking.  This is why Java's `ReentrantLock` requires explicit `unlock()` â€” it forces you to think about every exit path.
+- **Over-locking (locking too much)**: wrapping an entire method in `synchronized` may protect data but serializes all callers, making the code well single-threaded.
+- **Testing without concurrency stress**: a race condition may not manifest with 2 threads on a development machine.  Tools like ThreadSanitizer detect data races at runtime.
 
 ## When Not to Use This Approach
 
-- **Read-only shared data**: if data is written once and only read afterward, no lock is needed. Use inal fields in Java, const in C++, or immutable data structures. Locks add unnecessary overhead
-- **Single-threaded code**: locks add 10-50ns per acquire/release. In single-threaded paths, this is pure waste. Remove locks from code paths that are guaranteed to run on one thread
-- **Lock-free alternatives exist**: for simple counters, use AtomicInteger / std::atomic instead of mutex-protected increments. Atomics are 5-20x faster under contention
-- **Message passing is cleaner**: if the problem is coordination between tasks, not data protection, channels or actor models avoid lock management entirely. Prefer message passing for complex coordination
-- **Coarse-grained locking suffices**: if contention is low and the critical section is short, a single lock is simpler and faster than fine-grained locking. Do not prematurely optimize lock granularity
-- **Distributed systems**: local mutexes do not work across processes or machines. Use distributed locks (Redis Redlock, ZooKeeper, etcd) with awareness of their tradeoffs and failure modes
+- **Read-only shared data**: if data is written once and only read afterward, no lock is needed.
+- **Single-threaded code**: locks add 10-50ns per acquire/release.  In single-threaded paths, this is pure waste.
+- **Lock-free alternatives exist**: for simple counters, use AtomicInteger / std::atomic instead of mutex-protected increments.
+- **Message passing is cleaner**: if the problem is coordination between tasks, not data protection, channels or actor models avoid lock management entirely.
+- **Coarse-grained locking suffices**: if contention is low and the critical section is short, a single lock is simpler and faster than fine-grained locking.
+- **Distributed systems**: local mutexes do not work across processes or machines.
 
 ## Performance Benchmarks
 
-- **Uncontended lock acquire**: synchronized in JVM takes ~10-30ns (biased locking). ReentrantLock takes ~20-50ns. std::mutex in C++ takes ~15-40ns
-- **Contended lock acquire**: with 4 threads contending, lock acquire takes 1-10us. With 16 threads, 10-100us. Contention scales poorly â€” throughput drops inversely with thread count
-- **Lock vs atomic**: AtomicInteger.incrementAndGet() takes ~5ns uncontended, ~50ns under 8-thread contention. synchronized counter takes ~50ns uncontended, ~5us under 8-thread contention
-- **Read-write lock vs mutex**: ReentrantReadWriteLock improves read throughput 3-5x when reads dominate 90%+. For 50% reads, it is slower than a plain mutex due to overhead
-- **Spin lock vs blocking lock**: spin locks waste CPU but avoid context switch cost. For hold times <1us, spin locks are 2-3x faster. For hold times >10us, blocking locks are better
-- **Fair vs unfair locking**: fair locks (ReentrantLock(fair=true)) reduce starvation but increase contention by 30-50%. Use fair locks only when thread starvation is observed
-- **Lock granularity**: fine-grained locking (one lock per bucket in a hash table) improves throughput 5-10x under high contention. The cost is complexity and potential deadlock scenarios
+- **Uncontended lock acquire**: synchronized in JVM takes ~10-30ns (biased locking).  ReentrantLock takes ~20-50ns.
+- **Contended lock acquire**: with 4 threads contending, lock acquire takes 1-10us.  With 16 threads, 10-100us.
+- **Lock vs atomic**: AtomicInteger. incrementAndGet() takes ~5ns uncontended, ~50ns under 8-thread contention.
+- **Read-write lock vs mutex**: ReentrantReadWriteLock improves read throughput 3-5x when reads dominate 90%+.
+- **Spin lock vs blocking lock**: spin locks waste CPU but avoid context switch cost.  For hold times <1us, spin locks are 2-3x faster.
+- **Fair vs unfair locking**: fair locks (ReentrantLock(fair=true)) reduce starvation but increase contention by 30-50%.
+- **Lock granularity**: fine-grained locking (one lock per bucket in a hash table) improves throughput 5-10x under high contention.
 
 ## Testing Strategy
 
-- **Stress test with high thread counts**: test with 2-4x the production thread count. Use CountDownLatch to start all threads simultaneously and maximize contention
-- **Test deadlock detection**: run tests with deadlock detection enabled (-XX:+UnlockDiagnosticVMOptions -XX:+SyncFlags in JVM). Use jstack to verify no deadlock patterns appear
-- **Test lock fairness**: if using fair locks, verify that threads acquire locks in FIFO order. Use a shared queue to record acquisition order and assert ordering
-- **Test timeout behavior**: verify 	ryLock(timeout) returns false when the lock is held. Use a mock that holds the lock longer than the timeout
-- **Test reentrancy**: verify that a thread holding a ReentrantLock can acquire it again without blocking. Assert that lock count is maintained correctly
-- **Test exception handling**: verify that locks are released when exceptions occur in the critical section. Use 	ry-finally or 	ry-with-resources patterns
-- **Test with ThreadSanitizer**: compile with -fsanitize=thread (C/C++) or run with -race (Go). These tools detect data races that stress tests miss
+- **Stress test with high thread counts**: test with 2-4x the production thread count.
+- **Test deadlock detection**: run tests with deadlock detection enabled (-XX:+UnlockDiagnosticVMOptions -XX:+SyncFlags in JVM).
+- **Test lock fairness**: if using fair locks, verify that threads acquire locks in FIFO order.
+- **Test timeout behavior**: verify 	ryLock(timeout) returns false when the lock is held.
+- **Test reentrancy**: verify that a thread holding a ReentrantLock can acquire it again without blocking.
+- **Test exception handling**: verify that locks are released when exceptions occur in the critical section.
+- **Test with ThreadSanitizer**: compile with -fsanitize=thread (C/C++) or run with -race (Go).
 
 ## Cost Estimation
 
-- **Server cost**: lock contention reduces throughput. A service spending 30% of time on lock contention needs 30% more servers. Reducing contention from 30% to 5% saves ,500-3,000/month on a 10-server fleet
-- **Development cost**: designing fine-grained locking schemes takes 2-5x longer than coarse-grained locking. Budget for design reviews and stress testing
-- **Debugging cost**: deadlock bugs take 20-80 hours to diagnose on average. Invest in deadlock detection tooling and thread dump analysis training
-- **Performance profiling**: use async-profiler (JVM), perf (C++), or py-spy (Python) to identify lock hotspots. These tools are free but require expertise to interpret
-- **Memory overhead**: each lock object uses 24-48 bytes (JVM) or 40 bytes (pthread mutex). 10,000 locks add ~400KB â€” negligible, but lock pools for fine-grained locking should be sized carefully
+- **Server cost**: lock contention reduces throughput.  A service spending 30% of time on lock contention needs 30% more servers.
+- **Development cost**: designing fine-grained locking schemes takes 2-5x longer than coarse-grained locking.
+- **Debugging cost**: deadlock bugs take 20-80 hours to diagnose on average.
+- **Performance profiling**: use async-profiler (JVM), perf (C++), or py-spy (Python) to identify lock hotspots.
+- **Memory overhead**: each lock object uses 24-48 bytes (JVM) or 40 bytes (pthread mutex).
 
 ## Monitoring and Observability
 
-- **Lock contention time**: monitor time spent waiting for locks. JVM: use LockSupport.getBlockedTime() or JFR. High contention (>10% of CPU time) indicates a need for lock optimization
-- **Deadlock detection**: run periodic thread dumps and check for deadlock cycles. JVM: jstack <pid> or JMX ThreadMXBean.findDeadlockedThreads(). Alert on any detected deadlock
-- **Lock hold time**: measure how long locks are held. Long hold times (>1ms) indicate the critical section is too large. Break it into smaller sections or use read-write locks
-- **Thread blocked count**: monitor the number of threads in BLOCKED state. A high count indicates lock contention. Alert when >20% of threads are blocked
-- **Lock queue depth**: track the number of threads waiting for each lock. Deep queues (>10 waiters) indicate hot locks that need splitting or redesign
+- **Lock contention time**: monitor time spent waiting for locks.  JVM: use LockSupport. getBlockedTime() or JFR.
+- **Deadlock detection**: run periodic thread dumps and check for deadlock cycles.  JVM: jstack <pid> or JMX ThreadMXBean. findDeadlockedThreads().
+- **Lock hold time**: measure how long locks are held.  Long hold times (>1ms) indicate the critical section is too large.
+- **Thread blocked count**: monitor the number of threads in BLOCKED state.  A high count indicates lock contention.
+- **Lock queue depth**: track the number of threads waiting for each lock.
 
 ## Deployment Checklist
 
@@ -278,26 +278,26 @@ int main() {
 
 ## Security Considerations
 
-- **Denial of service via lock holding**: an attacker can hold a lock indefinitely by sending a slow request that enters a critical section. Use lock timeouts and request deadlines to prevent this
-- **Deadlock as a DoS vector**: an attacker can craft requests that trigger lock ordering violations, causing deadlocks that hang the entire system. Enforce strict lock ordering and use 	ryLock with timeouts
-- **Lock contention side-channel**: timing variations from lock contention can leak information about other threads' operations. An attacker measuring response times can infer internal state. Use constant-time operations in security-sensitive paths
-- **Priority inversion**: a low-priority thread holding a lock can block high-priority threads. The Mars Pathfinder incident was caused by priority inversion. Use priority inheritance protocol (PTHREAD_PRIO_INHERIT) in real-time systems
-- **Lock poisoning**: if a thread crashes while holding a lock, the lock is "poisoned" and subsequent acquisitions may hang. Use 	ryLock with timeouts and watchdog threads to detect poisoned locks
-- **Reentrant lock abuse**: reentrant locks allow the same thread to acquire a lock multiple times. If a thread acquires a lock in a loop without releasing, it can monopolize the lock. Audit reentrant lock usage for unbounded acquisition
-- **Unsafe lock publication**: if a lock object is accessible to untrusted code, it can be held indefinitely or used to coordinate attacks. Keep lock objects private and never expose them in public APIs
-- **Spin lock CPU exhaustion**: spin locks burn CPU while waiting. An attacker can trigger high contention, causing spin locks to consume 100% CPU. Use adaptive locks that spin briefly then block
-- **Lock bypass via unsafe publication**: if a shared object is published without proper synchronization (e.g., via a non-volatile field), another thread may see a partially constructed object and bypass lock protection. Use inal fields or olatile publication
-- **Reader-writer lock starvation**: a continuous stream of readers can starve writers in non-fair read-write locks. An attacker can exploit this by flooding read requests, blocking all writes. Use fair read-write locks
+- **Denial of service via lock holding**: an attacker can hold a lock indefinitely by sending a slow request that enters a critical section.
+- **Deadlock as a DoS vector**: an attacker can craft requests that trigger lock ordering violations, causing deadlocks that hang the entire system.
+- **Lock contention side-channel**: timing variations from lock contention can leak information about other threads' operations.  An attacker measuring response times can infer internal state.
+- **Priority inversion**: a low-priority thread holding a lock can block high-priority threads.  The Mars Pathfinder incident was caused by priority inversion.
+- **Lock poisoning**: if a thread crashes while holding a lock, the lock is "poisoned" and subsequent acquisitions may hang.
+- **Reentrant lock abuse**: reentrant locks allow the same thread to acquire a lock multiple times.  If a thread acquires a lock in a loop without releasing, it can monopolize the lock.
+- **Unsafe lock publication**: if a lock object is accessible to untrusted code, it can be held indefinitely or used to coordinate attacks.
+- **Spin lock CPU exhaustion**: spin locks burn CPU while waiting.  An attacker can trigger high contention, causing spin locks to consume 100% CPU.
+- **Lock bypass via unsafe publication**: if a shared object is published without proper synchronization (e. g. , via a non-volatile field), another thread may see a partially constructed object and bypass lock protection.
+- **Reader-writer lock starvation**: a continuous stream of readers can starve writers in non-fair read-write locks.  An attacker can exploit this by flooding read requests, blocking all writes.
 - **Condition variable spoofing**: if condition variables are accessible to untrusted code, 
 otify() can be called spuriously, waking threads that should remain blocked. Keep condition variables private
-- **Lock file race in initialization**: using file-based locks for initialization has TOCTOU (time-of-check-to-time-of-use) races. An attacker can replace the lock file between check and use. Use O_CREAT|O_EXCL with proper error handling
+- **Lock file race in initialization**: using file-based locks for initialization has TOCTOU (time-of-check-to-time-of-use) races.  An attacker can replace the lock file between check and use.
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.  Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: monitor queue length and rejection policy.  Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 

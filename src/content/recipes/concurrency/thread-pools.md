@@ -239,10 +239,10 @@ Go's goroutines are lightweight (2KB stack vs 1MB for OS threads), so you can sp
 
 ## Explanation
 
-- **Core vs maximum pool size**: the core size is the number of threads kept alive even when idle. The maximum size is the upper bound. When tasks exceed core size, new threads are created up to the maximum. Threads above the core size are terminated after the keep-alive timeout if idle. This allows the pool to scale between a baseline and a peak.
-- **Work queue**: tasks submitted when all threads are busy wait in a queue. An unbounded queue (`LinkedBlockingQueue`) accepts infinite tasks but risks `OutOfMemoryError`. A bounded queue limits memory but requires a rejection policy when full.
-- **Rejection policies**: when the pool and queue are saturated, Java offers four policies. `AbortPolicy` (default) throws an exception. `CallerRunsPolicy` runs the task in the submitter's thread, slowing submission. `DiscardPolicy` silently drops the task. `DiscardOldestPolicy` drops the oldest queued task.
-- **Thread-per-task vs pools**: creating a thread per task works for a few dozen concurrent operations. At hundreds or thousands, thread creation overhead dominates. Pools amortize creation cost across the application lifetime and provide bounded resource usage.
+- **Core vs maximum pool size**: the core size is the number of threads kept alive even when idle.  The maximum size is the upper bound.  When tasks exceed core size, new threads are created up to the maximum.  Threads above the core size are terminated after the keep-alive timeout if idle.  This allows the pool to scale between a baseline and a peak.
+- **Work queue**: tasks submitted when all threads are busy wait in a queue.  An unbounded queue (`LinkedBlockingQueue`) accepts infinite tasks but risks `OutOfMemoryError`.  A bounded queue limits memory but requires a rejection policy when full.
+- **Rejection policies**: when the pool and queue are saturated, Java offers four policies.  `AbortPolicy` (default) throws an exception.  `CallerRunsPolicy` runs the task in the submitter's thread, slowing submission.  `DiscardPolicy` silently drops the task.  `DiscardOldestPolicy` drops the oldest queued task.
+- **Thread-per-task vs pools**: creating a thread per task works for a few dozen concurrent operations.  At hundreds or thousands, thread creation overhead dominates.  Pools amortize creation cost across the application lifetime and provide bounded resource usage.
 
 ## Variants
 
@@ -256,30 +256,30 @@ Go's goroutines are lightweight (2KB stack vs 1MB for OS threads), so you can sp
 
 ## What Works
 
-- **Size CPU pools to core count**: for CPU-bound work, use `Runtime.getRuntime().availableProcessors()` or `os.cpu_count()`. Additional threads just compete for cores, causing context switches without throughput gains. See [Load Balancing](/recipes/architecture/load-balancing) for distributing work across cores.
-- **Size I/O pools higher than core count**: for I/O-bound work, threads block on network/disk. A thread waiting for a response is not using a core. Use 2x-4x core count for I/O pools, depending on latency. Measure to find the sweet spot.
-- **Always shut down gracefully**: an unterminated executor leaks threads and prevents JVM/Python process exit. Call `shutdown()`, wait for termination, then `shutdownNow()` if needed. Use try-with-resources in Python (`with ThreadPoolExecutor`).
-- **Use bounded queues with rejection policies**: unbounded queues hide backpressure. A system that accepts infinite tasks will eventually crash. Use bounded queues and handle rejection by shedding load or slowing the submitter. See [Rate Limiting](/recipes/api/rate-limiting) for managing overload.
-- **Name your threads**: debugging a thread dump of 50 unnamed threads is impossible. Use custom thread factories to name threads (`worker-1`, `worker-2`). This makes profiling, logging, and debugging trivial.
-- **Monitor pool metrics**: track active threads, queue size, completed tasks, and rejection count. Java's `ThreadPoolExecutor` exposes these via getters. In Python, wrap the executor to track submissions and completions. Alert when queue depth exceeds a threshold.
-- **Use `shutdownNow()` carefully**: `shutdownNow()` interrupts running threads. If your tasks do not check `Thread.interrupted()` or handle `InterruptedException`, they will continue running. Design tasks to be cooperative and responsive to interruption.
+- **Size CPU pools to core count**: for CPU-bound work, use `Runtime. getRuntime(). availableProcessors()` or `os. cpu_count()`.  Additional threads just compete for cores, causing context switches without throughput gains.  See [Load Balancing](/recipes/architecture/load-balancing) for distributing work across cores.
+- **Size I/O pools higher than core count**: for I/O-bound work, threads block on network/disk.  A thread waiting for a response is not using a core.
+- **Always shut down gracefully**: an unterminated executor leaks threads and prevents JVM/Python process exit.  Call `shutdown()`, wait for termination, then `shutdownNow()` if needed.
+- **Use bounded queues with rejection policies**: unbounded queues hide backpressure.  A system that accepts infinite tasks will eventually crash.  See [Rate Limiting](/recipes/api/rate-limiting) for managing overload.
+- **Name your threads**: debugging a thread dump of 50 unnamed threads is impossible.  This makes profiling, logging, and debugging trivial.
+- **Monitor pool metrics**: track active threads, queue size, completed tasks, and rejection count.  Java's `ThreadPoolExecutor` exposes these via getters.  In Python, wrap the executor to track submissions and completions.  Alert when queue depth exceeds a threshold.
+- **Use `shutdownNow()` carefully**: `shutdownNow()` interrupts running threads.  If your tasks do not check `Thread. interrupted()` or handle `InterruptedException`, they will continue running.  Design tasks to be cooperative and responsive to interruption.
 
 ## Common mistakes
 
-- **Blocking the caller with `Future.get()` without timeout**: `future.get()` waits indefinitely. If the worker thread hangs (infinite loop, deadlock), the caller hangs forever. Always use `future.get(timeout, TimeUnit.SECONDS)`.
-- **Using threads for CPU-bound work in Python**: Python's GIL prevents true thread parallelism for CPU work. A `ThreadPoolExecutor` with 8 threads on an 8-core machine runs tasks sequentially, not in parallel. Use `ProcessPoolExecutor` for CPU-bound Python tasks.
-- **Ignoring exceptions in fire-and-forget tasks**: submitting a task and ignoring the future swallows exceptions. The task fails silently. Always capture futures and check for exceptions, or use a completion callback.
-- **Creating a new pool per request**: a web handler that creates a new `ExecutorService` for each incoming request defeats the purpose. Create one pool at application startup and reuse it. Pass it as a dependency to handlers.
-- **Sharing a single pool across unrelated workloads**: CPU-bound and I/O-bound tasks have different optimal pool sizes. If they share a pool, one workload starves the other. Use separate pools per workload type.
-- **Not handling `RejectedExecutionException`**: when using `AbortPolicy`, the pool throws `RejectedExecutionException` under overload. If you do not catch it, the exception propagates and may crash the caller. Catch it and degrade gracefully.
+- **Blocking the caller with `Future.get()` without timeout**: `future. get()` waits indefinitely.  If the worker thread hangs (infinite loop, deadlock), the caller hangs forever.  Always use `future. get(timeout, TimeUnit. SECONDS)`.
+- **Using threads for CPU-bound work in Python**: Python's GIL prevents true thread parallelism for CPU work.  A `ThreadPoolExecutor` with 8 threads on an 8-core machine runs tasks sequentially, not in parallel.
+- **Ignoring exceptions in fire-and-forget tasks**: submitting a task and ignoring the future swallows exceptions.  The task fails silently.  Always capture futures and check for exceptions, or use a completion callback.
+- **Creating a new pool per request**: a web handler that creates a new `ExecutorService` for each incoming request defeats the purpose.  Create one pool at application startup and reuse it.  Pass it as a dependency to handlers.
+- **Sharing a single pool across unrelated workloads**: CPU-bound and I/O-bound tasks have different optimal pool sizes.  If they share a pool, one workload starves the other.
+- **Not handling `RejectedExecutionException`**: when using `AbortPolicy`, the pool throws `RejectedExecutionException` under overload.  If you do not catch it, the exception propagates and may crash the caller.  Catch it and degrade gracefully.
 
 
 ## Troubleshooting
 
-- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing. Reproduce with targeted stress tests.
-- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short. Use timeouts to fail fast.
-- **Thread pool saturation**: monitor queue length and rejection policy. Increase pool size only if CPU and memory allow.
-- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding. Monitor per-actor message counts.
+- **Race conditions appear under load**: protect shared state with locks, atomics, or message passing.  Reproduce with targeted stress tests.
+- **Deadlock between workers**: establish a consistent lock acquisition order and keep critical sections short.
+- **Thread pool saturation**: monitor queue length and rejection policy.  Increase pool size only if CPU and memory allow.
+- **Actor mailbox grows unbounded**: apply backpressure, bounded queues, and load shedding.
 - **Async task never completes**: check for unhandled promise rejections, forgotten awaits, and infinite loops in cooperative scheduling.
 
 

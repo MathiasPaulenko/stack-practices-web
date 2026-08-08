@@ -197,11 +197,11 @@ Esto protege al sistema descendente de saturarse. La contrapartida es latencia: 
 
 ## Errores Comunes
 
-- **Sin monitoreo de profundidad de cola**: Una cola creciente significa que los consumidores no dan abasto. Sin monitoreo, te enteras cuando la cola se queda sin almacenamiento.
-- **Consumidor muy lento para trafico sostenido**: Load leveling maneja picos, no sobrecarga sostenida. Si la tasa promedio de produccion excede la de consumo, la cola crece infinitamente.
-- **No manejar mensajes venenosos**: Un mensaje que siempre falla bloquea al consumidor. Usa una dead-letter queue despues de N reintentos.
-- **Productor sincrono esperando al consumidor**: Derrota el proposito. El productor debe fire-and-forget.
-- **Ignorar el orden de mensajes**: Si el orden importa, se necesita un consumidor unico o estrategia de particion. Multiples consumidores rompen el orden.
+- **Sin monitoreo de profundidad de cola**: Una cola creciente significa que los consumidores no dan abasto.   Sin monitoreo, te enteras cuando la cola se queda sin almacenamiento.
+- **Consumidor muy lento para trafico sostenido**: Si la tasa promedio de produccion excede la de consumo, la cola crece infinitamente.
+- **No manejar mensajes venenosos**: Un mensaje que siempre falla bloquea al consumidor.
+- **Productor sincrono esperando al consumidor**: Derrota el proposito.   El productor debe fire-and-forget.
+- **Ignorar el orden de mensajes**: Si el orden importa, se necesita un consumidor unico o estrategia de particion.   Multiples consumidores rompen el orden.
 
 ## Como Funciona
 
@@ -338,11 +338,11 @@ R: Usa escalado automatico basado en profundidad de cola. En SQS, configura Clou
 
 ## Troubleshooting
 
-- **Messages are lost on restart**: persist messages before acknowledging. Use write-ahead logging or replicated storage.
-- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic. Monitor lag per partition.
-- **Duplicate messages**: design consumers to be idempotent. Use exactly-once semantics only if the overhead is justified.
-- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts. Consider a single partition when order is mandatory.
-- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues. Restart gracefully.
+- **Messages are lost on restart**: persist messages before acknowledging.
+- **Consumer lags behind producer**: scale consumers, increase prefetch, and partition the topic.
+- **Duplicate messages**: design consumers to be idempotent.
+- **Ordering is wrong after scaling**: preserve partition keys and avoid rebalancing during bursts.   Consider a single partition when order is mandatory.
+- **Queue depth grows but consumers are idle**: check network partitions, consumer health, and permission issues.   Restart gracefully.
 
 ## Errores Comunes en Producción
 

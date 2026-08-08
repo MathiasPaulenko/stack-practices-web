@@ -187,39 +187,39 @@ async function sendWelcomeEmail(to: string, data: WelcomeData): Promise<void> {
 
 ## Variantes y Alternativas
 
-- **MJML vs Handlebars + inline CSS**: MJML abstrae el layout responsive pero requiere un build step. Handlebars con inline CSS da control total pero necesita responsive design manual. Usa MJML para equipos sin expertise en email, Handlebars para layouts condicionales complejos
-- **Email HTML vs texto plano**: emails HTML soportan branding y tracking pixels pero tienen riesgos de deliverability. Emails de texto plano tienen mayor deliverability pero sin branding visual. Envia multipart/alternative con ambos HTML y texto plano para mejores resultados
-- **Layout basado en tablas vs flexbox**: los clientes de email tienen soporte CSS inconsistente. Outlook usa el motor de renderizado de Word (CSS limitado). Gmail strippa los bloques <style>. Usa layouts basados en tablas con inline CSS para maxima compatibilidad
-- **Contenido dinamico vs templates estaticos**: templates dinamicos (Handlebars, Mustache) permiten personalizacion pero requieren un step de renderizado. Templates estaticos son mas rapidos de enviar pero menos personalizados. Usa dinamicos para emails transaccionales, estaticos para newsletters
-- **Imagenes embebidas vs hospedadas**: imagenes embebidas (attachments CID) funcionan offline pero aumentan el tamaÃ±o del email. Imagenes hospedadas (URLs) mantienen los emails pequeÃ±os pero requieren conexion a internet. Usa hospedadas para newsletters, embebidas para transaccionales
-- **Soporte dark mode**: usa media query prefers-color-scheme en bloques <style>. No todos los clientes lo soportan. Provee colores de fallback. Testea con Litmus o Email on Acid
+- **MJML vs Handlebars + inline CSS**: MJML abstrae el layout responsive pero requiere un build step.   Handlebars con inline CSS da control total pero necesita responsive design manual.
+- **Email HTML vs texto plano**: emails HTML soportan branding y tracking pixels pero tienen riesgos de deliverability.   Emails de texto plano tienen mayor deliverability pero sin branding visual.
+- **Layout basado en tablas vs flexbox**: los clientes de email tienen soporte CSS inconsistente.   Gmail strippa los bloques <style>.
+- **Contenido dinamico vs templates estaticos**: templates dinamicos (Handlebars, Mustache) permiten personalizacion pero requieren un step de renderizado.   Templates estaticos son mas rapidos de enviar pero menos personalizados.
+- **Imagenes embebidas vs hospedadas**: imagenes embebidas (attachments CID) funcionan offline pero aumentan el tamaÃ±o del email.   Imagenes hospedadas (URLs) mantienen los emails pequeÃ±os pero requieren conexion a internet.
+- **Soporte dark mode**: No todos los clientes lo soportan.   Provee colores de fallback.
 
 ## Pitfalls Comunes en Produccion
 
-- **Problemas de renderizado en Outlook**: Outlook usa el motor HTML de Word, no un browser. No soporta order-radius, lexbox, grid, ni position. Usa VML para corners redondeados y botones en Outlook
-- **Gmail clippea a 102KB**: Gmail clippea emails mas grandes que 102KB. Optimiza removiendo CSS no usado, comprimiendo imagenes y usando hosting externo de imagenes. Testea con una tool como Litmus para chequear el tamaÃ±o del email
-- **Bloqueo de imagenes por default**: la mayoria de los clientes de email bloquean imagenes por default. Usa alt text para todas las imagenes. Disena emails que funcionen sin imagenes. Usa colores de background como fallbacks
-- **Fallos de CSS inlining**: algunos clientes de email strippan los bloques <style>. Usa un CSS inliner (Juice, Premailer) para inlinear todos los estilos. Testea con Gmail, Outlook y Apple Mail
-- **Cadenas de font fallback**: web fonts (@font-face) funcionan en Apple Mail e iOS Mail pero no en Gmail ni Outlook. Siempre provee fonts de fallback: ont-family: 'Custom Font', Arial, sans-serif
-- **Testing a traves de clientes**: hay 50+ clientes de email con diferentes motores de renderizado. Testea con Litmus o Email on Acid. Como minimo testea: Gmail (web), Outlook (desktop), Apple Mail (desktop), Gmail (mobile), iOS Mail
+- **Problemas de renderizado en Outlook**: No soporta order-radius, lexbox, grid, ni position.
+- **Gmail clippea a 102KB**: Gmail clippea emails mas grandes que 102KB.
+- **Bloqueo de imagenes por default**: la mayoria de los clientes de email bloquean imagenes por default.   Disena emails que funcionen sin imagenes.
+- **Fallos de CSS inlining**: algunos clientes de email strippan los bloques <style>.
+- **Cadenas de font fallback**: web fonts (@font-face) funcionan en Apple Mail e iOS Mail pero no en Gmail ni Outlook.
+- **Testing a traves de clientes**: hay 50+ clientes de email con diferentes motores de renderizado.
 
 ## Patrones de Integracion
 
-- **Pipeline de email transaccional**: triggera evento -> renderiza template con datos -> inlinea CSS -> envia via SMTP o API -> trackea delivery/open/click. Usa SendGrid, Postmark o AWS SES para delivery. Usa webhooks para tracking de bounces y spam complaints
+- **Pipeline de email transaccional**: triggera evento -> renderiza template con datos -> inlinea CSS -> envia via SMTP o API -> trackea delivery/open/click.
 - **Pipeline de campana newsletter**: importa lista de suscriptores -> segmenta por preferencias -> renderiza template personalizado -> envia en batches (para evitar rate limits) -> trackea opens y clicks -> genera reporte
-- **Soporte multi-idioma de email**: detecta locale del usuario -> selecciona template por locale -> renderiza con strings localizados -> envia. Almacena traducciones en archivos JSON. Usa helpers de Handlebars para pluralizacion y genero
-- **Cola de email con retry**: encola email -> intento de envio -> en fallo, reintenta con exponential backoff (1m, 5m, 30m, 2h, 12h) -> despues de 5 fallos, dead letter queue. Usa Redis o RabbitMQ para la cola
-- **A/B testing de contenido de email**: crea dos variantes de template -> divide audiencia 50/50 -> envia ambas -> trackea open rate y click rate -> declara winner despues de 24 horas. Usa A/B testing de SendGrid o implementa custom
-- **Gestion de suppression list**: mantiene una lista de addresses con bounce, complaint y unsubscribed. Chequea contra esta lista antes de enviar. Nunca envies a addresses suprimidas. Sincroniza con la suppression list del ESP
+- **Soporte multi-idioma de email**: detecta locale del usuario -> selecciona template por locale -> renderiza con strings localizados -> envia.
+- **Cola de email con retry**: encola email -> intento de envio -> en fallo, reintenta con exponential backoff (1m, 5m, 30m, 2h, 12h) -> despues de 5 fallos, dead letter queue.
+- **A/B testing de contenido de email**: crea dos variantes de template -> divide audiencia 50/50 -> envia ambas -> trackea open rate y click rate -> declara winner despues de 24 horas.
+- **Gestion de suppression list**: mantiene una lista de addresses con bounce, complaint y unsubscribed.   Nunca envies a addresses suprimidas.
 
 ## Tooling y Ecosistema
 
-- **MJML**: lenguaje de markup open-source para emails responsive. Compila a HTML basado en tablas. 40K+ GitHub stars. CLI: mjml input.mjml -o output.html. Extension de VS Code disponible
-- **Handlebars**: templating logic-less para contenido dinamico. 17K+ GitHub stars. Helpers para condicionales, loops y partials. Usado por SendGrid, Mailgun y SparkPost
-- **Juice**: CSS inliner para Node.js. 3K+ GitHub stars. Inlinea bloques <style> en atributos style inline. Esencial para compatibilidad de email
-- **Litmus**: plataforma de testing de email. Testea a traves de 90+ clientes de email. Comparacion de screenshots, spam testing, accessibility checks. Servicio pago desde /mes
-- **Email on Acid**: alternativa a Litmus. Testing de screenshots a traves de 70+ clientes. Trial gratis disponible. Bueno para equipos mas pequeÃ±os
-- **Premailer**: CSS inliner basado en Ruby. Tambien disponible como web service. Pre-procesa CSS para compatibilidad de email
+- **MJML**: lenguaje de markup open-source para emails responsive.   Compila a HTML basado en tablas.   40K+ GitHub stars.   CLI: mjml input.  mjml -o output.  html.
+- **Handlebars**: templating logic-less para contenido dinamico.   17K+ GitHub stars.   Helpers para condicionales, loops y partials.
+- **Juice**: CSS inliner para Node.  js.   3K+ GitHub stars.   Inlinea bloques <style> en atributos style inline.
+- **Litmus**: plataforma de testing de email.   Comparacion de screenshots, spam testing, accessibility checks.
+- **Email on Acid**: alternativa a Litmus.   Testing de screenshots a traves de 70+ clientes.   Trial gratis disponible.
+- **Premailer**: CSS inliner basado en Ruby.   Tambien disponible como web service.
 
 ## Resumen de Best Practices
 
@@ -235,12 +235,12 @@ async function sendWelcomeEmail(to: string, data: WelcomeData): Promise<void> {
 - Usa una suppression list y nunca envies a addresses con bounce o unsubscribed
 ## Manejo de Errores y Recuperacion
 
-- **Manejo de bounces**: hard bounces (fallos permanentes) deben suprimir la address inmediatamente. Soft bounces (fallos temporales) deben reintentar por 3-5 dias antes de suprimir. Usa webhooks de tu ESP para procesar bounces en tiempo real
-- **Manejo de spam complaints**: cuando un usuario marca un email como spam, suprime la address inmediatamente. No envies mas emails. Esto protege tu reputacion de sender. Procesa spam complaints via webhooks del ESP
-- **Errores de renderizado de template**: si una variable de template falta, usa un valor default en lugar de mostrar un string vacio. Loguea la variable faltante para debugging. Nunca crashees el pipeline de email por una variable faltante
-- **Rate limiting del ESP**: si tu ESP rate-limita tus envios, implementa una cola con rate limiting. Envia en batches de 100-1000 emails por segundo dependiendo de los limites de tu ESP. Usa un algoritmo de token bucket para rate limiting smooth
-- **Fallos de link de unsubscribe**: si el link de unsubscribe esta roto, el usuario no puede opt out. Esto viola CAN-SPAM y GDPR. Testea los links de unsubscribe antes de cada envio. Usa un servicio de unsubscribe dedicado o manejado por el ESP
-- **Validacion de email antes de enviar**: valida las addresses de email antes de agregar a tu lista. Usa regex para validacion de formato basico, chequeo SMTP para existencia de dominio, y validacion del ESP para deliverability. Rechaza dominios de email desechables
+- **Manejo de bounces**: hard bounces (fallos permanentes) deben suprimir la address inmediatamente.   Soft bounces (fallos temporales) deben reintentar por 3-5 dias antes de suprimir.
+- **Manejo de spam complaints**: cuando un usuario marca un email como spam, suprime la address inmediatamente.   No envies mas emails.   Esto protege tu reputacion de sender.
+- **Errores de renderizado de template**: Loguea la variable faltante para debugging.
+- **Rate limiting del ESP**: Envia en batches de 100-1000 emails por segundo dependiendo de los limites de tu ESP.
+- **Fallos de link de unsubscribe**: si el link de unsubscribe esta roto, el usuario no puede opt out.   Esto viola CAN-SPAM y GDPR.
+- **Validacion de email antes de enviar**: valida las addresses de email antes de agregar a tu lista.
 
 ## Tips de Optimizacion de Performance
 
@@ -257,29 +257,29 @@ emove_classes y merge_inline para reducir el tamaÃ±o del CSS
 - Testea el load time del email con Litmus. Target <3 segundos para renderizar en dispositivos mobile
 ## Consideraciones de Seguridad
 
-- **Ataques de email injection**: si input del usuario se incluye en headers de email (subject, from, reply-to), atacantes pueden inyectar headers adicionales o destinatarios BCC. Sanitiza todo input del usuario con ilter_var(, FILTER_SANITIZE_EMAIL) o equivalente. Nunca permitas newlines en valores de header
-- **HTML injection en cuerpo de email**: si input del usuario se renderiza en emails HTML sin escaping, atacantes pueden inyectar scripts o links maliciosos. Siempre escapa input del usuario con HTML entity encoding. Usa template engines con auto-escaping (Handlebars, Pug)
-- **Privacidad de tracking pixels**: los tracking pixels (imagenes transparentes de 1x1) generan preocupaciones de privacidad. Algunos clientes de email los bloquean. GDPR requiere consentimiento para tracking. Provee una privacy policy y un mecanismo de opt-out. Considera open tracking del lado servidor
-- **Seguridad de link de unsubscribe**: los links de unsubscribe deben usar tokens firmados, no IDs secuenciales. Un atacante podria enumerar links de unsubscribe para desuscribir a otros usuarios. Usa tokens firmados con HMAC con expiracion. Valida el token del lado servidor
-- **Proteccion de credenciales SMTP**: nunca hardcodees credenciales SMTP en codigo fuente. Usa variables de entorno o un secrets manager. Rota credenciales regularmente. Usa TLS para conexiones SMTP. Monitorea leaks de credenciales en git history
-- **Content Security Policy para email**: los clientes de email no soportan headers CSP. Usa solo inline CSS. Evita stylesheets externos. No incluyas tags <script> (son stripped por todos los clientes). Sanitiza todo contenido user-generated antes de renderizar
+- **Ataques de email injection**: Sanitiza todo input del usuario con ilter_var(, FILTER_SANITIZE_EMAIL) o equivalente.
+- **HTML injection en cuerpo de email**: si input del usuario se renderiza en emails HTML sin escaping, atacantes pueden inyectar scripts o links maliciosos.   Siempre escapa input del usuario con HTML entity encoding.
+- **Privacidad de tracking pixels**: los tracking pixels (imagenes transparentes de 1x1) generan preocupaciones de privacidad.   Algunos clientes de email los bloquean.   GDPR requiere consentimiento para tracking.   Provee una privacy policy y un mecanismo de opt-out.
+- **Seguridad de link de unsubscribe**: los links de unsubscribe deben usar tokens firmados, no IDs secuenciales.   Un atacante podria enumerar links de unsubscribe para desuscribir a otros usuarios.
+- **Proteccion de credenciales SMTP**: nunca hardcodees credenciales SMTP en codigo fuente.   Rota credenciales regularmente.
+- **Content Security Policy para email**: los clientes de email no soportan headers CSP.   No incluyas tags <script> (son stripped por todos los clientes).
 ## Testing y Quality Assurance
 
-- **Testing visual a traves de clientes**: usa Litmus o Email on Acid para capturar screenshots de tu email a traves de 90+ clientes. Testea como minimo: Gmail (web), Outlook (2016/2019/365), Apple Mail (desktop/iOS), Yahoo Mail, Samsung Mail. Fixea issues de renderizado antes de enviar
-- **Testing dark mode**: testea emails en dark mode en iOS, macOS y Outlook. Asegura que el texto sea legible en backgrounds oscuros. Usa media query prefers-color-scheme. Provee colores de fallback para clientes que no soportan media queries
-- **Testing de accesibilidad**: usa accessibility checkers en Litmus o Email on Acid. Asegura alt text para todas las imagenes. Usa HTML semantico (&lt;table&gt;, &lt;h1&gt;, &lt;p&gt;). Manten ratio de contraste de color de 4.5:1 para texto. Testea con screen readers (NVDA, VoiceOver)
-- **Testing de links**: testea todos los links antes de enviar. Usa una herramienta link checker. Verifica que los links de unsubscribe funcionen. Verifica que los tracking parameters sean correctos. Testea en dispositivos mobile. Chequea que los links abran en la app correcta (browser vs in-app browser)
-- **Testing de spam**: usa Mail Tester o Litmus spam testing. Un score bajo 8/10 indica issues potenciales. Chequea records SPF, DKIM y DMARC. Evita spam trigger words (FREE, GUARANTEED, ACT NOW). Manten el ratio imagen-a-texto balanceado (60% texto, 40% imagenes)
-- **Envio de emails de prueba**: envia emails de prueba a addresses internas antes del envio completo. Verifica renderizado, links y tracking. Testea en desktop y mobile. Usa una cuenta ESP de staging para tests para evitar afectar la reputacion de sender en produccion
+- **Testing visual a traves de clientes**: usa Litmus o Email on Acid para capturar screenshots de tu email a traves de 90+ clientes.
+- **Testing dark mode**: testea emails en dark mode en iOS, macOS y Outlook.
+- **Testing de accesibilidad**: usa accessibility checkers en Litmus o Email on Acid.  5:1 para texto.
+- **Testing de links**: Verifica que los links de unsubscribe funcionen.   Verifica que los tracking parameters sean correctos.
+- **Testing de spam**: Un score bajo 8/10 indica issues potenciales.
+- **Envio de emails de prueba**: envia emails de prueba a addresses internas antes del envio completo.   Verifica renderizado, links y tracking.
 
 ## Deployment y CI/CD
 
-- **Versionado de templates**: versiona templates de email con semantic versioning. Almacena en git. Taguea releases. Manten un changelog de cambios de template. Roll back a version previa si se encuentran issues de renderizado despues del deployment
-- **Pipeline CI/CD para emails**: lint MJML -> compila a HTML -> inlinea CSS -> corre visual tests -> corre spam tests -> deploya al ESP. Usa GitHub Actions o CircleCI. Bloquea deployment en fallos de tests. Cachea templates compilados entre runs
-- **Deployment progresivo**: envia a una seed list (10-50 addresses internas) primero. Verifica renderizado y deliverability. Envia al 5% de la lista. Monitorea open rate y bounce rate. Si las metricas son normales, envia al 95% restante
-- **Integracion con ESP**: usa APIs de ESP (SendGrid, Mailgun, Postmark) para envio programatico. Almacena API keys en variables de entorno. Implementa logica de retry para fallos de API. Monitorea status pages del ESP para outages. Ten un ESP de backup para failover
-- **Migracion de templates**: al cambiar de ESP, migra templates cuidadosamente. Diferentes ESPs usan diferentes lenguajes de templating (Handlebars, Mustache, Liquid). Testea todos los templates en el nuevo ESP antes de cambiar trafico de produccion
-- **Monitoreo y alerting**: monitorea bounce rate (< 5%), spam complaint rate (< 0.1%), open rate (baseline por tipo de email). Setea alerts para rates anormales. Trackea delivery rate por ESP. Monitorea reputacion de sender via Sender Score
+- **Versionado de templates**: versiona templates de email con semantic versioning.   Taguea releases.
+- **Pipeline CI/CD para emails**: lint MJML -> compila a HTML -> inlinea CSS -> corre visual tests -> corre spam tests -> deploya al ESP.   Bloquea deployment en fallos de tests.
+- **Deployment progresivo**: envia a una seed list (10-50 addresses internas) primero.   Verifica renderizado y deliverability.   Envia al 5% de la lista.
+- **Integracion con ESP**: usa APIs de ESP (SendGrid, Mailgun, Postmark) para envio programatico.
+- **Migracion de templates**: al cambiar de ESP, migra templates cuidadosamente.   Diferentes ESPs usan diferentes lenguajes de templating (Handlebars, Mustache, Liquid).
+- **Monitoreo y alerting**: 1%), open rate (baseline por tipo de email).   Setea alerts para rates anormales.
 ## FAQ
 
 **P: Necesito MJML si uso un servicio como SendGrid?**

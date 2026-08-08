@@ -204,16 +204,16 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 ## Correcciones de Bugs
 
 - **#456**: Error 500 al crear cuenta con email de mas de 50 caracteres
-- **#459**: Las notificaciones push no se enviaban en iOS 17.4+
+- **#459**: Las notificaciones push no se enviaban en iOS 17.
 - **#462**: El contador de notificaciones no se reseteaba al leer todas
 - **#465**: Los timestamps en la API mostraban zona horaria incorrecta
 
 ## Cambios Breaking
 
-- **API v1 deprecada**: La v1 de la API se eliminara en v3.0. Migrar a v2.
+- **API v1 deprecada**: La v1 de la API se eliminara en v3.  0.   Migrar a v2.
   Guia de migracion: docs/api-migration-v1-to-v2.md
 
-- **Campo user.name removido**: Reemplazado por user.firstName y user.lastName.
+- **Campo user.name removido**: Reemplazado por user.  firstName y user.  lastName.
   Los clientes que usen user.name recibiran un error 400.
 
 ## Notas de Seguridad
@@ -334,10 +334,10 @@ End of document. Review and update quarterly.
 ## Troubleshooting
 
 - **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
-- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
-- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
-- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
-- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly.   Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes.   A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers.   Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts.
 
 ## Errores Comunes en Producción
 

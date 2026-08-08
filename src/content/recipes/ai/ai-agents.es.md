@@ -179,10 +179,10 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 
 ## Explicación
 
-- **ReAct (Reasoning + Acting)**: el agente intercala razonamiento chain-of-thought con ejecución de herramientas. Cada paso de razonamiento explica por qué se necesita una herramienta; cada paso de acción invoca la herramienta. Esta transparencia facilita el debugging y mejora la precisión sobre el llamado directo de herramientas.
-- **Function calling**: los LLMs modernos (GPT-4, Claude, Gemini) soportan function calling estructurado. El modelo genera JSON con nombre de herramienta y argumentos, que la aplicación parsea y ejecuta. El resultado se alimenta de vuelta a la conversación como un mensaje `tool`.
-- **Ciclo de agente**: el bucle de ejecución central continúa hasta que el modelo produce una respuesta de texto final en lugar de una llamada a herramienta, o hasta que se alcanza un límite máximo de iteraciones. Esto previene bucles infinitos de herramientas mal definidas o objetivos ambiguos.
-- **Memoria**: sin memoria, cada invocación de agente es stateless. Los buffers de conversación almacenan turnos previos, mientras que los vector stores retienen hechos de largo plazo extraídos de resultados de herramientas. La memoria a corto plazo maneja la sesión actual; la memoria a largo plazo habilita personalización a través de sesiones.
+- **ReAct (Reasoning + Acting)**: el agente intercala razonamiento chain-of-thought con ejecución de herramientas.   Cada paso de razonamiento explica por qué se necesita una herramienta; cada paso de acción invoca la herramienta.   Esta transparencia facilita el debugging y mejora la precisión sobre el llamado directo de herramientas.
+- **Function calling**: los LLMs modernos (GPT-4, Claude, Gemini) soportan function calling estructurado.   El resultado se alimenta de vuelta a la conversación como un mensaje `tool`.
+- **Ciclo de agente**: el bucle de ejecución central continúa hasta que el modelo produce una respuesta de texto final en lugar de una llamada a herramienta, o hasta que se alcanza un límite máximo de iteraciones.   Esto previene bucles infinitos de herramientas mal definidas o objetivos ambiguos.
+- **Memoria**: sin memoria, cada invocación de agente es stateless.   Los buffers de conversación almacenan turnos previos, mientras que los vector stores retienen hechos de largo plazo extraídos de resultados de herramientas.
 
 ## Variantes
 
@@ -195,18 +195,18 @@ executor.invoke({"input": "Find the capital of Japan and then calculate 15% of i
 
 ## Lo que Funciona
 
-- **Define herramientas con precisión**: los nombres y descripciones de herramientas son prompts. Una descripción vaga como "buscar cosas" conduce a selección incorrecta de herramientas. Sé específico: "Search the web for current news and facts."
-- **Valida salidas de herramientas**: nunca confíes en la salida cruda del LLM como entrada segura para herramientas. Valida el schema JSON, sanitiza argumentos y maneja errores gracefulmente. Un prompt malicioso no debería ejecutar código arbitrario.
-- **Establece límites de iteración**: los agentes pueden iterar indefinidamente si una herramienta sigue retornando errores o el objetivo es inalcanzable. Limita las iteraciones a 5-10 y retorna un mensaje de fallo si se excede.
-- **Registra trazas de razonamiento**: almacena el historial completo de chain-of-thought y ejecución de herramientas. Esto es esencial para debugging, auditoría y mejora del agente a lo largo del tiempo.
+- **Define herramientas con precisión**: los nombres y descripciones de herramientas son prompts.   Una descripción vaga como "buscar cosas" conduce a selección incorrecta de herramientas.   Sé específico: "Search the web for current news and facts.
+- **Valida salidas de herramientas**: nunca confíes en la salida cruda del LLM como entrada segura para herramientas.   Un prompt malicioso no debería ejecutar código arbitrario.
+- **Establece límites de iteración**: los agentes pueden iterar indefinidamente si una herramienta sigue retornando errores o el objetivo es inalcanzable.   Limita las iteraciones a 5-10 y retorna un mensaje de fallo si se excede.
+- **Registra trazas de razonamiento**: Esto es esencial para debugging, auditoría y mejora del agente a lo largo del tiempo.
 - **Usa salida estructurada para respuestas finales**: cuando el agente debe retornar datos (no solo chatear), solicita salida JSON vía constraints de formato de respuesta para evitar parsear texto libre.
 
 ## Errores comunes
 
-- **Dar al agente herramientas peligrosas por defecto**: un agente con acceso a shell o permisos de escritura en base de datos puede causar daño irreversible. Aplica acceso least-privilege a herramientas y requiere aprobación humana para acciones destructivas.
-- **Ignorar latencia**: cada llamada a herramienta agrega una ronda de API del LLM. Un agente de 5 pasos con latencia de API de 2 segundos toma 10+ segundos. Usa llamadas de herramientas paralelas y caching para reducir la latencia percibida.
-- **Over-engineering de tareas simples**: si una pregunta puede responderse con una sola [búsqueda RAG](/recipes/ai/rag-pipeline), no construyas un agente completo. Los agentes agregan complejidad, costo y modos de fallo. Úsalos solo cuando el razonamiento multi-paso sea genuinamente requerido.
-- **Olvidar manejar errores de herramientas**: si una API de búsqueda está caída, el agente recibe un string de error y puede alucinar una respuesta. Captura excepciones, retorna mensajes de error estructurados y enseña al agente a reintentar o escalar.
+- **Dar al agente herramientas peligrosas por defecto**: un agente con acceso a shell o permisos de escritura en base de datos puede causar daño irreversible.   Aplica acceso least-privilege a herramientas y requiere aprobación humana para acciones destructivas.
+- **Ignorar latencia**: cada llamada a herramienta agrega una ronda de API del LLM.   Un agente de 5 pasos con latencia de API de 2 segundos toma 10+ segundos.
+- **Over-engineering de tareas simples**: si una pregunta puede responderse con una sola [búsqueda RAG](/recipes/ai/rag-pipeline), no construyas un agente completo.   Los agentes agregan complejidad, costo y modos de fallo.   Úsalos solo cuando el razonamiento multi-paso sea genuinamente requerido.
+- **Olvidar manejar errores de herramientas**: si una API de búsqueda está caída, el agente recibe un string de error y puede alucinar una respuesta.   Captura excepciones, retorna mensajes de error estructurados y enseña al agente a reintentar o escalar.
 
 
 
@@ -266,13 +266,13 @@ R: Persiste el historial de conversación del agente, resultados de herramientas
 
 ## Buenas Prácticas
 
-- **Empieza simple, luego añade complejidad**: comienza con un agente de una sola herramienta. Añade herramientas una a la vez y testea después de cada adición. Esto aísla qué herramienta causa regresiones.
-- **Usa outputs estructurados**: cuando el agente necesita retornar datos (no solo texto), solicita output JSON con un schema definido. Parsea y valida server-side antes de actuar.
+- **Empieza simple, luego añade complejidad**: comienza con un agente de una sola herramienta.   Esto aísla qué herramienta causa regresiones.
+- **Usa outputs estructurados**: cuando el agente necesita retornar datos (no solo texto), solicita output JSON con un schema definido.   Parsea y valida server-side antes de actuar.
 - **Implementa human-in-the-loop para acciones de alto riesgo**: para acciones que cuestan dinero, envían emails o modifican datos de producción, requiere confirmación del usuario antes de que el agente ejecute.
-- **Versiona la configuración de tu agente**: trackea cambios a system prompts, definiciones de herramientas y parámetros del modelo. Esto te permite rollbackear cuando un cambio degrada el rendimiento.
-- **Monitorea el costo del agente por sesión**: trackea el uso de tokens y conteo de tool calls por sesión. Setea un presupuesto y aborta si se excede. Esto previene agentes descontrolados de consumir todo tu presupuesto de API.
-- **Cachea resultados de herramientas cuando sea posible**: si una herramienta retorna el mismo resultado para el mismo input (ej. una query de búsqueda), cachea el resultado. Esto reduce latencia y llamadas API en razonamiento multi-paso.
-- **Usa streaming para agentes de larga duración**: streamea el razonamiento del agente al usuario para que vea progreso. Esto mejora el UX y permite a los usuarios abortar si el agente va en la dirección equivocada.
+- **Versiona la configuración de tu agente**: Esto te permite rollbackear cuando un cambio degrada el rendimiento.
+- **Monitorea el costo del agente por sesión**: Setea un presupuesto y aborta si se excede.   Esto previene agentes descontrolados de consumir todo tu presupuesto de API.
+- **Cachea resultados de herramientas cuando sea posible**: si una herramienta retorna el mismo resultado para el mismo input (ej.   una query de búsqueda), cachea el resultado.   Esto reduce latencia y llamadas API en razonamiento multi-paso.
+- **Usa streaming para agentes de larga duración**: streamea el razonamiento del agente al usuario para que vea progreso.   Esto mejora el UX y permite a los usuarios abortar si el agente va en la dirección equivocada.
 
 ## Checklist de Producción
 
@@ -291,10 +291,10 @@ R: Persiste el historial de conversación del agente, resultados de herramientas
 
 Al desplegar agentes a escala, considera estos factores:
 
-- **El consumo de tokens crece cuadráticamente**: cada tool call agrega tokens al context window. Después de 10 iteraciones con outputs de herramientas verbose, puedes alcanzar el límite de contexto del modelo. Implementa gestión del context window: resume resultados de herramientas antiguos o drópalos después de N turnos.
-- **Sesiones de agente concurrentes**: cada sesión mantiene su propio estado e historial de conversación. Usa un diseño de API stateless donde el estado de sesión se carga desde Redis o Postgres al inicio de cada turno. Esto te permite escalar horizontalmente across múltiples instancias de servidor.
-- **La latencia del modelo se compounded**: un agente que hace 5 tool calls secuenciales con tiempos de respuesta de LLM de 2 segundos toma 10+ segundos. Para agentes orientados al usuario, streamea resultados intermedios para que los usuarios vean progreso. Para agentes en background, usa procesamiento async con una cola de jobs.
-- **Control de costos a escala**: una sola sesión de agente puede consumir 10K-50K tokens. Con el pricing de GPT-4, eso es $0.30-$1.50 por sesión. Setea límites de costo por sesión y switchea a modelos más baratos (GPT-4o-mini) para decisiones simples de tool-routing.
+- **El consumo de tokens crece cuadráticamente**: cada tool call agrega tokens al context window.   Después de 10 iteraciones con outputs de herramientas verbose, puedes alcanzar el límite de contexto del modelo.
+- **Sesiones de agente concurrentes**: cada sesión mantiene su propio estado e historial de conversación.   Esto te permite escalar horizontalmente across múltiples instancias de servidor.
+- **La latencia del modelo se compounded**: un agente que hace 5 tool calls secuenciales con tiempos de respuesta de LLM de 2 segundos toma 10+ segundos.   Para agentes orientados al usuario, streamea resultados intermedios para que los usuarios vean progreso.
+- **Control de costos a escala**: una sola sesión de agente puede consumir 10K-50K tokens.   Con el pricing de GPT-4, eso es $0.  30-$1.  50 por sesión.   Setea límites de costo por sesión y switchea a modelos más baratos (GPT-4o-mini) para decisiones simples de tool-routing.
 
 ## Estimación de Costos
 
@@ -311,11 +311,11 @@ Para 1000 sesiones/día: $150-$850/día. Switchea a GPT-4o-mini para decisiones 
 
 Los agentes son potentes pero no siempre son la tool correcta. Evítalos cuando:
 
-- **La tarea es una sola llamada LLM**: si solo necesitas un resumen o clasificación, llama al LLM directamente. Wrappearlo en un loop de agente agrega latencia, costo y modos de fallo sin beneficio.
-- **Se requiere ejecución determinística**: los agentes son no-determinísticos por naturaleza. Si el mismo input debe siempre producir el mismo output, usa un pipeline fijo sin routing basado en LLM.
-- **El presupuesto de latencia es <2 segundos**: los loops de agente toman 5-30 segundos debido a múltiples llamadas LLM. Para respuestas sub-segundo, usa respuestas pre-computadas o una sola llamada LLM sin tools.
-- **El set de herramientas es inestable**: si tus APIs cambian frecuentemente, las definiciones de tools del agente se rompen. Usa un pipeline fijo donde controles los puntos de integración directamente.
-- **La sensibilidad de costo es alta**: cada sesión de agente cuesta 10-50x más que una sola llamada LLM. Para tareas de alto volumen y baja complejidad, una prompt chain es más cost-effective.
+- **La tarea es una sola llamada LLM**: si solo necesitas un resumen o clasificación, llama al LLM directamente.   Wrappearlo en un loop de agente agrega latencia, costo y modos de fallo sin beneficio.
+- **Se requiere ejecución determinística**: los agentes son no-determinísticos por naturaleza.
+- **El presupuesto de latencia es <2 segundos**: los loops de agente toman 5-30 segundos debido a múltiples llamadas LLM.
+- **El set de herramientas es inestable**: si tus APIs cambian frecuentemente, las definiciones de tools del agente se rompen.
+- **La sensibilidad de costo es alta**: cada sesión de agente cuesta 10-50x más que una sola llamada LLM.   Para tareas de alto volumen y baja complejidad, una prompt chain es más cost-effective.
 
 ### ¿Esta solución está lista para producción?
 
@@ -332,10 +332,10 @@ Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba co
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.   Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: Human review is still the ground truth.
 
 ## Errores Comunes en Producción
 

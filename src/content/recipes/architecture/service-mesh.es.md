@@ -149,10 +149,10 @@ spec:
 
 ## Explicación
 
-- **Sidecar proxy**: Envoy corre como sidecar en cada pod. Intercepta todo el tráfico de red vía reglas de iptables. Las aplicaciones aún hablan a `localhost:8080`, pero Envoy enruta, encripta y loguea el request real. El código de aplicación no requiere cambios.
-- **Mutual TLS (mTLS)**: el sidecar proporciona un certificado para probar su identidad y valida el certificado del peer. El tráfico está encriptado en tránsito y autenticado en ambos extremos. Incluso dentro del mismo cluster, los servicios no pueden impersonarse entre sí sin robar un certificado.
-- **Gestión de tráfico**: VirtualService define reglas de enrutamiento — despliegues canary, retries, timeouts, inyección de fallos. DestinationRule configura load balancing, connection pools y outlier detection (circuit breaker). Las políticas de tráfico son declarativas y versionadas en Git.
-- **Observabilidad**: Envoy genera métricas (conteo de requests, latencia, errores), access logs y distributed traces. Istio agrega esto en Kiali (topología), Grafana (métricas) y Jaeger (traces). Ves el grafo completo de servicios sin agregar instrumentación a las aplicaciones.
+- **Sidecar proxy**: Envoy corre como sidecar en cada pod.   Intercepta todo el tráfico de red vía reglas de iptables.   Las aplicaciones aún hablan a `localhost:8080`, pero Envoy enruta, encripta y loguea el request real.   El código de aplicación no requiere cambios.
+- **Mutual TLS (mTLS)**: el sidecar proporciona un certificado para probar su identidad y valida el certificado del peer.   El tráfico está encriptado en tránsito y autenticado en ambos extremos.   Incluso dentro del mismo cluster, los servicios no pueden impersonarse entre sí sin robar un certificado.
+- **Gestión de tráfico**: VirtualService define reglas de enrutamiento — despliegues canary, retries, timeouts, inyección de fallos.   Las políticas de tráfico son declarativas y versionadas en Git.
+- **Observabilidad**: Istio agrega esto en Kiali (topología), Grafana (métricas) y Jaeger (traces).   Ves el grafo completo de servicios sin agregar instrumentación a las aplicaciones.
 
 ## Variantes
 
@@ -166,18 +166,18 @@ spec:
 
 ## Lo que funciona
 
-- **Empieza con mTLS permisivo, luego enforce estricto**: comienza con modo `PERMISSIVE` para asegurar que todos los sidecars están inyectados y funcionando. Después de validar flujos de tráfico, cambia a `STRICT` para rechazar conexiones no encriptadas. El modo estricto repentino puede romper servicios que no tienen sidecars.
-- **Define service accounts por workload**: las cuentas de servicio de Kubernetes se mapean a identidades de Istio. Usa cuentas de servicio distintas para cada deployment, no la cuenta `default`. Esto habilita políticas de autorización granulares.
-- **Configura retry budgets, no solo retries**: retries ingenuos pueden amplificar fallos. Usa retry budgets de Istio (ej. retry solo si el ratio de error está debajo del 10%) o configura máximo de reintentos con backoff exponencial. Retries ilimitados crean retry storms.
-- **Usa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en cada llamada saliente**: configura `outlierDetection` en DestinationRules. Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos. Esto previene fallos en cascada.
-- **Monitorea el uso de recursos del sidecar**: Envoy consume CPU y memoria. Setea resource requests/limits en el sidecar. En servicios de alto throughput, el sidecar puede convertirse en el bottleneck antes que la aplicación. Profilea y tunea la concurrencia del proxy.
+- **Empieza con mTLS permisivo, luego enforce estricto**: Después de validar flujos de tráfico, cambia a `STRICT` para rechazar conexiones no encriptadas.   El modo estricto repentino puede romper servicios que no tienen sidecars.
+- **Define service accounts por workload**: las cuentas de servicio de Kubernetes se mapean a identidades de Istio.   Esto habilita políticas de autorización granulares.
+- **Configura retry budgets, no solo retries**: retries ingenuos pueden amplificar fallos.   Retries ilimitados crean retry storms.
+- **Usa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en cada llamada saliente**: Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos.   Esto previene fallos en cascada.
+- **Monitorea el uso de recursos del sidecar**: Envoy consume CPU y memoria.   Setea resource requests/limits en el sidecar.   En servicios de alto throughput, el sidecar puede convertirse en el bottleneck antes que la aplicación.   Profilea y tunea la concurrencia del proxy.
 
 ## Errores comunes
 
-- **Olvidar inyección de sidecar**: un pod sin sidecar bypassa el mesh completamente. Su tráfico no está encriptado, no es observado y no tiene restricciones. Siempre verifica la inyección con `kubectl get pod -o yaml | grep istio-proxy`.
-- **Políticas de autorización demasiado permisivas**: una política `ALLOW *` por defecto derrota el propósito. Empieza con `DENY all` explícito, luego agrega reglas `ALLOW` para paths legítimos. Zero-trust significa denegar por defecto.
-- **Ignorar ordering de startup**: durante rolling updates, pods antiguos sin sidecar pueden hablar con pods nuevos con mTLS estricto. Usa Helm o Argo Rollouts para manejar waves de actualización, o mantén `PERMISSIVE` durante la ventana de transición.
-- **Sin control de egress**: por defecto, el tráfico mesh-internal está controlado pero el egress (APIs externas, bases de datos) no. Configura recursos `ServiceEntry` para permitir explícitamente destinos externos, previniendo exfiltración de datos.
+- **Olvidar inyección de sidecar**: un pod sin sidecar bypassa el mesh completamente.   Su tráfico no está encriptado, no es observado y no tiene restricciones.   Siempre verifica la inyección con `kubectl get pod -o yaml | grep istio-proxy`.
+- **Políticas de autorización demasiado permisivas**: una política `ALLOW *` por defecto derrota el propósito.   Empieza con `DENY all` explícito, luego agrega reglas `ALLOW` para paths legítimos.   Zero-trust significa denegar por defecto.
+- **Ignorar ordering de startup**: durante rolling updates, pods antiguos sin sidecar pueden hablar con pods nuevos con mTLS estricto.
+- **Sin control de egress**: por defecto, el tráfico mesh-internal está controlado pero el egress (APIs externas, bases de datos) no.
 
 ## Preguntas frecuentes
 

@@ -205,7 +205,7 @@ groups:
 - **Use correlation IDs**: Pass `trace_id` through every [service call](/guides/architecture/microservices-architecture-guide)
 - **Log at boundaries**: Entry/exit of requests, jobs, and transactions
 - **Avoid logging sensitive data**: No passwords, tokens, or PII
-- **Set SLOs and error budgets**: Define what "good" means and measure against it. See [monitoring](/guides/devops/monitoring-alerting-guide).
+- **Set SLOs and error budgets**: Define what "good" means and measure against it.  See [monitoring](/guides/devops/monitoring-alerting-guide).
 - **Alert fatigue is real**: Page only for useful, critical issues
 
 ## Common Mistakes
@@ -219,10 +219,10 @@ groups:
 ## Troubleshooting
 
 - **Pipeline fails silently**: enable verbose logging and store pipeline artifacts between stages so you can inspect the exact state that failed.
-- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly. Read the first 50 lines of logs before scaling replicas.
-- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes. A failing readiness probe is a common cause of rolling restarts.
-- **Slow CI builds**: cache dependencies and docker layers. Split large test suites into parallel jobs to reduce wall-clock time.
-- **Drift between environments**: use infrastructure-as-code and immutable artifacts. Compare deployed versions with the declared source of truth before debugging behavior differences.
+- **Container crashes on startup**: check that environment variables, secrets, and config files are mounted correctly.  Read the first 50 lines of logs before scaling replicas.
+- **Deployment rolls back repeatedly**: verify health checks, resource limits, and startup probes.  A failing readiness probe is a common cause of rolling restarts.
+- **Slow CI builds**: cache dependencies and docker layers.  Split large test suites into parallel jobs to reduce wall-clock time.
+- **Drift between environments**: use infrastructure-as-code and immutable artifacts.
 
 
 

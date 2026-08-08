@@ -161,7 +161,7 @@ AWS Signature v4 extiende esto con scopes de credenciales, headers firmados e id
 
 ## Lo que funciona
 
-- **Usa comparación de tiempo constante**: `crypto.timingSafeEqual()` previene ataques de timing
+- **Usa comparación de tiempo constante**: `crypto.
 - **Incluye timestamps**: Rechaza peticiones mayores a 5 minutos para prevenir replay attacks
 - **Rota secretos regularmente**: Implementa rotación graceful con períodos de aceptación de clave dual
 - **Firma el body, no solo headers**: La manipulación del payload debe invalidar la firma

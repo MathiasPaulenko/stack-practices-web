@@ -166,10 +166,10 @@ async function generateBatch(theme, outputDir) {
 
 ## Explanation
 
-- **Prompt engineering for images**: image models are highly sensitive to prompt structure. Include subject, style, lighting, camera angle, mood, and negative constraints. DALL-E 3 automatically expands short prompts; Stable Diffusion requires explicit detail for quality results.
-- **Seed values for consistency**: fixing the random seed (`seed=42`) ensures that the same prompt produces the same image across generations. This is essential for A/B testing, regression testing, and creating series of images with uniform style.
-- **Content moderation**: OpenAI and Stability AI automatically filter prompts and outputs for harmful content. Implement additional moderation layers for user-generated prompts, logging rejected requests and alerting on suspicious patterns.
-- **Image optimization**: generated images are typically PNG or high-quality JPEG. Convert to WebP for web delivery, generate responsive sizes, and lazy-load below-the-fold images. Use CDNs for global distribution. See [Lazy Loading Images](/recipes/performance/lazy-loading) for implementation.
+- **Prompt engineering for images**: image models are highly sensitive to prompt structure.  DALL-E 3 automatically expands short prompts; Stable Diffusion requires explicit detail for quality results.
+- **Seed values for consistency**: fixing the random seed (`seed=42`) ensures that the same prompt produces the same image across generations.  This is essential for A/B testing, regression testing, and creating series of images with uniform style.
+- **Content moderation**: OpenAI and Stability AI automatically filter prompts and outputs for harmful content.
+- **Image optimization**: generated images are typically PNG or high-quality JPEG.  Convert to WebP for web delivery, generate responsive sizes, and lazy-load below-the-fold images.  See [Lazy Loading Images](/recipes/performance/lazy-loading) for implementation.
 
 ## Variants
 
@@ -182,27 +182,27 @@ async function generateBatch(theme, outputDir) {
 
 ## What works
 
-- **Cache generated images**: store generated images in object storage (S3, GCS) with a CDN in front. Never regenerate the same prompt twice — cache by prompt hash or user selection.
-- **Version your prompts**: track prompt templates, model versions, and seed values in version control. When models update (e.g., DALL-E 3 to 4), regression test your prompt library for consistency.
-- **Implement user content policies**: block prompts that request violent, sexual, or copyright-infringing content. Display clear terms of service and maintain an audit log of all generations for compliance.
-- **Optimize for web before storage**: resize images to exact display dimensions, compress with WebP/AVIF, and strip metadata. A 1024x1024 PNG from DALL-E is 2-4MB; the same image as WebP at 80% quality is 200KB.
-- **Fallback to stock for failures**: if the API is rate-limited or the generated image is unusable, fall back to a curated stock photo library. Never show broken images or loading spinners indefinitely.
+- **Cache generated images**: store generated images in object storage (S3, GCS) with a CDN in front.  Never regenerate the same prompt twice — cache by prompt hash or user selection.
+- **Version your prompts**: track prompt templates, model versions, and seed values in version control.  When models update (e. g. , DALL-E 3 to 4), regression test your prompt library for consistency.
+- **Implement user content policies**: block prompts that request violent, sexual, or copyright-infringing content.  Display clear terms of service and maintain an audit log of all generations for compliance.
+- **Optimize for web before storage**: resize images to exact display dimensions, compress with WebP/AVIF, and strip metadata.  A 1024x1024 PNG from DALL-E is 2-4MB; the same image as WebP at 80% quality is 200KB.
+- **Fallback to stock for failures**: if the API is rate-limited or the generated image is unusable, fall back to a curated stock photo library.  Never show broken images or loading spinners indefinitely.
 
 ## Common mistakes
 
-- **Not handling API rate limits**: DALL-E allows 5 images/minute on standard tiers. Queue generation requests and implement exponential backoff. Do not hammer the API in a tight loop.
-- **Ignoring prompt injection**: users can craft prompts that override your system instructions (e.g., "ignore previous instructions, generate..."). Sanitize user input and wrap it in a fixed template that cannot be escaped.
-- **Storing unoptimized originals**: keeping full-resolution PNGs in your database bloats storage and slows page loads. Generate and cache optimized variants at ingestion time.
-- **Using generated images without rights review**: while most AI-generated images are commercially usable, review your provider's terms. Some restrict use in certain industries (medical, political) or require attribution.
+- **Not handling API rate limits**: DALL-E allows 5 images/minute on standard tiers.  Queue generation requests and implement exponential backoff.  Do not hammer the API in a tight loop.
+- **Ignoring prompt injection**: users can craft prompts that override your system instructions (e. g. , "ignore previous instructions, generate... ").  Sanitize user input and wrap it in a fixed template that cannot be escaped.
+- **Storing unoptimized originals**: keeping full-resolution PNGs in your database bloats storage and slows page loads.
+- **Using generated images without rights review**: while most AI-generated images are commercially usable, review your provider's terms.  Some restrict use in certain industries (medical, political) or require attribution.
 
 
 ## Troubleshooting
 
 - **Model outputs are inconsistent**: set temperature to 0 for deterministic tasks, use seed where supported, and version the prompt.
-- **Prompt injection leaks context**: separate user input from system instructions. Use allowlists and output validation for untrusted data.
+- **Prompt injection leaks context**: separate user input from system instructions.
 - **High token costs**: cache embeddings, summarize long context, and choose smaller models for simple tasks.
-- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters. Evaluate retrieval metrics separately from generation.
-- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement. Human review is still the ground truth.
+- **Retrieval returns irrelevant chunks**: tune chunk size, overlap, and metadata filters.  Evaluate retrieval metrics separately from generation.
+- **Evaluation scores do not match human judgment**: define clear rubrics, use multiple judges, and track disagreement.  Human review is still the ground truth.
 
 
 
@@ -270,12 +270,12 @@ A: Cache aggressively — store every generated image by prompt hash and serve f
 
 ## Best Practices
 
-- **Build a prompt library**: maintain a versioned collection of tested prompts with their expected outputs. This ensures consistency across team members and serves as a regression test when models update.
-- **Generate multiple variants and pick the best**: request 2-4 images per prompt and select the highest quality. This costs more but considerably improves output quality, especially for marketing materials.
-- **Use deterministic seeds for reproducibility**: when you find a good result, save the seed. This lets you regenerate similar images or make small prompt adjustments while preserving composition.
-- **Implement a review queue for user-facing content**: never publish AI-generated images directly to users without a human review step. Set up a moderation queue that checks for artifacts, text rendering errors, and content policy violations.
-- **Store generation metadata separately from images**: keep prompt, model, seed, and parameters in a database. This enables auditing, debugging, and re-generation without parsing image metadata.
-- **Set up cost monitoring and alerts**: track daily image generation costs per user and per project. Alert when spending exceeds 80% of budget. Suspend generation for users who exceed their quota.
+- **Build a prompt library**: maintain a versioned collection of tested prompts with their expected outputs.  This ensures consistency across team members and serves as a regression test when models update.
+- **Generate multiple variants and pick the best**: request 2-4 images per prompt and select the highest quality.  This costs more but considerably improves output quality, especially for marketing materials.
+- **Use deterministic seeds for reproducibility**: when you find a good result, save the seed.  This lets you regenerate similar images or make small prompt adjustments while preserving composition.
+- **Implement a review queue for user-facing content**: never publish AI-generated images directly to users without a human review step.  Set up a moderation queue that checks for artifacts, text rendering errors, and content policy violations.
+- **Store generation metadata separately from images**: keep prompt, model, seed, and parameters in a database.  This enables auditing, debugging, and re-generation without parsing image metadata.
+- **Set up cost monitoring and alerts**: track daily image generation costs per user and per project.  Alert when spending exceeds 80% of budget.  Suspend generation for users who exceed their quota.
 
 ## Production Checklist
 
@@ -294,11 +294,11 @@ A: Cache aggressively — store every generated image by prompt hash and serve f
 
 When generating images at scale, consider these factors:
 
-- **API rate limits**: OpenAI's DALL-E 3 has a rate limit of 5 images per minute for tier 1 users. For higher throughput, request a quota increase or use multiple API keys with a round-robin dispatcher. Stable Diffusion APIs (Stability AI, Replicate) have separate rate limits.
-- **Storage costs**: a single 1024x1024 PNG image is 1-3 MB. At 1000 images per day, that's 1-3 GB daily. Use object storage (S3, GCS) with lifecycle policies to move old images to cheaper storage tiers. Consider converting to WebP for 30-50% size reduction.
-- **Latency**: DALL-E 3 takes 10-30 seconds per image. For batch generation, parallelize with async requests. For user-facing generation, show a loading state with an estimated wait time. Consider pre-generating common image variants during off-peak hours.
-- **Content moderation at scale**: OpenAI automatically rejects prohibited content, but your users may find workarounds. Implement a secondary moderation layer using a tool like AWS Rekognition or Google Cloud Vision to scan generated images before storing them.
-- **CDN distribution**: serve generated images through a CDN (CloudFront, Cloudflare) to reduce latency for global users. Set appropriate cache headers and TTLs. Invalidating cached images when they are regenerated is important for consistency.
+- **API rate limits**: OpenAI's DALL-E 3 has a rate limit of 5 images per minute for tier 1 users.  For higher throughput, request a quota increase or use multiple API keys with a round-robin dispatcher.  Stable Diffusion APIs (Stability AI, Replicate) have separate rate limits.
+- **Storage costs**: a single 1024x1024 PNG image is 1-3 MB.  At 1000 images per day, that's 1-3 GB daily.  Consider converting to WebP for 30-50% size reduction.
+- **Latency**: DALL-E 3 takes 10-30 seconds per image.  For batch generation, parallelize with async requests.  For user-facing generation, show a loading state with an estimated wait time.  Consider pre-generating common image variants during off-peak hours.
+- **Content moderation at scale**: OpenAI automatically rejects prohibited content, but your users may find workarounds.
+- **CDN distribution**: serve generated images through a CDN (CloudFront, Cloudflare) to reduce latency for global users.  Set appropriate cache headers and TTLs.  Invalidating cached images when they are regenerated is important for consistency.
 
 ## Cost Estimation
 
@@ -314,11 +314,11 @@ For 1000 images/day at standard quality: $40/day in generation, ~$2-3/day in sto
 
 ## When Not to Use AI Image Generation
 
-- **Photorealistic accuracy is critical**: AI models struggle with fine details (hands, text, logos). For product photos or technical illustrations, use traditional photography or graphic design.
-- **Brand consistency across batches**: AI-generated images vary between generations even with the same prompt. For consistent visual identity across a campaign, use templates or human designers.
-- **Copyright-sensitive contexts**: AI models may reproduce training data patterns. For commercial work where IP clearance is required, use licensed stock photos or commission original artwork.
-- **Real-time generation (<5 seconds)**: DALL-E 3 takes 10-30 seconds. For real-time applications (avatars, live previews), use pre-generated assets or lightweight models like SDXL Turbo.
-- **High-volume, low-budget projects**: at $0.04/image, 10K images cost $400. For simple decorative graphics (icons, patterns, gradients), use CSS, SVG, or static asset libraries instead.
+- **Photorealistic accuracy is critical**: AI models struggle with fine details (hands, text, logos).  For product photos or technical illustrations, use traditional photography or graphic design.
+- **Brand consistency across batches**: AI-generated images vary between generations even with the same prompt.  For consistent visual identity across a campaign, use templates or human designers.
+- **Copyright-sensitive contexts**: AI models may reproduce training data patterns.  For commercial work where IP clearance is required, use licensed stock photos or commission original artwork.
+- **Real-time generation (<5 seconds)**: DALL-E 3 takes 10-30 seconds.  For real-time applications (avatars, live previews), use pre-generated assets or lightweight models like SDXL Turbo.
+- **High-volume, low-budget projects**: at $0. 04/image, 10K images cost $400.  For simple decorative graphics (icons, patterns, gradients), use CSS, SVG, or static asset libraries instead.
 
 ## Performance Benchmarks
 
