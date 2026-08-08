@@ -259,11 +259,15 @@ const metaDescription = smartTruncate(description, 160 - esDescTag.length) + esD
 
 <!-- JSON-LD structured data -->
 {
-  jsonLd.map((schema) => (
+  jsonLd.length > 0 && (
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(schema)}
+      set:html={JSON.stringify(
+        jsonLd.length === 1
+          ? jsonLd[0]
+          : { '@context': 'https://schema.org', '@graph': jsonLd.map((s) => ({ ...s, '@context': undefined })) }
+      )}
     />
-  ))
+  )
 }
