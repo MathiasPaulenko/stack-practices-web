@@ -29,7 +29,7 @@ const jsonLd = [
 
 <BaseLayout title={heading} description={description} path="/tags/" keywords={['tags', 'topics', 'technologies', 'software engineering']} jsonLd={jsonLd}>
   <section class="border-b border-slate-800 bg-slate-900">
-    <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div class="listing-container">
       <nav aria-label="Breadcrumb" class="text-sm text-slate-400">
         <a href="/" class="font-medium text-brand-400 hover:text-brand-300">Home</a>
         <span class="mx-2 text-slate-600">/</span>
@@ -40,13 +40,13 @@ const jsonLd = [
     </div>
   </section>
 
-  <section class="border-b border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <h2 class="text-xl font-semibold text-slate-900">How this tag index is organized</h2>
-      <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+  <section class="listing-section">
+    <div class="listing-container">
+      <h2 class="listing-heading">How this tag index is organized</h2>
+      <p class="listing-intro">
         Tags are sorted by the number of resources they contain. The most popular tags cover foundational topics that appear across many recipes and guides. Click a tag to see curated resources, practical examples, and common pitfalls for that topic.
       </p>
-      <p class="mt-3 max-w-3xl text-slate-600 leading-relaxed">
+      <p class="listing-intro">
         Use the filter to narrow the list, or start with one of the top tags to build a solid foundation before moving to specialized subjects.
       </p>
     </div>
@@ -97,7 +97,7 @@ const jsonLd = [
                 type="button"
                 data-total={sortedTags.length}
                 data-page-size={PAGE_SIZE}
-                class="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-brand-700"
+                class="load-more-btn"
                 style={hasMore ? '' : 'display:none'}
               >
                 Load more tags
