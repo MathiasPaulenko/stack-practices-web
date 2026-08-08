@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 
 import shikiShortCode from './src/lib/shiki-short-code.mjs';
 import shikiClassify from './src/lib/shiki-classify.mjs';
@@ -20,9 +21,11 @@ export default defineConfig({
       wrap: false,
       transformers: [shikiShortCode(), shikiClassify()],
     },
-    remarkPlugins: [
-      remarkTruncateFaq,
-    ],
+    processor: unified({
+      remarkPlugins: [
+        remarkTruncateFaq,
+      ],
+    }),
   },
   vite: {
     build: {

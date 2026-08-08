@@ -239,7 +239,7 @@ const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en
             {locale === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions'}
           </h2>
           <dl class="faq-list">
-            {faqs.map((faq: { question: string; answer: string }) => (
+            {faqs.slice(0, 10).map((faq: { question: string; answer: string }) => (
               <div class="faq-item">
                 <dt class="faq-item__question">{faq.question}</dt>
                 <dd class="faq-item__answer">{faq.answer}</dd>

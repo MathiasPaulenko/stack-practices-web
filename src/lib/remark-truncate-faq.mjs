@@ -1,4 +1,4 @@
-const DEFAULT_MAX_FAQS = 5;
+const DEFAULT_MAX_FAQS = 0;
 
 const FAQ_HEADING_RE = /^(FAQ|Frequently Asked Questions|Additional FAQ|Additional Frequently Asked Questions|Preguntas Frecuentes|Preguntas más frecuentes|Preguntas frecuentes adicionales|FAQ adicional|FAQ adicionales)$/i;
 const Q_PREFIX_RE = /^[QP]:\s*/i;
@@ -146,15 +146,38 @@ function processFaqSection(tree, startIndex, maxFaqs, maxSentences) {
 export default function remarkTruncateFaq({
   maxFaqs = DEFAULT_MAX_FAQS,
   maxSentences = 3,
+  removeSection = true,
 } = {}) {
   return function transformer(tree) {
     if (!tree.children) return;
+    console.error('[remarkTruncateFaq] transformer called, children:', tree.children.length);
 
     // Process every FAQ section in the document (main and additional).
+    // When removeSection is true, the entire FAQ section (heading + content)
+    // is removed from the rendered markdown because the RecipeArticle component
+    // renders FAQs with proper semantic <dl> markup and FAQPage JSON-LD.
+    let removed = 0;
     for (let i = 0; i < tree.children.length; i++) {
       if (isFaqHeading(tree.children[i])) {
-        processFaqSection(tree, i, maxFaqs, maxSentences);
+        if (removeSection) {
+          // Find the end of this section (next H2 or end of document)
+          let endIndex = tree.children.length;
+          for (let k = i + 1; k < tree.children.length; k++) {
+            if (tree.children[k].type === 'heading' && tree.children[k].depth <= 2) {
+              endIndex = k;
+              break;
+            }
+          }
+          tree.children.splice(i, endIndex - i);
+          removed += endIndex - i;
+          i--; // Adjust index after removal
+        } else {
+          processFaqSection(tree, i, maxFaqs, maxSentences);
+        }
       }
+    }
+    if (removed > 0) {
+      console.error(`[remarkTruncateFaq] Removed ${removed} nodes from FAQ section`);
     }
   };
 }

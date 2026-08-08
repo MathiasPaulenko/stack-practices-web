@@ -24,7 +24,7 @@ export function entryHref(contentType: string, slug: string, locale: 'en' | 'es'
  *   **Q: question?**\nA: answer
  *   ### question?\n\nanswer
  */
-export function extractFaqs(markdown: string): { question: string; answer: string }[] {
+export function extractFaqs(markdown: string, maxFaqs = 10): { question: string; answer: string }[] {
   if (!markdown) return [];
   const faqHeading = /^##\s+(Frequently Asked Questions|Preguntas Frecuentes|FAQ)\s*$/im;
   const match = faqHeading.exec(markdown);
@@ -42,6 +42,7 @@ export function extractFaqs(markdown: string): { question: string; answer: strin
   let m: RegExpExecArray | null;
   while ((m = qaRegex.exec(body)) !== null) {
     faqs.push({ question: clean(m[1]), answer: clean(m[2]) });
+    if (faqs.length >= maxFaqs) break;
   }
   if (faqs.length > 0) return faqs;
 
@@ -49,6 +50,7 @@ export function extractFaqs(markdown: string): { question: string; answer: strin
   const hRegex = /^###\s+(.+?)\s*\n+([\s\S]*?)(?=\n###\s+|\s*$)/gm;
   while ((m = hRegex.exec(body)) !== null) {
     faqs.push({ question: clean(m[1]), answer: clean(m[2]) });
+    if (faqs.length >= maxFaqs) break;
   }
   return faqs;
 }
