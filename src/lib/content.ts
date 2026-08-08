@@ -73,7 +73,7 @@ function clean(text: string): string {
       .replace(/>/g, '&gt;')
       .replace(/\s+/g, ' ')
       .trim(),
-    280
+    200
   );
 }
 
