@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "postbuild": "node scripts/minify-classes.mjs && node scripts/clean-dist-assets.mjs && pagefind --site dist",
+    "postbuild": "node scripts/minify-classes.mjs && node scripts/minify-json.mjs && node scripts/clean-dist-assets.mjs && pagefind --site dist",
     "preview": "astro preview",
     "check": "astro check",
     "sync": "astro sync",

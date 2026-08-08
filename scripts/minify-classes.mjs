@@ -141,13 +141,18 @@ for (const f of cssFiles) {
   fs.writeFileSync(f, css);
 }
 
-// Apply to HTML
+// Apply to HTML, skipping <script> blocks so inlined JS literals like
+// a.innerHTML = '<div class="...">' are not corrupted.
 for (const f of htmlFiles) {
   let html = readFile(f);
-  html = html.replace(/class="([^"]*)"/g, (match, val) => {
-    const classes = val.split(/\s+/).filter(Boolean).map((c) => mapping.get(c) || c).join(' ');
-    return `class="${classes}"`;
-  });
+  const parts = html.split(/(<script[^>]*>[\s\S]*?<\/script>)/g);
+  for (let i = 0; i < parts.length; i += 2) {
+    parts[i] = parts[i].replace(/class="([^"]*)"/g, (match, val) => {
+      const classes = val.split(/\s+/).filter(Boolean).map((c) => mapping.get(c) || c).join(' ');
+      return `class="${classes}"`;
+    });
+  }
+  html = parts.join('');
   fs.writeFileSync(f, html);
 }
 
