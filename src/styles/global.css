@@ -953,8 +953,72 @@ details[open] > summary svg {
   margin-top: 2.5rem;
 }
 
-/* Copy button on code blocks */
+/* Shiki css-variables theme + short class colors */
+:root {
+  --astro-code-foreground: #e1e4e8;
+  --astro-code-background: #24292e;
+  --astro-code-token-constant: #79c0ff;
+  --astro-code-token-string: #a5d6ff;
+  --astro-code-token-comment: #8b949e;
+  --astro-code-token-keyword: #ff7b72;
+  --astro-code-token-parameter: #ffa657;
+  --astro-code-token-function: #d2a8ff;
+  --astro-code-token-string-expression: #a5d6ff;
+  --astro-code-token-punctuation: #c9d1d9;
+  --astro-code-token-link: #a5d6ff;
+}
+
 pre.astro-code {
+  position: relative;
+  background-color: var(--astro-code-background);
+  color: var(--astro-code-foreground);
+}
+pre.astro-code code .line {
+  display: block;
+}
+pre.astro-code .sf,
+pre.astro-code span.sf {
+  color: var(--astro-code-foreground);
+}
+pre.astro-code .sb,
+pre.astro-code span.sb {
+  background-color: var(--astro-code-background);
+}
+pre.astro-code .sc,
+pre.astro-code span.sc {
+  color: var(--astro-code-token-comment);
+}
+pre.astro-code .sn,
+pre.astro-code span.sn {
+  color: var(--astro-code-token-constant);
+}
+pre.astro-code .ss,
+pre.astro-code span.ss {
+  color: var(--astro-code-token-string);
+}
+pre.astro-code .sse,
+pre.astro-code span.sse {
+  color: var(--astro-code-token-string-expression);
+}
+pre.astro-code .sk,
+pre.astro-code span.sk {
+  color: var(--astro-code-token-keyword);
+}
+pre.astro-code .sp,
+pre.astro-code span.sp {
+  color: var(--astro-code-token-parameter);
+}
+pre.astro-code .sfu,
+pre.astro-code span.sfu {
+  color: var(--astro-code-token-function);
+}
+pre.astro-code .spu,
+pre.astro-code span.spu {
+  color: var(--astro-code-token-punctuation);
+}
+
+/* Copy button on code blocks */
+pre.astro-code .copy-btn {
   position: relative;
 }
 pre.astro-code .copy-btn {
