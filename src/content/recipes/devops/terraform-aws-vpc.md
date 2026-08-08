@@ -388,83 +388,8 @@ resource "aws_nat_gateway" "main" {
 }
 ```
 
-## Additional Best Practices
 
-1. **Tag everything consistently.** Use a `locals` block for common tags:
 
-```hcl
-locals {
-  common_tags = {
-    Environment = var.environment
-    ManagedBy   = "terraform"
-    Project     = "platform"
-  }
-}
-```
-
-2. **Use `cidrsubnet` for predictable CIDR allocation.** Avoid hardcoding subnet CIDRs:
-
-```hcl
-# Public: 10.0.0.0/24, 10.0.1.0/24, 10.0.2.0/24
-# Private: 10.0.100.0/24, 10.0.101.0/24, 10.0.102.0/24
-cidr_block = cidrsubnet(var.cidr_block, 8, count.index)
-```
-
-3. **Enable VPC Flow Logs from day one.** Retroactively enabling means lost audit data:
-
-```bash
-# Query flow logs for rejected traffic
-aws logs filter-log-events \
-  --log-group-name /aws/vpc/flow-logs \
-  --filter-pattern "REJECT"
-```
-
-## Additional Common Mistakes
-
-1. **Forgetting `depends_on` for VPC endpoints.** Gateway endpoints need route tables to exist first:
-
-```hcl
-resource "aws_vpc_endpoint" "s3" {
-  # ...
-  depends_on = [aws_route_table.private]
-}
-```
-
-2. **Not using `private_dns_enabled` for interface endpoints.** Without it, services resolve to public IPs instead of private:
-
-```hcl
-private_dns_enabled = true  # Critical for Secrets Manager, SSM, etc.
-```
-
-3. **Overlapping CIDR blocks when peering.** Plan CIDR ranges upfront to avoid conflicts:
-
-```hcl
-# VPC A: 10.0.0.0/16
-# VPC B: 10.1.0.0/16  (not 10.0.0.0/16)
-# VPC C: 10.2.0.0/16
-```
-
-## Additional FAQ
-
-### How do I estimate VPC costs?
-
-NAT Gateways are the main cost driver: ~$32/month per gateway plus $0.045/GB processed. Use `single_nat_gateway = true` for dev environments. VPC endpoints cost ~$7/month per interface endpoint but save on NAT data processing fees.
-
-### What CIDR block should I use?
-
-Use RFC 1918 ranges: `10.0.0.0/16` (65k IPs), `172.16.0.0/16`, or `192.168.0.0/16`. Avoid overlapping with on-premises networks or other VPCs you plan to peer with.
-
-### How do I migrate from console-created VPC to Terraform?
-
-```bash
-# Import existing resources
-terraform import aws_vpc.main vpc-abc123
-terraform import aws_subnet.public[0] subnet-abc123
-terraform import aws_internet_gateway.main igw-abc123
-
-# Then run terraform plan to reconcile drift
-terraform plan
-```
 
 ## Performance Tips
 

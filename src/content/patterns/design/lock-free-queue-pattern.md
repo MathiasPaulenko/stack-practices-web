@@ -439,46 +439,5 @@ class BatchLockFreeQueue:
         self.pending_batch.clear()
 ```
 
-## Additional Best Practices
 
 
-- For a deeper guide, see [Actor Model Pattern](/patterns/actor-model-pattern/).
-
-1. **Pad data structures to avoid false sharing.** Cache line alignment prevents different threads from contending for the same cache line. Add padding between frequently accessed atomic variables:
-
-```cpp
-struct alignas(64) PaddedAtomic {
-    std::atomic<size_t> value;
-    char padding[64 - sizeof(std::atomic<size_t>)];
-};
-```
-
-2. **Use memory barriers correctly.** On weak memory models (ARM, POWER), simple loads and stores may not be visible across threads. Use acquire/release semantics for producer-consumer patterns:
-
-```c
-// Producer: release store
-std::atomic_store_explicit(&buffer[idx], value, std::memory_order_release);
-
-// Consumer: acquire load
-std::atomic_load_explicit(&buffer[idx], std::memory_order_acquire);
-```
-
-## Additional Common Mistakes
-
-1. **Ignoring cache line effects.** False sharing occurs when two threads write to different variables that share a cache line. This causes cache invalidation and thrashing. Pad your data structures to align with cache lines (typically 64 bytes) to prevent this.
-
-2. **Not handling queue overflow gracefully.** Lock-free ring buffers are bounded. When full, the enqueue operation must either block, drop the item, or return failure. Spinning forever wastes CPU. Implement backoff or provide a fallback overflow queue.
-
-## Additional Frequently Asked Questions
-
-### How do I measure if lock-free is worth it?
-
-Benchmark both lock-based and lock-free implementations under realistic contention levels. Measure throughput (operations per second), latency (p50, p99, p999), and CPU utilization. Lock-free typically wins at high contention but may be slower at low contention due to CAS overhead.
-
-### Can lock-free queues cause starvation?
-
-Yes. Lock-free guarantees system-wide progress (some thread always advances), but individual threads may starve if they consistently lose CAS races. Wait-free algorithms guarantee per-thread bounded steps but are more complex and often slower. For most applications, lock-free is sufficient.
-
-### How do I handle priority inversion with lock-free queues?
-
-Lock-free queues avoid priority inversion by eliminating locks entirely. Since no thread holds a lock, a low-priority thread cannot block a high-priority thread. This is a key advantage of lock-free over lock-based queues in real-time systems.

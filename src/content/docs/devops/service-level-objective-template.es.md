@@ -371,43 +371,4 @@ sli_checkout:
   target: 0.995
 ```
 
-## Errores Comunes Adicionales
 
-1. **Establecer SLOs diferentes para el mismo servicio entre equipos.** Cuando multiples equipos poseen partes de un servicio, los SLOs inconsistentes crean puntos ciegos. Usa un SLO unificado que cubra el viaje completo del usuario:
-
-```bash
-# Validate SLO consistency across teams
-node -e "
-const slos = require('./slo-definitions.json');
-const services = {};
-slos.forEach(s => {
-  if (!services[s.service]) services[s.service] = [];
-  services[s.service].push(s.target);
-});
-for (const [svc, targets] of Object.entries(services)) {
-  const unique = [...new Set(targets)];
-  if (unique.length > 1) {
-    console.log('INCONSISTENT: ' + svc + ' has targets: ' + unique.join(', '));
-  }
-}
-"
-```
-
-2. **No contabilizar el mantenimiento planificado en los presupuestos de error.** Los despliegues programados y el mantenimiento consumen presupuesto de error. Excluye el downtime planificado de los calculos de SLI o asigna un presupuesto de mantenimiento separado:
-
-```promql
-# Exclude planned maintenance windows from SLI
-sum(rate(http_requests_total{status!~"5..", maintenance!="true"}[30d]))
-/
-sum(rate(http_requests_total{maintenance!="true"}[30d]))
-```
-
-## Preguntas Frecuentes Adicionales
-
-### Como calculo el presupuesto de error en minutos?
-
-Para una ventana de 30 dias: `30 dias * 24 horas * 60 minutos * (1 - SLO_target)`. Al 99.9%: `43200 * 0.001 = 43.2 minutos` de downtime permitido por mes. Al 99.95%: `43200 * 0.0005 = 21.6 minutos`. Al 99.99%: `43200 * 0.0001 = 4.32 minutos`.
-
-### Deberia usar SLOs para servicios solo internos?
-
-Si. Los servicios internos afectan a los servicios orientados al usuario que dependen de ellos. Una API interna lenta aumenta la latencia del viaje del usuario. Establece SLOs en servicios internos con objetivos alineados a su impacto en los servicios descendentes. Un servicio de autenticacion interno que tarda 500ms violara el SLO de latencia orientado al usuario incluso si el frontend es rapido.

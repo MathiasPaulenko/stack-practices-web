@@ -351,14 +351,3 @@ Yes. Rebasing your feature branch onto the latest main before merging keeps the 
 
 When a conflict occurs, Git pauses the rebase. Fix the conflicting files, `git add` them, then `git rebase --continue` to resume. Use `git rebase --abort` to cancel and return to the pre-rebase state. Use `git rebase --skip` to drop the current commit if it is already applied. Always resolve conflicts in small batches — rebase one commit at a time rather than all at once.
 
-## Additional Common Mistakes
-
-- Rebasing shared branches that others have already pulled — rewrites public history and breaks teammates' repos
-- Not using `git stash` before starting a rebase with uncommitted changes
-- Squashing too many commits into one — makes the resulting commit hard to review and revert
-- Forgetting that `exec` commands run in the repo root, not the original working directory
-- Using `drop` on commits that other commits depend on — can cause unexpected conflicts during replay
-- Not communicating with the team before rewriting shared branch history — always coordinate rebase operations on collaborative branches
-- Rebasing more than ~20 commits at once — increases conflict surface area and makes recovery harder if something goes wrong
-- Not testing the build after a rebase — rebasing can silently break code if a commit depended on a prior change that was reordered
-- Forgetting to force-push with `--force-with-lease` instead of `--force` — the lease variant is safer because it checks for remote changes

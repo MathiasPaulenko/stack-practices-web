@@ -348,20 +348,3 @@ if (( avail_bytes < 5368709120 )) || (( usage_val >= 90 )); then
 fi
 ```
 
-## Additional FAQ
-
-### How do I monitor disk usage in Kubernetes?
-
-For Kubernetes, monitor node disk usage via node_exporter and Prometheus. Alert on `node_filesystem_avail_bytes` for node-level disk pressure. For PersistentVolume usage, use kubelet volume stats metrics: `kubelet_volume_stats_available_bytes` and `kubelet_volume_stats_capacity_bytes`. Kubernetes also has built-in disk pressure eviction — configure `--eviction-hard` with `nodefs.available<10%` and `imagefs.available<15%` to automatically evict pods when disk is low.
-
-### Is this solution production-ready?
-
-Yes. The `df`-based monitoring script runs on every Linux distribution without additional dependencies. Slack webhook integration is used by thousands of teams for alerting. Systemd timers are the standard replacement for cron on modern Linux. Prometheus node_exporter is the industry standard for host-level metrics and is used by companies like DigitalOcean, Uber, and GitLab. The cleanup script uses standard `find`, `gzip`, and package manager commands that work across distributions.
-
-### What are the performance characteristics?
-
-`df` completes in under 10ms on local filesystems and under 100ms on NFS mounts. Running it every 5 minutes adds negligible overhead. The `find` commands in the cleanup script can take seconds to minutes on directories with millions of files — run cleanup during off-peak hours. Slack webhook calls add 200-500ms of network latency. Prometheus node_exporter adds 1-5ms per scrape for filesystem metrics. Inode counting with `find` is the most expensive operation and should be rate-limited to once per hour.
-
-### How do I debug issues with this approach?
-
-Run `df -Hl` manually to see what the script sees. Check if `mail` is installed and configured with `echo test | mail -s test your@email.com`. Test Slack webhooks with `curl -X POST -H 'Content-Type: application/json' -d '{"text":"test"}' YOUR_WEBHOOK_URL`. Check systemd timer status with `systemctl status disk-monitor.timer` and logs with `journalctl -u disk-monitor.service`. For Prometheus alerts, verify the expression in the Prometheus UI under Alerts. For cleanup scripts, test `find` and `gzip` commands manually before enabling them in production.

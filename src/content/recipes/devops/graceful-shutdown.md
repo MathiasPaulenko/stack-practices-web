@@ -381,62 +381,7 @@ signal.signal(signal.SIGTERM, handle_sigterm)
 signal.signal(signal.SIGINT, handle_sigterm)
 ```
 
-## Additional Best Practices
 
-1. **Log shutdown events with timestamps.** This helps diagnose slow shutdowns:
-
-```python
-import logging
-import time
-
-logger = logging.getLogger(__name__)
-
-def on_shutdown():
-    logger.info("shutdown_initiated", extra={
-        "timestamp": time.time(),
-        "in_flight_requests": get_active_request_count(),
-    })
-```
-
-1. **Use a readiness probe separate from liveness.** During shutdown, fail readiness but keep liveness passing:
-
-```yaml
-# readiness fails first, removing pod from Service
-readinessProbe:
-  httpGet:
-    path: /ready
-    port: 8080
-  failureThreshold: 1
-  periodSeconds: 2
-
-# liveness stays up so kubelet doesn't restart during drain
-livenessProbe:
-  httpGet:
-    path: /alive
-    port: 8080
-  periodSeconds: 10
-```
-
-## Additional Common Mistakes
-
-1. **Not setting `terminationGracePeriodSeconds` high enough.** If your drain takes 20s and the default is 30s, you only have 10s buffer:
-
-```yaml
-# Calculate: drain_time + preStop_sleep + buffer
-terminationGracePeriodSeconds: 45  # 20s drain + 10s preStop + 15s buffer
-```
-
-1. **Forgetting to close message queue consumers.** Consumers keep pulling messages during shutdown:
-
-```python
-def graceful_shutdown(consumer):
-    # Stop accepting new messages
-    consumer.stop_consuming()
-    # Process remaining in-flight messages
-    consumer.wait_for_messages(timeout=10)
-    # Close connection
-    consumer.close()
-```
 
 ## FAQ
 

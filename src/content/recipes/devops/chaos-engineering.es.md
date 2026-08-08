@@ -279,32 +279,6 @@ if __name__ == "__main__":
 - Pagear al ingeniero on-call
 ```
 
-## Mejores Prácticas Adicionales
-
-1. **Empieza con un solo servicio.** No experimentes en múltiples servicios simultáneamente hasta tener confianza en el aislamiento:
-
-```yaml
-# Litmus: apuntar solo a un deployment
-spec:
-  appinfo:
-    appns: 'staging'
-    applabel: 'app=payment-service'  # Solo este servicio
-    appkind: 'deployment'
-```
-
-1. **Programa experimentos durante horario laboral.** El equipo debe estar disponible para responder:
-
-```bash
-# Cron para game days: cada viernes a las 2pm
-0 14 * * 5 /usr/local/bin/run-chaos-experiment.sh
-```
-
-1. **Versiona tus experimentos.** Trata los experimentos de chaos como código:
-
-```bash
-git add experiments/
-git commit -m "experiment: add pod-delete for payment-service staging"
-```
 
 ## Errores Comunes Adicionales
 

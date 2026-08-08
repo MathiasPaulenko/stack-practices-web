@@ -275,66 +275,7 @@ RIGHT JOIN orders o ON u.user_id = o.user_id
 WHERE u.user_id IS NULL;
 ```
 
-## Additional Best Practices
 
-6. **Use `COALESCE` for NULL handling.** Replace NULLs with defaults in results to avoid downstream errors:
-
-```sql
-SELECT u.name, COALESCE(SUM(o.amount), 0) AS total
-FROM users u
-LEFT JOIN orders o ON u.user_id = o.user_id
-GROUP BY u.user_id, u.name;
-```
-
-7. **Qualify column names in multi-table queries.** Avoid ambiguity by prefixing with table aliases:
-
-```sql
-SELECT u.name, o.amount
-FROM users u
-JOIN orders o ON u.user_id = o.user_id
-WHERE u.active = true;
-```
-
-8. **Use `EXISTS` instead of `INNER JOIN` for existence checks.** `EXISTS` stops scanning as soon as a match is found:
-
-```sql
--- Faster than INNER JOIN when you only need to know if a match exists
-SELECT name FROM users u
-WHERE EXISTS (
-    SELECT 1 FROM orders o WHERE o.user_id = u.user_id
-);
-```
-
-9. **Limit result sets with pagination.** Large JOIN results can consume memory. Use `LIMIT` and `OFFSET` or keyset pagination:
-
-```sql
-SELECT u.name, o.order_id, o.amount
-FROM users u
-LEFT JOIN orders o ON u.user_id = o.user_id
-ORDER BY u.user_id
-LIMIT 50 OFFSET 0;
-```
-
-10. **Use `EXPLAIN ANALYZE` to verify join strategy.** Check whether the planner uses nested loops, hash joins, or merge joins:
-
-```sql
-EXPLAIN ANALYZE
-SELECT u.name, o.amount
-FROM users u
-JOIN orders o ON u.user_id = o.user_id;
-```
-
-## Additional Common Mistakes
-
-6. **Forgetting to alias tables in complex queries.** Without aliases, column names become ambiguous and queries are harder to read.
-
-7. **Using `SELECT *` in JOINs.** This returns duplicate columns (e.g., `user_id` from both tables). List only the columns you need.
-
-8. **Not handling NULLs in aggregations.** `COUNT(o.order_id)` counts non-NULL values. Use `COUNT(*)` to count all rows including NULLs.
-
-9. **Joining on non-indexed columns.** The join column on the larger table should have an index. Without it, the database performs a full table scan.
-
-10. **Using string columns for joins.** Integer joins are faster than string joins. Use surrogate keys (INT/BIGINT) for join columns.
 
 ## Additional FAQ
 

@@ -364,14 +364,6 @@ jira_client = FindingToJira("https://company.atlassian.net", "api-token", "SEC")
 jira_client.create_tickets(findings)
 ```
 
-## Additional Best Practices
-
-
-- For a deeper guide, see [Secure Coding Practices — By Language and Pattern](/guides/secure-coding-guide/).
-
-1. **Use a finding severity matrix that maps to business risk.** Technical severity alone does not capture business context. A medium SQL injection on a public-facing payment API is more urgent than a high finding on an internal admin tool behind VPN:
-
-```markdown
 ## Business Risk Adjustment Matrix
 
 | Technical Severity | Public-Facing | Authenticated Users Only | Internal Only |
@@ -398,23 +390,6 @@ aws rds restore-db-instance-from-db-snapshot \
   --vpc-security-group-ids sg-pentest-access
 ```
 
-## Additional Common Mistakes
-
-1. **Not notifying cloud providers about penetration testing.** Some cloud providers (AWS, Azure) require notification before testing. AWS no longer requires prior approval, but Azure still does for certain test types:
-
-```bash
-# Azure - notify Microsoft of penetration testing
-# Submit via: https://msrc.microsoft.com/engage/pentest
-# Include: subscription ID, test dates, target IPs, test types
-
-# AWS - no longer requires approval, but review the testing policy
-# https://aws.amazon.com/security/penetration-testing/
-# Prohibited: DNS zone walking, DoS, DDoS
-```
-
-2. **Failing to clean up test artifacts.** Testers may leave behind files, scripts, or user accounts. Require a cleanup checklist as part of the deliverables:
-
-```markdown
 ## Post-Test Cleanup Checklist
 
 - [ ] All test accounts removed from target systems

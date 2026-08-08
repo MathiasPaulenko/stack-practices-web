@@ -327,74 +327,6 @@ func (h *HealthChecker) StartHealthCheckLoop() {
 }
 ```
 
-## Mejores Prácticas Adicionales
-
-1. **Usa deregistration graceful al apagar.** Cuando una instancia de servicio se detiene, deregistra del registry antes de salir para que los clientes dejen de enviar tráfico:
-
-```python
-import signal
-import sys
-
-class GracefulShutdown:
-    def __init__(self, discovery: ConsulServiceDiscovery, service_id: str):
-        self.discovery = discovery
-        self.service_id = service_id
-
-    def register_handlers(self):
-        signal.signal(signal.SIGTERM, self._shutdown)
-        signal.signal(signal.SIGINT, self._shutdown)
-
-    def _shutdown(self, signum, frame):
-        # Deregistrar del service registry
-        self.discovery.client.agent.service.deregister(self.service_id)
-        # Esperar a que las requests in-flight terminen
-        time.sleep(5)
-        sys.exit(0)
-```
-
-2. **Cachea las respuestas del registry con TTL.** Evita consultar el registry en cada llamada — cachea las listas de instancias por un período corto y refresca al expirar el cache o ante fallos de conexión:
-
-```typescript
-class CachedServiceLocator {
-  private cache: Map<string, { instances: string[]; expiresAt: number }> = new Map();
-  private ttlMs: number = 10000; // 10 segundos
-
-  async getInstances(serviceName: string): Promise<string[]> {
-    const cached = this.cache.get(serviceName);
-    if (cached && Date.now() < cached.expiresAt) {
-      return cached.instances;
-    }
-    const instances = await this.queryRegistry(serviceName);
-    this.cache.set(serviceName, {
-      instances,
-      expiresAt: Date.now() + this.ttlMs,
-    });
-    return instances;
-  }
-
-  async refreshOnFailure(serviceName: string): Promise<string[]> {
-    this.cache.delete(serviceName);
-    return this.getInstances(serviceName);
-  }
-}
-```
-
-3. **Etiqueta instancias con metadata para smart routing.** Registra instancias con metadata de versión, zona y peso para habilitar despliegues canary y routing zone-aware:
-
-```go
-registration := &api.AgentServiceRegistration{
-    ID:      serviceID,
-    Name:    "payment-service",
-    Address: host,
-    Port:    port,
-    Tags:    []string{"v2", "us-east-1a", "canary"},
-    Meta: map[string]string{
-        "version": "v2",
-        "zone":    "us-east-1a",
-        "weight":  "10",
-    },
-}
-```
 
 ## Errores Comunes Adicionales
 
@@ -421,20 +353,3 @@ class PooledServiceClient:
 
 3. **Ignorar race conditions de arranque.** Un servicio que se registra antes de estar listo para aceptar tráfico recibirá requests que no puede manejar. Registra solo después de pasar los checks de arranque, y usa readiness probes en Kubernetes para gatear el tráfico.
 
-## FAQ Adicional
-
-### ¿Cómo manejo service discovery a través de múltiples datacenters?
-
-Consul soporta federación multi-datacenter out of the box — los servicios en DC1 pueden descubrir servicios en DC2 vía WAN gossip. Para Kubernetes, usa un global load balancer (Envoy, Gloo) que rutee entre clusters. Para setups cloud-native, AWS Cloud Map soporta discovery cross-region con VPC peering.
-
-### ¿Esta solución está lista para producción?
-
-Sí. El registro de servicios con Consul y health checks se usa en producción por clientes de HashiCorp. El VirtualService de Istio con canary routing y outlier detection es estándar en deployments de service mesh. El patrón de client-side discovery con caching es cómo funcionan los clientes de Netflix Eureka. El endpoint de health check en Go con separación de liveness y readiness sigue las mejores prácticas de Kubernetes.
-
-### ¿Cuáles son las características de rendimiento?
-
-Las queries a Consul añaden 1-5ms para lookups de agente local; las respuestas cacheadas son sub-milisegundo. El DNS-based discovery en Kubernetes añade 1-2ms por resolución (cacheado por kube-dns). El client-side discovery con Eureka y caching añade <1ms por llamada. Los sidecar proxies de Istio añaden 1-3ms por hop. El polling de health checks a intervalos de 10s tiene overhead de CPU despreciable. El consenso del cluster de registry (Raft) añade latencia solo en writes (registration/deregistration), no en reads.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Usa `consul members` para verificar la salud del cluster, `consul catalog services` para listar servicios registrados, y `consul health checks <service>` para ver el estado de health. Para Kubernetes, usa `kubectl get endpoints <service>` para verificar instancias descubiertas. Para Istio, usa `istioctl analyze` para detectar problemas de configuración. Loggea la selección de instancia (address, port, source) en cada llamada. Monitorea la latencia de queries al registry y el cache hit rate. Configura alertas en instancias unhealthy, eventos de deregistration y tamaño del cluster de registry.

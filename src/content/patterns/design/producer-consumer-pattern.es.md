@@ -447,22 +447,4 @@ class GracefulQueue:
         return self.shutdown_flag
 ```
 
-## Errores Comunes Adicionales
 
-1. **Ignorar overflow de cola.** Cuando una cola limitada está llena, los productores se bloquean o los items se dropean. Monitorea profundidad de cola e implementa manejo de overflow: drop items más antiguos, reject nuevos items, o escala consumidores.
-
-2. **No manejar poison pill para múltiples consumidores.** Un solo poison pill detiene solo un consumidor. Para múltiples consumidores, envía un poison pill por consumidor o usa un flag de shutdown que todos los consumidores checkean.
-
-## FAQ Adicionales
-
-### ¿Cómo manejo backpressure en una cola sin límite?
-
-Las colas sin límite no tienen backpressure natural. Implementa backpressure manualmente monitoreando profundidad de cola y throttling productores cuando la profundidad excede un umbral. Alternativamente, cambia a una cola limitada.
-
-### ¿Cuál es la diferencia entre work stealing y work distribution?
-
-Work distribution asigna items a consumidores upfront (ej. round-robin). Work stealing permite que los consumidores tomen items de su cola local primero y roben de otros cuando están idle. Work stealing reduce contención y mejora balance de carga para workloads variables.
-
-### ¿Cómo aseguro procesamiento exactly-once?
-
-Exactly-once requiere consumidores idempotentes y acknowledgments. Asigna un ID único a cada item. El consumidor checkea si el ID ya fue procesado antes de procesar. Después de procesamiento exitoso, acknowledge el item. Si el consumidor falla, el item se reintentara pero será skipeado debido al check de ID.

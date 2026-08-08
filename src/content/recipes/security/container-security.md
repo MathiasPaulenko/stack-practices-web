@@ -332,68 +332,7 @@ jobs:
           sarif_file: trivy-results.sarif
 ```
 
-## Additional Best Practices
 
-1. **Use `docker scan` or `trivy` locally before pushing.** Catch vulnerabilities early in development:
-
-```bash
-# Add to Makefile or package.json scripts
-scan:
-    trivy fs --severity CRITICAL,HIGH .
-    trivy build --severity CRITICAL,HIGH .
-
-# Pre-commit hook
-#!/bin/bash
-trivy fs --severity CRITICAL,HIGH --exit-code 1 .
-```
-
-2. **Regularly update base images.** Subscribe to security advisories for your base images and set up automated PRs:
-
-```yaml
-# .github/dependabot.yml
-version: 2
-updates:
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
-```
-
-## Additional Common Mistakes
-
-1. **Running containers as root.** Many base images default to root. Always specify a non-root user:
-
-```dockerfile
-# WRONG: runs as root by default
-FROM node:20
-COPY . /app
-CMD ["node", "server.js"]
-
-# CORRECT: explicit non-root user
-FROM node:20
-RUN groupadd -r app && useradd -r -g app app
-USER app
-COPY --chown=app:app . /app
-CMD ["node", "server.js"]
-```
-
-2. **Not setting resource limits.** A compromised container can consume all host resources. Always set limits in Kubernetes or Docker:
-
-```bash
-# Docker: set memory and CPU limits
-docker run --memory=256m --cpus=0.5 myapp:latest
-
-# Docker Compose
-services:
-  app:
-    image: myapp:latest
-    deploy:
-      resources:
-        limits:
-          memory: 256M
-          cpus: '0.5'
-```
 
 ## Additional FAQ
 

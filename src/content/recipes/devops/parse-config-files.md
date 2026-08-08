@@ -380,70 +380,8 @@ function deepMerge(target, source) {
 const config = loadLayeredConfig("config.base.yaml", "config.production.yaml");
 ```
 
-## Additional Best Practices
 
-6. **Use layered configs.** Start with a base config and override per environment:
 
-```
-config.base.yaml      # Shared defaults
-config.staging.yaml   # Staging overrides
-config.production.yaml # Production overrides
-```
-
-7. **Encrypt secrets at rest.** If secrets must be in config files, encrypt them:
-
-```bash
-# SOPS (Secrets OPerationS) for encrypted config files
-$ sops --encrypt --pgp FINGERPRINT config.secrets.yaml > config.secrets.enc.yaml
-$ sops --decrypt config.secrets.enc.yaml | kubectl apply -f -
-```
-
-8. **Validate config in CI.** Add a config validation step to your CI pipeline:
-
-```yaml
-# .github/workflows/validate-config.yml
-- name: Validate config files
-  run: |
-    python -c "
-    from config_loader import load_config
-    import glob
-    for f in glob.glob('config/*.yaml'):
-        load_config(f)
-        print(f'Validated: {f}')
-    "
-```
-
-## Additional Common Mistakes
-
-6. **Not handling config file encoding.** Always specify UTF-8 when reading:
-
-```python
-# Bad: platform-dependent encoding
-content = open("config.yaml").read()
-
-# Good: explicit encoding
-content = Path("config.yaml").read_text(encoding="utf-8")
-```
-
-7. **Allowing arbitrary code execution in config.** Never use `yaml.load()` (unsafe). Always use `yaml.safe_load()`:
-
-```python
-# Dangerous: allows arbitrary Python object construction
-data = yaml.load(content, Loader=yaml.Loader)
-
-# Safe: only standard YAML types
-data = yaml.safe_load(content)
-```
-
-## Additional FAQ
-
-### How do I handle secrets in config files?
-
-Never store secrets in plain config files. Use environment variable substitution (`${DB_PASSWORD}`), secret managers (AWS Secrets Manager, Vault), or encrypted files decrypted at runtime with tools like SOPS or sealed-secrets.
-
-### What is the difference between YAML and TOML?
-
-YAML supports complex nesting, anchors, and multi-line strings. TOML is simpler, stricter, and avoids the security issues of YAML. Use TOML for simple configs (Rust, Python `pyproject.toml`) and YAML for complex configs (Kubernetes, CI/CD).
 
 ## Performance Tips
 

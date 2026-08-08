@@ -349,81 +349,8 @@ $ aws autoscaling start-instance-refresh \
     docker push myregistry.com/api:${{ github.sha }}
 ```
 
-## Additional Best Practices
 
-6. **Use image manifests for traceability.** Generate a manifest file mapping AMI IDs, container digests, and git SHAs:
 
-```json
-{
-  "version": "2.1.0",
-  "git_sha": "abc1234",
-  "built_at": "2024-06-20T10:00:00Z",
-  "artifacts": {
-    "ami_id": "ami-0123456789abcdef0",
-    "container_digest": "sha256:abc123...",
-    "terraform_state": "s3://tf-state/prod/2.1.0"
-  }
-}
-```
-
-7. **Implement image lifecycle policies.** Old images consume storage and increase attack surface:
-
-```bash
-# ECR lifecycle policy: keep last 10 images, expire after 90 days
-$ aws ecr put-lifecycle-policy \
-    --repository-name api \
-    --policy-text file://lifecycle-policy.json
-```
-
-8. **Use spot instances for non-critical workloads.** Immutable infrastructure pairs well with spot instances — instances are ephemeral anyway:
-
-```hcl
-resource "aws_spot_instance_request" "worker" {
-  ami           = var.ami_id
-  instance_type = "t3.medium"
-  spot_price    = "0.02"
-  count         = 5
-}
-```
-
-## Additional Common Mistakes
-
-6. **Building images manually.** Clicking through AWS console to create AMIs produces untraceable, non-reproducible images. Always use Packer or equivalent IaC tools.
-
-7. **Not versioning Packer templates.** Packer templates should be in version control alongside application code. Every image build should map to a specific commit.
-
-8. **Mixing immutable and mutable patterns.** Running configuration management (Ansible, Chef) on production instances after launch breaks immutability. Bake config into the image or use a sidecar.
-
-## Additional FAQ
-
-### How do I handle logs with read-only filesystems?
-
-Mount a writable volume for logs, or ship logs directly to a log aggregator (CloudWatch, ELK, Loki) via a sidecar:
-
-```yaml
-volumes:
-- name: logs
-  emptyDir: {}
-volumeMounts:
-- name: logs
-  mountPath: /var/log/app
-```
-
-### What is the cost of storing multiple AMI versions?
-
-Each AMI snapshot typically costs ~$0.05/GB/month. A 10GB AMI with 20 versions costs ~$10/month. Implement lifecycle policies to automatically delete old versions.
-
-### How do I handle database migrations with immutable infrastructure?
-
-Run migrations as a separate job before deploying new instances. The new instances expect the schema to be ready:
-
-```bash
-# CI step: run migrations
-$ kubectl exec job/db-migration -- ./migrate up
-
-# Then deploy new instances
-$ kubectl set image deployment/api api=myapp:v2.1.0
-```
 
 ## Performance Tips
 

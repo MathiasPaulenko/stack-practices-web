@@ -418,75 +418,8 @@ require("dotenv-flow").config();
 // Loads in order: .env.{NODE_ENV}.local > .env.{NODE_ENV} > .env.local > .env
 ```
 
-## Additional Best Practices
 
-7. **Use typed config objects.** Wrap environment variables in a typed class or schema. This prevents string-typed bugs and centralizes defaults:
 
-```python
-class Config:
-    PORT: int = int(os.getenv("PORT", "8080"))
-    DEBUG: bool = os.getenv("DEBUG", "false").lower() == "true"
-
-config = Config()
-```
-
-8. **Never log full secrets.** Redact sensitive values in log output:
-
-```python
-import re
-
-def redact(value, visible_chars=4):
-    if not value:
-        return "***"
-    return value[:visible_chars] + "***"
-
-def log_config(config):
-    safe = {
-        "DATABASE_URL": redact(config.database_url),
-        "API_KEY": redact(config.api_key),
-        "PORT": config.port,
-    }
-    print(f"Config: {safe}")
-```
-
-## Additional Common Mistakes
-
-8. **Storing JSON or complex data in env vars.** Environment variables are flat strings. For structured config, use a file path in an env var and load the file:
-
-```python
-# Bad: complex JSON in env var
-config = json.loads(os.getenv("APP_CONFIG"))  # Fragile, hard to debug
-
-# Good: file path in env var
-config_path = os.getenv("CONFIG_PATH", "config.json")
-config = json.load(open(config_path))
-```
-
-9. **Not handling unset variables in Docker.** If a required env var is missing, the container starts with an empty string. Validate at startup:
-
-```javascript
-const required = ["API_KEY", "DATABASE_URL"];
-for (const key of required) {
-  if (!process.env[key]) {
-    console.error(`Missing required env var: ${key}`);
-    process.exit(1);
-  }
-}
-```
-
-## Additional FAQ
-
-### How do I rotate secrets without downtime?
-
-Use a secrets manager that supports automatic rotation (AWS Secrets Manager, HashiCorp Vault). Your app should periodically re-fetch secrets or listen for rotation events. For zero-downtime rotation, use a connection pool that can gracefully reconnect with new credentials.
-
-### What is the maximum size of an environment variable?
-
-Most operating systems limit the total environment block to 32KB-128KB. Individual variables can be up to 8KB on Linux. Never store large payloads in env vars — use files or a config service instead.
-
-### How do I share environment variables across Docker containers?
-
-Use Docker Compose `env_file` or Kubernetes ConfigMaps/Secrets. For cross-service secret sharing, use a secrets manager like Vault or AWS Secrets Manager with IAM-based access control.
 
 ## Performance Tips
 

@@ -349,81 +349,8 @@ $ aws autoscaling start-instance-refresh \
     docker push myregistry.com/api:${{ github.sha }}
 ```
 
-## Mejores Prácticas Adicionales
 
-6. **Usa manifiestos de imagen para trazabilidad.** Genera un archivo manifiesto que mapee AMI IDs, container digests y git SHAs:
 
-```json
-{
-  "version": "2.1.0",
-  "git_sha": "abc1234",
-  "built_at": "2024-06-20T10:00:00Z",
-  "artifacts": {
-    "ami_id": "ami-0123456789abcdef0",
-    "container_digest": "sha256:abc123...",
-    "terraform_state": "s3://tf-state/prod/2.1.0"
-  }
-}
-```
-
-7. **Implementa políticas de lifecycle de imágenes.** Las imágenes viejas consumen storage y aumentan la superficie de ataque:
-
-```bash
-# Política de lifecycle ECR: mantener últimas 10 imágenes, expirar después de 90 días
-$ aws ecr put-lifecycle-policy \
-    --repository-name api \
-    --policy-text file://lifecycle-policy.json
-```
-
-8. **Usa spot instances para workloads no críticos.** La infraestructura inmutable se combina bien con spot instances — las instancias son efímeras de todos modos:
-
-```hcl
-resource "aws_spot_instance_request" "worker" {
-  ami           = var.ami_id
-  instance_type = "t3.medium"
-  spot_price    = "0.02"
-  count         = 5
-}
-```
-
-## Errores Comunes Adicionales
-
-6. **Construir imágenes manualmente.** Clickear por la consola de AWS para crear AMIs produce imágenes no trazables y no reproducibles. Siempre usa Packer o herramientas IaC equivalentes.
-
-7. **No versionar templates de Packer.** Los templates de Packer deberían estar en version control junto con el código de la aplicación. Cada build de imagen debería mapear a un commit específico.
-
-8. **Mezclar patrones inmutables y mutables.** Ejecutar configuration management (Ansible, Chef) en instancias de producción después del lanzamiento rompe la inmutabilidad. Bakea la config en la imagen o usa un sidecar.
-
-## FAQ Adicional
-
-### ¿Cómo manejo logs con filesystems de solo lectura?
-
-Monta un volumen escribible para logs, o envía logs directamente a un agregador de logs (CloudWatch, ELK, Loki) vía un sidecar:
-
-```yaml
-volumes:
-- name: logs
-  emptyDir: {}
-volumeMounts:
-- name: logs
-  mountPath: /var/log/app
-```
-
-### ¿Cuál es el costo de almacenar múltiples versiones de AMI?
-
-Cada snapshot de AMI típicamente cuesta ~$0.05/GB/mes. Un AMI de 10GB con 20 versiones cuesta ~$10/mes. Implementa políticas de lifecycle para eliminar automáticamente versiones viejas.
-
-### ¿Cómo manejo migraciones de base de datos con infraestructura inmutable?
-
-Ejecuta migraciones como un job separado antes de desplegar nuevas instancias. Las nuevas instancias esperan que el schema esté listo:
-
-```bash
-# Step de CI: ejecutar migraciones
-$ kubectl exec job/db-migration -- ./migrate up
-
-# Luego desplegar nuevas instancias
-$ kubectl set image deployment/api api=myapp:v2.1.0
-```
 
 ## Tips de Rendimiento
 

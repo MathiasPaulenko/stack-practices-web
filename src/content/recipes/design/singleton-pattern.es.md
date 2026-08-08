@@ -306,43 +306,6 @@ void testOrderServiceWithMockPool() {
 }
 ```
 
-## Mejores Prácticas Adicionales
-
-1. **Usa singletons con scope en frameworks web.** Los singletons request-scoped en ASP.NET o Spring no son singletons reales — existen uno por request:
-
-```csharp
-// Una instancia por HTTP request, no por app
-builder.Services.AddScoped<IRequestContext, RequestContext>();
-```
-
-2. **Evita ruptura de singleton por reflection.** En Java, reflection puede acceder constructores privados. Los enum singletons lo previenen. Para singletons basados en clases, añade un guard en el constructor:
-
-```java
-private DatabaseConnectionPool() {
-    if (instance != null) {
-        throw new IllegalStateException("Use getInstance()");
-    }
-    // ...
-}
-```
-
-3. **Prefiere monostate sobre singleton para configuración.** Todas las instancias comparten estado pero la clase se puede instanciar libremente:
-
-```typescript
-class AppConfig {
-  private static _values: Record<string, string> = {};
-
-  constructor() {}
-
-  get(key: string): string {
-    return AppConfig._values[key];
-  }
-
-  set(key: string, value: string): void {
-    AppConfig._values[key] = value;
-  }
-}
-```
 
 ## Errores Comunes Adicionales
 

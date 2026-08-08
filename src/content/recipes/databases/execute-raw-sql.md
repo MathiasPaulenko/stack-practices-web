@@ -279,44 +279,6 @@ def safe_query(table_name, column_name, value):
     return cursor.fetchall()
 ```
 
-## Additional Best Practices
-
-
-- For a deeper guide, see [Connect to MySQL](/recipes/connect-to-mysql/).
-
-6. **Use `EXPLAIN ANALYZE` to validate query plans.** Raw SQL bypasses ORM optimizations. Always check the execution plan for large tables.
-
-7. **Set `statement_timeout` for raw queries.** Prevents runaway queries from consuming resources:
-
-```sql
-SET statement_timeout = '30s';
-```
-
-8. **Log slow queries.** Track execution time for raw SQL to identify performance regressions:
-
-```python
-import time
-
-start = time.monotonic()
-cursor.execute("SELECT * FROM large_table WHERE ...")
-elapsed = time.monotonic() - start
-if elapsed > 0.5:
-    logger.warning(f"Slow query took {elapsed:.2f}s")
-```
-
-9. **Use connection pools for raw SQL.** Creating a new connection per query is expensive. Use `psycopg2.pool` or SQLAlchemy's built-in pooling.
-
-10. **Quote identifiers when needed.** Use `psycopg2.sql` module for safe identifier quoting:
-
-```python
-from psycopg2 import sql
-
-query = sql.SQL("SELECT * FROM {} WHERE {} = %s").format(
-    sql.Identifier("users"),
-    sql.Identifier("email")
-)
-cursor.execute(query, ("alice@example.com",))
-```
 
 ## Additional Common Mistakes
 

@@ -503,14 +503,6 @@ ORDER BY test_date DESC
 LIMIT 12;
 ```
 
-## Additional Best Practices
-
-
-- For a deeper guide, see [Disaster Recovery: RTO, RPO, and Resilient Recovery Runbooks](/guides/disaster-recovery-guide/).
-
-1. **Maintain a DR test calendar with rotating scenarios.** Don't test the same scenario every time. Rotate through different failure modes to cover all recovery paths:
-
-```markdown
 ## DR Test Calendar
 
 | Quarter | Scenario | Owner | Target RTO | Last Tested |
@@ -537,18 +529,4 @@ curl -X POST http://app.internal/admin/test-circuit-breaker \
   -d '{"dependency":"payment-gateway","action":"open"}'
 ```
 
-## Additional Common Mistakes
 
-1. **Not testing the communication plan during DR tests.** Engineers focus on technical recovery and forget to test stakeholder notification. During a real disaster, communication failures cause as much damage as technical failures. Include communication steps in the test timeline and measure how long it takes to notify all stakeholders.
-
-2. **Using the same backup for every test.** If you always restore from the same snapshot, you are testing that one snapshot, not your backup system. Use the most recent backup for each test. This validates that your backup pipeline is producing restorable snapshots consistently.
-
-## Additional Frequently Asked Questions
-
-### What is the difference between a DR test and a chaos engineering game day?
-
-A DR test is a planned, announced exercise that validates your recovery procedures against specific failure scenarios. It follows a documented runbook and measures RTO/RPO. A chaos engineering game day is an unannounced or semi-announced exercise that injects random failures into production to test system resilience and on-call response. DR tests validate your plan; game days validate your readiness. Both are needed.
-
-### How do we test DR for multi-region active-active architectures?
-
-In active-active setups, a region failure means the surviving region absorbs all traffic. Test by cordoning one region and verifying that traffic shifts, capacity scales, and data consistency holds. The key metric is not RTO (traffic should shift automatically) but whether the surviving region can handle full load. Test capacity headroom by simulating traffic from the failed region against the surviving region.

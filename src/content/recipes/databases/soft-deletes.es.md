@@ -336,83 +336,8 @@ def cascade_soft_delete(sender, instance, **kwargs):
     )
 ```
 
-## Buenas Prácticas Adicionales
 
-6. **Usa defaults a nivel base de datos para `deleted_at`.** Establece `DEFAULT NULL` explícitamente para evitar confusión:
 
-```sql
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    deleted_at TIMESTAMP DEFAULT NULL
-);
-```
-
-7. **Indexa la columna `deleted_at`.** Las consultas que filtran `WHERE deleted_at IS NULL` se benefician de un índice parcial:
-
-```sql
-CREATE INDEX idx_users_active ON users (email) WHERE deleted_at IS NULL;
-```
-
-8. **Registra eventos de soft delete.** Registra quién eliminó y cuándo en una tabla de auditoría:
-
-```sql
-CREATE TABLE audit_log (
-    id SERIAL PRIMARY KEY,
-    table_name VARCHAR(100),
-    record_id INTEGER,
-    action VARCHAR(20),
-    actor_id INTEGER,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
-INSERT INTO audit_log (table_name, record_id, action, actor_id)
-VALUES ('users', 42, 'soft_delete', 1);
-```
-
-9. **Usa `deleted_at` en lugar de `is_deleted`.** Un timestamp proporciona tanto el flag de eliminación como el momento de eliminación, útil para políticas de retención y debugging.
-
-10. **Prueba el comportamiento de cascada explícitamente.** Verifica que soft-deletar un padre también soft-deletea los hijos, y que restaurar un padre restaura los hijos.
-
-## Errores Comunes Adicionales
-
-6. **No actualizar `updated_at` al soft delete.** Algunos sistemas de auditoría trackean cambios en `updated_at`. Asegúrate que el soft delete actualice este timestamp.
-
-7. **Soft-deletar sin verificar permisos.** Siempre verifica que el usuario tenga permiso de eliminar antes de establecer `deleted_at`.
-
-8. **No manejar registros soft-deleted en índices de búsqueda.** Los índices de Elasticsearch o Meilisearch deben actualizarse cuando se soft-deletan registros. Remuévelos o márcalos como eliminados en el índice de búsqueda.
-
-9. **Usar `COUNT(*)` sin filtrar.** `COUNT(*)` incluye registros soft-deleted. Siempre usa `COUNT(*) WHERE deleted_at IS NULL` para conteos activos.
-
-10. **No considerar integridad referencial para hard deletes.** Al purgar registros soft-deleted, maneja las restricciones de clave foránea. Elimina hijos primero o usa `ON DELETE CASCADE`.
-
-## Preguntas Frecuentes Adicionales
-
-### Cómo manejo soft deletes con Elasticsearch?
-
-Cuando soft-deletes un registro, remuévelo del índice de búsqueda o márcalo como eliminado:
-
-```python
-# Remover de Elasticsearch
-es.delete(index="articles", id=article_id)
-
-# O marcar como eliminado
-es.update(index="articles", id=article_id, body={
-    "doc": {"deleted": True}
-})
-```
-
-### Debería usar soft deletes en todas las tablas?
-
-No. Usa soft deletes para datos user-facing donde la recuperación es valiosa (usuarios, posts, órdenes). No los uses para datos transitorios (sesiones, logs, entradas de caché) o tablas de alto volumen donde el overhead no está justificado.
-
-### Cómo implemento una UI de "papelera" con restauración?
-
-Almacena el timestamp `deleted_at`. Consulta `WHERE deleted_at IS NOT NULL` para la vista de papelera. Proporciona un botón de restaurar que establece `deleted_at = NULL`. Muestra la fecha de eliminación para que los usuarios sepan cuánto falta hasta el auto-purge.
-
-### Cuál es el impacto de rendimiento de los soft deletes?
-
-Los soft deletes incrementan el tamaño de la tabla, lo que ralentiza las consultas y aumenta el tiempo de backup. Los índices parciales mitigan el rendimiento de consultas. Programa purgas regulares para controlar el crecimiento de la tabla. Para tablas muy grandes, considera particionar por estado de eliminación.
 
 ## Tips de Rendimiento
 

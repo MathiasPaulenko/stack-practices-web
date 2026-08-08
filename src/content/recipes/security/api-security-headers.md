@@ -352,50 +352,5 @@ if echo "$HSTS" | grep -q "max-age=0"; then
 fi
 ```
 
-## Additional Best Practices
 
-1. **Use `Cross-Origin-Opener-Policy` for SPA isolation.** Prevents other origins from getting a reference to your window object:
 
-```http
-Cross-Origin-Opener-Policy: same-origin
-Cross-Origin-Embedder-Policy: require-corp
-```
-
-2. **Set `Cache-Control` on API responses with sensitive data.** Prevent caching of authenticated responses:
-
-```http
-Cache-Control: no-store, no-cache, must-revalidate, private
-Pragma: no-cache
-Expires: 0
-```
-
-## Additional Common Mistakes
-
-1. **Setting CSP on API responses but not HTML pages.** CSP is most important on HTML pages where scripts execute. API responses returning JSON should still have headers like `X-Content-Type-Options`, but CSP is less critical for them.
-
-2. **Using wildcard `*` in CORS with credentials.** When `credentials: true` is set in CORS, the `Access-Control-Allow-Origin` header cannot be `*`. You must specify exact origins:
-
-```javascript
-// WRONG: wildcard with credentials
-app.use(cors({ origin: '*', credentials: true }));
-
-// CORRECT: explicit origins
-app.use(cors({
-  origin: ['https://app.example.com', 'https://admin.example.com'],
-  credentials: true,
-}));
-```
-
-## Additional FAQ
-
-### How do I verify my security headers are working?
-
-Use `curl -I https://your-domain.com` to inspect response headers. For a more thorough audit, use online tools like securityheaders.com, Mozilla Observatory, or the `audit-headers.sh` script above. These tools grade your configuration and provide specific remediation steps.
-
-### Should I set security headers on static assets?
-
-Yes. Static assets served from your domain should have at minimum `X-Content-Type-Options: nosniff` and `Cache-Control` headers. CSP is less relevant for static assets but doesn't hurt. If using a CDN, configure headers at the CDN level.
-
-### What headers does OWASP recommend for APIs?
-
-OWASP recommends: `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` (for HTML responses), `Cache-Control: no-store` (for sensitive data), `Access-Control-Allow-Origin` (with explicit origins, not wildcards), and `Content-Security-Policy` (for HTML responses).

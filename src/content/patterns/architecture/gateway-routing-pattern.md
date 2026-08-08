@@ -327,27 +327,6 @@ class TransformGateway {
 }
 ```
 
-## Additional Best Practices
-
-
-- For a deeper guide, see [API Gateway Design: Resilience, Routing, and Security](/guides/api-gateway-design-guide/).
-
-1. **Implement request/response transformation at the gateway.** Use middleware to normalize API versions, transform data formats, and handle protocol translation. This keeps backend services simple and consistent.
-
-2. **Use weighted routing for canary deployments.** Route a percentage of traffic to a new version of a service for gradual rollout. Monitor metrics and automatically roll back if errors increase.
-
-```yaml
-# Weighted routing configuration
-routes:
-  - path: /api/users
-    upstreams:
-      - service: users-service-v1
-        weight: 90  # 90% of traffic
-      - service: users-service-v2
-        weight: 10  # 10% of traffic (canary)
-```
-
-3. **Implement rate limiting per client.** Use IP-based, API key-based, or user-based rate limiting to prevent abuse. Store rate limit counters in Redis for distributed gateways.
 
 ## Additional Common Mistakes
 

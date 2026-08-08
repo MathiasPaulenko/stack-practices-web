@@ -353,69 +353,7 @@ SELECT pg_prewarm('users');
 SELECT pg_prewarm('orders', 'main', 'read');
 ```
 
-## Errores comunes adicionales
 
-6. **Indexar columnas de baja cardinalidad.** Un index en una columna booleana (`active`) raramente se usa porque el planner lo salta cuando la mayoría de filas coinciden.
-
-7. **No ejecutar `ANALYZE` después de cambios de distribución de datos.** El planner usa estadísticas stale y elige planes malos. Ejecuta `ANALYZE` después de imports masivos, deletes o cambios de schema.
-
-8. **Usar `OFFSET` para paginación.** `OFFSET 100000` escanea y descarta 100.000 filas. Usa paginación por keyset en su lugar:
-
-```sql
--- Mal: paginación con OFFSET
-SELECT * FROM orders ORDER BY id OFFSET 100000 LIMIT 20;
-
--- Bien: paginación por keyset
-SELECT * FROM orders WHERE id > 100000 ORDER BY id LIMIT 20;
-```
-
-9. **Ignorar `pg_stat_activity` para queries de larga duración.** Queries que duran minutos bloquean vacuuming y causan bloat. Monitorea y mátalos:
-
-```sql
-SELECT pg_terminate_backend(pid)
-FROM pg_stat_activity
-WHERE state = 'active'
-  AND now() - query_start > interval '5 minutes';
-```
-
-10. **Sobre-indexar tablas con mucha escritura.** Cada index agrega overhead a cada INSERT, UPDATE y DELETE. Benchmark el rendimiento de escritura después de agregar indexes.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cuándo debo usar una materialized view en lugar de un index?
-
-Usa una materialized view cuando la query involucra agregaciones o joins costosos que no pueden optimizarse con indexes solos. Refresca la materialized view periódicamente:
-
-```sql
-CREATE MATERIALIZED VIEW order_summary AS
-SELECT user_id, COUNT(*) AS total_orders, SUM(amount) AS total_spent
-FROM orders
-GROUP BY user_id;
-
-REFRESH MATERIALIZED VIEW CONCURRENTLY order_summary;
-```
-
-### ¿Cómo optimizo `COUNT(*)` en tablas grandes?
-
-`COUNT(*)` en PostgreSQL hace un full table scan porque MVCC requiere verificar visibilidad de filas. Alternativas:
-- Usa un conteo estimado desde `pg_class.reltuples`
-- Mantén una tabla contador con triggers
-- Usa una materialized view
-
-### ¿Cuál es la diferencia entre `ANALYZE` y `VACUUM`?
-
-`ANALYZE` muestrea la tabla para actualizar estadísticas del planner. `VACUUM` reclama espacio de dead tuples. `VACUUM ANALYZE` hace ambos. Autovacuum ejecuta ambos automáticamente basado en thresholds.
-
-### ¿Cómo optimizo queries `LIKE`?
-
-Los B-tree indexes no soportan `LIKE '%pattern%'` (wildcard inicial). Usa un trigram index (`pg_trgm`):
-
-```sql
-CREATE EXTENSION IF NOT EXISTS pg_trgm;
-CREATE INDEX idx_users_name_trgm ON users USING GIN (name gin_trgm_ops);
-
-SELECT * FROM users WHERE name ILIKE '%alice%';
-```
 
 ## Tips de Rendimiento
 

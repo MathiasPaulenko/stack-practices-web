@@ -308,50 +308,6 @@ SET statement_timeout = '30s';
 SET lock_timeout = '5s';
 ```
 
-## Additional Best Practices
-
-6. **Use `EXPLAIN (ANALYZE, BUFFERS)` for detailed I/O stats.** The `BUFFERS` option shows how many blocks were hit from cache vs read from disk:
-
-```sql
-EXPLAIN (ANALYZE, BUFFERS)
-SELECT * FROM orders WHERE user_id = 42;
-```
-
-7. **Drop unused indexes.** Indexes slow down writes. Identify and drop indexes with zero scans:
-
-```sql
-SELECT
-    schemaname,
-    relname,
-    indexrelname,
-    idx_scan,
-    idx_tup_read,
-    idx_tup_fetch,
-    pg_size_pretty(pg_relation_size(indexrelid)) AS size
-FROM pg_stat_user_indexes
-WHERE idx_scan = 0
-ORDER BY pg_relation_size(indexrelid) DESC;
-```
-
-8. **Use `CLUSTER` to physically order data.** For tables frequently queried by a specific column, clustering improves cache locality:
-
-```sql
-CLUSTER orders USING idx_orders_user_id;
-```
-
-9. **Configure `effective_cache_size`.** Tell the planner how much memory the OS cache has. This affects whether the planner chooses index scans vs seq scans:
-
-```sql
-ALTER SYSTEM SET effective_cache_size = '4GB';
-```
-
-10. **Use `pg_prewarm` to cache critical tables.** Preload frequently accessed tables into shared buffers after restarts:
-
-```sql
-CREATE EXTENSION IF NOT EXISTS pg_prewarm;
-SELECT pg_prewarm('users');
-SELECT pg_prewarm('orders', 'main', 'read');
-```
 
 ## Additional Common Mistakes
 
@@ -380,42 +336,6 @@ WHERE state = 'active'
 
 10. **Over-indexing write-heavy tables.** Each index adds overhead to every INSERT, UPDATE, and DELETE. Benchmark write performance after adding indexes.
 
-## Additional FAQ
-
-### When should I use a materialized view instead of an index?
-
-Use a materialized view when the query involves expensive aggregations or joins that can't be optimized by indexes alone. Refresh the materialized view periodically:
-
-```sql
-CREATE MATERIALIZED VIEW order_summary AS
-SELECT user_id, COUNT(*) AS total_orders, SUM(amount) AS total_spent
-FROM orders
-GROUP BY user_id;
-
-REFRESH MATERIALIZED VIEW CONCURRENTLY order_summary;
-```
-
-### How do I optimize `COUNT(*)` on large tables?
-
-PostgreSQL's `COUNT(*)` performs a full table scan because MVCC requires checking row visibility. Alternatives:
-- Use an estimated count from `pg_class.reltuples`
-- Maintain a counter table with triggers
-- Use a materialized view
-
-### What is the difference between `ANALYZE` and `VACUUM`?
-
-`ANALYZE` samples the table to update planner statistics. `VACUUM` reclaims space from dead tuples. `VACUUM ANALYZE` does both. Autovacuum runs both automatically based on thresholds.
-
-### How do I optimize `LIKE` queries?
-
-B-tree indexes don't support `LIKE '%pattern%'` (leading wildcard). Use a trigram index (`pg_trgm`):
-
-```sql
-CREATE EXTENSION IF NOT EXISTS pg_trgm;
-CREATE INDEX idx_users_name_trgm ON users USING GIN (name gin_trgm_ops);
-
-SELECT * FROM users WHERE name ILIKE '%alice%';
-```
 
 ## Performance Tips
 

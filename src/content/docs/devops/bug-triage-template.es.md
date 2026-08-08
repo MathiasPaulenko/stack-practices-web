@@ -325,56 +325,7 @@ aged = find_aged_bugs(tickets)
 print(format_slack_alert(aged))
 ```
 
-## Mejores Prácticas Adicionales
 
-
-- For a deeper guide, see [Change Management Template](/es/docs/change-management-template/).
-
-1. **Usa un tablero de triaje de bugs con columnas para cada severidad.** Visualizar bugs por severidad hace inmediatamente claro dónde se necesita atención. Configura transiciones automáticas de columnas basadas en temporizadores de SLA:
-
-```yaml
-# Linear workflow configuration
-states:
-  - name: triage
-    transitions: [s1-critical, s2-high, s3-medium, s4-low]
-  - name: in_progress
-    sla_timer: true
-    overdue_alert: "#incidents"
-  - name: in_review
-    requires_pr: true
-  - name: done
-    auto_close_after_days: 30
-```
-
-2. **Rastrea métricas de triaje a lo largo del tiempo.** Mide qué tan rápido los bugs pasan de "reportado" a "triajeado" para identificar cuellos de botella:
-
-```python
-from datetime import datetime, timedelta
-from collections import defaultdict
-
-def calculate_triage_metrics(tickets):
-    """Calculate average triage time by severity."""
-    triage_times = defaultdict(list)
-    for t in tickets:
-        if t.triaged_at and t.created_at:
-            delta = (t.triaged_at - t.created_at).total_seconds() / 3600
-            triage_times[t.severity].append(delta)
-
-    metrics = {}
-    for severity, times in triage_times.items():
-        metrics[severity] = {
-            "avg_triage_hours": sum(times) / len(times),
-            "max_triage_hours": max(times),
-            "count": len(times),
-        }
-    return metrics
-```
-
-## Errores Comunes Adicionales
-
-1. **No cerrar reportes de bugs inválidos prontamente.** Reportes que son en realidad errores de usuario, errores de configuración o duplicados obstruyen la cola de triaje. Ciérralos dentro de 24 horas con una explicación clara:
-
-```markdown
 ## Closing Template for Invalid Reports
 
 Thank you for reporting this issue. After investigation, this appears to be:
@@ -399,12 +350,3 @@ gh issue list \
   --jq '.[] | "#\(.number) \(.title) (created: \(.createdAt[:10]))"'
 ```
 
-## Preguntas Frecuentes Adicionales
-
-### ¿Cómo manejamos bugs encontrados durante testing automatizado vs. bugs reportados por usuarios?
-
-Los bugs encontrados por tests automatizados deben omitir la cola estándar de triaje. Archívalos directamente con el nombre del test fallido, stack trace y detalles del entorno. Asígnalos al equipo propietario del suite de tests. Usa un label "test-failure" para distinguirlos de issues reportados por usuarios. Si el mismo test falla repetidamente, escala a S2 ya que puede indicar un entorno inestable o una regresión real.
-
-### ¿Qué métricas deberíamos rastrear para la efectividad del triaje?
-
-Rastrea estas métricas clave: tiempo mediano hasta triaje (objetivo: menos de 4 horas para S1/S2), porcentaje de bugs triajeados dentro de 24 horas (objetivo: 95%), número de cambios de severidad después del triaje inicial (objetivo: menos de 10%), y conteo de bugs envejecidos (objetivo: cero bugs S1/S2 pasados el SLA). Revisa estas métricas mensualmente para identificar patrones y ajustar el proceso de triaje.

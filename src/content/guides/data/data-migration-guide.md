@@ -76,19 +76,6 @@ The following guide covers proven patterns for migrating data safely, including 
 | **Rollback Window** | The time during which you can revert without data loss |
 | **Idempotency** | Running the same migration twice produces the same result |
 
-## Migration Strategies
-
-Choose the right approach based on risk tolerance and system constraints:
-
-| Strategy | Downtime | Risk | Best For |
-|----------|----------|------|----------|
-| **Dual-write + backfill** | None | Low | New datastore, schema changes |
-| **Expand-contract (column)** | None | Low | Adding/removing columns |
-| **Snapshot + CDC** | Brief | Medium | Database engine migrations |
-| **Blue/green with migration** | Brief | Medium | Major schema restructures |
-| **Stop-the-world** | Hours | High | Small databases, maintenance windows |
-| **Strangler fig** | None | Low | Gradual legacy system migration |
-
 ## Step-by-Step Zero-Downtime Migration
 
 ### 1. Plan the Migration

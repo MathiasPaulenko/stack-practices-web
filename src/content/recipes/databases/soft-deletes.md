@@ -338,83 +338,8 @@ def cascade_soft_delete(sender, instance, **kwargs):
     )
 ```
 
-## Additional Best Practices
 
-6. **Use database-level defaults for `deleted_at`.** Set `DEFAULT NULL` explicitly to avoid confusion:
 
-```sql
-CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
-    email VARCHAR(255) NOT NULL,
-    deleted_at TIMESTAMP DEFAULT NULL
-);
-```
-
-7. **Index the `deleted_at` column.** Queries filtering `WHERE deleted_at IS NULL` benefit from a partial index:
-
-```sql
-CREATE INDEX idx_users_active ON users (email) WHERE deleted_at IS NULL;
-```
-
-8. **Log soft delete events.** Record who deleted and when in an audit table:
-
-```sql
-CREATE TABLE audit_log (
-    id SERIAL PRIMARY KEY,
-    table_name VARCHAR(100),
-    record_id INTEGER,
-    action VARCHAR(20),
-    actor_id INTEGER,
-    created_at TIMESTAMP DEFAULT NOW()
-);
-
-INSERT INTO audit_log (table_name, record_id, action, actor_id)
-VALUES ('users', 42, 'soft_delete', 1);
-```
-
-9. **Use `deleted_at` instead of `is_deleted`.** A timestamp provides both the deletion flag and the deletion time, useful for retention policies and debugging.
-
-10. **Test cascade behavior explicitly.** Verify that soft-deleting a parent also soft-deletes children, and that restoring a parent restores children.
-
-## Additional Common Mistakes
-
-6. **Not updating `updated_at` on soft delete.** Some audit systems track `updated_at` changes. Make sure soft delete updates this timestamp.
-
-7. **Soft-deleting without checking permissions.** Always verify the user has permission to delete before setting `deleted_at`.
-
-8. **Not handling soft-deleted records in search indexes.** Elasticsearch or Meilisearch indexes must be updated when records are soft-deleted. Remove or mark them as deleted in the search index.
-
-9. **Using `COUNT(*)` without filtering.** `COUNT(*)` includes soft-deleted records. Always use `COUNT(*) WHERE deleted_at IS NULL` for active counts.
-
-10. **Not considering referential integrity for hard deletes.** When purging soft-deleted records, handle foreign key constraints. Delete children first or use `ON DELETE CASCADE`.
-
-## Additional FAQ
-
-### How do I handle soft deletes with Elasticsearch?
-
-When soft-deleting a record, remove it from the search index or mark it as deleted:
-
-```python
-# Remove from Elasticsearch
-es.delete(index="articles", id=article_id)
-
-# Or mark as deleted
-es.update(index="articles", id=article_id, body={
-    "doc": {"deleted": True}
-})
-```
-
-### Should I use soft deletes for all tables?
-
-No. Use soft deletes for user-facing data where recovery is valuable (users, posts, orders). Don't use them for transient data (sessions, logs, cache entries) or high-volume tables where the overhead isn't justified.
-
-### How do I implement a "trash" UI with restore?
-
-Store the `deleted_at` timestamp. Query `WHERE deleted_at IS NOT NULL` for the trash view. Provide a restore button that sets `deleted_at = NULL`. Show the deletion date so users know how long until auto-purge.
-
-### What is the performance impact of soft deletes?
-
-Soft deletes increase table size, which slows queries and increases backup time. Partial indexes mitigate query performance. Schedule regular purges to control table growth. For very large tables, consider partitioning by deletion status.
 
 ## Performance Tips
 

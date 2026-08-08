@@ -299,70 +299,7 @@ done
 echo "Monitoreo completo. Green está estable."
 ```
 
-## Mejores Prácticas Adicionales
 
-1. **Pre-calienta el ambiente green.** Envía shadow traffic antes de la conmutación para JIT-compilar código y calentar cachés:
-
-```bash
-# Espejar 10% del tráfico a green por 2 minutos antes de la conmutación completa
-istioctl experimental envoy-config 2>&1 | grep mirror
-```
-
-2. **Taguea imágenes Docker con Git SHA, no solo semver.** Esto hace el rollback determinístico:
-
-```bash
-# Build y tag
-docker build -t myapp:$(git rev-parse --short HEAD) .
-# Deploy green con SHA específico
-kubectl set image deployment/app-green app=myapp:abc1234
-```
-
-3. **Usa DNS TTL sabiamente.** Configura TTL a 60 segundos o menos durante ventanas de deploy para asegurar propagación rápida:
-
-```bash
-# Route53 con TTL bajo para ventana de deploy
-aws route53 change-resource-record-sets \
-  --hosted-zone-id Z123 \
-  --change-batch '{"Changes":[{"Action":"UPSERT","ResourceRecordSet":{"Name":"api.example.com","Type":"A","TTL":60,"ResourceRecords":[{"Value":"1.2.3.4"}]}}]}'
-```
-
-## Errores Comunes Adicionales
-
-1. **No testear el path de rollback.** Un rollback que no ha sido testeado fallará cuando más lo necesites:
-
-```bash
-# Incluir test de rollback en staging
-./scripts/switch-traffic.sh green
-sleep 10
-./scripts/switch-traffic.sh blue  # verificar que el rollback funciona
-```
-
-2. **Tamaños de instancia diferentes para blue y green.** Green debe manejar la misma carga que blue:
-
-```yaml
-# Ambos deployments deben tener recursos idénticos
-spec:
-  replicas: 3
-  template:
-    spec:
-      containers:
-      - name: app
-        resources:
-          requests: { cpu: 500m, memory: 512Mi }
-          limits: { cpu: 1000m, memory: 1Gi }
-```
-
-3. **Conmutar sin health checks.** Siempre verifica que green esté healthy antes de conmutar:
-
-```bash
-# Verificar que todos los pods de green estén ready
-READY=$(kubectl get deployment app-green -o jsonpath='{.status.readyReplicas}')
-DESIRED=$(kubectl get deployment app-green -o jsonpath='{.spec.replicas}')
-if [ "$READY" != "$DESIRED" ]; then
-  echo "Green no está fully ready: $READY/$DESIRED"
-  exit 1
-fi
-```
 
 ## FAQ Adicional
 

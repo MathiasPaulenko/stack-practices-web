@@ -411,86 +411,8 @@ spec:
           weight: 100
 ```
 
-## Mejores Prácticas Adicionales
 
-6. **Usa un namespace separado para targets mirror.** Mantén la infraestructura de mirror de staging aislada:
 
-```bash
-$ kubectl create namespace mirror-target
-$ kubectl deploy -n mirror-target -f staging-deployment.yaml
-```
-
-7. **Establece límites de recursos en targets mirror.** El tráfico mirrorizado puede sobrecargar staging:
-
-```yaml
-resources:
-  requests:
-    cpu: 500m
-    memory: 512Mi
-  limits:
-    cpu: 1000m
-    memory: 1Gi
-```
-
-8. **Monitorea la profundidad de la cola del mirror.** Si el target mirror no puede mantener el ritmo, los requests se acumulan:
-
-```yaml
-# Alertar si el tiempo de respuesta del mirror > 500ms
-- alert: MirrorTargetSlow
-  expr: histogram_quantile(0.95, rate(mirror_request_duration_seconds_bucket[5m])) > 0.5
-  for: 5m
-  labels:
-    severity: warning
-```
-
-## Errores Comunes Adicionales
-
-6. **Mirrorizar a un entorno de menor capacidad.** Producción maneja 1000 RPS pero staging crashea a 100 RPS. Siempre mirroriza un porcentaje que staging pueda manejar.
-
-7. **No stripping headers de autenticación.** Los requests mirrorizados llevan tokens de auth de producción a staging. Strippéalos o reemplázalos:
-
-```nginx
-location /staging_mirror {
-    internal;
-    proxy_pass http://staging_backend$request_uri;
-    proxy_set_header Authorization "Bearer staging-token";
-    proxy_set_header X-Mirrored-From $host;
-}
-```
-
-8. **Mirrorizar durante carga pico.** El mirroring añade carga a producción (la fuente del mirror). Deshabilita el mirroring durante picos de tráfico.
-
-## FAQ Adicional
-
-### ¿Cuánto overhead añade el traffic mirroring a producción?
-
-El mirroring a nivel de red (AWS VPC, Envoy) añade <1ms de latencia. El mirroring a nivel de aplicación (Nginx, GoReplay) añade 1-5ms por request. La respuesta de producción nunca se retrasa — los mirrors son fire-and-forget.
-
-### ¿Puedo mirrorizar tráfico WebSocket?
-
-Sí, pero requiere manejo especial. Usa Envoy o Istio, que soportan mirroring de WebSocket a nivel L4. GoReplay también soporta replay de WebSocket.
-
-### ¿Cómo comparo respuestas de producción vs. mirror?
-
-Usa un servicio como Diffy o implementa una capa de comparación custom. Loguea diferencias a un datastore (Elasticsearch, BigQuery) para análisis:
-
-```python
-import json
-from datetime import datetime
-
-def log_comparison(url, prod_response, mirror_response):
-    comparison = {
-        "url": url,
-        "timestamp": datetime.utcnow().isoformat(),
-        "prod_status": prod_response.status_code,
-        "mirror_status": mirror_response.status_code if mirror_response else None,
-        "prod_body_hash": hash(json.dumps(prod_response.json(), sort_keys=True)),
-        "mirror_body_hash": hash(json.dumps(mirror_response.json(), sort_keys=True)) if mirror_response else None,
-        "match": prod_response.status_code == (mirror_response.status_code if mirror_response else None),
-    }
-    # Enviar a Elasticsearch o BigQuery
-    send_to_elasticsearch(comparison)
-```
 
 ## Tips de Rendimiento
 

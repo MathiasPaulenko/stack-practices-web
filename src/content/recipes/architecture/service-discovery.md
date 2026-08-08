@@ -327,74 +327,6 @@ func (h *HealthChecker) StartHealthCheckLoop() {
 }
 ```
 
-## Additional Best Practices
-
-1. **Use graceful deregistration on shutdown.** When a service instance stops, deregister from the registry before exiting so clients stop sending traffic:
-
-```python
-import signal
-import sys
-
-class GracefulShutdown:
-    def __init__(self, discovery: ConsulServiceDiscovery, service_id: str):
-        self.discovery = discovery
-        self.service_id = service_id
-
-    def register_handlers(self):
-        signal.signal(signal.SIGTERM, self._shutdown)
-        signal.signal(signal.SIGINT, self._shutdown)
-
-    def _shutdown(self, signum, frame):
-        # Deregister from service registry
-        self.discovery.client.agent.service.deregister(self.service_id)
-        # Wait for in-flight requests to complete
-        time.sleep(5)
-        sys.exit(0)
-```
-
-2. **Cache registry responses with TTL.** Avoid querying the registry on every call — cache instance lists for a short period and refresh on cache expiry or connection failure:
-
-```typescript
-class CachedServiceLocator {
-  private cache: Map<string, { instances: string[]; expiresAt: number }> = new Map();
-  private ttlMs: number = 10000; // 10 seconds
-
-  async getInstances(serviceName: string): Promise<string[]> {
-    const cached = this.cache.get(serviceName);
-    if (cached && Date.now() < cached.expiresAt) {
-      return cached.instances;
-    }
-    const instances = await this.queryRegistry(serviceName);
-    this.cache.set(serviceName, {
-      instances,
-      expiresAt: Date.now() + this.ttlMs,
-    });
-    return instances;
-  }
-
-  async refreshOnFailure(serviceName: string): Promise<string[]> {
-    this.cache.delete(serviceName);
-    return this.getInstances(serviceName);
-  }
-}
-```
-
-3. **Tag instances with metadata for smart routing.** Register instances with version, zone, and weight metadata to enable canary deployments and zone-aware routing:
-
-```go
-registration := &api.AgentServiceRegistration{
-    ID:      serviceID,
-    Name:    "payment-service",
-    Address: host,
-    Port:    port,
-    Tags:    []string{"v2", "us-east-1a", "canary"},
-    Meta: map[string]string{
-        "version": "v2",
-        "zone":    "us-east-1a",
-        "weight":  "10",
-    },
-}
-```
 
 ## Additional Common Mistakes
 
@@ -421,20 +353,3 @@ class PooledServiceClient:
 
 3. **Ignoring startup race conditions.** A service that registers before it's ready to accept traffic will receive requests it can't handle. Register only after passing startup checks, and use readiness probes in Kubernetes to gate traffic.
 
-## Additional FAQ
-
-### How do I handle service discovery across multiple datacenters?
-
-Consul supports multi-datacenter federation out of the box — services in DC1 can discover services in DC2 via WAN gossip. For Kubernetes, use a global load balancer (Envoy, Gloo) that routes across clusters. For cloud-native setups, AWS Cloud Map supports cross-region discovery with VPC peering.
-
-### Is this solution production-ready?
-
-Yes. Consul service registration with health checks is used in production by HashiCorp customers. The Istio VirtualService with canary routing and outlier detection is standard in service mesh deployments. The client-side discovery pattern with caching is how Netflix Eureka clients work. The Go health check endpoint with liveness and readiness separation follows Kubernetes best practices.
-
-### What are the performance characteristics?
-
-Consul queries add 1-5ms for local agent lookups; cached responses are sub-millisecond. DNS-based discovery in Kubernetes adds 1-2ms per resolution (cached by kube-dns). Eureka client-side discovery with caching adds <1ms per call. Istio sidecar proxies add 1-3ms per hop. Health check polling at 10s intervals has negligible CPU overhead. Registry cluster consensus (Raft) adds latency only on writes (registration/deregistration), not reads.
-
-### How do I debug issues with this approach?
-
-Use `consul members` to verify cluster health, `consul catalog services` to list registered services, and `consul health checks <service>` to see health status. For Kubernetes, use `kubectl get endpoints <service>` to verify discovered instances. For Istio, use `istioctl analyze` to detect configuration issues. Log instance selection (address, port, source) on each call. Monitor registry query latency and cache hit rate. Set up alerts on unhealthy instances, deregistration events, and registry cluster size.

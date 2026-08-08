@@ -427,27 +427,6 @@ Después de cada incidente, verifica que el runbook se actualice con las leccion
 - [ ] Did the on-call engineer find the runbook useful? Note feedback
 ```
 
-## Mejores Prácticas Adicionales
-
-
-- For a deeper guide, see [Escalation Policy Template](/es/docs/escalation-policy-template/).
-
-1. **Incluye el output esperado para cada comando de diagnóstico.** Los ingenieros de guardia bajo estrés pueden no reconocer output anormal. Muestra cómo se ve "normal":
-
-```markdown
-**Expected output:**
-```
-$ kubectl get pods -l app=api
-NAME                   READY   STATUS    RESTARTS   AGE
-api-7d9f6c8b5-x2k4m   1/1     Running   0          12h
-api-7d9f6c8b5-p8n3q   1/1     Running   0          12h
-```
-If STATUS is not `Running` or RESTARTS > 0, proceed to diagnostic step 2.
-```
-
-2. **Agrega una sección "No Hacer" a cada procedimiento de alerta.** Los errores comunes durante incidentes valen la pena documentar:
-
-```markdown
 ## 2.1 High Error Rate — Do NOT:
 - Do NOT restart all pods simultaneously (causes cascading failures)
 - Do NOT scale up without checking if the issue is downstream
@@ -455,26 +434,4 @@ If STATUS is not `Running` or RESTARTS > 0, proceed to diagnostic step 2.
 - Do NOT close the alert until error rate is below threshold for 15 minutes
 ```
 
-## Errores Comunes Adicionales
 
-1. **No incluir estimaciones de tiempo para cada paso.** Cuando un ingeniero ve "verificar latencia de consultas a base de datos," no sabe si eso toma 30 segundos o 10 minutos. Agrega estimaciones de tiempo aproximadas para que puedan medir progreso y saber cuándo escalar:
-
-```markdown
-**Diagnostic Steps (estimated: 10 minutes):**
-1. Check error dashboard (2 min)
-2. Correlate with deployments (3 min)
-3. Check dependency health (2 min)
-4. Review logs for stack traces (3 min)
-```
-
-2. **Escribir runbooks en aislamiento.** Los runbooks escritos por un solo ingeniero senior a menudo omiten pasos que les parecen obvios pero no lo son para un ingeniero junior de guardia a las 3 a.m. Haz que un ingeniero junior recorra cada procedimiento durante un periodo de calma y anote dónde se atasca. Esos son los pasos que necesitan más detalle.
-
-## FAQ Adicionales
-
-### Cómo mantenemos los comandos del runbook sin que se vuelvan obsoletos?
-
-Ejecuta los comandos del runbook como parte de tu pipeline de CI. Crea un job de prueba que ejecute comandos de diagnóstico contra un entorno de staging semanalmente. Si un comando falla porque la API cambió o la herramienta fue actualizada, el job de CI alerta al equipo para actualizar el runbook. Esto detecta comandos obsoletos antes de que lo haga un incidente.
-
-### Los runbooks deberían estar en el mismo repo que el código del servicio?
-
-Sí, cuando sea posible. Mantener los runbooks en el repo del servicio significa que se actualizan junto con los cambios de código. Un PR que cambia el manejo de errores debería también actualizar el runbook para la alerta de tasa de error. Si los runbooks viven en un wiki separado, se olvidan durante los cambios de código. Usa un directorio `docs/runbooks/` en el repo del servicio y enlázalos desde tu sistema de alertas.

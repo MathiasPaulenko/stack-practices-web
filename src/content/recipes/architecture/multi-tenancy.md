@@ -332,49 +332,6 @@ class TenantOnboardingService {
 }
 ```
 
-## Additional Best Practices
-
-1. **Use tenant-aware database migrations.** Run migrations per tenant schema, not globally. Track which tenants have which migration versions:
-
-```sql
-CREATE TABLE tenant_migrations (
-  tenant_id UUID NOT NULL,
-  migration_version INT NOT NULL,
-  applied_at TIMESTAMPTZ DEFAULT NOW(),
-  PRIMARY KEY (tenant_id, migration_version)
-);
-```
-
-2. **Implement tenant-specific rate limiting.** Prevent noisy neighbors by enforcing per-tenant quotas at the API gateway:
-
-```typescript
-class TenantRateLimiter {
-  private limits: Map<string, { count: number; resetAt: number }> = new Map();
-
-  check(tenantId: string, limit: number, windowMs: number): boolean {
-    const now = Date.now();
-    const entry = this.limits.get(tenantId);
-    if (!entry || now > entry.resetAt) {
-      this.limits.set(tenantId, { count: 1, resetAt: now + windowMs });
-      return true;
-    }
-    if (entry.count >= limit) return false;
-    entry.count++;
-    return true;
-  }
-}
-```
-
-3. **Log with tenant context.** Include tenant_id in every log entry for debugging and audit trails:
-
-```typescript
-function tenantLogger(tenantId: string) {
-  return {
-    info: (msg: string, meta?: object) => console.log(JSON.stringify({ tenantId, level: 'info', msg, ...meta })),
-    error: (msg: string, meta?: object) => console.error(JSON.stringify({ tenantId, level: 'error', msg, ...meta })),
-  };
-}
-```
 
 ## Additional Common Mistakes
 
@@ -392,35 +349,3 @@ CREATE TABLE orders (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), tenant_id UU
 
 3. **Ignoring tenant lifecycle in CI/CD.** Deployments that run schema migrations must handle all tenant schemas. A migration that works for one tenant may fail for another with different data volume. Test migrations against the largest tenant first.
 
-## Additional FAQ
-
-### How do I handle tenant-specific feature flags?
-
-Store feature flags in a tenant configuration table and evaluate them at runtime. Avoid compile-time flags or environment variables since different tenants need different feature sets:
-
-```typescript
-class FeatureFlagService {
-  private flags: Map<string, Set<string>> = new Map();
-
-  async loadFlags(tenantId: string): Promise<void> {
-    const result = await this.db.query('SELECT flag_name FROM tenant_flags WHERE tenant_id = $1', [tenantId]);
-    this.flags.set(tenantId, new Set(result.rows.map(r => r.flag_name)));
-  }
-
-  isEnabled(tenantId: string, flag: string): boolean {
-    return this.flags.get(tenantId)?.has(flag) ?? false;
-  }
-}
-```
-
-### Is this solution production-ready?
-
-Yes. Row-Level Security with PostgreSQL is used by production SaaS platforms. The database-per-tenant model with connection pooling is standard for enterprise tenants. The tenant onboarding pipeline mirrors what platforms like Heroku and Render do when provisioning new customer databases. The caching layer with tenant-scoped keys prevents cross-tenant data leakage in Redis.
-
-### What are the performance characteristics?
-
-Shared database with RLS adds a filter check per query — negligible overhead with proper indexes on `tenant_id`. Schema-per-tenant requires `SET search_path` per connection (sub-millisecond). Database-per-tenant uses separate connection pools — each pool consumes memory (10 connections x 1000 tenants = 10,000 connections). Use PgBouncer to multiplex connections. Cache lookups with tenant-scoped keys are O(1) in Redis. Tenant onboarding with schema creation takes 50-200ms; database creation takes 1-5 seconds.
-
-### How do I debug issues with this approach?
-
-Log tenant_id in every request, query, and cache operation. Use PostgreSQL's `current_setting('app.current_tenant')` to verify RLS context in debug sessions. For schema-per-tenant, log `search_path` before each query. For database-per-tenant, log which pool served the request. Test tenant isolation by querying as tenant A and verifying zero rows from tenant B. Use `EXPLAIN ANALYZE` to verify that RLS policies use the tenant_id index.

@@ -305,11 +305,6 @@ sudo cgexec -g cpu,memory:workload-b python workload-b.py
 
 3. **Monitor resource utilization continuously.** Use Prometheus and Grafana to track CPU, memory, disk, and network utilization at 1-minute granularity. Set alerts for sustained high utilization (>80%) which indicates consolidation may be too aggressive.
 
-## Additional Common Mistakes
-
-1. **Ignoring network bandwidth limitations.** Consolidating I/O-heavy workloads on the same host can saturate network interfaces. Monitor network throughput and consider network policies when consolidating.
-
-2. **Forgetting about disk I/O contention.** Database workloads and log-heavy applications sharing the same disk can cause I/O wait. Use separate disks or SSDs for I/O-intensive workloads.
 
 ## Additional Frequently Asked Questions
 

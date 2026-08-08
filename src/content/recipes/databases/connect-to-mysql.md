@@ -336,62 +336,7 @@ with get_db() as conn:
 | Java | JDBC + HikariCP | No | HikariCP | Industry standard |
 | Go | `go-sql-driver/mysql` | Yes | `database/sql` | Standard Go driver |
 
-## Additional Best Practices
 
-
-- For a deeper guide, see [Connect to PostgreSQL](/recipes/connect-to-postgresql/).
-
-6. **Set `enableKeepAlive` in mysql2.** This prevents idle connections from being dropped by network infrastructure or MySQL's `wait_timeout`:
-
-```javascript
-const pool = mysql.createPool({
-    // ... other options
-    enableKeepAlive: true,
-    keepAliveInitialDelay: 10000
-});
-```
-
-7. **Use `LOAD DATA INFILE` for bulk inserts.** This is 20-100x faster than individual `INSERT` statements for large datasets:
-
-```sql
-LOAD DATA INFILE '/tmp/users.csv'
-INTO TABLE users
-FIELDS TERMINATED BY ','
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS
-(id, email, name);
-```
-
-8. **Set `wait_timeout` and `interactive_timeout` on the server.** Tune these to recycle idle connections before they become stale:
-
-```sql
-SET GLOBAL wait_timeout = 300;
-SET GLOBAL interactive_timeout = 300;
-```
-
-9. **Use IAM authentication on AWS RDS.** Avoid storing passwords by using IAM database authentication:
-
-```bash
-aws rds generate-db-auth-token \
-  --hostname mydb.abc123.us-east-1.rds.amazonaws.com \
-  --port 3306 \
-  --username myuser
-```
-
-10. **Monitor `SHOW PROCESSLIST` for long-running queries.** Identify and kill queries that block others:
-
-```sql
-SHOW PROCESSLIST;
-KILL <thread_id>;
-```
-
-## Additional Common Mistakes
-
-6. **Not handling connection drops.** Network issues or MySQL restarts invalidate connections. Use retry logic or a pool with health checks.
-7. **Using `SELECT *` in production code.** Explicit column lists prevent breakage when schema changes and reduce network overhead.
-8. **Not setting `connectionLimit` correctly.** Set it based on MySQL's `max_connections` and the number of application instances. Formula: `max_connections / app_instances - safety_margin`.
-9. **Ignoring `SHOW STATUS LIKE 'Threads_connected'`.** Monitor active connections to detect connection leaks early.
-10. **Using autocommit for multi-statement operations.** Without explicit transactions, partial failures leave data in an inconsistent state.
 
 ## Additional FAQ
 

@@ -386,56 +386,7 @@ jobs:
     echo "| E2E   | ${{ job.status }} | 2m |" >> $GITHUB_STEP_SUMMARY
 ```
 
-## Mejores Prácticas Adicionales
 
-1. **Pinea versiones de actions a SHA.** Los tags pueden ser re-tagueados; los SHA son inmutables:
-
-```yaml
-# Mal: el tag puede cambiar
-- uses: actions/checkout@v4
-
-# Mejor: SHA es inmutable
-- uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4
-```
-
-1. **Usa `concurrency` para cancelar runs stale.** No gastes minutes en pushes desactualizados:
-
-```yaml
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-```
-
-1. **Setea timeouts en jobs.** Previene jobs colgados de consumir minutes:
-
-```yaml
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15  # Matar después de 15 minutos
-```
-
-## Errores Comunes Adicionales
-
-1. **No usar grupos de `concurrency`.** Sin esto, cada push a un PR dispara un run nuevo, gastando minutes:
-
-```yaml
-# Añade esto para cancelar runs previos
-concurrency:
-  group: pr-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
-```
-
-1. **Usar `needs` sin `if: always()`.** Los jobs downstream se saltan por defecto si upstream falla:
-
-```yaml
-notify:
-  needs: [test, lint, deploy]
-  if: always()  # Correr independientemente del status upstream
-  runs-on: ubuntu-latest
-  steps:
-    - run: ./notify.sh ${{ job.status }}
-```
 
 ## FAQ
 

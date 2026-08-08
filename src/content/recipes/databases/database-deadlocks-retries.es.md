@@ -465,61 +465,8 @@ def test_deadlock_scenario():
     print(f"Test pasado: {results}")
 ```
 
-## Mejores Prácticas Adicionales
 
-6. **Usa `SKIP LOCKED` para procesamiento concurrente de colas.** Esto previene que los workers se bloqueen entre sí al recoger jobs:
 
-```sql
-SELECT * FROM job_queue WHERE status = 'pending'
-FOR UPDATE SKIP LOCKED LIMIT 5;
-```
-
-7. **Configura `lock_timeout` en todas las transacciones.** Una transacción que espera indefinidamente por un lock es peor que una que falla y reintenta:
-
-```sql
-SET LOCAL lock_timeout = '5s';
-```
-
-8. **Usa `NOWAIT` para reads no críticos.** Si no necesitas esperar por un lock, falla rápido:
-
-```sql
-SELECT * FROM products WHERE id = 42 FOR UPDATE NOWAIT;
--- Lanza: ERROR: could not obtain lock on row
-```
-
-9. **Monitorea `pg_stat_database.deadlocks` regularmente.** Configura alertas para cualquier incremento:
-
-```sql
-SELECT datname, deadlocks FROM pg_stat_database WHERE deadlocks > 0;
-```
-
-10. **Documenta el orden de locks en tu codebase.** Añade comentarios a cada transacción especificando el orden de locks. Esto ayuda a nuevos desarrolladores a evitar introducir deadlocks.
-
-## Errores Comunes Adicionales
-
-6. **Capturar deadlocks pero no hacer rollback.** Después de un error de deadlock, la transacción está en estado abortado. Debes llamar `rollback()` antes de reintentar.
-
-7. **Reintentar con la misma transacción.** Una transacción deadlocked está abortada. Necesitas una nueva transacción para cada intento de reintento.
-
-8. **Usar `SERIALIZABLE` sin lógica de reintento.** El aislamiento serializable puede lanzar fallos de serialización (`40001`) que requieren el mismo manejo de reintento que los deadlocks.
-
-9. **No testear el manejo de deadlocks bajo carga.** Los tests unitarios raramente disparan deadlocks. Usa tests de integración con threads concurrentes para verificar que tu lógica de reintento funciona.
-
-10. **Ignorar conexiones `idle_in_transaction`.** Las transacciones idle largas mantienen locks y causan deadlocks. Configura `idle_in_transaction_session_timeout` para eliminarlas automáticamente.
-
-## FAQ Adicional
-
-### ¿Cuál es la diferencia entre un deadlock y un lock timeout?
-
-Un **deadlock** ocurre cuando dos transacciones mantienen locks que la otra necesita. La base de datos detecta esto y mata una transacción. Un **lock timeout** ocurre cuando una transacción espera más del timeout configurado por un lock mantenido por otra transacción. Los deadlocks requieren reintento; los lock timeouts pueden requerir reintento o pueden indicar un problema de rendimiento.
-
-### ¿Cómo priorizo qué transacción sobrevive a un deadlock?
-
-PostgreSQL mata la transacción que ha hecho menos trabajo (menos bytes WAL). No puedes controlar directamente cuál se mata. SQL Server usa deadlock priority (`SET DEADLOCK_PRIORITY LOW`). MySQL mata la transacción que modificó menos filas.
-
-### ¿Debería usar `SKIP LOCKED` o `NOWAIT`?
-
-Usa `SKIP LOCKED` cuando quieres procesar filas disponibles y saltar las bloqueadas (colas de jobs, procesamiento batch). Usa `NOWAIT` cuando quieres fallar inmediatamente si una fila está bloqueada, en lugar de esperar (dashboards en tiempo real, actualizaciones de caché).
 
 ## Tips de Rendimiento
 

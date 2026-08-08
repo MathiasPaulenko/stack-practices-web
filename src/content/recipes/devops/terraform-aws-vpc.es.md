@@ -419,52 +419,7 @@ aws logs filter-log-events \
   --filter-pattern "REJECT"
 ```
 
-## Errores Comunes Adicionales
 
-1. **Olvidar `depends_on` para VPC endpoints.** Los Gateway endpoints necesitan que las route tables existan primero:
-
-```hcl
-resource "aws_vpc_endpoint" "s3" {
-  # ...
-  depends_on = [aws_route_table.private]
-}
-```
-
-2. **No usar `private_dns_enabled` para interface endpoints.** Sin esto, los servicios resuelven a IPs publicas en lugar de privadas:
-
-```hcl
-private_dns_enabled = true  # Critico para Secrets Manager, SSM, etc.
-```
-
-3. **CIDR blocks superpuestos al hacer peering.** Planifica rangos CIDR upfront para evitar conflictos:
-
-```hcl
-# VPC A: 10.0.0.0/16
-# VPC B: 10.1.0.0/16  (no 10.0.0.0/16)
-# VPC C: 10.2.0.0/16
-```
-
-## FAQ Adicional
-
-### Como estimo los costos de la VPC?
-
-Los NAT Gateways son el principal driver de costo: ~$32/mes por gateway mas $0.045/GB procesado. Usa `single_nat_gateway = true` para ambientes dev. Los VPC endpoints cuestan ~$7/mes por interface endpoint pero ahorran en fees de procesamiento de NAT.
-
-### Que bloque CIDR debo usar?
-
-Usa rangos RFC 1918: `10.0.0.0/16` (65k IPs), `172.16.0.0/16`, o `192.168.0.0/16`. Evita superposicion con redes on-premises o otras VPCs que planeas conectar via peering.
-
-### Como migro una VPC creada desde consola a Terraform?
-
-```bash
-# Importar recursos existentes
-terraform import aws_vpc.main vpc-abc123
-terraform import aws_subnet.public[0] subnet-abc123
-terraform import aws_internet_gateway.main igw-abc123
-
-# Luego corre terraform plan para reconciliar drift
-terraform plan
-```
 
 ## Tips de Rendimiento
 

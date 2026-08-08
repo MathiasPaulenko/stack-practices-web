@@ -318,35 +318,7 @@ SET statement_timeout = '30s';
 config.setConnectionTestQuery("SELECT 1");
 ```
 
-## Errores comunes adicionales
 
-6. **No configurar `connectionTimeout`.** Sin un timeout, las peticiones se bloquean indefinidamente cuando el pool se agota. Configura 2-5 segundos.
-
-7. **Compartir un solo pool entre código async y sync.** Mezclar frameworks async (asyncio, Node.js) con librerías de pool sync causa deadlocks. Usa pools compatibles con async.
-
-8. **Crear múltiples instancias de pool.** Cada pool abre sus propias conexiones. Múltiples pools en un proceso multiplican el conteo de conexiones y pueden exceder `max_connections`.
-
-9. **No drenar pools al apagar.** No cerrar pools al salir de la aplicación deja conexiones huérfanas en el servidor de base de datos.
-
-10. **Usar `pool_mode = session` en PgBouncer para serverless.** Las funciones serverless abren y cierran conexiones rápidamente. Usa modo `transaction` para multiplexar.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cómo afecta el transaction pooling de PgBouncer a las prepared statements?
-
-PgBouncer en modo transacción no soporta prepared statements a nivel sesión. Usa `prepared_statement_cache_size = 0` en tu driver o cambia a modo `session`. PostgreSQL 16+ soporta prepared statements a nivel protocol que funcionan con transaction pooling.
-
-### ¿Cuál es la diferencia entre `pool_size` y `max_overflow` en SQLAlchemy?
-
-`pool_size` es el número de conexiones persistentes. `max_overflow` permite conexiones temporales más allá de `pool_size` bajo carga. Cuando el tráfico baja, las conexiones de overflow se cierran primero.
-
-### ¿Cómo manejo connection pooling en entornos serverless?
-
-Usa PgBouncer o un proxy gestionado (AWS RDS Proxy, PlanetScale Proxy). Las funciones serverless escalan a cientos de instancias concurrentes, cada una necesitando una conexión. Un pooler del lado servidor multiplexa estas en un pool fijo pequeño.
-
-### ¿Debo configurar conexiones `min_idle`?
-
-Sí, para aplicaciones sensibles a latencia. Mantener 2-5 conexiones idle calientes elimina el coste de 20-100ms de setup de conexión para las primeras peticiones después de periodos idle.
 
 ## Tips de Rendimiento
 

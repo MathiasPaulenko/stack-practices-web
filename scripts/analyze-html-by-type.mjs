@@ -14,15 +14,16 @@ walk('dist');
 const buckets = {};
 for (const f of files) {
   const rel = path.relative('dist', f).replace(/\\/g, '/');
+  const stripped = rel.startsWith('es/') ? rel.slice(3) : rel;
   let type;
-  if (rel.startsWith('recipes/')) type = 'recipe';
-  else if (rel.startsWith('patterns/')) type = 'pattern';
-  else if (rel.startsWith('guides/')) type = 'guide';
-  else if (rel.startsWith('docs/')) type = 'doc';
-  else if (rel.startsWith('tags/')) type = 'tag';
-  else if (rel.startsWith('topics/')) type = 'topic';
-  else if (rel.startsWith('authors/')) type = 'author';
-  else if (rel === 'index.html') type = 'home';
+  if (stripped.startsWith('recipes/')) type = 'recipe';
+  else if (stripped.startsWith('patterns/')) type = 'pattern';
+  else if (stripped.startsWith('guides/')) type = 'guide';
+  else if (stripped.startsWith('docs/')) type = 'doc';
+  else if (stripped.startsWith('tags/')) type = 'tag';
+  else if (stripped.startsWith('topics/')) type = 'topic';
+  else if (stripped.startsWith('authors/')) type = 'author';
+  else if (stripped === 'index.html') type = 'home';
   else type = 'other';
   
   const size = fs.statSync(f).size;

@@ -415,22 +415,4 @@ app.get('/health/ready', (req, res) => {
 });
 ```
 
-## Errores Comunes Adicionales
 
-1. **Hacer health checks muy costosos.** Los health checks que consultan bases de datos grandes o realizan operaciones complejas pueden causar degradacion de rendimiento. Manten los health checks rapidos (menos de 100ms) y ligeros.
-
-2. **Olvidar manejar solicitudes concurrentes de health checks.** Multiples solicitudes de health check de balanceadores de carga pueden abrumar el servicio. Implementa rate limiting o cache para respuestas de health check.
-
-## FAQ Adicionales
-
-### ¿Con que frecuencia deben llamarse los health checks?
-
-Configura los intervalos de health check basado en tus requisitos. Los intervalos tipicos son 5-10 segundos para probes de readiness y 15-30 segundos para probes de liveness. Chequeos mas frecuentes proporcionan deteccion mas rapida pero aumentan la carga.
-
-### ¿Deberian los health checks devolver mensajes de error detallados?
-
-Para endpoints de salud publicos, devuelve solo estado generico. Para endpoints de deep health internos, incluye mensajes de error detallados para ayudar al debugging. Nunca expongas informacion sensible en respuestas de salud publicas.
-
-### ¿Cómo manejo health checks durante migraciones de base de datos?
-
-Implementa un endpoint de estado de migracion que devuelve el estado de la migracion. Durante migraciones, el readiness probe puede verificar este endpoint y devolver not ready si las migraciones estan en progreso. Esto previene enrutar trafico a un servicio con cambios de schema incompatibles.

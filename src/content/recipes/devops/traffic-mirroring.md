@@ -411,86 +411,8 @@ spec:
           weight: 100
 ```
 
-## Additional Best Practices
 
-6. **Use a separate namespace for mirror targets.** Keep staging mirror infrastructure isolated:
 
-```bash
-$ kubectl create namespace mirror-target
-$ kubectl deploy -n mirror-target -f staging-deployment.yaml
-```
-
-7. **Set resource limits on mirror targets.** Mirrored traffic can overwhelm staging:
-
-```yaml
-resources:
-  requests:
-    cpu: 500m
-    memory: 512Mi
-  limits:
-    cpu: 1000m
-    memory: 1Gi
-```
-
-8. **Monitor mirror queue depth.** If the mirror target can't keep up, requests pile up:
-
-```yaml
-# Alert if mirror response time > 500ms
-- alert: MirrorTargetSlow
-  expr: histogram_quantile(0.95, rate(mirror_request_duration_seconds_bucket[5m])) > 0.5
-  for: 5m
-  labels:
-    severity: warning
-```
-
-## Additional Common Mistakes
-
-6. **Mirroring to a lower-capacity environment.** Production handles 1000 RPS but staging crashes at 100 RPS. Always mirror a percentage that staging can handle.
-
-7. **Not stripping authentication headers.** Mirrored requests carry production auth tokens to staging. Strip or replace them:
-
-```nginx
-location /staging_mirror {
-    internal;
-    proxy_pass http://staging_backend$request_uri;
-    proxy_set_header Authorization "Bearer staging-token";
-    proxy_set_header X-Mirrored-From $host;
-}
-```
-
-8. **Mirroring during peak load.** Mirroring adds load to production (the mirror source). Disable mirroring during traffic spikes.
-
-## Additional FAQ
-
-### How much overhead does traffic mirroring add to production?
-
-Network-level mirroring (AWS VPC, Envoy) adds <1ms latency. Application-level mirroring (Nginx, GoReplay) adds 1-5ms per request. The production response is never delayed — mirrors are fire-and-forget.
-
-### Can I mirror WebSocket traffic?
-
-Yes, but it requires special handling. Use Envoy or Istio, which support WebSocket mirroring at the L4 level. GoReplay also supports WebSocket replay.
-
-### How do I compare production vs. mirror responses?
-
-Use a service like Diffy or implement a custom comparison layer. Log differences to a datastore (Elasticsearch, BigQuery) for analysis:
-
-```python
-import json
-from datetime import datetime
-
-def log_comparison(url, prod_response, mirror_response):
-    comparison = {
-        "url": url,
-        "timestamp": datetime.utcnow().isoformat(),
-        "prod_status": prod_response.status_code,
-        "mirror_status": mirror_response.status_code if mirror_response else None,
-        "prod_body_hash": hash(json.dumps(prod_response.json(), sort_keys=True)),
-        "mirror_body_hash": hash(json.dumps(mirror_response.json(), sort_keys=True)) if mirror_response else None,
-        "match": prod_response.status_code == (mirror_response.status_code if mirror_response else None),
-    }
-    # Send to Elasticsearch or BigQuery
-    send_to_elasticsearch(comparison)
-```
 
 ## Performance Tips
 

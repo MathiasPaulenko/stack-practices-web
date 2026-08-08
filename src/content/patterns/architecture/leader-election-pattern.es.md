@@ -423,22 +423,4 @@ class LeaderElectionWithFencing:
 
 3. **Implementa monitoreo de salud del lider.** Las seguidoras deben monitorear activamente la salud del lider, no solo observar el lease. Implementa health checks y probes de readiness para detectar fallos del lider antes de la expiracion del lease.
 
-## Errores Comunes Adicionales
 
-1. **Usar eleccion de lider para operaciones de corta duracion.** La eleccion de lider esta disenada para coordinacion de larga duracion. Para tareas de corta duracion, usa bloqueo distribuido o colas de tareas en su lugar.
-
-2. **Ignorar el sesgo del reloj en sistemas distribuidos.** Las diferencias de reloj entre nodos pueden causar problemas de expiracion del lease. Usa relojes monotonicos o duraciones de lease que tengan en cuenta el sesgo de reloj esperado.
-
-## FAQ Adicionales
-
-### ¿Cómo manejo particiones de red durante la eleccion de lider?
-
-Implementa eleccion basada en quorum donde una mayoria de nodos debe estar de acuerdo en el lider. Usa algoritmos de consenso como Raft o Paxos que manejan particiones de red correctamente requiriendo acuerdo de mayoria.
-
-### ¿Qué pasa si el lider no puede renovar el lease?
-
-Si el lider falla al renovar el lease antes de la expiracion, pierde el liderazgo. Las seguidoras detectan el lease expirado y compiten para convertirse en el nuevo lider. El lider antiguo debe detectar que ya no es lider y dejar de realizar operaciones exclusivas del lider.
-
-### ¿Deberia usar eleccion de lider o un algoritmo de consenso?
-
-Usa eleccion de lider cuando necesitas un unico coordinador pero no necesitas acuerdo sobre valores. Usa algoritmos de consenso como Raft cuando necesitas tanto eleccion de lider como acuerdo sobre un log replicado o maquina de estados.

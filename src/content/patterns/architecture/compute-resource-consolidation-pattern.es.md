@@ -296,11 +296,6 @@ sudo cgexec -g cpu,memory:workload-b python workload-b.py
 
 3. **Monitorea la utilizacion de recursos continuamente.** Usa Prometheus y Grafana para rastrear CPU, memoria, disco y red a granularidad de 1 minuto. Configura alertas para utilizacion alta sostenida (>80%) que indica que la consolidacion puede ser muy agresiva.
 
-## Errores Comunes Adicionales
-
-1. **Ignorar limitaciones de ancho de banda de red.** Consolidar cargas intensivas en I/O en el mismo host puede saturar interfaces de red. Monitorea el throughput de red y considera politicas de red al consolidar.
-
-2. **Olvidar la contencion de I/O de disco.** Cargas de base de datos y aplicaciones con logs pesados compartiendo el mismo disco pueden causar espera de I/O. Usa discos separados o SSDs para cargas intensivas en I/O.
 
 ## FAQ Adicionales
 

@@ -302,13 +302,6 @@ else:
     display = user.name
 ```
 
-## Errores comunes adicionales
-
-6. **Agregar una columna con default volátil.** `ADD COLUMN ... DEFAULT random()` reescribe toda la tabla en PostgreSQL < 11. Usa nullable + backfill.
-7. **No probar scripts de rollback.** Un rollback que falla es peor que no tener rollback. Prueba `downgrade()` en una copia de staging.
-8. **Ejecutar migraciones dentro del startup de la app para cambios grandes.** Usa un paso de migración separado en CI/CD con gates de aprobación.
-9. **Olvidar actualizar estadísticas.** Después de cambios grandes de datos, `ANALYZE` es necesario para que el query planner elija planes correctos.
-10. **Dropear una columna antes de que todo el código deje de leerla.** Durante deploys rolling, instancias viejas pueden aún referenciar la columna eliminada.
 
 ## Preguntas frecuentes adicionales
 

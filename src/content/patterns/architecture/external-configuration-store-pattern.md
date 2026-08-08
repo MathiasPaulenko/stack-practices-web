@@ -333,11 +333,6 @@ production:
 
 3. **Separate feature flags from configuration.** Store feature toggles in a dedicated feature flag service rather than the general configuration store. This provides better UI, rollout controls, and experimentation features.
 
-## Additional Common Mistakes
-
-1. **Storing large binary data in configuration stores.** Configuration stores are optimized for small key-value pairs, not large blobs. Store large data in object storage and reference the path in configuration.
-
-2. **Ignoring configuration drift between environments.** Over time, configuration values may diverge unexpectedly between dev, staging, and production. Implement drift detection and reconciliation tools.
 
 ## Additional Frequently Asked Questions
 

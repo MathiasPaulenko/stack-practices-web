@@ -324,54 +324,7 @@ FROM users u
 JOIN orders o ON u.user_id = o.user_id;
 ```
 
-## Errores comunes adicionales
 
-6. **Olvidar alias de tabla en queries complejas.** Sin aliases, los nombres de columna se vuelven ambiguos y las queries son más difíciles de leer.
-7. **Usar `SELECT *` en JOINs.** Esto devuelve columnas duplicadas (ej. `user_id` de ambas tablas). Lista solo las columnas que necesitas.
-8. **No manejar NULLs en agregaciones.** `COUNT(o.order_id)` cuenta valores no-NULL. Usa `COUNT(*)` para contar todas las filas incluyendo NULLs.
-9. **Join en columnas sin indexar.** La columna de join en la tabla más grande debería tener un índice. Sin él, la base de datos hace un full table scan.
-10. **Usar columnas de string para joins.** Joins con enteros son más rápidos que joins con strings. Usa claves surrogate (INT/BIGINT) para columnas de join.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cuál es la diferencia entre hash join y nested loop join?
-
-Un **hash join** construye una tabla hash desde el input más pequeño y la prueba con el input más grande. Eficiente para datasets grandes. Un **nested loop join** itera sobre cada fila de la tabla externa y busca en la tabla interna. Eficiente cuando una tabla es pequeña o se puede usar un índice.
-
-### ¿Cómo optimizo un JOIN de 3 tablas?
-
-1. Asegúrate de que las columnas de join estén indexadas en todas las tablas
-2. Deja que el optimizador elija el orden de join (o usa `SET join_collapse_limit` en PostgreSQL)
-3. Filtra temprano con cláusulas `WHERE` para reducir los result sets intermedios
-4. Usa `EXPLAIN ANALYZE` para verificar que el plan usa hash joins, no nested loops en tablas grandes
-
-### ¿Puedo hacer JOIN en múltiples columnas?
-
-Sí. Usa `AND` en la cláusula `ON`:
-
-```sql
-SELECT *
-FROM orders o
-JOIN order_items oi
-  ON o.order_id = oi.order_id
-  AND o.store_id = oi.store_id;
-```
-
-### ¿Qué es un LATERAL JOIN?
-
-Un join `LATERAL` (PostgreSQL) permite que el lado derecho referencie columnas del lado izquierdo. Útil para subconsultas correlacionadas:
-
-```sql
-SELECT u.name, recent_orders.*
-FROM users u
-LEFT JOIN LATERAL (
-    SELECT order_id, amount
-    FROM orders
-    WHERE user_id = u.user_id
-    ORDER BY order_date DESC
-    LIMIT 3
-) AS recent_orders ON true;
-```
 
 ## Tips de Rendimiento
 

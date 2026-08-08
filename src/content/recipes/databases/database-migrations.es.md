@@ -332,86 +332,8 @@ npx sequelize-cli db:migrate
 npx sequelize-cli db:migrate:undo
 ```
 
-## Mejores Prácticas Adicionales
 
-6. **Usa `CREATE INDEX CONCURRENTLY` en PostgreSQL.** Esto evita bloquear escrituras durante la creación de índices:
 
-```sql
-CREATE INDEX CONCURRENTLY idx_users_email_lower ON users (lower(email));
-```
-
-7. **Divide migraciones grandes en pasos pequeños.** Una migración que añade una columna, hace backfill de 10M de filas y añade una restricción en una transacción mantendrá locks demasiado tiempo. Divídela en 3 migraciones separadas.
-
-8. **Usa restricciones `CHECK` con `NOT VALID` primero.** Añade la restricción sin validar filas existentes, luego valida por separado:
-
-```sql
-ALTER TABLE users ADD CONSTRAINT chk_email_format CHECK (email ~ '@' ) NOT VALID;
-ALTER TABLE users VALIDATE CONSTRAINT chk_email_format;
-```
-
-9. **Prueba migraciones con una copia de datos de producción.** Usa `pg_dump` para crear una copia de staging y ejecuta las migraciones contra ella:
-
-```bash
-pg_dump --format=custom --file=prod_dump.pgdump mydb
-pg_restore --dbname=staging_db --jobs=4 prod_dump.pgdump
-alembic upgrade head
-```
-
-10. **Fija la versión de la herramienta de migración en CI.** Diferentes versiones de Flyway o Alembic pueden comportarse distinto. Bloquea la versión en tu pipeline de CI:
-
-```yaml
-# .github/workflows/migrate.yml
-- name: Run Flyway
-  run: |
-    docker run --rm \
-      -v $(pwd)/db/migration:/flyway/sql \
-      flyway/flyway:10.12.0 \
-      -url=jdbc:postgresql://$DB_HOST:5432/$DB_NAME \
-      -user=$DB_USER -password=$DB_PASS \
-      migrate
-```
-
-## Errores Comunes Adicionales
-
-5. **Ejecutar migraciones durante el despliegue sin un lock.** Dos pods iniciando simultáneamente pueden intentar ejecutar migraciones al mismo tiempo. Usa un advisory lock o un job de migración dedicado:
-
-```sql
-SELECT pg_advisory_lock(99999);
--- Ejecutar migraciones
-SELECT pg_advisory_unlock(99999);
-```
-
-6. **No probar rollbacks en CI.** Aplica migraciones, luego haz rollback, luego aplica de nuevo. Si cualquier paso falla, CI debería detectarlo antes de producción.
-
-7. **Usar `DROP TABLE` en una migración que puede tener vistas dependientes.** PostgreSQL lo previene, pero MySQL con `RESTRICT` puede fallar silenciosamente. Verifica dependencias primero:
-
-```sql
-SELECT dependee.relname AS dependent_object
-FROM pg_depend JOIN pg_rewrite ON pg_depend.objid = pg_rewrite.oid
-JOIN pg_class AS dependee ON pg_depend.refobjid = dependee.oid
-JOIN pg_class AS dependency ON pg_depend.classid = dependency.oid
-WHERE dependency.relname = 'users';
-```
-
-8. **Ignorar el tiempo de ejecución de migraciones en CI.** Una migración que tarda 30 segundos localmente puede tardar 10 minutos en una tabla de tamaño de producción. Configura timeouts y monitorea el tiempo de ejecución.
-
-## FAQ Adicional
-
-**P: ¿Cómo manejo migraciones en una arquitectura de microservicios?**
-
-Cada servicio debe ser dueño de su base de datos y migraciones. Nunca compartas una migración entre servicios. Usa un servicio runner de migraciones compartido o incluye migraciones en el pipeline de despliegue de cada servicio. Coordina cambios de schema entre servicios mediante contratos de API, no tablas compartidas.
-
-**P: ¿Qué pasa si una migración falla a mitad de camino en producción?**
-
-La mayoría de herramientas lo manejan: Flyway marca la migración como fallida en `flyway_schema_history`, Alembic deja la base de datos en el estado en que la transacción fallida la dejó. Corrige el script de migración, repara la tabla de historial (`flyway repair`) y vuelve a ejecutar. Siempre ten un runbook para migraciones fallidas.
-
-**P: ¿Debo usar migraciones SQL o migraciones basadas en código?**
-
-Las migraciones SQL son transparentes y nativas de base de datos. Las migraciones basadas en código (Alembic, Sequelize) ofrecen control programático para backfills de datos y lógica condicional. Usa SQL para DDL simple, código para migraciones de datos complejas. Ambas pueden coexistir en el mismo proyecto.
-
-**P: ¿Cómo versiono archivos de migración entre equipos?**
-
-Usa versionado basado en timestamps (`20250613_120000_add_user_status`) en lugar de números secuenciales. Esto previene conflictos de merge cuando múltiples desarrolladores crean migraciones simultáneamente. Flyway, Alembic y Sequelize soportan ordenamiento por timestamp.
 
 ## Tips de Rendimiento
 

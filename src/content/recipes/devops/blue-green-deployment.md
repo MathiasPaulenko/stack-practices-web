@@ -299,70 +299,7 @@ done
 echo "Monitoring complete. Green is stable."
 ```
 
-## Additional Best Practices
 
-1. **Pre-warm the green environment.** Send shadow traffic before the switch to JIT-compile code and warm caches:
-
-```bash
-# Mirror 10% of traffic to green for 2 minutes before full switch
-istioctl experimental envoy-config 2>&1 | grep mirror
-```
-
-2. **Tag Docker images with Git SHA, not just semver.** This makes rollback deterministic:
-
-```bash
-# Build and tag
-docker build -t myapp:$(git rev-parse --short HEAD) .
-# Deploy green with specific SHA
-kubectl set image deployment/app-green app=myapp:abc1234
-```
-
-3. **Use DNS TTL wisely.** Set TTL to 60 seconds or lower during deploy windows to ensure fast propagation:
-
-```bash
-# Route53 with low TTL for deploy window
-aws route53 change-resource-record-sets \
-  --hosted-zone-id Z123 \
-  --change-batch '{"Changes":[{"Action":"UPSERT","ResourceRecordSet":{"Name":"api.example.com","Type":"A","TTL":60,"ResourceRecords":[{"Value":"1.2.3.4"}]}}]}'
-```
-
-## Additional Common Mistakes
-
-1. **Not testing the rollback path.** A rollback that hasn't been tested will fail when you need it most:
-
-```bash
-# Include rollback test in staging
-./scripts/switch-traffic.sh green
-sleep 10
-./scripts/switch-traffic.sh blue  # verify rollback works
-```
-
-2. **Different instance sizes for blue and green.** Green must handle the same load as blue:
-
-```yaml
-# Both deployments must have identical resources
-spec:
-  replicas: 3
-  template:
-    spec:
-      containers:
-      - name: app
-        resources:
-          requests: { cpu: 500m, memory: 512Mi }
-          limits: { cpu: 1000m, memory: 1Gi }
-```
-
-3. **Switching without health checks.** Always verify green is healthy before switching:
-
-```bash
-# Check all green pods are ready
-READY=$(kubectl get deployment app-green -o jsonpath='{.status.readyReplicas}')
-DESIRED=$(kubectl get deployment app-green -o jsonpath='{.spec.replicas}')
-if [ "$READY" != "$DESIRED" ]; then
-  echo "Green not fully ready: $READY/$DESIRED"
-  exit 1
-fi
-```
 
 ## Additional FAQ
 

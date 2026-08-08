@@ -333,54 +333,7 @@ public class PostgresPool {
 | Java | JDBC | No | HikariCP | Industry standard |
 | Go | `pgx` | Yes | `pgxpool` | High performance |
 
-## Additional Best Practices
 
-
-- For a deeper guide, see [Connect to MySQL](/recipes/connect-to-mysql/).
-
-6. **Set `idle_timeout` on connections.** Idle connections can become stale after a database restart or network issue. Set a timeout to recycle them automatically.
-7. **Use `application_name` for debugging.** Set `application_name` in the connection string to identify your application in `pg_stat_activity`:
-
-```python
-conn = psycopg2.connect(
-    host="localhost",
-    database="mydb",
-    user="user",
-    password="pass",
-    application_name="my-api-server"
-)
-```
-
-8. **Enable `statement_timeout` at the session level.** Prevent runaway queries from consuming resources:
-
-```sql
-SET statement_timeout = '10s';
-```
-
-9. **Use `COPY` for bulk inserts.** `COPY` is 10-100x faster than individual `INSERT` statements for large datasets:
-
-```python
-import io
-
-buf = io.StringIO()
-buf.write("1\talice@example.com\n")
-buf.write("2\tbob@example.com\n")
-buf.seek(0)
-
-with psycopg2.connect(...) as conn:
-    with conn.cursor() as cur:
-        cur.copy_from(buf, "users", columns=("id", "email"))
-```
-
-10. **Monitor pool health.** Track active connections, waiting threads, and connection lifetime. In HikariCP, use `getHikariPoolMXBean()` to expose metrics.
-
-## Additional Common Mistakes
-
-6. **Not handling connection drops.** Network issues or database restarts can invalidate connections. Use retry logic or a pool with health checks.
-7. **Using `SELECT *` in production code.** Explicit column lists prevent breakage when schema changes and reduce network overhead.
-8. **Not setting `serverTimezone` or `timezone` parameters.** Timezone mismatches cause subtle bugs with `TIMESTAMPTZ` columns.
-9. **Ignoring `pg_stat_activity`.** Long-idle connections waste resources. Monitor and kill idle connections that exceed your timeout.
-10. **Using autocommit for multi-statement operations.** Without explicit transactions, partial failures leave data in an inconsistent state.
 
 ## Additional FAQ
 

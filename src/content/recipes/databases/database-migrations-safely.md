@@ -307,13 +307,6 @@ else:
     display = user.name
 ```
 
-## Additional Common Mistakes
-
-6. **Adding a column with a volatile default.** `ADD COLUMN ... DEFAULT random()` rewrites the entire table in PostgreSQL < 11. Use nullable + backfill instead.
-7. **Not testing rollback scripts.** A rollback that fails is worse than no rollback. Test `downgrade()` on a staging copy.
-8. **Running migrations inside application startup for large changes.** Use a separate migration step in CI/CD with approval gates.
-9. **Forgetting to update statistics.** After large data changes, `ANALYZE` is needed for the query planner to pick correct plans.
-10. **Dropping a column before all code stops reading it.** During rolling deploys, old instances may still reference the dropped column.
 
 ## Additional FAQ
 

@@ -295,55 +295,7 @@ async def main():
 asyncio.run(main())
 ```
 
-## Additional Best Practices
 
-
-- For a deeper guide, see [Connect to MySQL](/recipes/connect-to-mysql/).
-
-6. **Use `SCAN` instead of `KEYS` in production.** `KEYS` blocks the entire Redis instance. `SCAN` iterates in small batches:
-
-```python
-for key in r.scan_iter(match="user:*", count=100):
-    print(key)
-```
-
-7. **Set `maxmemory` and `maxmemory-policy`.** Configure Redis to evict keys when memory is full:
-
-```bash
-# redis.conf
-maxmemory 2gb
-maxmemory-policy allkeys-lru
-```
-
-8. **Use `EXPIRE` for session keys.** Always set a TTL on session data to prevent unbounded growth:
-
-```python
-r.setex('session:abc123', 3600, json.dumps(session_data))
-```
-
-9. **Monitor `INFO` stats.** Track memory usage, connected clients, and command stats:
-
-```python
-info = r.info()
-print(f"Used memory: {info['used_memory_human']}")
-print(f"Connected clients: {info['connected_clients']}")
-print(f"Keyspace hits: {info['keyspace_hits']}")
-print(f"Keyspace misses: {info['keyspace_misses']}")
-```
-
-10. **Use `SENTINEL` for high availability.** Redis Sentinel provides automatic failover when a master goes down. Use sentinel-aware clients in all languages.
-
-## Additional Common Mistakes
-
-6. **Storing serialized blobs > 1MB.** Large values cause latency spikes. Break large objects into smaller keys or use a separate store.
-
-7. **Not handling Redis failover.** When Redis restarts, all in-memory data is lost (without persistence). Applications should gracefully degrade to the database.
-
-8. **Using `FLUSHALL` or `FLUSHDB` in production.** These commands delete all keys instantly. Use `DEL` with specific keys or `UNLINK` for async deletion.
-
-9. **Not using `PIPELINE` for bulk operations.** Sending 100 individual commands has 100x the RTT of a single pipeline.
-
-10. **Ignoring `maxmemory-policy`.** Without a policy, Redis will OOM kill when memory is exhausted, taking down all services that depend on it.
 
 ## Additional FAQ
 

@@ -288,35 +288,6 @@ For PostgreSQL with `max_connections = 100` and 4 services:
 per_service_pool = 100 / 4 = 25 connections
 ```
 
-## Additional Best Practices
-
-
-- For a deeper guide, see [Complete Guide to PostgreSQL Tuning](/guides/complete-guide-postgresql-tuning/).
-
-6. **Use `pool_pre_ping` for long-lived connections.** Database restarts or network blips leave stale connections. Pre-ping validates the connection before use, adding ~1ms overhead but preventing errors.
-
-7. **Set `max_lifetime` shorter than database-side timeout.** If the database or firewall kills idle connections at 30 minutes, set `max_lifetime` to 25 minutes:
-
-```python
-engine = create_engine(
-    "...",
-    pool_recycle=1500  # 25 minutes
-)
-```
-
-8. **Use separate pools for reads and writes.** Route read-only queries to replica pools and writes to the primary pool. This prevents read queries from blocking write transactions.
-
-9. **Configure `statement_timeout` per connection.** Prevent slow queries from holding pool connections indefinitely:
-
-```sql
-SET statement_timeout = '30s';
-```
-
-10. **Use connection validation queries.** Some pools support validation queries. Use a lightweight query like `SELECT 1` to check connection health:
-
-```java
-config.setConnectionTestQuery("SELECT 1");
-```
 
 ## Additional Common Mistakes
 

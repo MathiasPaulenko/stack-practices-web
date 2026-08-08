@@ -332,68 +332,7 @@ jobs:
           sarif_file: trivy-results.sarif
 ```
 
-## Mejores Prácticas Adicionales
 
-1. **Usa `docker scan` o `trivy` localmente antes de pushear.** Captura vulnerabilidades temprano en desarrollo:
-
-```bash
-# Añadir a Makefile o scripts de package.json
-scan:
-    trivy fs --severity CRITICAL,HIGH .
-    trivy build --severity CRITICAL,HIGH .
-
-# Pre-commit hook
-#!/bin/bash
-trivy fs --severity CRITICAL,HIGH --exit-code 1 .
-```
-
-2. **Actualiza imágenes base regularmente.** Suscríbete a advisories de seguridad para tus imágenes base y configura PRs automatizados:
-
-```yaml
-# .github/dependabot.yml
-version: 2
-updates:
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
-```
-
-## Errores Comunes Adicionales
-
-1. **Ejecutar containers como root.** Muchas imágenes base usan root por defecto. Siempre especifica un usuario non-root:
-
-```dockerfile
-# INCORRECTO: ejecuta como root por defecto
-FROM node:20
-COPY . /app
-CMD ["node", "server.js"]
-
-# CORRECTO: usuario non-root explícito
-FROM node:20
-RUN groupadd -r app && useradd -r -g app app
-USER app
-COPY --chown=app:app . /app
-CMD ["node", "server.js"]
-```
-
-2. **No configurar límites de recursos.** Un container comprometido puede consumir todos los recursos del host. Siempre setea límites en Kubernetes o Docker:
-
-```bash
-# Docker: setear límites de memoria y CPU
-docker run --memory=256m --cpus=0.5 myapp:latest
-
-# Docker Compose
-services:
-  app:
-    image: myapp:latest
-    deploy:
-      resources:
-        limits:
-          memory: 256M
-          cpus: '0.5'
-```
 
 ## Preguntas Frecuentes Adicionales
 

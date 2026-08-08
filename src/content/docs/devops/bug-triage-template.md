@@ -325,56 +325,7 @@ aged = find_aged_bugs(tickets)
 print(format_slack_alert(aged))
 ```
 
-## Additional Best Practices
 
-
-- For a deeper guide, see [Change Management Template](/docs/change-management-template/).
-
-1. **Use a bug triage board with columns for each severity.** Visualizing bugs by severity makes it immediately clear where attention is needed. Configure automatic column transitions based on SLA timers:
-
-```yaml
-# Linear workflow configuration
-states:
-  - name: triage
-    transitions: [s1-critical, s2-high, s3-medium, s4-low]
-  - name: in_progress
-    sla_timer: true
-    overdue_alert: "#incidents"
-  - name: in_review
-    requires_pr: true
-  - name: done
-    auto_close_after_days: 30
-```
-
-2. **Track triage metrics over time.** Measure how quickly bugs move from "reported" to "triaged" to identify bottlenecks:
-
-```python
-from datetime import datetime, timedelta
-from collections import defaultdict
-
-def calculate_triage_metrics(tickets):
-    """Calculate average triage time by severity."""
-    triage_times = defaultdict(list)
-    for t in tickets:
-        if t.triaged_at and t.created_at:
-            delta = (t.triaged_at - t.created_at).total_seconds() / 3600
-            triage_times[t.severity].append(delta)
-
-    metrics = {}
-    for severity, times in triage_times.items():
-        metrics[severity] = {
-            "avg_triage_hours": sum(times) / len(times),
-            "max_triage_hours": max(times),
-            "count": len(times),
-        }
-    return metrics
-```
-
-## Additional Common Mistakes
-
-1. **Not closing invalid bug reports promptly.** Reports that are actually user errors, configuration mistakes, or duplicates clog the triage queue. Close them within 24 hours with a clear explanation:
-
-```markdown
 ## Closing Template for Invalid Reports
 
 Thank you for reporting this issue. After investigation, this appears to be:
@@ -399,12 +350,3 @@ gh issue list \
   --jq '.[] | "#\(.number) \(.title) (created: \(.createdAt[:10]))"'
 ```
 
-## Additional Frequently Asked Questions
-
-### How do we handle bugs found during automated testing vs. user-reported bugs?
-
-Bugs found by automated tests should bypass the standard triage queue. File them directly with the failing test name, stack trace, and environment details. Assign them to the team that owns the test suite. Use a "test-failure" label to distinguish them from user-reported issues. If the same test fails repeatedly, escalate to S2 as it may indicate a flaky environment or a real regression.
-
-### What metrics should we track for triage effectiveness?
-
-Track these key metrics: median time-to-triage (target: under 4 hours for S1/S2), percentage of bugs triaged within 24 hours (target: 95%), number of severity changes after initial triage (target: under 10%), and aged bug count (target: zero S1/S2 bugs past SLA). Review these metrics monthly to identify patterns and adjust the triage process.

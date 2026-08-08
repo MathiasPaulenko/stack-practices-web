@@ -427,27 +427,6 @@ After every incident, verify the runbook is updated with lessons learned:
 - [ ] Did the on-call engineer find the runbook useful? Note feedback
 ```
 
-## Additional Best Practices
-
-
-- For a deeper guide, see [Escalation Policy Template](/docs/escalation-policy-template/).
-
-1. **Include expected output for each diagnostic command.** On-call engineers under stress may not recognize abnormal output. Show what "normal" looks like:
-
-```markdown
-**Expected output:**
-```
-$ kubectl get pods -l app=api
-NAME                   READY   STATUS    RESTARTS   AGE
-api-7d9f6c8b5-x2k4m   1/1     Running   0          12h
-api-7d9f6c8b5-p8n3q   1/1     Running   0          12h
-```
-If STATUS is not `Running` or RESTARTS > 0, proceed to diagnostic step 2.
-```
-
-2. **Add a "Do Not Do" section to each alert procedure.** Common mistakes during incidents are worth documenting:
-
-```markdown
 ## 2.1 High Error Rate — Do NOT:
 - Do NOT restart all pods simultaneously (causes cascading failures)
 - Do NOT scale up without checking if the issue is downstream
@@ -455,26 +434,4 @@ If STATUS is not `Running` or RESTARTS > 0, proceed to diagnostic step 2.
 - Do NOT close the alert until error rate is below threshold for 15 minutes
 ```
 
-## Additional Common Mistakes
 
-1. **Not including time estimates for each step.** When an engineer sees "check database query latency," they do not know if that takes 30 seconds or 10 minutes. Add rough time estimates so they can gauge progress and know when to escalate:
-
-```markdown
-**Diagnostic Steps (estimated: 10 minutes):**
-1. Check error dashboard (2 min)
-2. Correlate with deployments (3 min)
-3. Check dependency health (2 min)
-4. Review logs for stack traces (3 min)
-```
-
-2. **Writing runbooks in isolation.** Runbooks written by one senior engineer often skip steps that seem obvious to them but are not obvious to a junior on-call engineer at 3 a.m. Have a junior engineer walk through each procedure during a calm period and note where they get stuck. Those are the steps that need more detail.
-
-## Additional Frequently Asked Questions
-
-### How do we keep runbook commands from going stale?
-
-Run runbook commands as part of your CI pipeline. Create a test job that executes diagnostic commands against a staging environment weekly. If a command fails because the API changed or the tool was updated, the CI job alerts the team to update the runbook. This catches stale commands before an incident does.
-
-### Should runbooks be in the same repo as the service code?
-
-Yes, when possible. Keeping runbooks in the service repo means they get updated alongside code changes. A PR that changes error handling should also update the runbook for the error rate alert. If runbooks live in a separate wiki, they get forgotten during code changes. Use a `docs/runbooks/` directory in the service repo and link to them from your alerting system.

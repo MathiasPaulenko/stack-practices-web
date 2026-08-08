@@ -333,45 +333,7 @@ print(f"Misses keyspace: {info['keyspace_misses']}")
 
 10. **Usa `SENTINEL` para alta disponibilidad.** Redis Sentinel provee failover automático cuando un master cae. Usa clientes conscientes de sentinel en todos los lenguajes.
 
-## Errores comunes adicionales
 
-6. **Almacenar blobs serializados > 1MB.** Valores grandes causan picos de latencia. Divide objetos grandes en claves más pequeñas o usa un almacén separado.
-7. **No manejar failover de Redis.** Cuando Redis reinicia, todos los datos en memoria se pierden (sin persistencia). Las aplicaciones deberían degradar graceful a la base de datos.
-8. **Usar `FLUSHALL` o `FLUSHDB` en producción.** Estos comandos eliminan todas las claves instantáneamente. Usa `DEL` con claves específicas o `UNLINK` para borrado async.
-9. **No usar `PIPELINE` para operaciones masivas.** Enviar 100 comandos individuales tiene 100x el RTT de un solo pipeline.
-10. **Ignorar `maxmemory-policy`.** Sin una política, Redis sufrirá OOM kill cuando la memoria se agote, tirando todos los servicios que dependen de él.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cómo implemento un rate limiter con Redis?
-
-Usa un contador de ventana deslizante con `INCR` y `EXPIRE`:
-
-```python
-def rate_limit(r, user_id, max_requests=100, window=60):
-    key = f"rate:{user_id}"
-    current = r.incr(key)
-    if current == 1:
-        r.expire(key, window)
-    return current <= max_requests
-```
-
-### ¿Cuál es la diferencia entre `MULTI/EXEC` y `PIPELINE`?
-
-`MULTI/EXEC` es una transacción: los comandos son atómicos, ningún cliente puede intercalar. `PIPELINE` batchea comandos para reducir RTT pero no son atómicos. Usa `MULTI/EXEC` cuando necesites atomicidad, `PIPELINE` cuando necesites throughput.
-
-### ¿Cómo uso Redis Streams para colas de mensajes?
-
-```python
-# Productor
-r.xadd('events', {'type': 'order_created', 'order_id': 123})
-
-# Consumidor
-response = r.xread({'events': '0'}, block=5000, count=10)
-for stream, messages in response:
-    for msg_id, fields in messages:
-        print(f"Evento {msg_id}: {fields}")
-```
 
 ## Tips de Rendimiento
 

@@ -347,20 +347,3 @@ if (( avail_bytes < 5368709120 )) || (( usage_val >= 90 )); then
 fi
 ```
 
-## FAQ Adicional
-
-### ¿Cómo monitoreo el uso de disco en Kubernetes?
-
-Para Kubernetes, monitorea el uso de disco del nodo vía node_exporter y Prometheus. Alerta sobre `node_filesystem_avail_bytes` para presión de disco a nivel de nodo. Para uso de PersistentVolume, usa las métricas de kubelet: `kubelet_volume_stats_available_bytes` y `kubelet_volume_stats_capacity_bytes`. Kubernetes también tiene desalojo por presión de disco integrado — configura `--eviction-hard` con `nodefs.available<10%` e `imagefs.available<15%` para desalojar automáticamente pods cuando el disco está bajo.
-
-### ¿Esta solución está lista para producción?
-
-Sí. El script de monitoreo basado en `df` corre en cada distribución de Linux sin dependencias adicionales. La integración de webhooks de Slack es usada por miles de equipos para alertas. Los timers de systemd son el reemplazo estándar de cron en Linux moderno. Prometheus node_exporter es el estándar de la industria para métricas a nivel de host y es usado por empresas como DigitalOcean, Uber y GitLab. El script de limpieza usa comandos estándar `find`, `gzip` y gestores de paquetes que funcionan entre distribuciones.
-
-### ¿Cuáles son las características de rendimiento?
-
-`df` completa en menos de 10ms en filesystems locales y menos de 100ms en mounts NFS. Ejecutarlo cada 5 minutos añade un overhead despreciable. Los comandos `find` en el script de limpieza pueden tardar segundos a minutos en directorios con millones de archivos — ejecuta la limpieza en horas valle. Las llamadas a webhooks de Slack añaden 200-500ms de latencia de red. Prometheus node_exporter añade 1-5ms por scrape para métricas de filesystem. El conteo de inodos con `find` es la operación más costosa y debería limitarse a una vez por hora.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Ejecuta `df -Hl` manualmente para ver lo que ve el script. Verifica si `mail` está instalado y configurado con `echo test | mail -s test tu@email.com`. Testea webhooks de Slack con `curl -X POST -H 'Content-Type: application/json' -d '{"text":"test"}' TU_WEBHOOK_URL`. Revisa el estado del timer de systemd con `systemctl status disk-monitor.timer` y los logs con `journalctl -u disk-monitor.service`. Para alertas de Prometheus, verifica la expresión en la UI de Prometheus bajo Alerts. Para scripts de limpieza, testea los comandos `find` y `gzip` manualmente antes de habilitarlos en producción.

@@ -361,81 +361,8 @@ echo | openssl s_client -connect example.com:443 2>/dev/null \
     severity: warning
 ```
 
-## Additional Best Practices
 
 
-- For a deeper guide, see [SSL Certificate Renewal Template](/docs/ssl-certificate-renewal-template/).
-
-1. **Use ECC certificates when possible.** ECDSA keys are smaller and faster than RSA:
-
-```bash
-# Request an ECDSA certificate
-certbot certonly --nginx --key-type ecdsa --elliptic-curve secp256r1 \
-  -d example.com
-```
-
-2. **Set up HSTS preload.** Submit your domain to hstspreload.org after confirming HTTPS works everywhere:
-
-```nginx
-# Must include includeSubDomains and preload
-add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-```
-
-3. **Use a certificate monitoring service.** Tools like SSL Certificate Monitor or Uptime Robot alert you before expiry:
-
-```bash
-# Cron-based monitoring
-0 8 * * * /usr/local/bin/check-cert-expiry.sh example.com 14 >> /var/log/cert-check.log
-```
-
-## Additional Common Mistakes
-
-1. **Forgetting to reload the web server after renewal.** Certbot updates files but Nginx keeps old certs in memory:
-
-```bash
-# Use --deploy-hook to reload automatically
-certbot renew --deploy-hook "systemctl reload nginx"
-```
-
-2. **Not rate-limiting certificate requests.** Let's Encrypt has strict rate limits: 50 certificates per registered domain per week:
-
-```bash
-# Use --staging for testing to avoid hitting rate limits
-certbot certonly --staging -d example.com
-```
-
-3. **Mixing HTTP and HTTPS content.** Browsers block active mixed content. Ensure all assets use HTTPS:
-
-```html
-<!-- Bad: mixed content blocked -->
-<script src="http://cdn.example.com/script.js"></script>
-
-<!-- Good: HTTPS everywhere -->
-<script src="https://cdn.example.com/script.js"></script>
-```
-
-## Additional FAQ
-
-### How do I get a wildcard certificate?
-
-Wildcard certificates (`*.example.com`) cover all first-level subdomains. They require DNS-01 challenge, not HTTP-01. Use a DNS plugin like `certbot-dns-cloudflare` or `certbot-dns-route53` for automated renewal.
-
-### What are Let's Encrypt rate limits?
-
-- 50 certificates per registered domain per week
-- 5 duplicate certificates per week
-- 5 failed validations per hour per account
-- 300 new orders per 3 hours per account
-
-Use `--staging` for testing to avoid hitting production rate limits.
-
-### Should I use TLS 1.3?
-
-Yes. TLS 1.3 is faster (1-RTT handshake vs 2-RTT) and removes insecure algorithms. All modern browsers support it. Enable it alongside TLS 1.2 for compatibility:
-
-```nginx
-ssl_protocols TLSv1.2 TLSv1.3;
-```
 
 ## Performance Tips
 

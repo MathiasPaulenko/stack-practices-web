@@ -465,61 +465,8 @@ def test_deadlock_scenario():
     print(f"Test passed: {results}")
 ```
 
-## Additional Best Practices
 
-6. **Use `SKIP LOCKED` for concurrent queue processing.** This prevents workers from blocking each other when picking up jobs:
 
-```sql
-SELECT * FROM job_queue WHERE status = 'pending'
-FOR UPDATE SKIP LOCKED LIMIT 5;
-```
-
-7. **Set `lock_timeout` on all transactions.** A transaction that waits forever for a lock is worse than one that fails and retries:
-
-```sql
-SET LOCAL lock_timeout = '5s';
-```
-
-8. **Use `NOWAIT` for non-critical reads.** If you don't need to wait for a lock, fail fast:
-
-```sql
-SELECT * FROM products WHERE id = 42 FOR UPDATE NOWAIT;
--- Throws: ERROR: could not obtain lock on row
-```
-
-9. **Monitor `pg_stat_database.deadlocks` regularly.** Set up alerts for any increase:
-
-```sql
-SELECT datname, deadlocks FROM pg_stat_database WHERE deadlocks > 0;
-```
-
-10. **Document lock ordering in your codebase.** Add comments to each transaction specifying the lock order. This helps new developers avoid introducing deadlocks.
-
-## Additional Common Mistakes
-
-6. **Catching deadlocks but not rolling back.** After a deadlock error, the transaction is in an aborted state. You must call `rollback()` before retrying.
-
-7. **Retrying with the same transaction.** A deadlocked transaction is aborted. You need a new transaction for each retry attempt.
-
-8. **Using `SERIALIZABLE` without retry logic.** Serializable isolation can throw serialization failures (`40001`) that require the same retry handling as deadlocks.
-
-9. **Not testing deadlock handling under load.** Unit tests rarely trigger deadlocks. Use integration tests with concurrent threads to verify your retry logic works.
-
-10. **Ignoring `idle_in_transaction` connections.** Long-idle transactions hold locks and cause deadlocks. Set `idle_in_transaction_session_timeout` to kill them automatically.
-
-## Additional FAQ
-
-### What is the difference between a deadlock and a lock timeout?
-
-A **deadlock** occurs when two transactions hold locks that the other needs. The database detects this and kills one transaction. A **lock timeout** occurs when a transaction waits longer than the configured timeout for a lock held by another transaction. Deadlocks require retry; lock timeouts may require retry or may indicate a performance issue.
-
-### How do I prioritize which transaction survives a deadlock?
-
-PostgreSQL kills the transaction that has done the least work (fewest WAL bytes). You cannot directly control which one is killed. SQL Server uses deadlock priority (`SET DEADLOCK_PRIORITY LOW`). MySQL kills the transaction that modified the fewest rows.
-
-### Should I use `SKIP LOCKED` or `NOWAIT`?
-
-Use `SKIP LOCKED` when you want to process available rows and skip locked ones (job queues, batch processing). Use `NOWAIT` when you want to fail immediately if a row is locked, rather than waiting (real-time dashboards, cache updates).
 
 ## Performance Tips
 

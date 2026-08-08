@@ -380,70 +380,8 @@ function deepMerge(target, source) {
 const config = loadLayeredConfig("config.base.yaml", "config.production.yaml");
 ```
 
-## Mejores Prácticas Adicionales
 
-6. **Usa configs jerárquicos.** Empieza con una config base y override por entorno:
 
-```
-config.base.yaml      # Defaults compartidos
-config.staging.yaml   # Overrides de staging
-config.production.yaml # Overrides de producción
-```
-
-7. **Encripta secretos en reposo.** Si los secretos deben estar en archivos de config, encriptarlos:
-
-```bash
-# SOPS (Secrets OPerationS) para archivos de config encriptados
-$ sops --encrypt --pgp FINGERPRINT config.secrets.yaml > config.secrets.enc.yaml
-$ sops --decrypt config.secrets.enc.yaml | kubectl apply -f -
-```
-
-8. **Valida config en CI.** Añade un step de validación de config a tu pipeline de CI:
-
-```yaml
-# .github/workflows/validate-config.yml
-- name: Validate config files
-  run: |
-    python -c "
-    from config_loader import load_config
-    import glob
-    for f in glob.glob('config/*.yaml'):
-        load_config(f)
-        print(f'Validated: {f}')
-    "
-```
-
-## Errores Comunes Adicionales
-
-6. **No manejar el encoding del archivo de config.** Siempre especifica UTF-8 al leer:
-
-```python
-# Mal: encoding dependiente de la plataforma
-content = open("config.yaml").read()
-
-# Bien: encoding explícito
-content = Path("config.yaml").read_text(encoding="utf-8")
-```
-
-7. **Permitir ejecución de código arbitrario en config.** Nunca uses `yaml.load()` (inseguro). Siempre usa `yaml.safe_load()`:
-
-```python
-# Peligroso: permite construcción de objetos Python arbitrarios
-data = yaml.load(content, Loader=yaml.Loader)
-
-# Seguro: solo tipos estándar de YAML
-data = yaml.safe_load(content)
-```
-
-## FAQ Adicional
-
-### ¿Cómo manejo secretos en archivos de config?
-
-Nunca almacenes secretos en archivos de config planos. Usa sustitución de variables de entorno (`${DB_PASSWORD}`), gestores de secretos (AWS Secrets Manager, Vault) o archivos encriptados descifrados en runtime con herramientas como SOPS o sealed-secrets.
-
-### ¿Cuál es la diferencia entre YAML y TOML?
-
-YAML soporta nesting complejo, anchors y strings multi-línea. TOML es más simple, más estricto y evita los problemas de seguridad de YAML. Usa TOML para configs simples (Rust, Python `pyproject.toml`) y YAML para configs complejos (Kubernetes, CI/CD).
 
 ## Tips de Rendimiento
 

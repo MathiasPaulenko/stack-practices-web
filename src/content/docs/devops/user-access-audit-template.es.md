@@ -397,24 +397,6 @@ scim:
     on_suspend: "disable_signin_keep_membership"
 ```
 
-## Errores Comunes Adicionales
-
-1. **No auditar la rotacion de tokens de cuentas de servicio.** Las cuentas de servicio suelen tener tokens de larga duracion que nunca expiran. Audita y rota estos tokens:
-
-```bash
-#!/bin/bash
-# Find GitHub PATs older than 90 days
-set -euo pipefail
-
-# List all fine-grained tokens via GitHub API
-curl -s -H "Authorization: token $GITHUB_ADMIN_TOKEN" \
-  "https://api.github.com/orgs/$ORG/personal-access-tokens" | \
-  jq -r '.[] | select(.expiring_at != null) | "TOKEN: \(.id) - expires: \(.expiring_at)"'
-```
-
-2. **Ignorar credenciales de cuentas compartidas.** Las cuentas compartidas hacen imposible la responsabilidad individual. Reemplazalas con cuentas individuales o procedimientos de break-glass:
-
-```markdown
 ## Shared Account Remediation Checklist
 - [ ] Inventory all shared accounts (root, admin, service)
 - [ ] Identify which individuals use each shared account
@@ -424,36 +406,3 @@ curl -s -H "Authorization: token $GITHUB_ADMIN_TOKEN" \
 - [ ] Log all break-glass usage with automatic alerts
 ```
 
-## Preguntas Frecuentes Adicionales
-
-### Como manejamos el acceso para contratistas con compromisos de corto plazo?
-
-Usa aprovisionamiento de acceso con tiempo limitado. Establece una fecha de expiracion cuando el contratista se incorpora, y configura el desprovisionamiento automatico en esa fecha. Requiere que un gerente reapruebe el acceso si el compromiso se extiende:
-
-```python
-# Example: Set expiration on Okta group membership
-import requests
-
-def set_temporary_access(okta_token, user_id, group_id, expires_at):
-    """Assign user to a group with expiration date."""
-    headers = {
-        "Authorization": f"SSWS {okta_token}",
-        "Content-Type": "application/json",
-    }
-    # Okta lifecycle expiration via custom attribute
-    payload = {
-        "profile": {
-            "contractorAccessExpiresAt": expires_at,
-        }
-    }
-    resp = requests.put(
-        f"https://yourorg.okta.com/api/v1/users/{user_id}",
-        headers=headers,
-        json=payload,
-    )
-    return resp.status_code == 200
-```
-
-### Cual es la diferencia entre revision de acceso y certificacion de acceso?
-
-La revision de acceso es el proceso de examinar los permisos de los usuarios. La certificacion de acceso es la aprobacion formal y documentada de esos permisos por un dueno del sistema o gerente. La certificacion crea un registro auditable de que una persona responsable reviso y aprobo el acceso.

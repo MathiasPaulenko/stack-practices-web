@@ -398,23 +398,6 @@ aws rds restore-db-instance-from-db-snapshot \
   --vpc-security-group-ids sg-pentest-access
 ```
 
-## Errores Comunes Adicionales
-
-1. **No notificar a los proveedores cloud sobre la prueba de penetracion.** Algunos proveedores cloud (AWS, Azure) requieren notificacion antes de probar. AWS ya no requiere aprobacion previa, pero Azure aun la requiere para ciertos tipos de prueba:
-
-```bash
-# Azure - notify Microsoft of penetration testing
-# Submit via: https://msrc.microsoft.com/engage/pentest
-# Include: subscription ID, test dates, target IPs, test types
-
-# AWS - no longer requires approval, but review the testing policy
-# https://aws.amazon.com/security/penetration-testing/
-# Prohibited: DNS zone walking, DoS, DDoS
-```
-
-2. **No limpiar los artefactos de prueba.** Los probadores pueden dejar archivos, scripts o cuentas de usuario. Requiere una checklist de limpieza como parte de los entregables:
-
-```markdown
 ## Post-Test Cleanup Checklist
 
 - [ ] All test accounts removed from target systems
@@ -426,12 +409,3 @@ aws rds restore-db-instance-from-db-snapshot \
 - [ ] Confirmation of cleanup provided in writing
 ```
 
-## FAQ Adicionales
-
-### Como definimos el alcance de una prueba de penetracion para microservicios?
-
-Lista cada endpoint de microservicio por separado en la tabla de alcance. Incluye el API gateway, los endpoints de servicios individuales y cualquier ruta de comunicacion servicio a servicio. Proporciona las specs de Swagger/OpenAPI a los probadores para cobertura completa. Prueba tanto el gateway (perspectiva externa) como los servicios individuales (perspectiva interna). Incluye pruebas de autenticacion y autorizacion para la API de cada servicio.
-
-### Cual es la diferencia entre un escaneo de vulnerabilidades y una prueba de penetracion?
-
-Un escaneo de vulnerabilidades identifica debilidades potenciales usando herramientas automatizadas. Una prueba de penetracion va mas alla: un humano valida los hallazgos, encadena vulnerabilidades, intenta movimiento lateral y evalua el impacto real. Los escaneos de vulnerabilidades son rutinarios y frecuentes; las pruebas de penetracion son periodicas y mas profundas. Ambos son necesarios para un programa de seguridad completo.

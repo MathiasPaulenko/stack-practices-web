@@ -424,11 +424,6 @@ gh pr list \
   --jq '[.[] | .labels[] | select(.name | startswith("review:")) | .name] | group_by(.) | map({type: .[0], count: length}) | sort_by(.count) | reverse'
 ```
 
-## Errores Comunes Adicionales
-
-1. **Aprobar con "se ve bien" sin leer el codigo.** Esto derrota el proposito de la revision. Requiere al menos un comentario sustantivo o confirmacion explicita de que cada seccion de la checklist fue revisada:
-
-```markdown
 ## Reviewer Confirmation
 
 - [ ] I read every changed line
@@ -454,12 +449,3 @@ def test_user_creation_sets_correct_fields():
     assert user.created_at is not None
 ```
 
-## Preguntas Frecuentes Adicionales
-
-### Como manejamos revisiones para hotfixes urgentes?
-
-Crea una checklist acortada que cubra solo las tres areas criticas: seguridad, correctitud y plan de rollback. Documenta lo que se omitio y programa una revision de seguimiento dentro de 48 horas para cubrir los items restantes. Nunca omitas las verificaciones de seguridad y correctitud, incluso bajo presion de tiempo. La revision de seguimiento detecta problemas mientras el contexto aun esta fresco.
-
-### Deberiamos usar herramientas de revision de codigo con IA junto con la checklist?
-
-Las herramientas con IA (CodeQL, Semgrep, Codacy) son utiles para detectar patrones conocidos como vulnerabilidades de seguridad y code smells. Manejan la porcion automatizada de la checklist, liberando a los revisores humanos para enfocarse en diseno, logica de negocio y casos borde. Sin embargo, las herramientas con IA no pueden reemplazar el juicio humano en decisiones de arquitectura, diseno de API o si el codigo realmente resuelve el problema del usuario. Usalas como primera pasada, no como aprobacion final.

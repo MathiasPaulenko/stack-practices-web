@@ -422,47 +422,5 @@ queue.put("urgent_task", 0)  # High priority
 queue.put("regular_task", 10)  # Lower priority
 ```
 
-## Additional Best Practices
 
 
-- For a deeper guide, see [Priority Queue Pattern](/patterns/priority-queue-pattern/).
-
-1. **Monitor queue metrics.** Track queue depth, producer throughput, consumer throughput, and latency. Set alerts for queue depth exceeding thresholds. A growing queue indicates consumers are too slow or producers are too fast.
-
-2. **Handle shutdown gracefully.** Use a shutdown flag or poison pill to signal producers and consumers to stop. Flush the queue before shutdown or save pending items to persistent storage for recovery.
-
-```python
-class GracefulQueue:
-    def __init__(self):
-        self.queue = queue.Queue()
-        self.shutdown_flag = False
-
-    def shutdown(self):
-        self.shutdown_flag = True
-        # Wake up waiting consumers
-        for _ in range(10):
-            self.queue.put(None)
-
-    def is_shutdown(self):
-        return self.shutdown_flag
-```
-
-## Additional Common Mistakes
-
-1. **Ignoring queue overflow.** When a bounded queue is full, producers block or items are dropped. Monitor queue depth and implement overflow handling: drop oldest items, reject new items, or scale consumers.
-
-2. **Not handling poison pill for multiple consumers.** A single poison pill stops only one consumer. For multiple consumers, either send one poison pill per consumer or use a shutdown flag that all consumers check.
-
-## Additional Frequently Asked Questions
-
-### How do I handle backpressure in an unbounded queue?
-
-Unbounded queues have no natural backpressure. Implement backpressure manually by monitoring queue depth and throttling producers when depth exceeds a threshold. Alternatively, switch to a bounded queue.
-
-### What is the difference between work stealing and work distribution?
-
-Work distribution assigns items to consumers upfront (e.g., round-robin). Work stealing lets consumers take items from their local queue first and steal from others when idle. Work stealing reduces contention and improves load balance for variable workloads.
-
-### How do I ensure exactly-once processing?
-
-Exactly-once requires idempotent consumers and acknowledgments. Assign a unique ID to each item. The consumer checks if the ID was already processed before processing. After successful processing, acknowledge the item. If the consumer fails, the item is retried but will be skipped due to the ID check.

@@ -385,50 +385,7 @@ print(f"Average cycle time: {results['avg_cycle_time_hours']:.1f}h")
 print(f"Defect escape rate: {results['defect_escape_rate']:.0%}")
 ```
 
-## Additional Best Practices
 
-
-- For a deeper guide, see [Chaos Engineering — Principles, Tools, and Safe Experiments](/guides/chaos-engineering-guide/).
-
-1. **Use review slots to prevent review fatigue.** Assign a maximum of 2-3 reviews per engineer per day. Beyond that, review quality drops considerably:
-
-```yaml
-# GitHub Actions - check reviewer load before assignment
-- name: Check reviewer load
-  uses: actions/github-script@v7
-  with:
-    script: |
-      const reviewer = "bob";
-      const prs = await github.rest.pulls.list({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        state: "open",
-      });
-      const assigned = prs.data.filter(pr =>
-        pr.requested_reviewers.some(r => r.login === reviewer)
-      );
-      if (assigned.length >= 3) {
-        core.warning(`${reviewer} already has ${assigned.length} open reviews. Consider assigning someone else.`);
-      }
-```
-
-2. **Label reviews by type to track patterns.** Use labels like `review:security`, `review:performance`, `review:refactor` to categorize what kinds of issues are most common:
-
-```bash
-#!/bin/bash
-# Aggregate review labels from last 30 days
-gh pr list \
-  --state all \
-  --search "is:pr closed:>=2026-06-01 label:review:" \
-  --json labels,number \
-  --jq '[.[] | .labels[] | select(.name | startswith("review:")) | .name] | group_by(.) | map({type: .[0], count: length}) | sort_by(.count) | reverse'
-```
-
-## Additional Common Mistakes
-
-1. **Approving with "looks good to me" without reading the code.** This defeats the purpose of review. Require at least one substantive comment or explicit confirmation that each checklist section was reviewed:
-
-```markdown
 ## Reviewer Confirmation
 
 - [ ] I read every changed line
@@ -454,12 +411,3 @@ def test_user_creation_sets_correct_fields():
     assert user.created_at is not None
 ```
 
-## Additional Frequently Asked Questions
-
-### How do we handle reviews for urgent hotfixes?
-
-Create a shortened checklist that covers only the three critical areas: security, correctness, and rollback plan. Document what was skipped and schedule a follow-up review within 48 hours to cover the remaining items. Never skip the security and correctness checks, even under time pressure. The follow-up review catches issues while context is still fresh.
-
-### Should we use AI-powered code review tools alongside the checklist?
-
-AI tools (CodeQL, Semgrep, Codacy) are useful for catching known patterns like security vulnerabilities and code smells. They handle the automated portion of the checklist, freeing human reviewers to focus on design, business logic, and edge cases. However, AI tools cannot replace human judgment on architecture decisions, API design, or whether the code actually solves the user's problem. Use them as a first pass, not a final approval.

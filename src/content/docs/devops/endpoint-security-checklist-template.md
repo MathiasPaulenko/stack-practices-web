@@ -363,12 +363,3 @@ ip access-list extended IoT_RESTRICTED
   permit ip any any
 ```
 
-## Additional Frequently Asked Questions
-
-### How often should I audit endpoint compliance?
-
-Run automated compliance checks weekly via MDM or EDR. Perform a full manual audit quarterly. After any security incident, re-audit all devices that may have been exposed.
-
-### What is the difference between MDM and EDR?
-
-MDM (Mobile Device Management) manages device configuration, policies, and lifecycle (enrollment, updates, remote wipe). EDR (Endpoint Detection and Response) monitors for threats, collects telemetry, and enables incident investigation. You need both: MDM for prevention, EDR for detection and response.

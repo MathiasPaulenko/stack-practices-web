@@ -349,12 +349,3 @@ kubeadm upgrade node
 kubectl uncordon node-1
 ```
 
-## Preguntas Frecuentes Adicionales
-
-### Como parcheo sistemas air-gapped?
-
-Transfiere archivos de parche via medios removibles o un bastion host dedicado. Verifica la integridad de archivos con checksums SHA-256 antes de aplicar. Documenta cada parche en un inventario offline. Programa escaneos periodicos de vulnerabilidades usando un escaner offline como Nessus u OpenSCAP.
-
-### Que es live patching y cuando debo usarlo?
-
-Live patching aplica correcciones de seguridad del kernel sin reiniciar. Usalo para CVEs Criticos en sistemas de produccion donde los reinicios no son posibles inmediatamente (bases de datos single-instance, aplicaciones legacy). Live patching no es sustituto de mantenimiento programado: planifica un reinicio durante la proxima ventana para asegurar consistencia completa del kernel.

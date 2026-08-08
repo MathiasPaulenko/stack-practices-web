@@ -374,41 +374,4 @@ with psycopg2.connect(...) as conn:
 
 10. **Monitorea la salud del pool.** Rastrea conexiones activas, threads en espera y lifetime de conexiones. En HikariCP, usa `getHikariPoolMXBean()` para exponer métricas.
 
-## Errores comunes adicionales
 
-6. **No manejar caídas de conexión.** Problemas de red o reinicios de base de datos pueden invalidar conexiones. Usa lógica de retry o un pool con health checks.
-7. **Usar `SELECT *` en código de producción.** Listas explícitas de columnas previenen roturas cuando el schema cambia y reducen overhead de red.
-8. **No configurar `serverTimezone` o parámetros `timezone`.** Mismatch de zona horaria causa bugs sutiles con columnas `TIMESTAMPTZ`.
-9. **Ignorar `pg_stat_activity`.** Conexiones inactivas largas desperdician recursos. Monitorea y mata conexiones idle que excedan tu timeout.
-10. **Usar autocommit para operaciones multi-statement.** Sin transacciones explícitas, fallos parciales dejan datos en estado inconsistente.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cómo manejo fallos de conexión gracefully?
-
-Implementa lógica de retry con backoff exponencial. En Python, usa `tenacity` o una librería similar. En Node.js, usa `p-retry`. Siempre establece un máximo de reintentos para evitar loops infinitos:
-
-```python
-from tenacity import retry, stop_after_attempt, wait_exponential
-
-@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=10))
-def query_with_retry(sql, params):
-    with get_db_cursor() as cur:
-        cur.execute(sql, params)
-        return cur.fetchall()
-```
-
-### ¿Qué es el connection multiplexing?
-
-El multiplexing de conexiones permite que múltiples sesiones lógicas compartan una única conexión de base de datos. PgBouncer proporciona esto para PostgreSQL. Usa `transaction mode` para la mayoría de aplicaciones, donde cada transacción obtiene una conexión del pool.
-
-### ¿Cómo depuro queries lentas?
-
-Habilita `log_min_duration_statement` en PostgreSQL para loggear queries más lentas que un umbral:
-
-```sql
-ALTER SYSTEM SET log_min_duration_statement = '100ms';
-SELECT pg_reload_conf();
-```
-
-Luego revisa el archivo de log de PostgreSQL para entradas de queries lentas. Usa `EXPLAIN ANALYZE` para inspeccionar el plan de ejecución.

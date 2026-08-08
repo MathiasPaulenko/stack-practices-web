@@ -367,60 +367,7 @@ vendors:
     renewal_date: "2026-09-15"
 ```
 
-## Additional Best Practices
 
-
-- For a deeper guide, see [Vulnerability Management Template](/docs/vulnerability-management-template/).
-
-1. **Map vendor access to your data classification levels.** Not every vendor needs access to the same data tier. Document what data each vendor can access and align controls accordingly:
-
-```yaml
-# vendor-data-access-matrix.yaml
-data_classification:
-  public:
-    vendors: ["analytics-pro", "marketing-tools"]
-    required_controls: ["tls-12", "basic-auth"]
-  internal:
-    vendors: ["acme-cloud", "support-zendesk"]
-    required_controls: ["tls-12", "sso", "mfa", "dpa-signed"]
-  restricted:
-    vendors: ["payment-processor"]
-    required_controls: ["tls-13", "sso", "mfa", "pci-dss", "right-to-audit"]
-```
-
-2. **Track remediation commitments with expiration dates.** Vendors often promise fixes during assessment but never deliver. Link commitments to contract renewals:
-
-```bash
-#!/bin/bash
-# Check for overdue vendor remediation items
-set -euo pipefail
-
-REMEDICATION_FILE="vendor-remediation-log.csv"
-TODAY=$(date +%Y-%m-%d)
-
-awk -F',' -v today="$TODAY" '
-NR>1 && $5 < today && $6 != "completed" {
-    print "OVERDUE: " $1 " - " $2 " (due: " $5 ", status: " $6 ")"
-}' "$REMEDICATION_FILE"
-```
-
-## Additional Common Mistakes
-
-1. **Not assessing fourth-party risk (subcontractors).** Your vendor may use subcontractors that process your data. Require disclosure of sub-processors and their security posture:
-
-```python
-# Check vendor sub-processor list against your approved list
-approved_subprocessors = {"aws", "gcp", "azure", "cloudflare"}
-vendor_subprocessors = {"aws", "digitalocean", "cloudflare"}
-
-unapproved = vendor_subprocessors - approved_subprocessors
-if unapproved:
-    print(f"Unapproved sub-processors found: {unapproved}")
-```
-
-2. **Accepting a SOC 2 report without checking the scope.** A SOC 2 report may cover only a subset of the vendor's services. Verify that the report covers the systems and controls relevant to your engagement:
-
-```markdown
 ## SOC 2 Scope Verification Checklist
 - [ ] Report covers the specific service you will use
 - [ ] Report period is current (within last 12 months)
@@ -429,12 +376,3 @@ if unapproved:
 - [ ] Description of system matches actual architecture
 ```
 
-## Additional Frequently Asked Questions
-
-### What should we do if a vendor has a breach during our contract?
-
-Activate your incident response plan. Notify affected users if the vendor processed their data. Require a post-incident report from the vendor, assess whether the breach exploited a gap in their security controls, and decide whether to continue, renegotiate, or terminate the contract.
-
-### How do we handle vendors that cannot meet our security requirements?
-
-If the vendor provides critical functionality that cannot be replaced, implement compensating controls: restrict data access, add monitoring, require contractual indemnification, and document a formal risk acceptance with an expiration date and executive sign-off.

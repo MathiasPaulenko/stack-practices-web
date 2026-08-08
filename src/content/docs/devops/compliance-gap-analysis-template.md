@@ -355,31 +355,4 @@ git add "$EVIDENCE_DIR"
 git commit -m "compliance: monthly evidence snapshot $(date +%Y-%m)"
 ```
 
-## Additional Common Mistakes
 
-1. **Not mapping controls across multiple frameworks.** If you pursue SOC 2 and ISO 27001 separately, you duplicate work. Map controls once and reuse evidence:
-
-```bash
-# Generate cross-framework coverage report
-node -e "
-const mapping = require('./control-mapping.json');
-let covered = 0, total = 0;
-for (const [control, frameworks] of Object.entries(mapping)) {
-  total++;
-  if (frameworks.soc2 && frameworks.iso27001) covered++;
-}
-console.log('Cross-framework coverage: ' + covered + '/' + total);
-"
-```
-
-2. **Relying on screenshots as primary evidence.** Screenshots are point-in-time and can be staged. Use automated exports, API outputs, and configuration dumps as primary evidence. Screenshots are supplementary only.
-
-## Additional Frequently Asked Questions
-
-### How do I prioritize which gaps to fix first?
-
-Prioritize by risk score (impact x likelihood), audit deadline, and dependency chain. Gaps that block multiple requirements should be fixed first. For example, implementing centralized logging satisfies CC7.2 (SOC 2), A.12.4.1 (ISO 27001), and 10.1 (PCI-DSS) simultaneously.
-
-### Can I use one gap analysis for multiple frameworks?
-
-Yes. Create a unified control mapping where each control maps to multiple framework requirements. This reduces audit prep time by 40-60% because you collect evidence once and reference it across frameworks.

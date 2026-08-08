@@ -318,49 +318,7 @@ query = sql.SQL("SELECT * FROM {} WHERE {} = %s").format(
 cursor.execute(query, ("alice@example.com",))
 ```
 
-## Errores comunes adicionales
 
-6. **Usar `executemany()` para inserts masivos sin probar.** Algunos drivers ejecutan sentencias individuales, sin mejora. Usa `COPY` en PostgreSQL o batch inserts con listas `VALUES`.
-7. **No cerrar cursores y conexiones.** Usa context managers (`with` blocks) para asegurar que los recursos se liberen.
-8. **Ignorar el tamaño del result set.** Obtener millones de filas en memoria causa OOM. Usa cursores server-side o paginación:
-
-```python
-cursor.execute("SELECT * FROM large_table")
-while True:
-    rows = cursor.fetchmany(1000)
-    if not rows:
-        break
-    process(rows)
-```
-
-9. **Mezclar SQL parametrizado y formateado con strings.** Incluso una interpolación de `f-string` en una consulta parametrizada introduce riesgo de inyección.
-10. **No manejar `NULL` en consultas parametrizadas.** `WHERE col = %s` con `None` no devuelve filas. Usa `IS DISTINCT FROM` o `IS NULL`.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cómo ejecuto un script SQL crudo multi-sentencia?
-
-Usa `cursor.execute()` para sentencias individuales. Para scripts con múltiples sentencias, divídelas o usa `execute()` de `psycopg2` con el script completo (maneja punto y coma). En Java, usa `Statement.execute()` que soporta múltiples sentencias.
-
-### ¿Cuál es la diferencia entre `execute()` y `executemany()`?
-
-`execute()` ejecuta una query con un set de parámetros. `executemany()` ejecuta la misma query con múltiples sets de parámetros. Para inserts masivos en PostgreSQL, `COPY` o `execute_values` de `psycopg2.extras` es más rápido.
-
-### ¿Cómo uso dinámicamente cláusulas `ORDER BY` de forma segura?
-
-Los nombres de columna no pueden parametrizarse. Haz whitelist de columnas permitidas y valida la dirección:
-
-```python
-SORTABLE_COLUMNS = {"name", "email", "created_at"}
-SORT_DIRECTIONS = {"ASC", "DESC"}
-
-def safe_sort(column, direction):
-    if column not in SORTABLE_COLUMNS:
-        raise ValueError(f"Columna inválida: {column}")
-    if direction.upper() not in SORT_DIRECTIONS:
-        raise ValueError(f"Dirección inválida: {direction}")
-    return f"ORDER BY {column} {direction.upper()}"
-```
 
 ## Tips de Rendimiento
 

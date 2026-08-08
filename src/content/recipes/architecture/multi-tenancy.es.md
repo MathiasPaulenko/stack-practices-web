@@ -332,49 +332,6 @@ class TenantOnboardingService {
 }
 ```
 
-## Mejores Prácticas Adicionales
-
-1. **Usa migraciones de base de datos tenant-aware.** Ejecuta migraciones por schema de tenant, no globalmente. Rastrea qué tenants tienen qué versiones de migración:
-
-```sql
-CREATE TABLE tenant_migrations (
-  tenant_id UUID NOT NULL,
-  migration_version INT NOT NULL,
-  applied_at TIMESTAMPTZ DEFAULT NOW(),
-  PRIMARY KEY (tenant_id, migration_version)
-);
-```
-
-2. **Implementa rate limiting específico por tenant.** Previene vecinos ruidosos enforceando cuotas por tenant en el API gateway:
-
-```typescript
-class TenantRateLimiter {
-  private limits: Map<string, { count: number; resetAt: number }> = new Map();
-
-  check(tenantId: string, limit: number, windowMs: number): boolean {
-    const now = Date.now();
-    const entry = this.limits.get(tenantId);
-    if (!entry || now > entry.resetAt) {
-      this.limits.set(tenantId, { count: 1, resetAt: now + windowMs });
-      return true;
-    }
-    if (entry.count >= limit) return false;
-    entry.count++;
-    return true;
-  }
-}
-```
-
-3. **Loggea con contexto de tenant.** Incluye tenant_id en cada entrada de log para debugging y audit trails:
-
-```typescript
-function tenantLogger(tenantId: string) {
-  return {
-    info: (msg: string, meta?: object) => console.log(JSON.stringify({ tenantId, level: 'info', msg, ...meta })),
-    error: (msg: string, meta?: object) => console.error(JSON.stringify({ tenantId, level: 'error', msg, ...meta })),
-  };
-}
-```
 
 ## Errores Comunes Adicionales
 
@@ -392,35 +349,3 @@ CREATE TABLE orders (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), tenant_id UU
 
 3. **Ignorar el lifecycle del tenant en CI/CD.** Los deployments que ejecutan migraciones de schema deben manejar todos los schemas de tenant. Una migración que funciona para un tenant puede fallar para otro con diferente volumen de datos. Testea migraciones contra el tenant más grande primero.
 
-## FAQ Adicional
-
-### ¿Cómo manejo feature flags específicos por tenant?
-
-Almacena feature flags en una tabla de configuración de tenant y evalúalos en runtime. Evita flags en compile-time o variables de entorno ya que diferentes tenants necesitan diferentes conjuntos de features:
-
-```typescript
-class FeatureFlagService {
-  private flags: Map<string, Set<string>> = new Map();
-
-  async loadFlags(tenantId: string): Promise<void> {
-    const result = await this.db.query('SELECT flag_name FROM tenant_flags WHERE tenant_id = $1', [tenantId]);
-    this.flags.set(tenantId, new Set(result.rows.map(r => r.flag_name)));
-  }
-
-  isEnabled(tenantId: string, flag: string): boolean {
-    return this.flags.get(tenantId)?.has(flag) ?? false;
-  }
-}
-```
-
-### ¿Esta solución está lista para producción?
-
-Sí. Row-Level Security con PostgreSQL es usado por plataformas SaaS en producción. El modelo de base de datos por tenant con connection pooling es estándar para tenants enterprise. El pipeline de onboarding de tenant refleja lo que plataformas como Heroku y Render hacen al provisionar nuevas bases de datos de clientes. La capa de caching con claves scoped por tenant previene fugas de datos cross-tenant en Redis.
-
-### ¿Cuáles son las características de rendimiento?
-
-Base de datos compartida con RLS añade un check de filtro por query — overhead despreciable con índices proper en `tenant_id`. Schema-por-tenant requiere `SET search_path` por conexión (sub-milisegundo). Base de datos por tenant usa pools de conexión separados — cada pool consume memoria (10 conexiones x 1000 tenants = 10,000 conexiones). Usa PgBouncer para multiplexar conexiones. Lookups de cache con claves scoped por tenant son O(1) en Redis. Onboarding de tenant con creación de schema toma 50-200ms; creación de base de datos toma 1-5 segundos.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Loggea tenant_id en cada request, query y operación de cache. Usa `current_setting('app.current_tenant')` de PostgreSQL para verificar el contexto de RLS en sesiones de debug. Para schema-por-tenant, loggea `search_path` antes de cada query. Para base de datos por tenant, loggea qué pool sirvió la request. Testea aislamiento de tenant consultando como tenant A y verificando cero filas del tenant B. Usa `EXPLAIN ANALYZE` para verificar que las políticas de RLS usan el índice de tenant_id.

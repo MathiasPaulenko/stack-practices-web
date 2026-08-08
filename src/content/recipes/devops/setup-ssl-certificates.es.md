@@ -361,81 +361,8 @@ echo | openssl s_client -connect example.com:443 2>/dev/null \
     severity: warning
 ```
 
-## Mejores Prácticas Adicionales
 
 
-- For a deeper guide, see [SSL Certificate Renewal Template](/es/docs/ssl-certificate-renewal-template/).
-
-1. **Usa certificados ECC cuando sea posible.** Las llaves ECDSA son más pequeñas y rápidas que RSA:
-
-```bash
-# Solicitar un certificado ECDSA
-certbot certonly --nginx --key-type ecdsa --elliptic-curve secp256r1 \
-  -d example.com
-```
-
-2. **Configura HSTS preload.** Envía tu dominio a hstspreload.org después de confirmar que HTTPS funciona en todas partes:
-
-```nginx
-# Debe incluir includeSubDomains y preload
-add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
-```
-
-3. **Usa un servicio de monitoreo de certificados.** Herramientas como SSL Certificate Monitor o Uptime Robot te alertan antes de la expiración:
-
-```bash
-# Monitoreo basado en cron
-0 8 * * * /usr/local/bin/check-cert-expiry.sh example.com 14 >> /var/log/cert-check.log
-```
-
-## Errores Comunes Adicionales
-
-1. **Olvidar recargar el servidor web después de renovar.** Certbot actualiza archivos pero Nginx mantiene certificados viejos en memoria:
-
-```bash
-# Usa --deploy-hook para recargar automáticamente
-certbot renew --deploy-hook "systemctl reload nginx"
-```
-
-2. **No respetar los rate limits de Let's Encrypt.** Hay límites estrictos: 50 certificados por dominio registrado por semana:
-
-```bash
-# Usa --staging para testing y evitar rate limits
-certbot certonly --staging -d example.com
-```
-
-3. **Mezclar contenido HTTP y HTTPS.** Los navegadores bloquean mixed content activo. Asegúrate de que todos los assets usen HTTPS:
-
-```html
-<!-- Mal: mixed content bloqueado -->
-<script src="http://cdn.example.com/script.js"></script>
-
-<!-- Bien: HTTPS en todas partes -->
-<script src="https://cdn.example.com/script.js"></script>
-```
-
-## FAQ Adicional
-
-### Como obtengo un certificado wildcard?
-
-Los certificados wildcard (`*.example.com`) cubren todos los subdominios de calidad. Requieren desafío DNS-01, no HTTP-01. Usa un plugin DNS como `certbot-dns-cloudflare` o `certbot-dns-route53` para renovación automatizada.
-
-### Cuales son los rate limits de Let's Encrypt?
-
-- 50 certificados por dominio registrado por semana
-- 5 certificados duplicados por semana
-- 5 validaciones fallidas por hora por cuenta
-- 300 nuevas órdenes por 3 horas por cuenta
-
-Usa `--staging` para testing y evitar tocar los rate limits de producción.
-
-### Debo usar TLS 1.3?
-
-Sí. TLS 1.3 es más rápido (handshake 1-RTT vs 2-RTT) y elimina algoritmos inseguros. Todos los navegadores modernos lo soportan. Habilítalo junto con TLS 1.2 para compatibilidad:
-
-```nginx
-ssl_protocols TLSv1.2 TLSv1.3;
-```
 
 ## Tips de Rendimiento
 

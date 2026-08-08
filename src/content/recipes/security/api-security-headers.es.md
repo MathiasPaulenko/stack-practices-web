@@ -352,50 +352,5 @@ if echo "$HSTS" | grep -q "max-age=0"; then
 fi
 ```
 
-## Mejores Prácticas Adicionales
 
-1. **Usa `Cross-Origin-Opener-Policy` para aislamiento de SPAs.** Previene que otros orígenes obtengan una referencia a tu window object:
 
-```http
-Cross-Origin-Opener-Policy: same-origin
-Cross-Origin-Embedder-Policy: require-corp
-```
-
-2. **Setea `Cache-Control` en respuestas de API con datos sensibles.** Previene el caching de respuestas autenticadas:
-
-```http
-Cache-Control: no-store, no-cache, must-revalidate, private
-Pragma: no-cache
-Expires: 0
-```
-
-## Errores Comunes Adicionales
-
-1. **Setear CSP en respuestas de API pero no en páginas HTML.** CSP es más importante en páginas HTML donde los scripts se ejecutan. Las respuestas de API que retornan JSON deben tener headers como `X-Content-Type-Options`, pero CSP es menos crítico para ellas.
-
-2. **Usar wildcard `*` en CORS con credentials.** Cuando `credentials: true` está configurado en CORS, el header `Access-Control-Allow-Origin` no puede ser `*`. Debes especificar orígenes exactos:
-
-```javascript
-// INCORRECTO: wildcard con credentials
-app.use(cors({ origin: '*', credentials: true }));
-
-// CORRECTO: orígenes explícitos
-app.use(cors({
-  origin: ['https://app.example.com', 'https://admin.example.com'],
-  credentials: true,
-}));
-```
-
-## Preguntas Frecuentes Adicionales
-
-### ¿Cómo verifico que mis security headers están funcionando?
-
-Usa `curl -I https://tu-dominio.com` para inspeccionar los headers de respuesta. Para una auditoría más exhaustiva, usa herramientas online como securityheaders.com, Mozilla Observatory, o el script `audit-headers.sh` de arriba. Estas herramientas califican tu configuración y proveen pasos específicos de remediación.
-
-### ¿Debo setear security headers en assets estáticos?
-
-Sí. Los assets estáticos servidos desde tu dominio deben tener como mínimo `X-Content-Type-Options: nosniff` y headers de `Cache-Control`. CSP es menos relevante para assets estáticos pero no duele. Si usas un CDN, configura los headers a nivel del CDN.
-
-### ¿Qué headers recomienda OWASP para APIs?
-
-OWASP recomienda: `Strict-Transport-Security`, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` (para respuestas HTML), `Cache-Control: no-store` (para datos sensibles), `Access-Control-Allow-Origin` (con orígenes explícitos, no wildcards), y `Content-Security-Policy` (para respuestas HTML).

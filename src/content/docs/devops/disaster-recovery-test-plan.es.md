@@ -537,18 +537,4 @@ curl -X POST http://app.internal/admin/test-circuit-breaker \
   -d '{"dependency":"payment-gateway","action":"open"}'
 ```
 
-## Errores Comunes Adicionales
 
-1. **No probar el plan de comunicacion durante las pruebas de DR.** Los ingenieros se enfocan en la recuperacion tecnica y olvidan probar la notificacion a stakeholders. Durante un desastre real, las fallas de comunicacion causan tanto dano como las fallas tecnicas. Incluye pasos de comunicacion en la linea de tiempo de la prueba y mide cuanto toma notificar a todos los stakeholders.
-
-2. **Usar el mismo backup para cada prueba.** Si siempre restauras desde el mismo snapshot, estas probando ese snapshot, no tu sistema de backup. Usa el backup mas reciente para cada prueba. Esto valida que tu pipeline de backup esta produciendo snapshots recuperables consistentemente.
-
-## FAQ Adicionales
-
-### Cual es la diferencia entre una prueba de DR y un game day de chaos engineering?
-
-Una prueba de DR es un ejercicio planificado y anunciado que valida tus procedimientos de recuperacion contra escenarios especificos de falla. Sigue un runbook documentado y mide RTO/RPO. Un game day de chaos engineering es un ejercicio no anunciado o semi-anunciado que inyecta fallas aleatorias en produccion para probar la resiliencia del sistema y la respuesta de guardia. Las pruebas de DR validan tu plan; los game days validan tu preparacion. Ambos son necesarios.
-
-### Como probamos DR para arquitecturas multi-region active-active?
-
-En configuraciones active-active, una falla de region significa que la region superviviente absorbe todo el trafico. Prueba cordonando una region y verificando que el trafico se desplace, la capacidad escale y la consistencia de datos se mantenga. La metrica clave no es el RTO (el trafico deberia desplazarse automaticamente) sino si la region superviviente puede manejar la carga completa. Prueba el margen de capacidad simulando trafico de la region fallida contra la region superviviente.

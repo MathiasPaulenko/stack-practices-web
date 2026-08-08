@@ -404,23 +404,6 @@ NR>1 && $5 < today && $6 != "completed" {
 }' "$REMEDICATION_FILE"
 ```
 
-## Errores Comunes Adicionales
-
-1. **No evaluar el riesgo de cuarto nivel (subcontratistas).** Tu proveedor puede usar subcontratistas que procesan tus datos. Exige la divulgacion de sub-procesadores y su postura de seguridad:
-
-```python
-# Check vendor sub-processor list against your approved list
-approved_subprocessors = {"aws", "gcp", "azure", "cloudflare"}
-vendor_subprocessors = {"aws", "digitalocean", "cloudflare"}
-
-unapproved = vendor_subprocessors - approved_subprocessors
-if unapproved:
-    print(f"Unapproved sub-processors found: {unapproved}")
-```
-
-2. **Aceptar un reporte SOC 2 sin verificar el alcance.** Un reporte SOC 2 puede cubrir solo un subconjunto de los servicios del proveedor. Verifica que el reporte cubra los sistemas y controles relevantes para tu engagement:
-
-```markdown
 ## SOC 2 Scope Verification Checklist
 - [ ] Report covers the specific service you will use
 - [ ] Report period is current (within last 12 months)
@@ -429,12 +412,3 @@ if unapproved:
 - [ ] Description of system matches actual architecture
 ```
 
-## Preguntas Frecuentes Adicionales
-
-### Que debemos hacer si un proveedor sufre una violacion durante nuestro contrato?
-
-Activa tu plan de respuesta a incidentes. Notifica a los usuarios afectados si el proveedor proceso sus datos. Exige un reporte post-incidente del proveedor, evalua si la violacion exploto una brecha en sus controles de seguridad, y decide si continuar, renegociar o terminar el contrato.
-
-### Como manejamos proveedores que no pueden cumplir con nuestros requisitos de seguridad?
-
-Si el proveedor proporciona funcionalidad critica que no se puede reemplazar, implementa controles compensatorios: restringe el acceso a datos, agrega monitoreo, requiere indemnizacion contractual, y documenta una aceptacion formal de riesgo con fecha de vencimiento y aprobacion ejecutiva.

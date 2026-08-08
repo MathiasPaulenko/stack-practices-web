@@ -561,29 +561,4 @@ kill -HUP $(cat /var/run/pgbouncer/pgbouncer.pid)
    - No → Open incident channel, notify stakeholders
 ```
 
-## Errores Comunes Adicionales
 
-1. **No probar el failover en condiciones similares a produccion.** Probar en staging con bajo trafico no revela agotamiento de pools de conexiones o problemas de cache DNS. Ejecuta simulacros de failover durante ventanas de bajo trafico en produccion trimestralmente. Documenta que fallo y arreglalo antes de la falla real.
-
-2. **Olvidar actualizar el monitoreo despues del failover.** Tu sistema de monitoreo sigue rastreando el viejo primario. Despues del failover, actualiza dashboards, reglas de alerta y health checks para apuntar al nuevo primario. De lo contrario obtienes alertas falsas o pierdes problemas reales:
-
-```bash
-# Update Prometheus targets after failover
-kubectl patch servicemonitor postgres-exporter \
-  -p '{"spec":{"endpoints":[{"port":"http-metrics","path":"/metrics","targetPort":9187}]}}'
-
-# Update Grafana datasource if using direct connection
-curl -X PATCH http://grafana.internal/api/datasources/1 \
-  -H "Content-Type: application/json" \
-  -d '{"url":"http://new-primary.db.internal:5432"}'
-```
-
-## FAQ Adicionales
-
-### Cual es la diferencia entre replicacion sincrona y asincrona para failover?
-
-La replicacion sincrona garantiza que una transaccion se escribe en la replica antes de que el primario confirme el commit al cliente. Esto significa cero perdida de datos en el failover pero anade latencia a cada escritura. La replicacion asincrona confirma el commit al cliente inmediatamente y replica en segundo plano, lo cual es mas rapido pero puede perder las ultimas transacciones en el failover. Usa sincrona para datos financieros o criticos, asincrona para workloads de alto throughput donde pequena perdida de datos es aceptable.
-
-### Como manejamos el failover para bases de datos sharded?
-
-Cada shard hace failover independientemente. Mantén un mapa de shards que rastrea cual shard es primario y cual es replica. Durante el failover, actualiza el mapa de shards y enruta el trafico en consecuencia. Herramientas como Vitess (MySQL) o Citus (PostgreSQL) manejan esto automaticamente. Si lo gestionas manualmente, asegurate de que tu capa de enrutamiento lea el mapa de shards dinamicamente en lugar de cachearlo.

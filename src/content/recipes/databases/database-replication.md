@@ -316,67 +316,8 @@ async function writeAndRead(userId, data) {
 }
 ```
 
-## Additional Best Practices
 
-6. **Use replication slots in PostgreSQL.** Replication slots prevent WAL from being recycled before the replica consumes it. Monitor slot disk usage to prevent bloat.
 
-7. **Set `max_replication_slots` and `max_wal_senders` appropriately.** Each replica needs one slot and one WAL sender. Set 2-3 more than your replica count for future expansion.
-
-8. **Use `synchronous_commit = remote_apply` for critical data.** This waits until the replica applies the transaction before acknowledging the commit:
-
-```sql
-ALTER SYSTEM SET synchronous_commit = remote_apply;
-```
-
-9. **Keep replicas in different availability zones.** A single AZ failure should not take down both primary and replica.
-
-10. **Automate failover testing.** Run failover drills monthly. Document the runbook. Automated failover tools (Patroni, Stolon) still need human validation.
-
-## Additional Common Mistakes
-
-6. **Not cleaning up inactive replication slots.** Inactive slots accumulate WAL, eventually filling the disk. Drop unused slots:
-
-```sql
-SELECT pg_drop_replication_slot('unused_replica_slot');
-```
-
-7. **Running heavy analytics on replicas.** Long-running queries on replicas cause replication lag. Use a dedicated analytics replica or a materialized view.
-
-8. **Not monitoring `pg_stat_replication`.** Without monitoring, you won't know replicas are lagging until users complain about stale data.
-
-9. **Using `synchronous_commit = on` without replicas.** Synchronous replication with no available replicas blocks all writes. Always have at least one healthy replica.
-
-10. **Forgetting to update `primary_conninfo` after failover.** After promoting a replica, other replicas must point to the new primary. Automate this with Patroni or a configuration management tool.
-
-## Additional FAQ
-
-### How do I promote a replica to primary in PostgreSQL?
-
-```sql
--- PostgreSQL 12+
-SELECT pg_promote();
-```
-
-For earlier versions, create a trigger file or use `pg_ctl promote`. With Patroni, failover is automatic.
-
-### What is split-brain and how do I prevent it?
-
-Split-brain occurs when two nodes both think they are primary. Prevent it with:
-- Quorum-based failover (Patroni + etcd)
-- Fencing (STONITH) to power off the old primary
-- Split-brain detection in your proxy layer
-
-### How do I handle replication during a major version upgrade?
-
-Use logical replication to upgrade with near-zero downtime:
-1. Set up logical replication from old version to new version
-2. Wait for catch-up
-3. Switch application connections to the new version
-4. Drop the subscription
-
-### What is `pg_rewind` and when do I use it?
-
-`pg_rewind` resynchronizes a former primary that diverged from the new primary. Without it, you must rebuild the entire data directory with `pg_basebackup`.
 
 ## Performance Tips
 

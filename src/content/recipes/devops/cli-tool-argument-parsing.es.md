@@ -392,67 +392,7 @@ try {
 }
 ```
 
-## Mejores Prácticas Adicionales
 
-1. **Soporta flags `--quiet` y `--json`.** Los pipelines de CI/CD necesitan output machine-readable:
-
-```python
-parser.add_argument("--json", action="store_true", help="Output JSON for CI/CD")
-parser.add_argument("--quiet", action="store_true", help="Suppress non-error output")
-```
-
-1. **Usa color con moderación.** Detecta si stdout es un TTY antes de usar colores:
-
-```python
-import sys
-import shutil
-
-def color(text, color_code):
-    if shutil.isatty(sys.stdout):
-        return f"\033[{color_code}m{text}\033[0m"
-    return text
-
-print(color("Success", "32"))  # Verde solo en TTY
-```
-
-1. **Proporciona `--dry-run` para comandos destructivos.** Muestra qué pasaría sin ejecutar:
-
-```bash
-$ deploy-cli deploy prod --dry-run
-Would deploy version 2.1.0 to prod
-Would run 3 migrations
-Would restart 5 pods
-(dry run mode - no changes made)
-```
-
-## Errores Comunes Adicionales
-
-1. **No manejar SIGINT gracefulmente.** Ctrl+C debe limpiar, no dejar trabajo a medias:
-
-```python
-import signal
-import sys
-
-def handle_sigint(sig, frame):
-    print("\nAborting...")
-    cleanup()
-    sys.exit(130)  # 128 + SIGINT(2)
-
-signal.signal(signal.SIGINT, handle_sigint)
-```
-
-1. **Usar `print()` para errores.** Los mensajes de error van a `stderr`, no `stdout`:
-
-```python
-import sys
-
-# Mal
-print(f"Error: {e}")
-
-# Bien
-print(f"Error: {e}", file=sys.stderr)
-sys.exit(1)
-```
 
 ## FAQ
 

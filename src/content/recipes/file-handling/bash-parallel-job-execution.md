@@ -334,33 +334,6 @@ parallel --bar --jobs "$MAX_JOBS" process_task {} < "$INPUT_FILE"
 ulimit -n 4096  # Allow 4096 open file descriptors
 ```
 
-## Additional Common Mistakes
-
-1. **Not handling SIGPIPE in piped parallel commands.** When downstream commands exit early, upstream commands receive SIGPIPE. Use `trap '' PIPE` or check for broken pipes:
-
-```bash
-trap '' PIPE
-# Or use set -o pipefail and handle PIPE specifically
-```
-
-2. **Mixing stdout and stderr across parallel jobs.** Output from concurrent jobs interleaves unpredictably. Use GNU parallel's `--results` to separate stdout/stderr per job, or redirect each job's output to its own file:
-
-```bash
-# Each job writes to its own log file
-parallel --results /tmp/parallel-logs/{} --jobs 4 process_task {} < jobs.txt
-```
-
-3. **Forgetting to `wait` at the end of background jobs.** Without a final `wait`, the script exits before background jobs complete, leaving orphaned processes:
-
-```bash
-# Launch background jobs
-for task in "${TASKS[@]}"; do
-    process_task "$task" &
-done
-# Critical: wait for all background jobs to finish
-wait
-echo "All jobs complete"
-```
 
 ## Additional FAQ
 

@@ -355,31 +355,4 @@ git add "$EVIDENCE_DIR"
 git commit -m "compliance: monthly evidence snapshot $(date +%Y-%m)"
 ```
 
-## Errores Comunes Adicionales
 
-1. **No mapear controles entre multiples marcos.** Si persigues SOC 2 e ISO 27001 por separado, duplicas trabajo. Mapea controles una vez y reutiliza evidencia:
-
-```bash
-# Generate cross-framework coverage report
-node -e "
-const mapping = require('./control-mapping.json');
-let covered = 0, total = 0;
-for (const [control, frameworks] of Object.entries(mapping)) {
-  total++;
-  if (frameworks.soc2 && frameworks.iso27001) covered++;
-}
-console.log('Cross-framework coverage: ' + covered + '/' + total);
-"
-```
-
-2. **Confiar en capturas de pantalla como evidencia principal.** Las capturas son point-in-time y pueden ser manipuladas. Usa exports automatizados, salidas de API y dumps de configuracion como evidencia principal. Las capturas son solo complementarias.
-
-## Preguntas Frecuentes Adicionales
-
-### Como priorizo que brechas corregir primero?
-
-Prioriza por puntaje de riesgo (impacto x probabilidad), fecha limite de auditoria y cadena de dependencias. Las brechas que bloquean multiples requisitos deben corregirse primero. Por ejemplo, implementar logging centralizado satisface CC7.2 (SOC 2), A.12.4.1 (ISO 27001) y 10.1 (PCI-DSS) simultaneamente.
-
-### Puedo usar un analisis de brechas para multiples marcos?
-
-Si. Crea un mapeo unificado de controles donde cada control mapee a requisitos de multiples marcos. Esto reduce el tiempo de preparacion de auditoria en 40-60% porque recolectas evidencia una vez y la referencias entre marcos.

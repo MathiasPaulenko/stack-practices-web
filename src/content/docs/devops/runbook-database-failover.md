@@ -511,37 +511,6 @@ print(f"Transactions lost (est.): {result.transactions_lost}")
 print(f"Replication slots healthy: {result.consistency_ok}")
 ```
 
-## Additional Best Practices
-
-
-- For a deeper guide, see [Complete Guide to PostgreSQL Replication](/guides/complete-guide-postgresql-replication/).
-
-1. **Use connection poolers to minimize failover impact.** PgBouncer or ProxySQL can point to a virtual IP that you update during failover, avoiding application restarts:
-
-```ini
-# pgbouncer.ini
-[databases]
-appdb = host=primary.db.internal port=5432 dbname=appdb
-
-[pgbouncer]
-listen_addr = 0.0.0.0
-listen_port = 6432
-pool_mode = transaction
-max_client_conn = 200
-default_pool_size = 20
-```
-
-During failover, update only the PgBouncer config and reload:
-
-```bash
-# Update pgbouncer to point to new primary
-sed -i 's/primary.db.internal/replica.db.internal/' /etc/pgbouncer/pgbouncer.ini
-kill -HUP $(cat /var/run/pgbouncer/pgbouncer.pid)
-```
-
-2. **Maintain a failover decision tree for complex scenarios.** Not every failover is straightforward. Document decision points:
-
-```markdown
 ## Failover Decision Tree
 
 1. Is primary down?
@@ -561,29 +530,4 @@ kill -HUP $(cat /var/run/pgbouncer/pgbouncer.pid)
    - No → Open incident channel, notify stakeholders
 ```
 
-## Additional Common Mistakes
 
-1. **Not testing failover in production-like conditions.** Testing in staging with low traffic does not reveal connection pool exhaustion or DNS caching issues. Run failover drills during low-traffic production windows quarterly. Document what broke and fix it before the real failure.
-
-2. **Forgetting to update monitoring after failover.** Your monitoring system still tracks the old primary. After failover, update dashboards, alerting rules, and health checks to point to the new primary. Otherwise you get false alerts or miss real issues:
-
-```bash
-# Update Prometheus targets after failover
-kubectl patch servicemonitor postgres-exporter \
-  -p '{"spec":{"endpoints":[{"port":"http-metrics","path":"/metrics","targetPort":9187}]}}'
-
-# Update Grafana datasource if using direct connection
-curl -X PATCH http://grafana.internal/api/datasources/1 \
-  -H "Content-Type: application/json" \
-  -d '{"url":"http://new-primary.db.internal:5432"}'
-```
-
-## Additional Frequently Asked Questions
-
-### What is the difference between synchronous and asynchronous replication for failover?
-
-Synchronous replication guarantees that a transaction is written to the replica before the primary confirms commit to the client. This means zero data loss on failover but adds latency to every write. Asynchronous replication confirms commit to the client immediately and replicates in the background, which is faster but can lose the last few transactions on failover. Use synchronous for financial or critical data, asynchronous for high-throughput workloads where small data loss is acceptable.
-
-### How do we handle failover for sharded databases?
-
-Each shard fails over independently. Maintain a shard map that tracks which shard is primary and which is replica. During failover, update the shard map and route traffic accordingly. Tools like Vitess (MySQL) or Citus (PostgreSQL) handle this automatically. If managing manually, ensure your routing layer reads the shard map dynamically rather than caching it.

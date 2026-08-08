@@ -349,22 +349,4 @@ routes:
 
 3. **Implementa rate limiting por cliente.** Usa rate limiting basado en IP, clave de API o usuario para prevenir abuso. Almacena contadores de rate limit en Redis para gateways distribuidos.
 
-## Errores Comunes Adicionales
 
-1. **Crear un unico punto de falla.** El gateway se convierte en infraestructura critica. Despliega multiples instancias de gateway detras de un balanceador de carga con health checks para asegurar alta disponibilidad.
-
-2. **Sobrecargar el gateway con logica de transformacion.** Las transformaciones complejas aumentan la latencia y dificultan el debugging. Mueve la logica de transformacion pesada a servicios BFF (Backend for Frontend) dedicados.
-
-## FAQ Adicionales
-
-### ¿Cómo manejo la autenticacion en el gateway?
-
-Valida tokens JWT o claves de API en el gateway antes del enrutamiento. Extrae la identidad del usuario del token y pasala como encabezados a los servicios backend. Esto centraliza la logica de autenticacion y reduce la validacion duplicada.
-
-### ¿Deberia el gateway manejar cache de respuestas?
-
-Si, cachea respuestas GET para datos frecuentemente accedidos en el gateway. Usa encabezados de cache de los servicios backend para determinar la duracion del cache. Implementa invalidacion de cache para contenido dinamico usando webhooks o eventos pub/sub.
-
-### ¿Cómo monitoreo el rendimiento del gateway?
-
-Rastrea metricas de latencia de solicitud, tasas de error, salud de upstream y throughput. Usa trazabilidad distribuida para seguir solicitudes a traves de servicios. Configura alertas para tasas de error aumentadas o latencia para detectar problemas temprano.

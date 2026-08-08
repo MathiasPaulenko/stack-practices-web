@@ -332,51 +332,7 @@ ALTER SYSTEM SET synchronous_commit = remote_apply;
 
 10. **Automatiza el testing de failover.** Ejecuta drills de failover mensualmente. Documenta el runbook. Las herramientas de failover automatizado (Patroni, Stolon) aún necesitan validación humana.
 
-## Errores comunes adicionales
 
-6. **No limpiar replication slots inactivos.** Los slots inactivos acumulan WAL, eventualmente llenando el disco. Elimina slots sin uso:
-
-```sql
-SELECT pg_drop_replication_slot('unused_replica_slot');
-```
-
-7. **Ejecutar analytics pesados en réplicas.** Queries de larga ejecución en réplicas causan lag de replicación. Usa una réplica dedicada para analytics o una materialized view.
-
-8. **No monitorear `pg_stat_replication`.** Sin monitoreo, no sabrás que las réplicas tienen lag hasta que los usuarios se quejen de datos stale.
-
-9. **Usar `synchronous_commit = on` sin réplicas.** La replicación síncrona sin réplicas disponibles bloquea todas las escrituras. Siempre ten al menos una réplica saludable.
-
-10. **Olvidar actualizar `primary_conninfo` después del failover.** Después de promover una réplica, otras réplicas deben apuntar a la nueva primaria. Automatiza esto con Patroni o una herramienta de configuration management.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cómo promuevo una réplica a primaria en PostgreSQL?
-
-```sql
--- PostgreSQL 12+
-SELECT pg_promote();
-```
-
-Para versiones anteriores, crea un trigger file o usa `pg_ctl promote`. Con Patroni, el failover es automático.
-
-### ¿Qué es split-brain y cómo lo prevengo?
-
-Split-brain ocurre cuando dos nodos creen que son la primaria. Prevénlo con:
-- Failover basado en quórum (Patroni + etcd)
-- Fencing (STONITH) para apagar la primaria antigua
-- Detección de split-brain en tu capa de proxy
-
-### ¿Cómo manejo la replicación durante un upgrade de versión major?
-
-Usa replicación lógica para actualizar con near-zero downtime:
-1. Configura replicación lógica de la versión antigua a la nueva
-2. Espera a que alcance el catch-up
-3. Cambia las conexiones de la aplicación a la nueva versión
-4. Elimina la suscripción
-
-### ¿Qué es `pg_rewind` y cuándo lo uso?
-
-`pg_rewind` resincroniza una primaria antigua que divergió de la nueva primaria. Sin él, debes reconstruir todo el data directory con `pg_basebackup`.
 
 ## Tips de Rendimiento
 

@@ -347,12 +347,3 @@ Purge elimina el contenido cacheado inmediatamente y el próximo request obtiene
 
 No puedes. El caché de navegador y CDN está basado en URL. Para forzar un refresh, debes cambiar la URL — ya sea el filename (content hash), un query parameter (`?v=2`), o un path prefix (`/v2/asset.css`). Content hashing (ej. `[name].[contenthash].js`) es el approach más confiable porque el hash cambia solo cuando el contenido del archivo cambia.
 
-## Errores Comunes Adicionales
-
-- Purgar todo el caché en lugar de URLs específicas — causa un pico de tráfico hacia el origin
-- Setear `Cache-Control: no-cache` en assets estáticos — anula el propósito del caché de CDN
-- No setear el header `Vary` para respuestas localizadas o específicas por dispositivo
-- Olvidar invalidar el caché después de desplegar nuevo contenido — los usuarios ven páginas stale
-- Usar TTLs cortos para assets estáticos — incrementa la carga del origin innecesariamente; usa TTLs largos con content hashing en su lugar
-- No setear headers `Surrogate-Key` — hace la invalidación granular imposible sin purgar zonas enteras de caché
-- Ignorar `stale-while-revalidate` — pierde una forma fácil de servir contenido stale mientras se refresca en background

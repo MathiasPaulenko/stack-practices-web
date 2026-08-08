@@ -405,39 +405,7 @@ finally:
         logger.warning(f"Transacción lenta: {elapsed:.2f}s")
 ```
 
-## Errores comunes adicionales
 
-6. **Iniciar transacciones antes de tener todos los datos listos.** Recolecta y valida el input del usuario antes de `BEGIN`. Mantener una transacción abierta durante I/O o input del usuario causa contención de locks.
-
-7. **No manejar fallos de serialización.** El aislamiento `SERIALIZABLE` puede lanzar `40001` en conflictos. Siempre implementa lógica de retry para transacciones serializables.
-
-8. **Usar autocommit para operaciones multi-paso.** Sin transacciones explícitas, cada statement se confirma independientemente. Un fallo entre pasos deja datos inconsistentes.
-
-9. **Olvidar cerrar conexiones después del rollback.** El rollback no cierra la conexión. Siempre cierra conexiones en bloques `finally` o usa context managers.
-
-10. **Mezclar DDL y DML en la misma transacción.** Algunas bases de datos (MySQL) confirman implícitamente en statements DDL, rompiendo la atomicidad de la transacción.
-
-## Preguntas frecuentes adicionales
-
-### ¿Cómo manejo transacciones de larga duración?
-
-Divídelas en batches más pequeños. Para backfills, procesa 1.000-10.000 filas por transacción con `COMMIT` entre batches. Para reporting, usa una transacción read-only con `REPEATABLE READ` o una materialized view.
-
-### ¿Qué es una transacción distribuida?
-
-Una transacción distribuida abarca múltiples bases de datos o servicios. Usa two-phase commit (2PC) para consistencia fuerte, o el patrón saga para consistencia eventual. PostgreSQL soporta 2PC via `PREPARE TRANSACTION`.
-
-### ¿Cómo testeo el aislamiento de transacciones?
-
-Usa scripts de test concurrentes que ejecutan transacciones en paralelo y verifican las garantías de aislamiento. Frameworks como `pytest` con `pytest-xdist` o `CompletableFuture` de Java pueden simular acceso concurrente.
-
-### ¿Qué es `idle in transaction` y por qué es malo?
-
-`idle in transaction` significa que una transacción está abierta pero no está ejecutando queries. Retiene locks, previene vacuuming y causa bloat. Siempre confirma o haz rollback prontamente. Usa `idle_in_transaction_session_timeout` para auto-matar transacciones atascadas:
-
-```sql
-ALTER SYSTEM SET idle_in_transaction_session_timeout = '300s';
-```
 
 ## Tips de Rendimiento
 

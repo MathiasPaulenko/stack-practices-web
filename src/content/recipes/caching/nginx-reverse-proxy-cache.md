@@ -352,12 +352,3 @@ Use `proxy_cache_valid` with explicit status codes: `proxy_cache_valid 200 302 1
 
 `$upstream_cache_status` tells you whether the response came from cache or origin: `HIT` (served from cache), `MISS` (not in cache, fetched from origin), `EXPIRED` (cache entry expired, refetched), `BYPASS` (cache bypassed), `REVALIDATED` (stale but revalidated). Add it as a response header with `add_header X-Cache-Status $upstream_cache_status;` to debug caching behavior.
 
-## Additional Common Mistakes
-
-- Not setting `proxy_cache_key` — default key may not include all request variants (method, headers)
-- Caching responses with `Set-Cookie` headers — leaks session data between users
-- Forgetting `proxy_cache_bypass` for authenticated requests — caches personalized content
-- Not monitoring cache hit ratio — a low ratio means cache config needs tuning
-- Caching POST requests by default — POST bodies are not part of the cache key and should never be cached
-- Not setting `proxy_cache_lock on` — thundering herd requests overwhelm the origin when cache entries expire simultaneously
-- Not defining a `proxy_cache_path` with adequate `max_size` — cache evicts entries prematurely if disk space is too small

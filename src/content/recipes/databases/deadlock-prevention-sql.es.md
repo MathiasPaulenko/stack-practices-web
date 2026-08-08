@@ -369,74 +369,8 @@ JOIN pg_stat_activity blocking ON ul.pid = blocking.pid
 WHERE blocked.pid != blocking.pid;
 ```
 
-## Buenas Prácticas Adicionales
 
-6. **Usa `SKIP LOCKED` para procesamiento concurrente de jobs.** Múltiples workers pueden extraer de la misma tabla de cola sin deadlock:
 
-```sql
-SELECT * FROM jobs WHERE status = 'pending' FOR UPDATE SKIP LOCKED LIMIT 5;
-```
-
-7. **Establece `lock_timeout` para transacciones de escritura.** Previene que las transacciones esperen indefinidamente:
-
-```sql
-SET lock_timeout = '5s';
-```
-
-8. **Usa `NOWAIT` para locking fail-fast.** En lugar de esperar, error inmediato si la fila está lockeada:
-
-```sql
-SELECT balance FROM accounts WHERE id = 1 FOR UPDATE NOWAIT;
--- Genera error 55P03 si la fila está lockeada
-```
-
-9. **Mantén transacciones por debajo de 50ms cuando sea posible.** Transacciones más cortas mantienen locks por menos tiempo, reduciendo probabilidad de deadlock.
-
-10. **Usa advisory locks para exclusión mutua a nivel aplicación.** Evita locks a nivel fila cuando necesitas coordinación cross-table:
-
-```sql
-SELECT pg_advisory_xact_lock(hashtext('user:' || user_id::text));
-```
-
-## Errores Comunes Adicionales
-
-6. **Usar `SERIALIZABLE` sin lógica de reintento.** Las fallas de serialización (SQLSTATE 40001) son esperadas bajo `SERIALIZABLE`. Siempre implementa reintento.
-
-7. **Lockear filas padre antes que filas hijo innecesariamente.** Si solo actualizas filas hijo, no lockees el padre. Lockea el conjunto mínimo de filas necesario.
-
-8. **No manejar `40P01` vs `40001` diferentemente.** `40P01` es un deadlock (espera circular), `40001` es una falla de serialización. Ambos requieren reintento, pero los deadlocks indican un problema de ordenamiento de locks mientras que las fallas de serialización son esperadas bajo `SERIALIZABLE`.
-
-9. **Usar mutexes a nivel aplicación en lugar de locks de base de datos.** Los mutexes de aplicación no protegen contra acceso concurrente desde otros servicios o conexiones SQL directas.
-
-10. **No probar bajo carga concurrente.** Los deadlocks a menudo solo aparecen bajo tráfico de producción. Usa `pgbench` o herramientas de load testing para simular concurrencia.
-
-## Preguntas Frecuentes Adicionales
-
-### Cómo monitoreo la frecuencia de deadlocks a lo largo del tiempo?
-
-Consulta `pg_stat_database.deadlocks` periódicamente y almacena los valores. Un aumento repentino indica un nuevo patrón de deadlock:
-
-```sql
-SELECT datname, deadlocks FROM pg_stat_database WHERE datname = 'mydb';
-```
-
-Resetea estadísticas después de investigar:
-
-```sql
-SELECT pg_stat_reset();
-```
-
-### Cuál es la diferencia entre `FOR UPDATE` y `FOR NO KEY UPDATE`?
-
-`FOR UPDATE` lockea la fila y previene que otras transacciones la modifiquen o la lockeen. `FOR NO KEY UPDATE` es más débil: permite que otras transacciones lockeen la fila con `FOR KEY SHARE`, lo cual es útil cuando solo actualizas columnas no-key.
-
-### Debería usar `SKIP LOCKED` o `NOWAIT`?
-
-Usa `SKIP LOCKED` cuando quieres procesar filas disponibles y saltar las ocupadas (colas de jobs). Usa `NOWAIT` cuando necesitas la fila específica y prefieres fallar inmediatamente en lugar de esperar.
-
-### Cómo difieren los deadlocks entre PostgreSQL y MySQL?
-
-PostgreSQL detecta deadlocks vía un proceso dedicado de detección que corre cada `deadlock_timeout` (default 1s). MySQL usa un detector interno de deadlocks en InnoDB que detecta deadlocks inmediatamente. Los códigos de error difieren: PostgreSQL usa `40P01`, MySQL usa `1213` (ER_LOCK_DEADLOCK).
 
 ## Tips de Rendimiento
 
