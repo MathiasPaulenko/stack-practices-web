@@ -388,41 +388,6 @@ print(f"Average cycle time: {results['avg_cycle_time_hours']:.1f}h")
 print(f"Defect escape rate: {results['defect_escape_rate']:.0%}")
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Usa slots de revision para prevenir fatiga del revisor.** Asigna un maximo de 2-3 revisiones por ingeniero por dia. Mas alla de eso, la calidad de revision cae considerablemente:
-
-```yaml
-# GitHub Actions - check reviewer load before assignment
-- name: Check reviewer load
-  uses: actions/github-script@v7
-  with:
-    script: |
-      const reviewer = "bob";
-      const prs = await github.rest.pulls.list({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        state: "open",
-      });
-      const assigned = prs.data.filter(pr =>
-        pr.requested_reviewers.some(r => r.login === reviewer)
-      );
-      if (assigned.length >= 3) {
-        core.warning(`${reviewer} already has ${assigned.length} open reviews. Consider assigning someone else.`);
-      }
-```
-
-2. **Etiqueta revisiones por tipo para rastrear patrones.** Usa labels como `review:security`, `review:performance`, `review:refactor` para categorizar que tipos de issues son mas comunes:
-
-```bash
-#!/bin/bash
-# Aggregate review labels from last 30 days
-gh pr list \
-  --state all \
-  --search "is:pr closed:>=2026-06-01 label:review:" \
-  --json labels,number \
-  --jq '[.[] | .labels[] | select(.name | startswith("review:")) | .name] | group_by(.) | map({type: .[0], count: length}) | sort_by(.count) | reverse'
-```
 
 ## Reviewer Confirmation
 

@@ -221,13 +221,6 @@ parser.parse(new File("data.xml"), new XmlHandler());
 - **Development time**: writing a solid parser with error handling, encoding detection, and type inference takes 4-8 hours. Using pandas or dedicated libraries reduces this to 1-2 hours
 - **Infrastructure for batch jobs**: scheduled parsing jobs need a compute instance, job scheduler, and error alerting. Total infrastructure: -200/month for a small pipeline processing daily files
 
-## Monitoring and Observability
-
-- **Parse error rate**: track the percentage of rows/files that fail parsing. Alert when error rate exceeds 1% of total. Common causes: encoding changes, schema drift, corrupted files
-- **Parse duration**: monitor time to parse each file. A 3x increase from baseline indicates either larger files or performance degradation. Log file size alongside parse duration for correlation
-- **Memory usage during parsing**: monitor peak memory during file parsing. If peak memory exceeds 80% of available RAM, switch to chunked reading or streaming
-- **Row count validation**: compare row counts before and after parsing. A significant drop indicates silent data loss. Log input rows, output rows, and skipped rows separately
-- **Schema drift detection**: log column names and types on each parse. Alert when columns appear, disappear, or change type. Schema drift breaks downstream consumers silently
 
 ## Deployment Checklist
 

@@ -267,11 +267,6 @@ await consumer.run({
 - **Broker migration**: migrate from one broker to another (e.g., RabbitMQ to Kafka). Run both brokers in parallel during transition. Dual-publish to both brokers. Switch consumers one by one. Verify message parity. Decommission old broker after all consumers migrate. Plan for schema compatibility across brokers
 - **Queue refactoring**: split a monolithic queue into multiple specialized queues. Use a router service to forward messages to new queues. Run both queues in parallel. Switch consumers to new queues. Monitor for message loss or duplication. Decommission old queue after verification. Document new queue architecture
 - **Protocol migration**: migrate from AMQP to MQTT or vice versa. Use a protocol bridge during transition. Validate message semantics across protocols. Test performance characteristics of new protocol. Train team on new protocol. Monitor for compatibility issues. Document protocol-specific behaviors
-## Reporting and Communication
-
-- **Weekly messaging metrics review**: review queue depths, throughput, error rates, and consumer lag weekly. Identify trends and anomalies. Compare with previous weeks. Document findings and action items. Share with engineering and operations teams. Use metrics to prioritize optimization work. Track improvements over time
-- **Incident post-mortems for messaging failures**: conduct post-mortems for significant messaging incidents (message loss, DLQ overflow, broker outage). Use blameless format. Document timeline, root cause, impact, and remediation. Share learnings across teams. Track remediation items to completion. Update runbooks based on findings
-- **Capacity planning**: project message volume growth quarterly. Plan broker capacity based on projections. Plan consumer capacity based on processing time and volume. Factor in seasonality and planned product launches. Document capacity assumptions. Review capacity plan monthly. Provision capacity before it is needed
 ## Automation and Tooling
 
 - **Automated DLQ monitoring**: deploy automated scripts that check DLQ depth every 5 minutes. Alert on threshold breach. Auto-create tickets for DLQ investigation. Generate daily DLQ summary reports. Track time-to-resolution for DLQ issues. Use Lambda or scheduled containers for monitoring. Integrate with incident management tools

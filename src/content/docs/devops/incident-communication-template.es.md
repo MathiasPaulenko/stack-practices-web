@@ -295,11 +295,6 @@ Si, pero proporcionalmente. Un breve "pedimos disculpas por el inconveniente" es
 Usa siempre UTC para todas las marcas de tiempo. Incluye la hora local de la region principal afectada si es relevante. Asegurate de que el relevo entre turnos incluya el estado de comunicacion para que las actualizaciones no se detengan cuando los equipos se desconectan.
 
 
-## Mejores Practicas Adicionales
-
-1. **Mantén una matriz de mapeo severidad-audiencia.** No todos los niveles de severidad requieren notificar a cada audiencia. Documenta quien es notificado y cuando:
-
-```markdown
 ## Notification Matrix
 
 | Severity | Customers | Internal Teams | Executives | Legal/PR |

@@ -388,36 +388,6 @@ resource "aws_nat_gateway" "main" {
 }
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Taggea todo consistentemente.** Usa un bloque `locals` para tags comunes:
-
-```hcl
-locals {
-  common_tags = {
-    Environment = var.environment
-    ManagedBy   = "terraform"
-    Project     = "platform"
-  }
-}
-```
-
-2. **Usa `cidrsubnet` para allocation de CIDR predecible.** Evita harcodear CIDRs de subredes:
-
-```hcl
-# Publicas: 10.0.0.0/24, 10.0.1.0/24, 10.0.2.0/24
-# Privadas: 10.0.100.0/24, 10.0.101.0/24, 10.0.102.0/24
-cidr_block = cidrsubnet(var.cidr_block, 8, count.index)
-```
-
-3. **Habilita VPC Flow Logs desde el dia uno.** Habilitar retroactivamente significa perder datos de auditoria:
-
-```bash
-# Query flow logs para trafico rechazado
-aws logs filter-log-events \
-  --log-group-name /aws/vpc/flow-logs \
-  --filter-pattern "REJECT"
-```
 
 
 

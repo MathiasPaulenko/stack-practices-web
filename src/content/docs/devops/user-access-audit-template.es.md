@@ -357,45 +357,6 @@ auditGitHubOrg("your-org", process.env.GITHUB_TOKEN)
   .catch(err => console.error("Audit failed:", err.message));
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Implementa acceso just-in-time (JIT) para roles privilegiados.** En lugar de acceso admin permanente, concede elevacion con tiempo limitado y expiracion automatica:
-
-```python
-# Example: Request time-bound AWS IAM role assumption
-import boto3
-from datetime import datetime, timedelta
-
-sts = boto3.client("sts")
-
-# Assume a role with 1-hour session duration
-response = sts.assume_role(
-    RoleArn="arn:aws:iam::123456789012:role/PrivilegedAdmin",
-    RoleSessionName="jit-access-alice",
-    DurationSeconds=3600,  # 1 hour maximum
-)
-
-print(f"Temporary credentials expire at: {response['Credentials']['Expiration']}")
-print(f"Access valid for 1 hour only. No standing privilege.")
-```
-
-2. **Usa SCIM para desprovisionamiento automatizado.** Cuando un usuario se deshabilita en el proveedor de identidades, SCIM elimina automaticamente su acceso de las aplicaciones conectadas:
-
-```yaml
-# Okta SCIM configuration example
-scim:
-  enabled: true
-  app_assignments:
-    - app: "github"
-      scim_url: "https://api.github.com/scim/v2/organizations/{org}/Users"
-      auth_method: "bearer_token"
-    - app: "aws-iam-identity-center"
-      scim_url: "https://scim.example.com/v2/Users"
-      auth_method: "oauth2"
-  deprovisioning:
-    on_disable: "remove_all_access"
-    on_suspend: "disable_signin_keep_membership"
-```
 
 ## Shared Account Remediation Checklist
 - [ ] Inventory all shared accounts (root, admin, service)

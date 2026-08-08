@@ -265,12 +265,6 @@ const loader = new DataLoader(batchFn, {
 - **DataLoader lifecycle in web servers**: create a new DataLoader instance per request. Store on the request context object. Dispose after the response is sent. Never share DataLoader instances across requests in long-running servers. Use a middleware pattern to inject per-request DataLoader instances
 - **Monitoring DataLoader metrics**: track batch count, batch size, cache hit rate, and error rate. Export metrics via Prometheus. Set up Grafana dashboards. Alert on cache hit rate < 50% (indicates poor cache utilization). Alert on error rate > 1%. Track average batch size to tune maxBatchSize
 - **Feature flags for batching**: deploy DataLoader behind a feature flag. Roll out to a percentage of traffic first. Monitor database query count and response time. If metrics improve, increase rollout. If regressions occur, roll back immediately. Use LaunchDarkly or Unleash for feature flag management
-## Monitoring and Observability
-
-- **Batch metrics**: track batch count, average batch size, max batch size, and batch dispatch time. Use Prometheus histograms for batch size distribution. Alert on average batch size < 5 (indicates poor batching efficiency). Monitor batch dispatch latency p95 < 100ms
-- **Cache metrics**: track cache hit rate, cache size, and cache eviction count. Alert on cache hit rate < 30%. Monitor cache memory usage. Track cache key patterns to identify hot keys. Use cacheKeyFn metrics to understand key distribution
-- **Resolver-level tracing**: use Apollo Tracing or OpenTelemetry to trace resolver execution time. Identify resolvers that bypass DataLoader. Track the ratio of DataLoader loads vs direct database calls. Use distributed tracing to see the full request path from gateway to database
-- **Error rate monitoring**: track error rate per batch function. Alert on error rate > 1%. Log batch errors with key context, stack trace, and request ID. Use Sentry for error tracking with GraphQL context. Correlate errors with deployments using release tags
 ## Cost Optimization
 
 - **Database connection pooling**: DataLoader reduces database queries but each batch still needs a connection. Use a connection pool (PgBouncer, Prisma Data Proxy) to share connections across batches. Set pool size based on peak concurrent batches. Monitor pool utilization and alert at 80% capacity

@@ -256,14 +256,6 @@ ead_only=True o la API streaming de openpyxl para workbooks grandes
 - **Patron data lake**: almacena archivos raw en un data lake (S3, Azure Data Lake). Procesa con Spark o Dask. Escribe resultados a un data warehouse (Snowflake, BigQuery). El data lake preserva datos raw para reprocesamiento
 - **Procesamiento de archivos event-driven**: cuando un archivo llega a S3, S3 Event Notifications triggera una funcion Lambda. La funcion parsea el archivo y escribe resultados a una base de datos. Este patron escala a miles de archivos por segundo
 
-## Manejo de Errores y Recuperacion
-
-- **Procesamiento parcial de archivos**: si un archivo tiene 10,000 rows y la row 5,000 esta malformada, procesa rows 1-4,999, loguea el error, salta la row 5,000, y continua con rows 5,001-10,000. Nunca falles un batch entero por una row mala
-- **Dead letter queue para archivos**: archivos que fallan al procesarse van a una dead letter queue (S3 bucket, message queue). Un proceso separado los reintenta con exponential backoff. Despues de 3 fallos, alerta a un humano para inspeccion manual
-- **Checkpointing para archivos grandes**: registra el byte offset del ultimo procesado exitosamente. Si el procesamiento crashea, resumea desde el checkpoint en lugar de reprocesar el archivo entero. Esto es critico para archivos que toman horas procesar
-- **Procesamiento idempotente de archivos**: procesar el mismo archivo dos veces debe producir el mismo resultado. Usa file hash + timestamp de procesamiento como key unica. Salta archivos que ya fueron procesados exitosamente
-- **Circuit breaker para dependencias externas**: si la fuente de archivos (FTP, S3, API) esta caida, abre un circuit breaker despues de 5 fallos consecutivos. Deja de intentar lecturas por 5 minutos, luego prueba de nuevo. Esto previene fallos en cascada
-- **Degradacion graceful**: si un parser no critico falla (ej. extraccion de metadata), continua procesando con los datos core. Loguea el fallo pero no bloquees el pipeline. Bloquea solo en fallos criticos de parsing
 ## Tooling y Ecosistema
 
 - **pandas**: la libreria estandar de Python para datos tabulares. 50M+ downloads/mes. Maneja CSV, Excel, JSON, SQL, Parquet. El overhead de memoria es 5-10x el tamaÃ±o del archivo. Usa parametro dtype para reducir memoria
@@ -284,21 +276,6 @@ ead_only=True o la API streaming de openpyxl para workbooks grandes
 - Loguea errores de parse con nombre de archivo, numero de linea y mensaje de error para debugging
 - Usa parsers streaming (SAX, ijson) para archivos >1GB para mantener memoria constante
 - Comprime archivos intermedios con gzip o zstd. Parquet es 10-20x mas pequeÃ±o que CSV
-## Tips de Optimizacion de Performance
-
-- Usa pandas.read_csv(dtype=...) para especificar tipos de columna. Evita overhead de auto-inference y reduce memoria en 50-80%
-- Para lecturas repetidas del mismo archivo, cachea el resultado parseado con unctools.lru_cache o Redis
-- Usa csv.field_size_limit() para aumentar el tamaÃ±o maximo de campo si encuentras _csv.Error: field larger than field limit
-- Para XML, prefiere lxml sobre xml.etree.ElementTree. lxml es 5-10x mas rapido para archivos grandes
-- Para Excel, usa openpyxl en modo 
-ead_only=True para archivos >10MB. Streamea rows en lugar de cargar el workbook entero
-- Para extraccion de texto PDF, pdfplumber es mas preciso que PyPDF2 para layouts complejos pero 3-5x mas lento
-- Para archivos de log, usa 
-e.compile() para pre-compilar patrones regex. Regex compilado es 2-5x mas rapido que 
-e.search() con string patterns
-- Para conversion CSV-a-JSON, usa orjson en lugar de json para serializacion 5-10x mas rapida
-- Para procesamiento de CSV grandes, usa pandas.read_csv(chunksize=10000) y procesa chunks en paralelo con concurrent.futures
-- Para escritura Excel, xlsxwriter es 2-3x mas rapido que openpyxl para archivos grandes de output pero no soporta lectura
 ## Preguntas Frecuentes
 
 ### ¿Cómo leo archivos Excel grandes sin quedarme sin memoria?

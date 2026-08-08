@@ -256,14 +256,6 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - **Data lake pattern**: store raw files in a data lake (S3, Azure Data Lake). Process with Spark or Dask. Write results to a data warehouse (Snowflake, BigQuery). The data lake preserves raw data for reprocessing
 - **Event-driven file processing**: when a file lands in S3, S3 Event Notifications trigger a Lambda function. The function parses the file and writes results to a database. This pattern scales to thousands of files per second
 
-## Error Handling and Recovery
-
-- **Partial file processing**: if a file has 10,000 rows and row 5,000 is malformed, process rows 1-4,999, log the error, skip row 5,000, and continue with rows 5,001-10,000. Never fail an entire batch for one bad row
-- **Dead letter queue for files**: files that fail processing go to a dead letter queue (S3 bucket, message queue). A separate process retries them with exponential backoff. After 3 failures, alert a human for manual inspection
-- **Checkpointing for large files**: record the last successfully processed byte offset. If processing crashes, resume from the checkpoint instead of reprocessing the entire file. This is critical for files that take hours to process
-- **Idempotent file processing**: processing the same file twice should produce the same result. Use file hash + processing timestamp as a unique key. Skip files that have already been processed successfully
-- **Circuit breaker for external dependencies**: if the file source (FTP, S3, API) is down, open a circuit breaker after 5 consecutive failures. Stop attempting reads for 5 minutes, then try again. This prevents cascading failures
-- **Graceful degradation**: if a non-critical parser fails (e.g., metadata extraction), continue processing with the core data. Log the failure but do not block the pipeline. Only block on critical parsing failures
 ## Tooling and Ecosystem
 
 - **pandas**: the standard Python library for tabular data. 50M+ downloads/month. Handles CSV, Excel, JSON, SQL, Parquet. Memory overhead is 5-10x file size. Use dtype parameter to reduce memory
@@ -284,21 +276,6 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - Log parse errors with file name, line number, and error message for debugging
 - Use streaming parsers (SAX, ijson) for files >1GB to maintain constant memory
 - Compress intermediate files with gzip or zstd. Parquet is 10-20x smaller than CSV
-## Performance Optimization Tips
-
-- Use pandas.read_csv(dtype=...) to specify column types. Avoids auto-inference overhead and reduces memory by 50-80%
-- For repeated reads of the same file, cache the parsed result with unctools.lru_cache or Redis
-- Use csv.field_size_limit() to increase the max field size if you encounter _csv.Error: field larger than field limit
-- For XML, prefer lxml over xml.etree.ElementTree. lxml is 5-10x faster for large files
-- For Excel, use openpyxl in 
-ead_only=True mode for files >10MB. It streams rows instead of loading the entire workbook
-- For PDF text extraction, pdfplumber is more accurate than PyPDF2 for complex layouts but 3-5x slower
-- For log files, use 
-e.compile() to pre-compile regex patterns. Compiled regex is 2-5x faster than 
-e.search() with string patterns
-- For CSV-to-JSON conversion, use orjson instead of json for 5-10x faster serialization
-- For large CSV processing, use pandas.read_csv(chunksize=10000) and process chunks in parallel with concurrent.futures
-- For Excel writing, xlsxwriter is 2-3x faster than openpyxl for large output files but does not support reading
 ## FAQ
 
 ### How do I read large Excel files without running out of memory?

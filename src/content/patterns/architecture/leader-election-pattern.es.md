@@ -381,46 +381,5 @@ class RedisLeaderElection:
             self.redis.delete(self.lock_key)
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Implementa step-down graceful del lider.** Cuando un lider se apaga, debe liberar explicitamente el lease y notificar a las seguidoras. Esto previene escenarios de cerebro dividido durante mantenimiento planificado.
-
-```python
-def shutdown(self):
-    if self.is_leader():
-        print("Renunciando como lider...")
-        self.db.delete('leader')
-        # Notificar seguidoras via pub/sub o cola de mensajes
-        self.notify_followers('leader_stepdown')
-```
-
-2. **Usa tokens de aislamiento para operaciones distribuidas.** Genera un token de aislamiento monotonicamente creciente con cada periodo de liderazgo. Incluye este token en todas las escrituras distribuidas para prevenir que lideres obsoletos realicen cambios.
-
-```python
-class LeaderElectionWithFencing:
-    def __init__(self, db):
-        self.db = db
-        self.fencing_token = 0
-
-    def acquire(self):
-        if self.try_acquire():
-            # Incrementar token de aislamiento en nuevo liderazgo
-            self.fencing_token = self.db.incr('fencing_token')
-            return True
-        return False
-
-    def perform_write(self, key, value):
-        # Incluir token de aislamiento en escritura
-        if not self.is_leader():
-            raise Exception("No es lider")
-        
-        write_data = {
-            'value': value,
-            'fencing_token': self.fencing_token
-        }
-        self.db.set(key, write_data)
-```
-
-3. **Implementa monitoreo de salud del lider.** Las seguidoras deben monitorear activamente la salud del lider, no solo observar el lease. Implementa health checks y probes de readiness para detectar fallos del lider antes de la expiracion del lease.
 
 

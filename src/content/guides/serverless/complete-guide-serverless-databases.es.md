@@ -515,37 +515,6 @@ Disena tu schema basandote en como vas a queryear los datos, no en como los dato
 # GSI: PK: PRODUCT#<id>, SK: ORDER#<date> → patron 4
 ```
 
-## Estrategias de Migración
-
-### De Relacional a DynamoDB
-
-```python
-# Step 1: Analizar access patterns
-# Que queries corres actualmente?
-# SELECT * FROM users WHERE id = ?          → GetItem
-# SELECT * FROM orders WHERE user_id = ?    → Query
-# SELECT * FROM users WHERE email = ?       → Query (GSI)
-
-# Step 2: Disenar single-table schema
-# PK = USER#<id>, SK = PROFILE for users
-# PK = USER#<id>, SK = ORDER#<date> for orders
-# GSI: email-index for email lookups
-
-# Step 3: Migrar datos
-def migrate_users():
-    users = old_db.execute("SELECT * FROM users")
-    for user in users:
-        table.put_item(Item={
-            "PK": f"USER#{user['id']}",
-            "SK": "PROFILE",
-            "name": user["name"],
-            "email": user["email"],
-            "created_at": user["created_at"].isoformat()
-        })
-
-# Step 4: Actualizar codigo de aplicacion
-# Reemplazar SQL queries con operaciones DynamoDB
-```
 
 ## Optimización de Costo
 

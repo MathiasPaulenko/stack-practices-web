@@ -217,11 +217,6 @@ class PaymentServiceTest {
 - **Property-based testing**: use property-based testing for edge case discovery. Define properties that should always hold. Let the framework generate test cases. Run many iterations to find counterexamples. Document property-based testing strategy. Test with different generators. Monitor property test effectiveness. Review properties regularly. Use shrinking for debugging. Combine with example-based tests
 - **Mutation testing**: use mutation testing to evaluate test quality. Mutate source code and run tests. Good tests catch mutations. Calculate mutation score. Document mutation testing strategy. Test with different mutators. Monitor mutation score trends. Review surviving mutants. Use mutation testing for critical code. Balance mutation testing cost and value
 - **Snapshot testing**: use snapshot testing for regression detection. Capture component output as snapshot. Compare future runs against snapshot. Review snapshot diffs carefully. Document snapshot testing strategy. Test snapshot update process. Monitor snapshot drift. Alert on large snapshot changes. Use snapshots for serializable output. Keep snapshots small and focused
-## Migration Strategies
-
-- **Migrating from manual to automated testing**: start with critical paths. Automate smoke tests first. Add integration tests next. Add unit tests for new code. Gradually add tests for legacy code. Document migration strategy. Test automation progress. Monitor test coverage growth. Alert on coverage stagnation. Review migration progress quarterly
-- **Migrating between test frameworks**: plan framework migration carefully. Map old assertions to new framework. Migrate tests incrementally. Run both frameworks in parallel. Document migration strategy. Test migrated tests. Monitor migration progress. Alert on migration blockers. Complete migration after validation. Clean up old framework
-- **Migrating from monolith to microservices testing**: adapt test strategy for microservices. Add contract tests for service boundaries. Add integration tests for service interactions. Reduce E2E test scope. Document microservices testing strategy. Test service contracts. Monitor test execution. Alert on contract violations. Review test architecture. Use service virtualization
 
 ## Compliance and Governance
 

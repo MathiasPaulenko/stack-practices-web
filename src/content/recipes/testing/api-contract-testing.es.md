@@ -214,11 +214,6 @@ validate_response(spec, response)
 - **Migracion entre test frameworks**: planea framework migration cuidadosamente. Mapea old assertions a new framework. Migra tests incrementalmente. Corre ambos frameworks en paralelo. Documenta migration strategy. Testea migrated tests. Monitorea migration progress. Alerta en migration blockers. Completa migration despues de validation. Limpia old framework
 - **Migracion de monolith a microservices testing**: adapta test strategy para microservices. Agrega contract tests para service boundaries. Agrega integration tests para service interactions. Reduce E2E test scope. Documenta microservices testing strategy. Testea service contracts. Monitorea test execution. Alerta en contract violations. Revisa test architecture. Usa service virtualization
 
-## Compliance y Governance
-
-- **Testing SLAs**: define SLAs para test execution. Unit tests completan en under 5 minutos. Integration tests completan en under 30 minutos. E2E tests completan en under 60 minutos. Trackea SLA compliance. Alerta en SLA violations. Documenta SLA definitions. Revisa SLAs trimestralmente. Comunica SLA status. Usa SLA para priorizacion
-- **Test reporting**: genera weekly test reports. Incluye pass rate, coverage y trends. Highlighta flaky tests. Comparte con stakeholders. Documenta reporting methodology. Automatiza report generation. Revisa report content. Trackea metrics en el tiempo. Usa reports para planning y optimization
-- **Audit y compliance**: manten audit trail de test results. Trackea quien corrio tests y cuando. Loggea all test environment changes. Usa version control para test code. Documenta audit strategy. Testea audit log completeness. Monitorea audit log retention. Revisa compliance requirements regularmente. Alerta en audit log gaps
 ## Automatizacion y Tooling
 
 - **Test automation framework**: construye un robusto test automation framework. Usa page object model para UI tests. Usa factory pattern para test data. Usa builder pattern para complex objects. Documenta framework architecture. Testea framework components. Monitorea framework performance. Revisa framework regularmente. Updatea framework con best practices. Manten framework maintainable

@@ -295,13 +295,6 @@ Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary 
 - **Password hashing**: bcrypt with cost factor 12 uses ~250ms CPU per hash. At 100 logins/second, this requires 25 CPU cores. Budget ~/month for compute during peak login traffic.
 - **Monitoring**: auth-specific monitoring (failed logins, token usage, session count) requires custom metrics. Budget -30/month for Datadog or Grafana Cloud.
 
-## Monitoring and Observability
-
-- **Track failed login rate**: monitor failed authentication attempts per IP and per user. Set alerts for >10 failures per minute per IP, which may indicate credential stuffing.
-- **Monitor active session count**: track the number of active sessions. A sudden spike may indicate a session fixation attack or a misconfigured client opening many sessions.
-- **Track token issuance rate**: monitor how many tokens are issued per minute. A spike may indicate a compromised client or a token leak.
-- **Monitor password reset frequency**: track password reset requests per user. Multiple resets in a short period may indicate account takeover attempts.
-- **Track MFA enrollment rate**: monitor how many users have MFA enabled. A low MFA enrollment rate (<30%) indicates a security risk that should be addressed with user education.
 
 ## Deployment Checklist
 

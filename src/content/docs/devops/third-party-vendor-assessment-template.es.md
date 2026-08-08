@@ -370,39 +370,6 @@ vendors:
     renewal_date: "2026-09-15"
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Mapea el acceso del proveedor a tus niveles de clasificacion de datos.** No todos los proveedores necesitan acceso al mismo nivel de datos. Documenta que datos puede acceder cada proveedor y alinea los controles en consecuencia:
-
-```yaml
-# vendor-data-access-matrix.yaml
-data_classification:
-  public:
-    vendors: ["analytics-pro", "marketing-tools"]
-    required_controls: ["tls-12", "basic-auth"]
-  internal:
-    vendors: ["acme-cloud", "support-zendesk"]
-    required_controls: ["tls-12", "sso", "mfa", "dpa-signed"]
-  restricted:
-    vendors: ["payment-processor"]
-    required_controls: ["tls-13", "sso", "mfa", "pci-dss", "right-to-audit"]
-```
-
-2. **Rastrea los compromisos de remediacion con fechas de vencimiento.** Los proveedores suelen prometer correcciones durante la evaluacion pero nunca las entregan. Vincula los compromisos a las renovaciones de contrato:
-
-```bash
-#!/bin/bash
-# Check for overdue vendor remediation items
-set -euo pipefail
-
-REMEDICATION_FILE="vendor-remediation-log.csv"
-TODAY=$(date +%Y-%m-%d)
-
-awk -F',' -v today="$TODAY" '
-NR>1 && $5 < today && $6 != "completed" {
-    print "OVERDUE: " $1 " - " $2 " (due: " $5 ", status: " $6 ")"
-}' "$REMEDICATION_FILE"
-```
 
 ## SOC 2 Scope Verification Checklist
 - [ ] Report covers the specific service you will use

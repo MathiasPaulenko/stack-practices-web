@@ -160,11 +160,6 @@ job:
 - **VPC configuration**: configure VPC for functions that need private network access. Use private subnets for database access. Configure NAT Gateway for outbound internet. Use VPC endpoints for AWS services. Document VPC configuration. Test VPC connectivity. Monitor VPC resource usage. Review security group rules regularly. Alert on VPC configuration changes
 - **API authentication**: implement authentication for serverless APIs. Use JWT tokens for stateless authentication. Use API keys for simple authentication. Use OAuth 2.0 for third-party authentication. Configure CORS properly. Document authentication strategy. Test authentication flows. Monitor authentication failures. Alert on authentication anomalies. Use rate limiting to prevent abuse
 
-## Deployment and CI/CD
-
-- **Serverless deployment strategies**: use infrastructure as code for deployments. AWS SAM or Serverless Framework for Lambda. Azure Bicep or ARM templates for Functions. Google Cloud Deployment Manager for Cloud Functions. Version all deployments. Use blue-green deployments for zero downtime. Use canary deployments for gradual rollout. Document deployment strategy. Test deployment in staging. Monitor deployment health. Rollback on failures
-- **CI/CD pipeline for serverless**: automate build, test, and deployment. Run unit tests in CI. Run integration tests in staging. Scan dependencies for vulnerabilities. Package function code efficiently. Deploy with infrastructure as code. Run smoke tests after deployment. Document CI/CD pipeline. Monitor pipeline success rate. Alert on pipeline failures. Review pipeline performance regularly
-- **Versioning and aliases**: use versioning for function deployments. AWS Lambda supports versions and aliases. Azure Functions support deployment slots. Google Cloud Functions support traffic splitting. Use aliases for environment promotion. Document versioning strategy. Test version switching. Monitor version distribution. Rollback to previous version on failures. Clean up old versions regularly
 
 ## Testing Serverless Functions
 

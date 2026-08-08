@@ -514,34 +514,6 @@ print(f"Transactions lost (est.): {result.transactions_lost}")
 print(f"Replication slots healthy: {result.consistency_ok}")
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Usa poolers de conexiones para minimizar el impacto del failover.** PgBouncer o ProxySQL pueden apuntar a una IP virtual que actualizas durante el failover, evitando reinicios de aplicacion:
-
-```ini
-# pgbouncer.ini
-[databases]
-appdb = host=primary.db.internal port=5432 dbname=appdb
-
-[pgbouncer]
-listen_addr = 0.0.0.0
-listen_port = 6432
-pool_mode = transaction
-max_client_conn = 200
-default_pool_size = 20
-```
-
-Durante el failover, actualiza solo la configuracion de PgBouncer y recarga:
-
-```bash
-# Update pgbouncer to point to new primary
-sed -i 's/primary.db.internal/replica.db.internal/' /etc/pgbouncer/pgbouncer.ini
-kill -HUP $(cat /var/run/pgbouncer/pgbouncer.pid)
-```
-
-2. **Mantén un arbol de decision de failover para escenarios complejos.** No todo failover es directo. Documenta puntos de decision:
-
-```markdown
 ## Failover Decision Tree
 
 1. Is primary down?

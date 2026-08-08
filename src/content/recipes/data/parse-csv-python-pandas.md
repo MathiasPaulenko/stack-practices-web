@@ -212,18 +212,6 @@ Key parameters in `read_csv`:
 - [ ] Configure error handling: decide whether to skip bad rows (log and continue) or fail fast. For data pipelines, skipping with logging is usually preferred
 - [ ] Set timeouts: parsing should have a maximum duration. Kill processes that exceed 2x the expected parse time to prevent resource exhaustion
 
-## Security Considerations
-
-- **Zip bomb via compressed files**: a 10MB ZIP can decompress to 100GB. Set decompressed size limits before extracting. Use zipfile.infolist() to check ile_size before extraction
-- **XML external entity (XXE) injection**: XML parsers that resolve external entities can leak local files or perform SSRF. Disable DTD processing with XMLParser(resolve_entities=False) in lxml or orbid_dtd=True in defusedxml
-- **CSV injection via formula injection**: Excel and CSV files can contain formulas starting with =, +, -, or @. When opened in Excel, these execute arbitrary formulas. Prefix dangerous cells with a single quote or strip formula characters
-- **Path traversal via filenames**: if filenames come from user input, ../../etc/passwd can escape the intended directory. Use os.path.basename() or pathlib.Path.name to sanitize filenames
-- **Memory exhaustion via large files**: an attacker can upload a 100GB file to crash the parser. Enforce file size limits at the web server (nginx client_max_body_size) before the parser sees the file
-- **Code injection via eval in parsed data**: if parsed data is passed to eval(), exec(), or Function(), an attacker can inject arbitrary code. Never eval parsed data. Use safe deserializers
-- **Encoding-based bypass**: UTF-7 or UTF-16 encoding can bypass security filters that expect UTF-8. Normalize encoding to UTF-8 before security checks
-- **Malicious PDF content**: PDF files can contain JavaScript, embedded files, or launch actions. Use PyPDF2 with strict mode or run PDF parsing in a sandboxed container
-- **Log injection via newline in parsed data**: if parsed data is written to log files, embedded newlines can forge log entries. Strip or escape newline characters before logging
-- **Resource exhaustion via deeply nested structures**: JSON or XML with 10,000+ nesting levels causes stack overflow in recursive parsers. Set recursion depth limits before parsing
 ## Variants and Alternatives
 
 - **Streaming parsers vs batch parsers**: streaming parsers (SAX, StAX, ijson) process data element-by-element with O(1) memory. Batch parsers (DOM, ElementTree, json.loads) load everything into memory. Choose streaming for files >100MB
@@ -279,21 +267,6 @@ ead_only=True mode or openpyxl's streaming API for large workbooks
 - Log parse errors with file name, line number, and error message for debugging
 - Use streaming parsers (SAX, ijson) for files >1GB to maintain constant memory
 - Compress intermediate files with gzip or zstd. Parquet is 10-20x smaller than CSV
-## Performance Optimization Tips
-
-- Use pandas.read_csv(dtype=...) to specify column types. Avoids auto-inference overhead and reduces memory by 50-80%
-- For repeated reads of the same file, cache the parsed result with unctools.lru_cache or Redis
-- Use csv.field_size_limit() to increase the max field size if you encounter _csv.Error: field larger than field limit
-- For XML, prefer lxml over xml.etree.ElementTree. lxml is 5-10x faster for large files
-- For Excel, use openpyxl in 
-ead_only=True mode for files >10MB. It streams rows instead of loading the entire workbook
-- For PDF text extraction, pdfplumber is more accurate than PyPDF2 for complex layouts but 3-5x slower
-- For log files, use 
-e.compile() to pre-compile regex patterns. Compiled regex is 2-5x faster than 
-e.search() with string patterns
-- For CSV-to-JSON conversion, use orjson instead of json for 5-10x faster serialization
-- For large CSV processing, use pandas.read_csv(chunksize=10000) and process chunks in parallel with concurrent.futures
-- For Excel writing, xlsxwriter is 2-3x faster than openpyxl for large output files but does not support reading
 ## FAQ
 
 ### How do I read a CSV without headers?

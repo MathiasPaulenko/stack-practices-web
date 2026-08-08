@@ -349,26 +349,5 @@ groups:
           summary: "Critical SLO burn for {{ $labels.job }} - exec notification required"
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Usa alertas basadas en SLI en lugar de alertas basadas en umbrales.** En vez de alertar cuando CPU > 80%, alerta cuando la tasa de quema del presupuesto de error excede 2x lo normal. Esto reduce falsos positivos y vincula las alertas al impacto en el usuario:
-
-```promql
-# Alert when 30-day error budget burns 2x faster than normal
-(
-  1 - job:slo_availability:ratio_rate1h
-) > 2 * (1 - 0.999) / 30 / 24
-```
-
-2. **Rastrea SLOs por viaje de usuario, no por servicio.** Un servicio puede estar saludable mientras un viaje critico de usuario esta roto. Define SLIs alrededor del flujo de checkout, no solo de la API de pagos:
-
-```yaml
-# User journey SLI: Checkout completion
-sli_checkout:
-  good_events: "checkout_completed_total"
-  bad_events: "checkout_failed_total + checkout_abandoned_total"
-  metric: "rate(checkout_completed_total[5m]) / rate(checkout_started_total[5m])"
-  target: 0.995
-```
 
 

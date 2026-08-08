@@ -180,12 +180,6 @@ def handle_request(headers):
 - **Scaling de collectors**: scalea collectors basado en incoming span rate. Usa Kubernetes HPA o auto-scaling groups. Monitorea collector queue length. Setea min/max replicas. Usa load balancers frente a collectors. Testea collector performance bajo load. Documenta guidelines de capacity planning. Alerta en collector queue depth
 - **Tuning de export pipeline**: batchea spans para export eficiente. Setea batch size a 512 spans. Setea export interval a 5 segundos. Usa async exporters para evitar blocking application threads. Monitorea export latency. Tunea batch size basado en throughput. Usa exporters separados para traces vs metrics. Profilea export overhead
 - **Optimizacion de trace queries**: usa indexed attributes para queries rapidas. Crea indexes en service name, operation name y trace ID. Usa time-range filters para limitar scan size. Evita full-text search en span attributes. Cachea frequent query results. Usa trace ID lookup para direct access. Monitorea query latency. Optimiza dashboard queries
-## Consideraciones de Seguridad
-
-- **Access control para observability data**: restringe access a traces, logs y metrics. Usa RBAC para query access. Separa permisos de read y write. Audita access a observability data. Rota API keys y tokens. Usa per-service credentials. Documenta access policies. Monitorea unauthorized access. Revisa access trimestralmente
-- **Encriptacion de data**: encripta observability data in transit y at rest. Usa TLS para data ingestion. Usa encryption at rest para storage. Rota encryption keys. Documenta encryption configuration. Testea encryption effectiveness. Monitorea encryption failures. Usa managed encryption services donde disponible
-- **PII en observability data**: traces y logs pueden contener PII. Implementa data redaction en ingestion. Maskear sensitive fields automaticamente. Usa allow-list para logged fields. Monitorea PII leakage. Alerta en PII detection. Documenta PII handling procedures. Testea redaction effectiveness. Revisa data collection practices
-- **Network security**: secura comunicacion entre agents y collectors. Usa mutual TLS. Usa private networks para monitoring traffic. Firewallea monitoring endpoints. Usa VPN para cross-network monitoring. Documenta network security configuration. Testea network security. Monitorea security events. Revisa network security trimestralmente
 
 ## Deployment y CI/CD
 

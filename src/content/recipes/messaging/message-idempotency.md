@@ -184,12 +184,6 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 - **Idempotency testing**: send the same message twice and verify the result is identical. Test with concurrent duplicate messages. Test with messages processed out of order. Test with partial failures and retries. Test with expired idempotency records. Automate idempotency tests in CI. Include idempotency verification in integration tests
 - **Chaos testing for duplicates**: inject duplicate messages randomly in staging. Verify the system handles them correctly. Use chaos engineering tools (Chaos Monkey, Gremlin). Test with network partitions that cause redelivery. Test with consumer restarts that cause reprocessing. Document findings and fix issues
 - **Load testing with duplicates**: send 10K messages with 10% duplicates under load. Verify no side effects from duplicates. Measure overhead of idempotency checking. Ensure idempotency storage scales with message volume. Monitor database/Redis performance during duplicate detection. Target < 5% overhead from idempotency checks
-## Security Considerations
-
-- **Message encryption**: encrypt sensitive message payloads at the application layer. TLS for transport encryption. Use AES-256 for payload encryption. Rotate encryption keys quarterly. Store keys in a secrets manager (AWS KMS, HashiCorp Vault). Never log encrypted payloads. Decrypt only in the consumer process memory
-- **Authentication and authorization**: authenticate producers and consumers using mutual TLS or SASL. Authorize queue access via ACLs. Use per-service credentials with least privilege. Rotate credentials regularly. Audit credential usage. Block anonymous connections in production. Use virtual hosts for environment isolation
-- **Message integrity**: use HMAC signatures to verify message integrity. Sign message body + headers with a shared secret. Verify signature on consumption. Reject messages with invalid signatures. Rotate signing keys periodically. Log signature verification failures. Use asymmetric keys for cross-organization messaging
-- **Audit logging**: log all message publishing and consumption events. Include message ID, timestamp, producer/consumer identity, and action. Send audit logs to a centralized logging system. Retain logs per compliance requirements (e.g., 7 years for financial systems). Alert on suspicious patterns (mass deletions, unauthorized access)
 
 ## Monitoring and Observability
 

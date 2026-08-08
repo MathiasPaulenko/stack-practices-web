@@ -184,12 +184,6 @@ producer.send(new ProducerRecord<>("orders", orderId, payload));
 - **Testing de idempotency**: envia el mismo mensaje dos veces y verifica que el resultado sea identico. Testea con mensajes duplicados concurrentes. Testea con mensajes procesados out of order. Testea con partial failures y retries. Testea con idempotency records expirados. Automatiza idempotency tests en CI. Incluye verificacion de idempotency en integration tests
 - **Chaos testing para duplicados**: inyecta mensajes duplicados randomicamente en staging. Verifica que el sistema los maneje correctamente. Usa chaos engineering tools (Chaos Monkey, Gremlin). Testea con network partitions que causan redelivery. Testea con consumer restarts que causan reprocessing. Documenta findings y fixea issues
 - **Load testing con duplicados**: envia 10K mensajes con 10% duplicados bajo load. Verifica no side effects de duplicados. Mide overhead de idempotency checking. Asegura que idempotency storage escale con message volume. Monitorea performance de database/Redis durante duplicate detection. Targetea < 5% overhead de idempotency checks
-## Consideraciones de Seguridad
-
-- **Encriptacion de mensajes**: encripta sensitive message payloads en la application layer. TLS para transport encryption. Usa AES-256 para payload encryption. Rota encryption keys trimestralmente. Storea keys en un secrets manager (AWS KMS, HashiCorp Vault). Nunca loguees payloads encriptados. Desencripta solo en la process memory del consumer
-- **Autenticacion y autorizacion**: autentica producers y consumers usando mutual TLS o SASL. Autoriza queue access via ACLs. Usa per-service credentials con least privilege. Rota credentials regularmente. Audita credential usage. Bloquea conexiones anonimas en produccion. Usa virtual hosts para isolacion de entornos
-- **Integridad de mensajes**: usa HMAC signatures para verificar message integrity. Firma message body + headers con un shared secret. Verifica signature en consumo. Rechaza mensajes con signatures invalidas. Rota signing keys periodicamente. Loguea failures de signature verification. Usa asymmetric keys para messaging cross-organization
-- **Audit logging**: loguea todos los eventos de message publishing y consumption. Incluye message ID, timestamp, producer/consumer identity y action. Envia audit logs a un centralized logging system. Reten logs per compliance requirements (ej. 7 aÃ±os para financial systems). Alerta en patrones sospechosos (mass deletions, unauthorized access)
 
 ## Monitoreo y Observabilidad
 

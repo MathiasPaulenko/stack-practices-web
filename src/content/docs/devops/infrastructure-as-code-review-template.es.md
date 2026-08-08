@@ -398,42 +398,5 @@ results = [detector.check_drift(env) for env in detector.environments]
 detector.send_alert(results)
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Usa `terraform plan -out` para persistir planes para auditoria.** Guardar el archivo de plan crea un registro inmutable de lo que se reviso y aplico:
-
-```bash
-#!/bin/bash
-set -euo pipefail
-
-ENV="${1:?Usage: $0 <environment>}"
-PLAN_FILE="plans/${ENV}-$(date +%Y%m%d-%H%M%S).tfplan"
-
-mkdir -p plans/
-terraform -chdir=terraform/environments/${ENV} init -input=false
-terraform -chdir=terraform/environments/${ENV} plan -out="../../${PLAN_FILE}" -input=false
-
-echo "Plan saved to ${PLAN_FILE}"
-echo "Review the plan, then run:"
-echo "  terraform -chdir=terraform/environments/${ENV} apply \"../../${PLAN_FILE}\""
-```
-
-2. **Etiqueta todos los recursos consistentemente para seguimiento de costos y propiedad.** Usa un bloque de tags por defecto en la configuracion del provider de Terraform:
-
-```hcl
-# Default tags applied to all AWS resources
-provider "aws" {
-  default_tags {
-    tags = {
-      Environment   = var.environment
-      ManagedBy     = "terraform"
-      Project       = var.project_name
-      CostCenter    = var.cost_center
-      Owner         = var.owner_team
-      LastReviewed  = formatdate("YYYY-MM-DD", timestamp())
-    }
-  }
-}
-```
 
 

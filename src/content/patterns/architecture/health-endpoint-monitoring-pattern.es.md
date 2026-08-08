@@ -361,58 +361,5 @@ app.get('/health/ready', async (req, res) => {
 });
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Agrega informacion de version a los endpoints de salud.** Incluye la version del servicio, timestamp de build y hash de commit en las respuestas de salud. Esto ayuda a identificar cual version esta desplegada y rastrear despliegues.
-
-```javascript
-app.get('/health/live', (req, res) => {
-  res.status(200).json({
-    status: 'alive',
-    version: process.env.APP_VERSION || 'unknown',
-    buildTime: process.env.BUILD_TIME || 'unknown',
-    commitHash: process.env.COMMIT_HASH || 'unknown'
-  });
-});
-```
-
-2. **Implementa autenticacion de endpoints de salud.** Protege los endpoints de deep health con tokens de autenticacion o allowlists de IP. Esto previene acceso no autorizado a informacion sensible del sistema.
-
-```javascript
-const authMiddleware = (req, res, next) => {
-  const token = req.headers['x-health-token'];
-  if (token !== process.env.HEALTH_TOKEN) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-  next();
-};
-
-app.get('/health/deep', authMiddleware, async (req, res) => {
-  // Implementacion de health check profundo
-});
-```
-
-3. **Usa health checks para shutdown graceful.** Implementa un endpoint de shutdown que marca el servicio como no saludable, permitiendo que el balanceador de carga drene el trafico antes de que el proceso salga.
-
-```javascript
-let isShuttingDown = false;
-
-app.post('/health/shutdown', (req, res) => {
-  isShuttingDown = true;
-  res.status(200).json({ status: 'shutting down' });
-  
-  // Dar tiempo al balanceador de carga para dejar de enviar trafico
-  setTimeout(() => {
-    process.exit(0);
-  }, 10000);
-});
-
-app.get('/health/ready', (req, res) => {
-  if (isShuttingDown) {
-    return res.status(503).json({ status: 'shutting down' });
-  }
-  // Verificacion de readiness normal
-});
-```
 
 

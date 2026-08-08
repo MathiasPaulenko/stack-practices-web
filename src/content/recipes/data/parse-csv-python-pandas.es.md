@@ -212,18 +212,6 @@ Parámetros clave en `read_csv`:
 - [ ] Configurar manejo de errores: decide si saltar rows malas (loguear y continuar) o fail fast. Para pipelines de datos, saltar con logging es usualmente preferido
 - [ ] Setear timeouts: el parsing debe tener una duracion maxima. Mata procesos que excedan 2x el tiempo esperado de parse para prevenir agotamiento de recursos
 
-## Consideraciones de Seguridad
-
-- **Zip bomb via archivos comprimidos**: un ZIP de 10MB puede descomprimirse a 100GB. Setea limites de tamaÃ±o descomprimido antes de extraer. Usa zipfile.infolist() para chequear ile_size antes de extraccion
-- **Inyeccion XXE (XML External Entity)**: los parsers XML que resuelven entidades externas pueden leakear archivos locales o realizar SSRF. Deshabilita el procesamiento DTD con XMLParser(resolve_entities=False) en lxml o orbid_dtd=True en defusedxml
-- **Inyeccion de formulas via CSV**: archivos Excel y CSV pueden contener formulas empezando con =, +, - o @. Al abrirse en Excel, estas ejecutan formulas arbitrarias. Prefija celdas peligrosas con un single quote o strippa caracteres de formula
-- **Path traversal via nombres de archivo**: si los nombres de archivo vienen de input del usuario, ../../etc/passwd puede escapar del directorio intencionado. Usa os.path.basename() o pathlib.Path.name para sanitizar nombres de archivo
-- **Agotamiento de memoria via archivos grandes**: un atacante puede subir un archivo de 100GB para crashear el parser. Enforce limites de tamaÃ±o en el web server (nginx client_max_body_size) antes de que el parser vea el archivo
-- **Inyeccion de codigo via eval en datos parseados**: si los datos parseados se pasan a eval(), exec() o Function(), un atacante puede inyectar codigo arbitrario. Nunca evalues datos parseados. Usa deserializadores seguros
-- **Bypass basado en encoding**: encoding UTF-7 o UTF-16 puede bypassar filtros de seguridad que esperan UTF-8. Normaliza el encoding a UTF-8 antes de los checks de seguridad
-- **Contenido PDF malicioso**: archivos PDF pueden contener JavaScript, archivos embebidos o acciones de launch. Usa PyPDF2 con strict mode o corre parsing de PDF en un contenedor sandboxed
-- **Inyeccion de logs via newlines en datos parseados**: si los datos parseados se escriben a archivos de log, newlines embebidos pueden forjar entradas de log. Strippa o escapa caracteres de newline antes de loguear
-- **Agotamiento de recursos via estructuras profundamente anidadas**: JSON o XML con 10,000+ niveles de nesting causa stack overflow en parsers recursivos. Setea limites de profundidad de recursion antes de parsear
 ## Variantes y Alternativas
 
 - **Parsers streaming vs batch**: los parsers streaming (SAX, StAX, ijson) procesan dato por dato con memoria O(1). Los parsers batch (DOM, ElementTree, json.loads) cargan todo en memoria. Elije streaming para archivos >100MB
@@ -279,21 +267,6 @@ ead_only=True o la API streaming de openpyxl para workbooks grandes
 - Loguea errores de parse con nombre de archivo, numero de linea y mensaje de error para debugging
 - Usa parsers streaming (SAX, ijson) para archivos >1GB para mantener memoria constante
 - Comprime archivos intermedios con gzip o zstd. Parquet es 10-20x mas pequeÃ±o que CSV
-## Tips de Optimizacion de Performance
-
-- Usa pandas.read_csv(dtype=...) para especificar tipos de columna. Evita overhead de auto-inference y reduce memoria en 50-80%
-- Para lecturas repetidas del mismo archivo, cachea el resultado parseado con unctools.lru_cache o Redis
-- Usa csv.field_size_limit() para aumentar el tamaÃ±o maximo de campo si encuentras _csv.Error: field larger than field limit
-- Para XML, prefiere lxml sobre xml.etree.ElementTree. lxml es 5-10x mas rapido para archivos grandes
-- Para Excel, usa openpyxl en modo 
-ead_only=True para archivos >10MB. Streamea rows en lugar de cargar el workbook entero
-- Para extraccion de texto PDF, pdfplumber es mas preciso que PyPDF2 para layouts complejos pero 3-5x mas lento
-- Para archivos de log, usa 
-e.compile() para pre-compilar patrones regex. Regex compilado es 2-5x mas rapido que 
-e.search() con string patterns
-- Para conversion CSV-a-JSON, usa orjson en lugar de json para serializacion 5-10x mas rapida
-- Para procesamiento de CSV grandes, usa pandas.read_csv(chunksize=10000) y procesa chunks en paralelo con concurrent.futures
-- Para escritura Excel, xlsxwriter es 2-3x mas rapido que openpyxl para archivos grandes de output pero no soporta lectura
 ## Preguntas Frecuentes
 
 ### ¿Cómo leo un CSV sin headers?

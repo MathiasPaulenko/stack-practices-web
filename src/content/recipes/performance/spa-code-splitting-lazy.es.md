@@ -286,10 +286,6 @@ o-transform header para content ya compressed. Monitorea compression-related vul
 - **Migracion a un nuevo CDN**: corre ambos CDNs en paralelo durante migration. Compara cache hit ratios. Testea purge functionality. Verifica SSL certificates. Monitorea performance metrics. Switchea DNS gradualmente. Documenta migration runbook. Testea failback procedures. Revisa migration progress. Completa DNS switch despues de validation
 - **Migracion de connection pools**: migra pool configuration gradualmente. Testea new pool size en staging. Monitorea connection usage. Roll out a un service a la vez. Documenta migration strategy. Testea failback. Revisa pool performance. Completa migration despues de validation. Monitorea connection issues
 
-## Compliance y Governance
-
-- **Performance SLAs**: define performance SLAs para critical endpoints. API response time under 200ms. Page load time under 3 segundos. Trackea SLA compliance. Alerta en SLA violations. Documenta SLA definitions. Revisa SLAs trimestralmente. Comunica SLA status. Testea SLA monitoring. Usa SLA para priorizacion
-- **Performance reporting**: genera weekly performance reports. Incluye key metrics y trends. Highlighta regressions y improvements. Comparte con stakeholders. Documenta reporting methodology. Automatiza report generation. Revisa report content. Trackea performance en el tiempo. Usa reports para planning
 ## FAQ
 
 **P: Funciona con SSR?**

@@ -367,11 +367,6 @@ jira_client = FindingToJira("https://company.atlassian.net", "api-token", "SEC")
 jira_client.create_tickets(findings)
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Usa una matriz de severidad de hallazgos que mapee a riesgo de negocio.** La severidad tecnica por si sola no captura el contexto de negocio. Una inyeccion SQL media en una API de pago publica es mas urgente que un hallazgo alto en una herramienta admin interna detras de VPN:
-
-```markdown
 ## Business Risk Adjustment Matrix
 
 | Technical Severity | Public-Facing | Authenticated Users Only | Internal Only |

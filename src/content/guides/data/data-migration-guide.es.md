@@ -76,18 +76,6 @@ A continuación: patrones probados para migrar datos de forma segura, incluyendo
 | **Ventana de Rollback** | El tiempo durante el cual puedes revertir sin pérdida de datos |
 | **Idempotencia** | Ejecutar la misma migración dos veces produce el mismo resultado |
 
-## Estrategias de Migración
-
-Elige el enfoque correcto basado en tolerancia al riesgo y restricciones del sistema:
-
-| Estrategia | Downtime | Riesgo | Mejor Para |
-|------------|----------|--------|------------|
-| **Doble escritura + backfill** | Ninguno | Bajo | Nuevo datastore, cambios de esquema |
-| **Expandir-contraer (columna)** | Ninguno | Bajo | Agregar/eliminar columnas |
-| **Snapshot + CDC** | Breve | Medio | Migraciones de motor de base de datos |
-| **Blue/green con migración** | Breve | Medio | Reestructuras mayores de esquema |
-| **Stop-the-world** | Horas | Alto | Bases de datos pequeñas, ventanas de mantenimiento |
-| **Strangler fig** | Ninguno | Bajo | Migración gradual de sistema legado |
 
 ## Implementación Zero-Downtime Paso a Paso
 

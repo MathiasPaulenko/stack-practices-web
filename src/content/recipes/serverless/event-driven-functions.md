@@ -147,12 +147,6 @@ async function publishOrderPlaced(order) {
 - **Not handling partial batch failures**: Lambda with SQS batch sizes greater than 1 can fail the entire batch because of one bad message. Implement per-record error handling.
 - **Ignoring message ordering**: SQS standard queues do not guarantee ordering. Use FIFO queues or Kinesis when sequence matters.
 
-## Error Handling and Recovery
-
-- **Cold start error handling**: handle initialization errors gracefully. Wrap handler initialization in try-catch blocks. Provide fallback values for missing environment variables. Log initialization errors with structured logging. Implement retry logic for transient failures. Use circuit breakers for downstream service calls. Document error handling strategy. Test error scenarios in staging. Monitor error rates after deployment. Set up alerts for initialization failures
-- **Function timeout management**: set appropriate timeout values for each function. AWS Lambda supports up to 15 minutes. Azure Functions support up to 10 minutes. Google Cloud Functions support up to 60 minutes. Start with short timeouts and adjust based on monitoring. Document timeout values per function. Test behavior at timeout boundary. Implement graceful shutdown on timeout. Monitor timeout frequency. Alert on timeout spikes
-- **Retry and dead letter queues**: configure retry policies for failed invocations. Use dead letter queues (DLQ) for messages that exceed retry limits. AWS SQS supports maxReceiveCount and DLQ configuration. Azure Service Bus supports dead lettering. Google Pub/Sub supports dead letter topics. Document retry strategy. Test DLQ behavior. Monitor DLQ depth. Set up alerts for DLQ messages. Process DLQ messages regularly. Document DLQ handling procedures
-- **Idempotency in serverless functions**: design functions to be idempotent. Use idempotency keys for duplicate detection. Store processed message IDs in a database. Return cached results for duplicate requests. Document idempotency strategy. Test with duplicate messages. Monitor duplicate detection rate. Handle idempotency failures gracefully. Use distributed locks for concurrent duplicates
 
 ## Security Considerations
 

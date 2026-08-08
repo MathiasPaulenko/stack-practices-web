@@ -506,11 +506,6 @@ ORDER BY test_date DESC
 LIMIT 12;
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Mantén un calendario de pruebas de DR con escenarios rotativos.** No pruebes el mismo escenario cada vez. Rota a traves de diferentes modos de falla para cubrir todas las rutas de recuperacion:
-
-```markdown
 ## DR Test Calendar
 
 | Quarter | Scenario | Owner | Target RTO | Last Tested |

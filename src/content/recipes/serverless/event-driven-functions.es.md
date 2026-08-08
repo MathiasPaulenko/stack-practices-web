@@ -160,11 +160,6 @@ async function publishOrderPlaced(order) {
 - **Configuracion de VPC**: configura VPC para functions que necesitan private network access. Usa private subnets para database access. Configura NAT Gateway para outbound internet. Usa VPC endpoints para AWS services. Documenta VPC configuration. Testea VPC connectivity. Monitorea VPC resource usage. Revisa security group rules regularmente. Alerta en VPC configuration changes
 - **Autenticacion de API**: implementa autenticacion para serverless APIs. Usa JWT tokens para stateless authentication. Usa API keys para simple authentication. Usa OAuth 2.0 para third-party authentication. Configura CORS properly. Documenta autenticacion strategy. Testea autenticacion flows. Monitorea autenticacion failures. Alerta en autenticacion anomalies. Usa rate limiting para prevenir abuse
 
-## Deployment y CI/CD
-
-- **Estrategias de deployment serverless**: usa infrastructure as code para deployments. AWS SAM o Serverless Framework para Lambda. Azure Bicep o ARM templates para Functions. Google Cloud Deployment Manager para Cloud Functions. Versiona all deployments. Usa blue-green deployments para zero downtime. Usa canary deployments para gradual rollout. Documenta deployment strategy. Testea deployment en staging. Monitorea deployment health. Rollback en failures
-- **Pipeline CI/CD para serverless**: automatiza build, test y deployment. Corre unit tests en CI. Corre integration tests en staging. Scanea dependencies para vulnerabilities. Packagea function code eficientemente. Deploya con infrastructure as code. Corre smoke tests despues de deployment. Documenta CI/CD pipeline. Monitorea pipeline success rate. Alerta en pipeline failures. Revisa pipeline performance regularmente
-- **Versioning y aliases**: usa versioning para function deployments. AWS Lambda soporta versions y aliases. Azure Functions soportan deployment slots. Google Cloud Functions soporta traffic splitting. Usa aliases para environment promotion. Documenta versioning strategy. Testea version switching. Monitorea version distribution. Rollback a previous version en failures. Limpia old versions regularmente
 
 ## Testing de Serverless Functions
 

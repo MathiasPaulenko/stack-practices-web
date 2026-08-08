@@ -425,26 +425,5 @@ queue.put("urgent_task", 0)  # Alta prioridad
 queue.put("regular_task", 10)  # Baja prioridad
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Monitorea métricas de cola.** Rastrea profundidad de cola, throughput de productores, throughput de consumidores y latencia. Configura alertas para profundidad de cola que exceda umbrales. Una cola creciente indica que los consumidores son muy lentos o los productores son muy rápidos.
-
-2. **Maneja shutdown gracefully.** Usa un flag de shutdown o poison pill para señalar a productores y consumidores que se detengan. Flush la cola antes de shutdown o guarda items pending en almacenamiento persistente para recuperación.
-
-```python
-class GracefulQueue:
-    def __init__(self):
-        self.queue = queue.Queue()
-        self.shutdown_flag = False
-
-    def shutdown(self):
-        self.shutdown_flag = True
-        # Despertar consumidores esperando
-        for _ in range(10):
-            self.queue.put(None)
-
-    def is_shutdown(self):
-        return self.shutdown_flag
-```
 
 

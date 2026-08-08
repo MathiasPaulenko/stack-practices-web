@@ -369,50 +369,5 @@ module "prod_segment" {
 }
 ```
 
-## Mejores Practicas Adicionales
-
-1. **Implementa un service mesh para segmentacion a nivel de aplicacion.** Usa Istio o Linkerd para hacer cumplir politicas de trafico en la capa de aplicacion, complementando los controles a nivel de red:
-
-```yaml
-# Istio AuthorizationPolicy - restrict which services can call payment-service
-apiVersion: security.istio.io/v1beta1
-kind: AuthorizationPolicy
-metadata:
-  name: payment-service-access
-  namespace: payment
-spec:
-  selector:
-    matchLabels:
-      app: payment-service
-  rules:
-    - from:
-        - source:
-            principals: ["cluster.local/ns/checkout/sa/checkout-sa"]
-      to:
-        - operation:
-            methods: ["POST"]
-            paths: ["/api/v1/charge"]
-```
-
-2. **Usa analisis de flujo de red para validar la segmentacion.** Recopila y analiza patrones de trafico reales para identificar flujos no documentados que violen la politica:
-
-```bash
-#!/bin/bash
-set -euo pipefail
-
-# Export VPC flow logs and analyze cross-zone traffic
-aws logs start-query \
-  --log-group-name "/aws/vpc/flow-logs" \
-  --start-time $(date -d '7 days ago' +%s) \
-  --end-time $(date +%s) \
-  --query-string '
-    fields srcAddr, dstAddr, dstPort, action
-    | filter action = "ACCEPT"
-    | stats count() as connections by srcAddr, dstAddr, dstPort
-    | sort connections desc
-    | limit 100
-  ' \
-  --output text
-```
 
 

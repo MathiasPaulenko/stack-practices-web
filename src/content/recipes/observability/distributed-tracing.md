@@ -180,12 +180,6 @@ def handle_request(headers):
 - **Collector scaling**: scale collectors based on incoming span rate. Use Kubernetes HPA or auto-scaling groups. Monitor collector queue length. Set min/max replicas. Use load balancers in front of collectors. Test collector performance under load. Document capacity planning guidelines. Alert on collector queue depth
 - **Export pipeline tuning**: batch spans for efficient export. Set batch size to 512 spans. Set export interval to 5 seconds. Use async exporters to avoid blocking application threads. Monitor export latency. Tune batch size based on throughput. Use separate exporters for traces vs metrics. Profile export overhead
 - **Trace query optimization**: use indexed attributes for fast queries. Create indexes on service name, operation name, and trace ID. Use time-range filters to limit scan size. Avoid full-text search on span attributes. Cache frequent query results. Use trace ID lookup for direct access. Monitor query latency. Optimize dashboard queries
-## Security Considerations
-
-- **Access control for observability data**: restrict access to traces, logs, and metrics. Use RBAC for query access. Separate read and write permissions. Audit access to observability data. Rotate API keys and tokens. Use per-service credentials. Document access policies. Monitor for unauthorized access. Review access quarterly
-- **Data encryption**: encrypt observability data in transit and at rest. Use TLS for data ingestion. Use encryption at rest for storage. Rotate encryption keys. Document encryption configuration. Test encryption effectiveness. Monitor for encryption failures. Use managed encryption services where available
-- **PII in observability data**: traces and logs may contain PII. Implement data redaction at ingestion. Mask sensitive fields automatically. Use allow-list for logged fields. Monitor for PII leakage. Alert on PII detection. Document PII handling procedures. Test redaction effectiveness. Review data collection practices
-- **Network security**: secure communication between agents and collectors. Use mutual TLS. Use private networks for monitoring traffic. Firewall monitoring endpoints. Use VPN for cross-network monitoring. Document network security configuration. Test network security. Monitor for security events. Review network security quarterly
 
 ## Deployment and CI/CD
 

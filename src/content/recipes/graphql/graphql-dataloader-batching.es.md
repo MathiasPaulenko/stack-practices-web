@@ -276,10 +276,6 @@ const loader = new DataLoader(batchFn, {
 - **Connection pooling de base de datos**: DataLoader reduce database queries pero cada batch necesita una conexion. Usa un connection pool (PgBouncer, Prisma Data Proxy) para sharear conexiones a traves de batches. Setea pool size basado en peak concurrent batches. Monitorea pool utilization y alerta al 80% de capacidad
 - **Caching para reducir database load**: usa DataLoader cache con Redis para caching cross-request. Cachea resultados de batch comunes por 5-15 minutos. Invalida en mutaciones. Reduce database load en 50-90% para workloads read-heavy. Monitorea cache hit rate y ajusta TTL basado en tolerancia de staleness
 - **Impacto de costo en serverless**: en entornos serverless, cada invocacion paga por tiempo de ejecucion. DataLoader reduce database round trips, reduciendo tiempo de ejecucion y costo. Mide costo por request antes y despues de adoptar DataLoader. Ahorro tipico: 30-60% en costos relacionados a base de datos
-## Pitfalls Comunes y Anti-Patrones
-
-- **Sharear DataLoader a traves de requests**: nunca sharees una instancia de DataLoader a traves de HTTP requests en un servidor web. Cada request debe obtener una instancia fresh. Sharear lleva a leakage de cache entre usuarios y potencial bypass de autorizacion. Usa un patron de contexto por-request
-- **No manejar keys null**: las batch functions de DataLoader reciben keys null cuando los resolvers retornan null. Maneja nulls explicitamente en la batch function. Retorna null para input keys null. No pases null a queries de base de datos. Valida keys antes de procesar
 ## FAQ
 
 **Q: DataLoader cachea entre peticiones?**

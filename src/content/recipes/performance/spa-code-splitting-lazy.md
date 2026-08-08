@@ -286,10 +286,6 @@ o-transform header for already compressed content. Monitor for compression-relat
 - **Migrating to a new CDN**: run both CDNs in parallel during migration. Compare cache hit ratios. Test purge functionality. Verify SSL certificates. Monitor performance metrics. Switch DNS gradually. Document migration runbook. Test failback procedures. Review migration progress. Complete DNS switch after validation
 - **Migrating connection pools**: migrate pool configuration gradually. Test new pool size in staging. Monitor connection usage. Roll out to one service at a time. Document migration strategy. Test failback. Review pool performance. Complete migration after validation. Monitor for connection issues
 
-## Compliance and Governance
-
-- **Performance SLAs**: define performance SLAs for critical endpoints. API response time under 200ms. Page load time under 3 seconds. Track SLA compliance. Alert on SLA violations. Document SLA definitions. Review SLAs quarterly. Communicate SLA status. Test SLA monitoring. Use SLA for prioritization
-- **Performance reporting**: generate weekly performance reports. Include key metrics and trends. Highlight regressions and improvements. Share with stakeholders. Document reporting methodology. Automate report generation. Review report content. Track performance over time. Use reports for planning
 
 
 
