@@ -150,7 +150,6 @@ export default function remarkTruncateFaq({
 } = {}) {
   return function transformer(tree) {
     if (!tree.children) return;
-    console.error('[remarkTruncateFaq] transformer called, children:', tree.children.length);
 
     // Process every FAQ section in the document (main and additional).
     // When removeSection is true, the entire FAQ section (heading + content)
@@ -175,9 +174,6 @@ export default function remarkTruncateFaq({
           processFaqSection(tree, i, maxFaqs, maxSentences);
         }
       }
-    }
-    if (removed > 0) {
-      console.error(`[remarkTruncateFaq] Removed ${removed} nodes from FAQ section`);
     }
   };
 }

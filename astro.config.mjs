@@ -5,6 +5,7 @@ import { unified } from '@astrojs/markdown-remark';
 import shikiShortCode from './src/lib/shiki-short-code.mjs';
 import shikiClassify from './src/lib/shiki-classify.mjs';
 import remarkTruncateFaq from './src/lib/remark-truncate-faq.mjs';
+import rehypeTrimShikiPre from './src/lib/rehype-trim-shiki-pre.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,9 +23,8 @@ export default defineConfig({
       transformers: [shikiShortCode(), shikiClassify()],
     },
     processor: unified({
-      remarkPlugins: [
-        remarkTruncateFaq,
-      ],
+      remarkPlugins: [remarkTruncateFaq],
+      rehypePlugins: [rehypeTrimShikiPre],
     }),
   },
   vite: {
