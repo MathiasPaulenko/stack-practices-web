@@ -240,6 +240,7 @@ When working on this project, always use the available Skills:
 ## Workflow Rules
 
 ### 1. Always Check Roadmap First
+
 Before implementing any feature:
 1. Check `ref/roadmap.md` for current phase
 2. Verify feature aligns with current objectives
@@ -308,9 +309,11 @@ Before implementing any feature:
 Before creating any content file, verify ALL of the following. Build errors from invalid content are unacceptable.
 
 ### Topics Enum (Exact Values Only)
+
 The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handling`, `performance`, `testing`, `architecture`, `design`, `devops`, `databases`, `concurrency`, `security`, `ai`, `frontend`, `infrastructure`, `messaging`, `observability`, `graphql`, `serverless`, `caching`.
 
 **Common replacements:**
+
 - `web` → `frontend`
 - `cloud` → `data` or `infrastructure`
 - `sql` → `data` or `databases`
@@ -321,17 +324,20 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 - `code-quality` → `testing`
 
 ### metaDescription Length
+
 - **Minimum:** 50 characters
 - **Maximum:** 170 characters
 - Must appear in BOTH top-level frontmatter AND inside `seo:` block
 - Spanish translations must also fit within 170 characters
 
 ### YAML Syntax
-- Every list item MUST start with `- ` (hyphen + space)
+
+- Every list item MUST start with `-` (hyphen + space)
 - Missing hyphens break the entire build
 - Always verify the frontmatter renders correctly before committing
 
 ### Pre-Commit Checklist (Content)
+
 1. Verify all `topics` against the enum list
 2. Count `metaDescription` characters in both locations
 3. Verify `relatedResources` point to existing slugs
