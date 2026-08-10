@@ -33,7 +33,7 @@ public/pagefind/
 
 # project docs
 ref.back/*
-docs/*
+/docs/*
 
 # IA Folders
 .agents/

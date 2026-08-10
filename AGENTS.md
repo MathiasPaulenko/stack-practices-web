@@ -69,25 +69,25 @@ public/
 └── assets/content/       # Auto-generated content indices (JSON)
 ```
 
-### Reference Documentation (`docs/`)
+### Reference Documentation (`ref/docs/`)
 
-The `docs/` folder contains detailed project reference documents. **Do not read all of them by default** — consult only the files relevant to the task at hand:
+The `ref/docs/` folder contains detailed project reference documents. **Do not read all of them by default** — consult only the files relevant to the task at hand:
 
 | File | Purpose | When to Consult |
 |------|---------|-----------------|
-| `docs/roadmap.md` | Development roadmap with phases and milestones | Planning features, prioritizing work |
-| `docs/tech-stack.md` | Full technology stack, dependencies, and build configuration | Adding dependencies, changing build config |
-| `docs/design-system.md` | Visual design system, color tokens, typography, and UI patterns | Creating or styling UI components |
-| `docs/seo.md` | SEO strategy, technical implementation, and on-page guidelines | Creating pages, optimizing meta tags, structured data |
-| `docs/structured-data.md` | Schema.org JSON-LD types and implementation rules | Adding JSON-LD to new page types |
-| `docs/content-architecture.md` | Content model, collections, and frontmatter specifications | Creating new content collections, changing schemas |
-| `docs/components.md` | Component catalog and usage guidelines | Building or modifying Astro components |
-| `docs/deployment.md` | GitHub Pages deployment pipeline and CI/CD setup | Changing deployment, fixing CI/CD issues |
-| `docs/performance.md` | Performance targets, Core Web Vitals, and optimization rules | Debugging build speed, optimizing bundles |
-| `docs/accessibility.md` | WCAG 2.2 compliance requirements and a11y patterns | Building interactive components, auditing a11y |
-| `docs/geo.md` | GEO (Generative Engine Optimization) strategy for AI answer engines | Writing long-form content for AI answer engines |
-| `docs/adsense.md` | Google AdSense integration plan (Phase 4+) | Phase 4+ monetization work |
-| `docs/ai-context.md` | AI/LLM context and prompt engineering guidelines | Building AI-assisted features or content tools |
+| `ref/docs/roadmap.md` | Development roadmap with phases and milestones | Planning features, prioritizing work |
+| `ref/docs/tech-stack.md` | Full technology stack, dependencies, and build configuration | Adding dependencies, changing build config |
+| `ref/docs/design-system.md` | Visual design system, color tokens, typography, and UI patterns | Creating or styling UI components |
+| `ref/docs/seo.md` | SEO strategy, technical implementation, and on-page guidelines | Creating pages, optimizing meta tags, structured data |
+| `ref/docs/structured-data.md` | Schema.org JSON-LD types and implementation rules | Adding JSON-LD to new page types |
+| `ref/docs/content-architecture.md` | Content model, collections, and frontmatter specifications | Creating new content collections, changing schemas |
+| `ref/docs/components.md` | Component catalog and usage guidelines | Building or modifying Astro components |
+| `ref/docs/deployment.md` | GitHub Pages deployment pipeline and CI/CD setup | Changing deployment, fixing CI/CD issues |
+| `ref/docs/performance.md` | Performance targets, Core Web Vitals, and optimization rules | Debugging build speed, optimizing bundles |
+| `ref/docs/accessibility.md` | WCAG 2.2 compliance requirements and a11y patterns | Building interactive components, auditing a11y |
+| `ref/docs/geo.md` | GEO (Generative Engine Optimization) strategy for AI answer engines | Writing long-form content for AI answer engines |
+| `ref/docs/adsense.md` | Google AdSense integration plan (Phase 4+) | Phase 4+ monetization work |
+| `ref/docs/ai-context.md` | AI/LLM context and prompt engineering guidelines | Building AI-assisted features or content tools |
 
 ### 3. Content Architecture
 
