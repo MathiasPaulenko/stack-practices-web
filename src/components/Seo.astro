@@ -200,14 +200,63 @@ function cleanGenericPrefix(rawTitle: string, available: number, depth = 0): str
   return rawTitle;
 }
 
-function makeFullTitle(rawTitle: string, addBrand: boolean): string {
+// Build the brand suffix. We prefer the full " | Type | Site" suffix, but fall
+// back to " | Site" and then to no suffix to keep the most important topic
+// keywords in the <title> tag.
+function buildBrandSuffix(): string {
+  return effectiveType ? ` | ${effectiveType}${localeTag} | ${SITE.name}` : ` | ${localeTag.trim()} | ${SITE.name}`;
+}
+
+function buildShortBrandSuffix(): string {
+  return ` | ${SITE.name}`;
+}
+
+function makeTitle(rawTitle: string, addBrand: boolean): string {
   const extra = htmlEscapedExtra(rawTitle);
-  const suffix = addBrand ? brandSuffix : '';
-  const suffixExtra = htmlEscapedExtra(suffix);
-  const available = maxTitleLength - extra - suffix.length - suffixExtra;
-  const cleanTitle = cleanGenericPrefix(rawTitle, Math.max(10, available));
-  const safeTitle = smartTruncate(cleanTitle, Math.max(10, available));
-  return addBrand ? `${safeTitle}${suffix}` : safeTitle;
+  // First, try the title without any brand suffix.
+  if (rawTitle.length + extra <= maxTitleLength) {
+    return rawTitle;
+  }
+  // If the title is too long on its own, truncate it so the unique topic
+  // keywords are preserved at the start.
+  return smartTruncate(rawTitle, maxTitleLength - extra);
+}
+
+function makeFullTitle(rawTitle: string, addBrand: boolean): string {
+  if (!addBrand) {
+    return makeTitle(rawTitle, false);
+  }
+
+  const extra = htmlEscapedExtra(rawTitle);
+  const fullSuffix = buildBrandSuffix();
+  const fullSuffixExtra = htmlEscapedExtra(fullSuffix);
+
+  // Try the full title with the full brand suffix.
+  if (rawTitle.length + extra + fullSuffix.length + fullSuffixExtra <= maxTitleLength) {
+    return `${rawTitle}${fullSuffix}`;
+  }
+
+  // Try a shorter brand suffix.
+  const shortSuffix = buildShortBrandSuffix();
+  const shortSuffixExtra = htmlEscapedExtra(shortSuffix);
+  if (rawTitle.length + extra + shortSuffix.length + shortSuffixExtra <= maxTitleLength) {
+    return `${rawTitle}${shortSuffix}`;
+  }
+
+  // Fall back to the title alone (Google often appends the brand in SERP).
+  if (rawTitle.length + extra <= maxTitleLength) {
+    return rawTitle;
+  }
+
+  // Last resort: truncate the title to fit.
+  const cleanTitle = cleanGenericPrefix(rawTitle, Math.max(20, maxTitleLength - extra));
+  return smartTruncate(cleanTitle, maxTitleLength - extra);
+}
+
+function makeOgTitle(rawTitle: string, addBrand: boolean): string {
+  if (!addBrand) return rawTitle;
+  const shortSuffix = buildShortBrandSuffix();
+  return `${rawTitle}${shortSuffix}`;
 }
 
 // Avoid a redundant brand suffix when the title already carries the site name
@@ -217,6 +266,10 @@ const titleContainsBrand = title.toLowerCase().includes(SITE.name.toLowerCase())
 const fullTitle = titleContainsBrand
   ? makeFullTitle(title, false)
   : makeFullTitle(title, true);
+
+const ogTitle = titleContainsBrand
+  ? makeOgTitle(title, false)
+  : makeOgTitle(title, true);
 
 const hasEn = locale === 'en' || hasAlternate;
 const hasEs = locale === 'es' || hasAlternate;
@@ -243,7 +296,7 @@ const metaDescription = smartTruncate(description, 160 - esDescTag.length) + esD
 
 <!-- Open Graph -->
 <meta property="og:type" content={ogType} />
-<meta property="og:title" content={fullTitle} />
+<meta property="og:title" content={ogTitle} />
 <meta property="og:description" content={metaDescription} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={SITE.name} />
@@ -252,7 +305,7 @@ const metaDescription = smartTruncate(description, 160 - esDescTag.length) + esD
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:title" content={ogTitle} />
 <meta name="twitter:description" content={metaDescription} />
 <meta name="twitter:image" content={`${SITE.url}/og-image.png`} />
 {SITE.twitter && <meta name="twitter:site" content={SITE.twitter} />}

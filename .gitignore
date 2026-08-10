@@ -3,6 +3,9 @@ dist/
 .output/
 output/
 
+# allow ref/output audit reports to be tracked
+!ref/output/
+
 # dependencies
 node_modules/
 
