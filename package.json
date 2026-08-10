@@ -8,7 +8,7 @@
     "start": "astro dev",
     "prebuild": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build": "astro build",
-    "postbuild": "node scripts/minify-classes.mjs && node scripts/minify-json.mjs && node scripts/trim-html-attrs.mjs && node scripts/clean-dist-assets.mjs && pagefind --site dist",
+    "postbuild": "node scripts/minify-classes.mjs && node scripts/minify-json.mjs && node scripts/trim-html-attrs.mjs && node scripts/clean-dist-assets.mjs && pagefind --site dist && node scripts/add-sri.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "sync": "astro sync",
