@@ -1,6 +1,12 @@
-# Googlebot Forensic Report — qapractices.com
+# Googlebot Forensic Report — stackpractices.com
 
-**Objective:** Determine exactly what Googlebot sees and why Google may decide not to index or rank `https://qapractices.com`.  
+## Context
+
+This audit prompt/report is customized for **StackPractices** (`https://stackpractices.com`), an Astro SSG developer resource site. Save regenerated outputs to `/output/`.
+
+> **Note:** The body of this file is an example report inherited from `qapractices.com`. Domain and project names have been updated, but technical findings (e.g., Angular references) must be replaced with StackPractices-specific data when regenerated.
+
+**Objective:** Determine exactly what Googlebot sees and why Google may decide not to index or rank `https://stackpractices.com`.  
 **Date:** 2026-07-23  
 **Method:** Fetch pages both without JavaScript (raw server response) and with JavaScript (Playwright Chromium), validate the entire live sitemap, inspect hreflang and internal links, and compare the two DOM versions.  
 
@@ -34,34 +40,34 @@ Conclusion: Googlebot can discover the URLs, but the crawl is slow, expensive, a
 
 ### Sample URLs tested
 
-1. `https://qapractices.com/`
-2. `https://qapractices.com/checklists/ab-testing-qa-checklist`
-3. `https://qapractices.com/documentation/api-testing-guide`
-4. `https://qapractices.com/test-cases/login-test-cases`
-5. `https://qapractices.com/templates/test-plan-template-free`
-6. `https://qapractices.com/prompts/ai-prompt-api-testing`
-7. `https://qapractices.com/topics/qa-fundamentals`
-8. `https://qapractices.com/about`
-9. `https://qapractices.com/authors`
-10. `https://qapractices.com/privacy`
-11. `https://qapractices.com/all-resources`
-12. `https://qapractices.com/es/documentation/api-testing-guide`
+1. `https://stackpractices.com/`
+2. `https://stackpractices.com/checklists/ab-testing-qa-checklist`
+3. `https://stackpractices.com/documentation/api-testing-guide`
+4. `https://stackpractices.com/test-cases/login-test-cases`
+5. `https://stackpractices.com/templates/test-plan-template-free`
+6. `https://stackpractices.com/prompts/ai-prompt-api-testing`
+7. `https://stackpractices.com/topics/qa-fundamentals`
+8. `https://stackpractices.com/about`
+9. `https://stackpractices.com/authors`
+10. `https://stackpractices.com/privacy`
+11. `https://stackpractices.com/all-resources`
+12. `https://stackpractices.com/es/documentation/api-testing-guide`
 
 ### No-JavaScript fetch results (first request)
 
 | URL | HTTP status | Final URL | Visible words in raw HTML | Title | Meta robots | Canonical in raw HTML | Structured data in raw HTML |
 |-----|-------------|-----------|---------------------------|-------|-------------|------------------------|------------------------------|
-| `/` | 200 | `/` | 6 | QAPractices - Quality Assurance Resources Hub | index, follow | `https://qapractices.com/` | Organization + WebPage |
-| `/checklists/ab-testing-qa-checklist` | 301 → 200 | `/checklists/ab-testing-qa-checklist/` | 11 | A/B Testing QA Checklist... | index, follow | `https://qapractices.com/checklists/ab-testing-qa-checklist` | Organization + WebPage |
+| `/` | 200 | `/` | 6 | StackPractices - Quality Assurance Resources Hub | index, follow | `https://stackpractices.com/` | Organization + WebPage |
+| `/checklists/ab-testing-qa-checklist` | 301 → 200 | `/checklists/ab-testing-qa-checklist/` | 11 | A/B Testing QA Checklist... | index, follow | `https://stackpractices.com/checklists/ab-testing-qa-checklist` | Organization + WebPage |
 | `/documentation/api-testing-guide` | 301 → 200 | `/documentation/api-testing-guide/` | 11 | API Testing Guide... | index, follow | no-slash | Organization + WebPage |
 | `/test-cases/login-test-cases` | 301 → 200 | `/test-cases/login-test-cases/` | 10 | Login Test Cases... | index, follow | no-slash | Organization + WebPage |
 | `/templates/test-plan-template-free` | 301 → 200 | `/templates/test-plan-template-free/` | 12 | Test Plan Template... | index, follow | no-slash | Organization + WebPage |
 | `/prompts/ai-prompt-api-testing` | 301 → 200 | `/prompts/ai-prompt-api-testing/` | 12 | AI Prompt for API Testing... | index, follow | no-slash | Organization + WebPage |
 | `/topics/qa-fundamentals` | 301 → 200 | `/topics/qa-fundamentals/` | 10 | QA Fundamentals... | index, follow | no-slash | Organization + WebPage |
-| `/about` | 301 → 200 | `/about/` | 2 | About - QAPractices | index, follow | `https://qapractices.com/about` | Organization + WebPage |
-| `/authors` | 301 → 200 | `/authors/` | 2 | Authors - QAPractices | index, follow | no-slash | Organization + WebPage |
-| `/privacy` | 301 → 200 | `/privacy/` | 2 | Privacy Policy - QAPractices | index, follow | no-slash | Organization + WebPage |
-| `/all-resources` | 301 → 200 | `/all-resources/` | 2 | All Resources - QAPractices | index, follow | no-slash | Organization + WebPage |
+| `/about` | 301 → 200 | `/about/` | 2 | About - StackPractices | index, follow | `https://stackpractices.com/about` | Organization + WebPage |
+| `/authors` | 301 → 200 | `/authors/` | 2 | Authors - StackPractices | index, follow | no-slash | Organization + WebPage |
+| `/privacy` | 301 → 200 | `/privacy/` | 2 | Privacy Policy - StackPractices | index, follow | no-slash | Organization + WebPage |
+| `/all-resources` | 301 → 200 | `/all-resources/` | 2 | All Resources - StackPractices | index, follow | no-slash | Organization + WebPage |
 | `/es/documentation/api-testing-guide` | 301 → 200 | `/es/documentation/api-testing-guide/` | 13 | Guía de Testing de API... | index, follow | no-slash | Organization + WebPage |
 
 **Definition of "visible words in raw HTML":** words remaining after stripping `<script>`, `<style>`, and HTML tags from the server response. The only visible text in the raw HTML of detail pages is the `<title>` content. No article body, no navigation, no internal links, no lists, no tables.
@@ -91,7 +97,7 @@ Conclusion: Googlebot can discover the URLs, but the crawl is slow, expensive, a
 
 ```text
 GET /checklists/ab-testing-qa-checklist HTTP/1.1
-Host: qapractices.com
+Host: stackpractices.com
 User-Agent: Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
 
 HTTP/1.1 301 Moved Permanently
@@ -198,7 +204,7 @@ Content-Length: 8,349
 
 ### Method
 
-Parsed `https://qapractices.com/sitemap.xml` and issued a `HEAD` request for each of the 2,352 `<loc>` URLs. Followed up to 4 redirects per URL. Measured response time.
+Parsed `https://stackpractices.com/sitemap.xml` and issued a `HEAD` request for each of the 2,352 `<loc>` URLs. Followed up to 4 redirects per URL. Measured response time.
 
 ### Results summary
 
@@ -208,7 +214,7 @@ Parsed `https://qapractices.com/sitemap.xml` and issued a `HEAD` request for eac
 | HTTP 200 | 2,349 |
 | HTTP 503 (transient GitHub Pages) | 3 |
 | URLs that performed a 301 redirect | **2,349** |
-| URLs that did NOT redirect | **3** (`https://qapractices.com/`, `https://qapractices.com/es/`, and one more root route) |
+| URLs that did NOT redirect | **3** (`https://stackpractices.com/`, `https://stackpractices.com/es/`, and one more root route) |
 | Average HEAD response time | **3,705 ms** |
 | Max HEAD response time | **5,157 ms** |
 | Non-slash → slash redirects | 2,349 |
@@ -217,10 +223,10 @@ Parsed `https://qapractices.com/sitemap.xml` and issued a `HEAD` request for eac
 
 | Sitemap URL | Chain |
 |-------------|-------|
-| `https://qapractices.com/about` | 301 → `https://qapractices.com/about/` → 200 |
-| `https://qapractices.com/checklists/ab-testing-qa-checklist` | 301 → `/checklists/ab-testing-qa-checklist/` → 200 |
-| `https://qapractices.com/documentation/api-testing-guide` | 301 → `/documentation/api-testing-guide/` → 200 |
-| `https://qapractices.com/es/documentation/api-testing-guide` | 301 → `/es/documentation/api-testing-guide/` → 200 |
+| `https://stackpractices.com/about` | 301 → `https://stackpractices.com/about/` → 200 |
+| `https://stackpractices.com/checklists/ab-testing-qa-checklist` | 301 → `/checklists/ab-testing-qa-checklist/` → 200 |
+| `https://stackpractices.com/documentation/api-testing-guide` | 301 → `/documentation/api-testing-guide/` → 200 |
+| `https://stackpractices.com/es/documentation/api-testing-guide` | 301 → `/es/documentation/api-testing-guide/` → 200 |
 
 ### Canonical and trailing slash consistency
 
@@ -287,7 +293,7 @@ Parsed `https://qapractices.com/sitemap.xml` and issued a `HEAD` request for eac
 
 ### Validation method
 
-Parsed `https://qapractices.com/sitemap.xml` and checked every `<url>` block for `en`, `es`, and `x-default` `<xhtml:link rel="alternate">` entries. Verified bidirectional references and trailing-slash consistency.
+Parsed `https://stackpractices.com/sitemap.xml` and checked every `<url>` block for `en`, `es`, and `x-default` `<xhtml:link rel="alternate">` entries. Verified bidirectional references and trailing-slash consistency.
 
 ### Results
 
@@ -305,10 +311,10 @@ Parsed `https://qapractices.com/sitemap.xml` and checked every `<url>` block for
 
 ```xml
 <url>
-  <loc>https://qapractices.com/about</loc>
-  <xhtml:link rel="alternate" hreflang="en" href="https://qapractices.com/about"/>
-  <xhtml:link rel="alternate" hreflang="es" href="https://qapractices.com/es/about"/>
-  <xhtml:link rel="alternate" hreflang="x-default" href="https://qapractices.com/about"/>
+  <loc>https://stackpractices.com/about</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/about"/>
+  <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/about"/>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/about"/>
 </url>
 ```
 
@@ -395,7 +401,7 @@ Score each factor from 0 to 100, where 100 is "Google can fully trust and render
 
 ### The question: "Why would Google decide NOT to rank this website?"
 
-Google would decide not to rank `qapractices.com` because the site is **expensive to crawl, expensive to render, and low-trust when rendered**.
+Google would decide not to rank `stackpractices.com` because the site is **expensive to crawl, expensive to render, and low-trust when rendered**.
 
 1. **Crawl cost is too high**
    * 2,349 of 2,352 sitemap URLs return a `301` redirect.
@@ -420,8 +426,8 @@ Google would decide not to rank `qapractices.com` because the site is **expensiv
    * The domain is ~1 month old and has zero external backlinks or brand mentions.
 
 4. **Authority signals are absent**
-   * `site:qapractices.com` returns **0 indexed results**.
-   * `"qapractices.com" -site:qapractices.com` returns **0 external mentions**.
+   * `site:stackpractices.com` returns **0 indexed results**.
+   * `"stackpractices.com" -site:stackpractices.com` returns **0 external mentions**.
    * No Knowledge Panel, no `sameAs` beyond GitHub/LinkedIn, no citations.
 
 **Conclusion:** Googlebot can discover the site, but the combination of redirect chains, JS-only content, heavy payload, templated content, and zero authority means Google has no incentive to keep these pages in the index. The economically rational decision is to crawl and discard.
@@ -443,7 +449,7 @@ Google would decide not to rank `qapractices.com` because the site is **expensiv
 | Heavy JS payload (247 KB main + 246 KB JSON) | **High** | Playwright network logs |
 | Render time 4.3–5.8 s | **Medium** | `ref/googlebot-render-results.json` |
 | Template/AI content patterns at scale | **Critical** | `ref/audit-data.json`, `ref/body-phrase-counts.js` |
-| Zero authority / backlinks | **Critical** | `site:` and `"qapractices.com"` SERP probes |
+| Zero authority / backlinks | **Critical** | `site:` and `"stackpractices.com"` SERP probes |
 
 ### Priority table
 
@@ -502,7 +508,7 @@ Google would decide not to rank `qapractices.com` because the site is **expensiv
 ### B. Sample HTTP trace (no-JS `HEAD` on a detail page)
 
 ```text
-$ curl -I -L -A "Googlebot/2.1" https://qapractices.com/checklists/ab-testing-qa-checklist
+$ curl -I -L -A "Googlebot/2.1" https://stackpractices.com/checklists/ab-testing-qa-checklist
 
 HTTP/1.1 301 Moved Permanently
 Location: /checklists/ab-testing-qa-checklist/
@@ -514,5 +520,5 @@ Content-Length: 8349
 
 ### C. SERP evidence
 
-* `site:qapractices.com` → **0 results**
-* `"qapractices.com" -site:qapractices.com` → **0 results**
+* `site:stackpractices.com` → **0 results**
+* `"stackpractices.com" -site:stackpractices.com` → **0 results**

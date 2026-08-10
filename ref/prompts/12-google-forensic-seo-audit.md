@@ -1,23 +1,29 @@
-# Google Recovery Forensic SEO Audit — QAPractices
+# Google Recovery Forensic SEO Audit — StackPractices
+
+## Context
+
+This audit prompt/report is customized for **StackPractices** (`https://stackpractices.com`), an Astro SSG developer resource site. Save regenerated outputs to `/output/`.
+
+> **Note:** The body of this file is an example report inherited from `qapractices.com`. Domain and project names have been updated, but technical findings (e.g., Angular references) must be replaced with StackPractices-specific data when regenerated.
 
 **Resumen ejecutivo (Español)**
 
-`qapractices.com` no está siendo recompensado por Google porque, a pesar de tener más de 2.300 URLs ricas en palabras clave, el contenido real no llega en el HTML estático: Angular está configurado con `prerender: false` y el script `postbuild` solo inyecta meta etiquetas. Googlebot debe ejecutar 833 KB de JavaScript para cada página. Eso, sumado a un contenido masivo con patrones repetitivos (frases tipo "For related guidance, see" en 922 entradas, "realm" en 428, "comprehensive" en 168), a un dominio nuevo sin backlinks, a una única firma de autor para 2.350 páginas en un mes y a fechas `lastmod` todas idénticas, produce el patrón clásico de "crawlé todo, rankeé nada". El diagnóstico raíz más probable es una combinación de renderizado JavaScript obligatorio + señales de contenido automatizado de baja confianza + ausencia total de autoridad.
+`stackpractices.com` no está siendo recompensado por Google porque, a pesar de tener más de 2.300 URLs ricas en palabras clave, el contenido real no llega en el HTML estático: Angular está configurado con `prerender: false` y el script `postbuild` solo inyecta meta etiquetas. Googlebot debe ejecutar 833 KB de JavaScript para cada página. Eso, sumado a un contenido masivo con patrones repetitivos (frases tipo "For related guidance, see" en 922 entradas, "realm" en 428, "comprehensive" en 168), a un dominio nuevo sin backlinks, a una única firma de autor para 2.350 páginas en un mes y a fechas `lastmod` todas idénticas, produce el patrón clásico de "crawlé todo, rankeé nada". El diagnóstico raíz más probable es una combinación de renderizado JavaScript obligatorio + señales de contenido automatizado de baja confianza + ausencia total de autoridad.
 
-**Scope:** forensic audit of `qapractices.com` to explain why Google crawls but does not reward the site, with a prioritized recovery plan.  
+**Scope:** forensic audit of `stackpractices.com` to explain why Google crawls but does not reward the site, with a prioritized recovery plan.  
 **Date:** 2026-07-23  
-**Data sources:** local repo (`D:\Codigo\qa-practices-web`), live site `https://qapractices.com`, Google SERP probes, Playwright render tests, custom audit scripts in `ref/`.  
+**Data sources:** local repo (`D:\Codigo\stack-practices-web`), live site `https://stackpractices.com`, Google SERP probes, Playwright render tests, custom audit scripts in `ref/`.  
 
 ---
 
 ## Executive verdict
 
-`qapractices.com` is in a **"crawl-everything, rank-nothing"** state.
+`stackpractices.com` is in a **"crawl-everything, rank-nothing"** state.
 
 Googlebot appears to be visiting the site (thousands of crawl events reported), yet:
 
-* `site:qapractices.com` returns **zero indexed results**.
-* Branded queries for `qapractices.com` do **not** surface the domain in the top results.
+* `site:stackpractices.com` returns **zero indexed results**.
+* Branded queries for `stackpractices.com` do **not** surface the domain in the top results.
 * The static HTML served for every URL contains only `<app-root></app-root>` plus meta tags; the 833 KB `main-*.js` bundle is required to render the article body.
 
 The three highest-impact root causes are, in order:
@@ -51,10 +57,10 @@ Until the site serves real content in static HTML, reduces template duplication,
 
 **Methodology:**
 
-1. Parsed `src/assets/content/**/*.{md,es.md}`, `public/assets/content/index-{en,es}.json`, `routes.txt`, `public/sitemap.xml` (repo), and live `https://qapractices.com/sitemap.xml`.
+1. Parsed `src/assets/content/**/*.{md,es.md}`, `public/assets/content/index-{en,es}.json`, `routes.txt`, `public/sitemap.xml` (repo), and live `https://stackpractices.com/sitemap.xml`.
 2. Ran custom scripts: `ref/audit-data.json` generator, `ref/similar-urls.js`, `ref/description-patterns.js`, `ref/body-phrase-counts.js`, `ref/template-phrase-entries.js`, `ref/live-sitemap-check.js`.
 3. Verified live rendering with Playwright (`devin/mcp-playwright`) on `/checklists/ab-testing-qa-checklist`.
-4. Probed Google index with `site:qapractices.com` and `"qapractices.com" -site:qapractices.com`.
+4. Probed Google index with `site:stackpractices.com` and `"stackpractices.com" -site:stackpractices.com`.
 5. Inspected `angular.json`, `scripts/postbuild.js`, `scripts/generate-sitemap.js`, `scripts/generate-routes.js`, `src/app/core/services/seo.service.ts`.
 
 ---
@@ -200,10 +206,10 @@ The site is not thin by word count. It is **thick but templated**.
 ### Negative signals
 
 * **Single-author implausibility:** one person credited for 2,350 bilingual resources in a month.
-* **Person schema not in static HTML:** the static `<head>` references `https://qapractices.com/authors#person`, but the `Person` JSON-LD and `itemscope` markup are only rendered by JS. Google resolving the `@id` is unreliable without the entity in the same payload.
+* **Person schema not in static HTML:** the static `<head>` references `https://stackpractices.com/authors#person`, but the `Person` JSON-LD and `itemscope` markup are only rendered by JS. Google resolving the `@id` is unreliable without the entity in the same payload.
 * **No external citations:** articles rarely reference official docs, standards, research, or recognized QA bodies.
 * **Zero backlinks/brand mentions** (see Section 11).
-* **Editorial policy component exists but unreachable** at `https://qapractices.com/editorial-policy` (404).
+* **Editorial policy component exists but unreachable** at `https://stackpractices.com/editorial-policy` (404).
 
 ---
 
@@ -256,8 +262,8 @@ The site is not thin by word count. It is **thick but templated**.
 
 ### Evidence
 
-* `site:qapractices.com` → **0 results**.
-* `"qapractices.com" -site:qapractices.com` → **0 external mentions**.
+* `site:stackpractices.com` → **0 results**.
+* `"stackpractices.com" -site:stackpractices.com` → **0 external mentions**.
 * The site is ~1 month old and has >2,300 URLs.
 * Google has crawled the site thousands of times (per user report) but impressions/clicks are near zero.
 
@@ -295,9 +301,9 @@ The duplication problem is **not duplicate pages; it is duplicate *patterns* app
 | Branded SERP presence | None |
 | External backlinks/mentions | 0 detected |
 | Knowledge Panel | None |
-| `qapractices.com` search results | Competing `qaprep.com`, `qpractice.com`, `practiceQ.com` appear; the target domain does not. |
+| `stackpractices.com` search results | Competing `qaprep.com`, `qpractice.com`, `practiceQ.com` appear; the target domain does not. |
 
-Google does not yet perceive `qapractices.com` as an entity. Without backlinks, social proof, or citations, the site has no off-page authority to support the volume of on-page content.
+Google does not yet perceive `stackpractices.com` as an entity. Without backlinks, social proof, or citations, the site has no off-page authority to support the volume of on-page content.
 
 ---
 
@@ -305,7 +311,7 @@ Google does not yet perceive `qapractices.com` as an entity. Without backlinks, 
 
 Searched competitors: BrowserStack, LambdaTest, Microsoft Learn, Atlassian, general QA tooling sites.
 
-| Competitor strength | QAPractices gap |
+| Competitor strength | StackPractices gap |
 |---------------------|-----------------|
 | Product-led interactive tools (live device cloud, test runners) | No interactive tooling; static markdown only. |
 | Certifications & training paths | No certification program or skill progression. |
@@ -315,7 +321,7 @@ Searched competitors: BrowserStack, LambdaTest, Microsoft Learn, Atlassian, gene
 | Original research, benchmarks, data studies | No original data. |
 | Strong backlink profiles from docs, blogs, universities | Zero backlinks. |
 
-**Strategic implication:** QAPractices competes as a pure content library against sites that combine content with tools, community, and brand authority. It must either **narrow focus to underserved long-tail topics** or **add unique utility** that competitors cannot easily copy.
+**Strategic implication:** StackPractices competes as a pure content library against sites that combine content with tools, community, and brand authority. It must either **narrow focus to underserved long-tail topics** or **add unique utility** that competitors cannot easily copy.
 
 ---
 
@@ -404,7 +410,7 @@ Searched competitors: BrowserStack, LambdaTest, Microsoft Learn, Atlassian, gene
 
 ## 15. Final forensic verdict
 
-`qapractices.com` is a well-structured, bilingual QA resource hub with a clear taxonomy and large word counts, but it is currently **invisible to Google because it asks Googlebot to do too much work for too little trust signal**.
+`stackpractices.com` is a well-structured, bilingual QA resource hub with a clear taxonomy and large word counts, but it is currently **invisible to Google because it asks Googlebot to do too much work for too little trust signal**.
 
 The three decisive problems are:
 

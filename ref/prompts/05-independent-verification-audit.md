@@ -4,6 +4,18 @@
 
 ---
 
+# WEBSITE CONTEXT
+
+This prompt is customized for **StackPractices** (`https://stackpractices.com`).
+
+- Static site: Astro 5+ SSG, Tailwind CSS v4+, Pagefind search.
+- Content: bilingual (EN/ES) code recipes, design patterns, documentation templates, and long-form guides.
+- Topics: data, api, authentication, file-handling, performance, testing, architecture, design, devops, databases, concurrency, security, ai, frontend, infrastructure, messaging, observability, graphql, serverless, caching.
+- Hosting: GitHub Pages custom domain.
+- Primary author: Mathias Paulenko.
+
+All output files must be saved to `/output/`.
+
 # ROLE
 
 You are acting as a completely independent external audit team.
@@ -580,7 +592,7 @@ Score every category from 0 to 100.
 
 # OUTPUT FILES
 
-Generate:
+Generate all files in `/output/`:
 
 VALIDATION_REPORT.md
 

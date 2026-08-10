@@ -1,4 +1,10 @@
-# Master Audit Checklist — qapractices.com
+# Master Audit Checklist — stackpractices.com
+
+## Context
+
+This audit prompt/checklist is customized for **StackPractices** (`https://stackpractices.com`), an Astro SSG developer resource site. Save regenerated outputs to `/output/`.
+
+> **Note:** The detailed issue list below is inherited from the original `qapractices.com` audit and is kept as a structural template. Replace the findings with current StackPractices-specific issues before using it as a master checklist.
 
 # Executive Summary
 
@@ -17,7 +23,7 @@
 
 ## Core problem statement
 
-qapractices.com is a technically broken, JavaScript-only, templated content library with no authority. Googlebot can discover the URLs but is forced to follow a redirect on every URL, download and execute a large Angular bundle, and render templated content on a one-month-old domain with zero backlinks. The economically rational decision for Google is to not index or rank the site.
+stackpractices.com is a technically broken, JavaScript-only, templated content library with no authority. Googlebot can discover the URLs but is forced to follow a redirect on every URL, download and execute a large Angular bundle, and render templated content on a one-month-old domain with zero backlinks. The economically rational decision for Google is to not index or rank the site.
 
 ## What must be true before content can rank
 
@@ -280,7 +286,7 @@ qapractices.com is a technically broken, JavaScript-only, templated content libr
 
 **Description:** The editorial policy page is referenced in structured data and navigation but is not in app.routes.ts, so it returns 404.
 
-**Affected URLs:** <https://qapractices.com/editorial-policy>
+**Affected URLs:** <https://stackpractices.com/editorial-policy>
 
 **Evidence:** GOOGLEBOT_FORENSIC_REPORT.md live URL behavior and ref/googlebot-render-results.json.
 
@@ -568,7 +574,7 @@ qapractices.com is a technically broken, JavaScript-only, templated content libr
 
 **Category:** Authority > Backlinks
 
-**Description:** site:qapractices.com returns 0 results and "qapractices.com" -site:qapractices.com returns 0 mentions. The domain has no backlink or brand signals.
+**Description:** site:stackpractices.com returns 0 results and "stackpractices.com" -site:stackpractices.com returns 0 mentions. The domain has no backlink or brand signals.
 
 **Affected URLs:** Entire domain
 
@@ -618,7 +624,7 @@ qapractices.com is a technically broken, JavaScript-only, templated content libr
 
 **Description:** The universal listing renders all resources in one DOM, which can slow rendering and crawl.
 
-**Affected URLs:** <https://qapractices.com/all-resources>
+**Affected URLs:** <https://stackpractices.com/all-resources>
 
 **Evidence:** AUDIT_REPORT.md Phase 3.6 and GOOGLEBOT_FORENSIC_REPORT.md rendered internal links count = 122.
 
