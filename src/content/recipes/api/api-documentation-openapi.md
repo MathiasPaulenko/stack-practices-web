@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: api-documentation-openapi
-title: "OpenAPI Docs: Swagger and Redoc"
-description: Create interactive OpenAPI documentation with Swagger and Redoc. Includes examples in Python, JavaScript, and Java for clear API docs.
-metaDescription: Create interactive OpenAPI documentation with Swagger and Redoc. Includes examples in Python, JavaScript, and Java for clear API docs.
+title: "How to Document an API with OpenAPI, Swagger UI and Redoc"
+description: A step-by-step guide to documenting REST APIs with OpenAPI. Generate interactive docs with Swagger UI and Redoc using Python, JavaScript and Java.
+metaDescription: Step-by-step guide to documenting REST APIs with OpenAPI. Learn how to generate interactive docs with Swagger UI and Redoc in Python, JavaScript and Java.
 difficulty: beginner
 topics:
   - api
@@ -27,7 +27,7 @@ lastUpdated: "2026-08-10"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
-  metaDescription: Create interactive OpenAPI documentation with Swagger and Redoc. Includes examples in Python, JavaScript, and Java for clear API docs.
+  metaDescription: Step-by-step guide to documenting REST APIs with OpenAPI. Learn how to generate interactive docs with Swagger UI and Redoc in Python, JavaScript and Java.
   keywords:
     - openapi docs
     - swagger documentation
@@ -36,15 +36,15 @@ seo:
 ---
 ## Overview
 
-OpenAPI (formerly Swagger) is the industry standard for describing [REST APIs](/recipes/rest-api-design/). A well-maintained OpenAPI spec works as the single source of truth for your API — generating interactive documentation, client SDKs, and automated tests from one YAML or JSON file.
+If your API docs live in READMEs, Confluence pages or Slack threads, they drift out of sync the moment you ship a change. OpenAPI — the spec that grew out of Swagger — lets you describe your endpoints, schemas and errors in one YAML or JSON file, then turn that file into interactive documentation, client SDKs and test scaffolding.
 
-Below is a practical approach to generating interactive API docs from OpenAPI specs using Swagger UI, Redoc, and native framework tools.
+This guide shows how to do it with three common stacks: Python + FastAPI, JavaScript + Express, and Java + SpringDoc. You'll also see when to use Swagger UI, when Redoc is the better fit, and how to keep the spec from rotting once it's in production.
 
 ## When to Use
 
 Use this resource when:
 - You need interactive API documentation that stays in sync with your code
-- You want to auto-generate client SDKs in multiple languages
+- You want to auto-generate client SDKs in several languages
 - Your team needs a contract-first approach for API development
 - You need to validate incoming requests against a formal schema
 
@@ -102,14 +102,16 @@ public class BookController {
 
 ## Explanation
 
-OpenAPI specs are typically generated in two ways:
-- **Code-first**: Annotations in your code generate the spec automatically ([FastAPI](/recipes/go-rest-api-gin/), SpringDoc, tsoa)
-- **Design-first**: You write the YAML/JSON spec manually, then generate server stubs and [client SDKs](/recipes/call-rest-api/)
+Teams produce OpenAPI specs in two ways, and the right choice depends on who owns the contract.
 
-The generated spec (`openapi.json`) drives:
-- **Swagger UI**: Interactive explorer for testing endpoints
-- **Redoc**: Clean, responsive documentation (better for reading)
-- **Client generators**: `openapi-generator-cli` creates TypeScript, Python, Java clients
+**Code-first** works well when a single team builds and consumes the API. Frameworks like FastAPI, SpringDoc and tsoa read annotations or decorators and emit `openapi.json` as a build artifact. The upside: the spec can't drift from the implementation. The downside: the spec tends to leak internal models unless you're careful with DTOs.
+
+**Design-first** works better when frontend, backend and mobile teams agree on a contract before anyone writes code. You write the YAML or JSON spec by hand, publish it to a registry like SwaggerHub or Stoplight, then generate server stubs and client SDKs. The upside: the contract forces explicit decisions about fields, errors and versioning. The downside: if the spec isn't enforced by tests, it can become aspirational while the code does something else.
+
+Once the spec exists, it powers three things:
+- **Swagger UI** — an interactive explorer where developers can call endpoints directly from the browser.
+- **Redoc** — a clean, three-pane documentation site that's easier to read and navigate.
+- **Client generators** — `openapi-generator-cli` can turn the same spec into typed clients for TypeScript, Python, Java and many other languages.
 
 ## Variants
 
@@ -123,58 +125,72 @@ The generated spec (`openapi.json`) drives:
 
 ## What Works
 
-- **Version your spec**: Use `version` field and document breaking changes
-- **Add examples**: Rich examples in schemas reduce integration friction
-- **Use tags**: Group endpoints logically (users, orders, products)
-- **Document errors**: Include 4xx and 5xx responses with problem details
-- **Keep spec in CI**: Validate spec syntax on every build with `swagger-codegen validate`
+- **Pin the spec version to the API version** in the `info.version` field, and document deprecations with `deprecated: true` plus a replacement path.
+- **Add examples** to request and response schemas; they're the fastest way to stop integration questions before they start.
+- **Group operations with tags** such as `users`, `orders`, or `products` so Swagger UI and Redoc render collapsible sections.
+- **Document real error responses**, not just `200`. Include `400`, `401`, `404`, `409` and `5xx` with problem-detail bodies.
+- **Validate the spec in CI** with `npx @redocly/cli lint` or `spectral`; a broken `$ref` or missing `operationId` will silently break client generators.
 
 ## Common Mistakes
 
-- **Drift between code and spec**: Code changes but spec is not updated — use code-first to avoid this
-- **Missing security definitions**: Document auth requirements ([Bearer](/recipes/oauth2-pkce-spa/), OAuth2, API key)
-- **Over-sharing internal models**: Expose DTOs, not [database entities](/guides/database-design-guide/), in the spec
-- **Ignoring nullable fields**: OpenAPI 3.
-- **Hardcoding server URLs**: Use variables (`{serverUrl}`) for different environments
+- **Letting the spec drift from the code**: Code-first tooling helps, but only if you actually expose DTOs, not database entities, in the spec.
+- **Forgetting security definitions**: Every operation that requires auth needs a `security` entry and a matching `securitySchemes` component.
+- **Exposing internal models**: Keep database entities out of `components/schemas`; use dedicated request and response DTOs.
+- **Ignoring nullable fields**: OpenAPI 3.0 uses `nullable: true`; OpenAPI 3.1 uses `type: [string, null]`. Pick one and lint for it.
+- **Hardcoding server URLs**: Use the `servers` array with variables (`{serverUrl}`) so staging and production don't require separate spec files.
 
 
 ## Troubleshooting
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
+- **Redoc or Swagger UI shows a blank page**: usually a malformed spec. Run `npx @redocly/cli lint openapi.json` to find the exact line and rule.
+- **Generated clients fail to compile**: check for `operationId` collisions, reserved words in schema names, and `enum` values that aren't valid identifiers in the target language.
+- **Spec doesn't match deployed behavior**: add contract tests with Schemathesis or Pact to the CI pipeline, so spec drift breaks the build before it reaches users.
+- **Examples in Swagger UI look wrong**: make sure `example` fields sit next to the right `schema` level and that array examples use the `items.example` form.
+- **Large specs slow down the docs page**: split the spec with `$ref` pointers and enable bundling with `redocly bundle` before rendering.
 
 
 
 
 ## Further Reading
 
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the api and documentation guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
+- [OpenAPI Specification (latest)](https://spec.openapis.org/oas/latest.html) — the authoritative reference for field names, supported types and version differences.
+- [Redocly CLI documentation](https://redocly.com/docs/cli) — how to lint, bundle and publish OpenAPI specs.
+- [FastAPI docs on OpenAPI](https://fastapi.tiangolo.com/reference/openapi/) — how FastAPI generates `/openapi.json` and `/docs` out of the box.
+- [Springdoc OpenAPI](https://springdoc.org/) — Spring Boot annotation reference and customization options.
 
 ## Production Notes
 
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
+- **Version the spec in source control** and tag releases with the same version as the API (`info.version` should match the deployed API version).
+- **Serve docs from a separate build artifact** or CDN path so spec updates don't require a full application deploy.
+- **Lint the spec in CI** before publishing; a broken `$ref` or missing `operationId` will break client generators and Redoc rendering.
+- **Monitor doc endpoints** (`/docs`, `/redoc`, `/openapi.json`) for 4xx/5xx and p99 latency, especially after spec updates.
 
 ## Key Takeaways
 
-- **Apply create api documentation with openapi** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- OpenAPI turns a single spec file into interactive docs, client SDKs and contract tests, so your documentation stays in sync with your code.
+- Swagger UI is best when developers need to call endpoints from the browser; Redoc is better for a clean, documentation-first reading experience.
+- FastAPI, Express and SpringDoc can generate the spec automatically from code, but teams with multiple consumers should consider design-first with a shared registry.
+- Validate the spec in CI with `redocly lint` or `spectral` to catch broken references, missing `operationId`s and version drift before they reach production.
 
 ## FAQ
 
 ### Should I use code-first or design-first?
 
-Code-first is faster for existing APIs. Design-first is better for cross-team contracts where frontend and backend develop in parallel. In code-first, annotations generate the spec automatically: `@app.get("/books/{id}")` in FastAPI or `@Operation(summary="Get book")` in SpringDoc. In design-first, you write the OpenAPI YAML first: `openapi: 3.0.3\npaths:\n  /books/{id}:\n    get:\n      summary: Get book` and generate server stubs with `openapi-generator-cli generate -i openapi.yaml -g python-fastapi`. Design-first enforces a contract before implementation, preventing scope creep. Code-first reduces drift since the spec always matches the code. For microservices with multiple teams, design-first with a shared spec registry (SwaggerHub, Stoplight) works best. For internal APIs with a single team, code-first is more practical.
+Start with code-first if you're building an internal API that only your own team consumes. FastAPI, SpringDoc and tsoa can derive the spec from your annotations, so the contract stays close to the code:
+
+```python
+@app.get("/books/{book_id}")
+def get_book(book_id: int):
+    ...
+```
+
+Use design-first when several teams — frontend, mobile, backend, external partners — need to agree on the contract before anyone writes code. You write the OpenAPI YAML first, publish it to a registry such as SwaggerHub or Stoplight, and then generate stubs:
+
+```bash
+openapi-generator-cli generate -i openapi.yaml -g python-fastapi
+```
+
+The real risk with design-first is drift: the spec becomes a wishlist while the code does something else. Prevent that with contract tests (Schemathesis, Pact) in CI. The risk with code-first is leaking internal models into the spec; prevent that by returning DTOs, not database entities.
 
 ### How do I keep documentation in sync with deployed code?
 

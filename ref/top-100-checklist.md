@@ -14,8 +14,9 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/api-documentation-openapi/
    - ES: https://stackpractices.com/es/recipes/api-documentation-openapi/
    - Focus: high impressions, low CTR, proven demand
-   - Status: ✅ Title + meta optimized in P1.1
-   - Words: 5,161 | Meta: 134 chars
+   - Status: ✅ Title + meta optimized in P1.1; ✅ Forensic audit + first humanization pass done
+   - Words: ~5,160 | Meta: 154 chars
+   - Artifacts: `output/audit-api-documentation-openapi.md`, `output/ai-detect-diagnose-api-documentation-openapi.json`
 
 2. - [ ] **parse-toml-files** (recipes)
    - Metrics: 176 imp | pos 15 | CTR 0.00% | Δ impr 147
