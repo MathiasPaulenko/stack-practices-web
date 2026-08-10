@@ -1,13 +1,10 @@
 ---
-
-
-
 contentType: docs
 slug: graphql-api-design-guideline
 templateType: guideline
-title: "GraphQL API Design Guideline"
-description: "Internal guidelines for designing GraphQL APIs: schema structure, naming, mutation patterns, error handling, pagination, authentication, rate limiting, versioning, and federation rules with code examples."
-metaDescription: "Internal guidelines for GraphQL API design: schema structure, naming, mutations, errors, pagination, auth, rate limiting, versioning, federation rules."
+title: GraphQL API Design Guidelines
+description: GraphQL API design guidelines with schema structure, naming, mutations, pagination, auth, rate limiting, versioning, and federation rules.
+metaDescription: GraphQL API design guidelines with schema structure, naming, mutations, pagination, auth, rate limiting, versioning, and federation rules.
 difficulty: intermediate
 topics:
   - graphql
@@ -23,24 +20,16 @@ relatedResources:
   - /docs/graphql-deprecation-policy-template
   - /guides/complete-guide-graphql-federation
   - /docs/graphql-federation-onboarding-template
-lastUpdated: "2026-07-04"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Internal guidelines for GraphQL API design: schema structure, naming, mutations, errors, pagination, auth, rate limiting, versioning, federation rules."
+  metaDescription: GraphQL API design guidelines with schema structure, naming, mutations, pagination, auth, rate limiting, versioning, and federation rules.
   keywords:
     - graphql api design
-    - graphql guidelines
+    - graphql schema design
     - graphql best practices
-    - schema design
-    - graphql mutations
-    - graphql pagination
-    - graphql federation
-
-
-
 ---
-
 ## Overview
 
 This document defines internal guidelines for designing GraphQL APIs at our organization. All teams building GraphQL services must follow these rules to ensure consistency, security, and performance across our API surface.

@@ -1,13 +1,10 @@
 ---
-
-
-
 contentType: docs
 slug: graphql-api-design-guideline
 templateType: guideline
-title: "Guia de Diseño de GraphQL API"
-description: "Guias internas para diseñar GraphQL APIs: schema structure, naming, mutation patterns, error handling, pagination, authentication, rate limiting, versioning y federation rules con ejemplos de codigo."
-metaDescription: "Internal guidelines for GraphQL API design: schema structure, naming, mutations, errors, pagination, auth, rate limiting, versioning, federation rules."
+title: Guía de Diseño de GraphQL API
+description: Guía de diseño de APIs GraphQL con estructura de schema, nombres, mutaciones, paginación, auth, rate limiting, versionado y federación.
+metaDescription: Guía de diseño de APIs GraphQL con estructura de schema, nombres, mutaciones, paginación, auth, rate limiting, versionado y federación.
 difficulty: intermediate
 topics:
   - graphql
@@ -23,24 +20,16 @@ relatedResources:
   - /docs/graphql-deprecation-policy-template
   - /guides/complete-guide-graphql-federation
   - /docs/graphql-federation-onboarding-template
-lastUpdated: "2026-07-04"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Internal guidelines for GraphQL API design: schema structure, naming, mutations, errors, pagination, auth, rate limiting, versioning, federation rules."
+  metaDescription: Guía de diseño de APIs GraphQL con estructura de schema, nombres, mutaciones, paginación, auth, rate limiting, versionado y federación.
   keywords:
-    - graphql api design
-    - graphql guidelines
-    - graphql best practices
-    - schema design
-    - graphql mutations
-    - graphql pagination
-    - graphql federation
-
-
-
+    - diseno api graphql
+    - schema graphql
+    - mejores practicas graphql
 ---
-
 ## Overview
 
 Este documento define internal guidelines para diseñar GraphQL APIs en nuestra organization. All teams building GraphQL services deben seguir estas rules para asegurar consistency, security y performance across our API surface.

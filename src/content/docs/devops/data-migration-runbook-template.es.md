@@ -1,9 +1,9 @@
 ---
 contentType: docs
 slug: data-migration-runbook-template
-title: "Plantilla de Runbook de Migracion de Datos"
-description: "Una plantilla de runbook para migrar datos entre sistemas de forma segura incluyendo verificaciones pre-migracion, procedimientos de rollback y validacion post-migracion."
-metaDescription: "Migra datos de forma segura con esta plantilla de runbook. Cubre verificaciones pre-migracion, pasos de ejecucion, procedimientos de rollback y validacion post-migracion."
+title: Plantilla de Runbook de Migración de Datos
+description: Usa esta plantilla de runbook para migrar datos de forma segura. Incluye pre-chequeos, pasos de ejecución, rollback y validación post-migración.
+metaDescription: Usa esta plantilla de runbook para migrar datos de forma segura. Incluye pre-chequeos, pasos de ejecución, rollback y validación post-migración.
 difficulty: advanced
 topics:
   - devops
@@ -21,19 +21,15 @@ relatedResources:
   - /docs/deployment-rollback-runbook
   - /docs/disaster-recovery-test-plan
   - /docs/feature-specification-template
-lastUpdated: "2026-06-26"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Migra datos de forma segura con esta plantilla de runbook. Cubre verificaciones pre-migracion, pasos de ejecucion, procedimientos de rollback y validacion post-migracion."
+  metaDescription: Usa esta plantilla de runbook para migrar datos de forma segura. Incluye pre-chequeos, pasos de ejecución, rollback y validación post-migración.
   keywords:
-    - migracion de datos
-    - migracion de base de datos
-    - runbook de migracion
-    - validacion de datos
-    - runbook etl
-
-
+    - runbook migracion datos
+    - checklist migracion
+    - plantilla migracion base de datos
 ---
 ## Overview
 

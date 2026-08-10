@@ -1,9 +1,9 @@
 ---
 contentType: docs
 slug: technical-spec-template
-title: "Technical Specification Template"
-description: "A template for writing technical specification documents for software projects."
-metaDescription: "Use this technical specification template to define requirements, design decisions, API contracts, and implementation plans."
+title: Technical Specification Template
+description: Use this technical specification template to document requirements, design decisions, architecture, API contracts, and acceptance criteria.
+metaDescription: Use this technical specification template to document requirements, design decisions, architecture, API contracts, and acceptance criteria.
 difficulty: intermediate
 topics:
   - architecture
@@ -23,20 +23,15 @@ relatedResources:
   - /docs/api-deprecation-notice-template
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
-lastUpdated: "2026-06-21"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Use this technical specification template to define requirements, design decisions, API contracts, and implementation plans."
+  metaDescription: Use this technical specification template to document requirements, design decisions, architecture, API contracts, and acceptance criteria.
   keywords:
-    - architecture
-    - specification
-    - design
-    - requirements
-    - template
-
-
-
+    - technical specification template
+    - tech spec template
+    - software design document
 ---
 ## Overview
 

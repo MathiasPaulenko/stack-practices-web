@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: graphql-federated-entity-pattern
-title: "GraphQL Federated Entity Pattern"
-description: "Share entity types across federated GraphQL services so the gateway can resolve fields from multiple subgraphs transparently."
-metaDescription: "GraphQL federated entity pattern: share types across subgraphs with @key, @external, and @extends. Resolve entity fields from multiple services in Apollo Federation."
+title: GraphQL Federated Entity Pattern
+description: Learn the GraphQL federated entity pattern with Apollo Federation. Share entity types across subgraphs using @key, @external, and @extends.
+metaDescription: Learn the GraphQL federated entity pattern with Apollo Federation. Share entity types across subgraphs using @key, @external, and @extends.
 difficulty: advanced
 topics:
   - graphql
@@ -30,25 +25,16 @@ relatedResources:
   - /patterns/graphql-mutation-validation-pattern
   - /docs/graphql-federation-onboarding-template
   - /guides/complete-guide-graphql-federation
-lastUpdated: "2026-07-03"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: "GraphQL federated entity pattern: share types across subgraphs with @key, @external, and @extends. Resolve entity fields from multiple services in Apollo Federation."
+  metaDescription: Learn the GraphQL federated entity pattern with Apollo Federation. Share entity types across subgraphs using @key, @external, and @extends.
   keywords:
-    - graphql federation entity
+    - graphql federation
+    - federated entity pattern
     - apollo federation
-    - federated subgraph
-    - graphql entity resolution
-    - "@key directive graphql"
-    - graphql microservices pattern
-
-
-
-
-
 ---
-
 ## Overview
 
 In Apollo Federation, an entity is an object type shared across multiple subgraphs. Each subgraph contributes different fields to the same entity. The gateway stitches them together so clients query a single unified type without knowing which service owns which field.

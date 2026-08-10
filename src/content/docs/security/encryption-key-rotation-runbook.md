@@ -1,12 +1,9 @@
 ---
-
-
-
 contentType: docs
 slug: encryption-key-rotation-runbook
-title: "Encryption Key Rotation Runbook"
-description: "A runbook for encryption key rotation covering key types, rotation schedules, zero-downtime procedures, dual-key migration, verification, and rollback."
-metaDescription: "Use this encryption key rotation runbook to define key types, rotation schedules, zero-downtime dual-key migration, verification, and rollback procedures."
+title: "Encryption Key Rotation: Runbook"
+description: Use this encryption key rotation runbook to rotate keys with zero downtime. Covers schedules, dual-key migration, verification, and rollback.
+metaDescription: Use this encryption key rotation runbook to rotate keys with zero downtime. Covers schedules, dual-key migration, verification, and rollback.
 difficulty: advanced
 topics:
   - testing
@@ -24,24 +21,16 @@ relatedResources:
   - /docs/vulnerability-management-process-template
   - /docs/incident-response-plan-template
   - /docs/penetration-test-report-template
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-06"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Use this encryption key rotation runbook to define key types, rotation schedules, zero-downtime dual-key migration, verification, and rollback procedures."
+  metaDescription: Use this encryption key rotation runbook to rotate keys with zero downtime. Covers schedules, dual-key migration, verification, and rollback.
   keywords:
     - encryption key rotation
-    - key management
-    - kms
-    - runbook
-    - zero downtime
-    - cryptography
-    - security
-
-
-
+    - kms key rotation
+    - key management runbook
 ---
-
 ## Overview
 
 An encryption key rotation runbook defines how to rotate encryption keys without service disruption. It covers key types, rotation schedules, dual-key migration procedures, verification steps, and rollback plans. Key rotation limits the blast radius of a compromised key and is a requirement for most compliance frameworks.

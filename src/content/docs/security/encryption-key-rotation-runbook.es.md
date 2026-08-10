@@ -1,12 +1,9 @@
 ---
-
-
-
 contentType: docs
 slug: encryption-key-rotation-runbook
-title: "Runbook de Rotación de Claves de Cifrado"
-description: "Un runbook para rotación de claves de cifrado cubriendo tipos de clave, schedules de rotación, migración dual-key sin downtime, verificación y rollback."
-metaDescription: "Usá este runbook de rotación de claves de cifrado para definir tipos, schedules, migración dual-key sin downtime, verificación y procedimientos de rollback."
+title: Runbook de Rotación de Claves
+description: Usa este runbook de rotación de claves para rotarlas sin downtime. Cubre cronogramas, migración dual, verificación y rollback.
+metaDescription: Usa este runbook de rotación de claves para rotarlas sin downtime. Cubre cronogramas, migración dual, verificación y rollback.
 difficulty: advanced
 topics:
   - testing
@@ -24,24 +21,16 @@ relatedResources:
   - /docs/vulnerability-management-process-template
   - /docs/incident-response-plan-template
   - /docs/penetration-test-report-template
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-06"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Usá este runbook de rotación de claves de cifrado para definir tipos, schedules, migración dual-key sin downtime, verificación y procedimientos de rollback."
+  metaDescription: Usa este runbook de rotación de claves para rotarlas sin downtime. Cubre cronogramas, migración dual, verificación y rollback.
   keywords:
-    - encryption key rotation
-    - key management
-    - kms
-    - runbook
-    - zero downtime
-    - cryptography
-    - security
-
-
-
+    - rotacion claves cifrado
+    - rotacion claves kms
+    - gestion de claves
 ---
-
 ## Overview
 
 Un encryption key rotation runbook define cómo rotatear encryption keys sin service disruption. Cubre key types, rotation schedules, dual-key migration procedures, verification steps y rollback plans. Key rotation limita el blast radius de un compromised key y es un requirement para most compliance frameworks.

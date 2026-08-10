@@ -1,13 +1,9 @@
 ---
-
-
-
-
 contentType: docs
 slug: test-strategy-document-template
-title: "Plantilla de Documento de Estrategia de Pruebas"
-description: "Una plantilla para documentar la estrategia de pruebas por proyecto: pirámide, alcance, entornos, herramientas, gates de CI/CD y métricas de calidad."
-metaDescription: "Usá esta plantilla de estrategia de pruebas para definir pirámide, alcance, entornos, herramientas, gates de CI/CD, métricas y cobertura basada en riesgo."
+title: Plantilla de Estrategia de Pruebas
+description: Define tu enfoque de pruebas con esta plantilla de estrategia. Cubre alcance, tipos, herramientas, criterios de entrada/salida, riesgos y cronograma.
+metaDescription: Define tu enfoque de pruebas con esta plantilla de estrategia. Cubre alcance, tipos, herramientas, criterios de entrada/salida, riesgos y cronograma.
 difficulty: intermediate
 topics:
   - testing
@@ -24,25 +20,16 @@ relatedResources:
   - /docs/test-coverage-report-template
   - /docs/bug-reproduction-steps-template
   - /docs/regression-test-checklist
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-06"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Usá esta plantilla de estrategia de pruebas para definir pirámide, alcance, entornos, herramientas, gates de CI/CD, métricas y cobertura basada en riesgo."
+  metaDescription: Define tu enfoque de pruebas con esta plantilla de estrategia. Cubre alcance, tipos, herramientas, criterios de entrada/salida, riesgos y cronograma.
   keywords:
-    - test strategy
-    - test pyramid
-    - test plan
-    - ci-cd gates
-    - quality metrics
-    - test coverage
-    - template
-
-
-
-
+    - estrategia de pruebas
+    - plan de pruebas
+    - plantilla testing
 ---
-
 ## Overview
 
 Un documento de estrategia de pruebas define cómo un equipo abarca el quality assurance a lo largo de un proyecto o producto. Alinea a los stakeholders en qué se testea, en qué nivel, con qué herramientas y qué gates deben pasar antes del deployment. Sin una estrategia, los equipos defaultan a testing ad-hoc: algunas áreas se over-testean, critical paths se missean y nadie sabe el panorama de cobertura del proyecto.

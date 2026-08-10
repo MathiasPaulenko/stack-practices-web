@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: partial-class-pattern
-title: "Patrón Partial Class"
-description: "Divide la definición de una única clase en múltiples archivos fuente para separar código auto-generado de código escrito a mano, o para organizar clases grandes por concern."
-metaDescription: "Aprende el Patrón Partial Class para dividir definiciones de clase en archivos. Ejemplos en Python, Java y JavaScript con mixins, traits y generación de código."
+title: "Patrón Partial Class: Ejemplos"
+description: Aprende el patrón Partial Class para dividir una clase en varios archivos. Ejemplos en Python, Java y JavaScript para generación de código.
+metaDescription: Aprende el patrón Partial Class para dividir una clase en varios archivos. Ejemplos en Python, Java y JavaScript para generación de código.
 difficulty: beginner
 topics:
   - design
@@ -25,24 +20,16 @@ relatedResources:
   - /patterns/marker-interface-pattern
   - /patterns/twin-pattern
   - /patterns/type-object-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende el Patrón Partial Class para dividir definiciones de clase en archivos. Ejemplos en Python, Java y JavaScript con mixins, traits y generación de código."
+  metaDescription: Aprende el patrón Partial Class para dividir una clase en varios archivos. Ejemplos en Python, Java y JavaScript para generación de código.
   keywords:
-    - partial class
-    - design pattern
-    - code generation
-    - organization
-    - csharp
-
-
-
-
-
+    - patron partial class
+    - dividir clase archivos
+    - generacion de codigo
 ---
-
 ## Descripción General
 
 El Patrón Partial Class divide la definición de una única clase en múltiples archivos fuente. En tiempo de compilación, los fragmentos se fusionan en un único tipo. Esta separación permite que el código auto-generado (de designers, ORMs o generadores de código) viva en un archivo mientras las customizaciones escritas a mano viven en otro, sin riesgo de que uno sobrescriba al otro.

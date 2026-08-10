@@ -2,9 +2,9 @@
 contentType: docs
 slug: penetration-test-template
 templateType: guideline
-title: "Plantilla de Penetration Test"
-description: "Plantilla de reporte de penetration test para documentar hallazgos, ratings de riesgo, pasos de reproducción y guía de remediación para evaluaciones de seguridad."
-metaDescription: "Plantilla de reporte de penetration test: documenta hallazgos, ratings de riesgo, pasos de reproducción y guía de remediación para evaluaciones de seguridad."
+title: Plantilla de Plan de Penetration Test
+description: Usa esta plantilla de plan de penetration test para documentar hallazgos, riesgos, pasos de reproducción y remedios en auditorías de seguridad.
+metaDescription: Usa esta plantilla de plan de penetration test para documentar hallazgos, riesgos, pasos de reproducción y remedios en auditorías de seguridad.
 difficulty: intermediate
 topics:
   - security
@@ -23,22 +23,15 @@ relatedResources:
   - /recipes/security-headers
   - /docs/incident-response-playbook-template
   - /docs/security-audit-checklist-template
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Plantilla de reporte de penetration test: documenta hallazgos, ratings de riesgo, pasos de reproducción y guía de remediación para evaluaciones de seguridad."
+  metaDescription: Usa esta plantilla de plan de penetration test para documentar hallazgos, riesgos, pasos de reproducción y remedios en auditorías de seguridad.
   keywords:
-    - plantilla reporte penetration test
-    - formato reporte pentest
-    - template evaluacion seguridad
-    - plantilla reporte vulnerabilidad
-    - documentacion hallazgos seguridad
-
-
-
-
-
+    - plan de penetration test
+    - plantilla pen test
+    - auditoria seguridad
 ---
 Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de forma clara y accionable. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para prácticas de seguridad más amplias.
 

@@ -1,16 +1,9 @@
 ---
-
-
-
-
-
-
-
 contentType: patterns
 slug: context-object-pattern
-title: "Patrón Context Object"
-description: "Encapsula estado y servicios necesitados por múltiples componentes en un único objeto de contexto, reduciendo el bloat de firmas de métodos y desacoplando código de detalles del entorno."
-metaDescription: "Aprende el Patrón Context Object para reducir bloat de parámetros. Ejemplos en Python, Java y JavaScript con request contexts, contenedores DI y scoping."
+title: "Patrón Context Object: Ejemplos"
+description: Aprende el patrón Context Object para reducir el bloat de parámetros. Ejemplos en Python, Java y JavaScript para contextos de petición y DI.
+metaDescription: Aprende el patrón Context Object para reducir el bloat de parámetros. Ejemplos en Python, Java y JavaScript para contextos de petición y DI.
 difficulty: intermediate
 topics:
   - design
@@ -30,26 +23,16 @@ relatedResources:
   - /patterns/intercepting-filter-pattern
   - /patterns/manager-pattern
   - /patterns/role-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende el Patrón Context Object para reducir bloat de parámetros. Ejemplos en Python, Java y JavaScript con request contexts, contenedores DI y scoping."
+  metaDescription: Aprende el patrón Context Object para reducir el bloat de parámetros. Ejemplos en Python, Java y JavaScript para contextos de petición y DI.
   keywords:
-    - context object
-    - design pattern
-    - architecture
-    - decoupling
-    - state
-
-
-
-
-
-
-
+    - patron context object
+    - bloat parametros
+    - contexto de peticion
 ---
-
 ## Descripción General
 
 El Patrón Context Object encapsula estado y servicios necesitados por múltiples componentes en un único objeto de contexto que se pasa a través de la cadena de llamadas. En lugar de pasar diez parámetros a través de cada firma de método, los componentes reciben un único objeto de contexto que provee acceso a datos de request, sesiones de usuario, configuración, logging y servicios.

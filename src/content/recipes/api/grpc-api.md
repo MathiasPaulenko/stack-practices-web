@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: grpc-api
-title: "Implement a gRPC API with Protocol Buffers"
-description: "How to implement a gRPC API using Protocol Buffers for high-performance service-to-service communication"
-metaDescription: "Implement a gRPC API with Protocol Buffers. Build high-performance services in Python, Node.js, and Java with streaming and interceptors."
+title: gRPC API with Protocol Buffers
+description: Implement a gRPC API with Protocol Buffers. Covers service definition, code generation, client/server examples in Python, Java, and Go.
+metaDescription: Implement a gRPC API with Protocol Buffers. Covers service definition, code generation, client/server examples in Python, Java, and Go.
 difficulty: intermediate
 topics:
   - api
@@ -21,21 +21,15 @@ relatedResources:
   - /recipes/call-rest-api
   - /recipes/grpc-services-typescript
   - /recipes/rest-api-design
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implement a gRPC API with Protocol Buffers. Build high-performance services in Python, Node.js, and Java with streaming and interceptors."
+  metaDescription: Implement a gRPC API with Protocol Buffers. Covers service definition, code generation, client/server examples in Python, Java, and Go.
   keywords:
-    - grpc
-    - protobuf
-    - api
-    - rpc
-    - microservices
-    - streaming
-    - interceptor
-
-
+    - grpc api
+    - protocol buffers
+    - grpc tutorial
 ---
 ## Overview
 

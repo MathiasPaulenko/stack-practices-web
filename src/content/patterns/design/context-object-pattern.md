@@ -1,16 +1,9 @@
 ---
-
-
-
-
-
-
-
 contentType: patterns
 slug: context-object-pattern
-title: "Context Object Pattern"
-description: "Encapsulate state and services needed by multiple components into a single context object, reducing method signature bloat and decoupling code from specific environment details."
-metaDescription: "Learn the Context Object Pattern for reducing parameter bloat. Examples in Python, Java, and JavaScript with request contexts, DI containers, and scoping."
+title: "Context Object Pattern: Examples"
+description: Learn the Context Object Pattern to reduce parameter bloat. Practical examples in Python, Java, and JavaScript for request contexts and DI containers.
+metaDescription: Learn the Context Object Pattern to reduce parameter bloat. Practical examples in Python, Java, and JavaScript for request contexts and DI containers.
 difficulty: intermediate
 topics:
   - design
@@ -30,26 +23,16 @@ relatedResources:
   - /patterns/intercepting-filter-pattern
   - /patterns/manager-pattern
   - /patterns/role-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn the Context Object Pattern for reducing parameter bloat. Examples in Python, Java, and JavaScript with request contexts, DI containers, and scoping."
+  metaDescription: Learn the Context Object Pattern to reduce parameter bloat. Practical examples in Python, Java, and JavaScript for request contexts and DI containers.
   keywords:
-    - context object
-    - design pattern
-    - architecture
-    - decoupling
-    - state
-
-
-
-
-
-
-
+    - context object pattern
+    - parameter bloat
+    - request context
 ---
-
 ## Overview
 
 The Context Object Pattern encapsulates state and services needed by multiple components into a single context object that is passed through the call chain. Instead of threading ten parameters through every method signature, components receive a single context object that provides access to request data, user sessions, configuration, logging, and services.

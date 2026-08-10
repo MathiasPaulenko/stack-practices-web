@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: optimistic-locking
-title: "Implement Optimistic Locking with Versioning"
-description: "How to implement optimistic locking with versioning to prevent lost updates in concurrent database access"
-metaDescription: "Implement optimistic locking with versioning to prevent lost updates. Use row versioning in PostgreSQL, MySQL, and JPA/Hibernate with examples."
+title: Optimistic Locking in Databases
+description: Implement optimistic locking with versioning to prevent lost updates. Practical examples in PostgreSQL, MySQL, and JPA/Hibernate.
+metaDescription: Implement optimistic locking with versioning to prevent lost updates. Practical examples in PostgreSQL, MySQL, and JPA/Hibernate.
 difficulty: intermediate
 topics:
   - databases
@@ -23,21 +21,15 @@ relatedResources:
   - /recipes/deadlock-prevention-sql
   - /recipes/database-migrations-safely
   - /recipes/database-migrations
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implement optimistic locking with versioning to prevent lost updates. Use row versioning in PostgreSQL, MySQL, and JPA/Hibernate with examples."
+  metaDescription: Implement optimistic locking with versioning to prevent lost updates. Practical examples in PostgreSQL, MySQL, and JPA/Hibernate.
   keywords:
-    - optimistic-locking
-    - concurrency
-    - versioning
-    - database
-    - postgresql
-    - mysql
-    - jpa
-
-
+    - optimistic locking
+    - database versioning
+    - jpa optimistic locking
 ---
 ## Overview
 

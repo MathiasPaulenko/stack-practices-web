@@ -2,9 +2,9 @@
 contentType: docs
 slug: penetration-test-template
 templateType: guideline
-title: "Penetration Test Template"
-description: "A penetration test report template for documenting findings, risk ratings, reproduction steps, and remediation guidance for security assessments."
-metaDescription: "Penetration test report template: document findings, risk ratings, reproduction steps, and remediation guidance for security assessments."
+title: Penetration Test Plan Template
+description: Use this penetration test plan template to document findings, risks, reproduction steps, and remediation guidance for security assessments.
+metaDescription: Use this penetration test plan template to document findings, risks, reproduction steps, and remediation guidance for security assessments.
 difficulty: intermediate
 topics:
   - security
@@ -23,22 +23,15 @@ relatedResources:
   - /recipes/security-headers
   - /docs/incident-response-playbook-template
   - /docs/security-audit-checklist-template
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Penetration test report template: document findings, risk ratings, reproduction steps, and remediation guidance for security assessments."
+  metaDescription: Use this penetration test plan template to document findings, risks, reproduction steps, and remediation guidance for security assessments.
   keywords:
-    - penetration test report template
-    - pentest report format
+    - penetration test plan
+    - pen test template
     - security assessment template
-    - vulnerability report template
-    - security findings documentation
-
-
-
-
-
 ---
 Use this template to document security assessment findings clearly and actionably. See [Web Application Security Guide](/guides/web-application-security-guide/) for broader security practices.
 

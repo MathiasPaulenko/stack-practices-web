@@ -1,13 +1,9 @@
 ---
-
-
-
-
 contentType: docs
 slug: test-strategy-document-template
-title: "Test Strategy Document Template"
-description: "A template for documenting test approach per project: pyramid, scope, environments, tools, CI/CD gates, and quality metrics."
-metaDescription: "Use this test strategy document template to define test pyramid, scope, environments, tools, CI/CD gates, quality metrics, and risk-based coverage."
+title: Test Strategy Document Template
+description: Define your testing approach with this test strategy document template. Covers scope, types, tools, entry/exit criteria, risks, and schedule.
+metaDescription: Define your testing approach with this test strategy document template. Covers scope, types, tools, entry/exit criteria, risks, and schedule.
 difficulty: intermediate
 topics:
   - testing
@@ -24,25 +20,16 @@ relatedResources:
   - /docs/test-coverage-report-template
   - /docs/bug-reproduction-steps-template
   - /docs/regression-test-checklist
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-06"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Use this test strategy document template to define test pyramid, scope, environments, tools, CI/CD gates, quality metrics, and risk-based coverage."
+  metaDescription: Define your testing approach with this test strategy document template. Covers scope, types, tools, entry/exit criteria, risks, and schedule.
   keywords:
-    - test strategy
-    - test pyramid
-    - test plan
-    - ci-cd gates
-    - quality metrics
-    - test coverage
-    - template
-
-
-
-
+    - test strategy document
+    - test plan template
+    - testing approach
 ---
-
 ## Overview
 
 A test strategy document defines how a team approaches quality assurance across a project or product. It aligns stakeholders on what gets tested, at what level, with which tools, and what gates must pass before deployment. Without a strategy, teams default to ad-hoc testing: some areas get over-tested, critical paths get missed, and nobody knows the project-wide coverage picture.

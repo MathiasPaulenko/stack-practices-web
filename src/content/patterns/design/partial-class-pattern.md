@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: partial-class-pattern
-title: "Partial Class Pattern"
-description: "Split a single class definition across multiple source files to separate auto-generated code from hand-written code, or to organize large classes by concern."
-metaDescription: "Learn the Partial Class Pattern for splitting class definitions across files. Examples in Python, Java, and JavaScript with mixins, traits, and code generation."
+title: "Partial Class Pattern: Examples"
+description: Learn the Partial Class Pattern to split class definitions across multiple files. Examples in Python, Java, and JavaScript for code generation.
+metaDescription: Learn the Partial Class Pattern to split class definitions across multiple files. Examples in Python, Java, and JavaScript for code generation.
 difficulty: beginner
 topics:
   - design
@@ -25,24 +20,16 @@ relatedResources:
   - /patterns/marker-interface-pattern
   - /patterns/twin-pattern
   - /patterns/type-object-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn the Partial Class Pattern for splitting class definitions across files. Examples in Python, Java, and JavaScript with mixins, traits, and code generation."
+  metaDescription: Learn the Partial Class Pattern to split class definitions across multiple files. Examples in Python, Java, and JavaScript for code generation.
   keywords:
-    - partial class
-    - design pattern
+    - partial class pattern
+    - split class files
     - code generation
-    - organization
-    - csharp
-
-
-
-
-
 ---
-
 ## Overview
 
 The Partial Class Pattern splits a single class definition across multiple source files. At compile time, the fragments are merged into a single type. This separation allows auto-generated code (from designers, ORMs, or code generators) to live in one file while hand-written customizations live in another, without the risk of one overwriting the other.

@@ -1,9 +1,9 @@
 ---
 contentType: docs
 slug: data-migration-runbook-template
-title: "Data Migration Runbook Template"
-description: "A runbook template for safely migrating data between systems including pre-migration checks, rollback procedures, and post-migration validation."
-metaDescription: "Migrate data safely with this runbook template. Covers pre-migration checks, execution steps, rollback procedures, and post-migration validation."
+title: "Data Migration Runbook: Checklist"
+description: Use this data migration runbook template to plan safe migrations. Includes pre-migration checks, execution steps, rollback, and post-migration validation.
+metaDescription: Use this data migration runbook template to plan safe migrations. Includes pre-migration checks, execution steps, rollback, and post-migration validation.
 difficulty: advanced
 topics:
   - devops
@@ -21,19 +21,15 @@ relatedResources:
   - /docs/deployment-rollback-runbook
   - /docs/disaster-recovery-test-plan
   - /docs/feature-specification-template
-lastUpdated: "2026-06-26"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Migrate data safely with this runbook template. Covers pre-migration checks, execution steps, rollback procedures, and post-migration validation."
+  metaDescription: Use this data migration runbook template to plan safe migrations. Includes pre-migration checks, execution steps, rollback, and post-migration validation.
   keywords:
-    - data migration
-    - database migration
-    - migration runbook
-    - data validation
-    - etl runbook
-
-
+    - data migration runbook
+    - migration checklist
+    - database migration template
 ---
 ## Overview
 

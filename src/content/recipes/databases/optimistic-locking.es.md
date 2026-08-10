@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: optimistic-locking
-title: "Implementar optimistic locking con versionado"
-description: "Cómo implementar optimistic locking con versionado para prevenir actualizaciones perdidas en acceso concurrente a base de datos"
-metaDescription: "Implementa optimistic locking con versionado para prevenir actualizaciones perdidas. Usa versionado de filas en PostgreSQL, MySQL y JPA/Hibernate con ejemplos."
+title: "Bloqueo Optimista: Versionado"
+description: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos prácticos en PostgreSQL, MySQL y JPA/Hibernate.
+metaDescription: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos prácticos en PostgreSQL, MySQL y JPA/Hibernate.
 difficulty: intermediate
 topics:
   - databases
@@ -23,23 +21,16 @@ relatedResources:
   - /recipes/deadlock-prevention-sql
   - /recipes/database-migrations-safely
   - /recipes/database-migrations
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implementa optimistic locking con versionado para prevenir actualizaciones perdidas. Usa versionado de filas en PostgreSQL, MySQL y JPA/Hibernate con ejemplos."
+  metaDescription: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos prácticos en PostgreSQL, MySQL y JPA/Hibernate.
   keywords:
-    - optimistic-locking
-    - concurrencia
-    - versionado
-    - base-datos
-    - postgresql
-    - mysql
-    - jpa
-
-
+    - bloqueo optimista
+    - versionado base de datos
+    - jpa bloqueo optimista
 ---
-
 ## Visión General
 
 El optimistic locking previene actualizaciones perdidas en entornos concurrentes verificando si un registro ha sido modificado desde su última lectura. Cada fila lleva un número de versión o timestamp. Al actualizar, la aplicación incluye la versión original en la cláusula `WHERE`; si la versión cambió, la actualización falla y la aplicación reintenta o reporta un conflicto. Esto evita el costo de rendimiento de mantener bloqueos de base de datos durante el tiempo de pensamiento del usuario.

@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: api-documentation-openapi
-title: "Crear documentación de API con OpenAPI"
-description: "Genera documentación de API interactiva a partir de specs OpenAPI usando Swagger UI, Redoc y herramientas nativas en Python, JavaScript y Java."
-metaDescription: "Crea documentación de API con OpenAPI y Swagger. Genera docs interactivos desde specs en Python, JavaScript y Java con ejemplos y lo que funciona."
+title: OpenAPI con Swagger y Redoc
+description: Crea documentación OpenAPI interactiva con Swagger y Redoc. Incluye ejemplos en Python, JavaScript y Java para documentar APIs claras.
+metaDescription: Crea documentación OpenAPI interactiva con Swagger y Redoc. Incluye ejemplos en Python, JavaScript y Java para documentar APIs claras.
 difficulty: beginner
 topics:
   - api
@@ -23,21 +23,16 @@ relatedResources:
   - /recipes/api-rate-limiting-redis
   - /recipes/cursor-pagination-postgresql
   - /recipes/real-time-notifications
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Crea documentación de API con OpenAPI y Swagger. Genera docs interactivos desde specs en Python, JavaScript y Java con ejemplos y lo que funciona."
+  metaDescription: Crea documentación OpenAPI interactiva con Swagger y Redoc. Incluye ejemplos en Python, JavaScript y Java para documentar APIs claras.
   keywords:
-    - openapi
-    - swagger
-    - api-documentation
+    - openapi docs
+    - documentacion swagger
     - redoc
-    - python
-    - javascript
-    - java
-
-
+    - ejemplo documentacion api
 ---
 ## Visión General
 

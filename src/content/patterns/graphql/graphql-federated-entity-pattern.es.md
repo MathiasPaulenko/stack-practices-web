@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: graphql-federated-entity-pattern
-title: "Patron GraphQL Federated Entity"
-description: "Comparte tipos de entidad entre servicios GraphQL federados para que el gateway resuelva campos de multiples subgrafos de forma transparente."
-metaDescription: "Patron GraphQL federated entity: comparte tipos entre subgrafos con @key, @external y @extends. Resuelve campos de entidad desde multiples servicios en Apollo Federation."
+title: "Federación GraphQL: Entidades"
+description: Aprende el patrón de entidades federadas en GraphQL con Apollo Federation. Comparte tipos entre subgraphs con @key, @external y @extends.
+metaDescription: Aprende el patrón de entidades federadas en GraphQL con Apollo Federation. Comparte tipos entre subgraphs con @key, @external y @extends.
 difficulty: advanced
 topics:
   - graphql
@@ -30,25 +25,16 @@ relatedResources:
   - /patterns/graphql-mutation-validation-pattern
   - /docs/graphql-federation-onboarding-template
   - /guides/complete-guide-graphql-federation
-lastUpdated: "2026-07-03"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Patron GraphQL federated entity: comparte tipos entre subgrafos con @key, @external y @extends. Resuelve campos de entidad desde multiples servicios en Apollo Federation."
+  metaDescription: Aprende el patrón de entidades federadas en GraphQL con Apollo Federation. Comparte tipos entre subgraphs con @key, @external y @extends.
   keywords:
-    - graphql federation entity
+    - federacion graphql
+    - entidades federadas
     - apollo federation
-    - federated subgraph
-    - graphql entity resolution
-    - "@key directive graphql"
-    - graphql microservices pattern
-
-
-
-
-
 ---
-
 ## Descripcion general
 
 En Apollo Federation, una entidad es un object type compartido entre multiples subgrafos. Cada subgrafo contribuye diferentes campos a la misma entidad. El gateway los une para que los clientes consulten un tipo unificado sin saber que servicio gestiona cada campo.

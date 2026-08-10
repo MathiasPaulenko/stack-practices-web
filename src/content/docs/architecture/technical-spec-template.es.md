@@ -1,9 +1,9 @@
 ---
 contentType: docs
 slug: technical-spec-template
-title: "Plantilla de Especificación Técnica"
-description: "Una plantilla para escribir documentos de especificación técnica para proyectos de software."
-metaDescription: "Usa esta plantilla de especificación técnica para definir requisitos, decisiones de diseño, contratos de API y planes de implementación."
+title: Plantilla de Especificación Técnica
+description: Usa esta plantilla de especificación técnica para documentar requisitos, decisiones de diseño, arquitectura, contratos de API y criterios de aceptación.
+metaDescription: Usa esta plantilla de especificación técnica para documentar requisitos, decisiones de diseño, arquitectura, contratos de API y criterios de aceptación.
 difficulty: intermediate
 topics:
   - architecture
@@ -23,20 +23,15 @@ relatedResources:
   - /docs/api-deprecation-notice-template
   - /docs/api-lifecycle-management-template
   - /docs/api-monitoring-alerting-template
-lastUpdated: "2026-06-21"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Usa esta plantilla de especificación técnica para definir requisitos, decisiones de diseño, contratos de API y planes de implementación."
+  metaDescription: Usa esta plantilla de especificación técnica para documentar requisitos, decisiones de diseño, arquitectura, contratos de API y criterios de aceptación.
   keywords:
-    - arquitectura
-    - especificación
-    - diseño
-    - requisitos
-    - plantilla
-
-
-
+    - especificacion tecnica
+    - plantilla tech spec
+    - documento diseno software
 ---
 ## Visión General
 

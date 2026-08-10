@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: soft-deletes
-title: "Eliminación Suave (Soft Deletes)"
-description: "Cómo implementar soft deletes para preservar datos mientras se ocultan registros de consultas normales."
-metaDescription: "Aprende a implementar soft deletes en Python, JavaScript y Java. Cubre columnas de flag, consultas filtradas y estrategias de eliminación permanente."
+title: "Borrado Lógico: Guía Práctica"
+description: Aprende a implementar borrado lógico (soft deletes) en Python, JavaScript y Java. Ejemplos con columnas flag, consultas filtradas y eliminación permanente.
+metaDescription: Aprende a implementar borrado lógico (soft deletes) en Python, JavaScript y Java. Ejemplos con columnas flag, consultas filtradas y eliminación permanente.
 difficulty: beginner
 topics:
   - databases
@@ -22,19 +20,15 @@ relatedResources:
   - /patterns/builder-pattern
   - /recipes/caching-redis
   - /recipes/database-migrations-safely
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende a implementar soft deletes en Python, JavaScript y Java. Cubre columnas de flag, consultas filtradas y estrategias de eliminación permanente."
+  metaDescription: Aprende a implementar borrado lógico (soft deletes) en Python, JavaScript y Java. Ejemplos con columnas flag, consultas filtradas y eliminación permanente.
   keywords:
+    - borrado logico
     - soft delete postgresql
-    - eliminacion suave django
-    - paranoid sequelize
-    - hibernate soft delete
-    - gdpr borrado datos
-
-
+    - eliminacion suave
 ---
 ## Visión General
 

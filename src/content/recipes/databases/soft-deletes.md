@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: soft-deletes
-title: "Soft Deletes"
-description: "How to implement soft deletes to preserve data while hiding records from normal queries."
-metaDescription: "Learn to implement soft deletes in Python, JavaScript, and Java. Covers flag columns, filtered queries, and hard delete strategies."
+title: "Soft Deletes: Database Pattern"
+description: Learn to implement soft deletes in databases. Practical examples in Python, JavaScript, and Java with flag columns, filtered queries, and hard deletes.
+metaDescription: Learn to implement soft deletes in databases. Practical examples in Python, JavaScript, and Java with flag columns, filtered queries, and hard deletes.
 difficulty: beginner
 topics:
   - databases
@@ -22,21 +20,15 @@ relatedResources:
   - /patterns/builder-pattern
   - /recipes/caching-redis
   - /recipes/database-migrations-safely
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-08-10"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn to implement soft deletes in Python, JavaScript, and Java. Covers flag columns, filtered queries, and hard delete strategies."
+  metaDescription: Learn to implement soft deletes in databases. Practical examples in Python, JavaScript, and Java with flag columns, filtered queries, and hard deletes.
   keywords:
-    - soft-deletes
-    - deletion
-    - data-recovery
-    - audit
-    - python
-    - javascript
-    - java
-
-
+    - soft deletes
+    - logical delete pattern
+    - database soft delete
 ---
 ## Overview
 
