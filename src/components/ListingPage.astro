@@ -4,6 +4,7 @@ import ContentCard from './ContentCard.astro';
 import Icon from './Icon.astro';
 import { collectionPage, breadcrumbList } from '../lib/schema';
 import type { Locale } from '../config/site';
+import { getPublicTagSet } from '../lib/content';
 
 export interface ListingEntry {
   title: string;
@@ -46,6 +47,8 @@ const totalPages = Math.ceil(entries.length / pageSize);
 const pagedEntries = entries.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 const isLazy = !!jsonEndpoint && entries.length > pageSize;
 const showPagination = !isLazy && totalPages > 1;
+
+const validTags = await getPublicTagSet(locale);
 
 const basePath = currentPage > 1 ? path.replace(/\/\d+\/$/, '/') : path;
 const pageTitle = currentPage > 1 ? `${heading} - Page ${currentPage}` : heading;
@@ -142,6 +145,7 @@ const pagesToShow = (() => {
                   difficulty={entry.difficulty}
                   tags={entry.tags}
                   locale={locale}
+                  validTags={validTags}
                 />
               ))}
             </div>

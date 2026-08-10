@@ -11,9 +11,11 @@ export interface Props {
   style?: string;
   /** Show tag links. Default true. */
   showTags?: boolean;
+  /** Optional set of tags that have a dedicated page. Tags outside this set are shown as text. */
+  validTags?: Set<string>;
 }
 
-const { title, description, href, difficulty, tags = [], locale = 'en', searchable = true, style, showTags = true } = Astro.props;
+const { title, description, href, difficulty, tags = [], locale = 'en', searchable = true, style, showTags = true, validTags } = Astro.props;
 
 function smartTruncate(text: string, maxLength: number): string {
   if (text.length <= maxLength) return text;
@@ -50,14 +52,21 @@ const difficultyClass = difficulty ? `difficulty-badge difficulty-badge--${diffi
   {
     tags.length > 0 && showTags && (
       <div class="content-card__tags">
-        {tags.slice(0, 4).map((tag: string) => (
-          <a
-            href={`${tagPrefix}/tags/${tag}/`}
-            class="content-card__tag"
-          >
-            {tag}
-          </a>
-        ))}
+        {tags.slice(0, 4).map((tag: string) => {
+          const isValid = !validTags || validTags.has(tag);
+          return isValid ? (
+            <a
+              href={`${tagPrefix}/tags/${tag}/`}
+              class="content-card__tag"
+            >
+              {tag}
+            </a>
+          ) : (
+            <span class="content-card__tag content-card__tag--text">
+              {tag}
+            </span>
+          );
+        })}
       </div>
     )
   }

@@ -4,6 +4,7 @@ import ContentCard from './ContentCard.astro';
 import Icon from './Icon.astro';
 import { webPage, breadcrumbList, person } from '../lib/schema';
 import { PRIMARY_AUTHOR } from '../data/authors';
+import { getPublicTagSet } from '../lib/content';
 
 export interface Props {
   locale: 'en' | 'es';
@@ -19,6 +20,8 @@ export interface Props {
 }
 
 const { locale, page, totalPages, works } = Astro.props;
+
+const validTags = await getPublicTagSet(locale);
 
 const isEs = locale === 'es';
 const basePath = isEs ? '/es/authors/mathias-paulenko' : '/authors/mathias-paulenko';
@@ -174,6 +177,7 @@ if (page < totalPages) paginationLinks.push({ label: t.next, href: `${basePath}/
             difficulty={work.difficulty}
             tags={work.tags}
             locale={locale}
+            validTags={validTags}
             searchable={false}
           />
         ))}
