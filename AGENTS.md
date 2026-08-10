@@ -35,7 +35,7 @@ StackPractices is a static, SEO-first developer knowledge base for software engi
 
 ### 2. Project Structure
 
-```
+```text
 src/
 ├── components/            # Reusable Astro components
 │   ├── ui/               # UI primitives (buttons, cards, badges)
@@ -74,7 +74,7 @@ public/
 The `ref/docs/` folder contains detailed project reference documents. **Do not read all of them by default** — consult only the files relevant to the task at hand:
 
 | File | Purpose | When to Consult |
-|------|---------|-----------------|
+| --- | --- | --- |
 | `ref/docs/roadmap.md` | Development roadmap with phases and milestones | Planning features, prioritizing work |
 | `ref/docs/tech-stack.md` | Full technology stack, dependencies, and build configuration | Adding dependencies, changing build config |
 | `ref/docs/design-system.md` | Visual design system, color tokens, typography, and UI patterns | Creating or styling UI components |
@@ -149,9 +149,11 @@ When working on this project, always use the available Skills:
 ## Phase-Based Development
 
 ### Current Phase: Phase 3 — Guides Expansion & Content Scale
+
 **Objective**: Expand guides coverage, scale content depth, and prepare for monetization
 
-**Completed**
+#### Completed
+
 - Phase 0 — Foundation: Astro + Tailwind + CI/CD + SEO + Pagefind + Schemas
 - Phase 1 — Recipes Launch: ~241 recipes live across all major categories
 - Phase 2 — Patterns & Scale: ~56 patterns + tag system + filtering live
