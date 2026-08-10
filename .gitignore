@@ -31,10 +31,9 @@ Thumbs.db
 # pagefind
 public/pagefind/
 
-# ref folder (except backlog)
-ref/*
-docs/*
+# project docs
 ref.back/*
+docs/*
 
 # IA Folders
 .agents/
