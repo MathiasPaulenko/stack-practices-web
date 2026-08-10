@@ -293,6 +293,61 @@ body {
   text-align: center;
 }
 
+/* Pagination */
+.listing-pagination {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.listing-pagination__pages {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+.listing-pagination__link,
+.listing-pagination__current,
+.listing-pagination__ellipsis {
+  display: inline-flex;
+  min-width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  padding: 0 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.listing-pagination__link {
+  background: #fff;
+  border: 1px solid var(--color-slate-200, #e2e8f0);
+  color: var(--color-slate-700, #334155);
+}
+.listing-pagination__link:hover {
+  background: var(--color-slate-50, #f8fafc);
+  border-color: var(--color-brand-400, #60a5fa);
+  color: var(--color-brand-600, #2563eb);
+}
+.listing-pagination__current {
+  background: var(--color-brand-600, #2563eb);
+  color: #fff;
+}
+.listing-pagination__ellipsis {
+  color: var(--color-slate-400, #94a3b8);
+}
+.listing-pagination__prev,
+.listing-pagination__next {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-brand-600, #2563eb);
+}
+.listing-pagination__prev:hover,
+.listing-pagination__next:hover {
+  color: var(--color-brand-700, #1d4ed8);
+}
+
 /* Mobile nav container */
 .mobile-nav__inner {
   margin-left: auto;

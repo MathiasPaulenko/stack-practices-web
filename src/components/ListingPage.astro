@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContentCard from './ContentCard.astro';
+import Icon from './Icon.astro';
 import { collectionPage, breadcrumbList } from '../lib/schema';
 import type { Locale } from '../config/site';
 
@@ -23,6 +24,7 @@ export interface Props {
   hasAlternate?: boolean;
   jsonEndpoint?: string;
   initialLimit?: number;
+  currentPage?: number;
 }
 
 const {
@@ -36,10 +38,17 @@ const {
   hasAlternate = true,
   jsonEndpoint,
   initialLimit = 20,
+  currentPage = 1,
 } = Astro.props;
 
-const isLazy = !!jsonEndpoint && entries.length > initialLimit;
-const initialEntries = isLazy ? entries.slice(0, initialLimit) : entries;
+const pageSize = initialLimit;
+const totalPages = Math.ceil(entries.length / pageSize);
+const pagedEntries = entries.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+const isLazy = !!jsonEndpoint && entries.length > pageSize;
+const showPagination = !isLazy && totalPages > 1;
+
+const basePath = currentPage > 1 ? path.replace(/\/\d+\/$/, '/') : path;
+const pageTitle = currentPage > 1 ? `${heading} - Page ${currentPage}` : heading;
 
 const homeHref = locale === 'es' ? '/es/' : '/';
 const homeLabel = locale === 'es' ? 'Inicio' : 'Home';
@@ -50,19 +59,36 @@ const jsonLd = [
     description,
     url: path,
     locale,
-    items: initialEntries.map((e: ListingEntry) => ({ name: e.title, url: e.href })),
+    items: pagedEntries.map((e: ListingEntry) => ({ name: e.title, url: e.href })),
   }),
   breadcrumbList([
     { name: homeLabel, url: homeHref },
-    { name: heading, url: path },
+    { name: heading, url: basePath },
   ]),
 ];
 
 const emptyLabel = locale === 'es' ? 'No se encontraron resultados.' : 'No results found.';
 const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelve pronto.' : 'No content published yet. Check back soon.';
+
+function pageHref(page: number) {
+  return page === 1 ? basePath : `${basePath}${page}/`;
+}
+
+const pagesToShow = (() => {
+  const pages: (number | string)[] = [];
+  const delta = 2;
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
+      pages.push(i);
+    } else if (pages[pages.length - 1] !== '...') {
+      pages.push('...');
+    }
+  }
+  return pages;
+})();
 ---
 
-<BaseLayout title={heading} description={description} path={path} locale={locale} keywords={keywords} jsonLd={jsonLd} hasAlternate={hasAlternate}>
+<BaseLayout title={pageTitle} description={description} path={path} locale={locale} keywords={keywords} jsonLd={jsonLd} hasAlternate={hasAlternate}>
   <div data-pagefind-filter={contentType ? `contentType[${contentType}]` : undefined}>
   <!-- Mini hero: breadcrumb, title, description, search -->
   <section class="listing-hero">
@@ -87,17 +113,7 @@ const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelv
                 aria-label={locale === 'es' ? 'Buscar recursos' : 'Search resources'}
                 class="listing-hero__input"
               />
-              <svg
-                class="listing-hero__icon"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </svg>
+              <Icon name="search" class="listing-hero__icon" aria-hidden="true" />
             </div>
             <p id="listing-count" class="listing-hero__count">
               {entries.length} {locale === 'es' ? 'resultados' : 'results'}
@@ -115,10 +131,10 @@ const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelv
   <section class="listing-body">
     <div class="listing-body__inner">
       {
-        entries.length > 0 ? (
+        pagedEntries.length > 0 ? (
           <>
             <div id="listing-grid" class="listing-grid">
-              {initialEntries.map((entry: ListingEntry) => (
+              {pagedEntries.map((entry: ListingEntry) => (
                 <ContentCard
                   title={entry.title}
                   description={entry.description}
@@ -138,14 +154,42 @@ const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelv
                   data-endpoint={jsonEndpoint}
                   data-locale={locale}
                   data-total={entries.length}
-                  data-limit={initialLimit}
-                  data-offset={initialEntries.length}
+                  data-limit={pageSize}
+                  data-offset={pagedEntries.length}
                   class="load-more-btn"
                 >
                   {locale === 'es' ? 'Cargar más' : 'Load more'}
-                  <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                  <Icon name="chevron-down" class="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
+            )}
+
+            {showPagination && (
+              <nav class="listing-pagination" aria-label={locale === 'es' ? 'Paginación' : 'Pagination'}>
+                {currentPage > 1 && (
+                  <a href={pageHref(currentPage - 1)} class="listing-pagination__prev" aria-label={locale === 'es' ? 'Página anterior' : 'Previous page'}>
+                    {locale === 'es' ? 'Anterior' : 'Prev'}
+                  </a>
+                )}
+
+                <div class="listing-pagination__pages">
+                  {pagesToShow.map((p) => (
+                    p === '...' ? (
+                      <span class="listing-pagination__ellipsis">…</span>
+                    ) : p === currentPage ? (
+                      <span class="listing-pagination__current" aria-current="page">{p}</span>
+                    ) : (
+                      <a href={pageHref(p as number)} class="listing-pagination__link">{p}</a>
+                    )
+                  ))}
+                </div>
+
+                {currentPage < totalPages && (
+                  <a href={pageHref(currentPage + 1)} class="listing-pagination__next" aria-label={locale === 'es' ? 'Página siguiente' : 'Next page'}>
+                    {locale === 'es' ? 'Siguiente' : 'Next'}
+                  </a>
+                )}
+              </nav>
             )}
 
             <div id="listing-empty" class="listing-empty listing-empty--hidden">
@@ -172,7 +216,7 @@ const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelv
 
       const isEs = count.textContent && count.textContent.includes('resultados');
       let allCards = () => Array.from(grid.querySelectorAll('[data-search]'));
-      let loaded = false;
+      let loaded = !loadMoreBtn;
       let loading = false;
 
       function update() {
@@ -210,19 +254,17 @@ const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelv
       }
 
       async function loadMore() {
-        if (loading) return;
+        if (loading || !loadMoreBtn) return;
         loading = true;
-        if (loadMoreBtn) {
-          loadMoreBtn.disabled = true;
-          loadMoreBtn.textContent = isEs ? 'Cargando...' : 'Loading...';
-        }
+        loadMoreBtn.disabled = true;
+        loadMoreBtn.textContent = isEs ? 'Cargando...' : 'Loading...';
 
         try {
           const endpoint = loadMoreBtn.getAttribute('data-endpoint');
           const res = await fetch(endpoint);
           if (!res.ok) throw new Error('failed');
           const data = await res.json();
-          const entries = data.entries || [];
+          const entries = data.entries || data.e || [];
           const existing = allCards().length;
 
           for (let i = existing; i < entries.length; i++) {
@@ -231,15 +273,10 @@ const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelv
 
           loaded = true;
           update();
-          if (loadMoreBtn) {
-            loadMoreBtn.style.display = 'none';
-          }
+          loadMoreBtn.style.display = 'none';
         } catch (e) {
-          if (loadMoreBtn) {
-            loadMoreBtn.textContent = isEs ? 'Error al cargar' : 'Error loading';
-            loadMoreBtn.disabled = false;
-          }
-        } finally {
+          loadMoreBtn.textContent = isEs ? 'Error al cargar' : 'Error loading';
+          loadMoreBtn.disabled = false;
           loading = false;
         }
       }
@@ -249,7 +286,7 @@ const noContentLabel = locale === 'es' ? 'Aún no hay contenido publicado. Vuelv
       }
 
       input.addEventListener('input', () => {
-        if (!loaded && input.value.trim().length > 0) {
+        if (!loaded && input.value.trim().length > 0 && loadMoreBtn) {
           loadMore().then(update);
         } else {
           update();

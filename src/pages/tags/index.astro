@@ -1,6 +1,7 @@
 ---
 import { buildTagIndex } from '../../lib/content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 import { webPage, breadcrumbList } from '../../lib/schema';
 
 const PAGE_SIZE = 20;
@@ -65,9 +66,7 @@ const jsonLd = [
                 aria-label="Filter tags"
                 class="w-full rounded-lg border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
               />
-              <svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-              </svg>
+              <Icon name="search" class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
             </div>
             <p id="tag-count" class="mb-4 text-sm text-slate-500">{sortedTags.length} tags</p>
             <div id="tag-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -101,7 +100,7 @@ const jsonLd = [
                 style={hasMore ? '' : 'display:none'}
               >
                 Load more tags
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                <Icon name="chevron-down" class="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
             <div id="tag-empty" class="hidden rounded-xl border border-dashed border-slate-300 bg-slate-100 p-12 text-center">
@@ -215,7 +214,7 @@ const jsonLd = [
             if (visibleCount >= allCards().length) {
               loadMoreBtn.style.display = 'none';
             } else {
-              loadMoreBtn.innerHTML = 'Load more tags <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
+              loadMoreBtn.innerHTML = 'Load more tags <svg class="h-4 w-4" aria-hidden="true" viewBox="0 0 24 24"><use href="/icons.svg#chevron-down"></use></svg>';
             }
           }
         }

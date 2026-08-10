@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
 import { SITE } from '../../config/site';
 import { webPage } from '../../lib/schema';
 import { getCollection } from 'astro:content';
@@ -132,9 +133,7 @@ const latestGuides = [...guides]
   <section class="home-search-section">
     <div class="home-search-inner">
       <form action="/es/search/" method="get" class="home-search-form">
-        <svg class="home-search-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-        </svg>
+        <Icon name="search" class="home-search-icon" aria-hidden="true" />
         <input
           type="search"
           name="q"
@@ -168,28 +167,28 @@ const latestGuides = [...guides]
       <div class="home-why-grid">
         <div class="home-why-item">
           <span class="home-why-item__icon">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 12h6"/><path d="M12 9v6"/></svg>
+            <Icon name="plus-square" class="h-6 w-6" aria-hidden="true" />
           </span>
           <h3 class="home-why-item__title">Listo para copiar</h3>
           <p class="home-why-item__desc">Código que puedes copiar y ejecutar en tu proyecto inmediatamente.</p>
         </div>
         <div class="home-why-item">
           <span class="home-why-item__icon">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M2 6h20"/><path d="M2 18h20"/></svg>
+            <Icon name="menu-lines" class="h-6 w-6" aria-hidden="true" />
           </span>
           <h3 class="home-why-item__title">Multi-lenguaje</h3>
           <p class="home-why-item__desc">Ejemplos en Python, Java, JavaScript, TypeScript, SQL, Bash y más.</p>
         </div>
         <div class="home-why-item">
           <span class="home-why-item__icon">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <Icon name="users" class="h-6 w-6" aria-hidden="true" />
           </span>
           <h3 class="home-why-item__title">Impulsado por la comunidad</h3>
           <p class="home-why-item__desc">Base de conocimiento abierta basada en desafíos reales de ingeniería.</p>
         </div>
         <div class="home-why-item">
           <span class="home-why-item__icon">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <Icon name="file-text" class="h-6 w-6" aria-hidden="true" />
           </span>
           <h3 class="home-why-item__title">Documentación estructurada</h3>
           <p class="home-why-item__desc">Plantillas y guías consistentes para documentación mantenible.</p>
@@ -207,13 +206,13 @@ const latestGuides = [...guides]
         {contentTypes.map((type) => {
           const count = type.slug === 'recipes' ? recipesCount : type.slug === 'patterns' ? patternsCount : type.slug === 'docs' ? docsCount : guidesCount;
           const icon = type.slug === 'recipes' ? (
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 2v2"/><path d="M15 2v2"/><path d="M12 2v8"/><path d="M8 4h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+            <Icon name="timer" class="h-5 w-5" aria-hidden="true" />
           ) : type.slug === 'patterns' ? (
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+            <Icon name="grid" class="h-5 w-5" aria-hidden="true" />
           ) : type.slug === 'docs' ? (
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg>
+            <Icon name="file-text" class="h-5 w-5" aria-hidden="true" />
           ) : (
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+            <Icon name="compass" class="h-5 w-5" aria-hidden="true" />
           );
           return (
             <a href={`/es/${type.slug}/`} class="home-type-card">
@@ -229,7 +228,7 @@ const latestGuides = [...guides]
               </div>
               <div class="home-type-card__footer">
                 Explorar
-                <svg class="ml-1.5 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                <Icon name="chevron-right" class="ml-1.5 h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
               </div>
             </a>
           );
@@ -248,7 +247,7 @@ const latestGuides = [...guides]
         </div>
         <a href="/es/tags/" class="home-view-all">
           Ver todas las etiquetas
-          <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          <Icon name="chevron-right" class="ml-1.5 h-4 w-4" aria-hidden="true" />
         </a>
       </div>
       <div class="home-tag-cloud">
@@ -261,7 +260,7 @@ const latestGuides = [...guides]
       </div>
       <a href="/es/tags/" class="home-view-all home-view-all--mobile">
         Ver todas las etiquetas
-        <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        <Icon name="chevron-right" class="ml-1.5 h-4 w-4" aria-hidden="true" />
       </a>
     </div>
   </section>
@@ -277,9 +276,7 @@ const latestGuides = [...guides]
         </p>
         <a href="/es/topics/" class="home-cta-btn">
           Explorar temas
-          <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-          </svg>
+          <Icon name="chevron-right" class="ml-2 h-4 w-4" aria-hidden="true" />
         </a>
       </div>
     </div>
@@ -295,7 +292,7 @@ const latestGuides = [...guides]
         </div>
         <a href="/es/recipes/" class="home-view-all">
           Ver todas
-          <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          <Icon name="chevron-right" class="ml-1.5 h-4 w-4" aria-hidden="true" />
         </a>
       </div>
       <div class="home-content-grid">
@@ -329,7 +326,7 @@ const latestGuides = [...guides]
         </div>
         <a href="/es/guides/" class="home-view-all">
           Ver todas
-          <svg class="ml-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          <Icon name="chevron-right" class="ml-1.5 h-4 w-4" aria-hidden="true" />
         </a>
       </div>
       <div class="home-content-grid">

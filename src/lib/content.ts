@@ -156,7 +156,45 @@ export async function getPublicTagSet(locale: 'en' | 'es') {
   );
 }
 
-/** Resolves relatedResources paths into renderable link data for a given locale. */
+export interface TopicEntry {
+  title: string;
+  description: string;
+  href: string;
+  difficulty?: string;
+  tags?: string[];
+}
+
+const topicEntriesCache = new Map<string, TopicEntry[]>();
+
+/** Returns all resources (recipes, patterns, docs, guides) matching a topic for a locale. */
+export async function getTopicEntries(topic: string, locale: 'en' | 'es') {
+  const key = `${locale}:${topic}`;
+  const cached = topicEntriesCache.get(key);
+  if (cached) return cached;
+
+  const collections = ['recipes', 'patterns', 'docs', 'guides'] as const;
+  const entries: AnyEntry[] = [];
+  for (const name of collections) {
+    const col = await getCollection(name, ({ id, data }) => {
+      const isEs = isSpanish(id);
+      return locale === 'es' ? isEs : !isEs && !data.draft;
+    });
+    entries.push(...col);
+  }
+  const prefix = locale === 'es' ? '/es' : '';
+  const result = entries
+    .filter((entry) => (entry.data.topics as string[]).some((t) => t === topic))
+    .map((entry) => ({
+      title: entry.data.title,
+      description: entry.data.description,
+      href: `${prefix}/${entry.data.contentType}/${entry.data.slug}/`,
+      difficulty: entry.data.difficulty,
+      tags: entry.data.tags,
+    }));
+  topicEntriesCache.set(key, result);
+  return result;
+}
+
 export function resolveRelated(
   paths: string[],
   index: Map<string, { title: string; description: string; contentType: string; slug: string }>,

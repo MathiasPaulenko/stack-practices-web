@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import ListingPage from '../../../components/ListingPage.astro';
+import { isSpanish, getTopicEntries } from '../../../lib/content';
+import { PAGE_SIZE } from '../../../lib/pagination';
+import { topicIntros } from '../../../data/topic-intros';
+
+export async function getStaticPaths() {
+  const collections = await Promise.all([
+    getCollection('recipes'),
+    getCollection('patterns'),
+    getCollection('docs'),
+    getCollection('guides'),
+  ]);
+
+  const topicEntries = new Map<string, { en: number; es: number }>();
+  for (const col of collections) {
+    for (const entry of col) {
+      if (entry.data.draft) continue;
+      const isEs = isSpanish(entry.id);
+      const locale = isEs ? 'es' : 'en';
+      for (const t of entry.data.topics as string[]) {
+        if (!topicEntries.has(t)) {
+          topicEntries.set(t, { en: 0, es: 0 });
+        }
+        const counts = topicEntries.get(t)!;
+        counts[locale]++;
+      }
+    }
+  }
+
+  const paths: { params: { topic: string; page?: string }; props: { hasEsVersion: boolean } }[] = [];
+
+  for (const [topic, counts] of topicEntries) {
+    const enEntries = await getTopicEntries(topic, 'en');
+    const totalPages = Math.max(1, Math.ceil(enEntries.length / PAGE_SIZE));
+    const hasEsVersion = counts.es > 0;
+
+    for (let page = 1; page <= totalPages; page++) {
+      paths.push({
+        params: page === 1 ? { topic } : { topic, page: String(page) },
+        props: { hasEsVersion },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { topic, page } = Astro.params;
+const { hasEsVersion } = Astro.props;
+const currentPage = page ? parseInt(page, 10) : 1;
+const topicLabel = topic.replace(/-/g, ' ');
+const intro = topicIntros[topic]?.en;
+
+const entries = await getTopicEntries(topic, 'en');
+const path = currentPage === 1 ? `/topics/${topic}/` : `/topics/${topic}/${currentPage}/`;
+---
+
+<ListingPage
+  heading={topicLabel}
+  description={`Practical resources about ${topicLabel} for software engineers.`}
+  path={path}
+  entries={entries}
+  keywords={[topicLabel, 'recipes', 'patterns', 'docs', 'guides']}
+  hasAlternate={hasEsVersion}
+  initialLimit={PAGE_SIZE}
+  currentPage={currentPage}
+>
+  {intro && (
+    <Fragment slot="intro">
+      <section class="listing-section">
+        <div class="listing-container">
+          <h2 class="listing-heading">{intro.heading}</h2>
+          {intro.paragraphs.map((p) => (
+            <p class="listing-intro">{p}</p>
+          ))}
+        </div>
+      </section>
+    </Fragment>
+  )}
+</ListingPage>

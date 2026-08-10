@@ -1,0 +1,30 @@
+---
+export interface Props {
+  name: string;
+  class?: string;
+  'aria-hidden'?: string;
+  'aria-label'?: string;
+  width?: string | number;
+  height?: string | number;
+}
+
+const {
+  name,
+  class: className,
+  'aria-hidden': ariaHidden = 'true',
+  'aria-label': ariaLabel,
+  width,
+  height,
+} = Astro.props;
+---
+
+<svg
+  class:list={[className]}
+  aria-hidden={ariaHidden}
+  aria-label={ariaLabel}
+  width={width}
+  height={height}
+  viewBox="0 0 24 24"
+>
+  <use href={`/icons.svg#${name}`}></use>
+</svg>
