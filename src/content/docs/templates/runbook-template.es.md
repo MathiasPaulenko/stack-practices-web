@@ -53,7 +53,7 @@ seo:
 ---
 ## Estructura de la plantilla
 
-Usa esta plantilla para documentar cualquier procedimiento operacional que tu equipo necesite ejecutar. Consulta la [Guía de Respuesta a Incidentes On-Call](/guides/devops/on-call-incident-response-guide) para cultura de respuesta más amplia.
+Usa esta plantilla para documentar cualquier procedimiento operacional que tu equipo necesite ejecutar. Consulta la [Guía de Respuesta a Incidentes On-Call](/guides/on-call-incident-response-guide/) para cultura de respuesta más amplia.
 
 ---
 
@@ -113,7 +113,7 @@ Descripción en una oración de qué logra este runbook y cuándo usarlo.
 ### Acciones post-incidente (si aplica)
 
 - [ ] Actualizar página de estado
-- [ ] Escribir [postmortem del incidente](/docs/templates/incident-postmortem-template)
+- [ ] Escribir [postmortem del incidente](/docs/incident-postmortem-template/)
 - [ ] Crear tickets de seguimiento
 - [ ] Actualizar este runbook si el procedimiento cambió
 
@@ -132,13 +132,13 @@ Si este runbook no resuelve el problema dentro de [tiempo], escalar a:
 - **Mantenlo corto**: Una página por procedimiento rutinario
 - **Usa checkboxes**: Facilita seguirlo bajo presión
 - **Incluye comandos**: Scripts listos para copiar y pegar
-- **Prueba periódicamente**: Ejecuta los runbooks en períodos de calma.   Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template) para planificación de drills.
+- **Prueba periódicamente**: Ejecuta los runbooks en períodos de calma.   Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/disaster-recovery-plan-template/) para planificación de drills.
 - **Control de versiones**: Guarda en `docs/runbooks/` con tu código
 
 ## Anti-patrones comunes
 
 - Runbooks excesivamente largos que nadie lee durante incidentes
-- Pasos de rollback faltantes. Consulta la [Plantilla de Runbook de Migración de BD](/docs/templates/database-migration-runbook-template) para patrones de rollback.
+- Pasos de rollback faltantes. Consulta la [Plantilla de Runbook de Migración de BD](/docs/database-migration-runbook-template/) para patrones de rollback.
 - Sin path de escalamiento definido
 - Información de contacto desactualizada
 - Asumir contexto que el lector no tiene

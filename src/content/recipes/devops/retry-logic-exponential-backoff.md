@@ -41,10 +41,10 @@ Transient failures — network timeouts, rate limits, temporary service outages 
 ## When to Use
 
 Use this resource when:
-- Calling external APIs that may rate-limit or experience temporary outages. See [Call REST API](/recipes/api/call-rest-api) for API client patterns.
-- Publishing messages to queues or event buses that may be temporarily unavailable. See [RabbitMQ Task Queue](/recipes/messaging/rabbitmq-task-queue) for message broker resilience.
-- Performing database operations that might hit deadlock or connection timeouts. See [Connection Pooling](/recipes/databases/database-connection-pooling) for managing DB connections.
-- Building microservices that need resilience against downstream service degradation. See [Event-Driven Microservices](/recipes/messaging/event-driven-microservices) for resilient architecture.
+- Calling external APIs that may rate-limit or experience temporary outages. See [Call REST API](/recipes/call-rest-api/) for API client patterns.
+- Publishing messages to queues or event buses that may be temporarily unavailable. See [RabbitMQ Task Queue](/recipes/rabbitmq-task-queue/) for message broker resilience.
+- Performing database operations that might hit deadlock or connection timeouts. See [Connection Pooling](/recipes/database-connection-pooling/) for managing DB connections.
+- Building microservices that need resilience against downstream service degradation. See [Event-Driven Microservices](/recipes/event-driven-microservices/) for resilient architecture.
 
 ## Solution
 

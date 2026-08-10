@@ -40,7 +40,7 @@ seo:
 
 
 ---
-Use this template to document security assessment findings clearly and actionably. See [Web Application Security Guide](/guides/security/web-application-security-guide) for broader security practices.
+Use this template to document security assessment findings clearly and actionably. See [Web Application Security Guide](/guides/web-application-security-guide/) for broader security practices.
 
 ## Template
 

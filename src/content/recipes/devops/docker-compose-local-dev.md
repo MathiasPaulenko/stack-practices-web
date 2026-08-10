@@ -49,9 +49,9 @@ Set up a complete local development environment for microservices using Docker C
 
 ## When to Use This
 
-- Your application consists of multiple services that must run together locally. See [Docker Basics](/recipes/devops/docker-basics) for container fundamentals.
-- Developers need consistent environments regardless of host OS. See [Environment Variables](/recipes/devops/environment-variables) for per-environment configuration.
-- Databases, caches, and message brokers are required for integration testing. See [Integration Testing](/recipes/testing/integration-testing) for testing strategies.
+- Your application consists of multiple services that must run together locally. See [Docker Basics](/recipes/docker-basics/) for container fundamentals.
+- Developers need consistent environments regardless of host OS. See [Environment Variables](/recipes/environment-variables/) for per-environment configuration.
+- Databases, caches, and message brokers are required for integration testing. See [Integration Testing](/recipes/integration-testing/) for testing strategies.
 
 ## Solution
 

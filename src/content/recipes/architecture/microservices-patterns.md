@@ -50,9 +50,9 @@ Resilience patterns protect the system from these failure modes. A circuit break
 
 Use this recipe when:
 
-- Migrating from a monolith to a distributed architecture with 5+ services. See [Monolith to Microservices Guide](/guides/architecture/monolith-to-microservices-migration-guide) for migration strategies.
+- Migrating from a monolith to a distributed architecture with 5+ services. See [Monolith to Microservices Guide](/guides/monolith-to-microservices-migration-guide/) for migration strategies.
 - Experiencing cascading failures where one slow service degrades the entire system
-- Implementing payment workflows, inventory management, or order processing across services. See [Saga Pattern](/recipes/saga-pattern-recipe) for distributed transactions.
+- Implementing payment workflows, inventory management, or order processing across services. See [Saga Pattern](/recipes/saga-pattern-recipe/) for distributed transactions.
 - Operating services with different reliability SLAs on shared infrastructure
 - Building platforms where individual services must fail without impacting the whole
 
@@ -235,7 +235,7 @@ await orderSaga.execute();
 - **Set appropriate timeout budgets**: every outgoing call should have a timeout shorter than the caller's own timeout. If your API has a 2-second SLA, downstream calls should timeout at 500ms to leave room for retries and fallbacks.
 - **Implement graceful degradation**: when a service is unavailable, return cached data, default values, or reduced functionality rather than failing entirely. A product page without recommendations is better than a 500 error.
 - **Monitor circuit breaker state**: expose breaker states (closed/open/half-open) as metrics. Alert when breakers open frequently — this indicates systemic problems, not just transient failures.
-- **Idempotency for retries**: retries can cause duplicate operations. Ensure all mutation endpoints are idempotent. See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for deduplication patterns. Without idempotency, retries create inconsistent data.
+- **Idempotency for retries**: retries can cause duplicate operations. Ensure all mutation endpoints are idempotent. See [Idempotent Endpoints](/recipes/idempotent-api-endpoints/) for deduplication patterns. Without idempotency, retries create inconsistent data.
 - **Test failure injection**: use tools like Chaos Monkey, Gremlin, or Toxiproxy to randomly introduce latency, errors, and partition failures in staging. If your resilience patterns only work in theory, they will fail in production.
 
 ## Common mistakes
@@ -253,11 +253,11 @@ A: Choreography (event-driven) scales better for loosely coupled services but is
 **Q: How do I prevent retry storms after an outage?**
 A: Use exponential backoff with jitter, circuit breakers, and rate limiters. When a service recovers, stagger retries across the client population so the recovering service is not overwhelmed by synchronized requests.
 
-**Q: Can I combine [circuit breakers](/recipes/circuit-breaker-pattern-recipe) and [retries](/recipes/architecture/retry-backoff)?**
+**Q: Can I combine [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) and [retries](/recipes/retry-backoff/)?**
 A: Yes — this is the standard pattern. Retry handles transient failures. If retries exhaust, the circuit breaker opens. This layers defense: retries fix small issues, circuit breakers prevent collapse during major outages.
 
-**Q: What is the difference between a [saga](/recipes/saga-pattern-recipe) and two-phase commit?**
-A: Two-phase commit (2PC) locks resources across services, blocking until all participants confirm. Sagas do not lock — they execute steps sequentially and compensate on failure. Sagas trade immediate consistency for availability and partition tolerance (BASE vs ACID). See [Event-Driven Architecture](/recipes/architecture/event-driven-architecture) for event-based coordination.
+**Q: What is the difference between a [saga](/recipes/saga-pattern-recipe/) and two-phase commit?**
+A: Two-phase commit (2PC) locks resources across services, blocking until all participants confirm. Sagas do not lock — they execute steps sequentially and compensate on failure. Sagas trade immediate consistency for availability and partition tolerance (BASE vs ACID). See [Event-Driven Architecture](/recipes/event-driven-architecture/) for event-based coordination.
 
 
 ### Bulkhead Pattern (Go / errgroup with semaphore)

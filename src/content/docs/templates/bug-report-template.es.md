@@ -250,11 +250,11 @@ Los clientes no deberían ver labels de severidad ni campos de contexto interno.
 
 ### Reporte de crash (automatizado)
 
-Reportes automáticos de crash desde error tracking (Sentry, Bugsnag, Crashlytics) deberían incluir: stack trace, info del dispositivo, versión de la app, acciones del usuario antes del crash, y frecuencia de crash. Estos auto-populan la plantilla y crean un ticket. Consulta [Error Handling Patterns](/patterns/design/error-handling-pattern) para reporte estructurado de errores.
+Reportes automáticos de crash desde error tracking (Sentry, Bugsnag, Crashlytics) deberían incluir: stack trace, info del dispositivo, versión de la app, acciones del usuario antes del crash, y frecuencia de crash. Estos auto-populan la plantilla y crean un ticket. Consulta la [receta de manejo de errores](/recipes/handle-errors/) para reporte estructurado de errores.
 
 ### Reporte de vulnerabilidad de seguridad
 
-Reportes de seguridad necesitan una plantilla diferente: no incluyas pasos de reproducción en un ticket público. Usa un canal privado de divulgación de vulnerabilidades. Incluye: componente afectado, vector de ataque, impacto potencial, y mitigación sugerida. Consulta [Security Audit Checklist](/docs/templates/security-audit-checklist) para plantillas específicas de seguridad.
+Reportes de seguridad necesitan una plantilla diferente: no incluyas pasos de reproducción en un ticket público. Usa un canal privado de divulgación de vulnerabilidades. Incluye: componente afectado, vector de ataque, impacto potencial, y mitigación sugerida. Consulta [Security Audit Checklist](/docs/security-audit-checklist/) para plantillas específicas de seguridad.
 
 
 
@@ -284,11 +284,11 @@ Sí, pero simplifícala. Los clientes reciben un formulario con Resumen, Pasos y
 
 ### ¿Cómo manejo bugs de "en mi máquina funciona"?
 
-Agrega verificaciones de paridad de entorno: [Docker](/recipes/devops/docker-compose-local-dev), versiones exactas de dependencias, y datos de prueba. Consulta [Integration Testing](/recipes/testing/integration-testing-strategies) para verificar fixes en diferentes entornos. Si solo ocurre en producción, el bug está en los datos o la configuración, no en el código.
+Agrega verificaciones de paridad de entorno: [Docker](/recipes/docker-compose-local-dev/), versiones exactas de dependencias, y datos de prueba. Consulta [Integration Testing](/recipes/integration-testing-strategies/) para verificar fixes en diferentes entornos. Si solo ocurre en producción, el bug está en los datos o la configuración, no en el código.
 
 ### ¿Cuál es la diferencia entre un bug y una solicitud de feature?
 
-Un bug es un comportamiento que no coincide con el comportamiento documentado o intencionado. Una solicitud de feature es un pedido de nuevo comportamiento que nunca fue diseñado. Si el comportamiento es ambiguo, revisa el spec o pregunta al product owner. Usa la [Plantilla de Solicitud de Feature](/docs/templates/feature-request-template) para nuevas capacidades.
+Un bug es un comportamiento que no coincide con el comportamiento documentado o intencionado. Una solicitud de feature es un pedido de nuevo comportamiento que nunca fue diseñado. Si el comportamiento es ambiguo, revisa el spec o pregunta al product owner. Usa la [Plantilla de Solicitud de Feature](/docs/feature-request-template/) para nuevas capacidades.
 
 ### ¿Cuánto detalle deberían tener los pasos de reproducción?
 

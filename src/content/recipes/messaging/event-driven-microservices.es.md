@@ -42,10 +42,10 @@ Los microservicios event-driven se comunican de forma asíncrona a través de ev
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Los servicios necesitan escalar independientemente sin acoplamiento fuerte. Consulta [Event-Driven Functions](/recipes/messaging/event-driven-microservices) para patrones de mensajería async.
-- Manejas procesos de negocio de larga duración a través de múltiples dominios. Consulta [Serverless Orchestration](/recipes/devops/background-jobs) para coordinación de workflows.
-- Aseguras consistencia de datos sin transacciones distribuidas. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para manejar fallas transitorias.
-- Construyes pipelines de notificaciones, auditoría o analytics en tiempo real. Consulta [Kafka Event Streaming](/recipes/messaging/kafka-event-streaming) para procesamiento de eventos de alto throughput.
+- Los servicios necesitan escalar independientemente sin acoplamiento fuerte. Consulta [Event-Driven Functions](/recipes/event-driven-microservices/) para patrones de mensajería async.
+- Manejas procesos de negocio de larga duración a través de múltiples dominios. Consulta [Serverless Orchestration](/recipes/background-jobs/) para coordinación de workflows.
+- Aseguras consistencia de datos sin transacciones distribuidas. Consulta [Retry Logic](/recipes/retry-backoff/) para manejar fallas transitorias.
+- Construyes pipelines de notificaciones, auditoría o analytics en tiempo real. Consulta [Kafka Event Streaming](/recipes/kafka-event-streaming/) para procesamiento de eventos de alto throughput.
 
 ## Solución
 

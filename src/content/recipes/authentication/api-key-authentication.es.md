@@ -42,9 +42,9 @@ El desafío con las API keys no es la generación — cualquier string aleatorio
 
 Usa esta receta cuando:
 
-- Autenticando servicios backend, [microservicios](/guides/architecture/microservices-architecture-guide) o funciones serverless entre sí
+- Autenticando servicios backend, [microservicios](/guides/microservices-architecture-guide/) o funciones serverless entre sí
 - Proporcionando a desarrolladores de terceros acceso a una API pública con límites de uso
-- Asegurando endpoints de [webhook](/recipes/api/webhooks) que reciben notificaciones push de proveedores externos
+- Asegurando endpoints de [webhook](/recipes/webhooks/) que reciben notificaciones push de proveedores externos
 - Reemplazando autenticación básica (usuario/contraseña) en llamadas service-to-service
 - Implementando acceso a API por tiers con diferentes keys para operaciones de solo lectura vs escritura
 
@@ -170,7 +170,7 @@ components:
 - **Estructura de key**: una API key bien diseñada contiene un identificador público (key ID) y una firma secreta.   El key ID se loguea y muestra en dashboards; la firma se valida server-side.   Nunca almacenes la key completa en logs.
 - **Validación HMAC**: La firma prueba que la key fue generada por tu sistema sin necesidad de ronda de base de datos.
 - **Control de acceso basado en scopes**: asigna scopes como `users:read`, `orders:write`, `admin:full` a cada key.
-- **[Rate limiting](/recipes/api/api-rate-limiting-redis) por key**: Aplica límites por tier — una key de tier gratis obtiene 100 requests/hora mientras que una enterprise obtiene 100,000.
+- **[Rate limiting](/recipes/api-rate-limiting-redis/) por key**: Aplica límites por tier — una key de tier gratis obtiene 100 requests/hora mientras que una enterprise obtiene 100,000.
 
 ## Variantes
 
@@ -307,7 +307,7 @@ Benchmarks en Node.js 20, single core, Redis cache. Resultados reales varian seg
 
 ## Preguntas frecuentes
 
-**P: ¿Cuál es la diferencia entre API keys y [JWT tokens](/recipes/authentication/jwt-authentication)?**
+**P: ¿Cuál es la diferencia entre API keys y [JWT tokens](/recipes/jwt-authentication/)?**
 R: Las API keys son strings opacos típicamente usados para auth service-to-service con permisos fijos. Los JWT tokens son claims auto-contenidos usados para sesiones de usuario, frecuentemente con lifespans más cortos y permisos live. Los JWTs pueden codificar identidad de usuario; las API keys usualmente codifican identidad de aplicación.
 
 **P: ¿Cómo revoco una API key comprometida?**

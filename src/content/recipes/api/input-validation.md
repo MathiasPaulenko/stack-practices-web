@@ -57,7 +57,7 @@ Use this recipe when:
 - Accepting data from APIs, forms, or user uploads
 - Parsing external data (JSON, CSV, XML) before processing
 - Enforcing business rules on incoming payloads
-- Preventing injection attacks (SQL, XSS, command injection). See [Security Guide](/guides/security/security-best-practices-guide) for defense patterns.
+- Preventing injection attacks (SQL, XSS, command injection). See [Security Guide](/guides/security-best-practices-guide/) for defense patterns.
 - Converting and sanitizing untrusted strings into typed values
 
 ## Solution
@@ -168,13 +168,13 @@ for (ConstraintViolation<UserCreate> v : violations) {
 - **Validate early**: Reject invalid input at the API boundary, not deep in the service layer
 - **Use strict schemas**: Prefer explicit allowlists over permissive catch-all types
 - **Sanitize after validation**: Escape HTML, trim whitespace, normalize Unicode
-- **Return structured errors**: Return field-level errors so the UI can display them inline.  See [Error Handling](/recipes/api/handle-errors) for error response patterns.
+- **Return structured errors**: Return field-level errors so the UI can display them inline.  See [Error Handling](/recipes/handle-errors/) for error response patterns.
 - **Never rely solely on frontend validation**: Always re-validate on the server
-- **Log validation failures**: See [Logging](/recipes/api/logging) for log aggregation.
+- **Log validation failures**: See [Logging](/recipes/logging/) for log aggregation.
 
 ## Common Mistakes
 
-- Trusting client-side validation as the only defense. See [Security Guide](/guides/security/security-best-practices-guide) for server-side validation.
+- Trusting client-side validation as the only defense. See [Security Guide](/guides/security-best-practices-guide/) for server-side validation.
 - Using regex for complex validation when a schema library is available
 - Allowing implicit type coercion without explicit rules
 - Returning raw database errors instead of user-friendly validation messages

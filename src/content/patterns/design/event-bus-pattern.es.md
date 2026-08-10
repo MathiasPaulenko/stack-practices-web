@@ -272,7 +272,7 @@ La librería de Google para Java provee suscripción basada en anotaciones (`@Su
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Event Bus y Observer?**
-A: [Observer](/patterns/design/observer-pattern) es uno-a-muchos entre un subject y sus observadores. Event Bus es muchos-a-muchos a través de un mediador central que ni publisher ni subscriber poseen.
+A: [Observer](/patterns/observer-pattern/) es uno-a-muchos entre un subject y sus observadores. Event Bus es muchos-a-muchos a través de un mediador central que ni publisher ni subscriber poseen.
 
 **Q: Debería construir mi propio event bus o usar una librería?**
 A: Para necesidades simples in-process, una implementación de 50 líneas es suficiente. Para durabilidad, clustering o replay, usa RabbitMQ, Kafka o Redis Pub/Sub.

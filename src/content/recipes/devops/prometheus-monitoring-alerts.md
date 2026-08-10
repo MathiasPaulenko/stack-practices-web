@@ -53,9 +53,9 @@ Instrument services and infrastructure with Prometheus metrics to gain real-time
 
 ## When to Use This
 
-- You need quantitative data about application and infrastructure behavior. See [Structured Logging](/recipes/observability/structured-logging) for correlated event data.
-- Alerting should trigger on symptoms, not just infrastructure failures. See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for symptom detection.
-- Historical metrics are required for capacity planning and debugging. See [Load Testing](/recipes/testing/load-testing) for capacity baseline measurement.
+- You need quantitative data about application and infrastructure behavior. See [Structured Logging](/recipes/structured-logging/) for correlated event data.
+- Alerting should trigger on symptoms, not just infrastructure failures. See [Health Check Endpoint](/recipes/health-check-endpoint/) for symptom detection.
+- Historical metrics are required for capacity planning and debugging. See [Load Testing](/recipes/load-testing/) for capacity baseline measurement.
 
 ## Solution
 

@@ -413,4 +413,4 @@ A: No necesariamente. Puedes usar GPT-4o como primario y Claude como fallback. D
 A: Normaliza las respuestas a traves de una capa adaptadora. La respuesta de cada proveedor se mapea a un formato comun antes de devolverse. Esto desacopla tu aplicacion de formatos especificos de proveedor.
 
 **Q: Que pasa con las diferencias de costo entre proveedores?**
-A: La cadena prueba proveedores en orden, asi que el costo lo determina que proveedor tiene exito. Si quieres optimizacion de costos, usa el [Patrón LLM Router](/patterns/ai/llm-router-pattern) para seleccionar proveedores por complejidad de query, y usa la cadena de fallback solo para recuperacion de errores.
+A: La cadena prueba proveedores en orden, asi que el costo lo determina que proveedor tiene exito. Si quieres optimizacion de costos, usa el [Patrón LLM Router](/patterns/llm-router-pattern/) para seleccionar proveedores por complejidad de query, y usa la cadena de fallback solo para recuperacion de errores.

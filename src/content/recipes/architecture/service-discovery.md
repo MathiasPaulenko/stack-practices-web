@@ -38,7 +38,7 @@ seo:
 ---
 ## Overview
 
-Service discovery is the mechanism by which [microservices](/guides/architecture/microservices-architecture-guide) locate and communicate with each other in live environments where IP addresses change constantly. Instead of hard-coding endpoints, services register themselves in a registry and clients query it to find healthy instances. Combined with [health checks](/recipes/devops/health-check-endpoint), it enables self-healing systems that route around failures automatically.
+Service discovery is the mechanism by which [microservices](/guides/microservices-architecture-guide/) locate and communicate with each other in live environments where IP addresses change constantly. Instead of hard-coding endpoints, services register themselves in a registry and clients query it to find healthy instances. Combined with [health checks](/recipes/health-check-endpoint/), it enables self-healing systems that route around failures automatically.
 
 ## When to Use
 
@@ -46,7 +46,7 @@ Use this resource when:
 - Running microservices on Kubernetes, ECS, or auto-scaling groups where IPs are ephemeral
 - You need automatic failover when service instances crash or become unhealthy
 - Load balancing across multiple instances without manual configuration updates
-- Implementing [blue-green deployments](/recipes/devops/blue-green-deployment) or canary releases that require live traffic routing
+- Implementing [blue-green deployments](/recipes/blue-green-deployment/) or canary releases that require live traffic routing
 
 ## Solution
 
@@ -160,7 +160,7 @@ public class OrderProcessor {
 - **Cache with fallback**: Clients should cache instance lists and use stale data briefly if registry is unreachable
 - **Zone-aware routing**: Prefer instances in the same AZ to reduce latency and data transfer costs
 - **Metadata for routing**: Tag instances with versions to enable canary and A/B testing
-- **Secure with mTLS**: Encrypt service-to-service communication; authenticate registered services. See [API security checklist](/guides/security/api-security-checklist-guide).
+- **Secure with mTLS**: Encrypt service-to-service communication; authenticate registered services. See [API security checklist](/guides/api-security-checklist-guide/).
 
 ## Common Mistakes
 
@@ -168,7 +168,7 @@ public class OrderProcessor {
 2. **Thundering herd**: All clients querying the registry simultaneously under load
 3. **Ignoring deregistration**: Crashed services remain in the pool until TTL expires
 4. **Hard-coding fallback IPs**: Defeats the purpose of live discovery
-5. **Skipping retries**: One failed instance should trigger a retry on another, not fail the request. Use [retry with exponential backoff](/recipes/architecture/retry-backoff) for resilient clients.
+5. **Skipping retries**: One failed instance should trigger a retry on another, not fail the request. Use [retry with exponential backoff](/recipes/retry-backoff/) for resilient clients.
 
 ## FAQ
 
@@ -176,10 +176,10 @@ public class OrderProcessor {
 A: Client-side is faster (no extra hop) but requires smart clients. Server-side is simpler but adds latency. DNS-based is the simplest for Kubernetes.
 
 **Q: How does service discovery work with serverless?**
-A: AWS Cloud Map, GCP Service Directory, or API Gateway service registries integrate with Lambda and Cloud Run. Learn more in [serverless architecture](/guides/architecture/event-driven-architecture-guide).
+A: AWS Cloud Map, GCP Service Directory, or API Gateway service registries integrate with Lambda and Cloud Run. Learn more in [serverless architecture](/guides/event-driven-architecture-guide/).
 
 **Q: What's the difference between service discovery and load balancing?**
-A: Discovery finds available instances; [load balancing](/recipes/architecture/load-balancing) distributes traffic among them. They often work together.
+A: Discovery finds available instances; [load balancing](/recipes/load-balancing/) distributes traffic among them. They often work together.
 
 ### Client-Side Discovery with Consul (Python)
 

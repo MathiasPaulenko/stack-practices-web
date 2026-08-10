@@ -48,7 +48,7 @@ Here is how to building a production-ready GraphQL API with type-safe schemas, r
 Use this resource when:
 - Your clients need flexible data fetching (mobile apps with limited bandwidth)
 - You want strongly typed API contracts with automatic documentation
-- You need to aggregate data from multiple microservices. See [gRPC API](/recipes/api/grpc-api) for service-to-service communication.
+- You need to aggregate data from multiple microservices. See [gRPC API](/recipes/grpc-api/) for service-to-service communication.
 - Your API consumers request different field combinations frequently
 
 ## Solution
@@ -165,7 +165,7 @@ Key differences across languages:
 ## What Works
 
 - **Use DataLoader for N+1 queries**: Batch and cache database requests across resolvers
-- **Implement pagination**: Use [cursor-based pagination](/recipes/api/cursor-pagination-postgresql) for large lists (Relay Connection spec)
+- **Implement pagination**: Use [cursor-based pagination](/recipes/cursor-pagination-postgresql/) for large lists (Relay Connection spec)
 - **Validate input early**: Use schema directives and custom scalars for input validation
 - **Limit query depth/complexity**: Prevent expensive queries with depth and complexity analysis
 - **Enable query whitelisting in production**: Use persisted queries to prevent arbitrary query execution
@@ -174,7 +174,7 @@ Key differences across languages:
 
 - **Not handling N+1 queries**: Each resolver hitting the database independently causes exponential queries
 - **Over-exposing internal types**: Leaking database models directly into the schema without a domain layer
-- **Missing error handling**: GraphQL returns 200 OK even with errors — always check the `errors` array.  See [Error Handling](/recipes/api/handle-errors) for patterns.
+- **Missing error handling**: GraphQL returns 200 OK even with errors — always check the `errors` array.  See [Error Handling](/recipes/handle-errors/) for patterns.
 - **Ignoring schema versioning**: While GraphQL avoids versioning, deprecation and field tracking still matter
 - **Storing state in resolvers**: Resolvers must be stateless; use context for request-scoped data
 
@@ -221,7 +221,7 @@ Key differences across languages:
 ## FAQ
 
 **Q: Should I migrate my REST API to GraphQL?**
-A: Not necessarily. GraphQL shines when clients need flexibility. If your API has simple, stable consumers, [REST](/recipes/api/call-rest-api) may be simpler and more cacheable.
+A: Not necessarily. GraphQL shines when clients need flexibility. If your API has simple, stable consumers, [REST](/recipes/call-rest-api/) may be simpler and more cacheable.
 
 **Q: How do I handle file uploads in GraphQL?**
 A: Use the multipart request spec (Apollo supports it natively) or use a separate REST endpoint for uploads and return the URL in GraphQL.

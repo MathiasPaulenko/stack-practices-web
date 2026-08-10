@@ -45,7 +45,7 @@ Usa este recurso cuando:
 - Diseñes una API pública o interna desde cero
 - Refactorices una API estilo RPC legacy a REST
 - Documentes una API con OpenAPI/Swagger
-- Elijas entre [REST](/recipes/api/call-rest-api), [GraphQL](/recipes/api/graphql-api) o [gRPC](/recipes/api/grpc-api) para un nuevo servicio
+- Elijas entre [REST](/recipes/call-rest-api/), [GraphQL](/recipes/graphql-api/) o [gRPC](/recipes/grpc-api/) para un nuevo servicio
 
 ## Cuándo Evitar
 
@@ -146,7 +146,7 @@ Content-Type: application/json
 {"amount": 1000, "currency": "USD"}
 ```
 
-El servidor almacena la clave y devuelve la respuesta original en reintentos. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para implementación.
+El servidor almacena la clave y devuelve la respuesta original en reintentos. Consulta [Endpoints Idempotentes](/recipes/idempotent-api-endpoints/) para implementación.
 
 ### Respuesta de Rate Limiting
 
@@ -170,9 +170,9 @@ X-RateLimit-Reset: 1719900000
 
 REST aprovecha HTTP como protocolo de aplicación, no solo como transporte:
 
-- **Idempotencia**: GET, PUT, DELETE deben ser seguros de reintentar.   Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones.   POST no es idempotente.
+- **Idempotencia**: GET, PUT, DELETE deben ser seguros de reintentar.   Consulta [Endpoints Idempotentes](/recipes/idempotent-api-endpoints/) para patrones.   POST no es idempotente.
 - **Sin estado**: Cada request contiene toda la información necesaria; sin sesión del lado del servidor.
-- **Cacheabilidad**: Consulta [Manejo de CORS](/recipes/api/handle-cors) para configuración de headers.
+- **Cacheabilidad**: Consulta [Manejo de CORS](/recipes/handle-cors/) para configuración de headers.
 - **HATEOAS**: Incluye links a recursos relacionados (opcional pero mejora descubribilidad).
 
 ## Variantes
@@ -231,12 +231,12 @@ Si el ETag ya no coincide (alguien más modificó el recurso), devuelve 412 Prec
 - **Versiona en la URL**: /v1/users (más explícito que headers)
 - **Devuelve estructura consistente**: { data, error, meta }
 - **Soporta filtrado**: GET /users?
-- **Rate limit desde el inicio**: Devuelve 429 con header Retry-After.   Consulta [Rate Limiting con Redis](/recipes/api/api-rate-limiting-redis) para implementación.
+- **Rate limit desde el inicio**: Devuelve 429 con header Retry-After.   Consulta [Rate Limiting con Redis](/recipes/api-rate-limiting-redis/) para implementación.
 
 ## Errores Comunes
 
 1. **Usar verbos en URLs**: /createUser, /getOrders — usa sustantivos y métodos HTTP
-2. **Ignorar códigos HTTP**: Devolver 200 con cuerpo de error rompe middleware. Consulta [Manejo de Errores](/recipes/api/handle-errors) para uso de códigos de estado.
+2. **Ignorar códigos HTTP**: Devolver 200 con cuerpo de error rompe middleware. Consulta [Manejo de Errores](/recipes/handle-errors/) para uso de códigos de estado.
 3. **No versionar**: Cambios breaking sin versionado abandonan clientes existentes
 4. **Over-fetching**: Devolver objetos anidados enormes cuando el cliente necesita un subset
 5. **Faltar negociación de contenido**: No respetar Accept y Content-Type headers
@@ -305,7 +305,7 @@ Bearer tokens en el header Authorization: `Authorization: Bearer <token>`. API k
 
 ### ¿Cómo manejo operaciones de larga duración?
 
-Devuelve 202 Accepted con una URL de estado. El cliente hace polling de la URL de estado hasta que la operación completa. Para webhooks, devuelve 202 y envía un POST a la URL del webhook del cliente cuando termine. Consulta [Async API Pattern](/patterns/design/async-generator-pattern) para patrones.
+Devuelve 202 Accepted con una URL de estado. El cliente hace polling de la URL de estado hasta que la operación completa. Para webhooks, devuelve 202 y envía un POST a la URL del webhook del cliente cuando termine. Consulta [Async API Pattern](/patterns/async-generator-pattern/) para patrones.
 
 ### ¿Debería usar REST o GraphQL?
 

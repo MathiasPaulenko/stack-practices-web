@@ -79,7 +79,7 @@ Usa esta plantilla para crear un archivo `CONTRIBUTING.md` en tu repositorio.
 ### Reportar bugs
 
 1. Busca issues existentes primero
-2. Abre un issue nuevo con la [plantilla de reporte de bug](/docs/templates/bug-report-template)
+2. Abre un issue nuevo con la [plantilla de reporte de bug](/docs/bug-report-template/)
 3. Incluye:
    - Pasos para reproducir
    - Comportamiento esperado
@@ -89,7 +89,7 @@ Usa esta plantilla para crear un archivo `CONTRIBUTING.md` en tu repositorio.
 
 ### Sugerir capacidades
 
-1. Abre un issue nuevo con la [plantilla de solicitud de capacidad](/docs/templates/feature-request-template)
+1. Abre un issue nuevo con la [plantilla de solicitud de capacidad](/docs/feature-request-template/)
 2. Describe el problema y la solución propuesta
 3. Discute con los mantenedores antes de invertir esfuerzo mayor
 
@@ -156,7 +156,7 @@ chore: update dependencies
 
 ## Directrices de la comunidad
 
-### [Código de Conducta](/docs/templates/code-of-conduct-template)
+### [Código de Conducta](/docs/code-of-conduct-template/)
 
 - Sé respetuoso e inclusivo
 - Enfócate en feedback constructivo
@@ -166,7 +166,7 @@ chore: update dependencies
 ### Reconocimiento
 
 Los contribuidores serán:
-- Listados en el [README](/docs/templates/readme-template) o archivo CONTRIBUTORS
+- Listados en el [README](/docs/readme-template/) o archivo CONTRIBUTORS
 - Mencionados en las release notes
 - Acreditados apropiadamente en la historia del proyecto
 

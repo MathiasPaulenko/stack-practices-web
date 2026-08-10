@@ -142,16 +142,16 @@ async function eraseUserData(userId) {
 ## What Works
 
 - **Privacy by default**: New capabilities opt-out by default; explicit opt-in required
-- **Encrypt PII at rest**: Use [AES-256 encryption](/recipes/security/encryption-at-rest) for databases, S3, and backups
-- **Log access to personal data**: [Audit](/guides/devops/logging-monitoring-observability-guide) who accessed what and when
+- **Encrypt PII at rest**: Use [AES-256 encryption](/recipes/encryption-at-rest/) for databases, S3, and backups
+- **Log access to personal data**: [Audit](/guides/logging-monitoring-observability-guide/) who accessed what and when
 - **Separate analytics data**: Pseudonymize before sending to BI tools
 - **Document your lawful basis**: Contract, consent, or legitimate interest per data type
 
 ## Common Mistakes
 
-1. **Implicit consent**: Pre-checked boxes or buried terms don't count under [GDPR](/recipes/security/data-privacy-gdpr)
+1. **Implicit consent**: Pre-checked boxes or buried terms don't count under [GDPR](/recipes/data-privacy-gdpr/)
 2. **No retention limits**: Keeping user data forever violates storage limitation
-3. **Third-party leakage**: Analytics, ads, and CDNs receive PII without user knowledge. Run [dependency audits](/guides/security/security-best-practices-guide) regularly.
+3. **Third-party leakage**: Analytics, ads, and CDNs receive PII without user knowledge. Run [dependency audits](/guides/security-best-practices-guide/) regularly.
 4. **Ignoring backup deletion**: Erased user data persists in old database snapshots
 5. **One-size-fits-all consent**: Marketing and functional cookies need separate consent
 

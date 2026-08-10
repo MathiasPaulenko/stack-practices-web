@@ -47,7 +47,7 @@ seo:
 
 ## Overview
 
-The [Iterator](/patterns/design/iterator-pattern-collections) Pattern is a behavioral design pattern that provides a way to access elements of an aggregate object sequentially without exposing its underlying representation. It separates the traversal logic from the collection itself, allowing multiple simultaneous traversals and different traversal strategies.
+The [Iterator](/patterns/iterator-pattern-collections/) Pattern is a behavioral design pattern that provides a way to access elements of an aggregate object sequentially without exposing its underlying representation. It separates the traversal logic from the collection itself, allowing multiple simultaneous traversals and different traversal strategies.
 
 ## When to Use
 
@@ -234,10 +234,10 @@ Modern languages integrate iterators deeply — Python's `__iter__`, JavaScript'
 ## FAQ
 
 **Q: Do I need to implement the Iterator Pattern manually?**
-A: Rarely. Most languages provide built-in iterator support. Only implement a custom iterator when you need a non-standard traversal (e.g., [tree traversal](/patterns/design/iterator-pattern-collections), graph traversal, or filtered iteration).
+A: Rarely. Most languages provide built-in iterator support. Only implement a custom iterator when you need a non-standard traversal (e.g., [tree traversal](/patterns/iterator-pattern-collections/), graph traversal, or filtered iteration).
 
 **Q: What is the difference between Iterator and Visitor?**
-A: Iterator traverses elements. [Visitor](/patterns/design/visitor-pattern) performs operations on elements. They are often used together: an iterator walks the structure, and a visitor processes each element.
+A: Iterator traverses elements. [Visitor](/patterns/visitor-pattern/) performs operations on elements. They are often used together: an iterator walks the structure, and a visitor processes each element.
 
 ### Is this pattern suitable for small projects?
 

@@ -47,10 +47,10 @@ Caching is the single most useful way to speed up read-heavy applications. Redis
 ## When to Use
 
 Use this resource when:
-- [Database queries](/recipes/databases/postgres-query-optimization) are slow and return the same results frequently
-- You need to reduce load on downstream [APIs](/recipes/api/call-rest-api) or databases
+- [Database queries](/recipes/postgres-query-optimization/) are slow and return the same results frequently
+- You need to reduce load on downstream [APIs](/recipes/call-rest-api/) or databases
 - Session data, user profiles, or configuration needs fast read access
-- Real-time leaderboards, [rate limiting](/recipes/api/rate-limiting), or temporary locks are required
+- Real-time leaderboards, [rate limiting](/recipes/rate-limiting/), or temporary locks are required
 
 ## Solution
 
@@ -193,7 +193,7 @@ This pattern is simple, works with any database, and handles cache failures grac
 - **Set TTLs on everything**: Without TTL, your cache grows forever and stale data lives indefinitely. Use 5-15 minutes for volatile data, hours for stable reference data.
 - **Use cache key versioning**: `user:v2:123` lets you invalidate an entire schema by changing the version prefix.
 - **Serialize to JSON or MessagePack**: JSON is human-readable; MessagePack is smaller and faster. Avoid Python `pickle` or Java native serialization for security.
-- **Handle cache misses gracefully**: Cache failures should degrade to the database, never crash the app. Use [circuit breakers](/patterns/design/circuit-breaker-pattern) for Redis connections.
+- **Handle cache misses gracefully**: Cache failures should degrade to the database, never crash the app. Use [circuit breakers](/patterns/circuit-breaker-pattern/) for Redis connections.
 - **Monitor hit rates**: A cache hit rate below 80% usually means your TTL is too short or you're caching the wrong data.
 
 ## Common Mistakes

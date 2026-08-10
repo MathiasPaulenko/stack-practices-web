@@ -170,7 +170,7 @@ process.on('SIGTERM', async () => {
 ## Consideraciones de Produccion
 
 - Ejecuta Vault en **modo HA** con almacenamiento Raft para ambientes de produccion
-- Usa **AppRole o [Kubernetes auth](/guides/devops/kubernetes-basics-guide)** en lugar de tokens de larga duracion
+- Usa **AppRole o [Kubernetes auth](/guides/kubernetes-basics-guide/)** en lugar de tokens de larga duracion
 - Habilita **audit devices** para loggear cada generacion de credenciales y acceso
 - Configura **max_ttl** para enforcear duracion maxima de sesion sin importar renovacion
 
@@ -178,7 +178,7 @@ process.on('SIGTERM', async () => {
 
 - Olvidar revocar leases, dejando roles huérfanos en base de datos
 - Configurar TTL demasiado corto, causando churn excesivo de credenciales
-- No manejar indisponibilidad de Vault gracefulmente en la aplicacion. Consulta [respuesta a incidentes on-call](/guides/devops/on-call-incident-response-guide).
+- No manejar indisponibilidad de Vault gracefulmente en la aplicacion. Consulta [respuesta a incidentes on-call](/guides/on-call-incident-response-guide/).
 
 ## FAQ
 
@@ -189,7 +189,7 @@ R: La aplicacion deberia fallar al iniciar o caer a un connection pool cacheado.
 R: Si. Usa `vault write database/rotate-root/postgres` para rotar las credenciales root que Vault usa para gestionar roles en vivo.
 
 **P: Funciona esto con connection pooling?**
-R: Si, pero el pool debe recrearse cuando las credenciales rotan. Usa un [factory pattern](/patterns/design/factory-pattern) que gestione el ciclo de vida del pool junto con el TTL del lease.
+R: Si, pero el pool debe recrearse cuando las credenciales rotan. Usa un [factory pattern](/patterns/factory-pattern/) que gestione el ciclo de vida del pool junto con el TTL del lease.
 
 ### ¿Esta solución está lista para producción?
 

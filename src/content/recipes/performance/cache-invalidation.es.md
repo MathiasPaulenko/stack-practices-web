@@ -41,7 +41,7 @@ seo:
 ---
 ## Visión general
 
-El caching mejora el rendimiento de lectura almacenando datos frecuentemente accedidos en almacenamiento rápido en memoria. Sin embargo, las cachés introducen un problema clásico de [sistemas distribuidos](/guides/architecture/microservices-architecture-guide): cuando los datos subyacentes cambian, la caché se vuelve obsoleta. Servir datos obsoletos puede llevar a decisiones de negocio incorrectas, problemas de seguridad y malas experiencias de usuario.
+El caching mejora el rendimiento de lectura almacenando datos frecuentemente accedidos en almacenamiento rápido en memoria. Sin embargo, las cachés introducen un problema clásico de [sistemas distribuidos](/guides/microservices-architecture-guide/): cuando los datos subyacentes cambian, la caché se vuelve obsoleta. Servir datos obsoletos puede llevar a decisiones de negocio incorrectas, problemas de seguridad y malas experiencias de usuario.
 
 La invalidación de caché es el mecanismo que garantiza que los datos cacheados permanezcan consistentes con su fuente. No hay una solución universal — la estrategia correcta depende de tus requerimientos de consistencia, volumen de escrituras, y tolerancia a lecturas obsoletas. Lo siguiente cubre los cuatro patrones principales: expiración TTL, write-through, write-behind e invalidación event-driven.
 
@@ -52,7 +52,7 @@ Usa esta receta cuando:
 - Agregas caching a una aplicación que requiere consistencia de datos
 - Debuggeas problemas de caché obsoleta donde usuarios ven información desactualizada
 - Diseñas sistemas distribuidos con múltiples escritores y lectores
-- Eliges entre Redis, Memcached o capas de caching de [CDN](/recipes/data/caching)
+- Eliges entre Redis, Memcached o capas de caching de [CDN](/recipes/caching/)
 - Implementas políticas de cache warming y eviction
 
 ## Solución
@@ -200,7 +200,7 @@ def invalidate_user(user_id):
 - **Expiración TTL**: El enfoque más simple.   Los datos expiran después de un tiempo fijo.   Adecuado para datos que cambian infrecuentemente o donde la obsolescencia breve es aceptable.   Fácil de implementar pero puede servir datos obsoletos durante la duración del TTL.
 - **Write-through**: Garantiza consistencia pero agrega latencia a las escrituras e incrementa la carga de la caché.
 - **Write-behind (write-back)**: Las escrituras van primero a la caché, que persiste asíncronamente en la base de datos.   Escrituras extremadamente rápidas pero riesgo de pérdida de datos si la caché falla antes de flush.
-- **Event-driven**: Los servicios publican [eventos](/recipes/messaging/event-driven-microservices) cuando los datos cambian.   Los listeners de caché eliminan o refrescan las keys afectadas.   Acoplamiento débil pero requiere un message broker.
+- **Event-driven**: Los servicios publican [eventos](/recipes/event-driven-microservices/) cuando los datos cambian.   Los listeners de caché eliminan o refrescan las keys afectadas.   Acoplamiento débil pero requiere un message broker.
 
 ## Variantes
 
@@ -288,7 +288,7 @@ La invalidación de CDN es lenta (segundos a minutos). Usa URLs versionadas (`/v
 
 ### ¿Cómo prevengo cache stampedes?
 
-Usa un lock distribuido para que solo un proceso repopule la caché después de la expiración. Consulta [rate limiting](/recipes/security/rate-limiting) para patrones de locking distribuido. Alternativamente, usa expiración temprana probabilística donde cada request tiene una pequeña chance de refrescar la caché antes de que el TTL llegue a cero.
+Usa un lock distribuido para que solo un proceso repopule la caché después de la expiración. Consulta [rate limiting](/recipes/rate-limiting/) para patrones de locking distribuido. Alternativamente, usa expiración temprana probabilística donde cada request tiene una pequeña chance de refrescar la caché antes de que el TTL llegue a cero.
 
 ### ¿Debería cachear escrituras además de lecturas?
 
@@ -304,7 +304,7 @@ La eviction ocurre cuando la caché remueve entradas por presión de memoria (po
 
 ### ¿Cómo manejo la invalidación de caché en microservicios?
 
-Usa invalidación event-driven. Cada servicio publica un evento de dominio (e.g., `UserUpdated`) a un message broker. Los listeners de caché se suscriben a estos eventos y eliminan las keys afectadas. Esto desacopla los servicios y asegura que todas las cachés se invaliden. Consulta [microservicios event-driven](/recipes/messaging/event-driven-microservices) para patrones.
+Usa invalidación event-driven. Cada servicio publica un evento de dominio (e.g., `UserUpdated`) a un message broker. Los listeners de caché se suscriben a estos eventos y eliminan las keys afectadas. Esto desacopla los servicios y asegura que todas las cachés se invaliden. Consulta [microservicios event-driven](/recipes/event-driven-microservices/) para patrones.
 
 ### ¿Qué TTL debería usar?
 
@@ -320,7 +320,7 @@ En cache-aside, la aplicación revisa la caché, fallback a base de datos, y pop
 
 ### ¿Cómo monitorizo la salud de la caché?
 
-Rastrea la tasa de cache hit (objetivo >80%), uso de memoria, conteo de evictions y latencia. El comando INFO de Redis provee estas métricas. Configura alertas para caídas en hit rate, presión de memoria y fallos de conexión. Consulta [guía de observabilidad](/guides/devops/logging-monitoring-observability-guide) para patrones de monitoreo.
+Rastrea la tasa de cache hit (objetivo >80%), uso de memoria, conteo de evictions y latencia. El comando INFO de Redis provee estas métricas. Configura alertas para caídas en hit rate, presión de memoria y fallos de conexión. Consulta [guía de observabilidad](/guides/logging-monitoring-observability-guide/) para patrones de monitoreo.
 
 ### ¿Debería usar Redis o Memcached?
 

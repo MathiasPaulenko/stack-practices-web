@@ -53,9 +53,9 @@ Create rich, interactive dashboards in Grafana to visualize Prometheus metrics a
 
 ## When to Use This
 
-- Teams need a centralized view of service health and performance. See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for readiness probes.
-- On-call engineers must quickly identify which service is failing. See [Prometheus API Monitoring](/recipes/observability/prometheus-api-monitoring) for metrics collection.
-- Business stakeholders want uptime and latency visibility without querying metrics directly. See [API Status Page Template](/docs/templates/api-status-page-template) for external status reporting.
+- Teams need a centralized view of service health and performance. See [Health Check Endpoint](/recipes/health-check-endpoint/) for readiness probes.
+- On-call engineers must quickly identify which service is failing. See [Prometheus API Monitoring](/recipes/prometheus-api-monitoring/) for metrics collection.
+- Business stakeholders want uptime and latency visibility without querying metrics directly. See [API Status Page Template](/docs/api-status-page-template/) for external status reporting.
 
 ## Solution
 

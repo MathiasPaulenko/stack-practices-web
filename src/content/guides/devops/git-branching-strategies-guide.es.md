@@ -209,8 +209,8 @@ git push origin --delete feature/add-search
 
 - **Mantén las ramas de corta duración** — cuanto más vive una rama, más difícil es el merge
 - **Usa feature flags** para cambios incompletos en main/trunk
-- **Requiere [revisiones de PR](/guides/design/code-review-best-practices-guide)** antes de mergear a main
-- **Ejecuta el test suite completo** en cada PR; bloquea el merge si falla. Consulta [CI/CD](/guides/devops/cicd-pipeline-guide).
+- **Requiere [revisiones de PR](/guides/code-review-best-practices-guide/)** antes de mergear a main
+- **Ejecuta el test suite completo** en cada PR; bloquea el merge si falla. Consulta [CI/CD](/guides/cicd-pipeline-guide/).
 - **Squash o rebase** para mantener un historial lineal (preferencia del equipo)
 - **Etiqueta releases** en main para trazabilidad
 - **Protege las ramas main/develop** con reglas de branch protection
@@ -219,7 +219,7 @@ git push origin --delete feature/add-search
 
 - Permitir ramas de cambio de larga duración que divergen considerablemente
 - No eliminar ramas mergeadas, desordenando el repositorio
-- Usar GitFlow para un producto SaaS que se despliega varias veces al día. Consulta [estrategias de deployment](/guides/devops/deployment-strategies-guide).
+- Usar GitFlow para un producto SaaS que se despliega varias veces al día. Consulta [estrategias de deployment](/guides/deployment-strategies-guide/).
 - Mergear sin revisión o checks de CI
 - No etiquetar releases, haciendo difíciles los rollbacks
 

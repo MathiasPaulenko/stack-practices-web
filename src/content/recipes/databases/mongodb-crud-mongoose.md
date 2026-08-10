@@ -39,9 +39,9 @@ Mongoose provides a schema-based solution to model application data for MongoDB.
 
 ## When to Use This
 
-- You need a structured way to interact with MongoDB from Node.js. See [Parse JSON](/recipes/data/parse-json) for document handling.
+- You need a structured way to interact with MongoDB from Node.js. See [Parse JSON](/recipes/parse-json/) for document handling.
 - You want automatic validation and middleware hooks
-- You are building an API that requires relational-like patterns in a document database. See [SQL Joins](/recipes/databases/sql-joins) for relational patterns.
+- You are building an API that requires relational-like patterns in a document database. See [SQL Joins](/recipes/sql-joins/) for relational patterns.
 
 ## Prerequisites
 
@@ -212,7 +212,7 @@ app.post('/orders', async (req, res) => {
 
 - Enable **read preference `secondary`** for read-heavy workloads in replica sets
 - Use **compound indexes** for frequently combined query fields
-- Implement **cursor-based pagination** for large datasets instead of skip/limit. See [Pagination](/recipes/api/pagination) for cursor patterns.
+- Implement **cursor-based pagination** for large datasets instead of skip/limit. See [Pagination](/recipes/pagination/) for cursor patterns.
 - Add **Mongoose plugins** for common patterns (soft delete, auditing)
 
 ## FAQ

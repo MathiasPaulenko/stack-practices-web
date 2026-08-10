@@ -41,9 +41,9 @@ El caching es la técnica más útil para mejorar el rendimiento de aplicaciones
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Las [consultas de base de datos](/recipes/performance/query-optimization) se vuelven un cuello de botella bajo carga
-- Los [tiempos de respuesta de API](/recipes/api/call-rest-api) exceden 200ms para endpoints de lectura intensiva
-- Sirves assets estáticos (imágenes, JS, CSS) a usuarios globales via [CDN](/recipes/data/caching)
+- Las [consultas de base de datos](/recipes/query-optimization/) se vuelven un cuello de botella bajo carga
+- Los [tiempos de respuesta de API](/recipes/call-rest-api/) exceden 200ms para endpoints de lectura intensiva
+- Sirves assets estáticos (imágenes, JS, CSS) a usuarios globales via [CDN](/recipes/caching/)
 - Construyes aplicaciones de alto tráfico donde datos stale son aceptables
 
 ## Solución
@@ -105,7 +105,7 @@ app.get('/api/products', (req, res) => {
 **Enfoques de invalidación de cache**:
 - **Basado en tiempo (TTL)**: Simple pero puede servir datos stale
 - **Basado en clave**: Incluye versión o hash en la clave de cache
-- **Basado en eventos**: Invalida cuando los datos cambian vía message bus.   Consulta [invalidación de caché](/recipes/performance/cache-invalidation).
+- **Basado en eventos**: Invalida cuando los datos cambian vía message bus.   Consulta [invalidación de caché](/recipes/cache-invalidation/).
 
 ## Variantes
 
@@ -318,7 +318,7 @@ Usa un mutex o Redis `SET NX` (lock) para que solo un request reconstruya el cac
 
 ### ¿Debería cachear respuestas GraphQL?
 
-Sí, pero cachea por hash de query + variables. [Apollo Server](/recipes/api/call-rest-api) tiene caching de respuestas built-in con directivas `cacheControl`. Para persisted queries, cachea por query ID.
+Sí, pero cachea por hash de query + variables. [Apollo Server](/recipes/call-rest-api/) tiene caching de respuestas built-in con directivas `cacheControl`. Para persisted queries, cachea por query ID.
 
 ### ¿Cuál es la diferencia entre Redis y Memcached?
 

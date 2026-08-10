@@ -52,9 +52,9 @@ Una VPC bien estructurada es la fundacion de infraestructura cloud segura. Terra
 
 ## Cuando Usar Esto
 
-- Necesitas infraestructura de red repetible y versionada entre dev/staging/prod. Consulta [Git Workflow](/recipes/devops/git-workflow) para infraestructura versionada.
-- Las aplicaciones requieren recursos tanto publicos como internos. Consulta [AWS ECS Fargate](/recipes/devops/aws-ecs-fargate) para despliegue de contenedores.
-- Quieres enforcear segmentacion de red entre diferentes capas. Consulta [Load Balancing HAProxy](/recipes/devops/load-balancing-haproxy) para separación de capas.
+- Necesitas infraestructura de red repetible y versionada entre dev/staging/prod. Consulta [Git Workflow](/recipes/git-workflow/) para infraestructura versionada.
+- Las aplicaciones requieren recursos tanto publicos como internos. Consulta [AWS ECS Fargate](/recipes/aws-ecs-fargate/) para despliegue de contenedores.
+- Quieres enforcear segmentacion de red entre diferentes capas. Consulta [Load Balancing HAProxy](/recipes/load-balancing-haproxy/) para separación de capas.
 
 ## Requisitos Previos
 

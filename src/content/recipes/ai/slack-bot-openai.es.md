@@ -31,7 +31,7 @@ seo:
     - bolt
 
 ---
-Un bot de Slack potenciado por un gran modelo de lenguaje puede responder preguntas, resumir hilos y ejecutar comandos a traves de lenguaje natural. Para una implementación general de chatbot, consulta [Chatbot con OpenAI](/recipes/ai/chatbot-openai). A continuacion se muestra como como construir uno usando el framework Slack Bolt y la API de GPT-4 de OpenAI.
+Un bot de Slack potenciado por un gran modelo de lenguaje puede responder preguntas, resumir hilos y ejecutar comandos a traves de lenguaje natural. Para una implementación general de chatbot, consulta [Chatbot con OpenAI](/recipes/chatbot-openai/). A continuacion se muestra como como construir uno usando el framework Slack Bolt y la API de GPT-4 de OpenAI.
 
 ## Cuando Usar Esto
 
@@ -151,9 +151,9 @@ node app.js
 
 ## Consideraciones de Produccion
 
-- **Reemplaza el almacenamiento en memoria con Redis** para despliegues multi-instancia. Consulta [Rate Limiting de APIs con Redis](/recipes/api/api-rate-limiting-redis) para patrones de Redis.
-- **Agrega rate limiting** para prevenir sorpresas de costos en la API. Consulta [Rate Limiting de APIs con Redis](/recipes/api/api-rate-limiting-redis) para implementación.
-- **Implementa function calling** para permitir que el bot ejecute acciones. Consulta [Agentes de IA con Uso de Herramientas](/recipes/ai/ai-agents-tool-use) para patrones de function calling.
+- **Reemplaza el almacenamiento en memoria con Redis** para despliegues multi-instancia. Consulta [Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis/) para patrones de Redis.
+- **Agrega rate limiting** para prevenir sorpresas de costos en la API. Consulta [Rate Limiting de APIs con Redis](/recipes/api-rate-limiting-redis/) para implementación.
+- **Implementa function calling** para permitir que el bot ejecute acciones. Consulta [Agentes de IA con Uso de Herramientas](/recipes/ai-agents-tool-use/) para patrones de function calling.
 - **Agrega filtrado de mensajes** para evitar que el bot responda a cada mensaje en canales ocupados
 
 ## Variaciones

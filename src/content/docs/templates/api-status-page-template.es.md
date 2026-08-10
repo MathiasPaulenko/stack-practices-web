@@ -251,11 +251,11 @@ Un postmortem completo se publicará en [3-5 días hábiles] en [link].
 
 - **Actualiza cada 15-30 minutos durante incidentes activos** — El silencio hace que los consumidores asuman lo peor
 - **Publica mantenimientos programados con 7 días de anticipación** — Da tiempo a los consumidores para preparar alternativas
-- **Usa un dominio separado** — `status.example.com` no debe depender de la API que monitorea. Consulta [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para patrones de resiliencia.
+- **Usa un dominio separado** — `status.example.com` no debe depender de la API que monitorea. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para patrones de resiliencia.
 - **Ofrece suscripciones RSS / email / Slack** — Permite que los consumidores elijan cómo recibir actualizaciones
 - **Muestra uptime histórico** — Un gráfico de 30 o 90 días genera confianza
-- **Sé honesto sobre rendimiento degradado** — No marques un servicio como "operacional" cuando la latencia es 10x la normal. Consulta [Performance Optimization](/guides/performance/performance-optimization-guide) para métricas de monitoreo.
-- **Enlaza a [postmortems de incidentes](/docs/templates/incident-postmortem-template)** — La transparencia después de la resolución genera confianza a largo plazo
+- **Sé honesto sobre rendimiento degradado** — No marques un servicio como "operacional" cuando la latencia es 10x la normal. Consulta [Performance Optimization](/guides/performance-optimization-guide/) para métricas de monitoreo.
+- **Enlaza a [postmortems de incidentes](/docs/incident-postmortem-template/)** — La transparencia después de la resolución genera confianza a largo plazo
 - **Define niveles de severidad públicamente** — Los consumidores necesitan entender qué significa "severidad alta" para su integración
 - **Incluye estado por servicio, no solo general** — Un banner único de "todo operacional" oculta degradaciones parciales
 - **Timestamp en cada actualización en UTC** — Los consumidores en distintas timezones necesitan una referencia consistente
@@ -283,7 +283,7 @@ Opciones self-hosted como [Cachet](https://cachethq.io) o [Upptime](https://uppt
 
 ### Páginas de estado solo internas
 
-Para servicios internos, usa una página más simple sin suscripciones ni historial público de incidentes. Un canal de Slack con alertas automatizadas suele bastar. Consulta la [Guía de Alert Management](/guides/observability/alert-management-guide) para estrategias de alerting.
+Para servicios internos, usa una página más simple sin suscripciones ni historial público de incidentes. Un canal de Slack con alertas automatizadas suele bastar. Consulta la [Guía de Alert Management](/guides/alert-management-guide/) para estrategias de alerting.
 
 
 
@@ -313,7 +313,7 @@ Cada 15-30 minutos, incluso si no hay información nueva. Un mensaje como "Segui
 
 ### ¿Qué debo hacer si un incidente excede el SLA?
 
-Comunícate proactivamente. No esperes a que los clientes se quejen. Consulta la [Plantilla de Comunicación de Incidentes](/docs/templates/incident-postmortem-template) para actualizaciones estructuradas. Emite un resumen explicando qué pasó, por qué excedió el SLA y qué medidas se están tomando para prevenir recurrencias. Algunas empresas ofrecen créditos de servicio por incumplimientos de SLA.
+Comunícate proactivamente. No esperes a que los clientes se quejen. Consulta la [Plantilla de Comunicación de Incidentes](/docs/incident-postmortem-template/) para actualizaciones estructuradas. Emite un resumen explicando qué pasó, por qué excedió el SLA y qué medidas se están tomando para prevenir recurrencias. Algunas empresas ofrecen créditos de servicio por incumplimientos de SLA.
 
 ### ¿Debería mostrar métricas de tiempo de respuesta en la página de estado?
 

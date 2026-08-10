@@ -189,7 +189,7 @@ version 2.1, available at https://www.contributor-covenant.org/version/2/1/code_
 ## What Works
 
 - **Adapt, don't copy**: Customize the template to your community's needs
-- **Make it visible**: Link prominently in [README](/docs/templates/readme-template) and repository
+- **Make it visible**: Link prominently in [README](/docs/readme-template/) and repository
 - **Enforce consistently**: A code without enforcement is meaningless
 - **Review annually**: Update as your community evolves
 - **Provide a private reporting channel**: email or DM, not public issues
@@ -322,7 +322,7 @@ A code of conduct is not a legal contract, but it sets enforceable community sta
 
 ### Should small projects have a code of conduct?
 
-Yes. Even small projects benefit from clear expectations. Pair it with a [Contributing Guide](/docs/templates/contributing-guide) and [README](/docs/templates/readme-template) to set expectations from the start. It prevents misunderstandings and creates a welcoming environment for new contributors from diverse backgrounds.
+Yes. Even small projects benefit from clear expectations. Pair it with a [Contributing Guide](/docs/contributing-guide/) and [README](/docs/readme-template/) to set expectations from the start. It prevents misunderstandings and creates a welcoming environment for new contributors from diverse backgrounds.
 
 ### What happens when someone violates the code of conduct?
 

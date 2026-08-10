@@ -214,7 +214,7 @@ brotli_types text/plain text/css application/json application/javascript;
 
 ### CDN Usage
 
-- Serve static assets from [edge locations](/recipes/performance/cdn-edge-caching)
+- Serve static assets from [edge locations](/recipes/cdn-edge-caching/)
 - Use HTTP/2 or HTTP/3 for multiplexing
 - Enable automatic image optimization (Cloudflare, Cloudinary)
 
@@ -222,16 +222,16 @@ brotli_types text/plain text/css application/json application/javascript;
 
 - **Set explicit width/height** on images to prevent CLS
 - **Defer non-critical JavaScript** with `defer` or `async`
-- **Preload critical resources**: fonts, hero images, main CSS.  See [lazy loading](/recipes/performance/lazy-loading).
+- **Preload critical resources**: fonts, hero images, main CSS.  See [lazy loading](/recipes/lazy-loading/).
 - **Use resource hints**: `dns-prefetch`, `preconnect`, `prefetch`
 - **Measure before optimizing**: Profile with DevTools first
 
 ## Common Mistakes
 
-- [Premature optimization](/guides/performance/performance-optimization-guide) without measurement
+- [Premature optimization](/guides/performance-optimization-guide/) without measurement
 - Over-caching API responses that change frequently
 - Loading all images eagerly on long pages
-- Not [compressing API responses](/recipes/performance/brotli-nginx-compression) (JSON)
+- Not [compressing API responses](/recipes/brotli-nginx-compression/) (JSON)
 
 
 ## Troubleshooting

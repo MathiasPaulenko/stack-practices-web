@@ -41,10 +41,10 @@ El strategy pattern separa los algoritmos del contexto que los usa. Cada algorit
 
 Usa esta receta cuando:
 
-- Múltiples algoritmos o comportamientos existen para la misma tarea y solo uno se usa a la vez. Consulta [Factory Pattern](/recipes/factory-pattern-recipe) para crear algoritmos.
-- El algoritmo debe seleccionarse en runtime basado en configuración o input del usuario. Consulta [Input Validation](/recipes/api/input-validation) para configuración segura.
+- Múltiples algoritmos o comportamientos existen para la misma tarea y solo uno se usa a la vez. Consulta [Factory Pattern](/recipes/factory-pattern-recipe/) para crear algoritmos.
+- El algoritmo debe seleccionarse en runtime basado en configuración o input del usuario. Consulta [Input Validation](/recipes/input-validation/) para configuración segura.
 - Quieres aislar la complejidad del algoritmo de la lógica de negocio principal
-- Agregar nuevas variantes no debería requerir modificar código existente. Consulta [Adapter Pattern](/recipes/adapter-pattern-recipe) para extender interfaces.
+- Agregar nuevas variantes no debería requerir modificar código existente. Consulta [Adapter Pattern](/recipes/adapter-pattern-recipe/) para extender interfaces.
 - El estado o configuración específico del algoritmo necesita encapsulación separada del contexto
 
 ## Solución
@@ -219,7 +219,7 @@ total = checkout.get_total(order)
 ## Preguntas frecuentes
 
 **P: ¿Es el strategy pattern lo mismo que el command pattern?**
-R: No. Strategy encapsula algoritmos intercambiables usados por un contexto. Command encapsula una petición como objeto, habilitando encolado, logging y undo. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para colas de commands. Una estrategia es sobre "cómo hacerlo"; un command es sobre "hazlo después." Puedes combinarlos — un objeto command que contiene una estrategia.
+R: No. Strategy encapsula algoritmos intercambiables usados por un contexto. Command encapsula una petición como objeto, habilitando encolado, logging y undo. Consulta [Batch Processing](/recipes/batch-processing-patterns/) para colas de commands. Una estrategia es sobre "cómo hacerlo"; un command es sobre "hazlo después." Puedes combinarlos — un objeto command que contiene una estrategia.
 
 **P: ¿Cuándo debería usar una función en lugar de una clase para una estrategia?**
 R: Usa una función cuando la estrategia es stateless y simple (ej. cálculo de impuesto). Usa una clase cuando la estrategia necesita configuración en tiempo de construcción, mantiene estado interno entre llamadas, o tiene múltiples métodos relacionados.

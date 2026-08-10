@@ -57,7 +57,7 @@ La observabilidad es la capacidad de entender el estado interno de un sistema ex
 
 ## Logging Estructurado
 
-Reemplaza texto libre por JSON parseable por máquinas. Consulta [Structured Logging](/recipes/observability/structured-logging) para implementación práctica.
+Reemplaza texto libre por JSON parseable por máquinas. Consulta [Structured Logging](/recipes/structured-logging/) para implementación práctica.
 
 ### Formato
 
@@ -130,14 +130,14 @@ Alertar sobre síntomas, no causas.
 - **Usar correlation IDs**: Pasa `trace_id` a través de cada llamada de servicio
 - **Loguear en boundaries**: Entrada/salida de requests, jobs y transacciones
 - **Evitar loguear datos sensibles**: No passwords, tokens o PII
-- **Establecer SLOs y error budgets**: Consulta [monitoreo](/guides/devops/monitoring-alerting-guide).
+- **Establecer SLOs y error budgets**: Consulta [monitoreo](/guides/monitoring-alerting-guide/).
 - **La alert fatigue es real**: Pagear solo para issues útiles y críticos
 
 ## Errores Comunes
 
 - Loguear todo a nivel INFO
 - Métricas sin labels (sin dimensiones para cortar)
-- Alertar sobre uso de CPU en vez de [síntomas orientados a usuarios](/guides/devops/monitoring-alerting-guide)
+- Alertar sobre uso de CPU en vez de [síntomas orientados a usuarios](/guides/monitoring-alerting-guide/)
 - Almacenar logs indefinidamente sin política de retención
 
 

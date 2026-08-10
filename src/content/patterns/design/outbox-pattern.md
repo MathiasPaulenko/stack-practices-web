@@ -374,7 +374,7 @@ Most order services use an outbox to publish `OrderPlaced` events. Payment, inve
 ## FAQ
 
 **Q: What is the difference between Outbox and Inbox?**
-A: [Outbox](/patterns/design/outbox-pattern) stores events your service publishes. [Inbox](/patterns/design/inbox-pattern) stores incoming events from other services to prevent duplicate processing.
+A: [Outbox](/patterns/outbox-pattern/) stores events your service publishes. [Inbox](/patterns/inbox-pattern/) stores incoming events from other services to prevent duplicate processing.
 
 **Q: How do I handle ordering of events?**
 A: Events within the same aggregate are ordered by `id` or `created_at`. Ordering across aggregates is not guaranteed by the outbox itself.

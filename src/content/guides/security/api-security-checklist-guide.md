@@ -146,9 +146,9 @@ class CreateUserRequest(BaseModel):
 
 - [ ] Validate **type, length, format, and range** for every input
 - [ ] Reject unexpected fields (strict schema validation)
-- [ ] Sanitize [file uploads](/recipes/file-handling/file-upload-validation) (extension, MIME type, size limits)
-- [ ] Use [parameterized queries](/recipes/security/sql-injection-prevention) (prevent SQL injection)
-- [ ] Encode output to prevent [XSS](/recipes/security/xss-prevention)
+- [ ] Sanitize [file uploads](/recipes/file-upload-validation/) (extension, MIME type, size limits)
+- [ ] Use [parameterized queries](/recipes/sql-injection-prevention/) (prevent SQL injection)
+- [ ] Encode output to prevent [XSS](/recipes/xss-prevention/)
 
 ## 4. Rate Limiting
 
@@ -170,7 +170,7 @@ def login():
 
 ### Checklist
 
-- [ ] Different [limits per endpoint](/recipes/api/rate-limiting) (stricter for auth, looser for read)
+- [ ] Different [limits per endpoint](/recipes/rate-limiting/) (stricter for auth, looser for read)
 - [ ] Per-user and per-IP rate limits
 - [ ] Return `429 Too Many Requests` with `Retry-After` header
 - [ ] Log and alert on repeated violations
@@ -202,7 +202,7 @@ decrypted = cipher.decrypt(encrypted_ssn)
 - [ ] TLS 1.2+ for all API communication
 - [ ] Encrypt sensitive data at rest (PII, credentials, tokens)
 - [ ] Hash passwords with bcrypt/Argon2 (never MD5 or SHA1)
-- [ ] Secure key management (KMS, HSM, or [vault](/recipes/security/vault-dynamic-credentials) — not in code)
+- [ ] Secure key management (KMS, HSM, or [vault](/recipes/vault-dynamic-credentials/) — not in code)
 
 ## 6. Error Handling
 

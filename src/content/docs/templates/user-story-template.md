@@ -31,7 +31,7 @@ seo:
     - agile story format
 
 ---
-Use this template to write user stories that are ready for development and testing. Pair it with the [Feature Request Template](/docs/templates/feature-request-template) for initial proposals and [Test-Driven Development Guide](/guides/testing/test-driven-development-guide) for test-first workflows.
+Use this template to write user stories that are ready for development and testing. Pair it with the [Feature Request Template](/docs/feature-request-template/) for initial proposals and [Test-Driven Development Guide](/guides/test-driven-development-guide/) for test-first workflows.
 
 ## Template
 
@@ -101,10 +101,10 @@ Then [expected handling]
 
 ## What Works
 
-- **Write acceptance criteria before code** — they are the contract between product and engineering. See [Clean Code Principles Guide](/guides/design/clean-code-principles-guide) for implementation standards.
+- **Write acceptance criteria before code** — they are the contract between product and engineering. See [Clean Code Principles Guide](/guides/clean-code-principles-guide/) for implementation standards.
 - **Use Given-When-Then for behavior** — it is testable and unambiguous
 - **Keep stories small** — if it does not fit in a sprint, split it vertically (by scenario, not by layer)
-- **Include non-functional criteria** — performance, security, and accessibility are acceptance criteria too. See [Web Application Security Guide](/guides/security/web-application-security-guide) for security requirements.
+- **Include non-functional criteria** — performance, security, and accessibility are acceptance criteria too. See [Web Application Security Guide](/guides/web-application-security-guide/) for security requirements.
 - **Reject stories missing "so that"** — if you cannot articulate the benefit, you do not understand the problem
 
 ## Common Mistakes
@@ -112,7 +112,7 @@ Then [expected handling]
 - Technical tasks disguised as user stories — "Refactor database layer" is not a user story; it is a task
 - Stories that are too big — "Implement checkout" is an epic, not a story
 - Vague acceptance criteria — "it should work" is not testable
-- No definition of done — teams disagree on when a story is finished. Use [Pull Request Template](/docs/templates/pull-request-template) for merge standards.
+- No definition of done — teams disagree on when a story is finished. Use [Pull Request Template](/docs/pull-request-template/) for merge standards.
 - Skipping edge cases — the edge case you did not specify will be the bug reported in production
 
 
@@ -167,7 +167,7 @@ Small enough to complete in 2-3 days by one developer. If your sprints are 2 wee
 
 ### Can technical debt be a user story?
 
-Sometimes, but reframe it. "As a developer, I want to upgrade the ORM so that we get security patches and faster queries" is valid. See [Dependency Audit Template](/docs/templates/dependency-audit-template) for evaluating library updates. "Upgrade ORM" is a task, not a story. Always connect technical work to user or developer value.
+Sometimes, but reframe it. "As a developer, I want to upgrade the ORM so that we get security patches and faster queries" is valid. See [Dependency Audit Template](/docs/dependency-audit-template/) for evaluating library updates. "Upgrade ORM" is a task, not a story. Always connect technical work to user or developer value.
 
 
 ## Variants

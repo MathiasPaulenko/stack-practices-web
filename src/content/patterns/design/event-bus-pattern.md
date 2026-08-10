@@ -272,7 +272,7 @@ Google's Java library provides annotation-driven subscription (`@Subscribe`) wit
 ## FAQ
 
 **Q: What is the difference between Event Bus and Observer?**
-A: [Observer](/patterns/design/observer-pattern) is one-to-many between a subject and its observers. Event Bus is many-to-many through a central mediator that neither publisher nor subscriber owns.
+A: [Observer](/patterns/observer-pattern/) is one-to-many between a subject and its observers. Event Bus is many-to-many through a central mediator that neither publisher nor subscriber owns.
 
 **Q: Should I build my own event bus or use a library?**
 A: For simple in-process needs, a 50-line implementation is enough. For durability, clustering, or replay, use RabbitMQ, Kafka, or Redis Pub/Sub.

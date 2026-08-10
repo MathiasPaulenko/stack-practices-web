@@ -37,8 +37,8 @@ Las race conditions ocurren cuando multiples operaciones async acceden a estado 
 
 ## Cuando Usar Esto
 
-- Multiples [llamadas a API](/recipes/api/call-rest-api) actualizan el mismo estado o elementos DOM. Consulta [Async Patterns](/recipes/concurrency/async-patterns) para coordinación.
-- [Datos cacheados](/recipes/data/caching) se vuelven stale o inconsistentes bajo acceso concurrente
+- Multiples [llamadas a API](/recipes/call-rest-api/) actualizan el mismo estado o elementos DOM. Consulta [Async Patterns](/recipes/async-patterns/) para coordinación.
+- [Datos cacheados](/recipes/caching/) se vuelven stale o inconsistentes bajo acceso concurrente
 - Inputs debounced disparan requests de red superpuestas con orden impredecible
 
 ## Problema
@@ -117,7 +117,7 @@ function useLatestQuery<T>() {
 }
 ```
 
-### 4. [Mutex Lock](/recipes/concurrency/locks-and-mutexes) para Secciones Criticas
+### 4. [Mutex Lock](/recipes/locks-and-mutexes/) para Secciones Criticas
 
 ```typescript
 // locks/Mutex.ts
@@ -258,7 +258,7 @@ Sin el lock, transferencias concurrentes podrian leer `from_acc.balance` antes d
 ## FAQ
 
 **P: En que se diferencia de un deadlock?**
-R: Las race conditions producen resultados incorrectos por acceso concurrente. Los [deadlocks](/recipes/concurrency/locks-and-mutexes) ocurren cuando threads se bloquean indefinidamente esperando recursos.
+R: Las race conditions producen resultados incorrectos por acceso concurrente. Los [deadlocks](/recipes/locks-and-mutexes/) ocurren cuando threads se bloquean indefinidamente esperando recursos.
 
 **P: Necesito locks en JavaScript single-threaded?**
 R: JavaScript es single-threaded pero las operaciones async se intercalan. El estado aun puede corromperse entre puntos de await.

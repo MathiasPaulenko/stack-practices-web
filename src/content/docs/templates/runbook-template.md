@@ -53,7 +53,7 @@ seo:
 ---
 ## Template Structure
 
-Use this template to document any operational procedure your team needs to execute. See [On-Call Incident Response Guide](/guides/devops/on-call-incident-response-guide) for broader response culture.
+Use this template to document any operational procedure your team needs to execute. See [On-Call Incident Response Guide](/guides/on-call-incident-response-guide/) for broader response culture.
 
 ---
 
@@ -113,7 +113,7 @@ One-sentence description of what this runbook achieves and when to use it.
 ### Post-Incident Actions (if applicable)
 
 - [ ] Update status page
-- [ ] Write [incident postmortem](/docs/templates/incident-postmortem-template)
+- [ ] Write [incident postmortem](/docs/incident-postmortem-template/)
 - [ ] Create follow-up tickets
 - [ ] Update this runbook if procedure changed
 
@@ -132,13 +132,13 @@ If this runbook does not resolve the issue within [timeframe], escalate to:
 - **Keep it short**: One page per routine procedure
 - **Use checkboxes**: Make it easy to follow under pressure
 - **Include commands**: Copy-paste ready scripts
-- **Test periodically**: Run through runbooks during calm periods.  See [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template) for drill planning.
+- **Test periodically**: Run through runbooks during calm periods.  See [Disaster Recovery Plan Template](/docs/disaster-recovery-plan-template/) for drill planning.
 - **Version control**: Store in `docs/runbooks/` with your code
 
 ## Common Anti-Patterns
 
 - Overly long runbooks that no one reads during incidents
-- Missing rollback steps. See [Database Migration Runbook](/docs/templates/database-migration-runbook-template) for rollback patterns.
+- Missing rollback steps. See [Database Migration Runbook](/docs/database-migration-runbook-template/) for rollback patterns.
 - No escalation path defined
 - Outdated contact information
 - Assuming context the reader doesn't have

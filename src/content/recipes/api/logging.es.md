@@ -54,9 +54,9 @@ Usa esta recipe cuando:
 
 - Debuggeas comportamiento de aplicación en producción
 - Monitoreas errores, rendimiento y eventos de negocio
-- Auditas acciones de usuarios para compliance o seguridad. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para requisitos de auditoría.
+- Auditas acciones de usuarios para compliance o seguridad. Consulta [Guía de Seguridad](/guides/security-best-practices-guide/) para requisitos de auditoría.
 - Construyes dashboards y alertas desde datos de log
-- Traces requests a través de servicios distribuidos. Consulta [Patrón Ambassador](/patterns/design/ambassador-pattern-services) para tracing entre servicios.
+- Traces requests a través de servicios distribuidos. Consulta [Patrón Ambassador](/patterns/ambassador-pattern-services/) para tracing entre servicios.
 
 ## Solución
 
@@ -151,7 +151,7 @@ public class UserService {
 
 - Loguear demasiado en nivel INFO, ahogando la señal en ruido
 - Usar `print` o `console.log` en producción en lugar de un framework de logging
-- Incluir contraseñas en bruto, tokens o PII en la salida de logs. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para protección de datos.
+- Incluir contraseñas en bruto, tokens o PII en la salida de logs. Consulta [Guía de Seguridad](/guides/security-best-practices-guide/) para protección de datos.
 - No configurar rotación de logs, llenando discos de servidor
 - Tragar excepciones sin loguear el stack trace completo
 
@@ -283,7 +283,7 @@ Benchmarks en Node.js 20, single core, 1000 error responses. Los resultados vari
 ## Preguntas frecuentes
 
 **P: ¿Debería loguear cada request de API?**
-R: Sí, en nivel INFO con método, path, status code y duración. Usa [middleware](/recipes/api/middleware) para logging automático de requests.
+R: Sí, en nivel INFO con método, path, status code y duración. Usa [middleware](/recipes/middleware/) para logging automático de requests.
 
 **P: ¿Qué es structured logging y por qué usarlo?**
 R: El structured logging genera JSON o pares clave-valor en lugar de texto plano. Habilita filtrado, agregación y alertas en sistemas de gestión de logs.

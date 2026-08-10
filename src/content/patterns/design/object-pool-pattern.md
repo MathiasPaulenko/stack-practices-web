@@ -316,7 +316,7 @@ Game engines pool vertex buffers and texture objects on the GPU. Uploading a tex
 ## FAQ
 
 **Q: Is Object Pool the same as Singleton?**
-A: No. A [Singleton](/patterns/design/singleton-pattern) ensures one instance exists globally. An Object Pool manages multiple instances, reusing them among many consumers.
+A: No. A [Singleton](/patterns/singleton-pattern/) ensures one instance exists globally. An Object Pool manages multiple instances, reusing them among many consumers.
 
 **Q: How do I choose the pool size?**
 A: Size = (peak concurrent requests × average hold time) / average request duration. Monitor actual usage and tune. For DB pools, stay below `max_connections - 5`.

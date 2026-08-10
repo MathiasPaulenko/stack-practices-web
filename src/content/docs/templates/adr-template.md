@@ -58,7 +58,7 @@ This template covers:
 
 ## Template Structure
 
-Use this template as the foundation for documenting any architecture decision in your project. Pair it with the [System Diagram Template](/docs/templates/adr-template) to visualize the architecture being decided.
+Use this template as the foundation for documenting any architecture decision in your project. Pair it with the [System Diagram Template](/docs/adr-template/) to visualize the architecture being decided.
 
 ---
 
@@ -196,7 +196,7 @@ Q4 to avoid blocking the reporting roadmap.
 - **One decision per ADR**: Keep scope focused
 - **Write after the decision**: Document decisions once made, not debates
 - **Link related ADRs**: Create a chain of decisions
-- **Store in version control**: See [README Template](/docs/templates/readme-template) for project doc organization.
+- **Store in version control**: See [README Template](/docs/readme-template/) for project doc organization.
 - **Use sequential numbering**: `0001-use-postgresql. md`, `0002-adopt-graphql.
 - **Keep context specific**: name the teams, tools, and constraints involved
 - **Date every ADR**: helps readers understand the timeline of decisions
@@ -287,7 +287,7 @@ For small teams, reduce the template to: Title, Context (2-3 sentences), Decisio
 
 ### RFC-style (large organizations)
 
-For large organizations, expand the template with: Background, Goals, Non-goals, Detailed proposal, Rollout plan, Risks and mitigations. Circulate as a Request for Comments before marking as Accepted. See [Feature Request Template](/docs/templates/feature-request-template) for the RFC variant.
+For large organizations, expand the template with: Background, Goals, Non-goals, Detailed proposal, Rollout plan, Risks and mitigations. Circulate as a Request for Comments before marking as Accepted. See [Feature Request Template](/docs/feature-request-template/) for the RFC variant.
 
 ### MADR (Markdown ADR)
 
@@ -322,7 +322,7 @@ MADR is a structured markdown format for ADRs with specific frontmatter fields. 
 
 ### When should I write an ADR?
 
-Write an ADR after a major architectural decision is made — typically when the decision affects multiple teams, is costly to reverse, or has long-term maintenance implications. For high-impact infrastructure decisions, also document capacity plans using the [Capacity Planning Template](/docs/templates/capacity-planning-template). Do not write ADRs for trivial choices.
+Write an ADR after a major architectural decision is made — typically when the decision affects multiple teams, is costly to reverse, or has long-term maintenance implications. For high-impact infrastructure decisions, also document capacity plans using the [Capacity Planning Template](/docs/capacity-planning-template/). Do not write ADRs for trivial choices.
 
 ### Who should read ADRs?
 

@@ -44,7 +44,7 @@ Use this resource when:
 - Writing unit tests that require substituting real services with test doubles
 - Building modular applications where components should not know about concrete implementations
 - Managing complex object graphs with transitive dependencies
-- Implementing plugin architectures or [strategy patterns](/patterns/design/strategy-pattern)
+- Implementing plugin architectures or [strategy patterns](/patterns/strategy-pattern/)
 
 ## Solution
 
@@ -146,7 +146,7 @@ DI inverts control: instead of components finding or creating their dependencies
 
 - **Prefer constructor injection**: Makes dependencies explicit and immutable
 - **Avoid service locators**: They hide dependencies and make testing harder
-- **Use interfaces/protocols**: Depend on abstractions, not concrete types. See [Factory Pattern](/patterns/design/factory-pattern) for object creation abstractions.
+- **Use interfaces/protocols**: Depend on abstractions, not concrete types. See [Factory Pattern](/patterns/factory-pattern/) for object creation abstractions.
 - **Keep composition roots shallow**: Wire dependencies at the application entry point
 - **Avoid primitive obsession**: Wrap config values in value objects (e.g., ApiKey, Timeout)
 
@@ -156,7 +156,7 @@ DI inverts control: instead of components finding or creating their dependencies
 2. **Leaking container**: Passing the DI container into services defeats the purpose
 3. **Tight coupling to framework**: Use standard annotations (@Inject) when possible
 4. **Ignoring lifecycle**: Scoped services resolved as singletons cause memory leaks
-5. **Circular dependencies**: Refactor into events or a [mediator](/patterns/design/mediator-pattern) if A depends on B and B on A
+5. **Circular dependencies**: Refactor into events or a [mediator](/patterns/mediator-pattern/) if A depends on B and B on A
 
 ## FAQ
 

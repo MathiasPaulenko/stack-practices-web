@@ -50,11 +50,11 @@ Las tareas en segundo plano descargan trabajo lento o no crítico del ciclo de p
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Envíes emails o SMS que pueden esperar unos segundos. Consulta [Email Templates MJML](/recipes/frontend/email-templates-mjml) para generación de contenido de email.
-- Generes exportaciones, reportes o PDFs que toman >1s. Consulta [Generate PDFs](/recipes/file-handling/generate-pdfs) para generación de documentos.
-- Proceses imágenes, videos o documentos subidos por usuarios. Consulta [Image Optimization](/recipes/file-handling/image-optimization) para procesamiento de media.
-- Sincronices datos con APIs externas según un horario. Consulta [Call REST API](/recipes/api/call-rest-api) para patrones de clientes API.
-- Agregues análisis o ejecutes tareas de limpieza nocturnas. Consulta [Scheduled Jobs](/recipes/devops/background-jobs) para tareas cron serverless.
+- Envíes emails o SMS que pueden esperar unos segundos. Consulta [Email Templates MJML](/recipes/email-templates-mjml/) para generación de contenido de email.
+- Generes exportaciones, reportes o PDFs que toman >1s. Consulta [Generate PDFs](/recipes/generate-pdfs/) para generación de documentos.
+- Proceses imágenes, videos o documentos subidos por usuarios. Consulta [Image Optimization](/recipes/image-optimization/) para procesamiento de media.
+- Sincronices datos con APIs externas según un horario. Consulta [Call REST API](/recipes/call-rest-api/) para patrones de clientes API.
+- Agregues análisis o ejecutes tareas de limpieza nocturnas. Consulta [Scheduled Jobs](/recipes/background-jobs/) para tareas cron serverless.
 
 ## Solución
 

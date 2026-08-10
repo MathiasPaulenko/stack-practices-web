@@ -39,7 +39,7 @@ seo:
 
 
 ---
-Usa esta plantilla para prepararte para fallas catastróficas y minimizar tiempo de recuperación. Complémentala con la [Plantilla de Runbook](/docs/templates/runbook-template) para procedimientos operacionales.
+Usa esta plantilla para prepararte para fallas catastróficas y minimizar tiempo de recuperación. Complémentala con la [Plantilla de Runbook](/docs/runbook-template/) para procedimientos operacionales.
 
 ## Plantilla
 
@@ -136,10 +136,10 @@ Si tus backups de base de datos corren cada hora y tu RPO es 15 minutos, tu estr
 
 ## Lo que funciona
 
-- **Testea recuperación trimestralmente** — un plan no probado es una fantasía. Consulta la [Guía de Infraestructura como Código](/guides/devops/infrastructure-as-code-guide) para aprovisionamiento automatizado de ambientes.
+- **Testea recuperación trimestralmente** — un plan no probado es una fantasía. Consulta la [Guía de Infraestructura como Código](/guides/infrastructure-as-code-guide/) para aprovisionamiento automatizado de ambientes.
 - **Automatiza failover donde sea posible** — failover impulsado por humanos toma 10x más tiempo
 - **Documenta decisiones, no solo pasos** — por qué elegiste este RTO ayuda a futuros revisores
-- **Mantén el plan accesible offline** — durante un desastre, tu wiki interna puede estar caída. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para triggers de detección.
+- **Mantén el plan accesible offline** — durante un desastre, tu wiki interna puede estar caída. Consulta la [Guía de Monitoreo y Alertas](/guides/monitoring-alerting-guide/) para triggers de detección.
 - **Incluye dependencias de terceros** — tu DR es tan fuerte como tu vendor más débil
 
 ## Errores Comunes
@@ -178,7 +178,7 @@ Si tus backups de base de datos corren cada hora y tu RPO es 15 minutos, tu estr
 
 ### ¿Qué tan frecuentemente debería testear recuperación ante desastres?
 
-Ejercicios tabletop trimestrales, drills de failover semestrales, tests de restore de backup mensuales. Para configuración de monitoreo, consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide). Si nunca has hecho un drill, empieza con un tabletop esta semana.
+Ejercicios tabletop trimestrales, drills de failover semestrales, tests de restore de backup mensuales. Para configuración de monitoreo, consulta la [Guía de Monitoreo y Alertas](/guides/monitoring-alerting-guide/). Si nunca has hecho un drill, empieza con un tabletop esta semana.
 
 ### ¿Cuál es la diferencia entre backup y recuperación ante desastres?
 

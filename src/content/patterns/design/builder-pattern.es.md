@@ -55,7 +55,7 @@ Brilla cuando un objeto tiene muchos parámetros opcionales, componentes anidado
 ## Cuándo usarlo
 
 Usa el Patrón Builder cuando:
-- Un objeto tiene muchos parámetros de [configuración](/patterns/design/builder-pattern-configuration) opcionales o anidados
+- Un objeto tiene muchos parámetros de [configuración](/patterns/builder-pattern-configuration/) opcionales o anidados
 - Quieres forzar una secuencia específica de construcción
 - El constructor tendría demasiados parámetros (problema del constructor telescópico)
 - Necesitas diferentes configuraciones del mismo tipo de objeto
@@ -205,7 +205,7 @@ Retornando `self` (o `this`) de cada método de configuración, creas una interf
 - **Retorna `self` de cada método de paso** para habilitar encadenamiento de métodos
 - **Haz el producto inmutable** después de que se llama `build()`
 - **Valida en `build()`**, no en pasos individuales, para contexto completo de errores
-- **Usa un [Director](/patterns/design/builder-pattern-configuration)** cuando tienes configuraciones preestablecidas comunes (ej. `pizzaDirector.makeMargherita()`)
+- **Usa un [Director](/patterns/builder-pattern-configuration/)** cuando tienes configuraciones preestablecidas comunes (ej. `pizzaDirector.makeMargherita()`)
 - **Documenta pasos requeridos vs opcionales** para que los llamadores sepan la configuración mínima válida
 
 ## Errores comunes
@@ -487,13 +487,13 @@ MarkdownReport markdown = builder.buildMarkdown();
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Builder y Factory?**
-R: [Factory](/patterns/design/factory-pattern) decide qué clase instanciar. Builder ensambla un único objeto complejo paso a paso. Resuelven problemas diferentes y pueden usarse juntos.
+R: [Factory](/patterns/factory-pattern/) decide qué clase instanciar. Builder ensambla un único objeto complejo paso a paso. Resuelven problemas diferentes y pueden usarse juntos.
 
 **P: ¿Debería usar Builder para cada clase?**
 R: No. Úsalo cuando los constructores se vuelven incómodos (más de 3-4 parámetros opcionales) o cuando la construcción tiene una secuencia significativa.
 
 **P: ¿Puede un Builder producir diferentes tipos de producto?**
-R: Típicamente no. Un Builder está acoplado a una clase de producto. Usa [Abstract Factory](/patterns/design/abstract-factory-pattern) si necesitas diferentes familias de productos.
+R: Típicamente no. Un Builder está acoplado a una clase de producto. Usa [Abstract Factory](/patterns/abstract-factory-pattern/) si necesitas diferentes familias de productos.
 
 **P: ¿Cómo manejo parámetros opcionales en un Builder?**
 R: Proporciona valores por defecto en el constructor del builder o usa tipos nullable. Valida que los parámetros requeridos estén establecidos antes de llamar `build()`.
@@ -502,7 +502,7 @@ R: Proporciona valores por defecto en el constructor del builder o usa tipos nul
 R: Sí. Los Builders son excelentes para crear objetos inmutables. El builder mantiene estado mutable durante la construcción, luego produce un producto inmutable.
 
 **P: ¿Cómo se compara Builder con el patrón Prototype?**
-R: [Prototype](/patterns/design/prototype-pattern) clona objetos existentes. Builder construye nuevos objetos desde cero. Usa Prototype cuando tienes un objeto base para copiar, Builder cuando construyes desde parámetros.
+R: [Prototype](/patterns/prototype-pattern/) clona objetos existentes. Builder construye nuevos objetos desde cero. Usa Prototype cuando tienes un objeto base para copiar, Builder cuando construyes desde parámetros.
 
 **P: ¿Puedo usar Builder con inyección de dependencias?**
 R: Sí. Los Builders pueden aceptar dependencias a través de su constructor o métodos setter. Esto es útil para objetos complejos que requieren servicios o configuraciones.

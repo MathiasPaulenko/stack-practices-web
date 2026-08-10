@@ -57,11 +57,11 @@ Una transacción de base de datos es una secuencia de operaciones tratadas como 
 
 Usa esta recipe cuando:
 
-- Transfieres dinero entre cuentas. Consulta [Money and Currency](/recipes/data/money-currency) para aritmética decimal exacta.
-- Actualizas inventario después de una compra. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para operaciones masivas.
+- Transfieres dinero entre cuentas. Consulta [Money and Currency](/recipes/money-currency/) para aritmética decimal exacta.
+- Actualizas inventario después de una compra. Consulta [Batch Processing](/recipes/batch-processing-patterns/) para operaciones masivas.
 - Creas registros relacionados en múltiples tablas
 - Aseguras consistencia de lectura para queries de reporting
-- Prevenes [condiciones de carrera](/recipes/data/race-condition-prevention) en escrituras concurrentes
+- Prevenes [condiciones de carrera](/recipes/race-condition-prevention/) en escrituras concurrentes
 
 ## Solución
 
@@ -162,7 +162,7 @@ COMMIT;
 - **Mantén transacciones cortas**: Las transacciones largas retienen locks y bloquean otros queries
 - **Usa el nivel de aislamiento más bajo** que cumpla tus requerimientos de corrección
 - **Siempre maneja rollback**: Usa try/catch/finally para asegurar rollback en error
-- **Usa optimistic locking** para datos de alta contención (columnas de versión). Consulta [Optimistic Locking](/recipes/databases/optimistic-locking) para concurrencia basada en versiones.
+- **Usa optimistic locking** para datos de alta contención (columnas de versión). Consulta [Optimistic Locking](/recipes/optimistic-locking/) para concurrencia basada en versiones.
 - **Testea escenarios concurrentes**: Simula condiciones de carrera en tu suite de tests
 - **Evita input de usuarios dentro de transacciones**: Recolecta datos antes de iniciar la transacción
 
@@ -171,7 +171,7 @@ COMMIT;
 - Olvidar llamar `commit()` o `rollback()`, dejando conexiones idle en transacción
 - Ejecutar queries largos dentro de transacciones, causando contención de locks
 - Usar `SERIALIZABLE` en todas partes sin entender el costo de rendimiento
-- No manejar [excepciones de deadlock](/recipes/databases/database-deadlocks-retries) (código de error 40P01 en PostgreSQL)
+- No manejar [excepciones de deadlock](/recipes/database-deadlocks-retries/) (código de error 40P01 en PostgreSQL)
 - Anidar transacciones sin savepoints
 
 ## Preguntas frecuentes

@@ -40,10 +40,10 @@ El ordenamiento es una de las tareas de manipulación de datos más comunes. Cad
 
 Usa esta receta cuando:
 
-- Muestres datos en un orden específico (alfabético, cronológico, por prioridad). Consulta [Date Formatting](/recipes/data/date-formatting) para ordenamiento cronológico.
+- Muestres datos en un orden específico (alfabético, cronológico, por prioridad). Consulta [Date Formatting](/recipes/date-formatting/) para ordenamiento cronológico.
 - Prepares datos para algoritmos que requieren entrada ordenada (búsqueda binaria, merge)
 - Normalices datos antes de comparación o deduplicación
-- Implementes ranking, leaderboards o ordenamiento de resultados de búsqueda. Consulta [Pagination](/recipes/api/pagination) para gestionar resultados ordenados.
+- Implementes ranking, leaderboards o ordenamiento de resultados de búsqueda. Consulta [Pagination](/recipes/pagination/) para gestionar resultados ordenados.
 
 ## Solution
 
@@ -161,7 +161,7 @@ users.stream()
 - **Ordenar números alfabéticamente en JavaScript**: `[10, 2].  sort()` produce `[10, 2]` porque el sort default convierte elementos a strings.   Siempre pasa un comparador para números.
 - **Mutar durante el sort**: modificar el array siendo ordenado (ej.   en un comparador con side effects) causa resultados impredecibles.
 - **Comparador inconsistente**: devolver solo `1` y `-1` sin `0` para igualdad puede causar crashes o resultados incorrectos en algunas implementaciones.
-- **Ordenar datasets enormes en memoria**: Consulta [Database Transactions](/recipes/databases/database-transactions) para consistencia de datos.
+- **Ordenar datasets enormes en memoria**: Consulta [Database Transactions](/recipes/database-transactions/) para consistencia de datos.
 - **Asumir que todos los sorts son estables**: aunque la mayoría de lenguajes modernos usan sorts estables, no confíes en la estabilidad a menos que esté documentada.   Ordena explícitamente por claves secundarias cuando el orden importe.
 
 ## Cuando No Usar Este Enfoque

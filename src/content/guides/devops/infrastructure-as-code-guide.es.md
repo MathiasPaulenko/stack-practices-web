@@ -46,7 +46,7 @@ seo:
 ---
 ## Introducción
 
-Infrastructure as Code (IaC) es la práctica de gestionar y provisionar infraestructura mediante archivos de definición legibles por máquina en lugar de configuración manual. Convierte cambios de infraestructura en operaciones repetibles, revisables y versionadas. Consulta [CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización de despliegue. Esta guía compara enfoques declarativo e imperativo, cubre Terraform y Pulumi, y proporciona lo que funciona para uso en producción.
+Infrastructure as Code (IaC) es la práctica de gestionar y provisionar infraestructura mediante archivos de definición legibles por máquina en lugar de configuración manual. Convierte cambios de infraestructura en operaciones repetibles, revisables y versionadas. Consulta [CI/CD Pipeline](/guides/cicd-pipeline-guide/) para automatización de despliegue. Esta guía compara enfoques declarativo e imperativo, cubre Terraform y Pulumi, y proporciona lo que funciona para uso en producción.
 
 ## Declarativo vs Imperativo
 
@@ -195,12 +195,12 @@ terraform show -json tfplan > plan.json
 - Usa estado remoto con locking — previene modificaciones concurrentes corruptiendo el estado
 - Separa ambientes — usa workspaces o archivos de estado separados por ambiente
 - Usa módulos para reusabilidad — pero evita sobre-abstracción; simple es mejor
-- Nunca commitees secrets — usa [gestores de secretos](/guides/security/security-best-practices-guide) y referencia por ARN
+- Nunca commitees secrets — usa [gestores de secretos](/guides/security-best-practices-guide/) y referencia por ARN
 - Pinea versiones de providers — previene breaking changes de actualizaciones automáticas
 
 ## Errores Comunes
 
-- Correr `terraform apply` localmente en lugar de [CI/CD](/guides/devops/cicd-pipeline-guide)
+- Correr `terraform apply` localmente en lugar de [CI/CD](/guides/cicd-pipeline-guide/)
 - Almacenar archivos de estado en Git (contienen IDs sensibles y a veces secrets)
 - No usar workspaces o directorios separados para ambientes
 - Escribir configs monolíticas gigantes en lugar de componentes modulares

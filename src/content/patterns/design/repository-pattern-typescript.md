@@ -35,7 +35,7 @@ seo:
 
 ---
 
-The [Repository](/patterns/design/repository-pattern) pattern mediates between the domain and data mapping layers. It acts like an in-memory collection of domain objects, abstracting away persistence details so your services remain focused on business logic.
+The [Repository](/patterns/repository-pattern/) pattern mediates between the domain and data mapping layers. It acts like an in-memory collection of domain objects, abstracting away persistence details so your services remain focused on business logic.
 
 ## When to Use This
 
@@ -190,7 +190,7 @@ const userService = new UserService(userRepo);
 ## FAQ
 
 **Q: Is Repository pattern overkill for small projects?**
-A: For simple CRUD apps, active record is fine. For testing repositories, see [unit testing](/recipes/testing/unit-testing). Use repositories when you need testability, multiple data sources, or complex query logic.
+A: For simple CRUD apps, active record is fine. For testing repositories, see [unit testing](/recipes/unit-testing/). Use repositories when you need testability, multiple data sources, or complex query logic.
 
 **Q: How does this compare to the Active Record pattern?**
 A: Active Record mixes data access and domain logic. Repository separates them, making the domain layer independent from persistence.

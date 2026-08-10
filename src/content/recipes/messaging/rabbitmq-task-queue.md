@@ -44,9 +44,9 @@ Distribute background tasks reliably and implement request-reply patterns using 
 
 ## When to Use This
 
-- Background jobs (image processing, email sending) must not block the main request flow. See [Scheduled Jobs](/recipes/devops/background-jobs) for recurring task automation.
-- Failed tasks should be retried with exponential backoff or routed to dead-letter queues. See [Retry Logic](/recipes/architecture/retry-backoff) for exponential backoff patterns.
-- Services need synchronous RPC-style communication without HTTP overhead. See [Call REST API](/recipes/api/call-rest-api) for synchronous HTTP alternatives.
+- Background jobs (image processing, email sending) must not block the main request flow. See [Scheduled Jobs](/recipes/background-jobs/) for recurring task automation.
+- Failed tasks should be retried with exponential backoff or routed to dead-letter queues. See [Retry Logic](/recipes/retry-backoff/) for exponential backoff patterns.
+- Services need synchronous RPC-style communication without HTTP overhead. See [Call REST API](/recipes/call-rest-api/) for synchronous HTTP alternatives.
 
 ## Solution
 

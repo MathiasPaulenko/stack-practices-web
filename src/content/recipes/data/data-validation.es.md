@@ -42,9 +42,9 @@ La validación útil opera en múltiples capas: client-side para feedback inmedi
 
 Usa esta receta cuando:
 
-- Recibiendo input de usuario desde formularios, [APIs](/recipes/api/call-rest-api), uploads de archivos o webhooks
+- Recibiendo input de usuario desde formularios, [APIs](/recipes/call-rest-api/), uploads de archivos o webhooks
 - Definiendo contratos de request/response de API en schemas OpenAPI o GraphQL
-- Previniendo ataques de inyección rechazando tipos o formatos de datos inesperados. Consulta [Input Validation](/recipes/api/input-validation) para patrones de chequeo de boundary.
+- Previniendo ataques de inyección rechazando tipos o formatos de datos inesperados. Consulta [Input Validation](/recipes/input-validation/) para patrones de chequeo de boundary.
 - Asegurando reglas de negocio (monto mínimo de orden, rangos de fechas válidos) en el boundary
 - Construyendo pipelines de datos que consumen fuentes externas o de terceros
 
@@ -128,11 +128,11 @@ if (error) {
 
 ## Lo que funciona
 
-- **Valida en el boundary, no en todas partes**: centraliza validación en middleware o puntos de entrada de controladores.   La lógica de negocio debería asumir que la data ya está limpia.   Consulta [Middleware](/recipes/api/middleware) para patrones de procesamiento de requests.
+- **Valida en el boundary, no en todas partes**: centraliza validación en middleware o puntos de entrada de controladores.   La lógica de negocio debería asumir que la data ya está limpia.   Consulta [Middleware](/recipes/middleware/) para patrones de procesamiento de requests.
 - **Whitelist, no blacklist**: define lo que está permitido en lugar de lo que está prohibido.   Las blacklists son imposibles de completar y siempre dejan brechas.
 - **Sanitiza antes de almacenar**: strip HTML tags de campos de texto, normaliza direcciones de email a lowercase, y recorta whitespace antes de escribir a la base de datos.
 - **Retorna errores estructurados**: en lugar de un genérico "bad request," retorna `{ field: "email", message: "Invalid email format" }` para que clientes puedan resaltar el input correcto.
-- **[Loguea fallas de validación](/recipes/api/logging)**: errores de validación repetidos del mismo IP o user agent pueden indicar scanning o intentos de ataque automatizado.
+- **[Loguea fallas de validación](/recipes/logging/)**: errores de validación repetidos del mismo IP o user agent pueden indicar scanning o intentos de ataque automatizado.
 
 ## Errores comunes
 

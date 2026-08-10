@@ -51,10 +51,10 @@ Un flujo de trabajo Git define cómo tu equipo usa ramas para gestionar trabajo 
 
 Usa este flujo cuando:
 
-- Trabajes en un equipo donde múltiples desarrolladores tocan la misma base de código. Consulta [GitHub Actions](/recipes/devops/github-actions) para automatización CI/CD.
-- Quieras que cada cambio sea revisado antes de llegar a producción. Consulta [Unit Testing](/recipes/testing/unit-testing) para validación pre-merge.
-- Tu proyecto haga deployment continuo desde la rama principal. Consulta [Docker Basics](/recipes/devops/docker-basics) para despliegues containerizados.
-- Necesites un camino claro de rollback cuando algo salga mal. Consulta [Feature Flags](/recipes/devops/feature-flags) para toggles instantáneos.
+- Trabajes en un equipo donde múltiples desarrolladores tocan la misma base de código. Consulta [GitHub Actions](/recipes/github-actions/) para automatización CI/CD.
+- Quieras que cada cambio sea revisado antes de llegar a producción. Consulta [Unit Testing](/recipes/unit-testing/) para validación pre-merge.
+- Tu proyecto haga deployment continuo desde la rama principal. Consulta [Docker Basics](/recipes/docker-basics/) para despliegues containerizados.
+- Necesites un camino claro de rollback cuando algo salga mal. Consulta [Feature Flags](/recipes/feature-flags/) para toggles instantáneos.
 
 ## Solution
 

@@ -42,9 +42,9 @@ El contract testing resuelve esto haciendo que cada consumidor defina sus expect
 
 Usa esta receta cuando:
 
-- Gestionas 5+ microservicios con comunicación HTTP o por colas de mensajes. Consulta [Integration Testing](/recipes/testing/integration-testing) para verificar interacciones de componentes.
-- Experimentas outages en producción causados por cambios de API en servicios upstream. Consulta [Call REST API](/recipes/api/call-rest-api) para lo que funciona con clientes API.
-- Quieres desacoplar pipelines de deployment para que servicios se deployen independientemente. Consulta [Microservices Patterns](/guides/architecture/microservices-architecture-guide) para guía de arquitectura distribuida.
+- Gestionas 5+ microservicios con comunicación HTTP o por colas de mensajes. Consulta [Integration Testing](/recipes/integration-testing/) para verificar interacciones de componentes.
+- Experimentas outages en producción causados por cambios de API en servicios upstream. Consulta [Call REST API](/recipes/call-rest-api/) para lo que funciona con clientes API.
+- Quieres desacoplar pipelines de deployment para que servicios se deployen independientemente. Consulta [Microservices Patterns](/guides/microservices-architecture-guide/) para guía de arquitectura distribuida.
 - Migras de monolito a microservicios y necesitas redes de seguridad para los límites de API
 - Trabajas con proveedores de API externos donde no puedes controlar su ciclo de release
 

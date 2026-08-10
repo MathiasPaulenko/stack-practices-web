@@ -30,13 +30,13 @@ seo:
 
 
 ---
-El [Prototype](/patterns/design/prototype-pattern) pattern crea nuevos objetos copiando existentes. En lugar de construir objetos desde cero con constructores, clonas un prototipo y opcionalmente lo customizas. Esto es capaz cuando la inicializacion de objetos es costosa, cuando existen muchas configuraciones similares, o cuando el tipo concreto de objeto no se conoce hasta runtime.
+El [Prototype](/patterns/prototype-pattern/) pattern crea nuevos objetos copiando existentes. En lugar de construir objetos desde cero con constructores, clonas un prototipo y opcionalmente lo customizas. Esto es capaz cuando la inicializacion de objetos es costosa, cuando existen muchas configuraciones similares, o cuando el tipo concreto de objeto no se conoce hasta runtime.
 
 ## Cuando Usar Esto
 
-- La creacion de objetos es costosa (conexiones a base de datos, configuraciones parseadas). Consulta [Factory Pattern](/patterns/design/factory-pattern) para patrones de creación.
-- Existen muchas variantes de objetos similares que difieren solo ligeramente. Consulta [Builder Pattern](/patterns/design/builder-pattern) para objetos configurables.
-- La clase concreta a instanciar se determina en runtime. Consulta [Strategy Pattern](/patterns/design/strategy-pattern) para selección en runtime.
+- La creacion de objetos es costosa (conexiones a base de datos, configuraciones parseadas). Consulta [Factory Pattern](/patterns/factory-pattern/) para patrones de creación.
+- Existen muchas variantes de objetos similares que difieren solo ligeramente. Consulta [Builder Pattern](/patterns/builder-pattern/) para objetos configurables.
+- La clase concreta a instanciar se determina en runtime. Consulta [Strategy Pattern](/patterns/strategy-pattern/) para selección en runtime.
 
 ## Problema
 
@@ -199,7 +199,7 @@ const report = registry.create('report');
 ## FAQ
 
 **P: En que se diferencia de Factory Method?**
-R: [Factory Method](/patterns/design/factory-pattern) crea objetos a traves de una clase factory. Prototype crea objetos copiando una instancia existente, preservando su estado.
+R: [Factory Method](/patterns/factory-pattern/) crea objetos a traves de una clase factory. Prototype crea objetos copiando una instancia existente, preservando su estado.
 
 **P: Puedo usar esto con JSON?**
 R: Si. `JSON.parse(JSON.stringify(obj))` es un clone prototype crude para objetos plain, pero `structuredClone` es preferido para runtimes modernos.

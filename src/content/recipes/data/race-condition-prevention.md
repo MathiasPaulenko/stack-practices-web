@@ -37,8 +37,8 @@ Race conditions occur when multiple async operations access shared state without
 
 ## When to Use This
 
-- Multiple [API calls](/recipes/api/call-rest-api) update the same state or DOM elements. See [Async Patterns](/recipes/concurrency/async-patterns) for coordination.
-- [Cached data](/recipes/data/caching) becomes stale or inconsistent under concurrent access
+- Multiple [API calls](/recipes/call-rest-api/) update the same state or DOM elements. See [Async Patterns](/recipes/async-patterns/) for coordination.
+- [Cached data](/recipes/caching/) becomes stale or inconsistent under concurrent access
 - Debounced inputs trigger overlapping network requests with unpredictable ordering
 
 ## Problem
@@ -121,7 +121,7 @@ function useLatestQuery<T>() {
 }
 ```
 
-### 4. [Mutex Lock](/recipes/concurrency/locks-and-mutexes) for Critical Sections
+### 4. [Mutex Lock](/recipes/locks-and-mutexes/) for Critical Sections
 
 ```typescript
 // locks/Mutex.ts
@@ -287,7 +287,7 @@ Without the lock, concurrent transfers could read `from_acc.balance` before any 
 ## FAQ
 
 **Q: How is this different from a deadlock?**
-A: Race conditions produce incorrect results from concurrent access. [Deadlocks](/recipes/concurrency/locks-and-mutexes) occur when threads block each other indefinitely waiting for resources.
+A: Race conditions produce incorrect results from concurrent access. [Deadlocks](/recipes/locks-and-mutexes/) occur when threads block each other indefinitely waiting for resources.
 
 **Q: Do I need locks in single-threaded JavaScript?**
 A: JavaScript is single-threaded but async operations interleave. State can still be corrupted between await points.

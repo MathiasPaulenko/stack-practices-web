@@ -244,8 +244,8 @@ window.addEventListener('beforeunload', () => {
 
 ## Production Considerations
 
-- Run SSE endpoints behind **[HTTP/2 capable load balancers](/recipes/api/nginx-reverse-proxy)** for multiplexing
-- Use **Redis Pub/Sub** to broadcast across multiple Go server instances. See [Real-Time Notifications](/recipes/api/real-time-notifications) for Redis pub/sub patterns.
+- Run SSE endpoints behind **[HTTP/2 capable load balancers](/recipes/nginx-reverse-proxy/)** for multiplexing
+- Use **Redis Pub/Sub** to broadcast across multiple Go server instances. See [Real-Time Notifications](/recipes/real-time-notifications/) for Redis pub/sub patterns.
 - Limit **connections per client IP** to prevent resource exhaustion
 - Set appropriate **write timeouts** higher than standard REST endpoints
 
@@ -298,7 +298,7 @@ window.addEventListener('beforeunload', () => {
 ## FAQ
 
 **Q: How does SSE compare to WebSockets?**
-A: SSE is simpler for server-to-client push. Use [WebSockets](/recipes/api/websocket-server) when you need bi-directional communication or binary data.
+A: SSE is simpler for server-to-client push. Use [WebSockets](/recipes/websocket-server/) when you need bi-directional communication or binary data.
 
 **Q: Can SSE work through corporate proxies?**
 A: Yes, but some proxies have aggressive timeouts. Send heartbeat comments every 30 seconds to keep connections open.

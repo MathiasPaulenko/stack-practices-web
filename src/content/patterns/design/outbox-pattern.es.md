@@ -374,7 +374,7 @@ La mayoría de los servicios de pedidos usan un outbox para publicar eventos `Or
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Outbox e Inbox?**
-A: El [Outbox](/patterns/design/outbox-pattern) almacena eventos que tu servicio publica. El [Inbox](/patterns/design/inbox-pattern) almacena eventos entrantes de otros servicios para prevenir procesamiento duplicado.
+A: El [Outbox](/patterns/outbox-pattern/) almacena eventos que tu servicio publica. El [Inbox](/patterns/inbox-pattern/) almacena eventos entrantes de otros servicios para prevenir procesamiento duplicado.
 
 **Q: Cómo manejo el ordenamiento de eventos?**
 A: Los eventos dentro del mismo aggregate están ordenados por `id` o `created_at`. El ordenamiento entre aggregates no está garantizado por el outbox en sí.

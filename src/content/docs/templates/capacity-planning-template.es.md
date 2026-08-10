@@ -192,10 +192,10 @@ La plantilla cubre:
 ## Lo que funciona
 
 - **Planifica antes del cuello de botella** — La planificación de capacidad es proactiva, no reactiva. Si ya estás al 80% de utilización, llegaste tarde
-- **Usa datos de pruebas de carga** — No adivines; ejecuta [load tests](/recipes/testing/load-testing) para encontrar puntos de ruptura reales
+- **Usa datos de pruebas de carga** — No adivines; ejecuta [load tests](/recipes/load-testing/) para encontrar puntos de ruptura reales
 - **Incluye un margen de seguridad** — Apunta a un margen de al menos 30-40% sobre la carga pico proyectada
 - **Revisa trimestralmente** — Los supuestos de crecimiento cambian; revisa los planes cada trimestre
-- **Documenta dependencias** — Un límite de réplicas de base de datos afecta la capacidad de la aplicación incluso si los servidores de app tienen CPU disponible. Consulta la [Plantilla de Diagramas de Sistema](/docs/templates/adr-template) para mapear dependencias.
+- **Documenta dependencias** — Un límite de réplicas de base de datos afecta la capacidad de la aplicación incluso si los servidores de app tienen CPU disponible. Consulta la [Plantilla de Diagramas de Sistema](/docs/adr-template/) para mapear dependencias.
 - **Modela tráfico burst** — Planifica para 2-3x el pico normal durante campañas de marketing o eventos virales
 - **Considera retención de datos** — El almacenamiento crece continuamente incluso si el crecimiento de usuarios es plano
 - **Incluye proyecciones de costo** — Las decisiones de capacidad tienen impacto presupuestario. Finanzas necesita tiempo
@@ -311,7 +311,7 @@ Sobreaprovisiona rutas críticas (autenticación, procesamiento de pagos) y usa 
 
 ### ¿Qué pasa si las proyecciones de crecimiento están equivocadas?
 
-Construye flexibilidad en tu arquitectura (cargas de trabajo containerizadas, [infraestructura como código](/guides/devops/infrastructure-as-code-guide)) para que puedas pivotar entre escalado vertical y horizontal sin reescribir la aplicación.
+Construye flexibilidad en tu arquitectura (cargas de trabajo containerizadas, [infraestructura como código](/guides/infrastructure-as-code-guide/)) para que puedas pivotar entre escalado vertical y horizontal sin reescribir la aplicación.
 
 ### ¿Cómo estimo el crecimiento de storage?
 
@@ -323,7 +323,7 @@ Sí. La capacidad de DR es parte de tu plan de capacidad. Si tu sitio de DR nece
 
 ### ¿Cómo manejo picos súbitos de tráfico (eventos virales)?
 
-Set up auto-scaling con upper bounds agresivos, usa CDN para contenido estático, e implementa rate limiting para proteger servicios backend. Pre-calienta instancias antes de eventos planificados. Para picos no planificados, ten un runbook que describa cómo agregar capacidad manualmente y habilitar modos degradados. Consulta [Circuit Breaker Pattern](/patterns/design/circuit-breaker-pattern) para estrategias de degradación.
+Set up auto-scaling con upper bounds agresivos, usa CDN para contenido estático, e implementa rate limiting para proteger servicios backend. Pre-calienta instancias antes de eventos planificados. Para picos no planificados, ten un runbook que describa cómo agregar capacidad manualmente y habilitar modos degradados. Consulta [Circuit Breaker Pattern](/patterns/circuit-breaker-pattern/) para estrategias de degradación.
 
 ### ¿Qué herramientas debo usar para planificación de capacidad?
 

@@ -43,7 +43,7 @@ La multi-tenancy es una arquitectura donde una única instancia de software sirv
 
 Usa este recurso cuando:
 - Construyes aplicaciones SaaS que sirven a múltiples organizaciones
-- Debes cumplir requisitos de compliance (SOC 2, HIPAA) que exigen segregación de datos. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para saber lo que funciona en compliance.
+- Debes cumplir requisitos de compliance (SOC 2, HIPAA) que exigen segregación de datos. Consulta [Checklist de Seguridad de APIs](/guides/api-security-checklist-guide/) para saber lo que funciona en compliance.
 - Optimizas costos de infraestructura compartiendo compute entre tenants
 - Escalas de cientos a miles de tenants con rendimiento predecible
 
@@ -129,11 +129,11 @@ def migrate_tenant_schema(tenant_id: str):
 
 ## Lo que funciona
 
-- **Nunca confíes en tenant ID del input del usuario**: Siempre resuélvelo desde el [contexto autenticado](/recipes/authentication/jwt-authentication)
+- **Nunca confíes en tenant ID del input del usuario**: Siempre resuélvelo desde el [contexto autenticado](/recipes/jwt-authentication/)
 - **Indexa tenant_id primero**: Cada query filtra por tenant; hazlo la columna líder
-- **Usa [connection pooling](/recipes/performance/connection-pooling) con cuidado**: Schema-por-tenant requiere switching de schema en vivo
+- **Usa [connection pooling](/recipes/connection-pooling/) con cuidado**: Schema-por-tenant requiere switching de schema en vivo
 - **Backup por tenant**: Schema-por-tenant hace trivial pg_dump por schema
-- **Cuotas de recursos**: Limita CPU, storage y [rate de API](/recipes/api/api-rate-limiting-redis) por tenant para prevenir vecinos ruidosos
+- **Cuotas de recursos**: Limita CPU, storage y [rate de API](/recipes/api-rate-limiting-redis/) por tenant para prevenir vecinos ruidosos
 
 ## Errores Comunes
 

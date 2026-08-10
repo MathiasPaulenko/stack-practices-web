@@ -34,13 +34,13 @@ seo:
 
 
 ---
-El [Flyweight](/patterns/design/flyweight-pattern) pattern minimiza el uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares. Cuando una aplicacion necesita crear miles de objetos que comparten la mayor parte de su estado, Flyweight extrae el estado compartido (intrinseco) en un objeto compartido separado, dejando solo el estado unico (extrinseco) en cada instancia.
+El [Flyweight](/patterns/flyweight-pattern/) pattern minimiza el uso de memoria compartiendo la mayor cantidad de datos posible entre objetos similares. Cuando una aplicacion necesita crear miles de objetos que comparten la mayor parte de su estado, Flyweight extrae el estado compartido (intrinseco) en un objeto compartido separado, dejando solo el estado unico (extrinseco) en cada instancia.
 
 ## Cuando Usar Esto
 
-- Una aplicacion usa una gran cantidad de objetos con estado compartido. Consulta [Singleton Pattern](/patterns/design/singleton-pattern) para gestionar instancias únicas.
-- El costo de memoria es alto por la cantidad de objetos. Consulta [Caching Strategies](/recipes/performance/caching-strategies) para reducir almacenamiento redundante.
-- La mayor parte del estado del objeto puede hacerse extrinseco y computarse on the fly. Consulta [Object Pool](/patterns/design/abstract-factory-pattern) para patrones de instancias reutilizables.
+- Una aplicacion usa una gran cantidad de objetos con estado compartido. Consulta [Singleton Pattern](/patterns/singleton-pattern/) para gestionar instancias únicas.
+- El costo de memoria es alto por la cantidad de objetos. Consulta [Caching Strategies](/recipes/caching-strategies/) para reducir almacenamiento redundante.
+- La mayor parte del estado del objeto puede hacerse extrinseco y computarse on the fly. Consulta [Object Pool](/patterns/abstract-factory-pattern/) para patrones de instancias reutilizables.
 
 ## Problema
 
@@ -206,7 +206,7 @@ class Forest {
 ## FAQ
 
 **P: En que se diferencia de un cache?**
-R: Flyweight es una decision a nivel de diseno sobre estructura de objetos. Un [cache](/patterns/design/cache-aside-pattern) es una optimizacion para datos arbitrarios. Los flyweights son parte del modelo de dominio.
+R: Flyweight es una decision a nivel de diseno sobre estructura de objetos. Un [cache](/patterns/cache-aside-pattern/) es una optimizacion para datos arbitrarios. Los flyweights son parte del modelo de dominio.
 
 **P: Cuando NO deberia usar Flyweight?**
 R: Cuando el numero de estados compartidos se aproxima al numero de instancias, o cuando computar estado extrinseco es mas costoso que almacenarlo directamente.

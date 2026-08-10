@@ -53,7 +53,7 @@ WebSocket connections are long-lived and stateful, which makes authentication an
 ## Prerequisites
 
 - A WebSocket server (Node.js ws, Socket.io, or Deno)
-- [JWT](/recipes/authentication/jwt-authentication) or session-based authentication system already in place
+- [JWT](/recipes/jwt-authentication/) or session-based authentication system already in place
 
 ## Solution
 
@@ -151,7 +151,7 @@ function broadcast(room: string, message: object) {
 }
 ```
 
-### 3. [Rate Limiting](/recipes/api/api-rate-limiting-redis) per Connection
+### 3. [Rate Limiting](/recipes/api-rate-limiting-redis/) per Connection
 
 ```typescript
 // server/rateLimit.ts
@@ -199,7 +199,7 @@ if (!limiter.canSend(ws.userId)) {
 
 ## Production Considerations
 
-- Use **Redis Pub/Sub** to broadcast across multiple WebSocket server instances. See [Real-Time Notifications](/recipes/api/real-time-notifications) for Redis pub/sub patterns.
+- Use **Redis Pub/Sub** to broadcast across multiple WebSocket server instances. See [Real-Time Notifications](/recipes/real-time-notifications/) for Redis pub/sub patterns.
 - Implement **heartbeat/ping-pong** to detect and clean up stale connections
 - Log connection events for security auditing and debugging
 - Consider **Socket.io** for automatic reconnection and room management
@@ -322,7 +322,7 @@ A: JWT is easier for cross-domain connections. Session cookies work well if the 
 **Q: How do I handle token expiration during a long-lived connection?**
 A: Send a refresh token over the existing connection or implement a silent refresh before expiration.
 
-**Q: Can I use the same auth [middleware](/recipes/api/middleware) for HTTP and WebSocket?**
+**Q: Can I use the same auth [middleware](/recipes/middleware/) for HTTP and WebSocket?**
 A: Partially. The validation logic can be shared, but WebSocket requires extracting the token from query parameters or headers during the handshake.
 
 ### Is this solution production-ready?

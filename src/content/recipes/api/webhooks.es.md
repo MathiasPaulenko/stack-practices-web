@@ -42,7 +42,7 @@ Los webhooks son callbacks HTTP que habilitan comunicación en tiempo real, diri
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Integres con servicios de terceros que emiten eventos (Stripe, GitHub, Slack). Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para integraciones seguras.
+- Integres con servicios de terceros que emiten eventos (Stripe, GitHub, Slack). Consulta [Checklist de Seguridad de APIs](/guides/api-security-checklist-guide/) para integraciones seguras.
 - Construyas una plataforma SaaS que notifique a clientes sobre cambios de estado
 - Necesites actualizaciones en tiempo real sin la latencia y costo del polling
 - Diseñes una arquitectura de microservicios dirigida por eventos
@@ -209,10 +209,10 @@ Si tu endpoint falla o hace timeout, el sistema fuente **reintentará** con back
 
 ## Errores Comunes
 
-- **No verificar firmas**: Cualquiera puede hacer POST a tu endpoint y falsificar eventos.   Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para verificación de firmas.
+- **No verificar firmas**: Cualquiera puede hacer POST a tu endpoint y falsificar eventos.   Consulta [Guía de Seguridad](/guides/security-best-practices-guide/) para verificación de firmas.
 - **Parsear JSON antes de verificación**: La firma debe calcularse sobre el body crudo.
 - **Sin idempotencia**: Entregas duplicadas causan cobros dobles, emails dobles, etc.
-- **Procesamiento pesado síncrono**: Los webhooks hacen timeout en ~5-30s.   Encola el trabajo con un [worker en background](/recipes/api/middleware).
+- **Procesamiento pesado síncrono**: Los webhooks hacen timeout en ~5-30s.   Encola el trabajo con un [worker en background](/recipes/middleware/).
 - **Ignorar tormentas de reintentos**: Un endpoint fallando puede ser golpeado cientos de veces por reintentos.
 
 ## Cuando No Usar Este Enfoque
@@ -325,7 +325,7 @@ Retorna un código de status no-2xx. La mayoría de proveedores reintentarán co
 
 ### Puedo usar webhooks para comunicación bidireccional?
 
-No recomendado. Los webhooks son push unidireccional. Para bidireccional, usa [WebSockets](/recipes/api/websocket-server), [Server-Sent Events](/recipes/api/server-sent-events) o una cola de mensajes. Nunca hagas que dos servicios llamen síncronamente los webhooks del otro — esto crea riesgo de deadlock distribuido.
+No recomendado. Los webhooks son push unidireccional. Para bidireccional, usa [WebSockets](/recipes/websocket-server/), [Server-Sent Events](/recipes/server-sent-events/) o una cola de mensajes. Nunca hagas que dos servicios llamen síncronamente los webhooks del otro — esto crea riesgo de deadlock distribuido.
 
 ### Cómo pruebo webhooks localmente?
 

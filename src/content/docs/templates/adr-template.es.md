@@ -64,7 +64,7 @@ Esta plantilla cubre:
 
 ## Estructura de la plantilla
 
-Usa esta plantilla como base para documentar cualquier decisión de arquitectura en tu proyecto. Combínala con la [Plantilla de Diagramas de Sistema](/docs/templates/adr-template) para visualizar la arquitectura que se decide.
+Usa esta plantilla como base para documentar cualquier decisión de arquitectura en tu proyecto. Combínala con la [Plantilla de Diagramas de Sistema](/docs/adr-template/) para visualizar la arquitectura que se decide.
 
 ---
 
@@ -202,7 +202,7 @@ debe ocurrir antes de Q4 para no bloquear el roadmap de reporting.
 - **Una decisión por ADR**: Mantén el alcance enfocado
 - **Escribe después de la decisión**: Documenta decisiones ya tomadas, no debates
 - **Enlaza ADRs relacionados**: Crea una cadena de decisiones
-- **Guarda en control de versiones**: Mantén ADRs junto al código (`docs/adr/`). Consulta la [Plantilla de README](/docs/templates/readme-template) para organizar documentación de proyecto.
+- **Guarda en control de versiones**: Mantén ADRs junto al código (`docs/adr/`). Consulta la [Plantilla de README](/docs/readme-template/) para organizar documentación de proyecto.
 - **Usa numeración secuencial**: `0001-use-postgresql.md`, `0002-adopt-graphql.md`
 - **Mantén el contexto específico**: nombra los equipos, herramientas y restricciones involucradas
 - **Fecha cada ADR**: ayuda a los lectores a entender la línea temporal de decisiones
@@ -300,7 +300,7 @@ Para equipos pequeños, reduce la plantilla a: Título, Contexto (2-3 oraciones)
 
 ### Estilo RFC (organizaciones grandes)
 
-Para organizaciones grandes, expande la plantilla con: Background, Goals, Non-goals, Propuesta detallada, Plan de rollout, Riesgos y mitigaciones. Circula como Request for Comments antes de marcar como Aceptada. Consulta la [Plantilla de Solicitud de Feature](/docs/templates/feature-request-template) para la variante RFC.
+Para organizaciones grandes, expande la plantilla con: Background, Goals, Non-goals, Propuesta detallada, Plan de rollout, Riesgos y mitigaciones. Circula como Request for Comments antes de marcar como Aceptada. Consulta la [Plantilla de Solicitud de Feature](/docs/feature-request-template/) para la variante RFC.
 
 ### MADR (Markdown ADR)
 
@@ -310,7 +310,7 @@ MADR es un formato markdown estructurado para ADRs con campos frontmatter espec�
 
 ### Cuándo debería escribir un ADR?
 
-Escribe un ADR después de tomar una decisión arquitectónica mayor — típicamente cuando la decisión afecta a múltiples equipos, es costosa de revertir o tiene implicaciones de mantenimiento a largo plazo. Para decisiones de infraestructura de alto impacto, documenta también los planes de capacidad usando la [Plantilla de Planificación de Capacidad](/docs/templates/capacity-planning-template). No escribas ADRs para elecciones triviales.
+Escribe un ADR después de tomar una decisión arquitectónica mayor — típicamente cuando la decisión afecta a múltiples equipos, es costosa de revertir o tiene implicaciones de mantenimiento a largo plazo. Para decisiones de infraestructura de alto impacto, documenta también los planes de capacidad usando la [Plantilla de Planificación de Capacidad](/docs/capacity-planning-template/). No escribas ADRs para elecciones triviales.
 
 ### Quién debería leer los ADRs?
 

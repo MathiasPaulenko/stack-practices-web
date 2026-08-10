@@ -114,7 +114,7 @@ Contras: Requiere disciplina para mantener límites de módulos.
 └──────────────────────────────┘
 ```
 
-Regla de Dependencia: Las capas internas no deben depender de las externas. Consulta [principios SOLID](/guides/design/solid-principles-guide).
+Regla de Dependencia: Las capas internas no deben depender de las externas. Consulta [principios SOLID](/guides/solid-principles-guide/).
 
 ## Patrones de Flujo de Datos
 
@@ -156,7 +156,7 @@ Opciones de Event Bus: Apache Kafka, RabbitMQ, AWS SNS/SQS, NATS.
 
 ### Registro de Decisiones
 
-Documenta cada elección tecnológica mayor con contexto, alternativas y consecuencias. Usa la [Plantilla de ADR](/docs/templates/adr-template).
+Documenta cada elección tecnológica mayor con contexto, alternativas y consecuencias. Usa la [Plantilla de ADR](/docs/adr-template/).
 
 ## Patrones de Escalabilidad
 
@@ -203,10 +203,10 @@ Requerimiento: El estado debe externalizarse (base de datos, cache, object stora
 
 ## Lo que funciona
 
-- Empieza simple: Comienza con un [monolito modular](/guides/architecture/monolith-to-microservices-migration-guide); extrae servicios cuando sea necesario
-- Define contextos acotados: Usa [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) para encontrar límites naturales
-- Diseña para observabilidad: Cada componente debe exponer [métricas, logs, traces](/recipes/observability/metrics-collection)
-- Automatiza todo: [CI/CD](/guides/devops/cicd-pipeline-guide), [infraestructura](/guides/devops/infrastructure-as-code-guide), testing, escaneo de seguridad
+- Empieza simple: Comienza con un [monolito modular](/guides/monolith-to-microservices-migration-guide/); extrae servicios cuando sea necesario
+- Define contextos acotados: Usa [Domain-Driven Design](/guides/domain-driven-design-guide/) para encontrar límites naturales
+- Diseña para observabilidad: Cada componente debe exponer [métricas, logs, traces](/recipes/metrics-collection/)
+- Automatiza todo: [CI/CD](/guides/cicd-pipeline-guide/), [infraestructura](/guides/infrastructure-as-code-guide/), testing, escaneo de seguridad
 - Documenta decisiones: ADRs para cada elección arquitectónica mayor
 
 

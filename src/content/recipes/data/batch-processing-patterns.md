@@ -41,7 +41,7 @@ Batch processing is the backbone of data pipelines, ETL workflows, and report ge
 ## When to Use
 
 Use this resource when:
-- Processing large datasets that do not fit in memory. See [Retry Logic](/recipes/architecture/retry-backoff) for handling transient failures.
+- Processing large datasets that do not fit in memory. See [Retry Logic](/recipes/retry-backoff/) for handling transient failures.
 - Building ETL pipelines for data warehouses
 - Generating nightly reports or aggregations
 - Migrating data between systems with downtime windows
@@ -109,9 +109,9 @@ SELECT * FROM job_runs WHERE job_id = 'daily_report_2025_01_15' AND status = 'co
 
 A production batch pipeline needs three properties:
 
-1. **Idempotency**: Running the same job twice must produce the same result. Use job IDs and checksums to skip already-processed work. See [Idempotent API Endpoints](/recipes/api/idempotent-api-endpoints) for deduplication patterns.
+1. **Idempotency**: Running the same job twice must produce the same result. Use job IDs and checksums to skip already-processed work. See [Idempotent API Endpoints](/recipes/idempotent-api-endpoints/) for deduplication patterns.
 2. **Fault tolerance**: Individual batch failures should not crash the entire job. Implement retry with exponential backoff and a dead-letter queue.
-3. **Observability**: Track progress, throughput, and errors. [Log](/recipes/api/logging) metrics for processed items, latency, and failure rates.
+3. **Observability**: Track progress, throughput, and errors. [Log](/recipes/logging/) metrics for processed items, latency, and failure rates.
 
 **Chunking strategy**: Size batches to balance memory usage and throughput. Too small = overhead; too large = OOM risk.
 
@@ -130,7 +130,7 @@ A production batch pipeline needs three properties:
 - **Log everything**: Job start, end, and every batch outcome
 - **Use transactions**: Wrap batch writes in database transactions
 - **Monitor queue depth**: Alert when pending batches exceed thresholds
-- **Implement [circuit breakers](/recipes/circuit-breaker-pattern-recipe)**: Stop retrying if downstream is unhealthy
+- **Implement [circuit breakers](/recipes/circuit-breaker-pattern-recipe/)**: Stop retrying if downstream is unhealthy
 
 ## Common Mistakes
 
@@ -181,7 +181,7 @@ Start with 100-1000 items per batch. Benchmark with your data and memory constra
 
 ### Should I use a job queue like Celery or a cron job?
 
-Use Celery/Redis for distributed systems with multiple workers, retry logic, and monitoring. Celery provides task routing, priority queues, and dead-letter handling out of the box. For single-node, simple pipelines, cron jobs suffice — but add `flock` to prevent overlapping runs: `flock -n /tmp/batch.lock python batch_job.py`. For Kubernetes, use `CronJob` resources with `concurrencyPolicy: Forbid`. See [Rate Limiting](/recipes/api/rate-limiting) for controlling throughput. For cloud-native setups, AWS Step Functions or Google Cloud Workflows provide managed retry and state management without infrastructure overhead.
+Use Celery/Redis for distributed systems with multiple workers, retry logic, and monitoring. Celery provides task routing, priority queues, and dead-letter handling out of the box. For single-node, simple pipelines, cron jobs suffice — but add `flock` to prevent overlapping runs: `flock -n /tmp/batch.lock python batch_job.py`. For Kubernetes, use `CronJob` resources with `concurrencyPolicy: Forbid`. See [Rate Limiting](/recipes/rate-limiting/) for controlling throughput. For cloud-native setups, AWS Step Functions or Google Cloud Workflows provide managed retry and state management without infrastructure overhead.
 
 ### How do I handle schema changes mid-pipeline?
 
@@ -333,9 +333,9 @@ Data contracts define schema expectations between producers and consumers. Imple
 
 ## See Also
 
-- [Database Indexing](/recipes/performance/database-indexing) — optimizing query performance for batch reads
-- [Web Performance](/recipes/performance/web-performance) — frontend and backend performance techniques
-- [Load Testing](/recipes/performance/load-testing) — validating batch job performance under load
+- [Database Indexing](/recipes/database-indexing/) — optimizing query performance for batch reads
+- [Web Performance](/recipes/web-performance/) — frontend and backend performance techniques
+- [Load Testing](/recipes/load-testing/) — validating batch job performance under load
 
 ## Common Production Pitfalls
 

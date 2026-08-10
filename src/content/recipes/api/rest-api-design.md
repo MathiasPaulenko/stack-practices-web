@@ -44,7 +44,7 @@ Use this resource when:
 - Designing a new public or internal API from scratch
 - Refactoring a legacy RPC-style API to REST
 - Documenting an API with OpenAPI/Swagger
-- Choosing between [REST](/recipes/api/call-rest-api), [GraphQL](/recipes/api/graphql-api), or [gRPC](/recipes/api/grpc-api) for a new service
+- Choosing between [REST](/recipes/call-rest-api/), [GraphQL](/recipes/graphql-api/), or [gRPC](/recipes/grpc-api/) for a new service
 
 ## When to Avoid
 
@@ -145,7 +145,7 @@ Content-Type: application/json
 {"amount": 1000, "currency": "USD"}
 ```
 
-The server stores the key and returns the original response on retry. See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for implementation.
+The server stores the key and returns the original response on retry. See [Idempotent Endpoints](/recipes/idempotent-api-endpoints/) for implementation.
 
 ### Rate Limiting Response
 
@@ -169,7 +169,7 @@ X-RateLimit-Reset: 1719900000
 
 REST uses HTTP as an application protocol, not just a transport:
 
-- **Idempotency**: GET, PUT, DELETE should be safe to retry.  See [Idempotent Endpoints](/recipes/api/idempotent-api-endpoints) for patterns.  POST is not idempotent.
+- **Idempotency**: GET, PUT, DELETE should be safe to retry.  See [Idempotent Endpoints](/recipes/idempotent-api-endpoints/) for patterns.  POST is not idempotent.
 - **Statelessness**: Each request contains all information needed; no server-side session.
 - **Cacheability**: Use Cache-Control, ETag, and Last-Modified headers aggressively.
 - **HATEOAS**: Include links to related resources (optional but improves discoverability).
@@ -230,12 +230,12 @@ If the ETag no longer matches (someone else modified the resource), return 412 P
 - **Version in URL**: /v1/users (more explicit than headers)
 - **Return consistent envelope**: { data, error, meta } structure
 - **Support filtering**: GET /users?
-- **Rate limit early**: Return 429 with Retry-After header.  See [Rate Limiting with Redis](/recipes/api/api-rate-limiting-redis) for implementation.
+- **Rate limit early**: Return 429 with Retry-After header.  See [Rate Limiting with Redis](/recipes/api-rate-limiting-redis/) for implementation.
 
 ## Common Mistakes
 
 1. **Using verbs in URLs**: /createUser, /getOrders — use nouns and HTTP methods instead
-2. **Ignoring HTTP status codes**: Returning 200 with an error body breaks middleware. See [Error Handling](/recipes/api/handle-errors) for status code usage.
+2. **Ignoring HTTP status codes**: Returning 200 with an error body breaks middleware. See [Error Handling](/recipes/handle-errors/) for status code usage.
 3. **Not versioning**: Breaking changes without versioning strand existing clients
 4. **Over-fetching**: Returning huge nested objects when clients need a subset
 5. **Missing content negotiation**: Not respecting Accept and Content-Type headers
@@ -313,7 +313,7 @@ Bearer tokens in the Authorization header: `Authorization: Bearer <token>`. API 
 
 ### How do I handle long-running operations?
 
-Return 202 Accepted with a status URL. The client polls the status URL until the operation completes. For webhooks, return 202 and send a POST to the client's webhook URL when done. See [Async API Pattern](/patterns/design/async-generator-pattern) for patterns.
+Return 202 Accepted with a status URL. The client polls the status URL until the operation completes. For webhooks, return 202 and send a POST to the client's webhook URL when done. See [Async API Pattern](/patterns/async-generator-pattern/) for patterns.
 
 ### Should I use REST or GraphQL?
 
@@ -335,7 +335,7 @@ Three common strategies: URI path (`/v1/users`), query parameter (`/users?versio
 
 Return 422 Unprocessable Entity when the request body is syntactically valid but semantically incorrect (e.g., missing required fields, invalid email format). Use 400 Bad Request for malformed JSON or missing content-type headers. Include a `details` array in the error response pointing to specific field errors.
 
-This helps clients render inline validation messages next to each field. See [error handling](/recipes/api/error-handling-patterns) for complete examples.
+This helps clients render inline validation messages next to each field. See [error handling](/recipes/handle-errors/) for complete examples.
 
 ## Common Production Pitfalls
 

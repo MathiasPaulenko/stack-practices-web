@@ -236,7 +236,7 @@ Parameterized tests let you run the same logic against multiple inputs without d
 - **Name tests after behavior**: `test_addNegativeNumbers` is better than `test_add2` because it describes intent.
 - **One concept per test**: if you need multiple asserts, ensure they verify a single logical outcome.  Otherwise, split the test.
 - **Avoid logic in tests**: no `if` statements or loops in tests — they make failures harder to diagnose.
-- **Use fakes over mocks when possible**: a fake in-memory repository is simpler than [mocking](/recipes/testing/unit-testing) every method call.
+- **Use fakes over mocks when possible**: a fake in-memory repository is simpler than [mocking](/recipes/unit-testing/) every method call.
 - **Keep tests close to the code**: place test files next to the source (co-location) or in a mirrored `tests/` directory.
 - **Test boundary conditions**: zero, negative numbers, empty collections, maximum values, and null inputs are where most bugs hide.
 - **Use setup and teardown consistently**: shared setup belongs in `beforeEach` / `setUp`, not duplicated across tests.
@@ -247,7 +247,7 @@ Parameterized tests let you run the same logic against multiple inputs without d
 - **Testing implementation instead of behavior**: asserting that a specific private method was called makes tests brittle during refactoring.
 - **Ignoring edge cases**: empty strings, zero, null/undefined, and very large inputs are where bugs hide.
 - **Shared mutable state**: a test that mutates a global counter breaks every test that runs after it.
-- **Slow unit tests**: calling a real database or HTTP service turns unit tests into [integration tests](/recipes/testing/integration-testing) and slows the suite.
+- **Slow unit tests**: calling a real database or HTTP service turns unit tests into [integration tests](/recipes/integration-testing/) and slows the suite.
 - **Noisy output**: `console. log` or `System. out. println` in tests clutters CI logs.
 - **Testing too much per test**: a test with 20 assertions is hard to debug when it fails.  Split into focused tests.
 - **Not testing error paths**: many developers only test the happy path.
@@ -293,7 +293,7 @@ Parameterized tests let you run the same logic against multiple inputs without d
 A: One logical concept per test. Multiple asserts are fine if they verify different aspects of the same outcome (e.g., a created object has both the right ID and the right name). If the concepts diverge, split the test.
 
 **Q: Should I test private methods?**
-A: No. Test the public API. Private methods are implementation details; if you change them, you should not have to update tests. See [clean code](/guides/design/clean-code-principles-guide). If a private method is complex enough to need its own tests, consider extracting it into a separate class.
+A: No. Test the public API. Private methods are implementation details; if you change them, you should not have to update tests. See [clean code](/guides/clean-code-principles-guide/). If a private method is complex enough to need its own tests, consider extracting it into a separate class.
 
 **Q: What is the difference between a stub and a mock?**
 A: A stub provides canned answers to calls. A mock verifies that specific interactions happened (e.g., "this method was called exactly once"). Use stubs for inputs; use mocks sparingly for verifying side effects.

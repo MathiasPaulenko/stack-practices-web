@@ -266,7 +266,7 @@ El Patrón Template Method tiene dos tipos de métodos en la clase base:
 - **Mantén los hooks opcionales** — documenta claramente qué métodos son requeridos vs. opcionales
 - **Minimiza el número de métodos abstractos** — demasiados hacen las subclases complejas
 - **Documenta los pasos del algoritmo** y sus invariantes
-- **Considera la composición ([Strategy](/patterns/design/strategy-pattern))** cuando las subclases necesitarían sobreescribir muchos métodos
+- **Considera la composición ([Strategy](/patterns/strategy-pattern/))** cuando las subclases necesitarían sobreescribir muchos métodos
 
 ## Errores comunes
 
@@ -279,10 +279,10 @@ El Patrón Template Method tiene dos tipos de métodos en la clase base:
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Template Method y Strategy?**
-R: Template Method usa herencia para variar partes de un algoritmo. [Strategy](/patterns/design/strategy-pattern) usa composición para intercambiar algoritmos completos. Prefiere Strategy cuando necesites flexibilidad en tiempo de ejecución o muchas variaciones.
+R: Template Method usa herencia para variar partes de un algoritmo. [Strategy](/patterns/strategy-pattern/) usa composición para intercambiar algoritmos completos. Prefiere Strategy cuando necesites flexibilidad en tiempo de ejecución o muchas variaciones.
 
 **P: ¿Puedo combinar Template Method con Factory Method?**
-R: Sí — muy común. El método template puede llamar a un [Factory](/patterns/design/factory-pattern) Method para crear objetos en pasos específicos, permitiendo que las subclases personalicen qué clases se instancian.
+R: Sí — muy común. El método template puede llamar a un [Factory](/patterns/factory-pattern/) Method para crear objetos en pasos específicos, permitiendo que las subclases personalicen qué clases se instancian.
 
 ### ¿Es este patrón adecuado para proyectos pequeños?
 

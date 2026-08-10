@@ -379,7 +379,7 @@ The pattern trades latency for quality. A 4-step chain takes 4x the latency of a
 A: 3-6 steps works best. Beyond that, latency and failure probability compound. If you need more steps, consider breaking into sub-chains or using an agent loop.
 
 **Q: Should I use the same model for all steps?**
-A: No. Extraction and classification steps benefit from low temperature and focused models. Creative steps like writing or formatting can use different parameters. Use the [LLM Router Pattern](/patterns/ai/llm-router-pattern) to select models per step.
+A: No. Extraction and classification steps benefit from low temperature and focused models. Creative steps like writing or formatting can use different parameters. Use the [LLM Router Pattern](/patterns/llm-router-pattern/) to select models per step.
 
 **Q: How do I handle a step that fails after all retries?**
 A: Return partial results with a clear status. Let the caller decide whether to retry the failed step, skip it, or abort. Never silently swallow failures.

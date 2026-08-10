@@ -192,10 +192,10 @@ The template covers:
 ## What Works
 
 - **Plan before the bottleneck** — Capacity planning is proactive, not reactive. If you are already at 80% utilization, you are late
-- **Use load testing data** — Do not guess; run [load tests](/recipes/testing/load-testing) to find real breaking points
+- **Use load testing data** — Do not guess; run [load tests](/recipes/load-testing/) to find real breaking points
 - **Include a safety margin** — Aim for headroom of at least 30-40% above projected peak load
 - **Review quarterly** — Growth assumptions change; revisit capacity plans every quarter
-- **Document dependencies** — A database replica limit affects application capacity even if app servers have spare CPU. See [System Diagram Template](/docs/templates/adr-template) for dependency mapping.
+- **Document dependencies** — A database replica limit affects application capacity even if app servers have spare CPU. See [System Diagram Template](/docs/adr-template/) for dependency mapping.
 - **Model burst traffic** — Plan for 2-3x normal peak during marketing campaigns or viral events
 - **Account for data retention** — Storage grows continuously even if user growth is flat
 - **Include cost projections** — Capacity decisions have budget impact. Finance needs lead time
@@ -320,7 +320,7 @@ Over-provision critical paths (authentication, payment processing) and use auto-
 
 ### What if growth projections are wrong?
 
-Build flexibility into your architecture (containerized workloads, [infrastructure as code](/guides/devops/infrastructure-as-code-guide)) so you can pivot between vertical and horizontal scaling without rewriting the application.
+Build flexibility into your architecture (containerized workloads, [infrastructure as code](/guides/infrastructure-as-code-guide/)) so you can pivot between vertical and horizontal scaling without rewriting the application.
 
 ### How do I estimate storage growth?
 
@@ -332,7 +332,7 @@ Yes. DR capacity is part of your capacity plan. If your DR site needs to handle 
 
 ### How do I handle sudden traffic spikes (viral events)?
 
-Set up auto-scaling with aggressive upper bounds, use a CDN for static content, and implement rate limiting to protect backend services. Pre-warm instances before planned events. For unplanned spikes, have a runbook that describes how to manually add capacity and enable degraded modes. See [Circuit Breaker Pattern](/patterns/design/circuit-breaker-pattern) for degradation strategies.
+Set up auto-scaling with aggressive upper bounds, use a CDN for static content, and implement rate limiting to protect backend services. Pre-warm instances before planned events. For unplanned spikes, have a runbook that describes how to manually add capacity and enable degraded modes. See [Circuit Breaker Pattern](/patterns/circuit-breaker-pattern/) for degradation strategies.
 
 ### What tools should I use for capacity planning?
 

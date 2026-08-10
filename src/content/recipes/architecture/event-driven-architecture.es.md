@@ -48,7 +48,7 @@ Usa esta receta cuando:
 - Las cargas de trabajo son irregulares y necesitan buffering para suavizar picos de tráfico
 - Los servicios tienen diferentes requisitos de disponibilidad y no pueden bloquearse entre sí
 - Construyendo audit trails donde cada cambio de estado debe ser registrado
-- Implementando event sourcing para queries temporales y reconstrucción de estado. Consulta [CQRS Pattern](/patterns/design/cqrs-pattern) para separación de lectura/escritura.
+- Implementando event sourcing para queries temporales y reconstrucción de estado. Consulta [CQRS Pattern](/patterns/cqrs-pattern/) para separación de lectura/escritura.
 
 ## Solución
 
@@ -158,9 +158,9 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 
 ## Lo que funciona
 
-- **Diseña eventos, no mensajes**: un evento debería describir qué sucedió, no qué debería hacer el consumidor.   Consulta [Microservices Patterns](/guides/architecture/microservices-architecture-guide) para estrategias de comunicación entre servicios.   `OrderPlaced` es correcto.   `DecrementInventory` es un command disfrazado de evento.   Los eventos son hechos; los commands son instrucciones.
+- **Diseña eventos, no mensajes**: un evento debería describir qué sucedió, no qué debería hacer el consumidor.   Consulta [Microservices Patterns](/guides/microservices-architecture-guide/) para estrategias de comunicación entre servicios.   `OrderPlaced` es correcto.   `DecrementInventory` es un command disfrazado de evento.   Los eventos son hechos; los commands son instrucciones.
 - **Usa validación de esquemas**: eventos sin validar son fuente de bugs sutiles.   Valida en los boundaries de publisher y consumer.
-- **Haz consumidores idempotentes**: retries de red y redeliveries de brokers significan que el mismo evento puede procesarse múltiples veces.   Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación.   Diseña handlers para que procesar el mismo evento dos veces produzca el mismo estado.
+- **Haz consumidores idempotentes**: retries de red y redeliveries de brokers significan que el mismo evento puede procesarse múltiples veces.   Consulta [Endpoints Idempotentes](/recipes/idempotent-api-endpoints/) para patrones de deduplicación.   Diseña handlers para que procesar el mismo evento dos veces produzca el mismo estado.
 - **Monitorea consumer lag**: lag es el número de mensajes no procesados en una partición.   Lag alto indica que el consumidor es más lento que el productor.
 - **Publica eventos de dominio, no eventos de infraestructura**: `PaymentProcessed` es un evento de dominio con significado de negocio.   `DatabaseRowInserted` es ruido de infraestructura.   Los consumidores se preocupan por cambios de estado de negocio, no detalles de implementación.
 
@@ -177,7 +177,7 @@ resource "aws_cloudwatch_event_target" "billing_target" {
 R: Kafka para event streaming de alto throughput, event sourcing y replay. RabbitMQ para enrutamiento complejo, patrones request-reply y compatibilidad AMQP. Kafka escala horizontalmente mejor; RabbitMQ es más fácil de operar a pequeña escala.
 
 **P: ¿Cómo manejo ordenamiento de eventos entre servicios?**
-R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa [sagas](/recipes/saga-pattern-recipe) para compensar cuando las asunciones de ordenamiento cross-service se violan.
+R: No puedes garantizar ordenamiento global entre servicios. Asegura ordenamiento dentro de un aggregate (ej. todos los eventos para `order-123` van a la misma partición). Usa [sagas](/recipes/saga-pattern-recipe/) para compensar cuando las asunciones de ordenamiento cross-service se violan.
 
 **P: ¿Cuál es la diferencia entre event-driven y message-driven?**
 R: Event-driven: los servicios reaccionan a eventos a los que se suscriben. Message-driven: los servicios envían mensajes a colas específicas. Los términos se superponen, pero event-driven implica pub/sub y acoplamiento débil, mientras que message-driven incluye patrones point-to-point.

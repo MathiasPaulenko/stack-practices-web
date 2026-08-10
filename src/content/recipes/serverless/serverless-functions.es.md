@@ -43,10 +43,10 @@ Lo siguiente cubre la creación y despliegue de funciones serverless con AWS Lam
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Tienes cargas de trabajo event-driven (webhooks, procesamiento de archivos, jobs programados). Consulta [Event-Driven Functions](/recipes/messaging/event-driven-microservices) para patrones event-driven.
-- Quieres escalado automático de cero a miles de peticiones. Consulta [Cold Start Optimization](/recipes/performance/connection-pooling) para minimizar latencia de inicio.
+- Tienes cargas de trabajo event-driven (webhooks, procesamiento de archivos, jobs programados). Consulta [Event-Driven Functions](/recipes/event-driven-microservices/) para patrones event-driven.
+- Quieres escalado automático de cero a miles de peticiones. Consulta [Cold Start Optimization](/recipes/connection-pooling/) para minimizar latencia de inicio.
 - Necesitas evitar el mantenimiento de servidores y la sobrecarga de infraestructura
-- Tu tráfico es esporádico y aprovisionar servidores sería un desperdicio. Consulta [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) para construir APIs pay-per-use.
+- Tu tráfico es esporádico y aprovisionar servidores sería un desperdicio. Consulta [Serverless API Gateway](/recipes/nginx-reverse-proxy/) para construir APIs pay-per-use.
 
 ## Solución
 

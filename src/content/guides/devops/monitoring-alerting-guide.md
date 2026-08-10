@@ -96,7 +96,7 @@ Follow a single request across services.
 [Gateway] 2ms → [Auth] 15ms → [Orders] 45ms → [DB] 30ms → [Payment] 120ms
 ```
 
-[Traces](/recipes/observability/distributed-tracing) reveal where latency actually lives. A p99 of 500ms might be 400ms in payment and 100ms everywhere else.
+[Traces](/recipes/distributed-tracing/) reveal where latency actually lives. A p99 of 500ms might be 400ms in payment and 100ms everywhere else.
 
 ## The RED Method (for Services)
 
@@ -125,7 +125,7 @@ Monitor every resource (CPU, disk, network, memory) with these three:
 A good alert answers three questions:
 1. **What is wrong?** — clear metric name and threshold breached
 2. **Where is it wrong?** — service name, region, environment
-3. **What should I do?** — link to [runbook](/guides/devops/technical-documentation-strategy-guide) or suggested action
+3. **What should I do?** — link to [runbook](/guides/technical-documentation-strategy-guide/) or suggested action
 
 ### Bad Alert Examples
 
@@ -176,12 +176,12 @@ A dashboard should tell you if the system is healthy in 5 seconds.
 
 ## What Works
 
-- **Instrument before you need it** — adding metrics during an [incident](/guides/devops/on-call-incident-response-guide) is too late
+- **Instrument before you need it** — adding metrics during an [incident](/guides/on-call-incident-response-guide/) is too late
 - **Use percentiles, not averages** — averages hide outliers; p95 and p99 tell the real story
 - **Correlation IDs everywhere** — tie logs, metrics, and traces to a single request ID
 - **Alert on symptoms, not causes** — "users cannot check out" is better than "CPU is high"
 - **Review alerts quarterly** — remove noise, tune thresholds, consolidate duplicates
-- **Test your [runbooks](/guides/devops/technical-documentation-strategy-guide)** — a runbook that has not been tested in 6 months is probably wrong
+- **Test your [runbooks](/guides/technical-documentation-strategy-guide/)** — a runbook that has not been tested in 6 months is probably wrong
 
 ## Common Mistakes
 
@@ -189,7 +189,7 @@ A dashboard should tell you if the system is healthy in 5 seconds.
 - Not having a "canary" metric — deploy a change and watch a single golden metric
 - Ignoring baseline shifts — if p99 drifts from 100ms to 300ms over a month, investigate before it becomes an incident
 - Dashboards without owners — someone must own and maintain each dashboard
-- No post-[incident](/guides/devops/on-call-incident-response-guide) metric review — after every incident, ask "what metric would have caught this earlier?"
+- No post-[incident](/guides/on-call-incident-response-guide/) metric review — after every incident, ask "what metric would have caught this earlier?"
 
 
 ## Troubleshooting

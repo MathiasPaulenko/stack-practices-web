@@ -399,7 +399,7 @@ RRF is preferred over score-based fusion because BM25 and cosine similarity prod
 
 - **Tune the RRF `k` parameter** — lower values (e.g., 20) favor top ranks; higher values (e.g., 100) smooth differences
 - **Pre-filter candidates** — if your corpus is large, filter by metadata before running both searches to reduce compute
-- **Cache embeddings** — re-embedding the same documents wastes API budget; see [embedding caching](/recipes/ai/python-openai-embeddings-cosine)
+- **Cache embeddings** — re-embedding the same documents wastes API budget; see [embedding caching](/recipes/python-openai-embeddings-cosine/)
 - **Use BM25 for structured fields** — product codes, identifiers, and exact names benefit from keyword matching
 - **Monitor retrieval metrics** — track recall@k and precision@k to measure fusion quality
 - **Index incrementally** — update BM25 index and vector store separately as new documents arrive

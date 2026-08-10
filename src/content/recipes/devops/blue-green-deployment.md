@@ -40,10 +40,10 @@ Blue-green deployment is a release strategy that maintains two identical product
 ## When to Use
 
 Use this resource when:
-- Downtime during deployments is unacceptable (SLA > 99.9%). See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for readiness verification.
-- You need instant rollback capability without redeploying. See [Feature Flags](/recipes/devops/feature-flags) for instant toggles.
-- Running database migrations that must be backward-compatible. See [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) for local migration testing.
-- Validating new releases against real production traffic via canary routing. See [Istio Canary Deployment](/recipes/devops/istio-canary-deployment) for progressive traffic shifting.
+- Downtime during deployments is unacceptable (SLA > 99.9%). See [Health Check Endpoint](/recipes/health-check-endpoint/) for readiness verification.
+- You need instant rollback capability without redeploying. See [Feature Flags](/recipes/feature-flags/) for instant toggles.
+- Running database migrations that must be backward-compatible. See [Docker Compose Local Dev](/recipes/docker-compose-local-dev/) for local migration testing.
+- Validating new releases against real production traffic via canary routing. See [Istio Canary Deployment](/recipes/istio-canary-deployment/) for progressive traffic shifting.
 
 ## Solution
 

@@ -50,8 +50,8 @@ Usa esta receta cuando:
 - Construyendo APIs que manejan cientos de requests concurrentes por proceso
 - Obteniendo datos de mÃºltiples servicios que pueden llamarse en paralelo
 - Procesando cargas de trabajo I/O-bound como web scraping, uploads de archivos o colas de mensajes
-- Implementando capacidades en tiempo real como [WebSockets](/recipes/api/websocket-server), chat o dashboards en vivo
-- Reemplazando modelos de thread-por-request con [arquitecturas event-driven](/recipes/architecture/event-driven-architecture) para eficiencia
+- Implementando capacidades en tiempo real como [WebSockets](/recipes/websocket-server/), chat o dashboards en vivo
+- Reemplazando modelos de thread-por-request con [arquitecturas event-driven](/recipes/event-driven-architecture/) para eficiencia
 
 ## SoluciÃ³n
 
@@ -164,7 +164,7 @@ public class AsyncOrderService {
 
 - **Siempre await las promises**: una promise no awaited es una operaciÃ³n fire-and-forget que silenciosamente traga errores.   Si una promise rechaza y nada la espera, Node.  js emite un warning `unhandledRejection`.   En funciones async, siempre `await` o `.  catch()` cada promise.
 - **Usa Promise.all para independencia, secuencial para dependencias**: si la tarea B necesita el resultado de la tarea A, deben ejecutarse secuencialmente.  all` o `asyncio.  gather` para ejecutarlas concurrentemente.   Ejecutar tareas independientes secuencialmente desperdicia tiempo.
-- **Establece timeouts en todas las llamadas externas**: una API no responiva puede colgar una operaciÃ³n async indefinidamente.   Envuelve cada llamada externa en un timeout con [retry logic](/recipes/architecture/retry-backoff).
+- **Establece timeouts en todas las llamadas externas**: una API no responiva puede colgar una operaciÃ³n async indefinidamente.   Envuelve cada llamada externa en un timeout con [retry logic](/recipes/retry-backoff/).
 - **Prefiere concurrencia estructurada sobre fire-and-forget**: lanzar una tarea en segundo plano que sobrevive a su padre es una fuente comÃºn de filtraciones de memoria y condiciones de carrera.
 - **Profilea el event loop**: en Node.  js` o `0x` para detectar lag del event loop.  run` con modo debug.   Si el event loop estÃ¡ bloqueado por trabajo CPU, muÃ©velo a un worker thread o process pool.
 

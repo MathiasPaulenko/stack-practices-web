@@ -309,7 +309,7 @@ Aunque Rails usa Front Controller a nivel de framework, cada clase de controlado
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Page Controller y Front Controller?**
-A: [Front Controller](/patterns/design/front-controller-pattern) enruta todo a través de un handler. Page Controller le da a cada página su propio handler.
+A: [Front Controller](/patterns/front-controller-pattern/) enruta todo a través de un handler. Page Controller le da a cada página su propio handler.
 
 **Q: Puedo combinar ambos patrones?**
 A: Sí. Un Front Controller maneja concerns compartidos, luego delega a Page Controllers para lógica específica de página. La mayoría de los frameworks modernos funcionan así.

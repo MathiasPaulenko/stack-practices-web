@@ -46,8 +46,8 @@ Redis es un almacen de estructuras de datos en memoria que funciona como una cap
 
 ## Cuando Usar Esto
 
-- Las consultas a base de datos son lentas y devuelven datos frecuentemente accedidos. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para ajustar queries lentos.
-- Necesitas reducir carga en bases de datos primarias durante picos de trafico. Consulta [Rate Limiting](/recipes/api/rate-limiting) para control de tráfico.
+- Las consultas a base de datos son lentas y devuelven datos frecuentemente accedidos. Consulta [Query Optimization](/recipes/postgres-query-optimization/) para ajustar queries lentos.
+- Necesitas reducir carga en bases de datos primarias durante picos de trafico. Consulta [Rate Limiting](/recipes/rate-limiting/) para control de tráfico.
 - La temporal staleness de datos es aceptable a cambio de menor latencia
 
 ## Requisitos Previos
@@ -206,7 +206,7 @@ class StampedeProtectedCache {
 ## Consideraciones de Produccion
 
 - Usa **Redis Cluster** o **Redis Sentinel** para alta disponibilidad
-- Implementa logica de **[circuit breaker](/patterns/design/circuit-breaker-pattern)** cuando Redis no esta disponible; fallback a base de datos
+- Implementa logica de **[circuit breaker](/patterns/circuit-breaker-pattern/)** cuando Redis no esta disponible; fallback a base de datos
 - Configura **valores de TTL** apropiados basados en frecuencia de cambio de datos
 - Monitorea **cache hit ratio** con `INFO stats` y ajusta TTL en consecuencia
 

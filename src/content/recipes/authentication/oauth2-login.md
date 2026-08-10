@@ -48,7 +48,7 @@ OAuth 2.0 is the industry standard for delegated authorization. It lets users lo
 ## When to Use
 
 Use this resource when:
-- You want to offer "Sign in with Google / GitHub" on your platform. See [Magic Links](/recipes/authentication/magic-link-authentication) for passwordless alternatives.
+- You want to offer "Sign in with Google / GitHub" on your platform. See [Magic Links](/recipes/magic-link-authentication/) for passwordless alternatives.
 - You need to access user data from third-party APIs on their behalf
 - You want to reduce password fatigue and improve security
 - You're building a SaaS with enterprise SSO requirements
@@ -161,7 +161,7 @@ The **Authorization Code flow** works in four steps:
 3. **Callback**: The provider redirects back to your app with an authorization `code`.
 4. **Token Exchange**: Your backend exchanges the `code` for an `access_token` and `id_token` using your `client_secret`.
 
-**PKCE** (Proof Key for Code Exchange) adds a secret verifier to prevent interception attacks on mobile and SPA apps. **State** prevents [CSRF](/recipes/authentication/session-management) by binding the callback to the original request.
+**PKCE** (Proof Key for Code Exchange) adds a secret verifier to prevent interception attacks on mobile and SPA apps. **State** prevents [CSRF](/recipes/session-management/) by binding the callback to the original request.
 
 ## Variants
 
@@ -323,7 +323,7 @@ Yes, with the **Client Credentials** flow. The client authenticates directly wit
 
 ### How do I support multiple providers (Google, GitHub, Microsoft)?
 
-Use a library that abstracts provider differences (Passport.js, Authlib, Spring Security). See [API Key Authentication](/recipes/authentication/api-key-authentication) for machine-to-machine auth. Store provider-specific fields (`provider`, `provider_user_id`) in your user table. Normalize email/name fields across providers to create a unified user profile.
+Use a library that abstracts provider differences (Passport.js, Authlib, Spring Security). See [API Key Authentication](/recipes/api-key-authentication/) for machine-to-machine auth. Store provider-specific fields (`provider`, `provider_user_id`) in your user table. Normalize email/name fields across providers to create a unified user profile.
 
 ### What is the difference between OAuth 2.0 and OpenID Connect?
 

@@ -258,7 +258,7 @@ El ingeniero senior más disponible que no esté depurando activamente. El IC co
 
 ### ¿Cómo corro un postmortem útil?
 
-Agéndalo dentro de 48 horas, enfócate en proceso y mejoras de sistemas, no en culpa. Ve la [Guía de Postmortems](/guides/observability/postmortem-guide).
+Agéndalo dentro de 48 horas, enfócate en proceso y mejoras de sistemas, no en culpa. Ve la [Guía de Postmortems](/guides/postmortem-guide/).
 
 ### ¿Qué pasa si no podemos encontrar la causa raíz?
 

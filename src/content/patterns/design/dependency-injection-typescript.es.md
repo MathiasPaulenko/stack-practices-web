@@ -35,7 +35,7 @@ seo:
 
 
 ---
-Implementa un container de [dependency injection](/patterns/design/dependency-injection-pattern) liviano en TypeScript que resuelve dependencias de clases automaticamente a traves de decorators o metadata de constructores. Este pattern desacopla la creacion de objetos de la logica de negocio, haciendo el codigo testeable, modular y mas facil de refactorizar sin frameworks pesados.
+Implementa un container de [dependency injection](/patterns/dependency-injection-pattern/) liviano en TypeScript que resuelve dependencias de clases automaticamente a traves de decorators o metadata de constructores. Este pattern desacopla la creacion de objetos de la logica de negocio, haciendo el codigo testeable, modular y mas facil de refactorizar sin frameworks pesados.
 
 ## Cuando Usar Esto
 
@@ -45,7 +45,7 @@ Implementa un container de [dependency injection](/patterns/design/dependency-in
 
 ## Problema
 
-Un servicio depende de un repositorio, que depende de una conexion a base de datos, que depende de un config loader. Consulta [Dependency Injection Pattern](/patterns/design/dependency-injection-pattern) para ejemplos independientes del lenguaje. Crear objetos manualmente genera codigo fragil y dificil de testear.
+Un servicio depende de un repositorio, que depende de una conexion a base de datos, que depende de un config loader. Consulta [Dependency Injection Pattern](/patterns/dependency-injection-pattern/) para ejemplos independientes del lenguaje. Crear objetos manualmente genera codigo fragil y dificil de testear.
 
 ## Solucion
 
@@ -211,7 +211,7 @@ class ScopedContainer {
 ## FAQ
 
 **P: En que se diferencia de Service Locator?**
-R: Service Locator pide un registro global por dependencias. DI inyecta dependencias a traves de constructores, haciendolas explicitas y testeables. Consulta [Dependency Injection Pattern](/patterns/design/dependency-injection-pattern) para cobertura mas amplia.
+R: Service Locator pide un registro global por dependencias. DI inyecta dependencias a traves de constructores, haciendolas explicitas y testeables. Consulta [Dependency Injection Pattern](/patterns/dependency-injection-pattern/) para cobertura mas amplia.
 
 **P: Puedo usar esto sin decorators?**
 R: Si. Usa una factory function o registration manual con arrays de dependencias explicitas: `container.register(UserService, { deps: [UserRepository] })`.

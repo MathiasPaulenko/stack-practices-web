@@ -37,7 +37,7 @@ seo:
 
 ---
 
-El [Chain of Responsibility](/patterns/design/chain-of-responsibility-pattern) pattern pasa peticiones a lo largo de una cadena de handlers. Cada handler decide si procesa la peticion o la pasa al siguiente handler en la cadena. Este pattern desacopla emisores de receptores, permitiendo que multiples objetos manejen una peticion sin que el emisor sepa cual objeto la procesara finalmente.
+El [Chain of Responsibility](/patterns/chain-of-responsibility-pattern/) pattern pasa peticiones a lo largo de una cadena de handlers. Cada handler decide si procesa la peticion o la pasa al siguiente handler en la cadena. Este pattern desacopla emisores de receptores, permitiendo que multiples objetos manejen una peticion sin que el emisor sepa cual objeto la procesara finalmente.
 
 ## Cuando Usar Esto
 
@@ -47,7 +47,7 @@ El [Chain of Responsibility](/patterns/design/chain-of-responsibility-pattern) p
 
 ## Problema
 
-Una peticion HTTP necesita pasar por autenticacion, [rate limiting](/recipes/security/rate-limiting), validacion de peticiones y logging. Hardcodear esta secuencia en el router hace la pipeline rigida y dificil de extender.
+Una peticion HTTP necesita pasar por autenticacion, [rate limiting](/recipes/rate-limiting/), validacion de peticiones y logging. Hardcodear esta secuencia en el router hace la pipeline rigida y dificil de extender.
 
 ## Solucion
 
@@ -258,7 +258,7 @@ const pipeline = compose([
 ## FAQ
 
 **P: En que se diferencia de Decorator?**
-R: [Decorator](/patterns/design/decorator-pattern) agrega responsabilidades dinamicamente pero todos los decorators procesan la peticion. Chain of Responsibility pasa peticiones hasta que uno las maneja.
+R: [Decorator](/patterns/decorator-pattern/) agrega responsabilidades dinamicamente pero todos los decorators procesan la peticion. Chain of Responsibility pasa peticiones hasta que uno las maneja.
 
 **P: Puedo agregar handlers en runtime?**
 R: Si. Esta es la ventaja principal — el middleware puede registrarse dinamicamente basado en rutas o configuracion.

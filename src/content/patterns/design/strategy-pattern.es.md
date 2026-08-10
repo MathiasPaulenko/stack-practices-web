@@ -67,7 +67,7 @@ seo:
 
 ## Visión general
 
-El [Patrón Strategy](/patterns/design/strategy-pattern) es un patrón de diseño conductual que define una familia de algoritmos, encapsula cada uno como una clase separada y los hace intercambiables en tiempo de ejecución. Permite que el algoritmo varíe independientemente de los clientes que lo usan.
+El [Patrón Strategy](/patterns/strategy-pattern/) es un patrón de diseño conductual que define una familia de algoritmos, encapsula cada uno como una clase separada y los hace intercambiables en tiempo de ejecución. Permite que el algoritmo varíe independientemente de los clientes que lo usan.
 
 Es ideal cuando necesitas seleccionar entre múltiples formas de realizar una operación, como diferentes estrategias de ordenamiento, métodos de pago o algoritmos de compresión.
 
@@ -203,7 +203,7 @@ Esto elimina bloques condicionales grandes y hace que añadir nuevas estrategias
 | Variante | Caso de uso | Compromiso |
 |----------|-------------|------------|
 | **Strategy simple** | Contexto único, pocas estrategias | Fácil de empezar, acoplamiento directo |
-| **[Strategy](/patterns/design/strategy-pattern) con [Factory](/patterns/design/factory-pattern)** | Selección dinámica de estrategias | Más flexible, añade indirección |
+| **[Strategy](/patterns/strategy-pattern/) con [Factory](/patterns/factory-pattern/)** | Selección dinámica de estrategias | Más flexible, añade indirección |
 | **Strategy funcional** | Lenguajes con funciones de primera clase | Conciso, pero menos explícito que clases |
 
 ## Lo que Funciona
@@ -225,7 +225,7 @@ Esto elimina bloques condicionales grandes y hace que añadir nuevas estrategias
 ## Preguntas frecuentes
 
 **P: ¿Cuál es la diferencia entre Strategy y State?**
-R: Strategy trata sobre algoritmos intercambiables elegidos por el cliente. [State](/patterns/design/state-pattern) trata sobre cambiar comportamiento basado en transiciones de estado internas del objeto.
+R: Strategy trata sobre algoritmos intercambiables elegidos por el cliente. [State](/patterns/state-pattern/) trata sobre cambiar comportamiento basado en transiciones de estado internas del objeto.
 
 **P: ¿Puedo usar funciones en lugar de clases para estrategias?**
 R: Sí, en lenguajes con funciones de primera clase (JavaScript, Python, Go) puedes pasar funciones directamente. Las clases son mejores cuando las estrategias necesitan configuración o múltiples métodos.

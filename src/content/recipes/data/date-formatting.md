@@ -52,11 +52,11 @@ Always store and transmit dates in UTC (ISO 8601), and format them to local time
 
 Use this recipe when:
 
-- Serializing dates to JSON or XML for [APIs](/recipes/api/call-rest-api)
+- Serializing dates to JSON or XML for [APIs](/recipes/call-rest-api/)
 - Displaying dates in user interfaces with proper localization
-- Parsing user-entered dates from forms or files. See [Data Validation](/recipes/data/data-validation) for sanitizing input.
+- Parsing user-entered dates from forms or files. See [Data Validation](/recipes/data-validation/) for sanitizing input.
 - Converting between timezones for global applications
-- Logging and auditing events with precise timestamps. See [Logging](/recipes/api/logging) for observability patterns.
+- Logging and auditing events with precise timestamps. See [Logging](/recipes/logging/) for observability patterns.
 
 ## Solution
 
@@ -318,7 +318,7 @@ ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encod
 ## FAQ
 
 **Q: Should I use timestamps or formatted strings in my database?**
-A: Use native `TIMESTAMP WITH TIME ZONE` types. They store precise instants in time and handle conversions automatically. See [Database Transactions](/recipes/databases/database-transactions) for data integrity.
+A: Use native `TIMESTAMP WITH TIME ZONE` types. They store precise instants in time and handle conversions automatically. See [Database Transactions](/recipes/database-transactions/) for data integrity.
 
 **Q: How do I handle daylight saving time?**
 A: Store everything in UTC. Use IANA timezone IDs (e.g., `Europe/Madrid`) for user-facing conversions. Never hard-code offsets.

@@ -38,7 +38,7 @@ seo:
 ---
 ## Resumen
 
-Una plantilla de pull request estandariza la información provista al enviar cambios de código. Consulta la [Guía de Contribución](/docs/templates/contributing-guide) para estándares de equipo y [Lo que Funciona en Code Review](/guides/design/code-review-best-practices-guide) para cultura de revisión. Asegura que los revisores tengan contexto y que los autores verifiquen su trabajo antes de solicitar revisión.
+Una plantilla de pull request estandariza la información provista al enviar cambios de código. Consulta la [Guía de Contribución](/docs/contributing-guide/) para estándares de equipo y [Lo que Funciona en Code Review](/guides/code-review-best-practices-guide/) para cultura de revisión. Asegura que los revisores tengan contexto y que los autores verifiquen su trabajo antes de solicitar revisión.
 
 ## Cuándo Usar
 
@@ -179,14 +179,14 @@ Retry-After: 60
 - **Usa checkboxes**: Fáciles de escanear, difíciles de olvidar
 - **Enlaza issues**: Siempre referencia tickets relacionados.
 - **Incluye screenshots**: Para cambios UI, la prueba visual es esencial
-- **Automatiza donde sea posible**: Deja que CI verifique lo que los bots pueden.   Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización.
+- **Automatiza donde sea posible**: Deja que CI verifique lo que los bots pueden.   Consulta la [Guía de CI/CD Pipeline](/guides/cicd-pipeline-guide/) para automatización.
 - **Requiere evidencia de testing**: Screenshots, logs o comandos prueban que el cambio funciona
 - **Agrega sección de breaking changes**: Destaca cualquier cosa que requiera migración
 
 ## Errores Comunes
 
 - **Plantillas vacías**: Enviar sin completar las secciones requeridas
-- **Tests faltantes**: Consulta la [Guía de Estrategia de Testing](/guides/testing/testing-strategy-guide) para estándares de cobertura.
+- **Tests faltantes**: Consulta la [Guía de Estrategia de Testing](/guides/testing-strategy-guide/) para estándares de cobertura.
 - **Sin enlaces a issues**: Hace más difícil rastrear el contexto
 - **PRs grandes**: Cambios de más de 500 líneas son difíciles de revisar; divide en PRs más pequeños
 - **Sin descripción del porqué**: Los reviewers necesitan la motivación, no solo el qué
@@ -200,7 +200,7 @@ Para fixes urgentes de producción, usa una plantilla mínima: descripción, roo
 
 ### Plantilla de PR para contribución open-source
 
-Para contribuyentes externos, agrega: checkbox de contributor license agreement, disclosure de breaking changes y un checkbox "he leído las guías de contribución". Mantenlo acogedor pero exhaustivo. Consulta la [Guía de Contribución](/docs/templates/contributing-guide) para estándares.
+Para contribuyentes externos, agrega: checkbox de contributor license agreement, disclosure de breaking changes y un checkbox "he leído las guías de contribución". Mantenlo acogedor pero exhaustivo. Consulta la [Guía de Contribución](/docs/contributing-guide/) para estándares.
 
 ### Plantilla de PR draft
 
@@ -285,7 +285,7 @@ Usa GitHub merge queues para serializar merges y prevenir conflictos. Cada PR se
 
 ### Cada pull request debería usar una plantilla?
 
-Sí. Las plantillas aseguran que los reviewers obtengan contexto consistente y que los autores verifiquen su trabajo. Consulta [Lo que Funciona en Code Review](/guides/design/code-review-best-practices-guide) para cultura. Incluso fixes pequeños se benefician de una breve descripción y confirmación de testing.
+Sí. Las plantillas aseguran que los reviewers obtengan contexto consistente y que los autores verifiquen su trabajo. Consulta [Lo que Funciona en Code Review](/guides/code-review-best-practices-guide/) para cultura. Incluso fixes pequeños se benefician de una breve descripción y confirmación de testing.
 
 ### Qué tan detallada debería ser la sección de testing?
 
@@ -293,7 +293,7 @@ Incluye suficiente detalle para que un reviewer pueda reproducir tus tests. Para
 
 ### Qué pasa si una plantilla de PR se siente muy pesada para mi equipo?
 
-Empieza con una plantilla mínima: descripción, tipo de cambio y un checklist de 3 items. Expande usando estándares de la [Guía de Contribución](/docs/templates/contributing-guide). Expande secciones solo cuando notes brechas de información en las reviews.
+Empieza con una plantilla mínima: descripción, tipo de cambio y un checklist de 3 items. Expande usando estándares de la [Guía de Contribución](/docs/contributing-guide/). Expande secciones solo cuando notes brechas de información en las reviews.
 
 ### Cómo hago cumplir la plantilla en GitHub?
 
@@ -301,7 +301,7 @@ Coloca el archivo de plantilla en `.github/pull_request_template.md` en tu repos
 
 ### Debería requerir approvals antes de mergear?
 
-Para código de producción: sí, al menos un approval de un non-author. Para cambios de alto riesgo (seguridad, pagos, infraestructura): requiere dos approvals. Para devs solos: self-review con checklist es el mínimo. Consulta [Lo que Funciona en Code Review](/guides/design/code-review-best-practices-guide) para estrategias de approval.
+Para código de producción: sí, al menos un approval de un non-author. Para cambios de alto riesgo (seguridad, pagos, infraestructura): requiere dos approvals. Para devs solos: self-review con checklist es el mínimo. Consulta [Lo que Funciona en Code Review](/guides/code-review-best-practices-guide/) para estrategias de approval.
 
 ### Qué tan grande debería ser un PR?
 

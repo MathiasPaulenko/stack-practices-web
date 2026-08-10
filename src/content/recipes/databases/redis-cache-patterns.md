@@ -46,8 +46,8 @@ Redis is an in-memory data structure store that works as an extremely fast cache
 
 ## When to Use This
 
-- Database queries are slow and return frequently accessed data. See [Query Optimization](/recipes/databases/postgres-query-optimization) for tuning slow queries.
-- You need to reduce load on primary databases during traffic spikes. See [Rate Limiting](/recipes/api/rate-limiting) for traffic control.
+- Database queries are slow and return frequently accessed data. See [Query Optimization](/recipes/postgres-query-optimization/) for tuning slow queries.
+- You need to reduce load on primary databases during traffic spikes. See [Rate Limiting](/recipes/rate-limiting/) for traffic control.
 - Temporary data staleness is acceptable in exchange for lower latency
 
 ## Prerequisites
@@ -206,7 +206,7 @@ class StampedeProtectedCache {
 ## Production Considerations
 
 - Use **Redis Cluster** or **Redis Sentinel** for high availability
-- Implement **[circuit breaker](/patterns/design/circuit-breaker-pattern)** logic when Redis is unavailable; fall back to database
+- Implement **[circuit breaker](/patterns/circuit-breaker-pattern/)** logic when Redis is unavailable; fall back to database
 - Set appropriate **TTL values** based on data change frequency
 - Monitor **cache hit ratio** with `INFO stats` and adjust TTL accordingly
 

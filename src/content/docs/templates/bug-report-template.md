@@ -250,11 +250,11 @@ Customers should not see severity labels or internal context fields. Use a simpl
 
 ### Crash report (automated)
 
-Automated crash reports from error tracking (Sentry, Bugsnag, Crashlytics) should include: stack trace, device info, app version, user actions before crash, and crash frequency. These auto-populate the template and create a ticket. See [Error Handling Patterns](/patterns/design/error-handling-pattern) for structured error reporting.
+Automated crash reports from error tracking (Sentry, Bugsnag, Crashlytics) should include: stack trace, device info, app version, user actions before crash, and crash frequency. These auto-populate the template and create a ticket. See the [Handle Errors recipe](/recipes/handle-errors/) for structured error reporting.
 
 ### Security vulnerability report
 
-Security reports need a different template: do not include reproduction steps in a public ticket. Use a private vulnerability disclosure channel. Include: affected component, attack vector, potential impact, and suggested mitigation. See [Security Audit Checklist](/docs/templates/security-audit-checklist) for security-specific templates.
+Security reports need a different template: do not include reproduction steps in a public ticket. Use a private vulnerability disclosure channel. Include: affected component, attack vector, potential impact, and suggested mitigation. See [Security Audit Checklist](/docs/security-audit-checklist/) for security-specific templates.
 
 
 ## Troubleshooting
@@ -293,11 +293,11 @@ Yes, but simplify it. Customers get a form with Summary, Steps, and Environment 
 
 ### How do I handle "works on my machine" bugs?
 
-Add environment parity checks: [Docker](/recipes/devops/docker-compose-local-dev), exact dependency versions, and seeded test data. See [Integration Testing](/recipes/testing/integration-testing-strategies) for verifying fixes across environments. If it only happens in production, the bug is in the data or configuration, not the code.
+Add environment parity checks: [Docker](/recipes/docker-compose-local-dev/), exact dependency versions, and seeded test data. See [Integration Testing](/recipes/integration-testing-strategies/) for verifying fixes across environments. If it only happens in production, the bug is in the data or configuration, not the code.
 
 ### What is the difference between a bug and a feature request?
 
-A bug is behavior that does not match the documented or intended behavior. A feature request is a request for new behavior that was never designed. If the behavior is ambiguous, check the spec or ask the product owner. Use the [Feature Request Template](/docs/templates/feature-request-template) for new capabilities.
+A bug is behavior that does not match the documented or intended behavior. A feature request is a request for new behavior that was never designed. If the behavior is ambiguous, check the spec or ask the product owner. Use the [Feature Request Template](/docs/feature-request-template/) for new capabilities.
 
 ### How much detail should reproduction steps have?
 

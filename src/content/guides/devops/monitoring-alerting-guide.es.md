@@ -81,7 +81,7 @@ Registros de eventos discretos.
 
 ### Traces
 
-Sigue una solicitud individual a través de servicios. Consulta [Distributed Tracing](/recipes/observability/distributed-tracing) para implementación.
+Sigue una solicitud individual a través de servicios. Consulta [Distributed Tracing](/recipes/distributed-tracing/) para implementación.
 
 ```
 [Gateway] 2ms → [Auth] 15ms → [Orders] 45ms → [DB] 30ms → [Payment] 120ms
@@ -110,7 +110,7 @@ Sigue una solicitud individual a través de servicios. Consulta [Distributed Tra
 Responden tres preguntas:
 1. **¿Qué está mal?** — nombre claro de métrica y umbral violado
 2. **¿Dónde está mal?** — nombre de servicio, región, ambiente
-3. **¿Qué debería hacer?** — link a [runbook](/guides/devops/technical-documentation-strategy-guide) o acción sugerida
+3. **¿Qué debería hacer?** — link a [runbook](/guides/technical-documentation-strategy-guide/) o acción sugerida
 
 ### Severidad de Alertas
 
@@ -137,7 +137,7 @@ Un dashboard debería decirte si el sistema está saludable en 5 segundos.
 
 ## Lo que funciona
 
-- Instrumenta antes de necesitarlo — agregar métricas durante un [incidente](/guides/devops/on-call-incident-response-guide) es demasiado tarde
+- Instrumenta antes de necesitarlo — agregar métricas durante un [incidente](/guides/on-call-incident-response-guide/) es demasiado tarde
 - Usa percentiles, no promedios — los promedios ocultan outliers; p95 y p99 cuentan la historia real
 - IDs de correlación en todas partes — vincula logs, métricas y traces a un request ID único
 - Alerta sobre síntomas, no causas — "usuarios no pueden hacer checkout" es mejor que "CPU está alta"
@@ -145,7 +145,7 @@ Un dashboard debería decirte si el sistema está saludable en 5 segundos.
 
 ## Errores Comunes
 
-- Alertar sobre cada posible modo de fallo — la fatiga de alertas mata la calidad de [respuesta](/guides/devops/on-call-incident-response-guide)
+- Alertar sobre cada posible modo de fallo — la fatiga de alertas mata la calidad de [respuesta](/guides/on-call-incident-response-guide/)
 - No tener una métrica "canary" — despliega un cambio y observa una sola métrica dorada
 - Ignorar cambios de línea base — si p99 se desplaza de 100ms a 300ms en un mes, investiga
 - Dashboards sin dueños — alguien debe poseer y mantener cada dashboard

@@ -396,7 +396,7 @@ Vue templates bind to reactive data: `<input v-model="message">`. The `data()` f
 ## FAQ
 
 **Q: What is the difference between MVVM and MVP?**
-A: [MVP](/patterns/design/model-view-presenter-pattern) uses explicit method calls through an interface. MVVM uses declarative data binding where the ViewModel exposes properties that the View observes.
+A: [MVP](/patterns/model-view-presenter-pattern/) uses explicit method calls through an interface. MVVM uses declarative data binding where the ViewModel exposes properties that the View observes.
 
 **Q: Does MVVM require a binding framework?**
 A: Strictly speaking yes. Without binding, you are doing MVP. However, simple manual subscription can approximate binding.

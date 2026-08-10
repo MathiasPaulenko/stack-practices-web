@@ -41,8 +41,8 @@ Query optimization is a three-step process: identify slow queries through loggin
 Use this recipe when:
 
 - Application response times degrade as data volume grows
-- Database CPU or I/O usage is consistently high. Check [monitoring and observability](/guides/devops/logging-monitoring-observability-guide).
-- [Monitoring tools](/guides/devops/logging-monitoring-observability-guide) flag specific queries as slow query log entries
+- Database CPU or I/O usage is consistently high. Check [monitoring and observability](/guides/logging-monitoring-observability-guide/).
+- [Monitoring tools](/guides/logging-monitoring-observability-guide/) flag specific queries as slow query log entries
 - Adding pagination, search, or reporting capabilities to existing tables
 - Migrating legacy SQL to a new database engine
 
@@ -130,7 +130,7 @@ Keyset (cursor) pagination is O(1) regardless of page depth. OFFSET pagination i
 
 | Technique | Impact | Effort | Best For |
 |-----------|--------|--------|----------|
-| Add [index](/recipes/performance/database-indexing) | High | Low | Missing index on WHERE/JOIN columns |
+| Add [index](/recipes/database-indexing/) | High | Low | Missing index on WHERE/JOIN columns |
 | Rewrite query | High | Medium | Inefficient joins, subqueries |
 | Partition table | Very high | High | Tables > 10M rows with time-based queries |
 | Materialized view | High | Medium | Complex aggregations queried frequently |
@@ -172,7 +172,7 @@ cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
 cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
 ```
 
-This also prevents SQL injection. See [SQL injection prevention](/recipes/security/sql-injection-prevention) for details.
+This also prevents SQL injection. See [SQL injection prevention](/recipes/sql-injection-prevention/) for details.
 
 ## Advanced: Batch Operations
 
@@ -306,7 +306,7 @@ For production queries, yes. Fetching unnecessary columns wastes I/O and memory,
 
 ### Can ORMs generate efficient queries?
 
-Usually, but not always. ORMs like SQLAlchemy and Hibernate can generate N+1 queries or inefficient joins. See [SQL injection prevention](/recipes/security/sql-injection-prevention) for secure query patterns. Profile the actual SQL they emit and optimize at the SQL level when needed.
+Usually, but not always. ORMs like SQLAlchemy and Hibernate can generate N+1 queries or inefficient joins. See [SQL injection prevention](/recipes/sql-injection-prevention/) for secure query patterns. Profile the actual SQL they emit and optimize at the SQL level when needed.
 
 ### What is a covering index?
 

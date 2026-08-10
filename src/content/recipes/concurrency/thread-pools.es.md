@@ -48,8 +48,8 @@ Usa esta receta cuando:
 
 - Procesando un alto volumen de tareas independientes concurrentemente
 - Ejecutando computaciones CPU-bound (procesamiento de imágenes, transformación de datos, inferencia ML)
-- Ejecutando operaciones I/O-bound donde los threads pasan tiempo esperando (llamadas API, lecturas de archivo). Consulta [Async Patterns](/recipes/concurrency/async-patterns) para alternativas no bloqueantes.
-- Limitando uso de recursos para prevenir agotamiento de threads o presión de memoria. Consulta [Locks y Mutexes](/recipes/concurrency/locks-and-mutexes) para coordinar acceso compartido.
+- Ejecutando operaciones I/O-bound donde los threads pasan tiempo esperando (llamadas API, lecturas de archivo). Consulta [Async Patterns](/recipes/async-patterns/) para alternativas no bloqueantes.
+- Limitando uso de recursos para prevenir agotamiento de threads o presión de memoria. Consulta [Locks y Mutexes](/recipes/locks-and-mutexes/) para coordinar acceso compartido.
 - Construyendo colas de trabajo donde las tareas deben ejecutarse asíncronamente del submitter
 
 ## Solución
@@ -228,10 +228,10 @@ Las goroutines de Go son ligeras (2KB de stack vs 1MB para OS threads), por lo q
 
 ## Lo que funciona
 
-- **Dimensiona pools CPU al número de cores**: getRuntime().  availableProcessors()` o `os.  cpu_count()`.   Threads adicionales solo compiten por cores, causando context switches sin ganancias de throughput.   Consulta [Load Balancing](/recipes/architecture/load-balancing) para distribuir trabajo entre cores.
+- **Dimensiona pools CPU al número de cores**: getRuntime().  availableProcessors()` o `os.  cpu_count()`.   Threads adicionales solo compiten por cores, causando context switches sin ganancias de throughput.   Consulta [Load Balancing](/recipes/load-balancing/) para distribuir trabajo entre cores.
 - **Dimensiona pools I/O más alto que core count**: para trabajo I/O-bound, los threads se bloquean en red/disco.   Usa 2x-4x core count para pools I/O, dependiendo de latencia.
 - **Siempre shutdown gracefulmente**: un executor no terminado filtra threads y previene salida del proceso JVM/Python.   Llama `shutdown()`, espera terminación, luego `shutdownNow()` si es necesario.
-- **Usa colas acotadas con políticas de rechazo**: las colas ilimitadas ocultan backpressure.   Un sistema que acepta tareas infinitas eventualmente se cae.   Consulta [Rate Limiting](/recipes/api/rate-limiting) para gestionar sobrecarga.
+- **Usa colas acotadas con políticas de rechazo**: las colas ilimitadas ocultan backpressure.   Un sistema que acepta tareas infinitas eventualmente se cae.   Consulta [Rate Limiting](/recipes/rate-limiting/) para gestionar sobrecarga.
 - **Nombra tus threads**: debuggear un thread dump de 50 threads sin nombre es imposible.   Esto hace profiling, logging y debugging triviales.
 - **Monitorea metricas del pool**: rastrea threads activos, tamano de cola, tareas completadas y conteo de rechazos.   `ThreadPoolExecutor` de Java expone estos via getters.   En Python, envuelve el executor para rastrear submissions y completions.   Alerta cuando la profundidad de cola excede un umbral.
 - **Usa `shutdownNow()` con cuidado**: `shutdownNow()` interrumpe threads en ejecucion.   Si tus tareas no chequean `Thread.  interrupted()` o manejan `InterruptedException`, continuaran ejecutandose.   Disena tareas cooperativas y responsivas a interrupcion.
@@ -272,7 +272,7 @@ Las goroutines de Go son ligeras (2KB de stack vs 1MB para OS threads), por lo q
 ## Preguntas frecuentes
 
 **P: ¿Cuántos threads debería tener mi pool?**
-R: Para tareas CPU-bound: igual al número de cores. Para tareas I/O-bound: `cores * (1 + wait_time / compute_time)`. Si una tarea pasa 50ms computando y 450ms esperando, usa `cores * 10`. Mide y ajusta basado en throughput y latencia. Consulta [Estructuras de Datos Concurrentes](/recipes/concurrency/concurrent-data-structures) para coordinación de estado compartido.
+R: Para tareas CPU-bound: igual al número de cores. Para tareas I/O-bound: `cores * (1 + wait_time / compute_time)`. Si una tarea pasa 50ms computando y 450ms esperando, usa `cores * 10`. Mide y ajusta basado en throughput y latencia. Consulta [Estructuras de Datos Concurrentes](/recipes/concurrent-data-structures/) para coordinación de estado compartido.
 
 **P: ¿Cuál es la diferencia entre un thread pool y un coroutine pool?**
 R: Los thread pools usan OS threads — costosos pero verdaderamente paralelos. Los coroutine pools (asyncio, Goroutines) usan threads ligeros de user-space — baratos pero limitados por el GIL en Python. Usa threads para paralelismo CPU e I/O bloqueante. Usa coroutines para I/O de alta concurrencia con bajo overhead por tarea.

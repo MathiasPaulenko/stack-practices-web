@@ -30,13 +30,13 @@ seo:
 
 
 ---
-The [Prototype](/patterns/design/prototype-pattern) pattern creates new objects by copying existing ones. Instead of building objects from scratch with constructors, you clone a prototype and optionally customize it. This is capable when object initialization is expensive, when many similar configurations exist, or when the exact type of object is not known until runtime.
+The [Prototype](/patterns/prototype-pattern/) pattern creates new objects by copying existing ones. Instead of building objects from scratch with constructors, you clone a prototype and optionally customize it. This is capable when object initialization is expensive, when many similar configurations exist, or when the exact type of object is not known until runtime.
 
 ## When to Use This
 
-- Object creation is costly (database connections, parsed configurations). See [Factory Pattern](/patterns/design/factory-pattern) for creation patterns.
-- Many similar object variants exist that differ only slightly. See [Builder Pattern](/patterns/design/builder-pattern) for configurable objects.
-- The concrete class to instantiate is determined at runtime. See [Strategy Pattern](/patterns/design/strategy-pattern) for runtime selection.
+- Object creation is costly (database connections, parsed configurations). See [Factory Pattern](/patterns/factory-pattern/) for creation patterns.
+- Many similar object variants exist that differ only slightly. See [Builder Pattern](/patterns/builder-pattern/) for configurable objects.
+- The concrete class to instantiate is determined at runtime. See [Strategy Pattern](/patterns/strategy-pattern/) for runtime selection.
 
 ## Problem
 
@@ -230,7 +230,7 @@ const report = registry.create('report');
 ## FAQ
 
 **Q: How is this different from Factory Method?**
-A: [Factory Method](/patterns/design/factory-pattern) creates objects through a factory class. Prototype creates objects by copying an existing instance, preserving its state.
+A: [Factory Method](/patterns/factory-pattern/) creates objects through a factory class. Prototype creates objects by copying an existing instance, preserving its state.
 
 **Q: Can I use this with JSON?**
 A: Yes. `JSON.parse(JSON.stringify(obj))` is a crude prototype clone for plain objects, but `structuredClone` is preferred for modern runtimes.

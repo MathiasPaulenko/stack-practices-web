@@ -351,7 +351,7 @@ PHP's Doctrine ORM uses Data Mapper with XML/YAML/annotation mappings to separat
 ## FAQ
 
 **Q: What is the difference between Data Mapper and Active Record?**
-A: [Active Record](/patterns/design/active-record-pattern) bundles data and persistence in the same class. Data Mapper separates them into a distinct mapper object.
+A: [Active Record](/patterns/active-record-pattern/) bundles data and persistence in the same class. Data Mapper separates them into a distinct mapper object.
 
 **Q: Is Data Mapper slower than Active Record?**
 A: Slightly more overhead due to the extra abstraction layer, but the difference is negligible compared to database round-trips.

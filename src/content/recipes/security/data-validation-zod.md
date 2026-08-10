@@ -48,7 +48,7 @@ Use Zod to define schemas that validate runtime data while automatically inferri
 
 - API request bodies must be validated before processing
 - Form inputs need both client-side and server-side validation
-- Configuration objects and environment variables require type-safe parsing. See [Parse JSON](/recipes/data/parse-json) for parsing structured config data.
+- Configuration objects and environment variables require type-safe parsing. See [Parse JSON](/recipes/parse-json/) for parsing structured config data.
 
 ## Solution
 
@@ -198,12 +198,12 @@ function useZodForm<T extends z.ZodObject<any>>(schema: T) {
 
 - Use `.strict()` to reject unexpected properties and prevent injection
 - Precompile schemas for hot paths to reduce parsing overhead
-- Combine Zod with tRPC for end-to-end type-safe APIs. See [REST API design](/guides/api/rest-api-design-guide).
+- Combine Zod with tRPC for end-to-end type-safe APIs. See [REST API design](/guides/rest-api-design-guide/).
 
 ## Common Mistakes
 
 - Using `.parse()` without try-catch, crashing on invalid input
-- Not coercing query parameters and form data, which arrive as strings. See [input validation](/recipes/api/input-validation).
+- Not coercing query parameters and form data, which arrive as strings. See [input validation](/recipes/input-validation/).
 - Creating new schema instances on every render instead of reusing them
 
 ## FAQ

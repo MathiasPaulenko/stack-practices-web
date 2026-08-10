@@ -45,9 +45,9 @@ Construye sistemas event-driven resilientes y preparados para crecer usando Apac
 
 ## Cuando Usar Esto
 
-- Los servicios necesitan comunicarse asincronamente sin acoplamiento fuerte. Consulta [Event-Driven Microservices](/recipes/messaging/event-driven-microservices) para patrones de arquitectura.
-- El historial de eventos debe ser replayable para debugging o onboarding de nuevos consumers. Consulta [Event Sourcing](/patterns/design/event-sourcing-pattern) para logs de eventos inmutables.
-- El procesamiento de mensajes de alto throughput requiere scaling horizontal de consumers. Consulta [RabbitMQ Task Queue](/recipes/messaging/rabbitmq-task-queue) para patrones de broker alternativos.
+- Los servicios necesitan comunicarse asincronamente sin acoplamiento fuerte. Consulta [Event-Driven Microservices](/recipes/event-driven-microservices/) para patrones de arquitectura.
+- El historial de eventos debe ser replayable para debugging o onboarding de nuevos consumers. Consulta [Event Sourcing](/patterns/event-sourcing-pattern/) para logs de eventos inmutables.
+- El procesamiento de mensajes de alto throughput requiere scaling horizontal de consumers. Consulta [RabbitMQ Task Queue](/recipes/rabbitmq-task-queue/) para patrones de broker alternativos.
 
 ## Solucion
 

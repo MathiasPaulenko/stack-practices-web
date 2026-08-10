@@ -34,7 +34,7 @@ seo:
 ---
 ## Visión General
 
-Los agentes de IA son sistemas autónomos que utilizan modelos de lenguaje para razonar, planificar y ejecutar tareas llamando herramientas externas. A diferencia de simples [chatbots](/recipes/ai/chatbot-openai), los agentes pueden buscar en la web, consultar bases de datos, ejecutar código e interactuar con APIs para cumplir objetivos complejos de múltiples pasos.
+Los agentes de IA son sistemas autónomos que utilizan modelos de lenguaje para razonar, planificar y ejecutar tareas llamando herramientas externas. A diferencia de simples [chatbots](/recipes/chatbot-openai/), los agentes pueden buscar en la web, consultar bases de datos, ejecutar código e interactuar con APIs para cumplir objetivos complejos de múltiples pasos.
 
 ## Cuándo Usar
 
@@ -116,7 +116,7 @@ Decisiones clave de diseño:
 
 | Framework | Patrón | Ideal Para |
 |-----------|--------|------------|
-| [LangChain Agents](/recipes/ai/ai-agents-tool-use) | ReAct, Plan-and-Execute | Prototipado rápido |
+| [LangChain Agents](/recipes/ai-agents-tool-use/) | ReAct, Plan-and-Execute | Prototipado rápido |
 | AutoGen | Conversación multi-agente | Tareas colaborativas |
 | CrewAI | Agentes basados en roles | Flujos de trabajo de negocio |
 | Custom | ReAct con registro de herramientas | Sistemas de producción |
@@ -309,7 +309,7 @@ La orquestación multi-agente asigna roles especializados a diferentes agentes. 
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre RAG y un agente?**
-R: [RAG](/recipes/ai/semantic-search) recupera documentos y responde una vez. Los agentes pueden tomar múltiples acciones, usar herramientas e iterar hasta cumplir una meta.
+R: [RAG](/recipes/semantic-search/) recupera documentos y responde una vez. Los agentes pueden tomar múltiples acciones, usar herramientas e iterar hasta cumplir una meta.
 
 **P: ¿Cuántas herramientas debería tener un agente?**
 R: Comienza con 2-3. La investigación muestra que la precisión cae bruscamente más allá de 5-7 herramientas.

@@ -215,7 +215,7 @@ La abstracción mantiene una referencia a la implementación y delega el trabajo
 
 ## Errores Comunes
 
-- Aplicar el bridge cuando un simple [strategy](/patterns/design/strategy-pattern) o [adapter](/patterns/design/adapter-pattern) sería suficiente
+- Aplicar el bridge cuando un simple [strategy](/patterns/strategy-pattern/) o [adapter](/patterns/adapter-pattern/) sería suficiente
 - Hacer la interfaz de implementación demasiado amplia, acoplandola innecesariamente a la abstracción
 - Permitir que la abstracción filtre detalles de implementación a los clientes
 - Crear jerarquías profundas en ambos lados, reintroduciendo la complejidad que el bridge intentaba resolver
@@ -254,10 +254,10 @@ La abstracción mantiene una referencia a la implementación y delega el trabajo
 ## Preguntas Frecuentes
 
 **P: ¿Cuál es la diferencia entre Bridge y Adapter?**
-R: [Adapter](/patterns/design/adapter-pattern) hace que interfaces incompatibles trabajen juntas. Bridge separa una abstracción de su implementación para que ambas puedan evolucionar independientemente. La intención y estructura difieren.
+R: [Adapter](/patterns/adapter-pattern/) hace que interfaces incompatibles trabajen juntas. Bridge separa una abstracción de su implementación para que ambas puedan evolucionar independientemente. La intención y estructura difieren.
 
 **P: ¿Cuándo debería usar Bridge en lugar de Strategy?**
-R: [Strategy](/patterns/design/strategy-pattern) varía un solo algoritmo. Bridge separa dos jerarquías de clases completas. Usa Bridge cuando tengas dos dimensiones independientes de variación.
+R: [Strategy](/patterns/strategy-pattern/) varía un solo algoritmo. Bridge separa dos jerarquías de clases completas. Usa Bridge cuando tengas dos dimensiones independientes de variación.
 
 ### ¿Es este patrón adecuado para proyectos pequeños?
 

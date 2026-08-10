@@ -55,10 +55,10 @@ Lo siguiente cubre las instrucciones esenciales del Dockerfile, el layering de i
 
 Usa esta receta cuando:
 
-- Quieras eliminar problemas de "funciona en mi máquina". Consulta [Environment Variables](/recipes/devops/environment-variables) para gestionar configuración de contenedores.
-- Configures un entorno de desarrollo local que refleje producción. Consulta [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) para entornos multi-servicio.
-- Prepares una aplicación para deployment en Kubernetes, AWS ECS o plataformas similares. Consulta [Serverless Functions](/recipes/messaging/event-driven-microservices) para despliegues function-as-a-service.
-- Ejecutes pruebas de integración que dependan de bases de datos, caches o brokers de mensajes. Consulta [Integration Testing](/recipes/testing/integration-testing) para estrategias de aislamiento de tests.
+- Quieras eliminar problemas de "funciona en mi máquina". Consulta [Environment Variables](/recipes/environment-variables/) para gestionar configuración de contenedores.
+- Configures un entorno de desarrollo local que refleje producción. Consulta [Docker Compose Local Dev](/recipes/docker-compose-local-dev/) para entornos multi-servicio.
+- Prepares una aplicación para deployment en Kubernetes, AWS ECS o plataformas similares. Consulta [Serverless Functions](/recipes/event-driven-microservices/) para despliegues function-as-a-service.
+- Ejecutes pruebas de integración que dependan de bases de datos, caches o brokers de mensajes. Consulta [Integration Testing](/recipes/integration-testing/) para estrategias de aislamiento de tests.
 
 ## Solution
 

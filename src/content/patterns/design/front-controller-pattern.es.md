@@ -313,7 +313,7 @@ Las apps de Express usan un objeto app central con middleware. `app.use(auth)` y
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Front Controller y Page Controller?**
-A: [Page Controller](/patterns/design/page-controller-pattern) usa un controlador por página. Front Controller usa un único punto de entrada para toda la aplicación.
+A: [Page Controller](/patterns/page-controller-pattern/) usa un controlador por página. Front Controller usa un único punto de entrada para toda la aplicación.
 
 **Q: Todos los web frameworks usan Front Controller?**
 A: La mayoría de los frameworks modernos sí. El modelo original de PHP (un archivo por página) es el approach alternativo de Page Controller.

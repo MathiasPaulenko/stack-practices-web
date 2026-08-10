@@ -43,9 +43,9 @@ Los soft deletes marcan registros como eliminados sin removerlos realmente de la
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Los usuarios necesiten recuperar datos eliminados accidentalmente. Consulta [Database Transactions](/recipes/databases/database-transactions) para patrones de rollback.
-- Debas mantener trails de auditoría para compliance (GDPR, HIPAA, SOC2). Consulta [API Security Checklist](/guides/security/api-security-checklist-guide) para compliance.
-- Las restricciones de clave foránea impidan eliminaciones duras. Consulta [SQL Joins](/recipes/databases/sql-joins) para patrones relacionales.
+- Los usuarios necesiten recuperar datos eliminados accidentalmente. Consulta [Database Transactions](/recipes/database-transactions/) para patrones de rollback.
+- Debas mantener trails de auditoría para compliance (GDPR, HIPAA, SOC2). Consulta [API Security Checklist](/guides/api-security-checklist-guide/) para compliance.
+- Las restricciones de clave foránea impidan eliminaciones duras. Consulta [SQL Joins](/recipes/sql-joins/) para patrones relacionales.
 - Quieras mostrar capacidades de papelera/reciclaje con elementos "recientemente eliminados"
 
 ## Solución
@@ -182,8 +182,8 @@ Para eliminación real, implementa una operación de "hard delete" o "purge" que
 
 - **Siempre filtra por defecto**: Tu ORM o query builder debería excluir registros eliminados a menos que se solicite explícitamente.
 - **Incluye `deleted_at` en índices únicos**: De lo contrario, no puedes recrear un registro con la misma clave única después de soft delete.
-- **Programa eliminaciones duras periódicas**: El Artículo 17 del GDPR otorga el derecho al olvido. Debes eliminar realmente después de un período de retención. Consulta [Batch Processing](/recipes/data/batch-processing-patterns) para jobs programados.
-- **Registra hard deletes por separado**: Cuando finalmente purgas, regístralo en una tabla de auditoría o event stream. Consulta [Logging](/recipes/api/logging) para trails de auditoría.
+- **Programa eliminaciones duras periódicas**: El Artículo 17 del GDPR otorga el derecho al olvido. Debes eliminar realmente después de un período de retención. Consulta [Batch Processing](/recipes/batch-processing-patterns/) para jobs programados.
+- **Registra hard deletes por separado**: Cuando finalmente purgas, regístralo en una tabla de auditoría o event stream. Consulta [Logging](/recipes/logging/) para trails de auditoría.
 - **Prueba tu flujo de recuperación**: Un soft delete es inútil si los usuarios no pueden restaurar desde una UI de papelera.
 
 ## Errores Comunes

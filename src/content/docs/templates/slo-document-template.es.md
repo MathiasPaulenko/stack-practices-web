@@ -37,7 +37,7 @@ seo:
 
 
 ---
-Usa esta plantilla para definir targets de confiabilidad que equilibran felicidad de usuarios con velocidad de ingeniería. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para recolección de métricas y la [Guía de Respuesta a Incidentes On-Call](/guides/devops/on-call-incident-response-guide) para procedimientos de escalamiento.
+Usa esta plantilla para definir targets de confiabilidad que equilibran felicidad de usuarios con velocidad de ingeniería. Consulta la [Guía de Monitoreo y Alertas](/guides/monitoring-alerting-guide/) para recolección de métricas y la [Guía de Respuesta a Incidentes On-Call](/guides/on-call-incident-response-guide/) para procedimientos de escalamiento.
 
 ## Plantilla
 
@@ -109,7 +109,7 @@ Presupuesto restante | Política
 
 ## Lo que funciona
 
-- **Empieza con métricas visibles para usuarios** — "uso de CPU" no es un SLI; "tasa de requests exitosos" sí. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para selección de métricas.
+- **Empieza con métricas visibles para usuarios** — "uso de CPU" no es un SLI; "tasa de requests exitosos" sí. Consulta la [Guía de Monitoreo y Alertas](/guides/monitoring-alerting-guide/) para selección de métricas.
 - **Define SLOs basados en performance actual** — si estás en 99.5% hoy, no prometas 99.99%
 - **Revisa trimestralmente** — ajusta targets basado en feedback de usuarios y capacidad de ingeniería
 - **Distingue SLI, SLO y SLA** — SLI es la métrica, SLO es el target, SLA es la promesa contractual a clientes
@@ -119,7 +119,7 @@ Presupuesto restante | Política
 - SLOs demasiado laxos — 99% para una API de pagos significa 7 horas de downtime "aceptable"
 - SLOs demasiado estrictos — 99.999% requiere infraestructura cara por beneficio marginal de usuario
 - Trackear SLIs que nadie mira — cada SLI necesita un dueño y un ciclo de revisión
-- Ignorar quema de presupuesto de error — el presupuesto existe para proteger velocidad de ingeniería, no para ignorarse. Consulta la [Plantilla de Postmortem de Incidente](/docs/templates/incident-postmortem-template) para cuando los SLOs se incumplen.
+- Ignorar quema de presupuesto de error — el presupuesto existe para proteger velocidad de ingeniería, no para ignorarse. Consulta la [Plantilla de Postmortem de Incidente](/docs/incident-postmortem-template/) para cuando los SLOs se incumplen.
 
 
 
@@ -149,7 +149,7 @@ Presupuesto restante | Política
 
 ### ¿Cuál es la diferencia entre SLO y SLA?
 
-Un SLO es un target interno de confiabilidad. Consulta la [Guía de Respuesta a Incidentes On-Call](/guides/devops/on-call-incident-response-guide) para contexto operacional. Un SLA es una promesa contractual a clientes con penalizaciones financieras. Los SLOs usualmente son más estrictos que los SLAs para tener margen antes de incumplir contratos.
+Un SLO es un target interno de confiabilidad. Consulta la [Guía de Respuesta a Incidentes On-Call](/guides/on-call-incident-response-guide/) para contexto operacional. Un SLA es una promesa contractual a clientes con penalizaciones financieras. Los SLOs usualmente son más estrictos que los SLAs para tener margen antes de incumplir contratos.
 
 ### ¿Cuántos SLOs debería tener un servicio?
 

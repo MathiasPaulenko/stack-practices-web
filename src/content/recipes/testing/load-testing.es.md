@@ -45,10 +45,10 @@ Herramientas modernas como k6 y JMeter permiten definir escenarios en código o 
 
 Usa esta receta cuando:
 
-- Te preparas para un lanzamiento de producto, campaña de marketing o pico de tráfico estacional. Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para manejar conexiones concurrentes a base de datos.
+- Te preparas para un lanzamiento de producto, campaña de marketing o pico de tráfico estacional. Consulta [Connection Pooling](/recipes/database-connection-pooling/) para manejar conexiones concurrentes a base de datos.
 - Migras infraestructura y necesitas validar que la nueva plataforma maneja carga equivalente
-- Estableces baselines de rendimiento y Objetivos de Nivel de Servicio (SLOs). Consulta [Caching Strategies](/recipes/performance/caching-strategies) para reducir carga en servicios backend.
-- Investigas timeouts o errores intermitentes que solo aparecen bajo carga concurrente. Consulta [Rate Limiting](/recipes/api/rate-limiting) para proteger APIs bajo tráfico intenso.
+- Estableces baselines de rendimiento y Objetivos de Nivel de Servicio (SLOs). Consulta [Caching Strategies](/recipes/caching-strategies/) para reducir carga en servicios backend.
+- Investigas timeouts o errores intermitentes que solo aparecen bajo carga concurrente. Consulta [Rate Limiting](/recipes/rate-limiting/) para proteger APIs bajo tráfico intenso.
 - Comparas rendimiento antes y después de un cambio mayor de código o infraestructura
 
 ## Solución
@@ -325,11 +325,11 @@ Cross-Origin Resource Sharing (CORS) añade preflight OPTIONS requests que incre
 
 ## Ver También
 
-- [Integration Testing](/recipes/testing/integration-testing) — testing de interacciones entre servicios
-- [Rate Limiting](/recipes/api/rate-limiting) — protección de APIs bajo tráfico intenso
-- [Connection Pooling](/recipes/databases/database-connection-pooling) — manejo de conexiones concurrentes a base de datos
-- [Caching Strategies](/recipes/performance/caching-strategies) — reducción de carga backend
-- [API Documentation OpenAPI](/recipes/api/api-documentation-openapi) — documentación de contratos de API
+- [Integration Testing](/recipes/integration-testing/) — testing de interacciones entre servicios
+- [Rate Limiting](/recipes/rate-limiting/) — protección de APIs bajo tráfico intenso
+- [Connection Pooling](/recipes/database-connection-pooling/) — manejo de conexiones concurrentes a base de datos
+- [Caching Strategies](/recipes/caching-strategies/) — reducción de carga backend
+- [API Documentation OpenAPI](/recipes/api-documentation-openapi/) — documentación de contratos de API
 
 ---
 

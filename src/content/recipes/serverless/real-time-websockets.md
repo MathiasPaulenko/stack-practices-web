@@ -39,11 +39,11 @@ On serverless architectures, WebSockets require connection state management beca
 
 Use this recipe when:
 
-- Building chat applications, live notifications, or real-time feeds. See [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) for HTTP endpoint patterns.
-- Streaming live data to dashboards or monitoring tools. See [Event-Driven Functions](/recipes/messaging/event-driven-microservices) for event-driven data streaming.
+- Building chat applications, live notifications, or real-time feeds. See [Serverless API Gateway](/recipes/nginx-reverse-proxy/) for HTTP endpoint patterns.
+- Streaming live data to dashboards or monitoring tools. See [Event-Driven Functions](/recipes/event-driven-microservices/) for event-driven data streaming.
 - Implementing collaborative editing or multiplayer game state
 - Replacing long-polling or SSE with a more efficient persistent connection
-- Broadcasting events from backend services to connected clients. See [Scheduled Jobs](/recipes/devops/background-jobs) for periodic data push.
+- Broadcasting events from backend services to connected clients. See [Scheduled Jobs](/recipes/background-jobs/) for periodic data push.
 
 ## Solution
 

@@ -47,11 +47,11 @@ Secure secret management means storing secrets in dedicated vaults with encrypti
 
 Use this recipe when:
 
-- Moving from development `.env` files to production secret storage. See [Environment Variables](/recipes/devops/environment-variables) for local config patterns.
-- Rotating compromised credentials or complying with security audit requirements. See [JWT Authentication](/recipes/authentication/jwt-authentication) for token rotation strategies.
-- Sharing secrets across microservices, CI/CD pipelines, and team members. See [Docker Basics](/recipes/devops/docker-basics) for container secret injection.
-- Managing TLS certificates, SSH keys, or database connection strings. See [Parse Config Files](/recipes/devops/parse-config-files) for config-driven secret references.
-- Auditing who accessed which secret and when. See [Structured Logging](/recipes/observability/structured-logging) for audit logging.
+- Moving from development `.env` files to production secret storage. See [Environment Variables](/recipes/environment-variables/) for local config patterns.
+- Rotating compromised credentials or complying with security audit requirements. See [JWT Authentication](/recipes/jwt-authentication/) for token rotation strategies.
+- Sharing secrets across microservices, CI/CD pipelines, and team members. See [Docker Basics](/recipes/docker-basics/) for container secret injection.
+- Managing TLS certificates, SSH keys, or database connection strings. See [Parse Config Files](/recipes/parse-config-files/) for config-driven secret references.
+- Auditing who accessed which secret and when. See [Structured Logging](/recipes/structured-logging/) for audit logging.
 
 ## Solution
 

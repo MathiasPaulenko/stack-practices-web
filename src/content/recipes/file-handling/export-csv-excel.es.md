@@ -41,10 +41,10 @@ Exportar datos a CSV o Excel es un requerimiento común para dashboards de admin
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Los usuarios necesiten descargar reportes o datos filtrados desde una app web. Consulta [Importar CSV Excel](/recipes/file-handling/import-csv-excel) para el flujo inverso.
-- Migres datos entre sistemas que requieran un formato de archivo intermedio. Consulta [Parse JSON](/recipes/data/parse-json) para intercambio de datos estructurados.
-- Construyas un panel de administración con funcionalidad de exportación masiva. Consulta [Background Jobs](/recipes/devops/background-jobs) para generación asíncrona de reportes.
-- Proceses datos para herramientas externas (hojas de cálculo, BI tools). Consulta [Stream Processing](/recipes/file-handling/stream-processing) para pipelines de datasets grandes.
+- Los usuarios necesiten descargar reportes o datos filtrados desde una app web. Consulta [Importar CSV Excel](/recipes/import-csv-excel/) para el flujo inverso.
+- Migres datos entre sistemas que requieran un formato de archivo intermedio. Consulta [Parse JSON](/recipes/parse-json/) para intercambio de datos estructurados.
+- Construyas un panel de administración con funcionalidad de exportación masiva. Consulta [Background Jobs](/recipes/background-jobs/) para generación asíncrona de reportes.
+- Proceses datos para herramientas externas (hojas de cálculo, BI tools). Consulta [Stream Processing](/recipes/stream-processing/) para pipelines de datasets grandes.
 
 ## Solución
 

@@ -40,9 +40,9 @@ Codifica URLs y componentes URI correctamente para manejar caracteres especiales
 
 ## Cuando Usar Esto
 
-- Construyendo query strings desde [input de usuario](/recipes/api/input-validation) o datos en vivo
+- Construyendo query strings desde [input de usuario](/recipes/input-validation/) o datos en vivo
 - Generando URLs con caracteres especiales, espacios o texto non-ASCII
-- Parseando y recodificando URLs de [fuentes externas](/recipes/api/call-rest-api) de forma segura
+- Parseando y recodificando URLs de [fuentes externas](/recipes/call-rest-api/) de forma segura
 
 ## Solucion
 
@@ -183,7 +183,7 @@ func main() {
 ## Errores Comunes
 
 - Usar `encodeURI` en valores de query parameters, que deja `&` y `=` sin codificar
-- No decodificar input antes de validacion, permitiendo que valores double-encoded evaden [checks](/recipes/data/data-validation)
+- No decodificar input antes de validacion, permitiendo que valores double-encoded evaden [checks](/recipes/data-validation/)
 - Asumir que `+` en URLs siempre significa espacio; depende del contexto (query vs path)
 
 ## Cuando No Usar Este Enfoque

@@ -223,7 +223,7 @@ npm run build
 ## Lo que funciona
 
 - **Usa `.env.example`** — nunca commitees secrets; commitea un template con valores dummy
-- **Automatiza con `make` o scripts** — un comando debería poner a un nuevo dev en marcha. Enlaza a la [Plantilla de Guía de Onboarding](/docs/templates/onboarding-guide-template) para un checklist completo.
+- **Automatiza con `make` o scripts** — un comando debería poner a un nuevo dev en marcha. Enlaza a la [Plantilla de Guía de Onboarding](/docs/onboarding-guide-template/) para un checklist completo.
 - **Testea el setup mensualmente** — docs de setup stale son peores que no tener docs
 - **Pinea versiones de dependencias** — "latest" causa "en mi máquina funciona"
 - **Documenta diferencias de SO** — macOS, Linux y Windows tienen paths distintos
@@ -233,7 +233,7 @@ npm run build
 ## Errores Comunes
 
 - Instrucciones de setup que solo funcionan en la máquina del autor
-- Falta de `.env.example` — nuevos devs adivinan variables requeridas. Combínalo con la [Plantilla de Runbook](/docs/templates/runbook-template) para pasos de troubleshooting.
+- Falta de `.env.example` — nuevos devs adivinan variables requeridas. Combínalo con la [Plantilla de Runbook](/docs/runbook-template/) para pasos de troubleshooting.
 - Sin paso de verificación — los devs no saben si el setup funcionó
 - Paths locales hardcodeados — `/Users/alice/project` no funciona para Bob
 - No testear en un entorno limpio — caches stale ocultan bugs de setup
@@ -310,7 +310,7 @@ Usa los mismos comandos de setup en CI que en la guía. Esto asegura que la guí
 
 ### ¿Debería usar Docker para desarrollo local?
 
-Sí, si tu proyecto tiene más de dos dependencias (base de datos, cache, cola). Consulta la [Guía de Docker para Desarrolladores](/guides/devops/docker-for-developers-guide) para pautas de configuración. Un `docker-compose.yml` asegura que cada dev corre las mismas versiones. Para proyectos simples, package managers locales bastan.
+Sí, si tu proyecto tiene más de dos dependencias (base de datos, cache, cola). Consulta la [Guía de Docker para Desarrolladores](/guides/docker-for-developers-guide/) para pautas de configuración. Un `docker-compose.yml` asegura que cada dev corre las mismas versiones. Para proyectos simples, package managers locales bastan.
 
 ### ¿Cómo manejo secrets en setup local?
 
@@ -342,7 +342,7 @@ Documenta pasos específicos por plataforma en secciones o tablas separadas. Usa
 
 ### ¿Debería incluir database seeding en la guía de setup?
 
-Sí, si la aplicación requiere seed data para funcionar. Incluye un comando `npm run db:seed` y documenta qué datos crea. Para datasets grandes, provee un subset o generador de datos sintéticos. Consulta la [Plantilla de Documentación de Schema](/docs/templates/database-schema-documentation-template) para contexto de schema.
+Sí, si la aplicación requiere seed data para funcionar. Incluye un comando `npm run db:seed` y documenta qué datos crea. Para datasets grandes, provee un subset o generador de datos sintéticos. Consulta la [Plantilla de Documentación de Schema](/docs/database-schema-documentation-template/) para contexto de schema.
 
 ## Errores Comunes en Producción
 

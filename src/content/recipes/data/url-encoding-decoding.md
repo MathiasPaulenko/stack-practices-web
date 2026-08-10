@@ -40,9 +40,9 @@ Correctly encode URLs and URI components to handle special characters, spaces, a
 
 ## When to Use This
 
-- Building query strings from [user input](/recipes/api/input-validation) or live data
+- Building query strings from [user input](/recipes/input-validation/) or live data
 - Generating URLs with special characters, spaces, or non-ASCII text
-- Parsing and re-encoding URLs from [external sources](/recipes/api/call-rest-api) safely
+- Parsing and re-encoding URLs from [external sources](/recipes/call-rest-api/) safely
 
 ## Solution
 
@@ -193,7 +193,7 @@ func main() {
 ## Common Mistakes
 
 - Using `encodeURI` on query parameter values, which leaves `&` and `=` unencoded
-- Not decoding input before validation, allowing double-encoded values to bypass [checks](/recipes/data/data-validation)
+- Not decoding input before validation, allowing double-encoded values to bypass [checks](/recipes/data-validation/)
 - Assuming `+` in URLs always means space; it depends on context (query vs path)
 
 ## When Not to Use This Approach

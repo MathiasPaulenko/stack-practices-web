@@ -91,7 +91,7 @@ Structure: Single deployable unit with well-defined internal modules.
 #### When to Choose
 
 - Mid-sized team (10–30 developers)
-- Want to defer [microservices complexity](/guides/architecture/microservices-architecture-guide)
+- Want to defer [microservices complexity](/guides/microservices-architecture-guide/)
 - Clear domain boundaries but shared infrastructure
 
 Pros: Simpler operations than microservices, better structure than big-ball-of-mud.
@@ -114,7 +114,7 @@ Cons: Requires discipline to maintain module boundaries.
 └──────────────────────────────┘
 ```
 
-Dependency Rule: Inner layers must not depend on outer layers. See [SOLID principles](/guides/design/solid-principles-guide).
+Dependency Rule: Inner layers must not depend on outer layers. See [SOLID principles](/guides/solid-principles-guide/).
 
 ## Data Flow Patterns
 
@@ -156,7 +156,7 @@ Event Bus Options: Apache Kafka, RabbitMQ, AWS SNS/SQS, NATS.
 
 ### Decision Log
 
-Document every major technology choice with context, alternatives, and consequences. Use the [ADR Template](/docs/templates/adr-template).
+Document every major technology choice with context, alternatives, and consequences. Use the [ADR Template](/docs/adr-template/).
 
 ## Scalability Patterns
 
@@ -175,9 +175,9 @@ Requirement: State must be externalized (database, cache, object storage).
 | Pattern | Use Case |
 | ------- | -------- |
 | Read replicas | Read-heavy workloads |
-| [Sharding](/guides/databases/database-sharding-partitioning-guide) | Write-heavy, large datasets |
-| [Connection pooling](/recipes/performance/connection-pooling) | Many application instances |
-| [Caching](/recipes/performance/caching-strategies) (Redis) | Hot data, session storage |
+| [Sharding](/guides/database-sharding-partitioning-guide/) | Write-heavy, large datasets |
+| [Connection pooling](/recipes/connection-pooling/) | Many application instances |
+| [Caching](/recipes/caching-strategies/) (Redis) | Hot data, session storage |
 
 ## Communication Between Components
 
@@ -203,10 +203,10 @@ Requirement: State must be externalized (database, cache, object storage).
 
 ## What Works
 
-- Start simple: Begin with a [modular monolith](/guides/architecture/monolith-to-microservices-migration-guide); extract services when needed
-- Define bounded contexts: Use [Domain-Driven Design](/guides/architecture/domain-driven-design-guide) to find natural boundaries
-- Design for observability: Every component must expose [metrics, logs, traces](/recipes/observability/metrics-collection)
-- Automate everything: [CI/CD](/guides/devops/cicd-pipeline-guide), [infrastructure](/guides/devops/infrastructure-as-code-guide), testing, security scanning
+- Start simple: Begin with a [modular monolith](/guides/monolith-to-microservices-migration-guide/); extract services when needed
+- Define bounded contexts: Use [Domain-Driven Design](/guides/domain-driven-design-guide/) to find natural boundaries
+- Design for observability: Every component must expose [metrics, logs, traces](/recipes/metrics-collection/)
+- Automate everything: [CI/CD](/guides/cicd-pipeline-guide/), [infrastructure](/guides/infrastructure-as-code-guide/), testing, security scanning
 - Document decisions: ADRs for every major architectural choice
 
 

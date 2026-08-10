@@ -215,7 +215,7 @@ The abstraction holds a reference to the implementation and delegates work to it
 
 ## Common Mistakes
 
-- Applying the bridge when a simple [strategy](/patterns/design/strategy-pattern) or [adapter](/patterns/design/adapter-pattern) would suffice
+- Applying the bridge when a simple [strategy](/patterns/strategy-pattern/) or [adapter](/patterns/adapter-pattern/) would suffice
 - Making the implementation interface too broad, coupling it unnecessarily to the abstraction
 - Allowing the abstraction to leak implementation details to clients
 - Creating deep hierarchies on both sides, reintroducing the complexity the bridge was meant to solve
@@ -256,10 +256,10 @@ The abstraction holds a reference to the implementation and delegates work to it
 ## FAQ
 
 **Q: What is the difference between Bridge and Adapter?**
-A: [Adapter](/patterns/design/adapter-pattern) makes incompatible interfaces work together. Bridge separates an abstraction from its implementation so both can evolve independently. The intent and structure differ.
+A: [Adapter](/patterns/adapter-pattern/) makes incompatible interfaces work together. Bridge separates an abstraction from its implementation so both can evolve independently. The intent and structure differ.
 
 **Q: When should I use Bridge instead of Strategy?**
-A: [Strategy](/patterns/design/strategy-pattern) varies a single algorithm. Bridge separates two entire class hierarchies. Use Bridge when you have two independent dimensions of variation.
+A: [Strategy](/patterns/strategy-pattern/) varies a single algorithm. Bridge separates two entire class hierarchies. Use Bridge when you have two independent dimensions of variation.
 
 ### Is this pattern suitable for small projects?
 

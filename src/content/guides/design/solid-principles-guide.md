@@ -78,7 +78,7 @@ class ReportGenerator:
         ...
 ```
 
-**Why it matters:** When a class has multiple responsibilities, changes to one responsibility can break another. Small, focused classes are easier to understand, test, and reuse. See [Clean Code Principles](/guides/design/clean-code-principles-guide) for related practices.
+**Why it matters:** When a class has multiple responsibilities, changes to one responsibility can break another. Small, focused classes are easier to understand, test, and reuse. See [Clean Code Principles](/guides/clean-code-principles-guide/) for related practices.
 
 ## O — Open/Closed Principle (OCP)
 
@@ -122,7 +122,7 @@ class CryptoPayment(PaymentMethod):
         ...
 ```
 
-**Why it matters:** Modifying existing, working code introduces risk. By extending through new code, you preserve the stability of what already works. See [Strategy Pattern](/patterns/design/strategy-pattern) for interchangeable behavior.
+**Why it matters:** Modifying existing, working code introduces risk. By extending through new code, you preserve the stability of what already works. See [Strategy Pattern](/patterns/strategy-pattern/) for interchangeable behavior.
 
 ## L — Liskov Substitution Principle (LSP)
 
@@ -263,7 +263,7 @@ email_notifier = NotificationManager(EmailService())
 sms_notifier = NotificationManager(SMSService())
 ```
 
-**Why it matters:** Depending on abstractions makes the system flexible. You can swap implementations (for testing, different environments, or new requirements) without touching the high-level business logic. See [Factory Pattern](/patterns/design/factory-pattern) for creating abstractions.
+**Why it matters:** Depending on abstractions makes the system flexible. You can swap implementations (for testing, different environments, or new requirements) without touching the high-level business logic. See [Factory Pattern](/patterns/factory-pattern/) for creating abstractions.
 
 ## Applying SOLID Together
 
@@ -289,11 +289,11 @@ SOLID principles reinforce each other:
 
 ### Should I apply all SOLID principles to every class?
 
-No. These are guidelines, not laws. Apply them where they reduce complexity and coupling. Small scripts and [CRUD operations](/guides/databases/database-design-guide) often don't need full SOLID treatment.
+No. These are guidelines, not laws. Apply them where they reduce complexity and coupling. Small scripts and [CRUD operations](/guides/database-design-guide/) often don't need full SOLID treatment.
 
 ### Do SOLID principles apply only to OOP?
 
-The concepts translate well to other models. Functional programming achieves DIP via higher-order functions, and SRP applies to modules and functions in any model. See [design patterns](/guides/design/design-patterns-guide) for practical examples.
+The concepts translate well to other models. Functional programming achieves DIP via higher-order functions, and SRP applies to modules and functions in any model. See [design patterns](/guides/design-patterns-guide/) for practical examples.
 
 ### How do I convince my team to refactor toward SOLID?
 

@@ -32,7 +32,7 @@ seo:
     - semver release notes
 
 ---
-Use this template to communicate what changed, why it matters, and what users need to do. Pair it with the [Changelog Template](/docs/templates/changelog-template) for tracking and the [Post-Deployment Checklist](/docs/templates/post-deployment-checklist-template) for verification.
+Use this template to communicate what changed, why it matters, and what users need to do. Pair it with the [Changelog Template](/docs/changelog-template/) for tracking and the [Post-Deployment Checklist](/docs/post-deployment-checklist-template/) for verification.
 
 ## Overview
 
@@ -158,7 +158,7 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 - **Write release notes before the release** — they are a forcing function for final review
 - **Highlight breaking changes first** — users scan for things that might break them
 - **Include upgrade instructions** — even for "no action required" releases, say so explicitly
-- **Link to documentation** — every new capability should have a corresponding docs page. Link to the [API Documentation Template](/docs/templates/api-documentation) for reference.
+- **Link to documentation** — every new capability should have a corresponding docs page. Link to the [API Documentation Template](/docs/api-documentation/) for reference.
 - **Include verification commands** — give users a way to confirm the upgrade worked
 - **Date every release** — ISO 8601 format (`YYYY-MM-DD`) for consistency
 - **Link to full diff** — let developers dig into the commit-level details if they want
@@ -166,8 +166,8 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 ## Common Mistakes
 
 - Listing every commit — users do not care about "refactor helper function"
-- Omitting breaking changes — this breaks trust and causes incidents. See [Incident Postmortem Template](/docs/templates/incident-postmortem-template) for recovery procedures.
-- No upgrade instructions — users waste time guessing the migration path. See [Environment Setup Guide](/docs/templates/environment-setup-guide-template) for configuration context.
+- Omitting breaking changes — this breaks trust and causes incidents. See [Incident Postmortem Template](/docs/incident-postmortem-template/) for recovery procedures.
+- No upgrade instructions — users waste time guessing the migration path. See [Environment Setup Guide](/docs/environment-setup-guide-template/) for configuration context.
 - Skipping known issues — transparency builds trust; hiding problems destroys it
 - Vague descriptions like "various improvements" — name the improvement and quantify it
 - No link to migration guide for breaking changes — users need a step-by-step path
@@ -296,7 +296,7 @@ Hotfixes need a shorter format: "Fixed [bug] that caused [symptom]. Deployed to 
 
 ### How detailed should release notes be for internal services?
 
-Internal services need the same structure but with additional deployment context: which environments were updated, rollback procedure, and links to monitoring dashboards. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for deployment automation.
+Internal services need the same structure but with additional deployment context: which environments were updated, rollback procedure, and links to monitoring dashboards. See [CI/CD Pipeline Guide](/guides/cicd-pipeline-guide/) for deployment automation.
 
 ### Should I include CVE numbers for security fixes?
 

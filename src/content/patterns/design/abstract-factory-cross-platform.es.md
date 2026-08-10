@@ -178,8 +178,8 @@ const mobileScreen = new SettingsScreen(new MobileFactory());
 ## Consideraciones de Produccion
 
 - Usa frameworks de inyeccion de dependencias para seleccionar la factory en runtime
-- Abstract Factory funciona bien con [Bridge](/patterns/design/bridge-pattern) cuando las familias tambien necesitan renderizado especifico de plataforma
-- Considera [registros de factory](/patterns/design/factory-pattern) para arquitecturas basadas en plugins
+- Abstract Factory funciona bien con [Bridge](/patterns/bridge-pattern/) cuando las familias tambien necesitan renderizado especifico de plataforma
+- Considera [registros de factory](/patterns/factory-pattern/) para arquitecturas basadas en plugins
 
 ## Errores Comunes
 
@@ -393,7 +393,7 @@ const button = lazyFactory.createButton('Click me');
 ## FAQ
 
 **P: En que se diferencia de Factory Method?**
-R: [Factory Method](/patterns/design/factory-pattern) crea un producto a traves de herencia. Abstract Factory crea familias de productos relacionados a traves de composicion.
+R: [Factory Method](/patterns/factory-pattern/) crea un producto a traves de herencia. Abstract Factory crea familias de productos relacionados a traves de composicion.
 
 **P: Cuando deberia evitar Abstract Factory?**
 R: Cuando la familia de productos es pequena (2-3 productos) o cuando los productos no necesitan ser compatibles entre si.

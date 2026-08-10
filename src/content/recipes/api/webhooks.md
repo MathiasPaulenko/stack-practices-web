@@ -44,7 +44,7 @@ Webhooks are HTTP callbacks that enable real-time, event-driven communication be
 ## When to Use
 
 Use this resource when:
-- Integrating with third-party services that emit events (Stripe, GitHub, Slack). See [API Security Checklist](/guides/security/api-security-checklist-guide) for secure integrations.
+- Integrating with third-party services that emit events (Stripe, GitHub, Slack). See [API Security Checklist](/guides/api-security-checklist-guide/) for secure integrations.
 - Building a SaaS platform that notifies customers of state changes
 - You need real-time updates without the latency and cost of polling
 - Designing an event-driven microservices architecture
@@ -211,10 +211,10 @@ If your endpoint fails or times out, the source system will **retry** with expon
 
 ## Common Mistakes
 
-- **Not verifying signatures**: Anyone can POST to your endpoint and fake events.  See [Security Guide](/guides/security/security-best-practices-guide) for signature verification.
+- **Not verifying signatures**: Anyone can POST to your endpoint and fake events.  See [Security Guide](/guides/security-best-practices-guide/) for signature verification.
 - **Parsing JSON before verification**: The signature must be computed over the raw body.
 - **No idempotency**: Duplicate deliveries cause double charges, double emails, etc.
-- **Synchronous heavy processing**: Webhooks time out in ~5-30s.  Queue the work with a [background worker](/recipes/api/middleware).
+- **Synchronous heavy processing**: Webhooks time out in ~5-30s.  Queue the work with a [background worker](/recipes/middleware/).
 - **Ignoring retry storms**: A failing endpoint can be hit hundreds of times by retries.
 
 ## When Not to Use This Approach
@@ -336,7 +336,7 @@ Return a non-2xx status code. Most webhook providers will retry with exponential
 
 ### Can I use webhooks for bidirectional communication?
 
-Not recommended. Webhooks are one-way push. For bidirectional, use [WebSockets](/recipes/api/websocket-server), [Server-Sent Events](/recipes/api/server-sent-events), or a message queue. Never have two services synchronously call each other's webhooks — this creates a distributed deadlock risk.
+Not recommended. Webhooks are one-way push. For bidirectional, use [WebSockets](/recipes/websocket-server/), [Server-Sent Events](/recipes/server-sent-events/), or a message queue. Never have two services synchronously call each other's webhooks — this creates a distributed deadlock risk.
 
 ### How do I test webhooks locally?
 

@@ -78,7 +78,7 @@ class ReportGenerator:
         ...
 ```
 
-**Por qué importa:** Cuando una clase tiene múltiples responsabilidades, cambios en una pueden romper otra. Clases pequeñas y enfocadas son más fáciles de entender, probar y reutilizar. Consulta [Clean Code Principles](/guides/design/clean-code-principles-guide) para prácticas relacionadas.
+**Por qué importa:** Cuando una clase tiene múltiples responsabilidades, cambios en una pueden romper otra. Clases pequeñas y enfocadas son más fáciles de entender, probar y reutilizar. Consulta [Clean Code Principles](/guides/clean-code-principles-guide/) para prácticas relacionadas.
 
 ## O — Principio Abierto/Cerrado (OCP)
 
@@ -122,7 +122,7 @@ class CryptoPayment(PaymentMethod):
         ...
 ```
 
-**Por qué importa:** Modificar código existente que funciona introduce riesgo. Al extender mediante nuevo código, preservas la estabilidad de lo que ya funciona. Consulta [Strategy Pattern](/patterns/design/strategy-pattern) para comportamiento intercambiable.
+**Por qué importa:** Modificar código existente que funciona introduce riesgo. Al extender mediante nuevo código, preservas la estabilidad de lo que ya funciona. Consulta [Strategy Pattern](/patterns/strategy-pattern/) para comportamiento intercambiable.
 
 ## L — Principio de Sustitución de Liskov (LSP)
 
@@ -263,7 +263,7 @@ email_notifier = NotificationManager(EmailService())
 sms_notifier = NotificationManager(SMSService())
 ```
 
-**Por qué importa:** Depender de abstracciones hace el sistema flexible. Puedes intercambiar implementaciones (para testing, diferentes entornos, o nuevos requerimientos) sin tocar la lógica de negocio de alto nivel. Consulta [Factory Pattern](/patterns/design/factory-pattern) para crear abstracciones.
+**Por qué importa:** Depender de abstracciones hace el sistema flexible. Puedes intercambiar implementaciones (para testing, diferentes entornos, o nuevos requerimientos) sin tocar la lógica de negocio de alto nivel. Consulta [Factory Pattern](/patterns/factory-pattern/) para crear abstracciones.
 
 ## Aplicando SOLID Juntos
 
@@ -289,11 +289,11 @@ Los principios SOLID se refuerzan mutuamente:
 
 ### ¿Debería aplicar todos los principios SOLID a cada clase?
 
-No. Son guías, no leyes. Aplícalos donde reduzcan complejidad y acoplamiento. Scripts pequeños y [operaciones CRUD](/guides/databases/database-design-guide) a menudo no necesitan tratamiento SOLID completo.
+No. Son guías, no leyes. Aplícalos donde reduzcan complejidad y acoplamiento. Scripts pequeños y [operaciones CRUD](/guides/database-design-guide/) a menudo no necesitan tratamiento SOLID completo.
 
 ### ¿Los principios SOLID aplican solo a POO?
 
-Los conceptos se traducen bien a otros modelos. La programación funcional logra DIP mediante funciones de orden superior, y SRP aplica a módulos y funciones en cualquier modelo. Consulta [design patterns](/guides/design/design-patterns-guide) para ejemplos prácticos.
+Los conceptos se traducen bien a otros modelos. La programación funcional logra DIP mediante funciones de orden superior, y SRP aplica a módulos y funciones en cualquier modelo. Consulta [design patterns](/guides/design-patterns-guide/) para ejemplos prácticos.
 
 ### ¿Cómo convenzo a mi equipo de refactorizar hacia SOLID?
 

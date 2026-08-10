@@ -223,7 +223,7 @@ npm run build
 ## What works
 
 - **Use `.env.example`** — never commit secrets; commit a template with dummy values
-- **Automate with `make` or scripts** — one command should get a new developer running. Link to the [Onboarding Guide Template](/docs/templates/onboarding-guide-template) for a full checklist.
+- **Automate with `make` or scripts** — one command should get a new developer running. Link to the [Onboarding Guide Template](/docs/onboarding-guide-template/) for a full checklist.
 - **Test setup monthly** — stale setup docs are worse than no docs
 - **Pin dependency versions** — "latest" causes "works on my machine"
 - **Document OS differences** — macOS, Linux, and Windows paths vary
@@ -233,7 +233,7 @@ npm run build
 ## Common Mistakes
 
 - Setup instructions that only work on the author's machine
-- Missing `.env.example` — new developers guess at required variables. Pair with the [Runbook Template](/docs/templates/runbook-template) for troubleshooting steps.
+- Missing `.env.example` — new developers guess at required variables. Pair with the [Runbook Template](/docs/runbook-template/) for troubleshooting steps.
 - No verification step — developers do not know if setup succeeded
 - Hardcoded local paths — `/Users/alice/project` does not work for Bob
 - Not testing on a clean environment — stale caches hide setup bugs
@@ -310,7 +310,7 @@ Use the same setup commands in CI as in the guide. This ensures the guide stays 
 
 ### Should I use Docker for local development?
 
-Yes, if your project has more than two dependencies (database, cache, queue). See [Docker for Developers Guide](/guides/devops/docker-for-developers-guide) for setup guidelines. A `docker-compose.yml` ensures every developer runs the same versions. For simple projects, local package managers suffice.
+Yes, if your project has more than two dependencies (database, cache, queue). See [Docker for Developers Guide](/guides/docker-for-developers-guide/) for setup guidelines. A `docker-compose.yml` ensures every developer runs the same versions. For simple projects, local package managers suffice.
 
 ### How do I handle secrets in local setup?
 
@@ -342,7 +342,7 @@ Document platform-specific steps in separate sections or tables. Use cross-platf
 
 ### Should I include database seeding in the setup guide?
 
-Yes, if the application requires seed data to function. Include a `npm run db:seed` command and document what data it creates. For large datasets, provide a subset or synthetic data generator. See [Database Schema Documentation Template](/docs/templates/database-schema-documentation-template) for schema context.
+Yes, if the application requires seed data to function. Include a `npm run db:seed` command and document what data it creates. For large datasets, provide a subset or synthetic data generator. See [Database Schema Documentation Template](/docs/database-schema-documentation-template/) for schema context.
 
 ## Common Production Pitfalls
 

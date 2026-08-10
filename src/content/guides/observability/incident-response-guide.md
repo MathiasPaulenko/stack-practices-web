@@ -258,7 +258,7 @@ The most available senior engineer who is not actively debugging. IC coordinates
 
 ### How do I run an useful postmortem?
 
-Schedule within 48 hours, focus on process and system improvements, not blame. See the [Postmortem Guide](/guides/observability/postmortem-guide).
+Schedule within 48 hours, focus on process and system improvements, not blame. See the [Postmortem Guide](/guides/postmortem-guide/).
 
 ### What if we cannot find the root cause?
 

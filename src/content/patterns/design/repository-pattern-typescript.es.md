@@ -35,7 +35,7 @@ seo:
 
 ---
 
-El [Repository](/patterns/design/repository-pattern) pattern media entre las capas de dominio y mapeo de datos. Actua como una coleccion en memoria de objetos de dominio, abstrayendo detalles de persistencia para que tus servicios permanezcan enfocados en logica de negocio.
+El [Repository](/patterns/repository-pattern/) pattern media entre las capas de dominio y mapeo de datos. Actua como una coleccion en memoria de objetos de dominio, abstrayendo detalles de persistencia para que tus servicios permanezcan enfocados en logica de negocio.
 
 ## Cuando Usar Esto
 
@@ -190,7 +190,7 @@ const userService = new UserService(userRepo);
 ## FAQ
 
 **P: El Repository pattern es excesivo para proyectos pequenos?**
-R: Para apps CRUD simples, active record esta bien. Para testear repositorios, consulta [unit testing](/recipes/testing/unit-testing). Usa repositorios cuando necesites testeabilidad, multiples fuentes de datos o logica de consulta compleja.
+R: Para apps CRUD simples, active record esta bien. Para testear repositorios, consulta [unit testing](/recipes/unit-testing/). Usa repositorios cuando necesites testeabilidad, multiples fuentes de datos o logica de consulta compleja.
 
 **P: Como se compara con el Active Record pattern?**
 R: Active Record mezcla acceso a datos y logica de dominio. Repository los separa, haciendo la capa de dominio independiente de la persistencia.

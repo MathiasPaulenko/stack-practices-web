@@ -46,10 +46,10 @@ Un graceful shutdown asegura que tu aplicación termine peticiones en vuelo, vac
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Despliegas frecuentemente en Kubernetes, Docker o grupos de auto-escalado. Consulta [Docker Basics](/recipes/devops/docker-basics) para fundamentos de contenedores.
-- Ejecutas workers de long-polling, WebSocket o trabajos en background. Consulta [WebSockets Real-Time](/recipes/frontend/websockets-realtime) para gestión de ciclo de vida de conexiones.
-- Necesitas vaciar métricas, logs o escrituras de base de datos antes de terminar. Consulta [Structured Logging](/recipes/observability/structured-logging) para patrones de flush de logs.
-- Quieres despliegues sin downtime con rolling updates o releases blue/green. Consulta [Blue-Green Deployment](/recipes/devops/blue-green-deployment) para conmutación de tráfico.
+- Despliegas frecuentemente en Kubernetes, Docker o grupos de auto-escalado. Consulta [Docker Basics](/recipes/docker-basics/) para fundamentos de contenedores.
+- Ejecutas workers de long-polling, WebSocket o trabajos en background. Consulta [WebSockets Real-Time](/recipes/websockets-realtime/) para gestión de ciclo de vida de conexiones.
+- Necesitas vaciar métricas, logs o escrituras de base de datos antes de terminar. Consulta [Structured Logging](/recipes/structured-logging/) para patrones de flush de logs.
+- Quieres despliegues sin downtime con rolling updates o releases blue/green. Consulta [Blue-Green Deployment](/recipes/blue-green-deployment/) para conmutación de tráfico.
 
 ## Solución
 

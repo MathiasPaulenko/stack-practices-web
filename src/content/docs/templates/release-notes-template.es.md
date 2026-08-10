@@ -32,7 +32,7 @@ seo:
     - semver release notes
 
 ---
-Usa esta plantilla para comunicar qué cambió, por qué importa y qué deben hacer los usuarios. Combínala con la [Plantilla de Changelog](/docs/templates/changelog-template) para tracking y la [Plantilla de Checklist Post-Deploy](/docs/templates/post-deployment-checklist-template) para verificación.
+Usa esta plantilla para comunicar qué cambió, por qué importa y qué deben hacer los usuarios. Combínala con la [Plantilla de Changelog](/docs/changelog-template/) para tracking y la [Plantilla de Checklist Post-Deploy](/docs/post-deployment-checklist-template/) para verificación.
 
 ## Resumen
 
@@ -158,7 +158,7 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 - **Escribe release notes antes del release** — son un forcing function para review final
 - **Destaca breaking changes primero** — usuarios escanean por cosas que podrían romperles
 - **Incluye instrucciones de upgrade** — incluso para releases "sin acción requerida", dilo explícitamente
-- **Link a documentación** — cada nueva capacidad debería tener una página de docs correspondiente. Enlaza a la [Plantilla de Documentación de API](/docs/templates/api-documentation) para referencia.
+- **Link a documentación** — cada nueva capacidad debería tener una página de docs correspondiente. Enlaza a la [Plantilla de Documentación de API](/docs/api-documentation/) para referencia.
 - **Incluye comandos de verificación** — da a los usuarios una forma de confirmar que el upgrade funcionó
 - **Fecha cada release** — formato ISO 8601 (`YYYY-MM-DD`) para consistencia
 - **Link al diff completo** — deja que los desarrolladores profundicen en los commits si quieren
@@ -166,8 +166,8 @@ https://github.com/example/repo/compare/v2.4.1...v2.5.0
 ## Errores Comunes
 
 - Listar cada commit — los usuarios no les importa "refactor helper function"
-- Omitir breaking changes — esto rompe confianza y causa incidentes. Consulta la [Plantilla de Postmortem](/docs/templates/incident-postmortem-template) para procedimientos de recuperación.
-- No dar instrucciones de upgrade — usuarios pierden tiempo adivinando el path de migración. Consulta la [Plantilla de Guía de Configuración de Entorno](/docs/templates/environment-setup-guide-template) para contexto de configuración.
+- Omitir breaking changes — esto rompe confianza y causa incidentes. Consulta la [Plantilla de Postmortem](/docs/incident-postmortem-template/) para procedimientos de recuperación.
+- No dar instrucciones de upgrade — usuarios pierden tiempo adivinando el path de migración. Consulta la [Plantilla de Guía de Configuración de Entorno](/docs/environment-setup-guide-template/) para contexto de configuración.
 - Saltarse issues conocidos — la transparencia genera confianza; ocultar problemas la destruye
 - Descripciones vagas como "varias mejoras" — nombra la mejora y cuantifícala
 - Sin link a guía de migración para breaking changes — los usuarios necesitan un path paso a paso
@@ -287,7 +287,7 @@ Los hotfix necesitan un formato más corto: "Arreglado [bug] que causaba [sínto
 
 ### ¿Qué tan detalladas deben ser release notes para servicios internos?
 
-Los servicios internos necesitan la misma estructura pero con contexto adicional de deploy: qué ambientes fueron actualizados, procedimiento de rollback, y links a dashboards de monitoreo. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización de deployment.
+Los servicios internos necesitan la misma estructura pero con contexto adicional de deploy: qué ambientes fueron actualizados, procedimiento de rollback, y links a dashboards de monitoreo. Consulta la [Guía de CI/CD Pipeline](/guides/cicd-pipeline-guide/) para automatización de deployment.
 
 ### ¿Debería incluir números CVE para fixes de seguridad?
 

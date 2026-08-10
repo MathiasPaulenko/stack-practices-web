@@ -39,13 +39,13 @@ seo:
 
 ---
 
-El [Visitor](/patterns/design/visitor-pattern) pattern separa un algoritmo de la estructura de objetos sobre la que opera. Moviendo operaciones a clases visitor, puedes agregar nuevos comportamientos a una jerarquia de clases sin modificar las clases de elementos existentes. Esto es ideal cuando las operaciones cambian frecuentemente pero la estructura de objetos permanece estable.
+El [Visitor](/patterns/visitor-pattern/) pattern separa un algoritmo de la estructura de objetos sobre la que opera. Moviendo operaciones a clases visitor, puedes agregar nuevos comportamientos a una jerarquia de clases sin modificar las clases de elementos existentes. Esto es ideal cuando las operaciones cambian frecuentemente pero la estructura de objetos permanece estable.
 
 ## Cuando Usar Esto
 
-- Muchas operaciones no relacionadas deben realizarse sobre objetos en una estructura. Consulta [Decorator Pattern](/patterns/design/decorator-pattern) para agregar comportamiento.
-- La estructura de objetos raramente cambia pero las operaciones cambian a menudo. Consulta [Strategy Pattern](/patterns/design/strategy-pattern) para algoritmos intercambiables.
-- Necesitas acumular estado a traves de elementos durante el recorrido. Consulta [Composite Pattern](/patterns/design/composite-pattern) para estructuras de árbol.
+- Muchas operaciones no relacionadas deben realizarse sobre objetos en una estructura. Consulta [Decorator Pattern](/patterns/decorator-pattern/) para agregar comportamiento.
+- La estructura de objetos raramente cambia pero las operaciones cambian a menudo. Consulta [Strategy Pattern](/patterns/strategy-pattern/) para algoritmos intercambiables.
+- Necesitas acumular estado a traves de elementos durante el recorrido. Consulta [Composite Pattern](/patterns/composite-pattern/) para estructuras de árbol.
 
 ## Problema
 
@@ -232,7 +232,7 @@ class JSONSerializer implements ASTVisitor {
 R: Strategy varia un algoritmo para un unico objeto. Visitor aplica diferentes operaciones a traves de toda una estructura de objetos.
 
 **P: Puedo usar esto con Composite pattern?**
-R: Si. [Composite](/patterns/design/composite-pattern) provee la estructura; Visitor provee las operaciones. Este es un par comun para procesamiento de arboles.
+R: Si. [Composite](/patterns/composite-pattern/) provee la estructura; Visitor provee las operaciones. Este es un par comun para procesamiento de arboles.
 
 ### ¿Es este patrón adecuado para proyectos pequeños?
 

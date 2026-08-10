@@ -51,10 +51,10 @@ A Git workflow defines how your team uses branches to manage parallel work, revi
 
 Use this workflow when:
 
-- Working in a team where multiple developers touch the same codebase. See [GitHub Actions](/recipes/devops/github-actions) for CI/CD automation.
-- You want every change to be reviewed before it reaches production. See [Unit Testing](/recipes/testing/unit-testing) for pre-merge validation.
-- Your project deploys continuously from the main branch. See [Docker Basics](/recipes/devops/docker-basics) for containerized deployments.
-- You need a clear rollback path when something goes wrong. See [Feature Flags](/recipes/devops/feature-flags) for instant toggles.
+- Working in a team where multiple developers touch the same codebase. See [GitHub Actions](/recipes/github-actions/) for CI/CD automation.
+- You want every change to be reviewed before it reaches production. See [Unit Testing](/recipes/unit-testing/) for pre-merge validation.
+- Your project deploys continuously from the main branch. See [Docker Basics](/recipes/docker-basics/) for containerized deployments.
+- You need a clear rollback path when something goes wrong. See [Feature Flags](/recipes/feature-flags/) for instant toggles.
 
 ## Solution
 

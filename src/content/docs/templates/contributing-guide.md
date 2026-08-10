@@ -79,7 +79,7 @@ Thank you for your interest in contributing! This document will guide you throug
 ### Reporting Bugs
 
 1. Search existing issues first
-2. Open a new issue with the [bug report template](/docs/templates/bug-report-template)
+2. Open a new issue with the [bug report template](/docs/bug-report-template/)
 3. Include:
    - Steps to reproduce
    - Expected behavior
@@ -89,7 +89,7 @@ Thank you for your interest in contributing! This document will guide you throug
 
 ### Suggesting Capabilities
 
-1. Open a new issue with the [capability request template](/docs/templates/feature-request-template)
+1. Open a new issue with the [capability request template](/docs/feature-request-template/)
 2. Describe the problem and proposed solution
 3. Discuss with maintainers before investing major effort
 
@@ -156,7 +156,7 @@ chore: update dependencies
 
 ## Community Guidelines
 
-### [Code of Conduct](/docs/templates/code-of-conduct-template)
+### [Code of Conduct](/docs/code-of-conduct-template/)
 
 - Be respectful and inclusive
 - Focus on constructive feedback
@@ -166,7 +166,7 @@ chore: update dependencies
 ### Recognition
 
 Contributors will be:
-- Listed in the [README](/docs/templates/readme-template) or CONTRIBUTORS file
+- Listed in the [README](/docs/readme-template/) or CONTRIBUTORS file
 - Mentioned in release notes
 - Given appropriate credit in the project history
 

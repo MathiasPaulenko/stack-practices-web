@@ -38,7 +38,7 @@ seo:
 ---
 ## Overview
 
-A pull request template standardizes the information provided when submitting code changes. See [Contributing Guide](/docs/templates/contributing-guide) for team standards and [What Works in Code Review](/guides/design/code-review-best-practices-guide) for review culture. It ensures reviewers have context and authors verify their work before requesting review.
+A pull request template standardizes the information provided when submitting code changes. See [Contributing Guide](/docs/contributing-guide/) for team standards and [What Works in Code Review](/guides/code-review-best-practices-guide/) for review culture. It ensures reviewers have context and authors verify their work before requesting review.
 
 ## When to Use
 
@@ -179,14 +179,14 @@ Retry-After: 60
 - **Use checkboxes**: Easy to scan, hard to miss
 - **Link issues**: Always reference related tickets.
 - **Include screenshots**: For UI changes, visual proof is essential
-- **Automate where possible**: Let CI check what bots can verify.  See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
+- **Automate where possible**: Let CI check what bots can verify.  See [CI/CD Pipeline Guide](/guides/cicd-pipeline-guide/) for automation.
 - **Require test evidence**: Screenshots, logs, or commands prove the change works
 - **Add a breaking change section**: Call out anything that requires migration
 
 ## Common Mistakes
 
 - **Empty templates**: Submitting without filling required sections
-- **Missing tests**: Forgetting to update or add tests.  See [Testing Strategy Guide](/guides/testing/testing-strategy-guide) for coverage standards.
+- **Missing tests**: Forgetting to update or add tests.  See [Testing Strategy Guide](/guides/testing-strategy-guide/) for coverage standards.
 - **No issue links**: Makes tracking context harder
 - **Large PRs**: Changes over 500 lines are hard to review; split into smaller PRs
 - **No description of why**: Reviewers need the motivation, not just the what
@@ -200,7 +200,7 @@ For urgent production fixes, use a minimal template: description, root cause, fi
 
 ### Open-source contribution PR template
 
-For external contributors, add: contributor license agreement checkbox, breaking change disclosure, and a "I have read the contributing guidelines" checkbox. Keep it welcoming but thorough. See [Contributing Guide](/docs/templates/contributing-guide) for standards.
+For external contributors, add: contributor license agreement checkbox, breaking change disclosure, and a "I have read the contributing guidelines" checkbox. Keep it welcoming but thorough. See [Contributing Guide](/docs/contributing-guide/) for standards.
 
 ### Draft PR template
 
@@ -287,7 +287,7 @@ Use GitHub merge queues to serialize merges and prevent conflicts. Each PR is re
 
 ### Should every pull request use a template?
 
-Yes. Templates ensure reviewers get consistent context and authors verify their work. See [What Works in Code Review](/guides/design/code-review-best-practices-guide) for culture. Even small fixes benefit from a brief description and testing confirmation.
+Yes. Templates ensure reviewers get consistent context and authors verify their work. See [What Works in Code Review](/guides/code-review-best-practices-guide/) for culture. Even small fixes benefit from a brief description and testing confirmation.
 
 ### How detailed should the testing section be?
 
@@ -295,7 +295,7 @@ Include enough detail that a reviewer can reproduce your tests. For UI changes, 
 
 ### What if a PR template feels too heavy for my team?
 
-Start with a minimal template: description, type of change, and a 3-item checklist. Expand using [Contributing Guide](/docs/templates/contributing-guide) standards. Expand sections only when you notice information gaps in reviews.
+Start with a minimal template: description, type of change, and a 3-item checklist. Expand using [Contributing Guide](/docs/contributing-guide/) standards. Expand sections only when you notice information gaps in reviews.
 
 ### How do I enforce the template in GitHub?
 
@@ -303,7 +303,7 @@ Place the template file at `.github/pull_request_template.md` in your repository
 
 ### Should I require approvals before merging?
 
-For production code: yes, at least one approval from a non-author. For high-risk changes (security, payments, infrastructure): require two approvals. For solo developers: self-review with a checklist is the minimum. See [What Works in Code Review](/guides/design/code-review-best-practices-guide) for approval strategies.
+For production code: yes, at least one approval from a non-author. For high-risk changes (security, payments, infrastructure): require two approvals. For solo developers: self-review with a checklist is the minimum. See [What Works in Code Review](/guides/code-review-best-practices-guide/) for approval strategies.
 
 ### How large should a PR be?
 

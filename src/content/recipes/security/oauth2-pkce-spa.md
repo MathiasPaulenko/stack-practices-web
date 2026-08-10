@@ -201,14 +201,14 @@ export function getAccessToken(): string | undefined {
 
 ## Production Considerations
 
-- Always validate the **state parameter** to prevent [CSRF](/recipes/security/api-security-headers) attacks
-- Use **Content Security Policy** headers to mitigate [XSS](/recipes/security/xss-prevention) token theft
+- Always validate the **state parameter** to prevent [CSRF](/recipes/api-security-headers/) attacks
+- Use **Content Security Policy** headers to mitigate [XSS](/recipes/xss-prevention/) token theft
 - Implement **silent token refresh** using `prompt=none` in a hidden iframe
 - Rotate refresh tokens and detect reuse to prevent token replay attacks
 
 ## Common Mistakes
 
-- Storing tokens in `localStorage` where [XSS](/recipes/security/xss-prevention) can easily steal them
+- Storing tokens in `localStorage` where [XSS](/recipes/xss-prevention/) can easily steal them
 - Not validating the state parameter during callback handling
 - Using `response_type=token` (implicit flow) which is deprecated for SPAs
 
@@ -221,7 +221,7 @@ A: Yes. The OAuth 2.0 Security Best Current Practice recommends PKCE for all OAu
 A: Yes. This is actually more secure. The backend stores the refresh token in an httpOnly cookie while the SPA only receives a short-lived access token.
 
 **Q: What if the provider does not support PKCE?**
-A: Use a backend-for-frontend (BFF) pattern where your [backend handles the OAuth flow](/recipes/security/oauth2-pkce-spa) and the SPA authenticates via session cookies.
+A: Use a backend-for-frontend (BFF) pattern where your [backend handles the OAuth flow](/recipes/oauth2-pkce-spa/) and the SPA authenticates via session cookies.
 
 ### Is this solution production-ready?
 

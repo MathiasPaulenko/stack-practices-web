@@ -249,7 +249,7 @@ AWS S3 `upload_file(bucket, key, path)` hides multipart uploads, retry logic, ch
 ## FAQ
 
 **Q: What is the difference between Facade and Adapter?**
-A: [Adapter](/patterns/design/adapter-pattern) changes an interface to match what a client expects. Facade simplifies a complex interface without changing its contracts.
+A: [Adapter](/patterns/adapter-pattern/) changes an interface to match what a client expects. Facade simplifies a complex interface without changing its contracts.
 
 **Q: Can a facade expose subsystem methods directly?**
 A: Yes, this is called an "optional facade." Clients can use the simple facade methods or access subsystem classes for advanced use cases.

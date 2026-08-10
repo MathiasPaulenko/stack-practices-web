@@ -179,8 +179,8 @@ return old_checkout.handle(request)
 
 ## What Works
 
-- **Automate rollback** — a human pressing a button at 3 AM is unreliable. See [CI/CD pipelines](/guides/devops/cicd-pipeline-guide).
-- **Use synthetic traffic** — hit the canary with [automated tests](/recipes/performance/load-testing-k6) before real users
+- **Automate rollback** — a human pressing a button at 3 AM is unreliable. See [CI/CD pipelines](/guides/cicd-pipeline-guide/).
+- **Use synthetic traffic** — hit the canary with [automated tests](/recipes/load-testing-k6/) before real users
 - **Keep deployments small** — smaller changes are easier to debug and faster to rollback
 - **One change at a time** — do not combine a deploy with a database migration and a config change
 - **Test rollback** — a rollback you have never practiced is a gamble
@@ -191,7 +191,7 @@ return old_checkout.handle(request)
 - Not having automated rollback — manual rollbacks take 10x longer
 - Combining multiple changes in one deploy — when it breaks, you do not know which change caused it
 - Ignoring canary metrics because "the tests passed" — production traffic is the only real test
-- Forgetting [database schema compatibility](/recipes/databases/schema-evolution) in blue-green — old and new code must coexist during the switch
+- Forgetting [database schema compatibility](/recipes/schema-evolution/) in blue-green — old and new code must coexist during the switch
 
 
 ## Troubleshooting

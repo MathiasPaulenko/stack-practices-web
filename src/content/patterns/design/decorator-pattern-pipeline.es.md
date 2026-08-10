@@ -40,7 +40,7 @@ seo:
 
 
 ---
-El [Decorator](/patterns/design/decorator-pattern) pattern envuelve un objeto para agregar responsabilidades dinamicamente. Cuando se aplica a clientes HTTP, se convierte en una forma limpia de componer preocupaciones transversales — logging, reintentos, metricas, autenticacion — sin contaminar la logica central de la peticion.
+El [Decorator](/patterns/decorator-pattern/) pattern envuelve un objeto para agregar responsabilidades dinamicamente. Cuando se aplica a clientes HTTP, se convierte en una forma limpia de componer preocupaciones transversales — logging, reintentos, metricas, autenticacion — sin contaminar la logica central de la peticion.
 
 ## Cuando Usar Esto
 
@@ -50,7 +50,7 @@ El [Decorator](/patterns/design/decorator-pattern) pattern envuelve un objeto pa
 
 ## Problema
 
-Agregar logging, reintentos, metricas y autenticacion a cada [llamada HTTP](/recipes/api/call-rest-api) lleva a clases de cliente monoliticas o boilerplate copiado en cada punto de llamada.
+Agregar logging, reintentos, metricas y autenticacion a cada [llamada HTTP](/recipes/call-rest-api/) lleva a clases de cliente monoliticas o boilerplate copiado en cada punto de llamada.
 
 ## Solucion
 
@@ -201,7 +201,7 @@ El circuit breaker rastrea fallos consecutivos. Despues de `threshold` errores, 
 
 - **Conditional Decorator**: Aplica logica solo para URLs o metodos HTTP especificos
 - **Metrics Decorator**: Envuelve tiempos y distribuciones de codigos de estado a Prometheus
-- **Cache Decorator**: Combina con [Proxy](/patterns/design/proxy-pattern) pattern para cachear respuestas GET
+- **Cache Decorator**: Combina con [Proxy](/patterns/proxy-pattern/) pattern para cachear respuestas GET
 - **Circuit Breaker Decorator**: Cortocircuita peticiones despues de N fallos consecutivos, con un periodo de cooldown antes de reintentar
 - **Timeout Decorator**: Aborta peticiones que exceden un deadline configurable usando `AbortController`
 - **Rate Limit Decorator**: Enforcea un maximo de peticiones concurrentes o por segundo
@@ -237,7 +237,7 @@ El circuit breaker rastrea fallos consecutivos. Despues de `threshold` errores, 
 
 ### Como se diferencia del middleware en Express?
 
-El [middleware](/patterns/design/chain-of-responsibility-middleware) de Express opera en objetos request/response en secuencia. Los decorators envuelven una sola interfaz de cliente y pueden componerse a cualquier granularidad.
+El [middleware](/patterns/chain-of-responsibility-middleware/) de Express opera en objetos request/response en secuencia. Los decorators envuelven una sola interfaz de cliente y pueden componerse a cualquier granularidad.
 
 ### Los decorators pueden removerse dinamicamente?
 
@@ -259,7 +259,7 @@ R: Despues de 5-6 capas, el stack se vuelve dificil de debuggear. Si necesitas m
 R: No. Los decorators manejan concerns transversales: concerns a nivel de transporte como auth, reintentos, logging, caching. Las reglas de negocio pertenecen a servicios o controllers que llaman al cliente decorado.
 
 **P: Como se compara con el patron Chain of Responsibility?**
-R: Chain of Responsibility pasa una peticion a lo largo de una cadena donde cada handler decide procesar o reenviar. Los decorators siempre llaman al cliente interno y tipicamente envuelven o transforman la llamada. Ver [Chain of Responsibility](/patterns/design/chain-of-responsibility-middleware).
+R: Chain of Responsibility pasa una peticion a lo largo de una cadena donde cada handler decide procesar o reenviar. Los decorators siempre llaman al cliente interno y tipicamente envuelven o transforman la llamada. Ver [Chain of Responsibility](/patterns/chain-of-responsibility-middleware/).
 
 **P: Puedo usar este patron con clientes GraphQL?**
 R: Si. Envuelve los metodos `query` y `mutate` del cliente GraphQL con el mismo stack de decorators. Auth, logging y retry funcionan identicamente para operaciones GraphQL.
@@ -283,7 +283,7 @@ R: Los decorators pueden pasar respuestas `ReadableStream` sin cambios. Si un de
 R: Exporta una funcion factory desde un modulo compartido: `createHttpClient(config)` retorna el cliente completamente decorado. Cada servicio importa la factory y pasa su propia config (tokens, timeouts, retry counts).
 
 **P: Cual es la diferencia entre Decorator y Proxy?**
-R: Proxy controla el acceso a un objeto (lazy loading, control de acceso, caching). Decorator agrega responsabilidades a un objeto. En la practica, la implementacion es similar: ambos envuelven el target. La intencion difiere. Ver [Proxy Pattern](/patterns/design/proxy-pattern-caching).
+R: Proxy controla el acceso a un objeto (lazy loading, control de acceso, caching). Decorator agrega responsabilidades a un objeto. En la practica, la implementacion es similar: ambos envuelven el target. La intencion difiere. Ver [Proxy Pattern](/patterns/proxy-pattern-caching/).
 
 **P: Como manejo idempotencia con reintentos?**
 R: Genera una clave de idempotencia (ej. UUID) en un `IdempotencyDecorator` y agregala como header. El servidor usa esta clave para desduplicar peticiones. Esto hace los reintentos seguros para operaciones POST y PUT.

@@ -43,8 +43,8 @@ Nginx is a high-performance web server that excels as a reverse proxy and API ga
 ## When to Use This
 
 - You need to expose multiple backend services through a single entry point
-- SSL/TLS termination should happen at the edge, not in application code. See [Security Guide](/guides/security/security-best-practices-guide) for what works for TLS.
-- You want to add [rate limiting](/recipes/api/api-rate-limiting-redis), caching, or request rewriting without modifying backends
+- SSL/TLS termination should happen at the edge, not in application code. See [Security Guide](/guides/security-best-practices-guide/) for what works for TLS.
+- You want to add [rate limiting](/recipes/api-rate-limiting-redis/), caching, or request rewriting without modifying backends
 
 ## Prerequisites
 
@@ -302,7 +302,7 @@ server {
 - Enable **HTTP/2** on the frontend for multiplexed connections
 - Use **keepalive** connections to backends to reduce TCP overhead
 - Implement **sticky sessions** only when necessary; prefer stateless design
-- Monitor **upstream health** with active checks or passive failure detection. See [API Logging and Audit](/recipes/api/api-logging-audit) for health check logging.
+- Monitor **upstream health** with active checks or passive failure detection. See [API Logging and Audit](/recipes/api-logging-audit/) for health check logging.
 - Set **access logs** with custom format to capture upstream response time: `log_format upstream '$remote_addr - $request_time $upstream_response_time $status';`
 - Use **open file cache** for static assets: `open_file_cache max=1000 inactive=20s; open_file_cache_valid 30s;`
 - Configure **client body limits**: `client_max_body_size 10m;` for APIs that accept file uploads

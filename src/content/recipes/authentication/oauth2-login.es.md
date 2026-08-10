@@ -45,7 +45,7 @@ OAuth 2.0 es el estándar de la industria para autorización delegada. Permite q
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Quieras ofrecer "Iniciar sesión con Google / GitHub" en tu plataforma. Consulta [Magic Links](/recipes/authentication/magic-link-authentication) para alternativas sin contraseña.
+- Quieras ofrecer "Iniciar sesión con Google / GitHub" en tu plataforma. Consulta [Magic Links](/recipes/magic-link-authentication/) para alternativas sin contraseña.
 - Necesites acceder a datos de usuarios desde APIs de terceros en su nombre
 - Quieras reducir fatiga de contraseñas y mejorar seguridad
 - Construyas una SaaS con requisitos de SSO enterprise
@@ -158,7 +158,7 @@ El **flujo de Código de Autorización** funciona en cuatro pasos:
 3. **Callback**: El proveedor redirige de vuelta a tu app con un `code` de autorización.
 4. **Intercambio de Token**: Tu backend intercambia el `code` por un `access_token` e `id_token` usando tu `client_secret`.
 
-**PKCE** (Proof Key for Code Exchange) agrega un verificador secreto para prevenir ataques de interceptación en apps móviles y SPAs. **State** previene [CSRF](/recipes/authentication/session-management) vinculando el callback a la solicitud original.
+**PKCE** (Proof Key for Code Exchange) agrega un verificador secreto para prevenir ataques de interceptación en apps móviles y SPAs. **State** previene [CSRF](/recipes/session-management/) vinculando el callback a la solicitud original.
 
 ## Variantes
 
@@ -311,7 +311,7 @@ Sí, con el flujo de **Client Credentials**. El cliente se autentica directament
 
 ### Cómo soporto múltiples proveedores (Google, GitHub, Microsoft)?
 
-Usa una librería que abstraiga diferencias de proveedores (Passport.js, Authlib, Spring Security). Consulta [Autenticación con API Keys](/recipes/authentication/api-key-authentication) para auth máquina a máquina. Almacena campos específicos del proveedor (`provider`, `provider_user_id`) en tu tabla de usuarios. Normaliza campos de email/nombre entre proveedores para crear un perfil de usuario unificado.
+Usa una librería que abstraiga diferencias de proveedores (Passport.js, Authlib, Spring Security). Consulta [Autenticación con API Keys](/recipes/api-key-authentication/) para auth máquina a máquina. Almacena campos específicos del proveedor (`provider`, `provider_user_id`) en tu tabla de usuarios. Normaliza campos de email/nombre entre proveedores para crear un perfil de usuario unificado.
 
 ### Cuál es la diferencia entre OAuth 2.0 y OpenID Connect?
 

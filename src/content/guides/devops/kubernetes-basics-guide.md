@@ -262,18 +262,18 @@ Common namespace strategies:
 
 ## What Works
 
-- **Set [resource requests and limits](/guides/performance/performance-optimization-guide)** on every container to prevent noisy neighbors
+- **Set [resource requests and limits](/guides/performance-optimization-guide/)** on every container to prevent noisy neighbors
 - **Use readiness probes** to prevent traffic from reaching unready Pods
 - **Use liveness probes** to recover from deadlocks and hangs
-- **Never run as root** — set `securityContext.runAsNonRoot: true`. See [container security](/recipes/security/container-security).
+- **Never run as root** — set `securityContext.runAsNonRoot: true`. See [container security](/recipes/container-security/).
 - **Pin image tags** — avoid `:latest` in production
-- **Use ConfigMaps for configuration**, [Secrets](/guides/security/security-best-practices-guide) for credentials
-- **Set graceful termination** — handle SIGTERM in your app (`terminationGracePeriodSeconds`). See [deployment strategies](/guides/devops/deployment-strategies-guide).
+- **Use ConfigMaps for configuration**, [Secrets](/guides/security-best-practices-guide/) for credentials
+- **Set graceful termination** — handle SIGTERM in your app (`terminationGracePeriodSeconds`). See [deployment strategies](/guides/deployment-strategies-guide/).
 
 ## Common Mistakes
 
 - Not setting resource requests/limits, causing cluster instability
-- Using `latest` image tags, leading to unpredictable [deployments](/guides/devops/deployment-strategies-guide)
+- Using `latest` image tags, leading to unpredictable [deployments](/guides/deployment-strategies-guide/)
 - Missing readiness probes, causing 502 errors during rollouts
 - Storing secrets in ConfigMaps instead of Secrets
 - Not handling SIGTERM, causing abrupt shutdowns and data loss

@@ -57,7 +57,7 @@ Observability is the ability to understand a system's internal state by examinin
 
 ## Structured Logging
 
-Replace free-form text with machine-parseable JSON. See [Structured Logging](/recipes/observability/structured-logging) for practical implementation.
+Replace free-form text with machine-parseable JSON. See [Structured Logging](/recipes/structured-logging/) for practical implementation.
 
 ### Format
 
@@ -137,7 +137,7 @@ def handle_request():
 start_http_server(8000)  # Exposes /metrics
 ```
 
-## [Distributed Tracing](/recipes/observability/distributed-tracing)
+## [Distributed Tracing](/recipes/distributed-tracing/)
 
 Traces follow a request across multiple services.
 
@@ -202,17 +202,17 @@ groups:
 
 ## What Works
 
-- **Use correlation IDs**: Pass `trace_id` through every [service call](/guides/architecture/microservices-architecture-guide)
+- **Use correlation IDs**: Pass `trace_id` through every [service call](/guides/microservices-architecture-guide/)
 - **Log at boundaries**: Entry/exit of requests, jobs, and transactions
 - **Avoid logging sensitive data**: No passwords, tokens, or PII
-- **Set SLOs and error budgets**: Define what "good" means and measure against it.  See [monitoring](/guides/devops/monitoring-alerting-guide).
+- **Set SLOs and error budgets**: Define what "good" means and measure against it.  See [monitoring](/guides/monitoring-alerting-guide/).
 - **Alert fatigue is real**: Page only for useful, critical issues
 
 ## Common Mistakes
 
 - Logging everything at INFO level
 - Metrics without labels (no dimensions to slice by)
-- Alerting on CPU usage instead of [user-facing symptoms](/guides/devops/monitoring-alerting-guide)
+- Alerting on CPU usage instead of [user-facing symptoms](/guides/monitoring-alerting-guide/)
 - Storing logs indefinitely without a retention policy
 
 

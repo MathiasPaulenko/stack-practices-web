@@ -50,10 +50,10 @@ PDF generation is a common requirement for invoices, reports, certificates, and 
 ## When to Use
 
 Use this resource when:
-- You need to generate invoices, receipts, or order confirmations. See [Export CSV Excel](/recipes/file-handling/export-csv-excel) for tabular data exports.
-- Users request downloadable reports or analytics exports. See [Background Jobs](/recipes/devops/background-jobs) for async PDF generation.
-- You must produce legally compliant documents (contracts, certificates). See [Email Templates MJML](/recipes/frontend/email-templates-mjml) for professional email delivery.
-- You want to reuse existing HTML/CSS designs for print output. See [Image Optimization](/recipes/file-handling/image-optimization) for embedded image optimization.
+- You need to generate invoices, receipts, or order confirmations. See [Export CSV Excel](/recipes/export-csv-excel/) for tabular data exports.
+- Users request downloadable reports or analytics exports. See [Background Jobs](/recipes/background-jobs/) for async PDF generation.
+- You must produce legally compliant documents (contracts, certificates). See [Email Templates MJML](/recipes/email-templates-mjml/) for professional email delivery.
+- You want to reuse existing HTML/CSS designs for print output. See [Image Optimization](/recipes/image-optimization/) for embedded image optimization.
 
 ## Solution
 

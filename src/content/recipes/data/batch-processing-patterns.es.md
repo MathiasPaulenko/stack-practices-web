@@ -41,7 +41,7 @@ El procesamiento por lotes es la columna vertebral de pipelines de datos, flujos
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Procesas grandes datasets que no caben en memoria. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para manejar fallos transitorios.
+- Procesas grandes datasets que no caben en memoria. Consulta [Retry Logic](/recipes/retry-backoff/) para manejar fallos transitorios.
 - Construyes pipelines ETL para data warehouses
 - Generas reportes o agregaciones nocturnas
 - Migras datos entre sistemas con ventanas de mantenimiento
@@ -109,9 +109,9 @@ SELECT * FROM job_runs WHERE job_id = 'daily_report_2025_01_15' AND status = 'co
 
 Un pipeline de producción por lotes necesita tres propiedades:
 
-1. **Idempotencia**: Ejecutar el mismo trabajo dos veces debe producir el mismo resultado. Usa IDs de trabajo y checksums para saltar trabajo ya procesado. Consulta [Endpoints Idempotentes](/recipes/api/idempotent-api-endpoints) para patrones de deduplicación.
+1. **Idempotencia**: Ejecutar el mismo trabajo dos veces debe producir el mismo resultado. Usa IDs de trabajo y checksums para saltar trabajo ya procesado. Consulta [Endpoints Idempotentes](/recipes/idempotent-api-endpoints/) para patrones de deduplicación.
 2. **Tolerancia a fallos**: Fallos individuales de batch no deben crashear todo el trabajo. Implementa reintentos con backoff exponencial y una cola de mensajes fallidos.
-3. **Observabilidad**: Rastrea progreso, throughput y errores. [Registra](/recipes/api/logging) métricas para items procesados, latencia y tasas de fallo.
+3. **Observabilidad**: Rastrea progreso, throughput y errores. [Registra](/recipes/logging/) métricas para items procesados, latencia y tasas de fallo.
 
 **Estrategia de chunking**: Ajusta el tamaño de batches para balancear uso de memoria y throughput. Demasiado pequeño = overhead; demasiado grande = riesgo de OOM.
 
@@ -130,7 +130,7 @@ Un pipeline de producción por lotes necesita tres propiedades:
 - **Registra todo**: Inicio de trabajo, fin, y resultado de cada batch
 - **Usa transacciones**: Envuelve escrituras de batch en transacciones de base de datos
 - **Monitorea profundidad de cola**: Alerta cuando batches pendientes excedan umbrales
-- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe)**: Detén reintentos si el downstream está unhealthy
+- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe/)**: Detén reintentos si el downstream está unhealthy
 
 ## Errores Comunes
 
@@ -179,7 +179,7 @@ Comienza con 100-1000 items por batch. Haz benchmark con tus datos y restriccion
 
 ### ¿Debería usar una cola de trabajos como Celery o un cron job?
 
-Usa Celery/Redis para sistemas distribuidos con múltiples workers, retry logic y monitoreo. Celery provee task routing, priority queues y dead-letter handling out of the box. Para pipelines simples de un solo nodo, cron jobs bastan — pero añade `flock` para prevenir runs overlapping: `flock -n /tmp/batch.lock python batch_job.py`. Para Kubernetes, usa recursos `CronJob` con `concurrencyPolicy: Forbid`. Consulta [Rate Limiting](/recipes/api/rate-limiting) para controlar throughput. Para setups cloud-native, AWS Step Functions o Google Cloud Workflows proveen retry y state management manejados sin overhead de infraestructura.
+Usa Celery/Redis para sistemas distribuidos con múltiples workers, retry logic y monitoreo. Celery provee task routing, priority queues y dead-letter handling out of the box. Para pipelines simples de un solo nodo, cron jobs bastan — pero añade `flock` para prevenir runs overlapping: `flock -n /tmp/batch.lock python batch_job.py`. Para Kubernetes, usa recursos `CronJob` con `concurrencyPolicy: Forbid`. Consulta [Rate Limiting](/recipes/rate-limiting/) para controlar throughput. Para setups cloud-native, AWS Step Functions o Google Cloud Workflows proveen retry y state management manejados sin overhead de infraestructura.
 
 ### ¿Cómo manejo cambios de schema en medio del pipeline?
 
@@ -331,9 +331,9 @@ Los data contracts definen expectativas de schema entre producers y consumers. I
 
 ## Ver También
 
-- [Database Indexing](/recipes/performance/database-indexing) — optimización del rendimiento de queries para reads en batch
-- [Rendimiento Web](/recipes/performance/web-performance) — técnicas de rendimiento frontend y backend
-- [Load Testing](/recipes/performance/load-testing) — validación del rendimiento de batch jobs bajo carga
+- [Database Indexing](/recipes/database-indexing/) — optimización del rendimiento de queries para reads en batch
+- [Rendimiento Web](/recipes/web-performance/) — técnicas de rendimiento frontend y backend
+- [Load Testing](/recipes/load-testing/) — validación del rendimiento de batch jobs bajo carga
 
 ## Troubleshooting
 

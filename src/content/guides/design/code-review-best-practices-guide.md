@@ -114,8 +114,8 @@ Systematic reviews are more thorough:
 | **Functionality** | Does it do what the PR claims? Are edge cases handled? |
 | **Tests** | Are there tests for new logic? Do existing tests still pass? |
 | **Readability** | Are names clear? Is complexity justified? |
-| **Security** | Are inputs validated? Are secrets exposed? | [data validation](/recipes/security/data-validation-zod) |
-| **Performance** | Are there [N+1 queries](/recipes/performance/database-indexing)? Unnecessary allocations? |
+| **Security** | Are inputs validated? Are secrets exposed? | [data validation](/recipes/data-validation-zod/) |
+| **Performance** | Are there [N+1 queries](/recipes/database-indexing/)? Unnecessary allocations? |
 | **Maintainability** | Is there duplicated code? Will this be hard to change? |
 
 ### 3. Categorize Feedback

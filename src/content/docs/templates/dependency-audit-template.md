@@ -41,7 +41,7 @@ seo:
 
 
 ---
-Use this template to evaluate libraries before adding them or during periodic audits. See [Web Application Security Guide](/guides/security/web-application-security-guide) for broader security practices.
+Use this template to evaluate libraries before adding them or during periodic audits. See [Web Application Security Guide](/guides/web-application-security-guide/) for broader security practices.
 
 ## Overview
 
@@ -235,7 +235,7 @@ Alternative to Dependabot with more configuration options: grouped updates, auto
 ## What Works
 
 - **Audit before adding** — retroactive audits discover problems too late
-- **Automate scanning** — Dependabot, Snyk, or OWASP Dependency-Check in CI. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for integrating security scans.
+- **Automate scanning** — Dependabot, Snyk, or OWASP Dependency-Check in CI. See [CI/CD Pipeline Guide](/guides/cicd-pipeline-guide/) for integrating security scans.
 - **Pin versions** — lockfiles prevent silent upgrades to compromised versions
 - **Review license compatibility** — AGPL in a SaaS backend is a legal risk
 - **Track deprecation** — libraries die slowly; monitor health quarterly
@@ -302,7 +302,7 @@ For monorepos, audit shared dependencies across all packages. Use workspace-leve
 
 ### How often should I audit dependencies?
 
-New dependencies before adding. Existing dependencies quarterly. Critical dependencies monthly. After any security incident involving a dependency, audit all dependencies in the same ecosystem. Follow [Security Incident Response Template](/docs/templates/security-incident-response-template) procedures.
+New dependencies before adding. Existing dependencies quarterly. Critical dependencies monthly. After any security incident involving a dependency, audit all dependencies in the same ecosystem. Follow [Security Incident Response Template](/docs/security-incident-response-template/) procedures.
 
 ### What license is safe for commercial use?
 
@@ -321,7 +321,7 @@ A transitive dependency is a library that your dependency depends on. If you ins
 1. Check if a patched version exists and upgrade immediately
 2. If no patch exists, check for a workaround or mitigation
 3. If no workaround exists, evaluate replacing the dependency
-4. Document the decision in a [Security Incident Response](/docs/templates/security-incident-response-template) if the vulnerability was exploited
+4. Document the decision in a [Security Incident Response](/docs/security-incident-response-template/) if the vulnerability was exploited
 
 ### Should I use an SBOM (Software Bill of Materials)?
 

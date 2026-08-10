@@ -49,9 +49,9 @@ Istio proporciona gestion de trafico granular a traves de virtual services y des
 
 ## Cuando Usar Esto
 
-- Despliegas a Kubernetes y necesitas desplazamiento progresivo de trafico. Consulta [Blue-Green Deployment](/recipes/devops/blue-green-deployment) para releases sin downtime.
-- Los nuevos releases requieren validacion en el mundo real antes del rollout completo. Consulta [Feature Flags](/recipes/devops/feature-flags) para rollouts graduales.
-- Quieres minimizar el radio de impacto de fallos de despliegue. Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para detección temprana de fallos.
+- Despliegas a Kubernetes y necesitas desplazamiento progresivo de trafico. Consulta [Blue-Green Deployment](/recipes/blue-green-deployment/) para releases sin downtime.
+- Los nuevos releases requieren validacion en el mundo real antes del rollout completo. Consulta [Feature Flags](/recipes/feature-flags/) para rollouts graduales.
+- Quieres minimizar el radio de impacto de fallos de despliegue. Consulta [Health Check Endpoint](/recipes/health-check-endpoint/) para detección temprana de fallos.
 
 ## Requisitos Previos
 

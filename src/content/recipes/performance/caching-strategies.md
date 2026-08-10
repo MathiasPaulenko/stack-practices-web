@@ -41,9 +41,9 @@ Caching is the single most useful technique for improving application performanc
 ## When to Use
 
 Use this resource when:
-- [Database queries](/recipes/performance/query-optimization) are becoming a bottleneck under load
-- [API response times](/recipes/api/call-rest-api) exceed 200ms for read-heavy endpoints
-- Serving static assets (images, JS, CSS) to global users via [CDN](/recipes/data/caching)
+- [Database queries](/recipes/query-optimization/) are becoming a bottleneck under load
+- [API response times](/recipes/call-rest-api/) exceed 200ms for read-heavy endpoints
+- Serving static assets (images, JS, CSS) to global users via [CDN](/recipes/caching/)
 - Building high-traffic applications where stale data is acceptable
 
 ## Solution
@@ -109,7 +109,7 @@ app.get('/api/products', (req, res) => {
 **Cache invalidation approaches**:
 - **Time-based (TTL)**: Simple but can serve stale data
 - **Key-based**: Include version or hash in cache key
-- **Event-based**: Invalidate on data change via message bus.  See [cache invalidation](/recipes/performance/cache-invalidation).
+- **Event-based**: Invalidate on data change via message bus.  See [cache invalidation](/recipes/cache-invalidation/).
 
 ## Variants
 
@@ -323,7 +323,7 @@ Use a mutex or Redis `SET NX` (lock) so only one request rebuilds the cache whil
 
 ### Should I cache GraphQL responses?
 
-Yes, but cache by query hash + variables. [Apollo Server](/recipes/api/call-rest-api) has built-in response caching with `cacheControl` directives. For persisted queries, cache by query ID.
+Yes, but cache by query hash + variables. [Apollo Server](/recipes/call-rest-api/) has built-in response caching with `cacheControl` directives. For persisted queries, cache by query ID.
 
 ### What is the difference between Redis and Memcached?
 

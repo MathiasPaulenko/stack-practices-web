@@ -39,9 +39,9 @@ Mongoose proporciona una solucion basada en esquemas para modelar datos de aplic
 
 ## Cuando Usar Esto
 
-- Necesitas una forma estructurada de interactuar con MongoDB desde Node.js. Consulta [Parse JSON](/recipes/data/parse-json) para manejo de documentos.
+- Necesitas una forma estructurada de interactuar con MongoDB desde Node.js. Consulta [Parse JSON](/recipes/parse-json/) para manejo de documentos.
 - Quieres validacion automatica y hooks de middleware
-- Estas construyendo una API que requiere patrones relacionales en una base de datos documental. Consulta [SQL Joins](/recipes/databases/sql-joins) para patrones relacionales.
+- Estas construyendo una API que requiere patrones relacionales en una base de datos documental. Consulta [SQL Joins](/recipes/sql-joins/) para patrones relacionales.
 
 ## Requisitos Previos
 
@@ -211,7 +211,7 @@ app.post('/orders', async (req, res) => {
 
 - Habilita **read preference `secondary`** para cargas de trabajo intensivas en lectura en replica sets
 - Usa **indices compuestos** para campos de consulta frecuentemente combinados
-- Implementa **paginacion basada en cursor** para grandes datasets en lugar de skip/limit. Consulta [Pagination](/recipes/api/pagination) para patrones de cursor.
+- Implementa **paginacion basada en cursor** para grandes datasets en lugar de skip/limit. Consulta [Pagination](/recipes/pagination/) para patrones de cursor.
 - Agrega **plugins de Mongoose** para patrones comunes (eliminacion suave, auditoria)
 
 ## FAQ

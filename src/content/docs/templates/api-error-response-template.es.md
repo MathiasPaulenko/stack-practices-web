@@ -47,7 +47,7 @@ Esta plantilla cubre:
 
 ## Estructura de la Plantilla
 
-Usa esta plantilla para construir respuestas de error consistentes y util para cualquier API REST o HTTP. Consulta también la [Plantilla de Documentación API](/docs/templates/api-documentation) para documentación de endpoints.
+Usa esta plantilla para construir respuestas de error consistentes y util para cualquier API REST o HTTP. Consulta también la [Plantilla de Documentación API](/docs/api-documentation/) para documentación de endpoints.
 
 ---
 
@@ -320,7 +320,7 @@ Usa el arreglo `errors` con un objeto por causa. Cada objeto debe incluir `field
 
 ### ¿Cómo manejo errores de servicios downstream?
 
-Envuelve los errores downstream en tu propio formato. Considera los patrones [Circuit Breaker](/patterns/design/circuit-breaker-pattern) y [Retry](/patterns/design/retry-pattern) para comunicación downstream resiliente. No proxies cuerpos de error de terceros directamente. Mapea el fallo downstream a uno de tus códigos de error documentados, loguea la respuesta upstream original y retorna un mensaje sanitizado al cliente.
+Envuelve los errores downstream en tu propio formato. Considera los patrones [Circuit Breaker](/patterns/circuit-breaker-pattern/) y [Retry](/patterns/retry-pattern/) para comunicación downstream resiliente. No proxies cuerpos de error de terceros directamente. Mapea el fallo downstream a uno de tus códigos de error documentados, loguea la respuesta upstream original y retorna un mensaje sanitizado al cliente.
 
 ### ¿Debería incluir un correlation ID además del request ID?
 
@@ -328,7 +328,7 @@ Sí. Un request ID identifica la solicitud del cliente. Un correlation ID traza 
 
 ### ¿Cómo versiono los formatos de respuesta de error?
 
-Agrega campos nuevos, nunca elimines ni renombres existentes. Si necesitas breaking changes, crea un nuevo formato de error y usa content negotiation (`Accept: application/problem+json; version=2`) para que los clientes opten. Documenta la estrategia de versionado en tu [Documentación de API](/docs/templates/api-documentation).
+Agrega campos nuevos, nunca elimines ni renombres existentes. Si necesitas breaking changes, crea un nuevo formato de error y usa content negotiation (`Accept: application/problem+json; version=2`) para que los clientes opten. Documenta la estrategia de versionado en tu [Documentación de API](/docs/api-documentation/).
 
 ### ¿Debería retornar diferentes errores para el mismo problema según el contexto?
 

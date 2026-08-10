@@ -49,7 +49,7 @@ Cross-Origin Resource Sharing (CORS) is a browser security mechanism that contro
 ## When to Use
 
 Use this resource when:
-- Your frontend (SPA, mobile app, third-party widget) runs on a different origin than your [API](/recipes/api/call-rest-api)
+- Your frontend (SPA, mobile app, third-party widget) runs on a different origin than your [API](/recipes/call-rest-api/)
 - You need to support authenticated cross-origin requests with cookies or authorization headers
 - You're building a public API consumed by multiple external domains
 - Debugging mysterious "CORS policy" browser errors on API calls
@@ -244,7 +244,7 @@ public class SecurityConfig {
 2. Reflecting the request `Origin` header without validation, allowing any website to call your API.
 3. Forgetting to handle the `OPTIONS` preflight, causing browser CORS errors on PUT/DELETE requests.
 4. Not setting `Vary: Origin`, leading to CDN cache poisoning where one origin's response is served to another.
-5. Enabling `allowCredentials` on public APIs without origin validation, exposing authenticated endpoints to malicious sites. See [API Security Checklist](/guides/security/api-security-checklist-guide) for origin validation.
+5. Enabling `allowCredentials` on public APIs without origin validation, exposing authenticated endpoints to malicious sites. See [API Security Checklist](/guides/api-security-checklist-guide/) for origin validation.
 
 
 ## Troubleshooting
@@ -291,7 +291,7 @@ Not directly in `Access-Control-Allow-Origin`. The header requires an exact orig
 
 ### Do I need CORS if I deploy my frontend and API on the same domain?
 
-No. CORS only applies when the origin (scheme + host + port) of the frontend differs from the API. If both run on `https://example.com` (or the API is on a subdomain with proper configuration), no CORS headers are needed. Using a [reverse proxy](/recipes/api/nginx-reverse-proxy) (nginx) to route `/api` to your backend is a common same-origin deployment strategy.
+No. CORS only applies when the origin (scheme + host + port) of the frontend differs from the API. If both run on `https://example.com` (or the API is on a subdomain with proper configuration), no CORS headers are needed. Using a [reverse proxy](/recipes/nginx-reverse-proxy/) (nginx) to route `/api` to your backend is a common same-origin deployment strategy.
 
 ### How do I debug CORS errors in the browser?
 

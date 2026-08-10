@@ -39,13 +39,13 @@ seo:
 
 
 ---
-Reduce el tamano del bundle inicial en [single-page applications](/recipes/performance/lazy-loading) dividiendo codigo a nivel de ruta y componente. Esta recipe demuestra React.lazy, imports en vivo y estrategias de preload que mantienen time-to-interactive bajo sin sacrificar experiencia de usuario.
+Reduce el tamano del bundle inicial en [single-page applications](/recipes/lazy-loading/) dividiendo codigo a nivel de ruta y componente. Esta recipe demuestra React.lazy, imports en vivo y estrategias de preload que mantienen time-to-interactive bajo sin sacrificar experiencia de usuario.
 
 ## Cuando Usar Esto
 
 - Tu bundle de SPA excede 200KB gzip y carga lentamente en mobile
 - No todas las rutas son accedidas por cada usuario en la primera visita
-- Componentes pesados (graficos, editores, mapas) solo se necesitan en paginas especificas. Consulta [MVC Pattern Frontend](/patterns/design/mvc-pattern-frontend) para arquitectura de componentes.
+- Componentes pesados (graficos, editores, mapas) solo se necesitan en paginas especificas. Consulta [MVC Pattern Frontend](/patterns/mvc-pattern-frontend/) para arquitectura de componentes.
 
 ## Solucion
 
@@ -186,7 +186,7 @@ function useLazyLoad() {
 ## Consideraciones de Produccion
 
 - Setea fallback UI apropiado para prevenir layout shifts mientras carga
-- Monitorea [Core Web Vitals](/guides/performance/performance-optimization-guide) (LCP, INP, CLS) despues de hacer splitting
+- Monitorea [Core Web Vitals](/guides/performance-optimization-guide/) (LCP, INP, CLS) despues de hacer splitting
 - Usa `preload` para rutas criticas accedidas por la mayoria de usuarios
 
 ## Errores Comunes

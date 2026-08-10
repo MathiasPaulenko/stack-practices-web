@@ -42,7 +42,7 @@ There are two primary strategies: offset-based (skip N, take M) and cursor-based
 
 Use this recipe when:
 
-- Building [REST](/recipes/api/call-rest-api) or [GraphQL](/recipes/api/graphql-api) APIs that return collections
+- Building [REST](/recipes/call-rest-api/) or [GraphQL](/recipes/graphql-api/) APIs that return collections
 - Displaying large tables or lists in a UI
 - Exporting data in manageable chunks
 - Avoiding out-of-memory errors when processing large datasets
@@ -142,7 +142,7 @@ SELECT COUNT(*) FROM users;
 ## What Works
 
 - **Use cursor pagination for high-traffic APIs**: Prevents performance cliffs
-- **Always ORDER BY**: Without ordering, pagination is non-deterministic.  See [SQL Joins](/recipes/databases/sql-joins) for query optimization.
+- **Always ORDER BY**: Without ordering, pagination is non-deterministic.  See [SQL Joins](/recipes/sql-joins/) for query optimization.
 - **Return total count optionally**: Only when necessary — it requires an extra `COUNT(*)` query
 - **Validate page_size**: Cap at a maximum (e. g.
 - **Use indexed columns for cursor fields**: Ensures efficient range scans
@@ -153,7 +153,7 @@ SELECT COUNT(*) FROM users;
 - Not ordering results, causing items to shift between pages
 - Using `SELECT COUNT(*)` unnecessarily on massive tables
 - Allowing unlimited `page_size` parameters
-- Using offset pagination on datasets with millions of rows. See [Cursor Pagination](/recipes/api/cursor-pagination-postgresql) for growth-ready pagination.
+- Using offset pagination on datasets with millions of rows. See [Cursor Pagination](/recipes/cursor-pagination-postgresql/) for growth-ready pagination.
 - Ignoring race conditions where data is inserted/deleted between page requests
 
 ## When Not to Use This Approach

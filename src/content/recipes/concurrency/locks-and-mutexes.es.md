@@ -47,7 +47,7 @@ Usa esta receta cuando:
 - MÃºltiples threads leen y escriben el mismo estado mutable
 - Protegiendo caches en memoria, contadores o configuraciÃ³n compartida entre threads
 - Limitando acceso concurrente a recursos externos (APIs, bases de datos, file handles)
-- Implementando [estructuras de datos thread-safe](/recipes/concurrency/concurrent-data-structures) (colas, maps, pools)
+- Implementando [estructuras de datos thread-safe](/recipes/concurrent-data-structures/) (colas, maps, pools)
 - Evitando data races sin rediseÃ±ar toda la arquitectura para ser lock-free
 
 ## SoluciÃ³n
@@ -181,7 +181,7 @@ int main() {
 
 - **Mutex**: Otros threads bloquean hasta que el lock se libera.   Simple y Ãºtil, pero puede convertirse en cuello de botella si la secciÃ³n crÃ­tica es grande o frecuentemente accedida.
 - **Read-write lock**: permite mÃºltiples lectores concurrentes pero solo un escritor.   Ideal para cargas de trabajo dominadas por lecturas donde las escrituras son raras.   Un lector no bloquea a otros lectores, pero un escritor bloquea a todos.   Algunas implementaciones soportan downgrade de write a read.
-- **Semaphore**: un lock generalizado con un contador.   Un mutex es un semaphore con count 1.   Un pool semaphore con count 10 permite que 10 threads entren simultÃ¡neamente.   Ãštil para [pools de recursos](/recipes/performance/connection-pooling), throttling y backpressure.
+- **Semaphore**: un lock generalizado con un contador.   Un mutex es un semaphore con count 1.   Un pool semaphore con count 10 permite que 10 threads entren simultÃ¡neamente.   Ãštil para [pools de recursos](/recipes/connection-pooling/), throttling y backpressure.
 - **Operaciones atÃ³micas**: updates libres de locks usando instrucciones de CPU como `CAS` (compare-and-swap).   MÃ¡s rÃ¡pidas que locks para operaciones simples pero limitadas en alcance.   Usar para contadores y flags.   Updates complejos aÃºn requieren locks.
 
 ## Variantes
@@ -200,7 +200,7 @@ int main() {
 - **Siempre desbloquea en finally**: un thread que lanza una excepciÃ³n mientras sostiene un lock nunca lo liberarÃ¡, deadlockeando otros threads.
 - **Evita locks anidados**: adquirir el lock A y luego el lock B, mientras otro thread adquiere B y luego A, crea un deadlock clÃ¡sico.   Si los locks anidados son inevitables, adquÃ­relos siempre en un orden global consistente.
 - **Prefiere read-write locks para datos dominados por lectura**: si el 99% de los accesos son lecturas, un mutex serializa el 99% de las operaciones innecesariamente.   Un read-write lock permite lecturas paralelas, mejorando dramÃ¡ticamente el throughput en caches, configuraciÃ³n y tablas de lookup.
-- **Usa atÃ³micos para contadores simples**: No uses atÃ³micos para operaciones compuestas â€” esas requieren un lock.   Consulta [Thread Pools](/recipes/concurrency/thread-pools) para gestionar workers concurrentes.
+- **Usa atÃ³micos para contadores simples**: No uses atÃ³micos para operaciones compuestas â€” esas requieren un lock.   Consulta [Thread Pools](/recipes/thread-pools/) para gestionar workers concurrentes.
 
 ## Errores comunes
 
@@ -311,7 +311,7 @@ R: Usa `synchronized` para casos simples â€” es menos propenso a errores (u
 R: El GIL previene paralelismo real de threads para trabajo CPU, pero los locks aÃºn son necesarios para thread safety. Dos threads aÃºn pueden intercalar operaciones en datos compartidos entre instrucciones de bytecode. Usa `threading.Lock` para estado mutable compartido.
 
 **P: Â¿QuÃ© es lock contention y cÃ³mo la reduzco?**
-R: ContenciÃ³n ocurre cuando mÃºltiples threads compiten por el mismo lock. RedÃºcela: (1) achicando secciones crÃ­ticas, (2) usando read-write locks, (3) sharding datos (cada shard tiene su propio lock), (4) usando [estructuras lock-free](/recipes/concurrency/concurrent-data-structures), o (5) reduciendo el nÃºmero de threads.
+R: ContenciÃ³n ocurre cuando mÃºltiples threads compiten por el mismo lock. RedÃºcela: (1) achicando secciones crÃ­ticas, (2) usando read-write locks, (3) sharding datos (cada shard tiene su propio lock), (4) usando [estructuras lock-free](/recipes/concurrent-data-structures/), o (5) reduciendo el nÃºmero de threads.
 
 **P: Â¿Son semÃ¡foros y mutexes lo mismo?**
 R: Un mutex es un semÃ¡foro binario (count = 1) con semÃ¡ntica de ownership â€” solo el thread que lo bloqueÃ³ puede desbloquearlo. Un semÃ¡foro tiene un contador configurable y no tiene ownership. Usa mutex para acceso exclusivo; semÃ¡foro para pools de recursos.

@@ -54,8 +54,8 @@ Despite their cryptic syntax, regex is indispensable for working with unstructur
 
 Use this recipe when:
 
-- Validating email addresses, phone numbers, or IDs. See [Data Validation](/recipes/data/data-validation) for schema-based approaches.
-- Extracting data from unstructured text or [log files](/recipes/api/logging)
+- Validating email addresses, phone numbers, or IDs. See [Data Validation](/recipes/data-validation/) for schema-based approaches.
+- Extracting data from unstructured text or [log files](/recipes/logging/)
 - Replacing or formatting strings with complex rules
 - Splitting text on live delimiters
 - Searching for patterns within large documents
@@ -187,7 +187,7 @@ for line in lines:
 
 ## What Works
 
-- **Always escape special characters** when building regex live. See [Input Validation](/recipes/api/input-validation) for safe string handling.
+- **Always escape special characters** when building regex live. See [Input Validation](/recipes/input-validation/) for safe string handling.
 - **Use raw strings** in Python (`r'...'`) to avoid double escaping
 - **Prefer explicit character classes** over `.` (dot) for predictable matching
 - **Anchor your patterns** with `^` and `$` when validating entire strings

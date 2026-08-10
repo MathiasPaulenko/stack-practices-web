@@ -39,7 +39,7 @@ seo:
 
 
 ---
-Usa este checklist antes de declarar un deployment exitoso. Combínalo con la [Plantilla de Release Notes](/docs/templates/release-notes-template) para comunicación y la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para automatización.
+Usa este checklist antes de declarar un deployment exitoso. Combínalo con la [Plantilla de Release Notes](/docs/release-notes-template/) para comunicación y la [Guía de CI/CD Pipeline](/guides/cicd-pipeline-guide/) para automatización.
 
 ## Resumen
 
@@ -197,9 +197,9 @@ Una vez que todos los checks pasan, recolecta sign-offs del deployer y on-call. 
 
 ## Lo que funciona
 
-- **Automatiza el checklist** — CI debería fallar el deploy si los health checks no pasan. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para integración.
-- **Testea rollback antes de necesitarlo** — un rollback que nunca testeaste es una apuesta. Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template) para planificación amplia.
-- **Mantén la versión anterior warm** — deployments blue-green te permiten volver instantáneamente. Consulta la [Guía de Estrategias de Deployment](/guides/devops/deployment-strategies-guide) para patrones.
+- **Automatiza el checklist** — CI debería fallar el deploy si los health checks no pasan. Consulta la [Guía de CI/CD Pipeline](/guides/cicd-pipeline-guide/) para integración.
+- **Testea rollback antes de necesitarlo** — un rollback que nunca testeaste es una apuesta. Consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/disaster-recovery-plan-template/) para planificación amplia.
+- **Mantén la versión anterior warm** — deployments blue-green te permiten volver instantáneamente. Consulta la [Guía de Estrategias de Deployment](/guides/deployment-strategies-guide/) para patrones.
 - **Usa monitoreo sintético** — probes externos detectan issues que tus checks internos no ven
 - **Documenta actual vs esperado** — las desviaciones se convierten en datos de respuesta a incidentes
 - **Configura thresholds de alerta antes de deployar** — sabe qué es "normal" para la nueva versión
@@ -209,7 +209,7 @@ Una vez que todos los checks pasan, recolecta sign-offs del deployer y on-call. 
 
 - Saltarse verificación porque "los tests pasaron" — el tráfico de producción es la prueba real
 - No chequear tasas de error post-deploy — un deploy que incrementa errores en 0.1% es un deploy fallido
-- Asumir que rollback es trivial — testea tu procedimiento de rollback trimestralmente. Para planificación de desastres, consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/templates/disaster-recovery-plan-template).
+- Asumir que rollback es trivial — testea tu procedimiento de rollback trimestralmente. Para planificación de desastres, consulta la [Plantilla de Plan de Recuperación ante Desastres](/docs/disaster-recovery-plan-template/).
 - Deployar sin coverage de on-call — si la verificación falla, alguien debe estar disponible para responder
 - Chequear muy pocas métricas — CPU y error rate no son suficientes; chequea métricas de negocio también
 - Sin criterios de decisión de rollback — define qué dispara un rollback automático antes de deployar
@@ -226,7 +226,7 @@ Para deployments blue-green, corre la nueva versión (green) junto a la vieja (b
 
 ### Verificación de migración de base de datos
 
-Para deployments con cambios de schema, verifica: migración completada, backward compatibility, performance de queries y uso de índices. Ten un script de migración de rollback testeado en staging. Consulta la [Plantilla de Documentación de Schema de Base de Datos](/docs/templates/database-schema-documentation-template) para tracking de schema.
+Para deployments con cambios de schema, verifica: migración completada, backward compatibility, performance de queries y uso de índices. Ten un script de migración de rollback testeado en staging. Consulta la [Plantilla de Documentación de Schema de Base de Datos](/docs/database-schema-documentation-template/) para tracking de schema.
 
 ## Automatización
 
@@ -289,7 +289,7 @@ Investiga inmediatamente. Los smoke tests cubren paths críticos de usuarios; lo
 
 ### ¿Debería automatizar o manualizar el checklist?
 
-Automatiza health checks y smoke tests en CI. Consulta la [Guía de Monitoreo y Alertas](/guides/devops/monitoring-alerting-guide) para probes. La verificación manual es para juicios de negocio críticos ("¿el flujo de checkout se siente bien?"). El objetivo es gates automatizados con supervisión humana.
+Automatiza health checks y smoke tests en CI. Consulta la [Guía de Monitoreo y Alertas](/guides/monitoring-alerting-guide/) para probes. La verificación manual es para juicios de negocio críticos ("¿el flujo de checkout se siente bien?"). El objetivo es gates automatizados con supervisión humana.
 
 ### ¿Qué métricas debería trackear post-deployment?
 
@@ -301,7 +301,7 @@ Roll back cuando: el error rate aumenta considerablemente, flujos críticos de u
 
 ### ¿Cómo manejo deployments con breaking changes de base de datos?
 
-Usa el patrón expand-contract: deploya el nuevo código que soporta ambos schemas (viejo y nuevo), migra los datos, luego deploya código que usa solo el nuevo schema. Nunca deployes breaking schema changes y code changes en el mismo release. Consulta la [Plantilla de Documentación de Schema](/docs/templates/database-schema-documentation-template) para tracking de migraciones.
+Usa el patrón expand-contract: deploya el nuevo código que soporta ambos schemas (viejo y nuevo), migra los datos, luego deploya código que usa solo el nuevo schema. Nunca deployes breaking schema changes y code changes en el mismo release. Consulta la [Plantilla de Documentación de Schema](/docs/database-schema-documentation-template/) para tracking de migraciones.
 
 ### ¿Quién debería completar el checklist?
 

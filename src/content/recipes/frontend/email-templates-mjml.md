@@ -37,9 +37,9 @@ Email HTML is notoriously difficult due to inconsistent client rendering engines
 
 ## When to Use This
 
-- Transactional emails (password resets, order confirmations) must render reliably. See [Input Validation](/recipes/api/input-validation) for validating email form data.
-- Marketing newsletters need responsive layouts on mobile and desktop. See [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) for responsive frontend design.
-- You want to avoid writing table-based HTML by hand. See [Component Testing](/recipes/testing/e2e-testing) for testing email components.
+- Transactional emails (password resets, order confirmations) must render reliably. See [Input Validation](/recipes/input-validation/) for validating email form data.
+- Marketing newsletters need responsive layouts on mobile and desktop. See [SPA Code Splitting](/recipes/spa-code-splitting-lazy/) for responsive frontend design.
+- You want to avoid writing table-based HTML by hand. See [Component Testing](/recipes/unit-testing/) for testing email components.
 
 ## Solution
 

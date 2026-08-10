@@ -266,7 +266,7 @@ The Template Method Pattern has two types of methods in the base class:
 - **Keep hooks optional** — document clearly which methods are required vs. optional
 - **Minimize the number of abstract methods** — too many make subclasses complex
 - **Document the algorithm's steps** and their invariants
-- **Consider composition ([Strategy](/patterns/design/strategy-pattern))** when subclasses would need to override many methods
+- **Consider composition ([Strategy](/patterns/strategy-pattern/))** when subclasses would need to override many methods
 
 ## Common Mistakes
 
@@ -279,10 +279,10 @@ The Template Method Pattern has two types of methods in the base class:
 ## FAQ
 
 **Q: What is the difference between Template Method and Strategy?**
-A: Template Method uses inheritance to vary parts of an algorithm. [Strategy](/patterns/design/strategy-pattern) uses composition to swap entire algorithms. Prefer Strategy when you need runtime flexibility or many variations.
+A: Template Method uses inheritance to vary parts of an algorithm. [Strategy](/patterns/strategy-pattern/) uses composition to swap entire algorithms. Prefer Strategy when you need runtime flexibility or many variations.
 
 **Q: Can I combine Template Method with Factory Method?**
-A: Yes — very common. The template method can call a [Factory](/patterns/design/factory-pattern) Method to create objects at specific steps, letting subclasses customize which classes are instantiated.
+A: Yes — very common. The template method can call a [Factory](/patterns/factory-pattern/) Method to create objects at specific steps, letting subclasses customize which classes are instantiated.
 
 ### Is this pattern suitable for small projects?
 

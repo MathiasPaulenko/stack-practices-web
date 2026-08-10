@@ -44,9 +44,9 @@ Aqui hay una implementacion de un event store, proyecciones (read models) y snap
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Necesitas un [audit trail](/recipes/api/logging) completo de todos los cambios de estado (finanzas, cumplimiento)
-- Se requieren consultas temporales: "¿Cuál era el nivel de inventario hace 30 días?" Consulta [Date Formatting](/recipes/data/date-formatting) para consultas basadas en tiempo.
-- Quieres desacoplar modelos de escritura y lectura ([CQRS](/patterns/design/cqrs-pattern))
+- Necesitas un [audit trail](/recipes/logging/) completo de todos los cambios de estado (finanzas, cumplimiento)
+- Se requieren consultas temporales: "¿Cuál era el nivel de inventario hace 30 días?" Consulta [Date Formatting](/recipes/date-formatting/) para consultas basadas en tiempo.
+- Quieres desacoplar modelos de escritura y lectura ([CQRS](/patterns/cqrs-pattern/))
 - Reconstruir read models desde cero es preferible a migraciones de esquema complejas
 
 ## Solución
@@ -274,15 +274,15 @@ El esquema de base de datos relacional es simple: una tabla `events` con `aggreg
 ## Lo que funciona
 
 - **Versiona cada evento**: El control de concurrencia optimista previene actualizaciones perdidas
-- **Usa JSONB/JSON para payloads**: Flexibilidad de esquema sin migraciones; valida en la capa de aplicación.   Consulta [Parse JSON](/recipes/data/parse-json) para datos estructurados.
+- **Usa JSONB/JSON para payloads**: Flexibilidad de esquema sin migraciones; valida en la capa de aplicación.   Consulta [Parse JSON](/recipes/parse-json/) para datos estructurados.
 - **Crea snapshots cada N eventos**: Balance entre almacenamiento y rendimiento de reproducción
 - **Mantén los eventos pequeños**: Payloads grandes ralentizan la reproducción y aumentan el almacenamiento
-- **Separa proyecciones del event store**: Las proyecciones pueden reconstruirse; los eventos son la fuente de verdad.   Consulta [Redis Caching](/recipes/databases/caching-redis) para cache de read models.
+- **Separa proyecciones del event store**: Las proyecciones pueden reconstruirse; los eventos son la fuente de verdad.   Consulta [Redis Caching](/recipes/caching-redis/) para cache de read models.
 
 ## Errores Comunes
 
 - **No versionar eventos**: Sin números de versión no puedes detectar modificaciones concurrentes
-- **Almacenar estado actual Y eventos**: Esto crea escrituras duales y riesgos de consistencia.   Consulta [Database Transactions](/recipes/databases/database-transactions) para escrituras atomicas.
+- **Almacenar estado actual Y eventos**: Esto crea escrituras duales y riesgos de consistencia.   Consulta [Database Transactions](/recipes/database-transactions/) para escrituras atomicas.
 - **Reproducir todos los eventos en cada lectura**: Usa snapshots o tablas de proyección dedicadas
 - **Eventos mutables**: Los eventos deben ser inmutables — nunca actualices o borres eventos históricos
 - **Falta de evolución de esquema de eventos**: Eventos antiguos necesitan estrategias de migración a medida que el modelo de dominio cambia

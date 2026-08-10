@@ -60,7 +60,7 @@ The template covers four areas:
 3. **Indexing strategy** — what each index serves, when it was added, what query it optimizes
 4. **Migration tracking** — schema versions, change history, rollback notes
 
-Pair this template with the [Database Migration Runbook](/docs/templates/database-migration-runbook-template) for operational change tracking.
+Pair this template with the [Database Migration Runbook](/docs/database-migration-runbook-template/) for operational change tracking.
 
 ## Template
 
@@ -194,9 +194,9 @@ users 1───∞ orders
 
 ## What Works
 
-- **Document every table and column** — Future developers (including yourself) will thank you. Pair schema docs with a [Migration Runbook](/docs/templates/database-migration-runbook-template) for change tracking.
+- **Document every table and column** — Future developers (including yourself) will thank you. Pair schema docs with a [Migration Runbook](/docs/database-migration-runbook-template/) for change tracking.
 - **Explain business meaning, not just types** — `status` is obvious; why `metadata` exists is not
-- **Include the "why" for indexes** — Indexes have cost; document what query they serve. See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) for indexing strategy.
+- **Include the "why" for indexes** — Indexes have cost; document what query they serve. See [SQL Performance Tuning Guide](/guides/sql-performance-tuning-guide/) for indexing strategy.
 - **Version your schema docs** — Track what changed and when, just like code
 - **Keep the ER diagram updated** — Visual reference is faster than reading SQL for understanding relationships
 - **Mark deprecated columns** — Do not delete docs for dropped columns immediately; mark them deprecated with a removal date
@@ -315,7 +315,7 @@ For organizations with existing wiki infrastructure, adapt the template sections
 
 ### Should I auto-generate schema docs from the database?
 
-Yes, for the structural baseline. Tools like tbls, dbdocs, or pg_dump comments are great starting points. Track structural changes with the [Database Migration Runbook](/docs/templates/database-migration-runbook-template). But always add narrative documentation — the "why" behind design decisions cannot be extracted from DDL.
+Yes, for the structural baseline. Tools like tbls, dbdocs, or pg_dump comments are great starting points. Track structural changes with the [Database Migration Runbook](/docs/database-migration-runbook-template/). But always add narrative documentation — the "why" behind design decisions cannot be extracted from DDL.
 
 ### How do I keep schema docs in sync with the database?
 

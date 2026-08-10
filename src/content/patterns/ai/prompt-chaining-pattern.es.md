@@ -379,7 +379,7 @@ El patrón intercambia latencia por calidad. Una cadena de 4 pasos toma 4x la la
 A: 3-6 pasos funciona mejor. Mas alla de eso, la latencia y la probabilidad de fallo se acumulan. Si necesitas mas pasos, considera dividir en sub-cadenas o usar un loop de agente.
 
 **Q: Debo usar el mismo modelo para todos los pasos?**
-A: No. Los pasos de extraccion y clasificacion se benefician de temperatura baja y modelos enfocados. Pasos creativos como escritura o formateo pueden usar parametros diferentes. Usa el [Patrón LLM Router](/patterns/ai/llm-router-pattern) para seleccionar modelos por paso.
+A: No. Los pasos de extraccion y clasificacion se benefician de temperatura baja y modelos enfocados. Pasos creativos como escritura o formateo pueden usar parametros diferentes. Usa el [Patrón LLM Router](/patterns/llm-router-pattern/) para seleccionar modelos por paso.
 
 **Q: Como manejo un paso que falla despues de todos los reintentos?**
 A: Devuelve resultados parciales con un estado claro. Deja que el llamador decida si reintentar el paso fallido, saltarlo, o abortar. Nunca ocultes fallos silenciosamente.

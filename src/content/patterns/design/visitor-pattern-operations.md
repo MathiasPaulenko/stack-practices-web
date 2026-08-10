@@ -39,13 +39,13 @@ seo:
 
 ---
 
-The [Visitor](/patterns/design/visitor-pattern) pattern separates an algorithm from the object structure it operates on. By moving operations into visitor classes, you can add new behaviors to a class hierarchy without modifying existing element classes. This is ideal when operations change frequently but the object structure remains stable.
+The [Visitor](/patterns/visitor-pattern/) pattern separates an algorithm from the object structure it operates on. By moving operations into visitor classes, you can add new behaviors to a class hierarchy without modifying existing element classes. This is ideal when operations change frequently but the object structure remains stable.
 
 ## When to Use This
 
-- Many unrelated operations must be performed on objects in a structure. See [Decorator Pattern](/patterns/design/decorator-pattern) for adding behavior.
-- The object structure rarely changes but operations change often. See [Strategy Pattern](/patterns/design/strategy-pattern) for interchangeable algorithms.
-- You need to accumulate state across elements during traversal. See [Composite Pattern](/patterns/design/composite-pattern) for tree structures.
+- Many unrelated operations must be performed on objects in a structure. See [Decorator Pattern](/patterns/decorator-pattern/) for adding behavior.
+- The object structure rarely changes but operations change often. See [Strategy Pattern](/patterns/strategy-pattern/) for interchangeable algorithms.
+- You need to accumulate state across elements during traversal. See [Composite Pattern](/patterns/composite-pattern/) for tree structures.
 
 ## Problem
 
@@ -232,7 +232,7 @@ class JSONSerializer implements ASTVisitor {
 A: Strategy varies an algorithm for a single object. Visitor applies different operations across an entire object structure.
 
 **Q: Can I use this with the Composite pattern?**
-A: Yes. [Composite](/patterns/design/composite-pattern) provides the structure; Visitor provides the operations. This is a common pairing for tree processing.
+A: Yes. [Composite](/patterns/composite-pattern/) provides the structure; Visitor provides the operations. This is a common pairing for tree processing.
 
 ### Is this pattern suitable for small projects?
 

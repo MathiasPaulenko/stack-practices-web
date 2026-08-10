@@ -48,10 +48,10 @@ Below is an implementation of optimistic locking with integer versioning in Post
 ## When to Use
 
 Use this resource when:
-- Multiple users or processes may edit the same record concurrently. See [Database Transactions](/recipes/databases/database-transactions) for ACID patterns.
+- Multiple users or processes may edit the same record concurrently. See [Database Transactions](/recipes/database-transactions/) for ACID patterns.
 - You want to avoid pessimistic locks that hurt throughput and can deadlock
 - Your application has a read-modify-write pattern with gaps between read and write
-- You need conflict detection in [REST APIs](/recipes/api/call-rest-api), offline-first apps, or distributed systems
+- You need conflict detection in [REST APIs](/recipes/call-rest-api/), offline-first apps, or distributed systems
 
 ## Solution
 
@@ -195,7 +195,7 @@ If `rowsAffected == 0`, the version changed between read and write. The applicat
 ## What Works
 
 1. Always return the current version to the client after every read so it can send it back on update
-2. Implement [exponential backoff retry](/recipes/architecture/retry-backoff) (1–3 attempts) for transient conflicts in automated processes
+2. Implement [exponential backoff retry](/recipes/retry-backoff/) (1–3 attempts) for transient conflicts in automated processes
 3. Use integer `version` over timestamps; clocks are unreliable across nodes and timezones
 4. Keep transactions short; the gap between read and write is your vulnerability window
 5. Log version conflicts at `INFO` level to monitor contention hotspots without alarming on every retry
@@ -205,7 +205,7 @@ If `rowsAffected == 0`, the version changed between read and write. The applicat
 1. **Not exposing version to API consumers** — clients cannot send it back if they never received it
 2. **Infinite retry loops** — always cap retries and surface persistent conflicts to the user
 3. **Updating the version in application code** — let the database or ORM increment it atomically
-4. **Using pessimistic locking for everything** — kills throughput; reserve `FOR UPDATE` for true inventory or banking scenarios. See [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) for lock patterns.
+4. **Using pessimistic locking for everything** — kills throughput; reserve `FOR UPDATE` for true inventory or banking scenarios. See [Locks and Mutexes](/recipes/locks-and-mutexes/) for lock patterns.
 5. **Ignoring the conflict in UI** — users need clear feedback that their data is stale and must be refreshed
 
 ## FAQ
@@ -220,7 +220,7 @@ Optimistic for most read-heavy workloads with infrequent writes. Pessimistic whe
 
 ### How do I handle optimistic locking in a microservices architecture?
 
-Use event sourcing or sagas where each service owns its aggregate. If cross-service consistency is needed, prefer idempotent operations with conditional updates rather than distributed locking. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for resilience patterns.
+Use event sourcing or sagas where each service owns its aggregate. If cross-service consistency is needed, prefer idempotent operations with conditional updates rather than distributed locking. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
 
 ### Retry Logic with Exponential Backoff
 

@@ -38,13 +38,13 @@ seo:
 
 Generative image models have transformed how developers create visual content. Instead of commissioning designers, purchasing stock photos, or building complex rendering pipelines, applications can now generate custom images from text descriptions in seconds. DALL-E 3, Stable Diffusion XL, and Midjourney produce photorealistic portraits, illustrations, icons, and product mockups that are increasingly indistinguishable from human-created art.
 
-The challenge in production is not calling the API — it is crafting prompts that produce consistent, usable results at scale. A prompt like "a cat" yields unpredictable outcomes. A structured prompt with style references, aspect ratios, negative constraints, and seed values produces reproducible assets. For prompt engineering fundamentals, see [Prompt Engineering](/recipes/ai/prompt-engineering). The following demonstrates how to API integration, prompt templates, batch generation, content moderation, and image optimization for web delivery.
+The challenge in production is not calling the API — it is crafting prompts that produce consistent, usable results at scale. A prompt like "a cat" yields unpredictable outcomes. A structured prompt with style references, aspect ratios, negative constraints, and seed values produces reproducible assets. For prompt engineering fundamentals, see [Prompt Engineering](/recipes/prompt-engineering/). The following demonstrates how to API integration, prompt templates, batch generation, content moderation, and image optimization for web delivery.
 
 ## When to use it
 
 Use this recipe when:
 
-- Generating product mockups, marketing banners, or social media assets on demand. See [Batch Processing](/recipes/data/batch-processing-patterns) for generating assets at scale.
+- Generating product mockups, marketing banners, or social media assets on demand. See [Batch Processing](/recipes/batch-processing-patterns/) for generating assets at scale.
 - Building avatar creation tools where users describe their desired appearance
 - Creating personalized illustrations for newsletters, blog posts, or children's books
 - Prototyping UI designs and wireframes from text descriptions
@@ -169,7 +169,7 @@ async function generateBatch(theme, outputDir) {
 - **Prompt engineering for images**: image models are highly sensitive to prompt structure.  DALL-E 3 automatically expands short prompts; Stable Diffusion requires explicit detail for quality results.
 - **Seed values for consistency**: fixing the random seed (`seed=42`) ensures that the same prompt produces the same image across generations.  This is essential for A/B testing, regression testing, and creating series of images with uniform style.
 - **Content moderation**: OpenAI and Stability AI automatically filter prompts and outputs for harmful content.
-- **Image optimization**: generated images are typically PNG or high-quality JPEG.  Convert to WebP for web delivery, generate responsive sizes, and lazy-load below-the-fold images.  See [Lazy Loading Images](/recipes/performance/lazy-loading) for implementation.
+- **Image optimization**: generated images are typically PNG or high-quality JPEG.  Convert to WebP for web delivery, generate responsive sizes, and lazy-load below-the-fold images.  See [Lazy Loading Images](/recipes/lazy-loading/) for implementation.
 
 ## Variants
 

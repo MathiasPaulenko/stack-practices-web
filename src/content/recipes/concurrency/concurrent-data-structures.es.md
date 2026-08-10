@@ -46,7 +46,7 @@ Usa esta receta cuando:
 
 - MÃºltiples threads leen y escriben la misma colecciÃ³n
 - Implementando patrones productor-consumidor con backpressure
-- Construyendo caches, colas de trabajo o [pools de conexiones](/recipes/performance/connection-pooling) compartidos por thread pools
+- Construyendo caches, colas de trabajo o [pools de conexiones](/recipes/connection-pooling/) compartidos por thread pools
 - Reemplazando `synchronized(list)` o `Collections.synchronizedMap()` con alternativas de mayor rendimiento
 - Asegurando visibilidad de escrituras entre threads sin barreras de memoria explÃ­citas
 
@@ -171,7 +171,7 @@ class EventDispatcher {
 ## ExplicaciÃ³n
 
 - **BlockingQueue**: una cola que bloquea productores cuando estÃ¡ llena y consumidores cuando estÃ¡ vacÃ­a. Esto provee backpressure natural â€” un productor rÃ¡pido no puede abrumar a un consumidor lento. `ArrayBlockingQueue` usa un solo lock; `LinkedBlockingQueue` usa locks separados para head y tail, permitiendo mayor concurrencia para cargas mixtas de lectura/escritura.
-- **ConcurrentHashMap**: a diferencia de `Collections.synchronizedMap()`, que lockea todo el mapa para cada operaciÃ³n, `ConcurrentHashMap` usa lock striping â€” segmentando el mapa en regiones lockeables independientemente similar a [load balancing](/recipes/architecture/load-balancing). Las lecturas suelen ser lock-free. `computeIfAbsent` chequea e inserta atÃ³micamente, previniendo la carrera clÃ¡sica de doble carga en caches.
+- **ConcurrentHashMap**: a diferencia de `Collections.synchronizedMap()`, que lockea todo el mapa para cada operaciÃ³n, `ConcurrentHashMap` usa lock striping â€” segmentando el mapa en regiones lockeables independientemente similar a [load balancing](/recipes/load-balancing/). Las lecturas suelen ser lock-free. `computeIfAbsent` chequea e inserta atÃ³micamente, previniendo la carrera clÃ¡sica de doble carga en caches.
 - **CopyOnWriteArrayList**: cada escritura crea una copia completa del array subyacente. Las lecturas son lock-free y rÃ¡pidas. Las escrituras son costosas, asÃ­ que esto es ideal para colecciones con pocas escrituras y muchas lecturas â€” como listas de listeners de eventos. Un iterador sobre copy-on-write ve un snapshot del momento de creaciÃ³n del iterador.
 - **AtomicInteger / AtomicLong**: no son colecciones, pero son los bloques de construcciÃ³n de contadores concurrentes, generadores de secuencia y estadÃ­sticas. `incrementAndGet()` usa una instrucciÃ³n `CAS` de CPU, haciÃ©ndola lock-free y tÃ­picamente mÃ¡s rÃ¡pida que `synchronized` para contadores simples.
 
@@ -189,7 +189,7 @@ class EventDispatcher {
 
 - **Prefiere `ConcurrentHashMap` sobre `Collections.synchronizedMap()`**: los wrappers sincronizados lockean todo el mapa para cada operaciÃ³n, incluyendo `get()`. `ConcurrentHashMap` permite lecturas concurrentes y locks mÃ¡s finos para escritura. La diferencia de rendimiento es dramÃ¡tica bajo contenciÃ³n de threads.
 - **Usa `computeIfAbsent` para inicializaciÃ³n perezosa de cache**: `if (!map.containsKey(key)) map.put(key, load())` es una condiciÃ³n de carrera. Dos threads pueden cargar y poner. `map.computeIfAbsent(key, k -> load())` chequea e inserta atÃ³micamente, asegurando que el loader corre como mÃ¡ximo una vez por clave.
-- **Colas con tamaÃ±o limitada para backpressure**: una `LinkedBlockingQueue` ilimitada puede crecer hasta que la JVM se quede sin memoria bajo un productor rÃ¡pido. Siempre establece un tamaÃ±o mÃ¡ximo y usa `put()` (bloqueante) en lugar de `offer()` (no bloqueante) cuando quieres aplicar [backpressure](/recipes/api/rate-limiting).
+- **Colas con tamaÃ±o limitada para backpressure**: una `LinkedBlockingQueue` ilimitada puede crecer hasta que la JVM se quede sin memoria bajo un productor rÃ¡pido. Siempre establece un tamaÃ±o mÃ¡ximo y usa `put()` (bloqueante) en lugar de `offer()` (no bloqueante) cuando quieres aplicar [backpressure](/recipes/rate-limiting/).
 - **Copy-on-write para listas de listeners**: si tu aplicaciÃ³n registra listeners de eventos al arrancar y raramente los cambia, `CopyOnWriteArrayList` da lecturas lock-free. No lo uses para listas frecuentemente actualizadas â€” el costo de copia por escritura se vuelve prohibitivo.
 - **Itera con `Iterator`, no `for-each` en colecciones sincronizadas**: `for (Item item : synchronizedList)` no es atÃ³mico. Otro thread puede modificar la lista entre pasos del iterador, lanzando `ConcurrentModificationException`. Usa bloques `synchronized(list) { ... }` explÃ­citos alrededor de la iteraciÃ³n, o usa colecciones concurrentes.
 

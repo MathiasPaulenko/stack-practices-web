@@ -458,4 +458,4 @@ A: Not necessarily. You might use GPT-4o as primary and Claude as fallback. Diff
 A: Normalize responses through an adapter layer. Each provider's response is mapped to a common format before returning. This decouples your application from provider-specific formats.
 
 **Q: What about cost differences between providers?**
-A: The chain tries providers in order, so cost is determined by which provider succeeds. If you want cost optimization, use the [LLM Router Pattern](/patterns/ai/llm-router-pattern) to select providers by query complexity, and use the fallback chain only for error recovery.
+A: The chain tries providers in order, so cost is determined by which provider succeeds. If you want cost optimization, use the [LLM Router Pattern](/patterns/llm-router-pattern/) to select providers by query complexity, and use the fallback chain only for error recovery.

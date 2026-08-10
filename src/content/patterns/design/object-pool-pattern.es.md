@@ -307,7 +307,7 @@ Los motores de juegos hacen pool de vertex buffers y objetos de textura en la GP
 ## Preguntas Frecuentes
 
 **Q: Object Pool es lo mismo que Singleton?**
-A: No. Un [Singleton](/patterns/design/singleton-pattern) asegura que una instancia existe globalmente. Un Object Pool gestiona múltiples instancias, reutilizándolas entre muchos consumidores.
+A: No. Un [Singleton](/patterns/singleton-pattern/) asegura que una instancia existe globalmente. Un Object Pool gestiona múltiples instancias, reutilizándolas entre muchos consumidores.
 
 **Q: Cómo elijo el tamaño del pool?**
 A: Tamaño = (requests concurrentes de pico × tiempo promedio de retención) / duración promedio de request. Monitorea uso real y ajusta. Para pools de DB, mantente debajo de `max_connections - 5`.

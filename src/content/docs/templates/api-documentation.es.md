@@ -58,7 +58,7 @@ Authorization: Bearer <your_api_key>
 
 ### Content-Type
 
-Requests y responses usan `application/json` a menos que se especifique lo contrario. Consulta [Parse JSON](/recipes/data/parse-json) para manejar payloads JSON.
+Requests y responses usan `application/json` a menos que se especifique lo contrario. Consulta [Parse JSON](/recipes/parse-json/) para manejar payloads JSON.
 
 ### Rate Limits
 
@@ -188,7 +188,7 @@ Elimina un [recurso] por ID.
 
 ## 3. Error Responses
 
-Todos los errores siguen esta estructura. Para una plantilla dedicada de respuestas de error, consulta [Plantilla de Respuesta de Error API](/docs/templates/api-error-response-template). Consulta [Input Validation](/recipes/api/input-validation) para patrones de validación de requests.
+Todos los errores siguen esta estructura. Para una plantilla dedicada de respuestas de error, consulta [Plantilla de Respuesta de Error API](/docs/api-error-response-template/). Consulta [Input Validation](/recipes/input-validation/) para patrones de validación de requests.
 
 ```json
 {
@@ -260,11 +260,11 @@ Documenta cada endpoint consumido por clientes, incluyendo microservicios intern
 
 ### Cuál es la diferencia entre documentación de API y una spec OpenAPI?
 
-La documentación de API es la guía legible por humanos con explicaciones, ejemplos y contexto. Una [spec OpenAPI](/docs/templates/api-documentation) es el contrato legible por máquinas que potencia docs interactivos, generación de clientes y testing de contratos. Mantén ambos.
+La documentación de API es la guía legible por humanos con explicaciones, ejemplos y contexto. Una [spec OpenAPI](/docs/api-documentation/) es el contrato legible por máquinas que potencia docs interactivos, generación de clientes y testing de contratos. Mantén ambos.
 
 ### Cómo mantengo la documentación de API sincronizada con el código?
 
-Genera la documentación desde anotaciones de código o specs OpenAPI como parte de tu pipeline de CI. Usa herramientas como Swagger UI, Redoc o Stoplight para renderizar specs automáticamente. Consulta [REST API Design Guide](/guides/api/rest-api-design-guide) para ver lo que funciona en diseño de API. La documentación manual se desactualiza rápidamente sin automatización.
+Genera la documentación desde anotaciones de código o specs OpenAPI como parte de tu pipeline de CI. Usa herramientas como Swagger UI, Redoc o Stoplight para renderizar specs automáticamente. Consulta [REST API Design Guide](/guides/rest-api-design-guide/) para ver lo que funciona en diseño de API. La documentación manual se desactualiza rápidamente sin automatización.
 
 
 ## Comparacion de Variantes

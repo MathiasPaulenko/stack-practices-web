@@ -110,10 +110,10 @@ kubectl scale deployment/api-service --replicas=20
 | Problem | Fast Mitigation |
 |---------|---------------|
 | Bad deployment | Rollback to last known good version |
-| Traffic spike | Scale horizontally, enable [rate limiting](/recipes/api/rate-limiting) |
-| Dependency failure | Enable [circuit breaker](/recipes/circuit-breaker-pattern-recipe), serve stale cache |
-| Database overload | Kill slow queries, add [read replicas](/guides/databases/database-design-guide) |
-| Configuration error | [Revert config](/guides/devops/infrastructure-as-code-guide), restart with previous values |
+| Traffic spike | Scale horizontally, enable [rate limiting](/recipes/rate-limiting/) |
+| Dependency failure | Enable [circuit breaker](/recipes/circuit-breaker-pattern-recipe/), serve stale cache |
+| Database overload | Kill slow queries, add [read replicas](/guides/database-design-guide/) |
+| Configuration error | [Revert config](/guides/infrastructure-as-code-guide/), restart with previous values |
 
 ## 4. Communication
 
@@ -160,7 +160,7 @@ An incident is resolved when:
 
 1. Stop the clock (log total incident duration)
 2. Schedule postmortem within 24 hours for SEV-1/2
-3. Create follow-up tickets with owners and due dates. Update [CI/CD](/guides/devops/cicd-pipeline-guide) if needed.
+3. Create follow-up tickets with owners and due dates. Update [CI/CD](/guides/cicd-pipeline-guide/) if needed.
 4. Update runbooks with anything learned
 
 ## 6. Postmortem

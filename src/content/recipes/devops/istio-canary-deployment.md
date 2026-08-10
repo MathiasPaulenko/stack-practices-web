@@ -49,9 +49,9 @@ Istio provides fine-grained traffic management through virtual services and dest
 
 ## When to Use This
 
-- You deploy to Kubernetes and need progressive traffic shifting. See [Blue-Green Deployment](/recipes/devops/blue-green-deployment) for zero-downtime releases.
-- New releases require real-world validation before full rollout. See [Feature Flags](/recipes/devops/feature-flags) for gradual rollouts.
-- You want to minimize blast radius of deployment failures. See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for early failure detection.
+- You deploy to Kubernetes and need progressive traffic shifting. See [Blue-Green Deployment](/recipes/blue-green-deployment/) for zero-downtime releases.
+- New releases require real-world validation before full rollout. See [Feature Flags](/recipes/feature-flags/) for gradual rollouts.
+- You want to minimize blast radius of deployment failures. See [Health Check Endpoint](/recipes/health-check-endpoint/) for early failure detection.
 
 ## Prerequisites
 

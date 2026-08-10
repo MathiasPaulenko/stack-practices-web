@@ -42,9 +42,9 @@ Contract testing solves this by having each consumer define its expectations of 
 
 Use this recipe when:
 
-- Managing 5+ microservices with inter-service HTTP or message queue communication. See [Integration Testing](/recipes/testing/integration-testing) for verifying component interactions.
-- Experiencing production outages caused by API changes in upstream services. See [Call REST API](/recipes/api/call-rest-api) for what works with API clients.
-- Wanting to decouple deployment pipelines so services deploy independently. See [Microservices Patterns](/guides/architecture/microservices-architecture-guide) for distributed architecture guidance.
+- Managing 5+ microservices with inter-service HTTP or message queue communication. See [Integration Testing](/recipes/integration-testing/) for verifying component interactions.
+- Experiencing production outages caused by API changes in upstream services. See [Call REST API](/recipes/call-rest-api/) for what works with API clients.
+- Wanting to decouple deployment pipelines so services deploy independently. See [Microservices Patterns](/guides/microservices-architecture-guide/) for distributed architecture guidance.
 - Migrating from monolithic to microservices and needing safety nets for API boundaries
 - Working with external API providers where you cannot control their release cycle
 

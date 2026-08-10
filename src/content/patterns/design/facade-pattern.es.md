@@ -249,7 +249,7 @@ AWS S3 `upload_file(bucket, key, path)` oculta multipart uploads, lógica de ret
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Facade y Adapter?**
-A: [Adapter](/patterns/design/adapter-pattern) cambia una interfaz para coincidir con lo que un cliente espera. Facade simplifica una interfaz compleja sin cambiar sus contratos.
+A: [Adapter](/patterns/adapter-pattern/) cambia una interfaz para coincidir con lo que un cliente espera. Facade simplifica una interfaz compleja sin cambiar sus contratos.
 
 **Q: Un facade puede exponer métodos del subsistema directamente?**
 A: Sí, esto se llama un "facade opcional." Los clientes pueden usar los métodos simples del facade o acceder a las clases del subsistema para casos de uso avanzados.

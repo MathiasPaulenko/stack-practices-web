@@ -40,7 +40,7 @@ seo:
 
 
 ---
-The [Decorator](/patterns/design/decorator-pattern) pattern wraps an object to add responsibilities dynamically. When applied to HTTP clients, it becomes a clean way to compose cross-cutting concerns — logging, retries, metrics, authentication — without polluting the core request logic.
+The [Decorator](/patterns/decorator-pattern/) pattern wraps an object to add responsibilities dynamically. When applied to HTTP clients, it becomes a clean way to compose cross-cutting concerns — logging, retries, metrics, authentication — without polluting the core request logic.
 
 ## When to Use This
 
@@ -50,7 +50,7 @@ The [Decorator](/patterns/design/decorator-pattern) pattern wraps an object to a
 
 ## Problem
 
-Adding logging, retries, metrics, and auth to every [HTTP call](/recipes/api/call-rest-api) leads to monolithic client classes or copy-paste boilerplate at every call site.
+Adding logging, retries, metrics, and auth to every [HTTP call](/recipes/call-rest-api/) leads to monolithic client classes or copy-paste boilerplate at every call site.
 
 ## Solution
 
@@ -201,7 +201,7 @@ The circuit breaker tracks consecutive failures. After `threshold` errors, it op
 
 - **Conditional Decorator**: Apply logic only for specific URLs or HTTP methods
 - **Metrics Decorator**: Push timing and status code distributions to Prometheus
-- **Cache Decorator**: Combine with [Proxy](/patterns/design/proxy-pattern) pattern to cache GET responses
+- **Cache Decorator**: Combine with [Proxy](/patterns/proxy-pattern/) pattern to cache GET responses
 - **Circuit Breaker Decorator**: Short-circuit requests after N consecutive failures, with a cooldown period before retrying
 - **Timeout Decorator**: Abort requests that exceed a configurable deadline using `AbortController`
 - **Rate Limit Decorator**: Enforce a maximum number of concurrent or per-second requests
@@ -261,7 +261,7 @@ The circuit breaker tracks consecutive failures. After `threshold` errors, it op
 
 ### How is this different from middleware in Express?
 
-Express [middleware](/patterns/design/chain-of-responsibility-middleware) operates on request/response objects in sequence. Decorators wrap a single client interface and can be composed at any granularity.
+Express [middleware](/patterns/chain-of-responsibility-middleware/) operates on request/response objects in sequence. Decorators wrap a single client interface and can be composed at any granularity.
 
 ### Can decorators be removed dynamically?
 
@@ -284,7 +284,7 @@ A: Past 5-6 layers, the stack becomes hard to debug. If you need more, consider 
 A: No. Decorators handle cross-cutting concerns: transport-level concerns like auth, retries, logging, caching. Business rules belong in services or controllers that call the decorated client.
 
 **Q: How does this compare to the Chain of Responsibility pattern?**
-A: Chain of Responsibility passes a request along a chain where each handler decides to process or forward. Decorators always call through to the inner client and typically wrap or transform the call. See [Chain of Responsibility](/patterns/design/chain-of-responsibility-middleware).
+A: Chain of Responsibility passes a request along a chain where each handler decides to process or forward. Decorators always call through to the inner client and typically wrap or transform the call. See [Chain of Responsibility](/patterns/chain-of-responsibility-middleware/).
 
 **Q: Can I use this pattern with GraphQL clients?**
 A: Yes. Wrap the GraphQL client's `query` and `mutate` methods with the same decorator stack. Auth, logging, and retry decorators work identically for GraphQL operations.
@@ -308,7 +308,7 @@ A: Decorators can pass through `ReadableStream` responses unchanged. If a decora
 A: Export a factory function from a shared module: `createHttpClient(config)` returns the fully decorated client. Each service imports the factory and passes its own config (tokens, timeouts, retry counts).
 
 **Q: What is the difference between Decorator and Proxy?**
-A: Proxy controls access to an object (lazy loading, access control, caching). Decorator adds responsibilities to an object. In practice, the implementation is similar: both wrap the target. The intent differs. See [Proxy Pattern](/patterns/design/proxy-pattern-caching).
+A: Proxy controls access to an object (lazy loading, access control, caching). Decorator adds responsibilities to an object. In practice, the implementation is similar: both wrap the target. The intent differs. See [Proxy Pattern](/patterns/proxy-pattern-caching/).
 
 **Q: How do I handle idempotency with retries?**
 A: Generate an idempotency key (e.g., UUID) in an `IdempotencyDecorator` and add it as a header. The server uses this key to deduplicate requests. This makes retries safe for POST and PUT operations.

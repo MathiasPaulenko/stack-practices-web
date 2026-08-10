@@ -36,9 +36,9 @@ Snapshot testing captures the rendered output of a component and compares it aga
 
 ## When to Use This
 
-- You want to detect unintended changes in component rendering. See [Visual Regression Testing](/recipes/testing/e2e-testing) for pixel-perfect comparisons.
-- Your components have complex conditional rendering logic. See [Component Testing](/recipes/testing/e2e-testing) for interactive browser tests.
-- You are refactoring a component and want confidence nothing broke. See [Unit Testing](/recipes/testing/unit-testing) for isolated logic verification.
+- You want to detect unintended changes in component rendering. See Visual Regression Testing for pixel-perfect comparisons.
+- Your components have complex conditional rendering logic. See [Component Testing](/recipes/unit-testing/) for interactive browser tests.
+- You are refactoring a component and want confidence nothing broke. See [Unit Testing](/recipes/unit-testing/) for isolated logic verification.
 
 ## When NOT to Use This
 

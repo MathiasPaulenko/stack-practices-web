@@ -37,7 +37,7 @@ seo:
 ---
 ## Overview
 
-Web performance directly impacts user engagement, conversion rates, and [search rankings](/guides/performance/performance-optimization-guide). Google's Core Web Vitals — Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS) — provide measurable targets. This resource covers practical techniques: lazy loading, code splitting, image optimization, critical CSS, and modern build tooling to hit sub-3-second page loads.
+Web performance directly impacts user engagement, conversion rates, and [search rankings](/guides/performance-optimization-guide/). Google's Core Web Vitals — Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS) — provide measurable targets. This resource covers practical techniques: lazy loading, code splitting, image optimization, critical CSS, and modern build tooling to hit sub-3-second page loads.
 
 ## When to Use
 
@@ -45,7 +45,7 @@ Use this resource when:
 - Core Web Vitals scores are failing (LCP > 2.5s, CLS > 0.1)
 - Mobile users on 3G networks abandon pages before they load
 - Bundle sizes exceed 200KB and impact time-to-interactive
-- [Third-party scripts](/recipes/security/security-headers) (analytics, ads) block the main thread
+- [Third-party scripts](/recipes/security-headers/) (analytics, ads) block the main thread
 
 ## Solution
 
@@ -133,7 +133,7 @@ function Dashboard() {
 ## What Works
 
 - **Measure real users, not lab tests**: Field data from Chrome UX Report reflects actual conditions
-- **Optimize the critical path**: Anything blocking `<head>` should be under 50KB total.  See [server-side rendering](/recipes/performance/spa-code-splitting-lazy).
+- **Optimize the critical path**: Anything blocking `<head>` should be under 50KB total.  See [server-side rendering](/recipes/spa-code-splitting-lazy/).
 - **Self-host fonts and analytics**: Third-party connections add DNS + TLS + TCP overhead
 - **Use `content-visibility: auto`**: Browsers skip rendering off-screen content
 - **Defer non-critical JavaScript**: `defer` or `type="module"` for scripts that aren't needed immediately
@@ -143,7 +143,7 @@ function Dashboard() {
 1. **Oversized hero images**: A 4MB PNG hero destroys LCP; use responsive images with `srcset`
 2. **Render-blocking third parties**: Google Fonts loaded synchronously delays first paint
 3. **No resource hints**: `preload`, `prefetch`, and `preconnect` are free performance wins
-4. **Hydrating everything**: [Islands architecture](/recipes/performance/spa-code-splitting-lazy) (Astro, Fresh) ships zero JS for static content
+4. **Hydrating everything**: [Islands architecture](/recipes/spa-code-splitting-lazy/) (Astro, Fresh) ships zero JS for static content
 5. **Ignoring mobile**: 70% of users are on mobile; test on real devices, not just DevTools
 
 
@@ -185,7 +185,7 @@ function Dashboard() {
 A: Image optimization. Images are typically 60-80% of page weight. Use modern formats, responsive sizing, and lazy loading.
 
 **Q: Should I use a CDN?**
-A: Yes. A [CDN](/recipes/data/caching) reduces TTFB by serving from edge locations close to users. Essential for global audiences.
+A: Yes. A [CDN](/recipes/caching/) reduces TTFB by serving from edge locations close to users. Essential for global audiences.
 
 **Q: How do I balance performance with developer experience?**
 A: Use frameworks that optimize by default (Astro, SvelteKit, Next.js with App Router). Don't fight the tooling.
@@ -328,11 +328,11 @@ Use `<link rel="preconnect">` to establish early connections: `<link rel="precon
 
 ## See Also
 
-- [Performance Optimization Guide](/guides/performance/performance-optimization-guide) — detailed strategies for backend and frontend
-- [SPA Code Splitting](/recipes/performance/spa-code-splitting-lazy) — lazy loading in single-page apps
-- [Caching Strategies](/recipes/performance/caching-strategies) — reducing backend load
-- [Security Headers](/recipes/security/security-headers) — headers that also affect performance
-- [Load Testing](/recipes/testing/load-testing) — testing performance under load
+- [Performance Optimization Guide](/guides/performance-optimization-guide/) — detailed strategies for backend and frontend
+- [SPA Code Splitting](/recipes/spa-code-splitting-lazy/) — lazy loading in single-page apps
+- [Caching Strategies](/recipes/caching-strategies/) — reducing backend load
+- [Security Headers](/recipes/security-headers/) — headers that also affect performance
+- [Load Testing](/recipes/load-testing/) — testing performance under load
 
 ---
 

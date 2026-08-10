@@ -40,7 +40,7 @@ Construye APIs de alto rendimiento e independientes de lenguaje usando gRPC con 
 
 ## Cuando Usar Esto
 
-- Comunicacion de baja latencia y alto throughput entre [microservicios](/patterns/design/ambassador-pattern-services) internos
+- Comunicacion de baja latencia y alto throughput entre [microservicios](/patterns/ambassador-pattern-services/) internos
 - Necesitas contratos fuertemente tipados con generacion de codigo automatica
 - Datos streaming (logs, eventos, file uploads) deben manejarse eficientemente
 
@@ -199,7 +199,7 @@ function listUsers(): Promise<User[]> {
 }
 ```
 
-### 5. [Interceptor](/patterns/design/chain-of-responsibility-middleware) para Metadata y Deadlines
+### 5. [Interceptor](/patterns/chain-of-responsibility-middleware/) para Metadata y Deadlines
 
 ```typescript
 // grpc/interceptor.ts
@@ -238,7 +238,7 @@ const client = new UserServiceClient('localhost:50051', grpc.credentials.createI
 
 - Cambiar campos de protobuf sin actualizar todos los clientes de servicio
 - No manejar errores de stream y drops de conexion gracefulmente
-- Usar gRPC para APIs public-facing donde el soporte de browser es limitado. Consulta [API gRPC](/recipes/api/grpc-api) para alternativas de APIs públicas.
+- Usar gRPC para APIs public-facing donde el soporte de browser es limitado. Consulta [API gRPC](/recipes/grpc-api/) para alternativas de APIs públicas.
 
 
 ## Troubleshooting
@@ -253,11 +253,11 @@ const client = new UserServiceClient('localhost:50051', grpc.credentials.createI
 
 ### ¿En qué se diferencia de REST?
 
-gRPC usa protobuf binario sobre HTTP/2, ofreciendo menor latencia y streaming built-in. [REST](/recipes/api/call-rest-api) usa JSON sobre HTTP/1.1 con soporte de cliente más amplio. Los payloads de gRPC son típicamente 3-10x más pequeños que JSON y el parsing es más rápido porque protobuf usa binary encoding con field tags. La multiplexación de HTTP/2 elimina head-of-line blocking, permitiendo múltiples requests concurrentes sobre una única conexión TCP.
+gRPC usa protobuf binario sobre HTTP/2, ofreciendo menor latencia y streaming built-in. [REST](/recipes/call-rest-api/) usa JSON sobre HTTP/1.1 con soporte de cliente más amplio. Los payloads de gRPC son típicamente 3-10x más pequeños que JSON y el parsing es más rápido porque protobuf usa binary encoding con field tags. La multiplexación de HTTP/2 elimina head-of-line blocking, permitiendo múltiples requests concurrentes sobre una única conexión TCP.
 
 ### ¿Los browsers pueden llamar gRPC directamente?
 
-No. Los browsers no exponen HTTP/2 trailers ni el framing raw de gRPC. Usa gRPC-Web (via `grpc-web` o `connect-web`) que traduce entre HTTP/1.1 del browser y HTTP/2 del servidor. Alternativamente, provee un [gateway REST](/recipes/api/go-rest-api-gin) via `grpc-gateway` para APIs públicas. gRPC-Web requiere un Envoy proxy o un handler custom en el servidor para traducir el encoding.
+No. Los browsers no exponen HTTP/2 trailers ni el framing raw de gRPC. Usa gRPC-Web (via `grpc-web` o `connect-web`) que traduce entre HTTP/1.1 del browser y HTTP/2 del servidor. Alternativamente, provee un [gateway REST](/recipes/go-rest-api-gin/) via `grpc-gateway` para APIs públicas. gRPC-Web requiere un Envoy proxy o un handler custom en el servidor para traducir el encoding.
 
 ### ¿Cómo manejo errores en gRPC?
 

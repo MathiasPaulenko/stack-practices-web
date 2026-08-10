@@ -40,7 +40,7 @@ seo:
 
 ---
 
-El [Interpreter](/patterns/design/interpreter-pattern) pattern define una representacion para la gramatica de un lenguaje junto con un interprete que usa la representacion para interpretar oraciones en el lenguaje. Convierte expresiones de texto complejas en objetos ejecutables, haciendo que reglas de negocio, filtros de query y formulas matematicas sean configurables sin cambios de codigo.
+El [Interpreter](/patterns/interpreter-pattern/) pattern define una representacion para la gramatica de un lenguaje junto con un interprete que usa la representacion para interpretar oraciones en el lenguaje. Convierte expresiones de texto complejas en objetos ejecutables, haciendo que reglas de negocio, filtros de query y formulas matematicas sean configurables sin cambios de codigo.
 
 ## Cuando Usar Esto
 
@@ -266,7 +266,7 @@ console.log(formula.interpret({ price: 100, shipping: 10 })); // 90
 
 ## Consideraciones de Produccion
 
-- [Cachea](/patterns/design/cache-aside-pattern) arboles de expresion parseados para evitar re-parseo en cada evaluacion
+- [Cachea](/patterns/cache-aside-pattern/) arboles de expresion parseados para evitar re-parseo en cada evaluacion
 - Sanitiza nombres de variables para prevenir polucion de contexto
 - Para gramaticas complejas, prefiere generadores de parser (PEG.js, ANTLR) sobre interpretes hand-rolled
 - Limita la profundidad de expresion para prevenir stack overflow en arboles profundamente anidados
@@ -297,7 +297,7 @@ console.log(formula.interpret({ price: 100, shipping: 10 })); // 90
 
 ### En que se diferencia de Command?
 
-[Command](/patterns/design/command-pattern) encapsula acciones para ejecutar mas tarde. Interpreter parsea y evalua expresiones para producir un resultado.
+[Command](/patterns/command-pattern/) encapsula acciones para ejecutar mas tarde. Interpreter parsea y evalua expresiones para producir un resultado.
 
 ### Cuando deberia usar un generador de parser en su lugar?
 

@@ -45,10 +45,10 @@ Modern load testing tools like k6 and JMeter let you define scenarios in code or
 
 Use this recipe when:
 
-- Preparing for a product launch, marketing campaign, or seasonal traffic spike. See [Connection Pooling](/recipes/databases/database-connection-pooling) for handling concurrent database connections.
+- Preparing for a product launch, marketing campaign, or seasonal traffic spike. See [Connection Pooling](/recipes/database-connection-pooling/) for handling concurrent database connections.
 - Migrating infrastructure and needing to validate the new platform handles equivalent load
-- Establishing performance baselines and Service Level Objectives (SLOs). See [Caching Strategies](/recipes/performance/caching-strategies) for reducing load on backend services.
-- Investigating intermittent timeouts or errors that only appear under concurrent load. See [Rate Limiting](/recipes/api/rate-limiting) for protecting APIs under heavy traffic.
+- Establishing performance baselines and Service Level Objectives (SLOs). See [Caching Strategies](/recipes/caching-strategies/) for reducing load on backend services.
+- Investigating intermittent timeouts or errors that only appear under concurrent load. See [Rate Limiting](/recipes/rate-limiting/) for protecting APIs under heavy traffic.
 - Comparing performance before and after a major code or infrastructure change
 
 ## Solution
@@ -328,11 +328,11 @@ Cross-Origin Resource Sharing (CORS) adds preflight OPTIONS requests that increa
 
 ## See Also
 
-- [Integration Testing](/recipes/testing/integration-testing) — testing service interactions
-- [Rate Limiting](/recipes/api/rate-limiting) — protecting APIs under heavy traffic
-- [Connection Pooling](/recipes/databases/database-connection-pooling) — handling concurrent database connections
-- [Caching Strategies](/recipes/performance/caching-strategies) — reducing backend load
-- [API Documentation OpenAPI](/recipes/api/api-documentation-openapi) — documenting API contracts
+- [Integration Testing](/recipes/integration-testing/) — testing service interactions
+- [Rate Limiting](/recipes/rate-limiting/) — protecting APIs under heavy traffic
+- [Connection Pooling](/recipes/database-connection-pooling/) — handling concurrent database connections
+- [Caching Strategies](/recipes/caching-strategies/) — reducing backend load
+- [API Documentation OpenAPI](/recipes/api-documentation-openapi/) — documenting API contracts
 
 ---
 

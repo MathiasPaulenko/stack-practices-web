@@ -50,7 +50,7 @@ seo:
 ---
 ## Overview
 
-The [Federated Identity](/patterns/authentication/federated-identity-pattern) Pattern delegates authentication to external identity providers (IdPs) instead of managing credentials locally. Users log in through a trusted third party (Google, GitHub, Azure AD, Okta), and the application receives a token it can verify. This eliminates password storage, enables single sign-on (SSO), and allows cross-organization authentication.
+The [Federated Identity](/patterns/federated-identity-pattern/) Pattern delegates authentication to external identity providers (IdPs) instead of managing credentials locally. Users log in through a trusted third party (Google, GitHub, Azure AD, Okta), and the application receives a token it can verify. This eliminates password storage, enables single sign-on (SSO), and allows cross-organization authentication.
 
 ## When to Use
 

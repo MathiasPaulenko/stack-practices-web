@@ -31,7 +31,7 @@ seo:
     - propuesta feature
 
 ---
-Usa esta plantilla para proponer nuevas capacidades de manera que ayude a equipos de producto e ingeniería a evaluar valor de usuario y esfuerzo de implementación. Combínala con la [Plantilla de User Story](/docs/templates/user-story-template) para requerimientos en formato narrativo.
+Usa esta plantilla para proponer nuevas capacidades de manera que ayude a equipos de producto e ingeniería a evaluar valor de usuario y esfuerzo de implementación. Combínala con la [Plantilla de User Story](/docs/user-story-template/) para requerimientos en formato narrativo.
 
 ## Resumen
 
@@ -160,7 +160,7 @@ patrones de implementación.
 ## Consejos para Quienes Solicitan
 
 - **Empieza con el problema, no la solución** — el equipo puede encontrar una solución mejor
-- **Incluye una cita de usuario** — "Como [usuario], quiero [capacidad] para poder [beneficio]". Consulta la [Plantilla de User Story](/docs/templates/user-story-template) para el formato completo.
+- **Incluye una cita de usuario** — "Como [usuario], quiero [capacidad] para poder [beneficio]". Consulta la [Plantilla de User Story](/docs/user-story-template/) para el formato completo.
 - **Define una capacidad por solicitud** — los paquetes son difíciles de evaluar y trackear
 - **Cuantifica el dolor** — "20-30 minutos por reporte, 12 equipos, diariamente" es más convincente que "toma mucho tiempo"
 - **Linkea a feedback real** — tickets de clientes, threads de Slack, resultados de encuestas agregan peso
@@ -169,7 +169,7 @@ patrones de implementación.
 ## Consejos para Reviewers
 
 - **Rechaza solicitudes poco claras rápidamente** — label "necesita-mas-info" y deadline de 48 horas
-- **Estima antes de comprometerte** — t-shirt sizing (S/M/L) es suficiente para triage. Consulta la [Guía de Principios de Clean Code](/guides/design/clean-code-principles-guide) para estándares de implementación.
+- **Estima antes de comprometerte** — t-shirt sizing (S/M/L) es suficiente para triage. Consulta la [Guía de Principios de Clean Code](/guides/clean-code-principles-guide/) para estándares de implementación.
 - **Link al roadmap** — muestra dónde encaja (o no) en los objetivos trimestrales
 - **Cierra solicitudes stale** — si una solicitud no ha tenido actividad en 6 meses, ciérrala con una nota
 - **Agrupa solicitudes similares** — si 3 solicitudes piden lo mismo, mézclalas y linkea los duplicados
@@ -238,7 +238,7 @@ Al recolectar solicitudes de clientes, usa un formulario simplificado con solo: 
 
 ### Estilo RFC (equipos con mucha ingeniería)
 
-Para capacidades técnicas (cambios de API, decisiones de arquitectura), expande la plantilla en un RFC con secciones para: Background, Goals, Non-goals, Enfoque propuesto, Alternativas consideradas, Riesgos. Consulta [ADR Template](/docs/templates/adr-template) para architecture decision records.
+Para capacidades técnicas (cambios de API, decisiones de arquitectura), expande la plantilla en un RFC con secciones para: Background, Goals, Non-goals, Enfoque propuesto, Alternativas consideradas, Riesgos. Consulta [ADR Template](/docs/adr-template/) para architecture decision records.
 
 
 
@@ -283,7 +283,7 @@ Requiere una sección de "valor de usuario" en cada solicitud. Si la respuesta e
 
 ### ¿Las herramientas internas deberían usar la misma plantilla?
 
-Sí, pero relaja la sección de "valor de usuario". Las solicitudes internas necesitan "equipo solicitante" y "tiempo ahorrado por semana" en su lugar. Usa la [Plantilla de Reporte de Bug](/docs/templates/bug-report-template) para tracking de defectos.
+Sí, pero relaja la sección de "valor de usuario". Las solicitudes internas necesitan "equipo solicitante" y "tiempo ahorrado por semana" en su lugar. Usa la [Plantilla de Reporte de Bug](/docs/bug-report-template/) para tracking de defectos.
 
 ### ¿Cuántas solicitudes deberíamos aceptar por trimestre?
 

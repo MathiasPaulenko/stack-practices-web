@@ -281,7 +281,7 @@ Knex provee un query builder que actúa como capa DAO. `knex('users').where({ id
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre DAO y Repository?**
-A: DAO es persistence-centric (uno por tabla, CRUD-focused). [Repository](/patterns/design/repository-pattern) es domain-centric (uno por aggregate, query-focused).
+A: DAO es persistence-centric (uno por tabla, CRUD-focused). [Repository](/patterns/repository-pattern/) es domain-centric (uno por aggregate, query-focused).
 
 **Q: Cada tabla debería tener su propio DAO?**
 A: Usualmente sí, pero para aplicaciones pequeñas un `BaseDao<T>` genérico reduce boilerplate.

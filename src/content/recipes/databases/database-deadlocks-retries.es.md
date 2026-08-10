@@ -49,10 +49,10 @@ Aqui se explica como la detección, prevención y reintento automático de trans
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Ves errores de deadlock (`40P01` en PostgreSQL, `1213` en MySQL) en [logs](/recipes/api/logging) de producción
-- Múltiples [transacciones](/recipes/databases/database-transactions) concurrentes actualizan el mismo conjunto de filas en diferente orden
-- Necesitas asegurar consistencia de datos manteniendo alta concurrencia. Consulta [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) para coordinación.
-- [Jobs por lotes](/recipes/data/batch-processing-patterns) y usuarios interactivos compiten por los mismos registros
+- Ves errores de deadlock (`40P01` en PostgreSQL, `1213` en MySQL) en [logs](/recipes/logging/) de producción
+- Múltiples [transacciones](/recipes/database-transactions/) concurrentes actualizan el mismo conjunto de filas en diferente orden
+- Necesitas asegurar consistencia de datos manteniendo alta concurrencia. Consulta [Locks and Mutexes](/recipes/locks-and-mutexes/) para coordinación.
+- [Jobs por lotes](/recipes/batch-processing-patterns/) y usuarios interactivos compiten por los mismos registros
 
 ## Solución
 
@@ -180,7 +180,7 @@ Los deadlocks requieren tres condiciones: exclusión mutua, espera-y-retención,
 - **Espera-y-retención**: Adquiere todos los locks a la vez usando `SELECT ...
 - **Espera circular**: Siempre accede a las filas en el mismo orden (ej.
 
-La lógica de reintento usa [backoff exponencial](/recipes/architecture/retry-backoff) con jitter para prevenir "thundering herd" — donde todas las transacciones reintentantes colisionan de nuevo.
+La lógica de reintento usa [backoff exponencial](/recipes/retry-backoff/) con jitter para prevenir "thundering herd" — donde todas las transacciones reintentantes colisionan de nuevo.
 
 ## Variantes
 

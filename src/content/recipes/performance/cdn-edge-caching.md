@@ -41,7 +41,7 @@ seo:
 ---
 ## Overview
 
-A Content Delivery Network (CDN) distributes your content across geographically dispersed edge servers, reducing latency by serving users from the nearest location, improving [performance](/guides/performance/performance-optimization-guide). Properly configured edge caching can cut page load times by 50–80% and considerably reduce origin server load.
+A Content Delivery Network (CDN) distributes your content across geographically dispersed edge servers, reducing latency by serving users from the nearest location, improving [performance](/guides/performance-optimization-guide/). Properly configured edge caching can cut page load times by 50–80% and considerably reduce origin server load.
 
 This approach handles configuring CDN edge caching rules, cache invalidation strategies, and geographic optimization for both static and live content.
 
@@ -50,8 +50,8 @@ This approach handles configuring CDN edge caching rules, cache invalidation str
 Use this resource when:
 - Your global audience experiences slow load times from a single origin
 - Your origin server is overwhelmed with repeated requests for the same content
-- You need to cache [API responses](/recipes/api/call-rest-api) or live generated pages
-- You want to reduce bandwidth costs and improve [fault tolerance](/guides/devops/logging-monitoring-observability-guide)
+- You need to cache [API responses](/recipes/call-rest-api/) or live generated pages
+- You want to reduce bandwidth costs and improve [fault tolerance](/guides/logging-monitoring-observability-guide/)
 
 ## Solution
 
@@ -289,7 +289,7 @@ A: Use `s-maxage` (surrogate max age) for CDN-only caching while keeping `max-ag
 A: Purging removes content from edge caches immediately. Invalidation marks content as stale but may serve it while fetching updates. Purging is explicit; invalidation can be passive.
 
 **Q: Should I use a CDN for API-only backends?**
-A: Yes, if responses are cacheable. [GraphQL](/recipes/api/call-rest-api) is harder to cache at the edge than REST, but services like Cloudflare Workers or Fastly Compute can implement edge-level query caching.
+A: Yes, if responses are cacheable. [GraphQL](/recipes/call-rest-api/) is harder to cache at the edge than REST, but services like Cloudflare Workers or Fastly Compute can implement edge-level query caching.
 
 ### Is this solution production-ready?
 

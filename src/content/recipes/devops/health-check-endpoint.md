@@ -51,10 +51,10 @@ A health check endpoint tells load balancers, orchestrators (Kubernetes), and mo
 ## When to Use
 
 Use this resource when:
-- Deploying on Kubernetes (livenessProbe / readinessProbe). See [Docker Basics](/recipes/devops/docker-basics) for container fundamentals.
-- Running behind a load balancer or reverse proxy. See [Rate Limiting](/recipes/api/rate-limiting) for API protection.
-- Setting up monitoring and alerting (Prometheus, Datadog). See [Prometheus API Monitoring](/recipes/observability/prometheus-api-monitoring) for metrics collection.
-- You need graceful degradation or circuit breaker logic. See [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for failure isolation.
+- Deploying on Kubernetes (livenessProbe / readinessProbe). See [Docker Basics](/recipes/docker-basics/) for container fundamentals.
+- Running behind a load balancer or reverse proxy. See [Rate Limiting](/recipes/rate-limiting/) for API protection.
+- Setting up monitoring and alerting (Prometheus, Datadog). See [Prometheus API Monitoring](/recipes/prometheus-api-monitoring/) for metrics collection.
+- You need graceful degradation or circuit breaker logic. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for failure isolation.
 
 ## Solution
 

@@ -57,10 +57,10 @@ A continuacion se cubre los tres ecosistemas de lenguaje más comunes y explica 
 Usa esta recipe cuando:
 
 - Almacenas credenciales de usuario en una base de datos o directorio de usuarios
-- Implementas [sistemas de autenticación](/recipes/authentication/session-management) con flujos de usuario y contraseña
+- Implementas [sistemas de autenticación](/recipes/session-management/) con flujos de usuario y contraseña
 - Migras sistemas legacy desde hashes rápidos (MD5, SHA-1) a almacenamiento moderno de contraseñas
 - Validas contraseñas durante el login y los flujos de reset de contraseña
-- Cumples con estándares de seguridad (PCI-DSS, SOC 2, GDPR) que mandatan protección adecuada de credenciales. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para lo que funciona para compliance.
+- Cumples con estándares de seguridad (PCI-DSS, SOC 2, GDPR) que mandatan protección adecuada de credenciales. Consulta [Checklist de Seguridad de APIs](/guides/api-security-checklist-guide/) para lo que funciona para compliance.
 - Construyes paneles de administración o herramientas CLI que crean cuentas de servicio con contraseñas
 
 ## Solución
@@ -286,7 +286,7 @@ Benchmarks en Node.js 20, single core, Redis cache. Resultados reales varian seg
 R: No. SHA-256 está diseñado para ser rápido. El hashing de contraseñas debe ser intencionalmente lento para resistir fuerza bruta. Usa bcrypt, Argon2 o PBKDF2 en su lugar.
 
 **P: ¿Cómo migro usuarios de hashes MD5 antiguos?**
-R: Re-hashea los hashes MD5 existentes con bcrypt en el próximo login, luego reemplaza el hash viejo en tu base de datos. Consulta [Logging](/recipes/api/logging) para monitorear el progreso de migración. Marca las cuentas migradas para no intentar re-hashearlas de nuevo. Hasta que un usuario haga login, su hash legacy permanece en su lugar como medida provisional.
+R: Re-hashea los hashes MD5 existentes con bcrypt en el próximo login, luego reemplaza el hash viejo en tu base de datos. Consulta [Logging](/recipes/logging/) para monitorear el progreso de migración. Marca las cuentas migradas para no intentar re-hashearlas de nuevo. Hasta que un usuario haga login, su hash legacy permanece en su lugar como medida provisional.
 
 **P: ¿Qué factor de trabajo debo usar para bcrypt?**
 R: Empieza con 12. Haz benchmarking para que el hashing tarde ~250ms en tu hardware de producción. Aumenta el factor cada 2-3 años a medida que los CPUs se vuelven más rápidos. El cuarto de segundo extra es imperceptible para los usuarios pero aumenta dramáticamente el costo del ataque.

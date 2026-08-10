@@ -53,7 +53,7 @@ seo:
 
 ## Visión General
 
-El patrón [Pipes and Filters](/patterns/architecture/pipes-and-filters-pattern) descompone una tarea de procesamiento compleja en una secuencia de pasos más pequeños e independientes (filtros) conectados por canales (pipes). Cada filtro recibe input, realiza una transformación y pasa el output al siguiente pipe. Los filtros son reutilizables, componibles y testeables en aislamiento. Este patrón es ideal para pipelines de procesamiento de datos, workflows ETL y cadenas de transformación de peticiones.
+El patrón [Pipes and Filters](/patterns/pipes-and-filters-pattern/) descompone una tarea de procesamiento compleja en una secuencia de pasos más pequeños e independientes (filtros) conectados por canales (pipes). Cada filtro recibe input, realiza una transformación y pasa el output al siguiente pipe. Los filtros son reutilizables, componibles y testeables en aislamiento. Este patrón es ideal para pipelines de procesamiento de datos, workflows ETL y cadenas de transformación de peticiones.
 
 ## Cuándo Usar
 

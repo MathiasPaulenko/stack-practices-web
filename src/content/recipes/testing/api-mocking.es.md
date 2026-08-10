@@ -37,13 +37,13 @@ seo:
 ---
 ## Visión General
 
-El API mocking reemplaza dependencias externas reales con simulaciones controladas durante el [testing](/guides/testing/testing-strategy-guide). Esto elimina la flakiness de red, reduce el tiempo de ejecución de tests y habilita el testing de casos edge — como errores 500 o timeouts — que son difíciles de reproducir con servicios en vivo. Herramientas modernas como WireMock, MSW y MockServer proveen request matching, response templating y capacidades de verificación que hacen que los mocks se comporten como lo real.
+El API mocking reemplaza dependencias externas reales con simulaciones controladas durante el [testing](/guides/testing-strategy-guide/). Esto elimina la flakiness de red, reduce el tiempo de ejecución de tests y habilita el testing de casos edge — como errores 500 o timeouts — que son difíciles de reproducir con servicios en vivo. Herramientas modernas como WireMock, MSW y MockServer proveen request matching, response templating y capacidades de verificación que hacen que los mocks se comporten como lo real.
 
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Las APIs externas son poco confiables, lentas o tienen rate limits que bloquean [pipelines de CI](/guides/devops/cicd-pipeline-guide)
-- Necesitas testear manejo de errores para HTTP 429, 503 o [escenarios de timeout](/recipes/architecture/retry-backoff)
+- Las APIs externas son poco confiables, lentas o tienen rate limits que bloquean [pipelines de CI](/guides/cicd-pipeline-guide/)
+- Necesitas testear manejo de errores para HTTP 429, 503 o [escenarios de timeout](/recipes/retry-backoff/)
 - El servicio real no tiene un sandbox o ambiente de test
 - Quieres tests determinísticos que no fallen por cambios de terceros
 
@@ -189,7 +189,7 @@ def test_payment_api():
 
 1. **Mockear métodos internos**: Testeas el mock, no el código
 2. **Matchers demasiado permisivos**: Matchers `any()` dejan pasar bugs que matchers específicos detectan
-3. **Sin cobertura de escenarios de error**: Solo testear 200 OK omite la mitad del código de [manejo de errores](/recipes/api/handle-errors)
+3. **Sin cobertura de escenarios de error**: Solo testear 200 OK omite la mitad del código de [manejo de errores](/recipes/handle-errors/)
 4. **Estado mutable compartido**: Estado de mock global filtra entre tests
 5. **Olvidar verificar**: Un test que pasa con un mock no usado significa que nada fue realmente testeado
 

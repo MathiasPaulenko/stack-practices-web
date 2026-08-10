@@ -53,9 +53,9 @@ Identify and fix slow queries in PostgreSQL using execution plan analysis, strat
 
 ## When to Use This
 
-- Queries take longer than 100ms and are executed frequently. See [Database Views](/recipes/databases/database-views-materialized) for precomputed results.
-- Sequential scans appear in query plans where index scans should be used. See [SQL Joins](/recipes/databases/sql-joins) for join optimization.
-- Database CPU or I/O is saturated under normal load. See [Redis Caching](/recipes/databases/redis-cache-patterns) for reducing load.
+- Queries take longer than 100ms and are executed frequently. See [Database Views](/recipes/database-views-materialized/) for precomputed results.
+- Sequential scans appear in query plans where index scans should be used. See [SQL Joins](/recipes/sql-joins/) for join optimization.
+- Database CPU or I/O is saturated under normal load. See [Redis Caching](/recipes/redis-cache-patterns/) for reducing load.
 
 ## Solution
 
@@ -169,14 +169,14 @@ LIMIT 20;
 ## Production Considerations
 
 - Run `ANALYZE` after bulk loads or major data changes to update statistics
-- Use `pg_stat_statements` to identify the slowest queries by total time. See [Logging](/recipes/api/logging) for query observability.
+- Use `pg_stat_statements` to identify the slowest queries by total time. See [Logging](/recipes/logging/) for query observability.
 - Monitor index bloat with `pgstattuple` and rebuild with `REINDEX`
 
 ## Common Mistakes
 
 - Adding indexes on every column without considering query patterns
 - Using `SELECT *` when only a few columns are needed
-- Not updating table statistics after large data migrations. See [Database Migrations](/recipes/databases/database-migrations) for safe schema changes.
+- Not updating table statistics after large data migrations. See [Database Migrations](/recipes/database-migrations/) for safe schema changes.
 
 ## FAQ
 

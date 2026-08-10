@@ -313,7 +313,7 @@ La clase es tanto un modelo de dominio como un gateway a la base de datos. Esta 
 ## Preguntas Frecuentes
 
 **Q: Cuál es la diferencia entre Active Record y Data Mapper?**
-A: Active Record pone métodos de persistencia en el objeto de dominio. [Data Mapper](/patterns/design/data-mapper-pattern) usa una clase separada para mapear objetos a la base de datos, manteniendo el modelo de dominio puro.
+A: Active Record pone métodos de persistencia en el objeto de dominio. [Data Mapper](/patterns/data-mapper-pattern/) usa una clase separada para mapear objetos a la base de datos, manteniendo el modelo de dominio puro.
 
 **Q: Active Record es un anti-pattern?**
 A: No, pero es una mala elección para dominios complejos. Brilla en aplicaciones CRUD-heavy y prototipado rápido.

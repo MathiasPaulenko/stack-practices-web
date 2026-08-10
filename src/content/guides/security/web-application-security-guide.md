@@ -143,9 +143,9 @@ subprocess.run(["convert", user_filename, "output.png"], check=True)
 
 ### Checklist
 
-- [ ] Use [parameterized queries](/recipes/security/sql-injection-prevention) for all database access
+- [ ] Use [parameterized queries](/recipes/sql-injection-prevention/) for all database access
 - [ ] Escape special characters in LDAP, XML, and OS commands
-- [ ] Validate and whitelist [user input](/recipes/api/input-validation) before using it in commands
+- [ ] Validate and whitelist [user input](/recipes/input-validation/) before using it in commands
 
 ## 4. Insecure Design
 
@@ -203,7 +203,7 @@ snyk test
 - [ ] Maintain a software bill of materials (SBOM)
 - [ ] Subscribe to security advisories for critical dependencies
 - [ ] Remove unused dependencies (reduces attack surface)
-- [ ] Test updates in [staging](/guides/devops/deployment-strategies-guide) before production
+- [ ] Test updates in [staging](/guides/deployment-strategies-guide/) before production
 
 ## 7. Identification and Authentication Failures
 

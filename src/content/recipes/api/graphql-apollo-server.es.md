@@ -48,7 +48,7 @@ GraphQL permite a los clientes solicitar exactamente los datos que necesitan en 
 ## Cuando Usar Esto
 
 - Los clientes necesitan consultas flexibles sobre un modelo de dominio complejo
-- Quieres reducir over-fetching y under-fetching comunes en [APIs REST](/recipes/api/call-rest-api)
+- Quieres reducir over-fetching y under-fetching comunes en [APIs REST](/recipes/call-rest-api/)
 - Las actualizaciones en tiempo real via suscripciones son un requerimiento
 
 ## Requisitos Previos
@@ -165,7 +165,7 @@ const { url } = await startStandaloneServer(server, {
 console.log(`Servidor listo en ${url}`);
 ```
 
-### 5. Middleware de [Autenticación](/guides/security/api-security-checklist-guide)
+### 5. Middleware de [Autenticación](/guides/api-security-checklist-guide/)
 
 ```typescript
 // auth.ts
@@ -196,7 +196,7 @@ export const authDirective = (schema: GraphQLSchema) =>
 
 - Usa **Apollo Federation** para componer multiples servicios GraphQL en un gateway unificado
 - Habilita **cacheo de respuestas** con directivas `@cacheControl` para consultas GET
-- Implementa [rate limiting](/recipes/api/api-rate-limiting-redis) por complejidad de operacion, no solo conteo de peticiones
+- Implementa [rate limiting](/recipes/api-rate-limiting-redis/) por complejidad de operacion, no solo conteo de peticiones
 - Agrega **safelisting de operaciones** para prevenir consultas arbitrarias costosas en produccion
 
 
@@ -217,7 +217,7 @@ R: Apollo Server tiene la comunidad más grande. Yoga es mas ligero y rapido par
 R: Usa `graphql-upload-minimal` con peticiones multipart, o prefiere un endpoint REST separado para archivos grandes.
 
 **P: Cuando deberia evitar GraphQL?**
-R: Para CRUD simple con pocas relaciones, [REST](/recipes/api/call-rest-api) es usualmente mas simple. GraphQL brilla cuando los clientes necesitan consultas flexibles sobre grafos complejos.
+R: Para CRUD simple con pocas relaciones, [REST](/recipes/call-rest-api/) es usualmente mas simple. GraphQL brilla cuando los clientes necesitan consultas flexibles sobre grafos complejos.
 
 ## Mejores Prácticas
 

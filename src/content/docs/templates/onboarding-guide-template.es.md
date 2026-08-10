@@ -34,7 +34,7 @@ seo:
 ---
 ## Resumen
 
-Una guía de onboarding acelera la productividad de nuevos miembros del equipo al proveer un camino claro desde el día uno hasta la primera contribución significativa. Consulta la [Plantilla de README](/docs/templates/readme-template) para docs de proyecto y la [Guía de Contribución](/docs/templates/contributing-guide) para estándares de contribución. Reduce la carga sobre miembros existentes y asegura consistencia.
+Una guía de onboarding acelera la productividad de nuevos miembros del equipo al proveer un camino claro desde el día uno hasta la primera contribución significativa. Consulta la [Plantilla de README](/docs/readme-template/) para docs de proyecto y la [Guía de Contribución](/docs/contributing-guide/) para estándares de contribución. Reduce la carga sobre miembros existentes y asegura consistencia.
 
 ## Cuándo Usar
 

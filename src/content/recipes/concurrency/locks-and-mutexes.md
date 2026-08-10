@@ -47,7 +47,7 @@ Use this recipe when:
 - Multiple threads read and write the same mutable state
 - Protecting in-memory caches, counters, or configuration shared across threads
 - Limiting concurrent access to external resources (APIs, databases, file handles)
-- Implementing [thread-safe data structures](/recipes/concurrency/concurrent-data-structures) (queues, maps, pools)
+- Implementing [thread-safe data structures](/recipes/concurrent-data-structures/) (queues, maps, pools)
 - Avoiding data races without redesigning the entire architecture to be lock-free
 
 ## Solution
@@ -194,7 +194,7 @@ int main() {
 
 - **Mutex**: ensures mutual exclusion â€” only one thread holds the lock at a time.  Other threads block until the lock is released.  Simple and useful, but can become a bottleneck if the critical section is large or frequently accessed.
 - **Read-write lock**: allows multiple concurrent readers but only one writer.  Ideal for read-heavy workloads where writes are rare.  A reader does not block other readers, but a writer blocks everyone.  Downgrading from write to read is supported in some implementations.
-- **Semaphore**: a generalized lock with a counter.  A mutex is a semaphore with count 1.  A pool semaphore with count 10 allows 10 threads to enter simultaneously.  Useful for [resource pools](/recipes/performance/connection-pooling), throttling, and backpressure.
+- **Semaphore**: a generalized lock with a counter.  A mutex is a semaphore with count 1.  A pool semaphore with count 10 allows 10 threads to enter simultaneously.  Useful for [resource pools](/recipes/connection-pooling/), throttling, and backpressure.
 - **Atomic operations**: lock-free updates using CPU instructions like `CAS` (compare-and-swap).  Faster than locks for simple operations but limited in scope.  Complex updates still require locks.
 
 ## Variants
@@ -213,7 +213,7 @@ int main() {
 - **Always unlock in finally**: a thread that throws an exception while holding a lock will never release it, deadlocking other threads.
 - **Avoid nested locks**: acquiring lock A then lock B, while another thread acquires B then A, creates a classic deadlock.  If nested locks are unavoidable, always acquire them in a consistent global order.  Better yet, redesign to avoid nesting.
 - **Prefer read-write locks for read-heavy data**: if 99% of accesses are reads, a mutex serializes 99% of operations unnecessarily.  A read-write lock allows parallel reads, dramatically improving throughput on caches, configuration, and lookup tables.
-- **Use atomics for simple counters**: an `AtomicInteger` or `std::atomic<int>` for a counter is faster than a mutex and eliminates deadlock risk.  Do not use atomics for compound operations â€” those require a lock.  See [Thread Pools](/recipes/concurrency/thread-pools) for managing concurrent workers.
+- **Use atomics for simple counters**: an `AtomicInteger` or `std::atomic<int>` for a counter is faster than a mutex and eliminates deadlock risk.  Do not use atomics for compound operations â€” those require a lock.  See [Thread Pools](/recipes/thread-pools/) for managing concurrent workers.
 
 ## Common mistakes
 
@@ -325,7 +325,7 @@ A: Use `synchronized` for simple cases â€” it is less error-prone (unlock i
 A: The GIL prevents true thread parallelism for CPU work, but locks are still necessary for thread safety. Two threads can still interleave operations on shared data between bytecode instructions. Use `threading.Lock` for shared mutable state.
 
 **Q: What is lock contention and how do I reduce it?**
-A: Contention occurs when multiple threads compete for the same lock. Reduce it by: (1) shrinking critical sections, (2) using read-write locks, (3) sharding data (each shard has its own lock), (4) using [lock-free structures](/recipes/concurrency/concurrent-data-structures), or (5) reducing thread count.
+A: Contention occurs when multiple threads compete for the same lock. Reduce it by: (1) shrinking critical sections, (2) using read-write locks, (3) sharding data (each shard has its own lock), (4) using [lock-free structures](/recipes/concurrent-data-structures/), or (5) reducing thread count.
 
 **Q: Are semaphores and mutexes the same thing?**
 A: A mutex is a binary semaphore (count = 1) with ownership semantics â€” only the thread that locked it can unlock it. A semaphore has a configurable count and no ownership. Use a mutex for exclusive access; a semaphore for resource pools.

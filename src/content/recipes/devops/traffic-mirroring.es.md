@@ -37,7 +37,7 @@ seo:
 ---
 ## Visión General
 
-El traffic mirroring copia requests reales de producción a un ambiente de staging o [shadow](/recipes/devops/blue-green-deployment) sin afectar usuarios. Esto habilita testing de carga realista, validación de regresiones y benchmarking de performance contra patrones de tráfico actuales. A diferencia de tests sintéticos que simulan comportamiento de usuario, el tráfico mirror revela cómo los sistemas se comportan bajo distribuciones de requests genuinas, headers y payloads reales.
+El traffic mirroring copia requests reales de producción a un ambiente de staging o [shadow](/recipes/blue-green-deployment/) sin afectar usuarios. Esto habilita testing de carga realista, validación de regresiones y benchmarking de performance contra patrones de tráfico actuales. A diferencia de tests sintéticos que simulan comportamiento de usuario, el tráfico mirror revela cómo los sistemas se comportan bajo distribuciones de requests genuinas, headers y payloads reales.
 
 ## Cuándo Usar
 
@@ -45,7 +45,7 @@ Usa este recurso cuando:
 - El load testing con datos sintéticos no captura la complejidad de requests del mundo real
 - Validas una nueva versión de servicio contra tráfico de producción antes del cutover
 - Necesitas benchmark de cambios de infraestructura (versiones de base de datos, upgrades de kernel)
-- Testeas [disaster recovery](/guides/devops/on-call-incident-response-guide) reproduciendo tráfico de producción contra sistemas standby
+- Testeas [disaster recovery](/guides/on-call-incident-response-guide/) reproduciendo tráfico de producción contra sistemas standby
 
 ## Solución
 
@@ -143,7 +143,7 @@ spec:
 | Shadow | Ninguno (async) | Producción | Análisis insensible a latencia |
 
 **Consideraciones clave**:
-- **Idempotencia**: Los POST/PUT mirrors deben ser seguros de duplicar. Consulta [idempotencia de mensajes](/recipes/messaging/rabbitmq-task-queue).
+- **Idempotencia**: Los POST/PUT mirrors deben ser seguros de duplicar. Consulta [idempotencia de mensajes](/recipes/rabbitmq-task-queue/).
 - **Aislamiento de estado**: La base de datos de staging no debe compartir estado con producción
 - **Side effects**: Deshabilitar email, pagos y servicios de notificación en el target mirror
 - **Latencia**: El mirror no debería bloquear el path de respuesta de producción
@@ -168,7 +168,7 @@ spec:
 
 ## Errores Comunes
 
-1. **Mirroring sin idempotencia**: Cobrar clientes dos veces porque la API de pagos fue mirrorizada. Usa [idempotency keys](/recipes/messaging/rabbitmq-task-queue).
+1. **Mirroring sin idempotencia**: Cobrar clientes dos veces porque la API de pagos fue mirrorizada. Usa [idempotency keys](/recipes/rabbitmq-task-queue/).
 2. **Bases de datos compartidas**: Producción y mirror escribiendo a la misma base de datos corrompen datos
 3. **Bloquear producción**: Latencia del target mirror agregada al tiempo de respuesta de producción
 4. **Sin filtrado de tráfico**: Mirror de health checks y requests de monitoreo poluciona datos de staging
@@ -183,7 +183,7 @@ R: Mínimo si se implementa correctamente. El mirroring a nivel de network tiene
 R: Sí, pero la latencia aumenta. AWS Traffic Mirroring funciona dentro del mismo VPC; cross-region requiere VPN o Transit Gateway.
 
 **P: ¿Cómo difiere el mirroring del load testing?**
-R: El [load testing](/recipes/performance/load-testing-k6) genera tráfico artificial. El mirroring usa tráfico real. Usa ambos: mirror para realismo, load testing para límites de capacidad.
+R: El [load testing](/recipes/load-testing-k6/) genera tráfico artificial. El mirroring usa tráfico real. Usa ambos: mirror para realismo, load testing para límites de capacidad.
 
 ### ¿Esta solución está lista para producción?
 

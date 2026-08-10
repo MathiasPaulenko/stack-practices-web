@@ -53,7 +53,7 @@ Las conexiones WebSocket son persistentes y stateful, lo que hace la autenticaci
 ## Requisitos Previos
 
 - Un servidor WebSocket (Node.js ws, Socket.io, o Deno)
-- Sistema de autenticacion basado en [JWT](/recipes/authentication/jwt-authentication) o sesiones ya implementado
+- Sistema de autenticacion basado en [JWT](/recipes/jwt-authentication/) o sesiones ya implementado
 
 ## Solucion
 
@@ -151,7 +151,7 @@ function broadcast(room: string, message: object) {
 }
 ```
 
-### 3. [Rate Limiting](/recipes/api/api-rate-limiting-redis) por Conexion
+### 3. [Rate Limiting](/recipes/api-rate-limiting-redis/) por Conexion
 
 ```typescript
 // server/rateLimit.ts
@@ -199,7 +199,7 @@ if (!limiter.canSend(ws.userId)) {
 
 ## Consideraciones de Produccion
 
-- Usa **Redis Pub/Sub** para broadcast entre multiples instancias de servidor WebSocket. Consulta [Notificaciones en Tiempo Real](/recipes/api/real-time-notifications) para patrones de Redis pub/sub.
+- Usa **Redis Pub/Sub** para broadcast entre multiples instancias de servidor WebSocket. Consulta [Notificaciones en Tiempo Real](/recipes/real-time-notifications/) para patrones de Redis pub/sub.
 - Implementa **heartbeat/ping-pong** para detectar y limpiar conexiones stale
 - Loggea eventos de conexion para auditoria de seguridad y debugging
 - Considera **Socket.io** para reconexion automatica y manejo de salas
@@ -324,7 +324,7 @@ R: JWT es mas facil para conexiones cross-domain. Las cookies de sesion funciona
 **P: Como manejo expiracion de token durante una conexion persistente?**
 R: Envia un refresh token sobre la conexion existente o implementa un silent refresh antes de la expiracion.
 
-**P: Puedo usar el mismo [middleware](/recipes/api/middleware) de auth para HTTP y WebSocket?**
+**P: Puedo usar el mismo [middleware](/recipes/middleware/) de auth para HTTP y WebSocket?**
 R: Parcialmente. La logica de validacion puede compartirse, pero WebSocket requiere extraer el token de query parameters o headers durante el handshake.
 
 ### ¿Esta solución está lista para producción?

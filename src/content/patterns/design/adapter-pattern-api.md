@@ -45,7 +45,7 @@ seo:
 
 ---
 
-The [Adapter](/patterns/design/adapter-pattern) pattern converts the interface of one class into another interface clients expect. When integrating third-party REST APIs, it becomes a translation layer that maps external data formats into clean, stable domain models your application controls.
+The [Adapter](/patterns/adapter-pattern/) pattern converts the interface of one class into another interface clients expect. When integrating third-party REST APIs, it becomes a translation layer that maps external data formats into clean, stable domain models your application controls.
 
 ## When to Use This
 
@@ -137,7 +137,7 @@ const service = new PaymentService(new StripeAdapter());
 ## Variations
 
 - **Two-Way Adapter**: Convert internal models back to external format for updates
-- **Caching Adapter**: Combine with [Proxy](/patterns/design/proxy-pattern) to cache external lookups
+- **Caching Adapter**: Combine with [Proxy](/patterns/proxy-pattern/) to cache external lookups
 - **Batch Adapter**: Adapt list endpoints into paginated internal queries
 
 ## What Works
@@ -484,7 +484,7 @@ class ValidatingPaymentAdapter implements PaymentAdapter {
 ## FAQ
 
 **Q: How is this different from a mapper function?**
-A: An [adapter](/patterns/design/adapter-pattern) implements a known interface so the consuming service does not depend on which provider is active. A mapper is typically a one-off function call.
+A: An [adapter](/patterns/adapter-pattern/) implements a known interface so the consuming service does not depend on which provider is active. A mapper is typically a one-off function call.
 
 **Q: Should I test adapters with real HTTP calls?**
 A: Prefer recorded responses or stubs for speed. Test the real adapter in a separate contract test suite to verify integration with the actual API.

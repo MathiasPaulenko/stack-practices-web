@@ -54,11 +54,11 @@ Background jobs offload slow or non-critical work from the request/response cycl
 ## When to Use
 
 Use this resource when:
-- Sending emails or SMS that can wait a few seconds. See [Email Templates MJML](/recipes/frontend/email-templates-mjml) for email content generation.
-- Generating exports, reports, or PDFs that take >1s. See [Generate PDFs](/recipes/file-handling/generate-pdfs) for document generation.
-- Processing uploaded images, videos, or documents. See [Image Optimization](/recipes/file-handling/image-optimization) for media processing.
-- Syncing data with external APIs on a schedule. See [Call REST API](/recipes/api/call-rest-api) for API client patterns.
-- Aggregating analytics or running nightly cleanup tasks. See [Scheduled Jobs](/recipes/devops/background-jobs) for cron-based serverless tasks.
+- Sending emails or SMS that can wait a few seconds. See [Email Templates MJML](/recipes/email-templates-mjml/) for email content generation.
+- Generating exports, reports, or PDFs that take >1s. See [Generate PDFs](/recipes/generate-pdfs/) for document generation.
+- Processing uploaded images, videos, or documents. See [Image Optimization](/recipes/image-optimization/) for media processing.
+- Syncing data with external APIs on a schedule. See [Call REST API](/recipes/call-rest-api/) for API client patterns.
+- Aggregating analytics or running nightly cleanup tasks. See [Scheduled Jobs](/recipes/background-jobs/) for cron-based serverless tasks.
 
 ## Solution
 

@@ -41,7 +41,7 @@ seo:
 ---
 ## Visión General
 
-OpenAPI (anteriormente Swagger) es el estándar de la industria para describir [APIs REST](/recipes/api/rest-api-design). Un spec OpenAPI bien mantenido funciona como única fuente de verdad para tu API — generando documentación interactiva, clientes SDK y tests automatizados desde un solo archivo YAML o JSON.
+OpenAPI (anteriormente Swagger) es el estándar de la industria para describir [APIs REST](/recipes/rest-api-design/). Un spec OpenAPI bien mantenido funciona como única fuente de verdad para tu API — generando documentación interactiva, clientes SDK y tests automatizados desde un solo archivo YAML o JSON.
 
 A continuacion se cubre la generación de documentación de API interactiva a partir de specs OpenAPI usando Swagger UI, Redoc y herramientas nativas de frameworks.
 
@@ -108,8 +108,8 @@ public class BookController {
 ## Explicación
 
 Los specs OpenAPI se generan típicamente de dos formas:
-- **Code-first**: Las anotaciones en tu código generan el spec automáticamente ([FastAPI](/recipes/api/go-rest-api-gin), SpringDoc, tsoa)
-- **Design-first**: Escribes el spec YAML/JSON manualmente, luego generas stubs del servidor y [clientes SDK](/recipes/api/call-rest-api)
+- **Code-first**: Las anotaciones en tu código generan el spec automáticamente ([FastAPI](/recipes/go-rest-api-gin/), SpringDoc, tsoa)
+- **Design-first**: Escribes el spec YAML/JSON manualmente, luego generas stubs del servidor y [clientes SDK](/recipes/call-rest-api/)
 
 El spec generado (`openapi.json`) alimenta:
 - **Swagger UI**: Explorador interactivo para probar endpoints
@@ -137,8 +137,8 @@ El spec generado (`openapi.json`) alimenta:
 ## Errores Comunes
 
 - **Divergencia entre código y spec**: El código cambia pero el spec no se actualiza — usa code-first para evitarlo
-- **Definiciones de seguridad ausentes**: Documenta requisitos de auth ([Bearer](/recipes/security/oauth2-pkce-spa), OAuth2, API key)
-- **Compartir modelos internos**: Expón DTOs, no [entidades de base de datos](/guides/databases/database-design-guide), en el spec
+- **Definiciones de seguridad ausentes**: Documenta requisitos de auth ([Bearer](/recipes/oauth2-pkce-spa/), OAuth2, API key)
+- **Compartir modelos internos**: Expón DTOs, no [entidades de base de datos](/guides/database-design-guide/), en el spec
 - **Ignorar campos nullable**: OpenAPI 3.
 - **URLs de servidor hardcodeadas**: Usa variables (`{serverUrl}`) para diferentes entornos
 
@@ -322,11 +322,11 @@ Documenta APIs async basadas en Kafka usando extensiones OpenAPI. Define topics 
 
 ## Ver También
 
-- [API Versioning](/recipes/api/api-versioning) — estrategias para versionar APIs REST
-- [Call REST API](/recipes/api/call-rest-api) — consumo de APIs REST desde código cliente
-- [GraphQL API](/recipes/api/graphql-api) — paradigma alternativo de API
-- [Handle CORS](/recipes/api/handle-cors) — configuración de cross-origin resource sharing
-- [Handle Errors](/recipes/api/handle-errors) — patterns estructurados de manejo de errores
+- [API Versioning](/recipes/api-versioning/) — estrategias para versionar APIs REST
+- [Call REST API](/recipes/call-rest-api/) — consumo de APIs REST desde código cliente
+- [GraphQL API](/recipes/graphql-api/) — paradigma alternativo de API
+- [Handle CORS](/recipes/handle-cors/) — configuración de cross-origin resource sharing
+- [Handle Errors](/recipes/handle-errors/) — patterns estructurados de manejo de errores
 
 ---
 

@@ -110,10 +110,10 @@ kubectl scale deployment/api-service --replicas=20
 | Problema | Mitigación Rápida |
 |----------|-----------------|
 | Deploy malo | Rollback a última versión buena |
-| Pico de tráfico | Escalar horizontalmente, activar [rate limiting](/recipes/api/rate-limiting) |
-| Falla de dependencia | Activar [circuit breaker](/recipes/circuit-breaker-pattern-recipe), servir cache viejo |
-| Sobrecarga de base de datos | Matar queries lentas, agregar [réplicas de lectura](/guides/databases/database-design-guide) |
-| Error de configuración | [Revertir config](/guides/devops/infrastructure-as-code-guide), reiniciar con valores previos |
+| Pico de tráfico | Escalar horizontalmente, activar [rate limiting](/recipes/rate-limiting/) |
+| Falla de dependencia | Activar [circuit breaker](/recipes/circuit-breaker-pattern-recipe/), servir cache viejo |
+| Sobrecarga de base de datos | Matar queries lentas, agregar [réplicas de lectura](/guides/database-design-guide/) |
+| Error de configuración | [Revertir config](/guides/infrastructure-as-code-guide/), reiniciar con valores previos |
 
 ## 4. Comunicación
 
@@ -160,7 +160,7 @@ Un incidente se considera resuelto cuando:
 
 1. Detén el reloj (registra duración total del incidente)
 2. Agenda postmortem dentro de 24 horas para SEV-1/2
-3. Crea tickets de seguimiento con dueños y fechas límite. Actualiza [CI/CD](/guides/devops/cicd-pipeline-guide) si es necesario.
+3. Crea tickets de seguimiento con dueños y fechas límite. Actualiza [CI/CD](/guides/cicd-pipeline-guide/) si es necesario.
 4. Actualiza runbooks con lo aprendido
 
 ## 6. Postmortem

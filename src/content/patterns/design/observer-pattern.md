@@ -59,11 +59,11 @@ It is the foundation of event-driven architectures, reactive programming, and th
 ## When to Use
 
 Use the Observer Pattern when:
-- Changes to one object require updating an unknown number of dependent objects. See [Mediator Pattern](/patterns/design/mediator-pattern) for centralized routing.
-- You need a publish-subscribe communication model. See [CQRS Pattern](/recipes/cqrs-pattern-recipe) for event-driven architectures.
+- Changes to one object require updating an unknown number of dependent objects. See [Mediator Pattern](/patterns/mediator-pattern/) for centralized routing.
+- You need a publish-subscribe communication model. See [CQRS Pattern](/recipes/cqrs-pattern-recipe/) for event-driven architectures.
 - An object should notify others without knowing who they are
 - You want loose coupling between event producers and consumers
-- Building reactive UI components or real-time data feeds. See [API REST](/recipes/api/call-rest-api) for real-time data fetching.
+- Building reactive UI components or real-time data feeds. See [API REST](/recipes/call-rest-api/) for real-time data fetching.
 
 ## Solution
 
@@ -207,10 +207,10 @@ When the Subject's state changes, it iterates over its observers and calls their
 ## FAQ
 
 **Q: What is the difference between Observer and Pub/Sub?**
-A: Observer is a direct subject-observer relationship. Pub/Sub adds an event broker ([Mediator](/patterns/design/mediator-pattern)) that decouples publishers from subscribers completely.
+A: Observer is a direct subject-observer relationship. Pub/Sub adds an event broker ([Mediator](/patterns/mediator-pattern/)) that decouples publishers from subscribers completely.
 
 **Q: Is the Observer Pattern still relevant with modern reactive frameworks?**
-A: Yes. React hooks, RxJS, and Vue's reactivity system are all built on Observer concepts. For singleton event brokers, see [Singleton](/patterns/design/singleton-pattern).
+A: Yes. React hooks, RxJS, and Vue's reactivity system are all built on Observer concepts. For singleton event brokers, see [Singleton](/patterns/singleton-pattern/).
 
 **Q: How do I prevent memory leaks with observers?**
 A: Always provide an unsubscribe mechanism and call it in cleanup handlers or destructors.

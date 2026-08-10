@@ -48,9 +48,9 @@ A continuacion se cubre la configuración de read replicas, implementación de s
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- La CPU o I/O de tu base de datos principal está saturada por queries de lectura. Consulta [Query Optimization](/recipes/databases/postgres-query-optimization) para ajustar lecturas.
-- Necesitas ejecutar reportes analíticos sin impactar escrituras de producción. Consulta [Logging](/recipes/api/logging) para observabilidad.
-- Quieres localidad geográfica de lecturas colocando réplicas cerca de usuarios. Consulta [Caching](/recipes/data/caching) para rendimiento en edge.
+- La CPU o I/O de tu base de datos principal está saturada por queries de lectura. Consulta [Query Optimization](/recipes/postgres-query-optimization/) para ajustar lecturas.
+- Necesitas ejecutar reportes analíticos sin impactar escrituras de producción. Consulta [Logging](/recipes/logging/) para observabilidad.
+- Quieres localidad geográfica de lecturas colocando réplicas cerca de usuarios. Consulta [Caching](/recipes/caching/) para rendimiento en edge.
 - Tu workload es intensivo en lectura (>80% lecturas) y el volumen de escritura es moderado
 
 ## Solución
@@ -192,9 +192,9 @@ Las read replicas usan replicación streaming (física) o lógica:
 
 - **Monitorea el replication lag**: Alerta cuando el lag excede 1–5 segundos dependiendo del caso de uso
 - **Enruta lecturas sensibles al tiempo a la primaria**: Lecturas de perfil de usuario después de editar deben ir a la primaria
-- **Usa connection pooling por réplica**: Consulta [Connection Pooling](/recipes/databases/database-connection-pooling) para configuración.
+- **Usa connection pooling por réplica**: Consulta [Connection Pooling](/recipes/database-connection-pooling/) para configuración.
 - **Distribuye réplicas entre zonas de disponibilidad**: Protege contra fallos de zona
-- **Prueba procedimientos de failover**: Las réplicas pueden promoverse a primaria durante outages.   Consulta [Retry Logic](/recipes/architecture/retry-backoff) para patrones de resiliencia.
+- **Prueba procedimientos de failover**: Las réplicas pueden promoverse a primaria durante outages.   Consulta [Retry Logic](/recipes/retry-backoff/) para patrones de resiliencia.
 
 ## Errores Comunes
 

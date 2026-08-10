@@ -40,10 +40,10 @@ Continuous Integration y Continuous Deployment (CI/CD) automatizan el viaje desd
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- configures un nuevo proyecto y quieras testing automatizado desde el día uno. Consulta [Unit Testing](/recipes/testing/unit-testing) para fundamentos de testing.
-- Migres de deploys manuales a releases automatizados. Consulta [GitHub Actions](/recipes/devops/github-actions) para automatización de workflows.
-- Agregues scanning de seguridad, linting o gates de calidad de código a tu workflow. Consulta [Container Security Scanning](/recipes/devops/container-security-scanning) para gates de seguridad en CI.
-- Construyas una estrategia de deploy multi-ambiente (dev → staging → prod). Consulta [Blue-Green Deployment](/recipes/devops/blue-green-deployment) para releases sin downtime.
+- configures un nuevo proyecto y quieras testing automatizado desde el día uno. Consulta [Unit Testing](/recipes/unit-testing/) para fundamentos de testing.
+- Migres de deploys manuales a releases automatizados. Consulta [GitHub Actions](/recipes/github-actions/) para automatización de workflows.
+- Agregues scanning de seguridad, linting o gates de calidad de código a tu workflow. Consulta [Container Security Scanning](/recipes/container-security-scanning/) para gates de seguridad en CI.
+- Construyas una estrategia de deploy multi-ambiente (dev → staging → prod). Consulta [Blue-Green Deployment](/recipes/blue-green-deployment/) para releases sin downtime.
 
 ## Solución
 

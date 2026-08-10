@@ -34,7 +34,7 @@ seo:
 
 
 ---
-The [Memento](/patterns/design/memento-pattern) pattern captures and externalizes an object's internal state so the object can be restored to this state later, without violating encapsulation. Unlike [Command](/patterns/design/command-pattern), which stores operations, Memento stores the entire state snapshot. It is the foundation for undo systems, checkpoints in games, and draft saving in editors.
+The [Memento](/patterns/memento-pattern/) pattern captures and externalizes an object's internal state so the object can be restored to this state later, without violating encapsulation. Unlike [Command](/patterns/command-pattern/), which stores operations, Memento stores the entire state snapshot. It is the foundation for undo systems, checkpoints in games, and draft saving in editors.
 
 ## When to Use This
 
@@ -236,7 +236,7 @@ class GameCheckpoint implements EditorMemento {
 ## FAQ
 
 **Q: How is this different from Command?**
-A: [Command](/patterns/design/command-pattern) stores operations to reverse. Memento stores complete state snapshots. Mementos are larger but simpler to implement for complex objects.
+A: [Command](/patterns/command-pattern/) stores operations to reverse. Memento stores complete state snapshots. Mementos are larger but simpler to implement for complex objects.
 
 **Q: Can I use this with Redux?**
 A: Redux time-travel is essentially a memento history over immutable state. Redux DevTools implements this pattern.

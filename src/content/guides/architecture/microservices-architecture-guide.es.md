@@ -151,18 +151,18 @@ Mejor para: trabajo en background, alto throughput, desacoplamiento
 ## Lo que funciona
 
 - **Posee el ciclo de vida completo** — los equipos construyen, operan y soportan sus servicios
-- **Diseña para el fallo** — asume que cualquier dependencia puede fallar; usa [reintentos con backoff](/recipes/architecture/retry-backoff), [circuit breakers](/recipes/circuit-breaker-pattern-recipe) y degradación graceful
+- **Diseña para el fallo** — asume que cualquier dependencia puede fallar; usa [reintentos con backoff](/recipes/retry-backoff/), [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) y degradación graceful
 - **Automatiza todo** — si un deploy o rollback requiere un runbook, automatízalo
-- **Estandariza observabilidad** — cada servicio debe emitir [logs](/recipes/observability/log-aggregation), [métricas](/recipes/observability/metrics-collection) y [trazas](/recipes/observability/distributed-tracing) consistentes
+- **Estandariza observabilidad** — cada servicio debe emitir [logs](/recipes/log-aggregation/), [métricas](/recipes/metrics-collection/) y [trazas](/recipes/distributed-tracing/) consistentes
 - **Limita dependencias entre servicios** — evita cadenas profundas; prefiere fan-out sobre árboles profundos
 
 ## Errores Comunes
 
 - Crear demasiados servicios muy temprano — 5 servicios para 3 ingenieros es exceso
-- Compartir bases de datos entre servicios — esto es un monolito distribuido. Consulta [diseño de bases de datos](/guides/databases/database-design-guide).
-- Ignorar latencia de red — cada llamada síncrona es un potencial timeout o [retry storm](/recipes/architecture/retry-backoff)
-- Subestimar costo operativo — los microservicios necesitan [prácticas DevOps](/guides/devops/docker-for-developers-guide) maduras
-- Construir un framework RPC custom — usa estándares probados (gRPC, [HTTP/REST](/guides/api/rest-api-design-guide), o [brokers de mensajes](/guides/architecture/event-driven-architecture-guide))
+- Compartir bases de datos entre servicios — esto es un monolito distribuido. Consulta [diseño de bases de datos](/guides/database-design-guide/).
+- Ignorar latencia de red — cada llamada síncrona es un potencial timeout o [retry storm](/recipes/retry-backoff/)
+- Subestimar costo operativo — los microservicios necesitan [prácticas DevOps](/guides/docker-for-developers-guide/) maduras
+- Construir un framework RPC custom — usa estándares probados (gRPC, [HTTP/REST](/guides/rest-api-design-guide/), o [brokers de mensajes](/guides/event-driven-architecture-guide/))
 
 ## Ejemplo de Arquitectura
 
@@ -219,7 +219,7 @@ volumes:
 
 ### ¿Debería toda startup comenzar con microservicios?
 
-No. Comienza con un [monolito](/guides/architecture/monolith-to-microservices-migration-guide). Extrae servicios cuando un módulo sea doloroso de desplegar, escalar o razonar de forma independiente. La descomposición prematura es una causa común de ralentización de ingeniería.
+No. Comienza con un [monolito](/guides/monolith-to-microservices-migration-guide/). Extrae servicios cuando un módulo sea doloroso de desplegar, escalar o razonar de forma independiente. La descomposición prematura es una causa común de ralentización de ingeniería.
 
 ### ¿Qué tan grande debería ser un microservicio?
 
@@ -227,7 +227,7 @@ Lo suficientemente pequeño para ser reescrito en 2-4 semanas. Si un servicio re
 
 ### ¿Cuál es el mayor riesgo de los microservicios?
 
-Complejidad distribuida. [Debuggear](/recipes/observability/distributed-tracing), probar y razonar sobre un sistema que abarca docenas de servicios es considerablemente más difícil que un monolito. Sin fuerte [observabilidad](/recipes/observability/log-aggregation) y automatización, la arquitectura te ralentizará en lugar de acelerarte.
+Complejidad distribuida. [Debuggear](/recipes/distributed-tracing/), probar y razonar sobre un sistema que abarca docenas de servicios es considerablemente más difícil que un monolito. Sin fuerte [observabilidad](/recipes/log-aggregation/) y automatización, la arquitectura te ralentizará en lugar de acelerarte.
 
 
 ## Temas Avanzados

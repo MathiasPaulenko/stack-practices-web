@@ -114,8 +114,8 @@ Las revisiones sistemáticas son más exhaustivas:
 | **Funcionalidad** | ¿Hace lo que el PR dice? ¿Maneja casos edge? |
 | **Tests** | ¿Hay tests para la nueva lógica? ¿Los tests existentes siguen pasando? |
 | **Legibilidad** | ¿Los nombres son claros? ¿La complejidad está justificada? |
-| **Seguridad** | ¿Las entradas están validadas? ¿Hay secretos expuestos? | [validación de datos](/recipes/security/data-validation-zod) |
-| **Performance** | ¿Hay [queries N+1](/recipes/performance/database-indexing)? ¿Asignaciones innecesarias? |
+| **Seguridad** | ¿Las entradas están validadas? ¿Hay secretos expuestos? | [validación de datos](/recipes/data-validation-zod/) |
+| **Performance** | ¿Hay [queries N+1](/recipes/database-indexing/)? ¿Asignaciones innecesarias? |
 | **Mantenibilidad** | ¿Hay código duplicado? ¿Será difícil de cambiar? |
 
 ### 3. Categoriza el Feedback

@@ -52,9 +52,9 @@ Distribuye trafico entrante entre multiples servidores backend usando HAProxy, u
 
 ## Cuando Usar Esto
 
-- Corres multiples instancias de aplicacion y necesitas distribuir trafico equitativamente. Consulta [Health Check Endpoint](/recipes/devops/health-check-endpoint) para health probes de backend.
-- Los servicios deben removerse automaticamente de rotacion cuando esten unhealthy. Consulta [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para aislamiento de fallos.
-- SSL termination deberia ocurrir en el edge, no en cada servidor de aplicacion. Consulta [Nginx Reverse Proxy](/recipes/api/nginx-reverse-proxy) para patrones de proxy edge.
+- Corres multiples instancias de aplicacion y necesitas distribuir trafico equitativamente. Consulta [Health Check Endpoint](/recipes/health-check-endpoint/) para health probes de backend.
+- Los servicios deben removerse automaticamente de rotacion cuando esten unhealthy. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para aislamiento de fallos.
+- SSL termination deberia ocurrir en el edge, no en cada servidor de aplicacion. Consulta [Nginx Reverse Proxy](/recipes/nginx-reverse-proxy/) para patrones de proxy edge.
 
 ## Solucion
 

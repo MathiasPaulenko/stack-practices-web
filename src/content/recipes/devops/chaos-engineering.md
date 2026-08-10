@@ -43,10 +43,10 @@ Chaos engineering is the discipline of experimenting on distributed systems to b
 ## When to Use
 
 Use this resource when:
-- Operating distributed systems where failures are inevitable. See [Event-Driven Microservices](/recipes/messaging/event-driven-microservices) for resilient architectures.
-- Preparing for disaster recovery drills and game days. See [Load Testing](/recipes/testing/load-testing) for capacity verification.
-- Validating auto-scaling, failover, and self-healing mechanisms. See [Health Check Endpoint](/recipes/devops/health-check-endpoint) for probe configuration.
-- Building confidence before high-traffic events (launches, Black Friday). See [Retry Logic](/recipes/architecture/retry-backoff) for handling failures gracefully.
+- Operating distributed systems where failures are inevitable. See [Event-Driven Microservices](/recipes/event-driven-microservices/) for resilient architectures.
+- Preparing for disaster recovery drills and game days. See [Load Testing](/recipes/load-testing/) for capacity verification.
+- Validating auto-scaling, failover, and self-healing mechanisms. See [Health Check Endpoint](/recipes/health-check-endpoint/) for probe configuration.
+- Building confidence before high-traffic events (launches, Black Friday). See [Retry Logic](/recipes/retry-backoff/) for handling failures gracefully.
 
 ## Solution
 

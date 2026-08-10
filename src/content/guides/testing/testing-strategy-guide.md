@@ -166,9 +166,9 @@ E2E tests simulate real user behavior through the entire application stack.
 
 ## Test Coverage Goals
 
-- **Line coverage**: 70-80% minimum for business logic.  See [unit testing](/recipes/testing/unit-testing).
+- **Line coverage**: 70-80% minimum for business logic.  See [unit testing](/recipes/unit-testing/).
 - **Branch coverage**: Prioritize over line coverage
-- **Critical paths**: 100% coverage for payment, auth, and [security](/guides/security/security-best-practices-guide) flows
+- **Critical paths**: 100% coverage for payment, auth, and [security](/guides/security-best-practices-guide/) flows
 
 ## CI/CD Integration
 
@@ -189,11 +189,11 @@ jobs:
 
 ## What Works
 
-- **Write tests first** ([TDD](/guides/testing/test-driven-development-guide)) for complex logic or bug fixes
+- **Write tests first** ([TDD](/guides/test-driven-development-guide/)) for complex logic or bug fixes
 - **Use test data builders** instead of hardcoding fixtures
-- **Mock external services** at [integration test](/recipes/testing/integration-testing) boundaries
+- **Mock external services** at [integration test](/recipes/integration-testing/) boundaries
 - **Run tests in parallel** to keep feedback loops fast
-- **Fail [CI](/guides/devops/cicd-pipeline-guide) on coverage regression**, not on arbitrary targets
+- **Fail [CI](/guides/cicd-pipeline-guide/) on coverage regression**, not on arbitrary targets
 - **Keep E2E tests deterministic**: avoid timing-dependent assertions
 
 ## Common Anti-Patterns
@@ -209,7 +209,7 @@ jobs:
 - [ ] Unit tests for all business logic functions
 - [ ] Integration tests for database and API layers
 - [ ] E2E tests for critical user journeys
-- [ ] Tests run in [CI](/guides/devops/cicd-pipeline-guide) on every pull request
+- [ ] Tests run in [CI](/guides/cicd-pipeline-guide/) on every pull request
 - [ ] Coverage tracked and reported
 - [ ] Flaky tests identified and fixed promptly
 
@@ -242,7 +242,7 @@ jobs:
 
 ### What is the testing pyramid?
 
-The testing pyramid is a model that suggests having many [unit tests](/recipes/testing/unit-testing) at the base, fewer [integration tests](/recipes/testing/integration-testing) in the middle, and very few end-to-end tests at the top. This keeps the test suite fast, reliable, and cost-effective.
+The testing pyramid is a model that suggests having many [unit tests](/recipes/unit-testing/) at the base, fewer [integration tests](/recipes/integration-testing/) in the middle, and very few end-to-end tests at the top. This keeps the test suite fast, reliable, and cost-effective.
 
 ### How much test coverage should I aim for?
 

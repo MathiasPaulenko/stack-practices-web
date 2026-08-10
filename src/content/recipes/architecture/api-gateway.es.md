@@ -52,7 +52,7 @@ Un API gateway resuelve esto actuando como un único punto de entrada. Los clien
 Usa esta receta cuando:
 
 - Operando 5+ servicios backend que los clientes deben acceder directamente
-- Necesitando [autenticación](/recipes/authentication/jwt-authentication), [rate limiting](/recipes/api/api-rate-limiting-redis) o logging centralizado en todas las APIs
+- Necesitando [autenticación](/recipes/jwt-authentication/), [rate limiting](/recipes/api-rate-limiting-redis/) o logging centralizado en todas las APIs
 - Soportando múltiples tipos de clientes (web, mobile, IoT) con diferentes requisitos de API
 - Migrando de un monolito a microservicios manteniendo un contrato externo estable
 - Requiriendo traducción de protocolos entre clientes GraphQL y backends REST
@@ -221,17 +221,17 @@ app.listen(3000, () => console.log('Gateway running on port 3000'));
 
 ## Lo que funciona
 
-- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en el gateway**: si un servicio backend está fallando, el gateway debería dejar de enviar requests y retornar una respuesta cacheada o 503.   Esto previene fallos en cascada y da a servicios en dificultades tiempo para recuperarse.
+- **Implementa [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) en el gateway**: si un servicio backend está fallando, el gateway debería dejar de enviar requests y retornar una respuesta cacheada o 503.   Esto previene fallos en cascada y da a servicios en dificultades tiempo para recuperarse.
 - **Usa versionado de paths**: Esto hace el enrutamiento explícito, soporta múltiples versiones simultáneamente, y simplifica generación de cache keys.
 - **Centraliza observabilidad**: el gateway es el lugar ideal para tracing distribuido, métricas y logging.   Inyecta trace IDs en el edge y propágalos a todos los servicios downstream.
-- **Descarga autenticación**: [valida JWTs](/recipes/authentication/jwt-authentication) o API keys en el gateway.   Reenvía solo requests autenticadas con headers de contexto de usuario a los backends.   Los servicios no deberían necesitar validar tokens ellos mismos, pero aún deben enforce autorización.
+- **Descarga autenticación**: [valida JWTs](/recipes/jwt-authentication/) o API keys en el gateway.   Reenvía solo requests autenticadas con headers de contexto de usuario a los backends.   Los servicios no deberían necesitar validar tokens ellos mismos, pero aún deben enforce autorización.
 - **Cachea agresivamente en el edge**: endpoints de lectura intensiva como catálogos de productos, perfiles de usuario y datos de configuración deberían cachearse en el gateway con TTLs cortos.   Esto reduce carga de backend y mejora tiempos de respuesta dramáticamente.
 
 ## Errores comunes
 
 - **Poner lógica de negocio en el gateway**: el gateway debería enrutar, autenticar y rate limit — no calcular precios, aplicar descuentos o validar reglas de negocio.   La lógica de negocio pertenece a servicios de dominio.   Un gateway sobrecargado se convierte en un nuevo monolito.
-- **Sin estrategia de timeout o retry**: reenviar requests sin budgets de timeout causa que threads se bloqueen indefinidamente cuando un backend es lento.   Consulta [Lógica de Retry](/recipes/architecture/retry-backoff) para estrategias de backoff.
-- **Punto único de fallo**: una única instancia de gateway es un cuello de botella.   Despliega múltiples instancias detrás de un [load balancer](/recipes/api/nginx-reverse-proxy) con health checks.
+- **Sin estrategia de timeout o retry**: reenviar requests sin budgets de timeout causa que threads se bloqueen indefinidamente cuando un backend es lento.   Consulta [Lógica de Retry](/recipes/retry-backoff/) para estrategias de backoff.
+- **Punto único de fallo**: una única instancia de gateway es un cuello de botella.   Despliega múltiples instancias detrás de un [load balancer](/recipes/nginx-reverse-proxy/) con health checks.
 - **Ignorar necesidades específicas de clientes**: las apps mobile necesitan payloads más pequeños y menos round trips que las apps web.
 
 ## Preguntas frecuentes

@@ -40,7 +40,7 @@ Email remains the backbone of user communication: password resets, order confirm
 ## When to Use
 
 Use this resource when:
-- Your application needs to send transactional emails (sign-up, password reset, receipts). See [API Security Checklist](/guides/security/api-security-checklist-guide) for email security.
+- Your application needs to send transactional emails (sign-up, password reset, receipts). See [API Security Checklist](/guides/api-security-checklist-guide/) for email security.
 - You want to avoid vendor lock-in from email SaaS platforms
 - You need custom email templates with live data
 - You must send attachments (invoices, reports, exports)
@@ -160,7 +160,7 @@ SMTP (Simple Mail Transfer Protocol) is the standard protocol for sending email.
 4. **Send** via `MAIL FROM` → `RCPT TO` → `DATA` commands.
 5. **Handle** bounces, retries, and rate limits asynchronously.
 
-For high volume, consider a **message queue** ([Kafka](/recipes/messaging/kafka-event-streaming), RabbitMQ) that feeds into a worker pool of SMTP senders. This decouples your API from email latency and failures.
+For high volume, consider a **message queue** ([Kafka](/recipes/kafka-event-streaming/), RabbitMQ) that feeds into a worker pool of SMTP senders. This decouples your API from email latency and failures.
 
 ## Variants
 
@@ -184,9 +184,9 @@ For high volume, consider a **message queue** ([Kafka](/recipes/messaging/kafka-
 
 - **Sending from localhost without SPF**: Your emails will land in spam folders.
 - **No HTML + plain text fallback**: Some clients (watch, CLI) only render text.
-- **Embedding secrets in code**: See [Security Guide](/guides/security/security-best-practices-guide) for secrets management.
+- **Embedding secrets in code**: See [Security Guide](/guides/security-best-practices-guide/) for secrets management.
 - **Ignoring SMTP rate limits**: You'll get temporarily blocked or blacklisted.
-- **Synchronous sending in requests**: Use a [background worker](/recipes/api/middleware) to avoid HTTP timeouts.
+- **Synchronous sending in requests**: Use a [background worker](/recipes/middleware/) to avoid HTTP timeouts.
 
 ## When Not to Use This Approach
 

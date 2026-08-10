@@ -47,8 +47,8 @@ The following implements structured logging with correlation IDs, request/respon
 
 Use this resource when:
 - You need to debug production API issues without reproducing them locally
-- [Compliance](/guides/security/security-best-practices-guide) requirements mandate audit trails for sensitive operations
-- You run [distributed systems](/guides/architecture/software-architecture-guide) and need to trace requests across services
+- [Compliance](/guides/security-best-practices-guide/) requirements mandate audit trails for sensitive operations
+- You run [distributed systems](/guides/software-architecture-guide/) and need to trace requests across services
 - You need to detect anomalous API usage patterns
 
 ## Solution
@@ -175,7 +175,7 @@ Separate operational logs (debugging) from audit logs (compliance). Audit logs s
 
 ## What Works
 
-- **Never log sensitive data**: Exclude passwords, tokens, PII — mask or hash them.  See [Security Guide](/guides/security/security-best-practices-guide) for data protection.
+- **Never log sensitive data**: Exclude passwords, tokens, PII — mask or hash them.  See [Security Guide](/guides/security-best-practices-guide/) for data protection.
 - **Use correlation IDs**: Pass `X-Correlation-Id` through every service call
 - **Log asynchronously**: Use buffering to avoid blocking the request thread
 - **Rotate and archive**: Compress old logs and move to cold storage (S3 Glacier)

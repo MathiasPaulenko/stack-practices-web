@@ -48,7 +48,7 @@ Aqui se explica como la construcción de una API GraphQL lista para producción 
 Usa este recurso cuando:
 - Tus clientes necesitan flexibilidad en la obtención de datos (apps móviles con ancho de banda limitado)
 - Quieres contratos de API fuertemente tipados con documentación automática
-- Necesitas agregar datos de múltiples microservicios. Consulta [API gRPC](/recipes/api/grpc-api) para comunicación entre servicios.
+- Necesitas agregar datos de múltiples microservicios. Consulta [API gRPC](/recipes/grpc-api/) para comunicación entre servicios.
 - Los consumidores de tu API solicitan combinaciones de campos frecuentemente diferentes
 
 ## Solución
@@ -165,7 +165,7 @@ Diferencias clave entre lenguajes:
 ## Lo que funciona
 
 - **Usa DataLoader para queries N+1**: Batch y cachea peticiones a la base de datos entre resolvers
-- **Implementa paginación**: Usa [paginación basada en cursores](/recipes/api/cursor-pagination-postgresql) para listas grandes (spec de Relay Connections)
+- **Implementa paginación**: Usa [paginación basada en cursores](/recipes/cursor-pagination-postgresql/) para listas grandes (spec de Relay Connections)
 - **Valida entrada temprano**: Usa directivas de schema y escalares personalizados para validación
 - **Limita profundidad/complejidad de queries**: Previene queries costosos con análisis de profundidad y complejidad
 - **Habilita query whitelisting en producción**: Usa persisted queries para prevenir ejecución arbitraria
@@ -174,7 +174,7 @@ Diferencias clave entre lenguajes:
 
 - **No manejar queries N+1**: Cada resolver que accede a la base de datos de forma independiente causa queries exponenciales
 - **Exponer tipos internos**: Filtrar modelos de base de datos directamente al schema sin una capa de dominio
-- **Falta de manejo de errores**: GraphQL retorna 200 OK incluso con errores — siempre verifica el array `errors`.   Consulta [Manejo de Errores](/recipes/api/handle-errors) para patrones.
+- **Falta de manejo de errores**: GraphQL retorna 200 OK incluso con errores — siempre verifica el array `errors`.   Consulta [Manejo de Errores](/recipes/handle-errors/) para patrones.
 - **Ignorar versionado de schema**: Aunque GraphQL evita versionado, la deprecación y el seguimiento de campos aún importan
 - **Almacenar estado en resolvers**: Los resolvers deben ser stateless; usa context para datos del scope de la petición
 
@@ -212,7 +212,7 @@ Diferencias clave entre lenguajes:
 ## Preguntas Frecuentes
 
 **P: ¿Debería migrar mi API REST a GraphQL?**
-R: No necesariamente. GraphQL brilla cuando los clientes necesitan flexibilidad. Si tu API tiene consumidores simples y estables, [REST](/recipes/api/call-rest-api) puede ser más simple y cacheable.
+R: No necesariamente. GraphQL brilla cuando los clientes necesitan flexibilidad. Si tu API tiene consumidores simples y estables, [REST](/recipes/call-rest-api/) puede ser más simple y cacheable.
 
 **P: ¿Cómo manejo subida de archivos en GraphQL?**
 R: Usa el spec de multipart request (Apollo lo soporta nativamente) o usa un endpoint REST separado para subidas y retorna la URL en GraphQL.

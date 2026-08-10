@@ -48,7 +48,7 @@ Usa Zod para definir schemas que validan datos en runtime mientras infieren auto
 
 - Los bodies de requests de API deben validarse antes de procesarse
 - Los inputs de formularios necesitan validacion tanto client-side como server-side
-- Los objetos de configuracion y variables de entorno requieren parsing type-safe. Consulta [Parse JSON](/recipes/data/parse-json) para parsear datos de config estructurados.
+- Los objetos de configuracion y variables de entorno requieren parsing type-safe. Consulta [Parse JSON](/recipes/parse-json/) para parsear datos de config estructurados.
 
 ## Solucion
 
@@ -198,12 +198,12 @@ function useZodForm<T extends z.ZodObject<any>>(schema: T) {
 
 - Usa `.strict()` para rechazar propiedades inesperadas y prevenir injection
 - Precompila schemas para hot paths para reducir overhead de parsing
-- Combina Zod con tRPC para APIs end-to-end type-safe. Consulta [diseño de APIs](/guides/api/rest-api-design-guide).
+- Combina Zod con tRPC para APIs end-to-end type-safe. Consulta [diseño de APIs](/guides/rest-api-design-guide/).
 
 ## Errores Comunes
 
 - Usar `.parse()` sin try-catch, crasheando en input invalido
-- No coercionar query parameters y form data, que llegan como strings. Consulta [validación de input](/recipes/api/input-validation).
+- No coercionar query parameters y form data, que llegan como strings. Consulta [validación de input](/recipes/input-validation/).
 - Crear nuevas instancias de schema en cada render en lugar de reusarlas
 
 ## FAQ

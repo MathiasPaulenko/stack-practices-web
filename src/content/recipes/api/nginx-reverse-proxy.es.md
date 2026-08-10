@@ -43,8 +43,8 @@ Nginx es un servidor web de alto rendimiento que destaca como reverse proxy y AP
 ## Cuando Usar Esto
 
 - Necesitas exponer multiples servicios backend a traves de un unico punto de entrada
-- La terminacion SSL/TLS debe ocurrir en el edge, no en codigo de aplicacion. Consulta [Guía de Seguridad](/guides/security/security-best-practices-guide) para lo que funciona para TLS.
-- Quieres agregar [rate limiting](/recipes/api/api-rate-limiting-redis), cacheo o reescritura de peticiones sin modificar backends
+- La terminacion SSL/TLS debe ocurrir en el edge, no en codigo de aplicacion. Consulta [Guía de Seguridad](/guides/security-best-practices-guide/) para lo que funciona para TLS.
+- Quieres agregar [rate limiting](/recipes/api-rate-limiting-redis/), cacheo o reescritura de peticiones sin modificar backends
 
 ## Requisitos Previos
 
@@ -302,7 +302,7 @@ server {
 - Habilita **HTTP/2** en el frontend para conexiones multiplexadas
 - Usa conexiones **keepalive** a backends para reducir overhead de TCP
 - Implementa **sticky sessions** solo cuando sea necesario; prefiere diseno stateless
-- Monitorea **salud upstream** con checks activos o deteccion pasiva de fallos. Consulta [Logging y Auditoría de APIs](/recipes/api/api-logging-audit) para logging de health checks.
+- Monitorea **salud upstream** con checks activos o deteccion pasiva de fallos. Consulta [Logging y Auditoría de APIs](/recipes/api-logging-audit/) para logging de health checks.
 - Configura **access logs** con formato custom para capturar tiempo de respuesta upstream: `log_format upstream '$remote_addr - $request_time $upstream_response_time $status';`
 - Usa **open file cache** para assets estaticos: `open_file_cache max=1000 inactive=20s; open_file_cache_valid 30s;`
 - Configura **limites de body del cliente**: `client_max_body_size 10m;` para APIs que aceptan subida de archivos

@@ -41,8 +41,8 @@ La optimización de queries es un proceso de tres pasos: identificar queries len
 Usa esta receta cuando:
 
 - Los tiempos de respuesta de la aplicación degradan a medida que crece el volumen de datos
-- El uso de CPU o I/O de la base de datos es consistentemente alto. Verifica [monitoreo y observabilidad](/guides/devops/logging-monitoring-observability-guide).
-- [Herramientas de monitoreo](/guides/devops/logging-monitoring-observability-guide) marcan queries específicas como entradas de slow query log
+- El uso de CPU o I/O de la base de datos es consistentemente alto. Verifica [monitoreo y observabilidad](/guides/logging-monitoring-observability-guide/).
+- [Herramientas de monitoreo](/guides/logging-monitoring-observability-guide/) marcan queries específicas como entradas de slow query log
 - Agregando paginación, búsqueda o capacidades de reporting a tablas existentes
 - Migrando SQL legacy a un nuevo motor de base de datos
 
@@ -128,7 +128,7 @@ La paginación keyset (cursor) es O(1) independientemente de la profundidad de p
 
 | Técnica | Impacto | Esfuerzo | Mejor para |
 |---------|---------|----------|------------|
-| Agregar [índice](/recipes/performance/database-indexing) | Alto | Bajo | Índice faltante en columnas WHERE/JOIN |
+| Agregar [índice](/recipes/database-indexing/) | Alto | Bajo | Índice faltante en columnas WHERE/JOIN |
 | Reescribir query | Alto | Medio | Joins ineficientes, subqueries |
 | Particionar tabla | Muy alto | Alto | Tablas > 10M filas con queries basadas en tiempo |
 | Vista materializada | Alto | Medio | Agregaciones complejas consultadas frecuentemente |
@@ -170,7 +170,7 @@ cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
 cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
 ```
 
-Esto también previene SQL injection. Consulta [prevención de SQL injection](/recipes/security/sql-injection-prevention) para detalles.
+Esto también previene SQL injection. Consulta [prevención de SQL injection](/recipes/sql-injection-prevention/) para detalles.
 
 ## Avanzado: Operaciones Batch
 
@@ -295,7 +295,7 @@ Para queries de producción, sí. Traer columnas innecesarias desperdicia I/O y 
 
 ### ¿Los ORMs pueden generar queries eficientes?
 
-Usualmente, pero no siempre. ORMs como SQLAlchemy y Hibernate pueden generar queries N+1 o joins ineficientes. Consulta [prevención de SQL injection](/recipes/security/sql-injection-prevention) para patrones de queries seguras. Profile el SQL actual que emiten y optimiza a nivel SQL cuando sea necesario.
+Usualmente, pero no siempre. ORMs como SQLAlchemy y Hibernate pueden generar queries N+1 o joins ineficientes. Consulta [prevención de SQL injection](/recipes/sql-injection-prevention/) para patrones de queries seguras. Profile el SQL actual que emiten y optimiza a nivel SQL cuando sea necesario.
 
 ### ¿Qué es un covering index?
 

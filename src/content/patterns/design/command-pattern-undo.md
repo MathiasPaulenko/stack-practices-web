@@ -34,7 +34,7 @@ seo:
 
 
 ---
-The [Command](/patterns/design/command-pattern) pattern turns a request into a stand-alone object containing all information about the request. This decoupling allows you to parameterize methods with different requests, delay or queue execution, and implement undo/redo operations — essential for interactive applications like editors, drawing tools, and form builders.
+The [Command](/patterns/command-pattern/) pattern turns a request into a stand-alone object containing all information about the request. This decoupling allows you to parameterize methods with different requests, delay or queue execution, and implement undo/redo operations — essential for interactive applications like editors, drawing tools, and form builders.
 
 ## When to Use This
 
@@ -221,10 +221,10 @@ console.log(doc.getContent()); // "Hello World"
 ## FAQ
 
 **Q: How is this different from the Memento pattern?**
-A: Command stores the operation to reverse. [Memento](/patterns/design/memento-pattern-state) stores the state snapshot. Commands are smaller but harder to implement; Mementos are simpler but use more memory.
+A: Command stores the operation to reverse. [Memento](/patterns/memento-pattern-state/) stores the state snapshot. Commands are smaller but harder to implement; Mementos are simpler but use more memory.
 
 **Q: Can I use this for API request logging?**
-A: Yes. Wrap [HTTP requests](/recipes/api/call-rest-api) as commands to replay sequences for debugging or testing.
+A: Yes. Wrap [HTTP requests](/recipes/call-rest-api/) as commands to replay sequences for debugging or testing.
 
 ### Is this pattern suitable for small projects?
 

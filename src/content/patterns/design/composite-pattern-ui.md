@@ -35,7 +35,7 @@ seo:
 
 
 ---
-The Composite pattern composes objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly. In React, this pattern appears naturally when rendering nested component trees where a container holds both leaf elements and other containers. See the general [Composite Pattern](/patterns/design/composite-pattern) for language-agnostic examples.
+The Composite pattern composes objects into tree structures to represent part-whole hierarchies. It lets clients treat individual objects and compositions of objects uniformly. In React, this pattern appears naturally when rendering nested component trees where a container holds both leaf elements and other containers. See the general [Composite Pattern](/patterns/composite-pattern/) for language-agnostic examples.
 
 ## When to Use This
 
@@ -246,10 +246,10 @@ console.log(`Total size: ${root.getSize()} bytes`);
 ## FAQ
 
 **Q: How is this different from Decorator?**
-A: Composite builds tree structures with container semantics. [Decorator](/patterns/design/decorator-pattern) adds responsibilities to a single object without tree semantics.
+A: Composite builds tree structures with container semantics. [Decorator](/patterns/decorator-pattern/) adds responsibilities to a single object without tree semantics.
 
 **Q: When should I avoid Composite?**
-A: When the hierarchy is flat (only one level) or when child operations make no sense for leaf nodes. For flat structures, consider [Decorator](/patterns/design/decorator-pattern) instead.
+A: When the hierarchy is flat (only one level) or when child operations make no sense for leaf nodes. For flat structures, consider [Decorator](/patterns/decorator-pattern/) instead.
 
 ### Is this pattern suitable for small projects?
 

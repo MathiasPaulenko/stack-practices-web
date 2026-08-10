@@ -49,10 +49,10 @@ Esta implementacion proporciona optimistic locking con versionado entero en Post
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Múltiples usuarios o procesos pueden editar el mismo registro concurrentemente. Consulta [Database Transactions](/recipes/databases/database-transactions) para patrones ACID.
+- Múltiples usuarios o procesos pueden editar el mismo registro concurrentemente. Consulta [Database Transactions](/recipes/database-transactions/) para patrones ACID.
 - Quieres evitar bloqueos pesimistas que dañan throughput y pueden causar deadlocks
 - Tu aplicación tiene un patrón de lectura-modificación-escritura con gaps entre lectura y escritura
-- Necesitas detección de conflictos en [APIs REST](/recipes/api/call-rest-api), apps offline-first o sistemas distribuidos
+- Necesitas detección de conflictos en [APIs REST](/recipes/call-rest-api/), apps offline-first o sistemas distribuidos
 
 ## Solución
 
@@ -196,7 +196,7 @@ Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplica
 ## Lo que funciona
 
 1. Siempre devuelve la versión actual al cliente después de cada lectura para que pueda enviarla en la actualización
-2. Implementa [reintento con backoff exponencial](/recipes/architecture/retry-backoff) (1–3 intentos) para conflictos transitorios en procesos automatizados
+2. Implementa [reintento con backoff exponencial](/recipes/retry-backoff/) (1–3 intentos) para conflictos transitorios en procesos automatizados
 3. Usa `version` entero sobre timestamps; los relojes son poco confiables entre nodos y zonas horarias
 4. Mantén las transacciones cortas; el gap entre lectura y escritura es tu ventana de vulnerabilidad
 5. Registra conflictos de versión a nivel `INFO` para monitorear hotspots de contención sin alarmar en cada reintento
@@ -206,7 +206,7 @@ Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplica
 1. **No exponer la versión a consumidores de API** — los clientes no pueden enviarla si nunca la recibieron
 2. **Bucles de reintento infinitos** — siempre limita reintentos y expone conflictos persistentes al usuario
 3. **Actualizar la versión en código de aplicación** — deja que la base de datos u ORM la incremente atómicamente
-4. **Usar bloqueo pesimista para todo** — mata el throughput; reserva `FOR UPDATE` para verdaderos escenarios de inventario o banca. Consulta [Locks and Mutexes](/recipes/concurrency/locks-and-mutexes) para patrones de bloqueo.
+4. **Usar bloqueo pesimista para todo** — mata el throughput; reserva `FOR UPDATE` para verdaderos escenarios de inventario o banca. Consulta [Locks and Mutexes](/recipes/locks-and-mutexes/) para patrones de bloqueo.
 5. **Ignorar el conflicto en UI** — los usuarios necesitan retroalimentación clara de que sus datos están obsoletos y deben refrescarse
 
 ## Preguntas Frecuentes
@@ -221,7 +221,7 @@ Optimista para la mayoría de cargas de lectura intensiva con escrituras infrecu
 
 ### ¿Cómo manejo optimistic locking en una arquitectura de microservicios?
 
-Usa event sourcing o sagas donde cada servicio posee su agregado. Si se necesita consistencia cross-servicio, prefiere operaciones idempotentes con actualizaciones condicionales en lugar de bloqueos distribuidos. Las transacciones compensatorias (deshacer) suelen ser más seguras que los bloqueos distribuidos. Consulta [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para patrones de resiliencia.
+Usa event sourcing o sagas donde cada servicio posee su agregado. Si se necesita consistencia cross-servicio, prefiere operaciones idempotentes con actualizaciones condicionales en lugar de bloqueos distribuidos. Las transacciones compensatorias (deshacer) suelen ser más seguras que los bloqueos distribuidos. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para patrones de resiliencia.
 
 ### Lógica de Reintento con Exponential Backoff
 

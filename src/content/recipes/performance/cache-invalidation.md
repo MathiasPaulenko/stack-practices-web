@@ -41,7 +41,7 @@ seo:
 ---
 ## Overview
 
-Caching improves read performance by storing frequently accessed data in fast, in-memory storage. However, caches introduce a classic [distributed systems](/guides/architecture/microservices-architecture-guide) problem: when the underlying data changes, the cache becomes stale. Serving stale data can lead to incorrect business decisions, security issues, and poor user experiences.
+Caching improves read performance by storing frequently accessed data in fast, in-memory storage. However, caches introduce a classic [distributed systems](/guides/microservices-architecture-guide/) problem: when the underlying data changes, the cache becomes stale. Serving stale data can lead to incorrect business decisions, security issues, and poor user experiences.
 
 Cache invalidation is the mechanism that ensures cached data remains consistent with its source. There is no universal solution — the right strategy depends on your consistency requirements, write volume, and tolerance for stale reads. The following demonstrates how to the four primary patterns: TTL expiration, write-through, write-behind, and event-driven invalidation.
 
@@ -52,7 +52,7 @@ Use this recipe when:
 - Adding caching to an application that requires data consistency
 - Debugging stale cache issues where users see outdated information
 - Designing distributed systems with multiple writers and readers
-- Choosing between Redis, Memcached, or [CDN](/recipes/data/caching) caching layers
+- Choosing between Redis, Memcached, or [CDN](/recipes/caching/) caching layers
 - Implementing cache warming and eviction policies
 
 ## Solution
@@ -202,7 +202,7 @@ def invalidate_user(user_id):
 - **TTL expiration**: The simplest approach.  Data expires after a fixed time.  Suitable for data that changes infrequently or where brief staleness is acceptable.  Easy to implement but can serve stale data for the duration of the TTL.
 - **Write-through**: Updates the cache synchronously when the database is written.  Guarantees consistency but adds latency to write operations and increases cache load.
 - **Write-behind (write-back)**: Writes go to the cache first, which asynchronously persists to the database.  Extremely fast writes but risks data loss if the cache fails before flushing.
-- **Event-driven invalidation**: Services publish [events](/recipes/messaging/event-driven-microservices) when data changes.  Cache listeners delete or refresh affected keys.  Loose coupling but requires a message broker.
+- **Event-driven invalidation**: Services publish [events](/recipes/event-driven-microservices/) when data changes.  Cache listeners delete or refresh affected keys.  Loose coupling but requires a message broker.
 
 ## Variants
 
@@ -291,7 +291,7 @@ CDN invalidation is slow (seconds to minutes). Use versioned URLs (`/v2/users/42
 
 ### How do I prevent cache stampedes?
 
-Use a distributed lock so only one process repopulates the cache after expiration. See [rate limiting](/recipes/security/rate-limiting) for distributed locking patterns. Alternatively, use probabilistic early expiration where each request has a small chance of refreshing the cache before TTL hits zero.
+Use a distributed lock so only one process repopulates the cache after expiration. See [rate limiting](/recipes/rate-limiting/) for distributed locking patterns. Alternatively, use probabilistic early expiration where each request has a small chance of refreshing the cache before TTL hits zero.
 
 ### Should I cache writes as well as reads?
 
@@ -307,7 +307,7 @@ Eviction happens when the cache removes entries due to memory pressure (LRU, LFU
 
 ### How do I handle cache invalidation in microservices?
 
-Use event-driven invalidation. Each service publishes a domain event (e.g., `UserUpdated`) to a message broker. Cache listeners subscribe to these events and delete affected keys. This decouples services and ensures all caches are invalidated. See [event-driven microservices](/recipes/messaging/event-driven-microservices) for patterns.
+Use event-driven invalidation. Each service publishes a domain event (e.g., `UserUpdated`) to a message broker. Cache listeners subscribe to these events and delete affected keys. This decouples services and ensures all caches are invalidated. See [event-driven microservices](/recipes/event-driven-microservices/) for patterns.
 
 ### What TTL should I use?
 
@@ -323,7 +323,7 @@ In cache-aside, the application checks the cache, falls back to the database, an
 
 ### How do I monitor cache health?
 
-Track cache hit rate (target >80%), memory usage, eviction count, and latency. Redis INFO command provides these metrics. Set up alerts for hit rate drops, memory pressure, and connection failures. See [observability guide](/guides/devops/logging-monitoring-observability-guide) for monitoring patterns.
+Track cache hit rate (target >80%), memory usage, eviction count, and latency. Redis INFO command provides these metrics. Set up alerts for hit rate drops, memory pressure, and connection failures. See [observability guide](/guides/logging-monitoring-observability-guide/) for monitoring patterns.
 
 ### Should I use Redis or Memcached?
 

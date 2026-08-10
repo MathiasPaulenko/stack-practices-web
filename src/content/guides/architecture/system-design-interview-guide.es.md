@@ -193,11 +193,11 @@ Las particiones de red son inevitables, así que eliges entre sistemas CP (consi
 | Problema | Desafíos Clave |
 |----------|---------------|
 | **URL Shortener** | Colisiones de hash, alto volumen de lecturas, analytics |
-| **Twitter Feed** | [Fan-out](/guides/architecture/event-driven-architecture-guide) (push vs. pull), generación de timeline |
-| **Sistema de Chat** | [Entrega en tiempo real](/recipes/serverless/real-time-websockets), presencia, orden de mensajes |
+| **Twitter Feed** | [Fan-out](/guides/event-driven-architecture-guide/) (push vs. pull), generación de timeline |
+| **Sistema de Chat** | [Entrega en tiempo real](/recipes/real-time-websockets/), presencia, orden de mensajes |
 | **Motor de Búsqueda** | Indexación, ranking, parsing de queries |
-| **Video Streaming** | [CDN](/recipes/performance/cdn-edge-caching), bitrate adaptativo, encoding |
-| **Rate Limiter** | [Token bucket vs. sliding window](/recipes/api/rate-limiting), estado distribuido |
+| **Video Streaming** | [CDN](/recipes/cdn-edge-caching/), bitrate adaptativo, encoding |
+| **Rate Limiter** | [Token bucket vs. sliding window](/recipes/rate-limiting/), estado distribuido |
 
 ## Lo que funciona
 
@@ -213,8 +213,8 @@ Las particiones de red son inevitables, así que eliges entre sistemas CP (consi
 - Saltar a un esquema de base de datos detallado antes de clarificar requerimientos
 - Ignorar requerimientos no funcionales (escala, disponibilidad)
 - Proponer tecnologías sin entenderlas (ej. "usa Kafka" sin saber por qué)
-- No discutir trade-offs (ej. [SQL vs. NoSQL](/guides/databases/nosql-database-selection-guide))
-- Olvidar [monitoreo](/recipes/devops/prometheus-monitoring-alerts), [seguridad](/guides/security/security-best-practices-guide) y preocupaciones operacionales
+- No discutir trade-offs (ej. [SQL vs. NoSQL](/guides/nosql-database-selection-guide/))
+- Olvidar [monitoreo](/recipes/prometheus-monitoring-alerts/), [seguridad](/guides/security-best-practices-guide/) y preocupaciones operacionales
 - Diseñar para escala infinita cuando los requerimientos no la justifican
 
 ## Preguntas Frecuentes

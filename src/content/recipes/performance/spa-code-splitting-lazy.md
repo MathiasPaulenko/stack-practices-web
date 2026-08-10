@@ -39,13 +39,13 @@ seo:
 
 
 ---
-Reduce initial bundle size in [single-page applications](/recipes/performance/lazy-loading) by splitting code at the route and component level. React.lazy, live imports, and preload strategies that keep time-to-interactive low without sacrificing user experience.
+Reduce initial bundle size in [single-page applications](/recipes/lazy-loading/) by splitting code at the route and component level. React.lazy, live imports, and preload strategies that keep time-to-interactive low without sacrificing user experience.
 
 ## When to Use This
 
 - Your SPA bundle exceeds 200KB gzipped and loads slowly on mobile
 - Not all routes are accessed by every user on first visit
-- Heavy components (charts, editors, maps) are only needed on specific pages. See [MVC Pattern Frontend](/patterns/design/mvc-pattern-frontend) for component architecture.
+- Heavy components (charts, editors, maps) are only needed on specific pages. See [MVC Pattern Frontend](/patterns/mvc-pattern-frontend/) for component architecture.
 
 ## Solution
 
@@ -186,7 +186,7 @@ function useLazyLoad() {
 ## Production Considerations
 
 - Set proper `fallback` UI to prevent layout shifts while loading
-- Monitor [Core Web Vitals](/guides/performance/performance-optimization-guide) (LCP, INP, CLS) after splitting
+- Monitor [Core Web Vitals](/guides/performance-optimization-guide/) (LCP, INP, CLS) after splitting
 - Use `preload` for critical routes accessed by most users
 
 ## Common Mistakes

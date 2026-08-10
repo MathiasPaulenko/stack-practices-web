@@ -40,7 +40,7 @@ seo:
 
 
 ---
-Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de forma clara y accionable. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para prácticas de seguridad más amplias.
+Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de forma clara y accionable. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para prácticas de seguridad más amplias.
 
 ## Plantilla
 

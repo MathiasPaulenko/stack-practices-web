@@ -31,7 +31,7 @@ seo:
     - feature proposal
 
 ---
-Use this template to propose new capabilities in a way that helps product and engineering teams evaluate user value and implementation effort. Pair it with the [User Story Template](/docs/templates/user-story-template) for narrative-style requirements.
+Use this template to propose new capabilities in a way that helps product and engineering teams evaluate user value and implementation effort. Pair it with the [User Story Template](/docs/user-story-template/) for narrative-style requirements.
 
 ## Overview
 
@@ -160,7 +160,7 @@ implementation patterns.
 ## Tips for Requesters
 
 - **Lead with the problem, not the solution** — the team may find a better solution
-- **Include a user quote** — "As a [user], I want [capability] so that [benefit]". See [User Story Template](/docs/templates/user-story-template) for the full format.
+- **Include a user quote** — "As a [user], I want [capability] so that [benefit]". See [User Story Template](/docs/user-story-template/) for the full format.
 - **Define one capability per request** — bundles are hard to evaluate and track
 - **Quantify the pain** — "20-30 minutes per report, 12 teams, daily" is more compelling than "it takes too long"
 - **Link to real feedback** — customer tickets, Slack threads, survey results add weight
@@ -169,7 +169,7 @@ implementation patterns.
 ## Tips for Reviewers
 
 - **Reject unclear requests quickly** — "needs-more-info" label and a 48-hour deadline
-- **Estimate before committing** — t-shirt sizing (S/M/L) is enough for triage. See [Clean Code Principles Guide](/guides/design/clean-code-principles-guide) for implementation standards.
+- **Estimate before committing** — t-shirt sizing (S/M/L) is enough for triage. See [Clean Code Principles Guide](/guides/clean-code-principles-guide/) for implementation standards.
 - **Link to roadmap** — show where this fits (or does not fit) in quarterly goals
 - **Close stale requests** — if a request has had no activity for 6 months, close it with a note
 - **Batch similar requests** — if 3 requests ask for the same thing, merge them and link the duplicates
@@ -238,7 +238,7 @@ When collecting requests from customers, use a simplified form with only: Summar
 
 ### RFC-style (engineering-heavy teams)
 
-For technical capabilities (API changes, architecture decisions), expand the template into an RFC with sections for: Background, Goals, Non-goals, Proposed approach, Alternatives considered, Risks. See [ADR Template](/docs/templates/adr-template) for architecture decision records.
+For technical capabilities (API changes, architecture decisions), expand the template into an RFC with sections for: Background, Goals, Non-goals, Proposed approach, Alternatives considered, Risks. See [ADR Template](/docs/adr-template/) for architecture decision records.
 
 
 ## Troubleshooting
@@ -292,7 +292,7 @@ Require a "user value" section in every request. If the answer is "it would be c
 
 ### Should internal tools use the same template?
 
-Yes, but relax the "user value" section. Internal requests need a "requesting team" and "time saved per week" instead. Use the [Bug Report Template](/docs/templates/bug-report-template) for defect tracking.
+Yes, but relax the "user value" section. Internal requests need a "requesting team" and "time saved per week" instead. Use the [Bug Report Template](/docs/bug-report-template/) for defect tracking.
 
 ### How many requests should we accept per quarter?
 

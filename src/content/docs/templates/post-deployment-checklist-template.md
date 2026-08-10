@@ -39,7 +39,7 @@ seo:
 
 
 ---
-Use this checklist before declaring a deployment successful. Pair it with [Release Notes Template](/docs/templates/release-notes-template) for communication and [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for automation.
+Use this checklist before declaring a deployment successful. Pair it with [Release Notes Template](/docs/release-notes-template/) for communication and [CI/CD Pipeline Guide](/guides/cicd-pipeline-guide/) for automation.
 
 ## Overview
 
@@ -197,9 +197,9 @@ Once all checks pass, collect sign-offs from deployer and on-call. Archive the c
 
 ## What Works
 
-- **Automate the checklist** — CI should fail the deploy if health checks do not pass. See [CI/CD Pipeline Guide](/guides/devops/cicd-pipeline-guide) for integration.
-- **Test rollback before you need it** — a rollback that has never been tested is a gamble. See [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template) for broader planning.
-- **Keep the previous version warm** — blue-green deployments let you switch back instantly. See [Deployment Strategies Guide](/guides/devops/deployment-strategies-guide) for patterns.
+- **Automate the checklist** — CI should fail the deploy if health checks do not pass. See [CI/CD Pipeline Guide](/guides/cicd-pipeline-guide/) for integration.
+- **Test rollback before you need it** — a rollback that has never been tested is a gamble. See [Disaster Recovery Plan Template](/docs/disaster-recovery-plan-template/) for broader planning.
+- **Keep the previous version warm** — blue-green deployments let you switch back instantly. See [Deployment Strategies Guide](/guides/deployment-strategies-guide/) for patterns.
 - **Use synthetic monitoring** — external probes catch issues your internal checks miss
 - **Document actual vs expected** — deviations become your incident response data
 - **Set alert thresholds before deploying** — know what "normal" looks like for the new version
@@ -209,7 +209,7 @@ Once all checks pass, collect sign-offs from deployer and on-call. Archive the c
 
 - Skipping verification because "the tests passed" — production traffic is the real test
 - Not checking error rates after deploy — a deploy that increases errors by 0.1% is a failed deploy
-- Assuming rollback is trivial — test your rollback procedure quarterly. For disaster planning, see [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template).
+- Assuming rollback is trivial — test your rollback procedure quarterly. For disaster planning, see [Disaster Recovery Plan Template](/docs/disaster-recovery-plan-template/).
 - Deploying without on-call coverage — if verification fails, someone must be available to respond
 - Checking too few metrics — CPU and error rate are not enough; check business metrics too
 - No rollback decision criteria — define what triggers an automatic rollback before deploying
@@ -226,7 +226,7 @@ For blue-green deployments, run the new version (green) alongside the old (blue)
 
 ### Database migration verification
 
-For deployments with schema changes, verify: migration completed, backward compatibility, query performance, and index usage. Have a rollback migration script tested in staging. See [Database Schema Documentation Template](/docs/templates/database-schema-documentation-template) for schema tracking.
+For deployments with schema changes, verify: migration completed, backward compatibility, query performance, and index usage. Have a rollback migration script tested in staging. See [Database Schema Documentation Template](/docs/database-schema-documentation-template/) for schema tracking.
 
 ## Automation
 
@@ -298,7 +298,7 @@ Investigate immediately. Smoke tests cover critical user paths; metric dashboard
 
 ### Should I automate or manual the checklist?
 
-Automate health checks and smoke tests in CI. See [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for probes. Manual verification is for business-critical judgment calls ("does the checkout flow feel right?"). The goal is automated gates with human oversight.
+Automate health checks and smoke tests in CI. See [Monitoring and Alerting Guide](/guides/monitoring-alerting-guide/) for probes. Manual verification is for business-critical judgment calls ("does the checkout flow feel right?"). The goal is automated gates with human oversight.
 
 ### What metrics should I track post-deployment?
 
@@ -310,7 +310,7 @@ Roll back when: error rate increases considerably, critical user flows break, or
 
 ### How do I handle deployments with breaking database changes?
 
-Use the expand-contract pattern: deploy the new code that supports both old and new schema, migrate the data, then deploy code that uses only the new schema. Never deploy breaking schema changes and code changes in the same release. See [Database Schema Documentation Template](/docs/templates/database-schema-documentation-template) for migration tracking.
+Use the expand-contract pattern: deploy the new code that supports both old and new schema, migrate the data, then deploy code that uses only the new schema. Never deploy breaking schema changes and code changes in the same release. See [Database Schema Documentation Template](/docs/database-schema-documentation-template/) for migration tracking.
 
 ### Who should fill out the checklist?
 

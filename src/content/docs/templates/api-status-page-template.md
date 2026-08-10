@@ -251,11 +251,11 @@ A full postmortem will be published within [3-5 business days] at [link].
 
 - **Update every 15-30 minutes during active incidents** — Silence makes consumers assume the worst
 - **Post scheduled maintenance 7 days in advance** — Gives consumers time to prepare workarounds
-- **Use a separate domain** — `status.example.com` must not depend on the API it monitors. See [Circuit Breaker](/patterns/design/circuit-breaker-pattern) for resilience patterns.
+- **Use a separate domain** — `status.example.com` must not depend on the API it monitors. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
 - **Offer RSS / email / Slack subscriptions** — Let consumers choose how they receive updates
 - **Show historical uptime** — A 30-day or 90-day chart builds confidence
-- **Be honest about degraded performance** — Do not mark a service "operational" when latency is 10x normal. See [Performance Optimization](/guides/performance/performance-optimization-guide) for monitoring metrics.
-- **Link to [incident postmortems](/docs/templates/incident-postmortem-template)** — Transparency after resolution builds long-term trust
+- **Be honest about degraded performance** — Do not mark a service "operational" when latency is 10x normal. See [Performance Optimization](/guides/performance-optimization-guide/) for monitoring metrics.
+- **Link to [incident postmortems](/docs/incident-postmortem-template/)** — Transparency after resolution builds long-term trust
 - **Define severity levels publicly** — Consumers need to understand what "High severity" means for their integration
 - **Include per-service status, not just a single aggregate status** — A single "all operational" banner hides partial degradations
 - **Timestamp every update in UTC** — Consumers across timezones need a consistent reference
@@ -283,7 +283,7 @@ Self-hosted options like [Cachet](https://cachethq.io) or [Upptime](https://uppt
 
 ### Internal-only status pages
 
-For internal services, use a simpler page without subscriptions or public incident history. A Slack channel with automated alerts often suffices. See [Alert Management Guide](/guides/observability/alert-management-guide) for alerting strategies.
+For internal services, use a simpler page without subscriptions or public incident history. A Slack channel with automated alerts often suffices. See [Alert Management Guide](/guides/alert-management-guide/) for alerting strategies.
 
 
 ## Troubleshooting
@@ -322,7 +322,7 @@ Every 15-30 minutes, even if there is no new information. A message like "Still 
 
 ### What should I do if an incident exceeds the SLA?
 
-Communicate proactively. Do not wait for customers to complain. See [Incident Communication Template](/docs/templates/incident-postmortem-template) for structured incident updates. Issue a summary explaining what happened, why it breached SLA, and what measures are being taken to prevent recurrence. Some companies offer service credits for SLA breaches.
+Communicate proactively. Do not wait for customers to complain. See [Incident Communication Template](/docs/incident-postmortem-template/) for structured incident updates. Issue a summary explaining what happened, why it breached SLA, and what measures are being taken to prevent recurrence. Some companies offer service credits for SLA breaches.
 
 ### Should I show response time metrics on the status page?
 

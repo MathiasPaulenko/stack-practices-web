@@ -209,8 +209,8 @@ git push origin --delete feature/add-search
 
 - **Keep branches short-lived** — the longer a branch lives, the harder the merge
 - **Use feature flags** for incomplete capabilities on main/trunk
-- **Require [PR reviews](/guides/design/code-review-best-practices-guide)** before merging to main
-- **Run full test suite** on every PR; block merge on failure. See [CI/CD](/guides/devops/cicd-pipeline-guide).
+- **Require [PR reviews](/guides/code-review-best-practices-guide/)** before merging to main
+- **Run full test suite** on every PR; block merge on failure. See [CI/CD](/guides/cicd-pipeline-guide/).
 - **Squash or rebase** to keep a linear history (team preference)
 - **Tag releases** on main for traceability
 - **Protect main/develop** branches with branch protection rules
@@ -219,7 +219,7 @@ git push origin --delete feature/add-search
 
 - Allowing long-lived feature branches that diverge considerably
 - Not deleting merged branches, cluttering the repository
-- Using GitFlow for a SaaS product that deploys multiple times a day. See [deployment strategies](/guides/devops/deployment-strategies-guide).
+- Using GitFlow for a SaaS product that deploys multiple times a day. See [deployment strategies](/guides/deployment-strategies-guide/).
 - Merging without review or CI checks
 - Not tagging releases, making rollbacks difficult
 

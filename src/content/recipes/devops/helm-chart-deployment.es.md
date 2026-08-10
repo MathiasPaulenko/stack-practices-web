@@ -46,9 +46,9 @@ Empaqueta y despliega aplicaciones en Kubernetes usando Helm, el package manager
 
 ## Cuando Usar Esto
 
-- Despliegas la misma aplicacion a multiples ambientes con configuraciones diferentes. Consulta [Environment Variables](/recipes/devops/environment-variables) para configuración por ambiente.
-- Los manifiestos de Kubernetes se vuelven repetitivos y dificiles de mantener entre equipos. Consulta [Docker Compose Local Dev](/recipes/devops/docker-compose-local-dev) para plantillas multi-servicio locales.
-- Necesitas releases versionados con capacidades de rollback facil. Consulta [Blue-Green Deployment](/recipes/devops/blue-green-deployment) para rollback instantáneo.
+- Despliegas la misma aplicacion a multiples ambientes con configuraciones diferentes. Consulta [Environment Variables](/recipes/environment-variables/) para configuración por ambiente.
+- Los manifiestos de Kubernetes se vuelven repetitivos y dificiles de mantener entre equipos. Consulta [Docker Compose Local Dev](/recipes/docker-compose-local-dev/) para plantillas multi-servicio locales.
+- Necesitas releases versionados con capacidades de rollback facil. Consulta [Blue-Green Deployment](/recipes/blue-green-deployment/) para rollback instantáneo.
 
 ## Solucion
 

@@ -42,14 +42,14 @@ seo:
 ---
 ## Overview
 
-Debouncing and throttling are [rate-limiting](/recipes/security/rate-limiting) techniques that control how often a function executes in response to rapid, repeated triggers. Debounce waits for a burst of events to settle before firing once. Throttle guarantees execution at most once per time window. Use debounce for search inputs (fire after user stops typing); use throttle for scroll or resize handlers (fire every N milliseconds). Here is how to implementations with configurable leading/trailing edges, cancellation, and both synchronous and async variants in Python, JavaScript, and Java.
+Debouncing and throttling are [rate-limiting](/recipes/rate-limiting/) techniques that control how often a function executes in response to rapid, repeated triggers. Debounce waits for a burst of events to settle before firing once. Throttle guarantees execution at most once per time window. Use debounce for search inputs (fire after user stops typing); use throttle for scroll or resize handlers (fire every N milliseconds). Here is how to implementations with configurable leading/trailing edges, cancellation, and both synchronous and async variants in Python, JavaScript, and Java.
 
 ## When to Use
 
 Use this resource when:
 - Implementing real-time search that should query only after the user pauses typing
 - Handling high-frequency events like scroll, resize, or mousemove without freezing the UI
-- [Rate-limiting](/recipes/security/rate-limiting) API calls triggered by user actions (button spam, autocomplete)
+- [Rate-limiting](/recipes/rate-limiting/) API calls triggered by user actions (button spam, autocomplete)
 - Processing streaming data where you want periodic snapshots rather than every single event
 
 ## Solution
@@ -311,12 +311,12 @@ public class RateLimiters {
 2. **Use throttle for visual events** — scroll, resize, and mousemove can fire 60+ times per second. Throttle to 100ms or use `requestAnimationFrame`.
 3. **Always implement cancellation** — pending timers can execute after a component is destroyed, causing errors or wasted API calls.
 4. **Choose the right edge** — leading edge feels snappy for buttons; trailing edge is better for search to capture the final input.
-5. **Measure the impact** — use DevTools Performance tab to verify that your debounce/throttle actually reduces main-thread work. See [performance optimization](/guides/performance/performance-optimization-guide).
+5. **Measure the impact** — use DevTools Performance tab to verify that your debounce/throttle actually reduces main-thread work. See [performance optimization](/guides/performance-optimization-guide/).
 
 ## Common Mistakes
 
 1. Using debounce where throttle is needed, causing important intermediate events to be lost entirely.
-2. Forgetting to clean up timers on component unmount, causing memory leaks and stale executions. See [performance optimization](/guides/performance/performance-optimization-guide).
+2. Forgetting to clean up timers on component unmount, causing memory leaks and stale executions. See [performance optimization](/guides/performance-optimization-guide/).
 3. Setting debounce delays too long (e.g., 2 seconds), making the UI feel unresponsive.
 4. Using throttle without trailing edge, dropping the final event of a burst (e.g., last scroll position).
 5. Not handling race conditions in multi-threaded environments where timers can overlap.

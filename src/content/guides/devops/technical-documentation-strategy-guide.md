@@ -175,14 +175,14 @@ If resolution fails after 15 minutes, escalate to Database Team on-call.
 | **Markdown in Git** | READMEs, ADRs, runbooks | Universal, versioned, free | No built-in search |
 | **MkDocs / Docusaurus** | Product documentation sites | Search, versioning, theming | Requires build step |
 | **Notion / Confluence** | Living knowledge base | WYSIWYG, easy collaboration | No git versioning |
-| **Swagger / OpenAPI** | [API reference](/recipes/api/api-documentation-openapi) | Auto-generated from code | Limited to API surface |
+| **Swagger / OpenAPI** | [API reference](/recipes/api-documentation-openapi/) | Auto-generated from code | Limited to API surface |
 | **Mermaid / PlantUML** | Diagrams as code | Versioned diagrams | Learning curve |
 
 ## What Works
 
 - **Write the README first** — if you cannot explain how to run the service, the service is not ready
 - **Keep docs close to code** — docs in a separate repo rot faster than code
-- **Automate link checking** — broken links destroy trust; [CI](/guides/devops/cicd-pipeline-guide) should catch them
+- **Automate link checking** — broken links destroy trust; [CI](/guides/cicd-pipeline-guide/) should catch them
 - **Use diagrams as code** — Mermaid and PlantUML keep diagrams versioned and editable
 - **Review docs in PRs** — a code change without a doc change is an incomplete PR
 - **Set a freshness policy** — flag docs not updated in 12 months for review

@@ -41,7 +41,7 @@ seo:
 
 ## Introduction
 
-When a single database server cannot handle the load, you have three options: buy a bigger machine (vertical scaling), add read replicas (horizontal read scaling), or split the data across multiple servers (sharding). See [SQL Performance Tuning](/guides/databases/sql-performance-tuning-guide) before scaling horizontally. Sharding is the hardest but the only option for unlimited horizontal scaling. Here is a hands-on guide to strategies, trade-offs, and operational considerations.
+When a single database server cannot handle the load, you have three options: buy a bigger machine (vertical scaling), add read replicas (horizontal read scaling), or split the data across multiple servers (sharding). See [SQL Performance Tuning](/guides/sql-performance-tuning-guide/) before scaling horizontally. Sharding is the hardest but the only option for unlimited horizontal scaling. Here is a hands-on guide to strategies, trade-offs, and operational considerations.
 
 ## Partitioning vs Sharding
 
@@ -222,8 +222,8 @@ SELECT * FROM orders WHERE created_at > '2024-01-01';
 |----------|-----------|
 | **Scatter-gather** | Query all shards, aggregate. Slow and resource-heavy. |
 | **Global secondary index** | Maintain an index on a non-shard key. Adds write amplification. |
-| **CQRS / read model** | Replicate data to an analytics store for cross-shard queries. See [event-driven architecture](/guides/architecture/event-driven-architecture-guide). |
-| **Avoid cross-shard transactions** | Design around them. Use [sagas](/guides/architecture/event-driven-architecture-guide) for multi-shard operations. |
+| **CQRS / read model** | Replicate data to an analytics store for cross-shard queries. See [event-driven architecture](/guides/event-driven-architecture-guide/). |
+| **Avoid cross-shard transactions** | Design around them. Use [sagas](/guides/event-driven-architecture-guide/) for multi-shard operations. |
 
 ## Rebalancing
 
@@ -247,15 +247,15 @@ When shards become uneven, you must move data.
 
 - Choosing a shard key with low cardinality (e.g., `country` with 5 values)
 - Assuming hash sharding eliminates all hotspots (celebrity accounts still concentrate load)
-- Cross-shard JOINs (they don't exist; you must do it in application code). See [database design](/guides/databases/database-design-guide).
+- Cross-shard JOINs (they don't exist; you must do it in application code). See [database design](/guides/database-design-guide/).
 - Not planning for rebalancing until a shard is 90% full
-- Sharding too early (< 10M rows or < 1K writes/second). See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide).
+- Sharding too early (< 10M rows or < 1K writes/second). See [SQL performance tuning](/guides/sql-performance-tuning-guide/).
 
 ## FAQ
 
 ### When should I start sharding?
 
-When you have exhausted vertical scaling and read replicas. Typical signals: single server CPU > 70% sustained, write throughput is the bottleneck (not reads), or you need geographic distribution. Most applications never need sharding. See [database design](/guides/databases/database-design-guide) first.
+When you have exhausted vertical scaling and read replicas. Typical signals: single server CPU > 70% sustained, write throughput is the bottleneck (not reads), or you need geographic distribution. Most applications never need sharding. See [database design](/guides/database-design-guide/) first.
 
 ### What is the difference between partitioning and sharding?
 

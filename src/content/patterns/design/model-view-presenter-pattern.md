@@ -326,7 +326,7 @@ Microsoft's early UI frameworks used a variation of MVP where code-behind files 
 A: In MVC, the View observes the Model directly. In MVP, all communication goes through the Presenter and the View is passive.
 
 **Q: What is the difference between MVP and MVVM?**
-A: [MVVM](/patterns/design/model-view-viewmodel-pattern) uses two-way data binding between View and ViewModel. MVP uses explicit method calls through an interface.
+A: [MVVM](/patterns/model-view-viewmodel-pattern/) uses two-way data binding between View and ViewModel. MVP uses explicit method calls through an interface.
 
 **Q: Can I use MVP with React?**
 A: You can, but React's component model naturally favors container/presentational components or hooks instead of classical MVP.

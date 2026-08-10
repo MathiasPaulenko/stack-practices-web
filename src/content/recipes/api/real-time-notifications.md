@@ -47,7 +47,7 @@ The code below implements a notification system with WebSocket connections, room
 Use this resource when:
 - Users need instant updates (chat, alerts, live dashboards)
 - Polling creates too much load on your infrastructure
-- You run multiple API instances behind a [load balancer](/recipes/api/nginx-reverse-proxy)
+- You run multiple API instances behind a [load balancer](/recipes/nginx-reverse-proxy/)
 - You need to broadcast the same event to many connected clients
 
 ## Solution
@@ -194,9 +194,9 @@ Redis pub/sub is ideal for broadcasting because subscribers receive messages in 
 
 - **Not handling reconnections**: Clients disconnect — implement exponential backoff reconnection
 - **Storing messages in Redis pub/sub**: Pub/sub does not persist messages; use Redis Streams for durability
-- **Broadcasting to all clients**: Use [room/channel namespaces](/patterns/design/chain-of-responsibility-middleware) to limit message delivery
+- **Broadcasting to all clients**: Use [room/channel namespaces](/patterns/chain-of-responsibility-middleware/) to limit message delivery
 - **Ignoring connection limits**: Each WebSocket consumes memory; set per-IP and global limits
-- **Missing auth on handshake**: Authenticate during the upgrade request with [JWT](/recipes/authentication/jwt-authentication), not after connection
+- **Missing auth on handshake**: Authenticate during the upgrade request with [JWT](/recipes/jwt-authentication/), not after connection
 
 ## When Not to Use This Approach
 
@@ -323,7 +323,7 @@ Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary
 A: Node.js handles ~10k-50k, Go ~100k+, Java (Netty) ~1M+. Use load testing with your actual payload size to determine real limits.
 
 **Q: Can I use WebSockets with serverless functions?**
-A: AWS API Gateway supports WebSockets, but stateless functions require DynamoDB or Redis to share connection info. Consider [service mesh patterns](/patterns/design/ambassador-pattern-services) for scaling real-time infrastructure.
+A: AWS API Gateway supports WebSockets, but stateless functions require DynamoDB or Redis to share connection info. Consider [service mesh patterns](/patterns/ambassador-pattern-services/) for scaling real-time infrastructure.
 
 **Q: Should I use WebSockets or Server-Sent Events?**
 A: Use SSE for one-way server-to-client streams (simpler, HTTP-based, auto-reconnect). Use WebSockets for bidirectional communication (chat, collaborative editing).

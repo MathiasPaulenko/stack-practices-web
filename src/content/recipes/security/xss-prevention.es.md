@@ -43,9 +43,9 @@ seo:
 
 Cross-Site Scripting (XSS) es un ataque de inyección donde scripts maliciosos se incrustan en sitios web de confianza. Cuando una víctima visita la página comprometida, el script se ejecuta en su navegador con los mismos privilegios que el sitio legítimo, permitiendo a los atacantes robar cookies de sesión, capturar keystrokes, o realizar acciones en nombre del usuario.
 
-XSS consistentemente aparece en el [OWASP Top 10](/guides/security/security-best-practices-guide) porque es tanto común como peligroso. Los tres tipos principales son XSS reflejado (URL maliciosa dispara el script), XSS almacenado (script malicioso se guarda en la base de datos y se sirve a todos los usuarios), y XSS basado en DOM (JavaScript client-side escribe datos no confiables a la página sin escapar).
+XSS consistentemente aparece en el [OWASP Top 10](/guides/security-best-practices-guide/) porque es tanto común como peligroso. Los tres tipos principales son XSS reflejado (URL maliciosa dispara el script), XSS almacenado (script malicioso se guarda en la base de datos y se sirve a todos los usuarios), y XSS basado en DOM (JavaScript client-side escribe datos no confiables a la página sin escapar).
 
-La defensa fundamental es simple pero frecuentemente olvidada: nunca confíes en el [input](/recipes/api/input-validation) de usuario. Todos los datos de usuarios, APIs o fuentes externas deben ser escapados antes de renderizarse en HTML, JavaScript, CSS o URLs.
+La defensa fundamental es simple pero frecuentemente olvidada: nunca confíes en el [input](/recipes/input-validation/) de usuario. Todos los datos de usuarios, APIs o fuentes externas deben ser escapados antes de renderizarse en HTML, JavaScript, CSS o URLs.
 
 ## Cuándo usarlo
 
@@ -123,7 +123,7 @@ const clean = DOMPurify.sanitize(dirty);
 
 ## Lo que funciona
 
-- **Escapa todos los datos no confiables**: parámetros de URL, inputs de formularios, campos de base de datos, respuestas de API, [uploads de archivos](/recipes/file-handling/file-upload-validation), e incluso headers HTTP pueden ser manipulados por atacantes.
+- **Escapa todos los datos no confiables**: parámetros de URL, inputs de formularios, campos de base de datos, respuestas de API, [uploads de archivos](/recipes/file-upload-validation/), e incluso headers HTTP pueden ser manipulados por atacantes.
 - **Usa los defaults del framework**: deja que React, Vue o Angular manejen el escaping.
 - **Implementa un CSP estricto**: empieza con `default-src 'self'` y pon en lista blanca solo los dominios requeridos.
 - **Configura `HttpOnly` y `Secure` en cookies**: `HttpOnly` previene que JavaScript lea cookies de sesión, mitigando el impacto de XSS.

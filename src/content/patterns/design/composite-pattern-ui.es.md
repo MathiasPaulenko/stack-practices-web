@@ -35,7 +35,7 @@ seo:
 
 
 ---
-El Composite pattern compone objetos en estructuras de arbol para representar jerarquias parte-todo. Permite que clientes traten objetos individuales y composiciones de objetos uniformemente. En React, este pattern aparece naturalmente al renderizar arboles de componentes anidados donde un contenedor tiene tanto elementos hoja como otros contenedores. Consulta el [Patron Composite](/patterns/design/composite-pattern) general para ejemplos independientes del lenguaje.
+El Composite pattern compone objetos en estructuras de arbol para representar jerarquias parte-todo. Permite que clientes traten objetos individuales y composiciones de objetos uniformemente. En React, este pattern aparece naturalmente al renderizar arboles de componentes anidados donde un contenedor tiene tanto elementos hoja como otros contenedores. Consulta el [Patron Composite](/patterns/composite-pattern/) general para ejemplos independientes del lenguaje.
 
 ## Cuando Usar Esto
 
@@ -222,10 +222,10 @@ console.log(`Total size: ${root.getSize()} bytes`);
 ## FAQ
 
 **P: En que se diferencia de Decorator?**
-R: Composite construye estructuras de arbol con semantica de contenedor. [Decorator](/patterns/design/decorator-pattern) agrega responsabilidades a un unico objeto sin semantica de arbol.
+R: Composite construye estructuras de arbol con semantica de contenedor. [Decorator](/patterns/decorator-pattern/) agrega responsabilidades a un unico objeto sin semantica de arbol.
 
 **P: Cuando deberia evitar Composite?**
-R: Cuando la jerarquia es plana (solo un nivel) o cuando operaciones de hijo no tienen sentido para nodos hoja. Para estructuras planas, considera [Decorator](/patterns/design/decorator-pattern) en su lugar.
+R: Cuando la jerarquia es plana (solo un nivel) o cuando operaciones de hijo no tienen sentido para nodos hoja. Para estructuras planas, considera [Decorator](/patterns/decorator-pattern/) en su lugar.
 
 ### ¿Es este patrón adecuado para proyectos pequeños?
 

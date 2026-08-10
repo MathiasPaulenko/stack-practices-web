@@ -39,7 +39,7 @@ seo:
 
 
 ---
-Use this template to prepare for catastrophic failures and minimize recovery time. Complement it with the [Runbook Template](/docs/templates/runbook-template) for operational procedures.
+Use this template to prepare for catastrophic failures and minimize recovery time. Complement it with the [Runbook Template](/docs/runbook-template/) for operational procedures.
 
 ## Template
 
@@ -136,10 +136,10 @@ If your database backups run every hour and your RPO is 15 minutes, your backup 
 
 ## What Works
 
-- **Test recovery quarterly** — an untested plan is a fantasy. See [Infrastructure as Code Guide](/guides/devops/infrastructure-as-code-guide) for automated environment provisioning.
+- **Test recovery quarterly** — an untested plan is a fantasy. See [Infrastructure as Code Guide](/guides/infrastructure-as-code-guide/) for automated environment provisioning.
 - **Automate failover where possible** — human-driven failover takes 10x longer
 - **Document decisions, not just steps** — why you chose this RTO helps future reviewers
-- **Keep the plan accessible offline** — during a disaster, your internal wiki may be down. Reference [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide) for detection triggers.
+- **Keep the plan accessible offline** — during a disaster, your internal wiki may be down. Reference [Monitoring and Alerting Guide](/guides/monitoring-alerting-guide/) for detection triggers.
 - **Include third-party dependencies** — your DR is only as strong as your weakest vendor
 
 ## Common Mistakes
@@ -187,7 +187,7 @@ If your database backups run every hour and your RPO is 15 minutes, your backup 
 
 ### How often should I test disaster recovery?
 
-Tabletop exercises quarterly, actual failover drills twice a year, backup restore tests monthly. For monitoring setup, see [Monitoring and Alerting Guide](/guides/devops/monitoring-alerting-guide). If you have never done a drill, start with a tabletop this week.
+Tabletop exercises quarterly, actual failover drills twice a year, backup restore tests monthly. For monitoring setup, see [Monitoring and Alerting Guide](/guides/monitoring-alerting-guide/). If you have never done a drill, start with a tabletop this week.
 
 ### What is the difference between backup and disaster recovery?
 

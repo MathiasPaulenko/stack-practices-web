@@ -34,7 +34,7 @@ seo:
 ---
 ## Overview
 
-An onboarding guide accelerates new team member productivity by providing a clear path from day one to first meaningful contribution. See [README Template](/docs/templates/readme-template) for project docs and [Contributing Guide](/docs/templates/contributing-guide) for contribution standards. It reduces the burden on existing team members and ensures consistency.
+An onboarding guide accelerates new team member productivity by providing a clear path from day one to first meaningful contribution. See [README Template](/docs/readme-template/) for project docs and [Contributing Guide](/docs/contributing-guide/) for contribution standards. It reduces the burden on existing team members and ensures consistency.
 
 ## When to Use
 

@@ -41,7 +41,7 @@ seo:
 
 
 ---
-Usa esta plantilla para evaluar librerías antes de agregarlas o durante auditorías periódicas. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para prácticas de seguridad más amplias.
+Usa esta plantilla para evaluar librerías antes de agregarlas o durante auditorías periódicas. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para prácticas de seguridad más amplias.
 
 ## Resumen
 
@@ -235,7 +235,7 @@ Alternativa a Dependabot con más opciones de configuración: updates agrupados,
 ## Lo que funciona
 
 - **Audita antes de agregar** — auditorías retroactivas descubren problemas demasiado tarde
-- **Automatiza scanning** — Dependabot, Snyk, o OWASP Dependency-Check en CI. Consulta la [Guía de CI/CD Pipeline](/guides/devops/cicd-pipeline-guide) para integrar scans de seguridad.
+- **Automatiza scanning** — Dependabot, Snyk, o OWASP Dependency-Check en CI. Consulta la [Guía de CI/CD Pipeline](/guides/cicd-pipeline-guide/) para integrar scans de seguridad.
 - **Pinea versiones** — lockfiles previenen upgrades silenciosos a versiones comprometidas
 - **Revisa compatibilidad de licencias** — AGPL en backend SaaS es un riesgo legal
 - **Trackeá deprecación** — las librerías mueren lentamente; monitorea salud trimestralmente
@@ -293,7 +293,7 @@ Para monorepos, audita dependencias compartidas across todos los paquetes. Usa l
 
 ### ¿Qué tan frecuentemente debería auditar dependencias?
 
-Nuevas dependencias antes de agregar. Dependencias existentes trimestralmente. Dependencias críticas mensualmente. Después de cualquier incidente de seguridad involucrando una dependencia, audita todas las dependencias del mismo ecosistema. Sigue los procedimientos de la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/templates/security-incident-response-template).
+Nuevas dependencias antes de agregar. Dependencias existentes trimestralmente. Dependencias críticas mensualmente. Después de cualquier incidente de seguridad involucrando una dependencia, audita todas las dependencias del mismo ecosistema. Sigue los procedimientos de la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/security-incident-response-template/).
 
 ### ¿Qué licencia es segura para uso comercial?
 
@@ -312,7 +312,7 @@ Una dependencia transitiva es una librería de la que depende tu dependencia. Si
 1. Verifica si existe una versión parcheada y actualiza inmediatamente
 2. Si no hay parche, busca un workaround o mitigación
 3. Si no hay workaround, evalúa reemplazar la dependencia
-4. Documenta la decisión en una [Respuesta a Incidente de Seguridad](/docs/templates/security-incident-response-template) si la vulnerabilidad fue explotada
+4. Documenta la decisión en una [Respuesta a Incidente de Seguridad](/docs/security-incident-response-template/) si la vulnerabilidad fue explotada
 
 ### ¿Debería usar un SBOM (Software Bill of Materials)?
 

@@ -52,11 +52,11 @@ Almacena y transmite siempre las fechas en UTC (ISO 8601), y formatea a hora loc
 
 Usa esta recipe cuando:
 
-- Serializas fechas a JSON o XML para [APIs](/recipes/api/call-rest-api)
+- Serializas fechas a JSON o XML para [APIs](/recipes/call-rest-api/)
 - Muestras fechas en interfaces de usuario con localización apropiada
-- Parseas fechas ingresadas por usuarios desde formularios o archivos. Consulta [Data Validation](/recipes/data/data-validation) para sanitizar input.
+- Parseas fechas ingresadas por usuarios desde formularios o archivos. Consulta [Data Validation](/recipes/data-validation/) para sanitizar input.
 - Conviertes entre timezones para aplicaciones globales
-- Logueas y auditas eventos con timestamps precisos. Consulta [Logging](/recipes/api/logging) para patrones de observabilidad.
+- Logueas y auditas eventos con timestamps precisos. Consulta [Logging](/recipes/logging/) para patrones de observabilidad.
 
 ## Solución
 
@@ -317,7 +317,7 @@ ew URL(string) parsea URLs correctamente incluyendo edge cases (IPv6, userinfo, 
 ## Preguntas frecuentes
 
 **P: ¿Debería usar timestamps o strings formateados en mi base de datos?**
-R: Usa tipos nativos `TIMESTAMP WITH TIME ZONE`. Almacenan instantes precisos en el tiempo y manejan conversiones automáticamente. Consulta [Database Transactions](/recipes/databases/database-transactions) para integridad de datos.
+R: Usa tipos nativos `TIMESTAMP WITH TIME ZONE`. Almacenan instantes precisos en el tiempo y manejan conversiones automáticamente. Consulta [Database Transactions](/recipes/database-transactions/) para integridad de datos.
 
 **P: ¿Cómo manejo el horario de verano (daylight saving)?**
 R: Almacena todo en UTC. Usa IDs de timezone IANA (ej. `Europe/Madrid`) para conversiones user-facing. Nunca hard-codees offsets.

@@ -44,11 +44,11 @@ Cold starts are not a bug; they are a trade-off. Serverless pricing is per-reque
 
 Use this recipe when:
 
-- Building latency-sensitive APIs on serverless platforms (sub-200ms p99). See [Serverless API Gateway](/recipes/api/nginx-reverse-proxy) for building HTTP APIs with low latency.
-- Experiencing user complaints about slow first requests after idle periods. See [Serverless Functions](/recipes/messaging/event-driven-microservices) for what works for function design.
+- Building latency-sensitive APIs on serverless platforms (sub-200ms p99). See [Serverless API Gateway](/recipes/nginx-reverse-proxy/) for building HTTP APIs with low latency.
+- Experiencing user complaints about slow first requests after idle periods. See [Serverless Functions](/recipes/event-driven-microservices/) for what works for function design.
 - Migrating from provisioned servers to serverless and needing comparable latency
 - Optimizing Java, .NET, or Ruby functions that suffer from multi-second cold starts
-- Running machine learning inference or heavy initialization in serverless environments. See [Connection Pooling](/recipes/databases/database-connection-pooling) for managing database connections in serverless.
+- Running machine learning inference or heavy initialization in serverless environments. See [Connection Pooling](/recipes/database-connection-pooling/) for managing database connections in serverless.
 
 ## Solution
 

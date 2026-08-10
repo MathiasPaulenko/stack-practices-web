@@ -47,7 +47,7 @@ Use this resource when:
 - You need low-latency, strongly typed service-to-service communication
 - Your architecture relies on streaming (server push, client push, or bidirectional)
 - You want automatic client library generation across multiple languages
-- You are building [microservices](/patterns/design/ambassador-pattern-services) where JSON parsing overhead is a bottleneck
+- You are building [microservices](/patterns/ambassador-pattern-services/) where JSON parsing overhead is a bottleneck
 
 ## Solution
 
@@ -191,7 +191,7 @@ gRPC workflows are contract-first: you define a `.proto` schema, then generate c
 ## What Works
 
 1. Version your `.proto` files and never remove or renumber existing fields
-2. Use interceptors ([middleware](/patterns/design/chain-of-responsibility-middleware)) for cross-cutting concerns: auth, logging, retries
+2. Use interceptors ([middleware](/patterns/chain-of-responsibility-middleware/)) for cross-cutting concerns: auth, logging, retries
 3. Set deadlines/timeouts on every RPC call to prevent cascading hangs
 4. Use `grpc.health.v1` health checks for Kubernetes readiness probes
 5. Keep messages small (<1 MB); use streaming or separate object stores for large payloads
@@ -312,11 +312,11 @@ Not directly. Browsers cannot speak raw HTTP/2 gRPC. Use gRPC-Web with a proxy (
 
 ### Should I replace all my REST APIs with gRPC?
 
-No. gRPC excels at internal microservices. For public-facing APIs and browser clients, [REST](/recipes/api/call-rest-api) or [GraphQL](/recipes/api/graphql-api) are usually better choices due to broader tooling and easier debugging.
+No. gRPC excels at internal microservices. For public-facing APIs and browser clients, [REST](/recipes/call-rest-api/) or [GraphQL](/recipes/graphql-api/) are usually better choices due to broader tooling and easier debugging.
 
 ### How do I handle authentication?
 
-gRPC metadata (headers) carry tokens. Attach an interceptor on the client to inject `authorization` metadata, and on the server to validate it. See [API Security Checklist](/guides/security/api-security-checklist-guide) for authentication patterns. Standard JWT or API key patterns work unchanged.
+gRPC metadata (headers) carry tokens. Attach an interceptor on the client to inject `authorization` metadata, and on the server to validate it. See [API Security Checklist](/guides/api-security-checklist-guide/) for authentication patterns. Standard JWT or API key patterns work unchanged.
 
 - **ReDoS via protobuf parsing**: deeply nested protobuf messages can cause stack overflows during deserialization.  Set max_recursion_depth on the parser and reject messages that exceed the limit.  This is especially important for untrusted input.
 - **gRPC channel credential leakage**: if channel credentials are logged or included in error messages, attackers can reuse them.  Never log channel credentials, interceptors, or metadata containing auth tokens.

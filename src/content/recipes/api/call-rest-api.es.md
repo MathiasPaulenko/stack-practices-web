@@ -66,8 +66,8 @@ Lo siguiente demuestra la forma idiomática y moderna de hacer una petición HTT
 
 Usa esta receta cuando:
 
-- Obtienes datos de una API interna o de terceros. Consulta [Input Validation](/recipes/api/input-validation) para validar datos de requests y responses.
-- Envías datos de formularios o eventos a un servicio backend. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para manejar fallos transitorios.
+- Obtienes datos de una API interna o de terceros. Consulta [Input Validation](/recipes/input-validation/) para validar datos de requests y responses.
+- Envías datos de formularios o eventos a un servicio backend. Consulta [Retry Logic](/recipes/retry-backoff/) para manejar fallos transitorios.
 - Te integras con plataformas SaaS (pagos, email, analítica)
 - Construyes un SDK cliente o una CLI que habla con un servicio HTTP
 - Subes archivos a una API de almacenamiento o CDN
@@ -218,7 +218,7 @@ try {
 - **JavaScript** usa la API `fetch` incorporada (Node 18+ y todos los navegadores modernos). Ojo: `fetch` solo falla ante errores de red — los errores HTTP como 404 o 500 igual resuelven la promesa, por lo que debes comprobar `response.ok` tú mismo.
 - **Java** usa el `java.net.http.HttpClient` incorporado (Java 11+). Soporta llamadas síncronas (`send`) y asíncronas (`sendAsync`), y puede configurarse con connection pooling y timeouts de petición.
 
-Una vez recibas el cuerpo, consulta [Parsear JSON](/recipes/data/parse-json) para convertirlo en datos tipados.
+Una vez recibas el cuerpo, consulta [Parsear JSON](/recipes/parse-json/) para convertirlo en datos tipados.
 
 ## Variantes
 
@@ -279,7 +279,7 @@ Una vez recibas el cuerpo, consulta [Parsear JSON](/recipes/data/parse-json) par
 
 ## Cuándo No Usar Este Enfoque
 
-- **Comunicación bidireccional real-time**: REST es solo request-response. Para chat, dashboards live o edición colaborativa, usa [WebSockets](/recipes/api/websocket-server) o [Server-Sent Events](/recipes/api/server-sent-events) en su lugar.
+- **Comunicación bidireccional real-time**: REST es solo request-response. Para chat, dashboards live o edición colaborativa, usa [WebSockets](/recipes/websocket-server/) o [Server-Sent Events](/recipes/server-sent-events/) en su lugar.
 - **Llamadas micro-batch de alta frecuencia**: si haces 100+ llamadas/segundo a la misma API, considera gRPC con multiplexed connections o un endpoint bulk/batch para reducir per-request overhead.
 - **Transferencias de archivos grandes**: las APIs REST tienen límites prácticos de payload (típicamente 10-100MB). Para transferencias multi-GB, usa presigned S3 URLs o un protocolo dedicado de transferencia de archivos.
 
@@ -332,7 +332,7 @@ A: En Python, usa `response.iter_content(chunk_size=8192)` para hacer stream del
 A: Ambos. Un connection timeout (típicamente 5-10s) cubre fallos de handshake TCP. Un read timeout (típicamente 30-60s) cubre respuestas lentas. Setéalos independientemente para distinguir entre "no puedo conectar" y "conecté pero el servidor está lento."
 
 **Q: ¿Cómo testeo llamadas de API sin hitting el servidor real?**
-A: Usa mock servers como WireMock (Java), nock (JavaScript), o `responses` (Python). Para tests de integración, usa herramientas como [Pact](/recipes/testing/api-contract-testing) para contract testing. Graba y reproduce interacciones HTTP con herramientas como VCR (Ruby) o Polly.js (JavaScript).
+A: Usa mock servers como WireMock (Java), nock (JavaScript), o `responses` (Python). Para tests de integración, usa herramientas como [Pact](/recipes/api-contract-testing/) para contract testing. Graba y reproduce interacciones HTTP con herramientas como VCR (Ruby) o Polly.js (JavaScript).
 
 ## Troubleshooting
 

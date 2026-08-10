@@ -43,7 +43,7 @@ A changelog is a curated, chronologically ordered list of notable changes for ea
 ## When to Use
 
 - You maintain a library, framework, or application with versioned releases
-- You need to communicate breaking changes to consumers. Pair with the [API Deprecation Notice Template](/docs/api/api-deprecation-notice-template) when sunsetting functionality.
+- You need to communicate breaking changes to consumers. Pair with the [API Deprecation Notice Template](/docs/api-deprecation-notice-template/) when sunsetting functionality.
 - You want to automate release note generation
 
 ## Template
@@ -139,7 +139,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 |----------|---------|
 | **Added** | New functionality |
 | **Changed** | Changes to existing functionality |
-| **Deprecated** | Functionality marked for removal. See [API Deprecation Notice Template](/docs/api/api-deprecation-notice-template) |
+| **Deprecated** | Functionality marked for removal. See [API Deprecation Notice Template](/docs/api-deprecation-notice-template/) |
 | **Removed** | Functionality removed in this release |
 | **Fixed** | Bug fixes |
 | **Security** | Security vulnerability fixes |
@@ -316,7 +316,7 @@ No. A changelog is curated, not a raw git log. Include only notable changes that
 
 ### What is semantic versioning?
 
-[Semantic Versioning](/guides/api/rest-api-design-guide) (SemVer) uses MAJOR.MINOR.PATCH format: increment MAJOR for breaking changes, MINOR for new functionality, and PATCH for bug fixes.
+[Semantic Versioning](/guides/rest-api-design-guide/) (SemVer) uses MAJOR.MINOR.PATCH format: increment MAJOR for breaking changes, MINOR for new functionality, and PATCH for bug fixes.
 
 ### Should the Unreleased section be empty between releases?
 

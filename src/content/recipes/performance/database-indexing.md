@@ -124,14 +124,14 @@ Look for:
 - **Put equality columns before range columns**: in `(a, b)` where `a = 1` and `b > 100`, the index on `(a, b)` is far more useful than `(b, a)`.
 - **Avoid indexing low-cardinality columns alone**: a `status` column with only 3 values (active, pending, archived) does not benefit from a standalone index.  Combine it with a high-cardinality column.
 - **Remove unused indexes**: every index slows down writes.
-- **Index foreign key columns**: databases do not always auto-index foreign keys.  Missing indexes on `JOIN` columns cause expensive nested loop scans.  See [database design](/guides/databases/database-design-guide).  See [SQL Joins](/recipes/databases/sql-joins) for join optimization.
+- **Index foreign key columns**: databases do not always auto-index foreign keys.  Missing indexes on `JOIN` columns cause expensive nested loop scans.  See [database design](/guides/database-design-guide/).  See [SQL Joins](/recipes/sql-joins/) for join optimization.
 
 ## Common Mistakes
 
 - **Indexing every column**: this wastes disk space, slows writes dramatically, and confuses the query optimizer with too many choices.
 - **Wrong column order in composite indexes**: an index on `(created_at, user_id)` cannot help a query that filters only on `user_id`.
 - **Indexing columns that are never queried**: check your query logs before creating indexes.
-- **Ignoring index maintenance**: fragmented indexes on high-churn tables degrade over time.  See [SQL performance tuning](/guides/databases/sql-performance-tuning-guide).
+- **Ignoring index maintenance**: fragmented indexes on high-churn tables degrade over time.  See [SQL performance tuning](/guides/sql-performance-tuning-guide/).
 - **Using indexes on tiny tables**: tables with fewer than a few thousand rows are often faster with sequential scans because reading the index and then the table is more overhead than a full scan.
 
 
@@ -335,9 +335,9 @@ Enum and boolean columns have low cardinality, making B-tree indexes less effect
 
 ## See Also
 
-- [Batch Processing Patterns](/recipes/performance/batch-processing-patterns) — optimizing bulk data operations
-- [Web Performance](/recipes/performance/web-performance) — frontend and backend performance techniques
-- [Load Testing](/recipes/performance/load-testing) — validating database performance under load
+- [Batch Processing Patterns](/recipes/batch-processing-patterns/) — optimizing bulk data operations
+- [Web Performance](/recipes/web-performance/) — frontend and backend performance techniques
+- [Load Testing](/recipes/load-testing/) — validating database performance under load
 
 ## Common Production Pitfalls
 

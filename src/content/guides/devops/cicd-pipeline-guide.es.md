@@ -194,7 +194,7 @@ git revert HEAD
 
 ## Lo que funciona
 
-- **Fallar rápido**: Ejecuta los checks más rápidos (lint, [unit tests](/recipes/testing/unit-testing)) primero
+- **Fallar rápido**: Ejecuta los checks más rápidos (lint, [unit tests](/recipes/unit-testing/)) primero
 - **Paralelizar**: Ejecuta jobs independientes en paralelo
 - **Usa environments**: Requiere aprobaciones para producción
 - **Cachea agresivamente**: Cachea dependencias y artefactos de build
@@ -203,7 +203,7 @@ git revert HEAD
 
 ## Anti-Patterns
 
-- Desplegar sin [tests](/guides/testing/testing-strategy-guide)
+- Desplegar sin [tests](/guides/testing-strategy-guide/)
 - Usar el mismo pipeline para todos los ambientes
 - Pasos manuales en el proceso de deployment
 - Sin plan de rollback
@@ -240,7 +240,7 @@ DATABASE_URL=postgres://prod.internal/prod_db
 LOG_LEVEL=warn
 ```
 
-**Nunca commitees secretos a Git.** Usa [gestores de secretos](/guides/security/security-best-practices-guide) (AWS Secrets Manager, HashiCorp Vault, GitHub Secrets) e inyéctalos en runtime.
+**Nunca commitees secretos a Git.** Usa [gestores de secretos](/guides/security-best-practices-guide/) (AWS Secrets Manager, HashiCorp Vault, GitHub Secrets) e inyéctalos en runtime.
 
 ### Migraciones de base de datos en CI/CD
 
@@ -272,7 +272,7 @@ A: Sí, si tus tests y monitoreo son fiables. De lo contrario, despliega en merg
 A: Continuous Delivery significa que el código siempre está desplegable; un humano aprueba el release. Continuous Deployment significa que cada cambio validado va a producción automáticamente.
 
 **Q: ¿Cómo manejo cambios de schema de base de datos en CI/CD?**
-A: Ejecuta [migraciones](/recipes/databases/schema-evolution) antes del deployment, haz cambios retrocompatibles cuando sea posible, y ten scripts de rollback listos. Nunca elimines columnas en el mismo deploy que deja de leerlas.
+A: Ejecuta [migraciones](/recipes/schema-evolution/) antes del deployment, haz cambios retrocompatibles cuando sea posible, y ten scripts de rollback listos. Nunca elimines columnas en el mismo deploy que deja de leerlas.
 
 **Q: ¿Qué debería hacer cuando un deployment a producción falla?**
 A: Sigue este orden: 1) Alerta al equipo on-call, 2) Evalúa si se necesita rollback, 3) Ejecuta rollback o forward-fix, 4) Documenta el incidente, 5) Realiza un post-mortem en 48 horas.

@@ -41,7 +41,7 @@ seo:
 ---
 ## Overview
 
-The OpenAI Assistants API lets you build conversational AI agents with persistent threads, built-in retrieval, code interpreter, and function calling. Unlike the Chat Completions API, Assistants manages conversation state, file handling, and tool execution automatically, so you do not need to maintain message history in your own database. For autonomous agents with tool use, see [AI Agents with Tool Use](/recipes/ai/ai-agents-tool-use).
+The OpenAI Assistants API lets you build conversational AI agents with persistent threads, built-in retrieval, code interpreter, and function calling. Unlike the Chat Completions API, Assistants manages conversation state, file handling, and tool execution automatically, so you do not need to maintain message history in your own database. For autonomous agents with tool use, see [AI Agents with Tool Use](/recipes/ai-agents-tool-use/).
 
 Below is a practical approach to creating an assistant, managing conversation threads, handling function calls, and retrieving files.
 
@@ -234,7 +234,7 @@ Unlike Chat Completions, you do not send the full message history on every reque
 | OpenAI Assistants API | Stateful threads + built-in tools | Best for persistent conversations; managed by OpenAI |
 | Chat Completions API | Stateless, manual history | More control, lower latency, but you manage context window |
 | Azure OpenAI Assistants | Same API, enterprise compliance | SOC2, HIPAA, private networking; same SDK |
-| [LangChain Agents](/recipes/ai/ai-agents-tool-use) | Framework-level abstraction | Swap models, add custom tools, but more boilerplate |
+| [LangChain Agents](/recipes/ai-agents-tool-use/) | Framework-level abstraction | Swap models, add custom tools, but more boilerplate |
 | Functionary / Local LLMs | Self-hosted function calling | Privacy-first, no API costs, but needs GPU |
 
 ## What Works
@@ -294,7 +294,7 @@ Assistants manage thread state, built-in tools (retrieval, code interpreter), an
 
 ### Can I use my own LLM with the Assistants API?
 
-No. The Assistants API is specific to OpenAI models. For custom models, use [LangChain agents](/recipes/ai/ai-agents-tool-use) or build a similar abstraction on top of Chat Completions with your own backend.
+No. The Assistants API is specific to OpenAI models. For custom models, use [LangChain agents](/recipes/ai-agents-tool-use/) or build a similar abstraction on top of Chat Completions with your own backend.
 
 ### How much does it cost?
 

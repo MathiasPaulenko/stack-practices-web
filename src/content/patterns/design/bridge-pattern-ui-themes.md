@@ -188,13 +188,13 @@ const dark = new ThemedButton(new DarkTheme());
 ## Production Considerations
 
 - Use dependency injection to swap implementations at runtime
-- Bridge works well with [Abstract Factory](/patterns/design/abstract-factory-pattern) to create matched component families
+- Bridge works well with [Abstract Factory](/patterns/abstract-factory-pattern/) to create matched component families
 - Keep the abstraction thin; delegate all rendering details to the implementation
 
 ## Common Mistakes
 
-- Confusing Bridge with [Adapter](/patterns/design/adapter-pattern): Adapter makes unrelated interfaces compatible; Bridge separates an interface from implementation
-- Creating a Bridge when a simple [Strategy](/patterns/design/strategy-pattern) would suffice for single-method variation
+- Confusing Bridge with [Adapter](/patterns/adapter-pattern/): Adapter makes unrelated interfaces compatible; Bridge separates an interface from implementation
+- Creating a Bridge when a simple [Strategy](/patterns/strategy-pattern/) would suffice for single-method variation
 
 
 ## Troubleshooting
@@ -232,7 +232,7 @@ const dark = new ThemedButton(new DarkTheme());
 ## FAQ
 
 **Q: How is this different from Strategy?**
-A: [Strategy](/patterns/design/strategy-pattern) changes behavior of a single object. Bridge separates two entire class hierarchies so each can evolve independently.
+A: [Strategy](/patterns/strategy-pattern/) changes behavior of a single object. Bridge separates two entire class hierarchies so each can evolve independently.
 
 **Q: Can I use this for database backends?**
 A: Yes. The abstraction is your repository interface; implementations are SQL, MongoDB, or DynamoDB adapters.

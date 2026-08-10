@@ -47,8 +47,8 @@ La idempotencia garantiza que hacer el mismo request a una API múltiples veces 
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Construyas APIs de pagos o pedidos donde deben evitarse cargos duplicados. Consulta [Checklist de Seguridad de APIs](/guides/security/api-security-checklist-guide) para patrones seguros de pagos.
-- Diseñes APIs consumidas por apps móviles con conectividad de red poco confiable. Consulta [Llamar REST API](/recipes/api/call-rest-api) para patrones de retry en cliente.
+- Construyas APIs de pagos o pedidos donde deben evitarse cargos duplicados. Consulta [Checklist de Seguridad de APIs](/guides/api-security-checklist-guide/) para patrones seguros de pagos.
+- Diseñes APIs consumidas por apps móviles con conectividad de red poco confiable. Consulta [Llamar REST API](/recipes/call-rest-api/) para patrones de retry en cliente.
 - Implementes lógica de retry donde el mismo request puede enviarse múltiples veces
 - Crees receptores de webhooks que pueden entregar el mismo evento más de una vez
 
@@ -280,8 +280,8 @@ public class OrderController {
 - **Idempotency key** es un identificador único generado por el cliente (UUID recomendado) enviado en un header. El servidor usa esta clave para detectar requests duplicados y retornar la respuesta cacheada.
 - **Estado processing** previene que requests duplicados concurrentes ejecuten la misma operación dos veces. Si un segundo request llega mientras el primero aún está en proceso, retorna `409 Conflict`.
 - **Limpieza TTL** es necesaria porque los stores de idempotencia crecen sin límite. Usa Redis con TTL o programa limpieza periódica. El TTL típico es 24 horas.
-- **Manejo de errores** ante falla debe remover el marcador de "processing" para que el cliente pueda reintentar de forma segura. Consulta [Manejo de Errores](/recipes/api/handle-errors) para patrones de retry. De lo contrario, un request fallado quedaría bloqueado permanentemente.
-- **Idempotencia natural** vía PUT con path de recurso (ej. `PUT /orders/{id}`) es idempotente por semántica HTTP — actualizaciones repetidas con el mismo body producen el mismo estado. Consulta [Llamar REST API](/recipes/api/call-rest-api) para semántica de métodos HTTP.
+- **Manejo de errores** ante falla debe remover el marcador de "processing" para que el cliente pueda reintentar de forma segura. Consulta [Manejo de Errores](/recipes/handle-errors/) para patrones de retry. De lo contrario, un request fallado quedaría bloqueado permanentemente.
+- **Idempotencia natural** vía PUT con path de recurso (ej. `PUT /orders/{id}`) es idempotente por semántica HTTP — actualizaciones repetidas con el mismo body producen el mismo estado. Consulta [Llamar REST API](/recipes/call-rest-api/) para semántica de métodos HTTP.
 
 ## Variantes
 

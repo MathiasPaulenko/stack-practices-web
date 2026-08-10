@@ -48,10 +48,10 @@ Un endpoint de health check informa a load balancers, orquestadores (Kubernetes)
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Desplegues en Kubernetes (livenessProbe / readinessProbe). Consulta [Docker Basics](/recipes/devops/docker-basics) para fundamentos de contenedores.
-- Ejecutes detrás de un load balancer o reverse proxy. Consulta [Rate Limiting](/recipes/api/rate-limiting) para protección de APIs.
-- configures monitoreo y alertas (Prometheus, Datadog). Consulta [Prometheus API Monitoring](/recipes/observability/prometheus-api-monitoring) para colección de métricas.
-- Necesites degradación graceful o lógica de circuit breaker. Consulta [Circuit Breaker](/patterns/design/circuit-breaker-pattern) para aislamiento de fallas.
+- Desplegues en Kubernetes (livenessProbe / readinessProbe). Consulta [Docker Basics](/recipes/docker-basics/) para fundamentos de contenedores.
+- Ejecutes detrás de un load balancer o reverse proxy. Consulta [Rate Limiting](/recipes/rate-limiting/) para protección de APIs.
+- configures monitoreo y alertas (Prometheus, Datadog). Consulta [Prometheus API Monitoring](/recipes/prometheus-api-monitoring/) para colección de métricas.
+- Necesites degradación graceful o lógica de circuit breaker. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para aislamiento de fallas.
 
 ## Solución
 

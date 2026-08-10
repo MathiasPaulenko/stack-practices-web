@@ -41,9 +41,9 @@ Un service mesh resuelve estos problemas insertando un proxy — un sidecar cont
 
 Usa esta receta cuando:
 
-- Ejecutando 10+ [microservicios](/guides/architecture/microservices-architecture-guide) en Kubernetes con comunicación inter-servicio compleja
+- Ejecutando 10+ [microservicios](/guides/microservices-architecture-guide/) en Kubernetes con comunicación inter-servicio compleja
 - Requiriendo encriptación para todo el tráfico servicio-a-servicio sin modificar aplicaciones
-- Implementando [despliegues canary](/recipes/architecture/load-balancing), A/B testing o mirroring de tráfico entre versiones de servicios
+- Implementando [despliegues canary](/recipes/load-balancing/), A/B testing o mirroring de tráfico entre versiones de servicios
 - Necesitando observabilidad unificada (métricas, logs, traces) a través de todos los microservicios
 - Haciendo enforcement de políticas de acceso (ej. "el servicio de pagos solo puede hablar con billing y fraud detection")
 
@@ -169,7 +169,7 @@ spec:
 - **Empieza con mTLS permisivo, luego enforce estricto**: Después de validar flujos de tráfico, cambia a `STRICT` para rechazar conexiones no encriptadas.   El modo estricto repentino puede romper servicios que no tienen sidecars.
 - **Define service accounts por workload**: las cuentas de servicio de Kubernetes se mapean a identidades de Istio.   Esto habilita políticas de autorización granulares.
 - **Configura retry budgets, no solo retries**: retries ingenuos pueden amplificar fallos.   Retries ilimitados crean retry storms.
-- **Usa [circuit breakers](/recipes/circuit-breaker-pattern-recipe) en cada llamada saliente**: Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos.   Esto previene fallos en cascada.
+- **Usa [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) en cada llamada saliente**: Si un servicio downstream retorna 5xx en el 50% de requests durante 30 segundos, échalo durante 30 segundos.   Esto previene fallos en cascada.
 - **Monitorea el uso de recursos del sidecar**: Envoy consume CPU y memoria.   Setea resource requests/limits en el sidecar.   En servicios de alto throughput, el sidecar puede convertirse en el bottleneck antes que la aplicación.   Profilea y tunea la concurrencia del proxy.
 
 ## Errores comunes
@@ -181,7 +181,7 @@ spec:
 
 ## Preguntas frecuentes
 
-**P: ¿Un service mesh reemplaza un [API gateway](/recipes/architecture/api-gateway)?**
+**P: ¿Un service mesh reemplaza un [API gateway](/recipes/api-gateway/)?**
 R: No. El gateway maneja north-south (externo al cluster). El mesh maneja east-west (servicio-a-servicio). Úsalos ambos. Algunos meshes incluyen un ingress gateway, pero complementa, no reemplaza, tu gateway primario.
 
 **P: ¿Cuál es el overhead de performance de un service mesh?**

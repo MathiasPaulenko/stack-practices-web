@@ -34,13 +34,13 @@ seo:
 
 
 ---
-[Model-View-Controller](/patterns/design/mvc-pattern) separates an application into three components: Model (data and rules), View (presentation), and Controller (input handling and coordination). While frameworks like React and Vue blur these boundaries, applying MVC discipline prevents components from becoming unmaintainable mashups of state, UI, and side effects.
+[Model-View-Controller](/patterns/mvc-pattern/) separates an application into three components: Model (data and rules), View (presentation), and Controller (input handling and coordination). While frameworks like React and Vue blur these boundaries, applying MVC discipline prevents components from becoming unmaintainable mashups of state, UI, and side effects.
 
 ## When to Use This
 
-- Components grow beyond 200 lines because they mix data fetching, transformation, and rendering. See [Component Testing](/recipes/testing/playwright-component-testing) for testable UI patterns.
-- The same data logic is duplicated across multiple pages. See [Repository Pattern](/patterns/design/repository-pattern-typescript) for shared data access layers.
-- Testing UI requires mocking networks, stores, and DOM simultaneously. See [Unit Testing](/recipes/testing/unit-testing-mocking) for isolated test strategies.
+- Components grow beyond 200 lines because they mix data fetching, transformation, and rendering. See [Component Testing](/recipes/unit-testing/) for testable UI patterns.
+- The same data logic is duplicated across multiple pages. See [Repository Pattern](/patterns/repository-pattern-typescript/) for shared data access layers.
+- Testing UI requires mocking networks, stores, and DOM simultaneously. See [Unit Testing](/recipes/unit-testing-mocking/) for isolated test strategies.
 
 ## Problem
 
@@ -238,7 +238,7 @@ React provides building blocks, not architecture. Hooks manage local state; they
 
 ### When should I use Redux instead of MVC?
 
-MVC works well for localized capabilities. For data layer patterns, see [Repository](/patterns/design/repository-pattern-typescript). Redux shines when multiple unrelated components need the same data or when time-travel debugging is valuable.
+MVC works well for localized capabilities. For data layer patterns, see [Repository](/patterns/repository-pattern-typescript/). Redux shines when multiple unrelated components need the same data or when time-travel debugging is valuable.
 
 ### How do I handle async operations in MVC?
 

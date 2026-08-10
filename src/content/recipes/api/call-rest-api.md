@@ -72,8 +72,8 @@ Here is how to the idiomatic, modern way to make an HTTP request and read the JS
 
 Use this recipe when:
 
-- Fetching data from a third-party or internal API. See [Input Validation](/recipes/api/input-validation) for validating API request and response data.
-- Submitting form data or events to a backend service. See [Retry Logic](/recipes/architecture/retry-backoff) for handling transient failures.
+- Fetching data from a third-party or internal API. See [Input Validation](/recipes/input-validation/) for validating API request and response data.
+- Submitting form data or events to a backend service. See [Retry Logic](/recipes/retry-backoff/) for handling transient failures.
 - Integrating with SaaS platforms (payments, email, analytics)
 - Building a client SDK or CLI that talks to an HTTP service
 - Uploading files to a storage API or CDN
@@ -224,7 +224,7 @@ try {
 - **JavaScript** uses the built-in `fetch` API (Node 18+ and all modern browsers). Note that `fetch` only rejects on network errors — HTTP errors like 404 or 500 still resolve the promise, so you must check `response.ok` yourself.
 - **Java** uses the built-in `java.net.http.HttpClient` (Java 11+). It supports synchronous (`send`) and asynchronous (`sendAsync`) calls, and can be configured with connection pooling and request timeouts.
 
-Once you receive the body, see [Parse JSON](/recipes/data/parse-json) for turning it into typed data.
+Once you receive the body, see [Parse JSON](/recipes/parse-json/) for turning it into typed data.
 
 ## Variants
 
@@ -285,7 +285,7 @@ Once you receive the body, see [Parse JSON](/recipes/data/parse-json) for turnin
 
 ## When Not to Use This Approach
 
-- **Real-time bidirectional communication**: REST is request-response only. For chat, live dashboards, or collaborative editing, use [WebSockets](/recipes/api/websocket-server) or [Server-Sent Events](/recipes/api/server-sent-events) instead.
+- **Real-time bidirectional communication**: REST is request-response only. For chat, live dashboards, or collaborative editing, use [WebSockets](/recipes/websocket-server/) or [Server-Sent Events](/recipes/server-sent-events/) instead.
 - **High-frequency micro-batch calls**: if you're making 100+ calls/second to the same API, consider gRPC with multiplexed connections or a bulk/batch endpoint to reduce per-request overhead.
 - **Large file transfers**: REST APIs have practical payload limits (typically 10-100MB). For multi-GB transfers, use presigned S3 URLs or a dedicated file transfer protocol.
 
@@ -347,4 +347,4 @@ A: In Python, use `response.iter_content(chunk_size=8192)` to stream the body. I
 A: Both. A connection timeout (typically 5-10s) covers TCP handshake failures. A read timeout (typically 30-60s) covers slow responses. Set them independently to distinguish between "can't connect" and "connected but server is slow."
 
 **Q: How do I test API calls without hitting the real server?**
-A: Use mock servers like WireMock (Java), nock (JavaScript), or `responses` (Python). For integration tests, use tools like [Pact](/recipes/testing/api-contract-testing) for contract testing. Record and replay HTTP interactions with tools like VCR (Ruby) or Polly.js (JavaScript).
+A: Use mock servers like WireMock (Java), nock (JavaScript), or `responses` (Python). For integration tests, use tools like [Pact](/recipes/api-contract-testing/) for contract testing. Record and replay HTTP interactions with tools like VCR (Ruby) or Polly.js (JavaScript).

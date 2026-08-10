@@ -50,10 +50,10 @@ Database migrations evolve your schema as your application changes. Unsafe migra
 ## When to Use
 
 Use this resource when:
-- You're deploying schema changes to a production database with live traffic. See [Database Migrations](/recipes/databases/database-migrations) for tooling overview.
-- You need to add, rename, or remove columns without breaking running applications. See [Input Validation](/recipes/api/input-validation) for schema safety.
-- You're migrating data between tables or formats. See [Data Validation](/recipes/data/data-validation) for integrity checks.
-- You want to establish a rollback plan before running any migration. See [Retry Logic](/recipes/architecture/retry-backoff) for recovery patterns.
+- You're deploying schema changes to a production database with live traffic. See [Database Migrations](/recipes/database-migrations/) for tooling overview.
+- You need to add, rename, or remove columns without breaking running applications. See [Input Validation](/recipes/input-validation/) for schema safety.
+- You're migrating data between tables or formats. See [Data Validation](/recipes/data-validation/) for integrity checks.
+- You want to establish a rollback plan before running any migration. See [Retry Logic](/recipes/retry-backoff/) for recovery patterns.
 
 ## Solution
 
@@ -175,7 +175,7 @@ Only for non-breaking, fast migrations (adding a nullable column, creating an in
 - **Batch backfills** in chunks of 1,000-10,000 rows with `COMMIT` between batches
 - **Add indexes concurrently** to avoid locking
 - **Run during low-traffic windows** even with online tools
-- **Monitor replication lag** if you're running against a primary with replicas. See [Read Replicas](/recipes/databases/database-read-replicas) for replication management.
+- **Monitor replication lag** if you're running against a primary with replicas. See [Read Replicas](/recipes/database-read-replicas/) for replication management.
 
 ### Batch backfill with Alembic
 

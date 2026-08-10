@@ -52,9 +52,9 @@ The factory pattern moves object creation into a dedicated method or class. The 
 Use this recipe when:
 
 - The exact class of object is determined at runtime based on configuration or input
-- Object creation involves complex initialization logic (connection pools, caches, event listeners). See [Singleton Pattern](/recipes/singleton-pattern-recipe) for managing shared instances.
-- Testing requires substituting real implementations with mocks or stubs. See [Input Validation](/recipes/api/input-validation) for boundary testing.
-- Creating objects directly violates dependency inversion (high-level modules depend on low-level details). See [Hexagonal Architecture](/recipes/design/hexagonal-architecture) for dependency inversion.
+- Object creation involves complex initialization logic (connection pools, caches, event listeners). See [Singleton Pattern](/recipes/singleton-pattern-recipe/) for managing shared instances.
+- Testing requires substituting real implementations with mocks or stubs. See [Input Validation](/recipes/input-validation/) for boundary testing.
+- Creating objects directly violates dependency inversion (high-level modules depend on low-level details). See [Hexagonal Architecture](/recipes/hexagonal-architecture/) for dependency inversion.
 - Building frameworks or libraries where users provide their own implementations
 
 ## Solution
@@ -260,7 +260,7 @@ result = processor.charge(99.99, "USD")
 A: Use a factory for localized object creation within a module. Use a DI container for application-wide dependency graphs. Most modern frameworks combine both: the container uses factory providers to create objects.
 
 **Q: Is the factory pattern still relevant with DI frameworks?**
-A: Yes. DI frameworks use [factories](/recipes/factory-pattern-recipe) internally. You still write factory methods when object creation requires custom logic (e.g., choosing a database shard based on the user ID). DI handles the wiring; factories handle the creation decisions.
+A: Yes. DI frameworks use [factories](/recipes/factory-pattern-recipe/) internally. You still write factory methods when object creation requires custom logic (e.g., choosing a database shard based on the user ID). DI handles the wiring; factories handle the creation decisions.
 
 **Q: How do I test code that uses factories?**
 A: Mock the factory itself. If `OrderService` depends on `PaymentProcessorFactory`, inject a mock factory that returns a stub processor. Alternatively, use DI to inject the processor directly, bypassing the factory in tests.

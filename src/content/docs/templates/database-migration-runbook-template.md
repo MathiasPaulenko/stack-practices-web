@@ -140,13 +140,13 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 
 - **Use expand-contract for breaking changes** — add new schema, deploy code, remove old schema in separate migrations
 - **Batch large updates** — `UPDATE ... WHERE id BETWEEN 1 AND 10000` in a loop, with sleeps
-- **Monitor replication lag** — large DDL can block replication; pause if lag exceeds thresholds. See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) for monitoring strategies.
+- **Monitor replication lag** — large DDL can block replication; pause if lag exceeds thresholds. See [SQL Performance Tuning Guide](/guides/sql-performance-tuning-guide/) for monitoring strategies.
 - **Keep migrations idempotent** — `IF NOT EXISTS` and `IF EXISTS` let you re-run safely
 - **Document actual duration** — future estimates improve when you track reality
 
 ## Common Mistakes
 
-- Running untested migrations in production — test on a copy with realistic data size. Document your schema with the [Database Schema Documentation Template](/docs/templates/database-schema-documentation-template).
+- Running untested migrations in production — test on a copy with realistic data size. Document your schema with the [Database Schema Documentation Template](/docs/database-schema-documentation-template/).
 - Forgetting to use `CONCURRENTLY` — locks the table for writes, causing outages
 - Large transactions without batching — a single `UPDATE` on 100M rows will lock and rollback slowly
 - No rollback plan — "we will figure it out" is not a plan
@@ -189,11 +189,11 @@ ALTER TABLE orders DROP COLUMN IF EXISTS tracking_url;
 
 ### Should I use a migration tool or raw SQL?
 
-Use a tool (Flyway, Liquibase, Django migrations, Rails migrations). See [SQL Performance Tuning Guide](/guides/databases/sql-performance-tuning-guide) and [Database Sharding Guide](/guides/databases/database-sharding-partitioning-guide) for related database guidelines. Tools track applied migrations, enforce ordering, and provide rollback hooks. Raw SQL scripts require manual tracking and are error-prone.
+Use a tool (Flyway, Liquibase, Django migrations, Rails migrations). See [SQL Performance Tuning Guide](/guides/sql-performance-tuning-guide/) and [Database Sharding Guide](/guides/database-sharding-partitioning-guide/) for related database guidelines. Tools track applied migrations, enforce ordering, and provide rollback hooks. Raw SQL scripts require manual tracking and are error-prone.
 
 ### How do I handle a failed migration in production?
 
-Stop immediately. Do not apply subsequent migrations. Assess whether to rollback or fix forward. Rollback if data integrity is at risk. Fix forward if the fix is a small, well-understood script. Always have the rollback script ready before you start. For broader disaster planning, see the [Disaster Recovery Plan Template](/docs/templates/disaster-recovery-plan-template).
+Stop immediately. Do not apply subsequent migrations. Assess whether to rollback or fix forward. Rollback if data integrity is at risk. Fix forward if the fix is a small, well-understood script. Always have the rollback script ready before you start. For broader disaster planning, see the [Disaster Recovery Plan Template](/docs/disaster-recovery-plan-template/).
 
 ### Can I run migrations in a transaction?
 

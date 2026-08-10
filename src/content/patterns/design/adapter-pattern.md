@@ -59,10 +59,10 @@ It is the software equivalent of a physical power adapter: it converts one inter
 ## When to Use
 
 Use the Adapter Pattern when:
-- You want to use an existing class whose interface is incompatible with the rest of your code. See [Strategy Pattern](/patterns/design/strategy-pattern) for runtime behavior selection.
-- You need to reuse legacy or third-party code that does not match your interfaces. See [Facade Pattern](/patterns/design/adapter-pattern) for simplifying complex APIs.
+- You want to use an existing class whose interface is incompatible with the rest of your code. See [Strategy Pattern](/patterns/strategy-pattern/) for runtime behavior selection.
+- You need to reuse legacy or third-party code that does not match your interfaces. See [Facade Pattern](/patterns/adapter-pattern/) for simplifying complex APIs.
 - You want to create a unified interface across several classes with different APIs
-- You cannot or should not modify the source code of the incompatible class. See [Decorator Pattern](/patterns/design/decorator-pattern) for extending behavior without subclassing.
+- You cannot or should not modify the source code of the incompatible class. See [Decorator Pattern](/patterns/decorator-pattern/) for extending behavior without subclassing.
 - You need to translate data formats or calling conventions between systems
 
 ## Solution
@@ -164,7 +164,7 @@ The adapter translates calls from the target interface into calls the adaptee un
 - **Keep the adapter thin**: It should translate calls, not add business logic
 - **Document the mapping**: Explain how target methods map to adaptee methods
 - **Handle nulls and exceptions** gracefully during translation
-- **Consider [caching](/recipes/performance/caching-strategies)**: If translation involves heavy computation, cache results
+- **Consider [caching](/recipes/caching-strategies/)**: If translation involves heavy computation, cache results
 
 ## Advanced Techniques
 
@@ -408,7 +408,7 @@ class LoggingAdapter {
 ## FAQ
 
 **Q: What is the difference between Adapter and Facade?**
-A: Adapter makes one incompatible interface compatible. [Facade](/patterns/design/facade-pattern) simplifies a complex subsystem by providing a single unified interface to multiple classes.
+A: Adapter makes one incompatible interface compatible. [Facade](/patterns/facade-pattern/) simplifies a complex subsystem by providing a single unified interface to multiple classes.
 
 **Q: Can I adapt multiple classes at once?**
 A: Yes. A single adapter can wrap multiple adaptees and coordinate them to provide a unified interface.
@@ -417,10 +417,10 @@ A: Yes. A single adapter can wrap multiple adaptees and coordinate them to provi
 A: Sometimes, but often it is a pragmatic bridge when integrating external or legacy code that you cannot modify.
 
 **Q: How does Adapter differ from Decorator?**
-A: Adapter changes the interface of an object. [Decorator](/patterns/design/decorator-pattern) adds behavior without changing the interface.
+A: Adapter changes the interface of an object. [Decorator](/patterns/decorator-pattern/) adds behavior without changing the interface.
 
 **Q: Should I use Adapter or Strategy for runtime behavior selection?**
-A: Use [Strategy](/patterns/design/strategy-pattern) when you need to swap algorithms at runtime. Use Adapter when you need to make incompatible interfaces work together.
+A: Use [Strategy](/patterns/strategy-pattern/) when you need to swap algorithms at runtime. Use Adapter when you need to make incompatible interfaces work together.
 
 **Q: Can adapters be nested?**
 A: While technically possible, nesting adapters (cascading) is generally discouraged as it creates indirection and makes code difficult to understand and debug.

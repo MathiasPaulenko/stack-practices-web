@@ -32,12 +32,12 @@ seo:
 
 
 ---
-El middleware de Express es la columna vertebral de la arquitectura de APIs en Node.js, pero cadenas de middleware profundamente anidadas o duplicadas rapidamente se vuelven inmantenibles. Esta recipe cubre patrones de composicion para [autenticación](/guides/security/api-security-checklist-guide), [validación](/recipes/security/data-validation-zod), [manejo de errores](/recipes/api/handle-errors), propagacion de contexto de request y wrappers de rutas async que mantienen los route handlers limpios y testeables.
+El middleware de Express es la columna vertebral de la arquitectura de APIs en Node.js, pero cadenas de middleware profundamente anidadas o duplicadas rapidamente se vuelven inmantenibles. Esta recipe cubre patrones de composicion para [autenticación](/guides/api-security-checklist-guide/), [validación](/recipes/data-validation-zod/), [manejo de errores](/recipes/handle-errors/), propagacion de contexto de request y wrappers de rutas async que mantienen los route handlers limpios y testeables.
 
 ## Cuando Usar Esto
 
 - Las rutas de Express acumulan middleware repetitivo (auth, logging, validacion) copiado en todos lados
-- Los route handlers async lanzan unhandled promise rejections que crashean el servidor. Consulta [Manejo de Errores](/recipes/api/handle-errors) para patrones.
+- Los route handlers async lanzan unhandled promise rejections que crashean el servidor. Consulta [Manejo de Errores](/recipes/handle-errors/) para patrones.
 - Necesitas contexto scopeado a la request (usuario, trace ID) accesible a traves de todo el call stack
 
 ## Solucion
@@ -216,7 +216,7 @@ function validateParams(schema: ZodSchema) {
 
 - Registra handlers de error al final del stack de middleware (despues de todas las rutas)
 - No llames `next()` despues de enviar una respuesta; causa errores "headers already sent"
-- Usa `res.on('finish')` para [middleware de logging](/recipes/api/api-logging-audit) para capturar el status de respuesta actual
+- Usa `res.on('finish')` para [middleware de logging](/recipes/api-logging-audit/) para capturar el status de respuesta actual
 
 ## Errores Comunes
 
@@ -295,7 +295,7 @@ Para 10K req/s: 2x EC2 t3.large ($60/mes) + Redis ($15/mes) + ALB ($25/mes) = ~$
 ## FAQ
 
 **P: Deberia usar Express o Fastify para proyectos nuevos?**
-R: Fastify ofrece mejor performance y validacion de schema built-in. Express tiene ecosistema mas grande y familiaridad. Ambos son viables para produccion. Para APIs en Go, consulta [Go REST API con Gin](/recipes/api/go-rest-api-gin).
+R: Fastify ofrece mejor performance y validacion de schema built-in. Express tiene ecosistema mas grande y familiaridad. Ambos son viables para produccion. Para APIs en Go, consulta [Go REST API con Gin](/recipes/go-rest-api-gin/).
 
 **P: Como testeo middleware en aislamiento?**
 R: Crea una mini app Express en tests, monta el middleware y haz requests con supertest contra ella.

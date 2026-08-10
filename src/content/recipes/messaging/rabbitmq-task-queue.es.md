@@ -44,9 +44,9 @@ Distribuye tareas de background confiablemente e implementa patrones request-rep
 
 ## Cuando Usar Esto
 
-- Jobs de background (procesamiento de imagenes, envio de emails) no deben bloquear el request flow principal. Consulta [Scheduled Jobs](/recipes/devops/background-jobs) para automatización de tareas recurrentes.
-- Tareas fallidas deberian reintentarse con exponential backoff o enrutarse a dead-letter queues. Consulta [Retry Logic](/recipes/architecture/retry-backoff) para patrones de backoff exponencial.
-- Los servicios necesitan comunicacion RPC sincronica sin overhead de HTTP. Consulta [Call REST API](/recipes/api/call-rest-api) para alternativas HTTP sincrónicas.
+- Jobs de background (procesamiento de imagenes, envio de emails) no deben bloquear el request flow principal. Consulta [Scheduled Jobs](/recipes/background-jobs/) para automatización de tareas recurrentes.
+- Tareas fallidas deberian reintentarse con exponential backoff o enrutarse a dead-letter queues. Consulta [Retry Logic](/recipes/retry-backoff/) para patrones de backoff exponencial.
+- Los servicios necesitan comunicacion RPC sincronica sin overhead de HTTP. Consulta [Call REST API](/recipes/call-rest-api/) para alternativas HTTP sincrónicas.
 
 ## Solucion
 

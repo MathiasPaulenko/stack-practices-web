@@ -280,7 +280,7 @@ Jenkins is essentially a plugin framework. CI pipelines, source control integrat
 ## FAQ
 
 **Q: What is the difference between Plugin and Strategy?**
-A: [Strategy](/patterns/design/strategy-pattern) selects an algorithm at runtime. Plugin is a broader architectural pattern for external extensibility.
+A: [Strategy](/patterns/strategy-pattern/) selects an algorithm at runtime. Plugin is a broader architectural pattern for external extensibility.
 
 **Q: How do plugins discover each other?**
 A: Usually via a registry: file system scanning, classpath scanning (Java), `require` resolution (Node.js), or a central store.
