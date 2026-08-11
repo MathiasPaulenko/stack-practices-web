@@ -32,6 +32,9 @@ Thumbs.db
 !.vscode/extensions.json
 .idea/
 
+# test runner artifacts
+.playwright-mcp/
+
 # pagefind
 public/pagefind/
 

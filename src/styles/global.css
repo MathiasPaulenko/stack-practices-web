@@ -1119,7 +1119,8 @@ pre.astro-code .copy-btn.copied {
   @apply flex items-center gap-2 font-bold text-white;
 }
 .site-logo__mark {
-  @apply grid h-12 w-12 shrink-0 place-items-center;
+  @apply block shrink-0;
+  overflow: visible;
 }
 .site-logo__name {
   @apply text-xl;
