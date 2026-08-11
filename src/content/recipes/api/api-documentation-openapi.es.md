@@ -23,6 +23,9 @@ relatedResources:
   - /recipes/api-rate-limiting-redis
   - /recipes/cursor-pagination-postgresql
   - /recipes/real-time-notifications
+  - /recipes/rest-api-design
+  - /recipes/input-validation
+  - /recipes/idempotent-api-endpoints
 lastUpdated: "2026-08-10"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
