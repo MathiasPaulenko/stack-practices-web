@@ -15,7 +15,7 @@ const { items, heading = 'Related Resources' } = Astro.props;
 
 // Cap related resources to keep detail-page HTML size under control while
 // still surfacing the most relevant cross-links.
-const VISIBLE_ITEMS = 3;
+const VISIBLE_ITEMS = 6;
 const visibleItems = items.slice(0, VISIBLE_ITEMS);
 
 const typeLabel: Record<string, string> = {

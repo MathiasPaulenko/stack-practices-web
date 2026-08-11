@@ -52,7 +52,7 @@ export const GET: APIRoute = async () => {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${escapeXml(SITE.title)} (ES)</title>
+    <title>${escapeXml(SITE.title)}</title>
     <link>${SITE.url}/es</link>
     <description>${escapeXml(SITE.description)}</description>
     <language>es</language>
@@ -60,7 +60,7 @@ export const GET: APIRoute = async () => {
     <atom:link href="${SITE.url}/es/rss.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>${SITE.url}/favicon.svg</url>
-      <title>${escapeXml(SITE.title)} (ES)</title>
+      <title>${escapeXml(SITE.title)}</title>
       <link>${SITE.url}/es</link>
     </image>${items}
   </channel>

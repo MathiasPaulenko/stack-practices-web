@@ -99,6 +99,15 @@ body {
   @apply pt-4 pb-10 prose-pre:rounded-lg;
 }
 
+/* Responsive tables */
+.article-prose table,
+.legal-prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 /* Legal/static page prose */
 .legal-prose {
   @apply prose prose-slate mx-auto max-w-3xl px-4 py-10 sm:px-6;
@@ -1712,22 +1721,6 @@ pre.astro-code .copy-btn.copied {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-}
-
-/* Locale note */
-.locale-note {
-  border-radius: 0.5rem;
-  border: 1px solid var(--color-slate-200, #e2e8f0);
-  background: var(--color-slate-50, #f8fafc);
-  padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: var(--color-slate-700, #334155);
-}
-.locale-note--es {
-  border-color: var(--color-brand-200, #bfdbfe);
-  background: var(--color-brand-50, #eff6ff);
-  color: var(--color-brand-800, #1e40af);
 }
 
 /* Reduced motion preference */

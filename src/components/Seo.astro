@@ -96,14 +96,10 @@ const titleHasType = typeLower && (
 );
 const effectiveType = titleHasType ? null : pageType;
 
-const localeTag = locale === 'es' ? ' (ES)' : '';
-
-// Build the brand suffix: type + locale + brand, or just locale + brand.
+// Build the brand suffix: type + brand, or just brand.
 const brandSuffix = effectiveType
-  ? ` | ${effectiveType}${localeTag} | ${SITE.name}`
-  : localeTag
-    ? ` | ${localeTag.trim()} | ${SITE.name}`
-    : ` | ${SITE.name}`;
+  ? ` | ${effectiveType} | ${SITE.name}`
+  : ` | ${SITE.name}`;
 
 const maxTitleLength = 60;
 
@@ -204,7 +200,7 @@ function cleanGenericPrefix(rawTitle: string, available: number, depth = 0): str
 // back to " | Site" and then to no suffix to keep the most important topic
 // keywords in the <title> tag.
 function buildBrandSuffix(): string {
-  return effectiveType ? ` | ${effectiveType}${localeTag} | ${SITE.name}` : ` | ${localeTag.trim()} | ${SITE.name}`;
+  return effectiveType ? ` | ${effectiveType} | ${SITE.name}` : ` | ${SITE.name}`;
 }
 
 function buildShortBrandSuffix(): string {
@@ -275,10 +271,8 @@ const hasEn = locale === 'en' || hasAlternate;
 const hasEs = locale === 'es' || hasAlternate;
 const xDefault = hasEn ? enUrl : esUrl;
 
-// Append a language tag to ES meta descriptions so English/Spanish pairs don't
-// share identical snippets, and reserve room for the tag before truncating.
-const esDescTag = locale === 'es' ? ' (ES)' : '';
-const metaDescription = smartTruncate(description, 160 - esDescTag.length) + esDescTag;
+// Keep the meta description within the recommended length without locale tags.
+const metaDescription = smartTruncate(description, 160);
 
 ---
 
