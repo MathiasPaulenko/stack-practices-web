@@ -96,7 +96,7 @@
 
   // TOC
   (function () {
-    const prose = document.querySelector('.prose');
+    const prose = document.querySelector('.article-prose--main, .legal-prose');
     const tocList = document.getElementById('toc-list');
     const tocNav = document.getElementById('toc-nav');
     if (!prose || !tocList || !tocNav) return;
@@ -123,7 +123,7 @@
 
   // FAQ accordion
   (function () {
-    const prose = document.querySelector('.prose');
+    const prose = document.querySelector('.article-prose--main, .legal-prose');
     if (!prose) return;
 
     const headings = Array.from(prose.querySelectorAll('h2'));
@@ -352,7 +352,7 @@
       });
     }
 
-    const root = document.querySelector('.prose');
+    const root = document.querySelector('.article-prose--main, .legal-prose');
     if (root) initGroups(root);
   })();
 

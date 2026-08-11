@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RelatedResources from './RelatedResources.astro';
+import CodeTabs from './CodeTabs.astro';
 import Icon from './Icon.astro';
 import type { RelatedItem } from './RelatedResources.astro';
 import {
@@ -86,6 +87,7 @@ const formattedDate = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' :
   year: 'numeric',
   month: 'short',
   day: 'numeric',
+  timeZone: 'UTC',
 });
 const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'}: ${formattedDate}`;
 ---
@@ -211,6 +213,7 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
   <!-- Main content -->
   <section class="bg-white">
     <div class="article-prose article-prose--main">
+      <CodeTabs />
       <slot />
     </div>
   </section>
