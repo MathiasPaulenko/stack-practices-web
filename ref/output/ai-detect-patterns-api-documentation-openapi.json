@@ -1,0 +1,14 @@
+[
+  {
+    "label": "api-documentation-openapi-en",
+    "total_sentences": 306,
+    "pattern_totals": {},
+    "findings": []
+  },
+  {
+    "label": "api-documentation-openapi-es",
+    "total_sentences": 313,
+    "pattern_totals": {},
+    "findings": []
+  }
+]

@@ -36,15 +36,15 @@ seo:
 ---
 ## Visión General
 
-Si tu documentación de API vive en READMEs, Confluence o hilos de Slack, se desincroniza en cuanto haces un despliegue. OpenAPI — la especificación que surgió de Swagger — te permite describir tus endpoints, schemas y errores en un solo archivo YAML o JSON y a partir de ahí generar documentación interactiva, SDKs de cliente y tests de contrato.
+Si la documentación de tu API vive en READMEs, Confluence o hilos de Slack, se queda obsoleta en cuanto haces un despliegue. OpenAPI, la especificación que salió de Swagger, te permite describir endpoints, schemas y errores en un solo archivo YAML o JSON. A partir de ese mismo archivo puedes generar documentación interactiva, SDKs de cliente y tests de contrato.
 
-Esta guía muestra cómo hacerlo con tres stacks comunes: Python + FastAPI, JavaScript + Express y Java + SpringDoc. También verás cuándo usar Swagger UI, cuándo preferir Redoc y cómo evitar que el spec se pudra una vez está en producción.
+Esta guía recorre tres stacks comunes: Python + FastAPI, JavaScript + Express y Java + SpringDoc. También cubre cuándo gana Swagger UI, cuándo conviene más Redoc y cómo evitar que el spec se pudra en producción.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
+Este recurso sirve cuando:
 - Necesitas documentación de API interactiva que se mantenga sincronizada con tu código
-- Quieres generar automáticamente clientes SDK en múltiples lenguajes
+- Quieres generar automáticamente clientes SDK en varios lenguajes
 - Tu equipo necesita un enfoque contract-first para el desarrollo de APIs
 - Necesitas validar peticiones entrantes contra un schema formal
 
@@ -165,7 +165,7 @@ Una vez tienes el spec, alimenta tres cosas:
 
 - OpenAPI convierte un único archivo de spec en documentación interactiva, SDKs de cliente y tests de contrato, así que tu documentación se mantiene sincronizada con el código.
 - Swagger UI es ideal cuando los desarrolladores necesitan llamar endpoints desde el navegador; Redoc es mejor para una experiencia de lectura limpia y centrada en la documentación.
-- FastAPI, Express y SpringDoc pueden generar el spec automáticamente desde el código, pero equipos con múltiples consumidores deberían considerar design-first con un registry compartido.
+- FastAPI, Express y SpringDoc pueden generar el spec automáticamente desde el código, pero equipos con varios consumidores deberían considerar design-first con un registry compartido.
 - Valida el spec en CI con `redocly lint` o `spectral` para detectar referencias rotas, `operationId`s ausentes y versiones inconsistentes antes de que lleguen a producción.
 
 ## Preguntas Frecuentes
@@ -202,11 +202,11 @@ Usa `securitySchemes` en la sección `components`. Para Bearer JWT: `components:
 
 ### ¿Cómo manejo versioning en specs OpenAPI?
 
-Versiona el spec usando el campo `info.version` y versioning de API basado en URL. En el spec: `info:\n  title: Book API\n  version: 2.1.0`. Usa semantic versioning: major para breaking changes, minor para nuevos endpoints, patch para fixes. Para versioning por URL, incluye la versión en el path: `servers:\n  - url: https://api.example.com/v2`. Para versioning por header: `parameters:\n  - name: X-API-Version\n    in: header\n    required: true\n    schema:\n      type: string\n      default: "2"`. Documenta deprecaciones con `deprecated: true` en operaciones: `paths:\n  /books/{id}:\n    get:\n      deprecated: true\n      description: Usa /v2/books/{id} en su lugar`. Mantén múltiples versiones del spec durante períodos de migración y usa content negotiation con header `Accept`: `Accept: application/vnd.api+json;version=2`.
+Versiona el spec usando el campo `info.version` y versioning de API basado en URL. En el spec: `info:\n  title: Book API\n  version: 2.1.0`. Usa semantic versioning: major para breaking changes, minor para nuevos endpoints, patch para fixes. Para versioning por URL, incluye la versión en el path: `servers:\n  - url: https://api.example.com/v2`. Para versioning por header: `parameters:\n  - name: X-API-Version\n    in: header\n    required: true\n    schema:\n      type: string\n      default: "2"`. Documenta deprecaciones con `deprecated: true` en operaciones: `paths:\n  /books/{id}:\n    get:\n      deprecated: true\n      description: Usa /v2/books/{id} en su lugar`. Mantén varias versiones del spec durante períodos de migración y usa content negotiation con header `Accept`: `Accept: application/vnd.api+json;version=2`.
 
 ### ¿Cómo genero client SDKs desde specs OpenAPI?
 
-Usa `openapi-generator-cli` para generar clientes tipados en múltiples lenguajes. Instala: `npm install @openapitools/openapi-generator-cli -g`. Genera un cliente TypeScript: `openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts`. Genera un cliente Python: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py`. Genera un cliente Java: `openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson`. Para Python con httpx: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client --library httpx`. Configura opciones de generación en `.openapi-generator-config.json`: `{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}`. Publica clientes generados a package registries: npm para TypeScript, PyPI para Python, Maven Central para Java. Automatiza en CI: genera, testea, y publica en cambios del spec.
+Usa `openapi-generator-cli` para generar clientes tipados en varios lenguajes. Instala: `npm install @openapitools/openapi-generator-cli -g`. Genera un cliente TypeScript: `openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts`. Genera un cliente Python: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py`. Genera un cliente Java: `openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson`. Para Python con httpx: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client --library httpx`. Configura opciones de generación en `.openapi-generator-config.json`: `{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}`. Publica clientes generados a package registries: npm para TypeScript, PyPI para Python, Maven Central para Java. Automatiza en CI: genera, testea, y publica en cambios del spec.
 
 ### ¿Cómo documento paginación en OpenAPI?
 
@@ -214,7 +214,7 @@ Usa parámetros `cursor` u `offset/limit` con un schema de envelope de paginaci�
 
 ### ¿Cómo manejo file uploads y downloads en OpenAPI?
 
-Para file uploads en OpenAPI 3.0: `paths:\n  /upload:\n    post:\n      requestBody:\n        content:\n          multipart/form-data:\n            schema:\n              type: object\n              properties:\n                file:\n                  type: string\n                  format: binary`. Para múltiples archivos: `properties:\n  files:\n    type: array\n    items:\n      type: string\n      format: binary`. En OpenAPI 3.1, usa `contentEncoding: binary` en lugar de `format: binary`. Para file downloads: `responses:\n  '200':\n    content:\n      application/octet-stream:\n        schema:\n          type: string\n          format: binary`. Para responses de imágenes con content type: `content:\n  image/png:\n    schema:\n      type: string\n      format: binary`. Documenta límites de tamaño de archivo: `schema:\n  type: string\n  format: binary\n  maxLength: 10485760` con una descripción indicando el límite de 10MB.
+Para file uploads en OpenAPI 3.0: `paths:\n  /upload:\n    post:\n      requestBody:\n        content:\n          multipart/form-data:\n            schema:\n              type: object\n              properties:\n                file:\n                  type: string\n                  format: binary`. Para varios archivos: `properties:\n  files:\n    type: array\n    items:\n      type: string\n      format: binary`. En OpenAPI 3.1, usa `contentEncoding: binary` en lugar de `format: binary`. Para file downloads: `responses:\n  '200':\n    content:\n      application/octet-stream:\n        schema:\n          type: string\n          format: binary`. Para responses de imágenes con content type: `content:\n  image/png:\n    schema:\n      type: string\n      format: binary`. Documenta límites de tamaño de archivo: `schema:\n  type: string\n  format: binary\n  maxLength: 10485760` con una descripción indicando el límite de 10MB.
 
 ### ¿Cómo documento webhooks en OpenAPI?
 
@@ -226,7 +226,7 @@ Usa `@redocly/cli` o `spectral` para lintear specs en CI. Instala Redocly: `npm 
 
 ### ¿Cómo documento error responses con RFC 7807 Problem Details?
 
-Usa el media type `application/problem+json` con un schema de error estándar. Define el schema problem details: `components:\n  schemas:\n    Problem:\n      type: object\n      properties:\n        type:\n          type: string\n          format: uri\n          default: about:blank\n        title:\n          type: string\n        status:\n          type: integer\n        detail:\n          type: string\n        instance:\n          type: string\n          format: uri`. Referéncialo en error responses: `responses:\n  '404':\n    description: Book not found\n    content:\n      application/problem+json:\n        schema:\n          $ref: '#/components/schemas/Problem'\n        examples:\n          not_found:\n            value:\n              type: https://api.example.com/errors/not-found\n              title: Book not found\n              status: 404\n              detail: Book with ID 42 does not exist\n              instance: /books/42`. Documenta códigos de error comunes: 400 para validation errors, 401 para auth faltante, 403 para permisos insuficientes, 409 para conflictos, 422 para validation failures semánticas, 429 para rate limiting.
+Usa el media type `application/problem+json` con un schema de error estándar. Define el schema problem details: `components:\n  schemas:\n    Problem:\n      type: object\n      properties:\n        type:\n          type: string\n          format: uri\n          default: about:blank\n        title:\n          type: string\n        status:\n          type: integer\n        detail:\n          type: string\n        instance:\n          type: string\n          format: uri`. Referéncialo en error responses: `responses:\n  '404':\n    description: Book not found\n    content:\n      application/problem+json:\n        schema:\n          $ref: '#/components/schemas/Problem'\n        examples:\n          not_found:\n            value:\n              type: https://api.example.com/errors/not-found\n              title: Book not found\n              status: 404\n              detail: Book with ID 42 not found\n              instance: /books/42`. Documenta códigos de error comunes: 400 para validation errors, 401 para auth faltante, 403 para permisos insuficientes, 409 para conflictos, 422 para validation failures semánticas, 429 para rate limiting.
 
 ### ¿Cómo uso OpenAPI con GraphQL?
 
@@ -270,7 +270,7 @@ Documenta headers de tracing y metrics usando extensiones y headers estándar. A
 
 ### ¿Cómo manejo content negotiation en OpenAPI?
 
-Documenta múltiples formatos de response usando `content` con múltiples media types. Soporta JSON y XML: `responses:\n  '200':\n    content:\n      application/json:\n        schema:\n          $ref: '#/components/schemas/Book'\n      application/xml:\n        schema:\n          $ref: '#/components/schemas/Book'\n      text/csv:\n        schema:\n          type: string\n          description: CSV export of book data`. Documenta el header `Accept`: `parameters:\n  - name: Accept\n    in: header\n    schema:\n      type: string\n      default: application/json\n      enum: [application/json, application/xml, text/csv]`. Para content types versionados: `content:\n  application/vnd.api+json;version=1:\n    schema: $ref: '#/components/schemas/BookV1'\n  application/vnd.api+json;version=2:\n    schema: $ref: '#/components/schemas/BookV2'`. Documenta comportamiento de content negotiation: `description: Returns JSON by default. Send Accept: application/xml for XML response. Send Accept: text/csv for CSV export.`
+Documenta distintos formatos de response usando `content` con varios media types. Soporta JSON y XML: `responses:\n  '200':\n    content:\n      application/json:\n        schema:\n          $ref: '#/components/schemas/Book'\n      application/xml:\n        schema:\n          $ref: '#/components/schemas/Book'\n      text/csv:\n        schema:\n          type: string\n          description: CSV export of book data`. Documenta el header `Accept`: `parameters:\n  - name: Accept\n    in: header\n    schema:\n      type: string\n      default: application/json\n      enum: [application/json, application/xml, text/csv]`. Para content types versionados: `content:\n  application/vnd.api+json;version=1:\n    schema: $ref: '#/components/schemas/BookV1'\n  application/vnd.api+json;version=2:\n    schema: $ref: '#/components/schemas/BookV2'`. Documenta comportamiento de content negotiation: `description: Returns JSON by default. Send Accept: application/xml for XML response. Send Accept: text/csv for CSV export.`
 
 ### ¿Cómo documento caching headers de API en OpenAPI?
 
@@ -278,7 +278,7 @@ Documenta comportamiento de caching usando headers HTTP estándar en responses. 
 
 ### ¿Cómo uso OpenAPI con API gateways?
 
-Configura API gateways usando specs OpenAPI. Para AWS API Gateway: importa el spec: `aws apigateway put-rest-api --rest-api-id abc123 --body file://openapi.yaml --mode overwrite`. Añade Lambda integration vía extensiones: `x-amazon-apigateway-integration:\n  type: aws_proxy\n  httpMethod: POST\n  uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:123:function:books/invocations`. Para Kong: usa `kong openapi2kong openapi.yaml --output kong.yaml`. Para NGINX: usa `openapi2nginx openapi.yaml --output nginx.conf`. Para Apigee: importa el spec como API proxy: `apigeecli apis import -f openapi.yaml -n book-api`. Documenta features específicos del gateway: rate limiting, request transformation, API keys, y CORS. Usa el spec para generar configs de gateway automáticamente en CI: `aws apigateway put-rest-api ... && aws apigateway create-deployment ...`.
+Configura API gateways usando specs OpenAPI. Para AWS API Gateway: importa el spec: `aws apigateway put-rest-api --rest-api-id abc123 --body file://openapi.yaml --mode overwrite`. Añade Lambda integration vía extensiones: `x-amazon-apigateway-integration:\n  type: aws_proxy\n  httpMethod: POST\n  uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:123:function:books/invocations`. Para Kong: usa `kong openapi2kong openapi.yaml --output kong.yaml`. Para NGINX: usa `openapi2nginx openapi.yaml --output nginx.conf`. Para Apigee: importa el spec como API proxy: `apigeecli apis import -f openapi.yaml -n book-api`. Documenta el comportamiento específico del gateway: rate limiting, request transformation, API keys, y CORS. Usa el spec para generar configs de gateway automáticamente en CI: `aws apigateway put-rest-api ... && aws apigateway create-deployment ...`.
 
 ### ¿Cómo documento operaciones long-running en OpenAPI?
 
@@ -286,7 +286,7 @@ Para operaciones async, usa la response 202 Accepted con un header Location para
 
 ### ¿Cómo documento security best practices de API en OpenAPI?
 
-Documenta security a múltiples niveles: transport, authentication, y authorization. Para TLS: `servers:\n  - url: https://api.example.com\n    description: Production (TLS required)`. Documenta CORS: `x-cors:\n  allowed_origins: [https://app.example.com]\n  allowed_methods: [GET, POST, PUT, DELETE]\n  allowed_headers: [Content-Type, Authorization]\n  max_age: 3600`. Para input validation: `parameters:\n  - name: email\n    in: query\n    schema:\n      type: string\n      format: email\n      maxLength: 255\n    required: true`. Documenta prevención de SQL injection: `description: All query parameters are parameterized. No string concatenation used in SQL queries.`. Para rate limiting por usuario: `x-rate-limit-per-user: 1000/hour`. Documenta rotación de API keys: `x-api-key-rotation: 90 days`. Incluye contacto de security: `info:\n  contact:\n    email: security@example.com\n  x-security-report-url: https://example.com/security`. Documenta compliance OWASP: `x-owasp-compliance: [API1-BOLA, API2-BA, API3-EDP]`.
+Documenta security en cada nivel: transport, authentication, y authorization. Para TLS: `servers:\n  - url: https://api.example.com\n    description: Production (TLS required)`. Documenta CORS: `x-cors:\n  allowed_origins: [https://app.example.com]\n  allowed_methods: [GET, POST, PUT, DELETE]\n  allowed_headers: [Content-Type, Authorization]\n  max_age: 3600`. Para input validation: `parameters:\n  - name: email\n    in: query\n    schema:\n      type: string\n      format: email\n      maxLength: 255\n    required: true`. Documenta prevención de SQL injection: `description: All query parameters are parameterized. No string concatenation used in SQL queries.`. Para rate limiting por usuario: `x-rate-limit-per-user: 1000/hour`. Documenta rotación de API keys: `x-api-key-rotation: 90 days`. Incluye contacto de security: `info:\n  contact:\n    email: security@example.com\n  x-security-report-url: https://example.com/security`. Documenta compliance OWASP: `x-owasp-compliance: [API1-BOLA, API2-BA, API3-EDP]`.
 
 ### ¿Cómo manejo splitting de specs OpenAPI para APIs grandes?
 
@@ -298,7 +298,7 @@ Documenta endpoints de monitoring y metadata de metrics. Incluye endpoint de Pro
 
 ### ¿Cómo documento idempotency de API en OpenAPI?
 
-Documenta idempotency usando el header `Idempotency-Key` y patterns de response. Para operaciones POST idempotentes: `paths:\n  /payments:\n    post:\n      parameters:\n        - name: Idempotency-Key\n          in: header\n          required: true\n          schema:\n            type: string\n            format: uuid\n          description: Prevents duplicate payment processing\n      responses:\n        '201':\n          description: Payment created\n        '409':\n          description: Duplicate idempotency key`. Documenta métodos idempotentes: `description: This endpoint is idempotent. Sending the same request with the same Idempotency-Key returns the original response.`. Para idempotency natural: `PUT /books/{id}` es naturalmente idempotente — documenta esto: `description: PUT is idempotent. Multiple calls with the same body produce the same result.`. Usa extensión `x-idempotent: true` para code generators. Almacena idempotency keys: `x-idempotency-key-ttl: 24h`. Documenta expiración de keys: `description: Idempotency keys are stored for 24 hours. After expiration, the same key can be reused.`.
+Documenta idempotency usando el header `Idempotency-Key` y patterns de response. Para operaciones POST idempotentes: `paths:\n  /payments:\n    post:\n      parameters:\n        - name: Idempotency-Key\n          in: header\n          required: true\n          schema:\n            type: string\n            format: uuid\n          description: Prevents duplicate payment processing\n      responses:\n        '201':\n          description: Payment created\n        '409':\n          description: Duplicate idempotency key`. Documenta métodos idempotentes: `description: This endpoint is idempotent. Sending the same request with the same Idempotency-Key returns the original response.`. Para idempotency natural: `PUT /books/{id}` es naturalmente idempotente — documenta esto: `description: PUT is idempotent. Two calls with the same body produce the same result.`. Usa extensión `x-idempotent: true` para code generators. Almacena idempotency keys: `x-idempotency-key-ttl: 24h`. Documenta expiración de keys: `description: Idempotency keys are stored for 24 hours. After expiration, the same key can be reused.`.
 
 ### ¿Cómo documento paginación de API con HATEOAS links?
 
@@ -340,7 +340,7 @@ Documenta APIs async basadas en Kafka usando extensiones OpenAPI. Define topics 
 
 - [API Versioning](/recipes/api-versioning/) — estrategias para versionar APIs REST
 - [Call REST API](/recipes/call-rest-api/) — consumo de APIs REST desde código cliente
-- [GraphQL API](/recipes/graphql-api/) — paradigma alternativo de API
+- [GraphQL API](/recipes/graphql-api/) — enfoque alternativo de API
 - [Handle CORS](/recipes/handle-cors/) — configuración de cross-origin resource sharing
 - [Handle Errors](/recipes/handle-errors/) — patterns estructurados de manejo de errores
 
