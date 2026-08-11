@@ -1029,7 +1029,7 @@ pre.astro-code {
   color: var(--astro-code-foreground);
 }
 pre.astro-code code .line {
-  display: block;
+  display: inline;
 }
 pre.astro-code .sf,
 pre.astro-code span.sf {
