@@ -14,16 +14,10 @@ tags:
   - rest
   - http
 relatedResources:
-  - /recipes/api-versioning
-  - /recipes/call-rest-api
-  - /recipes/graphql-api
-  - /recipes/handle-cors
-  - /recipes/handle-errors
-  - /recipes/api-logging-audit
-  - /recipes/api-rate-limiting-redis
-  - /recipes/cursor-pagination-postgresql
-  - /recipes/real-time-notifications
   - /recipes/rest-api-design
+  - /recipes/api-versioning
+  - /recipes/handle-errors
+  - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
 lastUpdated: "2026-08-11"
