@@ -189,21 +189,13 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
     </div>
   </nav>
 
-  <!-- Locale-specific context to differentiate ES/EN and reduce duplicate content -->
+  <!-- Locale-specific context for Spanish readers -->
   {
-    locale === 'es' ? (
+    locale === 'es' && (
       <section class="bg-white">
         <div class="article-prose article-prose--top">
           <p class="locale-note locale-note--es">
             <strong>Nota para desarrolladores hispanohablantes:</strong> Esta guía incluye ejemplos y convenciones de nomenclatura adaptadas a equipos que trabajan en español. Cuando existen diferencias significativas en terminología técnica entre el inglés y el español, se indican explícitamente para facilitar la comunicación en equipos multiculturales.
-          </p>
-        </div>
-      </section>
-    ) : (
-      <section class="bg-white">
-        <div class="article-prose article-prose--top">
-          <p class="locale-note">
-            <strong>Note:</strong> This guide follows English-language naming conventions and terminology standards common in international development teams. Examples use English identifiers and comments to maximize compatibility across codebases and tooling.
           </p>
         </div>
       </section>
