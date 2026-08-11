@@ -217,21 +217,6 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
 
 
 
-  <!-- Related resources -->
-  {
-    related.length > 0 && (
-      <section class="related-section">
-        <div class="related-section__inner">
-          <RelatedResources
-            title={relatedLabel}
-            items={related}
-            locale={locale}
-          />
-        </div>
-      </section>
-    )
-  }
-
   <!-- FAQ Section (visible, structured) -->
   {
     faqs.length > 0 && (
@@ -248,6 +233,21 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Related resources -->
+  {
+    related.length > 0 && (
+      <section class="related-section">
+        <div class="related-section__inner">
+          <RelatedResources
+            title={relatedLabel}
+            items={related}
+            locale={locale}
+          />
         </div>
       </section>
     )
