@@ -1,4 +1,26 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
+import { visit } from 'unist-util-visit';
+
+function rehypeFaqCode() {
+  return (tree: any) => {
+    visit(tree, 'element', (node: any) => {
+      if (node.tagName === 'pre') {
+        const classes = new Set(
+          (typeof node.properties?.class === 'string' ? node.properties.class : '')
+            .split(/\s+/)
+            .filter(Boolean),
+        );
+        classes.add('astro-code');
+        node.properties = { ...node.properties, class: Array.from(classes).join(' ') };
+      }
+    });
+  };
+}
 
 export type AnyEntry =
   | CollectionEntry<'recipes'>
@@ -17,14 +39,35 @@ export function entryHref(contentType: string, slug: string, locale: 'en' | 'es'
   return `${prefix}/${contentType}/${slug}/`;
 }
 
+const faqProcessor = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeFaqCode)
+  .use(rehypeStringify, { allowDangerousHtml: true });
+
+function markdownToHtml(markdown: string): string {
+  try {
+    return String(faqProcessor.processSync(markdown));
+  } catch {
+    return '';
+  }
+}
+
+export interface Faq {
+  question: string;
+  answer: string;
+  answerHtml: string;
+}
+
 /**
  * Parses a "Frequently Asked Questions" / "Preguntas Frecuentes" section from
- * raw markdown and returns Q&A pairs for FAQPage structured data.
+ * raw markdown and returns Q&A pairs for FAQPage structured data and rendering.
  * Supports two formats:
  *   **Q: question?**\nA: answer
  *   ### question?\n\nanswer
  */
-export function extractFaqs(markdown: string, maxFaqs = 10): { question: string; answer: string }[] {
+export function extractFaqs(markdown: string, maxFaqs = 10): Faq[] {
   if (!markdown) return [];
   const faqHeading = /^##\s+(Frequently Asked Questions|Preguntas Frecuentes|FAQ)\s*$/im;
   const match = faqHeading.exec(markdown);
@@ -35,21 +78,31 @@ export function extractFaqs(markdown: string, maxFaqs = 10): { question: string;
   const nextH2 = section.search(/^##\s+/m);
   const body = nextH2 === -1 ? section : section.slice(0, nextH2);
 
-  const faqs: { question: string; answer: string }[] = [];
+  const faqs: Faq[] = [];
 
   // Format A: **Q: ...?** / A: ...
-  const qaRegex = /\*\*Q:\s*([\s\S]*?)\*\*\s*\n+A:\s*([\s\S]*?)(?=\n\s*\*\*Q:|\n\s*###|\s*$)/g;
+  const qaRegex = /\*\*Q:\s*([\s\S]*?)\*\*\s*\n+A:\s*([\s\S]*?)(?=\n\s*\*\*Q:|\n\s*###|\s*(?![\s\S]))/g;
   let m: RegExpExecArray | null;
   while ((m = qaRegex.exec(body)) !== null) {
-    faqs.push({ question: clean(m[1]), answer: clean(m[2]) });
+    const rawAnswer = m[2];
+    faqs.push({
+      question: clean(m[1]),
+      answer: clean(rawAnswer),
+      answerHtml: markdownToHtml(rawAnswer),
+    });
     if (faqs.length >= maxFaqs) break;
   }
   if (faqs.length > 0) return faqs;
 
   // Format B: ### question? / answer
-  const hRegex = /^###\s+(.+?)\s*\n+([\s\S]*?)(?=\n###\s+|\s*$)/gm;
+  const hRegex = /^###\s+(.+?)\s*\n+([\s\S]*?)(?=\n###\s+|\s*(?![\s\S]))/gm;
   while ((m = hRegex.exec(body)) !== null) {
-    faqs.push({ question: clean(m[1]), answer: clean(m[2]) });
+    const rawAnswer = m[2];
+    faqs.push({
+      question: clean(m[1]),
+      answer: clean(rawAnswer),
+      answerHtml: markdownToHtml(rawAnswer),
+    });
     if (faqs.length >= maxFaqs) break;
   }
   return faqs;

@@ -9,6 +9,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
+import re
 import xml.etree.ElementTree as ET
 
 BASE_URL = "https://stackpractices.com"
@@ -25,7 +26,7 @@ def priority_for_path(path: str) -> str:
         return "1.0"
     if path in {"/es/"}:
         return "1.0"
-    if path.startswith("/recipes/") or path.startswith("/patterns/") or path.startswith("/docs/") or path.startswith("/guides/"):
+    if re.search(r"^(/es)?/(recipes|patterns|docs|guides)/", path):
         return "0.8"
     if path.startswith("/topics/"):
         return "0.7"

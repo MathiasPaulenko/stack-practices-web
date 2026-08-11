@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RelatedResources from './RelatedResources.astro';
-import CodeTabs from './CodeTabs.astro';
 import Icon from './Icon.astro';
 import type { RelatedItem } from './RelatedResources.astro';
 import {
@@ -27,7 +26,7 @@ export interface Props {
   listingHref: string;
   listingLabel: string;
   related: RelatedItem[];
-  faqs: { question: string; answer: string }[];
+  faqs: { question: string; answer: string; answerHtml: string }[];
   relatedLabel: string;
   contentType?: string;
 }
@@ -54,6 +53,7 @@ const {
 } = Astro.props;
 
 const localeTag = locale === 'es' ? 'es' : 'en';
+const structuredDataPath = locale === 'es' ? `/es${path}` : path;
 const effectivePublishedAt = publishedAt || lastUpdated;
 const dateModified = lastUpdated.toISOString();
 const datePublished = effectivePublishedAt.toISOString();
@@ -62,7 +62,7 @@ const jsonLd: Record<string, unknown>[] = [
   techArticle({
     headline: title,
     description: metaDescription,
-    url: path,
+    url: structuredDataPath,
     locale: localeTag,
     datePublished,
     dateModified,
@@ -74,12 +74,12 @@ const jsonLd: Record<string, unknown>[] = [
   breadcrumbList([
     { name: locale === 'es' ? 'Inicio' : 'Home', url: locale === 'es' ? '/es/' : '/' },
     { name: listingLabel, url: listingHref },
-    { name: title, url: path },
+    { name: title, url: structuredDataPath },
   ]),
 ];
 
 if (faqs.length > 0) {
-  jsonLd.push(faqPage(faqs.slice(0, 3)));
+  jsonLd.push(faqPage(faqs.slice(0, 10)));
 }
 
 const formattedDate = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
@@ -226,10 +226,10 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
             {locale === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions'}
           </h2>
           <dl class="faq-list">
-            {faqs.slice(0, 10).map((faq: { question: string; answer: string }) => (
+            {faqs.slice(0, 10).map((faq: { question: string; answer: string; answerHtml: string }) => (
               <div class="faq-item">
                 <dt class="faq-item__question">{faq.question}</dt>
-                <dd class="faq-item__answer">{faq.answer}</dd>
+                <dd class="faq-item__answer" set:html={faq.answerHtml} />
               </div>
             ))}
           </dl>
