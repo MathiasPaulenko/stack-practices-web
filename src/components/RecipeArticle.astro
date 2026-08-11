@@ -220,14 +220,14 @@ const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'
           <h2 id="faq" class="faq-section__title">
             {locale === 'es' ? 'Preguntas frecuentes' : 'Frequently Asked Questions'}
           </h2>
-          <dl class="faq-list">
+          <div class="faq-list">
             {faqs.slice(0, 10).map((faq: { question: string; answer: string; answerHtml: string }) => (
-              <div class="faq-item">
-                <dt class="faq-item__question">{faq.question}</dt>
-                <dd class="faq-item__answer" set:html={faq.answerHtml} />
-              </div>
+              <details class="faq-item">
+                <summary class="faq-item__question">{faq.question}</summary>
+                <div class="faq-item__answer" set:html={faq.answerHtml} />
+              </details>
             ))}
-          </dl>
+          </div>
         </div>
       </section>
     )
