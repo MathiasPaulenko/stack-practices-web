@@ -344,10 +344,6 @@ Documenta APIs async basadas en Kafka usando extensiones OpenAPI. Define topics 
 - [Handle CORS](/recipes/handle-cors/) — configuración de cross-origin resource sharing
 - [Handle Errors](/recipes/handle-errors/) — patterns estructurados de manejo de errores
 
----
-
-*Última actualización: 2026-07-09*
-
 ## Troubleshooting
 
 - **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.

@@ -82,11 +82,12 @@ if (faqs.length > 0) {
   jsonLd.push(faqPage(faqs.slice(0, 3)));
 }
 
-const dateLabel = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+const formattedDate = lastUpdated.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
   year: 'numeric',
   month: 'short',
   day: 'numeric',
 });
+const dateLabel = `${locale === 'es' ? 'Última actualización' : 'Last updated'}: ${formattedDate}`;
 ---
 
 <BaseLayout
