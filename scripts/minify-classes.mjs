@@ -19,6 +19,20 @@ const STATIC_SAFELIST = new Set([
   'skip-link',
   'sr-only',
   'pagefind-ui',
+  // Difficulty badge variants referenced dynamically by ListingPage.createCard
+  'difficulty-badge--beginner',
+  'difficulty-badge--intermediate',
+  'difficulty-badge--advanced',
+  // Pagefind search badge variants referenced dynamically by search.astro
+  'pagefind-ui__content-badge--recipe',
+  'pagefind-ui__content-badge--pattern',
+  'pagefind-ui__content-badge--doc',
+  'pagefind-ui__content-badge--guide',
+  'pagefind-ui__content-badge--receta',
+  'pagefind-ui__content-badge--patron',
+  'pagefind-ui__content-badge--guia',
+  // Listing card class referenced by inline JS querySelectorAll
+  'tag-card',
 ]);
 
 // Short token classes used by shikiClassify
@@ -81,8 +95,8 @@ for (const f of htmlFiles) {
   }
 }
 
-// Safelist every identifier/word found in public JS to avoid renaming anything
-// that JS might reference as a method, variable, or class string.
+// Safelist every identifier/word found in public JS or inline scripts to avoid
+// renaming classes that client-side code references as string literals.
 const jsTokens = new Set();
 const publicJs = [];
 walk('public', '.js', publicJs);
@@ -92,6 +106,23 @@ for (const f of publicJs) {
   let m;
   while ((m = idRe.exec(js)) !== null) {
     jsTokens.add(m[0]);
+  }
+}
+
+for (const f of htmlFiles) {
+  const html = readFile(f);
+  const scriptRe = /<script[^>]*>([\s\S]*?)<\/script>/g;
+  const idRe = /\b[a-zA-Z][a-zA-Z0-9_-]*\b/g;
+  let sm;
+  while ((sm = scriptRe.exec(html)) !== null) {
+    // Skip external scripts with src
+    const openTag = html.slice(sm.index, sm.index + sm[0].indexOf('>') + 1);
+    if (/\bsrc\s*=/.test(openTag)) continue;
+    const script = sm[1];
+    let m;
+    while ((m = idRe.exec(script)) !== null) {
+      jsTokens.add(m[0]);
+    }
   }
 }
 
