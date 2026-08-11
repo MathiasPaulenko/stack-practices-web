@@ -12,9 +12,6 @@ const REDUNDANT_PRE_CLASSES = ['css-variables', 'sb', 'sf'];
 export default function rehypeTrimShikiPre() {
   return (tree) => {
     visit(tree, 'element', (node) => {
-      if (node.tagName === 'pre' && node.properties?.class?.includes('astro-code')) {
-        console.error('FOUND PRE, props keys:', Object.keys(node.properties || {}).join(','));
-      }
       if (node.tagName !== 'pre' || !node.properties?.class?.includes('astro-code')) return;
 
       // Remove redundant classes
