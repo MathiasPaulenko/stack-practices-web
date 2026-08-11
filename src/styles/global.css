@@ -1025,6 +1025,9 @@ details[open] > summary svg {
 
 pre.astro-code {
   position: relative;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
   background-color: var(--astro-code-background);
   color: var(--astro-code-foreground);
 }

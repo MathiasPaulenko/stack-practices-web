@@ -5,20 +5,115 @@ import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
+import { codeToHast } from 'shiki';
+
+const FALLBACK_LANG = 'txt';
+
+const langMap: Record<string, string> = {
+  'c#': 'csharp',
+  'c++': 'cpp',
+  'git': 'shell',
+  'sh': 'shell',
+  'js': 'javascript',
+  'ts': 'typescript',
+  'py': 'python',
+  'yml': 'yaml',
+  'md': 'markdown',
+  'docker': 'dockerfile',
+};
+
+function resolveLang(raw?: string | string[]): string {
+  if (!raw) return FALLBACK_LANG;
+  const rawStr = Array.isArray(raw) ? raw.join(' ') : String(raw);
+  const langClass = rawStr.split(/\s+/).find((c) => c.startsWith('language-'));
+  const lang = langClass ? langClass.replace(/^language-/, '') : rawStr;
+  return langMap[lang] || lang || FALLBACK_LANG;
+}
+
+function getClassName(node: any): string {
+  const cls = node.properties?.className ?? node.properties?.class;
+  if (!cls) return '';
+  return Array.isArray(cls) ? cls.join(' ') : String(cls);
+}
+
+function getText(node: any): string {
+  if (node.type === 'text') return node.value || '';
+  if (node.type === 'element' && node.children) {
+    return node.children.map(getText).join('');
+  }
+  return '';
+}
+
+async function highlightFaqPre(preNode: any): Promise<any> {
+  const codeNode = preNode.children.find(
+    (c: any) => c.type === 'element' && c.tagName === 'code',
+  );
+  if (!codeNode) return preNode;
+
+  const rawCode = getText(codeNode);
+  const lang = resolveLang(getClassName(codeNode));
+
+  if (lang === 'txt') {
+    const fallback = { ...preNode, properties: { ...preNode.properties, className: 'astro-code' } };
+    delete fallback.properties.class;
+    return fallback;
+  }
+
+  let hast;
+  try {
+    hast = await codeToHast(rawCode, { lang, theme: 'github-dark' });
+  } catch {
+    try {
+      hast = await codeToHast(rawCode, { lang: 'shell', theme: 'github-dark' });
+    } catch {
+      const fallback = { ...preNode, properties: { ...preNode.properties, className: 'astro-code' } };
+      delete fallback.properties.class;
+      return fallback;
+    }
+  }
+
+  const newPre = hast.children[0];
+  if (!newPre || newPre.type !== 'element' || newPre.tagName !== 'pre') {
+    const fallback = { ...preNode, properties: { ...preNode.properties, className: 'astro-code' } };
+    delete fallback.properties.class;
+    return fallback;
+  }
+
+  delete newPre.properties.class;
+  newPre.properties = {
+    ...newPre.properties,
+    className: 'astro-code',
+  };
+  delete newPre.properties.style;
+  delete newPre.properties.tabindex;
+  delete newPre.properties['data-language'];
+  delete newPre.properties.dataLanguage;
+
+  const codeChild = newPre.children?.[0] as any;
+  if (codeChild?.tagName === 'code') {
+    delete codeChild.properties.class;
+    codeChild.properties = {
+      ...codeChild.properties,
+      className: `language-${lang}`,
+    };
+  }
+
+  return newPre;
+}
 
 function rehypeFaqCode() {
-  return (tree: any) => {
-    visit(tree, 'element', (node: any) => {
-      if (node.tagName === 'pre') {
-        const classes = new Set(
-          (typeof node.properties?.class === 'string' ? node.properties.class : '')
-            .split(/\s+/)
-            .filter(Boolean),
-        );
-        classes.add('astro-code');
-        node.properties = { ...node.properties, class: Array.from(classes).join(' ') };
+  return async (tree: any) => {
+    const preNodes: { node: any; index: number | undefined; parent: any }[] = [];
+    visit(tree, 'element', (node: any, index: number | undefined, parent: any) => {
+      if (node.tagName === 'pre' && parent) {
+        preNodes.push({ node, index, parent });
       }
     });
+    for (const { node, index, parent } of preNodes) {
+      if (index !== undefined) {
+        parent.children[index] = await highlightFaqPre(node);
+      }
+    }
   };
 }
 
@@ -46,9 +141,9 @@ const faqProcessor = unified()
   .use(rehypeFaqCode)
   .use(rehypeStringify, { allowDangerousHtml: true });
 
-function markdownToHtml(markdown: string): string {
+async function markdownToHtml(markdown: string): Promise<string> {
   try {
-    return String(faqProcessor.processSync(markdown));
+    return String(await faqProcessor.process(markdown));
   } catch {
     return '';
   }
@@ -67,7 +162,7 @@ export interface Faq {
  *   **Q: question?**\nA: answer
  *   ### question?\n\nanswer
  */
-export function extractFaqs(markdown: string, maxFaqs = 10): Faq[] {
+export async function extractFaqs(markdown: string, maxFaqs = 10): Promise<Faq[]> {
   if (!markdown) return [];
   const faqHeading = /^##\s+(Frequently Asked Questions|Preguntas Frecuentes|FAQ)\s*$/im;
   const match = faqHeading.exec(markdown);
@@ -88,7 +183,7 @@ export function extractFaqs(markdown: string, maxFaqs = 10): Faq[] {
     faqs.push({
       question: clean(m[1]),
       answer: clean(rawAnswer),
-      answerHtml: markdownToHtml(rawAnswer),
+      answerHtml: await markdownToHtml(rawAnswer),
     });
     if (faqs.length >= maxFaqs) break;
   }
@@ -101,7 +196,7 @@ export function extractFaqs(markdown: string, maxFaqs = 10): Faq[] {
     faqs.push({
       question: clean(m[1]),
       answer: clean(rawAnswer),
-      answerHtml: markdownToHtml(rawAnswer),
+      answerHtml: await markdownToHtml(rawAnswer),
     });
     if (faqs.length >= maxFaqs) break;
   }

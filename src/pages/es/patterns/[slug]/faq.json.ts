@@ -11,9 +11,9 @@ export async function getStaticPaths() {
   }));
 }
 
-export const GET: APIRoute = ({ props }) => {
+export const GET: APIRoute = async ({ props }) => {
   const { entry } = props as { entry: any };
-  const faqs = extractFaqs(entry.body ?? '').slice(0, 3);
+  const faqs = (await extractFaqs(entry.body ?? '')).slice(0, 3);
   if (faqs.length === 0) {
     return new Response(JSON.stringify({}), { headers: { 'Content-Type': 'application/json' } });
   }
