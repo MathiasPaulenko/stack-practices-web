@@ -26,7 +26,7 @@ relatedResources:
   - /recipes/rest-api-design
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-10"
+lastUpdated: "2026-08-11"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -1725,14 +1725,6 @@ Es cuestión de constancia, pero una vez automatizado se mantiene solo.
 - [GraphQL API](/recipes/graphql-api/) — Enfoque alternativo de API.
 - [Handle CORS](/recipes/handle-cors/) — Configuración de cross-origin resource sharing.
 - [Handle Errors](/recipes/handle-errors/) — Patterns estructurados de manejo de errores.
-
-## Troubleshooting
-
-- **Errores 5xx bajo carga**: revisa límites de rate, pools de conexión y timeouts de servicios downstream.
-- **Errores de CORS en el navegador**: confirma orígenes, métodos y headers permitidos. Las preflight requests deben devolver los headers correctos antes de la petición real.
-- **404s inesperados**: verifica definiciones de rutas, parámetros de path y paths base. Cuidado con slashes finales y diferencias de URL encoding.
-- **Fallos de autenticación**: valida expiración de tokens, algoritmos de firma y clock skew. Registra tokens rechazados sin exponer secretos.
-- **Tiempos de respuesta lentos**: perfila los percentiles más lentos.
 
 ## Errores Comunes en Producción
 
