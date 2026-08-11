@@ -1,11 +1,32 @@
+#!/usr/bin/env python3
+"""ai-detect-patterns.py — rule-based AI pattern checker for StackPractices content.
+
+Runs only the pattern diagnostics from the ai_detect package (no neural model),
+so it is fast and gives concrete rewrites: vague abstractions, formal verbs,
+missing contractions, AI slop, etc.
+
+Usage:
+    python scripts/ai-detect-patterns.py src/content/{tipo}/{slug}.md
+    python scripts/ai-detect-patterns.py --all
+
+Output is written to ref/output/ai-detect-patterns-{slug}.json.
+"""
+
 import re
 import json
 import os
+import sys
+import argparse
 import ai_detect
 
 
+CONTENT_DIR = "src/content"
+OUTPUT_DIR = "ref/output"
+
+
 def clean_markdown(text):
-    # Strip frontmatter.
+    """Return prose-only text from a Markdown body (frontmatter + code + headings stripped)."""
+    # Strip YAML frontmatter.
     text = re.sub(r"^---\s*\n.*?\n---\s*\n", "", text, flags=re.S)
     # Remove fenced code blocks.
     text = re.sub(r"```[\s\S]*?```", "", text)
@@ -46,26 +67,55 @@ def find_patterns(path, label):
     }
 
 
-def main():
-    reports = [
-        find_patterns(
-            "src/content/recipes/api/api-documentation-openapi.md",
-            "api-documentation-openapi-en",
-        ),
-        find_patterns(
-            "src/content/recipes/api/api-documentation-openapi.es.md",
-            "api-documentation-openapi-es",
-        ),
-    ]
+def slugify(name):
+    return re.sub(r"[^a-z0-9_-]+", "-", name.lower()).strip("-")
 
-    out_dir = "ref/output"
-    os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "ai-detect-patterns-api-documentation-openapi.json")
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Rule-based AI-pattern checker for StackPractices content.",
+    )
+    parser.add_argument("path", nargs="?", help="Path to a single Markdown file")
+    parser.add_argument("--all", action="store_true", help="Check all .md files in src/content")
+    parser.add_argument("--out-dir", default=OUTPUT_DIR, help="Directory for JSON output")
+    args = parser.parse_args()
+
+    os.makedirs(args.out_dir, exist_ok=True)
+
+    if args.all:
+        reports = []
+        for root, _, files in os.walk(CONTENT_DIR):
+            for name in files:
+                if not name.endswith(".md"):
+                    continue
+                full = os.path.join(root, name)
+                rel = os.path.relpath(full, CONTENT_DIR)
+                reports.append(find_patterns(full, rel))
+        out_path = os.path.join(args.out_dir, "ai-detect-patterns-all.json")
+    elif args.path:
+        if not os.path.isfile(args.path):
+            print(f"File not found: {args.path}", file=sys.stderr)
+            return 1
+        label = os.path.basename(args.path).replace(".md", "")
+        report = find_patterns(args.path, label)
+        out_path = os.path.join(args.out_dir, f"ai-detect-patterns-{slugify(label)}.json")
+        reports = [report]
+    else:
+        parser.print_help()
+        return 1
+
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(reports, f, indent=2, default=str)
 
     print(f"Wrote {out_path}")
+    for r in reports:
+        totals = r.get("pattern_totals", {})
+        if totals:
+            print(f"  {r['label']}: {sum(totals.values())} findings ({totals})")
+        else:
+            print(f"  {r['label']}: 0 findings")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
