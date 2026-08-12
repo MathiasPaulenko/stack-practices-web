@@ -1,8 +1,36 @@
 [
   {
     "label": "api-documentation-openapi",
-    "total_sentences": 203,
-    "pattern_totals": {},
-    "findings": []
+    "total_sentences": 175,
+    "pattern_totals": {
+      "missing_contraction": 3
+    },
+    "findings": [
+      {
+        "sentence": "This resource fits when:\nYou need interactive API documentation that stays in sync with your code\nYou want to auto-generate client SDKs in several languages\nYour team needs a contract-first approach for API development\nYou need to validate incoming requests against a formal schema\n\nWhen not to use:\nIf the API is only for internal use and you are the only consumer, a short README may be enough.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you are",
+            "suggestion": "use 'you're'"
+          }
+        ]
+      },
+      {
+        "sentence": "is not deprecated, but it is the wrong choice for bearer JWT because it describes a custom API key rather than an HTTP bearer scheme.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "is not",
+            "suggestion": "use 'isn't'"
+          },
+          {
+            "pattern": "missing_contraction",
+            "match": "it is",
+            "suggestion": "use 'it's'"
+          }
+        ]
+      }
+    ]
   }
 ]
