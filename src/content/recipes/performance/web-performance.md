@@ -1,4 +1,5 @@
 ---
+
 contentType: recipes
 slug: web-performance
 title: "Web Performance Optimization"
@@ -32,6 +33,7 @@ seo:
     - performance
     - frontend
     - core-web-vitals
+
 
 
 ---
@@ -321,10 +323,6 @@ Open DevTools with `F12` or `Ctrl+Shift+I`, go to the "Performance" tab. Click "
 ### How do I optimize HTTP headers for performance?
 
 Use `Cache-Control`: `Cache-Control: public, max-age=31536000, immutable` for static assets with hashed filenames. Use `stale-while-revalidate`: `Cache-Control: max-age=60, stale-while-revalidate=600` for dynamic content. Use `ETag` for conditional requests: `ETag: "abc123"` — browser sends `If-None-Match: "abc123"`, server responds with `304 Not Modified` if unchanged. Use `Last-Modified`: `Last-Modified: Wed, 09 Jul 2026 12:00:00 GMT` — browser sends `If-Modified-Since`. Use `Content-Encoding`: `Content-Encoding: br` for Brotli (20% smaller than gzip), `Content-Encoding: gzip` as fallback. Use `Content-Type` with charset: `Content-Type: text/html; charset=utf-8`. Use `X-Content-Type-Options: nosniff` to prevent MIME sniffing. Use `Strict-Transport-Security: max-age=31536000; includeSubDomains` for HTTPS enforcement. Use `X-Frame-Options: DENY` to prevent clickjacking. Use `Content-Security-Policy` to restrict resource loading: `Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'`. Use `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp` for cross-origin isolation (enables `SharedArrayBuffer`). Use `Cross-Origin-Resource-Policy: same-origin` to restrict resource access. Use `Permissions-Policy` to disable unused APIs: `Permissions-Policy: camera=(), microphone=(), geolocation=()`. Use `Service-Worker-Allowed` to expand SW scope: `Service-Worker-Allowed: /`. Use `Date` header for caching calculations. Use `Vary: Accept-Encoding` to cache compressed and uncompressed versions separately. Use `Vary: Cookie` if content varies by authentication state. Use `103 Early Hints` for preloading: `Link: </styles.css>; rel=preload; as=style` sent before the full response.
-
-### How do I use Resource Hints effectively?
-
-Use `<link rel="preconnect">` to establish early connections: `<link rel="preconnect" href="https://cdn.example.com">`. Use `<link rel="dns-prefetch">` for DNS-only resolution: `<link rel="dns-prefetch" href="https://api.example.com">`. Use `<link rel="preload">` for critical resources: `<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>`. Use `<link rel="prefetch">` for likely next-page resources: `<link rel="prefetch" href="/next-page.js">`. Use `<link rel="prerender">` for full page prerendering (deprecated, use Speculation Rules API instead). Use `fetchpriority` attribute: `<img src="hero.webp" fetchpriority="high">` for above-fold images, `<img src="below.webp" fetchpriority="low">` for below-fold. Use `importance` on fetch: `fetch('/api/critical', { importance: 'high' })`. Use `requestIdleCallback` for non-critical prefetches: `requestIdleCallback(() => fetch('/next-page-data'))`. Use `navigator.connection.effectiveType` to adapt: `if (navigator.connection.effectiveType === '4g') { prefetchNextPage(); }`. Use `navigator.connection.saveData` to respect data-saving preferences. Use `Cross-Origin-Resource-Policy: cross-origin` for cross-origin preloaded resources. Use `as` attribute correctly: `as="script"`, `as="style"`, `as="font"`, `as="image"`, `as="fetch"`. Use `type` attribute for module preloading: `<link rel="modulepreload" href="/app.js">`. Use `crossorigin` for cross-origin fonts: `<link rel="preload" href="https://cdn.example.com/font.woff2" as="font" crossorigin>`.
 
 ## See Also
 
