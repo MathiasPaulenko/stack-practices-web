@@ -59,7 +59,7 @@ Esta plantilla cubre:
 
 ## Plantilla
 
-```markdown
+````markdown
 # Configuración de Entorno: [Nombre del Proyecto]
 
 ## Prerrequisitos
@@ -121,7 +121,7 @@ curl http://localhost:3000/health
 | Puerto 3000 en uso | Otro proceso | `lsof -ti:3000 | xargs kill -9` |
 | Migración falla | Schema drift | `npm run db:reset` |
 | Docker no inicia | Docker Desktop no corriendo | Iniciar Docker Desktop |
-```
+````
 
 ## Lifecycle
 
@@ -218,7 +218,7 @@ npm run build
 | Docker no inicia | Docker Desktop no corriendo | Iniciar Docker Desktop |
 | `npm install` falla | Versión de Node incorrecta | `nvm use 20` |
 | Build falla | Env vars faltantes | Verifica `.env` contra `.env.example` |
-```
+````
 
 ## Lo que funciona
 

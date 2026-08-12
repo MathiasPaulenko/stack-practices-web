@@ -159,246 +159,327 @@ const forecast = await cachedClient.getForecast('London');
 
 ## FAQ
 
-**Q: How is this different from a simple wrapper function?**
-A: The Proxy pattern implements the same interface as the real object, so callers do not know or care whether they are using the cache or the original client.
+### How is this different from a simple wrapper function?
 
-**Q: Can I combine this with the Decorator pattern?**
-A: Yes. A [Decorator](/patterns/decorator-pattern/) adds behavior; a Proxy controls access. They are often used together in practice.
+The Proxy pattern implements the same interface as the real object, so callers do not know or care whether they are using the cache or the original client.
 
-**Q: How do I handle cache invalidation?**
-A: Implement explicit invalidation methods for write-through consistency, or use TTL-based expiration for eventual consistency.
+### Can I combine this with the Decorator pattern?
 
-**Q: Should I use in-memory cache or distributed cache?**
-A: Use in-memory cache for single-instance applications. Use distributed cache (Redis, Memcached) for multi-instance deployments.
+Yes. A [Decorator](/patterns/decorator-pattern/) adds behavior; a Proxy controls access. They are often used together in practice.
 
-**Q: How do I prevent cache stampede?**
-A: Implement request coalescing or use cache locks to prevent multiple simultaneous requests for the same uncached data.
+### How do I handle cache invalidation?
 
-**Q: Can I cache POST requests?**
-A: Generally no. POST requests have side effects and should not be cached unless you fully understand the implications.
+Implement explicit invalidation methods for write-through consistency, or use TTL-based expiration for eventual consistency.
 
-**Q: How do I handle cache serialization?**
-A: Use JSON serialization for simple objects. Consider MessagePack or Protocol Buffers for high-performance scenarios.
+### Should I use in-memory cache or distributed cache?
 
-**Q: Should I cache errors?**
-A: Cache errors with short TTL to prevent repeated failing requests from overwhelming downstream services.
+Use in-memory cache for single-instance applications. Use distributed cache (Redis, Memcached) for multi-instance deployments.
 
-**Q: How do I implement cache warming?**
-A: Pre-populate cache during application startup or scheduled jobs to avoid cold starts for frequently accessed data.
+### How do I prevent cache stampede?
 
-**Q: Can I use this pattern with GraphQL?**
-A: Yes. Implement caching at the resolver level or use DataLoader for batched caching.
+Implement request coalescing or use cache locks to prevent multiple simultaneous requests for the same uncached data.
 
-**Q: How do I handle cache versioning?**
-A: Include version information in cache keys to handle schema changes and prevent stale data issues.
+### Can I cache POST requests?
 
-**Q: Should I cache pagination results?**
-A: Cache individual pages with short TTL, but avoid caching full result sets unless the data is stable.
+Generally no. POST requests have side effects and should not be cached unless you fully understand the implications.
 
-**Q: How do I implement cache compression?**
-A: Compress cached data before storage to reduce memory usage, especially for large payloads.
+### How do I handle cache serialization?
 
-**Q: Can I use this pattern with WebSocket connections?**
-A: Yes. Cache WebSocket connection states or message histories to improve reconnection performance.
+Use JSON serialization for simple objects. Consider MessagePack or Protocol Buffers for high-performance scenarios.
 
-**Q: How do I handle cache consistency across instances?**
-A: Use distributed cache with pub/sub invalidation or implement cache invalidation messages.
+### Should I cache errors?
 
-**Q: Should I cache authentication tokens?**
-A: Cache tokens with TTL matching their expiration time to reduce authentication overhead.
+Cache errors with short TTL to prevent repeated failing requests from overwhelming downstream services.
 
-**Q: How do I implement cache staleness detection?**
-A: Add metadata to cached entries (last modified, ETag) to detect staleness and trigger refreshes.
+### How do I implement cache warming?
 
-**Q: Can I use this pattern with file system operations?**
-A: Yes. Cache file contents or metadata to reduce disk I/O for frequently accessed files.
+Pre-populate cache during application startup or scheduled jobs to avoid cold starts for frequently accessed data.
 
-**Q: How do I handle cache eviction policies?**
-A: Implement LRU, LFU, or time-based eviction policies based on your access patterns and requirements.
+### Can I use this pattern with GraphQL?
 
-**Q: Should I cache database query results?**
-A: Cache query results with careful consideration of data volatility and invalidation strategies.
+Yes. Implement caching at the resolver level or use DataLoader for batched caching.
 
-**Q: How do I implement cache backup and restore?**
-A: Periodically dump cache state to persistent storage for disaster recovery scenarios.
+### How do I handle cache versioning?
 
-**Q: Can I use this pattern with API rate limiting?**
-A: Yes. Combine caching with rate limiting to reduce API calls and stay within rate limits.
+Include version information in cache keys to handle schema changes and prevent stale data issues.
 
-**Q: How do I handle cache security?**
-A: Implement access controls, encryption, and audit logging for cached sensitive data.
+### Should I cache pagination results?
 
-**Q: Should I cache API responses with authentication?**
-A: Cache responses with user-specific cache keys to prevent unauthorized data access.
+Cache individual pages with short TTL, but avoid caching full result sets unless the data is stable.
 
-**Q: How do I implement cache monitoring and alerting?**
-A: Monitor hit rates, eviction rates, and cache size. Set up alerts for abnormal patterns.
+### How do I implement cache compression?
 
-**Q: Can I use this pattern with microservices?**
-A: Yes. Implement caching at service boundaries to reduce inter-service communication overhead.
+Compress cached data before storage to reduce memory usage, especially for large payloads.
 
-**Q: How do I handle cache warm-up for new deployments?**
-A: Implement gradual warm-up strategies to prevent cache stampedes during deployments.
+### Can I use this pattern with WebSocket connections?
 
-**Q: Should I cache API responses with conditional requests?**
-A: Use ETag and Last-Modified headers to implement conditional requests and reduce bandwidth.
+Yes. Cache WebSocket connection states or message histories to improve reconnection performance.
 
-**Q: How do I implement cache for streaming responses?**
-A: Cache stream metadata or initial chunks, but avoid caching full streaming responses.
+### How do I handle cache consistency across instances?
 
-**Q: Can I use this pattern with GraphQL subscriptions?**
-A: Cache subscription state or initial data to improve subscription initialization performance.
+Use distributed cache with pub/sub invalidation or implement cache invalidation messages.
 
-**Q: How do I handle cache for time-sensitive data?**
-A: Use very short TTL or implement time-based invalidation for time-sensitive data like stock prices.
+### Should I cache authentication tokens?
 
-**Q: Should I cache API responses with pagination?**
-A: Cache individual pages with appropriate TTL, but consider caching full result sets for stable data.
+Cache tokens with TTL matching their expiration time to reduce authentication overhead.
 
-**Q: How do I implement cache for multi-tenant applications?**
-A: Use tenant-specific cache keys to prevent data leakage between tenants.
+### How do I implement cache staleness detection?
 
-**Q: Can I use this pattern with API gateways?**
-A: Yes. Implement caching at the API gateway level to reduce load on backend services.
+Add metadata to cached entries (last modified, ETag) to detect staleness and trigger refreshes.
 
-**Q: How do I handle cache for geo-distributed systems?**
-A: Use edge caching or implement cache replication strategies for geo-distributed deployments.
+### Can I use this pattern with file system operations?
 
-**Q: Should I cache API responses with soft deletes?**
-A: Implement cache invalidation on soft deletes or use short TTL to prevent serving deleted data.
+Yes. Cache file contents or metadata to reduce disk I/O for frequently accessed files.
 
-**Q: How do I implement cache for API versioning?**
-A: Include API version in cache keys to prevent version conflicts and ensure data consistency.
+### How do I handle cache eviction policies?
 
-**Q: Can I use this pattern with GraphQL mutations?**
-A: Generally avoid caching mutations. Cache only read operations that are idempotent and safe to cache.
+Implement LRU, LFU, or time-based eviction policies based on your access patterns and requirements.
 
-**Q: How do I handle cache for API responses with conditional data?**
-A: Include all conditional parameters in cache keys to ensure correct cache hits.
+### Should I cache database query results?
 
-**Q: Should I cache API responses with user-specific data?**
-A: Cache user-specific data with user-specific cache keys and appropriate security measures.
+Cache query results with careful consideration of data volatility and invalidation strategies.
 
-**Q: How do I implement cache for API responses with dynamic content?**
-A: Use short TTL or implement cache invalidation based on content change events.
+### How do I implement cache backup and restore?
 
-**Q: Can I use this pattern with API response compression?**
-A: Yes. Compress cached responses to reduce memory usage and improve transfer performance.
+Periodically dump cache state to persistent storage for disaster recovery scenarios.
 
-**Q: How do I handle cache for API responses with large payloads?**
-A: Implement chunked caching or use streaming approaches for large payloads.
+### Can I use this pattern with API rate limiting?
 
-**Q: Should I cache API responses with authentication tokens?**
-A: Cache authentication tokens with TTL matching their expiration time.
+Yes. Combine caching with rate limiting to reduce API calls and stay within rate limits.
 
-**Q: How do I implement cache for API responses with rate limiting?**
-A: Combine caching with rate limiting to reduce API calls and stay within rate limits.
+### How do I handle cache security?
 
-**Q: Can I use this pattern with API response validation?**
-A: Yes. Validate cached responses on retrieval to ensure data integrity and consistency.
+Implement access controls, encryption, and audit logging for cached sensitive data.
 
-**Q: How do I handle cache for API responses with conditional rendering?**
-A: Cache raw data and apply conditional rendering logic on cache retrieval.
+### Should I cache API responses with authentication?
 
-**Q: Should I cache API responses with real-time data?**
-A: Use very short TTL or implement cache invalidation based on real-time data updates.
+Cache responses with user-specific cache keys to prevent unauthorized data access.
 
-**Q: How do I implement cache for API responses with pagination and sorting?**
-A: Include pagination and sorting parameters in cache keys for accurate cache hits.
+### How do I implement cache monitoring and alerting?
 
-**Q: Can I use this pattern with API response transformation?**
-A: Yes. Cache transformed responses to avoid repeated transformation overhead.
+Monitor hit rates, eviction rates, and cache size. Set up alerts for abnormal patterns.
 
-**Q: How do I handle cache for API responses with filtering?**
-A: Include filter parameters in cache keys to ensure correct cache hits for filtered data.
+### Can I use this pattern with microservices?
 
-**Q: Should I cache API responses with aggregation?**
-A: Cache aggregated results with TTL based on data volatility and update frequency.
+Yes. Implement caching at service boundaries to reduce inter-service communication overhead.
 
-**Q: How do I implement cache for API responses with joins?**
-A: Cache joined results or implement multi-level caching for individual entities.
+### How do I handle cache warm-up for new deployments?
 
-**Q: Can I use this pattern with API response deduplication?**
-A: Yes. Implement cache deduplication to avoid storing duplicate responses for identical requests.
+Implement gradual warm-up strategies to prevent cache stampedes during deployments.
 
-**Q: How do I handle cache for API responses with partial updates?**
-A: Implement cache patching or use short TTL for data that receives partial updates.
+### Should I cache API responses with conditional requests?
 
-**Q: Should I cache API responses with complex queries?**
-A: Cache complex query results with careful consideration of invalidation strategies.
+Use ETag and Last-Modified headers to implement conditional requests and reduce bandwidth.
 
-**Q: How do I implement cache for API responses with nested data?**
-A: Cache nested data structures or implement hierarchical caching for different nesting levels.
+### How do I implement cache for streaming responses?
 
-**Q: Can I use this pattern with API response streaming?**
-A: Cache stream metadata or initial chunks, but avoid caching full streaming responses.
+Cache stream metadata or initial chunks, but avoid caching full streaming responses.
 
-**Q: Should I cache API responses with soft deletes?**
-A: Implement cache invalidation on soft deletes or use short TTL to prevent serving deleted data.
+### Can I use this pattern with GraphQL subscriptions?
 
-**Q: How do I implement cache for API versioning?**
-A: Include API version in cache keys to prevent version conflicts and ensure data consistency.
+Cache subscription state or initial data to improve subscription initialization performance.
 
-**Q: Can I use this pattern with GraphQL mutations?**
-A: Generally avoid caching mutations. Cache only read operations that are idempotent and safe to cache.
+### How do I handle cache for time-sensitive data?
 
-**Q: How do I handle cache for API responses with conditional data?**
-A: Include all conditional parameters in cache keys to ensure correct cache hits.
+Use very short TTL or implement time-based invalidation for time-sensitive data like stock prices.
 
-**Q: Should I cache API responses with user-specific data?**
-A: Cache user-specific data with user-specific cache keys and appropriate security measures.
+### Should I cache API responses with pagination?
 
-**Q: How do I implement cache for API responses with dynamic content?**
-A: Use short TTL or implement cache invalidation based on content change events.
+Cache individual pages with appropriate TTL, but consider caching full result sets for stable data.
 
-**Q: Can I use this pattern with API response compression?**
-A: Yes. Compress cached responses to reduce memory usage and improve transfer performance.
+### How do I implement cache for multi-tenant applications?
 
-**Q: How do I handle cache for API responses with large payloads?**
-A: Implement chunked caching or use streaming approaches for large payloads.
+Use tenant-specific cache keys to prevent data leakage between tenants.
 
-**Q: Should I cache API responses with authentication tokens?**
-A: Cache authentication tokens with appropriate TTL matching their expiration time.
+### Can I use this pattern with API gateways?
 
-**Q: How do I implement cache for API responses with rate limiting?**
-A: Combine caching with rate limiting to reduce API calls and stay within rate limits.
+Yes. Implement caching at the API gateway level to reduce load on backend services.
 
-**Q: Can I use this pattern with API response validation?**
-A: Yes. Validate cached responses on retrieval to ensure data integrity and consistency.
+### How do I handle cache for geo-distributed systems?
 
-**Q: How do I handle cache for API responses with conditional rendering?**
-A: Cache raw data and apply conditional rendering logic on cache retrieval.
+Use edge caching or implement cache replication strategies for geo-distributed deployments.
 
-**Q: Should I cache API responses with real-time data?**
-A: Use very short TTL or implement cache invalidation based on real-time data updates.
+### Should I cache API responses with soft deletes?
 
-**Q: How do I implement cache for API responses with pagination and sorting?**
-A: Include pagination and sorting parameters in cache keys for accurate cache hits.
+Implement cache invalidation on soft deletes or use short TTL to prevent serving deleted data.
 
-**Q: Can I use this pattern with API response transformation?**
-A: Yes. Cache transformed responses to avoid repeated transformation overhead.
+### How do I implement cache for API versioning?
 
-**Q: How do I handle cache for API responses with filtering?**
-A: Include filter parameters in cache keys to ensure correct cache hits for filtered data.
+Include API version in cache keys to prevent version conflicts and ensure data consistency.
 
-**Q: Should I cache API responses with aggregation?**
-A: Cache aggregated results with appropriate TTL based on data volatility and update frequency.
+### Can I use this pattern with GraphQL mutations?
 
-**Q: How do I implement cache for API responses with joins?**
-A: Cache joined results or implement multi-level caching for individual entities.
+Generally avoid caching mutations. Cache only read operations that are idempotent and safe to cache.
 
-**Q: Can I use this pattern with API response deduplication?**
-A: Yes. Implement cache deduplication to avoid storing duplicate responses for identical requests.
+### How do I handle cache for API responses with conditional data?
 
-**Q: How do I handle cache for API responses with partial updates?**
-A: Implement cache patching or use short TTL for data that receives partial updates.
+Include all conditional parameters in cache keys to ensure correct cache hits.
 
-**Q: Should I cache API responses with complex queries?**
-A: Cache complex query results with careful consideration of invalidation strategies.
+### Should I cache API responses with user-specific data?
 
-**Q: How do I implement cache for API responses with nested data?**
-A: Cache nested data structures or implement hierarchical caching for different nesting levels.
+Cache user-specific data with user-specific cache keys and appropriate security measures.
 
-**Q: Can I use this pattern with API response streaming?**
-A: Cache stream metadata or initial chunks, but avoid caching full streaming responses.
+### How do I implement cache for API responses with dynamic content?
+
+Use short TTL or implement cache invalidation based on content change events.
+
+### Can I use this pattern with API response compression?
+
+Yes. Compress cached responses to reduce memory usage and improve transfer performance.
+
+### How do I handle cache for API responses with large payloads?
+
+Implement chunked caching or use streaming approaches for large payloads.
+
+### Should I cache API responses with authentication tokens?
+
+Cache authentication tokens with TTL matching their expiration time.
+
+### How do I implement cache for API responses with rate limiting?
+
+Combine caching with rate limiting to reduce API calls and stay within rate limits.
+
+### Can I use this pattern with API response validation?
+
+Yes. Validate cached responses on retrieval to ensure data integrity and consistency.
+
+### How do I handle cache for API responses with conditional rendering?
+
+Cache raw data and apply conditional rendering logic on cache retrieval.
+
+### Should I cache API responses with real-time data?
+
+Use very short TTL or implement cache invalidation based on real-time data updates.
+
+### How do I implement cache for API responses with pagination and sorting?
+
+Include pagination and sorting parameters in cache keys for accurate cache hits.
+
+### Can I use this pattern with API response transformation?
+
+Yes. Cache transformed responses to avoid repeated transformation overhead.
+
+### How do I handle cache for API responses with filtering?
+
+Include filter parameters in cache keys to ensure correct cache hits for filtered data.
+
+### Should I cache API responses with aggregation?
+
+Cache aggregated results with TTL based on data volatility and update frequency.
+
+### How do I implement cache for API responses with joins?
+
+Cache joined results or implement multi-level caching for individual entities.
+
+### Can I use this pattern with API response deduplication?
+
+Yes. Implement cache deduplication to avoid storing duplicate responses for identical requests.
+
+### How do I handle cache for API responses with partial updates?
+
+Implement cache patching or use short TTL for data that receives partial updates.
+
+### Should I cache API responses with complex queries?
+
+Cache complex query results with careful consideration of invalidation strategies.
+
+### How do I implement cache for API responses with nested data?
+
+Cache nested data structures or implement hierarchical caching for different nesting levels.
+
+### Can I use this pattern with API response streaming?
+
+Cache stream metadata or initial chunks, but avoid caching full streaming responses.
+
+### Should I cache API responses with soft deletes?
+
+Implement cache invalidation on soft deletes or use short TTL to prevent serving deleted data.
+
+### How do I implement cache for API versioning?
+
+Include API version in cache keys to prevent version conflicts and ensure data consistency.
+
+### Can I use this pattern with GraphQL mutations?
+
+Generally avoid caching mutations. Cache only read operations that are idempotent and safe to cache.
+
+### How do I handle cache for API responses with conditional data?
+
+Include all conditional parameters in cache keys to ensure correct cache hits.
+
+### Should I cache API responses with user-specific data?
+
+Cache user-specific data with user-specific cache keys and appropriate security measures.
+
+### How do I implement cache for API responses with dynamic content?
+
+Use short TTL or implement cache invalidation based on content change events.
+
+### Can I use this pattern with API response compression?
+
+Yes. Compress cached responses to reduce memory usage and improve transfer performance.
+
+### How do I handle cache for API responses with large payloads?
+
+Implement chunked caching or use streaming approaches for large payloads.
+
+### Should I cache API responses with authentication tokens?
+
+Cache authentication tokens with appropriate TTL matching their expiration time.
+
+### How do I implement cache for API responses with rate limiting?
+
+Combine caching with rate limiting to reduce API calls and stay within rate limits.
+
+### Can I use this pattern with API response validation?
+
+Yes. Validate cached responses on retrieval to ensure data integrity and consistency.
+
+### How do I handle cache for API responses with conditional rendering?
+
+Cache raw data and apply conditional rendering logic on cache retrieval.
+
+### Should I cache API responses with real-time data?
+
+Use very short TTL or implement cache invalidation based on real-time data updates.
+
+### How do I implement cache for API responses with pagination and sorting?
+
+Include pagination and sorting parameters in cache keys for accurate cache hits.
+
+### Can I use this pattern with API response transformation?
+
+Yes. Cache transformed responses to avoid repeated transformation overhead.
+
+### How do I handle cache for API responses with filtering?
+
+Include filter parameters in cache keys to ensure correct cache hits for filtered data.
+
+### Should I cache API responses with aggregation?
+
+Cache aggregated results with appropriate TTL based on data volatility and update frequency.
+
+### How do I implement cache for API responses with joins?
+
+Cache joined results or implement multi-level caching for individual entities.
+
+### Can I use this pattern with API response deduplication?
+
+Yes. Implement cache deduplication to avoid storing duplicate responses for identical requests.
+
+### How do I handle cache for API responses with partial updates?
+
+Implement cache patching or use short TTL for data that receives partial updates.
+
+### Should I cache API responses with complex queries?
+
+Cache complex query results with careful consideration of invalidation strategies.
+
+### How do I implement cache for API responses with nested data?
+
+Cache nested data structures or implement hierarchical caching for different nesting levels.
+
+### Can I use this pattern with API response streaming?
+
+Cache stream metadata or initial chunks, but avoid caching full streaming responses.
 

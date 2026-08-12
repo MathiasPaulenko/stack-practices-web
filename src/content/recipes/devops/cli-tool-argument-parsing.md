@@ -398,7 +398,7 @@ try {
 
 
 
-## FAQ
+## Distribution FAQ
 
 ### How do I distribute my CLI tool?
 

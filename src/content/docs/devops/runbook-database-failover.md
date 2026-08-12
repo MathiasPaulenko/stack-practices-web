@@ -67,7 +67,7 @@ Before starting:
 
 ## Solution
 
-```markdown
+````markdown
 # Database Failover Runbook: `<Service Name>`
 
 ## 1. Verify the Failure (2 minutes)
@@ -215,7 +215,7 @@ aws rds create-db-instance-read-replica \
 - [ ] Document data loss (if any) with exact transaction IDs
 - [ ] Schedule postmortem within 24 hours
 - [ ] Update this runbook with lessons learned
-```
+````
 
 ## Explanation
 

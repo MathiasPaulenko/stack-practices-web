@@ -11,6 +11,11 @@ topics:
 tags:
   - maintainability
   - guide
+  - vertical-slice
+  - architecture
+  - feature-based
+  - modularity
+  - cohesion
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/layered-architecture-guide

@@ -302,7 +302,7 @@ toxiproxy-cli toxic delete --all
 kubectl delete chaosengine --all -n staging
 ```
 
-## FAQ
+## Game Day FAQ
 
 ### How often should we run chaos experiments?
 

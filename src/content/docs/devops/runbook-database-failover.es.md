@@ -70,7 +70,7 @@ Antes de comenzar:
 
 ## Solution
 
-```markdown
+````markdown
 # Runbook de Failover de Base de Datos: `<Nombre del Servicio>`
 
 ## 1. Verificar la Falla (2 minutos)
@@ -218,7 +218,7 @@ aws rds create-db-instance-read-replica \
 - [ ] Documentar perdida de datos (si hay) con IDs de transaccion exactos
 - [ ] Programar postmortem dentro de 24 horas
 - [ ] Actualizar este runbook con lecciones aprendidas
-```
+````
 
 ## Explanation
 

@@ -388,7 +388,7 @@ jobs:
 
 
 
-## FAQ
+## Secrets FAQ
 
 ### How do I share secrets across environments?
 

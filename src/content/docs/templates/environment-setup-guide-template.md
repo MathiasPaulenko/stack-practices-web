@@ -59,7 +59,7 @@ This template covers:
 
 ## Template
 
-```markdown
+````markdown
 # Environment Setup: [Project Name]
 
 ## Prerequisites
@@ -121,7 +121,7 @@ curl http://localhost:3000/health
 | Port 3000 in use | Another process | `lsof -ti:3000 | xargs kill -9` |
 | Migration fails | Schema drift | `npm run db:reset` |
 | Docker won't start | Docker Desktop not running | Start Docker Desktop |
-```
+````
 
 ## Lifecycle
 
@@ -218,7 +218,7 @@ npm run build
 | Docker won't start | Docker Desktop not running | Start Docker Desktop |
 | `npm install` fails | Node version mismatch | `nvm use 20` |
 | Build fails | Missing env vars | Check `.env` against `.env.example` |
-```
+````
 
 ## What works
 

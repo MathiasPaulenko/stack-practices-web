@@ -11,6 +11,12 @@ topics:
 tags:
   - query-optimization
   - guide
+  - sql
+  - joins
+  - databases
+  - postgres
+  - mysql
+  - queries
 relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-cte-guide
