@@ -21,7 +21,7 @@ relatedResources:
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
 lastUpdated: "2026-08-12"
-publishedAt: "2026-06-12"
+publishedAt: "2026-02-18"
 author: Mathias Paulenko
 seo:
   metaDescription: Step-by-step guide to documenting REST APIs with OpenAPI. Learn how to generate interactive docs with Swagger UI and Redoc in Python, JavaScript and Java.
