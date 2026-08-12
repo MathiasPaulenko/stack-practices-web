@@ -46,9 +46,9 @@ seo:
 
 ## Visión General
 
-La mayoría de las documentaciones de API se pudren en READMEs, páginas de Confluence o hilos de Slack. En cuanto publicas un cambio, esas páginas ya están desactualizadas. OpenAPI, la especificación que surgió de Swagger, te permite describir endpoints, esquemas y errores en un solo archivo YAML o JSON. Ese mismo archivo puede impulsar documentación interactiva, SDKs de cliente y tests de contrato.
+La mayoría de las documentaciones de API se pudren en READMEs, páginas de Confluence o hilos de Slack. Cada vez que publicas un cambio, esas páginas ya están desactualizadas. OpenAPI, la especificación que surgió de Swagger, te permite describir endpoints, esquemas y errores en un solo archivo YAML o JSON. Ese mismo archivo puede impulsar documentación interactiva, SDKs de cliente y tests de contrato.
 
-Esta guía cubre tres stacks comunes: Python + FastAPI, JavaScript + Express y Java + SpringDoc. También muestra cuándo gana Swagger UI, cuándo Redoc es una mejor opción y cómo evitar que el spec se pudra una vez está en producción.
+Esta guía usa ejemplos en Python con FastAPI, JavaScript con Express y Java con SpringDoc, y repasa los trade-offs de cada uno. También compara Swagger UI y Redoc, y explica cómo evitar que el spec se pudra una vez está en producción.
 
 ## Cuándo Usar
 
@@ -117,9 +117,9 @@ Los equipos generan specs OpenAPI de dos maneras, y la elección correcta depend
 
 Con **code-first**, un único equipo construye la API y deja que FastAPI, SpringDoc o tsoa generen `openapi.json` a partir de anotaciones o decoradores. El spec se mantiene cerca del código, pero puede filtrar modelos internos si no usas DTOs.
 
-El **design-first** tiene más sentido cuando los equipos de frontend, backend y móvil necesitan acordar un contrato antes de escribir código. Escribes el YAML o JSON a mano, lo publicas en SwaggerHub o Stoplight, y luego generas stubs y clientes. Ese contrato obliga a decidir explícitamente campos, errores y versionado. El problema es que, sin tests, el spec puede convertirse en una ilusión mientras el código hace otra cosa.
+El design-first es la mejor opción cuando los equipos de frontend, backend y móvil necesitan ponerse de acuerdo en un contrato antes de escribir código. Entonces escribes el YAML o JSON a mano, lo publicas en SwaggerHub o Stoplight y generas stubs y clientes a partir de él. Ese contrato obliga a decidir de forma explícita campos, errores y versionado. El riesgo es que, sin tests, el spec puede convertirse en una lista de deseos mientras el código hace otra cosa.
 
-Una vez que existe el spec, impulsa tres cosas: **Swagger UI** como explorador interactivo donde los desarrolladores llaman endpoints desde el navegador, **Redoc** como un sitio de documentación limpio de tres paneles, y **generadores de clientes** como `openapi-generator-cli` para clientes tipados en TypeScript, Python, Java y otros lenguajes.
+Una vez que existe el spec, impulsa documentación interactiva, un sitio de documentación limpio y generadores de clientes. **Swagger UI** permite a los desarrolladores llamar endpoints desde el navegador, **Redoc** renderiza un sitio de tres paneles y herramientas como `openapi-generator-cli` producen clientes tipados en TypeScript, Python, Java y otros lenguajes.
 
 ## Variantes
 
@@ -136,7 +136,7 @@ Una vez que existe el spec, impulsa tres cosas: **Swagger UI** como explorador i
 - **Fija la versión del spec a la versión de la API** en el campo `info.version`, y documenta deprecaciones con `deprecated: true` más un path de reemplazo.
 - **Añade ejemplos** a los esquemas de solicitud y respuesta; son la forma más rápida de frenar preguntas de integración antes de que empiecen.
 - **Agrupa operaciones con tags** como `users`, `orders` o `products` para que Swagger UI y Redoc muestren secciones colapsables.
-- **Documenta respuestas de error reales**, no solo `200`. Incluye `400`, `401`, `404`, `409` y `5xx` con cuerpos problem-detail.
+- **Incluye respuestas de error reales**, no solo una respuesta `200` exitosa. Añade `400`, `401`, `404`, `409` y `5xx` con cuerpos problem-detail.
 - **Valida el spec en CI** con `npx @redocly/cli lint` o `spectral`; un `$ref` roto o un `operationId` ausente romperá clientes generados sin avisar.
 
 ## Errores Comunes
@@ -147,9 +147,9 @@ Toda operación que requiera auth necesita una entrada `security` y un component
 
 Los modelos internos deben mantenerse fuera de `components/schemas`. Usa DTOs dedicados para solicitud y respuesta.
 
-Los campos nullable también sorprenden: OpenAPI 3.0 usa `nullable: true`, mientras que 3.1 usa `type: [string, null]`. Elige uno y valida con un linter.
+Los campos nullable también sorprenden: OpenAPI 3.0 usa `nullable: true`, mientras que 3.1 usa `type: [string, null]`. Una vez elegido, valida contra un linter.
 
-Por último, evita escribir URLs de servidor directamente en el spec. Coloca variables en el array `servers`, como `{serverUrl}`, para que staging y producción puedan compartir el mismo spec.
+Por último, evita escribir URLs de servidor directamente en el spec; coloca variables en el array `servers`, como `{serverUrl}`, para que staging y producción puedan compartir el mismo spec.
 
 ## Solución de Problemas
 
@@ -161,19 +161,19 @@ Si el spec no coincide con el comportamiento desplegado, añade tests de contrat
 
 Si los ejemplos en Swagger UI se ven mal, asegúrate de que el campo `example` esté al nivel correcto del `schema` y de que los ejemplos de arrays usen `items.example`.
 
-**Los specs grandes ralentizan la página de documentación**: divide el spec con punteros `$ref` y empaquétalo con `redocly bundle` antes de mostrarlo.
+**Los specs grandes ralentizan la página de documentación**: divídelo con punteros `$ref` y empaquétalo con `redocly bundle` antes de mostrarlo.
 
 ## Lectura Adicional
 
-- [OpenAPI Specification (latest)](https://spec.openapis.org/oas/latest.html) — referencia oficial para nombres de campos, tipos y diferencias de versión.
-- [Redocly CLI documentation](https://redocly.com/docs/cli) — validar, empaquetar y publicar specs OpenAPI.
-- [FastAPI docs on OpenAPI](https://fastapi.tiangolo.com/reference/openapi/) — cómo FastAPI genera `/openapi.json` y `/docs`.
-- [Springdoc OpenAPI](https://springdoc.org/) — anotaciones y personalización de Spring Boot.
+- La [OpenAPI Specification (latest)](https://spec.openapis.org/oas/latest.html) es la referencia oficial para nombres de campos, tipos y diferencias de versión.
+- La documentación de [Redocly CLI](https://redocly.com/docs/cli) cubre la validación, empaquetado y publicación de specs OpenAPI.
+- La documentación de [FastAPI sobre OpenAPI](https://fastapi.tiangolo.com/reference/openapi/) explica cómo FastAPI genera `/openapi.json` y `/docs`.
+- En Spring Boot, [Springdoc OpenAPI](https://springdoc.org/) cubre las anotaciones y las personalizaciones comunes.
 
 ## Notas de Producción
 
 - **Versiona el spec en el control de código fuente** y etiqueta los releases con la misma versión que la API (`info.version` debe coincidir con la versión desplegada de la API).
-- **Sirve la documentación desde un artefacto de build separado** o una ruta de CDN para que las actualizaciones del spec no requieran un despliegue completo de la aplicación.
+- **Sirve la documentación desde un artefacto de build separado** o una ruta de CDN, de modo que actualizar el spec no requiera desplegar toda la aplicación de nuevo.
 - **Valida el spec en CI** antes de publicar; un `$ref` roto o un `operationId` ausente romperá generadores de clientes y la salida de Redoc.
 - **Monitorea los endpoints de documentación** (`/docs`, `/redoc`, `/openapi.json`) para detectar 4xx/5xx y latencia p99, especialmente después de actualizar el spec.
 
@@ -188,7 +188,7 @@ Si los ejemplos en Swagger UI se ven mal, asegúrate de que el campo `example` e
 
 ### ¿Debería usar code-first o design-first?
 
-Si la API es interna y solo la consume tu equipo, empieza con code-first. FastAPI, SpringDoc y tsoa pueden derivar el spec de tus anotaciones, así que el contrato se mantiene cerca del código:
+Si la API es interna y solo la consume tu equipo, empieza con code-first. FastAPI, SpringDoc y tsoa pueden derivar el spec de tus anotaciones, así que el contrato se mantiene cerca del código.
 
 ```python
 @app.get("/books/{book_id}")
@@ -196,7 +196,7 @@ def get_book(book_id: int):
     ...
 ```
 
-Si los equipos de frontend, móvil, backend o socios externos necesitan acordar el contrato primero, escribe el YAML de OpenAPI y publícalo en SwaggerHub o Stoplight antes de generar stubs:
+Si los equipos de frontend, móvil, backend o socios externos necesitan acordar el contrato primero, escribe el YAML de OpenAPI y publícalo en SwaggerHub o Stoplight antes de generar stubs.
 
 ```bash
 openapi-generator-cli generate -i openapi.yaml -g python-fastapi
@@ -206,7 +206,7 @@ El riesgo de design-first es el desfase: el spec se convierte en una ilusión mi
 
 ### ¿Cómo mantengo la documentación sincronizada con el código desplegado?
 
-Genera el spec en CI desde el código, publícalo en un registry como SwaggerHub o Stoplight, y apunta la documentación desplegada a la última versión. En GitHub Actions:
+Genera el spec en CI desde el código, publícalo en un registry como SwaggerHub o Stoplight, y apunta la documentación desplegada a la última versión. En GitHub Actions.
 
 ```yaml
 name: Generate OpenAPI Spec
@@ -221,15 +221,19 @@ jobs:
       - run: npx @redocly/cli build-docs openapi.json -o docs/
 ```
 
-Ejecuta `npx @redocly/cli lint openapi.yaml` en cada PR para detectar violaciones de esquema, respuestas faltantes y referencias rotas. Publícalo como artefacto del build y despliega la documentación junto con la API. Luego verifica la API contra el spec con Pact o Schemathesis: `schemathesis run openapi.json --base-url http://localhost:8000`.
+Ejecuta `npx @redocly/cli lint openapi.yaml` en cada PR para detectar violaciones de esquema, respuestas faltantes y referencias rotas. Publícalo como artefacto del build, despliega la documentación junto con la API y luego verifica la API contra el spec ejecutando el siguiente comando:
+
+```bash
+schemathesis run openapi.json --base-url http://localhost:8000
+```
 
 ### ¿Puedo convertir Swagger 2.0 a OpenAPI 3.0?
 
-Sí. Usa la CLI `swagger2openapi` o el conversor integrado de Swagger Editor. La mayoría de herramientas modernas maneja 3.0 de forma nativa. Ejecuta `npx swagger2openapi swagger.json -o openapi.json` y espera algunos cambios mecánicos: `host`, `basePath` y `schemes` se combinan en un array `servers`; `definitions` y `responses` se mueven a `components/schemas` y `components/responses`; y `securityDefinitions` pasa a ser `components/securitySchemes`. Los campos `produces` y `consumes` se reemplazan por negociación de contenido por operación. Siempre valida el resultado con `npx @redocly/cli lint openapi.json`. Algunos casos extremos aún requieren ajustes manuales: `type: file` pasa a ser `format: binary`, y `collectionFormat` se convierte en parámetros `style` y `explode`.
+Sí. Puedes usar la CLI `swagger2openapi` o el conversor integrado de Swagger Editor. La mayoría de herramientas modernas maneja 3.0 de forma nativa. Ejecuta `npx swagger2openapi swagger.json -o openapi.json` y espera algunos cambios mecánicos. `host`, `basePath` y `schemes` se combinan en un array `servers`; `definitions` y `responses` se mueven a `components/schemas` y `components/responses`; y `securityDefinitions` pasa a ser `components/securitySchemes`. Los campos globales `produces` y `consumes` desaparecen; ahora cada operación declara su negociación de contenido en su propio bloque `content`. Después, valida el resultado con `npx @redocly/cli lint openapi.json`. Algunos casos extremos, como `type: file` pasando a `format: binary` y `collectionFormat` convirtiéndose en parámetros `style` y `explode`, aún requieren ajustes manuales.
 
 ### ¿Cómo documento autenticación y autorización en OpenAPI?
 
-Usa `securitySchemes` en la sección `components`. Para Bearer JWT:
+La autenticación se describe en `components/securitySchemes` y luego se aplica a cada operación. El ejemplo siguiente muestra un esquema Bearer JWT.
 
 ```yaml
 components:
@@ -240,7 +244,7 @@ components:
       bearerFormat: JWT
 ```
 
-Para API keys, usa `type: apiKey` e indica a los clientes qué header enviar:
+Para las API keys, usa `type: apiKey` e indica en qué header o query las esperas, como en el ejemplo siguiente.
 
 ```yaml
 components:
@@ -251,7 +255,7 @@ components:
       name: X-API-Key
 ```
 
-Para OAuth2, declara el flujo y los scopes:
+OAuth2 requiere declarar el flujo y los scopes permitidos.
 
 ```yaml
 components:
@@ -267,7 +271,7 @@ components:
             write: Write access
 ```
 
-Aplica el esquema a nivel de operación:
+Una vez definidos los esquemas, añade la entrada `security` a nivel de operación.
 
 ```yaml
 paths:
@@ -280,11 +284,11 @@ paths:
         - OAuth2: [write]
 ```
 
-Para OpenAPI 3.1, usa `type: http` con `scheme: bearer` para tokens JWT. `type: apiKey` sigue siendo válido, pero no es el ajuste correcto para JWT tipo bearer: describe una clave de API personalizada, no un esquema bearer HTTP.
+Para tokens JWT en OpenAPI 3.1, sigue usando `type: http` y `scheme: bearer`. El tipo `apiKey` todavía es válido, pero no encaja con bearer tokens, porque describe una clave de API personalizada en lugar de un esquema HTTP bearer.
 
 ### ¿Cómo manejo el versionado en specs OpenAPI?
 
-Fija la versión del spec en `info.version` y elige una estrategia de versionado que tus clientes puedan descubrir:
+La versión del spec va en `info.version`; elige una estrategia de versionado que los clientes puedan descubrir fácilmente.
 
 ```yaml
 info:
@@ -292,14 +296,14 @@ info:
   version: 2.1.0
 ```
 
-Usa versionado semántico: major para cambios incompatibles, minor para endpoints nuevos y patch para correcciones. Para el versionado por URL, coloca la versión en la URL de `servers`:
+Usa versionado semántico: major para cambios incompatibles, minor para endpoints nuevos y patch para correcciones. Si prefieres versionar por URL, incluye la versión en la URL del servidor.
 
 ```yaml
 servers:
   - url: https://api.example.com/v2
 ```
 
-Para el versionado por header, añade un parámetro de header opcional:
+El versionado por header se resuelve con un parámetro adicional.
 
 ```yaml
 parameters:
@@ -311,7 +315,7 @@ parameters:
       default: "2"
 ```
 
-Documenta deprecaciones con `deprecated: true` en las operaciones:
+Para marcar una operación como deprecada, añade `deprecated: true` y explica la alternativa en la descripción.
 
 ```yaml
 paths:
@@ -321,16 +325,36 @@ paths:
       description: Use /v2/books/{id} instead
 ```
 
-Mantén ambas versiones del spec durante los períodos de migración y usa negociación de contenido con el header `Accept`: `Accept: application/vnd.api+json;version=2`.
+Durante los períodos de migración, mantén ambas versiones del spec y deja que el cliente negocie la versión con el header `Accept`, por ejemplo `Accept: application/vnd.api+json;version=2`.
 
 ### ¿Cómo genero SDKs de cliente desde specs OpenAPI?
 
-Usa `openapi-generator-cli` para generar clientes tipados en varios lenguajes. Instalación: `npm install @openapitools/openapi-generator-cli -g`. Para generar un cliente TypeScript: `openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts`. Para generar un cliente Python: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py` (añade `--library httpx` si la versión del generador lo soporta). Para generar un cliente Java: `openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson`. Configura las opciones de generación en `.openapi-generator-config.json`: `{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}`. Publica los clientes generados en registries de paquetes: npm para TypeScript, PyPI para Python, Maven Central para Java. Automatiza en CI: genera, prueba y publica cuando cambie el spec.
+Puedes generar clientes tipados en varios lenguajes con `openapi-generator-cli`. Instálalo primero con `npm install @openapitools/openapi-generator-cli -g`. Para cada lenguaje, ejecuta el comando correspondiente:
+
+```bash
+# TypeScript
+openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts
+
+# Python
+openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py
+# añade --library httpx si tu generador lo soporta
+
+# Java
+openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson
+```
+
+Guarda las opciones de generación en un archivo `.openapi-generator-config.json` como este:
+
+```json
+{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}
+```
+
+Luego publica los clientes generados en el registry de paquetes correcto: npm para TypeScript, PyPI para Python y Maven Central para Java. Por último, automatiza los pasos de generar, probar y publicar en CI cada vez que cambie el spec.
 
 
 ### ¿Cómo documento paginación en OpenAPI?
 
-Usa parámetros de tipo `cursor` u `offset/limit` con un esquema de contenedor de paginación. Para paginación por offset:
+OpenAPI no obliga a un estilo de paginación. Elige entre `cursor` u `offset/limit` y envuelve el resultado en un schema de contenedor. El ejemplo siguiente muestra paginación por offset.
 
 ```yaml
 parameters:
@@ -348,7 +372,7 @@ parameters:
       maximum: 100
 ```
 
-Define el contenedor de respuesta:
+A continuación se define el contenedor de la respuesta paginada.
 
 ```yaml
 components:
@@ -368,7 +392,7 @@ components:
           type: integer
 ```
 
-Para paginación por cursor:
+La paginación por cursor funciona con un parámetro opaco.
 
 ```yaml
 parameters:
@@ -383,19 +407,19 @@ parameters:
       default: 20
 ```
 
-Incluye headers `Link` en las respuestas: `Link: <https://api.example.com/books?cursor=abc>; rel="next"`. Documenta los headers de límite de frecuencia: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`.
+También puedes incluir headers `Link` en las respuestas, como `Link: <https://api.example.com/books?cursor=abc>; rel="next"`, y documentar los headers de límite de frecuencia `X-RateLimit-Limit`, `X-RateLimit-Remaining` y `X-RateLimit-Reset`.
 
 ### ¿Cómo manejo subidas y descargas de archivos en OpenAPI?
 
 Para subidas de archivos en OpenAPI 3.0, usa `format: binary` en una propiedad de tipo string dentro del cuerpo de una petición `multipart/form-data`. Si necesitas varios archivos, cambia la propiedad a un array de cadenas binarias.
 
-OpenAPI 3.1 reemplaza `format: binary` por `contentEncoding: binary`. Para descargas, devuelve `application/octet-stream` con un esquema de cadena binaria. Las imágenes funcionan igual: declara el tipo de contenido (por ejemplo, `image/png`) y un esquema binario.
+En OpenAPI 3.1, `format: binary` se convierte en `contentEncoding: binary`. Para descargas, la respuesta debería usar el content type `application/octet-stream`, lo que significa que también debes declarar un esquema de cadena binaria para el cuerpo de la respuesta. Las imágenes funcionan de la misma forma: declara el tipo de contenido, como `image/png`, y un esquema binario.
 
-Para limitar el tamaño de subida, añade `maxLength` al campo binario e indica el límite en la descripción: 10485760 bytes para 10 MB.
+Para limitar el tamaño de subida, añade `maxLength` al campo binario e indica el límite en la descripción, por ejemplo `10485760` bytes para 10 MB.
 
 ### ¿Cómo documento webhooks en OpenAPI?
 
-En OpenAPI 3.1, los webhooks pasan a un campo `webhooks` de nivel superior. Declara cada evento como una clave con una operación `post`, y apunta el cuerpo de la petición a un esquema reutilizable como `BookEvent`:
+En OpenAPI 3.1, los webhooks pasan a un campo `webhooks` de nivel superior. Declara cada evento como una clave con una operación `post`, y apunta el cuerpo de la petición a un esquema reutilizable como `BookEvent`.
 
 ```yaml
 webhooks:
@@ -411,11 +435,11 @@ webhooks:
           description: Event received
 ```
 
-Define el esquema del payload una vez en `components/schemas` y reutilízalo en los webhooks. Un endpoint de registro permite a los clientes suscribirse; documenta las reglas de reintentos y los códigos HTTP que espera tu lógica de entrega.
+Define el esquema del payload una vez en `components/schemas` y reutilízalo en los webhooks. También puedes exponer un endpoint de suscripción; en su descripción incluye las reglas de reintentos y los códigos HTTP que tu lógica de entrega espera recibir.
 
 ### ¿Cómo valido specs OpenAPI en CI?
 
-Redocly y Spectral son los dos linters que uso. Con Redocly, instala el CLI globalmente (`npm install -g @redocly/cli`) y luego ejecuta `redocly lint openapi.yaml`. Añade un pequeño archivo de reglas para hacer cumplir tus propias convenciones:
+Redocly y Spectral son los linters que más uso. Con Redocly puedes instalar el CLI globalmente (`npm install -g @redocly/cli`) y ejecutar `redocly lint openapi.yaml`. A continuación añade un archivo de reglas sencillo para reforzar tus convenciones.
 
 ```yaml
 rules:
@@ -426,7 +450,7 @@ rules:
     max_length: 50
 ```
 
-Spectral funciona igual: `npm install -g @stoplight/spectral-cli`, extiende el ruleset OAS incorporado y personaliza las reglas que te importen. En GitHub Actions:
+Spectral funciona de forma similar: instálalo con `npm install -g @stoplight/spectral-cli`, extiende el ruleset OAS incorporado y personaliza las reglas que te importen. Luego añádelo a GitHub Actions.
 
 ```yaml
 - name: Lint OpenAPI
@@ -437,7 +461,7 @@ Valida la estructura del spec: busca `operationId` faltante, destinos `$ref` no 
 
 ### ¿Cómo documento respuestas de error con RFC 7807 Problem Details?
 
-Para errores RFC 7807, usa el media type `application/problem+json` y un esquema `Problem` reutilizable:
+Para los errores RFC 7807, usa el media type `application/problem+json` y un schema `Problem` reutilizable.
 
 ```yaml
 components:
@@ -460,7 +484,7 @@ components:
           format: uri
 ```
 
-Refiérelo en las respuestas de error:
+Después referencia ese schema en las respuestas de error mediante `$ref`.
 
 ```yaml
 responses:
@@ -480,12 +504,12 @@ responses:
               instance: /books/42
 ```
 
-Documenta los códigos de error comunes: 400 para errores de validación, 401 para autenticación faltante, 403 para permisos insuficientes, 409 para conflictos, 422 para fallos de validación semántica, 429 para limitación de frecuencia.
+Documenta los códigos de error comunes, como 400 para errores de validación, 401 para autenticación faltante, 403 para permisos insuficientes, 409 para conflictos, 422 para fallos semánticos y 429 para limitación de frecuencia.
 
 
 ### ¿Cómo documento rate limiting de API en OpenAPI?
 
-Documenta los límites de frecuencia usando headers de respuesta y extensiones `x-`. Añade headers de límite de frecuencia a las respuestas:
+Los límites de frecuencia se pueden expresar con headers de respuesta y extensiones `x-`. Añade esos headers a las respuestas para que los clientes sepan cuántas peticiones les quedan.
 
 ```yaml
 responses:
@@ -505,7 +529,7 @@ responses:
           description: Unix timestamp when the window resets
 ```
 
-Usa extensiones personalizadas para límites por plan:
+Para límites por plan, usa extensiones personalizadas.
 
 ```yaml
 x-rate-limit:
@@ -514,7 +538,7 @@ x-rate-limit:
   enterprise: 100000/hour
 ```
 
-Documenta el comportamiento de throttling en la descripción: `description: Rate limited to 100 requests per hour for free tier. Returns 429 with Retry-After header when exceeded.`. Incluye la respuesta 429:
+Describe el comportamiento de throttling en la descripción. Por ejemplo: `description: Rate limited to 100 requests per hour for free tier. Returns 429 with Retry-After header when exceeded.`. No olvides incluir la respuesta 429.
 
 ```yaml
 '429':
@@ -526,11 +550,11 @@ Documenta el comportamiento de throttling en la descripción: `description: Rate
         description: Seconds to wait before retrying
 ```
 
-Usa extensiones `x-codegen` para generar el manejo de límites de frecuencia en los SDKs de cliente.
+También puedes añadir extensiones `x-codegen` para que los SDKs de cliente generados sepan cómo manejar los límites de frecuencia.
 
 ### ¿Cómo manejo esquemas polimórficos en OpenAPI?
 
-Usa `oneOf`, `anyOf` y `allOf` para tipos polimórficos. Para uniones discriminadas:
+Los tipos polimórficos se modelan con las keywords `oneOf`, `anyOf` y `allOf`. El ejemplo siguiente es una unión discriminada.
 
 ```yaml
 components:
@@ -546,7 +570,7 @@ components:
           cat: '#/components/schemas/Cat'
 ```
 
-Define subtipos con el campo discriminador:
+Cada subtipo incluye el campo discriminador.
 
 ```yaml
 Dog:
@@ -560,7 +584,7 @@ Dog:
   required: [type, breed]
 ```
 
-Para tipos mixtos, usa `anyOf`:
+Para aceptar tipos mixtos, usa `anyOf`.
 
 ```yaml
 PropertyValue:
@@ -573,7 +597,7 @@ PropertyValue:
         $ref: '#/components/schemas/PropertyValue'
 ```
 
-Para composición sin discriminación, usa `allOf` para heredar propiedades:
+Cuando necesites heredar propiedades sin un discriminador, usa `allOf`.
 
 ```yaml
 Animal:
@@ -587,7 +611,7 @@ Animal:
 
 ### ¿Cómo genero servidores simulados desde specs OpenAPI?
 
-Prism y OpenAPI Generator pueden servir servidores simulados a partir de un spec. Con Prism, ejecuta `npx @stoplight/prism-cli mock openapi.yaml --port 4010` y generará respuestas a partir de los ejemplos de tu esquema:
+Prism y OpenAPI Generator pueden servir un servidor simulado a partir del spec. Para arrancar el mock con Prism, usa el comando del ejemplo; el servicio devolverá respuestas basadas en los ejemplos del schema.
 
 ```yaml
 Book:
@@ -601,11 +625,17 @@ Book:
       example: Clean Code
 ```
 
-Para datos aleatorios, añade el flag `--dynamic`. También puedes generar un servidor simulado estático con `openapi-generator-cli generate -i openapi.yaml -g python-flask -o ./mock-server`. Úsalos en tests de integración apuntando los clientes a `http://localhost:4010`.
+Si prefieres datos aleatorios, añade el flag `--dynamic`. También puedes generar un servidor simulado estático con el siguiente comando:
+
+```bash
+openapi-generator-cli generate -i openapi.yaml -g python-flask -o ./mock-server
+```
+
+Luego úsalo en tests de integración apuntando los clientes a `http://localhost:4010`.
 
 ### ¿Cómo documento la deprecación y los headers Sunset de una API?
 
-Marca las operaciones con `deprecated: true` y usa el header `Sunset` para la fecha de eliminación:
+Marca las operaciones deprecadas con `deprecated: true` y añade el header `Sunset` con la fecha de eliminación.
 
 ```yaml
 paths:
@@ -615,7 +645,7 @@ paths:
       description: Deprecated in favor of /v2/books. Will be removed on 2025-12-31.
 ```
 
-Incluye el header `Deprecation`:
+También incluye el header `Deprecation` para advertir al cliente.
 
 ```yaml
 responses:
@@ -632,11 +662,11 @@ responses:
           description: Date when the endpoint will be removed
 ```
 
-Documenta los paths de migración en la descripción: `description: Migrate to /v2/books which supports cursor-based pagination and additional filters.`. Rastrea el uso de endpoints deprecados con análisis: registra las peticiones a endpoints deprecados y notifica a los consumidores por email o webhook. Usa el header `Link` para apuntar al reemplazo: `Link: </v2/books>; rel="successor-version"`.
+En la descripción de la operación añade el path de migración, por ejemplo: `description: Migrate to /v2/books which supports cursor-based pagination and additional filters.`. Para rastrear el uso de endpoints deprecados, registra las peticiones y notifica a los consumidores por email o webhook. También puedes usar el header `Link` para apuntar al reemplazo: `Link: </v2/books>; rel="successor-version"`.
 
 ### ¿Cómo uso extensiones de OpenAPI para metadatos personalizados?
 
-Los campos propietarios en OpenAPI empiezan con `x-`. Úsalos para pistas de generación de código, propiedad interna o metadatos del portal:
+Los campos propietarios en OpenAPI empiezan con `x-`. Úsalos para pistas de generación de código, propiedad interna o metadatos del portal.
 
 ```yaml
 paths:
@@ -649,7 +679,7 @@ paths:
         httpMethod: POST
 ```
 
-Para metadatos internos, añade campos como `x-internal`, `x-owner` o `x-sla`. Para portales de documentación, usa `x-display-name`, `x-sidebar-order` o `x-badge`. Para pistas de generación de código:
+Para metadatos internos, puedes añadir campos como `x-internal`, `x-owner` o `x-sla`; en portales de documentación, campos como `x-display-name`, `x-sidebar-order` o `x-badge`; y para los generadores de código, pistas como `x-codegen-request-body-name`.
 
 ```yaml
 x-enum-descriptions:
@@ -658,7 +688,7 @@ x-enum-descriptions:
   - Suspended user
 ```
 
-Valida las extensiones en CI con reglas personalizadas de Spectral:
+Valida las extensiones en CI con reglas personalizadas de Spectral.
 
 ```yaml
 rules:
@@ -671,7 +701,7 @@ rules:
 
 ### ¿Cómo documento tests de API y tests de contrato en OpenAPI?
 
-El spec es una buena fuente de tests automatizados. Schemathesis genera peticiones a partir de él y valida las respuestas contra el esquema: `schemathesis run openapi.yaml --base-url http://localhost:8000 --checks all`. Dredd valida contra hooks en vivo: `dredd openapi.yaml http://localhost:8000 --hookfiles=./hooks.js`. Las colecciones de Postman se pueden importar y ejecutar con `newman run collection.json --env-var base_url=http://localhost:8000`. Para tests de contrato, Pact publica pacts desde el spec: `pact-broker publish pacts/ --consumer-app-version 1.0.0`. También puedes generar clientes de prueba con `openapi-generator-cli generate -i openapi.yaml -g python -o ./test-client`. Documenta la cobertura en una extensión:
+El spec es una buena fuente de tests automatizados. Schemathesis puede leer el spec, generar peticiones y comprobar que las respuestas encajan con el esquema ejecutando `schemathesis run openapi.yaml --base-url http://localhost:8000 --checks all`. Dredd puede validar el spec contra hooks en vivo con `dredd openapi.yaml http://localhost:8000 --hookfiles=./hooks.js`. También puedes importar una colección de Postman y ejecutarla con `newman run collection.json --env-var base_url=http://localhost:8000`, publicar pacts directamente desde el spec para tests de contrato con `pact-broker publish pacts/ --consumer-app-version 1.0.0`, o generar un cliente de prueba rápido con `openapi-generator-cli generate -i openapi.yaml -g python -o ./test-client`. Incluso puedes registrar la cobertura en una extensión.
 
 ```yaml
 x-test-coverage:
@@ -681,7 +711,7 @@ x-test-coverage:
 
 ### ¿Cómo manejo referencias circulares en esquemas OpenAPI?
 
-Las referencias circulares ocurren cuando un esquema se referencia a sí mismo. Defínelas con `$ref` apuntando al componente:
+Una referencia circular ocurre cuando un esquema apunta de vuelta a sí mismo. Basta con añadir una referencia al componente.
 
 ```yaml
 components:
@@ -697,7 +727,7 @@ components:
             $ref: '#/components/schemas/Category'
 ```
 
-La mayoría de herramientas OpenAPI maneja referencias circulares correctamente. En generación de código, las referencias circulares producen tipos recursivos:
+La mayoría de herramientas OpenAPI maneja referencias circulares correctamente. En generación de código, las referencias circulares producen tipos recursivos.
 
 ```yaml
 class Category:
@@ -705,11 +735,11 @@ class Category:
     subcategories: List[Category]
 ```
 
-Para estructuras profundamente anidadas, limita la profundidad de recursión: `x-max-depth: 5`. En serialización JSON, maneja las referencias circulares con `default=str` o codificadores personalizados. Para la vista en Swagger UI, las referencias circulares pueden causar expansión infinita; usa `x-stoplight:readonly` para evitar la edición. Al validar, usa `jsonschema` con `RefResolver` que maneje referencias circulares: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
+Para estructuras profundamente anidadas, limita la profundidad de recursión con `x-max-depth: 5`. En serialización JSON, maneja las referencias circulares con `default=str` o codificadores personalizados. En Swagger UI, las referencias circulares pueden causar expansión infinita; usa `x-stoplight:readonly` para evitar la edición. Para validar, usa `jsonschema` con un `RefResolver` que maneje referencias circulares, como el siguiente fragmento: `resolver = jsonschema.RefResolver.from_schema(schema); jsonschema.validate(instance, schema, resolver=resolver)`.
 
 ### ¿Cómo documento observabilidad y trazabilidad de API en OpenAPI?
 
-Documenta headers de trazabilidad y métricas usando extensiones y headers estándar. Añade headers de correlation ID:
+Puedes documentar los headers de trazabilidad y métricas con extensiones y headers estándar. Un ejemplo común es añadir un header de correlation ID.
 
 ```yaml
 parameters:
@@ -721,7 +751,7 @@ parameters:
     description: Unique identifier for tracing requests across services
 ```
 
-Documenta los headers de OpenTelemetry:
+También documenta los headers de OpenTelemetry si tu stack los usa.
 
 ```yaml
 x-opentelemetry:
@@ -730,7 +760,7 @@ x-opentelemetry:
   trace_parent_header: traceparent
 ```
 
-Incluye los endpoints de métricas en el spec:
+Incluye los endpoints de métricas en el spec.
 
 ```yaml
 paths:
@@ -745,7 +775,7 @@ paths:
                 type: string
 ```
 
-Documenta los health checks:
+No olvides añadir un endpoint de health check.
 
 ```yaml
 paths:
@@ -759,7 +789,7 @@ paths:
           description: Service unavailable
 ```
 
-Usa la extensión `x-observability` para la configuración de trazabilidad:
+La extensión `x-observability` permite agrupar la configuración de trazabilidad.
 
 ```yaml
 x-observability:
@@ -774,7 +804,7 @@ x-observability:
 
 ### ¿Cómo manejo la negociación de contenido en OpenAPI?
 
-Documenta distintos formatos de respuesta usando `content` con varios media types. Soporta JSON y XML:
+Los clientes pueden pedir distintos formatos, así que declara cada variante dentro del bloque `content` de la respuesta; por ejemplo, junto a JSON añade XML si tu API también lo entrega.
 
 ```yaml
 responses:
@@ -792,7 +822,7 @@ responses:
           description: CSV export of book data
 ```
 
-Documenta el header `Accept`:
+También documenta el header `Accept` para que el cliente pueda elegir.
 
 ```yaml
 parameters:
@@ -804,7 +834,7 @@ parameters:
       enum: [application/json, application/xml, text/csv]
 ```
 
-Para content types versionados:
+Para negociar por media type versionado, declina la versión en el content type.
 
 ```yaml
 content:
@@ -816,11 +846,11 @@ content:
       $ref: '#/components/schemas/BookV2'
 ```
 
-Documenta el comportamiento de la negociación de contenido: `description: Returns JSON by default. Send Accept: application/xml for XML response. Send Accept: text/csv for CSV export.`
+Documenta el comportamiento de la negociación de contenido, por ejemplo: `description: Returns JSON by default. Send Accept: application/xml for XML response. Send Accept: text/csv for CSV export.`
 
 ### ¿Cómo documento headers de caché de una API en OpenAPI?
 
-Documenta el comportamiento de caché usando headers HTTP estándar en las respuestas. Añade los headers `Cache-Control`, `ETag` y `Last-Modified`:
+El comportamiento de caché se documenta con headers HTTP estándar en las respuestas, como `Cache-Control`, `ETag` y `Last-Modified`.
 
 ```yaml
 responses:
@@ -842,7 +872,7 @@ responses:
           description: Last modification timestamp
 ```
 
-Documenta headers de peticiones condicionales:
+También documenta los headers de peticiones condicionales.
 
 ```yaml
 parameters:
@@ -858,7 +888,7 @@ parameters:
       format: date-time
 ```
 
-Incluye la respuesta 304:
+No olvides la respuesta `304` para contenido no modificado.
 
 ```yaml
 '304':
@@ -869,7 +899,7 @@ Incluye la respuesta 304:
         type: string
 ```
 
-Usa la extensión `x-cache` para la configuración de CDN:
+La extensión `x-cache` permite guardar la configuración del CDN.
 
 ```yaml
 x-cache:
@@ -880,7 +910,7 @@ x-cache:
 
 ### ¿Cómo documento operaciones de larga duración en OpenAPI?
 
-Para operaciones asíncronas, usa la respuesta 202 Accepted con un header `Location` para sondeo. Documenta el patrón:
+Para operaciones asíncronas, usa una respuesta 202 Accepted con un header `Location` que los clientes puedan sondear. Documenta ese patrón.
 
 ```yaml
 paths:
@@ -897,7 +927,7 @@ paths:
                 example: /imports/123
 ```
 
-Documenta el endpoint de estado:
+También documenta el endpoint de estado del proceso.
 
 ```yaml
 paths:
@@ -922,7 +952,7 @@ paths:
                     format: uri
 ```
 
-Para callbacks de webhook:
+Para los callbacks de webhook.
 
 ```yaml
 callbacks:
@@ -936,11 +966,11 @@ callbacks:
               $ref: '#/components/schemas/ImportResult'
 ```
 
-Documenta el comportamiento de timeout y las políticas de reintentos.
+Explica el comportamiento de timeout y las políticas de reintentos en la descripción de la operación.
 
 ### ¿Cómo documento buenas prácticas de seguridad de API en OpenAPI?
 
-La seguridad debe estar en todos los niveles: transporte, autenticación y autorización. Empieza con TLS en la URL del servidor, luego documenta CORS, validación de entradas, limitación de frecuencia y rotación de claves:
+La seguridad cubre varios niveles: transporte, autenticación y autorización. Empieza con TLS en la URL del servidor, luego documenta CORS, validación de entradas, limitación de frecuencia y rotación de claves.
 
 ```yaml
 servers:
@@ -963,11 +993,11 @@ parameters:
     required: true
 ```
 
-Usa la descripción de la operación para notas sobre inyección SQL, añade `x-rate-limit-per-user` y `x-api-key-rotation` para limitación de frecuencia y rotación de claves, e incluye un contacto de seguridad en `info.contact`. El cumplimiento OWASP se puede rastrear con `x-owasp-compliance`.
+Usa la descripción de la operación para notas sobre inyección SQL, añade `x-rate-limit-per-user` y `x-api-key-rotation` para limitación de frecuencia y rotación de claves, e incluye un contacto de seguridad en `info.contact`. Puedes rastrear el cumplimiento OWASP con `x-owasp-compliance`.
 
 ### ¿Cómo manejo la división de specs OpenAPI para APIs grandes?
 
-Para APIs grandes, divide el spec en archivos externos y usa `$ref` para reunirlos. Mantén esquemas, paths, respuestas y ejemplos en sus propias carpetas, y comparte un esquema `Error` común desde una librería:
+Para APIs grandes, divide el spec en archivos externos y usa `$ref` para reunirlos. Mantén esquemas, paths, respuestas y ejemplos en sus propias carpetas, y comparte un esquema `Error` común desde una librería.
 
 ```yaml
 components:
@@ -994,7 +1024,7 @@ En CI, empaqueta con `redocly bundle openapi.yaml --output dist/openapi.json` y 
 
 ### ¿Cómo documento métricas y monitoreo de API en OpenAPI?
 
-Documenta el endpoint de métricas y cualquier contador o histograma personalizado que expongas. Para Prometheus:
+Documenta el endpoint de métricas y cualquier contador o histograma personalizado que expongas, por ejemplo en formato Prometheus.
 
 ```yaml
 paths:
@@ -1010,7 +1040,7 @@ paths:
                 description: Prometheus format metrics
 ```
 
-Las métricas personalizadas pueden vivir en una extensión `x-metrics`:
+Las métricas personalizadas puedes guardarlas en una extensión como `x-metrics`.
 
 ```yaml
 x-metrics:
@@ -1023,7 +1053,7 @@ x-metrics:
     buckets: [0.01, 0.05, 0.1, 0.5, 1.0]
 ```
 
-Añade un endpoint de health check para que los clientes puedan detectar caídas:
+Añade un endpoint de health check para que los clientes puedan detectar caídas.
 
 ```yaml
 paths:
@@ -1043,7 +1073,7 @@ paths:
           description: Not ready
 ```
 
-Documenta objetivos de SLA:
+También puedes documentar objetivos de SLA con una extensión `x-sla`.
 
 ```yaml
 x-sla:
@@ -1054,7 +1084,7 @@ x-sla:
 
 ### ¿Cómo documento la idempotencia de una API en OpenAPI?
 
-Para operaciones POST que no deben ejecutarse dos veces, requiere un header `Idempotency-Key` y devuelve `409` cuando se reutiliza la misma clave:
+Para operaciones POST que no deben ejecutarse dos veces, requiere un header `Idempotency-Key` y devuelve `409` cuando se reutiliza la misma clave.
 
 ```yaml
 paths:
@@ -1075,11 +1105,11 @@ paths:
           description: Duplicate idempotency key
 ```
 
-Explica el comportamiento en la descripción de la operación. `PUT` es naturalmente idempotente, así que menciónalo también. Algunos equipos añaden extensiones `x-idempotent: true` o `x-idempotency-key-ttl: 24h` para ayudar a generadores y middleware.
+Aprovecha la descripción de la operación para aclarar el comportamiento. `PUT` es naturalmente idempotente, así que menciónalo también. Algunos equipos añaden extensiones `x-idempotent: true` o `x-idempotency-key-ttl: 24h` para ayudar a generadores y middleware.
 
 ### ¿Cómo documento validación de peticiones de API en OpenAPI?
 
-OpenAPI usa constraints estándar de JSON Schema, así que puedes validar a nivel del spec. Para strings, establece límites de longitud y patrón:
+OpenAPI usa constraints estándar de JSON Schema, así que puedes validar a nivel del spec. Para strings, establece límites de longitud y patrón.
 
 ```yaml
 schema:
@@ -1089,7 +1119,7 @@ schema:
   pattern: '^[a-zA-Z0-9_-]+$'
 ```
 
-Los números aceptan rangos y exclusividad:
+También puedes restringir números con rangos y marcar si los límites son exclusivos.
 
 ```yaml
 schema:
@@ -1099,7 +1129,7 @@ schema:
   exclusiveMinimum: true
 ```
 
-Los enums, arrays y objetos funcionan igual: lista valores permitidos, limita el número de elementos o marca campos como requeridos:
+Los enums, arrays y objetos funcionan igual: lista valores permitidos, limita el número de elementos o marca campos como requeridos.
 
 ```yaml
 schema:
@@ -1134,7 +1164,7 @@ Documenta el formato de las respuestas de error de validación para que los clie
                 code: {type: string}
 ```
 
-Usa la extensión `x-validate` para validadores personalizados:
+Para validadores personalizados, usa la extensión `x-validate`.
 
 ```yaml
 x-validate:
@@ -1145,7 +1175,7 @@ x-validate:
 
 ### ¿Cómo documento contenedores de respuesta de API en OpenAPI?
 
-Documenta contenedores de respuesta estándar para un diseño de API consistente. Define un esquema de contenedor:
+Para un diseño consistente, documenta el contenedor de respuesta estándar. Empieza definiendo su esquema.
 
 ```yaml
 components:
@@ -1173,7 +1203,7 @@ components:
             $ref: '#/components/schemas/Error'
 ```
 
-Usa el contenedor en las respuestas:
+Después úsalo en las respuestas.
 
 ```yaml
 responses:
@@ -1188,7 +1218,7 @@ responses:
                   $ref: '#/components/schemas/Book'
 ```
 
-Documenta el contenedor de error:
+Haz lo mismo con el contenedor de error.
 
 ```yaml
 '400':
@@ -1207,24 +1237,24 @@ Documenta el contenedor de error:
                 source: {type: string}
 ```
 
-Para cumplir con JSON:API, usa las claves top-level `data`, `included`, `meta` y `errors`.
+Si sigues JSON:API, usa las claves top-level `data`, `included`, `meta` y `errors`.
 
 ### ¿Cómo manejo diferencias entre OpenAPI 3.0 y 3.1?
 
-OpenAPI 3.1 elimina el antiguo flag `nullable: true` y en su lugar usa `type: [string, null]`. `exclusiveMinimum` y `exclusiveMaximum` ahora son números, no booleanos:
+OpenAPI 3.1 elimina el antiguo flag `nullable: true` y en su lugar usa `type: [string, null]`. Además, `exclusiveMinimum` y `exclusiveMaximum` pasan de ser booleanos a números que indican el límite excluido.
 
 ```yaml
 minimum: 0
 exclusiveMinimum: true
 ```
 
-En 3.1, eso se convierte en `exclusiveMinimum: 0`. Las subidas binarias cambian de `format: binary` a `contentEncoding: binary`, los webhooks obtienen un campo `webhooks` de nivel superior, y los identificadores de licencia usan SPDX. `summary` dentro de `$ref` es opcional, y `paths` puede estar vacío para APIs solo de webhooks.
+En 3.1, eso pasa a ser `exclusiveMinimum: 0`. Las subidas binarias cambian de `format: binary` a `contentEncoding: binary`, los webhooks obtienen un campo `webhooks` de nivel superior, y los identificadores de licencia usan SPDX. El campo `summary` dentro de `$ref` es opcional, y `paths` puede estar vacío para APIs que solo usen webhooks.
 
 Antes de migrar, valida el spec con `redocly lint` y convierte con `npx @redocly/cli@latest convert openapi.yaml --to 3.1`. La mayoría de herramientas soportan 3.1, pero verifica tu generador y parser primero.
 
 ### ¿Cómo documento portales de documentación de API y experiencia del desarrollador?
 
-Crea un portal de desarrolladores usando Redoc, Stoplight o Backstage. Con Redoc: `npx @redocly/cli build-docs openapi.yaml -o ./docs` genera un sitio HTML estático. Configura la marca:
+Crea un portal de desarrolladores usando Redoc, Stoplight o Backstage. Con Redoc, `npx @redocly/cli build-docs openapi.yaml -o ./docs` genera un sitio HTML estático. Configura la marca.
 
 ```bash
 redocly.yaml:
@@ -1238,7 +1268,7 @@ theme:
     fontFamily: 'Inter, sans-serif'
 ```
 
-Añade funcionalidad try-it-out con Swagger UI: `swagger-ui-express` para Express, o `swagger-ui` standalone. Incluye ejemplos de código interactivos:
+Añade funcionalidad try-it-out con Swagger UI: `swagger-ui-express` para Express, o `swagger-ui` standalone. Incluye ejemplos de código interactivos.
 
 ```yaml
 x-code-samples:
@@ -1250,7 +1280,7 @@ x-code-samples:
     source: fetch('https://api.example.com/books')
 ```
 
-Añade un registro de cambios:
+Añade también un registro de cambios o changelog.
 
 ```yaml
 x-changelog:
@@ -1259,7 +1289,7 @@ x-changelog:
     changes: [Breaking: renamed /books to /v2/books, Added cursor pagination]
 ```
 
-Incluye guías de incorporación:
+También puedes incluir guías de incorporación para nuevos consumidores.
 
 ```yaml
 x-onboarding:
@@ -1268,7 +1298,7 @@ x-onboarding:
 
 ### ¿Cómo documento gestión de API keys en OpenAPI?
 
-Documenta autenticación con API keys, rotación y scopes. Define la seguridad de API key:
+Para documentar la autenticación con API keys, incluye rotación y scopes. Declara `type: apiKey` e indica el header que debe enviar el cliente.
 
 ```yaml
 components:
@@ -1280,7 +1310,7 @@ components:
       description: API key required for all requests
 ```
 
-Documenta los scopes de las claves:
+Los scopes de las claves puedes declararlos en una extensión.
 
 ```yaml
 x-api-key-scopes:
@@ -1290,7 +1320,7 @@ x-api-key-scopes:
   - admin
 ```
 
-Incluye endpoints de gestión de claves:
+También incluye endpoints para crear, listar y revocar claves.
 
 ```yaml
 paths:
@@ -1331,7 +1361,7 @@ paths:
         '204': {description: Key revoked}
 ```
 
-Documenta la política de rotación: `x-api-key-rotation: 90 days`. Documenta el prefijo de clave para identificación: `description: API keys start with 'sk_live_' for production and 'sk_test_' for sandbox.`.
+Documenta la política de rotación con `x-api-key-rotation: 90 days`. También conviene documentar el prefijo de clave para identificar entornos, por ejemplo: `description: API keys start with 'sk_live_' for production and 'sk_test_' for sandbox.`.
 
 
 ## Ver También
@@ -1349,5 +1379,5 @@ Documenta la política de rotación: `x-api-key-rotation: 90 days`. Documenta el
 - Saltar el lint del spec en CI y publicar referencias `$ref` rotas o inválidas.
 - Usar seguridad `apiKey` para tokens JWT tipo bearer en lugar de `http` con `scheme: bearer`.
 - Olvidar versionar el spec junto con la API, o eliminar paths deprecados demasiado pronto.
-- Desplegar los endpoints `/docs` y `/redoc` generados sin control de acceso en APIs internas.
+- Exponer los endpoints `/docs` y `/redoc` generados en APIs internas sin control de acceso.
 - Dar por sentado que un cliente generado funcionará sin verificar compatibilidad con tu versión de OpenAPI y extensiones.

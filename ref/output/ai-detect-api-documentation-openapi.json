@@ -2,64 +2,66 @@
   {
     "label": "api-documentation-openapi-en",
     "model": "desklib",
-    "model_ai_pct": 38.8,
-    "ai_count": 39,
-    "human_count": 118,
-    "skipped_count": 4,
-    "total": 161,
-    "pattern_totals": {},
+    "model_ai_pct": 37.5,
+    "ai_count": 30,
+    "human_count": 127,
+    "skipped_count": 2,
+    "total": 159,
+    "pattern_totals": {
+      "missing_contraction": 2
+    },
     "text_metrics": {
-      "mean": 16.8,
-      "stddev": 11.8,
-      "cv": 0.71,
+      "mean": 18.4,
+      "stddev": 13.6,
+      "cv": 0.74,
       "verdict": "natural variation",
       "sentence_count": 157,
       "lengths": [
         11,
-        14,
+        13,
         25,
         12,
-        16,
-        25,
-        43,
+        23,
+        20,
+        40,
         22,
         13,
         17,
         19,
         18,
-        19,
-        20,
-        10,
-        19,
-        43,
+        23,
+        24,
+        9,
+        18,
+        16,
+        28,
         96,
         18,
         17,
-        7,
+        9,
         8,
         17,
         18,
         10,
-        12,
+        14,
         12,
         7,
         7,
         14,
-        6,
-        5,
-        16,
+        7,
+        20,
         14,
         10,
         24,
         26,
         21,
-        18,
-        13,
-        10,
-        10,
-        8,
+        17,
+        15,
+        11,
+        11,
+        11,
         23,
-        19,
+        21,
         18,
         15,
         23,
@@ -72,76 +74,77 @@
         13,
         26,
         19,
-        12,
-        12,
+        24,
         8,
         7,
-        21,
+        25,
+        14,
         7,
-        6,
-        17,
-        36,
-        22,
-        29,
-        35,
-        8,
-        5,
-        11,
-        5,
-        7,
-        16,
+        27,
         10,
         8,
+        11,
+        7,
+        11,
+        12,
+        23,
+        29,
+        35,
+        10,
+        13,
+        29,
         14,
         7,
-        15,
+        11,
+        7,
+        10,
+        11,
+        20,
+        19,
         14,
         5,
-        8,
+        24,
         16,
-        20,
-        9,
-        31,
-        17,
+        23,
+        8,
+        21,
+        11,
+        18,
         10,
         10,
         30,
         19,
         45,
         8,
-        19,
-        14,
-        7,
-        34,
+        22,
+        5,
+        15,
+        10,
+        38,
         20,
-        10,
-        10,
-        21,
-        17,
-        8,
-        7,
+        13,
+        13,
+        38,
+        16,
         19,
         7,
         22,
-        12,
-        6,
-        9,
+        17,
+        10,
+        36,
         11,
-        8,
-        13,
-        14,
-        16,
         10,
-        15,
-        9,
-        10,
-        30,
-        25,
-        32,
-        16,
-        9,
-        40,
         7,
+        17,
+        10,
+        14,
+        12,
+        10,
+        89,
+        64,
+        9,
+        39,
+        8,
         15,
         27,
         13,
@@ -150,171 +153,192 @@
         7,
         10,
         14,
-        47,
-        13,
-        22,
+        62,
+        30,
         10,
-        11,
+        15,
         16,
-        10,
+        11,
         10,
         12,
         9,
-        7,
-        12,
-        16,
-        16,
-        6,
+        21,
+        9,
+        19,
+        18,
+        8,
         56,
         10,
         11,
         10,
         14,
-        11,
+        10,
         15
       ]
     },
     "top_ai_sentences": [
       [
-        "Design-first makes more sense when frontend, backend and mobile teams need to agree on a contract before writing code.",
-        0.9516
+        "OpenAPI Generator can also produce a static mock server from the same tool.",
+        0.9863
       ],
       [
-        "is still valid, just not the right fit for bearer JWT: it describes a custom API key, not an HTTP bearer scheme.",
-        0.9434
+        "I tend to choose design-first when the frontend, backend and mobile teams all need to agree on a contract before anyone writes code.",
+        0.93
       ],
       [
-        "[Springdoc OpenAPI](https://springdoc.org/) \u2014 Spring Boot annotations and customization.",
-        0.8823
+        "Install it first with , then run the generator command for each language.",
+        0.8725
       ],
       [
-        "Schemathesis generates requests from it and checks responses against the schema: .",
-        0.8598
+        "You can also include  headers in responses, for example , and document rate limiting headers such as ,  and .",
+        0.8417
       ],
       [
-        "and  are now numbers, not booleans:\n\n\n\nIn 3.1, that becomes .",
-        0.7653
+        "Remember to include the  response.",
+        0.8018
       ],
       [
-        "[OpenAPI Specification (latest)](https://spec.openapis.org/oas/latest.html) \u2014 official reference for field names, types and version differences.",
-        0.7396
+        "For API keys, use  and tell clients which header to send.",
+        0.7977
       ],
       [
-        "Define an envelope schema:\n\n\nUse the envelope in responses:\n\n\nDocument error envelope:\n\n\nFor JSON:API compliance, use , , , and  top-level keys.",
-        0.6936
+        "The example below shows an offset-based approach.",
+        0.7684
       ],
       [
-        "Deploying the generated  and  endpoints without access control on internal APIs.",
-        0.6881
+        "In OpenAPI 3.1, webhooks get a top-level  field.",
+        0.7588
       ],
       [
-        "Generate a Python client:  (add  if your generator version supports it).",
-        0.6807
+        "Just add a  to the component, as the example shows.",
+        0.7446
       ],
       [
-        "For downloads, return  with a binary string schema.",
-        0.6737
+        "This guide shows examples in Python with FastAPI, JavaScript with Express and Java with SpringDoc, and it walks through the trade-offs of each.",
+        0.7076
       ],
       [
-        "Then verify the API against the spec with Pact or Schemathesis: .",
-        0.67
+        "**Document real error responses**, not just a successful 200.",
+        0.6998
       ],
       [
-        "Pick one and lint for it.",
-        0.6666
+        "Every operation that requires auth needs a security entry and a matching securitySchemes component.",
+        0.685
       ],
       [
-        "This guide covers three common stacks: Python + FastAPI, JavaScript + Express and Java + SpringDoc.",
-        0.6495
+        "The  type still works, but it does not fit bearer tokens, because it describes a custom API key rather than a bearer scheme.",
+        0.6792
       ],
       [
-        "As soon as you ship a change, those pages are already out of date.",
-        0.6446
+        "Mark operations with  and use the  header for the removal date:\n\n\nInclude the  header:\n\n\nDocument migration paths in the description, for example:\n\n\nTo track deprecation usage, log",
+        0.6766
       ],
       [
-        "**Serve docs from a separate build artifact** or CDN path so spec updates don't require a full application deploy.",
-        0.633
+        "For downloads, the response should use the application/octet-stream content type, which means you should also declare a binary string schema for the response body.",
+        0.6542
       ],
       [
-        "Generate a TypeScript client: .",
-        0.6306
+        "You can track OWASP compliance with the  extension.",
+        0.6266
       ],
       [
-        "OWASP compliance can be tracked with .",
-        0.6222
+        "For a couple of edge cases, the file type becomes format binary and collectionFormat becomes style and explode parameters, so you may need to adjust them manually.",
+        0.6248
       ],
       [
-        "OpenAPI 3.1 replaces  with .",
-        0.6214
+        "For JWT tokens in OpenAPI 3.1, stick with the HTTP bearer scheme.",
+        0.6225
       ],
       [
-        "Track deprecation usage with analytics: log requests to deprecated endpoints and notify consumers via email or webhook.",
-        0.6206
+        "The first block shows a Bearer JWT scheme.",
+        0.6198
       ],
       [
-        "Use  to generate typed clients in several languages.",
-        0.6199
+        "OpenAPI does not enforce a pagination style.",
+        0.578
       ],
       [
-        "With Redoc:  generates a static HTML site.",
-        0.6166
+        "It also compares Swagger UI and Redoc, and explains how to keep the spec from rotting once it's in production.",
+        0.5656
       ],
       [
-        "To cap upload size, add  to the binary field and note the limit in the description: 10485760 bytes for 10MB.",
-        0.6162
+        "Use them for generator hints, internal ownership or portal metadata:\n\n\n\nFor internal metadata, add fields like ,  or .",
+        0.5617
       ],
       [
-        "It also shows when Swagger UI wins, when Redoc is the better fit, and how to keep the spec from rotting once it's in production.",
-        0.6097
+        "To cap upload size, add  to the binary field and note the limit in the description \u2014 for example, 10485760 bytes for 10MB.",
+        0.5473
       ],
       [
-        "Include the 429 response:\n\n\nUse  extensions to generate rate limit handling in client SDKs.",
-        0.6055
+        "Swagger UI is best when developers need to call endpoints from the browser; Redoc is better for a clean, documentation-first reading experience.",
+        0.5313
       ],
       [
-        "You can also generate a static mock server with .",
-        0.5892
+        "With Prism, run  and it will generate responses from the examples in your schema:\n\n\n\nFor random data, add the  flag.",
+        0.5292
       ]
     ],
-    "diagnostics_sample": []
+    "diagnostics_sample": [
+      {
+        "sentence": "The  type still works, but it does not fit bearer tokens, because it describes a custom API key rather than a bearer scheme.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "does not",
+            "suggestion": "use 'doesn't'"
+          }
+        ]
+      },
+      {
+        "sentence": "OpenAPI does not enforce a pagination style.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "does not",
+            "suggestion": "use 'doesn't'"
+          }
+        ]
+      }
+    ]
   },
   {
     "label": "api-documentation-openapi-es",
     "model": "desklib",
-    "model_ai_pct": 37.9,
-    "ai_count": 47,
-    "human_count": 117,
-    "skipped_count": 2,
-    "total": 166,
+    "model_ai_pct": 39.0,
+    "ai_count": 58,
+    "human_count": 162,
+    "skipped_count": 6,
+    "total": 226,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 18.4,
-      "stddev": 12.7,
-      "cv": 0.69,
+      "mean": 15.1,
+      "stddev": 9.1,
+      "cv": 0.6,
       "verdict": "natural variation",
-      "sentence_count": 164,
+      "sentence_count": 220,
       "lengths": [
         18,
-        10,
+        11,
         21,
         14,
-        16,
-        25,
+        22,
+        20,
         38,
         20,
         15,
         20,
         22,
         16,
+        25,
+        23,
+        12,
         21,
-        19,
-        10,
-        19,
-        47,
+        18,
+        31,
         101,
         23,
         16,
-        8,
+        10,
         8,
         18,
         20,
@@ -325,18 +349,17 @@
         7,
         14,
         7,
-        11,
-        18,
+        29,
         15,
         13,
         26,
         34,
         28,
-        19,
-        15,
-        10,
-        10,
-        9,
+        17,
+        17,
+        14,
+        12,
+        12,
         30,
         28,
         22,
@@ -346,106 +369,162 @@
         25,
         23,
         14,
-        70,
+        20,
+        30,
+        20,
         9,
         17,
         25,
-        17,
-        13,
-        12,
-        10,
-        10,
+        14,
         25,
         11,
+        10,
         6,
-        18,
-        5,
-        38,
-        24,
-        32,
-        50,
-        8,
-        6,
-        13,
-        6,
-        8,
-        18,
-        11,
-        12,
         19,
-        10,
-        21,
-        13,
-        5,
-        9,
+        18,
+        6,
         16,
-        22,
         12,
-        36,
-        24,
+        8,
+        19,
+        9,
+        12,
+        10,
+        25,
+        18,
+        15,
+        13,
+        10,
+        14,
+        25,
+        9,
+        39,
+        18,
+        8,
+        12,
+        7,
+        10,
+        9,
+        20,
+        21,
+        13,
+        7,
+        28,
+        18,
+        23,
+        12,
+        23,
+        13,
+        26,
         9,
         11,
-        28,
-        22,
-        5,
-        51,
         12,
-        25,
+        20,
+        5,
         19,
-        6,
-        35,
-        21,
-        9,
-        10,
-        26,
-        23,
-        8,
-        8,
-        22,
-        8,
-        25,
+        5,
+        13,
+        11,
+        33,
+        14,
         15,
         7,
-        11,
-        11,
         8,
+        6,
         18,
-        14,
-        20,
         11,
-        18,
+        7,
+        6,
+        6,
         9,
-        11,
-        40,
-        32,
-        36,
-        22,
-        12,
-        50,
+        13,
+        21,
         8,
+        22,
+        14,
+        8,
+        14,
+        19,
+        10,
+        8,
+        13,
+        28,
+        10,
+        9,
+        18,
+        11,
+        32,
+        8,
+        13,
+        7,
+        9,
+        10,
+        11,
+        11,
+        15,
+        14,
+        13,
+        10,
+        11,
+        8,
+        8,
+        8,
+        30,
+        10,
         13,
         27,
-        14,
+        7,
+        8,
+        8,
+        16,
+        8,
+        5,
+        16,
+        9,
+        21,
+        29,
+        7,
         13,
-        57,
+        18,
+        9,
+        14,
+        18,
+        10,
+        13,
+        10,
+        20,
+        10,
         7,
         11,
         15,
-        53,
-        17,
-        28,
+        8,
+        13,
+        20,
+        19,
+        7,
+        10,
+        5,
+        8,
+        11,
         12,
         13,
+        7,
         22,
-        13,
+        16,
         11,
         13,
         10,
         7,
-        13,
-        22,
-        24,
+        10,
+        5,
         8,
+        9,
+        11,
+        10,
+        10,
+        9,
+        7,
+        13,
         8,
         10,
         7,
@@ -462,104 +541,104 @@
     },
     "top_ai_sentences": [
       [
-        "Los campos  y  se reemplazan por negociaci\u00f3n de contenido por operaci\u00f3n.",
-        0.9746
+        "A continuaci\u00f3n a\u00f1ade un archivo de reglas sencillo para reforzar tus convenciones.",
+        0.9118
       ],
       [
-        "dentro de  es opcional, y  puede estar vac\u00edo para APIs solo de webhooks.",
-        0.9423
+        "El ejemplo siguiente es una uni\u00f3n discriminada.",
+        0.8929
       ],
       [
-        "\u00dasalos en tests de integraci\u00f3n apuntando los clientes a .",
-        0.8868
+        "A continuaci\u00f3n se define el contenedor de la respuesta paginada.",
+        0.8849
       ],
       [
-        "A\u00f1ade los headers ,  y :\n\n\n\nDocumenta headers de peticiones condicionales:\n\n\n\nIncluye la respuesta 304:\n\n\n\nUsa la extensi\u00f3n  para la configuraci\u00f3n de CDN:\n\n\n\n\n\nPara operaciones as\u00ed",
-        0.8724
+        "**Incluye respuestas de error reales**, no solo una respuesta  exitosa.",
+        0.8845
       ],
       [
-        "Un endpoint de registro permite a los clientes suscribirse; documenta las reglas de reintentos y los c\u00f3digos HTTP que espera tu l\u00f3gica de entrega.",
-        0.8528
+        "Una vez definidos los esquemas, a\u00f1ade la entrada  a nivel de operaci\u00f3n.",
+        0.8549
       ],
       [
-        "OpenAPI 3.1 reemplaza  por .",
-        0.8492
+        "No olvides la respuesta  para contenido no modificado.",
+        0.8544
       ],
       [
-        "Documenta el prefijo de clave para identificaci\u00f3n: .",
-        0.8428
+        "A\u00f1ade esos headers a las respuestas para que los clientes sepan cu\u00e1ntas peticiones les quedan.",
+        0.8379
       ],
       [
-        "Para la vista en Swagger UI, las referencias circulares pueden causar expansi\u00f3n infinita; usa  para evitar la edici\u00f3n.",
-        0.8369
+        "Tambi\u00e9n puedes usar el header  para apuntar al reemplazo: .",
+        0.7864
       ],
       [
-        "Usa par\u00e1metros de tipo  u  con un esquema de contenedor de paginaci\u00f3n.",
-        0.7949
+        "La paginaci\u00f3n por cursor funciona con un par\u00e1metro opaco.",
+        0.7648
       ],
       [
-        "Para generar un cliente Java: .",
-        0.7846
+        "En 3.1, eso pasa a ser .",
+        0.7546
       ],
       [
-        "Para limitar el tama\u00f1o de subida, a\u00f1ade  al campo binario e indica el l\u00edmite en la descripci\u00f3n: 10485760 bytes para 10 MB.",
-        0.7713
+        "Una vez que existe el spec, impulsa documentaci\u00f3n interactiva, un sitio de documentaci\u00f3n limpio y generadores de clientes.",
+        0.745
       ],
       [
-        "La seguridad debe estar en todos los niveles: transporte, autenticaci\u00f3n y autorizaci\u00f3n.",
-        0.7654
+        "La extensi\u00f3n  permite agrupar la configuraci\u00f3n de trazabilidad.",
+        0.7417
       ],
       [
-        "Incluye , , ,  y  con cuerpos problem-detail.",
-        0.7577
+        "Tambi\u00e9n puedes incluir gu\u00edas de incorporaci\u00f3n para nuevos consumidores.",
+        0.7083
       ],
       [
-        "Desplegar los endpoints  y  generados sin control de acceso en APIs internas.",
-        0.7518
+        "Declara cada evento como una clave con una operaci\u00f3n , y apunta el cuerpo de la petici\u00f3n a un esquema reutilizable como .",
+        0.7076
       ],
       [
-        "Incluye la respuesta 429:\n\n\n\nUsa extensiones  para generar el manejo de l\u00edmites de frecuencia en los SDKs de cliente.",
-        0.7434
+        "La extensi\u00f3n  permite guardar la configuraci\u00f3n del CDN.",
+        0.6997
       ],
       [
-        "Siempre valida el resultado con .",
-        0.73
+        "Tambi\u00e9n puedes incluir headers  en las respuestas, como , y documentar los headers de l\u00edmite de frecuencia ,  y .",
+        0.6952
       ],
       [
-        "Algunos casos extremos a\u00fan requieren ajustes manuales:  pasa a ser , y  se convierte en par\u00e1metros  y .",
-        0.7177
+        "En CI, empaqueta con  y luego valida el resultado.",
+        0.6938
       ],
       [
-        "Def\u00ednelas con  apuntando al componente:\n\n\n\nLa mayor\u00eda de herramientas OpenAPI maneja referencias circulares correctamente.",
-        0.7017
+        "En OpenAPI 3.1,  se convierte en .",
+        0.6901
       ],
       [
-        "Para generar un cliente TypeScript: .",
-        0.7013
+        "Puedes documentar los headers de trazabilidad y m\u00e9tricas con extensiones y headers est\u00e1ndar.",
+        0.6661
       ],
       [
-        "Usa  en la secci\u00f3n .",
-        0.6843
-      ],
-      [
-        "[Springdoc OpenAPI](https://springdoc.org/) \u2014 anotaciones y personalizaci\u00f3n de Spring Boot.",
-        0.6724
-      ],
-      [
-        "Para descargas, devuelve  con un esquema de cadena binaria.",
-        0.669
+        "En Swagger UI, las referencias circulares pueden causar expansi\u00f3n infinita; usa  para evitar la edici\u00f3n.",
+        0.6627
       ],
       [
         "En cuanto un segundo equipo dependa de ella, un contrato escrito empieza a dar frutos.",
         0.6591
       ],
       [
-        "En cuanto publicas un cambio, esas p\u00e1ginas ya est\u00e1n desactualizadas.",
-        0.6549
+        "La seguridad cubre varios niveles: transporte, autenticaci\u00f3n y autorizaci\u00f3n.",
+        0.6568
       ],
       [
-        "[OpenAPI Specification (latest)](https://spec.openapis.org/oas/latest.html) \u2014 referencia oficial para nombres de campos, tipos y diferencias de versi\u00f3n.",
-        0.6501
+        "Para los callbacks de webhook.",
+        0.6564
+      ],
+      [
+        "Tambi\u00e9n incluye el header  para advertir al cliente.",
+        0.6553
+      ],
+      [
+        "Para limitar el tama\u00f1o de subida, a\u00f1ade  al campo binario e indica el l\u00edmite en la descripci\u00f3n, por ejemplo  bytes para 10 MB.",
+        0.6482
       ]
     ],
     "diagnostics_sample": []
