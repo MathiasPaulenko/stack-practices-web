@@ -91,7 +91,6 @@
 
 La sección central demuestra experiencia práctica: distingue code-first vs. design-first, advierte sobre DTOs, drift, contract tests, versionado y linting. Sin embargo, la pericia decae drásticamente en la FAQ:
 
-
 - Muchos temas avanzados (Kafka, GraphQL, throttling, API gateways, legados) se tocan con un snippet y una línea de texto, sin trade-offs ni advertencias.
 - No se explica, por ejemplo, que `oneOf` con `discriminator` es un dolor para muchos generadores de clientes.
 - No se mencionan limitaciones reales de Swagger UI con especificaciones grandes, de Redoc con POST interactivo, ni de `openapi-generator-cli` con determinados patrones.
@@ -141,7 +140,6 @@ El artículo explica bien:
 ## 8. Trade-offs (Compromisos)
 
 El cuerpo principal explica bien los trade-offs de code-first vs. design-first (EN 104-106 / ES 108-110):
-
 
 - Code-first: sincronía con el código, riesgo de filtrar modelos internos.
 - Design-first: contrato explícito, riesgo de drift si no hay tests.
@@ -255,6 +253,7 @@ Se encontraron errores técnicos concretos. Para cada uno se indica claim, probl
 - `api-documentation-openapi.es.md` líneas 330, 644, 947, 949, 1266.
 
 Ejemplo (EN 335):
+
 ```yaml
 data:
   type: array
@@ -262,6 +261,7 @@ data:
 ```
 
 **CORRECCIÓN:**
+
 ```yaml
 data:
   type: array
@@ -363,7 +363,6 @@ No hay transición ni agrupación temática. La FAQ se lee como un volcado de pr
 ## 17. Structure (Estructura)
 
 La estructura cumple el patrón requerido por el proyecto (`Overview → When to Use → Solution → Explanation → Variants → Best Practices → Common Mistakes → FAQ`), pero la **FAQ desbalancea el artículo**. El 90% de las líneas son FAQ. Sería más útil:
-
 
 - Agrupar la FAQ en subsecciones temáticas (Autenticación, Versionado, Validación, Generación, Avanzado).
 - Mover temas como Kafka, GraphQL, throttling, legados SOAP y API gateways a recetas separadas, con una nota de "Ver También".
@@ -469,7 +468,6 @@ La FAQ añade diagnósticos puntuales (clientes generados no compilan, specs que
 ## 25. Decision-Making Value (Valor para la toma de decisiones)
 
 La decisión más importante (code-first vs. design-first) está bien cubierta. La tabla de variantes ayuda a elegir herramienta por lenguaje y enfoque. Sin embargo, faltan:
-
 
 - Criterios para decidir entre Swagger UI y Redoc (solo una oración).
 - Cuándo merece la pena invertir en `openapi-generator-cli` vs. escribir clientes a mano.
@@ -633,6 +631,7 @@ La presencia de errores sintácticos en snippets reduce la credibilidad para com
 **Clasificación:** **LEVEL 3 — Good practical resource** (buen recurso práctico, pero con defectos técnicos importantes).
 
 El artículo no llega a Level 4 por tres razones principales:
+
 1. Errores técnicos en snippets que impiden copiar y pegar.
 2. Alcance desbordado que reduce profundidad.
 3. Inconsistencias y relleno en la versión española.
@@ -646,12 +645,14 @@ Tampoco es Level 2 porque el cuerpo principal sí contiene valor real, juicio de
 ### P0 — Críticos
 
 #### 1. Snippets YAML con `$ref` en línea inválidos
+
 - **Evidencia:** EN 335, 632, 917, 919, 1216; ES 330, 644, 947, 949, 1266.
 - **Impacto:** los lectores copian specs que no parsean, generan incidentes y desconfían del contenido.
 - **Acción:** reescribir todos como objetos anidados (`$ref` en su propia línea).
 - **Prioridad:** P0.
 
 #### 2. Ejemplo Java con imports incorrectos
+
 - **Evidencia:** EN 83-98 / ES 87-102.
 - **Impacto:** el snippet no compila y confunde a desarrolladores Java/Spring.
 - **Acción:** corregir imports o eliminar los incorrectos; definir o quitar `Book`/`bookService`.
@@ -660,30 +661,35 @@ Tampoco es Level 2 porque el cuerpo principal sí contiene valor real, juicio de
 ### P1 — Alto impacto
 
 #### 3. Afirmación incorrecta: `apiKey` deprecado para JWT
+
 - **Evidencia:** EN 263 / ES 252.
 - **Impacto:** falso técnico; puede llevar a decisiones de seguridad erróneas.
 - **Acción:** cambiar a "se prefiere `http`+`bearer` para JWT".
 - **Prioridad:** P1.
 
 #### 4. Comando inválido: `openapi-generator-cli --library httpx`
+
 - **Evidencia:** EN 304 / ES 298.
 - **Impacto:** comando que fallará al ejecutarse.
 - **Acción:** eliminar o sustituir por opción soportada.
 - **Prioridad:** P1.
 
 #### 5. Versión española: errores de traducción y spanglish
+
 - **Evidencia:** ES 178, 199, 503, 591, 813, 952.
 - **Impacto:** reduce credibilidad y legibilidad.
 - **Acción:** revisión lingüística profesional.
 - **Prioridad:** P1.
 
 #### 6. Falta de "When Not to Use" en inglés
+
 - **Evidencia:** EN 40-46 vs. ES 41-50.
 - **Impacto:** paridad incompleta; la versión inglesa pierde matura técnica.
 - **Acción:** añadir el párrafo equivalente.
 - **Prioridad:** P1.
 
 #### 7. Alcance de la FAQ desproporcionado
+
 - **Evidencia:** ~1.470 líneas de FAQ incluyendo Kafka, GraphQL, gateways, legados.
 - **Impacto:** confunde al lector, dificulta el mantenimiento y propicia errores.
 - **Acción:** dividir en artículos específicos; quedarse con 6-10 FAQs centrales.
@@ -692,18 +698,21 @@ Tampoco es Level 2 porque el cuerpo principal sí contiene valor real, juicio de
 ### P2 — Impacto medio
 
 #### 8. Repetición de consejos
+
 - **Evidencia:** lint en CI, DTOs, contract tests repetidos en múltiples secciones.
 - **Impacto:** densidad baja y lectura tediosa.
 - **Acción:** consolidar y referenciar.
 - **Prioridad:** P2.
 
 #### 9. Snippets sin salida esperada ni pasos de instalación
+
 - **Evidencia:** sección `Solution` y muchas FAQs.
 - **Impacto:** el lector no puede validar que está haciendo lo correcto.
 - **Acción:** añadir "qué verás" o capturas de texto del spec resultante.
 - **Prioridad:** P2.
 
 #### 10. `Common Production Pitfalls` es genérica
+
 - **Evidencia:** EN 1651-1660 / ES 1723-1725.
 - **Impacto:** no aporta valor específico a OpenAPI.
 - **Acción:** adaptar a OpenAPI o eliminar.
@@ -729,26 +738,30 @@ Tampoco es Level 2 porque el cuerpo principal sí contiene valor real, juicio de
 ## 39. Content Improvement Roadmap (Hoja de ruta de mejora)
 
 ### P0 — Debe corregirse antes de publicar/actualizar
+
 1. Corregir todos los snippets YAML con `$ref` en línea (EN 335, 632, 917, 919, 1216; ES 330, 644, 947, 949, 1266).
 2. Corregir el ejemplo Java: imports correctos y variables definidas (EN 83-98 / ES 87-102).
 
 ### P1 — Alto impacto
-3. Corregir la afirmación sobre `apiKey` deprecado (EN 263 / ES 252).
-4. Eliminar/sustituir el comando `--library httpx` (EN 304 / ES 298).
-5. Revisión lingüística completa de la versión española (líneas 178, 199, 503, 591, 813, 952 y otras similares).
-6. Añadir el matiz "When not to use" a la versión inglesa (ES 50).
-7. Dividir la FAQ: mover Kafka, GraphQL, throttling, API gateways, legados SOAP, SSE y HATEOAS a recetas independientes; dejar solo 6-10 FAQs centrales.
-8. Eliminar el import muerto de `get_swagger_ui_html` en el ejemplo Python o mostrar su uso.
+
+1. Corregir la afirmación sobre `apiKey` deprecado (EN 263 / ES 252).
+2. Eliminar/sustituir el comando `--library httpx` (EN 304 / ES 298).
+3. Revisión lingüística completa de la versión española (líneas 178, 199, 503, 591, 813, 952 y otras similares).
+4. Añadir el matiz "When not to use" a la versión inglesa (ES 50).
+5. Dividir la FAQ: mover Kafka, GraphQL, throttling, API gateways, legados SOAP, SSE y HATEOAS a recetas independientes; dejar solo 6-10 FAQs centrales.
+6. Eliminar el import muerto de `get_swagger_ui_html` en el ejemplo Python o mostrar su uso.
 
 ### P2 — Impacto medio
-9. Consolidar la repetición de lint/CI/DTOs/contract tests.
-10. Añadir "salida esperada" o estructura de archivos a los ejemplos.
-11. Sustituir `Common Production Pitfalls` por una lista específica de OpenAPI.
-12. Añadir notas de versión a herramientas y a OpenAPI 3.0/3.1.
+
+1. Consolidar la repetición de lint/CI/DTOs/contract tests.
+2. Añadir "salida esperada" o estructura de archivos a los ejemplos.
+3. Sustituir `Common Production Pitfalls` por una lista específica de OpenAPI.
+4. Añadir notas de versión a herramientas y a OpenAPI 3.0/3.1.
 
 ### P3 — Opcional
-13. Añadir un mini-proyecto reproducible (repo o pasos exactos) para el stack FastAPI + Redocly.
-14. Incluir una decisión gráfica (decision tree) de code-first vs. design-first.
+
+1. Añadir un mini-proyecto reproducible (repo o pasos exactos) para el stack FastAPI + Redocly.
+2. Incluir una decisión gráfica (decision tree) de code-first vs. design-first.
 
 ---
 
