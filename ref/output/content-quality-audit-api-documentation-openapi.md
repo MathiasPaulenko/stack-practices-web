@@ -742,7 +742,7 @@ Tampoco es Level 2 porque el cuerpo principal sí contiene valor real, juicio de
 1. Corregir todos los snippets YAML con `$ref` en línea (EN 335, 632, 917, 919, 1216; ES 330, 644, 947, 949, 1266).
 2. Corregir el ejemplo Java: imports correctos y variables definidas (EN 83-98 / ES 87-102).
 
-### P1 — Alto impacto
+### P1 — Acciones de alto impacto
 
 1. Corregir la afirmación sobre `apiKey` deprecado (EN 263 / ES 252).
 2. Eliminar/sustituir el comando `--library httpx` (EN 304 / ES 298).
@@ -751,7 +751,7 @@ Tampoco es Level 2 porque el cuerpo principal sí contiene valor real, juicio de
 5. Dividir la FAQ: mover Kafka, GraphQL, throttling, API gateways, legados SOAP, SSE y HATEOAS a recetas independientes; dejar solo 6-10 FAQs centrales.
 6. Eliminar el import muerto de `get_swagger_ui_html` en el ejemplo Python o mostrar su uso.
 
-### P2 — Impacto medio
+### P2 — Acciones de impacto medio
 
 1. Consolidar la repetición de lint/CI/DTOs/contract tests.
 2. Añadir "salida esperada" o estructura de archivos a los ejemplos.
