@@ -8,7 +8,7 @@ slug: ai-rag-evaluation-checklist
 templateType: post-deployment-checklist
 title: "Checklist de Evaluación de RAG"
 description: "Un checklist para evaluar la calidad de sistemas RAG: retrieval accuracy, generation faithfulness, context relevance, answer correctness, citation accuracy, latencia y testing end-to-end con metricas y thresholds."
-metaDescription: "Checklist for RAG system quality: retrieval accuracy, generation faithfulness, context relevance, answer correctness, citations, latency, end-to-end testing."
+metaDescription: "Checklist para evaluar calidad de RAG: precisión de recuperación, fidelidad, relevancia, correctitud, citas, latencia y testing end-to-end."
 difficulty: intermediate
 topics:
   - ai
@@ -30,7 +30,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Checklist for RAG system quality: retrieval accuracy, generation faithfulness, context relevance, answer correctness, citations, latency, end-to-end testing."
+  metaDescription: "Checklist para evaluar calidad de RAG: precisión de recuperación, fidelidad, relevancia, correctitud, citas, latencia y testing end-to-end."
   keywords:
     - rag evaluation
     - rag checklist

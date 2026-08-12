@@ -6,7 +6,7 @@ slug: cdn-cache-rules-template
 templateType: guideline
 title: "Plantilla de Reglas de CDN Cache"
 description: "Plantilla para definir CDN caching rules y edge behavior: cache keys, TTL por content type, query parameter handling, header forwarding, purge strategies y origin shield configuration con ejemplos de codigo."
-metaDescription: "Template for CDN cache rules: cache keys, TTL by content type, query params, header forwarding, purge strategies, origin shield, edge behavior, code examples."
+metaDescription: "Plantilla para reglas de caché CDN: cache keys, TTL por tipo de contenido, query params, headers, purge, origin shield y edge behavior."
 difficulty: intermediate
 topics:
   - caching
@@ -24,7 +24,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Template for CDN cache rules: cache keys, TTL by content type, query params, header forwarding, purge strategies, origin shield, edge behavior, code examples."
+  metaDescription: "Plantilla para reglas de caché CDN: cache keys, TTL por tipo de contenido, query params, headers, purge, origin shield y edge behavior."
   keywords:
     - cdn cache rules
     - cdn configuration

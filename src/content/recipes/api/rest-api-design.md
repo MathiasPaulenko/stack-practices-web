@@ -21,6 +21,7 @@ relatedResources:
   - /recipes/idempotent-api-endpoints
   - /recipes/grpc-api
   - /recipes/grpc-services-typescript
+  - /recipes/api-documentation-openapi
 lastUpdated: "2026-07-09"
 publishedAt: "2026-06-19"
 author: Mathias Paulenko

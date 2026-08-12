@@ -6,7 +6,7 @@ slug: dead-letter-queue-runbook
 templateType: runbook
 title: "Runbook de Dead Letter Queue"
 description: "Runbook para handlear y replayear dead letter queue messages en Kafka y RabbitMQ: DLQ setup, inspection procedures, root cause analysis, replay strategies, monitoring alerts y automation scripts para failed message recovery."
-metaDescription: "Dead letter queue runbook: DLQ setup, message inspection, root cause analysis, replay strategies, monitoring, automation for Kafka and RabbitMQ."
+metaDescription: "Runbook para manejar y reprocesar DLQ en Kafka y RabbitMQ: setup, inspección, root cause, replay, alertas y scripts de recuperación."
 difficulty: intermediate
 topics:
   - messaging
@@ -25,7 +25,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Dead letter queue runbook: DLQ setup, message inspection, root cause analysis, replay strategies, monitoring, automation for Kafka and RabbitMQ."
+  metaDescription: "Runbook para manejar y reprocesar DLQ en Kafka y RabbitMQ: setup, inspección, root cause, replay, alertas y scripts de recuperación."
   keywords:
     - dead letter queue
     - dlq runbook

@@ -8,7 +8,7 @@ slug: secrets-rotation-runbook
 templateType: runbook
 title: "Runbook de Rotacion de Secrets"
 description: "Runbook para rotar secrets sin downtime: secret inventory, rotation schedule, zero-downtime rotation strategies, dual-key periods, automated rotation con AWS Secrets Manager y HashiCorp Vault y emergency rotation procedures."
-metaDescription: "Secrets rotation runbook: inventory, schedule, zero-downtime rotation, dual-key periods, AWS Secrets Manager, HashiCorp Vault, emergency rotation."
+metaDescription: "Runbook para rotar secrets sin downtime: inventario, cronograma, rotación sin cortes, dual-key, AWS Secrets Manager y HashiCorp Vault."
 difficulty: intermediate
 topics:
   - security
@@ -29,7 +29,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Secrets rotation runbook: inventory, schedule, zero-downtime rotation, dual-key periods, AWS Secrets Manager, HashiCorp Vault, emergency rotation."
+  metaDescription: "Runbook para rotar secrets sin downtime: inventario, cronograma, rotación sin cortes, dual-key, AWS Secrets Manager y HashiCorp Vault."
   keywords:
     - secrets rotation
     - zero-downtime rotation

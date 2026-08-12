@@ -9,7 +9,7 @@ slug: async-task-cancellation-runbook
 templateType: runbook
 title: "Runbook de Cancelacion de Async Tasks"
 description: "Runbook para cancelar de forma segura long-running async tasks en Python, JavaScript, Go y Java: cancellation tokens, context propagation, resource cleanup, timeout strategies y graceful shutdown procedures con ejemplos de codigo."
-metaDescription: "Async task cancellation runbook: cancellation tokens, context propagation, resource cleanup, timeouts, graceful shutdown for Python, JS, Go, Java."
+metaDescription: "Runbook para cancelar tareas asíncronas largas en Python, JS, Go y Java: tokens, propagación de contexto, limpieza, timeouts y graceful shutdown."
 difficulty: advanced
 topics:
   - concurrency
@@ -28,7 +28,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Async task cancellation runbook: cancellation tokens, context propagation, resource cleanup, timeouts, graceful shutdown for Python, JS, Go, Java."
+  metaDescription: "Runbook para cancelar tareas asíncronas largas en Python, JS, Go y Java: tokens, propagación de contexto, limpieza, timeouts y graceful shutdown."
   keywords:
     - async cancellation
     - cancellation token

@@ -7,7 +7,7 @@ slug: database-query-tuning-checklist
 templateType: guideline
 title: "Checklist de Database Query Tuning"
 description: "Checklist para optimizacion sistematica de SQL queries: EXPLAIN plan analysis, index strategy, N+1 query detection, join optimization, pagination patterns, connection pooling, query caching y slow query log triage con ejemplos para PostgreSQL y MySQL."
-metaDescription: "Database query tuning checklist: EXPLAIN analysis, index strategy, N+1 detection, join optimization, pagination, connection pooling, slow query log, PostgreSQL MySQL."
+metaDescription: "Checklist para optimizar queries SQL: análisis EXPLAIN, índices, N+1, joins, paginación, pooling, caché y slow query log para PostgreSQL y MySQL."
 difficulty: intermediate
 topics:
   - performance
@@ -29,7 +29,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Database query tuning checklist: EXPLAIN analysis, index strategy, N+1 detection, join optimization, pagination, connection pooling, slow query log, PostgreSQL MySQL."
+  metaDescription: "Checklist para optimizar queries SQL: análisis EXPLAIN, índices, N+1, joins, paginación, pooling, caché y slow query log para PostgreSQL y MySQL."
   keywords:
     - database query tuning
     - sql optimization

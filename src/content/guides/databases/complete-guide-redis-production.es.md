@@ -5,7 +5,7 @@ contentType: guides
 slug: complete-guide-redis-production
 title: "Redis en Producción"
 description: "Correr Redis en produccion. Cubre persistence (RDB, AOF), clustering, sentinel para HA, failover handling, memory management, eviction policies, pipelining, Lua scripting, monitoring, security hardening y backup strategies con ejemplos practicos."
-metaDescription: "Run Redis in production. Covers persistence RDB AOF, clustering, sentinel, failover, memory management, eviction, pipelining, Lua, monitoring."
+metaDescription: "Guía de Redis en producción: persistencia RDB/AOF, clustering, Sentinel, failover, memoria, eviction, pipelining, Lua, monitoreo y backups."
 difficulty: advanced
 topics:
   - databases
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Run Redis in production. Covers persistence RDB AOF, clustering, sentinel, failover, memory management, eviction, pipelining, Lua, monitoring."
+  metaDescription: "Guía de Redis en producción: persistencia RDB/AOF, clustering, Sentinel, failover, memoria, eviction, pipelining, Lua, monitoreo y backups."
   keywords:
     - redis production
     - redis persistence

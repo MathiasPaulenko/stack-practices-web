@@ -6,7 +6,7 @@ contentType: guides
 slug: complete-guide-monitoring-and-alerting
 title: "Monitoring y Alerting"
 description: "Construir un production monitoring stack. Cubre Prometheus, Grafana, AlertManager, metrics instrumentation, alert rules, runbooks, SLI/SLO/SLA, distributed tracing con Jaeger, log aggregation y on-call best practices con ejemplos practicos de configuracion."
-metaDescription: "Build monitoring stack. Covers Prometheus, Grafana, AlertManager, metrics, alert rules, runbooks, SLI/SLO/SLA, Jaeger tracing, log aggregation."
+metaDescription: "Guía para construir un stack de monitoreo: Prometheus, Grafana, AlertManager, métricas, alertas, runbooks, SLI/SLO, tracing, logs y on-call."
 difficulty: advanced
 topics:
   - devops
@@ -29,7 +29,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Build monitoring stack. Covers Prometheus, Grafana, AlertManager, metrics, alert rules, runbooks, SLI/SLO/SLA, Jaeger tracing, log aggregation."
+  metaDescription: "Guía para construir un stack de monitoreo: Prometheus, Grafana, AlertManager, métricas, alertas, runbooks, SLI/SLO, tracing, logs y on-call."
   keywords:
     - monitoring and alerting
     - prometheus

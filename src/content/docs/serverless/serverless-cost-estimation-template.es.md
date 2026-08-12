@@ -4,7 +4,7 @@ slug: serverless-cost-estimation-template
 templateType: guideline
 title: "Plantilla de Estimacion de Costos Serverless"
 description: "Plantilla para estimar costos serverless por workload: invocation-based pricing, memory-duration calculation, data transfer, API Gateway, Step Functions y hidden costs. Incluye estrategias de optimizacion y proyecciones de budget."
-metaDescription: "Serverless cost estimation template: invocation pricing, GB-second calc, data transfer, API Gateway, hidden costs, optimization strategies, budget."
+metaDescription: "Plantilla para estimar costos serverless: invocaciones, memoria-duración, transferencia, API Gateway, Step Functions, costos ocultos y optimización."
 difficulty: intermediate
 topics:
   - serverless
@@ -22,7 +22,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Serverless cost estimation template: invocation pricing, GB-second calc, data transfer, API Gateway, hidden costs, optimization strategies, budget."
+  metaDescription: "Plantilla para estimar costos serverless: invocaciones, memoria-duración, transferencia, API Gateway, Step Functions, costos ocultos y optimización."
   keywords:
     - serverless cost
     - lambda pricing

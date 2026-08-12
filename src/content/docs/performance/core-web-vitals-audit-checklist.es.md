@@ -6,7 +6,7 @@ slug: core-web-vitals-audit-checklist
 templateType: guideline
 title: "Checklist de Auditoria de Core Web Vitals"
 description: "Checklist para auditar Core Web Vitals por pagina: LCP optimization steps, INP interaction tuning, CLS layout stability fixes, field data vs lab data analysis, CrUX integration y remediation tracking con ejemplos de codigo para imagenes, fuentes, JavaScript y CSS."
-metaDescription: "Core Web Vitals audit checklist: LCP, INP, CLS optimization, field vs lab data, CrUX, remediation tracking, image font JS CSS fixes per page."
+metaDescription: "Checklist para auditar Core Web Vitals por página: LCP, INP, CLS, datos de campo vs lab, CrUX, optimización de imágenes, fuentes, JS y CSS."
 difficulty: intermediate
 topics:
   - performance
@@ -27,7 +27,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Core Web Vitals audit checklist: LCP, INP, CLS optimization, field vs lab data, CrUX, remediation tracking, image font JS CSS fixes per page."
+  metaDescription: "Checklist para auditar Core Web Vitals por página: LCP, INP, CLS, datos de campo vs lab, CrUX, optimización de imágenes, fuentes, JS y CSS."
   keywords:
     - core web vitals audit
     - lcp optimization

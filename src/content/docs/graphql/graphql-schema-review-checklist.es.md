@@ -7,7 +7,7 @@ slug: graphql-schema-review-checklist
 templateType: post-deployment-checklist
 title: "Checklist de Revision de Schema GraphQL"
 description: "Checklist para revisar schemas GraphQL: naming conventions, type design, pagination, error handling, security, performance, deprecation y federation readiness con ejemplos de codigo y validation rules."
-metaDescription: "Checklist for GraphQL schema review: naming, type design, pagination, error handling, security, performance, deprecation, federation readiness with examples."
+metaDescription: "Checklist para revisar schemas GraphQL: convenciones, diseño de tipos, paginación, errores, seguridad, rendimiento, deprecación y federación."
 difficulty: intermediate
 topics:
   - graphql
@@ -27,7 +27,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Checklist for GraphQL schema review: naming, type design, pagination, error handling, security, performance, deprecation, federation readiness with examples."
+  metaDescription: "Checklist para revisar schemas GraphQL: convenciones, diseño de tipos, paginación, errores, seguridad, rendimiento, deprecación y federación."
   keywords:
     - graphql schema review
     - graphql checklist

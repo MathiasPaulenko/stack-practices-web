@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/rate-limiting
   - /recipes/send-emails-smtp
   - /recipes/webhooks
+  - /recipes/api-documentation-openapi
 lastUpdated: "2026-06-10"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko

@@ -6,7 +6,7 @@ slug: security-review-checklist-for-prs
 templateType: guideline
 title: "Checklist de Security Review para PRs"
 description: "Checklist para security checks durante pull request review: input validation, authentication, authorization, secrets, dependencies, injection, XSS, CSRF, logging y automated tooling integration con ejemplos de codigo para secure patterns."
-metaDescription: "Security review checklist for PRs: input validation, auth, secrets, dependencies, injection, XSS, CSRF, logging, automated tooling, secure code patterns."
+metaDescription: "Checklist de seguridad para revisar PRs: validación, auth, secrets, dependencias, inyección, XSS, CSRF, logging y automatización."
 difficulty: intermediate
 topics:
   - security
@@ -23,7 +23,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Security review checklist for PRs: input validation, auth, secrets, dependencies, injection, XSS, CSRF, logging, automated tooling, secure code patterns."
+  metaDescription: "Checklist de seguridad para revisar PRs: validación, auth, secrets, dependencias, inyección, XSS, CSRF, logging y automatización."
   keywords:
     - security review
     - pull request security

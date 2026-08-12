@@ -9,7 +9,7 @@ slug: thread-pool-sizing-template
 templateType: guideline
 title: "Plantilla de Sizing de Thread Pools"
 description: "Plantilla para documentar thread pool configuration per service: pool type selection, sizing formulas, CPU vs I/O bound tuning, queue strategies, rejection policies, monitoring metrics y tuning examples para Java, Python, Go y Node.js."
-metaDescription: "Thread pool sizing template: pool types, sizing formulas, CPU vs I/O tuning, queue strategies, rejection policies, monitoring for Java, Python, Go, Node.js."
+metaDescription: "Plantilla para configurar thread pools: tipos, fórmulas, CPU vs I/O, colas, rejection policies y métricas para Java, Python, Go y Node.js."
 difficulty: intermediate
 topics:
   - concurrency
@@ -30,7 +30,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Thread pool sizing template: pool types, sizing formulas, CPU vs I/O tuning, queue strategies, rejection policies, monitoring for Java, Python, Go, Node.js."
+  metaDescription: "Plantilla para configurar thread pools: tipos, fórmulas, CPU vs I/O, colas, rejection policies y métricas para Java, Python, Go y Node.js."
   keywords:
     - thread pool sizing
     - thread pool configuration

@@ -9,7 +9,7 @@ slug: race-condition-debugging-checklist
 templateType: guideline
 title: "Checklist de Debugging de Race Conditions"
 description: "Checklist para identificar y fixear race conditions en concurrent code: symptom identification, reproduction strategies, debugging tools, common patterns, fixes usando locks, atomics, channels y prevention techniques con ejemplos de codigo."
-metaDescription: "Race condition debugging checklist: symptoms, reproduction, tools, common patterns, fixes with locks, atomics, channels, prevention for Python, Java, Go."
+metaDescription: "Checklist para detectar y corregir race conditions: síntomas, reproducción, herramientas, patrones, locks, atómicos, canales y prevención."
 difficulty: advanced
 topics:
   - concurrency
@@ -29,7 +29,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Race condition debugging checklist: symptoms, reproduction, tools, common patterns, fixes with locks, atomics, channels, prevention for Python, Java, Go."
+  metaDescription: "Checklist para detectar y corregir race conditions: síntomas, reproducción, herramientas, patrones, locks, atómicos, canales y prevención."
   keywords:
     - race condition
     - concurrency debugging

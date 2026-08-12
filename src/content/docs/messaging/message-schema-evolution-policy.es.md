@@ -6,7 +6,7 @@ slug: message-schema-evolution-policy
 templateType: api-deprecation
 title: "Politica de Evolucion de Message Schemas"
 description: "Politica para evolucionar message schemas de forma segura en event-driven systems: backward y forward compatibility rules, schema registry usage, versioning strategies, migration procedures y breaking change handling con Avro, Protobuf y JSON examples."
-metaDescription: "Message schema evolution policy: backward and forward compatibility, schema registry, versioning, migration, breaking changes with Avro, Protobuf, JSON examples."
+metaDescription: "Política para evolucionar schemas: compatibilidad, schema registry, versionado, migración, breaking changes con Avro, Protobuf y JSON."
 difficulty: advanced
 topics:
   - messaging
@@ -25,7 +25,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Message schema evolution policy: backward and forward compatibility, schema registry, versioning, migration, breaking changes with Avro, Protobuf, JSON examples."
+  metaDescription: "Política para evolucionar schemas: compatibilidad, schema registry, versionado, migración, breaking changes con Avro, Protobuf y JSON."
   keywords:
     - schema evolution
     - schema registry

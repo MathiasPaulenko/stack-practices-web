@@ -6,7 +6,7 @@ slug: serverless-security-checklist
 templateType: penetration-test
 title: "Checklist de Seguridad Serverless"
 description: "Checklist de hardening de seguridad para funciones serverless: IAM least privilege, secret management, input validation, dependency scanning, network isolation, logging y compliance con ejemplos de codigo para AWS Lambda, Azure y GCP."
-metaDescription: "Security checklist for serverless functions: IAM least privilege, secrets, input validation, dependency scanning, network isolation, logging, compliance."
+metaDescription: "Checklist de seguridad serverless: IAM least privilege, secretos, validación, escaneo de dependencias, red, logging y compliance."
 difficulty: advanced
 topics:
   - serverless
@@ -25,7 +25,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Security checklist for serverless functions: IAM least privilege, secrets, input validation, dependency scanning, network isolation, logging, compliance."
+  metaDescription: "Checklist de seguridad serverless: IAM least privilege, secretos, validación, escaneo de dependencias, red, logging y compliance."
   keywords:
     - serverless security
     - lambda security

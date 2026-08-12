@@ -6,7 +6,7 @@ slug: ai-llm-incident-response-runbook
 templateType: runbook
 title: "Runbook de Respuesta a Incidentes de LLM"
 description: "Runbook operacional para incidentes de LLM en produccion: eventos de hallucination, model outages, cost spikes, safety failures y calidad degradada. Incluye severity levels, escalation paths, diagnosticos y recovery."
-metaDescription: "Runbook for LLM production incidents: hallucinations, model outages, cost spikes, safety failures, degraded quality. Severity levels, escalation, diagnostics, recovery."
+metaDescription: "Runbook para incidentes de LLM: alucinaciones, caídas, picos de costos, fallos de seguridad, calidad degradada, severidad, escalado y recuperación."
 difficulty: advanced
 topics:
   - ai
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Runbook for LLM production incidents: hallucinations, model outages, cost spikes, safety failures, degraded quality. Severity levels, escalation, diagnostics, recovery."
+  metaDescription: "Runbook para incidentes de LLM: alucinaciones, caídas, picos de costos, fallos de seguridad, calidad degradada, severidad, escalado y recuperación."
   keywords:
     - llm incident response
     - ai runbook

@@ -6,7 +6,7 @@ slug: kafka-topic-naming-convention-template
 templateType: guideline
 title: "Plantilla de Convencion de Naming de Kafka Topics"
 description: "Plantilla para estandarizar nombres de Kafka topics across teams: naming patterns, environment prefixes, domain segmentation, event type suffixes, partition count rules y retention policies con ejemplos."
-metaDescription: "Kafka topic naming convention template: environment prefixes, domain names, event type suffixes, partition rules, retention policies with examples."
+metaDescription: "Plantilla para estandarizar nombres de topics Kafka: patrones, entornos, dominios, tipos de eventos, particiones, retención y ejemplos."
 difficulty: intermediate
 topics:
   - messaging
@@ -23,7 +23,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Kafka topic naming convention template: environment prefixes, domain names, event type suffixes, partition rules, retention policies with examples."
+  metaDescription: "Plantilla para estandarizar nombres de topics Kafka: patrones, entornos, dominios, tipos de eventos, particiones, retención y ejemplos."
   keywords:
     - kafka topic naming
     - topic naming convention

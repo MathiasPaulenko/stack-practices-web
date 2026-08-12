@@ -22,6 +22,7 @@ relatedResources:
   - /recipes/graphql-api
   - /recipes/rest-api-design
   - /recipes/server-sent-events
+  - /recipes/api-documentation-openapi
 lastUpdated: "2026-06-11"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko

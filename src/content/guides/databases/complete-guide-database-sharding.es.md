@@ -8,7 +8,7 @@ contentType: guides
 slug: complete-guide-database-sharding
 title: "Database Sharding"
 description: "database sharding. Cubre range-based, hash-based y directory-based partitioning strategies, consistent hashing, shard key selection, cross-shard queries, resharding, Vitess, Citus y cuando shardar vs escalar verticalmente con ejemplos practicos."
-metaDescription: "Master database sharding. Covers range, hash, directory partitioning, consistent hashing, shard keys, cross-shard queries, resharding, Vitess."
+metaDescription: "Guía de sharding de bases de datos: partición por rango, hash, directorio, consistent hashing, shard keys, queries cross-shard, Vitess y Citus."
 difficulty: advanced
 topics:
   - databases
@@ -33,7 +33,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Master database sharding. Covers range, hash, directory partitioning, consistent hashing, shard keys, cross-shard queries, resharding, Vitess."
+  metaDescription: "Guía de sharding de bases de datos: partición por rango, hash, directorio, consistent hashing, shard keys, queries cross-shard, Vitess y Citus."
   keywords:
     - database sharding
     - horizontal partitioning

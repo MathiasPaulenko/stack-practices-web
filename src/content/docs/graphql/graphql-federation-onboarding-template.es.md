@@ -9,7 +9,7 @@ slug: graphql-federation-onboarding-template
 templateType: onboarding
 title: "Plantilla de Onboarding a GraphQL Federation"
 description: "Plantilla para onboardear un servicio a un federated GraphQL graph: subgraph setup, entity definitions, resolver configuration, gateway integration, testing, deployment y monitoring con ejemplos de codigo."
-metaDescription: "Template for onboarding a service to federated GraphQL: subgraph setup, entity definitions, resolvers, gateway integration, testing, deployment, monitoring."
+metaDescription: "Plantilla para integrar un servicio a GraphQL federado: subgraphs, entidades, resolvers, gateway, testing, despliegue y monitoreo."
 difficulty: advanced
 topics:
   - graphql
@@ -32,7 +32,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Template for onboarding a service to federated GraphQL: subgraph setup, entity definitions, resolvers, gateway integration, testing, deployment, monitoring."
+  metaDescription: "Plantilla para integrar un servicio a GraphQL federado: subgraphs, entidades, resolvers, gateway, testing, despliegue y monitoreo."
   keywords:
     - graphql federation
     - subgraph onboarding

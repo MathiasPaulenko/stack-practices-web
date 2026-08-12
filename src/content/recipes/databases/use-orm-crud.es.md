@@ -4,8 +4,8 @@
 contentType: recipes
 slug: use-orm-crud
 title: "[ES] Use ORM for CRUD"
-description: "[ES] How to perform CRUD operations using ORMs in Python, JavaScript, and Java."
-metaDescription: "Learn ORM CRUD operations using SQLAlchemy, Prisma, and Hibernate with practical code examples in Python, JavaScript, and Java."
+description: "Guía práctica de operaciones CRUD con ORMs: crea, lee, actualiza y elimina datos usando SQLAlchemy, Prisma y Hibernate en Python, JavaScript y Java."
+metaDescription: "Aprende a realizar operaciones CRUD con ORMs: ejemplos paso a paso en Python, JavaScript y Java con SQLAlchemy, Prisma y Hibernate."
 difficulty: intermediate
 topics:
   - databases
@@ -27,7 +27,7 @@ lastUpdated: "2026-06-21"
 publishedAt: "2026-06-21"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn ORM CRUD operations using SQLAlchemy, Prisma, and Hibernate with practical code examples in Python, JavaScript, and Java."
+  metaDescription: "Aprende a realizar operaciones CRUD con ORMs: ejemplos paso a paso en Python, JavaScript y Java con SQLAlchemy, Prisma y Hibernate."
   keywords:
     - databases
     - orm

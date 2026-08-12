@@ -6,7 +6,7 @@ slug: cache-warmup-runbook
 templateType: runbook
 title: "Runbook de Cache Warmup"
 description: "Runbook para warmear caches despues de deployment, restart o incident: identificar hot keys, preload strategies, progressive warmup, health checks y rollback procedures con ejemplos de codigo y automation scripts."
-metaDescription: "Runbook for cache warmup after deployment, restart, or incident: hot keys, preload strategies, progressive warmup, health checks, rollback procedures, automation scripts."
+metaDescription: "Runbook para precalentar cachés tras despliegue, reinicio o incidente: hot keys, preload, warmup progresivo, health checks, rollback y scripts."
 difficulty: intermediate
 topics:
   - caching
@@ -24,7 +24,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Runbook for cache warmup after deployment, restart, or incident: hot keys, preload strategies, progressive warmup, health checks, rollback procedures, automation scripts."
+  metaDescription: "Runbook para precalentar cachés tras despliegue, reinicio o incidente: hot keys, preload, warmup progresivo, health checks, rollback y scripts."
   keywords:
     - cache warmup
     - cache preloading

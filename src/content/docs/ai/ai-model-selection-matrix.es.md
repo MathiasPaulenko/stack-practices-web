@@ -4,7 +4,7 @@ slug: ai-model-selection-matrix
 templateType: guideline
 title: "Matriz de Seleccion de Modelos de AI"
 description: "Compara modelos LLM por costo, latencia, context window, accuracy y use case. Incluye criterios de decision, resultados de benchmarks, comparacion de pricing y recomendaciones para classification, extraction, summarization, code y agent tasks."
-metaDescription: "Compare LLM models by cost, latency, context, accuracy. Decision criteria, benchmarks, pricing. Recommendations for classification, extraction, code, agents."
+metaDescription: "Compara modelos LLM por costo, latencia, contexto, accuracy y caso de uso: criterios, benchmarks, precios y recomendaciones para tareas comunes."
 difficulty: intermediate
 topics:
   - ai
@@ -25,7 +25,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Compare LLM models by cost, latency, context, accuracy. Decision criteria, benchmarks, pricing. Recommendations for classification, extraction, code, agents."
+  metaDescription: "Compara modelos LLM por costo, latencia, contexto, accuracy y caso de uso: criterios, benchmarks, precios y recomendaciones para tareas comunes."
   keywords:
     - llm model selection
     - model comparison

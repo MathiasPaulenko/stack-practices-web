@@ -51,7 +51,10 @@ const showPagination = !isLazy && totalPages > 1;
 const validTags = await getPublicTagSet(locale);
 
 const basePath = currentPage > 1 ? path.replace(/\/\d+\/$/, '/') : path;
-const pageTitle = currentPage > 1 ? `${heading} - Page ${currentPage}` : heading;
+const pageLabel = locale === 'es' ? 'Página' : 'Page';
+const ofLabel = locale === 'es' ? 'de' : 'of';
+const pageTitle = currentPage > 1 ? `${heading} - ${pageLabel} ${currentPage}` : heading;
+const metaDescription = currentPage > 1 ? `${description} - ${pageLabel} ${currentPage} ${ofLabel} ${totalPages}` : description;
 
 const homeHref = locale === 'es' ? '/es/' : '/';
 const homeLabel = locale === 'es' ? 'Inicio' : 'Home';
@@ -91,7 +94,7 @@ const pagesToShow = (() => {
 })();
 ---
 
-<BaseLayout title={pageTitle} description={description} path={path} locale={locale} keywords={keywords} jsonLd={jsonLd} hasAlternate={hasAlternate}>
+<BaseLayout title={pageTitle} description={metaDescription} path={path} locale={locale} keywords={keywords} jsonLd={jsonLd} hasAlternate={hasAlternate}>
   <div data-pagefind-filter={contentType ? `contentType[${contentType}]` : undefined}>
   <!-- Mini hero: breadcrumb, title, description, search -->
   <section class="listing-hero">

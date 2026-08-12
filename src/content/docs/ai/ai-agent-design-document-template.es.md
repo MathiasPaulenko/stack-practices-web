@@ -7,7 +7,7 @@ slug: ai-agent-design-document-template
 templateType: guideline
 title: "Plantilla de Documento de Diseño de AI Agent"
 description: "Documenta arquitectura de AI agents, tools, memory, reasoning patterns, safety guardrails, criterios de evaluacion y configuracion de deployment. Incluye system prompts, tool definitions y failure modes."
-metaDescription: "Document AI agent architecture, tools, memory, reasoning, safety guardrails, evaluation, deployment. Includes system prompts, tool definitions, failure modes."
+metaDescription: "Guía para documentar arquitectura de agentes de IA: herramientas, memoria, razonamiento, guardrails, evaluación, despliegue, prompts y modos de fallo."
 difficulty: advanced
 topics:
   - ai
@@ -28,7 +28,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Document AI agent architecture, tools, memory, reasoning, safety guardrails, evaluation, deployment. Includes system prompts, tool definitions, failure modes."
+  metaDescription: "Guía para documentar arquitectura de agentes de IA: herramientas, memoria, razonamiento, guardrails, evaluación, despliegue, prompts y modos de fallo."
   keywords:
     - ai agent design
     - agent architecture

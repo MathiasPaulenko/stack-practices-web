@@ -6,7 +6,7 @@ slug: ai-prompt-version-control-template
 templateType: guideline
 title: "Plantilla de Version Control de Prompts de AI"
 description: "Versiona tus LLM prompts con eval scores, change history, rollback support y A/B testing. Incluye prompt metadata schema, changelog format, evaluation tracking y CI/CD integration para prompt management."
-metaDescription: "Version LLM prompts with eval scores, change history, rollback, A/B testing. Includes prompt metadata schema, changelog, evaluation tracking, CI/CD integration."
+metaDescription: "Versionado de prompts LLM con eval scores, historial, rollback, A/B testing, metadatos, changelog, evaluación e integración CI/CD."
 difficulty: intermediate
 topics:
   - ai
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Version LLM prompts with eval scores, change history, rollback, A/B testing. Includes prompt metadata schema, changelog, evaluation tracking, CI/CD integration."
+  metaDescription: "Versionado de prompts LLM con eval scores, historial, rollback, A/B testing, metadatos, changelog, evaluación e integración CI/CD."
   keywords:
     - prompt version control
     - prompt management

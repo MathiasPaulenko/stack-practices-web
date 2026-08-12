@@ -6,7 +6,7 @@ slug: terraform-module-versioning-policy
 templateType: guideline
 title: "Politica de Versioning de Terraform Modules"
 description: "Politica para versioning y publishing de Terraform modules: semantic versioning rules, breaking change management, module registry publishing, changelog requirements, deprecation process y CI/CD integration con ejemplos para Terraform Cloud y private registries."
-metaDescription: "Terraform module versioning policy: semver rules, breaking changes, registry publishing, changelog, deprecation, CI/CD, Terraform Cloud, private registries."
+metaDescription: "Política de versionado de módulos Terraform: semver, breaking changes, registro, changelog, deprecación, CI/CD, Terraform Cloud y registros privados."
 difficulty: intermediate
 topics:
   - devops
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Terraform module versioning policy: semver rules, breaking changes, registry publishing, changelog, deprecation, CI/CD, Terraform Cloud, private registries."
+  metaDescription: "Política de versionado de módulos Terraform: semver, breaking changes, registro, changelog, deprecación, CI/CD, Terraform Cloud y registros privados."
   keywords:
     - terraform versioning
     - terraform modules

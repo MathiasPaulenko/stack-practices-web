@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-content-security-policy
-title: "Content Security Policy: CSP Headers, Nonces, Hashes"
+title: "Content Security Policy: cabeceras CSP, nonces, hashes"
 description: "Dominá Content Security Policy: CSP directives, nonces, hashes, reporting, strict-dynamic, nonce-based CSP, hash-based CSP y patrones de despliegue en producción."
 metaDescription: "Dominá Content Security Policy: CSP directives, nonces, hashes, reporting, strict-dynamic y patrones de despliegue en producción."
 difficulty: advanced

@@ -60,8 +60,11 @@ const normalizedPath =
       : path.endsWith('/')
         ? path.slice(0, -1)
         : path;
-const enUrl = `${SITE.url}${normalizedPath}`;
-const esUrl = `${SITE.url}/es${normalizedPath}`;
+const hasEsPrefix = normalizedPath.startsWith('/es/');
+const enPath = hasEsPrefix ? normalizedPath.slice(3) : normalizedPath;
+const esPath = hasEsPrefix ? normalizedPath : `/es${normalizedPath}`;
+const enUrl = `${SITE.url}${enPath}`;
+const esUrl = `${SITE.url}${esPath}`;
 const canonical = locale === 'es' ? esUrl : enUrl;
 const ogLocale = locale === 'es' ? 'es_ES' : 'en_US';
 

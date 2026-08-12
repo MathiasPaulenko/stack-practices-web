@@ -6,7 +6,7 @@ slug: cache-eviction-policy-template
 templateType: guideline
 title: "Plantilla de Politica de Eviction de Cache"
 description: "Plantilla para documentar eviction rules por cache layer: LRU, LFU, TTL, FIFO, random eviction. Incluye policy selection matrix, per-layer configuration, memory limits y monitoring rules con ejemplos de codigo."
-metaDescription: "Template for cache eviction policies: LRU, LFU, TTL, FIFO, random. Selection matrix, per-layer configuration, memory limits, monitoring rules, code examples."
+metaDescription: "Plantilla para políticas de expulsión de caché por capa: LRU, LFU, TTL, FIFO, random, matriz de selección, límites y monitoreo."
 difficulty: intermediate
 topics:
   - caching
@@ -25,7 +25,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Template for cache eviction policies: LRU, LFU, TTL, FIFO, random. Selection matrix, per-layer configuration, memory limits, monitoring rules, code examples."
+  metaDescription: "Plantilla para políticas de expulsión de caché por capa: LRU, LFU, TTL, FIFO, random, matriz de selección, límites y monitoreo."
   keywords:
     - cache eviction
     - lru cache

@@ -7,7 +7,7 @@ slug: api-authentication-design-template
 templateType: guideline
 title: "Plantilla de Diseno de API Authentication"
 description: "Plantilla para documentar API authentication flows y token lifecycle: auth scheme selection, token types, issuance, validation, refresh, revocation, MFA, OAuth2 flows, JWT configuration y security best practices con ejemplos de codigo."
-metaDescription: "API authentication design template: auth schemes, token lifecycle, JWT config, OAuth2 flows, refresh, revocation, MFA, security best practices with code."
+metaDescription: "Plantilla para documentar flujos de autenticación API: selección de esquemas, tokens, emisión, validación, refresh, revocación, MFA, OAuth2 y JWT."
 difficulty: advanced
 topics:
   - security
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "API authentication design template: auth schemes, token lifecycle, JWT config, OAuth2 flows, refresh, revocation, MFA, security best practices with code."
+  metaDescription: "Plantilla para documentar flujos de autenticación API: selección de esquemas, tokens, emisión, validación, refresh, revocación, MFA, OAuth2 y JWT."
   keywords:
     - api authentication
     - jwt configuration

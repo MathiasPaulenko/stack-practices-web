@@ -8,7 +8,7 @@ contentType: guides
 slug: complete-guide-mongodb-indexing
 title: "MongoDB Indexing"
 description: "MongoDB indexing. Cubre single field, compound, text, geospatial, TTL, wildcard, hashed indexes, ESR rule, covered queries, explain plan analysis, index intersection y partial indexes con ejemplos practicos."
-metaDescription: "Master MongoDB indexing. Covers single, compound, text, geospatial, TTL, wildcard, hashed indexes, ESR rule, covered queries, explain plans."
+metaDescription: "Guía de índices en MongoDB: single, compound, text, geospatial, TTL, wildcard, hashed, ESR, covered queries, explain plans y parciales."
 difficulty: advanced
 topics:
   - databases
@@ -32,7 +32,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Master MongoDB indexing. Covers single, compound, text, geospatial, TTL, wildcard, hashed indexes, ESR rule, covered queries, explain plans."
+  metaDescription: "Guía de índices en MongoDB: single, compound, text, geospatial, TTL, wildcard, hashed, ESR, covered queries, explain plans y parciales."
   keywords:
     - mongodb indexing
     - compound index

@@ -3,7 +3,7 @@
 
 contentType: guides
 slug: complete-guide-css-modern-layout
-title: "CSS Modern Layout: Grid, Flexbox, Container Queries"
+title: "Layout CSS Moderno: Grid, Flexbox, container queries"
 description: "Dominá modern CSS layout: CSS Grid, Flexbox, container queries, subgrid, logical properties y responsive design patterns sin media queries."
 metaDescription: "Dominá modern CSS layout: CSS Grid, Flexbox, container queries, subgrid, logical properties y responsive design patterns sin media queries para UIs flexibles."
 difficulty: intermediate

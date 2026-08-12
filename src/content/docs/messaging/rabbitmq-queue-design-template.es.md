@@ -6,7 +6,7 @@ slug: rabbitmq-queue-design-template
 templateType: guideline
 title: "Plantilla de Diseno de Colas RabbitMQ"
 description: "Plantilla para documentar diseno de colas, exchanges y bindings de RabbitMQ: exchange types, queue properties, binding rules, dead letter handling, TTL policies y capacity planning con ejemplos de codigo."
-metaDescription: "RabbitMQ queue design template: exchange types, queue properties, binding rules, DLX, TTL, capacity planning, QoS, and code examples for producers and consumers."
+metaDescription: "Plantilla para diseñar colas, exchanges y bindings de RabbitMQ: tipos, propiedades, reglas, DLX, TTL, capacity planning y ejemplos de código."
 difficulty: intermediate
 topics:
   - messaging
@@ -25,7 +25,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "RabbitMQ queue design template: exchange types, queue properties, binding rules, DLX, TTL, capacity planning, QoS, and code examples for producers and consumers."
+  metaDescription: "Plantilla para diseñar colas, exchanges y bindings de RabbitMQ: tipos, propiedades, reglas, DLX, TTL, capacity planning y ejemplos de código."
   keywords:
     - rabbitmq queue design
     - amqp exchange types

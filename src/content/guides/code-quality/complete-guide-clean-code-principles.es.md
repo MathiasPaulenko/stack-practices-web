@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-clean-code-principles
-title: "Clean Code: Naming, Functions, Classes, Comments"
+title: "Código Limpio: nombres, funciones, clases, comentarios"
 description: "Dominá clean code principles: meaningful naming, small functions, single responsibility, comments, formatting, error handling y patrones de code quality en producción."
 metaDescription: "Dominá clean code principles: meaningful naming, small functions, single responsibility, comments, formatting, error handling y patrones de code quality."
 difficulty: intermediate

@@ -9,7 +9,7 @@ slug: deployment-rollback-runbook
 templateType: runbook
 title: "Runbook de Rollback de Despliegues"
 description: "Runbook para revertir despliegues fallidos de forma segura: rollback triggers, Kubernetes rollback, blue-green deployment rollback, canary rollback, database migration rollback, verification steps y post-rollback procedures con ejemplos de codigo para kubectl, Helm y ArgoCD."
-metaDescription: "Deployment rollback runbook: triggers, Kubernetes rollback, blue-green, canary, database migration rollback, verification, kubectl, Helm, ArgoCD."
+metaDescription: "Runbook para rollback de despliegues fallidos: triggers, Kubernetes, blue-green, canary, migraciones, verificación y post-rollback."
 difficulty: intermediate
 topics:
   - devops
@@ -32,7 +32,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Deployment rollback runbook: triggers, Kubernetes rollback, blue-green, canary, database migration rollback, verification, kubectl, Helm, ArgoCD."
+  metaDescription: "Runbook para rollback de despliegues fallidos: triggers, Kubernetes, blue-green, canary, migraciones, verificación y post-rollback."
   keywords:
     - deployment rollback
     - kubernetes rollback

@@ -6,7 +6,7 @@ slug: load-test-plan-template
 templateType: guideline
 title: "Plantilla de Load Test Plan"
 description: "Plantilla para planear y documentar load tests: test scenarios, user journey definitions, ramp-up strategies, success criteria, monitoring setup, tool selection (k6, JMeter, Locust), result analysis y reporting con ejemplos de codigo para cada tool."
-metaDescription: "Load test plan template: scenarios, user journeys, ramp-up, success criteria, monitoring, k6 JMeter Locust examples, result analysis, reporting."
+metaDescription: "Plantilla para planificar load tests: escenarios, journeys, ramp-up, criterios, monitoreo, k6, JMeter, Locust, análisis y reportes."
 difficulty: intermediate
 topics:
   - performance
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Load test plan template: scenarios, user journeys, ramp-up, success criteria, monitoring, k6 JMeter Locust examples, result analysis, reporting."
+  metaDescription: "Plantilla para planificar load tests: escenarios, journeys, ramp-up, criterios, monitoreo, k6, JMeter, Locust, análisis y reportes."
   keywords:
     - load test plan
     - performance testing

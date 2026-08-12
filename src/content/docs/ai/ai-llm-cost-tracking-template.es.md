@@ -6,7 +6,7 @@ slug: ai-llm-cost-tracking-template
 templateType: capacity-planning
 title: "Plantilla de Tracking de Costos de LLM"
 description: "Trackea token usage y costs por feature, model y user. Incluye categorias de costos, tablas de pricing, budget alerts, estrategias de optimizacion y plantillas de reportes para spending de LLM API."
-metaDescription: "Track LLM token usage and costs per feature, model, user. Includes pricing tables, budget alerts, optimization strategies, and reporting templates."
+metaDescription: "Controla costos y tokens de LLM por feature, modelo y usuario: categorías, tablas de precios, alertas de presupuesto, optimización y reportes."
 difficulty: intermediate
 topics:
   - ai
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Track LLM token usage and costs per feature, model, user. Includes pricing tables, budget alerts, optimization strategies, and reporting templates."
+  metaDescription: "Controla costos y tokens de LLM por feature, modelo y usuario: categorías, tablas de precios, alertas de presupuesto, optimización y reportes."
   keywords:
     - llm cost tracking
     - token usage

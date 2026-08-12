@@ -6,7 +6,7 @@ slug: ai-data-preparation-checklist
 templateType: post-deployment-checklist
 title: "Checklist de Preparacion de Datos para AI"
 description: "Checklist para preparar datos para LLM y RAG systems: data collection, cleaning, chunking, embedding, deduplication, PII removal, format validation, quality scoring e indexing con metricas y thresholds."
-metaDescription: "Checklist for AI data prep: collection, cleaning, chunking, embedding, deduplication, PII removal, format validation, quality scoring, indexing with metrics."
+metaDescription: "Checklist para preparar datos de LLM y RAG: recolección, limpieza, chunking, embeddings, deduplicación, PII, validación, scoring y métricas."
 difficulty: intermediate
 topics:
   - ai
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Checklist for AI data prep: collection, cleaning, chunking, embedding, deduplication, PII removal, format validation, quality scoring, indexing with metrics."
+  metaDescription: "Checklist para preparar datos de LLM y RAG: recolección, limpieza, chunking, embeddings, deduplicación, PII, validación, scoring y métricas."
   keywords:
     - ai data preparation
     - data cleaning

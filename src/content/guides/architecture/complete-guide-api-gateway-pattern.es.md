@@ -4,7 +4,7 @@
 
 contentType: guides
 slug: complete-guide-api-gateway-pattern
-title: "API Gateway: Routing, Auth, Rate Limiting"
+title: "API Gateway: routing, autenticación, rate limiting"
 description: "Dominá API gateway architecture: request routing, authentication, rate limiting, request shaping, response caching, protocol translation y patrones de producción."
 metaDescription: "Dominá API gateway: routing, autenticación, rate limiting, request shaping, response caching, protocol translation y patrones de despliegue en producción."
 difficulty: advanced

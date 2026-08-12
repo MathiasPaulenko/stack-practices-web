@@ -7,7 +7,7 @@ slug: graphql-deprecation-policy-template
 templateType: api-deprecation
 title: "Plantilla de Politica de Deprecacion de GraphQL"
 description: "Plantilla de politica para deprecar GraphQL fields, types, arguments y enum values de forma segura. Incluye timeline, communication plan, usage tracking, removal criteria y migration examples."
-metaDescription: "Policy template for GraphQL deprecation: fields, types, arguments, enum values. Timeline, communication plan, usage tracking, removal criteria, migration examples."
+metaDescription: "Plantilla de política para deprecar campos, tipos, argumentos y enums de GraphQL: cronograma, comunicación, uso, criterios de eliminación y migración."
 difficulty: intermediate
 topics:
   - graphql
@@ -27,7 +27,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Policy template for GraphQL deprecation: fields, types, arguments, enum values. Timeline, communication plan, usage tracking, removal criteria, migration examples."
+  metaDescription: "Plantilla de política para deprecar campos, tipos, argumentos y enums de GraphQL: cronograma, comunicación, uso, criterios de eliminación y migración."
   keywords:
     - graphql deprecation
     - graphql deprecation policy

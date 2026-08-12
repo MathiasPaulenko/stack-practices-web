@@ -6,7 +6,7 @@ slug: cache-strategy-decision-template
 templateType: guideline
 title: "Plantilla de Decision de Estrategia de Cache"
 description: "Plantilla de decision para elegir estrategias de cache por use case: no-cache, cache-aside, read-through, write-through, write-back y refresh-ahead. Incluye decision matrix, TTL guidelines y ejemplos de codigo."
-metaDescription: "Cache strategy decision template: no-cache, cache-aside, read-through, write-through, write-back, refresh-ahead with decision matrix and TTL rules."
+metaDescription: "Plantilla para elegir estrategias de caché: no-cache, cache-aside, read-through, write-through, write-back, refresh-ahead, matriz y TTL."
 difficulty: intermediate
 topics:
   - caching
@@ -24,7 +24,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Cache strategy decision template: no-cache, cache-aside, read-through, write-through, write-back, refresh-ahead with decision matrix and TTL rules."
+  metaDescription: "Plantilla para elegir estrategias de caché: no-cache, cache-aside, read-through, write-through, write-back, refresh-ahead, matriz y TTL."
   keywords:
     - cache strategy
     - cache-aside

@@ -6,7 +6,7 @@ slug: serverless-cold-start-runbook
 templateType: runbook
 title: "Runbook de Cold Start Serverless"
 description: "Runbook para diagnosticar y mitigar cold starts en funciones serverless: causas, medicion, estrategias de optimizacion (provisioned concurrency, warmers, initialization tuning) y monitoreo con ejemplos de codigo para AWS Lambda, Azure y GCP."
-metaDescription: "Runbook for serverless cold starts: causes, measurement, provisioned concurrency, warmers, init tuning, monitoring for Lambda, Azure, GCP."
+metaDescription: "Runbook para reducir cold starts serverless: causas, medición, provisioned concurrency, warmers, init tuning y monitoreo en Lambda, Azure y GCP."
 difficulty: intermediate
 topics:
   - serverless
@@ -25,7 +25,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Runbook for serverless cold starts: causes, measurement, provisioned concurrency, warmers, init tuning, monitoring for Lambda, Azure, GCP."
+  metaDescription: "Runbook para reducir cold starts serverless: causas, medición, provisioned concurrency, warmers, init tuning y monitoreo en Lambda, Azure y GCP."
   keywords:
     - serverless cold start
     - lambda cold start

@@ -8,7 +8,7 @@ contentType: guides
 slug: complete-guide-bundle-size-optimization
 title: "Bundle Size Optimization"
 description: "Reducir JavaScript bundle size. Cubre tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression, polyfill management y bundle monitoring con ejemplos practicos de webpack, Vite y Rollup."
-metaDescription: "Reduce JS bundle size. Covers tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression."
+metaDescription: "Guía para reducir el tamaño de bundles JavaScript: tree shaking, code splitting, imports dinámicos, lazy loading y monitoreo con webpack, Vite y Rollup."
 difficulty: advanced
 topics:
   - frontend
@@ -31,7 +31,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Reduce JS bundle size. Covers tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression."
+  metaDescription: "Guía para reducir el tamaño de bundles JavaScript: tree shaking, code splitting, imports dinámicos, lazy loading y monitoreo con webpack, Vite y Rollup."
   keywords:
     - bundle size optimization
     - tree shaking

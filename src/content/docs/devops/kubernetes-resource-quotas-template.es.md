@@ -6,7 +6,7 @@ slug: kubernetes-resource-quotas-template
 templateType: guideline
 title: "Plantilla de Kubernetes Resource Quotas"
 description: "Plantilla para definir Kubernetes resource quotas por namespace: CPU y memory limits, object count quotas, storage quotas, LimitRanges para default requests, priority class integration y monitoring con ejemplos para multi-tenant clusters."
-metaDescription: "Kubernetes resource quotas template: CPU, memory, object count, storage quotas, LimitRanges, priority classes, multi-tenant clusters, monitoring examples."
+metaDescription: "Plantilla para quotas de recursos en Kubernetes por namespace: CPU, memoria, conteo, almacenamiento, LimitRanges, priority classes y monitoreo multi-tenant."
 difficulty: intermediate
 topics:
   - devops
@@ -24,7 +24,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Kubernetes resource quotas template: CPU, memory, object count, storage quotas, LimitRanges, priority classes, multi-tenant clusters, monitoring examples."
+  metaDescription: "Plantilla para quotas de recursos en Kubernetes por namespace: CPU, memoria, conteo, almacenamiento, LimitRanges, priority classes y monitoreo multi-tenant."
   keywords:
     - kubernetes quotas
     - resource limits

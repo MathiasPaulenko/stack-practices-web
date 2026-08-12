@@ -3,7 +3,7 @@
 
 contentType: guides
 slug: complete-guide-code-review-best-practices
-title: "Code Reviews: Reviewer Mindset, Feedback, Automation"
+title: "Revisiones de Código: mentalidad, feedback, automatización"
 description: "Dominá code review best practices: reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing y cómo construir una strong review culture."
 metaDescription: "Dominá code review: reviewer mindset, constructive feedback, review checklists, automated checks, PR sizing y cómo construir una strong review culture en teams."
 difficulty: intermediate

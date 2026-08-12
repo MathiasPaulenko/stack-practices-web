@@ -5,7 +5,7 @@
 
 contentType: guides
 slug: complete-guide-encryption-at-rest
-title: "Encryption at Rest: AES-256, KMS, Envelope Encryption"
+title: "Cifrado en Reposo: AES-256, KMS, envelope encryption"
 description: "Dominá encryption at rest: AES-256-GCM, key management services, envelope encryption, key rotation, database encryption, field-level encryption y patrones de producción."
 metaDescription: "Dominá encryption at rest: AES-256-GCM, KMS, envelope encryption, key rotation, database encryption, field-level encryption y patrones de producción."
 difficulty: advanced

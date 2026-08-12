@@ -10,7 +10,7 @@ slug: ai-llm-prompt-template-library
 templateType: guideline
 title: "Librería de Plantillas de Prompts para LLM"
 description: "Una librería reutilizable de plantillas de prompts para tareas comunes de LLM: resumir, extraer, clasificar, revisar codigo, traducir y output estructurado con variables, ejemplos y criterios de evaluacion."
-metaDescription: "Reusable LLM prompt templates for summarization, extraction, classification, code review, translation, structured output with variables and examples."
+metaDescription: "Librería de plantillas de prompts para LLM: resumen, extracción, clasificación, revisión de código, traducción y output estructurado con variables y ejemplos."
 difficulty: intermediate
 topics:
   - ai
@@ -31,7 +31,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Reusable LLM prompt templates for summarization, extraction, classification, code review, translation, structured output with variables and examples."
+  metaDescription: "Librería de plantillas de prompts para LLM: resumen, extracción, clasificación, revisión de código, traducción y output estructurado con variables y ejemplos."
   keywords:
     - llm prompt template
     - prompt library

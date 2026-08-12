@@ -7,7 +7,7 @@ slug: performance-budget-template
 templateType: guideline
 title: "Plantilla de Performance Budget"
 description: "Plantilla para definir y enforcear web performance budgets: LCP, INP, CLS targets, resource budgets para JS, CSS, imagenes, fuentes, third-party scripts, CI/CD integration con Lighthouse CI y alerting thresholds con ejemplos para Next.js, Astro y SPA architectures."
-metaDescription: "Performance budget template: LCP, INP, CLS targets, JS/CSS/image budgets, third-party limits, Lighthouse CI integration, alerting thresholds, web vitals."
+metaDescription: "Plantilla para definir presupuestos de rendimiento web: LCP, INP, CLS, recursos, terceros, Lighthouse CI y alertas para Next.js, Astro y SPAs."
 difficulty: intermediate
 topics:
   - performance
@@ -28,7 +28,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Performance budget template: LCP, INP, CLS targets, JS/CSS/image budgets, third-party limits, Lighthouse CI integration, alerting thresholds, web vitals."
+  metaDescription: "Plantilla para definir presupuestos de rendimiento web: LCP, INP, CLS, recursos, terceros, Lighthouse CI y alertas para Next.js, Astro y SPAs."
   keywords:
     - performance budget
     - core web vitals

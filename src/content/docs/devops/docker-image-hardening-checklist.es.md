@@ -7,7 +7,7 @@ slug: docker-image-hardening-checklist
 templateType: guideline
 title: "Checklist de Hardening de Docker Images"
 description: "Checklist para hardening de Docker container images para production: base image selection, user permissions, filesystem restrictions, network isolation, resource limits, secret management, vulnerability scanning y CI/CD integration con Dockerfile examples."
-metaDescription: "Docker image hardening checklist: base images, user permissions, filesystem, network, resource limits, secrets, vulnerability scanning, CI/CD, Dockerfile examples."
+metaDescription: "Checklist de hardening de imágenes Docker: base images, permisos, filesystem, red, límites, secretos, escaneo y CI/CD con ejemplos."
 difficulty: intermediate
 topics:
   - devops
@@ -26,7 +26,7 @@ lastUpdated: "2026-07-04"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Docker image hardening checklist: base images, user permissions, filesystem, network, resource limits, secrets, vulnerability scanning, CI/CD, Dockerfile examples."
+  metaDescription: "Checklist de hardening de imágenes Docker: base images, permisos, filesystem, red, límites, secretos, escaneo y CI/CD con ejemplos."
   keywords:
     - docker hardening
     - container security
