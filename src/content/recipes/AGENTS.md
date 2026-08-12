@@ -27,8 +27,8 @@ Always invoke the appropriate skills before creating or editing a recipe:
 - `difficulty`: one of `beginner`, `intermediate`, `advanced`.
 - `topics`: one or more values from the topics enum in `src/content.config.ts` (e.g., `api`, `data`, `security`).
 - `tags`: relevant technology and concept tags (e.g., `python`, `rest`, `authentication`).
-- `relatedResources`: 3–6 coherent resources from the same topic cluster when possible. Keep EN and ES lists identical in number, order, and target slugs.
-- `lastUpdated`, `publishedAt`: ISO-8601 dates.
+- `relatedResources`: 3–6 coherent resources from the same topic cluster when possible. Keep EN and ES lists identical in number, order, and target slugs. The detail page renders only the first 6 entries, so any extras are ignored.
+- `lastUpdated`, `publishedAt`: ISO-8601 dates. Stagger `publishedAt` values across recipes so the entire collection does not look like it was bulk-created on a single day. Update `lastUpdated` whenever you edit the recipe.
 - `author`: `Mathias Paulenko` or `StackPractices`.
 - `seo.keywords`: 3–8 relevant keywords.
 
@@ -87,6 +87,8 @@ npm run sitemap            # regenerate public/sitemap.xml
 - Creating a recipe in only one language.
 - Adding backend dependencies or dynamic features (the site is static).
 - Leaving `lastUpdated` stale; update it when editing the recipe.
+- Using the same `publishedAt` date for large batches of recipes; stagger them.
+- Exceeding the 6 `relatedResources` limit; extra slugs are not rendered.
 - Broken or unrelated `relatedResources`.
 - Manual `## Related Resources` sections in the body.
 - Generic AI filler, promotional language, or inflated claims.
