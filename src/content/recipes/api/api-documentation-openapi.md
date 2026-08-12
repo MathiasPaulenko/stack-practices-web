@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-11"
+lastUpdated: "2026-08-12"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -45,13 +45,15 @@ This resource fits when:
 - Your team needs a contract-first approach for API development
 - You need to validate incoming requests against a formal schema
 
+When not to use:
+- If the API is only for internal use and you are the only consumer, a short README may be enough. As soon as a second team depends on it, a written contract pays off.
+
 ## Solution
 
 ### Python
 
 ```python
 from fastapi import FastAPI
-from fastapi.openapi.docs import get_swagger_ui_html
 
 app = FastAPI(title="Book API", version="1.0.0")
 
@@ -80,8 +82,10 @@ app.listen(3000);
 ### Java
 
 ```java
-import org.springdoc.core.annotations.RouterOperation;
-import org.springdoc.core.annotations.RouterOperations;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/books")
@@ -91,10 +95,12 @@ public class BookController {
     @ApiResponse(responseCode = "200", description = "Found the book")
     @GetMapping("/{id}")
     public Book getBook(@PathVariable Long id) {
-        return bookService.findById(id);
+        return new Book(id, "Clean Code");
     }
+
+    record Book(Long id, String title) {}
 }
-// springdoc-openapi auto-generates /v3/api-docs and /swagger-ui.html
+// springdoc-openapi auto-generates /v3/api-docs and /swagger-ui/index.html
 ```
 
 ## Explanation
@@ -260,7 +266,7 @@ paths:
       security:
         - OAuth2: [write]
 ```
-For OpenAPI 3.1, use `type: http` with `scheme: bearer` instead of the deprecated `type: apiKey` for JWT tokens.
+For OpenAPI 3.1, use `type: http` with `scheme: bearer` for JWT tokens. `type: apiKey` is not deprecated, but it is the wrong choice for bearer JWT because it describes a custom API key rather than an HTTP bearer scheme.
 
 ### How do I handle versioning in OpenAPI specs?
 
@@ -301,7 +307,7 @@ Maintain both spec versions during migration periods and use `Accept` header con
 
 ### How do I generate client SDKs from OpenAPI specs?
 
-Use `openapi-generator-cli` to generate typed clients in several languages. Install: `npm install @openapitools/openapi-generator-cli -g`. Generate a TypeScript client: `openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts`. Generate a Python client: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py`. Generate a Java client: `openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson`. For Python with httpx: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client --library httpx`. Configure generation options in a `.openapi-generator-config.json`: `{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}`. Publish generated clients to package registries: npm for TypeScript, PyPI for Python, Maven Central for Java. Automate in CI: generate, test, and publish on spec changes.
+Use `openapi-generator-cli` to generate typed clients in several languages. Install: `npm install @openapitools/openapi-generator-cli -g`. Generate a TypeScript client: `openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts`. Generate a Python client: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py` (add `--library httpx` if your generator version supports it). Generate a Java client: `openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson`. Configure generation options in a `.openapi-generator-config.json`: `{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}`. Publish generated clients to package registries: npm for TypeScript, PyPI for Python, Maven Central for Java. Automate in CI: generate, test, and publish on spec changes.
 
 ### How do I document pagination in OpenAPI?
 
@@ -332,7 +338,8 @@ components:
       properties:
         data:
           type: array
-          items: $ref: '#/components/schemas/Book'
+          items:
+            $ref: '#/components/schemas/Book'
         total:
           type: integer
         offset:
@@ -544,10 +551,6 @@ responses:
 ```
 Document common error codes: 400 for validation errors, 401 for missing auth, 403 for insufficient permissions, 409 for conflicts, 422 for semantic validation failures, 429 for rate limiting.
 
-### How do I use OpenAPI with GraphQL?
-
-OpenAPI and GraphQL serve different purposes but can coexist. Use OpenAPI for REST endpoints and GraphQL schema for queries/mutations. Convert GraphQL schema to OpenAPI: use `graphql-to-openapi` to generate an OpenAPI spec from GraphQL operations: `npx graphql-to-openapi --schema schema.graphql --query 'query { books { id title } }' --output openapi.yaml`. For supergraph federation, document each subgraph as an OpenAPI spec and use a gateway spec that aggregates them. For REST-to-GraphQL wrappers, use Apollo Server's RESTDataSource: `class BookAPI extends RESTDataSource { async getBook(id) { return this.get(`books/${id}`); } }`. Document both APIs in a unified developer portal: Redoc for REST, GraphQL Playground for GraphQL. Use `@rest` directive in GraphQL to map REST endpoints: `type Query { book(id: ID!): Book @rest(url: "/books/:id") }`.
-
 ### How do I document API rate limiting in OpenAPI?
 
 Document rate limits using response headers and `x-` extensions. Add rate limit headers to responses:
@@ -629,7 +632,8 @@ PropertyValue:
     - type: number
     - type: boolean
     - type: array
-      items: $ref: '#/components/schemas/PropertyValue'
+      items:
+        $ref: '#/components/schemas/PropertyValue'
 ```
 For composition without discrimination, use `allOf` to inherit properties:
 
@@ -642,51 +646,6 @@ Animal:
         species:
           type: string
 ```
-
-### How do I document server-sent events in OpenAPI?
-
-Server-sent events (SSE) use `text/event-stream` content type. Document the response:
-
-```yaml
-responses:
-  '200':
-    description: Server-sent events stream
-    content:
-      text/event-stream:
-        schema:
-          type: object
-          properties:
-            event:
-              type: string
-            data:
-              type: string
-            id:
-              type: string
-            retry:
-              type: integer
-```
-Document the event payload schema in the `data` field:
-
-```yaml
-data:
-  type: string
-  description: JSON-encoded event payload
-  example: '{"type": "book.created", "book": {"id": 1}}'
-```
-Include connection headers:
-
-```yaml
-headers:
-  Cache-Control:
-    schema:
-      type: string
-      default: no-cache
-  Connection:
-    schema:
-      type: string
-      default: keep-alive
-```
-Document reconnection behavior: `description: Client should reconnect on connection close. Last-Event-ID header can be sent to resume from a specific event.`
 
 ### How do I generate mock servers from OpenAPI specs?
 
@@ -914,9 +873,11 @@ For versioned content types:
 ```yaml
 content:
   application/vnd.api+json;version=1:
-    schema: $ref: '#/components/schemas/BookV1'
+    schema:
+      $ref: '#/components/schemas/BookV1'
   application/vnd.api+json;version=2:
-    schema: $ref: '#/components/schemas/BookV2'
+    schema:
+      $ref: '#/components/schemas/BookV2'
 ```
 Document content negotiation behavior: `description: Returns JSON by default. Send Accept: application/xml for XML response. Send Accept: text/csv for CSV export.`
 
@@ -976,18 +937,6 @@ x-cache:
   ttl: 3600
   vary_by: [Accept-Language, Authorization]
 ```
-
-### How do I use OpenAPI with API gateways?
-
-Configure API gateways using OpenAPI specs. For AWS API Gateway: import the spec: `aws apigateway put-rest-api --rest-api-id abc123 --body file://openapi.yaml --mode overwrite`. Add Lambda integration via extensions:
-
-```yaml
-x-amazon-apigateway-integration:
-  type: aws_proxy
-  httpMethod: POST
-  uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:123:function:books/invocations
-```
-For Kong: use `kong openapi2kong openapi.yaml --output kong.yaml`. For NGINX: use `openapi2nginx openapi.yaml --output nginx.conf`. For Apigee: import the spec as an API proxy: `apigeecli apis import -f openapi.yaml -n book-api`. Document gateway-specific behavior: rate limiting, request transformation, API keys, and CORS. Use the spec to generate gateway configs automatically in CI: `aws apigateway put-rest-api ... && aws apigateway create-deployment ...`.
 
 ### How do I document long-running operations in OpenAPI?
 
@@ -1201,61 +1150,6 @@ paths:
 ```
 Document idempotent methods: `description: This endpoint is idempotent. Sending the same request with the same Idempotency-Key returns the original response.`. For natural idempotency: `PUT /books/{id}` is naturally idempotent — document this: `description: PUT is idempotent. Two calls with the same body produce the same result.`. Use `x-idempotent: true` extension for code generators. Store idempotency keys: `x-idempotency-key-ttl: 24h`. Document key expiration: `description: Idempotency keys are stored for 24 hours. After expiration, the same key can be reused.`.
 
-### How do I document API pagination with HATEOAS links?
-
-HATEOAS (Hypermedia as the Engine of Application State) embeds navigation links in responses. Define a links schema:
-
-```yaml
-components:
-  schemas:
-    BookCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items: $ref: '#/components/schemas/Book'
-        _links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            next:
-              $ref: '#/components/schemas/Link'
-            prev:
-              $ref: '#/components/schemas/Link'
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        method:
-          type: string
-          enum: [GET, POST, PUT, DELETE]
-```
-Document example response:
-
-```yaml
-example:
-  data: [{id: 1, title: Clean Code}]
-  _links:
-    self: {href: /books?page=1, rel: self, method: GET}
-    next: {href: /books?page=2, rel: next, method: GET}
-```
-Use OpenAPI links for static linking:
-
-```yaml
-responses:
-  '201':
-    links:
-      GetBook:
-        operationId: getBook
-        parameters:
-          book_id: '$response.body#/id'
-```
-
 ### How do I document API request validation in OpenAPI?
 
 Document validation rules using JSON Schema constraints in the spec. For string validation:
@@ -1465,75 +1359,6 @@ x-onboarding:
   steps: [Create API key, Make first request, Handle errors, Implement pagination]
 ```
 
-### How do I handle OpenAPI spec generation for legacy APIs?
-
-Retrofit OpenAPI specs for legacy APIs using reverse engineering tools. Use `akto` for traffic-based spec generation: `akto run --proxy http://localhost:8080 --output openapi.yaml` captures API traffic and generates a spec. Use `swagger-express` for Express apps: add middleware that auto-generates specs from routes. For Java legacy apps, use `swagger-core` annotations: `@Api(value = \"books\", description = \"Book endpoints\")` on controllers. For Python Flask, use `flask-restx` with `@ns.doc(responses={200: 'Success'})`. For undocumented SOAP APIs, convert WSDL to OpenAPI: `npx @redocly/cli convert wsdl.xml --to openapi`. Gradually annotate endpoints: start with paths and methods, then add parameters, then response schemas. Use `redocly lint` to track spec completeness: `redocly lint --format=json openapi.yaml | jq '[.problems[] | .ruleId] | group_by(.) | map({rule: .[0], count: length})'`. Prioritize documenting the most-used endpoints first based on traffic analysis.
-
-### How do I document API throttling and quota management in OpenAPI?
-
-Document throttling policies using extensions and response headers. Define quota limits per tier:
-
-```yaml
-x-quota:
-  free:
-    requests_per_day: 1000
-    burst: 10
-  pro:
-    requests_per_day: 100000
-    burst: 100
-  enterprise:
-    requests_per_day: 10000000
-    burst: 1000
-```
-Document quota headers:
-
-```yaml
-responses:
-  '200':
-    headers:
-      X-Quota-Limit:
-        schema: {type: integer}
-        description: Total requests allowed per day
-      X-Quota-Remaining:
-        schema: {type: integer}
-        description: Remaining requests today
-      X-Quota-Reset:
-        schema: {type: string, format: date-time}
-        description: When quota resets
-```
-Include the 429 response with quota details:
-
-```yaml
-'429':
-  description: Quota exceeded
-  content:
-    application/problem+json:
-      schema:
-        type: object
-        properties:
-          type: {type: string}
-          title: {type: string}
-          detail: {type: string}
-          quota_limit: {type: integer}
-          quota_used: {type: integer}
-          reset_at: {type: string, format: date-time}
-```
-Document throttling algorithms: token bucket, sliding window, or fixed window. Use `x-throttling` extension:
-
-```yaml
-x-throttling:
-  algorithm: token-bucket
-  capacity: 100
-  refill_rate: 10/s
-```
-Document bypass rules:
-
-```yaml
-x-throttle-bypass:
-  - header: X-Internal-Request
-  - ip_range: 10.0.0.0/8
-```
-
 ### How do I document API key management in OpenAPI?
 
 Document API key authentication, rotation, and scoping. Define API key security:
@@ -1598,48 +1423,6 @@ paths:
 ```
 Document key rotation policy: `x-api-key-rotation: 90 days`. Document key prefix for identification: `description: API keys start with 'sk_live_' for production and 'sk_test_' for sandbox.`.
 
-### How do I document API event streaming with Kafka in OpenAPI?
-
-Document Kafka-based async APIs using OpenAPI extensions. Define async topics:
-
-```yaml
-x-kafka:
-  topics:
-    - name: book.events
-      partitions: 6
-      replication: 3
-      key_format: uuid
-      value_format: avro
-      schema_registry: http://schema-registry:8081
-```
-Document producer endpoints:
-
-```yaml
-paths:
-  /events/publish:
-    post:
-      summary: Publish event to Kafka
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                topic: {type: string}
-                key: {type: string}
-                value: {type: object}
-```
-Document consumer group offsets:
-
-```yaml
-x-kafka-consumer-groups:
-  - name: book-indexer
-    offset_reset: earliest
-  - name: book-analytics
-    offset_reset: latest
-```
-Use `x-asyncapi` extension to link to an AsyncAPI spec for full async documentation: `x-asyncapi-spec: ./asyncapi.yaml`.
-
 ## See Also
 
 - [API Versioning](/recipes/api-versioning/) — strategies for versioning REST APIs
@@ -1650,11 +1433,10 @@ Use `x-asyncapi` extension to link to an AsyncAPI spec for full async documentat
 
 ## Common Production Pitfalls
 
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+- Letting the OpenAPI spec drift from the deployed API so that docs, clients, and tests stop matching reality.
+- Exposing internal database schemas directly in `components/schemas` instead of stable DTOs.
+- Skipping spec linting in CI and publishing invalid or broken `$ref` references.
+- Using `apiKey` security for bearer JWT tokens instead of `http` with `scheme: bearer`.
+- Forgetting to version the spec alongside the API, or removing deprecated paths too aggressively.
+- Deploying the generated `/docs` and `/redoc` endpoints without access control on internal APIs.
+- Assuming a generated client will work without checking compatibility with your OpenAPI version and extensions.

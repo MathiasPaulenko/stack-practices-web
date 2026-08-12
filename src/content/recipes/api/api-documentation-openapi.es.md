@@ -20,7 +20,7 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-lastUpdated: "2026-08-11"
+lastUpdated: "2026-08-12"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -55,7 +55,6 @@ Si tu API es solo tuya y la escribes y consumes tú solo, quizá un README corto
 
 ```python
 from fastapi import FastAPI
-from fastapi.openapi.docs import get_swagger_ui_html
 
 app = FastAPI(title="Book API", version="1.0.0")
 
@@ -84,8 +83,10 @@ app.listen(3000);
 ### Java
 
 ```java
-import org.springdoc.core.annotations.RouterOperation;
-import org.springdoc.core.annotations.RouterOperations;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
 @RequestMapping("/books")
@@ -95,10 +96,12 @@ public class BookController {
     @ApiResponse(responseCode = "200", description = "Libro encontrado")
     @GetMapping("/{id}")
     public Book getBook(@PathVariable Long id) {
-        return bookService.findById(id);
+        return new Book(id, "Clean Code");
     }
+
+    record Book(Long id, String title) {}
 }
-// springdoc-openapi genera automáticamente /v3/api-docs y /swagger-ui.html
+// springdoc-openapi genera automáticamente /v3/api-docs y /swagger-ui/index.html
 ```
 
 ## Explicación
@@ -170,12 +173,11 @@ El design-first me funciona cuando varios equipos — frontend, móvil, backend,
 openapi-generator-cli generate -i openapi.yaml -g python-fastapi
 ```
 
-El verdadero riesgo de design-first es el drift: el spec se convierte en una lista de deseos mientras el código hace otra cosa. Yo prevengo esto con tests de contrato (Schemathesis, Pact) en CI. El riesgo de code-first es filtrar modelos internos al spec; lo evito retornando DTOs, no entidades de base de datos.
+El verdadero riesgo de design-first es el drift: el spec se convierte en una lista de deseos mientras el código hace otra cosa. Impídelo con tests de contrato (Schemathesis, Pact) en CI. El riesgo de code-first es filtrar modelos internos al spec; evítalo retornando DTOs, no entidades de base de datos.
 
 ### ¿Cómo mantengo la documentación sincronizada con el código desplegado?
 
-Esto es lo que suelo hacer en estos casos.
-Yo suelo generar el spec en CI desde tu código, publícalo en un registry (SwaggerHub, Stoplight), y vincula la documentación desplegada a la última versión del spec. En GitHub Actions, lo muestro con este ejemplo:
+Genera el spec en CI desde el código, publícalo en un registry (SwaggerHub, Stoplight) y vincula la documentación desplegada a la última versión del spec. En GitHub Actions, el workflow quedaría así:
 ```yaml
 name: Generate OpenAPI Spec
 on: push
@@ -189,15 +191,12 @@ jobs:
       - run: npx @redocly/cli build-docs openapi.json -o docs/
 ```
 
-Valido el spec en cada PR: `npx @redocly/cli lint openapi.yaml` detecta violaciones de schema, responses faltantes, y referencias inválidas. Yo publico el spec como artifact del build y despliega docs junto con la API. Yo uso contract testing con Pact o Schemathesis para verificar que la API coincide con el spec: `schemathesis run openapi.json --base-url http://localhost:8000`.
-A mí me ha funcionado sin dramas.
+Valida el spec en cada PR: `npx @redocly/cli lint openapi.yaml` detecta violaciones de schema, responses faltantes y referencias inválidas. Publica el spec como artifact del build y despliega docs junto con la API. Usa contract testing con Pact o Schemathesis para verificar que la API coincide con el spec: `schemathesis run openapi.json --base-url http://localhost:8000`.
 
 
 ### ¿Puedo convertir Swagger 2.0 a OpenAPI 3.0?
 
-En mi experiencia, hay varias formas de abordarlo.
-Sí. Una opción es usar la herramienta CLI `swagger2openapi` o el conversor integrado de Swagger Editor. La mayoría de herramientas modernas soportan 3.0 nativamente. Ejecuta: `npx swagger2openapi swagger.json -o openapi.json`. La herramienta convierte `host`, `basePath`, y `schemes` en un único array `servers`. Yo transforma `definitions` en `components/schemas` y `responses` en `components/responses`. Las security definitions se mueven de `securityDefinitions` a `components/securitySchemes`. Los campos `produces` y `consumes` se reemplazan por content negotiation en cada operación. Yo después de convertir, valida: `npx @redocly/cli lint openapi.json` para detectar problemas de conversión. Algunos edge cases requieren fixes manuales: file uploads con `type: file` se convierten en `format: binary`, y `collectionFormat` se reemplaza por parámetros `style` y `explode`.
-Es cuestión de constancia, pero una vez automatizado se mantiene solo.
+Sí. Usa la CLI `swagger2openapi` o el conversor integrado de Swagger Editor. La mayoría de herramientas modernas soportan 3.0 nativamente. Ejecuta: `npx swagger2openapi swagger.json -o openapi.json`. La herramienta convierte `host`, `basePath` y `schemes` en un único array `servers`. Transforma `definitions` en `components/schemas` y `responses` en `components/responses`. Las security definitions se mueven de `securityDefinitions` a `components/securitySchemes`. Los campos `produces` y `consumes` se reemplazan por content negotiation en cada operación. Después de convertir, valida: `npx @redocly/cli lint openapi.json` para detectar problemas de conversión. Algunos edge cases requieren correcciones manuales: file uploads con `type: file` se convierten en `format: binary`, y `collectionFormat` se reemplaza por parámetros `style` y `explode`.
 
 
 ### ¿Cómo documento autenticación y autorización en OpenAPI?
@@ -249,7 +248,7 @@ paths:
         - OAuth2: [write]
 ```
 
-Para OpenAPI 3.1, usa `type: http` con `scheme: bearer` en lugar del `type: apiKey` deprecado para JWT tokens.
+Para OpenAPI 3.1, usa `type: http` con `scheme: bearer` para tokens JWT. `type: apiKey` no está deprecado, pero es la elección incorrecta para JWT tipo bearer porque describe una clave de API personalizada en lugar de un esquema bearer HTTP.
 Con esto cubres la mayoría de los casos.
 
 
@@ -294,9 +293,7 @@ Mantengo varias versiones del spec durante períodos de migración y usa content
 
 ### ¿Cómo genero client SDKs desde specs OpenAPI?
 
-Depende del caso, pero normalmente hago lo siguiente.
-Yo uso `openapi-generator-cli` para generar clientes tipados en varios lenguajes. Instala: `npm install @openapitools/openapi-generator-cli -g`. Yo suelo generar un cliente TypeScript: `openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts`. Para generar un cliente Python: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py`, uso este comando. Genero un cliente Java: `openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson`. Para Python con httpx: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client --library httpx`. Configuro opciones de generación en `.openapi-generator-config.json`: `{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}` de esta forma. Publico clientes generados a package registries: npm para TypeScript, PyPI para Python, Maven Central para Java. Yo automatizo en CI: genera, testea, y publica en cambios del spec.
-Con eso basta para empezar.
+Usa `openapi-generator-cli` para generar clientes tipados en varios lenguajes. Instálalo con: `npm install @openapitools/openapi-generator-cli -g`. Para generar un cliente TypeScript: `openapi-generator-cli generate -i openapi.yaml -g typescript-axios -o ./client-ts`. Para generar un cliente Python: `openapi-generator-cli generate -i openapi.yaml -g python -o ./client-py` (añade `--library httpx` si la versión del generador lo soporta). Para generar un cliente Java: `openapi-generator-cli generate -i openapi.yaml -g java -o ./client-java --library okhttp-gson`. Configura las opciones de generación en `.openapi-generator-config.json`: `{"packageName": "book_api_client", "projectName": "book-api-client", "hideGenerationTimestamp": true}`. Publica los clientes generados en registries de paquetes: npm para TypeScript, PyPI para Python y Maven Central para Java. Automatiza en CI: generar, probar y publicar cuando cambie el spec.
 
 
 ### ¿Cómo documento paginación en OpenAPI?
@@ -327,7 +324,8 @@ components:
       properties:
         data:
           type: array
-          items: $ref: '#/components/schemas/Book'
+          items:
+            $ref: '#/components/schemas/Book'
         total:
           type: integer
         offset:
@@ -500,8 +498,7 @@ En GitHub Actions, así lo configuro:
   run: npx @redocly/cli lint openapi.yaml
 ```
 
-Valido estructura del spec: checkea `operationId` faltante, targets `$ref` no definidos, response schemas faltantes, y parámetros de path duplicados. Auto-fix issues comunes: `redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == "operation-summary")'`.
-Es cuestión de constancia, pero una vez automatizado se mantiene solo.
+Revisa la estructura del spec: detecta `operationId` faltante, `$ref` no definidos, response schemas faltantes y parámetros de path duplicados. Para problemas comunes: `redocly lint --format=json openapi.yaml | jq '.problems[] | select(.ruleId == "operation-summary")'`.
 
 
 ### ¿Cómo documento error responses con RFC 7807 Problem Details?
@@ -552,13 +549,6 @@ Es importante documentar códigos de error comunes: 400 para validation errors, 
 Con esto cubres la mayoría de los casos.
 
 
-### ¿Cómo uso OpenAPI con GraphQL?
-
-No hay una única forma, pero te cuento la mía.
-OpenAPI y GraphQL sirven propósitos diferentes pero pueden coexistir. Uso OpenAPI para endpoints REST y GraphQL schema para queries/mutations. Convierte GraphQL schema a OpenAPI: usa `graphql-to-openapi` para generar un spec OpenAPI desde operaciones GraphQL: `npx graphql-to-openapi --schema schema.graphql --query 'query { books { id title } }' --output openapi.yaml`. Para supergraph federation, documenta cada subgraph como un spec OpenAPI y usa un gateway spec que los agregue. Para wrappers REST-to-GraphQL, usa Apollo Server RESTDataSource: `class BookAPI extends RESTDataSource { async getBook(id) { return this.get(`books/${id}`); } }`. Documento ambas APIs en un portal de desarrollador unificado: Redoc para REST, GraphQL Playground para GraphQL. Yo uso directiva `@rest` en GraphQL para mapear endpoints REST: `type Query { book(id: ID!): Book @rest(url: "/books/:id") }`.
-Una vez que lo automatizas, no vuelves atrás.
-
-
 ### ¿Cómo documento rate limiting de API en OpenAPI?
 
 Documento rate limits usando response headers y extensiones `x-`. Añade headers de rate limit a responses, así lo configuro:
@@ -580,7 +570,7 @@ responses:
           description: Unix timestamp when the window resets
 ```
 
-En mi flujo, uso extensiones custom para límites por plan, este es el esquema:
+Usa extensiones propias para límites por plan:
 ```yaml
 x-rate-limit:
   free: 100/hour
@@ -588,7 +578,7 @@ x-rate-limit:
   enterprise: 100000/hour
 ```
 
-Documento comportamiento de throttling en la descripción: `description: Rate limited a 100 requests per hour para free tier. Yo retorna 429 con header Retry-After cuando se excede.`. Incluyo la response 429, así lo configuro:
+Documenta el comportamiento de throttling en la descripción: `description: Limitado a 100 peticiones por hora para el plan free. Devuelve 429 con el header Retry-After cuando se excede.`. Incluyo la response 429, así lo configuro:
 ```yaml
 '429':
   description: Too many requests
@@ -641,7 +631,8 @@ PropertyValue:
     - type: number
     - type: boolean
     - type: array
-      items: $ref: '#/components/schemas/PropertyValue'
+      items:
+        $ref: '#/components/schemas/PropertyValue'
 ```
 
 Para composición sin discriminación, usa `allOf` para heredar propiedades, este es el esquema:
@@ -656,54 +647,6 @@ Animal:
 ```
 
 Es un detalle fácil de pasar por alto, pero ahorra problemas.
-
-
-### ¿Cómo documento server-sent events en OpenAPI?
-
-Aquí va lo que me ha funcionado en proyectos reales.
-En mi caso, server-sent events (SSE) usan content type `text/event-stream`. No olvides documentar la response, el snippet se ve así:
-```yaml
-responses:
-  '200':
-    description: Server-sent events stream
-    content:
-      text/event-stream:
-        schema:
-          type: object
-          properties:
-            event:
-              type: string
-            data:
-              type: string
-            id:
-              type: string
-            retry:
-              type: integer
-```
-
-Documento el schema del payload del evento en el campo `data`, el código quedaría así:
-```yaml
-data:
-  type: string
-  description: JSON-encoded event payload
-  example: '{"type": "book.created", "book": {"id": 1}}'
-```
-
-Incluyo headers de conexión, así lo configuro:
-```yaml
-headers:
-  Cache-Control:
-    schema:
-      type: string
-      default: no-cache
-  Connection:
-    schema:
-      type: string
-      default: keep-alive
-```
-
-Documento comportamiento de reconexión: `description: Client should reconnect on connection close. Last-Event-ID header can be sent to resume from a specific event.`.
-No es lo más emocionante, pero hace la documentación mucho más usable.
 
 
 ### ¿Cómo genero mock servers desde specs OpenAPI?
@@ -805,12 +748,9 @@ rules:
       function: truthy
 ```
 
-Con esto cubres la mayoría de los casos.
-
-
 ### ¿Cómo documento API testing y contract testing en OpenAPI?
 
-En mi flujo, uso el spec para drivear tests automatizados. Con Schemathesis: `schemathesis run openapi.yaml --base-url http://localhost:8000 --checks all`. Para generar y envía requests basados en el spec y valida responses contra el schema, uso este comando. Con Dredd: `dredd openapi.yaml http://localhost:8000 --hookfiles=./hooks.js`. Escribe test hooks: `hooks.before('/books > GET', (transaction) => { transaction.expected.headers['Content-Type'] = 'application/json' })`. Con Postman: importa el spec y genera collections de test: `newman run collection.json --env-var base_url=http://localhost:8000`. Para contract testing con Pact: genera pacts desde el spec: `pact-broker publish pacts/ --consumer-app-version 1.0.0`. Yo uso `openapi-generator-cli` para generar test clients: `openapi-generator-cli generate -i openapi.yaml -g python -o ./test-client --library pytest`. Es importante documentar coverage de tests, el código quedaría así:
+Usa el spec para guiar tests automatizados. Con Schemathesis: `schemathesis run openapi.yaml --base-url http://localhost:8000 --checks all`. Genera y envía peticiones basadas en el spec y valida las responses contra el schema. Con Dredd: `dredd openapi.yaml http://localhost:8000 --hookfiles=./hooks.js`. Escribe test hooks: `hooks.before('/books > GET', (transaction) => { transaction.expected.headers['Content-Type'] = 'application/json' })`. Con Postman: importa el spec y genera colecciones de test: `newman run collection.json --env-var base_url=http://localhost:8000`. Para contract testing con Pact: genera pacts desde el spec: `pact-broker publish pacts/ --consumer-app-version 1.0.0`. También puedes generar test clients con `openapi-generator-cli`: `openapi-generator-cli generate -i openapi.yaml -g python -o ./test-client`. Documenta la cobertura de tests:
 ```yaml
 x-test-coverage:
   /books: 95%
@@ -944,13 +884,14 @@ Para content types versionados, el snippet se ve así:
 ```yaml
 content:
   application/vnd.api+json;version=1:
-    schema: $ref: '#/components/schemas/BookV1'
+    schema:
+      $ref: '#/components/schemas/BookV1'
   application/vnd.api+json;version=2:
-    schema: $ref: '#/components/schemas/BookV2'
+    schema:
+      $ref: '#/components/schemas/BookV2'
 ```
 
-No olvides documentar comportamiento de content negotiation: `description: Returns JSON by default. Yo send Accept: application/xml for XML response. En mi caso, send Accept: text/csv for CSV export.`.
-No es lo más emocionante, pero hace la documentación mucho más usable.
+Documenta el comportamiento de content negotiation: `description: Devuelve JSON por defecto. Envía Accept: application/xml para respuesta XML. Envía Accept: text/csv para exportar a CSV.`.
 
 
 ### ¿Cómo documento caching headers de API en OpenAPI?
@@ -1011,21 +952,6 @@ x-cache:
 ```
 
 A mí me ha funcionado sin dramas.
-
-
-### ¿Cómo uso OpenAPI con API gateways?
-
-Casi siempre termino usando esta aproximación.
-Configuro API gateways usando specs OpenAPI de esta forma. Para AWS API Gateway: importa el spec: `aws apigateway put-rest-api --rest-api-id abc123 --body file://openapi.yaml --mode overwrite`. Añade Lambda integration vía extensiones, el snippet se ve así:
-```yaml
-x-amazon-apigateway-integration:
-  type: aws_proxy
-  httpMethod: POST
-  uri: arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:123:function:books/invocations
-```
-
-Para Kong: usa `kong openapi2kong openapi.yaml --output kong.yaml`. Para NGINX: usa `openapi2nginx openapi.yaml --output nginx.conf`. Para Apigee: importa el spec como API proxy: `apigeecli apis import -f openapi.yaml -n book-api`. Documento el comportamiento específico del gateway: rate limiting, request transformation, API keys, y CORS. Yo uso el spec para generar configs de gateway automáticamente en CI: `aws apigateway put-rest-api ... && aws apigateway create-deployment ...`.
-Es cuestión de constancia, pero una vez automatizado se mantiene solo.
 
 
 ### ¿Cómo documento operaciones long-running en OpenAPI?
@@ -1251,64 +1177,6 @@ paths:
 Es importante documentar métodos idempotentes: `description: This endpoint is idempotent. Sending the same request with the same Idempotency-Key returns the original response.`. Para idempotency natural: `PUT /books/{id}` es naturalmente idempotente — documenta esto: `description: PUT is idempotent. Two calls with the same body produce the same result.`. En mi flujo, uso extensión `x-idempotent: true` para code generators. Almacena idempotency keys: `x-idempotency-key-ttl: 24h`. Documento expiración de keys: `description: Idempotency keys are stored for 24 hours. After expiration, the same key can be reused.`.
 
 
-### ¿Cómo documento paginación de API con HATEOAS links?
-
-Depende del caso, pero normalmente hago lo siguiente.
-HATEOAS (Hypermedia as the Engine of Application State) embebe links de navegación en responses. Defino un schema de links, el snippet se ve así:
-```yaml
-components:
-  schemas:
-    BookCollection:
-      type: object
-      properties:
-        data:
-          type: array
-          items: $ref: '#/components/schemas/Book'
-        _links:
-          type: object
-          properties:
-            self:
-              $ref: '#/components/schemas/Link'
-            next:
-              $ref: '#/components/schemas/Link'
-            prev:
-              $ref: '#/components/schemas/Link'
-    Link:
-      type: object
-      properties:
-        href:
-          type: string
-          format: uri
-        rel:
-          type: string
-        method:
-          type: string
-          enum: [GET, POST, PUT, DELETE]
-```
-
-No olvides documentar response de ejemplo, el código quedaría así:
-```yaml
-example:
-  data: [{id: 1, title: Clean Code}]
-  _links:
-    self: {href: /books?page=1, rel: self, method: GET}
-    next: {href: /books?page=2, rel: next, method: GET}
-```
-
-Yo uso OpenAPI links para static linking, así lo configuro:
-```yaml
-responses:
-  '201':
-    links:
-      GetBook:
-        operationId: getBook
-        parameters:
-          book_id: '$response.body#/id'
-```
-
-A mí me ha funcionado sin dramas.
-
-
 ### ¿Cómo documento request validation de API en OpenAPI?
 
 Es importante documentar rules de validation usando constraints de JSON Schema en el spec. Para string validation, el código quedaría así:
@@ -1527,81 +1395,6 @@ x-onboarding:
 Con eso basta para empezar.
 
 
-### ¿Cómo manejo generación de specs OpenAPI para APIs legacy?
-
-En mi experiencia, hay varias formas de abordarlo.
-Para hacer retrofit de specs OpenAPI para APIs legacy usando herramientas de reverse engineering, uso este enfoque. Una opción es usar `akto` para spec generation basada en tráfico: `akto run --proxy http://localhost:8080 --output openapi.yaml` captura tráfico de API y genera un spec. Uso `swagger-express` para apps Express: añade middleware que auto-genera specs desde routes. Para apps Java legacy, usa anotaciones `swagger-core`: `@Api(value = \"books\", description = \"Book endpoints\")` en controllers. Para Python Flask, usa `flask-restx` con `@ns.doc(responses={200: 'Success'})`. Para SOAP APIs no documentadas, convierte WSDL a OpenAPI: `npx @redocly/cli convert wsdl.xml --to openapi`. Annota endpoints gradualmente: empieza con paths y methods, luego añade parameters, luego response schemas. Yo uso `redocly lint` para trackear completeness del spec: `redocly lint --format=json openapi.yaml | jq '[.problems[] | .ruleId] | group_by(.) | map({rule: .[0], count: length})'`. Prioriza documentar los endpoints más usados primero basado en análisis de tráfico.
-Es un detalle fácil de pasar por alto, pero ahorra problemas.
-
-
-### ¿Cómo documento throttling y quota management de API en OpenAPI?
-
-No hay una única forma, pero te cuento la mía.
-No olvides documentar políticas de throttling usando extensiones y response headers. Defino límites de quota por tier, el código quedaría así:
-```yaml
-x-quota:
-  free:
-    requests_per_day: 1000
-    burst: 10
-  pro:
-    requests_per_day: 100000
-    burst: 100
-  enterprise:
-    requests_per_day: 10000000
-    burst: 1000
-```
-
-Yo documento headers de quota, lo muestro con este ejemplo:
-```yaml
-responses:
-  '200':
-    headers:
-      X-Quota-Limit:
-        schema: {type: integer}
-        description: Total requests allowed per day
-      X-Quota-Remaining:
-        schema: {type: integer}
-        description: Remaining requests today
-      X-Quota-Reset:
-        schema: {type: string, format: date-time}
-        description: When quota resets
-```
-
-Incluyo la response 429 con detalles de quota, este es el esquema:
-```yaml
-'429':
-  description: Quota exceeded
-  content:
-    application/problem+json:
-      schema:
-        type: object
-        properties:
-          type: {type: string}
-          title: {type: string}
-          detail: {type: string}
-          quota_limit: {type: integer}
-          quota_used: {type: integer}
-          reset_at: {type: string, format: date-time}
-```
-
-Yo documento algoritmos de throttling: token bucket, sliding window, o fixed window. En mi flujo, uso extensión `x-throttling`, lo muestro con este ejemplo:
-```yaml
-x-throttling:
-  algorithm: token-bucket
-  capacity: 100
-  refill_rate: 10/s
-```
-
-No olvides documentar rules de bypass, así lo configuro:
-```yaml
-x-throttle-bypass:
-  - header: X-Internal-Request
-  - ip_range: 10.0.0.0/8
-```
-
-No es lo más emocionante, pero hace la documentación mucho más usable.
-
-
 ### ¿Cómo documento API key management en OpenAPI?
 
 Documento autenticación de API keys, rotación, y scoping. Yo defino API key security así, lo muestro con este ejemplo:
@@ -1667,51 +1460,6 @@ paths:
 Es importante documentar política de rotación: `x-api-key-rotation: 90 days`. No olvides documentar prefijo de key para identificación: `description: API keys start with 'sk_live_' for production and 'sk_test_' for sandbox.`.
 
 
-### ¿Cómo documento event streaming de API con Kafka en OpenAPI?
-
-Depende del caso, pero normalmente hago lo siguiente.
-Yo documento APIs async basadas en Kafka usando extensiones OpenAPI. Defino topics async de esta forma, así lo configuro:
-```yaml
-x-kafka:
-  topics:
-    - name: book.events
-      partitions: 6
-      replication: 3
-      key_format: uuid
-      value_format: avro
-      schema_registry: http://schema-registry:8081
-```
-
-No olvides documentar endpoints de producer, este es el esquema:
-```yaml
-paths:
-  /events/publish:
-    post:
-      summary: Publish event to Kafka
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                topic: {type: string}
-                key: {type: string}
-                value: {type: object}
-```
-
-Yo documento consumer group offsets, el código quedaría así:
-```yaml
-x-kafka-consumer-groups:
-  - name: book-indexer
-    offset_reset: earliest
-  - name: book-analytics
-    offset_reset: latest
-```
-
-Una opción es usar extensión `x-asyncapi` para linkear a un spec de AsyncAPI para documentación async completa: `x-asyncapi-spec: ./asyncapi.yaml`.
-Es cuestión de constancia, pero una vez automatizado se mantiene solo.
-
-
 ## Ver También
 
 - [API Versioning](/recipes/api-versioning/) — En mi flujo, primero versiono la API y luego el spec; esta receta explica las estrategias.
@@ -1722,4 +1470,10 @@ Es cuestión de constancia, pero una vez automatizado se mantiene solo.
 
 ## Errores Comunes en Producción
 
-En producción, copiar el ejemplo sin adaptarlo a tus volúmenes y modos de fallo reales es una trampa común. Saltar tests de carga e inyección de errores antes del primer despliegue productivo suele terminar mal. Codificar valores fijos que deberían ser configurables por entorno dificulta el cambio de escenario. Olvidar agregar logging y monitoreo en cada paso te deja ciego ante incidentes. Desplegar sin plan de rollback ni estrategia de backup probada es jugar con fuego. Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes es una ilusión. No documentar la versión y configuración usadas en producción complica el soporte. Dejar la receta sin cambios cuando evolucionan las dependencias o la escala la vuelve obsoleta.
+- Dejar que el spec OpenAPI se desfase del API desplegado, de forma que docs, clientes y tests dejen de coincidir con la realidad.
+- Exponer schemas internos de base de datos en `components/schemas` en lugar de DTOs estables.
+- Saltar el linting del spec en CI y publicar referencias `$ref` rotas o inválidas.
+- Usar seguridad `apiKey` para tokens JWT tipo bearer en lugar de `http` con `scheme: bearer`.
+- Olvidar versionar el spec junto con la API, o eliminar paths deprecados demasiado pronto.
+- Desplegar los endpoints `/docs` y `/redoc` generados sin control de acceso en APIs internas.
+- Dar por sentado que un cliente generado funcionará sin verificar compatibilidad con tu versión de OpenAPI y extensiones.
