@@ -341,8 +341,13 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 1. Verify all `topics` against the enum list
 2. Count `metaDescription` characters in both locations
 3. Verify `relatedResources` point to existing slugs
-4. Run `npm run build` locally and confirm no schema errors
-5. Only then commit and push
+4. Run `npm run content:quality` (0 errors, 0 warnings)
+5. Run `npm run content:links` (0 broken related resources)
+6. Run `npm run content:validate` and review warnings
+7. Run `npm run check` (0 errors, 0 warnings; hints are informational)
+8. Run `npm run build` locally and confirm no schema errors
+9. Run `npm run sitemap` to regenerate `public/sitemap.xml`
+10. Only then commit and push
 
 ## Common Pitfalls to Avoid
 
@@ -378,7 +383,7 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 
 ### Technical Metrics
 
-- **Build time**: Under 2 minutes (currently ~1m 50s for 2400+ pages; monitor for degradation)
+- **Build time**: 3–4 minutes for 3242 pages (Astro build ~3m, Pagefind indexing ~75s); monitor for degradation
 - **JavaScript shipped**: Minimal (Astro ships zero JS by default)
 - **Lighthouse score**: 95+ across all metrics
 - **SEO score**: 95+ on SEO tools
@@ -386,7 +391,7 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 
 ### Content Metrics
 
-- **Page count**: 2400+ pages built (growing with content batches)
+- **Page count**: 3242 pages built (2042 Markdown files, EN + ES)
 - **SEO ranking**: Target first page for key long-tail terms
 - **Organic traffic**: Steady growth month over month
 - **User engagement**: Low bounce rate, high time on page
@@ -399,6 +404,51 @@ The ONLY valid `topics` values are: `data`, `api`, `authentication`, `file-handl
 - **User satisfaction**: Positive feedback and engagement
 - **Domain authority**: Build strong developer authority
 - **Brand recognition**: Become trusted engineering reference
+
+## Audit, Build & Validation Workflow
+
+### Standard commands
+
+Run this sequence after any content or component change:
+
+```bash
+npm run content:quality    # 2042 files, expects 0 errors / 0 warnings
+npm run content:links      # relatedResources integrity
+npm run content:validate   # structural content warnings
+npm run check              # Astro check, 0 errors / 0 warnings
+npm run build              # full static build; 3242 pages expected
+npm run sitemap            # regenerate public/sitemap.xml from dist/
+```
+
+### SEO/Content audit commands
+
+```bash
+node scripts/internal-linking-audit.cjs   # ref/internal-linking-data.json
+node scripts/forensic-data-generator.cjs  # ref/audit-data.json
+node scripts/generate-audit-summary.cjs   # ref/audit-summary.json
+```
+
+Review `ref/audit-summary.json` for `duplicateTitles`, `duplicateDescs`, `canonicalMismatch`, `hreflangIssues`, and `thinPages`.
+
+### Bilingual parity & SEO URL contract
+
+- `Seo.astro` expects a **locale-neutral** `path` prop. It then builds `canonical`, `hreflang`, Open Graph, and `x-default` URLs by prefixing `/es` when `locale === 'es'`. Passing an already-prefixed path (e.g., `/es/topics/...` instead of `/topics/...`) produces malformed double `/es/es/` URLs.
+- Always pass `path` without the locale prefix to `Seo.astro`, `BaseLayout.astro`, and `ListingPage.astro`; `locale` handles the rest.
+- Every English content file **must** have a matching `.es.md` with equivalent frontmatter, technical scope, code examples, and related resources.
+
+### relatedResources conventions
+
+- Use 3–6 coherent related resources per content file.
+- Prefer reciprocal links within the same topic cluster (e.g., API recipes link to other API recipes/patterns).
+- Keep EN and ES `relatedResources` lists identical in number, order, and target slugs.
+- Run `npm run content:links` after changing `relatedResources` to confirm targets exist.
+
+### Content quality guardrails
+
+- Keep `metaDescription` between 50–170 characters in both top-level frontmatter and `seo.metaDescription`.
+- Avoid duplicate H2/H3 headings inside the same page; FAQ sections are common culprits.
+- Avoid generic AI-like filler when adding body links or cross-references.
+- Run the AI detector (`python scripts/ai-detect-content.py <file>`) for high-traffic pages if the AI percentage is a concern.
 
 ## Remember
 
