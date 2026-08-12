@@ -7,9 +7,7 @@
     "human_count": 127,
     "skipped_count": 2,
     "total": 159,
-    "pattern_totals": {
-      "missing_contraction": 2
-    },
+    "pattern_totals": {},
     "text_metrics": {
       "mean": 18.4,
       "stddev": 13.6,
@@ -87,14 +85,14 @@
         7,
         11,
         12,
-        23,
+        22,
         29,
         35,
         10,
         13,
         29,
         14,
-        7,
+        6,
         11,
         7,
         10,
@@ -214,6 +212,10 @@
         0.7446
       ],
       [
+        "The  type still works, but it doesn't fit bearer tokens, because it describes a custom API key rather than a bearer scheme.",
+        0.7198
+      ],
+      [
         "This guide shows examples in Python with FastAPI, JavaScript with Express and Java with SpringDoc, and it walks through the trade-offs of each.",
         0.7076
       ],
@@ -224,10 +226,6 @@
       [
         "Every operation that requires auth needs a security entry and a matching securitySchemes component.",
         0.685
-      ],
-      [
-        "The  type still works, but it does not fit bearer tokens, because it describes a custom API key rather than a bearer scheme.",
-        0.6792
       ],
       [
         "Mark operations with  and use the  header for the removal date:\n\n\nInclude the  header:\n\n\nDocument migration paths in the description, for example:\n\n\nTo track deprecation usage, log",
@@ -254,8 +252,8 @@
         0.6198
       ],
       [
-        "OpenAPI does not enforce a pagination style.",
-        0.578
+        "OpenAPI doesn't enforce a pagination style.",
+        0.5903
       ],
       [
         "It also compares Swagger UI and Redoc, and explains how to keep the spec from rotting once it's in production.",
@@ -278,28 +276,7 @@
         0.5292
       ]
     ],
-    "diagnostics_sample": [
-      {
-        "sentence": "The  type still works, but it does not fit bearer tokens, because it describes a custom API key rather than a bearer scheme.",
-        "findings": [
-          {
-            "pattern": "missing_contraction",
-            "match": "does not",
-            "suggestion": "use 'doesn't'"
-          }
-        ]
-      },
-      {
-        "sentence": "OpenAPI does not enforce a pagination style.",
-        "findings": [
-          {
-            "pattern": "missing_contraction",
-            "match": "does not",
-            "suggestion": "use 'doesn't'"
-          }
-        ]
-      }
-    ]
+    "diagnostics_sample": []
   },
   {
     "label": "api-documentation-openapi-es",

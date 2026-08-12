@@ -20,18 +20,6 @@ relatedResources:
   - /recipes/handle-cors
   - /recipes/input-validation
   - /recipes/idempotent-api-endpoints
-  - /recipes/api-logging-audit
-  - /recipes/api-rate-limiting-redis
-  - /recipes/call-rest-api
-  - /recipes/cursor-pagination-postgresql
-  - /recipes/graphql-api
-  - /recipes/real-time-notifications
-  - /recipes/api-rate-limiting
-  - /recipes/middleware
-  - /recipes/pagination
-  - /recipes/logging
-  - /recipes/webhooks
-  - /recipes/grpc-api
 lastUpdated: "2026-08-12"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
