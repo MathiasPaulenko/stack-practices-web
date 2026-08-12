@@ -3,6 +3,7 @@
 **Auditor:** STACKPRACTICES CONTENT QUALITY AUDITOR  
 **Fecha:** sesión actual  
 **Fuentes revisadas:**
+
 - `src/content/recipes/api/api-documentation-openapi.md` (inglés, 1.660 líneas)
 - `src/content/recipes/api/api-documentation-openapi.es.md` (español, 1.725 líneas)
 - URL en producción: `https://stackpractices.com/recipes/api-documentation-openapi/`
@@ -28,7 +29,7 @@
 ## 2. Information Value (Valor de la información por sección)
 
 | Sección | Valoración | Justificación |
-|---|---|---|
+| --- | --- | --- |
 | **Overview** (EN 34-38 / ES 35-39) | **HIGH VALUE** | Identifica el problema, la solución y el alcance con una sola frase contundente. |
 | **When to Use / Cuándo Usar** (EN 40-46 / ES 41-50) | **HIGH VALUE** en ES, **MEDIUM VALUE** en EN | El español añade una cláusula de "cuándo NO usar" (ES 50: "Si tu API es solo tuya..."). El inglés omite esa matriz. |
 | **Solution / Solución** (EN 48-98 / ES 52-102) | **MEDIUM VALUE** | Los tres snippets son útiles como teaser, pero incompletos (faltan imports, no son ejecutables tal cual). |
@@ -45,6 +46,7 @@
 | **Common Production Pitfalls / Errores Comunes en Producción** (EN 1651-1660 / ES 1723-1725) | **LOW VALUE** | Es una plantilla genérica que no es específica de OpenAPI. |
 
 **Secciones LOW o NO VALUE a profundizar:**
+
 - **FAQ**: la mayoría de sus entradas son respuestas de una sola viñeta con un snippet, sin explicar cuándo aplicarla ni qué puede salir mal.
 - **Common Production Pitfalls**: frases como "Hard-coding values that should be configurable per environment" (EN 1655) son genéricas y aplican a cualquier receta del sitio.
 
@@ -55,6 +57,7 @@
 **Signal-to-noise ratio:** el cuerpo principal es **HIGH SIGNAL**. La FAQ baja notablemente la relación: incluye muchas respuestas tangenciales, explicaciones mínimas y, en la versión española, frases de relleno repetitivas ("En mi experiencia", "Con esto cubres la mayoría de los casos", "A mí me ha funcionado sin dramas", "No es lo más emocionante, pero...").
 
 **Filler detectado:**
+
 - ES línea 952: `Returns JSON by default. Yo send Accept: application/xml for XML response. En mi caso, send Accept: text/csv for CSV export.` — mezcla de inglés y español con sujeto confuso.
 - ES líneas 198, 298, 813: "En mi experiencia, hay varias formas de abordarlo", "Depende del caso, pero normalmente hago lo siguiente", "En mi flujo, uso el spec para drivear tests automatizados" — introducciones vacías.
 
@@ -67,11 +70,13 @@
 ## 4. Originality (Originalidad)
 
 **¿Es diferenciable?** Parcialmente. El cuerpo inicial combina tres stacks en una sola página y da consejos de producción que sí aportan juicio de ingeniería, pero gran parte del contenido se puede encontrar en:
+
 - La especificación oficial de OpenAPI.
 - Documentación de FastAPI, SpringDoc, Redocly y Swagger UI.
 - Los primeros resultados de Google sobre OpenAPI.
 
 **Diferenciadores reales:**
+
 - La tabla de variantes con enfoque y salida.
 - La discusión de "spec rot" y monitoreo de endpoints `/docs`, `/redoc`, `/openapi.json`.
 - El consejo concreto de usar DTOs para evitar filtrar modelos internos.
@@ -86,6 +91,7 @@
 
 La sección central demuestra experiencia práctica: distingue code-first vs. design-first, advierte sobre DTOs, drift, contract tests, versionado y linting. Sin embargo, la pericia decae drásticamente en la FAQ:
 
+
 - Muchos temas avanzados (Kafka, GraphQL, throttling, API gateways, legados) se tocan con un snippet y una línea de texto, sin trade-offs ni advertencias.
 - No se explica, por ejemplo, que `oneOf` con `discriminator` es un dolor para muchos generadores de clientes.
 - No se mencionan limitaciones reales de Swagger UI con especificaciones grandes, de Redoc con POST interactivo, ni de `openapi-generator-cli` con determinados patrones.
@@ -98,12 +104,14 @@ La sección central demuestra experiencia práctica: distingue code-first vs. de
 ## 6. Practical Usefulness (Utilidad práctica)
 
 **Lo que funciona:**
+
 - Tabla de variantes.
 - Comandos concretos (`npx @redocly/cli lint`, `schemathesis run`, `openapi-generator-cli`).
 - Ejemplos de `securitySchemes` con JWT, API key y OAuth2.
 - Workflow de GitHub Actions para generar, lintear y publicar docs.
 
 **Lo que no funciona:**
+
 - Los snippets iniciales (Python, Java, JavaScript) son incompletos: faltan dependencias, configuración y pasos de instalación.
 - Muchos snippets de la FAQ no son copiables porque contienen errores de YAML o de comando (ver sección 14).
 - No hay "salida esperada": no se muestra qué vería el lector en Swagger UI o Redoc tras aplicar el ejemplo.
@@ -116,6 +124,7 @@ La sección central demuestra experiencia práctica: distingue code-first vs. de
 ## 7. Context (Contexto)
 
 El artículo explica bien:
+
 - **Qué es:** un spec YAML/JSON que describe endpoints, schemas y errores.
 - **Por qué existe:** para evitar documentación obsoleta en README/Confluence/Slack.
 - **Cuándo usarlo:** cuando hay varios consumidores, SDKs, validación o contract-first.
@@ -133,10 +142,12 @@ El artículo explica bien:
 
 El cuerpo principal explica bien los trade-offs de code-first vs. design-first (EN 104-106 / ES 108-110):
 
+
 - Code-first: sincronía con el código, riesgo de filtrar modelos internos.
 - Design-first: contrato explícito, riesgo de drift si no hay tests.
 
 También distingue Swagger UI vs. Redoc con criterio de uso. Sin embargo, faltan trade-offs sobre:
+
 - Coste de mantener specs en repositorios separados.
 - Curva de aprendizaje de herramientas como `openapi-generator-cli`.
 - Lock-in con extensiones `x-` propietarias.
@@ -149,6 +160,7 @@ También distingue Swagger UI vs. Redoc con criterio de uso. Sin embargo, faltan
 ## 9. Alternatives
 
 Menciona alternativas implícitamente:
+
 - Swagger 2.0 (conversión a OpenAPI 3.0).
 - GraphQL como enfoque alternativo.
 - AsyncAPI para Kafka (vía `x-asyncapi-spec`).
@@ -171,6 +183,7 @@ La inglesa (EN 42-46) solo lista situaciones de uso. Esto es un problema de pari
 ## 11. Real-World Scenarios (Escenarios reales)
 
 El artículo toca muchos escenarios reales superficialmente:
+
 - CI/CD (lint, generación de clientes, contract tests).
 - Equipos múltiples (design-first).
 - Microservicios (splitting de specs, `$ref`).
@@ -187,11 +200,13 @@ El problema es que casi todos son mencionados, no desarrollados. Por ejemplo, ha
 Los ejemplos son numerosos pero de calidad desigual.
 
 **Ejemplos buenos:**
+
 - `securitySchemes` para JWT, API key y OAuth2 (EN 218-262 / ES 206-250).
 - Esquema de Problem Details RFC 7807 (EN 506-544 / ES 511-549).
 - Workflow de GitHub Actions para lint (EN 196-207 / ES 179-190).
 
 **Ejemplos problemáticos:**
+
 - Los tres snippets de la sección `Solution` son demasiado mínimos (faltan dependencias, imports, configuración).
 - Muchos ejemplos de la FAQ no indican versión de OpenAPI a la que aplican.
 - El ejemplo de SSE define el schema del `data` como `type: string` con un ejemplo JSON, pero no explica que en SSE `data` es texto plano y el parsing corre por cuenta del cliente.
@@ -204,14 +219,17 @@ Los ejemplos son numerosos pero de calidad desigual.
 ## 13. Code Quality (Calidad del código)
 
 **Python (EN 52-64 / ES 56-68):**
+
 - Importa `from fastapi.openapi.docs import get_swagger_ui_html` pero nunca lo usa. Es un import muerto.
 - No define `response_model`, por lo que FastAPI inferirá el schema desde el `dict` devuelto; sin embargo, un lector principiante puede no entender por qué la respuesta aparece como `additionalProperties` en Swagger UI.
 
 **JavaScript (EN 69-78 / ES 72-82):**
+
 - Usa CommonJS (`require`) sin advertir que también se puede usar ESM.
 - Carga `openapi.yaml` pero no muestra su contenido, ni cómo estructurarlo.
 
 **Java (EN 83-98 / ES 87-102):**
+
 - Importa `org.springdoc.core.annotations.RouterOperation` y `RouterOperations` (para webflux/functional), pero el ejemplo usa anotaciones de Spring MVC `@RestController`, `@GetMapping`.
 - No importa `io.swagger.v3.oas.annotations.Operation` ni `@ApiResponse`.
 - Usa `Book` y `bookService` sin definirlos.
@@ -232,6 +250,7 @@ Se encontraron errores técnicos concretos. Para cada uno se indica claim, probl
 **PROBLEMA:** En YAML/OpenAPI, `$ref` debe ser una clave de un objeto (`schema: { $ref: "..." }`). Escribir `items: $ref: '#/...'` hace que el valor de `items` sea la cadena `$ref: '#/...'`, lo cual es inválido y rompe tanto el parser como las herramientas.
 
 **EVIDENCIA:**
+
 - `api-documentation-openapi.md` líneas 335, 632, 917, 919, 1216.
 - `api-documentation-openapi.es.md` líneas 330, 644, 947, 949, 1266.
 
@@ -301,6 +320,7 @@ data:
 **PROBLEMA:** La versión española contiene sujeto confuso, anglicismos no integrados y errores gramaticales que afectan la confianza.
 
 **EVIDENCIA:**
+
 - ES 178: "Yo suelo generar el spec... **publícalo** en un registry" → debería ser "lo publico".
 - ES 199: "**Yo transforma** `definitions` en `components/schemas`" → "yo transformo".
 - ES 503: "**checkea** `operationId` faltante" → "verifica" o "comprueba".
@@ -317,6 +337,7 @@ data:
 ## 15. Depth (Profundidad)
 
 **Niveles alcanzados:**
+
 - Nivel 1 (Definición): presente.
 - Nivel 2 (Explicación): presente en el cuerpo principal.
 - Nivel 3 (Uso práctico): parcial; los ejemplos iniciales son mínimos, la FAQ aporta snippets pero sin contexto de uso.
@@ -343,6 +364,7 @@ No hay transición ni agrupación temática. La FAQ se lee como un volcado de pr
 
 La estructura cumple el patrón requerido por el proyecto (`Overview → When to Use → Solution → Explanation → Variants → Best Practices → Common Mistakes → FAQ`), pero la **FAQ desbalancea el artículo**. El 90% de las líneas son FAQ. Sería más útil:
 
+
 - Agrupar la FAQ en subsecciones temáticas (Autenticación, Versionado, Validación, Generación, Avanzado).
 - Mover temas como Kafka, GraphQL, throttling, legados SOAP y API gateways a recetas separadas, con una nota de "Ver También".
 - La sección final `Common Production Pitfalls` es genérica y debería adaptarse a OpenAPI ("Dejar que el spec se desfase", "Exponer schemas internos", "No versionar el spec con el API").
@@ -352,6 +374,7 @@ La estructura cumple el patrón requerido por el proyecto (`Overview → When to
 ## 18. Repetition (Repetición)
 
 **Conceptos repetidos:**
+
 - Lint del spec en CI: EN 129, 142, 162, 170; ES 130, 138, 149, 153; FAQ.
 - DTOs vs. entidades: EN 104, 133, 190; ES 108, 134, 173.
 - Contract tests / spec drift: EN 106, 144, 208; ES 110, 138, 192.
@@ -364,6 +387,7 @@ La estructura cumple el patrón requerido por el proyecto (`Overview → When to
 ## 19. Generic Content (Contenido genérico)
 
 Además de frases genéricas, hay **ideas genéricas**:
+
 - "API docs die in READMEs, Confluence pages and Slack threads" es buena; sin embargo, no se ilustra con un caso concreto.
 - "Validate the spec in CI" es correcto pero repetido sin contexto de setup real.
 - "Common Production Pitfalls" (EN 1651-1660) es una plantilla compartida por muchas recetas; no aporta nada específico de OpenAPI.
@@ -373,6 +397,7 @@ Además de frases genéricas, hay **ideas genéricas**:
 ## 20. AI-Like Formulaic Content (Contenido formulaico)
 
 La versión española presenta patrones formulaicos fuertes:
+
 - Introducciones repetitivas antes de cada respuesta de FAQ: "En mi experiencia, hay varias formas de abordarlo", "Depende del caso, pero normalmente hago lo siguiente", "No hay una única forma, pero te cuento la mía", "He probado varias aproximaciones; esta es la que me funciona".
 - Cierres genéricos: "Con esto cubres la mayoría de los casos", "Con eso basta para empezar", "A mí me ha funcionado sin dramas", "Una vez que lo automatizas, no vuelves atrás", "Es cuestión de constancia, pero una vez automatizado se mantiene solo", "No es lo más emocionante, pero hace la documentación mucho más usable".
 
@@ -383,11 +408,13 @@ Estas frases crean una sensación de simetría artificial y falta de opinión re
 ## 21. Opinion and Judgement (Opinión y juicio)
 
 El cuerpo principal sí emite juicios sustentados:
+
 - "Code-first works well when a single team builds and consumes the API" (con upside/downside).
 - "Design-first works better when frontend, backend and mobile teams agree on a contract".
 - "Swagger UI is best when developers need to call endpoints from the browser; Redoc is better for a clean, documentation-first reading experience".
 
 En la FAQ, muchas recomendaciones se presentan como verdades absolutas sin matiz:
+
 - "For Python with httpx" (sin justificar por qué ese generador).
 - "Use `x-rate-limit`..." (sin advertir que son extensiones propietarias).
 - "Document OWASP compliance: `x-owasp-compliance: [API1-BOLA, API2-BA, API3-EDP]`" (parece inventado, no es un estándar conocido).
@@ -399,6 +426,7 @@ En la FAQ, muchas recomendaciones se presentan como verdades absolutas sin matiz
 ## 22. Edge Cases (Casos límite)
 
 Se mencionan casos límite relevantes pero sin profundidad:
+
 - Especificaciones grandes (se sugiere `$ref` + bundle, pero no se explica cómo medir tamaño ni rendimiento).
 - Referencias circulares (se describe pero no se advierte del soporte irregular en generadores).
 - Campos nulos (OpenAPI 3.0 vs. 3.1; se explica bien).
@@ -413,6 +441,7 @@ No se cubren: concurrencia, redes inestables, fallos parciales ni migraciones a 
 ## 23. Anti-Patterns (Anti-patrones)
 
 La sección `Common Mistakes / Errores Comunes` es sólida:
+
 - Dejar que el spec se desfase.
 - Olvidar `security` y `securitySchemes`.
 - Exponer modelos internos.
@@ -420,6 +449,7 @@ La sección `Common Mistakes / Errores Comunes` es sólida:
 - Hardcodear URLs de servidor.
 
 La FAQ repite algunos anti-patrones sin añadir nuevos. Faltaría:
+
 - Usar `x-` extensions de forma excesiva y perder compatibilidad.
 - Depender de `example` en lugar de `examples` para casos de error.
 - Mezclar OpenAPI 3.0 y 3.1 en el mismo proyecto sin una estrategia.
@@ -440,6 +470,7 @@ La FAQ añade diagnósticos puntuales (clientes generados no compilan, specs que
 
 La decisión más importante (code-first vs. design-first) está bien cubierta. La tabla de variantes ayuda a elegir herramienta por lenguaje y enfoque. Sin embargo, faltan:
 
+
 - Criterios para decidir entre Swagger UI y Redoc (solo una oración).
 - Cuándo merece la pena invertir en `openapi-generator-cli` vs. escribir clientes a mano.
 - Cuándo usar OpenAPI 3.1 frente a 3.0.
@@ -452,11 +483,13 @@ La FAQ lista muchas opciones pero no ayuda a priorizar.
 ## 26. Trustworthiness (Confiabilidad)
 
 **Fortalezas:**
+
 - Enlaces a documentación oficial (OpenAPI spec, Redocly, FastAPI, SpringDoc).
 - Fechas de publicación/actualización en el frontmatter (`lastUpdated: 2026-08-11`).
 - Autor identificado.
 
 **Debilidades:**
+
 - Errores técnicos en snippets que minan la confianza (sección 14).
 - Algunas afirmaciones no respaldadas: `apiKey` deprecado, `--library httpx`, OWASP `x-owasp-compliance`.
 - La versión española tiene errores gramaticales y spanglish que hacen parecer menos revisada.
@@ -467,6 +500,7 @@ La FAQ lista muchas opciones pero no ayuda a priorizar.
 ## 27. Freshness (Actualidad)
 
 El artículo está fechado en 2026 y las fechas de los ejemplos (`2025-12-31` en sunset, `2025-01-15` en changelog) son futuristas. El contenido puede quedar obsoleto rápido porque:
+
 - SpringDoc ha cambiado sus paths por defecto.
 - `openapi-generator-cli` cambia librerías soportadas.
 - Redocly CLI evoluciona (`@redocly/cli` es ahora el paquete recomendado frente a `redocly`).
@@ -489,6 +523,7 @@ El artículo está fechado en 2026 y las fechas de los ejemplos (`2025-12-31` en
 ## 29. Scope (Alcance)
 
 El alcance es **demasiado amplio** para el título. El artículo se propone explicar OpenAPI, Swagger UI y Redoc, pero la FAQ incluye:
+
 - GraphQL (EN 547-549).
 - Kafka / event streaming (EN 1601-1641).
 - Throttling y quota management (EN 1472-1535).
@@ -507,10 +542,12 @@ Muchos de esos temas merecen recetas propias. La acumulación dificulta el mante
 **Pilar del conocimiento:** sí, `api-documentation-openapi` es contenido pilar para el tema API.
 
 **Enlaces entrantes/salientes:**
+
 - Frontmatter `relatedResources` apunta a recetas relacionadas (`rest-api-design`, `api-versioning`, `handle-errors`, `handle-cors`, `input-validation`, `idempotent-api-endpoints`).
 - `See Also / Ver También` enlaza a `api-versioning`, `call-rest-api`, `graphql-api`, `handle-cors`, `handle-errors`.
 
 **Nota de paridad EN/ES:**
+
 - El frontmatter es paridad completa en ambos idiomas.
 - El cuerpo principal es paridad semántica completa.
 - La versión española añade matiz de "cuándo NO usar" (ES 50) que la inglesa debería incluir.
@@ -540,11 +577,13 @@ La presencia de errores sintácticos en snippets reduce la credibilidad para com
 ## 33. Competitive Value (Valor competitivo)
 
 **¿Qué hace mejor este artículo?**
+
 - Reúne tres stacks en una sola página.
 - Da consejos de producción (monitoreo de endpoints, versionado, lint).
 - Incluye una extensa FAQ para posicionamiento en buscadores/IA.
 
 **¿Qué hace peor?**
+
 - La documentación oficial de OpenAPI, Redocly y FastAPI es más precisa y está mejor mantenida.
 - Recursos como Learn OpenAPI o Stoplight docs tienen ejemplos ejecutables y verificados.
 - La FAQ de este artículo es menos confiable que la documentación de cada herramienta individual.
@@ -556,7 +595,7 @@ La presencia de errores sintácticos en snippets reduce la credibilidad para com
 ## 34. Keep / Improve / Remove / Relocate (Qué conservar, mejorar, eliminar o mover)
 
 | Sección | Decisión | Razón |
-|---|---|---|
+| --- | --- | --- |
 | **Overview, When to Use, Explanation, What Works, Common Mistakes, Troubleshooting, Production Notes, Key Takeaways** | **KEEP** | Son el valor central del artículo. |
 | **Solution (Python/JS/Java)** | **IMPROVE** | Añadir imports correctos, dependencias y un ejemplo funcional mínimo. |
 | **Variants table** | **KEEP** | Útil, podría ampliarse con "cuándo elegir". |
@@ -570,7 +609,7 @@ La presencia de errores sintácticos en snippets reduce la credibilidad para com
 ## 35. Content Score (Puntuación)
 
 | Criterio | Puntuación | Máximo |
-|---|---|---|
+| --- | --- | --- |
 | Core Value | 7 | 10 |
 | Information Density | 5 | 10 |
 | Originality | 4 | 10 |
