@@ -121,7 +121,7 @@ Una vez tienes el spec, alimenta tres cosas:
 ## Variantes
 
 | Herramienta | Lenguaje | Enfoque | Salida |
-|-------------|----------|---------|--------|
+| --- | --- | --- | --- |
 | FastAPI | Python | Code-first | /openapi.json + /docs auto-generados |
 | Flask-RESTX | Python | Code-first | Swagger UI integrado |
 | SpringDoc | Java | Code-first | /v3/api-docs + /swagger-ui.html |

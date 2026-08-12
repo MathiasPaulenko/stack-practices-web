@@ -40,12 +40,14 @@ This guide walks through three common stacks: Python + FastAPI, JavaScript + Exp
 ## When to Use
 
 This resource fits when:
+
 - You need interactive API documentation that stays in sync with your code
 - You want to auto-generate client SDKs in several languages
 - Your team needs a contract-first approach for API development
 - You need to validate incoming requests against a formal schema
 
 When not to use:
+
 - If the API is only for internal use and you are the only consumer, a short README may be enough. As soon as a second team depends on it, a written contract pays off.
 
 ## Solution
@@ -112,6 +114,7 @@ Teams produce OpenAPI specs in two ways, and the right choice depends on who own
 **Design-first** works better when frontend, backend and mobile teams agree on a contract before anyone writes code. You write the YAML or JSON spec by hand, publish it to a registry like SwaggerHub or Stoplight, then generate server stubs and client SDKs. The upside: the contract forces explicit decisions about fields, errors and versioning. The downside: if the spec isn't enforced by tests, it can become aspirational while the code does something else.
 
 Once the spec exists, it powers three things:
+
 - **Swagger UI** — an interactive explorer where developers can call endpoints directly from the browser.
 - **Redoc** — a clean, three-pane documentation site that's easier to read and navigate.
 - **Client generators** — `openapi-generator-cli` can turn the same spec into typed clients for TypeScript, Python, Java and many other languages.
@@ -119,7 +122,7 @@ Once the spec exists, it powers three things:
 ## Variants
 
 | Tool | Language | Approach | Output |
-|------|----------|----------|--------|
+| --- | --- | --- | --- |
 | FastAPI | Python | Code-first | Auto-generated /openapi.json + /docs |
 | Flask-RESTX | Python | Code-first | Built-in Swagger UI |
 | SpringDoc | Java | Code-first | /v3/api-docs + /swagger-ui.html |
