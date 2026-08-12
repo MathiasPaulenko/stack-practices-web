@@ -54,14 +54,14 @@ const baseSchema = z.object({
 });
 
 const recipes = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/recipes', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
+  loader: glob({ pattern: ['**/*.md', '!**/AGENTS*.md'], base: './src/content/recipes', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
   schema: baseSchema.extend({
     contentType: z.literal('recipes'),
   }),
 });
 
 const patterns = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/patterns', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
+  loader: glob({ pattern: ['**/*.md', '!**/AGENTS*.md'], base: './src/content/patterns', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
   schema: baseSchema.extend({
     contentType: z.literal('patterns'),
     category: z
@@ -71,7 +71,7 @@ const patterns = defineCollection({
 });
 
 const docs = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/docs', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
+  loader: glob({ pattern: ['**/*.md', '!**/AGENTS*.md'], base: './src/content/docs', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
   schema: baseSchema.extend({
     contentType: z.literal('docs'),
     templateType: z
@@ -93,7 +93,7 @@ const docs = defineCollection({
 });
 
 const guides = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/guides', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
+  loader: glob({ pattern: ['**/*.md', '!**/AGENTS*.md'], base: './src/content/guides', generateId: ({ entry }: { entry: string }) => entry.replace(/\.md$/, '') }),
   schema: baseSchema.extend({
     contentType: z.literal('guides'),
     estimatedReadTime: z.number().optional(),

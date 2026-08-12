@@ -66,7 +66,7 @@ function walk(dir, basePath, callback) {
     const rel = basePath ? path.join(basePath, entry.name) : entry.name;
     if (entry.isDirectory()) {
       walk(full, rel, callback);
-    } else if (entry.name.endsWith('.md')) {
+    } else if (entry.name.endsWith('.md') && !entry.name.startsWith('AGENTS')) {
       callback(full, rel);
     }
   }
