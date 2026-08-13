@@ -155,7 +155,7 @@ if TYPE_CHECKING:
     from myapp.models import User  # pragma: no cover
 ```
 
-Con la config `exclude_lines` de arriba, cualquier línea que matchee `if TYPE_CHECKING:` y todo lo que está debajo se excluye.
+El patrón `exclude_lines` saca la línea `if TYPE_CHECKING:` del reporte. Cada línea que está debajo, como el import, sigue necesitando su propia exclusión; por eso el import lleva `# pragma: no cover`.
 
 ### Cobertura para multiprocessing
 
@@ -163,7 +163,10 @@ Con la config `exclude_lines` de arriba, cualquier línea que matchee `if TYPE_C
 # pyproject.toml
 [tool.coverage.run]
 concurrency = ["multiprocessing", "thread"]
+parallel = true
 ```
+
+`parallel = true` le dice a cada proceso que escriba su propio archivo de datos; ejecutá `coverage combine` antes de reportar.
 
 ### Cobertura con ejecución paralela de tests
 
@@ -232,6 +235,7 @@ Genera un SVG badge con el porcentaje de cobertura actual para tu README.
 - **Incluir archivos de test en la cobertura**: `tests/` debería excluirse — estás midiendo código de producción.
 - **No combinar archivos de cobertura paralelos**: con `pytest-xdist`, cada worker escribe un archivo separado.
 - **Excluir demasiado**: si excluyes cada línea difícil de testear, el número pierde sentido.
+- **Commitear artifacts de cobertura al control de versiones**: agregá `.coverage`, `htmlcov/`, `.coverage.*` y badges generados a `.gitignore`. Solo la config y los archivos de test deben estar en el repo.
 
 ## Notas de Producción
 
@@ -337,7 +341,7 @@ exclude_lines =
     if __name__ == .__main__.:
 ```
 
-Excluye código de debug, métodos repr, y stubs de métodos abstractos. No excluyas paths de error handling — esos son críticos de testear.
+Estos patrones son expresiones regulares. Por ejemplo, `if __name__ == .__main__.:` matchea `if __name__ == "__main__":` porque el `.` en regex matchea las comillas. Excluye código de debug, métodos repr y stubs de métodos abstractos. No excluyas paths de error handling — esos son críticos de testear.
 
 
 ### Mido branch coverage en lugar de line coverage

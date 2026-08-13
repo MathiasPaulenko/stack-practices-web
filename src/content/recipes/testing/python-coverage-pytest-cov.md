@@ -155,7 +155,7 @@ if TYPE_CHECKING:
     from myapp.models import User  # pragma: no cover
 ```
 
-With the `exclude_lines` config above, any line matching `if TYPE_CHECKING:` and everything under it's excluded.
+The `exclude_lines` pattern removes the `if TYPE_CHECKING:` line from the report. Each line under it, like the import, still needs its own exclusion, which is why the import line carries `# pragma: no cover`.
 
 ### Coverage for multiprocessing
 
@@ -163,7 +163,10 @@ With the `exclude_lines` config above, any line matching `if TYPE_CHECKING:` and
 # pyproject.toml
 [tool.coverage.run]
 concurrency = ["multiprocessing", "thread"]
+parallel = true
 ```
+
+`parallel = true` tells each process to write its own data file; run `coverage combine` before reporting.
 
 ### Coverage with parallel test runs
 
@@ -230,8 +233,9 @@ Generates an SVG badge with the current coverage percentage for your README.
 - **Chasing 100% coverage**: writing trivial tests (`assert True`) to cover lines without verifying behavior.
 - **Not using branch coverage**: [line coverage](/recipes/measure-test-coverage/) of 100% can still miss `else` branches.
 - **Including test files in coverage**: `tests/` should be excluded — you're measuring production code.
-- **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file.  Run `coverage combine` before reporting.
+- **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file. Run `coverage combine` before reporting.
 - **Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.
+- **Committing coverage artifacts to version control**: add `.coverage`, `htmlcov/`, `.coverage.*`, and generated badges to `.gitignore`. Only the config and test files belong in the repo.
 
 ## Production Notes
 
@@ -336,7 +340,7 @@ exclude_lines =
     if __name__ == .__main__.:
 ```
 
-Exclude debug-only code, repr methods, and abstract method stubs. Don't exclude error handling paths — those are critical to test.
+These patterns are regular expressions. For example, `if __name__ == .__main__.:` matches `if __name__ == "__main__":` because `.` in regex matches the quotes. Exclude debug-only code, repr methods, and abstract method stubs. Don't exclude error handling paths — those are critical to test.
 
 
 ### Measure branch coverage instead of line coverage
