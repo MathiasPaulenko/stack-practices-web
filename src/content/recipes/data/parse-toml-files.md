@@ -194,6 +194,8 @@ except ValidationError as e:
 
 Parse a file into a Pydantic model and you get type checking, defaults, and validation in one shot. It catches missing fields, bad types, and values that make no sense before the app starts. The Pydantic model in this example also rejects unknown keys, which I like because it screams at me when a config file has drifted away from the expected schema.
 
+Pydantic isn't the only option. If I need a language-agnostic schema, I [validate the parsed TOML with JSON Schema](/recipes/validate-json-schema/) instead.
+
 ## Advanced: TOML Dotted Keys vs Nested Tables
 
 ```toml
@@ -260,7 +262,7 @@ For an array of tables, wrap the table name in double brackets. Every entry has 
 
 ## When to Avoid
 
-If a tool generates the config, JSON is usually less surprising because every language can read it without an extra dependency. YAML is the better choice once you hit five or more levels of nesting. TOML is meant for configuration, not data storage, so large datasets belong in JSON or a database. And if your toolchain only speaks INI or JSON, migrating to TOML can be more trouble than it's worth. Sometimes "boring and works" beats "shiny and new".
+If a tool generates the config, [JSON](/recipes/parse-json/) is usually less surprising because every language can read it without an extra dependency. YAML is the better choice once you hit five or more levels of nesting. TOML is meant for configuration, not data storage, so large datasets belong in JSON or a database. And if your toolchain only speaks INI or JSON, migrating to TOML can be more trouble than it's worth. Sometimes "boring and works" beats "shiny and new".
 
 ## Troubleshooting
 
@@ -317,3 +319,5 @@ Python's tomllib turns them into real datetime objects, so you can compare them 
 ### How do I convert between TOML and JSON?
 
 Parse the TOML to a dictionary, then serialize it as JSON. In Python, pass the parsed dictionary to json.dumps. In JavaScript, feed the parsed object to JSON.stringify. The reverse also works: parse JSON and write it with tomli_w.dump().
+
+For a fuller conversion workflow, see [Serialize and Deserialize Data](/recipes/serialize-deserialize-data/).

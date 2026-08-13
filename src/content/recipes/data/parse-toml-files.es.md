@@ -194,6 +194,8 @@ except ValidationError as e:
 
 Parseo un archivo a un modelo de Pydantic y obtengo type checking, valores por defecto y validación de un solo paso. Atrapa campos faltantes, tipos equivocados y valores sin sentido antes de que la aplicación arranque. El modelo de este ejemplo también rechaza claves desconocidas, lo cual me sirve porque me grita cuando un archivo de config se desvió del esquema esperado.
 
+Pydantic no es la única opción. Si necesito un esquema independiente del lenguaje, [valido el TOML parseado con JSON Schema](/es/recipes/validate-json-schema/).
+
 ## Avanzado: Dotted Keys vs Tablas Anidadas en TOML
 
 ```toml
@@ -260,7 +262,7 @@ Para un array de tablas, ponés el nombre de la tabla entre corchetes dobles. Ca
 
 ## Cuándo Evitar
 
-Si una herramienta genera la config, JSON suele ser menos sorprendente: cualquier lenguaje lo lee sin deps extra. YAML es la mejor opción cuando llegás a cinco o más niveles de anidación. TOML es para configuración, no para almacenar datos, así que los datasets grandes van a JSON o una base de datos. Y si tu toolchain solo habla INI o JSON, migrar a TOML puede no merecer la pena. A veces "aburrido y funciona" le gana a "nuevo y brillante".
+Si una herramienta genera la config, [JSON](/es/recipes/parse-json/) suele ser menos sorprendente: cualquier lenguaje lo lee sin deps extra. YAML es la mejor opción cuando llegás a cinco o más niveles de anidación. TOML es para configuración, no para almacenar datos, así que los datasets grandes van a JSON o una base de datos. Y si tu toolchain solo habla INI o JSON, migrar a TOML puede no merecer la pena. A veces "aburrido y funciona" le gana a "nuevo y brillante".
 
 ## Solución de Problemas
 
@@ -317,3 +319,5 @@ El tomllib de Python los convierte en objetos datetime reales, así que los pod�
 ### ¿Cómo convierto entre TOML y JSON?
 
 Parseá el TOML a un diccionario y después serialízalo como JSON. En Python, pasale el diccionario parseado a json.dumps. En JavaScript, pasale el objeto parseado a JSON.stringify. El reverso también funciona: parseá JSON y escribílo con tomli_w.dump().
+
+Si necesitás un flujo de conversión más completo, mirá [Serializar y Deserializar Datos](/es/recipes/serialize-deserialize-data/).
