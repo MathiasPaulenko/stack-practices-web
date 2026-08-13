@@ -35,23 +35,23 @@ seo:
 ---
 ## Overview
 
-Optimistic locking prevents lost updates in concurrent environments by checking whether a record has been modified since it was last read. Each row carries a version number or timestamp. When updating, the application includes the original version in the `WHERE` clause; if the version has changed, the update fails and the application retries or reports a conflict. This avoids the performance cost of holding database locks during user think-time.
+Optimistic locking stops lost updates when several clients work at once by checking whether the row changed since it was last read. You keep a version number or timestamp on each row. The update includes that original version in the `WHERE` clause; if someone else changed it, the update fails and the app retries or returns a conflict. That avoids the cost of holding database locks while the user thinks.
 
-Below is an implementation of optimistic locking with integer versioning in PostgreSQL, MySQL, and JPA/Hibernate.
+Below you'll find an implementation of optimistic locking with integer versioning in PostgreSQL-compatible SQL, Node.js, Java/JPA and beyond.
 
 ## When to Use
 
 Use this resource when:
-- Multiple users or processes may edit the same record concurrently. See [Database Transactions](/recipes/database-transactions/) for ACID patterns.
+- Several users, background jobs or microservices often try to update the same row at the same time. See [Database Transactions](/recipes/database-transactions/) for ACID patterns.
 - You want to avoid pessimistic locks that hurt throughput and can deadlock
-- Your application has a read-modify-write pattern with gaps between read and write
+- Your app follows a read-modify-write pattern and there's a gap between the read and the write
 - You need conflict detection in [REST APIs](/recipes/call-rest-api/), offline-first apps, or distributed systems
 
 Do **not** use it when:
 
 - Contention is so high that retries become expensive or impractical. For those cases, prefer [pessimistic locks](/recipes/locks-and-mutexes/) or atomic operations such as `SELECT FOR UPDATE`.
-- You can redesign the flow to avoid the read-modify-write pattern entirely, for example by appending events or using CRDTs.
-- You expect the same record to be updated many times per second from different sources. Pessimistic locking or queueing may be simpler.
+- You can redesign the flow to skip the read-modify-write pattern entirely — append events or use CRDTs, for example.
+- The same row is being hit several times a second from different sources. A pessimistic lock or a queue is usually less painful.
 - Your database already supports serializable isolation (e.g., PostgreSQL `SERIALIZABLE`) and the workload tolerates its overhead.
 
 ## Solution
@@ -170,17 +170,17 @@ public ResponseEntity<Map<String, String>> handleConflict(OptimisticLockingFailu
 
 ## Explanation
 
-Optimistic locking works on the assumption that conflicts are rare. The database does not lock the row during reading. Instead, the update is conditional:
+Optimistic locking bets on conflicts being rare. The database doesn't lock the row while you read it. The actual update is conditional:
 
 ```sql
 UPDATE table SET ... WHERE id = ? AND version = ?
 ```
 
-If `rowsAffected == 0`, the version changed between read and write. The application then handles the conflict: retry with fresh data, return HTTP 409, or merge changes.
+If `rowsAffected == 0`, the version changed between the read and the write. The app then handles the conflict: retry with fresh data, return HTTP 409, or merge the changes.
 
 **Trade-offs:**
-- **Optimistic**: no locks during read; fast and growth-ready; requires retry logic on conflict
-- **Pessimistic**: `SELECT FOR UPDATE` locks the row immediately; simpler logic but serializes access and risks deadlocks
+- **Optimistic**: reads stay lock-free and the system scales, but you'll need to handle conflicts and retry.
+- **Pessimistic**: `SELECT FOR UPDATE` locks the row right away; the logic is simpler, but it serializes access and can deadlock.
 
 For more concurrency patterns, see [Concurrent Data Structures](/recipes/concurrent-data-structures/).
 
@@ -205,7 +205,7 @@ For more concurrency patterns, see [Concurrent Data Structures](/recipes/concurr
 
 ## Common Mistakes
 
-1. **Not exposing version to API consumers** — clients cannot send it back if they never received it
+1. **Not exposing version to API consumers** — clients can't send it back if they never received it
 2. **Infinite retry loops** — always cap retries and surface persistent conflicts to the user
 3. **Updating the version in application code** — let the database or ORM increment it atomically
 4. **Using pessimistic locking for everything** — kills throughput; reserve `FOR UPDATE` for true inventory or banking scenarios. See [Locks and Mutexes](/recipes/locks-and-mutexes/) for lock patterns.
@@ -215,21 +215,15 @@ For more concurrency patterns, see [Concurrent Data Structures](/recipes/concurr
 
 ### Should I use optimistic or pessimistic locking?
 
-
-Optimistic for most read-heavy workloads with infrequent writes. Pessimistic when contention is high and retry logic is impractical (e.g., seat reservations, inventory allocation).
-
+Choose optimistic locking for read-heavy workloads with only occasional writes. Choose pessimistic locking when contention is high and retries are impractical — think seat reservations or inventory allocation.
 
 ### What HTTP status should I return on a conflict?
 
-
-`409 Conflict` is the standard. Include the current resource state in the response body so the client can merge or retry without a second request.
-
+Return `409 Conflict`. Put the current resource state in the body so the client can merge or retry without a second request.
 
 ### How do I handle optimistic locking in a microservices architecture?
 
-
-Use event sourcing or sagas where each service owns its aggregate. If cross-service consistency is needed, prefer idempotent operations with conditional updates rather than distributed locking. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
-
+Use event sourcing or sagas where each service owns its aggregate. When you need consistency across services, prefer idempotent conditional updates over distributed locks. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
 
 ### How do I retry a failed update?
 
@@ -258,7 +252,6 @@ Read the current version, merge non-overlapping fields, and write back with a fr
 ## Implementation Examples
 
 ### Retry logic with exponential backoff
-
 
 ```python
 import random
@@ -321,9 +314,7 @@ async function updateProductWithRetry(productId, updateFn) {
 }
 ```
 
-
 ### MongoDB optimistic locking with `findAndModify`
-
 
 ```javascript
 const { MongoClient } = require('mongodb');
@@ -368,9 +359,7 @@ const optimisticLockPlugin = (schema) => {
 productSchema.plugin(optimisticLockPlugin);
 ```
 
-
 ### DynamoDB conditional writes
-
 
 ```python
 import boto3
@@ -402,9 +391,7 @@ except ClientError as e:
         print("Version conflict: another process modified this item")
 ```
 
-
 ### ETag and If-Match for HTTP APIs
-
 
 ```javascript
 // Express middleware for ETag-based optimistic locking
@@ -438,9 +425,7 @@ app.put('/products/:id', async (req, res) => {
 });
 ```
 
-
 ### Batch optimistic locking
-
 
 ```python
 def batch_update_with_versions(conn, updates):
@@ -478,11 +463,9 @@ except ValueError as e:
     # All updates rolled back, client must refresh and retry
 ```
 
-
 ### Conflict resolution strategies
 
-
-A common pattern is to merge non-overlapping fields. If the client changed the email and the server changed the name, you can keep both. The key is to read the current version, merge the changes, and write back with a fresh version check:
+If the fields don't overlap, both changes can survive. When the client updates the email and the server updates the name, neither value is lost. Read the current version, merge the changes, and write back with a fresh version check:
 
 ```python
 def merge_update(conn, user_id, client_changes, expected_version):
@@ -511,11 +494,7 @@ def merge_update(conn, user_id, client_changes, expected_version):
         return updated
 ```
 
-If fields overlap, the right choice is domain-specific: show a diff to the user, pick a winner, or ask for confirmation.
-
-
-
-
+When fields overlap, the right call depends on the domain: show a diff to the user, pick a winner, or ask for confirmation.
 
 ## Production Notes
 
@@ -525,7 +504,7 @@ If fields overlap, the right choice is domain-specific: show a diff to the user,
 CREATE INDEX idx_products_id_version ON products (id, version);
 ```
 
-2. **Keep the read-modify-write gap short.** The longer the gap, the more likely conflicts occur. Avoid calling external APIs or doing heavy computation between read and write.
+2. **Keep the read-modify-write gap short.** The longer the gap, the more likely conflicts occur. Skip external API calls and heavy computation between reading and writing.
 
 3. **Use `RETURNING` to avoid a second query.** Get the updated version in the same statement:
 
@@ -543,15 +522,15 @@ FROM pg_stat_database
 WHERE datname = current_database();
 ```
 
-5. **Consider `SERIALIZABLE` isolation instead of manual versioning.** PostgreSQL's `SERIALIZABLE` handles conflicts automatically using SSI (Serializable Snapshot Isolation). It may be simpler than manual version management for complex transactions.
+5. **Consider `SERIALIZABLE` isolation instead of manual versioning.** PostgreSQL's `SERIALIZABLE` handles conflicts automatically using SSI (Serializable Snapshot Isolation). That's usually simpler than managing versions by hand for complex transactions.
 
 ## Key Takeaways
 
 - Optimistic locking avoids long-held database locks by making every update conditional on a version number.
 - Use an integer `version` column rather than timestamps; increment it atomically in the database or ORM.
-- Always return the current version on reads, and return a clear `409 Conflict` (or equivalent) when the version does not match.
+- Always return the current version on reads, and return a clear `409 Conflict` (or equivalent) when the version doesn't match.
 - Keep the read-modify-write window short and cap retries to prevent thundering herds.
-- Pessimistic locks, `SELECT FOR UPDATE`, and serializable isolation are valid alternatives when contention is high.
+- When contention is high, pessimistic locks, `SELECT FOR UPDATE` and serializable isolation are all valid options.
 
 ## Further Reading
 

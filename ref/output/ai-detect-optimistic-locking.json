@@ -1,0 +1,355 @@
+[
+  {
+    "label": "optimistic-locking-en",
+    "model": "desklib",
+    "model_ai_pct": 39.8,
+    "ai_count": 15,
+    "human_count": 39,
+    "skipped_count": 1,
+    "total": 55,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 19.5,
+      "stddev": 32.6,
+      "cv": 1.68,
+      "verdict": "natural variation",
+      "sentence_count": 54,
+      "lengths": [
+        22,
+        10,
+        25,
+        12,
+        18,
+        21,
+        6,
+        55,
+        12,
+        19,
+        13,
+        10,
+        15,
+        7,
+        10,
+        16,
+        17,
+        17,
+        17,
+        8,
+        247,
+        7,
+        29,
+        18,
+        19,
+        11,
+        13,
+        9,
+        6,
+        10,
+        9,
+        10,
+        5,
+        7,
+        5,
+        16,
+        5,
+        16,
+        6,
+        15,
+        6,
+        9,
+        16,
+        38,
+        26,
+        11,
+        42,
+        11,
+        15,
+        15,
+        18,
+        12,
+        13,
+        27
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The same row is being hit several times a second from different sources.",
+        0.8876
+      ],
+      [
+        "When contention is high, pessimistic locks,  and serializable isolation are all valid options.",
+        0.7958
+      ],
+      [
+        "When you need consistency across services, prefer idempotent conditional updates over distributed locks.",
+        0.7485
+      ],
+      [
+        "**Trade-offs:**\n**Optimistic**: reads stay lock-free and the system scales, but you'll need to handle conflicts and retry.",
+        0.7444
+      ],
+      [
+        "When the client updates the email and the server updates the name, neither value is lost.",
+        0.7317
+      ],
+      [
+        "**Ignoring the conflict in UI** \u2014 users need clear feedback that their data is stale and must be refreshed\n\n\n\n\n\nChoose optimistic locking for read-heavy workloads with only occasio",
+        0.7032
+      ],
+      [
+        "**Index the version column.** The  clause needs an index on both columns:\n**Keep the read-modify-write gap short.** The longer the gap, the more likely conflicts occur.",
+        0.6815
+      ],
+      [
+        "The database doesn't lock the row while you read it.",
+        0.6795
+      ],
+      [
+        "If the fields don't overlap, both changes can survive.",
+        0.6157
+      ],
+      [
+        "**Use  to avoid a second query.** Get the updated version in the same statement:\n**Monitor conflict rates with .** Track deadlocks and conflicts at the database level:\n**Consider  ",
+        0.6003
+      ],
+      [
+        "That's usually simpler than managing versions by hand for complex transactions.",
+        0.5708
+      ],
+      [
+        "Optimistic locking bets on conflicts being rare.",
+        0.5591
+      ],
+      [
+        "For more concurrency patterns, see [Concurrent Data Structures](/recipes/concurrent-data-structures/).",
+        0.5486
+      ],
+      [
+        "You keep a version number or timestamp on each row.",
+        0.514
+      ],
+      [
+        "The app then handles the conflict: retry with fresh data, return HTTP 409, or merge the changes.",
+        0.5011
+      ],
+      [
+        "Read the current version, merge non-overlapping fields, and write back with a fresh version check.",
+        0.4789
+      ],
+      [
+        "Below you'll find an implementation of optimistic locking with integer versioning in PostgreSQL-compatible SQL, Node.js, Java/JPA and beyond.",
+        0.4711
+      ],
+      [
+        "See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.",
+        0.4605
+      ],
+      [
+        "Optimistic locking avoids long-held database locks by making every update conditional on a version number.",
+        0.4548
+      ],
+      [
+        "Use event sourcing or sagas where each service owns its aggregate.",
+        0.4456
+      ],
+      [
+        "Use  with a  on the version attribute.",
+        0.4234
+      ],
+      [
+        "Compensating transactions (undo) are often safer than distributed locks.",
+        0.4152
+      ],
+      [
+        "Use  with the expected version in the filter and .",
+        0.4142
+      ],
+      [
+        "See [Locks and Mutexes](/recipes/locks-and-mutexes/) for lock patterns.",
+        0.4127
+      ],
+      [
+        "That avoids the cost of holding database locks while the user thinks.",
+        0.4017
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "optimistic-locking-es",
+    "model": "desklib",
+    "model_ai_pct": 38.3,
+    "ai_count": 16,
+    "human_count": 39,
+    "skipped_count": 1,
+    "total": 56,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 20.6,
+      "stddev": 35.6,
+      "cv": 1.73,
+      "verdict": "natural variation",
+      "sentence_count": 55,
+      "lengths": [
+        20,
+        9,
+        27,
+        20,
+        13,
+        22,
+        6,
+        53,
+        11,
+        16,
+        14,
+        11,
+        9,
+        9,
+        13,
+        11,
+        16,
+        15,
+        19,
+        19,
+        9,
+        272,
+        8,
+        34,
+        25,
+        23,
+        11,
+        16,
+        12,
+        7,
+        10,
+        9,
+        9,
+        5,
+        7,
+        5,
+        16,
+        5,
+        19,
+        6,
+        19,
+        7,
+        10,
+        15,
+        40,
+        26,
+        12,
+        46,
+        10,
+        17,
+        17,
+        16,
+        12,
+        15,
+        28
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Compromisos:**\n**Optimista**: las lecturas quedan libres de bloqueos y el sistema escala, pero hay que manejar conflictos y reintentar.",
+        0.9243
+      ],
+      [
+        "A veces un bloqueo pesimista o una cola son m\u00e1s simples.",
+        0.8655
+      ],
+      [
+        "Usa  con un  sobre el atributo .",
+        0.7903
+      ],
+      [
+        "Usa un n\u00famero peque\u00f1o de reintentos limitados con jitter exponencial.",
+        0.7718
+      ],
+      [
+        "Esto evita el costo de rendimiento de mantener bloqueos de base de datos durante el tiempo de pensamiento del usuario.",
+        0.7127
+      ],
+      [
+        "La base de datos no bloquea la fila durante la lectura.",
+        0.7091
+      ],
+      [
+        "Tu base de datos ya soporta aislamiento serializable (p.",
+        0.6972
+      ],
+      [
+        "Si el cliente cambi\u00f3 el email y el servidor cambi\u00f3 el nombre, puedes conservar ambos.",
+        0.6916
+      ],
+      [
+        "Los bloqueos pesimistas,  y el aislamiento serializable son alternativas v\u00e1lidas cuando la contenci\u00f3n es alta.",
+        0.6348
+      ],
+      [
+        "Esperas que el mismo registro se actualice muchas veces por segundo desde distintas fuentes.",
+        0.5967
+      ],
+      [
+        "Cada fila lleva un n\u00famero de versi\u00f3n o timestamp.",
+        0.591
+      ],
+      [
+        "Ve el [ejemplo de ETag](#ejemplos-de-implementaci\u00f3n).",
+        0.5783
+      ],
+      [
+        "Ve el [ejemplo de reintento](#ejemplos-de-implementaci\u00f3n) en Python y JavaScript.",
+        0.5414
+      ],
+      [
+        "Es frecuentemente m\u00e1s simple que versionar manualmente en transacciones complejas.",
+        0.5343
+      ],
+      [
+        "ej., PostgreSQL ) y la carga tolera su overhead.",
+        0.5124
+      ],
+      [
+        "Las transacciones compensatorias (deshacer) suelen ser m\u00e1s seguras que los bloqueos distribuidos.",
+        0.5075
+      ],
+      [
+        "El bloqueo optimista evita bloqueos largos haciendo que cada actualizaci\u00f3n sea condicional a un n\u00famero de versi\u00f3n.",
+        0.4979
+      ],
+      [
+        "Usa event sourcing o sagas donde cada servicio posee su agregado.",
+        0.4961
+      ],
+      [
+        "Esta implementacion proporciona optimistic locking con versionado entero en PostgreSQL, MySQL y JPA/Hibernate.",
+        0.4827
+      ],
+      [
+        "Usa el bloqueo pesimista cuando la contenci\u00f3n es alta y la l\u00f3gica de reintento no sirva (por ejemplo, reservas de asientos o asignaci\u00f3n de inventario).",
+        0.4675
+      ],
+      [
+        "**Pesimista**:  bloquea la fila de inmediato; la l\u00f3gica es m\u00e1s simple, pero serializa el acceso y puede generar deadlocks.",
+        0.4536
+      ],
+      [
+        "Evita llamar APIs externas o hacer c\u00f3mputo pesado entre read y write.",
+        0.4299
+      ],
+      [
+        "Filtra por la versi\u00f3n esperada y usa  con .",
+        0.4175
+      ],
+      [
+        "Cuando necesites consistencia entre servicios, prefiere operaciones idempotentes con actualizaciones condicionales en vez de bloqueos distribuidos.",
+        0.4082
+      ],
+      [
+        "**Ignorar el conflicto en UI** \u2014 los usuarios necesitan retroalimentaci\u00f3n clara de que sus datos est\u00e1n obsoletos y deben refrescarse\n\n\n\n\n\nOpta por el bloqueo optimista en cargas de",
+        0.4046
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

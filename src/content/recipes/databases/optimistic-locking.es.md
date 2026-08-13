@@ -42,7 +42,7 @@ Esta implementacion proporciona optimistic locking con versionado entero en Post
 ## Cuándo Usar
 
 Usa este recurso cuando:
-- Múltiples usuarios o procesos pueden editar el mismo registro concurrentemente. Consulta [Database Transactions](/recipes/database-transactions/) para patrones ACID.
+- Varios usuarios, jobs en segundo plano o microservicios a menudo intentan actualizar la misma fila al mismo tiempo. Consulta [Database Transactions](/recipes/database-transactions/) para patrones ACID.
 - Quieres evitar bloqueos pesimistas que dañan throughput y pueden causar deadlocks
 - Tu aplicación tiene un patrón de lectura-modificación-escritura con gaps entre lectura y escritura
 - Necesitas detección de conflictos en [APIs REST](/recipes/call-rest-api/), apps offline-first o sistemas distribuidos
@@ -51,7 +51,7 @@ Usa este recurso cuando:
 
 - La contención es tan alta que los reintentos se vuelven costosos o impracticables. Para esos casos, prefiere [bloqueos pesimistas](/recipes/locks-and-mutexes/) o operaciones atómicas como `SELECT FOR UPDATE`.
 - Puedes rediseñar el flujo para evitar el patrón lectura-modificación-escritura, por ejemplo apendizando eventos o usando CRDTs.
-- Esperas que el mismo registro se actualice muchas veces por segundo desde distintas fuentes. El bloqueo pesimista o una cola pueden ser más simples.
+- Esperas que el mismo registro se actualice muchas veces por segundo desde distintas fuentes. A veces un bloqueo pesimista o una cola son más simples.
 - Tu base de datos ya soporta aislamiento serializable (p. ej., PostgreSQL `SERIALIZABLE`) y la carga tolera su overhead.
 
 ## Solución
@@ -179,8 +179,8 @@ UPDATE table SET ... WHERE id = ? AND version = ?
 Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplicación maneja el conflicto: reintenta con datos frescos, devuelve HTTP 409, o fusiona cambios.
 
 **Compromisos:**
-- **Optimista**: sin bloqueos durante lectura; rápido y listo para crecer; requiere lógica de reintento en conflicto
-- **Pesimista**: `SELECT FOR UPDATE` bloquea la fila inmediatamente; lógica más simple pero serializa acceso y riesgos de deadlocks
+- **Optimista**: las lecturas quedan libres de bloqueos y el sistema escala, pero hay que manejar conflictos y reintentar.
+- **Pesimista**: `SELECT FOR UPDATE` bloquea la fila de inmediato; la lógica es más simple, pero serializa el acceso y puede generar deadlocks.
 
 Para más patrones de concurrencia, consulta [Concurrent Data Structures](/recipes/concurrent-data-structures/).
 
@@ -215,21 +215,15 @@ Para más patrones de concurrencia, consulta [Concurrent Data Structures](/recip
 
 ### ¿Debo usar bloqueo optimista o pesimista?
 
-
-Optimista para la mayoría de cargas de lectura intensiva con escrituras infrecuentes. Pesimista cuando la contención es alta y la lógica de reintento es impracticable (ej. reservas de asientos, asignación de inventario).
-
+Opta por el bloqueo optimista en cargas de lectura intensiva con escrituras poco frecuentes. Usa el bloqueo pesimista cuando la contención es alta y la lógica de reintento no sirva (por ejemplo, reservas de asientos o asignación de inventario).
 
 ### ¿Qué status HTTP debo devolver en un conflicto?
 
-
-`409 Conflict` es el estándar. Incluye el estado actual del recurso en el cuerpo de respuesta para que el cliente pueda fusionar o reintentar sin una segunda petición.
-
+`409 Conflict` es el estándar. Incluye el estado actual del recurso en el cuerpo de respuesta para que el cliente pueda fusionar o reintentar sin una segunda llamada.
 
 ### ¿Cómo manejo optimistic locking en una arquitectura de microservicios?
 
-
-Usa event sourcing o sagas donde cada servicio posee su agregado. Si se necesita consistencia cross-servicio, prefiere operaciones idempotentes con actualizaciones condicionales en lugar de bloqueos distribuidos. Las transacciones compensatorias (deshacer) suelen ser más seguras que los bloqueos distribuidos. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para patrones de resiliencia.
-
+Usa event sourcing o sagas donde cada servicio posee su agregado. Cuando necesites consistencia entre servicios, prefiere operaciones idempotentes con actualizaciones condicionales en vez de bloqueos distribuidos. Las transacciones compensatorias (deshacer) suelen ser más seguras que los bloqueos distribuidos. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para patrones de resiliencia.
 
 ### ¿Cómo reintento una actualización fallida?
 
@@ -237,28 +231,27 @@ Usa un número pequeño de reintentos limitados con jitter exponencial. Ve el [e
 
 ### ¿Cómo implemento bloqueo optimista en MongoDB?
 
-Usa `findOneAndUpdate` con la versión esperada en el filtro y `$inc: { version: 1 }`. Ve el [ejemplo de MongoDB](#ejemplos-de-implementación).
+Filtra por la versión esperada y usa `findOneAndUpdate` con `$inc: { version: 1 }`. Ve el [ejemplo de MongoDB](#ejemplos-de-implementación).
 
 ### ¿Cómo uso escrituras condicionales en DynamoDB?
 
-Usa `update_item` con un `ConditionExpression` sobre el atributo version. Ve el [ejemplo de DynamoDB](#ejemplos-de-implementación).
+Usa `update_item` con un `ConditionExpression` sobre el atributo `version`. Ve el [ejemplo de DynamoDB](#ejemplos-de-implementación).
 
 ### ¿Cómo implemento bloqueo optimista con ETags en APIs HTTP?
 
-Devuelve un ETag en lectura y exige `If-Match` en escritura, respondiendo 412 si el recurso cambió. Ve el [ejemplo de ETag](#ejemplos-de-implementación).
+Devuelve un ETag en la lectura y exige `If-Match` al escribir; responde 412 si el recurso cambió. Ve el [ejemplo de ETag](#ejemplos-de-implementación).
 
 ### ¿Cómo actualizo múltiples filas con bloqueo optimista?
 
-Itera sobre las actualizaciones en una transacción, haciendo rollback si alguna fila falla el chequeo de versión. Ve el [ejemplo de actualización batch](#ejemplos-de-implementación).
+Itera sobre las actualizaciones dentro de una transacción y haz rollback si alguna fila falla el chequeo de versión. Ve el [ejemplo de actualización batch](#ejemplos-de-implementación).
 
 ### ¿Cómo resuelvo conflictos sin perder datos?
 
-Lee la versión actual, mezcla campos no superpuestos y escribe con un nuevo chequeo de versión. Ve el [ejemplo de resolución de conflictos](#ejemplos-de-implementación).
+Lee la versión actual, mezcla los campos que no se superponen y escribe con un nuevo chequeo de versión. Ve el [ejemplo de resolución de conflictos](#ejemplos-de-implementación).
 
 ## Ejemplos de Implementación
 
 ### Lógica de reintento con exponential backoff
-
 
 ```python
 import random
@@ -321,9 +314,7 @@ async function updateProductWithRetry(productId, updateFn) {
 }
 ```
 
-
 ### Bloqueo optimista en MongoDB con `findAndModify`
-
 
 ```javascript
 const { MongoClient } = require('mongodb');
@@ -368,9 +359,7 @@ const optimisticLockPlugin = (schema) => {
 productSchema.plugin(optimisticLockPlugin);
 ```
 
-
 ### Escrituras condicionales en DynamoDB
-
 
 ```python
 import boto3
@@ -402,9 +391,7 @@ except ClientError as e:
         print("Conflicto de versión: otro proceso modificó este item")
 ```
 
-
 ### ETag e If-Match para APIs HTTP
-
 
 ```javascript
 // Middleware Express para optimistic locking basado en ETag
@@ -438,9 +425,7 @@ app.put('/products/:id', async (req, res) => {
 });
 ```
 
-
 ### Batch optimistic locking
-
 
 ```python
 def batch_update_with_versions(conn, updates):
@@ -478,9 +463,7 @@ except ValueError as e:
     # Todos los updates se revirtieron, el cliente debe refrescar y reintentar
 ```
 
-
 ### Estrategias de resolución de conflictos
-
 
 Un patrón común es hacer merge de campos no superpuestos. Si el cliente cambió el email y el servidor cambió el nombre, puedes conservar ambos. La clave es leer la versión actual, mezclar los cambios y escribir con un nuevo chequeo de versión:
 
@@ -513,10 +496,6 @@ def merge_update(conn, user_id, client_changes, expected_version):
 
 Si los campos se superponen, la decisión es específica del dominio: muestra un diff al usuario, elige un ganador o pide confirmación.
 
-
-
-
-
 ## Notas de Producción
 
 1. **Indexa la columna version.** La cláusula `WHERE id = ? AND version = ?` necesita un índice en ambas columnas:
@@ -543,7 +522,7 @@ FROM pg_stat_database
 WHERE datname = current_database();
 ```
 
-5. **Considera `SERIALIZABLE` isolation en lugar de versionado manual.** PostgreSQL `SERIALIZABLE` maneja conflictos automáticamente usando SSI (Serializable Snapshot Isolation). Puede ser más simple que el versionado manual para transacciones complejas.
+5. **Considera `SERIALIZABLE` isolation en lugar de versionado manual.** PostgreSQL `SERIALIZABLE` maneja conflictos automáticamente usando SSI (Serializable Snapshot Isolation). Es frecuentemente más simple que versionar manualmente en transacciones complejas.
 
 ## Puntos Clave
 
