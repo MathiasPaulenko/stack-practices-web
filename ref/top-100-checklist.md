@@ -5,7 +5,7 @@ Use this list to track progress as you audit and improve each resource.
 - `[x]` = already optimized in P1.1 (title + meta description)
 - `[ ]` = pending
 
-**Progress:** 8 / 100 resources completed
+**Progress:** 9 / 100 resources completed
 
 ---
 
@@ -26,15 +26,15 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Humanized + SEO optimized; AI detection < 40%; build passed
    - Words: 2,019 | Meta: 153 chars
 
-3. - [ ] **chatbot-openai** (recipes)
+3. - [x] **chatbot-openai** (recipes)
    - Metrics: 155 imp | pos 18.3 | CTR 0.00% | Δ impr 29
    - EN: https://stackpractices.com/recipes/chatbot-openai/
    - ES: https://stackpractices.com/es/recipes/chatbot-openai/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
+   - Status: ✅ Aligned EN/ES, deprecated notice, updated SDK examples, build passed
    - Words: 2,189 | Meta: 141 chars
 
-4. - [x] **optimistic-locking** (recipes)
+4. - [ ] **optimistic-locking** (recipes)
    - Metrics: 180 imp | pos 24.2 | CTR 1.67% | Δ impr 126
    - EN: https://stackpractices.com/recipes/optimistic-locking/
    - ES: https://stackpractices.com/es/recipes/optimistic-locking/

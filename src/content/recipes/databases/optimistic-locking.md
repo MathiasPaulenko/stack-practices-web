@@ -15,13 +15,11 @@ tags:
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas
-  - /recipes/database-views-materialized
   - /recipes/sql-joins
   - /guides/sql-performance-tuning-guide
   - /recipes/deadlock-prevention-sql
-  - /recipes/database-migrations-safely
   - /recipes/database-migrations
-lastUpdated: "2026-08-10"
+lastUpdated: "2026-08-13"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -44,6 +42,13 @@ Use this resource when:
 - You want to avoid pessimistic locks that hurt throughput and can deadlock
 - Your application has a read-modify-write pattern with gaps between read and write
 - You need conflict detection in [REST APIs](/recipes/call-rest-api/), offline-first apps, or distributed systems
+
+Do **not** use it when:
+
+- Contention is so high that retries become expensive or impractical. For those cases, prefer [pessimistic locks](/recipes/locks-and-mutexes/) or atomic operations such as `SELECT FOR UPDATE`.
+- You can redesign the flow to avoid the read-modify-write pattern entirely, for example by appending events or using CRDTs.
+- You expect the same record to be updated many times per second from different sources. Pessimistic locking or queueing may be simpler.
+- Your database already supports serializable isolation (e.g., PostgreSQL `SERIALIZABLE`) and the workload tolerates its overhead.
 
 ## Solution
 
@@ -214,7 +219,7 @@ Optimistic for most read-heavy workloads with infrequent writes. Pessimistic whe
 
 Use event sourcing or sagas where each service owns its aggregate. If cross-service consistency is needed, prefer idempotent operations with conditional updates rather than distributed locking. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
 
-### Retry Logic with Exponential Backoff
+### How do I retry a failed update?
 
 ```python
 import random
@@ -277,7 +282,7 @@ async function updateProductWithRetry(productId, updateFn) {
 }
 ```
 
-### MongoDB Optimistic Locking with `findAndModify`
+### How do I implement optimistic locking in MongoDB?
 
 ```javascript
 const { MongoClient } = require('mongodb');
@@ -322,7 +327,7 @@ const optimisticLockPlugin = (schema) => {
 productSchema.plugin(optimisticLockPlugin);
 ```
 
-### DynamoDB Conditional Writes
+### How do I use conditional writes in DynamoDB?
 
 ```python
 import boto3
@@ -331,17 +336,16 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('products')
 
 def update_price_optimistic(product_id, new_price, expected_version):
-    response = table.put_item(
-        Item={
-            'product_id': product_id,
-            'price': new_price,
-            'version': expected_version + 1,
-        },
-        ConditionExpression='product_id = :pid AND version = :expected',
+    response = table.update_item(
+        Key={'product_id': product_id},
+        UpdateExpression='SET price = :p, version = :new_v',
+        ConditionExpression='version = :expected',
         ExpressionAttributeValues={
-            ':pid': product_id,
+            ':p': new_price,
+            ':new_v': expected_version + 1,
             ':expected': expected_version,
-        }
+        },
+        ReturnValues='ALL_NEW'
     )
     return response
 
@@ -355,7 +359,7 @@ except ClientError as e:
         print("Version conflict: another process modified this item")
 ```
 
-### ETag and If-Match for HTTP APIs
+### How do I implement optimistic locking with ETags in HTTP APIs?
 
 ```javascript
 // Express middleware for ETag-based optimistic locking
@@ -389,7 +393,7 @@ app.put('/products/:id', async (req, res) => {
 });
 ```
 
-### Batch Optimistic Locking
+### How do I update multiple rows with optimistic locking?
 
 ```python
 def batch_update_with_versions(conn, updates):
@@ -427,49 +431,43 @@ except ValueError as e:
     # All updates rolled back, client must refresh and retry
 ```
 
-### Conflict Resolution Strategies
+### How do I resolve conflicts without losing data?
+
+A common pattern is to merge non-overlapping fields. If the client changed the email and the server changed the name, you can keep both. The key is to read the current version, merge the changes, and write back with a fresh version check:
 
 ```python
 def merge_update(conn, user_id, client_changes, expected_version):
-    """Three-way merge: base version, current version, client changes."""
     with conn.cursor() as cur:
-        # Get current version
-        cur.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+        cur.execute("SELECT name, email, version FROM users WHERE id = %s", (user_id,))
         current = cur.fetchone()
         if not current:
             raise ValueError("User not found")
 
-        if current['version'] == expected_version:
-            # No conflict: apply directly
-            cur.execute("""
-                UPDATE users SET email = %s, name = %s, version = version + 1
-                WHERE id = %s AND version = %s
-            """, (client_changes['email'], client_changes['name'], user_id, expected_version))
-            conn.commit()
-            return cur.fetchone()
-
-        # Conflict: merge non-overlapping fields
-        # If client changed email but not name, and server changed name but not email,
-        # apply both changes
-        merged = {}
-        for field in ['email', 'name']:
-            if field in client_changes:
-                merged[field] = client_changes[field]
-            else:
-                merged[field] = current[field]
+        merged = {
+            'name': client_changes.get('name', current['name']),
+            'email': client_changes.get('email', current['email']),
+        }
 
         cur.execute("""
-            UPDATE users SET email = %s, name = %s, version = version + 1
-            WHERE id = %s
-        """, (merged['email'], merged['name'], user_id))
+            UPDATE users
+            SET name = %s, email = %s, version = version + 1
+            WHERE id = %s AND version = %s
+            RETURNING id, version;
+        """, (merged['name'], merged['email'], user_id, current['version']))
+
+        updated = cur.fetchone()
+        if not updated:
+            raise ValueError("Conflict: the record changed during the merge. Please retry.")
         conn.commit()
-        return cur.fetchone()
+        return updated
 ```
 
+If fields overlap, the right choice is domain-specific: show a diff to the user, pick a winner, or ask for confirmation.
 
 
 
-## Performance Tips
+
+## Production Notes
 
 1. **Index the version column.** The `WHERE id = ? AND version = ?` clause needs an index on both columns:
 
@@ -496,3 +494,20 @@ WHERE datname = current_database();
 ```
 
 5. **Consider `SERIALIZABLE` isolation instead of manual versioning.** PostgreSQL's `SERIALIZABLE` handles conflicts automatically using SSI (Serializable Snapshot Isolation). It may be simpler than manual version management for complex transactions.
+
+## Key Takeaways
+
+- Optimistic locking avoids long-held database locks by making every update conditional on a version number.
+- Use an integer `version` column rather than timestamps; increment it atomically in the database or ORM.
+- Always return the current version on reads, and return a clear `409 Conflict` (or equivalent) when the version does not match.
+- Keep the read-modify-write window short and cap retries to prevent thundering herds.
+- Pessimistic locks, `SELECT FOR UPDATE`, and serializable isolation are valid alternatives when contention is high.
+
+## Further Reading
+
+- [PostgreSQL concurrency control](https://www.postgresql.org/docs/current/transaction-iso.html)
+- [MySQL locking reads](https://dev.mysql.com/doc/refman/9.0/en/innodb-locking-reads.html)
+- [Jakarta Persistence @Version](https://jakarta.ee/specifications/persistence/3.1/jakarta-persistence-spec-3.1#optimistic-locking)
+- [Database Transactions](/recipes/database-transactions/) for ACID patterns
+- [Retry Backoff](/recipes/retry-backoff/) for conflict retry logic
+- [Locks and Mutexes](/recipes/locks-and-mutexes/) for pessimistic locking patterns

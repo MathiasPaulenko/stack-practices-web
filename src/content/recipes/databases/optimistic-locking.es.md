@@ -15,13 +15,11 @@ tags:
 relatedResources:
   - /recipes/database-deadlocks-retries
   - /recipes/database-read-replicas
-  - /recipes/database-views-materialized
   - /recipes/sql-joins
   - /guides/sql-performance-tuning-guide
   - /recipes/deadlock-prevention-sql
-  - /recipes/database-migrations-safely
   - /recipes/database-migrations
-lastUpdated: "2026-08-10"
+lastUpdated: "2026-08-13"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -44,6 +42,13 @@ Usa este recurso cuando:
 - Quieres evitar bloqueos pesimistas que dañan throughput y pueden causar deadlocks
 - Tu aplicación tiene un patrón de lectura-modificación-escritura con gaps entre lectura y escritura
 - Necesitas detección de conflictos en [APIs REST](/recipes/call-rest-api/), apps offline-first o sistemas distribuidos
+
+**No** lo uses cuando:
+
+- La contención es tan alta que los reintentos se vuelven costosos o impracticables. Para esos casos, prefiere [bloqueos pesimistas](/recipes/locks-and-mutexes/) o operaciones atómicas como `SELECT FOR UPDATE`.
+- Puedes rediseñar el flujo para evitar el patrón lectura-modificación-escritura, por ejemplo apendizando eventos o usando CRDTs.
+- Esperas que el mismo registro se actualice muchas veces por segundo desde distintas fuentes. El bloqueo pesimista o una cola pueden ser más simples.
+- Tu base de datos ya soporta aislamiento serializable (p. ej., PostgreSQL `SERIALIZABLE`) y la carga tolera su overhead.
 
 ## Solución
 
@@ -214,7 +219,7 @@ Optimista para la mayoría de cargas de lectura intensiva con escrituras infrecu
 
 Usa event sourcing o sagas donde cada servicio posee su agregado. Si se necesita consistencia cross-servicio, prefiere operaciones idempotentes con actualizaciones condicionales en lugar de bloqueos distribuidos. Las transacciones compensatorias (deshacer) suelen ser más seguras que los bloqueos distribuidos. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para patrones de resiliencia.
 
-### Lógica de Reintento con Exponential Backoff
+### ¿Cómo reintento una actualización fallida?
 
 ```python
 import random
@@ -277,7 +282,7 @@ async function updateProductWithRetry(productId, updateFn) {
 }
 ```
 
-### Optimistic Locking en MongoDB con `findAndModify`
+### ¿Cómo implemento bloqueo optimista en MongoDB?
 
 ```javascript
 const { MongoClient } = require('mongodb');
@@ -322,7 +327,7 @@ const optimisticLockPlugin = (schema) => {
 productSchema.plugin(optimisticLockPlugin);
 ```
 
-### DynamoDB Conditional Writes
+### ¿Cómo uso escrituras condicionales en DynamoDB?
 
 ```python
 import boto3
@@ -331,17 +336,16 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('products')
 
 def update_price_optimistic(product_id, new_price, expected_version):
-    response = table.put_item(
-        Item={
-            'product_id': product_id,
-            'price': new_price,
-            'version': expected_version + 1,
-        },
-        ConditionExpression='product_id = :pid AND version = :expected',
+    response = table.update_item(
+        Key={'product_id': product_id},
+        UpdateExpression='SET price = :p, version = :new_v',
+        ConditionExpression='version = :expected',
         ExpressionAttributeValues={
-            ':pid': product_id,
+            ':p': new_price,
+            ':new_v': expected_version + 1,
             ':expected': expected_version,
-        }
+        },
+        ReturnValues='ALL_NEW'
     )
     return response
 
@@ -355,7 +359,7 @@ except ClientError as e:
         print("Conflicto de versión: otro proceso modificó este item")
 ```
 
-### ETag e If-Match para APIs HTTP
+### ¿Cómo implemento bloqueo optimista con ETags en APIs HTTP?
 
 ```javascript
 // Middleware Express para optimistic locking basado en ETag
@@ -389,7 +393,7 @@ app.put('/products/:id', async (req, res) => {
 });
 ```
 
-### Batch Optimistic Locking
+### ¿Cómo actualizo múltiples filas con bloqueo optimista?
 
 ```python
 def batch_update_with_versions(conn, updates):
@@ -427,46 +431,43 @@ except ValueError as e:
     # Todos los updates se revirtieron, el cliente debe refrescar y reintentar
 ```
 
-### Estrategias de Resolución de Conflictos
+### ¿Cómo resuelvo conflictos sin perder datos?
+
+Un patrón común es hacer merge de campos no superpuestos. Si el cliente cambió el email y el servidor cambió el nombre, puedes conservar ambos. La clave es leer la versión actual, mezclar los cambios y escribir con un nuevo chequeo de versión:
 
 ```python
 def merge_update(conn, user_id, client_changes, expected_version):
-    """Merge three-way: versión base, versión actual, cambios del cliente."""
     with conn.cursor() as cur:
-        cur.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+        cur.execute("SELECT name, email, version FROM users WHERE id = %s", (user_id,))
         current = cur.fetchone()
         if not current:
             raise ValueError("Usuario no encontrado")
 
-        if current['version'] == expected_version:
-            # Sin conflicto: aplicar directamente
-            cur.execute("""
-                UPDATE users SET email = %s, name = %s, version = version + 1
-                WHERE id = %s AND version = %s
-            """, (client_changes['email'], client_changes['name'], user_id, expected_version))
-            conn.commit()
-            return cur.fetchone()
-
-        # Conflicto: merge campos no superpuestos
-        merged = {}
-        for field in ['email', 'name']:
-            if field in client_changes:
-                merged[field] = client_changes[field]
-            else:
-                merged[field] = current[field]
+        merged = {
+            'name': client_changes.get('name', current['name']),
+            'email': client_changes.get('email', current['email']),
+        }
 
         cur.execute("""
-            UPDATE users SET email = %s, name = %s, version = version + 1
-            WHERE id = %s
-        """, (merged['email'], merged['name'], user_id))
+            UPDATE users
+            SET name = %s, email = %s, version = version + 1
+            WHERE id = %s AND version = %s
+            RETURNING id, version;
+        """, (merged['name'], merged['email'], user_id, current['version']))
+
+        updated = cur.fetchone()
+        if not updated:
+            raise ValueError("Conflicto: el registro cambió durante el merge. Reintenta.")
         conn.commit()
-        return cur.fetchone()
+        return updated
 ```
 
+Si los campos se superponen, la decisión es específica del dominio: muestra un diff al usuario, elige un ganador o pide confirmación.
 
 
 
-## Tips de Rendimiento
+
+## Notas de Producción
 
 1. **Indexa la columna version.** La cláusula `WHERE id = ? AND version = ?` necesita un índice en ambas columnas:
 
@@ -493,3 +494,20 @@ WHERE datname = current_database();
 ```
 
 5. **Considera `SERIALIZABLE` isolation en lugar de versionado manual.** PostgreSQL `SERIALIZABLE` maneja conflictos automáticamente usando SSI (Serializable Snapshot Isolation). Puede ser más simple que el versionado manual para transacciones complejas.
+
+## Puntos Clave
+
+- El bloqueo optimista evita bloqueos largos haciendo que cada actualización sea condicional a un número de versión.
+- Usa una columna `version` entera en lugar de timestamps; incrementa atómicamente en la base de datos u ORM.
+- Siempre devuelve la versión actual en lecturas, y devuelve un `409 Conflict` claro cuando la versión no coincide.
+- Mantén corta la ventana de lectura-modificación-escritura y limita reintentos para evitar avalanchas.
+- Los bloqueos pesimistas, `SELECT FOR UPDATE` y el aislamiento serializable son alternativas válidas cuando la contención es alta.
+
+## Lectura Adicional
+
+- [PostgreSQL concurrency control](https://www.postgresql.org/docs/current/transaction-iso.html)
+- [MySQL locking reads](https://dev.mysql.com/doc/refman/9.0/en/innodb-locking-reads.html)
+- [Jakarta Persistence @Version](https://jakarta.ee/specifications/persistence/3.1/jakarta-persistence-spec-3.1#optimistic-locking)
+- [Database Transactions](/recipes/database-transactions/) para patrones ACID
+- [Retry Backoff](/recipes/retry-backoff/) para lógica de reintento
+- [Locks and Mutexes](/recipes/locks-and-mutexes/) para patrones de bloqueo pesimista
