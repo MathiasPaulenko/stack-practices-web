@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-coverage-pytest-cov
-title: "Medir Cobertura de Tests con pytest-cov"
+title: "Medir y Exigir Cobertura de Tests con pytest-cov"
 description: "Cómo medir y exigir umbrales de cobertura de tests en Python con pytest-cov, incluyendo branch coverage, reportes HTML, exclusiones e integración con CI."
 metaDescription: "Mide y exige cobertura de tests en Python con pytest-cov. Genera reportes HTML, branch coverage, excluye líneas y falla CI con umbrales bajos de cobertura."
 difficulty: beginner
@@ -34,9 +34,6 @@ seo:
     - pytest-cov
     - branch-coverage
     - ci-cd
-
-
-
 ---
 ## Visión General
 
@@ -58,7 +55,7 @@ No uses la cobertura como la única señal de calidad. Mide qué se ejecutó, no
 
 - No persigas 100% de cobertura con tests triviales solo para alcanzar el número
 - No incluyas scripts one-off o código autogenerado en la medición
-- No confíes solo en la cobertura cuando la corrección importa mucho; combinála con tests de mutación o property tests
+- No confíes solo en la cobertura cuando la corrección importa mucho; combinála con [mutation testing](/recipes/implement-mutation-testing/) o [property testing](/recipes/python-hypothesis-property-testing/)
 
 ## Solución
 
@@ -184,7 +181,7 @@ coverage html
 
 ## Explicación
 
-`coverage.py` corre junto a tus tests y registra cada línea ejecutable que se alcanza. Luego cuenta cuántas de esas líneas fueron tocadas y convierte eso en un porcentaje. Line coverage te dice si una sentencia se ejecutó; branch coverage va más allá y verifica si cada `if/else`, `and`, `or` y ternaria tomó ambos caminos.
+`coverage.py` corre junto a tus tests y registra cada línea ejecutable que se alcanza. Luego cuenta cuántas de esas líneas fueron tocadas y convierte eso en un porcentaje. [Line coverage](/recipes/measure-test-coverage/) te dice si una sentencia se ejecutó; branch coverage va más allá y verifica si cada `if/else`, `and`, `or` y ternaria tomó ambos caminos.
 
 Un line coverage alto es fácil de fingir: un test que solo llama a una función con un argumento puede cubrir muchas líneas sin chequear casos borde. Branch coverage hace eso más difícil porque fuerza a la suite a ejercitar ambos lados de los condicionales.
 
@@ -231,7 +228,7 @@ Genera un SVG badge con el porcentaje de cobertura actual para tu README.
 ## Errores Comunes
 
 - **Perseguir 100% de cobertura**: escribir tests triviales (`assert True`) para cubrir líneas sin verificar comportamiento.
-- **No usar branch coverage**: line coverage de 100% puede aún miss branches `else`.
+- **No usar branch coverage**: [line coverage](/recipes/measure-test-coverage/) de 100% puede aún miss branches `else`.
 - **Incluir archivos de test en la cobertura**: `tests/` debería excluirse — estás midiendo código de producción.
 - **No combinar archivos de cobertura paralelos**: con `pytest-xdist`, cada worker escribe un archivo separado.
 - **Excluir demasiado**: si excluyes cada línea difícil de testear, el número pierde sentido.
@@ -263,7 +260,7 @@ Mira el [ejemplo de implementación](#obtengo-cobertura-para-un-solo-archivo-de-
 ### ¿Puedo usar pytest-cov con Django o Flask?
 
 Sí. Seteá `--cov` a tu paquete y asegurate de que el módulo de settings de Django esté disponible durante los tests.
-Mira el [ejemplo de implementación](#puedo-usar-pytest-cov-con-django-o-flask).
+Mira el [ejemplo de implementación](#usar-pytest-cov-con-django-o-flask).
 
 ### ¿Cómo fallo CI solo cuando la cobertura disminuye?
 
@@ -312,7 +309,7 @@ pytest tests/test_models.py --cov=myapp.models --cov-report=term-missing
 ```
 
 
-### ¿Puedo usar pytest-cov con Django o Flask
+### Usar pytest-cov con Django o Flask
 
 ```bash
 pytest --cov=myproject --cov-report=html

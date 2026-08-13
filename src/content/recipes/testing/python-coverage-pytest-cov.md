@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: python-coverage-pytest-cov
-title: "Measure Test Coverage with pytest-cov"
+title: "Measure and Enforce Python Test Coverage with pytest-cov"
 description: "How to measure and enforce Python test coverage thresholds with pytest-cov, including branch coverage, HTML reports, exclusions, and CI integration."
 metaDescription: "Measure and enforce Python test coverage with pytest-cov. Generate HTML reports, branch coverage, exclude lines, and fail CI on low coverage thresholds."
 difficulty: beginner
@@ -34,9 +34,6 @@ seo:
     - pytest-cov
     - branch-coverage
     - ci-cd
-
-
-
 ---
 ## Overview
 
@@ -58,7 +55,7 @@ Don't use coverage as the only quality signal. It measures what ran, not what wa
 
 - Don't chase 100% coverage with trivial tests just to hit the number
 - Don't include one-off scripts or auto-generated code in the measurement
-- Don't rely on coverage alone when correctness really matters; pair it with mutation or property tests
+- Don't rely on coverage alone when correctness really matters; pair it with [mutation testing](/recipes/implement-mutation-testing/) or [property testing](/recipes/python-hypothesis-property-testing/)
 
 ## Solution
 
@@ -184,7 +181,7 @@ coverage html
 
 ## Explanation
 
-`coverage.py` runs alongside your tests and records each executable line that's reached. It then counts how many of those lines were hit and converts that into a percentage. Line coverage tells you whether a statement ran; branch coverage goes further and checks whether each `if/else`, `and`, `or`, and ternary took both paths.
+`coverage.py` runs alongside your tests and records each executable line that's reached. It then counts how many of those lines were hit and converts that into a percentage. [Line coverage](/recipes/measure-test-coverage/) tells you whether a statement ran; branch coverage goes further and checks whether each `if/else`, `and`, `or`, and ternary took both paths.
 
 High line coverage is easy to fake: a test that just calls a function with one argument can cover many lines without checking edge cases. Branch coverage makes that harder because it forces the test suite to exercise both sides of conditionals.
 
@@ -231,7 +228,7 @@ Generates an SVG badge with the current coverage percentage for your README.
 ## Common Mistakes
 
 - **Chasing 100% coverage**: writing trivial tests (`assert True`) to cover lines without verifying behavior.
-- **Not using branch coverage**: line coverage of 100% can still miss `else` branches.
+- **Not using branch coverage**: [line coverage](/recipes/measure-test-coverage/) of 100% can still miss `else` branches.
 - **Including test files in coverage**: `tests/` should be excluded — you're measuring production code.
 - **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file.  Run `coverage combine` before reporting.
 - **Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.
@@ -262,7 +259,7 @@ See the [implementation example](#get-coverage-for-a-single-test-file).
 ### Can I use pytest-cov with Django or Flask?
 
 Yes. For Django or Flask, point `--cov` at the package and keep `DJANGO_SETTINGS_MODULE` set while the tests run.
-See the [implementation example](#can-i-use-pytest-cov-with-django-or-flask).
+See the [implementation example](#use-pytest-cov-with-django-or-flask).
 
 ### How do I fail CI only on decreased coverage?
 
@@ -311,7 +308,7 @@ pytest tests/test_models.py --cov=myapp.models --cov-report=term-missing
 ```
 
 
-### Can I use pytest-cov with Django or Flask
+### Use pytest-cov with Django or Flask
 
 ```bash
 pytest --cov=myproject --cov-report=html
