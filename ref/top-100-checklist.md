@@ -5,7 +5,7 @@ Use this list to track progress as you audit and improve each resource.
 - `[x]` = already optimized in P1.1 (title + meta description)
 - `[ ]` = pending
 
-**Progress:** 10 / 100 resources completed
+**Progress:** 11 / 100 resources completed
 
 ---
 
@@ -43,13 +43,14 @@ Use this list to track progress as you audit and improve each resource.
    - Words: ~2,100 | Meta: 129 chars
    - Artifacts: `output/seo-audit-optimistic-locking.md`, `output/content-quality-audit-optimistic-locking.md`, `output/ai-detect-optimistic-locking.json`
 
-5. - [ ] **python-coverage-pytest-cov** (recipes)
+5. - [x] **python-coverage-pytest-cov** (recipes)
    - Metrics: 174 imp | pos 25.2 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-coverage-pytest-cov/
    - ES: https://stackpractices.com/es/recipes/python-coverage-pytest-cov/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,431 | Meta: 152 chars
+   - Status: ✅ Prompt 17 (SEO) + Prompt 18 (content quality) applied; ✅ AI desklib < 40%; ✅ EN/ES aligned
+   - Words: ~2,100 | Meta: 144 chars
+   - Artifacts: `output/seo-audit-python-coverage-pytest-cov.md`, `output/content-quality-audit-python-coverage-pytest-cov.md`, `output/ai-detect-python-coverage-pytest-cov.json`
 
 6. - [ ] **python-schedule-periodic-tasks** (recipes)
    - Metrics: 129 imp | pos 11.5 | CTR 0.00% | Δ impr 0

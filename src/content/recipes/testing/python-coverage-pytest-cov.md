@@ -14,13 +14,14 @@ tags:
   - coverage
   - pytest-cov
   - ci
-  - recipe
 relatedResources:
   - /recipes/python-pytest-fixtures-parametrize
   - /recipes/measure-test-coverage
   - /recipes/python-mock-external-apis-responses
   - /recipes/python-hypothesis-property-testing
-lastUpdated: "2026-07-09"
+  - /recipes/implement-mutation-testing
+  - /recipes/setup-test-fixtures
+lastUpdated: "2026-08-13"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -31,29 +32,33 @@ seo:
     - pytest
     - coverage
     - pytest-cov
-    - ci
-    - recipe
+    - branch-coverage
+    - ci-cd
 
 
 
 ---
 ## Overview
 
-`pytest-cov` is a pytest plugin that integrates the `coverage.py` library. It measures which lines of your Python code are executed during tests and reports the percentage. You can enforce minimum thresholds, generate HTML reports, and track branch coverage (if/else paths) — not just line coverage.
+`pytest-cov` is a pytest plugin that wraps `coverage.py`. During the test run it records which lines and branches of your Python code are reached, prints a coverage summary, and can fail CI if the percentage falls below a threshold. It can also generate HTML reports and ignore files or lines that don't need to be counted.
 
 ## When to Use
 
-- Measuring how much of your codebase is covered by tests
-- Enforcing a minimum coverage threshold in CI (e.g., fail builds below 80%)
-- Identifying dead code that is never executed by any test
-- Generating HTML coverage reports for visual inspection of gaps
-- Tracking branch coverage to ensure both sides of if/else are tested
+Use this resource when:
+
+- You want a measurable coverage number before merging PRs
+- CI must fail when new code isn't tested enough
+- You need an HTML report to find untested code paths
+- You want branch coverage, not just line coverage
+- You're adding coverage to a Flask, Django, or plain Python project
 
 ## When NOT to Use
 
-- Chasing 100% coverage as a goal — 80-90% with good test quality is better than 100% with trivial tests
-- Measuring coverage for scripts or one-off utilities — focus on tested production code
-- Using coverage as the only quality metric — high coverage with bad assertions gives false confidence
+Don't use coverage as the only quality signal. It measures what ran, not what was asserted.
+
+- Don't chase 100% coverage with trivial tests just to hit the number
+- Don't include one-off scripts or auto-generated code in the measurement
+- Don't rely on coverage alone when correctness really matters; pair it with mutation or property tests
 
 ## Solution
 
@@ -153,7 +158,7 @@ if TYPE_CHECKING:
     from myapp.models import User  # pragma: no cover
 ```
 
-With the `exclude_lines` config above, any line matching `if TYPE_CHECKING:` and everything under it is excluded.
+With the `exclude_lines` config above, any line matching `if TYPE_CHECKING:` and everything under it's excluded.
 
 ### Coverage for multiprocessing
 
@@ -176,6 +181,14 @@ coverage combine
 coverage report
 coverage html
 ```
+
+## Explanation
+
+`coverage.py` runs alongside your tests and records each executable line that's reached. It then counts how many of those lines were hit and converts that into a percentage. Line coverage tells you whether a statement ran; branch coverage goes further and checks whether each `if/else`, `and`, `or`, and ternary took both paths.
+
+High line coverage is easy to fake: a test that just calls a function with one argument can cover many lines without checking edge cases. Branch coverage makes that harder because it forces the test suite to exercise both sides of conditionals.
+
+A threshold of 80-90% is usually a good starting point. The exact number matters less than the trend and the locations of the gaps. Aim to keep critical modules (payment logic, auth, data validation) well covered, and allow lower numbers in thin glue code or generated files.
 
 ## Variants
 
@@ -208,15 +221,12 @@ Generates an SVG badge with the current coverage percentage for your README.
 
 ## Best Practices
 
-
-- For a deeper guide, see [Pytest in Production Guide](/guides/complete-guide-pytest-production/).
-
-- Set a realistic threshold (80-85%) — too high encourages trivial tests just to hit the number
-- Use branch coverage alongside line coverage — it catches untested else paths
-- Exclude migration files, `__init__.py`, and test files from coverage measurement
-- Use `# pragma: no cover` for debug-only code, `__repr__`, and `if __name__` blocks
-- Review coverage reports regularly — find gaps in critical paths, not just the aggregate percentage
-- Generate XML coverage for CI tools (SonarQube, Codecov, Coveralls)
+- Start with a threshold of 80-90% for mature modules. Lower is fine for prototypes, as long as the number actually means something.
+- Add `--cov-branch` in CI so untested `else` paths show up as missing.
+- Exclude migration files, `__init__.py`, and the test suite from the measurement.
+- Only use `# pragma: no cover` for debug helpers and abstract stubs; never for error paths.
+- Review the HTML report before raising the threshold; the aggregate number hides local gaps.
+- Publish an XML report with `--cov-report=xml` so SonarQube, Codecov, or Coveralls can consume it.
 
 ## Common Mistakes
 
@@ -226,47 +236,82 @@ Generates an SVG badge with the current coverage percentage for your README.
 - **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file.  Run `coverage combine` before reporting.
 - **Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.
 
+## Production Notes
 
-## Troubleshooting
-
-- **Flaky tests**: isolate shared state, time, and randomness.  Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness.  Add mutation testing, property-based tests, or contract tests.
-- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.  Pin tool versions.
-- **Debugging a failing integration test**: log request/response payloads and use a dedicated test database.  Reset state before each test.
-
-
-## Key Takeaways
-
-- **Apply measure test coverage with pytest-cov** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- **Coverage report is empty**: make sure `--cov` points to a package, not a top-level script, and that `source` is set in the config.
+- **Branch coverage is lower than expected**: add `--cov-branch` and check the HTML report for conditionals that always take the same path.
+- **Coverage drops after adding `pytest-xdist`**: each worker writes its own `.coverage.*` file. Run `coverage combine` before `coverage report` or `coverage html`.
+- **diff-cover reports 0% changed lines**: generate `coverage.xml` with `coverage xml` and fetch the comparison branch first.
+- **Badge in README is stale**: regenerate the SVG in CI as an artifact or push it to a `badges` branch; don't commit the generated file to `main`.
 
 ## FAQ
 
 ### What is the difference between line coverage and branch coverage?
 
-Line coverage measures whether a line was executed. Branch coverage measures whether both paths of a conditional (if/else) were taken. A line with `if x:` can be 100% line-covered but only 50% branch-covered if `x` is always `True` in tests.
+Line coverage checks whether a statement ran. Branch coverage checks whether both paths of an `if/else` were taken.
 
 ### How do I exclude a whole file from coverage?
 
-In `pyproject.toml`:
+Add the file or directory patterns to the `omit` list under `[tool.coverage.run]` in `pyproject.toml`. See the [implementation example](#exclude-a-whole-file-from-coverage).
+
+### How do I get coverage for a single test file?
+
+Point `--cov` at the module the test exercises instead of the whole package.
+See the [implementation example](#get-coverage-for-a-single-test-file).
+
+### Can I use pytest-cov with Django or Flask?
+
+Yes. For Django or Flask, point `--cov` at the package and keep `DJANGO_SETTINGS_MODULE` set while the tests run.
+See the [implementation example](#can-i-use-pytest-cov-with-django-or-flask).
+
+### How do I fail CI only on decreased coverage?
+
+For PRs, run `diff-cover --fail-under=100` against the changed lines.
+See the [implementation example](#fail-ci-only-on-decreased-coverage).
+
+### How do I exclude lines from coverage?
+
+For a one-off line, add `# pragma: no cover`. For repeatable patterns, add them to `exclude_lines` in the config.
+See the [implementation example](#exclude-lines-from-coverage).
+
+### How do I measure branch coverage instead of line coverage?
+
+Add the `--cov-branch` flag to pytest, or set `branch = true` in your coverage config.
+See the [implementation example](#measure-branch-coverage-instead-of-line-coverage).
+
+### How do I generate coverage badges for my README?
+
+Generate the SVG from the report with `coverage-badge`.
+See the [implementation example](#generate-coverage-badges-for-my-readme).
+
+### How do I handle coverage with multiprocessing?
+
+When tests spawn processes, set `concurrency = multiprocessing` in the coverage config, then run `coverage combine` before the report.
+See the [implementation example](#handle-coverage-with-multiprocessing).
+
+### How do I integrate coverage with GitHub Actions?
+
+Run pytest with `--cov-report=xml`, then upload the generated `coverage.xml` with the Codecov action.
+See the [implementation example](#integrate-coverage-with-github-actions).
+
+## Implementation Examples
+
+### Exclude a whole file from coverage
 
 ```toml
 [tool.coverage.run]
 omit = ["myapp/legacy/*", "myapp/migrations/*"]
 ```
 
-### How do I get coverage for a single test file?
+
+### Get coverage for a single test file
 
 ```bash
 pytest tests/test_models.py --cov=myapp.models --cov-report=term-missing
 ```
 
-### Can I use pytest-cov with Django or Flask?
 
-Yes. Point `--cov` to your project package:
+### Can I use pytest-cov with Django or Flask
 
 ```bash
 pytest --cov=myproject --cov-report=html
@@ -274,18 +319,16 @@ pytest --cov=myproject --cov-report=html
 
 For Django, ensure `DJANGO_SETTINGS_MODULE` is set in your test configuration.
 
-### How do I fail CI only on decreased coverage?
 
-Use `diff-cover` with `--fail-under=100` to require 100% coverage on changed lines:
+### Fail CI only on decreased coverage
 
 ```bash
 coverage xml
 diff-cover coverage.xml --compare-branch=origin/main --fail-under=100
 ```
 
-### How do I exclude lines from coverage?
 
-Add `# pragma: no cover` to exclude single lines. Use `# pragma: no cover <reason>` for documentation. Configure exclusions in `.coveragerc`:
+### Exclude lines from coverage
 
 ```ini
 [report]
@@ -296,11 +339,10 @@ exclude_lines =
     if __name__ == .__main__.:
 ```
 
-Exclude debug-only code, repr methods, and abstract method stubs. Do not exclude error handling paths — those are critical to test.
+Exclude debug-only code, repr methods, and abstract method stubs. Don't exclude error handling paths — those are critical to test.
 
-### How do I measure branch coverage instead of line coverage?
 
-Pass `--cov-branch` to pytest-cov or set `branch = True` in `.coveragerc`:
+### Measure branch coverage instead of line coverage
 
 ```bash
 pytest --cov=myapp --cov-branch --cov-report=term-missing
@@ -308,9 +350,8 @@ pytest --cov=myapp --cov-branch --cov-report=term-missing
 
 Branch coverage reports whether both the true and false paths of each conditional were executed. It catches missing else branches and short-circuit evaluation paths that line coverage misses.
 
-### How do I generate coverage badges for my README?
 
-Use `coverage-badge` to generate SVG badges from your coverage report:
+### Generate coverage badges for my README
 
 ```bash
 pip install coverage-badge
@@ -319,9 +360,8 @@ coverage-badge -o coverage.svg
 
 Add the badge to your README: `![coverage](coverage.svg)`. In CI, generate the badge as an artifact and commit it to a `badges` branch or upload to a badge service like shields.io.
 
-### How do I handle coverage with multiprocessing?
 
-Use `coverage` with `--concurrency=multiprocessing` in `.coveragerc`:
+### Handle coverage with multiprocessing
 
 ```ini
 [run]
@@ -331,9 +371,8 @@ parallel = True
 
 This spawns separate coverage data files per process. Run `coverage combine` after the test suite to merge them. Without this, coverage from child processes is lost.
 
-### How do I integrate coverage with GitHub Actions?
 
-Add a step in your workflow to run pytest with coverage and upload the report:
+### Integrate coverage with GitHub Actions
 
 ```yaml
 - run: pytest --cov=myapp --cov-report=xml
@@ -344,13 +383,21 @@ Add a step in your workflow to run pytest with coverage and upload the report:
 
 Codecov posts a comment on PRs with coverage diff and visualizes uncovered lines. Use `fail_under` in `.coveragerc` to fail the CI job if coverage drops below a threshold.
 
-## Common Production Pitfalls
+## Key Takeaways
 
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+- `pytest-cov` wraps `coverage.py` and gives you line, branch, and missing-line reports in a single pytest run.
+- Pick a realistic threshold in `pyproject.toml` or CI and raise it only after the gaps are real, not excluded.
+- Use branch coverage to catch untested `else` paths that line coverage hides.
+- Exclude `migrations/`, test files, and `__init__.py`; use `pragma: no cover` only for debug helpers or abstract stubs.
+- Combine parallel coverage files and upload an XML report for CI dashboards.
+
+## Further Reading
+
+If you want to go deeper, these resources cover the tools and practices mentioned here:
+
+- [coverage.py documentation](https://coverage.readthedocs.io/)
+- [pytest-cov documentation](https://pytest-cov.readthedocs.io/)
+- [Complete pytest production guide](/guides/complete-guide-pytest-production/)
+- [pytest fixtures and parametrization](/recipes/python-pytest-fixtures-parametrize/)
+- [Mutation testing in Python](/recipes/implement-mutation-testing/)
+- [Mocking external APIs with Python](/recipes/python-mock-external-apis-responses/)

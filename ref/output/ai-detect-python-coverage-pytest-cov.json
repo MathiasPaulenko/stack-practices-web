@@ -1,0 +1,393 @@
+[
+  {
+    "label": "python-coverage-pytest-cov-en",
+    "model": "desklib",
+    "model_ai_pct": 39.1,
+    "ai_count": 21,
+    "human_count": 48,
+    "skipped_count": 13,
+    "total": 82,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.8,
+      "stddev": 9.4,
+      "cv": 0.63,
+      "verdict": "natural variation",
+      "sentence_count": 69,
+      "lengths": [
+        7,
+        31,
+        17,
+        59,
+        8,
+        58,
+        11,
+        13,
+        17,
+        8,
+        12,
+        8,
+        16,
+        16,
+        24,
+        25,
+        17,
+        10,
+        14,
+        23,
+        16,
+        12,
+        9,
+        13,
+        10,
+        11,
+        12,
+        14,
+        13,
+        13,
+        12,
+        13,
+        13,
+        13,
+        21,
+        20,
+        11,
+        13,
+        26,
+        7,
+        10,
+        12,
+        12,
+        15,
+        7,
+        6,
+        9,
+        11,
+        8,
+        14,
+        12,
+        9,
+        9,
+        11,
+        15,
+        13,
+        7,
+        22,
+        8,
+        8,
+        8,
+        13,
+        13,
+        14,
+        18,
+        11,
+        14,
+        12,
+        36
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "If you want to go deeper, these resources cover the tools and practices mentioned here:\n[coverage.py documentation](https://coverage.readthedocs.io/)\n[pytest-cov documentation](htt",
+        0.9683
+      ],
+      [
+        "For a one-off line, add .",
+        0.8402
+      ],
+      [
+        "Run  after the test suite to merge them.",
+        0.8235
+      ],
+      [
+        "**Coverage drops after adding **: each worker writes its own  file.",
+        0.7236
+      ],
+      [
+        "For Django or Flask, point  at the package and keep  set while the tests run.",
+        0.6731
+      ],
+      [
+        "It then counts how many of those lines were hit and converts that into a percentage.",
+        0.6603
+      ],
+      [
+        "Lower is fine for prototypes, as long as the number actually means something.",
+        0.6262
+      ],
+      [
+        "Only use  for debug helpers and abstract stubs; never for error paths.",
+        0.6105
+      ],
+      [
+        "Don't exclude error handling paths \u2014 those are critical to test.",
+        0.5944
+      ],
+      [
+        "It can also generate HTML reports and ignore files or lines that don't need to be counted.",
+        0.5927
+      ],
+      [
+        "With , each worker writes its own  file.",
+        0.5797
+      ],
+      [
+        "Green lines are covered, red lines are missed, with line-by-line highlighting.",
+        0.5713
+      ],
+      [
+        "is a pytest plugin that wraps .",
+        0.5639
+      ],
+      [
+        "This spawns separate coverage data files per process.",
+        0.5574
+      ],
+      [
+        "A threshold of 80-90% is usually a good starting point.",
+        0.5466
+      ],
+      [
+        "Add the badge to your README: .",
+        0.5409
+      ],
+      [
+        "Use  before generating the report:\n\n\n\n\n\n runs alongside your tests and records each executable line that's reached.",
+        0.5313
+      ],
+      [
+        "The  comment tells coverage to ignore that line.",
+        0.5165
+      ],
+      [
+        "For repeatable patterns, add them to  in the config.",
+        0.5126
+      ],
+      [
+        "**diff-cover reports 0% changed lines**: generate  with  and fetch the comparison branch first.",
+        0.5072
+      ],
+      [
+        "**Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.",
+        0.5017
+      ],
+      [
+        "Branch coverage checks whether both paths of an  were taken.",
+        0.4814
+      ],
+      [
+        "The exact number matters less than the trend and the locations of the gaps.",
+        0.4674
+      ],
+      [
+        "Add the file or directory patterns to the  list under  in .",
+        0.4549
+      ],
+      [
+        "For Django, ensure  is set in your test configuration.",
+        0.4268
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-coverage-pytest-cov-es",
+    "model": "desklib",
+    "model_ai_pct": 34.7,
+    "ai_count": 14,
+    "human_count": 64,
+    "skipped_count": 2,
+    "total": 80,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.6,
+      "stddev": 10.2,
+      "cv": 0.7,
+      "verdict": "natural variation",
+      "sentence_count": 78,
+      "lengths": [
+        8,
+        32,
+        14,
+        62,
+        8,
+        65,
+        13,
+        14,
+        18,
+        10,
+        17,
+        9,
+        19,
+        14,
+        25,
+        27,
+        18,
+        11,
+        14,
+        26,
+        18,
+        13,
+        9,
+        12,
+        11,
+        12,
+        14,
+        15,
+        13,
+        14,
+        13,
+        15,
+        14,
+        13,
+        27,
+        22,
+        14,
+        5,
+        15,
+        27,
+        8,
+        10,
+        9,
+        5,
+        12,
+        5,
+        19,
+        5,
+        8,
+        5,
+        9,
+        5,
+        10,
+        5,
+        8,
+        5,
+        6,
+        5,
+        12,
+        5,
+        12,
+        11,
+        12,
+        16,
+        14,
+        7,
+        21,
+        9,
+        9,
+        9,
+        16,
+        15,
+        17,
+        18,
+        12,
+        16,
+        14,
+        38
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Ejecuta  despu\u00e9s de la suite de tests para mergeearlos.",
+        0.8956
+      ],
+      [
+        "Si quer\u00e9s profundizar, estos recursos cubren las herramientas y pr\u00e1cticas mencionadas:\n[Documentaci\u00f3n de coverage.py](https://coverage.readthedocs.io/)\n[Documentaci\u00f3n de pytest-cov",
+        0.8184
+      ],
+      [
+        "Us\u00e1  sobre las l\u00edneas cambiadas en el PR.",
+        0.7941
+      ],
+      [
+        "**La cobertura cae despu\u00e9s de agregar **: cada worker escribe su propio archivo .",
+        0.7895
+      ],
+      [
+        "Mira el [ejemplo de implementaci\u00f3n](#mido-branch-coverage-en-lugar-de-line-coverage).",
+        0.7659
+      ],
+      [
+        "Us\u00e1  para crear un SVG desde el reporte.",
+        0.7502
+      ],
+      [
+        "Empez\u00e1 con un umbral de 80-90% para m\u00f3dulos maduros.",
+        0.7331
+      ],
+      [
+        "Lista los paths en la opci\u00f3n  bajo  en .",
+        0.6945
+      ],
+      [
+        "es un plugin de pytest que envuelve .",
+        0.6556
+      ],
+      [
+        "Ejecut\u00e1  antes de  o .",
+        0.648
+      ],
+      [
+        "Agreg\u00e1  en CI para que paths  no testeados aparezcan como faltantes.",
+        0.582
+      ],
+      [
+        "Usa  en  para fallear el job de CI si la cobertura baja de un threshold.",
+        0.5604
+      ],
+      [
+        "Mira el [ejemplo de implementaci\u00f3n](#genero-badges-de-cobertura-para-mi-readme).",
+        0.5532
+      ],
+      [
+        "Tambi\u00e9n puede generar reportes HTML e ignorar archivos o l\u00edneas que no necesit\u00e1s contar.",
+        0.5193
+      ],
+      [
+        "envuelve  y te da reportes de l\u00edneas, ramas y l\u00edneas faltantes en una sola corrida de pytest.",
+        0.4964
+      ],
+      [
+        "Line coverage verifica si una sentencia se ejecut\u00f3.",
+        0.4754
+      ],
+      [
+        "Usa  antes de generar el reporte:\n\n\n\n\n\n corre junto a tus tests y registra cada l\u00ednea ejecutable que se alcanza.",
+        0.4646
+      ],
+      [
+        "Exclu\u00ed archivos de migraci\u00f3n,  y la suite de tests de la medici\u00f3n.",
+        0.4592
+      ],
+      [
+        "Un umbral de 80-90% suele ser un buen punto de partida.",
+        0.4545
+      ],
+      [
+        "**Excluir demasiado**: si excluyes cada l\u00ednea dif\u00edcil de testear, el n\u00famero pierde sentido.",
+        0.4325
+      ],
+      [
+        "Agrega el badge a tu README: .",
+        0.4293
+      ],
+      [
+        "El n\u00famero exacto importa menos que la tendencia y la ubicaci\u00f3n de los gaps.",
+        0.4258
+      ],
+      [
+        "Sete\u00e1  a tu paquete y asegurate de que el m\u00f3dulo de settings de Django est\u00e9 disponible durante los tests.",
+        0.4242
+      ],
+      [
+        "Mira el [ejemplo de implementaci\u00f3n](#obtengo-cobertura-para-un-solo-archivo-de-test).",
+        0.421
+      ],
+      [
+        "Branch coverage verifica si ambos paths de un  se tomaron.",
+        0.4184
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
