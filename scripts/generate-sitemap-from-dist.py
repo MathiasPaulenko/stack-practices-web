@@ -11,6 +11,7 @@ from pathlib import Path
 from urllib.parse import quote
 import re
 import xml.etree.ElementTree as ET
+import yaml
 
 BASE_URL = "https://stackpractices.com"
 DIST_DIR = Path(__file__).resolve().parents[1] / "dist"
@@ -19,6 +20,58 @@ PUBLIC_DIR = Path(__file__).resolve().parents[1] / "public"
 # Paths that should never appear in a sitemap.
 EXCLUDED_SEGMENTS = {"pagefind", "_astro", "assets", "404"}
 EXCLUDED_FILES = {"404.html", "sitemap.xml", "rss.xml"}
+
+CONTENT_DIR = Path(__file__).resolve().parents[1] / "src" / "content"
+COLLECTIONS = {"recipes", "patterns", "docs", "guides"}
+
+
+def parse_frontmatter_dates() -> dict[tuple[str, str, str], datetime]:
+    """Build a lookup of (locale, content_type, slug) -> lastUpdated/publishedAt."""
+    dates: dict[tuple[str, str, str], datetime] = {}
+    for md_file in CONTENT_DIR.rglob("*.md"):
+        # Locale is determined by file extension: .es.md vs .md
+        locale = "es" if md_file.name.endswith(".es.md") else "en"
+        try:
+            text = md_file.read_text(encoding="utf-8")
+        except Exception:
+            continue
+        if not text.startswith("---"):
+            continue
+        end = text.find("\n---", 3)
+        if end == -1:
+            continue
+        try:
+            frontmatter = yaml.safe_load(text[3:end])
+        except Exception:
+            continue
+        if not frontmatter or "contentType" not in frontmatter or "slug" not in frontmatter:
+            continue
+        content_type = frontmatter["contentType"]
+        slug = frontmatter["slug"]
+        date_str = frontmatter.get("lastUpdated") or frontmatter.get("publishedAt")
+        if not date_str:
+            continue
+        try:
+            dt = datetime.fromisoformat(date_str)
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            dates[(locale, content_type, slug)] = dt
+        except Exception:
+            continue
+    return dates
+
+
+def content_key_from_path(path: str) -> tuple[str, str, str] | None:
+    """Map a canonical path like /recipes/slug/ or /es/recipes/slug/ to a content key.
+
+    Paginated listing paths such as /recipes/2/ are ignored because their slug is numeric.
+    """
+    parts = [p for p in path.split("/") if p]
+    if len(parts) == 2 and parts[0] in COLLECTIONS and not parts[1].isdigit():
+        return ("en", parts[0], parts[1])
+    if len(parts) == 3 and parts[0] == "es" and parts[1] in COLLECTIONS and not parts[2].isdigit():
+        return ("es", parts[1], parts[2])
+    return None
 
 
 def priority_for_path(path: str) -> str:
@@ -54,7 +107,16 @@ def is_noindex(html_file: Path) -> bool:
     return 'name="robots"' in head and 'noindex' in head
 
 
+def lastmod_for(path: str, html_file: Path, content_dates: dict[tuple[str, str, str], datetime]) -> datetime:
+    """Return the content lastUpdated/publishedAt for known content pages, else the build mtime."""
+    key = content_key_from_path(path)
+    if key and key in content_dates:
+        return content_dates[key]
+    return datetime.fromtimestamp(html_file.stat().st_mtime, tz=timezone.utc)
+
+
 def collect_urls() -> list[tuple[str, datetime]]:
+    content_dates = parse_frontmatter_dates()
     urls: list[tuple[str, datetime]] = []
     for html_file in DIST_DIR.rglob("index.html"):
         rel = html_file.relative_to(DIST_DIR).as_posix()
@@ -79,7 +141,7 @@ def collect_urls() -> list[tuple[str, datetime]]:
         else:
             path = "/" + "/".join(dir_parts)
 
-        urls.append((url_encode_path(path), datetime.fromtimestamp(html_file.stat().st_mtime, tz=timezone.utc)))
+        urls.append((url_encode_path(path), lastmod_for(path, html_file, content_dates)))
 
     # Also include root-level HTML files if any (e.g. 404.html is excluded explicitly).
     for html_file in DIST_DIR.glob("*.html"):
@@ -89,7 +151,7 @@ def collect_urls() -> list[tuple[str, datetime]]:
             continue
         slug = html_file.stem
         path = f"/{slug}/"
-        urls.append((url_encode_path(path), datetime.fromtimestamp(html_file.stat().st_mtime, tz=timezone.utc)))
+        urls.append((url_encode_path(path), lastmod_for(path, html_file, content_dates)))
 
     # Sort deterministically.
     return sorted(urls, key=lambda x: x[0])
