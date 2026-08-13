@@ -12,7 +12,7 @@
 
 The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.text` is hard-capped at ~200 characters and ends with `...`), which can break or downgrade FAQ rich results and sends a low-quality signal to answer engines. The second high-impact issue is the **sitemap `lastmod` being the build date for every page**, which neutralizes freshness signals. The third is a **lack of contextual body links** to other cluster pages beyond the single YAML link.
 
-**Priority fixes (do these first):**
+### Priority fixes (do these first)
 
 - **P0 — Fix FAQ schema answer truncation** in `src/lib/content.ts` (lines 206–225). Pass the full, stripped answer to `faqPage()` instead of the 200-character version, or raise the truncation limit and remove the ellipsis from structured data.
 - **P1 — Improve sitemap freshness** in `scripts/generate-sitemap-from-dist.py` (line 82). Use each page’s `lastUpdated` / `publishedAt` frontmatter instead of the build-time file mtime.
@@ -60,7 +60,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** No `noindex`, `nofollow`, or `Disallow` directives were observed for these URLs. No redirect chains or canonical conflicts are visible in the supplied assets.
 - **[REQUIRES DATA]** Actual HTTP status codes, redirect chains, `X-Robots-Tag` headers, and live `sitemap.xml` submission status cannot be verified from the rendered HTML files alone.
 
-**Crawlability score: 9 / 10**
+**Crawlability score:** 9 / 10
 
 ---
 
@@ -75,7 +75,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** Both language versions should be indexed under their respective canonical URLs. There is no canonical-to-noindex or pagination/indexation conflict for this page.
 - **[REQUIRES DATA]** Actual Google indexation status, `Crawled / currently not indexed`, and SERP presence cannot be confirmed without Search Console or a live site query.
 
-**Indexability score: 9 / 10**
+**Indexability score:** 9 / 10
 
 ---
 
@@ -88,7 +88,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** The URL is future-proof and scalable; adding a topic segment (e.g. `/recipes/data/parse-toml-files/`) could strengthen hierarchy but is not required.
 - **[OBSERVED]** One inconsistency: the footer links to `/cookies` (no slash) while the sitemap/canonical use `/cookies/` (`C:\tmp\parse-toml.html` line 220 area). This is the same for Spanish (`/es/cookies` vs `/es/cookies/`).
 
-**URL Structure score: 9 / 10**
+**URL Structure score:** 9 / 10
 
 ---
 
@@ -101,7 +101,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** The knowledge graph is logical (recipes → patterns → docs → guides, plus tags and topics). The page is 2 clicks from the home page (Home → Recipes → TOML).
 - **[INFERRED]** With ~3,242 pages generated from collections, listing/tag pages and recipe templates carry a **programmatic content risk** if not differentiated by unique intros and examples. The `data` parse recipes all share the same outline, so their unique value rests on the code, examples, and format-specific advice.
 
-**Site Architecture score: 8 / 10**
+**Site Architecture score:** 8 / 10
 
 ---
 
@@ -120,7 +120,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** Backlinks into the recipe exist from `parse-yaml-files`, `parse-xml-files`, and `parse-command-line-arguments` (`relatedResources` in those files include `/recipes/parse-toml-files`). `parse-json`, `validate-json-schema`, and `serialize-deserialize-data` do not link back to TOML, creating an asymmetric cluster.
 - **[INFERRED]** Contextual links are sparse in the `Solution`, `Explanation`, and `Advanced` sections. Adding links where the text naturally references JSON, validation, or serialization would improve PageRank distribution and user journeys.
 
-**Internal Linking score: 7 / 10**
+**Internal Linking score:** 7 / 10
 
 ### Concrete internal linking plan
 
@@ -153,7 +153,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 | TOML ↔ validation/serialization | "How to validate or convert TOML config" | `parse-toml-files`, `validate-json-schema`, `serialize-deserialize-data` | **Differentiate and cross-link**. The TOML page owns parse/write; the others own validation/serialization. Add contextual links both ways. |
 | Config format choice | "TOML vs YAML vs JSON for config" | `parse-toml-files` FAQ, `parse-yaml-files` FAQ, `parse-json` | **Consider a dedicated comparison guide** (content opportunity) and link the FAQs to it. |
 
-**Content Clusters score: 8 / 10**
+**Content Clusters score:** 8 / 10
 
 ---
 
@@ -165,7 +165,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** Topical authority for TOML specifically is strong. Authority for the broader "config formats" topic is good but could be elevated by a pillar page or a "TOML vs YAML vs JSON" comparison article.
 - **[INFERRED]** The cluster would benefit from a dedicated troubleshooting/reference page for `pyproject.toml`, `Cargo.toml`, and CI/CD TOML use cases.
 
-**Topical Authority score: 8 / 10**
+**Topical Authority score:** 8 / 10
 
 ---
 
@@ -180,7 +180,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** The title and H1 (`Parse and Write TOML in Python, Java & JavaScript`) is broader than the query "parse toml" and satisfies both read and write intent, which is appropriate.
 - **[INFERRED]** The page satisfies the intent well; it is more useful than a generic article because it provides multi-language examples, production notes, and first-person troubleshooting.
 
-**Search Intent score: 9 / 10**
+**Search Intent score:** 9 / 10
 
 ---
 
@@ -212,7 +212,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[OBSERVED]** `meta name="keywords"` on the page: `toml, parse toml, toml config, python, javascript, java`.
 - **[INFERRED]** Primary and secondary keywords appear naturally in the URL, title, H1, meta description, headings, code examples, and body. No keyword stuffing.
 
-**On-Page SEO score: 9 / 10**
+**On-Page SEO score:** 9 / 10
 
 ---
 
@@ -226,7 +226,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** One improvement: adding a visual comparison (TOML vs YAML vs JSON snippet) and a short table of contents would strengthen scannability and snippet eligibility.
 - **[OBSERVED]** `lastUpdated: 2026-08-13` and `publishedAt: 2026-04-02` are set in the frontmatter and carried into JSON-LD `dateModified` and `datePublished`.
 
-**Content Quality score: 9 / 10**
+**Content Quality score:** 9 / 10
 
 ---
 
@@ -241,7 +241,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** The `FAQPage` schema is at risk of being invalid or ineligible for rich results because Google’s FAQ rich result guidelines expect complete answers.
 - **[INFERRED]** Missing but optional schema: `WebPage`, `WebSite`, `SpeakableSpecification`, and `HowTo` for the tutorial steps. The current set is appropriate but could be expanded for AI-citation/GEO.
 
-**Structured Data score: 6 / 10** (content would score 9 without the FAQ truncation issue).
+**Structured Data score:** 6 / 10 (content would score 9 without the FAQ truncation issue).
 
 ---
 
@@ -254,7 +254,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** Generic OG image reduces CTR in social/AI previews. A TOML-branded or multi-format comparison image would improve shareability.
 - **[REQUIRES DATA]** Actual SERP appearance, CTR, average position, and rich-result status cannot be verified without Search Console and live SERP data.
 
-**SERP Appearance score: 8 / 10**
+**SERP Appearance score:** 8 / 10
 
 ---
 
@@ -271,7 +271,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[OBSERVED]** A language switcher link (`ES` / `EN`) is present in the header, with `aria-label="Switch language"`.
 - **[INFERRED]** Spanish content is a complete, accurate translation of the English version (same code examples, translated comments and UI text), satisfying bilingual parity.
 
-**International SEO score: 9 / 10**
+**International SEO score:** 9 / 10
 
 ---
 
@@ -285,7 +285,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** The page is lightweight and should perform well, but without field data this is an inference.
 - **[REQUIRES DATA]** Core Web Vitals (LCP, INP, CLS) have not been measured. PageSpeed Insights / Lighthouse / CrUX data is required for a real performance verdict.
 
-**Performance score: 8 / 10 (inferred)**
+**Performance score:** 8 / 10 (inferred)
 
 ---
 
@@ -302,7 +302,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** No table of contents (TOC) is present. Because headings have `id`s, a TOC would be easy to add and would improve navigation for long articles.
 - **[REQUIRES DATA]** Full WCAG 2.2 contrast, focus order, and screen-reader testing are not available from the static HTML alone.
 
-**Accessibility score: 8 / 10**
+**Accessibility score:** 8 / 10
 
 ---
 
@@ -317,7 +317,7 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 - **[INFERRED]** Missing **Expertise/Authority** signals on the page itself: no author bio, credentials, or "reviewed by" line. The author’s external site is linked, but readers and search engines must leave the page to find credentials.
 - **[INFERRED]** Missing explicit citations list or editorial process statement on the article. Trust is supported by the site-wide legal pages but not strongly by the individual recipe.
 
-**EEAT score: 6 / 10**
+**EEAT score:** 6 / 10
 
 ---
 
@@ -399,25 +399,25 @@ The most important issue is **truncated FAQ schema answers** (`acceptedAnswer.te
 
 ### Final verdict
 
-**Is StackPractices technically prepared for sustainable organic growth?**
+#### Is StackPractices technically prepared for sustainable organic growth?
 
-**PARTIALLY.**
+**Verdict:** PARTIALLY.
 
 `/recipes/parse-toml-files/` is technically well-built: crawlable, indexable, correctly bilingual, and rich with structured data. However, the **FAQ schema truncation** is a concrete quality issue that can block rich results, the **sitemap freshness signal is broken** site-wide, and **EEAT/performance cannot be verified** without real data.
 
-**Three biggest things preventing organic growth for this page:**
+#### Three biggest things preventing organic growth for this page
 
 1. **FAQ `acceptedAnswer.text` truncated to ~200 characters** — the most visible structured-data quality problem.
 2. **Sitemap `lastmod` is the build date for every URL** — removes freshness signals across the whole site.
 3. **No measured Core Web Vitals or Search Console data** — we cannot confirm user experience, indexation, or query coverage.
 
-**Three highest-impact improvements:**
+#### Three highest-impact improvements
 
 1. **Fix FAQ answer truncation** in `src/lib/content.ts` and `src/lib/schema.ts`.
 2. **Use frontmatter `lastUpdated` for sitemap `lastmod`** in `scripts/generate-sitemap-from-dist.py`.
 3. **Add a data-format pillar/hub and cross-link the parsing cluster** to concentrate authority.
 
-**What should NOT be changed:**
+#### What should NOT be changed
 
 - URL structure, canonical strategy, and hreflang implementation.
 - The bilingual EN/ES parity and `x-default` pointing to English.
