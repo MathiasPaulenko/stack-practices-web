@@ -22,7 +22,7 @@
 ## 2. Information Value por sección
 
 | Sección | Valoración | Justificación |
-|---|---|---|
+| --- | --- | --- |
 | Overview | **HIGH** | Explica qué es y qué hace en una sola frase. |
 | When to Use | **HIGH** | Escenarios concretos y enlaces internos. |
 | When NOT to Use | **HIGH** | Advertencias claras contra el uso indebido. |
@@ -68,7 +68,7 @@
 ## 7. Puntuación
 
 | Dimensión | Puntuación |
-|---|---|
+| --- | --- |
 | Core Value | 80/100 |
 | Information Value | 82/100 |
 | Practical Usefulness | 85/100 |
