@@ -1,10 +1,10 @@
 [
   {
     "label": "parse-toml-files-en",
-    "model": "light",
-    "model_ai_pct": 73.2,
-    "ai_count": 111,
-    "human_count": 21,
+    "model": "desklib",
+    "model_ai_pct": 47.5,
+    "ai_count": 52,
+    "human_count": 80,
     "skipped_count": 37,
     "total": 169,
     "pattern_totals": {},
@@ -151,114 +151,114 @@
     },
     "top_ai_sentences": [
       [
-        "|\n\n\n\nOn Python 3.11 or later, I use tomllib and ignore the older toml package.",
-        0.9814
+        "I always forget that the first time.",
+        0.9839
       ],
       [
-        "I usually send them to [Parse YAML Files](/recipes/parse-yaml-files/).",
-        0.9777
-      ],
-      [
-        "When I need to write TOML from Python, I peek at the [tomli-w repository](https://github.com/hukkin/tomli-w) for examples.",
-        0.9742
-      ],
-      [
-        "For the Python API, the [Python tomllib docs](https://docs.python.org/3/library/tomllib.html) are where I end up.",
-        0.9718
-      ],
-      [
-        "Flat config, edited by developers, and needs comments?",
-        0.9679
-      ],
-      [
-        "Validating a tool's config before startup?",
-        0.9652
-      ],
-      [
-        "It catches missing fields, bad types, and values that make no sense before the app starts.",
-        0.962
-      ],
-      [
-        "| Technology | Library | Approach | Notes |\n| --- | --- | --- | --- |\n| Python | tomllib | load() | Read-only.",
-        0.9573
-      ],
-      [
-        "The code above shows it.",
-        0.9531
-      ],
-      [
-        "That's why these things work for server lists, feature flags, or database connection pools.",
-        0.9517
-      ],
-      [
-        "I keep the [TOML specification](https://toml.io/en/v1.0.0) bookmarked.",
-        0.9507
+        "Below is how I read and write it in Python, JavaScript, and Java.",
+        0.963
       ],
       [
         "|\n| Python | tomli-w | dump() | The one I use for writing.",
-        0.9479
+        0.9358
       ],
       [
-        "Keeps comments and ordering consistent.",
-        0.9476
-      ],
-      [
-        "|\n| Python | tomli | load() | Backport.",
-        0.9445
-      ],
-      [
-        "It doesn't do block comments, though.",
-        0.944
-      ],
-      [
-        "I start with a base config.",
-        0.9433
-      ],
-      [
-        "In Python, pass the parsed dictionary to json.dumps.",
-        0.9426
-      ],
-      [
-        "|\n| JavaScript | @iarna/toml | parse() / stringify() | Fast and spec-compliant.",
-        0.941
+        "| Technology | Library | Approach | Notes |\n| --- | --- | --- | --- |\n| Python | tomllib | load() | Read-only.",
+        0.9337
       ],
       [
         "A list of tables uses double brackets.",
-        0.9404
-      ],
-      [
-        "|\n| Java | toml4j | Toml.read() | Older.",
-        0.9394
-      ],
-      [
-        "But if you get it wrong, it ruins your afternoon.",
-        0.9381
-      ],
-      [
-        "With @iarna/toml, you get an array of objects.",
-        0.935
-      ],
-      [
-        "Too many hours lost to weird edge cases.",
-        0.9343
-      ],
-      [
-        "And the [tomlj documentation](https://github.com/tomlj/tomlj) explains the Java parser and dotted key access.",
-        0.9343
+        0.9194
       ],
       [
         "|\n| Java | tomlj | Toml.parse() | Modern.",
-        0.9322
+        0.9064
+      ],
+      [
+        "Every entry has the same shape.",
+        0.8935
+      ],
+      [
+        "But if you get it wrong, it ruins your afternoon.",
+        0.8784
+      ],
+      [
+        "|\n| Python | tomli | load() | Backport.",
+        0.8562
+      ],
+      [
+        "It doesn't do block comments, though.",
+        0.8482
+      ],
+      [
+        "TOML is a good fit.",
+        0.848
+      ],
+      [
+        "The code above shows it.",
+        0.842
+      ],
+      [
+        "Otherwise you'll have a bad time.",
+        0.8358
+      ],
+      [
+        "dump for files, dumps for strings.",
+        0.834
+      ],
+      [
+        "It catches missing fields, bad types, and values that make no sense before the app starts.",
+        0.8279
+      ],
+      [
+        "Python's tomllib turns them into real datetime objects, so you can compare them or pass them around without extra parsing.",
+        0.8236
+      ],
+      [
+        "For writing, I grab tomli-w.",
+        0.8218
+      ],
+      [
+        "I once spent an hour debugging a parse error.",
+        0.8124
+      ],
+      [
+        "The feature I use most.",
+        0.8124
+      ],
+      [
+        "I try to avoid it.",
+        0.8106
+      ],
+      [
+        "I don't edit by hand.",
+        0.8002
+      ],
+      [
+        "|\n| Java | toml4j | Toml.read() | Older.",
+        0.7934
+      ],
+      [
+        "I start with a base config.",
+        0.7739
+      ],
+      [
+        "They cover the API and TOML 1.0 support.",
+        0.7689
+      ],
+      [
+        "I use them when I'm only two or three levels deep.",
+        0.7571
       ]
     ],
     "diagnostics_sample": []
   },
   {
     "label": "parse-toml-files-es",
-    "model": "light",
-    "model_ai_pct": 72.8,
-    "ai_count": 109,
-    "human_count": 23,
+    "model": "desklib",
+    "model_ai_pct": 40.4,
+    "ai_count": 34,
+    "human_count": 98,
     "skipped_count": 37,
     "total": 169,
     "pattern_totals": {},
@@ -405,104 +405,104 @@
     },
     "top_ai_sentences": [
       [
-        "|\n\n\n\nSi est\u00e1s en Python 3.11 o posterior, yo uso tomllib y me olvido del paquete toml m\u00e1s viejo.",
-        0.9809
-      ],
-      [
-        "Tengo la [especificaci\u00f3n TOML](https://toml.io/en/v1.0.0) en bookmarks.",
-        0.9804
-      ],
-      [
-        "Cuando necesito escribir TOML desde Python, chusmeo el [repositorio de tomli-w](https://github.com/hukkin/tomli-w) para ver ejemplos.",
-        0.9774
-      ],
-      [
-        "Yo usualmente mando a la gente a [Analizar archivos YAML](/es/recipes/parse-yaml-files/).",
-        0.977
-      ],
-      [
-        "En CI le doy un lint a los archivos TOML con taplo o toml-test para detectar claves duplicadas y fechas inv\u00e1lidas antes de que lleguen a producci\u00f3n.",
-        0.9763
-      ],
-      [
-        "Para la API de Python, la [documentaci\u00f3n de tomllib](https://docs.python.org/3/library/tomllib.html) es mi referencia.",
-        0.975
-      ],
-      [
-        "Por eso sirven para listas de servidores, feature flags o pools de conexiones de base de datos.",
-        0.9744
-      ],
-      [
-        "Tambi\u00e9n cuando armo una herramienta que analiza la configuraci\u00f3n de un proyecto.",
-        0.9738
-      ],
-      [
-        "@iarna/toml maneja dotted keys bien, pero si te equivoc\u00e1s y escrib\u00eds databse.host en lugar de database.host, no lanza error.",
-        0.9732
-      ],
-      [
-        "|\n| Python | tomli | load() | Backport.",
-        0.963
+        "No hace comentarios de bloque, eso s\u00ed.",
+        0.9972
       ],
       [
         "|\n| Python | tomli-w | dump() | El que uso para escribir.",
-        0.9605
+        0.9319
       ],
       [
-        "TOML es un formato de configuraci\u00f3n que se puede leer sin sufrir demasiado.",
-        0.9578
+        "Cuando tengo que escribirlo, agarro tomli-w.",
+        0.9008
       ],
       [
-        "Y la [documentaci\u00f3n de tomlj](https://github.com/tomlj/tomlj) explica el parser de Java y el acceso por dotted keys.",
-        0.9574
+        "En Python, la clave de la tabla termina siendo una lista de diccionarios.",
+        0.8993
       ],
       [
-        "Los archivos TOML espec\u00edficos por ambiente que contienen secretos se quedan fuera del repositorio, o inyecto los valores sensibles mediante variables de entorno.",
-        0.9543
-      ],
-      [
-        "|\n| Java | toml4j | Toml.read() | M\u00e1s antiguo.",
-        0.9521
+        "M\u00e1s los errores que comet\u00ed.",
+        0.894
       ],
       [
         "|\n| Java | tomlj | Toml.parse() | Moderno.",
-        0.9511
+        0.8888
+      ],
+      [
+        "Cada entrada tiene la misma forma.",
+        0.8697
+      ],
+      [
+        "|\n| Python | tomli | load() | Backport.",
+        0.8562
+      ],
+      [
+        "TOML es un formato de configuraci\u00f3n que se puede leer sin sufrir demasiado.",
+        0.8501
       ],
       [
         "| Tecnolog\u00eda | Librer\u00eda | Enfoque | Notas |\n| --- | --- | --- | --- |\n| Python | tomllib | load() | Solo lectura.",
-        0.947
+        0.8363
       ],
       [
-        "Le gustan los dotted keys.",
-        0.9433
+        "Salteo el baile de escapes.",
+        0.8241
       ],
       [
-        "|\n| JavaScript | @iarna/toml | parse() / stringify() | R\u00e1pido y compatible con la especificaci\u00f3n.",
-        0.9408
+        "Siempre me olvido de eso la primera vez.",
+        0.7949
       ],
       [
-        "prod.toml o staging.toml para las diferencias.",
-        0.9403
+        "En JavaScript con @iarna/toml, te queda un array de objetos.",
+        0.7824
       ],
       [
-        "El tomllib de Python los convierte en objetos datetime reales, as\u00ed que los pod\u00e9s comparar o pasar a otro c\u00f3digo sin parsearlos de nuevo.",
-        0.9378
+        "base.toml para los valores compartidos.",
+        0.767
       ],
       [
-        "\u00bfValidar la configuraci\u00f3n antes de que arranque?",
-        0.9318
+        "Tom Preston-Werner escribi\u00f3 la especificaci\u00f3n.",
+        0.7607
       ],
       [
-        "Para un array de tablas, pon\u00e9s el nombre de la tabla entre corchetes dobles.",
-        0.9304
+        "Eso significa timestamps reales en un archivo de config.",
+        0.7575
       ],
       [
-        "El modelo de este ejemplo tambi\u00e9n rechaza claves desconocidas, lo cual me sirve porque me grita cuando un archivo de config se desvi\u00f3 del esquema esperado.",
-        0.9242
+        "Por eso es tan opinionado.",
+        0.7412
       ],
       [
-        "El reverso tambi\u00e9n funciona: parse\u00e1 JSON y escrib\u00edlo con tomli_w.dump().",
-        0.9236
+        "YAML es la mejor opci\u00f3n cuando lleg\u00e1s a cinco o m\u00e1s niveles de anidaci\u00f3n.",
+        0.7258
+      ],
+      [
+        "Una lista de tablas usa corchetes dobles.",
+        0.705
+      ],
+      [
+        "dump para archivos, dumps para strings.",
+        0.6958
+      ],
+      [
+        "|\n| Java | toml4j | Toml.read() | M\u00e1s antiguo.",
+        0.6577
+      ],
+      [
+        "Si una herramienta genera la config, JSON suele ser menos sorprendente: cualquier lenguaje lo lee sin deps extra.",
+        0.6528
+      ],
+      [
+        "JSON sigue siendo el default.",
+        0.6479
+      ],
+      [
+        "Una tabla sola lleva una cabecera entre corchetes.",
+        0.6317
+      ],
+      [
+        "\u00bfRutas o regexes con barras invertidas?",
+        0.6137
       ]
     ],
     "diagnostics_sample": []
