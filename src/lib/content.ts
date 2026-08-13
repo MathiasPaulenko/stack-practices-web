@@ -182,7 +182,7 @@ export async function extractFaqs(markdown: string, maxFaqs = 10): Promise<Faq[]
     const rawAnswer = m[2];
     faqs.push({
       question: clean(m[1]),
-      answer: clean(rawAnswer),
+      answer: clean(rawAnswer, Infinity),
       answerHtml: await markdownToHtml(rawAnswer),
     });
     if (faqs.length >= maxFaqs) break;
@@ -195,7 +195,7 @@ export async function extractFaqs(markdown: string, maxFaqs = 10): Promise<Faq[]
     const rawAnswer = m[2];
     faqs.push({
       question: clean(m[1]),
-      answer: clean(rawAnswer),
+      answer: clean(rawAnswer, Infinity),
       answerHtml: await markdownToHtml(rawAnswer),
     });
     if (faqs.length >= maxFaqs) break;
@@ -210,7 +210,7 @@ function smartTruncate(text: string, maxLength: number): string {
   return (lastSpace > 0 ? truncated.slice(0, lastSpace) : truncated) + '...';
 }
 
-function clean(text: string): string {
+function clean(text: string, maxLength = 200): string {
   return smartTruncate(
     text
       .replace(/\*\*/g, '')
@@ -221,7 +221,7 @@ function clean(text: string): string {
       .replace(/>/g, '&gt;')
       .replace(/\s+/g, ' ')
       .trim(),
-    200
+    maxLength
   );
 }
 
