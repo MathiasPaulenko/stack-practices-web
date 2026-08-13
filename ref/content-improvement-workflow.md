@@ -19,7 +19,7 @@ Este documento describe el flujo para crear y mejorar recursos de `StackPractice
   - `difficulty`: `beginner`, `intermediate` o `advanced`.
   - `topics`: 1+ de la lista permitida (`src/content.config.ts`).
   - `tags`: 3-8 términos.
-  - `relatedResources`: 3-5 slugs reales de otros recursos.
+  - `relatedResources`: 6 slugs reales de otros recursos (máximo que renderiza el detalle).
   - `lastUpdated`: fecha `YYYY-MM-DD`.
   - `seo.keywords`: 3-8 keywords.
 
@@ -48,7 +48,7 @@ Plantillas y ejemplos: ver `ref/docs/content-architecture.md` y `ref/docs/geo.md
 
 ## 3. Humanización
 
-Invocar la skill `humanize-writing` (`.codeium/windsurf/skills/humanize-writing`) antes de publicar.
+Invocar la skill `humanizer` (`.codeium/windsurf/skills/humanizer`) o `humanise-text` (`.agents/skills/humanise-text`) antes de publicar.
 
 Objetivos:
 

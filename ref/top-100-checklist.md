@@ -5,7 +5,7 @@ Use this list to track progress as you audit and improve each resource.
 - `[x]` = already optimized in P1.1 (title + meta description)
 - `[ ]` = pending
 
-**Progress:** 7 / 100 resources completed
+**Progress:** 8 / 100 resources completed
 
 ---
 
@@ -18,13 +18,13 @@ Use this list to track progress as you audit and improve each resource.
    - Words: ~5,160 | Meta: 154 chars
    - Artifacts: `output/audit-api-documentation-openapi.md`, `output/ai-detect-diagnose-api-documentation-openapi.json`
 
-2. - [ ] **parse-toml-files** (recipes)
+2. - [x] **parse-toml-files** (recipes)
    - Metrics: 176 imp | pos 15 | CTR 0.00% | Δ impr 147
    - EN: https://stackpractices.com/recipes/parse-toml-files/
    - ES: https://stackpractices.com/es/recipes/parse-toml-files/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,881 | Meta: 123 chars
+   - Status: ✅ Humanized + SEO optimized; AI detection < 40%; build passed
+   - Words: 2,019 | Meta: 153 chars
 
 3. - [ ] **chatbot-openai** (recipes)
    - Metrics: 155 imp | pos 18.3 | CTR 0.00% | Δ impr 29
