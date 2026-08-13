@@ -5,7 +5,7 @@ Use this list to track progress as you audit and improve each resource.
 - `[x]` = already optimized in P1.1 (title + meta description)
 - `[ ]` = pending
 
-**Progress:** 9 / 100 resources completed
+**Progress:** 10 / 100 resources completed
 
 ---
 
@@ -34,13 +34,14 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Aligned EN/ES, deprecated notice, updated SDK examples, build passed
    - Words: 2,189 | Meta: 141 chars
 
-4. - [ ] **optimistic-locking** (recipes)
+4. - [x] **optimistic-locking** (recipes)
    - Metrics: 180 imp | pos 24.2 | CTR 1.67% | Δ impr 126
    - EN: https://stackpractices.com/recipes/optimistic-locking/
    - ES: https://stackpractices.com/es/recipes/optimistic-locking/
    - Focus: high impressions, low CTR, proven demand
-   - Status: ✅ Title + meta optimized in P1.1
-   - Words: 1,975 | Meta: 129 chars
+   - Status: ✅ Prompt 17 (SEO) + Prompt 18 (content quality) applied; ✅ AI desklib < 40%; ✅ EN/ES aligned
+   - Words: ~2,100 | Meta: 129 chars
+   - Artifacts: `output/seo-audit-optimistic-locking.md`, `output/content-quality-audit-optimistic-locking.md`, `output/ai-detect-optimistic-locking.json`
 
 5. - [ ] **python-coverage-pytest-cov** (recipes)
    - Metrics: 174 imp | pos 25.2 | CTR 0.00% | Δ impr 0
