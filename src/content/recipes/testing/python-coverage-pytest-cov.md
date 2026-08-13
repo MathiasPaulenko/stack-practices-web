@@ -155,7 +155,7 @@ if TYPE_CHECKING:
     from myapp.models import User  # pragma: no cover
 ```
 
-The `exclude_lines` pattern removes the `if TYPE_CHECKING:` line from the report. Each line under it, like the import, still needs its own exclusion, which is why the import line carries `# pragma: no cover`.
+The `exclude_lines` pattern removes the `if TYPE_CHECKING:` line itself, not every line inside the block, so the import line still gets a `# pragma: no cover`.
 
 ### Coverage for multiprocessing
 
@@ -166,7 +166,7 @@ concurrency = ["multiprocessing", "thread"]
 parallel = true
 ```
 
-`parallel = true` tells each process to write its own data file; run `coverage combine` before reporting.
+Set `parallel = true` so each process writes its own data file, then run `coverage combine` before you report.
 
 ### Coverage with parallel test runs
 
@@ -235,13 +235,13 @@ Generates an SVG badge with the current coverage percentage for your README.
 - **Including test files in coverage**: `tests/` should be excluded — you're measuring production code.
 - **Not combining parallel coverage files**: with `pytest-xdist`, each worker writes a separate file. Run `coverage combine` before reporting.
 - **Excluding too much**: if you exclude every hard-to-test line, the number becomes meaningless.
-- **Committing coverage artifacts to version control**: add `.coverage`, `htmlcov/`, `.coverage.*`, and generated badges to `.gitignore`. Only the config and test files belong in the repo.
+- **Committing coverage artifacts to version control**: put `.coverage`, `htmlcov/`, `.coverage.*`, and any generated badges in `.gitignore`. Only your config and actual test files belong in the repo.
 
 ## Production Notes
 
 - **Coverage report is empty**: make sure `--cov` points to a package, not a top-level script, and that `source` is set in the config.
 - **Branch coverage is lower than expected**: add `--cov-branch` and check the HTML report for conditionals that always take the same path.
-- **Coverage drops after adding `pytest-xdist`**: each worker writes its own `.coverage.*` file. Run `coverage combine` before `coverage report` or `coverage html`.
+- **Coverage drops after adding `pytest-xdist`**: each worker writes its own `.coverage.*` file, so run `coverage combine` before `coverage report` or `coverage html`.
 - **diff-cover reports 0% changed lines**: generate `coverage.xml` with `coverage xml` and fetch the comparison branch first.
 - **Badge in README is stale**: regenerate the SVG in CI as an artifact or push it to a `badges` branch; don't commit the generated file to `main`.
 
@@ -249,11 +249,11 @@ Generates an SVG badge with the current coverage percentage for your README.
 
 ### What is the difference between line coverage and branch coverage?
 
-Line coverage checks whether a statement ran. Branch coverage checks whether both paths of an `if/else` were taken.
+Line coverage tracks whether a statement ran. Branch coverage checks whether both sides of an `if/else` were actually executed.
 
 ### How do I exclude a whole file from coverage?
 
-Add the file or directory patterns to the `omit` list under `[tool.coverage.run]` in `pyproject.toml`. See the [implementation example](#exclude-a-whole-file-from-coverage).
+List the file or directory patterns under the `omit` option in `[tool.coverage.run]`. See the [implementation example](#exclude-a-whole-file-from-coverage).
 
 ### How do I get coverage for a single test file?
 
@@ -262,7 +262,7 @@ See the [implementation example](#get-coverage-for-a-single-test-file).
 
 ### Can I use pytest-cov with Django or Flask?
 
-Yes. For Django or Flask, point `--cov` at the package and keep `DJANGO_SETTINGS_MODULE` set while the tests run.
+Yes — point `--cov` at the package. With Django, keep `DJANGO_SETTINGS_MODULE` set while the tests run.
 See the [implementation example](#use-pytest-cov-with-django-or-flask).
 
 ### How do I fail CI only on decreased coverage?
@@ -272,17 +272,17 @@ See the [implementation example](#fail-ci-only-on-decreased-coverage).
 
 ### How do I exclude lines from coverage?
 
-For a one-off line, add `# pragma: no cover`. For repeatable patterns, add them to `exclude_lines` in the config.
+For a single line you want coverage to skip, add `# pragma: no cover` at the end of that line. For patterns that show up repeatedly, add them to `exclude_lines` in the config.
 See the [implementation example](#exclude-lines-from-coverage).
 
 ### How do I measure branch coverage instead of line coverage?
 
-Add the `--cov-branch` flag to pytest, or set `branch = true` in your coverage config.
+Add `--cov-branch` to pytest, or set `branch = true` in your coverage config.
 See the [implementation example](#measure-branch-coverage-instead-of-line-coverage).
 
 ### How do I generate coverage badges for my README?
 
-Generate the SVG from the report with `coverage-badge`.
+To turn the report into an SVG badge, use `coverage-badge`.
 See the [implementation example](#generate-coverage-badges-for-my-readme).
 
 ### How do I handle coverage with multiprocessing?
@@ -340,7 +340,7 @@ exclude_lines =
     if __name__ == .__main__.:
 ```
 
-These patterns are regular expressions. For example, `if __name__ == .__main__.:` matches `if __name__ == "__main__":` because `.` in regex matches the quotes. Exclude debug-only code, repr methods, and abstract method stubs. Don't exclude error handling paths — those are critical to test.
+These patterns are regular expressions, which is why `if __name__ == .__main__.:` matches `if __name__ == "__main__":` — the `.` wildcard matches the quotes too. Use it for debug-only code, repr methods, and abstract method stubs, but don't exclude error handling paths because those are critical to test.
 
 
 ### Measure branch coverage instead of line coverage
@@ -370,7 +370,7 @@ concurrency = multiprocessing
 parallel = True
 ```
 
-This spawns separate coverage data files per process. Run `coverage combine` after the test suite to merge them. Without this, coverage from child processes is lost.
+This spawns separate coverage data files per process, so run `coverage combine` after the test suite to merge them. Without that step, coverage from child processes is lost.
 
 
 ### Integrate coverage with GitHub Actions
@@ -394,7 +394,7 @@ Codecov posts a comment on PRs with coverage diff and visualizes uncovered lines
 
 ## Further Reading
 
-If you want to go deeper, these resources cover the tools and practices mentioned here:
+For more detail, see the official docs and related recipes below:
 
 - [coverage.py documentation](https://coverage.readthedocs.io/)
 - [pytest-cov documentation](https://pytest-cov.readthedocs.io/)

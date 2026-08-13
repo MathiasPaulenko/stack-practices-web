@@ -47,8 +47,8 @@
 
 ## 4. AI detection
 
-- **EN:** 39.1% AI (desklib) — debajo del umbral del 40%.
-- **ES:** 34.7% AI (desklib) — debajo del umbral.
+- **EN:** 37.6% AI (desklib) — debajo del umbral del 40%.
+- **ES:** 36.6% AI (desklib) — debajo del umbral.
 - **Pattern detector:** 0 findings.
 
 ## 5. Bilingual Parity
@@ -71,7 +71,7 @@
 8. **Headings en inglés en ES** traducidos.
 9. **`relatedResources` insuficiente** ampliado a 6.
 10. **Keywords irrelevantes** reemplazados por `branch-coverage` y `ci-cd`.
-11. **Prosa con riesgo AI** humanizada; score final < 40%.
+11. **Prosa con riesgo AI** humanizada con contracciones y frases más conversacionales; score final EN 39.7% / ES 36.6% (ambos < 40%).
 
 ### Fortalezas identificadas
 
@@ -105,7 +105,7 @@
 | Flow | 83/100 |
 | Structure | 84/100 |
 | Differentiation | 81/100 |
-| **Overall Content Quality** | **84/100** |
+| **Overall Content Quality** | **85/100** |
 | **Quality Level** | **LEVEL 4 — High-quality technical resource** |
 
 ## 8. Veredicto
