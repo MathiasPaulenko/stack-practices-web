@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: optimistic-locking
-title: "Bloqueo Optimista: Versionado"
-description: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos prácticos en PostgreSQL, MySQL y JPA/Hibernate.
-metaDescription: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos prácticos en PostgreSQL, MySQL y JPA/Hibernate.
+title: "Bloqueo optimista en bases de datos"
+description: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos en SQL, Node.js, Java/JPA, MongoDB, DynamoDB y ETags HTTP.
+metaDescription: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos en SQL, Node.js, Java/JPA, MongoDB, DynamoDB y ETags HTTP.
 difficulty: intermediate
 topics:
   - databases
@@ -18,16 +18,20 @@ relatedResources:
   - /recipes/sql-joins
   - /guides/sql-performance-tuning-guide
   - /recipes/deadlock-prevention-sql
-  - /recipes/database-migrations
+  - /recipes/concurrent-data-structures
 lastUpdated: "2026-08-13"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos prácticos en PostgreSQL, MySQL y JPA/Hibernate.
+  metaDescription: Implementa bloqueo optimista con versionado para evitar actualizaciones perdidas. Ejemplos en SQL, Node.js, Java/JPA, MongoDB, DynamoDB y ETags HTTP.
   keywords:
     - bloqueo optimista
     - versionado base de datos
     - jpa bloqueo optimista
+    - control de concurrencia
+    - actualizaciones perdidas
+    - sql
+    - hibernate
 ---
 ## Visión General
 
@@ -178,6 +182,8 @@ Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplica
 - **Optimista**: sin bloqueos durante lectura; rápido y listo para crecer; requiere lógica de reintento en conflicto
 - **Pesimista**: `SELECT FOR UPDATE` bloquea la fila inmediatamente; lógica más simple pero serializa acceso y riesgos de deadlocks
 
+Para más patrones de concurrencia, consulta [Concurrent Data Structures](/recipes/concurrent-data-structures/).
+
 ## Variantes
 
 | Tecnología | Enfoque | Notas |
@@ -209,17 +215,50 @@ Si `rowsAffected == 0`, la versión cambió entre lectura y escritura. La aplica
 
 ### ¿Debo usar bloqueo optimista o pesimista?
 
+
 Optimista para la mayoría de cargas de lectura intensiva con escrituras infrecuentes. Pesimista cuando la contención es alta y la lógica de reintento es impracticable (ej. reservas de asientos, asignación de inventario).
+
 
 ### ¿Qué status HTTP debo devolver en un conflicto?
 
+
 `409 Conflict` es el estándar. Incluye el estado actual del recurso en el cuerpo de respuesta para que el cliente pueda fusionar o reintentar sin una segunda petición.
+
 
 ### ¿Cómo manejo optimistic locking en una arquitectura de microservicios?
 
+
 Usa event sourcing o sagas donde cada servicio posee su agregado. Si se necesita consistencia cross-servicio, prefiere operaciones idempotentes con actualizaciones condicionales en lugar de bloqueos distribuidos. Las transacciones compensatorias (deshacer) suelen ser más seguras que los bloqueos distribuidos. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para patrones de resiliencia.
 
+
 ### ¿Cómo reintento una actualización fallida?
+
+Usa un número pequeño de reintentos limitados con jitter exponencial. Ve el [ejemplo de reintento](#ejemplos-de-implementación) en Python y JavaScript.
+
+### ¿Cómo implemento bloqueo optimista en MongoDB?
+
+Usa `findOneAndUpdate` con la versión esperada en el filtro y `$inc: { version: 1 }`. Ve el [ejemplo de MongoDB](#ejemplos-de-implementación).
+
+### ¿Cómo uso escrituras condicionales en DynamoDB?
+
+Usa `update_item` con un `ConditionExpression` sobre el atributo version. Ve el [ejemplo de DynamoDB](#ejemplos-de-implementación).
+
+### ¿Cómo implemento bloqueo optimista con ETags en APIs HTTP?
+
+Devuelve un ETag en lectura y exige `If-Match` en escritura, respondiendo 412 si el recurso cambió. Ve el [ejemplo de ETag](#ejemplos-de-implementación).
+
+### ¿Cómo actualizo múltiples filas con bloqueo optimista?
+
+Itera sobre las actualizaciones en una transacción, haciendo rollback si alguna fila falla el chequeo de versión. Ve el [ejemplo de actualización batch](#ejemplos-de-implementación).
+
+### ¿Cómo resuelvo conflictos sin perder datos?
+
+Lee la versión actual, mezcla campos no superpuestos y escribe con un nuevo chequeo de versión. Ve el [ejemplo de resolución de conflictos](#ejemplos-de-implementación).
+
+## Ejemplos de Implementación
+
+### Lógica de reintento con exponential backoff
+
 
 ```python
 import random
@@ -282,7 +321,9 @@ async function updateProductWithRetry(productId, updateFn) {
 }
 ```
 
-### ¿Cómo implemento bloqueo optimista en MongoDB?
+
+### Bloqueo optimista en MongoDB con `findAndModify`
+
 
 ```javascript
 const { MongoClient } = require('mongodb');
@@ -327,7 +368,9 @@ const optimisticLockPlugin = (schema) => {
 productSchema.plugin(optimisticLockPlugin);
 ```
 
-### ¿Cómo uso escrituras condicionales en DynamoDB?
+
+### Escrituras condicionales en DynamoDB
+
 
 ```python
 import boto3
@@ -359,7 +402,9 @@ except ClientError as e:
         print("Conflicto de versión: otro proceso modificó este item")
 ```
 
-### ¿Cómo implemento bloqueo optimista con ETags en APIs HTTP?
+
+### ETag e If-Match para APIs HTTP
+
 
 ```javascript
 // Middleware Express para optimistic locking basado en ETag
@@ -393,7 +438,9 @@ app.put('/products/:id', async (req, res) => {
 });
 ```
 
-### ¿Cómo actualizo múltiples filas con bloqueo optimista?
+
+### Batch optimistic locking
+
 
 ```python
 def batch_update_with_versions(conn, updates):
@@ -431,7 +478,9 @@ except ValueError as e:
     # Todos los updates se revirtieron, el cliente debe refrescar y reintentar
 ```
 
-### ¿Cómo resuelvo conflictos sin perder datos?
+
+### Estrategias de resolución de conflictos
+
 
 Un patrón común es hacer merge de campos no superpuestos. Si el cliente cambió el email y el servidor cambió el nombre, puedes conservar ambos. La clave es leer la versión actual, mezclar los cambios y escribir con un nuevo chequeo de versión:
 
@@ -463,6 +512,7 @@ def merge_update(conn, user_id, client_changes, expected_version):
 ```
 
 Si los campos se superponen, la decisión es específica del dominio: muestra un diff al usuario, elige un ganador o pide confirmación.
+
 
 
 

@@ -2,8 +2,8 @@
 contentType: recipes
 slug: optimistic-locking
 title: Optimistic Locking in Databases
-description: Implement optimistic locking with versioning to prevent lost updates. Practical examples in PostgreSQL, MySQL, and JPA/Hibernate.
-metaDescription: Implement optimistic locking with versioning to prevent lost updates. Practical examples in PostgreSQL, MySQL, and JPA/Hibernate.
+description: Implement optimistic locking with versioning to prevent lost updates. Examples in SQL, Node.js, Java/JPA, MongoDB, DynamoDB and HTTP ETags.
+metaDescription: Implement optimistic locking with versioning to prevent lost updates. Examples in SQL, Node.js, Java/JPA, MongoDB, DynamoDB and HTTP ETags.
 difficulty: intermediate
 topics:
   - databases
@@ -18,16 +18,20 @@ relatedResources:
   - /recipes/sql-joins
   - /guides/sql-performance-tuning-guide
   - /recipes/deadlock-prevention-sql
-  - /recipes/database-migrations
+  - /recipes/concurrent-data-structures
 lastUpdated: "2026-08-13"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: Implement optimistic locking with versioning to prevent lost updates. Practical examples in PostgreSQL, MySQL, and JPA/Hibernate.
+  metaDescription: Implement optimistic locking with versioning to prevent lost updates. Examples in SQL, Node.js, Java/JPA, MongoDB, DynamoDB and HTTP ETags.
   keywords:
     - optimistic locking
     - database versioning
     - jpa optimistic locking
+    - concurrency control
+    - lost updates
+    - sql
+    - hibernate
 ---
 ## Overview
 
@@ -178,6 +182,8 @@ If `rowsAffected == 0`, the version changed between read and write. The applicat
 - **Optimistic**: no locks during read; fast and growth-ready; requires retry logic on conflict
 - **Pessimistic**: `SELECT FOR UPDATE` locks the row immediately; simpler logic but serializes access and risks deadlocks
 
+For more concurrency patterns, see [Concurrent Data Structures](/recipes/concurrent-data-structures/).
+
 ## Variants
 
 | Technology | Approach | Notes |
@@ -209,17 +215,50 @@ If `rowsAffected == 0`, the version changed between read and write. The applicat
 
 ### Should I use optimistic or pessimistic locking?
 
+
 Optimistic for most read-heavy workloads with infrequent writes. Pessimistic when contention is high and retry logic is impractical (e.g., seat reservations, inventory allocation).
+
 
 ### What HTTP status should I return on a conflict?
 
+
 `409 Conflict` is the standard. Include the current resource state in the response body so the client can merge or retry without a second request.
+
 
 ### How do I handle optimistic locking in a microservices architecture?
 
+
 Use event sourcing or sagas where each service owns its aggregate. If cross-service consistency is needed, prefer idempotent operations with conditional updates rather than distributed locking. Compensating transactions (undo) are often safer than distributed locks. See [Circuit Breaker](/patterns/circuit-breaker-pattern/) for resilience patterns.
 
+
 ### How do I retry a failed update?
+
+Use a small number of capped retries with exponential jitter. See the [retry implementation example](#implementation-examples) for Python and JavaScript.
+
+### How do I implement optimistic locking in MongoDB?
+
+Use `findOneAndUpdate` with the expected version in the filter and `$inc: { version: 1 }`. See the [MongoDB implementation example](#implementation-examples).
+
+### How do I use conditional writes in DynamoDB?
+
+Use `update_item` with a `ConditionExpression` on the version attribute. See the [DynamoDB implementation example](#implementation-examples).
+
+### How do I implement optimistic locking with ETags in HTTP APIs?
+
+Return an ETag on read and require `If-Match` on write, responding with 412 if the resource changed. See the [ETag implementation example](#implementation-examples).
+
+### How do I update multiple rows with optimistic locking?
+
+Loop over the updates in one transaction, rolling back if any row fails the version check. See the [batch update implementation example](#implementation-examples).
+
+### How do I resolve conflicts without losing data?
+
+Read the current version, merge non-overlapping fields, and write back with a fresh version check. See the [conflict resolution implementation example](#implementation-examples).
+
+## Implementation Examples
+
+### Retry logic with exponential backoff
+
 
 ```python
 import random
@@ -282,7 +321,9 @@ async function updateProductWithRetry(productId, updateFn) {
 }
 ```
 
-### How do I implement optimistic locking in MongoDB?
+
+### MongoDB optimistic locking with `findAndModify`
+
 
 ```javascript
 const { MongoClient } = require('mongodb');
@@ -327,7 +368,9 @@ const optimisticLockPlugin = (schema) => {
 productSchema.plugin(optimisticLockPlugin);
 ```
 
-### How do I use conditional writes in DynamoDB?
+
+### DynamoDB conditional writes
+
 
 ```python
 import boto3
@@ -359,7 +402,9 @@ except ClientError as e:
         print("Version conflict: another process modified this item")
 ```
 
-### How do I implement optimistic locking with ETags in HTTP APIs?
+
+### ETag and If-Match for HTTP APIs
+
 
 ```javascript
 // Express middleware for ETag-based optimistic locking
@@ -393,7 +438,9 @@ app.put('/products/:id', async (req, res) => {
 });
 ```
 
-### How do I update multiple rows with optimistic locking?
+
+### Batch optimistic locking
+
 
 ```python
 def batch_update_with_versions(conn, updates):
@@ -431,7 +478,9 @@ except ValueError as e:
     # All updates rolled back, client must refresh and retry
 ```
 
-### How do I resolve conflicts without losing data?
+
+### Conflict resolution strategies
+
 
 A common pattern is to merge non-overlapping fields. If the client changed the email and the server changed the name, you can keep both. The key is to read the current version, merge the changes, and write back with a fresh version check:
 
@@ -463,6 +512,7 @@ def merge_update(conn, user_id, client_changes, expected_version):
 ```
 
 If fields overlap, the right choice is domain-specific: show a diff to the user, pick a winner, or ask for confirmation.
+
 
 
 
