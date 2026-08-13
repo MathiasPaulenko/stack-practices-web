@@ -39,18 +39,15 @@ seo:
 
 ## Overview
 
-TOML is the config format behind pyproject.toml, Cargo.toml and a growing pile of tool configs. It sits somewhere between JSON's rigidity and YAML's whitespace anxiety: you get comments, nested tables and typed values without worrying about indentation. I’ll walk through examples in Python, JavaScript and Java that cover both reading and writing. I’ll also share a few patterns that stop config files from turning into a mess.
+TOML used to look like a bad idea to me. INI with brackets. Then pyproject.toml and Cargo.toml showed up, and now I can't get away from the stuff. Honestly, it grew on me. JSON is too stiff. YAML makes me paranoid about whitespace. TOML sits in the middle: comments, nested tables, typed values, and none of the indentation meltdowns. Below is how I read and write it in Python, JavaScript, and Java. Plus the mess I made. So you don't have to.
+
+TOML stands for Tom's Obvious, Minimal Language. Tom Preston-Werner wrote the spec. That's why it's opinionated.
 
 ## When to Use
 
-Use this recipe when:
+I reach for TOML when I'm dealing with pyproject.toml, Cargo.toml, or a config.toml inside build scripts and CI/CD. Also when I'm building a tool that parses project config. Or when I move away from INI or JSON and want comments and nested tables in one file. Validating a tool's config before startup? Parse TOML first. Easy win.
 
-- you're reading pyproject.toml, Cargo.toml or config.toml in build scripts or CI/CD pipelines
-- you're building a tool that needs to parse project configuration files
-- you're migrating from INI or JSON to a format that supports comments and nested tables
-- you want to validate tool configuration before your application starts
-
-If your config is mostly machine-generated, JSON is still the safer bet. For deeply nested trees with anchors, YAML is usually less awkward. TOML's sweet spot is human-edited config that needs types and comments. If YAML might fit better, see [Parse YAML Files](/recipes/parse-yaml-files/).
+Machine-generated config? I stick with JSON. Deep trees with anchors? YAML is less awkward. TOML shines for human-edited config that needs types and comments. YAML person? I usually send them to [Parse YAML Files](/recipes/parse-yaml-files/).
 
 ## Solution
 
@@ -117,40 +114,30 @@ public class TomlParser {
 
 ## Explanation
 
-TOML files contain key-value pairs, arrays and tables. You mark a single table with a header in brackets and a list of tables with a header in double brackets, as the code below shows. It doesn't use indentation, so an accidental tab won't blow up your file the way it can in YAML. Dates and times are ISO 8601, and strings can be single-quoted literals or double-quoted basics with different escaping rules.
+TOML is basically key-value pairs, arrays, and tables. One table gets a bracketed header. A list of tables uses double brackets. The code above shows it. It doesn't care about indentation, so one accidental tab won't blow up the file like in YAML. Dates and times follow ISO 8601, and strings can be single-quoted literals or double-quoted basics with different escaping rules. Different escaping rules for no reason. That's the spec.
 
-Python 3.11 ships with tomllib, so you don't need an external package to read TOML. For writing, reach for tomli-w. JavaScript and Java don't ship with TOML support, so you reach for @iarna/toml and tomlj. All three parse into the same maps, lists and scalars you'd get from JSON, which means you can validate TOML with the same schemas you already use for JSON.
+Python 3.11 ships with tomllib, so I don't need another package just to read TOML. For writing, I grab tomli-w. JavaScript and Java don't have TOML support out of the box, so I use @iarna/toml and tomlj. All three give me maps, lists, and scalars that look a lot like JSON, which means I can validate TOML with the same schemas I use for JSON.
 
 ## Variants
 
 | Technology | Library | Approach | Notes |
 | --- | --- | --- | --- |
-| Python | tomllib | load() | Standard library since 3.11, read-only |
-| Python | tomli | load() | Backport for Python < 3.11, same API |
-| Python | tomli-w | dump() | The standard choice for writing TOML |
-| JavaScript | @iarna/toml | parse() / stringify() | Fast and spec-compliant |
-| Java | tomlj | Toml.parse() | Modern, supports dotted key access |
-| Java | toml4j | Toml.read() | Older but still common |
+| Python | tomllib | load() | Read-only. Don't write with it. |
+| Python | tomli | load() | Backport. Same API. |
+| Python | tomli-w | dump() | The one I use for writing. |
+| JavaScript | @iarna/toml | parse() / stringify() | Fast and spec-compliant. |
+| Java | tomlj | Toml.parse() | Modern. Likes dotted keys. |
+| Java | toml4j | Toml.read() | Older. Still around. |
 
 ## What Works
 
-- If you're on Python 3.11 or later, read with tomllib and ignore the older toml package.
-- If a string has quotes or backslashes, wrap it in double quotes and escape the tricky characters. The parser will trip otherwise.
-- Prefer dotted keys like database.host over deeply nested tables when you can.
-- Keep arrays of tables shallow; too much nesting makes files hard to scan.
-- Pin pyproject.toml versions carefully, because they drive package resolution.
+On Python 3.11 or later, I use tomllib and ignore the older toml package. If a string has quotes or backslashes inside, I wrap it in double quotes and escape the tricky bits; otherwise the parser trips. I prefer dotted keys like database.host over deeply nested tables whenever I can. Arrays of tables should stay shallow, because too much nesting makes a file hard to scan. pyproject.toml versions matter more than they look, since they drive package resolution. Boring. But if you get it wrong, it ruins your afternoon.
 
 ## Common Mistakes
 
-People often try to write TOML with tomllib, but that module is read-only. For output, you need a different library: tomli-w.
+I've tried writing TOML with tomllib. It doesn't write. Read-only. For output, use tomli-w. I once spent an hour debugging a parse error. Then I remembered I opened the file in text mode. The parser chokes or misreads bytes, so I always open in binary mode.
 
-Open a TOML file in text mode and the parser will choke or misread bytes, so always use mode 'rb'.
-
-Don't mix dotted keys and table headers in the same section. Once you open a table with a bracketed header, a dotted key like server.host belongs inside it. Adding a nested header for the same path later is an error.
-
-TOML parsers aren't required to preserve key order for tables, so don't rely on it. Arrays keep their order, which is why arrays of tables are safer for ordered lists.
-
-Paths and regexes with lots of backslashes are easier in literal strings; single quotes let you skip the escaping dance.
+Don't mix dotted keys and table headers in the same section. Once a table has a bracketed header, a dotted key like server.host belongs inside it. A nested header for the same path later is an error. TOML parsers aren't required to keep table key order, so I don't rely on it. Arrays keep their order, which is why arrays of tables feel safer for ordered lists. Paths or regexes with backslashes? Throw them in literal strings with single quotes. Skip the escape dance.
 
 ## Advanced: Environment-Specific Config Merging
 
@@ -176,7 +163,7 @@ def deep_merge(base: dict, override: dict) -> dict:
     return result
 ```
 
-Load a base config, then layer environment-specific overrides on top. This pattern supports base.toml for shared settings and prod.toml or staging.toml for the differences. The deep merge keeps nested tables intact so an override only replaces the keys it explicitly sets.
+I start with a base config. Then I pile environment-specific overrides on top. base.toml for shared settings. prod.toml or staging.toml for the differences. The deep merge keeps nested tables intact, so an override only replaces the keys it explicitly sets. If a merge gives me a weird value, it's usually because it replaced a whole table when only one key should change. Classic.
 
 ## Advanced: TOML Validation with Pydantic
 
@@ -205,7 +192,7 @@ except ValidationError as e:
     raise
 ```
 
-Parse the file into a Pydantic model and you get type checking, defaults and validation in one step. It flags missing fields, wrong types and values that just don't make sense. Those mistakes get caught before the app starts. The Pydantic model in the example also rejects unknown keys, which is useful when a config file has drifted from the expected schema.
+Parse a file into a Pydantic model and you get type checking, defaults, and validation in one shot. It catches missing fields, bad types, and values that make no sense before the app starts. The Pydantic model in this example also rejects unknown keys, which I like because it screams at me when a config file has drifted away from the expected schema.
 
 ## Advanced: TOML Dotted Keys vs Nested Tables
 
@@ -223,7 +210,7 @@ host = "localhost"
 port = 5432
 ```
 
-Dotted keys and nested tables produce the same data structure, but dotted keys keep the file flatter. I use them when I'm only going two or three levels deep, and I switch to explicit bracketed headers when the nesting gets deeper. You can mix both styles in one section, but the next person who reads the file will probably be confused.
+Dotted keys and nested tables produce the same data structure, but dotted keys keep the file flatter. I use them when I'm only two or three levels deep. I switch to explicit bracketed headers when the nesting gets deeper. You can mix both styles in one section, but the next person reading the file will probably want a word with you. I try to avoid it.
 
 ## Advanced: Writing TOML Files
 
@@ -248,7 +235,7 @@ with open('config.toml', 'wb') as f:
     tomli_w.dump(config, f)
 ```
 
-Python's tomllib can only read, so for writing you reach for tomli-w. Use dump() for files and dumps() for strings. It won't preserve comments or formatting from an existing file, because it generates TOML from your data structure from scratch.
+Python's tomllib only reads, so for writing I reach for tomli-w. dump for files, dumps for strings. It won't keep comments or formatting from an existing file because it generates the TOML from the parsed data from scratch. I always forget that the first time.
 
 ## Advanced: TOML Arrays of Tables
 
@@ -269,58 +256,55 @@ ip = "10.0.0.10"
 port = 5432
 ```
 
-For an array of tables, wrap the table name in double brackets. Every entry shares the same shape, so they work well for server lists, feature flags or database connection pools. In Python, you get a list of dictionaries under the table key. With @iarna/toml, JavaScript gives you an array of objects.
+For an array of tables, wrap the table name in double brackets. Every entry has the same shape. That's why these things work for server lists, feature flags, or database connection pools. In Python, that table key becomes a list of dicts. With @iarna/toml, you get an array of objects.
 
 ## When to Avoid
 
-If a tool generates the config, JSON is usually less surprising because every language can read it without an extra dependency. YAML is the better choice once you hit five or more levels of nesting. TOML is meant for configuration, not data storage, so large datasets belong in JSON or a database. And if your toolchain only supports INI or JSON, adding TOML might not be worth the migration cost.
+If a tool generates the config, JSON is usually less surprising because every language can read it without an extra dependency. YAML is the better choice once you hit five or more levels of nesting. TOML is meant for configuration, not data storage, so large datasets belong in JSON or a database. And if your toolchain only speaks INI or JSON, migrating to TOML can be more trouble than it's worth. Sometimes "boring and works" beats "shiny and new".
 
 ## Troubleshooting
 
-If tomllib throws a TOMLDecodeError, the file probably has a duplicate key, a trailing comma in an array, or a dotted key that conflicts with a table header. Run python -m tomllib on the file or use the taplo CLI to pin down the line.
+If tomllib throws a TOMLDecodeError, the file probably has a duplicate key, a trailing comma in an array, or a dotted key that conflicts with a table header. I usually run python -m tomllib on the file or use the taplo CLI. Find the exact line.
 
-If JavaScript gives you undefined for a nested key, check whether you used dotted key syntax in the file. @iarna/toml parses dotted keys correctly, but a typo like databse.host instead of database.host won't raise; it just gives you undefined.
+JavaScript gives you undefined for a nested key? Check whether you used dotted key syntax in the file. @iarna/toml handles dotted keys fine, but if you typo databse.host instead of database.host, it won't raise. It just returns undefined. No traceback. No hint. Nothing. Ask me how I know.
 
-Losing comments when tomli-w rewrites a file is expected. The library doesn't preserve formatting; it rebuilds the document from the parsed data. Keep a template or version the file in git.
+When tomli-w rewrites a file, comments disappear. Expected. Still annoying. The library doesn't preserve formatting; it rebuilds the document from the parsed data. I keep a template or version the file in git.
 
-If an environment merge gives you a value you didn't expect, check that it isn't replacing whole tables when only one key should change. Log the base and override dictionaries while you debug.
+If an environment merge gives you a value you didn't expect, check that it's not replacing whole tables when only one key should change. Log the base and override dictionaries while you debug.
 
 ## Further Reading
 
-- For the exact syntax and data types, the [TOML specification](https://toml.io/en/v1.0.0) has the final word.
-- The [Python tomllib docs](https://docs.python.org/3/library/tomllib.html) cover the standard library API and TOML 1.0 support.
-- The [tomli-w repository](https://github.com/hukkin/tomli-w) has examples for writing TOML from Python.
-- The [tomlj documentation](https://github.com/tomlj/tomlj) explains the Java parser and dotted key access.
+I keep the [TOML specification](https://toml.io/en/v1.0.0) bookmarked. Too many hours lost to weird edge cases. It settles arguments about syntax and data types. For the Python API, the [Python tomllib docs](https://docs.python.org/3/library/tomllib.html) are where I end up. They cover the API and TOML 1.0 support. When I need to write TOML from Python, I peek at the [tomli-w repository](https://github.com/hukkin/tomli-w) for examples. And the [tomlj documentation](https://github.com/tomlj/tomlj) explains the Java parser and dotted key access. The feature I use most.
 
 ## Production Notes
 
-Pin parser versions in your requirements.txt or package.json. tomllib is tied to the Python version, but third-party libraries can ship breaking changes. Lint TOML files in CI with taplo or toml-test to catch duplicate keys and invalid dates before deploy. Store environment-specific TOML outside the repository if it contains secrets, or inject sensitive values through environment variables. If you generate TOML from source data, regenerate it rather than editing by hand, so comments and ordering stay consistent.
+I pin parser versions in requirements.txt or package.json. tomllib is tied to the Python version, but third-party libraries can ship breaking changes. I run taplo or toml-test in CI to catch duplicate keys and bad dates before they hit production. Not glamorous. It saves me from bad deploys. Environment-specific TOML with secrets stays out of the repo, or I inject sensitive values through environment variables. If I generate TOML from source data, I regenerate it. I don't edit by hand. Keeps comments and ordering consistent.
 
 ## Key Takeaways
 
-TOML is a config format that humans can read and that Python, JavaScript and Java can parse with small, focused libraries. Read with tomllib, @iarna/toml or tomlj; write with tomli-w or toml.stringify. Validate the parsed data with Pydantic or JSON Schema to catch mistakes early. Use dotted keys and arrays of tables to keep files readable, and merge environment-specific overrides with a deep merge.
+TOML is a config format humans can read. Python, JavaScript, and Java can parse it with small, focused libraries. I read it with tomllib, @iarna/toml, or tomlj; I write it with tomli-w or toml.stringify. To catch mistakes early, I throw Pydantic or JSON Schema at the parsed data. Dotted keys and arrays of tables keep files readable, and a deep merge handles environment-specific overrides.
 
 ## FAQ
 
 ### Should I use TOML or YAML for my project configuration?
 
-If the config is flat, edited by developers and needs comments, TOML is a good fit. Choose YAML for deep nesting, anchors or multi-document files. JSON is still the usual default when a machine generates the config.
+Flat config, edited by developers, and needs comments? TOML is a good fit. Deep nesting, anchors, or multi-document files? Choose YAML. A machine generates it? JSON is the usual default. I usually start with TOML unless I already know the config will grow deep roots.
 
 ### Can I validate TOML against a JSON Schema?
 
-Yes. Parse the TOML file to a dictionary, then validate the result with any JSON Schema validator. TOML has no native schema language, so a schema after parsing is the usual approach.
+Yes. Parse the TOML file to a dictionary, then validate the result with any JSON Schema validator. TOML has no native schema language, so a schema after parsing is the usual approach. Not native, but it works.
 
 ### How do I merge more than one TOML file?
 
-Parse each file on its own, then deep-merge the maps. In Python, deepmerge does the job; in JavaScript, lodash.merge or a hand-rolled recursive function; in Java, merge Map instances. Decide override rules explicitly, such as local.toml winning over base.toml.
+Parse each file on its own, then deep-merge the maps. In Python, deepmerge does the job; in JavaScript, lodash.merge or a hand-rolled recursive function; in Java, merge Map instances. Decide override rules explicitly, such as local.toml winning over base.toml. Otherwise you'll have a bad time.
 
 ### Does TOML support comments?
 
-Yes. Comments start with # and can sit on their own line or at the end of a value line. That makes TOML more readable than JSON for hand-edited config.
+Yes. Comments start with # and can sit on their own line or at the end of a value line. That makes TOML more readable than JSON for hand-edited config. It doesn't do block comments, though. Annoying, but true.
 
 ### How do I handle dates and times in TOML?
 
-TOML has native date, time and datetime types, all in ISO 8601. This means you can put real timestamps in a config file without wrapping them in strings.
+TOML has native date, time, and datetime types, all in ISO 8601. That means real timestamps in a config file. No string wrapping needed.
 
 ```toml
 started = 2026-08-13T07:30:00Z
@@ -328,8 +312,8 @@ expires = 2026-08-13
 daily = 07:30:00
 ```
 
-Python's tomllib converts them into real datetime objects, so you can compare them or pass them to other code without extra parsing. Use them for expiry dates, schedules and version timestamps.
+Python's tomllib turns them into real datetime objects, so you can compare them or pass them around without extra parsing. I mostly use them for expiry dates, schedules, and version timestamps. Handy.
 
 ### How do I convert between TOML and JSON?
 
-Parse the TOML to a dictionary, then serialize it as JSON. In Python, hand the parsed dictionary to json.dumps. In JavaScript, feed the parsed object to JSON.stringify. The reverse also works: parse JSON and write it with tomli_w.dump().
+Parse the TOML to a dictionary, then serialize it as JSON. In Python, pass the parsed dictionary to json.dumps. In JavaScript, feed the parsed object to JSON.stringify. The reverse also works: parse JSON and write it with tomli_w.dump().
