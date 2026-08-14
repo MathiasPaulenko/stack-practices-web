@@ -52,13 +52,13 @@ Use this list to track progress as you audit and improve each resource.
    - Words: ~2,100 | Meta: 144 chars
    - Artifacts: `output/seo-audit-python-coverage-pytest-cov.md`, `output/content-quality-audit-python-coverage-pytest-cov.md`, `output/ai-detect-python-coverage-pytest-cov.json`
 
-6. - [ ] **python-schedule-periodic-tasks** (recipes)
+6. - [x] **python-schedule-periodic-tasks** (recipes)
    - Metrics: 129 imp | pos 11.5 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-schedule-periodic-tasks/
    - ES: https://stackpractices.com/es/recipes/python-schedule-periodic-tasks/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,292 | Meta: 150 chars
+   - Status: ✅ Prompt 17 (SEO) + Prompt 18 (content quality) applied; ✅ AI desklib < 40%; ✅ EN/ES aligned
+   - Words: 1,762 | Meta: 150 chars
 
 7. - [ ] **concurrent-data-structures** (recipes)
    - Metrics: 83 imp | pos 17.7 | CTR 0.00% | Δ impr 68

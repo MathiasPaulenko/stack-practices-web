@@ -269,33 +269,27 @@ asyncio.run(main())
 ```python
 from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 app = Flask(__name__)
-scheduler = BackgroundScheduler(daemon=True)
-
-@app.before_request
-def start_scheduler():
-    if not scheduler.running:
-        scheduler.start()
+scheduler = BackgroundScheduler()
 
 def health_check():
-    import requests
-    try:
-        r = requests.get("http://localhost:5000/health", timeout=5)
-        print(f"Health check: {r.status_code}")
-    except requests.RequestException as e:
-        print(f"Health check failed: {e}")
+    print(f"Scheduler running: {scheduler.running}")
 
 scheduler.add_job(health_check, "interval", seconds=60, id="health_check")
+scheduler.start()
+atexit.register(scheduler.shutdown)
 
 @app.route("/health")
 def health():
-    return {"status": "healthy"}, 200
+    return {"status": "healthy" if scheduler.running else "unhealthy"}, 200
 
 if __name__ == "__main__":
-    scheduler.start()
     app.run(host="0.0.0.0", port=5000)
 ```
+
+El scheduler arranca antes de que la app de Flask empiece a servir tráfico, así que ya está corriendo cuando llega el primer request. Mantener el inicio del scheduler fuera de los request handlers evita instancias duplicadas.
 
 ## Explicación
 
@@ -303,9 +297,9 @@ APScheduler separa tres responsabilidades: cuándo corre un job, dónde vive su 
 
 El trigger de intervalo es el más simple de los tres; solo espera N segundos, minutos, horas o días y vuelve a disparar. Usá el trigger cron cuando necesitás reglas de calendario, como "lunes a las 2 AM" o "el primer día de cada mes". Usa los mismos campos del cron de Unix, así que day_of_week, hour y minute funcionan como esperarías. El trigger de fecha es para trabajo one-off, como un recordatorio diferido o una exportación única, y dispara una vez en el datetime que le des.
 
-Algunos settings deciden qué pasa cuando un job pierde su ventana o todavía está corriendo desde la última vez. Un valor de coalesce True colapsa varias ejecuciones perdidas en una, así que el scheduler no tira una ráfaga de trabajo al inicio. Un valor de max_instances 1 evita que un job lento se solape consigo mismo. Y misfire_grace_time es la ventana de tardanza: si un job está apenas atrasado, todavía corre; si está demasiado tarde, se saltea.
+Algunos settings deciden qué pasa cuando un job pierde su ventana o todavía está corriendo desde la vuelta anterior. Un valor de coalesce True colapsa varias ejecuciones perdidas en una, así que el scheduler no tira una ráfaga de trabajo al inicio. Un valor de max_instances 1 evita que un job lento se solape consigo mismo. Y misfire_grace_time es la ventana de tardanza: si un job está apenas atrasado, todavía corre; si está demasiado tarde, se saltea.
 
-Podés mezclar schedulers, job stores y executors. El background scheduler corre en un hilo daemon, así que no bloquea el manejo de requests. Eso lo hace bueno dentro de una web app. El blocking scheduler mantiene el proceso vivo y funciona bien para scripts standalone. El asyncio scheduler se engancha a un event loop y ejecuta coroutines directamente. Un job store en memoria es rápido pero pierde todo al reiniciar, mientras que uno basado en SQLAlchemy sobrevive a los reinicios y puede compartirse si respetás la regla de un solo scheduler. Un thread pool sirve para trabajo I/O-bound, un process pool ayuda para trabajo CPU-bound y un async executor va con el scheduler async.
+Podés mezclar schedulers, job stores y executors para ajustarlos a la carga. El background scheduler corre en un hilo daemon, así que no bloquea el manejo de requests y es bueno dentro de una web app. El blocking scheduler mantiene el proceso vivo y funciona bien para scripts standalone, mientras que el asyncio scheduler se engancha a un event loop y ejecuta coroutines directamente. Un job store en memoria es rápido pero pierde todo al reiniciar, mientras que uno basado en SQLAlchemy sobrevive a los reinicios y puede compartirse si un solo scheduler activo lo consulta. Un thread pool sirve para trabajo I/O-bound, un process pool ayuda para trabajo CPU-bound y un async executor va con el scheduler async.
 
 ## Variantes
 
@@ -325,7 +319,7 @@ Para jobs largos, establecé max_instances en 1 para que no se solapen consigo m
 
 Usá un job store persistente cuando el schedule deba sobrevivir a los reinicios. SQLite alcanza para una instancia sola, pero buscá una base de datos real si varios procesos comparten el store.
 
-Agregá un listener para el evento EVENT_JOB_ERROR. Un job que falla no debería derrumbar el scheduler, pero querés saber que pasó.
+Agregá un listener para EVENT_JOB_ERROR. Un job que falla no derrumba el scheduler, así que un log visible es la única forma de saber que se rompió.
 
 Elegí un misfire grace time que se ajuste a la tarea. Sesenta segundos suelen ser suficientes para jobs de limpieza; un reporte horario puede tolerar unos pocos minutos.
 
@@ -363,7 +357,9 @@ Cuando usás un job store SQLAlchemy compartido, solo debe haber un proceso sche
 
 Si el scheduler es crítico, exponé un endpoint de salud que verifique el estado del scheduler, las ejecuciones recientes y el stream de eventos del listener. Consultá [Docker health check configuration](/es/recipes/docker-health-check-configuration/) para un patrón concreto.
 
-Hay un par de gotchas que atrapan a la gente en apps reales. El argumento next_run_time espera un datetime, no un timestamp de Unix, así que pasá datetime.now() + timedelta(...) o un datetime con zona horaria. En Flask, no confiés en before_request para iniciar el scheduler; con varios workers o threads podés terminar con varias instancias. Inicialo una vez al arrancar la app y, si corrés múltiples workers de gunicorn, usá un lock de proceso o corré el scheduler en un proceso dedicado único.
+El argumento next_run_time espera un datetime, no un timestamp de Unix, así que pasá datetime.now() + timedelta(...) o un datetime con zona horaria.
+
+Con varios workers de gunicorn podés terminar con varios schedulers corriendo el mismo job dos veces. Usá un lock de proceso o corré el scheduler en un proceso dedicado.
 
 ## Preguntas Frecuentes
 
@@ -393,7 +389,9 @@ Sí. Podés gestionar jobs mientras el scheduler está corriendo; el ejemplo "Ge
 
 ## Puntos Clave
 
-APScheduler es un scheduler in-process para Python, no una cola de tareas distribuida. Soporta triggers de intervalo, cron y fecha one-off. Usá un background scheduler en web apps y un blocking scheduler en scripts standalone. Establecé max_instances en 1 y coalesce en True para que jobs lentos o perdidos no se acumulen. Almacená los jobs en un store respaldado por SQLAlchemy si deben sobrevivir a los reinicios. Finalmente, siempre manejá errores con listeners y terminá el scheduler de forma limpia.
+APScheduler es un scheduler in-process para Python, no una cola de tareas distribuida. Soporta triggers de intervalo, cron y fecha one-off, y es útil mientras elijas el scheduler adecuado para el runtime.
+
+Usá un background scheduler en web apps y un blocking scheduler en scripts standalone. Establecé max_instances en 1 y coalesce en True para que jobs lentos o perdidos no se acumulen. Almacená los jobs en un store respaldado por SQLAlchemy si deben sobrevivir a los reinicios, y manejá errores con listeners. Siempre terminá el scheduler de forma limpia.
 
 ## Lecturas Adicionales
 

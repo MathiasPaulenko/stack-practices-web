@@ -2,18 +2,21 @@
   {
     "label": "python-schedule-periodic-tasks-en",
     "model": "desklib",
-    "model_ai_pct": 39.4,
-    "ai_count": 14,
-    "human_count": 64,
+    "model_ai_pct": 39.0,
+    "ai_count": 17,
+    "human_count": 66,
     "skipped_count": 1,
-    "total": 79,
-    "pattern_totals": {},
+    "total": 84,
+    "pattern_totals": {
+      "missing_contraction": 1,
+      "vague_abstraction": 1
+    },
     "text_metrics": {
-      "mean": 19.7,
-      "stddev": 10.8,
-      "cv": 0.55,
+      "mean": 18.7,
+      "stddev": 9.7,
+      "cv": 0.52,
       "verdict": "natural variation",
-      "sentence_count": 78,
+      "sentence_count": 83,
       "lengths": [
         21,
         26,
@@ -28,23 +31,28 @@
         17,
         17,
         19,
+        20,
+        10,
         19,
         17,
         13,
         28,
-        17,
         18,
+        16,
         18,
         13,
         21,
-        61,
-        27,
+        12,
+        22,
+        31,
+        28,
         24,
         86,
         10,
         15,
         28,
-        23,
+        5,
+        20,
         23,
         19,
         35,
@@ -72,10 +80,9 @@
         11,
         25,
         9,
-        21,
-        10,
-        14,
-        31,
+        17,
+        13,
+        13,
         16,
         16,
         24,
@@ -88,21 +95,26 @@
         13,
         21,
         12,
-        8,
+        23,
         14,
         16,
-        23,
+        16,
+        6,
         28
       ]
     },
     "top_ai_sentences": [
       [
-        "Listen for EVENT_JOB_ERROR: a failing job won't crash the scheduler, which is exactly why you need a log entry somewhere you'll actually look.",
-        0.9845
+        "The scheduler starts before the Flask app begins serving traffic, so it is already running when the first request arrives.",
+        0.8157
       ],
       [
-        "next_run_time takes a datetime: it expects a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a timezone-aware datetime.",
-        0.9769
+        "next_run_time takes a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a timezone-aware datetime.",
+        0.6303
+      ],
+      [
+        "BackgroundScheduler lives on a background thread, so it doesn't block request handling and fits inside a web app like Flask or FastAPI.",
+        0.5951
       ],
       [
         "For async functions, use AsyncIOScheduler with AsyncIOExecutor, which integrates into the asyncio event loop and runs async jobs as coroutines.",
@@ -113,10 +125,6 @@
         0.5898
       ],
       [
-        "Start the scheduler once when the app boots, and if the app has more than one gunicorn worker, use a process lock or a single dedicated process to avoid duplicate runs.",
-        0.5895
-      ],
-      [
         "A background scheduler does nothing until you call its start method, and that's an easy step to miss.",
         0.5876
       ],
@@ -125,8 +133,20 @@
         0.5838
       ],
       [
+        "Three settings matter most when a job is late or still running from the previous round.",
+        0.5741
+      ],
+      [
         "If you rely on an in-memory store, the job disappears when the process stops.",
         0.5644
+      ],
+      [
+        "Multiple gunicorn workers can start multiple schedulers and run the same job twice.",
+        0.5534
+      ],
+      [
+        "You can mix schedulers, job stores, and executors to match the workload.",
+        0.5524
       ],
       [
         "A ProcessPoolExecutor handles CPU-bound work.",
@@ -161,12 +181,12 @@
         0.4901
       ],
       [
-        "For simple periodic tasks, APScheduler is a good fit; it's lighter and doesn't need a broker.",
-        0.4852
+        "The date trigger is for one-shot runs at a specific datetime, like a delayed export or a reminder.",
+        0.4873
       ],
       [
-        "The date trigger is for one-shot runs at a specific datetime, like a delayed export or reminder.",
-        0.479
+        "For simple periodic tasks, APScheduler is a good fit; it's lighter and doesn't need a broker.",
+        0.4852
       ],
       [
         "You need strict exactly-once semantics across many processes.",
@@ -181,39 +201,48 @@
         0.4725
       ],
       [
-        "The settings that matter most when a job is late or still running are coalesce, max_instances, and misfire_grace_time.",
-        0.472
-      ],
-      [
         "Call shutdown() with a timeout so active jobs can finish.",
         0.4702
-      ],
-      [
-        "A process lock or a single-instance deployment stops that from happening.",
-        0.4699
-      ],
-      [
-        "A max_instances of 1 means the next trigger is skipped while the current one is still going.",
-        0.4509
       ]
     ],
-    "diagnostics_sample": []
+    "diagnostics_sample": [
+      {
+        "sentence": "The scheduler starts before the Flask app begins serving traffic, so it is already running when the first request arrives.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "it is",
+            "suggestion": "use 'it's'"
+          }
+        ]
+      },
+      {
+        "sentence": "Multiple gunicorn workers can start multiple schedulers and run the same job twice.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
   },
   {
     "label": "python-schedule-periodic-tasks-es",
     "model": "desklib",
-    "model_ai_pct": 32.5,
-    "ai_count": 17,
-    "human_count": 76,
+    "model_ai_pct": 30.2,
+    "ai_count": 12,
+    "human_count": 80,
     "skipped_count": 4,
-    "total": 97,
+    "total": 96,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 17.2,
+      "mean": 17.7,
       "stddev": 9.5,
-      "cv": 0.55,
+      "cv": 0.54,
       "verdict": "natural variation",
-      "sentence_count": 93,
+      "sentence_count": 92,
       "lengths": [
         24,
         30,
@@ -228,6 +257,8 @@
         28,
         14,
         23,
+        24,
+        13,
         16,
         18,
         23,
@@ -238,12 +269,10 @@
         23,
         14,
         21,
-        7,
-        16,
-        9,
-        13,
-        13,
-        33,
+        12,
+        24,
+        28,
+        32,
         23,
         79,
         21,
@@ -251,8 +280,8 @@
         18,
         13,
         19,
-        7,
-        14,
+        5,
+        22,
         11,
         17,
         5,
@@ -285,10 +314,9 @@
         20,
         26,
         9,
-        13,
         23,
-        20,
-        28,
+        16,
+        13,
         5,
         9,
         18,
@@ -302,19 +330,15 @@
         12,
         21,
         13,
-        8,
+        19,
         14,
         17,
-        15,
-        13,
+        20,
+        7,
         34
       ]
     },
     "top_ai_sentences": [
-      [
-        "Eso lo hace bueno dentro de una web app.",
-        0.9853
-      ],
       [
         "Un scheduler bloqueante no tiene lugar en una web app porque bloquea el manejo de requests.",
         0.9601
@@ -324,16 +348,8 @@
         0.8514
       ],
       [
-        "Hay un par de gotchas que atrapan a la gente en apps reales.",
-        0.8398
-      ],
-      [
         "Un job lento que dispara cada 30 segundos puede acumularse.",
         0.8357
-      ],
-      [
-        "Un job que falla no deber\u00eda derrumbar el scheduler, pero quer\u00e9s saber que pas\u00f3.",
-        0.765
       ],
       [
         "APScheduler usa el timezone del scheduler.",
@@ -344,8 +360,8 @@
         0.7605
       ],
       [
-        "Algunos settings deciden qu\u00e9 pasa cuando un job pierde su ventana o todav\u00eda est\u00e1 corriendo desde la \u00faltima vez.",
-        0.7206
+        "Con varios workers de gunicorn pod\u00e9s terminar con varios schedulers corriendo el mismo job dos veces.",
+        0.7552
       ],
       [
         "APScheduler tiene sentido cuando necesit\u00e1s ejecutar tareas a intervalos regulares o en horarios calendario desde una app Python.",
@@ -372,12 +388,8 @@
         0.5661
       ],
       [
-        "Agreg\u00e1 un listener para el evento EVENT_JOB_ERROR.",
-        0.5294
-      ],
-      [
-        "El asyncio scheduler se engancha a un event loop y ejecuta coroutines directamente.",
-        0.5096
+        "Siempre termin\u00e1 el scheduler de forma limpia.",
+        0.495
       ],
       [
         "Eleg\u00ed un misfire grace time que se ajuste a la tarea.",
@@ -400,16 +412,32 @@
         0.4485
       ],
       [
+        "Algunos settings deciden qu\u00e9 pasa cuando un job pierde su ventana o todav\u00eda est\u00e1 corriendo desde la vuelta anterior.",
+        0.4438
+      ],
+      [
         "El scheduler se integra con el event loop de asyncio y ejecuta jobs async como coroutines.",
         0.3978
       ],
       [
-        "El blocking scheduler mantiene el proceso vivo y funciona bien para scripts standalone.",
-        0.3959
-      ],
-      [
         "Para tareas peri\u00f3dicas simples, s\u00ed.",
         0.391
+      ],
+      [
+        "APScheduler separa tres responsabilidades: cu\u00e1ndo corre un job, d\u00f3nde vive su definici\u00f3n y c\u00f3mo se ejecuta.",
+        0.3872
+      ],
+      [
+        "APScheduler despacha el trabajo al pool, as\u00ed que el proceso principal se mantiene responsivo.",
+        0.3861
+      ],
+      [
+        "Agreg\u00e1 un listener para EVENT_JOB_ERROR.",
+        0.3795
+      ],
+      [
+        "Us\u00e1 el trigger cron cuando necesit\u00e1s reglas de calendario, como \"lunes a las 2 AM\" o \"el primer d\u00eda de cada mes\".",
+        0.3776
       ]
     ],
     "diagnostics_sample": []

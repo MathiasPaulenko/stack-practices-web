@@ -274,43 +274,37 @@ asyncio.run(main())
 ```python
 from flask import Flask
 from apscheduler.schedulers.background import BackgroundScheduler
+import atexit
 
 app = Flask(__name__)
-scheduler = BackgroundScheduler(daemon=True)
-
-@app.before_request
-def start_scheduler():
-    if not scheduler.running:
-        scheduler.start()
+scheduler = BackgroundScheduler()
 
 def health_check():
-    import requests
-    try:
-        r = requests.get("http://localhost:5000/health", timeout=5)
-        print(f"Health check: {r.status_code}")
-    except requests.RequestException as e:
-        print(f"Health check failed: {e}")
+    print(f"Scheduler running: {scheduler.running}")
 
 scheduler.add_job(health_check, "interval", seconds=60, id="health_check")
+scheduler.start()
+atexit.register(scheduler.shutdown)
 
 @app.route("/health")
 def health():
-    return {"status": "healthy"}, 200
+    return {"status": "healthy" if scheduler.running else "unhealthy"}, 200
 
 if __name__ == "__main__":
-    scheduler.start()
     app.run(host="0.0.0.0", port=5000)
 ```
+
+The scheduler starts before the Flask app begins serving traffic, so it is already running when the first request arrives. Keeping scheduler startup out of request handlers avoids duplicate instances.
 
 ## Explanation
 
 APScheduler separates three concerns: when a job runs, where the job definition lives, and how the job is executed. The trigger decides the schedule, the job store keeps the job definition, and the executor runs it.
 
-The interval trigger waits N seconds, minutes, hours, or days and fires again. The cron trigger is what you want for calendar rules; it uses the same fields as Unix cron, which means day_of_week, hour, and minute behave the same way. The date trigger is for one-shot runs at a specific datetime, like a delayed export or reminder.
+The interval trigger waits N seconds, minutes, hours, or days and fires again. The cron trigger is what you want for calendar rules; it uses the same fields as Unix cron, which means day_of_week, hour, and minute behave the same way. The date trigger is for one-shot runs at a specific datetime, like a delayed export or a reminder.
 
-The settings that matter most when a job is late or still running are coalesce, max_instances, and misfire_grace_time. Coalesce merges several missed runs into one, so the scheduler doesn't dump a burst of work on startup. A max_instances value of 1 stops a slow job from overlapping with itself. misfire_grace_time is the late window: a job that's only a little behind still runs; a job that's too late is skipped.
+Three settings matter most when a job is late or still running from the previous round. Coalesce merges several missed runs into one, so the scheduler doesn't dump a burst of work on startup. A max_instances value of 1 stops a slow job from overlapping with itself. misfire_grace_time is the late window: a job that's only a little behind still runs; a job that's too late is skipped.
 
-You can mix schedulers, job stores, and executors: BackgroundScheduler lives on a background thread, so it doesn't block request handling and fits inside a web app like Flask or FastAPI; BlockingScheduler keeps the process alive and works well for a standalone script; AsyncIOScheduler is built for the asyncio event loop, so it runs async jobs as coroutines alongside other asyncio tasks. An in-memory job store is fast but loses everything on restart, while a SQLAlchemy-backed store survives restarts and can be shared if you respect the single-scheduler rule. A thread pool is fine for I/O-bound work, a process pool helps with CPU-bound work, and an async executor works with the async scheduler.
+You can mix schedulers, job stores, and executors to match the workload. BackgroundScheduler lives on a background thread, so it doesn't block request handling and fits inside a web app like Flask or FastAPI. BlockingScheduler keeps the process alive and works well for a standalone script, while AsyncIOScheduler is built for the asyncio event loop and runs async jobs as coroutines alongside other asyncio tasks. An in-memory job store is fast but loses everything on restart, whereas a SQLAlchemy-backed store survives restarts and can be shared if only one active scheduler polls it. A thread pool is fine for I/O-bound work, a process pool helps with CPU-bound work, and an async executor goes with the async scheduler.
 
 ## Variants
 
@@ -327,7 +321,7 @@ You can mix schedulers, job stores, and executors: BackgroundScheduler lives on 
 - Pick the scheduler for your runtime: BackgroundScheduler for web apps, BlockingScheduler for standalone scripts, AsyncIOScheduler for asyncio.
 - For long jobs, set max_instances to 1: that prevents overlap. Set coalesce to True as well so missed runs don't turn into a restart storm.
 - Use a persistent job store when the schedule must survive restarts: SQLite is fine for a single instance; a real database is better if the store is shared.
-- Listen for EVENT_JOB_ERROR: a failing job won't crash the scheduler, which is exactly why you need a log entry somewhere you'll actually look.
+- Attach a listener for EVENT_JOB_ERROR. A failing job won't crash the scheduler, so a visible log entry is the only way you'll know it broke.
 - Set misfire_grace_time to something that fits the task: sixty seconds is plenty for cleanup jobs; an hourly report can tolerate a few minutes.
 - Match the executor to the work: ThreadPoolExecutor for I/O-bound jobs, ProcessPoolExecutor for CPU-bound jobs, AsyncIOExecutor with the async scheduler.
 - Always call scheduler.shutdown() on exit, and use unique job IDs: reusing an ID is an easy way to end up with the same job twice, especially after a restart when the in-memory store is empty.
@@ -350,7 +344,8 @@ You can mix schedulers, job stores, and executors: BackgroundScheduler lives on 
 - No failure visibility: by default, job output goes to stdout and APScheduler logs at WARNING. In production, wire up a logger and a listener so you know when jobs fail or misfire.
 - Duplicate runs across workers: a shared SQLAlchemy job store should only have one active scheduler process. Several schedulers polling the same store can race and run the same job twice. A process lock or a single-instance deployment stops that from happening.
 - No health signal: if the scheduler is critical, expose a health endpoint that checks the scheduler status, recent job executions, and the listener event stream. See [Docker health check configuration](/recipes/docker-health-check-configuration/) for a concrete pattern.
-- next_run_time takes a datetime: it expects a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a timezone-aware datetime. In Flask, don't rely on before_request to start the scheduler. With two or more workers or threads you can end up with several instances. Start the scheduler once when the app boots, and if the app has more than one gunicorn worker, use a process lock or a single dedicated process to avoid duplicate runs.
+- next_run_time takes a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a timezone-aware datetime.
+- Multiple gunicorn workers can start multiple schedulers and run the same job twice. Use a process lock or run the scheduler in a single dedicated process.
 
 ## FAQ
 
@@ -380,7 +375,9 @@ Yes. You can manage jobs while the scheduler is running; the "Managing jobs dyna
 
 ## Key Takeaways
 
-APScheduler is an in-process scheduler for Python, not a distributed task queue. It supports interval, cron, and one-shot date triggers. Use a background scheduler in web apps and a blocking scheduler in standalone scripts. Set max_instances to 1 and coalesce to True so slow or missed jobs don't pile up. Store jobs in a SQLAlchemy-backed store if they must survive restarts, and always handle errors with listeners and shut down the scheduler cleanly.
+APScheduler is an in-process scheduler for Python, not a distributed task queue. It supports interval, cron, and one-shot date triggers, and it stays useful as long as you match the scheduler type to the runtime.
+
+Use a background scheduler in web apps and a blocking scheduler in standalone scripts. Set max_instances to 1 and coalesce to True so slow or missed jobs don't pile up. Store jobs in a SQLAlchemy-backed store if they must survive restarts, and handle errors with listeners. Always shut down the scheduler cleanly.
 
 ## Further Reading
 
