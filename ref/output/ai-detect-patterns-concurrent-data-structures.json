@@ -1,0 +1,21 @@
+[
+  {
+    "label": "concurrent-data-structures",
+    "total_sentences": 83,
+    "pattern_totals": {
+      "missing_contraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "Single reads and writes are safe, but a containsKey-then-put sequence is not.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "is not",
+            "suggestion": "use 'isn't'"
+          }
+        ]
+      }
+    ]
+  }
+]

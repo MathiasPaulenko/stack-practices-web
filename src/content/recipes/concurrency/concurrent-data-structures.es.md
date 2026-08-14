@@ -1,102 +1,120 @@
 ---
-
 contentType: recipes
 slug: concurrent-data-structures
-title: "Usar Estructuras de Datos Concurrentes para Colecciones"
-description: "CÃ³mo compartir colecciones entre threads de forma segura usando blocking queues, concurrent maps, copy-on-write lists y atomic counters en Java, Python y C++."
-metaDescription: "Aprende estructuras de datos concurrentes para thread safety. Usa blocking queues, concurrent maps, copy-on-write lists y atomic counters en Java, Python y C++."
+title: "Usa Estructuras Concurrentes para Colecciones Seguras"
+description: "Cómo compartir colecciones entre hilos de forma segura usando colas bloqueantes, mapas concurrentes, listas copy-on-write y contadores atómicos en Java, Python y C++."
+metaDescription: "Usa colas bloqueantes, mapas concurrentes y contadores atómicos para compartir colecciones seguras entre hilos en Java, Python y C++."
 difficulty: intermediate
 topics:
   - concurrency
 tags:
   - concurrency
   - atomic-operations
-  - async
   - threads
   - parallel
+  - java
+  - python
+  - cpp
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools
   - /recipes/async-patterns
   - /recipes/microservices-patterns
   - /recipes/csp-communication
-lastUpdated: "2026-06-14"
+  - /recipes/race-condition-prevention
+lastUpdated: "2026-08-15"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende estructuras de datos concurrentes para thread safety. Usa blocking queues, concurrent maps, copy-on-write lists y atomic counters en Java, Python y C++."
+  metaDescription: "Usa colas bloqueantes, mapas concurrentes y contadores atómicos para compartir colecciones seguras entre hilos en Java, Python y C++."
   keywords:
-    - estructuras datos concurrentes
-    - colecciones thread safe
-    - blocking queue
-    - concurrent hash map
+    - estructuras de datos concurrentes
+    - colecciones seguras entre hilos
+    - cola bloqueante
+    - mapa concurrente
+    - contador atómico
     - productor consumidor
-
+    - copy on write
 ---
 
-## VisiÃ³n general
+## Visión general
 
-Compartir un `ArrayList` estÃ¡ndar entre threads es peligroso. El thread A lee el Ã­ndice 0 mientras el thread B elimina el Ã­ndice 0 â€” `ConcurrentModificationException`. El thread A y B llaman `map.put("key", value)` simultÃ¡neamente en un `HashMap` â€” la lista enlazada interna puede volverse circular, causando un loop infinito durante la iteraciÃ³n. Estas fallas son no deterministas: pueden pasar miles de tests y fallar solo bajo carga de producciÃ³n.
+Compartir un ArrayList o HashMap normal entre hilos es pedir corrupción silenciosa. Un hilo puede leer el índice 0 mientras otro lo elimina, lanzando ConcurrentModificationException o, peor, dejando la lista interna de buckets en un estado inconsistente. Estos errores suelen pasar todos los tests unitarios y aparecen solo bajo carga real.
 
-Las colecciones estÃ¡ndar (`ArrayList`, `HashMap`, `LinkedList`) no son thread-safe. Envolver cada acceso en `synchronized` funciona pero serializa todas las operaciones, derrotando el paralelismo. Las estructuras de datos concurrentes son colecciones diseÃ±adas para acceso multi-thread: usan locks de grano fino, algoritmos lock-free o inmutabilidad para permitir lecturas y escrituras concurrentes seguras con mÃ­nima contenciÃ³n. Lo siguiente cubre blocking queues, concurrent maps, copy-on-write collections y atomic counters con ejemplos prÃ¡cticos.
+Ahí entran las colecciones concurrentes. Usan bloqueos de grano fino, algoritmos sin bloqueos o instantáneas para que varios hilos lean y escriban sin andar envolviendo cada llamada en synchronized. Los ejemplos están en Java, Python y C++; usa el que tengas.
 
-## CuÃ¡ndo usarlo
+## Cuándo usarlo
 
-Usa esta receta cuando:
+Usa una colección concurrente cuando varios hilos lean y escriban los mismos datos. Eso incluye pipelines productor-consumidor, cachés compartidas, colas de tareas o pools de conexiones ligados a un [pool de hilos](/recipes/thread-pools). También son un buen reemplazo directo de mapas sincronizados o listas sincronizadas cuando quieres menos contención de bloqueos, y te dan la visibilidad happens-before que de otro modo tendrías que construir a mano.
 
-- MÃºltiples threads leen y escriben la misma colecciÃ³n
-- Implementando patrones productor-consumidor con backpressure
-- Construyendo caches, colas de trabajo o [pools de conexiones](/recipes/connection-pooling/) compartidos por thread pools
-- Reemplazando `synchronized(list)` o `Collections.synchronizedMap()` con alternativas de mayor rendimiento
-- Asegurando visibilidad de escrituras entre threads sin barreras de memoria explÃ­citas
+## Cuándo NO usarlo
 
-## SoluciÃ³n
+No las uses si solo un hilo toca los datos, porque la coordinación extra es un gasto innecesario. Evita las listas copy-on-write si las escrituras son frecuentes: cada una copia el array completo. No esperes un orden de iteración estable de un mapa concurrente; si necesitas acceso ordenado, usa un mapa concurrente con skip list. Si los datos se escriben una vez y después solo se leen, una instantánea inmutable o una referencia volatile suele ser más simple y rápida. En Python, no mezcles la cola del módulo threading con corrutinas de asyncio; en ese caso usa la cola de asyncio.
 
-### Blocking Queue (Java)
+## Solución
+
+### Cola bloqueante (Java)
 
 ```java
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+record Order(int id) {}
+
 class OrderProcessor {
     private final BlockingQueue<Order> queue = new ArrayBlockingQueue<>(100);
 
     public void submit(Order order) throws InterruptedException {
-        queue.put(order); // bloquea si la cola estÃ¡ llena
+        queue.put(order); // bloquea si está llena
     }
 
     public Order take() throws InterruptedException {
-        return queue.take(); // bloquea si la cola estÃ¡ vacÃ­a
+        return queue.take(); // bloquea si está vacía
     }
-}
 
-// Productor
-Thread producer = new Thread(() -> {
-    for (int i = 0; i < 1000; i++) {
-        processor.submit(new Order(i));
+    public void process(Order order) {
+        System.out.println("Processing " + order.id());
     }
-});
 
-// Pool de consumidores
-for (int i = 0; i < 4; i++) {
-    new Thread(() -> {
-        while (true) {
-            try {
-                Order order = processor.take();
-                process(order);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
+    public void start() {
+        Thread producer = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                try {
+                    submit(new Order(i));
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
             }
+        });
+
+        for (int i = 0; i < 4; i++) {
+            new Thread(() -> {
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        process(take());
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+                }
+            }).start();
         }
-    }).start();
+
+        producer.start();
+    }
+
+    public static void main(String[] args) {
+        new OrderProcessor().start();
+    }
 }
 ```
 
-### Concurrent Map (Java)
+### Mapa concurrente (Java)
 
 ```java
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
 class InMemoryCache {
     private final ConcurrentHashMap<String, CachedValue> cache = new ConcurrentHashMap<>();
@@ -116,7 +134,7 @@ class InMemoryCache {
 }
 ```
 
-### Python Queue (Thread-Safe)
+### Cola en Python (thread-safe)
 
 ```python
 from queue import Queue
@@ -127,27 +145,34 @@ class TaskQueue:
         self.queue = Queue(maxsize=maxsize)
 
     def submit(self, task):
-        self.queue.put(task)  # bloquea si estÃ¡ llena
+        self.queue.put(task)  # bloquea si está llena
+
+    def process(self, task):
+        print(f"Processing {task}")
 
     def worker(self):
         while True:
-            task = self.queue.get()  # bloquea si estÃ¡ vacÃ­a
+            task = self.queue.get()  # bloquea si está vacía
             if task is None:
                 break
             self.process(task)
             self.queue.task_done()
 
-tq = TaskQueue()
-Thread(target=lambda: [tq.submit(i) for i in range(1000)]).start()
-for _ in range(4):
-    Thread(target=tq.worker).start()
+    def start(self):
+        Thread(target=lambda: [self.submit(i) for i in range(1000)]).start()
+        for _ in range(4):
+            Thread(target=self.worker).start()
+
+TaskQueue().start()
 ```
 
-### Copy-on-Write List (Java)
+### Lista copy-on-write (Java)
 
 ```java
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
+
+record Event(String type) {}
 
 class EventDispatcher {
     private final CopyOnWriteArrayList<Consumer<Event>> listeners = new CopyOnWriteArrayList<>();
@@ -168,191 +193,147 @@ class EventDispatcher {
 }
 ```
 
-## ExplicaciÃ³n
+### Contador atómico en Python
 
-- **BlockingQueue**: una cola que bloquea productores cuando estÃ¡ llena y consumidores cuando estÃ¡ vacÃ­a. Esto provee backpressure natural â€” un productor rÃ¡pido no puede abrumar a un consumidor lento. `ArrayBlockingQueue` usa un solo lock; `LinkedBlockingQueue` usa locks separados para head y tail, permitiendo mayor concurrencia para cargas mixtas de lectura/escritura.
-- **ConcurrentHashMap**: a diferencia de `Collections.synchronizedMap()`, que lockea todo el mapa para cada operaciÃ³n, `ConcurrentHashMap` usa lock striping â€” segmentando el mapa en regiones lockeables independientemente similar a [load balancing](/recipes/load-balancing/). Las lecturas suelen ser lock-free. `computeIfAbsent` chequea e inserta atÃ³micamente, previniendo la carrera clÃ¡sica de doble carga en caches.
-- **CopyOnWriteArrayList**: cada escritura crea una copia completa del array subyacente. Las lecturas son lock-free y rÃ¡pidas. Las escrituras son costosas, asÃ­ que esto es ideal para colecciones con pocas escrituras y muchas lecturas â€” como listas de listeners de eventos. Un iterador sobre copy-on-write ve un snapshot del momento de creaciÃ³n del iterador.
-- **AtomicInteger / AtomicLong**: no son colecciones, pero son los bloques de construcciÃ³n de contadores concurrentes, generadores de secuencia y estadÃ­sticas. `incrementAndGet()` usa una instrucciÃ³n `CAS` de CPU, haciÃ©ndola lock-free y tÃ­picamente mÃ¡s rÃ¡pida que `synchronized` para contadores simples.
+```python
+import threading
+
+class AtomicCounter:
+    def __init__(self):
+        self._value = 0
+        self._lock = threading.Lock()
+
+    def increment(self):
+        with self._lock:
+            self._value += 1
+            return self._value
+
+counter = AtomicCounter()
+
+def worker():
+    for _ in range(100_000):
+        counter.increment()
+
+threads = [threading.Thread(target=worker) for _ in range(4)]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+
+print(counter.increment())
+```
+
+### Contador atómico en C++
+
+```cpp
+#include <atomic>
+#include <iostream>
+#include <thread>
+
+std::atomic<int> counter{0};
+
+int main() {
+    std::thread t1([] {
+        for (int i = 0; i < 100000; ++i) {
+            counter++;
+        }
+    });
+
+    std::thread t2([] {
+        for (int i = 0; i < 100000; ++i) {
+            counter++;
+        }
+    });
+
+    t1.join();
+    t2.join();
+
+    std::cout << counter << '\n';
+}
+```
+
+## Explicación
+
+Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Ese backpressure integrado evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para la cabeza y el final, lo que mejora cuando productores y consumidores corren a la vez.
+
+Un mapa concurrente no bloquea el mapa entero como hace uno sincronizado. Divide la tabla en segmentos que se pueden bloquear por separado, así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con compute-if-absent, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes).
+
+Una lista copy-on-write copia el array subyacente entero en cada escritura, así que las lecturas son sin bloqueos y siempre ven una instantánea estable. Es útil cuando las escrituras son raras, como en listas de listeners de eventos o pequeñas instantáneas de configuración.
+
+La cola de Python usa un bloqueo reentrante y dos semáforos, así que put, get y task_done son seguros desde cualquier hilo. En código asyncio, la que corresponde es la cola de asyncio.
+
+El contador atómico de Python envuelve un entero bajo un único bloqueo, mientras que std::atomic en C++ usa compare-and-swap del hardware. Ambos se libran de mutexes explícitos para contadores simples. Para cambios de estado más complejos, consulta la receta de [prevención de condiciones de carrera](/recipes/race-condition-prevention).
 
 ## Variantes
 
-| Estructura | Lecturas | Escrituras | Mejor para | Overhead |
-|------------|----------|------------|------------|----------|
-| BlockingQueue | Bloqueante | Bloqueante | Productor-consumidor con backpressure | Lock por op |
-| ConcurrentHashMap | Lock-free | Lock striping | Caches de alta concurrencia | Bajo |
-| CopyOnWriteArrayList | Lock-free | Copia completa | Pocas escrituras, muchas lecturas | Alta escritura |
-| ConcurrentLinkedQueue | Lock-free | Lock-free | Colas de alto throughput | Bajo |
-| SynchronizedMap | Lockeada | Lockeada | MigraciÃ³n simple | Alta |
+| Estructura | Lecturas | Escrituras | Mejor para | Sobrecarga |
+|-----------|----------|------------|------------|----------|
+| `ArrayBlockingQueue` | Bloqueante | Bloqueante | Productor-consumidor con backpressure | Un bloqueo |
+| `LinkedBlockingQueue` | Bloqueante | Bloqueante | Mayor throughput productor-consumidor | Bloqueos separados para cabeza y final |
+| `ConcurrentHashMap` | Sin bloqueos | Lock striping | Cachés y mapas de alta concurrencia | Bajo |
+| `CopyOnWriteArrayList` | Sin bloqueos | Copia completa del array | Pocas escrituras, muchas lecturas | Alto en escrituras |
+| `ConcurrentLinkedQueue` | Sin bloqueos | Sin bloqueos | Colas de trabajo no bloqueantes | Bajo |
+| `Collections.synchronizedMap` | Totalmente bloqueada | Totalmente bloqueada | Migración simple, baja contención | Alta bajo contención |
 
-## Lo que funciona
+## Buenas prácticas
 
-- **Prefiere `ConcurrentHashMap` sobre `Collections.synchronizedMap()`**: los wrappers sincronizados lockean todo el mapa para cada operaciÃ³n, incluyendo `get()`. `ConcurrentHashMap` permite lecturas concurrentes y locks mÃ¡s finos para escritura. La diferencia de rendimiento es dramÃ¡tica bajo contenciÃ³n de threads.
-- **Usa `computeIfAbsent` para inicializaciÃ³n perezosa de cache**: `if (!map.containsKey(key)) map.put(key, load())` es una condiciÃ³n de carrera. Dos threads pueden cargar y poner. `map.computeIfAbsent(key, k -> load())` chequea e inserta atÃ³micamente, asegurando que el loader corre como mÃ¡ximo una vez por clave.
-- **Colas con tamaÃ±o limitada para backpressure**: una `LinkedBlockingQueue` ilimitada puede crecer hasta que la JVM se quede sin memoria bajo un productor rÃ¡pido. Siempre establece un tamaÃ±o mÃ¡ximo y usa `put()` (bloqueante) en lugar de `offer()` (no bloqueante) cuando quieres aplicar [backpressure](/recipes/rate-limiting/).
-- **Copy-on-write para listas de listeners**: si tu aplicaciÃ³n registra listeners de eventos al arrancar y raramente los cambia, `CopyOnWriteArrayList` da lecturas lock-free. No lo uses para listas frecuentemente actualizadas â€” el costo de copia por escritura se vuelve prohibitivo.
-- **Itera con `Iterator`, no `for-each` en colecciones sincronizadas**: `for (Item item : synchronizedList)` no es atÃ³mico. Otro thread puede modificar la lista entre pasos del iterador, lanzando `ConcurrentModificationException`. Usa bloques `synchronized(list) { ... }` explÃ­citos alrededor de la iteraciÃ³n, o usa colecciones concurrentes.
+- Elige un mapa concurrente en lugar de uno totalmente sincronizado. Los wrappers sincronizados bloquean todo el mapa en cada operación, incluso una lectura; la versión concurrente deja pasar muchas lecturas a la vez.
+- Para la carga perezosa de caché, usa el método compute-if-absent del mapa. Verificar si la clave existe y luego meter el valor cargado a mano es una condición de carrera: dos hilos pueden cargar y pisarse con el mismo valor. Compute-if-absent ejecuta el loader a lo sumo una vez por clave.
+- Acota tus colas bloqueantes y usa un put bloqueante cuando quieras backpressure. Una cola bloqueante vinculada sin límite puede crecer hasta que la JVM se quede sin memoria.
+- Las listas copy-on-write rinden bien con listeners de eventos e instantáneas de configuración que cambian poco. No las uses cuando las escrituras sean frecuentes.
+- Mejor usa la colección concurrente del lenguaje antes que inventarte un wrapper sincronizado. Las implementaciones estándar están probadas, optimizadas y tienen semánticas más claras.
 
 ## Errores comunes
 
-- **Usar `size()` para decisiones de cola**: chequear `if (queue.size() > 0) queue.take()` es una condiciÃ³n de carrera. La cola puede quedar vacÃ­a entre el chequeo de `size()` y la llamada a `take()`. Usa mÃ©todos bloqueantes (`take()`, `put()`) o no bloqueantes (`poll()`, `offer()`) directamente sin prechequeos.
-- **Modificar una colecciÃ³n mientras iteras**: incluso `ConcurrentHashMap` no soporta modificar el mapa vÃ­a el valor retornado por `iterator()`. Usa `Iterator.remove()` u operaciones bulk (`removeIf`, `replaceAll`) en lugar de mutar dentro de un loop `for`.
-- **Esperar ordenamiento de `ConcurrentHashMap`**: `ConcurrentHashMap` no garantiza orden de iteraciÃ³n. Si necesitas acceso concurrente ordenado, usa `ConcurrentSkipListMap`, que provee ordenamiento tipo `TreeMap` con lecturas lock-free.
-- **Olvidar `task_done()` en `Queue` de Python**: `queue.task_done()` debe llamarse despuÃ©s de procesar cada Ã­tem para seÃ±alar completitud a `queue.join()`. Llamadas faltantes causan que `join()` se cuelgue indefinidamente, esperando tareas que ya fueron procesadas.
+- Fijarte en el tamaño de la cola antes de tomar un elemento. Si la cola se vacía antes de la llamada a take, caes en una carrera check-then-act.
+- Modificar una colección mientras la recorres. Incluso un mapa concurrente no permite cambiarlo dentro de un bucle sobre sus valores. Recolecta las claves primero o elimina a través del iterador.
+- Pensar que un mapa concurrente va a mantener un orden estable. El orden de iteración puede cambiar al redimensionarse; si necesitas acceso concurrente ordenado, usa un mapa concurrente con skip list.
+- Olvidarte de llamar a task_done tras cada elemento de la cola de Python. join espera hasta que el contador de tareas sin terminar llegue a cero, así que llamadas faltantes bloquean al que espera.
+- Pensar que un contador atómico arregla cualquier problema de estado compartido. Solo protege el valor que envuelve, no un grupo completo de campos relacionados.
 
-## Cuando No Usar Este Enfoque
+## Notas de producción
 
-- **CÃ³digo single-threaded**: las colecciones concurrentes agregan 2-10x de overhead por operaciÃ³n. Si solo un thread accede a los datos, usa colecciones estÃ¡ndar (HashMap, ArrayList, dict)
-- **Cargas read-heavy con escrituras infrecuentes**: un CopyOnWriteArrayList copia todo el array en cada escritura. Si las escrituras ocurren mÃ¡s del 5% del tiempo, el costo de copia excede el ahorro de lock contention
-- **Operaciones bulk en colecciones pequeÃ±as**: ConcurrentHashMap.putAll() en un map de 10 elementos es mÃ¡s lento que synchronized(map) { putAll() } porque el locking por segmento agrega overhead para tamaÃ±os pequeÃ±os
-- **Cuando el orden de iteraciÃ³n importa**: ConcurrentHashMap no garantiza orden de iteraciÃ³n. Si necesitas iteraciÃ³n FIFO u ordenada, usa ConcurrentSkipListMap o ConcurrentLinkedDeque siendo consciente de sus tradeoffs
-- **Entornos con memoria limitada**: las colecciones concurrentes usan mÃ¡s memoria que las estÃ¡ndar (arrays de segmentos, metadata CAS, padding extra). En dispositivos con <256MB RAM, el overhead puede ser inaceptable
-- **ComparticiÃ³n de datos inmutables**: si los datos se escriben una vez y son leÃ­dos por muchos threads, usa estructuras inmutables o referencias olatile en lugar de colecciones concurrentes. No se necesita sincronizaciÃ³n para datos inmutables read-only
-- **Escenarios de baja contenciÃ³n**: si la contenciÃ³n es rara (ej. un contador actualizado una vez por minuto), una variable simple con bloques synchronized ocasionales es mÃ¡s simple y rÃ¡pida que AtomicLong o ConcurrentHashMap
+- Dale una capacidad inicial al mapa concurrente para evitar redimensiones costosas bajo carga. Hacerlo crecer cuesta más que con un HashMap común.
+- Usa una cola bloqueante basada en array cuando quieras backpressure acotado con mínima asignación, y una vinculada cuando puedas cambiar algo de memoria por mayor throughput.
+- Ten bajo control el tamaño de las colas, la tasa de aciertos de caché y la longitud de la lista de listeners. Una cola que crece, una tasa de aciertos que cae o una lista de listeners larga son señales tempranas de fugas de memoria o retraso de consumidores.
+- Carga el sistema con más hilos y corridas más largas que en producción. Las condiciones de carrera suelen esconderse hasta que la presión aparece.
+- Mantén los valores inmutables o copiados defensivamente antes de compartirlos. Un contenedor seguro entre hilos no evita que otro hilo cambie un objeto que contiene.
 
-## Benchmarks de Rendimiento
-
-- **ConcurrentHashMap vs HashMap**: put() single-threaded en ConcurrentHashMap es 1.5-2x mÃ¡s lento que HashMap. Bajo contenciÃ³n de 16 threads, ConcurrentHashMap es 5-10x mÃ¡s rÃ¡pido que synchronized(HashMap)
-- **AtomicInteger vs synchronized**: AtomicInteger.incrementAndGet() toma ~5ns vs ~50ns para contador synchronized. La brecha se amplÃ­a bajo contenciÃ³n: a 8 threads, atomic es 20x mÃ¡s rÃ¡pido
-- **ConcurrentLinkedQueue vs ArrayBlockingQueue**: ConcurrentLinkedQueue ofrece 2-3x mayor throughput para enqueue/dequeue no bloqueante. ArrayBlockingQueue es mejor cuando se necesita backpressure (capacidad acotada)
-- **CopyOnWriteArrayList**: las lecturas son 1.2x mÃ¡s rÃ¡pidas que ArrayList (sin sincronizaciÃ³n). Las escrituras son 10-100x mÃ¡s lentas por la copia del array. Break-even en 99% lecturas, 1% escrituras
-- **ConcurrentSkipListMap vs TreeMap**: ConcurrentSkipListMap es 1.5-2x mÃ¡s lento que TreeMap para operaciones single-threaded. Bajo contenciÃ³n de 8 threads, escala linealmente mientras TreeMap con locks no
-- **Python queue.Queue vs collections.deque**: queue.Queue agrega ~2us por put/get para thread safety. deque con locking manual es 1.5x mÃ¡s rÃ¡pido pero propenso a errores. queue.SimpleQueue es un buen punto intermedio
-- **Overhead de memoria**: ConcurrentHashMap usa ~50% mÃ¡s memoria que HashMap por los arrays de segmentos. CopyOnWriteArrayList usa 2x memoria (dos copias de array durante escrituras)
-
-## Estrategia de Testing
-
-- **Stress test con conteo de threads igual al de producciÃ³n**: prueba con 2x el conteo de threads esperado. Si producciÃ³n usa 8 threads, prueba con 16. Las condiciones de carrera a menudo aparecen solo en conteos especÃ­ficos
-- **Verificar atomicidad de operaciones compuestas**: testea computeIfAbsent bajo acceso concurrente. Verifica que la mapping function se llame exactamente una vez por key. Usa un ConcurrentHashMap con un mapper contador
-- **Test de consistencia de iteraciÃ³n**: los iteradores de colecciones concurrentes son weakly consistent. Verifica que las iteraciones no lancen ConcurrentModificationException y reflejen algÃºn estado, no necesariamente el Ãºltimo
-- **Test de comportamiento de bloqueo en colas acotadas**: verifica que put() bloquee cuando la cola estÃ¡ llena y 	ake() bloquee cuando estÃ¡ vacÃ­a. Usa timeouts para detectar deadlocks
-- **Test de operaciones bulk**: putAll, clear y eplaceAll en colecciones concurrentes pueden tener semÃ¡ntica no atÃ³mica. Verifica el comportamiento bajo modificaciÃ³n concurrente
-- **Test de memory leaks**: tests long-running con millones de ciclos put/remove. Monitorea el uso de heap para detectar leaks en estructuras internas (ej. arrays de segmentos de ConcurrentHashMap)
-- **Test con distribuciÃ³n de datos realista**: skew y hot keys se comportan distinto que distribuciÃ³n uniforme. Prueba con patrones de keys de producciÃ³n para identificar hotspots de contenciÃ³n
-
-## Estimacion de Costos
-
-- **Presupuesto de overhead de memoria**: las colecciones concurrentes usan 1.5-2x mÃ¡s memoria. Para una cachÃ© in-memory de 10GB, esto significa 15-20GB. Planifica el sizing de instancias acorde
-- **Tiempo de desarrollo**: elegir la colecciÃ³n concurrente correcta toma 2-4 horas de anÃ¡lisis por caso de uso. La elecciÃ³n incorrecta lleva a bugs que toman dÃ­as en diagnosticarse
-- **Costo de capacitaciÃ³n**: los miembros del equipo necesitan entender happens-before semantics, iteradores weakly consistent y operaciones CAS. Presupuesta 1-2 dÃ­as de capacitaciÃ³n por developer
-- **Ahorros en costo de servidores**: usar colecciones concurrentes en lugar de locking coarse-grained puede reducir tiempos de respuesta 30-60%, permitiendo menos servidores manejar la misma carga
-- **Costo de debugging**: los bugs en colecciones concurrentes son difÃ­ciles de reproducir. Una sola condiciÃ³n de carrera puede tomar 20-40 horas en diagnosticarse. Invierte en stress testing temprano
-
-## Monitoring y Observabilidad
-
-- **TamaÃ±o de colecciÃ³n**: monitorea el tamaÃ±o de colas y maps concurrentes. Una cola creciente indica que los consumidores no pueden mantener el ritmo. Alerta cuando el tamaÃ±o excede 80% de la capacidad
-- **MÃ©tricas de contenciÃ³n**: trackea lock contention en colecciones sincronizadas. Usa jstack o async-profiler para identificar locks calientes. Alta contenciÃ³n indica necesidad de locking mÃ¡s fino o alternativas concurrentes
-- **Latencia de operaciones**: monitorea latencias de put, get, 	ake. P99 >10ms en una cola concurrente indica contenciÃ³n o presiÃ³n de GC
-- **Uso de memoria**: trackea el overhead de memoria de las colecciones concurrentes. Compara contra el tamaÃ±o esperado. Crecimiento inesperado puede indicar un leak en estructuras internas
-- **Thread wait time**: monitorea la distribuciÃ³n de estados de threads. Alto conteo de threads BLOCKED o WAITING indica lock contention o esperas en colas vacÃ­as
-
-## Deployment Checklist
-
-- [ ] Verificar que la versiÃ³n de JVM soporta las colecciones concurrentes que usas (Java 8+ para mejoras de ConcurrentHashMap, Java 9+ para views de ConcurrentHashMap.keySet)
-- [ ] Setear capacidad inicial apropiada para evitar resizing bajo carga (resizear un ConcurrentHashMap es costoso)
-- [ ] Configurar capacidades de colas acotadas basadas en presupuesto de memoria y throughput esperado
-- [ ] Habilitar monitoreo JMX para mÃ©tricas de colecciones concurrentes (tamaÃ±o, capacidad, contenciÃ³n)
-- [ ] Setear tamaÃ±os de thread pool para coincidir con el nÃºmero de consumidores de colecciones concurrentes
-- [ ] Testear bajo carga de producciÃ³n antes del deploy para verificar que no haya hotspots de contenciÃ³n
-
-## Consideraciones de Seguridad
-
-- **Denial of service vÃ­a collection flooding**: un atacante puede llenar un ConcurrentLinkedQueue no acotado hasta agotar la memoria. Usa colas acotadas (ArrayBlockingQueue) para operaciones expuestas al usuario
-- **Ataques de deserializaciÃ³n en colecciones concurrentes**: eadObject de Java en ConcurrentHashMap no llama computeIfAbsent. La deserializaciÃ³n custom puede bypassar garantÃ­as de concurrencia. Valida los datos deserializados
-- **Fuga de informaciÃ³n vÃ­a iteradores weakly consistent**: los iteradores en colecciones concurrentes reflejan un estado pasado. Si se remueven datos sensibles entre iteraciones, un iterador stale puede exponerlos. Limpia datos sensibles atÃ³micamente
-- **Condiciones de carrera en check-then-act**: if (!map.containsKey(k)) map.put(k, v) no es atÃ³mico en ConcurrentHashMap. Usa computeIfAbsent o putIfAbsent para prevenir condiciones de carrera que podrÃ­an insertar entradas duplicadas o no autorizadas
-- **Agotamiento de memoria vÃ­a keys grandes**: las colecciones concurrentes no limitan el tamaÃ±o de keys. Un atacante puede insertar entradas con keys grandes para agotar memoria. Implementa lÃ­mites de tamaÃ±o a nivel aplicaciÃ³n
-- **Ataques de poison pill**: un productor malicioso puede insertar un objeto "poison" en una cola compartida que cause que los consumidores crasheen. Valida los elementos de la cola antes de procesarlos
-- **Thread starvation vÃ­a priority inversion**: un thread de baja prioridad que mantiene un lock en una colecciÃ³n concurrente puede bloquear threads de alta prioridad. Usa polÃ­ticas de fair locking (ReentrantLock(fair=true)) en contextos security-sensitive
-- **Ataques de timing side-channel**: las operaciones en colecciones concurrentes tienen variaciones de timing segÃºn el estado interno. Un atacante midiendo tiempos de respuesta puede inferir el tamaÃ±o o contenido de la colecciÃ³n. Agrega checks de tiempo constante para operaciones security-sensitive
-- **PublicaciÃ³n insegura vÃ­a colecciones concurrentes**: colocar un objeto en un ConcurrentHashMap lo publica de forma segura (happens-before). Pero objetos colocados en un HashMap regular accedido por mÃºltiples threads no se publican de forma segura y pueden verse en estado inconsistente
-- **Race de cleanup de recursos**: remover una entrada de un map concurrente no garantiza que sus recursos (file handles, conexiones) se limpien. Usa computeIfPresent con una funciÃ³n de cleanup o emove(key, value) para remociÃ³n y cleanup atÃ³micos
-- **InvalidaciÃ³n de iteradores en contextos concurrentes**: los iteradores de ConcurrentHashMap son weakly consistent y no lanzan ConcurrentModificationException. Esto puede enmascarar bugs donde se remueven elementos durante la iteraciÃ³n. Usa sincronizaciÃ³n explÃ­cita si se requiere iteraciÃ³n consistente
-- **Data poisoning cross-thread**: si un thread corrompe el estado interno de un objeto compartido (ej. un valor mutable en un ConcurrentHashMap), todos los threads ven la corrupciÃ³n. Usa valores inmutables o defensive copies
-- **DoS en colas acotadas vÃ­a bloqueo**: un atacante que llena una cola acotada causa que put() bloquee, negando servicio a los productores. Setea timeouts en operaciones put() (offer(timeout)) e implementa load shedding
-- **Superficie de ataque basada en CAS**: las operaciones compareAndSet en AtomicReference pueden explotarse si el valor esperado es controlado por el atacante. AsegÃºrate de que las operaciones CAS usen valores esperados manejados internamente, no input del usuario
 ## Preguntas frecuentes
 
-**P: Â¿DeberÃ­a siempre usar colecciones concurrentes en cÃ³digo multithread?**
-R: Si la colecciÃ³n es compartida, sÃ­. Si cada thread tiene su propia colecciÃ³n (ej. un buffer local que se mergea al final), las colecciones estÃ¡ndar son mÃ¡s rÃ¡pidas y simples. Las colecciones concurrentes tienen overhead que no necesitas para datos thread-local.
+### ¿Cuándo conviene una cola bloqueante?
 
-**P: Â¿Es `ConcurrentHashMap` completamente thread-safe?**
-R: Las operaciones individuales (`get`, `put`, `computeIfAbsent`) son thread-safe. Las operaciones compuestas (`if (!map.containsKey(k)) map.put(k, v)`) no lo son. Usa `computeIfAbsent`, `merge`, o `compute` para operaciones compuestas atÃ³micas.
+Cuando los productores tienen que parar si la cola está llena y los consumidores si está vacía. Ese backpressure integrado evita que la cola crezca sin control y mantiene el uso de CPU a raya.
 
-**P: Â¿CuÃ¡ndo deberÃ­a usar `CopyOnWriteArrayList` vs `Collections.synchronizedList`?**
-R: Usa `CopyOnWriteArrayList` cuando las escrituras son raras (ej. listeners configurados al arrancar) y las lecturas frecuentes. Usa `Collections.synchronizedList` cuando las escrituras son frecuentes y las lecturas ocasionales â€” aunque `ConcurrentLinkedQueue` suele ser mejor que ambos para patrones de acceso tipo cola.
+### ¿Toda operación en un mapa concurrente es segura?
 
-**P: Â¿Puedo usar colecciones concurrentes desde cÃ³digo async/await?**
-R: Las colecciones concurrentes de Java funcionan bien con virtual threads y `CompletableFuture`. En Python, `asyncio` tiene su propia `asyncio.Queue` â€” mezclar `threading.Queue` con `asyncio` requiere bridging entre contextos de thread y event loop usando `loop.call_soon_threadsafe()`.
+Las lecturas y escrituras individuales son seguras, pero una secuencia de containsKey y luego put no lo es. Para ese check-then-act, usa compute-if-absent o merge.
 
+### ¿Puedo iterar sobre un mapa concurrente mientras otros hilos escriben en él?
 
-### Â¿Esta soluciÃ³n estÃ¡ lista para producciÃ³n?
+Sí. El iterador es débilmente consistente, así que muestra el estado en algún momento posterior a su creación y puede no reflejar cambios recientes. De todos modos, no lanza ConcurrentModificationException.
 
-SÃ­. Los ejemplos de cÃ³digo arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuraciÃ³n a tu entorno especÃ­fico antes de desplegar.
+### ¿Cuándo penaliza el rendimiento una lista copy-on-write?
 
-### Â¿CuÃ¡les son las caracterÃ­sticas de rendimiento?
+Se pone cara cuando las escrituras son frecuentes, porque cada una copia el array completo. Úsala cuando las lecturas sean muchas más que las escrituras, como en listas de listeners de eventos.
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, aÃ±ade caching, batching y connection pooling segÃºn sea necesario.
+### ¿Sigo necesitando locks si uso std::atomic?
 
-### Â¿CÃ³mo depuro problemas con este enfoque?
+No, para un contador o flag simple. Un atómico solo protege el valor que envuelve. Si actualizas varios campos relacionados a la vez, sigues necesitando un mutex o un diseño de más alto nivel.
 
-Empieza con el ejemplo mÃ­nimo de arriba. AÃ±ade logging en cada paso. Prueba con entradas pequeÃ±as primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-- **Corrupcion de estado via referencias stale**: si un thread obtiene una referencia a un objeto mutable desde una coleccion concurrente y otro thread lo modifica simultaneamente, el primer thread puede leer datos corruptos. Usa defensive copies o valores inmutables
-- **DoS via crecimiento de segmentos**: un atacante puede forzar el crecimiento de segmentos internos de ConcurrentHashMap insertando keys con hash collisions, degradando el rendimiento. Usa funciones de hash con buena distribucion
+### ¿Por qué no usar Collections.synchronizedList en todas partes?
 
+Bloquea toda la lista en cada acceso. Cuando los hilos empiezan a competir, se encolan y el throughput cae. Las colecciones concurrentes evitan ese cuello de botella.
 
-## Temas Avanzados
+## Conclusiones clave
 
-### Escenario: Estructuras de Datos Concurrentes en Java
+Elige la estructura que se ajuste al patrón de acceso, no solo al lenguaje. Una cola bloqueante encaja bien en pipelines productor-consumidor, un mapa concurrente en cachés compartidas y una lista copy-on-write en listas de listeners que casi no cambian.
 
-```java
-// ConcurrentHashMap: thread-safe sin bloquear toda la estructura
-ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
-// Operaciones atomicas
-map.putIfAbsent("count", 0);
-map.computeIfPresent("count", (k, v) -> v + 1);
-map.computeIfAbsent("stats", k -> new ArrayList<>());
+Los contadores atómicos y las colas seguras entre hilos se encargan de gran parte del bloqueo, pero no hacen inmutables tus valores. Un contenedor seguro entre hilos no evita que otro hilo modifique un objeto que contiene, así que mantén los valores inmutables o copiados antes de compartirlos.
 
-// AtomicLong: contador thread-safe sin locks
-AtomicLong counter = new AtomicLong(0);
-counter.incrementAndGet();      // ++counter
-counter.compareAndSet(5, 10);   // if (counter == 5) counter = 10
-counter.updateAndGet(x -> x * 2); // counter *= 2
+## Lecturas adicionales
 
-// BlockingQueue: productor-consumidor thread-safe
-BlockingQueue<Task> queue = new LinkedBlockingQueue<>(1000);
-// Productor
-queue.put(task);  // bloquea si la queue esta llena
-// Consumidor
-Task task = queue.take();  // bloquea si la queue esta vacia
-
-// CopyOnWriteArrayList: optimizado para lectura, copia en write
-CopyOnWriteArrayList<Listener> listeners = new CopyOnWriteArrayList<>();
-listeners.add(new Listener());  // copia el array interno
-for (Listener l : listeners) { l.notify(); }  // sin sincronizacion en read
-```
-
-```text
-Comparacion de estructuras concurrentes:
-  | Estructura | Lectura | Escritura | Use case |
-  |------------|---------|-----------|----------|
-  | ConcurrentHashMap | No bloquea | Segment lock | Cache, mapa compartido |
-  | synchronizedMap | Bloquea | Bloquea | Legacy, simple |
-  | CopyOnWriteArrayList | No bloquea | Copia array | Listeners, configs |
-  | BlockingQueue | Bloquea | Bloquea | Producer-consumer |
-  | ConcurrentLinkedQueue | No bloquea | CAS | Work stealing |
-  | AtomicLong | No bloquea | CAS | Contadores, secuencias |
-```
-
-Lecciones:
-  - ConcurrentHashMap: segment locks, no bloquea toda la estructura
-  - Atomic*: CAS (Compare-And-Swap), sin locks del SO
-  - BlockingQueue: bloquea al productor/consumidor, ideal para pipelines
-  - CopyOnWrite: optimizado para mucho read, poco write
-  - Evitar synchronized en metodos: granularidad gruesa, contencion
-  - Preferir java.util.concurrent sobre synchronized Collections
-```
-
-### Como evito deadlocks con estructuras concurrentes?
-
-Usa estructuras lock-free cuando sea posible (ConcurrentLinkedQueue, Atomic*). Si necesitas multiples locks, adquiere siempre en el mismo orden. Usa tryLock con timeout: no bloquees indefinidamente. Evita locks anidados: si tienes lock A y lock B, reestructura para no necesitar ambos. Usa java.util.concurrent en lugar de synchronized: las clases concurrentes estan disenadas para evitar deadlocks. Para transacciones, usar STM (Software Transactional Memory) o database transactions.
+- Documentación oficial de Java: [resumen del paquete java.util.concurrent](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) y [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html).
+- Documentación oficial de Python: [módulo queue](https://docs.python.org/3/library/queue.html) y [módulo threading](https://docs.python.org/3/library/threading.html).
+- Referencia de C++: [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic).
+- Recetas relacionadas: [Pools de hilos](/recipes/thread-pools), [Locks y mutexes](/recipes/locks-and-mutexes), [Prevención de condiciones de carrera](/recipes/race-condition-prevention).
