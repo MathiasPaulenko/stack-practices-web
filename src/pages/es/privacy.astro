@@ -60,9 +60,10 @@ const jsonLd = [
       <ul class="list-disc space-y-2 pl-5">
         <li>
           <strong>Google Analytics</strong> — vistas de página anónimas, duración de sesión e interacciones
-          para entender la popularidad del contenido y la experiencia del usuario. Los datos son agregados
-          y no te identifican personalmente. Puedes optar por no participar a través de nuestro banner de
-          consentimiento de cookies.
+          para entender la popularidad del contenido y la experiencia del usuario. Usamos Google Consent Mode:
+          si rechazas las cookies de análisis, el flujo sigue enviando pings anónimos sin cookies; si otorgas
+          consentimiento, puede usar cookies como <code>_ga</code> y <code>_gid</code>. Los datos son agregados
+          y no te identifican personalmente. Puedes gestionarlo a través de nuestro banner de consentimiento.
         </li>
         <li>
           <strong>Pagefind</strong> — la búsqueda local se ejecuta completamente en tu navegador. No se
@@ -96,10 +97,12 @@ const jsonLd = [
 
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Cookies y Rastreo</h2>
       <p>
-        Utilizamos cookies esenciales (para preferencia de idioma y estado de consentimiento de cookies)
-        y cookies de análisis (Google Analytics, solo con tu consentimiento). Puedes gestionar o
-        desactivar cookies a través de la configuración de tu navegador o mediante nuestro banner de
-        consentimiento de cookies. Para más detalles, consulta nuestra
+        Utilizamos cookies esenciales para la preferencia de idioma y el estado de consentimiento de cookies.
+        Las cookies de análisis y publicidad solo se establecen con tu consentimiento. Incluso cuando se
+        rechazan las cookies de análisis, seguimos recibiendo datos de uso anónimos y sin cookies a través de
+        Google Consent Mode para poder medir el tráfico sin identificarte. Puedes gestionar o desactivar
+        cookies a través de la configuración de tu navegador o mediante nuestro banner de consentimiento.
+        Para más detalles, consulta nuestra
         <a href="/es/cookies/" class="text-brand-600 hover:underline">Política de Cookies</a>.
       </p>
 
@@ -163,7 +166,7 @@ const jsonLd = [
         de vigencia actualizada. Los cambios significativos se anunciarán mediante un aviso en el sitio.
       </p>
 
-      <p class="mt-10 text-sm text-slate-500">Última actualización: 10 de junio de 2026</p>
+      <p class="mt-10 text-sm text-slate-500">Última actualización: 14 de agosto de 2026</p>
     </div>
   </section>
 </BaseLayout>

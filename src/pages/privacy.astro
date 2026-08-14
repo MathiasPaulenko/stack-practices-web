@@ -59,8 +59,10 @@ const jsonLd = [
       <ul class="list-disc space-y-2 pl-5">
         <li>
           <strong>Google Analytics</strong> — anonymous page views, session duration, and interactions
-          to understand content popularity and user experience. Data is aggregated and does not
-          personally identify you. You can opt out via our cookie consent banner.
+          to understand content popularity and user experience. We use Google Consent Mode: when you
+          decline analytics cookies, the stream still sends cookieless, non-identifiable pings; when you
+          grant consent, it may use cookies such as <code>_ga</code> and <code>_gid</code>. Data is
+          aggregated and does not personally identify you. You can manage this via our cookie consent banner.
         </li>
         <li>
           <strong>Pagefind</strong> — local search runs entirely in your browser. No search queries or
@@ -92,9 +94,11 @@ const jsonLd = [
 
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Cookies and Tracking</h2>
       <p>
-        We use essential cookies (for language preference and cookie consent state) and analytics
-        cookies (Google Analytics, only with your consent). You can manage or disable cookies through
-        your browser settings or via our cookie consent banner. For more details, see our
+        We use essential cookies for language preference and cookie consent state. Analytics and advertising
+        cookies are only set with your consent. Even when analytics cookies are declined, we still receive
+        anonymous, cookieless usage data through Google Consent Mode so we can measure traffic without
+        identifying you. You can manage or disable cookies through your browser settings or via our cookie
+        consent banner. For more details, see our
         <a href="/cookies/" class="text-brand-600 hover:underline">Cookie Policy</a>.
       </p>
 
@@ -155,7 +159,7 @@ const jsonLd = [
         Significant changes will be announced via a site notice.
       </p>
 
-      <p class="mt-10 text-sm text-slate-500">Last updated: June 10, 2026</p>
+      <p class="mt-10 text-sm text-slate-500">Last updated: August 14, 2026</p>
     </div>
   </section>
 </BaseLayout>

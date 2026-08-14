@@ -37,7 +37,8 @@ const {
 <!doctype html>
 <html lang={locale}>
   <head>
-    <!-- Google Consent Mode v2 + GTM + gtag — externalized for cacheability -->
+    <!-- Google Consent Mode v2 + GTM + gtag — externalized for cacheability.
+         Even when analytics cookies are denied, cookieless anonymous pings are still sent. -->
     <script async src="/analytics.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

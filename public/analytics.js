@@ -1,6 +1,9 @@
 (function () {
   'use strict';
   // Google Consent Mode v2 — Default Denied
+  // Even when analytics_storage is 'denied', GA4 still receives cookieless,
+  // non-identifiable pings (no _ga/_gid cookies, no client IDs) so we can
+  // measure anonymous traffic without requiring cookie consent.
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
   window.gtag = gtag;
@@ -9,6 +12,11 @@
     analytics_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied',
+    functionality_storage: 'granted',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    ads_data_redaction: true,
+    url_passthrough: false,
     wait_for_update: 500
   });
 
@@ -29,7 +37,8 @@
   gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-RBE12WJ5KZ';
   document.head.appendChild(gaScript);
 
-  // gtag config
+  // gtag config — signals off by default; consent update will enable them
+  // if the user grants analytics cookies, while cookieless hits keep flowing.
   gtag('js', new Date());
-  gtag('config', 'G-RBE12WJ5KZ');
+  gtag('config', 'G-RBE12WJ5KZ', { allow_google_signals: false, send_page_view: true });
 })();

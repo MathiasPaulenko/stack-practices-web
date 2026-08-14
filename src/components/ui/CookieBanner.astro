@@ -20,8 +20,8 @@ const isEs = locale === 'es';
       <div class="cookie-banner__text">
         <p>
           {isEs
-            ? 'StackPractices utiliza cookies esenciales, de análisis y publicidad. Puedes personalizar tus preferencias o aceptar todas. Consulta nuestra '
-            : 'StackPractices uses essential, analytics, and advertising cookies. You can customize your preferences or accept all. See our '}
+            ? 'StackPractices utiliza cookies esenciales y, solo con tu consentimiento, cookies de análisis y publicidad. Si rechazas las opcionales, seguimos enviando datos de uso anónimos y sin cookies para mejorar el contenido. Consulta nuestra '
+            : 'StackPractices uses essential cookies and, only with your consent, analytics and advertising cookies. If you decline optional cookies, we still send anonymous, cookieless usage data to improve content. See our '}
           <a href={`${isEs ? '/es' : ''}/cookies/`}>
             {isEs ? 'Política de Cookies' : 'Cookie Policy'}
           </a>.
@@ -29,7 +29,7 @@ const isEs = locale === 'es';
       </div>
       <div class="cookie-banner__actions">
         <button id="cookie-reject" class="cookie-banner__btn">
-          {isEs ? 'Rechazar' : 'Decline'}
+          {isEs ? 'Solo esenciales' : 'Essential only'}
         </button>
         <button id="cookie-manage" class="cookie-banner__btn">
           {isEs ? 'Gestionar' : 'Manage'}
@@ -77,7 +77,9 @@ const isEs = locale === 'es';
         <div>
           <p class="cookie-modal__option-title">{isEs ? 'Análisis' : 'Analytics'}</p>
           <p class="cookie-modal__option-help">
-            {isEs ? 'Ayudan a entender cómo se usa el sitio.' : 'Help us understand how the site is used.'}
+            {isEs
+              ? 'Ayudan a entender cómo se usa el sitio. Si las desactivas, seguimos recibiendo datos anónimos sin cookies.'
+              : 'Help us understand how the site is used. If disabled, we still receive anonymous, cookieless data.'}
           </p>
         </div>
         <input id="toggle-analytics" type="checkbox" aria-label={isEs ? 'Permitir cookies de análisis' : 'Allow analytics cookies'} class="cookie-modal__checkbox" />
@@ -88,7 +90,9 @@ const isEs = locale === 'es';
         <div>
           <p class="cookie-modal__option-title">{isEs ? 'Publicidad' : 'Advertising'}</p>
           <p class="cookie-modal__option-help">
-            {isEs ? 'Permiten mostrar anuncios relevantes.' : 'Allow us to show relevant ads.'}
+            {isEs
+              ? 'Permiten mostrar anuncios relevantes. Si las desactivas, no se usan cookies publicitarias ni se comparten datos de personalización.'
+              : 'Allow us to show relevant ads. If disabled, no advertising cookies are used and personalization data is not shared.'}
           </p>
         </div>
         <input id="toggle-advertising" type="checkbox" aria-label={isEs ? 'Permitir cookies de publicidad' : 'Allow advertising cookies'} class="cookie-modal__checkbox" />

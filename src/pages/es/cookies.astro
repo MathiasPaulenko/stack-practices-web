@@ -77,20 +77,44 @@ const jsonLd = [
               <td class="py-2">Persistente (localStorage)</td>
             </tr>
             <tr class="border-b border-slate-100">
-              <td class="py-2 pr-4 font-medium">Análisis</td>
-              <td class="py-2 pr-4">Vistas de página anónimas vía Google Analytics</td>
+              <td class="py-2 pr-4 font-medium">Pings de análisis anónimos</td>
+              <td class="py-2 pr-4">Vistas de página sin cookies y no identificables enviadas a Google Analytics a través de Consent Mode</td>
+              <td class="py-2">Ninguna (no se almacenan cookies)</td>
+            </tr>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 pr-4 font-medium">Cookies de análisis</td>
+              <td class="py-2 pr-4">Vistas de página anónimas enriquecidas vía Google Analytics cuando otorgas consentimiento</td>
               <td class="py-2">2 años (_ga), 24 horas (_gid)</td>
+            </tr>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 pr-4 font-medium">Cookies de publicidad</td>
+              <td class="py-2 pr-4">Soportar anuncios relevantes y medir conversiones cuando otorgas consentimiento</td>
+              <td class="py-2">Sesión a 1 año (terceros)</td>
             </tr>
           </tbody>
         </table>
       </div>
 
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Análisis Anónimo (Consent Mode)</h2>
+      <p>
+        StackPractices utiliza el <strong>Google Consent Mode</strong>. Si rechazas las cookies de análisis o
+        eliges "Solo esenciales", Google Analytics sigue recibiendo pings anónimos sin cookies que nos ayudan
+        a entender el tráfico general sin almacenar las cookies <code>_ga</code> o <code>_gid</code> en tu
+        dispositivo. Esos pings no incluyen ningún identificador de usuario, por lo que no pueden usarse para
+        rastrearte personalmente entre sesiones o sitios.
+      </p>
+      <p>
+        Si más tarde concedes consentimiento de análisis, el mismo flujo de Google Analytics cambia a su modo
+        normal basado en cookies y puede enriquecer los datos con información de sesión y dispositivo. Puedes
+        cambiar tu elección en cualquier momento usando el banner de cookies o la configuración de tu navegador.
+      </p>
+
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Cookies de Terceros</h2>
       <p>
-        Google Analytics puede establecer cookies en tu dispositivo para rastrear patrones de uso
-        anónimos. Estas cookies solo se colocan después de que otorgues consentimiento mediante nuestro
-        banner de cookies. Puedes revocar el consentimiento en cualquier momento eliminando cookies o
-        usando los controles a continuación.
+        Google Analytics puede establecer cookies de análisis en tu dispositivo solo después de que otorgues
+        consentimiento. Las cookies de publicidad solo se establecen si otorgas consentimiento publicitario.
+        Puedes revocar el consentimiento en cualquier momento usando los controles del banner de cookies o
+        borrando las cookies y el localStorage de tu navegador.
       </p>
 
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Cómo Gestionar las Cookies</h2>
@@ -112,8 +136,9 @@ const jsonLd = [
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Impacto de Desactivar Cookies</h2>
       <p>
         Desactivar cookies esenciales puede hacer que el sitio olvide tu preferencia de idioma.
-        Desactivar cookies de análisis no afectará la funcionalidad del sitio, pero nos ayuda a
-        mantener StackPractices gratuito y bien mantenido al entender qué contenido es más útil.
+        Desactivar cookies de análisis o publicidad no afectará la funcionalidad del sitio. Incluso cuando
+        están desactivadas, seguimos recibiendo señales de uso anónimas y sin cookies a través de Google
+        Consent Mode para mantener StackPractices gratuito y bien mantenido.
       </p>
 
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Cambios a Esta Política</h2>
@@ -123,7 +148,7 @@ const jsonLd = [
         vigencia actualizada.
       </p>
 
-      <p class="mt-10 text-sm text-slate-500">Última actualización: 10 de junio de 2026</p>
+      <p class="mt-10 text-sm text-slate-500">Última actualización: 14 de agosto de 2026</p>
     </div>
   </section>
 </BaseLayout>

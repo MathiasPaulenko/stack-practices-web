@@ -75,19 +75,43 @@ const jsonLd = [
               <td class="py-2">Persistent (localStorage)</td>
             </tr>
             <tr class="border-b border-slate-100">
-              <td class="py-2 pr-4 font-medium">Analytics</td>
-              <td class="py-2 pr-4">Anonymous page views via Google Analytics</td>
+              <td class="py-2 pr-4 font-medium">Anonymous analytics pings</td>
+              <td class="py-2 pr-4">Cookieless, non-identifiable page views sent to Google Analytics via Consent Mode</td>
+              <td class="py-2">None (no cookies stored)</td>
+            </tr>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 pr-4 font-medium">Analytics cookies</td>
+              <td class="py-2 pr-4">Enriched anonymous page views via Google Analytics when you grant consent</td>
               <td class="py-2">2 years (_ga), 24 hours (_gid)</td>
+            </tr>
+            <tr class="border-b border-slate-100">
+              <td class="py-2 pr-4 font-medium">Advertising cookies</td>
+              <td class="py-2 pr-4">Support relevant ads and conversion measurement when you grant consent</td>
+              <td class="py-2">Session to 1 year (third-party)</td>
             </tr>
           </tbody>
         </table>
       </div>
 
+      <h2 class="mt-10 text-xl font-semibold text-slate-900">Anonymous Analytics (Consent Mode)</h2>
+      <p>
+        StackPractices uses <strong>Google Consent Mode</strong>. When you decline analytics cookies or
+        choose "Essential only", Google Analytics still receives non-identifiable, cookieless pings that
+        help us understand overall traffic without storing the <code>_ga</code> or <code>_gid</code> cookies
+        on your device. These pings do not include any user identifier, so they cannot be used to track you
+        personally across sessions or sites.
+      </p>
+      <p>
+        If you later grant analytics consent, the same Google Analytics stream switches to its normal
+        cookie-based mode and may enrich the data with things like session stitching and device information.
+        You can change your choice at any time using the cookie banner or your browser settings.
+      </p>
+
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Third-Party Cookies</h2>
       <p>
-        Google Analytics may set cookies on your device to track anonymous usage patterns. These
-        cookies are only placed after you provide consent via our cookie banner. You can revoke consent
-        at any time by clearing cookies or using the controls below.
+        Google Analytics may set analytics cookies on your device only after you provide consent. Advertising
+        cookies are only set if you grant advertising consent. You can revoke consent at any time using the
+        cookie banner controls or by clearing your browser cookies and localStorage.
       </p>
 
       <h2 class="mt-10 text-xl font-semibold text-slate-900">How to Manage Cookies</h2>
@@ -109,8 +133,9 @@ const jsonLd = [
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Impact of Disabling Cookies</h2>
       <p>
         Disabling essential cookies may cause the site to forget your language preference.
-        Disabling analytics cookies will not affect site functionality but helps us keep
-        StackPractices free and well-maintained by understanding what content is most useful.
+        Disabling analytics or advertising cookies will not affect site functionality. Even when those
+        cookies are disabled, we still receive anonymous, cookieless usage signals through Google Consent
+        Mode to keep StackPractices free and well-maintained.
       </p>
 
       <h2 class="mt-10 text-xl font-semibold text-slate-900">Changes to This Policy</h2>
@@ -119,7 +144,7 @@ const jsonLd = [
         requirements. Any changes will be posted on this page with an updated effective date.
       </p>
 
-      <p class="mt-10 text-sm text-slate-500">Last updated: June 10, 2026</p>
+      <p class="mt-10 text-sm text-slate-500">Last updated: August 14, 2026</p>
     </div>
   </section>
 </BaseLayout>

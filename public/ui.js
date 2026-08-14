@@ -389,11 +389,24 @@
 
     function updateGtagConsent(consent) {
       if (typeof gtag !== 'function') return;
+      var adGranted = consent.ad_storage === 'granted';
+      var analyticsGranted = consent.analytics_storage === 'granted';
       gtag('consent', 'update', {
-        'analytics_storage': consent.analytics_storage || 'denied',
-        'ad_storage': consent.ad_storage || 'denied',
-        'ad_user_data': consent.ad_user_data || 'denied',
-        'ad_personalization': consent.ad_personalization || 'denied'
+        'analytics_storage': analyticsGranted ? 'granted' : 'denied',
+        'ad_storage': adGranted ? 'granted' : 'denied',
+        'ad_user_data': adGranted ? 'granted' : 'denied',
+        'ad_personalization': adGranted ? 'granted' : 'denied',
+        'functionality_storage': 'granted',
+        'personalization_storage': adGranted ? 'granted' : 'denied',
+        'security_storage': 'granted',
+        'ads_data_redaction': adGranted ? false : true,
+        'url_passthrough': adGranted ? true : false
+      });
+      // Keep Google Signals aligned with the actual consent state without
+      // sending an extra page_view; cookieless hits continue to flow.
+      gtag('config', 'G-RBE12WJ5KZ', {
+        'allow_google_signals': analyticsGranted,
+        'send_page_view': false
       });
     }
 
