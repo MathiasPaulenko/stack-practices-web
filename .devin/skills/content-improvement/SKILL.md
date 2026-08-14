@@ -49,14 +49,18 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
 
 5. **Detección de IA**
    - Ejecutar el detector Desklib en ambos idiomas:
-     ```
+
+     ```bash
      python scripts/ai-detect-content.py src/content/{tipo}/{slug}.md --es src/content/{tipo}/{slug}.es.md --model desklib
      ```
+
    - Ejecutar el detector de patrones:
-     ```
+
+     ```bash
      python scripts/ai-detect-patterns.py src/content/{tipo}/{slug}.md
      python scripts/ai-detect-patterns.py src/content/{tipo}/{slug}.es.md
      ```
+
    - NO usar el modelo `light`.
 
 6. **Aplicar `.devin/skills/content-improvement/reference/ai-detect-analysis.md`**
@@ -73,7 +77,8 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
 
 8. **Validación técnica**
    - Ejecutar la cadena de validación:
-     ```
+
+     ```bash
      npm run content:quality
      npm run content:links
      npm run content:validate
@@ -81,6 +86,7 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
      npm run build
      npm run sitemap
      ```
+
    - Alternativa: `node scripts/content-improvement-pipeline.cjs <slug>`
 
 9. **Revisión y resumen**

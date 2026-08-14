@@ -43,7 +43,8 @@ El usuario proporcionará:
 
 6. **Validación técnica**
    Ejecutar en orden y no continuar si uno falla:
-   ```
+
+   ```bash
    npm run content:quality
    npm run content:links
    npm run content:validate
@@ -51,6 +52,7 @@ El usuario proporcionará:
    npm run build
    npm run sitemap
    ```
+
    También se puede usar `node scripts/content-improvement-pipeline.cjs <slug>` si existe.
 
 7. **Resumen y aprobación**
