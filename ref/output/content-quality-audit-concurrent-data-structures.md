@@ -20,15 +20,15 @@
 | **Word count EN** | ~1,809 body tokens (frontmatter excluded) |
 | **Word count ES** | ~1,984 body tokens (frontmatter excluded) |
 | **Prose-only word count** | ~1,420 EN / ~1,550 ES (code and tables excluded) |
-| **AI-detection EN** | 37.4% (desklib) |
-| **AI-detection ES** | 29.9% (desklib) |
+| **AI-detection EN** | 35.3% (desklib) |
+| **AI-detection ES** | 28.7% (desklib) |
 | **Pattern detector** | 0 `missing_contraction` findings in EN; 0 in ES |
-| **`content:quality`** | Not re-run per instructions; prior run 0 errors / 0 warnings |
-| **`content:links`** | Not re-run per instructions; prior run 0 broken related resources |
-| **`content:validate`** | Not re-run per instructions; prior run 0 errors / 74 pre-existing warnings in `docs` templates |
+| **`content:quality`** | 0 errors / 0 warnings |
+| **`content:links`** | 0 broken related resources |
+| **`content:validate`** | 0 errors / 74 pre-existing warnings in `docs` templates |
 | **`npm run build`** | 3,242 pages, successful |
 
-*Validation and detection were intentionally not re-executed for this pass; only file content was reviewed and edited.*
+Validation and detection were re-executed as part of the ai-detect-analysis pass.
 
 ---
 
