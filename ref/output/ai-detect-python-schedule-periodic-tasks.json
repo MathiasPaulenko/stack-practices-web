@@ -2,15 +2,12 @@
   {
     "label": "python-schedule-periodic-tasks-en",
     "model": "desklib",
-    "model_ai_pct": 39.0,
-    "ai_count": 17,
-    "human_count": 66,
+    "model_ai_pct": 38.6,
+    "ai_count": 16,
+    "human_count": 67,
     "skipped_count": 1,
     "total": 84,
-    "pattern_totals": {
-      "missing_contraction": 1,
-      "vague_abstraction": 1
-    },
+    "pattern_totals": {},
     "text_metrics": {
       "mean": 18.7,
       "stddev": 9.7,
@@ -31,7 +28,7 @@
         17,
         17,
         19,
-        20,
+        19,
         10,
         19,
         17,
@@ -81,7 +78,7 @@
         25,
         9,
         17,
-        13,
+        15,
         13,
         16,
         16,
@@ -105,8 +102,8 @@
     },
     "top_ai_sentences": [
       [
-        "The scheduler starts before the Flask app begins serving traffic, so it is already running when the first request arrives.",
-        0.8157
+        "The scheduler starts before the Flask app begins serving traffic, so it's already running when the first request arrives.",
+        0.8365
       ],
       [
         "next_run_time takes a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a timezone-aware datetime.",
@@ -139,10 +136,6 @@
       [
         "If you rely on an in-memory store, the job disappears when the process stops.",
         0.5644
-      ],
-      [
-        "Multiple gunicorn workers can start multiple schedulers and run the same job twice.",
-        0.5534
       ],
       [
         "You can mix schedulers, job stores, and executors to match the workload.",
@@ -203,30 +196,13 @@
       [
         "Call shutdown() with a timeout so active jobs can finish.",
         0.4702
+      ],
+      [
+        "A process lock or a single-instance deployment stops that from happening.",
+        0.4699
       ]
     ],
-    "diagnostics_sample": [
-      {
-        "sentence": "The scheduler starts before the Flask app begins serving traffic, so it is already running when the first request arrives.",
-        "findings": [
-          {
-            "pattern": "missing_contraction",
-            "match": "it is",
-            "suggestion": "use 'it's'"
-          }
-        ]
-      },
-      {
-        "sentence": "Multiple gunicorn workers can start multiple schedulers and run the same job twice.",
-        "findings": [
-          {
-            "pattern": "vague_abstraction",
-            "match": "multiple",
-            "suggestion": "say how many, or name them"
-          }
-        ]
-      }
-    ]
+    "diagnostics_sample": []
   },
   {
     "label": "python-schedule-periodic-tasks-es",

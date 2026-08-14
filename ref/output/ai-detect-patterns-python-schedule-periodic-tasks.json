@@ -1,21 +1,8 @@
 [
   {
     "label": "python-schedule-periodic-tasks",
-    "total_sentences": 75,
-    "pattern_totals": {
-      "missing_contraction": 1
-    },
-    "findings": [
-      {
-        "sentence": "A background scheduler won't start jobs until you call its start method, and that is an easy step to miss.",
-        "findings": [
-          {
-            "pattern": "missing_contraction",
-            "match": "that is",
-            "suggestion": "use 'that's'"
-          }
-        ]
-      }
-    ]
+    "total_sentences": 84,
+    "pattern_totals": {},
+    "findings": []
   }
 ]

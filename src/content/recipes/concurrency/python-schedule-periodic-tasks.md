@@ -294,7 +294,7 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
 ```
 
-The scheduler starts before the Flask app begins serving traffic, so it is already running when the first request arrives. Keeping scheduler startup out of request handlers avoids duplicate instances.
+The scheduler starts before the Flask app begins serving traffic, so it's already running when the first request arrives. Keeping scheduler startup out of request handlers avoids duplicate instances.
 
 ## Explanation
 
@@ -345,7 +345,7 @@ You can mix schedulers, job stores, and executors to match the workload. Backgro
 - Duplicate runs across workers: a shared SQLAlchemy job store should only have one active scheduler process. Several schedulers polling the same store can race and run the same job twice. A process lock or a single-instance deployment stops that from happening.
 - No health signal: if the scheduler is critical, expose a health endpoint that checks the scheduler status, recent job executions, and the listener event stream. See [Docker health check configuration](/recipes/docker-health-check-configuration/) for a concrete pattern.
 - next_run_time takes a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a timezone-aware datetime.
-- Multiple gunicorn workers can start multiple schedulers and run the same job twice. Use a process lock or run the scheduler in a single dedicated process.
+- Two or more gunicorn workers can start extra schedulers and run the same job twice. Use a process lock or run the scheduler in a single dedicated process.
 
 ## FAQ
 
