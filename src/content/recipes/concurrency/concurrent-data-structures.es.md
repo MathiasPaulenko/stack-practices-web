@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: concurrent-data-structures
-title: "Usa Estructuras Concurrentes para Colecciones Seguras"
-description: "Cómo compartir colecciones entre hilos de forma segura usando colas bloqueantes, mapas concurrentes, listas copy-on-write y contadores atómicos en Java, Python y C++."
-metaDescription: "Usa colas bloqueantes, mapas concurrentes y contadores atómicos para compartir colecciones seguras entre hilos en Java, Python y C++."
+title: "Estructuras Concurrentes para Colecciones Seguras"
+description: "Cómo compartir colecciones entre hilos de forma segura usando estructuras concurrentes: colas, mapas, listas y contadores atómicos en Java, Python y C++."
+metaDescription: "Estructuras concurrentes para colecciones seguras en Java, Python y C++: colas bloqueantes, mapas concurrentes y contadores atómicos—sin bloqueos manuales."
 difficulty: intermediate
 topics:
   - concurrency
@@ -18,23 +18,23 @@ tags:
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools
-  - /recipes/async-patterns
-  - /recipes/microservices-patterns
-  - /recipes/csp-communication
+  - /recipes/python-thread-pool-executor
   - /recipes/race-condition-prevention
-lastUpdated: "2026-08-15"
+  - /recipes/csp-communication
+  - /recipes/async-patterns
+lastUpdated: "2026-08-16"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Usa colas bloqueantes, mapas concurrentes y contadores atómicos para compartir colecciones seguras entre hilos en Java, Python y C++."
+  metaDescription: "Estructuras concurrentes para colecciones seguras en Java, Python y C++: colas bloqueantes, mapas concurrentes y contadores atómicos—sin bloqueos manuales."
   keywords:
     - estructuras de datos concurrentes
     - colecciones seguras entre hilos
     - cola bloqueante
     - mapa concurrente
     - contador atómico
-    - productor consumidor
-    - copy on write
+    - productor-consumidor
+    - copy-on-write
 ---
 
 ## Visión general
@@ -78,13 +78,15 @@ class OrderProcessor {
 
     public void start() {
         Thread producer = new Thread(() -> {
-            for (int i = 0; i < 1000; i++) {
-                try {
+            try {
+                for (int i = 0; i < 1000; i++) {
                     submit(new Order(i));
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
                 }
+                for (int i = 0; i < 4; i++) {
+                    submit(new Order(-1)); // centinela para detener cada consumidor
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         });
 
@@ -92,7 +94,9 @@ class OrderProcessor {
             new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        process(take());
+                        Order order = take();
+                        if (order.id() == -1) break;
+                        process(order);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         break;
@@ -150,18 +154,29 @@ class TaskQueue:
     def process(self, task):
         print(f"Processing {task}")
 
+    def producer(self):
+        for i in range(1000):
+            self.submit(i)
+        for _ in range(4):
+            self.queue.put(None)  # centinela para detener cada trabajador
+
     def worker(self):
         while True:
             task = self.queue.get()  # bloquea si está vacía
             if task is None:
+                self.queue.task_done()
                 break
             self.process(task)
             self.queue.task_done()
 
     def start(self):
-        Thread(target=lambda: [self.submit(i) for i in range(1000)]).start()
-        for _ in range(4):
-            Thread(target=self.worker).start()
+        workers = [Thread(target=self.worker) for _ in range(4)]
+        for w in workers:
+            w.start()
+        producer = Thread(target=self.producer)
+        producer.start()
+        producer.join()
+        self.queue.join()
 
 TaskQueue().start()
 ```
@@ -208,6 +223,10 @@ class AtomicCounter:
             self._value += 1
             return self._value
 
+    def value(self):
+        with self._lock:
+            return self._value
+
 counter = AtomicCounter()
 
 def worker():
@@ -220,7 +239,7 @@ for t in threads:
 for t in threads:
     t.join()
 
-print(counter.increment())
+print(counter.value())
 ```
 
 ### Contador atómico en C++

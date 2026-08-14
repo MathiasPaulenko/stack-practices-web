@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: concurrent-data-structures
-title: "Use Concurrent Data Structures for Thread-Safe Collections"
-description: "How to safely share collections between threads using blocking queues, concurrent maps, copy-on-write lists, and atomic counters in Java, Python, and C++."
-metaDescription: "Use concurrent queues, maps, and atomic counters to share thread-safe collections across Java, Python, and C++ without hand-written locks or race conditions."
+title: "Concurrent Data Structures for Thread-Safe Collections"
+description: "How to safely share collections between threads using concurrent data structures—blocking queues, maps, lists, and atomic counters—in Java, Python, and C++."
+metaDescription: "Concurrent data structures for thread-safe collections in Java, Python, and C++: blocking queues, concurrent maps, and atomic counters—no hand-written locks."
 difficulty: intermediate
 topics:
   - concurrency
@@ -18,15 +18,15 @@ tags:
 relatedResources:
   - /recipes/locks-and-mutexes
   - /recipes/thread-pools
-  - /recipes/async-patterns
-  - /recipes/microservices-patterns
-  - /recipes/csp-communication
+  - /recipes/python-thread-pool-executor
   - /recipes/race-condition-prevention
-lastUpdated: "2026-08-15"
+  - /recipes/csp-communication
+  - /recipes/async-patterns
+lastUpdated: "2026-08-16"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Use concurrent queues, maps, and atomic counters to share thread-safe collections across Java, Python, and C++ without hand-written locks or race conditions."
+  metaDescription: "Concurrent data structures for thread-safe collections in Java, Python, and C++: blocking queues, concurrent maps, and atomic counters—no hand-written locks."
   keywords:
     - concurrent data structures
     - thread-safe collections
@@ -78,13 +78,15 @@ class OrderProcessor {
 
     public void start() {
         Thread producer = new Thread(() -> {
-            for (int i = 0; i < 1000; i++) {
-                try {
+            try {
+                for (int i = 0; i < 1000; i++) {
                     submit(new Order(i));
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
                 }
+                for (int i = 0; i < 4; i++) {
+                    submit(new Order(-1)); // sentinel to stop each consumer
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         });
 
@@ -92,7 +94,9 @@ class OrderProcessor {
             new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        process(take());
+                        Order order = take();
+                        if (order.id() == -1) break;
+                        process(order);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         break;
@@ -150,18 +154,29 @@ class TaskQueue:
     def process(self, task):
         print(f"Processing {task}")
 
+    def producer(self):
+        for i in range(1000):
+            self.submit(i)
+        for _ in range(4):
+            self.queue.put(None)  # sentinel to stop each worker
+
     def worker(self):
         while True:
             task = self.queue.get()  # blocks if empty
             if task is None:
+                self.queue.task_done()
                 break
             self.process(task)
             self.queue.task_done()
 
     def start(self):
-        Thread(target=lambda: [self.submit(i) for i in range(1000)]).start()
-        for _ in range(4):
-            Thread(target=self.worker).start()
+        workers = [Thread(target=self.worker) for _ in range(4)]
+        for w in workers:
+            w.start()
+        producer = Thread(target=self.producer)
+        producer.start()
+        producer.join()
+        self.queue.join()
 
 TaskQueue().start()
 ```
@@ -208,6 +223,10 @@ class AtomicCounter:
             self._value += 1
             return self._value
 
+    def value(self):
+        with self._lock:
+            return self._value
+
 counter = AtomicCounter()
 
 def worker():
@@ -220,7 +239,7 @@ for t in threads:
 for t in threads:
     t.join()
 
-print(counter.increment())
+print(counter.value())
 ```
 
 ### C++ Atomic Counter

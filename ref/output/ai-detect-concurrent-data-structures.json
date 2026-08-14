@@ -304,12 +304,12 @@
         0.9232
       ],
       [
-        "Mant\u00e9n los valores inmutables o copiados defensivamente antes de compartirlos.",
-        0.8926
+        "| Estructura | Lecturas | Escrituras | Mejor para | Sobrecarga |\n|-----------|----------|------------|------------|----------|\n|  | Bloqueante | Bloqueante | Productor-consumidor c",
+        0.8979
       ],
       [
-        "| Estructura | Lecturas | Escrituras | Mejor para | Overhead |\n|-----------|----------|------------|------------|----------|\n|  | Bloqueante | Bloqueante | Productor-consumidor con",
-        0.8767
+        "Mant\u00e9n los valores inmutables o copiados defensivamente antes de compartirlos.",
+        0.8926
       ],
       [
         "Ten bajo control el tama\u00f1o de las colas, la tasa de aciertos de cach\u00e9 y la longitud de la lista de listeners.",
