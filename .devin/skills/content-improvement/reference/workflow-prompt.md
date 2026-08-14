@@ -19,18 +19,18 @@ El usuario proporcionará:
    - Si falta la versión ES, detener el flujo y avisar al usuario; no continuar sin paridad.
 
 2. **Auditoría SEO técnica**
-   - Aplicar `.devin/skills/content-improvement/reference/17-technical-seo-audit.md` al contenido en inglés.
+   - Aplicar `.devin/skills/content-improvement/reference/prompt-17-technical-seo-audit.md` al contenido en inglés.
    - Corregir los hallazgos críticos que afecten a ambas versiones (títulos, meta descriptions, canonical, hreflang interno, structured data, enlaces internos).
 
 3. **Auditoría de calidad de contenido**
-   - Aplicar `.devin/skills/content-improvement/reference/18-content-quality-auditor.md` a EN y ES.
+   - Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` a EN y ES.
    - Corregir contenido genérico, superficial, incompleto o poco práctico.
 
 4. **Detección y corrección de patrones IA**
    - Ejecutar `python scripts/ai-detect-content.py src/content/{tipo}/{slug}.md --es src/content/{tipo}/{slug}.es.md --model desklib`
    - Ejecutar `python scripts/ai-detect-patterns.py src/content/{tipo}/{slug}.md`
    - Ejecutar `python scripts/ai-detect-patterns.py src/content/{tipo}/{slug}.es.md`
-   - Aplicar `.devin/skills/content-improvement/reference/ai-detect-analysis.md`.
+   - Aplicar `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md`.
    - Corregir patrones primero, luego las frases con mayor probabilidad IA.
    - Reescribir frases una a una; no borrar contenido técnico.
 

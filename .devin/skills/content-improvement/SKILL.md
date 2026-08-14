@@ -40,11 +40,11 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
    - Revisar `relatedResources`, `metaDescription`, `title`, `description`, `lastUpdated`.
 
 3. **Auditoría SEO técnica (Prompt 17)**
-   - Aplicar el contenido de `.devin/skills/content-improvement/reference/17-technical-seo-audit.md` al recurso EN.
+   - Aplicar el contenido de `.devin/skills/content-improvement/reference/prompt-17-technical-seo-audit.md` al recurso EN.
    - Generar `ref/output/seo-audit-{slug}.md` solo si hay hallazgos accionables.
 
 4. **Auditoría de calidad de contenido (Prompt 18)**
-   - Aplicar `.devin/skills/content-improvement/reference/18-content-quality-auditor.md` a ambas versiones.
+   - Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` a ambas versiones.
    - Generar `ref/output/content-quality-audit-{slug}.md` si procede.
 
 5. **Detección de IA**
@@ -63,7 +63,7 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
 
    - NO usar el modelo `light`.
 
-6. **Aplicar `.devin/skills/content-improvement/reference/ai-detect-analysis.md`**
+6. **Aplicar `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md`**
    - Corregir hallazgos de patrones primero.
    - Humanizar frases con alta probabilidad IA conservando el contenido técnico.
    - Reescribir frases una a una; no reescribir el recurso completo si no es necesario.
@@ -97,6 +97,19 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
 10. **Commit y push** (solo tras aprobación)
     - Mensaje en inglés, sin mencionar herramientas IA.
     - Incluir `Co-Authored-By` solo si el proyecto lo requiere.
+
+## Referencias del skill
+
+Antes de aplicar el flujo, consulta la documentación de apoyo empaquetada en este mismo directorio:
+
+- `.devin/skills/content-improvement/reference/workflow-prompt.md` — prompt maestro para copiar y pegar.
+- `.devin/skills/content-improvement/reference/workflow-guide.md` — guía detallada del flujo.
+- `.devin/skills/content-improvement/reference/ai-detection-tools.md` — cómo usar los scripts de detección IA.
+- `.devin/skills/content-improvement/reference/prompt-17-technical-seo-audit.md` — criterios de auditoría SEO técnica.
+- `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` — criterios de calidad de contenido.
+- `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md` — cómo corregir hallazgos de IA.
+
+Para elegir qué recurso mejorar, usa `ref/top-100-checklist.md` (o `ref/top-100-resources.md`), que se genera automáticamente.
 
 ## Reglas críticas
 

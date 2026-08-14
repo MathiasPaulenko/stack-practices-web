@@ -123,7 +123,7 @@ python scripts/ai-detect-content.py src/content/{tipo}/{slug}.md --model light
 estabilizarse entre 35 % y 50 % con `desklib`. Lo más importante es que
 `pattern_totals` esté vacío y el texto sea útil.
 
-Prompt de referencia: `.devin/skills/content-improvement/reference/ai-detect-analysis.md`.
+Prompt de referencia: `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md`.
 
 ---
 
@@ -181,11 +181,10 @@ npm run sitemap
 
 ## Referencias
 
-- `ref/ai-detection-tools.md` — herramientas y scripts de detección de IA.
-- `.devin/skills/content-improvement/reference/ai-detect-analysis.md` — prompt para análisis con ai-detect.
-- `ref/prompts-ia/1-auditoria.md` — auditoría editorial y técnica.
-- `ref/prompts-ia/2-mejora.md` — mejora de un recurso existente.
-- `ref/prompts-ia/3-revision-final.md` — revisión final antes de publicar.
+- `ai-detection-tools.md` (este skill) — herramientas y scripts de detección de IA.
+- `prompt-ai-detect-analysis.md` (este skill) — prompt para análisis con ai-detect.
+- `prompt-17-technical-seo-audit.md` (este skill) — criterios de auditoría SEO técnica.
+- `prompt-18-content-quality-auditor.md` (este skill) — criterios de calidad de contenido.
 - `ref/docs/content-architecture.md` — esquemas y colecciones.
 - `ref/docs/geo.md` — estrategia GEO y estructura de contenido.
 - `ref/docs/seo.md` — SEO técnico y on-page.

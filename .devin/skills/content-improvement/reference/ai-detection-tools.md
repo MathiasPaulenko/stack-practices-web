@@ -4,7 +4,7 @@
 
 - **Instalación:** `C:\Users\mathi\AppData\Roaming\Python\Python314\site-packages\ai_detect\`
 - **Modelo por defecto:** `desklib/ai-text-detector-v1.01` (DeBERTa-v3-large), más fiable.
-- **Modelo alternativo:** `light` (`onnx-community/tmr-ai-text-detector-ONNX`), más rápido pero sobre-marca.
+- **Modelo alternativo:** `light` (`onnx-community/tmr-ai-text-detector-ONNX`), más rápido pero sobre-marca. **El skill `content-improvement` lo prohíbe: usar siempre `desklib` para los informes finales.**
 
 ### Scripts de StackPractices
 
@@ -48,5 +48,5 @@ Los informes se escriben en `ref/output/`:
 
 ## Referencia
 
-- Prompt de análisis: `.devin/skills/content-improvement/reference/ai-detect-analysis.md`.
-- Flujo completo: `ref/content-improvement-workflow.md`.
+- Prompt de análisis: `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md`.
+- Flujo completo: `.devin/skills/content-improvement/reference/workflow-guide.md`.
