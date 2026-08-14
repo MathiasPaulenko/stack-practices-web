@@ -1,0 +1,415 @@
+[
+  {
+    "label": "python-schedule-periodic-tasks-en",
+    "model": "desklib",
+    "model_ai_pct": 39.5,
+    "ai_count": 12,
+    "human_count": 64,
+    "skipped_count": 0,
+    "total": 76,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 20.1,
+      "stddev": 11.4,
+      "cv": 0.57,
+      "verdict": "natural variation",
+      "sentence_count": 76,
+      "lengths": [
+        21,
+        26,
+        32,
+        23,
+        22,
+        44,
+        22,
+        19,
+        8,
+        17,
+        19,
+        17,
+        13,
+        28,
+        17,
+        18,
+        18,
+        13,
+        21,
+        61,
+        27,
+        24,
+        86,
+        10,
+        15,
+        28,
+        23,
+        23,
+        19,
+        35,
+        18,
+        15,
+        26,
+        9,
+        15,
+        17,
+        24,
+        12,
+        14,
+        24,
+        21,
+        17,
+        11,
+        17,
+        16,
+        25,
+        10,
+        15,
+        17,
+        16,
+        14,
+        11,
+        25,
+        21,
+        10,
+        14,
+        31,
+        16,
+        16,
+        24,
+        12,
+        14,
+        21,
+        11,
+        20,
+        8,
+        39,
+        17,
+        11,
+        14,
+        12,
+        8,
+        14,
+        16,
+        23,
+        19
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Listen for EVENT_JOB_ERROR: a failing job won't crash the scheduler, which is exactly why you need a log entry somewhere you'll actually look.",
+        0.9845
+      ],
+      [
+        "next_run_time takes a datetime: it expects a datetime, not a Unix timestamp, so pass datetime.now() + timedelta(...) or a timezone-aware datetime.",
+        0.9769
+      ],
+      [
+        "To add or remove a job, use scheduler.add_job and scheduler.remove_job, passing the function, trigger, and any arguments.",
+        0.8646
+      ],
+      [
+        "For async functions, use AsyncIOScheduler with AsyncIOExecutor, which integrates into the asyncio event loop and runs async jobs as coroutines.",
+        0.5941
+      ],
+      [
+        "Set it in the job defaults to apply the rule to all jobs, or on the job itself to apply it to just one.",
+        0.5898
+      ],
+      [
+        "Start the scheduler once when the app boots, and if the app has more than one gunicorn worker, use a process lock or a single dedicated process to avoid duplicate runs.",
+        0.5895
+      ],
+      [
+        "A background scheduler does nothing until you call its start method, and that's an easy step to miss.",
+        0.5876
+      ],
+      [
+        "Duplicate runs across workers: a shared SQLAlchemy job store should only have one active scheduler process.",
+        0.5838
+      ],
+      [
+        "If you rely on an in-memory store, the job disappears when the process stops.",
+        0.5644
+      ],
+      [
+        "For heavy distributed work with retries, task routing, and worker scaling, Celery is the better choice.",
+        0.5243
+      ],
+      [
+        "The process hangs on exit: BackgroundScheduler uses daemon threads that won't keep the main process alive and will be killed abruptly when the process exits.",
+        0.5114
+      ],
+      [
+        "That pattern comes in handy for user-scheduled tasks or cron-like functionality in web apps.",
+        0.5039
+      ],
+      [
+        "In Flask, start the scheduler once when the app boots instead of on every request.",
+        0.4971
+      ],
+      [
+        "The interval trigger waits N seconds, minutes, hours, or days and fires again.",
+        0.4901
+      ],
+      [
+        "For simple periodic tasks, APScheduler is a good fit; it's lighter and doesn't need a broker.",
+        0.4852
+      ],
+      [
+        "The date trigger is for one-shot runs at a specific datetime, like a delayed export or reminder.",
+        0.479
+      ],
+      [
+        "You need strict exactly-once semantics across many processes.",
+        0.4789
+      ],
+      [
+        "| Tool | Type | Requires Broker | Best For |\n|------|------|----------------|----------|\n| APScheduler | In-process | No | Simple periodic tasks |\n| Celery | Distributed | Yes (Red",
+        0.4747
+      ],
+      [
+        "With a SQLAlchemy store, the job is kept and runs on the next startup if it's still within the grace time.",
+        0.4725
+      ],
+      [
+        "The settings that matter most when a job is late or still running are coalesce, max_instances, and misfire_grace_time.",
+        0.472
+      ],
+      [
+        "Call shutdown() with a timeout so active jobs can finish.",
+        0.4702
+      ],
+      [
+        "A process lock or a single-instance deployment stops that from happening.",
+        0.4699
+      ],
+      [
+        "For more on asyncio, see the [complete guide](/guides/complete-guide-python-asyncio/).",
+        0.4608
+      ],
+      [
+        "A max_instances of 1 means the next trigger is skipped while the current one is still going.",
+        0.4509
+      ],
+      [
+        "A listener that logs errors explicitly is a small addition that pays off quickly.",
+        0.4471
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-schedule-periodic-tasks-es",
+    "model": "desklib",
+    "model_ai_pct": 32.1,
+    "ai_count": 16,
+    "human_count": 77,
+    "skipped_count": 4,
+    "total": 97,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.0,
+      "stddev": 9.5,
+      "cv": 0.56,
+      "verdict": "natural variation",
+      "sentence_count": 93,
+      "lengths": [
+        24,
+        30,
+        44,
+        18,
+        26,
+        32,
+        14,
+        7,
+        25,
+        28,
+        16,
+        18,
+        23,
+        22,
+        17,
+        26,
+        19,
+        23,
+        14,
+        21,
+        7,
+        16,
+        9,
+        13,
+        13,
+        33,
+        23,
+        79,
+        21,
+        14,
+        18,
+        13,
+        19,
+        7,
+        14,
+        11,
+        17,
+        5,
+        17,
+        10,
+        16,
+        9,
+        13,
+        23,
+        10,
+        8,
+        17,
+        14,
+        24,
+        5,
+        16,
+        7,
+        20,
+        10,
+        15,
+        6,
+        18,
+        18,
+        12,
+        14,
+        14,
+        16,
+        14,
+        15,
+        20,
+        26,
+        13,
+        23,
+        20,
+        28,
+        5,
+        9,
+        18,
+        15,
+        16,
+        15,
+        21,
+        11,
+        16,
+        8,
+        5,
+        13,
+        14,
+        12,
+        9,
+        15,
+        13,
+        8,
+        14,
+        17,
+        15,
+        13,
+        25
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Eso lo hace bueno dentro de una web app.",
+        0.9853
+      ],
+      [
+        "Un scheduler bloqueante no tiene lugar en una web app porque bloquea el manejo de requests.",
+        0.9601
+      ],
+      [
+        "Ajust\u00e1 el executor al trabajo.",
+        0.8514
+      ],
+      [
+        "Hay un par de gotchas que atrapan a la gente en apps reales.",
+        0.8398
+      ],
+      [
+        "Un job lento que dispara cada 30 segundos puede acumularse.",
+        0.8357
+      ],
+      [
+        "Un job que falla no deber\u00eda derrumbar el scheduler, pero quer\u00e9s saber que pas\u00f3.",
+        0.765
+      ],
+      [
+        "APScheduler usa el timezone del scheduler.",
+        0.7619
+      ],
+      [
+        "Para esos casos, us\u00e1 Celery o RQ.",
+        0.7605
+      ],
+      [
+        "Algunos settings deciden qu\u00e9 pasa cuando un job pierde su ventana o todav\u00eda est\u00e1 corriendo desde la \u00faltima vez.",
+        0.7206
+      ],
+      [
+        "APScheduler tiene sentido cuando necesit\u00e1s ejecutar tareas a intervalos regulares o en horarios calendario desde una app Python.",
+        0.6654
+      ],
+      [
+        "Si confi\u00e1s en un store en memoria, el job desaparece cuando se detiene el proceso.",
+        0.6365
+      ],
+      [
+        "No los dejes pasar desapercibidos.",
+        0.6003
+      ],
+      [
+        "El argumento next_run_time espera un datetime, no un timestamp de Unix, as\u00ed que pas\u00e1 datetime.now() + timedelta(...) o un datetime con zona horaria.",
+        0.5806
+      ],
+      [
+        "| Herramienta | Tipo | Requiere Broker | Mejor para |\n|------|------|----------------|----------|\n| APScheduler | In-process | No | Tareas peri\u00f3dicas simples |\n| Celery | Distribui",
+        0.5661
+      ],
+      [
+        "Agreg\u00e1 un listener para el evento EVENT_JOB_ERROR.",
+        0.5294
+      ],
+      [
+        "El asyncio scheduler se engancha a un event loop y ejecuta coroutines directamente.",
+        0.5096
+      ],
+      [
+        "Llam\u00e1 scheduler.add_job(func, trigger, args=...) para agregar un job y scheduler.remove_job(job_id) para eliminarlo.",
+        0.4772
+      ],
+      [
+        "Eleg\u00ed un misfire grace time que se ajuste a la tarea.",
+        0.4755
+      ],
+      [
+        "APScheduler es m\u00e1s liviano y no necesita un broker.",
+        0.4532
+      ],
+      [
+        "No uses APScheduler cuando necesit\u00e1s colas de tareas distribuidas, reintentos o escalado de workers.",
+        0.4531
+      ],
+      [
+        "En producci\u00f3n, conect\u00e1 un logger y un listener para saber cu\u00e1ndo los jobs fallan o misfirean.",
+        0.4485
+      ],
+      [
+        "Eso es \u00fatil para tareas programadas por usuarios o funcionalidad tipo cron en web apps.",
+        0.4352
+      ],
+      [
+        "El scheduler se integra con el event loop de asyncio y ejecuta jobs async como coroutines.",
+        0.3978
+      ],
+      [
+        "El blocking scheduler mantiene el proceso vivo y funciona bien para scripts standalone.",
+        0.3959
+      ],
+      [
+        "Para tareas peri\u00f3dicas simples, s\u00ed.",
+        0.391
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
