@@ -40,11 +40,11 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
    - Revisar `relatedResources`, `metaDescription`, `title`, `description`, `lastUpdated`.
 
 3. **Auditoría SEO técnica (Prompt 17)**
-   - Aplicar el contenido de `ref/prompts/17-technical-seo-audit.md` al recurso EN.
+   - Aplicar el contenido de `.devin/skills/content-improvement/reference/17-technical-seo-audit.md` al recurso EN.
    - Generar `ref/output/seo-audit-{slug}.md` solo si hay hallazgos accionables.
 
 4. **Auditoría de calidad de contenido (Prompt 18)**
-   - Aplicar `ref/prompts/18-content-quality-auditor.md` a ambas versiones.
+   - Aplicar `.devin/skills/content-improvement/reference/18-content-quality-auditor.md` a ambas versiones.
    - Generar `ref/output/content-quality-audit-{slug}.md` si procede.
 
 5. **Detección de IA**
@@ -59,7 +59,7 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
      ```
    - NO usar el modelo `light`.
 
-6. **Aplicar `ref/prompts/ai-detect-analysis.md`**
+6. **Aplicar `.devin/skills/content-improvement/reference/ai-detect-analysis.md`**
    - Corregir hallazgos de patrones primero.
    - Humanizar frases con alta probabilidad IA conservando el contenido técnico.
    - Reescribir frases una a una; no reescribir el recurso completo si no es necesario.

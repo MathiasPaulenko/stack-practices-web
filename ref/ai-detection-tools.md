@@ -48,5 +48,5 @@ Los informes se escriben en `ref/output/`:
 
 ## Referencia
 
-- Prompt de análisis: `ref/prompts/ai-detect-analysis.md`.
+- Prompt de análisis: `.devin/skills/content-improvement/reference/ai-detect-analysis.md`.
 - Flujo completo: `ref/content-improvement-workflow.md`.
