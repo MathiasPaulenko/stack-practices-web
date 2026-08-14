@@ -2,16 +2,16 @@
   {
     "label": "concurrent-data-structures-en",
     "model": "desklib",
-    "model_ai_pct": 39.1,
-    "ai_count": 19,
-    "human_count": 60,
+    "model_ai_pct": 39.8,
+    "ai_count": 20,
+    "human_count": 59,
     "skipped_count": 3,
     "total": 82,
     "pattern_totals": {},
     "text_metrics": {
       "mean": 15.2,
-      "stddev": 12.3,
-      "cv": 0.81,
+      "stddev": 12.4,
+      "cv": 0.82,
       "verdict": "natural variation",
       "sentence_count": 79,
       "lengths": [
@@ -39,11 +39,11 @@
         24,
         15,
         19,
-        6,
+        7,
         19,
         7,
         10,
-        111,
+        112,
         21,
         9,
         27,
@@ -97,6 +97,10 @@
       ]
     },
     "top_ai_sentences": [
+      [
+        "In asyncio code, use the asyncio queue.",
+        0.986
+      ],
       [
         "The code below is in Java, Python, and C++; use whichever one matches your project.",
         0.984
@@ -192,10 +196,6 @@
       [
         "A concurrent hash map doesn't lock the whole map like a synchronized map.",
         0.4505
-      ],
-      [
-        "An unbounded linked blocking queue can grow until the JVM runs out of memory.",
-        0.448
       ]
     ],
     "diagnostics_sample": []
@@ -203,7 +203,7 @@
   {
     "label": "concurrent-data-structures-es",
     "model": "desklib",
-    "model_ai_pct": 34.6,
+    "model_ai_pct": 34.7,
     "ai_count": 16,
     "human_count": 64,
     "skipped_count": 2,
@@ -211,8 +211,8 @@
     "pattern_totals": {},
     "text_metrics": {
       "mean": 17.2,
-      "stddev": 13.4,
-      "cv": 0.78,
+      "stddev": 13.5,
+      "cv": 0.79,
       "verdict": "natural variation",
       "sentence_count": 80,
       "lengths": [
@@ -234,7 +234,7 @@
         12,
         31,
         12,
-        28,
+        27,
         12,
         13,
         24,
@@ -244,7 +244,7 @@
         21,
         9,
         15,
-        122,
+        123,
         23,
         12,
         28,
@@ -305,7 +305,7 @@
       ],
       [
         "| Estructura | Lecturas | Escrituras | Mejor para | Sobrecarga |\n|-----------|----------|------------|------------|----------|\n|  | Bloqueante | Bloqueante | Productor-consumidor c",
-        0.8979
+        0.9219
       ],
       [
         "Mant\u00e9n los valores inmutables o copiados defensivamente antes de compartirlos.",

@@ -275,11 +275,11 @@ int main() {
 
 A blocking queue blocks producers when the queue's full and consumers when it's empty. That built-in backpressure stops a fast producer from overwhelming a slow consumer. An array-backed blocking queue uses a single lock, while a linked one uses separate head and tail locks, which helps when producers and consumers are active at the same time.
 
-A concurrent hash map doesn't lock the whole map like a synchronized map. It splits the table into independently lockable segments, so reads are usually lock-free and writes hit only a small region. The compute-if-absent method makes lazy cache loading atomic. If you're guarding a larger critical section, review [locks and mutexes](/recipes/locks-and-mutexes).
+A concurrent hash map doesn't lock the whole map like a synchronized map. It uses fine-grained bucket locking (per-bin lock striping), so reads are usually lock-free and writes hit only a small region. The compute-if-absent method makes lazy cache loading atomic. If you're guarding a larger critical section, review [locks and mutexes](/recipes/locks-and-mutexes).
 
 A copy-on-write list makes a fresh copy of its backing array on every write, so reads are lock-free and always see a stable snapshot. That's great when writes are rare, such as event listener lists or small configuration snapshots.
 
-Python's queue uses a reentrant lock and two semaphores, so put, get, and task_done are safe from any thread. In asyncio code, use that queue.
+Python's queue uses a reentrant lock and two semaphores, so put, get, and task_done are safe from any thread. In asyncio code, use the asyncio queue.
 
 An atomic counter in Python uses a single lock around the integer, while std::atomic in C++ uses hardware compare-and-swap. Both avoid explicit mutexes for simple counters. For larger state changes, review the [race condition prevention](/recipes/race-condition-prevention) recipe.
 
@@ -289,7 +289,7 @@ An atomic counter in Python uses a single lock around the integer, while std::at
 |-----------|-------|--------|----------|----------|
 | `ArrayBlockingQueue` | Blocking | Blocking | Producer-consumer with backpressure | One lock |
 | `LinkedBlockingQueue` | Blocking | Blocking | Higher producer-consumer throughput | Separate head/tail locks |
-| `ConcurrentHashMap` | Lock-free | Lock striping | High-concurrency caches, maps | Low |
+| `ConcurrentHashMap` | Lock-free | Per-bin lock striping | High-concurrency caches, maps | Low |
 | `CopyOnWriteArrayList` | Lock-free | Full array copy | Few writes, many reads | High on writes |
 | `ConcurrentLinkedQueue` | Lock-free | Lock-free | Non-blocking work queues | Low |
 | `Collections.synchronizedMap` | Fully locked | Fully locked | Simple migration, low contention | High under contention |

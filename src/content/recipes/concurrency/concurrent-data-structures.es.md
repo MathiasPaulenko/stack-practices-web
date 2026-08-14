@@ -273,9 +273,9 @@ int main() {
 
 ## Explicación
 
-Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Ese backpressure integrado evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para la cabeza y el final, lo que mejora cuando productores y consumidores corren a la vez.
+Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Ese backpressure integrado evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para la cabeza y la cola, lo que mejora cuando productores y consumidores corren a la vez.
 
-Un mapa concurrente no bloquea el mapa entero como hace uno sincronizado. Divide la tabla en segmentos que se pueden bloquear por separado, así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con compute-if-absent, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes).
+Un mapa concurrente no bloquea el mapa entero como hace uno sincronizado. Usa bloqueo de grano fino por cubeta (per-bin lock striping), así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con compute-if-absent, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes).
 
 Una lista copy-on-write copia el array subyacente entero en cada escritura, así que las lecturas son sin bloqueos y siempre ven una instantánea estable. Es útil cuando las escrituras son raras, como en listas de listeners de eventos o pequeñas instantáneas de configuración.
 
@@ -288,8 +288,8 @@ El contador atómico de Python envuelve un entero bajo un único bloqueo, mientr
 | Estructura | Lecturas | Escrituras | Mejor para | Sobrecarga |
 |-----------|----------|------------|------------|----------|
 | `ArrayBlockingQueue` | Bloqueante | Bloqueante | Productor-consumidor con backpressure | Un bloqueo |
-| `LinkedBlockingQueue` | Bloqueante | Bloqueante | Mayor throughput productor-consumidor | Bloqueos separados para cabeza y final |
-| `ConcurrentHashMap` | Sin bloqueos | Lock striping | Cachés y mapas de alta concurrencia | Bajo |
+| `LinkedBlockingQueue` | Bloqueante | Bloqueante | Mayor throughput productor-consumidor | Bloqueos separados para cabeza y cola |
+| `ConcurrentHashMap` | Sin bloqueos | Bloqueo por cubetas | Cachés y mapas de alta concurrencia | Bajo |
 | `CopyOnWriteArrayList` | Sin bloqueos | Copia completa del array | Pocas escrituras, muchas lecturas | Alto en escrituras |
 | `ConcurrentLinkedQueue` | Sin bloqueos | Sin bloqueos | Colas de trabajo no bloqueantes | Bajo |
 | `Collections.synchronizedMap` | Totalmente bloqueada | Totalmente bloqueada | Migración simple, baja contención | Alta bajo contención |
