@@ -44,7 +44,7 @@ Esta receta recorre los tres triggers de APScheduler - interval, cron y date - a
 
 ## Cuándo Usar
 
-APScheduler tiene sentido cuando necesitás ejecutar tareas a intervalos regulares o en horarios calendario desde una app Python. Es un buen ajuste para jobs de limpieza, refresh de caché, reportes diarios y tareas one-off diferidas, como enviar un recordatorio o ejecutar una exportación pospuesta. También es una buena opción cuando querés comportamiento tipo cron sin tocar el scheduler del sistema operativo ni desplegar un servicio aparte, y no necesitás workers distribuidos ni entrega garantizada de mensajes.
+APScheduler tiene sentido cuando necesitás ejecutar tareas a intervalos regulares o en horarios calendario desde una app Python. Es un buen ajuste para jobs de limpieza, refresh de caché, reportes diarios y tareas one-off diferidas, como enviar un recordatorio o ejecutar una exportación pospuesta. También es una buena opción cuando querés comportamiento tipo cron sin tocar el scheduler del sistema operativo ni desplegar un servicio aparte. Elegilo para scheduling in-process cuando no necesitás workers distribuidos ni entrega garantizada de mensajes.
 
 ## Cuándo NO Usar
 
@@ -186,6 +186,9 @@ scheduler.start()
 ### Gestión dinámica de jobs
 
 ```python
+# Agregar un job
+scheduler.add_job(mi_funcion, "interval", minutes=5, id="new_job")
+
 # Obtener un job por ID
 job = scheduler.get_job("daily_report")
 if job:
@@ -207,6 +210,18 @@ scheduler.remove_job("daily_report")
 for job in scheduler.get_jobs():
     print(f"{job.id}: next_run={job.next_run_time}")
 ```
+
+### Ejecutar jobs CPU-bound en un process pool
+
+```python
+from apscheduler.executors.pool import ProcessPoolExecutor
+
+executors = {
+    "default": ProcessPoolExecutor(max_workers=4),
+}
+```
+
+APScheduler despacha el trabajo al pool, así que el proceso principal se mantiene responsivo. Para jobs I/O-bound, un thread pool executor suele ser la mejor opción; el ejemplo de arriba usa un process pool para tareas CPU-bound.
 
 ### Manejo de errores y listeners
 
@@ -346,7 +361,7 @@ Por default, la salida del job va a stdout y APScheduler loguea a WARNING. En pr
 
 Cuando usás un job store SQLAlchemy compartido, solo debe haber un proceso scheduler activo. Varios schedulers leyendo el mismo store pueden competir y ejecutar el mismo job dos veces. Usá un lock de proceso o hacé que el scheduler sea un despliegue de una sola instancia para evitar duplicados.
 
-Si el scheduler es crítico, exponé un endpoint de salud que verifique el estado del scheduler, las ejecuciones recientes y el stream de eventos del listener.
+Si el scheduler es crítico, exponé un endpoint de salud que verifique el estado del scheduler, las ejecuciones recientes y el stream de eventos del listener. Consultá [Docker health check configuration](/es/recipes/docker-health-check-configuration/) para un patrón concreto.
 
 Hay un par de gotchas que atrapan a la gente en apps reales. El argumento next_run_time espera un datetime, no un timestamp de Unix, así que pasá datetime.now() + timedelta(...) o un datetime con zona horaria. En Flask, no confiés en before_request para iniciar el scheduler; con varios workers o threads podés terminar con varias instancias. Inicialo una vez al arrancar la app y, si corrés múltiples workers de gunicorn, usá un lock de proceso o corré el scheduler en un proceso dedicado único.
 
@@ -366,25 +381,15 @@ Si confiás en un store en memoria, el job desaparece cuando se detiene el proce
 
 ### ¿Puedo ejecutar funciones async con APScheduler?
 
-Sí. Usá AsyncIOScheduler con AsyncIOExecutor. El scheduler se integra con el event loop de asyncio y ejecuta jobs async como coroutines. Para más sobre asyncio, consultá la [guía completa](/es/guides/complete-guide-python-asyncio/).
+Sí. Usá AsyncIOScheduler con AsyncIOExecutor. El scheduler se integra con el event loop de asyncio y ejecuta jobs async como coroutines.
 
 ### ¿Cómo ejecuto diferentes jobs en diferentes procesos?
 
-Usá un ProcessPoolExecutor como executor. APScheduler despachará jobs a un pool de procesos workers, útil para tareas CPU-bound. Podés configurarlo así:
-
-```python
-from apscheduler.executors.pool import ProcessPoolExecutor
-
-executors = {
-    "default": ProcessPoolExecutor(max_workers=4),
-}
-```
-
-Eso configura un pool de cuatro procesos workers para jobs CPU-bound.
+Un ProcessPoolExecutor maneja tareas CPU-bound. La sección Solución tiene un ejemplo de configuración con cuatro procesos workers.
 
 ### ¿Puedo agregar o eliminar jobs dinámicamente en runtime?
 
-Sí. Llamá scheduler.add_job(func, trigger, args=...) para agregar un job y scheduler.remove_job(job_id) para eliminarlo. Guardá el job_id retornado para gestionar el job después. Eso es útil para tareas programadas por usuarios o funcionalidad tipo cron en web apps.
+Sí. Podés gestionar jobs mientras el scheduler está corriendo; el ejemplo "Gestión dinámica de jobs" en la sección Solución muestra las llamadas.
 
 ## Puntos Clave
 
@@ -396,4 +401,6 @@ APScheduler es un scheduler in-process para Python, no una cola de tareas distri
 - [Guía de APScheduler con Flask](https://apscheduler.readthedocs.io/en/stable/userguide.html#scheduling-background-jobs)
 - [Job stores y executors de APScheduler](https://apscheduler.readthedocs.io/en/stable/userguide.html#configuring-the-scheduler)
 - Interno: [Cron Jobs](/es/recipes/cron-jobs/)
+- Interno: [Docker health check configuration](/es/recipes/docker-health-check-configuration/)
+- Interno: [Circuit breaker pattern](/es/patterns/circuit-breaker-pattern/)
 - Interno: [Guía de producción de asyncio en Python](/es/guides/complete-guide-python-asyncio-production/)
