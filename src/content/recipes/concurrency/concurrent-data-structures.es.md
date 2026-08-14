@@ -41,7 +41,7 @@ seo:
 
 Compartir un ArrayList o HashMap normal entre hilos es pedir corrupción silenciosa. Un hilo puede leer el índice 0 mientras otro lo elimina, lanzando ConcurrentModificationException o, peor, dejando la lista interna de buckets en un estado inconsistente. Estos errores suelen pasar todos los tests unitarios y aparecen solo bajo carga real.
 
-Ahí entran las colecciones concurrentes. Usan bloqueos de grano fino, algoritmos sin bloqueos o instantáneas para que varios hilos lean y escriban sin andar envolviendo cada llamada en synchronized. Los ejemplos están en Java, Python y C++; usa el que tengas.
+Esa es la función de las colecciones concurrentes. Usan bloqueos de grano fino, algoritmos sin bloqueos o instantáneas para que varios hilos lean y escriban sin andar envolviendo cada llamada en synchronized. Los ejemplos usan Java, Python y C++ — elige el que encaje en tu stack.
 
 ## Cuándo usarlo
 
@@ -273,13 +273,13 @@ int main() {
 
 ## Explicación
 
-Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Ese backpressure integrado evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para la cabeza y la cola, lo que mejora cuando productores y consumidores corren a la vez.
+Una cola bloqueante frena a los productores si la cola está llena y a los consumidores si está vacía. Ese backpressure integrado evita que un productor rápido sature a uno lento. Una cola con array subyacente usa un solo bloqueo; una vinculada usa bloqueos separados para cabeza y cola. Esa separación mejora cuando productores y consumidores corren a la vez.
 
-Un mapa concurrente no bloquea el mapa entero como hace uno sincronizado. Usa bloqueo de grano fino por cubeta (per-bin lock striping), así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con compute-if-absent, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes).
+Un mapa concurrente no bloquea el mapa entero como uno sincronizado. Usa bloqueo de grano fino por cubeta (per-bin lock striping), así que las lecturas son en general sin bloqueos y las escrituras tocan solo una región pequeña. Con `computeIfAbsent`, la carga perezosa de una caché pasa a ser atómica. Si vas a proteger una sección crítica más amplia, revisa [locks y mutexes](/recipes/locks-and-mutexes).
 
-Una lista copy-on-write copia el array subyacente entero en cada escritura, así que las lecturas son sin bloqueos y siempre ven una instantánea estable. Es útil cuando las escrituras son raras, como en listas de listeners de eventos o pequeñas instantáneas de configuración.
+Una lista copy-on-write copia el array subyacente entero en cada escritura, así que las lecturas son sin bloqueos y siempre ven una instantánea estable. Resulta útil con escrituras raras, como en listas de listeners de eventos o pequeñas instantáneas de configuración.
 
-La cola de Python usa un bloqueo reentrante y dos semáforos, así que put, get y task_done son seguros desde cualquier hilo. En código asyncio, la que corresponde es la cola de asyncio.
+La cola de Python usa un bloqueo reentrante y dos semáforos, así que put, get y task_done son seguros desde cualquier hilo. En asyncio, usa `asyncio.Queue` en vez de `queue.Queue`; la segunda está hecha para hilos, no para corrutinas.
 
 El contador atómico de Python envuelve un entero bajo un único bloqueo, mientras que std::atomic en C++ usa compare-and-swap del hardware. Ambos se libran de mutexes explícitos para contadores simples. Para cambios de estado más complejos, consulta la receta de [prevención de condiciones de carrera](/recipes/race-condition-prevention).
 
@@ -297,62 +297,62 @@ El contador atómico de Python envuelve un entero bajo un único bloqueo, mientr
 ## Buenas prácticas
 
 - Elige un mapa concurrente en lugar de uno totalmente sincronizado. Los wrappers sincronizados bloquean todo el mapa en cada operación, incluso una lectura; la versión concurrente deja pasar muchas lecturas a la vez.
-- Para la carga perezosa de caché, usa el método compute-if-absent del mapa. Verificar si la clave existe y luego meter el valor cargado a mano es una condición de carrera: dos hilos pueden cargar y pisarse con el mismo valor. Compute-if-absent ejecuta el loader a lo sumo una vez por clave.
+- Usa `computeIfAbsent` para la carga perezosa de una caché en vez de comprobar la clave a mano y luego insertar el valor. Así el loader se ejecuta a lo sumo una vez por clave y evitas que dos hilos carguen el mismo valor a la vez.
 - Acota tus colas bloqueantes y usa un put bloqueante cuando quieras backpressure. Una cola bloqueante vinculada sin límite puede crecer hasta que la JVM se quede sin memoria.
-- Las listas copy-on-write rinden bien con listeners de eventos e instantáneas de configuración que cambian poco. No las uses cuando las escrituras sean frecuentes.
-- Mejor usa la colección concurrente del lenguaje antes que inventarte un wrapper sincronizado. Las implementaciones estándar están probadas, optimizadas y tienen semánticas más claras.
+- Las listas copy-on-write rinden bien con listeners de eventos e instantáneas de configuración que cambian poco. Evítalas si las escrituras son frecuentes.
+- Prefiere la colección concurrente que ya ofrece el lenguaje antes que montar tu propio wrapper sincronizado. Las que vienen con el lenguaje están probadas, optimizadas y documentadas.
 
 ## Errores comunes
 
-- Fijarte en el tamaño de la cola antes de tomar un elemento. Si la cola se vacía antes de la llamada a take, caes en una carrera check-then-act.
-- Modificar una colección mientras la recorres. Incluso un mapa concurrente no permite cambiarlo dentro de un bucle sobre sus valores. Recolecta las claves primero o elimina a través del iterador.
-- Pensar que un mapa concurrente va a mantener un orden estable. El orden de iteración puede cambiar al redimensionarse; si necesitas acceso concurrente ordenado, usa un mapa concurrente con skip list.
-- Olvidarte de llamar a task_done tras cada elemento de la cola de Python. join espera hasta que el contador de tareas sin terminar llegue a cero, así que llamadas faltantes bloquean al que espera.
-- Pensar que un contador atómico arregla cualquier problema de estado compartido. Solo protege el valor que envuelve, no un grupo completo de campos relacionados.
+- Fijarte en el tamaño de la cola antes de tomar un elemento puede fallar si la cola se vacía entre la consulta y la llamada a `take`; eso es una carrera check-then-act.
+- Modificar una colección mientras la recorres no está permitido: incluso un mapa concurrente no soporta cambios dentro de un bucle sobre sus valores, así que recoge las claves primero o elimina a través del iterador.
+- Pensar que un mapa concurrente conservará un orden estable. El orden de iteración puede cambiar cuando se redimensiona, así que usa un mapa concurrente con skip list si necesitas acceso ordenado.
+- Olvidarte de llamar a `task_done` tras cada elemento; la cola entonces nunca reporta que está terminada, con lo que `join()` bloquea al que espera.
+- Un contador atómico solo protege el valor que envuelve, no un grupo completo de campos relacionados. Pensar que arregla cualquier problema de estado compartido es un error.
 
 ## Notas de producción
 
 - Dale una capacidad inicial al mapa concurrente para evitar redimensiones costosas bajo carga. Hacerlo crecer cuesta más que con un HashMap común.
 - Usa una cola bloqueante basada en array cuando quieras backpressure acotado con mínima asignación, y una vinculada cuando puedas cambiar algo de memoria por mayor throughput.
-- Ten bajo control el tamaño de las colas, la tasa de aciertos de caché y la longitud de la lista de listeners. Una cola que crece, una tasa de aciertos que cae o una lista de listeners larga son señales tempranas de fugas de memoria o retraso de consumidores.
-- Carga el sistema con más hilos y corridas más largas que en producción. Las condiciones de carrera suelen esconderse hasta que la presión aparece.
-- Mantén los valores inmutables o copiados defensivamente antes de compartirlos. Un contenedor seguro entre hilos no evita que otro hilo cambie un objeto que contiene.
+- Controla el tamaño de las colas, la tasa de aciertos de caché y la longitud de la lista de listeners; una cola que crece, una tasa de aciertos que cae o una lista de listeners larga son señales tempranas de fugas de memoria o retraso de consumidores.
+- Haz pruebas de carga con más hilos y corridas más largas que las de producción; las condiciones de carrera suelen aparecer solo bajo presión.
+- Mantén los valores inmutables o copia defensivamente antes de compartirlos; un contenedor seguro entre hilos no evita que otro hilo cambie un objeto que contiene.
 
 ## Preguntas frecuentes
 
 ### ¿Cuándo conviene una cola bloqueante?
 
-Cuando los productores tienen que parar si la cola está llena y los consumidores si está vacía. Ese backpressure integrado evita que la cola crezca sin control y mantiene el uso de CPU a raya.
+Los productores tienen que parar si la cola está llena y los consumidores si está vacía; ese backpressure integrado evita que la cola crezca sin control y ahorra CPU.
 
 ### ¿Toda operación en un mapa concurrente es segura?
 
-Las lecturas y escrituras individuales son seguras, pero una secuencia de containsKey y luego put no lo es. Para ese check-then-act, usa compute-if-absent o merge.
+Las lecturas y escrituras individuales son seguras, pero una secuencia de containsKey y luego put no lo es. Deja que `computeIfAbsent` o `merge` manejen ese check-then-act.
 
 ### ¿Puedo iterar sobre un mapa concurrente mientras otros hilos escriben en él?
 
-Sí. El iterador es débilmente consistente, así que muestra el estado en algún momento posterior a su creación y puede no reflejar cambios recientes. De todos modos, no lanza ConcurrentModificationException.
+Sí. El iterador es débilmente consistente: muestra el mapa tal como estaba en algún momento después de su creación, así que los cambios recientes pueden faltar. De todos modos, no lanza `ConcurrentModificationException`.
 
 ### ¿Cuándo penaliza el rendimiento una lista copy-on-write?
 
-Se pone cara cuando las escrituras son frecuentes, porque cada una copia el array completo. Úsala cuando las lecturas sean muchas más que las escrituras, como en listas de listeners de eventos.
+Cuesta más cuando las escrituras son frecuentes, porque cada una copia el array completo. Úsala cuando las lecturas superen con creces las escrituras, como en listas de listeners de eventos.
 
 ### ¿Sigo necesitando locks si uso std::atomic?
 
-No, para un contador o flag simple. Un atómico solo protege el valor que envuelve. Si actualizas varios campos relacionados a la vez, sigues necesitando un mutex o un diseño de más alto nivel.
+No. Para un simple contador o flag, un atómico es suficiente. Solo protege el valor que envuelve. Si varios campos relacionados cambian juntos, sigues necesitando un mutex o un diseño de más alto nivel.
 
 ### ¿Por qué no usar Collections.synchronizedList en todas partes?
 
-Bloquea toda la lista en cada acceso. Cuando los hilos empiezan a competir, se encolan y el throughput cae. Las colecciones concurrentes evitan ese cuello de botella.
+Cada lectura o escritura bloquea toda la lista. Si los hilos empiezan a competir, se encolan y el throughput cae. Las colecciones concurrentes evitan ese cuello de botella.
 
 ## Conclusiones clave
 
-Elige la estructura que se ajuste al patrón de acceso, no solo al lenguaje. Una cola bloqueante encaja bien en pipelines productor-consumidor, un mapa concurrente en cachés compartidas y una lista copy-on-write en listas de listeners que casi no cambian.
+Ajusta la estructura al patrón de acceso, no solo al lenguaje. Una cola bloqueante encaja bien en pipelines productor-consumidor, un mapa concurrente en cachés compartidas y una lista copy-on-write en listas de listeners que casi no cambian.
 
-Los contadores atómicos y las colas seguras entre hilos se encargan de gran parte del bloqueo, pero no hacen inmutables tus valores. Un contenedor seguro entre hilos no evita que otro hilo modifique un objeto que contiene, así que mantén los valores inmutables o copiados antes de compartirlos.
+Los contadores atómicos y las colas seguras entre hilos resuelven buena parte del bloqueo, pero no hacen inmutables tus valores. Un contenedor seguro entre hilos no puede evitar que otro hilo mute un objeto que contiene, así que mantén los valores inmutables o copia defensivamente antes de compartirlos.
 
 ## Lecturas adicionales
 
-- Documentación oficial de Java: [resumen del paquete java.util.concurrent](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) y [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html).
-- Documentación oficial de Python: [módulo queue](https://docs.python.org/3/library/queue.html) y [módulo threading](https://docs.python.org/3/library/threading.html).
+- Java: [resumen del paquete java.util.concurrent](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) y [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html).
+- Python: [módulo queue](https://docs.python.org/3/library/queue.html) y [módulo threading](https://docs.python.org/3/library/threading.html).
 - Referencia de C++: [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic).
-- Recetas relacionadas: [Pools de hilos](/recipes/thread-pools), [Locks y mutexes](/recipes/locks-and-mutexes), [Prevención de condiciones de carrera](/recipes/race-condition-prevention).
+- Véase también: [Pools de hilos](/recipes/thread-pools), [Locks y mutexes](/recipes/locks-and-mutexes) y [Prevención de condiciones de carrera](/recipes/race-condition-prevention).

@@ -41,7 +41,7 @@ seo:
 
 Sharing a plain `ArrayList` or `HashMap` across threads is asking for silent corruption. One thread can read index 0 while another removes it, throwing `ConcurrentModificationException` or, worse, leaving the internal bucket list in an inconsistent state. These bugs often pass every unit test and surface only under real load.
 
-That's the job concurrent collections are built for. They use fine-grained locks, lock-free algorithms, or snapshots so more than one thread can read and write safely without wrapping every call in `synchronized`. The code below is in Java, Python, and C++; use whichever one matches your project.
+That's the job concurrent collections are built for. They use fine-grained locks, lock-free algorithms, or snapshots so more than one thread can read and write safely without wrapping every call in `synchronized`. The examples below use Java, Python, and C++ — choose the one that fits your stack.
 
 ## When to Use
 
@@ -273,13 +273,13 @@ int main() {
 
 ## Explanation
 
-A blocking queue blocks producers when the queue's full and consumers when it's empty. That built-in backpressure stops a fast producer from overwhelming a slow consumer. An array-backed blocking queue uses a single lock, while a linked one uses separate head and tail locks, which helps when producers and consumers are active at the same time.
+A blocking queue blocks producers when the queue's full and consumers when it's empty. That built-in backpressure stops a fast producer from overwhelming a slow consumer. An array-backed blocking queue uses a single lock; a linked one uses separate locks for head and tail. That separation reduces contention when producers and consumers run at the same time.
 
-A concurrent hash map doesn't lock the whole map like a synchronized map. It uses fine-grained bucket locking (per-bin lock striping), so reads are usually lock-free and writes hit only a small region. The compute-if-absent method makes lazy cache loading atomic. If you're guarding a larger critical section, review [locks and mutexes](/recipes/locks-and-mutexes).
+A `ConcurrentHashMap` doesn't lock the whole map like a `synchronizedMap`. It uses fine-grained bucket locking (per-bin lock striping), so reads are usually lock-free and writes hit only a small region. The `computeIfAbsent` method makes lazy cache loading atomic. If you're guarding a larger critical section, review [locks and mutexes](/recipes/locks-and-mutexes).
 
 A copy-on-write list makes a fresh copy of its backing array on every write, so reads are lock-free and always see a stable snapshot. That's great when writes are rare, such as event listener lists or small configuration snapshots.
 
-Python's queue uses a reentrant lock and two semaphores, so put, get, and task_done are safe from any thread. In asyncio code, use the asyncio queue.
+Python's queue uses a reentrant lock and two semaphores, so put, get, and task_done are safe from any thread. In asyncio, use `asyncio.Queue` instead of `queue.Queue`; the latter is built for threads, not coroutines.
 
 An atomic counter in Python uses a single lock around the integer, while std::atomic in C++ uses hardware compare-and-swap. Both avoid explicit mutexes for simple counters. For larger state changes, review the [race condition prevention](/recipes/race-condition-prevention) recipe.
 
@@ -297,40 +297,40 @@ An atomic counter in Python uses a single lock around the integer, while std::at
 ## Best Practices
 
 - Reach for a concurrent hash map instead of a fully synchronized map. Synchronized wrappers grab the whole map for every operation, even a get; the concurrent version lets many reads happen at once.
-- For lazy cache loading, use the map's compute-if-absent method. The manual pattern of checking whether a key exists and then putting the loaded value is a race — two threads can load and overwrite each other. Compute-if-absent runs the loader at most once per key.
+- Use `computeIfAbsent` for lazy cache loading instead of checking the key and then putting the value yourself. It runs the loader at most once per key and prevents two threads from loading and overwriting the same value.
 - Cap your blocking queues and use a blocking put when you want backpressure. An unbounded linked blocking queue can grow until the JVM runs out of memory.
 - Copy-on-write lists work well for listener lists and configuration snapshots that change rarely. Skip them when writes are common.
-- Pick the language-provided concurrent collection over a hand-rolled synchronized wrapper. The standard ones are tested, optimized, and have clearer semantics.
+- Prefer the language's built-in concurrent collections over a hand-rolled synchronized wrapper. The built-in ones are tested, optimized, and documented.
 
 ## Common Mistakes
 
-- Checking the queue size before taking an item. If the queue is empty by the time you call take, you get a check-then-act race.
-- Mutating a collection while you iterate over it. Even a concurrent hash map doesn't support changing the map inside a loop over its values. Collect keys first or remove through the iterator.
-- Expecting a concurrent hash map to keep a stable order. Iteration order can change as the table resizes; use a concurrent skip list map if you need sorted concurrent access.
-- Forgetting to call task_done after each Python queue item. Join waits until its unfinished count hits zero, so a missing call hangs the caller.
-- Believing an atomic counter fixes every shared-state problem. They protect the value they wrap, not a whole group of related fields.
+- Checking the queue size before taking an item can fail if the queue empties between the size check and the `take`; that's a check-then-act race.
+- Mutating a collection while you iterate over it isn't safe: even a concurrent hash map doesn't support changing the map inside a loop over its values, so collect keys first or remove through the iterator.
+- Expecting a concurrent hash map to keep a stable order is a mistake; iteration order can change as the table resizes, so use a concurrent skip list map if you need sorted concurrent access.
+- Forgetting to call `task_done` after each item; the queue then never reports it's finished, so `join()` hangs the caller.
+- An atomic counter only protects the value it wraps, not a whole group of related fields. Treating it as a fix for every shared-state problem is a mistake.
 
 ## Production Notes
 
 - Set an initial capacity on the concurrent hash map to avoid expensive resizing under load. Growing it costs more than growing a plain hash map.
 - Use an array-backed blocking queue when you want bounded backpressure with minimal allocation, and a linked one when you can trade a little memory for higher throughput.
-- Watch queue size, cache hit rate, and listener list length. A growing queue, falling hit rate, or long listener list is an early warning of memory leaks or consumer lag.
-- Load the system with more threads and longer runs than production. Race conditions often hide until the pressure is on.
-- Keep values immutable or copy them defensively before sharing. A thread-safe container still won't stop another thread from changing an object it holds.
+- Keep an eye on queue size, cache hit rate, and listener list length; a growing queue, falling hit rate, or long listener list is an early warning of memory leaks or consumer lag.
+- Stress-test with more threads and longer runs than you expect in production; race conditions often hide until the pressure is on.
+- Make values immutable or copy them defensively before sharing; a thread-safe container only coordinates access to the container, not changes to the objects inside it.
 
 ## FAQ
 
 ### When is a `BlockingQueue` worth it?
 
-Producers must pause when the queue's full and consumers must wait when it's empty. That built-in backpressure stops the queue from growing without limit and keeps CPU use in check.
+Producers have to pause when the queue is full and consumers have to wait when it's empty; this built-in backpressure keeps the queue from growing without bound and avoids wasting CPU.
 
 ### Is every `ConcurrentHashMap` operation safe?
 
-Single reads and writes are safe, but a containsKey-then-put sequence isn't. Use computeIfAbsent or merge for that kind of check-then-act logic.
+Single reads and writes are safe, but a containsKey-then-put sequence isn't. Let `computeIfAbsent` or `merge` handle that check-then-act logic.
 
 ### Can I iterate over a `ConcurrentHashMap` while other threads write to it?
 
-Yes. The iterator is weakly consistent, so it shows the state at some point after it was created and might miss recent changes. It won't throw ConcurrentModificationException.
+Yes. The iterator is weakly consistent: it shows the map as it was at some point after it was created, so recent changes may be missing. It won't throw `ConcurrentModificationException`.
 
 ### When does `CopyOnWriteArrayList` hurt performance?
 
@@ -338,21 +338,21 @@ It gets expensive when writes are frequent, because every write copies the whole
 
 ### Do I still need locks with `std::atomic`?
 
-For a simple counter or flag, no. An atomic only protects the value it wraps. If you're updating several related fields together, you still need a mutex or a higher-level design.
+No. For a simple counter or flag, an atomic is enough. It only protects the value it wraps. If several related fields change together, you still need a mutex or a higher-level design.
 
 ### Why not just use `Collections.synchronizedList` everywhere?
 
-It locks the whole list on every access. Once threads start contending, they queue up and throughput drops. Concurrent collections avoid that bottleneck.
+Every read or write locks the entire list. Once threads start contending, they queue up and throughput drops. Concurrent collections avoid that bottleneck.
 
 ## Key Takeaways
 
-Pick the structure that fits the access pattern, not just the language. A `BlockingQueue` fits producer-consumer pipelines, a `ConcurrentHashMap` fits shared caches, and a `CopyOnWriteArrayList` fits listener lists that barely change.
+Match the structure to the access pattern, not just to the language. A `BlockingQueue` fits producer-consumer pipelines, a `ConcurrentHashMap` fits shared caches, and a `CopyOnWriteArrayList` fits listener lists that barely change.
 
-Atomic counters and thread-safe queues take care of a lot of the locking, but they don't make your values immutable. A thread-safe container still won't stop another thread from changing an object it holds, so keep values immutable or copy them before sharing.
+Atomic counters and thread-safe queues handle much of the locking, yet they don't make your values immutable. A thread-safe container can't stop another thread from mutating an object inside it, so keep values immutable or copy them before sharing.'t prevent another thread from changing an object it holds, so make values immutable or copy them before sharing.
 
 ## Further Reading
 
-- Official Java docs: [java.util.concurrent package summary](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) and [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html).
-- Official Python docs: [queue module](https://docs.python.org/3/library/queue.html) and [threading module](https://docs.python.org/3/library/threading.html).
+- Java: [java.util.concurrent package summary](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) and [ConcurrentHashMap](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ConcurrentHashMap.html).
+- Python: [queue module](https://docs.python.org/3/library/queue.html) and [threading module](https://docs.python.org/3/library/threading.html).
 - C++ reference: [std::atomic](https://en.cppreference.com/w/cpp/atomic/atomic).
-- Related reading: [Thread pools](/recipes/thread-pools), [Locks and mutexes](/recipes/locks-and-mutexes), [Race condition prevention](/recipes/race-condition-prevention).
+- See also: [Thread pools](/recipes/thread-pools), [Locks and mutexes](/recipes/locks-and-mutexes), [Race condition prevention](/recipes/race-condition-prevention).

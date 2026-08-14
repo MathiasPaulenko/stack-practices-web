@@ -2,25 +2,25 @@
   {
     "label": "concurrent-data-structures-en",
     "model": "desklib",
-    "model_ai_pct": 39.8,
-    "ai_count": 20,
-    "human_count": 59,
-    "skipped_count": 3,
-    "total": 82,
+    "model_ai_pct": 37.4,
+    "ai_count": 8,
+    "human_count": 62,
+    "skipped_count": 4,
+    "total": 74,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 15.2,
-      "stddev": 12.4,
-      "cv": 0.82,
+      "mean": 17.4,
+      "stddev": 13.7,
+      "cv": 0.79,
       "verdict": "natural variation",
-      "sentence_count": 79,
+      "sentence_count": 70,
       "lengths": [
         11,
         22,
         13,
         8,
         24,
-        15,
+        16,
         16,
         13,
         32,
@@ -31,171 +31,162 @@
         15,
         14,
         12,
-        30,
+        18,
         13,
+        9,
         20,
-        8,
+        7,
         11,
         24,
         15,
         19,
-        7,
+        14,
         19,
         7,
         10,
         112,
         21,
-        9,
-        27,
-        9,
+        16,
+        20,
         13,
         14,
         13,
         6,
-        10,
-        10,
+        11,
         8,
+        25,
+        35,
+        34,
+        17,
         16,
-        8,
-        16,
-        8,
-        10,
-        20,
-        9,
-        15,
-        8,
-        13,
+        12,
         15,
         10,
         27,
-        10,
-        20,
+        33,
+        21,
+        25,
+        31,
         11,
-        9,
-        9,
-        14,
-        14,
-        16,
-        11,
-        10,
-        22,
+        6,
+        25,
         14,
         12,
+        10,
         7,
-        8,
-        16,
+        15,
         8,
         10,
         5,
         12,
         16,
-        20,
-        23,
-        8,
-        8,
+        17,
+        40,
+        6,
+        6,
         10
       ]
     },
     "top_ai_sentences": [
       [
-        "In asyncio code, use the asyncio queue.",
-        0.986
+        "A thread-safe container can't stop another thread from mutating an object inside it, so keep values immutable or copy them before sharing.'t prevent another thread from changing an",
+        0.9921
       ],
       [
-        "The code below is in Java, Python, and C++; use whichever one matches your project.",
-        0.984
+        "Java: [java.util.concurrent package summary](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) and [ConcurrentHashMap](https:/",
+        0.9652
       ],
       [
-        "Related reading: [Thread pools](/recipes/thread-pools), [Locks and mutexes](/recipes/locks-and-mutexes), [Race condition prevention](/recipes/race-condition-prevention).",
-        0.8583
+        "See also: [Thread pools](/recipes/thread-pools), [Locks and mutexes](/recipes/locks-and-mutexes), [Race condition prevention](/recipes/race-condition-prevention).",
+        0.928
       ],
       [
-        "Official Java docs: [java.util.concurrent package summary](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) and [ConcurrentHa",
-        0.7708
+        "The examples below use Java, Python, and C++ \u2014 choose the one that fits your stack.",
+        0.8837
       ],
       [
-        "For a simple counter or flag, no.",
-        0.7609
+        "Python: [queue module](https://docs.python.org/3/library/queue.html) and [threading module](https://docs.python.org/3/library/threading.html).",
+        0.828
       ],
       [
-        "Atomic counters and thread-safe queues take care of a lot of the locking, but they don't make your values immutable.",
-        0.7221
+        "An atomic counter only protects the value it wraps, not a whole group of related fields.",
+        0.8157
       ],
       [
-        "Pick the structure that fits the access pattern, not just the language.",
-        0.6452
+        "The built-in ones are tested, optimized, and documented.",
+        0.69
       ],
       [
-        "If you're updating several related fields together, you still need a mutex or a higher-level design.",
-        0.6311
+        "The iterator is weakly consistent: it shows the map as it was at some point after it was created, so recent changes may be missing.",
+        0.611
       ],
       [
-        "It locks the whole list on every access.",
-        0.6164
+        "Producers have to pause when the queue is full and consumers have to wait when it's empty; this built-in backpressure keeps the queue from growing without bound and avoids wasting ",
+        0.4912
       ],
       [
-        "Official Python docs: [queue module](https://docs.python.org/3/library/queue.html) and [threading module](https://docs.python.org/3/library/threading.html).",
-        0.6129
+        "For a simple counter or flag, an atomic is enough.",
+        0.4778
       ],
       [
-        "They protect the value they wrap, not a whole group of related fields.",
-        0.6114
+        "That separation reduces contention when producers and consumers run at the same time.",
+        0.4752
       ],
       [
-        "That built-in backpressure stops the queue from growing without limit and keeps CPU use in check.",
-        0.5994
+        "If several related fields change together, you still need a mutex or a higher-level design.",
+        0.4526
       ],
       [
-        "Watch queue size, cache hit rate, and listener list length.",
-        0.5993
+        "Match the structure to the access pattern, not just to the language.",
+        0.4507
       ],
       [
-        "The iterator is weakly consistent, so it shows the state at some point after it was created and might miss recent changes.",
-        0.5936
+        "Atomic counters and thread-safe queues handle much of the locking, yet they don't make your values immutable.",
+        0.4492
       ],
       [
-        "Forgetting to call task_done after each Python queue item.",
-        0.5669
+        "Use  for lazy cache loading instead of checking the key and then putting the value yourself.",
+        0.4484
       ],
       [
-        "An array-backed blocking queue uses a single lock, while a linked one uses separate head and tail locks, which helps when producers and consumers are active at the same time.",
-        0.5517
+        "An unbounded linked blocking queue can grow until the JVM runs out of memory.",
+        0.448
       ],
       [
-        "A thread-safe container still won't stop another thread from changing an object it holds, so keep values immutable or copy them before sharing.",
-        0.5458
+        "It only protects the value it wraps.",
+        0.4474
       ],
       [
-        "Load the system with more threads and longer runs than production.",
-        0.5297
+        "It gets expensive when writes are frequent, because every write copies the whole array.",
+        0.4468
       ],
       [
-        "Producers must pause when the queue's full and consumers must wait when it's empty.",
-        0.5206
+        "Set an initial capacity on the concurrent hash map to avoid expensive resizing under load.",
+        0.4418
       ],
       [
-        "The standard ones are tested, optimized, and have clearer semantics.",
-        0.507
+        "Keep an eye on queue size, cache hit rate, and listener list length; a growing queue, falling hit rate, or long listener list is an early warning of memory leaks or consumer lag.",
+        0.4402
       ],
       [
-        "For lazy cache loading, use the map's compute-if-absent method.",
-        0.4911
+        "Use it when reads far outnumber writes, such as event listener lists.",
+        0.4268
       ],
       [
-        "A thread-safe container still won't stop another thread from changing an object it holds.",
-        0.4878
+        "Let  or  handle that check-then-act logic.",
+        0.4133
       ],
       [
-        "Believing an atomic counter fixes every shared-state problem.",
-        0.4716
+        "Reach for a concurrent collection when more than one thread reads and writes the same data.",
+        0.4107
       ],
       [
-        "Checking the queue size before taking an item.",
-        0.4695
+        "Skip them when writes are common.",
+        0.4086
       ],
       [
-        "A concurrent hash map doesn't lock the whole map like a synchronized map.",
-        0.4505
+        "Copy-on-write lists work well for listener lists and configuration snapshots that change rarely.",
+        0.4052
       ]
     ],
     "diagnostics_sample": []
@@ -203,25 +194,25 @@
   {
     "label": "concurrent-data-structures-es",
     "model": "desklib",
-    "model_ai_pct": 34.7,
-    "ai_count": 16,
-    "human_count": 64,
-    "skipped_count": 2,
-    "total": 82,
+    "model_ai_pct": 29.9,
+    "ai_count": 10,
+    "human_count": 62,
+    "skipped_count": 3,
+    "total": 75,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 17.2,
-      "stddev": 13.5,
-      "cv": 0.79,
+      "mean": 18.8,
+      "stddev": 14.7,
+      "cv": 0.78,
       "verdict": "natural variation",
-      "sentence_count": 80,
+      "sentence_count": 72,
       "lengths": [
         12,
         25,
         14,
-        5,
+        8,
         24,
-        12,
+        15,
         13,
         19,
         33,
@@ -232,172 +223,164 @@
         21,
         19,
         12,
-        31,
-        12,
+        18,
+        11,
+        11,
         27,
         12,
         13,
         24,
-        19,
+        17,
         22,
-        11,
+        16,
         21,
         9,
         15,
         123,
         23,
-        12,
-        28,
-        11,
-        12,
-        16,
-        16,
-        8,
-        13,
-        11,
-        12,
-        16,
-        6,
-        14,
-        10,
-        11,
-        20,
-        13,
         21,
+        24,
+        12,
+        16,
+        16,
+        6,
+        16,
         11,
-        13,
+        32,
+        35,
+        9,
+        22,
+        22,
+        16,
+        11,
         13,
         9,
         26,
-        22,
-        27,
-        13,
-        11,
-        10,
-        15,
-        17,
+        47,
+        24,
+        25,
+        29,
         18,
-        18,
-        7,
-        23,
         6,
-        15,
+        25,
+        6,
+        14,
+        16,
+        10,
+        6,
         17,
-        7,
         8,
-        19,
-        7,
         12,
         8,
-        14,
+        11,
         26,
-        22,
-        26,
-        10,
-        9,
-        13
+        20,
+        28,
+        7,
+        6,
+        14
       ]
     },
     "top_ai_sentences": [
-      [
-        "En c\u00f3digo asyncio, la que corresponde es la cola de asyncio.",
-        0.9232
-      ],
       [
         "| Estructura | Lecturas | Escrituras | Mejor para | Sobrecarga |\n|-----------|----------|------------|------------|----------|\n|  | Bloqueante | Bloqueante | Productor-consumidor c",
         0.9219
       ],
       [
-        "Mant\u00e9n los valores inmutables o copiados defensivamente antes de compartirlos.",
-        0.8926
+        "Para un simple contador o flag, un at\u00f3mico es suficiente.",
+        0.7878
       ],
       [
-        "Ten bajo control el tama\u00f1o de las colas, la tasa de aciertos de cach\u00e9 y la longitud de la lista de listeners.",
-        0.7351
+        "Java: [resumen del paquete java.util.concurrent](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) y [ConcurrentHashMap](https",
+        0.7127
       ],
       [
-        "Incluso un mapa concurrente no permite cambiarlo dentro de un bucle sobre sus valores.",
-        0.7254
+        "Deja que  o  manejen ese check-then-act.",
+        0.6946
       ],
       [
-        "Para la carga perezosa de cach\u00e9, usa el m\u00e9todo compute-if-absent del mapa.",
-        0.7242
+        "Esa es la funci\u00f3n de las colecciones concurrentes.",
+        0.6749
       ],
       [
-        "Recetas relacionadas: [Pools de hilos](/recipes/thread-pools), [Locks y mutexes](/recipes/locks-and-mutexes), [Prevenci\u00f3n de condiciones de carrera](/recipes/race-condition-prevent",
-        0.6758
+        "Python: [m\u00f3dulo queue](https://docs.python.org/3/library/queue.html) y [m\u00f3dulo threading](https://docs.python.org/3/library/threading.html).",
+        0.6676
       ],
       [
-        "Ah\u00ed entran las colecciones concurrentes.",
-        0.6494
+        "Haz pruebas de carga con m\u00e1s hilos y corridas m\u00e1s largas que las de producci\u00f3n; las condiciones de carrera suelen aparecer solo bajo presi\u00f3n.",
+        0.6581
       ],
       [
-        "Pensar que un contador at\u00f3mico arregla cualquier problema de estado compartido.",
-        0.6435
+        "De todos modos, no lanza .",
+        0.6506
       ],
       [
-        "Documentaci\u00f3n oficial de Python: [m\u00f3dulo queue](https://docs.python.org/3/library/queue.html) y [m\u00f3dulo threading](https://docs.python.org/3/library/threading.html).",
-        0.6366
+        "Las que vienen con el lenguaje est\u00e1n probadas, optimizadas y documentadas.",
+        0.6016
       ],
       [
-        "Es \u00fatil cuando las escrituras son raras, como en listas de listeners de eventos o peque\u00f1as instant\u00e1neas de configuraci\u00f3n.",
-        0.5903
+        "Ev\u00edtalas si las escrituras son frecuentes.",
+        0.518
       ],
       [
-        "Recolecta las claves primero o elimina a trav\u00e9s del iterador.",
-        0.5463
+        "Ajusta la estructura al patr\u00f3n de acceso, no solo al lenguaje.",
+        0.4984
       ],
       [
-        "Pensar que un mapa concurrente va a mantener un orden estable.",
-        0.524
+        "En asyncio, usa  en vez de ; la segunda est\u00e1 hecha para hilos, no para corrutinas.",
+        0.4453
       ],
       [
-        "No las uses cuando las escrituras sean frecuentes.",
-        0.5217
+        "Los ejemplos usan Java, Python y C++ \u2014 elige el que encaje en tu stack.",
+        0.4442
       ],
       [
-        "Los ejemplos est\u00e1n en Java, Python y C++; usa el que tengas.",
-        0.5207
+        "V\u00e9ase tambi\u00e9n: [Pools de hilos](/recipes/thread-pools), [Locks y mutexes](/recipes/locks-and-mutexes) y [Prevenci\u00f3n de condiciones de carrera](/recipes/race-condition-prevention).",
+        0.4425
       ],
       [
-        "Cuando los productores tienen que parar si la cola est\u00e1 llena y los consumidores si est\u00e1 vac\u00eda.",
-        0.5055
+        "Si los datos se escriben una vez y despu\u00e9s solo se leen, una instant\u00e1nea inmutable o una referencia volatile suele ser m\u00e1s simple y r\u00e1pida.",
+        0.4169
       ],
       [
-        "Documentaci\u00f3n oficial de Java: [resumen del paquete java.util.concurrent](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/package-summary.html) y ",
-        0.4922
+        "Usa bloqueo de grano fino por cubeta (per-bin lock striping), as\u00ed que las lecturas son en general sin bloqueos y las escrituras tocan solo una regi\u00f3n peque\u00f1a.",
+        0.4155
       ],
       [
-        "No, para un contador o flag simple.",
-        0.4677
+        "Una cola bloqueante vinculada sin l\u00edmite puede crecer hasta que la JVM se quede sin memoria.",
+        0.4077
       ],
       [
-        "Elige la estructura que se ajuste al patr\u00f3n de acceso, no solo al lenguaje.",
-        0.4502
+        "Ambos se libran de mutexes expl\u00edcitos para contadores simples.",
+        0.4071
       ],
       [
-        "Bloquea toda la lista en cada acceso.",
-        0.4466
+        "Esa separaci\u00f3n mejora cuando productores y consumidores corren a la vez.",
+        0.4067
       ],
       [
-        "Fijarte en el tama\u00f1o de la cola antes de tomar un elemento.",
-        0.4381
+        "\u00dasala cuando las lecturas superen con creces las escrituras, como en listas de listeners de eventos.",
+        0.3915
       ],
       [
-        "Las implementaciones est\u00e1ndar est\u00e1n probadas, optimizadas y tienen sem\u00e1nticas m\u00e1s claras.",
-        0.4322
+        "Resulta \u00fatil con escrituras raras, como en listas de listeners de eventos o peque\u00f1as instant\u00e1neas de configuraci\u00f3n.",
+        0.385
       ],
       [
-        "Se pone cara cuando las escrituras son frecuentes, porque cada una copia el array completo.",
-        0.4304
+        "Con , la carga perezosa de una cach\u00e9 pasa a ser at\u00f3mica.",
+        0.3806
       ],
       [
-        "De todos modos, no lanza ConcurrentModificationException.",
-        0.4269
+        "Pensar que arregla cualquier problema de estado compartido es un error.",
+        0.3668
       ],
       [
-        "Cuando los hilos empiezan a competir, se encolan y el throughput cae.",
-        0.4236
+        "Dale una capacidad inicial al mapa concurrente para evitar redimensiones costosas bajo carga.",
+        0.347
+      ],
+      [
+        "Una cola bloqueante frena a los productores si la cola est\u00e1 llena y a los consumidores si est\u00e1 vac\u00eda.",
+        0.3381
       ]
     ],
     "diagnostics_sample": []

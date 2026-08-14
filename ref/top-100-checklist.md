@@ -65,7 +65,7 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/concurrent-data-structures/
    - ES: https://stackpractices.com/es/recipes/concurrent-data-structures/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ✅ Prompt 17 (SEO) + Prompt 18 (content quality) applied; ✅ AI desklib < 40% (EN 39.1%, ES 34.6%); ✅ EN/ES aligned
+   - Status: ✅ Prompt 17 (SEO) + Prompt 18 (content quality) + ai-detect-analysis applied; ✅ AI desklib < 40% (EN 37.4%, ES 29.9%); ✅ EN/ES aligned
    - Words: 2,635 | Meta: 156 chars
 
 8. - [ ] **parse-log-files** (recipes)
