@@ -1,5 +1,11 @@
 # Flujo de mejora de contenido — StackPractices
 
+> **Nota para el skill `content-improvement`**: el flujo canónico y acotado para
+> mejorar un recurso **existente** está en `.devin/skills/content-improvement/SKILL.md`
+> y en `.devin/skills/content-improvement/reference/workflow-prompt.md`.
+> Este documento es una guía de referencia más amplia que incluye creación,
+> scaffold y detalles adicionales.
+
 Este documento describe el flujo para crear y mejorar recursos de
 `StackPractices`: recetas, patrones, guías y plantillas de documentación. El
 objetivo es reducir el score de detección de IA, mantener calidad técnica y
@@ -164,17 +170,34 @@ Validar manualmente (con `content:quality` se cubre gran parte):
 
 ## 6. Commit y publicación
 
+Si el recurso ya existe y se está aplicando el skill `content-improvement`,
+mostrar `git diff`, resumir los cambios y **pedir aprobación explícita** antes de
+hacer commit.
+
 ```bash
+git diff --stat
 git add src/content/{tipo}/{slug}.md src/content/{tipo}/{slug}.es.md
+# añadir informes de ref/output/ solo si procede:
 git add ref/output/ai-detect-{slug}.json ref/output/ai-detect-patterns-{slug}.json
+```
+
+Solo después de la aprobación del usuario:
+
+```bash
 git commit -m "Add {slug} {tipo}"
 git push
 ```
 
-Si el recurso es nuevo, regenerar sitemap:
+Si el recurso es nuevo o se ha modificado el contenido, regenerar sitemap:
 
 ```bash
 npm run sitemap
+```
+
+Para la validación técnica, preferir:
+
+```bash
+node scripts/content-improvement-pipeline.cjs <slug>
 ```
 
 ---
