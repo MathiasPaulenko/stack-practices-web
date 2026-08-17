@@ -24,6 +24,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio
   - /guides/concurrency-patterns-guide
   - /recipes/python-async-gather-concurrent-requests
+  - /recipes/python-async-http-requests
 lastUpdated: "2026-08-17"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
@@ -44,17 +45,14 @@ seo:
 
 `asyncio.Semaphore` puts a cap on how many async operations can run at the same time. That cap keeps you from overwhelming an API, draining a connection pool, or tripping a rate limit. Below you will find basic semaphore usage, rate-limited API calls, connection pool management, dynamic concurrency adjustment, a token bucket, and a combination with timeouts. For more on combining this with task coordination, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/recipes/python-asyncio-gather-task-groups/).
 
-## When to Use This
+## When to Use
 
 - API calls with rate limits (e.g., 100 requests/minute)
 - Database connection pool management
 - Limiting concurrent file operations or network connections
 - Any scenario where unbounded concurrency causes resource exhaustion
 
-## Prerequisites
-
-- Python 3.11+
-- `aiohttp` for HTTP examples
+The examples use Python 3.11+ and `aiohttp` for the HTTP snippets.
 
 ## Solution
 
@@ -324,19 +322,19 @@ async def fetch_all(urls: list, max_concurrent: int = 10, timeout: float = 10.0)
         return await asyncio.gather(*tasks, return_exceptions=True)
 ```
 
-## How It Works
+## Explanation
 
-A semaphore starts as a counter set to the limit you choose. When a task calls `acquire()`, the counter goes down by one. When it calls `release()`, the counter goes back up. If the counter hits zero, the next caller waits until another task gives its slot back.
+A semaphore starts as a counter set to the limit you choose. When a task calls acquire, the counter goes down by one. When it calls release, the counter goes back up. Once the counter reaches zero, any new caller has to wait until another task releases a slot.
 
-Using `async with semaphore` is the safest way to hold a slot. Python takes the slot when the block starts and returns it when the block ends, including when the task raises an exception. You never have to remember to call `release()` manually.
+The safest way to hold a slot is to use the context manager. Python takes the slot when the block starts and returns it when the block ends, including when the task raises an exception. You never have to call the release method by hand.
 
-A token bucket works differently. Instead of capping how many tasks run at the same time, it caps how fast you can start them. Tokens refill at a fixed rate, and every request spends one. A short burst can exceed the steady rate as long as it fits in the bucket, but the long-term average stays below the limit.
+A token bucket is a different beast. Instead of capping how many tasks run at the same time, it caps how fast you can start them. Tokens refill at a fixed rate, and every request spends one. A short burst can exceed the steady rate as long as it fits in the bucket, but the long-term average stays below the limit.
 
 When you call many different hosts, each one may have its own limit. A dictionary that maps hostnames to separate semaphores keeps each host under its own cap, so one slow host doesn't block the others.
 
-An adaptive semaphore watches success and failure rates and moves the limit up or down. If failures pile up, it lowers the limit to give the service room to recover. If everything is running smoothly, it raises the limit to get more throughput.
+An adaptive semaphore watches success and failure rates and moves the limit up or down. If failures pile up, it lowers the limit to give the service room to recover. When things are going well, it nudges the limit up to pull in more throughput.
 
-For a broader view of concurrency patterns, see the [Concurrency Patterns Guide](/guides/concurrency-patterns-guide/).
+If you want a broader view of concurrency patterns, the [Concurrency Patterns Guide](/guides/concurrency-patterns-guide/) goes deeper.
 
 ## Variants
 
@@ -401,11 +399,11 @@ class WeightedSemaphore:
 
 For a deeper guide, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/recipes/python-asyncio-gather-task-groups/).
 
-Pick a limit that matches the resource. For HTTP calls, 10–20 tasks is a reasonable first guess. For databases, stay close to the connection pool size. Then watch response times and error rates and adjust from there.
+Pick a limit that matches the resource. For HTTP calls, 10–20 tasks is a reasonable first guess. For databases, stay close to the connection pool size. Then keep an eye on response times and error rates, and move the limit up or down from there.
 
-Always use `async with semaphore`. The context manager returns the slot even if the task raises, so a crash can't leak it.
+The context manager should be your default. That way the slot is released even if the task raises, so a crash can't leak it.
 
-Don't share one semaphore across every API. Different services tolerate different loads, so give each API or host its own cap.
+Give each service its own cap instead of sharing one semaphore everywhere. Different APIs and hosts tolerate different loads, so their limits should be separate.
 
 Add a timeout alongside the semaphore. Without one, a slow call can park a slot forever and stop the queue.
 
@@ -415,34 +413,34 @@ If the rule is "N requests per second" rather than "N at once", use a token buck
 
 ## Common Mistakes
 
-Using the same semaphore for every API is tempting but wrong. One limit either starves the fast APIs or drowns the slow ones.
+It's tempting to reuse the same semaphore for every API, but that usually backfires. One limit either starves the fast APIs or drowns the slow ones.
 
-Calling `acquire()` and `release()` by hand is risky. If an exception happens between them, the slot is gone. Use `async with semaphore` so release happens automatically.
+Calling the acquire and release methods by hand is risky. If an exception pops up between the two calls, the slot is gone for good. Use the context manager so release happens automatically.
 
 Sending 100 requests at once to a rate-limited API usually gets most of them rejected. Start close to the limit the API publishes.
 
-Don't confuse concurrency with rate. A semaphore says "run at most N at once", not "send at most N per second". The latter needs a token bucket or a leaky bucket.
+It's easy to mix up concurrency and rate. A semaphore means "run at most N at once", not "send at most N per second", so don't confuse the two. The latter needs a token bucket or a leaky bucket.
 
 If high-priority tasks keep waiting behind low-priority ones, a plain semaphore isn't enough. Add priority-aware queuing or another scheduling strategy.
 
 ## FAQ
 
-**How is a semaphore different from a lock?**
+### How is a semaphore different from a lock?
 
-A lock lets only one task through at a time, while a semaphore lets N through. In other words, a lock is just a semaphore with a limit of 1.
+A lock lets only one task through at a time, while a semaphore lets N through. That makes a lock a special case of a semaphore where the limit is 1.
 
-**How do I pick a good concurrency limit?**
+### How do I pick a good concurrency limit?
 
-For HTTP calls, start with 10 concurrent tasks. Watch the error rate and response time. If both stay healthy, raise the limit; if errors climb or latency spikes, lower it. The API documentation usually lists the rate limit you should respect.
+For HTTP calls, 10 concurrent tasks is a sensible starting point. Keep an eye on both the error rate and the response time. If both stay healthy, raise the limit; if errors climb or latency spikes, lower it. The API documentation usually lists the rate limit you should respect.
 
-**Can the semaphore limit change while the program runs?**
+### Can the semaphore limit change while the program runs?
 
-`asyncio.Semaphore` doesn't have a resize method. You can build a wrapper that adds slots by calling `release()` or removes them by calling `acquire()`. Alternatively, replace the whole semaphore with a new one with a different initial value.
+The standard library class doesn't expose a resize method. You can build a wrapper that adds slots by calling `release()` or removes them by calling `acquire()`. Alternatively, replace the whole semaphore with a new one that starts with a different limit.
 
-**Do I need a semaphore if I already have a connection pool?**
+### Do I need a semaphore if I already have a connection pool?
 
-For databases, the connection pool already limits how many connections are open, so an extra semaphore is usually redundant. Use a semaphore for HTTP clients or for any other client that doesn't include its own pool.
+For databases, the connection pool already limits how many connections are open, so an extra semaphore is usually redundant. HTTP clients and other clients that don't come with their own pool are good candidates for a semaphore.
 
-**What if a task holds a slot and never finishes?**
+### What if a task holds a slot and never finishes?
 
-The queue behind it stalls. Add a timeout with `asyncio.wait_for` or `asyncio.timeout()`. If the work takes too long, the timeout fires, the slot is released, and other tasks can continue.
+Everything behind that task backs up and waits. Add a timeout with `asyncio.wait_for` or `asyncio.timeout()`. If the work drags on too long, the timeout triggers, the slot goes back into the pool, and the remaining tasks keep moving.

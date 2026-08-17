@@ -90,7 +90,7 @@ Use this list to track progress as you audit and improve each resource.
    - ES: https://stackpractices.com/es/recipes/python-asyncio-semaphore-rate-limiting/
    - Focus: striking distance, high impressions, low CTR
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned
-   - Words: 1,800 | Meta: 164 chars
+   - Words: 1,905 (EN) / 1,981 (ES) | Meta: 164 (EN) / 168 (ES) chars
 
 11. - [x] **penetration-test-template** (docs)
    - Metrics: 205 imp | pos 71.4 | CTR 0.00% | Δ impr -1

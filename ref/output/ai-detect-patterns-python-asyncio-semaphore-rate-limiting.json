@@ -1,7 +1,7 @@
 [
   {
     "label": "python-asyncio-semaphore-rate-limiting",
-    "total_sentences": 61,
+    "total_sentences": 62,
     "pattern_totals": {},
     "findings": []
   }
