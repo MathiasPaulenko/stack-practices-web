@@ -71,7 +71,7 @@ Si el modo no es claro, preguntar antes de empezar.
 - **Corte de esfuerzo**: si no hay hallazgos accionables, saltar a la siguiente fase.
 - **Salida esperada:** lista numerada de los cambios realizados (máximo 5).
 
-### Fase 2 — Calidad + IA (máximo 2 rondas)
+### Fase 2 — Calidad + IA (máximo 4 rondas)
 
 - Antes de detectar IA, aplicar `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` para corregir estructura, `relatedResources` coherentes, anglicismos, tokens de código y prosa genérica.
 - Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` a EN y ES.
@@ -96,8 +96,8 @@ Si el modo no es claro, preguntar antes de empezar.
   3. Reescribir frases que terminen con tokens de código o celdas de tabla con código; colocar el token en el medio de la oración o rodearlo de contexto.
   4. Conservar el contenido técnico, los ejemplos de código y las versiones reales de herramientas.
 - Volver a ejecutar `ai-detect-content.py` y `ai-detect-patterns.py`.
-- **Regla de parada**: detener el bucle cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o bien al completar la **ronda 2**. Nunca intentar una tercera ronda.
-- **Nota sobre contenido técnico**: en listas de herramientas, tablas y tripletes, Desklib puede marcar frases cortas como IA aunque sean reales. Priorizar la corrección de `pattern_totals` y la utilidad técnica sobre forzar `model_ai_pct` < 40 %. Si tras 2 rondas no hay patrones y el score sigue alto, reportarlo y esperar aprobación para una ronda extra.
+- **Regla de parada**: detener el bucle cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o bien al completar la **ronda 4**. Nunca intentar una quinta ronda.
+- **Nota sobre contenido técnico**: en listas de herramientas, tablas y tripletes, Desklib puede marcar frases cortas como IA aunque sean reales. Priorizar la corrección de `pattern_totals` y la utilidad técnica sobre forzar `model_ai_pct` < 40 %. Si tras 4 rondas no hay patrones y el score sigue alto, reportarlo y esperar aprobación para una ronda extra.
 
 **Salida esperada:** puntuación IA antes/después, patrones corregidos y frases reescritas.
 
@@ -153,7 +153,7 @@ Si el modo no es claro, preguntar antes de empezar.
 - **No eliminar contenido técnico** solo para bajar la puntuación IA.
 - **Usar siempre Desklib**, nunca el detector `light`.
 - **No reescribir el recurso completo** si no es necesario. Reescribir frases aisladas.
-- **Máximo 2 rondas de detección/corrección IA**.
+- **Máximo 4 rondas de detección/corrección IA**.
 - **No añadir secciones manuales** de recursos relacionados en el cuerpo del Markdown.
 - **No inventar** herramientas, versiones, normas o datos.
 - **Mantener los ejemplos de código funcionales** y prácticos.

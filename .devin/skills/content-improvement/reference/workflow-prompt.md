@@ -38,7 +38,7 @@ Si el modo no es claro, preguntar antes de empezar.
   - `lastUpdated` en ambos archivos si hay cambios.
 - Si no hay hallazgos accionables, saltar a la siguiente fase.
 
-### Fase 2 — Calidad + IA (máximo 2 rondas)
+### Fase 2 — Calidad + IA (máximo 4 rondas)
 
 - Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` a EN y ES.
 - Corregir solo los **3-5 hallazgos de mayor impacto**.
@@ -61,7 +61,7 @@ Si el modo no es claro, preguntar antes de empezar.
   2. Reescribir como máximo **5-10 frases de mayor `ai_prob` por idioma por ronda**.
   3. No borrar contenido técnico ni ejemplos de código.
 - Volver a ejecutar detectores.
-- **Regla de parada**: detener cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o al completar la **ronda 2** (lo que ocurra primero).
+- **Regla de parada**: detener cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o al completar la **ronda 4** (lo que ocurra primero).
 
 ### Fase 3 — Paridad EN/ES
 
@@ -111,7 +111,7 @@ Si falla, mostrar el error exacto y no continuar.
 - **No eliminar contenido técnico** solo para bajar la puntuación IA.
 - **No inventar** herramientas, versiones, normas o datos.
 - **No reescribir el recurso completo** si no es necesario.
-- **Máximo 2 rondas de detección/corrección IA**.
+- **Máximo 4 rondas de detección/corrección IA**.
 - **No añadir secciones manuales** de recursos relacionados en el cuerpo.
 - **No modificar** configuraciones de seguridad, CI/CD o `.npmrc`.
 - **Respetar el roadmap**: nada de backend, nada de monetización (Fase 4+).
