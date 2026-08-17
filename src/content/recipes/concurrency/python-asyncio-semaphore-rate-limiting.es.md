@@ -4,8 +4,8 @@
 
 contentType: recipes
 slug: python-asyncio-semaphore-rate-limiting
-title: "Rate Limiting de Operaciones Async con asyncio.Semaphore"
-description: "Controlar la concurrencia en async Python usando asyncio.Semaphore para rate limiting de llamadas a API, conexiones a base de datos y acceso a recursos con patrones de paralelismo limitado."
+title: "Limitar operaciones asíncronas con asyncio.Semaphore"
+description: "Usa asyncio.Semaphore en Python para acotar llamadas a API, consultas a base de datos y acceso a recursos con patrones practicos de limitacion de tasa."
 metaDescription: "Rate limiting de operaciones async en Python con asyncio.Semaphore. Controla concurrencia para llamadas a API, conexiones a DB y recursos con paralelismo limitado."
 difficulty: intermediate
 topics:
@@ -24,7 +24,7 @@ relatedResources:
   - /guides/complete-guide-python-asyncio
   - /guides/concurrency-patterns-guide
   - /recipes/python-async-gather-concurrent-requests
-lastUpdated: "2026-07-03"
+lastUpdated: "2026-08-17"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
@@ -42,17 +42,14 @@ seo:
 
 ## Descripcion general
 
-`asyncio.Semaphore` limita el numero de operaciones concurrentes en async Python. Esto previene abrumar servicios externos, agotar connection pools o alcanzar rate limits. A continuacion: uso basico de semaforo, rate limiting de llamadas a API, gestion de connection pools, ajuste dinamico de concurrencia, patron token bucket y combinacion de semaforos con otros primitivos de asyncio.
+`asyncio.Semaphore` pone un tope al numero de operaciones asincronas que pueden ejecutarse a la vez. Ese tope evita saturar una API, agotar un grupo de conexiones o superar un limite de tasa. A continuacion veras el uso basico del semaforo, llamadas a API con limitacion de tasa, gestion de grupos de conexiones, ajuste dinamico de concurrencia, un cubo de tokens y la combinacion con timeouts. Para combinar esto con la coordinacion de tareas, consulta [Tareas asincronas concurrentes con asyncio.gather y grupos de tareas](/es/recipes/python-asyncio-gather-task-groups/).
 
 ## Cuando Usar Esto
 
-
-- For alternatives, see [Concurrent Async Tasks with asyncio.gather and Task Groups](/es/recipes/python-asyncio-gather-task-groups/).
-
-- Llamadas a API con rate limits (ej., 100 peticiones/minuto)
-- Gestion de connection pool de base de datos
+- Llamadas a API con limites de tasa (p. ej., 100 peticiones/minuto)
+- Gestion del grupo de conexiones de una base de datos
 - Limitar operaciones concurrentes de archivos o conexiones de red
-- Cualquier escenario donde concurrencia sin limites causa agotamiento de recursos
+- Cualquier escenario donde la concurrencia sin limites agote los recursos
 
 ## Prerrequisitos
 
@@ -123,6 +120,7 @@ results = asyncio.run(fetch_many(urls, max_concurrent=10))
 ```python
 import asyncio
 import time
+import aiohttp
 
 class TokenBucketRateLimiter:
     """Rate limiter usando algoritmo token bucket — permite bursts hasta la capacidad
@@ -328,11 +326,17 @@ async def fetch_all(urls: list, max_concurrent: int = 10, timeout: float = 10.0)
 
 ## Como Funciona
 
-1. **Semaforo**: Un contador que empieza en un valor dado. `acquire()` decrementa el contador; `release()` lo incrementa. Si el contador es cero, `acquire()` bloquea hasta que otra tarea libere.
-2. **`async with semaphore`**: El context manager adquiere al entrar y libera al salir. Esto asegura que el semaforo siempre se libere, incluso si ocurre una excepcion.
-3. **Token bucket**: En lugar de limitar concurrencia, el token bucket limita la tasa. Los tokens se refill a una tasa constante; cada peticion consume uno. Se permiten bursts hasta la capacidad, pero la tasa a largo plazo esta limitada.
-4. **Limiting por host**: Diferentes hosts tienen diferentes rate limits. Usar un diccionario de semaforos keyed por host asegura que cada host obtenga su propio limite de concurrencia.
-5. **Semaforo adaptativo**: Monitorea tasas de exito/fallo y ajusta concurrencia dinamicamente. En fallos, reduce concurrencia para evitar abrumar el servicio. En exitos, aumenta para maximizar throughput.
+Un semaforo es, en esencia, un contador que comienza con el limite que tu definas. Cuando una tarea llama `acquire()`, el contador baja en uno; cuando llama `release()`, vuelve a subir. Si el contador llega a cero, la siguiente tarea espera hasta que otra libere su hueco.
+
+La forma mas segura de usarlo es con `async with semaphore`. Python toma el hueco al entrar en el bloque y lo devuelve al salir, incluso si la tarea lanza una excepcion. No tienes que acordarte de llamar `release()` a mano.
+
+El cubo de tokens funciona de otra manera. En vez de restringir cuantas tareas estan activas a la vez, restringe la velocidad con la que puedes lanzarlas. Los tokens se recargan a ritmo constante y cada peticion gasta uno. Puedes hacer rafagas que superen la tasa media siempre que quepan en el cubo, pero a largo plazo el promedio no pasa del limite.
+
+Cuando llamas a varios hosts distintos, cada uno puede soportar una carga diferente. Un diccionario que asigne un semaforo a cada nombre de host mantiene cada uno bajo su propio tope, asi que un host lento no bloquea al resto.
+
+Un semaforo adaptativo vigila los exitos y los fallos y mueve el limite arriba o abajo. Si se acumulan fallos, baja el limite para darle aire al servicio. Si todo funciona bien, lo sube para sacar mas rendimiento.
+
+Para una vision mas amplia de patrones de concurrencia, consulta la [Guia de patrones de concurrencia](/es/guides/concurrency-patterns-guide/).
 
 ## Variantes
 
@@ -371,6 +375,8 @@ await queue.join()  # Esperar a que todos los items se procesen
 ### Semaforo Ponderado
 
 ```python
+import asyncio
+
 class WeightedSemaphore:
     """Semaforo donde diferentes operaciones requieren diferentes pesos."""
 
@@ -393,51 +399,50 @@ class WeightedSemaphore:
 
 ## Mejores Practicas
 
-- **Elegir el limite correcto**: Para peticiones HTTP, empieza con 10-20 concurrentes. Para conexiones a base de datos, iguala el tamano del connection pool. Monitorea y ajusta basado en tiempos de respuesta y tasas de error.
-- **Usar `async with`**: Siempre usa la forma context manager para asegurar que el semaforo se libere, incluso en excepciones.
-- **Semaforos separados por recurso**: No compartas un semaforo entre diferentes APIs. Cada API tiene diferentes rate limits — usa semaforos por host o por servicio.
-- **Combinar con timeouts**: Un semaforo limita concurrencia, pero una operacion lenta puede mantener un slot indefinidamente. Agrega timeouts para liberar slots de operaciones atascadas.
-- **Monitorear tiempo de espera del semaforo**: Si las tareas pasan la mayor parte del tiempo esperando el semaforo, el limite es demasiado bajo. Si el servicio esta abrumado, el limite es demasiado alto.
-- **Usar token bucket para limites basados en tasa**: Los semaforos limitan concurrencia (paralelismo), no tasa (throughput). Para limites de "N peticiones por segundo", usa un token bucket.
+Para una guia mas completa, consulta [Tareas asincronas concurrentes con asyncio.gather y grupos de tareas](/es/recipes/python-asyncio-gather-task-groups/).
+
+Elige un limite que encaje con el recurso. Para llamadas HTTP, 10–20 tareas concurrentes es un punto de partida sensato. Para bases de datos, quedate cerca del tamano del grupo de conexiones. Luego observa los tiempos de respuesta y las tasas de error y ajusta el limite desde ahi.
+
+Usa siempre `async with semaphore`. El context manager libera el semaforo incluso si la tarea lanza una excepcion, asi que un fallo no deja un slot tomado.
+
+No compartas un unico semaforo entre todas las APIs. Cada servicio tolera una carga distinta, asi que asigna un limite por host o por API.
+
+Combina el semaforo con un timeout. Sin el, una llamada lenta puede quedarse con un slot para siempre y paralizar el resto de la cola.
+
+Si la mayor parte del tiempo se pasa esperando el semaforo, el limite es demasiado bajo. Si el servicio remoto devuelve errores o empieza a dar timeouts, el limite es demasiado alto.
+
+Cuando la regla es "N peticiones por segundo" y no "N a la vez", usa un cubo de tokens o un cubo con fuga en vez de un semaforo simple.
 
 ## Errores Comunes
 
-- **Usar un solo semaforo para todo**: Diferentes APIs tienen diferentes limites. Un semaforo compartido subutiliza APIs rapidas y sobrecarga APIs lentas.
-- **No liberar en excepcion**: `acquire()`/`release()` manual puede leak slots si ocurre una excepcion entre ellos. Siempre usa `async with semaphore`.
-- **Establecer el limite demasiado alto**: 100 peticiones concurrentes a una API con rate limit causara que la mayoria sean rechazadas. Iguala el limite al rate limit de la API.
-- **Confundir concurrencia con tasa**: Un semaforo limita cuantas operaciones ejecutan a la vez, no cuantas ejecutan por segundo. Para rate limiting, usa un token bucket o leaky bucket.
-- **No manejar starvation del semaforo**: Si tareas de alta prioridad esperan detras de tareas de baja prioridad, considera queuing con prioridad en lugar de un semaforo plano.
+Usar el mismo semaforo para todas las APIs es tentador, pero incorrecto. Cada servicio tolera una carga distinta, y un unico limite o deja hambrientas a las rapidas o satura a las lentas.
+
+Llamar `acquire()` y `release()` a mano es arriesgado. Si entre medias salta una excepcion, el slot no vuelve. Usa `async with semaphore` para que la liberacion sea automatica.
+
+Enviar 100 peticiones a la vez a una API con limite de tasa suele acabar con la mayoria rechazada. Parte del limite que publique la API.
+
+No confundas concurrencia con tasa. Un semaforo dice "como mucho N a la vez", no "como mucho N por segundo". Para lo segundo necesitas un cubo de tokens o un cubo con fuga.
+
+Si las tareas de alta prioridad siempre esperan detras de las de baja prioridad, un semaforo simple no alcanza. Agrega una cola con prioridad u otro mecanismo de planificacion.
 
 ## FAQ
 
-**Cual es la diferencia entre un semaforo y un lock?**
+**En que se diferencia un semaforo de un lock?**
 
-Un lock (mutex) permite solo una tarea a la vez. Un semaforo permite N tareas a la vez. Un lock es equivalente a un semaforo con valor 1.
+Un lock deja pasar una sola tarea a la vez, mientras que un semaforo deja pasar N. En otras palabras, un lock es un semaforo con limite 1.
 
-**Como elijo el limite de concurrencia correcto?**
+**Como elijo un buen limite de concurrencia?**
 
-Empieza con 10 para peticiones HTTP. Monitorea tiempos de respuesta y tasas de error. Si las respuestas son rapidas y los errores bajos, aumenta. Si los errores aumentan o las respuestas se ralentizan, disminuye. La documentacion de la API suele especificar rate limits.
+Para llamadas HTTP, empieza con 10 tareas concurrentes. Observa la tasa de errores y la latencia. Si ambas se mantienen sanas, sube el limite; si suben los errores o la latencia se dispara, bajalo. La documentacion de la API suele indicar el limite de tasa que debes respetar.
 
-**Puedo cambiar el limite del semaforo en runtime?**
+**Puedo cambiar el limite del semaforo mientras corre el programa?**
 
-No directamente — `asyncio.Semaphore` no soporta resize dinamico. Crea un semaforo nuevo o implementa un semaforo adaptativo que ajusta llamando `release()` (para agregar slots) o `acquire()` (para remover slots).
+`asyncio.Semaphore` no tiene un metodo de redimensionamiento. Puedes construir un envoltorio que agregue slots llamando `release()` o los quite llamando `acquire()`. Otra opcion es reemplazar el semaforo por uno nuevo con otro valor inicial.
 
-**Deberia usar un semaforo o un connection pool?**
+**Necesito un semaforo si ya tengo un grupo de conexiones?**
 
-Para acceso a base de datos, usa un connection pool (ej., `asyncpg.create_pool`). El pool gestiona conexiones eficientemente. Usa un semaforo cuando no tienes pool — ej., rate-limiting de peticiones HTTP a una API externa.
+Para bases de datos, el grupo de conexiones ya limita cuantas conexiones estan abiertas, asi que un semaforo adicional suele ser redundante. Usa un semaforo para clientes HTTP o para cualquier otro cliente que no traiga su propio grupo.
 
-**Que pasa si todos los slots estan ocupados y una tarea se cuelga?**
+**Y si una tarea toma un slot y nunca termina?**
 
-Otras tareas esperan indefinidamente. Siempre combina semaforos con timeouts para que una tarea atascada eventualmente libere su slot. Usa `asyncio.wait_for` o `asyncio.timeout()`.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+La cola que hay detras se queda parada. Agrega un timeout con `asyncio.wait_for` o `asyncio.timeout()`. Si el trabajo tarda demasiado, el timeout salta, el slot se libera y el resto de las tareas pueden continuar.

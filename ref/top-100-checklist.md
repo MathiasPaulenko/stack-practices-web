@@ -84,13 +84,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Syntax highlighting restored
    - Words: 1,817 | Meta: 149 chars
 
-10. - [ ] **python-asyncio-semaphore-rate-limiting** (recipes)
+10. - [x] **python-asyncio-semaphore-rate-limiting** (recipes)
    - Metrics: 68 imp | pos 15.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-asyncio-semaphore-rate-limiting/
    - ES: https://stackpractices.com/es/recipes/python-asyncio-semaphore-rate-limiting/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,761 | Meta: 164 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned
+   - Words: 1,800 | Meta: 164 chars
 
 11. - [x] **penetration-test-template** (docs)
    - Metrics: 205 imp | pos 71.4 | CTR 0.00% | Δ impr -1

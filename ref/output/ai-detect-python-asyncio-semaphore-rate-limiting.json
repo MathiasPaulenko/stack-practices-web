@@ -1,0 +1,366 @@
+[
+  {
+    "label": "python-asyncio-semaphore-rate-limiting-en",
+    "model": "desklib",
+    "model_ai_pct": 52.4,
+    "ai_count": 29,
+    "human_count": 31,
+    "skipped_count": 1,
+    "total": 61,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.0,
+      "stddev": 6.8,
+      "cv": 0.48,
+      "verdict": "somewhat uniform",
+      "sentence_count": 60,
+      "lengths": [
+        14,
+        17,
+        24,
+        17,
+        44,
+        11,
+        9,
+        16,
+        9,
+        22,
+        8,
+        5,
+        19,
+        11,
+        24,
+        13,
+        23,
+        15,
+        15,
+        13,
+        12,
+        13,
+        7,
+        10,
+        9,
+        11,
+        17,
+        7,
+        14,
+        6,
+        14,
+        16,
+        15,
+        26,
+        11,
+        12,
+        6,
+        10,
+        5,
+        15,
+        8,
+        5,
+        16,
+        10,
+        13,
+        7,
+        24,
+        14,
+        16,
+        7,
+        15,
+        11,
+        14,
+        16,
+        14,
+        31,
+        17,
+        15,
+        6,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Using  is the safest way to hold a slot.",
+        0.8981
+      ],
+      [
+        "When you call many different hosts, each one may have its own limit.",
+        0.8578
+      ],
+      [
+        "Use a semaphore for HTTP clients or for any other client that doesn't include its own pool.",
+        0.8565
+      ],
+      [
+        "**Do I need a semaphore if I already have a connection pool?**\n\nFor databases, the connection pool already limits how many connections are open, so an extra semaphore is usually re",
+        0.84
+      ],
+      [
+        "**How do I pick a good concurrency limit?**\n\nFor HTTP calls, start with 10 concurrent tasks.",
+        0.8325
+      ],
+      [
+        "In other words, a lock is just a semaphore with a limit of 1.",
+        0.8108
+      ],
+      [
+        "Calling  and  by hand is risky.",
+        0.7948
+      ],
+      [
+        "Watch the error rate and response time.",
+        0.7746
+      ],
+      [
+        "Don't share one semaphore across every API.",
+        0.7544
+      ],
+      [
+        "You never have to remember to call  manually.",
+        0.7527
+      ],
+      [
+        "If everything is running smoothly, it raises the limit to get more throughput.",
+        0.7356
+      ],
+      [
+        "If the counter hits zero, the next caller waits until another task gives its slot back.",
+        0.7289
+      ],
+      [
+        "If the work takes too long, the timeout fires, the slot is released, and other tasks can continue.",
+        0.704
+      ],
+      [
+        "Alternatively, replace the whole semaphore with a new one with a different initial value.",
+        0.7011
+      ],
+      [
+        "For a broader view of concurrency patterns, see the [Concurrency Patterns Guide](/guides/concurrency-patterns-guide/).",
+        0.6902
+      ],
+      [
+        "Then watch response times and error rates and adjust from there.",
+        0.6806
+      ],
+      [
+        "Using the same semaphore for every API is tempting but wrong.",
+        0.6621
+      ],
+      [
+        "If an exception happens between them, the slot is gone.",
+        0.6414
+      ],
+      [
+        "A semaphore says \"run at most N at once\", not \"send at most N per second\".",
+        0.6348
+      ],
+      [
+        "**How is a semaphore different from a lock?**\n\nA lock lets only one task through at a time, while a semaphore lets N through.",
+        0.6245
+      ],
+      [
+        "A token bucket works differently.",
+        0.6239
+      ],
+      [
+        "**Can the semaphore limit change while the program runs?**\n\n doesn't have a resize method.",
+        0.6167
+      ],
+      [
+        "Don't confuse concurrency with rate.",
+        0.6045
+      ],
+      [
+        "When it calls , the counter goes back up.",
+        0.5842
+      ],
+      [
+        "Pick a limit that matches the resource.",
+        0.5838
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-asyncio-semaphore-rate-limiting-es",
+    "model": "desklib",
+    "model_ai_pct": 39.8,
+    "ai_count": 14,
+    "human_count": 46,
+    "skipped_count": 1,
+    "total": 61,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.6,
+      "stddev": 7.9,
+      "cv": 0.5,
+      "verdict": "natural variation",
+      "sentence_count": 60,
+      "lengths": [
+        14,
+        17,
+        33,
+        18,
+        8,
+        52,
+        16,
+        16,
+        9,
+        21,
+        8,
+        8,
+        19,
+        12,
+        24,
+        13,
+        27,
+        16,
+        12,
+        10,
+        16,
+        15,
+        8,
+        12,
+        12,
+        17,
+        22,
+        9,
+        16,
+        6,
+        19,
+        16,
+        16,
+        30,
+        12,
+        21,
+        6,
+        10,
+        7,
+        19,
+        7,
+        5,
+        15,
+        13,
+        19,
+        10,
+        26,
+        11,
+        15,
+        8,
+        18,
+        14,
+        16,
+        13,
+        13,
+        32,
+        17,
+        18,
+        6,
+        20
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "No tienes que acordarte de llamar  a mano.",
+        0.9047
+      ],
+      [
+        "Usa  para que la liberacion sea automatica.",
+        0.8141
+      ],
+      [
+        "Usa un semaforo para clientes HTTP o para cualquier otro cliente que no traiga su propio grupo.",
+        0.8118
+      ],
+      [
+        "Llamadas a API con limites de tasa (p.",
+        0.7901
+      ],
+      [
+        "Llamar  y  a mano es arriesgado.",
+        0.7823
+      ],
+      [
+        "Parte del limite que publique la API.",
+        0.65
+      ],
+      [
+        "Agrega una cola con prioridad u otro mecanismo de planificacion.",
+        0.6436
+      ],
+      [
+        "Otra opcion es reemplazar el semaforo por uno nuevo con otro valor inicial.",
+        0.643
+      ],
+      [
+        "En otras palabras, un lock es un semaforo con limite 1.",
+        0.6169
+      ],
+      [
+        "Si se acumulan fallos, baja el limite para darle aire al servicio.",
+        0.5962
+      ],
+      [
+        "La forma mas segura de usarlo es con .",
+        0.5587
+      ],
+      [
+        "Elige un limite que encaje con el recurso.",
+        0.5326
+      ],
+      [
+        "El cubo de tokens funciona de otra manera.",
+        0.5259
+      ],
+      [
+        "Observa la tasa de errores y la latencia.",
+        0.5081
+      ],
+      [
+        "No confundas concurrencia con tasa.",
+        0.4903
+      ],
+      [
+        "Un semaforo dice \"como mucho N a la vez\", no \"como mucho N por segundo\".",
+        0.484
+      ],
+      [
+        "Cuando llamas a varios hosts distintos, cada uno puede soportar una carga diferente.",
+        0.4796
+      ],
+      [
+        "Puedes hacer rafagas que superen la tasa media siempre que quepan en el cubo, pero a largo plazo el promedio no pasa del limite.",
+        0.4727
+      ],
+      [
+        "Si la mayor parte del tiempo se pasa esperando el semaforo, el limite es demasiado bajo.",
+        0.4577
+      ],
+      [
+        "Combina el semaforo con un timeout.",
+        0.452
+      ],
+      [
+        "Ese tope evita saturar una API, agotar un grupo de conexiones o superar un limite de tasa.",
+        0.4363
+      ],
+      [
+        "**Puedo cambiar el limite del semaforo mientras corre el programa?**\n\n no tiene un metodo de redimensionamiento.",
+        0.4329
+      ],
+      [
+        "**Necesito un semaforo si ya tengo un grupo de conexiones?**\n\nPara bases de datos, el grupo de conexiones ya limita cuantas conexiones estan abiertas, asi que un semaforo adicional",
+        0.4295
+      ],
+      [
+        "Si ambas se mantienen sanas, sube el limite; si suben los errores o la latencia se dispara, bajalo.",
+        0.4231
+      ],
+      [
+        "En vez de restringir cuantas tareas estan activas a la vez, restringe la velocidad con la que puedes lanzarlas.",
+        0.4206
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
