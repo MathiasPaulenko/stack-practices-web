@@ -16,8 +16,8 @@ tags:
   - owasp
 relatedResources:
   - /guides/web-application-security-guide
-  - /docs/security-incident-response-template
-  - /docs/bug-report-template
+  - /docs/penetration-test-remediation-template
+  - /docs/vulnerability-management-template
   - /recipes/container-security
   - /recipes/data-privacy-gdpr
   - /recipes/security-headers
