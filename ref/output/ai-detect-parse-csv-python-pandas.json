@@ -1,0 +1,312 @@
+[
+  {
+    "label": "parse-csv-python-pandas-en",
+    "model": "desklib",
+    "model_ai_pct": 52.0,
+    "ai_count": 16,
+    "human_count": 17,
+    "skipped_count": 5,
+    "total": 38,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.8,
+      "stddev": 15.9,
+      "cv": 1.07,
+      "verdict": "natural variation",
+      "sentence_count": 33,
+      "lengths": [
+        11,
+        21,
+        16,
+        54,
+        8,
+        10,
+        11,
+        13,
+        9,
+        39,
+        87,
+        11,
+        11,
+        7,
+        12,
+        14,
+        14,
+        7,
+        5,
+        7,
+        7,
+        8,
+        10,
+        6,
+        16,
+        9,
+        12,
+        10,
+        12,
+        6,
+        7,
+        10,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "For files over 500MB, set  to keep memory usage under control.",
+        0.9152
+      ],
+      [
+        "Forgetting  in  with the  module on Windows.",
+        0.9005
+      ],
+      [
+        "Set  so pandas doesn't infer the wrong types on large files.",
+        0.7826
+      ],
+      [
+        "In other words, they behave the same.",
+        0.7804
+      ],
+      [
+        "It's a good fit for simple row-by-row iteration.",
+        0.7755
+      ],
+      [
+        "That means you can run vectorized operations, filtering, grouping, and joins.",
+        0.7315
+      ],
+      [
+        "This keeps memory low when the file contains columns you don't need.",
+        0.7088
+      ],
+      [
+        "Before parsing the whole file, check its headers, row count, and size.",
+        0.7085
+      ],
+      [
+        "For Excel files, use a dedicated reader; see [Read and Write Excel with Python](/recipes/python-excel-read-write/).",
+        0.6801
+      ],
+      [
+        "pandas reads the whole file into a DataFrame in memory.",
+        0.6731
+      ],
+      [
+        "If the source is an  file, use a dedicated reader rather than treating it as CSV.",
+        0.6476
+      ],
+      [
+        "| Approach | Library | Memory | Use When |\n|----------|---------|--------|----------|\n| DictReader |  (stdlib) | Low | Simple row iteration |\n| pandas read_csv |  | High | Filterin",
+        0.6184
+      ],
+      [
+        "Python gives you two main approaches: the built-in  module for simple row iteration and pandas for filtering, aggregation, or large datasets.",
+        0.6004
+      ],
+      [
+        "Set  to cut memory usage and avoid type-inference surprises.",
+        0.5789
+      ],
+      [
+        "Log each parse error with the file name, line number, and message for debugging.",
+        0.5587
+      ],
+      [
+        "When a file is larger than available RAM, process it with  in batches.",
+        0.5219
+      ],
+      [
+        "CSV remains the most widely used format for exchanging tabular data.",
+        0.5
+      ],
+      [
+        "That produces extra blank rows.",
+        0.4942
+      ],
+      [
+        "For very large DataFrames, look at Polars or Dask.",
+        0.4706
+      ],
+      [
+        "defaults to , while  uses .",
+        0.41
+      ],
+      [
+        "On large files, Polars is typically 5-10x faster than pandas.",
+        0.4086
+      ],
+      [
+        "It may silently convert strings to NaN.",
+        0.388
+      ],
+      [
+        "Read CSV files exported from databases, spreadsheets, or APIs\nFilter or transform tabular data before loading it elsewhere\nWork with files too large to fit in memory and need chunk",
+        0.3764
+      ],
+      [
+        "Use  in pandas, or move to Polars or Dask for out-of-core processing.",
+        0.367
+      ],
+      [
+        "Use  with , or switch to  instead of .",
+        0.3638
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "parse-csv-python-pandas-es",
+    "model": "desklib",
+    "model_ai_pct": 37.2,
+    "ai_count": 9,
+    "human_count": 24,
+    "skipped_count": 5,
+    "total": 38,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.7,
+      "stddev": 23.3,
+      "cv": 1.49,
+      "verdict": "natural variation",
+      "sentence_count": 33,
+      "lengths": [
+        12,
+        22,
+        16,
+        62,
+        10,
+        10,
+        9,
+        12,
+        11,
+        136,
+        6,
+        11,
+        12,
+        8,
+        15,
+        15,
+        14,
+        7,
+        5,
+        8,
+        6,
+        8,
+        11,
+        6,
+        15,
+        9,
+        12,
+        11,
+        12,
+        5,
+        6,
+        8,
+        8
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Olvidar  en  con el m\u00f3dulo  en Windows.",
+        0.8986
+      ],
+      [
+        "Polars suele ser 5-10x m\u00e1s r\u00e1pido que pandas en archivos grandes.",
+        0.7328
+      ],
+      [
+        "Limpia espacios en nombres de columna con .",
+        0.6827
+      ],
+      [
+        "Especifica  para reducir memoria y evitar sorpresas de inferencia de tipos.",
+        0.6352
+      ],
+      [
+        "CSV es el formato m\u00e1s com\u00fan para el intercambio de datos tabulares.",
+        0.6091
+      ],
+      [
+        "Esto ahorra memoria cuando el archivo tiene muchas columnas que no necesitas.",
+        0.6006
+      ],
+      [
+        "Usa  para archivos de m\u00e1s de 500MB y evitar presi\u00f3n de memoria.",
+        0.573
+      ],
+      [
+        "Valida la estructura del archivo antes del parsing completo: headers, n\u00famero de filas y tama\u00f1o.",
+        0.545
+      ],
+      [
+        "Cargar archivos enteros en memoria cuando el procesamiento por chunks funcionar\u00eda.",
+        0.5289
+      ],
+      [
+        "usa  por defecto;  usa .",
+        0.4904
+      ],
+      [
+        "Usa  para evitar que pandas infiera tipos incorrectos en archivos grandes.",
+        0.4641
+      ],
+      [
+        "Usa  si los campos contienen comas.",
+        0.3858
+      ],
+      [
+        "Archivos de sistemas antiguos suelen usar  o .",
+        0.3745
+      ],
+      [
+        "\u00dasalo para tareas simples donde solo necesitas iterar sobre filas.",
+        0.369
+      ],
+      [
+        "En lo dem\u00e1s se comportan igual.",
+        0.3673
+      ],
+      [
+        "pandas carga el archivo completo en un DataFrame en memoria.",
+        0.345
+      ],
+      [
+        "Registra errores de parse con nombre de archivo, n\u00famero de l\u00ednea y mensaje para debugging.",
+        0.3354
+      ],
+      [
+        "Esto te da operaciones vectorizadas, filtrado, agrupaci\u00f3n y joins.",
+        0.3164
+      ],
+      [
+        "No conf\u00edes en defaults del sistema.",
+        0.2894
+      ],
+      [
+        "Usa  en pandas, o cambia a Polars o Dask para procesamiento out-of-core.",
+        0.2854
+      ],
+      [
+        "Para archivos m\u00e1s grandes que la RAM, usa  para procesar en lotes.",
+        0.2647
+      ],
+      [
+        "Dejar que pandas infiera dtypes en columnas mixtas.",
+        0.2546
+      ],
+      [
+        "Causa filas en blanco extra.",
+        0.2344
+      ],
+      [
+        "Puede convertir strings a NaN silenciosamente.",
+        0.2301
+      ],
+      [
+        "Si tu objetivo final es JSON, consulta [Convertir CSV a JSON](/es/recipes/convert-csv-to-json/) una vez cargados los datos.",
+        0.2238
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
