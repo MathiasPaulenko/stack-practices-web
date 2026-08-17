@@ -27,7 +27,7 @@ def clean_markdown(text):
     """Return prose-only text from a Markdown body (frontmatter + code + headings stripped)."""
     text = re.sub(r"^---\s*\n.*?\n---\s*\n", "", text, flags=re.S)
     text = re.sub(r"```[\s\S]*?```", "", text)
-    text = re.sub(r"`[^`]+`", "", text)
+    text = re.sub(r"`([^`]+)`", r"\1", text)
     text = re.sub(r"^#{1,6}\s+.*$", "", text, flags=re.M)
     text = re.sub(r"^(\s*[-*]\s+|\s*\d+\.\s+)", "", text, flags=re.M)
     return text
