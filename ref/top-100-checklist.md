@@ -97,8 +97,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/docs/penetration-test-template/
    - ES: https://stackpractices.com/es/docs/penetration-test-template/
    - Focus: high impressions, low CTR
-   - Status: ✅ Title + meta optimized in P1.1
-   - Words: 1,514 | Meta: 139 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ structure + meta optimized
+   - Words: 1,363 (EN) / 1,434 (ES) | Meta: 151 (EN) / 157 (ES) chars
 
 12. - [ ] **parse-csv-python-pandas** (recipes)
    - Metrics: 61 imp | pos 15.9 | CTR 0.00% | Δ impr 0

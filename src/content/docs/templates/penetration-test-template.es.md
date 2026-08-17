@@ -2,9 +2,9 @@
 contentType: docs
 slug: penetration-test-template
 templateType: guideline
-title: Plantilla de Plan de Penetration Test
-description: Usa esta plantilla de plan de penetration test para documentar hallazgos, riesgos, pasos de reproducción y remedios en auditorías de seguridad.
-metaDescription: Usa esta plantilla de plan de penetration test para documentar hallazgos, riesgos, pasos de reproducción y remedios en auditorías de seguridad.
+title: Plantilla de Plan de Pruebas de Penetración
+description: Documenta hallazgos de auditorías de seguridad con esta plantilla de plan de pruebas de penetración, incluyendo calificaciones de riesgo, pasos de reproducción y guías de remediación accionables.
+metaDescription: Usa esta plantilla de plan de pruebas de penetración para documentar hallazgos, riesgos, pasos de reproducción y guías de remediación con severidades claras.
 difficulty: intermediate
 topics:
   - security
@@ -23,22 +23,34 @@ relatedResources:
   - /recipes/security-headers
   - /docs/incident-response-playbook-template
   - /docs/security-audit-checklist-template
-lastUpdated: "2026-08-10"
+lastUpdated: "2026-08-17"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
-  metaDescription: Usa esta plantilla de plan de penetration test para documentar hallazgos, riesgos, pasos de reproducción y remedios en auditorías de seguridad.
+  metaDescription: Usa esta plantilla de plan de pruebas de penetración para documentar hallazgos, riesgos, pasos de reproducción y guías de remediación con severidades claras.
   keywords:
-    - plan de penetration test
-    - plantilla pen test
-    - auditoria seguridad
+    - plan de pruebas de penetración
+    - plantilla de pentest
+    - auditoría de seguridad
 ---
-Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de forma clara y accionable. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para prácticas de seguridad más amplias.
+Usa esta plantilla para documentar hallazgos de auditorías de seguridad de forma clara y accionable. Te da una estructura para el informe, una matriz de calificación repetible y un trackeo de remediación. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para prácticas de seguridad más amplias.
+
+## Descripción General
+
+Esta plantilla ayuda a equipos de seguridad y líderes de ingeniería a producir informes de pruebas de penetración consistentes y útiles. Cubre el resumen ejecutivo, el alcance, los hallazgos, las calificaciones de riesgo, el trackeo de remediación y los entregables. Úsala antes, durante y después de una auditoría de seguridad para que no se pierda nada.
+
+## Cuándo Usar
+
+- Planificar una prueba de penetración próxima con equipos internos o un vendor.
+- Documentar hallazgos de una auditoría de seguridad.
+- Trackear remediación entre equipos de ingeniería.
+- Preparar un resumen ejecutivo para el liderazgo.
+- Programar una nueva prueba después de aplicar correcciones.
 
 ## Plantilla
 
-```markdown
-# Reporte de Penetration Test
+````markdown
+# Reporte de Prueba de Penetración
 
 ## Resumen Ejecutivo
 
@@ -60,7 +72,7 @@ Usa esta plantilla para documentar hallazgos de evaluaciones de seguridad de for
 | Bajo | [N] | [abierto / remediado] |
 | Informativo | [N] | [abierto / remediado] |
 
-## Template de Hallazgo
+## Plantilla de Hallazgo
 
 ### [FINDING-001] [Título]
 
@@ -94,76 +106,39 @@ Pasos específicos para arreglar. Incluye ejemplos de código si aplica.
 #### Referencias
 - OWASP: [link]
 - CVE: [si aplica]
-```
+````
 
 ## Trackeo de Remediación
 
 | ID | Hallazgo | Owner | Fecha Límite | Estado |
-|----|----------|-------|-------------|--------|
+|----|----------|-------|--------------|--------|
 | 001 | SQL Injection | Backend team | +7 días | En progreso |
 | 002 | XSS | Frontend team | +14 días | Abierto |
 
-## Matriz de Rating de Riesgo
+## Matriz de Calificación de Riesgo
 
 | Probabilidad \ Impacto | Bajo | Medio | Alto |
 |------------------------|------|-------|------|
 | Alta | Medio | Alto | Crítico |
 | Media | Bajo | Medio | Alto |
 | Baja | Info | Bajo | Medio |
-```
 
-## Lo que funciona
+## Mejores Prácticas
 
-- **Incluye proof of concept** — sin pasos de reproducción, los devs no pueden arreglarlo
-- **Ratea riesgo en contexto de negocio** — un bug teóricamente crítico en una página admin interna-only puede ser riesgo medio
-- **Provee remediación a nivel de código** — "fix the injection" no es suficiente; muestra sintaxis de query parametrizada. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para ejemplos de código.
-- **Trackea remediación como un sprint** — asigna owners y fechas límite
+- **Incluye una prueba de concepto** — sin pasos de reproducción, los desarrolladores no pueden arreglar el problema.
+- **Califica el riesgo en contexto de negocio** — un bug teóricamente crítico en una página admin interna puede ser riesgo medio.
+- **Proporciona remediación a nivel de código** — "arregla la inyección" no es suficiente; muestra la sintaxis de consultas parametrizadas. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para ejemplos de código.
+- **Trackea la remediación como un sprint** — asigna owners, fechas límite y una ventana de retest.
 
 ## Errores Comunes
 
-- Hallazgos vagos — "la app tiene XSS" sin URL o parámetro
-- Sin screenshots o PoC — los devs pierden tiempo reproduciendo
-- Fecha de retest faltante — remediación sin verificación está incompleta. Traquea seguimientos con la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/templates/security-incident-response-template).
-- Scoring solo por CVSS — el contexto de negocio importa más que la fórmula
-
-
-
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de security y template para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica plantilla de penetration test** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Preguntas Frecuentes
-
-### ¿Cómo priorizo hallazgos cuando todo parece crítico?
-
-Usa la matriz de riesgo: probabilidad × impacto. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/security/web-application-security-guide) para contexto de threat modeling. Una SQL injection en un form de login público es crítica. El mismo bug en un reporte interno read-only puede ser medio. Considera explotabilidad y sensibilidad de datos.
-
-### ¿Cada hallazgo debería ser arreglado?
-
-No. Algunos riesgos pueden ser aceptados si el costo de arreglar excede el impacto y existen controles compensatorios. Documenta riesgos aceptados con sign-off ejecutivo y fechas de revisión.
-
-### ¿Quién debería recibir el reporte completo?
-
-Equipo de seguridad, leads de ingeniería, y liderazgo ejecutivo (solo resumen ejecutivo). Comparte hallazgos detallados on a need-to-know basis para prevenir weaponización.
-
+- Hallazgos vagos — "la app tiene XSS" sin URL o parámetro.
+- Sin screenshots o prueba de concepto — los desarrolladores pierden tiempo reproduciendo.
+- Fecha de retest faltante — la remediación sin verificación está incompleta. Traquea seguimientos con la [Plantilla de Respuesta a Incidentes de Seguridad](/docs/security-incident-response-template/).
+- Scoring solo por CVSS — el contexto de negocio importa más que la fórmula.
+- Dejar que las cuentas de test alcancen endpoints de producción durante el engagement.
+- Confiar en la salida del scanner sin validación manual.
+- Registrar tokens, contraseñas o claves durante el test.
 
 ## Variantes
 
@@ -171,14 +146,14 @@ Equipo de seguridad, leads de ingeniería, y liderazgo ejecutivo (solo resumen e
 |----------|---------|-------|
 | Web app | OWASP Top 10 + ASVS | Enfocarse en input validation y auth |
 | API REST | OWASP API Security Top 10 | Enfocarse en rate limiting y auth |
-| Mobile app | OWASP MASVS | Incluir analisis de APK/IPA |
+| Mobile app | OWASP MASVS | Incluir análisis de APK/IPA |
 | Infraestructura cloud | CIS Benchmarks + pentest de red | Incluir IAM y network policies |
-| Internal red team | Sin notificacion previa | Simular atacante real |
+| Internal red team | Sin notificación previa | Simular un atacante real |
 
-## Ejemplo de Plan de Pen-Test
+## Ejemplo de Plan de Pruebas de Penetración
 
 ```text
-=== Plan de Penetration Test: payment-service ===
+=== Plan de Pruebas de Penetración: payment-service ===
 
 Objetivo: Evaluar la postura de seguridad del servicio de pagos
 Fecha: 2026-08-15 a 2026-08-19
@@ -199,8 +174,8 @@ Alcance:
     - test-admin@company.com (rol: admin)
 
   Datos permitidos:
-    - Datos de test sinteticos unicamente
-    - No acceder a datos de produccion reales
+    - Datos de test sintéticos únicamente
+    - No acceder a datos de producción reales
     - No modificar datos persistentes
 
 Reglas de Engagement:
@@ -208,139 +183,50 @@ Reglas de Engagement:
   - Rate limit: max 100 requests/segundo
   - No usar exploits que causen DoS
   - No usar social engineering
-  - No testing fisico
-  - Notificar inmediatamente si se encuentra un Critico
+  - No testing físico
+  - Notificar inmediatamente si se encuentra un hallazgo Crítico
 
-Metodologia:
+Metodología:
   - OWASP Testing Guide v4.2
   - OWASP API Security Top 10
   - PTES (Penetration Testing Execution Standard)
 
 Entregables:
   - Reporte ejecutivo (para liderazgo)
-  - Reporte tecnico (para ingenieria)
+  - Reporte técnico (para ingeniería)
   - Hallazgos en formato CSV (para importar al tracker)
-  - Presentacion de debrief (sesion de 2 horas)
+  - Presentación de debrief (sesión de 2 horas)
 
 Cronograma:
-  Dia 1: Reconocimiento y mapeo de superficie de ataque
-  Dia 2: Testing de autenticacion y autorizacion
-  Dia 3: Testing de logica de negocio y pagos
-  Dia 4: Testing de infraestructura y configuracion
-  Dia 5: Reporte y debrief
+  Día 1: Reconocimiento y mapeo de superficie de ataque
+  Día 2: Testing de autenticación y autorización
+  Día 3: Testing de lógica de negocio y flujo de pagos
+  Día 4: Testing de infraestructura y configuración
+  Día 5: Reporte y debrief
 ```
 
-### Como elegimos una firma de penetration testing?
+## Preguntas Frecuentes
 
-Evalua firmas por: certificaciones (OSCP, CEH, CISSP), experiencia en tu industria (fintech, healthcare, e-commerce), referencias de clientes anteriores, metodologia (OWASP, PTES), y calidad de reportes anteriores. Pide un reporte de muestra anonimizado — la calidad del reporte es tan importante como la calidad del testing. Verifica que la firma tiene seguro de responsabilidad profesional. Asegura que la firma firma un NDA antes de compartir cualquier informacion. Compara precios pero no elijas solo por precio — un pentest barato puede perder hallazgos criticos. Manten una relacion continua con la firma — los testers que conocen tu sistema encuentran issues mas profundos.
+### ¿Cómo priorizo hallazgos cuando todo parece crítico?
 
-### Como preparamos al equipo para un pen-test?
+Usa la matriz de riesgo: probabilidad × impacto. Consulta la [Guía de Seguridad de Aplicaciones Web](/guides/web-application-security-guide/) para contexto de threat modeling. Una SQL injection en un form de login público es crítica. El mismo bug en un reporte interno read-only puede ser medio. Considera explotabilidad y sensibilidad de datos.
 
-Notifica al equipo con 2 semanas de anticipacion: fechas, alcance, y SPOC. Asegura que el SPOC tiene disponibilidad dedicada durante el pen-test (no esta on-call para otra cosa). Prepara cuentas de test con datos sinteticos. Prepara acceso a staging y produccion (si aplica). Documenta la arquitectura actual y compartela con el tester. Configura monitoring extra durante el pen-test para detectar si el testing causa impacto. Programa una llamada de kickoff el dia 1 y una llamada de debrief el ultimo dia. Asegura que el equipo sabe que no deben bloquear el trafico del tester a menos que cause impacto real.
+### ¿Cada hallazgo debería ser arreglado?
 
-### Que hacemos despues de recibir el reporte de pen-test?
+No. Algunos riesgos pueden ser aceptados si el costo de arreglar excede el impacto y existen controles compensatorios. Documenta riesgos aceptados con sign-off ejecutivo y fechas de revisión.
 
-Importa todos los hallazgos al tracker de remediacion dentro de 48 horas. Clasifica cada hallazgo por severidad (Critico/Alto/Medio/Bajo/Informativo). Asigna un owner a cada hallazgo. Programa la remediacion segun SLAs: Critico 24-48h, Alto 1 semana, Medio 30 dias, Bajo 90 dias. Programa la ventana de retest con la firma (30-90 dias). Comparte hallazgos sanitizados con el resto de ingenieria — los patrones se repiten. Conduce un postmortem del proceso de pen-test: que funciono, que no, que mejorar para el proximo. Actualiza el threat model con los hallazgos nuevos. Agrega tests de regression al CI/CD para prevenir recurrencia.
+### ¿Quién debería recibir el reporte completo?
 
+Equipo de seguridad, leads de ingeniería y liderazgo ejecutivo (solo resumen ejecutivo). Comparte hallazgos detallados on a need-to-know basis para prevenir weaponización.
 
+### ¿Cómo elegimos una firma de penetration testing?
 
+Evalúa firmas por certificaciones (OSCP, CEH, CISSP), experiencia en tu industria, referencias de clientes anteriores, metodología (OWASP, PTES) y calidad de reportes anteriores. Pide un reporte de muestra anonimizado — la calidad del reporte es tan importante como la calidad del testing. Verifica que la firma tenga seguro de responsabilidad profesional. Asegúrate de que la firma firme un NDA antes de compartir cualquier información. Compara precios pero no elijas solo por precio — un pentest barato puede perder hallazgos críticos. Mantén una relación continua con la firma — los testers que conocen tu sistema encuentran issues más profundos.
 
+### ¿Cómo preparamos al equipo para un pen-test?
 
+Notifica al equipo con 2 semanas de anticipación: fechas, alcance y SPOC. Asegúrate de que el SPOC tenga disponibilidad dedicada durante el pen-test (no esté on-call para otra cosa). Prepara cuentas de test con datos sintéticos. Prepara acceso a staging y producción si aplica. Documenta la arquitectura actual y compártela con el tester. Configura monitoring extra durante el pen-test para detectar si el testing causa impacto. Programa una llamada de kickoff el día 1 y una llamada de debrief el último día. Asegúrate de que el equipo sepa que no debe bloquear el tráfico del tester a menos que cause impacto real.
 
+### ¿Qué hacemos después de recibir el reporte de pen-test?
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-End of document. Review and update quarterly.
-
-## Troubleshooting
-
-- **Authentication bypass in tests**: ensure test users cannot reach production endpoints.
-- **False positives in scanning tools**: tune rules against the risk profile.   Distinguish between reachable vulnerabilities and theoretical issues.
-- **Secrets appear in logs**: Audit log sinks for sensitive patterns.
-- **CSP breaks legitimate functionality**: Iterate on allowed sources based on real violations.
-- **Incident response stalls**: run tabletop exercises.
-
-## Errores Comunes en Producción
-
-- Dejar campos requeridos vacíos o usar respuestas vagas de una palabra.
-- Llenar el documento una vez y nunca actualizarlo cuando cambia el alcance o las decisiones.
-- Guardar el documento donde el equipo no lo busque durante incidentes o revisiones.
-- No asignar un responsable, fecha límite o cadencia de revisión.
-- Copiar texto base sin eliminar secciones que no aplican.
-- Saltar el control de versiones, lo que impide rollback y responsabilidad.
-- No vincular el documento con decisiones relacionadas o acciones de seguimiento.
-- Evitar revisiones trimestrales que retirarían secciones obsoletas o sin uso.
+Importa todos los hallazgos al tracker de remediación dentro de 48 horas. Clasifica cada hallazgo por severidad (Crítico/Alto/Medio/Bajo/Informativo). Asigna un owner a cada hallazgo. Programa la remediación según SLAs: Crítico 24-48h, Alto 1 semana, Medio 30 días, Bajo 90 días. Programa la ventana de retest con la firma (30-90 días). Comparte hallazgos sanitizados con el resto de ingeniería — los patrones se repiten. Conduce un postmortem del proceso de pen-test: qué funcionó, qué no y qué mejorar. Actualiza el threat model con los hallazgos nuevos. Agrega tests de regresión al CI/CD para prevenir recurrencia.
