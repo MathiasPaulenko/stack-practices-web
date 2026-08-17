@@ -66,13 +66,14 @@ Si el modo no es claro, preguntar antes de empezar.
   - `metaDescription` 120-170 caracteres y coincide con `seo.metaDescription`.
   - `relatedResources`: 2-6 slugs existentes, mismo orden en EN y ES.
   - `lastUpdated`: actualizar en ambos frontmatter solo si hay cambios.
+  - Enlaces internos en el cuerpo: si el `AGENTS.md` del tipo de contenido exige 2-3 enlaces contextuales (p. ej. recipes), añadirlos en esta fase y replicarlos en ES.
 - **Corte de esfuerzo**: si no hay hallazgos accionables, saltar a la siguiente fase.
 - **Salida esperada:** lista numerada de los cambios realizados (máximo 5).
 
 ### Fase 2 — Calidad + IA (máximo 2 rondas)
 
 - Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` a EN y ES.
-- Corregir solo los **3-5 hallazgos de mayor impacto** en cada idioma. No reescribir el recurso completo.
+- Corregir solo los **3-5 hallazgos de mayor impacto** en cada idioma. Una reescritura focalizada cuenta como un hallazgo cuando el recurso es una plantilla genérica rellena de contenido no relacionado; no es una reescritura arbitraria.
 - Ejecutar el detector de patrones:
 
   ```bash
@@ -93,6 +94,7 @@ Si el modo no es claro, preguntar antes de empezar.
   3. Conservar el contenido técnico, los ejemplos de código y las versiones reales de herramientas.
 - Volver a ejecutar `ai-detect-content.py` y `ai-detect-patterns.py`.
 - **Regla de parada**: detener el bucle cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o bien al completar la **ronda 2**. Nunca intentar una tercera ronda.
+- **Nota sobre contenido técnico**: en listas de herramientas, tablas y tripletes, Desklib puede marcar frases cortas como IA aunque sean reales. Priorizar la corrección de `pattern_totals` y la utilidad técnica sobre forzar `model_ai_pct` < 40 %. Si tras 2 rondas no hay patrones y el score sigue alto, reportarlo y esperar aprobación para una ronda extra.
 
 **Salida esperada:** puntuación IA antes/después, patrones corregidos y frases reescritas.
 
@@ -105,6 +107,7 @@ Si el modo no es claro, preguntar antes de empezar.
   - `lastUpdated` actualizado en ambos.
   - Ejemplos de código equivalentes; traducir comentarios y nombres de variables solo si es idiomático.
   - Estructura de secciones equivalente.
+  - Idioma natural en ES: revisar anglicismos crudos (`stream` → `streaming`, `log store` → `almacén de logs`, `baseline` → `línea base`, `PII` → `datos personales`, `match` → `coincidir`) salvo que el término esté asentado en el contexto técnico.
 - Corregir las discrepancias detectadas.
 
 **Salida esperada:** check de paridad (OK o lista de ajustes).

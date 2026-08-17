@@ -1,0 +1,395 @@
+[
+  {
+    "label": "parse-log-files-en",
+    "model": "desklib",
+    "model_ai_pct": 45.2,
+    "ai_count": 20,
+    "human_count": 38,
+    "skipped_count": 1,
+    "total": 59,
+    "pattern_totals": {
+      "missing_contraction": 3
+    },
+    "text_metrics": {
+      "mean": 12.4,
+      "stddev": 9.6,
+      "cv": 0.77,
+      "verdict": "natural variation",
+      "sentence_count": 58,
+      "lengths": [
+        13,
+        13,
+        17,
+        16,
+        10,
+        11,
+        14,
+        19,
+        11,
+        9,
+        19,
+        79,
+        9,
+        10,
+        11,
+        13,
+        8,
+        10,
+        11,
+        10,
+        11,
+        7,
+        12,
+        9,
+        11,
+        12,
+        6,
+        8,
+        8,
+        8,
+        10,
+        7,
+        6,
+        8,
+        6,
+        12,
+        10,
+        6,
+        9,
+        9,
+        12,
+        14,
+        6,
+        10,
+        7,
+        18,
+        14,
+        23,
+        16,
+        14,
+        15,
+        12,
+        18,
+        9,
+        9,
+        11,
+        12,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The data already lives in a database.",
+        0.865
+      ],
+      [
+        "With this format, every log entry is its own JSON object, so a single  per line is enough.",
+        0.8323
+      ],
+      [
+        ",  \u2014 syslog receivers and forwarders.",
+        0.821
+      ],
+      [
+        "You just need a handful of values from a small config file.",
+        0.812
+      ],
+      [
+        "Error rate per endpoint or service.",
+        0.7881
+      ],
+      [
+        "The file is binary, like Parquet, Avro, or ORC.",
+        0.6922
+      ],
+      [
+        "After that, you can filter with , a SQL engine, or any query tool.",
+        0.6825
+      ],
+      [
+        "Forgetting to escape regex metacharacters in paths or user agents.",
+        0.6682
+      ],
+      [
+        "You need to audit access patterns, suspicious IPs, or user agents.",
+        0.6651
+      ],
+      [
+        "Server logs capture what happens on a machine: every request, error, and event.",
+        0.6503
+      ],
+      [
+        "Use this approach when:\nYou are investigating 4xx/5xx spikes or slow requests in web server logs.",
+        0.6151
+      ],
+      [
+        "(Node),  (Python),  (Java) \u2014 structured loggers.",
+        0.6017
+      ],
+      [
+        "5xx rate and p99 response time from web server logs.",
+        0.5911
+      ],
+      [
+        "In this recipe, I will show regex, JSON Lines, and syslog parsing with Python, Java, and JavaScript.",
+        0.5905
+      ],
+      [
+        "Parsing them turns messy text into data you can search, group, and chart.",
+        0.5647
+      ],
+      [
+        ", , ,  \u2014 log storage and search.",
+        0.5647
+      ],
+      [
+        "Trigger an alert when a metric moves outside the range you have measured before.",
+        0.5617
+      ],
+      [
+        "For structured logs, each line is a JSON object.",
+        0.5287
+      ],
+      [
+        "\u2014 command-line JSON processor for quick log filtering.",
+        0.5264
+      ],
+      [
+        ", ,  \u2014 collect and ship logs.",
+        0.5023
+      ],
+      [
+        "You need guaranteed audit trails for regulatory compliance.",
+        0.498
+      ],
+      [
+        "Hardcoding log paths instead of accepting CLI args or environment variables.",
+        0.4785
+      ],
+      [
+        "Use a dedicated logging pipeline with tamper-proof storage.",
+        0.4605
+      ],
+      [
+        "Set thresholds based on your baseline, not magic numbers.",
+        0.4604
+      ],
+      [
+        "Handle malformed lines by logging the error and continuing, not crashing.",
+        0.455
+      ]
+    ],
+    "diagnostics_sample": [
+      {
+        "sentence": "Use this approach when:\nYou are investigating 4xx/5xx spikes or slow requests in web server logs.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you are",
+            "suggestion": "use 'you're'"
+          }
+        ]
+      },
+      {
+        "sentence": "You are feeding logs into a SIEM, a log store, or an observability platform.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you are",
+            "suggestion": "use 'you're'"
+          }
+        ]
+      },
+      {
+        "sentence": "Trigger an alert when a metric moves outside the range you have measured before.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you have",
+            "suggestion": "use 'you've'"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "parse-log-files-es",
+    "model": "desklib",
+    "model_ai_pct": 37.2,
+    "ai_count": 14,
+    "human_count": 44,
+    "skipped_count": 1,
+    "total": 59,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.0,
+      "stddev": 10.0,
+      "cv": 0.77,
+      "verdict": "natural variation",
+      "sentence_count": 58,
+      "lengths": [
+        16,
+        12,
+        17,
+        16,
+        12,
+        10,
+        15,
+        21,
+        12,
+        9,
+        20,
+        82,
+        8,
+        9,
+        10,
+        12,
+        7,
+        9,
+        14,
+        9,
+        13,
+        11,
+        12,
+        9,
+        11,
+        12,
+        7,
+        6,
+        9,
+        9,
+        11,
+        7,
+        6,
+        9,
+        6,
+        14,
+        12,
+        7,
+        11,
+        10,
+        12,
+        17,
+        5,
+        13,
+        8,
+        19,
+        13,
+        26,
+        18,
+        14,
+        19,
+        12,
+        16,
+        9,
+        9,
+        11,
+        12,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "La fuente de datos ya vive en una base de datos.",
+        0.9166
+      ],
+      [
+        "Quieres stream porque los logs en producci\u00f3n pueden llegar a gigabytes r\u00e1pido.",
+        0.8772
+      ],
+      [
+        "Solo necesitas un pu\u00f1ado de valores de un archivo de config peque\u00f1o.",
+        0.787
+      ],
+      [
+        "Usa grupos regex nombrados como  para parsers auto-documentados.",
+        0.7532
+      ],
+      [
+        "Tasa de 5xx y p99 response time de logs de servidores web.",
+        0.7394
+      ],
+      [
+        "(Node),  (Python),  (Java) \u2014 loggers estructurados.",
+        0.6493
+      ],
+      [
+        "En esta receta muestro c\u00f3mo parsear con regex, JSON Lines y syslog usando Python, Java y JavaScript.",
+        0.6459
+      ],
+      [
+        "El archivo es binario, como Parquet, Avro u ORC.",
+        0.6167
+      ],
+      [
+        "\u2014 procesador de JSON command-line para filtrar logs r\u00e1pidamente.",
+        0.6112
+      ],
+      [
+        "Los ejemplos leen el archivo l\u00ednea por l\u00ednea y hacen match contra una regex para el formato combinado de Apache/Nginx: .",
+        0.5986
+      ],
+      [
+        "Tasa de error por endpoint o servicio.",
+        0.5806
+      ],
+      [
+        "Evita  o  sobre campos parseados.",
+        0.5746
+      ],
+      [
+        ",  \u2014 receptores y forwarders syslog.",
+        0.5345
+      ],
+      [
+        "Picos an\u00f3malos en volumen de logs o cantidad de IPs \u00fanicas.",
+        0.5092
+      ],
+      [
+        "Con este formato, cada entrada de log es su propio objeto JSON, as\u00ed que basta con un  por l\u00ednea.",
+        0.4817
+      ],
+      [
+        "Los logs de servidor capturan lo que ocurre en una m\u00e1quina: cada request, error y evento.",
+        0.4627
+      ],
+      [
+        "/ Node  \u2014 hacer tail de archivos rotados en tiempo real.",
+        0.4518
+      ],
+      [
+        ", ,  \u2014 recolectar y enviar logs.",
+        0.4455
+      ],
+      [
+        "Olvidar escapar metacaracteres regex en rutas o user agents.",
+        0.425
+      ],
+      [
+        ", , ,  \u2014 almacenamiento y b\u00fasqueda de logs.",
+        0.4226
+      ],
+      [
+        "Quieres dashboards o alertas basados en el volumen de logs de aplicaci\u00f3n.",
+        0.399
+      ],
+      [
+        "Para logs estructurados, cada l\u00ednea es un objeto JSON.",
+        0.3957
+      ],
+      [
+        "Un parser de logs completo es excesivo.",
+        0.3949
+      ],
+      [
+        "Ejecutar regex sin l\u00edmites sobre l\u00edneas muy largas; establece un l\u00edmite de longitud.",
+        0.377
+      ],
+      [
+        "Analizarlos convierte texto crudo en datos que puedes buscar, agrupar y graficar.",
+        0.3679
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
