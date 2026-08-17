@@ -1,6 +1,6 @@
 # Content Improvement Pipeline Summary — penetration-test-template
 
-**Date:** 2026-08-17T09:36:10.898Z
+**Date:** 2026-08-17T10:12:53.439Z
 **All passed:** Yes
 
 ## Steps
@@ -230,60 +230,59 @@ Result (211 files):
 - Exit code: 0
 
 ```text
-m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/performance/6/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/2/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/3/index.html[22m [2m(+7ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/4/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/5/index.html[22m [2m(+8ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/6/index.html[22m [2m(+5ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/7/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/8/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/9/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/architecture/10/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/authentication/index.html[22m [2m(+9ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/authentication/2/index.html[22m [2m(+3ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/caching/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/caching/2/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/concurrency/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/concurrency/2/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/messaging/index.html[22m [2m(+8ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/messaging/2/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/data/index.html[22m [2m(+15ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/data/2/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/data/3/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/data/4/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/data/5/index.html[22m [2m(+3ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/observability/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/observability/2/index.html[22m [2m(+3ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/observability/3/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/index.html[22m [2m(+5ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/2/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/3/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/4/index.html[22m [2m(+5ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/5/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/6/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/7/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/design/8/index.html[22m [2m(+5ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/file-handling/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/file-handling/2/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/graphql/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/graphql/2/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/testing/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/testing/2/index.html[22m [2m(+3ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/testing/3/index.html[22m [2m(+6ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/testing/4/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/testing/5/index.html[22m [2m(+3ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/serverless/index.html[22m [2m(+4ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/serverless/2/index.html[22m [2m(+5ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/topics/index.html[22m [2m(+146ms)[22m 
-[2m17:28:41[22m   [34m├─[39m [2m/index.html[22m [2m(+143ms)[22m 
-[2m17:28:41[22m [32m✓ Completed in 1m 32s.
+43[22m   [34m├─[39m [2m/topics/performance/6/index.html[22m [2m(+12ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/index.html[22m [2m(+6ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/2/index.html[22m [2m(+9ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/3/index.html[22m [2m(+16ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/4/index.html[22m [2m(+18ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/5/index.html[22m [2m(+12ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/6/index.html[22m [2m(+12ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/7/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/8/index.html[22m [2m(+11ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/9/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/architecture/10/index.html[22m [2m(+4ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/authentication/index.html[22m [2m(+9ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/authentication/2/index.html[22m [2m(+4ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/caching/index.html[22m [2m(+5ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/caching/2/index.html[22m [2m(+10ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/concurrency/index.html[22m [2m(+5ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/concurrency/2/index.html[22m [2m(+11ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/messaging/index.html[22m [2m(+14ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/messaging/2/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/data/index.html[22m [2m(+8ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/data/2/index.html[22m [2m(+22ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/data/3/index.html[22m [2m(+5ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/data/4/index.html[22m [2m(+8ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/data/5/index.html[22m [2m(+4ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/observability/index.html[22m [2m(+6ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/observability/2/index.html[22m [2m(+5ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/observability/3/index.html[22m [2m(+5ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/2/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/3/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/4/index.html[22m [2m(+6ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/5/index.html[22m [2m(+6ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/6/index.html[22m [2m(+6ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/7/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/design/8/index.html[22m [2m(+6ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/file-handling/index.html[22m [2m(+4ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/file-handling/2/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/graphql/index.html[22m [2m(+7ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/graphql/2/index.html[22m [2m(+4ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/testing/index.html[22m [2m(+9ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/testing/2/index.html[22m [2m(+5ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/testing/3/index.html[22m [2m(+12ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/testing/4/index.html[22m [2m(+16ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/testing/5/index.html[22m [2m(+16ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/serverless/index.html[22m [2m(+17ms)[22m 
+[2m18:07:43[22m   [34m├─[39m [2m/topics/serverless/2/index.html[22m [2m(+12ms)[22m 
+[2m18:07:44[22m   [34m├─[39m [2m/topics/index.html[22m [2m(+251ms)[22m 
+[2m18:07:44[22m   [34m├─[39m [2m/index.html[22m [2m(+193ms)[22m 
+[2m18:07:44[22m [32m✓ Completed in 1m 7s.
 [39m
-[2m17:28:42[22m [34m[build][39m [32m✓ Completed in 2m 1s.[39m
-[2m17:28:42[22m [34m[build][39m 3242 page(s) built in [1m2m 11s[22m
-[2m17:28:42[22m [34m[build][39m [1mComplete![22m
+[2m18:07:44[22m [34m[build][39m [32m✓ Completed in 1m 30s.[39m
+[2m18:07:44[22m [34m[build][39m 3242 page(s) built in [1m1m 40s[22m
+[2m18:07:44[22m [34m[build][39m [1mComplete![22m
 
 > stack-practices-web@0.1.0 postbuild
 > node scripts/minify-classes.mjs && node scripts/minify-json.mjs && node scripts/trim-html-attrs.mjs && node scripts/clean-dist-assets.mjs && pagefind --site dist && node scripts/add-sri.mjs
@@ -302,13 +301,13 @@ Found a data-pagefind-body element on the site.
 ↳ Ignoring pages without this tag.
 
 [Reading languages]
-Discovered 2 languages: es, en
+Discovered 2 languages: en, es
 
 [Building search indexes]
 Total: 
   Indexed 2 languages
   Indexed 3242 pages
-  Indexed 175508 words
+  Indexed 175462 words
   Indexed 4 filters
   Indexed 0 sorts
 
@@ -322,7 +321,7 @@ Total:
 │  accessibility and customization: https://pagefind.app/docs/search-ui/  │
 └─────────────────────────────────────────────────────────────────────────┘
 
-Finished in 105.806 seconds
+Finished in 94.485 seconds
 Added SRI hashes to 3242 HTML files.
 
 ```

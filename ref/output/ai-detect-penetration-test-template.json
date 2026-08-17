@@ -2,15 +2,15 @@
   {
     "label": "penetration-test-template-en",
     "model": "desklib",
-    "model_ai_pct": 44.5,
+    "model_ai_pct": 44.3,
     "ai_count": 17,
     "human_count": 39,
     "skipped_count": 1,
     "total": 57,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 15.0,
-      "stddev": 15.9,
+      "mean": 15.1,
+      "stddev": 16.0,
       "cv": 1.06,
       "verdict": "natural variation",
       "sentence_count": 56,
@@ -26,7 +26,7 @@
         6,
         6,
         8,
-        99,
+        100,
         20,
         14,
         9,
@@ -87,10 +87,6 @@
         0.8332
       ],
       [
-        "bash\ncurl \"https://example.com/api/v1/users?id=1 OR 1=1\"\n\n\n\n\n\n| ID | Finding | Owner | Due Date | Status |\n|----|---------|-------|----------|--------|\n| 001 | SQL Injection | Back",
-        0.7539
-      ],
-      [
         "Creating an executive summary for leadership.",
         0.7418
       ],
@@ -101,6 +97,10 @@
       [
         "Make sure the firm signs an NDA before you share any information.",
         0.7099
+      ],
+      [
+        "bash\ncurl \"https://example.com/api/v1/users?id=1 OR 1=1\"\n\n`\n\n\n\n| ID | Finding | Owner | Due Date | Status |\n|----|---------|-------|----------|--------|\n| 001 | SQL Injection | Bac",
+        0.6882
       ],
       [
         "| Context | Approach | Notes |\n|---------|----------|-------|\n| Web app | OWASP Top 10 + ASVS | Focus on input validation and auth |\n| REST API | OWASP API Security Top 10 | Focus ",
@@ -188,8 +188,8 @@
     "pattern_totals": {},
     "text_metrics": {
       "mean": 15.7,
-      "stddev": 16.3,
-      "cv": 1.04,
+      "stddev": 16.4,
+      "cv": 1.05,
       "verdict": "natural variation",
       "sentence_count": 56,
       "lengths": [
@@ -204,7 +204,7 @@
         6,
         7,
         8,
-        102,
+        103,
         21,
         19,
         12,
@@ -273,8 +273,8 @@
         0.7269
       ],
       [
-        "bash\ncurl \"https://example.com/api/v1/users?id=1 OR 1=1\"\n\n\n\n\n\n| ID | Hallazgo | Owner | Fecha L\u00edmite | Estado |\n|----|----------|-------|--------------|--------|\n| 001 | SQL Inject",
-        0.6978
+        "bash\ncurl \"https://example.com/api/v1/users?id=1 OR 1=1\"\n\n`\n\n\n\n| ID | Hallazgo | Owner | Fecha L\u00edmite | Estado |\n|----|----------|-------|--------------|--------|\n| 001 | SQL Injec",
+        0.6975
       ],
       [
         "Importa todos los hallazgos al tracker de remediaci\u00f3n dentro de 48 horas.",
