@@ -36,9 +36,14 @@
    - **Cierres genéricos:** *"In conclusion...", "The possibilities are endless..."*.
    - **Contracciones evitables:** `does not`, `is not`, `it is`, etc. cuando el tono lo permita.
    - **Falta de concreción:** `multiple`, `various`, `numerous` → especificar o usar `several`/`a few`.
+   - **Anglicismos crudos en ES:** `flattening` → `aplanar`, `unflattening` → `reconstruir`, `round-trip` → `ciclo de ida y vuelta`, `output` → `resultado`, `input` → `entrada`.
 8. Variar la estructura de FAQ si todas las preguntas usan el mismo patrón (`How do I...`, `¿Cómo...`). Mezclar con afirmaciones o preguntas de otro tipo.
-9. Re-ejecutar `scripts/ai-detect-content.py` y `scripts/ai-detect-patterns.py` después de cada ronda.
-10. Aplicar los mismos cambios a la versión en español, ajustando el idioma y manteniendo la traducción precisa.
+9. **Manejo de tokens de código:**
+   - No terminar una oración con un token en backticks (`WeakSet`, `[Circular]`, `Flatten<T>`, etc.).
+   - Reescribir para que el token quede en el medio y la frase tenga predicado después.
+   - Si el detector marca una tabla con celdas de código, añadir una introducción y conclusión en prosa, o convertirla a subsecciones descriptivas.
+10. Re-ejecutar `scripts/ai-detect-content.py` y `scripts/ai-detect-patterns.py` después de cada ronda.
+11. Aplicar los mismos cambios a la versión en español, ajustando el idioma y manteniendo la traducción precisa.
 
 ## Reglas de calidad
 

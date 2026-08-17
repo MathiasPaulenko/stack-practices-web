@@ -64,14 +64,16 @@ Si el modo no es claro, preguntar antes de empezar.
   - `title` ≤ 60 caracteres.
   - `description` 80-160 caracteres.
   - `metaDescription` 120-170 caracteres y coincide con `seo.metaDescription`.
-  - `relatedResources`: 2-6 slugs existentes, mismo orden en EN y ES.
+  - `relatedResources`: 2-6 slugs existentes, mismo orden en EN y ES, y **coherentes con el topic cluster del recurso**.
   - `lastUpdated`: actualizar en ambos frontmatter solo si hay cambios.
   - Enlaces internos en el cuerpo: si el `AGENTS.md` del tipo de contenido exige 2-3 enlaces contextuales (p. ej. recipes), añadirlos en esta fase y replicarlos en ES.
+  - Estructura de secciones: asegurar que sean `Overview`, `When to Use`, `Solution`, `Explanation`, `Variants`, `Best Practices`, `Common Mistakes`, `FAQ` y que no haya secciones resumen extra.
 - **Corte de esfuerzo**: si no hay hallazgos accionables, saltar a la siguiente fase.
 - **Salida esperada:** lista numerada de los cambios realizados (máximo 5).
 
 ### Fase 2 — Calidad + IA (máximo 2 rondas)
 
+- Antes de detectar IA, aplicar `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` para corregir estructura, `relatedResources` coherentes, anglicismos, tokens de código y prosa genérica.
 - Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` a EN y ES.
 - Corregir solo los **3-5 hallazgos de mayor impacto** en cada idioma. Una reescritura focalizada cuenta como un hallazgo cuando el recurso es una plantilla genérica rellena de contenido no relacionado; no es una reescritura arbitraria.
 - Ejecutar el detector de patrones:
@@ -90,8 +92,9 @@ Si el modo no es claro, preguntar antes de empezar.
 
 - Aplicar `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md`:
   1. Corregir patrones primero.
-  2. Reescribir una a una las frases con mayor `ai_prob`, **máximo 5-10 frases por idioma por ronda**.
-  3. Conservar el contenido técnico, los ejemplos de código y las versiones reales de herramientas.
+  2. Reescribir una a una las frases con mayor `ai_prob`, **máximo 5-10 frases por idioma por ronda**. En modo `full`, ampliar a 10-15 frases en la primera ronda si el contenido es denso.
+  3. Reescribir frases que terminen con tokens de código o celdas de tabla con código; colocar el token en el medio de la oración o rodearlo de contexto.
+  4. Conservar el contenido técnico, los ejemplos de código y las versiones reales de herramientas.
 - Volver a ejecutar `ai-detect-content.py` y `ai-detect-patterns.py`.
 - **Regla de parada**: detener el bucle cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o bien al completar la **ronda 2**. Nunca intentar una tercera ronda.
 - **Nota sobre contenido técnico**: en listas de herramientas, tablas y tripletes, Desklib puede marcar frases cortas como IA aunque sean reales. Priorizar la corrección de `pattern_totals` y la utilidad técnica sobre forzar `model_ai_pct` < 40 %. Si tras 2 rondas no hay patrones y el score sigue alto, reportarlo y esperar aprobación para una ronda extra.
@@ -146,6 +149,7 @@ Si el modo no es claro, preguntar antes de empezar.
 
 ## Reglas críticas
 
+- **Aplicar el pre-check** de `prompt-19-first-pass-perfect.md` antes de ejecutar Desklib.
 - **No eliminar contenido técnico** solo para bajar la puntuación IA.
 - **Usar siempre Desklib**, nunca el detector `light`.
 - **No reescribir el recurso completo** si no es necesario. Reescribir frases aisladas.
@@ -172,6 +176,7 @@ Si el modo no es claro, preguntar antes de empezar.
 - `.devin/skills/content-improvement/reference/ai-detection-tools.md` — cómo usar los scripts de detección IA.
 - `.devin/skills/content-improvement/reference/prompt-17-technical-seo-audit.md` — criterios de auditoría SEO técnica.
 - `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` — criterios de calidad de contenido.
+- `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` — pre-check estructural, `relatedResources` coherentes, humanización y manejo de tokens de código.
 - `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md` — cómo corregir hallazgos de IA.
 
 Para elegir qué recurso mejorar, usa `ref/top-100-checklist.md` (o `ref/top-100-resources.md`), que se genera automáticamente.
