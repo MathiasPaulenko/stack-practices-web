@@ -19,9 +19,9 @@ relatedResources:
   - /recipes/url-encoding
   - /recipes/regular-expressions
   - /recipes/deep-clone-javascript
-  - /recipes/caching
-  - /recipes/batch-processing-patterns
-lastUpdated: "2026-08-15"
+  - /recipes/merge-json-files
+  - /recipes/serialize-deserialize-data
+lastUpdated: "2026-08-17"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -39,7 +39,7 @@ seo:
 
 ## Overview
 
-Flattening turns a deeply nested object into a single-level dictionary with dot-notation keys like `user.address.city = "London"`. Unflattening rebuilds the original structure from those flat keys. Use it for form libraries, document updates, query strings, and converting NoSQL documents into flat table columns. The examples below show recursive implementations in Python, JavaScript, and Java, with custom separators, array index handling, and round-trip fidelity.
+Flattening turns a deeply nested object into a single-level dictionary with dot-notation keys like `user.address.city = "London"`. Unflattening rebuilds the original structure from those flat keys. Use it for form libraries, document updates, query strings, and converting NoSQL documents into flat table columns. The examples below run in Python, JavaScript, and Java, and cover custom separators, bracketed array indices, and round-trip fidelity.
 
 ## When to Use
 
@@ -326,10 +326,13 @@ public class FlattenUtil {
 
 ## Explanation
 
-- **Recursive traversal** walks every key-value pair in the nested structure. For each nested object, the function recurses with an updated prefix. For arrays, it appends `[index]` to preserve positional data.
-- **Dot-notation keys** (`parent.child.key`) are human-readable and compatible with most query string parsers, lodash `get/set`, and MongoDB dot notation.
-- **Unflatten reconstruction** splits dot-notation and bracket-index keys and builds nested objects level by level. Detecting array indices (numeric strings) lets it reconstruct arrays instead of objects with numeric keys.
-- **Round-trip fidelity** stays intact as long as no key contains the separator character. If keys contain dots, use a custom separator (`→`, `__`) or escape the separator.
+Recursive traversal walks every key-value pair in the nested structure. Each nested object triggers another call with an updated prefix. For arrays, the function appends `[index]` to preserve positional data.
+
+Dot-notation keys (`parent.child.key`) are human-readable and compatible with most query string parsers, lodash `get/set`, and MongoDB dot notation.
+
+Unflattening splits dot-notation and bracket-index keys and builds nested objects level by level. Detecting array indices (numeric strings) lets it reconstruct arrays instead of objects with numeric keys.
+
+Round-trip fidelity holds as long as no key contains the separator. If keys contain dots, switch to a custom separator like `→` or `__`, or escape the separator.
 
 ## Variants
 
@@ -341,51 +344,52 @@ public class FlattenUtil {
 | Lodash `_.set` | `.` | Auto-detection | Quick one-liners with library dependency |
 | JSON Pointer | `/` | `/0` | JSON Patch, RFC 6901 compliance |
 
-## What Works
+## Best Practices
 
-1. **Validate separator choice** — if your data keys might contain dots (e.g., domain names like `example.com`), use a custom separator like `__` or `→` to avoid ambiguous paths.
-2. **Preserve array indices explicitly** — always include array indices in the flattened key (`tags[0]`). Without them, arrays become objects with numeric string keys on unflatten.
-3. **Handle null and empty objects** — preserve `null` values as-is. Keep or drop empty objects `{}` depending on your use case.
-4. **Type fidelity on round-trip** — flattening loses type information for Dates, Maps, Sets, and typed arrays. [Serialize these to strings](/recipes/deep-clone-javascript/) before flattening if type recovery matters.
-5. **Limit depth for safety** — on untrusted input, cap recursion depth to prevent stack overflow attacks from maliciously nested JSON.
+The safest approach is to treat the separator as a reserved character. If your data might contain dots (for example, domain names like example.com), switch to a double underscore or an arrow symbol so the separator never clashes with the key itself.
+
+Always keep array indices in the flat key (`tags[0]`). If you drop them, unflatten turns the array into an object whose keys are numeric strings, which breaks the round-trip.
+
+Leave `null` values intact, and decide up front whether to keep or drop empty objects. The round-trip won't know what your application expected, so make the rule explicit.
+
+Flattening can't preserve Dates, Maps, Sets, or typed arrays. If you need those types back, [serialize them first](/recipes/serialize-deserialize-data/) and unflatten around the string representation.
+
+For untrusted input, cap the recursion depth and track visited objects with a `WeakSet` so a malicious payload can't blow the stack or loop forever.
 
 ## Common Mistakes
 
-1. Using dot-notation when data keys themselves contain dots, causing ambiguous or incorrect paths.
-2. Flattening arrays without preserving indices, so you can't reconstruct the original structure.
-3. Not handling circular references, which cause infinite recursion. Use a `WeakSet` cache to detect cycles.
-4. Attempting to unflatten keys with inconsistent separators (mixing `.` and `_`) leading to malformed output.
+1. Using dots as separators when the keys themselves contain dots, which produces ambiguous paths.
+2. Flattening arrays without preserving their indices means you can't reconstruct the original structure.
+3. Not handling circular references, which cause infinite recursion. Track visited objects with a `WeakSet`.
+4. Trying to unflatten keys that mix dots and underscore characters produces malformed output.
 5. Treating all numeric string keys as array indices, which turns object keys like `"123"` into arrays unexpectedly.
 
 ## FAQ
 
 ### Can I flatten only to a specific depth?
 
-Yes. Add a `maxDepth` parameter and stop recursing once `currentDepth >= maxDepth`. Return the remaining nested value under the current prefix. This works well for shallow updates where you only need the top two levels.
+Yes. Add a `maxDepth` parameter and stop recursing once `currentDepth >= maxDepth`. Everything below that depth stays nested under the current prefix. That works well for shallow updates where the first two levels are enough.
 
 ### How do I handle keys that contain the separator character?
 
-Escape the separator in keys before flattening (e.g., replace `.` with `\.`), then unescape during unflattening. Alternatively, choose a separator that can't appear in your data, such as `→` or Unicode characters. Many libraries (like `flat`) support custom separators.
+Escape the separator in the keys before flattening (for example, replace `.` with `\.`), then unescape it during unflatten. Or choose a separator that can't show up in your data, like `→` or another Unicode character. Most libraries, including the flat package, let you set a custom separator.
 
 ### Does round-trip flatten → unflatten always produce identical output?
 
-Not always. Arrays with sparse indices, objects with `null` prototypes, and special types (Date, RegExp, Map) may differ after round-trip. For strict fidelity, record metadata about original types alongside flattened data, or use a serialization format like JSON Pointer that preserves structural information.
+No. Sparse arrays, objects with a null prototype, and special types like Date, RegExp, and Map can change after a round-trip. If you need strict fidelity, store metadata about the original types alongside the flat data, or use a format like JSON Pointer that keeps structural information.
 
 ### How do I flatten objects with circular references?
 
-Use a `WeakSet` to track visited objects. When the recursive function encounters an object already in the set, replace it with a placeholder like `[Circular]` or omit the key entirely. On unflatten, the circular reference is lost — if you need to preserve it, serialize with a library like `flatted` or `circular-json` that encodes circular references as indexed paths.
+Track visited objects with a `WeakSet`. When recursion finds a cycle, either drop the key or mark the object. If you want the reference to stay visible, use a placeholder such as `[Circular]`.
+
+The circular link won't survive unflatten. If you need to keep it, use a library like `flatted` or `circular-json` that encodes cycles as indexed paths.
 
 ### What libraries handle flatten/unflatten in production?
 
-In JavaScript, `flat` (npm) is widely used and supports custom separators, depth limits, and safe key handling. In Python, `flatten-dict` and `pandas.json_normalize` handle most cases. In Java, Jackson's `JsonPointer` and Gson's `JsonObject` traversal can flatten JSON trees. For database-specific flattening (e.g., PostgreSQL `jsonb_path_query`), prefer the database's built-in JSON functions over application-level flattening.
+In JavaScript, `flat` is widely used and supports custom separators, depth limits, and safe key handling. In Python, `flatten-dict` and `pandas.json_normalize` cover most cases. In Java, Jackson's `JsonPointer` and Gson's `JsonObject` traversal can flatten JSON trees. For database work, such as PostgreSQL JSON path queries, use the database's built-in functions instead of doing it in the application.
 
 ### How do I flatten TypeScript objects while preserving type information?
 
-Use a generic function with conditional types to infer the flattened key structure. Define a `Flatten<T>` type that recursively builds keys as ``${Prefix}.${Key}``. At runtime, the flatten function produces string keys; the type tells the compiler what keys to expect. Use `as const` assertions on the flattened output and validate with a Zod schema where untrusted data enters the system.
+A generic type that builds keys recursively as ``${Prefix}.${Key}`` does the job. In TypeScript, that type is usually written as `Flatten<T>`. At runtime the function still produces plain string keys; the type only tells the compiler which keys to expect. Add `as const` assertions to the flattened output and validate untrusted input with a Zod schema.
 
-## Key Takeaways
 
-- Pick a separator that won't clash with your keys; use a custom one if keys contain dots.
-- Preserve array indices in the flattened key, and unflatten with bracket-aware parsing.
-- Cap recursion depth and detect circular references when handling untrusted input.
-- Flattening loses type information for special types; serialize them first if recovery matters.

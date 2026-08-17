@@ -19,9 +19,9 @@ relatedResources:
   - /recipes/url-encoding
   - /recipes/regular-expressions
   - /recipes/deep-clone-javascript
-  - /recipes/caching
-  - /recipes/batch-processing-patterns
-lastUpdated: "2026-08-15"
+  - /recipes/merge-json-files
+  - /recipes/serialize-deserialize-data
+lastUpdated: "2026-08-17"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -39,7 +39,7 @@ seo:
 
 ## Visión General
 
-El flattening convierte un objeto profundamente anidado en un diccionario de un solo nivel con claves como `user.address.city = "London"`. El unflattening reconstruye la estructura original a partir de esas claves planas. Úsalo para librerías de formularios, actualizaciones de documentos, query strings y convertir documentos NoSQL en columnas planas de tablas. Los ejemplos de abajo muestran implementaciones recursivas en Python, JavaScript y Java, con separadores personalizados, manejo de índices de arrays y fidelidad de round-trip.
+Aplanar convierte un objeto profundamente anidado en un diccionario de un solo nivel con claves como `user.address.city = "London"`. Reconstruir (unflatten) vuelve a armar la estructura original a partir de esas claves planas. Sirve para librerías de formularios, actualizaciones de documentos, query strings y convertir documentos NoSQL en columnas planas de tablas. Los ejemplos de abajo muestran implementaciones recursivas en Python, JavaScript y Java, con separadores personalizados, manejo de índices de arrays y fidelidad en el ciclo de ida y vuelta.
 
 ## Cuándo Usar
 
@@ -326,10 +326,13 @@ public class FlattenUtil {
 
 ## Explicación
 
-- **Recorrido recursivo** recorre cada par clave-valor de la estructura anidada. Para cada objeto anidado, la función recursa con un prefijo actualizado. Para arrays, agrega `[index]` para preservar la posición.
-- **Claves con notación por puntos** (`parent.child.key`) son legibles y compatibles con la mayoría de parsers de query strings, lodash `get/set` y notación de puntos de MongoDB.
-- **Reconstrucción unflatten** divide claves con notación por puntos e índices entre corchetes y construye objetos anidados nivel por nivel. Detectar índices de arrays (strings numéricos) permite reconstruir arrays en lugar de objetos con claves numéricas.
-- **Fidelidad de round-trip** se mantiene al hacer flatten y luego unflatten, siempre que ninguna clave contenga el carácter separador. Si las claves contienen puntos, usa un separador personalizado (`→`, `__`) o escapa el separador.
+La función recorre recursivamente cada par clave-valor de la estructura anidada. Para cada objeto anidado vuelve a llamarse con un prefijo actualizado. Para los arrays añade `[index]` para preservar la posición.
+
+Las claves con notación por puntos (`parent.child.key`) se leen con facilidad y funcionan con la mayoría de parsers de query strings, con `get/set` de lodash y con la notación de puntos de MongoDB.
+
+Al reconstruir, se separan las claves con notación por puntos y los índices entre corchetes, y se construyen los objetos anidados nivel por nivel. Detectar los índices de array (strings numéricos) permite reconstruir arrays en lugar de objetos con claves numéricas.
+
+La fidelidad del ciclo completo se mantiene siempre que ninguna clave contenga el carácter separador. Si las claves contienen puntos, usa un separador personalizado (`→`, `__`) o escapa el separador.
 
 ## Variantes
 
@@ -341,13 +344,17 @@ public class FlattenUtil {
 | Lodash `_.set` | `.` | Auto-detección | One-liners rápidos con dependencia |
 | JSON Pointer | `/` | `/0` | JSON Patch, cumplimiento RFC 6901 |
 
-## Lo que funciona
+## Mejores Prácticas
 
-1. **Valida la elección del separador** — si tus claves de datos pueden contener puntos (ej. nombres de dominio como `example.com`), usa un separador personalizado como `__` o `→` para evitar rutas ambiguas.
-2. **Preserva índices de arrays explícitamente** — incluye siempre los índices de arrays en la clave flatten (`tags[0]`). Sin ellos, los arrays se convierten en objetos con claves de string numéricas al hacer unflatten.
-3. **Maneja null y objetos vacíos** — preserva los valores `null` tal cual. Mantén u omite los objetos vacíos `{}` según tu caso de uso.
-4. **Fidelidad de tipos en round-trip** — el flattening pierde información de tipos para Dates, Maps, Sets y typed arrays. [Serializa estos a strings](/recipes/deep-clone-javascript/) antes de flatten si la recuperación del tipo importa.
-5. **Limita la profundidad para seguridad** — en input no confiable, limita la profundidad de recursión para prevenir ataques de stack overflow con JSON maliciosamente anidado.
+Trata el separador como un carácter reservado. Si tus claves pueden contener puntos (por ejemplo `example.com`), cámbialo por `__` o una flecha Unicode para que la ruta no choque con el nombre de la clave.
+
+Siempre conserva los índices del array en la clave aplanada (`tags[0]`). Si los quitas, al reconstruir el objeto el array se convierte en un objeto cuyas claves son strings numéricos y el ciclo se rompe.
+
+Deja los valores `null` tal cual y decide de antemano si conservar o descartar los objetos vacíos. El ciclo aplanar/reconstruir no sabe lo que tu aplicación espera, así que conviene dejar la regla explícita.
+
+Al aplanar se pierde la información de tipos como Date, Map, Set o typed arrays. Si necesitas recuperarlos, [serialízalos primero](/recipes/serialize-deserialize-data/) y reconstruye alrededor de la representación en string.
+
+Cuando el input no sea confiable, limita la profundidad de recursión y lleva un `WeakSet` con los objetos visitados para evitar que un payload malicioso desborde la pila o entre en un bucle infinito.
 
 ## Errores Comunes
 
@@ -361,31 +368,26 @@ public class FlattenUtil {
 
 ### ¿Puedo aplanar solo hasta una profundidad específica?
 
-Sí. Agrega un parámetro `maxDepth` y detén la recursión cuando `currentDepth >= maxDepth`. Retorna el valor anidado restante bajo el prefijo actual. Funciona bien para actualizaciones superficiales donde solo necesitas los primeros dos niveles.
+Sí. Agrega un parámetro `maxDepth` y detén la recursión cuando `currentDepth >= maxDepth`. Todo lo que quede por debajo se conserva anidado bajo el prefijo actual. Es útil para actualizaciones superficiales en las que solo te importan los primeros dos niveles.
 
 ### ¿Cómo manejo claves que contienen el carácter separador?
 
-Escapa el separador en las claves antes de flatten (ej. reemplaza `.` por `\.`), luego desescapa durante unflatten. Alternativamente, elige un separador que no pueda aparecer en tus datos, como `→` o caracteres Unicode. Muchas librerías (como `flat`) soportan separadores personalizados.
+Escapa el separador en las claves antes de aplanar (por ejemplo, reemplaza `.` por `\.`) y desescápalo al reconstruir. O elige un separador que no pueda aparecer en tus datos, como `→` u otro carácter Unicode. La mayoría de librerías, incluida `flat`, permiten usar un separador personalizado.
 
-### ¿El round-trip flatten → unflatten siempre produce output idéntico?
+### ¿El ciclo aplanar → reconstruir siempre produce el mismo resultado?
 
-No siempre. Arrays con índices dispersos, objetos con prototipos `null` y tipos especiales (Date, RegExp, Map) pueden diferir después del round-trip. Para fidelidad estricta, registra metadata sobre los tipos originales junto con los datos flatten, o usa un formato de serialización como JSON Pointer que preserva la información estructural.
+No. Arrays con índices dispersos, objetos con prototipos `null` y tipos especiales como Date, RegExp o Map pueden cambiar después del ciclo. Si necesitas fidelidad estricta, guarda metadata de los tipos originales junto con los datos aplanados, o usa un formato como JSON Pointer que conserve la información estructural.
 
 ### ¿Cómo aplaneo objetos con referencias circulares?
 
-Usa un `WeakSet` para rastrear objetos visitados. Cuando la función recursiva encuentra un objeto ya en el set, reemplázalo con un placeholder como `[Circular]` u omite la clave completamente. Al hacer unflatten, la referencia circular se pierde — si necesitas preservarla, serializa con una librería como `flatted` o `circular-json` que codifica referencias circulares como rutas indexadas.
+Lleva un `WeakSet` con los objetos visitados. Cuando la recursión encuentre un objeto que ya está en el conjunto, reemplázalo por un marcador como `[Circular]` u omite la clave. La referencia circular no sobrevive al reconstruir, así que si necesitas conservarla, usa una librería como `flatted` o `circular-json` que codifica los ciclos como rutas indexadas.
 
-### ¿Qué librerías manejan flatten/unflatten en producción?
+### ¿Qué librerías manejan aplanar/reconstruir en producción?
 
-En JavaScript, `flat` (npm) es muy usada y soporta separadores personalizados, límites de profundidad y manejo seguro de claves. En Python, `flatten-dict` y `pandas.json_normalize` cubren la mayoría de los casos. En Java, `JsonPointer` de Jackson y el traversal de `JsonObject` de Gson pueden aplanar árboles JSON. Para flattening específico de base de datos (ej., PostgreSQL `jsonb_path_query`), prefiere las funciones JSON nativas de la base de datos en lugar de flattening a nivel aplicación.
+En JavaScript, `flat` es muy usada y soporta separadores personalizados, límites de profundidad y manejo seguro de claves. En Python, `flatten-dict` y `pandas.json_normalize` cubren la mayoría de los casos. En Java, `JsonPointer` de Jackson y el recorrido de `JsonObject` de Gson pueden aplanar árboles JSON. Para trabajo específico de base de datos, como `jsonb_path_query` en PostgreSQL, usa las funciones JSON nativas de la base de datos en vez de hacerlo en la aplicación.
 
 ### ¿Cómo aplaneo objetos TypeScript preservando información de tipos?
 
-Usa una función genérica con conditional types para inferir la estructura de claves aplanada. Define un tipo `Flatten<T>` que recursivamente construye claves como ``${Prefix}.${Key}``. En runtime, la función flatten produce claves string; el tipo le dice al compilador qué claves esperar. Usa aserciones `as const` en el output aplanado y valida con un schema Zod donde datos no confiables entran al sistema.
+Define un tipo genérico `Flatten<T>` que construya recursivamente claves como ``${Prefix}.${Key}``. En runtime la función sigue produciendo claves de string, pero el tipo le indica al compilador qué claves esperar. Usa aserciones `as const` sobre el resultado aplanado y valida los datos no confiables con Zod.
 
-## Puntos Clave
 
-- Elige un separador que no entre en conflicto con tus claves; usa uno personalizado si las claves contienen puntos.
-- Preserva los índices de arrays en la clave flatten y reconstruye con un parser que entienda corchetes.
-- Limita la profundidad de recursión y detecta referencias circulares cuando proceses input no confiable.
-- El flattening pierde información de tipos para tipos especiales; serialízalos primero si necesitas recuperarlos.

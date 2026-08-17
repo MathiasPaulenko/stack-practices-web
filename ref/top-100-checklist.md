@@ -82,7 +82,7 @@ Use this list to track progress as you audit and improve each resource.
    - ES: https://stackpractices.com/es/recipes/flatten-unflatten-objects/
    - Focus: striking distance, high impressions, low CTR
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Syntax highlighting restored
-   - Words: 1,817 | Meta: 149 chars
+   - Words: 1,801 | Meta: 124 chars
 
 10. - [x] **python-asyncio-semaphore-rate-limiting** (recipes)
    - Metrics: 68 imp | pos 15.9 | CTR 0.00% | Δ impr 0
