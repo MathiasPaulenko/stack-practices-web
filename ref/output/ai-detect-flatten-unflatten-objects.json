@@ -1,0 +1,350 @@
+[
+  {
+    "label": "flatten-unflatten-objects-en",
+    "model": "desklib",
+    "model_ai_pct": 48.5,
+    "ai_count": 23,
+    "human_count": 28,
+    "skipped_count": 2,
+    "total": 53,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.3,
+      "stddev": 13.2,
+      "cv": 0.86,
+      "verdict": "natural variation",
+      "sentence_count": 51,
+      "lengths": [
+        15,
+        9,
+        17,
+        20,
+        19,
+        12,
+        11,
+        10,
+        10,
+        11,
+        8,
+        18,
+        14,
+        15,
+        13,
+        14,
+        102,
+        14,
+        11,
+        9,
+        10,
+        16,
+        10,
+        20,
+        13,
+        12,
+        8,
+        6,
+        14,
+        16,
+        8,
+        9,
+        14,
+        15,
+        15,
+        7,
+        17,
+        23,
+        6,
+        22,
+        27,
+        16,
+        6,
+        10,
+        15,
+        13,
+        27,
+        17,
+        12,
+        11,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "In Python,  and  handle most cases.",
+        0.8768
+      ],
+      [
+        "Not handling circular references, which cause infinite recursion.",
+        0.8757
+      ],
+      [
+        "**Recursive traversal** walks every key-value pair in the nested structure.",
+        0.8595
+      ],
+      [
+        "Use a  to track visited objects.",
+        0.8319
+      ],
+      [
+        "Pick a separator that won't clash with your keys; use a custom one if keys contain dots.",
+        0.7894
+      ],
+      [
+        "For database-specific flattening (e.g., PostgreSQL ), prefer the database's built-in JSON functions over application-level flattening.",
+        0.7834
+      ],
+      [
+        "Alternatively, choose a separator that can't appear in your data, such as  or Unicode characters.",
+        0.7764
+      ],
+      [
+        "**Handle null and empty objects** \u2014 preserve  values as-is.",
+        0.7703
+      ],
+      [
+        "When the recursive function encounters an object already in the set, replace it with a placeholder like  or omit the key entirely.",
+        0.768
+      ],
+      [
+        "Flattening arrays without preserving indices, so you can't reconstruct the original structure.",
+        0.7453
+      ],
+      [
+        "Keep or drop empty objects  depending on your use case.",
+        0.7369
+      ],
+      [
+        "For strict fidelity, record metadata about original types alongside flattened data, or use a serialization format like JSON Pointer that preserves structural information.",
+        0.7224
+      ],
+      [
+        "Return the remaining nested value under the current prefix.",
+        0.7109
+      ],
+      [
+        "Define a  type that recursively builds keys as `as const` assertions on the flattened output and validate with a Zod schema where untrusted data enters the system.",
+        0.684
+      ],
+      [
+        "The examples below show recursive implementations in Python, JavaScript, and Java, with custom separators, array index handling, and round-trip fidelity.",
+        0.6821
+      ],
+      [
+        "This works well for shallow updates where you only need the top two levels.",
+        0.6654
+      ],
+      [
+        "**Limit depth for safety** \u2014 on untrusted input, cap recursion depth to prevent stack overflow attacks from maliciously nested JSON.",
+        0.6129
+      ],
+      [
+        "For each nested object, the function recurses with an updated prefix.",
+        0.6028
+      ],
+      [
+        "| Approach | Separator | Array Handling | Best For |\n| --- | --- | --- | --- |\n| Dot-notation |  |  suffix | MongoDB, lodash, query strings |\n| Bracket-notation |  | ,  | PHP-style",
+        0.6
+      ],
+      [
+        "Attempting to unflatten keys with inconsistent separators (mixing  and ) leading to malformed output.",
+        0.5836
+      ],
+      [
+        "Use a  cache to detect cycles.",
+        0.5567
+      ],
+      [
+        "For arrays, it appends  to preserve positional data.",
+        0.5405
+      ],
+      [
+        "**Type fidelity on round-trip** \u2014 flattening loses type information for Dates, Maps, Sets, and typed arrays.",
+        0.53
+      ],
+      [
+        "Arrays with sparse indices, objects with  prototypes, and special types (Date, RegExp, Map) may differ after round-trip.",
+        0.4803
+      ],
+      [
+        "**Preserve array indices explicitly** \u2014 always include array indices in the flattened key ().",
+        0.4424
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "flatten-unflatten-objects-es",
+    "model": "desklib",
+    "model_ai_pct": 40.0,
+    "ai_count": 17,
+    "human_count": 36,
+    "skipped_count": 2,
+    "total": 55,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.9,
+      "stddev": 12.5,
+      "cv": 0.74,
+      "verdict": "natural variation",
+      "sentence_count": 53,
+      "lengths": [
+        18,
+        12,
+        19,
+        24,
+        19,
+        13,
+        11,
+        16,
+        10,
+        11,
+        7,
+        25,
+        19,
+        16,
+        19,
+        15,
+        97,
+        15,
+        17,
+        16,
+        11,
+        11,
+        19,
+        13,
+        25,
+        17,
+        14,
+        8,
+        6,
+        13,
+        19,
+        9,
+        9,
+        12,
+        10,
+        7,
+        15,
+        7,
+        18,
+        28,
+        6,
+        21,
+        25,
+        18,
+        9,
+        14,
+        27,
+        14,
+        27,
+        19,
+        17,
+        14,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "En Python,  y  cubren la mayor\u00eda de los casos.",
+        0.9232
+      ],
+      [
+        "Sin ellos, los arrays se convierten en objetos con claves de string num\u00e9ricas al hacer unflatten.",
+        0.8656
+      ],
+      [
+        "Construyas sistemas de configuraci\u00f3n en vivo donde rutas con notaci\u00f3n por puntos accedan a settings anidados.",
+        0.86
+      ],
+      [
+        "reemplaza  por ), luego desescapa durante unflatten.",
+        0.8395
+      ],
+      [
+        "Detectar \u00edndices de arrays (strings num\u00e9ricos) permite reconstruir arrays en lugar de objetos con claves num\u00e9ricas.",
+        0.7417
+      ],
+      [
+        "Para arrays, agrega  para preservar la posici\u00f3n.",
+        0.7409
+      ],
+      [
+        "Tratar todas las claves de string num\u00e9ricas como \u00edndices de arrays, convirtiendo claves de objetos como  en arrays inesperadamente.",
+        0.6873
+      ],
+      [
+        "Usa un cache  para detectar ciclos.",
+        0.6456
+      ],
+      [
+        "**Claves con notaci\u00f3n por puntos** () son legibles y compatibles con la mayor\u00eda de parsers de query strings, lodash  y notaci\u00f3n de puntos de MongoDB.",
+        0.6216
+      ],
+      [
+        "Usa un  para rastrear objetos visitados.",
+        0.5983
+      ],
+      [
+        "Escapa el separador en las claves antes de flatten (ej.",
+        0.5932
+      ],
+      [
+        "En JavaScript,  (npm) es muy usada y soporta separadores personalizados, l\u00edmites de profundidad y manejo seguro de claves.",
+        0.5857
+      ],
+      [
+        "El flattening pierde informaci\u00f3n de tipos para tipos especiales; serial\u00edzalos primero si necesitas recuperarlos.",
+        0.5666
+      ],
+      [
+        "El flattening convierte un objeto profundamente anidado en un diccionario de un solo nivel con claves como .",
+        0.5476
+      ],
+      [
+        "Retorna el valor anidado restante bajo el prefijo actual.",
+        0.5292
+      ],
+      [
+        "Alternativamente, elige un separador que no pueda aparecer en tus datos, como  o caracteres Unicode.",
+        0.5208
+      ],
+      [
+        "Los ejemplos de abajo muestran implementaciones recursivas en Python, JavaScript y Java, con separadores personalizados, manejo de \u00edndices de arrays y fidelidad de round-trip.",
+        0.5156
+      ],
+      [
+        "Funciona bien para actualizaciones superficiales donde solo necesitas los primeros dos niveles.",
+        0.472
+      ],
+      [
+        "Apliques parches solo en campos espec\u00edficos profundamente anidados de documentos MongoDB o Elasticsearch.",
+        0.4628
+      ],
+      [
+        "Aplanar arrays sin preservar \u00edndices, por lo que no puedes reconstruir la estructura original.",
+        0.4626
+      ],
+      [
+        "Intentar reconstruir claves con separadores inconsistentes (mezclando  y ), produciendo una salida malformada.",
+        0.4625
+      ],
+      [
+        "**Recorrido recursivo** recorre cada par clave-valor de la estructura anidada.",
+        0.4549
+      ],
+      [
+        "Cuando la funci\u00f3n recursiva encuentra un objeto ya en el set, reempl\u00e1zalo con un placeholder como  u omite la clave completamente.",
+        0.4132
+      ],
+      [
+        "**Fidelidad de tipos en round-trip** \u2014 el flattening pierde informaci\u00f3n de tipos para Dates, Maps, Sets y typed arrays.",
+        0.403
+      ],
+      [
+        "Usa una funci\u00f3n gen\u00e9rica con conditional types para inferir la estructura de claves aplanada.",
+        0.4011
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

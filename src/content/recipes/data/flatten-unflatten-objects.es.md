@@ -2,7 +2,7 @@
 contentType: recipes
 slug: flatten-unflatten-objects
 title: "Aplanar y Reconstruir Objetos Anidados"
-description: "Cómo convertir objetos anidados en pares clave-valor planos y reconstruirlos, con soporte de notación por puntos, corchetes y separadores custom."
+description: "Cómo convertir objetos anidados en pares clave-valor planos y reconstruirlos, con soporte de notación por puntos, corchetes y separadores personalizados."
 metaDescription: "Aprende operaciones flatten y unflatten en Python, JavaScript y Java. Cubre notación por puntos, anidamiento profundo, manejo de arrays y conversión round-trip."
 difficulty: intermediate
 topics:
@@ -13,15 +13,15 @@ tags:
   - parsing
   - json
   - csv
+  - recursion
 relatedResources:
-  - /recipes/caching
-  - /recipes/date-formatting
-  - /recipes/money-currency
   - /recipes/parse-json
-  - /recipes/regular-expressions
   - /recipes/url-encoding
+  - /recipes/regular-expressions
+  - /recipes/deep-clone-javascript
+  - /recipes/caching
   - /recipes/batch-processing-patterns
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-15"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -35,26 +35,27 @@ seo:
     - python
     - javascript
     - java
-
-
 ---
+
 ## Visión General
 
-El flattening transforma un objeto profundamente anidado en un diccionario de un solo nivel usando claves con notación por puntos (ej. `user.address.city` → `"London"`). El unflattening invierte esto, reconstruyendo la estructura anidada original. Estas operaciones son esenciales para librerías de formularios, actualizaciones de documentos en bases de datos, serialización de query strings, y conversión entre documentos NoSQL y columnas planas de tablas. La solucion a continuacion cubre implementaciones recursivas con separadores custom, preservación de índices de arrays, y fidelidad de round-trip en Python, JavaScript y Java.
+El flattening convierte un objeto profundamente anidado en un diccionario de un solo nivel con claves como `user.address.city = "London"`. El unflattening reconstruye la estructura original a partir de esas claves planas. Úsalo para librerías de formularios, actualizaciones de documentos, query strings y convertir documentos NoSQL en columnas planas de tablas. Los ejemplos de abajo muestran implementaciones recursivas en Python, JavaScript y Java, con separadores personalizados, manejo de índices de arrays y fidelidad de round-trip.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- Conviertas datos de formularios anidados en pares clave-valor planos para [query strings HTTP](/recipes/url-encoding/) o export CSV
-- Apliques patches solo en campos específicos profundamente anidados en documentos MongoDB/Elasticsearch
-- Normalices [respuestas de APIs JSON](/recipes/parse-json/) en estructuras relacionales planas para analytics
-- Construyas sistemas de configuración en vivo donde rutas con notación por puntos accedan a settings anidados
+Úsalo cuando:
+
+- Conviertas datos de formularios anidados en pares clave-valor planos para [query strings HTTP](/recipes/url-encoding/) o exportación a CSV.
+- Apliques parches solo en campos específicos profundamente anidados de documentos MongoDB o Elasticsearch.
+- Normalices [respuestas de APIs JSON](/recipes/parse-json/) en estructuras relacionales planas para analytics.
+- Construyas sistemas de configuración en vivo donde rutas con notación por puntos accedan a settings anidados.
 
 ## Solución
 
 ### Python
 
 ```python
+import re
 from typing import Any
 
 def flatten(obj: Any, separator: str = ".", prefix: str = "") -> dict:
@@ -71,16 +72,36 @@ def flatten(obj: Any, separator: str = ".", prefix: str = "") -> dict:
         result[prefix] = obj
     return result
 
+def _set(node, parts, value):
+    for i, part in enumerate(parts[:-1]):
+        next_is_index = parts[i + 1].isdigit()
+        if isinstance(node, list):
+            index = int(part)
+            while len(node) <= index:
+                node.append(None)
+            if node[index] is None:
+                node[index] = [] if next_is_index else {}
+            node = node[index]
+        else:
+            if part not in node:
+                node[part] = [] if next_is_index else {}
+            node = node[part]
+
+    last = parts[-1]
+    if isinstance(node, list):
+        index = int(last)
+        while len(node) <= index:
+            node.append(None)
+        node[index] = value
+    else:
+        node[last] = value
+
 def unflatten(flat: dict, separator: str = ".") -> Any:
     result = {}
+    split_re = re.compile(re.escape(separator) + r"|\[|\]")
     for key, value in flat.items():
-        parts = key.split(separator)
-        target = result
-        for part in parts[:-1]:
-            if part not in target:
-                target[part] = {}
-            target = target[part]
-        target[parts[-1]] = value
+        parts = [p for p in split_re.split(key) if p]
+        _set(result, parts, value)
     return result
 
 # Uso
@@ -131,23 +152,43 @@ function flatten(obj, separator = ".", prefix = "") {
   return result;
 }
 
+function _set(node, parts, value) {
+  for (let i = 0; i < parts.length - 1; i++) {
+    const part = parts[i];
+    const nextIsIndex = /^\d+$/.test(parts[i + 1]);
+    if (Array.isArray(node)) {
+      const index = Number(part);
+      while (node.length <= index) node.push(null);
+      if (node[index] === null) {
+        node[index] = nextIsIndex ? [] : {};
+      }
+      node = node[index];
+    } else {
+      if (!(part in node)) {
+        node[part] = nextIsIndex ? [] : {};
+      }
+      node = node[part];
+    }
+  }
+
+  const last = parts[parts.length - 1];
+  if (Array.isArray(node)) {
+    const index = Number(last);
+    while (node.length <= index) node.push(null);
+    node[index] = value;
+  } else {
+    node[last] = value;
+  }
+}
+
 function unflatten(flat, separator = ".") {
   const result = {};
+  const esc = separator.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const splitRe = new RegExp(`${esc}|[\\[\\]]`, "g");
 
   for (const [key, value] of Object.entries(flat)) {
-    const parts = key.split(separator);
-    let target = result;
-
-    for (let i = 0; i < parts.length - 1; i++) {
-      const part = parts[i];
-      if (!(part in target)) {
-        const nextPart = parts[i + 1];
-        target[part] = /^\d+$/.test(nextPart) ? [] : {};
-      }
-      target = target[part];
-    }
-
-    target[parts[parts.length - 1]] = value;
+    const parts = key.split(splitRe).filter(Boolean);
+    _set(result, parts, value);
   }
 
   return result;
@@ -174,28 +215,29 @@ console.log(restored.user.address.city); // "London"
 
 ```java
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class FlattenUtil {
 
   public static Map<String, Object> flatten(Map<String, Object> map) {
     Map<String, Object> result = new LinkedHashMap<>();
-    flattenHelper(map, "", result);
+    flattenHelper(map, ".", "", result);
     return result;
   }
 
-  private static void flattenHelper(Object obj, String prefix, Map<String, Object> result) {
+  private static void flattenHelper(Object obj, String separator, String prefix, Map<String, Object> result) {
     if (obj instanceof Map) {
       Map<?, ?> map = (Map<?, ?>) obj;
       for (Map.Entry<?, ?> entry : map.entrySet()) {
         String key = prefix.isEmpty() ? entry.getKey().toString()
-                                      : prefix + "." + entry.getKey();
-        flattenHelper(entry.getValue(), key, result);
+                                      : prefix + separator + entry.getKey();
+        flattenHelper(entry.getValue(), separator, key, result);
       }
     } else if (obj instanceof List) {
       List<?> list = (List<?>) obj;
       for (int i = 0; i < list.size(); i++) {
         String key = prefix + "[" + i + "]";
-        flattenHelper(list.get(i), key, result);
+        flattenHelper(list.get(i), separator, key, result);
       }
     } else {
       result.put(prefix, obj);
@@ -203,28 +245,62 @@ public class FlattenUtil {
   }
 
   public static Map<String, Object> unflatten(Map<String, Object> flat) {
+    return unflatten(flat, ".");
+  }
+
+  public static Map<String, Object> unflatten(Map<String, Object> flat, String separator) {
     Map<String, Object> result = new LinkedHashMap<>();
+    String splitRegex = Pattern.quote(separator) + "|\\[|\\]";
 
     for (Map.Entry<String, Object> entry : flat.entrySet()) {
-      String[] parts = entry.getKey().split("\\.");
-      Map<String, Object> target = result;
-
-      for (int i = 0; i < parts.length - 1; i++) {
-        String part = parts[i];
-        if (!target.containsKey(part)) {
-          String nextPart = parts[i + 1];
-          target.put(part, nextPart.matches("\\d+") ? new ArrayList<>() : new LinkedHashMap<>());
-        }
-        target = (Map<String, Object>) target.get(part);
+      String[] rawParts = entry.getKey().split(splitRegex);
+      List<String> parts = new ArrayList<>();
+      for (String p : rawParts) {
+        if (!p.isEmpty()) parts.add(p);
       }
-
-      target.put(parts[parts.length - 1], entry.getValue());
+      build(result, parts, 0, entry.getValue());
     }
 
     return result;
   }
 
-  // Uso
+  @SuppressWarnings("unchecked")
+  private static void build(Object node, List<String> parts, int index, Object value) {
+    if (index == parts.size() - 1) {
+      String part = parts.get(index);
+      if (node instanceof List) {
+        int i = Integer.parseInt(part);
+        List<Object> list = (List<Object>) node;
+        while (list.size() <= i) list.add(null);
+        list.set(i, value);
+      } else {
+        ((Map<String, Object>) node).put(part, value);
+      }
+      return;
+    }
+
+    String part = parts.get(index);
+    boolean nextIsIndex = parts.get(index + 1).matches("\\d+");
+
+    if (node instanceof List) {
+      int i = Integer.parseInt(part);
+      List<Object> list = (List<Object>) node;
+      while (list.size() <= i) list.add(null);
+      Object child = list.get(i);
+      if (child == null) {
+        child = nextIsIndex ? new ArrayList<>() : new LinkedHashMap<>();
+        list.set(i, child);
+      }
+      build(child, parts, index + 1, value);
+    } else {
+      Map<String, Object> map = (Map<String, Object>) node;
+      if (!map.containsKey(part)) {
+        map.put(part, nextIsIndex ? new ArrayList<>() : new LinkedHashMap<>());
+      }
+      build(map.get(part), parts, index + 1, value);
+    }
+  }
+
   public static void main(String[] args) {
     Map<String, Object> nested = new LinkedHashMap<>();
     Map<String, Object> user = new LinkedHashMap<>();
@@ -241,7 +317,9 @@ public class FlattenUtil {
     System.out.println(flat.get("user.address.city")); // London
 
     Map<String, Object> restored = unflatten(flat);
-    System.out.println(((Map<?, ?>) ((Map<?, ?>) restored.get("user")).get("address")).get("city"));
+    Map<String, Object> restoredUser = (Map<String, Object>) restored.get("user");
+    Map<String, Object> restoredAddress = (Map<String, Object>) restoredUser.get("address");
+    System.out.println(restoredAddress.get("city")); // London
   }
 }
 ```
@@ -249,73 +327,49 @@ public class FlattenUtil {
 ## Explicación
 
 - **Recorrido recursivo** recorre cada par clave-valor de la estructura anidada. Para cada objeto anidado, la función recursa con un prefijo actualizado. Para arrays, agrega `[index]` para preservar la posición.
-- **Claves con notación por puntos** (`parent.child.key`) son legibles y compatibles con la mayoría de parsers de query strings, lodash `get/set`, y notación de puntos de MongoDB.
-- **Reconstrucción unflatten** divide claves con notación por puntos y construye objetos anidados nivel por nivel. Detectar índices de arrays (strings numéricos) permite reconstruir arrays en lugar de objetos con claves numéricas.
-- **Fidelidad de round-trip** se preserva al hacer flatten y luego unflatten, siempre que ninguna clave contenga el carácter separador. Si las claves contienen puntos, usa un separador custom (`→`, `__`) o escapa el separador.
+- **Claves con notación por puntos** (`parent.child.key`) son legibles y compatibles con la mayoría de parsers de query strings, lodash `get/set` y notación de puntos de MongoDB.
+- **Reconstrucción unflatten** divide claves con notación por puntos e índices entre corchetes y construye objetos anidados nivel por nivel. Detectar índices de arrays (strings numéricos) permite reconstruir arrays en lugar de objetos con claves numéricas.
+- **Fidelidad de round-trip** se mantiene al hacer flatten y luego unflatten, siempre que ninguna clave contenga el carácter separador. Si las claves contienen puntos, usa un separador personalizado (`→`, `__`) o escapa el separador.
 
 ## Variantes
 
 | Enfoque | Separador | Manejo de Arrays | Mejor Para |
-|---------|-----------|------------------|------------|
+| --- | --- | --- | --- |
 | Notación por puntos | `.` | Sufijo `[index]` | MongoDB, lodash, query strings |
 | Notación por corchetes | `.` | `.0`, `.1` | Datos de formularios estilo PHP |
-| Separador custom | `__` | `__0` | Claves que contienen puntos |
+| Separador personalizado | `__` | `__0` | Claves que contienen puntos |
 | Lodash `_.set` | `.` | Auto-detección | One-liners rápidos con dependencia |
 | JSON Pointer | `/` | `/0` | JSON Patch, cumplimiento RFC 6901 |
 
 ## Lo que funciona
 
-1. **Valida la elección del separador** — si tus claves de datos pueden contener puntos (ej. nombres de dominio como `example.com`), usa un separador custom como `__` o `→` para evitar rutas ambiguas.
+1. **Valida la elección del separador** — si tus claves de datos pueden contener puntos (ej. nombres de dominio como `example.com`), usa un separador personalizado como `__` o `→` para evitar rutas ambiguas.
 2. **Preserva índices de arrays explícitamente** — incluye siempre los índices de arrays en la clave flatten (`tags[0]`). Sin ellos, los arrays se convierten en objetos con claves de string numéricas al hacer unflatten.
-3. **Maneja null y objetos vacíos** — los valores `null` deben preservarse tal cual. Los objetos vacíos `{}` deben preservarse u omitirse explícitamente según tu caso de uso.
+3. **Maneja null y objetos vacíos** — preserva los valores `null` tal cual. Mantén u omite los objetos vacíos `{}` según tu caso de uso.
 4. **Fidelidad de tipos en round-trip** — el flattening pierde información de tipos para Dates, Maps, Sets y typed arrays. [Serializa estos a strings](/recipes/deep-clone-javascript/) antes de flatten si la recuperación del tipo importa.
 5. **Limita la profundidad para seguridad** — en input no confiable, limita la profundidad de recursión para prevenir ataques de stack overflow con JSON maliciosamente anidado.
 
 ## Errores Comunes
 
 1. Usar notación por puntos cuando las claves de datos mismas contienen puntos, causando rutas ambiguas o incorrectas.
-2. Aplanar arrays sin preservar índices, haciendo la reconstrucción round-trip imposible.
+2. Aplanar arrays sin preservar índices, por lo que no puedes reconstruir la estructura original.
 3. No manejar referencias circulares, que causan recursión infinita. Usa un cache `WeakSet` para detectar ciclos.
-4. Intentar reconstruir claves con separadores inconsistentes (mezclando `.` y `_`), produciendo output malformado.
+4. Intentar reconstruir claves con separadores inconsistentes (mezclando `.` y `_`), produciendo una salida malformada.
 5. Tratar todas las claves de string numéricas como índices de arrays, convirtiendo claves de objetos como `"123"` en arrays inesperadamente.
-
-
-
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de data y java para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica aplanar y reconstruir objetos anidados** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
 
 ## Preguntas Frecuentes
 
 ### ¿Puedo aplanar solo hasta una profundidad específica?
 
-Sí. Modifica la función recursiva para aceptar un parámetro `maxDepth` y detén la recursión cuando `currentDepth >= maxDepth`. Retorna el valor anidado restante bajo el prefijo actual. Esto es útil para updates superficiales donde solo necesitas los primeros dos niveles aplanados.
+Sí. Agrega un parámetro `maxDepth` y detén la recursión cuando `currentDepth >= maxDepth`. Retorna el valor anidado restante bajo el prefijo actual. Funciona bien para actualizaciones superficiales donde solo necesitas los primeros dos niveles.
 
 ### ¿Cómo manejo claves que contienen el carácter separador?
 
-Escapa el separador en las claves antes de flatten (ej. reemplaza `.` por `\.`), luego desescapa durante unflatten. Alternativamente, elige un separador que no pueda aparecer en tus datos, como `→` o caracteres Unicode. Muchas librerías (como `flat`) soportan separadores custom.
+Escapa el separador en las claves antes de flatten (ej. reemplaza `.` por `\.`), luego desescapa durante unflatten. Alternativamente, elige un separador que no pueda aparecer en tus datos, como `→` o caracteres Unicode. Muchas librerías (como `flat`) soportan separadores personalizados.
 
 ### ¿El round-trip flatten → unflatten siempre produce output idéntico?
 
-No siempre. Arrays con índices dispersos, objetos con prototipos `null`, y tipos especiales (Date, RegExp, Map) pueden diferir después del round-trip. Para fidelidad estricta, registra metadata sobre los tipos originales junto con los datos flatten, o usa un formato de serialización como JSON Pointer que preserva la información estructural.
+No siempre. Arrays con índices dispersos, objetos con prototipos `null` y tipos especiales (Date, RegExp, Map) pueden diferir después del round-trip. Para fidelidad estricta, registra metadata sobre los tipos originales junto con los datos flatten, o usa un formato de serialización como JSON Pointer que preserva la información estructural.
 
 ### ¿Cómo aplaneo objetos con referencias circulares?
 
@@ -323,27 +377,15 @@ Usa un `WeakSet` para rastrear objetos visitados. Cuando la función recursiva e
 
 ### ¿Qué librerías manejan flatten/unflatten en producción?
 
-En JavaScript, `flat` (npm) es la más popular, soportando separadores custom, límites de profundidad y manejo seguro de claves. En Python, `flatten-dict` y `pandas.json_normalize` cubren la mayoría de los casos. En Java, `JsonPointer` de Jackson y el traversal de `JsonObject` de Gson pueden aplanar árboles JSON. Para flattening específico de base de datos (ej., PostgreSQL `jsonb_path_query`), usa las funciones JSON nativas de la base de datos en lugar de flattening a nivel aplicación.
+En JavaScript, `flat` (npm) es muy usada y soporta separadores personalizados, límites de profundidad y manejo seguro de claves. En Python, `flatten-dict` y `pandas.json_normalize` cubren la mayoría de los casos. En Java, `JsonPointer` de Jackson y el traversal de `JsonObject` de Gson pueden aplanar árboles JSON. Para flattening específico de base de datos (ej., PostgreSQL `jsonb_path_query`), prefiere las funciones JSON nativas de la base de datos en lugar de flattening a nivel aplicación.
 
 ### ¿Cómo aplaneo objetos TypeScript preservando información de tipos?
 
-Usa una función genérica con conditional types para inferir la estructura de claves aplanada. Define un tipo `Flatten<T>` que recursivamente construye claves como ``${Prefix}.${Key}``. En runtime, la función flatten produce claves string; el tipo le dice al compiler qué claves esperar. Para type safety parcial, usa assertions `as const` en el output aplanado y valida con un schema Zod en el boundary donde data no confiable entra al sistema.
+Usa una función genérica con conditional types para inferir la estructura de claves aplanada. Define un tipo `Flatten<T>` que recursivamente construye claves como ``${Prefix}.${Key}``. En runtime, la función flatten produce claves string; el tipo le dice al compilador qué claves esperar. Usa aserciones `as const` en el output aplanado y valida con un schema Zod donde datos no confiables entran al sistema.
 
-## Troubleshooting
+## Puntos Clave
 
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
-- **Data quality degrades over time**: add data validation checks and anomaly detection.   Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.   Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.   Archive cold data and set lifecycle policies.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+- Elige un separador que no entre en conflicto con tus claves; usa uno personalizado si las claves contienen puntos.
+- Preserva los índices de arrays en la clave flatten y reconstruye con un parser que entienda corchetes.
+- Limita la profundidad de recursión y detecta referencias circulares cuando proceses input no confiable.
+- El flattening pierde información de tipos para tipos especiales; serialízalos primero si necesitas recuperarlos.

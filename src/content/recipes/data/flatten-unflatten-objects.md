@@ -13,15 +13,15 @@ tags:
   - parsing
   - json
   - csv
+  - recursion
 relatedResources:
-  - /recipes/caching
-  - /recipes/date-formatting
-  - /recipes/money-currency
   - /recipes/parse-json
-  - /recipes/regular-expressions
   - /recipes/url-encoding
+  - /recipes/regular-expressions
+  - /recipes/deep-clone-javascript
+  - /recipes/caching
   - /recipes/batch-processing-patterns
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-15"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -35,26 +35,27 @@ seo:
     - python
     - javascript
     - java
-
-
 ---
+
 ## Overview
 
-Flattening transforms a deeply nested object into a single-level dictionary using dot-notation keys (e.g., `user.address.city` → `"London"`). Unflattening reverses this, reconstructing the original nested structure. These operations are essential for form libraries, database document updates, query string serialization, and converting between NoSQL documents and flat table columns. This approach handles recursive implementations with custom separators, array index preservation, and round-trip fidelity in Python, JavaScript, and Java.
+Flattening turns a deeply nested object into a single-level dictionary with dot-notation keys like `user.address.city = "London"`. Unflattening rebuilds the original structure from those flat keys. Use it for form libraries, document updates, query strings, and converting NoSQL documents into flat table columns. The examples below show recursive implementations in Python, JavaScript, and Java, with custom separators, array index handling, and round-trip fidelity.
 
 ## When to Use
 
-Use this resource when:
-- Converting nested form data into flat key-value pairs for [HTTP query strings](/recipes/url-encoding/) or CSV export
-- Patching only specific deeply nested fields in a MongoDB/Elasticsearch document
-- Normalizing [JSON API responses](/recipes/parse-json/) into a flat relational structure for analytics
-- Building live configuration systems where dot-notation paths access nested settings
+Reach for this when:
+
+- Converting nested form data into flat key-value pairs for [HTTP query strings](/recipes/url-encoding/) or CSV export.
+- Patching only specific deeply nested fields in a MongoDB or Elasticsearch document.
+- Normalizing [JSON API responses](/recipes/parse-json/) into a flat relational structure for analytics.
+- Building live configuration systems where dot-notation paths access nested settings.
 
 ## Solution
 
 ### Python
 
 ```python
+import re
 from typing import Any
 
 def flatten(obj: Any, separator: str = ".", prefix: str = "") -> dict:
@@ -71,16 +72,36 @@ def flatten(obj: Any, separator: str = ".", prefix: str = "") -> dict:
         result[prefix] = obj
     return result
 
+def _set(node, parts, value):
+    for i, part in enumerate(parts[:-1]):
+        next_is_index = parts[i + 1].isdigit()
+        if isinstance(node, list):
+            index = int(part)
+            while len(node) <= index:
+                node.append(None)
+            if node[index] is None:
+                node[index] = [] if next_is_index else {}
+            node = node[index]
+        else:
+            if part not in node:
+                node[part] = [] if next_is_index else {}
+            node = node[part]
+
+    last = parts[-1]
+    if isinstance(node, list):
+        index = int(last)
+        while len(node) <= index:
+            node.append(None)
+        node[index] = value
+    else:
+        node[last] = value
+
 def unflatten(flat: dict, separator: str = ".") -> Any:
     result = {}
+    split_re = re.compile(re.escape(separator) + r"|\[|\]")
     for key, value in flat.items():
-        parts = key.split(separator)
-        target = result
-        for part in parts[:-1]:
-            if part not in target:
-                target[part] = {}
-            target = target[part]
-        target[parts[-1]] = value
+        parts = [p for p in split_re.split(key) if p]
+        _set(result, parts, value)
     return result
 
 # Usage
@@ -131,24 +152,43 @@ function flatten(obj, separator = ".", prefix = "") {
   return result;
 }
 
+function _set(node, parts, value) {
+  for (let i = 0; i < parts.length - 1; i++) {
+    const part = parts[i];
+    const nextIsIndex = /^\d+$/.test(parts[i + 1]);
+    if (Array.isArray(node)) {
+      const index = Number(part);
+      while (node.length <= index) node.push(null);
+      if (node[index] === null) {
+        node[index] = nextIsIndex ? [] : {};
+      }
+      node = node[index];
+    } else {
+      if (!(part in node)) {
+        node[part] = nextIsIndex ? [] : {};
+      }
+      node = node[part];
+    }
+  }
+
+  const last = parts[parts.length - 1];
+  if (Array.isArray(node)) {
+    const index = Number(last);
+    while (node.length <= index) node.push(null);
+    node[index] = value;
+  } else {
+    node[last] = value;
+  }
+}
+
 function unflatten(flat, separator = ".") {
   const result = {};
+  const esc = separator.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const splitRe = new RegExp(`${esc}|[\\[\\]]`, "g");
 
   for (const [key, value] of Object.entries(flat)) {
-    const parts = key.split(separator);
-    let target = result;
-
-    for (let i = 0; i < parts.length - 1; i++) {
-      const part = parts[i];
-      if (!(part in target)) {
-        // Detect array index for next part
-        const nextPart = parts[i + 1];
-        target[part] = /^\d+$/.test(nextPart) ? [] : {};
-      }
-      target = target[part];
-    }
-
-    target[parts[parts.length - 1]] = value;
+    const parts = key.split(splitRe).filter(Boolean);
+    _set(result, parts, value);
   }
 
   return result;
@@ -175,28 +215,29 @@ console.log(restored.user.address.city); // "London"
 
 ```java
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class FlattenUtil {
 
   public static Map<String, Object> flatten(Map<String, Object> map) {
     Map<String, Object> result = new LinkedHashMap<>();
-    flattenHelper(map, "", result);
+    flattenHelper(map, ".", "", result);
     return result;
   }
 
-  private static void flattenHelper(Object obj, String prefix, Map<String, Object> result) {
+  private static void flattenHelper(Object obj, String separator, String prefix, Map<String, Object> result) {
     if (obj instanceof Map) {
       Map<?, ?> map = (Map<?, ?>) obj;
       for (Map.Entry<?, ?> entry : map.entrySet()) {
         String key = prefix.isEmpty() ? entry.getKey().toString()
-                                      : prefix + "." + entry.getKey();
-        flattenHelper(entry.getValue(), key, result);
+                                      : prefix + separator + entry.getKey();
+        flattenHelper(entry.getValue(), separator, key, result);
       }
     } else if (obj instanceof List) {
       List<?> list = (List<?>) obj;
       for (int i = 0; i < list.size(); i++) {
         String key = prefix + "[" + i + "]";
-        flattenHelper(list.get(i), key, result);
+        flattenHelper(list.get(i), separator, key, result);
       }
     } else {
       result.put(prefix, obj);
@@ -204,28 +245,62 @@ public class FlattenUtil {
   }
 
   public static Map<String, Object> unflatten(Map<String, Object> flat) {
+    return unflatten(flat, ".");
+  }
+
+  public static Map<String, Object> unflatten(Map<String, Object> flat, String separator) {
     Map<String, Object> result = new LinkedHashMap<>();
+    String splitRegex = Pattern.quote(separator) + "|\\[|\\]";
 
     for (Map.Entry<String, Object> entry : flat.entrySet()) {
-      String[] parts = entry.getKey().split("\\.");
-      Map<String, Object> target = result;
-
-      for (int i = 0; i < parts.length - 1; i++) {
-        String part = parts[i];
-        if (!target.containsKey(part)) {
-          String nextPart = parts[i + 1];
-          target.put(part, nextPart.matches("\\d+") ? new ArrayList<>() : new LinkedHashMap<>());
-        }
-        target = (Map<String, Object>) target.get(part);
+      String[] rawParts = entry.getKey().split(splitRegex);
+      List<String> parts = new ArrayList<>();
+      for (String p : rawParts) {
+        if (!p.isEmpty()) parts.add(p);
       }
-
-      target.put(parts[parts.length - 1], entry.getValue());
+      build(result, parts, 0, entry.getValue());
     }
 
     return result;
   }
 
-  // Usage
+  @SuppressWarnings("unchecked")
+  private static void build(Object node, List<String> parts, int index, Object value) {
+    if (index == parts.size() - 1) {
+      String part = parts.get(index);
+      if (node instanceof List) {
+        int i = Integer.parseInt(part);
+        List<Object> list = (List<Object>) node;
+        while (list.size() <= i) list.add(null);
+        list.set(i, value);
+      } else {
+        ((Map<String, Object>) node).put(part, value);
+      }
+      return;
+    }
+
+    String part = parts.get(index);
+    boolean nextIsIndex = parts.get(index + 1).matches("\\d+");
+
+    if (node instanceof List) {
+      int i = Integer.parseInt(part);
+      List<Object> list = (List<Object>) node;
+      while (list.size() <= i) list.add(null);
+      Object child = list.get(i);
+      if (child == null) {
+        child = nextIsIndex ? new ArrayList<>() : new LinkedHashMap<>();
+        list.set(i, child);
+      }
+      build(child, parts, index + 1, value);
+    } else {
+      Map<String, Object> map = (Map<String, Object>) node;
+      if (!map.containsKey(part)) {
+        map.put(part, nextIsIndex ? new ArrayList<>() : new LinkedHashMap<>());
+      }
+      build(map.get(part), parts, index + 1, value);
+    }
+  }
+
   public static void main(String[] args) {
     Map<String, Object> nested = new LinkedHashMap<>();
     Map<String, Object> user = new LinkedHashMap<>();
@@ -242,7 +317,9 @@ public class FlattenUtil {
     System.out.println(flat.get("user.address.city")); // London
 
     Map<String, Object> restored = unflatten(flat);
-    System.out.println(((Map<?, ?>) ((Map<?, ?>) restored.get("user")).get("address")).get("city"));
+    Map<String, Object> restoredUser = (Map<String, Object>) restored.get("user");
+    Map<String, Object> restoredAddress = (Map<String, Object>) restoredUser.get("address");
+    System.out.println(restoredAddress.get("city")); // London
   }
 }
 ```
@@ -251,13 +328,13 @@ public class FlattenUtil {
 
 - **Recursive traversal** walks every key-value pair in the nested structure. For each nested object, the function recurses with an updated prefix. For arrays, it appends `[index]` to preserve positional data.
 - **Dot-notation keys** (`parent.child.key`) are human-readable and compatible with most query string parsers, lodash `get/set`, and MongoDB dot notation.
-- **Unflatten reconstruction** splits dot-notation keys and builds nested objects level by level. Detecting array indices (numeric strings) lets it reconstruct arrays instead of objects with numeric keys.
-- **Round-trip fidelity** is preserved when flattening then unflattening, provided no key contains the separator character. If keys contain dots, use a custom separator (`→`, `__`) or escape the separator.
+- **Unflatten reconstruction** splits dot-notation and bracket-index keys and builds nested objects level by level. Detecting array indices (numeric strings) lets it reconstruct arrays instead of objects with numeric keys.
+- **Round-trip fidelity** stays intact as long as no key contains the separator character. If keys contain dots, use a custom separator (`→`, `__`) or escape the separator.
 
 ## Variants
 
 | Approach | Separator | Array Handling | Best For |
-|----------|-----------|---------------|----------|
+| --- | --- | --- | --- |
 | Dot-notation | `.` | `[index]` suffix | MongoDB, lodash, query strings |
 | Bracket-notation | `.` | `.0`, `.1` | PHP-style form data |
 | Custom separator | `__` | `__0` | Keys that contain dots |
@@ -268,60 +345,27 @@ public class FlattenUtil {
 
 1. **Validate separator choice** — if your data keys might contain dots (e.g., domain names like `example.com`), use a custom separator like `__` or `→` to avoid ambiguous paths.
 2. **Preserve array indices explicitly** — always include array indices in the flattened key (`tags[0]`). Without them, arrays become objects with numeric string keys on unflatten.
-3. **Handle null and empty objects** — `null` values should be preserved as-is. Empty objects `{}` should either be preserved or explicitly omitted based on your use case.
+3. **Handle null and empty objects** — preserve `null` values as-is. Keep or drop empty objects `{}` depending on your use case.
 4. **Type fidelity on round-trip** — flattening loses type information for Dates, Maps, Sets, and typed arrays. [Serialize these to strings](/recipes/deep-clone-javascript/) before flattening if type recovery matters.
-5. **Limit depth for safety** — on untrusted input, cap recursion depth to prevent stack overflow attacks from malicious deeply nested JSON.
+5. **Limit depth for safety** — on untrusted input, cap recursion depth to prevent stack overflow attacks from maliciously nested JSON.
 
 ## Common Mistakes
 
 1. Using dot-notation when data keys themselves contain dots, causing ambiguous or incorrect paths.
-2. Flattening arrays without preserving indices, making round-trip reconstruction impossible.
+2. Flattening arrays without preserving indices, so you can't reconstruct the original structure.
 3. Not handling circular references, which cause infinite recursion. Use a `WeakSet` cache to detect cycles.
 4. Attempting to unflatten keys with inconsistent separators (mixing `.` and `_`) leading to malformed output.
 5. Treating all numeric string keys as array indices, which turns object keys like `"123"` into arrays unexpectedly.
-
-
-## Troubleshooting
-
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
-- **Data quality degrades over time**: add data validation checks and anomaly detection.  Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.  Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.  Archive cold data and set lifecycle policies.
-
-
-
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the data and java guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply flatten and unflatten nested objects** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
 
 ## FAQ
 
 ### Can I flatten only to a specific depth?
 
-Yes. Modify the recursive function to accept a `maxDepth` parameter and stop recursing when `currentDepth >= maxDepth`. Return the remaining nested value under the current prefix. This is useful for shallow updates where you only need the top two levels flattened.
+Yes. Add a `maxDepth` parameter and stop recursing once `currentDepth >= maxDepth`. Return the remaining nested value under the current prefix. This works well for shallow updates where you only need the top two levels.
 
 ### How do I handle keys that contain the separator character?
 
-Escape the separator in keys before flattening (e.g., replace `.` with `\.`), then unescape during unflattening. Alternatively, choose a separator that cannot appear in your data, such as `→` or Unicode characters. Many libraries (like `flat`) support custom separators.
+Escape the separator in keys before flattening (e.g., replace `.` with `\.`), then unescape during unflattening. Alternatively, choose a separator that can't appear in your data, such as `→` or Unicode characters. Many libraries (like `flat`) support custom separators.
 
 ### Does round-trip flatten → unflatten always produce identical output?
 
@@ -333,19 +377,15 @@ Use a `WeakSet` to track visited objects. When the recursive function encounters
 
 ### What libraries handle flatten/unflatten in production?
 
-In JavaScript, `flat` (npm) is the most popular, supporting custom separators, depth limits, and safe key handling. In Python, `flatten-dict` and `pandas.json_normalize` cover most use cases. In Java, Jackson's `JsonPointer` and Gson's `JsonObject` traversal can flatten JSON trees. For database-specific flattening (e.g., PostgreSQL `jsonb_path_query`), use the database's built-in JSON functions instead of application-level flattening.
+In JavaScript, `flat` (npm) is widely used and supports custom separators, depth limits, and safe key handling. In Python, `flatten-dict` and `pandas.json_normalize` handle most cases. In Java, Jackson's `JsonPointer` and Gson's `JsonObject` traversal can flatten JSON trees. For database-specific flattening (e.g., PostgreSQL `jsonb_path_query`), prefer the database's built-in JSON functions over application-level flattening.
 
 ### How do I flatten TypeScript objects while preserving type information?
 
-Use a generic function with conditional types to infer the flattened key structure. Define a `Flatten<T>` type that recursively constructs keys as ``${Prefix}.${Key}``. At runtime, the flatten function produces string keys; the type tells the compiler what keys to expect. For partial type safety, use `as const` assertions on the flattened output and validate with a Zod schema at the boundary where untrusted data enters the system.
+Use a generic function with conditional types to infer the flattened key structure. Define a `Flatten<T>` type that recursively builds keys as ``${Prefix}.${Key}``. At runtime, the flatten function produces string keys; the type tells the compiler what keys to expect. Use `as const` assertions on the flattened output and validate with a Zod schema where untrusted data enters the system.
 
-## Common Production Pitfalls
+## Key Takeaways
 
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+- Pick a separator that won't clash with your keys; use a custom one if keys contain dots.
+- Preserve array indices in the flattened key, and unflatten with bracket-aware parsing.
+- Cap recursion depth and detect circular references when handling untrusted input.
+- Flattening loses type information for special types; serialize them first if recovery matters.
