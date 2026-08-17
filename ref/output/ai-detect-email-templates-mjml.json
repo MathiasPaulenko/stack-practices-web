@@ -1,0 +1,318 @@
+[
+  {
+    "label": "email-templates-mjml-en",
+    "model": "desklib",
+    "model_ai_pct": 38.2,
+    "ai_count": 10,
+    "human_count": 26,
+    "skipped_count": 1,
+    "total": 37,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.6,
+      "stddev": 14.1,
+      "cv": 0.8,
+      "verdict": "natural variation",
+      "sentence_count": 36,
+      "lengths": [
+        23,
+        18,
+        22,
+        36,
+        17,
+        14,
+        10,
+        11,
+        28,
+        22,
+        22,
+        12,
+        12,
+        34,
+        91,
+        11,
+        13,
+        14,
+        16,
+        8,
+        14,
+        16,
+        11,
+        11,
+        12,
+        10,
+        11,
+        18,
+        12,
+        16,
+        13,
+        11,
+        15,
+        5,
+        17,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "You can also test the template on your\nown machine before sending.",
+        0.8119
+      ],
+      [
+        "It's\nalso a good fit when you want templates under version control that work with any\nESP.",
+        0.7142
+      ],
+      [
+        "Most email clients won't load web fonts, so a fallback font stack is a must.",
+        0.7023
+      ],
+      [
+        "Building HTML for email means supporting dozens of clients with different\nrendering engines, from Apple Mail to Outlook's Word-based parser and Gmail's\nsanitizer.",
+        0.6649
+      ],
+      [
+        "Flexbox, grid, border-radius and position aren't reliable; most clients\n  ignore them.",
+        0.5994
+      ],
+      [
+        "Test how it falls back.",
+        0.5683
+      ],
+      [
+        "Add an unsubscribe link to every marketing email.",
+        0.5321
+      ],
+      [
+        "Setting minify to true removes extra whitespace and\nkeeps the payload small.",
+        0.5319
+      ],
+      [
+        "The mjml-react package lets you write MJML as JSX and still compile\nthrough the same pipeline.",
+        0.5277
+      ],
+      [
+        "For large campaigns, use Litmus or Email on Acid.",
+        0.524
+      ],
+      [
+        "Keep the email width under 600px and total size under 102KB.",
+        0.4265
+      ],
+      [
+        "Web fonts and @font-face usually fail; stick to system fonts such as Arial,\n  Georgia and Verdana.",
+        0.4149
+      ],
+      [
+        "Compiling with validationLevel: 'strict' catches malformed components before\nthey reach a client.",
+        0.4016
+      ],
+      [
+        "Including user input without escaping; this can lead to HTML injection.",
+        0.3963
+      ],
+      [
+        "That layout is the only one that behaves\nconsistently across clients, because many of them don't support flexbox, grid or\nexternal stylesheets.",
+        0.3816
+      ],
+      [
+        "Outlook on Windows relies on Word's HTML engine and ignores most modern CSS.",
+        0.3718
+      ],
+      [
+        "This recipe shows how to write an MJML template,\ncompile it, inject live variables with Handlebars, and send the result with\nNodemailer.",
+        0.3587
+      ],
+      [
+        "Point images to absolute URLs; most clients ignore external CSS and local files.",
+        0.3529
+      ],
+      [
+        "Provide alt text for images so the email is readable when images are blocked.",
+        0.3481
+      ],
+      [
+        "Use it in a template with mj-include:\n\n\n\n\n\n\n\nApply the classes inside the template:\n\n\n\n\n\nMJML components such as <mj-section>, <mj-column> and <mj-text> become\nnested HTML tables w",
+        0.3395
+      ],
+      [
+        "Reach for this recipe when you send transactional emails such as password\nresets or order confirmations, when your newsletters must look good on mobile\nand desktop, or when you wan",
+        0.3243
+      ],
+      [
+        "Nodemailer then sends the result as a multipart message with both HTML and\nplain text; the plain text version is important for deliverability and for users\nwho can't or don't want ",
+        0.3182
+      ],
+      [
+        "Embedding large base64 images; they bloat the message and may be stripped.",
+        0.3056
+      ],
+      [
+        "Trusting client <style> blocks; Gmail strips them in many cases.",
+        0.2991
+      ],
+      [
+        "Render the template, send a test to yourself, and check it in Gmail, Outlook and\nApple Mail.",
+        0.2927
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "email-templates-mjml-es",
+    "model": "desklib",
+    "model_ai_pct": 29.0,
+    "ai_count": 3,
+    "human_count": 33,
+    "skipped_count": 1,
+    "total": 37,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 18.8,
+      "stddev": 14.6,
+      "cv": 0.78,
+      "verdict": "natural variation",
+      "sentence_count": 36,
+      "lengths": [
+        30,
+        23,
+        22,
+        36,
+        13,
+        12,
+        14,
+        8,
+        30,
+        24,
+        30,
+        15,
+        11,
+        33,
+        93,
+        13,
+        15,
+        15,
+        23,
+        10,
+        17,
+        15,
+        11,
+        15,
+        11,
+        12,
+        12,
+        17,
+        5,
+        17,
+        15,
+        13,
+        8,
+        11,
+        19,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Embeber im\u00e1genes base64 grandes; inflan el mensaje y pueden ser eliminadas.",
+        0.6637
+      ],
+      [
+        "Adem\u00e1s facilita las pruebas locales.",
+        0.6395
+      ],
+      [
+        "La mayor\u00eda de clientes no carga web fonts.",
+        0.5185
+      ],
+      [
+        "Confiar en bloques <style> del cliente; Gmail los elimina en muchos casos.",
+        0.4817
+      ],
+      [
+        "Agrega alt text a las im\u00e1genes para que el correo se lea cuando las im\u00e1genes est\u00e1n bloqueadas.",
+        0.4689
+      ],
+      [
+        "Tambi\u00e9n\nsirve cuando necesitas templates versionados que funcionen con cualquier proveedor de email.",
+        0.4645
+      ],
+      [
+        "Usar web fonts o @font-face; qu\u00e9date en fuentes del sistema como Arial,\n  Georgia y Verdana.",
+        0.443
+      ],
+      [
+        "Usa una pila de fuentes del sistema y\nprueba el fallback.",
+        0.4413
+      ],
+      [
+        "Depender de flexbox, grid, border-radius o position; muchos clientes los ignoran.",
+        0.4226
+      ],
+      [
+        "minify: true elimina espacios extra y reduce el\ntama\u00f1o del payload.",
+        0.3851
+      ],
+      [
+        "Incluye un link de unsubscribe en cada correo de marketing.",
+        0.3654
+      ],
+      [
+        "\u00dasalo en un template con mj-include:\n\n\n\n\n\n\n\nAplica las clases dentro del template:\n\n\n\n\n\nLos componentes de MJML como <mj-section>, <mj-column> y <mj-text> se\nconvierten en tablas H",
+        0.3597
+      ],
+      [
+        "Renderiza el template, env\u00eda un correo de prueba a ti mismo y rev\u00edsalo en\nGmail, Outlook y Apple Mail.",
+        0.339
+      ],
+      [
+        "Incluir input del usuario sin escapar; puede llevar a inyecci\u00f3n de HTML.",
+        0.3164
+      ],
+      [
+        "Usa URLs absolutas para im\u00e1genes; la mayor\u00eda de clientes bloquean CSS externo y archivos locales.",
+        0.3156
+      ],
+      [
+        "Esta receta\nmuestra c\u00f3mo escribir un template de MJML, compilarlo, inyectar variables en\nvivo con Handlebars y enviar el resultado con Nodemailer.",
+        0.3068
+      ],
+      [
+        "Para campa\u00f1as grandes, usa Litmus o Email on Acid.",
+        0.2896
+      ],
+      [
+        "Es el \u00fanico enfoque de\nlayout que funciona de forma consistente entre clientes, porque muchos no\nsoportan flexbox, grid ni hojas de estilo externas.",
+        0.2779
+      ],
+      [
+        "Mant\u00e9n el ancho del correo bajo 600px y el tama\u00f1o total bajo 102KB.",
+        0.262
+      ],
+      [
+        "Consulta [XSS Prevention](/recipes/security/xss-prevention/) antes de incluir\n  input del usuario en el HTML del correo.",
+        0.238
+      ],
+      [
+        "Compilar con validationLevel: 'strict' atrapa componentes mal formados antes\nde que lleguen a un cliente.",
+        0.2303
+      ],
+      [
+        "MJML convierte un lenguaje de marcado XML en HTML basado\nen tablas con estilos inline que se lee bien en escritorio y m\u00f3vil.",
+        0.2214
+      ],
+      [
+        "Olvidar la versi\u00f3n de texto plano; los filtros de spam y algunos usuarios la necesitan.",
+        0.1863
+      ],
+      [
+        "Comb\u00ednala con [Input Validation](/recipes/input-validation/) para limpiar los\ndatos que pasas al template.",
+        0.1857
+      ],
+      [
+        "El paquete mjml-react te permite escribir MJML como componentes JSX y\nseguir compilandolo con el mismo pipeline.",
+        0.1834
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

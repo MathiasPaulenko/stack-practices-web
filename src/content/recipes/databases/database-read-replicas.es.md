@@ -1,6 +1,4 @@
 ---
-
-
 contentType: recipes
 slug: database-read-replicas
 title: "Configurar read replicas de base de datos para escalado"
@@ -16,15 +14,12 @@ tags:
   - mysql
 relatedResources:
   - /recipes/database-deadlocks-retries
-  - /recipes/full-text-search
-  - /recipes/sql-joins
   - /docs/database-migration-runbook-template
   - /guides/cap-theorem-guide
   - /recipes/optimistic-locking
-  - /recipes/sql-full-text-search-setup
   - /recipes/database-views-materialized
   - /recipes/event-sourcing-relational
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-08-18"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -36,22 +31,31 @@ seo:
     - postgresql
     - mysql
     - balanceo-carga
-
-
 ---
 ## Visión General
 
-Las read replicas son copias de tu base de datos principal que manejan tráfico solo de lectura, aliviando la instancia principal. Son la estrategia de escalado más común para workloads intensivos en lectura — dashboards analíticos, búsquedas y lecturas de API pueden dirigirse a réplicas mientras las escrituras van a la primaria.
+Las read replicas son copias de tu base de datos principal que manejan tráfico
+solo de lectura, aliviando la instancia principal. Son la estrategia de escalado
+más común para workloads intensivos en lectura — dashboards analíticos, búsquedas
+y lecturas de API pueden dirigirse a réplicas mientras las escrituras van a la
+primaria.
 
-A continuacion se cubre la configuración de read replicas, implementación de split de lectura/escritura, monitoreo de replication lag y manejo de lecturas stale en PostgreSQL, MySQL y bases de datos administradas en la nube.
+Esta receta recorre la configuración de read replicas, el split de
+lectura/escritura, el monitoreo de replication lag y el manejo de lecturas stale
+en PostgreSQL, MySQL y bases de datos administradas en la nube.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- La CPU o I/O de tu base de datos principal está saturada por queries de lectura. Consulta [Query Optimization](/recipes/postgres-query-optimization/) para ajustar lecturas.
-- Necesitas ejecutar reportes analíticos sin impactar escrituras de producción. Consulta [Logging](/recipes/logging/) para observabilidad.
-- Quieres localidad geográfica de lecturas colocando réplicas cerca de usuarios. Consulta [Caching](/recipes/caching/) para rendimiento en edge.
-- Tu workload es intensivo en lectura (>80% lecturas) y el volumen de escritura es moderado
+Usa este recurso cuando la CPU o I/O de tu base de datos principal está saturada
+por queries de lectura, cuando necesitas ejecutar reportes analíticos sin
+ralentizar escrituras de producción, cuando quieres localidad geográfica de
+lecturas colocando réplicas cerca de usuarios, o cuando tu workload es intensivo
+en lectura (más del 80% lecturas) con un volumen de escritura moderado.
+
+- Si la primaria está saturada por lecturas, ajusta primero las queries con [Optimización de Queries en PostgreSQL](/es/recipes/postgres-query-optimization/).
+- Para análisis que no deberían impactar escrituras de producción, las réplicas mantienen el reporting lejos de la primaria.
+- Para localidad geográfica de lecturas, coloca réplicas cerca de los usuarios.
+- Cuando el workload es mayormente lecturas con escrituras moderadas, las réplicas suelen ser la mejora más rápida.
 
 ## Solución
 
@@ -87,7 +91,9 @@ class RoutingSession:
 # Uso
 session = RoutingSession()
 users = session.execute_read("SELECT * FROM users WHERE active = true")
-session.execute_write("UPDATE users SET last_login = NOW() WHERE id = :id", {"id": 1})
+session.execute_write(
+    "UPDATE users SET last_login = NOW() WHERE id = :id", {"id": 1}
+)
 session.commit()
 ```
 
@@ -173,61 +179,96 @@ public class UserService {
 
 ## Explicación
 
-Las read replicas usan replicación streaming (física) o lógica:
-- **Replicación física**: Copia bloques de WAL (Write-Ahead Log) directamente.   Rápida pero replica todo.
-- **Replicación lógica**: Replica cambios a nivel de fila.   Selectiva pero con más overhead.
+Las read replicas usan replicación streaming. La replicación física copia bloques
+de WAL (Write-Ahead Log) directamente; es rápida pero replica toda la base de
+datos. La replicación lógica replica cambios a nivel de fila; es selectiva pero
+tiene más overhead.
 
-**Replication lag** es el retraso entre una escritura en la primaria y su aparición en la réplica. Las causas incluyen latencia de red, carga de la réplica y transacciones grandes. Las aplicaciones deben manejar lecturas stale o enrutar queries críticas de consistencia a la primaria.
+**Replication lag** es el tiempo entre una escritura en la primaria y que ese
+mismo cambio aparezca en la réplica. La latencia de red, la carga de la réplica y
+las transacciones grandes lo aumentan. Tu aplicación debe manejar lecturas stale
+o enrutar queries críticas de consistencia de vuelta a la primaria.
 
 ## Variantes
 
+Cada stack aproxima las read replicas de forma ligeramente distinta. La tabla
+compara los tipos de replicación, el monitoreo de lag y las opciones de enrutado
+de lecturas.
+
 | Base de datos | Tipo de replicación | Monitoreo de lag | Enrutado de lecturas |
-|---------------|--------------------|--------------------|----------------------|
+| --- | --- | --- | --- |
 | PostgreSQL | Streaming / Lógica | `pg_stat_replication` | PgBouncer, proxy custom |
 | MySQL | Binlog (async/semi-sync) | `SHOW SLAVE STATUS` | ProxySQL, MaxScale |
 | Cloud RDS | Streaming administrado | CloudWatch/Cloud Monitoring | RDS Proxy, custom |
 | CockroachDB | Multi-active (Raft) | Built-in | Automático |
 
-## Lo que funciona
+Elige PostgreSQL o MySQL si quieres control total, servicios administrados en la
+nube si prefieres simplicidad operacional, o CockroachDB si buscas réplicas
+multi-activas automáticas.
 
-- **Monitorea el replication lag**: Alerta cuando el lag excede 1–5 segundos dependiendo del caso de uso
-- **Enruta lecturas sensibles al tiempo a la primaria**: Lecturas de perfil de usuario después de editar deben ir a la primaria
-- **Usa connection pooling por réplica**: Consulta [Connection Pooling](/recipes/database-connection-pooling/) para configuración.
-- **Distribuye réplicas entre zonas de disponibilidad**: Protege contra fallos de zona
-- **Prueba procedimientos de failover**: Las réplicas pueden promoverse a primaria durante outages.   Consulta [Retry Logic](/recipes/retry-backoff/) para patrones de resiliencia.
+## Mejores Prácticas
+
+- Monitorea el replication lag y alerta cuando excede 1–5 segundos para tu caso
+  de uso.
+- Enruta lecturas sensibles al tiempo a la primaria. Cuando un usuario actualiza
+  su perfil, léelo de vuelta desde la primaria.
+- Usa connection pooling por réplica en lugar de abrir conexiones directas;
+  PgBouncer o ProxySQL funcionan bien. Consulta [Connection Pooling](/es/recipes/database-connection-pooling/)
+  para una configuración de ejemplo.
+- Distribuye réplicas entre zonas de disponibilidad para que un fallo de zona no
+  elimine tus lecturas.
+- Prueba procedimientos de failover regularmente. Las réplicas pueden promoverse
+  a primaria durante outages, así que asegúrate de que el proceso realmente
+  funcione. Consulta [Retry Logic](/es/recipes/retry-backoff/) para patrones de
+  resiliencia.
 
 ## Errores Comunes
 
-- **Asumir que las réplicas son instantáneamente consistentes**: Siempre considera el replication lag en escenarios de lectura-después-de-escritura
-- **Enviar escrituras a réplicas**: Las réplicas son solo lectura; las escrituras fallarán o serán silenciosamente ignoradas
-- **Ignorar el monitoreo de replication lag**: Los usuarios ven datos stale sin que nadie lo sepa
-- **Sobre-replicar**: Cada réplica añade carga a la primaria; encuentra la proporción correcta (usualmente 1:3 a 1:5)
-- **Sin plan de failover**: Cuando la primaria falla, promueve una réplica rápidamente — practica esto regularmente
+- **Asumir que las réplicas son instantáneamente consistentes**: Siempre
+  considera el replication lag en escenarios de lectura-después-de-escritura
+- **Enviar escrituras a réplicas**: Las réplicas son solo lectura; las escrituras
+  fallarán o serán silenciosamente ignoradas
+- **Ignorar el monitoreo de replication lag**: Los usuarios ven datos stale sin
+  que nadie lo sepa
+- **Sobre-replicar**: Cada réplica añade carga a la primaria; encuentra la
+  proporción correcta (usualmente 1:3 a 1:5)
+- **Sin plan de failover**: Cuando la primaria falla, promueve una réplica
+  rápidamente — practica esto regularmente
 
 ## Preguntas Frecuentes
 
-**P: ¿Cuánto replication lag es aceptable?**
-R: Para lecturas orientadas a usuarios: <100ms. Para análisis: segundos a minutos. Para invalidación de caché: <1s. Monitorea y alerta basado en tu caso de uso.
+### ¿Cuánto replication lag es aceptable?
 
-**P: ¿Puedo escribir en una read replica?**
-R: Solo si usas replicación multi-master (Galera, CockroachDB, Yugabyte). Las read replicas estándar rechazan escrituras. Intentar escribir lanzará errores.
+Para lecturas orientadas a usuarios, apunta a menos de 100ms. Para análisis,
+desde unos segundos hasta varios minutos suele estar bien. Para invalidación de
+caché, mantenlo por debajo de un segundo. Ajusta el umbral de alertas al
+requisito más estricto de tu caso de uso.
 
-**P: ¿Necesito un proxy a nivel de aplicación para split de lecturas?**
-R: No siempre. Algunos drivers (libpq de PostgreSQL, Connector/J de MySQL) soportan múltiples hosts. ORMs como Prisma e Hibernate también proveen enrutado de réplicas. Para escenarios complejos, usa ProxySQL, PgBouncer o AWS RDS Proxy.
+### ¿Puedo escribir en una read replica?
 
-### ¿Esta solución está lista para producción?
+Solo si usas replicación multi-master, como Galera, CockroachDB o Yugabyte. Las
+read replicas estándar son solo lectura, así que cualquier intento de escritura
+fallará.
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+### ¿Necesito un proxy a nivel de aplicación para split de lecturas?
 
-### ¿Cuáles son las características de rendimiento?
+No siempre. Drivers como libpq para PostgreSQL y Connector/J para MySQL aceptan
+más de un host, y muchos ORMs pueden enrutar lecturas a una réplica. Para reglas
+complejas, añade ProxySQL, PgBouncer o AWS RDS Proxy.
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+### ¿Por qué mi lectura tras una escritura sigue devolviendo el valor antiguo?
 
-### ¿Cómo depuro problemas con este enfoque?
+Replication lag. La réplica aún no se había sincronizado con la primaria. Si un
+usuario escribe datos y los lee inmediatamente, envía esa lectura a la primaria o
+espera a que el lag de la réplica baje de tu umbral.
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+### ¿Cuántas réplicas debería ejecutar?
 
-### PgBouncer para Connection Pooling con Réplicas
+Empieza con una o dos. La mayoría de workloads obtienen un buen retorno con una
+relación de 1:3 a 1:5 entre primaria y réplicas, así que añade más solo si el
+monitoreo muestra que las réplicas actuales no dan abasto.
+
+### PgBouncer Connection Pooling con Réplicas
 
 ```ini
 # pgbouncer.ini
@@ -491,12 +532,13 @@ def read_after_write(conn_master, conn_replica, query, params, max_wait=2.0):
             return cur.fetchall()
 ```
 
+## Ajustes
 
+### Ajusta el número de réplicas con pg_stat_replication
 
-
-## Tips de Rendimiento
-
-1. **Usa `pg_stat_replication` para ajustar el número de réplicas.** Si el replication lag excede consistentemente 5 segundos, puedes tener demasiadas réplicas o hardware insuficiente:
+Si el replication lag excede consistentemente 5 segundos, puedes tener demasiadas
+réplicas o hardware insuficiente. Consulta `pg_stat_replication` para ver el lag
+por réplica y decidir.
 
 ```sql
 SELECT application_name, client_addr,
@@ -505,7 +547,9 @@ SELECT application_name, client_addr,
 FROM pg_stat_replication;
 ```
 
-2. **Coloca réplicas en diferentes zonas de disponibilidad.** Esto proporciona tanto escalado de lectura como recuperación ante desastres:
+### Coloca réplicas en diferentes zonas de disponibilidad
+
+Esto te da escalado de lectura y recuperación ante desastres:
 
 ```yaml
 # AWS RDS: crear read replicas en diferentes AZs
@@ -524,14 +568,19 @@ ReadReplica2:
     DBInstanceClass: db.r6g.large
 ```
 
-3. **Usa `hot_standby_feedback = on` en réplicas.** Esto previene que el master vacuume filas que las réplicas aún están leyendo:
+### Habilita hot_standby_feedback en las réplicas
+
+Esto evita que el master vacuume filas que las réplicas aún están leyendo:
 
 ```sql
 -- En replica postgresql.conf
 hot_standby_feedback = on
 ```
 
-4. **Ajusta `max_wal_senders` y `wal_keep_size` en el master.** Asegura suficiente WAL retenido para las réplicas:
+### Retén suficiente WAL en el master
+
+Ajusta `max_wal_senders` y `wal_keep_size` para que la primaria conserve suficiente
+WAL para sus réplicas:
 
 ```sql
 -- postgresql.conf
@@ -539,7 +588,10 @@ max_wal_senders = 10
 wal_keep_size = 1024  -- MB
 ```
 
-5. **Usa `pg_stat_statements` para identificar queries read-heavy.** Enruta los queries de lectura más frecuentes a réplicas:
+### Enruta queries read-heavy a réplicas
+
+Revisa `pg_stat_statements` para encontrar las queries de lectura más frecuentes y
+envíalas a réplicas:
 
 ```sql
 SELECT query, calls, mean_exec_time, total_exec_time

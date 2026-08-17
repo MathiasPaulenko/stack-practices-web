@@ -2,24 +2,27 @@
 contentType: recipes
 slug: email-templates-mjml
 title: "Templates de Email Responsivos con MJML"
-description: "Crea templates de email responsivos compatibles con multiples clientes usando MJML, variables en vivo con Handlebars y CSS inline para renderizado confiable en Gmail, Outlook y Apple Mail"
+description: "Crea templates de email responsivos con MJML, variables en vivo con Handlebars y CSS inline para Gmail, Outlook y Apple Mail."
 metaDescription: "Crea templates de email responsivos con MJML. Emails compatibles cross-client con variables en vivo y CSS inline para Gmail, Outlook y Apple Mail."
 difficulty: beginner
 topics:
   - frontend
-  - data
+  - security
 tags:
   - email
   - frontend
-  - ui
+  - mjml
+  - handlebars
+  - nodemailer
   - css
-  - javascript
 relatedResources:
-  - /recipes/spa-code-splitting-lazy
-  - /recipes/go-rest-api-gin
-  - /guides/clean-code-principles-guide
-  - /recipes/server-side-rendering
-lastUpdated: "2026-06-18"
+  - /recipes/security/xss-prevention
+  - /recipes/security/data-validation-zod
+  - /recipes/frontend/css-dark-mode-prefers-color-scheme
+  - /recipes/frontend/server-side-rendering
+  - /recipes/frontend/css-custom-properties-design-tokens
+  - /guides/complete-guide-mobile-responsive-design
+lastUpdated: "2026-08-18"
 publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
@@ -30,20 +33,34 @@ seo:
     - responsive email
     - cross-client email
     - handlebars
-
-
 ---
-El HTML de email es notoriamente dificil debido a motores de renderizado inconsistentes entre clientes. MJML abstrae esta complejidad en un lenguaje de markup declarativo que compila a HTML responsivo y probado en batalla con estilos inline. Esta recipe cubre estructura MJML, templating en vivo con Handlebars y envio via SMTP/API.
 
-## Cuando Usar Esto
+## Visión General
 
-- Emails transaccionales (reset de password, confirmaciones de orden) deben renderizar confiablemente. Consulta [Input Validation](/recipes/input-validation/) para validar datos de formularios de email.
-- Newsletters de marketing necesitan layouts responsivos en mobile y desktop. Consulta [SPA Code Splitting](/recipes/spa-code-splitting-lazy/) para diseño frontend responsive.
-- Quieres evitar escribir HTML basado en tablas manualmente. Consulta [Component Testing](/recipes/unit-testing/) para testear componentes de email.
+El HTML de correo debe funcionar en decenas de clientes con motores de
+renderizado distintos, desde Apple Mail hasta el parser de Word de Outlook y el
+sanitizador de Gmail. MJML convierte un lenguaje de marcado XML en HTML basado
+en tablas con estilos inline que se lee bien en escritorio y móvil. Esta receta
+muestra cómo escribir un template de MJML, compilarlo, inyectar variables en
+vivo con Handlebars y enviar el resultado con Nodemailer.
 
-## Solucion
+## Cuándo Usar
 
-### 1. Template Basico de MJML
+Usa esta receta cuando envíes correos transaccionales como resets de contraseña
+o confirmaciones de pedido, cuando tus boletines deban verse bien en móvil y
+escritorio, o cuando quieras dejar de escribir HTML de correo a mano. También
+sirve cuando necesitas templates versionados que funcionen con cualquier proveedor de email.
+
+- Combínala con [Input Validation](/recipes/input-validation/) para limpiar los
+datos que pasas al template.
+- Consulta [XSS Prevention](/recipes/security/xss-prevention/) antes de incluir
+  input del usuario en el HTML del correo.
+- Mira [CSS Dark Mode](/recipes/frontend/css-dark-mode-prefers-color-scheme/) si
+  quieres soportar `prefers-color-scheme`.
+
+## Solución
+
+### Template básico de MJML
 
 ```xml
 <!-- emails/welcome.mjml -->
@@ -59,16 +76,16 @@ El HTML de email es notoriamente dificil debido a motores de renderizado inconsi
       <mj-column>
         <mj-image width="120px" src="https://example.com/logo.png" alt="Logo" />
         <mj-text font-size="24px" font-weight="bold" align="center">
-          Bienvenido, {{name}}!
+          ¡Bienvenido, {{name}}!
         </mj-text>
         <mj-text font-size="16px" line-height="24px">
-          Gracias por unirte. Tu cuenta esta lista y puedes empezar a explorar.
+          Gracias por unirte. Tu cuenta ya está lista.
         </mj-text>
         <mj-button href="{{dashboardUrl}}" font-size="16px" padding="16px 32px">
           Ir al Dashboard
         </mj-button>
         <mj-text font-size="12px" color="#6b7280" align="center">
-          Si no te registraste, ignora este email.
+          Si no te registraste, ignora este correo.
         </mj-text>
       </mj-column>
     </mj-section>
@@ -76,19 +93,23 @@ El HTML de email es notoriamente dificil debido a motores de renderizado inconsi
 </mjml>
 ```
 
-### 2. Compilar y Renderizar
+### Compilar y renderizar
 
 ```typescript
 // email/EmailRenderer.ts
 import mjml2html from 'mjml';
 import Handlebars from 'handlebars';
+import * as fs from 'fs/promises';
 
 interface WelcomeData {
   name: string;
   dashboardUrl: string;
 }
 
-function compileTemplate(mjmlSource: string, data: WelcomeData): { html: string; errors: unknown[] } {
+async function compileTemplate(
+  mjmlSource: string,
+  data: WelcomeData
+): Promise<{ html: string; errors: unknown[] }> {
   const { html: rawHtml, errors } = mjml2html(mjmlSource, {
     validationLevel: 'strict',
     minify: true,
@@ -101,13 +122,15 @@ function compileTemplate(mjmlSource: string, data: WelcomeData): { html: string;
 }
 ```
 
-### 3. Enviar via SMTP con Nodemailer
+### Enviar vía SMTP con Nodemailer
 
 ```typescript
 // email/EmailSender.ts
+import * as fs from 'fs/promises';
 import nodemailer from 'nodemailer';
+import { compileTemplate } from './EmailRenderer';
 
-const transporter = nodemailer.createTransporter({
+const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
   port: Number(process.env.SMTP_PORT),
   secure: true,
@@ -122,7 +145,7 @@ async function sendWelcomeEmail(to: string, data: WelcomeData): Promise<void> {
   const { html, errors } = compileTemplate(mjmlSource, data);
 
   if (errors.length > 0) {
-    console.warn('Advertencias de compilacion MJML:', errors);
+    console.warn('Advertencias de compilación MJML:', errors);
   }
 
   await transporter.sendMail({
@@ -130,12 +153,12 @@ async function sendWelcomeEmail(to: string, data: WelcomeData): Promise<void> {
     to,
     subject: 'Bienvenido a StackPractices',
     html,
-    text: `Bienvenido ${data.name}! Visita: ${data.dashboardUrl}`,
+    text: `Bienvenido ${data.name}. Visita: ${data.dashboardUrl}`,
   });
 }
 ```
 
-### 4. Libreria de Componentes Reutilizables
+### Componente de botón reutilizable
 
 ```xml
 <!-- emails/components/Button.mjml -->
@@ -151,7 +174,13 @@ async function sendWelcomeEmail(to: string, data: WelcomeData): Promise<void> {
 </mj-button>
 ```
 
-### 5. Soporte de Dark Mode
+Úsalo en un template con `mj-include`:
+
+```xml
+<mj-include path="./components/Button.mjml" />
+```
+
+### Soporte de dark mode
 
 ```xml
 <mj-raw>
@@ -166,185 +195,85 @@ async function sendWelcomeEmail(to: string, data: WelcomeData): Promise<void> {
 </mj-style>
 ```
 
-## Como Funciona
+Aplica las clases dentro del template:
 
-- **Componentes MJML** abstraen layouts basados en tablas en tags semanticos como `<mj-section>` y `<mj-column>`
-- **Compilacion** genera HTML con estilos inline seguro para Outlook con conditional comments
-- **Handlebars** inyecta variables en vivo despues de la compilacion MJML para preservar markup
-- **Minificacion** reduce tamano de payload para delivery mas rapido
+```xml
+<mj-wrapper css-class="dark-bg">
+  <mj-text css-class="dark-text" align="center">
+    Contenido en dark mode
+  </mj-text>
+</mj-wrapper>
+```
 
-## Consideraciones de Produccion
+## Explicación
 
-- Testea templates en Litmus o Email on Acid antes de deployment en produccion
-- Manten el ancho total del email bajo 600px para compatibilidad mobile
-- Usa URLs absolutas para todas las imagenes; la mayoria de clientes bloquean CSS externo
+Los componentes de MJML como `<mj-section>`, `<mj-column>` y `<mj-text>` se
+convierten en tablas HTML anidadas con estilos inline. Es el único enfoque de
+layout que funciona de forma consistente entre clientes, porque muchos no
+soportan flexbox, grid ni hojas de estilo externas. Handlebars corre después de
+la compilación de MJML, así que el HTML de tabla generado se mantiene intacto y
+solo el texto o los valores de URL cambian en runtime.
+
+Compilar con `validationLevel: 'strict'` atrapa componentes mal formados antes
+de que lleguen a un cliente. `minify: true` elimina espacios extra y reduce el
+tamaño del payload. Nodemailer envía el resultado como un mensaje multiparte con
+HTML y texto plano; la versión de texto plano es importante para deliverability y
+para usuarios que no pueden o no quieren cargar HTML.
+
+## Variantes
+
+| Enfoque | Mejor para | Compromiso |
+| --- | --- | --- |
+| MJML + Handlebars | Equipos que envían muchos correos transaccionales | Build step y dependencia de Node |
+| HTML en tablas a mano | Campañas puntuales | Control total pero frágil en Outlook |
+| Texto plano | Alta deliverability, notificaciones simples | Sin branding ni tracking |
+| Editor drag-and-drop del ESP | Equipos de marketing sin código | Atado al ESP, más difícil de versionar |
+
+## Mejores Prácticas
+
+- Siempre envía `multipart/alternative` con HTML y texto plano.
+- Mantén el ancho del correo bajo 600px y el tamaño total bajo 102KB.
+- Usa URLs absolutas para imágenes; la mayoría de clientes bloquean CSS externo y archivos locales.
+- Prueba en clientes reales o con Litmus / Email on Acid antes de una campaña.
+- Escapa el input del usuario con el escaping HTML por defecto de Handlebars
+  o con un sanitizador antes de que llegue al template.
+- Incluye un link de unsubscribe en cada correo de marketing.
+- Agrega alt text a las imágenes para que el correo se lea cuando las imágenes están bloqueadas.
 
 ## Errores Comunes
 
-- Usar web fonts (no soportadas en la mayoria de clientes; usa system fonts)
-- Depender de flexbox o grid (usa el sistema de columnas de MJML en su lugar)
-- Olvidar versiones plain-text, que afectan scores de deliverability
+- Usar web fonts o `@font-face`; quédate en fuentes del sistema como Arial,
+  Georgia y Verdana.
+- Depender de flexbox, grid, `border-radius` o `position`; muchos clientes los ignoran.
+- Olvidar la versión de texto plano; los filtros de spam y algunos usuarios la necesitan.
+- Embeber imágenes base64 grandes; inflan el mensaje y pueden ser eliminadas.
+- Confiar en bloques `<style>` del cliente; Gmail los elimina en muchos casos.
+- Incluir input del usuario sin escapar; puede llevar a inyección de HTML.
 
-## Variantes y Alternativas
+## Preguntas Frecuentes
 
-- **MJML vs Handlebars + inline CSS**: MJML abstrae el layout responsive pero requiere un build step.   Handlebars con inline CSS da control total pero necesita responsive design manual.
-- **Email HTML vs texto plano**: emails HTML soportan branding y tracking pixels pero tienen riesgos de deliverability.   Emails de texto plano tienen mayor deliverability pero sin branding visual.
-- **Layout basado en tablas vs flexbox**: los clientes de email tienen soporte CSS inconsistente.   Gmail strippa los bloques <style>.
-- **Contenido dinamico vs templates estaticos**: templates dinamicos (Handlebars, Mustache) permiten personalizacion pero requieren un step de renderizado.   Templates estaticos son mas rapidos de enviar pero menos personalizados.
-- **Imagenes embebidas vs hospedadas**: imagenes embebidas (attachments CID) funcionan offline pero aumentan el tamaÃ±o del email.   Imagenes hospedadas (URLs) mantienen los emails pequeÃ±os pero requieren conexion a internet.
-- **Soporte dark mode**: No todos los clientes lo soportan.   Provee colores de fallback.
+### ¿Necesito MJML si uso SendGrid?
 
-## Pitfalls Comunes en Produccion
+SendGrid provee templates, pero MJML te da markup versionado que puedes
+renderizar y enviar con cualquier proveedor. Además facilita las pruebas locales.
 
-- **Problemas de renderizado en Outlook**: No soporta order-radius, lexbox, grid, ni position.
-- **Gmail clippea a 102KB**: Gmail clippea emails mas grandes que 102KB.
-- **Bloqueo de imagenes por default**: la mayoria de los clientes de email bloquean imagenes por default.   Disena emails que funcionen sin imagenes.
-- **Fallos de CSS inlining**: algunos clientes de email strippan los bloques <style>.
-- **Cadenas de font fallback**: web fonts (@font-face) funcionan en Apple Mail e iOS Mail pero no en Gmail ni Outlook.
-- **Testing a traves de clientes**: hay 50+ clientes de email con diferentes motores de renderizado.
+### ¿Puedo usar React para renderizar MJML?
 
-## Patrones de Integracion
+Sí. El paquete `mjml-react` te permite escribir MJML como componentes JSX y
+seguir compilandolo con el mismo pipeline.
 
-- **Pipeline de email transaccional**: triggera evento -> renderiza template con datos -> inlinea CSS -> envia via SMTP o API -> trackea delivery/open/click.
-- **Pipeline de campana newsletter**: importa lista de suscriptores -> segmenta por preferencias -> renderiza template personalizado -> envia en batches (para evitar rate limits) -> trackea opens y clicks -> genera reporte
-- **Soporte multi-idioma de email**: detecta locale del usuario -> selecciona template por locale -> renderiza con strings localizados -> envia.
-- **Cola de email con retry**: encola email -> intento de envio -> en fallo, reintenta con exponential backoff (1m, 5m, 30m, 2h, 12h) -> despues de 5 fallos, dead letter queue.
-- **A/B testing de contenido de email**: crea dos variantes de template -> divide audiencia 50/50 -> envia ambas -> trackea open rate y click rate -> declara winner despues de 24 horas.
-- **Gestion de suppression list**: mantiene una lista de addresses con bounce, complaint y unsubscribed.   Nunca envies a addresses suprimidas.
+### ¿Por qué mi template se ve mal en Outlook?
 
-## Tooling y Ecosistema
+Outlook en Windows usa el motor de HTML de Word, que no soporta CSS moderno.
+MJML genera HTML basado en tablas con comentarios condicionales pensados
+específicamente para Outlook.
 
-- **MJML**: lenguaje de markup open-source para emails responsive.   Compila a HTML basado en tablas.   40K+ GitHub stars.   CLI: mjml input.  mjml -o output.  html.
-- **Handlebars**: templating logic-less para contenido dinamico.   17K+ GitHub stars.   Helpers para condicionales, loops y partials.
-- **Juice**: CSS inliner para Node.  js.   3K+ GitHub stars.   Inlinea bloques <style> en atributos style inline.
-- **Litmus**: plataforma de testing de email.   Comparacion de screenshots, spam testing, accessibility checks.
-- **Email on Acid**: alternativa a Litmus.   Testing de screenshots a traves de 70+ clientes.   Trial gratis disponible.
-- **Premailer**: CSS inliner basado en Ruby.   Tambien disponible como web service.
+### ¿Puedo usar mis propias fuentes de marca?
 
-## Resumen de Best Practices
+La mayoría de clientes no carga web fonts. Usa una pila de fuentes del sistema y
+prueba el fallback.
 
-- Siempre envia multipart/alternative con ambos HTML y texto plano
-- Usa layouts basados en tablas con inline CSS para maxima compatibilidad con clientes
-- Testea a traves de al menos 5 clientes de email antes de enviar
-- Manten el tamaÃ±o del email bajo 102KB para evitar clipping de Gmail
-- Usa alt text para todas las imagenes y disena para image-blocking
-- Provee cadenas de font fallback para todos los custom fonts
-- Incluye un link de unsubscribe en cada email (requerimiento CAN-SPAM, GDPR)
-- Testea renderizado dark mode con media query prefers-color-scheme
-- Monitorea bounce rate, spam complaint rate y open rate
-- Usa una suppression list y nunca envies a addresses con bounce o unsubscribed
-## Manejo de Errores y Recuperacion
+### ¿Cómo pruebo correos antes de enviarlos?
 
-- **Manejo de bounces**: hard bounces (fallos permanentes) deben suprimir la address inmediatamente.   Soft bounces (fallos temporales) deben reintentar por 3-5 dias antes de suprimir.
-- **Manejo de spam complaints**: cuando un usuario marca un email como spam, suprime la address inmediatamente.   No envies mas emails.   Esto protege tu reputacion de sender.
-- **Errores de renderizado de template**: Loguea la variable faltante para debugging.
-- **Rate limiting del ESP**: Envia en batches de 100-1000 emails por segundo dependiendo de los limites de tu ESP.
-- **Fallos de link de unsubscribe**: si el link de unsubscribe esta roto, el usuario no puede opt out.   Esto viola CAN-SPAM y GDPR.
-- **Validacion de email antes de enviar**: valida las addresses de email antes de agregar a tu lista.
-
-## Tips de Optimizacion de Performance
-
-- Pre-renderiza templates en build time para contenido estatico. Solo renderiza contenido dinamico en send time
-- Usa MJML CLI con flag --minify para reducir el tamaÃ±o del HTML output en 10-20%
-- Cachea templates renderizados en Redis con un TTL de 1 hora. Invalida en update de template
-- Envia emails en batch en paralelo usando Promise.all con un limite de concurrencia de 50-100
-- Usa un CDN para imagenes hospedadas de email. Setea cache headers a 1 aÃ±o para imagenes estaticas
-- Comprime imagenes con WebP o JPEG optimizado antes de embeber. Target <100KB por imagen
-- Usa premailer con opciones 
-emove_classes y merge_inline para reducir el tamaÃ±o del CSS
-- Evita imagenes base64-encoded en emails. Aumentan el tamaÃ±o en 33% y son bloqueadas por algunos clientes
-- Usa alt text corto y descriptivo (50-100 chars). Alt text largo es truncado por algunos clientes
-- Testea el load time del email con Litmus. Target <3 segundos para renderizar en dispositivos mobile
-## Consideraciones de Seguridad
-
-- **Ataques de email injection**: Sanitiza todo input del usuario con ilter_var(, FILTER_SANITIZE_EMAIL) o equivalente.
-- **HTML injection en cuerpo de email**: si input del usuario se renderiza en emails HTML sin escaping, atacantes pueden inyectar scripts o links maliciosos.   Siempre escapa input del usuario con HTML entity encoding.
-- **Privacidad de tracking pixels**: los tracking pixels (imagenes transparentes de 1x1) generan preocupaciones de privacidad.   Algunos clientes de email los bloquean.   GDPR requiere consentimiento para tracking.   Provee una privacy policy y un mecanismo de opt-out.
-- **Seguridad de link de unsubscribe**: los links de unsubscribe deben usar tokens firmados, no IDs secuenciales.   Un atacante podria enumerar links de unsubscribe para desuscribir a otros usuarios.
-- **Proteccion de credenciales SMTP**: nunca hardcodees credenciales SMTP en codigo fuente.   Rota credenciales regularmente.
-- **Content Security Policy para email**: los clientes de email no soportan headers CSP.   No incluyas tags <script> (son stripped por todos los clientes).
-## Testing y Quality Assurance
-
-- **Testing visual a traves de clientes**: usa Litmus o Email on Acid para capturar screenshots de tu email a traves de 90+ clientes.
-- **Testing dark mode**: testea emails en dark mode en iOS, macOS y Outlook.
-- **Testing de accesibilidad**: usa accessibility checkers en Litmus o Email on Acid.  5:1 para texto.
-- **Testing de links**: Verifica que los links de unsubscribe funcionen.   Verifica que los tracking parameters sean correctos.
-- **Testing de spam**: Un score bajo 8/10 indica issues potenciales.
-- **Envio de emails de prueba**: envia emails de prueba a addresses internas antes del envio completo.   Verifica renderizado, links y tracking.
-
-## Deployment y CI/CD
-
-- **Versionado de templates**: versiona templates de email con semantic versioning.   Taguea releases.
-- **Pipeline CI/CD para emails**: lint MJML -> compila a HTML -> inlinea CSS -> corre visual tests -> corre spam tests -> deploya al ESP.   Bloquea deployment en fallos de tests.
-- **Deployment progresivo**: envia a una seed list (10-50 addresses internas) primero.   Verifica renderizado y deliverability.   Envia al 5% de la lista.
-- **Integracion con ESP**: usa APIs de ESP (SendGrid, Mailgun, Postmark) para envio programatico.
-- **Migracion de templates**: al cambiar de ESP, migra templates cuidadosamente.   Diferentes ESPs usan diferentes lenguajes de templating (Handlebars, Mustache, Liquid).
-- **Monitoreo y alerting**: 1%), open rate (baseline por tipo de email).   Setea alerts para rates anormales.
-## FAQ
-
-**P: Necesito MJML si uso un servicio como SendGrid?**
-R: SendGrid provee templates, pero MJML te da markup versionado y reusable que funciona con cualquier provider.
-
-**P: Puedo usar React para renderizar MJML?**
-R: Si. Usa `mjml-react` para escribir MJML como componentes JSX manteniendo el mismo pipeline de compilacion.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-
-
-
-
-
-
-## Glosario
-
-- **Templates de Email Responsivos con MJML**: técnica o patrón central descrito en este artículo.
-- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
-- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
-
-## Referencia Rápida
-
-- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
-- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
-- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de email y frontend para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica templates de email responsivos con mjml** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Renderiza el template, envía un correo de prueba a ti mismo y revísalo en
+Gmail, Outlook y Apple Mail. Para campañas grandes, usa Litmus o Email on Acid.

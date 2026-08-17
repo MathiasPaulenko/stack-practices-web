@@ -5,7 +5,7 @@ Use this list to track progress as you audit and improve each resource.
 - `[x]` = already optimized in P1.1 (title + meta description)
 - `[ ]` = pending
 
-**Progress:** 11 / 100 resources completed
+**Progress:** 13 / 100 resources completed
 
 ---
 
@@ -100,29 +100,29 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ structure + meta optimized
    - Words: 1,363 (EN) / 1,434 (ES) | Meta: 151 (EN) / 157 (ES) chars
 
-12. - [ ] **parse-csv-python-pandas** (recipes)
+12. - [x] **parse-csv-python-pandas** (recipes)
    - Metrics: 61 imp | pos 15.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/parse-csv-python-pandas/
    - ES: https://stackpractices.com/es/recipes/parse-csv-python-pandas/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
+   - Status: ✅ Lint fixed; ✅ Build passed; ✅ Patterns 0; ⚠️ Desklib EN 51.6% / ES 36.7%
    - Words: 2,915 | Meta: 141 chars
 
-13. - [ ] **database-read-replicas** (recipes)
+13. - [x] **database-read-replicas** (recipes)
    - Metrics: 77 imp | pos 29.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/database-read-replicas/
    - ES: https://stackpractices.com/es/recipes/database-read-replicas/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.7% / ES 33.3% (0 patterns)
    - Words: 1,806 | Meta: 140 chars
 
-14. - [ ] **email-templates-mjml** (recipes)
+14. - [x] **email-templates-mjml** (recipes)
    - Metrics: 61 imp | pos 23.7 | CTR 0.00% | Δ impr 60
    - EN: https://stackpractices.com/recipes/email-templates-mjml/
    - ES: https://stackpractices.com/es/recipes/email-templates-mjml/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,334 | Meta: 152 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.2% / ES 29.0% (0 patterns)
+   - Words: 1,201 | Meta: 151 chars
 
 15. - [ ] **python-sentiment-analysis-nltk** (recipes)
    - Metrics: 74 imp | pos 22.4 | CTR 0.00% | Δ impr 0

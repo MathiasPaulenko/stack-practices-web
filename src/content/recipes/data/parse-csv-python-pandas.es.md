@@ -34,13 +34,18 @@ seo:
 ---
 ## Visión General
 
-CSV es el formato más común para el intercambio de datos tabulares. Python ofrece dos enfoques principales: el módulo `csv` integrado para iterar filas simples y pandas para filtrar, agregar o trabajar con datasets grandes. Si tu objetivo final es JSON, consulta [Convertir CSV a JSON](/es/recipes/convert-csv-to-json/) una vez cargados los datos.
+CSV sigue siendo el formato por defecto para mover datos tabulares entre
+sistemas. El módulo `csv` integrado alcanza para iterar filas simples. Cuando
+necesitas filtrar, agrupar, hacer joins o manejar archivos grandes, usa pandas.
+Si tu objetivo final es JSON, consulta
+[Convertir CSV a JSON](/es/recipes/convert-csv-to-json/) una vez cargados los
+datos.
 
 ## Cuándo Usar
 
 - Leer archivos CSV exportados desde bases de datos, hojas de cálculo o APIs
 - Filtrar o transformar datos tabulares antes de cargarlos en otro destino
-- Trabajar con archivos demasiado grandes para la memoria y necesitar procesamiento por chunks
+- Trabajar con archivos que no caben en memoria
 - Manejar archivos CSV con quoting inconsistente o problemas de encoding
 
 ## Solución
@@ -143,9 +148,14 @@ summary = df.groupby("category")["total"].agg(["sum", "mean", "count"]).round(2)
 
 ## Explicación
 
-El módulo `csv` es ligero y eficiente en memoria porque lee una fila a la vez. Úsalo para tareas simples donde solo necesitas iterar sobre filas.
+El módulo `csv` es ligero y eficiente en memoria porque lee una fila a la vez.
+Úsalo para tareas simples donde solo necesitas iterar sobre filas.
 
-pandas carga el archivo completo en un DataFrame en memoria. Esto te da operaciones vectorizadas, filtrado, agrupación y joins. Para archivos más grandes que la RAM, usa `chunksize` para procesar en lotes. Especifica `dtype` para reducir memoria y evitar sorpresas de inferencia de tipos.
+pandas carga el archivo completo en un DataFrame en memoria. Obtienes
+operaciones vectorizadas, filtrado, agrupación y joins, pero el consumo de
+memoria puede crecer rápido. Para archivos más grandes que la RAM, usa el
+argumento `chunksize` para procesar en lotes. Especifica la opción `dtype` para
+reducir memoria y evitar sorpresas de inferencia de tipos.
 
 Parámetros clave en `read_csv`:
 
@@ -159,7 +169,7 @@ Parámetros clave en `read_csv`:
 ## Variantes
 
 | Enfoque | Librería | Memoria | Usar Cuando |
-|---------|----------|---------|-------------|
+| --- | --- | --- | --- |
 | DictReader | `csv` (stdlib) | Baja | Iteración simple de filas |
 | pandas read_csv | `pandas` | Alta | Filtrado, agrupación, joins |
 | Lectura por chunks | `pandas` | Limitada | Archivos más grandes que RAM |
@@ -169,41 +179,60 @@ Parámetros clave en `read_csv`:
 
 ## Mejores Prácticas
 
-- Especifica `encoding="utf-8"` explícitamente. No confíes en defaults del sistema.
-- Usa `dtype` para evitar que pandas infiera tipos incorrectos en archivos grandes.
-- Usa `chunksize` para archivos de más de 500MB y evitar presión de memoria.
+- Especifica `encoding="utf-8"` explícitamente. No confíes en los valores por
+  defecto del sistema.
+- Usa la opción `dtype` para evitar que pandas infiera tipos incorrectos en
+  archivos grandes.
+- Usa el argumento `chunksize` para archivos de más de 500MB y evitar presión de
+  memoria.
 - Limpia espacios en nombres de columna con `df.columns = df.columns.str.strip()`.
-- Valida la estructura del archivo antes del parsing completo: headers, número de filas y tamaño.
-- Registra errores de parse con nombre de archivo, número de línea y mensaje para debugging.
-- Para archivos Excel, usa un lector dedicado; consulta [Leer y Escribir Excel con Python](/es/recipes/python-excel-read-write/).
+- Valida la estructura del archivo antes del parsing completo: headers, número
+  de filas y tamaño.
+- Registra errores de parse con nombre de archivo, número de línea y mensaje
+  para debugging.
+- Para archivos Excel, usa un lector dedicado; consulta
+  [Leer y Escribir Excel con Python](/es/recipes/python-excel-read-write/).
 
 ## Errores Comunes
 
-- Olvidar `newline=""` en `open()` con el módulo `csv` en Windows. Causa filas en blanco extra.
-- Dejar que pandas infiera dtypes en columnas mixtas. Puede convertir strings a NaN silenciosamente.
-- No manejar encoding. Archivos de sistemas antiguos suelen usar `latin-1` o `cp1252`.
-- Cargar archivos enteros en memoria cuando el procesamiento por chunks funcionaría.
-- Ignorar problemas de quoting. Usa `quoting=csv.QUOTE_ALL` si los campos contienen comas.
-- Confundir CSV con Excel. Si el origen es `.xlsx`, usa un lector dedicado en lugar de parsearlo como CSV.
+- Olvidar el argumento `newline=""` en la llamada `open()` con el módulo `csv`
+  en Windows. Causa filas en blanco extra.
+- Dejar que pandas infiera `dtypes` en columnas mixtas. Puede convertir strings a
+  NaN silenciosamente.
+- No manejar encoding. Archivos de sistemas antiguos suelen usar `latin-1` o
+  `cp1252`.
+- Cargar archivos enteros en memoria cuando el procesamiento por chunks
+  funcionaría.
+- Ignorar problemas de quoting. Usa la opción `quoting=csv.QUOTE_ALL` si los
+  campos contienen comas.
+- Confundir CSV con Excel. Si el origen es `.xlsx`, usa un lector dedicado en
+  lugar de parsearlo como CSV.
 
 ## Preguntas Frecuentes
 
 ### ¿Cómo leo un CSV sin headers?
 
-Pasa `header=None` a `read_csv`, o usa `csv.reader` en vez de `csv.DictReader`.
+Pasa el argumento `header=None` a `read_csv`, o usa la función `csv.reader` en
+vez de `csv.DictReader`.
 
 ### ¿Cómo manejo archivos CSV con millones de filas?
 
-Usa `chunksize` en pandas, o cambia a Polars o Dask para procesamiento out-of-core. Polars suele ser 5-10x más rápido que pandas en archivos grandes.
+Usa el argumento `chunksize` en pandas, o cambia a Polars o Dask para
+procesamiento out-of-core. Polars suele ser varias veces más rápido que pandas
+en archivos grandes.
 
 ### ¿Cómo leo solo columnas específicas?
 
-Pasa `usecols=["name", "email"]` a `read_csv`. Esto ahorra memoria cuando el archivo tiene muchas columnas que no necesitas.
+Pasa el argumento `usecols=["name", "email"]` a `read_csv`. Esto ahorra memoria
+cuando el archivo tiene muchas columnas que no necesitas.
 
 ### ¿Cuál es la diferencia entre `read_csv` y `read_table`?
 
-`read_table` usa `sep="\t"` por defecto; `read_csv` usa `sep=","`. En lo demás se comportan igual.
+Las dos funciones son iguales salvo por el separador por defecto: `read_table`
+usa `sep="\t"` y `read_csv` usa `sep=","`.
 
 ### ¿Cómo optimizo memoria con pandas?
 
-Usa dtypes explícitos, `category` para strings repetidos y `pd.to_numeric(..., downcast="integer")`. Para DataFrames muy grandes, considera Polars o Dask. Monitorea con `df.memory_usage(deep=True)`.
+Usa dtypes explícitos, `category` para strings repetidos y
+`pd.to_numeric(..., downcast="integer")`. Para DataFrames muy grandes,
+considera Polars o Dask. Monitorea con el método `df.memory_usage(deep=True)`.
