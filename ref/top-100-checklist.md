@@ -68,21 +68,21 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Prompt 17 (SEO) + Prompt 18 (content quality) + ai-detect-analysis applied; ✅ AI desklib < 40% (EN 35.3%, ES 28.7%); ✅ EN/ES aligned
    - Words: 2,635 | Meta: 156 chars
 
-8. - [ ] **parse-log-files** (recipes)
+8. - [x] **parse-log-files** (recipes)
    - Metrics: 107 imp | pos 26.9 | CTR 0.00% | Δ impr 83
    - EN: https://stackpractices.com/recipes/parse-log-files/
    - ES: https://stackpractices.com/es/recipes/parse-log-files/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,938 | Meta: 126 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned
+   - Words: 2,938 | Meta: 149 chars
 
-9. - [ ] **flatten-unflatten-objects** (recipes)
+9. - [x] **flatten-unflatten-objects** (recipes)
    - Metrics: 72 imp | pos 13.8 | CTR 0.00% | Δ impr 67
    - EN: https://stackpractices.com/recipes/flatten-unflatten-objects/
    - ES: https://stackpractices.com/es/recipes/flatten-unflatten-objects/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,857 | Meta: 149 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Syntax highlighting restored
+   - Words: 1,817 | Meta: 149 chars
 
 10. - [ ] **python-asyncio-semaphore-rate-limiting** (recipes)
    - Metrics: 68 imp | pos 15.9 | CTR 0.00% | Δ impr 0

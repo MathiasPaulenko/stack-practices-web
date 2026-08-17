@@ -20,6 +20,7 @@ export default defineConfig({
     shikiConfig: {
       theme: 'css-variables',
       wrap: false,
+      // shikiShortCode keeps very long blocks plain to avoid oversized HTML; see src/lib/shiki-short-code.mjs
       transformers: [shikiShortCode(), shikiClassify()],
     },
     processor: unified({
