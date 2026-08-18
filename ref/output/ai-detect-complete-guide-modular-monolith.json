@@ -1,0 +1,334 @@
+[
+  {
+    "label": "complete-guide-modular-monolith-en",
+    "model": "desklib",
+    "model_ai_pct": 45.1,
+    "ai_count": 13,
+    "human_count": 31,
+    "skipped_count": 1,
+    "total": 45,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.8,
+      "stddev": 6.0,
+      "cv": 0.44,
+      "verdict": "somewhat uniform",
+      "sentence_count": 44,
+      "lengths": [
+        15,
+        21,
+        23,
+        26,
+        23,
+        16,
+        24,
+        9,
+        18,
+        11,
+        5,
+        5,
+        10,
+        16,
+        5,
+        15,
+        5,
+        7,
+        6,
+        16,
+        10,
+        8,
+        13,
+        14,
+        13,
+        10,
+        10,
+        7,
+        5,
+        13,
+        19,
+        12,
+        28,
+        17,
+        17,
+        13,
+        12,
+        8,
+        22,
+        18,
+        15,
+        14,
+        19,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "You aren't sure microservices are worth the cost yet.",
+        0.8362
+      ],
+      [
+        "Use events for work that doesn't need an immediate response.",
+        0.7912
+      ],
+      [
+        "A modular monolith is a good fit when:\nYour team wants clear boundaries and independent modules without the overhead\n  of a distributed system.",
+        0.7595
+      ],
+      [
+        "Some parts of the system may need independent scaling or deployment later, but\n  not right now.",
+        0.7495
+      ],
+      [
+        "**Synchronous calls for everything**: that creates tight coupling at runtime.",
+        0.724
+      ],
+      [
+        "Move one module at a time, starting with\nthe one that's got the fewest dependencies.",
+        0.692
+      ],
+      [
+        "Use domain events for work that doesn't need an immediate response.",
+        0.6866
+      ],
+      [
+        "In this guide we'll look at module structure, public APIs, the shared kernel,\ndependency rules, communication patterns, and how to extract modules one at a\ntime.",
+        0.667
+      ],
+      [
+        "**Extracting to microservices too early**: distributed systems add latency,\n  complexity, and failure modes.",
+        0.5902
+      ],
+      [
+        "That gives you the operational simplicity of a monolith while keeping the\nseparation of concerns you'll need if you later split services out.",
+        0.5737
+      ],
+      [
+        "Breaking changes need coordination with consumers.",
+        0.5507
+      ],
+      [
+        "Each module keeps its own logic, data, and public interface, and\nmodules talk to each other through contracts rather than by looking inside one\nanother's databases or internals.",
+        0.5284
+      ],
+      [
+        "Microservices deploy independently and communicate over the network.",
+        0.524
+      ],
+      [
+        "A modular monolith is a single deployable application that's split into\nmodules.",
+        0.4913
+      ],
+      [
+        "During code review,\nreject any direct database access that crosses module boundaries.",
+        0.4893
+      ],
+      [
+        "Stay monolithic until you've got a clear reason to split.",
+        0.489
+      ],
+      [
+        "Each module owns its own domain logic, data, and public\ninterface, and it only talks to other modules through well-defined contracts.",
+        0.4884
+      ],
+      [
+        "**No architecture tests**: boundaries erode over time.",
+        0.4832
+      ],
+      [
+        "You want a single database and a single codebase, but you also want to avoid\n  the \"big ball of mud\" of a classic monolith.",
+        0.483
+      ],
+      [
+        "When you integrate with legacy systems, add anti-corruption layers to translate\n  their models into your own.",
+        0.4653
+      ],
+      [
+        "**No public API boundary**: modules reach into each other's internals, so\n  refactoring becomes risky.",
+        0.4648
+      ],
+      [
+        "Depend on interfaces, not implementations.",
+        0.4555
+      ],
+      [
+        "Only truly shared concepts belong there, such\n  as Money, Address, or the event bus contracts.",
+        0.4278
+      ],
+      [
+        "Enforce boundaries with architecture tests.",
+        0.4135
+      ],
+      [
+        "That\n  decouples modules at runtime.",
+        0.4106
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "complete-guide-modular-monolith-es",
+    "model": "desklib",
+    "model_ai_pct": 36.5,
+    "ai_count": 10,
+    "human_count": 34,
+    "skipped_count": 1,
+    "total": 45,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.5,
+      "stddev": 6.3,
+      "cv": 0.41,
+      "verdict": "somewhat uniform",
+      "sentence_count": 44,
+      "lengths": [
+        21,
+        25,
+        26,
+        31,
+        21,
+        16,
+        19,
+        11,
+        22,
+        13,
+        8,
+        7,
+        11,
+        19,
+        5,
+        16,
+        6,
+        9,
+        6,
+        8,
+        15,
+        10,
+        10,
+        13,
+        18,
+        13,
+        14,
+        11,
+        12,
+        15,
+        15,
+        16,
+        33,
+        18,
+        19,
+        11,
+        13,
+        13,
+        21,
+        19,
+        13,
+        19,
+        25,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Reforz\u00e1 los l\u00edmites con tests de arquitectura.",
+        0.7918
+      ],
+      [
+        "**Llamar todo de forma s\u00edncrona**: eso genera un acoplamiento fuerte en tiempo\n  de ejecuci\u00f3n.",
+        0.765
+      ],
+      [
+        "Us\u00e1 eventos de dominio para el trabajo que no necesita una respuesta\n  inmediata.",
+        0.7435
+      ],
+      [
+        "Eso desacopla los m\u00f3dulos en tiempo de ejecuci\u00f3n.",
+        0.7095
+      ],
+      [
+        "Los\nmicroservicios se despliegan de forma independiente y se comunican por la red.",
+        0.6893
+      ],
+      [
+        "Us\u00e1 eventos para el trabajo que no necesite una respuesta\n  inmediata.",
+        0.6488
+      ],
+      [
+        "Un monolito modular se despliega como una unidad y se comunica en proceso.",
+        0.6275
+      ],
+      [
+        "**No tener tests de arquitectura**: los l\u00edmites se erosionan con el tiempo.",
+        0.597
+      ],
+      [
+        "Algunas partes del sistema pueden necesitar escalar o desplegarse por separado\n  m\u00e1s adelante, pero todav\u00eda no.",
+        0.5725
+      ],
+      [
+        "Los cambios roturos necesitan coordinaci\u00f3n\n  con los consumidores.",
+        0.5433
+      ],
+      [
+        "Version\u00e1 las APIs de los m\u00f3dulos.",
+        0.4686
+      ],
+      [
+        "**No tener una API p\u00fablica**: los m\u00f3dulos acceden a los internos de otros y\n  refactorizar se vuelve riesgoso.",
+        0.4496
+      ],
+      [
+        "El\nmonolito modular es un punto de partida natural, y pod\u00e9s extraer un m\u00f3dulo a\nmicroservicio cuando aparezca una frontera real.",
+        0.3955
+      ],
+      [
+        "Todav\u00eda no est\u00e1s seguro de que los microservicios justifiquen el gasto.",
+        0.384
+      ],
+      [
+        "Reemplaz\u00e1 las llamadas en proceso\npor HTTP o gRPC, y los eventos en proceso por un broker de mensajes.",
+        0.3534
+      ],
+      [
+        "En el\ncode review, rechaz\u00e1 cualquier acceso directo a bases de datos que cruce los\nl\u00edmites del m\u00f3dulo.",
+        0.3496
+      ],
+      [
+        "Depende de interfaces, no de implementaciones.",
+        0.3457
+      ],
+      [
+        "Las clases concretas se conectan\n  en el composition root.",
+        0.3366
+      ],
+      [
+        "Herramientas como\n  dependency-cruiser o ArchUnit van a detectar regresiones en CI.",
+        0.3357
+      ],
+      [
+        "Manten\u00e9 el shared kernel m\u00ednimo.",
+        0.3191
+      ],
+      [
+        "Un monolito modular es una aplicaci\u00f3n que se despliega como una sola unidad,\ndividida en m\u00f3dulos.",
+        0.3077
+      ],
+      [
+        "La distribuci\u00f3n\n  agrega latencia, modos de fallo y trabajo operativo.",
+        0.3039
+      ],
+      [
+        "Qu\u00e9date en monolito hasta tener una raz\u00f3n clara para dividir.",
+        0.3016
+      ],
+      [
+        "El shared kernel es un conjunto compacto de tipos, interfaces y utilidades que\ntodos los m\u00f3dulos pueden usar.",
+        0.2985
+      ],
+      [
+        "En esta gu\u00eda vamos a ver la estructura de m\u00f3dulos, las APIs p\u00fablicas, el shared\nkernel, las reglas de dependencias, los patrones de comunicaci\u00f3n y c\u00f3mo extraer\nm\u00f3dulos de a uno.",
+        0.2953
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

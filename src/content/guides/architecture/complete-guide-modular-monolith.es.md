@@ -1,12 +1,9 @@
 ---
-
-
-
 contentType: guides
 slug: complete-guide-modular-monolith
-title: "Modular Monolith: Boundaries, Shared Kernel"
-description: "Dominá modular monolith: module boundaries, shared kernel, dependency rules, communication patterns y migración incremental a microservices."
-metaDescription: "Dominá modular monolith: module boundaries, shared kernel, dependency rules, communication patterns y migración incremental a microservices."
+title: "Modular Monolith: Límites de Módulos y Shared Kernel"
+description: "Diseñá un monolito modular con límites claros, un shared kernel, reglas de dependencias y un camino de migración a microservicios cuando la escala lo exija."
+metaDescription: "Diseñá un monolito modular: definí límites de módulos, un shared kernel, reglas de dependencias y un camino limpio de migración a microservicios."
 difficulty: advanced
 topics:
   - architecture
@@ -17,77 +14,81 @@ tags:
   - module-boundaries
   - microservices
   - ddd
+  - domain-driven-design
 relatedResources:
   - /guides/complete-guide-strangler-fig-migration
   - /guides/complete-guide-api-gateway-pattern
   - /patterns/modular-monolith-pattern
   - /guides/complete-guide-event-sourcing-cqrs
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-18"
 publishedAt: "2026-07-06"
 author: Mathias Paulenko
 estimatedReadTime: 22
 seo:
-  metaDescription: "Dominá modular monolith: module boundaries, shared kernel, dependency rules, communication patterns y migración incremental a microservices."
+  metaDescription: "Diseñá un monolito modular: definí límites de módulos, un shared kernel, reglas de dependencias y un camino limpio de migración a microservicios."
   keywords:
-    - modular monolith
-    - module boundaries
+    - monolito modular
+    - límites de módulos
     - shared kernel
-    - dependency rules
-    - microservices migration
+    - reglas de dependencias
+    - migración a microservicios
     - domain driven design
-
-
-
 ---
 
-## Introducción
+## Visión General
 
-Un modular monolith es un single deployable unit con strict internal module boundaries. Cada module posee su domain logic, data y public API. Los modules communicatean through well-defined contracts, no direct database access. Esta arquitectura te da la simplicity de un monolith para deployment y testing, con la separation of concerns needed para un future microservices migration. A continuación: module boundaries, shared kernel, dependency rules, communication patterns y migration strategies.
+Un monolito modular es una aplicación que se despliega como una sola unidad,
+pero con el código organizado en módulos independientes. Cada módulo posee su
+propia lógica de dominio, datos e interfaz pública, y solo se comunica con los
+otros a través de contratos bien definidos. Eso da la simplicidad operativa de un
+monolito, pero mantiene la separación de responsabilidades que vas a necesitar si
+más adelante dividís el sistema en servicios.
 
-## Module Structure
+En esta guía vamos a ver la estructura de módulos, las APIs públicas, el shared
+kernel, las reglas de dependencias, los patrones de comunicación y cómo extraer
+módulos de a uno.
 
-```
+## Cuándo Usar
+
+Un monolito modular encaja bien cuando:
+
+- Tu equipo quiere límites claros y módulos independientes sin la complejidad de
+  un sistema distribuido.
+- Algunas partes del sistema pueden necesitar escalar o desplegarse por separado
+  más adelante, pero todavía no.
+- Querés una sola base de datos y un solo repositorio, pero evitando el "bola de
+  barro" del monolito clásico.
+- Todavía no estás seguro de que los microservicios justifiquen el gasto.
+
+## Estructura del Módulo
+
+```text
 src/
 ├── modules/
 │   ├── orders/
-│   │   ├── domain/           # Entities, value objects, domain events
+│   │   ├── domain/           # Entidades, value objects, eventos de dominio
 │   │   │   ├── Order.ts
 │   │   │   ├── OrderItem.ts
 │   │   │   └── events/
 │   │   │       ├── OrderPlaced.ts
 │   │   │       └── OrderCancelled.ts
-│   │   ├── application/      # Use cases, command/query handlers
+│   │   ├── application/      # Casos de uso, handlers de comandos/consultas
 │   │   │   ├── PlaceOrder.ts
 │   │   │   ├── CancelOrder.ts
 │   │   │   └── GetOrderDetails.ts
-│   │   ├── infrastructure/   # Database, external services
+│   │   ├── infrastructure/   # Base de datos, servicios externos
 │   │   │   ├── OrderRepository.ts
 │   │   │   └── OrderSchema.ts
-│   │   ├── api/              # Public API del module
-│   │   │   ├── OrdersModule.ts  # Public interface
+│   │   ├── api/              # API pública del módulo
+│   │   │   ├── OrdersModule.ts  # Interfaz pública
 │   │   │   └── types.ts
-│   │   └── presentation/     # Controllers, DTOs
+│   │   └── presentation/     # Controladores, DTOs
 │   │       ├── OrdersController.ts
 │   │       └── dto/
 │   ├── customers/
-│   │   ├── domain/
-│   │   ├── application/
-│   │   ├── infrastructure/
-│   │   ├── api/
-│   │   └── presentation/
 │   ├── inventory/
-│   │   ├── domain/
-│   │   ├── application/
-│   │   ├── infrastructure/
-│   │   ├── api/
-│   │   └── presentation/
 │   └── billing/
-│       ├── domain/
-│       ├── application/
-│       ├── infrastructure/
-│       ├── api/
-│       └── presentation/
-├── shared/                   # Shared kernel — usado by all modules
+├── shared/                   # Shared kernel — usado por todos los módulos
 │   ├── events/
 │   │   ├── EventBus.ts
 │   │   └── DomainEvent.ts
@@ -100,10 +101,10 @@ src/
     └── bootstrap.ts
 ```
 
-## Module Public API
+## API Pública del Módulo
 
 ```typescript
-// modules/orders/api/OrdersModule.ts — Public interface del Orders module
+// modules/orders/api/OrdersModule.ts — Interfaz pública del módulo Orders
 export interface OrdersModule {
   placeOrder(command: PlaceOrderCommand): Promise<OrderId>;
   cancelOrder(command: CancelOrderCommand): Promise<void>;
@@ -125,7 +126,7 @@ export interface OrderDetails {
   createdAt: Date;
 }
 
-// Implementation es internal — other modules solo ven el interface
+// La implementación es interna; los otros módulos solo ven la interfaz
 class OrdersModuleImpl implements OrdersModule {
   constructor(
     private readonly orderRepo: OrderRepository,
@@ -134,7 +135,7 @@ class OrdersModuleImpl implements OrdersModule {
   ) {}
 
   async placeOrder(command: PlaceOrderCommand): Promise<OrderId> {
-    // Checkeá inventory availability
+    // Verificá disponibilidad en inventario
     for (const item of command.items) {
       const available = await this.inventoryModule.checkAvailability({
         productId: item.productId,
@@ -145,11 +146,11 @@ class OrdersModuleImpl implements OrdersModule {
       }
     }
 
-    // Creá order
+    // Creá la orden
     const order = Order.create(command.customerId, command.items, command.shippingAddress);
     await this.orderRepo.save(order);
 
-    // Publicá domain event
+    // Publicá el evento de dominio
     await this.eventBus.publish(new OrderPlaced(order.id, order.customerId, order.totalAmount));
 
     return order.id;
@@ -197,7 +198,7 @@ class OrdersModuleImpl implements OrdersModule {
 ## Shared Kernel
 
 ```typescript
-// shared/events/EventBus.ts — In-process event bus para module communication
+// shared/events/EventBus.ts — Bus de eventos en proceso para comunicación entre módulos
 export interface DomainEvent {
   readonly eventId: string;
   readonly occurredAt: Date;
@@ -226,13 +227,13 @@ export class EventBus {
         await handler.handle(event);
       } catch (error) {
         console.error(`Handler failed for ${event.constructor.name}:`, error);
-        // No rethrowées — un handler failure no debería blockear others
+        // No relances el error; un handler no debería bloquear a los otros
       }
     }
   }
 }
 
-// shared/types/Money.ts — Shared value object
+// shared/types/Money.ts — Value object compartido
 export class Money {
   private constructor(
     public readonly amount: number,
@@ -258,39 +259,39 @@ export class Money {
 }
 ```
 
-## Dependency Rules
+## Reglas de Dependencias
 
 ```typescript
-// ARCHITECTURE TEST — Enforceá module boundaries con dependency rules
-// Usando dependency-cruiser o un custom test
+// ARCHITECTURE TEST — Reforzá los límites del módulo con reglas de dependencias
+// Usando dependency-cruiser o un test custom
 
 // .dependency-cruiser.js
 module.exports = {
   forbidden: [
     {
       name: 'no-cross-module-internal-access',
-      comment: 'Modules must not access other modules internals',
+      comment: 'Los módulos no deben acceder a los internos de otros módulos',
       severity: 'error',
       from: { path: 'src/modules/([^/]+)/' },
       to: { path: 'src/modules/(?!$1)([^/]+)/((?!api/).*)' },
     },
     {
       name: 'no-domain-to-infrastructure',
-      comment: 'Domain must not depend on infrastructure',
+      comment: 'El dominio no debe depender de la infraestructura',
       severity: 'error',
       from: { path: 'src/modules/([^/]+)/domain/' },
       to: { path: 'src/modules/$1/infrastructure/' },
     },
     {
       name: 'no-domain-to-presentation',
-      comment: 'Domain must not depend on presentation',
+      comment: 'El dominio no debe depender de la presentación',
       severity: 'error',
       from: { path: 'src/modules/([^/]+)/domain/' },
       to: { path: 'src/modules/$1/presentation/' },
     },
     {
       name: 'modules-must-not-share-database-tables',
-      comment: 'Each module owns its tables',
+      comment: 'Cada módulo posee sus tablas',
       severity: 'error',
       from: { path: 'src/modules/([^/]+)/infrastructure/' },
       to: { path: 'src/modules/(?!$1)([^/]+)/infrastructure/.*Schema' },
@@ -299,15 +300,15 @@ module.exports = {
 };
 ```
 
-## Inter-Module Communication
+## Comunicación Entre Módulos
 
-### Via public API (synchronous)
+### Vía API pública (síncrona)
 
 ```typescript
 // modules/billing/application/GenerateInvoice.ts
 class GenerateInvoice {
   constructor(
-    private readonly ordersModule: OrdersModule,  // Depende en public API only
+    private readonly ordersModule: OrdersModule,  // Depende solo de la API pública
     private readonly invoiceRepo: InvoiceRepository,
   ) {}
 
@@ -324,17 +325,17 @@ class GenerateInvoice {
 }
 ```
 
-### Via domain events (asynchronous)
+### Vía eventos de dominio (asíncrona)
 
 ```typescript
-// modules/inventory/application/OnOrderPlaced.ts — Reacteá a Orders module events
+// modules/inventory/application/OnOrderPlaced.ts — Reaccioná a eventos del módulo Orders
 class OnOrderPlaced implements EventHandler<OrderPlaced> {
   constructor(
     private readonly inventoryRepo: InventoryRepository,
   ) {}
 
   async handle(event: OrderPlaced): Promise<void> {
-    // Reservá inventory cuando un order es placed
+    // Reservá inventario cuando se crea una orden
     for (const item of event.items) {
       await this.inventoryRepo.reserve(item.productId, item.quantity, event.aggregateId);
     }
@@ -352,15 +353,15 @@ class OnOrderCompleted implements EventHandler<OrderCompleted> {
   }
 }
 
-// Wire up en composition root
+// Conectá todo en el composition root
 eventBus.register('OrderPlaced', new OnOrderPlaced(inventoryRepo));
 eventBus.register('OrderCompleted', new OnOrderCompleted(invoiceGenerator));
 ```
 
-## Database Per Module
+## Base de Datos por Módulo
 
 ```typescript
-// Cada module tiene su own schema/tables — no cross-module table access
+// Cada módulo tiene su propio esquema/tablas — sin acceso cruzado
 // modules/orders/infrastructure/OrderSchema.ts
 const OrderSchema = {
   tableName: 'orders',
@@ -385,14 +386,14 @@ const CustomerSchema = {
   },
 };
 
-// WRONG: Orders module queryeando customers table directamente
+// MAL: el módulo Orders consulta directamente la tabla customers
 // class OrderRepository {
 //   async findWithCustomer(orderId: string) {
 //     return db.query('SELECT o.*, c.name FROM orders o JOIN customers c ON o.customer_id = c.id');
 //   }
 // }
 
-// CORRECT: Usá el Customers module public API
+// BIEN: usá la API pública del módulo Customers
 class OrderService {
   constructor(private customersModule: CustomersModule) {}
 
@@ -404,18 +405,18 @@ class OrderService {
 }
 ```
 
-## Migration to Microservices
+## Migración a Microservicios
 
-### Step 1: Extractéa module a separate process
+### Paso 1: Extraer un módulo a su propio proceso
 
 ```typescript
-// Before: in-process call
+// Antes: llamada en proceso
 const order = await ordersModule.getOrderDetails({ orderId });
 
-// After: HTTP call a extracted service
+// Después: llamada HTTP al servicio extraído
 const order = await ordersClient.getOrderDetails(orderId);
 
-// Same interface, different implementation
+// Misma interfaz, distinta implementación
 interface OrdersModule {
   getOrderDetails(query: GetOrderDetailsQuery): Promise<OrderDetails>;
 }
@@ -429,22 +430,22 @@ class OrdersModuleHttp implements OrdersModule {
   }
 }
 
-// Swapéa en composition root
+// Intercambialo en el composition root
 const ordersModule = isMicroservice
   ? new OrdersModuleHttp(httpClient)
   : new OrdersModuleImpl(orderRepo, eventBus, inventoryModule);
 ```
 
-### Step 2: Reemplazá in-process event bus con message broker
+### Paso 2: Reemplazar eventos en proceso por un message broker
 
 ```typescript
-// Before: in-process event bus
+// Antes: bus de eventos en proceso
 eventBus.publish(new OrderPlaced(orderId, customerId, total));
 
-// After: publicá a RabbitMQ/Kafka
+// Después: publicá en RabbitMQ/Kafka
 messageBroker.publish('order.events', new OrderPlaced(orderId, customerId, total));
 
-// Subscriber en extracted service
+// Suscriptor en el servicio extraído
 messageBroker.subscribe('order.events', async (event) => {
   if (event.type === 'OrderPlaced') {
     await inventoryService.reserveItems(event.items);
@@ -452,49 +453,76 @@ messageBroker.subscribe('order.events', async (event) => {
 });
 ```
 
-## Best Practices
+## Mejores Prácticas
 
+- Definí una API pública clara para cada módulo, y hacé que los demás se
+  comuniquen con él a través de esa API.
+- Usá eventos de dominio para el trabajo que no necesita una respuesta
+  inmediata. Eso desacopla los módulos en tiempo de ejecución.
+- Reforzá los límites con tests de arquitectura. Herramientas como
+  dependency-cruiser o ArchUnit van a detectar regresiones en CI.
+- Cada módulo debe poseer sus propias tablas, y evitá joins o claves foráneas que
+  crucen los límites del módulo.
+- Mantené el shared kernel mínimo. Solo deben ir conceptos realmente compartidos
+  como `Money`, `Address` o los contratos del bus de eventos.
+- Depende de interfaces, no de implementaciones. Las clases concretas se conectan
+  en el composition root.
+- Versioná las APIs de los módulos. Los cambios roturos necesitan coordinación
+  con los consumidores.
+- Cuando integres con sistemas legacy, usá capas anticorrupción para traducir
+  sus modelos a los tuyos.
+- Quédate en monolito hasta tener una razón clara para dividir. La distribución
+  agrega latencia, modos de fallo y trabajo operativo.
 
-- For a deeper guide, see [Modular Monolith — A Pragmatic Architecture](/es/guides/modular-monolith-guide/).
+## Errores Comunes
 
-- Definí un public API para cada module — other modules solo interactúan through it
-- Usá domain events para asynchronous communication — decoupleá modules at runtime
-- Enforceá boundaries con architecture tests — usá dependency-cruiser o ArchUnit
-- Cada module posee sus database tables — no cross-module joins
-- Mantené el shared kernel minimal — solo truly shared concepts (Money, Address, EventBus)
-- Usá el dependency inversion principle — modules dependen en interfaces, no implementations
-- Wireéa modules en un composition root — el only place que sabe sobre implementations
-- Versioná module APIs — breaking changes requiren coordinación con consuming modules
-- Usá anti-corruption layers cuando integrés con legacy — translateá external models a internal
-- Arrancá con un modular monolith — extractéa a microservices solo cuando scale lo demanda
+- **Compartir tablas entre módulos**: un cambio de esquema en un módulo rompe
+  otros.
+- **No tener una API pública**: los módulos acceden a los internos de otros y
+  refactorizar se vuelve riesgoso.
+- **Shared kernel demasiado grande**: meter demasiados tipos compartidos ata los módulos entre sí.
+- **Llamar todo de forma síncrona**: eso genera un acoplamiento fuerte en tiempo
+  de ejecución. Usá eventos para el trabajo que no necesite una respuesta
+  inmediata.
+- **No tener tests de arquitectura**: los límites se erosionan con el tiempo.
+  Reforzalos con tests automatizados.
+- **Extraer a microservicios demasiado temprano**: los sistemas distribuidos
+  agregan latencia, complejidad y modos de fallo. Dividí un módulo solo cuando
+  realmente necesite escalar, desplegarse o tener un equipo dueño distinto.
 
-## Common Mistakes
+## Preguntas Frecuentes
 
-- **Sharing database tables across modules**: crea hidden coupling. Un schema change en un module breakea others.
-- **No public API boundary**: modules acceden a each other's internals directamente. Refactoring se vuelve risky.
-- **Over-sized shared kernel**: demasiados shared types crean coupling. Mantenelo a truly universal concepts.
-- **Synchronous calls para everything**: tight coupling at runtime. Usá events para fire-and-forget communication.
-- **No architecture tests**: boundaries erode over time. Enforceá con automated tests.
-- **Extracting a microservices too early**: distributed systems add latency, complexity y failure modes. Stayéa monolithic hasta que tengas un clear reason para split.
+### ¿Qué es un monolito modular?
 
-## FAQ
-
-### ¿Qué es un modular monolith?
-
-Un single deployable application con strict internal module boundaries. Cada module posee su domain, data y public API. Los modules communicatean through defined contracts, no direct database access. Combina monolith simplicity con microservices-style separation.
+Un monolito modular es una aplicación que se despliega como una sola unidad,
+dividida en módulos. Cada uno posee su propia lógica, datos e interfaz pública, y
+los módulos se comunican a través de contratos en lugar de meterse en las bases
+de datos o internos de los otros.
 
 ### ¿Qué es un shared kernel?
 
-Un small set de types, interfaces y utilities shared across all modules. Típicamente incluye value objects (Money, Address), event bus abstractions y common error types. Mantenelo minimal — todo en el shared kernel crea coupling.
+El shared kernel es un conjunto compacto de tipos, interfaces y utilidades que
+todos los módulos pueden usar. Suele contener value objects como `Money` o
+`Address`, los contratos del bus de eventos y tipos de error comunes. Mantenelo
+pequeño, porque cada ítem extra del shared kernel agrega acoplamiento.
 
-### ¿Cómo se diferencia un modular monolith de microservices?
+### ¿En qué se diferencia un monolito modular de los microservicios?
 
-Un modular monolith deployea como un unit con in-process communication. Microservices deployean independientemente con network communication. Un modular monolith puede ser extracted a microservices incrementalmente cuando scale lo demanda.
+Un monolito modular se despliega como una unidad y se comunica en proceso. Los
+microservicios se despliegan de forma independiente y se comunican por la red. El
+monolito modular es un punto de partida natural, y podés extraer un módulo a
+microservicio cuando aparezca una frontera real.
 
-### ¿Cuándo debería extraer un module a microservice?
+### ¿Cuándo debería extraer un módulo a microservicio?
 
-Cuando un module tiene different scaling requirements, deployment cadence o team ownership. Extractéa un module a la vez, empezando con el más independent. Reemplazá in-process calls con HTTP/gRPC e in-process events con un message broker.
+Extraélo cuando un módulo tenga distintas necesidades de escala, una cadencia de
+despliegue distinta o un equipo dueño distinto. Mové un módulo a la vez,
+empezando por el que tenga menos dependencias. Reemplazá las llamadas en proceso
+por HTTP o gRPC, y los eventos en proceso por un broker de mensajes.
 
-### ¿Cómo enforceo module boundaries?
+### ¿Cómo reforzás los límites de los módulos?
 
-Usá architecture tests (dependency-cruiser, ArchUnit) para prevenir cross-module internal access. Lint rules que forbidean importing from another module's non-API paths. Code reviews que rejectean direct database access across modules.
+Usá tests de arquitectura como dependency-cruiser o ArchUnit, y reglas de lint
+que bloqueen importaciones desde rutas que no sean la API de otro módulo. En el
+code review, rechazá cualquier acceso directo a bases de datos que cruce los
+límites del módulo.

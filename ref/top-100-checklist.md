@@ -172,13 +172,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.8% / ES 37.1% (0 patterns)
    - Words: 1,602 | Meta: 151 chars
 
-21. - [ ] **complete-guide-modular-monolith** (guides)
+21. - [x] **complete-guide-modular-monolith** (guides)
    - Metrics: 65 imp | pos 27.6 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/complete-guide-modular-monolith/
    - ES: https://stackpractices.com/es/guides/complete-guide-modular-monolith/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,792 | Meta: 157 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.1% / ES 36.5% (0 patterns)
+   - Words: 1,919 | Meta: 154 chars
 
 22. - [ ] **deep-clone-javascript** (recipes)
    - Metrics: 58 imp | pos 29.5 | CTR 0.00% | Δ impr 0
