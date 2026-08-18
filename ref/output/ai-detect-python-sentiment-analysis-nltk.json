@@ -1,0 +1,353 @@
+[
+  {
+    "label": "python-sentiment-analysis-nltk-en",
+    "model": "desklib",
+    "model_ai_pct": 46.4,
+    "ai_count": 21,
+    "human_count": 32,
+    "skipped_count": 4,
+    "total": 57,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.8,
+      "stddev": 11.6,
+      "cv": 0.73,
+      "verdict": "natural variation",
+      "sentence_count": 53,
+      "lengths": [
+        17,
+        16,
+        14,
+        25,
+        24,
+        21,
+        14,
+        17,
+        11,
+        13,
+        12,
+        14,
+        11,
+        16,
+        15,
+        12,
+        14,
+        10,
+        12,
+        12,
+        15,
+        16,
+        86,
+        17,
+        22,
+        14,
+        22,
+        15,
+        19,
+        8,
+        8,
+        7,
+        10,
+        5,
+        10,
+        12,
+        6,
+        13,
+        6,
+        16,
+        6,
+        15,
+        11,
+        10,
+        20,
+        5,
+        36,
+        9,
+        25,
+        10,
+        32,
+        14,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Use it in a dashboard that tracks how brand sentiment changes over time and\n  spots trends early.",
+        0.9778
+      ],
+      [
+        "That\nscore is the one to use when you want a single sentiment label.",
+        0.7935
+      ],
+      [
+        "Sentiment analysis is the task of deciding whether a piece of text is positive,\nnegative, or neutral.",
+        0.7908
+      ],
+      [
+        "Comparing VADER scores across different languages.",
+        0.7488
+      ],
+      [
+        "It's the right\nfit when you don't have labeled training data and want a library that works out\nof the box.",
+        0.6998
+      ],
+      [
+        "It already handles\nnegation, intensifiers, and emoticons, so it doesn't need any training data.",
+        0.6964
+      ],
+      [
+        "The lexicon\nassigns each word a valence score from -4 (extremely negative) to +4 (extremely\npositive).",
+        0.6785
+      ],
+      [
+        "Punctuation such as exclamation marks makes the text\nread as more intense.",
+        0.6433
+      ],
+      [
+        "The compound score goes from -1 (most negative) to +1 (most positive).",
+        0.5977
+      ],
+      [
+        "A 0.05 threshold may be too strict for\n  product reviews and too lenient for news articles.",
+        0.5876
+      ],
+      [
+        "The compound score is\n  normalized and more reliable.",
+        0.5821
+      ],
+      [
+        "Batch texts into groups of 100-1,000 and process them with a worker pool to keep\nPython overhead low.",
+        0.5659
+      ],
+      [
+        "In most social media benchmarks, VADER lands around 0.70-0.80 F1.",
+        0.5609
+      ],
+      [
+        "VADER scores the whole text.",
+        0.5519
+      ],
+      [
+        "A high neutral ratio means the text is mostly\n  informational, not opinionated.",
+        0.5464
+      ],
+      [
+        "For classification, reach for the compound score because it reflects the full\n  text rather than isolated words.",
+        0.5411
+      ],
+      [
+        "Using fixed thresholds for every domain.",
+        0.5322
+      ],
+      [
+        "NLTK's VADER (Valence Aware Dictionary and sEntiment\nReasoner) is a rule-based model built for social media.",
+        0.5273
+      ],
+      [
+        "VADER is fast and has no model-inference step, so it works well for streaming.",
+        0.5133
+      ],
+      [
+        "VADER uses a lexicon of 7,500 words rated by human annotators.",
+        0.5123
+      ],
+      [
+        "Words like \"sick\" mean positive in\n  gaming, negative in healthcare.",
+        0.5073
+      ],
+      [
+        "Don't use VADER for sarcasm detection because it scores literal word meanings,\n  not implied intent.",
+        0.4839
+      ],
+      [
+        "Words like \"very\" amplify the valence, while \"somewhat\"\nsoftens it.",
+        0.4612
+      ],
+      [
+        "If you need aspect-based analysis (for\nexample, \"the food was great but service was slow\"), split the text by mentions\nof each aspect and score the segments one by one, or use a mo",
+        0.4604
+      ],
+      [
+        "VADER already understands common emoticons like :) and :(.",
+        0.4598
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-sentiment-analysis-nltk-es",
+    "model": "desklib",
+    "model_ai_pct": 39.2,
+    "ai_count": 15,
+    "human_count": 39,
+    "skipped_count": 4,
+    "total": 58,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.1,
+      "stddev": 12.9,
+      "cv": 0.8,
+      "verdict": "natural variation",
+      "sentence_count": 54,
+      "lengths": [
+        16,
+        21,
+        11,
+        25,
+        27,
+        17,
+        12,
+        13,
+        13,
+        8,
+        12,
+        14,
+        11,
+        18,
+        17,
+        15,
+        18,
+        11,
+        13,
+        11,
+        18,
+        14,
+        96,
+        14,
+        25,
+        18,
+        21,
+        15,
+        20,
+        9,
+        8,
+        7,
+        10,
+        5,
+        10,
+        13,
+        7,
+        14,
+        7,
+        19,
+        6,
+        9,
+        11,
+        15,
+        24,
+        5,
+        36,
+        6,
+        5,
+        17,
+        9,
+        35,
+        18,
+        20
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "En la mayor\u00eda de benchmarks de redes sociales, VADER se sit\u00faa alrededor de\n0.70-0.80 F1.",
+        0.8195
+      ],
+      [
+        "VADER punt\u00faa el texto completo.",
+        0.8107
+      ],
+      [
+        "Transformers fine-tuned como RoBERTa llegan a 0.90+, por lo que\nVADER es mejor para prototipado r\u00e1pido o\ncuando no puedes etiquetar datos de entrenamiento.",
+        0.8079
+      ],
+      [
+        "Es la opci\u00f3n adecuada cuando no tienes datos etiquetados y necesitas\nuna librer\u00eda que funcione de inmediato.",
+        0.7517
+      ],
+      [
+        "Trackea c\u00f3mo cambia el sentimiento de marca en el tiempo con un dashboard.",
+        0.7041
+      ],
+      [
+        "Maneja negaci\u00f3n, intensificadores y emoticones sin necesidad de datos de\nentrenamiento.",
+        0.6758
+      ],
+      [
+        "Ese\nl\u00e9xico asigna a cada palabra un score de valencia de -4 (extremadamente negativo)\na +4 (extremadamente positivo).",
+        0.6531
+      ],
+      [
+        "Esa es la\nm\u00e9trica general que conviene usar para una sola etiqueta de sentimiento.",
+        0.6513
+      ],
+      [
+        "VADER de NLTK (Valence Aware Dictionary and sEntiment\nReasoner) es un modelo basado en reglas pensado para texto de redes sociales.",
+        0.6423
+      ],
+      [
+        "Comparar scores de VADER entre diferentes idiomas.",
+        0.5875
+      ],
+      [
+        "El texto en\nmay\u00fasculas se percibe como m\u00e1s fuerte, as\u00ed que el score se aleja m\u00e1s del neutral.",
+        0.5731
+      ],
+      [
+        "El score compound va de -1 (m\u00e1s negativo) a +1 (m\u00e1s positivo).",
+        0.5707
+      ],
+      [
+        "Como est\u00e1 normalizado, el\n  compound es m\u00e1s confiable.",
+        0.5402
+      ],
+      [
+        "El an\u00e1lisis de sentimiento es, en esencia, decidir si un texto es positivo,\nnegativo o neutral.",
+        0.5253
+      ],
+      [
+        "VADER tiene soporte integrado para emojis.",
+        0.5159
+      ],
+      [
+        "No personalizar el l\u00e9xico para tu dominio.",
+        0.4952
+      ],
+      [
+        "Como balancea el texto completo, suele ser la m\u00e9trica\nindividual m\u00e1s \u00fatil para clasificar.",
+        0.4905
+      ],
+      [
+        ":) punt\u00faa positivo, :( negativo.",
+        0.4334
+      ],
+      [
+        "Aplicar VADER a documentos largos.",
+        0.42
+      ],
+      [
+        "VADER es r\u00e1pido y no tiene un paso de inferencia de modelo, as\u00ed que funciona bien\npara streaming.",
+        0.4177
+      ],
+      [
+        "VADER usa un l\u00e9xico de 7.500 palabras calificadas por anotadores humanos.",
+        0.4056
+      ],
+      [
+        "Filtra tickets de soporte por urgencia o tono.",
+        0.3812
+      ],
+      [
+        "Clasifica reviews de clientes antes de enrutarlas a una cola de soporte.",
+        0.3788
+      ],
+      [
+        "Palabras como \"sick\" significan\n  positivo en gaming, negativo en salud.",
+        0.3757
+      ],
+      [
+        "Un threshold de 0.05 puede ser\n  muy estricto para reviews de productos y muy leniente para art\u00edculos de\n  noticias.",
+        0.3754
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

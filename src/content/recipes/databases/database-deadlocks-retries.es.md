@@ -1,10 +1,8 @@
 ---
-
-
 contentType: recipes
 slug: database-deadlocks-retries
 title: "Manejar deadlocks y reintentos en bases de datos"
-description: "Detecta, previene y recupera deadlocks de base de datos con lógica de reintento automático, niveles de aislamiento y estrategias de ordenamiento de queries."
+description: "Detecta, previene y recupera deadlocks de base de datos con lógica de reintento automático, ordenamiento consistente de locks y niveles de aislamiento adecuados."
 metaDescription: "Maneja deadlocks y reintentos en bases de datos con lógica automática, niveles de aislamiento y ordenamiento de queries. Ejemplos en PostgreSQL, MySQL y SQL Server."
 difficulty: intermediate
 topics:
@@ -12,20 +10,21 @@ topics:
 tags:
   - database
   - deadlocks
-  - isolation-levels
+  - reintentos
+  - transacciones
+  - niveles-aislamiento
   - sql
+  - postgresql
+  - mysql
+  - sql-server
 relatedResources:
   - /recipes/database-transactions
-  - /recipes/full-text-search
-  - /recipes/sql-joins
-  - /docs/database-migration-runbook-template
-  - /guides/cap-theorem-guide
+  - /recipes/retry-backoff
+  - /recipes/locks-and-mutexes
+  - /recipes/database-indexing
+  - /recipes/database-connection-pooling
   - /recipes/deadlock-prevention-sql
-  - /recipes/event-sourcing-relational
-  - /recipes/database-read-replicas
-  - /recipes/database-views-materialized
-  - /recipes/optimistic-locking
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-08-18"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -37,22 +36,32 @@ seo:
     - niveles-aislamiento
     - postgresql
     - mysql
-
-
+    - sql-server
+    - concurrencia
+    - for update
+    - backoff
 ---
+
 ## Visión General
 
-Los deadlocks ocurren cuando dos o más transacciones mantienen locks sobre recursos que la otra necesita, creando una dependencia circular. La base de datos detecta esto y aborta una transacción como "víctima." Aunque los deadlocks son inevitables en sistemas concurrentes, puedes minimizarlos y recuperarte con gracia usando lógica de reintento apropiada.
-
-Aqui se explica como la detección, prevención y reintento automático de transacciones después de deadlocks en PostgreSQL, MySQL y SQL Server.
+Un deadlock ocurre cuando dos o más transacciones mantienen locks sobre
+recursos que las otras necesitan, creando una dependencia circular. La base de
+datos detecta el ciclo y aborta una transacción como víctima. No podés eliminar
+todos los deadlocks en un sistema concurrente, pero podés mantenerlos raros y
+recuperarte automáticamente con la lógica de reintento correcta.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- Ves errores de deadlock (`40P01` en PostgreSQL, `1213` en MySQL) en [logs](/recipes/logging/) de producción
-- Múltiples [transacciones](/recipes/database-transactions/) concurrentes actualizan el mismo conjunto de filas en diferente orden
-- Necesitas asegurar consistencia de datos manteniendo alta concurrencia. Consulta [Locks and Mutexes](/recipes/locks-and-mutexes/) para coordinación.
-- [Jobs por lotes](/recipes/batch-processing-patterns/) y usuarios interactivos compiten por los mismos registros
+Usá esta receta cuando:
+
+- Vees códigos de error de deadlock como `40P01` en PostgreSQL o `1213` en MySQL
+  en tus [logs](/recipes/logging/) de producción.
+- Múltiples [transacciones](/recipes/database-transactions/) concurrentes
+  actualizan las mismas filas en distinto orden.
+- Necesitás consistencia baja alta concurrencia y no podés permitir fallos
+  silenciosos.
+- [Jobs por lotes](/recipes/batch-processing-patterns/) y usuarios interactivos
+  compiten por los mismos registros.
 
 ## Solución
 
@@ -61,6 +70,7 @@ Usa este recurso cuando:
 ```python
 import random
 import time
+from sqlalchemy import text
 from sqlalchemy.exc import OperationalError
 from functools import wraps
 
@@ -76,7 +86,6 @@ def retry_on_deadlock(max_retries=3, base_delay=0.1):
                         raise
                     if attempt == max_retries - 1:
                         raise
-                    # Backoff exponencial con jitter
                     delay = base_delay * (2 ** attempt) + random.uniform(0, 0.1)
                     time.sleep(delay)
             return None
@@ -85,14 +94,13 @@ def retry_on_deadlock(max_retries=3, base_delay=0.1):
 
 @retry_on_deadlock(max_retries=3)
 def transfer_funds(session, from_id, to_id, amount):
-    # Siempre bloquea filas en orden consistente para prevenir deadlocks
+    # Ordenar IDs para que ambas transacciones lockeen siempre en el mismo orden
     row_ids = sorted([from_id, to_id])
     accounts = session.execute(
         text("SELECT * FROM accounts WHERE id = ANY(:ids) FOR UPDATE"),
         {"ids": row_ids}
     ).fetchall()
 
-    # Mapear de vuelta por id
     from_acc = next(a for a in accounts if a.id == from_id)
     to_acc = next(a for a in accounts if a.id == to_id)
 
@@ -114,7 +122,6 @@ async function withDeadlockRetry(fn, maxRetries = 3) {
       if (err.code !== 'ER_LOCK_DEADLOCK' || attempt === maxRetries - 1) {
         throw err;
       }
-      // Backoff exponencial
       await new Promise(r => setTimeout(r, 100 * (2 ** attempt)));
     }
   }
@@ -123,18 +130,11 @@ async function withDeadlockRetry(fn, maxRetries = 3) {
 async function transferFunds(fromId, toId, amount) {
   return withDeadlockRetry(async () => {
     await knex.transaction(async (trx) => {
-      // Ordenamiento consistente previene deadlocks
       const ids = [fromId, toId].sort((a, b) => a - b);
-      const rows = await trx('accounts')
-        .whereIn('id', ids)
-        .forUpdate();
+      await trx('accounts').whereIn('id', ids).forUpdate();
 
-      await trx('accounts')
-        .where('id', fromId)
-        .decrement('balance', amount);
-      await trx('accounts')
-        .where('id', toId)
-        .increment('balance', amount);
+      await trx('accounts').where('id', fromId).decrement('balance', amount);
+      await trx('accounts').where('id', toId).increment('balance', amount);
     });
   });
 }
@@ -143,17 +143,25 @@ async function transferFunds(fromId, toId, amount) {
 ### Java (JDBC + SQL Server)
 
 ```java
+import java.math.BigDecimal;
+import java.sql.*;
+import java.util.Arrays;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
+
 @Retryable(
     value = {SQLException.class},
     maxAttempts = 3,
     backoff = @Backoff(delay = 100, multiplier = 2)
 )
-public void transferFunds(Connection conn, int fromId, int toId, BigDecimal amount) throws SQLException {
+public void transferFunds(Connection conn, int fromId, int toId, BigDecimal amount)
+        throws SQLException {
     conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
+    // SQL Server usa hints UPDLOCK + HOLDLOCK en lugar de FOR UPDATE
     try (PreparedStatement stmt = conn.prepareStatement(
-        "SELECT * FROM accounts WHERE id IN (?, ?) ORDER BY id FOR UPDATE")) {
-
+            "SELECT * FROM accounts WITH (UPDLOCK, HOLDLOCK) " +
+            "WHERE id IN (?, ?) ORDER BY id")) {
         int[] ids = Arrays.stream(new int[]{fromId, toId}).sorted().toArray();
         stmt.setInt(1, ids[0]);
         stmt.setInt(2, ids[1]);
@@ -161,7 +169,7 @@ public void transferFunds(Connection conn, int fromId, int toId, BigDecimal amou
     }
 
     try (PreparedStatement update = conn.prepareStatement(
-        "UPDATE accounts SET balance = balance + ? WHERE id = ?")) {
+            "UPDATE accounts SET balance = balance + ? WHERE id = ?")) {
         update.setBigDecimal(1, amount.negate());
         update.setInt(2, fromId);
         update.executeUpdate();
@@ -176,80 +184,49 @@ public void transferFunds(Connection conn, int fromId, int toId, BigDecimal amou
 
 ## Explicación
 
-Los deadlocks requieren tres condiciones: exclusión mutua, espera-y-retención, y espera circular. No puedes eliminar la exclusión mutua (eso es lo que hacen las transacciones), pero puedes romper las otras dos:
-- **Espera-y-retención**: Adquiere todos los locks a la vez usando `SELECT ...
-- **Espera circular**: Siempre accede a las filas en el mismo orden (ej.
+Un deadlock necesita tres condiciones al mismo tiempo: exclusión mutua,
+espera-y-retención y espera circular. La exclusión mutua es justamente lo que
+hacen las transacciones, así que rompés las otras dos.
 
-La lógica de reintento usa [backoff exponencial](/recipes/retry-backoff/) con jitter para prevenir "thundering herd" — donde todas las transacciones reintentantes colisionan de nuevo.
+Para eliminar la espera-y-retención, traé y lockeá todas las filas que vas a
+tocar en una sola sentencia con `SELECT ... FOR UPDATE` sobre un conjunto
+pre-ordenado. Una vez que tenés todos los locks, no volvés a esperar mientras los
+mantenés.
+
+Para eliminar la espera circular, accedé a las filas siempre en el mismo orden.
+Ordenar por clave primaria ascendente funciona bien. Cuando dos transacciones
+quieren las filas `1` y `2`, ambas intentan lockear primero la `1`. Una lo
+consigue y avanza; la otra espera, así que ninguna puede formar un ciclo.
+
+La lógica de reintento usa [backoff exponencial](/recipes/retry-backoff/) con
+jitter para que un burst de transacciones fallidas no reintente todas al mismo
+instante y cause una segunda colisión.
 
 ## Variantes
 
-| Base de datos | Código de error de deadlock | Método de detección | Consejo de reintento |
-|---------------|----------------------------|---------------------|----------------------|
-| PostgreSQL | `40P01` | Automático | `FOR UPDATE` con `ORDER BY` |
-| MySQL | `1213` | Automático | `innodb_deadlock_detect=ON` |
-| SQL Server | `1205` | Automático | Hints `ROWLOCK`, `HOLDLOCK` |
-| Oracle | `ORA-00060` | Automático | `SELECT ... FOR UPDATE NOWAIT` |
-
-## Lo que funciona
-
-- **Siempre adquiere locks en orden consistente**: Ordena filas por clave primaria antes de bloquear
-- **Mantén las transacciones cortas**: Cuanto más tiempo una transacción mantenga locks, mayor el riesgo de deadlock
-- **Usa el nivel de aislamiento más bajo que funcione**: `READ COMMITTED` tiene menos deadlocks que `SERIALIZABLE`
-- **Añade jitter a los delays de reintento**: Previene que reintentos sincronizados colisionen de nuevo
-- **Registra y alerta sobre deadlocks repetidos**: Deadlocks frecuentes indican un problema de diseño, no solo mala suerte
-
-## Errores Comunes
-
-- **Reintentar indefinidamente**: Establece un máximo de reintentos y falla rápido si el sistema está congestionado
-- **Sin backoff entre reintentos**: Reintentos inmediatos solo golpean la misma contención
-- **Acceder a filas en diferente orden**: Transacción A bloquea fila 1 luego 2; Transacción B bloquea fila 2 luego 1 — deadlock garantizado
-- **Mantener locks mientras se hace I/O**: Llamadas de red dentro de una transacción extienden la duración del lock
-- **Ignorar hints de deadlock**: Algunos ORMs tragan excepciones; siempre verifica y registra errores de deadlock
-
-## Preguntas Frecuentes
-
-**P: ¿Puedo eliminar los deadlocks por completo?**
-R: En la práctica, no — pero puedes reducirlos a niveles insignificantes. Usa ordenamiento de acceso consistente, transacciones cortas e indexación apropiada. Si los deadlocks son frecuentes, rediseña los límites de las transacciones.
-
-**P: ¿Debería usar aislamiento `SERIALIZABLE` para evitar deadlocks?**
-R: No — `SERIALIZABLE` aumenta la probabilidad de deadlock porque mantiene locks más restrictivos. Usa el nivel de aislamiento más bajo que satisfaga tus requisitos de consistencia.
-
-**P: ¿Cómo detecto deadlocks en producción?**
-R: PostgreSQL: contador `pg_stat_database.deadlocks`. MySQL: `SHOW ENGINE INNODB STATUS` o Performance Schema. SQL Server: `sys.dm_tran_locks` y `sp_who2`. Los tres soportan gráficos de deadlock en sus herramientas de monitoreo.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-
-### Patrón de Reintento en C# con Polly
+### Patrón de reintento en C# con Polly
 
 ```csharp
 using Polly;
 using Npgsql;
 
 var retryPolicy = Policy
-    .Handle<PostgresException>(ex => ex.SqlState == "40P01") // deadlock_detected
-    .Or<PostgresException>(ex => ex.SqlState == "40P02")     // serialization_failure
+    .Handle<PostgresException>(ex => ex.SqlState == "40P01")
+    .Or<PostgresException>(ex => ex.SqlState == "40P02")
     .WaitAndRetryAsync(
         retryCount: 3,
-        sleepDurationProvider: attempt => TimeSpan.FromMilliseconds(50 * Math.Pow(2, attempt)),
+        sleepDurationProvider: attempt => TimeSpan.FromMilliseconds(
+            50 * Math.Pow(2, attempt)),
         onRetry: (exception, timeSpan, retryCount, context) =>
         {
-            Console.WriteLine($"Deadlock detectado. Reintento {retryCount} después de {timeSpan.TotalMs}ms");
+            Console.WriteLine($"Deadlock detectado. Reintento {retryCount} " +
+                $"después de {timeSpan.TotalMilliseconds}ms");
         });
 
 await retryPolicy.ExecuteAsync(async () =>
 {
-    await using var conn = new NpgsqlConnection("Host=localhost;Database=mydb");
+    await using var conn = new NpgsqlConnection(
+        "Host=localhost;Database=mydb");
     await conn.OpenAsync();
     await using var tx = await conn.BeginTransactionAsync();
 
@@ -259,7 +236,6 @@ await retryPolicy.ExecuteAsync(async () =>
             "UPDATE accounts SET balance = balance - 100 WHERE id = 1; " +
             "UPDATE accounts SET balance = balance + 100 WHERE id = 2;",
             conn, tx);
-
         await cmd.ExecuteNonQueryAsync();
         await tx.CommitAsync();
     }
@@ -271,75 +247,22 @@ await retryPolicy.ExecuteAsync(async () =>
 });
 ```
 
-### Análisis de Gráficos de Deadlock en SQL Server
+### SKIP LOCKED de PostgreSQL para procesamiento de colas
 
 ```sql
--- Habilitar trace flag de deadlock (SQL Server)
-DBCC TRACEON(1222, -1); -- Log deadlock info al error log
-DBCC TRACEON(1204, -1); -- Log deadlock info a consola
-
--- Consultar sesión de system health para gráficos de deadlock
-SELECT
-    XEventData.XEvent.value('(@timestamp)[1]', 'datetime2') AS Timestamp,
-    XEventData.XEvent.value('(data[@name="xml_report"][@value="1"]/value)[1]', 'nvarchar(max)') AS DeadlockGraph
-FROM sys.fn_xe_telemetry_blob_target_read_file('dl', null, null, null)
-CROSS APPLY (SELECT CAST(event_data AS xml) AS XEventData) AS XEventData;
-
--- Sesión de Extended Events para capturar deadlocks
-CREATE EVENT SESSION [Capture Deadlocks] ON SERVER
-ADD EVENT sqlserver.xml_deadlock_report
-ADD TARGET package0.event_file(SET filename = N'C:\temp\deadlocks.xel')
-WITH (MAX_MEMORY = 4096 KB, STARTUP_STATE = ON);
-ALTER EVENT SESSION [Capture Deadlocks] ON SERVER STATE = START;
-```
-
-### Análisis de Deadlocks en MySQL InnoDB
-
-```sql
--- Ver información de deadlock reciente
-SHOW ENGINE INNODB STATUS\G
-
--- Habilitar logging de deadlocks en MySQL 8+
-SET GLOBAL innodb_print_all_deadlocks = ON;
-
--- Consultar performance schema para esperas de lock
-SELECT
-    r.trx_id AS waiting_trx_id,
-    r.trx_query AS waiting_query,
-    b.trx_id AS blocking_trx_id,
-    b.trx_query AS blocking_query,
-    TIMEDIFF(NOW(), r.trx_started) AS wait_duration
-FROM information_schema.innodb_trx r
-JOIN information_schema.innodb_locks wl ON r.trx_id = wl.lock_trx_id
-JOIN information_schema.innodb_trx b ON b.trx_id = wl.lock_trx_id
-WHERE r.trx_state = 'LOCK WAIT';
-
--- Establecer timeout de espera de lock (segundos)
-SET SESSION innodb_lock_wait_timeout = 5;
-```
-
-### SKIP LOCKED para Procesamiento de Colas
-
-```sql
--- PostgreSQL: procesar jobs sin bloquear
+-- Tomar el próximo lote de jobs pendientes sin bloquear otros workers
 SELECT id, payload FROM job_queue
 WHERE status = 'pending'
 ORDER BY created_at
 FOR UPDATE SKIP LOCKED
 LIMIT 10;
-
--- Marcar jobs como processing
-UPDATE job_queue
-SET status = 'processing', started_at = NOW()
-WHERE id IN (1, 2, 3, 4, 5);
 ```
 
 ```python
 import psycopg2
 
-def process_jobs(conn, worker_id, batch_size=10):
+def process_jobs(conn, batch_size=10):
     with conn.cursor() as cur:
-        # Adquirir jobs sin bloquear otros workers
         cur.execute("""
             SELECT id, payload FROM job_queue
             WHERE status = 'pending'
@@ -353,7 +276,7 @@ def process_jobs(conn, worker_id, batch_size=10):
             try:
                 process_payload(payload)
                 cur.execute(
-                    "UPDATE job_queue SET status = 'completed', completed_at = NOW() WHERE id = %s",
+                    "UPDATE job_queue SET status = 'completed' WHERE id = %s",
                     (job_id,)
                 )
             except Exception as e:
@@ -364,26 +287,66 @@ def process_jobs(conn, worker_id, batch_size=10):
         conn.commit()
 ```
 
-### Lock Timeout vs Detección de Deadlock
+### Lock timeout vs detección de deadlock
 
 ```sql
--- PostgreSQL: establecer lock timeout por transacción
+-- PostgreSQL: cancelar si no se adquiere el lock en 3 segundos
 SET LOCAL lock_timeout = '3s';
 BEGIN;
 SELECT * FROM accounts WHERE id = 1 FOR UPDATE;
--- Si no se adquiere el lock en 3s: ERROR: canceling statement due to lock timeout
 COMMIT;
 
--- MySQL: establecer lock wait timeout
+-- MySQL: timeout esperando un row lock
 SET SESSION innodb_lock_wait_timeout = 3;
--- Si no se adquiere el lock en 3s: ERROR: Lock wait timeout exceeded
 
--- SQL Server: establecer lock timeout
-SET LOCK_TIMEOUT 3000; -- 3 segundos en milisegundos
--- Si no se adquiere el lock: Error 1222: The lock request timed out
+-- SQL Server: milisegundos
+SET LOCK_TIMEOUT 3000;
 ```
 
-### Logging y Alertas de Deadlock
+Un lock timeout no es un deadlock, pero ambos llevan a la misma decisión: el
+código debería reintentar o fallar limpio. Los timeouts suelen ser más fáciles de
+diagnosticar porque indican una transacción lenta, no un ciclo.
+
+### Análisis de deadlocks en MySQL InnoDB
+
+```sql
+-- Ver el deadlock más reciente
+SHOW ENGINE INNODB STATUS\G
+
+-- Loguear cada deadlock al error log
+SET GLOBAL innodb_print_all_deadlocks = ON;
+
+-- Inspeccionar esperas de lock actuales (MySQL 8.0+)
+SELECT
+    r.trx_id AS waiting_trx_id,
+    r.trx_query AS waiting_query,
+    b.trx_id AS blocking_trx_id,
+    b.trx_query AS blocking_query
+FROM information_schema.innodb_trx r
+JOIN performance_schema.data_lock_waits w ON r.trx_id = w.requesting_engine_transaction_id
+JOIN information_schema.innodb_trx b ON b.trx_id = w.blocking_engine_transaction_id
+WHERE r.trx_state = 'LOCK WAIT';
+```
+
+### Gráficos de deadlock en SQL Server
+
+```sql
+-- Loguear detalles de deadlock al error log
+DBCC TRACEON(1222, -1);
+DBCC TRACEON(1204, -1);
+
+-- Leer la sesión system health para gráficos de deadlock
+SELECT
+    XEventData.XEvent.value('(@timestamp)[1]', 'datetime2') AS Timestamp,
+    XEventData.XEvent.value(
+        '(data[@name="xml_report"][@value="1"]/value)[1]',
+        'nvarchar(max)'
+    ) AS DeadlockGraph
+FROM sys.fn_xe_telemetry_blob_target_read_file('dl', null, null, null)
+CROSS APPLY (SELECT CAST(event_data AS xml) AS XEventData) AS XEventData;
+```
+
+### Logging y alertas de deadlock
 
 ```python
 import logging
@@ -400,15 +363,10 @@ def execute_with_deadlock_logging(conn, query, params=None, max_retries=3):
                 return cur.fetchall() if cur.description else None
         except psycopg2.OperationalError as e:
             conn.rollback()
-            if e.pgcode == '40P01':  # deadlock_detected
+            if e.pgcode == '40P01':
                 logger.warning(
-                    "Deadlock detectado en intento %d. Query: %s. Reintentando...",
-                    attempt + 1, query[:200],
-                    extra={
-                        'pgcode': e.pgcode,
-                        'pgerror': str(e),
-                        'attempt': attempt + 1,
-                    }
+                    "Deadlock en intento %d. Query: %s",
+                    attempt + 1, query[:200]
                 )
                 if attempt < max_retries - 1:
                     import time, random
@@ -420,100 +378,137 @@ def execute_with_deadlock_logging(conn, query, params=None, max_retries=3):
     raise RuntimeError("Máximo de reintentos excedido después de deadlock")
 ```
 
-### Testing de Escenarios de Deadlock
+## Mejores Prácticas
+
+Adquirí los locks siempre en el mismo orden en cada transacción. La forma más
+fácil es ordenar las filas por clave primaria o por una clave natural estable
+antes de lockearlas.
+
+Mantené las transacciones cortas. Cuanto más tiempo una transacción mantenga
+locks, más probable es que se cruce con otra.
+
+Usá el nivel de aislamiento más bajo que realmente funcione para la operación.
+`READ COMMITTED` genera menos deadlocks que `SERIALIZABLE` o `REPEATABLE READ`
+porque mantiene los locks por menos tiempo.
+
+Agregá jitter a los delays de reintento. Cuando la base de datos hace rollback a
+la víctima, un burst de reintentos puede golpear las mismas filas al mismo
+tiempo. El jitter separa esos intentos.
+
+Registrá y alertá sobre deadlocks repetidos. Un deadlock ocasional es normal;
+deadlocks frecuentes suelen indicar que los límites de la transacción o el orden
+de acceso necesitan rediseño.
+
+Usá `SELECT ... FOR UPDATE` solo cuando vas a modificar la fila. El trabajo de
+solo lectura no necesita row locks, así que no pagués el costo de coordinación.
+
+Indexá las columnas de foreign key. Una FK no indexada puede convertir una
+actualización de fila en un lock a nivel de tabla durante un update de la tabla
+padre.
+
+Indexá las columnas por las que filtrás. Un índice faltante puede hacer que la
+base de datos lockee más filas de las necesarias y aumente las probabilidades de
+formar un ciclo.
+
+## Errores Comunes
+
+Reintentar indefinidamente. Establecé un máximo de reintentos y fallá rápido
+cuando la base de datos está congestionada, para que el llamante pueda retroceder
+o degradar gracefulmente.
+
+Sin backoff entre reintentos. Los reintentos inmediatos solo golpean la misma
+contención de nuevo y desperdician CPU.
+
+Acceder a las filas en distinto orden. Cuando la transacción A lockea `1` y
+luego `2`, mientras la B lockea `2` y luego `1`, la base de datos aborta una.
+Elegí un orden y respetalo siempre.
+
+Mantener locks durante I/O. Llamadas web, mensajería o trabajo con archivos
+dentro de una transacción extienden la ventana del lock y dan más tiempo a otras
+transacciones para intercalar.
+
+Tragar errores de deadlock. Algunos ORMs ocultan la excepción original, así que
+siempre inspeccioná el código de error y exponelo en los logs. No podés
+reintentar lo que no ves.
+
+Mezclar timeout de lock y reintento por deadlock. Un timeout suele ser un peer
+lento, no un ciclo, así que la respuesta puede diferir. Mantené los dos caminos
+separados en el código.
+
+## Preguntas Frecuentes
+
+### ¿Puedo eliminar los deadlocks por completo?
+
+En la práctica, no. En cualquier sistema concurrente con locks, los deadlocks
+son posibles. Podés reducirlos a una tasa insignificante con ordenamiento
+consistente, transacciones cortas e indexación adecuada.
+
+### ¿Debería usar `SERIALIZABLE` para evitar deadlocks?
+
+No. `SERIALIZABLE` aumenta la probabilidad de deadlock porque mantiene locks más
+restrictivos y por más tiempo. Usá el nivel de aislamiento más bajo que satisfaga
+tu requisito de consistencia.
+
+### ¿Cómo detecto deadlocks en producción?
+
+- **PostgreSQL**: contador `pg_stat_database.deadlocks` y `log_lock_waits`.
+- **MySQL**: `SHOW ENGINE INNODB STATUS` e `innodb_print_all_deadlocks = ON`.
+- **SQL Server**: trace flags 1222 y 1204 más Extended Events.
+
+La mayoría de las herramientas de monitoreo también muestran gráficos de
+deadlock.
+
+### ¿Cuál es la diferencia entre un lock timeout y un deadlock?
+
+Un timeout significa que una transacción esperó demasiado por un lock. Un
+deadlock significa que dos o más transacciones se esperan mutuamente en un ciclo.
+Reintentá ambos, pero investigá los deadlocks con más cuidado.
+
+### ¿Cómo testeo un escenario de deadlock?
+
+Usá dos threads o procesos que adquieran los mismos locks en orden opuesto. Uno
+debiera tener éxito y el otro debiera hacer rollback como víctima.
 
 ```python
 import threading
 import psycopg2
 
-def test_deadlock_scenario():
-    """Reproducir un deadlock con dos threads que adquieren locks en orden opuesto."""
-    barrier = threading.Barrier(2)
-    results = {'deadlocks': 0, 'successes': 0}
+def worker(conn_str, first_id, second_id, barrier, results):
+    conn = psycopg2.connect(conn_str)
+    conn.autocommit = False
+    cur = conn.cursor()
 
-    def worker(conn_str, first_id, second_id):
-        conn = psycopg2.connect(conn_str)
-        conn.autocommit = False
-        cur = conn.cursor()
+    try:
+        cur.execute(
+            "SELECT * FROM accounts WHERE id = %s FOR UPDATE", (first_id,))
+        barrier.wait()
+        cur.execute(
+            "SELECT * FROM accounts WHERE id = %s FOR UPDATE", (second_id,))
+        conn.commit()
+        results['successes'] += 1
+    except psycopg2.OperationalError as e:
+        conn.rollback()
+        if e.pgcode == '40P01':
+            results['deadlocks'] += 1
+    finally:
+        conn.close()
 
-        try:
-            cur.execute(f"SELECT * FROM accounts WHERE id = {first_id} FOR UPDATE")
-            barrier.wait()  # Asegurar que ambos threads mantengan el primer lock
+conn_str = "postgresql://user:pass@localhost/mydb"
+barrier = threading.Barrier(2)
+results = {'deadlocks': 0, 'successes': 0}
 
-            cur.execute(f"SELECT * FROM accounts WHERE id = {second_id} FOR UPDATE")
-            conn.commit()
-            results['successes'] += 1
-        except psycopg2.OperationalError as e:
-            conn.rollback()
-            if e.pgcode == '40P01':
-                results['deadlocks'] += 1
-        finally:
-            conn.close()
+t1 = threading.Thread(target=worker, args=(conn_str, 1, 2, barrier, results))
+t2 = threading.Thread(target=worker, args=(conn_str, 2, 1, barrier, results))
+t1.start(); t2.start()
+t1.join(); t2.join()
 
-    conn_str = "postgresql://user:pass@localhost/mydb"
-    t1 = threading.Thread(target=worker, args=(conn_str, 1, 2))
-    t2 = threading.Thread(target=worker, args=(conn_str, 2, 1))
-
-    t1.start()
-    t2.start()
-    t1.join()
-    t2.join()
-
-    # Un thread debería tener éxito, el otro debería deadlock
-    assert results['successes'] == 1
-    assert results['deadlocks'] == 1
-    print(f"Test pasado: {results}")
+assert results['successes'] == 1
+assert results['deadlocks'] == 1
+print(f"Test pasado: {results}")
 ```
 
+### ¿Debería un bucle de reintento atrapar todo error de base de datos?
 
-
-
-## Tips de Rendimiento
-
-1. **Usa `SKIP LOCKED` para procesamiento paralelo de jobs.** Múltiples workers pueden recoger jobs simultáneamente sin bloquearse:
-
-```sql
--- 4 workers pueden cada uno recoger 25 jobs sin contención
-SELECT id FROM job_queue WHERE status = 'pending'
-FOR UPDATE SKIP LOCKED LIMIT 25;
-```
-
-2. **Reduce el scope de locks con transacciones más pequeñas.** Actualiza menos filas por transacción para reducir la ventana de deadlocks:
-
-```python
-# Mal: una transacción grande
-for item in large_list:
-    cur.execute("UPDATE products SET stock = stock - 1 WHERE id = %s", (item['id'],))
-conn.commit()
-
-# Bien: batches pequeños
-batch_size = 50
-for i in range(0, len(large_list), batch_size):
-    batch = large_list[i:i+batch_size]
-    for item in batch:
-        cur.execute("UPDATE products SET stock = stock - 1 WHERE id = %s", (item['id'],))
-    conn.commit()
-```
-
-3. **Usa `SELECT ... FOR UPDATE` solo cuando sea necesario.** Las transacciones de solo lectura no necesitan row locks. Usa aislamiento `READ COMMITTED` para la mayoría de reads.
-
-4. **Indexa columnas de foreign key.** Las FKs no indexadas causan locks a nivel tabla durante updates de tablas padre:
-
-```sql
--- Asegurar que las columnas FK estén indexadas
-CREATE INDEX idx_orders_customer_id ON orders(customer_id);
-```
-
-5. **Monitorea tiempos de espera de lock.** Rastrea cuánto esperan las transacciones por locks:
-
-```sql
-SELECT
-    pid,
-    wait_event_type,
-    wait_event,
-    query,
-    now() - query_start AS wait_time
-FROM pg_stat_activity
-WHERE wait_event_type = 'Lock'
-ORDER BY wait_time DESC;
-```
+No. Solo reintentá errores transitorios conocidos como códigos de deadlock o
+fallas de serialización. Fallá inmediatamente ante errores de sintaxis,
+violaciones de constraints o pérdida de conexión.

@@ -124,29 +124,29 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.2% / ES 29.0% (0 patterns)
    - Words: 1,201 | Meta: 151 chars
 
-15. - [ ] **python-sentiment-analysis-nltk** (recipes)
+15. - [x] **python-sentiment-analysis-nltk** (recipes)
    - Metrics: 74 imp | pos 22.4 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-sentiment-analysis-nltk/
    - ES: https://stackpractices.com/es/recipes/python-sentiment-analysis-nltk/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,404 | Meta: 150 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 46.4% / ES 39.2% (0 patterns)
+   - Words: 1,436 | Meta: 136 chars
 
-16. - [ ] **url-encoding** (recipes)
+16. - [x] **url-encoding** (recipes)
    - Metrics: 55 imp | pos 19.1 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/url-encoding/
    - ES: https://stackpractices.com/es/recipes/url-encoding/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 3,029 | Meta: 153 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.7% / ES 36.8% (0 patterns)
+   - Words: 1,268 | Meta: 124 chars
 
-17. - [ ] **database-deadlocks-retries** (recipes)
+17. - [x] **database-deadlocks-retries** (recipes)
    - Metrics: 53 imp | pos 14 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/database-deadlocks-retries/
    - ES: https://stackpractices.com/es/recipes/database-deadlocks-retries/
    - Focus: striking distance, high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,995 | Meta: 150 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.6% / ES 38.3% (0 patterns)
+   - Words: 2,065 | Meta: 152 chars
 
 18. - [ ] **generate-pdf-report-python** (recipes)
    - Metrics: 70 imp | pos 26.5 | CTR 0.00% | Δ impr 0

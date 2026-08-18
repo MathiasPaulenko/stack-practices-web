@@ -2,7 +2,7 @@
 contentType: recipes
 slug: url-encoding
 title: "URL Encoding"
-description: "Cómo codificar y decodificar URLs, parámetros de query y segmentos de path de forma segura en Python, JavaScript y Java."
+description: "Codifica y decodifica URLs, parámetros de query y segmentos de path de forma segura en Python, JavaScript y Java."
 metaDescription: "Ejemplos prácticos de URL encoding en Python, JavaScript y Java. Aprende percent-encoding, query strings y parsing de URIs."
 difficulty: beginner
 topics:
@@ -10,16 +10,21 @@ topics:
 tags:
   - data
   - encoding
-  - java
+  - url
+  - percent-encoding
   - parsing
-  - json
+  - python
+  - javascript
+  - java
+  - utf-8
 relatedResources:
   - /recipes/call-rest-api
   - /recipes/parse-json
+  - /recipes/input-validation
+  - /recipes/data-validation
   - /recipes/regular-expressions
-  - /recipes/caching
-  - /recipes/flatten-unflatten-objects
-lastUpdated: "2026-06-10"
+  - /recipes/parse-csv-python-pandas
+lastUpdated: "2026-08-18"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
@@ -34,24 +39,33 @@ seo:
     - java URLEncoder
     - uri parsing
     - parámetros url seguros
-
-
+    - utf-8
 ---
-## Visión general
 
-El URL encoding (percent-encoding) convierte caracteres en un formato que puede transmitirse por internet. Reemplaza caracteres ASCII inseguros con `%` seguido de dos dígitos hexadecimales. Es esencial para parámetros de query, segmentos de path y envíos de formularios.
+## Visión General
 
-No codificar input de usuarios antes de colocarlo en una URL puede llevar a links rotos, ataques de inyección o comportamiento inesperado de [APIs](/recipes/call-rest-api/). Consulta [API Security Checklist](/guides/api-security-checklist-guide/) para protección detallada.
+URL encoding, también llamado percent-encoding, convierte caracteres a un formato
+que puede viajar de forma segura dentro de una URL. Reemplaza caracteres ASCII
+inseguros con `%` seguido de dos dígitos hexadecimales. Por eso es esencial para
+parámetros de query, segmentos de path y envíos de formularios.
 
-## Cuándo usarlo
+No codificar el input del usuario antes de colocarlo en una URL puede generar
+links rotos, vulnerabilidades de open redirect o ataques de inyección. Si estás
+construyendo un cliente de API, combina esta receta con
+[Input Validation](/recipes/input-validation/) y la
+[API Security Checklist](/guides/api-security-checklist-guide/) para una defensa
+más completa.
 
-Usa esta recipe cuando:
+## Cuándo Usar
 
-- Construyes query strings con valores en vivo de [input de usuario](/recipes/input-validation/)
-- Codificas nombres de archivo o IDs en paths de URL
-- Parseas URLs y extraes parámetros de query
-- Envías datos de formulario vía requests GET. Consulta [Data Validation](/recipes/data-validation/) para sanitizar datos de formularios.
-- Manejas URLs de redirección con parámetros
+Usa esta receta cuando construyas o parses URLs con datos en vivo:
+
+- Construir query strings con valores que vienen de
+  [input de usuario](/recipes/input-validation/).
+- Codificar nombres de archivo o IDs antes de colocarlos en paths de URL.
+- Parsear URLs y extraer parámetros de query.
+- Enviar datos de formulario vía requests GET.
+- Manejar URLs de redirección que llevan parámetros.
 
 ## Solución
 
@@ -60,7 +74,7 @@ Usa esta recipe cuando:
 ```python
 from urllib.parse import quote, unquote, urlencode, parse_qs, urlparse
 
-# Codificar un string para usar en path o query de URL
+# Codificar un string para un path o valor de query
 encoded = quote("hello world & friends")
 print(encoded)  # hello%20world%20%26%20friends
 
@@ -71,8 +85,8 @@ print(query)  # search=python+%26+java&page=2
 
 # Parsear una URL
 url = urlparse("https://api.example.com/search?query=hello%20world&limit=10")
-print(url.query)  # query=hello%20world&limit=10
-print(parse_qs(url.query))  # {'query': ['hello world'], 'limit': ['10']}
+print(url.query)           # query=hello%20world&limit=10
+print(parse_qs(url.query)) # {'query': ['hello world'], 'limit': ['10']}
 
 # Decodificar
 original = unquote("hello%20world")
@@ -82,11 +96,11 @@ print(original)  # hello world
 ### JavaScript
 
 ```javascript
-// Codificar un componente (query parameter o path segment)
+// Codificar un componente (valor de query o segmento de path)
 const encoded = encodeURIComponent("hello world & friends");
 console.log(encoded); // hello%20world%20%26%20friends
 
-// Construir query string
+// Construir un query string
 const params = new URLSearchParams({ search: "python & java", page: "2" });
 console.log(params.toString()); // search=python+%26+java&page=2
 
@@ -106,250 +120,119 @@ console.log(decoded); // hello world
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
-// Codificar
+// Codificar un valor
 String encoded = URLEncoder.encode("hello world & friends", StandardCharsets.UTF_8);
 System.out.println(encoded); // hello+world+%26+friends
 
-// Decodificar
+// Decodificar un valor
 String decoded = URLDecoder.decode("hello%20world", StandardCharsets.UTF_8);
 System.out.println(decoded); // hello world
 
-// Construir URI con query parameters
-URI uri = new URI("https", "api.example.com", "/search",
-    "query=hello+world&limit=10", null);
-System.out.println(uri.toString());
+// Construir un URI desde partes
+String query = String.format("query=%s&limit=10",
+    URLEncoder.encode("hello world", StandardCharsets.UTF_8));
+String full = "https://api.example.com/search?" + query;
+System.out.println(full); // https://api.example.com/search?query=hello+world&limit=10
 
-// Parsear URI
+// Parsear un URI
 URI parsed = new URI("https://api.example.com/search?query=hello%20world&limit=10");
 System.out.println(parsed.getQuery()); // query=hello%20world&limit=10
 ```
 
-## Reglas de Encoding
+## Explicación
+
+Una URL solo puede transportar un conjunto limitado de caracteres sin ambigüedad.
+El conjunto no reservado (`A-Z`, `a-z`, `0-9`, `-`, `_`, `.`, `~`) puede aparecer
+tal cual. Todo lo demás debe codificarse con percent-encoding usando la secuencia
+UTF-8 del carácter.
+
+Por ejemplo, el espacio se convierte en `%20` porque su byte UTF-8 es `0x20`. En
+query strings, muchas librerías también aceptan `+` como espacio gracias a la
+convención `application/x-www-form-urlencoded` de formularios HTML.
+
+El riesgo clave es embeber input del usuario tal cual. Un `&` o `?` dentro de un
+valor se leería como delimitador de query o path. Codificarlo convierte `&` en
+`%26` y `?` en `%3F`, así el servidor recibe el valor intacto.
+
+## Variantes
 
 | Función | Codifica | Seguro para |
-| ------- | ------- | ----------- |
-| `encodeURIComponent` (JS) | Todo excepto `A-Z a-z 0-9 - _ . ! ~ * ' ( )` | Query parameters, path segments |
+| --- | --- | --- |
+| `encodeURIComponent` (JS) | Todo excepto `A-Z a-z 0-9 - _ . ! ~ * ' ( )` | Valores de query y segmentos de path |
 | `encodeURI` (JS) | Igual, pero preserva `; , / ? : @ & = + $ #` | URLs completas |
-| `quote` (Python) | Por defecto todos los no alfanuméricos | Paths, queries con override de safe |
+| `quote` (Python) | Por defecto todos los no alfanuméricos | Paths, queries con override de `safe` |
 | `urlencode` (Python) | Igual que `quote_plus` | Query strings (espacios → `+`) |
 | `URLEncoder` (Java) | Todo excepto `a-z A-Z 0-9 - _ . *` | Query strings (espacios → `+`) |
 
-## Lo que funciona
+Para una comparación más profunda de enfoques de parsing de strings, consulta
+[Regular Expressions](/recipes/regular-expressions/).
 
-- **Siempre codifica input de usuarios** antes de embeberlo en URLs
-- **Usa `encodeURIComponent` (JS)** para valores de query parameters, no `encodeURI`
-- **Usa `urlencode` (Python)** para construir query strings completos
-- **No codifiques la URL completa**: Solo codifica las partes en vivo (valores, segmentos)
-- **Prefiere `URLSearchParams`** en JavaScript moderno para construcción segura de query strings
-- **Maneja signos plus con cuidado**: En query strings, `+` significa espacio.   En paths, `%20` significa espacio.
+## Mejores Prácticas
 
-## Errores comunes
+- Siempre codifica el input del usuario antes de embeberlo en una URL.
+- Usa `encodeURIComponent` en JavaScript para valores de query, no `encodeURI`.
+- Usa `urlencode` en Python para query strings completos y `quote` para segmentos
+  de path.
+- No codifiques la URL completa; solo codifica las partes vivas como valores y
+  segmentos de path.
+- Prefiere `URLSearchParams` en JavaScript moderno para construir queries de forma
+  segura.
+- Maneja el `+` con cuidado: significa espacio en query strings, mientras que
+  `%20` es la opción más segura para paths y specs modernas.
+- Trata el input decodificado como no confiable y valídalo con una librería como
+  [Data Validation](/recipes/data-validation/) o un validador de schemas.
 
-- Usar `encodeURI` para valores de query parameters (no codifica `&`, `=`, `?`)
-- Olvidar codificar input de usuarios, causando URLs malformadas o inyección
-- Doble-codificar valores que ya fueron codificados por otra capa
-- Confundir espacios codificados como `+` (query strings) vs `%20` (paths y specs modernas)
-- Parsear URLs con split de strings en lugar de un parser de URI apropiado
+## Errores Comunes
 
-## Cuando No Usar Este Enfoque
+- Usar `encodeURI` para valores de query. No codifica `&`, `=` ni `?`, así que el
+  query puede romperse.
+- Olvidar codificar el input del usuario, lo que causa URLs malformadas o
+  inyección.
+- Doble-codificar valores que ya fueron codificados por otra capa.
+- Confundir espacios codificados como `+` en query strings con `%20` en paths y
+  specs más nuevas.
+- Parsear URLs con split de strings en lugar de un parser de URI apropiado.
+- Codificar una URL ya codificada. Double-encoding de `%20` produce `%2520`.
+- Pasar espacios o Unicode en bruto a `new URL()` sin codificar; el comportamiento
+  no es consistente entre runtimes.
 
-- **Formatting locale-aware en sistemas distribuidos**: si los servidores spanean multiples timezones, formatear fechas localmente por-servidor causa inconsistencias.
-- **Llamadas de formatting de alta frecuencia**: si el formatting se llama millones de veces por segundo, el overhead de strftime o Intl.  DateTimeFormat se vuelve significativo.
-- **Calculos financieros que requieren precision exacta**: la aritmetica de floating-point causa errores de redondeo en calculos de dinero (0.  1 + 0.  2 !  = 0.  3).
-- **URL encoding de strings ya encodeados**: double-encoding %20 produce %2520.
-- **Generacion de UUID en paths performance-critical**: la generacion de UUIDv4 usa CSPRNG que es 10-100x mas lento que IDs secuenciales.
-- **Parsing de argumentos CLI para scripts simples**: si un script necesita 2-3 flags, rgparse o commander es excesivo.
+## Preguntas Frecuentes
 
-## Benchmarks de Rendimiento
+### ¿Qué caracteres hay que codificar?
 
-- **Formatting de fechas**: strftime en Python formatea 1M fechas en 200-500ms.   Intl.  DateTimeFormat en JavaScript formatea 1M fechas en 100-300ms.
-- **URL encoding**: encodeURIComponent en JavaScript encodea 1M strings en 50-200ms.   urllib.  parse.  quote de Python encodea 1M strings en 100-400ms.
-- **Generacion de UUID**: uuid.   crypto.  randomUUID() en Node.
-- **Truncacion de texto**: slicear 1M strings a 100 chars toma 50-150ms en Python y 20-80ms en JavaScript.
-- **Formatting de phone numbers**: la libreria phonenumbers en Python formatea 100K phone numbers en 500ms-2s.
-- **Generacion de QR codes**: qrcode-terminal es mas rapido pero produce output de menor calidad.
+Cualquier carácter fuera del conjunto no reservado `A-Z a-z 0-9 - _ . ~` debe
+codificarse antes de ir en una URL. Los caracteres reservados como `&`, `=`, `?`,
+`#`, `/` y el espacio son especialmente importantes porque tienen significado
+estructural.
 
-## Estrategia de Testing
+### ¿Cuál es la diferencia entre `encodeURI` y `encodeURIComponent`?
 
-- **Test de manejo de timezones**: verifica que el formatting de fechas produzca output correcto a traves de timezones (UTC, PST, JST, AEDT).
-- **Test con input invalido**: verifica que phone numbers invalidos, URLs malformadas y fechas out-of-range sean rechazadas con errores claros.
-- **Test de formatting locale-specific**: 56 vs 1.
-- **Test de edge cases Unicode**: verifica que la truncacion no rompa caracteres multi-byte (emoji, CJK).
-- **Test de unicidad de UUID**: UUIDv4 tiene 50% de probabilidad de colision despues de 2.
-- **Test de edge cases de argumentos CLI**: testea con argumentos requeridos faltantes, flags duplicados, numeros negativos como valores y separador --.
+`encodeURI` conserva los delimitadores que hacen funcionar a una URL (`:`, `/`,
+`?`, `&`, etc.), así que sirve para URLs completas. `encodeURIComponent` codifica
+casi todo, por lo que es la opción correcta para valores individuales de query y
+segmentos de path.
 
-## Estimacion de Costos
+### ¿Debo usar `+` o `%20` para los espacios?
 
-- **TamaÃ±o de bundle de libreria de fechas**: moment.  js es 67KB minificado.   date-fns con tree-shaking es 5-15KB.   luxon es 25KB.   Intl.  DateTimeFormat nativo es 0KB (built into the runtime).
-- **Validacion de phone numbers**: libphonenumber-js es 45KB minificado.   La validacion server-side con la libreria de Google es gratis pero requiere una dependencia C++.
-- **Costo de generacion de QR codes**: 50-2.  00 en compute.
-- **Infraestructura de generacion de UUID**: UUIDv4 no requiere coordinacion pero causa patrones de I/O random en bases de datos.   UUIDv7 o Snowflake IDs mejoran el throughput de escritura 2-5x clusterizando inserts.
-- **Distribucion de CLI tools**: empaquetar un CLI tool con pip o 
-pm es gratis. Distribuir como binario standalone (PyInstaller, pkg) agrega 10-50MB pero elimina la dependencia de runtime. Elije basado en la audiencia de usuarios
+En query strings, muchos servidores aceptan `+` por los formularios HTML, y
+`urlencode` en Python emite `+` por defecto. En paths y APIs modernas, `%20` es
+la opción más segura y estándar. Si dudas, usa `%20`.
 
-## Monitoring y Observabilidad
+### ¿Cómo manejo caracteres no ASCII?
 
-- **Tasa de errores de formatting**: trackea el porcentaje de operaciones de formatting que fallan.
-- **Latencia de formatting**: monitorea el tiempo gastado en formatting de fechas/phone/URL.
-- **Drift de configuracion de timezone**: loguea el timezone del server al startup.   Alerta si cambia de UTC.
-- **Rate de generacion de UUID**: monitorea el rate de generacion de UUID.
-- **Patrones de uso de CLI**: loguea que flags de CLI se usan mas frecuentemente.
+Codifícalos como UTF-8 primero y luego aplica percent-encoding a cada byte. Las
+APIs URL modernas hacen esto automáticamente. Por ejemplo, `café` se convierte
+en `caf%C3%A9`.
 
-## Deployment Checklist
+### ¿Por qué obtengo `%2520`?
 
-- [ ] Setear el timezone del server a UTC: variable de entorno TZ=UTC. Nunca confies en el timezone default del sistema en codigo de produccion
-- [ ] Configurar defaults de locale: setea variables de entorno LANG y LC_ALL. Usa Intl.DateTimeFormat con locale explicito en JavaScript
-- [ ] Setear longitud maxima de input: rechaza strings mas largos que el maximo configurado antes de formatear. Previene agotamiento de memoria por inputs oversized
-- [ ] Configurar nivel de correccion de errores de QR code: usa nivel M (15% recovery) para uso general, nivel H (30% recovery) para entornos industriales. Niveles mas altos producen codes mas densos
-- [ ] Setear limites de argumentos CLI: limita el numero de argumentos y su tamaÃ±o total. getopt y rgparse tienen limites built-in, pero parsers custom necesitan limites explicitos
-- [ ] Pinear versiones de librerias: las librerias de fechas y phone cambian frecuentemente. Pinea versiones para evitar breaking changes de updates de timezone database o cambios de formato de locale
+`%2520` es el resultado de double-encoding de `%20`. Significa que codificaste el
+valor después de que ya estaba codificado. Decodifica el valor una vez antes de
+volver a codificarlo, o codifica solo una vez en el límite donde el valor entra
+en la URL.
 
-## Consideraciones de Seguridad
+### ¿Cómo decodifico un query string?
 
-- **Bypass de control de acceso basado en timezone**: si los checks de control de acceso usan hora local, un cambio de timezone del server puede bypassar restricciones basadas en tiempo.
-- **Bypass de URL encoding**: double-encoding o mixed encoding puede bypassar filtros de seguridad basados en URL.
-- **Spoofing de phone numbers**: el caller ID spoofing significa que la validacion de phone number no verifica identidad.
-- **Phishing via QR codes**: los QR codes pueden encodear URLs maliciosas.
-- **Predictibilidad de UUID**: UUIDv1 contiene la MAC address y timestamp, lo que leakea info de hardware y permite prediccion.
-- **Inyeccion via parsing de fechas**: algunos parsers de fechas ejecutan codigo arbitrario via format strings (ej.   strftime con format controlado por el usuario).
-- **Bypass de XSS via truncacion**: truncar HTML a un numero fijo de caracteres puede partir tags y crear HTML invalido que bypassa filtros XSS.
-- **Inyeccion de argumentos CLI**: si los argumentos CLI se pasan a subprocess sin escaping apropiado, un atacante puede inyectar shell commands.
-- **Perdida de precision en formatting de dinero**: convertir entre currencies usando floating-point puede perder precision.
-- **Leak de metadata de phone numbers**: libphonenumber puede revelar el carrier y region de un phone number.
-- **Inyeccion de contenido en QR codes**: si los QR codes se renderizan desde URLs suministradas por el usuario sin validacion, un atacante puede encodear URIs javascript: o data:.
-- **DoS via format strings de fecha**: algunas librerias de formatting de fechas soportan format strings complejas que pueden causar uso excesivo de CPU.
-## Variantes y Alternativas
-
-- **Intl nativo vs librerias**: Intl.  DateTimeFormat, Intl.  NumberFormat e Intl.  ListFormat estan built-in en runtimes JS modernos.   Son 0KB y 2-5x mas rapidos que moment.  js o date-fns.
-- **UUIDv4 vs UUIDv7 vs ULID vs Snowflake**: UUIDv4 es random (bueno para seguridad, malo para indices DB).   UUIDv7 es time-ordered (bueno para localidad DB).   ULID es lexicograficamente sortable.
-- **Decimal vs centavos enteros vs floating-point**: Decimal es exacto pero lento.   Centavos enteros (guardar 199 en lugar de 1.  99) es exacto y rapido pero requiere conversion en boundaries.
-- **Template literals vs concatenacion de strings**: template literals (` Hola  `) son mas legibles y ligeramente mas rapidos en V8.   Concatenacion ("Hola " + name) es compatible con runtimes antiguos.
-- **API URL nativa vs parsing con regex**: 
-ew URL(string) parsea URLs correctamente incluyendo edge cases (IPv6, userinfo, caracteres encodeados). Parsing basado en regex pierde edge cases. Siempre usa la API URL nativa para manipulacion de URLs
-- **Comparacion de frameworks CLI**: rgparse (Python, stdlib, verbose), click (Python, decorators, clean), 	yper (Python, type hints, modern), commander (Node.  js, widely used), yargs (Node.  js, feature-rich).
-
-## Pitfalls Comunes en Produccion
-
-- **Offset de timezone vs nombre de timezone**: +02:00 es un offset que cambia con DST.
-- **Confusion de codigos de locale**: en-US vs en_US vs en â€” diferentes librerias esperan diferentes formatos.
-- **Modos de redondeo de currency**: ROUND_HALF_UP (banker's rounding) difiere de ROUND_HALF_EVEN (default Python).   Sistemas financieros requieren modos de redondeo especificos.
-- **Colision de UUID en la practica**: la probabilidad de colision de UUIDv4 es despreciable (1 en 2.  7x10^36 para 50% de probabilidad).   Pero la colision de UUIDv1 puede ocurrir si la MAC address se reusa o el reloj se setea hacia atras.
-- **URL encoding de caracteres especiales**: , ', (, ) son tecnicamente seguros en URLs pero algunos servidores los rechazan.   encodeURIComponent los encodea; encodeURI no.
-- **Truncacion con HTML**: truncar HTML por conteo de caracteres puede romper tags.
-## Patrones de Integracion
-
-- **Pipeline de internacionalizacion (i18n)**: extrae strings user-facing -> formatea con funciones locale-specific -> renderiza en UI.
-- **Pipeline de fecha/tiempo**: Nunca almacenes strings de fecha localizados en bases de datos.
-- **Pipeline de dinero**: parsea monto (string a Decimal) -> valida codigo de currency (ISO 4217) -> convierte currency si es necesario (usando exchange rates diarios) -> formatea para display usando locale.
-- **Pipeline de building de URL**: valida URL base -> appendea path segments (URL-encoded) -> appendea query parameters (URL-encoded) -> appendea fragment.
-- **Pipeline de generacion de UUID**: genera UUID -> valida formato -> almacena como string (no tipo UUID para portabilidad) -> usa como primary key.
-- **Integracion de CLI con archivos de config**: flags de CLI overriden valores de config file, que overriden variables de entorno, que overriden defaults.   Esta jerarquia es estandar en apps 12-factor.
-
-## Manejo de Errores y Recuperacion
-
-- **Fallback graceful de locale**: si una traduccion falta para r-CA, falla a r, luego en.   Loguea traducciones faltantes para agregarlas despues.
-- **Cadena de fallback de parsing de fechas**: prueba ISO 8601 primero, luego formatos locale-specific, luego formatos comunes (MM/DD/YYYY, DD/MM/YYYY).   Si todos fallan, retorna null y deja que el caller decida.
-- **Manejo de errores de conversion de currency**: Loguea un warning.   Si no hay rate cacheado, rechaza la conversion con un error claro.
-- **Errores de normalizacion de URL**: si el parsing de URL falla, loguea la URL original y el error.   No intentes fixear la URL automaticamente â€” URLs malformadas pueden ser intencionales (ej.   para testing).
-- **Manejo de colisiones de UUID**: si ocurre una colision de UUID (extremadamente raro con v4/v7), regenera con un nuevo componente random.   Loguea la colision para investigacion.
-- **Recuperacion de errores de argumentos CLI**: si un argumento requerido falta, imprime el texto de ayuda y sale con codigo 2.   Si un argumento tiene un valor invalido, imprime el error, el formato esperado, y sale con codigo 2.
-## Tooling y Ecosistema
-
-- **date-fns**: libreria modular de fechas para JavaScript.   Tree-shakeable (importa solo lo que necesitas).   50M+ downloads/mes.   v3 soporta TypeScript nativamente.
-- **Luxon**: libreria moderna de fechas JavaScript por el autor de moment.  js.   Construida sobre la API Intl.   Timezone-aware.   15M+ downloads/mes.   Mejor API que moment.
-- **libphonenumber**: libreria de phone numbers de Google.   Porteada a 10+ lenguajes.
-- **decimal.js**: aritmetica decimal de precision arbitraria para JavaScript.   8M+ downloads/mes.
-- **ulid**: Universally Unique Lexicographically Sortable Identifier.   String de 26 caracteres.   Sortable por timestamp.   Sin coordinacion necesaria.
-- **commander.js**: framework CLI para Node.  js.   40M+ downloads/mes.   Subcomandos, opciones, generacion de help text.
-
-## Resumen de Best Practices
-
-- Almacena fechas en UTC. Convierte a locale del usuario solo en la capa de presentacion
-- Usa Decimal o centavos enteros para dinero. Nunca uses floating-point para calculos financieros
-- Normaliza URLs con la API URL nativa. Nunca parsees URLs con regex
-- Usa UUIDv4 o UUIDv7 para IDs unicos. Evita UUIDv1 (leakea MAC address y timestamp)
-- Pinea versiones de librerias de fechas y locale. Las bases de datos de timezone se actualizan frecuentemente
-- Testea formatting con edge cases: strings vacios, Unicode, transiciones DST, leap seconds
-## Tips de Optimizacion de Performance
-
-- Cachea strings de fecha formateados. strftime es caro cuando se llama millones de veces. Usa unctools.lru_cache para formatos repetidos
-- Para URL encoding, urllib.parse.quote(safe='') es mas rapido que encodeURIComponent en Python. Pre-encodea componentes staticos de URL
-- Para generacion de UUID, uuid.uuid4() usa os.urandom() que es 10x mas lento que andom.random(). Usa uuid.uuid4() para seguridad, andom para IDs no-security
-- Para formatting de phone numbers, cachea el objeto PhoneNumber parseado. Parsing es 5-10x mas lento que formatting
-- Para truncacion de texto, 	ext[:n] (string slice) es O(1) para ASCII. Para Unicode, usa 	ext.encode('utf-8')[:n].decode('utf-8', errors='ignore') para evitar romper caracteres multi-byte
-- Para formatting de dinero, pre-computa el simbolo de currency y separador decimal para cada locale. locale.currency() es 10x mas lento que formatting manual
-- Para generacion de QR codes, usa qrcode.make() para casos simples. Para generacion batch, reusaea el objeto QRCode y llama dd_data() + make() para cada code
-- Para parsing de argumentos CLI, sys.argv es 100x mas rapido que rgparse para casos simples. Usa rgparse solo cuando necesitas help text y validacion
-- Para aritmetica de fechas, datetime.timestamp() es mas rapido que datetime.strftime() para calculos de epoch. Usa enteros para math de fechas
-- Para parsing de URL, urllib.parse.urlparse() cachea resultados parseados. Reusaea el objeto ParseResult en lugar de re-parsing
-
-
-
-
-
-## Glosario
-
-- **URL Encoding**: técnica o patrón central descrito en este artículo.
-- **Producción**: entorno activo con usuarios reales; requiere monitoreo y rollback plan.
-- **Troubleshooting**: proceso sistemático para diagnosticar y resolver incidentes.
-
-## Referencia Rápida
-
-- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
-- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
-- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de data y encoding para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica url encoding** cuando necesites una solución práctica para data.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Preguntas frecuentes
-
-**P: ¿Cuál es la diferencia entre `encodeURI` y `encodeURIComponent`?**
-R: `encodeURI` es para URLs completas y preserva caracteres estructurales (`/`, `?`, `&`). `encodeURIComponent` es para componentes individuales y codifica todo incluyendo `&` y `=`.
-
-**P: ¿Debería codificar espacios como `+` o `%20`?**
-R: En query strings, `+` es tradicional pero `%20` también es válido. En paths, usa siempre `%20`.
-
-**P: ¿Cómo manejo arrays en query strings?**
-R: Usa notación de brackets: `?tags[]=js&tags[]=py` o repite la key: `?tags=js&tags=py`. Elige una convención y documenta.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+En JavaScript, usa `new URL(url).searchParams`. En Python, usa `parse_qs` o
+`parse_qsl` de `urllib.parse`. En Java, usa `URLDecoder.decode` en cada valor por
+separado, no en toda la URL.

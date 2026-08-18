@@ -1,0 +1,353 @@
+[
+  {
+    "label": "url-encoding-en",
+    "model": "desklib",
+    "model_ai_pct": 44.4,
+    "ai_count": 19,
+    "human_count": 33,
+    "skipped_count": 2,
+    "total": 54,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.3,
+      "stddev": 13.7,
+      "cv": 0.89,
+      "verdict": "natural variation",
+      "sentence_count": 52,
+      "lengths": [
+        15,
+        26,
+        22,
+        25,
+        23,
+        11,
+        7,
+        6,
+        6,
+        24,
+        26,
+        13,
+        19,
+        8,
+        12,
+        7,
+        9,
+        104,
+        20,
+        10,
+        10,
+        13,
+        16,
+        9,
+        20,
+        19,
+        5,
+        12,
+        11,
+        9,
+        15,
+        18,
+        12,
+        11,
+        9,
+        12,
+        10,
+        19,
+        20,
+        16,
+        19,
+        14,
+        12,
+        9,
+        6,
+        5,
+        8,
+        12,
+        20,
+        12,
+        8,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Using split() on a URL string instead of a proper URI parser such as\n  urllib.parse or new URL().",
+        0.8459
+      ],
+      [
+        "The right function depends on the language and the part of the URL you're\nbuilding:\n\n| Function | Encodes | Safe for |\n| --- | --- | --- |\n| encodeURIComponent (JS) | Everything ex",
+        0.8263
+      ],
+      [
+        "When you aren't sure which to use, %20 is the safer\noption.",
+        0.8249
+      ],
+      [
+        "Some\n  runtimes accept it, but the result isn't consistent.",
+        0.7411
+      ],
+      [
+        "In Java, call\nURLDecoder.decode on each value, not on the full URL string.",
+        0.6166
+      ],
+      [
+        "Parsing URLs to extract their query parameters.",
+        0.6031
+      ],
+      [
+        "* | Query strings where spaces become + |\n\nFor a deeper comparison of string parsing approaches, see\n[Regular Expressions](/recipes/regular-expressions/).",
+        0.5893
+      ],
+      [
+        "In JavaScript, use new URL(url).searchParams to get a parsed map of values.",
+        0.5757
+      ],
+      [
+        "In\nPython, use parse_qs or parse_qsl from urllib.parse.",
+        0.5747
+      ],
+      [
+        "URL encoding, or percent-encoding, converts characters into a format that a URL\ncan carry safely.",
+        0.5686
+      ],
+      [
+        "into\n%3F, so the server receives the value intact.",
+        0.5614
+      ],
+      [
+        "Using encodeURI for query values.",
+        0.5564
+      ],
+      [
+        "For example, caf\u00e9 becomes caf%C3%A9.",
+        0.5548
+      ],
+      [
+        "The unreserved\ncharacters (A-Z, a-z, 0-9, -, _, ., ~)\ncan appear as-is; everything else must be percent-encoded using the UTF-8 byte\nsequence of the character.",
+        0.5429
+      ],
+      [
+        "If you skip encoding user input before placing it in a URL, you risk broken\nlinks, open redirect vulnerabilities, and injection attacks.",
+        0.5353
+      ],
+      [
+        "If you're building an API\nclient, combine this recipe with [Input Validation](/recipes/input-validation/)\nand the [API Security Checklist](/guides/api-security-checklist-guide/) to",
+        0.5346
+      ],
+      [
+        "For example, the space character becomes %20 because its UTF-8 byte is 0x20.",
+        0.5154
+      ],
+      [
+        "Sending form data via GET requests.",
+        0.5153
+      ],
+      [
+        "Always encode user input before embedding it in a URL.",
+        0.5057
+      ],
+      [
+        "It replaces unsafe ASCII characters with a % followed by two\nhexadecimal digits, which is why it's essential for query parameters, path\nsegments, and form submissions.",
+        0.4989
+      ],
+      [
+        "encodeURI won't encode &, =, or ?,\n  so the query can break.",
+        0.4919
+      ],
+      [
+        "Reserved characters such as &, =, ?, #, /,\nand space are especially important because they carry structural meaning.",
+        0.4906
+      ],
+      [
+        "encodeURIComponent encodes almost everything, so\nit's the right choice for individual query values and path segments.",
+        0.4832
+      ],
+      [
+        "It means you encoded the value after\nit had already been encoded.",
+        0.4643
+      ],
+      [
+        "A URL can only carry a limited set of characters before the meaning becomes\nambiguous, because many byte values would be read as delimiters.",
+        0.4509
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "url-encoding-es",
+    "model": "desklib",
+    "model_ai_pct": 36.8,
+    "ai_count": 16,
+    "human_count": 39,
+    "skipped_count": 3,
+    "total": 58,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.6,
+      "stddev": 8.1,
+      "cv": 0.55,
+      "verdict": "natural variation",
+      "sentence_count": 55,
+      "lengths": [
+        20,
+        11,
+        15,
+        24,
+        23,
+        23,
+        13,
+        7,
+        7,
+        7,
+        12,
+        15,
+        13,
+        14,
+        18,
+        10,
+        12,
+        7,
+        9,
+        27,
+        25,
+        55,
+        22,
+        12,
+        10,
+        14,
+        16,
+        11,
+        23,
+        20,
+        6,
+        12,
+        13,
+        9,
+        16,
+        14,
+        5,
+        5,
+        18,
+        13,
+        9,
+        19,
+        21,
+        20,
+        19,
+        13,
+        11,
+        7,
+        7,
+        8,
+        11,
+        25,
+        5,
+        8,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Codificarlo convierte & en\n%26 y ?",
+        0.7845
+      ],
+      [
+        "* | Query strings (espacios \u2192 +) |\n\nPara una comparaci\u00f3n m\u00e1s profunda de enfoques de parsing de strings, consulta\n[Regular Expressions](/recipes/regular-expressions/).",
+        0.7416
+      ],
+      [
+        "Los caracteres reservados como &, =, ?,\n#, / y el espacio son especialmente importantes porque tienen significado\nestructural.",
+        0.6351
+      ],
+      [
+        "%2520 es el resultado de double-encoding de %20.",
+        0.6346
+      ],
+      [
+        "Por ejemplo, caf\u00e9 se convierte\nen caf%C3%A9.",
+        0.6195
+      ],
+      [
+        "Cualquier car\u00e1cter fuera del conjunto no reservado A-Z a-z 0-9 - _ .",
+        0.5997
+      ],
+      [
+        "Prefiere URLSearchParams en JavaScript moderno para construir queries de forma\n  segura.",
+        0.5862
+      ],
+      [
+        "| Funci\u00f3n | Codifica | Seguro para |\n| --- | --- | --- |\n| encodeURIComponent (JS) | Todo excepto A-Z a-z 0-9 - _ .",
+        0.5778
+      ],
+      [
+        "Parsear URLs y extraer par\u00e1metros de query.",
+        0.5777
+      ],
+      [
+        "El conjunto no reservado (A-Z, a-z, 0-9, -, _, ., ~) puede aparecer\ntal cual.",
+        0.5653
+      ],
+      [
+        "dentro de un\nvalor se leer\u00eda como delimitador de query o path.",
+        0.5632
+      ],
+      [
+        "En JavaScript, usa new URL(url).searchParams.",
+        0.5525
+      ],
+      [
+        "Usar encodeURI para valores de query.",
+        0.5406
+      ],
+      [
+        "Todo lo dem\u00e1s debe codificarse con percent-encoding usando la secuencia\nUTF-8 del car\u00e1cter.",
+        0.537
+      ],
+      [
+        "Parsear URLs con split de strings en lugar de un parser de URI apropiado.",
+        0.5345
+      ],
+      [
+        "En query strings, muchos servidores aceptan + por los formularios HTML, y\nurlencode en Python emite + por defecto.",
+        0.5103
+      ],
+      [
+        "Enviar datos de formulario v\u00eda requests GET.",
+        0.4775
+      ],
+      [
+        "Por eso es esencial para\npar\u00e1metros de query, segmentos de path y env\u00edos de formularios.",
+        0.4724
+      ],
+      [
+        "~ debe\ncodificarse antes de ir en una URL.",
+        0.459
+      ],
+      [
+        "en %3F, as\u00ed el servidor recibe el valor intacto.",
+        0.4342
+      ],
+      [
+        "Olvidar codificar el input del usuario, lo que causa URLs malformadas o\n  inyecci\u00f3n.",
+        0.3935
+      ],
+      [
+        "Codificar nombres de archivo o IDs antes de colocarlos en paths de URL.",
+        0.3828
+      ],
+      [
+        "Una URL solo puede transportar un conjunto limitado de caracteres sin ambig\u00fcedad.",
+        0.3804
+      ],
+      [
+        "En Java, usa URLDecoder.decode en cada valor por\nseparado, no en toda la URL.",
+        0.3492
+      ],
+      [
+        "Usa esta receta cuando construyas o parses URLs con datos en vivo:\nConstruir query strings con valores que vienen de\n  [input de usuario](/recipes/input-validation/).",
+        0.349
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
