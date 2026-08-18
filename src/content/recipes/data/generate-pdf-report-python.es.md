@@ -2,7 +2,7 @@
 contentType: recipes
 slug: generate-pdf-report-python
 title: "Generar Reportes PDF con Python"
-description: "Cómo crear documentos PDF con estilos a partir de datos usando ReportLab y fpdf2 en Python."
+description: "Crea documentos PDF con estilos a partir de datos usando ReportLab y fpdf2 en Python."
 metaDescription: "Genera reportes PDF en Python con ReportLab y fpdf2. Crea documentos con estilos, tablas y gráficos desde datos con ejemplos de código."
 difficulty: intermediate
 topics:
@@ -10,17 +10,19 @@ topics:
 tags:
   - pdf
   - python
+  - reportlab
+  - fpdf2
   - data-processing
   - report
+  - pandas
 relatedResources:
+  - /recipes/parse-csv-python-pandas
+  - /recipes/python-excel-read-write
   - /recipes/convert-csv-to-json
   - /recipes/convert-json-to-csv
-  - /recipes/merge-json-files
-  - /recipes/parse-csv-files
-  - /recipes/parse-csv-python-pandas
   - /recipes/python-generate-qr-code
-  - /recipes/python-excel-read-write
-lastUpdated: "2026-07-01"
+  - /recipes/parse-csv-files
+lastUpdated: "2026-08-18"
 publishedAt: "2026-07-01"
 author: Mathias Paulenko
 seo:
@@ -31,20 +33,23 @@ seo:
     - fpdf2 python
     - reportes pdf datos
     - python pdf generation
-
-
-
+    - pandas
 ---
+
 ## Visión General
 
-Generar reportes PDF a partir de datos es un requerimiento común para facturas, dashboards de analytics y reportes automatizados. Python tiene dos librerías principales para esto: ReportLab (con muchas funciones, control de bajo nivel) y fpdf2 (ligero, API más simple). Esta recipe cubre ambos enfoques con ejemplos prácticos.
+La mayoría de los equipos termina necesitando convertir datos en un PDF: una
+factura, un resumen semanal de ventas o un certificado. Python maneja esto bien
+con dos librerías principales: ReportLab, que da control completo sobre el
+layout, y fpdf2, que es más liviana y rápida de empezar a usar. Esta receta cubre
+ambas con ejemplos funcionales.
 
 ## Cuándo Usar
 
-- Necesitas generar facturas, recibos o reportes financieros
-- Estás construyendo pipelines de reportes automatizados (resúmenes diarios/semanales)
-- Necesitas exportar tablas de datos con formato a PDF
-- Quieres crear certificados o documentos imprimibles desde plantillas
+Usá estas librerías cuando necesites generar facturas, recibos o reportes
+financieros; construir pipelines de reportes automatizados como resúmenes diarios
+o semanales; exportar tablas de datos con formato a PDF; o crear certificados y
+documentos imprimibles a partir de plantillas.
 
 ## Solución
 
@@ -57,11 +62,11 @@ pdf = FPDF()
 pdf.add_page()
 pdf.set_font("Helvetica", size=12)
 
-pdf.cell(200, 10, text="Sales Report", new_x="LMARGIN", new_y="NEXT", align="C")
+pdf.cell(200, 10, txt="Sales Report", new_x="LMARGIN", new_y="NEXT", align="C")
 pdf.ln(10)
 
-pdf.cell(200, 10, text="Total Revenue: $15,430", new_x="LMARGIN", new_y="NEXT")
-pdf.cell(200, 10, text="Orders: 247", new_x="LMARGIN", new_y="NEXT")
+pdf.cell(200, 10, txt="Total Revenue: $15,430", new_x="LMARGIN", new_y="NEXT")
+pdf.cell(200, 10, txt="Orders: 247", new_x="LMARGIN", new_y="NEXT")
 
 pdf.output("report.pdf")
 ```
@@ -75,19 +80,34 @@ from reportlab.lib.units import cm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
 from reportlab.lib import colors
 
-doc = SimpleDocTemplate("report.pdf", pagesize=A4, topMargin=2*cm, bottomMargin=2*cm)
+doc = SimpleDocTemplate(
+    "report.pdf",
+    pagesize=A4,
+    topMargin=2 * cm,
+    bottomMargin=2 * cm
+)
 
 styles = getSampleStyleSheet()
-title_style = ParagraphStyle("CustomTitle", parent=styles["Title"], fontSize=18, textColor=colors.HexColor("#1a56db"))
-body_style = ParagraphStyle("CustomBody", parent=styles["Normal"], fontSize=10, leading=14)
+title_style = ParagraphStyle(
+    "CustomTitle",
+    parent=styles["Title"],
+    fontSize=18,
+    textColor=colors.HexColor("#1a56db")
+)
+body_style = ParagraphStyle(
+    "CustomBody",
+    parent=styles["Normal"],
+    fontSize=10,
+    leading=14
+)
 
-elements = []
-elements.append(Paragraph("Monthly Sales Report", title_style))
-elements.append(Spacer(1, 0.5 * cm))
-elements.append(Paragraph("Generated on 2026-07-01", body_style))
-elements.append(Spacer(1, 1 * cm))
+elements = [
+    Paragraph("Monthly Sales Report", title_style),
+    Spacer(1, 0.5 * cm),
+    Paragraph("Generated on 2026-07-01", body_style),
+    Spacer(1, 1 * cm),
+]
 
-# Tabla de datos
 data = [
     ["Region", "Orders", "Revenue"],
     ["North", "82", "$5,210"],
@@ -95,7 +115,7 @@ data = [
     ["East", "100", "$6,040"],
 ]
 
-table = Table(data, colWidths=[5*cm, 3*cm, 4*cm])
+table = Table(data, colWidths=[5 * cm, 3 * cm, 4 * cm])
 table.setStyle([
     ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1a56db")),
     ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
@@ -104,8 +124,8 @@ table.setStyle([
     ("GRID", (0, 0), (-1, -1), 0.5, colors.grey),
     ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#f1f5f9")]),
 ])
-elements.append(table)
 
+elements.append(table)
 doc.build(elements)
 ```
 
@@ -133,217 +153,145 @@ table.setStyle(TableStyle([
 doc.build([table])
 ```
 
-### Agregar headers y footers
+### Agregar encabezado y pie de página
 
 ```python
 from reportlab.lib.pagesizes import A4
 from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
 
 def add_header_footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("Helvetica", 8)
     canvas.drawString(2 * cm, 1 * cm, "StackPractices Report")
-    canvas.drawRightString(A4[0] - 2 * cm, 1 * cm, f"Page {doc.page}")
+    canvas.drawRightString(
+        A4[0] - 2 * cm,
+        1 * cm,
+        f"Page {doc.page}"
+    )
     canvas.restoreState()
 
 doc = SimpleDocTemplate("report.pdf", pagesize=A4)
-doc.build([Paragraph("Content here", getSampleStyleSheet()["Normal"])], onFirstPage=add_header_footer, onLaterPages=add_header_footer)
+content = Paragraph("Content here", getSampleStyleSheet()["Normal"])
+doc.build(
+    [content],
+    onFirstPage=add_header_footer,
+    onLaterPages=add_header_footer
+)
+```
+
+### Agregar un gráfico
+
+```python
+import matplotlib.pyplot as plt
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Image, Spacer
+from reportlab.lib.units import cm
+
+# Renderizar el gráfico a un archivo PNG
+fig, ax = plt.subplots(figsize=(6, 3))
+ax.bar(["North", "South", "East"], [5210, 4180, 6040])
+ax.set_title("Revenue by Region")
+fig.savefig("chart.png", format="png", bbox_inches="tight")
+plt.close(fig)
+
+doc = SimpleDocTemplate("report_with_chart.pdf", pagesize=A4)
+img = Image("chart.png", width=15 * cm, height=7 * cm)
+doc.build([img, Spacer(1, 1 * cm)])
 ```
 
 ## Explicación
 
-fpdf2 es más simple y bueno para documentos con mucho texto sin layouts complejos. Usa un enfoque basado en celdas similar a escribir texto en una grilla.
+fpdf2 es más chica y sirve para documentos con mucho texto sin layouts complejos.
+Distribuye el contenido a través de celdas, similar a escribir texto en una
+grilla.
 
-ReportLab usa un sistema basado en flowables. Construyes una lista de elementos (Paragraphs, Tables, Spacers) y el motor maneja saltos de página, wrapping y layout. Esto te da más control pero tiene una curva de aprendizaje más pronunciada.
+ReportLab usa un sistema basado en flowables. Construís una lista de elementos —
+Paragraphs, Tables, Spacers, Images — y el motor se encarga de saltos de página,
+wrapping y layout. Ese poder extra también hace que la curva de aprendizaje sea
+más pronunciada.
 
-Para reportes basados en datos, el patrón es: cargar datos con pandas, agregarlos, convertir a lista de listas y alimentar a un Table de ReportLab. Esto te permite ir de CSV a PDF en menos de 30 líneas de código.
+Para reportes basados en datos, el patrón habitual es: cargar datos con pandas,
+agregarlos, convertirlos a una lista de listas y alimentar un Table de
+ReportLab. Si los datos vienen de una hoja de cálculo, consultá
+[Python Excel Read Write](/recipes/python-excel-read-write/) para la etapa de
+extracción. Para reportes con muchos gráficos, renderizá el gráfico con
+matplotlib y embebelo como imagen en el PDF.
 
 ## Variantes
 
-| Librería | Complejidad | Mejor Para | Dependencias |
-|---------|------------|------------|--------------|
-| fpdf2 | Baja | Documentos de texto simples | `pip install fpdf2` |
-| ReportLab | Media | Tablas, gráficos, reportes con estilo | `pip install reportlab` |
-| WeasyPrint | Media | HTML/CSS a PDF | `pip install weasyprint` |
-| matplotlib | Alta | PDFs solo con gráficos | `pip install matplotlib` |
+Elegí la librería según la complejidad del documento. Para facturas o texto de
+una sola página, fpdf2 (`pip install fpdf2`) suele ser suficiente. Para tablas,
+encabezados, pies de página o reportes multi-página con estilo, usá ReportLab
+(`pip install reportlab`). Para embeber gráficos renderizados con matplotlib,
+combiná las dos (`pip install matplotlib reportlab`). Si el reporte ya está
+armado como HTML y CSS, WeasyPrint (`pip install weasyprint`) lo renderiza
+directamente a PDF.
 
-## Pautas
+## Mejores Prácticas
 
-- Usa fpdf2 para facturas simples o reportes de texto. Menos overhead, más rápido de escribir.
-- Usa ReportLab cuando necesitas tablas, headers/footers o layouts multi-página.
-- Convierte DataFrames a listas antes de pasarlos a Tables de ReportLab para un render limpio.
-- Define tamaños de fuente y márgenes explícitamente. Los márgenes default de ReportLab son ajustados.
-- Usa `SimpleDocTemplate` para la mayoría de casos. Solo usa `BaseDocTemplate` si necesitas plantillas de página custom.
+- Para facturas simples o reportes de texto, fpdf2 suele ser suficiente. Necesita
+  menos código y menos dependencias que ReportLab.
+- Usá ReportLab cuando necesites tablas, encabezados, pies de página o layouts de
+  varias páginas.
+- Convertí DataFrames a listas antes de pasarlos a Tables de ReportLab para un
+  render limpio.
+- Definí tamaños de fuente y márgenes explícitamente. Los márgenes default de
+  ReportLab son ajustados.
+- Usá `SimpleDocTemplate` para la mayoría de los casos. Solo recurrí a
+  `BaseDocTemplate` si necesitás plantillas de página personalizadas.
+- Embebebé gráficos como imágenes cuando necesites visualizaciones; renderizar
+  directamente en el canvas del PDF es más difícil de mantener.
 
 ## Errores Comunes
 
-- Olvidar llamar `pdf.output()` o `doc.build()`. El archivo no se escribe hasta que lo haces.
-- Usar fpdf2 para tablas complejas. Le falta styling de tablas; cambia a ReportLab.
-- No manejar Unicode. fpdf2 necesita `pdf.set_font("Helvetica")` y puede requerir hints de encoding para texto no latino.
-- Hardcodear datos en vez de leer desde una fuente. Construye reportes desde archivos de datos o APIs.
-- Ignorar el tamaño de página. A4 y Letter tienen dimensiones distintas; elige uno explícitamente.
-
-## Cuando No Usar Este Enfoque
-
-- **Datos de streaming en tiempo real**: si los datos llegan continuamente en chunks pequeÃ±os, el parsing batch es el modelo equivocado.
-- **Archivos mas grandes que la RAM disponible**: parsear un CSV de 50GB con pandas.  read_csv() crashea con MemoryError.
-- **Consultas estructuradas a base de datos**: si la fuente de datos es una base de datos, extraer a CSV/JSON primero y luego parsear es desperdicio.
-- **Lookups simples key-value**: para leer un archivo de config pequeÃ±o (10-20 keys), un parser completo es excesivo.  loads() o csv.
-- **Formatos binarios con librerias dedicadas**: si el archivo es Parquet, Avro u ORC, no lo parsees como CSV/JSON.
-- **Compliance regulatorio que requiere audit trails**: si el procesamiento de datos debe producir un audit trail, los scripts de parsing ad-hoc carecen de trazabilidad.
-
-## Benchmarks de Rendimiento
-
-- **Throughput de parsing CSV**: el modulo csv de Python procesa 100-500 MB/s para rows simples.   pandas.  read_csv() logra 200-800 MB/s con engine='c'.
-- **Latencia de parsing JSON**: json.  loads() en Python parsea 10MB JSON en 50-200ms.   orjson parsea el mismo archivo en 10-30ms.   JSON.
-- **Parsing Excel**: openpyxl lee un Excel de 10,000 rows en 2-5 segundos.   pandas.  read_excel() con engine openpyxl toma 3-8 segundos.   xlrd (legacy .
-- **Parsing XML**: ElementTree parsea 1MB XML en 10-50ms.   lxml (basado en C) parsea el mismo archivo en 2-10ms.
-- **Uso de memoria**: pandas.   Un CSV de 100MB se convierte en 500MB-1GB en un DataFrame.
-- **Parsing paralelo**: leer 4 archivos CSV en paralelo con concurrent.  futures.  ThreadPoolExecutor logra 3x throughput en maquinas de 4 cores.
-
-## Estrategia de Testing
-
-- **Test con input malformado**: verifica que el parser maneje rows rotos, columnas faltantes, errores de encoding (BOM, UTF-16) y archivos vacios sin crashear.
-- **Test de fidelidad round-trip**: parsea un archivo, serializa de vuelta, y compara.
-- **Test con archivos grandes**: crea un archivo sintetico de 1GB+ y verifica que el parser complete dentro de los limites de memoria.
-- **Test de manejo de encoding**: verifica que el parser maneje UTF-8, UTF-16, Latin-1 y archivos con BOM.
-- **Test de inferencia de delimitador**: Verifica que csv.
-- **Test de acceso concurrente**: si multiples procesos parsean el mismo archivo, verifica que no haya race conditions.
-
-## Estimacion de Costos
-
-- **Costo de compute**: parsear 1TB de archivos CSV en una VM cloud cuesta -10 en compute (dependiendo del tipo de instancia).
-- **Costo de memoria**: el parsing en memoria de archivos grandes requiere instancias high-memory.   Un CSV de 10GB necesita una instancia de 32GB+ RAM (.  50-2.  00/hora en AWS).   La lectura en chunks reduce esto a instancias de 4GB (.  10-0.
-- **Costo de almacenamiento**: los archivos JSON intermedios son 2-5x mas grandes que CSV.   Convertir 1TB CSV a JSON requiere 2-5TB almacenamiento (-50/mes en S3).
-- **Tiempo de desarrollo**: escribir un parser robusto con manejo de errores, deteccion de encoding y type inference toma 4-8 horas.
-- **Infraestructura para jobs batch**: los jobs de parsing programados necesitan una instancia de compute, job scheduler y alerting de errores.
-
-## Monitoring y Observabilidad
-
-- **Tasa de errores de parsing**: Alerta cuando la tasa de error excede 1% del total.
-- **Duracion de parsing**: Un aumento de 3x desde el baseline indica archivos mas grandes o degradacion de performance.
-- **Uso de memoria durante parsing**: monitorea el peak de memoria durante el parsing de archivos.
-- **Validacion de conteo de rows**: Una caida significativa indica perdida silenciosa de datos.
-- **Deteccion de schema drift**: loguea nombres de columnas y tipos en cada parse.   Alerta cuando columnas aparecen, desaparecen o cambian de tipo.
-
-## Deployment Checklist
-
-- [ ] Setear limites de tamaÃ±o de archivo: rechazar archivos mas grandes que el maximo configurado (ej. 10GB) para prevenir OOM. Retornar HTTP 413 para uploads via API
-- [ ] Configurar deteccion de encoding: usa chardet o cchardet para deteccion automatica de encoding. Default a UTF-8 pero falla a Latin-1 para archivos legacy
-- [ ] Setear limites de memoria: usa lectura en chunks para archivos >500MB. Configura chunksize en pandas o stream line-by-line para CSV
-- [ ] Implementar logica de retry: errores I/O transitorios (network storage, S3) requieren exponential backoff. Setea max 3 retries con delays de 5-30 segundos
-- [ ] Configurar manejo de errores: decide si saltar rows malas (loguear y continuar) o fail fast. Para pipelines de datos, saltar con logging es usualmente preferido
-- [ ] Setear timeouts: el parsing debe tener una duracion maxima. Mata procesos que excedan 2x el tiempo esperado de parse para prevenir agotamiento de recursos
-
-## Consideraciones de Seguridad
-
-- **Zip bomb via archivos comprimidos**: un ZIP de 10MB puede descomprimirse a 100GB.   Setea limites de tamaÃ±o descomprimido antes de extraer.
-- **Inyeccion XXE (XML External Entity)**: los parsers XML que resuelven entidades externas pueden leakear archivos locales o realizar SSRF.
-- **Inyeccion de formulas via CSV**: archivos Excel y CSV pueden contener formulas empezando con =, +, - o @.   Al abrirse en Excel, estas ejecutan formulas arbitrarias.
-- **Path traversal via nombres de archivo**: si los nombres de archivo vienen de input del usuario, ..  /..  /etc/passwd puede escapar del directorio intencionado.  path.  basename() o pathlib.  Path.
-- **Agotamiento de memoria via archivos grandes**: un atacante puede subir un archivo de 100GB para crashear el parser.
-- **Inyeccion de codigo via eval en datos parseados**: si los datos parseados se pasan a eval(), exec() o Function(), un atacante puede inyectar codigo arbitrario.   Nunca evalues datos parseados.
-- **Bypass basado en encoding**: encoding UTF-7 o UTF-16 puede bypassar filtros de seguridad que esperan UTF-8.
-- **Contenido PDF malicioso**: archivos PDF pueden contener JavaScript, archivos embebidos o acciones de launch.
-- **Inyeccion de logs via newlines en datos parseados**: si los datos parseados se escriben a archivos de log, newlines embebidos pueden forjar entradas de log.
-- **Agotamiento de recursos via estructuras profundamente anidadas**: JSON o XML con 10,000+ niveles de nesting causa stack overflow en parsers recursivos.
-## Variantes y Alternativas
-
-- **Parsers streaming vs batch**: los parsers streaming (SAX, StAX, ijson) procesan dato por dato con memoria O(1).   Los parsers batch (DOM, ElementTree, json.  loads) cargan todo en memoria.
-- **Formatos columnares vs row-based**: Parquet y ORC almacenan datos columna por columna, habilitando column pruning y 10-50x mejor compresion para queries analiticos.
-- **Formatos binarios vs texto**: Protocol Buffers, Avro y MessagePack son 3-10x mas pequeÃ±os que JSON/CSV y parsean 2-5x mas rapido.
-- **I/O mapeado a memoria vs I/O bufferizado**: mmap mapea archivos directamente al espacio de direcciones del proceso, evitando overhead de copia.
-- **Estrategias de parsing paralelo**: divide archivos grandes por byte ranges y parsea chunks en paralelo.   Para CSV, encuentra boundaries de newline antes de dividir.
-- **Enfoques hibridos**: usa un scanner rapido para extraer metadata (headers, conteo de rows, schema) antes del parsing completo.
-
-## Pitfalls Comunes en Produccion
-
-- **Fallos de deteccion de encoding**: Para archivos <1KB, defaulta a UTF-8 en lugar de depender de deteccion.
-- **Inconsistencia de delimitadores**: archivos CSV europeos usan punto y coma.   Archivos US usan comma.   Archivos tab-delimited de Excel usan tabs.   Siempre detecta el delimitador con csv.
-- **Manejo de campos entre comillas**: campos CSV que contienen el delimitador deben ir entre comillas.   Las comillas embebidas deben duplicarse.
-- **Ambiguedad de formato de fecha**:  1/02/2024 es 2 de enero en US y 1 de febrero en Europa.   Siempre parsea fechas con format strings explicitos.
-- **Precision de floating-point en CSV**: escribir  .  1 a CSV y leerlo de vuelta puede producir  .  10000000000000001.
-- **Presion de memoria por archivos Excel grandes**: openpyxl carga el workbook entero en memoria.   Un Excel de 50MB puede usar 500MB+ de RAM.
-ead_only=True o la API streaming de openpyxl para workbooks grandes
-## Patrones de Integracion
-
-- **Integracion con pipeline ETL**: Lee de archivos (extract), transforma con pandas/Polars (transform), escribe a base de datos o data warehouse (load).
-- **Procesamiento de archivos via API**: Retorna un job ID para status polling.
-- **Procesamiento batch vs micro-batch**: batch processing corre nocturnamente en todos los archivos.   Micro-batch procesa archivos cada 15-30 minutos.   Micro-batch reduce latencia pero aumenta costo de infraestructura.
-- **Integracion con schema registry**: registra schemas de archivos en un schema registry (Confluent, Apicurio).   Valida archivos contra el registry antes de procesar.
-- **Patron data lake**: Escribe resultados a un data warehouse (Snowflake, BigQuery).
-- **Procesamiento de archivos event-driven**: cuando un archivo llega a S3, S3 Event Notifications triggera una funcion Lambda.   La funcion parsea el archivo y escribe resultados a una base de datos.
-
-## Manejo de Errores y Recuperacion
-
-- **Procesamiento parcial de archivos**: si un archivo tiene 10,000 rows y la row 5,000 esta malformada, procesa rows 1-4,999, loguea el error, salta la row 5,000, y continua con rows 5,001-10,000.
-- **Dead letter queue para archivos**: archivos que fallan al procesarse van a una dead letter queue (S3 bucket, message queue).   Un proceso separado los reintenta con exponential backoff.
-- **Checkpointing para archivos grandes**: registra el byte offset del ultimo procesado exitosamente.   Si el procesamiento crashea, resumea desde el checkpoint en lugar de reprocesar el archivo entero.
-- **Procesamiento idempotente de archivos**: procesar el mismo archivo dos veces debe producir el mismo resultado.
-- **Circuit breaker para dependencias externas**: si la fuente de archivos (FTP, S3, API) esta caida, abre un circuit breaker despues de 5 fallos consecutivos.   Deja de intentar lecturas por 5 minutos, luego prueba de nuevo.
-- **Degradacion graceful**: si un parser no critico falla (ej.   extraccion de metadata), continua procesando con los datos core.   Loguea el fallo pero no bloquees el pipeline.
-## Tooling y Ecosistema
-
-- **pandas**: la libreria estandar de Python para datos tabulares.   50M+ downloads/mes.   El overhead de memoria es 5-10x el tamaÃ±o del archivo.
-- **Polars**: 2-10x mas rapido que pandas con lazy evaluation.   Escrito en Rust.   Menor uso de memoria.   Reemplazo drop-in para la mayoria de operaciones de pandas.
-- **DuckDB**: base de datos analitica in-process.   Queryea CSV/Parquet/JSON directamente con SQL.   Sin servidor.   2-5x mas rapido que pandas para queries de agregacion.
-- **Apache Arrow**: formato columnar in-memory.   Lecturas zero-copy desde Parquet.   Agnostico del lenguaje (Python, R, Java, JS).   Fundacion para tools modernos de datos (pandas 2.
-- **jq**: procesador de JSON command-line.   Filtra, transforma y queryea JSON con un DSL compacto.   Esencial para pipelines de shell y debugging de respuestas API.
-- **csvkit**: herramientas command-line para archivos CSV.   csvstat muestra estadisticas, csvcut selecciona columnas, csvjoin mergea archivos.
-
-## Resumen de Best Practices
-
-
-- For a deeper guide, see [Convert CSV to JSON](/es/recipes/convert-csv-to-json/).
-
-- Siempre especifica encoding explicitamente (encoding='utf-8'). Nunca confies en defaults del sistema
-- Usa lectura en chunks para archivos >500MB. Setea chunksize en pandas o itera line-by-line
-- Valida la estructura del archivo antes del parsing completo. Chequea headers, conteo de rows y tamaÃ±o del archivo
-- Loguea errores de parse con nombre de archivo, numero de linea y mensaje de error para debugging
-- Usa parsers streaming (SAX, ijson) para archivos >1GB para mantener memoria constante
-- Comprime archivos intermedios con gzip o zstd. Parquet es 10-20x mas pequeÃ±o que CSV
-
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica generar reportes pdf con python** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+- Olvidar llamar `pdf.output()` o `doc.build()`. No se escribe nada hasta que lo
+  hagás.
+- Usar fpdf2 para tablas complejas. Le falta estilo de tablas; cambiá a
+  ReportLab.
+- No manejar Unicode. fpdf2 necesita una fuente que realmente contenga los
+  caracteres que usás. Para texto no latino, cargá una fuente TrueType a través de
+  `pdf.add_font()` y activala con `pdf.set_font()`.
+- Hardcodear datos en lugar de leer desde una fuente. Construí reportes desde
+  archivos de datos o APIs.
+- Ignorar el tamaño de página. A4 y Letter tienen dimensiones distintas; elegí
+  uno explícitamente.
+- Olvidar cerrar o hacer `seek` del buffer de matplotlib antes de embeber la
+  imagen.
 
 ## Preguntas Frecuentes
 
 ### ¿Cómo agrego imágenes a un PDF?
 
-Con ReportLab, usa `from reportlab.platypus import Image` y agrega `Image("chart.png", width=15*cm, height=8*cm)` a tu lista de elementos.
+En ReportLab, importá `Image` y agregá `Image("chart.png", width=15*cm,
+height=8*cm)` a tu lista de elementos. En fpdf2, llamá `pdf.image("chart.png",
+x=10, y=20, w=100)` para colocar la imagen.
 
 ### ¿Puedo generar PDFs desde HTML en Python?
 
-Sí. WeasyPrint convierte HTML/CSS a PDF con buena fidelidad. Es más pesado que fpdf2 pero maneja layouts complejos bien.
+Sí. WeasyPrint convierte HTML y CSS a PDF con buena fidelidad. Es más pesado que
+fpdf2 pero maneja layouts complejos bien.
 
 ### ¿Cómo agrego números de página?
 
-Usa los callbacks `onFirstPage` y `onLaterPages` en `doc.build()` como se muestra en el ejemplo de header/footer arriba.
+Usá los callbacks `onFirstPage` y `onLaterPages` de `doc.build()`, como se muestra
+en el ejemplo de encabezado y pie de página.
 
-### ¿Cómo creo un layout multi-columna?
+### ¿Cómo creo un layout de varias columnas?
 
-ReportLab soporta frames y templates via `BaseDocTemplate`. Define múltiples frames en una página y asigna flowables a cada uno. Es más complejo pero da layouts estilo revista.
+ReportLab soporta frames y templates a través de `BaseDocTemplate`. Definí
+varios frames en una página y asigná flowables a cada uno. Es más complejo pero
+permite layouts estilo revista.
 
-## Errores Comunes en Producción
+### ¿Puedo usar una fuente custom con fpdf2?
 
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Sí. Descargá un archivo TTF, llamá `pdf.add_font("DejaVu", "",
+"DejaVuSans.ttf")`, luego `pdf.set_font("DejaVu", size=12)`. Esta es la forma más
+simple de soportar Unicode y scripts no latinos.
+
+### ¿Cómo repito un encabezado en cada página?
+
+Usá un `PageTemplate` con un `Frame` y dibujá el encabezado en el callback
+`onPage` de `doc.build()`. Alternativamente, usá `SimpleDocTemplate` con
+`onFirstPage` y `onLaterPages` como una solución liviana.

@@ -148,21 +148,21 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.6% / ES 38.3% (0 patterns)
    - Words: 2,065 | Meta: 152 chars
 
-18. - [ ] **generate-pdf-report-python** (recipes)
+18. - [x] **generate-pdf-report-python** (recipes)
    - Metrics: 70 imp | pos 26.5 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/generate-pdf-report-python/
    - ES: https://stackpractices.com/es/recipes/generate-pdf-report-python/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,775 | Meta: 140 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.9% / ES 35.1% (0 patterns)
+   - Words: 1,326 | Meta: 140 chars
 
-19. - [ ] **go-rest-api-gin** (recipes)
+19. - [x] **go-rest-api-gin** (recipes)
    - Metrics: 66 imp | pos 30 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/go-rest-api-gin/
    - ES: https://stackpractices.com/es/recipes/go-rest-api-gin/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,795 | Meta: 160 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.3% / ES 30.9% (0 patterns)
+   - Words: 1,599 | Meta: 160 chars
 
 20. - [ ] **llm-fine-tuning** (recipes)
    - Metrics: 53 imp | pos 29.3 | CTR 0.00% | Δ impr 6

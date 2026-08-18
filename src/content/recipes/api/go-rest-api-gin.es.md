@@ -2,354 +2,397 @@
 contentType: recipes
 slug: go-rest-api-gin
 title: "REST API en Go con Gin y Middleware"
-description: "Construye APIs REST production-ready en Go usando el framework Gin con middleware custom para logging, autenticacion, validacion y manejo de errores"
-metaDescription: "Construye APIs REST production-ready en Go con Gin. Implementa middleware custom para logging, auth, validacion y manejo de errores en servicios de alto rendimiento."
+description: "Construye APIs REST production-ready en Go usando el framework Gin con middleware custom para logging, autenticación, validación y manejo de errores."
+metaDescription: "Construye APIs REST production-ready en Go con Gin. Implementa middleware custom para logging, auth, validación y manejo de errores en servicios de alto rendimiento."
 difficulty: intermediate
 topics:
   - api
   - devops
 tags:
   - golang
+  - gin
   - api
   - rest
-  - microservices
+  - middleware
   - http
 relatedResources:
   - /recipes/server-sent-events-go
-  - /patterns/ambassador-pattern-services
-  - /recipes/grpc-services-typescript
   - /recipes/api-rate-limiting-redis
   - /recipes/cursor-pagination-postgresql
+  - /patterns/chain-of-responsibility-middleware
   - /recipes/express-middleware-patterns
   - /recipes/data-validation-zod
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-18"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Construye APIs REST production-ready en Go con Gin. Implementa middleware custom para logging, auth, validacion y manejo de errores en servicios de alto rendimiento."
+  metaDescription: "Construye APIs REST production-ready en Go con Gin. Implementa middleware custom para logging, auth, validación y manejo de errores en servicios de alto rendimiento."
   keywords:
     - golang api
     - gin framework
     - rest api go
     - middleware
     - go microservices
-
-
-
-
-
-
+    - gin
 ---
-Construye APIs REST de alto rendimiento en Go usando el framework Gin. Esta recipe cubre routing, middleware custom para cross-cutting concerns, validacion de requests, manejo estructurado de errores y graceful shutdown usados en microservicios de produccion.
 
-## Cuando Usar Esto
+## Visión General
 
-- Necesitas un framework HTTP rapido y liviano para servicios en Go
-- Cross-cutting concerns (logging, auth, metrics) deben ser reusables entre endpoints
-- La API funciona como backend para SPAs o aplicaciones mobile. Consulta [Llamar REST API](/recipes/call-rest-api/) para patrones de cliente.
+Gin es un framework HTTP rápido y de baja asignación de memoria para Go. Agrega
+routing, cadenas de middleware reutilizables, binding de requests y manejo de
+errores sobre el paquete estándar `net/http`. Esta receta muestra cómo construir
+una API REST pequeña pero lista para producción, con middleware custom,
+validación, errores estructurados y graceful shutdown.
 
-## Solucion
+## Cuándo Usar
 
-### 1. Setup Basico del Servidor
+- Necesitás un framework HTTP rápido y liviano para servicios en Go.
+- Los cross-cutting concerns como logging, auth y métricas deben ser reutilizables
+  entre endpoints.
+- La API sirve a SPAs, clientes mobile u otros backends. Consultá
+  [Llamar REST API](/recipes/call-rest-api/) para patrones de cliente.
+
+## Solución
+
+### Setup básico del servidor
 
 ```go
 // main.go
 package main
 
 import (
-	"net/http"
-	"github.com/gin-gonic/gin"
+    "net/http"
+
+    "github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := gin.New()
-	r.Use(gin.Recovery())
+    r := gin.New()
+    r.Use(gin.Recovery())
 
-	api := r.Group("/api/v1")
-	{
-		api.GET("/users", listUsers)
-		api.GET("/users/:id", getUser)
-		api.POST("/users", createUser)
-	}
+    api := r.Group("/api/v1")
+    {
+        api.GET("/users", listUsers)
+        api.GET("/users/:id", getUser)
+        api.POST("/users", createUser)
+    }
 
-	r.Run(":8080")
+    r.Run(":8080")
 }
 
 func listUsers(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"users": []string{"alice", "bob"}})
+    c.JSON(http.StatusOK, gin.H{"users": []string{"alice", "bob"}})
+}
+
+func getUser(c *gin.Context) {
+    id := c.Param("id")
+    c.JSON(http.StatusOK, gin.H{"id": id})
 }
 ```
 
-### 2. [Middleware](/patterns/chain-of-responsibility-middleware/) Custom
+### Middleware custom
 
 ```go
 // middleware/logger.go
 package middleware
 
 import (
-	"time"
-	"github.com/gin-gonic/gin"
-	"log"
+    "log"
+    "time"
+
+    "github.com/gin-gonic/gin"
 )
 
 func Logger() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		start := time.Now()
-		path := c.Request.URL.Path
+    return func(c *gin.Context) {
+        start := time.Now()
+        path := c.Request.URL.Path
 
-		c.Next()
+        c.Next()
 
-		latency := time.Since(start)
-		status := c.Writer.Status()
-		log.Printf("[%s] %s %d %v", c.Request.Method, path, status, latency)
-	}
+        latency := time.Since(start)
+        status := c.Writer.Status()
+        log.Printf("[%s] %s %d %v", c.Request.Method, path, status, latency)
+    }
 }
 
 // middleware/auth.go
 func AuthRequired() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		token := c.GetHeader("Authorization")
-		if token == "" {
-			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "missing token"})
-			return
-		}
-		c.Set("user", token)
-		c.Next()
-	}
+    return func(c *gin.Context) {
+        token := c.GetHeader("Authorization")
+        if token == "" {
+            c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "missing token"})
+            return
+        }
+        c.Set("user", token)
+        c.Next()
+    }
 }
 ```
 
-### 3. Validacion de Requests
+Usá el middleware en `main.go`:
+
+```go
+r := gin.New()
+r.Use(middleware.Logger(), gin.Recovery())
+
+api := r.Group("/api/v1")
+api.Use(middleware.AuthRequired())
+```
+
+### Validación de requests
 
 ```go
 // handlers/user.go
 type CreateUserRequest struct {
-	Name  string `json:"name" binding:"required,min=2,max=50"`
-	Email string `json:"email" binding:"required,email"`
-	Age   int    `json:"age" binding:"gte=0,lte=150"`
+    Name  string `json:"name" binding:"required,min=2,max=50"`
+    Email string `json:"email" binding:"required,email"`
+    Age   int    `json:"age" binding:"gte=0,lte=150"`
 }
 
 func createUser(c *gin.Context) {
-	var req CreateUserRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+    var req CreateUserRequest
+    if err := c.ShouldBindJSON(&req); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
 
-	user := createInDB(req)
-	c.JSON(http.StatusCreated, user)
+    // Reemplazá con tu lógica real de persistencia.
+    user := gin.H{"id": 1, "name": req.Name, "email": req.Email, "age": req.Age}
+    c.JSON(http.StatusCreated, user)
 }
 ```
 
-### 4. Manejo Estructurado de [Errores](/recipes/handle-errors/)
+### Manejo estructurado de errores
 
 ```go
 // errors/errors.go
 type APIError struct {
-	Code    string `json:"code"`
-	Message string `json:"message"`
-	Status  int    `json:"-"`
+    Code    string `json:"code"`
+    Message string `json:"message"`
+    Status  int    `json:"-"`
 }
 
 func (e *APIError) Error() string { return e.Message }
 
 // middleware/error.go
 func ErrorHandler() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Next()
+    return func(c *gin.Context) {
+        c.Next()
 
-		if len(c.Errors) > 0 {
-			err := c.Errors.Last().Err
-			if apiErr, ok := err.(*APIError); ok {
-				c.JSON(apiErr.Status, apiErr)
-				return
-			}
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "internal error"})
-		}
-	}
+        if len(c.Errors) == 0 {
+            return
+        }
+
+        err := c.Errors.Last().Err
+        if apiErr, ok := err.(*APIError); ok {
+            c.JSON(apiErr.Status, apiErr)
+            return
+        }
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "internal error"})
+    }
 }
 ```
 
-### 5. Graceful Shutdown
+Adjuntá errores al contexto con `c.Error()` en handlers o middleware. El error
+handler corre después de `c.Next()` y escribe una respuesta consistente.
+
+### Graceful shutdown
 
 ```go
 // server.go
+package main
+
 import (
-	"context"
-	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
-	"time"
+    "context"
+    "net/http"
+    "os"
+    "os/signal"
+    "syscall"
+    "time"
 )
 
 func runWithGracefulShutdown(router *gin.Engine) {
-	srv := &http.Server{
-		Addr:    ":8080",
-		Handler: router,
-	}
+    srv := &http.Server{
+        Addr:    ":8080",
+        Handler: router,
+    }
 
-	go func() {
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("listen: %s", err)
-		}
-	}()
+    go func() {
+        if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+            log.Fatalf("listen: %s", err)
+        }
+    }()
 
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
+    quit := make(chan os.Signal, 1)
+    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+    <-quit
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	if err := srv.Shutdown(ctx); err != nil {
-		log.Fatal("Server forced to shutdown:", err)
-	}
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+    defer cancel()
+    if err := srv.Shutdown(ctx); err != nil {
+        log.Fatal("server forced to shutdown:", err)
+    }
 }
 ```
 
-## Como Funciona
+## Explicación
 
-- **Gin** provee routing rapido y manejo de JSON con minimas allocaciones
-- **Middleware** chains ejecutan en orden para cada request matching
-- **Binding** valida y popula structs desde JSON/form data automaticamente
-- **Graceful shutdown** completa requests en vuelo antes de terminar
+Gin mantiene el procesamiento de requests rápido mediante un árbol radix para
+routing y pocas asignaciones de memoria para JSON. Cada request pasa por la
+cadena de middleware en el orden en que se registró; `c.Next()` continúa con el
+siguiente handler, mientras que `c.Abort()` detiene la cadena.
 
-## Variacion: Route Groups con [Rate Limiting](/recipes/api-rate-limiting-redis/)
+El paquete `binding` valida y llena una struct desde JSON, query o form data. Es
+un atajo sobre el parsing manual, pero solo indica que el input cumple las
+reglas. Siempre agregá validación de negocio propia donde corresponda.
+
+El error handler al final de la cadena inspecciona `c.Errors`. Los errores
+adjuntos con `c.Error()` se acumulan ahí. Esto evita que los handlers escriban la
+respuesta dos veces y mantiene el formato final consistente.
+
+El graceful shutdown envuelve el `http.Server` de la librería estándar. Inicia el
+server en una goroutine, espera una señal de interrupción y luego da a los
+requests en vuelo un tiempo para terminar antes de cerrar.
+
+## Variantes
+
+### Route groups con rate limiting
 
 ```go
 import "golang.org/x/time/rate"
 
-func RateLimiter() gin.HandlerFunc {
-	limiter := rate.NewLimiter(10, 20)
-	return func(c *gin.Context) {
-		if !limiter.Allow() {
-			c.AbortWithStatusJSON(429, gin.H{"error": "rate limit exceeded"})
-			return
-		}
-		c.Next()
-	}
+func RateLimiter(rps float64, burst int) gin.HandlerFunc {
+    limiter := rate.NewLimiter(rate.Limit(rps), burst)
+    return func(c *gin.Context) {
+        if !limiter.Allow() {
+            c.AbortWithStatusJSON(http.StatusTooManyRequests, gin.H{"error": "rate limit exceeded"})
+            return
+        }
+        c.Next()
+    }
 }
 
 api := r.Group("/api/v1")
-api.Use(RateLimiter())
+api.Use(RateLimiter(10, 20))
 ```
 
-## Consideraciones de Produccion
+Para un limiter por cliente, guardá un limiter por IP o por user ID. Para
+despliegues distribuidos, mové el limiter a Redis. Consultá
+[Rate Limiting with Redis](/recipes/api-rate-limiting-redis/) para esa
+configuración.
 
-- Usa `gin.ReleaseMode()` en produccion para deshabilitar debug logging
-- Implementa logging estructurado con `zap` o `zerolog` en lugar de log estandar
-- Profilea memoria y CPU para optimizar hot paths en middleware
+### CORS
+
+```go
+import "github.com/gin-contrib/cors"
+
+r.Use(cors.New(cors.Config{
+    AllowOrigins:     []string{"https://yourdomain.com"},
+    AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+    AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+    AllowCredentials: true,
+    MaxAge:           12 * time.Hour,
+}))
+```
+
+## Mejores Prácticas
+
+- Llamá `gin.SetMode(gin.ReleaseMode)` en producción para deshabilitar debug
+  logging y color output.
+- Usá `gin.New()` en lugar de `gin.Default()` cuando querés controlar
+  exactamente qué middleware corre y en qué orden.
+- Preferí logging estructurado con `zap` o `zerolog` en lugar del paquete
+  estándar `log`.
+- Mantené el middleware pequeño y enfocado. Uno para logging, otro para auth,
+  otro para errores. Mezclar responsabilidades dificulta los tests.
+- Devolvé formas de error consistentes desde los handlers y dejá que el
+  middleware de errores haga el formateo final.
+- Corré load tests sobre los percentiles más lentos, no solo sobre la latencia
+  promedio.
 
 ## Errores Comunes
 
-- No usar `gin.New()` en lugar de `gin.Default()` cuando necesitas orden custom de middleware
-- Olvidar `c.Next()` o `c.Abort()` en middleware, rompiendo la cadena
-- Mantener conexiones a base de datos en context sin pooling apropiado
+- Usar `gin.Default()` y luego agregar middleware que conflictúa con el logger o
+  recovery built-in.
+- Olvidar `c.Next()` en el middleware, de modo que el handler nunca corre.
+- Llamar `c.Abort()` sin escribir una respuesta, dejando al cliente colgado.
+- Mantener conexiones a base de datos en el context sin un pool de conexiones.
+- Confiar solo en la validación del binding para reglas de negocio.
+- Devolver errores crudos a los clientes en lugar de un `APIError`
+  estructurado.
 
+## Preguntas Frecuentes
 
-## Troubleshooting
+### ¿Cómo se compara Gin con el paquete estándar `net/http`?
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.   Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.   Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.   Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
+Gin agrega routing, middleware, binding de requests y recuperación de panics con
+mínimo overhead. Para APIs muy pequeñas, `net/http` con un router como `chi`
+también es suficiente.
 
-## FAQ
+### ¿Puedo usar Gin con gRPC?
 
-**P: Como se compara Gin con la libreria estandar `net/http`?**
-R: Gin agrega routing, middleware y binding con minimo overhead. Para APIs simples, `net/http` con `chi` o la libreria estandar es suficiente.
-
-**P: Puedo usar Gin con gRPC?**
-R: Si. Corre servidores [gRPC](/recipes/grpc-api/) y HTTP lado a lado, o usa `grpc-gateway` para generar endpoints HTTP desde definiciones protobuf.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Sí. Podés correr servidores gRPC y HTTP lado a lado, o usar `grpc-gateway` para
+exponer endpoints HTTP generados desde definiciones protobuf.
 
 ### ¿Cómo estructuro una aplicación Gin grande?
 
-Agrupa rutas por dominio usando `gin.RouterGroup`. Crea archivos de rutas separados por dominio (ej., `routes/users.go`, `routes/orders.go`) y registrálalos en `main.go`. Inyecta dependencias (database, cache, external clients) vía un struct pasado a los handler methods en lugar de variables globales. Usa repositories basados en interfaces para que los handlers sean testeables con mocks.
+Agrupá rutas por dominio con `gin.RouterGroup`. Mantené archivos de rutas por
+dominio (`routes/users.go`, `routes/orders.go`) y registrá todo en `main.go`.
+Pasá las dependencias a los handlers a través de una struct en lugar de variables
+globales, y usá repositorios basados en interfaces para que los handlers sean
+fáciles de testear.
 
-### ¿Cómo manejo graceful shutdown en Gin?
+### ¿Cómo valido request bodies?
 
-Usa `http.Server` con `Shutdown(ctx)` para drenar requests en vuelo. Escucha señales `SIGINT` y `SIGTERM`, luego llama `server.Shutdown(context.WithTimeout(ctx, 30*time.Second))`. Cierra conexiones a database y flushea logs después de que shutdown complete. Gin no bloquea en shutdown por defecto — necesitas wrap `router.Run()` en una goroutine y manejar el lifecycle tú mismo.
+Usá tags `binding` en los campos de la struct y llamá `c.ShouldBindJSON(&req)`.
+Para reglas custom, registrá un validador con `binding.Validator` o validá
+manualmente después del binding. Usá `ShouldBindJSON` en lugar de `BindJSON` para
+poder formatear la respuesta de error a tu gusto.
 
-### ¿Cómo valido request bodies en Gin?
+### ¿Cómo manejo graceful shutdown?
 
-Usa `binding` tags en los campos de tu struct: `json:"name" binding:"required,min=3"`. Gin valida automáticamente cuando llamas `c.ShouldBindJSON(&req)`. Para validación custom, registra un `validator.Func` con el binding validator. Retorna `400 Bad Request` con detalles de error a nivel de campo cuando la validación falla. Usa `ShouldBindJSON` (no `BindJSON`) para evitar auto-escribir la response de error para que puedas formatearla tú mismo.
+Envolvé `gin.Engine` dentro de un `http.Server`, iniciá el server en una
+goroutine, esperá `SIGINT` o `SIGTERM` y luego llamá `server.Shutdown(ctx)` con
+un timeout. Cerrá conexiones a base de datos y flusheá logs después de que
+termine el shutdown.
 
-### ¿Cómo implemento rate limiting en Gin?
+### ¿Cómo implemento rate limiting?
 
-Usa el middleware `gin-contrib/limiter` o implementa un token bucket con `golang.org/x/time/rate`. Keyea el limiter por IP address o user ID. Setea un burst limit (ej., 10 requests) y un refill rate (ej., 1 request/second). Retorna `429 Too Many Requests` con un header `Retry-After`. Para deployments distribuidos, usa rate limiting backed en Redis para que el límite sea compartido entre instancias.
+Usá un token bucket como `golang.org/x/time/rate` como middleware. Para una sola
+instancia, un limiter por IP de cliente funciona. Para sistemas distribuidos,
+usá un limiter respaldado en Redis e incluí un header `Retry-After` en las
+respuestas `429`.
 
 ### ¿Cómo testeo handlers de Gin?
 
-Usa `httptest.NewRecorder()` y `router.ServeHTTP` para testear handlers sin levantar un server. Crea un router de test con dependencias mockeadas. Aserta en el status code de response, body, y headers. Para tests de middleware, encadena el middleware y handler juntos y verifica la response. Usa `c.Set()` en tests para inyectar valores mock en el context.
+Usá `httptest.NewRecorder()` y `router.ServeHTTP` para llamar handlers sin
+levantar un server. Creá un router con dependencias mockeadas y asertá sobre el
+status code, body y headers.
 
-### ¿Cómo manejo errores consistentemente en Gin?
+### ¿Cómo manejo errores consistentemente?
 
-Define un struct de error response custom con campos `code`, `message`, y `details`. Escribe una función helper `respondError(c, status, code, message)` que setea la JSON response y llama `c.Abort()`. Usa `c.Error(err)` para attachear errores al context, luego llama `c.AbortWithStatusJSON()` en un recovery middleware. Loggea errores con request ID para tracing. Retorna códigos de error consistentes (ej., `INVALID_INPUT`, `NOT_FOUND`, `UNAUTHORIZED`) para que los clientes puedan manejarlos programáticamente.
+Definí una struct `APIError` pequeña con `code` y `message`. Devolvé esos errores
+desde los servicios, adjuntalos con `c.Error()` y dejá que un middleware de
+errores escriba el JSON final. Logueá el error original con un request ID para
+tracing.
 
 ### ¿Cómo uso Gin con OpenAPI/Swagger?
 
-Usa `swaggo/swag` para generar docs OpenAPI desde annotations. Agrega comentarios `@Summary`, `@Description`, `@Tags`, `@Param`, `@Success`, `@Router` arriba de cada handler. Ejecuta `swag init` para generar el package `docs`. Sirve el Swagger UI en `/swagger/index.html` usando el middleware `ginSwagger`. Mantén las annotations en sync con las signatures de los handlers — annotations desactualizadas producen API docs misleading.
+Usá `swaggo/swag` para generar docs OpenAPI desde anotaciones. Agregá comentarios
+`@Summary`, `@Param` y `@Router` arriba de cada handler, ejecutá `swag init` y
+serví la UI con `ginSwagger`. Mantené las anotaciones sincronizadas con las
+signatures de los handlers.
 
-### ¿Cómo manejo CORS en Gin?
+### ¿Cómo aseguro rutas con JWT?
 
-Usa el middleware `gin-contrib/cors` con origins, methods, y headers explícitos permitidos. No uses `AllowAllOrigins: true` en producción — expone tu API a cross-site attacks. Setea `AllowOrigins: []string{"https://yourdomain.com"}` explícitamente. Habilita `AllowCredentials: true` solo si usas cookies o Authorization headers. Setea `MaxAge: 12 * time.Hour` para reducir preflight requests.
+Extraé el token del header `Authorization: Bearer <token>`, validalo con una
+librería JWT y guardá el user ID en el contexto con `c.Set()`. Devolvé `401` para
+tokens inválidos o expirados.
 
-### ¿Cómo manejo file uploads en Gin?
+### ¿Cómo implemento health checks?
 
-Usa `c.FormFile("file")` para uploads de un solo archivo y `c.MultipartForm()` para múltiples archivos. Setea `router.MaxMultipartMemory = 8 << 20` (8 MiB) para limitar el parsing en memoria. Para archivos grandes, streamea directamente a S3 o disk usando `file.Open()` e `io.Copy`. Valida el tipo de archivo chequeando los primeros 512 bytes con `http.DetectContentType` en lugar de confiar en el header `Content-Type`. Setea un max file size en middleware usando `c.Request.Body = http.MaxBytesReader(c.Writer, c.Request.Body, 50<<20)` para rechazar uploads oversized temprano.
-
-### ¿Cómo implemento health checks en Gin?
-
-Registra un endpoint `/health` que retorne `200 OK` con un body JSON `{"status": "healthy"}`. Para checks más profundos, agrega un endpoint `/health/ready` que verifique conectividad de base de datos, Redis ping, y disponibilidad de servicios externos. Retorna `503 Service Unavailable` si alguna dependencia está down. Usa `gin.HandlerFunc` con un timeout wrapper para prevenir health checks colgados. Container orchestrators (Kubernetes, ECS) usan estos endpoints para liveness y readiness probes. Mantén el liveness probe ligero — debería retornar en menos de 50ms. Agrega un endpoint `/health/live` que solo chequee si el proceso está corriendo, separado de los readiness checks que verifican dependencias.
-
-### ¿Cómo aseguro rutas de Gin con JWT?
-
-Usa el middleware `gin-jwt` o implementa un `gin.HandlerFunc` custom que extraiga el JWT del header `Authorization: Bearer <token>`. Valida el token con `jwt.ParseWithClaims` y setea el user ID en el context con `c.Set("userID", claims.Subject)`. Retorna `401 Unauthorized` para tokens inválidos o expirados. Para refresh tokens, implementa un endpoint separado `/refresh` que acepte un refresh token válido y retorne un nuevo access token.
-
-
-
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de golang y api para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica rest api en go con gin y middleware** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Registrá un endpoint `/health` que devuelva `200` con `{"status": "healthy"}`.
+Para readiness, agregá `/health/ready` que haga ping a bases de datos o servicios
+externos y devuelva `503` si alguna dependencia está caída. Mantené el liveness
+check ligero.
