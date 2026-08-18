@@ -9767,7 +9767,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/llm-fine-tuning/</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/llm-fine-tuning/" />
@@ -13375,6 +13375,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/files/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/es/tags/fine-tuning/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/fine-tuning/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/fine-tuning/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/fine-tuning/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/es/tags/finops/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -14282,15 +14291,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nginx/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nginx/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nginx/" />
-  </url>
-  <url>
-    <loc>https://stackpractices.com/es/tags/nlp/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nlp/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nlp/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nlp/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/nodejs/</loc>
@@ -22286,7 +22286,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/llm-fine-tuning/</loc>
-    <lastmod>2026-06-12</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/llm-fine-tuning/" />
@@ -25894,6 +25894,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/files/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/fine-tuning/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/fine-tuning/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/fine-tuning/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/fine-tuning/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/finops/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -26801,15 +26810,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nginx/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nginx/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nginx/" />
-  </url>
-  <url>
-    <loc>https://stackpractices.com/tags/nlp/</loc>
-    <lastmod>2026-08-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/nlp/" />
-    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/nlp/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/nlp/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/nodejs/</loc>

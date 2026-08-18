@@ -164,13 +164,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.3% / ES 30.9% (0 patterns)
    - Words: 1,599 | Meta: 160 chars
 
-20. - [ ] **llm-fine-tuning** (recipes)
+20. - [x] **llm-fine-tuning** (recipes)
    - Metrics: 53 imp | pos 29.3 | CTR 0.00% | Δ impr 6
    - EN: https://stackpractices.com/recipes/llm-fine-tuning/
    - ES: https://stackpractices.com/es/recipes/llm-fine-tuning/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,522 | Meta: 151 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.8% / ES 37.1% (0 patterns)
+   - Words: 1,602 | Meta: 151 chars
 
 21. - [ ] **complete-guide-modular-monolith** (guides)
    - Metrics: 65 imp | pos 27.6 | CTR 0.00% | Δ impr 0

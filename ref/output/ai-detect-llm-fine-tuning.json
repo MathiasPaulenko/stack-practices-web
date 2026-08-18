@@ -1,0 +1,380 @@
+[
+  {
+    "label": "llm-fine-tuning-en",
+    "model": "desklib",
+    "model_ai_pct": 48.8,
+    "ai_count": 30,
+    "human_count": 37,
+    "skipped_count": 2,
+    "total": 69,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.9,
+      "stddev": 24.8,
+      "cv": 1.67,
+      "verdict": "natural variation",
+      "sentence_count": 67,
+      "lengths": [
+        19,
+        17,
+        23,
+        18,
+        17,
+        11,
+        11,
+        12,
+        11,
+        9,
+        8,
+        13,
+        11,
+        19,
+        15,
+        22,
+        12,
+        15,
+        10,
+        5,
+        5,
+        13,
+        213,
+        7,
+        9,
+        6,
+        5,
+        9,
+        9,
+        6,
+        7,
+        6,
+        5,
+        6,
+        8,
+        10,
+        14,
+        12,
+        16,
+        13,
+        15,
+        16,
+        15,
+        14,
+        10,
+        15,
+        15,
+        16,
+        10,
+        7,
+        16,
+        5,
+        15,
+        14,
+        10,
+        15,
+        14,
+        14,
+        10,
+        9,
+        15,
+        8,
+        8,
+        10,
+        20,
+        13,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Use this recipe when:\nYou need a model that understands your internal APIs, DSLs, or proprietary\n  frameworks.",
+        0.9214
+      ],
+      [
+        "Use a template like\n  ### Task: ...\\n### Response: ...",
+        0.8734
+      ],
+      [
+        "so the model learns the pattern.",
+        0.866
+      ],
+      [
+        "Avoid full fine-tuning when:\nPrompt engineering with few-shot examples already works.",
+        0.815
+      ],
+      [
+        "Use model.merge_and_unload() to\n  reduce inference latency.",
+        0.8005
+      ],
+      [
+        "You've got 500\u201310,000 high-quality code examples and want better completion\n  accuracy.",
+        0.7982
+      ],
+      [
+        "Yes, but include language tags in your training data, for example\n\nthe same dataset.",
+        0.7912
+      ],
+      [
+        "For code generation, this\nmeans teaching the model your company's API patterns, internal libraries, or\ncoding standards.",
+        0.7757
+      ],
+      [
+        "**Tokenizer mismatch** \u2014 ensure your code examples tokenize cleanly; check for\n  unknown tokens.",
+        0.7698
+      ],
+      [
+        "**No evaluation baseline** \u2014 always compare against the base model with\n  zero-shot prompting before fine-tuning.",
+        0.7521
+      ],
+      [
+        "The model learns to use the tag to switch contexts.",
+        0.7397
+      ],
+      [
+        "**Use learning rate 1e-4 to 2e-4 with cosine decay**.",
+        0.7304
+      ],
+      [
+        "For production, use vLLM with merged weights for best throughput.",
+        0.6908
+      ],
+      [
+        "**Merge LoRA weights before deployment**.",
+        0.6771
+      ],
+      [
+        "**Hold out 10\u201320% of data for validation**.",
+        0.6398
+      ],
+      [
+        "More data helps for broader domains, but quality and formatting matter more than\nsheer volume.",
+        0.6318
+      ],
+      [
+        "**Start with LoRA rank 8\u201316**.",
+        0.6317
+      ],
+      [
+        "Without it, you can't detect\n  overfitting.",
+        0.6284
+      ],
+      [
+        "Rank (r) controls the size of the update matrices \u2014 higher rank means more\ncapacity but more parameters to train.",
+        0.6108
+      ],
+      [
+        "500 great examples beat 10,000 mediocre ones.",
+        0.608
+      ],
+      [
+        "You want to reduce inference costs by using a smaller, task-specific model.",
+        0.5826
+      ],
+      [
+        "You've got fewer than 200 examples (you'll likely overfit).",
+        0.5712
+      ],
+      [
+        "For code generation, the\n\nshould be a single string with the task and response concatenated.",
+        0.5662
+      ],
+      [
+        "Serve with LoRA adapters separately using PEFT inference.",
+        0.5629
+      ],
+      [
+        "QLoRA on Google Colab (free T4) works for 7B models with very small batch sizes.",
+        0.5503
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "llm-fine-tuning-es",
+    "model": "desklib",
+    "model_ai_pct": 37.1,
+    "ai_count": 17,
+    "human_count": 50,
+    "skipped_count": 2,
+    "total": 69,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.0,
+      "stddev": 27.0,
+      "cv": 1.59,
+      "verdict": "natural variation",
+      "sentence_count": 67,
+      "lengths": [
+        22,
+        22,
+        30,
+        20,
+        16,
+        13,
+        18,
+        14,
+        12,
+        8,
+        11,
+        17,
+        16,
+        22,
+        17,
+        26,
+        15,
+        17,
+        14,
+        9,
+        8,
+        11,
+        232,
+        6,
+        9,
+        7,
+        5,
+        12,
+        9,
+        6,
+        7,
+        6,
+        8,
+        8,
+        8,
+        14,
+        13,
+        16,
+        18,
+        16,
+        18,
+        18,
+        14,
+        17,
+        13,
+        18,
+        15,
+        17,
+        10,
+        9,
+        19,
+        6,
+        17,
+        17,
+        11,
+        17,
+        16,
+        16,
+        10,
+        9,
+        17,
+        8,
+        11,
+        10,
+        22,
+        14,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Merge\u00e1 los pesos de LoRA antes del despliegue**.",
+        0.9127
+      ],
+      [
+        "Pod\u00e9s hacer fine-tuning de un modelo de 7B par\u00e1metros en una sola GPU de\n24GB.",
+        0.8901
+      ],
+      [
+        "Us\u00e1 una plantilla como\n  ### Task: ...\\n### Response: ...",
+        0.8549
+      ],
+      [
+        "**Logue\u00e1 m\u00e9tricas a Weights & Biases o TensorBoard**.",
+        0.8453
+      ],
+      [
+        "Ten\u00e9s entre 500 y 10.000 ejemplos de c\u00f3digo de alta calidad y quer\u00e9s mejorar\n  la precisi\u00f3n de completado.",
+        0.771
+      ],
+      [
+        "**Reserv\u00e1 10\u201320% de los datos para validaci\u00f3n**.",
+        0.725
+      ],
+      [
+        "Compar\u00e1 contra el modelo base en un conjunto de prueba separado.",
+        0.7168
+      ],
+      [
+        "Calcul\u00e1 la p\u00e9rdida en la predicci\u00f3n del siguiente token.",
+        0.6956
+      ],
+      [
+        "Quer\u00e9s reducir costos de inferencia usando un modelo m\u00e1s peque\u00f1o y\n  espec\u00edfico de tarea.",
+        0.6803
+      ],
+      [
+        "Sub\u00ed a la API de fine-tuning de OpenAI para inference hospedado.",
+        0.6487
+      ],
+      [
+        "**Empez\u00e1 con LoRA rank 8\u201316**.",
+        0.6045
+      ],
+      [
+        "Retropropag\u00e1 solo a trav\u00e9s de los par\u00e1metros LoRA.",
+        0.5759
+      ],
+      [
+        "La definici\u00f3n de la tarea cambia frecuentemente (reentrenar se vuelve caro).",
+        0.5695
+      ],
+      [
+        "S\u00ed, pero inclu\u00ed tags de lenguaje en tus datos de entrenamiento, por ejemplo\n\nel mismo dataset.",
+        0.5623
+      ],
+      [
+        "Us\u00e1\nun modelo base multiling\u00fce como CodeLlama o DeepSeek-Coder.",
+        0.5581
+      ],
+      [
+        "Para producci\u00f3n, us\u00e1 vLLM con pesos mergeados para mejor throughput.",
+        0.5369
+      ],
+      [
+        "Si necesit\u00e1s calidad de modelo propietario y ten\u00e9s presupuesto, s\u00ed.",
+        0.5095
+      ],
+      [
+        "Repet\u00ed por 1\u20135 epochs en unos cientos a miles de ejemplos.",
+        0.4922
+      ],
+      [
+        "**LoRA** (Low-Rank Adaptation) resuelve esto inyectando peque\u00f1as matrices de\ndescomposici\u00f3n de rango entrenables en capas de atenci\u00f3n mientras congela el\nmodelo base.",
+        0.471
+      ],
+      [
+        "El modelo aprende a usar el tag para switchear contextos.",
+        0.4668
+      ],
+      [
+        "**Ignorar la contaminaci\u00f3n** \u2014 incluso variaciones menores de ejemplos de test\n  en entrenamiento inflan las m\u00e9tricas artificialmente.",
+        0.4633
+      ],
+      [
+        "QLoRA en Google Colab (T4 gratis) funciona para modelos 7B con batch sizes muy\npeque\u00f1os.",
+        0.4466
+      ],
+      [
+        "para que el modelo aprenda el patr\u00f3n.",
+        0.4464
+      ],
+      [
+        "Tasas agresivas\n  pueden colapsar el modelo.",
+        0.4234
+      ],
+      [
+        "Para generaci\u00f3n de c\u00f3digo, el formato\n\ndeber\u00eda ser un solo string con la tarea y respuesta concatenadas.",
+        0.4126
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
