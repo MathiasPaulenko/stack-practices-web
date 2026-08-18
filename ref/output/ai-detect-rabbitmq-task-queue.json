@@ -1,0 +1,322 @@
+[
+  {
+    "label": "rabbitmq-task-queue-en",
+    "model": "desklib",
+    "model_ai_pct": 37.7,
+    "ai_count": 7,
+    "human_count": 31,
+    "skipped_count": 0,
+    "total": 38,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.6,
+      "stddev": 13.8,
+      "cv": 0.79,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        15,
+        28,
+        19,
+        6,
+        13,
+        6,
+        13,
+        7,
+        11,
+        16,
+        13,
+        9,
+        22,
+        20,
+        13,
+        12,
+        16,
+        95,
+        22,
+        12,
+        27,
+        24,
+        18,
+        17,
+        18,
+        21,
+        19,
+        14,
+        15,
+        10,
+        12,
+        17,
+        20,
+        18,
+        9,
+        8,
+        15,
+        17
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "RabbitMQ works as a message broker with flexible routing and low latency per\nmessage.",
+        0.853
+      ],
+      [
+        "That gives you\n  a place to look at failures without losing the message.",
+        0.8424
+      ],
+      [
+        "These patterns are common in production, but you still need monitoring,\nconnection recovery, authentication, and TLS to match your environment.",
+        0.7048
+      ],
+      [
+        "Kafka, on the other hand, is an event log optimized for high throughput\nand replay.",
+        0.7002
+      ],
+      [
+        "RabbitMQ is a solid choice for distributing background work and calling services\nsynchronously over AMQP.",
+        0.6091
+      ],
+      [
+        "To scale, you add more nodes or consumers.",
+        0.5674
+      ],
+      [
+        "Kafka doesn't support request-reply natively and uses different delivery\nsemantics.",
+        0.5586
+      ],
+      [
+        "The management UI on port 15672 gives you queue depth, consumer count, and\nmessage rates.",
+        0.4966
+      ],
+      [
+        "**RPC over AMQP** relies on a temporary reply queue and a correlationId.",
+        0.4691
+      ],
+      [
+        "**Exchanges** pick which queues receive a message based on binding rules.",
+        0.4434
+      ],
+      [
+        "Retry a failed task a few times, then set it aside for inspection.",
+        0.4134
+      ],
+      [
+        "Use a topic\nexchange when pattern matching is needed, such as orders.us.created and\norders.eu.created both matching orders.*.created.",
+        0.4109
+      ],
+      [
+        "Then check consumer logs, confirm the connection is open, and make\nsure your DLQ isn't filling up.",
+        0.4106
+      ],
+      [
+        "Set prefetch based on how long each task takes and how many consumers you\n  have, starting with 5\u201310 and tuning from there.",
+        0.3919
+      ],
+      [
+        "**Prefetch** limits how many unacknowledged messages each consumer can hold at\n  once, so a fast consumer can't hoard work and starve others.",
+        0.3908
+      ],
+      [
+        "**Dead-letter exchanges (DLX)** catch messages that are rejected without\n  requeue, that exceed a TTL, or that hit the max-delivery count.",
+        0.3545
+      ],
+      [
+        "For HTTP alternatives, see [Call REST API](/recipes/call-rest-api/).",
+        0.3479
+      ],
+      [
+        "| Approach | Best for | Trade-off |\n| --- | --- | --- |\n| Direct exchange | Exact queue routing | No pattern matching |\n| Topic exchange | Pattern-based routing (orders.*.created) ",
+        0.3477
+      ],
+      [
+        "This recipe covers how to set up a durable task queue,\nretry failed messages, route poison messages to a dead-letter queue, and\nuse the request-reply pattern for RPC.",
+        0.3418
+      ],
+      [
+        "The\n  client listens on the reply queue and the server echoes the correlationId\n  in the response.",
+        0.3374
+      ],
+      [
+        "You need request-reply communication that feels synchronous but skips the\n  overhead of HTTP.",
+        0.3371
+      ],
+      [
+        "Move slow work such as image processing or sending emails out of the main\n  request so it doesn't block.",
+        0.3277
+      ],
+      [
+        "See\n  [Retry Backoff](/recipes/retry-backoff/) for retry strategies.",
+        0.3222
+      ],
+      [
+        "A typical RabbitMQ work queue can move thousands to tens of thousands of messages\nper second per node.",
+        0.3219
+      ],
+      [
+        "See [Background Jobs](/recipes/background-jobs/)\nfor related patterns.",
+        0.3171
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "rabbitmq-task-queue-es",
+    "model": "desklib",
+    "model_ai_pct": 25.8,
+    "ai_count": 2,
+    "human_count": 36,
+    "skipped_count": 0,
+    "total": 38,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 18.7,
+      "stddev": 15.6,
+      "cv": 0.83,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        18,
+        26,
+        21,
+        6,
+        12,
+        7,
+        13,
+        7,
+        13,
+        19,
+        16,
+        8,
+        27,
+        19,
+        12,
+        11,
+        16,
+        107,
+        19,
+        13,
+        28,
+        26,
+        19,
+        18,
+        18,
+        24,
+        18,
+        14,
+        15,
+        13,
+        12,
+        17,
+        25,
+        19,
+        11,
+        6,
+        18,
+        21
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Eso te da un lugar para mirar\n  fallos sin perder el mensaje.",
+        0.742
+      ],
+      [
+        "Para escalar, agreg\u00e1s nodos o consumers.",
+        0.562
+      ],
+      [
+        "Sin durabilidad, el broker pierde todo al reiniciarse.",
+        0.467
+      ],
+      [
+        "RabbitMQ es una opci\u00f3n s\u00f3lida para distribuir trabajo de background y llamar\nservicios de forma s\u00edncrona sobre AMQP.",
+        0.4575
+      ],
+      [
+        "Estos patrones se usan com\u00fanmente en producci\u00f3n, pero igual vas a querer\nmonitoreo, recuperaci\u00f3n de conexiones, autenticaci\u00f3n y TLS\npara que coincida con tu entorno.",
+        0.414
+      ],
+      [
+        "El throughput baja con l\u00f3gica de enrutamiento\ncompleja o mensajes grandes.",
+        0.3776
+      ],
+      [
+        "Para alternativas HTTP, consult\u00e1 [Llamar REST API](/recipes/call-rest-api/).",
+        0.3633
+      ],
+      [
+        "**RPC sobre AMQP** usa una reply queue temporal y un correlationId.",
+        0.3598
+      ],
+      [
+        "**Dead-letter exchanges (DLX)** capturan mensajes que se rechazan sin requeue,\n  que expiran o que superan el m\u00e1ximo de entregas.",
+        0.3586
+      ],
+      [
+        "RabbitMQ act\u00faa como broker de mensajes con enrutamiento flexible y latencia baja\npor mensaje.",
+        0.3524
+      ],
+      [
+        "**Prefetch** limita cu\u00e1ntos mensajes no confirmados puede tener cada consumer a\n  la vez, as\u00ed un consumer r\u00e1pido no puede acaparar trabajo y dejar sin recursos a\n  otros.",
+        0.3075
+      ],
+      [
+        "**Exchanges** eligen qu\u00e9 queues reciben un mensaje a partir de reglas de binding.",
+        0.2995
+      ],
+      [
+        "La UI de management en el puerto 15672 te da queue depth, cantidad de consumers\ny message rates.",
+        0.2886
+      ],
+      [
+        "Publicar en una durable queue sin activar persistent: true, as\u00ed el mensaje se\n  pierde cuando el broker reinicia.",
+        0.2654
+      ],
+      [
+        "Us\u00e1 un\nexchange topic cuando necesit\u00e1s pattern matching, por ejemplo que\norders.us.created y orders.eu.created coincidan con orders.*.created.",
+        0.258
+      ],
+      [
+        "Consult\u00e1 [Retry Backoff](/recipes/retry-backoff/)\n  para estrategias de reintento.",
+        0.2512
+      ],
+      [
+        "El client\n  escucha en la reply queue y el server repite el correlationId en la\n  respuesta.",
+        0.2414
+      ],
+      [
+        "Depender del auto-ack para tareas largas o fallibles es arriesgado; cuando el\n  worker se cae, el mensaje desaparece.",
+        0.2396
+      ],
+      [
+        "Una work queue t\u00edpica puede mover miles o decenas de miles de mensajes por\nsegundo por nodo en RabbitMQ.",
+        0.2321
+      ],
+      [
+        "Kafka no soporta request-reply de forma nativa y usa\ndistintas sem\u00e1nticas de entrega.",
+        0.2058
+      ],
+      [
+        "Sac\u00e1 el trabajo lento, como procesamiento de im\u00e1genes o env\u00edo de emails, fuera\n  de la request principal para que no bloquee.",
+        0.2012
+      ],
+      [
+        "Kafka, en cambio, funciona como un log de eventos pensado para alto\nthroughput y replay.",
+        0.1988
+      ],
+      [
+        "Crear reply queues exclusivas en RPC sin cerrar la conexi\u00f3n, lo que deja queues\n  hu\u00e9rfanas en el broker.",
+        0.1929
+      ],
+      [
+        "Consult\u00e1\n  [Background Jobs](/recipes/background-jobs/) para patrones relacionados.",
+        0.1901
+      ],
+      [
+        "Declar\u00e1 queues y exchanges como durable para que sobrevivan un restart del\n  broker.",
+        0.1854
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

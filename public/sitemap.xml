@@ -10820,7 +10820,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/rabbitmq-task-queue/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/rabbitmq-task-queue/" />
@@ -11872,6 +11872,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/alerts/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/es/tags/amqp/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/amqp/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/amqp/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/amqp/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/es/tags/analytics/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -12860,6 +12869,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/dead-letter-queue/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/dead-letter-queue/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/dead-letter-queue/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/tags/dead-letter/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/dead-letter/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/dead-letter/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/dead-letter/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/debugging/</loc>
@@ -23339,7 +23357,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/rabbitmq-task-queue/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/rabbitmq-task-queue/" />
@@ -24391,6 +24409,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/alerts/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/tags/amqp/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/amqp/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/amqp/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/amqp/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/tags/analytics/</loc>
     <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
@@ -25379,6 +25406,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/dead-letter-queue/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/dead-letter-queue/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/dead-letter-queue/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/dead-letter/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/dead-letter/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/dead-letter/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/dead-letter/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/debugging/</loc>

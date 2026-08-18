@@ -188,13 +188,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 37.5% / ES 27.3% (0 patterns)
    - Words: 1,536 | Meta: 162 chars
 
-23. - [ ] **rabbitmq-task-queue** (recipes)
+23. - [x] **rabbitmq-task-queue** (recipes)
    - Metrics: 46 imp | pos 25.9 | CTR 0.00% | Δ impr 35
    - EN: https://stackpractices.com/recipes/rabbitmq-task-queue/
    - ES: https://stackpractices.com/es/recipes/rabbitmq-task-queue/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,535 | Meta: 159 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 37.7% / ES 25.7% (0 patterns)
+   - Words: 1,396 | Meta: 159 chars
 
 24. - [x] **partial-class-pattern** (patterns)
    - Metrics: 38 imp | pos 14 | CTR 2.63% | Δ impr 0
