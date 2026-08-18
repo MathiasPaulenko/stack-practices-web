@@ -2,8 +2,8 @@
 contentType: recipes
 slug: deep-clone-javascript
 title: "Deep Clone Objects in JavaScript"
-description: "How to create deep copies of JavaScript objects and arrays correctly, handling circular references, Dates, Maps, Sets, and custom classes."
-metaDescription: "Learn deep cloning in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and what works for cloning."
+description: "Create fully independent copies of JavaScript objects and arrays, handling circular references, Dates, Maps, Sets, typed arrays, and custom classes."
+metaDescription: "Deep clone in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and when to pick each approach."
 difficulty: intermediate
 topics:
   - data
@@ -13,18 +13,20 @@ tags:
   - javascript
   - parsing
   - json
+  - structuredclone
+  - lodash
 relatedResources:
   - /recipes/caching
+  - /recipes/parse-json
+  - /recipes/flatten-unflatten-objects
+  - /recipes/call-rest-api
   - /recipes/date-formatting
   - /recipes/money-currency
-  - /recipes/parse-json
-  - /recipes/regular-expressions
-  - /recipes/batch-processing-patterns
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-18"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn deep cloning in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and what works for cloning."
+  metaDescription: "Deep clone in JavaScript with structuredClone, lodash, manual recursion, and JSON.parse. Covers circular references, typed arrays, and when to pick each approach."
   keywords:
     - deep-clone
     - javascript
@@ -33,23 +35,32 @@ seo:
     - lodash
     - serialization
     - performance
-
 ---
+
 ## Overview
 
-Deep cloning creates a fully independent copy of an object where nested objects, arrays, and special types are duplicated rather than shared by reference. In JavaScript, `=` only copies the reference, so mutations to a "copy" affect the original. Below is a practical approach to `structuredClone`, `JSON.parse/stringify`, `lodash.cloneDeep`, and a manual recursive implementation, with handling for circular references, Dates, Maps, Sets, typed arrays, and custom classes.
+A deep clone is a separate copy of an object or array, fully independent of the
+original. Nested objects, arrays, and special types get duplicated rather
+than being shared by reference. In JavaScript, `=` only copies the reference, so
+changes to a "copy" also change the original. This recipe shows how to clone with
+`structuredClone`, `JSON.parse/stringify`, Lodash, and a manual recursive
+implementation, and covers circular references, `Date`, `Map`, `Set`, typed
+arrays, and custom classes.
 
 ## When to Use
 
-Use this resource when:
-- You need to mutate a copy of nested state without affecting the original (Redux, form handling). See [Caching](/recipes/caching/) for memoization patterns.
-- Serializing objects for `postMessage`, IndexedDB, or Web Workers. See [Parse JSON](/recipes/parse-json/) for serialization.
-- Implementing undo/redo stacks that require immutable snapshots
-- Defensive copying of function arguments or API responses before transformation
+- You want to change a nested state copy without touching the original, for
+  example in Redux reducers or form handling.
+- You're serializing objects to pass through `postMessage`, IndexedDB, or Web
+  Workers.
+- You're building undo/redo stacks and need immutable snapshots.
+- You need a defensive copy of function arguments or API responses before
+  transforming them. See [Call REST API](/recipes/call-rest-api/) for related
+  patterns.
 
 ## Solution
 
-### JavaScript (structuredClone — Recommended)
+### `structuredClone` (recommended)
 
 ```javascript
 const original = {
@@ -63,18 +74,19 @@ const original = {
 
 const clone = structuredClone(original);
 
-// Mutations don't affect original
+// Mutations don't affect the original
 clone.nested.b.c = 999;
 clone.dates[0] = new Date("2025-01-01");
 console.log(original.nested.b.c); // 2
 console.log(original.dates[0]);   // 2024-01-01
 
-// Circular references work
+// Circular references also work
+const circular = { name: "self" };
 circular.self = circular;
 const circularClone = structuredClone(circular);
 ```
 
-### JavaScript (JSON.parse — Quick but Limited)
+### `JSON.parse` (quick but limited)
 
 ```javascript
 function jsonClone(obj) {
@@ -82,11 +94,12 @@ function jsonClone(obj) {
 }
 
 // Works for: plain objects, arrays, strings, numbers, booleans, null
-// Loses: Dates (become strings), Functions, undefined, Maps, Sets, RegExp, circular refs, typed arrays
+// Loses: Dates (become strings), Functions, undefined, Maps, Sets, RegExp,
+// circular references, and typed arrays
 const limited = jsonClone({ a: 1, b: [2, 3], c: { d: 4 } });
 ```
 
-### JavaScript (Manual Recursive with Circular Ref Support)
+### Manual recursive clone with circular reference support
 
 ```javascript
 function deepClone(obj, cache = new WeakMap()) {
@@ -119,7 +132,7 @@ function deepClone(obj, cache = new WeakMap()) {
     return copy;
   }
 
-  // Typed Arrays
+  // Typed arrays
   if (ArrayBuffer.isView(obj)) {
     const Constructor = obj.constructor;
     return new Constructor(obj);
@@ -133,7 +146,7 @@ function deepClone(obj, cache = new WeakMap()) {
     return copy;
   }
 
-  // Plain Object
+  // Plain object (preserves prototype)
   const copy = Object.create(Object.getPrototypeOf(obj));
   cache.set(obj, copy);
   Object.keys(obj).forEach(k => copy[k] = deepClone(obj[k], cache));
@@ -153,12 +166,12 @@ const obj = {
 obj.circular = obj;
 
 const cloned = deepClone(obj);
-console.log(cloned.b === obj.b);     // false
-console.log(cloned.circular === obj); // false
+console.log(cloned.b === obj.b);         // false
+console.log(cloned.circular === obj);    // false
 console.log(cloned.circular === cloned); // true
 ```
 
-### JavaScript (Lodash — Production-Ready)
+### Lodash
 
 ```javascript
 import cloneDeep from "lodash/cloneDeep.js";
@@ -175,7 +188,7 @@ const cloned = cloneDeep(obj);
 // Handles circular refs, Dates, Maps, Sets, typed arrays, RegExp, plain objects, arrays
 ```
 
-### Python (Equivalent Deep Copy)
+### Python equivalent
 
 ```python
 import copy
@@ -187,14 +200,11 @@ original = {
     "nested": {"a": 1, "b": {"c": 2}}
 }
 
-# Deep copy
 cloned = copy.deepcopy(original)
 
-# Mutations don't affect original
 cloned["nested"]["b"]["c"] = 999
 print(original["nested"]["b"]["c"])  # 2
 
-# Custom class support
 class Person:
     def __init__(self, name):
         self.name = name
@@ -205,17 +215,16 @@ bob = Person("Bob")
 alice.friend = bob
 
 cloned_alice = copy.deepcopy(alice)
-print(cloned_alice.friend is bob)      # False
-print(cloned_alice.friend.name)        # "Bob"
+print(cloned_alice.friend is bob)  # False
+print(cloned_alice.friend.name)    # "Bob"
 ```
 
-### Java (Equivalent Deep Copy)
+### Java equivalent
 
 ```java
 import java.io.*;
 import java.util.*;
 
-// Serializable deep copy via byte array serialization
 public class DeepCopyUtil {
   @SuppressWarnings("unchecked")
   public static <T extends Serializable> T deepCopy(T obj) {
@@ -236,7 +245,6 @@ public class DeepCopyUtil {
   }
 }
 
-// Usage
 public record Person(String name, List<Date> dates, Map<String, Object> metadata)
   implements Serializable {}
 
@@ -252,104 +260,88 @@ Person cloned = DeepCopyUtil.deepCopy(original);
 
 ## Explanation
 
-- **`structuredClone`** (native API, available in modern browsers, Node 17+, Deno, Bun) is the simplest and most reliable built-in method. It handles circular references, Dates, Maps, Sets, typed arrays, and most built-in types. It does NOT clone functions, DOM nodes, or prototype chains.
-- **`JSON.parse(JSON.stringify(...))`** is fast and simple but discards Dates (serializes to ISO strings), drops `undefined`, functions, Maps, Sets, RegExp, typed arrays, and circular references. Only use for simple plain objects and arrays.
-- **Manual recursion** with a `WeakMap` cache is the most flexible approach. It lets you control which types to clone and how. Use `WeakMap` (not `Map`) for the cache so circular references don't prevent garbage collection.
-- **Lodash `cloneDeep`** is battle-tested, handles edge cases you might miss, and works in all environments. The trade-off is bundle size (~17KB gzipped for full lodash, ~4KB for `cloneDeep` alone via `lodash.cloneDeep`).
-- **Java serialization** and **Python `copy.deepcopy`** are language-native equivalents that apply the same principles: traverse the object graph, create new instances, and preserve references to already-copied objects.
+- Start with **`structuredClone`** when you want a built-in answer. It runs in
+  modern browsers, Node 17+, Deno, and Bun, and it handles circular references,
+  `Date`, `Map`, `Set`, typed arrays, and most built-in types. Functions, DOM
+  nodes, and prototype chains won't clone.
+- **`JSON.parse(JSON.stringify(...))`** is fast, though it loses data along the way.
+  It turns `Date` into strings, drops `undefined`, functions, `Map`, `Set`,
+  `RegExp`, typed arrays, and circular references. Reserve it for plain objects
+  and arrays.
+- A manual recursive clone that uses a `WeakMap` cache is the most flexible. That
+  freedom means you can decide the exact way to handle each type. Use `WeakMap`
+  (not `Map`) for the cache so circular references don't prevent garbage
+  collection.
+- **Lodash `cloneDeep`** is battle-tested in real code and covers edge cases you
+  might miss. The cost is bundle size: about 17 KB gzipped for all of Lodash
+  or about 4 KB for
+  `lodash.cloneDeep` alone.
+- **Java serialization** and **Python `copy.deepcopy`** use the same idea: walk
+  the object graph, create new instances, and reuse already-copied
+  references.
 
 ## Variants
 
-| Approach | Circular Refs | Special Types | Performance | Environment |
-|----------|-------------|---------------|-------------|-------------|
-| `structuredClone` | Yes | Dates, Maps, Sets, TypedArrays | Fast | Modern browsers, Node 17+ |
-| `JSON.parse/stringify` | No | None (Dates→strings) | Fastest | All environments |
+| Approach | Circular refs | Special types | Performance | Environment |
+| --- | --- | --- | --- | --- |
+| `structuredClone` | Yes | Dates, Maps, Sets, typed arrays | Fast | Modern browsers, Node 17+ |
+| `JSON.parse/stringify` | No | None (Dates become strings) | Fastest | All environments |
 | Manual recursion | Yes | Configurable | Medium | All environments |
 | Lodash `cloneDeep` | Yes | Dates, Maps, Sets, RegExp, etc. | Medium | All environments (requires dependency) |
 | Java serialization | Yes | All `Serializable` types | Slow | Java JVM |
 | Python `copy.deepcopy` | Yes | Most built-in types | Medium | Python |
 
-## What Works
+## Best Practices
 
-1. **Prefer `structuredClone` for modern environments** — it's native, fast, handles circular references, and supports Maps, Sets, and typed arrays. No dependency needed.
-2. **Use Lodash when supporting older browsers** — if you target IE11 or Node < 17, `structuredClone` is unavailable and Lodash provides consistent behavior.
-3. **Never use `JSON.parse/stringify` for complex objects** — it's fine for simple config objects, but silently corrupts Dates, functions, `undefined`, Maps, Sets, and circular references.
-4. **Clone defensively at API boundaries** — when receiving objects from external [APIs](/recipes/call-rest-api/) or passing state to child components, clone before mutation to prevent accidental side effects.
-5. **Consider structural sharing for large trees** — for very large immutable data structures, libraries like Immer use structural sharing to avoid O(n) copy costs on every update. See [Flatten/Unflatten Objects](/recipes/flatten-unflatten-objects/) for nested data manipulation.
+- Prefer `structuredClone` in modern environments. It's native, fast, and
+  handles circular references and most special types.
+- Use Lodash when you still need to support older browsers or Node versions
+  where `structuredClone` isn't available.
+- Keep `JSON.parse/stringify` away from complex objects; it silently corrupts
+  Dates, functions, `undefined`, `Map`, `Set`, and circular references.
+- Clone defensively at API boundaries. Copy external API or state-store data
+  before mutating it, so you don't introduce accidental side effects.
+- With very large immutable trees, libraries like Immer use structural sharing
+  instead of copying the whole tree on every update.
 
 ## Common Mistakes
 
-1. Using spread syntax (`{...obj}`) or `Object.assign` expecting a deep copy — these only shallow-copy the top level; nested objects are still shared by reference.
-2. Using `JSON.parse/stringify` on objects containing Dates, then wondering why they became strings.
-3. Implementing manual deep clone without a cache, causing infinite recursion or stack overflow on circular references.
-4. Cloning DOM elements or functions with `structuredClone` — it throws a `DataCloneError` for non-serializable types.
-5. Deep cloning unnecessarily large objects on every render, causing performance bottlenecks. Use memoization or structural sharing instead.
-
-
-## Troubleshooting
-
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
-- **Data quality degrades over time**: add data validation checks and anomaly detection.  Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.  Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.  Archive cold data and set lifecycle policies.
-
-
-
-
-
-## Quick Reference
-
-- **Main command**: run the base solution from the article and verify the expected result.
-- **Validation**: confirm tests pass and key metrics did not degrade.
-- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the data and deep-clone guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply deep clone objects in javascript** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Using spread (`{...obj}`) or `Object.assign` and expecting a deep copy. Only
+  the top level gets copied, so nested objects are still shared by reference.
+- Running `JSON.parse/stringify` on objects that contain `Date` values and then
+  being surprised when they come back as strings.
+- Writing a manual deep clone without a cache and getting infinite recursion or
+  a stack overflow with circular references.
+- Calling `structuredClone` on functions or DOM nodes. Non-serializable types
+  trigger a `DataCloneError`.
+- Running a deep clone on a huge object on every render. That creates performance
+  bottlenecks; use memoization or structural sharing instead.
 
 ## FAQ
 
 ### Why does `{...obj}` not create a deep copy?
 
-Spread syntax performs a shallow copy: it copies all enumerable own properties from `obj` to a new object, but nested objects and arrays are still references to the originals. Use `structuredClone`, Lodash, or manual recursion for true deep copies.
+Spread syntax creates a shallow copy. It copies all enumerable own properties
+from `obj` into a new object, yet nested objects and arrays still point to the
+original values. Use `structuredClone`, Lodash, or manual recursion for a true
+deep copy.
 
 ### Does `structuredClone` preserve class instances?
 
-No. `structuredClone` strips prototype chains, so instances of custom classes become plain objects. If you need to preserve class behavior, use manual cloning that reconstructs instances with `new MyClass(...)` or Lodash with customizer functions.
+No. It strips prototype chains, so custom class instances become plain objects.
+To keep class behavior, write a custom clone that rebuilds instances with
+`new MyClass(...)` or use a Lodash customizer.
 
 ### How do I deep clone in Node.js without dependencies?
 
-In Node 17.0+, use `structuredClone` (available globally). In older Node versions, use `v8.deserialize(v8.serialize(obj))` which is Node's internal structured clone algorithm. Avoid `JSON.parse/stringify` for anything beyond simple plain objects.
+Node 17.0 and later expose `structuredClone` globally. On older versions, use
+`v8.deserialize(v8.serialize(obj))`, which uses Node's internal
+algorithm. Only reach for `JSON.parse/stringify` with simple plain objects.
 
-### How do I deep clone objects with getters/setters?
+### How do I clone objects with getters and setters?
 
-`structuredClone` and `JSON.parse/stringify` do not preserve getters and setters — they evaluate the getter and copy the resulting value. To preserve property descriptors, use `Object.getOwnPropertyDescriptors` combined with `Object.create` to reconstruct the prototype chain. Libraries like Lodash `_.cloneDeep` preserve accessors by default. For class hierarchies with computed properties, write a custom clone method that copies descriptors explicitly.
-
-## Common Production Pitfalls
-
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+Neither `structuredClone` nor `JSON.parse/stringify` keeps getters and setters.
+They evaluate the getter and copy the resulting value. To keep property
+descriptors, use `Object.getOwnPropertyDescriptors` with `Object.create` to
+rebuild the prototype chain. Lodash `cloneDeep` preserves
+accessors by default.

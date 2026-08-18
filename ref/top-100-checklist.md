@@ -180,13 +180,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.1% / ES 36.5% (0 patterns)
    - Words: 1,919 | Meta: 154 chars
 
-22. - [ ] **deep-clone-javascript** (recipes)
+22. - [x] **deep-clone-javascript** (recipes)
    - Metrics: 58 imp | pos 29.5 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/deep-clone-javascript/
    - ES: https://stackpractices.com/es/recipes/deep-clone-javascript/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,840 | Meta: 166 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 37.5% / ES 27.3% (0 patterns)
+   - Words: 1,536 | Meta: 162 chars
 
 23. - [ ] **rabbitmq-task-queue** (recipes)
    - Metrics: 46 imp | pos 25.9 | CTR 0.00% | Δ impr 35
