@@ -1,0 +1,321 @@
+[
+  {
+    "label": "convert-csv-to-json-en",
+    "model": "desklib",
+    "model_ai_pct": 43.2,
+    "ai_count": 11,
+    "human_count": 25,
+    "skipped_count": 4,
+    "total": 40,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.8,
+      "stddev": 19.3,
+      "cv": 1.09,
+      "verdict": "natural variation",
+      "sentence_count": 36,
+      "lengths": [
+        16,
+        20,
+        9,
+        16,
+        21,
+        14,
+        15,
+        15,
+        13,
+        13,
+        15,
+        9,
+        8,
+        20,
+        13,
+        22,
+        18,
+        19,
+        21,
+        129,
+        14,
+        8,
+        12,
+        14,
+        11,
+        12,
+        11,
+        8,
+        9,
+        8,
+        21,
+        16,
+        22,
+        10,
+        14,
+        23
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The code below runs in Python, JavaScript, and Java.",
+        0.9821
+      ],
+      [
+        "You're probably here because one of these is true:\nYou need to bring spreadsheet exports into a web app or API.",
+        0.9001
+      ],
+      [
+        "If the file is Parquet, Avro, or ORC, use the parser built for that format.",
+        0.7277
+      ],
+      [
+        "JSON can hold numbers, booleans, null, arrays, and objects \u2014 not just\ntext.",
+        0.6483
+      ],
+      [
+        "When the data already lives in a database, query it directly with SQL.",
+        0.6462
+      ],
+      [
+        "A quoted comma or newline will trip up any line.split(',') shortcut.",
+        0.6211
+      ],
+      [
+        "CSV only stores text, so it's got no idea whether a value is a number, a\nboolean, or a date.",
+        0.6177
+      ],
+      [
+        "Write JSON out in chunks, or\n  send rows straight to a database.",
+        0.5852
+      ],
+      [
+        "Check the JSON against a schema when the output structure has to be exact.",
+        0.5785
+      ],
+      [
+        "You need to process live records as they arrive.",
+        0.5694
+      ],
+      [
+        "A streaming parser reads one row at a time, so the whole file never has to live\nin memory.",
+        0.5064
+      ],
+      [
+        "Use dotted column names like user.name and user.email, then expand them in\ncode or with a library such as flat or pandas.json_normalize.",
+        0.4883
+      ],
+      [
+        "| Technology | Library | Approach | Notes |\n| --- | --- | --- | --- |\n| Python | csv + json | DictReader + json.dump | Standard library, no dependencies |\n| Python | pandas | read_",
+        0.4556
+      ],
+      [
+        "For files over 100 MB, stream the conversion.",
+        0.4411
+      ],
+      [
+        "You're the one deciding how each value maps to a JSON type: age becomes a\nnumber, active a boolean, tags an array.",
+        0.4204
+      ],
+      [
+        "csv.Sniffer in Python, csv-parse's\ndelimiter option, and Excel's \"CSV (semicolon)\" export are common fixes.",
+        0.4133
+      ],
+      [
+        "You want to push flat data into MongoDB, Elasticsearch, or a similar document\n  store.",
+        0.4093
+      ],
+      [
+        "Ignoring a UTF-8 BOM that corrupts the first header.",
+        0.3833
+      ],
+      [
+        "Exporting\n  to CSV and parsing it again only adds an unnecessary middle step.",
+        0.3555
+      ],
+      [
+        "There's a quick\nstandard-library version and a streaming version for files that won't fit in\nRAM.",
+        0.3394
+      ],
+      [
+        "Set the parser to the delimiter the file actually uses.",
+        0.339
+      ],
+      [
+        "Use csv-parse with async iteration in Node, Jackson's streaming reader in\nJava, or pd.read_csv(chunksize=...) in Python.",
+        0.3276
+      ],
+      [
+        "You want to feed CSV data to a charting or visualization library on the client.",
+        0.3211
+      ],
+      [
+        "Use a forgiving parser like papaparse with skipEmptyLines and error\ncallbacks, or configure csv-parse to skip blank lines and continue on bad\nrecords.",
+        0.3157
+      ],
+      [
+        "CSV is the default export format for spreadsheets and databases, yet it only\nstores flat text.",
+        0.3134
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "convert-csv-to-json-es",
+    "model": "desklib",
+    "model_ai_pct": 36.8,
+    "ai_count": 8,
+    "human_count": 31,
+    "skipped_count": 2,
+    "total": 41,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 17.1,
+      "stddev": 19.8,
+      "cv": 1.16,
+      "verdict": "natural variation",
+      "sentence_count": 39,
+      "lengths": [
+        19,
+        22,
+        10,
+        18,
+        20,
+        11,
+        13,
+        13,
+        14,
+        9,
+        7,
+        8,
+        9,
+        10,
+        10,
+        10,
+        20,
+        19,
+        19,
+        24,
+        134,
+        6,
+        15,
+        11,
+        13,
+        12,
+        14,
+        9,
+        12,
+        9,
+        11,
+        7,
+        6,
+        18,
+        19,
+        23,
+        12,
+        20,
+        29
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Cargar un CSV de varios gigabytes entero en memoria.",
+        0.9776
+      ],
+      [
+        "Caste\u00e1 los tipos de forma expl\u00edcita.",
+        0.8577
+      ],
+      [
+        "El archivo es Parquet, Avro u ORC.",
+        0.6683
+      ],
+      [
+        "El CSV es demasiado grande para caber en memoria como un solo objeto.",
+        0.6553
+      ],
+      [
+        "Est\u00e1s procesando un stream en vivo de registros chicos.",
+        0.629
+      ],
+      [
+        "El c\u00f3digo de abajo corre en Python, JavaScript y Java.",
+        0.6088
+      ],
+      [
+        "Necesit\u00e1s cargar datos planos en MongoDB, Elasticsearch u otro document store.",
+        0.5779
+      ],
+      [
+        "Olvidar que JSON no tiene tipo date.",
+        0.5255
+      ],
+      [
+        "JSON te permite\nguardar n\u00fameros, booleanos, null, arrays y objetos.",
+        0.4707
+      ],
+      [
+        "Hay una versi\u00f3n r\u00e1pida con\nlibrer\u00eda est\u00e1ndar y otra con streaming para archivos que no entran en RAM.",
+        0.4622
+      ],
+      [
+        "Si los datos ya viven en una base de datos, consultala directamente con SQL.",
+        0.4347
+      ],
+      [
+        "Probablemente est\u00e9s ac\u00e1 por una de estas razones:\nTen\u00e9s que llevar exports de spreadsheets a una app web o API.",
+        0.4084
+      ],
+      [
+        "Sete\u00e1 la opci\u00f3n delimiter del parser para que coincida con el archivo.",
+        0.4001
+      ],
+      [
+        "Ah\u00ed la conversi\u00f3n por\n  lotes de archivos no tiene sentido.",
+        0.3787
+      ],
+      [
+        "CSV es el formato de exportaci\u00f3n por defecto de spreadsheets y bases de datos,\npero solo guarda texto plano.",
+        0.3743
+      ],
+      [
+        "Separar filas con line.split(',') y romper con comillas o saltos de l\u00ednea.",
+        0.3728
+      ],
+      [
+        "Quer\u00e9s alimentar con datos CSV una librer\u00eda de gr\u00e1ficos del lado del cliente.",
+        0.3392
+      ],
+      [
+        "Si necesit\u00e1s JSON\nanidado, us\u00e1 nombres de columna con puntos como user.name y una utilidad para\nexpandirlos, o arm\u00e1 el objeto en el c\u00f3digo.",
+        0.3298
+      ],
+      [
+        "Hac\u00e9 streaming una vez que el archivo pasa los 100 MB.",
+        0.3246
+      ],
+      [
+        "Us\u00e1 la herramienta hecha para ese formato\n  binario.",
+        0.3227
+      ],
+      [
+        "Referenciar columnas por \u00edndice cuando los headers pueden cambiar.",
+        0.3185
+      ],
+      [
+        "CSV solo guarda texto; no distingue n\u00fameros, booleanos ni fechas.",
+        0.3035
+      ],
+      [
+        "Manten\u00e9 el encoding UTF-8 expl\u00edcito y manej\u00e1 los BOM, especialmente con exports\n  de Excel.",
+        0.292
+      ],
+      [
+        "Valid\u00e1 el JSON de salida contra un schema cuando la estructura importe.",
+        0.2849
+      ],
+      [
+        "Ignorar un BOM UTF-8 que corrompe la primera clave del header.",
+        0.2832
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

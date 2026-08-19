@@ -201,32 +201,32 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/patterns/partial-class-pattern/
    - ES: https://stackpractices.com/es/patterns/partial-class-pattern/
    - Focus: striking distance, low CTR, proven demand
-   - Status: ✅ Title + meta optimized in P1.1
-   - Words: 1,582 | Meta: 143 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 36.8% / ES 38.3% (0 patterns)
+   - Words: 1,498 | Meta: 138 chars
 
-25. - [ ] **convert-csv-to-json** (recipes)
+25. - [x] **convert-csv-to-json** (recipes)
    - Metrics: 40 imp | pos 16.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/convert-csv-to-json/
    - ES: https://stackpractices.com/es/recipes/convert-csv-to-json/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 3,523 | Meta: 144 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.2% / ES 36.8% (0 patterns)
+   - Words: 1,101 | Meta: 155 chars
 
-26. - [ ] **server-sent-events-node** (recipes)
+26. - [x] **server-sent-events-node** (recipes)
    - Metrics: 71 imp | pos 30.6 | CTR 0.00% | Δ impr 53
    - EN: https://stackpractices.com/recipes/server-sent-events-node/
    - ES: https://stackpractices.com/es/recipes/server-sent-events-node/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,553 | Meta: 166 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 46.5% / ES 38.0% (0 patterns)
+   - Words: 1,084 | Meta: 158 chars
 
-27. - [ ] **python-airflow-dag-scheduling** (recipes)
+27. - [x] **python-airflow-dag-scheduling** (recipes)
    - Metrics: 47 imp | pos 29.6 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-airflow-dag-scheduling/
    - ES: https://stackpractices.com/es/recipes/python-airflow-dag-scheduling/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,285 | Meta: 156 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.7% / ES 34.9% (0 patterns)
+   - Words: 1,444 | Meta: 165 chars
 
 28. - [ ] **elasticsearch-aggregations** (recipes)
    - Metrics: 65 imp | pos 36.2 | CTR 0.00% | Δ impr 22

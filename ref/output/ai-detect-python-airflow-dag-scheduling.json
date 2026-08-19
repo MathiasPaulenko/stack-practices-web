@@ -1,0 +1,345 @@
+[
+  {
+    "label": "python-airflow-dag-scheduling-en",
+    "model": "desklib",
+    "model_ai_pct": 44.7,
+    "ai_count": 17,
+    "human_count": 33,
+    "skipped_count": 6,
+    "total": 56,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.9,
+      "stddev": 11.4,
+      "cv": 0.88,
+      "verdict": "natural variation",
+      "sentence_count": 50,
+      "lengths": [
+        10,
+        5,
+        16,
+        20,
+        13,
+        7,
+        17,
+        11,
+        9,
+        13,
+        12,
+        6,
+        6,
+        8,
+        12,
+        13,
+        17,
+        9,
+        8,
+        17,
+        6,
+        20,
+        6,
+        13,
+        6,
+        16,
+        11,
+        87,
+        6,
+        11,
+        13,
+        8,
+        19,
+        15,
+        10,
+        10,
+        10,
+        5,
+        14,
+        9,
+        9,
+        7,
+        21,
+        12,
+        14,
+        7,
+        8,
+        11,
+        16,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Airflow is a solid choice when:\nYou're building multi-step data pipelines where tasks depend on each other.",
+        0.8885
+      ],
+      [
+        "Each task is an operator.",
+        0.868
+      ],
+      [
+        "A DAG has a schedule, a fixed start date, and default arguments.",
+        0.7602
+      ],
+      [
+        "Setting start_date=datetime.now() or any other dynamic value.",
+        0.7491
+      ],
+      [
+        "Simple cron jobs with no dependencies.",
+        0.7087
+      ],
+      [
+        "Re-running the same task for the same date should produce the same result.",
+        0.706
+      ],
+      [
+        "For those, GitHub Actions, Jenkins, or GitLab CI are a better\n  fit.",
+        0.6624
+      ],
+      [
+        "It might run a Python function, execute SQL, trigger a\njob, or wait on a sensor.",
+        0.657
+      ],
+      [
+        "This recipe covers DAGs, scheduling, task dependencies, sensors, XCom, and the\nTaskFlow API.",
+        0.6417
+      ],
+      [
+        "For long waits, reschedule frees up the worker slot between checks.",
+        0.6384
+      ],
+      [
+        "TaskFlow handles it through return values.",
+        0.6262
+      ],
+      [
+        "For long waits, go with reschedule.",
+        0.5903
+      ],
+      [
+        "For those, Flink, Spark Streaming, or Kafka\n  Streams are the right tools.",
+        0.5522
+      ],
+      [
+        "The scheduler parses the DAG file, creates a DagRun for each schedule interval,\nand queues the tasks.",
+        0.547
+      ],
+      [
+        "TaskFlow passes return values without extra code.",
+        0.533
+      ],
+      [
+        "Pipelines need monitoring, alerting, and a visual run history.",
+        0.5289
+      ],
+      [
+        "Apache Airflow models data pipelines as Directed Acyclic Graphs (DAGs).",
+        0.5202
+      ],
+      [
+        "Pushing large DataFrames via XCom.",
+        0.4897
+      ],
+      [
+        "You want batch jobs on a cron-like schedule with built-in retries.",
+        0.4887
+      ],
+      [
+        "A DAG is a set of tasks tied together by dependencies, where data flows one way\nand there are no cycles.",
+        0.4755
+      ],
+      [
+        "Airflow is for batch workflows, not for daemons.",
+        0.4465
+      ],
+      [
+        "An executor picks up queued tasks and runs them.",
+        0.4169
+      ],
+      [
+        "A plain crontab entry is simpler.",
+        0.4136
+      ],
+      [
+        "catchup=True makes Airflow run every missed interval between start_date and\nnow; catchup=False starts from the present.",
+        0.4119
+      ],
+      [
+        "XCom lets tasks share small pieces of data.",
+        0.4068
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-airflow-dag-scheduling-es",
+    "model": "desklib",
+    "model_ai_pct": 34.9,
+    "ai_count": 11,
+    "human_count": 38,
+    "skipped_count": 6,
+    "total": 55,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.3,
+      "stddev": 12.1,
+      "cv": 0.91,
+      "verdict": "natural variation",
+      "sentence_count": 49,
+      "lengths": [
+        11,
+        19,
+        20,
+        16,
+        11,
+        12,
+        10,
+        10,
+        14,
+        7,
+        5,
+        7,
+        7,
+        7,
+        13,
+        23,
+        9,
+        7,
+        16,
+        11,
+        22,
+        6,
+        13,
+        5,
+        18,
+        9,
+        90,
+        7,
+        12,
+        9,
+        8,
+        17,
+        14,
+        9,
+        11,
+        11,
+        5,
+        8,
+        10,
+        9,
+        6,
+        21,
+        13,
+        13,
+        9,
+        8,
+        14,
+        19,
+        21
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Una entrada de crontab es m\u00e1s simple.",
+        0.9536
+      ],
+      [
+        "XCom permite compartir datos chicos entre tareas.",
+        0.8996
+      ],
+      [
+        "La metadata DB no es un data store.",
+        0.8657
+      ],
+      [
+        "Cron jobs simples sin dependencias.",
+        0.6593
+      ],
+      [
+        "Los pipelines necesitan monitoreo, alerting e historial visual de ejecuci\u00f3n.",
+        0.6319
+      ],
+      [
+        "La\nTaskFlow API hace esto autom\u00e1ticamente con los valores de retorno.",
+        0.6248
+      ],
+      [
+        "Un DAG es una colecci\u00f3n de tareas con dependencias dirigidas y sin ciclos.",
+        0.6149
+      ],
+      [
+        "Escribir tareas no idempotentes que agregan datos duplicados al reintentar.",
+        0.576
+      ],
+      [
+        "Usar un start_date din\u00e1mico como datetime.now().",
+        0.5418
+      ],
+      [
+        "Re-ejecutar la misma fecha deber\u00eda dar el\n  mismo resultado.",
+        0.5403
+      ],
+      [
+        "Los sensors esperan una condici\u00f3n externa.",
+        0.5064
+      ],
+      [
+        "Un Directed Acyclic Graph: un conjunto de tareas con dependencias, donde los\ndatos fluyen en una direcci\u00f3n y no hay ciclos.",
+        0.4396
+      ],
+      [
+        "La TaskFlow API pasa los valores de retorno\nautom\u00e1ticamente.",
+        0.4313
+      ],
+      [
+        "Us\u00e1 poke para esperas cortas de pocos minutos.",
+        0.4265
+      ],
+      [
+        "Para una gu\u00eda m\u00e1s profunda, consult\u00e1\n[Apache Airflow: la gu\u00eda completa](/es/guides/complete-guide-apache-airflow/).",
+        0.4176
+      ],
+      [
+        "Etiquet\u00e1 los DAGs para filtrarlos f\u00e1cil en la UI.",
+        0.3945
+      ],
+      [
+        "Us\u00e1 GitHub Actions, Jenkins o GitLab CI.",
+        0.3889
+      ],
+      [
+        "Usar @daily sin catchup=False, lo que puede lanzar cientos de backfills.",
+        0.3762
+      ],
+      [
+        "Cada DAG tiene un schedule, una\nfecha de inicio y argumentos por defecto.",
+        0.3383
+      ],
+      [
+        "Us\u00e1 Flink, Spark Streaming o Kafka Streams.",
+        0.3347
+      ],
+      [
+        "timetable es un mecanismo de scheduling custom en Airflow 2.2+ para horarios\ncomplejos que no entran en una regla cron simple.",
+        0.3196
+      ],
+      [
+        "El\nscheduler de Airflow lee el archivo del DAG, crea un DagRun para cada intervalo\ny encola las tareas en el orden correcto.",
+        0.3051
+      ],
+      [
+        "Pasar DataFrames grandes por XCom.",
+        0.3039
+      ],
+      [
+        "Us\u00e1 max_active_runs=1 para pipelines que no pueden solaparse.",
+        0.2904
+      ],
+      [
+        "catchup=True hace que Airflow ejecute todos los intervalos perdidos entre\nstart_date y ahora; catchup=False arranca desde el presente.",
+        0.2853
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

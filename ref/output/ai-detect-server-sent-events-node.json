@@ -1,0 +1,334 @@
+[
+  {
+    "label": "server-sent-events-node-en",
+    "model": "desklib",
+    "model_ai_pct": 46.5,
+    "ai_count": 13,
+    "human_count": 30,
+    "skipped_count": 4,
+    "total": 47,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.5,
+      "stddev": 12.4,
+      "cv": 0.92,
+      "verdict": "natural variation",
+      "sentence_count": 43,
+      "lengths": [
+        18,
+        22,
+        20,
+        16,
+        10,
+        10,
+        11,
+        8,
+        11,
+        6,
+        6,
+        8,
+        13,
+        9,
+        15,
+        13,
+        11,
+        13,
+        9,
+        9,
+        17,
+        89,
+        12,
+        11,
+        11,
+        10,
+        8,
+        9,
+        8,
+        15,
+        6,
+        5,
+        15,
+        11,
+        8,
+        12,
+        12,
+        21,
+        9,
+        22,
+        6,
+        13,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The traffic is mostly server-to-client, and clients just receive data.",
+        0.9116
+      ],
+      [
+        "SSE is built on a standard HTTP response.",
+        0.9075
+      ],
+      [
+        "Each connection uses a few\nkilobytes of heap plus a single socket.",
+        0.9068
+      ],
+      [
+        "Your clients need to send frequent messages back to the server.",
+        0.8986
+      ],
+      [
+        "Backpressure becomes a problem when clients can't keep up.",
+        0.8309
+      ],
+      [
+        "You really do need bidirectional or binary communication.",
+        0.7913
+      ],
+      [
+        "Your messages are small and text-only; you don't need binary payloads.",
+        0.743
+      ],
+      [
+        "The channel only goes one way and runs on plain HTTP, so it works with your\nexisting auth, load balancers, and proxies.",
+        0.6753
+      ],
+      [
+        "The server leaves the response open and writes lines in the text/event-stream\nformat.",
+        0.6524
+      ],
+      [
+        "Some proxies or firewalls\n  block them.",
+        0.6313
+      ],
+      [
+        "Yes, as long as the balancer supports long-lived HTTP connections and sticky\nsessions when you scale to two or more servers.",
+        0.5351
+      ],
+      [
+        "Remove clients on close or error so you don't leak memory.",
+        0.5272
+      ],
+      [
+        "Broadcasting big payloads without checking response.write return value.",
+        0.5201
+      ],
+      [
+        "You'd rather reuse your HTTP stack than add WebSocket infrastructure.",
+        0.4874
+      ],
+      [
+        "Server-Sent Events (SSE) let the server push text events to the browser over a\nsingle long-lived HTTP connection.",
+        0.4782
+      ],
+      [
+        "Limit open connections and the message rate for each client.",
+        0.4644
+      ],
+      [
+        "The protocol is text-only, so you encode any JSON inside the data: field.",
+        0.448
+      ],
+      [
+        "Reach for SSE when:\nYou need live dashboards, activity feeds, or notifications from server to\n  client.",
+        0.4336
+      ],
+      [
+        "This recipe gives you an Express endpoint, a browser client, and a safe broadcast\nhelper that handles backpressure and cleanup.",
+        0.4304
+      ],
+      [
+        "Use id: fields on events, and have the server read the Last-Event-ID header.",
+        0.4208
+      ],
+      [
+        "Each event carries event:, data:, id:, and retry: fields.",
+        0.4076
+      ],
+      [
+        "Thousands, limited by memory and OS file descriptors.",
+        0.4056
+      ],
+      [
+        "Plain EventSource can't set\nAuthorization headers.",
+        0.3995
+      ],
+      [
+        "response.write returns false when\nNode's internal buffer is full.",
+        0.399
+      ],
+      [
+        "Send a heartbeat every 15\u201330 seconds to avoid proxy and firewall timeouts.",
+        0.3954
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "server-sent-events-node-es",
+    "model": "desklib",
+    "model_ai_pct": 38.0,
+    "ai_count": 12,
+    "human_count": 33,
+    "skipped_count": 2,
+    "total": 47,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.8,
+      "stddev": 12.4,
+      "cv": 0.89,
+      "verdict": "natural variation",
+      "sentence_count": 45,
+      "lengths": [
+        20,
+        18,
+        21,
+        18,
+        14,
+        12,
+        11,
+        7,
+        5,
+        8,
+        7,
+        6,
+        6,
+        5,
+        12,
+        10,
+        18,
+        15,
+        14,
+        11,
+        8,
+        11,
+        17,
+        91,
+        13,
+        10,
+        10,
+        13,
+        12,
+        14,
+        13,
+        18,
+        7,
+        6,
+        14,
+        11,
+        9,
+        11,
+        12,
+        16,
+        13,
+        18,
+        7,
+        14,
+        16
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "El servidor mantiene la respuesta abierta y\nescribe l\u00edneas en formato text/event-stream.",
+        0.8683
+      ],
+      [
+        "Tus clientes necesitan enviar mensajes frecuentes al servidor.",
+        0.7904
+      ],
+      [
+        "Olvidar los heartbeats y luego preguntarse por qu\u00e9 las conexiones se caen en\n  silencio.",
+        0.7599
+      ],
+      [
+        "Cada evento tiene campos como\nevent:, data:, id: y retry:.",
+        0.7199
+      ],
+      [
+        "Server-Sent Events (SSE) permite que el servidor env\u00ede eventos de texto al\nbrowser a trav\u00e9s de una conexi\u00f3n HTTP persistente.",
+        0.6445
+      ],
+      [
+        "Limit\u00e1 la cantidad de conexiones abiertas y el rate de mensajes por cliente.",
+        0.622
+      ],
+      [
+        "El protocolo es solo texto, as\u00ed que cualquier JSON se codifica dentro del campo\ndata:.",
+        0.5891
+      ],
+      [
+        "Algunos proxies o firewalls\n  lo hacen.",
+        0.5863
+      ],
+      [
+        "SSE reutiliza una respuesta HTTP.",
+        0.5787
+      ],
+      [
+        "Elimin\u00e1 clientes en close o error para evitar memory leaks.",
+        0.5347
+      ],
+      [
+        "El tr\u00e1fico es principalmente de servidor a cliente, y los clientes solo\n  reciben datos.",
+        0.5312
+      ],
+      [
+        "Tus mensajes son chicos y de texto; no necesit\u00e1s payloads binarios.",
+        0.5142
+      ],
+      [
+        "Cada conexi\u00f3n usa unos\npocos kilobytes de heap m\u00e1s un socket.",
+        0.4614
+      ],
+      [
+        "Envi\u00e1 un heartbeat cada 15\u201330 segundos para evitar timeouts de proxies y\n  firewalls.",
+        0.4578
+      ],
+      [
+        "Abrir muchas instancias de EventSource por p\u00e1gina.",
+        0.4335
+      ],
+      [
+        "Miles, limitado por memoria y file descriptors del SO.",
+        0.4172
+      ],
+      [
+        "Los browsers limitan\n  conexiones por origen.",
+        0.4125
+      ],
+      [
+        "El backpressure importa cuando los clientes son lentos.",
+        0.4117
+      ],
+      [
+        "Pod\u00e9s esperar al evento\ndrain antes de escribir de nuevo, o desconectar clientes que se quedan atr\u00e1s.",
+        0.4028
+      ],
+      [
+        "Necesit\u00e1s comunicaci\u00f3n bidireccional o binaria de verdad.",
+        0.3917
+      ],
+      [
+        "El header Last-Event-ID permite reanudar desde donde\nel cliente se qued\u00f3.",
+        0.391
+      ],
+      [
+        "SSE es solo de\n  servidor a cliente.",
+        0.3759
+      ],
+      [
+        "S\u00ed, si el balancer soporta conexiones HTTP persistentes y sticky sessions cuando\nescal\u00e1s a m\u00faltiples servidores.",
+        0.3737
+      ],
+      [
+        "Us\u00e1 las se\u00f1ales de backpressure de res.write; no acumules mensajes sin\n  l\u00edmite.",
+        0.3731
+      ],
+      [
+        "El canal es unidireccional y\nusa HTTP plano, as\u00ed que funciona con autenticaci\u00f3n, load balancers y proxies\nexistentes.",
+        0.3519
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

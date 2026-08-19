@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: server-sent-events-node
 title: "Server-Sent Events with Node.js and Express"
-description: "Implement real-time server-to-client push using Server-Sent Events in Node.js with Express, covering connection management, event types, reconnection logic, and backpressure handling"
-metaDescription: "Implement Server-Sent Events in Node.js with Express. Real-time server-to-client push with connection management, event types, reconnection and backpressure handling."
+description: "Build server-to-client push with Server-Sent Events in Node.js and Express. Covers connections, heartbeats, reconnection, and safe broadcasting."
+metaDescription: "Implement Server-Sent Events in Node.js with Express. Includes connection handling, heartbeats, client reconnection, and safe broadcasting for real-time push."
 difficulty: intermediate
 topics:
   - api
@@ -17,334 +15,245 @@ tags:
   - express
   - api
 relatedResources:
+  - /recipes/server-sent-events
+  - /recipes/server-sent-events-go
   - /recipes/websocket-bidirectional-chat
-  - /recipes/kafka-event-streaming
   - /recipes/websockets-realtime
-lastUpdated: "2026-06-18"
+  - /recipes/redis-pub-sub-python
+  - /patterns/publish-subscribe-pattern
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implement Server-Sent Events in Node.js with Express. Real-time server-to-client push with connection management, event types, reconnection and backpressure handling."
+  metaDescription: "Implement Server-Sent Events in Node.js with Express. Includes connection handling, heartbeats, client reconnection, and safe broadcasting for real-time push."
   keywords:
     - server sent events
     - sse
     - nodejs
     - express
     - real time push
-
-
 ---
 
-Server-Sent Events (SSE) provide a lightweight, unidirectional channel for pushing real-time updates from server to browser over HTTP. Unlike WebSockets, SSE uses standard HTTP, auto-reconnects, and works directly with existing infrastructure like load balancers. Here is how to Express implementation, event types, connection management, and graceful client reconnection.
+## Overview
 
-## When to Use This
+Server-Sent Events (SSE) let the server push text events to the browser over a
+single long-lived HTTP connection. The channel only goes one way and runs on plain HTTP, so it works with your
+existing auth, load balancers, and proxies.
 
-- Live dashboards, activity feeds, or notification streams need server-initiated updates
-- You want real-time push without the complexity of bidirectional WebSockets
-- Existing HTTP infrastructure (caching, auth, [LB](/recipes/nginx-reverse-proxy/)) must be reused
+This recipe gives you an Express endpoint, a browser client, and a safe broadcast
+helper that handles backpressure and cleanup.
+
+## When to Use
+
+Reach for SSE when:
+
+- You need live dashboards, activity feeds, or notifications from server to
+  client.
+- The traffic is mostly server-to-client, and clients just receive data.
+- You'd rather reuse your HTTP stack than add WebSocket infrastructure.
+- Your messages are small and text-only; you don't need binary payloads.
+
+### When to avoid
+
+- You really do need bidirectional or binary communication. Use WebSockets instead.
+- Your clients need to send frequent messages back to the server. SSE is
+  server-to-client only.
+- Your deployment blocks long-lived HTTP connections. Some proxies or firewalls
+  block them.
 
 ## Solution
 
-### 1. Express SSE Endpoint
+### Express SSE endpoint
 
 ```typescript
-// sse/SSEEndpoint.ts
+// sse/server.ts
 import express, { Request, Response } from 'express';
+import { randomUUID } from 'crypto';
+
+const app = express();
 
 interface Client {
   id: string;
   response: Response;
-  lastEventId: string | null;
 }
 
-class SSEManager {
-  private clients = new Map<string, Client>();
+const clients = new Map<string, Client>();
 
-  addClient(res: Response): string {
-    const id = crypto.randomUUID();
+function addClient(res: Response): string {
+  const id = randomUUID();
 
-    res.writeHead(200, {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-      'X-Accel-Buffering': 'no', // Disable nginx buffering
-    });
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'X-Accel-Buffering': 'no',
+  });
 
-    // Send initial connection event
-    res.write(`event: connected\nid: ${id}\ndata: ${JSON.stringify({ clientId: id })}\n\n`);
+  res.write(
+    `event: connected\nid: ${id}\ndata: ${JSON.stringify({ clientId: id })}\n\n`
+  );
 
-    this.clients.set(id, { id, response: res, lastEventId: null });
+  clients.set(id, { id, response: res });
 
-    res.on('close', () => this.removeClient(id));
-    return id;
-  }
+  res.on('close', () => {
+    clients.delete(id);
+  });
 
-  removeClient(id: string): void {
-    this.clients.delete(id);
-  }
-
-  broadcast(event: string, data: unknown): void {
-    const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
-    this.clients.forEach((client) => {
-      client.response.write(payload);
-    });
-  }
-
-  sendTo(clientId: string, event: string, data: unknown): boolean {
-    const client = this.clients.get(clientId);
-    if (!client) return false;
-
-    client.response.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
-    return true;
-  }
+  return id;
 }
 
-const sseManager = new SSEManager();
-
-// Route
 app.get('/events', (req: Request, res: Response) => {
   const lastEventId = req.headers['last-event-id'] as string | undefined;
-  const clientId = sseManager.addClient(res);
+  const clientId = addClient(res);
 
   if (lastEventId) {
-    // Client reconnected; replay missed events from that ID
     replayEvents(clientId, lastEventId);
   }
 });
-```
 
-### 2. Typed Event Protocol
-
-```typescript
-// sse/EventProtocol.ts
-type SSEEvent =
-  | { type: 'user:joined'; data: { userId: string; name: string } }
-  | { type: 'user:left'; data: { userId: string } }
-  | { type: 'notification'; data: { message: string; severity: 'info' | 'warning' | 'error' } }
-  | { type: 'heartbeat'; data: { timestamp: number } };
-
-function sendEvent(clientId: string, event: SSEEvent): void {
-  sseManager.sendTo(clientId, event.type, event.data);
+// Replace this with a bounded buffer or persistent store
+function replayEvents(clientId: string, lastEventId: string) {
+  // Send missed events to the client
 }
 
-// Heartbeat to keep connections alive
+const PORT = 3000;
+app.listen(PORT, () => console.log(`SSE server on port ${PORT}`));
+```
+
+### Broadcasting events with backpressure
+
+```typescript
+function broadcast(event: string, data: unknown) {
+  const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
+
+  clients.forEach((client) => {
+    const flushed = client.response.write(payload);
+
+    if (!flushed) {
+      client.response.once('drain', () => {
+        // buffer cleared; writes can continue
+      });
+    }
+  });
+}
+
+// Heartbeat every 30 seconds to keep connections alive
 setInterval(() => {
-  sseManager.broadcast('heartbeat', { timestamp: Date.now() });
+  broadcast('heartbeat', { ts: Date.now() });
 }, 30000);
 ```
 
-### 3. Client-Side Connection
+### Client with auto-reconnect
 
 ```typescript
-// client/SSEClient.ts
-class SSEClient {
-  private eventSource: EventSource | null = null;
-  private reconnectDelay = 1000;
-  private maxReconnectDelay = 30000;
+// client/sse.ts
+let attempts = 0;
+let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
 
-  connect(url: string): void {
-    this.eventSource = new EventSource(url);
+function connect() {
+  const source = new EventSource('/events');
 
-    this.eventSource.onopen = () => {
-      this.reconnectDelay = 1000; // Reset backoff
-    };
+  source.addEventListener('connected', (e) => {
+    attempts = 0;
+    const { clientId } = JSON.parse(e.data);
+    console.log('connected as', clientId);
+  });
 
-    this.eventSource.addEventListener('user:joined', (e) => {
-      const data = JSON.parse(e.data);
-      console.log('User joined:', data.name);
-    });
+  source.addEventListener('notification', (e) => {
+    const data = JSON.parse(e.data);
+    showToast(data.message);
+  });
 
-    this.eventSource.addEventListener('notification', (e) => {
-      const data = JSON.parse(e.data);
-      showToast(data.message, data.severity);
-    });
+  source.onerror = () => {
+    source.close();
 
-    this.eventSource.onerror = () => {
-      this.eventSource?.close();
-      this.scheduleReconnect(url);
-    };
-  }
+    if (reconnectTimer) return;
 
-  private scheduleReconnect(url: string): void {
-    setTimeout(() => {
-      this.reconnectDelay = Math.min(this.reconnectDelay * 2, this.maxReconnectDelay);
-      this.connect(url);
-    }, this.reconnectDelay);
-  }
+    const delay = Math.min(1000 * 2 ** attempts, 30000);
+    attempts += 1;
 
-  disconnect(): void {
-    this.eventSource?.close();
-  }
+    reconnectTimer = setTimeout(() => {
+      reconnectTimer = null;
+      connect();
+    }, delay);
+  };
 }
+
+connect();
 ```
 
-### 4. Backpressure and Error Handling
+## Explanation
 
-```typescript
-// sse/BackpressureHandler.ts
-class SafeSSEManager extends SSEManager {
-  broadcastSafe(event: string, data: unknown): void {
-    const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
-    const deadClients: string[] = [];
+SSE is built on a standard HTTP response. The server leaves the response open and writes lines in the `text/event-stream`
+format. Each event carries `event:`, `data:`, `id:`, and `retry:` fields. Browsers expose this through the
+`EventSource` API, which reconnects automatically and respects the
+`Last-Event-ID` header.
 
-    this.clients.forEach((client) => {
-      const writable = client.response.writable;
-      if (!writable) {
-        deadClients.push(client.id);
-        return;
-      }
+The protocol is text-only, so you encode any JSON inside the `data:` field.
+Heartbeats keep the connection alive so proxies don't close idle sockets. A
+`Last-Event-ID` header lets the server resume from where the client left off.
 
-      const flushed = client.response.write(payload);
-      if (!flushed) {
-        // Buffer full; pause this client
-        client.response.once('drain', () => {
-          // Resume when buffer clears
-        });
-      }
-    });
+Backpressure becomes a problem when clients can't keep up. `response.write` returns `false` when
+Node's internal buffer is full. You can then wait for the `drain` event before
+writing again, or disconnect clients that stay behind.
 
-    deadClients.forEach((id) => this.removeClient(id));
-  }
-}
-```
+## Variants
 
-## How It Works
+| Approach | Best for | Notes |
+| --- | --- | --- |
+| Native `EventSource` | Modern browsers | Auto-reconnect, `Last-Event-ID`, no polling |
+| Manual `fetch` + `ReadableStream` | Custom headers or POST auth | More control, more code |
+| `eventsource` npm package | Node clients or older browsers | Same API, works outside the browser |
+| `better-sse` or `sse-channel` | Production Express | Handles rooms, heartbeat, and cleanup |
 
-- **Event stream** is a persistent HTTP response with `Content-Type: text/event-stream`
-- **EventSource API** in browsers auto-reconnects and parses `event:`, `data:`, and `id:` fields
-- **Heartbeat messages** prevent proxy timeouts and detect stale connections
-- **Last-Event-ID** header enables replay of missed events after reconnection
+## Best Practices
 
-## Production Considerations
-
-- Disable response buffering in reverse proxies (nginx, HAProxy) for immediate delivery
-- Set appropriate timeout values on load balancers for long-lived connections
-- Monitor connection count to prevent memory exhaustion under high load
+- Set `X-Accel-Buffering: no` to stop nginx or other proxies from buffering the
+  stream.
+- Send a heartbeat every 15–30 seconds to avoid proxy and firewall timeouts.
+- Use `Last-Event-ID` to resume after reconnections; store a bounded event
+  history.
+- Remove clients on `close` or `error` so you don't leak memory.
+- Limit open connections and the message rate for each client.
+- Use `res.write` backpressure signals; don't buffer unbounded messages.
 
 ## Common Mistakes
 
-- Not sending heartbeats, causing silent disconnections behind proxies
-- Broadcasting large payloads to all clients without backpressure handling
-- Storing all events in memory for replay instead of using a bounded buffer or persistent log
-
-## When Not to Use This Approach
-
-- **Browser-facing APIs with no real-time need**: if your API only serves request-response patterns, adding WebSocket/SSE infrastructure is unnecessary overhead. Stick with REST.
-- **Teams without real-time experience**: WebSocket connection management, reconnection logic, and backpressure handling require specialized knowledge. If your team is small, REST polling may be more reliable.
-- **High-frequency polling is acceptable**: if your use case tolerates 5-10 second polling intervals, REST polling is simpler to implement, debug, and scale. Real-time infrastructure is only justified when latency matters.
-- **Strict firewall environments**: some corporate firewalls block WebSocket upgrades or long-lived HTTP connections. Verify your deployment environment supports your chosen real-time protocol before committing.
-- **Single-server deployments without sticky sessions**: WebSocket and SSE require sticky sessions or a shared pub/sub backend. If you run a single server, this is not an issue, but scaling requires Redis or similar.
-
-## Performance Benchmarks
-
-| Metric | WebSocket | SSE | REST Polling (5s) |
-|--------|-----------|-----|--------------------|
-| Latency (message delivery) | 2ms | 5ms | 2500ms avg |
-| Connections per server | 10,000 | 8,000 | N/A |
-| Memory per connection | 4KB | 6KB | N/A |
-| Bandwidth (1000 msg/min) | 50KB/min | 80KB/min | 2.4MB/min |
-| Reconnection time | 100ms | 300ms | N/A |
-| CPU per 1000 connections | 2% | 3% | 0.5% |
-
-Benchmarks run on Node.js 20, single core, 1KB messages. Real-world results vary with message size, frequency, and network conditions.
-
-## Testing Strategy
-
-- **Test connection lifecycle**: verify connect, authenticate, message exchange, and disconnect work correctly. Test that server cleans up resources after disconnect.
-- **Test reconnection logic**: kill the connection mid-stream and verify the client reconnects with exponential backoff. Verify no messages are lost during reconnection (use sequence numbers).
-- **Test backpressure handling**: send messages faster than the client can consume. Verify the server applies backpressure instead of buffering unbounded messages in memory.
-- **Test authentication failure**: verify that unauthenticated connections are rejected before any message is processed. Test expired tokens, invalid tokens, and missing auth headers.
-- **Test concurrent connection limits**: open more connections than the server limit and verify the server rejects excess connections gracefully with an appropriate error code.
-- **Test message ordering**: send 100 messages rapidly and verify they arrive in order on the client. WebSocket guarantees order on a single connection; verify your implementation preserves this.
-
-## Cost Estimation
-
-- **Infrastructure cost**: real-time servers require more memory per connection (4-6KB vs 0KB for stateless REST). For 10K concurrent connections, budget 40-60MB RAM just for connection state.
-- **Load balancer cost**: WebSocket requires sticky sessions or ALB with WebSocket support. AWS ALB supports WebSocket natively at no extra cost, but NLB with sticky sessions costs ~/month extra.
-- **Redis pub/sub**: for multi-server deployments, Redis pub/sub is needed to broadcast messages. A small Redis instance (~/month) handles up to 10K subscriptions.
-- **Monitoring tools**: real-time monitoring (connection count, message rate, latency) requires custom metrics. Budget -50/month for Datadog or Grafana Cloud.
-- **Development cost**: +30% vs REST due to connection management, reconnection logic, testing complexity, and monitoring. Amortized over the API lifetime.
-
-## Monitoring and Observability
-
-- **Track concurrent connection count**: monitor active WebSocket/SSE connections per server instance. Set alerts for sudden drops (>20% in 5 minutes) which indicate network issues or server problems.
-- **Monitor message rate per connection**: track messages per second per connection. A sudden spike from one connection may indicate a runaway client or abuse.
-- **Track reconnection rate**: monitor how often clients reconnect. A high reconnection rate (>1/minute per client) indicates unstable connections or aggressive server-side disconnects.
-- **Monitor message delivery latency**: track time from message publish to client receipt. Latency >100ms indicates server backlog or network issues.
-- **Track authentication failures**: monitor failed auth attempts per IP. A spike may indicate credential stuffing or token replay attacks.
-
-## Deployment Checklist
-
-- [ ] Configure connection timeout (idle connections should be closed after 5 minutes)
-- [ ] Set max connections per server instance (prevent resource exhaustion)
-- [ ] Enable heartbeat/ping-pong to detect dead connections
-- [ ] Configure sticky sessions on load balancer (for WebSocket)
-- [ ] Set up Redis pub/sub for multi-server message broadcasting
-- [ ] Enable TLS/wss for all production connections
-- [ ] Configure reconnection logic on client with exponential backoff
-- [ ] Set up monitoring for connection count, message rate, and latency
-- [ ] Test failover: kill one server and verify clients reconnect to another
-- [ ] Document message format and protocol in API documentation
-
-## Security Considerations
-
-- **Origin validation**: WebSocket connections send an Origin header. Validate it against an allowlist to prevent cross-site WebSocket hijacking (CSWSH). Reject connections from unknown origins.
-- **Authentication token in URL**: passing auth tokens as query parameters (wss://server?token=abc) leaks tokens in server logs and proxy access logs. Use the Sec-WebSocket-Protocol header or a cookie instead.
-- **Connection flooding**: attackers can open thousands of WebSocket connections without sending messages, exhausting server resources. Rate limit connection attempts per IP and require authentication immediately after connect.
-- **Message size limits**: set a max message size on the server. Unbounded message sizes allow attackers to send huge payloads that exhaust memory. A 1MB limit is reasonable for most use cases.
-- **Cross-site WebSocket hijacking (CSWSH)**: WebSocket connections are not subject to SOP. Any web page can open a WebSocket to your server. Validate the Origin header and use CSRF tokens for WebSocket handshakes.
-- **Token replay via WebSocket**: if auth tokens are sent only at connection time, a stolen token can be reused until it expires. Implement per-message authentication for sensitive operations or use short-lived tokens.
-- **WebSocket masking abuse**: WebSocket clients must mask frames, but a malicious client can use masking to bypass inspection by intermediary proxies. Configure your proxy to inspect WebSocket traffic if compliance requires it.
-- **SSE event injection**: if SSE event data includes user input without escaping, attackers can inject event delimiters (\n\n) and forge events. Always sanitize user input in SSE messages.
-- **Subscription hijacking**: if clients can subscribe to arbitrary channels, attackers can subscribe to other users' channels. Validate that the client is authorized for each subscription.
-- **Resource exhaustion via slow consumers**: a slow client can cause the server to buffer many messages, exhausting memory. Set a per-connection buffer limit and disconnect clients that exceed it.
-- **Denial of service via ping flooding**: if the server sends ping frames too frequently, a malicious client can flood with pong responses. Rate limit ping frames and disconnect clients that send unsolicited pongs.
-- **WebSocket extension abuse**: WebSocket extensions (e.g., permessage-deflate) can be abused to send highly compressed frames that decompress to huge payloads. Set a max decompressed frame size.
-- **Connection draining on shutdown**: when shutting down a real-time server, drain connections gracefully. Send a close frame with a "server shutting down" code and allow clients to reconnect to another instance.
-- **Credential leakage in error messages**: if connection errors include auth tokens or session IDs, attackers can capture them. Never include sensitive data in error messages sent to clients.
-- **IP spoofing via X-Forwarded-For**: if you rate limit by IP using X-Forwarded-For, attackers can spoof this header. Configure your load balancer to overwrite X-Forwarded-For from trusted proxies only.
-- **Message injection via shared channels**: if multiple users share a pub/sub channel, a compromised client can inject messages that other clients receive. Use per-user channels or sign messages with HMAC.
-- **Replay attacks on messages**: if messages are not timestamped or sequenced, attackers can replay old messages. Include a timestamp and sequence number in each message and reject duplicates.
-- **TLS downgrade attacks**: if the server supports both ws:// and wss://, attackers can downgrade the connection. Disable ws:// in production and redirect to wss://.
-- **Memory exhaustion via large headers**: WebSocket handshake headers can be very large. Set a max header size on the server to prevent memory exhaustion via header flooding.
-- **Connection persistence after token expiry**: if a WebSocket connection stays open after the auth token expires, the client has unauthorized access. Periodically re-validate tokens on existing connections and disconnect if expired.
-- **Broadcast amplification**: if a single client can trigger a broadcast to all connected clients, attackers can cause message amplification. Rate limit broadcasts and require admin authentication for broadcast operations.
-- **SSE proxy buffering**: some proxies buffer SSE responses, delaying delivery to clients. Set X-Accel-Buffering: no (nginx) or disable proxy buffering for SSE endpoints.
-- **WebSocket compression side-channel**: the permessage-deflate extension can leak information through compression ratios. Disable compression for high-security environments or use Brotli with constant-time compression.
-- **Channel enumeration**: if channel names are guessable (e.g., user-123), attackers can enumerate channels. Use random, unguessable channel IDs or validate authorization per subscription.
-- **Connection state leakage**: if connection state is shared between requests (e.g., in a shared channel object), data from one user may leak to another. Use per-connection isolated state objects.
-- **DoS via rapid subscribe/unsubscribe**: if clients can rapidly subscribe and unsubscribe from channels, this can cause high CPU usage on the server. Rate limit subscription changes per connection.
-- **Message forgery via missing HMAC**: if messages are not signed, a compromised client can forge messages from other users. Sign each message with an HMAC using a per-user secret.
-- **Token theft via XSS**: if auth tokens are stored in JavaScript variables, an XSS attack can steal them. Use HttpOnly cookies for session tokens and avoid storing tokens in JavaScript-accessible storage.
-- **WebSocket over CDN limitations**: many CDNs do not support WebSocket connections. Ensure your CDN supports WebSocket or bypass the CDN for WebSocket traffic.
-- **SSE connection limit per browser**: browsers limit SSE connections per origin (6 in Chrome). If your app opens multiple SSE connections, some will fail. Use a single multiplexed connection instead.
-- **Graceful degradation**: if WebSocket is blocked by a firewall, clients should fall back to SSE or REST polling. Implement fallback logic on the client and document the degradation strategy.
-
-
-## Troubleshooting
-
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
+- Forgetting heartbeats and then wondering why connections drop silently.
+- Broadcasting big payloads without checking `response.write` return value.
+- Keeping the full event history in memory instead of a bounded buffer or
+  persistent log.
+- Opening many `EventSource` instances per page. Browsers cap connections per
+  origin.
+- Sending binary data or expecting the client to post data back over the same
+  connection.
 
 ## FAQ
 
-**Q: SSE vs WebSockets: which to choose?**
-A: Use SSE for server-to-client push over HTTP. Use [WebSockets](/recipes/websocket-server/) when you need true bidirectional communication or binary data.
+### Can I send binary data over SSE?
 
-**Q: How many concurrent SSE connections can a Node.js server handle?**
-A: Thousands per process, limited by memory and OS file descriptors. Use clustering or [service mesh patterns](/patterns/ambassador-pattern-services/) for horizontal scaling.
+No. SSE is text-only. Encode binary as Base64, or use WebSockets for true binary
+streams.
 
-### Is this solution production-ready?
+### How many concurrent SSE connections can one Node.js process handle?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+Thousands, limited by memory and OS file descriptors. Each connection uses a few
+kilobytes of heap plus a single socket. Use clustering or a load balancer with
+sticky sessions for horizontal scaling.
 
-### What are the performance characteristics?
+### Does SSE work through a load balancer?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+Yes, as long as the balancer supports long-lived HTTP connections and sticky
+sessions when you scale to two or more servers. Disable response buffering and set long
+enough idle timeouts.
 
-### How do I debug issues with this approach?
+### How do I authenticate SSE clients?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Pass a token in the URL query, a cookie, or use `fetch` with manual stream
+parsing so you can send custom headers. Plain `EventSource` can't set
+`Authorization` headers.
+
+### What if the client disconnects and reconnects?
+
+Use `id:` fields on events, and have the server read the `Last-Event-ID` header. Replay
+missed events from a bounded in-memory queue or a persistent store like Redis.

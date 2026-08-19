@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: python-airflow-dag-scheduling
 title: "Programar y Monitorear DAGs con Apache Airflow"
-description: "Cómo definir, programar y monitorear Directed Acyclic Graphs en Apache Airflow con operators, sensors, XCom y dependencias de tareas."
-metaDescription: "Define, programa y monitorea DAGs en Apache Airflow. Usa operators, sensors, XCom, dependencias de tareas y catchup para orquestación confiable de pipelines."
+description: "Definí, programá y monitoreá DAGs de Airflow con operators, sensors, XCom, dependencias de tareas y la TaskFlow API."
+metaDescription: "Definí, programá y monitoreá DAGs en Apache Airflow. Usá operators, sensors, XCom, dependencias de tareas y la TaskFlow API para orquestación confiable de pipelines."
 difficulty: advanced
 topics:
   - data
@@ -16,16 +14,18 @@ tags:
   - scheduling
   - dag
   - orchestration
-  - recipe
 relatedResources:
   - /recipes/python-pandas-etl-pipeline
   - /recipes/python-spark-groupby-aggregation
   - /recipes/python-dbt-model-transformations
-lastUpdated: "2026-07-05"
+  - /recipes/cron-jobs
+  - /recipes/python-celery-task-queue
+  - /guides/complete-guide-apache-airflow
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Define, programa y monitorea DAGs en Apache Airflow. Usa operators, sensors, XCom, dependencias de tareas y catchup para orquestación confiable de pipelines."
+  metaDescription: "Definí, programá y monitoreá DAGs en Apache Airflow. Usá operators, sensors, XCom, dependencias de tareas y la TaskFlow API para orquestación confiable de pipelines."
   keywords:
     - data
     - python
@@ -33,31 +33,37 @@ seo:
     - scheduling
     - dag
     - orchestration
-    - recipe
-
-
 ---
 
-## Overview
+## Visión General
 
-Apache Airflow orquesta pipelines de datos como Directed Acyclic Graphs (DAGs). Cada tarea en un DAG es un operator que performs una unidad de trabajo — correr una función Python, ejecutar SQL, disparar un Spark job, o sensar un archivo. Airflow programa DAGs en base a cron o intervalos, reintenta tareas fallidas y provee una UI para monitorear el estado del pipeline. Lo siguiente cubre definición de DAGs, scheduling, dependencias de tareas, sensors, XCom para comunicación inter-task y patrones de producción.
+Apache Airflow orquesta pipelines de datos como Directed Acyclic Graphs (DAGs).
+Cada tarea es un operator que corre una función Python, ejecuta SQL, dispara un
+job o espera una condición. Airflow programa DAGs con cron o intervalos, reintenta
+tareas fallidas y ofrece una UI para monitorear el estado del pipeline.
 
-## When to Use
+Esta receta cubre definición de DAGs, scheduling, dependencias de tareas,
+sensors, XCom y la TaskFlow API. Para una guía más profunda, consultá
+[Apache Airflow: la guía completa](/es/guides/complete-guide-apache-airflow/).
 
-- Orquestar pipelines de datos multi-step con dependencias entre tareas
-- Programar batch jobs en un schedule tipo cron con lógica de retry
-- Pipelines que necesitan monitoreo, alerting e historial visual de ejecución
-- Workflows con branching condicional (correr task B solo si task A tiene éxito)
-- Pipelines de datos con sensors (esperar arrival de archivo, servicio externo, hora)
+## Cuándo Usar
 
-## When NOT to Use
+Usá Airflow cuando:
 
-- Pipelines real-time/streaming — usa Flink, Spark Streaming o Kafka Streams
-- Cron jobs simples sin dependencias — un entry de crontab es más simple
-- Servicios long-running — Airflow es para workflows batch, no daemons
-- Pipelines de CI/CD — usa GitHub Actions, Jenkins o GitLab CI
+- Orquestás pipelines de datos multi-step con dependencias entre tareas.
+- Necesitás batch jobs con schedule tipo cron y reintentos automáticos.
+- Los pipelines necesitan monitoreo, alerting e historial visual de ejecución.
+- Los workflows incluyen branching condicional o sensors que esperan archivos,
+  APIs o un horario.
 
-## Solution
+### Cuándo evitar
+
+- Pipelines real-time o streaming. Usá Flink, Spark Streaming o Kafka Streams.
+- Cron jobs simples sin dependencias. Una entrada de crontab es más simple.
+- Servicios long-running. Airflow es para workflows batch, no daemons.
+- Pipelines de CI/CD. Usá GitHub Actions, Jenkins o GitLab CI.
+
+## Solución
 
 ### Definición básica de DAG
 
@@ -65,92 +71,70 @@ Apache Airflow orquesta pipelines de datos como Directed Acyclic Graphs (DAGs). 
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
-from airflow.operators.bash import BashOperator
 
-default_args = {
-    "owner": "data-team",
-    "depends_on_past": False,
-    "start_date": datetime(2025, 1, 1),
-    "email_on_failure": False,
-    "email_on_retry": False,
-    "retries": 3,
-    "retry_delay": timedelta(minutes=5),
-}
-
-dag = DAG(
-    "etl_daily_pipeline",
-    default_args=default_args,
-    description="Daily ETL pipeline for orders data",
-    schedule_interval="0 2 * * *",  # Diario a las 2 AM
+with DAG(
+    dag_id="etl_daily_pipeline",
+    default_args={
+        "owner": "data-team",
+        "depends_on_past": False,
+        "email_on_failure": False,
+        "email_on_retry": False,
+        "retries": 3,
+        "retry_delay": timedelta(minutes=5),
+    },
+    start_date=datetime(2025, 1, 1),
+    schedule="0 2 * * *",  # diario a las 2 AM
     catchup=False,
     tags=["etl", "daily"],
-)
+) as dag:
 
-def extract(**kwargs):
-    import pandas as pd
-    df = pd.read_csv("/data/raw/orders.csv")
-    kwargs["ti"].xcom_push("row_count", len(df))
-    return df.to_json()
+    def extract(**kwargs):
+        import pandas as pd
+        df = pd.read_csv("/data/raw/orders.csv")
+        kwargs["ti"].xcom_push("row_count", len(df))
+        return df.to_json()
 
-def transform(**kwargs):
-    import pandas as pd
-    ti = kwargs["ti"]
-    raw_json = ti.xcom_pull(task_ids="extract")
-    df = pd.read_json(raw_json)
-    df["order_date"] = pd.to_datetime(df["order_date"])
-    df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
-    df = df.dropna(subset=["amount"])
-    ti.xcom_push("row_count", len(df))
-    return df.to_json()
+    def transform(**kwargs):
+        import pandas as pd
+        ti = kwargs["ti"]
+        raw_json = ti.xcom_pull(task_ids="extract")
+        df = pd.read_json(raw_json)
+        df["order_date"] = pd.to_datetime(df["order_date"])
+        df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
+        df = df.dropna(subset=["amount"])
+        ti.xcom_push("row_count", len(df))
+        return df.to_json()
 
-def load(**kwargs):
-    import pandas as pd
-    ti = kwargs["ti"]
-    transformed_json = ti.xcom_pull(task_ids="transform")
-    df = pd.read_json(transformed_json)
-    df.to_parquet("/data/processed/orders.parquet", index=False)
-    print(f"Loaded {len(df)} rows")
+    def load(**kwargs):
+        import pandas as pd
+        ti = kwargs["ti"]
+        transformed_json = ti.xcom_pull(task_ids="transform")
+        df = pd.read_json(transformed_json)
+        df.to_parquet("/data/processed/orders.parquet", index=False)
+        print(f"Loaded {len(df)} rows")
 
-extract_task = PythonOperator(
-    task_id="extract",
-    python_callable=extract,
-    dag=dag,
-)
+    extract_task = PythonOperator(task_id="extract", python_callable=extract)
+    transform_task = PythonOperator(task_id="transform", python_callable=transform)
+    load_task = PythonOperator(task_id="load", python_callable=load)
 
-transform_task = PythonOperator(
-    task_id="transform",
-    python_callable=transform,
-    dag=dag,
-)
-
-load_task = PythonOperator(
-    task_id="load",
-    python_callable=load,
-    dag=dag,
-)
-
-extract_task >> transform_task >> load_task
+    extract_task >> transform_task >> load_task
 ```
 
 ### Dependencias de tareas
 
 ```python
-# Cadena: extract >> transform >> load
+# cadena lineal
 extract_task >> transform_task >> load_task
 
-# Branches paralelos
+# ramas paralelas
 extract_task >> [transform_task, validate_task] >> load_task
 
-# Dependencias mixtas
+# múltiples tareas upstream
 [task_a, task_b] >> task_c
-task_c >> [task_d, task_e, task_f]
 
-# Usando set_downstream / set_upstream
-extract_task.set_downstream(transform_task)
+# set upstream o downstream de forma explícita
+transform_task.set_upstream(extract_task)
 transform_task.set_downstream(load_task)
-
-# Operadores bitshift (equivalente)
-extract_task >> transform_task >> load_task
 ```
 
 ### Sensors para esperar condiciones
@@ -160,38 +144,31 @@ from airflow.sensors.filesystem import FileSensor
 from airflow.sensors.date_time import DateTimeSensor
 from airflow.sensors.python import PythonSensor
 
-# Esperar que aparezca un archivo
 wait_for_file = FileSensor(
     task_id="wait_for_file",
     filepath="/data/raw/orders.csv",
-    poke_interval=60,  # Chequear cada 60 segundos
-    timeout=60 * 60,   # Rendirse después de 1 hora
+    poke_interval=60,  # revisa cada 60 segundos
+    timeout=60 * 60,   # falla después de 1 hora
     mode="poke",
-    dag=dag,
 )
 
-# Esperar hasta una hora específica
 wait_until = DateTimeSensor(
     task_id="wait_until_3am",
     target_time="03:00",
     poke_interval=60,
-    mode="reschedule",  # Liberar worker slot entre pokes
-    dag=dag,
+    mode="reschedule",  # libera el slot de worker entre chequeos
 )
 
-# Sensor custom con Python
-def check_api_ready():
+def api_is_ready():
     import requests
-    response = requests.get("https://api.example.com/health")
-    return response.status_code == 200
+    return requests.get("https://api.example.com/health").ok
 
 wait_for_api = PythonSensor(
     task_id="wait_for_api",
-    python_callable=check_api_ready,
+    python_callable=api_is_ready,
     poke_interval=30,
     timeout=300,
     mode="poke",
-    dag=dag,
 )
 
 wait_for_file >> extract_task
@@ -202,44 +179,27 @@ wait_for_file >> extract_task
 ```python
 from airflow.operators.python import BranchPythonOperator
 
-def check_data_quality(**kwargs):
-    ti = kwargs["ti"]
-    row_count = ti.xcom_pull(task_ids="extract", key="row_count")
-    if row_count > 1000:
-        return "transform_full"
-    else:
-        return "transform_sample"
+def choose_transform(**kwargs):
+    row_count = kwargs["ti"].xcom_pull(task_ids="extract", key="row_count")
+    return "transform_full" if row_count > 1000 else "transform_sample"
 
-branch_task = BranchPythonOperator(
-    task_id="check_data_quality",
-    python_callable=check_data_quality,
-    dag=dag,
+branch = BranchPythonOperator(
+    task_id="choose_transform",
+    python_callable=choose_transform,
 )
 
-transform_full = PythonOperator(
-    task_id="transform_full",
-    python_callable=transform,
-    dag=dag,
-)
-
-transform_sample = PythonOperator(
-    task_id="transform_sample",
-    python_callable=lambda **kwargs: print("Sampling data"),
-    dag=dag,
-)
-
-extract_task >> branch_task
-branch_task >> [transform_full, transform_sample]
+extract_task >> branch
+branch >> [transform_full, transform_sample]
 ```
 
-### TaskFlow API (sintaxis con decoradores)
+### TaskFlow API
 
 ```python
 from airflow.decorators import dag, task
 
 @dag(
-    schedule_interval="0 2 * * *",
     start_date=datetime(2025, 1, 1),
+    schedule="0 2 * * *",
     catchup=False,
     default_args={"owner": "data-team", "retries": 2},
     tags=["etl"],
@@ -272,65 +232,16 @@ def etl_pipeline():
 etl_pipeline_dag = etl_pipeline()
 ```
 
-TaskFlow maneja automáticamente la serialización de XCom — los return values se pasan a tareas downstream sin `xcom_push`/`xcom_pull` manual.
-
-### Usar TaskGroup para organización
-
-```python
-from airflow.utils.task_group import TaskGroup
-
-with dag:
-    with TaskGroup("processing_group") as processing:
-        task_1 = PythonOperator(
-            task_id="clean_data",
-            python_callable=clean_data,
-        )
-        task_2 = PythonOperator(
-            task_id="validate_data",
-            python_callable=validate_data,
-        )
-        task_3 = PythonOperator(
-            task_id="enrich_data",
-            python_callable=enrich_data,
-        )
-        task_1 >> task_2 >> task_3
-
-    with TaskGroup("loading_group") as loading:
-        load_parquet = PythonOperator(
-            task_id="load_parquet",
-            python_callable=load_parquet,
-        )
-        load_bq = PythonOperator(
-            task_id="load_bigquery",
-            python_callable=load_bigquery,
-        )
-
-    processing >> loading
-```
-
-### Catchup y backfill
-
-```python
-dag = DAG(
-    "backfill_pipeline",
-    default_args=default_args,
-    schedule_interval="@daily",
-    start_date=datetime(2025, 1, 1),
-    catchup=True,  # Correr intervals perdidos desde start_date
-    max_active_runs=1,  # Solo un run a la vez
-)
-```
-
 ### Dynamic task mapping
 
 ```python
-from airflow.decorators import task, dag
+from airflow.decorators import dag, task
 
-@dag(schedule_interval="@daily", start_date=datetime(2025, 1, 1), catchup=False)
+@dag(start_date=datetime(2025, 1, 1), schedule="@daily", catchup=False)
 def dynamic_dag():
 
     @task
-    def get_files():
+    def list_files():
         from pathlib import Path
         return [str(f) for f in Path("/data/raw").glob("*.csv")]
 
@@ -341,118 +252,128 @@ def dynamic_dag():
         print(f"Processed {filepath}: {len(df)} rows")
         return filepath
 
-    files = get_files()
+    files = list_files()
     process_file.expand(filepath=files)
 
-dynamic_dag_instance = dynamic_dag()
+dynamic_dag()
 ```
 
-## Variants
-
-### Usar KubernetesPodOperator
-
-```python
-from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
-
-run_spark = KubernetesPodOperator(
-    task_id="run_spark_job",
-    image="my-spark:latest",
-    cmds=["spark-submit"],
-    arguments=["--master", "k8s://https://kubernetes:443", "/app/job.py"],
-    namespace="airflow",
-    name="spark-job",
-    get_logs=True,
-    dag=dag,
-)
-```
-
-### Usar DockerOperator
-
-```python
-from airflow.providers.docker.operators.docker import DockerOperator
-
-run_etl = DockerOperator(
-    task_id="run_etl_container",
-    image="my-etl:latest",
-    command="python /app/etl.py --date {{ ds }}",
-    docker_url="unix://var/run/docker.sock",
-    network_mode="bridge",
-    mounts=["/data:/data"],
-    dag=dag,
-)
-```
-
-### Callbacks para éxito/fallo
+### Callbacks para éxito o falla
 
 ```python
 def on_failure_callback(context):
-    """Enviar alerta en fallo de tarea."""
-    task_instance = context["task_instance"]
-    exception = context.get("exception")
-    print(f"Task {task_instance.task_id} failed: {exception}")
+    ti = context["task_instance"]
+    print(f"Task {ti.task_id} failed: {context.get('exception')}")
 
 def on_success_callback(context):
-    """Loggear métricas de éxito."""
-    task_instance = context["task_instance"]
-    print(f"Task {task_instance.task_id} succeeded")
+    ti = context["task_instance"]
+    print(f"Task {ti.task_id} succeeded")
 
-default_args = {
-    "on_failure_callback": on_failure_callback,
-    "on_success_callback": on_success_callback,
-}
+with DAG(
+    "monitored_pipeline",
+    default_args={
+        "on_failure_callback": on_failure_callback,
+        "on_success_callback": on_success_callback,
+    },
+    schedule="@daily",
+    start_date=datetime(2025, 1, 1),
+    catchup=False,
+) as dag:
+    ...
 ```
 
-## Best Practices
+## Explicación
 
+Un DAG es una colección de tareas con dependencias dirigidas y sin ciclos. El
+scheduler de Airflow lee el archivo del DAG, crea un `DagRun` para cada intervalo
+y encola las tareas en el orden correcto. Un executor toma las tareas encoladas y
+las ejecuta.
 
-- For a deeper guide, see [Apache Airflow: DAGs, Operators, Scheduling](/es/guides/complete-guide-apache-airflow/).
+XCom permite compartir datos chicos entre tareas. Una tarea empuja un valor con
+`xcom_push` o retornándolo; las tareas downstream lo leen con `xcom_pull`. La
+TaskFlow API hace esto automáticamente con los valores de retorno. Para datos
+grandes, escribí en un archivo o almacenamiento de objetos y pasá el path en
+lugar de empujar todo el payload.
 
-- Setea `catchup=False` para nuevos DAGs — previene backfill accidental de meses de runs
-- Usa `mode="reschedule"` para sensors con timeouts largos — libera worker slots entre pokes
-- Mantén las tareas idempotentes — re-correr una tarea para la misma fecha debería producir el mismo resultado
-- Usa `max_active_runs=1` para pipelines que no pueden superponerse — previene runs concurrentes
-- Pushea data pequeña vía XCom — para data grande, escribe a un archivo/storage y pasa el path
-- Usa TaskFlow API para nuevos DAGs — sintaxis más limpia, handling automático de XCom
-- Taguea los DAGs — habilita filtrado en la UI de Airflow
-- Setea `retries` y `retry_delay` — fallos transientes son comunes en pipelines de datos
+Los sensors esperan una condición externa. `mode="poke"` mantiene un slot de
+worker mientras revisa; `mode="reschedule"` lo libera entre chequeos. Usá
+`reschedule` para esperas largas.
 
-## Common Mistakes
+`catchup=True` hace que Airflow ejecute todos los intervalos perdidos entre
+`start_date` y ahora; `catchup=False` arranca desde el presente.
+`max_active_runs` controla cuántos `DagRun` pueden correr al mismo tiempo.
 
-- **Usar `@daily` sin `catchup=False`**: Airflow corre cada día perdido desde `start_date`, potencialmente lanzando cientos de runs.
-- **Pasar data grande por XCom**: XCom almacena data en la metadata database. Para DataFrames, escribe a un archivo y pasa el path.
-- **Tareas no idempotentes**: re-correr una tarea appendea data duplicada. Siempre overwritea o upserta.
-- **Usar `PythonOperator` para todo**: usa operators especializados (BashOperator, DockerOperator, KubernetesPodOperator) para trabajo non-Python.
-- **No setear `start_date` correctamente**: `start_date` debería ser estático, no `datetime.now()`. Start dates dinámicos causan issues con el scheduler.
+## Variantes
 
-## FAQ
+| Operator | Caso de uso | Notas |
+| --- | --- | --- |
+| `PythonOperator` | Funciones Python | Ideal para lógica custom chica |
+| `BashOperator` | Scripts o comandos shell | Pegamento rápido |
+| `DockerOperator` | Tareas en contenedores | Dependencias aisladas |
+| `KubernetesPodOperator` | Jobs en un cluster de Kubernetes | Escalable y con control de recursos |
+| `BranchPythonOperator` | Branching condicional | Devuelve el `task_id` a ejecutar |
+
+## Mejores Prácticas
+
+- Seteá `catchup=False` en DAGs nuevos para no backfillearmes accidentalmente
+  meses de ejecuciones.
+- Usá `schedule` en lugar del deprecado `schedule_interval`.
+- Usá `mode="reschedule"` en sensors con timeouts largos para liberar slots de
+  worker.
+- Mantené las tareas idempotentes. Re-ejecutar la misma fecha debería dar el
+  mismo resultado.
+- Usá `max_active_runs=1` para pipelines que no pueden solaparse.
+- Empujá datos chicos por XCom; para datos grandes, escribí en archivo o storage
+  y pasá el path.
+- Preferí la TaskFlow API para DAGs nuevos: es más limpia y maneja XCom sola.
+- Etiquetá los DAGs para filtrarlos fácil en la UI.
+- Seteá `retries` y `retry_delay` para fallas transitorias como timeouts de API.
+
+## Errores Comunes
+
+- Usar `@daily` sin `catchup=False`, lo que puede lanzar cientos de backfills.
+- Pasar DataFrames grandes por XCom. La metadata DB no es un data store.
+- Escribir tareas no idempotentes que agregan datos duplicados al reintentar.
+- Usar `PythonOperator` para todo en lugar de operators especializados.
+- Usar un `start_date` dinámico como `datetime.now()`. Mantenelo estático.
+
+## Preguntas Frecuentes
 
 ### ¿Qué es un DAG en Airflow?
 
-Un Directed Acyclic Graph — una colección de tareas con dependencias, donde la data fluye en una dirección y no hay ciclos. Cada DAG tiene un schedule, start date y argumentos default.
+Un Directed Acyclic Graph: un conjunto de tareas con dependencias, donde los
+datos fluyen en una dirección y no hay ciclos. Cada DAG tiene un schedule, una
+fecha de inicio y argumentos por defecto.
 
 ### ¿Qué es XCom?
 
-Cross-communication — un mecanismo para que las tareas intercambien pequeñas piezas de data. Las tareas pushean valores con `xcom_push` y los pullean con `xcom_pull`. TaskFlow API maneja esto automáticamente vía return values.
+Cross-communication. Las tareas empujan valores con `xcom_push` o retornándolos,
+y los leen con `xcom_pull`. La TaskFlow API pasa los valores de retorno
+automáticamente.
 
-### ¿Debería usar modo `poke` o `reschedule` para sensors?
+### ¿Debería usar `poke` o `reschedule` en sensors?
 
-Usa `poke` para esperas cortas (menos de unos minutos) — el sensor mantiene un worker slot. Usa `reschedule` para esperas largas (horas) — el sensor libera el slot entre pokes.
+Usá `poke` para esperas cortas de pocos minutos. Usá `reschedule` para esperas
+largas así el slot de worker se libera entre chequeos.
 
-### ¿Cómo manejo scheduling con timezone?
+### ¿Cómo manejo scheduling con zona horaria?
 
-Setea `timezone` en `default_args` o usa `pendulum`:
+Usá `pendulum` para setear una fecha de inicio con zona horaria:
 
 ```python
 import pendulum
 
-dag = DAG(
+with DAG(
     "tz_aware_dag",
     start_date=pendulum.datetime(2025, 1, 1, tz="America/New_York"),
-    schedule_interval="0 2 * * *",
+    schedule="0 2 * * *",
     catchup=False,
-)
+) as dag:
+    ...
 ```
 
-### ¿Cuál es la diferencia entre `schedule_interval` y `timetable`?
+### ¿Cuál es la diferencia entre `schedule` y `timetable`?
 
-`schedule_interval` acepta expresiones cron, `@daily`, `@hourly` o `timedelta`. `timetable` es un mecanismo de scheduling custom más flexible introducido en Airflow 2.2+ para schedules complejos.
+`schedule` acepta expresiones cron, `@daily`, `@hourly` o `timedelta`.
+`timetable` es un mecanismo de scheduling custom en Airflow 2.2+ para horarios
+complejos que no entran en una regla cron simple.
