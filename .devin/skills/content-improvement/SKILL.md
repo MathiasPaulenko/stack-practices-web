@@ -33,14 +33,38 @@ El usuario pide mejorar, auditar, humanizar o actualizar un recurso existente, p
    - `full` / por defecto: todas las fases.
 3. Si solo se da el slug, infiere el tipo (`recipes`, `patterns`, `docs`, `guides`) a partir de la ruta o pregunta.
 
+## Cuándo NO usar (STOP)
+
+- **Crear un recurso nuevo desde cero** → usar `stackp-content-creator` y sus plantillas.
+- **Crear contenido en un solo idioma** → todo recurso debe tener EN y ES; si falta ES, pausar y pedir aprobación.
+- **Crear la versión ES automáticamente** → no traducir un recurso completo sin aprobación explícita.
+- **Modificar componentes Astro, layouts, CI/CD, `.npmrc` o seguridad** → no es una tarea de mejora de contenido.
+- **Añadir backend, suscripciones, autenticación o monetización** → viola el stack estático del proyecto.
+- **Hacer commit/push sin aprobación** → siempre pedir confirmación al usuario.
+
+## Skills complementarias recomendadas
+
+Invocar estas skills cuando estén disponibles para que el recurso quede lo más perfecto posible:
+
+|Skill|Cuándo invocar|Propósito|
+|---|---|---|
+|`humanizer`|Fase 2|Quitar tono IA y frases patrón.|
+|`seo`|Fase 1 y antes de publicar|Optimizar meta tags, structured data y enlaces internos.|
+|`content-research-writer`|Antes de añadir ejemplos/secciones nuevas|Investigar herramientas, versiones y ejemplos reales.|
+|`clean-code`|Fase 2, cuando se revisen snippets|Verificar que el código sea idiomático y mantenible.|
+|`bash-defensive-patterns`|Recetas con scripts de shell|Asegurar que los ejemplos Bash sean robustos.|
+|`python-code-style`|Recetas con Python|Asegurar que los ejemplos Python sigan PEP 8 y buenas prácticas.|
+
+Si una skill no está disponible, aplicar manualmente las reglas equivalentes de este documento.
+
 ## Modos de invocación
 
-| Petición del usuario | Modo | Fases activas |
+|Petición del usuario|Modo|Fases activas|
 |---|---|---|
-| "mejora rápido `slug`" | `quick` | 0, 1, 3, 4 |
-| "audita SEO `slug`" | `seo` | 0, 1 |
-| "humaniza `slug`" | `humanize` | 0, 2, 3, 4 |
-| "mejora `slug`" / sin calificador | `full` | 0, 1, 2, 3, 4, 5 |
+|"mejora rápido `slug`"|`quick`|0, 1, 3, 4|
+|"audita SEO `slug`"|`seo`|0, 1|
+|"humaniza `slug`"|`humanize`|0, 2, 3, 4|
+|"mejora `slug`" / sin calificador|`full`|0, 1, 2, 3, 4, 5|
 
 Si el modo no es claro, preguntar antes de empezar.
 
@@ -50,7 +74,8 @@ Si el modo no es claro, preguntar antes de empezar.
 
 - Resolver la ruta del archivo EN: `src/content/{tipo}/{slug}.md`.
 - Resolver la ruta del archivo ES: `src/content/{tipo}/{slug}.es.md`.
-- **Parada obligatoria**: si falta la versión ES, avisar al usuario y no continuar. No crear una traducción completa sin aprobación explícita.
+- **Parada obligatoria**: si falta la versión ES, avisar al usuario y no continuar. No crear
+  una traducción completa sin aprobación explícita.
 - Leer ambos archivos: frontmatter, cuerpo y secciones principales.
 - Anotar el estado base: palabras, longitud de `metaDescription`, `lastUpdated`, `relatedResources`, estructura de secciones.
 - Opcional: ejecutar `ai-detect-patterns.py` en EN y ES para tener una línea base de patrones.
@@ -66,16 +91,25 @@ Si el modo no es claro, preguntar antes de empezar.
   - `metaDescription` 120-170 caracteres y coincide con `seo.metaDescription`.
   - `relatedResources`: 2-6 slugs existentes, mismo orden en EN y ES, y **coherentes con el topic cluster del recurso**.
   - `lastUpdated`: actualizar en ambos frontmatter solo si hay cambios.
-  - Enlaces internos en el cuerpo: si el `AGENTS.md` del tipo de contenido exige 2-3 enlaces contextuales (p. ej. recipes), añadirlos en esta fase y replicarlos en ES.
-  - Estructura de secciones: asegurar que sean `Overview`, `When to Use`, `Solution`, `Explanation`, `Variants`, `Best Practices`, `Common Mistakes`, `FAQ` y que no haya secciones resumen extra.
+  - Enlaces internos en el cuerpo: si el `AGENTS.md` del tipo de contenido exige 2-3
+    enlaces contextuales (p. ej. recipes), añadirlos en esta fase y replicarlos en ES.
+  - Estructura de secciones: asegurar que sean `Overview`, `When to Use`, `Solution`,
+    `Explanation`, `Variants`, `Best Practices`, `Common Mistakes`, `FAQ` y que no haya
+    secciones resumen extra.
 - **Corte de esfuerzo**: si no hay hallazgos accionables, saltar a la siguiente fase.
 - **Salida esperada:** lista numerada de los cambios realizados (máximo 5).
 
 ### Fase 2 — Calidad + IA (máximo 4 rondas)
 
-- Antes de detectar IA, aplicar `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` para corregir estructura, `relatedResources` coherentes, anglicismos, tokens de código y prosa genérica.
-- Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` a EN y ES.
-- Corregir solo los **3-5 hallazgos de mayor impacto** en cada idioma. Una reescritura focalizada cuenta como un hallazgo cuando el recurso es una plantilla genérica rellena de contenido no relacionado; no es una reescritura arbitraria.
+- Antes de detectar IA, aplicar
+  `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` para
+  corregir estructura, `relatedResources` coherentes, anglicismos, tokens de código y prosa
+  genérica.
+- Aplicar `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md`
+  a EN y ES.
+- Corregir solo los **3-5 hallazgos de mayor impacto** en cada idioma. Una reescritura
+  focalizada cuenta como un hallazgo cuando el recurso es una plantilla genérica rellena de
+  contenido no relacionado; no es una reescritura arbitraria.
 - Ejecutar el detector de patrones:
 
   ```bash
@@ -91,13 +125,25 @@ Si el modo no es claro, preguntar antes de empezar.
   ```
 
 - Aplicar `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md`:
-  1. Corregir patrones primero.
-  2. Reescribir una a una las frases con mayor `ai_prob`, **máximo 5-10 frases por idioma por ronda**. En modo `full`, ampliar a 10-15 frases en la primera ronda si el contenido es denso.
-  3. Reescribir frases que terminen con tokens de código o celdas de tabla con código; colocar el token en el medio de la oración o rodearlo de contexto.
-  4. Conservar el contenido técnico, los ejemplos de código y las versiones reales de herramientas.
+  1. Corregir `pattern_totals` primero.
+  2. Reescribir una a una las frases con mayor `ai_prob`, **máximo 5-10 frases por idioma
+     por ronda**. En modo `full`, ampliar a 10-15 frases en la primera ronda si el contenido
+     es denso.
+  3. Reescribir frases que terminen con tokens de código o celdas de tabla con código;
+     colocar el token en el medio de la oración o rodearlo de contexto.
+  4. Conservar el contenido técnico, los ejemplos de código y las versiones reales de
+     herramientas.
 - Volver a ejecutar `ai-detect-content.py` y `ai-detect-patterns.py`.
-- **Regla de parada**: detener el bucle cuando `pattern_totals` esté vacío y `model_ai_pct` < 40 %, o bien al completar la **ronda 4**. Nunca intentar una quinta ronda.
-- **Nota sobre contenido técnico**: en listas de herramientas, tablas y tripletes, Desklib puede marcar frases cortas como IA aunque sean reales. Priorizar la corrección de `pattern_totals` y la utilidad técnica sobre forzar `model_ai_pct` < 40 %. Si tras 4 rondas no hay patrones y el score sigue alto, reportarlo y esperar aprobación para una ronda extra.
+- **Umbrales de decisión**:
+  - `model_ai_pct` < 30 % y `pattern_totals` vacío: detener.
+  - `model_ai_pct` 30-40 %: revisar manualmente las frases marcadas y corregir solo las genéricas.
+  - `model_ai_pct` > 40 %: reescribir las frases marcadas como `AI` y repetir.
+- **Regla de parada**: detener el bucle cuando `pattern_totals` esté vacío y
+  `model_ai_pct` < 40 %, o bien al completar la **ronda 4**. Nunca intentar una quinta ronda.
+- **Nota sobre contenido técnico**: en listas de herramientas, tablas y tripletes, Desklib
+  puede marcar frases cortas como IA aunque sean reales. Priorizar la corrección de
+  `pattern_totals` y la utilidad técnica sobre forzar `model_ai_pct` < 40 %. Si tras 4 rondas
+  no hay patrones y el score sigue alto, reportarlo y esperar aprobación para una ronda extra.
 
 **Salida esperada:** puntuación IA antes/después, patrones corregidos y frases reescritas.
 
@@ -110,7 +156,9 @@ Si el modo no es claro, preguntar antes de empezar.
   - `lastUpdated` actualizado en ambos.
   - Ejemplos de código equivalentes; traducir comentarios y nombres de variables solo si es idiomático.
   - Estructura de secciones equivalente.
-  - Idioma natural en ES: revisar anglicismos crudos (`stream` → `streaming`, `log store` → `almacén de logs`, `baseline` → `línea base`, `PII` → `datos personales`, `match` → `coincidir`) salvo que el término esté asentado en el contexto técnico.
+  - Idioma natural en ES: revisar anglicismos crudos (`stream` → `streaming`,
+    `log store` → `almacén de logs`, `baseline` → `línea base`, `PII` → `datos personales`,
+    `match` → `coincidir`) salvo que el término esté asentado en el contexto técnico.
 - Corregir las discrepancias detectadas.
 
 **Salida esperada:** check de paridad (OK o lista de ajustes).
@@ -129,7 +177,8 @@ Si el modo no es claro, preguntar antes de empezar.
   ```
 
 - Alternativa preferente: `node scripts/content-improvement-pipeline.cjs <slug>`.
-- **Regla de parada**: si un paso falla, detenerse inmediatamente, mostrar el error y no continuar con el siguiente.
+- **Regla de parada**: si un paso falla, detenerse inmediatamente, mostrar el error y no
+  continuar con el siguiente.
 - Si todo pasa, confirmar 3.242 páginas construidas y `public/sitemap.xml` regenerado.
 
 **Salida esperada:** resumen de validación (OK / fallo con paso y mensaje).
@@ -144,6 +193,10 @@ Si el modo no es claro, preguntar antes de empezar.
   - Puntuación IA antes/después.
   - Estado de paridad.
   - Resultado de validación.
+- **Aplicar el Checklist PERFECTO** (`reference/perfect-close-checklist.md`) antes de pedir
+  aprobación. Si algún ítem falla, corregirlo antes de continuar.
+- Si el usuario dio un número de `ref/top-100-checklist.md`, usar `reference/prompt-master.md`
+  para estructurar el resumen y la pregunta de aprobación.
 - Preguntar de forma explícita si se aprueba `git commit` y `git push`.
 - **No hacer commit/push sin aprobación.**
 
@@ -158,14 +211,18 @@ Si el modo no es claro, preguntar antes de empezar.
 - **No inventar** herramientas, versiones, normas o datos.
 - **Mantener los ejemplos de código funcionales** y prácticos.
 - **Respetar la fase del roadmap**: no introducir monetización ni backend.
-- **No modificar** `.npmrc`, políticas de seguridad, ni configuraciones de CI/CD para forzar builds.
+- **No modificar** `.npmrc`, políticas de seguridad, ni configuraciones de CI/CD para forzar
+  builds.
 - **No crear ni mover archivos fuera del flujo** sin aprobación del usuario.
 
 ## Output esperado
 
 - Archivos `src/content/{tipo}/{slug}.md` y `.es.md` mejorados.
-- Informes opcionales en `ref/output/`: `seo-audit-{slug}.md`, `content-quality-audit-{slug}.md`, `ai-detect-{slug}.json`, `ai-detect-patterns-{slug}.json`, `ai-detect-analysis-{slug}.md`.
-- `npm run build` exitoso (3.242 páginas construidas) o `node scripts/content-improvement-pipeline.cjs <slug>` OK.
+- Informes opcionales en `ref/output/`: `seo-audit-{slug}.md`,
+  `content-quality-audit-{slug}.md`, `ai-detect-{slug}.json`,
+  `ai-detect-patterns-{slug}.json`, `ai-detect-analysis-{slug}.md`.
+- `npm run build` exitoso (3.242 páginas construidas) o
+  `node scripts/content-improvement-pipeline.cjs <slug>` OK.
 - `public/sitemap.xml` regenerado.
 - Resumen claro y pedido de aprobación antes de commit/push.
 
@@ -176,7 +233,10 @@ Si el modo no es claro, preguntar antes de empezar.
 - `.devin/skills/content-improvement/reference/ai-detection-tools.md` — cómo usar los scripts de detección IA.
 - `.devin/skills/content-improvement/reference/prompt-17-technical-seo-audit.md` — criterios de auditoría SEO técnica.
 - `.devin/skills/content-improvement/reference/prompt-18-content-quality-auditor.md` — criterios de calidad de contenido.
-- `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` — pre-check estructural, `relatedResources` coherentes, humanización y manejo de tokens de código.
+- `.devin/skills/content-improvement/reference/prompt-19-first-pass-perfect.md` — pre-check
+  estructural, `relatedResources` coherentes, humanización y manejo de tokens de código.
 - `.devin/skills/content-improvement/reference/prompt-ai-detect-analysis.md` — cómo corregir hallazgos de IA.
+- `.devin/skills/content-improvement/reference/prompt-master.md` — mejorar un recurso indicando solo su número en `ref/top-100-checklist.md`.
+- `.devin/skills/content-improvement/reference/perfect-close-checklist.md` — checklist final antes de pedir aprobación.
 
 Para elegir qué recurso mejorar, usa `ref/top-100-checklist.md` (o `ref/top-100-resources.md`), que se genera automáticamente.

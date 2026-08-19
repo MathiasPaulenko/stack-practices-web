@@ -9,7 +9,7 @@ This `AGENTS.md` applies to all files under `src/content/recipes/`. It works tog
 Always invoke the appropriate skills before creating or editing a recipe:
 
 - **`stackp-content-creator`** — For creating, translating, or major updates to bilingual content. Always use the Resource Wizard:  
-  `node .agents/skills/stackp-content-creator/scripts/resource-wizard.cjs`. Never create recipe files manually.
+  `node .devin/skills/stackp-content-creator/scripts/resource-wizard.cjs`. Never create recipe files manually.
 - **`humanizer`** — After generating or updating the body of a recipe, review and remove AI-writing patterns (inflated language, filler, rule of three, vague attributions, passive voice, em dash overuse, etc.).
 - **`content-quality-auditor`** — Before promoting a recipe, run a publish-readiness and E-E-A-T audit.
 - **`ai-seo`** or **`seo-geo`** — For GEO/AI-citation optimization (FAQ, structured data, speakable content) and traditional on-page SEO.

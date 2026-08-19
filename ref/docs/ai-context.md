@@ -162,7 +162,7 @@ author: "StackPractices"
    npm run build
    ```
 
-**Scripts de ayuda** en `.agents/skills/stackp-content-creator/scripts/`:
+**Scripts de ayuda** en `.devin/skills/stackp-content-creator/scripts/`:
 - `resource-wizard` — scaffolding de nuevo recurso bilingue
 - `validate-content` — valida frontmatter y estructura
 - `check-missing-translations` — detecta `.md` sin `.es.md`

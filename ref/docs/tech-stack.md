@@ -152,10 +152,10 @@ El proyecto mantiene un numero minimo de dependencias. No se usa:
 | `check` | `astro check` | Type checking de todos los archivos `.astro` |
 | `sync` | `astro sync` | Sincroniza tipos de content collections |
 | `sitemap` | `node scripts/generate-sitemap.cjs` | Genera `public/sitemap.xml` |
-| `content:index` | `node .agents/.../generate-content-index.cjs` | Genera indices JSON de contenido |
-| `content:validate` | `node .agents/.../validate-content.cjs` | Valida frontmatter y estructura |
-| `content:quality` | `node .agents/.../content-quality-validator.cjs` | Valida calidad de contenido |
-| `content:links` | `node .agents/.../check-broken-links.cjs` | Verifica links rotos |
+| `content:index` | `node .devin/skills/stackp-content-creator/scripts/generate-content-index.cjs` | Genera indices JSON de contenido |
+| `content:validate` | `node .devin/skills/stackp-content-creator/scripts/validate-content.cjs` | Valida frontmatter y estructura |
+| `content:quality` | `node .devin/skills/stackp-content-creator/scripts/content-quality-validator.cjs` | Valida calidad de contenido |
+| `content:links` | `node .devin/skills/stackp-content-creator/scripts/check-broken-links.cjs` | Verifica links rotos |
 
 ---
 

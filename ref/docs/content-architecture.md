@@ -299,7 +299,7 @@ npm run content:links
 
 ### 7.4 Translations Orphans
 
-Scripts en `.agents/skills/stackp-content-creator/scripts/` verifican:
+Scripts en `.devin/skills/stackp-content-creator/scripts/` verifican:
 - Contenido EN sin version ES
 - Contenido ES sin version EN
 - Meta descripciones duplicadas o faltantes

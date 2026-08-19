@@ -43,7 +43,6 @@ ref.back/*
 /docs/*
 
 # IA Folders
-.agents/
 .devin/*
 !.devin/skills/
 

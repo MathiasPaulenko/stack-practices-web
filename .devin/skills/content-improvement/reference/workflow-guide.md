@@ -64,8 +64,8 @@ Plantillas y ejemplos: ver `ref/docs/content-architecture.md` y
 
 ## 3. Humanización
 
-Invocar la skill `humanizer` (`.codeium/windsurf/skills/humanizer`) o
-`humanise-text` (`.agents/skills/humanise-text`) antes de publicar.
+Invocar la skill `humanizer` (`.codeium/windsurf/skills/humanizer/SKILL.md`) antes de
+publicar.
 
 Objetivos:
 

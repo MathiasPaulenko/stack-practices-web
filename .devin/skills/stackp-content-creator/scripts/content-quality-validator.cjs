@@ -20,7 +20,7 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('front-matter');
 
-const CONTENT_DIR = path.join(__dirname, '..', 'src', 'content');
+const CONTENT_DIR = path.join(__dirname, '../../../..', 'src', 'content');
 const STRICT = process.argv.includes('--strict');
 const NEW_CONTENT_MODE = process.argv.includes('--new');
 const targetPath = process.argv.find((a, i) => i > 1 && !a.startsWith('--'));

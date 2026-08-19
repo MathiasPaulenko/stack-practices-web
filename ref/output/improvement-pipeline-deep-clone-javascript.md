@@ -33,7 +33,7 @@
 ```text
 
 > stack-practices-web@0.1.0 content:links
-> node .agents/skills/stackp-content-creator/scripts/check-broken-links.cjs
+> node .devin/skills/stackp-content-creator/scripts/check-broken-links.cjs
 
 Total indexed resources: 1021
 Files checked: 1022
