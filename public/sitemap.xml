@@ -9308,7 +9308,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/grpc-services-typescript/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/grpc-services-typescript/" />
@@ -10271,7 +10271,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/password-hashing/</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/password-hashing/" />
@@ -13553,6 +13553,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/graphql/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/graphql/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/graphql/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/tags/grpc/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/grpc/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/grpc/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/grpc/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/guardrails/</loc>
@@ -21845,7 +21854,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/grpc-services-typescript/</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/grpc-services-typescript/" />
@@ -22808,7 +22817,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/password-hashing/</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/password-hashing/" />
@@ -26090,6 +26099,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/graphql/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/graphql/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/graphql/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/grpc/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/grpc/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/grpc/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/grpc/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/guardrails/</loc>

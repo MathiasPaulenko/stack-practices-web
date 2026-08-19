@@ -1,48 +1,71 @@
 ---
 contentType: recipes
 slug: grpc-services-typescript
-title: "gRPC Services with Protocol Buffers in TypeScript"
-description: "Build high-performance, strongly-typed services using gRPC with Protocol Buffers, covering unary calls, server streaming, client streaming, and bidirectional streaming"
-metaDescription: "Build gRPC services with Protocol Buffers in TypeScript. Implement unary, server streaming, client streaming, and bidirectional streaming for high-performance APIs."
+title: "Build gRPC Services in TypeScript with Protocol Buffers"
+description: "Build gRPC services in TypeScript with Protocol Buffers. Covers unary, server streaming, bidirectional streaming, interceptors, and health checks."
+metaDescription: "Build gRPC services in TypeScript with Protocol Buffers. Step-by-step examples for unary, streaming, interceptors, and production-ready health checks."
 difficulty: intermediate
 topics:
   - api
   - devops
 tags:
   - api
+  - grpc
+  - protocol-buffers
+  - typescript
   - microservices
-  - rest
-  - http
-  - backend
+  - streaming
 relatedResources:
   - /recipes/go-rest-api-gin
-  - /patterns/ambassador-pattern-services
   - /recipes/grpc-api
   - /recipes/rest-api-design
   - /recipes/api-versioning
-lastUpdated: "2026-07-09"
+  - /patterns/chain-of-responsibility-middleware
+  - /patterns/ambassador-pattern-services
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Build gRPC services with Protocol Buffers in TypeScript. Implement unary, server streaming, client streaming, and bidirectional streaming for high-performance APIs."
+  metaDescription: "Build gRPC services in TypeScript with Protocol Buffers. Step-by-step examples for unary, streaming, interceptors, and production-ready health checks."
   keywords:
     - grpc
     - protocol buffers
-    - streaming api
     - typescript
-    - high performance
-
-
-
-
+    - streaming api
+    - microservices
+    - protobuf
 ---
-Build high-performance, language-agnostic APIs using gRPC with Protocol Buffers. The following demonstrates how to service definitions in protobuf, code generation with TypeScript, unary calls, streaming patterns, interceptors for cross-cutting concerns, and health checking for production services.
 
-## When to Use This
+## Overview
 
-- Low-latency, high-throughput communication between internal [microservices](/patterns/ambassador-pattern-services/)
-- You need strongly-typed contracts with automatic code generation
-- Streaming data (logs, events, file uploads) must be handled efficiently
+REST with JSON is easy to debug, but it pays for that convenience in payload size
+and parsing time. gRPC moves the contract into a `.proto` file, compiles it into
+typed TypeScript, and ships messages as compact binary over a single HTTP/2
+connection. You get lower latency, less bandwidth, and streaming built in from
+the start.
+
+This recipe shows how to define a service in Protocol Buffers, generate code for
+Node.js, and implement a server and client that cover all four gRPC call types.
+
+## When to Use
+
+- You need fast, high-volume traffic between internal
+  [microservices](/patterns/ambassador-pattern-services/). See
+  [REST API Design](/recipes/rest-api-design/) if you're still choosing a
+  protocol.
+- You want typed contracts and don't want to write client and server stubs by
+  hand.
+- You need to move logs, events, file chunks, or chat messages as a stream.
+- You're running [gRPC APIs](/recipes/grpc-api/) behind a gateway or service mesh.
+
+### When to avoid
+
+- The API is public-facing and must be called directly from browsers. Use
+  gRPC-Web or a REST gateway instead.
+- You need human-readable payloads that you can debug or share with third
+  parties. JSON
+  over HTTP is still the safer default there.
+- Your stack lacks good gRPC tooling in the language you need.
 
 ## Solution
 
@@ -94,8 +117,9 @@ message ChatMessage {
 
 ### 2. Code Generation
 
+Add a script to `package.json`:
+
 ```bash
-# package.json script
 "proto:generate": "grpc_tools_node_protoc \
   --js_out=import_style=commonjs,binary:./generated \
   --grpc_out=grpc_js:./generated \
@@ -103,6 +127,8 @@ message ChatMessage {
   --proto_path=./proto \
   ./proto/*.proto"
 ```
+
+Run `npm run proto:generate` to create the typed server and client stubs.
 
 ### 3. Server Implementation
 
@@ -171,7 +197,9 @@ server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () =>
 
 ```typescript
 // grpc/client.ts
+import * as grpc from '@grpc/grpc-js';
 import { UserServiceClient } from './generated/user_grpc_pb';
+import { GetUserRequest, ListUsersRequest, ChatMessage } from './generated/user_pb';
 
 const client = new UserServiceClient('localhost:50051', grpc.credentials.createInsecure());
 
@@ -197,9 +225,37 @@ function listUsers(): Promise<User[]> {
     stream.on('end', () => resolve(users));
   });
 }
+
+// Client streaming
+function createUsers(names: string[]): Promise<UserList> {
+  return new Promise((resolve, reject) => {
+    const stream = client.createUsers((err, list) => {
+      if (err) reject(err);
+      else resolve(list!);
+    });
+    names.forEach((name) => {
+      const req = new CreateUserRequest();
+      req.setName(name);
+      stream.write(req);
+    });
+    stream.end();
+  });
+}
+
+// Bidirectional streaming
+function chat() {
+  const stream = client.chat();
+  stream.on('data', (msg: ChatMessage) => console.log(msg.getContent()));
+
+  const message = new ChatMessage();
+  message.setUserId('client');
+  message.setContent('Hello');
+  message.setTimestamp(Date.now());
+  stream.write(message);
+}
 ```
 
-### 5. [Interceptor](/patterns/chain-of-responsibility-middleware/) for Metadata and Deadlines
+### 5. Interceptor for Metadata and Deadlines
 
 ```typescript
 // grpc/interceptor.ts
@@ -219,133 +275,96 @@ const client = new UserServiceClient('localhost:50051', grpc.credentials.createI
 });
 ```
 
-## How It Works
+## Explanation
 
-- **Protobuf** defines service contracts and message schemas
-- **Code generation** creates typed server and client stubs from `.proto` files
-- **Unary calls** send one request and receive one response
-- **Server streaming** sends a stream of responses for a single request
-- **Bidirectional streaming** exchanges streams of messages in real time
-- **HTTP/2** multiplexes requests over a single connection for efficiency
+- **Unary calls** send one request and wait for one response. They map cleanly
+  to a traditional request/response API. They map cleanly to
+  a traditional request/response API.
+- **Server streaming** starts with one request; the server then keeps sending
+  messages. The client reads until the server closes the stream with `end()`.
+- **Client streaming** sends many messages from the client; the server responds
+  once after the stream ends. Use it for uploads or batch inserts.
+- **Bidirectional streaming** lets client and server write and read at the same
+  time. It works well for chat, real-time games, or event pipelines.
+- All of these ride over a single TCP connection with HTTP/2, so concurrent
+  calls share the same overhead.
+- **Code generation** removes hand-written JSON parsing. The `.proto` file is the
+  source of truth; TypeScript types stay in sync automatically.
 
-## Production Considerations
+## Variants
 
-- Use TLS certificates for inter-service communication in production
-- Implement health checks with the gRPC Health Checking Protocol
-- Use a service mesh (Istio, Linkerd) for load balancing and mTLS
+Each call type fits a different shape of work, summarized in the table.
+
+| Call type | Use case | Key API |
+| --- | --- | --- |
+| Unary | Single request/response | `client.getUser(req, callback)` |
+| Server streaming | Logs, events, search results | `stream.on('data', ...)` |
+| Client streaming | File uploads, batch inserts | `stream.write(req)` then `stream.end()` |
+| Bidirectional streaming | Chat, real-time collaboration | `call.on('data')` and `call.write()` |
+
+## Best Practices
+
+- Use TLS for inter-service gRPC in production. Only use `createInsecure()` on
+  your own machine.
+- Set an absolute deadline on every call. Propagate them through metadata so downstream
+  services don't waste time on expired work.
+- Keep the `.proto` file in a shared repository or package so clients and servers
+  always generate from the same contract.
+- Use `reserved` for removed fields so old field numbers aren't accidentally
+  reused.
+- Add the gRPC Health Checking Protocol so orchestration tools can run liveness
+  and readiness probes.
+- Run `buf breaking` in CI to catch wire-incompatible `.proto` changes before they
+  merge.
 
 ## Common Mistakes
 
-- Changing protobuf fields without updating all service clients
-- Not handling stream errors and connection drops gracefully
-- Using gRPC for public-facing APIs where browser support is limited. See [gRPC API](/recipes/grpc-api/) for public API alternatives.
-
-
-## Troubleshooting
-
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
-
-
-
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the api and microservices guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply grpc services with protocol buffers in typescript** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Changing a field number or type in a `.proto` file after it's shipped. That
+  breaks wire compatibility for existing clients.
+- Forgetting to handle `error`, `end`, and `cancelled` events on streams. A
+  dropped connection can crash the process or leak memory.
+- Calling gRPC straight from a browser. Browsers can't read HTTP/2 trailers, so
+  use gRPC-Web or a REST gateway instead.
+- Creating a fresh client for each request. Reuse the same client so HTTP/2
+  carries several calls at once.
+- Returning plain exceptions from handlers. Always convert them to gRPC status
+  codes so clients can react consistently.
 
 ## FAQ
 
 ### How is this different from REST?
 
-gRPC uses binary protobuf over HTTP/2, offering lower latency and built-in streaming. [REST](/recipes/call-rest-api/) uses JSON over HTTP/1.1 with broader client support. gRPC payloads are typically 3-10x smaller than JSON and parsing is faster because protobuf uses binary encoding with field tags. HTTP/2 multiplexing eliminates head-of-line blocking, allowing multiple concurrent requests on a single TCP connection.
+REST sends JSON over HTTP/1.1 and is easy to read in the browser. gRPC uses
+binary protobuf over HTTP/2, which is smaller, faster to parse, and supports
+streaming out of the box. For a public API, REST is still the safer default.
 
 ### Can browsers call gRPC directly?
 
-No. Browsers do not expose HTTP/2 trailers or the raw gRPC framing. Use gRPC-Web (via `grpc-web` or `connect-web`) which translates between browser HTTP/1.1 and server HTTP/2. Alternatively, provide a [REST gateway](/recipes/go-rest-api-gin/) via `grpc-gateway` for public APIs. gRPC-Web requires an Envoy proxy or a custom handler on the server to translate the encoding.
+No. Browsers can't read gRPC's HTTP/2 trailers. Use gRPC-Web with Envoy, or add
+a REST gateway with `grpc-gateway` for browser clients.
 
-### How do I handle errors in gRPC?
+### How do I handle errors and status codes?
 
-gRPC uses status codes: `OK (0)`, `CANCELLED (1)`, `UNKNOWN (2)`, `INVALID_ARGUMENT (3)`, `NOT_FOUND (5)`, `ALREADY_EXISTS (6)`, `PERMISSION_DENIED (7)`, `RESOURCE_EXHAUSTED (8)`, `FAILED_PRECONDITION (9)`, `ABORTED (10)`, `UNAVAILABLE (14)`, `UNAUTHENTICATED (16)`. Return the appropriate status code with `callback({ code: grpc.status.NOT_FOUND, message: 'User not found' })`. Include structured error details using `google.rpc.Status` with `details` for machine-readable error metadata.
+Return a gRPC status code such as `NOT_FOUND`, `INVALID_ARGUMENT`, or
+`UNAVAILABLE`. Don't throw raw exceptions; wrap them in a gRPC status before
+sending the callback.
 
 ### How do I implement deadlines and timeouts?
 
-Set deadlines on the client: `call.setTimeout(5000)` or use `grpc.Client` with `deadline` option. On the server, check `call.request.getDeadline()` and abort long-running operations before the deadline expires. Propagate deadlines through metadata so downstream services receive the remaining time. Use interceptors to enforce a default deadline if the client does not set one. A 5-second default is reasonable for most internal calls.
+Set an absolute deadline on the client: `client.getUser(req, { deadline: Date.now() + 5000 }, callback)`.
+Propagate it through metadata and check it on the server. Cancel long-running
+work before the deadline runs out.
 
 ### How do I version protobuf schemas?
 
-Never reuse or rename field numbers — this breaks wire compatibility. To add a field, use the next available field number. Mark deprecated fields with `reserved` to prevent reuse: `reserved 3, 4; reserved "old_field_name";`. For breaking changes, create a new service (e.g., `UserServiceV2`) or use `oneof` for optional field migration. Generate client stubs for each version and run both services during migration.
+Once a field number is in use, leave it alone. Add new fields with the next
+available number. Mark removed fields with `reserved` so old numbers can't be
+reused.
+For breaking changes, create a new package or service, such as `users.v2`.
 
 ### How do I test gRPC services?
 
-Use `grpcurl` for manual testing: `grpcurl -plaintext -d '{"id":"1"}' localhost:50051 users.UserService/GetUser`. For automated tests, use `grpc-js` in-process channel to test handlers without a real TCP connection. Mock the generated stubs with Jest or Vitest. For integration tests, start the server on a random port and use a real client. Test streaming methods by collecting all emitted messages and asserting on the full list.
-
-### How do I implement authentication in gRPC?
-
-Use interceptors to validate JWT tokens from metadata: `metadata.get('authorization')`. For mTLS, configure `grpc.ServerCredentials.createSsl()` with CA certificates. For service-to-service auth, use token-based authentication with short-lived tokens issued by an identity provider. Do not pass credentials in message payloads — use metadata headers so interceptors can validate before deserialization.
-
-### How do I monitor gRPC services?
-
-Use the gRPC Health Checking Protocol (`grpc.health.v1.Health`) for liveness probes. Export metrics with Prometheus using `grpc-prometheus` middleware: track request count, duration histogram, and error rate by method. Distributed tracing with OpenTelemetry adds spans for each gRPC call with metadata propagation. Log method name, duration, status code, and peer address for each request.
-
-### How do I handle file uploads and downloads with gRPC?
-
-Use client streaming for uploads: the client sends chunks as a stream of messages, and the server assembles them. Define a message with a `bytes` field for chunk data and metadata in the first message. For downloads, use server streaming: the server sends chunks back. For large files (>4MB), increase the max message size: `grpc.ServerCredentials.createSsl(null, null, null, { 'grpc.max_receive_message_length': 100 * 1024 * 1024 })`. Consider using HTTP/2 flow control to avoid memory pressure — the server should process chunks as they arrive, not buffer the entire file. For very large files, use a chunked transfer pattern with a separate RPC per chunk.
-
-### How do I version protobuf schemas without breaking clients?
-
-Use Protobuf edition 3 features: reserve field numbers for removed fields (`reserved 5, 6;`) to prevent reuse. Add new fields with sensible defaults — old clients ignore unknown fields. Never change field numbers or types of existing fields. For breaking changes (renaming fields, changing types), create a new service or package: `package myservice.v2;`. Use a versioned package name and route clients to the new service via a gateway. Run `buf breaking` in CI to detect breaking changes before merge. Document migration paths for clients upgrading to new versions.
-
-### How do I handle connection pooling and keepalive in gRPC?
-
-gRPC uses HTTP/2 multiplexed connections — a single TCP connection handles multiple concurrent RPCs. Configure keepalive to detect dead connections: `grpc.keepalive_time_ms = 30000` (ping every 30s), `grpc.keepalive_timeout_ms = 10000` (wait 10s for pong). On the server, set `grpc.keepalive_permit_without_calls = 1` to allow pings when no RPCs are active. For client-side connection pooling, reuse the same `Client` instance across requests — do not create a new client per RPC. In Node.js, set `grpc.max_connection_idle_ms` to close idle connections. Monitor active connections with `grpc.channel.getConnectivityState()`.
-
-### How do I handle errors and status codes in gRPC?
-
-Use gRPC status codes: `OK` (0), `CANCELLED` (1), `INVALID_ARGUMENT` (3), `NOT_FOUND` (5), `ALREADY_EXISTS` (6), `PERMISSION_DENIED` (7), `RESOURCE_EXHAUSTED` (8), `FAILED_PRECONDITION` (9), `UNAVAILABLE` (14). Return `Status` objects with code, description, and metadata: `new Status(Code.NOT_FOUND, 'user not found', metadata)`. Do not throw exceptions in handlers — catch them and convert to gRPC status codes. Use `RicherError` in Node.js to include structured error details via `google.rpc.ErrorInfo`. Map HTTP status codes to gRPC codes at the gateway level: 200→OK, 400→INVALID_ARGUMENT, 404→NOT_FOUND, 409→ALREADY_EXISTS, 429→RESOURCE_EXHAUSTED, 500→INTERNAL.
-
-### How do I implement bidirectional streaming in TypeScript?
-
-Bidirectional streaming allows both client and server to send messages simultaneously. Define the RPC method with `stream` on both request and response: `rpc Chat (stream ChatMessage) returns (stream ChatMessage)`. In the server handler, listen to `call.on('data')` for incoming messages and `call.write()` to send messages back. Use `call.on('end')` to detect when the client closes the stream. For chat applications, maintain a map of active streams keyed by user ID. Broadcast messages to all connected clients by iterating the map and calling `write()` on each stream. Handle backpressure with `call.write()` return value — if it returns `false`, wait for the `drain` event before writing more.
-
-### How do I use gRPC with Envoy proxy and grpc-web?
-
-Envoy proxies gRPC traffic and translates HTTP/1.1 requests from browsers into gRPC calls via grpc-web. Configure Envoy with a gRPC filter: `envoy.filters.http.grpc_web`. Set the CORS policy in Envoy to allow browser origins. On the client side, use `@grpc/grpc-web` instead of `@grpc/grpc-js`. The proto generation step uses `grpc-web` plugin: `protoc --grpc-web_out=import_style=typescript,mode=grpcwebtext`. Handle binary data with `mode=grpcwebtext` (base64-encoded) for browsers that do not support HTTP/2 trailers. For production, terminate TLS at Envoy and use mTLS between Envoy and backend gRPC services.
-
-### How do I handle deadlines and timeouts in gRPC?
-
-Set deadlines on every RPC call: `client.GetUser(req, { deadline: Date.now() + 5000 })`. A deadline is an absolute timestamp, not a duration. Propagate deadlines through interceptor chains so downstream calls respect the caller's timeout. On the server, check `call.getDeadline()` and cancel long-running operations if the deadline is exceeded. Use `context.abort(StatusCode.DEADLINE_EXCEEDED, 'deadline exceeded')` to return an error. For streaming RPCs, set a deadline on the entire stream, not per message. In TypeScript, use `AbortController` to cancel in-flight RPCs: `controller.abort()` triggers `call.cancel()`. Monitor deadline-exceeded errors to identify slow methods that need optimization.
-
-### How do I test gRPC services in TypeScript?
-
-Use `grpc-js` in-process channel for unit tests: create a server on an ephemeral port and connect a client directly. For integration tests, use `grpcurl` to send requests from the command line: `grpcurl -plaintext -d '{"id":"123"}' localhost:50051 mypackage.MyService/GetUser`. Mock the gRPC client in consumer tests using `jest.mock()` or create a fake server with `createInsecureServer()`. Test all four RPC types: unary, server streaming, client streaming, and bidirectional streaming. Verify error handling by returning specific status codes. Use `buf beta conformance` for protocol conformance testing. Generate test fixtures from proto definitions using `ts-proto` and `@faker-js/faker`.
-
-## Common Production Pitfalls
-
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+Use the in-process channel from `@grpc/grpc-js` to call handlers without a real
+TCP socket. For integration tests, start the server on an open port and test it with a real
+client. For manual checks, `grpcurl` is the fastest way to fire a
+request.

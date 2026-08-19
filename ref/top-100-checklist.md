@@ -228,29 +228,29 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.7% / ES 34.9% (0 patterns)
    - Words: 1,444 | Meta: 165 chars
 
-28. - [ ] **elasticsearch-aggregations** (recipes)
+28. - [x] **elasticsearch-aggregations** (recipes)
    - Metrics: 65 imp | pos 36.2 | CTR 0.00% | Δ impr 22
    - EN: https://stackpractices.com/recipes/elasticsearch-aggregations/
    - ES: https://stackpractices.com/es/recipes/elasticsearch-aggregations/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,237 | Meta: 147 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 37.1% / ES 31.0% (0 patterns)
+   - Words: 1,534 | Meta: 157 chars
 
-29. - [ ] **password-hashing** (recipes)
+29. - [x] **password-hashing** (recipes)
    - Metrics: 34 imp | pos 18.9 | CTR 0.00% | Δ impr -1
    - EN: https://stackpractices.com/recipes/password-hashing/
    - ES: https://stackpractices.com/es/recipes/password-hashing/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 3,809 | Meta: 138 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 46.6% / ES 43.5% (0 patterns)
+   - Words: 1,149 | Meta: 152 chars
 
-30. - [ ] **grpc-services-typescript** (recipes)
+30. - [x] **grpc-services-typescript** (recipes)
    - Metrics: 45 imp | pos 21.2 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/grpc-services-typescript/
    - ES: https://stackpractices.com/es/recipes/grpc-services-typescript/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,296 | Meta: 164 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.0% / ES 39.9% (0 patterns)
+   - Words: 1,417 | Meta: 150 chars
 
 31. - [ ] **pre-commit-hooks** (recipes)
    - Metrics: 63 imp | pos 38.1 | CTR 0.00% | Δ impr 15

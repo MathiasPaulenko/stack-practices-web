@@ -1,0 +1,371 @@
+[
+  {
+    "label": "grpc-services-typescript-en",
+    "model": "desklib",
+    "model_ai_pct": 47.0,
+    "ai_count": 23,
+    "human_count": 40,
+    "skipped_count": 1,
+    "total": 64,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.9,
+      "stddev": 8.4,
+      "cv": 0.66,
+      "verdict": "natural variation",
+      "sentence_count": 63,
+      "lengths": [
+        19,
+        24,
+        13,
+        28,
+        8,
+        10,
+        15,
+        14,
+        10,
+        11,
+        7,
+        13,
+        9,
+        11,
+        17,
+        10,
+        8,
+        8,
+        12,
+        11,
+        16,
+        7,
+        13,
+        10,
+        18,
+        6,
+        14,
+        13,
+        70,
+        7,
+        7,
+        13,
+        20,
+        12,
+        15,
+        13,
+        13,
+        7,
+        10,
+        10,
+        6,
+        13,
+        7,
+        11,
+        5,
+        12,
+        13,
+        19,
+        10,
+        6,
+        14,
+        11,
+        14,
+        15,
+        10,
+        8,
+        10,
+        8,
+        11,
+        12,
+        14,
+        17,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The API is public-facing and must be called directly from browsers.",
+        0.9833
+      ],
+      [
+        "Add new fields with the next\navailable number.",
+        0.9209
+      ],
+      [
+        "| Call type | Use case | Key API |\n| --- | --- | --- |\n| Unary | Single request/response | client.getUser(req, callback) |\n| Server streaming | Logs, events, search results | strea",
+        0.8378
+      ],
+      [
+        "For integration tests, start the server on an open port and test it with a real\nclient.",
+        0.777
+      ],
+      [
+        "You need fast, high-volume traffic between internal\n  [microservices](/patterns/ambassador-pattern-services/).",
+        0.7705
+      ],
+      [
+        "**Bidirectional streaming** lets client and server write and read at the same\n  time.",
+        0.7579
+      ],
+      [
+        "Creating a fresh client for each request.",
+        0.7429
+      ],
+      [
+        "REST sends JSON over HTTP/1.1 and is easy to read in the browser.",
+        0.7007
+      ],
+      [
+        "Cancel long-running\nwork before the deadline runs out.",
+        0.6972
+      ],
+      [
+        "The client reads until the server closes the stream with end().",
+        0.6782
+      ],
+      [
+        "A\n  dropped connection can crash the process or leak memory.",
+        0.6607
+      ],
+      [
+        "It works well for chat, real-time games, or event pipelines.",
+        0.6153
+      ],
+      [
+        "**Unary calls** send one request and wait for one response.",
+        0.6135
+      ],
+      [
+        "Browsers can't read gRPC's HTTP/2 trailers.",
+        0.5571
+      ],
+      [
+        "Only use createInsecure() on\n  your own machine.",
+        0.5555
+      ],
+      [
+        "**Server streaming** starts with one request; the server then keeps sending\n  messages.",
+        0.5539
+      ],
+      [
+        "Set an absolute deadline on the client: client.getUser(req, { deadline: Date.now() + 5000 }, callback).",
+        0.5464
+      ],
+      [
+        "**Client streaming** sends many messages from the client; the server responds\n  once after the stream ends.",
+        0.5384
+      ],
+      [
+        "You need human-readable payloads that you can debug or share with third\n  parties.",
+        0.538
+      ],
+      [
+        "Set an absolute deadline on every call.",
+        0.5362
+      ],
+      [
+        "Once a field number is in use, leave it alone.",
+        0.5258
+      ],
+      [
+        "They map cleanly\n  to a traditional request/response API.",
+        0.504
+      ],
+      [
+        "They map cleanly to\n  a traditional request/response API.",
+        0.504
+      ],
+      [
+        "Changing a field number or type in a .proto file after it's shipped.",
+        0.4955
+      ],
+      [
+        "Return a gRPC status code such as NOT_FOUND, INVALID_ARGUMENT, or\nUNAVAILABLE.",
+        0.4864
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "grpc-services-typescript-es",
+    "model": "desklib",
+    "model_ai_pct": 39.9,
+    "ai_count": 16,
+    "human_count": 46,
+    "skipped_count": 1,
+    "total": 63,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.5,
+      "stddev": 9.2,
+      "cv": 0.68,
+      "verdict": "natural variation",
+      "sentence_count": 62,
+      "lengths": [
+        19,
+        23,
+        15,
+        28,
+        11,
+        9,
+        13,
+        13,
+        11,
+        11,
+        9,
+        11,
+        9,
+        13,
+        18,
+        10,
+        8,
+        12,
+        9,
+        18,
+        7,
+        13,
+        14,
+        19,
+        11,
+        16,
+        13,
+        77,
+        6,
+        5,
+        16,
+        20,
+        11,
+        11,
+        14,
+        12,
+        9,
+        11,
+        11,
+        6,
+        16,
+        7,
+        12,
+        6,
+        15,
+        10,
+        19,
+        11,
+        11,
+        17,
+        13,
+        15,
+        15,
+        10,
+        9,
+        7,
+        8,
+        8,
+        11,
+        14,
+        16,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Sete\u00e1 deadlines en cada llamada.",
+        0.9067
+      ],
+      [
+        "El **client streaming** env\u00eda muchos mensajes desde el cliente; el servidor\n  responde una vez que termina el stream.",
+        0.8862
+      ],
+      [
+        "Crear un cliente nuevo por cada request.",
+        0.8776
+      ],
+      [
+        "Reus\u00e1 el mismo cliente as\u00ed HTTP/2\n  lleva varias llamadas a la vez.",
+        0.7981
+      ],
+      [
+        "Implement\u00e1 el gRPC Health Checking Protocol para liveness y readiness probes.",
+        0.6895
+      ],
+      [
+        "Para pruebas manuales, grpcurl es la forma m\u00e1s r\u00e1pida de\nenviar un request.",
+        0.6876
+      ],
+      [
+        "Agreg\u00e1 nuevos campos con el\npr\u00f3ximo n\u00famero disponible.",
+        0.6652
+      ],
+      [
+        "createInsecure() es solo\n  para desarrollo local.",
+        0.6336
+      ],
+      [
+        "Las **llamadas unarias** env\u00edan un request y esperan un response.",
+        0.6189
+      ],
+      [
+        "Devolver excepciones planas desde los handlers.",
+        0.6098
+      ],
+      [
+        "La API es p\u00fablica y debe ser llamada directamente desde navegadores.",
+        0.6073
+      ],
+      [
+        "El **server streaming** devuelve un stream de mensajes para un \u00fanico request.",
+        0.5656
+      ],
+      [
+        "Los navegadores no pueden leer los trailers de HTTP/2 de gRPC.",
+        0.5447
+      ],
+      [
+        "| Tipo de llamada | Caso de uso | API clave |\n| --- | --- | --- |\n| Unaria | Request/response simple | client.getUser(req, callback) |\n| Server streaming | Logs, eventos, resultado",
+        0.5398
+      ],
+      [
+        "Us\u00e1 reserved para campos removidos y evitar reusar viejos field numbers.",
+        0.511
+      ],
+      [
+        "Quer\u00e9s contratos fuertemente tipados con generaci\u00f3n autom\u00e1tica de c\u00f3digo de\n  cliente y servidor.",
+        0.5051
+      ],
+      [
+        "Propagalo a trav\u00e9s de metadata y controlalo en el servidor.",
+        0.4973
+      ],
+      [
+        "Guard\u00e1 el archivo .proto en un repositorio o paquete compartido para que\n  clientes y servidores generen desde el mismo contrato.",
+        0.493
+      ],
+      [
+        "Se mapean\n  limpiamente a una API request/response tradicional.",
+        0.4817
+      ],
+      [
+        "JSON sobre HTTP sigue siendo el default m\u00e1s seguro.",
+        0.4618
+      ],
+      [
+        "REST usa JSON sobre HTTP/1.1 y es f\u00e1cil de inspeccionar.",
+        0.4602
+      ],
+      [
+        "Para una API p\u00fablica, REST sigue siendo el default m\u00e1s\nseguro.",
+        0.4479
+      ],
+      [
+        "**HTTP/2** transporta todo esto sobre una \u00fanica conexi\u00f3n TCP, as\u00ed que las\n  llamadas en paralelo comparten el mismo overhead.",
+        0.4429
+      ],
+      [
+        "Para tests de integraci\u00f3n, levant\u00e1 el servidor en un puerto random y\nus\u00e1 un cliente real.",
+        0.4371
+      ],
+      [
+        "Devolv\u00e9 uno de los status codes de gRPC, como NOT_FOUND,\nINVALID_ARGUMENT o UNAVAILABLE.",
+        0.4327
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

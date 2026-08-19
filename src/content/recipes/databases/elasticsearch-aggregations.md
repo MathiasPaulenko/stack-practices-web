@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: elasticsearch-aggregations
-title: "Elasticsearch Aggregations"
-description: "Build faceted search, metrics, and time-series summaries with Elasticsearch aggregations. Covers terms, date histograms, ranges, and composite buckets."
-metaDescription: "Use Elasticsearch aggregations for faceted search, metrics, and time-series analytics. Learn terms, date_histogram, range, and composite with real examples."
+title: "How to Use Elasticsearch Aggregations (With Examples)"
+description: "Use Elasticsearch aggregations for faceted search, metrics, and time-series analytics. Step-by-step examples for terms, date_histogram, range, and composite."
+metaDescription: "Use Elasticsearch aggregations for faceted search, metrics, and time-series analytics. Step-by-step examples for terms, date_histogram, range, and composite."
 difficulty: intermediate
 topics:
   - databases
@@ -25,7 +25,7 @@ lastUpdated: "2026-08-19"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Use Elasticsearch aggregations for faceted search, metrics, and time-series analytics. Learn terms, date_histogram, range, and composite with real examples."
+  metaDescription: "Use Elasticsearch aggregations for faceted search, metrics, and time-series analytics. Step-by-step examples for terms, date_histogram, range, and composite."
   keywords:
     - elasticsearch
     - aggregations
@@ -36,33 +36,35 @@ seo:
 
 ## Overview
 
-Elasticsearch aggregations group and summarize indexed data in real time. They
-run on the inverted index, so counts and metrics over millions of documents are
-fast enough to power search facets and live dashboards.
+Any time you need counts, sums, or percentiles from an Elasticsearch index,
+aggregations are the obvious place to start. They run directly on the inverted
+index, which keeps counts and metrics over millions of documents fast enough for
+live facets and dashboards.
 
-A single request can mix bucket aggregations, which split documents into groups,
-and metric aggregations, which compute values inside each group. Nesting them
-lets you build time-series, percentiles, and faceted summaries without a
+A single request can combine bucket aggregations that split documents into groups
+with metric aggregations that compute values inside each group. Nest them to
+build time-series, percentiles, and faceted summaries without shipping data to a
 separate batch job.
 
 ## When to Use
 
-- You need faceted search with category-level count filters. See also
-  [Full-Text Search](/recipes/full-text-search/) for the query side.
-- You're building real-time analytics dashboards that must return sub-second
-  aggregations over large document sets.
-- You want to bucket time series and nest statistics such as sum, average, or
+- You're building faceted search with category-level count filters. The query
+  side is covered in [Full-Text Search](/recipes/full-text-search/).
+- Your analytics dashboards have to return numbers in under a second over large
+  document sets.
+- You want to bucket time series and nest statistics like sum, average, or
   percentiles.
-- You need unique counts, top hits per bucket, or derivative metrics in a single
-  request.
+- You need unique counts, top hits per bucket, or derivative metrics inside the
+  same request.
 
 ### When to avoid
 
-- The query resembles a multi-table SQL join across separate indices.
-- The field you want to aggregate isn't indexed, or it's a full-text `text`
-  field without a `keyword` subfield.
-- You need exact counts over extremely high-cardinality fields; use
-  `composite` or tune `shard_size` instead of a plain `terms` aggregation.
+- The query reads like a SQL join across several tables: aggregations stay
+  inside one index and won't span across them.
+- The field you want to aggregate isn't indexed, or it's a tokenized `text`
+  field with no `.keyword` subfield.
+- You need exact counts over very high-cardinality fields; prefer `composite`
+  or tune `shard_size` instead of a plain `terms` aggregation.
 
 ## Solution
 
@@ -274,7 +276,8 @@ GET /orders/_search
 
 Cardinality uses HyperLogLog++ for approximate distinct counts. The
 `precision_threshold` trades accuracy for memory: higher values are more
-accurate but consume more heap. With a threshold of 40,000, counts land within 1% of the real value.
+accurate but consume more heap. With `precision_threshold: 40000`, Elasticsearch returns counts within 1% of the
+true value. That margin is good enough for most dashboards.
 
 ### Top hits per bucket
 
@@ -334,28 +337,29 @@ GET /orders/_search
 ## Explanation
 
 Bucket aggregations split documents into groups. `terms` and `range` are bucket
-aggregations; `date_histogram` splits by time. Metric aggregations such as
-`sum`, `avg`, `stats`, and `percentiles` run inside each bucket.
+aggregations; `date_histogram` splits by time. Metric aggregations like `sum`,
+`avg`, `stats`, and `percentiles` run inside each bucket.
 
-You can nest aggregations to answer multi-level questions: monthly revenue per
-category, average price per price range, or percentile latency per region.
-Adding `size: 0` skips the search hits and returns only aggregations, which is
-much faster if you don't need the documents themselves.
+Nesting aggregations lets you answer multi-level questions: monthly revenue per
+category, average price per price range, or percentile latency per region. Set
+`size: 0` and Elasticsearch skips the hits, returning only aggregation results.
+Skipping the hits is much faster when you don't actually need the documents.
 
 Text fields are analyzed and tokenized, so they can't be aggregated directly.
-For counts, groupings, and filters, use the `.keyword` subfield, which is
-stored as a single unanalyzed token.
+For counts, groupings, and filters, use the `.keyword` subfield: that sibling is
+stored as a single unanalyzed token, which is exactly what aggregations need.
 
 The `composite` aggregation returns a key per bucket and an `after_key` for
-pagination. It's the safest way to scan large aggregation result sets because it keeps
-memory bounded and never skips buckets.
+pagination. It keeps memory bounded and never skips buckets, so it's the safest
+way to scan large aggregation result sets. For the document side of paging,
+see [Pagination](/recipes/pagination/).
 
 `post_filter` applies search filters after aggregations are computed. Use it
 when users filter results but you want to keep the original facet counts.
 
 Pipeline aggregations such as `derivative` and `moving_avg` read values from
-other buckets. They work well for time-series analysis, but they add a second
-pass and cost more CPU and memory.
+other buckets. Pipelines fit time-series analysis, but they force a second pass and drive up
+CPU and memory usage.
 
 ## Variants
 
@@ -373,22 +377,21 @@ pass and cost more CPU and memory.
 
 - Set `size: 0` when you only need aggregations, not search hits.
 - Aggregate on `keyword` subfields, not on analyzed `text` fields.
-- Use `composite` whenever an aggregation could return more than a few thousand
-  buckets.
+- Switch to `composite` when an aggregation could return more than a few
+  thousand buckets.
 - Enable `eager_global_ordinals` on fields you aggregate frequently, especially
   for high-cardinality `terms`.
 - Use `post_filter` to filter returned results without changing aggregation
   counts.
-- Tune `precision_threshold` for `cardinality` to balance memory against
-  accuracy.
+- Tune `precision_threshold` on `cardinality` to balance memory and accuracy.
 
 ## Common Mistakes
 
 - Aggregating on a `text` field instead of its `.keyword` subfield.
-- Requesting `size: 10000` on a `terms` aggregation and causing out-of-memory
-  errors.
+- Setting `size: 10000` on a `terms` aggregation and assuming the cluster has
+  unlimited heap.
 - Paginating large `terms` results without `composite`.
-- Ignoring that `terms` and `cardinality` return approximate counts.
+- Forgetting that `terms` and `cardinality` return approximate counts.
 - Running heavy pipeline aggregations on very large time ranges.
 
 ## FAQ
@@ -400,14 +403,15 @@ aggregations inside each other in the same request.
 
 ### How do I filter results without changing aggregation counts?
 
-Use `post_filter` to apply search filters after the aggregations are computed.
+Use `post_filter` when you want filters applied after the aggregations are
+computed.
 The aggregations see the full query, while the returned hits are filtered.
 
 ### Are Elasticsearch aggregations exact on large datasets?
 
-`terms` and `cardinality` are approximate. Adjust `shard_size` or use
-`composite` aggregations for more exact counts, and raise
-`precision_threshold` for better cardinality accuracy.
+Remember that `terms` and `cardinality` are approximate, not exact counts. Increase `shard_size`, use
+`composite` for exact counts, or raise `precision_threshold` to improve
+cardinality accuracy.
 
 ### Why should I use `composite` instead of `terms` for pagination?
 
@@ -418,4 +422,4 @@ change as data is indexed.
 ### What is the difference between `filter` and `post_filter`?
 
 A `filter` aggregation adds a bucket under the aggregation tree. `post_filter`
-limits the search hits returned without affecting the aggregation values.
+applies only to the search hits, so the aggregation values stay the same.

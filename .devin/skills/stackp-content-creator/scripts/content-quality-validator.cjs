@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * content-quality-validator.cjs — Unified Content Quality Validator
+ * content-quality-validator.cjs - Unified Content Quality Validator
  *
  * Validates ALL content files against the complete StackPractices quality standard.
  * This script unifies and improves upon: validate-content, check-meta-descriptions,

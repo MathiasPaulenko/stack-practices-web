@@ -1,352 +1,238 @@
 ---
 contentType: recipes
 slug: password-hashing
-title: "Password Hashing"
-description: "How to securely hash and verify passwords using modern algorithms across Python, JavaScript, and Java."
-metaDescription: "Practical password hashing examples in Python, JavaScript, and Java. Use bcrypt, argon2, and PBKDF2 with salt to store passwords securely."
+title: "How to Hash Passwords Securely (Python, JavaScript, Java)"
+description: "Learn how to hash and verify passwords with bcrypt, Argon2, and PBKDF2. Practical examples in Python, JavaScript, and Java."
+metaDescription: "Secure password hashing examples in Python, JavaScript, and Java. Compare bcrypt, Argon2, and PBKDF2 with salt and learn how to verify passwords safely."
 difficulty: intermediate
 topics:
   - authentication
+  - security
 tags:
   - authentication
   - bcrypt
+  - argon2
+  - pbkdf2
   - security
-  - oauth
-  - jwt
+  - password-hashing
 relatedResources:
   - /recipes/jwt-authentication
-  - /recipes/handle-errors
-  - /patterns/singleton-pattern
-  - /recipes/oauth2-login
   - /recipes/session-management
   - /recipes/two-factor-authentication
+  - /recipes/encryption-at-rest
+  - /recipes/oauth2-login
   - /guides/security-best-practices-guide
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Practical password hashing examples in Python, JavaScript, and Java. Use bcrypt, argon2, and PBKDF2 with salt to store passwords securely."
+  metaDescription: "Secure password hashing examples in Python, JavaScript, and Java. Compare bcrypt, Argon2, and PBKDF2 with salt and learn how to verify passwords safely."
   keywords:
     - password hashing
     - bcrypt
     - argon2
     - pbkdf2
     - salt
+    - password verification
     - secure passwords
-    - python bcrypt
-    - node bcrypt
-    - java password hashing
-
-
-
-
-
 ---
+
 ## Overview
 
-Password hashing is the process of converting a plaintext password into a fixed-length, irreversible string using a one-way cryptographic function. Never store plaintext passwords. Always hash with a unique salt and a slow algorithm designed for passwords.
+Passwords are a liability from the moment you store them. If your database is
+exposed, plaintext or fast hashes like SHA-256 let attackers try millions of
+guesses per second. Password hashing turns a password into a slow, irreversible
+string with a unique salt, so a leaked database still costs too much to crack.
 
-Modern algorithms like bcrypt, Argon2, and PBKDF2 are intentionally slow to resist brute-force and rainbow-table attacks.
-
-The consequences of getting this wrong are severe. Data breaches involving plaintext or weakly hashed passwords expose millions of user accounts to credential stuffing attacks, where attackers try leaked passwords across other services. High-profile breaches have demonstrated that even large organizations fall victim to improper password storage. Hashing is not optional decoration — it is a fundamental security control that protects your users even when your database is compromised.
-
-Here is how to the three most common language ecosystems and explains how to choose the right algorithm for your threat model.
+Below you will find hash-and-verify examples in Python, JavaScript, and Java,
+using bcrypt, Argon2, and PBKDF2.
 
 ## When to Use
 
-Use this recipe when:
+- Your users sign in with a username and password, and you need to store that
+  password. The
+  surrounding flow is covered in [Session Management](/recipes/session-management/)
+  and [JWT Authentication](/recipes/jwt-authentication/).
+- You're migrating away from MD5, SHA-1, or plain SHA-256 password storage.
+- You need login or password-reset verification in a web app, API, or CLI tool.
+- Your compliance framework (PCI-DSS, SOC 2, GDPR, NIST) requires protected
+  credentials. See [API Security Checklist](/guides/api-security-checklist-guide/)
+  for related controls.
 
-- Storing user credentials in a database or user directory
-- Implementing [authentication systems](/recipes/session-management/) with username and password flows
-- Migrating legacy systems from fast hashes (MD5, SHA-1) to modern password storage
-- Validating passwords during login and password-reset flows
-- Complying with security standards (PCI-DSS, SOC 2, GDPR) that mandate proper credential protection. See [API Security Checklist](/guides/api-security-checklist-guide/) for what works for compliance.
-- Building admin panels or CLI tools that create service accounts with passwords
+### When to avoid
+
+- The system has no human users (machine-to-machine traffic). API keys or OAuth2
+  fit better there.
+- What you actually need is a one-time token, not a stored password hash.
+- You want to roll your own hash function. Do not do it. Use a library instead.
 
 ## Solution
 
-### Python
-
-Python's `bcrypt` library handles salt generation, hashing, and verification in a single call. The `gensalt` function creates a random salt and embeds the work factor so future verifications can use the same parameters.
+### Python with bcrypt
 
 ```python
 import bcrypt
 
-# Hash a password
 password = b"supersecret"
 salt = bcrypt.gensalt(rounds=12)
 hashed = bcrypt.hashpw(password, salt)
 
-# Verify a password
 if bcrypt.checkpw(password, hashed):
-    print("Password matches")
-else:
-    print("Invalid password")
+    print("ok")
 ```
 
-### JavaScript (Node.js)
-
-The `bcrypt` npm package provides an async API that should always be used in production. The synchronous variants block the event loop and negate the performance benefits of Node's non-blocking architecture.
+### JavaScript (Node.js) with bcrypt
 
 ```javascript
 const bcrypt = require('bcrypt');
 
 async function hashPassword(password) {
-  const saltRounds = 12;
-  const hash = await bcrypt.hash(password, saltRounds);
-  return hash;
+  return bcrypt.hash(password, 12);
 }
 
 async function verifyPassword(password, hash) {
-  const match = await bcrypt.compare(password, hash);
-  return match;
+  return bcrypt.compare(password, hash);
 }
 
-// Usage
-hashPassword('supersecret').then(hash => {
-  verifyPassword('supersecret', hash).then(ok => console.log(ok));
-});
+hashPassword('supersecret')
+  .then(hash => verifyPassword('supersecret', hash))
+  .then(ok => console.log(ok));
 ```
 
-### Java
-
-Spring Security's `BCryptPasswordEncoder` wraps the underlying bcrypt implementation and handles salt generation transparently. The strength parameter (12) controls the logarithmic work factor.
+### Java with BCryptPasswordEncoder
 
 ```java
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-
-// Hash
 String hashed = encoder.encode("supersecret");
+boolean ok = encoder.matches("supersecret", hashed);
+```
 
-// Verify
-boolean matches = encoder.matches("supersecret", hashed);
-System.out.println(matches);
+### Argon2 (Python)
+
+```python
+from argon2 import PasswordHasher
+
+ph = PasswordHasher(time_cost=3, memory_cost=65536, parallelism=1)
+hash = ph.hash("supersecret")
+ph.verify(hash, "supersecret")
+```
+
+### PBKDF2 (Python)
+
+```python
+import hashlib, secrets
+
+password = b"supersecret"
+salt = secrets.token_bytes(16)
+iterations = 600_000
+key = hashlib.pbkdf2_hmac("sha256", password, salt, iterations, dklen=32)
 ```
 
 ## Explanation
 
-- **Salt**: A random value added to the password before hashing.  Even identical passwords produce different hashes when salted, rendering precomputed rainbow-table attacks useless.  bcrypt embeds the salt in the output string so no separate storage is needed.
-- **Work factor (rounds)**: Controls hashing speed logarithmically.  Higher = slower = more secure.  12 is a modern default that produces a hash in roughly 250ms on contemporary hardware.  As computers get faster, you should increase this value.
-- **bcrypt**: Adaptive hash function based on the Blowfish cipher.  Built-in salt handling and a tunable work factor make it the most widely supported modern choice.
-- **Argon2**: Winner of the 2015 Password Hashing Competition.  It provides resistance against GPU and ASIC attacks by being memory-hard, making it the best choice for new systems with no legacy constraints.
-- **PBKDF2**: NIST-approved and FIPS-compliant.  Slower than bcrypt but widely supported in enterprise and government environments where compliance mandates its use.
-- **scrypt**: Memory-hard function similar to Argon2.  It was the predecessor to Argon2 and remains a solid choice if Argon2 libraries are unavailable in your stack.
+- **bcrypt** adapts the Blowfish cipher to hash passwords. It embeds the salt
+  and work factor in the output, so storage is a single string. It's the safest
+  default for most applications, and every major language has a library.
+- **Argon2** has been the recommended choice since winning the 2015 Password
+  Hashing Competition. It's memory-hard, which makes GPU and ASIC attacks more
+  expensive than bcrypt. If the system is new and you can pull in a newer library,
+  Argon2 is the stronger choice.
+- **PBKDF2** carries NIST approval and FIPS-140 validation, so auditors usually
+  accept it. It's CPU-bound and tunable through the iteration count. Use it when
+  a standard or auditor mandates it.
+- A **salt** is a random value mixed with the password before hashing. It makes
+  rainbow tables useless and stops identical passwords from producing the same
+  hash.
+- The **work factor** decides how long hashing takes. For bcrypt, 12 is a
+  reasonable starting point and takes about 250ms on modern hardware. Raise the
+  cost factor every few years as CPUs get faster. For PBKDF2, OWASP's current
+  guidance is 600,000 iterations with SHA-256.
+
+Think of the work factor as a dial: turn it up until hashing takes a quarter of a
+second on your production hardware. That delay is imperceptible to a user logging
+in, but it makes an offline brute-force attack hundreds of thousands of times
+slower than a fast hash like SHA-256.
 
 ## Variants
 
-| Algorithm | Strength | Speed | Best For |
-|-----------|----------|-------|----------|
-| bcrypt | Good | Moderate | General purpose, widely supported |
-| Argon2 | Excellent | Tunable | New applications, maximum security |
-| PBKDF2 | Good | Slow | Compliance with NIST/FIPS requirements |
-| scrypt | Good | Memory-hard | Resists GPU/ASIC attacks |
+The three algorithms differ on a few practical criteria, which the table
+summarizes.
 
-## What Works
+| Algorithm | When to choose | Trade-off |
+| --- | ---------------- | ----------- |
+| bcrypt | Default, broad library support | Moderate memory usage, not memory-hard |
+| Argon2 | New applications, maximum resistance to hardware attacks | Needs a dedicated library, memory-hard |
+| PBKDF2 | NIST/FIPS compliance requirements | CPU-bound, slower than bcrypt |
 
-- **Never roll your own crypto**: Cryptography is notoriously easy to get wrong in subtle ways that only become apparent under attack.
-- **Always use a salt**: Unique per password, automatically handled by bcrypt.  Without salt, two users with the same password will have identical hashes, leaking that relationship to anyone with database access.
-- **Use a sufficient work factor**: 12+ rounds for bcrypt, adjust as hardware improves.  Benchmark your target duration (~250ms) and increase the factor every 2-3 years as CPUs get faster.
-- **Re-hash on login**: Gradually upgrade work factors when users authenticate.
-- **Never compare plaintext**: Always use library-provided verify functions.  These perform constant-time comparison to prevent timing attacks that could leak information about the password.
-- **Hash before any other transformation**: Do not apply lowercase, trim, or other normalization before hashing.  Some users intentionally include mixed-case and spaces in passphrases.
-- **Store hashes in a dedicated column**: Never store the salt separately from the hash.  bcrypt and Argon2 encode the salt inside the hash string for this reason.
+## Best Practices
+
+- Hash server-side; never trust a client-sent hash. Client-side hashing can be
+  bypassed by sending a pre-computed value.
+- Every password should get its own random salt. Libraries generate this
+  automatically, but verify that you aren't reusing one or hard-coding it.
+- Set the work factor so hashing takes 100-250ms on your production hardware, and
+  re-benchmark it once a year. Slow is the point.
+- Keep the full hash string in one column. It already includes the algorithm,
+  cost, salt, and hash, so there's no reason to split it.
+- Re-hash on login when the work factor or algorithm is outdated. Mark the
+  account as migrated so you don't double-hash.
+- Return generic errors for invalid username or password. Different response times
+  or messages leak whether the account exists.
 
 ## Common Mistakes
 
-- **Storing passwords in plaintext or reversible encryption**: If your database is breached, attackers gain immediate access to every account.  Hashing is irreversible by design.
-- **Using fast hashes like MD5, SHA-1, or SHA-256 for passwords**: These are designed for speed, which benefits attackers running brute-force attacks.  A modern GPU can test billions of SHA-256 hashes per second.
-- **Reusing salts across multiple users**: Defeats the primary purpose of salting.  If two users share the same password and the same salt, their hashes will be identical.
-- **Hard-coding salts in source code**: Source code is often stored in version control.  A hard-coded salt is as bad as no salt at all, since attackers will find it in the repository.
-- **Using insufficient work factors (e.g., bcrypt with <10 rounds)**: Faster hashing means attackers can test more passwords per second.  A work factor of 10 completes in ~100ms; 12 completes in ~250ms.  That extra delay adds massive protection at negligible user cost.
-- **Storing the hash without the algorithm identifier**: Always store the full bcrypt/Argon2 output string which includes the algorithm, cost, salt, and hash.  This ensures you can re-verify correctly even if you later change algorithms.
-- **Sending passwords over unencrypted connections**: Hashing protects stored passwords, but the password must travel securely to your server first.  Always use [TLS](/recipes/nginx-reverse-proxy/) for login forms and API endpoints.
-
-## When Not to Use This Approach
-
-- **Internal tools with trusted users**: if your API is only used by your own team and runs on a private network, API keys may be sufficient.  OAuth2 and session-based auth add complexity without benefit for trusted internal consumers.
-- **Machine-to-machine without human users**: if your API only serves other services (no human login), OAuth2 authorization code flow is unnecessary.
-- **Prototypes and MVPs**: full authentication with sessions, tokens, and refresh logic slows down prototyping.
-- **Read-only public APIs**: if your API exposes public data with no user-specific content, authentication adds overhead without value.  Consider rate limiting without auth for public endpoints.
-- **Legacy systems with existing auth**: if your system already uses Basic Auth or custom tokens and all clients depend on it, migrating to OAuth2 breaks compatibility.  Plan a gradual migration with dual auth.
-
-## Performance Benchmarks
-
-| Metric | Session (cookie) | JWT | API Key | OAuth2 |
-|--------|-------------------|-----|---------|--------|
-| Auth validation time | 2ms (DB lookup) | 0.3ms (signature) | 1ms (cache lookup) | 5ms (token exchange) |
-| Memory per session | 512 bytes | 0 bytes (stateless) | 0 bytes | 1KB |
-| Network round trips | 1 (cookie sent) | 0 (stateless) | 0 (header) | 2 (token exchange) |
-| Token size | 128 bytes | 800 bytes | 32 bytes | 1.2KB |
-| Refresh overhead | 1 DB write | 0 (client refreshes) | N/A | 1 HTTP call |
-| Revocation speed | Instant (delete session) | Slow (blocklist) | Instant (revoke key) | Instant (revoke token) |
-
-Benchmarks run on Node.js 20, single core, Redis cache. Real-world results vary with database, cache, and network latency.
-
-## Testing Strategy
-
-- **Test authentication bypass**: verify that protected endpoints reject requests without auth headers.
-- **Test token expiration**: verify that expired tokens are rejected.
-- **Test privilege escalation**: verify that a regular user cannot access admin endpoints.
-- **Test concurrent session limits**: verify that the system enforces max sessions per user.
-- **Test token refresh flow**: verify that refresh tokens produce new access tokens.
-- **Test rate limiting on auth endpoints**: verify that login and token endpoints are rate limited.
-
-## Cost Estimation
-
-- **Session storage**: Redis for session storage costs ~/month for a small instance.  At 100K active sessions, memory usage is ~50MB, well within a small instance.
-- **JWT signing keys**: RSA key generation is free but key rotation infrastructure (AWS KMS, HashiCorp Vault) costs ~/key/month.  Budget /month for 5 keys.
-- **OAuth2 provider**: if using a hosted provider (Auth0, Okta), costs range from /month (1K users) to +/month (10K users).  Self-hosted Keycloak is free but requires ~/month in server costs.
-- **Password hashing**: bcrypt with cost factor 12 uses ~250ms CPU per hash.  At 100 logins/second, this requires 25 CPU cores.  Budget ~/month for compute during peak login traffic.
-- **Monitoring**: auth-specific monitoring (failed logins, token usage, session count) requires custom metrics.  Budget -30/month for Datadog or Grafana Cloud.
-
-## Monitoring and Observability
-
-- **Track failed login rate**: monitor failed authentication attempts per IP and per user.  Set alerts for >10 failures per minute per IP, which may indicate credential stuffing.
-- **Monitor active session count**: track the number of active sessions.  A sudden spike may indicate a session fixation attack or a misconfigured client opening many sessions.
-- **Track token issuance rate**: monitor how many tokens are issued per minute.  A spike may indicate a compromised client or a token leak.
-- **Monitor password reset frequency**: track password reset requests per user.  Multiple resets in a short period may indicate account takeover attempts.
-- **Track MFA enrollment rate**: monitor how many users have MFA enabled.  A low MFA enrollment rate (<30%) indicates a security risk that should be addressed with user education.
-
-## Deployment Checklist
-
-- [ ] Configure secure cookie settings (HttpOnly, Secure, SameSite=Lax)
-- [ ] Set token expiration (access token: 15min, refresh token: 7 days)
-- [ ] Enable HTTPS only (redirect HTTP to HTTPS)
-- [ ] Configure password hashing with bcrypt cost factor >= 12
-- [ ] Set up rate limiting on login, register, and password reset endpoints
-- [ ] Configure CORS to only allow trusted origins
-- [ ] Set up JWT signing key rotation (rotate every 90 days)
-- [ ] Configure session cleanup (delete expired sessions from Redis)
-- [ ] Test authentication flow end-to-end (register, login, refresh, logout)
-- [ ] Document authentication protocol in API documentation
-
-## Security Considerations
-
-- **Timing attacks on login**: if login responses for valid vs invalid usernames take different time, attackers can enumerate users.
-- **Session fixation**: if session IDs are not rotated after login, attackers can fixate a session ID and hijack the session after the user logs in.  Always regenerate session IDs after successful login.
-- **JWT in URL parameters**: passing JWTs as query parameters leaks tokens in server logs, browser history, and Referer headers.
-- **Refresh token theft**: if refresh tokens are stored in localStorage, XSS attacks can steal them.
-- **Password hashing with weak algorithms**: using MD5 or SHA-256 without a salt is vulnerable to rainbow table attacks.  Always use bcrypt, scrypt, or Argon2 with a unique salt per password.
-- **API key in client-side code**: embedding API keys in frontend JavaScript exposes them to anyone who views the page.
-- **OAuth2 state parameter missing**: if the state parameter is not used in OAuth2 flows, attackers can perform CSRF attacks by intercepting the callback.  Always use a random state parameter and validate it.
-- **Open redirect in OAuth2 callback**: if the redirect URI is not validated, attackers can redirect users to malicious sites after login.  Validate redirect URIs against an allowlist.
-- **Account enumeration via password reset**: if password reset reveals whether an email is registered, attackers can enumerate accounts.  Always show the same success message regardless of whether the email exists.
-- **Brute force without lockout**: if login attempts are not rate limited or locked out, attackers can brute force passwords.
-- **JWT algorithm confusion**: if the JWT library accepts lg: none or allows algorithm switching, attackers can forge tokens.  Pin the expected algorithm (RS256 or HS256) in the verification config.
-- **Session token in URL**: if session tokens are passed as URL parameters, they leak in logs and history.
-- **Insecure deserialization of session data**: if session data is serialized with JSON. parse without validation, attackers can inject unexpected types.  Validate session data schema after deserialization.
-- **CSRF on state-changing endpoints**: if cookies are used for auth and CSRF tokens are not validated, attackers can forge requests.  Require CSRF tokens for all state-changing operations.
-- **Privilege escalation via mass assignment**: if user input is directly assigned to user objects, attackers can set ole: admin. Use allowlists for updatable fields.
-- **Password reset token reuse**: if password reset tokens are not invalidated after use, attackers can reuse them.
-- **MFA bypass via replay**: if MFA codes are not single-use, attackers who intercept a code can reuse it.  Mark MFA codes as used immediately after verification.
-- **OAuth2 scope escalation**: if OAuth2 scopes are not validated on each request, attackers can use tokens with fewer scopes to access higher-scope endpoints.  Validate scopes per endpoint.
-- **Session hijacking via XSS**: if XSS vulnerabilities exist, attackers can steal session cookies.
-- **Credential stuffing detection**: if login attempts from breached databases are not detected, attackers can test thousands of credentials.
-- **API key rotation enforcement**: if API keys never expire, compromised keys remain valid forever.  Enforce key rotation every 90 days and alert users with expiring keys.
-- **Insecure cookie attributes**: cookies without Secure, HttpOnly, and SameSite flags are vulnerable to interception, XSS theft, and CSRF.  Always set all three attributes on auth cookies.
-- **Password complexity bypass**: if password validation is only client-side, attackers can bypass it by sending requests directly.  Validate password complexity on the server.
-- **Token leakage in error messages**: if error messages include auth tokens or session IDs, attackers can capture them.  Never include sensitive data in error responses.
-- **Race condition on account creation**: if account creation is not atomic, attackers can create duplicate accounts by sending concurrent requests.
-- **Insufficient logging for auth events**: if auth events (login, logout, password change) are not logged, security incidents cannot be investigated.  Log all auth events with user ID, IP, and timestamp.
-- **Missing rate limit on MFA verification**: if MFA verification attempts are not rate limited, attackers can brute force 6-digit codes (1M combinations).  Rate limit to 5 attempts per 5 minutes.
-- **Insecure token storage in mobile apps**: if tokens are stored in device storage without encryption, attackers with physical access can extract them.
-- **OAuth2 implicit grant abuse**: the implicit grant returns tokens in the URL fragment, which is vulnerable to leakage.
-- **Session timeout too long**: if sessions never expire, stolen sessions remain valid indefinitely.  Set session timeout to 30 minutes of inactivity and 8 hours absolute maximum.
-
-
-
-## Troubleshooting
-
-- **Login works for some users but not others**: check identity provider configuration, user claims, and role mappings.  Look for case sensitivity in identifiers.
-- **Token expires too quickly**: verify token lifetime, refresh logic, and clock skew.  Short tokens with secure refresh are preferred.
-- **Session is not shared across subdomains**: set the cookie domain and SameSite policy correctly.
-- **Brute force attempts increase**: implement rate limiting, account lockout, and CAPTCHA.
-- **OIDC flow fails with invalid_state**: ensure the state parameter is stored, transmitted, and validated in the same user session.
-
-
-
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the authentication and bcrypt guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply password hashing** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Putting SHA-256, MD5, or SHA-1 in charge of password hashes. They're built for
+  speed; a modern GPU can test billions of them per second.
+- Storing passwords in plaintext or reversible encryption. A key leak exposes
+  every password.
+- Hard-coding a salt in source code. It's as bad as no salt once the repository
+  is public.
+- Reusing the same salt across users. Identical passwords then have identical
+  hashes.
+- Using work factors below 10 for bcrypt or below 600,000 iterations for PBKDF2.
+  Attackers can keep up.
+- Comparing hashes with `==` instead of the library's constant-time verify
+  function. Timing attacks can leak hash prefixes.
+- Hashing after normalization such as `lower()` or `trim()`. Mixed case and spaces
+  matter for some passphrases.
+- Truncating bcrypt at 72 bytes. bcrypt ignores bytes after 72, so two long
+  passwords with the same prefix would match. Pre-hash with SHA-256 only if you
+  must allow longer passwords.
 
 ## FAQ
 
-**Q: Should I use SHA-256 for password hashing?**
-A: No. SHA-256 is designed to be fast. Password hashing must be intentionally slow to resist brute force. Use bcrypt, Argon2, or PBKDF2 instead.
+### Should I use SHA-256 for passwords?
 
-**Q: How do I migrate users from old MD5 hashes?**
-A: Re-hash existing MD5 hashes with bcrypt on next login, then replace the old hash in your database. See [Logging](/recipes/logging/) for monitoring migration progress. Mark migrated accounts so you do not attempt to re-hash them again. Until a user logs in, their legacy hash remains in place as a stopgap.
+No. SHA-256 is built for speed, so brute-force attacks tear through it. Use
+bcrypt, Argon2, or PBKDF2 instead.
 
-**Q: What work factor should I use for bcrypt?**
-A: Start with 12. Benchmark so hashing takes ~250ms on your production hardware. Increase the factor every 2-3 years as CPUs get faster. The extra quarter-second is imperceptible to users but dramatically increases attack cost.
+### How do I migrate users from old MD5 or SHA-1 hashes?
 
-**Q: Is Argon2 better than bcrypt?**
-A: Yes, for new systems. Argon2 is memory-hard, making GPU and ASIC attacks far more expensive. However, bcrypt is still perfectly secure for most applications and has wider library support. If you have no legacy data, prefer Argon2.
+Re-hash the existing hash with bcrypt on the next successful login, then replace
+the stored value. Mark the account as migrated so you don't re-hash it later. If
+a user never logs in, force a password reset.
 
-**Q: Can I use the same hash for both authentication and API tokens?**
-A: No. Authentication hashes are slow by design. API tokens should use fast, deterministic hashes (like HMAC-SHA-256) because they are verified on every request and must not add latency to every API call.
+### What bcrypt cost factor should I use?
 
-### Is this solution production-ready?
+Start with 12. Benchmark on your production hardware so hashing takes about
+250ms. You will need to raise the cost factor again as CPUs get faster.
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+### Is Argon2 better than bcrypt?
 
-### What are the performance characteristics?
+For new systems, yes. Argon2 is memory-hard, which raises the cost of GPU and
+ASIC attacks. bcrypt is still secure and has wider library support. Prefer
+Argon2 if you can use a modern library.
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+### Can I use a password hash as an API token?
 
-### How do I debug issues with this approach?
+No. Password hashes are slow. API tokens need fast verification, such as
+HMAC-SHA-256.
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
-- **Pepper storage compromise**: if the pepper (a server-side secret added to passwords) is stored in source code, a source code leak exposes all passwords.
-- **Hash truncation vulnerability**: if bcrypt is truncated at 72 bytes and passwords longer than 72 bytes are allowed, attackers can use the first 72 bytes to authenticate.  Pre-hash with SHA-256 before bcrypt if longer passwords are needed.
-- **Argon2 parameter tuning**: if Argon2 parameters (memory, iterations, parallelism) are too low, the hash is vulnerable to GPU attacks.
-- **Salt reuse across users**: if the same salt is used for all passwords, rainbow tables can be precomputed for that salt.  Always generate a unique random salt per password.
-- **Hash timing side-channel**: if password verification uses non-constant-time comparison, attackers can measure response time to determine hash prefixes.
-- **Password storage in reversible form**: if passwords are encrypted instead of hashed, a key compromise exposes all passwords.  Never store passwords in reversible form; always use one-way hashing.
-- **Hash algorithm downgrade**: if the system supports multiple hash algorithms and allows downgrade, attackers can replace strong hashes with weak ones after compromise.  Only allow upgrades to stronger algorithms.
-- **Memory-hard hash DoS**: if memory-hard hashes (Argon2, scrypt) are used for every login, attackers can exhaust server memory with many concurrent logins.
-- **Hash format confusion**: if the system accepts multiple hash formats (bcrypt, scrypt, Argon2, PBKDF2), a format parsing bug could bypass verification.
-- **Password hash in error messages**: if error messages reveal whether the hash matched, attackers can use timing to enumerate valid credentials.  Return generic errors for all auth failures.
-- **Backup hash exposure**: if database backups contain password hashes and are stored unencrypted, a backup leak exposes all passwords.  Encrypt database backups at rest.
-- **Hash migration timing**: if hashes are migrated from weak to strong algorithms during login, users who never log in again keep weak hashes.  Migrate hashes proactively or force password reset for inactive users.
-- **Client-side hashing bypass**: if hashing is done client-side and the server trusts the hash, attackers can bypass hashing by sending pre-computed hashes.  Always hash server-side; client-side hashing is only for UX.
-- **Hash comparison short-circuit**: if hash comparison stops at the first differing byte, attackers can measure timing to determine hash prefixes.
-- **Password pepper rotation**: if the pepper is rotated, all existing hashes become invalid.
-- **Hash storage in memory**: if password hashes are cached in memory for performance, a memory dump exposes them.
-- **Weak random for salt generation**: if salt is generated with Math. random() instead of crypto. randomBytes(), salts are predictable.  Always use cryptographically secure random for salt generation.
-- **Hash encoding confusion**: if hashes are stored as hex but compared as base64, encoding mismatches cause false negatives.  Normalize encoding before comparison.
-- **Password hash in logs**: if password hashes are logged during debugging, log files become a security risk.  Never log password hashes; redact them in all log output.
-- **Hash upgrade on every login**: if the hash is upgraded on every login even when the algorithm is already strong, this wastes CPU.  Only upgrade when the current algorithm is weaker than the target.
-- **Concurrent hash computation race**: if two concurrent logins for the same user compute hashes simultaneously, a race condition may cause incorrect verification.
-- **Hash truncation in database**: if the database column is too short for the full hash, the hash is silently truncated.
+### Should I add a pepper to the password?
 
-## Common Production Pitfalls
-
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+A pepper is a server-side secret added before hashing. It helps if the database
+is leaked without the application secret, but it complicates rotation and key
+management. Treat it as an optional extra, not a replacement for a strong
+algorithm.
