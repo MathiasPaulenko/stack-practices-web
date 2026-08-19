@@ -1,31 +1,32 @@
 ---
-
 contentType: recipes
 slug: pre-commit-hooks
-title: "Set Up Pre-Commit Hooks"
-description: "How to set up pre-commit hooks with husky, lint-staged, and pre-commit to enforce code quality before commits"
-metaDescription: "Set up pre-commit hooks with husky, lint-staged, and pre-commit. Enforce linting, formatting, and tests before every commit with examples."
+title: "Set Up Pre-Commit Hooks with husky and lint-staged"
+description: "Set up pre-commit hooks with husky, lint-staged and the pre-commit framework to enforce linting, formatting and tests before every commit."
+metaDescription: "Set up pre-commit hooks with husky, lint-staged and pre-commit. Practical examples for Python, JavaScript and Java to catch issues before every commit."
 difficulty: beginner
 topics:
   - devops
+  - testing
 tags:
   - devops
+  - git
+  - pre-commit
+  - husky
+  - lint-staged
   - ci-cd
-  - automation
-  - deployment
-  - infrastructure
 relatedResources:
-  - /docs/bug-report-template
-  - /docs/changelog-template
-  - /docs/code-of-conduct-template
-  - /docs/contributing-guide
-  - /docs/disaster-recovery-plan-template
+  - /recipes/github-actions
   - /recipes/bash-scripting-automation
-lastUpdated: "2026-06-13"
+  - /recipes/unit-testing
+  - /recipes/container-security-scanning
+  - /recipes/python-coverage-pytest-cov
+  - /docs/contributing-guide
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Set up pre-commit hooks with husky, lint-staged, and pre-commit. Enforce linting, formatting, and tests before every commit with examples."
+  metaDescription: "Set up pre-commit hooks with husky, lint-staged and pre-commit. Practical examples for Python, JavaScript and Java to catch issues before every commit."
   keywords:
     - pre-commit
     - husky
@@ -33,26 +34,36 @@ seo:
     - git-hooks
     - code-quality
     - linting
-
 ---
+
 ## Overview
 
-Pre-commit hooks automatically run checks on your code before every commit. They catch linting errors, formatting issues, failing tests, and security vulnerabilities at the earliest possible moment—before they reach CI or production. Below is a practical approach to setting up hooks with the `pre-commit` framework (Python), `husky` + `lint-staged` (JavaScript), and native Git hooks for Java projects.
+A pre-commit hook is a script that runs between `git commit` and the moment the
+commit is created. It gives fast, local feedback on linting, formatting, tests
+and security before anything reaches CI. This recipe shows how to set up hooks
+for Python, JavaScript and Java using three common approaches.
 
 ## When to Use
 
-Use this resource when:
-- Your team repeatedly commits code that fails CI lint or format checks. See [GitHub Actions](/recipes/github-actions/) for CI pipeline setup.
-- You want to enforce code style without relying solely on PR reviews. See [Unit Testing](/recipes/unit-testing/) for automated quality gates.
-- You need to run secrets scanning or vulnerability checks on every commit. See [Container Security Scanning](/recipes/container-security-scanning/) for security scanning.
-- You want fast feedback: fix issues locally instead of waiting for CI to fail. See [Bash Scripting Automation](/recipes/bash-scripting-automation/) for local automation scripts.
+- Your team keeps committing code that fails CI lint or format checks.
+- You want to keep style consistent without waiting for every PR review.
+- You need to catch secrets or vulnerabilities before they enter history.
+- You want to catch small issues locally before CI fails.
+
+### When to avoid
+
+- The project has no shared formatter or linter; a hook just adds friction
+  without a clear rule to enforce.
+- Your checks take more than a few seconds; slow hooks teach people to skip them.
+- You're replacing CI gates with local hooks. Hooks are a convenience, not the
+  final gate.
 
 ## Solution
 
-### Python
+### Python — pre-commit framework
 
 ```python
-# Install pre-commit framework
+# Install the pre-commit framework
 # pip install pre-commit
 
 # .pre-commit-config.yaml
@@ -81,25 +92,19 @@ repos:
     rev: v1.7.1
     hooks:
       - id: mypy
-
-# Install hooks into .git/hooks/
-# pre-commit install
-
-# Run manually on all files
-# pre-commit run --all-files
 ```
 
-### JavaScript
+Run `pre-commit install` to copy the hook into `.git/hooks/` and
+`pre-commit run --all-files` to test it manually.
+
+### JavaScript — husky + lint-staged
 
 ```javascript
-// package.json scripts + husky + lint-staged
-// npm install --save-dev husky lint-staged prettier eslint
-
 // package.json
 {
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{json,md,yml}": ["prettier --write"]
+    "*.{json,md,yaml}": ["prettier --write"]
   },
   "scripts": {
     "prepare": "husky install",
@@ -107,15 +112,14 @@ repos:
     "format": "prettier --write ."
   }
 }
+```
 
-// .husky/pre-commit (generated by npx husky add .husky/pre-commit)
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-npx lint-staged
+```bash
+# .husky/pre-commit (husky v9+ syntax)
+echo "npx lint-staged" > .husky/pre-commit
+```
 
-// Or with the newer husky v9+ syntax:
-// echo "npx lint-staged" > .husky/pre-commit
-
+```javascript
 // .lintstagedrc.js
 module.exports = {
   '*.{js,jsx,ts,tsx}': ['eslint --fix', 'prettier --write'],
@@ -123,35 +127,23 @@ module.exports = {
 };
 ```
 
-### Java
+### Java — Gradle Spotless + native hook
 
 ```java
-// Java projects typically use Maven or Gradle hooks, not husky.
-// Option 1: Maven git hook plugin (com.rudikershaw.gitbuildhook)
-// pom.xml:
-/*
-<plugin>
-    <groupId>com.rudikershaw.gitbuildhook</groupId>
-    <artifactId>git-build-hook-maven-plugin</artifactId>
-    <version>3.5.0</version>
-    <configuration>
-        <installHooks>${project.basedir}/git-hooks</installHooks>
-    </configuration>
-</plugin>
-*/
-
-// Option 2: Gradle + Spotless + custom Git hook
-// build.gradle:
+// build.gradle
 plugins {
     id 'com.diffplug.spotless' version '6.23.0'
 }
+
 spotless {
     java {
         googleJavaFormat()
     }
 }
+```
 
-// git-hooks/pre-commit (chmod +x)
+```bash
+# git-hooks/pre-commit (chmod +x)
 #!/bin/sh
 ./gradlew spotlessCheck
 if [ $? -ne 0 ]; then
@@ -160,94 +152,85 @@ if [ $? -ne 0 ]; then
 fi
 ```
 
+For Maven, the `git-build-hook-maven-plugin` can install tracked hooks from a
+`git-hooks/` directory during the build.
+
 ## Explanation
 
-Git hooks are executable scripts in `.git/hooks/` that run at specific lifecycle events. The `pre-commit` hook runs after `git commit` is invoked but before the commit is created. If the hook exits with a non-zero status, the commit is aborted.
+A hook in `.git/hooks/pre-commit` is an executable script. Git runs it after you
+type `git commit` and before it writes the commit. If the script exits with a
+non-zero status, Git aborts the commit.
 
-**How the tools work:**
-- **pre-commit (Python framework)**: Manages hook installation and execution across languages. Defined in `.pre-commit-config.yaml`.
-- **husky + lint-staged**: Husky installs the Git hook; lint-staged filters file paths so only staged files are checked, making commits fast.
-- **Native Git hooks**: Any executable script works. Use Maven/Gradle plugins to distribute hooks across the team.
+- The **pre-commit** framework (Python) installs and runs hooks from a single
+  YAML file. It handles many languages and installs the tools it needs.
+- **husky** installs the Git hook and **lint-staged** narrows the check to files
+  in the staging area, so the commit stays fast.
+- **Native hooks** allow any project to run a custom shell script. Gradle and
+  Maven plugins can distribute that script with the repo.
 
-**Trade-offs:**
-- Hooks add commit latency (seconds to tens of seconds)
-- Team members can bypass hooks with `git commit --no-verify`
-- Hooks must be installed per clone; CI is still the ultimate gate
+There's a real trade-off: hooks add seconds to every commit, developers can
+bypass them with `--no-verify`, and they must be installed in every fresh clone.
+That's the reason the same checks should still run in CI.
 
 ## Variants
 
-| Technology | Tooling | Notes |
-|------------|---------|-------|
-| Python | `pre-commit` framework | Mature ecosystem; 200+ community hooks available |
-| JavaScript / TypeScript | `husky` + `lint-staged` | Industry standard for Node.js; fast because only staged files are checked |
-| Java | Maven `git-build-hook-plugin` or Gradle `spotless` | Run formatters as part of build; hooks call `./gradlew spotlessCheck` |
-| Go | `pre-commit` + `golangci-lint` | Use the `pre-commit` framework with Go-specific hooks |
-| Rust | `pre-commit` + `rustfmt` / `clippy` | Same framework; community hooks available |
-| Secrets scanning | `gitleaks`, `trufflehog` | Pre-commit hooks prevent API keys and passwords from entering history |
+| Stack | Tooling | Notes |
+| --- | --- | --- |
+| Python | `pre-commit` framework | Mature; 200+ community hooks available |
+| JavaScript / TypeScript | `husky` + `lint-staged` | Only staged files are checked |
+| Java | Gradle `spotless` or Maven plugin | Formatting is part of the build |
+| Go | `pre-commit` + `golangci-lint` | Reuse the Python framework with Go hooks |
+| Secrets | `gitleaks` or `trufflehog` | Add to the same config to block API keys |
 
-## What Works
+## Best Practices
 
-1. Keep hooks fast: lint only staged files, not the entire codebase
-2. Auto-fix when possible: formatters should rewrite files, not just report errors
-3. Include a `prepare` or `postinstall` script so hooks are auto-installed on `npm install` or `pip install`
-4. Run the same checks in CI; hooks are a convenience, not a replacement for CI gates
-5. Document bypass procedures (`--no-verify`) for emergencies, but require PR review when used
+- Keep hooks fast by checking only staged files. Use `lint-staged` or the
+  `files` filter in `.pre-commit-config.yaml`.
+- Prefer tools that auto-fix and re-stage files, so the commit keeps the
+  corrected version.
+- Add a `prepare` or `postinstall` script so hooks install on `npm install` or
+  `pip install`.
+- Run the same checks in CI as well. Local hooks catch mistakes early; CI is the
+  final gate.
+- Document `--no-verify` for emergencies, but require review when someone uses
+  it.
+- Pin tool versions and cache installations. Reproducible hooks mean fewer
+  "works on my machine" problems.
 
 ## Common Mistakes
 
-1. **Checking the entire repo on every commit** — lint-staged and pre-commit's `files` filter ensure only changed files are checked
-2. **Not auto-installing hooks** — new clones skip hooks unless a `prepare` script installs them
-3. **Conflicting formatters** — ensure Prettier and ESLint rules agree; use `eslint-config-prettier` to disable conflicting ESLint format rules
-4. **Hooks that modify files but don't re-stage** — if a hook reformats code, it must add the file back to the index or the commit will use the old version
-5. **Relying only on hooks** — developers can use `--no-verify`; CI must enforce the same rules
+- Checking the whole repo on every commit. It turns a quick commit into a long
+  wait.
+- Not auto-installing hooks. New clones will skip them without warning.
+- Letting formatters fight each other. Align ESLint and Prettier with
+  `eslint-config-prettier`.
+- Running slow tests or heavy integration checks in a pre-commit hook.
+- Treating hooks as a replacement for CI. They're the first line of defense
+  rather than the last.
 
 ## FAQ
 
-### Can I skip hooks for a specific commit?
+### Can I skip pre-commit hooks once?
 
-Yes: `git commit --no-verify` (or `-n`). Use this sparingly and always follow up with a cleanup commit. Some teams require manager approval for `--no-verify` usage.
+Yes: use `git commit --no-verify` (or `-n`) when you really need to. Follow up
+with a cleanup commit.
 
 ### Should I run tests in pre-commit hooks?
 
-Unit tests: sometimes, if they complete in under 10 seconds. Integration or E2E tests: never; they belong in CI. Slow hooks train developers to bypass them.
+Unit tests under 10 seconds are fine. Anything slower belongs in CI.
 
-### How do I share hooks across my team?
+### How do I share hooks across the team?
 
-Use `pre-commit` (cross-language) or `husky` (Node.js). Both store hook configuration in the repo. For Java, use a Maven/Gradle plugin that installs hooks from a tracked `git-hooks/` directory during build. Never commit files directly to `.git/hooks/`—that directory is not tracked.
+Store hook configuration in the repo. The `pre-commit` framework, `husky` and
+Maven/Gradle plugins all read from tracked files. Never commit directly into
+`.git/hooks/`, which isn't tracked.
 
-### Go with golangci-lint
+### How do I add secrets scanning?
 
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/golangci/golangci-lint
-    rev: v1.55.2
-    hooks:
-      - id: golangci-lint
-        args: [--config, .golangci.yml]
-```
+Add a `gitleaks` or `trufflehog` hook to the same `.pre-commit-config.yaml` or
+`lint-staged` pipeline:
 
 ```yaml
-# .golangci.yml
-linters:
-  enable:
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - unused
-    - gofmt
-    - goimports
-linters-settings:
-  errcheck:
-    check-type-assertions: true
-```
-
-### Secrets Scanning with gitleaks
-
-```yaml
-# .pre-commit-config.yaml — add gitleaks
 repos:
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.18.1
@@ -255,172 +238,22 @@ repos:
       - id: gitleaks
 ```
 
-```bash
-# Run gitleaks manually
-$ gitleaks detect --source . --verbose
+### How do I block bad commit messages?
 
-# Scan a specific commit range
-$ gitleaks detect --source . --log-opts="HEAD~1..HEAD"
-
-# Custom rules in .gitleaks.toml
-[[rules]]
-id = "custom-api-key"
-description = "Custom API key pattern"
-regex = '''sk-live-[a-zA-Z0-9]{20,}'''
-tags = ["api-key", "custom"]
-```
-
-### Commit Message Linting with commitlint
+Use a `commit-msg` hook with `commitlint`:
 
 ```javascript
-// Install: npm install --save-dev @commitlint/cli @commitlint/config-conventional
 // commitlint.config.js
 module.exports = {
-  extends: ["@commitlint/config-conventional"],
+  extends: ['@commitlint/config-conventional'],
   rules: {
-    "type-enum": [
-      2,
-      "always",
-      ["feat", "fix", "docs", "style", "refactor", "test", "chore", "ci", "perf"],
-    ],
-    "subject-max-length": [2, "always", 72],
-    "body-max-line-length": [2, "always", 100],
+    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore', 'ci', 'perf']],
+    'subject-max-length': [2, 'always', 72],
   },
 };
 ```
 
-```bash
-# .husky/commit-msg
-#!/bin/sh
-npx --no-install commitlint --edit "$1"
-```
+### Why did my hook reformat a file but the commit still failed?
 
-```
-# Valid commit messages:
-feat: add user registration endpoint
-fix: handle null pointer in auth middleware
-docs: update API documentation for v2
-chore: upgrade dependencies to latest patch
-```
-
-### CI Integration (GitHub Actions)
-
-```yaml
-# .github/workflows/lint.yml
-name: Lint and Format
-on: [push, pull_request]
-
-jobs:
-  pre-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - uses: pre-commit/action@v3.0.0
-        with:
-          extra_args: --all-files
-
-  gitleaks:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Full history for scanning
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
-
-### Pre-commit Hook for Type Checking
-
-```json
-// package.json — add type-check to lint-staged
-{
-  "lint-staged": {
-    "*.{ts,tsx}": ["tsc --noEmit", "eslint --fix", "prettier --write"],
-    "*.{js,jsx}": ["eslint --fix", "prettier --write"],
-    "*.{json,md,yml}": ["prettier --write"]
-  }
-}
-```
-
-```yaml
-# .pre-commit-config.yaml — Python type checking
-repos:
-  - repo: local
-    hooks:
-      - id: mypy
-        name: mypy type check
-        entry: mypy
-        language: system
-        types: [python]
-        pass_filenames: false
-        args: [--strict, src/]
-```
-
-
-
-
-## Performance Tips
-
-1. **Only check staged files.** Use `lint-staged` or `pre-commit`'s `files` filter:
-
-```yaml
-# .pre-commit-config.yaml
-repos:
-  - repo: https://github.com/psf/black
-    rev: 23.12.1
-    hooks:
-      - id: black
-        files: ^src/.*\.py$  # Only check src/ directory
-```
-
-2. **Parallelize hooks.** `pre-commit` runs hooks in parallel by default. Keep them independent:
-
-```yaml
-# Each repo runs in its own environment — parallel by default
-repos:
-  - repo: https://github.com/psf/black
-    rev: 23.12.1
-    hooks:
-      - id: black
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.0.0
-    hooks:
-      - id: flake8
-```
-
-3. **Use local hooks for speed.** Avoid downloading remote repos for simple checks:
-
-```yaml
-repos:
-  - repo: local
-    hooks:
-      - id: local-format
-        name: format check
-        entry: ./scripts/format.sh
-        language: system
-        files: \.(js|ts)$
-```
-
-4. **Cache tool installations.** Use `language_version` to pin and cache:
-
-```yaml
-hooks:
-  - id: black
-    language_version: python3.11  # Cached after first run
-```
-
-5. **Skip hooks for generated files.** Exclude auto-generated code from checks:
-
-```yaml
-hooks:
-  - id: flake8
-    exclude: |
-      (?x)^(
-          src/generated/.*|
-          migrations/.*
-      )$
-```
+The hook changed the working copy but didn't re-add the file to the index.
+Either make the tool re-stage automatically or run `git add` again.

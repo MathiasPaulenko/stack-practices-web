@@ -252,13 +252,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.0% / ES 39.9% (0 patterns)
    - Words: 1,417 | Meta: 150 chars
 
-31. - [ ] **pre-commit-hooks** (recipes)
+31. - [x] **pre-commit-hooks** (recipes)
    - Metrics: 63 imp | pos 38.1 | CTR 0.00% | Δ impr 15
    - EN: https://stackpractices.com/recipes/pre-commit-hooks/
    - ES: https://stackpractices.com/es/recipes/pre-commit-hooks/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,437 | Meta: 138 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.2% / ES 40.1% (0 patterns)
+   - Words: 979 | Meta: 151 chars
 
 32. - [ ] **message-idempotency** (recipes)
    - Metrics: 41 imp | pos 9.4 | CTR 0.00% | Δ impr 24
