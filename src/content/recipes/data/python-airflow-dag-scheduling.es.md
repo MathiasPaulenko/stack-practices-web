@@ -150,6 +150,7 @@ wait_for_file = FileSensor(
     poke_interval=60,  # revisa cada 60 segundos
     timeout=60 * 60,   # falla después de 1 hora
     mode="poke",
+    dag=dag,
 )
 
 wait_until = DateTimeSensor(
@@ -157,6 +158,7 @@ wait_until = DateTimeSensor(
     target_time="03:00",
     poke_interval=60,
     mode="reschedule",  # libera el slot de worker entre chequeos
+    dag=dag,
 )
 
 def api_is_ready():
@@ -169,6 +171,7 @@ wait_for_api = PythonSensor(
     poke_interval=30,
     timeout=300,
     mode="poke",
+    dag=dag,
 )
 
 wait_for_file >> extract_task
@@ -183,9 +186,42 @@ def choose_transform(**kwargs):
     row_count = kwargs["ti"].xcom_pull(task_ids="extract", key="row_count")
     return "transform_full" if row_count > 1000 else "transform_sample"
 
+def transform_full_fn(**kwargs):
+    import pandas as pd
+    ti = kwargs["ti"]
+    raw_json = ti.xcom_pull(task_ids="extract")
+    df = pd.read_json(raw_json)
+    df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
+    df = df.dropna(subset=["amount"])
+    print(f"Full transform: {len(df)} rows")
+    return df.to_json()
+
+def transform_sample_fn(**kwargs):
+    import pandas as pd
+    ti = kwargs["ti"]
+    raw_json = ti.xcom_pull(task_ids="extract")
+    df = pd.read_json(raw_json)
+    df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
+    df = df.dropna(subset=["amount"]).head(100)
+    print(f"Sample transform: {len(df)} rows")
+    return df.to_json()
+
+transform_full = PythonOperator(
+    task_id="transform_full",
+    python_callable=transform_full_fn,
+    dag=dag,
+)
+
+transform_sample = PythonOperator(
+    task_id="transform_sample",
+    python_callable=transform_sample_fn,
+    dag=dag,
+)
+
 branch = BranchPythonOperator(
     task_id="choose_transform",
     python_callable=choose_transform,
+    dag=dag,
 )
 
 extract_task >> branch
@@ -238,7 +274,7 @@ etl_pipeline_dag = etl_pipeline()
 from airflow.decorators import dag, task
 
 @dag(start_date=datetime(2025, 1, 1), schedule="@daily", catchup=False)
-def dynamic_dag():
+def process_many_files():
 
     @task
     def list_files():
@@ -255,7 +291,7 @@ def dynamic_dag():
     files = list_files()
     process_file.expand(filepath=files)
 
-dynamic_dag()
+many_files_dag = process_many_files()
 ```
 
 ### Callbacks para éxito o falla

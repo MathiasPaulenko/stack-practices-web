@@ -2,57 +2,57 @@
   {
     "label": "server-sent-events-node-en",
     "model": "desklib",
-    "model_ai_pct": 46.5,
-    "ai_count": 13,
-    "human_count": 30,
+    "model_ai_pct": 41.9,
+    "ai_count": 9,
+    "human_count": 34,
     "skipped_count": 4,
     "total": 47,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.5,
+      "mean": 13.2,
       "stddev": 12.4,
-      "cv": 0.92,
+      "cv": 0.94,
       "verdict": "natural variation",
       "sentence_count": 43,
       "lengths": [
-        18,
-        22,
+        17,
+        20,
         20,
         16,
-        10,
+        11,
         10,
         11,
-        8,
+        7,
+        10,
+        6,
+        6,
+        6,
         11,
-        6,
-        6,
         8,
-        13,
-        9,
         15,
         13,
         11,
         13,
-        9,
-        9,
-        17,
+        8,
+        10,
+        16,
         89,
         12,
         11,
-        11,
+        10,
         10,
         8,
         9,
-        8,
+        10,
         15,
         6,
         5,
         15,
         11,
         8,
+        10,
         12,
-        12,
-        21,
+        16,
         9,
         22,
         6,
@@ -62,72 +62,68 @@
     },
     "top_ai_sentences": [
       [
-        "The traffic is mostly server-to-client, and clients just receive data.",
+        "Backpressure shows up when clients can't keep up.",
         0.9116
       ],
       [
-        "SSE is built on a standard HTTP response.",
-        0.9075
+        "The server leaves it open and writes lines in\ntext/event-stream format.",
+        0.8419
       ],
       [
-        "Each connection uses a few\nkilobytes of heap plus a single socket.",
-        0.9068
-      ],
-      [
-        "Your clients need to send frequent messages back to the server.",
-        0.8986
-      ],
-      [
-        "Backpressure becomes a problem when clients can't keep up.",
-        0.8309
-      ],
-      [
-        "You really do need bidirectional or binary communication.",
-        0.7913
-      ],
-      [
-        "Your messages are small and text-only; you don't need binary payloads.",
-        0.743
-      ],
-      [
-        "The channel only goes one way and runs on plain HTTP, so it works with your\nexisting auth, load balancers, and proxies.",
-        0.6753
-      ],
-      [
-        "The server leaves the response open and writes lines in the text/event-stream\nformat.",
-        0.6524
+        "You genuinely need bidirectional or binary communication.",
+        0.6734
       ],
       [
         "Some proxies or firewalls\n  block them.",
         0.6313
       ],
       [
-        "Yes, as long as the balancer supports long-lived HTTP connections and sticky\nsessions when you scale to two or more servers.",
-        0.5351
+        "Traffic mostly flows from server to client, and clients just listen.",
+        0.5821
       ],
       [
-        "Remove clients on close or error so you don't leak memory.",
-        0.5272
+        "SSE reuses a normal HTTP response.",
+        0.5717
       ],
       [
-        "Broadcasting big payloads without checking response.write return value.",
-        0.5201
+        "Your messages are small and text-only, so binary payloads aren't needed.",
+        0.5655
+      ],
+      [
+        "Browsers handle this through the EventSource API, which reconnects\nautomatically and sends the Last-Event-ID header.",
+        0.5091
+      ],
+      [
+        "Every connection costs a\nsmall heap allocation plus one socket.",
+        0.5007
+      ],
+      [
+        "Server-Sent Events (SSE) let the server push text events to the browser over one\nlong-lived HTTP connection.",
+        0.5
+      ],
+      [
+        "Remove clients on close or error; otherwise they leak memory.",
+        0.4925
       ],
       [
         "You'd rather reuse your HTTP stack than add WebSocket infrastructure.",
         0.4874
       ],
       [
-        "Server-Sent Events (SSE) let the server push text events to the browser over a\nsingle long-lived HTTP connection.",
-        0.4782
+        "The\nLast-Event-ID header lets the server resume from where the client left off.",
+        0.4774
+      ],
+      [
+        "It's a one-way channel over plain HTTP, so it works\nwith whatever auth, load balancers, and proxies you already have.",
+        0.468
       ],
       [
         "Limit open connections and the message rate for each client.",
         0.4644
       ],
       [
-        "The protocol is text-only, so you encode any JSON inside the data: field.",
-        0.448
+        "Clients need to send frequent messages back to the server.",
+        0.4616
       ],
       [
         "Reach for SSE when:\nYou need live dashboards, activity feeds, or notifications from server to\n  client.",
@@ -138,12 +134,8 @@
         0.4304
       ],
       [
-        "Use id: fields on events, and have the server read the Last-Event-ID header.",
-        0.4208
-      ],
-      [
-        "Each event carries event:, data:, id:, and retry: fields.",
-        0.4076
+        "The protocol is text-only, so any JSON goes encoded inside the data: field.",
+        0.42
       ],
       [
         "Thousands, limited by memory and OS file descriptors.",
@@ -154,12 +146,20 @@
         0.3995
       ],
       [
-        "response.write returns false when\nNode's internal buffer is full.",
-        0.399
-      ],
-      [
         "Send a heartbeat every 15\u201330 seconds to avoid proxy and firewall timeouts.",
         0.3954
+      ],
+      [
+        "Heartbeats keep the connection alive so proxies don't close idle sockets.",
+        0.3853
+      ],
+      [
+        "Opening many EventSource instances per page.",
+        0.3727
+      ],
+      [
+        "Broadcasting big payloads without checking the return value of response.write.",
+        0.357
       ]
     ],
     "diagnostics_sample": []
@@ -167,24 +167,24 @@
   {
     "label": "server-sent-events-node-es",
     "model": "desklib",
-    "model_ai_pct": 38.0,
-    "ai_count": 12,
-    "human_count": 33,
+    "model_ai_pct": 35.9,
+    "ai_count": 9,
+    "human_count": 36,
     "skipped_count": 2,
     "total": 47,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.8,
+      "mean": 13.9,
       "stddev": 12.4,
       "cv": 0.89,
       "verdict": "natural variation",
       "sentence_count": 45,
       "lengths": [
         20,
-        18,
+        20,
         21,
         18,
-        14,
+        13,
         12,
         11,
         7,
@@ -194,23 +194,23 @@
         6,
         6,
         5,
-        12,
-        10,
+        11,
+        9,
         18,
         15,
         14,
         11,
         8,
-        11,
-        17,
+        12,
+        18,
         91,
         13,
         10,
-        10,
+        11,
         13,
         12,
         14,
-        13,
+        11,
         18,
         7,
         6,
@@ -219,7 +219,7 @@
         9,
         11,
         12,
-        16,
+        20,
         13,
         18,
         7,
@@ -229,20 +229,16 @@
     },
     "top_ai_sentences": [
       [
-        "El servidor mantiene la respuesta abierta y\nescribe l\u00edneas en formato text/event-stream.",
-        0.8683
+        "El servidor la mantiene abierta y escribe\nl\u00edneas en formato text/event-stream.",
+        0.7895
       ],
       [
-        "Tus clientes necesitan enviar mensajes frecuentes al servidor.",
-        0.7904
+        "Los clientes necesitan enviar mensajes frecuentes al servidor.",
+        0.7609
       ],
       [
         "Olvidar los heartbeats y luego preguntarse por qu\u00e9 las conexiones se caen en\n  silencio.",
         0.7599
-      ],
-      [
-        "Cada evento tiene campos como\nevent:, data:, id: y retry:.",
-        0.7199
       ],
       [
         "Server-Sent Events (SSE) permite que el servidor env\u00ede eventos de texto al\nbrowser a trav\u00e9s de una conexi\u00f3n HTTP persistente.",
@@ -265,20 +261,16 @@
         0.5787
       ],
       [
-        "Elimin\u00e1 clientes en close o error para evitar memory leaks.",
-        0.5347
-      ],
-      [
-        "El tr\u00e1fico es principalmente de servidor a cliente, y los clientes solo\n  reciben datos.",
-        0.5312
-      ],
-      [
         "Tus mensajes son chicos y de texto; no necesit\u00e1s payloads binarios.",
         0.5142
       ],
       [
-        "Cada conexi\u00f3n usa unos\npocos kilobytes de heap m\u00e1s un socket.",
-        0.4614
+        "El tr\u00e1fico fluye principalmente de servidor a cliente, y los clientes solo\n  escuchan.",
+        0.4849
+      ],
+      [
+        "Los eventos traen campos event:,\ndata:, id: y retry:.",
+        0.4818
       ],
       [
         "Envi\u00e1 un heartbeat cada 15\u201330 segundos para evitar timeouts de proxies y\n  firewalls.",
@@ -297,14 +289,6 @@
         0.4125
       ],
       [
-        "El backpressure importa cuando los clientes son lentos.",
-        0.4117
-      ],
-      [
-        "Pod\u00e9s esperar al evento\ndrain antes de escribir de nuevo, o desconectar clientes que se quedan atr\u00e1s.",
-        0.4028
-      ],
-      [
         "Necesit\u00e1s comunicaci\u00f3n bidireccional o binaria de verdad.",
         0.3917
       ],
@@ -317,16 +301,32 @@
         0.3759
       ],
       [
-        "S\u00ed, si el balancer soporta conexiones HTTP persistentes y sticky sessions cuando\nescal\u00e1s a m\u00faltiples servidores.",
-        0.3737
+        "El backpressure aparece cuando los clientes son lentos.",
+        0.3738
       ],
       [
         "Us\u00e1 las se\u00f1ales de backpressure de res.write; no acumules mensajes sin\n  l\u00edmite.",
         0.3731
       ],
       [
-        "El canal es unidireccional y\nusa HTTP plano, as\u00ed que funciona con autenticaci\u00f3n, load balancers y proxies\nexistentes.",
-        0.3519
+        "Enviar datos binarios o esperar que el cliente postee datos por la misma\n  conexi\u00f3n.",
+        0.3504
+      ],
+      [
+        "Cada conexi\u00f3n cuesta un\npeque\u00f1o chunk de heap m\u00e1s un socket.",
+        0.328
+      ],
+      [
+        "Us\u00e1 WebSockets en su\n  lugar.",
+        0.3143
+      ],
+      [
+        "Elimin\u00e1 clientes en close o error; si no, quedan en memoria.",
+        0.3132
+      ],
+      [
+        "Despu\u00e9s pod\u00e9s\nesperar al evento drain antes de escribir de nuevo, o desconectar clientes\nque se quedan atr\u00e1s.",
+        0.3116
       ]
     ],
     "diagnostics_sample": []

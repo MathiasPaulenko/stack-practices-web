@@ -2,16 +2,16 @@
   {
     "label": "python-airflow-dag-scheduling-en",
     "model": "desklib",
-    "model_ai_pct": 44.7,
-    "ai_count": 17,
-    "human_count": 33,
+    "model_ai_pct": 44.8,
+    "ai_count": 16,
+    "human_count": 34,
     "skipped_count": 6,
     "total": 56,
     "pattern_totals": {},
     "text_metrics": {
       "mean": 12.9,
       "stddev": 11.4,
-      "cv": 0.88,
+      "cv": 0.89,
       "verdict": "natural variation",
       "sentence_count": 50,
       "lengths": [
@@ -19,17 +19,17 @@
         5,
         16,
         20,
-        13,
+        14,
         7,
-        17,
+        15,
         11,
         9,
         13,
         12,
-        6,
+        5,
         6,
         8,
-        12,
+        13,
         13,
         17,
         9,
@@ -39,13 +39,13 @@
         20,
         6,
         13,
-        6,
+        5,
         16,
         11,
         87,
         6,
         11,
-        13,
+        15,
         8,
         19,
         15,
@@ -58,63 +58,55 @@
         9,
         7,
         21,
-        12,
+        13,
         14,
         7,
         8,
-        11,
+        10,
         16,
         16
       ]
     },
     "top_ai_sentences": [
       [
-        "Airflow is a solid choice when:\nYou're building multi-step data pipelines where tasks depend on each other.",
-        0.8885
+        "TaskFlow passes values through return values.",
+        0.9238
       ],
       [
-        "Each task is an operator.",
-        0.868
+        "A task is an operator.",
+        0.9036
       ],
       [
-        "A DAG has a schedule, a fixed start date, and default arguments.",
-        0.7602
+        "For those cases, GitHub Actions, Jenkins, or GitLab CI are a better fit.",
+        0.8306
       ],
       [
-        "Setting start_date=datetime.now() or any other dynamic value.",
-        0.7491
+        "For long waits, reschedule frees the worker slot between checks.",
+        0.805
       ],
       [
-        "Simple cron jobs with no dependencies.",
-        0.7087
+        "Every DAG has its own schedule, a fixed start date, and default arguments.",
+        0.7509
       ],
       [
-        "Re-running the same task for the same date should produce the same result.",
-        0.706
+        "Re-run the same task for the same date and it should produce the same result.",
+        0.7298
       ],
       [
-        "For those, GitHub Actions, Jenkins, or GitLab CI are a better\n  fit.",
-        0.6624
+        "Airflow makes sense when:\nYou're wiring together multi-step pipelines where tasks depend on each other.",
+        0.6967
+      ],
+      [
+        "Writing start_date=datetime.now() or any other dynamic value.",
+        0.6926
       ],
       [
         "It might run a Python function, execute SQL, trigger a\njob, or wait on a sensor.",
         0.657
       ],
       [
-        "This recipe covers DAGs, scheduling, task dependencies, sensors, XCom, and the\nTaskFlow API.",
-        0.6417
-      ],
-      [
-        "For long waits, reschedule frees up the worker slot between checks.",
-        0.6384
-      ],
-      [
-        "TaskFlow handles it through return values.",
-        0.6262
-      ],
-      [
-        "For long waits, go with reschedule.",
-        0.5903
+        "Simple cron jobs without dependencies.",
+        0.5601
       ],
       [
         "For those, Flink, Spark Streaming, or Kafka\n  Streams are the right tools.",
@@ -133,8 +125,16 @@
         0.5289
       ],
       [
+        "This recipe covers Airflow DAGs, scheduling, task dependencies, sensors, XCom,\nand the TaskFlow API.",
+        0.5235
+      ],
+      [
         "Apache Airflow models data pipelines as Directed Acyclic Graphs (DAGs).",
         0.5202
+      ],
+      [
+        "For long waits, pick reschedule.",
+        0.4902
       ],
       [
         "Pushing large DataFrames via XCom.",

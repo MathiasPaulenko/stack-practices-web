@@ -43,19 +43,19 @@ CSV is the default export format for spreadsheets and databases, yet it only
 stores flat text. JSON gives you numbers, booleans, nested objects, and arrays —
 the shape that most APIs and document stores actually want.
 
-The code below runs in Python, JavaScript, and Java. There's a quick
-standard-library version and a streaming version for files that won't fit in
-RAM.
+The examples below run in Python, JavaScript, and Java. Use the quick
+standard-library version for small files, and the streaming version for anything
+that won't fit in RAM.
 
 ## When to Use
 
-You're probably here because one of these is true:
+This recipe fits when:
 
 - You need to bring spreadsheet exports into a web app or API.
 - You want to push flat data into MongoDB, Elasticsearch, or a similar document
   store.
 - You want to feed CSV data to a charting or visualization library on the client.
-- The CSV would blow up memory if you tried to load it as one object.
+- The CSV is too big to load as a single object.
 
 ### When to avoid
 

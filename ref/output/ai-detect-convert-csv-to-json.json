@@ -2,27 +2,27 @@
   {
     "label": "convert-csv-to-json-en",
     "model": "desklib",
-    "model_ai_pct": 43.2,
-    "ai_count": 11,
-    "human_count": 25,
+    "model_ai_pct": 44.1,
+    "ai_count": 12,
+    "human_count": 24,
     "skipped_count": 4,
     "total": 40,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 17.8,
-      "stddev": 19.3,
-      "cv": 1.09,
+      "mean": 17.6,
+      "stddev": 19.4,
+      "cv": 1.1,
       "verdict": "natural variation",
       "sentence_count": 36,
       "lengths": [
         16,
         20,
         9,
+        19,
         16,
-        21,
         14,
         15,
-        15,
+        11,
         13,
         13,
         15,
@@ -55,16 +55,20 @@
     },
     "top_ai_sentences": [
       [
-        "The code below runs in Python, JavaScript, and Java.",
-        0.9821
+        "The examples below run in Python, JavaScript, and Java.",
+        0.89
       ],
       [
-        "You're probably here because one of these is true:\nYou need to bring spreadsheet exports into a web app or API.",
-        0.9001
+        "The CSV is too big to load as a single object.",
+        0.849
       ],
       [
         "If the file is Parquet, Avro, or ORC, use the parser built for that format.",
         0.7277
+      ],
+      [
+        "This recipe fits when:\nYou need to bring spreadsheet exports into a web app or API.",
+        0.6628
       ],
       [
         "JSON can hold numbers, booleans, null, arrays, and objects \u2014 not just\ntext.",
@@ -111,6 +115,10 @@
         0.4411
       ],
       [
+        "Use the quick\nstandard-library version for small files, and the streaming version for anything\nthat won't fit in RAM.",
+        0.4389
+      ],
+      [
         "You're the one deciding how each value maps to a JSON type: age becomes a\nnumber, active a boolean, tags an array.",
         0.4204
       ],
@@ -131,10 +139,6 @@
         0.3555
       ],
       [
-        "There's a quick\nstandard-library version and a streaming version for files that won't fit in\nRAM.",
-        0.3394
-      ],
-      [
         "Set the parser to the delimiter the file actually uses.",
         0.339
       ],
@@ -149,10 +153,6 @@
       [
         "Use a forgiving parser like papaparse with skipEmptyLines and error\ncallbacks, or configure csv-parse to skip blank lines and continue on bad\nrecords.",
         0.3157
-      ],
-      [
-        "CSV is the default export format for spreadsheets and databases, yet it only\nstores flat text.",
-        0.3134
       ]
     ],
     "diagnostics_sample": []
@@ -160,7 +160,7 @@
   {
     "label": "convert-csv-to-json-es",
     "model": "desklib",
-    "model_ai_pct": 36.8,
+    "model_ai_pct": 35.7,
     "ai_count": 8,
     "human_count": 31,
     "skipped_count": 2,
@@ -176,8 +176,8 @@
         19,
         22,
         10,
-        18,
-        20,
+        22,
+        16,
         11,
         13,
         13,
@@ -236,10 +236,6 @@
         0.629
       ],
       [
-        "El c\u00f3digo de abajo corre en Python, JavaScript y Java.",
-        0.6088
-      ],
-      [
         "Necesit\u00e1s cargar datos planos en MongoDB, Elasticsearch u otro document store.",
         0.5779
       ],
@@ -248,20 +244,16 @@
         0.5255
       ],
       [
+        "Los ejemplos de abajo corren en Python, JavaScript y Java.",
+        0.5229
+      ],
+      [
         "JSON te permite\nguardar n\u00fameros, booleanos, null, arrays y objetos.",
         0.4707
       ],
       [
-        "Hay una versi\u00f3n r\u00e1pida con\nlibrer\u00eda est\u00e1ndar y otra con streaming para archivos que no entran en RAM.",
-        0.4622
-      ],
-      [
         "Si los datos ya viven en una base de datos, consultala directamente con SQL.",
         0.4347
-      ],
-      [
-        "Probablemente est\u00e9s ac\u00e1 por una de estas razones:\nTen\u00e9s que llevar exports de spreadsheets a una app web o API.",
-        0.4084
       ],
       [
         "Sete\u00e1 la opci\u00f3n delimiter del parser para que coincida con el archivo.",
@@ -278,6 +270,10 @@
       [
         "Separar filas con line.split(',') y romper con comillas o saltos de l\u00ednea.",
         0.3728
+      ],
+      [
+        "Esta receta sirve cuando:\nTen\u00e9s que llevar exports de spreadsheets a una app web o API.",
+        0.3637
       ],
       [
         "Quer\u00e9s alimentar con datos CSV una librer\u00eda de gr\u00e1ficos del lado del cliente.",
@@ -314,6 +310,10 @@
       [
         "Ignorar un BOM UTF-8 que corrompe la primera clave del header.",
         0.2832
+      ],
+      [
+        "Us\u00e1 un schema o funciones de casteo para convertir\nn\u00fameros, booleanos y fechas a los tipos JSON correctos.",
+        0.2828
       ]
     ],
     "diagnostics_sample": []

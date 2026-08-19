@@ -43,12 +43,13 @@ CSV es el formato de exportación por defecto de spreadsheets y bases de datos,
 pero solo guarda texto plano. JSON te da números, booleanos, objetos anidados y
 arrays — la forma que la mayoría de las APIs y document stores esperan.
 
-El código de abajo corre en Python, JavaScript y Java. Hay una versión rápida con
-librería estándar y otra con streaming para archivos que no entran en RAM.
+Los ejemplos de abajo corren en Python, JavaScript y Java. Usá la versión rápida
+con librería estándar para archivos chicos, y la versión con streaming para lo
+que no entra en RAM.
 
 ## Cuándo Usar
 
-Probablemente estés acá por una de estas razones:
+Esta receta sirve cuando:
 
 - Tenés que llevar exports de spreadsheets a una app web o API.
 - Necesitás cargar datos planos en MongoDB, Elasticsearch u otro document store.

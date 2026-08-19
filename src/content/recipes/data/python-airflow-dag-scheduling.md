@@ -38,18 +38,18 @@ seo:
 ## Overview
 
 Apache Airflow models data pipelines as Directed Acyclic Graphs (DAGs).
-Each task is an operator. It might run a Python function, execute SQL, trigger a
+A task is an operator. It might run a Python function, execute SQL, trigger a
 job, or wait on a sensor. Airflow schedules DAGs on a cron or interval,
 retries failed tasks, and gives you a UI to monitor pipeline state.
 
-This recipe covers DAGs, scheduling, task dependencies, sensors, XCom, and the
-TaskFlow API. See the [Apache Airflow guide](/guides/complete-guide-apache-airflow/) for more.
+This recipe covers Airflow DAGs, scheduling, task dependencies, sensors, XCom,
+and the TaskFlow API. See the [Apache Airflow guide](/guides/complete-guide-apache-airflow/) for more.
 
 ## When to Use
 
-Airflow is a solid choice when:
+Airflow makes sense when:
 
-- You're building multi-step data pipelines where tasks depend on each other.
+- You're wiring together multi-step pipelines where tasks depend on each other.
 - You want batch jobs on a cron-like schedule with built-in retries.
 - Pipelines need monitoring, alerting, and a visual run history.
 - Workflows include conditional branching or sensors that wait for files, APIs, or
@@ -59,10 +59,9 @@ Airflow is a solid choice when:
 
 - Real-time or streaming pipelines. For those, Flink, Spark Streaming, or Kafka
   Streams are the right tools.
-- Simple cron jobs with no dependencies. A plain crontab entry is simpler.
+- Simple cron jobs without dependencies. A plain crontab entry is simpler.
 - Long-running services. Airflow is for batch workflows, not for daemons.
-- CI/CD pipelines. For those, GitHub Actions, Jenkins, or GitLab CI are a better
-  fit.
+- CI/CD pipelines. For those cases, GitHub Actions, Jenkins, or GitLab CI are a better fit.
 
 ## Solution
 
@@ -151,6 +150,7 @@ wait_for_file = FileSensor(
     poke_interval=60,  # check every 60 seconds
     timeout=60 * 60,   # fail after 1 hour
     mode="poke",
+    dag=dag,
 )
 
 wait_until = DateTimeSensor(
@@ -158,6 +158,7 @@ wait_until = DateTimeSensor(
     target_time="03:00",
     poke_interval=60,
     mode="reschedule",  # free the worker slot between pokes
+    dag=dag,
 )
 
 def api_is_ready():
@@ -170,6 +171,7 @@ wait_for_api = PythonSensor(
     poke_interval=30,
     timeout=300,
     mode="poke",
+    dag=dag,
 )
 
 wait_for_file >> extract_task
@@ -184,9 +186,42 @@ def choose_transform(**kwargs):
     row_count = kwargs["ti"].xcom_pull(task_ids="extract", key="row_count")
     return "transform_full" if row_count > 1000 else "transform_sample"
 
+def transform_full_fn(**kwargs):
+    import pandas as pd
+    ti = kwargs["ti"]
+    raw_json = ti.xcom_pull(task_ids="extract")
+    df = pd.read_json(raw_json)
+    df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
+    df = df.dropna(subset=["amount"])
+    print(f"Full transform: {len(df)} rows")
+    return df.to_json()
+
+def transform_sample_fn(**kwargs):
+    import pandas as pd
+    ti = kwargs["ti"]
+    raw_json = ti.xcom_pull(task_ids="extract")
+    df = pd.read_json(raw_json)
+    df["amount"] = pd.to_numeric(df["amount"], errors="coerce")
+    df = df.dropna(subset=["amount"]).head(100)
+    print(f"Sample transform: {len(df)} rows")
+    return df.to_json()
+
+transform_full = PythonOperator(
+    task_id="transform_full",
+    python_callable=transform_full_fn,
+    dag=dag,
+)
+
+transform_sample = PythonOperator(
+    task_id="transform_sample",
+    python_callable=transform_sample_fn,
+    dag=dag,
+)
+
 branch = BranchPythonOperator(
     task_id="choose_transform",
     python_callable=choose_transform,
+    dag=dag,
 )
 
 extract_task >> branch
@@ -239,7 +274,7 @@ etl_pipeline_dag = etl_pipeline()
 from airflow.decorators import dag, task
 
 @dag(start_date=datetime(2025, 1, 1), schedule="@daily", catchup=False)
-def dynamic_dag():
+def process_many_files():
 
     @task
     def list_files():
@@ -256,7 +291,7 @@ def dynamic_dag():
     files = list_files()
     process_file.expand(filepath=files)
 
-dynamic_dag()
+many_files_dag = process_many_files()
 ```
 
 ### Callbacks for success or failure
@@ -291,11 +326,11 @@ and queues the tasks. An executor picks up queued tasks and runs them.
 
 XCom lets tasks share small pieces of data. A task pushes a value with
 `xcom_push` or by returning it; downstream tasks pull it with `xcom_pull`.
-TaskFlow handles it through return values. For large data, write to a
+TaskFlow passes values through return values. For large data, write to a
 file or object storage and pass the path instead of pushing the whole payload.
 
 Sensors poll for an external condition. `mode="poke"` holds a worker slot while
-checking; `mode="reschedule"` frees the slot between checks. For long waits, go with `reschedule`.
+checking; `mode="reschedule"` frees the slot between checks. For long waits, pick `reschedule`.
 
 `catchup=True` makes Airflow run every missed interval between `start_date` and
 now; `catchup=False` starts from the present. `max_active_runs` controls how many
@@ -317,7 +352,7 @@ DagRuns can run at the same time.
   runs.
 - Prefer `schedule` over the deprecated `schedule_interval`.
 - Pick `mode="reschedule"` for sensors with long timeouts to free worker slots.
-- Keep tasks idempotent. Re-running the same task for the same date should produce the same result.
+- Keep tasks idempotent. Re-run the same task for the same date and it should produce the same result.
 - Set `max_active_runs=1` for pipelines where overlap isn't allowed.
 - Push small data via XCom; for large data, write to a file or object storage and
   pass the path.
@@ -332,14 +367,14 @@ DagRuns can run at the same time.
 storage.
 - Writing non-idempotent tasks that append duplicate data on retry.
 - Reaching for `PythonOperator` for everything instead of specialized operators.
-- Setting `start_date=datetime.now()` or any other dynamic value. Keep it static.
+- Writing `start_date=datetime.now()` or any other dynamic value. Keep it static.
 
 ## FAQ
 
 ### What is a DAG in Airflow?
 
 A DAG is a set of tasks tied together by dependencies, where data flows one way
-and there are no cycles. A DAG has a schedule, a fixed start date, and default arguments.
+and there are no cycles. Every DAG has its own schedule, a fixed start date, and default arguments.
 
 ### What is XCom?
 
@@ -348,7 +383,7 @@ pull values with `xcom_pull`. TaskFlow passes return values without extra code.
 
 ### Should I use `poke` or `reschedule` mode for sensors?
 
-Use `poke` for waits under a few minutes. For long waits, `reschedule` frees up the worker slot between checks.
+Use `poke` for waits under a few minutes. For long waits, `reschedule` frees the worker slot between checks.
 
 ### How do I handle timezone-aware scheduling?
 

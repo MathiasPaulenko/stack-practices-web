@@ -36,9 +36,9 @@ seo:
 
 ## Overview
 
-Server-Sent Events (SSE) let the server push text events to the browser over a
-single long-lived HTTP connection. The channel only goes one way and runs on plain HTTP, so it works with your
-existing auth, load balancers, and proxies.
+Server-Sent Events (SSE) let the server push text events to the browser over one
+long-lived HTTP connection. It's a one-way channel over plain HTTP, so it works
+with whatever auth, load balancers, and proxies you already have.
 
 This recipe gives you an Express endpoint, a browser client, and a safe broadcast
 helper that handles backpressure and cleanup.
@@ -49,14 +49,14 @@ Reach for SSE when:
 
 - You need live dashboards, activity feeds, or notifications from server to
   client.
-- The traffic is mostly server-to-client, and clients just receive data.
+- Traffic mostly flows from server to client, and clients just listen.
 - You'd rather reuse your HTTP stack than add WebSocket infrastructure.
-- Your messages are small and text-only; you don't need binary payloads.
+- Your messages are small and text-only, so binary payloads aren't needed.
 
 ### When to avoid
 
-- You really do need bidirectional or binary communication. Use WebSockets instead.
-- Your clients need to send frequent messages back to the server. SSE is
+- You genuinely need bidirectional or binary communication. Use WebSockets instead.
+- Clients need to send frequent messages back to the server. SSE is
   server-to-client only.
 - Your deployment blocks long-lived HTTP connections. Some proxies or firewalls
   block them.
@@ -184,18 +184,18 @@ connect();
 
 ## Explanation
 
-SSE is built on a standard HTTP response. The server leaves the response open and writes lines in the `text/event-stream`
-format. Each event carries `event:`, `data:`, `id:`, and `retry:` fields. Browsers expose this through the
-`EventSource` API, which reconnects automatically and respects the
-`Last-Event-ID` header.
+SSE reuses a normal HTTP response. The server leaves it open and writes lines in
+`text/event-stream` format. Events carry `event:`, `data:`, `id:`, and `retry:`
+fields. Browsers handle this through the `EventSource` API, which reconnects
+automatically and sends the `Last-Event-ID` header.
 
-The protocol is text-only, so you encode any JSON inside the `data:` field.
-Heartbeats keep the connection alive so proxies don't close idle sockets. A
+The protocol is text-only, so any JSON goes encoded inside the `data:` field.
+Heartbeats keep the connection alive so proxies don't close idle sockets. The
 `Last-Event-ID` header lets the server resume from where the client left off.
 
-Backpressure becomes a problem when clients can't keep up. `response.write` returns `false` when
-Node's internal buffer is full. You can then wait for the `drain` event before
-writing again, or disconnect clients that stay behind.
+Backpressure shows up when clients can't keep up. `response.write` returns
+`false` the moment Node's internal buffer is full. After that, wait for the
+`drain` event before writing again, or disconnect clients that stay behind.
 
 ## Variants
 
@@ -213,14 +213,14 @@ writing again, or disconnect clients that stay behind.
 - Send a heartbeat every 15–30 seconds to avoid proxy and firewall timeouts.
 - Use `Last-Event-ID` to resume after reconnections; store a bounded event
   history.
-- Remove clients on `close` or `error` so you don't leak memory.
+- Remove clients on `close` or `error`; otherwise they leak memory.
 - Limit open connections and the message rate for each client.
 - Use `res.write` backpressure signals; don't buffer unbounded messages.
 
 ## Common Mistakes
 
 - Forgetting heartbeats and then wondering why connections drop silently.
-- Broadcasting big payloads without checking `response.write` return value.
+- Broadcasting big payloads without checking the return value of `response.write`.
 - Keeping the full event history in memory instead of a bounded buffer or
   persistent log.
 - Opening many `EventSource` instances per page. Browsers cap connections per
@@ -237,15 +237,15 @@ streams.
 
 ### How many concurrent SSE connections can one Node.js process handle?
 
-Thousands, limited by memory and OS file descriptors. Each connection uses a few
-kilobytes of heap plus a single socket. Use clustering or a load balancer with
+Thousands, limited by memory and OS file descriptors. Every connection costs a
+small heap allocation plus one socket. Use clustering or a load balancer with
 sticky sessions for horizontal scaling.
 
 ### Does SSE work through a load balancer?
 
-Yes, as long as the balancer supports long-lived HTTP connections and sticky
-sessions when you scale to two or more servers. Disable response buffering and set long
-enough idle timeouts.
+Yes, provided the balancer supports long-lived HTTP and sticky sessions once
+you scale past one server. Disable response buffering and set idle timeouts high
+enough.
 
 ### How do I authenticate SSE clients?
 
@@ -255,5 +255,6 @@ parsing so you can send custom headers. Plain `EventSource` can't set
 
 ### What if the client disconnects and reconnects?
 
-Use `id:` fields on events, and have the server read the `Last-Event-ID` header. Replay
-missed events from a bounded in-memory queue or a persistent store like Redis.
+Add `id:` fields to events and read the `Last-Event-ID` header on the server.
+Replay missed events from a bounded in-memory queue or a persistent store like
+Redis.

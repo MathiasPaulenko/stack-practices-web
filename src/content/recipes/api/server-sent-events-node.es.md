@@ -37,9 +37,9 @@ seo:
 ## Visión General
 
 Server-Sent Events (SSE) permite que el servidor envíe eventos de texto al
-browser a través de una conexión HTTP persistente. El canal es unidireccional y
-usa HTTP plano, así que funciona con autenticación, load balancers y proxies
-existentes.
+browser a través de una conexión HTTP persistente. Es un canal unidireccional
+sobre HTTP plano, así que funciona con la autenticación, load balancers y
+proxies que ya tengas.
 
 Esta receta muestra un endpoint de Express, un cliente de browser y un helper de
 broadcast que maneja backpressure y limpieza.
@@ -50,8 +50,8 @@ Usá SSE en estos casos:
 
 - Necesitás dashboards en vivo, feeds de actividad o notificaciones de servidor a
   cliente.
-- El tráfico es principalmente de servidor a cliente, y los clientes solo
-  reciben datos.
+- El tráfico fluye principalmente de servidor a cliente, y los clientes solo
+  escuchan.
 - Preferís reusar tu stack HTTP en lugar de agregar infraestructura de
   WebSockets.
 - Tus mensajes son chicos y de texto; no necesitás payloads binarios.
@@ -60,7 +60,7 @@ Usá SSE en estos casos:
 
 - Necesitás comunicación bidireccional o binaria de verdad. Usá WebSockets en su
   lugar.
-- Tus clientes necesitan enviar mensajes frecuentes al servidor. SSE es solo de
+- Los clientes necesitan enviar mensajes frecuentes al servidor. SSE es solo de
   servidor a cliente.
 - Tu despliegue bloquea conexiones HTTP persistentes. Algunos proxies o firewalls
   lo hacen.
@@ -188,10 +188,10 @@ connect();
 
 ## Explicación
 
-SSE reutiliza una respuesta HTTP. El servidor mantiene la respuesta abierta y
-escribe líneas en formato `text/event-stream`. Cada evento tiene campos como
-`event:`, `data:`, `id:` y `retry:`. Los browsers lo exponen a través de la API
-`EventSource`, que reconecta automáticamente y respeta el header
+SSE reutiliza una respuesta HTTP. El servidor la mantiene abierta y escribe
+líneas en formato `text/event-stream`. Los eventos traen campos `event:`,
+`data:`, `id:` y `retry:`. Los browsers lo manejan a través de la API
+`EventSource`, que reconecta automáticamente y envía el header
 `Last-Event-ID`.
 
 El protocolo es solo texto, así que cualquier JSON se codifica dentro del campo
@@ -199,9 +199,10 @@ El protocolo es solo texto, así que cualquier JSON se codifica dentro del campo
 cerrar sockets inactivos. El header `Last-Event-ID` permite reanudar desde donde
 el cliente se quedó.
 
-El backpressure importa cuando los clientes son lentos. `response.write` devuelve
-`false` cuando el buffer interno de Node está lleno. Podés esperar al evento
-`drain` antes de escribir de nuevo, o desconectar clientes que se quedan atrás.
+El backpressure aparece cuando los clientes son lentos. `response.write`
+devuelve `false` en cuanto el buffer interno de Node se llena. Después podés
+esperar al evento `drain` antes de escribir de nuevo, o desconectar clientes
+que se quedan atrás.
 
 ## Variantes
 
@@ -220,7 +221,7 @@ El backpressure importa cuando los clientes son lentos. `response.write` devuelv
   firewalls.
 - Usá `Last-Event-ID` para reanudar tras reconexiones; guardá un historial
   acotado.
-- Eliminá clientes en `close` o `error` para evitar memory leaks.
+- Eliminá clientes en `close` o `error`; si no, quedan en memoria.
 - Limitá la cantidad de conexiones abiertas y el rate de mensajes por cliente.
 - Usá las señales de backpressure de `res.write`; no acumules mensajes sin
   límite.
@@ -229,7 +230,7 @@ El backpressure importa cuando los clientes son lentos. `response.write` devuelv
 
 - Olvidar los heartbeats y luego preguntarse por qué las conexiones se caen en
   silencio.
-- Hacer broadcast de payloads grandes sin revisar el valor de retorno de
+- Hacer broadcast de payloads grandes sin revisar lo que devuelve
   `response.write`.
 - Guardar todo el historial de eventos en memoria en lugar de un buffer acotado
   o un log persistente.
@@ -247,15 +248,15 @@ streams binarios verdaderos.
 
 ### ¿Cuántas conexiones SSE simultáneas maneja un proceso de Node.js?
 
-Miles, limitado por memoria y file descriptors del SO. Cada conexión usa unos
-pocos kilobytes de heap más un socket. Usá clustering o un load balancer con
+Miles, limitado por memoria y file descriptors del SO. Cada conexión cuesta un
+pequeño chunk de heap más un socket. Usá clustering o un load balancer con
 sticky sessions para escalar horizontalmente.
 
 ### ¿Funciona SSE a través de un load balancer?
 
-Sí, si el balancer soporta conexiones HTTP persistentes y sticky sessions cuando
-escalás a múltiples servidores. Deshabilitá el buffering de respuestas y seteá
-timeouts de inactividad lo suficientemente largos.
+Sí, siempre que el balancer soporte HTTP persistente y sticky sessions una vez
+que escalás más allá de un servidor. Deshabilitá el buffering de respuestas y
+seteá timeouts de inactividad lo suficientemente largos.
 
 ### ¿Cómo autentico clientes SSE?
 
@@ -265,6 +266,6 @@ poder enviar headers custom. `EventSource` plano no puede setear headers
 
 ### ¿Qué pasa si el cliente se desconecta y reconecta?
 
-Usá campos `id:` en los eventos y leé el header `Last-Event-ID` en el servidor.
-Repetí los eventos perdidos desde una cola en memoria acotada o un store
-persistente como Redis.
+Agregá campos `id:` a los eventos y leé el header `Last-Event-ID` en el
+servidor. Repetí los eventos perdidos desde una cola en memoria acotada o un
+store persistente como Redis.
