@@ -1,62 +1,72 @@
 ---
-
-
-
-
 contentType: recipes
 slug: elasticsearch-aggregations
-title: "Elasticsearch Aggregations for Analytics and Search"
-description: "How to use Elasticsearch aggregations to build faceted search, analytics dashboards, and real-time metrics from indexed data"
-metaDescription: "Elasticsearch aggregations for analytics. Build faceted search, metrics dashboards, and real-time aggregations with bucket and metric aggregations."
+title: "Elasticsearch Aggregations"
+description: "Build faceted search, metrics, and time-series summaries with Elasticsearch aggregations. Covers terms, date histograms, ranges, and composite buckets."
+metaDescription: "Use Elasticsearch aggregations for faceted search, metrics, and time-series analytics. Learn terms, date_histogram, range, and composite with real examples."
 difficulty: intermediate
 topics:
   - databases
   - data
 tags:
   - elasticsearch
-  - database
-  - sql
-  - postgresql
+  - aggregations
+  - analytics
+  - search
+  - databases
 relatedResources:
+  - /recipes/full-text-search
   - /recipes/mongodb-crud-mongoose
-  - /recipes/query-optimization
-  - /guides/database-design-guide
-  - /guides/full-text-search-guide
+  - /recipes/metrics-collection
+  - /recipes/pagination
   - /guides/complete-guide-elasticsearch-cluster-setup
-  - /guides/complete-guide-sql-query-optimization
-lastUpdated: "2026-06-18"
+  - /guides/full-text-search-guide
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Elasticsearch aggregations for analytics. Build faceted search, metrics dashboards, and real-time aggregations with bucket and metric aggregations."
+  metaDescription: "Use Elasticsearch aggregations for faceted search, metrics, and time-series analytics. Learn terms, date_histogram, range, and composite with real examples."
   keywords:
     - elasticsearch
     - aggregations
     - faceted search
     - analytics
-    - search engine
-
-
-
-
+    - time-series
 ---
 
-Elasticsearch aggregations allow you to group and summarize indexed data in real time. Unlike relational databases that require explicit GROUP BY queries, Elasticsearch computes aggregations on inverted indexes, making them fast enough to power live search facets and analytics dashboards.
+## Overview
 
-## When to Use This
+Elasticsearch aggregations group and summarize indexed data in real time. They
+run on the inverted index, so counts and metrics over millions of documents are
+fast enough to power search facets and live dashboards.
 
-- You need faceted search with count-per-category filters. See [Full-Text Search](/recipes/full-text-search/) for search implementations.
-- Real-time [analytics dashboards](/recipes/logging/) require sub-second aggregations over millions of documents
-- Time-series data must be bucketed by date ranges with nested statistics
+A single request can mix bucket aggregations, which split documents into groups,
+and metric aggregations, which compute values inside each group. Nesting them
+lets you build time-series, percentiles, and faceted summaries without a
+separate batch job.
 
-## Prerequisites
+## When to Use
 
-- Elasticsearch 8+ cluster running locally or on Elastic Cloud
-- Documents already indexed with mappings that support aggregation fields. See [Parse JSON](/recipes/parse-json/) for document handling.
+- You need faceted search with category-level count filters. See also
+  [Full-Text Search](/recipes/full-text-search/) for the query side.
+- You're building real-time analytics dashboards that must return sub-second
+  aggregations over large document sets.
+- You want to bucket time series and nest statistics such as sum, average, or
+  percentiles.
+- You need unique counts, top hits per bucket, or derivative metrics in a single
+  request.
+
+### When to avoid
+
+- The query resembles a multi-table SQL join across separate indices.
+- The field you want to aggregate isn't indexed, or it's a full-text `text`
+  field without a `keyword` subfield.
+- You need exact counts over extremely high-cardinality fields; use
+  `composite` or tune `shard_size` instead of a plain `terms` aggregation.
 
 ## Solution
 
-### 1. Basic Terms Aggregation (Faceted Search)
+### Terms aggregation for faceted search
 
 ```json
 GET /products/_search
@@ -72,6 +82,8 @@ GET /products/_search
   }
 }
 ```
+
+### Faceted search with the JavaScript client
 
 ```typescript
 // client/SearchClient.ts
@@ -97,7 +109,7 @@ async function getCategoryFacets(query: string) {
 }
 ```
 
-### 2. Nested Date Histogram with Metrics
+### Date histogram with nested metrics
 
 ```json
 GET /orders/_search
@@ -122,7 +134,7 @@ GET /orders/_search
 }
 ```
 
-### 3. Range Aggregation for Pricing Tiers
+### Range aggregation for pricing tiers
 
 ```json
 GET /products/_search
@@ -143,7 +155,7 @@ GET /products/_search
 }
 ```
 
-### 4. Composite Aggregation for Deep Pagination
+### Composite aggregation for deep pagination
 
 ```json
 GET /events/_search
@@ -163,50 +175,36 @@ GET /events/_search
 }
 ```
 
-## How It Works
+```javascript
+async function paginateAggregations(afterKey = null) {
+  const body = {
+    size: 0,
+    aggs: {
+      events_by_region: {
+        composite: {
+          size: 100,
+          sources: [
+            { region: { terms: { field: 'region.keyword' } } },
+            { day: { date_histogram: { field: 'timestamp', calendar_interval: 'day' } } }
+          ],
+          ...(afterKey && { after: afterKey })
+        }
+      }
+    }
+  };
 
-1. **Terms Aggregation** counts unique values using the fielddata or keyword index
-2. **Bucket Aggregations** group documents into intervals (dates, ranges, or custom filters)
-3. **Metric Aggregations** compute statistics (sum, avg, percentiles) within each bucket
-4. **Composite Keys** allow paginating through large aggregation results without missing data
+  const response = await client.search({ index: 'events', body });
+  const { buckets, after_key } = response.aggregations.events_by_region;
 
-## Production Considerations
+  if (after_key) {
+    console.log(`Got ${buckets.length} buckets, fetching next page...`);
+    return [...buckets, ...await paginateAggregations(after_key)];
+  }
+  return buckets;
+}
+```
 
-- Set `size: 0` when you only need aggregations, not search hits
-- Use `keyword` subfields for text aggregations to avoid tokenization issues
-- Enable `eager_global_ordinals` on frequently aggregated fields for faster execution
-- Consider **runtime fields** for ad-hoc aggregations on unindexed data. See [Data Validation](/recipes/data-validation/) for field typing.
-
-## Common Mistakes
-
-- Aggregating on `text` fields instead of `keyword` subfields
-- Requesting too many buckets with `size: 10000`, causing memory pressure
-- Not using composite aggregations when paginating through large result sets. See [Pagination](/recipes/pagination/) for result management.
-
-## FAQ
-
-**Q: Are Elasticsearch aggregations accurate on large datasets?**
-A: Terms aggregations use approximate counting for top-N. Use `shard_size` tuning or `composite` aggregations for exact counts.
-
-**Q: Can I combine multiple aggregations in a single query?**
-A: Yes. Elasticsearch supports nested aggregations and sibling pipeline aggregations in the same request.
-
-**Q: How do I filter results without affecting aggregation counts?**
-A: Use `post_filter` to apply search filters after aggregations are computed.
-
-### Is this solution production-ready?
-
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
-
-### What are the performance characteristics?
-
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
-
-### How do I debug issues with this approach?
-
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
-
-### Python Client: Terms and Stats Aggregation
+### Python client: terms, stats, and percentiles
 
 ```python
 from elasticsearch import Elasticsearch
@@ -234,7 +232,30 @@ print(response["aggregations"]["categories"]["buckets"])
 print(response["aggregations"]["price_stats"])
 ```
 
-### Cardinality Aggregation for Unique Counts
+### Filter bucket aggregation
+
+```json
+GET /products/_search
+{
+  "size": 0,
+  "aggs": {
+    "in_stock": {
+      "filter": { "term": { "status": "in_stock" } },
+      "aggs": {
+        "avg_price": { "avg": { "field": "price" } }
+      }
+    },
+    "out_of_stock": {
+      "filter": { "term": { "status": "out_of_stock" } },
+      "aggs": {
+        "avg_price": { "avg": { "field": "price" } }
+      }
+    }
+  }
+}
+```
+
+### Cardinality for unique counts
 
 ```json
 GET /orders/_search
@@ -251,9 +272,34 @@ GET /orders/_search
 }
 ```
 
-Cardinality uses HyperLogLog++ for approximate distinct counts. `precision_threshold` controls accuracy vs memory: higher values are more accurate but use more memory. At 40,000, counts are accurate to within 1%.
+Cardinality uses HyperLogLog++ for approximate distinct counts. The
+`precision_threshold` trades accuracy for memory: higher values are more
+accurate but consume more heap. With a threshold of 40,000, counts land within 1% of the real value.
 
-### Pipeline Aggregations for Derivative Metrics
+### Top hits per bucket
+
+```json
+GET /products/_search
+{
+  "size": 0,
+  "aggs": {
+    "by_category": {
+      "terms": { "field": "category.keyword", "size": 10 },
+      "aggs": {
+        "top_products": {
+          "top_hits": {
+            "size": 3,
+            "sort": [{ "popularity": "desc" }],
+            "_source": ["name", "price", "rating"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Pipeline aggregations
 
 ```json
 GET /orders/_search
@@ -285,172 +331,91 @@ GET /orders/_search
 }
 ```
 
-### Filter Bucket Aggregation
+## Explanation
 
-```json
-GET /products/_search
-{
-  "size": 0,
-  "aggs": {
-    "in_stock": {
-      "filter": { "term": { "status": "in_stock" } },
-      "aggs": {
-        "avg_price": { "avg": { "field": "price" } }
-      }
-    },
-    "out_of_stock": {
-      "filter": { "term": { "status": "out_of_stock" } },
-      "aggs": {
-        "avg_price": { "avg": { "field": "price" } }
-      }
-    }
-  }
-}
-```
+Bucket aggregations split documents into groups. `terms` and `range` are bucket
+aggregations; `date_histogram` splits by time. Metric aggregations such as
+`sum`, `avg`, `stats`, and `percentiles` run inside each bucket.
 
-### Java Client: Aggregation Builder
+You can nest aggregations to answer multi-level questions: monthly revenue per
+category, average price per price range, or percentile latency per region.
+Adding `size: 0` skips the search hits and returns only aggregations, which is
+much faster if you don't need the documents themselves.
 
-```java
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
+Text fields are analyzed and tokenized, so they can't be aggregated directly.
+For counts, groupings, and filters, use the `.keyword` subfield, which is
+stored as a single unanalyzed token.
 
-public class ProductAggregations {
-    private final RestHighLevelClient client;
+The `composite` aggregation returns a key per bucket and an `after_key` for
+pagination. It's the safest way to scan large aggregation result sets because it keeps
+memory bounded and never skips buckets.
 
-    public SearchResponse getCategoryStats() throws IOException {
-        SearchSourceBuilder source = SearchSourceBuilder.searchSource()
-            .size(0)
-            .aggregation(
-                AggregationBuilders.terms("categories")
-                    .field("category.keyword")
-                    .size(20)
-                    .subAggregation(
-                        AggregationBuilders.avg("avg_price").field("price")
-                    )
-            );
+`post_filter` applies search filters after aggregations are computed. Use it
+when users filter results but you want to keep the original facet counts.
 
-        SearchRequest request = new SearchRequest("products").source(source);
-        return client.search(request, RequestOptions.DEFAULT);
-    }
-}
-```
+Pipeline aggregations such as `derivative` and `moving_avg` read values from
+other buckets. They work well for time-series analysis, but they add a second
+pass and cost more CPU and memory.
 
-### Top Hits Aggregation for Best Items per Bucket
+## Variants
 
-```json
-GET /products/_search
-{
-  "size": 0,
-  "aggs": {
-    "by_category": {
-      "terms": { "field": "category.keyword", "size": 10 },
-      "aggs": {
-        "top_products": {
-          "top_hits": {
-            size: 3,
-            "sort": [{ "popularity": "desc" }],
-            "_source": ["name", "price", "rating"]
-          }
-        }
-      }
-    }
-  }
-}
-```
+| Aggregation | Use case | Key parameters |
+| --- | --- | --- |
+| `terms` | Count by category, brand, or status | `field`, `size`, `shard_size` |
+| `date_histogram` | Time-series bucketing | `field`, `calendar_interval` |
+| `range` | Predefined bands such as price tiers | `ranges` |
+| `composite` | Paginating over high-cardinality keys | `sources`, `size`, `after` |
+| `cardinality` | Approximate unique counts | `precision_threshold` |
+| `top_hits` | Best document per bucket | `size`, `sort`, `_source` |
+| `filter` | Conditional sub-aggregations | `filter` query |
 
-### JavaScript: Composite Aggregation with Pagination
+## Best Practices
 
-```javascript
-async function paginateAggregations(afterKey = null) {
-  const body = {
-    size: 0,
-    aggs: {
-      events_by_region: {
-        composite: {
-          size: 100,
-          sources: [
-            { region: { terms: { field: 'region.keyword' } } },
-            { day: { date_histogram: { field: 'timestamp', calendar_interval: 'day' } } }
-          ],
-          ...(afterKey && { after: afterKey })
-        }
-      }
-    }
-  };
+- Set `size: 0` when you only need aggregations, not search hits.
+- Aggregate on `keyword` subfields, not on analyzed `text` fields.
+- Use `composite` whenever an aggregation could return more than a few thousand
+  buckets.
+- Enable `eager_global_ordinals` on fields you aggregate frequently, especially
+  for high-cardinality `terms`.
+- Use `post_filter` to filter returned results without changing aggregation
+  counts.
+- Tune `precision_threshold` for `cardinality` to balance memory against
+  accuracy.
 
-  const response = await client.search({ index: 'events', body });
-  const { buckets, after_key } = response.aggregations.events_by_region;
+## Common Mistakes
 
-  if (after_key) {
-    console.log(`Got ${buckets.length} buckets, fetching next page...`);
-    return [...buckets, ...await paginateAggregations(after_key)];
-  }
-  return buckets;
-}
-```
+- Aggregating on a `text` field instead of its `.keyword` subfield.
+- Requesting `size: 10000` on a `terms` aggregation and causing out-of-memory
+  errors.
+- Paginating large `terms` results without `composite`.
+- Ignoring that `terms` and `cardinality` return approximate counts.
+- Running heavy pipeline aggregations on very large time ranges.
 
+## FAQ
 
+### Can I combine multiple aggregations in one query?
 
+Yes. You can place several top-level aggregations and nest bucket and metric
+aggregations inside each other in the same request.
 
-## Performance Tips
+### How do I filter results without changing aggregation counts?
 
-1. **Use `preference: _only_local` for faster dev queries.** This avoids fan-out to remote shards:
+Use `post_filter` to apply search filters after the aggregations are computed.
+The aggregations see the full query, while the returned hits are filtered.
 
-```json
-GET /products/_search?preference=_only_local
-```
+### Are Elasticsearch aggregations exact on large datasets?
 
-2. **Set `request_cache: true` for repeated aggregation queries.** Elasticsearch caches shard-level results:
+`terms` and `cardinality` are approximate. Adjust `shard_size` or use
+`composite` aggregations for more exact counts, and raise
+`precision_threshold` for better cardinality accuracy.
 
-```json
-GET /products/_search?request_cache=true
-{
-  "size": 0,
-  "aggs": { "categories": { "terms": { "field": "category.keyword" } } }
-}
-```
+### Why should I use `composite` instead of `terms` for pagination?
 
-3. **Use `index_sort` for time-series aggregations.** Pre-sorting documents by timestamp speeds up date_histogram aggregations:
+`composite` returns a stable `after_key` and walks the result set in sorted
+order. `terms` pagination with `from` isn't reliable because bucket order can
+change as data is indexed.
 
-```json
-"settings": {
-  "index": {
-    "sort.field": ["timestamp"],
-    "sort.order": ["desc"]
-  }
-}
-```
+### What is the difference between `filter` and `post_filter`?
 
-4. **Monitor aggregation memory with `_stats`.** Track fielddata and query cache usage:
-
-```json
-GET /_stats/fielddata,query_cache,aggregations
-```
-
-5. **Use rollup indices for historical aggregations.** Pre-aggregate time-series data into hourly or daily rollups to reduce query load:
-
-```json
-PUT _rollup/job/sales_daily
-{
-  "index_pattern": "orders-*",
-  "rollup_index": "orders_rollup",
-  "cron": "0 0 * * * ?",
-  "page_size": 1000,
-  "groups": {
-    "date_histogram": {
-      "fields": ["created_at"],
-      "calendar_interval": "1d"
-    },
-    "terms": {
-      "fields": ["category.keyword"]
-    }
-  },
-  "metrics": [
-    { "field": "total_amount", "metrics": ["sum", "avg", "max"] }
-  ]
-}
-```
+A `filter` aggregation adds a bucket under the aggregation tree. `post_filter`
+limits the search hits returned without affecting the aggregation values.

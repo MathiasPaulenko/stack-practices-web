@@ -1,0 +1,342 @@
+[
+  {
+    "label": "elasticsearch-aggregations-en",
+    "model": "desklib",
+    "model_ai_pct": 39.7,
+    "ai_count": 10,
+    "human_count": 38,
+    "skipped_count": 1,
+    "total": 49,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.8,
+      "stddev": 13.8,
+      "cv": 0.93,
+      "verdict": "natural variation",
+      "sentence_count": 48,
+      "lengths": [
+        10,
+        24,
+        21,
+        15,
+        8,
+        8,
+        14,
+        15,
+        15,
+        10,
+        18,
+        19,
+        7,
+        15,
+        13,
+        6,
+        10,
+        13,
+        22,
+        22,
+        12,
+        17,
+        13,
+        19,
+        8,
+        15,
+        12,
+        18,
+        104,
+        9,
+        13,
+        11,
+        10,
+        9,
+        10,
+        11,
+        6,
+        8,
+        9,
+        19,
+        11,
+        12,
+        5,
+        17,
+        13,
+        15,
+        10,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "They work well for time-series analysis, but they add a second\npass and cost more CPU and memory.",
+        0.8639
+      ],
+      [
+        "The query resembles a multi-table SQL join across separate indices.",
+        0.7168
+      ],
+      [
+        "The field you want to aggregate isn't indexed, or it's a full-text text\n  field without a keyword subfield.",
+        0.6937
+      ],
+      [
+        "You need unique counts, top hits per bucket, or derivative metrics in a single\n  request.",
+        0.6298
+      ],
+      [
+        "With a threshold of 40,000, counts land within 1% of the real value.",
+        0.6255
+      ],
+      [
+        "It's the safest way to scan large aggregation result sets because it keeps\nmemory bounded and never skips buckets.",
+        0.5443
+      ],
+      [
+        "You need faceted search with category-level count filters.",
+        0.5356
+      ],
+      [
+        "Adjust shard_size or use\ncomposite aggregations for more exact counts, and raise\nprecision_threshold for better cardinality accuracy.",
+        0.5339
+      ],
+      [
+        "For counts, groupings, and filters, use the .keyword subfield, which is\nstored as a single unanalyzed token.",
+        0.5213
+      ],
+      [
+        "Adding size: 0 skips the search hits and returns only aggregations, which is\nmuch faster if you don't need the documents themselves.",
+        0.5122
+      ],
+      [
+        "post_filter\nlimits the search hits returned without affecting the aggregation values.",
+        0.4916
+      ],
+      [
+        "Nesting them\nlets you build time-series, percentiles, and faceted summaries without a\nseparate batch job.",
+        0.4841
+      ],
+      [
+        "terms and cardinality are approximate.",
+        0.4767
+      ],
+      [
+        "Use composite whenever an aggregation could return more than a few thousand\n  buckets.",
+        0.467
+      ],
+      [
+        "You want to bucket time series and nest statistics such as sum, average, or\n  percentiles.",
+        0.4636
+      ],
+      [
+        "Use post_filter to apply search filters after the aggregations are computed.",
+        0.4603
+      ],
+      [
+        "You can nest aggregations to answer multi-level questions: monthly revenue per\ncategory, average price per price range, or percentile latency per region.",
+        0.4575
+      ],
+      [
+        "Metric aggregations such as\nsum, avg, stats, and percentiles run inside each bucket.",
+        0.4449
+      ],
+      [
+        "Tune precision_threshold for cardinality to balance memory against\n  accuracy.",
+        0.4327
+      ],
+      [
+        "Use it\nwhen users filter results but you want to keep the original facet counts.",
+        0.4177
+      ],
+      [
+        "Cardinality uses HyperLogLog++ for approximate distinct counts.",
+        0.406
+      ],
+      [
+        "You're building real-time analytics dashboards that must return sub-second\n  aggregations over large document sets.",
+        0.4042
+      ],
+      [
+        "The\nprecision_threshold trades accuracy for memory: higher values are more\naccurate but consume more heap.",
+        0.3983
+      ],
+      [
+        "Text fields are analyzed and tokenized, so they can't be aggregated directly.",
+        0.3914
+      ],
+      [
+        "Use post_filter to filter returned results without changing aggregation\n  counts.",
+        0.3873
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "elasticsearch-aggregations-es",
+    "model": "desklib",
+    "model_ai_pct": 32.6,
+    "ai_count": 7,
+    "human_count": 41,
+    "skipped_count": 1,
+    "total": 49,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.9,
+      "stddev": 14.7,
+      "cv": 0.87,
+      "verdict": "natural variation",
+      "sentence_count": 48,
+      "lengths": [
+        12,
+        29,
+        24,
+        16,
+        11,
+        9,
+        22,
+        12,
+        16,
+        13,
+        17,
+        21,
+        10,
+        16,
+        14,
+        8,
+        11,
+        13,
+        25,
+        33,
+        15,
+        18,
+        13,
+        22,
+        12,
+        16,
+        12,
+        19,
+        110,
+        9,
+        15,
+        13,
+        16,
+        9,
+        11,
+        12,
+        7,
+        8,
+        10,
+        20,
+        14,
+        13,
+        5,
+        19,
+        13,
+        23,
+        11,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Pedir size: 10000 en una agregaci\u00f3n terms y provocar errores de memoria.",
+        0.9618
+      ],
+      [
+        "Con un threshold de\n40.000, los conteos caen dentro del 1% del valor real.",
+        0.7373
+      ],
+      [
+        "Necesit\u00e1s conteos \u00fanicos, los documentos m\u00e1s relevantes por bucket o m\u00e9tricas\n  derivadas en una sola petici\u00f3n.",
+        0.6504
+      ],
+      [
+        "La cardinalidad usa HyperLogLog++ para conteos aproximados de valores\ndistintos.",
+        0.5891
+      ],
+      [
+        "Quer\u00e9s agrupar series temporales y anidar estad\u00edsticas como suma, promedio o\n  percentiles.",
+        0.546
+      ],
+      [
+        "Ajust\u00e1 precision_threshold de cardinality para equilibrar memoria y\nprecisi\u00f3n.",
+        0.5241
+      ],
+      [
+        "Paginar resultados grandes de terms sin composite.",
+        0.5059
+      ],
+      [
+        "Pod\u00e9s anidar agregaciones para responder preguntas de varios niveles: ingresos\nmensuales por categor\u00eda, precio promedio por rango de precio, o percentiles de\nlatencia por regi\u00f3n.",
+        0.494
+      ],
+      [
+        "Anidarlas te permite construir series temporales, percentiles y\nres\u00famenes facetados sin un job por lotes separado.",
+        0.4417
+      ],
+      [
+        "Las agregaciones de Elasticsearch agrupan y resumen datos indexados en tiempo\nreal.",
+        0.4369
+      ],
+      [
+        "Necesit\u00e1s b\u00fasqueda facetada con filtros de conteo a nivel de categor\u00eda.",
+        0.4351
+      ],
+      [
+        "Las agregaciones de bucket dividen documentos en grupos.",
+        0.3908
+      ],
+      [
+        "Poner size: 0 le dice a Elasticsearch que ignore los hits\nde b\u00fasqueda y devuelva solo los resultados de las agregaciones, lo que es mucho\nm\u00e1s r\u00e1pido cuando no necesit\u00e1s los documen",
+        0.3823
+      ],
+      [
+        "Us\u00e1 post_filter cuando quer\u00e1s filtros sobre los resultados pero no sobre\n  los conteos de las agregaciones.",
+        0.3728
+      ],
+      [
+        "Las m\u00e9tricas como\nsum, avg, stats y percentiles corren dentro de cada bucket.",
+        0.3698
+      ],
+      [
+        "El campo que quer\u00e9s agregar no est\u00e1 indexado o es un campo text sin un\n  subcampo keyword.",
+        0.3625
+      ],
+      [
+        "Us\u00e1 el subcampo .keyword, que se guarda como un solo token no\nanalizado, para conteos, agrupaciones y filtros.",
+        0.3622
+      ],
+      [
+        "terms y cardinality son aproximadas.",
+        0.3618
+      ],
+      [
+        "Ajust\u00e1 shard_size o us\u00e1 agregaciones\ncomposite para conteos m\u00e1s exactos, y sub\u00ed precision_threshold para mejorar\nla precisi\u00f3n de cardinalidad.",
+        0.3521
+      ],
+      [
+        "Es la forma m\u00e1s segura de recorrer grandes conjuntos de resultados de\nagregaci\u00f3n porque mantiene la memoria acotada y nunca saltea buckets.",
+        0.3496
+      ],
+      [
+        "Los campos de texto se analizan y tokenizan, as\u00ed que no se pueden agregar\ndirectamente.",
+        0.3373
+      ],
+      [
+        "Agregar sobre un campo text en lugar de su subcampo .keyword.",
+        0.3299
+      ],
+      [
+        "Son \u00fatiles para an\u00e1lisis de series temporales pero agregan un segundo\npaso, as\u00ed que consumen m\u00e1s CPU y memoria.",
+        0.3174
+      ],
+      [
+        "Us\u00e1 post_filter para aplicar filtros de b\u00fasqueda despu\u00e9s de que las\nagregaciones se computen.",
+        0.31
+      ],
+      [
+        "Usalo cuando quer\u00e9s que el usuario filtre resultados pero conserve los\nconteos originales de las facetas.",
+        0.308
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

@@ -38,30 +38,30 @@ seo:
 ## Overview
 
 Apache Airflow models data pipelines as Directed Acyclic Graphs (DAGs).
-A task is an operator. It might run a Python function, execute SQL, trigger a
-job, or wait on a sensor. Airflow schedules DAGs on a cron or interval,
-retries failed tasks, and gives you a UI to monitor pipeline state.
+A task is an operator that does one job. It might run a Python function, execute
+SQL, trigger a job, or wait on a sensor. Airflow schedules DAGs on a cron or interval, retries
+failed tasks, and gives you a UI to monitor pipeline state.
 
-This recipe covers Airflow DAGs, scheduling, task dependencies, sensors, XCom,
-and the TaskFlow API. See the [Apache Airflow guide](/guides/complete-guide-apache-airflow/) for more.
+This recipe shows how to build Airflow DAGs, schedule them, wire task
+dependencies, use sensors, share data through XCom, and write cleaner pipelines
+with the TaskFlow API. See the [Apache Airflow guide](/guides/complete-guide-apache-airflow/) for more.
 
 ## When to Use
 
-Airflow makes sense when:
+Airflow is a good fit when you're wiring together multi-step pipelines where
+tasks depend on each other.
 
-- You're wiring together multi-step pipelines where tasks depend on each other.
 - You want batch jobs on a cron-like schedule with built-in retries.
-- Pipelines need monitoring, alerting, and a visual run history.
+- Pipelines need monitoring, alerting, and a visual history of runs.
 - Workflows include conditional branching or sensors that wait for files, APIs, or
   time.
 
 ### When to avoid
 
-- Real-time or streaming pipelines. For those, Flink, Spark Streaming, or Kafka
-  Streams are the right tools.
+- Real-time or streaming pipelines. Use Flink, Spark Streaming, or Kafka Streams for those.
 - Simple cron jobs without dependencies. A plain crontab entry is simpler.
 - Long-running services. Airflow is for batch workflows, not for daemons.
-- CI/CD pipelines. For those cases, GitHub Actions, Jenkins, or GitLab CI are a better fit.
+- CI/CD pipelines. GitHub Actions, Jenkins, or GitLab CI are usually a better fit for those.
 
 ## Solution
 
@@ -324,17 +324,19 @@ A DAG is a collection of tasks with directed dependencies and no cycles.
 The scheduler parses the DAG file, creates a `DagRun` for each schedule interval,
 and queues the tasks. An executor picks up queued tasks and runs them.
 
-XCom lets tasks share small pieces of data. A task pushes a value with
+XCom lets tasks share small bits of data. A task pushes a value with
 `xcom_push` or by returning it; downstream tasks pull it with `xcom_pull`.
-TaskFlow passes values through return values. For large data, write to a
-file or object storage and pass the path instead of pushing the whole payload.
+With TaskFlow, values move from one task to the next through plain Python return
+values. For large data, write to a file or object storage and pass the path
+instead of pushing the whole payload.
 
 Sensors poll for an external condition. `mode="poke"` holds a worker slot while
-checking; `mode="reschedule"` frees the slot between checks. For long waits, pick `reschedule`.
+checking; `mode="reschedule"` frees the slot between checks. For long waits, pick
+`reschedule` mode.
 
 `catchup=True` makes Airflow run every missed interval between `start_date` and
-now; `catchup=False` starts from the present. `max_active_runs` controls how many
-DagRuns can run at the same time.
+now; `catchup=False` starts from the present. `max_active_runs` controls how
+many DagRuns can run at the same time.
 
 ## Variants
 
@@ -352,7 +354,7 @@ DagRuns can run at the same time.
   runs.
 - Prefer `schedule` over the deprecated `schedule_interval`.
 - Pick `mode="reschedule"` for sensors with long timeouts to free worker slots.
-- Keep tasks idempotent. Re-run the same task for the same date and it should produce the same result.
+- Keep tasks idempotent. Re-running a task for the same date should give the same result.
 - Set `max_active_runs=1` for pipelines where overlap isn't allowed.
 - Push small data via XCom; for large data, write to a file or object storage and
   pass the path.
@@ -363,27 +365,30 @@ DagRuns can run at the same time.
 ## Common Mistakes
 
 - Running `@daily` without `catchup=False` can launch hundreds of backfill runs.
-- Pushing large DataFrames via XCom. Don't push large data into the Airflow metadata database; it's for state, not
-storage.
+- Pushing large DataFrames via XCom. Don't push large data into the Airflow
+  metadata database; it's for state, not storage.
 - Writing non-idempotent tasks that append duplicate data on retry.
 - Reaching for `PythonOperator` for everything instead of specialized operators.
-- Writing `start_date=datetime.now()` or any other dynamic value. Keep it static.
+- Writing `start_date=datetime.now()` or any other dynamic value; keep it
+  static.
 
 ## FAQ
 
 ### What is a DAG in Airflow?
 
 A DAG is a set of tasks tied together by dependencies, where data flows one way
-and there are no cycles. Every DAG has its own schedule, a fixed start date, and default arguments.
+and there are no cycles. Every DAG carries its own schedule, a fixed start date, and default arguments.
 
 ### What is XCom?
 
 Cross-communication. Tasks push values with `xcom_push` or by returning them, and
-pull values with `xcom_pull`. TaskFlow passes return values without extra code.
+pull values with `xcom_pull`. With TaskFlow, return values move automatically
+without extra code.
 
 ### Should I use `poke` or `reschedule` mode for sensors?
 
-Use `poke` for waits under a few minutes. For long waits, `reschedule` frees the worker slot between checks.
+Use `poke` for waits under a few minutes. For long waits, `reschedule` mode frees
+the worker slot between checks.
 
 ### How do I handle timezone-aware scheduling?
 
