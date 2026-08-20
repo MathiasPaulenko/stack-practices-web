@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: complete-guide-graphql-caching
-title: "Caching GraphQL"
-description: "Cachear respuestas GraphQL en cada capa: CDN, gateway, DataLoader, persisted queries y cliente. Cubre cache keys, invalidacion, directivas HTTP caching y Apollo Client cache."
-metaDescription: "Cachear GraphQL en cada capa: CDN, gateway, DataLoader, persisted queries, cliente. Cubre cache keys, invalidacion, directivas HTTP y Apollo Client cache."
+title: "Guía completa de caching en GraphQL"
+description: "Cachear respuestas GraphQL en cada capa: CDN, gateway, DataLoader, persisted queries y cliente. Cubre cache keys, invalidación, directivas HTTP caching y Apollo Client cache."
+metaDescription: "Guía completa de caching en GraphQL. Cubre CDN, gateway, DataLoader, persisted queries, Apollo Client, cache keys, invalidación y directivas HTTP."
 difficulty: advanced
 topics:
   - graphql
@@ -29,11 +24,11 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
   - /guides/complete-guide-cdn-caching-strategy
   - /guides/complete-guide-redis-caching-strategies
-lastUpdated: "2026-07-04"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Cachear GraphQL en cada capa: CDN, gateway, DataLoader, persisted queries, cliente. Cubre cache keys, invalidacion, directivas HTTP y Apollo Client cache."
+  metaDescription: "Guía completa de caching en GraphQL. Cubre CDN, gateway, DataLoader, persisted queries, Apollo Client, cache keys, invalidación y directivas HTTP."
   keywords:
     - graphql caching
     - graphql cdn caching
@@ -42,36 +37,37 @@ seo:
     - apollo client cache
     - graphql cache invalidation
     - graphql http caching
-
-
-
-
-
 ---
 
 ## Introducción
 
-El caching en GraphQL es mas dificil que en REST porque cada request va a la misma URL (`/graphql`) con un body POST diferente. REST puede cachear a nivel de URL; GraphQL necesita cache keys basadas en el contenido de la query. A pesar de esto, hay multiples capas donde puedes cachear datos GraphQL efectivamente. Lo siguiente recorre cada capa desde CDN hasta cliente, con ejemplos de codigo y tradeoffs.
+El caching en GraphQL es más difícil que en REST porque cada request va a la
+misma URL (`/graphql`) con un body POST diferente. REST puede cachear a nivel de
+URL; GraphQL necesita cache keys basadas en el contenido de la query. A pesar de
+esto, hay varias capas donde podés cachear datos de GraphQL de forma efectiva.
+Esta guía recorre cada capa desde el CDN hasta el cliente, con ejemplos de código
+y tradeoffs.
 
 ## Capas de Caching
 
 ```text
-Client Cache (Apollo Client) → CDN/Edge Cache → Gateway Cache → DataLoader (por-request) → Database
+Client Cache (Apollo Client) → CDN/Edge Cache → Gateway Cache → DataLoader (por request) → Database
 ```
 
-Cada capa sirve un proposito diferente:
+Cada capa cumple un propósito diferente:
 
-- **Client cache**: Evita requests de red redundantes para los mismos datos
-- **CDN/edge cache**: Sirve respuestas cerca de los usuarios geograficamente
-- **Gateway cache**: Cachea respuestas de subgrafos para reducir carga de subgrafos
-- **DataLoader**: Batchea y cachea dentro de una sola request para prevenir N+1
-- **Database cache**: Cachea resultados de queries a nivel ORM o base de datos
+- **Client cache**: evita requests de red redundantes para los mismos datos.
+- **CDN/edge cache**: sirve respuestas cerca de los usuarios geográficamente.
+- **Gateway cache**: cachea respuestas de subgrafos para reducir la carga.
+- **DataLoader**: agrupa y cachea dentro de una sola request para prevenir N+1.
+- **Database cache**: cachea resultados de queries a nivel de ORM o base de datos.
 
 ## HTTP Caching con GET Requests
 
 ### Cambiar de POST a GET
 
-Por defecto, los clientes GraphQL envian POST requests. Las respuestas POST no son cacheables por CDNs o browsers. Cambia a GET para queries cacheables.
+Por defecto, los clientes GraphQL envían POST requests. Las respuestas POST no
+son cacheables por CDNs ni navegadores. Cambiá a GET para queries cacheables.
 
 ```javascript
 // Apollo Client: usar GET para queries
@@ -98,7 +94,8 @@ app.get("/graphql", (req, res) => {
 
 ### Directivas Cache-Control
 
-Usa la directiva `@cacheControl` para setear max-age y scope en tipos y campos.
+Usá la directiva `@cacheControl` para definir `max-age` y `scope` en tipos y
+campos.
 
 ```graphql
 type Query {
@@ -119,7 +116,9 @@ type User @cacheControl(maxAge: 0, scope: PRIVATE) {
 }
 ```
 
-El servidor calcula la politica de cache para cada query basandose en los campos solicitados. Si una query incluye cualquier campo `PRIVATE`, toda la respuesta es privada. El max-age es el minimo de los valores max-age de todos los campos.
+El servidor calcula la política de cache para cada query en base a los campos
+solicitados. Si una query incluye algún campo `PRIVATE`, toda la respuesta es
+privada. El `max-age` es el mínimo de los valores de todos los campos.
 
 ```javascript
 import { ApolloServerPluginCacheControl } from "@apollo/server/plugin/cacheControl";
@@ -131,33 +130,39 @@ const server = new ApolloServer({
 });
 ```
 
-El plugin setea headers `Cache-Control: max-age=3600, public` o `Cache-Control: max-age=0, private` en las respuestas.
+El plugin setea headers `Cache-Control: max-age=3600, public` o
+`Cache-Control: max-age=0, private` en las respuestas.
 
 ## CDN Caching
 
-### Cómo Funciona el CDN Caching para GraphQL
+### Cómo funciona el CDN Caching para GraphQL
 
-Cuando usas GET requests con cache-control headers, los CDNs (Cloudflare, Fastly, CloudFront) cachean respuestas basandose en la URL completa incluyendo query string.
+Cuando usás GET requests con headers `cache-control`, los CDNs (Cloudflare,
+Fastly, CloudFront) cachean respuestas en base a la URL completa, incluyendo el
+query string.
 
 ```text
 GET /graphql?query={product(id:1){id name price}}&variables={}
 ```
 
-El CDN almacena la respuesta y la sirve directamente para URLs identicas. Esto funciona bien para datos publicos, no especificos de usuario.
+El CDN almacena la respuesta y la sirve directamente para URLs idénticas. Esto
+funciona bien para datos públicos y no específicos de usuario.
 
 ### Consideraciones de Cache Key
 
-La cache key es la URL completa. Dos queries que difieren solo en whitespace producen cache keys diferentes. Usa persisted queries para normalizar cache keys.
+La cache key es la URL completa. Dos queries que difieren solo en whitespace
+producen cache keys diferentes. Usá persisted queries para normalizarlas.
 
 ### Persisted Queries para CDN Caching
 
-Con persisted queries, el cliente envia un hash en lugar de la query completa:
+Con persisted queries, el cliente envía un hash en lugar de la query completa:
 
 ```text
 GET /graphql?extensions={"persistedQuery":{"sha256Hash":"abc123","version":1}}
 ```
 
-Todos los clientes que usan la misma query producen la misma URL, maximizando cache hits del CDN.
+Todos los clientes que usan la misma query producen la misma URL, maximizando
+los hits de cache del CDN.
 
 ```javascript
 import { createPersistedQueryLink } from "@apollo/client/link/persisted-queries";
@@ -175,10 +180,11 @@ const client = new ApolloClient({
 
 ### Purge del CDN en Cambios de Datos
 
-Cuando los datos cambian, purga el cache del CDN. Usa webhooks o llamadas API al proveedor de CDN.
+Cuando los datos cambian, purgá el cache del CDN. Usá webhooks o llamadas API al
+proveedor de CDN.
 
 ```javascript
-// Despues de actualizar un producto
+// Después de actualizar un producto
 async function purgeProductCache(productId) {
   await fetch("https://api.fastly.com/purge/abc123", {
     method: "POST",
@@ -188,7 +194,8 @@ async function purgeProductCache(productId) {
 }
 ```
 
-Usa surrogate keys en el header de respuesta `Surrogate-Key` para etiquetar respuestas para purging dirigido:
+Usá surrogate keys en el header de respuesta `Surrogate-Key` para etiquetar
+respuestas y hacer purging dirigido:
 
 ```javascript
 res.setHeader("Surrogate-Key", `product-${productId} products`);
@@ -198,7 +205,8 @@ res.setHeader("Surrogate-Key", `product-${productId} products`);
 
 ### Apollo Router Cache
 
-Apollo Router puede cachear respuestas de subgrafos. Esto reduce la carga en subgrafos para queries repetidas.
+Apollo Router puede cachear respuestas de subgrafos. Esto reduce la carga en
+subgrafos para queries repetidas.
 
 ```yaml
 # router.yaml
@@ -210,7 +218,8 @@ supergraph:
 
 ### Entity Cache
 
-Cachea resultados de resolucion de entidades para que referencias repetidas no hitteen el subgrafo.
+Cacheá resultados de resolución de entidades para que referencias repetidas no
+vuelvan a consultar el subgrafo.
 
 ```yaml
 # router.yaml
@@ -223,7 +232,8 @@ apq:
 
 ## DataLoader: Caching Por-Request
 
-DataLoader batchea y cachea dentro de una sola request GraphQL. Previene N+1 queries agrupando cargas individuales en un batch.
+DataLoader agrupa y cachea dentro de una sola request GraphQL. Previene queries
+N+1 al juntar cargas individuales en un solo batch.
 
 ```javascript
 import DataLoader from "dataloader";
@@ -240,7 +250,7 @@ const resolvers = {
   },
 };
 
-// Fabrica de context: crear DataLoaders frescos por request
+// Fábrica de contexto: crear DataLoaders nuevos por request
 function createContext(db) {
   return {
     db,
@@ -257,25 +267,30 @@ function createContext(db) {
 
 ### Caching de DataLoader Dentro de una Request
 
-DataLoader cachea por key dentro de una sola request. Si dos resolvers llaman `load(42)`, la base de datos se query una vez. La segunda llamada retorna el resultado cacheado. Este cache es por-request: una nueva request obtiene DataLoaders frescos.
+DataLoader cachea por key dentro de una sola request. Si dos resolvers llaman
+`load(42)`, la base de datos se consulta una sola vez. La segunda llamada
+retorna el resultado cacheado. Este cache es por-request: una nueva request
+obtiene DataLoaders nuevos.
 
 ### DataLoader vs Redis Cache
 
-DataLoader es un cache por-request. Redis es un cache cross-request. Usa ambos: DataLoader previene N+1 dentro de una request, Redis previene queries redundantes de base de datos entre requests.
+DataLoader es un cache por-request. Redis es un cache cross-request. Usá ambos:
+DataLoader previene N+1 dentro de una request; Redis previene consultas
+redundantes a la base de datos entre requests.
 
 ```javascript
 const categoryLoader = new DataLoader(async (categoryIds) => {
-  // Checkear Redis primero
+  // Verificar Redis primero
   const cached = await ctx.redis.mget(categoryIds.map((id) => `category:${id}`));
   const missing = categoryIds.filter((id, i) => !cached[i]);
-  
-  // Fetchear faltantes de base de datos
+
+  // Consultar faltantes en la base de datos
   if (missing.length > 0) {
     const fromDb = await db.categories.findMany({ where: { id: { in: missing } } });
     await Promise.all(fromDb.map((c) => ctx.redis.set(`category:${c.id}`, JSON.stringify(c), "EX", 3600)));
   }
-  
-  // Mergear cacheados y frescos
+
+  // Combinar cacheados y frescos
   return categoryIds.map((id, i) => cached[i] ? JSON.parse(cached[i]) : fromDb.find((c) => c.id === id));
 });
 ```
@@ -284,7 +299,8 @@ const categoryLoader = new DataLoader(async (categoryIds) => {
 
 ### Cache Normalizado
 
-Apollo Client almacena datos en un cache normalizado por `__typename:id`. Esto significa que actualizar un producto en una query lo actualiza en todas partes.
+Apollo Client almacena datos en un cache normalizado por `__typename:id`. Esto
+significa que actualizar un producto en una query lo actualiza en todos lados.
 
 ```javascript
 import { ApolloClient, InMemoryCache } from "@apollo/client";
@@ -311,7 +327,8 @@ const client = new ApolloClient({
 
 ### Actualizaciones de Cache Después de Mutaciones
 
-Despues de una mutacion, actualiza el cache para reflejar el cambio sin refetchear.
+Después de una mutación, actualizá el cache para reflejar el cambio sin volver a
+consultar.
 
 ```javascript
 const CREATE_PRODUCT = gql`
@@ -351,7 +368,8 @@ function CreateProduct() {
 
 ### Persistencia de Cache
 
-Persiste el cache a localStorage o sessionStorage para que sobreviva recargas de pagina.
+Persistí el cache a `localStorage` o `sessionStorage` para que sobreviva
+recargas de página.
 
 ```javascript
 import { ApolloClient, InMemoryCache } from "@apollo/client";
@@ -370,7 +388,9 @@ await persistCache({
 
 ### Expiración Basada en TTL
 
-Setea un time-to-live en los datos cacheados. Despues de que el TTL expira, la siguiente request fetchea datos frescos. Simple pero puede servir datos stale por la duracion del TTL.
+Seteá un time-to-live en los datos cacheados. Después de que el TTL expira, la
+siguiente request obtiene datos frescos. Es simple, pero puede servir datos
+obsoletos durante el TTL.
 
 ```javascript
 // Redis SET con TTL
@@ -379,10 +399,11 @@ await redis.set("product:42", JSON.stringify(product), "EX", 3600); // 1 hora
 
 ### Invalidación Event-Driven
 
-Publica eventos de invalidacion cuando los datos cambian. Los suscriptores eliminan la entrada de cache.
+Publicá eventos de invalidación cuando los datos cambian. Los suscriptores
+eliminan la entrada de cache.
 
 ```javascript
-// Despues de actualizar un producto
+// Después de actualizar un producto
 async function updateProduct(id, data) {
   const product = await db.products.update({ where: { id }, data });
   await redis.del(`product:${id}`);
@@ -399,7 +420,8 @@ redis.subscribe("cache-invalidation", (message) => {
 
 ### Cache Keys Versionadas
 
-Incluye un numero de version en la cache key. Incrementa la version cuando los datos cambian. Las entradas de cache viejas expiran naturalmente.
+Incluí un número de versión en la cache key. Incrementá la versión cuando los
+datos cambian. Las entradas viejas expiran naturalmente.
 
 ```javascript
 const version = await redis.get("product:version") || "1";
@@ -409,7 +431,7 @@ const cached = await redis.get(cacheKey);
 
 ### Invalidación Basada en Tags
 
-Etiqueta entradas de cache con entidades relacionadas. Purga por tag.
+Etiquetá entradas de cache con entidades relacionadas. Purgá por tag.
 
 ```javascript
 // Set con tags
@@ -430,64 +452,73 @@ async function purgeCategory(categoryId) {
 
 ### Cachear
 
-- Datos publicos, de mucha lectura (catalogos de productos, blog posts, categorias)
-- Datos que cambian infrecuentemente (configuraciones, datos de referencia)
-- Datos agregados (conteos, resumenes, reportes)
-- Datos especificos de usuario con TTL corto (perfil, preferencias)
+- Datos públicos y de mucha lectura (catálogos, posts, categorías).
+- Datos que cambian poco (configuraciones, datos de referencia).
+- Datos agregados (conteos, resúmenes, reportes).
+- Datos específicos de usuario con TTL corto (perfil, preferencias).
 
 ### No Cachear
 
-- Datos en tiempo real (precios de acciones, resultados en vivo)
-- Datos sensibles que requieren lecturas frescas (saldo de cuenta, registros medicos)
-- Datos detras de mutaciones que deben ser inmediatamente consistentes
-- Tokens de autenticacion y datos de sesion
+- Datos en tiempo real (precios de acciones, resultados en vivo).
+- Datos sensibles que requieren lecturas frescas (saldo, registros médicos).
+- Datos detrás de mutaciones que deben ser inmediatamente consistentes.
+- Tokens de autenticación y datos de sesión.
 
 ## Checklist de Producción
 
-- [ ] GET requests habilitados para queries cacheables
-- [ ] Directivas `@cacheControl` en tipos y campos publicos
-- [ ] Persisted queries habilitadas para cache keys consistentes en CDN
-- [ ] CDN configurado para cachear respuestas `public`
-- [ ] Mecanismo de purge de CDN para cambios de datos
-- [ ] DataLoader para todos los resolvers de lista y relacion
-- [ ] Redis cache para entidades frecuentemente accedidas
-- [ ] Apollo Client normalized cache configurado
-- [ ] Actualizaciones de cache despues de mutaciones (sin datos stale)
-- [ ] Persistencia de cache para soporte offline (si se necesita)
-- [ ] Monitoreo de cache hit rate en cada capa
-- [ ] TTLs seteados apropiadamente por tipo de dato
+- [ ] GET requests habilitados para queries cacheables.
+- [ ] Directivas `@cacheControl` en tipos y campos públicos.
+- [ ] Persisted queries habilitadas para cache keys consistentes en CDN.
+- [ ] CDN configurado para cachear respuestas `public`.
+- [ ] Mecanismo de purge de CDN para cambios de datos.
+- [ ] DataLoader para todos los resolvers de lista y relación.
+- [ ] Redis cache para entidades frecuentemente accedidas.
+- [ ] Apollo Client normalized cache configurado.
+- [ ] Actualizaciones de cache después de mutaciones (sin datos obsoletos).
+- [ ] Persistencia de cache para soporte offline (si se necesita).
+- [ ] Monitoreo de cache hit rate en cada capa.
+- [ ] TTLs seteados apropiadamente por tipo de dato.
 
 ## Preguntas Frecuentes
 
 ### ¿Por qué no puedo cachear GraphQL como REST?
 
-REST cachea por URL. Cada recurso tiene una URL unica, por lo que el CDN o browser puede cachearlo. GraphQL envia todas las requests a `/graphql`, por lo que la URL es la misma para cada query. Para cachear GraphQL, necesitas GET requests con la query en la URL, o persisted queries que produzcan cache keys consistentes.
+REST cachea por URL. Cada recurso tiene una URL única, entonces el CDN o
+navegador puede cachearlo. GraphQL envía todas las requests a `/graphql`, por lo
+que la URL es la misma para cada query. Para cachear GraphQL, necesitás GET
+requests con la query en la URL, o persisted queries que produzcan cache keys
+consistentes.
 
 ### ¿Debería cachear mutaciones?
 
-No. Las mutaciones cambian datos y deben llegar al servidor. Solo cachea queries (operaciones de lectura). La directiva `@cacheControl` solo aplica a respuestas de query.
+No. Las mutaciones cambian datos y deben llegar al servidor. Solo cacheá queries
+(operaciones de lectura). La directiva `@cacheControl` solo aplica a respuestas
+de query.
 
 ### ¿Por cuánto tiempo debería cachear datos?
 
-Depende de cuan stale pueden estar los datos. Catalogos de productos: 1 hora. Perfiles de usuario: 5 minutos. Configuraciones: 24 horas. Datos en tiempo real: 0 (sin cache). Setea el TTL al maximo staleness aceptable para cada tipo de dato.
+Depende de cuán obsoletos pueden estar los datos. Catálogos: 1 hora. Perfiles de
+usuario: 5 minutos. Configuraciones: 24 horas. Datos en tiempo real: 0 (sin
+cache). Seteá el TTL al máximo staleness aceptable para cada tipo de dato.
 
 ### ¿Cuál es la diferencia entre Apollo Client cache y server cache?
 
-Apollo Client cache esta en el browser. Previene requests de red redundantes y habilita actualizaciones instantaneas de UI despues de mutaciones. Server cache (CDN, Redis, DataLoader) previene queries redundantes de base de datos y computacion. Ambas capas son necesarias para una aplicacion rapida.
+Apollo Client cache está en el browser. Previene requests de red redundantes y
+permite actualizaciones instantáneas de UI después de mutaciones. Server cache
+(CDN, Redis, DataLoader) previene consultas redundantes a la base de datos y
+computación. Ambas capas son necesarias para una aplicación rápida.
 
 ### ¿Cómo testeo el comportamiento del cache?
 
-Testea que queries repetidas retornen resultados cacheados (checkea headers de respuesta para `Age` y `X-Cache: HIT`). Testea que las mutaciones invaliden el cache. Testea que no se sirvan datos stale despues de actualizaciones. Usa `client.cache.extract()` de Apollo Client para inspeccionar el cache del cliente.
+Verificá que queries repetidas retornen resultados cacheados (revisá headers de
+respuesta como `Age` y `X-Cache: HIT`). Probá que las mutaciones invaliden el
+cache. Asegurate de que no se sirvan datos obsoletos después de actualizaciones.
+Usá `client.cache.extract()` de Apollo Client para inspeccionar el cache del
+cliente.
 
 ### ¿Debería usar Redis o Memcached para caching GraphQL?
 
-Redis soporta datos estructurados (hashes, sets, sorted sets), TTLs, y pub/sub para invalidacion de cache. Memcached es mas simple y rapido para caching key-value. Usa Redis si necesitas invalidacion basada en tags o pub/sub. Usa Memcached para caching simple basado en TTL.
-
-## See Also
-
-- [Complete Guide to CDN Caching Strategy](/es/guides/complete-guide-cdn-caching-strategy/)
-- [Complete Guide to LLM Cost Optimization](/es/guides/complete-guide-llm-cost-optimization/)
-- [Complete Guide to Application-Level Caching](/es/guides/complete-guide-application-level-caching/)
-- [Complete Guide to Cache Invalidation](/es/guides/complete-guide-cache-invalidation/)
-- [Complete Guide to Redis Caching Strategies](/es/guides/complete-guide-redis-caching-strategies/)
-
+Redis soporta datos estructurados (hashes, sets, sorted sets), TTLs y pub/sub
+para invalidación de cache. Memcached es más simple y rápido para caching
+key-value. Usá Redis si necesitás invalidación basada en tags o pub/sub. Usá
+Memcached para caching simple basado en TTL.

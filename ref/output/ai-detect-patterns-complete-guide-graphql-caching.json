@@ -1,0 +1,69 @@
+[
+  {
+    "label": "complete-guide-graphql-caching",
+    "total_sentences": 98,
+    "pattern_totals": {
+      "vague_abstraction": 1,
+      "flaggy_adverb": 1,
+      "missing_contraction": 3,
+      "formal_verb": 1
+    },
+    "findings": [
+      {
+        "sentence": "Despite this, there are\nmultiple layers where you can cache GraphQL data effectively.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          },
+          {
+            "pattern": "flaggy_adverb",
+            "match": "effectively",
+            "suggestion": "often filler \u2014 cut it or say what it actually does"
+          }
+        ]
+      },
+      {
+        "sentence": "POST responses are not cacheable by\nCDNs or browsers.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "are not",
+            "suggestion": "use 'aren't'"
+          }
+        ]
+      },
+      {
+        "sentence": "Cache entity resolution results so repeated entity references do not hit the\nsubgraph.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "do not",
+            "suggestion": "use 'don't'"
+          }
+        ]
+      },
+      {
+        "sentence": "It prevents redundant network requests and\nenables instant UI updates after mutations.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "enables",
+            "suggestion": "try 'lets you' or 'means you can'"
+          }
+        ]
+      },
+      {
+        "sentence": "Test that stale data\nis not served after updates.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "is not",
+            "suggestion": "use 'isn't'"
+          }
+        ]
+      }
+    ]
+  }
+]

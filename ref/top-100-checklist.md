@@ -404,13 +404,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.5% / ES 42.5% (0 patterns)
    - Words: 842 | Meta: 140 chars
 
-50. - [ ] **complete-guide-graphql-caching** (guides)
+50. - [x] **complete-guide-graphql-caching** (guides)
    - Metrics: 59 imp | pos 30.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/complete-guide-graphql-caching/
    - ES: https://stackpractices.com/es/guides/complete-guide-graphql-caching/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,891 | Meta: 157 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 52.9% / ES 44.4% (0 patterns)
+   - Words: 1,853 | Meta: 157 chars
 
 51. - [ ] **python-data-validation-pandera** (recipes)
    - Metrics: 25 imp | pos 19 | CTR 0.00% | Δ impr 0
