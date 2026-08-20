@@ -1,13 +1,9 @@
 ---
-
-
-
-
 contentType: patterns
 slug: idempotent-consumer-pattern
-title: "Patron de Consumidor Idempotente"
-description: "Procesa mensajes de una cola exactamente una vez sin importar los duplicados, usando operaciones idempotentes, identificadores unicos y estrategias de deduplicacion."
-metaDescription: "Aprende el Patron de Consumidor Idempotente para procesamiento exactamente una vez. Ejemplos en Python, Java y JavaScript con deduplicacion y claves de idempotencia."
+title: "Patrón de Consumidor Idempotente"
+description: "Procesa mensajes de una cola exactamente una vez sin importar los duplicados, usando operaciones idempotentes, identificadores únicos y estrategias de deduplicación."
+metaDescription: "Aprende el Patrón de Consumidor Idempotente para procesamiento exactamente una vez. Ejemplos en Python, Java y JavaScript con deduplicación y claves de idempotencia."
 difficulty: intermediate
 topics:
   - design
@@ -26,13 +22,14 @@ relatedResources:
   - /patterns/event-sourcing-pattern
   - /patterns/saga-pattern
   - /patterns/distributed-lock-pattern
+  - /patterns/inbox-pattern
+  - /patterns/retry-pattern
   - /patterns/compensating-transaction-pattern
-  - /patterns/sequential-convoy-pattern
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-26"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende el Patron de Consumidor Idempotente para procesamiento exactamente una vez. Ejemplos en Python, Java y JavaScript con deduplicacion y claves de idempotencia."
+  metaDescription: "Aprende el Patrón de Consumidor Idempotente para procesamiento exactamente una vez. Ejemplos en Python, Java y JavaScript con deduplicación y claves de idempotencia."
   keywords:
     - consumidor idempotente
     - patron de diseno
@@ -42,57 +39,57 @@ seo:
     - deduplicacion
     - idempotencia
     - event driven
-
-
-
-
 ---
 
 ## Resumen
 
-El Patron de Consumidor Idempotente garantiza que los mensajes de una cola o flujo de eventos se procesen exactamente una vez, incluso si se entregan multiples veces debido a reintentos de red, fallas del consumidor o garantias de entrega al-menos-una-vez. En lugar de depender del sistema de mensajeria para una semantica exactamente-una-vez, el consumidor se disena para ser idempotente: procesar el mismo mensaje multiples veces produce el mismo resultado que procesarlo una sola vez.
+El Patrón de Consumidor Idempotente garantiza que los mensajes de una cola o
+flujo de eventos se procesen exactamente una vez, incluso si se entregan varias
+veces. Reintentos de red, fallas del consumidor y garantías de entrega
+al-menos-una-vez generan duplicados.
 
-La idempotencia se logra rastreando mensajes procesados mediante identificadores unicos, realizando upserts en lugar de inserts, o usando actualizaciones condicionales seguras para repetir. Este patron es esencial en sistemas distribuidos donde brokers como Kafka, RabbitMQ, SQS o Azure Service Bus solo garantizan entrega al-menos-una-vez.
+En lugar de depender del broker para una semántica exactamente-una-vez, el
+consumidor se diseña para ser idempotente: procesar el mismo mensaje dos veces
+produce el mismo resultado que procesarlo una sola vez.
 
-## Cuando Usar
+## Cuándo Usar
 
+- Consumir mensajes de una cola o stream donde los duplicados son posibles.
+- Procesamiento de pagos, cumplimiento de pedidos o actualizaciones de inventario
+  donde duplicados causarían cobros extra, envíos dobles o inconsistencias de
+  stock.
+- Integración con webhooks o callbacks de terceros que reintentan automáticamente.
+- Usar Kafka, SQS, RabbitMQ o brokers similares con entrega al-menos-una-vez.
+- Implementar microservicios event-driven donde cada evento debe manejarse
+  exactamente una vez. Consultá el [Inbox Pattern](/es/patterns/inbox-pattern/)
+  como alternativa.
 
-- For alternatives, see [Inbox Pattern](/es/patterns/inbox-pattern/).
+### Cuándo evitarlo
 
-- Consumir mensajes de una cola o flujo de eventos donde los duplicados son posibles
-- Procesamiento de pagos, cumplimiento de pedidos o actualizaciones de inventario donde duplicados causarian cobros extra, envios dobles o inconsistencias de stock
-- Integracion con sistemas de terceros mediante webhooks o callbacks donde los reintentos son estandar
-- Usar Kafka, SQS o sistemas similares que solo proporcionan entrega al-menos-una-vez
-- Implementar microservicios basados en eventos donde cada evento debe manejarse exactamente una vez
+- El broker ya provee semántica exactamente-una-vez (transacciones Kafka + EOS,
+  SQS FIFO con deduplicación).
+- Operaciones de solo lectura donde los duplicados no causan daño.
+- El overhead de deduplicación es más caro que manejar duplicados ocasionales.
+- Notificaciones simples fire-and-forget donde la entrega duplicada es aceptable.
 
-## Cuando Evitar
+## Solución
 
-- Cuando el sistema de mensajeria soporta nativamente semantica exactamente-una-vez (transacciones Kafka + EOS, sesiones de Service Bus con deduplicacion)
-- Para operaciones de solo lectura donde los duplicados no causan dano
-- Cuando el overhead de rastreo de deduplicacion excede el costo de manejar duplicados ocasionales
-- Notificaciones simples fire-and-forget donde la entrega duplicada es aceptable
-
-## Solucion
-
-### Python (Consumidor Kafka con Deduplicacion)
+### Python (consumidor Kafka con deduplicación)
 
 ```python
 import json
 import sqlite3
 from datetime import datetime
 from kafka import KafkaConsumer
-from kafka.errors import KafkaError
 
 class IdempotentConsumer:
-    """Procesa mensajes de Kafka exactamente una vez usando operaciones idempotentes"""
-
     def __init__(self, bootstrap_servers, topic, db_path="processed.db"):
         self.consumer = KafkaConsumer(
             topic,
             bootstrap_servers=bootstrap_servers,
-            auto_offset_reset='earliest',
+            auto_offset_reset="earliest",
             enable_auto_commit=False,
-            group_id='idempotent-group'
+            group_id="idempotent-group",
         )
         self.db = sqlite3.connect(db_path)
         self._init_table()
@@ -121,28 +118,23 @@ class IdempotentConsumer:
         self.db.commit()
 
     def process_message(self, message):
-        """Procesamiento idempotente: seguro para reintentar"""
         event = json.loads(message.value)
-        message_id = event['id']
+        message_id = event["id"]
 
-        # Verificacion de deduplicacion
         if self.is_processed(message_id):
-            print(f"Omitiendo duplicado: {message_id}")
+            print(f"Skipping duplicate: {message_id}")
             return
 
-        # Operacion idempotente: upsert en la base de datos destino
         self._upsert_order(
-            order_id=event['order_id'],
-            amount=event['amount'],
-            status=event['status']
+            order_id=event["order_id"],
+            amount=event["amount"],
+            status=event["status"],
         )
 
-        # Marcar como procesado (despues de operacion exitosa)
         self.mark_processed(message_id)
 
     def _upsert_order(self, order_id: str, amount: float, status: str):
-        """El upsert garantiza idempotencia — seguro para reintentar"""
-        print(f"Actualizando orden {order_id}: ${amount} ({status})")
+        print(f"Upserting order {order_id}: ${amount} ({status})")
 
     def run(self):
         for message in self.consumer:
@@ -150,25 +142,24 @@ class IdempotentConsumer:
                 self.process_message(message)
                 self.consumer.commit()
             except Exception as e:
-                print(f"Error procesando {message.offset}: {e}")
-                continue
+                print(f"Error processing {message.offset}: {e}")
 
 if __name__ == "__main__":
     consumer = IdempotentConsumer(
-        bootstrap_servers=['localhost:9092'],
-        topic='orders'
+        bootstrap_servers=["localhost:9092"],
+        topic="orders",
     )
     consumer.run()
 ```
 
-### Java (Spring Kafka con Idempotencia)
+### Java (Spring Kafka)
 
 ```java
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -188,19 +179,19 @@ public class IdempotentOrderConsumer {
 
     @KafkaListener(topics = "orders", groupId = "order-group")
     @Transactional
-    public void consumeOrderEvent(
-            OrderEvent event,
-            @Header("kafka_receivedMessageKey") String messageKey) {
-
+    public void consumeOrderEvent(OrderEvent event) {
         String eventId = event.getEventId();
 
-        if (processedIds.contains(eventId)) return;
-        if (repository.existsByEventId(eventId)) {
+        if (processedIds.contains(eventId) || repository.existsByEventId(eventId)) {
             processedIds.add(eventId);
             return;
         }
 
-        orderService.upsertOrder(event.getOrderId(), event.getAmount(), event.getStatus());
+        orderService.upsertOrder(
+            event.getOrderId(),
+            event.getAmount(),
+            event.getStatus()
+        );
 
         repository.save(new ProcessedMessage(eventId));
         processedIds.add(eventId);
@@ -212,25 +203,27 @@ public class ProcessedMessage {
     @Id
     private String eventId;
     private Instant processedAt = Instant.now();
+
+    // constructor, getters, setters
 }
 ```
 
-### JavaScript (Node.js con Deduplicacion Redis)
+### JavaScript (Node.js con Redis)
 
 ```javascript
-const { Kafka } = require('kafkajs');
-const Redis = require('ioredis');
+const { Kafka } = require("kafkajs");
+const Redis = require("ioredis");
 
 class IdempotentConsumer {
     constructor() {
-        this.kafka = new Kafka({ brokers: ['localhost:9092'] });
-        this.consumer = this.kafka.consumer({ groupId: 'order-group' });
+        this.kafka = new Kafka({ brokers: ["localhost:9092"] });
+        this.consumer = this.kafka.consumer({ groupId: "order-group" });
         this.redis = new Redis();
     }
 
     async start() {
         await this.consumer.connect();
-        await this.consumer.subscribe({ topic: 'orders', fromBeginning: false });
+        await this.consumer.subscribe({ topic: "orders", fromBeginning: false });
 
         await this.consumer.run({
             eachMessage: async ({ message }) => {
@@ -239,111 +232,164 @@ class IdempotentConsumer {
 
                 const isProcessed = await this.redis.get(`processed:${eventId}`);
                 if (isProcessed) {
-                    console.log(`Omitiendo duplicado: ${eventId}`);
+                    console.log(`Skipping duplicate: ${eventId}`);
                     return;
                 }
 
-                try {
-                    await this.upsertOrder(event);
-                    await this.redis.setex(`processed:${eventId}`, 604800, '1');
-                } catch (error) {
-                    console.error(`Fallo al procesar ${eventId}:`, error);
-                    throw error;
-                }
-            }
+                await this.upsertOrder(event);
+                await this.redis.setex(`processed:${eventId}`, 604800, "1");
+            },
         });
     }
 
     async upsertOrder(event) {
-        await db.query(`
+        await db.query(
+            `
             INSERT INTO orders (id, amount, status, updated_at)
             VALUES ($1, $2, $3, NOW())
             ON CONFLICT (id) DO UPDATE SET
                 amount = EXCLUDED.amount,
                 status = EXCLUDED.status,
                 updated_at = NOW()
-        `, [event.order_id, event.amount, event.status]);
+            `,
+            [event.order_id, event.amount, event.status]
+        );
     }
 }
 ```
 
-## Explicacion
+### Claves de idempotencia para APIs
 
-Los consumidores idempotentes usan una **ventana de deduplicacion** para rastrear mensajes procesados. El tamano de la ventana depende de las garantias de entrega. El mecanismo clave es:
+```javascript
+class IdempotentAPIClient {
+    constructor(apiClient, idempotencyStore) {
+        this.api = apiClient;
+        this.store = idempotencyStore;
+    }
 
-1. Extraer un identificador unico de cada mensaje
-2. Verificar la tienda de deduplicacion antes de procesar
-3. Realizar una operacion idempotente (upsert, actualizacion condicional)
-4. Registrar el mensaje como procesado solo despues de completar exitosamente
-5. Confirmar/commit del offset despues de registrar el exito
+    async chargePayment(paymentRequest) {
+        const idempotencyKey = paymentRequest.orderId;
 
-Si el consumidor falla entre los pasos 3 y 4, el mensaje se reentregara. Como el paso 3 es idempotente, reprocesar no causa dano.
+        const cached = await this.store.get(idempotencyKey);
+        if (cached) {
+            return JSON.parse(cached);
+        }
+
+        const result = await this.api.post("/charges", paymentRequest, {
+            headers: { "Idempotency-Key": idempotencyKey },
+        });
+
+        await this.store.setex(idempotencyKey, 86400, JSON.stringify(result));
+        return result;
+    }
+}
+```
+
+## Explicación
+
+Los consumidores idempotentes usan una ventana de deduplicación para rastrear
+mensajes procesados. La ventana debe exceder la ventana máxima de redelivery del
+broker.
+
+1. **Extraer un identificador único** de cada mensaje (event ID, message key o
+   hash determinístico).
+2. **Verificar la tienda de deduplicación** antes de procesar (base de datos,
+   Redis o Bloom filter).
+3. **Realizar una operación idempotente** (upsert, actualización condicional o
+   transición de state machine segura para repetir).
+4. **Registrar el mensaje como procesado** solo después de completar con éxito.
+5. **Comitear el offset** después de registrar el éxito.
+
+Si el consumidor falla entre el paso 3 y 4, el mensaje se redelivera. Como el paso
+3 es idempotente, reprocesarlo no causa daño.
 
 ## Variantes
 
-| Variante | Estrategia | Ideal Para |
-|----------|------------|------------|
-| Deduplicacion en base de datos | Tabla `processed_messages` con restriccion unique | Consistencia fuerte, throughput moderado |
-| Deduplicacion en Redis | SETEX con TTL en IDs procesados | Alto throughput, ventanas cortas |
-| Filtro Bloom | Verificacion probabilistica | Throughput muy alto, falsos positivos aceptables |
-| Claves de idempotencia | Clave generada por el cliente para APIs | Integraciones de terceros, APIs de pago |
-| Idempotencia natural | Operaciones inherentemente seguras para reintentar | Actualizar si el timestamp es mas reciente |
+| Variante | Estrategia | Ideal para |
+| --- | --- | --- |
+| Deduplicación con base de datos | Tabla `processed_messages` con constraint único | Consistencia fuerte, throughput moderado |
+| Deduplicación con Redis | `SETEX` con TTL sobre IDs procesados | Alto throughput, ventanas cortas |
+| Bloom filter | Chequeo probabilístico de membresía | Muy alto throughput, falsos positivos aceptables |
+| Claves de idempotencia | Clave generada por el client para APIs | Integraciones de terceros, APIs de pago |
+| Idempotencia natural | Operaciones inherentemente seguras de repetir | Update-if-newer, agregaciones `max()` |
 
-## Lo que funciona
+## Mejores Prácticas
 
-- Usar IDs de mensaje deterministas
-- Hacer la operacion de negocio idempotente
-- Aplicar TTL a la tienda de deduplicacion
-- Separar la deduplicacion de la logica de negocio
-- Monitorear duplicados
+- Usar IDs de mensaje determinísticos asignados por el producer.
+- Hacer que la operación de negocio misma sea idempotente; la deduplicación es un
+  safety net.
+- Setear TTL en la tienda de deduplicación a la ventana máxima de redelivery.
+- Mantener la lógica de deduplicación separada de la lógica de negocio para
+  facilitar tests.
+- Loguear duplicados saltados para detectar misconfiguración del producer o
+  broker.
+- Manejar mensajes fuera de orden con timestamps o sequence numbers.
 
 ## Errores Comunes
 
-- Guardar "procesado" antes de la operacion
-- IDs de mensaje no deterministicos
-- Ignorar el ordenamiento
-- Transacciones de base de datos sin aislamiento
-- Ventanas de deduplicacion infinitas
+- Marcar un mensaje como procesado antes de completar la operación.
+- Usar IDs de mensaje no determinísticos, como un nuevo UUID en cada reintento.
+- Ignorar el orden con las particiones de Kafka.
+- Ejecutar deduplicación en base de datos sin aislamiento adecuado, causando race
+  conditions.
+- Guardar todos los IDs procesados para siempre, creando una tabla sin límites.
+- Depender de deduplicación cuando la operación no es naturalmente idempotente.
 
-## Ejemplos del Mundo Real
+## Ejemplos Reales
 
-- **Stripe**: Usa claves de idempotencia para todas las solicitudes de mutacion. Almacena la solicitud/respuesta durante 24 horas.
-- **Amazon SQS FIFO**: Proporciona procesamiento exactamente-una-vez mediante IDs de deduplicacion con un intervalo de 5 minutos.
-- **Uber**: Usa un patron de doble escritura en consumidores Kafka, escribiendo offsets tanto en Kafka como en Cassandra.
+**Stripe** usa claves de idempotencia para todas las mutaciones. El client envía
+una clave única; Stripe almacena el par request/response y devuelve la respuesta
+en cache para duplicados dentro de 24 horas.
 
-## Preguntas Frecuentes
+**SQS FIFO** provee procesamiento exactamente-una-vez con IDs de deduplicación. Un
+intervalo de 5 minutos descarta envíos duplicados con el mismo ID a nivel de
+queue.
 
-**P: ¿Como difiere de las semanticas exactly-once de Kafka (EOS)?**
-R: EOS proporciona procesamiento exactamente-una-vez dentro de Kafka Streams entre topics de Kafka. El Patron de Consumidor Idempotente funciona para cualquier consumidor escribiendo en cualquier sistema externo.
+**Uber** usa un dual-write pattern: los consumidores guardan offsets procesados en
+Kafka y una tabla de deduplicación de Cassandra. Al reiniciar, consultan Cassandra
+para evitar reprocesar durante rebalancing.
 
-**P: ¿Que ventana de deduplicacion deberia usar?**
-R: Como minimo, mas larga que la ventana maxima de reentrega. Tipico: 7 dias para eventos de negocio, 24 horas para webhooks, 5 minutos para metricas de alta frecuencia.
+## FAQ
 
-**P: ¿Base de datos o Redis para deduplicacion?**
-R: Redis para alto throughput y ventanas cortas. Base de datos para consistencia fuerte, trazabilidad y ventanas largas.
+### ¿En qué se diferencia de los exactly-once semantics de Kafka (EOS)?
 
-**P: ¿Que pasa si no puedo modificar el productor para agregar IDs de mensaje?**
-R: Generar un ID deterministico del contenido del mensaje: `hash(topic + partition + offset)`.
+EOS provee procesamiento exactamente-una-vez entre topics de Kafka en Kafka
+Streams. El Patrón de Consumidor Idempotente funciona para cualquier consumidor
+que escriba en cualquier sistema externo (base de datos, API, archivo) y no
+requiere transacciones de Kafka.
 
-**P: ¿Como manejar mensajes fuera de orden?**
-R: Incluir un timestamp o numero de secuencia en la logica de deduplicacion. Solo procesar si el mensaje es mas reciente.
+### ¿Qué ventana de deduplicación debería usar?
 
-### ¿Es este patrón adecuado para proyectos pequeños?
+Como mínimo, mayor que la ventana máxima de redelivery. Valores típicos: 7 días
+para eventos de negocio, 24 horas para webhooks, 5 minutos para métricas de alta
+frecuencia.
 
-Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+### ¿Debería usar base de datos o Redis para deduplicación?
 
-### ¿Cómo se compara este patrón con alternativas?
+Redis para alto throughput y ventanas cortas. Base de datos para consistencia
+fuerte, audit trails y ventanas largas. Muchos sistemas usan Redis como hot cache
+y la base de datos como source of truth.
 
-Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+### ¿Qué pasa si el producer no puede agregar IDs de mensaje?
 
-### ¿Puedo aplicar este patrón parcialmente?
+Generá un ID determinístico a partir del contenido, como
+`hash(topic + partition + offset)`. Cuidado: cualquier cambio de payload entre
+reintentos rompe la deduplicación.
 
-Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+### ¿Cómo manejo mensajes fuera de orden?
 
-## Troubleshooting
+Incluí un timestamp o sequence number en la lógica de deduplicación. Procesá el
+mensaje solo si es más nuevo que el último procesado para la misma entidad.
 
-- **Pattern does not fit the problem**: re-evaluate the forces (performance, scalability, team size, coupling).   A pattern is only appropriate when its trade-offs match your constraints.
-- **Too many abstractions**: if adding a pattern increases complexity without a clear benefit, simplify.   Not every module needs a factory, decorator, or strategy.
-- **Tight coupling after refactoring**: check that interfaces are stable and dependencies point inward.
-- **Tests break when the design changes**: favor stable contracts over internal structure.
-- **Performance regression from indirection**: measure before and after.   Layers, decorators, and adapters can add latency; cache or inline hot paths if needed.
+### ¿Es adecuado para proyectos pequeños?
+
+Para sistemas pequeños con pocos componentes, el patrón puede agregar
+complejidad innecesaria. Empezá simple e introducilo cuando tengas el problema que
+resuelve.
+
+### ¿Cómo se compara con el Inbox Pattern?
+
+El Inbox Pattern guarda los mensajes entrantes en una tabla local antes de
+procesarlos, lo que ayuda con deduplicación y reintentos. El Patrón de Consumidor
+Idempotente se enfoca en hacer al consumidor seguro ante redeliveries. Pueden
+combinarse.

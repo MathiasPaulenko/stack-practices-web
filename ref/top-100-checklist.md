@@ -364,13 +364,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 53.3% / ES 43.8% (0 patterns)
    - Words: 1,305 | Meta: 134 chars
 
-45. - [ ] **idempotent-consumer-pattern** (patterns)
+45. - [x] **idempotent-consumer-pattern** (patterns)
    - Metrics: 28 imp | pos 11.6 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/idempotent-consumer-pattern/
    - ES: https://stackpractices.com/es/patterns/idempotent-consumer-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,674 | Meta: 156 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 46.8% / ES 44.3% (0 patterns)
+   - Words: 1,318 | Meta: 156 chars
 
 46. - [ ] **circuit-breaker-with-monitoring-pattern** (patterns)
    - Metrics: 27 imp | pos 10.4 | CTR 0.00% | Δ impr 0

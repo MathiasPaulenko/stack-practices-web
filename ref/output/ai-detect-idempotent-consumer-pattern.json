@@ -1,0 +1,356 @@
+[
+  {
+    "label": "idempotent-consumer-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 46.8,
+    "ai_count": 22,
+    "human_count": 33,
+    "skipped_count": 1,
+    "total": 56,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.5,
+      "stddev": 12.6,
+      "cv": 0.93,
+      "verdict": "natural variation",
+      "sentence_count": 55,
+      "lengths": [
+        24,
+        11,
+        32,
+        11,
+        17,
+        9,
+        10,
+        11,
+        7,
+        15,
+        7,
+        10,
+        8,
+        10,
+        11,
+        14,
+        11,
+        15,
+        9,
+        6,
+        13,
+        9,
+        99,
+        11,
+        9,
+        10,
+        9,
+        8,
+        9,
+        12,
+        6,
+        9,
+        9,
+        9,
+        8,
+        21,
+        9,
+        14,
+        17,
+        10,
+        11,
+        21,
+        8,
+        16,
+        7,
+        10,
+        16,
+        15,
+        9,
+        10,
+        16,
+        12,
+        12,
+        19,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "For small systems with few components, the pattern may add unnecessary\ncomplexity.",
+        0.9073
+      ],
+      [
+        "**Record the message as processed** only after successful completion.",
+        0.8363
+      ],
+      [
+        "Handle out-of-order messages with timestamps or sequence numbers.",
+        0.8176
+      ],
+      [
+        "Payment processing, order fulfillment, or inventory updates where duplicates\n  would cause overcharging, double shipping, or stock inconsistencies.",
+        0.7772
+      ],
+      [
+        "Implementing event-driven microservices where each event must be handled\n  exactly once.",
+        0.7519
+      ],
+      [
+        "**Stripe** uses idempotency keys for all mutation requests.",
+        0.7504
+      ],
+      [
+        "Using non-deterministic message IDs, such as a new UUID on each retry.",
+        0.7317
+      ],
+      [
+        "Redis for high throughput and short windows.",
+        0.7038
+      ],
+      [
+        "A 5-minute\ninterval discards duplicate sends with the same ID at the queue level.",
+        0.6827
+      ],
+      [
+        "Using Kafka, SQS, RabbitMQ, or similar brokers with at-least-once delivery.",
+        0.6748
+      ],
+      [
+        "**Extract a unique identifier** from each message (event ID, message key, or\n   deterministic hash).",
+        0.6471
+      ],
+      [
+        "At minimum, longer than the maximum redelivery window.",
+        0.6154
+      ],
+      [
+        "Integrating with third-party webhooks or callbacks that retry automatically.",
+        0.6101
+      ],
+      [
+        "The Inbox Pattern stores incoming messages in a local table before processing,\nwhich also helps with deduplication and retries.",
+        0.5933
+      ],
+      [
+        "The Idempotent Consumer Pattern\nfocuses on making the consumer itself safe to redeliver.",
+        0.587
+      ],
+      [
+        "Read-only operations where duplicates cause no harm.",
+        0.5856
+      ],
+      [
+        "Generate a deterministic ID from the message content, such as\nhash(topic + partition + offset).",
+        0.558
+      ],
+      [
+        "TTL the deduplication store to the maximum redelivery window.",
+        0.5531
+      ],
+      [
+        "Ignoring ordering with Kafka partition semantics.",
+        0.5475
+      ],
+      [
+        "The Idempotent Consumer Pattern makes sure messages from a queue or event stream\nare processed exactly once, even when they're delivered more than once.",
+        0.543
+      ],
+      [
+        "The\nIdempotent Consumer Pattern works for any consumer writing to any external system\n(database, API, file) and doesn't require Kafka transactions.",
+        0.5402
+      ],
+      [
+        "Keep deduplication logic separate from business logic for easier testing.",
+        0.537
+      ],
+      [
+        "**Commit the offset** after recording success.",
+        0.4931
+      ],
+      [
+        "**Perform an idempotent operation** (upsert, conditional update, or state\n   machine transition that's safe to repeat).",
+        0.4922
+      ],
+      [
+        "If the consumer crashes between step 3 and 4, the message is redelivered.",
+        0.4822
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "idempotent-consumer-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 44.3,
+    "ai_count": 18,
+    "human_count": 37,
+    "skipped_count": 1,
+    "total": 56,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.0,
+      "stddev": 13.8,
+      "cv": 0.92,
+      "verdict": "natural variation",
+      "sentence_count": 55,
+      "lengths": [
+        27,
+        13,
+        32,
+        12,
+        21,
+        10,
+        10,
+        11,
+        6,
+        14,
+        10,
+        11,
+        9,
+        12,
+        11,
+        14,
+        15,
+        15,
+        11,
+        8,
+        14,
+        10,
+        109,
+        15,
+        13,
+        14,
+        10,
+        10,
+        10,
+        13,
+        8,
+        12,
+        12,
+        10,
+        9,
+        23,
+        9,
+        16,
+        19,
+        9,
+        11,
+        26,
+        9,
+        19,
+        7,
+        11,
+        16,
+        14,
+        10,
+        11,
+        16,
+        12,
+        10,
+        21,
+        14
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Setear TTL en la tienda de deduplicaci\u00f3n a la ventana m\u00e1xima de redelivery.",
+        0.9363
+      ],
+      [
+        "**SQS FIFO** provee procesamiento exactamente-una-vez con IDs de deduplicaci\u00f3n.",
+        0.9218
+      ],
+      [
+        "EOS provee procesamiento exactamente-una-vez entre topics de Kafka en Kafka\nStreams.",
+        0.9129
+      ],
+      [
+        "Loguear duplicados saltados para detectar misconfiguraci\u00f3n del producer o\n  broker.",
+        0.8685
+      ],
+      [
+        "**Comitear el offset** despu\u00e9s de registrar el \u00e9xito.",
+        0.8186
+      ],
+      [
+        "Los consumidores idempotentes usan una ventana de deduplicaci\u00f3n para rastrear\nmensajes procesados.",
+        0.8058
+      ],
+      [
+        "El broker ya provee sem\u00e1ntica exactamente-una-vez (transacciones Kafka + EOS,\n  SQS FIFO con deduplicaci\u00f3n).",
+        0.7613
+      ],
+      [
+        "**Registrar el mensaje como procesado** solo despu\u00e9s de completar con \u00e9xito.",
+        0.715
+      ],
+      [
+        "El Patr\u00f3n de Consumidor\nIdempotente se enfoca en hacer al consumidor seguro ante redeliveries.",
+        0.6929
+      ],
+      [
+        "Reintentos de red, fallas del consumidor y garant\u00edas de entrega\nal-menos-una-vez generan duplicados.",
+        0.6441
+      ],
+      [
+        "**Extraer un identificador \u00fanico** de cada mensaje (event ID, message key o\n   hash determin\u00edstico).",
+        0.5793
+      ],
+      [
+        "**Realizar una operaci\u00f3n idempotente** (upsert, actualizaci\u00f3n condicional o\n   transici\u00f3n de state machine segura para repetir).",
+        0.5758
+      ],
+      [
+        "Muchos sistemas usan Redis como hot cache\ny la base de datos como source of truth.",
+        0.5531
+      ],
+      [
+        "Inclu\u00ed un timestamp o sequence number en la l\u00f3gica de deduplicaci\u00f3n.",
+        0.5518
+      ],
+      [
+        "Ignorar el orden con las particiones de Kafka.",
+        0.5207
+      ],
+      [
+        "Depender de deduplicaci\u00f3n cuando la operaci\u00f3n no es naturalmente idempotente.",
+        0.5142
+      ],
+      [
+        "Consumir mensajes de una cola o stream donde los duplicados son posibles.",
+        0.5083
+      ],
+      [
+        "El overhead de deduplicaci\u00f3n es m\u00e1s caro que manejar duplicados ocasionales.",
+        0.5079
+      ],
+      [
+        "En lugar de depender del broker para una sem\u00e1ntica exactamente-una-vez, el\nconsumidor se dise\u00f1a para ser idempotente: procesar el mismo mensaje dos veces\nproduce el mismo resultado",
+        0.4963
+      ],
+      [
+        "El Patr\u00f3n de Consumidor Idempotente garantiza que los mensajes de una cola o\nflujo de eventos se procesen exactamente una vez, incluso si se entregan varias\nveces.",
+        0.4797
+      ],
+      [
+        "**Stripe** usa claves de idempotencia para todas las mutaciones.",
+        0.4518
+      ],
+      [
+        "Para sistemas peque\u00f1os con pocos componentes, el patr\u00f3n puede agregar\ncomplejidad innecesaria.",
+        0.4438
+      ],
+      [
+        "Valores t\u00edpicos: 7 d\u00edas\npara eventos de negocio, 24 horas para webhooks, 5 minutos para m\u00e9tricas de alta\nfrecuencia.",
+        0.4389
+      ],
+      [
+        "Implementar microservicios event-driven donde cada evento debe manejarse\n  exactamente una vez.",
+        0.4386
+      ],
+      [
+        "Integraci\u00f3n con webhooks o callbacks de terceros que reintentan autom\u00e1ticamente.",
+        0.4308
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
