@@ -8975,7 +8975,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/export-csv-excel/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/export-csv-excel/" />
@@ -13265,6 +13265,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/eviction/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/eviction/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/eviction/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/tags/excel/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/excel/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/excel/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/excel/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/explain-plan/</loc>
@@ -21521,7 +21530,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/export-csv-excel/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/export-csv-excel/" />
@@ -25811,6 +25820,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/eviction/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/eviction/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/eviction/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/excel/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/excel/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/excel/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/excel/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/explain-plan/</loc>

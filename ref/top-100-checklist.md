@@ -292,13 +292,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.4% / ES 39.3% (0 patterns)
    - Words: 1,184 | Meta: 160 chars
 
-36. - [ ] **export-csv-excel** (recipes)
+36. - [x] **export-csv-excel** (recipes)
    - Metrics: 26 imp | pos 23.9 | CTR 3.85% | Δ impr -27
    - EN: https://stackpractices.com/recipes/export-csv-excel/
    - ES: https://stackpractices.com/es/recipes/export-csv-excel/
    - Focus: losing impressions, proven demand
-   - Status: ⏳ Pending
-   - Words: 1,801 | Meta: 133 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 51.2% / ES 45.0% (0 patterns)
+   - Words: 1,100 | Meta: 137 chars
 
 37. - [x] **grpc-api** (recipes)
    - Metrics: 37 imp | pos 33.6 | CTR 0.00% | Δ impr -40

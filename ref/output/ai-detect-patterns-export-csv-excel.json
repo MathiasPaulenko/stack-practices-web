@@ -1,0 +1,21 @@
+[
+  {
+    "label": "export-csv-excel",
+    "total_sentences": 54,
+    "pattern_totals": {
+      "missing_contraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "You are processing data for spreadsheets, BI tools, or other external apps.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you are",
+            "suggestion": "use 'you're'"
+          }
+        ]
+      }
+    ]
+  }
+]
