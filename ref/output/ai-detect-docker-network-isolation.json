@@ -1,0 +1,338 @@
+[
+  {
+    "label": "docker-network-isolation-en",
+    "model": "desklib",
+    "model_ai_pct": 49.4,
+    "ai_count": 16,
+    "human_count": 30,
+    "skipped_count": 2,
+    "total": 48,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.8,
+      "stddev": 19.8,
+      "cv": 1.34,
+      "verdict": "natural variation",
+      "sentence_count": 46,
+      "lengths": [
+        15,
+        17,
+        16,
+        18,
+        20,
+        11,
+        7,
+        5,
+        10,
+        13,
+        16,
+        8,
+        15,
+        14,
+        107,
+        105,
+        11,
+        8,
+        6,
+        5,
+        9,
+        11,
+        12,
+        14,
+        5,
+        7,
+        7,
+        7,
+        6,
+        8,
+        12,
+        9,
+        17,
+        10,
+        7,
+        9,
+        10,
+        11,
+        5,
+        17,
+        12,
+        9,
+        10,
+        7,
+        8,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "There's just one container running.",
+        0.9046
+      ],
+      [
+        "This recipe shows how to isolate services with custom\nnetworks, internal networks, and port binding rules.",
+        0.8931
+      ],
+      [
+        "Use overlay networks when you've got a Docker Swarm cluster across hosts.",
+        0.878
+      ],
+      [
+        "Not using internal: true for backend networks.",
+        0.8617
+      ],
+      [
+        "Containers can only talk to other containers on the same network.",
+        0.7775
+      ],
+      [
+        "**Network types**:\n\n| Type | Scope | Internet | Use for |\n| --- | --- | --- | --- |\n| **bridge** | Single host | Yes | Default/custom single-host networking |\n| **internal** | Sing",
+        0.7637
+      ],
+      [
+        "Containers on different networks won't reach each other directly.",
+        0.7361
+      ],
+      [
+        "A container in one network can't\nstart a conversation with a container in another network.",
+        0.6989
+      ],
+      [
+        "The default bridge won't resolve container\nnames for you.",
+        0.6707
+      ],
+      [
+        "Get a shell inside the container with docker exec <container> sh, then try\nping, curl, or nc.",
+        0.6362
+      ],
+      [
+        "Use docker network inspect <network> to see which\ncontainers are actually connected.",
+        0.6227
+      ],
+      [
+        "Using the default bridge in production, so every container can reach every\n  other one.",
+        0.5856
+      ],
+      [
+        "Container names\nresolve only inside that network.",
+        0.565
+      ],
+      [
+        "You can\nconnect a single container to both networks, or put a reverse proxy on the edge.",
+        0.5625
+      ],
+      [
+        "Almost never for services that handle untrusted traffic.",
+        0.5569
+      ],
+      [
+        "Internal networks (--internal or internal: true) cut off internet access.",
+        0.5312
+      ],
+      [
+        "By default, Docker puts containers on the bridge network and lets them reach each\nother.",
+        0.4933
+      ],
+      [
+        "Define segmentation in docker-compose.yml so you can version it.",
+        0.4896
+      ],
+      [
+        "That's a security risk: a compromised container can probe or attack the\nothers on the same host.",
+        0.4813
+      ],
+      [
+        "A public-facing container (web) must reach an API, but that API must also\n  reach a database that should stay private.",
+        0.4789
+      ],
+      [
+        "You want to segment services by trust level (frontend, backend, database).",
+        0.4741
+      ],
+      [
+        "Never expose databases on 0.0.0.0.",
+        0.4665
+      ],
+      [
+        "A custom network adds complexity without a\n  threat to mitigate.",
+        0.4609
+      ],
+      [
+        "Overlay uses VXLAN tunnels and supports encryption.",
+        0.4599
+      ],
+      [
+        "Use internal: true for backend networks with databases or private services.",
+        0.4469
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "docker-network-isolation-es",
+    "model": "desklib",
+    "model_ai_pct": 39.3,
+    "ai_count": 11,
+    "human_count": 35,
+    "skipped_count": 2,
+    "total": 48,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.6,
+      "stddev": 20.5,
+      "cv": 1.31,
+      "verdict": "natural variation",
+      "sentence_count": 46,
+      "lengths": [
+        16,
+        18,
+        17,
+        14,
+        22,
+        12,
+        9,
+        5,
+        10,
+        13,
+        19,
+        9,
+        16,
+        18,
+        112,
+        108,
+        13,
+        8,
+        9,
+        7,
+        8,
+        12,
+        6,
+        15,
+        8,
+        8,
+        7,
+        7,
+        8,
+        11,
+        11,
+        9,
+        16,
+        10,
+        9,
+        9,
+        12,
+        10,
+        8,
+        15,
+        11,
+        8,
+        12,
+        7,
+        9,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Las redes Docker aislan en la capa de enlace.",
+        0.9338
+      ],
+      [
+        "Exponer puertos de base de datos en 0.0.0.0.",
+        0.7711
+      ],
+      [
+        "Los contenedores en redes diferentes no se alcanzan directamente.",
+        0.764
+      ],
+      [
+        "Casi nunca para servicios que manejen tr\u00e1fico no confiable.",
+        0.7329
+      ],
+      [
+        "Esta receta muestra c\u00f3mo aislar\nservicios con redes personalizadas, redes internas y reglas de asignaci\u00f3n de\npuertos.",
+        0.6639
+      ],
+      [
+        "Las bases de datos pueden hacer\n  conexiones salientes.",
+        0.6451
+      ],
+      [
+        "Las redes no\ninternas permiten salida a internet.",
+        0.6327
+      ],
+      [
+        "Los nombres se\nresuelven solo dentro de esa red.",
+        0.56
+      ],
+      [
+        "Poner todos los contenedores en una sola red.",
+        0.5534
+      ],
+      [
+        "No usar internal: true en redes backend.",
+        0.5229
+      ],
+      [
+        "Us\u00e1 docker network inspect <red> para ver qu\u00e9 contenedores est\u00e1n\nconectados.",
+        0.5113
+      ],
+      [
+        "Solo hay un contenedor corriendo.",
+        0.4938
+      ],
+      [
+        "Us\u00e1 overlay para clusters Swarm multi-host.",
+        0.4847
+      ],
+      [
+        "Varias servicios corren en un host y quer\u00e9s limitar c\u00f3mo se hablan entre s\u00ed.",
+        0.4655
+      ],
+      [
+        "Us\u00e1 bridge cuando todo corre en un host.",
+        0.4547
+      ],
+      [
+        "Las redes internas (--internal o internal: true) cortan el acceso a\ninternet.",
+        0.4303
+      ],
+      [
+        "Defin\u00ed la segmentaci\u00f3n en docker-compose.yml para poder versionarla.",
+        0.4261
+      ],
+      [
+        "Quer\u00e9s segmentar servicios por nivel de confianza (frontend, backend, base de\n  datos).",
+        0.42
+      ],
+      [
+        "Ya us\u00e1s Kubernetes o Docker Swarm con network policies que manejan la\n  segmentaci\u00f3n.",
+        0.4028
+      ],
+      [
+        "Nunca expongas bases de\n  datos en 0.0.0.0.",
+        0.3954
+      ],
+      [
+        "El bridge por defecto no resuelve nombres de\ncontenedores.",
+        0.3943
+      ],
+      [
+        "Pod\u00e9s\nconectar un mismo contenedor a ambas redes, o poner un reverse proxy en el\nborde.",
+        0.3891
+      ],
+      [
+        "Usala solo para\nworkloads de confianza cr\u00edticos en performance donde no pod\u00e9s pagar el overhead\nNAT del bridge.",
+        0.3703
+      ],
+      [
+        "Pol\u00edticas de seguridad o compliance requieren segmentaci\u00f3n de red.",
+        0.3619
+      ],
+      [
+        "Conect\u00e1 contenedores solo a las redes que necesiten.",
+        0.3558
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

@@ -1,13 +1,9 @@
 ---
-
-
-
-
 contentType: recipes
 slug: docker-network-isolation
 title: "Docker Network Isolation and Inter-Container Security"
 description: "Secure inter-container communication with custom Docker networks, network segmentation, and access control policies."
-metaDescription: "Secure Docker containers with network isolation, custom bridge networks, internal networks, and access control. Prevent unauthorized inter-container communication."
+metaDescription: "Secure Docker containers with custom bridge, internal and overlay networks. Isolate services, block unauthorized inter-container traffic, and bind ports safely."
 difficulty: intermediate
 topics:
   - devops
@@ -23,42 +19,47 @@ relatedResources:
   - /recipes/docker-health-check-configuration
   - /recipes/docker-compose-dev-prod-split
   - /recipes/docker-multi-stage-build-optimization
-  - /guides/webhook-security-guide
-  - /patterns/sidecar-pattern
   - /recipes/docker-image-vulnerability-scan
-  - /recipes/bash-iptables-firewall
-  - /recipes/docker-logging-fluentd
   - /recipes/docker-secrets-management
-  - /recipes/python-terraform-provider-custom
-  - /recipes/python-encrypt-decrypt-aes
-lastUpdated: "2026-07-02"
+  - /recipes/docker-basics
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Secure Docker containers with network isolation, custom bridge networks, internal networks, and access control. Prevent unauthorized inter-container communication."
+  metaDescription: "Secure Docker containers with custom bridge, internal and overlay networks. Isolate services, block unauthorized inter-container traffic, and bind ports safely."
   keywords:
     - docker network isolation
     - docker container security
     - docker bridge network
     - docker internal network
     - docker network segmentation
-    - inter-container communication security
-
-
-
-
+    - inter-container communication
 ---
 
 ## Overview
 
-By default, Docker containers on the default bridge network can communicate with each other. This is a security risk: a compromised container can probe or attack other containers on the same host. The pattern below demonstrates how to isolate containers using custom networks, internal networks, and access control to limit which containers can talk to each other.
+By default, Docker puts containers on the bridge network and lets them reach each
+other. That's a security risk: a compromised container can probe or attack the
+others on the same host. This recipe shows how to isolate services with custom
+networks, internal networks, and port binding rules.
 
 ## When to Use
 
-- You run multiple services on the same host and need to restrict inter-container communication
-- You have a public-facing container (API) and a private container (database) that should not be reachable from outside
-- You want to segment services by trust level (frontend, backend, database)
-- You need to comply with security policies requiring network segmentation
+- Several services run on the same host, and you want to limit how they talk to
+  each other.
+- A public-facing container (web) must reach an API, but that API must also
+  reach a database that should stay private.
+- You want to segment services by trust level (frontend, backend, database).
+- Compliance or security policies require network segmentation.
+
+### When to avoid
+
+- There's just one container running. A custom network adds complexity without a
+  threat to mitigate.
+- You already use Kubernetes or Docker Swarm, and its network policies handle
+  segmentation.
+- Your workload needs the host network for very low latency and you handle
+  isolation somewhere else.
 
 ## Solution
 
@@ -70,7 +71,7 @@ docker run -d --name api --network bridge my-api
 docker run -d --name db --network bridge my-db
 # api can reach db and vice versa — no isolation
 
-# Custom bridge: containers can only talk to containers on the same network
+# Custom bridge: containers in this network can only talk to each other
 docker network create --driver bridge frontend-net
 docker network create --driver bridge backend-net
 
@@ -82,23 +83,23 @@ docker run -d --name web --network frontend-net my-web
 # api can reach db — same network
 ```
 
-### Internal network (no internet access)
+### Internal network (no internet)
 
 ```bash
 # Create an internal network — containers cannot reach the internet
 docker network create --driver bridge --internal backend-internal
 
 docker run -d --name db --network backend-internal my-db
-# db has no internet access, only inter-container communication on this network
+# db has no internet access, only inter-container traffic on this network
 ```
 
-### Multi-network container (API connects to both frontend and backend)
+### Multi-network container
 
 ```bash
 docker network create frontend-net
 docker network create backend-net
 
-# API container joins both networks
+# API joins both networks
 docker run -d --name api --network frontend-net my-api
 docker network connect backend-net api
 
@@ -114,318 +115,6 @@ docker run -d --name db --network backend-net my-db
 
 ```yaml
 # docker-compose.yml
-services:
-    web:
-        image: nginx:alpine
-        ports:
-            - "80:80"
-        networks:
-            - frontend
-        depends_on:
-            - api
-
-    api:
-        build: .
-        networks:
-            - frontend
-            - backend
-        depends_on:
-            db:
-                condition: service_healthy
-
-    db:
-        image: postgres:16-alpine
-        networks:
-            - backend
-        environment:
-            POSTGRES_PASSWORD: ${DB_PASSWORD}
-        healthcheck:
-            test: ["CMD", "pg_isready", "-U", "postgres"]
-            interval: 10s
-            timeout: 5s
-            retries: 5
-
-networks:
-    frontend:
-        driver: bridge
-    backend:
-        driver: bridge
-        internal: true   # No internet access for backend
-```
-
-### Network with IP range and subnet
-
-```bash
-docker network create \
-    --driver bridge \
-    --subnet 172.20.0.0/16 \
-    --ip-range 172.20.0.0/24 \
-    --gateway 172.20.0.1 \
-    backend-net
-```
-
-### Restricting published ports with IP binding
-
-```bash
-# Bind to localhost only — not accessible from other machines
-docker run -d -p 127.0.0.1:5432:5432 --name db postgres:16-alpine
-
-# Bind to a specific interface
-docker run -d -p 10.0.0.5:80:80 --name web nginx:alpine
-
-# Bind to all interfaces (default — least secure)
-docker run -d -p 0.0.0.0:80:80 --name web nginx:alpine
-```
-
-### Overlay network for Docker Swarm
-
-```bash
-# Create an overlay network (requires Swarm mode)
-docker network create --driver overlay --attachable my-overlay-net
-
-# Services on different hosts can communicate securely
-docker service create --name api --network my-overlay-net my-api
-docker service create --name db --network my-overlay-net my-db
-```
-
-### Inspecting network connectivity
-
-```bash
-# List all networks
-docker network ls
-
-# Inspect a network to see connected containers
-docker network inspect backend-net
-
-# Test connectivity from one container to another
-docker exec api ping db
-docker exec api curl -f http://db:5432
-
-# Remove a container from a network
-docker network disconnect backend-net api
-```
-
-## Explanation
-
-Docker networks provide isolation at the data link layer. Containers on different networks cannot communicate directly.
-
-Network types:
-
-- **bridge**: The default driver for single-host networking. Creates a virtual ethernet bridge on the host. Custom bridge networks provide DNS resolution (container names resolve to IPs) and isolation.
-- **internal**: A bridge network with `--internal` flag. Containers on this network have no external internet access. Useful for databases that should only be reachable by application containers.
-- **overlay**: For multi-host networking with Docker Swarm. Uses VXLAN tunnels between hosts. Containers on the same overlay network can communicate across hosts.
-- **host**: No isolation — the container uses the host's network stack directly. Use only for performance-critical scenarios.
-
-Security principles:
-
-- **Least privilege**: Each container should only be on the networks it needs. A database does not need internet access.
-- **Segmentation**: Separate public-facing services (web) from internal services (database) using different networks.
-- **Internal networks**: Use `internal: true` for networks that should have no internet access.
-- **Port binding**: Bind to `127.0.0.1` for services that should only be accessible from the host, not from the network.
-
-## Variants
-
-| Network Type | Scope | Internet Access | Use When |
-|-------------|-------|-----------------|----------|
-| Default bridge | Single host | Yes | Development only |
-| Custom bridge | Single host | Yes | Production single-host |
-| Internal bridge | Single host | No | Databases, private services |
-| Overlay | Multi-host (Swarm) | Yes | Swarm clusters |
-| Host | Single host | Yes | Maximum performance |
-
-## Guidelines
-
-- Never use the default bridge network in production. Create custom networks.
-- Use `internal: true` for backend networks containing databases and private services.
-- Connect containers to only the networks they need. A web container should not be on the backend network.
-- Bind database ports to `127.0.0.1` only. Never expose databases to external interfaces.
-- Use Docker Compose networks to define segmentation declaratively.
-- Use overlay networks for Swarm multi-host communication.
-- Inspect networks regularly with `docker network inspect` to verify connectivity.
-- Remove unused networks with `docker network prune`.
-
-## Common Mistakes
-
-- Using the default bridge network in production. All containers can reach each other.
-- Exposing database ports to `0.0.0.0`. Anyone on the network can connect.
-- Putting all containers on one network. No segmentation means a compromised container can attack everything.
-- Not using `internal: true` for backend networks. Databases can make outbound internet connections.
-- Forgetting that containers on different networks cannot resolve each other's names. DNS only works within the same network.
-- Connecting a container to too many networks. This increases the attack surface.
-
-## FAQ
-
-### Can containers on different networks communicate?
-
-No. Containers on different Docker networks cannot communicate directly. You need a container connected to both networks to act as a bridge, or use a reverse proxy.
-
-### How does DNS resolution work in custom networks?
-
-Docker embeds a DNS server in each custom bridge network. Container names resolve to their IP addresses within that network. The default bridge network does not have DNS resolution.
-
-### What is the difference between internal and non-internal networks?
-
-Internal networks (`--internal` flag) block all internet access. Containers can only communicate with other containers on the same network. Non-internal networks allow containers to reach the internet.
-
-### How do I debug network connectivity issues?
-
-Use `docker exec -it <container> sh` and test with `ping`, `curl`, or `nc`. Check `docker network inspect <network>` to see which containers are connected. Verify that containers are on the same network if they need to communicate.
-
-### Network Aliases for Service Discovery
-
-```yaml
-# docker-compose.yml
-services:
-  api:
-    build: .
-    networks:
-      frontend:
-        aliases:
-          - api-service
-          - api.internal
-      backend:
-        aliases:
-          - backend-api
-
-  db:
-    image: postgres:16-alpine
-    networks:
-      backend:
-        aliases:
-          - database
-          - postgres
-
-networks:
-  frontend:
-    driver: bridge
-  backend:
-    driver: bridge
-    internal: true
-```
-
-```bash
-# Other containers can reach api by any alias
-docker exec web curl http://api-service:3000
-docker exec web curl http://api.internal:3000
-docker exec api curl http://database:5432
-```
-
-### IPv6 Network Configuration
-
-```bash
-# Create network with IPv6 support
-docker network create \
-    --driver bridge \
-    --ipv6 \
-    --subnet 2001:db8:1::/64 \
-    --gateway 2001:db8:1::1 \
-    ipv6-net
-
-# Run container with IPv6
-docker run -d --network ipv6-net --name api my-api
-```
-
-```yaml
-# docker-compose.yml with IPv6
-networks:
-  frontend:
-    driver: bridge
-    enable_ipv6: true
-    ipam:
-      config:
-        - subnet: 2001:db8:2::/64
-          gateway: 2001:db8:2::1
-```
-
-### Macvlan Network for Direct Host Network Access
-
-```bash
-# Create macvlan network (container gets its own IP on the physical network)
-docker network create \
-    --driver macvlan \
-    --subnet 192.168.1.0/24 \
-    --gateway 192.168.1.1 \
-    -o parent=eth0 \
-    macvlan-net
-
-# Run container with its own MAC address and IP
-docker run -d --network macvlan-net --name api my-api
-```
-
-### Firewall Integration with iptables
-
-```bash
-# Block container from accessing specific external IPs
-iptables -I DOCKER-USER -d 10.0.0.0/8 -j DROP
-
-# Allow only specific containers to reach the database
-iptables -I DOCKER-USER -s 172.20.0.2 -d 172.20.0.3 -p tcp --dport 5432 -j ACCEPT
-iptables -I DOCKER-USER -d 172.20.0.3 -p tcp --dport 5432 -j DROP
-
-# Log dropped traffic for debugging
-iptables -I DOCKER-USER -j LOG --log-prefix "DOCKER-DROP: " --log-level 4
-```
-
-### Network Troubleshooting Toolkit
-
-```bash
-#!/bin/bash
-# net-debug.sh — Debug Docker network connectivity
-
-CONTAINER=${1:-api}
-TARGET=${2:-db}
-PORT=${3:-5432}
-
-echo "=== Network check: $CONTAINER -> $TARGET:$PORT ==="
-
-# Check if containers exist
-docker inspect "$CONTAINER" > /dev/null 2>&1 || { echo "Container $CONTAINER not found"; exit 1; }
-docker inspect "$TARGET" > /dev/null 2>&1 || { echo "Container $TARGET not found"; exit 1; }
-
-# Check shared networks
-CONTAINER_NETS=$(docker inspect "$CONTAINER" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}')
-TARGET_NETS=$(docker inspect "$TARGET" --format '{{range $k,$v := .NetworkSettings.Networks}}{{$k}} {{end}}')
-
-echo "Container networks: $CONTAINER_NETS"
-echo "Target networks: $TARGET_NETS"
-
-SHARED=""
-for net in $CONTAINER_NETS; do
-  if echo "$TARGET_NETS" | grep -qw "$net"; then
-    SHARED="$SHARED $net"
-  fi
-done
-
-if [ -z "$SHARED" ]; then
-  echo "FAIL: No shared networks. Containers cannot communicate."
-  exit 1
-fi
-
-echo "Shared networks:$SHARED"
-
-# Test DNS resolution
-echo "=== DNS resolution ==="
-docker exec "$CONTAINER" getent hosts "$TARGET" 2>/dev/null || \
-  echo "DNS resolution failed for $TARGET"
-
-# Test TCP connectivity
-echo "=== TCP connectivity ==="
-docker exec "$CONTAINER" timeout 3 bash -c "echo > /dev/tcp/$TARGET/$PORT" 2>/dev/null && \
-  echo "OK: Port $PORT reachable" || \
-  echo "FAIL: Port $PORT not reachable"
-
-# Show network details
-echo "=== Network details ==="
-for net in $SHARED; do
-  echo "--- $net ---"
-  docker network inspect "$net" --format '{{range .Containers}}{{.Name}}: {{.IPv4Address}}{{"\n"}}{{end}}'
-done
-```
-
-### Three-Tier Network Segmentation with Compose
-
-```yaml
-# docker-compose.yml — Three-tier architecture
 services:
   web:
     image: nginx:alpine
@@ -444,22 +133,11 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      cache:
-        condition: service_started
-
-  worker:
-    build: ./worker
-    networks:
-      - backend
-    depends_on:
-      - db
 
   db:
     image: postgres:16-alpine
     networks:
       - backend
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     healthcheck:
@@ -468,53 +146,147 @@ services:
       timeout: 5s
       retries: 5
 
-  cache:
-    image: redis:7-alpine
-    networks:
-      - backend
-    volumes:
-      - redis_data:/data
-
 networks:
   frontend:
     driver: bridge
   backend:
     driver: bridge
     internal: true
-
-volumes:
-  postgres_data:
-  redis_data:
 ```
 
-
-
-
-## Performance Tips
-
-1. **Use `host` network for maximum throughput.** Bypasses the Docker bridge entirely:
+### Bind ports to a specific interface
 
 ```bash
-# No NAT overhead, but no isolation
-docker run -d --network host my-app
+# Localhost only — not accessible from other machines
+docker run -d -p 127.0.0.1:5432:5432 --name db postgres:16-alpine
+
+# Specific interface
+docker run -d -p 10.0.0.5:80:80 --name web nginx:alpine
+
+# All interfaces — least secure, avoid for databases
+docker run -d -p 0.0.0.0:80:80 --name web nginx:alpine
 ```
 
-Only use this for performance-critical workloads where isolation is handled at a different layer.
-
-2. **Reduce DNS lookup overhead.** Docker's embedded DNS adds latency for each lookup:
+### Inspect and test connectivity
 
 ```bash
-# Add DNS cache in container
-docker run -d --dns 127.0.0.11 --dns-opt "timeout:1" --dns-opt "attempts:1" my-app
+# List networks
+docker network ls
+
+# Inspect a network
+docker network inspect backend-net
+
+# Test from one container to another
+docker exec api ping db
+docker exec api curl -f http://db:5432
+
+# Remove a container from a network
+docker network disconnect backend-net api
 ```
 
-3. **Use `--network-alias` for faster service discovery.** Avoids container name lookups:
+## Explanation
+
+Docker networks isolate at the data link layer. A container in one network can't
+start a conversation with a container in another network. Docker embeds a DNS
+server inside custom bridge networks, so names only resolve there.
+
+**Network types**:
+
+| Type | Scope | Internet | Use for |
+| --- | --- | --- | --- |
+| **bridge** | Single host | Yes | Default/custom single-host networking |
+| **internal** | Single host | No | Databases and private services |
+| **overlay** | Multi-host | Yes | Docker Swarm across hosts |
+| **host** | Single host | Yes | Performance-critical, no isolation |
+| **macvlan** | Single host | Yes | Direct IP on the physical network |
+
+Use aliases to give a container several names on the same network:
 
 ```yaml
 services:
   db:
+    image: postgres:16-alpine
     networks:
       backend:
         aliases:
-          - db.internal
+          - database
+          - postgres.internal
+
+networks:
+  backend:
+    driver: bridge
+    internal: true
 ```
+
+Other containers can then reach it as `database` or `postgres.internal`.
+
+## Variants
+
+| Approach | Use when | Trade-off |
+| --- | --- | --- |
+| Custom bridge | One host, several services | More secure than default bridge |
+| Internal bridge | Databases, workers with no internet | Stronger isolation, no outbound |
+| Multi-network | Reverse proxy / API gateway | One container joins two segments |
+| Overlay | Docker Swarm multi-host | Encrypted VXLAN across hosts |
+| Host network | Very high throughput | No isolation |
+| Macvlan | Container needs its own IP | Complex, requires physical network |
+
+## Best Practices
+
+- Never use the default bridge network in production. Create custom networks.
+- Use `internal: true` for backend networks with databases or private services.
+- Connect containers to only the networks they need.
+- Bind database ports to `127.0.0.1` only. Never expose databases on `0.0.0.0`.
+- Define segmentation in `docker-compose.yml` so you can version it.
+- Inspect networks regularly with `docker network inspect` and prune unused
+  networks.
+- Use overlay networks when you've got a Docker Swarm cluster across hosts.
+
+## Common Mistakes
+
+- Using the default bridge in production, so every container can reach every
+  other one.
+- Exposing database ports to `0.0.0.0`.
+- Putting every container on the same network. A compromised container can attack
+  the rest.
+- Not using `internal: true` for backend networks. Databases may make outbound
+  internet connections.
+- Forgetting that DNS only resolves within one network.
+- Connecting a container to too many networks, which increases the attack
+  surface.
+
+## FAQ
+
+### Can containers on different Docker networks communicate?
+
+No. Containers on different networks won't reach each other directly. You can
+connect a single container to both networks, or put a reverse proxy on the edge.
+
+### How does DNS resolution work?
+
+Docker has an embedded DNS server on custom bridge networks. Container names
+resolve only inside that network. The default bridge won't resolve container
+names for you.
+
+### What is the difference between internal and non-internal networks?
+
+Internal networks (`--internal` or `internal: true`) cut off internet access.
+Containers can only talk to other containers on the same network. Non-internal
+networks allow outbound internet.
+
+### How do I debug connectivity?
+
+Get a shell inside the container with `docker exec <container> sh`, then try
+`ping`, `curl`, or `nc`. Use `docker network inspect <network>` to see which
+containers are actually connected.
+
+### Should I use overlay or bridge?
+
+Use bridge when your stack stays on one host. Use overlay when your Swarm spans
+more than one host. Overlay uses VXLAN tunnels and supports encryption.
+
+### When is host network the right choice?
+
+Almost never for services that handle untrusted traffic. Use it only for
+performance-critical, trusted workloads where you can't pay the bridge NAT
+overhead.

@@ -1,0 +1,21 @@
+[
+  {
+    "label": "docker-network-isolation",
+    "total_sentences": 48,
+    "pattern_totals": {
+      "missing_contraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "A container in one network cannot\nstart a conversation with a container in another network.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "cannot",
+            "suggestion": "use 'can't'"
+          }
+        ]
+      }
+    ]
+  }
+]

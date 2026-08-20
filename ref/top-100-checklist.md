@@ -284,13 +284,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.3% / ES 41.1% (0 patterns)
    - Words: 804 | Meta: 153 chars
 
-35. - [ ] **docker-network-isolation** (recipes)
+35. - [x] **docker-network-isolation** (recipes)
    - Metrics: 43 imp | pos 28.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/docker-network-isolation/
    - ES: https://stackpractices.com/es/recipes/docker-network-isolation/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,878 | Meta: 163 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.4% / ES 39.3% (0 patterns)
+   - Words: 1,184 | Meta: 160 chars
 
 36. - [ ] **export-csv-excel** (recipes)
    - Metrics: 26 imp | pos 23.9 | CTR 3.85% | Δ impr -27
