@@ -348,13 +348,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 40.5% / ES 41.0% (0 patterns)
    - Words: 1,255 | Meta: 146 chars
 
-43. - [ ] **complete-guide-rabbitmq-architecture** (guides)
+43. - [x] **complete-guide-rabbitmq-architecture** (guides)
    - Metrics: 54 imp | pos 33.6 | CTR 0.00% | Δ impr 40
    - EN: https://stackpractices.com/guides/complete-guide-rabbitmq-architecture/
    - ES: https://stackpractices.com/es/guides/complete-guide-rabbitmq-architecture/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,708 | Meta: 147 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.4% / ES 40.5% (0 patterns)
+   - Words: 1,478 | Meta: 167 chars
 
 44. - [ ] **domain-driven-design-guide** (guides)
    - Metrics: 54 imp | pos 35.8 | CTR 0.00% | Δ impr 7
