@@ -372,13 +372,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 46.8% / ES 44.3% (0 patterns)
    - Words: 1,318 | Meta: 156 chars
 
-46. - [ ] **circuit-breaker-with-monitoring-pattern** (patterns)
+46. - [x] **circuit-breaker-with-monitoring-pattern** (patterns)
    - Metrics: 27 imp | pos 10.4 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/circuit-breaker-with-monitoring-pattern/
    - ES: https://stackpractices.com/es/patterns/circuit-breaker-with-monitoring-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,898 | Meta: 158 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.6% / ES 44.6% (0 patterns)
+   - Words: 1,793 | Meta: 158 chars
 
 47. - [ ] **idempotent-api-endpoints** (recipes)
    - Metrics: 17 imp | pos 21.6 | CTR 0.00% | Δ impr -39

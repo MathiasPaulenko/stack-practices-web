@@ -1,0 +1,21 @@
+[
+  {
+    "label": "circuit-breaker-with-monitoring-pattern",
+    "total_sentences": 52,
+    "pattern_totals": {
+      "vague_abstraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "Microservices with multiple downstream dependencies protected by breakers.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]

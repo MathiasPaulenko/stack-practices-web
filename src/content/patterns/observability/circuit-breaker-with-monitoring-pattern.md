@@ -1,7 +1,4 @@
 ---
-
-
-
 contentType: patterns
 slug: circuit-breaker-with-monitoring-pattern
 title: "Circuit Breaker with Monitoring"
@@ -19,12 +16,13 @@ tags:
   - pattern
 category: architectural
 relatedResources:
+  - /patterns/circuit-breaker-pattern
   - /patterns/health-check-pattern
   - /patterns/metrics-aggregation-pattern
   - /patterns/structured-logging-pattern
   - /guides/complete-guide-observability-grafana-stack
   - /guides/complete-guide-prometheus-grafana
-lastUpdated: "2026-07-05"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -36,36 +34,39 @@ seo:
     - prometheus
     - alerting
     - pattern
-
-
-
 ---
 
 ## Overview
 
-A circuit breaker stops calls to a failing service to prevent cascading failures. But without monitoring, you're flying blind — you don't know which breakers are open, how often they trip, or how long they stay open. The circuit breaker with monitoring pattern exposes breaker state (closed, open, half-open), failure counts, and transition events as Prometheus metrics. This lets you build dashboards showing real-time breaker states, alert when breakers stay open too long, and track recovery patterns over time.
+A circuit breaker stops calls to a failing service to prevent cascading failures.
+Without monitoring, you can't see which breakers are open, how often they trip,
+or how long they stay open.
+
+The Circuit Breaker with Monitoring pattern exposes breaker state (closed, open,
+half-open), failure counts, and transition events as Prometheus metrics. This
+gives you dashboards for real-time breaker states, alerts when breakers stay open
+too long, and data to track recovery patterns over time.
 
 ## When to Use
 
-- Any system using circuit breakers that needs operational visibility
-- Microservices where multiple downstream dependencies have breakers
-- Production environments where you need to alert on open breakers
-- Capacity planning — tracking how often and how long breakers trip
-- Incident response — quickly identifying which dependency is failing
+- Any system using circuit breakers that needs operational visibility.
+- Microservices with several downstream dependencies protected by breakers.
+- Production environments where you need alerts on open breakers.
+- Capacity planning and tracking how often and how long breakers trip.
+- Incident response to quickly identify a failing dependency.
 
-## When NOT to Use
+### When to avoid
 
-- Applications without circuit breakers — no state to monitor
-- Development environments where you can observe behavior directly
-- Simple applications with a single downstream dependency
-- When your circuit breaker library already exports metrics (some do)
+- Applications that don't use circuit breakers — there's no state to monitor.
+- Development environments where you can observe behavior directly.
+- Simple applications with a single downstream dependency.
+- When your circuit breaker library already exports metrics.
 
 ## Solution
 
 ### Python circuit breaker with Prometheus metrics
 
 ```python
-# Python — circuit breaker with Prometheus metrics
 import time
 from enum import Enum
 from prometheus_client import Gauge, Counter, Histogram, start_http_server
@@ -75,41 +76,40 @@ class CircuitState(Enum):
     OPEN = "open"
     HALF_OPEN = "half_open"
 
-# Metrics
 CIRCUIT_STATE = Gauge(
-    'circuit_breaker_state',
-    'Circuit breaker state (0=closed, 1=open, 2=half_open)',
-    ['service', 'endpoint'],
+    "circuit_breaker_state",
+    "Circuit breaker state (0=closed, 1=open, 2=half_open)",
+    ["service", "endpoint"],
 )
 
 CIRCUIT_FAILURES = Counter(
-    'circuit_breaker_failures_total',
-    'Total failures that contributed to circuit breaker tripping',
-    ['service', 'endpoint'],
+    "circuit_breaker_failures_total",
+    "Total failures that contributed to circuit breaker tripping",
+    ["service", "endpoint"],
 )
 
 CIRCUIT_SUCCESSES = Counter(
-    'circuit_breaker_successes_total',
-    'Total successful calls through circuit breaker',
-    ['service', 'endpoint'],
+    "circuit_breaker_successes_total",
+    "Total successful calls through circuit breaker",
+    ["service", "endpoint"],
 )
 
 CIRCUIT_REJECTED = Counter(
-    'circuit_breaker_rejected_total',
-    'Total calls rejected because circuit was open',
-    ['service', 'endpoint'],
+    "circuit_breaker_rejected_total",
+    "Total calls rejected because circuit was open",
+    ["service", "endpoint"],
 )
 
 CIRCUIT_STATE_TRANSITIONS = Counter(
-    'circuit_breaker_state_transitions_total',
-    'Circuit breaker state transitions',
-    ['service', 'endpoint', 'from_state', 'to_state'],
+    "circuit_breaker_state_transitions_total",
+    "Circuit breaker state transitions",
+    ["service", "endpoint", "from_state", "to_state"],
 )
 
 CIRCUIT_OPEN_DURATION = Histogram(
-    'circuit_breaker_open_duration_seconds',
-    'How long the circuit breaker stayed open',
-    ['service', 'endpoint'],
+    "circuit_breaker_open_duration_seconds",
+    "How long the circuit breaker stayed open",
+    ["service", "endpoint"],
     buckets=[1, 5, 10, 30, 60, 120, 300, 600],
 )
 
@@ -240,10 +240,8 @@ class MonitoredCircuitBreaker:
 class CircuitBreakerOpenError(Exception):
     pass
 
-# Start metrics server
 start_http_server(9090)
 
-# Usage
 payment_breaker = MonitoredCircuitBreaker(
     service="payment-service",
     endpoint="/api/charge",
@@ -258,37 +256,36 @@ def charge_payment(order):
 ### Node.js with opossum and Prometheus
 
 ```javascript
-// JavaScript — opossum circuit breaker with Prometheus metrics
-const CircuitBreaker = require('opossum');
-const promClient = require('prom-client');
+const CircuitBreaker = require("opossum");
+const promClient = require("prom-client");
 
 const register = new promClient.Registry();
 
 const circuitState = new promClient.Gauge({
-  name: 'circuit_breaker_state',
-  help: 'Circuit breaker state (0=closed, 1=open, 2=half_open)',
-  labelNames: ['service', 'endpoint'],
+  name: "circuit_breaker_state",
+  help: "Circuit breaker state (0=closed, 1=open, 2=half_open)",
+  labelNames: ["service", "endpoint"],
   registers: [register],
 });
 
 const circuitFailures = new promClient.Counter({
-  name: 'circuit_breaker_failures_total',
-  help: 'Total failures that contributed to circuit breaker tripping',
-  labelNames: ['service', 'endpoint'],
+  name: "circuit_breaker_failures_total",
+  help: "Total failures that contributed to circuit breaker tripping",
+  labelNames: ["service", "endpoint"],
   registers: [register],
 });
 
 const circuitRejected = new promClient.Counter({
-  name: 'circuit_breaker_rejected_total',
-  help: 'Total calls rejected because circuit was open',
-  labelNames: ['service', 'endpoint'],
+  name: "circuit_breaker_rejected_total",
+  help: "Total calls rejected because circuit was open",
+  labelNames: ["service", "endpoint"],
   registers: [register],
 });
 
 const circuitTransitions = new promClient.Counter({
-  name: 'circuit_breaker_state_transitions_total',
-  help: 'Circuit breaker state transitions',
-  labelNames: ['service', 'endpoint', 'from_state', 'to_state'],
+  name: "circuit_breaker_state_transitions_total",
+  help: "Circuit breaker state transitions",
+  labelNames: ["service", "endpoint", "from_state", "to_state"],
   registers: [register],
 });
 
@@ -303,12 +300,9 @@ function createMonitoredBreaker(name, endpoint, fn, options = {}) {
   });
 
   const labels = { service: name, endpoint };
-
-  // Map opossum states to numeric values
   const stateMap = { closed: 0, opened: 1, halfOpen: 2 };
 
-  // Update state gauge on every state change
-  breaker.on('state', (from, to) => {
+  breaker.on("state", (from, to) => {
     circuitState.labels(labels).set(stateMap[to] ?? 0);
     circuitTransitions.labels({
       ...labels,
@@ -317,27 +311,25 @@ function createMonitoredBreaker(name, endpoint, fn, options = {}) {
     }).inc();
   });
 
-  breaker.on('failure', () => {
+  breaker.on("failure", () => {
     circuitFailures.labels(labels).inc();
   });
 
-  breaker.on('reject', () => {
+  breaker.on("reject", () => {
     circuitRejected.labels(labels).inc();
   });
 
-  // Set initial state
   circuitState.labels(labels).set(0);
 
   return breaker;
 }
 
-// Usage
 const paymentBreaker = createMonitoredBreaker(
-  'payment-service',
-  '/api/charge',
+  "payment-service",
+  "/api/charge",
   async (order) => {
-    const response = await fetch('https://payment-service/api/charge', {
-      method: 'POST',
+    const response = await fetch("https://payment-service/api/charge", {
+      method: "POST",
       body: JSON.stringify(order),
     });
     if (!response.ok) throw new Error(`Payment failed: ${response.status}`);
@@ -346,11 +338,11 @@ const paymentBreaker = createMonitoredBreaker(
   { timeout: 5000, errorThreshold: 50, resetTimeout: 30000 }
 );
 
-// Metrics endpoint
-const express = require('express');
+const express = require("express");
 const app = express();
-app.get('/metrics', async (req, res) => {
-  res.set('Content-Type', register.contentType);
+
+app.get("/metrics", async (req, res) => {
+  res.set("Content-Type", register.contentType);
   res.end(await register.metrics());
 });
 ```
@@ -358,22 +350,21 @@ app.get('/metrics', async (req, res) => {
 ### Java with Resilience4j and Micrometer
 
 ```java
-// Java — Resilience4j circuit breaker with Micrometer metrics
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.micrometer.tagged.TaggedCircuitBreakerMetrics;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
+import java.time.Duration;
 
-// Setup
 MeterRegistry meterRegistry = new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
 CircuitBreakerRegistry registry = CircuitBreakerRegistry.ofDefaults();
 
-// Register Micrometer metrics for all circuit breakers
 TaggedCircuitBreakerMetrics.ofCircuitBreakerRegistry(registry)
     .bindTo(meterRegistry);
 
-// Create a circuit breaker
 CircuitBreaker paymentBreaker = CircuitBreaker.of(
     "payment-service",
     CircuitBreakerConfig.custom()
@@ -386,7 +377,6 @@ CircuitBreaker paymentBreaker = CircuitBreaker.of(
 
 registry.addCircuitBreaker(paymentBreaker);
 
-// Usage with automatic metrics
 CircuitBreaker.decorateSupplier(paymentBreaker, () -> {
     return paymentClient.charge(order);
 }).get();
@@ -398,14 +388,12 @@ CircuitBreaker.decorateSupplier(paymentBreaker, () -> {
 // resilience4j_circuitbreaker_calls_total{name="payment-service",kind="not_permitted"} 0
 ```
 
-### Alerting rules for circuit breakers
+### Prometheus alerting rules
 
 ```yaml
-# Prometheus alerting rules for circuit breakers
 groups:
   - name: circuit-breakers
     rules:
-      # Critical: any circuit breaker is open
       - alert: CircuitBreakerOpen
         expr: circuit_breaker_state == 1
         for: 1m
@@ -415,21 +403,17 @@ groups:
           summary: "Circuit breaker open for {{ $labels.service }}/{{ $labels.endpoint }}"
           description: "The circuit breaker has been open for more than 1 minute."
 
-      # Warning: high rejection rate
       - alert: CircuitBreakerHighRejectionRate
-        expr: |
-          rate(circuit_breaker_rejected_total[5m]) > 10
+        expr: rate(circuit_breaker_rejected_total[5m]) > 10
         for: 2m
         labels:
           severity: warning
         annotations:
           summary: "High rejection rate for {{ $labels.service }}"
-          description: "Circuit breaker is rejecting more than 10 calls/sec."
+          description: "Circuit breaker is rejecting more than 10 calls per second."
 
-      # Warning: frequent state transitions (flapping)
       - alert: CircuitBreakerFlapping
-        expr: |
-          increase(circuit_breaker_state_transitions_total[10m]) > 10
+        expr: increase(circuit_breaker_state_transitions_total[10m]) > 10
         for: 5m
         labels:
           severity: warning
@@ -437,10 +421,8 @@ groups:
           summary: "Circuit breaker flapping for {{ $labels.service }}"
           description: "More than 10 state transitions in 10 minutes."
 
-      # Info: breaker recently opened
       - alert: CircuitBreakerTripped
-        expr: |
-          increase(circuit_breaker_state_transitions_total{to_state="open"}[1m]) > 0
+        expr: increase(circuit_breaker_state_transitions_total{to_state="open"}[1m]) > 0
         labels:
           severity: info
         annotations:
@@ -449,7 +431,7 @@ groups:
 
 ### Grafana dashboard queries
 
-```promql
+```text
 # Current state of all circuit breakers
 circuit_breaker_state
 
@@ -476,19 +458,18 @@ sum(rate(circuit_breaker_successes_total[5m])) by (service)
 ### Structured logging for state transitions
 
 ```python
-# Python — log circuit breaker state transitions
 import structlog
+
 logger = structlog.get_logger()
 
 class MonitoredCircuitBreaker:
-    # ... (previous code)
+    # ... previous code ...
 
     def _transition(self, new_state):
         old_state = self._state
         if old_state == new_state:
             return
 
-        # Log the transition
         logger.warning(
             "circuit_breaker_state_transition",
             service=self.service,
@@ -515,14 +496,13 @@ class MonitoredCircuitBreaker:
                 open_duration=time.time() - self._opened_at if self._opened_at else 0,
             )
 
-        # Update metrics (as before)
+        # Update metrics as before
         CIRCUIT_STATE_TRANSITIONS.labels(
             service=self.service,
             endpoint=self.endpoint,
             from_state=old_state.value,
             to_state=new_state.value,
         ).inc()
-        # ... rest of transition logic
 ```
 
 ## Variants
@@ -530,39 +510,38 @@ class MonitoredCircuitBreaker:
 ### Bulkhead monitoring alongside circuit breakers
 
 ```javascript
-// JavaScript — monitor bulkhead (concurrent call limiter) with circuit breaker
-const { Bulkhead } = require('opossum');
+const { Bulkhead } = require("opossum");
 
 const bulkheadActiveCalls = new promClient.Gauge({
-  name: 'bulkhead_active_calls',
-  help: 'Currently active calls in bulkhead',
-  labelNames: ['service'],
+  name: "bulkhead_active_calls",
+  help: "Currently active calls in bulkhead",
+  labelNames: ["service"],
   registers: [register],
 });
 
 const bulkheadRejected = new promClient.Counter({
-  name: 'bulkhead_rejected_total',
-  help: 'Calls rejected by bulkhead',
-  labelNames: ['service'],
+  name: "bulkhead_rejected_total",
+  help: "Calls rejected by bulkhead",
+  labelNames: ["service"],
   registers: [register],
 });
 
 function createMonitoredBulkhead(service, fn, maxConcurrent) {
   const bulkhead = new Bulkhead(fn, { maxConcurrent });
 
-  bulkhead.on('execute', () => {
+  bulkhead.on("execute", () => {
     bulkheadActiveCalls.labels({ service }).inc();
   });
 
-  bulkhead.on('reject', () => {
+  bulkhead.on("reject", () => {
     bulkheadRejected.labels({ service }).inc();
   });
 
-  bulkhead.on('success', () => {
+  bulkhead.on("success", () => {
     bulkheadActiveCalls.labels({ service }).dec();
   });
 
-  bulkhead.on('failure', () => {
+  bulkhead.on("failure", () => {
     bulkheadActiveCalls.labels({ service }).dec();
   });
 
@@ -573,7 +552,6 @@ function createMonitoredBulkhead(service, fn, maxConcurrent) {
 ### Multi-dependency dashboard
 
 ```python
-# Python — track multiple downstream dependencies
 class DependencyMonitor:
     def __init__(self):
         self.breakers = {}
@@ -589,13 +567,11 @@ class DependencyMonitor:
         return breaker
 
     def health_summary(self):
-        """Return a summary of all breaker states for health endpoint."""
         return {
             key: breaker._state.value
             for key, breaker in self.breakers.items()
         }
 
-# Usage
 monitor = DependencyMonitor()
 monitor.register("payment-service", "/api/charge")
 monitor.register("inventory-service", "/api/stock")
@@ -603,46 +579,78 @@ monitor.register("notification-service", "/api/email")
 monitor.register("user-service", "/api/users")
 ```
 
+## Explanation
+
+Monitoring a circuit breaker means emitting metrics for:
+
+- **State**: a gauge mapped to 0 (closed), 1 (open), or 2 (half-open).
+- **Failures and successes**: counters to calculate error rates.
+- **Rejected calls**: a counter to detect when traffic is being dropped.
+- **State transitions**: a counter to detect flapping.
+- **Open duration**: a histogram to track how long recovery takes.
+
+Logs complement metrics by recording why a breaker changed state. Use
+deterministic labels such as `service` and `endpoint` across metrics, logs, and
+traces. This makes it easy to correlate a Grafana alert with the matching logs.
+
 ## Best Practices
 
-
-- For a deeper guide, see [Complete Guide to Observability with the Grafana Stack](/guides/complete-guide-observability-grafana-stack/).
-
-- Expose state as a gauge — 0 (closed), 1 (open), 2 (half-open). This allows alerting on specific states.
-- Track transitions separately — count state changes to detect flapping breakers.
-- Alert on open breakers — a breaker staying open for more than 1 minute is usually a problem.
-- Log state transitions — metrics show the what, logs show the why. Include failure counts and thresholds.
-- Track open duration — histogram of how long breakers stay open helps identify chronic vs. transient issues.
-- Monitor rejection rate — high rejection rate means your service is degraded even if not fully down.
-- Use consistent labels — service and endpoint labels should match across metrics, logs, and traces.
-- Set up flapping detection — more than 10 transitions in 10 minutes indicates an unstable dependency.
+- Expose state as a gauge with numeric values for each state.
+- Track state transitions separately to detect flapping.
+- Alert on breakers open for more than one minute.
+- Log state transitions with failure counts and thresholds.
+- Track open duration with a histogram to identify chronic versus transient
+  issues.
+- Monitor rejection rate, because high rejections mean degradation even if the
+  service isn't fully down.
+- Use consistent `service` and `endpoint` labels across metrics, logs, and
+  traces.
+- Set up flapping detection: more than ten transitions in ten minutes is usually
+  an unstable dependency.
 
 ## Common Mistakes
 
-- **Only tracking state**: knowing the breaker is open isn't enough. Track failures, rejections, and open duration too.
-- **No alerting on open state**: a breaker can be open for hours without anyone noticing if there's no alert.
-- **Not logging transitions**: metrics tell you the breaker opened, logs tell you why (failure count, threshold, error).
-- **Ignoring half-open state**: half-open is a transient state, but it's important for understanding recovery attempts.
-- **No flapping detection**: a breaker that opens and closes rapidly indicates an unstable dependency that needs investigation.
+- Tracking only the state gauge and ignoring failures, rejections, and open
+  duration.
+- Not alerting on the open state, letting breakers stay open for hours.
+- Not logging transitions, making it hard to understand why a breaker opened.
+- Ignoring the half-open state, which is key to understanding recovery attempts.
+- No flapping detection, missing an unstable dependency.
+- Using unbounded deduplication or infinite retention for processed event IDs.
 
 ## FAQ
 
 ### Why expose circuit breaker state as metrics?
 
-Metrics let you build dashboards and alerts. Without metrics, you can't answer "which breakers are open right now?" or "how often does the payment breaker trip?" without manually checking each service.
+Metrics let you build dashboards and alerts. Without them, you can't answer
+"which breakers are open right now?" or "how often does the payment breaker
+trip?" without manually checking each service.
 
 ### What should I alert on?
 
-Alert when any breaker is open for more than 1 minute (critical), when rejection rate exceeds 10/sec (warning), and when a breaker has more than 10 state transitions in 10 minutes (flapping, warning).
+- Any breaker open for more than 1 minute: critical.
+- Rejection rate above 10 per second: warning.
+- More than 10 state transitions in 10 minutes: flapping, warning.
 
 ### How is this different from health checks?
 
-Health checks tell you if your service is alive. Circuit breaker metrics tell you if your dependencies are healthy. A service can be alive but degraded because a downstream breaker is open.
+Health checks report whether your service is alive. Circuit breaker metrics
+report whether your dependencies are healthy. A service can be alive but degraded
+because a downstream breaker is open.
 
 ### Should I use a library or build my own?
 
-Use a library (opossum, Resilience4j, pybreaker) for the breaker logic, then add monitoring. Most libraries have hooks for metrics. Building a breaker from scratch is error-prone.
+Use a library (opossum, Resilience4j, pybreaker) for the breaker logic and add
+monitoring on top. Most libraries expose hooks for metrics. Building a breaker
+from scratch is error-prone.
 
 ### What is flapping and why does it matter?
 
-Flapping is when a breaker rapidly opens and closes. It indicates an unstable dependency that's intermittently failing. This is often worse than a consistently open breaker because it's harder to diagnose.
+Flapping is when a breaker rapidly opens and closes. It indicates an unstable
+dependency that intermittently fails. This is often harder to diagnose than a
+consistently open breaker.
+
+### Can I use this with traces?
+
+Yes. Add `service` and `endpoint` labels as trace tags. When an alert fires, you
+can jump from the metric to the trace to see the failing call.
