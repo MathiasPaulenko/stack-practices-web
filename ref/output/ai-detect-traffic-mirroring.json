@@ -1,0 +1,359 @@
+[
+  {
+    "label": "traffic-mirroring-en",
+    "model": "desklib",
+    "model_ai_pct": 45.5,
+    "ai_count": 22,
+    "human_count": 34,
+    "skipped_count": 10,
+    "total": 66,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.1,
+      "stddev": 13.4,
+      "cv": 1.1,
+      "verdict": "natural variation",
+      "sentence_count": 56,
+      "lengths": [
+        15,
+        16,
+        16,
+        10,
+        10,
+        10,
+        10,
+        7,
+        12,
+        8,
+        7,
+        5,
+        11,
+        73,
+        19,
+        10,
+        10,
+        11,
+        11,
+        12,
+        9,
+        85,
+        11,
+        15,
+        5,
+        11,
+        13,
+        10,
+        6,
+        5,
+        14,
+        14,
+        7,
+        8,
+        7,
+        6,
+        8,
+        6,
+        6,
+        5,
+        8,
+        9,
+        7,
+        5,
+        9,
+        8,
+        9,
+        9,
+        6,
+        13,
+        8,
+        7,
+        6,
+        19,
+        12,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Load testing with synthetic data doesn't capture real-world request\ncomplexity.",
+        0.8573
+      ],
+      [
+        "This lets you do realistic load testing,\nregression validation, and performance benchmarking against actual traffic\npatterns.",
+        0.8508
+      ],
+      [
+        "Load testing generates artificial traffic to find capacity limits.",
+        0.8028
+      ],
+      [
+        "The application can't handle duplicated requests safely.",
+        0.7776
+      ],
+      [
+        "**Latency**: the mirror should never block the production response.",
+        0.7684
+      ],
+      [
+        "Benchmarking infrastructure changes such as database versions or kernel\n  upgrades.",
+        0.7321
+      ],
+      [
+        "Mirroring health checks and monitoring requests.",
+        0.6465
+      ],
+      [
+        "Mirroring\nuses real traffic for realism.",
+        0.641
+      ],
+      [
+        "Writes from\n  mirrored traffic corrupt production state.",
+        0.6388
+      ],
+      [
+        "Staging shouldn't send real emails to\n  real customers.",
+        0.6339
+      ],
+      [
+        "You can't isolate side effects.",
+        0.6305
+      ],
+      [
+        "Only after you've validated idempotency, isolated state, disabled side effects,\nand confirmed the mirror target can handle the load.",
+        0.62
+      ],
+      [
+        "This\n  can leak production data and credentials.",
+        0.6151
+      ],
+      [
+        "**State isolation**: the staging database must not share state with production.",
+        0.6037
+      ],
+      [
+        "Application-level setups can filter by URL, method, and headers\neasily.",
+        0.6016
+      ],
+      [
+        "Use idempotency keys for all mutating\n  endpoints.",
+        0.6015
+      ],
+      [
+        "Use async fire-and-forget for application-level mirrors.",
+        0.5515
+      ],
+      [
+        "Use a dedicated, isolated staging environment.",
+        0.5502
+      ],
+      [
+        "Sanitize headers and bodies before they leave production.",
+        0.547
+      ],
+      [
+        "AWS Traffic Mirroring works within the same VPC.",
+        0.5246
+      ],
+      [
+        "Mirrored traffic can trigger alerts, so\n  use separate thresholds and dashboards.",
+        0.5217
+      ],
+      [
+        "Mirroring traffic to a public staging endpoint without authentication.",
+        0.5023
+      ],
+      [
+        "Mirroring CSS, JS, and images wastes resources and skews\n  metrics.",
+        0.4946
+      ],
+      [
+        "Unlike synthetic tests, mirrored traffic reveals how systems behave\nunder genuine request distributions, headers, and payloads.",
+        0.4874
+      ],
+      [
+        "It reaches the mirror target in addition to the\nproduction backend, so the production response path must remain independent.",
+        0.4702
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "traffic-mirroring-es",
+    "model": "desklib",
+    "model_ai_pct": 39.0,
+    "ai_count": 16,
+    "human_count": 41,
+    "skipped_count": 9,
+    "total": 66,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.7,
+      "stddev": 14.1,
+      "cv": 1.03,
+      "verdict": "natural variation",
+      "sentence_count": 57,
+      "lengths": [
+        17,
+        17,
+        22,
+        15,
+        13,
+        16,
+        10,
+        10,
+        12,
+        11,
+        9,
+        5,
+        13,
+        77,
+        19,
+        15,
+        13,
+        11,
+        13,
+        11,
+        10,
+        92,
+        14,
+        14,
+        6,
+        13,
+        13,
+        11,
+        8,
+        8,
+        16,
+        15,
+        6,
+        9,
+        8,
+        7,
+        9,
+        8,
+        7,
+        9,
+        11,
+        7,
+        5,
+        10,
+        12,
+        5,
+        8,
+        11,
+        10,
+        7,
+        14,
+        10,
+        9,
+        8,
+        18,
+        11,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Escritas\n  del tr\u00e1fico mirror corrompen el estado de producci\u00f3n.",
+        0.9246
+      ],
+      [
+        "**Latencia**: el mirror nunca deber\u00eda bloquear la respuesta de producci\u00f3n.",
+        0.8476
+      ],
+      [
+        "Las escrituras del\n  mirror corrompen datos de producci\u00f3n.",
+        0.8066
+      ],
+      [
+        "Valid\u00e1s una nueva versi\u00f3n de servicio contra tr\u00e1fico de producci\u00f3n antes del\n  cutover.",
+        0.7829
+      ],
+      [
+        "S\u00ed, pero aumenta la latencia.",
+        0.6513
+      ],
+      [
+        "Puede\n  filtrar datos de producci\u00f3n y credenciales.",
+        0.6488
+      ],
+      [
+        "Mirror de CSS, JS e im\u00e1genes desperdicia recursos y\n  distorsiona m\u00e9tricas.",
+        0.6242
+      ],
+      [
+        "Logue\u00e1 status code, response time y un diff de campos seleccionados.",
+        0.5835
+      ],
+      [
+        "Consideraciones clave:\n**Idempotencia**: los POST/PUT mirror deben ser seguros de repetir.",
+        0.5828
+      ],
+      [
+        "Mirror de health checks y requests de monitoreo.",
+        0.5802
+      ],
+      [
+        "M\u00ednimo si se hace bien.",
+        0.5699
+      ],
+      [
+        "El\nmirroring usa tr\u00e1fico real para realismo.",
+        0.5405
+      ],
+      [
+        "La aplicaci\u00f3n no puede manejar requests duplicados de forma segura.",
+        0.5279
+      ],
+      [
+        "Las configs a nivel aplicaci\u00f3n permiten filtrar por URL, m\u00e9todo y\nheaders f\u00e1cilmente.",
+        0.5181
+      ],
+      [
+        "Mirror de\n  POSTs o pagos no idempotentes puede causar side effects reales.",
+        0.5118
+      ],
+      [
+        "Agrega ruido a las anal\u00edticas\n  de staging.",
+        0.5088
+      ],
+      [
+        "Mirror de tr\u00e1fico a un endpoint de staging p\u00fablico sin autenticaci\u00f3n.",
+        0.4919
+      ],
+      [
+        "No pod\u00e9s aislar side effects.",
+        0.4716
+      ],
+      [
+        "Us\u00e1 ambos: mirror para validaci\u00f3n de\nregresiones realista, load testing para capacidad y estr\u00e9s.",
+        0.4686
+      ],
+      [
+        "Load testing genera tr\u00e1fico artificial para encontrar l\u00edmites de capacidad.",
+        0.4481
+      ],
+      [
+        "Cobrar dos veces a un cliente porque se mirror\u00f3 el\n  pago es un riesgo real.",
+        0.4449
+      ],
+      [
+        "El diff\nautomatizado detecta regresiones antes de un canary o cutover completo.",
+        0.435
+      ],
+      [
+        "Desactiv\u00e1 efectos salientes en el target: webhooks, emails, APIs de terceros y\n  push notifications.",
+        0.4214
+      ],
+      [
+        "Hac\u00e9s benchmark de cambios de infraestructura como versiones de base de datos\n  o upgrades de kernel.",
+        0.4121
+      ],
+      [
+        "El tr\u00e1fico mirror puede disparar\n  alertas, as\u00ed que us\u00e1 umbrales y dashboards separados.",
+        0.4107
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

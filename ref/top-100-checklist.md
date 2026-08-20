@@ -324,13 +324,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.7% / ES 41.8% (0 patterns)
    - Words: 1,179 | Meta: 159 chars
 
-40. - [ ] **traffic-mirroring** (recipes)
+40. - [x] **traffic-mirroring** (recipes)
    - Metrics: 31 imp | pos 15.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/traffic-mirroring/
    - ES: https://stackpractices.com/es/recipes/traffic-mirroring/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,436 | Meta: 163 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.5% / ES 39.0% (0 patterns)
+   - Words: 1,268 | Meta: 166 chars
 
 41. - [ ] **async-generator-pattern** (patterns)
    - Metrics: 31 imp | pos 11.4 | CTR 0.00% | Δ impr 0

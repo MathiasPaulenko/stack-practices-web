@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: traffic-mirroring
-title: "Traffic Mirroring"
+title: "Traffic Mirroring para Testing en Producción y Shadow Deployments"
 description: "Replica tráfico de producción a ambientes de staging para testing realista, despliegues shadow y validación de performance sin impactar usuarios."
-metaDescription: "Traffic mirroring: shadow deployments, load testing realista, validación de performance y replicación segura de ambientes."
+metaDescription: "Traffic mirroring: shadow deployments, load testing realista, validación de performance y replicación segura de ambientes usando Nginx, Istio y AWS."
 difficulty: intermediate
 topics:
   - devops
@@ -14,49 +12,70 @@ tags:
   - testing
   - deployment
   - ci-cd
+  - nginx
+  - istio
+  - aws
+  - kubernetes
 relatedResources:
-  - /guides/cicd-pipeline-guide
-  - /docs/post-deployment-checklist-template
   - /guides/deployment-strategies-guide
   - /recipes/blue-green-deployment
+  - /guides/canary-deployment-guide
+  - /recipes/load-testing-k6
+  - /recipes/idempotent-api-endpoints
   - /recipes/graceful-shutdown
-  - /recipes/background-jobs
-  - /recipes/bash-scripting-automation
-lastUpdated: "2026-06-19"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Traffic mirroring: shadow deployments, load testing realista, validación de performance y replicación segura de ambientes."
+  metaDescription: "Traffic mirroring: shadow deployments, load testing realista, validación de performance y replicación segura de ambientes usando Nginx, Istio y AWS."
   keywords:
     - traffic-mirroring
     - devops
     - testing
     - deployment
-
-
+    - shadow
+    - nginx
+    - istio
 ---
+
 ## Visión General
 
-El traffic mirroring copia requests reales de producción a un ambiente de staging o [shadow](/recipes/blue-green-deployment/) sin afectar usuarios. Esto habilita testing de carga realista, validación de regresiones y benchmarking de performance contra patrones de tráfico actuales. A diferencia de tests sintéticos que simulan comportamiento de usuario, el tráfico mirror revela cómo los sistemas se comportan bajo distribuciones de requests genuinas, headers y payloads reales.
+Traffic mirroring copia requests reales de producción a un ambiente de staging o
+shadow sin afectar usuarios. Esto habilita load testing realista, validación de
+regresiones y benchmarking de performance contra patrones de tráfico actuales. A
+diferencia de tests sintéticos, el tráfico mirror muestra cómo se comportan los
+sistemas bajo distribuciones de requests, headers y payloads reales.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- El load testing con datos sintéticos no captura la complejidad de requests del mundo real
-- Validas una nueva versión de servicio contra tráfico de producción antes del cutover
-- Necesitas benchmark de cambios de infraestructura (versiones de base de datos, upgrades de kernel)
-- Testeas [disaster recovery](/guides/on-call-incident-response-guide/) reproduciendo tráfico de producción contra sistemas standby
+- El load testing con datos sintéticos no captura la complejidad de requests del
+  mundo real.
+- Validás una nueva versión de servicio contra tráfico de producción antes del
+  cutover.
+- Hacés benchmark de cambios de infraestructura como versiones de base de datos
+  o upgrades de kernel.
+- Testeás disaster recovery reproduciendo tráfico de producción contra sistemas
+  standby.
+
+### Cuándo evitarlo
+
+- La aplicación no puede manejar requests duplicados de forma segura. Mirror de
+  POSTs o pagos no idempotentes puede causar side effects reales.
+- Staging comparte bases de datos o cuentas de terceros con producción. Escritas
+  del tráfico mirror corrompen el estado de producción.
+- No podés aislar side effects. El tráfico mirror no debería enviar emails reales,
+  cobrar pagos ni disparar webhooks.
 
 ## Solución
 
-### AWS VPC Traffic Mirroring (CLI)
+### AWS VPC Traffic Mirroring
 
 ```bash
-# Crear traffic mirror target (NLB o ENI)
+# Crear un traffic mirror target (NLB o ENI)
 aws ec2 create-traffic-mirror-target \
   --network-load-balancer-arn arn:aws:elasticloadbalancing:us-east-1:123456789012:loadbalancer/net/staging-nlb/abc123
 
-# Crear mirror filter (capturar solo tráfico HTTP a /api)
+# Crear un mirror filter para tráfico HTTP/HTTPS
 aws ec2 create-traffic-mirror-filter-rule \
   --traffic-mirror-filter-id tmf-1234567890abcdef0 \
   --traffic-direction ingress \
@@ -64,7 +83,7 @@ aws ec2 create-traffic-mirror-filter-rule \
   --protocol 6 \
   --destination-port-range FromPort=80,ToPort=443
 
-# Crear mirror session
+# Crear la mirror session
 aws ec2 create-traffic-mirror-session \
   --network-interface-id eni-1234567890abcdef0 \
   --traffic-mirror-target-id tmt-1234567890abcdef0 \
@@ -73,7 +92,7 @@ aws ec2 create-traffic-mirror-session \
   --packet-length 1500
 ```
 
-### Nginx Mirror Module
+### Nginx mirror module
 
 ```nginx
 server {
@@ -81,7 +100,6 @@ server {
     server_name api.example.com;
 
     location /api/ {
-        # Mirror requests a staging mientras proxy a producción
         mirror /staging_mirror;
         mirror_request_body on;
 
@@ -94,8 +112,8 @@ server {
         proxy_pass http://staging_backend$request_uri;
         proxy_set_header Host staging-api.example.com;
         proxy_set_header X-Mirrored-From $host;
-        
-        # Ignorar respuesta; no esperar por staging
+
+        # No bloquear producción esperando a staging
         proxy_connect_timeout 1s;
         proxy_read_timeout 1s;
         proxy_ignore_client_abort on;
@@ -103,7 +121,7 @@ server {
 }
 ```
 
-### Istio Traffic Mirroring (Kubernetes)
+### Istio traffic mirroring (Kubernetes)
 
 ```yaml
 apiVersion: networking.istio.io/v1beta1
@@ -128,209 +146,109 @@ spec:
         port:
           number: 8080
       mirrorPercentage:
-        value: 10.0  # Mirror 10% del tráfico
+        value: 10.0
 ```
 
-## Explicación
-
-**Mirror vs. canary vs. shadow**:
-
-| Patrón | Impacto en Usuario | Fuente de Respuesta | Caso de Uso |
-|--------|--------------------|---------------------|-------------|
-| Mirror | Ninguno | Solo producción | Testing; análisis shadow |
-| Canary | Parcial | Nueva versión | Rollout gradual |
-| Blue-green | Switcheado | Una versión | Cutover instantáneo |
-| Shadow | Ninguno (async) | Producción | Análisis insensible a latencia |
-
-**Consideraciones clave**:
-- **Idempotencia**: Los POST/PUT mirrors deben ser seguros de duplicar. Consulta [idempotencia de mensajes](/recipes/rabbitmq-task-queue/).
-- **Aislamiento de estado**: La base de datos de staging no debe compartir estado con producción
-- **Side effects**: Deshabilitar email, pagos y servicios de notificación en el target mirror
-- **Latencia**: El mirror no debería bloquear el path de respuesta de producción
-
-## Variantes
-
-| Herramienta | Nivel | Overhead | Ideal Para |
-|-------------|-------|----------|------------|
-| AWS Traffic Mirroring | Network (ENI) | Bajo | Workloads basados en EC2 |
-| Nginx mirror | Application | Mínimo | Arquitecturas basadas en Nginx |
-| Istio | Service mesh | Bajo | Microservicios Kubernetes |
-| Envoy | Sidecar | Bajo | Configuraciones custom de proxy |
-| GoReplay | Application | Medio | Replay a nivel TCP |
-
-## Lo que funciona
-
-- **Empieza con porcentajes pequeños**: Mirror 1% del tráfico inicialmente; escala a 100% para validación completa
-- **Sanitiza requests mirror**: Elimina PII, tokens de auth y datos de pago antes de enviar a staging
-- **Monitorea staging como producción**: El tráfico mirror puede disparar alertas; ajusta thresholds separadamente
-- **Deshabilita efectos outbound**: Apaga webhooks, emails y llamadas a APIs de terceros en targets mirror
-- **Compara respuestas**: Diff respuestas de producción vs. mirror para detectar regresiones
-
-## Errores Comunes
-
-1. **Mirroring sin idempotencia**: Cobrar clientes dos veces porque la API de pagos fue mirrorizada. Usa [idempotency keys](/recipes/rabbitmq-task-queue/).
-2. **Bases de datos compartidas**: Producción y mirror escribiendo a la misma base de datos corrompen datos
-3. **Bloquear producción**: Latencia del target mirror agregada al tiempo de respuesta de producción
-4. **Sin filtrado de tráfico**: Mirror de health checks y requests de monitoreo poluciona datos de staging
-5. **Olvidar deshabilitar side effects**: Staging envía emails reales a clientes reales
-
-## Preguntas Frecuentes
-
-**P: ¿El mirroring impacta el performance de producción?**
-R: Mínimo si se implementa correctamente. El mirroring a nivel de network tiene overhead cercano a cero. Los mirrors a nivel de aplicación deberían usar async fire-and-forget.
-
-**P: ¿Puedo mirror tráfico cross-region?**
-R: Sí, pero la latencia aumenta. AWS Traffic Mirroring funciona dentro del mismo VPC; cross-region requiere VPN o Transit Gateway.
-
-**P: ¿Cómo difiere el mirroring del load testing?**
-R: El [load testing](/recipes/load-testing-k6/) genera tráfico artificial. El mirroring usa tráfico real. Usa ambos: mirror para realismo, load testing para límites de capacidad.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-
-### Envoy Traffic Mirroring (Sidecar)
+### Envoy traffic mirroring
 
 ```yaml
-# envoy.yaml
 static_resources:
   listeners:
-  - name: listener_0
-    address:
-      socket_address:
-        address: 0.0.0.0
-        port_value: 8080
-    filter_chains:
-    - filters:
-      - name: envoy.filters.network.http_connection_manager
-        typed_config:
-          "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-          stat_prefix: ingress_http
-          route_config:
-            name: local_route
-            virtual_hosts:
-            - name: backend
-              domains: ["*"]
-              routes:
-              - match:
-                  prefix: "/api"
-                route:
-                  cluster: production_backend
-                # Mirror a staging
-                request_headers_to_add:
-                - header:
-                    key: x-mirrored
-                    value: "true"
-                # Shadow policy: mirror sin esperar
-                shadow_policy:
-                  shadow_cluster: staging_backend
-                  shadow_sample_rate: 100  # 100% de requests
-          http_filters:
-          - name: envoy.filters.http.router
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+    - name: listener_0
+      address:
+        socket_address:
+          address: 0.0.0.0
+          port_value: 8080
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                stat_prefix: ingress_http
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: backend
+                      domains: ["*"]
+                      routes:
+                        - match:
+                            prefix: "/api"
+                          route:
+                            cluster: production_backend
+                          request_mirror_policy:
+                            cluster: staging_backend
+                            runtime_fraction:
+                              default_value:
+                                numerator: 10
+                                denominator: HUNDRED
+                http_filters:
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
 
   clusters:
-  - name: production_backend
-    connect_timeout: 0.25s
-    type: STRICT_DNS
-    lb_policy: ROUND_ROBIN
-    load_assignment:
-      cluster_name: production_backend
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: api-production.default.svc.cluster.local
-                port_value: 8080
+    - name: production_backend
+      connect_timeout: 0.25s
+      type: STRICT_DNS
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: production_backend
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: api-production.default.svc.cluster.local
+                      port_value: 8080
 
-  - name: staging_backend
-    connect_timeout: 0.25s
-    type: STRICT_DNS
-    lb_policy: ROUND_ROBIN
-    load_assignment:
-      cluster_name: staging_backend
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: api-staging.staging.svc.cluster.local
-                port_value: 8080
+    - name: staging_backend
+      connect_timeout: 0.25s
+      type: STRICT_DNS
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: staging_backend
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: api-staging.staging.svc.cluster.local
+                      port_value: 8080
 ```
 
-### GoReplay para Replay de Tráfico a Nivel TCP
+### GoReplay para replay a nivel TCP
 
 ```bash
-# Instalar GoReplay
-$ wget https://github.com/buger/goreplay/releases/download/1.3.3/gor_1.3.3_x64.tar.gz
-$ tar xzf gor_1.3.3_x64.tar.gz
+# Capturar y replayar tráfico en vivo
+gor --input-raw :8080 --output-http http://staging-api:8080
 
-# Capturar tráfico de producción y replay a staging
-$ sudo gor --input-raw :8080 --output-http http://staging-api:8080
+# Mirror 10% del tráfico
+gor --input-raw :8080 --output-http "http://staging-api:8080|10%"
 
-# Mirror con rate limiting (10% del tráfico)
-$ sudo gor --input-raw :8080 --output-http "http://staging-api:8080|10%"
+# Guardar a archivo para replay posterior
+gor --input-raw :8080 --output-file requests.gor
 
-# Guardar tráfico a archivo para replay posterior
-$ sudo gor --input-raw :8080 --output-file requests.gor
+# Replay a 2x velocidad
+gor --input-file "requests.gor|200%" --output-http http://staging-api:8080
 
-# Replay desde archivo a 2x velocidad
-$ gor --input-file "requests.gor|200%" --output-http http://staging-api:8080
-
-# Filtrar solo requests POST a /api
-$ sudo gor --input-raw :8080 --http-allow-method POST --http-allow-url ^/api --output-http http://staging-api:8080
+# Filtrar POSTs a /api
+gor --input-raw :8080 --http-allow-method POST --http-allow-url ^/api --output-http http://staging-api:8080
 ```
 
-### Middleware de Sanitización de Requests
-
-```python
-import re
-from starlette.middleware.base import BaseHTTPMiddleware
-
-SANITIZE_PATTERNS = [
-    (re.compile(r'"password"\s*:\s*"[^"]*"'), '"password": "***"'),
-    (re.compile(r'"token"\s*:\s*"[^"]*"'), '"token": "***"'),
-    (re.compile(r'"credit_card"\s*:\s*"[^"]*"'), '"credit_card": "***"'),
-    (re.compile(r'Bearer\s+[\w\-\.]+'), 'Bearer ***'),
-    (re.compile(r'\b\d{4}[\s\-]?\d{4}[\s\-]?\d{4}[\s\-]?\d{4}\b'), '****-****-****-****'),
-]
-
-class SanitizeMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        # Solo sanitizar requests mirror
-        if request.headers.get("x-mirrored-from"):
-            body = await request.body()
-            sanitized = body.decode()
-            for pattern, replacement in SANITIZE_PATTERNS:
-                sanitized = pattern.sub(replacement, sanitized)
-            # Reemplazar body del request
-            request._body = sanitized.encode()
-        return await call_next(request)
-```
-
-### Comparación de Respuestas para Detección de Regresiones
+### Comparación de respuestas
 
 ```javascript
 const express = require("express");
 const app = express();
 
-// Comparar respuestas de producción y staging
 app.use(async (req, res, next) => {
   const prodResponse = await fetch(`http://production${req.url}`, {
     method: req.method,
     headers: req.headers,
     body: JSON.stringify(req.body),
   });
+
+  const prodJson = await prodResponse.json();
 
   const stagingResponse = await fetch(`http://staging${req.url}`, {
     method: req.method,
@@ -339,22 +257,18 @@ app.use(async (req, res, next) => {
   }).catch(() => null);
 
   if (stagingResponse) {
-    const prodJson = await prodResponse.json();
     const stagingJson = await stagingResponse.json();
-
-    // Loguear diferencias para análisis
     const diff = deepDiff(prodJson, stagingJson);
     if (diff) {
       console.log(JSON.stringify({
         url: req.url,
         method: req.method,
-        diff: diff,
+        diff,
         timestamp: new Date().toISOString(),
       }));
     }
   }
 
-  // Siempre retornar respuesta de producción al usuario
   res.status(prodResponse.status).json(prodJson);
 });
 
@@ -369,87 +283,105 @@ function deepDiff(obj1, obj2) {
 }
 ```
 
-### Mirroring con Istio y Filtrado por Headers
+## Explicación
 
-```yaml
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: api-mirror-filtered
-spec:
-  hosts:
-    - api.example.com
-  http:
-    - match:
-        - uri:
-            prefix: /api
-          headers:
-            x-mirror-enabled:
-              exact: "true"
-      route:
-        - destination:
-            host: api-production
-            port:
-              number: 8080
-          weight: 100
-      mirror:
-        host: api-staging
-        port:
-          number: 8080
-      mirrorPercentage:
-        value: 50.0
+**Mirror vs. canary vs. shadow**:
 
-    # Ruta sin mirror
-    - match:
-        - uri:
-            prefix: /api
-      route:
-        - destination:
-            host: api-production
-            port:
-              number: 8080
-          weight: 100
-```
+| Patrón | Impacto usuario | Fuente de respuesta | Caso de uso |
+| --- | --- | --- | --- |
+| Mirror | Ninguno | Producción | Testing y análisis shadow |
+| Canary | Parcial | Nueva versión | Rollout gradual |
+| Blue-green | Switch | Una versión | Cutover instantáneo |
+| Shadow | Ninguno (async) | Producción | Análisis sin latencia crítica |
 
+El tráfico mirror es un duplicado. Llega al mirror target además del backend de
+producción, así que el response path de producción debe seguir independiente. El
+mirroring a nivel red copia paquetes, mientras que el de aplicación envía HTTP
+requests. Las configs a nivel aplicación permiten filtrar por URL, método y
+headers fácilmente.
 
+Consideraciones clave:
 
+- **Idempotencia**: los POST/PUT mirror deben ser seguros de repetir. Consultá
+  [idempotent API endpoints](/recipes/idempotent-api-endpoints/).
+- **Aislamiento de estado**: la base de staging no debe compartir estado con
+  producción.
+- **Side effects**: desactivá email, pagos y notificaciones en el mirror target.
+- **Latencia**: el mirror nunca debería bloquear la respuesta de producción.
 
-## Tips de Rendimiento
+## Variantes
 
-1. **Empieza con 1% de mirroring.** Incrementa gradualmente a 10%, 50%, luego 100%:
+| Herramienta | Nivel | Overhead | Ideal para |
+| --- | --- | --- | --- |
+| AWS Traffic Mirroring | Red (ENI) | Bajo | Workloads en EC2 |
+| Nginx mirror | Aplicación | Mínimo | Arquitecturas basadas en Nginx |
+| Istio | Service mesh | Bajo | Microservicios en Kubernetes |
+| Envoy | Sidecar | Bajo | Configs de proxy custom |
+| GoReplay | Aplicación | Medio | Replay y captura a nivel TCP |
 
-```yaml
-mirrorPercentage:
-  value: 1.0  # Empezar aquí
-```
+## Mejores Prácticas
 
-2. **Usa async fire-and-forget para mirrors a nivel de aplicación.** Nunca bloquees la respuesta de producción esperando el mirror:
+- Empezá con 1% de tráfico y aumentá gradualmente. No arranques con 100%.
+- Sanitizá requests mirror. Quitá PII, tokens de auth y datos de pago antes de
+  enviar a staging.
+- Desactivá efectos salientes en el target: webhooks, emails, APIs de terceros y
+  push notifications.
+- Monitoreá el mirror target por separado. El tráfico mirror puede disparar
+  alertas, así que usá umbrales y dashboards separados.
+- Filtrá health checks y requests de monitoreo para no contaminar datos de
+  staging.
+- Filtrá assets estáticos. Mirror de CSS, JS e imágenes desperdicia recursos y
+  distorsiona métricas.
+- Usá async fire-and-forget para mirrors a nivel aplicación. Nunca hagás `await`
+  de la respuesta del mirror.
+- Compará respuestas de producción y mirror para detectar regresiones en shape,
+  latencia y códigos de estado.
 
-```javascript
-// Fire and forget — no await
-fetch("http://staging/api" + req.url, {
-  method: req.method,
-  body: JSON.stringify(req.body),
-}).catch(() => {});  // Ignorar errores
-```
+## Errores Comunes
 
-3. **Filtra requests de assets estáticos.** Mirrorizar CSS, JS e imágenes desperdicia recursos:
+- Mirror sin idempotencia. Cobrar dos veces a un cliente porque se mirroró el
+  pago es un riesgo real. Usá idempotency keys para endpoints mutables.
+- Compartir bases de datos entre producción y mirror target. Las escrituras del
+  mirror corrompen datos de producción.
+- Bloquear producción con latencia del mirror target. Siempre seteá timeouts
+  cortos e ignorá errores del mirror.
+- Mirror de health checks y requests de monitoreo. Agrega ruido a las analíticas
+  de staging.
+- Olvidar desactivar side effects. Staging no debería enviar emails reales a
+  clientes reales.
+- Mirror de tráfico a un endpoint de staging público sin autenticación. Puede
+  filtrar datos de producción y credenciales.
 
-```nginx
-location ~* \.(css|js|png|jpg|gif|svg|woff)$ {
-    proxy_pass http://production_backend;
-    # Sin directiva mirror
-}
-```
+## FAQ
 
-4. **Usa replay basado en archivos de GoReplay para análisis offline.** Captura una vez, replay muchas veces:
+### ¿El mirroring impacta la performance de producción?
 
-```bash
-# Capturar por 1 hora
-$ timeout 3600 sudo gor --input-raw :8080 --output-file traffic.gor
+Mínimo si se hace bien. El mirroring a nivel red agrega overhead cercano a cero.
+Los mirrors a nivel aplicación deberían ser async fire-and-forget con timeouts
+cortos.
 
-# Replay a 5x velocidad contra staging
-$ gor --input-file "traffic.gor|500%" --output-http http://staging:8080
-```
+### ¿Puedo mirrorar tráfico entre regiones?
 
-5. **Monitorea el uso de recursos del target mirror.** Configura dashboards para trackear CPU, memoria y tiempos de respuesta del target mirror separadamente de producción.
+Sí, pero aumenta la latencia. AWS Traffic Mirroring funciona dentro del mismo
+VPC. Cross-region requiere VPN, Transit Gateway o un mirror a nivel aplicación.
+
+### ¿En qué se diferencia mirroring de load testing?
+
+Load testing genera tráfico artificial para encontrar límites de capacidad. El
+mirroring usa tráfico real para realismo. Usá ambos: mirror para validación de
+regresiones realista, load testing para capacidad y estrés.
+
+### ¿Cómo evito data leakage en tráfico mirror?
+
+Sanitizá headers y body antes de que salgan de producción. Quitá tokens de auth,
+PII y datos de pago. Usá un ambiente de staging dedicado y aislado.
+
+### ¿Debería mirrorar 100% del tráfico?
+
+Solo después de validar idempotencia, aislar estado, desactivar side effects y
+confirmar que el target soporta la carga. Empezá con 1%.
+
+### ¿Cómo comparo respuestas de producción y mirror?
+
+Logueá status code, response time y un diff de campos seleccionados. El diff
+automatizado detecta regresiones antes de un canary o cutover completo.
