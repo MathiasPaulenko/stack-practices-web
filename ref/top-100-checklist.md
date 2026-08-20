@@ -260,13 +260,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.2% / ES 40.1% (0 patterns)
    - Words: 979 | Meta: 151 chars
 
-32. - [ ] **message-idempotency** (recipes)
+32. - [x] **message-idempotency** (recipes)
    - Metrics: 41 imp | pos 9.4 | CTR 0.00% | Δ impr 24
    - EN: https://stackpractices.com/recipes/message-idempotency/
    - ES: https://stackpractices.com/es/recipes/message-idempotency/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,870 | Meta: 141 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.6% / ES 41.4% (0 patterns)
+   - Words: 985 | Meta: 149 chars
 
 33. - [ ] **vertical-slice-architecture-guide** (guides)
    - Metrics: 44 imp | pos 22.1 | CTR 0.00% | Δ impr 0
