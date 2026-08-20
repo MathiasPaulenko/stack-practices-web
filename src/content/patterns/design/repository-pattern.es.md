@@ -8,27 +8,21 @@ difficulty: intermediate
 topics:
   - architecture
 tags:
-  - architectural
-  - architecture
-  - data
+  - repository
   - design-pattern
+  - architecture
+  - data-access
+  - python
   - java
   - javascript
-  - pattern
-  - python
-  - repository
 relatedResources:
-  - /patterns/mvc-pattern
-  - /recipes/sql-joins
+  - /patterns/repository-pattern-typescript
   - /patterns/factory-pattern
-  - /recipes/dependency-injection
-  - /guides/domain-driven-design-guide
+  - /patterns/dependency-injection-pattern
+  - /patterns/adapter-pattern-api
   - /guides/layered-architecture-guide
-  - /guides/onion-architecture-guide
-  - /guides/software-architecture-guide
-  - /guides/database-design-guide
-  - /guides/design-patterns-guide
-lastUpdated: "2026-06-10"
+  - /guides/domain-driven-design-guide
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
@@ -42,26 +36,34 @@ seo:
     - python repository
     - java repository
     - javascript repository
-
-
-
-
-
 ---
-## Visión general
 
-El [Patrón Repository](/patterns/repository-pattern-typescript/) es un patrón de diseño arquitectural que media entre la capa de dominio y las capas de mapeo de datos usando una interfaz similar a una colección para acceder a objetos de dominio. Abstrae los detalles de almacenamiento y recuperación de datos.
+## Visión General
 
-Es la base de clean architecture, Domain-Driven Design (DDD) y se usa ampliamente en frameworks como Spring Data JPA, Entity Framework y Django ORM.
+El Patrón Repository es un patrón de diseño arquitectural que media entre la
+capa de dominio y las capas de mapeo de datos. Provee una interfaz similar a
+una colección para acceder a objetos de dominio y abstrae los detalles de
+almacenamiento y recuperación.
 
-## Cuándo usarlo
+Es una base de Clean Architecture y Domain-Driven Design (DDD), y se usa en
+frameworks como Spring Data JPA, Entity Framework y Django ORM.
 
-Usa el Patrón Repository cuando:
-- Necesitas desacoplar la lógica de negocio de la implementación de acceso a datos
-- Quieres intercambiar fuentes de datos (base de datos, API, caché, archivo) sin cambiar código de negocio
-- Necesitas capas de datos testeables que puedan ser mockeadas
-- Tu lógica de acceso a datos está dispersa por la base de código y necesita centralización
-- Quieres aplicar caché, logging o gestión de transacciones de forma uniforme
+## Cuándo Usar
+
+- Necesitás desacoplar la lógica de negocio de la implementación de acceso a
+  datos.
+- Querés intercambiar fuentes de datos (base de datos, API, caché, archivo) sin
+  cambiar código de negocio.
+- Necesitás capas de datos testeables que puedan mockearse o reemplazarse con
+  stores en memoria.
+- La lógica de acceso a datos está dispersa y necesita centralización.
+- Querés aplicar caché, logging o gestión de transacciones de forma uniforme.
+
+### Cuándo evitarlo
+
+- Aplicaciones CRUD pequeñas con una sola fuente de datos y sin necesidad de
+  test doubles.
+- Prototipos donde la capa extra agrega más fricción que valor.
 
 ## Solución
 
@@ -69,7 +71,7 @@ Usa el Patrón Repository cuando:
 
 ```python
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import Optional
 
 class User:
     def __init__(self, id: int, name: str):
@@ -95,7 +97,6 @@ class InMemoryUserRepository(UserRepository):
     def save(self, user: User) -> None:
         self._users[user.id] = user
 
-# Uso
 repo = InMemoryUserRepository()
 repo.save(User(1, "Alice"))
 print(repo.get_by_id(1).name)  # Alice
@@ -126,14 +127,13 @@ class InMemoryUserRepository extends UserRepository {
     this.users = new Map();
   }
   getById(id) {
-    return this.users.get(id);
+    return this.users.get(id) ?? null;
   }
   save(user) {
     this.users.set(user.id, user);
   }
 }
 
-// Uso
 const repo = new InMemoryUserRepository();
 repo.save(new User(1, "Alice"));
 console.log(repo.getById(1).name); // Alice
@@ -169,7 +169,6 @@ class InMemoryUserRepository implements UserRepository {
     }
 }
 
-// Uso
 UserRepository repo = new InMemoryUserRepository();
 repo.save(new User(1, "Alice"));
 System.out.println(repo.getById(1).map(u -> u.name).orElse("Unknown")); // Alice
@@ -177,177 +176,76 @@ System.out.println(repo.getById(1).map(u -> u.name).orElse("Unknown")); // Alice
 
 ## Explicación
 
-El Patrón Repository separa el acceso a datos en dos capas:
+El patrón separa el acceso a datos en dos capas:
 
-- **Interfaz Repository**: Define qué operaciones están disponibles (find, save, delete) sin exponer cómo se implementan
-- **Repository concreto**: Implementa la interfaz para un mecanismo de almacenamiento específico (base de datos SQL, en memoria, API REST)
+- **Interfaz de Repository**: define qué operaciones están disponibles — como
+  `find`, `save` y `delete` — sin exponer cómo se implementan.
+- **Repository Concreto**: implementa la interfaz para un mecanismo de
+  almacenamiento específico, como SQL, MongoDB, una REST API o un Map en
+  memoria.
 
-La lógica de negocio depende solo de la interfaz, por lo que puedes intercambiar implementaciones para testing (en memoria) o producción (PostgreSQL, MongoDB) sin tocar código de negocio.
+La lógica de negocio depende solo de la interfaz. Esto permite reemplazar la
+implementación en memoria para tests y una implementación PostgreSQL o MongoDB
+para producción sin tocar el código de negocio. Consultá
+[Inyección de Dependencias](/patterns/dependency-injection-pattern/) para
+estrategias comunes de wiring.
 
 ## Variantes
 
-| Variante | Caso de uso | Compromiso |
-|----------|-------------|------------|
-| **[Repository Genérico](/patterns/repository-pattern-typescript/)** | CRUD para cualquier tipo de entidad | Menos duplicación de código, pero menos optimización de queries específicas |
-| **Specification Pattern** | Composición de queries complejas | Muy flexible, pero más difícil de optimizar a nivel de base de datos |
-| **Unit of Work** | Lote de múltiples operaciones en una sola transacción | Añade complejidad, pero esencial para integridad de datos |
+| Variante | Caso de uso | Trade-off |
+| --- | --- | --- |
+| [Generic Repository](/patterns/repository-pattern-typescript/) | CRUD para cualquier entidad con generics de TypeScript | Menos duplicación, pero menos margen para optimizar queries |
+| Specification Pattern | Componer queries complejas con objetos reutilizables | Flexible, pero más difícil de optimizar a nivel de base de datos |
+| Unit of Work | Agrupar varias operaciones en una sola transacción | Agrega complejidad, pero mantiene integridad de datos |
 
-## Lo que funciona
+## Mejores Prácticas
 
-- **Retorna objetos de dominio, no filas de datos crudos**: Mapea resultados de base de datos a objetos de dominio ricos
-- **Usa interfaces para repositories**: Esto es lo que los hace testeables e intercambiables.   Consulta [Inyección de Dependencias](/patterns/dependency-injection-pattern/) para estrategias de wiring.
-- **Mantén los repositories enfocados en acceso a datos**: La lógica de negocio pertenece a servicios, no a repositories
-- **Retorna `Optional` o tipos nullable** en lugar de lanzar excepciones para datos faltantes
-- **Considera paginación** para operaciones `findAll` para prevenir cargar datasets masivos
+- Devolver objetos de dominio, no filas crudas ni tipos específicos del ORM.
+- Usar interfaces para que los repositorios sean testeables e intercambiables.
+- Mantener los repositorios enfocados en acceso a datos; la lógica de negocio
+  va en los servicios.
+- Devolver `Optional` o tipos nullable para datos ausentes en lugar de lanzar
+  excepciones.
+- Agregar paginación en `findAll` para evitar cargar conjuntos enormes.
+- Usar transacciones cuando varias operaciones deban ser atómicas.
 
-## Errores comunes
+## Errores Comunes
 
-- **Filtrar detalles del ORM**: Retornar objetos específicos del ORM en lugar de objetos de dominio planos
-- **Lógica de negocio en repositories**: Los repositories solo deben buscar y persistir; la lógica pertenece a servicios
-- **God repositories**: Un único repository manejando tipos de entidades no relacionados
-- **Ignorar transacciones**: Múltiples operaciones de repository que deberían ser atómicas pero no están envueltas en una transacción
-- **Carga eager de todo**: Traer más datos de los necesarios porque la abstracción oculta el costo de la query
+- Filtrar detalles del ORM en los servicios devolviendo objetos específicos de
+  base de datos.
+- Meter lógica de negocio dentro de los repositorios.
+- Crear repositorios dios que manejen tipos de entidades no relacionadas.
+- Ignorar transacciones entre operaciones que deberían ser atómicas.
+- Cargar más datos de los necesarios porque la abstracción oculta el costo.
 
+## FAQ
 
-## Puntos Clave
+### ¿Es Repository lo mismo que DAO?
 
-- **Aplica patrón repository** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
+Son similares, pero un DAO suele ser más de bajo nivel y cercano a las tablas.
+Un Repository es de más alto nivel y trabaja con aggregates de dominio. En la
+práctica los términos suelen usarse indistintamente.
 
-## Preguntas frecuentes
+### ¿Necesito Repository si uso un ORM?
 
-**P: ¿Es Repository lo mismo que DAO (Data Access Object)?**
-R: Similar, pero DAO es típicamente de más bajo nivel y más cercano a la base de datos. Repository es de más alto nivel y trabaja con agregados de dominio. En la práctica, los términos se usan a menudo indistintamente.
+Sí. Los ORM manejan el mapeo; los repositorios agregan una capa semántica que
+hace explícita la intención del acceso a datos y lo hace testeable.
 
-**P: ¿Necesito Repository si uso un ORM?**
-R: Sí. Los ORMs manejan el mapeo, pero los repositories añaden una capa semántica que hace explícita la intención del acceso a datos y lo hace testeable.
+### ¿Puedo usar Repository con bases NoSQL?
 
-**P: ¿Puedo usar Repository con bases de datos NoSQL?**
-R: Absolutamente. El patrón es agnóstico al almacenamiento. Puedes tener `MongoUserRepository`, `RedisUserRepository` y `PostgresUserRepository` implementando la misma interfaz.
+Sí. El patrón es agnóstico al storage. Podés tener `MongoUserRepository`,
+`RedisUserRepository` y `PostgresUserRepository` implementando la misma
+interfaz.
 
 ### ¿Es este patrón adecuado para proyectos pequeños?
 
-Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+Para proyectos pequeños con pocos componentes puede agregar complejidad
+innecesaria. Empezá simple e introducí el patrón cuando sientas el problema que
+resuelve.
 
-### ¿Cómo se compara este patrón con alternativas?
+### ¿Repository o DAO: cuál uso?
 
-Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
-
-### ¿Puedo aplicar este patrón parcialmente?
-
-Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
-
-
-## Temas Avanzados
-
-### Escenario: Repository para Multi-DB con TypeORM
-
-```typescript
-// Repository pattern: abstraer acceso a datos
-interface UserRepository {
-  findById(id: string): Promise<User | null>;
-  findByEmail(email: string): Promise<User | null>;
-  findAll(opts: QueryOpts): Promise<User[]>;
-  save(user: User): Promise<User>;
-  delete(id: string): Promise<void>;
-}
-
-// Implementacion PostgreSQL
-class PostgresUserRepository implements UserRepository {
-  constructor(private pool: Pool) {}
-  async findById(id: string): Promise<User | null> {
-    const res = await this.pool.query("SELECT * FROM users WHERE id = $1", [id]);
-    return res.rows[0] || null;
-  }
-  async findByEmail(email: string): Promise<User | null> {
-    const res = await this.pool.query("SELECT * FROM users WHERE email = $1", [email]);
-    return res.rows[0] || null;
-  }
-  async findAll(opts: QueryOpts): Promise<User[]> {
-    const limit = opts.limit || 50;
-    const offset = opts.offset || 0;
-    const res = await this.pool.query("SELECT * FROM users LIMIT $1 OFFSET $2", [limit, offset]);
-    return res.rows;
-  }
-  async save(user: User): Promise<User> {
-    if (user.id) {
-      const res = await this.pool.query(
-        "UPDATE users SET name=$1, email=$2 WHERE id=$3 RETURNING *",
-        [user.name, user.email, user.id]
-      );
-      return res.rows[0];
-    }
-    const res = await this.pool.query(
-      "INSERT INTO users (id, name, email) VALUES ($1, $2, $3) RETURNING *",
-      [crypto.randomUUID(), user.name, user.email]
-    );
-    return res.rows[0];
-  }
-  async delete(id: string): Promise<void> {
-    await this.pool.query("DELETE FROM users WHERE id = $1", [id]);
-  }
-}
-
-// Implementacion MongoDB
-class MongoUserRepository implements UserRepository {
-  constructor(private collection: Collection) {}
-  async findById(id: string): Promise<User | null> {
-    return this.collection.findOne({ _id: new ObjectId(id) });
-  }
-  async save(user: User): Promise<User> {
-    if (user._id) {
-      await this.collection.updateOne({ _id: user._id }, { $set: user });
-      return user;
-    }
-    const res = await this.collection.insertOne(user);
-    return { ...user, _id: res.insertedId };
-  }
-}
-
-// Uso: el servicio no sabe que DB se usa
-class UserService {
-  constructor(private repo: UserRepository) {}
-  async getUser(id: string) { return this.repo.findById(id); }
-  async createUser(data: NewUser) { return this.repo.save(data); }
-}
-
-// En tests: usar mock repository
-class MockUserRepository implements UserRepository {
-  private users = new Map<string, User>();
-  async findById(id: string) { return this.users.get(id) || null; }
-  async save(user: User) { this.users.set(user.id, user); return user; }
-}
-```
-
-Lecciones:
-  - Repository abstrae el acceso a datos del dominio
-  - El servicio no conoce SQL, MongoDB ni detalles de storage
-  - Cambiar de DB solo requiere nueva implementacion del repository
-  - En tests, usar mock o in-memory repository
-  - Repository vs DAO: repository es domain-centric, DAO es table-centric
-```
-
-### Repository vs DAO: cual uso?
-
-Usa Repository cuando piensas en terminos de dominio (User, Order) y quieres abstraer el storage completo. Usa DAO cuando mapeas directamente tablas y necesitas queries especificas. Repository devuelve agregados de dominio; DAO devuelve filas. Repository es mas alto nivel; DAO es mas bajo nivel. Para microservicios, Repository es preferible: el dominio no debe conocer SQL.
-
-## Troubleshooting
-
-- **High latency between services**: trace the request path.   Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy.   Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas.   Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
-
-## Errores Comunes en Producción
-
-- Aplicar el patrón donde no se necesita abstracción, agregando complejidad accidental.
-- Dejar que el patrón se filtre en módulos no relacionados y confundir los límites de responsabilidad.
-- Sobre-ingeniería en la primera implementación en lugar de comenzar simple y medir el dolor.
-- Saltar los tests de contrato, de modo que las refactorizaciones rompan consumidores en silencio.
-- Ignorar modos de fallo que el patrón no cubre.
-- Usar el patrón como opción por defecto en lugar de elegir la herramienta adecuada para la escala actual.
-- Olvidar documentar cuándo dejar de usar el patrón y qué lo reemplaza.
-- Carecer de observabilidad sobre rendimiento y propagación de errores del patrón.
+Usá Repository cuando pensás en términos de dominio (User, Order) y querés
+abstraer el storage por completo. Usá DAO cuando mapeás directamente a tablas y
+necesitás queries específicas. Repository es domain-centric; DAO es
+ table-centric.

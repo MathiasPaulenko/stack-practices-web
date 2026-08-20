@@ -396,13 +396,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.6% / ES 46.5% (0 patterns)
    - Words: 925 | Meta: 159 chars
 
-49. - [ ] **repository-pattern** (patterns)
+49. - [x] **repository-pattern** (patterns)
    - Metrics: 59 imp | pos 43.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/repository-pattern/
    - ES: https://stackpractices.com/es/patterns/repository-pattern/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,550 | Meta: 140 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.5% / ES 42.5% (0 patterns)
+   - Words: 842 | Meta: 140 chars
 
 50. - [ ] **complete-guide-graphql-caching** (guides)
    - Metrics: 59 imp | pos 30.9 | CTR 0.00% | Δ impr 0

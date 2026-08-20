@@ -1,0 +1,319 @@
+[
+  {
+    "label": "repository-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 45.5,
+    "ai_count": 10,
+    "human_count": 26,
+    "skipped_count": 3,
+    "total": 39,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.4,
+      "stddev": 13.2,
+      "cv": 0.92,
+      "verdict": "natural variation",
+      "sentence_count": 36,
+      "lengths": [
+        17,
+        19,
+        25,
+        10,
+        14,
+        14,
+        8,
+        10,
+        12,
+        10,
+        28,
+        22,
+        7,
+        21,
+        7,
+        86,
+        8,
+        11,
+        11,
+        10,
+        9,
+        9,
+        5,
+        8,
+        9,
+        12,
+        11,
+        9,
+        8,
+        18,
+        11,
+        11,
+        13,
+        16,
+        12,
+        6
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "For small projects with few components it may add unnecessary complexity.",
+        0.9683
+      ],
+      [
+        "The pattern splits data access into two layers:\n**Repository Interface**: defines what operations are available \u2014 such as\n  find, save, and delete \u2014 without exposing how they're im",
+        0.8772
+      ],
+      [
+        "You need to decouple business logic from data access implementation.",
+        0.7864
+      ],
+      [
+        "Prototypes where the extra layer adds more friction than value.",
+        0.7747
+      ],
+      [
+        "In practice the terms are often\nused interchangeably.",
+        0.685
+      ],
+      [
+        "**Concrete Repository**: uses a specific storage\n  mechanism, such as SQL, MongoDB, a REST API, or an in-memory Map, to implement the interface.",
+        0.6798
+      ],
+      [
+        "Add pagination for findAll operations to avoid loading huge datasets.",
+        0.6765
+      ],
+      [
+        "| Variant | Use case | Trade-off |\n| --- | --- | --- |\n| [Generic Repository](/patterns/repository-pattern-typescript/) | CRUD for any entity with TypeScript generics | Less duplic",
+        0.6039
+      ],
+      [
+        "Return Optional or nullable types for missing data instead of throwing.",
+        0.5639
+      ],
+      [
+        "You can have MongoUserRepository,\nRedisUserRepository, and PostgresUserRepository implementing the same\ninterface.",
+        0.5018
+      ],
+      [
+        "You want to swap data sources (database, API, cache, file) without changing\n  business code.",
+        0.4767
+      ],
+      [
+        "You want to apply caching, logging, or transaction management uniformly.",
+        0.4566
+      ],
+      [
+        "Use DAO when you map directly to tables and need specific\nqueries.",
+        0.4503
+      ],
+      [
+        "Data access logic is scattered and needs centralization.",
+        0.4492
+      ],
+      [
+        "See\n[Dependency Injection](/patterns/dependency-injection-pattern/) for common\nwiring strategies.",
+        0.4452
+      ],
+      [
+        "You need testable data layers that can be mocked or replaced with in-memory\n  stores.",
+        0.4449
+      ],
+      [
+        "It's a foundation of Clean Architecture and Domain-Driven Design (DDD), and is\nused in frameworks such as Spring Data JPA, Entity Framework, and Django ORM.",
+        0.4392
+      ],
+      [
+        "Leaking ORM details into services by returning database-specific objects.",
+        0.4392
+      ],
+      [
+        "Use interfaces so repositories are testable and swappable.",
+        0.3827
+      ],
+      [
+        "Putting business logic inside repositories.",
+        0.3667
+      ],
+      [
+        "Business logic depends only on the interface.",
+        0.3576
+      ],
+      [
+        "Start\nsimple and introduce the pattern when you feel the pain it solves.",
+        0.3554
+      ],
+      [
+        "The Repository Pattern is an architectural design pattern that mediates between\nthe domain and data mapping layers.",
+        0.3513
+      ],
+      [
+        "Small CRUD applications with a single data source and no test-doubling needs.",
+        0.3463
+      ],
+      [
+        "Creating god repositories that handle unrelated entity types.",
+        0.3457
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "repository-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 42.5,
+    "ai_count": 13,
+    "human_count": 24,
+    "skipped_count": 2,
+    "total": 39,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.9,
+      "stddev": 14.4,
+      "cv": 0.91,
+      "verdict": "natural variation",
+      "sentence_count": 37,
+      "lengths": [
+        23,
+        21,
+        24,
+        13,
+        16,
+        14,
+        11,
+        11,
+        15,
+        10,
+        30,
+        22,
+        9,
+        23,
+        9,
+        95,
+        10,
+        16,
+        13,
+        9,
+        8,
+        14,
+        8,
+        10,
+        8,
+        12,
+        16,
+        13,
+        8,
+        24,
+        6,
+        10,
+        10,
+        12,
+        17,
+        11,
+        6
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "El patr\u00f3n es agn\u00f3stico al storage.",
+        0.9216
+      ],
+      [
+        "Meter l\u00f3gica de negocio dentro de los repositorios.",
+        0.8297
+      ],
+      [
+        "Un Repository es de m\u00e1s alto nivel y trabaja con aggregates de dominio.",
+        0.7389
+      ],
+      [
+        "La l\u00f3gica de negocio depende solo de la interfaz.",
+        0.7323
+      ],
+      [
+        "Ignorar transacciones entre operaciones que deber\u00edan ser at\u00f3micas.",
+        0.6657
+      ],
+      [
+        "Usar transacciones cuando varias operaciones deban ser at\u00f3micas.",
+        0.6578
+      ],
+      [
+        "El Patr\u00f3n Repository es un patr\u00f3n de dise\u00f1o arquitectural que media entre la\ncapa de dominio y las capas de mapeo de datos.",
+        0.6408
+      ],
+      [
+        "Cargar m\u00e1s datos de los necesarios porque la abstracci\u00f3n oculta el costo.",
+        0.6404
+      ],
+      [
+        "Filtrar detalles del ORM en los servicios devolviendo objetos espec\u00edficos de\n  base de datos.",
+        0.6172
+      ],
+      [
+        "La l\u00f3gica de acceso a datos est\u00e1 dispersa y necesita centralizaci\u00f3n.",
+        0.6003
+      ],
+      [
+        "Agregar paginaci\u00f3n en findAll para evitar cargar conjuntos enormes.",
+        0.5969
+      ],
+      [
+        "El patr\u00f3n separa el acceso a datos en dos capas:\n**Interfaz de Repository**: define qu\u00e9 operaciones est\u00e1n disponibles \u2014 como\n  find, save y delete \u2014 sin exponer c\u00f3mo se implementan",
+        0.5061
+      ],
+      [
+        "En la\npr\u00e1ctica los t\u00e9rminos suelen usarse indistintamente.",
+        0.5036
+      ],
+      [
+        "**Repository Concreto**: implementa la interfaz para un mecanismo de\n  almacenamiento espec\u00edfico, como SQL, MongoDB, una REST API o un Map en\n  memoria.",
+        0.4839
+      ],
+      [
+        "Usar interfaces para que los repositorios sean testeables e intercambiables.",
+        0.4742
+      ],
+      [
+        "Crear repositorios dios que manejen tipos de entidades no relacionadas.",
+        0.4539
+      ],
+      [
+        "Aplicaciones CRUD peque\u00f1as con una sola fuente de datos y sin necesidad de\n  test doubles.",
+        0.4192
+      ],
+      [
+        "Los ORM manejan el mapeo; los repositorios agregan una capa sem\u00e1ntica que\nhace expl\u00edcita la intenci\u00f3n del acceso a datos y lo hace testeable.",
+        0.4152
+      ],
+      [
+        "Quer\u00e9s aplicar cach\u00e9, logging o gesti\u00f3n de transacciones de forma uniforme.",
+        0.3943
+      ],
+      [
+        "Es una base de Clean Architecture y Domain-Driven Design (DDD), y se usa en\nframeworks como Spring Data JPA, Entity Framework y Django ORM.",
+        0.3657
+      ],
+      [
+        "Quer\u00e9s intercambiar fuentes de datos (base de datos, API, cach\u00e9, archivo) sin\n  cambiar c\u00f3digo de negocio.",
+        0.3574
+      ],
+      [
+        "Son similares, pero un DAO suele ser m\u00e1s de bajo nivel y cercano a las tablas.",
+        0.3446
+      ],
+      [
+        "Mantener los repositorios enfocados en acceso a datos; la l\u00f3gica de negocio\n  va en los servicios.",
+        0.3379
+      ],
+      [
+        "Prototipos donde la capa extra agrega m\u00e1s fricci\u00f3n que valor.",
+        0.3183
+      ],
+      [
+        "Necesit\u00e1s capas de datos testeables que puedan mockearse o reemplazarse con\n  stores en memoria.",
+        0.3048
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
