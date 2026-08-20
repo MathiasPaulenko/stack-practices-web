@@ -1,9 +1,9 @@
 ---
 contentType: recipes
 slug: soft-deletes
-title: "Soft Deletes: Database Pattern"
-description: Learn to implement soft deletes in databases. Practical examples in Python, JavaScript, and Java with flag columns, filtered queries, and hard deletes.
-metaDescription: Learn to implement soft deletes in databases. Practical examples in Python, JavaScript, and Java with flag columns, filtered queries, and hard deletes.
+title: "Implement Soft Deletes in Databases with Python, JS and Java"
+description: "Learn to implement soft deletes in databases. Practical examples in Python, JavaScript, and Java with flag columns, filtered queries, and hard deletes."
+metaDescription: "Implement soft deletes in databases with Python, JavaScript and Java. Use flag columns, filtered queries, unique indexes, purge jobs and recovery."
 difficulty: beginner
 topics:
   - databases
@@ -12,44 +12,62 @@ tags:
   - audit
   - sql
   - postgresql
+  - soft-delete
+  - python
+  - javascript
+  - java
 relatedResources:
   - /recipes/database-transactions
-  - /recipes/full-text-search
-  - /patterns/abstract-factory-pattern
-  - /patterns/adapter-pattern
-  - /patterns/builder-pattern
-  - /recipes/caching-redis
   - /recipes/database-migrations-safely
-lastUpdated: "2026-08-10"
+  - /recipes/database-indexing
+  - /recipes/database-query-result-caching
+  - /patterns/repository-pattern
+  - /patterns/unit-of-work-pattern
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: Learn to implement soft deletes in databases. Practical examples in Python, JavaScript, and Java with flag columns, filtered queries, and hard deletes.
+  metaDescription: "Implement soft deletes in databases with Python, JavaScript and Java. Use flag columns, filtered queries, unique indexes, purge jobs and recovery."
   keywords:
     - soft deletes
     - logical delete pattern
     - database soft delete
+    - postgresql
+    - sql
 ---
+
 ## Overview
 
-Soft deletes mark records as deleted without actually removing them from the database. This preserves data for auditing, recovery, and referential integrity while keeping deleted records invisible to normal application queries. The following implements soft deletes with timestamp flags and filtered queries in Python, JavaScript, and Java.
+Soft deletes mark records as deleted without actually removing them. This
+preserves data for auditing, recovery, and referential integrity while keeping
+deleted records invisible to normal application queries. The following shows
+soft deletes with timestamp flags, filtered queries, unique indexes, purge jobs,
+and restore flows in Python, JavaScript, and Java.
 
 ## When to Use
 
-Use this resource when:
-- Users need to recover accidentally deleted data. See [Database Transactions](/recipes/database-transactions/) for rollback patterns.
-- You must maintain audit trails for compliance (GDPR, HIPAA, SOC2). See [API Security Checklist](/guides/api-security-checklist-guide/) for compliance.
-- Foreign key constraints prevent hard deletes. See [SQL Joins](/recipes/sql-joins/) for relational patterns.
-- You want to show "recently deleted" trash/recycle bin capabilities
+- Users need to recover accidentally deleted data. See
+  [Database Transactions](/recipes/database-transactions/) for rollback patterns.
+- You must maintain audit trails for compliance (GDPR, HIPAA, SOC2).
+- Foreign key constraints make hard deletes difficult or risky.
+- You want to show a "trash" or "recycle bin" UI.
+
+### When to avoid
+
+- Hard deletion is required by law or user request. Soft delete alone isn't
+  enough for GDPR erasure; you still need a purge or anonymization step.
+- Tables with extremely high write volume where deleted rows would bloat storage
+  and backups. Use a short retention window and aggressive purging.
+- Data without any recovery or audit requirement. A real `DELETE` is simpler and
+  cheaper.
 
 ## Solution
 
 ### Python (SQLAlchemy)
 
 ```python
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, Boolean
-from sqlalchemy.orm import declarative_base, Session, Query
-from sqlalchemy.sql import func
+from sqlalchemy import create_engine, Column, Integer, String, DateTime
+from sqlalchemy.orm import declarative_base, Session
 import datetime
 
 Base = declarative_base()
@@ -92,12 +110,7 @@ with Session(engine) as session:
 const { Sequelize, DataTypes, Model, Op } = require("sequelize");
 const sequelize = new Sequelize({ dialect: "sqlite", storage: "app.db" });
 
-class User extends Model {
-  async softDelete() {
-    this.deletedAt = new Date();
-    await this.save();
-  }
-}
+class User extends Model {}
 
 User.init(
   {
@@ -107,7 +120,7 @@ User.init(
   {
     sequelize,
     modelName: "User",
-    paranoid: true, // Sequelize handles soft deletes automatically
+    paranoid: true,
     deletedAt: "deletedAt",
   }
 );
@@ -118,7 +131,10 @@ const user = await User.create({ email: "alice@example.com" });
 await user.destroy(); // Soft delete because paranoid: true
 
 const visible = await User.findAll(); // Excludes soft-deleted by default
-const deleted = await User.findAll({ paranoid: false, where: { deletedAt: { [Op.ne]: null } } });
+const deleted = await User.findAll({
+  paranoid: false,
+  where: { deletedAt: { [Op.ne]: null } },
+});
 ```
 
 ### Java (JPA / Hibernate)
@@ -145,85 +161,36 @@ public class User {
     // getters/setters omitted
 }
 
-// Repository with filter enabled
 public List<User> findActiveUsers(EntityManager em) {
     em.unwrap(Session.class).enableFilter("softDeleteFilter").setParameter("deleted", false);
     return em.createQuery("SELECT u FROM User u", User.class).getResultList();
 }
 ```
 
-## Explanation
-
-Soft deletes work by adding a `deleted_at` (or `is_deleted`) column to your table. Instead of `DELETE FROM`, you execute `UPDATE ... SET deleted_at = NOW()`. All standard queries add `WHERE deleted_at IS NULL` to exclude soft-deleted rows.
-
-**Trade-offs**:
-
-- **Pros**: Recoverable data, referential integrity preserved, audit trail built-in
-- **Cons**: Tables grow indefinitely, unique constraints must include `deleted_at`, indexes need filtering
-
-For true removal, implement a "hard delete" or "purge" operation that runs `DELETE FROM` on records soft-deleted longer than a retention period (e.g., 30 days).
-
-## Variants
-
-| Approach | Column | Best For | Notes |
-|----------|--------|----------|-------|
-| Timestamp (`deleted_at`) | `DATETIME NULL` | Audit trails, recovery windows | Supports "deleted before X date" queries |
-| Boolean (`is_deleted`) | `BOOLEAN DEFAULT FALSE` | Simple logic, no recovery timeline | Requires separate `deleted_at` for audits |
-| Separate archive table | Full copy | Compliance, performance | Most complex, triggers or app-level |
-| Partition by deletion status | Native PG/MySQL | Very large tables | Use table partitioning for active vs deleted |
-
-## What Works
-
-- **Always filter by default**: Your ORM or query builder should exclude deleted records unless explicitly asked.
-- **Include `deleted_at` in unique indexes**: Otherwise you can't recreate a record with the same unique key after soft delete.
-- **Schedule periodic hard deletes**: GDPR's "right to erasure" requires actual deletion after a retention period. See [Batch Processing](/recipes/batch-processing-patterns/) for scheduled jobs.
-- **Log hard deletes separately**: When you finally purge, log it to an audit table or event stream. See [Logging](/recipes/logging/) for audit trails.
-- **Test your recovery flow**: A soft delete is useless if users can't actually restore from a trash UI.
-
-## Common Mistakes
-
-- **Forgetting to filter**: A missing `WHERE deleted_at IS NULL` exposes deleted data to users.
-- **Unique constraint violations**: Creating a new user with the same email as a soft-deleted user fails if the unique index doesn't include `deleted_at`.
-- **No purge strategy**: Soft-deleted data accumulates forever, bloating backups and slowing queries.
-- **Cascading soft deletes**: If `posts` belong to `users`, deleting a user should probably soft-delete their posts too. Implement this in your service layer.
-- **Querying deleted records by default**: Some ORMs (Django, Sequelize) handle this automatically, but raw SQL and some ORMs don't.
-
-## FAQ
-
-### How do I handle unique constraints with soft deletes?
-
-Make your unique index partial or conditional: `UNIQUE (email, deleted_at) WHERE deleted_at IS NULL` (PostgreSQL) or `UNIQUE (email, deleted_at)` (MySQL/SQLite). Alternatively, use a composite index on `(email, is_deleted)` and ensure `is_deleted` is part of the constraint.
-
-### Does soft delete violate GDPR?
-
-GDPR Article 17 grants the right to erasure. Soft delete alone is not sufficient if the user requests deletion. You must either (a) hard delete after a retention period, or (b) anonymize the record so it can no longer be linked to the individual. Document your retention policy in your privacy policy.
-
-### How do I cascade soft deletes to related records?
-
-Implement this in your service or repository layer, not the database (foreign keys won't cascade updates). When soft-deleting a `User`, loop through their `Posts` and soft-delete each one. For large trees, use a recursive CTE or batch update. Some ORMs (Django, Eloquent) provide built-in soft-delete cascade packages.
-
-### Cascade Soft Delete with Recursive CTE
+### PostgreSQL partial unique index
 
 ```sql
--- Soft delete a user and all their posts and comments
-WITH RECURSIVE dependent_posts AS (
+-- Allow re-creating a record with the same email after soft delete
+CREATE UNIQUE INDEX idx_users_email_active
+ON users (email)
+WHERE deleted_at IS NULL;
+
+-- Only one active user per email; multiple soft-deleted rows are allowed.
+```
+
+### Cascade soft delete with recursive CTE
+
+```sql
+WITH RECURSIVE user_posts AS (
     SELECT id FROM posts WHERE user_id = 42 AND deleted_at IS NULL
 )
 UPDATE posts SET deleted_at = NOW()
-WHERE id IN (SELECT id FROM dependent_posts);
-
-WITH RECURSIVE dependent_comments AS (
-    SELECT id FROM comments WHERE post_id IN (
-        SELECT id FROM posts WHERE user_id = 42
-    ) AND deleted_at IS NULL
-)
-UPDATE comments SET deleted_at = NOW()
-WHERE id IN (SELECT id FROM dependent_comments);
+WHERE id IN (SELECT id FROM user_posts);
 
 UPDATE users SET deleted_at = NOW() WHERE id = 42;
 ```
 
-### Restore Soft-Deleted Records
+### Restore soft-deleted records
 
 ```python
 def restore_user(session, user_id):
@@ -237,7 +204,7 @@ def restore_user(session, user_id):
     return user
 ```
 
-### Scheduled Purge Job for GDPR Compliance
+### Scheduled purge job for GDPR compliance
 
 ```python
 import datetime
@@ -246,7 +213,6 @@ from sqlalchemy import text
 def purge_old_soft_deletes(session, days=30):
     cutoff = datetime.datetime.utcnow() - datetime.timedelta(days=days)
 
-    # Hard delete users soft-deleted more than 30 days ago
     result = session.execute(text(
         "DELETE FROM users WHERE deleted_at IS NOT NULL AND deleted_at < :cutoff"
     ), {"cutoff": cutoff})
@@ -259,106 +225,93 @@ def purge_old_soft_deletes(session, days=30):
     print(f"Purged {result.rowcount} users")
 ```
 
-### Partial Unique Index for Soft Deletes in PostgreSQL
+## Explanation
 
-```sql
--- Allow re-creating a record with the same email after soft delete
-CREATE UNIQUE INDEX idx_users_email_active
-ON users (email)
-WHERE deleted_at IS NULL;
+Soft deletes add a `deleted_at` (or `is_deleted`) column. Instead of `DELETE
+FROM`, you run `UPDATE ... SET deleted_at = NOW()`. Standard queries add `WHERE
+deleted_at IS NULL` to exclude soft-deleted rows.
 
--- This allows multiple soft-deleted records with the same email,
--- but only one active record per email.
-```
+This gives you recoverable data, preserved foreign keys, and an automatic audit
+trail. The cost is bigger tables, special unique indexes, and a purge strategy
+for true removal.
 
-### Soft Delete with Table Partitioning
+For real deletion, schedule a purge job that runs `DELETE FROM` on records
+soft-deleted longer than your retention period. This is required for GDPR and
+keeps storage and backups from growing forever.
 
-```sql
--- Partition users by deletion status for large tables
-CREATE TABLE users (
-    id BIGSERIAL,
-    email VARCHAR(255) NOT NULL,
-    deleted_at TIMESTAMP,
-    created_at TIMESTAMP DEFAULT NOW()
-) PARTITION BY LIST (deleted_at IS NULL);
+## Variants
 
-CREATE TABLE users_active PARTITION OF users
-FOR VALUES IN (true);
+| Approach | Column | Best for | Notes |
+| --- | --- | --- | --- |
+| Timestamp (`deleted_at`) | `DATETIME NULL` | Audit trails, recovery windows | Supports "deleted before X date" queries |
+| Boolean (`is_deleted`) | `BOOLEAN DEFAULT FALSE` | Simple logic | Add a separate `deleted_at` for audits |
+| Archive table | Full copy | Compliance, large tables | More complex; triggers or app-level |
+| Partition by deletion status | Native PG/MySQL | Very large tables | Separate partitions for active vs deleted |
 
-CREATE TABLE users_deleted PARTITION OF users
-FOR VALUES IN (false);
+## Best Practices
 
--- Queries on active users only scan the active partition
-SELECT * FROM users WHERE email = 'alice@example.com';
--- Only scans users_active partition
-```
-
-### Django Soft Delete with Signals
-
-```python
-from django.db import models
-from django.db.models.signals import pre_delete
-from django.dispatch import receiver
-
-class SoftDeleteManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(deleted_at__isnull=True)
-
-class BaseModel(models.Model):
-    deleted_at = models.DateTimeField(null=True, blank=True)
-    objects = SoftDeleteManager()
-    all_objects = models.Manager()  # Includes deleted
-
-    def soft_delete(self):
-        self.deleted_at = timezone.now()
-        self.save()
-
-    class Meta:
-        abstract = True
-
-class User(BaseModel):
-    email = models.EmailField(unique=False)
-
-class Post(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-
-@receiver(pre_delete, sender=User)
-def cascade_soft_delete(sender, instance, **kwargs):
-    Post.objects.filter(user=instance, deleted_at__isnull=True).update(
-        deleted_at=timezone.now()
-    )
-```
-
-
-
-
-## Performance Tips
-
-1. **Use partial indexes for active records.** This keeps the index small and fast:
+- Filter deleted rows by default in your ORM, repository, or query builder.
+- Include `deleted_at` in unique indexes so a record can be re-created after
+  soft delete.
+- Schedule periodic hard deletes after your retention period. GDPR erasure
+  requires actual deletion or anonymization.
+- Log hard deletes to an audit table or event stream when you finally purge.
+- Test the restore flow. A soft delete is only useful if users can recover from a
+  trash UI.
+- Use partial indexes on active records to keep indexes small and fast:
 
 ```sql
 CREATE INDEX idx_orders_active_user ON orders (user_id) WHERE deleted_at IS NULL;
 ```
 
-2. **Schedule purges during low-traffic periods.** Run the purge job as a cron task during off-peak hours to avoid impacting user queries.
+- Run purge jobs during low-traffic windows and `VACUUM` (PostgreSQL) afterward.
+- Use `EXPLAIN` to confirm active queries use the partial index.
 
-3. **Use `VACUUM` after purges.** Hard deletes create dead tuples. Run `VACUUM` to reclaim space:
+## Common Mistakes
 
-```sql
-VACUUM (VERBOSE, ANALYZE) users;
-```
+- Forgetting `WHERE deleted_at IS NULL` in raw queries and exposing deleted data.
+- Unique constraint violations when recreating a record that was soft-deleted.
+- No purge strategy, letting soft-deleted data accumulate forever.
+- Cascading soft deletes inconsistently. If `posts` belong to `users`, decide
+  whether deleting a user also soft-deletes their posts, and implement it
+  uniformly in the service layer.
+- Querying deleted records by default because the ORM isn't configured to filter
+  them.
+- Running a soft delete on data that should be hard-deleted immediately, such as
+  user data under a GDPR erasure request.
 
-4. **Archive soft-deleted records to a separate table.** Move old soft-deleted records to an archive table to keep the main table small:
+## FAQ
 
-```sql
-INSERT INTO users_archive SELECT * FROM users WHERE deleted_at < NOW() - INTERVAL '30 days';
-DELETE FROM users WHERE deleted_at < NOW() - INTERVAL '30 days';
-```
+### How do I handle unique constraints with soft deletes?
 
-5. **Use `EXPLAIN` to verify index usage.** Ensure queries on active records use the partial index:
+Make the unique index partial: `UNIQUE (email) WHERE deleted_at IS NULL` in
+PostgreSQL, or `UNIQUE (email, deleted_at)` in MySQL/SQLite. This blocks
+duplicate active values but allows several soft-deleted rows.
 
-```sql
-EXPLAIN SELECT * FROM users WHERE email = 'alice@example.com' AND deleted_at IS NULL;
--- Should show "Index Scan using idx_users_email_active"
-```
+### Does soft delete violate GDPR?
+
+GDPR Article 17 grants the right to erasure. Soft delete alone isn't sufficient.
+You must hard delete or anonymize after a documented retention period.
+
+### How do I cascade soft deletes to related records?
+
+Implement it in the service or repository layer. When soft-deleting a `User`,
+loop through or batch-update related `Posts`. For large trees, use a recursive
+CTE or an ORM package that supports soft-delete cascades.
+
+### When should I hard delete instead of soft delete?
+
+When the data has no recovery or audit value, or when a user or regulator
+requests erasure. Also use hard delete for high-churn, non-sensitive data that
+would bloat tables.
+
+### How do I restore a soft-deleted record?
+
+Set `deleted_at` to `NULL` and commit. Also restore related records if your
+business logic requires it. Wrap the operation in a transaction.
+
+### How do I keep queries fast with soft deletes?
+
+Add partial indexes on `deleted_at IS NULL` for the columns you query most. Keep
+soft-deleted rows in a separate archive table or partition when they become old,
+and purge aggressively.

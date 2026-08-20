@@ -345,8 +345,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/soft-deletes/
    - ES: https://stackpractices.com/es/recipes/soft-deletes/
    - Focus: striking distance, low CTR, proven demand
-   - Status: ✅ Title + meta optimized in P1.1
-   - Words: 1,521 | Meta: 151 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 40.5% / ES 41.0% (0 patterns)
+   - Words: 1,255 | Meta: 146 chars
 
 43. - [ ] **complete-guide-rabbitmq-architecture** (guides)
    - Metrics: 54 imp | pos 33.6 | CTR 0.00% | Δ impr 40
