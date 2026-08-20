@@ -1,0 +1,7 @@
+Polish vertical-slice-architecture-guide.
+
+- Trim generic filler sections and reorganize into a focused guide.
+- Add practical C# feature slice example with command, handler, validator and endpoint.
+- Expand related resources to six coherent architecture and pattern links.
+- Update meta description to fit the 150-160 char range.
+- Add Desklib detection reports and update sitemap.

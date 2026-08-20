@@ -2,8 +2,8 @@
 contentType: guides
 slug: vertical-slice-architecture-guide
 title: "Vertical Slice Architecture: Feature-First Organization"
-description: "A practical guide to Vertical Slice Architecture: organizing code by feature instead of technical concern, reducing cross-layer navigation and improving cohesion."
-metaDescription: "Learn Vertical Slice Architecture: organize code by feature, not layer. Reduce cross-layer navigation, improve cohesion, and simplify changes with practical examples."
+description: "A practical guide to Vertical Slice Architecture: organizing code by feature instead of technical concern to reduce cross-layer navigation and improve cohesion."
+metaDescription: "Learn Vertical Slice Architecture: organize code by feature, not layer. Reduce navigation, improve cohesion and simplify changes with practical examples."
 difficulty: intermediate
 topics:
   - architecture
@@ -19,13 +19,15 @@ tags:
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/layered-architecture-guide
+  - /guides/clean-architecture-guide
   - /patterns/cqrs-pattern
   - /patterns/mediator-pattern
-lastUpdated: "2026-06-25"
+  - /patterns/repository-pattern
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn Vertical Slice Architecture: organize code by feature, not layer. Reduce cross-layer navigation, improve cohesion, and simplify changes with practical examples."
+  metaDescription: "Learn Vertical Slice Architecture: organize code by feature, not layer. Reduce navigation, improve cohesion and simplify changes with practical examples."
   keywords:
     - vertical-slice-architecture
     - feature-based
@@ -33,27 +35,39 @@ seo:
     - code-organization
     - cohesion
     - guide
-
-
 ---
+
 ## Overview
 
-Vertical Slice Architecture, popularized by Jimmy Bogard, flips the traditional layered approach. Instead of organizing code by technical concern (Controllers, Services, Repositories), you organize by feature. All code for a single feature — controller, service, queries, DTOs, validation — lives together in one place. When you need to change "Create Order," all the relevant code is in one folder. This dramatically reduces the cognitive load of navigating a codebase.
+Vertical Slice Architecture, popularized by Jimmy Bogard, flips the traditional
+layered approach. Instead of organizing code by technical concern (Controllers,
+Services, Repositories), you organize by feature. All code for a single feature
+— command, handler, validator and endpoint — lives together in one place. When
+you need to change "Create Order", all the relevant files are in one folder. This
+cuts the cognitive load of navigating a codebase and reduces merge conflicts
+between teams.
 
 ## When to Use
 
+- Your application has many capabilities that evolve independently.
+- Team members keep asking "where is the code for X?"
+- Cross-layer changes require touching several files in several directories.
+- You want to minimize merge conflicts between feature teams.
+- Some capabilities are simple CRUD, others are complex workflows.
 
-- For alternatives, see [Clean Architecture](/guides/clean-architecture-guide/).
+For alternatives, see [Clean Architecture](/guides/clean-architecture-guide/).
 
-- Your application has many capabilities that evolve independently
-- Team members frequently ask "where is the code for X?"
-- Cross-layer changes require touching 5+ files in 3+ directories
-- You want to minimize merge conflicts between feature teams
-- Some capabilities are simple CRUD, others are complex workflows
+### When to avoid
+
+- The codebase is tiny. A single feature folder doesn't simplify a project that
+  already fits in a few files.
+- Every feature reuses the same massive domain model. Deep coupling across slices
+  is a sign the domain isn't split well.
+- Your organization isn't ready to let one team own one slice end to end.
 
 ## Horizontal vs Vertical Organization
 
-```
+```text
 Horizontal (Layered)          Vertical (Feature Slices)
 ├── Controllers               ├── Features
 │   ├── OrderController.cs    │   ├── CreateOrder
@@ -72,7 +86,7 @@ Horizontal (Layered)          Vertical (Feature Slices)
 Each feature is self-contained and typically includes:
 
 | Component | Purpose |
-|-----------|---------|
+| --- | --- |
 | **Command/Query** | Input model (DTO) |
 | **Handler** | Business logic for the feature |
 | **Validator** | Input validation rules |
@@ -98,7 +112,7 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderDto>
 
     public CreateOrderHandler(AppDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken ct)
     {
         var product = await _dbContext.Products.FindAsync(request.ProductId);
         if (product == null) throw new NotFoundException("Product not found");
@@ -116,7 +130,7 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderDto>
 
         _dbContext.Orders.Add(order);
         product.Stock -= request.Quantity;
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(ct);
 
         return new OrderDto(order);
     }
@@ -153,9 +167,10 @@ public class CreateOrderEndpoint : ICarterModule
 
 ## Sharing Cross-Cutting Concerns
 
-Not everything belongs in a feature slice. Shared infrastructure lives in a common folder:
+Not everything belongs in a feature slice. Shared infrastructure lives in a
+common folder:
 
-```
+```text
 ├── Features/           # Vertical slices
 ├── Common/
 │   ├── Behaviors/      # MediatR pipelines (logging, validation, transactions)
@@ -164,195 +179,72 @@ Not everything belongs in a feature slice. Shared infrastructure lives in a comm
 │   └── Infrastructure/ # DbContext, DI configuration
 ```
 
+Use this folder for code that's reused across slices: logging, validation
+pipelines, transactions and shared exceptions. Keep the business logic inside
+the slice.
+
+## Best Practices
+
+- Group related operations in one slice. Don't create a slice for every CRUD
+  action if they share the same data and rules.
+- Keep handlers fat and endpoints thin. Endpoints should delegate; handlers
+  should contain the business logic.
+- Extract shared logic into `Common/` or domain services, but only when at least
+  two slices need it.
+- Organize tests by feature. Put `CreateOrderTests.cs` next to the feature code
+  or in a matching test folder.
+- Use a mediator library (MediatR, Mediator) to route requests to handlers
+  without coupling slices to each other.
+- Pick one primary organization per application. Mixing horizontal and vertical
+  in the same project creates confusion.
+
 ## Common Mistakes
 
-- **No shared abstractions** — duplicating DbContext access or validation pipelines in every feature
-- **Features too granular** — creating a slice for every CRUD operation instead of grouping related operations
-- **Business logic in endpoints** — handlers should contain the logic, endpoints just delegate
-- **Ignoring cross-cutting concerns** — logging, caching, and transactions still need centralized handling
-- **Mixing horizontal and vertical** — picking one approach per application, not both arbitrarily
-
-
-## Troubleshooting
-
-- **High latency between services**: trace the request path.  Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy.  Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas.  Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: right-size instances and use autoscaling with limits.  Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
-
-
-
-
-
-## Quick Reference
-
-- **Main command**: run the base solution from the article and verify the expected result.
-- **Validation**: confirm tests pass and key metrics did not degrade.
-- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the maintainability and guide guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply vertical slice architecture: feature-first organization** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Duplicating `DbContext` access or validation pipelines in every feature instead
+  of using shared behaviors.
+- Making slices too granular. A folder per tiny CRUD operation adds noise, not
+  clarity.
+- Putting business logic in endpoints or controllers. That pulls logic out of the
+  slice and back into a horizontal layer.
+- Ignoring cross-cutting concerns. Logging, caching and transactions still need a
+  central place.
+- Forcing absolute isolation. Shared domain entities can live in `Common/Domain`
+  and still keep each slice cohesive.
 
 ## FAQ
 
-**Does Vertical Slice replace Clean Architecture?**
-No, they address different concerns. Vertical Slice is about code organization (folder structure). Clean Architecture is about dependency direction. You can combine them: vertically organized features with inward-pointing dependencies.
+### Does Vertical Slice replace Clean Architecture?
 
-**What framework works best with Vertical Slice?**
-Any framework that supports a mediator pattern. ASP.NET Core with MediatR, FastAPI with dependency injection, or Spring Boot with CQRS libraries all work well.
+No. Vertical Slice is about folder organization. Clean Architecture is about
+dependency direction. You can combine them: vertically organized slices with
+inward-pointing dependencies.
 
-**How do I handle features that share logic?**
-Extract shared logic into domain services or common behaviors. The goal is cohesion within a feature, not absolute isolation at all costs.
+### What framework works best with Vertical Slice?
 
-### How do I get started with this in an existing project?
+Any framework that supports a mediator pattern. ASP.NET Core with MediatR,
+FastAPI with dependency injection, or Spring Boot with CQRS libraries all work
+well.
 
-Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+### How do I handle features that share logic?
 
-### What tools do I need?
+Extract shared logic into domain services or common behaviors. The goal is
+cohesion within a feature, not isolation at all costs.
 
-The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+### How do I migrate from layered to vertical slices?
 
-### How do I measure success after implementing this?
+Migrate one feature at a time. Start with the simplest one, move its code into
+the new slice folder, verify the tests, then remove the old files. Repeat. Don't
+migrate everything at once.
 
-Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+### How do I handle shared domain entities?
 
+Shared entities like `Order` or `Product` live in `Common/Domain/` or a shared
+project. Slices reference them but keep their own business logic. If two slices
+need the same domain logic, extract a method on the entity or create a domain
+service in `Common/`.
 
-## Advanced Topics
+### When is a slice too big?
 
-### Detailed Scenario: E-commerce App with Vertical Slices
-
-```text
-Project: E-commerce API (.NET 8, FastEndpoints + MediatR)
-Domains: Orders, Products, Customers, Cart, Checkout
-
-Folder structure:
-  src/
-    Features/
-      Orders/
-        CreateOrder/
-          ├── CreateOrderCommand.cs      # Input DTO
-          ├── CreateOrderHandler.cs       # Business logic
-          ├── CreateOrderValidator.cs     # Validation
-          ├── CreateOrderEndpoint.cs      # HTTP route
-          └── CreateOrderResponse.cs      # Output DTO
-        GetOrderById/
-          ├── GetOrderByIdQuery.cs
-          ├── GetOrderByIdHandler.cs
-          └── GetOrderByIdEndpoint.cs
-        UpdateOrderStatus/
-          ├── UpdateOrderStatusCommand.cs
-          ├── UpdateOrderStatusHandler.cs
-          ├── UpdateOrderStatusValidator.cs
-          └── UpdateOrderStatusEndpoint.cs
-        CancelOrder/
-          ├── CancelOrderCommand.cs
-          ├── CancelOrderHandler.cs
-          └── CancelOrderEndpoint.cs
-      Products/
-        CreateProduct/
-        GetProductById/
-        ListProducts/
-        UpdatePrice/
-      Cart/
-        AddToCart/
-        RemoveFromCart/
-        GetCart/
-    Common/
-      Behaviors/
-        ├── LoggingBehavior.cs            # Logging pipeline
-        ├── ValidationBehavior.cs         # Validation pipeline
-        └── TransactionBehavior.cs        # Transaction pipeline
-      Exceptions/
-        ├── NotFoundException.cs
-        ├── ValidationException.cs
-        └── ConflictException.cs
-      Infrastructure/
-        ├── AppDbContext.cs
-        ├── DependencyInjection.cs
-        └── EventBus.cs
-
-MediatR pipeline (chained behaviors):
-  Request -> LoggingBehavior -> ValidationBehavior -> TransactionBehavior -> Handler
-
-  // LoggingBehavior.cs
-  public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-  {
-      public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
-      {
-          logger.LogInformation("Handling {RequestType}", typeof(TRequest).Name);
-          var response = await next();
-          logger.LogInformation("Handled {RequestType}", typeof(TRequest).Name);
-          return response;
-      }
-  }
-
-Observed benefits:
-  - Change to "Create Order" touches 1 folder, not 5
-  - Merge conflicts reduced 80% (each team works in their slice)
-  - Faster onboarding: new dev reads one folder and understands the feature
-  - Tests organized by feature: Orders.Tests/CreateOrderTests.cs
-```
-
-### How do I migrate from layered architecture to vertical slices?
-
-Migrate one feature at a time. Start with the simplest feature (e.g., GetProductById). Create the Features/Products/GetProductById/ folder, move the relevant code, and verify tests pass. Remove the old code from the horizontal folders. Repeat with the next feature. Do not migrate everything at once: the risk of breaking is high and the value of each incremental migration is immediate.
-
-### How do I handle features that share domain entities?
-
-Shared domain entities (Order, Product, Customer) live in Common/Domain/ or a shared project. Slices reference these entities but contain their own business logic. If two features need the same domain logic, extract a method on the entity or create a domain service in Common/. The goal is cohesion within the slice, not forced duplication.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-End of document. Review and update quarterly.
-
-## Common Production Pitfalls
-
-- Treating the guide as a checklist to complete once rather than a practice to evolve.
-- Adopting every recommendation at once instead of starting with one measured change.
-- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
-- Not updating runbooks and on-call expectations as new practices are introduced.
-- Ignoring real incident data when prioritizing which parts of the guide to apply first.
-- Failing to assign an owner who reviews decisions quarterly.
-- Copying examples without adapting them to the team's actual tooling and constraints.
-- Forgetting to measure outcomes before adding the next improvement.
+When the folder starts to feel like its own application — several business
+processes, unrelated data and many sub-folders — it's probably a bounded context
+that deserves its own service or module.

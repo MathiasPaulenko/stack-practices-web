@@ -2,8 +2,8 @@
 contentType: guides
 slug: vertical-slice-architecture-guide
 title: "Arquitectura por Slices Verticales: Organización por Feature"
-description: "Guía práctica de Arquitectura por Slices Verticales: organizar código por feature en lugar de por capa técnica, reducir navegación cruzada y mejorar cohesión."
-metaDescription: "Aprende Slices Verticales: organiza código por feature, no por capa. Reduce navegación cruzada, mejora cohesión y simplifica cambios con ejemplos prácticos."
+description: "Guía práctica de Arquitectura por Slices Verticales: organizar código por feature en lugar de por capa técnica para reducir navegación cruzada y mejorar cohesión."
+metaDescription: "Aprende Slices Verticales: organiza código por feature, no por capa. Reduce navegación, mejora cohesión y simplifica cambios con ejemplos prácticos."
 difficulty: intermediate
 topics:
   - architecture
@@ -19,13 +19,15 @@ tags:
 relatedResources:
   - /guides/onion-architecture-guide
   - /guides/layered-architecture-guide
+  - /guides/clean-architecture-guide
   - /patterns/cqrs-pattern
   - /patterns/mediator-pattern
-lastUpdated: "2026-06-25"
+  - /patterns/repository-pattern
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende Slices Verticales: organiza código por feature, no por capa. Reduce navegación cruzada, mejora cohesión y simplifica cambios con ejemplos prácticos."
+  metaDescription: "Aprende Slices Verticales: organiza código por feature, no por capa. Reduce navegación, mejora cohesión y simplifica cambios con ejemplos prácticos."
   keywords:
     - vertical-slice-architecture
     - feature-based
@@ -33,27 +35,40 @@ seo:
     - code-organization
     - cohesion
     - guia
-
-
 ---
-## Overview
 
-La Arquitectura por Slices Verticales, popularizada por Jimmy Bogard, invierte el enfoque tradicional por capas. En lugar de organizar código por preocupación técnica (Controladores, Servicios, Repositorios), organizas por feature. Todo el código de una feature — controlador, servicio, consultas, DTOs, validación — vive junto en un solo lugar. Cuando necesitas cambiar "Crear Orden", todo el código relevante está en una carpeta. Esto reduce drásticamente la carga cognitiva de navegar una codebase.
+## Visión General
+
+La Arquitectura por Slices Verticales, popularizada por Jimmy Bogard, invierte el
+enfoque tradicional por capas. En lugar de organizar código por preocupación
+técnica (Controladores, Servicios, Repositorios), organizás por feature. Todo el
+código de una feature — comando, handler, validador y endpoint — vive junto en
+una carpeta. Cuando necesitás cambiar "Crear Orden", todos los archivos
+relevantes están ahí. Eso reduce la carga cognitiva de navegar la codebase y
+baja los conflictos de merge entre equipos.
 
 ## Cuándo Usar
 
+- Tu aplicación tiene muchas funcionalidades que evolucionan independientemente.
+- Los miembros del equipo preguntan seguido "¿dónde está el código de X?"
+- Cambios entre capas requieren tocar varios archivos en varios directorios.
+- Querés minimizar conflictos de merge entre equipos de funcionalidades.
+- Algunas funcionalidades son CRUD simples, otras son flujos complejos.
 
-- For alternatives, see [Clean Architecture](/es/guides/clean-architecture-guide/).
+Para alternativas, consultá [Clean Architecture](/es/guides/clean-architecture-guide/).
 
-- Tu aplicación tiene muchas funcionalidades que evolucionan independientemente
-- Miembros del equipo preguntan frecuentemente "dónde está el código de X?"
-- Cambios cruzados entre capas requieren tocar 5+ archivos en 3+ directorios
-- Quieres minimizar conflictos de merge entre equipos de funcionalidades
-- Algunas funcionalidades son CRUD simple, otras son flujos complejos
+### Cuándo evitarlo
+
+- La codebase es pequeña. Una carpeta por feature no simplifica un proyecto que
+  ya entra en pocos archivos.
+- Cada feature reusa el mismo modelo de dominio masivo. Acoplamiento profundo
+  entre slices significa que el dominio no está bien dividido.
+- La organización no está lista para que un equipo se haga cargo de un slice de
+  punta a punta.
 
 ## Organización Horizontal vs Vertical
 
-```
+```text
 Horizontal (Capas)            Vertical (Slices)
 ├── Controladores             ├── Features
 │   ├── OrderController.cs    │   ├── CreateOrder
@@ -72,7 +87,7 @@ Horizontal (Capas)            Vertical (Slices)
 Cada feature es autocontenida y típicamente incluye:
 
 | Componente | Propósito |
-|-----------|----------|
+| --- | --- |
 | **Command/Query** | Modelo de entrada (DTO) |
 | **Handler** | Lógica de negocio de la feature |
 | **Validator** | Reglas de validación de entrada |
@@ -98,7 +113,7 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderDto>
 
     public CreateOrderHandler(AppDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<OrderDto> Handle(CreateOrderCommand request, CancellationToken ct)
     {
         var product = await _dbContext.Products.FindAsync(request.ProductId);
         if (product == null) throw new NotFoundException("Producto no encontrado");
@@ -116,7 +131,7 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, OrderDto>
 
         _dbContext.Orders.Add(order);
         product.Stock -= request.Quantity;
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(ct);
 
         return new OrderDto(order);
     }
@@ -153,9 +168,10 @@ public class CreateOrderEndpoint : ICarterModule
 
 ## Compartiendo Preocupaciones Transversales
 
-No todo pertenece a un slice vertical. La infraestructura compartida vive en una carpeta común:
+No todo pertenece a un slice vertical. La infraestructura compartida vive en una
+carpeta común:
 
-```
+```text
 ├── Features/           # Slices verticales
 ├── Common/
 │   ├── Behaviors/      # Pipelines de MediatR (logging, validación, transacciones)
@@ -164,195 +180,72 @@ No todo pertenece a un slice vertical. La infraestructura compartida vive en una
 │   └── Infrastructure/ # DbContext, configuración de DI
 ```
 
+Usá esta carpeta para código reutilizado entre slices: logging, pipelines de
+validación, transacciones y excepciones compartidas. Mantené la lógica de
+negocio dentro del slice.
+
+## Mejores Prácticas
+
+- Agrupá operaciones relacionadas en un slice. No crees un slice para cada acción
+  CRUD si comparten los mismos datos y reglas.
+- Dejá los handlers con la lógica y los endpoints livianos. Los endpoints
+  delegan; los handlers contienen la lógica de negocio.
+- Extraé lógica compartida a `Common/` o servicios de dominio, pero solo cuando
+  al menos dos slices la necesiten.
+- Organizá tests por feature. Poné `CreateOrderTests.cs` al lado del código de la
+  feature o en una carpeta de tests con la misma estructura.
+- Usá una librería mediator (MediatR, Mediator) para rutear requests a handlers
+  sin acoplar slices entre sí.
+- Elegí una organización principal por aplicación. Mezclar horizontal y vertical
+  en el mismo proyecto genera confusión.
+
 ## Errores Comunes
 
-- **Sin abstracciones compartidas** — duplicar acceso a DbContext o pipelines de validación en cada feature
-- **Features demasiado granulares** — crear un slice para cada operación CRUD en lugar de agrupar operaciones relacionadas
-- **Lógica de negocio en endpoints** — los handlers deben contener la lógica, los endpoints solo delegan
-- **Ignorar preocupaciones transversales** — logging, caching y transacciones aún necesitan manejo centralizado
-- **Mezclar horizontal y vertical** — elegir un enfoque por aplicación, no ambos arbitrariamente
-
-
-## Troubleshooting
-
-- **High latency between services**: trace the request path.   Look for synchronous chains, missing caching, and oversized payloads that cross network boundaries.
-- **Single point of failure**: identify components without redundancy.   Add replicas, failover, or circuit breakers before scaling traffic.
-- **Unexpected coupling between services**: review shared databases, libraries, and schemas.   Bound contexts should own their data and expose stable interfaces.
-- **Cost spikes after scaling**: Reserved capacity or spot instances can reduce steady-state spend.
-- **Difficult to reason about the system**: maintain architecture decision records and service dependency maps.
+- Duplicar acceso a `DbContext` o pipelines de validación en cada feature en
+  lugar de usar comportamientos compartidos.
+- Hacer slices demasiado granulares. Una carpeta por cada operación CRUD pequeña
+  agrega ruido, no claridad.
+- Poner lógica de negocio en endpoints o controladores. Eso saca la lógica del
+  slice y la vuelve a una capa horizontal.
+- Ignorar preocupaciones transversales. Logging, caching y transacciones todavía
+  necesitan un lugar central.
+- Forzar aislamiento absoluto. Las entidades de dominio compartidas pueden vivir
+  en `Common/Domain` y seguir manteniendo cohesión en cada slice.
 
 ## FAQ
 
-**Reemplaza Vertical Slice a Clean Architecture?**
-No, abordan preocupaciones diferentes. Vertical Slice es sobre organización de código (estructura de carpetas). Clean Architecture es sobre dirección de dependencias. Puedes combinarlos: features organizadas verticalmente con dependencias que apuntan hacia adentro.
+### ¿Reemplaza Vertical Slice a Clean Architecture?
 
-**Qué framework funciona mejor con Vertical Slice?**
-Cualquier framework que soporte un patrón mediator. ASP.NET Core con MediatR, FastAPI con inyección de dependencias, o Spring Boot con librerías CQRS funcionan bien.
+No. Vertical Slice es sobre organización de carpetas. Clean Architecture es sobre
+dirección de dependencias. Podés combinarlos: slices organizados
+verticalmente con dependencias que apuntan hacia adentro.
 
-**Cómo manejo features que comparten lógica?**
-Extrae la lógica compartida en servicios de dominio o comportamientos comunes. El objetivo es cohesión dentro de una feature, no aislamiento absoluto a toda costa.
+### ¿Qué framework funciona mejor con Vertical Slice?
 
-### ¿Cómo empiezo con esto en un proyecto existente?
+Cualquier framework que soporte un patrón mediator. ASP.NET Core con MediatR,
+FastAPI con inyección de dependencias, o Spring Boot con librerías CQRS funcionan
+bien.
 
-Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+### ¿Cómo manejo features que comparten lógica?
 
-### ¿Qué herramientas necesito?
+Extraé la lógica compartida en servicios de dominio o comportamientos comunes. El
+objetivo es cohesión dentro de una feature, no aislamiento a toda costa.
 
-Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+### ¿Cómo migro de capas a slices verticales?
 
-### ¿Cómo mido el éxito después de implementar esto?
+Migrá una feature a la vez. Empezá por la más simple, mové su código a la
+nueva carpeta del slice, verificá que los tests pasen y eliminá los archivos
+viejos. Repetí. No migres todo de golpe.
 
-Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+### ¿Cómo manejo entidades de dominio compartidas?
 
+Entidades como `Order` o `Product` viven en `Common/Domain/` o en un proyecto
+compartido. Los slices las referencian pero mantienen su propia lógica. Si dos
+slices necesitan la misma lógica de dominio, extraé un método en la entidad o
+creá un servicio de dominio en `Common/`.
 
-## Temas Avanzados
+### ¿Cuándo un slice es demasiado grande?
 
-### Escenario Detallado: App de E-commerce con Slices Verticales
-
-```text
-Proyecto: E-commerce API (.NET 8, FastEndpoints + MediatR)
-Dominios: Orders, Products, Customers, Cart, Checkout
-
-Estructura de carpetas:
-  src/
-    Features/
-      Orders/
-        CreateOrder/
-          ├── CreateOrderCommand.cs      # Input DTO
-          ├── CreateOrderHandler.cs       # Logica de negocio
-          ├── CreateOrderValidator.cs     # Validacion
-          ├── CreateOrderEndpoint.cs      # Route HTTP
-          └── CreateOrderResponse.cs      # Output DTO
-        GetOrderById/
-          ├── GetOrderByIdQuery.cs
-          ├── GetOrderByIdHandler.cs
-          └── GetOrderByIdEndpoint.cs
-        UpdateOrderStatus/
-          ├── UpdateOrderStatusCommand.cs
-          ├── UpdateOrderStatusHandler.cs
-          ├── UpdateOrderStatusValidator.cs
-          └── UpdateOrderStatusEndpoint.cs
-        CancelOrder/
-          ├── CancelOrderCommand.cs
-          ├── CancelOrderHandler.cs
-          └── CancelOrderEndpoint.cs
-      Products/
-        CreateProduct/
-        GetProductById/
-        ListProducts/
-        UpdatePrice/
-      Cart/
-        AddToCart/
-        RemoveFromCart/
-        GetCart/
-    Common/
-      Behaviors/
-        ├── LoggingBehavior.cs            # Pipeline de logging
-        ├── ValidationBehavior.cs         # Pipeline de validacion
-        └── TransactionBehavior.cs        # Pipeline de transaccion
-      Exceptions/
-        ├── NotFoundException.cs
-        ├── ValidationException.cs
-        └── ConflictException.cs
-      Infrastructure/
-        ├── AppDbContext.cs
-        ├── DependencyInjection.cs
-        └── EventBus.cs
-
-Pipeline de MediatR (comportamientos encadenados):
-  Request -> LoggingBehavior -> ValidationBehavior -> TransactionBehavior -> Handler
-
-  // LoggingBehavior.cs
-  public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-  {
-      public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
-      {
-          logger.LogInformation("Handling {RequestType}", typeof(TRequest).Name);
-          var response = await next();
-          logger.LogInformation("Handled {RequestType}", typeof(TRequest).Name);
-          return response;
-      }
-  }
-
-Beneficios observados:
-  - Cambio en "Crear Orden" toca 1 carpeta, no 5
-  - Merge conflicts reducidos 80% (cada equipo trabaja en su slice)
-  - Onboarding mas rapido: nuevo dev lee una carpeta y entiende la feature
-  - Tests organizados por feature: Orders.Tests/CreateOrderTests.cs
-```
-
-### Como migro de arquitectura por capas a slices verticales?
-
-Migra una feature a la vez. Empieza con la feature mas simple (ej: GetProductById). Crea la carpeta Features/Products/GetProductById/, mueve el codigo relevante, y verifica que los tests pasan. Elimina el codigo viejo de las carpetas horizontales. Repite con la siguiente feature. No migres todo a la vez: el riesgo de romper es alto y el valor de cada migracion incremental es inmediato.
-
-### Como manejo features que comparten entidades de dominio?
-
-Las entidades de dominio compartidas (Order, Product, Customer) viven en Common/Domain/ o en un proyecto compartido. Los slices referencian estas entidades pero contienen su propia logica de negocio. Si dos features necesitan la misma logica de dominio, extrae un metodo en la entidad o crea un servicio de dominio en Common/. El objetivo es cohesion dentro del slice, no duplicacion forzada.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-End of document. Review and update quarterly.
-
-
-
-
-
-## Referencia Rápida
-
-- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
-- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
-- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de maintainability y guide para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica arquitectura por slices verticales: organización por feature** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Errores Comunes en Producción
-
-- Tratar la guía como un checklist para completar una vez en lugar de una práctica por evolucionar.
-- Adoptar cada recomendación de golpe en lugar de comenzar con un cambio medido.
-- Saltar la evaluación de madurez e imponer prácticas avanzadas a un equipo no preparado.
-- No actualizar runbooks y expectativas de guardia al introducir nuevas prácticas.
-- Ignorar datos reales de incidentes al priorizar qué partes de la guía aplicar primero.
-- No asignar un responsable que revise decisiones trimestralmente.
-- Copiar ejemplos sin adaptarlos a las herramientas y restricciones reales del equipo.
-- Olvidar medir resultados antes de agregar la siguiente mejora.
+Cuando la carpeta empieza a parecer su propia aplicación — múltiples procesos de
+negocio, datos no relacionados y muchas subcarpetas — probablemente es un bounded
+context que merece su propio servicio o módulo.

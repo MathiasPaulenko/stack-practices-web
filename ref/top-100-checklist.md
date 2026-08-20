@@ -268,13 +268,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.6% / ES 41.4% (0 patterns)
    - Words: 985 | Meta: 149 chars
 
-33. - [ ] **vertical-slice-architecture-guide** (guides)
+33. - [x] **vertical-slice-architecture-guide** (guides)
    - Metrics: 44 imp | pos 22.1 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/vertical-slice-architecture-guide/
    - ES: https://stackpractices.com/es/guides/vertical-slice-architecture-guide/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,526 | Meta: 166 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.7% / ES 36.3% (0 patterns)
+   - Words: 995 | Meta: 153 chars
 
 34. - [ ] **prometheus-api-monitoring** (recipes)
    - Metrics: 35 imp | pos 27.1 | CTR 0.00% | Δ impr 33
