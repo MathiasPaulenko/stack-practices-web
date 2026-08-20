@@ -308,13 +308,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Title + meta optimized in P1.1
    - Words: 2,482 | Meta: 135 chars
 
-38. - [ ] **handle-errors** (recipes)
+38. - [x] **handle-errors** (recipes)
    - Metrics: 32 imp | pos 14 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/handle-errors/
    - ES: https://stackpractices.com/es/recipes/handle-errors/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,465 | Meta: 159 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 51.1% / ES 43.3% (0 patterns)
+   - Words: 1,025 | Meta: 159 chars
 
 39. - [ ] **python-secrets-management-vault** (recipes)
    - Metrics: 32 imp | pos 15.8 | CTR 0.00% | Δ impr 0

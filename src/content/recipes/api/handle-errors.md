@@ -1,69 +1,66 @@
 ---
 contentType: recipes
 slug: handle-errors
-title: "Handle Errors in APIs"
+title: "Handle API Errors with RFC 7807 and HTTP Status Codes"
 description: "Patterns for consistent, predictable API error handling across multiple languages and frameworks."
-metaDescription: "Learn how to implement consistent REST API error handling with proper HTTP status codes, error payloads, and language examples in Python, JavaScript, and Java."
+metaDescription: "Implement consistent REST API error handling with RFC 7807 Problem Details, HTTP status codes, and examples in Python, JavaScript, and Java."
 difficulty: intermediate
 topics:
   - api
 tags:
   - api
   - error-handling
-  - java
   - rest
   - http
+  - python
+  - javascript
+  - java
+  - fastapi
+  - express
 relatedResources:
   - /recipes/call-rest-api
-  - /recipes/jwt-authentication
-  - /patterns/strategy-pattern
+  - /recipes/input-validation
+  - /recipes/api-versioning
   - /recipes/api-logging-audit
   - /recipes/api-documentation-openapi
-  - /recipes/api-versioning
-  - /recipes/graphql-api
-  - /recipes/handle-cors
-  - /recipes/idempotent-api-endpoints
-  - /recipes/input-validation
-  - /recipes/logging
-  - /recipes/middleware
-  - /recipes/pagination
-  - /recipes/send-emails-smtp
-  - /recipes/server-sent-events
-  - /recipes/webhooks
-  - /recipes/graphql-error-handling-best-practices
-  - /docs/api-documentation
   - /guides/rest-api-design-guide
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn how to implement consistent REST API error handling with proper HTTP status codes, error payloads, and language examples in Python, JavaScript, and Java."
+  metaDescription: "Implement consistent REST API error handling with RFC 7807 Problem Details, HTTP status codes, and examples in Python, JavaScript, and Java."
   keywords:
     - error handling
     - api errors
     - rest api
     - http status codes
-    - error response
-
-
-
-
-
+    - rfc 7807
+    - problem details
 ---
+
 ## Overview
 
-Error handling is what separates reliable APIs from fragile ones. A well-designed error response tells the client exactly what went wrong, what to do about it, and how to avoid it in the future — without leaking internal implementation details.
-
-The solution below covers the industry-standard error response format (RFC 7807 Problem Details), proper HTTP status code selection, and idiomatic implementation patterns in Python, JavaScript, and Java.
+Good error handling is what makes an API reliable. A well-designed error
+response tells the client what went wrong, what to do about it, and how to avoid
+it — without leaking internal details. This recipe covers RFC 7807 Problem
+Details, HTTP status codes, and idiomatic implementations in Python, JavaScript,
+and Java.
 
 ## When to Use
 
-Use this recipe when:
+- Building or refactoring a REST API that clients depend on.
+- Standardizing error responses across several backend services.
+- Documenting failure modes for API consumers.
+- Designing error-handling middleware or exception mappers.
 
-- Building or refactoring a [REST API](/recipes/call-rest-api/) that clients will depend on
-- Standardizing error responses across multiple backend services
-- Documenting failure modes for API consumers
-- Designing error handling middleware or exception mappers
+### When to avoid
+
+- The API has only a few endpoints with no complex business logic. A lightweight
+  `{ error: "message" }` shape is enough.
+- The API already uses a stable, client-dependent error format. Migrating to RFC
+  7807 breaks compatibility.
+- Latency is extremely tight. Extra validation and response formatting add
+  overhead.
 
 ## Solution
 
@@ -182,15 +179,23 @@ public class GlobalExceptionHandler {
 
 ## Explanation
 
-- **RFC 7807 Problem Details** defines a standard JSON error shape: `type`, `title`, `detail`, and `status`. Using this format makes your API predictable for clients.
-- **HTTP status codes** carry the semantic meaning of the error. Never return 200 OK for a failed request.
-- **Global error handlers** centralize error serialization so individual route handlers stay focused on business logic. See [Express Middleware Patterns](/recipes/express-middleware-patterns/) for Express-specific error handling.
-- **Leak prevention**: in production, never expose stack traces or internal paths in error responses.
+**RFC 7807 Problem Details** defines a standard JSON error shape with `type`,
+`title`, `detail`, and `status`. This makes your API predictable for clients and
+easy to document.
+
+**HTTP status codes** carry the semantic meaning. Never return 200 OK for a
+failed request. Use 400 for client mistakes, 401/403 for auth, 404 for missing
+resources, 409 for conflicts, 422 for validation failures, and 500 for server
+bugs.
+
+**Global error handlers** centralize serialization so route handlers stay focused
+on business logic. They also prevent stack traces and SQL details from leaking to
+clients in production.
 
 ## Variants
 
-| Language | Framework | Exception Handler | Typed Errors |
-|----------|-----------|-------------------|--------------|
+| Language | Framework | Handler pattern | Typed errors |
+| --- | --- | --- | --- |
 | Python | FastAPI | `@app.exception_handler` | `HTTPException` |
 | Python | Django REST | `exception_handler` setting | `APIException` subclasses |
 | JavaScript | Express | Error-handling middleware | Custom `AppError` class |
@@ -198,152 +203,69 @@ public class GlobalExceptionHandler {
 | Java | Spring Boot | `@ControllerAdvice` | `ResponseStatusException` |
 | Java | JAX-RS | `ExceptionMapper<T>` | `WebApplicationException` |
 
-## What Works
+## Best Practices
 
-- **Use the correct HTTP status**: 400 for client mistakes, 401/403 for auth issues, 404 for missing resources, 409 for conflicts, 422 for validation failures, 500 for server bugs.
-- **Include a correlation ID**: add a request ID to every error response so support can trace logs.
-- **Document all errors**: list every 4xx and 5xx your endpoint can return in your API docs.  See [API Documentation Template](/docs/api-documentation/) for docs structure.
-- **Keep messages useful**: "User name must be between 2 and 50 characters" is better than "Validation failed.
-- **Localize sparingly**: error `detail` can be in English; let the client map `type` URLs to localized UI strings.
+- Use the right HTTP status. 400 for client mistakes, 401/403 for auth, 404 for
+  missing resources, 409 for conflicts, 422 for validation failures, 500 for
+  server bugs.
+- Include a correlation ID in error responses and logs so support can trace
+  requests.
+- Keep messages useful. "User name must be between 2 and 50 characters" is
+  better than "Validation failed."
+- Never expose stack traces, SQL, or internal paths in production.
+- Set `Cache-Control: no-store` on all error responses.
+- Document every 4xx and 5xx an endpoint can return in your OpenAPI spec.
+- Validate input early. See [input validation](/recipes/input-validation/) for
+  request validation patterns.
 
 ## Common Mistakes
 
-- **Returning 200 with an error body**: some legacy APIs do this — it breaks caching, logging, and monitoring.
-- **Exposing internals**: sending full stack traces or SQL details to the client is a security risk.  See [Security Guide](/guides/security-best-practices-guide/) for data protection.
-- **Inconsistent shapes**: one endpoint returns `{ error: "msg" }`, another returns `{ message: "msg", code: 123 }` — this confuses client generators.
-- **Wrong status code**: returning 500 for a missing resource (should be 404) or 403 for an unauthenticated request (should be 401).
-- **Swallowing exceptions**: catching everything and returning a generic 500 hides bugs you should fix.
-
-## When Not to Use This Approach
-
-- **Over-engineering simple APIs**: if your API has 3 endpoints with no complex business logic, adding structured error handling, validation layers, and monitoring is overkill.
-- **Prototypes and hackathons**: structured error handling and validation slow down rapid prototyping.  Add them before production, not during exploration.
-- **Legacy systems with established error formats**: if your existing API returns {error: "message"} and all clients depend on it, migrating to RFC 7807 breaks compatibility.  Plan a gradual migration.
-- **Internal tools with trusted users**: if the API is only used by your team and input is always well-formed, extensive validation adds overhead without benefit.  Basic validation is sufficient.
-- **Real-time APIs with strict latency budgets**: if your API must respond in <5ms, extra validation and error formatting add latency.  Move validation to a separate layer or use compiled schemas.
-
-## Performance Benchmarks
-
-| Metric | Before optimization | After optimization | Improvement |
-|--------|---------------------|--------------------|----|
-| Error response time (p99) | 45ms | 8ms | 5.6x faster |
-| Validation overhead per request | 3.2ms | 0.8ms | 4x faster |
-| Memory per error object | 2.1KB | 0.4KB | 5.2x less |
-| Error serialization (JSON) | 1.8ms | 0.3ms | 6x faster |
-| Log entry write (async) | 12ms | 0.1ms | 120x faster |
-
-Benchmarks run on Node.js 20, single core, 1000 error responses. Results vary with error complexity and logging infrastructure.
-
-## Testing Strategy
-
-- **Test all HTTP status codes**: verify that 400, 401, 403, 404, 409, 422, 429, 500, 502, 503 each return the correct status code and error body format.
-- **Test error response format consistency**: every error response must include the same fields (type, title, status, detail, instance).  Write a contract test that validates the schema of every error response.
-- **Test error logging**: verify that errors are logged with the correct severity level, correlation ID, and stack trace.
-- **Test error propagation in middleware chains**: verify that errors thrown in inner middleware are caught and formatted by the error handler.
-- **Test rate limit error responses**: verify that 429 responses include Retry-After header and the correct error body.
-- **Test validation error with multiple field errors**: send a request with 3+ invalid fields and verify the response includes all validation errors, not just the first one.
-
-## Cost Estimation
-
-- **Error monitoring tools**: Sentry or Bugsnag cost ~-80/month for small teams.  Budget /month for error tracking at production scale.
-- **Log storage**: error logs at 10K req/day with 1% error rate = 100 error logs/day.  At 1KB per log, that's 3MB/month.  S3 Glacier storage cost: negligible (</month).
-- **Alerting infrastructure**: PagerDuty or Opsgenie cost ~-35/user/month.  Budget /month for a 2-person team.
-- **Error response bandwidth**: at 10M req/day with 0. 5% error rate, error responses consume ~50GB/month bandwidth.  Cost: ~/month on AWS.
-- **Development time**: implementing proper error handling adds ~15% to API development time.  This is offset by reduced debugging time and fewer production incidents.
-
-## Monitoring and Observability
-
-- **Track error rate by endpoint**: monitor the percentage of 4xx and 5xx responses per endpoint.  Set alerts for error rate >5% on any endpoint.
-- **Monitor error response latency**: track p95 and p99 latency for error responses.  Slow error responses (>100ms) indicate that error handling logic is too heavy or logging is synchronous.
-- **Track error categories**: categorize errors by type (validation, auth, not found, server error, rate limit).  A spike in validation errors may indicate a client bug or API change.
-- **Monitor unhandled exceptions**: set up a catch-all for unhandled exceptions and alert immediately.  Unhandled exceptions indicate missing error handling and should never reach production.
-- **Track error correlation IDs**: ensure every error response includes a correlation ID.  Missing correlation IDs indicate gaps in the logging middleware.
-
-## Deployment Checklist
-
-- [ ] Configure global error handler that catches all unhandled exceptions
-- [ ] Set up structured error response format (RFC 7807 or custom)
-- [ ] Enable async logging with buffer size of at least 500 entries
-- [ ] Configure error alerting for 5xx error rate >1%
-- [ ] Test error responses for all HTTP status codes (400-503)
-- [ ] Set up error tracking service (Sentry, Bugsnag, or equivalent)
-- [ ] Configure log retention policy (ERROR: 90 days, INFO: 30 days)
-- [ ] Verify error responses do not leak stack traces in production
-- [ ] Set up correlation ID propagation across all services
-- [ ] Document error response format in API documentation
-
-## Security Considerations
-
-- **Stack trace leakage**: never return stack traces, internal paths, or database error messages to clients.  These reveal your tech stack and file structure to attackers.  Always sanitize error responses in production.
-- **Error-based enumeration**: attackers can probe endpoints with invalid inputs to map your API.  Rate limit error responses and return generic 400 messages instead of specific validation errors for unauthenticated requests.
-- **Timing attacks on error responses**: if validation errors return faster than auth errors, attackers can distinguish between valid and invalid credentials.
-- **Error message injection**: if error messages include user input without escaping, attackers can inject HTML or scripts.  Always escape user input in error messages, even in JSON responses.
-- **Information disclosure via error codes**: specific error codes (e. g. , "DUPLICATE_EMAIL") reveal internal state.
-- **Log injection via error details**: if error details are logged without sanitization, attackers can inject newlines or control characters into logs.  Sanitize all user input before logging.
-- **Error-based DoS**: attackers can trigger expensive error paths (e. g. , database connection errors) repeatedly.  Rate limit error responses and cache error results for repeated identical requests.
-- **Correlation ID spoofing**: if correlation IDs are accepted from client headers without validation, attackers can spoof IDs to confuse log tracing.
-
-
-
-## Troubleshooting
-
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
-
-
-## Key Takeaways
-
-- **Apply handle errors in apis** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Returning 200 OK with an error body. It breaks caching, logging, and
+  monitoring.
+- Exposing internals like stack traces or SQL details to clients.
+- Using inconsistent shapes between endpoints. One returns `{ error: "msg" }`,
+  another `{ message: "msg", code: 123 }`.
+- Returning 500 for a missing resource (should be 404) or 403 for an
+  unauthenticated request (should be 401).
+- Swallowing exceptions. Catching everything and returning a generic 500 hides
+  bugs you should fix.
+- Returning different errors for "user not found" and "wrong password". This
+  lets attackers enumerate valid accounts.
 
 ## FAQ
 
-**Q: Should I use RFC 7807 or a simpler custom format?**
-A: RFC 7807 is recommended for public APIs and microservices. For internal tools, a simpler `{ error, message }` object is fine if it is consistent across all endpoints.
+### Should I use RFC 7807 or a simpler custom format?
 
-**Q: How do I handle validation errors with multiple fields?**
-A: Extend the Problem Details response with an `errors` array or `invalid-params` field, listing each invalid field and its reason. Spring Boot and FastAPI do this automatically.
+Use RFC 7807 for public APIs and microservices. For internal tools with trusted
+clients, a simple `{ error, message }` object is fine if it's consistent across
+all endpoints.
 
-**Q: What status code should I use for business-logic failures?**
-A: Prefer 422 Unprocessable Entity for semantic validation failures (e.g., "cannot ship to this country"). Use 409 Conflict for state conflicts (e.g., duplicate email). Avoid 400 for business rules.
+### How do I handle validation errors with multiple fields?
 
-### Is this solution production-ready?
+Extend the Problem Details response with an `errors` or `invalid-params` array,
+listing each field and its reason. FastAPI and Spring Boot do this out of the
+box.
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+### What status code should I use for business-logic failures?
 
-### What are the performance characteristics?
+Use 422 Unprocessable Entity for semantic validation failures (e.g., "can't ship
+to this country"). Use 409 Conflict for state conflicts (e.g., duplicate
+email). Avoid 400 for business rules.
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+### How do I prevent error responses from leaking sensitive data?
 
-### How do I debug issues with this approach?
+In production, return a generic message for 500 errors and log the full stack
+trace server-side. Use an allowlist for fields in error responses and avoid
+including user input directly.
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+### How do I test error handling?
 
-- **Error response caching**: caches can store error responses and serve them to legitimate users.  Set Cache-Control: no-store on all error responses to prevent caching.
-- **Error-based user enumeration**: different errors for "user not found" vs "wrong password" allow user enumeration.
-- **Async error handler memory leaks**: if async error handlers capture large objects in closures, memory leaks occur.
-- **Error response compression bombs**: if error responses are compressed, attackers can trigger many errors to consume CPU.  Disable compression for error responses or rate limit them.
-- **Error log flooding**: attackers can trigger thousands of errors per second to flood your logging infrastructure.  Rate limit error logging and sample repeated identical errors.
-- **Error-based cache poisoning**: if error responses are cached with user input in the body, attackers can poison the cache.  Never include user input in cached error responses.
-- **Error response timing variation**: if different errors take different time to generate, attackers can infer internal state.  Normalize error response time to a fixed duration.
-- **Error-based SSRF**: if error messages include internal URLs or hostnames, attackers can use them for SSRF.  Strip all internal URLs from error messages before returning to clients.
-- **Error-based blind SQL injection**: if database errors are returned to clients, attackers can use them for blind SQL injection.  Never return raw database errors; wrap them in generic messages.
-- **Error response header injection**: if error messages are reflected in HTTP headers, attackers can inject CRLF characters.  Sanitize all user input before placing it in HTTP headers.
-- **Error-based XSS via JSON**: if JSON error responses are rendered as HTML by the browser, attackers can inject scripts.  Set Content-Type: application/json and X-Content-Type-Options: nosniff.
-- **Error-based open redirect**: if error messages include redirect URLs from user input, attackers can redirect to malicious sites.  Validate all redirect URLs against an allowlist.
+Write contract tests that verify every endpoint returns the same error fields
+for each status code (400, 401, 403, 404, 409, 422, 500). Also verify logs
+contain a correlation ID and stack trace.
 
-## Common Production Pitfalls
+### How do I handle errors across microservices?
 
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+Propagate the same correlation ID and error format across service boundaries.
+Return 502/503 for downstream failures and 504 for timeouts. Never forward
+internal downstream error details to the client.
