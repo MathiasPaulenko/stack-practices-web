@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: python-secrets-management-vault
-title: "Gestiona secretos de aplicacion con HashiCorp Vault y Python"
-description: "Almacena, recupera y rota secretos de aplicacion de forma segura usando HashiCorp Vault con cliente Python hvac, secretos dinamicos y renovacion automatica de leases"
-metaDescription: "Gestiona secretos de aplicacion con HashiCorp Vault y Python. Almacena y recupera secretos, usa credenciales dinamicas de BD y renueva leases con hvac."
+title: "Gestiona Secretos de Aplicación con HashiCorp Vault y Python"
+description: "Almacena, recupera y rota secretos de aplicación de forma segura usando HashiCorp Vault con cliente Python hvac, secretos dinámicos y renovación automática de leases."
+metaDescription: "Gestiona secretos de aplicación con HashiCorp Vault y Python. Almacena y recupera secretos, usa credenciales dinámicas de BD y renueva leases con hvac."
 difficulty: advanced
 topics:
   - security
@@ -18,68 +13,69 @@ tags:
   - hashicorp-vault
   - secrets-management
   - security
+  - infrastructure
+  - postgresql
 relatedResources:
   - /recipes/python-jwt-refresh-token-rotation
   - /recipes/python-sql-injection-sqlalchemy
   - /recipes/python-rate-limiting-fastapi-redis
-  - /guides/ci-cd-security-guide
   - /guides/complete-guide-secrets-management
   - /guides/complete-guide-supply-chain-security
-lastUpdated: "2026-07-02"
+  - /guides/ci-cd-security-guide
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Gestiona secretos de aplicacion con HashiCorp Vault y Python. Almacena y recupera secretos, usa credenciales dinamicas de BD y renueva leases con hvac."
+  metaDescription: "Gestiona secretos de aplicación con HashiCorp Vault y Python. Almacena y recupera secretos, usa credenciales dinámicas de BD y renueva leases con hvac."
   keywords:
     - hashicorp vault
     - python hvac
     - secrets management
-    - dynamic secrets
+    - secretos dinámicos
     - vault python
-
-
-
-
-
+    - lease renewal
 ---
 
-Los secretos hardcodeados en variables de entorno o archivos de configuracion son un riesgo de seguridad. HashiCorp Vault centraliza el almacenamiento de secretos con cifrado, control de acceso, audit logging y secretos dinamicos. A continuacion: conectarse a Vault con Python (`hvac`), almacenar y recuperar secretos estaticos, usar credenciales dinamicas de base de datos y renovar leases automaticamente.
+## Visión General
 
-## Cuando Usar Esto
+Los secretos hardcodeados en variables de entorno o archivos de configuración son
+un riesgo de seguridad. HashiCorp Vault centraliza el almacenamiento de secretos
+con cifrado, control de acceso, audit logging y secretos dinámicos. Esta receta
+cubre cómo conectarse a Vault con Python (`hvac`), almacenar y recuperar
+secretos estáticos, usar credenciales dinámicas de base de datos y renovar
+leases automáticamente.
 
+## Cuándo Usar
 
-- For alternatives, see [CI/CD Security: Harden Your Pipelines and Prevent Supply](/es/guides/ci-cd-security-guide/).
+- Aplicaciones con varios secretos (passwords de BD, API keys, certificados TLS).
+- Equipos que necesitan gestión centralizada de secretos con audit trails.
+- Secretos dinámicos que rotan automáticamente, como credenciales de BD o tokens
+  cloud.
 
-- Aplicaciones con multiples secretos (passwords de BD, API keys, certificados TLS)
-- Equipos que necesitan gestion centralizada de secretos con audit trails
-- Secretos dinamicos que rotan automaticamente (credenciales de BD, tokens cloud)
+### Cuándo evitarlo
 
-## Requisitos Previos
+- Una app chica con uno o dos secretos y un solo desarrollador. Un gestor
+  simple o un archivo de entorno encriptado puede alcanzar.
+- No podés ejecutar o acceder a un cluster de Vault. La dependencia extra agrega
+  overhead operativo.
+- Paths con latencia muy baja donde una consulta a Vault en cada request es
+  inaceptable. Cacheá secretos localmente con TTL en ese caso.
 
-- Python 3.10+
-- Paquete `hvac` (`pip install hvac`)
-- Un servidor Vault ejecutandose (modo dev: `vault server -dev`)
+## Solución
 
-## Solucion
-
-### 1. Instalar dependencias
+### Instalar dependencias
 
 ```bash
 pip install hvac
 ```
 
-### 2. Conectar a Vault
+### Conectar a Vault
 
 ```python
-import hvac
 import os
+import hvac
 
 def create_vault_client() -> hvac.Client:
-    """Create and authenticate a Vault client.
-
-    Returns:
-        Authenticated hvac.Client instance.
-    """
     client = hvac.Client(
         url=os.getenv("VAULT_ADDR", "http://127.0.0.1:8200"),
         token=os.getenv("VAULT_TOKEN", "root"),
@@ -93,16 +89,10 @@ def create_vault_client() -> hvac.Client:
 vault = create_vault_client()
 ```
 
-### 3. Almacenar y recuperar secretos estaticos
+### Almacenar y recuperar secretos estáticos
 
 ```python
 def store_secret(path: str, secret_data: dict) -> None:
-    """Store a secret in Vault's KV v2 engine.
-
-    Args:
-        path: Secret path (e.g., "myapp/database").
-        secret_data: Dict of key-value pairs to store.
-    """
     vault.secrets.kv.v2.create_or_update_secret(
         path=path,
         secret=secret_data,
@@ -110,15 +100,6 @@ def store_secret(path: str, secret_data: dict) -> None:
     )
 
 def get_secret(path: str, version: int | None = None) -> dict:
-    """Retrieve a secret from Vault's KV v2 engine.
-
-    Args:
-        path: Secret path.
-        version: Specific version (None = latest).
-
-    Returns:
-        Secret data dict.
-    """
     response = vault.secrets.kv.v2.read_secret_version(
         path=path,
         version=version,
@@ -126,7 +107,6 @@ def get_secret(path: str, version: int | None = None) -> dict:
     )
     return response["data"]["data"]
 
-# Almacenar secretos
 store_secret("myapp/database", {
     "username": "app_user",
     "password": "super-secret-password",
@@ -139,17 +119,15 @@ store_secret("myapp/api_keys", {
     "sendgrid": "SG.xxx",
 })
 
-# Recuperar secretos
 db_creds = get_secret("myapp/database")
 print(f"DB Host: {db_creds['host']}")
 print(f"DB User: {db_creds['username']}")
 ```
 
-### 4. Listar secretos
+### Listar secretos
 
 ```python
 def list_secrets(path: str = "") -> list[str]:
-    """List secrets at a given path."""
     try:
         response = vault.secrets.kv.v2.list_secrets(
             path=path,
@@ -159,49 +137,14 @@ def list_secrets(path: str = "") -> list[str]:
     except hvac.exceptions.InvalidPath:
         return []
 
-# Listar todos los secretos bajo myapp/
 keys = list_secrets("myapp")
 print(f"Secrets under myapp/: {keys}")
-# ['database', 'api_keys']
 ```
 
-### 5. Credenciales dinamicas de base de datos
+### Credenciales dinámicas de base de datos
 
 ```python
-def setup_database_engine():
-    """Configure Vault's database secrets engine for dynamic credentials."""
-    # Habilitar el engine de secretos de base de datos
-    vault.sys.enable_secrets_engine(
-        backend_type="database",
-        path="database",
-    )
-
-    # Configurar conexion PostgreSQL
-    vault.write("database/config/my-postgresql", {
-        "plugin_name": "postgresql-database-plugin",
-        "allowed_roles": "app-role",
-        "connection_url": "postgresql://{{username}}:{{password}}@db.example.com:5432/mydb",
-        "username": "vault_admin",
-        "password": "vault_admin_password",
-    })
-
-    # Crear un rol con TTL de 1 hora
-    vault.write("database/roles/app-role", {
-        "db_name": "my-postgresql",
-        "creation_statements": [
-            "CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';",
-            "GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";",
-        ],
-        "default_ttl": "1h",
-        "max_ttl": "24h",
-    })
-
 def get_dynamic_db_credentials() -> dict:
-    """Generate dynamic database credentials from Vault.
-
-    Returns:
-        Dict with username, password, and lease_id.
-    """
     response = vault.read("database/creds/app-role")
     return {
         "username": response["data"]["username"],
@@ -211,27 +154,45 @@ def get_dynamic_db_credentials() -> dict:
         "renewable": response["renewable"],
     }
 
-# Generar credenciales — cada llamada crea un usuario unico
 creds = get_dynamic_db_credentials()
 print(f"Dynamic user: {creds['username']}")
 print(f"Lease duration: {creds['lease_duration']}s")
 ```
 
-### 6. Renovacion y revocacion de leases
+Para que esto funcione, el database secrets engine tiene que estar habilitado y
+configurado:
+
+```python
+vault.sys.enable_secrets_engine(
+    backend_type="database",
+    path="database",
+)
+
+vault.write("database/config/my-postgresql", {
+    "plugin_name": "postgresql-database-plugin",
+    "allowed_roles": "app-role",
+    "connection_url": "postgresql://{{username}}:{{password}}@db.example.com:5432/mydb",
+    "username": "vault_admin",
+    "password": "vault_admin_password",
+})
+
+vault.write("database/roles/app-role", {
+    "db_name": "my-postgresql",
+    "creation_statements": [
+        "CREATE ROLE \"{{name}}\" WITH LOGIN PASSWORD '{{password}}' VALID UNTIL '{{expiration}}';",
+        "GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\";",
+    ],
+    "default_ttl": "1h",
+    "max_ttl": "24h",
+})
+```
+
+### Renovación y revocación de leases
 
 ```python
 import time
 
 def renew_lease(lease_id: str, increment: int = 3600) -> bool:
-    """Renew a lease for dynamic secrets.
-
-    Args:
-        lease_id: The lease ID from credential generation.
-        increment: Seconds to extend the lease.
-
-    Returns:
-        True if renewal succeeded.
-    """
     try:
         vault.sys.renew_lease(
             lease_id=lease_id,
@@ -242,28 +203,22 @@ def renew_lease(lease_id: str, increment: int = 3600) -> bool:
         return False
 
 def revoke_lease(lease_id: str) -> None:
-    """Revoke a lease — immediately invalidates the dynamic credentials."""
     vault.sys.revoke_lease(lease_id=lease_id)
 
-# Uso con auto-renovacion
 creds = get_dynamic_db_credentials()
-
-# Renovar antes de expirar
-time.sleep(creds["lease_duration"] - 300)  # 5 min antes de expirar
+time.sleep(creds["lease_duration"] - 300)
 renew_lease(creds["lease_id"], increment=3600)
 
-# Revocar al terminar
 revoke_lease(creds["lease_id"])
 ```
 
-### 7. Clase wrapper de secretos
+### Wrapper de secretos con auto-renovación
 
 ```python
 import threading
 from typing import Any
 
 class VaultSecretManager:
-    """Manages static and dynamic secrets with auto-renewal."""
 
     def __init__(self, vault_client: hvac.Client):
         self.vault = vault_client
@@ -271,15 +226,12 @@ class VaultSecretManager:
         self._lock = threading.Lock()
 
     def get_static_secret(self, path: str) -> dict:
-        """Get a static secret from KV v2."""
         return get_secret(path)
 
     def get_dynamic_secret(self, role_path: str, name: str = "default") -> dict:
-        """Get dynamic credentials, caching and auto-renewing."""
         with self._lock:
             if name in self._dynamic_creds:
                 creds = self._dynamic_creds[name]
-                # Renovar si esta cerca de expirar
                 if creds["expires_at"] - time.time() < 300:
                     self._renew(name)
                 return creds
@@ -296,7 +248,6 @@ class VaultSecretManager:
             return creds
 
     def _renew(self, name: str) -> None:
-        """Renew dynamic credentials."""
         creds = self._dynamic_creds[name]
         try:
             self.vault.sys.renew_lease(
@@ -305,11 +256,9 @@ class VaultSecretManager:
             )
             creds["expires_at"] = time.time() + creds["lease_duration"]
         except hvac.exceptions.InvalidRequest:
-            # Lease expirado — obtener nuevas credenciales
             del self._dynamic_creds[name]
 
     def cleanup(self) -> None:
-        """Revoke all dynamic credentials."""
         with self._lock:
             for creds in self._dynamic_creds.values():
                 try:
@@ -318,67 +267,75 @@ class VaultSecretManager:
                     pass
             self._dynamic_creds.clear()
 
-# Uso
 manager = VaultSecretManager(vault)
 db_creds = manager.get_dynamic_secret("database/creds/app-role", "main_db")
 print(f"Using DB user: {db_creds['username']}")
 
-# Al apagar
+# On shutdown
 manager.cleanup()
 ```
 
-## Como Funciona
+## Explicación
 
-1. **Engine KV v2** almacena secretos estaticos como pares key-value versionados. Cada actualizacion crea una nueva version, permitiendo rollback a versiones anteriores.
-2. **Engine de secretos de base de datos** crea usuarios reales de base de datos on demand. Cada generacion de credenciales ejecuta SQL `CREATE ROLE` con un username y password aleatorios. Las credenciales son validas hasta que el lease expira o se revoca.
-3. **Renovacion de lease** extiende el TTL de las credenciales dinamicas. La clausula `VALID UNTIL` del usuario de base de datos se actualiza al nuevo tiempo de expiracion.
-4. **Revocacion de lease** elimina inmediatamente el usuario de base de datos, invalidando las credenciales. Esto ocurre automaticamente cuando el lease expira o manualmente via `revoke_lease`.
-5. **Auto-renovacion** verifica si las credenciales estan cerca de expirar y las renueva transparentemente, para que la aplicacion nunca vea credenciales expiradas.
+El **motor KV v2** de Vault almacena secretos estáticos como pares clave-valor
+versionados. Cada actualización crea una nueva versión, así que podés volver a
+una versión anterior.
+
+El **motor de secretos de base de datos** crea usuarios reales de base de datos
+bajo demanda. Cada generación de credenciales ejecuta SQL `CREATE ROLE` con un
+username y password aleatorios. El usuario es válido hasta que el lease expire o
+sea revocado.
+
+La **renovación de lease** extiende el TTL y actualiza la cláusula `VALID UNTIL`
+en la base de datos. La **revocación** elimina el usuario inmediatamente,
+invalidando las credenciales. La clase wrapper renueva las credenciales de forma
+transparente para que la aplicación nunca vea valores vencidos.
 
 ## Variantes
 
-### Autenticacion AppRole
+| Método de auth | Caso de uso | Cómo usarlo |
+| --- | --- | --- |
+| Token | Dev local y testing | `hvac.Client(url=..., token=...)` |
+| AppRole | Máquina a máquina | `vault.auth.approle.login(...)` |
+| Kubernetes | Workloads en pods | `vault.auth.kubernetes.login(...)` |
+| Transit | Encriptar datos sin tener las claves | `transit/encrypt/{key_name}` |
+
+### Autenticación AppRole
 
 ```python
 def authenticate_approle(role_id: str, secret_id: str) -> str:
-    """Authenticate using AppRole — for machine-to-machine auth."""
     response = vault.auth.approle.login(
         role_id=role_id,
         secret_id=secret_id,
     )
     return response["auth"]["client_token"]
 
-# Usar el token para peticiones subsiguientes
 token = authenticate_approle("role-uuid", "secret-uuid")
 vault = hvac.Client(url="http://127.0.0.1:8200", token=token)
 ```
 
-### Engine Transit para cifrado
+### Motor Transit para encriptación
 
 ```python
+import base64
+
 def encrypt_data(key_name: str, plaintext: str) -> str:
-    """Encrypt data using Vault's Transit engine (envelope encryption)."""
-    import base64
     encoded = base64.b64encode(plaintext.encode()).decode()
     response = vault.write(f"transit/encrypt/{key_name}", {"plaintext": encoded})
     return response["data"]["ciphertext"]
 
 def decrypt_data(key_name: str, ciphertext: str) -> str:
-    """Decrypt data using Vault's Transit engine."""
     response = vault.write(f"transit/decrypt/{key_name}", {"ciphertext": ciphertext})
-    import base64
     return base64.b64decode(response["data"]["plaintext"]).decode()
 
-# Vault gestiona la clave de cifrado — la app nunca la ve
 encrypted = encrypt_data("my-key", "sensitive data")
 decrypted = decrypt_data("my-key", encrypted)
 ```
 
-### Autenticacion Kubernetes
+### Autenticación Kubernetes
 
 ```python
 def authenticate_kubernetes(jwt_path: str = "/var/run/secrets/kubernetes.io/serviceaccount/token"):
-    """Authenticate from within a Kubernetes pod."""
     with open(jwt_path) as f:
         jwt_token = f.read()
 
@@ -389,42 +346,65 @@ def authenticate_kubernetes(jwt_path: str = "/var/run/secrets/kubernetes.io/serv
     return response["auth"]["client_token"]
 ```
 
-## Mejores Practicas
+## Mejores Prácticas
 
-- **Usa secretos dinamicos cuando sea posible** — las credenciales son de corta duracion y unicas por peticion
-- **Nunca loguees secretos** — Vault retorna secretos en plaintext; asegurate de que no terminen en logs
-- **Usa AppRole o Kubernetes auth en produccion** — no tokens root
-- **Rota secretos estaticos regularmente** — usa las features de rotacion de Vault o actualiza manualmente
+- Usá secretos dinámicos siempre que podás. Son de corta duración y únicos por
+  request.
+- Nunca loguees secretos. Vault devuelve valores en texto plano; mantenelos
+  fuera de logs.
+- Usá AppRole o Kubernetes auth en producción, nunca root tokens.
+- Rotá secretos estáticos regularmente a través del motor KV versionado.
+- Cacheá secretos localmente con un TTL corto para que la app sobreviva a cortes
+  de Vault.
+- Seteá `Cache-Control: no-store` en cualquier endpoint que toque secretos.
+- Ejecutá un cluster Vault dedicado o una oferta manejada; no uses `-dev` en
+  producción.
 
 ## Errores Comunes
 
-- **Usar token root en produccion** — los tokens root evitan todo control de acceso; usa AppRole
-- **No revocar credenciales dinamicas** — los usuarios de BD huerfanos se acumulan; siempre revoca al apagar
-- **Almacenar token de Vault en variables de entorno** — usa AppRole con response wrapping en su lugar
-- **No manejar el downtime de Vault** — implementa caching con TTL para que la app sobreviva caidas breves de Vault
+- Usar un root token en producción. Los root tokens ignoran todo control de
+  acceso.
+- No revocar credenciales dinámicas. Los usuarios huérfanos se acumulan con el
+  tiempo.
+- Guardar el token de Vault en variables de entorno. Usá AppRole con response
+  wrapping.
+- No manejar caídas de Vault. Implementá cache local y comportamiento de
+  fallback.
+- Devolver secretos en respuestas de API o mostrarlos en logs de UI.
+- Olvidarse de habilitar y configurar el database secrets engine antes de pedir
+  credenciales.
 
 ## FAQ
 
-**Q: Que pasa cuando Vault cae?**
-A: Los secretos estaticos no se pueden leer y las credenciales dinamicas no se pueden generar. Cachea secretos localmente con un TTL corto (5-10 min) para sobrevivir caidas breves.
+### ¿Qué pasa si Vault cae?
 
-**Q: Como se revocan las credenciales dinamicas de BD?**
-A: Vault ejecuta `DROP ROLE` en la base de datos cuando el lease expira o se revoca. Las credenciales dejan de funcionar inmediatamente.
+Los secretos estáticos no se pueden leer y las credenciales dinámicas no se
+pueden generar. Cacheá secretos localmente con un TTL corto (5-10 minutos) para
+sobrevivir a cortes breves.
 
-**Q: Puedo usar Vault con AWS Secrets Manager?**
-A: Sirven propositos similares pero son sistemas separados. Vault es self-hosted; Secrets Manager es gestionado por AWS. Elige segun tu infraestructura.
+### ¿Cómo se revocan las credenciales dinámicas de base de datos?
 
-**Q: Como roto secretos estaticos?**
-A: Actualiza el secreto en Vault con un nuevo valor. Las aplicaciones que lean el secreto en la siguiente peticion obtienen el nuevo valor. Para rotacion sin downtime, usa secretos dinamicos en su lugar.
+Vault ejecuta `DROP ROLE` en la base de datos cuando el lease expira o es
+revocado. Las credenciales dejan de funcionar inmediatamente.
 
-### ¿Esta solución está lista para producción?
+### ¿Puedo usar Vault junto con AWS Secrets Manager?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Cumplen propósitos similares pero son sistemas separados. Vault es
+self-hosted; Secrets Manager es manejado por AWS. Elegí según tu infraestructura
+y necesidades de compliance.
 
-### ¿Cuáles son las características de rendimiento?
+### ¿Cómo roto secretos estáticos?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+Actualizá el secreto en Vault con un nuevo valor. Las aplicaciones leen la
+última versión en el próximo request. Para rotación sin downtime, usá secretos
+dinámicos.
 
-### ¿Cómo depuro problemas con este enfoque?
+### ¿Uso KV v1 o KV v2?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Usá KV v2. Agrega versionado, borrado lógico y metadata. La mayoría de las
+instalaciones modernas de Vault usan v2 por defecto.
+
+### ¿Cómo me autentico desde Kubernetes?
+
+Habilitá el método de auth Kubernetes en Vault, creá un role vinculado a un
+service account y llamá a `vault.auth.kubernetes.login` con el JWT token del pod.

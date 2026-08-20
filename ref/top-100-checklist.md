@@ -316,13 +316,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 51.1% / ES 43.3% (0 patterns)
    - Words: 1,025 | Meta: 159 chars
 
-39. - [ ] **python-secrets-management-vault** (recipes)
+39. - [x] **python-secrets-management-vault** (recipes)
    - Metrics: 32 imp | pos 15.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-secrets-management-vault/
    - ES: https://stackpractices.com/es/recipes/python-secrets-management-vault/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,372 | Meta: 154 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.7% / ES 41.8% (0 patterns)
+   - Words: 1,179 | Meta: 159 chars
 
 40. - [ ] **traffic-mirroring** (recipes)
    - Metrics: 31 imp | pos 15.9 | CTR 0.00% | Δ impr 0
