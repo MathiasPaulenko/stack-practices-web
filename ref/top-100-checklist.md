@@ -356,13 +356,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.4% / ES 40.5% (0 patterns)
    - Words: 1,478 | Meta: 167 chars
 
-44. - [ ] **domain-driven-design-guide** (guides)
+44. - [x] **domain-driven-design-guide** (guides)
    - Metrics: 54 imp | pos 35.8 | CTR 0.00% | Δ impr 7
    - EN: https://stackpractices.com/guides/domain-driven-design-guide/
    - ES: https://stackpractices.com/es/guides/domain-driven-design-guide/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,555 | Meta: 144 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 53.3% / ES 43.8% (0 patterns)
+   - Words: 1,305 | Meta: 134 chars
 
 45. - [ ] **idempotent-consumer-pattern** (patterns)
    - Metrics: 28 imp | pos 11.6 | CTR 0.00% | Δ impr 0

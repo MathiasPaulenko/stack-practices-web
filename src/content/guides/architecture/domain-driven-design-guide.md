@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: domain-driven-design-guide
 title: "Domain-Driven Design (DDD) — A Practical Guide"
 description: "Learn DDD fundamentals: bounded contexts, entities, value objects, aggregates, and how to model complex business domains in code."
-metaDescription: "Domain-Driven Design guide: bounded contexts, entities, value objects, aggregates, and repositories. Practical DDD for complex business domains."
+metaDescription: "Domain-Driven Design guide: learn bounded contexts, entities, value objects, aggregates and repositories for complex business domains."
 difficulty: advanced
 topics:
   - architecture
@@ -23,20 +18,14 @@ relatedResources:
   - /guides/software-architecture-guide
   - /guides/design-patterns-guide
   - /patterns/repository-pattern
-  - /recipes/multi-tenancy
-  - /recipes/service-discovery
-  - /recipes/event-sourcing-cqrs-pattern
-  - /recipes/outbox-pattern-transactional-events
-  - /recipes/serverless-event-driven-sqs-lambda
   - /guides/event-driven-architecture-guide
   - /guides/microservices-architecture-guide
-  - /guides/monolith-to-microservices-migration-guide
   - /guides/solid-principles-guide
-lastUpdated: "2026-06-12"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Domain-Driven Design guide: bounded contexts, entities, value objects, aggregates, and repositories. Practical DDD for complex business domains."
+  metaDescription: "Domain-Driven Design guide: learn bounded contexts, entities, value objects, aggregates and repositories for complex business domains."
   keywords:
     - domain driven design
     - ddd tutorial
@@ -44,36 +33,51 @@ seo:
     - aggregate root
     - entity vs value object
     - ddd architecture
-
-
-
-
-
 ---
 
-## Introduction
+## Overview
 
-Domain-Driven Design is an approach to software development where the structure and language of the code closely match the business domain. It is most valuable for complex domains where the business logic is the primary source of complexity.
+Domain-Driven Design (DDD) is an approach to software development where the
+structure and language of the code closely match the business domain. It's most
+valuable for complex domains where business logic is the main source of
+complexity.
+
+## When to Use
+
+- The domain is complex and changes frequently.
+- Business rules are central to the application.
+- Domain experts are available to collaborate with developers.
+- The project is large enough to justify the modeling overhead.
+
+### When to avoid
+
+- The domain is simple CRUD with few business rules.
+- The team has no access to domain experts.
+- The project is small and short-lived.
 
 ## Core Concepts
 
-### Ubiquitous Language
+### Ubiquitous language
 
-The team (developers, domain experts, product managers) agrees on a shared vocabulary that is used consistently in conversations, documentation, and code.
+The team — developers, domain experts, product managers — agrees on a shared
+vocabulary used in conversations, documentation, and code.
 
-**Example:**
+**Examples:**
+
 - ❌ `createUser()` — generic
 - ✅ `onboardCustomer()` — domain-specific
-- ❌ `orderStatus` = `1` — meaningless
-- ✅ `orderStatus` = `PaymentPending` — self-documenting
+- ❌ `orderStatus = 1` — meaningless
+- ✅ `orderStatus = PaymentPending` — self-documenting
 
-### Bounded Context
+### Bounded context
 
-A bounded context is a logical boundary within which a particular domain model applies. Terms and rules are consistent inside a context but may differ across contexts.
+A bounded context is a logical boundary within which a particular domain model
+applies. Terms and rules are consistent inside the context but may differ across
+contexts.
 
-```
+```text
 ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
-│  Sales Context   │  │ Inventory Context│  │ Shipping Context│
+│  Sales Context   │  │ Inventory Context│  │ Shipping Context │
 │  ─────────────   │  │ ───────────────  │  │ ───────────────  │
 │  Customer        │  │ Product          │  │ Delivery         │
 │  Order           │  │ StockItem        │  │ Shipment         │
@@ -82,9 +86,10 @@ A bounded context is a logical boundary within which a particular domain model a
 ```
 
 **Same term, different meaning:**
-- In Sales, a `Customer` is someone who places orders
-- In Support, a `Customer` is someone who opens tickets
-- They are different models in different contexts
+
+- In Sales, a `Customer` is someone who places orders.
+- In Support, a `Customer` is someone who opens tickets.
+- They're different models in different contexts.
 
 ### Entities
 
@@ -93,7 +98,7 @@ Objects with a distinct identity that persists over time and state changes.
 ```python
 class Order:
     def __init__(self, order_id: str):
-        self.order_id = order_id  # Identity
+        self.order_id = order_id
         self.items = []
         self.status = "pending"
 
@@ -104,13 +109,17 @@ class Order:
         self.status = "confirmed"
 ```
 
-**Key trait:** Two orders with the same `order_id` are the same entity, even if their contents differ.
+**Key trait:** two orders with the same `order_id` are the same entity, even if
+their contents differ.
 
-### Value Objects
+### Value objects
 
 Objects defined by their attributes, with no conceptual identity.
 
 ```python
+from dataclasses import dataclass
+from decimal import Decimal
+
 @dataclass(frozen=True)
 class Money:
     amount: Decimal
@@ -124,19 +133,22 @@ class Address:
 ```
 
 **Key traits:**
-- Immutable (changing attributes creates a new value object)
-- Interchangeable if attributes match (`$5 == $5`)
-- No lifecycle; can be freely created and discarded
+
+- Immutable — changing attributes creates a new value object.
+- Interchangeable if attributes match (`$5 == $5`).
+- No lifecycle; can be freely created and discarded.
 
 ### Aggregates
 
-A cluster of entities and value objects treated as a single unit for data changes. The aggregate root is the only entity outside code can reference directly.
+A cluster of entities and value objects treated as a single unit for data
+changes. The aggregate root is the only entity outside code can reference
+directly.
 
 ```python
-class Order(AggregateRoot):
+class Order:
     def __init__(self, order_id: str):
         self.order_id = order_id
-        self._lines: List[OrderLine] = []
+        self._lines = []
         self._status = OrderStatus.PENDING
 
     def add_line(self, product_id: str, qty: int, unit_price: Money):
@@ -145,17 +157,19 @@ class Order(AggregateRoot):
         self._lines.append(OrderLine(product_id, qty, unit_price))
 
     def total(self) -> Money:
-        return sum(line.total() for line in self._lines)
+        return sum((line.total() for line in self._lines), Money("0", "USD"))
 ```
 
 **Rules:**
-- All modifications go through the aggregate root
-- The aggregate root controls invariants (business rules)
-- One transaction = one aggregate update
+
+- All modifications go through the aggregate root.
+- The aggregate root controls invariants.
+- One transaction = one aggregate update.
 
 ### Repositories
 
-Repositories mediate between the domain and data mapping layers, acting like an in-memory collection of aggregates.
+Repositories mediate between the domain and data mapping layers. They act like an
+in-memory collection of aggregates.
 
 ```python
 class OrderRepository:
@@ -169,11 +183,14 @@ class OrderRepository:
         ...
 ```
 
-### Domain Events
+### Domain events
 
 Events that capture something important happening in the domain.
 
 ```python
+from dataclasses import dataclass
+from datetime import datetime
+
 @dataclass
 class OrderConfirmed:
     order_id: str
@@ -182,123 +199,104 @@ class OrderConfirmed:
     confirmed_at: datetime
 ```
 
-Domain events enable loose coupling between bounded contexts. See [event-driven architecture](/guides/event-driven-architecture-guide/).
+Domain events enable loose coupling between bounded contexts. See the
+[event-driven architecture guide](/guides/event-driven-architecture-guide/).
 
-## Strategic DDD vs. Tactical DDD
+## Strategic vs Tactical DDD
 
-| | Strategic DDD | Tactical DDD |
-|---|---------------|--------------|
-| **Focus** | Big picture, team organization | Implementation patterns |
-| **Output** | Bounded contexts, context maps | Entities, aggregates, repositories |
-| **When** | Early in project, during discovery | During implementation |
-| **Who** | Architects, tech leads, domain experts | Development teams |
+| | High-level DDD | Implementation-level DDD |
+| --- | --- | --- |
+| Focus | Big picture, team organization | Implementation patterns |
+| Output | Bounded contexts, context maps | Entities, aggregates, repositories |
+| When | Early in the project, during discovery | During implementation |
+| Who | Architects, tech leads, domain experts | Development teams |
 
-## When to Use DDD
+## Best Practices
 
-Use DDD when:
-- The domain is complex and changes frequently
-- Business rules are central to the application
-- The team includes domain experts who can collaborate
-- The project is large enough to justify the overhead
-
-**Avoid DDD when:**
-- The domain is simple CRUD with few business rules
-- The team lacks access to domain experts
-- The project is small and short-lived
-
-## What Works
-
-- **Start with the ubiquitous language**, not the database schema
-- **Keep aggregates small** — large aggregates hurt [concurrency](/guides/concurrency-patterns-guide/)
-- **Prefer value objects** over entities where possible (simpler, immutable)
-- **One transaction per aggregate** — don't update multiple aggregates in one transaction. See [database design](/guides/database-design-guide/).
-- **Use domain events** for cross-aggregate communication
-- **Don't over-engineer** — not every project needs full DDD
+- Start with the ubiquitous language, not the database schema.
+- Keep aggregates small — large aggregates hurt concurrency.
+- Prefer value objects over entities where possible.
+- Update only one aggregate per transaction.
+- Use domain events for cross-aggregate communication.
+- Don't over-engineer — not every project needs full DDD.
 
 ## Common Mistakes
 
-- Designing the [database schema](/guides/database-design-guide/) first, then forcing DDD patterns on top
-- Making every object an entity instead of using value objects
-- Creating giant aggregates that span half the domain
-- Using DDD for simple CRUD applications
-- Ignoring the bounded context boundaries, creating a "big ball of mud"
-- Confusing application services with domain services
+- Designing the database schema first and forcing DDD patterns on top.
+- Making every object an entity instead of using value objects.
+- Creating giant aggregates that span half the domain.
+- Using DDD for simple CRUD applications.
+- Ignoring bounded context boundaries, creating a "big ball of mud".
+- Confusing application services with domain services.
 
 ## FAQ
 
-**Q: What is the difference between an entity and an aggregate root?**
-A: An aggregate root is a special entity that works as the entry point to an aggregate. All external references to the aggregate go through the root, and all modifications are done via the root's methods.
+### What is the difference between an entity and an aggregate root?
 
-**Q: Can I use DDD with microservices?**
-A: Yes. Each [microservice](/guides/microservices-architecture-guide/) typically aligns with a bounded context. The service boundary enforces the context boundary, and services communicate via domain events or APIs.
+An aggregate root is a special entity that serves as the entry point to an
+aggregate. All external references go through the root, and all modifications are
+done via its methods.
 
-**Q: How do I identify bounded contexts?**
-A: Look for areas where terminology changes, different teams have ownership, or where business capabilities are independent. [Event Storming](/guides/event-driven-architecture-guide/) workshops are a common technique.
+### Can I use DDD with microservices?
 
-### How do I get started with this in an existing project?
+Yes. Each microservice usually aligns with a bounded context. The service
+boundary enforces the context boundary, and services communicate via domain
+events or APIs. See the
+[microservices architecture guide](/guides/microservices-architecture-guide/).
 
-Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
+### How do I identify bounded contexts?
 
-### What tools do I need?
+Look for areas where terminology changes, different teams have ownership, or
+business capabilities are independent. Event Storming workshops are a common
+technique. See the
+[event-driven architecture guide](/guides/event-driven-architecture-guide/).
 
-The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
+### How do I handle consistency across bounded contexts?
 
-### How do I measure success after implementing this?
+Use eventual consistency with domain events. Within a context, use ACID
+transactions to maintain aggregate invariants. Across contexts, publish domain
+events and let each context react. If you need strong cross-context consistency,
+reconsider the boundaries: they may belong in the same context.
 
-Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
+### How do I get started with DDD in an existing project?
 
+Start with a small, isolated module or service. Apply the concepts, measure the
+impact, then expand. See the
+[monolith-to-microservices migration guide](/guides/monolith-to-microservices-migration-guide/).
 
-## Advanced Topics
+### What tools do I need for DDD?
 
-### Detailed Scenario: Domain Modeling for E-commerce
+No specific tool is required. Use your programming language, unit tests, and
+collaboration with domain experts. See the
+[design patterns guide](/guides/design-patterns-guide/) and
+[repository pattern](/patterns/repository-pattern/).
+
+## E-Commerce Domain Example
 
 ```text
 Project: E-commerce platform (Java + Spring Boot)
 Domain: Sales, Inventory, Shipping, Support
 Team: 12 developers split by bounded context
 
-Step 1: Event Storming (2-day workshop)
-  Participants: 2 domain experts, 1 product manager, 4 developers
-  Output: 340 event stickies, 47 commands, 12 aggregates identified
+Step 1: Event Storming
+  Output: 340 events, 47 commands, 12 aggregates
 
-  Key events discovered:
-    - CartAbandoned, CartConverted
-    - OrderCreated, OrderConfirmed, OrderCancelled
-    - PaymentProcessed, PaymentRejected, RefundIssued
-    - StockReserved, StockReleased, StockDepleted
-    - ShipmentCreated, ShipmentDispatched, ShipmentDelivered
-
-Step 2: Identify bounded contexts
+Step 2: Bounded contexts
   | Context | Responsibility | Team |
-  |---------|---------------|------|
+  |---------|--------------|------|
   | Sales | Cart, orders, checkout | 4 devs |
   | Payments | Processing, refunds | 2 devs |
-  | Inventory | Stock, reservations, restocking | 3 devs |
-  | Shipping | Logistics, carriers, tracking | 3 devs |
+  | Inventory | Stock, reservations | 3 devs |
+  | Shipping | Logistics, carriers | 3 devs |
 
   Context map:
-    Sales -> Payments: Customer/Supplier (ACL in Sales)
-    Sales -> Inventory: Customer/Supplier (ACL in Sales)
-    Inventory -> Shipping: Shared Kernel (shipping model shared)
-    Support -> Sales: Conformist (Support conforms to Sales)
+    Sales -> Payments: Customer/Supplier
+    Sales -> Inventory: Customer/Supplier
+    Inventory -> Shipping: Shared Kernel
+    Support -> Sales: Conformist
 
-Step 3: Model aggregates (Sales context)
-
-  Aggregate: Order (root)
-    - OrderId (identity)
-    - CustomerId (value object)
-    - List<OrderLine> (entities within aggregate)
-    - OrderStatus (value object: PENDING, CONFIRMED, SHIPPED, CANCELLED)
-    - Money total (value object)
-
-  Aggregate invariants:
-    - Cannot add items to a confirmed order
-    - Total must be > 0 to confirm
-    - A cancelled order cannot change state
-    - Max 50 items per order (business rule)
-
-  // Order.java (aggregate root)
-  public class Order extends AggregateRoot {
+Step 3: Aggregate (Sales)
+  public class Order {
       private OrderId id;
       private CustomerId customerId;
       private List<OrderLine> lines = new ArrayList<>();
@@ -326,47 +324,25 @@ Step 3: Model aggregates (Sales context)
       }
   }
 
-Step 4: Domain events for cross-context integration
-
-  OrderConfirmed (published by Sales):
-    - Payments listens -> processes payment
-    - Inventory listens -> reserves stock
-    - Notifications listens -> sends confirmation to customer
-
-  Integration via Kafka (events as Avro):
-    topic: orders.confirmed
-    schema: OrderConfirmed.avsc
-    partitions: 12 (by order_id)
-
-Step 5: Anti-Corruption Layer (ACL)
-  Sales needs data from Inventory but does not want to couple
-  to the Inventory model. Uses an ACL:
-
-  // In the Sales context
+Step 4: Anti-Corruption Layer (ACL)
   public interface InventoryService {
       boolean isAvailable(ProductId productId, int quantity);
   }
 
-  // ACL implementation (adapter)
   public class InventoryServiceACL implements InventoryService {
-      private InventoryApiClient client; // calls Inventory API
+      private InventoryApiClient client;
 
       public boolean isAvailable(ProductId productId, int quantity) {
-          // Translate from Sales model to Inventory model
           var request = new CheckStockRequest(productId.value(), quantity);
           var response = client.checkStock(request);
           return response.available();
       }
   }
 
-Lessons learned:
-  - Event Storming revealed events the team had not considered
-  - Bounded contexts aligned with team structure
-  - Small aggregates enabled concurrency without conflicts
-  - Domain events decoupled Sales from Payments and Inventory
-  - ACL protected Sales from changes in the Inventory model
+Lessons:
+  - Event Storming revealed events the team had not considered.
+  - Bounded contexts aligned with team structure.
+  - Small aggregates enabled concurrency without conflicts.
+  - Domain events decoupled Sales from Payments and Inventory.
+  - The ACL protected Sales from changes in the Inventory model.
 ```
-
-### How do I handle consistency across bounded contexts?
-
-Use eventual consistency with domain events. Within a bounded context, use ACID transactions to maintain aggregate invariants. Across bounded contexts, publish domain events and let each context react independently. If you need strong cross-context consistency, reconsider the boundaries: they may belong in the same context. For multi-step processes, use the Saga pattern with compensations.
