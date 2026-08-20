@@ -412,13 +412,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 52.9% / ES 44.4% (0 patterns)
    - Words: 1,853 | Meta: 157 chars
 
-51. - [ ] **python-data-validation-pandera** (recipes)
+51. - [x] **python-data-validation-pandera** (recipes)
    - Metrics: 25 imp | pos 19 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-data-validation-pandera/
    - ES: https://stackpractices.com/es/recipes/python-data-validation-pandera/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,217 | Meta: 165 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.6% / ES 39.6% (0 patterns)
+   - Words: 1,294 | Meta: 165 chars
 
 52. - [ ] **call-rest-api** (recipes)
    - Metrics: 57 imp | pos 31.1 | CTR 0.00% | Δ impr 0

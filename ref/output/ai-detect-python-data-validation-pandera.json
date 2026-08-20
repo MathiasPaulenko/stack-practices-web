@@ -1,0 +1,319 @@
+[
+  {
+    "label": "python-data-validation-pandera-en",
+    "model": "desklib",
+    "model_ai_pct": 45.6,
+    "ai_count": 14,
+    "human_count": 22,
+    "skipped_count": 5,
+    "total": 41,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 11.5,
+      "stddev": 4.0,
+      "cv": 0.35,
+      "verdict": "somewhat uniform",
+      "sentence_count": 36,
+      "lengths": [
+        18,
+        17,
+        23,
+        9,
+        19,
+        12,
+        9,
+        13,
+        7,
+        13,
+        9,
+        9,
+        12,
+        12,
+        12,
+        12,
+        12,
+        14,
+        10,
+        12,
+        13,
+        15,
+        7,
+        5,
+        9,
+        10,
+        5,
+        15,
+        11,
+        13,
+        15,
+        6,
+        6,
+        6,
+        12,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Skipping lazy=True**: the default stops at the first failure, so you don't see\n  the rest.",
+        0.8791
+      ],
+      [
+        "Call schema.example(size=10) and it returns a sample DataFrame that passes\nvalidation:",
+        0.8447
+      ],
+      [
+        "**Using element-wise checks for aggregate rules**: use element_wise=False for mean,\n  std, count, and similar checks.",
+        0.8104
+      ],
+      [
+        "Store schemas in YAML so the team can reuse them across projects.",
+        0.7763
+      ],
+      [
+        "By default, every column is\nrequired.",
+        0.7289
+      ],
+      [
+        "It's a small addition that prevents painful debugging later.",
+        0.7275
+      ],
+      [
+        "You pick the columns, the data types, and the rules \u2014 value\nranges, nullability, uniqueness, and more.",
+        0.6852
+      ],
+      [
+        "Use pa.DataFrameModel classes \u2014 they read better and are easier to reuse.",
+        0.6482
+      ],
+      [
+        "Check at each\n  stage boundary.",
+        0.6145
+      ],
+      [
+        "You ingest data from external APIs, files, or databases.",
+        0.6019
+      ],
+      [
+        "Pandera isn't always worth the overhead:\nOne-off notebooks: df.dtypes and df.describe() are enough.",
+        0.584
+      ],
+      [
+        "If the data breaks a rule, Pandera raises\na clear SchemaError instead of letting bad rows drift into downstream consumers or\nproduction models.",
+        0.5604
+      ],
+      [
+        "The API matches the\npandas version.",
+        0.559
+      ],
+      [
+        "**Leaving strict=True off**: extra columns slip through without warning.",
+        0.5124
+      ],
+      [
+        "Without coercion, type\n  checks fail.",
+        0.4669
+      ],
+      [
+        "Turn on lazy=True so you see every failure, not just the first.",
+        0.462
+      ],
+      [
+        "Pass nullable=True in Column() or Field().",
+        0.4449
+      ],
+      [
+        "You're doing ML feature engineering and want to validate columns before training.",
+        0.4327
+      ],
+      [
+        "You test transformations and need to assert the output matches a known schema.",
+        0.4321
+      ],
+      [
+        "Silent data corruption would break downstream consumers.",
+        0.4031
+      ],
+      [
+        "**Validating only at the end**: errors propagate through the pipeline.",
+        0.4015
+      ],
+      [
+        "Real-time paths with tight latency: each validation adds cost.",
+        0.3648
+      ],
+      [
+        "Keep strict=False (the default) and list only the columns you care about.",
+        0.3483
+      ],
+      [
+        "Turn on coerce=True when loading CSVs, since columns usually arrive as strings.",
+        0.3445
+      ],
+      [
+        "Schemas that change every day: the maintenance load can outweigh the benefit.",
+        0.3328
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-data-validation-pandera-es",
+    "model": "desklib",
+    "model_ai_pct": 39.6,
+    "ai_count": 10,
+    "human_count": 27,
+    "skipped_count": 4,
+    "total": 41,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 11.2,
+      "stddev": 3.6,
+      "cv": 0.32,
+      "verdict": "somewhat uniform",
+      "sentence_count": 37,
+      "lengths": [
+        14,
+        20,
+        16,
+        17,
+        11,
+        14,
+        11,
+        11,
+        10,
+        7,
+        9,
+        10,
+        12,
+        19,
+        14,
+        10,
+        9,
+        12,
+        10,
+        8,
+        13,
+        16,
+        9,
+        7,
+        9,
+        8,
+        17,
+        9,
+        13,
+        12,
+        6,
+        9,
+        6,
+        7,
+        12,
+        5,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Cualquier pipeline donde la corrupci\u00f3n silenciosa de datos cause problemas.",
+        0.7623
+      ],
+      [
+        "Defin\u00ed schemas como clases (pa.DataFrameModel) para legibilidad y reutilizaci\u00f3n.",
+        0.7276
+      ],
+      [
+        "Pandera es una librer\u00eda de validaci\u00f3n de datos para DataFrames de pandas y Polars.",
+        0.6619
+      ],
+      [
+        "Valid\u00e1 en los l\u00edmites del pipeline: entrada y salida de cada etapa.",
+        0.6283
+      ],
+      [
+        "La API es igual a\nla versi\u00f3n de pandas.",
+        0.5811
+      ],
+      [
+        "**No usar lazy=True**: el default se detiene en el primer error y se pierden\n  los dem\u00e1s.",
+        0.5792
+      ],
+      [
+        "Validaci\u00f3n en tiempo real con latencia estricta: Pandera agrega overhead.",
+        0.5502
+      ],
+      [
+        "Cuando el schema cambia constantemente y el costo de mantenimiento es alto.",
+        0.5332
+      ],
+      [
+        "Us\u00e1 schema.example(size=10) para generar un DataFrame de ejemplo que pase la\nvalidaci\u00f3n:",
+        0.5311
+      ],
+      [
+        "Por default, las columnas son no\nnullable.",
+        0.5249
+      ],
+      [
+        "Guard\u00e1 schemas en YAML para compartirlos entre equipos.",
+        0.4727
+      ],
+      [
+        "Las\ncolumnas extra se ignoran.",
+        0.4533
+      ],
+      [
+        "An\u00e1lisis exploratorio puntual: us\u00e1 df.dtypes y df.describe().",
+        0.4416
+      ],
+      [
+        "**No setear strict=True**: las columnas extra pasan sin aviso.",
+        0.4316
+      ],
+      [
+        "Us\u00e1 el m\u00f3dulo pandera.polars y pandera.typing.polars.Series.",
+        0.4055
+      ],
+      [
+        "Defin\u00eds un schema que especifica nombres de columnas, tipos de datos y constraints\ncomo rangos de valores, nullability y unicidad.",
+        0.3973
+      ],
+      [
+        "As\u00ed detect\u00e1s problemas de\ncalidad de datos antes de que lleguen a consumidores o modelos en producci\u00f3n.",
+        0.3828
+      ],
+      [
+        "Sin coerci\u00f3n, los\n  checks de tipo fallan.",
+        0.3825
+      ],
+      [
+        "Sete\u00e1 nullable=True en Column() o Field().",
+        0.3693
+      ],
+      [
+        "Ingesta de datos desde APIs externas, archivos o bases de datos.",
+        0.3528
+      ],
+      [
+        "Us\u00e1 lazy=True para acumular todos los errores de una sola vez: el modo\n  predeterminado se detiene en el primero.",
+        0.3388
+      ],
+      [
+        "Us\u00e1 nullable=True para columnas opcionales; el default es no nullable.",
+        0.3348
+      ],
+      [
+        "Testear transformaciones y asegurar que el output cumpla el schema esperado.",
+        0.3284
+      ],
+      [
+        "**Usar checks element-wise para validaciones agregadas**: us\u00e1 element_wise=False\n  para checks sobre toda la serie (media, desv\u00edo, count).",
+        0.3277
+      ],
+      [
+        "Us\u00e1 coerce=True cuando los datos vienen de CSV (strings) y necesit\u00e1s\n  conversi\u00f3n de tipos.",
+        0.3078
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

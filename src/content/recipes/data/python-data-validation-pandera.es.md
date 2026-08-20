@@ -1,11 +1,9 @@
 ---
-
-
 contentType: recipes
 slug: python-data-validation-pandera
-title: "Validar Schemas de DataFrame con Pandera"
-description: "Cómo validar schemas de DataFrame de pandas y Polars con Pandera, cubriendo tipos de columnas, constraints, checks custom, hypothesis testing y herencia de schemas."
-metaDescription: "Valida schemas de DataFrame de pandas y Polars con Pandera. Enforcea tipos de columnas, constraints, checks custom, hypothesis testing y herencia de schemas en pipelines."
+title: "Validar schemas de DataFrame con Pandera"
+description: "Cómo validar schemas de DataFrames de pandas y Polars con Pandera: tipos de columnas, constraints, checks personalizados, hypothesis testing y herencia de schemas."
+metaDescription: "Valida schemas de DataFrames de pandas y Polars con Pandera. Aplica tipos de columnas, constraints, checks personalizados, hypothesis testing y herencia."
 difficulty: intermediate
 topics:
   - data
@@ -18,46 +16,51 @@ tags:
   - testing
   - recipe
 relatedResources:
+  - /recipes/data-validation
   - /recipes/python-pandas-etl-pipeline
   - /recipes/python-polars-fast-dataframe
   - /recipes/python-dbt-model-transformations
-lastUpdated: "2026-07-05"
+  - /recipes/python-dask-parallel-dataframe
+  - /recipes/python-airflow-dag-scheduling
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Valida schemas de DataFrame de pandas y Polars con Pandera. Enforcea tipos de columnas, constraints, checks custom, hypothesis testing y herencia de schemas en pipelines."
+  metaDescription: "Valida schemas de DataFrames de pandas y Polars con Pandera. Aplica tipos de columnas, constraints, checks personalizados, hypothesis testing y herencia."
   keywords:
     - data
     - python
     - pandera
-    - validation
+    - validacion
     - schema
     - testing
     - recipe
-
-
 ---
 
-## Overview
+## Resumen
 
-Pandera es una librería de validación de data para DataFrames de pandas y Polars. Defines un schema que especifica nombres de columnas, tipos de datos y constraints (rangos de valores, nullability, uniqueness). Pandera valida el DataFrame contra el schema y lanza errores informativos cuando la data no matchea. Esto atrapa data quality issues temprano en los pipelines — antes de que data mala llegue a consumers downstream o modelos en producción.
+Pandera es una librería de validación de datos para DataFrames de pandas y Polars.
+Definís un schema que especifica nombres de columnas, tipos de datos y constraints
+como rangos de valores, nullability y unicidad. Pandera valida el DataFrame contra el
+schema y lanza errores claros cuando los datos no coinciden. Así detectás problemas de
+calidad de datos antes de que lleguen a consumidores o modelos en producción.
 
-## When to Use
+## Cuándo Usar
 
-- Pipelines ETL donde la data quality upstream es incierta
-- ML feature engineering — valida features antes de model training
-- Data ingestion de APIs externas, archivos o databases
-- Testear transformaciones de data — asertar que el output matchea el schema esperado
-- Cualquier pipeline donde la corrupción silenciosa de data causa issues downstream
+- Pipelines ETL donde la calidad de los datos upstream es incierta.
+- Feature engineering de ML: validar las columnas de entrada antes de entrenar un modelo.
+- Ingesta de datos desde APIs externas, archivos o bases de datos.
+- Testear transformaciones y asegurar que el output cumpla el schema esperado.
+- Cualquier pipeline donde la corrupción silenciosa de datos cause problemas.
 
-## When NOT to Use
+## Cuándo NO Usar
 
-- Análisis exploratorio one-off — simplemente usa `df.dtypes` y `df.describe()`
-- Cuando necesitas full data profiling — usa Great Expectations o ydata-profiling en su lugar
-- Validación real-time con requisitos de latencia estrictos — Pandera agrega overhead por validación
-- Cuando el schema cambia frecuentemente y el costo de mantenimiento es alto
+- Análisis exploratorio puntual: usá `df.dtypes` y `df.describe()`.
+- Cuando necesitás profiling completo: usá Great Expectations o ydata-profiling.
+- Validación en tiempo real con latencia estricta: Pandera agrega overhead.
+- Cuando el schema cambia constantemente y el costo de mantenimiento es alto.
 
-## Solution
+## Solución
 
 ### Validación básica de schema
 
@@ -90,9 +93,10 @@ print("Validation passed!")
 ### Schema con sintaxis basada en clases
 
 ```python
+import pandas as pd
+import pandera as pa
 from pandera import Field
 from pandera.typing import Series
-import pandera as pa
 
 class OrderSchema(pa.DataFrameModel):
     order_id: Series[int] = Field(gt=0, description="Unique order identifier")
@@ -118,16 +122,17 @@ df = pd.DataFrame({
 validated = OrderSchema.validate(df)
 ```
 
-### Checks de validación custom
+### Checks personalizados
 
 ```python
+import re
+import pandas as pd
 import pandera as pa
 from pandera import Column, Check, DataFrameSchema
 
 def is_valid_email(series: pd.Series) -> pd.Series:
-    """Checkear que todos los valores matcheen el patrón de email."""
-    import re
-    pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    """Verifica que todos los valores sean emails válidos."""
+    pattern = r'^[\w.-]+@[\w.-]+\.\w+$'
     return series.str.match(pattern)
 
 schema = DataFrameSchema({
@@ -143,9 +148,11 @@ schema = DataFrameSchema({
 ### Checks a nivel de columna
 
 ```python
+from pandera import Column, Check, DataFrameSchema
+
 schema = DataFrameSchema({
     "id": Column(int, checks=[
-        Check.unique(),  # No duplicados
+        Check.unique(),  # Sin duplicados
         Check.gt(0),     # Positivo
     ]),
     "name": Column(str, checks=[
@@ -166,6 +173,9 @@ schema = DataFrameSchema({
 ### Checks a nivel de DataFrame
 
 ```python
+import pandera as pa
+from pandera import Column, Check, DataFrameSchema
+
 schema = DataFrameSchema(
     columns={
         "start_date": Column(pa.DateTime),
@@ -179,9 +189,13 @@ schema = DataFrameSchema(
 )
 ```
 
-### Schema con coercion
+### Schema con coerción
 
 ```python
+import pandas as pd
+import pandera as pa
+from pandera import Column, DataFrameSchema
+
 schema = DataFrameSchema({
     "order_id": Column(int, coerce=True),
     "amount": Column(float, coerce=True),
@@ -199,24 +213,31 @@ validated = schema.validate(df)
 print(validated.dtypes)  # int64, float64, datetime64[ns]
 ```
 
-### Manejar errores de validación
+### Manejo de errores de validación
 
 ```python
+import pandera as pa
+from pandera import Column, Check, DataFrameSchema
+
+schema = DataFrameSchema({
+    "amount": Column(float, checks=Check.ge(0)),
+    "status": Column(str, checks=Check.isin(["pending", "completed", "cancelled"])),
+})
+
 try:
-    validated = schema.validate(df, lazy=True)  # Coleccionar todos los errores
+    validated = schema.validate(df, lazy=True)  # Acumula todos los errores
 except pa.SchemaErrors as e:
     print(f"Found {len(e.failure_cases)} validation failures:")
     print(e.failure_cases[["column", "check", "failure_case", "index"]])
-
-    # failure_cases es un DataFrame con detalles:
-    #   column    check           failure_case  index
-    # 0  amount  greater_than(0)         -50.0      5
-    # 1  status  isin([...])          "unknown"     12
 ```
 
-### Herencia de schema
+### Herencia de schemas
 
 ```python
+import pandera as pa
+from pandera import Field
+from pandera.typing import Series
+
 class BaseOrderSchema(pa.DataFrameModel):
     order_id: Series[int] = Field(gt=0)
     customer_id: Series[int] = Field(nullable=False)
@@ -237,6 +258,7 @@ class ExtendedOrderSchema(BaseOrderSchema):
 import polars as pl
 import pandera.polars as pa_pl
 from pandera.typing.polars import Series
+from pandera import Field
 
 class OrderSchema(pa_pl.DataFrameModel):
     order_id: Series[int] = Field(gt=0)
@@ -254,52 +276,53 @@ df = pl.DataFrame({
 validated = OrderSchema.validate(df)
 ```
 
-### Usar schema en un pipeline
+### Uso de schema en un pipeline
 
 ```python
+import pandas as pd
+import pandera as pa
+from pandera import Column, Check, DataFrameSchema
+
+input_schema = DataFrameSchema({
+    "order_id": Column(int, checks=Check.gt(0)),
+    "amount": Column(float, checks=Check.ge(0)),
+})
+
+output_schema = DataFrameSchema({
+    "order_id": Column(int, checks=Check.gt(0)),
+    "amount": Column(float, checks=Check.ge(0)),
+    "amount_with_tax": Column(float, checks=Check.ge(0)),
+})
+
 def process_orders(df: pd.DataFrame) -> pd.DataFrame:
-    """Pipeline con validación en cada stage."""
-    # Validar input
-    input_schema = DataFrameSchema({
-        "order_id": Column(int, checks=Check.gt(0)),
-        "amount": Column(float, checks=Check.ge(0)),
-    })
     df = input_schema.validate(df)
-
-    # Transformar
     df["amount_with_tax"] = df["amount"] * 1.1
-
-    # Validar output
-    output_schema = DataFrameSchema({
-        "order_id": Column(int, checks=Check.gt(0)),
-        "amount": Column(float, checks=Check.ge(0)),
-        "amount_with_tax": Column(float, checks=Check.ge(0)),
-    })
     return output_schema.validate(df)
 ```
 
-## Variants
+## Variantes
 
 ### Integración con hypothesis testing
 
 ```python
-from pandera import Check
 import pandera as pa
+from pandera import Column, Check, DataFrameSchema
 
 schema = DataFrameSchema({
     "amount": Column(float, checks=[
         Check.in_range(min_value=0, max_value=10000),
-        # Check estadístico: mean debería ser alrededor de 500
+        # Check estadístico: la media debería rondar los 500
         Check(lambda s: abs(s.mean() - 500) < 100, element_wise=False),
-        # Check de standard deviation
+        # Check de desvío estándar
         Check(lambda s: s.std() < 500, element_wise=False),
     ]),
 })
 ```
 
-### Schema desde un DataFrame existente
+### Schema a partir de un DataFrame existente
 
 ```python
+import pandas as pd
 import pandera as pa
 
 # Inferir schema desde un DataFrame
@@ -307,7 +330,7 @@ df = pd.read_csv("data/orders.csv")
 schema = pa.infer_schema(df)
 print(schema)
 
-# Guardar schema para reuso
+# Guardar schema para reutilizar
 schema.to_yaml("schemas/orders_schema.yaml")
 
 # Cargar después
@@ -317,8 +340,10 @@ schema = pa.DataFrameSchema.from_yaml("schemas/orders_schema.yaml")
 ### Validación con decoradores
 
 ```python
+import pandas as pd
 from pandera import check_input, check_output
 
+# Reusar OrderSchema y ExtendedOrderSchema definidos antes
 @check_input(OrderSchema)
 @check_output(ExtendedOrderSchema)
 def enrich_orders(df: pd.DataFrame) -> pd.DataFrame:
@@ -327,49 +352,58 @@ def enrich_orders(df: pd.DataFrame) -> pd.DataFrame:
     return df
 ```
 
-## Best Practices
+## Buenas Prácticas
 
+- Usá `lazy=True` para acumular todos los errores de una sola vez: el modo
+  predeterminado se detiene en el primero.
+- Usá `coerce=True` cuando los datos vienen de CSV (strings) y necesitás
+  conversión de tipos.
+- Seteá `strict=True` para rechazar columnas inesperadas y detectar schema drift.
+- Definí schemas como clases (`pa.DataFrameModel`) para legibilidad y reutilización.
+- Validá en los límites del pipeline: entrada y salida de cada etapa.
+- Usá `nullable=True` para columnas opcionales; el default es no nullable.
+- Guardá schemas en YAML para compartirlos entre equipos.
+- Usá checks personalizados para lógica de negocio; los built-in cubren rangos y
+  tipos.
 
-- For a deeper guide, see [Schedule and Monitor DAGs with Apache Airflow](/es/recipes/python-airflow-dag-scheduling/).
+## Errores Comunes
 
-- Usa `lazy=True` para coleccionar todos los errores a la vez — el modo default para en el primer error
-- Usa `coerce=True` cuando la data viene de CSV (strings) y necesita conversión de tipos
-- Setea `strict=True` para rechazar columnas inesperadas — atrapa schema drift
-- Define schemas como clases (`pa.DataFrameModel`) para legibilidad y reuso
-- Valida en los boundaries del pipeline — input y output de cada stage
-- Usa `nullable=True` para columnas opcionales — el default es non-nullable
-- Guarda schemas como YAML — habilita sharing de schemas entre equipos
-- Usa checks custom para business logic — los checks built-in cubren rangos y tipos
+- **No usar `lazy=True`**: el default se detiene en el primer error y se pierden
+  los demás.
+- **Olvidar `coerce=True`**: los datos de CSV vienen como strings. Sin coerción, los
+  checks de tipo fallan.
+- **No setear `strict=True`**: las columnas extra pasan sin aviso.
+- **Validar solo al final**: los errores se propagan. Validar en cada etapa.
+- **Usar checks element-wise para validaciones agregadas**: usá `element_wise=False`
+  para checks sobre toda la serie (media, desvío, count).
 
-## Common Mistakes
-
-- **No usar `lazy=True`**: el default para en el primer error. Te perdés otros issues en la misma run.
-- **Olvidar `coerce=True`**: la data de CSV viene como strings. Sin coercion, los type checks fallan.
-- **No setear `strict=True`**: las columnas extra pasan silenciosamente. Usa strict mode para atrapar schema drift.
-- **Validar solo al final**: los errores se propagan a través del pipeline. Valida en cada boundary de stage.
-- **Usar checks element-wise para validaciones aggregate**: usa `element_wise=False` para checks que operan en la series completa (mean, std, count).
-
-## FAQ
+## Preguntas Frecuentes
 
 ### ¿Cuál es la diferencia entre Pandera y Great Expectations?
 
-Pandera es ligero y code-first — defines schemas en Python. Great Expectations es más pesado y config-first — defines expectations en JSON/YAML. Usa Pandera para validación de pipelines, Great Expectations para data profiling y reporting.
+Pandera es liviano y code-first: definís schemas en Python. Great Expectations es más
+pesado y config-first: definís expectativas en JSON o YAML. Usá Pandera para
+validación de pipelines; Great Expectations para profiling y reportes.
 
 ### ¿Puedo usar Pandera con Polars?
 
-Sí. Usa el módulo `pandera.polars` y `pandera.typing.polars.Series`. La API es la misma que la versión de pandas.
+Sí. Usá el módulo `pandera.polars` y `pandera.typing.polars.Series`. La API es igual a
+la versión de pandas.
 
 ### ¿Pandera soporta columnas nullable?
 
-Sí. Setea `nullable=True` en `Column()` o `Field()`. Por default, las columnas son non-nullable.
+Sí. Seteá `nullable=True` en `Column()` o `Field()`. Por default, las columnas son no
+nullable.
 
-### ¿Cómo valido un subset de columnas?
+### ¿Cómo valido un subconjunto de columnas?
 
-Usa `strict=False` (default) y especifica solo las columnas que quieres validar. Las columnas extra se ignoran.
+Usá `strict=False` (el default) y especificá solo las columnas que querés validar. Las
+columnas extra se ignoran.
 
-### ¿Puedo generar data de test desde un schema?
+### ¿Puedo generar datos de prueba desde un schema?
 
-Sí. Usa `schema.example(size=10)` para generar un DataFrame sample que pasa la validación:
+Sí. Usá `schema.example(size=10)` para generar un DataFrame de ejemplo que pase la
+validación:
 
 ```python
 sample = OrderSchema.example(size=5)
