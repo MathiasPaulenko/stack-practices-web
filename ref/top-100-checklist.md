@@ -332,13 +332,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.5% / ES 39.0% (0 patterns)
    - Words: 1,268 | Meta: 166 chars
 
-41. - [ ] **async-generator-pattern** (patterns)
+41. - [x] **async-generator-pattern** (patterns)
    - Metrics: 31 imp | pos 11.4 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/async-generator-pattern/
    - ES: https://stackpractices.com/es/patterns/async-generator-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,877 | Meta: 144 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.6% / ES 35.6% (0 patterns)
+   - Words: 1,080 | Meta: 169 chars
 
 42. - [x] **soft-deletes** (recipes)
    - Metrics: 34 imp | pos 6.6 | CTR 2.94% | Δ impr 10
