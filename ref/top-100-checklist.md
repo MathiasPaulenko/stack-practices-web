@@ -388,13 +388,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.9% / ES 35.3% (0 patterns)
    - Words: 1,203 | Meta: 148 chars
 
-48. - [ ] **repository-pattern-typescript** (patterns)
+48. - [x] **repository-pattern-typescript** (patterns)
    - Metrics: 28 imp | pos 28.6 | CTR 0.00% | Δ impr 8
    - EN: https://stackpractices.com/patterns/repository-pattern-typescript/
    - ES: https://stackpractices.com/es/patterns/repository-pattern-typescript/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 6,363 | Meta: 159 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.6% / ES 46.5% (0 patterns)
+   - Words: 925 | Meta: 159 chars
 
 49. - [ ] **repository-pattern** (patterns)
    - Metrics: 59 imp | pos 43.9 | CTR 0.00% | Δ impr 0

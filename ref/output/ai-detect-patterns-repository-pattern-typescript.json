@@ -1,0 +1,41 @@
+[
+  {
+    "label": "repository-pattern-typescript",
+    "total_sentences": 41,
+    "pattern_totals": {
+      "vague_abstraction": 3
+    },
+    "findings": [
+      {
+        "sentence": "Multiple services share similar query patterns.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "| Variant | Purpose |\n| --- | --- |\n| In-memory repository | Fast unit tests with Map-backed storage |\n| Specification pattern | Compose reusable query objects |\n| Unit of Work | Batch multiple operations in one transaction |\n| Read/write split | Separate query and command repositories for CQRS |\nReturn domain entities, not database documents, from repository methods.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "Use repositories when you\nneed testability, multiple data sources, or storage swaps.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]
