@@ -15,15 +15,12 @@ tags:
   - backend
 relatedResources:
   - /recipes/call-rest-api
-  - /recipes/handle-cors
-  - /recipes/api-versioning
   - /recipes/handle-errors
   - /recipes/rate-limiting
-  - /recipes/graphql-api
   - /recipes/rest-api-design
-  - /recipes/server-sent-events
-  - /recipes/api-documentation-openapi
-lastUpdated: "2026-06-11"
+  - /recipes/api-versioning
+  - /recipes/handle-cors
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
@@ -38,20 +35,33 @@ seo:
     - python
     - javascript
     - java
-
-
 ---
+
 ## Overview
 
-Idempotency guarantees that making the same API request multiple times produces the same result as making it once, without creating duplicate side effects. This is essential in distributed systems where network failures, timeouts, and retries are unavoidable. Here is how to designing idempotent endpoints using idempotency keys, natural key constraints, and state machine checks in Python, JavaScript, and Java.
+Idempotency guarantees that making the same API request several times produces the
+same result as making it once, with no duplicate side effects. This matters in
+distributed systems where network failures, timeouts, and retries are common.
+
+This recipe shows how to design idempotent endpoints using idempotency keys,
+natural key constraints, and state checks in Python, JavaScript, and Java.
 
 ## When to Use
 
-Use this resource when:
-- Building payment or order APIs where duplicate charges must be prevented. See [API Security Checklist](/guides/api-security-checklist-guide/) for secure payment patterns.
-- Designing APIs consumed by mobile apps with unreliable network connectivity. See [Call REST API](/recipes/call-rest-api/) for client retry patterns.
-- Implementing retry logic where the same request may be sent multiple times
-- Creating webhook receivers that may deliver the same event more than once
+- Building payment or order APIs where duplicate charges must be prevented. See
+  the [API Security Checklist](/guides/api-security-checklist-guide/) for secure
+  payment patterns.
+- Designing APIs consumed by mobile apps with unreliable network connectivity.
+  See [Call REST API](/recipes/call-rest-api/) for client retry patterns.
+- Implementing retry logic where the same request may be sent several times.
+- Creating webhook receivers that may deliver the same event more than once.
+
+### When to avoid
+
+- Read-only endpoints (`GET`, `HEAD`, `OPTIONS`) are already idempotent by the
+  HTTP spec — they don't need extra handling.
+- Operations with no side effects or no retry risk rarely justify the added
+  storage and logic.
 
 ## Solution
 
@@ -66,7 +76,6 @@ from typing import Optional
 
 app = FastAPI()
 
-# In-memory store; use [Redis](/recipes/api/api-rate-limiting-redis) in production
 idempotency_store = {}
 IDEMPOTENCY_TTL = 86400  # 24 hours
 
@@ -83,7 +92,6 @@ def create_order(
     if not idempotency_key:
         raise HTTPException(status_code=400, detail="Idempotency-Key header required")
 
-    # Validate key format
     try:
         uuid.UUID(idempotency_key)
     except ValueError:
@@ -91,12 +99,10 @@ def create_order(
 
     now = time.time()
 
-    # Cleanup expired entries (simplified; use TTL in production)
     expired = [k for k, v in idempotency_store.items() if now - v["timestamp"] > IDEMPOTENCY_TTL]
     for k in expired:
         del idempotency_store[k]
 
-    # Check if we've seen this key
     if idempotency_key in idempotency_store:
         stored = idempotency_store[idempotency_key]
         if stored["status"] == "completed":
@@ -108,7 +114,6 @@ def create_order(
         elif stored["status"] == "processing":
             raise HTTPException(status_code=409, detail="Request already in progress")
 
-    # Mark as processing
     idempotency_store[idempotency_key] = {
         "status": "processing",
         "timestamp": now,
@@ -116,11 +121,9 @@ def create_order(
     }
 
     try:
-        # Execute the actual business logic
         order_id = str(uuid.uuid4())
         # ... save to database ...
 
-        # Mark as completed
         idempotency_store[idempotency_key] = {
             "status": "completed",
             "timestamp": now,
@@ -129,7 +132,6 @@ def create_order(
 
         return {"id": order_id, "status": "completed", "cached": False}
     except Exception:
-        # Remove processing marker so client can retry
         del idempotency_store[idempotency_key]
         raise
 ```
@@ -143,7 +145,6 @@ import { v4 as uuidv4, validate as validateUuid } from "uuid";
 const app = express();
 app.use(express.json());
 
-// Use Redis in production
 const idempotencyStore = new Map();
 const IDEMPOTENCY_TTL = 86400 * 1000; // 24 hours
 
@@ -161,7 +162,6 @@ app.post("/orders", (req, res) => {
     return res.status(400).json({ error: "Invalid Idempotency-Key format" });
   }
 
-  // Cleanup expired entries
   for (const [key, entry] of idempotencyStore) {
     if (isExpired(entry.timestamp)) {
       idempotencyStore.delete(key);
@@ -183,7 +183,6 @@ app.post("/orders", (req, res) => {
     }
   }
 
-  // Mark as processing
   idempotencyStore.set(idempotencyKey, {
     status: "processing",
     timestamp: Date.now(),
@@ -191,7 +190,6 @@ app.post("/orders", (req, res) => {
   });
 
   try {
-    // Execute business logic
     const orderId = uuidv4();
     // ... save to database ...
 
@@ -203,7 +201,6 @@ app.post("/orders", (req, res) => {
 
     res.json({ id: orderId, status: "completed", cached: false });
   } catch (err) {
-    // Allow retry by removing processing marker
     idempotencyStore.delete(idempotencyKey);
     throw err;
   }
@@ -245,7 +242,6 @@ public class OrderController {
     String keyStr = key.toString();
     long now = System.currentTimeMillis();
 
-    // Cleanup expired entries
     store.entrySet().removeIf(entry -> now - entry.getValue().timestamp() > IDEMPOTENCY_TTL_MS);
 
     IdempotencyRecord existing = store.get(keyStr);
@@ -258,18 +254,16 @@ public class OrderController {
       }
     }
 
-    // Mark as processing
     store.put(keyStr, new IdempotencyRecord("processing", now, null));
 
     try {
-      // Execute business logic
       UUID orderId = UUID.randomUUID();
       // ... save to database ...
 
       store.put(keyStr, new IdempotencyRecord("completed", now, orderId));
       return new OrderResponse(orderId, "completed", false);
     } catch (Exception e) {
-      store.remove(keyStr); // Allow retry
+      store.remove(keyStr);
       throw e;
     }
   }
@@ -278,76 +272,81 @@ public class OrderController {
 
 ## Explanation
 
-- **Idempotency key** is a unique client-generated identifier (UUID recommended) sent in a header. The server uses this key to detect duplicate requests and return the cached response.
-- **Processing state** prevents concurrent duplicate requests from executing the same operation twice. If a second request arrives while the first is still processing, return `409 Conflict`.
-- **TTL cleanup** is necessary because idempotency stores grow unbounded. Use Redis with TTL or schedule periodic cleanup. Typical TTL is 24 hours.
-- **Error handling** on failure must remove the "processing" marker so the client can safely retry. See [Error Handling](/recipes/handle-errors/) for retry patterns. Otherwise, a failed request would be permanently blocked.
-- **Natural idempotency** via PUT with resource path (e.g., `PUT /orders/{id}`) is idempotent by HTTP semantics — repeated updates with the same body produce the same state. See [Call REST API](/recipes/call-rest-api/) for HTTP method semantics.
+An **idempotency key** is a client-generated identifier sent in the
+`Idempotency-Key` header. The server uses it to detect duplicate requests and
+return the same response.
+
+The **processing** state stops two concurrent requests from executing the same
+operation twice. A second request that arrives while the first is still running
+gets `409 Conflict`.
+
+**TTL cleanup** is necessary because idempotency stores grow unbounded. Use Redis
+with TTL or schedule periodic cleanup. A 24-hour TTL is common for financial
+operations.
+
+**Error handling** must remove the `processing` marker on failure so the client
+can retry. See [Error Handling](/recipes/handle-errors/) for retry patterns.
+Otherwise the key stays blocked.
+
+**Natural idempotency** with `PUT /orders/{id}` follows HTTP semantics — repeated
+updates with the same body leave the resource in the same state. See
+[Call REST API](/recipes/call-rest-api/) for HTTP method semantics.
 
 ## Variants
 
-| Strategy | Implementation | Best For |
-|----------|---------------|----------|
+| Strategy | Implementation | Best for |
+| --- | --- | --- |
 | Idempotency key header | UUID in `Idempotency-Key` header | POST endpoints creating resources |
-| Natural key constraint | Database unique constraint on business key | UPSERT operations, user registration |
+| Natural key constraint | Database unique constraint on a business key | UPSERT operations, user registration |
 | State machine check | Verify current state before transition | Workflow engines, payment processing |
 | ETag / If-Match | Conditional requests with version | Optimistic concurrency, updates |
-|empotency-Key: * | Not recommended | Never use; always use unique keys |
 
-## What Works
+## Best Practices
 
-1. **Require idempotency keys for state-changing operations** — all POST/PUT/PATCH endpoints that create or modify resources should accept an `Idempotency-Key` header.
-2. **Use UUID v4 for keys** — clients should generate cryptographically random UUIDs. Avoid simple incrementing integers or timestamps that could collide across clients.
-3. **Store responses, not just state** — when a request completes, cache the full response so duplicate requests return identical data, not just a success acknowledgement.
-4. **Set appropriate TTLs** — 24 hours is standard for financial operations; shorter TTLs (1 hour) work for less critical flows. Document your TTL so clients know the retry window.
-5. **Make DELETE naturally idempotent** — `DELETE /resources/{id}` should return `204` or `404` on repeat calls, both indicating the resource does not exist.
+- Require idempotency keys for state-changing POST/PUT/PATCH endpoints.
+- Use UUID v4 for keys; avoid incrementing integers or timestamps that can
+  collide across clients.
+- Store the full response, not just a status flag, so duplicates return identical
+  data.
+- Set a TTL that matches your retry window and document it. Twenty-four hours is
+  common for payments.
+- Make `DELETE /resources/{id}` return `204` or `404`; both mean the resource no
+  longer exists.
+- Validate key format and reject missing or malformed keys with `400 Bad Request`.
 
 ## Common Mistakes
 
-1. Implementing idempotency keys but not checking them atomically, causing race conditions where two parallel requests both execute.
-2. Setting infinite TTL on idempotency records, eventually exhausting storage and degrading performance.
-3. Returning different responses for the same idempotency key (e.g., different order IDs), breaking the idempotency contract.
-4. Using idempotency keys on GET requests, which are already idempotent by HTTP specification and don't need keys.
-5. Not removing the "processing" marker on failure, permanently blocking retries for that key.
-
-
-## Troubleshooting
-
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.  Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.  Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.  Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
-
-
-## Key Takeaways
-
-- **Apply idempotent api endpoints** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Checking the idempotency key without atomic locking, which lets two parallel
+  requests both execute.
+- Setting an infinite TTL, eventually exhausting storage and degrading
+  performance.
+- Returning different responses for the same idempotency key, breaking the
+  contract.
+- Using idempotency keys on GET requests, which are already idempotent.
+- Not removing the `processing` marker on failure, permanently blocking retries.
 
 ## FAQ
 
 ### Which HTTP methods are naturally idempotent?
 
-GET, HEAD, PUT, DELETE, and OPTIONS are naturally idempotent by HTTP specification. POST is not idempotent by default — repeated POSTs create multiple resources. PATCH idempotency depends on the patch semantics (JSON Merge Patch vs JSON Patch).
+GET, HEAD, PUT, DELETE, and OPTIONS are naturally idempotent. POST isn't —
+repeated POSTs usually create several resources. PATCH idempotency depends on
+the patch semantics.
 
 ### How should the client generate idempotency keys?
 
-Generate a UUID v4 on the client side before the first request attempt. Reuse the same key for all retries of the same logical operation. Never reuse a key for a different operation (different amount, different customer, etc.). Store the key locally until you receive a definitive success or failure response.
+Generate a UUID v4 before the first attempt and reuse it for every retry of the
+same logical operation. Never reuse a key for a different operation.
 
 ### Can I implement idempotency without a dedicated store?
 
-Yes, using database constraints. For example, a `payments` table with a unique constraint on `(idempotency_key, merchant_id)` naturally prevents duplicates. The database transaction enforces atomicity without a separate cache. However, this only works when the key maps directly to a database record; for complex multi-step operations, a dedicated store is clearer.
+Yes, with database constraints. For example, a `payments` table with a unique
+constraint on `(idempotency_key, merchant_id)` prevents duplicates atomically.
+This works when the key maps directly to a record. For multi-step operations, a
+dedicated store is clearer.
 
-## Common Production Pitfalls
+### How does this relate to rate limiting?
 
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+Idempotency prevents duplicate side effects. Rate limiting prevents too many
+requests. They work together. See [Rate Limiting](/recipes/rate-limiting/) for
+client-side and server-side limits.

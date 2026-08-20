@@ -1,0 +1,339 @@
+[
+  {
+    "label": "idempotent-api-endpoints-en",
+    "model": "desklib",
+    "model_ai_pct": 49.9,
+    "ai_count": 24,
+    "human_count": 22,
+    "skipped_count": 2,
+    "total": 48,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.1,
+      "stddev": 11.6,
+      "cv": 0.88,
+      "verdict": "natural variation",
+      "sentence_count": 46,
+      "lengths": [
+        23,
+        13,
+        22,
+        11,
+        9,
+        10,
+        8,
+        12,
+        12,
+        18,
+        16,
+        12,
+        13,
+        13,
+        14,
+        9,
+        8,
+        8,
+        14,
+        6,
+        5,
+        22,
+        8,
+        85,
+        15,
+        14,
+        11,
+        6,
+        14,
+        13,
+        14,
+        10,
+        11,
+        10,
+        10,
+        9,
+        9,
+        7,
+        19,
+        8,
+        15,
+        10,
+        8,
+        5,
+        6,
+        8
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The server uses it to detect duplicate requests and\nreturn the same response.",
+        0.8836
+      ],
+      [
+        "This recipe shows how to design idempotent endpoints using idempotency keys,\nnatural key constraints, and state checks in Python, JavaScript, and Java.",
+        0.825
+      ],
+      [
+        "Creating webhook receivers that may deliver the same event more than once.",
+        0.8174
+      ],
+      [
+        "This matters in\ndistributed systems where network failures, timeouts, and retries are common.",
+        0.7924
+      ],
+      [
+        "Use UUID v4 for keys; avoid incrementing integers or timestamps that can\n  collide across clients.",
+        0.7791
+      ],
+      [
+        "The **processing** state stops two concurrent requests from executing the same\noperation twice.",
+        0.7715
+      ],
+      [
+        "Twenty-four hours is\n  common for payments.",
+        0.747
+      ],
+      [
+        "Never reuse a key for a different operation.",
+        0.7296
+      ],
+      [
+        "This works when the key maps directly to a record.",
+        0.6985
+      ],
+      [
+        "Using idempotency keys on GET requests, which are already idempotent.",
+        0.6822
+      ],
+      [
+        "POST isn't \u2014\nrepeated POSTs usually create several resources.",
+        0.65
+      ],
+      [
+        "A 24-hour TTL is common for financial\noperations.",
+        0.6474
+      ],
+      [
+        "Rate limiting prevents too many\nrequests.",
+        0.6175
+      ],
+      [
+        "GET, HEAD, PUT, DELETE, and OPTIONS are naturally idempotent.",
+        0.5933
+      ],
+      [
+        "Implementing retry logic where the same request may be sent several times.",
+        0.5783
+      ],
+      [
+        "Idempotency prevents duplicate side effects.",
+        0.5705
+      ],
+      [
+        "Checking the idempotency key without atomic locking, which lets two parallel\n  requests both execute.",
+        0.5521
+      ],
+      [
+        "Otherwise the key stays blocked.",
+        0.5385
+      ],
+      [
+        "**Error handling** must remove the processing marker on failure so the client\ncan retry.",
+        0.5345
+      ],
+      [
+        "For multi-step operations, a\ndedicated store is clearer.",
+        0.5189
+      ],
+      [
+        "**Natural idempotency** with PUT /orders/{id} follows HTTP semantics \u2014 repeated\nupdates with the same body leave the resource in the same state.",
+        0.5184
+      ],
+      [
+        "Store the full response, not just a status flag, so duplicates return identical\n  data.",
+        0.5101
+      ],
+      [
+        "**TTL cleanup** is necessary because idempotency stores grow unbounded.",
+        0.5049
+      ],
+      [
+        "Read-only endpoints (GET, HEAD, OPTIONS) are already idempotent by the\n  HTTP spec \u2014 they don't need extra handling.",
+        0.5006
+      ],
+      [
+        "A second request that arrives while the first is still running\ngets 409 Conflict.",
+        0.4869
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "idempotent-api-endpoints-es",
+    "model": "desklib",
+    "model_ai_pct": 35.3,
+    "ai_count": 10,
+    "human_count": 37,
+    "skipped_count": 1,
+    "total": 48,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.4,
+      "stddev": 12.9,
+      "cv": 0.89,
+      "verdict": "natural variation",
+      "sentence_count": 47,
+      "lengths": [
+        25,
+        15,
+        23,
+        11,
+        12,
+        10,
+        10,
+        12,
+        14,
+        20,
+        18,
+        16,
+        13,
+        14,
+        13,
+        13,
+        8,
+        10,
+        18,
+        8,
+        7,
+        24,
+        9,
+        96,
+        16,
+        17,
+        12,
+        6,
+        16,
+        16,
+        16,
+        10,
+        11,
+        10,
+        10,
+        9,
+        11,
+        10,
+        21,
+        8,
+        7,
+        15,
+        9,
+        9,
+        6,
+        6,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "S\u00ed, con constraints de base de datos.",
+        0.8506
+      ],
+      [
+        "Veinticuatro\n  horas es com\u00fan para pagos.",
+        0.7226
+      ],
+      [
+        "Operaciones sin efectos secundarios o sin riesgo de retry rara vez justifican\n  el almacenamiento y la l\u00f3gica adicional.",
+        0.6827
+      ],
+      [
+        "La idempotencia de PATCH\ndepende de la sem\u00e1ntica del patch.",
+        0.6752
+      ],
+      [
+        "Para\noperaciones multi-paso, un store dedicado es m\u00e1s claro.",
+        0.5916
+      ],
+      [
+        "Verificar la idempotency key sin bloqueo at\u00f3mico, lo que permite que dos\n  requests paralelos ambos ejecuten.",
+        0.5595
+      ],
+      [
+        "Crear receptores de webhooks que pueden entregar el mismo evento m\u00e1s de una\n  vez.",
+        0.5507
+      ],
+      [
+        "POST no lo es \u2014\nPOSTs repetidos suelen crear m\u00faltiples recursos.",
+        0.5434
+      ],
+      [
+        "De lo\ncontrario, la clave queda bloqueada.",
+        0.5324
+      ],
+      [
+        "Un TTL de 24 horas es\ncom\u00fan para operaciones financieras.",
+        0.5062
+      ],
+      [
+        "El servidor la usa para detectar requests duplicados\ny devolver la misma respuesta.",
+        0.485
+      ],
+      [
+        "La idempotencia evita efectos secundarios duplicados.",
+        0.4631
+      ],
+      [
+        "Esto es clave en sistemas distribuidos donde fallas de red, timeouts\ny retries son comunes.",
+        0.4585
+      ],
+      [
+        "Esta receta muestra c\u00f3mo dise\u00f1ar endpoints idempotentes usando idempotency keys,\nrestricciones de clave natural y verificaciones de estado en Python, JavaScript y\nJava.",
+        0.4534
+      ],
+      [
+        "GET, HEAD, PUT, DELETE y OPTIONS son naturalmente idempotentes.",
+        0.4523
+      ],
+      [
+        "Funciona cuando la clave mapea directamente a un registro.",
+        0.4126
+      ],
+      [
+        "Consult\u00e1 [Llamar REST API](/es/recipes/call-rest-api/) para patrones de retry\n  en cliente.",
+        0.3987
+      ],
+      [
+        "El rate limiting evita\nmuchos requests.",
+        0.393
+      ],
+      [
+        "Usar idempotency keys en requests GET, que ya son idempotentes.",
+        0.3602
+      ],
+      [
+        "Implementar l\u00f3gica de retry donde el mismo request puede enviarse varias veces.",
+        0.355
+      ],
+      [
+        "Los endpoints de solo lectura (GET, HEAD, OPTIONS) ya son idempotentes por\n  la especificaci\u00f3n HTTP \u2014 no necesitan manejo extra.",
+        0.3479
+      ],
+      [
+        "No remover el marcador processing ante falla, bloqueando retries\n  permanentemente.",
+        0.3444
+      ],
+      [
+        "Usar UUID v4 para las claves; evitar enteros autoincrementales o timestamps que\n  puedan colisionar entre clientes.",
+        0.3367
+      ],
+      [
+        "Consult\u00e1 [Rate Limiting](/es/recipes/rate-limiting/)\npara l\u00edmites de cliente y servidor.",
+        0.3208
+      ],
+      [
+        "Una **idempotency key** es un identificador generado por el cliente y enviado en\nel header Idempotency-Key.",
+        0.296
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
