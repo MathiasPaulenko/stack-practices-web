@@ -276,13 +276,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.7% / ES 36.3% (0 patterns)
    - Words: 995 | Meta: 153 chars
 
-34. - [ ] **prometheus-api-monitoring** (recipes)
+34. - [x] **prometheus-api-monitoring** (recipes)
    - Metrics: 35 imp | pos 27.1 | CTR 0.00% | Δ impr 33
    - EN: https://stackpractices.com/recipes/prometheus-api-monitoring/
    - ES: https://stackpractices.com/es/recipes/prometheus-api-monitoring/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,691 | Meta: 153 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.3% / ES 41.1% (0 patterns)
+   - Words: 804 | Meta: 153 chars
 
 35. - [ ] **docker-network-isolation** (recipes)
    - Metrics: 43 imp | pos 28.8 | CTR 0.00% | Δ impr 0

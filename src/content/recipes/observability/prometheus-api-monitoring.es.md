@@ -7,12 +7,14 @@ metaDescription: "Configura monitoreo Prometheus para APIs REST y gRPC con métr
 difficulty: intermediate
 topics:
   - observability
+  - api
 tags:
   - prometheus
   - observability
   - api
   - devops
   - monitoring
+  - metrics
 relatedResources:
   - /recipes/prometheus-monitoring-alerts
   - /recipes/grafana-dashboards-observability
@@ -20,10 +22,7 @@ relatedResources:
   - /guides/logging-monitoring-observability-guide
   - /guides/monitoring-alerting-guide
   - /recipes/distributed-tracing
-  - /recipes/log-aggregation
-  - /recipes/metrics-collection
-  - /recipes/structured-logging
-lastUpdated: "2026-06-19"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-19"
 author: Mathias Paulenko
 seo:
@@ -31,26 +30,38 @@ seo:
   keywords:
     - prometheus
     - observability
-    - api
+    - api-monitoring
+    - metrics
+    - alerting
     - devops
-
-
 ---
+
 ## Visión General
 
-Prometheus es el estándar de facto para recolección de métricas en entornos cloud-native. Al instrumentar tu API con contadores, histograms y gauges personalizados, ganas visibilidad en tiempo real sobre latencia de requests, tasas de error, throughput y métricas de nivel de negocio.
+Si estás corriendo contenedores o Kubernetes, Prometheus es la herramienta de
+métricas a la que la mayoría de los equipos recurre primero. Instrumentá tu API
+con contadores, histogramas y gauges para ver latencia, tasas de error,
+throughput y métricas de negocio en tiempo real.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- Configuras monitoreo para APIs REST o gRPC. Consulta [Structured Logging](/recipes/structured-logging/) para correlacionar logs con métricas.
-- Definies SLOs y SLIs para microservicios. Consulta [Load Testing](/recipes/load-testing/) para establecer baselines de rendimiento.
-- Creas dashboards de Grafana para salud de API. Consulta [API Status Page Template](/docs/api-status-page-template/) para reporte de estado externo.
-- Alertas sobre picos de latencia p99 o tasas de error. Consulta [Circuit Breaker](/patterns/circuit-breaker-pattern/) para prevenir fallas en cascada.
+- Configurás monitoreo para APIs REST o gRPC.
+- Definís SLOs y SLIs para microservicios.
+- Creás dashboards de [Grafana](/recipes/grafana-dashboards-observability/) para salud de API.
+- Alertás sobre picos de latencia p99 o tasas de error.
+- Trackeás métricas de negocio como registros o revenue por endpoint.
+
+### Cuándo evitarlo
+
+- Ya usás un APM administrado que cubre tus necesidades sin setup extra.
+- El tráfico es tan bajo que la cardinalidad de métricas no justifica el
+  overhead.
+- Necesitás trazas distribuidas primero. Empezá con [distributed
+  tracing](/recipes/distributed-tracing/) en ese caso.
 
 ## Solución
 
-### Instrumentación con Cliente Prometheus (Node.js)
+### Instrumentación con cliente Prometheus (Node.js)
 
 ```javascript
 const client = require('prom-client');
@@ -95,7 +106,7 @@ app.use((req, res, next) => {
 });
 ```
 
-### Reglas de Alertamiento
+### Reglas de alertamiento
 
 ```yaml
 # prometheus-alerts.yml
@@ -117,233 +128,101 @@ groups:
           severity: warning
 ```
 
+### Queries PromQL para dashboards
+
+```text
+# Requests por segundo
+rate(http_requests_total[5m])
+
+# Latencia p99
+histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
+
+# Tasa de error
+rate(http_requests_total{status_code=~"5.."}[5m])
+```
+
 ## Explicación
 
-Prometheus sigue un modelo de pull:
-
-1. **Instrumentación**: Tu aplicación expone un endpoint /metrics
-2. **Scraping**: El servidor de Prometheus hace polling a este endpoint periódicamente (default 15s)
-3. **Almacenamiento**: Los datos de series temporales se almacenan localmente con compresión
-4. **Consulta**: Queries PromQL agregan métricas en tiempo real
-5. **Alertamiento**: Alertmanager enruta alertas a Slack, PagerDuty, email
+Prometheus sigue un modelo de pull. Tu aplicación expone un endpoint
+`/metrics`; el servidor de Prometheus hace scraping periódicamente (default 15
+segundos). Las series temporales se almacenan localmente y se consultan con
+PromQL. Alertmanager enruta las alertas activas a Slack, PagerDuty o email.
 
 **Tipos de métricas**:
-- **Counter**: Incrementa monotónicamente (requests, errores)
-- **Histogram**: Observaciones en buckets + suma + conteo (latencia)
-- **Gauge**: Puede subir o bajar (conexiones, profundidad de cola)
-- **Summary**: Cuantiles pre-calculados (usa histograms en su lugar cuando sea posible)
+
+| Tipo | Uso | Ejemplo |
+| --- | --- | --- |
+| **Counter** | Valores que crecen monotónicamente | `http_requests_total` |
+| **Histogram** | Observaciones en buckets, suma y conteo | `http_request_duration_seconds` |
+| **Gauge** | Valores que suben o bajan | `http_active_connections` |
+| **Summary** | Cuantiles pre-calculados | Preferí histograms para agregación |
+
+Los histogramas suelen ser mejores que los summaries porque podés agregarlos
+entre instancias. Los summaries no se pueden agregar.
 
 ## Variantes
 
 | Lenguaje | Librería | Notas |
-|----------|----------|-------|
-| Node.js | prom-client | Más popular; registro built-in |
-| Go | prometheus/client_golang | Oficial; mejor performance |
-| Python | prometheus_client | Middleware Flask/Django disponible |
-| Java | Micrometer | Integración Spring Boot |
+| --- | --- | --- |
+| Node.js | prom-client | Registro built-in; funciona con Express, Fastify |
+| Go | prometheus/client_golang | Cliente oficial; mejor performance |
+| Python | prometheus_client | Middleware para Flask/Django disponible |
+| Java | Micrometer | Integración con Spring Boot |
 | Rust | prometheus | Compatible con async |
 
-## Lo que funciona
+## Mejores Prácticas
 
-- **Usa labels con moderación**: Alta cardinalidad (combinaciones únicas de labels) degrada performance
-- **Prefiere histograms sobre summaries**: Los histograms permiten agregación across instances
-- **Instrumenta métricas de negocio**: No solo métricas técnicas (registros, revenue por endpoint)
-- **Ajusta retención sabiamente**: Default 15 días; incrementa para tendencias a largo plazo
-- **Ejecuta Prometheus en modo HA**: Usa Thanos o Cortex para agregación multi-cluster
+- Usá labels con moderación. La alta cardinalidad degrada el performance de
+  Prometheus.
+- Preferí histograms sobre summaries para latencia.
+- Nombrá métricas con unidades: `_seconds`, `_bytes`, `_total`.
+- Instrumentá fallos, no solo éxitos.
+- Mantené los buckets del histogram enfocados. Pocos buckets son suficientes.
+- Hacé scraping de `/metrics` por un puerto o ruta interna separada cuando sea
+  posible.
+- Empezá con la retención default de 15 días y ajustala cuando conozcas tus
+  necesidades reales de storage.
 
 ## Errores Comunes
 
-1. **Alta cardinalidad de labels**: IDs de usuario o sesión como labels crashean Prometheus
-2. **Faltar sufijos de unidades**: Usa _seconds, _bytes, _total según convenciones de nombrado
-3. **No instrumentar fallos**: Solo trackear éxitos enmascara detección de outage
-4. **Demasiados buckets**: 100+ buckets de histogram desperdicia almacenamiento y CPU
-5. **Ignorar errores de scraping**: Errores del endpoint /metrics significan puntos ciegos
+- Labels de alta cardinalidad como IDs de usuario o sesión.
+- Faltar sufijos de unidad en los nombres de métricas.
+- No trackear requests fallidos.
+- Demasiados buckets en el histogram.
+- Ignorar errores de scraping en el endpoint `/metrics`.
+- Mezclar métricas de negocio e infraestructura en la misma instancia sin
+  planificar retenciones distintas.
 
-## Manejo de Errores y Recuperacion
+## FAQ
 
-- **Crashes de Prometheus server**: cuando Prometheus crashea, monitoring se pierde.
-- **Fallos de Alertmanager**: cuando Alertmanager cae, alerts no se deliver.
-- **Fallos de service discovery**: cuando service discovery falla, targets no se scrapean.   Usa static fallbacks para critical services.
-- **Errores de rule evaluation**: PromQL invalido causa rule evaluation failures.   Valida rules antes de deployment.   Usa version control para rules.
-- **Fallos de remote write**: cuando remote write falla, data no se envia a long-term storage.
+### ¿Cuánta memoria necesita Prometheus?
 
-## Performance y Escalabilidad
+Aproximadamente 1–3 KB por serie temporal activa. Una API con 100 endpoints y
+pocos labels suele entrar en 2–4 GB de RAM.
 
-- **Capacity planning de Prometheus**: dimensiona Prometheus basado en series count e ingestion rate.   Estima 1 million series por Prometheus instance.   Planifica 6-month growth.
-- **Query performance**: slow queries impactan dashboards y alerts.   Limita query time range.
-- **Optimizacion de storage**: Usa downsampling para long-term data.   Comprime old blocks.
-- **Optimizacion de red**: reduce network overhead.   Usa federation para global views.   Comprime remote write data.
-## Consideraciones de Seguridad
+### ¿Puede Prometheus manejar logs y trazas?
 
-- **Access control para observability data**: restringe access a traces, logs y metrics.   Separa permisos de read y write.   Audita access a observability data.   Rota API keys y tokens.
-- **Encriptacion de data**: encripta observability data in transit y at rest.   Usa encryption at rest para storage.   Rota encryption keys.
-- **PII en observability data**: traces y logs pueden contener PII.   Maskear sensitive fields automaticamente.
-- **Network security**: secura comunicacion entre agents y collectors.   Usa private networks para monitoring traffic.   Firewallea monitoring endpoints.
+No. Usá Prometheus para métricas, Loki para logs y Jaeger para trazas. Grafana
+puede unificar los tres en un solo dashboard.
 
-## Deployment y CI/CD
+### ¿Cuál es la diferencia entre histogram y summary?
 
-- **Observability as code**: define dashboards, alerts y rules en version control.   Usa CI/CD para observability updates.   Roll back failed deployments.
-- **Progressive rollout para instrumentation**: deploya instrumentation changes gradualmente.   Roll back si overhead es muy alto.
-- **Version compatibility**: Planifica upgrades cuidadosamente.
-- **Configuration management**: gestiona observability configuration centralmente.   Versiona configuration changes.
-## Testing y Quality Assurance
-
-- **Integration testing para observability**: testea que traces, logs y metrics se produzcan correctamente.   Verifica trace context propagation a traves de servicios.   Valida metric labels y values.
-- **Load testing de observability infrastructure**: testea collectors y storage bajo peak load.   Verifica ingestion rate handling.   Testea scaling behavior.   Verifica alert evaluation bajo load.
-- **Chaos testing para observability**: inyecta failures en observability pipeline.   Killea collectors randomicamente.   Simula network partitions.   Verifica que el sistema continue operando.   Mejora resilience basado en findings.
-- **Verificacion end-to-end de traces**: verifica complete traces de start a end.   Valida span attributes.   Verifica trace export a backend.
-- **Alert testing**: Verifica alert delivery a notifications.   Valida alert severity levels.
-- **Dashboard testing**: verifica que dashboard queries returnen correct data.   Valida dashboard filters.
-
-## Pitfalls Comunes y Anti-Patrones
-
-- **Over-instrumentation**: agregar demasiados spans o metrics crea noise y overhead.   Focate en critical paths.   Limita spans por request a 10-20.
-- **Ignorar cardinality**: high-cardinality labels causan storage explosion.   Nunca uses user IDs o request IDs como metric labels.   Setea cardinality limits.
-- **No retention strategy**: sin retention policies, storage crece indefinidamente.   Setea retention por data type.   Traces: 7-30 dias.   Logs: 30-90 dias.   Metrics: 90-365 dias.
-- **Alert fatigue**: demasiados alerts causan que teams los ignoren.   Combina related alerts.   Setea appropriate thresholds.   Targetea < 5 alerts por incident.
-- **No SLO monitoring**: sin SLOs, observability lacks focus.   Define SLOs para critical services.
-- **Siloed observability tools**: usar tools separados para traces, logs y metrics sin integration.   Correlaciona traces con logs usando trace IDs.   Linkea metrics a traces.
-## Herramientas y Plataformas
-
-- **OpenTelemetry**: framework de observability vendor-neutral.   Soporta traces, metrics y logs.   Auto-instrumentation para lenguajes populares.   Collector para processing y export.   Export a multiples backends.   Ecosistema growing.
-- **Jaeger**: distributed tracing backend por CNCF.   UI para trace exploration.   Storage backends: Elasticsearch, Cassandra, Badger.   Adaptive sampling.   Soporte para OpenTelemetry traces.   Query por service, operation, tags.   Bueno para microservice tracing.
-- **Grafana**: plataforma de visualization para observability.   Soporta Prometheus, Loki, Tempo, Elasticsearch.   Crea dashboards con panels.   Alerting integration.   Templating para reusable dashboards.   Plugin ecosystem.
-- **Elasticsearch (ELK)**: log aggregation y search.   Full-text search capabilities.   Kibana para visualization.   Logstash para ingestion.   Beats para lightweight agents.   Soporte para structured logs.   Bueno para log-heavy environments.
-- **Datadog**: plataforma commercial de observability.   Unified metrics, traces y logs.   APM para application monitoring.   Synthetic monitoring.   RUM para frontend.   Alerting y dashboards.   Bueno para teams que quieren managed solution.
-- **New Relic**: plataforma commercial de observability.   APM, infrastructure monitoring.   Distributed tracing.   Log management.   Alerting.   Bueno para teams que quieren managed solution.
-
-## Resumen de Best Practices
-
-- **Usa OpenTelemetry para instrumentation**: vendor-neutral, adaptable.   Auto-instrumentation donde posible.   Manual para custom spans.   Export a multiples backends.
-- **Define SLOs y error budgets**: setea SLOs para critical services.
-- **Correlaciona traces, logs y metrics**: Usa service labels para linkear metrics.   Crea unified dashboards.
-- **Monitorea el monitoring system**: setea meta-monitoring.   Monitorea storage usage.
-- **Reviews regulares de observability**: revisa dashboards mensualmente.   Revisa retention policies trimestralmente.   Programa reviews regulares.
-## Optimizacion de Costos
-
-- **Right-sizing de observability infrastructure**: dimensiona collectors y storage basado en data volume.   Empieza small y scalea basado en metrics.
-- **Optimizacion de data retention**: setea retention basado en business needs.   Traces: 7-30 dias.   Logs: 30-90 dias.   Metrics: 90-365 dias.   Archiva a cold storage.
-- **Sampling para cost reduction**: Head-based sampling para consistent traces.   Tail-based sampling para error-focused traces.   Setea sample rate basado en traffic.   Empieza a 10% para high traffic.   Ajusta basado en error rates.
-- **Storage tiering**: Hot: fast SSD para recent data.   Warm: standard disk para 7-30 day data.   Cold: object storage para archived data.
-
-## Guia de Troubleshooting
-
-- **Traces missing**: Verifica que collector este running.   Verifica sampling rate.   Chequea service discovery.
-- **Issues de high cardinality**: Setea cardinality limits.
-- **Dashboards slow**: Limita time range.
-- **Alert storms**: Setea appropriate thresholds.   Combina related alerts.
-## Estrategias de Migracion
-
-- **Migracion de monolith a observability**: empieza instrumentando el monolith.   Agrega OpenTelemetry SDK.   Exporta a un collector.   Luego extrae servicios uno por uno.   Cada nuevo servicio se instrumenta desde el start.   Verifica trace correlation entre monolith y nuevos servicios.
-- **Migracion de vendor**: migra de una observability platform a otra.   Exporta a ambos backends simultaneamente.   Switchea dashboards uno por uno.   Verifica data parity.   Decomisiona old platform despues que todos los dashboards migren.
-- **Legacy logging a structured logging**: migra de unstructured a structured logging incrementalmente.   Empieza con new services.   Luego migra critical existing services.   Convierte unstructured logs a JSON en ingestion.
-- **Manual instrumentation a auto-instrumentation**: migra de manual a auto-instrumentation donde posible.   Empieza con new services usando auto-instrumentation.   Gradualmente reemplaza manual instrumentation en existing services.   Verifica trace coverage.
-
-## Compliance y Governance
-
-- **Compliance de data retention**: setea retention policies per regulatory requirements.   Financial: 7 aÃ±os.   Healthcare: 6 aÃ±os.   General: 30-90 dias.   Audita retention compliance trimestralmente.
-- **Audit trail para observability data**: loguea all access a observability data.   Envia audit logs a immutable storage.   Reten per compliance requirements.   Soporta audit log export.
-- **Data residency para observability**: algunas regulaciones requieren que data se quede dentro de boundaries geograficos.   Elije cloud regions cuidadosamente.
-- **Access certification**: certifica access a observability data trimestralmente.   Ajusta permissions para role changes.
-## Reporting y Comunicacion
-
-- **Review semanal de observability metrics**: revisa trace coverage, log volume, metric completeness y alert effectiveness semanalmente.
-- **Post-mortems de observability failures**: conduce post-mortems cuando observability gaps se encuentran durante incidents.   Updatea runbooks.   Mejora instrumentation basado en findings.
-- **Scorecard mensual de observability**: crea un scorecard mensual con key metrics.   Trace coverage percentage.   Log format compliance.   Alert noise ratio.   Mean time to detection.   Dashboard usage.   SLO compliance.
-- **Review trimestral de observability strategy**: Assess tool effectiveness.   Planifica improvements.   Updatea roadmap.   Involucra all stakeholders.
-
-## Automatizacion y Tooling
-
-- **Generacion automatizada de dashboards**: Version control dashboard definitions.   Auto-crea dashboards para new services.   Estandariza dashboard templates.
-- **Generacion automatizada de alerts**: Version control alert rules.   Auto-crea alerts para new services.   Estandariza alert templates.
-- **Health checks de observability**: Chequea storage health.   Chequea alert delivery.
-## Consideraciones de Sostenibilidad
-
-- **Observability energy-efficient**: Programa non-critical analysis durante off-peak hours.
-- **Arquitectura de observability green**: prefiere managed services que sharean infraestructura a traves de tenants.   Elije cloud regions con renewable energy.   Archiva old data a cold storage para reducir active storage energy.
-- **Reduccion de data volume para sustainability**: reduce data volume para bajar energy consumption.   Setea appropriate retention periods.   Comprime log data.
-- **Patrones de query eficientes**: Limita query time range.
-
-## Patrones Avanzados
-
-- **Canary observability**: Auto-rollback en anomalies.
-- **Chaos observability**: verifica observability durante chaos experiments.   Verifica que alerts fireen correctamente.   Testea chaos observability.   Mejora basado en findings.
-- **Multi-cluster observability**: agrega observability data a traves de Kubernetes clusters.   Centraliza dashboards y alerts.   Per-cluster filtering y labeling.
-## Standards y Frameworks de la Industria
-
-- **Standard OpenTelemetry**: Es CNCF-hosted y vendor-neutral.   Soporta traces, metrics y logs.   Auto-instrumentation libraries para Java, Python, Go, JavaScript, .  NET, Ruby.   Collector para processing y routing.
-- **W3C Trace Context**: Standard 	raceparent y 	racestate headers.   Soportado por all major frameworks.   Verifica compatibility con proxies y load balancers.
-- **Prometheus exposition format**: Standard format con HELP, TYPE y metric lines.   Soporte para OpenMetrics format.
-- **CloudEvents para event-driven observability**: usa CloudEvents specification para event data.   Standard event format con required attributes.   Habilita interoperability entre sistemas.
-
-
-
-
-## Referencia Rápida
-
-- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
-- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
-- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de prometheus y observability para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica monitoreo de apis con prometheus** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Preguntas Frecuentes
-
-**P: ¿Cuánta memoria necesita Prometheus?**
-R: ~1-3KB por serie temporal. Una API típica con 100 endpoints y 5 labels necesita 2-4GB RAM.
-
-**P: ¿Puede Prometheus manejar datos de logs?**
-R: No. Usa Loki para logs, Jaeger para trazas, y Prometheus para métricas. El stack de Grafana los unifica.
-
-**P: ¿Cuál es la diferencia entre histogram y summary?**
-R: Los histograms agrupan datos y permiten agregación. Los summaries precalculan cuantiles pero no pueden agregarse across instances.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Los histograms agrupan datos y permiten agregación entre instancias. Los
+summaries precalculan cuantiles pero no se pueden agregar.
 
 ### ¿Cómo reduzco los costos de storage de Prometheus?
 
-Usa retention periods de 15-30 dias. Habilita downsampling para long-term data. Usa recording rules para pre-computar frequent queries. Remueve unused metrics. Limita high-cardinality labels. Usa Thanos o Cortex para long-term storage con object storage backends. Monitorea storage growth mensualmente.
+Usá retención de 15–30 días para Prometheus local, recording rules para
+consultas frecuentes, y Thanos o Cortex para almacenamiento a largo plazo.
+Limitá labels de alta cardinalidad y remové métricas no usadas.
 
-### ¿Puedo usar Prometheus para business metrics?
+### ¿Puedo usar Prometheus para métricas de negocio?
 
-Si, pero usa una separate Prometheus instance para business metrics. Business metrics tienen higher cardinality y diferentes retention needs. Usa recording rules para pre-aggregation. Exporta a un warehouse para long-term analysis. Documenta metric definitions claramente.
+Sí, pero poné esas métricas en una instancia o namespace separado. Suelen tener
+más cardinalidad y distintas necesidades de retención.
 
-## Errores Comunes en Producción
+### ¿Cómo pruebo reglas de alerta antes de desplegar?
 
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Usá `promtool test rules` con un archivo de test que defina series de entrada y
+las alertas esperadas. Así detectás PromQL roto y umbrales incorrectos sin
+esperar un incidente en producción.
