@@ -1,23 +1,31 @@
 ---
 contentType: recipes
 slug: uuid-generation
-title: "UUID Generation"
-description: "How to generate universally unique identifiers (UUIDs) for database keys, session tokens, and resource naming across Python, JavaScript, and Java."
+title: "UUID Generation in Python, JavaScript, and Java"
+description: "Generate universally unique identifiers (UUIDs) for database keys, session tokens, and resource naming across Python, JavaScript, and Java."
 metaDescription: "Practical UUID generation examples in Python, JavaScript, and Java. Learn UUID v4, v7, ULID, and when to use each for database keys and distributed systems."
 difficulty: beginner
 topics:
   - data
+  - databases
 tags:
   - data
   - database
+  - uuid
   - guid
-  - parsing
-  - json
+  - primary-keys
+  - distributed-systems
+  - python
+  - javascript
+  - java
 relatedResources:
+  - /recipes/database-connection-pooling
   - /recipes/parse-json
+  - /recipes/data-validation
   - /recipes/caching
+  - /recipes/merge-json-files
   - /patterns/singleton-pattern
-lastUpdated: "2026-06-10"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
@@ -33,23 +41,30 @@ seo:
     - python uuid
     - javascript uuid
     - java uuid
-
 ---
+
 ## Overview
 
-UUIDs (Universally Unique Identifiers) are 128-bit values designed to be unique across both space and time. They are the standard for database primary keys in distributed systems, session tokens, file names, and any scenario where auto-incrementing integers are insufficient.
+UUIDs (Universally Unique Identifiers) are 128-bit values designed to be unique across space
+and time. They're the standard for database primary keys in distributed systems, session
+tokens, file names, and any scenario where auto-incrementing integers are insufficient.
 
-Modern systems increasingly prefer UUID v7 or ULID over v4 because they are sortable by time, improving database index performance.
+Modern systems increasingly prefer UUID v7 or ULID over v4 because they're sortable by time,
+which improves database index performance.
 
 ## When to Use
 
-Use this recipe when:
+- Generating primary keys in distributed databases.
+- Creating session or API tokens.
+- Naming files, images, or uploads to prevent collisions.
+- Merging data from several sources where IDs must not clash.
+- Building systems where clients generate IDs before sending to the server.
 
-- Generating primary keys in distributed databases. See [Connection Pooling](/recipes/database-connection-pooling/) for database access patterns.
-- Creating session or API tokens. See [JWT Authentication](/recipes/jwt-authentication/) for secure token handling.
-- Naming files, images, or uploads to prevent collisions. See [File Upload Validation](/recipes/file-upload-validation/) for secure upload handling.
-- Merging data from multiple sources where IDs must not clash. See [Parse JSON](/recipes/parse-json/) for structured data merging.
-- Building systems where clients generate IDs before sending to the server. See [Call REST API](/recipes/call-rest-api/) for client-server communication.
+## When NOT to Use
+
+- Small, single-node tables where auto-increment integers are simpler and faster.
+- Performance-critical paths that can't tolerate CSPRNG overhead.
+- Public IDs where short, human-readable slugs are preferred.
 
 ## Solution
 
@@ -61,7 +76,7 @@ import ulid
 
 # UUID v4 (random) — most common
 id_v4 = uuid.uuid4()
-print(id_v4)  # e.g., 550e8400-e29b-41d4-a716-446655440000
+print(id_v4)  # 550e8400-e29b-41d4-a716-446655440000
 
 # UUID v7 (time-ordered) — sortable, better for DB indexes
 id_v7 = uuid.uuid7()  # Python 3.13+
@@ -90,8 +105,8 @@ console.log(v7()); // 018f3d7e-8... (starts with timestamp)
 // ULID (time-ordered, lexicographically sortable)
 console.log(ulid()); // 01ARZ3NDEKTSV4RRFFQ69G5FAV
 
-// Crypto random UUID (browser native)
-console.log(crypto.randomUUID()); // Available in Node 19+ and modern browsers
+// Crypto random UUID (Node 19+ and modern browsers)
+console.log(crypto.randomUUID());
 ```
 
 ### Java
@@ -104,250 +119,99 @@ UUID idV4 = UUID.randomUUID();
 System.out.println(idV4); // 550e8400-e29b-41d4-a716-446655440000
 
 // UUID v7 (time-ordered) — use java-uuid-generator or JDK 23+
-// For older JDKs, use a library like java-uuid-generator
+// For older JDKs, add the java-uuid-generator library.
 
-// ULID via external library (e.g., ulid-java)
-// String ulid = Ulid.generate();
+// ULID via external library such as ulid-java
+// String id = Ulid.generate();
 ```
 
 ## UUID Versions Compared
 
-| Version | Format | Sortable | Use Case |
-|---------|--------|----------|----------|
-| **v4** | Random | No | General purpose, most widely supported |
-| **v7** | Time-ordered | Yes | Database keys, event logs (better index locality) |
-| **v8** | Custom | Configurable | Vendor-specific extensions |
-| **ULID** | Time + random | Yes | URL-safe, lexicographically sortable |
+|Version|Format|Sortable|Best For|
+|-------|------|--------|--------|
+|v4|Random|No|General purpose, session tokens, widest support|
+|v7|Time-ordered|Yes|Database keys, event logs, better index locality|
+|v8|Custom|Configurable|Vendor-specific extensions|
+|ULID|Time + random|Yes|URL-safe, lexicographically sortable IDs|
 
-## What Works
+## Explanation
 
-- **Prefer UUID v7 or ULID for database keys**: Time-ordered IDs improve B-tree index performance
-- **Store as `UUID` type in databases** when available (PostgreSQL, SQL Server) instead of strings
-- **Use `BINARY(16)` in MySQL** to save space compared to `CHAR(36)`
-- **Generate IDs client-side** for offline-first or optimistic UI patterns
-- **Don't expose sequential IDs** to users for security (use UUIDs instead of auto-increment)
-- **Validate UUID format** when parsing external input
+UUIDs solve the coordination problem: every node can generate an ID without talking to a central
+allocator. v4 uses randomness from a cryptographically secure source, so it's unpredictable but
+not sortable. v7 encodes a Unix timestamp in the most significant bits, giving you roughly
+time-ordered values while keeping randomness in the rest. ULID is similar but uses a 26-character
+crockford-base32 string that's shorter and URL-safe.
 
-## Common Mistakes
+When used as database primary keys, sortable IDs keep related inserts close together in B-tree
+indexes, which improves write throughput and cache locality compared to purely random v4 values.
 
-- Using UUID v4 as a database primary key without understanding the random insert penalty
-- Storing UUIDs as strings instead of native binary types, wasting space and index efficiency
-- Using UUIDs for small, non-distributed tables where auto-increment integers are sufficient
-- Not indexing UUID columns properly in databases
-- Generating UUIDs in a hot loop without caching the generator instance
+## Variants
 
-## Migrating from Auto-Increment to UUID
-
-Switching an existing table from auto-increment integers to UUIDs requires planning:
-
-### Step 1: Add UUID Column
-
-```sql
--- PostgreSQL
-ALTER TABLE users ADD COLUMN uuid UUID DEFAULT gen_random_uuid();
-CREATE UNIQUE INDEX idx_users_uuid ON users(uuid);
-```
-
-### Step 2: Backfill Existing Rows
-
-Run a one-time migration script to generate UUIDs for existing records:
+### UUID as binary storage
 
 ```python
 import uuid
-for user in User.query.filter(User.uuid.is_(None)):
-    user.uuid = uuid.uuid7()
-    db.session.commit()
+
+# Convert a UUID to its 16-byte representation for compact storage
+uid = uuid.uuid7()
+binary = uid.bytes  # 16 bytes
+uid_back = uuid.UUID(bytes=binary)
 ```
 
-### Step 3: Update Application Code
+### ULID string for URLs
 
-Modify your ORM models and API endpoints to read/write the UUID column instead of the integer ID.
+```javascript
+import { ulid } from 'ulid';
 
-### Step 4: Update Foreign Keys
+// 26 chars, URL-safe, lexicographically sortable
+const id = ulid();
+console.log(`https://api.example.com/items/${id}`);
+```
 
-If other tables reference `users.id`, add a `user_uuid` column to those tables and migrate the relationships.
+### Snowflake-style IDs
 
-### Step 5: Deprecate Integer ID
+For systems that need sortable 64-bit IDs, consider Twitter Snowflake, which uses a central
+coordinator or a machine ID to avoid collisions.
 
-After confirming everything works, mark the integer `id` column as deprecated. Do not drop it immediately — give yourself a rollback path.
+## Best Practices
 
-## UUIDs in Distributed Systems
+- Prefer UUID v7 or ULID for database keys to improve B-tree index performance.
+- Store UUIDs as native `UUID` or `BINARY(16)` types instead of `CHAR(36)` strings.
+- Use `BINARY(16)` in MySQL to save space compared to `CHAR(36)`.
+- Generate IDs client-side only when the client needs them before the server responds.
+- Validate UUID format when parsing external input.
+- Avoid exposing sequential IDs publicly; use UUIDs for external-facing identifiers.
 
-In microservices or event-driven architectures, UUIDs shine because they can be generated independently by any node:
+## Common Mistakes
 
-- **Event sourcing**: Each event gets a UUID, enabling idempotent consumers
-- **Offline-first apps**: Client generates UUID before syncing to the server
-- **Database sharding**: No central ID allocator needed; each shard generates its own keys
-- **CQRS**: Read and write models can generate IDs without coordination
-
-| Approach | Pros | Cons |
-|----------|------|------|
-| **Auto-increment** | Simple, compact, ordered | Central bottleneck, hard to shard |
-| **UUID v4** | Decentralized, standard | Random insert penalty, not sortable |
-| **UUID v7** | Decentralized, sortable | Requires newer language/library versions |
-| **Snowflake IDs** | Sortable, compact (64-bit) | Requires central coordinator |
-
-## When Not to Use This Approach
-
-- **Locale-aware formatting in distributed systems**: if servers span multiple timezones, formatting dates locally per-server causes inconsistencies.
-- **High-frequency formatting calls**: if formatting is called millions of times per second, the overhead of strftime or Intl. DateTimeFormat becomes significant.
-- **Financial calculations requiring exact precision**: floating-point arithmetic causes rounding errors in money calculations (0. 1 + 0. 2 ! = 0. 3).
-- **URL encoding of already-encoded strings**: double-encoding %20 produces %2520.
-- **UUID generation in performance-critical paths**: UUIDv4 generation uses CSPRNG which is 10-100x slower than sequential IDs.
-- **CLI argument parsing for simple scripts**: if a script needs 2-3 flags, rgparse or commander is overkill.
-
-## Performance Benchmarks
-
-- **Date formatting**: strftime in Python formats 1M dates in 200-500ms.  Intl. DateTimeFormat in JavaScript formats 1M dates in 100-300ms.
-- **URL encoding**: encodeURIComponent in JavaScript encodes 1M strings in 50-200ms.  Python urllib. parse. quote encodes 1M strings in 100-400ms.
-- **UUID generation**: uuid. uuid4() in Python generates 1M UUIDs in 500ms-2s.  crypto. randomUUID() in Node. js generates 1M UUIDs in 100-300ms.
-- **Text truncation**: slicing 1M strings to 100 chars takes 50-150ms in Python and 20-80ms in JavaScript.
-- **Phone number formatting**: phonenumbers library in Python formats 100K phone numbers in 500ms-2s.
-- **QR code generation**: qrcode library in Python generates a 100x100 QR code in 5-20ms.  qrcode-terminal is faster but produces lower-quality output.
-
-## Testing Strategy
-
-- **Test timezone handling**: verify that date formatting produces correct output across timezones (UTC, PST, JST, AEDT).
-- **Test with invalid input**: verify that invalid phone numbers, malformed URLs, and out-of-range dates are rejected with clear errors.
-- **Test locale-specific formatting**: verify that currency formatting uses the correct symbol, decimal separator, and grouping for each locale (,234. 56 vs 1.
-- **Test Unicode edge cases**: verify that truncation does not break multi-byte characters (emoji, CJK).
-- **Test UUID uniqueness**: generate 10M UUIDs and verify no collisions.  UUIDv4 has a 50% collision chance after 2.
-- **Test CLI argument edge cases**: test with missing required arguments, duplicate flags, negative numbers as values, and -- separator.
-
-## Cost Estimation
-
-- **Date library bundle size**: moment. js is 67KB minified.  date-fns with tree-shaking is 5-15KB.  luxon is 25KB.  Native Intl. DateTimeFormat is 0KB (built into the runtime).
-- **Phone number validation**: libphonenumber-js is 45KB minified.  Server-side validation with Google's library is free but requires a C++ dependency.
-- **QR code generation cost**: generating 1M QR codes server-side costs . 50-2. 00 in compute.
-- **UUID generation infrastructure**: UUIDv4 requires no coordination but causes random I/O patterns in databases.  UUIDv7 or Snowflake IDs improve write throughput 2-5x by clustering inserts.
-- **CLI tool distribution**: packaging a CLI tool with pip or 
-pm is free. Distributing as a standalone binary (PyInstaller, pkg) adds 10-50MB but removes the runtime dependency. Choose based on user audience
-
-## Monitoring and Observability
-
-- **Format error rate**: track the percentage of formatting operations that fail.
-- **Formatting latency**: monitor time spent in date/phone/URL formatting.
-- **Timezone configuration drift**: log the server timezone on startup.  Alert if it changes from UTC.
-- **UUID generation rate**: monitor the rate of UUID generation.
-- **CLI usage patterns**: log which CLI flags are used most frequently.
-
-## Deployment Checklist
-
-- [ ] Set the server timezone to UTC: TZ=UTC environment variable. Never rely on the system default timezone in production code
-- [ ] Configure locale defaults: set LANG and LC_ALL environment variables. Use Intl.DateTimeFormat with explicit locale in JavaScript
-- [ ] Set maximum input length: reject strings longer than the configured maximum before formatting. Prevents memory exhaustion from oversized inputs
-- [ ] Configure QR code error correction level: use level M (15% recovery) for general use, level H (30% recovery) for industrial environments. Higher levels produce denser codes
-- [ ] Set CLI argument limits: limit the number of arguments and their total size. getopt and rgparse have built-in limits, but custom parsers need explicit limits
-- [ ] Pin library versions: date and phone libraries change frequently. Pin versions to avoid breaking changes from timezone database updates or locale format changes
-
-## Security Considerations
-
-- **Timezone-based access control bypass**: if access control checks use local time, a server timezone change can bypass time-based restrictions.
-- **URL encoding bypass**: double-encoding or mixed encoding can bypass URL-based security filters.
-- **Phone number spoofing**: caller ID spoofing means phone number validation does not verify identity.
-- **QR code phishing**: QR codes can encode malicious URLs.
-- **UUID predictability**: UUIDv1 contains the MAC address and timestamp, which leaks hardware info and allows prediction.
-- **Date parsing injection**: some date parsers execute arbitrary code via format strings (e. g. , strftime with user-controlled format).
-- **Truncation-based XSS bypass**: truncating HTML at a fixed character count can split tags and create invalid HTML that bypasses XSS filters.
-- **CLI argument injection**: if CLI arguments are passed to subprocess without proper escaping, an attacker can inject shell commands.
-- **Money formatting precision loss**: converting between currencies using floating-point can lose precision.
-- **Phone number metadata leakage**: libphonenumber can reveal the carrier and region of a phone number.
-- **QR code content injection**: if QR codes are rendered from user-supplied URLs without validation, an attacker can encode javascript: or data: URIs.
-- **Date format string DoS**: some date formatting libraries support complex format strings that can cause excessive CPU usage.
-## Variants and Alternatives
-
-- **Native Intl vs libraries**: Intl. DateTimeFormat, Intl. NumberFormat, and Intl. ListFormat are built into modern JS runtimes.  They are 0KB and 2-5x faster than moment. js or date-fns.
-- **UUIDv4 vs UUIDv7 vs ULID vs Snowflake**: UUIDv4 is random (good for security, bad for DB indexes).  UUIDv7 is time-ordered (good for DB locality).  ULID is lexicographically sortable.
-- **Decimal vs integer cents vs floating-point**: Decimal is exact but slow.  Integer cents (store 199 instead of 1. 99) is exact and fast but requires conversion at boundaries.
-- **Template literals vs string concatenation**: template literals (` Hello  `) are more readable and slightly faster in V8.  String concatenation ("Hello " + name) is compatible with older runtimes.
-- **Native URL API vs regex parsing**: 
-ew URL(string) parses URLs correctly including edge cases (IPv6, userinfo, encoded characters). Regex-based parsing misses edge cases. Always use the native URL API for URL manipulation
-- **CLI frameworks comparison**: rgparse (Python, stdlib, verbose), click (Python, decorators, clean), 	yper (Python, type hints, modern), commander (Node. js, widely used), yargs (Node. js, feature-rich).
-
-## Common Pitfalls in Production
-
-- **Timezone offset vs timezone name**: +02:00 is an offset that changes with DST.  Europe/Paris is a timezone name that handles DST automatically.
-- **Locale code confusion**: en-US vs en_US vs en â€” different libraries expect different formats.  ICU uses en-US, POSIX uses en_US.
-- **Currency rounding modes**: ROUND_HALF_UP (banker's rounding) differs from ROUND_HALF_EVEN (Python default).  Financial systems require specific rounding modes.
-- **UUID collision in practice**: UUIDv4 collision probability is negligible (1 in 2. 7x10^36 for 50% chance).  But UUIDv1 collision can happen if the MAC address is reused or the clock is set backward.
-- **URL encoding of special characters**: , ', (, ) are technically safe in URLs but some servers reject them.  encodeURIComponent encodes them; encodeURI does not.
-- **Truncation with HTML**: truncating HTML by character count can break tags.
-
-## Troubleshooting
-
-- **Pipeline output does not match expectations**: validate input schemas, intermediate states, and row counts at each step.
-- **Data quality degrades over time**: add data validation checks and anomaly detection.  Define SLIs for freshness, completeness, and accuracy.
-- **Job fails intermittently**: look for race conditions, external dependencies, and resource contention.  Retry with idempotency and bounded backoff.
-- **Schema changes break consumers**: use schema registries and backward-compatible evolution.
-- **Storage costs grow unexpectedly**: audit partition retention, compression, and duplicate copies.  Archive cold data and set lifecycle policies.
-
-
-
-
-
-## Quick Reference
-
-- **Main command**: run the base solution from the article and verify the expected result.
-- **Validation**: confirm tests pass and key metrics did not degrade.
-- **Rollback**: if something fails, revert the change and consult the Troubleshooting section.
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the data and database guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply uuid generation** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
+- Using UUID v4 as a primary key without understanding the random insert penalty.
+- Storing UUIDs as strings instead of native binary types, wasting space and index efficiency.
+- Using UUIDs for small, non-distributed tables where auto-increment integers are sufficient.
+- Generating UUIDs in a hot loop without caching the generator instance.
+- Forgetting that UUID v1 embeds the MAC and timestamp — avoid it for public IDs.
 
 ## FAQ
 
-**Q: Should I use UUID v4 or v7 for new projects?**
-A: Use v7 (or ULID) for database keys. They are time-ordered, reducing index fragmentation. Use v4 only for non-sortable identifiers like session tokens.
+### Should I use UUID v4 or v7 for new projects?
 
-**Q: Are UUIDs truly unique?**
-A: The probability of collision is astronomically low (1 in 2^122 for v4). For practical purposes, they are unique enough for all but the most extreme scale.
+Use v7 or ULID for database keys. They're time-ordered and reduce index fragmentation. Use v4
+for non-sortable identifiers such as session tokens.
 
-**Q: Can I use UUIDs in URLs?**
-A: Yes, but ULIDs are shorter and URL-safe. If using v4/v7, encode them without hyphens (32 chars) for shorter URLs.
+### Are UUIDs truly unique?
 
-**Q: Do UUIDs affect database performance?**
-A: UUID v4 causes random B-tree inserts, which hurts write performance on large tables. UUID v7 and ULID are time-ordered, giving performance similar to auto-increment integers.
+The probability of collision for v4 is astronomically low (1 in 2^122). For practical purposes,
+they're unique enough for all but the most extreme scale.
 
-**Q: Can I combine UUIDs with auto-increment IDs?**
-A: Yes. Use an auto-increment integer as the internal primary key (for clustering/performance) and a UUID as the external-facing identifier (for APIs and URLs). This gives you the best of both worlds.
+### Can I use UUIDs in URLs?
 
-### Is this solution production-ready?
+Yes. ULIDs are shorter and URL-safe. If using v4 or v7, remove hyphens for a 32-character string.
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+### Do UUIDs affect database performance?
 
-### What are the performance characteristics?
+UUID v4 causes random B-tree inserts, which hurts write performance on large tables. UUID v7 and
+ULID are time-ordered, giving performance similar to auto-increment integers.
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+### Can I combine UUIDs with auto-increment IDs?
 
-### How do I debug issues with this approach?
-
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
-
-## Common Production Pitfalls
-
-- Copying the example without adapting it to real data volumes and failure modes.
-- Skipping load and error-injection tests before the first production deployment.
-- Hard-coding values that should be configurable per environment.
-- Forgetting to add logging and monitoring at each step.
-- Deploying without a rollback plan or a tested backup strategy.
-- Assuming the minimal example will scale without adding caching or batching.
-- Not documenting the version and configuration used in production.
-- Letting the recipe sit unchanged when dependencies or scale evolve.
+Yes. Use an auto-increment integer as the internal primary key for clustering performance and a
+UUID as the external-facing identifier for APIs and URLs.
