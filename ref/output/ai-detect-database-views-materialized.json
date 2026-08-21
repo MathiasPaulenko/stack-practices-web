@@ -1,0 +1,322 @@
+[
+  {
+    "label": "database-views-materialized-en",
+    "model": "desklib",
+    "model_ai_pct": 49.0,
+    "ai_count": 18,
+    "human_count": 20,
+    "skipped_count": 3,
+    "total": 41,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.4,
+      "stddev": 8.9,
+      "cv": 0.72,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        12,
+        17,
+        19,
+        17,
+        10,
+        10,
+        8,
+        9,
+        9,
+        12,
+        9,
+        6,
+        18,
+        19,
+        7,
+        10,
+        10,
+        62,
+        14,
+        11,
+        9,
+        11,
+        13,
+        11,
+        8,
+        10,
+        11,
+        12,
+        6,
+        9,
+        8,
+        8,
+        12,
+        6,
+        9,
+        12,
+        10,
+        17
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "A CTE (WITH clause) exists only for one query.",
+        0.7969
+      ],
+      [
+        "Use CONCURRENTLY or WITH (NOEXPAND) to avoid locking readers.",
+        0.7614
+      ],
+      [
+        "It depends on your tolerance for stale data.",
+        0.7461
+      ],
+      [
+        "**Trade-offs:**\n\n|View|Materialized view|\n|----|-----------------|\n|Always fresh|Stale until refresh|\n|No extra storage|Uses disk space|\n|Query cost depends on base tables|Read cos",
+        0.7376
+      ],
+      [
+        "This recipe covers how to create, refresh, and index both kinds in PostgreSQL, MySQL,\nand SQL Server.",
+        0.6977
+      ],
+      [
+        "As a replacement for missing indexes on base tables.",
+        0.6913
+      ],
+      [
+        "It simplifies complex\njoins, limits column exposure for access control, and keeps business logic in the\nschema.",
+        0.6885
+      ],
+      [
+        "They help with expensive aggregations and joins, but they don't fix missing indexes\non the underlying tables.",
+        0.6755
+      ],
+      [
+        "It's best for expensive aggregations used by dashboards or\nreports.",
+        0.6359
+      ],
+      [
+        "**High-cardinality grouping**: views with too many unique groups can bloat storage.",
+        0.6293
+      ],
+      [
+        "**No unique index**: REFRESH CONCURRENTLY fails without one.",
+        0.6282
+      ],
+      [
+        "Keep an eye on disk usage; materialized views can grow quickly.",
+        0.5845
+      ],
+      [
+        "**Forgetting to refresh**: users see stale data until you run REFRESH.",
+        0.5843
+      ],
+      [
+        "You run the same complex aggregation repeatedly and it's slow.",
+        0.5634
+      ],
+      [
+        "Reads are fast, but the data is\nstale until refreshed.",
+        0.5576
+      ],
+      [
+        "**Skipping base-table indexes**: a view doesn't fix missing indexes on source tables.",
+        0.5428
+      ],
+      [
+        "You want to expose only selected columns for least-privilege access.",
+        0.5237
+      ],
+      [
+        "For real-time transactional data where stale results are unacceptable.",
+        0.5176
+      ],
+      [
+        "Refresh after ETL or during low-traffic windows, not during peak reads.",
+        0.4918
+      ],
+      [
+        "A view is a persistent schema object\nthat any query can reference.",
+        0.4894
+      ],
+      [
+        "Use CONCURRENTLY to avoid read locks.",
+        0.4886
+      ],
+      [
+        "Simple single-table views are often updatable.",
+        0.4766
+      ],
+      [
+        "A materialized view stores the query result on disk, giving up some freshness\nand space for much faster reads.",
+        0.4438
+      ],
+      [
+        "PostgreSQL supports INSTEAD OF\ntriggers for complex cases.",
+        0.4271
+      ],
+      [
+        "Dashboards may refresh hourly; a search\nindex may refresh every five minutes.",
+        0.3907
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "database-views-materialized-es",
+    "model": "desklib",
+    "model_ai_pct": 44.8,
+    "ai_count": 13,
+    "human_count": 25,
+    "skipped_count": 3,
+    "total": 41,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.3,
+      "stddev": 9.4,
+      "cv": 0.7,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        16,
+        21,
+        20,
+        16,
+        9,
+        11,
+        7,
+        9,
+        12,
+        14,
+        9,
+        6,
+        14,
+        24,
+        7,
+        13,
+        10,
+        65,
+        15,
+        15,
+        9,
+        11,
+        11,
+        11,
+        9,
+        12,
+        13,
+        11,
+        10,
+        13,
+        8,
+        7,
+        13,
+        7,
+        8,
+        13,
+        11,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**No tener \u00edndice \u00fanico**: REFRESH CONCURRENTLY falla sin uno.",
+        0.975
+      ],
+      [
+        "Un CTE (WITH) existe solo para una consulta.",
+        0.9188
+      ],
+      [
+        "Quer\u00e9s abstraer cambios de esquema de los consumidores downstream.",
+        0.8793
+      ],
+      [
+        "Ejecut\u00e1 ANALYZE sobre la vista luego de refrescar para actualizar estad\u00edsticas.",
+        0.8781
+      ],
+      [
+        "Es ideal para agregaciones\ncostosas usadas por dashboards o reportes.",
+        0.8374
+      ],
+      [
+        "Esta receta muestra c\u00f3mo crear, refrescar e indexar ambos tipos en PostgreSQL, MySQL y\nSQL Server.",
+        0.7128
+      ],
+      [
+        "**Saltear \u00edndices en tablas base**: una vista no arregla \u00edndices faltantes.",
+        0.6904
+      ],
+      [
+        "Us\u00e1 CONCURRENTLY o WITH (NOEXPAND) para evitar bloquear lectores.",
+        0.669
+      ],
+      [
+        "Quer\u00e9s exponer solo algunas columnas para un acceso de m\u00ednimo privilegio.",
+        0.6614
+      ],
+      [
+        "**Trade-offs:**\n\n|Vista|Vista materializada|\n|-----|-------------------|\n|Siempre fresca|Desfasada hasta refrescar|\n|Sin espacio extra|Usa espacio en disco|\n|Costo depende de tabla",
+        0.5916
+      ],
+      [
+        "Us\u00e1 una tabla y triggers para mantenerla:\n\n\n\n\n\n\n\n\n\nUna **vista** es solo una consulta almacenada.",
+        0.5417
+      ],
+      [
+        "Las lecturas son r\u00e1pidas,\npero los datos est\u00e1n desfasados hasta que se refrescan.",
+        0.5411
+      ],
+      [
+        "Us\u00e1 CONCURRENTLY para evitar bloqueos de\nlectura.",
+        0.5292
+      ],
+      [
+        "Us\u00e1 SCHEMABINDING en SQL Server para que la tabla base no rompa la vista indexada.",
+        0.4957
+      ],
+      [
+        "Las vistas simples de una sola tabla suelen ser actualizables.",
+        0.4933
+      ],
+      [
+        "**Escribir en vistas materializadas**: son de solo lectura; actualiz\u00e1 las tablas base.",
+        0.4297
+      ],
+      [
+        "**Agrupaci\u00f3n de alta cardinalidad**: vistas con demasiados grupos \u00fanicos pueden\n  hinchar el almacenamiento.",
+        0.4212
+      ],
+      [
+        "Control\u00e1 el uso de disco; las vistas materializadas pueden crecer r\u00e1pido.",
+        0.4172
+      ],
+      [
+        "Cuando las tablas base cambian constantemente y el costo de refrescar es muy alto.",
+        0.3847
+      ],
+      [
+        "Como reemplazo de \u00edndices faltantes en las tablas base.",
+        0.3841
+      ],
+      [
+        "Refresc\u00e1 despu\u00e9s de ETL o en horarios de bajo tr\u00e1fico, no en picos de lectura.",
+        0.384
+      ],
+      [
+        "Una vista es un objeto persistente del\nesquema que cualquier consulta puede referenciar.",
+        0.3602
+      ],
+      [
+        "Ejecut\u00e1s repetidamente la misma agregaci\u00f3n compleja y es lenta.",
+        0.3552
+      ],
+      [
+        "Una vista de base de datos es una consulta guardada que se ve como una tabla.",
+        0.3473
+      ],
+      [
+        "Depende de tu tolerancia a datos desfasados.",
+        0.3401
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

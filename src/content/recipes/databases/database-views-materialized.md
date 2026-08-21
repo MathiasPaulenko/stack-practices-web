@@ -1,10 +1,9 @@
 ---
-
 contentType: recipes
 slug: database-views-materialized
 title: "Create and Use Database Views and Materialized Views"
-description: "How to create and use database views and materialized views to simplify queries and improve read performance"
-metaDescription: "Create database views and materialized views to simplify queries and boost read performance. Use PostgreSQL, MySQL, and SQL Server with examples."
+description: "How to create and use database views and materialized views to simplify queries and improve read performance."
+metaDescription: "Create database views and materialized views to simplify queries and boost read performance. PostgreSQL, MySQL, and SQL Server examples."
 difficulty: intermediate
 topics:
   - databases
@@ -13,6 +12,8 @@ tags:
   - sql
   - postgresql
   - mysql
+  - views
+  - materialized-views
 relatedResources:
   - /guides/sql-performance-tuning-guide
   - /recipes/database-deadlocks-retries
@@ -20,11 +21,11 @@ relatedResources:
   - /recipes/sql-joins
   - /guides/database-design-guide
   - /recipes/optimistic-locking
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Create database views and materialized views to simplify queries and boost read performance. Use PostgreSQL, MySQL, and SQL Server with examples."
+  metaDescription: "Create database views and materialized views to simplify queries and boost read performance. PostgreSQL, MySQL, and SQL Server examples."
   keywords:
     - database-views
     - materialized-views
@@ -33,32 +34,37 @@ seo:
     - sql-server
     - performance
     - sql
-
 ---
+
 ## Overview
 
-Database views are virtual tables defined by a query. They simplify complex joins, enforce access control by exposing only selected columns, and centralize business logic in the schema. Materialized views go further by physically storing the query result, trading disk space and eventual staleness for dramatically faster reads. The following demonstrates how to creating, refreshing, and indexing both types across PostgreSQL, MySQL, and SQL Server.
+A database view is a stored query that behaves like a table. It simplifies complex
+joins, limits column exposure for access control, and keeps business logic in the
+schema. A materialized view stores the query result on disk, giving up some freshness
+and space for much faster reads.
+
+This recipe covers how to create, refresh, and index both kinds in PostgreSQL, MySQL,
+and SQL Server.
 
 ## When to Use
 
-Use this resource when:
-- You run the same complex [aggregation query](/recipes/sql-joins/) repeatedly and it is slow
-- You want to restrict data access without duplicating permission logic in application code
-- You need to precompute expensive joins or aggregations for [reporting dashboards](/recipes/postgres-query-optimization/)
-- You want to abstract schema changes from downstream consumers. See [Input Validation](/recipes/input-validation/) for schema safety.
+- You run the same complex aggregation repeatedly and it's slow.
+- You want to expose only selected columns for least-privilege access.
+- You need precomputed joins or aggregations for dashboards.
+- You want to abstract schema changes from downstream consumers.
+
+## When NOT to Use
+
+- For real-time transactional data where stale results are unacceptable.
+- When the base tables change constantly and refresh cost is too high.
+- As a replacement for missing indexes on base tables.
 
 ## Solution
 
-### Python
+### PostgreSQL view and materialized view
 
-```python
-import psycopg2
-
-conn = psycopg2.connect("dbname=app user=app password=secret")
-cur = conn.cursor()
-
-# Create a standard view
-cur.execute("""
+```sql
+-- Regular view: always fresh, runs the query each time
 CREATE OR REPLACE VIEW monthly_revenue AS
 SELECT
     date_trunc('month', created_at) AS month,
@@ -66,10 +72,8 @@ SELECT
 FROM orders
 WHERE status = 'completed'
 GROUP BY 1;
-""")
 
-# Create a materialized view
-cur.execute("""
+-- Materialized view: stored on disk, must be refreshed
 CREATE MATERIALIZED VIEW monthly_revenue_mat AS
 SELECT
     date_trunc('month', created_at) AS month,
@@ -77,150 +81,22 @@ SELECT
 FROM orders
 WHERE status = 'completed'
 GROUP BY 1;
-""")
 
-# Index the materialized view for fast lookups
-cur.execute("""
+-- Unique index required for CONCURRENTLY refresh
 CREATE UNIQUE INDEX idx_monthly_revenue_mat_month
 ON monthly_revenue_mat (month);
-""")
 
-# Refresh the materialized view (blocking)
-cur.execute("REFRESH MATERIALIZED VIEW monthly_revenue_mat;")
+-- Blocking refresh
+REFRESH MATERIALIZED VIEW monthly_revenue_mat;
 
-# Concurrent refresh (requires unique index)
-cur.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_revenue_mat;")
-
-conn.commit()
+-- Non-blocking refresh
+REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_revenue_mat;
 ```
 
-### JavaScript
-
-```javascript
-// Using Knex.js / raw SQL with PostgreSQL
-const knex = require('knex')({
-  client: 'pg',
-  connection: { host: 'localhost', database: 'app', user: 'app', password: 'secret' }
-});
-
-async function setupViews() {
-  await knex.raw(`
-    CREATE OR REPLACE VIEW active_users AS
-    SELECT id, email, created_at
-    FROM users
-    WHERE deleted_at IS NULL;
-  `);
-
-  await knex.raw(`
-    CREATE MATERIALIZED VIEW IF NOT EXISTS daily_signups AS
-    SELECT DATE(created_at) AS day, COUNT(*) AS signups
-    FROM users
-    GROUP BY DATE(created_at);
-  `);
-
-  await knex.raw(`
-    CREATE UNIQUE INDEX IF NOT EXISTS idx_daily_signups_day
-    ON daily_signups (day);
-  `);
-}
-
-async function refreshMaterializedView() {
-  await knex.raw('REFRESH MATERIALIZED VIEW CONCURRENTLY daily_signups;');
-}
-```
-
-### Java
-
-```java
-// Using Spring Data JPA with a native query for a view entity
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "monthly_revenue")
-@Immutable  // Critical: mark view-backed entities as immutable
-public class MonthlyRevenue {
-    @Id
-    private java.sql.Date month;
-
-    @Column(name = "total")
-    private BigDecimal total;
-
-    // Getters...
-}
-
-// Repository
-public interface MonthlyRevenueRepository extends JpaRepository<MonthlyRevenue, java.sql.Date> {
-    List<MonthlyRevenue> findByMonthAfter(LocalDate date);
-}
-
-// Refresh materialized view via JdbcTemplate
-@Autowired
-private JdbcTemplate jdbcTemplate;
-
-public void refreshRevenueView() {
-    jdbcTemplate.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_revenue");
-}
-```
-
-## Explanation
-
-A **view** is a stored query. Every time you query the view, the underlying SQL runs. This means data is always fresh but performance depends on the complexity of the query and the indexes on the base tables.
-
-A **materialized view** stores the query result on disk. Reads are as fast as querying a regular table, but the data is only as fresh as the last refresh. They are ideal for:
-- Expensive aggregations that run in dashboards
-- Joining large tables where indexes cannot help enough
-- Data warehousing and ETL staging areas
-
-**Trade-offs:**
-- Views: always fresh, no storage overhead, but can be slow for complex queries
-- Materialized views: fast reads, consume disk space, and require explicit refresh
-
-## Variants
-
-| Database | View Support | Materialized View | Notes |
-|----------|--------------|-------------------|-------|
-| PostgreSQL | Full | Full | `REFRESH MATERIALIZED VIEW CONCURRENTLY` for zero-downtime refresh |
-| MySQL | Full | Partial (via Flexviews or manual tables) | No native MV; simulate with tables + scheduled rebuilds |
-| SQL Server | Full | Indexed Views | Create with `SCHEMABINDING` and `CLUSTERED INDEX` |
-| Oracle | Full | Full | `ON COMMIT` or `ON DEMAND` refresh options |
-| SQLite | Full | None | Use triggers to simulate materialized tables |
-
-## What Works
-
-1. Always create a unique index on materialized views before using `CONCURRENTLY` refresh
-2. Use `CREATE OR REPLACE VIEW` for non-breaking changes; drop and recreate only when necessary
-3. Schedule refreshes with cron, pg_cron, or your job scheduler; refresh after ETL, not during peak read times. See [Batch Processing](/recipes/batch-processing-patterns/) for job scheduling.
-4. Use views to expose only needed columns for least-privilege access control
-5. Monitor disk usage; materialized views can grow large with wide rows or high cardinality
-
-## Common Mistakes
-
-1. **Forgetting to refresh** — stale materialized views silently return outdated data to users
-2. **No unique index** — `REFRESH CONCURRENTLY` fails without one, locking the view during refresh
-3. **Writable views without rules/triggers** — not all databases support `INSERT` into views; application code must handle this
-4. **Complex views with no underlying indexes** — a view does not create indexes; ensure base tables are indexed
-5. **Using views for real-time transactional queries** — views add query overhead; use them for reporting, not OLTP hot paths. See [Database Transactions](/recipes/database-transactions/) for transactional patterns.
-
-## FAQ
-
-### Can I update data through a view?
-
-Sometimes. Simple single-table views are often updatable. Multi-table joins, aggregations, or views with `DISTINCT` are not. PostgreSQL supports `INSTEAD OF` triggers to make complex views updatable.
-
-### How often should I refresh a materialized view?
-
-Refresh after the underlying data changes, or on a schedule that matches your tolerance for staleness. A revenue dashboard might refresh hourly; a user search index might refresh every 5 minutes. Use `CONCURRENTLY` to avoid read locks.
-
-### What is the difference between a view and a CTE?
-
-A CTE (`WITH` clause) exists only for the duration of a single query. A view is a persistent schema object that any query can reference. Use CTEs for one-off query organization; use views for reusable abstractions.
-
-### SQL Server Indexed Views
-
-SQL Server supports indexed views (similar to materialized views) with `SCHEMABINDING`:
+### SQL Server indexed view
 
 ```sql
--- Create view with SCHEMABINDING (required for indexed views)
+-- Create the view with SCHEMABINDING
 CREATE VIEW dbo.OrderTotals
 WITH SCHEMABINDING
 AS
@@ -233,52 +109,27 @@ WHERE o.status = 'completed'
 GROUP BY o.customer_id;
 GO
 
--- Create clustered index (materializes the view)
+-- Clustered index materializes the view
 CREATE UNIQUE CLUSTERED INDEX IX_OrderTotals_Customer
 ON dbo.OrderTotals (customer_id);
 GO
 
--- Query the indexed view (uses the materialized data)
+-- Query the materialized data
 SELECT * FROM dbo.OrderTotals WITH (NOEXPAND)
 WHERE total_spent > 1000;
 ```
 
-### Oracle Materialized Views with Refresh Options
+### MySQL simulated materialized view
+
+MySQL has no native materialized views. Use a table and triggers to keep it up to date:
 
 ```sql
--- Fast refresh (incremental, requires materialized view logs)
-CREATE MATERIALIZED VIEW mv_monthly_revenue
-REFRESH FAST ON COMMIT
-AS
-SELECT
-    TRUNC(created_at, 'MM') AS month,
-    SUM(amount) AS total
-FROM orders
-WHERE status = 'completed'
-GROUP BY TRUNC(created_at, 'MM');
-
--- Create materialized view log for fast refresh
-CREATE MATERIALIZED VIEW LOG ON orders
-WITH PRIMARY KEY, ROWID (status, amount, created_at)
-INCLUDING NEW VALUES;
-
--- On-demand complete refresh
-EXEC DBMS_MVIEW.REFRESH('mv_monthly_revenue', 'C');
-
--- On-demand fast refresh
-EXEC DBMS_MVIEW.REFRESH('mv_monthly_revenue', 'F');
-```
-
-### Trigger-Based Refresh for Databases Without Materialized Views
-
-```sql
--- MySQL: simulate materialized views with triggers
-DELIMITER //
-
 CREATE TABLE mv_daily_signups (
     day DATE PRIMARY KEY,
     signups INT NOT NULL DEFAULT 0
 );
+
+DELIMITER //
 
 CREATE TRIGGER trg_user_insert
 AFTER INSERT ON users
@@ -301,178 +152,83 @@ END //
 DELIMITER ;
 ```
 
-### Scheduling Refreshes with pg_cron
+### Refresh schedule with pg_cron
 
 ```sql
--- Install pg_cron extension (PostgreSQL)
+-- PostgreSQL
 CREATE EXTENSION IF NOT EXISTS pg_cron;
 
--- Schedule daily refresh at 2 AM
 SELECT cron.schedule(
     'refresh_monthly_revenue',
     '0 2 * * *',
     'REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_revenue_mat'
 );
-
--- Schedule hourly refresh for time-sensitive views
-SELECT cron.schedule(
-    'refresh_hourly_signups',
-    '0 * * * *',
-    'REFRESH MATERIALIZED VIEW CONCURRENTLY daily_signups'
-);
-
--- List scheduled jobs
-SELECT jobid, schedule, command, active FROM cron.job;
-
--- Unschedule a job
-SELECT cron.unschedule('refresh_monthly_revenue');
 ```
 
-### Updatable Views with INSTEAD OF Triggers
+## Explanation
 
-```sql
--- Create a view that joins users and profiles
-CREATE OR REPLACE VIEW user_profiles AS
-SELECT
-    u.id,
-    u.email,
-    u.role,
-    p.full_name,
-    p.bio,
-    p.avatar_url
-FROM users u
-LEFT JOIN profiles p ON p.user_id = u.id;
+A **view** is just a stored query. Every read re-runs it, so the data is always fresh
+but performance depends on the base tables and indexes.
 
--- Make the view updatable with INSTEAD OF trigger
-CREATE OR REPLACE FUNCTION upsert_user_profile()
-RETURNS TRIGGER AS $$
-BEGIN
-    -- Update users table
-    UPDATE users SET email = NEW.email, role = NEW.role
-    WHERE id = NEW.id;
+A **materialized view** stores the result physically. Reads are fast, but the data is
+stale until refreshed. It's best for expensive aggregations used by dashboards or
+reports.
 
-    -- Upsert profile
-    INSERT INTO profiles (user_id, full_name, bio, avatar_url)
-    VALUES (NEW.id, NEW.full_name, NEW.bio, NEW.avatar_url)
-    ON CONFLICT (user_id) DO UPDATE
-    SET full_name = EXCLUDED.full_name,
-        bio = EXCLUDED.bio,
-        avatar_url = EXCLUDED.avatar_url;
+**Trade-offs:**
 
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+|View|Materialized view|
+|----|-----------------|
+|Always fresh|Stale until refresh|
+|No extra storage|Uses disk space|
+|Query cost depends on base tables|Read cost is like a table|
 
-CREATE TRIGGER trg_upsert_user_profile
-INSTEAD OF INSERT OR UPDATE ON user_profiles
-FOR EACH ROW
-EXECUTE FUNCTION upsert_user_profile();
+## Variants
 
--- Now you can INSERT/UPDATE through the view
-INSERT INTO user_profiles (id, email, role, full_name, bio)
-VALUES (1, 'alice@example.com', 'admin', 'Alice Smith', 'Software engineer');
-```
+|Database|Native view|Materialized view|
+|--------|-----------|-----------------|
+|PostgreSQL|Yes|Yes, with `REFRESH MATERIALIZED VIEW`|
+|SQL Server|Yes|Indexed views (`SCHEMABINDING` + clustered index)|
+|MySQL|Yes|Simulate with tables + triggers|
+|Oracle|Yes|Yes, with `ON COMMIT` or `ON DEMAND`|
+|SQLite|Yes|Not supported|
 
-### Using Views for Row-Level Security
+## Best Practices
 
-```sql
--- Create a view that filters by current user
-CREATE OR REPLACE VIEW my_orders AS
-SELECT * FROM orders
-WHERE customer_id = current_setting('app.current_user_id')::int;
+- Create a unique index before using `REFRESH ... CONCURRENTLY` in PostgreSQL.
+- Use `SCHEMABINDING` in SQL Server so the base table can't break the indexed view.
+- Refresh after ETL or during low-traffic windows, not during peak reads.
+- Use `CONCURRENTLY` or `WITH (NOEXPAND)` to avoid locking readers.
+- Keep an eye on disk usage; materialized views can grow quickly.
+- Run `ANALYZE` on the view after refresh so the planner uses fresh statistics.
 
--- Grant access to the view, not the base table
-GRANT SELECT ON my_orders TO app_user;
-REVOKE SELECT ON orders FROM app_user;
+## Common Mistakes
 
--- Set the current user context
-SET app.current_user_id = '42';
-SELECT * FROM my_orders; -- Only sees orders for customer 42
-```
+- **Forgetting to refresh**: users see stale data until you run `REFRESH`.
+- **No unique index**: `REFRESH CONCURRENTLY` fails without one.
+- **Writing to materialized views**: they're read-only; update the base tables.
+- **High-cardinality grouping**: views with too many unique groups can bloat storage.
+- **Skipping base-table indexes**: a view doesn't fix missing indexes on source tables.
 
-### Monitoring Materialized View Staleness
+## FAQ
 
-```sql
--- PostgreSQL: track last refresh time
-CREATE TABLE mv_refresh_log (
-    view_name TEXT PRIMARY KEY,
-    last_refresh TIMESTAMP DEFAULT NOW(),
-    duration_ms INTEGER,
-    rows_refreshed INTEGER
-);
+### Can I update data through a view?
 
--- Automated refresh with logging
-CREATE OR REPLACE FUNCTION refresh_mv_with_logging(view_name TEXT)
-RETURNS VOID AS $$
-DECLARE
-    start_time TIMESTAMP;
-    row_count INTEGER;
-BEGIN
-    start_time := clock_timestamp();
+Sometimes. Simple single-table views are often updatable. Multi-table joins,
+aggregations, or `DISTINCT` make a view read-only. PostgreSQL supports `INSTEAD OF`
+triggers for complex cases.
 
-    EXECUTE format('REFRESH MATERIALIZED VIEW CONCURRENTLY %I', view_name);
+### How often should I refresh a materialized view?
 
-    EXECUTE format('SELECT COUNT(*) FROM %I', view_name) INTO row_count;
+It depends on your tolerance for stale data. Dashboards may refresh hourly; a search
+index may refresh every five minutes. Use `CONCURRENTLY` to avoid read locks.
 
-    INSERT INTO mv_refresh_log (view_name, last_refresh, duration_ms, rows_refreshed)
-    VALUES (view_name, NOW(), EXTRACT(EPOCH FROM (clock_timestamp() - start_time)) * 1000, row_count)
-    ON CONFLICT (view_name) DO UPDATE
-    SET last_refresh = EXCLUDED.last_refresh,
-        duration_ms = EXCLUDED.duration_ms,
-        rows_refreshed = EXCLUDED.rows_refreshed;
-END;
-$$ LANGUAGE plpgsql;
+### What is the difference between a view and a CTE?
 
--- Check staleness
-SELECT view_name, last_refresh,
-       EXTRACT(EPOCH FROM (NOW() - last_refresh)) / 60 AS minutes_since_refresh
-FROM mv_refresh_log
-ORDER BY minutes_since_refresh DESC;
-```
+A CTE (`WITH` clause) exists only for one query. A view is a persistent schema object
+that any query can reference. Use CTEs for one-off organization; use views for reusable
+abstractions.
 
+### Do materialized views replace indexes?
 
-
-
-## Performance Tips
-
-1. **Use `CONCURRENTLY` for all production refreshes.** This prevents read blocking:
-
-```sql
-REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_revenue_mat;
-```
-
-2. **Partition large materialized views.** If your view aggregates millions of rows, consider partitioning the underlying table by date range:
-
-```sql
-CREATE TABLE orders (
-    id SERIAL,
-    created_at TIMESTAMP NOT NULL,
-    amount DECIMAL(10,2),
-    status VARCHAR(20)
-) PARTITION BY RANGE (created_at);
-
-CREATE TABLE orders_2025_01 PARTITION OF orders
-    FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
-```
-
-3. **Use `ANALYZE` after refresh.** Update planner statistics so queries against the materialized view use optimal plans:
-
-```sql
-REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_revenue_mat;
-ANALYZE monthly_revenue_mat;
-```
-
-4. **Consider `pg_ivm` for incremental view maintenance.** The `pg_ivm` extension provides immediate view maintenance (updates on every base table change):
-
-```sql
-CREATE EXTENSION pg_ivm;
-SELECT create_immv('monthly_revenue_ivm',
-    'SELECT date_trunc(''month'', created_at) AS month, SUM(amount) AS total
-     FROM orders WHERE status = ''completed'' GROUP BY 1');
-```
-
-5. **Use `EXPLAIN` on view queries.** Views are macro expansions — the planner sees the full query. Check that indexes on base tables are being used:
-
-```sql
-EXPLAIN ANALYZE SELECT * FROM monthly_revenue WHERE total > 10000;
-```
+No. They help with expensive aggregations and joins, but they don't fix missing indexes
+on the underlying tables.

@@ -436,13 +436,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.3% / ES 38.2% (0 patterns)
    - Words: 981 | Meta: 147 chars
 
-54. - [ ] **database-views-materialized** (recipes)
+54. - [x] **database-views-materialized** (recipes)
    - Metrics: 25 imp | pos 23.6 | CTR 0.00% | Δ impr 9
    - EN: https://stackpractices.com/recipes/database-views-materialized/
    - ES: https://stackpractices.com/es/recipes/database-views-materialized/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,825 | Meta: 145 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.0% / ES 44.8% (0 patterns)
+   - Words: 832 | Meta: 136 chars
 
 55. - [ ] **parse-config-files** (recipes)
    - Metrics: 16 imp | pos 16.9 | CTR 0.00% | Δ impr -8
