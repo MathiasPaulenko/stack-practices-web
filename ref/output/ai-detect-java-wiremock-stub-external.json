@@ -1,0 +1,300 @@
+[
+  {
+    "label": "java-wiremock-stub-external-en",
+    "model": "desklib",
+    "model_ai_pct": 52.9,
+    "ai_count": 14,
+    "human_count": 13,
+    "skipped_count": 4,
+    "total": 31,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.6,
+      "stddev": 3.3,
+      "cv": 0.26,
+      "verdict": "very uniform (AI-like)",
+      "sentence_count": 27,
+      "lengths": [
+        19,
+        14,
+        17,
+        13,
+        14,
+        12,
+        7,
+        8,
+        12,
+        11,
+        12,
+        10,
+        12,
+        13,
+        18,
+        11,
+        13,
+        15,
+        11,
+        14,
+        12,
+        19,
+        15,
+        9,
+        5,
+        12,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The API is the same.",
+        0.8702
+      ],
+      [
+        "Testing your own API endpoints \u2014 use MockMvc or WebTestClient for Spring.",
+        0.8327
+      ],
+      [
+        "Simulating API failures such as timeouts, 500s, or slow responses to test retry logic.",
+        0.8093
+      ],
+      [
+        "Instead of calling real third-party APIs, your code hits WireMock, which\nreturns predefined responses.",
+        0.7986
+      ],
+      [
+        "**Ignoring WireMock logs** \u2014 enable verbose logging with\n  .notifier(new ConsoleNotifier(true)) to debug stub matching issues.",
+        0.7697
+      ],
+      [
+        "Verifying that your code sends the correct request to an external service.",
+        0.7445
+      ],
+      [
+        "Use verify() to assert that your code sent the correct request, not just that it\n  received a response.",
+        0.7158
+      ],
+      [
+        "Use a companion object for the extension:\n\n\n\n\n\nEnable console logging: .notifier(new ConsoleNotifier(true)).",
+        0.7101
+      ],
+      [
+        "Testing code that calls external REST APIs (payment gateways, SMS, or email providers).",
+        0.6833
+      ],
+      [
+        "Use proxy mode to pass through unstubbed requests:\n\n\n\n\n\n\n\n\n\nYes.",
+        0.6529
+      ],
+      [
+        "Running integration tests in CI without network access.",
+        0.6096
+      ],
+      [
+        "Store large response bodies in files under __files/ instead of inlining long JSON.",
+        0.5504
+      ],
+      [
+        "Testing webhook receivers without a real sender.",
+        0.5295
+      ],
+      [
+        "You control status codes, headers, bodies, delays, and even\nstateful behavior \u2014 all from your test code.",
+        0.5035
+      ],
+      [
+        "**Not resetting between tests** \u2014 stubs from one test can leak into the next.",
+        0.49
+      ],
+      [
+        "Reset WireMock between tests with wireMock.resetAll() or use the @ResetWireMock\n  annotation.",
+        0.4623
+      ],
+      [
+        "**Using fixed ports** \u2014 port 8080 might already be in use.",
+        0.4458
+      ],
+      [
+        "Unit testing business logic \u2014 mock the interface directly with Mockito.",
+        0.4232
+      ],
+      [
+        "Simulate delays and errors \u2014 testing only the happy path misses retry and fallback logic.",
+        0.4224
+      ],
+      [
+        "Testing database interactions \u2014 use Testcontainers with a real database.",
+        0.3858
+      ],
+      [
+        "Load testing \u2014 WireMock adds overhead; use a real test environment instead.",
+        0.3706
+      ],
+      [
+        "Use dynamicPort() \u2014 fixed ports cause conflicts when tests run in parallel.",
+        0.3101
+      ],
+      [
+        "**Stubbing too broadly** \u2014 urlMatching(\".*\") catches every request and hides missing\n  stubs.",
+        0.3026
+      ],
+      [
+        "Use response templating for dynamic IDs instead of creating a stub per ID.",
+        0.2755
+      ],
+      [
+        "**Not verifying requests** \u2014 stubbing responses without verifying the request misses bugs\n  in how your code calls the API.",
+        0.2415
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "java-wiremock-stub-external-es",
+    "model": "desklib",
+    "model_ai_pct": 38.0,
+    "ai_count": 5,
+    "human_count": 22,
+    "skipped_count": 4,
+    "total": 31,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.2,
+      "stddev": 3.6,
+      "cv": 0.27,
+      "verdict": "very uniform (AI-like)",
+      "sentence_count": 27,
+      "lengths": [
+        20,
+        16,
+        18,
+        13,
+        15,
+        12,
+        7,
+        10,
+        11,
+        14,
+        10,
+        13,
+        14,
+        13,
+        17,
+        11,
+        14,
+        16,
+        11,
+        14,
+        11,
+        22,
+        15,
+        9,
+        5,
+        12,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Testear interacciones con base de datos \u2014 us\u00e1 Testcontainers con una base real.",
+        0.8485
+      ],
+      [
+        "Us\u00e1 proxy mode para pasar requests no stubeadas:\n\n\n\n\n\n\n\n\n\nS\u00ed.",
+        0.7633
+      ],
+      [
+        "Testear l\u00f3gica de negocio con unit tests \u2014 mock\u00e1 la interfaz directamente con Mockito.",
+        0.7506
+      ],
+      [
+        "La API es la misma.",
+        0.6681
+      ],
+      [
+        "**Usar puertos fijos** \u2014 el puerto 8080 puede estar en uso.",
+        0.6326
+      ],
+      [
+        "**Ignorar los logs de WireMock** \u2014 activ\u00e1 logging detallado con\n  .notifier(new ConsoleNotifier(true)) para debuggear matches.",
+        0.4913
+      ],
+      [
+        "Verificar que tu c\u00f3digo env\u00eda la petici\u00f3n correcta a un servicio externo.",
+        0.4908
+      ],
+      [
+        "Simular fallos de API como timeouts, 500s o respuestas lentas para testear l\u00f3gica de retry.",
+        0.4691
+      ],
+      [
+        "Testear tus propios endpoints \u2014 us\u00e1 MockMvc o WebTestClient para Spring.",
+        0.4328
+      ],
+      [
+        "WireMock imprime cada\nrequest entrante y los stubs contra los que intent\u00f3 matchear.",
+        0.3825
+      ],
+      [
+        "Load testing \u2014 WireMock agrega overhead; us\u00e1 un entorno real.",
+        0.3707
+      ],
+      [
+        "Us\u00e1 un companion object para la extensi\u00f3n:\n\n\n\n\n\nActiv\u00e1 console logging: .notifier(new ConsoleNotifier(true)).",
+        0.3692
+      ],
+      [
+        "Testear c\u00f3digo que llama APIs REST externas (payment gateways, SMS o email providers).",
+        0.3514
+      ],
+      [
+        "Us\u00e1 verify() para asegurar que tu c\u00f3digo envi\u00f3 la petici\u00f3n correcta, no solo que recibi\u00f3\n  una respuesta.",
+        0.3398
+      ],
+      [
+        "**No verificar requests** \u2014 stubear respuestas sin verificar la petici\u00f3n te hace perder\n  bugs en c\u00f3mo tu c\u00f3digo llama a la API.",
+        0.3323
+      ],
+      [
+        "Correr tests de integraci\u00f3n en CI sin acceso a red.",
+        0.3016
+      ],
+      [
+        "Resete\u00e1 WireMock entre tests con wireMock.resetAll() o con la anotaci\u00f3n @ResetWireMock.",
+        0.2519
+      ],
+      [
+        "**No resetear entre tests** \u2014 los stubs de un test pueden filtrarse al siguiente.",
+        0.2478
+      ],
+      [
+        "En lugar de llamar APIs reales de terceros, tu c\u00f3digo\nhitea WireMock, que devuelve respuestas predefinidas.",
+        0.2433
+      ],
+      [
+        "WireMock es una librer\u00eda de Java que arranca un servidor HTTP y te permite definir stub\nmappings para servicios externos.",
+        0.2408
+      ],
+      [
+        "Testear webhook receivers sin un sender real.",
+        0.2387
+      ],
+      [
+        "Simul\u00e1 delays y errores \u2014 testear solo el camino feliz te hace perder retry y fallback.",
+        0.229
+      ],
+      [
+        "Guard\u00e1 bodies grandes en archivos bajo __files/ en lugar de inlinear JSON largo.",
+        0.2202
+      ],
+      [
+        "Control\u00e1s c\u00f3digos de estado, headers,\nbodies, delays e incluso comportamiento stateful \u2014 todo desde tu c\u00f3digo de test.",
+        0.1979
+      ],
+      [
+        "**Stubs demasiado amplios** \u2014 urlMatching(\".*\") atrapa todo y oculta stubs faltantes.",
+        0.1629
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

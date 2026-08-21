@@ -524,13 +524,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.8% / ES 30.0% (0 patterns)
    - Words: 1,209 | Meta: 155 chars
 
-65. - [ ] **java-wiremock-stub-external** (recipes)
+65. - [x] **java-wiremock-stub-external** (recipes)
    - Metrics: 49 imp | pos 31.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/java-wiremock-stub-external/
    - ES: https://stackpractices.com/es/recipes/java-wiremock-stub-external/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,158 | Meta: 159 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 52.9% / ES 38.0% (0 patterns)
+   - Words: 728 | Meta: 159 chars
 
 66. - [ ] **caching** (recipes)
    - Metrics: 20 imp | pos 14.8 | CTR 0.00% | Δ impr 0
