@@ -604,13 +604,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ⏳ Pending
    - Words: 1,399 | Meta: 148 chars
 
-75. - [ ] **unit-testing-mocking** (recipes)
+75. - [x] **unit-testing-mocking** (recipes)
    - Metrics: 34 imp | pos 32.5 | CTR 0.00% | Δ impr 6
    - EN: https://stackpractices.com/recipes/unit-testing-mocking/
    - ES: https://stackpractices.com/es/recipes/unit-testing-mocking/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,573 | Meta: 158 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 50.2% / ES 39.8% (0 patterns)
+   - Words: 1137 | Meta: 158 chars
 
 76. - [ ] **graceful-shutdown** (recipes)
    - Metrics: 27 imp | pos 9.6 | CTR 0.00% | Δ impr 0
