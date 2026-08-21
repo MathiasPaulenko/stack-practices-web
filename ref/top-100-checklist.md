@@ -476,13 +476,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ⏳ Pending
    - Words: 2,345 | Meta: 144 chars
 
-59. - [ ] **server-sent-events** (recipes)
+59. - [x] **server-sent-events** (recipes)
    - Metrics: 42 imp | pos 32.2 | CTR 0.00% | Δ impr 11
    - EN: https://stackpractices.com/recipes/server-sent-events/
    - ES: https://stackpractices.com/es/recipes/server-sent-events/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,414 | Meta: 156 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 54.8% / ES 41.6% (0 patterns)
+   - Words: 984 | Meta: 151 chars
 
 60. - [x] **graphql-federated-entity-pattern** (patterns)
    - Metrics: 48 imp | pos 33.5 | CTR 2.08% | Δ impr 0
