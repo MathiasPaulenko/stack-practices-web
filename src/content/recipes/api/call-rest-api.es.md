@@ -2,8 +2,8 @@
 contentType: recipes
 slug: call-rest-api
 title: "Llamar a una API REST"
-description: "Cómo hacer peticiones HTTP a una API REST y manejar la respuesta JSON en varios lenguajes."
-metaDescription: "Aprende a llamar a una API REST en Python, JavaScript y Java con ejemplos prácticos de peticiones HTTP, manejo de errores y lo que funciona."
+description: "Cómo hacer peticiones HTTP a una API REST y manejar la respuesta JSON en Python, JavaScript, Java y Go."
+metaDescription: "Aprende a llamar a una API REST en Python, JavaScript, Java y Go. Ejemplos prácticos de HTTP, manejo de errores, timeouts y parseo de JSON."
 difficulty: beginner
 topics:
   - api
@@ -15,84 +15,74 @@ tags:
   - web-services
 relatedResources:
   - /recipes/parse-json
-  - /recipes/read-write-file
-  - /recipes/middleware
-  - /recipes/grpc-api
-  - /recipes/rest-api-design
-  - /recipes/api-documentation-openapi
-  - /recipes/api-logging-audit
-  - /recipes/api-versioning
-  - /recipes/graphql-api
-  - /recipes/graphql-apollo-server
-  - /recipes/handle-cors
   - /recipes/handle-errors
-  - /recipes/idempotent-api-endpoints
-  - /recipes/pagination
-  - /recipes/send-emails-smtp
-  - /recipes/server-sent-events
-  - /recipes/webhooks
-  - /recipes/websocket-authentication
-  - /recipes/websocket-server
+  - /recipes/handle-cors
+  - /recipes/middleware
+  - /recipes/rest-api-design
   - /patterns/adapter-pattern-api
-  - /patterns/decorator-pattern-pipeline
-  - /docs/api-documentation
-  - /guides/rest-api-design-guide
-lastUpdated: "2026-06-13"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende a llamar a una API REST en Python, JavaScript y Java con ejemplos prácticos de peticiones HTTP, manejo de errores y lo que funciona."
+  metaDescription: "Aprende a llamar a una API REST en Python, JavaScript, Java y Go. Ejemplos prácticos de HTTP, manejo de errores, timeouts y parseo de JSON."
   keywords:
     - llamar api rest
     - peticiones http
     - api python
     - fetch javascript
     - httpclient java
-
-
-
-
-
+    - golang http
 ---
-## Visión General
 
-La mayoría de las aplicaciones se comunican con el exterior mediante APIs REST sobre HTTP. Llamar a una API REST consiste en enviar una petición HTTP (normalmente `GET` o `POST`) a una URL y manejar la respuesta, que suele ser JSON.
+## Resumen
 
-REST (Representational State Transfer) ha sido el estilo arquitectónico dominante para servicios web desde principios de los 2000s. Usa métodos HTTP estándar — GET para recuperación, POST para creación, PUT para actualizaciones, DELETE para eliminación — y devuelve formatos de datos estructurados como JSON o XML. Entender cómo construir peticiones apropiadamente, manejar errores y parsear respuestas es una habilidad fundamental para cualquier desarrollador que construya aplicaciones conectadas.
+La mayoría de las aplicaciones se comunican con el exterior a través de APIs REST
+sobre HTTP. Llamar a una API REST significa enviar una petición — normalmente `GET` o
+`POST` — a una URL y manejar la respuesta, que suele ser JSON. El desafío es hacerlo
+de forma segura: verificar códigos de estado, setear timeouts y parsear el body sin
+que falle.
 
-Lo siguiente demuestra la forma idiomática y moderna de hacer una petición HTTP y leer la respuesta JSON en Python, JavaScript y Java, incluyendo manejo básico de errores y configuración de timeouts.
+Esta receta muestra cómo llamar a una API REST en Python, JavaScript, Java y Go.
 
 ## Cuándo Usar
 
-Usa esta receta cuando:
+- Para traer datos de una API interna o de terceros.
+- Para enviar datos de formularios o eventos a un backend.
+- Para integrar plataformas SaaS (pagos, email, analytics).
+- Para construir un SDK o CLI que consuma un servicio HTTP.
+- Para subir archivos o consultar el estado de un job.
 
-- Obtienes datos de una API interna o de terceros. Consulta [Input Validation](/recipes/input-validation/) para validar datos de requests y responses.
-- Envías datos de formularios o eventos a un servicio backend. Consulta [Retry Logic](/recipes/retry-backoff/) para manejar fallos transitorios.
-- Te integras con plataformas SaaS (pagos, email, analítica)
-- Construyes un SDK cliente o una CLI que habla con un servicio HTTP
-- Subes archivos a una API de almacenamiento o CDN
-- Haces polling de estado de jobs o confirmación de entrega de webhooks
-- Construyes funciones serverless que orquestan múltiples llamadas de API
+## Cuándo NO Usar
+
+- Comunicación bidireccional en tiempo real: usá
+  [WebSockets](/es/recipes/websocket-server/) o
+  [Server-Sent Events](/es/recipes/server-sent-events/) en su lugar.
+- Streaming de payloads enormes: considerá un protocolo dedicado o URLs
+  prefirmadas.
 
 ## Solución
 
-### Python
+### Python con `requests`
 
-La librería `requests` de Python es el cliente HTTP más popular. Pasa siempre un `timeout` para prevenir que la petición se cuelgue indefinidamente, y usa `raise_for_status()` para convertir códigos de error HTTP en excepciones que detienen la ejecución.
+`requests` es el cliente HTTP más popular de Python. Pasá un `timeout` para que no se
+congele, y usá `raise_for_status()` para convertir respuestas `4xx`/`5xx` en
+excepciones.
 
 ```python
 import requests
 
 response = requests.get("https://api.example.com/users/1", timeout=10)
-response.raise_for_status()  # lanza en 4xx/5xx
+response.raise_for_status()
 
 data = response.json()
 print(data["name"])
 ```
 
-### JavaScript
+### JavaScript con `fetch`
 
-La API `fetch` incorporada está disponible en todos los navegadores modernos y Node.js 18+. Ojo: `fetch` solo falla ante errores de red; las respuestas de error HTTP como 404 o 500 igual resuelven la promesa, por lo que debes comprobar `response.ok` manualmente.
+`fetch` viene incluido en navegadores modernos y Node.js 18+. Solo rechaza por errores
+de red; las respuestas HTTP erróneas igual resuelven, así que hay que revisar
+`response.ok` a mano.
 
 ```javascript
 const response = await fetch("https://api.example.com/users/1");
@@ -104,9 +94,10 @@ const data = await response.json();
 console.log(data.name);
 ```
 
-### Java
+### Java con `HttpClient`
 
-Java 11 introdujo `java.net.http.HttpClient`, reemplazando al antiguo `HttpURLConnection`. Soporta peticiones síncronas (`send`) y asíncronas (`sendAsync`), y maneja upgrades a HTTP/2 y WebSocket de forma transparente.
+Java 11 trae `java.net.http.HttpClient`. Soporta requests síncronos y asíncronos, y
+maneja HTTP/2 de forma transparente.
 
 ```java
 import java.net.URI;
@@ -120,12 +111,18 @@ HttpRequest request = HttpRequest.newBuilder()
 
 HttpResponse<String> response =
     client.send(request, HttpResponse.BodyHandlers.ofString());
+
+if (response.statusCode() >= 400) {
+    throw new RuntimeException("HTTP " + response.statusCode());
+}
+
 System.out.println(response.body());
 ```
 
-### Go (usando net/http)
+### Go con `net/http`
 
-La librería estándar de Go incluye un cliente HTTP listo para producción. Siempre cierra el body de la respuesta para evitar leaks de recursos, y usa `context` para timeouts.
+La librería estándar de Go tiene un cliente HTTP listo para producción. Cerrá el body
+para evitar fugas, y usá `context` para timeouts.
 
 ```go
 package main
@@ -143,7 +140,10 @@ func main() {
     ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
     defer cancel()
 
-    req, _ := http.NewRequestWithContext(ctx, "GET", "https://api.example.com/users/1", nil)
+    req, err := http.NewRequestWithContext(ctx, "GET", "https://api.example.com/users/1", nil)
+    if err != nil {
+        panic(err)
+    }
     req.Header.Set("Accept", "application/json")
 
     resp, err := http.DefaultClient.Do(req)
@@ -163,7 +163,7 @@ func main() {
 }
 ```
 
-### Python con Autenticación y POST
+### POST con JSON y autenticación
 
 ```python
 import requests
@@ -187,7 +187,7 @@ created = response.json()
 print(f"Created user with ID: {created['id']}")
 ```
 
-### JavaScript con AbortController (Timeout)
+### JavaScript con timeout
 
 ```javascript
 const controller = new AbortController();
@@ -214,141 +214,90 @@ try {
 
 ## Explicación
 
-- **Python** usa la popular librería `requests`. `raise_for_status()` convierte las respuestas de error en excepciones; `.json()` parsea el cuerpo. Pasa siempre un `timeout` para prevenir bloqueo indefinido en servidores lentos o irresponsivos.
-- **JavaScript** usa la API `fetch` incorporada (Node 18+ y todos los navegadores modernos). Ojo: `fetch` solo falla ante errores de red — los errores HTTP como 404 o 500 igual resuelven la promesa, por lo que debes comprobar `response.ok` tú mismo.
-- **Java** usa el `java.net.http.HttpClient` incorporado (Java 11+). Soporta llamadas síncronas (`send`) y asíncronas (`sendAsync`), y puede configurarse con connection pooling y timeouts de petición.
+Cada ejemplo hace las mismas cuatro cosas:
 
-Una vez recibas el cuerpo, consulta [Parsear JSON](/recipes/parse-json/) para convertirlo en datos tipados.
+1. Armar la petición (URL, método, headers, body).
+2. Setear un timeout para que un servidor lento no bloquee el cliente para siempre.
+3. Enviar la petición y verificar el código de estado HTTP.
+4. Parsear el body como JSON y manejar errores de parseo.
+
+`raise_for_status()` en Python y `response.ok` en JavaScript convierten errores HTTP
+en excepciones. En Java y Go revisás el código de estado manualmente. Para más sobre
+parseo, consultá [Parse JSON](/es/recipes/parse-json/).
 
 ## Variantes
 
-| Lenguaje | Cliente | Soporte async | Notas |
-|----------|---------|---------------|-------|
-| Python | `requests` / `httpx` | `httpx` para async | `requests` es solo síncrono |
-| JavaScript | `fetch` (nativo) | promesas nativas | comprueba `response.ok` |
-| Java | `HttpClient` (Java 11+) | `sendAsync` | sin dependencias extra |
-| Go | `net/http` (nativo) | goroutines | cierra el body de la respuesta |
-| Rust | `reqwest` | runtime `tokio` | abstracciones de costo cero |
-| C# | `HttpClient` (nativo) | `async/await` | reutiliza una sola instancia |
+|Lenguaje|Cliente|Soporte async|Notas|
+|--------|-------|-------------|-----|
+|Python|`requests` / `httpx`|`httpx` para async|`requests` es solo síncrono|
+|JavaScript|`fetch` (nativo)|promesas nativas|revisar `response.ok`|
+|Java|`HttpClient` (Java 11+)|`sendAsync`|sin dependencia extra|
+|Go|`net/http` (nativo)|goroutines|cerrar el body|
+|Rust|`reqwest`|runtime `tokio`|popular y ergonómico|
+|C#|`HttpClient` (nativo)|`async/await`|reutilizar una instancia|
 
-## Lo que funciona
+## Buenas Prácticas
 
-- **Define siempre un timeout**: una petición colgada puede bloquear un hilo o worker indefinidamente. En Python, pasa `timeout=10` a `requests.get`; en Node, usa `AbortController` con `fetch`; en Java, setea un timeout en el builder de `HttpClient`.
-- **Comprueba el código de estado**: no asumas `2xx`; maneja `4xx`/`5xx` explícitamente. Un `401` significa que la autenticación falló; un `429` significa que estás rate-limited; un `503` significa que el servicio está temporalmente no disponible.
-- **Reutiliza el cliente**: crea un único `HttpClient`/sesión y reúsalo para agrupar conexiones. Crear un nuevo cliente por petición desperdicia recursos y previene la reutilización de conexiones TCP.
-- **Nunca registres secretos**: mantén las claves y tokens fuera de los logs y mensajes de error. Si debes loggear una URL de petición, redacta los query parameters que contienen credenciales.
-- **Reintenta fallos transitorios**: usa backoff exponencial para respuestas `429` y `5xx`. Un `503` con una cabecera `Retry-After` te dice exactamente cuándo reintentar; respétala.
-- **Setea cabeceras apropiadas**: incluye siempre `Accept: application/json` cuando esperes JSON, y `Content-Type: application/json` cuando envíes un body JSON. Algunas APIs rechazan peticiones sin estas cabeceras.
-- **Maneja redirects con cuidado**: algunos clientes HTTP siguen redirects automáticamente, lo que puede filtrar cabeceras sensibles como `Authorization` a hosts no deseados. Desactiva redirects automáticos o haz whitelist de dominios permitidos.
-- **Parsea defensivamente**: un servidor devolviendo HTML (páginas de error, challenges de Cloudflare) en lugar de JSON hará que `.json()` lance una excepción. Comprueba `Content-Type` antes de parsear, y envuelve en try/catch.
-- **Usa connection pooling**: crear una nueva conexión TCP por petición añade 50-100ms de latencia. Reutiliza instancias de `HttpClient` (Java, C#), objetos `Session` (Python `requests`), o `http.Transport` (Go) para beneficiarte de keep-alive y reutilización de conexiones.
+- Siempre seteá un timeout para que una petición colgada no bloquee el worker.
+- Verificá los códigos de estado explícitamente; no asumas un `2xx`.
+- Reutilizá clientes o sesiones para aprovechar connection pooling y keep-alive.
+- Mandá `Accept: application/json` cuando esperés JSON y
+  `Content-Type: application/json` cuando mandés JSON.
+- Leé las API keys de variables de entorno; nunca las commitees.
+- Reintentá respuestas `429` y `5xx` con backoff exponencial; respetá los headers
+  `Retry-After`.
+- Envolveé el parseo con `.json()` en try/catch; el servidor puede devolver HTML
+  durante una caída.
 
 ## Errores Comunes
 
-- **Olvidar `response.ok` en `fetch`**: un `404` igual resuelve la promesa; debes comprobarlo manualmente. Esta es la fuente más común de fallos silenciosos en código HTTP de JavaScript.
-- **Sin timeout**: el valor por defecto en muchos clientes es infinito, lo que agota recursos. Una sola API no responsiva puede eventualmente consumir todos los threads o workers disponibles.
-- **Bloquear el event loop**: en JS, usa siempre `await` en las llamadas de red; nunca hagas espera activa. Las llamadas HTTP síncronas congelan todo tu servidor por la duración de la petición.
-- **Credenciales hardcodeadas**: lee las claves desde variables de entorno, no del código fuente. Las credenciales commiteadas son un liability permanente incluso si las rotas después.
-- **Ignorar los límites de tasa**: respeta la cabecera `Retry-After` para evitar bloqueos o baneos. Algunas APIs ponen en lista negra permanentemente IPs que exceden los límites repetidamente.
-- **No manejar errores de parseo JSON**: un servidor devolviendo HTML (como una página de error de Cloudflare) en lugar de JSON hará que `.json()` lance una excepción. Envuelve el parseo en try/catch e inspecciona el body raw en caso de fallo.
-- **Enviar datos sensibles en query parameters**: las URLs son loggeadas por proxies, navegadores y access logs del servidor. Usa cabeceras de petición o bodies POST para tokens y credenciales.
-- **No cerrar bodies de respuesta**: en Go y Java, no cerrar el body de la respuesta filtra conexiones TCP y puede agotar file descriptors bajo carga.
-- **Ignorar cabeceras Content-Type**: si el servidor devuelve `text/html` en lugar de `application/json`, llamar a `.json()` lanza una excepción. Siempre comprueba el content type antes de parsear.
-- **No manejar paginación**: muchas APIs devuelven resultados paginados con cabeceras `Link` o tokens cursor. No seguir los links de paginación significa que solo obtienes la primera página de datos.
-
-## Mejores Prácticas
-
-- **Siempre setea timeouts**: connection timeout (5-10s) y read timeout (30-60s) separadamente. Sin timeouts, una sola petición hung puede bloquear un worker indefinidamente.
-- **Usa connection pooling**: reutilizar conexiones TCP via keep-alive reduce latencia en 30-50% para llamadas repetidas al mismo host. Configura el pool size basándote en tus necesidades de concurrencia.
-- **Implementa exponential backoff con jitter**: reintenta peticiones fallidas con delays crecientes (1s, 2s, 4s, 8s) más jitter random para evitar thundering herd. Capa retries a 3-5 intentos.
-- **Cachea respuestas GET idempotentes**: usa headers ETag o Last-Modified para cachear respuestas. Peticiones condicionales (If-None-Match) retornan 304 sin body, ahorrando bandwidth y parse time.
-- **Valida el response schema antes de usar data**: no confíes que las respuestas de API matcheen tus expectativas. Usa Zod, Pydantic o JSON Schema validation para detectar cambios de shape early.
-
-## Checklist de Producción
-
-- [ ] Timeouts están seteados para ambas fases connection y read
-- [ ] Connection pooling está configurado con pool size apropiado
-- [ ] Lógica de retry usa exponential backoff con jitter
-- [ ] Respuestas 429 y 503 respetan headers `Retry-After`
-- [ ] Respuestas de error se loguean con request URL, status y response body
-- [ ] Headers sensibles (Authorization) nunca se loguean
-- [ ] Validación de response schema detecta cambios inesperados de API
-- [ ] Circuit breaker previene cascading failures cuando la API downstream está down
-- [ ] HTTP/2 está habilitado para multiplexar múltiples peticiones sobre una conexión
-- [ ] Fallos de resolución DNS se manejan gracefully con caching
-
-## Cuándo No Usar Este Enfoque
-
-- **Comunicación bidireccional real-time**: REST es solo request-response. Para chat, dashboards live o edición colaborativa, usa [WebSockets](/recipes/websocket-server/) o [Server-Sent Events](/recipes/server-sent-events/) en su lugar.
-- **Llamadas micro-batch de alta frecuencia**: si haces 100+ llamadas/segundo a la misma API, considera gRPC con multiplexed connections o un endpoint bulk/batch para reducir per-request overhead.
-- **Transferencias de archivos grandes**: las APIs REST tienen límites prácticos de payload (típicamente 10-100MB). Para transferencias multi-GB, usa presigned S3 URLs o un protocolo dedicado de transferencia de archivos.
-
-## Estrategia de Testing
-
-- **Unit test HTTP clients con mocked responses**: usa `nock` (Node.js), `responses` (Python), o `WireMock` (Java) para mockear respuestas de API. Testea success, error, timeout y edge-case payloads sin hitting real servers.
-- **Integration test con un local server**: levanta un test server que retorne canned responses. Verifica el ciclo completo request/response incluyendo headers, auth y error handling.
-- **Contract test contra API real**: corre un subset de tests contra la API real en staging. Usa recorded responses (VCR cassettes) para replay en CI y evitar rate limits y flakiness.
-- **Load test con payloads realistas**: usa `k6` o `Artillery` para simular usuarios concurrentes. Mide p95 latency, error rate y throughput bajo carga.
-
-## Estimación de Costos
-
-| Componente | Costo | Notas |
-|-----------|------|-------|
-| Librería HTTP client | $0 | Built-in (fetch, HttpClient, requests) |
-| Infraestructura de connection pool | $0 | In-process, sin servicio externo |
-| Overhead de retry/backoff | $0 | Code-level, sin costo de infra |
-| API gateway (por millón de llamadas) | $3.50 | AWS API Gateway, GCP API Gateway |
-| CDN para respuestas de API | $0-$20/mes | Cloudflare free tier, CloudFront |
-
-Para 1M API calls/día: el costo del lado del cliente es efectivamente $0 (librería + connection pool). El API Gateway del lado del servidor agrega ~$105/mes. El costo principal es tiempo de desarrollador para implementar retry logic, circuit breakers y monitoring.
+- **Olvidar `response.ok` en `fetch`**: un `404` resuelve la promesa, así que hay que
+  revisar el estado a mano.
+- **No setear timeout**: el default de muchos clientes es infinito, lo que puede
+  agotar los workers.
+- **Hardcodear credenciales**: mantené tokens fuera del código y de los logs.
+- **Ignorar rate limits**: respetá `Retry-After` para no ser baneado.
+- **No cerrar los response bodies** en Go y Java: eso fuga conexiones y puede agotar
+  file descriptors.
+- **Mandar datos sensibles en query parameters**: las URLs quedan en logs, así que
+  usá headers o POST bodies.
 
 ## Preguntas Frecuentes
 
-**Q: ¿`fetch` lanza un error ante una respuesta 404?**
-A: No. `fetch` solo falla ante errores de red. Un `404` resuelve con normalidad; comprueba `response.ok` o `response.status` antes de procesar el body.
+### ¿`fetch` lanza error con un 404?
 
-**Q: ¿Necesito una librería externa para llamar a APIs HTTP en Java?**
-A: No. Desde Java 11, `java.net.http.HttpClient` está incorporado y soporta peticiones síncronas y asíncronas. Para versiones antiguas de Java, puedes usar Apache HttpClient o OkHttp.
+No. `fetch` solo rechaza por errores de red. Un `404` resuelve normalmente, así que
+revisá `response.ok` o `response.status` antes de leer el body.
 
-**Q: ¿Cómo envío JSON en una petición POST?**
-A: Define la cabecera `Content-Type: application/json` y pasa la cadena JSON serializada como cuerpo de la petición. En Python, usa el parámetro `json=` de `requests.post`; en JS, usa `JSON.stringify()` con la opción `body`.
+### ¿Necesito una librería externa para llamar APIs HTTP en Java?
 
-**Q: ¿Cómo cancelo una petición de larga duración?**
-A: Usa `AbortController` en JavaScript (opción `signal`), el parámetro `timeout` en Python `requests`, o `HttpRequest.timeout()` en Java. Todos los clientes HTTP modernos soportan cancelación de peticiones.
+No. Java 11 incluye `java.net.http.HttpClient`, que soporta requests síncronos y
+asíncronos. Para versiones más viejas, usá Apache HttpClient u OkHttp.
 
-**Q: ¿Debería usar GET o POST para queries de búsqueda?**
-A: Usa GET para recuperación idempotente y cacheable donde los parámetros quepan en una URL. Usa POST para payloads grandes, datos sensibles, o operaciones no idempotentes. Las peticiones GET no deberían tener side effects.
+### ¿Cómo envío JSON en un POST?
 
-**Q: ¿Cómo manejo la paginación de APIs?**
-A: La mayoría de las APIs REST usan uno de tres patrones: offset/limit (`?page=2&limit=20`), basado en cursor (`?cursor=abc123`), o cabeceras `Link`. Lee la documentación de la API para determinar qué patrón se usa. Para paginación basada en cursor, almacena el cursor de cada respuesta y pásalo en la siguiente petición hasta que no se devuelva cursor.
+Seteá `Content-Type: application/json` y pasá el JSON serializado como body. En
+Python usá el parámetro `json=` de `requests.post`; en JavaScript pasá el objeto con
+`JSON.stringify()`.
 
-**Q: ¿Qué códigos de estado HTTP debería reintentar?**
-A: Reintenta `429` (rate limited), `500`, `502`, `503`, y `504` con backoff exponencial. No reintentes `400`, `401`, `403`, `404`, ni `422` — son errores de cliente que no tendrán éxito al reintentar. Respeta la cabecera `Retry-After` en respuestas `429` y `503`.
+### ¿Cómo cancelo una petición que tarda mucho?
 
-**Q: ¿Cómo hago stream de respuestas grandes de APIs?**
-A: En Python, usa `response.iter_content(chunk_size=8192)` para hacer stream del body. En JavaScript, usa `response.body.getReader()` para streaming. En Go, lee de `resp.Body` en chunks. El streaming evita cargar toda la respuesta en memoria.
+Usá `AbortController` en JavaScript, el parámetro `timeout` en Python `requests` o
+`HttpRequest.timeout()` en Java.
 
-**Q: ¿Debería usar connection timeout o read timeout?**
-A: Ambos. Un connection timeout (típicamente 5-10s) cubre fallos de handshake TCP. Un read timeout (típicamente 30-60s) cubre respuestas lentas. Setéalos independientemente para distinguir entre "no puedo conectar" y "conecté pero el servidor está lento."
+### ¿Uso GET o POST para búsquedas?
 
-**Q: ¿Cómo testeo llamadas de API sin hitting el servidor real?**
-A: Usa mock servers como WireMock (Java), nock (JavaScript), o `responses` (Python). Para tests de integración, usa herramientas como [Pact](/recipes/api-contract-testing/) para contract testing. Graba y reproduce interacciones HTTP con herramientas como VCR (Ruby) o Polly.js (JavaScript).
+Usá GET para consultas idempotentes y cacheables cuando los parámetros entren en la
+URL. Usá POST para payloads grandes, datos sensibles u operaciones no idempotentes.
 
-## Troubleshooting
+### ¿Cómo manejo la paginación de una API?
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts. Use health checks and circuit breakers to fail fast.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers. Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths. Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew. Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles. Optimize database queries, add caching, and consider pagination for large responses.
+Las APIs REST suelen usar offset/limit (`?page=2&limit=20`), cursor
+(`?cursor=abc123`) o headers `Link`. Leé la documentación de la API, encontrá el
+patrón e iterá hasta que no haya más páginas.
 
-## Errores Comunes en Producción
+### ¿Qué códigos de estado debería reintentar?
 
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Reintentá `429`, `500`, `502`, `503` y `504` con backoff exponencial. No reintentés
+`400`, `401`, `403`, `404` o `422` — son errores del cliente que no se van a arreglar
+solo repetir.

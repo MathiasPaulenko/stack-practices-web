@@ -1,0 +1,348 @@
+[
+  {
+    "label": "call-rest-api-en",
+    "model": "desklib",
+    "model_ai_pct": 51.3,
+    "ai_count": 28,
+    "human_count": 23,
+    "skipped_count": 3,
+    "total": 54,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.5,
+      "stddev": 5.6,
+      "cv": 0.45,
+      "verdict": "somewhat uniform",
+      "sentence_count": 51,
+      "lengths": [
+        11,
+        22,
+        19,
+        8,
+        24,
+        9,
+        8,
+        11,
+        7,
+        9,
+        12,
+        8,
+        15,
+        8,
+        15,
+        11,
+        8,
+        12,
+        14,
+        13,
+        8,
+        9,
+        11,
+        10,
+        9,
+        42,
+        7,
+        11,
+        16,
+        9,
+        11,
+        17,
+        15,
+        13,
+        10,
+        11,
+        16,
+        18,
+        6,
+        13,
+        11,
+        9,
+        11,
+        11,
+        14,
+        13,
+        10,
+        11,
+        16,
+        10,
+        18
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "This recipe covers Python, JavaScript, Java, and Go.",
+        0.9346
+      ],
+      [
+        "A 404 resolves normally, so check\nresponse.ok or response.status before reading the body.",
+        0.8647
+      ],
+      [
+        "Reach for this recipe when you need an app to talk to another service over HTTP:\nFetching data from a third-party or internal API.",
+        0.8431
+      ],
+      [
+        "In\nPython, use requests.post(url, json=payload); in JavaScript, pass a stringified\nobject.",
+        0.8138
+      ],
+      [
+        "raise_for_status() in Python and response.ok in JavaScript throw on HTTP errors.",
+        0.7708
+      ],
+      [
+        "For older Java versions, use Apache HttpClient or OkHttp.",
+        0.713
+      ],
+      [
+        "Send the request and check the status code.",
+        0.7123
+      ],
+      [
+        "Parse the body as JSON and handle parse errors.",
+        0.6963
+      ],
+      [
+        "It supports both sync and async requests and\nhandles HTTP/2 transparently.",
+        0.6814
+      ],
+      [
+        "Uploading files or polling for job status.",
+        0.6493
+      ],
+      [
+        "Integrating with SaaS platforms \u2014 payments, email, analytics.",
+        0.6459
+      ],
+      [
+        "**Hardcoding credentials**: keep tokens out of source code and logs.",
+        0.6381
+      ],
+      [
+        "**No timeout**: the default in many clients is infinite, which can exhaust workers.",
+        0.6326
+      ],
+      [
+        "Retry 429, 500, 502, 503, and 504 with exponential backoff.",
+        0.6204
+      ],
+      [
+        "Building a client SDK or CLI that calls an HTTP service.",
+        0.6187
+      ],
+      [
+        "Real-time bidirectional communication: use [WebSockets](/recipes/websocket-server/)\n  or [Server-Sent Events](/recipes/server-sent-events/) instead.",
+        0.584
+      ],
+      [
+        "A REST API call is just an\nHTTP request \u2014 usually GET or POST \u2014 to a URL, plus the JSON response.",
+        0.5779
+      ],
+      [
+        "Go's standard library has a production-ready HTTP client.",
+        0.5708
+      ],
+      [
+        "Sending form data or events to a backend service.",
+        0.564
+      ],
+      [
+        "Java 11 ships with java.net.http.HttpClient, which supports sync and async\nrequests.",
+        0.556
+      ],
+      [
+        "fetch works in modern browsers and Node.js 18+.",
+        0.5553
+      ],
+      [
+        "Every example follows the same four steps:\nBuild the request (URL, method, headers, body).",
+        0.549
+      ],
+      [
+        "Don't retry\n400, 401, 403, 404, or 422 \u2014 those are client errors that won't succeed on\nretry.",
+        0.5428
+      ],
+      [
+        "It only rejects on network errors;\nHTTP error responses still resolve, so check response.ok yourself.",
+        0.5408
+      ],
+      [
+        "Most apps talk to other services over HTTP at some point.",
+        0.5395
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "call-rest-api-es",
+    "model": "desklib",
+    "model_ai_pct": 34.2,
+    "ai_count": 10,
+    "human_count": 41,
+    "skipped_count": 3,
+    "total": 54,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.4,
+      "stddev": 5.9,
+      "cv": 0.44,
+      "verdict": "somewhat uniform",
+      "sentence_count": 51,
+      "lengths": [
+        17,
+        26,
+        20,
+        15,
+        10,
+        10,
+        7,
+        11,
+        10,
+        13,
+        11,
+        9,
+        17,
+        9,
+        20,
+        11,
+        12,
+        11,
+        14,
+        14,
+        10,
+        10,
+        12,
+        10,
+        7,
+        45,
+        10,
+        10,
+        12,
+        11,
+        12,
+        15,
+        18,
+        16,
+        11,
+        9,
+        17,
+        18,
+        7,
+        15,
+        10,
+        9,
+        10,
+        15,
+        14,
+        14,
+        11,
+        12,
+        17,
+        10,
+        21
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Para subir archivos o consultar el estado de un job.",
+        0.7491
+      ],
+      [
+        "Esta receta muestra c\u00f3mo llamar a una API REST en Python, JavaScript, Java y Go.",
+        0.7459
+      ],
+      [
+        "Enviar la petici\u00f3n y verificar el c\u00f3digo de estado HTTP.",
+        0.7297
+      ],
+      [
+        "La mayor\u00eda de las aplicaciones se comunican con el exterior a trav\u00e9s de APIs REST\nsobre HTTP.",
+        0.645
+      ],
+      [
+        "Para integrar plataformas SaaS (pagos, email, analytics).",
+        0.6275
+      ],
+      [
+        "Us\u00e1 GET para consultas idempotentes y cacheables cuando los par\u00e1metros entren en la\nURL.",
+        0.5624
+      ],
+      [
+        "La librer\u00eda est\u00e1ndar de Go tiene un cliente HTTP listo para producci\u00f3n.",
+        0.551
+      ],
+      [
+        "Para enviar datos de formularios o eventos a un backend.",
+        0.5313
+      ],
+      [
+        "Para construir un SDK o CLI que consuma un servicio HTTP.",
+        0.5278
+      ],
+      [
+        "Para versiones m\u00e1s viejas, us\u00e1 Apache HttpClient u OkHttp.",
+        0.5126
+      ],
+      [
+        "Para m\u00e1s sobre\nparseo, consult\u00e1 [Parse JSON](/es/recipes/parse-json/).",
+        0.4769
+      ],
+      [
+        "**No setear timeout**: el default de muchos clientes es infinito, lo que puede\n  agotar los workers.",
+        0.4669
+      ],
+      [
+        "Java 11 incluye java.net.http.HttpClient, que soporta requests s\u00edncronos y\nas\u00edncronos.",
+        0.4519
+      ],
+      [
+        "No reintent\u00e9s\n400, 401, 403, 404 o 422 \u2014 son errores del cliente que no se van a arreglar\nsolo repetir.",
+        0.4494
+      ],
+      [
+        "**Hardcodear credenciales**: manten\u00e9 tokens fuera del c\u00f3digo y de los logs.",
+        0.4383
+      ],
+      [
+        "Mand\u00e1 Accept: application/json cuando esper\u00e9s JSON y\n  Content-Type: application/json cuando mand\u00e9s JSON.",
+        0.4319
+      ],
+      [
+        "Comunicaci\u00f3n bidireccional en tiempo real: us\u00e1\n  [WebSockets](/es/recipes/websocket-server/) o\n  [Server-Sent Events](/es/recipes/server-sent-events/) en su lugar.",
+        0.429
+      ],
+      [
+        "En\nPython us\u00e1 el par\u00e1metro json= de requests.post; en JavaScript pas\u00e1 el objeto con\nJSON.stringify().",
+        0.3915
+      ],
+      [
+        "Setear un timeout para que un servidor lento no bloquee el cliente para siempre.",
+        0.3741
+      ],
+      [
+        "**Mandar datos sensibles en query parameters**: las URLs quedan en logs, as\u00ed que\n  us\u00e1 headers o POST bodies.",
+        0.3562
+      ],
+      [
+        "Reintent\u00e1 429, 500, 502, 503 y 504 con backoff exponencial.",
+        0.3392
+      ],
+      [
+        "**Ignorar rate limits**: respet\u00e1 Retry-After para no ser baneado.",
+        0.3258
+      ],
+      [
+        "Envolve\u00e9 el parseo con .json() en try/catch; el servidor puede devolver HTML\n  durante una ca\u00edda.",
+        0.3174
+      ],
+      [
+        "Cada ejemplo hace las mismas cuatro cosas:\nArmar la petici\u00f3n (URL, m\u00e9todo, headers, body).",
+        0.3057
+      ],
+      [
+        "El desaf\u00edo es hacerlo\nde forma segura: verificar c\u00f3digos de estado, setear timeouts y parsear el body sin\nque falle.",
+        0.3003
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

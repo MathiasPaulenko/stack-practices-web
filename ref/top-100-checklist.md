@@ -420,13 +420,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.6% / ES 39.6% (0 patterns)
    - Words: 1,294 | Meta: 165 chars
 
-52. - [ ] **call-rest-api** (recipes)
+52. - [x] **call-rest-api** (recipes)
    - Metrics: 57 imp | pos 31.1 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/call-rest-api/
    - ES: https://stackpractices.com/es/recipes/call-rest-api/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,370 | Meta: 130 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 51.3% / ES 34.2% (0 patterns)
+   - Words: 1,028 | Meta: 134 chars
 
 53. - [ ] **prometheus-monitoring-alerts** (recipes)
    - Metrics: 45 imp | pos 34.7 | CTR 0.00% | Δ impr 29
