@@ -1,0 +1,52 @@
+[
+  {
+    "label": "react-form-react-hook-form-validation",
+    "total_sentences": 38,
+    "pattern_totals": {
+      "missing_contraction": 3,
+      "vague_abstraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "Do not duplicate the\n  type.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "do not",
+            "suggestion": "use 'don't'"
+          }
+        ]
+      },
+      {
+        "sentence": "Do not manage array indices manually.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "do not",
+            "suggestion": "use 'don't'"
+          }
+        ]
+      },
+      {
+        "sentence": "Use  when form fields are split across multiple child components.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "Do not spread  and  on top of .",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "do not",
+            "suggestion": "use 'don't'"
+          }
+        ]
+      }
+    ]
+  }
+]

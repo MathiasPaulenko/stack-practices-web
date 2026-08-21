@@ -564,13 +564,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 55.7% / ES 34.0% (0 patterns)
    - Words: 810 | Meta: 156 chars
 
-70. - [ ] **react-form-react-hook-form-validation** (recipes)
+70. - [x] **react-form-react-hook-form-validation** (recipes)
    - Metrics: 45 imp | pos 37.4 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/react-form-react-hook-form-validation/
    - ES: https://stackpractices.com/es/recipes/react-form-react-hook-form-validation/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,461 | Meta: 143 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 50.1% / ES 40.6% (0 patterns)
+   - Words: 1451 | Meta: 143 chars
 
 71. - [ ] **terraform-best-practices-guide** (guides)
    - Metrics: 43 imp | pos 38.7 | CTR 0.00% | Δ impr 0

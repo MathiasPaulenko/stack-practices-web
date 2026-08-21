@@ -1,0 +1,316 @@
+[
+  {
+    "label": "react-form-react-hook-form-validation-en",
+    "model": "desklib",
+    "model_ai_pct": 50.1,
+    "ai_count": 16,
+    "human_count": 19,
+    "skipped_count": 3,
+    "total": 38,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 9.1,
+      "stddev": 3.3,
+      "cv": 0.37,
+      "verdict": "somewhat uniform",
+      "sentence_count": 35,
+      "lengths": [
+        7,
+        8,
+        16,
+        10,
+        8,
+        10,
+        8,
+        12,
+        13,
+        13,
+        14,
+        6,
+        11,
+        6,
+        7,
+        5,
+        6,
+        17,
+        5,
+        5,
+        11,
+        8,
+        6,
+        9,
+        9,
+        5,
+        12,
+        16,
+        8,
+        8,
+        10,
+        9,
+        11,
+        6,
+        5
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Set defaultValues for all fields.",
+        0.8575
+      ],
+      [
+        "**Not typing the resolver**: useForm<FormData>({ resolver: zodResolver(schema) }).",
+        0.7996
+      ],
+      [
+        "Use Controller for custom components:",
+        0.7985
+      ],
+      [
+        "**Validating only on submit**: set mode: \"onBlur\" for better UX \u2014 users see errors before\n  submitting.",
+        0.7677
+      ],
+      [
+        "Without it, the value is a string.",
+        0.7613
+      ],
+      [
+        "Use FormProvider when form fields are split across several child components.",
+        0.7408
+      ],
+      [
+        "react-hook-form works better with initial values.",
+        0.6597
+      ],
+      [
+        "Don't manage array indices manually.",
+        0.6002
+      ],
+      [
+        "**Using controlled components unnecessarily**: react-hook-form uses uncontrolled components by\n  default.",
+        0.5991
+      ],
+      [
+        "**Not using valueAsNumber**: number inputs return strings by default.",
+        0.5573
+      ],
+      [
+        "Use register(\"name\", { required: true, minLength: 2 }) for inline validation.",
+        0.5516
+      ],
+      [
+        "Use valueAsNumber: true for number inputs.",
+        0.5464
+      ],
+      [
+        "Derive the form type from the Zod schema with z.infer<typeof schema>.",
+        0.5429
+      ],
+      [
+        "Type-safe forms where the submitted data type matches the schema.",
+        0.5383
+      ],
+      [
+        "Keep validation rules in one place.",
+        0.5234
+      ],
+      [
+        "Use mode: \"onBlur\" or mode: \"onChange\" to validate on blur or change instead of only on\n  submit.",
+        0.5011
+      ],
+      [
+        "Forms requiring complex visual feedback on every keystroke \u2014 controlled components might be\n  simpler.",
+        0.4896
+      ],
+      [
+        "Simple forms with 1-2 fields \u2014 useState and a basic check is enough.",
+        0.4826
+      ],
+      [
+        "Forms integrated with UI component libraries such as shadcn/ui, Material UI, or Chakra.",
+        0.4518
+      ],
+      [
+        "**Missing defaultValues**: without defaults, checkboxes and select elements may have undefined\n  values.",
+        0.4426
+      ],
+      [
+        "Use useFieldArray for dynamic lists.",
+        0.4376
+      ],
+      [
+        "Without the\n  generic, the form values are untyped.",
+        0.433
+      ],
+      [
+        "Zod is for\ncomplex, reusable schemas.",
+        0.426
+      ],
+      [
+        "This gives you type-safe,\nperformant forms with declarative validation rules.",
+        0.4051
+      ],
+      [
+        "Forms with complex validation rules (conditional, cross-field, async).",
+        0.4031
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "react-form-react-hook-form-validation-es",
+    "model": "desklib",
+    "model_ai_pct": 40.6,
+    "ai_count": 9,
+    "human_count": 26,
+    "skipped_count": 3,
+    "total": 38,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 10.0,
+      "stddev": 3.4,
+      "cv": 0.34,
+      "verdict": "somewhat uniform",
+      "sentence_count": 35,
+      "lengths": [
+        9,
+        10,
+        16,
+        12,
+        9,
+        12,
+        8,
+        13,
+        12,
+        12,
+        17,
+        11,
+        11,
+        7,
+        7,
+        6,
+        6,
+        18,
+        5,
+        6,
+        13,
+        8,
+        9,
+        9,
+        11,
+        6,
+        11,
+        18,
+        8,
+        9,
+        10,
+        8,
+        11,
+        7,
+        5
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**No tipar el resolver**: useForm<FormData>({ resolver: zodResolver(schema) }).",
+        0.8633
+      ],
+      [
+        "Manten\u00e9 las reglas de validaci\u00f3n en un solo lugar.",
+        0.7406
+      ],
+      [
+        "Zod es para\nesquemas complejos y reutilizables.",
+        0.6995
+      ],
+      [
+        "Deriv\u00e1 el tipo del formulario del esquema Zod con z.infer<typeof schema>.",
+        0.6581
+      ],
+      [
+        "Sin \u00e9l, el valor es un string.",
+        0.6481
+      ],
+      [
+        "Us\u00e1 Controller para componentes custom:",
+        0.6127
+      ],
+      [
+        "Formularios con campos din\u00e1micos (field arrays, secciones condicionales).",
+        0.555
+      ],
+      [
+        "Valid\u00e1 en el esquema, no en el componente.",
+        0.5325
+      ],
+      [
+        "react-hook-form funciona mejor con valores\n  iniciales.",
+        0.5282
+      ],
+      [
+        "Us\u00e1 register(\"name\", { required: true, minLength: 2 }) para validaci\u00f3n inline.",
+        0.4722
+      ],
+      [
+        "Sete\u00e1 defaultValues para todos los campos.",
+        0.4645
+      ],
+      [
+        "**No usar valueAsNumber**: los inputs de n\u00fameros retornan strings por defecto.",
+        0.4614
+      ],
+      [
+        "**Faltar defaultValues**: sin defaults, checkboxes y selects pueden tener valores undefined.",
+        0.461
+      ],
+      [
+        "Formularios type-safe donde el tipo de datos enviados coincide con el esquema.",
+        0.4371
+      ],
+      [
+        "Us\u00e1 valueAsNumber: true para inputs de n\u00fameros.",
+        0.428
+      ],
+      [
+        "Us\u00e1 useFieldArray para listas din\u00e1micas.",
+        0.3932
+      ],
+      [
+        "Sin\n  valueAsNumber, z.number() de Zod falla.",
+        0.3698
+      ],
+      [
+        "Sin el\n  generic, los valores del formulario son untyped.",
+        0.3673
+      ],
+      [
+        "zod define esquemas\nde validaci\u00f3n con inferencia completa de TypeScript.",
+        0.3467
+      ],
+      [
+        "**Usar controlled components innecesariamente**: react-hook-form usa uncontrolled components por\n  defecto.",
+        0.3466
+      ],
+      [
+        "**Validar solo en submit**: sete\u00e1 mode: \"onBlur\" para mejor UX \u2014 los usuarios ven errores\n  antes de enviar.",
+        0.3349
+      ],
+      [
+        "Proyectos que no usen React \u2014 react-hook-form es solo para React.",
+        0.322
+      ],
+      [
+        "react-hook-form maneja el estado del formulario con re-renders m\u00ednimos.",
+        0.3172
+      ],
+      [
+        "@hookform/resolvers/zod los conecta: el\nformulario valida contra el esquema Zod y los valores se tipan autom\u00e1ticamente.",
+        0.3165
+      ],
+      [
+        "Us\u00e1 FormProvider cuando los campos del formulario se dividen entre varios componentes hijos.",
+        0.3009
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

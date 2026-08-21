@@ -1,12 +1,8 @@
 ---
-
-
-
-
 contentType: recipes
 slug: react-form-react-hook-form-validation
 title: "Validación de Formularios con react-hook-form y Zod"
-description: "Cómo construir formularios type-safe en React usando react-hook-form con validación de esquemas Zod, incluyendo campos anidados, validación async y campos dinámicos."
+description: "Construí formularios type-safe en React usando react-hook-form con validación de esquemas Zod, incluyendo campos anidados, reglas async, campos dinámicos e integración con librerías de UI."
 metaDescription: "Construye formularios type-safe en React con react-hook-form y Zod. Valida campos anidados, reglas async, campos dinámicos e integra con librerías de UI."
 difficulty: intermediate
 topics:
@@ -16,54 +12,58 @@ tags:
   - react
   - forms
   - validation
+  - typescript
   - zod
-  - recipe
+  - react-hook-form
 relatedResources:
-  - /recipes/typescript-discriminated-unions-exhaustive
   - /recipes/react-usememo-usecallback-performance
-  - /recipes/typescript-utility-types-generics
   - /recipes/react-virtual-list-react-window
-  - /recipes/vue-composition-api-fetch
-lastUpdated: "2026-07-05"
+  - /recipes/typescript-discriminated-unions-exhaustive
+  - /recipes/typescript-utility-types-generics
+  - /recipes/javascript-debounce-throttle-implementation
+  - /recipes/server-side-rendering
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
   metaDescription: "Construye formularios type-safe en React con react-hook-form y Zod. Valida campos anidados, reglas async, campos dinámicos e integra con librerías de UI."
   keywords:
-    - frontend
     - react
-    - forms
-    - validation
+    - formularios
+    - validación
     - react-hook-form
     - zod
-    - recipe
-
-
-
-
+    - typescript
+    - frontend
+    - forms type-safe
 ---
 
-## Overview
+## Resumen
 
-`react-hook-form` maneja el estado del formulario con re-renders mínimos. `zod` define esquemas de validación con full TypeScript inference. Juntos, `@hookform/resolvers/zod` los conecta — el formulario valida contra el esquema Zod y los valores del formulario se tipan automáticamente. Esta combinación te da formularios type-safe y performantes con reglas de validación declarativas.
+`react-hook-form` maneja el estado del formulario con re-renders mínimos. `zod` define esquemas
+de validación con inferencia completa de TypeScript. `@hookform/resolvers/zod` los conecta: el
+formulario valida contra el esquema Zod y los valores se tipan automáticamente. Esto te da
+formularios type-safe y performantes con reglas de validación declarativas.
 
-## When to Use
+## Cuándo Usarlo
 
-- Formularios con reglas de validación complejas (condicionales, cross-field, async)
-- Formularios type-safe donde el tipo de data enviada coincide con el esquema
-- Formularios con campos dinámicos (field arrays, secciones condicionales)
-- Formularios grandes donde la performance importa — react-hook-form evita re-renders en cada keystroke
-- Formularios integrados con librerías de UI (shadcn/ui, Material UI, Chakra)
+- Formularios con reglas de validación complejas (condicionales, cross-field, async).
+- Formularios type-safe donde el tipo de datos enviados coincide con el esquema.
+- Formularios con campos dinámicos (field arrays, secciones condicionales).
+- Formularios grandes donde la performance importa — react-hook-form evita re-renders en cada
+  keystroke.
+- Formularios integrados con librerías de UI como shadcn/ui, Material UI o Chakra.
 
-## When NOT to Use
+## Cuándo NO Usarlo
 
-- Formularios simples con 1-2 campos — `useState` y un check básico es suficiente
-- Formularios que requieren feedback visual complejo en cada keystroke — controlled components pueden ser más simples
-- Proyectos non-React — react-hook-form es solo React
+- Formularios simples con 1-2 campos — `useState` y un check básico alcanzan.
+- Formularios que requieren feedback visual complejo en cada keystroke — los controlled
+  components pueden ser más simples.
+- Proyectos que no usen React — react-hook-form es solo para React.
 
-## Solution
+## Solución
 
-### Setup
+### Instalación
 
 ```bash
 npm install react-hook-form @hookform/resolvers zod
@@ -400,7 +400,7 @@ function LoginForm() {
 }
 ```
 
-## Variants
+## Variantes
 
 ### Usar `FormProvider` para componentes anidados
 
@@ -456,28 +456,33 @@ function EditProfileForm({ defaultValues }: { defaultValues: FormData }) {
 }
 ```
 
-## Best Practices
+## Buenas Prácticas
 
+- Derivá el tipo del formulario del esquema Zod con `z.infer<typeof schema>`. No dupliques el
+  tipo.
+- Usá `valueAsNumber: true` para inputs de números. Sin él, el valor es un string.
+- Seteá `defaultValues` para todos los campos. react-hook-form funciona mejor con valores
+  iniciales.
+- Usá `mode: "onBlur"` o `mode: "onChange"` para validar en blur o change en vez de solo en
+  submit.
+- Usá `useFieldArray` para listas dinámicas. No manejes índices de arrays manualmente.
+- Usá `FormProvider` cuando los campos del formulario se dividen entre varios componentes hijos.
+- Validá en el esquema, no en el componente. Mantené las reglas de validación en un solo lugar.
+- Para performance, consultá [When to Use useMemo and useCallback](/es/recipes/react-usememo-usecallback-performance/).
 
-- For a deeper guide, see [When to Use useMemo and useCallback](/es/recipes/react-usememo-usecallback-performance/).
+## Errores Comunes
 
-- Siempre deriva el tipo del formulario del esquema Zod con `z.infer<typeof schema>` — no dupliques el tipo
-- Usa `valueAsNumber: true` para inputs de números — sin él, el valor es un string
-- Setea `defaultValues` para todos los campos — react-hook-form funciona mejor con valores iniciales
-- Usa `mode: "onBlur"` o `mode: "onChange"` para validar en blur o change en lugar de solo en submit
-- Usa `useFieldArray` para listas dinámicas — no manages índices de arrays manualmente
-- Usa `FormProvider` cuando los campos del formulario se dividen entre múltiples child components
-- Valida en el esquema, no en el componente — mantén las reglas de validación en un solo lugar
+- **No usar `valueAsNumber`**: los inputs de números retornan strings por defecto. Sin
+  `valueAsNumber`, `z.number()` de Zod falla.
+- **Faltar `defaultValues`**: sin defaults, checkboxes y selects pueden tener valores undefined.
+- **Validar solo en submit**: seteá `mode: "onBlur"` para mejor UX — los usuarios ven errores
+  antes de enviar.
+- **No tipar el resolver**: `useForm<FormData>({ resolver: zodResolver(schema) })`. Sin el
+  generic, los valores del formulario son untyped.
+- **Usar controlled components innecesariamente**: react-hook-form usa uncontrolled components por
+  defecto. No spreades `value` y `onChange` encima de `register`.
 
-## Common Mistakes
-
-- **No usar `valueAsNumber`**: los inputs de números retornan strings por defecto. Sin `valueAsNumber`, `z.number()` de Zod falla.
-- **Faltan `defaultValues`**: sin defaults, checkboxes y selects pueden tener valores undefined.
-- **Validar solo en submit**: setea `mode: "onBlur"` para mejor UX — los usuarios ven errores antes de submittear.
-- **No tipar el resolver**: `useForm<FormData>({ resolver: zodResolver(schema) })` — sin el generic, los valores del formulario son untyped.
-- **Usar controlled components innecesariamente**: react-hook-form usa uncontrolled components por defecto. No spreades `value` y `onChange` encima de `register`.
-
-## FAQ
+## Preguntas Frecuentes
 
 ### ¿Cómo valido en change en lugar de en submit?
 
@@ -490,7 +495,8 @@ useForm<FormData>({
 
 ### ¿Puedo usar react-hook-form sin Zod?
 
-Sí. Usa `register("name", { required: true, minLength: 2 })` para validación inline. Zod es para esquemas complejos y reutilizables.
+Sí. Usá `register("name", { required: true, minLength: 2 })` para validación inline. Zod es para
+esquemas complejos y reutilizables.
 
 ### ¿Cómo seteo un valor de campo programáticamente?
 
@@ -511,7 +517,7 @@ const subscription = watch((value) => console.log(value));
 
 ### ¿Puedo usar react-hook-form con React Native?
 
-Sí. Usa `Controller` para componentes custom:
+Sí. Usá `Controller` para componentes custom:
 
 ```tsx
 import { Controller } from "react-hook-form";
