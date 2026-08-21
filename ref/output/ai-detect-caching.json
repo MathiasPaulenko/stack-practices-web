@@ -1,0 +1,321 @@
+[
+  {
+    "label": "caching-en",
+    "model": "desklib",
+    "model_ai_pct": 45.5,
+    "ai_count": 15,
+    "human_count": 22,
+    "skipped_count": 2,
+    "total": 39,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.2,
+      "stddev": 7.1,
+      "cv": 0.59,
+      "verdict": "natural variation",
+      "sentence_count": 37,
+      "lengths": [
+        17,
+        17,
+        19,
+        8,
+        6,
+        6,
+        6,
+        5,
+        9,
+        11,
+        13,
+        10,
+        11,
+        11,
+        8,
+        16,
+        48,
+        14,
+        12,
+        9,
+        14,
+        11,
+        10,
+        9,
+        7,
+        6,
+        7,
+        13,
+        15,
+        16,
+        10,
+        11,
+        11,
+        16,
+        21,
+        8,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Reducing latency in high-traffic, read-heavy systems.",
+        0.8792
+      ],
+      [
+        "Use the Cache-Control header\nto communicate cacheability to clients and CDNs.",
+        0.85
+      ],
+      [
+        "Offloading load from downstream services.",
+        0.7317
+      ],
+      [
+        "For strong consistency,\nconsider whether caching is appropriate at all.",
+        0.7317
+      ],
+      [
+        "Data changes faster than the cache can be invalidated.",
+        0.7087
+      ],
+      [
+        "A cache stampede happens when many requests simultaneously hit a missing cache key.",
+        0.6744
+      ],
+      [
+        "Storing unbounded caches that grow until out-of-memory.",
+        0.6238
+      ],
+      [
+        "Use Redis when you need a shared cache across several instances, persistence, or advanced\ndata structures.",
+        0.6154
+      ],
+      [
+        "Computing complex mathematical or statistical results.",
+        0.5877
+      ],
+      [
+        "Memoization is a specific form of caching where function return values are\nstored based on their arguments.",
+        0.5485
+      ],
+      [
+        "Yes, if the data is cacheable and the endpoint is read-heavy.",
+        0.536
+      ],
+      [
+        "|Strategy|When to use|Trade-off|\n|----------|-------------|-----------|\n|TTL|Data changes predictably|May serve stale data briefly|\n|Write-through|Consistency is critical|Slower wr",
+        0.526
+      ],
+      [
+        "Calling expensive database queries or API endpoints repeatedly.",
+        0.5198
+      ],
+      [
+        "The working set is larger than available cache memory with no eviction policy.",
+        0.5118
+      ],
+      [
+        "TTL limits staleness,\nmaximum size triggers eviction, and invalidation removes entries when the underlying data\nchanges.",
+        0.5088
+      ],
+      [
+        "On a miss, the cache fetches,\nstores, and returns the value.",
+        0.4932
+      ],
+      [
+        "Ignoring cache consistency in distributed systems.",
+        0.454
+      ],
+      [
+        "Caching is one of the most effective performance\noptimizations, but it adds complexity: stale data, invalidation, and distributed consistency.",
+        0.444
+      ],
+      [
+        "Caching stores the result of expensive computations so subsequent requests for the same data\nare served faster.",
+        0.4405
+      ],
+      [
+        "LFU removes the least frequently used entry and works better when a small set of\nkeys is accessed heavily over time.",
+        0.4313
+      ],
+      [
+        "Version cache keys or include the app version to prevent stale data after deployments.",
+        0.4291
+      ],
+      [
+        "On a hit, it returns the stored value.",
+        0.4271
+      ],
+      [
+        "Use\nlocking, per-key semaphores, or probabilistic early expiration to reduce the load on the\nsource.",
+        0.3668
+      ],
+      [
+        "Caching data that changes too frequently or is rarely requested.",
+        0.3271
+      ],
+      [
+        "In-memory caches are faster but local to a single process.",
+        0.3244
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "caching-es",
+    "model": "desklib",
+    "model_ai_pct": 39.2,
+    "ai_count": 12,
+    "human_count": 26,
+    "skipped_count": 1,
+    "total": 39,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.2,
+      "stddev": 8.2,
+      "cv": 0.62,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        20,
+        19,
+        18,
+        12,
+        6,
+        9,
+        10,
+        5,
+        12,
+        11,
+        15,
+        12,
+        12,
+        11,
+        7,
+        21,
+        57,
+        15,
+        13,
+        6,
+        9,
+        16,
+        13,
+        10,
+        9,
+        10,
+        8,
+        7,
+        15,
+        16,
+        15,
+        12,
+        11,
+        11,
+        13,
+        18,
+        8,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Descargar carga de servicios downstream.",
+        0.8746
+      ],
+      [
+        "Las cach\u00e9s en memoria son m\u00e1s r\u00e1pidas pero locales a un proceso.",
+        0.7915
+      ],
+      [
+        "Si Redis cae, ca\u00e9 en la base de datos.",
+        0.74
+      ],
+      [
+        "Guardar caches sin l\u00edmite que crecen hasta agotar la memoria.",
+        0.7322
+      ],
+      [
+        "Una cach\u00e9 vive entre el llamador y la fuente de datos costosa.",
+        0.6885
+      ],
+      [
+        "La memoizaci\u00f3n es una forma de caching donde los\nvalores de retorno de funciones se almacenan seg\u00fan sus argumentos.",
+        0.6875
+      ],
+      [
+        "Para consistencia fuerte, consider\u00e1\nsi la cach\u00e9 es apropiada en absoluto.",
+        0.6464
+      ],
+      [
+        "Ignorar la consistencia de cach\u00e9 en sistemas distribuidos.",
+        0.6107
+      ],
+      [
+        "Se requiere consistencia fuerte y no se toleran lecturas stale breves.",
+        0.5586
+      ],
+      [
+        "Una cach\u00e9 con menos del 80% de hits suele no valer la complejidad.",
+        0.5113
+      ],
+      [
+        "Olvidar invalidar la cach\u00e9 despu\u00e9s de mutaciones.",
+        0.5068
+      ],
+      [
+        "Calcular resultados matem\u00e1ticos o estad\u00edsticos complejos.",
+        0.5004
+      ],
+      [
+        "Version\u00e1 las claves o inclu\u00ed la versi\u00f3n de la app para evitar datos stale tras deploys.",
+        0.4855
+      ],
+      [
+        "Manej\u00e1 fallos de cach\u00e9 con elegancia.",
+        0.4708
+      ],
+      [
+        "Us\u00e1 el header Cache-Control\npara comunicar cacheabilidad a clientes y CDNs.",
+        0.4235
+      ],
+      [
+        "Cachear datos que cambian muy frecuentemente o raramente se piden.",
+        0.4006
+      ],
+      [
+        "El working set es mayor que la memoria de cach\u00e9 disponible sin pol\u00edtica de evicci\u00f3n.",
+        0.3638
+      ],
+      [
+        "Defin\u00ed TTLs con criterio: muy cortos hacen in\u00fatil la cach\u00e9; muy largos sirven datos stale.",
+        0.3619
+      ],
+      [
+        "No mediste el cuello de botella \u2014 cache\u00e1 solo despu\u00e9s de perfilar.",
+        0.3464
+      ],
+      [
+        "En un hit, devuelve el valor almacenado.",
+        0.3282
+      ],
+      [
+        "Reducir latencia en sistemas de mucho tr\u00e1fico y lectura intensiva.",
+        0.3208
+      ],
+      [
+        "En un miss, la cach\u00e9 obtiene,\nalmacena y devuelve el valor.",
+        0.3139
+      ],
+      [
+        "Los datos cambian m\u00e1s r\u00e1pido de lo que se invalida la cach\u00e9.",
+        0.3013
+      ],
+      [
+        "S\u00ed, si los datos son cacheables y el endpoint es read-heavy.",
+        0.3012
+      ],
+      [
+        "El caching almacena el resultado de computaciones costosas para que requests posteriores por\nlos mismos datos se sirvan m\u00e1s r\u00e1pido.",
+        0.2855
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

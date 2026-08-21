@@ -532,13 +532,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 52.9% / ES 38.0% (0 patterns)
    - Words: 728 | Meta: 159 chars
 
-66. - [ ] **caching** (recipes)
+66. - [x] **caching** (recipes)
    - Metrics: 20 imp | pos 14.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/caching/
    - ES: https://stackpractices.com/es/recipes/caching/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 2,766 | Meta: 134 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.5% / ES 39.2% (0 patterns)
+   - Words: 805 | Meta: 134 chars
 
 67. - [ ] **bridge-pattern** (patterns)
    - Metrics: 16 imp | pos 13.2 | CTR 0.00% | Δ impr 10

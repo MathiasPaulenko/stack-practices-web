@@ -1,33 +1,35 @@
 ---
 contentType: recipes
 slug: caching
-title: "Caching y Memoización"
-description: "Cómo cachear computaciones costosas y respuestas de API usando caches en memoria, LRU y distribuidos en Python, JavaScript y Java."
-metaDescription: "Ejemplos prácticos de caching en Python, JavaScript y Java. Aprende memoización, TTL y estrategias de invalidación de cache."
+title: "Caché y Memoización en Python, JavaScript y Java"
+description: "Cómo cachear computaciones costosas y respuestas de API usando caches en memoria, LRU, TTL y distribuidos en Python, JavaScript y Java."
+metaDescription: "Ejemplos prácticos de caché y memoización en Python, JavaScript y Java. Cubre LRU, TTL, Redis y estrategias de invalidación de caché."
 difficulty: intermediate
 topics:
   - data
+  - performance
 tags:
-  - data
   - caching
+  - memoization
+  - lru
+  - ttl
+  - redis
+  - performance
+  - python
+  - javascript
   - java
-  - parsing
-  - json
 relatedResources:
-  - /recipes/call-rest-api
-  - /recipes/pagination
-  - /patterns/singleton-pattern
-  - /recipes/url-encoding
-  - /recipes/batch-processing-patterns
-  - /recipes/deep-clone-javascript
-  - /recipes/flatten-unflatten-objects
-  - /recipes/money-currency
-  - /recipes/uuid-generation
-lastUpdated: "2026-06-10"
+  - /recipes/redis-cache-aside-pattern
+  - /recipes/nodejs-in-memory-cache-lru
+  - /recipes/java-caffeine-cache-configuration
+  - /recipes/python-redis-cache-decorator
+  - /recipes/multi-level-cache-l1-l2
+  - /recipes/redis-distributed-lock
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Ejemplos prácticos de caching en Python, JavaScript y Java. Aprende memoización, TTL y estrategias de invalidación de cache."
+  metaDescription: "Ejemplos prácticos de caché y memoización en Python, JavaScript y Java. Cubre LRU, TTL, Redis y estrategias de invalidación de caché."
   keywords:
     - caching
     - memoización
@@ -37,28 +39,31 @@ seo:
     - python caching
     - javascript caching
     - java caching
-    - optimización de rendimiento
-
-
-
-
-
+    - rendimiento
 ---
-## Visión general
 
-El caching almacena el resultado de computaciones costosas para que requests posteriores por los mismos datos puedan ser servidos más rápido. La memoización es una forma específica de caching donde los valores de retorno de funciones se cachean basados en sus argumentos.
+## Resumen
 
-El caching es una de las optimizaciones de rendimiento más útiles, pero introduce complejidad: datos stale, invalidación de cache y consistencia distribuida.
+El caching almacena el resultado de computaciones costosas para que requests posteriores por
+los mismos datos se sirvan más rápido. La memoización es una forma de caching donde los
+valores de retorno de funciones se almacenan según sus argumentos. Es una de las
+optimizaciones de rendimiento más efectivas, pero agrega complejidad: datos stale,
+invalidación y consistencia distribuida.
 
-## Cuándo usarlo
+## Cuándo Usar
 
-Usa esta recipe cuando:
+- Llamar repetidamente queries costosas de base de datos o endpoints de API.
+- Calcular resultados matemáticos o estadísticos complejos.
+- Servir datos de configuración estáticos o que cambian poco.
+- Reducir latencia en sistemas de mucho tráfico y lectura intensiva.
+- Descargar carga de servicios downstream.
 
-- Llamas queries de base de datos o [endpoints de API](/recipes/call-rest-api/) costosos repetidamente
-- Computas resultados matemáticos o estadísticos complejos
-- Sirves datos de configuración estáticos o de cambio lento
-- Reduces latencia en sistemas de lectura intensa de alto tráfico. Consulta [Pagination](/recipes/pagination/) para gestionar grandes conjuntos de resultados.
-- Descargas carga de servicios downstream
+## Cuándo NO Usar
+
+- Los datos cambian más rápido de lo que se invalida la caché.
+- Se requiere consistencia fuerte y no se toleran lecturas stale breves.
+- El working set es mayor que la memoria de caché disponible sin política de evicción.
+- No mediste el cuello de botella — cacheá solo después de perfilar.
 
 ## Solución
 
@@ -77,7 +82,7 @@ def fibonacci(n):
 
 print(fibonacci(100))  # Instantáneo, cacheado
 
-# TTL cache con expiración
+# Caché TTL con expiración
 api_cache = TTLCache(maxsize=100, ttl=300)  # 5 minutos
 
 def fetch_user(user_id):
@@ -106,7 +111,7 @@ function memoize(fn) {
 const fib = memoize((n) => (n < 2 ? n : fib(n - 1) + fib(n - 2)));
 console.log(fib(100)); // Instantáneo
 
-// LRU cache con límite de tamaño
+// Caché LRU con límite de tamaño
 class LRUCache {
   constructor(capacity) {
     this.capacity = capacity;
@@ -116,7 +121,7 @@ class LRUCache {
     if (!this.cache.has(key)) return undefined;
     const value = this.cache.get(key);
     this.cache.delete(key);
-    this.cache.set(key, value); // Mover al final (más reciente)
+    this.cache.set(key, value);
     return value;
   }
   set(key, value) {
@@ -130,7 +135,7 @@ class LRUCache {
 }
 ```
 
-### Java
+### Java con Caffeine
 
 ```java
 import com.github.benmanes.caffeine.cache.*;
@@ -140,7 +145,7 @@ Cache<String, User> userCache = Caffeine.newBuilder()
     .expireAfterWrite(Duration.ofMinutes(5))
     .build();
 
-// Get or compute
+// Obtener o computar
 User user = userCache.get(userId, id -> db.findById(id));
 
 // Put manual
@@ -150,203 +155,82 @@ userCache.put(userId, updatedUser);
 userCache.invalidate(userId);
 ```
 
-## Estrategias de Invalidación de Cache
+### Redis cache-aside
 
-| Estrategia | Cuándo usar | Compromiso |
+```python
+import redis
+import json
+
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+
+def get_user(user_id):
+    cached = r.get(f"user:{user_id}")
+    if cached:
+        return json.loads(cached)
+    user = db.find(user_id)
+    r.setex(f"user:{user_id}", 300, json.dumps(user))
+    return user
+```
+
+## Explicación
+
+Una caché vive entre el llamador y la fuente de datos costosa. En un miss, la caché obtiene,
+almacena y devuelve el valor. En un hit, devuelve el valor almacenado. El TTL limita la
+antigüedad, el tamaño máximo dispara la evicción y la invalidación elimina entradas cuando
+los datos subyacentes cambian.
+
+## Variantes
+
+|Estrategia|Cuándo usar|Compromiso|
 |------------|-------------|------------|
-| **TTL (Time To Live)** | Los datos cambian predeciblemente | Puede servir datos stale brevemente |
-| **Write-through** | La consistencia es crítica | Writes más lentos, reads más simples |
-| **Write-behind** | Alto throughput de escritura | Riesgo de pérdida de datos en crash |
-| **Cache-aside** | Flexibilidad, lectura intensiva | La aplicación maneja la lógica de cache |
-| **Eviction (LRU/LFU)** | Restricciones de memoria | Puede evictar datos hot prematuramente |
+|TTL|Los datos cambian predeciblemente|Puede servir datos stale brevemente|
+|Write-through|La consistencia es crítica|Writes más lentos, reads más simples|
+|Write-behind|Alto throughput de escritura|Riesgo de pérdida de datos ante crash|
+|Cache-aside|Flexibilidad, read-heavy|La aplicación maneja la lógica de caché|
+|Evicción (LRU/LFU)|Restricciones de memoria|Puede evictar datos calientes prematuramente|
 
-## Lo que funciona
+## Buenas Prácticas
 
-- **Cachea al nivel correcto**: No cachees todo.   Cachea los datos más costosos y más frecuentemente accedidos.
-- **Establece TTLs consideradamente**: Demasiado corto = inútil.   Demasiado largo = datos stale.
-- **Monitorea hit rates**: Un cache con <80% hit rate generalmente no vale la complejidad.   Consulta [Logging](/recipes/logging/) para métricas de cache.
-- **Maneja fallos de cache graceful**: Si Redis está caído, fallback a la base de datos.   No falles el request.
-- **Versiona cache keys**: Incluye la versión de datos o app en la key para prevenir datos stale después de deploys.
-- **Invalida proactivamente**: Limpia entradas de cache cuando los datos subyacentes cambian, no solo cuando expira el TTL.
+- Cacheá los datos más costosos y los más frecuentes, no todo.
+- Definí TTLs con criterio: muy cortos hacen inútil la caché; muy largos sirven datos stale.
+- Monitoreá hit rates. Una caché con menos del 80% de hits suele no valer la complejidad.
+- Manejá fallos de caché con elegancia. Si Redis cae, caé en la base de datos.
+- Versioná las claves o incluí la versión de la app para evitar datos stale tras deploys.
+- Invalidá proactivamente cuando los datos subyacentes cambian, no solo cuando expira el TTL.
 
-## Errores comunes
+## Errores Comunes
 
-- Cachear datos que cambian demasiado frecuentemente o raramente se solicitan
-- No manejar cache stampede (thundering herd) cuando expira el TTL
-- Almacenar caches sin bounds que crecen hasta out-of-memory
-- Ignorar consistencia de cache en sistemas distribuidos
-- Olvidar invalidar cache después de mutaciones
+- Cachear datos que cambian muy frecuentemente o raramente se piden.
+- No manejar cache stampede cuando expira una clave popular.
+- Guardar caches sin límite que crecen hasta agotar la memoria.
+- Ignorar la consistencia de caché en sistemas distribuidos.
+- Olvidar invalidar la caché después de mutaciones.
 
-## Cuando No Usar Este Enfoque
+## Preguntas Frecuentes
 
-- **Datos de streaming en tiempo real**: si los datos llegan continuamente en chunks pequeÃ±os, el parsing batch es el modelo equivocado.
-- **Archivos mas grandes que la RAM disponible**: parsear un CSV de 50GB con pandas.  read_csv() crashea con MemoryError.
-- **Consultas estructuradas a base de datos**: si la fuente de datos es una base de datos, extraer a CSV/JSON primero y luego parsear es desperdicio.
-- **Lookups simples key-value**: para leer un archivo de config pequeÃ±o (10-20 keys), un parser completo es excesivo.  loads() o csv.
-- **Formatos binarios con librerias dedicadas**: si el archivo es Parquet, Avro u ORC, no lo parsees como CSV/JSON.
-- **Compliance regulatorio que requiere audit trails**: si el procesamiento de datos debe producir un audit trail, los scripts de parsing ad-hoc carecen de trazabilidad.
+### ¿Qué es el cache stampede y cómo lo prevengo?
 
-## Benchmarks de Rendimiento
+Un stampede ocurre cuando muchos requests golpean una clave de caché ausente al mismo tiempo.
+Usá locking, semáforos por clave o expiración temprana probabilística para reducir la carga
+en la fuente.
 
-- **Throughput de parsing CSV**: el modulo csv de Python procesa 100-500 MB/s para rows simples.   pandas.  read_csv() logra 200-800 MB/s con engine='c'.
-- **Latencia de parsing JSON**: json.  loads() en Python parsea 10MB JSON en 50-200ms.   orjson parsea el mismo archivo en 10-30ms.   JSON.
-- **Parsing Excel**: openpyxl lee un Excel de 10,000 rows en 2-5 segundos.   pandas.  read_excel() con engine openpyxl toma 3-8 segundos.   xlrd (legacy .
-- **Parsing XML**: ElementTree parsea 1MB XML en 10-50ms.   lxml (basado en C) parsea el mismo archivo en 2-10ms.
-- **Uso de memoria**: pandas.   Un CSV de 100MB se convierte en 500MB-1GB en un DataFrame.
-- **Parsing paralelo**: leer 4 archivos CSV en paralelo con concurrent.  futures.  ThreadPoolExecutor logra 3x throughput en maquinas de 4 cores.
+### ¿Cuándo uso Redis en vez de una caché en memoria?
 
-## Estrategia de Testing
+Usá Redis cuando necesitás una caché compartida entre instancias, persistencia o estructuras
+de datos avanzadas. Las cachés en memoria son más rápidas pero locales a un proceso.
 
-- **Test con input malformado**: verifica que el parser maneje rows rotos, columnas faltantes, errores de encoding (BOM, UTF-16) y archivos vacios sin crashear.
-- **Test de fidelidad round-trip**: parsea un archivo, serializa de vuelta, y compara.
-- **Test con archivos grandes**: crea un archivo sintetico de 1GB+ y verifica que el parser complete dentro de los limites de memoria.
-- **Test de manejo de encoding**: verifica que el parser maneje UTF-8, UTF-16, Latin-1 y archivos con BOM.
-- **Test de inferencia de delimitador**: Verifica que csv.
-- **Test de acceso concurrente**: si multiples procesos parsean el mismo archivo, verifica que no haya race conditions.
+### ¿Debería cachear respuestas de API?
 
-## Estimacion de Costos
+Sí, si los datos son cacheables y el endpoint es read-heavy. Usá el header `Cache-Control`
+para comunicar cacheabilidad a clientes y CDNs.
 
-- **Costo de compute**: parsear 1TB de archivos CSV en una VM cloud cuesta -10 en compute (dependiendo del tipo de instancia).
-- **Costo de memoria**: el parsing en memoria de archivos grandes requiere instancias high-memory.   Un CSV de 10GB necesita una instancia de 32GB+ RAM (.  50-2.  00/hora en AWS).   La lectura en chunks reduce esto a instancias de 4GB (.  10-0.
-- **Costo de almacenamiento**: los archivos JSON intermedios son 2-5x mas grandes que CSV.   Convertir 1TB CSV a JSON requiere 2-5TB almacenamiento (-50/mes en S3).
-- **Tiempo de desarrollo**: escribir un parser robusto con manejo de errores, deteccion de encoding y type inference toma 4-8 horas.
-- **Infraestructura para jobs batch**: los jobs de parsing programados necesitan una instancia de compute, job scheduler y alerting de errores.
+### ¿Cómo elijo entre evicción LRU y LFU?
 
-## Monitoring y Observabilidad
+LRU elimina el menos recientemente usado y funciona bien cuando hay localidad temporal. LFU
+elimina el menos frecuentemente usado y funciona mejor cuando un pequeño set de claves es
+accedido intensivamente.
 
-- **Tasa de errores de parsing**: Alerta cuando la tasa de error excede 1% del total.
-- **Duracion de parsing**: Un aumento de 3x desde el baseline indica archivos mas grandes o degradacion de performance.
-- **Uso de memoria durante parsing**: monitorea el peak de memoria durante el parsing de archivos.
-- **Validacion de conteo de rows**: Una caida significativa indica perdida silenciosa de datos.
-- **Deteccion de schema drift**: loguea nombres de columnas y tipos en cada parse.   Alerta cuando columnas aparecen, desaparecen o cambian de tipo.
+### ¿Cómo mantengo la caché consistente entre servicios?
 
-## Deployment Checklist
-
-- [ ] Setear limites de tamaÃ±o de archivo: rechazar archivos mas grandes que el maximo configurado (ej. 10GB) para prevenir OOM. Retornar HTTP 413 para uploads via API
-- [ ] Configurar deteccion de encoding: usa chardet o cchardet para deteccion automatica de encoding. Default a UTF-8 pero falla a Latin-1 para archivos legacy
-- [ ] Setear limites de memoria: usa lectura en chunks para archivos >500MB. Configura chunksize en pandas o stream line-by-line para CSV
-- [ ] Implementar logica de retry: errores I/O transitorios (network storage, S3) requieren exponential backoff. Setea max 3 retries con delays de 5-30 segundos
-- [ ] Configurar manejo de errores: decide si saltar rows malas (loguear y continuar) o fail fast. Para pipelines de datos, saltar con logging es usualmente preferido
-- [ ] Setear timeouts: el parsing debe tener una duracion maxima. Mata procesos que excedan 2x el tiempo esperado de parse para prevenir agotamiento de recursos
-
-## Consideraciones de Seguridad
-
-- **Zip bomb via archivos comprimidos**: un ZIP de 10MB puede descomprimirse a 100GB.   Setea limites de tamaÃ±o descomprimido antes de extraer.
-- **Inyeccion XXE (XML External Entity)**: los parsers XML que resuelven entidades externas pueden leakear archivos locales o realizar SSRF.
-- **Inyeccion de formulas via CSV**: archivos Excel y CSV pueden contener formulas empezando con =, +, - o @.   Al abrirse en Excel, estas ejecutan formulas arbitrarias.
-- **Path traversal via nombres de archivo**: si los nombres de archivo vienen de input del usuario, ..  /..  /etc/passwd puede escapar del directorio intencionado.  path.  basename() o pathlib.  Path.
-- **Agotamiento de memoria via archivos grandes**: un atacante puede subir un archivo de 100GB para crashear el parser.
-- **Inyeccion de codigo via eval en datos parseados**: si los datos parseados se pasan a eval(), exec() o Function(), un atacante puede inyectar codigo arbitrario.   Nunca evalues datos parseados.
-- **Bypass basado en encoding**: encoding UTF-7 o UTF-16 puede bypassar filtros de seguridad que esperan UTF-8.
-- **Contenido PDF malicioso**: archivos PDF pueden contener JavaScript, archivos embebidos o acciones de launch.
-- **Inyeccion de logs via newlines en datos parseados**: si los datos parseados se escriben a archivos de log, newlines embebidos pueden forjar entradas de log.
-- **Agotamiento de recursos via estructuras profundamente anidadas**: JSON o XML con 10,000+ niveles de nesting causa stack overflow en parsers recursivos.
-## Variantes y Alternativas
-
-- **Parsers streaming vs batch**: los parsers streaming (SAX, StAX, ijson) procesan dato por dato con memoria O(1).   Los parsers batch (DOM, ElementTree, json.  loads) cargan todo en memoria.
-- **Formatos columnares vs row-based**: Parquet y ORC almacenan datos columna por columna, habilitando column pruning y 10-50x mejor compresion para queries analiticos.
-- **Formatos binarios vs texto**: Protocol Buffers, Avro y MessagePack son 3-10x mas pequeÃ±os que JSON/CSV y parsean 2-5x mas rapido.
-- **I/O mapeado a memoria vs I/O bufferizado**: mmap mapea archivos directamente al espacio de direcciones del proceso, evitando overhead de copia.
-- **Estrategias de parsing paralelo**: divide archivos grandes por byte ranges y parsea chunks en paralelo.   Para CSV, encuentra boundaries de newline antes de dividir.
-- **Enfoques hibridos**: usa un scanner rapido para extraer metadata (headers, conteo de rows, schema) antes del parsing completo.
-
-## Pitfalls Comunes en Produccion
-
-- **Fallos de deteccion de encoding**: Para archivos <1KB, defaulta a UTF-8 en lugar de depender de deteccion.
-- **Inconsistencia de delimitadores**: archivos CSV europeos usan punto y coma.   Archivos US usan comma.   Archivos tab-delimited de Excel usan tabs.   Siempre detecta el delimitador con csv.
-- **Manejo de campos entre comillas**: campos CSV que contienen el delimitador deben ir entre comillas.   Las comillas embebidas deben duplicarse.
-- **Ambiguedad de formato de fecha**:  1/02/2024 es 2 de enero en US y 1 de febrero en Europa.   Siempre parsea fechas con format strings explicitos.
-- **Precision de floating-point en CSV**: escribir  .  1 a CSV y leerlo de vuelta puede producir  .  10000000000000001.
-- **Presion de memoria por archivos Excel grandes**: openpyxl carga el workbook entero en memoria.   Un Excel de 50MB puede usar 500MB+ de RAM.
-ead_only=True o la API streaming de openpyxl para workbooks grandes
-## Patrones de Integracion
-
-- **Integracion con pipeline ETL**: Lee de archivos (extract), transforma con pandas/Polars (transform), escribe a base de datos o data warehouse (load).
-- **Procesamiento de archivos via API**: Retorna un job ID para status polling.
-- **Procesamiento batch vs micro-batch**: batch processing corre nocturnamente en todos los archivos.   Micro-batch procesa archivos cada 15-30 minutos.   Micro-batch reduce latencia pero aumenta costo de infraestructura.
-- **Integracion con schema registry**: registra schemas de archivos en un schema registry (Confluent, Apicurio).   Valida archivos contra el registry antes de procesar.
-- **Patron data lake**: Escribe resultados a un data warehouse (Snowflake, BigQuery).
-- **Procesamiento de archivos event-driven**: cuando un archivo llega a S3, S3 Event Notifications triggera una funcion Lambda.   La funcion parsea el archivo y escribe resultados a una base de datos.
-
-## Manejo de Errores y Recuperacion
-
-- **Procesamiento parcial de archivos**: si un archivo tiene 10,000 rows y la row 5,000 esta malformada, procesa rows 1-4,999, loguea el error, salta la row 5,000, y continua con rows 5,001-10,000.
-- **Dead letter queue para archivos**: archivos que fallan al procesarse van a una dead letter queue (S3 bucket, message queue).   Un proceso separado los reintenta con exponential backoff.
-- **Checkpointing para archivos grandes**: registra el byte offset del ultimo procesado exitosamente.   Si el procesamiento crashea, resumea desde el checkpoint en lugar de reprocesar el archivo entero.
-- **Procesamiento idempotente de archivos**: procesar el mismo archivo dos veces debe producir el mismo resultado.
-- **Circuit breaker para dependencias externas**: si la fuente de archivos (FTP, S3, API) esta caida, abre un circuit breaker despues de 5 fallos consecutivos.   Deja de intentar lecturas por 5 minutos, luego prueba de nuevo.
-- **Degradacion graceful**: si un parser no critico falla (ej.   extraccion de metadata), continua procesando con los datos core.   Loguea el fallo pero no bloquees el pipeline.
-## Tooling y Ecosistema
-
-- **pandas**: la libreria estandar de Python para datos tabulares.   50M+ downloads/mes.   El overhead de memoria es 5-10x el tamaÃ±o del archivo.
-- **Polars**: 2-10x mas rapido que pandas con lazy evaluation.   Escrito en Rust.   Menor uso de memoria.   Reemplazo drop-in para la mayoria de operaciones de pandas.
-- **DuckDB**: base de datos analitica in-process.   Queryea CSV/Parquet/JSON directamente con SQL.   Sin servidor.   2-5x mas rapido que pandas para queries de agregacion.
-- **Apache Arrow**: formato columnar in-memory.   Lecturas zero-copy desde Parquet.   Agnostico del lenguaje (Python, R, Java, JS).   Fundacion para tools modernos de datos (pandas 2.
-- **jq**: procesador de JSON command-line.   Filtra, transforma y queryea JSON con un DSL compacto.   Esencial para pipelines de shell y debugging de respuestas API.
-- **csvkit**: herramientas command-line para archivos CSV.   csvstat muestra estadisticas, csvcut selecciona columnas, csvjoin mergea archivos.
-
-## Resumen de Best Practices
-
-- Siempre especifica encoding explicitamente (encoding='utf-8'). Nunca confies en defaults del sistema
-- Usa lectura en chunks para archivos >500MB. Setea chunksize en pandas o itera line-by-line
-- Valida la estructura del archivo antes del parsing completo. Chequea headers, conteo de rows y tamaÃ±o del archivo
-- Loguea errores de parse con nombre de archivo, numero de linea y mensaje de error para debugging
-- Usa parsers streaming (SAX, ijson) para archivos >1GB para mantener memoria constante
-- Comprime archivos intermedios con gzip o zstd. Parquet es 10-20x mas pequeÃ±o que CSV
-
-
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de data y caching para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica caching y memoización** cuando necesites una solución práctica para data.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Preguntas frecuentes
-
-**P: ¿Qué es cache stampede y cómo lo prevengo?**
-R: El cache stampede ocurre cuando muchos requests golpean simultáneamente una key de cache faltante. Usa locking, semáforos per-key, o expiración temprana probabilística.
-
-**P: ¿Cuándo debería usar Redis en lugar de caching en memoria?**
-R: Usa Redis cuando necesites cache compartido entre múltiples instancias de aplicación, persistencia, o estructuras de datos avanzadas. Consulta [Connection Pooling](/recipes/connection-pooling/) para gestionar conexiones Redis.
-
-**P: ¿Debería cachear respuestas de API?**
-R: Sí, si los datos son cacheables y el endpoint es de lectura intensa. Usa el header Cache-Control para comunicar cacheability a clientes y CDNs.
-
-### ¿Esta solución está lista para producción?
-
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
-
-### ¿Cuáles son las características de rendimiento?
-
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
-
-### ¿Cómo depuro problemas con este enfoque?
-
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Usá TTLs cortos, pub/sub de invalidación o write-through. Para consistencia fuerte, considerá
+si la caché es apropiada en absoluto.

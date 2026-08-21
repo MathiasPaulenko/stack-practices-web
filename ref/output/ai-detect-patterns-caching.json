@@ -1,0 +1,37 @@
+[
+  {
+    "label": "caching",
+    "total_sentences": 39,
+    "pattern_totals": {
+      "missing_contraction": 2,
+      "vague_abstraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "You have not measured the bottleneck \u2014 cache only after profiling.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "have not",
+            "suggestion": "use 'haven't'"
+          },
+          {
+            "pattern": "missing_contraction",
+            "match": "you have",
+            "suggestion": "use 'you've'"
+          }
+        ]
+      },
+      {
+        "sentence": "Use Redis when you need a shared cache across multiple instances, persistence, or advanced\ndata structures.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]

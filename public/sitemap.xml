@@ -8273,7 +8273,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/caching/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/caching/" />
@@ -14120,6 +14120,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/loki/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/loki/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/loki/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/tags/lru/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/lru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/lru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/lru/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/machine-learning/</loc>
@@ -20837,7 +20846,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/caching/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/caching/" />
@@ -26684,6 +26693,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/loki/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/loki/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/loki/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/lru/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/lru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/lru/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/lru/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/machine-learning/</loc>
