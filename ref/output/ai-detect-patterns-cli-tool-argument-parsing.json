@@ -1,0 +1,31 @@
+[
+  {
+    "label": "cli-tool-argument-parsing",
+    "total_sentences": 39,
+    "pattern_totals": {
+      "missing_contraction": 2
+    },
+    "findings": [
+      {
+        "sentence": "For interactive prompts that do not translate well to non-TTY environments.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "do not",
+            "suggestion": "use 'don't'"
+          }
+        ]
+      },
+      {
+        "sentence": "|Language|Library|Style|Best for|\n|--------|-------|-----|--------|\n|Python||Stdlib, imperative|No dependencies, simple scripts|\n|Python||Type hints, modern|Rapid development, auto docs|\n|JavaScript||Fluent chain|Node.js CLI tools, middleware|\n|JavaScript||Declarative, validation|Complex CLIs, nested subcommands|\n|Java||Annotations, GraalVM|Enterprise, native images|\n|Go||Stdlib-like, subcommands|Go CLIs, shell completion|\n|Rust||Derive macros|Type-safe, fast binaries|\nProvide  and  so users do not read source to understand usage.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "do not",
+            "suggestion": "use 'don't'"
+          }
+        ]
+      }
+    ]
+  }
+]

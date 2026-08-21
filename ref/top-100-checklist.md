@@ -492,13 +492,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Title + meta optimized in P1.1
    - Words: 1,550 | Meta: 139 chars
 
-61. - [ ] **cli-tool-argument-parsing** (recipes)
+61. - [x] **cli-tool-argument-parsing** (recipes)
    - Metrics: 15 imp | pos 12.9 | CTR 0.00% | Δ impr -7
    - EN: https://stackpractices.com/recipes/cli-tool-argument-parsing/
    - ES: https://stackpractices.com/es/recipes/cli-tool-argument-parsing/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,734 | Meta: 133 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 53.6% / ES 43.8% (0 patterns)
+   - Words: 1,104 | Meta: 140 chars
 
 62. - [ ] **sql-cte-guide** (guides)
    - Metrics: 33 imp | pos 9.6 | CTR 0.00% | Δ impr 0

@@ -1,0 +1,322 @@
+[
+  {
+    "label": "cli-tool-argument-parsing-en",
+    "model": "desklib",
+    "model_ai_pct": 53.6,
+    "ai_count": 20,
+    "human_count": 18,
+    "skipped_count": 1,
+    "total": 39,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.3,
+      "stddev": 7.4,
+      "cv": 0.61,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        13,
+        13,
+        19,
+        9,
+        11,
+        8,
+        12,
+        17,
+        13,
+        10,
+        25,
+        10,
+        7,
+        10,
+        17,
+        49,
+        14,
+        12,
+        9,
+        9,
+        6,
+        8,
+        11,
+        8,
+        9,
+        11,
+        16,
+        8,
+        13,
+        15,
+        7,
+        17,
+        18,
+        6,
+        6,
+        9,
+        5,
+        6
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Writing scripts that need more than a few arguments to stay maintainable.",
+        0.9855
+      ],
+      [
+        "**JavaScript**: npm install -g or npx.",
+        0.957
+      ],
+      [
+        "When a web UI or dashboard is a better fit for the user.",
+        0.9465
+      ],
+      [
+        "Writing Error: invalid argument without context.",
+        0.9322
+      ],
+      [
+        "Command-line tools are the backbone of developer workflows, DevOps automation, and data\nprocessing.",
+        0.8869
+      ],
+      [
+        "**Python**: pip or pipx via PyPI.",
+        0.8489
+      ],
+      [
+        "Creating data processing or ETL pipelines that run from the terminal.",
+        0.818
+      ],
+      [
+        "This recipe shows how to build a professional CLI with argument\nparsing in Python, JavaScript, Java, Go, and Rust.",
+        0.7779
+      ],
+      [
+        "**Validation** rejects invalid choices, enforces required flags, and checks types.",
+        0.7774
+      ],
+      [
+        "Building internal developer tools, deployment scripts, or automation utilities.",
+        0.6964
+      ],
+      [
+        "Support - for stdin/stdout: cat data.csv | mytool process - > output.json.",
+        0.6934
+      ],
+      [
+        "Building a tool with 20 flags instead of a few subcommands.",
+        0.6721
+      ],
+      [
+        "**Java**: GraalVM native image or JAR.",
+        0.6688
+      ],
+      [
+        "**Subcommands** organize complex tools (git push, git pull, git log).",
+        0.6664
+      ],
+      [
+        "**Go**: single binary via go install or GitHub Releases.",
+        0.6028
+      ],
+      [
+        "**Rust**: cargo install via crates.io.",
+        0.5975
+      ],
+      [
+        "Load a config file as defaults, then let CLI arguments override specific values.",
+        0.5871
+      ],
+      [
+        "A well-designed CLI has clear subcommands, sensible defaults, helpful errors,\nand auto-generated help.",
+        0.5152
+      ],
+      [
+        "Keep secrets in environment variables, not in --api-key arguments.",
+        0.5123
+      ],
+      [
+        "The productivity gain far\noutweighs the dependency cost.",
+        0.5066
+      ],
+      [
+        "Allowing invalid values such as --replicas=-5 to reach the application logic.",
+        0.4915
+      ],
+      [
+        "Say what was expected and what was\n  received.",
+        0.4551
+      ],
+      [
+        "For simple one-off scripts with a couple of flags; plain shell or inline flags may be\n  enough.",
+        0.45
+      ],
+      [
+        "For interactive prompts that don\u2019t translate well to non-TTY environments.",
+        0.4476
+      ],
+      [
+        "Test the core functions directly, then add\na few integration tests that run the binary with subprocess.",
+        0.4364
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "cli-tool-argument-parsing-es",
+    "model": "desklib",
+    "model_ai_pct": 43.8,
+    "ai_count": 16,
+    "human_count": 22,
+    "skipped_count": 1,
+    "total": 39,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.2,
+      "stddev": 7.6,
+      "cv": 0.58,
+      "verdict": "natural variation",
+      "sentence_count": 38,
+      "lengths": [
+        19,
+        16,
+        19,
+        11,
+        12,
+        9,
+        12,
+        16,
+        12,
+        10,
+        29,
+        10,
+        10,
+        10,
+        18,
+        50,
+        14,
+        12,
+        10,
+        9,
+        6,
+        7,
+        11,
+        9,
+        10,
+        14,
+        15,
+        12,
+        17,
+        17,
+        11,
+        16,
+        14,
+        6,
+        6,
+        9,
+        5,
+        7
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**JavaScript**: npm install -g o npx.",
+        0.9833
+      ],
+      [
+        "Hacer una herramienta con 20 flags en vez de varios subcomandos.",
+        0.9193
+      ],
+      [
+        "Hardcodear rutas y asumir el entorno de desarrollo local.",
+        0.8961
+      ],
+      [
+        "Soport\u00e1 - para stdin/stdout: cat data.csv | mytool process - > output.json.",
+        0.8655
+      ],
+      [
+        "Escribir Error: invalid argument sin contexto.",
+        0.8372
+      ],
+      [
+        "Cuando una web UI o dashboard es m\u00e1s adecuada para el usuario.",
+        0.7947
+      ],
+      [
+        "Permitir valores inv\u00e1lidos como --replicas=-5 y que lleguen a la l\u00f3gica de la app.",
+        0.6654
+      ],
+      [
+        "**Python**: pip o pipx v\u00eda PyPI.",
+        0.6374
+      ],
+      [
+        "**Subcomandos** organizan herramientas complejas (git push, git pull, git log).",
+        0.6071
+      ],
+      [
+        "**Java**: imagen nativa de GraalVM o JAR.",
+        0.584
+      ],
+      [
+        "Las herramientas de l\u00ednea de comandos son la base de flujos de desarrollo, automatizaci\u00f3n\nDevOps y procesamiento de datos.",
+        0.5543
+      ],
+      [
+        "Para construir herramientas internas, scripts de deploy o utilidades de automatizaci\u00f3n.",
+        0.5519
+      ],
+      [
+        "La ganancia de productividad supera con\ncreces el costo de la dependencia.",
+        0.5369
+      ],
+      [
+        "Esta receta muestra c\u00f3mo construir\nuna CLI profesional con parseo de argumentos en Python, JavaScript, Java, Go y Rust.",
+        0.5344
+      ],
+      [
+        "**Go**: binario \u00fanico v\u00eda go install o GitHub Releases.",
+        0.5167
+      ],
+      [
+        "**Rust**: cargo install v\u00eda crates.io.",
+        0.5031
+      ],
+      [
+        "**Generaci\u00f3n de ayuda** construye --help a partir de las definiciones.",
+        0.4585
+      ],
+      [
+        "Para scripts simples de una sola vez con pocas flags; shell o flags inline pueden\n  alcanzar.",
+        0.4215
+      ],
+      [
+        "Para exponer funcionalidad a sysadmins y pipelines de CI/CD.",
+        0.3673
+      ],
+      [
+        "En Java, teste\u00e1 el m\u00e9todo call(); en Rust, la l\u00f3gica del match de\nCommands.",
+        0.3469
+      ],
+      [
+        "Para scripts que necesitan m\u00e1s que un par de flags para mantenerse.",
+        0.3447
+      ],
+      [
+        "Carg\u00e1 un archivo de configuraci\u00f3n como default y dej\u00e1 que los argumentos de CLI\nsobrescriban valores espec\u00edficos.",
+        0.3144
+      ],
+      [
+        "Dec\u00ed qu\u00e9 se esperaba y qu\u00e9 lleg\u00f3.",
+        0.3005
+      ],
+      [
+        "Para crear pipelines de procesamiento o ETL que corren desde el terminal.",
+        0.2978
+      ],
+      [
+        "Manten\u00e9 secretos en variables de entorno, no en --api-key.",
+        0.294
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]
