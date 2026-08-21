@@ -1,31 +1,34 @@
 ---
-
 contentType: recipes
 slug: parse-config-files
 title: "Parse and Validate YAML/JSON Configuration"
-description: "How to parse and validate application configuration files using YAML and JSON schemas."
-metaDescription: "Learn to parse and validate YAML and JSON config files in Python, JavaScript, and Java. Covers schema validation, environment-specific configs, and secrets management."
+description: "How to parse and validate application configuration files in YAML and JSON across Python, JavaScript, Java, and Go."
+metaDescription: "Parse and validate YAML and JSON config files in Python, JavaScript, Java, and Go. Covers schema validation, environment overrides, and safe defaults."
 difficulty: beginner
 topics:
   - devops
 tags:
   - devops
+  - yaml
+  - json
+  - config
+  - validation
+  - python
+  - javascript
   - java
-  - ci-cd
-  - automation
-  - deployment
+  - go
 relatedResources:
   - /recipes/input-validation
-  - /recipes/background-jobs
-  - /recipes/cli-tool-argument-parsing
   - /recipes/environment-variables
-  - /recipes/health-check-endpoint
+  - /recipes/cli-tool-argument-parsing
   - /recipes/feature-flags
-lastUpdated: "2026-06-11"
+  - /recipes/docker-compose-local-dev
+  - /recipes/health-check-endpoint
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn to parse and validate YAML and JSON config files in Python, JavaScript, and Java. Covers schema validation, environment-specific configs, and secrets management."
+  metaDescription: "Parse and validate YAML and JSON config files in Python, JavaScript, Java, and Go. Covers schema validation, environment overrides, and safe defaults."
   keywords:
     - config
     - yaml
@@ -35,23 +38,32 @@ seo:
     - python
     - javascript
     - java
-
+    - go
 ---
+
 ## Overview
 
-Most applications need external configuration to adapt behavior across environments (dev, staging, production) without code changes. YAML and JSON are the dominant formats, but parsing alone is not enough — invalid configs cause runtime failures. Here is how to reliable parsing, schema validation, and environment-specific overrides in Python, JavaScript, and Java.
+Most apps need external configuration to behave differently across environments without
+rebuilding. YAML and JSON are the dominant formats, but parsing alone isn't enough.
+Invalid configs cause runtime failures. This recipe shows how to parse a file and
+validate it before the app starts.
 
 ## When to Use
 
-Use this resource when:
-- Loading database credentials, API keys, or feature flags from external files. See [Environment Variables](/recipes/environment-variables/) for runtime secret injection.
-- Supporting multiple deployment environments with different settings. See [Docker Compose Local Dev](/recipes/docker-compose-local-dev/) for local environment parity.
-- Validating user-supplied configuration to fail fast on startup. See [Input Validation](/recipes/input-validation/) for validation patterns.
-- Migrating from hard-coded constants to file-based configuration. See [Bash Scripting Automation](/recipes/bash-scripting-automation/) for migration scripting.
+- Loading database credentials, API keys, or feature flags from external files.
+- Supporting several deployment environments with different settings.
+- Validating user-supplied configuration to fail fast on startup.
+- Migrating from hard-coded constants to file-based configuration.
+
+## When NOT to Use
+
+- For secrets that should never touch disk: use environment variables or a secret
+  manager.
+- When a single environment variable is enough; don't add a config file for one value.
 
 ## Solution
 
-### Python
+### Python with Pydantic
 
 ```python
 import json
@@ -83,7 +95,6 @@ def load_config(path: str) -> AppConfig:
 
     return AppConfig.model_validate(data)
 
-# Usage
 try:
     config = load_config("config.yaml")
     print(config.database.host)
@@ -91,7 +102,7 @@ except ValidationError as e:
     print("Config validation failed:", e)
 ```
 
-### JavaScript
+### JavaScript with Zod
 
 ```javascript
 import { readFileSync } from "fs";
@@ -114,12 +125,10 @@ const appSchema = z.object({
 function loadConfig(path) {
   const raw = readFileSync(path, "utf-8");
   const ext = path.split(".").pop();
-
   const data = ext === "json" ? JSON.parse(raw) : parseYaml(raw);
   return appSchema.parse(data);
 }
 
-// Usage
 try {
   const config = loadConfig("config.yaml");
   console.log(config.database.host);
@@ -128,14 +137,12 @@ try {
 }
 ```
 
-### Java
+### Java with Jackson and Jakarta Validation
 
 ```java
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
+import jakarta.validation.*;
 import jakarta.validation.constraints.*;
 import java.io.File;
 import java.util.Set;
@@ -155,7 +162,7 @@ public class ConfigLoader {
     @NotNull @Valid DatabaseConfig database
   ) {}
 
-  public static AppConfig load(String path) throws Exception {
+  public static AppConfig load(String path) {
     ObjectMapper mapper = path.endsWith(".yaml") || path.endsWith(".yml")
       ? new ObjectMapper(new YAMLFactory())
       : new ObjectMapper();
@@ -171,53 +178,6 @@ public class ConfigLoader {
   }
 }
 ```
-
-## Explanation
-
-- **Parsing** converts raw text into native data structures. YAML is human-friendly; JSON is strict and widely supported.
-- **Schema validation** catches missing fields, wrong types, and invalid ranges before the app starts serving traffic.
-- **Pydantic** (Python) and **Zod** (JavaScript) provide declarative, type-safe schemas with excellent error messages.
-- **Jakarta Validation** (Java) uses annotations on records or classes and integrates with Jackson for smooth YAML/JSON deserialization.
-- **Fail fast** is the key principle: validate at startup so misconfigurations surface immediately rather than during runtime.
-
-## Variants
-
-| Format | Library | Best For |
-|--------|---------|----------|
-| TOML | `toml` (Python), `@iarna/toml` (JS), `toml4j` (Java) | Rust/Cargo-style configs, simpler than YAML |
-| INI | `configparser` (Python), `ini` (JS), `ini4j` (Java) | Simple key-value configs, Windows-style |
-| HOCON | `pyhocon` (Python), Lightbend Config (Java) | Complex configs with includes and variable substitution |
-| Environment Variables | `python-dotenv`, `dotenv` (JS), Spring `@Value` | Secrets and per-env overrides without files |
-
-## What Works
-
-1. **Validate at startup** — never use raw config without schema validation.
-2. **Separate secrets** — store credentials in environment variables or secret managers, never commit them to config files.
-3. **Provide defaults** — use schema defaults for non-critical values to minimize required config.
-4. **Fail with clear errors** — show the exact path and expected type when validation fails.
-5. **Version your schemas** — document breaking changes when config structure evolves.
-
-## Common Mistakes
-
-1. Committing secrets directly into YAML/JSON files in version control.
-2. Ignoring parsing errors and falling back to empty or null values silently.
-3. Using complex nested YAML without validation, leading to cryptic runtime errors.
-4. Not reloading configs after deployment changes, requiring restarts for trivial updates.
-5. Mixing configuration logic with application code instead of a dedicated config layer.
-
-## FAQ
-
-### Should I use YAML or JSON for configuration?
-
-YAML is more readable for humans and supports comments. JSON is simpler to parse and strictly typed. Use YAML for hand-edited files and JSON for machine-generated configs.
-
-### How do I handle secrets in config files?
-
-Never store secrets in plain config files. Use environment variables (`${DB_PASSWORD}`), secret managers (AWS Secrets Manager, Vault), or encrypted files decrypted at runtime.
-
-### Can I reload configuration without restarting the application?
-
-Yes, but carefully. Watch the file for changes and re-parse into an immutable config object. Ensure thread-safe replacement and validation on reload to avoid partial updates.
 
 ### Go
 
@@ -260,26 +220,16 @@ func loadConfig(path string) (*AppConfig, error) {
         return nil, fmt.Errorf("parse: %w", err)
     }
 
-    if config.Database.Host == "" {
-        return nil, fmt.Errorf("database.host is required")
+    if config.Database.Host == "" || config.Database.Port == 0 {
+        return nil, fmt.Errorf("database.host and database.port are required")
     }
     return &config, nil
 }
-
-func main() {
-    config, err := loadConfig("config.yaml")
-    if err != nil {
-        fmt.Printf("Config error: %v\n", err)
-        os.Exit(1)
-    }
-    fmt.Printf("App: %s, DB: %s:%d\n", config.AppName, config.Database.Host, config.Database.Port)
-}
 ```
 
-### Environment Variable Substitution in Config Files
+### Environment variable substitution
 
 ```yaml
-# config.yaml — use env var placeholders
 app_name: "my-service"
 debug: ${DEBUG:false}
 database:
@@ -308,116 +258,69 @@ def load_config_with_env(path: str) -> dict:
     return yaml.safe_load(substitute_env_vars(content))
 ```
 
-### Hot Reload Configuration
+## Explanation
 
-```python
-import os
-import time
-import threading
-from pathlib import Path
+Every example follows the same three steps: read the file, parse it as YAML or JSON, then
+validate the structure and values against a schema.
 
-class HotReloader:
-    def __init__(self, config_path: str, loader_func):
-        self.path = Path(config_path)
-        self.loader = loader_func
-        self._config = None
-        self._mtime = 0
-        self._lock = threading.Lock()
-        self._load()
+**Pydantic** (Python), **Zod** (JavaScript), and **Jakarta Validation** (Java) give you
+declarative, type-safe schemas with clear error messages. In Go, you can use struct tags
+and manual checks.
 
-    def _load(self):
-        with self._lock:
-            self._config = self.loader(str(self.path))
-            self._mtime = self.path.stat().st_mtime
+The point is to fail fast: validate at startup so bad config shows up immediately,
+instead of failing later in production.
 
-    def get(self):
-        current_mtime = self.path.stat().st_mtime
-        if current_mtime != self._mtime:
-            self._load()
-        return self._config
+## Variants
 
-    def watch(self, interval: float = 5.0):
-        def _watch():
-            while True:
-                time.sleep(interval)
-                try:
-                    self.get()
-                except Exception as e:
-                    print(f"Config reload error: {e}")
-        t = threading.Thread(target=_watch, daemon=True)
-        t.start()
-```
+|Format|Library|Best for|
+|------|-------|--------|
+|TOML|`toml` (Python), `@iarna/toml` (JS), `toml4j` (Java)|Rust/Cargo-style configs, simpler than YAML|
+|INI|`configparser` (Python), `ini` (JS), `ini4j` (Java)|Simple key-value configs, Windows style|
+|HOCON|`pyhocon` (Python), Lightbend Config (Java)|Complex configs with includes and substitution|
+|Environment variables|`python-dotenv`, `dotenv` (JS), Spring `@Value`|Secrets and per-env overrides without files|
 
-### Config Merging with Layered Overrides
+## Best Practices
 
-```javascript
-const { readFileSync } = require("fs");
-const { parse } = require("yaml");
+- Validate at startup; don't use raw config without a schema.
+- Keep credentials in environment variables or secret managers, not in config files.
+- Provide sensible defaults to reduce required config.
+- Fail with a clear message that shows the bad path and expected type.
+- Version your config schema and document breaking changes.
+- Cache the parsed config after startup; don't re-parse on every request.
+- Prefer JSON for machine-generated configs; it parses faster than YAML.
 
-function loadLayeredConfig(basePath, envOverridePath) {
-  const base = parse(readFileSync(basePath, "utf-8"));
-  try {
-    const override = parse(readFileSync(envOverridePath, "utf-8"));
-    return deepMerge(base, override);
-  } catch {
-    return base;
-  }
-}
+## Common Mistakes
 
-function deepMerge(target, source) {
-  const result = { ...target };
-  for (const key of Object.keys(source)) {
-    if (typeof source[key] === "object" && !Array.isArray(source[key])) {
-      result[key] = deepMerge(result[key] || {}, source[key]);
-    } else {
-      result[key] = source[key];
-    }
-  }
-  return result;
-}
+- Committing secrets into YAML/JSON files in version control.
+- Ignoring parse errors and silently falling back to empty or null values.
+- Using complex nested YAML without validation, leading to cryptic runtime errors.
+- Not reloading configs after deployment changes, requiring restarts for minor updates.
+- Mixing configuration logic with application code instead of a dedicated layer.
 
-// Usage: base config + environment override
-const config = loadLayeredConfig("config.base.yaml", "config.production.yaml");
-```
+## FAQ
 
+### Should I use YAML or JSON for configuration?
 
+YAML is more readable for humans and supports comments. JSON is simpler to parse and
+strictly typed. Use YAML for hand-edited files and JSON for machine-generated configs.
 
+### How do I handle secrets in config files?
 
-## Performance Tips
+Don't store secrets in plain config files. Use environment variables, secret managers,
+or encrypted files decrypted at runtime.
 
-1. **Cache parsed config.** Parsing YAML/JSON on every request is wasteful. Parse once, share the instance:
+### Can I reload configuration without restarting?
 
-```python
-_config = None
+Yes, but carefully. Watch the file for changes and re-parse into an immutable config
+object. Ensure thread-safe replacement and validation on reload to avoid partial
+updates.
 
-def get_config():
-    global _config
-    if _config is None:
-        _config = load_config("config.yaml")
-    return _config
-```
+### Can I merge a base config with environment overrides?
 
-2. **Use JSON for machine-generated configs.** JSON parsing is 2-5x faster than YAML:
+Yes. Load a base file, then load an environment-specific file and merge it with a deep
+merge. The environment values take precedence.
 
-```python
-# Benchmark: json.loads vs yaml.safe_load on 10KB file
-# json.loads: 0.1ms
-# yaml.safe_load: 0.5ms
-```
+### Do I need a schema if the format is valid YAML/JSON?
 
-3. **Lazy-load config sections.** For large configs, load sections on demand:
-
-```python
-class LazyConfig:
-    def __init__(self, path):
-        self._path = path
-        self._data = None
-
-    def _ensure_loaded(self):
-        if self._data is None:
-            self._data = yaml.safe_load(open(self._path))
-
-    def get(self, key, default=None):
-        self._ensure_loaded()
-        return self._data.get(key, default)
-```
+Yes. Valid syntax doesn't mean valid values. A missing field or wrong type can still
+crash the app at runtime.

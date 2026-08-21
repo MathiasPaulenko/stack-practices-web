@@ -444,13 +444,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.0% / ES 44.8% (0 patterns)
    - Words: 832 | Meta: 136 chars
 
-55. - [ ] **parse-config-files** (recipes)
+55. - [x] **parse-config-files** (recipes)
    - Metrics: 16 imp | pos 16.9 | CTR 0.00% | Δ impr -8
    - EN: https://stackpractices.com/recipes/parse-config-files/
    - ES: https://stackpractices.com/es/recipes/parse-config-files/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,342 | Meta: 167 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 54.9% / ES 37.1% (0 patterns)
+   - Words: 1,033 | Meta: 150 chars
 
 56. - [ ] **complete-guide-local-llm-deployment** (guides)
    - Metrics: 54 imp | pos 35.5 | CTR 0.00% | Δ impr 0

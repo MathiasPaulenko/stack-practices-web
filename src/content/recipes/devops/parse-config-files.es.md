@@ -1,57 +1,70 @@
 ---
-
 contentType: recipes
 slug: parse-config-files
-title: "Analizar y Validar Configuración YAML/JSON"
-description: "Cómo analizar y validar archivos de configuración de aplicaciones usando esquemas YAML y JSON."
-metaDescription: "Analiza y valida archivos de configuración YAML y JSON en Python, JavaScript y Java. Validación de esquemas, configs por entorno y gestión de secretos."
+title: "Parsear y Validar Configuración YAML/JSON"
+description: "Cómo parsear y validar archivos de configuración de aplicaciones en YAML y JSON en Python, JavaScript, Java y Go."
+metaDescription: "Parsea y valida archivos de configuración YAML y JSON en Python, JavaScript, Java y Go. Incluye validación de schema, overrides y valores por defecto."
 difficulty: beginner
 topics:
   - devops
 tags:
   - devops
+  - yaml
+  - json
+  - config
+  - validation
+  - python
+  - javascript
   - java
-  - ci-cd
-  - automation
-  - deployment
+  - go
 relatedResources:
   - /recipes/input-validation
-  - /recipes/background-jobs
-  - /recipes/cli-tool-argument-parsing
   - /recipes/environment-variables
-  - /recipes/health-check-endpoint
+  - /recipes/cli-tool-argument-parsing
   - /recipes/feature-flags
-lastUpdated: "2026-06-11"
+  - /recipes/docker-compose-local-dev
+  - /recipes/health-check-endpoint
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Analiza y valida archivos de configuración YAML y JSON en Python, JavaScript y Java. Validación de esquemas, configs por entorno y gestión de secretos."
+  metaDescription: "Parsea y valida archivos de configuración YAML y JSON en Python, JavaScript, Java y Go. Incluye validación de schema, overrides y valores por defecto."
   keywords:
     - config
     - yaml
     - json
     - validacion
-    - esquema
+    - schema
     - python
     - javascript
     - java
-
+    - go
 ---
-## Visión General
 
-La mayoría de las aplicaciones necesitan configuración externa para adaptar su comportamiento entre entornos (desarrollo, staging, producción) sin modificar el código. YAML y JSON son los formatos dominantes, pero analizarlos no es suficiente: configuraciones inválidas causan fallos en tiempo de ejecución. La solucion a continuacion cubre el análisis confiable, la validación de esquemas y los overrides por entorno en Python, JavaScript y Java.
+## Resumen
+
+La mayoría de las aplicaciones necesitan configuración externa para adaptarse a
+ambientes distintos sin cambiar código. YAML y JSON son los formatos más usados, pero
+parsear no alcanza: una configuración inválida puede romper todo en runtime. Esta
+receta muestra cómo leer archivos y validarlos antes de que la app arranque.
 
 ## Cuándo Usar
 
-Usa este recurso cuando:
-- Cargues credenciales de base de datos, claves de API o feature flags desde archivos externos. Consulta [Environment Variables](/recipes/environment-variables/) para inyección de secretos en runtime.
-- Necesites soportar múltiples entornos de despliegue con diferentes ajustes. Consulta [Docker Compose Local Dev](/recipes/docker-compose-local-dev/) para paridad de entorno local.
-- Quieras validar configuraciones proporcionadas por usuarios para fallar rápido al iniciar. Consulta [Input Validation](/recipes/input-validation/) para patrones de validación.
-- Migres de constantes hard-coded a configuración basada en archivos. Consulta [Bash Scripting Automation](/recipes/bash-scripting-automation/) para scripting de migración.
+- Para cargar credenciales de base de datos, API keys o feature flags desde archivos.
+- Para soportar múltiples ambientes con distintos valores.
+- Para validar configuración provista por el usuario y fallar rápido al inicio.
+- Para migrar constantes hardcodeadas a configuración basada en archivos.
+
+## Cuándo NO Usar
+
+- Para secretos que nunca deberían tocar disco: usá variables de entorno o un gestor de
+  secretos.
+- Cuando una sola variable de entorno alcanza; no agregues un archivo de config para un
+  solo valor.
 
 ## Solución
 
-### Python
+### Python con Pydantic
 
 ```python
 import json
@@ -79,19 +92,18 @@ def load_config(path: str) -> AppConfig:
     elif file_path.suffix == ".json":
         data = json.loads(raw)
     else:
-        raise ValueError(f"Formato de config no soportado: {file_path.suffix}")
+        raise ValueError(f"Unsupported config format: {file_path.suffix}")
 
     return AppConfig.model_validate(data)
 
-# Uso
 try:
     config = load_config("config.yaml")
     print(config.database.host)
 except ValidationError as e:
-    print("Validación de config fallida:", e)
+    print("Config validation failed:", e)
 ```
 
-### JavaScript
+### JavaScript con Zod
 
 ```javascript
 import { readFileSync } from "fs";
@@ -114,28 +126,24 @@ const appSchema = z.object({
 function loadConfig(path) {
   const raw = readFileSync(path, "utf-8");
   const ext = path.split(".").pop();
-
   const data = ext === "json" ? JSON.parse(raw) : parseYaml(raw);
   return appSchema.parse(data);
 }
 
-// Uso
 try {
   const config = loadConfig("config.yaml");
   console.log(config.database.host);
 } catch (err) {
-  console.error("Validación de config fallida:", err.errors);
+  console.error("Config validation failed:", err.errors);
 }
 ```
 
-### Java
+### Java con Jackson y Jakarta Validation
 
 ```java
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
+import jakarta.validation.*;
 import jakarta.validation.constraints.*;
 import java.io.File;
 import java.util.Set;
@@ -155,7 +163,7 @@ public class ConfigLoader {
     @NotNull @Valid DatabaseConfig database
   ) {}
 
-  public static AppConfig load(String path) throws Exception {
+  public static AppConfig load(String path) {
     ObjectMapper mapper = path.endsWith(".yaml") || path.endsWith(".yml")
       ? new ObjectMapper(new YAMLFactory())
       : new ObjectMapper();
@@ -165,59 +173,12 @@ public class ConfigLoader {
     Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
     Set<ConstraintViolation<AppConfig>> violations = validator.validate(config);
     if (!violations.isEmpty()) {
-      throw new IllegalArgumentException("Validación de config fallida: " + violations);
+      throw new IllegalArgumentException("Config validation failed: " + violations);
     }
     return config;
   }
 }
 ```
-
-## Explicación
-
-- **Análisis** convierte texto raw en estructuras de datos nativas. YAML es amigable para humanos; JSON es estricto y ampliamente soportado.
-- **Validación de esquemas** detecta campos faltantes, tipos incorrectos y rangos inválidos antes de que la app empiece a atender tráfico.
-- **Pydantic** (Python) y **Zod** (JavaScript) proporcionan esquemas declarativos y type-safe con excelentes mensajes de error.
-- **Jakarta Validation** (Java) usa anotaciones en records o clases e integra con Jackson para deserialización YAML/JSON directa.
-- **Fail fast** es el principio clave: valida al iniciar para que las configuraciones erróneas se detecten inmediatamente y no en tiempo de ejecución.
-
-## Variantes
-
-| Formato | Librería | Ideal Para |
-|---------|----------|------------|
-| TOML | `toml` (Python), `@iarna/toml` (JS), `toml4j` (Java) | Configs estilo Rust/Cargo, más simple que YAML |
-| INI | `configparser` (Python), `ini` (JS), `ini4j` (Java) | Configs simples clave-valor, estilo Windows |
-| HOCON | `pyhocon` (Python), Lightbend Config (Java) | Configs complejas con includes y sustitución de variables |
-| Variables de Entorno | `python-dotenv`, `dotenv` (JS), Spring `@Value` | Secretos y overrides por entorno sin archivos |
-
-## Lo que funciona
-
-1. **Valida al iniciar** — nunca uses configuración raw sin validación de esquema.
-2. **Separa los secretos** — guarda credenciales en variables de entorno o gestores de secretos, nunca en archivos de config en el repositorio.
-3. **Proporciona defaults** — usa valores por defecto en el esquema para minimizar la config requerida.
-4. **Falla con errores claros** — muestra la ruta exacta y el tipo esperado cuando la validación falla.
-5. **Versiona tus esquemas** — documenta los breaking changes cuando la estructura de config evoluciona.
-
-## Errores Comunes
-
-1. Cometer secretos directamente en archivos YAML/JSON en el control de versiones.
-2. Ignorar errores de parsing y fallback a valores vacíos o nulos silenciosamente.
-3. Usar YAML anidado complejo sin validación, provocando errores crípticos en tiempo de ejecución.
-4. No recargar configs tras cambios de despliegue, requiriendo reinicios para actualizaciones triviales.
-5. Mezclar lógica de configuración con código de aplicación en vez de una capa de config dedicada.
-
-## Preguntas Frecuentes
-
-### ¿Debo usar YAML o JSON para configuración?
-
-YAML es más legible para humanos y soporta comentarios. JSON es más simple de parsear y estrictamente tipado. Usa YAML para archivos editados manualmente y JSON para configs generados por máquinas.
-
-### ¿Cómo manejo secretos en archivos de config?
-
-Nunca almacenes secretos en archivos de config planos. Usa variables de entorno (`${DB_PASSWORD}`), gestores de secretos (AWS Secrets Manager, Vault) o archivos encriptados que se descifren en tiempo de ejecución.
-
-### ¿Puedo recargar configuración sin reiniciar la aplicación?
-
-Sí, pero con cuidado. Observa el archivo por cambios y re-analiza en un objeto de config inmutable. Asegúrate de que el reemplazo sea thread-safe y valida al recargar para evitar actualizaciones parciales.
 
 ### Go
 
@@ -260,26 +221,16 @@ func loadConfig(path string) (*AppConfig, error) {
         return nil, fmt.Errorf("parse: %w", err)
     }
 
-    if config.Database.Host == "" {
-        return nil, fmt.Errorf("database.host is required")
+    if config.Database.Host == "" || config.Database.Port == 0 {
+        return nil, fmt.Errorf("database.host and database.port are required")
     }
     return &config, nil
 }
-
-func main() {
-    config, err := loadConfig("config.yaml")
-    if err != nil {
-        fmt.Printf("Config error: %v\n", err)
-        os.Exit(1)
-    }
-    fmt.Printf("App: %s, DB: %s:%d\n", config.AppName, config.Database.Host, config.Database.Port)
-}
 ```
 
-### Sustitución de Variables de Entorno en Archivos de Config
+### Sustitución de variables de entorno
 
 ```yaml
-# config.yaml — usar placeholders de env vars
 app_name: "my-service"
 debug: ${DEBUG:false}
 database:
@@ -308,116 +259,73 @@ def load_config_with_env(path: str) -> dict:
     return yaml.safe_load(substitute_env_vars(content))
 ```
 
-### Hot Reload de Configuración
+## Explicación
 
-```python
-import os
-import time
-import threading
-from pathlib import Path
+Cada ejemplo hace tres cosas:
 
-class HotReloader:
-    def __init__(self, config_path: str, loader_func):
-        self.path = Path(config_path)
-        self.loader = loader_func
-        self._config = None
-        self._mtime = 0
-        self._lock = threading.Lock()
-        self._load()
+1. Lee el archivo.
+2. Lo parsea como YAML o JSON.
+3. Valida la estructura y los valores contra un schema.
 
-    def _load(self):
-        with self._lock:
-            self._config = self.loader(str(self.path))
-            self._mtime = self.path.stat().st_mtime
+**Pydantic** (Python), **Zod** (JavaScript) y **Jakarta Validation** (Java) dan schemas
+declarativos, seguros y con mensajes de error claros. En Go podés usar struct tags y
+validación manual.
 
-    def get(self):
-        current_mtime = self.path.stat().st_mtime
-        if current_mtime != self._mtime:
-            self._load()
-        return self._config
+La idea clave es **fallar rápido**: validar al arranque para que las malas
+configuraciones aparezcan inmediatamente, no en runtime.
 
-    def watch(self, interval: float = 5.0):
-        def _watch():
-            while True:
-                time.sleep(interval)
-                try:
-                    self.get()
-                except Exception as e:
-                    print(f"Config reload error: {e}")
-        t = threading.Thread(target=_watch, daemon=True)
-        t.start()
-```
+## Variantes
 
-### Merge de Config con Overrides Jerárquicos
+|Formato|Librería|Ideal para|
+|-------|--------|----------|
+|TOML|`toml` (Python), `@iarna/toml` (JS), `toml4j` (Java)|Configs estilo Rust/Cargo, más simples que YAML|
+|INI|`configparser` (Python), `ini` (JS), `ini4j` (Java)|Configs simples clave-valor, estilo Windows|
+|HOCON|`pyhocon` (Python), Lightbend Config (Java)|Configs complejos con includes y substitución|
+|Variables de entorno|`python-dotenv`, `dotenv` (JS), Spring `@Value`|Secrets y overrides por ambiente sin archivos|
 
-```javascript
-const { readFileSync } = require("fs");
-const { parse } = require("yaml");
+## Buenas Prácticas
 
-function loadLayeredConfig(basePath, envOverridePath) {
-  const base = parse(readFileSync(basePath, "utf-8"));
-  try {
-    const override = parse(readFileSync(envOverridePath, "utf-8"));
-    return deepMerge(base, override);
-  } catch {
-    return base;
-  }
-}
+- Validá al inicio; nunca uses config cruda sin un schema.
+- Guardá credenciales en variables de entorno o gestores de secretos, no en archivos de
+  config.
+- Proveé defaults sensatos para reducir la config obligatoria.
+- Fallá con un mensaje claro que indique el path y el tipo esperado.
+- Versioná el schema de config y documentá cambios breaking.
+- Cacheá la config parseada tras el inicio; no la parsees en cada request.
+- Preferí JSON para configs generados por máquina; se parsea más rápido que YAML.
 
-function deepMerge(target, source) {
-  const result = { ...target };
-  for (const key of Object.keys(source)) {
-    if (typeof source[key] === "object" && !Array.isArray(source[key])) {
-      result[key] = deepMerge(result[key] || {}, source[key]);
-    } else {
-      result[key] = source[key];
-    }
-  }
-  return result;
-}
+## Errores Comunes
 
-// Uso: config base + override por entorno
-const config = loadLayeredConfig("config.base.yaml", "config.production.yaml");
-```
+- Commitear secretos en archivos YAML/JSON en el control de versiones.
+- Ignorar errores de parseo y caer silenciosamente a valores vacíos o nulos.
+- Usar YAML anidado complejo sin validación, generando errores crípticos en runtime.
+- No recargar la config tras cambios de deployment, obligando a reiniciar.
+- Mezclar lógica de configuración con código de aplicación.
 
+## Preguntas Frecuentes
 
+### ¿Uso YAML o JSON para configuración?
 
+YAML es más legible para humanos y soporta comentarios. JSON es más simple de parsear y
+estrictamente tipado. Usá YAML para archivos editados a mano y JSON para configs
+producidos por máquinas.
 
-## Tips de Rendimiento
+### ¿Cómo manejo secretos en archivos de config?
 
-1. **Cachea la config parseada.** Parsear YAML/JSON en cada request es desperdicio. Parsea una vez, comparte la instancia:
+No guardes secretos en archivos de config planos. Usá variables de entorno, gestores de
+secretos o archivos encriptados que se desencripten en runtime.
 
-```python
-_config = None
+### ¿Puedo recargar configuración sin reiniciar?
 
-def get_config():
-    global _config
-    if _config is None:
-        _config = load_config("config.yaml")
-    return _config
-```
+Sí, pero con cuidado. Observá el archivo, reparseá en un objeto inmutable y asegurate de
+que el reemplazo sea thread-safe y validado, para evitar updates parciales.
 
-2. **Usa JSON para configs generados por máquinas.** El parsing de JSON es 2-5x más rápido que YAML:
+### ¿Puedo combinar una config base con overrides por ambiente?
 
-```python
-# Benchmark: json.loads vs yaml.safe_load en archivo de 10KB
-# json.loads: 0.1ms
-# yaml.safe_load: 0.5ms
-```
+Sí. Cargá un archivo base, luego uno específico del ambiente y hacé un merge profundo.
+Los valores del ambiente tienen prioridad.
 
-3. **Lazy-load secciones de config.** Para configs grandes, carga secciones on demand:
+### ¿Necesito un schema si el YAML/JSON es válido?
 
-```python
-class LazyConfig:
-    def __init__(self, path):
-        self._path = path
-        self._data = None
-
-    def _ensure_loaded(self):
-        if self._data is None:
-            self._data = yaml.safe_load(open(self._path))
-
-    def get(self, key, default=None):
-        self._ensure_loaded()
-        return self._data.get(key, default)
-```
+Sí. Sintaxis válida no significa valores válidos. Un campo faltante o un tipo incorrecto
+pueden romper la app en runtime.

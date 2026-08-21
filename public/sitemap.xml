@@ -10163,7 +10163,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/parse-config-files/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-config-files/" />
@@ -12527,6 +12527,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/concurrency/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/concurrency/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/concurrency/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/es/tags/config/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/config/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/config/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/config/" />
   </url>
   <url>
     <loc>https://stackpractices.com/es/tags/configuration/</loc>
@@ -22718,7 +22727,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/parse-config-files/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/parse-config-files/" />
@@ -25082,6 +25091,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/concurrency/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/concurrency/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/concurrency/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/tags/config/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/tags/config/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/tags/config/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/tags/config/" />
   </url>
   <url>
     <loc>https://stackpractices.com/tags/configuration/</loc>
