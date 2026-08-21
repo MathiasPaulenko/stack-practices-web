@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: prometheus-monitoring-alerts
 title: "Metrics Collection and Alerting with Prometheus"
-description: "Instrument applications and infrastructure with Prometheus metrics, configure alerting rules, and set up recording rules for efficient monitoring of service health"
-metaDescription: "Instrument applications with Prometheus metrics. Configure alerting rules and recording rules for efficient monitoring of service health and infrastructure."
+description: "Instrument applications and infrastructure with Prometheus metrics, configure alerting rules, and set up recording rules for efficient monitoring."
+metaDescription: "Instrument applications with Prometheus metrics. Configure alerting rules, recording rules, and Alertmanager routing for service health monitoring."
 difficulty: intermediate
 topics:
   - devops
@@ -20,46 +15,53 @@ tags:
   - observability
   - ci-cd
 relatedResources:
-  - /recipes/helm-chart-deployment
-  - /patterns/ambassador-pattern-services
-  - /guides/logging-monitoring-observability-guide
   - /recipes/python-prometheus-metrics-exporter
-  - /recipes/grafana-dashboards-observability
-  - /recipes/distributed-tracing
-  - /recipes/log-aggregation
-  - /recipes/metrics-collection
   - /recipes/prometheus-api-monitoring
-  - /recipes/real-user-monitoring
+  - /recipes/grafana-dashboards-observability
   - /recipes/structured-logging
-lastUpdated: "2026-06-18"
+  - /recipes/log-aggregation
+  - /recipes/helm-chart-deployment
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Instrument applications with Prometheus metrics. Configure alerting rules and recording rules for efficient monitoring of service health and infrastructure."
+  metaDescription: "Instrument applications with Prometheus metrics. Configure alerting rules, recording rules, and Alertmanager routing for service health monitoring."
   keywords:
     - prometheus
     - metrics
     - alerting
     - monitoring
     - service health
-
-
-
-
-
+    - promql
 ---
 
-Instrument services and infrastructure with Prometheus metrics to gain real-time visibility into performance and health. The following demonstrates how to counter, gauge, histogram, and summary metrics, PromQL queries, alerting rules, and recording rules for production monitoring.
+## Overview
 
-## When to Use This
+Prometheus collects time-series metrics by scraping HTTP endpoints that expose data in
+its text format. You instrument your services with counters, gauges, histograms, and
+summaries, then query the data with PromQL and set up alerting rules to notify you when
+something breaks.
 
-- You need quantitative data about application and infrastructure behavior. See [Structured Logging](/recipes/structured-logging/) for correlated event data.
-- Alerting should trigger on symptoms, not just infrastructure failures. See [Health Check Endpoint](/recipes/health-check-endpoint/) for symptom detection.
-- Historical metrics are required for capacity planning and debugging. See [Load Testing](/recipes/load-testing/) for capacity baseline measurement.
+This recipe covers instrumentation, scrape config, recording rules, alerting rules, and
+Alertmanager routing.
+
+## When to Use
+
+- You need numeric, time-stamped data about application and infrastructure behavior.
+- You want alerts based on symptoms (error rate, latency) rather than raw causes.
+- You need precomputed queries for dashboards or fast alerting.
+- You want to route alerts by severity or team.
+
+## When NOT to Use
+
+- For deep debugging of individual events: use logs or traces instead.
+- For long-term storage without planning: Prometheus keeps data locally by default.
+- When you need a push model for metrics: use the Pushgateway only for short-lived
+  jobs.
 
 ## Solution
 
-### 1. Instrument Application Metrics
+### Instrument application metrics
 
 ```typescript
 // metrics/server.ts
@@ -68,7 +70,6 @@ import prometheus from 'prom-client';
 const register = new prometheus.Registry();
 prometheus.collectDefaultMetrics({ register });
 
-// Counter: only increases (requests, errors)
 const httpRequestsTotal = new prometheus.Counter({
   name: 'http_requests_total',
   help: 'Total number of HTTP requests',
@@ -76,14 +77,12 @@ const httpRequestsTotal = new prometheus.Counter({
   registers: [register],
 });
 
-// Gauge: goes up and down (memory, connections)
 const activeConnections = new prometheus.Gauge({
   name: 'active_connections',
   help: 'Number of active connections',
   registers: [register],
 });
 
-// Histogram: request duration buckets
 const httpRequestDuration = new prometheus.Histogram({
   name: 'http_request_duration_seconds',
   help: 'Duration of HTTP requests in seconds',
@@ -92,7 +91,6 @@ const httpRequestDuration = new prometheus.Histogram({
   registers: [register],
 });
 
-// Middleware to record metrics
 function metricsMiddleware(req, res, next) {
   const start = Date.now();
   res.on('finish', () => {
@@ -110,14 +108,13 @@ function metricsMiddleware(req, res, next) {
   next();
 }
 
-// Expose metrics endpoint
 app.get('/metrics', async (req, res) => {
   res.set('Content-Type', register.contentType);
   res.end(await register.metrics());
 });
 ```
 
-### 2. Prometheus Configuration
+### Scrape configuration
 
 ```yaml
 # prometheus.yml
@@ -135,13 +132,9 @@ scrape_configs:
       - targets: ['api:3000']
     metrics_path: '/metrics'
     scrape_interval: 5s
-
-  - job_name: 'node-exporter'
-    static_configs:
-      - targets: ['node-exporter:9100']
 ```
 
-### 3. Alerting Rules
+### Alerting rules
 
 ```yaml
 # rules/alerts.yml
@@ -174,7 +167,7 @@ groups:
           summary: "Slow requests on {{ $labels.route }}"
 ```
 
-### 4. Recording Rules for Efficiency
+### Recording rules
 
 ```yaml
 # rules/records.yml
@@ -191,7 +184,7 @@ groups:
           )
 ```
 
-### 5. Alertmanager Configuration
+### Alertmanager routing
 
 ```yaml
 # alertmanager.yml
@@ -213,171 +206,28 @@ receivers:
     slack_configs:
       - api_url: 'https://hooks.slack.com/services/...'
         channel: '#alerts'
-```
 
-## How It Works
-
-- **Counters** track cumulative events like requests and errors
-- **Gauges** track values that fluctuate like memory and queue depth
-- **Histograms** bucket observations for latency and size distributions
-- **Recording rules** precompute expensive queries for faster dashboards
-- **Alerting rules** evaluate expressions and fire alerts to Alertmanager
-
-## Production Considerations
-
-- Use remote storage (Thanos, Cortex) for long-term retention and HA
-- Keep cardinality low by limiting label values; high cardinality degrades performance
-- Set appropriate `for` durations to prevent flapping alerts
-
-## Common Mistakes
-
-- Using labels with unbounded values like user IDs or session IDs
-- Alerting on causes (CPU usage) instead of symptoms (slow requests)
-- Not grouping alerts, causing alert fatigue from individual failures
-
-## FAQ
-
-**Q: How is this different from logs?**
-A: Metrics are numeric aggregates over time, ideal for trends and thresholds. Logs are discrete events, better for debugging specific incidents.
-
-**Q: Can I use Prometheus without Kubernetes?**
-A: Yes. Prometheus runs as a standalone binary and can scrape any HTTP endpoint that exposes metrics.
-
-### Is this solution production-ready?
-
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
-
-### What are the performance characteristics?
-
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
-
-### How do I debug issues with this approach?
-
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
-
-### Recording Rules for Performance
-
-```yaml
-# rules/recording_rules.yml
-groups:
-  - name: http_metrics
-    interval: 30s
-    rules:
-      - record: job:http_request_rate:5m
-        expr: sum by(job) (rate(http_requests_total[5m]))
-
-      - record: job:http_error_rate:5m
-        expr: sum by(job) (rate(http_requests_total{status=~"5.."}[5m]))
-
-      - record: job:http_p99_latency:5m
-        expr: histogram_quantile(0.99, sum by(job, le) (rate(http_request_duration_seconds_bucket[5m])))
-
-      - record: instance:memory_usage:ratio
-        expr: |
-          (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes)
-          / node_memory_MemTotal_bytes
-```
-
-### Alerting Rules with Severity
-
-```yaml
-# rules/alerting_rules.yml
-groups:
-  - name: service_alerts
-    rules:
-      - alert: HighErrorRate
-        expr: |
-          job:http_error_rate:5m / job:http_request_rate:5m > 0.05
-        for: 5m
-        labels:
-          severity: critical
-          team: platform
-        annotations:
-          summary: "High error rate on {{ $labels.job }}"
-          description: "{{ $labels.job }} has 5%+ error rate for 5 minutes"
-
-      - alert: HighLatency
-        expr: job:http_p99_latency:5m > 2
-        for: 10m
-        labels:
-          severity: warning
-        annotations:
-          summary: "p99 latency above 2s on {{ $labels.job }}"
-
-      - alert: PodCrashLooping
-        expr: rate(kube_pod_container_status_restarts_total[5m]) > 0
-        for: 5m
-        labels:
-          severity: critical
-        annotations:
-          summary: "Pod {{ $labels.pod }} is crash-looping"
-
-      - alert: DiskSpaceLow
-        expr: |
-          (node_filesystem_avail_bytes{mountpoint="/"}
-            / node_filesystem_size_bytes{mountpoint="/"}) * 100 < 10
-        for: 15m
-        labels:
-          severity: warning
-        annotations:
-          summary: "Disk space below 10% on {{ $labels.instance }}"
-```
-
-### Alertmanager Routing
-
-```yaml
-# alertmanager.yml
-route:
-  receiver: default
-  group_by: ['alertname', 'cluster', 'service']
-  group_wait: 30s
-  group_interval: 5m
-  repeat_interval: 4h
-  routes:
-    - matchers:
-        - severity="critical"
-      receiver: pagerduty
-      group_wait: 10s
-      repeat_interval: 1h
-
-    - matchers:
-        - severity="warning"
-      receiver: slack
-      group_wait: 5m
-
-    - matchers:
-        - team="database"
-      receiver: db-team
-
-receivers:
-  - name: default
-    slack_configs:
-      - api_url: 'https://hooks.slack.com/services/...'
-        channel: '#alerts'
-
-  - name: pagerduty
+  - name: 'pagerduty'
     pagerduty_configs:
       - routing_key: 'your-routing-key'
-        severity: critical
 
-  - name: slack
+  - name: 'slack-warnings'
     slack_configs:
       - api_url: 'https://hooks.slack.com/services/...'
         channel: '#warnings'
 
-  - name: db-team
+  - name: 'db-team'
     email_configs:
       - to: 'db-team@example.com'
 ```
 
-### Custom Exporter (Python)
+### Custom Python exporter
 
 ```python
 from prometheus_client import Counter, Histogram, Gauge, start_http_server
 import time
 import random
 
-# Define metrics
 REQUESTS = Counter('app_requests_total', 'Total requests', ['endpoint', 'method'])
 LATENCY = Histogram('app_request_duration_seconds', 'Request latency', ['endpoint'])
 ACTIVE_CONNECTIONS = Gauge('app_active_connections', 'Active connections')
@@ -385,7 +235,6 @@ ACTIVE_CONNECTIONS = Gauge('app_active_connections', 'Active connections')
 def handle_request(endpoint, method):
     start = time.time()
     REQUESTS.labels(endpoint=endpoint, method=method).inc()
-    # Simulate work
     time.sleep(random.uniform(0.01, 0.5))
     LATENCY.labels(endpoint=endpoint).observe(time.time() - start)
 
@@ -397,44 +246,72 @@ if __name__ == '__main__':
         time.sleep(0.1)
 ```
 
+## Explanation
 
+- **Counter**: only goes up. Use it for requests, errors, or completed tasks.
+- **Gauge**: goes up and down. Use it for memory, connections, or queue depth.
+- **Histogram**: counts observations into buckets. Use it for latency or response size.
+- **Summary**: like a histogram, but it computes quantiles on the client side.
+- **Recording rules**: precompute expensive PromQL queries so dashboards load faster.
+- **Alerting rules**: evaluate PromQL expressions and send firing alerts to
+  Alertmanager.
+- **Alertmanager**: groups, silences, and routes alerts to the right receiver.
 
+## Variants
 
-## Performance Tips
+|Exporter type|When to use|
+|-------------|-----------|
+|In-app library|Full control over labels and business metrics|
+|Node exporter|Hardware and OS metrics for Linux/Unix|
+|Blackbox exporter|Probe endpoints from the outside|
+|Pushgateway|Short-lived batch jobs that can't be scraped|
 
-1. **Use recording rules for frequent queries.** Precompute once, query many times:
+## Best Practices
 
-```yaml
-# Compute once every 30s
-- record: job:cpu_usage:5m
-  expr: 100 - avg by(job)(irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100
-```
+- Alert on symptoms (high error rate, latency) rather than causes (CPU usage).
+- Keep label cardinality low; unbounded values like user IDs explode storage.
+- Set a `for` duration that avoids flapping but still matters.
+- Use recording rules for queries that run often in dashboards.
+- Route critical alerts to paging and warnings to chat.
+- Keep Prometheus data retention short; use Thanos or Cortex for long-term storage.
+- Scrape only what you need; `scrape_interval` can be 15s or several minutes.
 
-1. **Limit scrape targets.** Too many targets slow down Prometheus:
+## Common Mistakes
 
-```yaml
-# Only scrape what you need
-scrape_configs:
-  - job_name: 'critical-services'
-    scrape_interval: 15s
-    static_configs:
-      - targets: ['app1:9090', 'app2:9090']  # Not every pod
-```
+- Using high-cardinality labels such as user IDs or session IDs.
+- Alerting on causes instead of symptoms.
+- Not grouping alerts, which floods the on-call channel.
+- Forgetting to set `for`, so every blip pages the team.
+- Retrying sensitive alert routing without a `repeat_interval`.
+- Querying raw metrics in dashboards instead of using recording rules.
 
-1. **Use `scrape_interval` wisely.** 15s for critical, 60s for non-critical:
+## FAQ
 
-```yaml
-scrape_configs:
-  - job_name: 'critical'
-    scrape_interval: 15s
-  - job_name: 'batch'
-    scrape_interval: 60s
-```
+### How are metrics different from logs?
 
-1. **Use Thanos for long-term storage.** Don't keep everything in local Prometheus:
+Metrics are numeric aggregates over time, ideal for trends and thresholds. Logs are
+discrete events, better for debugging specific incidents.
 
-```yaml
-# Thanos sidecar config
---objstore.config-file=thanos-bucket.yaml
---tsdb.path=/prometheus/data
-```
+### Can I use Prometheus without Kubernetes?
+
+Yes. Prometheus runs as a standalone binary and can scrape any HTTP endpoint that
+exposes metrics.
+
+### What is the difference between a histogram and a summary?
+
+A histogram buckets observations on the server and is aggregatable across instances. A
+summary computes quantiles on the client and can't be averaged across instances.
+
+### When should I use the Pushgateway?
+
+Only for short-lived batch jobs that finish before Prometheus can scrape them. Don't
+use it for long-running services.
+
+### How do I choose the `for` duration?
+
+Set it long enough to avoid noise but short enough to matter. Two to five minutes is a
+common starting point.
+
+### What status codes should trigger alerts?
+
+Alert on sustained high error rates (5xx) or latency, not on a single failed request.

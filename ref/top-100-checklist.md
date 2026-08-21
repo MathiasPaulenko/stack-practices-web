@@ -428,13 +428,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 51.3% / ES 34.2% (0 patterns)
    - Words: 1,028 | Meta: 134 chars
 
-53. - [ ] **prometheus-monitoring-alerts** (recipes)
+53. - [x] **prometheus-monitoring-alerts** (recipes)
    - Metrics: 45 imp | pos 34.7 | CTR 0.00% | Δ impr 29
    - EN: https://stackpractices.com/recipes/prometheus-monitoring-alerts/
    - ES: https://stackpractices.com/es/recipes/prometheus-monitoring-alerts/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,138 | Meta: 156 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.3% / ES 38.2% (0 patterns)
+   - Words: 981 | Meta: 147 chars
 
 54. - [ ] **database-views-materialized** (recipes)
    - Metrics: 25 imp | pos 23.6 | CTR 0.00% | Δ impr 9
