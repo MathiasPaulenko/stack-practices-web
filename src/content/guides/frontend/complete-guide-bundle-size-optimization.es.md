@@ -1,14 +1,9 @@
 ---
-
-
-
-
-
 contentType: guides
 slug: complete-guide-bundle-size-optimization
-title: "Bundle Size Optimization"
-description: "Reducir JavaScript bundle size. Cubre tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression, polyfill management y bundle monitoring con ejemplos practicos de webpack, Vite y Rollup."
-metaDescription: "Guía para reducir el tamaño de bundles JavaScript: tree shaking, code splitting, imports dinámicos, lazy loading y monitoreo con webpack, Vite y Rollup."
+title: "Optimización de Bundle Size: Guía Práctica"
+description: "Reducí el tamaño de bundles JavaScript con tree shaking, code splitting, imports dinámicos, análisis de dependencias y monitoreo para webpack, Vite y Rollup."
+metaDescription: "Reducí el tamaño de bundles JavaScript con tree shaking, code splitting, imports dinámicos, análisis de dependencias y monitoreo para webpack, Vite y Rollup."
 difficulty: advanced
 topics:
   - frontend
@@ -16,10 +11,13 @@ topics:
 tags:
   - performance
   - frontend
-  - guide
   - bundle-size
   - code-splitting
+  - tree-shaking
   - javascript
+  - webpack
+  - vite
+  - rollup
 relatedResources:
   - /guides/complete-guide-web-performance-core-web-vitals
   - /guides/complete-guide-react-19-features
@@ -27,11 +25,11 @@ relatedResources:
   - /recipes/javascript-debounce-throttle-implementation
   - /recipes/javascript-event-loop
   - /recipes/web-performance
-lastUpdated: "2026-07-04"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Guía para reducir el tamaño de bundles JavaScript: tree shaking, code splitting, imports dinámicos, lazy loading y monitoreo con webpack, Vite y Rollup."
+  metaDescription: "Reducí el tamaño de bundles JavaScript con tree shaking, code splitting, imports dinámicos, análisis de dependencias y monitoreo para webpack, Vite y Rollup."
   keywords:
     - bundle size optimization
     - tree shaking
@@ -41,18 +39,31 @@ seo:
     - vite optimization
     - lazy loading
     - module federation
-
-
-
-
-
 ---
 
-## Introducción
+## Resumen
 
-Large JavaScript bundles slowean page load, increase TTI, y hurt Core Web Vitals. A continuacion se cubre tree shaking, code splitting, dynamic imports, dependency analysis, module federation, lazy loading, compression, y bundle monitoring con practical examples para webpack, Vite, y Rollup.
+Bundles de JavaScript grandes ralentizan la carga de la página, aumentan el Time to
+Interactive y perjudican los Core Web Vitals. Esta guía cubre técnicas prácticas para
+reducir el tamaño del bundle: medición, análisis, tree shaking, code splitting, imports
+dinámicos, reemplazo de dependencias, compresión, manejo de polyfills y monitoreo para
+webpack, Vite y Rollup.
 
-## Analyzing Bundle Size
+## Cuándo Usar
+
+- La carga inicial es lenta y Lighthouse reporta payloads grandes de JavaScript.
+- Una auditoría de dependencias muestra librerías sobredimensionadas o duplicadas.
+- Rutas o componentes fuera de pantalla pueden cargarse más tarde.
+- Necesitás definir budgets de bundle en CI.
+
+## Cuándo NO Usar
+
+- El bundle ya es pequeño y el cuello de botella es la red o el tiempo de respuesta del
+  servidor.
+- Estás optimizando antes de medir — usá un profiler primero.
+- El proyecto usa server-side rendering y el tamaño del HTML pesa más que el bundle JS.
+
+## Análisis del Bundle Size
 
 ### Webpack Bundle Analyzer
 
@@ -62,7 +73,7 @@ npm install -D webpack-bundle-analyzer
 
 ```javascript
 // webpack.config.js
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 module.exports = {
   plugins: [
@@ -100,84 +111,51 @@ export default {
 
 ```bash
 npm install -D source-map-explorer
-
-# Despues de build
 npx source-map-explorer dist/*.js
-```
-
-### Package Size Check
-
-```bash
-# Checkea package size antes de install
-npx bundlephobia <package-name>
-
-# Checkea que hay dentro de un package
-npx package-size lodash lodash-es date-fns dayjs
-
-# Import cost ESLint plugin
-npm install -D eslint-plugin-import-cost
 ```
 
 ## Tree Shaking
 
-Tree shaking removee unused exports de tu bundle. Requiere ES modules (ESM) y un bundler que lo soporte.
+El tree shaking elimina exports no usados. Requiere ES modules y un build de producción.
 
 ```javascript
-// Bad: importa entire lodash (72KB gzipped)
+// Mal: importa todo lodash
 import _ from "lodash";
 const result = _.chunk([1, 2, 3, 4], 2);
 
-// Good: importa solo chunk (1KB gzipped)
-import chunk from "lodash/chunk";
-const result = chunk([1, 2, 3, 4], 2);
-
-// Best: usa lodash-es con tree shaking
+// Bien: importá solo la función
 import { chunk } from "lodash-es";
 const result = chunk([1, 2, 3, 4], 2);
-
-// O usa date-fns en vez de moment.js (67KB vs 293KB)
-import { format } from "date-fns";
-const date = format(new Date(), "yyyy-MM-dd");
 ```
 
-### Enabling Tree Shaking en Webpack
+### Webpack
 
 ```javascript
 // webpack.config.js
 module.exports = {
-  mode: "production",  // Required para tree shaking
+  mode: "production",
   optimization: {
-    usedExports: true,  // Mark unused exports
-    sideEffects: true,  // Skip files sin side effects
+    usedExports: true,
+    sideEffects: false,
   },
 };
+```
 
-// package.json — markea tu package como side-effect free
+```json
+// package.json
 {
-  "sideEffects": false  // Todos los files son pure
-}
-
-// O specifica files con side effects
-{
-  "sideEffects": ["./src/polyfills.js", "*.css"]
+  "sideEffects": ["*.css", "./src/polyfills.js"]
 }
 ```
 
-### Enabling Tree Shaking en Vite
+### Vite
 
 ```javascript
-// vite.config.js — Vite usa Rollup que tree-shakea by default
+// vite.config.js
 export default {
   build: {
     rollupOptions: {
-      treeshake: true,  // Enabled by default
-      output: {
-        manualChunks: {
-          // Split vendor chunks
-          "react-vendor": ["react", "react-dom"],
-          "ui-vendor": ["@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu"],
-        },
-      },
+      treeshake: true,
     },
   },
 };
@@ -185,15 +163,13 @@ export default {
 
 ## Code Splitting
 
-### Route-based Splitting
+### Splitting por ruta en React
 
 ```tsx
-// React — lazy load routes
 import { lazy, Suspense } from "react";
 
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
   return (
@@ -201,32 +177,25 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Suspense>
   );
 }
 ```
 
-### Component-based Splitting
+### Splitting por componente
 
 ```tsx
-// Lazy load heavy components
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 
-// Code-split un chart library (200KB+)
 const Chart = lazy(() => import("./components/Chart"));
-
-// Code-split un markdown editor (150KB+)
-const MarkdownEditor = lazy(() => import("./components/MarkdownEditor"));
 
 function Dashboard() {
   const [showChart, setShowChart] = useState(false);
-  
+
   return (
     <div>
-      <button onClick={() => setShowChart(true)}>Show Chart</button>
-      
+      <button onClick={() => setShowChart(true)}>Show chart</button>
       {showChart && (
         <Suspense fallback={<div className="chart-skeleton" />}>
           <Chart data={chartData} />
@@ -237,7 +206,7 @@ function Dashboard() {
 }
 ```
 
-### Webpack SplitChunks
+### Webpack splitChunks
 
 ```javascript
 // webpack.config.js
@@ -245,12 +214,8 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: "all",
-      minSize: 20000,      // 20KB minimum
-      maxSize: 244000,     // 244KB maximum per chunk
-      minChunks: 1,
-      maxAsyncRequests: 30,
-      maxInitialRequests: 30,
-      automaticNameDelimiter: "~",
+      minSize: 20000,
+      maxSize: 244000,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
@@ -258,155 +223,79 @@ module.exports = {
           chunks: "all",
           priority: 10,
         },
-        common: {
-          name: "common",
-          minChunks: 2,
-          chunks: "all",
-          priority: 5,
-          reuseExistingChunk: true,
-        },
       },
     },
   },
 };
 ```
 
-## Dynamic Imports
+## Imports Dinámicos
 
 ```javascript
-// Dynamic import returnea un promise
+// Cargar módulo bajo demanda
 const module = await import("./heavy-module.js");
 module.doSomething();
 
-// Prefetch: loadea durante idle time
-const prefetchModule = () => import("./heavy-module.js");
+// Prefetch al pasar el mouse
+button.addEventListener("mouseenter", () => {
+  import(/* webpackPrefetch: true */ "./Chart");
+}, { once: true });
 
-// Prefetch en hover
-button.addEventListener("mouseenter", prefetchModule, { once: true });
-
-// Prefetch en link hover
-document.querySelectorAll('a[href^="/dashboard"]').forEach((link) => {
-  link.addEventListener("mouseenter", () => {
-    import("./pages/Dashboard");
-  }, { once: true });
-});
-```
-
-```html
-<!-- Webpack magic comments -->
-<script>
-// Prefetch: loadea durante idle time
-import(/* webpackPrefetch: true */ "./Chart");
-
-// Preload: loadea in parallel con parent chunk
+// Preload de chunk crítico en paralelo
 import(/* webpackPreload: true */ "./CriticalChart");
-
-// Named chunk
-import(/* webpackChunkName: "chart" */ "./Chart");
-
-// Combine
-import(
-  /* webpackChunkName: "chart" */
-  /* webpackPrefetch: true */
-  "./Chart"
-);
-</script>
 ```
 
-## Dependency Replacement
+## Reemplazo de Dependencias
 
-```text
-Common replacements para reduce bundle size:
+Cambios comunes que reducen el tamaño del bundle:
 
-moment.js (293KB) → date-fns (13KB) o dayjs (2KB)
-lodash (72KB) → lodash-es (tree-shakeable) o native methods
-axios (13KB) → fetch (0KB, native)
-rxjs (47KB) → smaller reactive libs o native observables
-uuid (7KB) → crypto.randomUUID() (native, 0KB)
-
-Checkea sizes en bundlephobia.com antes de install.
-Siempre preferi native browser APIs cuando esten available.
-```
+|Desde|Hasta|Ahorro|
+|-----|-----|------|
+|moment.js (293KB)|date-fns (13KB) o dayjs (2KB)|grande|
+|lodash|lodash-es o métodos nativos|grande|
+|axios|fetch nativo|13KB|
+|uuid|crypto.randomUUID()|7KB|
 
 ```javascript
-// Reemplaza lodash con native methods
-// Bad
-import { map, filter, reduce } from "lodash";
-
-// Good — native array methods
+// Reemplazá lodash por métodos nativos de array
 const result = array
   .map((x) => x * 2)
   .filter((x) => x > 10)
   .reduce((sum, x) => sum + x, 0);
 
-// Reemplaza uuid con native crypto
-// Bad
-import { v4 as uuidv4 } from "uuid";
-const id = uuidv4();
-
-// Good — native crypto
+// Reemplazá uuid por crypto nativo
 const id = crypto.randomUUID();
 
-// Reemplaza axios con fetch
-// Bad
-import axios from "axios";
-const { data } = await axios.get("/api/users");
-
-// Good — native fetch
+// Reemplazá axios por fetch
 const res = await fetch("/api/users");
 const data = await res.json();
 ```
 
-## Compression
+Consultá tamaños en bundlephobia.com antes de instalar un paquete nuevo.
+
+## Compresión
+
+### Compresión en build
 
 ```javascript
-// webpack — gzip y brotli compression
-const CompressionPlugin = require("compression-webpack-plugin");
-const BrotliPlugin = require("brotli-webpack-plugin");
-
-module.exports = {
-  plugins: [
-    new CompressionPlugin({
-      filename: "[path][base].gz",
-      algorithm: "gzip",
-      test: /\.(js|css|html|svg)$/,
-      threshold: 10240,  // Solo comprimir files > 10KB
-      minRatio: 0.8,
-    }),
-    new BrotliPlugin({
-      asset: "[path].br",
-      test: /\.(js|css|html|svg)$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
-  ],
-};
-```
-
-```javascript
-// Vite — compression plugin
+// Vite con vite-plugin-compression2
 import { compression } from "vite-plugin-compression2";
 
 export default {
   plugins: [
-    compression({
-      algorithm: "gzip",
-      threshold: 10240,
-    }),
-    compression({
-      algorithm: "brotliCompress",
-      threshold: 10240,
-    }),
+    compression({ algorithm: "gzip", threshold: 10240 }),
+    compression({ algorithm: "brotliCompress", threshold: 10240 }),
   ],
 };
 ```
 
+### Nginx con archivos precomprimidos
+
 ```nginx
-# Nginx — serve pre-compressed files
 server {
   gzip_static on;
   brotli_static on;
-  
+
   location /assets/ {
     expires 1y;
     add_header Cache-Control "public, immutable";
@@ -414,41 +303,34 @@ server {
 }
 ```
 
-## Polyfill Management
+Serví brotli primero; gzip es el fallback para navegadores antiguos.
+
+## Manejo de Polyfills
 
 ```javascript
-// Bad: importando all polyfills
+// Mal: importar todos los polyfills
 import "core-js/stable";
-import "regenerator-runtime/runtime";
 
-// Good: targeted polyfills
+// Bien: importar solo lo necesario
 import "core-js/stable/promise";
 import "core-js/stable/array/flat";
-import "core-js/stable/object/fromentries";
 
-// Best: usa .browserslistrc para auto-detect
-// .browserslistrc
-// > 0.5%
-// last 2 versions
-// not dead
-// not ie 11
-
+// Mejor: dejar que Babel inyecte polyfills por uso
 // babel.config.js
 module.exports = {
   presets: [
-    ["@babel/preset-env", {
-      useBuiltIns: "usage",  // Solo polyfill lo que se usa
-      corejs: 3,
-    }],
+    ["@babel/preset-env", { useBuiltIns: "usage", corejs: 3 }],
   ],
 };
 ```
 
 ## Module Federation
 
+Usá module federation para compartir dependencias entre micro-frontends en runtime.
+
 ```javascript
-// webpack.config.js — host app
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+// webpack.config.js — host
+const { ModuleFederationPlugin } = require("webpack").container;
 
 module.exports = {
   plugins: [
@@ -464,27 +346,10 @@ module.exports = {
     }),
   ],
 };
-
-// webpack.config.js — remote app
-module.exports = {
-  plugins: [
-    new ModuleFederationPlugin({
-      name: "remoteApp",
-      filename: "remoteEntry.js",
-      exposes: {
-        "./Widget": "./src/Widget",
-      },
-      shared: {
-        react: { singleton: true },
-        "react-dom": { singleton: true },
-      },
-    }),
-  ],
-};
 ```
 
 ```tsx
-// Host app — lazy load remote component
+// Host app
 import { lazy, Suspense } from "react";
 
 const RemoteWidget = lazy(() => import("remoteApp/Widget"));
@@ -498,10 +363,25 @@ function App() {
 }
 ```
 
-## Bundle Monitoring
+## Monitoreo del Bundle
+
+### Budgets de tamaño en webpack
 
 ```javascript
-// CI/CD — size limits
+// webpack.config.js
+module.exports = {
+  performance: {
+    hints: "warning",
+    maxAssetSize: 244000,
+    maxEntrypointSize: 244000,
+    assetFilter: (filename) => !filename.endsWith(".map"),
+  },
+};
+```
+
+### Chequeo de tamaño en CI con bundlesize
+
+```json
 // package.json
 {
   "scripts": {
@@ -509,62 +389,63 @@ function App() {
   },
   "bundlesize": [
     { "path": "dist/assets/*.js", "maxSize": "100KB" },
-    { "path": "dist/assets/*.css", "maxSize": "20KB" },
-    { "path": "dist/assets/vendor*.js", "maxSize": "150KB" }
+    { "path": "dist/assets/*.css", "maxSize": "20KB" }
   ]
 }
-
-// GitHub Actions — bundle size check
-// .github/workflows/size-check.yml
-// - name: Check bundle size
-//   run: npm run size-check
 ```
 
-```javascript
-// Bundle budget en webpack
-module.exports = {
-  performance: {
-    hints: "warning",  // o "error"
-    maxAssetSize: 244000,       // 244KB
-    maxEntrypointSize: 244000,  // 244KB
-    assetFilter: (filename) => {
-      return !filename.endsWith(".map");
-    },
-  },
-};
-```
+## Buenas Prácticas
+
+- Medí primero con un bundle analyzer.
+- Preferí APIs nativas sobre librerías cuando sea posible.
+- Dividí por ruta, luego por componentes pesados.
+- Revisá los diffs de snapshots antes de correr `vitest -u`.
+- Definí budgets de bundle en CI y fallá builds que los superen.
+- Comprimí assets con gzip y brotli.
+
+## Errores Comunes
+
+- **Adivinar el cuello de botella** — analizá antes de cambiar dependencias.
+- **Importar librerías completas** — `import _ from "lodash"` trae todo el paquete.
+- **Dividir en demasiados chunks** — cientos de chunks chicos perjudican el cache y el
+  overhead HTTP.
+- **Ignorar la compresión** — servir JS sin comprimir desperdicia ancho de banda.
+- **Olvidar el scope de polyfills** — los polyfills globales hinchan navegadores modernos.
+- **Sobre-ingeniería con module federation** — agrega complejidad para equipos pequeños.
 
 ## Preguntas Frecuentes
 
-### ¿Qué es tree shaking y cómo funciona?
+### ¿Qué es el tree shaking y cómo funciona?
 
-Tree shaking es dead code elimination para ES modules. El bundler analiza tu import/export graph y removee exported code que nunca es imported. Requiere ES module syntax (`import`/`export`), no CommonJS (`require`). En webpack, enablea `mode: "production"` y markea tu package con `"sideEffects": false` en package.json. En Vite/Rollup, tree shaking esta enabled by default. El key requirement es que tu code usa ESM y no tiene side effects (top-level mutations) que el bundler no pueda detectar.
+El tree shaking elimina exports no usados de los ES modules. Necesita sintaxis
+`import`/`export`, un build de producción y paquetes marcados como libres de side effects.
+Webpack requiere `mode: "production"`; Vite y Rollup lo hacen por defecto.
 
-### ¿Cómo diferiere code splitting de tree shaking?
+### ¿En qué se diferencia el code splitting del tree shaking?
 
-Tree shaking removee unused code del bundle entirely. Code splitting breakea el bundle en smaller chunks que se loadean on demand. Tree shaking reduce total code size. Code splitting reduce initial load size defiriendo non-critical code para later. Usa ambos: tree shake para remove dead code, luego code split para loadear solo lo needed para el initial page. Route-based splitting es el mas impactful — cada route gets su own chunk.
+El tree shaking elimina código muerto. El code splitting divide el bundle en chunks más
+pequeños que se cargan bajo demanda. Usá ambos: tree shake primero, luego dividí por ruta o
+componente pesado.
 
 ### ¿Cuál es la diferencia entre prefetch y preload?
 
-Prefetch descarga un resource durante idle time para future use — el resource loadea despues de que la current page este done. Preload descarga un resource immediately in parallel con la current page — tiene higher priority. Usa prefetch para chunks que el user probablemente necesite next (next route, feature que might clickear). Usa preload para critical resources needed para la current page (fonts, critical CSS, LCP image). En webpack, usa `/* webpackPrefetch: true */` y `/* webpackPreload: true */` magic comments.
+Prefetch carga un recurso durante el tiempo ocioso para uso futuro probable. Preload lo
+carga inmediatamente en paralelo con la página actual. Usá `webpackPrefetch` para las
+siguientes rutas y `webpackPreload` para assets críticos de la página actual.
 
-### ¿Cómo se que dependencies estan bloatando mi bundle?
+### ¿Cómo sé qué dependencias están hinchando mi bundle?
 
-Usa `webpack-bundle-analyzer` o `rollup-plugin-visualizer` para ver un treemap de tu bundle. Large blocks indican large dependencies. Checkea package sizes en bundlephobia.com antes de install. Usa `npm ls` para findar duplicate dependencies. Busca packages imported multiple times con different versions. Reemplaza large libraries con smaller alternatives: moment.js con date-fns, lodash con native methods, axios con fetch. Auditea tu bundle regularmente a medida que dependencies grow.
+Usá `webpack-bundle-analyzer`, `rollup-plugin-visualizer` o `source-map-explorer`. Consultá
+los tamaños en bundlephobia.com antes de instalar. Ejecutá `npm ls` para detectar
+dependencias duplicadas.
 
-### ¿Deberia usar gzip o brotli compression?
+### ¿Debería usar gzip o brotli?
 
-Usa ambos. Brotli comprime 15-25% better que gzip para text files (JS, CSS, HTML). Todos los modern browsers soportan brotli. Genera tanto `.gz` como `.br` files durante build. Configura tu server para servear brotli first, gzip como fallback. Nginx: `brotli_static on; gzip_static on;`. CDN: most CDNs auto-compressen on the fly. Solo comprimir files arriba de 10KB — smaller files pueden actually get larger con compression overhead.
+Usá ambos. Brotli comprime texto 15-25% mejor. Serví `.br` primero y `.gz` como fallback. La
+mayoría de CDNs y hosts estáticos soportan brotli.
 
-### ¿Cómo affectan module federation y micro-frontends el bundle size?
+### ¿Cómo afectan module federation y micro-frontends al bundle size?
 
-Module federation permite que multiple applications shareean JavaScript bundles at runtime. Cada micro-frontend expone sus modules via un remote entry file. El host app loadea remote modules on demand. Shared dependencies (como React) se loadean once y se sharean across all micro-frontends. Esto reduce duplicate code y permite que teams deployeen independent. Sin embargo, add runtime overhead para loadear remote entries. Usalo para large teams con independent deployments, no para small apps donde un single bundle seria simpler.
-
-## See Also
-
-- [Complete Guide to React Performance Optimization](/es/guides/complete-guide-react-performance-optimization/)
-- [Complete Guide to Web Performance and Core Web Vitals](/es/guides/complete-guide-web-performance-core-web-vitals/)
-- [Complete Guide to React 19 Features](/es/guides/complete-guide-react-19-features/)
-- [SPA Performance: Code Splitting and Lazy Loading](/es/recipes/spa-code-splitting-lazy/)
-- [Feature Flags: Progressive Release and Safe Experimentation](/es/guides/feature-flags-guide/)
-
+Module federation permite que varias apps compartan dependencias en runtime, reduciendo
+ código duplicado. Agrega overhead de runtime para cargar entradas remotas. Usalo para
+grandes equipos con despliegues independientes, no para apps pequeñas.

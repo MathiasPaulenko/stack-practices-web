@@ -516,13 +516,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.5% / ES 30.1% (0 patterns)
    - Words: 1,077 | Meta: 141 chars
 
-64. - [ ] **complete-guide-bundle-size-optimization** (guides)
+64. - [x] **complete-guide-bundle-size-optimization** (guides)
    - Metrics: 21 imp | pos 19.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/complete-guide-bundle-size-optimization/
    - ES: https://stackpractices.com/es/guides/complete-guide-bundle-size-optimization/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,810 | Meta: 143 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.8% / ES 30.0% (0 patterns)
+   - Words: 1,209 | Meta: 155 chars
 
 65. - [ ] **java-wiremock-stub-external** (recipes)
    - Metrics: 49 imp | pos 31.9 | CTR 0.00% | Δ impr 0

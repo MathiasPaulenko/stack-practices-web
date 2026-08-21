@@ -1,0 +1,32 @@
+[
+  {
+    "label": "complete-guide-bundle-size-optimization",
+    "total_sentences": 45,
+    "pattern_totals": {
+      "missing_contraction": 1,
+      "vague_abstraction": 1
+    },
+    "findings": [
+      {
+        "sentence": "You are optimizing before measuring \u2014 use a profiler first.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you are",
+            "suggestion": "use 'you're'"
+          }
+        ]
+      },
+      {
+        "sentence": "Module federation lets multiple apps share dependencies at runtime, reducing duplicate code.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]
