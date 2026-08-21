@@ -1,0 +1,350 @@
+[
+  {
+    "label": "pipes-and-filters-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 50.4,
+    "ai_count": 21,
+    "human_count": 31,
+    "skipped_count": 0,
+    "total": 52,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.6,
+      "stddev": 10.3,
+      "cv": 0.76,
+      "verdict": "natural variation",
+      "sentence_count": 52,
+      "lengths": [
+        22,
+        14,
+        8,
+        14,
+        10,
+        12,
+        6,
+        8,
+        9,
+        16,
+        13,
+        16,
+        22,
+        10,
+        5,
+        7,
+        12,
+        8,
+        14,
+        8,
+        11,
+        82,
+        14,
+        11,
+        6,
+        9,
+        11,
+        17,
+        13,
+        12,
+        13,
+        10,
+        15,
+        12,
+        12,
+        12,
+        14,
+        13,
+        15,
+        15,
+        12,
+        8,
+        19,
+        17,
+        14,
+        19,
+        15,
+        10,
+        11,
+        9,
+        12,
+        10
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "For a fixed sequence of two or three steps that never changes, a simple\nfunction is enough.",
+        0.9864
+      ],
+      [
+        "**Pipeline**: a sequence of filters connected by pipes.",
+        0.9658
+      ],
+      [
+        "This pattern is ideal for data processing\npipelines, ETL workflows, and request/response transformation chains.",
+        0.9402
+      ],
+      [
+        "For real-time streams, use a streaming pipeline with\nbackpressure handling.",
+        0.9027
+      ],
+      [
+        "Use Pipes and Filters when you need to reorder steps, reuse filters across pipelines, or test\nsteps in isolation.",
+        0.9026
+      ],
+      [
+        "**Composability**: filters can be reordered, added, or removed.",
+        0.8303
+      ],
+      [
+        "The Pipes and Filters Pattern decomposes processing into independent components:\n**Filter**: a processing step that receives input, transforms it, and produces output.",
+        0.8249
+      ],
+      [
+        "Each\nfilter receives input, performs a transformation, and passes output to the next pipe.",
+        0.8233
+      ],
+      [
+        "Use a router filter that sends data to different sub-pipelines based on a condition.",
+        0.7988
+      ],
+      [
+        "You want to test each transformation in isolation.",
+        0.786
+      ],
+      [
+        "**Pipe**: the connector between filters.",
+        0.732
+      ],
+      [
+        "You're building ETL, data processing, or request/response transformation pipelines.",
+        0.7205
+      ],
+      [
+        "In Chain of Responsibility, each handler decides whether to pass the request along or stop.",
+        0.7096
+      ],
+      [
+        "New pipelines are built by\n  combining existing filters in different orders.",
+        0.6945
+      ],
+      [
+        "A complex task can be broken into sequential, independent steps.",
+        0.694
+      ],
+      [
+        "In its simplest form, it's function composition.",
+        0.6609
+      ],
+      [
+        "Let the caller\ndecide how to handle a failed step.",
+        0.6039
+      ],
+      [
+        "In\n  more complex systems, it can be a queue, channel, or stream.",
+        0.5728
+      ],
+      [
+        "The router is\nitself a filter \u2014 it receives input, evaluates a condition, and routes to the appropriate\nsub-pipeline.",
+        0.5522
+      ],
+      [
+        "This makes them testable and\n  composable.",
+        0.5342
+      ],
+      [
+        "A pipeline is itself a filter, so it can\n  be composed into larger pipelines.",
+        0.5138
+      ],
+      [
+        "A fixed sequence of 2-3 simple steps that never changes \u2014 a plain function is enough.",
+        0.4897
+      ],
+      [
+        "Avoid catching errors inside individual filters so you don't\nhide failures.",
+        0.4739
+      ],
+      [
+        "You need to reorder, add, or remove processing steps without rewriting code.",
+        0.4596
+      ],
+      [
+        "Add filters conditionally \u2014 use a builder or configuration to construct pipelines dynamically.",
+        0.4557
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "pipes-and-filters-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 39.6,
+    "ai_count": 10,
+    "human_count": 42,
+    "skipped_count": 0,
+    "total": 52,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 14.3,
+      "stddev": 11.3,
+      "cv": 0.79,
+      "verdict": "natural variation",
+      "sentence_count": 52,
+      "lengths": [
+        24,
+        13,
+        9,
+        18,
+        11,
+        11,
+        7,
+        6,
+        11,
+        15,
+        15,
+        16,
+        24,
+        9,
+        5,
+        9,
+        11,
+        8,
+        16,
+        8,
+        10,
+        90,
+        13,
+        12,
+        5,
+        14,
+        14,
+        19,
+        13,
+        14,
+        15,
+        11,
+        15,
+        14,
+        14,
+        11,
+        16,
+        14,
+        14,
+        14,
+        12,
+        8,
+        18,
+        16,
+        13,
+        19,
+        16,
+        10,
+        11,
+        9,
+        12,
+        13
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Un pipeline es a su vez un filtro,\n  as\u00ed que puede componerse en pipelines m\u00e1s grandes.",
+        0.9783
+      ],
+      [
+        "**Pipeline**: una secuencia de filtros conectados por pipes.",
+        0.9184
+      ],
+      [
+        "Evit\u00e1 capturar errores dentro de\nfiltros individuales para no ocultar fallas.",
+        0.8849
+      ],
+      [
+        "Los\n  mejores filtros son funciones puras sin side effects.",
+        0.804
+      ],
+      [
+        "Una secuencia fija de 2-3 pasos simples que nunca cambia \u2014 una funci\u00f3n simple alcanza.",
+        0.7329
+      ],
+      [
+        "Quer\u00e9s testear cada transformaci\u00f3n en aislamiento.",
+        0.6927
+      ],
+      [
+        "Filtros que hacen demasiado \u2014 un filtro deber\u00eda hacer una transformaci\u00f3n.",
+        0.692
+      ],
+      [
+        "Los pasos son reutilizables en distintos pipelines.",
+        0.6587
+      ],
+      [
+        "**Composability**: los filtros pueden reordenarse, agregarse o removerse.",
+        0.6338
+      ],
+      [
+        "As\u00ed son testeables y\n  componibles.",
+        0.6103
+      ],
+      [
+        "Us\u00e1 un router filter que env\u00ede datos a distintos sub-pipelines seg\u00fan una condici\u00f3n.",
+        0.4906
+      ],
+      [
+        "En su forma m\u00e1s simple, es composici\u00f3n de funciones.",
+        0.4757
+      ],
+      [
+        "Nuevos pipelines se\n  construyen combinando filtros existentes en distintos ordenes.",
+        0.4706
+      ],
+      [
+        "Manej\u00e1 errores a nivel de pipeline \u2014 envolv\u00e9 el pipeline en manejo de errores en vez de cada\n  filtro.",
+        0.4646
+      ],
+      [
+        "Para una secuencia fija de dos o tres pasos que nunca cambia, una\nfunci\u00f3n simple alcanza.",
+        0.4551
+      ],
+      [
+        "Hardcodear el orden de filtros \u2014 us\u00e1 un builder o configuraci\u00f3n para permitir reordenar.",
+        0.4522
+      ],
+      [
+        "Est\u00e1s construyendo pipelines ETL, procesamiento de datos o transformaci\u00f3n de requests/responses.",
+        0.451
+      ],
+      [
+        "**Pipe**: el conector entre filtros.",
+        0.444
+      ],
+      [
+        "Los filtros son reutilizables, componibles y testeables en aislamiento.",
+        0.4428
+      ],
+      [
+        "Hac\u00e9 que cada filtro tenga una sola responsabilidad \u2014 cada uno realiza una transformaci\u00f3n.",
+        0.4426
+      ],
+      [
+        "No tipar inputs/outputs de filtros \u2014 los errores de tipo en runtime son dif\u00edciles de debuggear.",
+        0.4346
+      ],
+      [
+        "Envolv\u00e9 el pipeline completo en un try/catch o us\u00e1 un tipo resultado (por ejemplo, Result<T,\nE>).",
+        0.4162
+      ],
+      [
+        "Us\u00e1 firmas de tipos \u2014 los tipos de input y output documentan el contrato.",
+        0.399
+      ],
+      [
+        "No manejar errores \u2014 un fallo en un filtro puede romper todo el pipeline.",
+        0.3881
+      ],
+      [
+        "Para streams en tiempo real, us\u00e1 un pipeline\nstreaming con manejo de backpressure.",
+        0.3843
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

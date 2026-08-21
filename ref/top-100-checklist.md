@@ -588,13 +588,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.7% / ES 34.5% (0 patterns)
    - Words: 1046 | Meta: 146 chars
 
-73. - [ ] **pipes-and-filters-pattern** (patterns)
+73. - [x] **pipes-and-filters-pattern** (patterns)
    - Metrics: 18 imp | pos 12.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/pipes-and-filters-pattern/
    - ES: https://stackpractices.com/es/patterns/pipes-and-filters-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,371 | Meta: 150 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 50.4% / ES 39.6% (0 patterns)
+   - Words: 1415 | Meta: 150 chars
 
 74. - [ ] **graphql-mocking-apollo-server** (recipes)
    - Metrics: 24 imp | pos 29.7 | CTR 0.00% | Δ impr 0

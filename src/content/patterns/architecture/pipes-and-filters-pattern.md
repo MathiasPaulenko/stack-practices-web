@@ -1,9 +1,4 @@
 ---
-
-
-
-
-
 contentType: patterns
 slug: pipes-and-filters-pattern
 title: "Pipes and Filters Pattern"
@@ -14,10 +9,10 @@ topics:
   - architecture
   - design
 tags:
-  - pattern
   - design-pattern
   - pipeline
-  - data
+  - data-processing
+  - composability
   - python
   - javascript
   - java
@@ -25,12 +20,10 @@ relatedResources:
   - /patterns/chain-of-responsibility-pattern
   - /patterns/observer-pattern
   - /patterns/back-pressure-pattern
-  - /patterns/multi-tenant-data-isolation-pattern
   - /patterns/marker-interface-pattern
   - /guides/complete-guide-kafka-stream-processing
-  - /guides/complete-guide-microservices-communication
   - /patterns/static-content-hosting-pattern
-lastUpdated: "2026-07-02"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
@@ -44,25 +37,30 @@ seo:
     - python pipeline
     - java pipeline
     - javascript pipeline
-
-
-
-
-
 ---
 
 ## Overview
 
-The [Pipes and Filters](/patterns/pipes-and-filters-pattern/) Pattern breaks a complex processing task into a sequence of smaller, independent steps (filters) connected by channels (pipes). Each filter receives input, performs a transformation, and passes output to the next pipe. Filters are reusable, composable, and testable in isolation. This pattern is ideal for data processing pipelines, ETL workflows, and request transformation chains.
+The [Pipes and Filters](/patterns/pipes-and-filters-pattern/) Pattern breaks a complex processing
+task into a sequence of smaller, independent steps (filters) connected by channels (pipes). Each
+filter receives input, performs a transformation, and passes output to the next pipe. Filters are
+reusable, composable, and testable in isolation. This pattern is ideal for data processing
+pipelines, ETL workflows, and request/response transformation chains.
 
 ## When to Use
 
-Use the Pipes and Filters Pattern when:
-- A complex task can be broken into sequential, independent steps
-- You need to reorder, add, or remove processing steps without rewriting code
-- Steps are reusable across different pipelines
-- You want to test each transformation in isolation
-- You are building ETL, data processing, or request/response transformation pipelines
+- A complex task can be broken into sequential, independent steps.
+- You need to reorder, add, or remove processing steps without rewriting code.
+- Steps are reusable across different pipelines.
+- You want to test each transformation in isolation.
+- You're building ETL, data processing, or request/response transformation pipelines.
+
+## When NOT to Use
+
+- A fixed sequence of 2-3 simple steps that never changes — a plain function is enough.
+- Steps are tightly coupled and can't be separated into clean inputs and outputs.
+- You need a handler to decide whether to stop processing — [Chain of
+  Responsibility](/patterns/chain-of-responsibility-pattern/) fits better.
 
 ## Solution
 
@@ -266,7 +264,7 @@ public class PipesAndFilters {
 }
 ```
 
-### Async Pipeline (Python)
+### Async pipeline (Python)
 
 ```python
 import asyncio
@@ -315,60 +313,81 @@ asyncio.run(main())
 
 The Pipes and Filters Pattern decomposes processing into independent components:
 
-- **Filter**: A processing step that receives input, transforms it, and produces output. Filters are pure functions — no side effects, no shared state.
-- **Pipe**: The connector between filters. In the simplest form, it is function composition. In more complex systems, it can be a queue, channel, or stream.
-- **Pipeline**: A sequence of filters connected by pipes. The pipeline is itself a filter — it can be composed into larger pipelines.
-- **Composability**: Filters can be reordered, added, or removed. New pipelines can be built by combining existing filters in different orders.
+- **Filter**: a processing step that receives input, transforms it, and produces output. The best
+  filters are pure functions with no side effects.
+- **Pipe**: the connector between filters. In its simplest form, it's function composition. In
+  more complex systems, it can be a queue, channel, or stream.
+- **Pipeline**: a sequence of filters connected by pipes. A pipeline is itself a filter, so it can
+  be composed into larger pipelines.
+- **Composability**: filters can be reordered, added, or removed. New pipelines are built by
+  combining existing filters in different orders.
 
 ## Variants
 
 | Variant | Execution | Use Case |
-|---------|-----------|----------|
-| **Synchronous Pipeline** | Sequential, blocking | Simple data transformation |
-| **Async Pipeline** | Non-blocking, concurrent | I/O-bound processing (HTTP, DB) |
-| **Parallel Pipeline** | Filters run in parallel | CPU-bound transformations |
-| **Streaming Pipeline** | Event-driven, continuous | Real-time data streams |
-| **Batch Pipeline** | Process in chunks | ETL, scheduled data processing |
+| --- | --- | --- |
+| Synchronous pipeline | Sequential, blocking | Simple data transformation |
+| Async pipeline | Non-blocking, concurrent | I/O-bound processing (HTTP, DB) |
+| Parallel pipeline | Filters run in parallel | CPU-bound transformations |
+| Streaming pipeline | Event-driven, continuous | Real-time data streams |
+| Batch pipeline | Process in chunks | ETL, scheduled data processing |
 
-## What Works
+For real-time streaming, watch out for slow filters. The [Back Pressure
+Pattern](/patterns/back-pressure-pattern/) shows how to keep fast producers from overwhelming slow
+consumers.
 
-- **Keep filters pure** — no side effects, no shared mutable state. This makes them testable and composable.
-- **Make filters single-responsibility** — each filter does one transformation. Small filters are easier to reuse.
-- **Use type signatures** — input and output types document the contract. Mismatches are caught at composition time.
-- **Handle errors at the pipeline level** — wrap the pipeline in error handling, not each filter.
-- **Add filters conditionally** — use a builder pattern to construct pipelines dynamically based on configuration.
-- **Test filters in isolation** — each filter is a pure function, so unit testing is trivial.
-- **Log between filters** — insert logging filters for debugging without modifying processing filters.
+## Best Practices
+
+- Keep filters pure — no side effects, no shared mutable state. This makes them testable and
+  composable.
+- Make filters single-responsibility — each filter does one transformation.
+- Use type signatures — input and output types document the contract.
+- Handle errors at the pipeline level — wrap the pipeline in error handling rather than each
+  filter.
+- Add filters conditionally — use a builder or configuration to construct pipelines dynamically.
+- Test filters in isolation — pure functions are easy to unit test.
+- Log between filters — insert logging filters for debugging without modifying processing filters.
 
 ## Common Mistakes
 
-- Making filters stateful — breaks composability and makes testing harder
-- Filters with side effects (writing to DB, calling APIs) — violates purity, makes pipeline non-deterministic
-- Not handling errors — one filter failure crashes the entire pipeline with no recovery
-- Hardcoding filter order — use a builder or configuration to allow reordering
-- Filters that do too much — a filter should do one transformation, not five
-- Not typing filter inputs/outputs — runtime errors from type mismatches are hard to debug
-- Ignoring backpressure in streaming pipelines — slow filters cause memory buildup in pipes
+- Making filters stateful — breaks composability and makes testing harder.
+- Filters with side effects (writing to a database, calling APIs) — makes the pipeline
+  non-deterministic.
+- Not handling errors — one filter failure can crash the entire pipeline.
+- Hardcoding filter order — use a builder or configuration to allow reordering.
+- Filters that do too much — a filter should do one transformation.
+- Not typing filter inputs/outputs — runtime errors from type mismatches are hard to debug.
+- Ignoring backpressure in streaming pipelines — slow filters cause memory buildup in pipes.
 
 ## FAQ
 
-**Q: How is this different from Chain of Responsibility?**
-A: In Chain of Responsibility, each handler decides whether to pass the request along or stop. In Pipes and Filters, every filter processes the data and passes it to the next. Pipes and Filters is about transformation; Chain of Responsibility is about handling.
+### How is this different from Chain of Responsibility?
 
-**Q: Should I use this or a simple function?**
-A: Use Pipes and Filters when you need to reorder steps, reuse filters across pipelines, or test steps in isolation. For a fixed sequence of 2-3 steps that never changes, a simple function is simpler and sufficient.
+In Chain of Responsibility, each handler decides whether to pass the request along or stop. In
+Pipes and Filters, every filter processes the data and passes it to the next. Pipes and Filters is
+about transformation; Chain of Responsibility is about handling. See
+[Chain of Responsibility Pattern](/patterns/chain-of-responsibility-pattern/) for the distinction.
 
-**Q: How do I handle branching in a pipeline?**
-A: Use a router filter that sends data to different sub-pipelines based on a condition. The router is itself a filter — it receives input, evaluates a condition, and routes to the appropriate sub-pipeline.
+### Should I use this or a simple function?
 
-### Is this pattern suitable for small projects?
+Use Pipes and Filters when you need to reorder steps, reuse filters across pipelines, or test
+steps in isolation. For a fixed sequence of two or three steps that never changes, a simple
+function is enough.
 
-For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+### How do I handle branching in a pipeline?
 
-### How does this pattern compare to alternatives?
+Use a router filter that sends data to different sub-pipelines based on a condition. The router is
+itself a filter — it receives input, evaluates a condition, and routes to the appropriate
+sub-pipeline.
 
-Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+### How do I handle errors in a pipeline?
 
-### Can I partially apply this pattern?
+Wrap the whole pipeline in a try/catch or use a result type (e.g., `Result<T, E>`). Let the caller
+decide how to handle a failed step. Avoid catching errors inside individual filters so you don't
+hide failures.
 
-Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+### When should I use an async or parallel pipeline?
+
+Use an async pipeline when filters wait on I/O. Use a parallel pipeline when filters are
+CPU-bound and can run independently. For real-time streams, use a streaming pipeline with
+backpressure handling.
