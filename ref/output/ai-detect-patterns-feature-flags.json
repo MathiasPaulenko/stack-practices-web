@@ -1,0 +1,21 @@
+[
+  {
+    "label": "feature-flags",
+    "total_sentences": 36,
+    "pattern_totals": {
+      "formal_verb": 1
+    },
+    "findings": [
+      {
+        "sentence": "Default to off so a missing flag service doesn't unexpectedly enable features.",
+        "findings": [
+          {
+            "pattern": "formal_verb",
+            "match": "features",
+            "suggestion": "try 'has' or 'comes with'"
+          }
+        ]
+      }
+    ]
+  }
+]

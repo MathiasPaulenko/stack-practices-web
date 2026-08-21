@@ -1,33 +1,31 @@
 ---
-
-
 contentType: recipes
 slug: feature-flags
-title: "Feature Flags"
-description: "How to implement feature toggles to safely roll out, test, and rollback functionality without deploying code."
-metaDescription: "Learn to implement feature flags in Python, JavaScript, and Java. Covers toggle services, A/B testing, rollout strategies, and safe rollbacks."
+title: "Feature Flags: Rollout, Targeting, and Safe Rollback"
+description: "Implement feature toggles to roll out, test, and revert functionality safely without redeploying code."
+metaDescription: "Implement feature flags in Python, JavaScript, and Java. Covers boolean toggles, percentage rollouts, user targeting, and safe rollbacks."
 difficulty: intermediate
 topics:
   - devops
 tags:
   - devops
   - feature-flags
+  - toggles
   - ci-cd
-  - automation
   - deployment
+  - ab-testing
 relatedResources:
   - /recipes/background-jobs
   - /recipes/cli-tool-argument-parsing
   - /recipes/environment-variables
   - /recipes/health-check-endpoint
   - /recipes/parse-config-files
-  - /recipes/generate-sitemaps
   - /recipes/retry-logic-exponential-backoff
-lastUpdated: "2026-06-11"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Learn to implement feature flags in Python, JavaScript, and Java. Covers toggle services, A/B testing, rollout strategies, and safe rollbacks."
+  metaDescription: "Implement feature flags in Python, JavaScript, and Java. Covers boolean toggles, percentage rollouts, user targeting, and safe rollbacks."
   keywords:
     - feature-flags
     - toggles
@@ -37,20 +35,28 @@ seo:
     - python
     - javascript
     - java
-
-
 ---
+
 ## Overview
 
-Feature flags (or feature toggles) decouple deployment from release. They let you merge incomplete features to `main`, enable them for a subset of users, measure impact, and instantly roll back without a new deployment. This approach handles building a lightweight flag service, rollout strategies (boolean, percentage, user targeting), and safe cleanup patterns in Python, JavaScript, and Java.
+Feature flags decouple deployment from release. You can merge unfinished code to `main`,
+keep it hidden, then enable it for a subset of users, measure the impact, and turn it off
+instantly without a new deployment. This recipe shows how to build a lightweight flag
+service in Python, JavaScript, and Java with boolean, percentage, user, and group
+rollouts.
 
 ## When to Use
 
-Use this resource when:
-- Rolling out a high-risk feature gradually to monitor for errors. See [Health Check Endpoint](/recipes/health-check-endpoint/) for monitoring application health.
-- Running A/B tests to compare two implementations of a feature. See [Load Testing](/recipes/load-testing/) for measuring performance under load.
-- Deploying incomplete code to `main` without exposing it to users. See [Git Workflow](/recipes/git-workflow/) for branch management.
-- Needing an instant kill-switch for a feature causing production issues. See [Retry Logic](/recipes/retry-backoff/) for handling transient failures gracefully.
+- Rolling out a high-risk feature gradually and monitoring for errors.
+- Running A/B tests to compare two implementations.
+- Deploying unfinished code to `main` without exposing it to users.
+- Adding a kill-switch for a feature causing production issues.
+
+## When NOT to Use
+
+- To enforce security boundaries or authorization rules.
+- When a simple config setting would do the job and never changes per user.
+- For long-lived branching logic that should just be a normal code path.
 
 ## Solution
 
@@ -58,28 +64,23 @@ Use this resource when:
 
 ```python
 import hashlib
-import random
-from typing import Callable
+from typing import Any
 
 class FeatureFlags:
-    def __init__(self, config: dict[str, any]):
+    def __init__(self, config: dict[str, Any]):
         self.config = config
 
-    def is_enabled(self, flag: str, user_id: str = None) -> bool:
+    def is_enabled(self, flag: str, user_id: str | None = None) -> bool:
         rule = self.config.get(flag, False)
 
         if isinstance(rule, bool):
             return rule
 
         if isinstance(rule, dict):
-            # Percentage rollout
             if "percentage" in rule and user_id:
-                bucket = self._hash_bucket(user_id, flag)
-                return bucket < rule["percentage"]
-            # Targeted users
+                return self._hash_bucket(user_id, flag) < rule["percentage"]
             if "users" in rule and user_id:
                 return user_id in rule["users"]
-            # Targeted groups
             if "groups" in rule:
                 return self._check_groups(rule["groups"])
 
@@ -93,12 +94,11 @@ class FeatureFlags:
         # Hook for group membership lookup
         return False
 
-# Usage
 flags = FeatureFlags({
     "new_dashboard": True,
-    "beta_search": {"percentage": 10},          # 10% rollout
-    "vip_feature": {"users": ["user_123"]},     # targeted
-    "admin_tools": {"groups": ["admins"]},       # group-based
+    "beta_search": {"percentage": 10},
+    "vip_feature": {"users": ["user_123"]},
+    "admin_tools": {"groups": ["admins"]},
 })
 
 if flags.is_enabled("new_dashboard"):
@@ -142,11 +142,10 @@ class FeatureFlags {
   }
 
   #checkGroups(groups) {
-    return false; // hook for group membership
+    return false;
   }
 }
 
-// Usage
 const flags = new FeatureFlags({
   newDashboard: true,
   betaSearch: { percentage: 10 },
@@ -214,10 +213,9 @@ public class FeatureFlags {
   }
 
   private boolean checkGroups(List<String> groups) {
-    return false; // hook for group membership lookup
+    return false;
   }
 
-  // Usage
   public static void main(String[] args) {
     Map<String, Object> config = Map.of(
       "newDashboard", true,
@@ -233,81 +231,93 @@ public class FeatureFlags {
 }
 ```
 
-## Explanation
-
-- **Boolean flags** are on/off switches for the entire application. Use them for kill-switches and dark launches.
-- **Percentage rollouts** assign users to buckets via a deterministic hash of `(flag_name + user_id) % 100`. The same user always sees the same bucket, ensuring consistent experiences.
-- **User targeting** explicitly whitelists users (beta testers, internal team) for early access.
-- **Group targeting** checks membership in roles or segments (admin, premium, geographic region).
-- **Deterministic hashing** is critical: random assignment would cause a single user to flip between variants on every request, breaking UX and analytics.
-
-## Variants
-
-| Strategy | Rule Type | Best For |
-|----------|-----------|----------|
-| Boolean | `true` / `false` | Kill-switches, emergency rollbacks |
-| Percentage | `{"percentage": 10}` | Gradual rollout, canary releases |
-| User Target | `{"users": ["id1"]}` | Beta programs, internal dogfooding |
-| Group Target | `{"groups": ["premium"]}` | Feature tiers, role-based access |
-| A/B Test | `{"percentage": 50, "variant": "B"}` | Comparing two implementations |
-
-## What works
-
-1. **Keep flags short-lived** — permanent flags become technical debt. Remove them and the dead code paths once a feature is fully rolled out.
-2. **Use deterministic bucketing** — hash `(flag + user_id)` so the same user always gets the same experience, avoiding flip-flopping.
-3. **Log flag evaluations** — record which users saw which variant for debugging and analytics correlation.
-4. **Default to off** — if the flag service is unreachable, the feature should be disabled to prevent unexpected exposure.
-5. **Audit flag changes** — treat flag configuration changes like production deploys; require code review and track in version control.
-
-## Common Mistakes
-
-1. Leaving flags in the codebase permanently, creating a maze of dead code paths.
-2. Using random bucketing instead of deterministic hashing, causing inconsistent user experiences.
-3. Not handling the case where the flag config service is down, causing cascading failures.
-4. Over-targeting flags to individual users instead of groups, making management unscalable.
-5. Releasing a feature under a flag without monitoring or alerting, missing production issues.
-
-## FAQ
-
-### When should I remove a feature flag?
-
-Remove the flag and its conditional branches once the feature is stable for 100% of users and has been running in production without issues for 1-2 release cycles. Flags that live longer than a month after full rollout become technical debt.
-
-### How do feature flags differ from configuration settings?
-
-Configuration settings are typically static and apply globally (timeout values, feature limits). Feature flags are live, user-scoped, and designed for rapid toggling without redeployment. Flags evaluate per-request; config is loaded at startup.
-
-### Can I use feature flags for authorization?
-
-No. Feature flags control feature visibility and rollout; authorization controls access rights. Do not use flags to enforce security boundaries. A user bypassing a flag check should not gain unauthorized access to sensitive data or operations.
-
-### Managed Service Integration (LaunchDarkly)
+### Managed service with LaunchDarkly
 
 ```python
 from ldclient import LDClient
 from ldclient.config import Config
 
-ldclient = LDClient(Config(sdk_key="sdk-xxx"))
+ldclient = LDClient(Config(sdk_key="${LAUNCHDARKLY_SDK_KEY}"))
 
 def is_enabled(flag: str, user: dict) -> bool:
     return ldclient.variation(flag, user, default=False)
 
-# Usage
 user = {"key": "user_123", "email": "user@example.com", "country": "US"}
 if is_enabled("new_checkout", user):
     render_new_checkout()
 ```
 
-### Staged Rollout Strategy
+## Explanation
+
+- **Boolean flags** are simple on/off switches, ideal for kill-switches and dark
+  launches.
+- **Percentage rollouts** put users in buckets using a deterministic hash of
+  `flag_name + user_id`. The same user always sees the same bucket.
+- **User targeting** whitelists specific users for early access.
+- **Group targeting** checks membership in roles or segments.
+- **Deterministic hashing** is important because random assignment would make a user
+  flip between variants on every request, breaking the experience and the analytics.
+
+## Variants
+
+|Strategy|Rule|Best for|
+|--------|----|--------|
+|Boolean|`true` / `false`|Kill-switches, emergency rollbacks|
+|Percentage|`{"percentage": 10}`|Gradual rollout, canary releases|
+|User target|`{"users": ["id1"]}`|Beta programs, internal dogfooding|
+|Group target|`{"groups": ["premium"]}`|Feature tiers, role-based access|
+|A/B test|`{"percentage": 50, "variant": "B"}`|Comparing two implementations|
+
+## Best Practices
+
+- Keep flags short-lived. Remove them and the dead code paths once a feature is fully
+  rolled out.
+- Use deterministic bucketing so the same user always gets the same experience.
+- Log flag evaluations to correlate variants with behavior and errors.
+- Default to off so a missing flag service doesn't accidentally turn anything on.
+- Audit flag changes like production deploys: review them and track them in version
+  control.
+
+## Common Mistakes
+
+- Leaving flags in the codebase permanently, creating a maze of dead code paths.
+- Using random instead of deterministic bucketing, which gives users an inconsistent
+  experience.
+- Not handling a missing or unreachable flag service, causing cascading failures.
+- Over-targeting individual users instead of groups, which doesn’t scale.
+- Releasing a feature behind a flag without monitoring or alerting.
+
+## FAQ
+
+### When should I remove a feature flag?
+
+Remove it once the feature is stable for 100% of users and has run in production
+without issues for 1-2 release cycles. Flags that live longer than that become
+technical debt.
+
+### How do feature flags differ from configuration settings?
+
+Configuration settings are usually static and global, like timeout values. Feature
+flags are per-user, live, and designed for rapid toggling without redeployment.
+
+### Can I use feature flags for authorization?
+
+No. Feature flags control visibility and rollout. Authorization controls access
+rights. A user bypassing a flag check shouldn’t gain access to sensitive data or
+operations.
+
+### How do I roll out gradually?
+
+Use a staged plan and raise the percentage over time while you monitor errors and key
+metrics:
 
 ```python
-# Progressive rollout schedule
 rollout_plan = [
-    {"percentage": 1,  "duration_hours": 24,  "monitor": True},
-    {"percentage": 5,  "duration_hours": 48,  "monitor": True},
-    {"percentage": 25, "duration_hours": 72,  "monitor": True},
-    {"percentage": 50, "duration_hours": 96,  "monitor": True},
-    {"percentage": 100,"duration_hours": 0,   "monitor": True},
+    {"percentage": 1,  "duration_hours": 24},
+    {"percentage": 5,  "duration_hours": 48},
+    {"percentage": 25, "duration_hours": 72},
+    {"percentage": 50, "duration_hours": 96},
+    {"percentage": 100, "duration_hours": 0},
 ]
 
 def advance_rollout(flag: str, current_pct: int) -> int:
@@ -318,71 +328,23 @@ def advance_rollout(flag: str, current_pct: int) -> int:
     return 100
 ```
 
-### A/B Testing with Feature Flags
+### How do I run an A/B test?
+
+Assign variants deterministically and track events per variant:
 
 ```javascript
-// Assign users to variant A or B deterministically
 function getVariant(flag, userId) {
   const bucket = hashBucket(userId, flag);
-  if (bucket < 50) return "A";  // control
-  return "B";                    // treatment
+  return bucket < 50 ? "A" : "B";
 }
 
-// Track conversion events per variant
-function trackExperiment(flag, userId, variant, event) {
-  analytics.track({
-    experiment: flag,
-    userId,
-    variant,
-    event,
-    timestamp: Date.now(),
-  });
-}
-
-// Usage
 const variant = getVariant("checkout_redesign", userId);
-if (variant === "B") {
-  renderNewCheckout();
-} else {
-  renderOldCheckout();
-}
-trackExperiment("checkout_redesign", userId, variant, "checkout_view");
-```
+if (variant === "B") renderNewCheckout();
 
-
-
-
-## Performance Tips
-
-1. **Cache flag evaluations per request.** Avoid repeated lookups for the same flag:
-
-```python
-from functools import lru_cache
-
-@lru_cache(maxsize=128)
-def cached_is_enabled(flag: str, user_id: str) -> bool:
-    return flags.is_enabled(flag, user_id)
-```
-
-2. **Use local evaluation.** Avoid network calls per flag check by downloading the flag config:
-
-```python
-# Download flag config once, evaluate locally
-flag_config = fetch_flag_config()  # periodic refresh
-local_flags = FeatureFlags(flag_config)
-
-# Evaluate without network calls
-if local_flags.is_enabled("new_feature", user_id):
-    ...
-```
-
-3. **Batch flag evaluations.** Reduce SDK calls by evaluating multiple flags at once:
-
-```python
-# LaunchDarkly: evaluate all flags in one call
-all_flags = ldclient.all_flags_state(user)
-if all_flags.get_flag_value("new_checkout"):
-    render_new_checkout()
-if all_flags.get_flag_value("new_search"):
-    render_new_search()
+analytics.track({
+  experiment: "checkout_redesign",
+  userId,
+  variant,
+  event: "checkout_view",
+});
 ```
