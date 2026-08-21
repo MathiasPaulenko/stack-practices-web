@@ -1,13 +1,8 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: graphql-mocking-apollo-server
 title: "Mocks de resolvers GraphQL para desarrollo frontend"
-description: "Configura resolvers GraphQL mockeados con Apollo Server para que los equipos frontend desarrollen contra una API falsa antes del backend"
+description: "Configura resolvers GraphQL mockeados con Apollo Server para que los equipos frontend desarrollen contra una API falsa antes del backend."
 metaDescription: "Mockea resolvers GraphQL con Apollo Server para desarrollo frontend. Genera datos falsos, preserva tipos y desbloquea el trabajo de UI."
 difficulty: beginner
 topics:
@@ -20,6 +15,7 @@ tags:
   - apollo
   - frontend
   - testing
+  - resolvers
 relatedResources:
   - /recipes/graphql-apollo-server
   - /recipes/api-mocking
@@ -27,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-federation
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
@@ -38,32 +34,34 @@ seo:
     - graphql fake data
     - frontend development
     - graphql testing
-
-
-
-
-
 ---
 
-Cuando el backend no esta listo, los equipos frontend pueden bloquearse por dependencias de API. El mocking integrado de Apollo Server genera datos falsos para cada campo del schema, permitiendo a los desarrolladores de UI construir y probar contra un endpoint GraphQL funcional en minutos. Puedes empezar con mocks auto-generados y reemplazarlos progresivamente con resolvers personalizados conforme el schema se estabiliza.
+## Resumen
 
-## Cuando Usar Esto
+Cuando el backend no está listo, los equipos frontend pueden bloquearse por dependencias de API. El
+mocking integrado de Apollo Server genera datos falsos para cada campo del schema, permitiendo a los
+desarrolladores de UI construir y probar contra un endpoint GraphQL funcional en minutos. Podés
+empezar con mocks auto-generados y reemplazarlos progresivamente con resolvers personalizados
+conforme el schema se estabiliza.
 
+## Cuándo Usarlo
 
-- For alternatives, see [Complete Guide to GraphQL Testing](/es/guides/complete-guide-graphql-testing/).
+- Los equipos frontend y backend trabajan en paralelo en una feature nueva.
+- Necesitás una API GraphQL corriendo para demos o prototipos.
+- Testeás componentes de UI contra shapes de datos realistas.
+- Querés simular estados de error antes de que el servicio real esté disponible.
 
-- Equipos frontend y backend trabajan en paralelo en una nueva feature
-- Necesitas una API GraphQL corriendo para demos o prototipado
-- Pruebas de componentes UI contra formas de datos realistas
+## Cuándo NO Usarlo
 
-## Requisitos Previos
+- El backend está disponible y necesitás validación de contrato end-to-end — usá
+  [Integration Testing](/es/recipes/integration-testing/).
+- Necesitás mockear HTTP a nivel de browser sin un servidor — usá
+  [MSW](/es/recipes/api-mocking/).
+- El schema cambia rápidamente — los mocks pueden ocultar breaking changes del schema.
 
-- Una instancia de Apollo Server con un schema definido
-- `@apollo/server` y `graphql` instalados
+## Solución
 
-## Solucion
-
-### 1. Habilitar mocking integrado
+### Habilitar mocking integrado
 
 ```typescript
 // mock-server.ts
@@ -95,7 +93,7 @@ const typeDefs = gql`
 
 const server = new ApolloServer({
   typeDefs,
-  mock: true,
+  mocks: true,
 });
 
 const { url } = await startStandaloneServer(server, {
@@ -105,9 +103,10 @@ const { url } = await startStandaloneServer(server, {
 console.log(`Mock server ready at ${url}`);
 ```
 
-Apollo auto-genera valores basados en tipos escalares: strings aleatorios para `String`, numeros incrementales para `Int`/`ID`, timestamps ISO para campos con nombres de fecha.
+Apollo genera valores automáticamente según el tipo escalar: strings aleatorios para `String`,
+números incrementales para `Int` e `ID`, y timestamps ISO para campos con nombres de fechas.
 
-### 2. Personalizar mocks
+### Personalizar mocks con escalares
 
 ```typescript
 import { ApolloServer } from '@apollo/server';
@@ -121,11 +120,11 @@ const mocks = {
 
 const server = new ApolloServer({
   typeDefs,
-  mock: { mocks },
+  mocks,
 });
 ```
 
-### 3. Mockear tipos y campos especificos
+### Mockear tipos y campos específicos
 
 ```typescript
 const mocks = {
@@ -151,41 +150,48 @@ const mocks = {
 
 const server = new ApolloServer({
   typeDefs,
-  mock: { mocks },
+  mocks,
 });
 ```
 
-### 4. Alternar mocking por entorno
+### Alternar mocking por entorno
 
 ```typescript
 const server = new ApolloServer({
   typeDefs,
   resolvers: process.env.NODE_ENV === 'production' ? realResolvers : undefined,
-  mock: process.env.MOCK_API === 'true',
+  mocks: process.env.MOCK_API === 'true',
 });
 
-// O combinar resolvers reales con fallback mock
+// O combinar resolvers reales con fallback a mocks
 const server = new ApolloServer({
   typeDefs,
   resolvers: realResolvers,
-  mock: process.env.NODE_ENV === 'development'
+  mocks: process.env.NODE_ENV === 'development'
     ? { mocks, preserveResolvers: true }
     : false,
 });
 ```
 
-Con `preserveResolvers: true`, Apollo usa tus resolvers reales donde existen y falla a mocks para campos no implementados.
+Con `preserveResolvers: true`, Apollo usa tus resolvers reales donde existen y recurre a mocks para
+los campos no implementados.
 
-## Como Funciona
+## Explicación
 
-1. **Auto-mocking** inspecciona el schema y genera un valor por defecto para cada escalar — strings, numeros, booleanos y listas se rellenan automaticamente.
-2. **Funciones mock personalizadas** sobrescriben los defaults por tipo o escalar. Un mock de `User` retorna un objeto con generadores a nivel campo.
-3. **`preserveResolvers`** permite mezclar datos reales y mockeados. Los campos con resolver usan la implementacion real; los que no tienen usan el mock.
-4. **Integracion con Faker** produce datos realistas — nombres, emails, frases, fechas — para que la UI se vea y comporte como con datos reales.
+1. **Auto-mocking**: inspecciona el schema y genera un valor por defecto para cada escalar — strings,
+   números, booleanos y listas se completan automáticamente.
+2. **Funciones de mock personalizadas**: sobreescriben los valores por defecto por tipo o escalar. Un
+   mock de `User` devuelve un objeto con generadores a nivel de campo.
+3. **`preserveResolvers`**: permite mezclar datos reales y mockeados. Los campos con resolver usan la
+   implementación real; los que no, usan el mock.
+4. **Integración con Faker**: produce datos realistas — nombres, emails, oraciones, fechas — para que
+   la UI se vea y se comporte como con datos reales.
 
-## Avanzado: Mockear con Custom Scalars y Enums
+## Variantes
 
-Cuando tu schema usa custom scalars o enums, proporciona funciones mock para ellos explícitamente:
+### Scalares y enums personalizados
+
+Cuando tu schema usa escalares o enums personalizados, proveé funciones de mock explícitas:
 
 ```typescript
 import { ApolloServer } from '@apollo/server';
@@ -219,15 +225,16 @@ const mocks = {
 
 const server = new ApolloServer({
   typeDefs,
-  mock: { mocks },
+  mocks,
 });
 ```
 
-Sin mocks de custom scalars, Apollo retorna `null` para esos campos, lo que puede romper el frontend si espera un valor válido.
+Sin mocks para escalares personalizados, Apollo devuelve `null` en esos campos, lo que puede romper
+el frontend si espera un valor válido.
 
-## Avanzado: Mockear Paginación con Relay Connections
+### Paginación con conexiones Relay
 
-Para schemas que usan paginación cursor estilo Relay, mockea la estructura de connection:
+Para schemas que usan paginación por cursor estilo Relay, mockeá la estructura de conexión:
 
 ```typescript
 const mocks = {
@@ -256,13 +263,12 @@ const mocks = {
 };
 ```
 
-Esto permite al frontend probar infinite scroll, botones de load-more y navegación basada en cursor sin un backend real.
+Esto permite testear infinite scroll, botones de "cargar más" y navegación basada en cursor sin un
+backend real.
 
-## Variantes
+### Mock con MSW
 
-### Mock con MSW (Mock Service Worker)
-
-Para mocking solo frontend sin servidor corriendo, usa MSW con un handler GraphQL:
+Para mocking solo en el frontend sin un servidor corriendo, usá MSW con un handler GraphQL:
 
 ```typescript
 import { graphql } from 'msw';
@@ -282,7 +288,7 @@ export const handlers = [
 ];
 ```
 
-### Mocks con seed para pruebas reproducibles
+### Mocks con seed para tests reproducibles
 
 ```typescript
 import { faker } from '@faker-js/faker';
@@ -297,69 +303,76 @@ const mocks = {
 };
 ```
 
-Con un seed fijo, cada inicio del servidor produce los mismos datos falsos — util para snapshot tests.
+Con un seed fijo, cada inicio del servidor produce los mismos datos falsos — útil para snapshot
+tests.
 
 ### Mock de errores
 
-Simula respuestas de error para probar el manejo de errores en la UI:
+Simulá respuestas de error para testear el manejo de errores en la UI:
 
 ```typescript
-const server = new ApolloServer({
-  typeDefs,
-  mock: { mocks },
-  formatError: () => ({
-    message: 'Simulated server error',
-    extensions: { code: 'MOCK_ERROR' },
-  }),
-});
-
-// O lanzar en un resolver mock
 const mocks = {
   Query: () => ({
     user: () => { throw new Error('User not found'); },
   }),
 };
+
+const server = new ApolloServer({
+  typeDefs,
+  mocks,
+});
 ```
 
-## Mejores Practicas
+## Buenas Prácticas
 
-- **Usa datos realistas** — `faker` produce nombres, emails y fechas que parecen reales, haciendo las revisiones de UI mas efectivas
-- **Empieza con auto-mocks, luego personaliza** — pon el servidor a correr con `mock: true` primero, luego reemplaza campos uno por uno
-- **Usa `preserveResolvers` durante la migracion** — mantén resolvers reales para features implementadas mientras mockeas el resto
-- **Sembriza faker en pruebas** — seeds fijos hacen los snapshot tests deterministicos
+- Usá datos realistas de `faker` para que las revisiones de UI sean más efectivas.
+- Empezá con auto-mocks y luego personalizá los campos uno a uno conforme el schema se estabiliza.
+- Usá `preserveResolvers` durante la migración para mantener resolvers reales para las partes ya
+  construidas mientras mockeás el resto.
+- Seteá `faker.seed()` en tests para que los snapshots sean determinísticos.
+- Mockeá longitudes de listas que reflejen casos reales — un solo ítem no alcanza para testear
+  paginación o estados vacíos.
 
 ## Errores Comunes
 
-- **Mockear con strings vacios** — la UI puede ocultar o colapsar valores vacios, escondiendo bugs de layout
-- **No mockear longitudes de listas** — un mock de lista que retorna un item no prueba paginacion ni estados vacios
-- **Olvidar deshabilitar mocks en produccion** — usa variables de entorno para alternar el mocking
-- **No probar estados de error** — mockea respuestas de error para verificar que la UI los maneja
+- Mockear con strings vacíos — la UI puede ocultar o colapsar valores vacíos, escondiendo bugs de
+  layout.
+- No mockear longitudes de listas — un mock de lista con un ítem no testea paginación o estados
+  vacíos.
+- Olvidar deshabilitar mocks en producción — usá variables de entorno para alternar el mocking.
+- No testear estados de error — mockeá respuestas de error para verificar que la UI los maneja.
+- Dejar que los mocks se separen de los resolvers reales — mantené los shapes de mock alineados con
+  el schema productivo.
 
-## FAQ
+## Preguntas Frecuentes
 
-**Q: Puedo mockear solo parte del schema?**
-A: Si. Usa `preserveResolvers: true` y proporciona resolvers reales para los campos implementados. Apollo mockea solo los campos sin resolver.
+### ¿Puedo mockear solo parte del schema?
 
-**Q: Como mockeo autenticacion?**
-A: Mockea el context para retornar un usuario falso, o omite los checks de auth en modo mock.
+Sí. Usá `preserveResolvers: true` y proveé resolvers reales para los campos implementados. Apollo
+mockea solo los campos sin resolvers.
 
-**Q: Debo usar mocking de Apollo o MSW?**
-A: Usa mocking de Apollo cuando quieras un servidor corriendo. Usa MSW cuando quieras intercepcion del lado del cliente sin servidor.
+### ¿Cómo mockeo autenticación?
 
-**Q: Puedo mockear suscripciones?**
-A: El mocking integrado de Apollo no soporta suscripciones. Usa un PubSub personalizado con eventos falsos para pruebas de suscripciones.
+Mockeá el context para devolver un usuario falso, o evitá los controles de auth en modo mock.
 
-### ¿Cómo mockeo custom scalars y enums?
+### ¿Uso Apollo mocking o MSW?
 
-Proporciona funciones mock para cada custom scalar y enum en el objeto `mocks`. Por ejemplo, `Date: () => new Date().toISOString()` y `Role: () => faker.helpers.arrayElement(['ADMIN', 'EDITOR', 'VIEWER'])`. Sin estos, Apollo retorna `null` para campos de custom scalar.
+Usá Apollo mocking cuando querés un servidor corriendo. Usá MSW cuando querés interceptación del lado
+ del cliente sin un servidor.
 
-### ¿Puedo mockear paginación cursor estilo Relay?
+### ¿Puedo mockear subscriptions?
 
-Sí. Mockea los campos `edges`, `pageInfo` y `totalCount` en tu tipo connection. Retorna un array de objetos edge con propiedades `node` y `cursor`, y setea `hasNextPage` a `true` para probar el comportamiento de load-more en la UI.
+El mocking integrado de Apollo no soporta subscriptions. Usá un PubSub personalizado con eventos
+falsos para testear subscriptions.
+
+### ¿Cómo mockeo scalares y enums personalizados?
+
+Proveé funciones de mock para cada escalar y enum en el objeto `mocks`. Por ejemplo,
+`Date: () => new Date().toISOString()` y `Role: () => faker.helpers.arrayElement(['ADMIN',
+'EDITOR', 'VIEWER'])`. Sin esto, Apollo devuelve `null` en campos de scalares personalizados.
 
 ### ¿Cómo comparto mocks entre tests y el dev server?
 
-Exporta el objeto `mocks` desde un módulo compartido (e.g., `src/mocks/index.ts`). Impórtalo tanto en tu setup de tests como en la configuración del dev server. Esto asegura datos falsos consistentes entre entornos de test y desarrollo. Usa `faker.seed()` en tests para output determinístico.
-
-**Q: Como mockeo errores y excepciones de GraphQL?**
-R: Retorna una funcion mock que lanza un `GraphQLError` con el codigo apropiado. Por ejemplo, `getUser: () => { throw new GraphQLError('Not found', { extensions: { code: 'NOT_FOUND' } }) }`. Esto prueba como tu UI maneja errores de GraphQL.
+Exportá el objeto `mocks` desde un módulo compartido. Importalo tanto en la configuración de tests
+como en la del dev server. Eso asegura datos falsos consistentes entre tests y desarrollo. Usá
+`faker.seed()` en tests para output determinístico.

@@ -1,13 +1,8 @@
 ---
-
-
-
-
-
 contentType: recipes
 slug: graphql-mocking-apollo-server
 title: "Mock GraphQL Resolvers for Frontend Development"
-description: "Set up mocked GraphQL resolvers with Apollo Server so frontend teams can develop against a fake API before the backend is ready"
+description: "Set up mocked GraphQL resolvers with Apollo Server so frontend teams can develop against a fake API before the backend is ready."
 metaDescription: "Mock GraphQL resolvers with Apollo Server for frontend development. Generate fake data, preserve types, and unblock UI work before backend is ready."
 difficulty: beginner
 topics:
@@ -20,6 +15,7 @@ tags:
   - apollo
   - frontend
   - testing
+  - resolvers
 relatedResources:
   - /recipes/graphql-apollo-server
   - /recipes/api-mocking
@@ -27,7 +23,7 @@ relatedResources:
   - /guides/complete-guide-graphql-testing
   - /guides/complete-guide-graphql-federation-production
   - /guides/complete-guide-graphql-federation
-lastUpdated: "2026-07-09"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
@@ -38,29 +34,33 @@ seo:
     - graphql fake data
     - frontend development
     - graphql testing
-
-
-
-
-
 ---
 
-When the backend is not ready, frontend teams can block on API dependencies. Apollo Server's built-in mocking generates fake data for every field in the schema, letting UI developers build and test against a working GraphQL endpoint within minutes. You can start with auto-generated mocks and progressively replace them with custom resolvers as the schema stabilizes.
+## Overview
 
-## When to Use This
+When the backend isn't ready, frontend teams can block on API dependencies. Apollo Server's
+built-in mocking generates fake data for every field in the schema, letting UI developers build and
+test against a working GraphQL endpoint within minutes. You can start with auto-generated mocks and
+progressively replace them with custom resolvers as the schema stabilizes.
 
-- Frontend and backend teams work in parallel on a new feature
-- You need a running GraphQL API for demos or prototyping
-- Testing UI components against realistic data shapes
+## When to Use
 
-## Prerequisites
+- Frontend and backend teams work in parallel on a new feature.
+- You need a running GraphQL API for demos or prototyping.
+- Testing UI components against realistic data shapes.
+- You want to simulate error states before the real service is available.
 
-- An Apollo Server instance with a defined schema
-- `@apollo/server` and `graphql` installed
+## When NOT to Use
+
+- The backend is available and you need end-to-end contract validation — use
+  [Integration Testing](/recipes/integration-testing/).
+- You need to mock HTTP at the browser level without a server — use
+  [MSW](/recipes/api-mocking/) instead.
+- The schema is still changing rapidly — mocks can hide breaking schema changes.
 
 ## Solution
 
-### 1. Enable Built-in Mocking
+### Enable built-in mocking
 
 ```typescript
 // mock-server.ts
@@ -92,7 +92,7 @@ const typeDefs = gql`
 
 const server = new ApolloServer({
   typeDefs,
-  mock: true,
+  mocks: true,
 });
 
 const { url } = await startStandaloneServer(server, {
@@ -102,9 +102,10 @@ const { url } = await startStandaloneServer(server, {
 console.log(`Mock server ready at ${url}`);
 ```
 
-Apollo auto-generates values based on scalar types: random strings for `String`, incrementing numbers for `Int`/`ID`, ISO timestamps for fields named like dates.
+Apollo auto-generates values based on scalar types: random strings for `String`, incrementing
+numbers for `Int` and `ID`, and ISO timestamps for fields named like dates.
 
-### 2. Customize Mocks with Preserves
+### Customize mocks with scalars
 
 ```typescript
 import { ApolloServer } from '@apollo/server';
@@ -118,11 +119,11 @@ const mocks = {
 
 const server = new ApolloServer({
   typeDefs,
-  mock: { mocks },
+  mocks,
 });
 ```
 
-### 3. Mock Specific Types and Fields
+### Mock specific types and fields
 
 ```typescript
 const mocks = {
@@ -148,66 +149,46 @@ const mocks = {
 
 const server = new ApolloServer({
   typeDefs,
-  mock: { mocks },
+  mocks,
 });
 ```
 
-### 4. Conditional Mocks Based on Field Name
-
-```typescript
-const mocks = {
-  String: () => {
-    return 'Generic string';
-  },
-};
-
-// Use a custom mock resolver for name-based logic
-const mockResolvers = {
-  User: () => ({
-    name: () => faker.person.fullName(),
-    email: () => faker.internet.email(),
-  }),
-  Post: () => ({
-    title: () => faker.lorem.sentence(5),
-    content: () => faker.lorem.paragraphs(3),
-  }),
-};
-
-const server = new ApolloServer({
-  typeDefs,
-  mock: { mocks: { ...mocks, ...mockResolvers } },
-});
-```
-
-### 5. Toggle Mocking by Environment
+### Toggle mocking by environment
 
 ```typescript
 const server = new ApolloServer({
   typeDefs,
   resolvers: process.env.NODE_ENV === 'production' ? realResolvers : undefined,
-  mock: process.env.MOCK_API === 'true',
+  mocks: process.env.MOCK_API === 'true',
 });
 
 // Or combine real resolvers with mock fallback
 const server = new ApolloServer({
   typeDefs,
   resolvers: realResolvers,
-  mock: process.env.NODE_ENV === 'development'
+  mocks: process.env.NODE_ENV === 'development'
     ? { mocks, preserveResolvers: true }
     : false,
 });
 ```
 
-With `preserveResolvers: true`, Apollo uses your real resolvers where they exist and falls back to mocks for unimplemented fields.
+With `preserveResolvers: true`, Apollo uses your real resolvers where they exist and falls back to
+mocks for unimplemented fields.
 
-## How It Works
+## Explanation
 
-1. **Auto-mocking** inspects the schema and generates a default value for each scalar — strings, numbers, booleans, and lists are populated automatically.
-2. **Custom mock functions** override the defaults per type or per scalar. A `User` mock returns an object with field-level generators.
-3. **`preserveResolvers`** lets you mix real and mocked data. Fields with a resolver use the real implementation; fields without one use the mock.
-4. **Faker integration** produces realistic data — names, emails, sentences, dates — so the UI looks and behaves like it would with real data.
+1. **Auto-mocking** inspects the schema and generates a default value for each scalar — strings,
+   numbers, booleans, and lists are populated automatically.
+2. **Custom mock functions** override the defaults per type or per scalar. A `User` mock returns an
+   object with field-level generators.
+3. **`preserveResolvers`** lets you mix real and mocked data. Fields with a resolver use the real
+   implementation; fields without one use the mock.
+4. **Faker integration** produces realistic data — names, emails, sentences, dates — so the UI looks
+   and behaves like it would with real data.
 
-## Advanced: Mocking with Custom Scalars and Enums
+## Variants
+
+### Custom scalars and enums
 
 When your schema uses custom scalars or enums, provide mock functions for them explicitly:
 
@@ -243,13 +224,14 @@ const mocks = {
 
 const server = new ApolloServer({
   typeDefs,
-  mock: { mocks },
+  mocks,
 });
 ```
 
-Without custom scalar mocks, Apollo returns `null` for those fields, which can break the frontend if it expects a valid value.
+Without custom scalar mocks, Apollo returns `null` for those fields, which can break the frontend if
+it expects a valid value.
 
-## Advanced: Mocking Pagination with Relay Connections
+### Pagination with Relay connections
 
 For schemas using Relay-style cursor pagination, mock the connection structure:
 
@@ -280,11 +262,10 @@ const mocks = {
 };
 ```
 
-This lets the frontend test infinite scroll, load-more buttons, and cursor-based navigation without a real backend.
+This lets the frontend test infinite scroll, load-more buttons, and cursor-based navigation without
+a real backend.
 
-## Variants
-
-### Mock with MSW (Mock Service Worker)
+### Mock with MSW
 
 For frontend-only mocking without a running server, use MSW with a GraphQL handler:
 
@@ -306,7 +287,7 @@ export const handlers = [
 ];
 ```
 
-### Seeded Mocks for Reproducible Tests
+### Seeded mocks for reproducible tests
 
 ```typescript
 import { faker } from '@faker-js/faker';
@@ -323,67 +304,70 @@ const mocks = {
 
 With a fixed seed, every server start produces the same fake data — useful for snapshot tests.
 
-### Error Mocking
+### Error mocking
 
 Simulate error responses to test error handling in the UI:
 
 ```typescript
-const server = new ApolloServer({
-  typeDefs,
-  mock: { mocks },
-  formatError: () => ({
-    message: 'Simulated server error',
-    extensions: { code: 'MOCK_ERROR' },
-  }),
-});
-
-// Or throw in a mock resolver
 const mocks = {
   Query: () => ({
     user: () => { throw new Error('User not found'); },
   }),
 };
+
+const server = new ApolloServer({
+  typeDefs,
+  mocks,
+});
 ```
 
 ## Best Practices
 
-
-- For a deeper guide, see [Complete Guide to GraphQL Testing](/guides/complete-guide-graphql-testing/).
-
-- **Use realistic data** — `faker` produces names, emails, and dates that look real, making UI reviews more effective
-- **Start with auto-mocks, then customize** — get the server running with `mock: true` first, then replace fields one by one
-- **Use `preserveResolvers` during migration** — keep real resolvers for implemented features while mocking the rest
-- **Seed faker in tests** — fixed seeds make snapshot tests deterministic
+- Use realistic data from `faker` so UI reviews are more effective.
+- Start with auto-mocks, then customize fields one by one as the schema stabilizes.
+- Use `preserveResolvers` during migration to keep real resolvers for the parts already built while
+  mocking the rest.
+- Seed `faker` in tests so snapshot output stays deterministic.
+- Mock list lengths that match real-world cases — one item isn't enough to test pagination or empty
+  states.
 
 ## Common Mistakes
 
-- **Mocking with empty strings** — the UI may hide or collapse empty values, hiding layout bugs
-- **Not mocking list lengths** — a list mock returning one item doesn't test pagination or empty states
-- **Forgetting to disable mocks in production** — use environment variables to toggle mocking
-- **Not testing error states** — mock error responses to verify the UI handles them
+- Mocking with empty strings — the UI may hide or collapse empty values, hiding layout bugs.
+- Not mocking list lengths — a list mock returning one item doesn't test pagination or empty states.
+- Forgetting to disable mocks in production — use environment variables to toggle mocking.
+- Not testing error states — mock error responses to verify the UI handles them.
+- Letting mocks drift from real resolvers — keep mock shapes aligned with the production schema.
 
 ## FAQ
 
-**Q: Can I mock only part of the schema?**
-A: Yes. Use `preserveResolvers: true` and provide real resolvers for implemented fields. Apollo mocks only the fields without resolvers.
+### Can I mock only part of the schema?
 
-**Q: How do I mock authentication?**
-A: Mock the context to return a fake user, or bypass auth checks entirely in mock mode.
+Yes. Use `preserveResolvers: true` and provide real resolvers for implemented fields. Apollo mocks
+only the fields without resolvers.
 
-**Q: Should I use Apollo mocking or MSW?**
-A: Use Apollo mocking when you want a running server. Use MSW when you want client-side interception without a server.
+### How do I mock authentication?
 
-**Q: Can I mock subscriptions?**
-A: Apollo's built-in mocking does not support subscriptions. Use a custom PubSub with fake events for subscription testing.
+Mock the context to return a fake user, or bypass auth checks entirely in mock mode.
+
+### Should I use Apollo mocking or MSW?
+
+Use Apollo mocking when you want a running server. Use MSW when you want client-side interception
+without a server.
+
+### Can I mock subscriptions?
+
+Apollo's built-in mocking doesn't support subscriptions. Use a custom PubSub with fake events for
+subscription testing.
 
 ### How do I mock custom scalars and enums?
 
-Provide mock functions for each custom scalar and enum in the `mocks` object. For example, `Date: () => new Date().toISOString()` and `Role: () => faker.helpers.arrayElement(['ADMIN', 'EDITOR', 'VIEWER'])`. Without these, Apollo returns `null` for custom scalar fields.
-
-### Can I mock Relay-style cursor pagination?
-
-Yes. Mock the `edges`, `pageInfo`, and `totalCount` fields in your connection type. Return an array of edge objects with `node` and `cursor` properties, and set `hasNextPage` to `true` to test load-more behavior in the UI.
+Provide mock functions for each custom scalar and enum in the `mocks` object. For example,
+`Date: () => new Date().toISOString()` and `Role: () => faker.helpers.arrayElement(['ADMIN',
+'EDITOR', 'VIEWER'])`. Without these, Apollo returns `null` for custom scalar fields.
 
 ### How do I share mocks between tests and the dev server?
 
-Export the `mocks` object from a shared module (e.g., `src/mocks/index.ts`). Import it in both your test setup and your dev server configuration. This ensures consistent fake data across test and development environments. Use `faker.seed()` in tests for deterministic output.
+Export the `mocks` object from a shared module. Import it in both your test setup and your dev
+server configuration. This keeps fake data consistent across test and development environments.
+Use `faker.seed()` in tests for deterministic output.
