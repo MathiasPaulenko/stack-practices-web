@@ -1,0 +1,330 @@
+[
+  {
+    "label": "javascript-vitest-snapshot-testing-en",
+    "model": "desklib",
+    "model_ai_pct": 43.5,
+    "ai_count": 17,
+    "human_count": 25,
+    "skipped_count": 2,
+    "total": 44,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.4,
+      "stddev": 4.5,
+      "cv": 0.36,
+      "verdict": "somewhat uniform",
+      "sentence_count": 42,
+      "lengths": [
+        14,
+        24,
+        13,
+        9,
+        10,
+        11,
+        11,
+        13,
+        11,
+        12,
+        12,
+        16,
+        12,
+        15,
+        14,
+        25,
+        12,
+        18,
+        10,
+        13,
+        10,
+        14,
+        16,
+        6,
+        21,
+        15,
+        12,
+        5,
+        6,
+        5,
+        7,
+        7,
+        13,
+        16,
+        16,
+        9,
+        9,
+        9,
+        7,
+        14,
+        18,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Not using property matchers for dynamic data** \u2014 if the output includes a timestamp,\n  the snapshot will fail on every run.",
+        0.8447
+      ],
+      [
+        "Property matchers let you ignore dynamic fields by checking type instead of exact\nvalue.",
+        0.6677
+      ],
+      [
+        "Use property matchers for dynamic fields like expect.any(String) or expect.any(Date).",
+        0.6676
+      ],
+      [
+        "Break it into smaller component snapshots.",
+        0.664
+      ],
+      [
+        "For React Server Components, render the output to a string before snapshotting:\nKeep snapshots small \u2014 snapshot a single component, not an entire page tree.",
+        0.6312
+      ],
+      [
+        "Run vitest -u to update snapshots only after verifying the change is intentional.",
+        0.6074
+      ],
+      [
+        "On\nsubsequent runs, Vitest compares the current output against the stored snapshot and fails\nif they differ \u2014 alerting you to unintended UI changes.",
+        0.5998
+      ],
+      [
+        "Use property matchers:\n\n\n\nVitest will match the structure but ignore the actual values of those fields.",
+        0.5742
+      ],
+      [
+        "Verifying that a component renders the same structure across refactors.",
+        0.5663
+      ],
+      [
+        "Run npx vitest -u (or --update).",
+        0.5538
+      ],
+      [
+        "Run vitest -u only locally after verifying the change is\nintentional.",
+        0.5427
+      ],
+      [
+        "Review the diff in\nGit before committing.",
+        0.5358
+      ],
+      [
+        "**Using snapshots as the only test** \u2014 snapshots verify structure, not behavior.",
+        0.5292
+      ],
+      [
+        "They serve as a contract for\nthe expected output.",
+        0.5241
+      ],
+      [
+        "Use renderToString from react-dom/server and snapshot the HTML output.",
+        0.5195
+      ],
+      [
+        "toMatchInlineSnapshot writes the\nsnapshot directly in the test file as a string literal.",
+        0.514
+      ],
+      [
+        "Testing accessibility or interaction \u2014 snapshots only check rendered HTML, not behavior.",
+        0.5088
+      ],
+      [
+        "Snapshot testing captures the rendered output of a component at a point in time.",
+        0.4989
+      ],
+      [
+        "**Snapshotting too much** \u2014 a 200-line snapshot is unreadable and fails on any minor\n  CSS change.",
+        0.4625
+      ],
+      [
+        "toMatchSnapshot() serializes the value the first time it runs and writes it to a .snap\nfile.",
+        0.4497
+      ],
+      [
+        "Testing components with stable, deterministic output (no random IDs or timestamps).",
+        0.4286
+      ],
+      [
+        "Use toMatchInlineSnapshot for small outputs so the expected value is visible in code\nreview.",
+        0.4063
+      ],
+      [
+        "Testing business logic \u2014 use unit tests with explicit assertions instead.",
+        0.4009
+      ],
+      [
+        "Documenting the expected output of utility functions that return complex objects.",
+        0.3998
+      ],
+      [
+        "toMatchSnapshot writes to a separate .snap file.",
+        0.3896
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "javascript-vitest-snapshot-testing-es",
+    "model": "desklib",
+    "model_ai_pct": 30.1,
+    "ai_count": 5,
+    "human_count": 37,
+    "skipped_count": 2,
+    "total": 44,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.9,
+      "stddev": 5.1,
+      "cv": 0.36,
+      "verdict": "somewhat uniform",
+      "sentence_count": 42,
+      "lengths": [
+        14,
+        25,
+        17,
+        11,
+        13,
+        13,
+        12,
+        13,
+        12,
+        14,
+        14,
+        17,
+        12,
+        17,
+        15,
+        31,
+        13,
+        21,
+        10,
+        15,
+        12,
+        15,
+        20,
+        7,
+        20,
+        19,
+        12,
+        6,
+        6,
+        6,
+        8,
+        7,
+        14,
+        18,
+        17,
+        10,
+        7,
+        11,
+        12,
+        16,
+        18,
+        15
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Sirven como contrato de\nla salida esperada.",
+        0.7095
+      ],
+      [
+        "Para verificar que un componente renderice la misma estructura luego de un refactor.",
+        0.5842
+      ],
+      [
+        "**Hacer snapshot de todo** \u2014 un snapshot de 200 l\u00edneas es ilegible y falla ante cualquier\n  cambio menor de CSS.",
+        0.5731
+      ],
+      [
+        "**No usar property matchers para datos din\u00e1micos** \u2014 si la salida incluye un timestamp,\n  el snapshot fallar\u00e1 en cada ejecuci\u00f3n.",
+        0.5363
+      ],
+      [
+        "Us\u00e1 toMatchInlineSnapshot() para mantener el valor esperado en el\narchivo de test, lo que facilita las revisiones.",
+        0.526
+      ],
+      [
+        "Ejecut\u00e1 npx vitest -u (o --update).",
+        0.4742
+      ],
+      [
+        "Los tests\nde renderizado del lado del cliente usan @testing-library/react como siempre.",
+        0.4647
+      ],
+      [
+        "Para testear accesibilidad o interacci\u00f3n \u2014 los snapshots solo chequean HTML renderizado,\n  no comportamiento.",
+        0.4286
+      ],
+      [
+        "Los inline snapshots son\nm\u00e1s revisables en PRs, pero pueden hinchar el archivo de test para salidas grandes.",
+        0.4121
+      ],
+      [
+        "Revis\u00e1 el\ndiff en Git antes de commitear.",
+        0.4115
+      ],
+      [
+        "Agreg\u00e1 tests de interacci\u00f3n con @testing-library/react.",
+        0.4063
+      ],
+      [
+        "Us\u00e1 property matchers para campos din\u00e1micos como expect.any(String) o expect.any(Date).",
+        0.3932
+      ],
+      [
+        "Los archivos de snapshot deben commitearse y revisarse en PRs.",
+        0.3876
+      ],
+      [
+        "Us\u00e1 toMatchInlineSnapshot para salidas peque\u00f1as as\u00ed el valor esperado se ve en la\nrevisi\u00f3n de c\u00f3digo.",
+        0.3837
+      ],
+      [
+        "Para documentar la salida esperada de funciones utilitarias que retornan objetos\n  complejos.",
+        0.3613
+      ],
+      [
+        "Para testear componentes con salida estable y determin\u00edstica (sin IDs aleatorios ni\n  timestamps).",
+        0.3484
+      ],
+      [
+        "**Usar snapshots como \u00fanico test** \u2014 los snapshots verifican estructura, no comportamiento.",
+        0.3451
+      ],
+      [
+        "Us\u00e1 property matchers:\n\n\n\nVitest va a matchear la estructura pero ignorar los valores reales de esos campos.",
+        0.3298
+      ],
+      [
+        "Para detectar regresiones accidentales de CSS o markup en componentes presentacionales.",
+        0.3172
+      ],
+      [
+        "Para testear l\u00f3gica de negocio \u2014 us\u00e1 unit tests con aserciones expl\u00edcitas.",
+        0.2803
+      ],
+      [
+        "Ejecut\u00e1 vitest -u solo de\nforma local despu\u00e9s de verificar que el cambio es intencional.",
+        0.2795
+      ],
+      [
+        "toMatchInlineSnapshot escribe el\nsnapshot directamente en el archivo de test como un string literal.",
+        0.2689
+      ],
+      [
+        "Us\u00e1 renderToString de react-dom/server y hac\u00e9 snapshot de la salida HTML.",
+        0.2482
+      ],
+      [
+        "Dividilo en snapshots de componentes m\u00e1s peque\u00f1os.",
+        0.2386
+      ],
+      [
+        "En ejecuciones posteriores, Vitest compara el valor serializado con la\ncopia almacenada.",
+        0.2366
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

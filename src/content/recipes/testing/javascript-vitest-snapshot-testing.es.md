@@ -7,6 +7,7 @@ metaDescription: "Usa Vitest snapshot testing para detectar cambios no intencion
 difficulty: intermediate
 topics:
   - testing
+  - frontend
 tags:
   - testing
   - vitest
@@ -14,14 +15,14 @@ tags:
   - react
   - snapshot
   - frontend
-  - recipe
 relatedResources:
   - /recipes/jest-snapshot-testing
   - /recipes/nodejs-supertest-express-api
   - /recipes/react-usememo-usecallback-performance
   - /guides/complete-guide-vitest-react-testing
   - /recipes/javascript-msw-mock-service-worker
-lastUpdated: "2026-07-09"
+  - /recipes/generate-test-data
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -33,33 +34,39 @@ seo:
     - react
     - snapshot
     - frontend
-    - recipe
-
-
-
-
+    - receta
 ---
-## Overview
 
-Snapshot testing captura el output renderizado de un componente en un punto en el tiempo. En ejecuciones posteriores de test, Vitest compara el output actual contra el snapshot almacenado. Si difieren, el test falla — alertándote de cambios no intencionados en la UI. Vitest es un test runner compatible con Jest para proyectos Vite con soporte de snapshot integrado.
+## Resumen
 
-## When to Use
+El snapshot testing captura la salida renderizada de un componente en un momento dado. En
+ejecuciones posteriores, Vitest compara la salida actual contra el snapshot almacenado y
+falla si difieren — alertándote sobre cambios no intencionados en la UI. Vitest es un
+corredor de tests compatible con Jest para proyectos Vite, con soporte nativo de
+snapshots.
 
-- Detectar regresiones accidentales de CSS o markup en componentes presentacionales
-- Verificar que un componente renderiza la misma estructura a través de refactors
-- Testear componentes con output estable y determinista (sin IDs random ni timestamps)
-- Documentar el output esperado de funciones utilitarias que retornan objetos complejos
+## Cuándo Usar
 
-## When NOT to Use
+- Para detectar regresiones accidentales de CSS o markup en componentes presentacionales.
+- Para verificar que un componente renderice la misma estructura luego de un refactor.
+- Para testear componentes con salida estable y determinística (sin IDs aleatorios ni
+  timestamps).
+- Para documentar la salida esperada de funciones utilitarias que retornan objetos
+  complejos.
 
-- Componentes con contenido dinámico (fechas, valores random, UUIDs) — los snapshots siempre fallarán
-- Testear lógica de negocio — usa unit tests con aserciones explícitas
-- Componentes que cambian frecuentemente durante desarrollo activo — el churn de snapshots es ruido
-- Testear accesibilidad o interacción — los snapshots solo verifican HTML renderizado, no comportamiento
+## Cuándo NO Usar
 
-## Solution
+- Componentes con contenido dinámico (fechas, valores aleatorios, UUIDs) — los snapshots
+  fallarán siempre.
+- Para testear lógica de negocio — usá unit tests con aserciones explícitas.
+- Componentes que cambian frecuentemente durante desarrollo activo — el churn de snapshots
+  genera ruido.
+- Para testear accesibilidad o interacción — los snapshots solo chequean HTML renderizado,
+  no comportamiento.
 
-### Setup
+## Solución
+
+### Configuración
 
 ```bash
 npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
@@ -85,7 +92,7 @@ export default defineConfig({
 import "@testing-library/jest-dom";
 ```
 
-### Snapshot test básico
+### Test de snapshot básico
 
 ```typescript
 import { render } from "@testing-library/react";
@@ -131,42 +138,24 @@ describe("Badge", () => {
 });
 ```
 
-### Snapshot con serializadores
+### Snapshot con property matchers
 
 ```typescript
-import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { UserCard } from "./UserCard";
+import { buildApiResponse } from "./api";
 
-describe("UserCard", () => {
-  it("matches snapshot with custom serializer", () => {
-    const user = { id: 1, name: "Alice", email: "alice@example.com" };
-    const { container } = render(<UserCard user={user} />);
-
-    expect(container).toMatchInlineSnapshot(
-      {
-        serialization: "html",
-      },
-      `
-      <div>
-        <div
-          class="user-card"
-        >
-          <h3>
-            Alice
-          </h3>
-          <p>
-            alice@example.com
-          </p>
-        </div>
-      </div>
-    `,
-    );
+describe("buildApiResponse", () => {
+  it("matches snapshot ignoring dynamic date", () => {
+    const response = buildApiResponse({ data: [1, 2, 3], status: 200 });
+    expect(response).toMatchSnapshot({
+      timestamp: expect.any(String),
+      reportId: expect.any(String),
+    });
   });
 });
 ```
 
-### Snapshot del output de una función
+### Snapshot de salida de función
 
 ```typescript
 import { describe, it, expect } from "vitest";
@@ -187,37 +176,33 @@ describe("formatCurrency", () => {
 });
 ```
 
-### Snapshot con `toHaveProperty` para objetos
+### Snapshot de componente async
 
 ```typescript
+import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import { buildApiResponse } from "./api";
+import { UserProfile } from "./UserProfile";
 
-describe("buildApiResponse", () => {
-  it("matches snapshot for success response", () => {
-    const response = buildApiResponse({ data: [1, 2, 3], status: 200 });
-    expect(response).toMatchSnapshot({
-      timestamp: expect.any(String),
-    });
+describe("UserProfile", () => {
+  it("matches snapshot after data loads", async () => {
+    render(<UserProfile userId={42} />);
+    await screen.findByRole("heading", { name: /alice/i });
+    expect(document.body).toMatchSnapshot();
   });
 });
 ```
 
-## Variants
+## Explicación
 
-### Snapshot con `toMatchSnapshot` con property matchers
+`toMatchSnapshot()` serializa el valor la primera vez que se ejecuta y lo escribe en un
+archivo `.snap`. En ejecuciones posteriores, Vitest compara el valor serializado con la
+copia almacenada. Usá `toMatchInlineSnapshot()` para mantener el valor esperado en el
+archivo de test, lo que facilita las revisiones. Los property matchers permiten ignorar
+campos dinámicos chequeando el tipo en lugar del valor exacto.
 
-```typescript
-it("matches snapshot ignoring dynamic date", () => {
-  const result = generateReport({ userId: 42 });
-  expect(result).toMatchSnapshot({
-    generatedAt: expect.any(String),
-    reportId: expect.any(String),
-  });
-});
-```
+## Variantes
 
-### Usando `vi.fn()` mock snapshots
+### Snapshot con mock calls
 
 ```typescript
 import { render, fireEvent } from "@testing-library/react";
@@ -240,48 +225,64 @@ describe("SubmitForm", () => {
 });
 ```
 
-## Best Practices
+### Snapshot de RSC
 
+Para React Server Components, renderizá la salida a string antes de hacer snapshot:
 
-- For a deeper guide, see [Vitest for React: Component, Hook, and Integration Testing](/es/guides/complete-guide-vitest-react-testing/).
+```typescript
+import { renderToString } from "react-dom/server";
+import { describe, it, expect } from "vitest";
+import { StaticPage } from "./StaticPage";
 
-- Mantén los snapshots pequeños — snapshot de un solo componente, no un árbol de página entera
-- Usa inline snapshots para outputs pequeños y estables — viven en el archivo de test y son revisables en PRs
-- Revisa los diffs de snapshots en PRs — un test verde con un snapshot cambiado significa que alguien aprobó el cambio
-- Usa `toMatchSnapshot` con property matchers para campos dinámicos (`expect.any(Date)`, `expect.any(String)`)
-- Corre `vitest -u` para actualizar snapshots solo después de verificar que el cambio es intencional
-- No hagas snapshot test de componentes con IDs random, timestamps o clases generadas
+describe("StaticPage", () => {
+  it("matches server snapshot", () => {
+    const html = renderToString(<StaticPage />);
+    expect(html).toMatchSnapshot();
+  });
+});
+```
 
-## Common Mistakes
+## Buenas Prácticas
 
-- **Actualizar snapshots a ciegas**: correr `vitest -u` sin revisar el diff oculta regresiones reales.
-- **Snapshottear demasiado**: un snapshot de 200 líneas es ilegible y falla en cualquier cambio menor de CSS.   Divídelo en snapshots de componentes más pequeños.
-- **No usar property matchers para datos dinámicos**: si tu output incluye un timestamp, el snapshot fallará en cada ejecución.
-- **Guardar snapshots en un directorio diferente a los tests**: snap` junto a los archivos de test para discoverability.
-- **Usar snapshots como único test**: los snapshots verifican estructura, no comportamiento.   Agrega tests de interacción con `@testing-library/react`.
+- Mantené los snapshots pequeños — hacé snapshot de un componente, no de todo el árbol de
+  una página.
+- Usá inline snapshots para salidas pequeñas y estables, así son revisables en PRs.
+- Revisá los diffs de snapshots en PRs — un test verde con un snapshot modificado significa
+  que alguien aprobó el cambio.
+- Usá property matchers para campos dinámicos como `expect.any(String)` o `expect.any(Date)`.
+- Ejecutá `vitest -u` para actualizar snapshots solo después de verificar que el cambio es
+  intencional.
+- No hagas snapshot de componentes con IDs aleatorios, timestamps o clases generadas.
 
+## Errores Comunes
 
-## Troubleshooting
+- **Actualizar snapshots a ciegas** — ejecutar `vitest -u` sin revisar el diff oculta
+  regresiones reales.
+- **Hacer snapshot de todo** — un snapshot de 200 líneas es ilegible y falla ante cualquier
+  cambio menor de CSS. Dividilo en snapshots de componentes más pequeños.
+- **No usar property matchers para datos dinámicos** — si la salida incluye un timestamp,
+  el snapshot fallará en cada ejecución.
+- **Guardar snapshots lejos de los tests** — mantené los archivos `.snap` junto a los tests
+  para facilitar su descubrimiento.
+- **Usar snapshots como único test** — los snapshots verifican estructura, no comportamiento.
+  Agregá tests de interacción con `@testing-library/react`.
 
-- **Flaky tests**: isolate shared state, time, and randomness.   Make tests independent and deterministic; quarantine persistently flaky tests.
-- **High coverage but bugs in production**: coverage does not guarantee correctness.   Add mutation testing, property-based tests, or contract tests.
-- **Slow test suite**: parallelize, mock slow dependencies, and avoid end-to-end tests for logic that can be unit tested.
-- **Tests pass locally but fail in CI**: check environment differences, timezone, locale, and dependency versions.   Pin tool versions.
-- **Debugging a failing integration test**: Reset state before each test.
+## Preguntas Frecuentes
 
-## FAQ
+### ¿Cómo actualizo los snapshots después de un cambio intencional?
 
-### ¿Cómo actualizo snapshots después de un cambio intencional?
+Ejecutá `npx vitest -u` (o `--update`). Esto regenera todos los archivos `.snap`. Revisá el
+diff en Git antes de commitear.
 
-Corre `npx vitest -u` (o `--update`). Esto regenera todos los archivos `.snap`. Revisa el diff en git antes de commitear.
+### ¿Qué diferencia hay entre `toMatchSnapshot` y `toMatchInlineSnapshot`?
 
-### ¿Cuál es la diferencia entre `toMatchSnapshot` y `toMatchInlineSnapshot`?
+`toMatchSnapshot` escribe en un archivo `.snap` separado. `toMatchInlineSnapshot` escribe el
+snapshot directamente en el archivo de test como un string literal. Los inline snapshots son
+más revisables en PRs, pero pueden hinchar el archivo de test para salidas grandes.
 
-`toMatchSnapshot` escribe a un archivo `.snap` separado. `toMatchInlineSnapshot` escribe el snapshot directamente en el archivo de test como un string literal. Los inline snapshots son más revisables en PRs pero pueden inflar el archivo de test para outputs grandes.
+### ¿Cómo ignoro valores dinámicos en los snapshots?
 
-### ¿Cómo ignoro valores dinámicos en snapshots?
-
-Usa property matchers:
+Usá property matchers:
 
 ```typescript
 expect(result).toMatchSnapshot({
@@ -290,65 +291,21 @@ expect(result).toMatchSnapshot({
 });
 ```
 
-Vitest comparará la estructura pero ignorará los valores reales de esos campos.
+Vitest va a matchear la estructura pero ignorar los valores reales de esos campos.
 
-### ¿Debería commitear los archivos `.snap` a git?
+### ¿Debería commitear archivos `.snap` en Git?
 
-Sí. Los archivos de snapshot deberían commitearse y revisarse en PRs. Sirven como contrato para el output esperado.
+Sí. Los archivos de snapshot deben commitearse y revisarse en PRs. Sirven como contrato de
+la salida esperada.
 
 ### ¿Puedo usar snapshot testing con React Server Components?
 
-Snapshot testing funciona para componentes que renderizan a string. Para RSC, usa `renderToString` de `react-dom/server` y haz snapshot del output HTML. Los tests de client-side rendering usan `@testing-library/react` como siempre.
+Sí. Usá `renderToString` de `react-dom/server` y hacé snapshot de la salida HTML. Los tests
+de renderizado del lado del cliente usan `@testing-library/react` como siempre.
 
-### ¿Cómo prevengo snapshot drift en suites de test grandes?
+### ¿Cómo evito el drift de snapshots en suites grandes?
 
-Usa `toMatchInlineSnapshot` para outputs pequeños para que el valor esperado sea visible en code review. Para archivos `.snap`, habilita el flag `--ci` en CI para fallar en snapshots desactualizados en lugar de escribir nuevos silenciosamente. Corre `vitest -u` solo localmente después de verificar que el cambio es intencional. Agrega un step de CI que chequee archivos `.snap` modificados y falle si no fueron actualizados explícitamente.
-
-### ¿Cuál es el impacto de performance del snapshot testing?
-
-Los snapshot tests son más rápidos que los tests basados en aserciones porque comparan strings en lugar de ejecutar lógica. Sin embargo, snapshots grandes (árboles DOM completos) ralentizan la serialización del test. Mantén los snapshots pequeños testeando componentes individuales en lugar de páginas completas. Usa `toMatchInlineSnapshot` para valores pequeños para evitar overhead de I/O de archivos.
-
-### ¿Cómo hago snapshot del output de componentes async en Vitest?
-
-Renderiza el componente con `@testing-library/react`, luego `await` el resultado antes de hacer snapshot. Para componentes que fetchean data, mockea la API con `vi.mock()` o MSW (Mock Service Worker). Espera a que los datos carguen usando queries `findBy*` (que reintentan hasta que el elemento aparece), luego llama `toMatchSnapshot()` sobre el HTML del container. Esto asegura que el snapshot capture el estado completamente renderizado, no el estado de loading.
-
-### ¿Cómo hago snapshot de error boundaries en Vitest?
-
-Envuelve el componente en un error boundary y dispara un error pasando props inválidos o mockeando una dependencia para que lance. Usa `expect(container.innerHTML).toMatchSnapshot()` sobre el fallback UI del boundary. Para error boundaries de React, crea un componente de test que lance en render y verifica que el boundary lo captura. Testea tanto el estado de error como el estado de recuperación (cuando el error se resuelve). Usa `vi.spyOn(console, 'error')` para suprimir el error logging de React durante el test.
-
-Resetea el spy después de cada test con `afterEach(() => vi.restoreAllMocks())` para evitar que la supresión filtre a otros tests.
-
-
-
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de testing y vitest para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica vitest snapshot testing para react** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Usá `toMatchInlineSnapshot` para salidas pequeñas así el valor esperado se ve en la
+revisión de código. Para archivos `.snap`, habilitá `--ci` en CI para fallar ante snapshots
+desactualizados en lugar de escribir nuevos silenciosamente. Ejecutá `vitest -u` solo de
+forma local después de verificar que el cambio es intencional.

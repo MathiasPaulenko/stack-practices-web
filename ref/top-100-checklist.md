@@ -508,13 +508,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.8% / ES 39.6% (0 patterns)
    - Words: 951 | Meta: 155 chars
 
-63. - [ ] **javascript-vitest-snapshot-testing** (recipes)
+63. - [x] **javascript-vitest-snapshot-testing** (recipes)
    - Metrics: 21 imp | pos 16.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/javascript-vitest-snapshot-testing/
    - ES: https://stackpractices.com/es/recipes/javascript-vitest-snapshot-testing/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,659 | Meta: 141 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.5% / ES 30.1% (0 patterns)
+   - Words: 1,077 | Meta: 141 chars
 
 64. - [ ] **complete-guide-bundle-size-optimization** (guides)
    - Metrics: 21 imp | pos 19.9 | CTR 0.00% | Δ impr 0
