@@ -1,43 +1,34 @@
 ---
-
-
-
-
 contentType: guides
 slug: terraform-best-practices-guide
-title: "Terraform Best Practices — Módulos, State y Workspaces"
+title: "Buenas Prácticas de Terraform: Módulos, State y Workspaces"
 description: "Guía práctica de mejores prácticas de Terraform: diseño de módulos, gestión de estado remoto, workspaces y seguridad para infraestructura como código de grado productivo."
-metaDescription: "Aprende mejores prácticas de Terraform: diseño de módulos, estado remoto, workspaces y seguridad. Construye infraestructura como código con confianza."
+metaDescription: "Aprendé mejores prácticas de Terraform: diseño de módulos, estado remoto, workspaces y seguridad. Construí infraestructura como código con confianza."
 difficulty: intermediate
 topics:
   - devops
   - infrastructure
-  - data
 tags:
   - terraform
   - infrastructure-as-code
   - iac
-  - modules
+  - modulos
   - state
   - workspaces
-  - guide
+  - devops
+  - seguridad
 relatedResources:
-  - /guides/aws-basics-guide
-  - /guides/azure-basics-guide
-  - /guides/gcp-basics-guide
-  - /guides/kubernetes-advanced-guide
-  - /recipes/python-terraform-provider-custom
-  - /recipes/docker-compose-dev-prod-split
-  - /recipes/docker-health-check-configuration
-  - /recipes/docker-multi-stage-build-optimization
   - /guides/complete-guide-terraform-modules
-  - /guides/finops-guide
+  - /recipes/terraform-aws-vpc
+  - /recipes/terraform-remote-state-s3-backend
+  - /recipes/terraform-workspace-environment-isolation
+  - /recipes/python-terraform-provider-custom
   - /guides/platform-engineering-guide
-lastUpdated: "2026-06-24"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-24"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Aprende mejores prácticas de Terraform: diseño de módulos, estado remoto, workspaces y seguridad. Construye infraestructura como código con confianza."
+  metaDescription: "Aprendé mejores prácticas de Terraform: diseño de módulos, estado remoto, workspaces y seguridad. Construí infraestructura como código con confianza."
   keywords:
     - terraform
     - infrastructure-as-code
@@ -45,33 +36,38 @@ seo:
     - modulos
     - estado-remoto
     - workspaces
+    - seguridad
     - hashicorp
-    - guia
-
-
-
-
 ---
 
-## Overview
+## Resumen
 
-Terraform es la herramienta de infrastructure-as-code más usada, permitiendo a equipos definir, provisionar y gestionar recursos cloud a través de archivos de configuración declarativos. Mientras empezar con Terraform es sencillo, construir infraestructura de grado productivo requiere disciplina en diseño de módulos, gestión de estado, seguridad y flujos de colaboración. A continuación: las prácticas que separan código Terraform de prototipo de infraestructura enterprise-ready.
+Terraform es la herramienta de infrastructure-as-code más usada. Los equipos la usan para definir,
+provisionar y gestionar recursos cloud a través de archivos de configuración declarativos. Aunque
+empezar es sencillo, la infraestructura de grado productivo requiere disciplina en diseño de
+módulos, gestión de estado, seguridad y colaboración. Esta guía recorre las prácticas que
+separan el código Terraform de prototipo del código enterprise-ready.
 
-## When to Use
+## Cuándo Usarlo
 
+- Gestionás infraestructura cloud que cambia frecuentemente.
+- Varios miembros del equipo colaboran en la misma infraestructura.
+- Necesitás entornos reproducibles (dev, staging, production).
+- Querés versionar las definiciones de infraestructura.
+- Estás migrando de provisionamiento manual a infrastructure as code.
 
-- For alternatives, see [Complete Guide to Terraform Modules](/es/guides/complete-guide-terraform-modules/).
+## Cuándo NO Usarlo
 
-- Gestionas infraestructura cloud que cambia frecuentemente
-- Múltiples miembros del equipo necesitan colaborar en infraestructura
-- Necesitas ambientes reproducibles (dev, staging, producción)
-- Quieres version control para tus definiciones de infraestructura
+- Tenés pocos recursos estáticos que rara vez cambian.
+- El equipo no está listo para gestionar archivos de estado, locks y acceso al backend.
+- Necesitás reconciliación de infraestructura en tiempo real y basada en eventos — herramientas
+  como Ansible u operadores de Kubernetes pueden ajustarse mejor.
 
 ## Diseño de Módulos
 
-### Root Module vs Child Modules
+### Root module vs child modules
 
-```
+```text
 terraform/
 ├── modules/
 │   ├── vpc/
@@ -91,38 +87,38 @@ terraform/
 │       └── main.tf
 ```
 
-### Interfaz de Módulo
+### Diseño de interfaz de módulos
 
-Mantén inputs explícitos y outputs mínimos.
+Mantené los inputs explícitos y los outputs mínimos.
 
 ```hcl
 # modules/vpc/variables.tf
 variable "vpc_cidr" {
-  description = "Bloque CIDR para la VPC"
+  description = "CIDR block for the VPC"
   type        = string
   default     = "10.0.0.0/16"
 }
 
 variable "availability_zones" {
-  description = "Lista de AZs a usar"
+  description = "List of AZs to use"
   type        = list(string)
 }
 
 # modules/vpc/outputs.tf
 output "vpc_id" {
-  description = "ID de la VPC creada"
+  description = "ID of the created VPC"
   value       = aws_vpc.main.id
 }
 
 output "private_subnet_ids" {
-  description = "Lista de IDs de subnets privadas"
+  description = "List of private subnet IDs"
   value       = aws_subnet.private[*].id
 }
 ```
 
-### Composición Sobre Herencia
+### Composición sobre herencia
 
-Construye módulos pequeños y componibles en lugar de monolíticos.
+Construí módulos pequeños y componibles en vez de monolíticos.
 
 ```hcl
 # environments/prod/main.tf
@@ -140,11 +136,13 @@ module "database" {
 }
 ```
 
+Para más detalles, consultá [Complete Guide to Terraform Modules](/es/guides/complete-guide-terraform-modules/).
+
 ## Gestión de Estado
 
-### Estado Remoto con Locking
+### Estado remoto con locking
 
-Nunca almacenes estado en version control. Usa backends remotos con locking.
+Nunca guardes el estado en control de versiones. Usá backends remotos con locking.
 
 ```hcl
 # backend.tf
@@ -160,7 +158,7 @@ terraform {
 ```
 
 ```bash
-# Crear los recursos del backend
+# Create the backend resources
 aws s3api create-bucket --bucket my-terraform-state --region us-east-1
 aws s3api put-bucket-versioning --bucket my-terraform-state --versioning-configuration Status=Enabled
 aws dynamodb create-table \
@@ -170,26 +168,28 @@ aws dynamodb create-table \
   --billing-mode PAY_PER_REQUEST
 ```
 
-### Aislamiento de Estado
+Para más información, consultá [Terraform Remote State S3 Backend](/es/recipes/terraform-remote-state-s3-backend/).
 
-Usa archivos de estado separados por ambiente y por componente.
+### Aislamiento de estado
 
-| Enfoque | Mejor Para |
-|---------|------------|
-| Workspaces | Ambientes simples (dev/staging/prod) |
-| Directorios separados | Ambientes complejos con diferentes configuraciones |
-| Backends separados | Máximo aislamiento, diferentes cuentas cloud |
+Usá archivos de estado separados por entorno y por componente.
+
+|Enfoque|Ideal para|
+|-------|----------|
+|Workspaces|Entornos simples (dev/staging/prod)|
+|Directorios separados|Entornos complejos con configuraciones distintas|
+|Backends separados|Máximo aislamiento, distintas cuentas de AWS|
 
 ## Workspaces
 
-Los workspaces de Terraform permiten múltiples archivos de estado dentro de la misma configuración.
+Los workspaces de Terraform permiten varios archivos de estado dentro de la misma configuración.
 
 ```bash
-# Crear y cambiar a un workspace
+# Create and switch to a workspace
 terraform workspace new prod
 terraform workspace select prod
 
-# Usar workspace en configuración
+# Use workspace in configuration
 locals {
   environment = terraform.workspace
   instance_count = {
@@ -200,11 +200,13 @@ locals {
 }
 ```
 
-Precaución: Los workspaces comparten la misma configuración de backend. Para aislamiento fuerte, usa configuraciones de backend separadas o incluso cuentas cloud separadas.
+Precaución: los workspaces comparten la configuración del backend. Para aislamiento fuerte, usá
+backends separados o distintas cuentas cloud. Consultá [Terraform Workspace Environment
+Isolation](/es/recipes/terraform-workspace-environment-isolation/).
 
 ## Prácticas de Seguridad
 
-### Nunca Commitees Secrets
+### Nunca commitear secretos
 
 ```bash
 # .gitignore
@@ -216,17 +218,17 @@ Precaución: Los workspaces comparten la misma configuración de backend. Para a
 secrets.tfvars
 ```
 
-### Usa Variables para Datos Sensibles
+### Usar variables para datos sensibles
 
 ```hcl
 variable "db_password" {
-  description = "Password de administrador de base de datos"
+  description = "Database administrator password"
   type        = string
   sensitive   = true
 }
 ```
 
-### Least Privilege para CI/CD
+### Mínimo privilegio para CI/CD
 
 ```json
 {
@@ -251,71 +253,91 @@ variable "db_password" {
 
 ## Testing y Validación
 
-### Análisis Estático
+### Análisis estático
 
 ```bash
-# Chequeo de formato
+# Format check
 terraform fmt -check -recursive
 
-# Validar sintaxis
+# Validate syntax
 terraform validate
 
-# Escaneo de seguridad con Checkov
+# Security scanning with Checkov
 checkov -d .
 ```
 
-### Flujo de Revisión de Plan
+### Flujo de revisión de planes
 
 ```bash
-# Generar un archivo de plan
+# Generate a plan file
 terraform plan -out=tfplan
 
-# Revisar el plan
+# Review the plan
 terraform show tfplan
 
-# Aplicar solo el plan revisado
+# Apply only the reviewed plan
 terraform apply tfplan
 ```
 
+## Explicación
+
+- **Módulos** mantienen el código DRY y reutilizable. Los root modules llaman a child modules y
+  pasan los valores de entorno a través de variables.
+- **Estado remoto** almacena el archivo `.tfstate` fuera de discos locales. S3 provee durabilidad;
+  DynamoDB provee locking para evitar escrituras concurrentes.
+- **Workspaces** separan el estado por entorno dentro de un mismo backend. Son livianos, pero
+  comparten credenciales del backend, así que usá backends separados para una separación
+  estricta.
+- **Seguridad** empieza por no commitear secretos, marcar variables como `sensitive` y darle a
+  CI/CD los permisos mínimos necesarios.
+- **Validación** con `terraform fmt`, `terraform validate` y `checkov` detecta problemas de
+  sintaxis y seguridad antes del apply.
+
 ## Errores Comunes
 
-- **Almacenar estado en Git** — usa backends remotos con encryption y versioning
-- **Hardcodear credenciales** — usa variables, environment variables o IAM roles
-- **Módulos monolíticos** — divide en módulos pequeños, reutilizables y testeables
-- **No usar archivos de plan** — siempre revisa planes antes de aplicar
-- **Ignorar pinning de versiones de provider** — pin versions para prevenir breaking changes
-- **Sin state locking** — múltiples engineers ejecutando terraform simultáneamente corrompen el estado
+- **Guardar el estado en Git** — usá backends remotos con cifrado y versionado.
+- **Hardcodear credenciales** — usá variables, variables de entorno o roles IAM.
+- **Módulos monolíticos** — dividí en módulos pequeños, reutilizables y testeables.
+- **No usar plan files** — siempre revisá los planes antes de aplicar.
+- **Ignorar el pin de versiones de providers** — pineá versiones para evitar breaking changes.
+- **No usar state locking** — varios ingenieros corriendo Terraform simultáneamente pueden
+  corromper el estado.
 
-## FAQ
+## Preguntas Frecuentes
 
-**¿Debería usar Terraform Cloud?**
-Terraform Cloud/Enterprise provee estado remoto, colaboración de equipo y policy-as-code. Para equipos pequeños, backend S3 + DynamoDB es suficiente.
+### ¿Uso Terraform Cloud?
 
-**¿Cómo gestiono secrets en Terraform?**
-Usa environment variables (TF_VAR_*), HashiCorp Vault o secret managers cloud (AWS Secrets Manager, Azure Key Vault, GCP Secret Manager). Marca variables como `sensitive = true`.
+Terraform Cloud y Enterprise proveen estado remoto, colaboración de equipo y policy-as-code. Para
+equipos chicos, un backend S3 + DynamoDB alcanza.
 
-**¿Cuándo debería usar módulos vs workspaces?**
-Los módulos son para componentes de infraestructura reutilizables. Los workspaces son para aislamiento de estado por ambiente. Usa ambos: módulos para código DRY, workspaces (o directorios separados) para separación de ambientes.
+### ¿Cómo gestiono secretos en Terraform?
 
-### ¿Cómo empiezo con esto en un proyecto existente?
+Usá variables de entorno (`TF_VAR_*`), HashiCorp Vault o gestores de secretos cloud como AWS
+Secrets Manager. Marcá las variables como `sensitive = true`.
 
-Empieza con una parte pequeña y aislada de tu codebase. Aplica los conceptos de esta guía a un módulo o servicio. Mide el impacto, luego expande a otras áreas.
+### ¿Cuándo uso módulos vs workspaces?
 
-### ¿Qué herramientas necesito?
+Los módulos son para componentes de infraestructura reutilizables. Los workspaces son para
+aislamiento de estado por entorno. Usá ambos: módulos para código DRY, workspaces o directorios
+separados para separación de entornos.
 
-Las herramientas mencionadas throughout esta guía se listan en cada sección. La mayoría son open-source y ampliamente adoptadas. Consulta los recursos relacionados para instrucciones de setup.
+### ¿Cómo manejo el estado remoto y el locking?
 
-### ¿Cómo mido el éxito después de implementar esto?
+Usá un backend remoto como S3 con DynamoDB para locking. Configurá `encrypt = true`. Nunca
+commitees archivos `.tfstate`. Para equipos grandes, usá Terraform Cloud o Atlantis para aplicar
+cambios vía PRs.
 
-Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de error o indicadores de mantenibilidad. Compara antes y después. Itera basándote en datos, no en suposiciones.
+### ¿Cómo empiezo en un proyecto existente?
 
+Empezá con una parte pequeña y aislada del codebase. Aplicá estas prácticas a un módulo o
+servicio. Medí el impacto y expandí.
 
 ## Temas Avanzados
 
-### Escenario: Terraform Modular para Produccion
+### Terraform modular para producción
 
 ```hcl
-# Estructura de directorios
+# Directory structure
 # infra/
 #   modules/
 #     vpc/
@@ -325,9 +347,7 @@ Define métricas claras antes de empezar: benchmarks de rendimiento, tasas de er
 #     dev/
 #     staging/
 #     production/
-```
 
-```hcl
 # modules/rds/main.tf
 variable "vpc_id" { type = string }
 variable "subnet_ids" { type = list(string) }
@@ -398,12 +418,8 @@ module "rds" {
   tags = { Environment = "production", Team = "platform" }
 }
 
-# Diferencias entre entornos:
-#   dev: db.t3.medium, 20GB, no multi-az, backup 1 dia
-#   staging: db.t3.large, 100GB, multi-az, backup 7 dias
-#   production: db.r5.xlarge, 500GB, multi-az, backup 30 dias
+# Environment differences:
+#   dev: db.t3.medium, 20GB, no multi-az, backup 1 day
+#   staging: db.t3.large, 100GB, multi-az, backup 7 days
+#   production: db.r5.xlarge, 500GB, multi-az, backup 30 days
 ```
-
-### Como manejo state remoto y locking?
-
-Usa backend remoto (S3 + DynamoDB para locking). S3 guarda el archivo de estado. DynamoDB previene escrituras concurrentes. Configura `encrypt = true` en el backend. Nunca commitees el archivo .tfstate al repo. Usa `terraform state pull` y `terraform state push` con precaucion. Para equipos grandes, usa Terraform Cloud o Atlantis para aplicar cambios via PRs.
