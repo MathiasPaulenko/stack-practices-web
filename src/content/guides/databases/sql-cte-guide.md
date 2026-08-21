@@ -2,7 +2,7 @@
 contentType: guides
 slug: sql-cte-guide
 title: "SQL CTEs — Common Table Expressions Explained"
-description: "A practical guide to SQL Common Table Expressions (CTEs): non-recursive and recursive CTEs, readability, performance, and when to use them over subqueries."
+description: "A practical guide to SQL CTEs: non-recursive and recursive expressions, readability, performance, and when to use them over subqueries."
 metaDescription: "Learn SQL CTEs: non-recursive and recursive expressions, readability, performance tips. Complete guide with examples for PostgreSQL, SQL Server, and MySQL."
 difficulty: intermediate
 topics:
@@ -11,9 +11,11 @@ topics:
 tags:
   - sql
   - cte
+  - common-table-expression
   - recursive-cte
+  - databases
+  - performance
   - readability
-  - guide
 relatedResources:
   - /guides/sql-window-functions-guide
   - /guides/sql-performance-tuning-guide
@@ -21,7 +23,7 @@ relatedResources:
   - /recipes/sql-find-duplicate-rows
   - /recipes/sql-recursive-cte-query
   - /guides/complete-guide-postgresql-tuning
-lastUpdated: "2026-06-25"
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
@@ -33,28 +35,33 @@ seo:
     - recursive-cte
     - readability
     - query-organization
-    - guide
-
-
-
-
+    - performance
 ---
+
 ## Overview
 
-Common Table Expressions (CTEs), introduced in SQL:1999, provide a named temporary result set that exists for the duration of a single query. They improve readability by breaking complex queries into named blocks, enable recursion for hierarchical data, and can be materialized for performance. Supported by PostgreSQL, SQL Server, MySQL 8+, Oracle, and SQLite 3.8.3+.
+A Common Table Expression (CTE) is a named temporary result set that exists for the
+duration of a single query. Introduced in SQL:1999, CTEs help break complex queries into
+readable blocks, let you reference the same subquery more than once, and enable recursion
+for hierarchical data. They're supported by PostgreSQL, SQL Server, MySQL 8+, Oracle, and
+SQLite 3.8.3+.
 
 ## When to Use
 
+- A query has several nested subquery levels.
+- You need to reference the same subquery several times.
+- You're traversing hierarchical data, such as org charts, bills of materials, or
+  threaded comments.
+- Query logic needs to be self-documenting and modular.
+- You want to build complex queries incrementally and test each part.
 
-- For alternatives, see [Complete Guide to SQL Query Optimization](/guides/complete-guide-sql-query-optimization/).
+## When NOT to Use
 
-- A query has multiple levels of nested subqueries
-- You need to reference the same subquery multiple times
-- Hierarchical data must be traversed (org charts, bill of materials, threaded comments)
-- Query logic needs to be self-documenting and modular
-- You want to build complex queries incrementally and test each part
+- A simple query is faster and clearer as a single `SELECT` or inline subquery.
+- Your database engine doesn't support CTEs and you can't upgrade.
+- You expect a CTE to always improve performance; it doesn't by default.
 
-## Basic CTE Syntax
+## Basic Syntax
 
 ```sql
 WITH cte_name AS (
@@ -63,62 +70,38 @@ WITH cte_name AS (
 SELECT * FROM cte_name;
 ```
 
+The `WITH` clause defines one or more CTEs. The final `SELECT` can use them like regular
+ tables.
+
 ## Non-Recursive CTE Example
 
 ```sql
 WITH monthly_sales AS (
     SELECT
-        DATE_TRUNC('month', order_date) as month,
-        SUM(total) as revenue,
-        COUNT(*) as order_count
+        DATE_TRUNC('month', order_date) AS month,
+        SUM(total) AS revenue,
+        COUNT(*) AS order_count
     FROM orders
     WHERE order_date >= '2024-01-01'
     GROUP BY DATE_TRUNC('month', order_date)
 ),
 avg_sales AS (
-    SELECT AVG(revenue) as avg_revenue FROM monthly_sales
+    SELECT AVG(revenue) AS avg_revenue FROM monthly_sales
 )
 SELECT
     ms.month,
     ms.revenue,
     ms.order_count,
     a.avg_revenue,
-    ms.revenue - a.avg_revenue as variance
+    ms.revenue - a.avg_revenue AS variance
 FROM monthly_sales ms
 CROSS JOIN avg_sales a
 ORDER BY ms.month;
 ```
 
-## Recursive CTE for Hierarchies
-
-```sql
--- Org chart: find all reports under a manager
-WITH RECURSIVE org_tree AS (
-    -- Anchor: start with the manager
-    SELECT id, name, manager_id, 1 as depth
-    FROM employees
-    WHERE id = 1  -- CEO
-
-    UNION ALL
-
-    -- Recursive: find direct reports
-    SELECT e.id, e.name, e.manager_id, ot.depth + 1
-    FROM employees e
-    INNER JOIN org_tree ot ON e.manager_id = ot.id
-)
-SELECT id, name, depth FROM org_tree ORDER BY depth, name;
-```
-
-## CTE vs Subquery
-
-| Aspect | CTE | Subquery |
-|--------|-----|----------|
-| **Readability** | Named, reusable | Inline, anonymous |
-| **Reusability** | Can reference multiple times | Must duplicate if used again |
-| **Recursion** | Supported | Not supported |
-| **Materialization** | Can be materialized (PostgreSQL) | Evaluated each time |
-
 ## Multiple CTEs
+
+You can define several CTEs in one query and chain them.
 
 ```sql
 WITH
@@ -128,7 +111,9 @@ WITH
         WHERE last_login >= CURRENT_DATE - INTERVAL '30 days'
     ),
     user_orders AS (
-        SELECT user_id, COUNT(*) as order_count, SUM(total) as lifetime_value
+        SELECT user_id,
+               COUNT(*) AS order_count,
+               SUM(total) AS lifetime_value
         FROM orders
         WHERE user_id IN (SELECT user_id FROM active_users)
         GROUP BY user_id
@@ -136,147 +121,44 @@ WITH
 SELECT
     u.user_id,
     u.last_login,
-    COALESCE(o.order_count, 0) as order_count,
-    COALESCE(o.lifetime_value, 0) as lifetime_value
+    COALESCE(o.order_count, 0) AS order_count,
+    COALESCE(o.lifetime_value, 0) AS lifetime_value
 FROM active_users u
 LEFT JOIN user_orders o ON u.user_id = o.user_id;
 ```
 
-## Materialized CTEs (PostgreSQL)
+## Recursive CTE for Hierarchies
+
+A recursive CTE has an anchor member and a recursive member joined by `UNION ALL`.
 
 ```sql
-WITH regional_sales AS MATERIALIZED (
-    SELECT region, SUM(total) as total_sales
-    FROM orders
-    GROUP BY region
-    HAVING SUM(total) > 1000000
-)
-SELECT * FROM regional_sales;
-```
-
-## Common Mistakes
-
-- **Infinite recursion** — recursive CTEs without a proper termination condition will error or loop forever
-- **Treating CTEs as temp tables** — they are query-scoped; for temp tables, use `CREATE TEMP TABLE`
-- **Performance assumptions** — in some engines, CTEs are inlined; in others, they may materialize. Profile your query.
-- **Over-nesting CTEs** — deeply nested CTEs can become harder to read than the original subquery soup
-- **Mutual recursion** — not supported in most databases; use iterative approaches instead
-
-
-## Troubleshooting
-
-- **Query is slow after an index change**: check execution plans and cardinality estimates.  Rebuild statistics and verify the index is being used.
-- **Replication lag grows**: monitor network, disk I/O, and long transactions.  Split large writes and consider parallel replication.
-- **Connections exhausted**: review connection pool size, idle timeouts, and leaked connections.
-- **Backup takes too long**: enable compression, incremental backups, and off-peak scheduling.
-- **Deadlocks in high concurrency**: access tables and rows in a consistent order.
-
-
-
-
-## Further Reading
-
-- **Official documentation**: check the current reference for the framework or tool used.
-- **Related guides**: explore the sql and cte guides for deeper coverage.
-- **Complementary patterns**: review design patterns applicable to your technology stack.
-- **Public postmortems**: study real incidents from teams that faced similar production issues.
-
-## Production Notes
-
-- **Deploy gradually** using canary or blue-green to catch regressions early.
-- **Configure alerts** for error rate, p99 latency, and failure rate before enabling in production.
-- **Document the rollback** in the runbook; test the procedure in staging at least once per quarter.
-- **Review structured logs** with correlation IDs to trace requests end-to-end during incidents.
-
-## Key Takeaways
-
-- **Apply sql ctes — common table expressions explained** when you need a practical solution for your use case.
-- **Monitor performance** after implementation; measure latency, errors, and resource usage before and after.
-- **Check the Troubleshooting section** for common failures; most have documented root causes with fixes.
-- **Keep dependencies updated** and run tests in CI to prevent production regressions.
-
-## FAQ
-
-**Do CTEs improve performance?**
-Not inherently. They improve readability and maintainability. In PostgreSQL, `MATERIALIZED` CTEs can improve performance by evaluating once. In SQL Server, CTEs are usually inlined.
-
-**Can I use CTEs in UPDATE or DELETE?**
-Yes, in PostgreSQL and SQL Server: `WITH cte AS (...) UPDATE table SET ... FROM cte WHERE ...`.
-
-**Are CTEs available in MySQL?**
-Yes, non-recursive CTEs in MySQL 8.0+, recursive in MySQL 8.0+ with `WITH RECURSIVE`.
-
-### How do I get started with this in an existing project?
-
-Start with a small, isolated part of your codebase. Apply the concepts from this guide to one module or service. Measure the impact, then expand to other areas.
-
-### What tools do I need?
-
-The tools mentioned throughout this guide are listed in each section. Most are open-source and widely adopted. Check the related resources for setup instructions.
-
-### How do I measure success after implementing this?
-
-Define clear metrics before starting: performance benchmarks, error rates, or maintainability indicators. Compare before and after. Iterate based on the data, not on assumptions.
-
-
-## Advanced Topics
-
-### Detailed Scenario: Employee Hierarchy with Recursive CTE
-
-```sql
--- Structure: org chart with 5 levels of depth
--- Table: employees(id, name, manager_id, salary, department)
-
--- 1. Find all direct and indirect reports of the CEO
+-- Org chart: find all reports under the CEO
 WITH RECURSIVE org_tree AS (
-    SELECT id, name, manager_id, salary, 1 AS depth,
-           ARRAY[id] AS path
-    FROM employees
-    WHERE manager_id IS NULL  -- CEO has no manager
-
-    UNION ALL
-
-    SELECT e.id, e.name, e.manager_id, e.salary,
-           ot.depth + 1,
-           ot.path || e.id
-    FROM employees e
-    INNER JOIN org_tree ot ON e.manager_id = ot.id
-    WHERE ot.depth < 10  -- Safety limit
-)
-SELECT
-    id,
-    name,
-    depth,
-    path,
-    salary,
-    (SELECT name FROM employees m WHERE m.id = ot.manager_id) AS manager_name
-FROM org_tree ot
-ORDER BY path;
-
--- 2. Calculate total budget per org chart branch
-WITH RECURSIVE org_tree AS (
-    SELECT id, name, manager_id, salary AS total_budget, 1 AS depth
+    -- Anchor
+    SELECT id, name, manager_id, 1 AS depth
     FROM employees
     WHERE manager_id IS NULL
 
     UNION ALL
 
-    SELECT e.id, e.name, e.manager_id,
-           ot.total_budget + e.salary,
-           ot.depth + 1
+    -- Recursive step
+    SELECT e.id, e.name, e.manager_id, ot.depth + 1
     FROM employees e
     INNER JOIN org_tree ot ON e.manager_id = ot.id
+    WHERE ot.depth < 10
 )
-SELECT name, total_budget, depth
+SELECT id, name, depth
 FROM org_tree
-WHERE depth <= 3
-ORDER BY total_budget DESC;
+ORDER BY depth, name;
+```
 
--- 3. Find chain of command from an employee to the CEO
+To find the chain of command from an employee to the CEO, reverse the join:
+
+```sql
 WITH RECURSIVE chain_of_command AS (
     SELECT id, name, manager_id, 1 AS steps_to_ceo
     FROM employees
-    WHERE id = 42  -- Specific employee
+    WHERE id = 42
 
     UNION ALL
 
@@ -287,68 +169,94 @@ WITH RECURSIVE chain_of_command AS (
 SELECT name, steps_to_ceo
 FROM chain_of_command
 ORDER BY steps_to_ceo;
-
--- 4. Bill of Materials: component explosion
--- Table: bom(product_id, component_id, quantity)
-WITH RECURSIVE bom_explosion AS (
-    SELECT
-        product_id,
-        component_id,
-        quantity,
-        1 AS level,
-        CAST(quantity AS FLOAT) AS total_quantity,
-        CAST(component_id AS VARCHAR(1000)) AS component_path
-    FROM bom
-    WHERE product_id = 100  -- Final product
-
-    UNION ALL
-
-    SELECT
-        b.product_id,
-        b.component_id,
-        b.quantity,
-        be.level + 1,
-        be.total_quantity * b.quantity,
-        be.component_path || '>' || b.component_id
-    FROM bom b
-    INNER JOIN bom_explosion be ON b.product_id = be.component_id
-    WHERE be.level < 20  -- Depth limit
-)
-SELECT
-    level,
-    component_id,
-    total_quantity,
-    component_path
-FROM bom_explosion
-ORDER BY component_path;
 ```
 
-### How do I optimize recursive CTEs on large datasets?
+## Materialized CTEs in PostgreSQL
 
-Add a depth limit (WHERE depth < N) to prevent infinite recursion. Use indexes on the join column (manager_id, product_id). In PostgreSQL, consider materializing the CTE with the MATERIALIZED clause if it is referenced multiple times. For very deep hierarchies (>1000 levels), consider storing the materialized path (path enumeration) in an additional column to avoid recursion on every query.
+By default, PostgreSQL inlines CTEs. Add `MATERIALIZED` to force the engine to compute the
+CTE once and store the result.
 
+```sql
+WITH regional_sales AS MATERIALIZED (
+    SELECT region, SUM(total) AS total_sales
+    FROM orders
+    GROUP BY region
+    HAVING SUM(total) > 1000000
+)
+SELECT * FROM regional_sales;
+```
 
+Use this when the CTE is expensive and referenced more than once, or when the optimizer
+chooses a bad plan. In SQL Server and MySQL, the behavior is engine-specific and usually
+not controlled with a keyword.
 
+## CTE vs Subquery
 
+|Aspect|CTE|Subquery|
+|------|---|--------|
+|Readability|Named, reusable|Inline, anonymous|
+|Reusability|Can reference more than once|Must duplicate if used again|
+|Recursion|Supported|Not supported|
+|Materialization|Optional in PostgreSQL|Evaluated each time by default|
 
+## Best Practices
 
+- Name CTEs by what they represent, not by step numbers.
+- Keep each CTE focused on a single logical step.
+- Add a `WHERE depth < N` guard to every recursive CTE.
+- Use `MATERIALIZED` in PostgreSQL only when the query plan shows the CTE being inlined
+  inefficiently.
+- Test each CTE independently by replacing the final `SELECT` with a quick query of that
+  CTE.
 
+## Common Mistakes
 
+- **Infinite recursion** — forgetting the termination guard or a data cycle in the
+  hierarchy.
+- **Treating CTEs as temp tables** — they live only for the query; for persistence use
+  `CREATE TEMP TABLE` or a real table.
+- **Performance assumptions** — some engines inline CTEs, others materialize; always
+  profile.
+- **Over-nesting CTEs** — ten chained CTEs can become harder to read than the original
+  subqueries.
+- **Mutual recursion** — two CTEs referencing each other isn't supported in most
+  engines.
 
+## FAQ
 
+### Do CTEs improve performance?
 
+Not inherently. They improve readability and maintainability. In PostgreSQL,
+`MATERIALIZED` CTEs can help when the same result is used several times. In SQL Server,
+CTEs are usually inlined.
 
+### Can I use CTEs in UPDATE or DELETE?
 
+Yes. In PostgreSQL and SQL Server:
 
-End of document. Review and update quarterly.
+```sql
+WITH expired AS (
+    SELECT id FROM orders WHERE status = 'expired'
+)
+DELETE FROM order_items
+WHERE order_id IN (SELECT id FROM expired);
+```
 
-## Common Production Pitfalls
+### Are CTEs available in MySQL?
 
-- Treating the guide as a checklist to complete once rather than a practice to evolve.
-- Adopting every recommendation at once instead of starting with one measured change.
-- Skipping the maturity assessment and forcing advanced practices on an unprepared team.
-- Not updating runbooks and on-call expectations as new practices are introduced.
-- Ignoring real incident data when prioritizing which parts of the guide to apply first.
-- Failing to assign an owner who reviews decisions quarterly.
-- Copying examples without adapting them to the team's actual tooling and constraints.
-- Forgetting to measure outcomes before adding the next improvement.
+Yes, since MySQL 8.0. Non-recursive and recursive CTEs both work with `WITH` and
+`WITH RECURSIVE`.
+
+### How do I optimize a recursive CTE on a large hierarchy?
+
+- Add a depth limit.
+- Index the join column (`manager_id`, `product_id`, etc.).
+- Consider `MATERIALIZED` in PostgreSQL if the recursive set is reused.
+- For very deep hierarchies, store a materialized path in a column and query that
+  instead.
+
+### When should I choose a CTE over a subquery?
+
+Use a CTE when the same subquery is referenced more than once, when the query has
+several nested levels, or when you need recursion. For a one-off simple subquery that
+appears once, an inline subquery is fine.

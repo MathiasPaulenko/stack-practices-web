@@ -500,13 +500,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 53.6% / ES 43.8% (0 patterns)
    - Words: 1,104 | Meta: 140 chars
 
-62. - [ ] **sql-cte-guide** (guides)
+62. - [x] **sql-cte-guide** (guides)
    - Metrics: 33 imp | pos 9.6 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/sql-cte-guide/
    - ES: https://stackpractices.com/es/guides/sql-cte-guide/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,473 | Meta: 155 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.8% / ES 39.6% (0 patterns)
+   - Words: 951 | Meta: 155 chars
 
 63. - [ ] **javascript-vitest-snapshot-testing** (recipes)
    - Metrics: 21 imp | pos 16.8 | CTR 0.00% | Δ impr 0

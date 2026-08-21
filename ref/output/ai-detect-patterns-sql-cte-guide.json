@@ -1,0 +1,117 @@
+[
+  {
+    "label": "sql-cte-guide",
+    "total_sentences": 42,
+    "pattern_totals": {
+      "vague_abstraction": 5,
+      "missing_contraction": 6
+    },
+    "findings": [
+      {
+        "sentence": "Introduced in SQL:1999, CTEs help break complex queries into\nreadable blocks, let you reference the same subquery multiple times, and enable recursion\nfor hierarchical data.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "They are supported by PostgreSQL, SQL Server, MySQL 8+, Oracle, and\nSQLite 3.8.3+.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "they are",
+            "suggestion": "use 'they're'"
+          }
+        ]
+      },
+      {
+        "sentence": "A query has multiple levels of nested subqueries.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "You are traversing hierarchical data, such as org charts, bills of materials, or\n  threaded comments.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you are",
+            "suggestion": "use 'you're'"
+          }
+        ]
+      },
+      {
+        "sentence": "Your database engine does not support CTEs and you cannot upgrade.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "does not",
+            "suggestion": "use 'doesn't'"
+          },
+          {
+            "pattern": "missing_contraction",
+            "match": "cannot",
+            "suggestion": "use 'can't'"
+          }
+        ]
+      },
+      {
+        "sentence": "You expect a CTE to always improve performance; it does not by default.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "does not",
+            "suggestion": "use 'doesn't'"
+          }
+        ]
+      },
+      {
+        "sentence": "Use this when the CTE is expensive and referenced multiple times, or when the optimizer\nchooses a bad plan.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "|Aspect|CTE|Subquery|\n|------|---|--------|\n|Readability|Named, reusable|Inline, anonymous|\n|Reusability|Can reference multiple times|Must duplicate if used again|\n|Recursion|Supported|Not supported|\n|Materialization|Optional in PostgreSQL|Evaluated each time by default|\nName CTEs by what they represent, not by step numbers.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "**Mutual recursion** \u2014 two CTEs referencing each other is not supported in most\n  engines.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "is not",
+            "suggestion": "use 'isn't'"
+          }
+        ]
+      },
+      {
+        "sentence": "Use a CTE when the same subquery is referenced more than once, when the query has\nmultiple nested levels, or when you need recursion.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]
