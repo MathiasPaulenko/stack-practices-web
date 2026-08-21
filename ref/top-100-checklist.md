@@ -452,13 +452,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 54.9% / ES 37.1% (0 patterns)
    - Words: 1,033 | Meta: 150 chars
 
-56. - [ ] **complete-guide-local-llm-deployment** (guides)
+56. - [x] **complete-guide-local-llm-deployment** (guides)
    - Metrics: 54 imp | pos 35.5 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/guides/complete-guide-local-llm-deployment/
    - ES: https://stackpractices.com/es/guides/complete-guide-local-llm-deployment/
    - Focus: high impressions, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,963 | Meta: 128 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 57.1% / ES 46.3% (0 patterns)
+   - Words: 1,436 | Meta: 148 chars
 
 57. - [ ] **feature-flags** (recipes)
    - Metrics: 17 imp | pos 6.2 | CTR 0.00% | Δ impr -25

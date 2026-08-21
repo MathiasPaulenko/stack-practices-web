@@ -1,12 +1,9 @@
 ---
-
-
-
 contentType: guides
 slug: complete-guide-local-llm-deployment
-title: "Despliegue Local de LLM"
-description: "Desplegar LLMs localmente y on-premise. Cubre Ollama, vLLM, llama.cpp, LM Studio, quantization de modelos, GPU requirements, serving con API servers, performance tuning y elegir entre local y cloud."
-metaDescription: "Desplegar LLMs localmente. Cubre Ollama, vLLM, llama.cpp, LM Studio, quantization, GPU, API servers, performance tuning."
+title: "Despliegue Local de LLM: Ollama, vLLM y llama.cpp"
+description: "Desplegá modelos grandes de lenguaje localmente y on-premise. Cubre Ollama, vLLM, llama.cpp, cuantización, GPUs, servidores de API, Docker y local vs cloud."
+metaDescription: "Desplegá LLMs localmente con Ollama, vLLM y llama.cpp. Incluye cuantización, requisitos de GPU, servicio de API, Docker y cuándo elegir local vs cloud."
 difficulty: advanced
 topics:
   - ai
@@ -14,151 +11,138 @@ topics:
   - infrastructure
 tags:
   - local-llm
-  - ai
-  - guide
+  - ia
   - ollama
+  - vllm
+  - llama-cpp
+  - cuantizacion
+  - gpu
+  - docker
 relatedResources:
   - /guides/complete-guide-llm-cost-optimization
   - /guides/complete-guide-llm-security
   - /guides/complete-guide-llm-application-architecture
   - /recipes/python-ollama-local-llm
-lastUpdated: "2026-07-04"
+  - /recipes/environment-variables
+  - /guides/complete-guide-llm-prompt-engineering
+lastUpdated: "2026-08-19"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Desplegar LLMs localmente. Cubre Ollama, vLLM, llama.cpp, LM Studio, quantization, GPU, API servers, performance tuning."
+  metaDescription: "Desplegá LLMs localmente con Ollama, vLLM y llama.cpp. Incluye cuantización, requisitos de GPU, servicio de API, Docker y cuándo elegir local vs cloud."
   keywords:
     - despliegue local llm
     - ollama
     - vllm
     - llama.cpp
     - lm studio
-    - model quantization
-    - gpu requirements
+    - cuantizacion de modelos
+    - requisitos gpu
     - on-premise llm
-
-
-
 ---
 
 ## Introducción
 
-Correr LLMs localmente te da privacy, control, zero per-token costs, y no rate limits. Con tools como Ollama, vLLM, y llama.cpp, desplegar open-source models (Llama, Mistral, Qwen) es straightforward. Lo siguiente es una guia practica para el espectro completo de despliegue local de LLM: elegir tools, model quantization, GPU requirements, API servers, performance tuning, y decidir cuando ir local vs cloud.
+Correr LLMs localmente te da privacidad, control, costos por token nulos y sin límites de
+uso. Con herramientas como Ollama, vLLM y llama.cpp, desplegar modelos open source como
+Llama, Mistral y Qwen es sencillo. Esta guía recorre cómo elegir una herramienta,
+cuantizar modelos, dimensionar la memoria de GPU, exponer una API, contenedorizar,
+medir rendimiento y decidir entre local y cloud.
 
-## Comparacion de Tools
+## Cuándo Usar
 
-```text
-Tool         | Ease | Performance | API Server | GPU | Best For
--------------|------|-------------|------------|-----|----------
-Ollama       | Easy | Good        | Built-in   | Yes | Quick start, dev
-vLLM         | Med  | Best        | Built-in   | Yes | Production serving
-llama.cpp    | Med  | Good        | Manual     | Opt | CPU/GPU flexibility
-LM Studio    | Easy | Good        | Built-in   | Yes | Desktop GUI
-TGI          | Med  | Very Good   | Built-in   | Yes | HuggingFace ecosystem
-```
+- Necesitás mantener los datos on-premise por privacidad, HIPAA o GDPR.
+- Generás un alto volumen de tokens y querés costos predecibles de hardware.
+- La latencia importa y podés evitar viajes de red.
+- Trabajás offline o en un entorno air-gapped.
+- Querés control total sobre el modelo y su comportamiento.
+
+## Cuándo NO Usar
+
+- El volumen de tokens es bajo y una API cloud administrada es más barata que comprar
+  GPUs.
+- Necesitás los modelos de mayor calidad disponibles solo en cloud.
+- No tenés el expertise o el tiempo para manejar drivers, CUDA y mantenimiento de GPU.
+- Necesitás capacidades multimodales como visión o audio que tu modelo local no
+  soporta.
+
+## Comparación de Herramientas
+
+|Herramienta|Facilidad|Rendimiento|API|GPU|Ideal para|
+|-----------|---------|-----------|---|---|----------|
+|Ollama|Fácil|Bueno|Integrada|Sí|Pruebas y desarrollo|
+|vLLM|Media|Óptimo|OpenAI-compatible|Sí|Serving de producción|
+|llama.cpp|Media|Bueno|Manual|Opcional|Flexibilidad CPU/GPU|
+|LM Studio|Fácil|Bueno|Integrada|Sí|Escritorio con GUI|
+|TGI|Media|Muy bueno|Integrada|Sí|Ecosistema HuggingFace|
 
 ## Ollama
 
-### Instalacion y Uso Basico
+### Instalación y uso básico
 
 ```bash
-# Instalar Ollama (Linux)
+# Linux
 curl -fsSL https://ollama.com/install.sh | sh
 
-# Instalar Ollama (macOS)
+# macOS
 brew install ollama
 
-# Pull y run un model
+# Descargar y ejecutar un modelo
 ollama pull llama3.1:8b
 ollama run llama3.1:8b
 
-# Listar models
-ollama list
-
-# Run con specific context window
+# Ejecutar con mayor ventana de contexto
 ollama run llama3.1:8b --context-window 8192
 ```
 
-### Ollama API Server
+### Servidor de API de Ollama
 
 ```python
 import requests
 
-# Ollama corre un API server en localhost:11434
 OLLAMA_URL = "http://localhost:11434"
 
-# Chat completion
 response = requests.post(f"{OLLAMA_URL}/api/chat", json={
     "model": "llama3.1:8b",
     "messages": [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Explain Python decorators."}
+        {"role": "system", "content": "Sos un asistente útil."},
+        {"role": "user", "content": "Explicá los decoradores de Python."}
     ],
     "stream": False
 })
 
 result = response.json()
 print(result["message"]["content"])
-
-# Streaming
-response = requests.post(f"{OLLAMA_URL}/api/chat", json={
-    "model": "llama3.1:8b",
-    "messages": [{"role": "user", "content": "Write a haiku about coding."}],
-    "stream": True
-}, stream=True)
-
-for line in response.iter_lines():
-    if line:
-        import json
-        chunk = json.loads(line)
-        if "message" in chunk:
-            print(chunk["message"]["content"], end="", flush=True)
 ```
 
-### Ollama con Python Client
+### Cliente de Python
 
 ```python
 from ollama import Client
 
 client = Client(host="http://localhost:11434")
 
-# Chat
 response = client.chat(
     model="llama3.1:8b",
     messages=[
-        {"role": "system", "content": "You are a Python expert."},
-        {"role": "user", "content": "Write a decorator that logs function calls."}
+        {"role": "system", "content": "Sos un experto en Python."},
+        {"role": "user", "content": "Escribí un decorador que loguee llamadas."}
     ]
 )
 print(response["message"]["content"])
-
-# Generate (single prompt)
-response = client.generate(
-    model="llama3.1:8b",
-    prompt="Explain async/await in Python."
-)
-print(response["response"])
-
-# Embeddings
-response = client.embeddings(
-    model="nomic-embed-text",
-    prompt="Python is a programming language."
-)
-print(f"Embedding dimensions: {len(response['embedding'])}")
 ```
 
-### Modelfile Custom
+### Modelfile personalizado
 
 ```dockerfile
-# Crear un custom model con specific system prompt
 FROM llama3.1:8b
 
 SYSTEM """
-You are a senior code reviewer. Always:
-1. Check for bugs
-2. Suggest improvements
-3. Rate code quality 1-10
-4. Be concise
+Sos un code reviewer senior. Siempre:
+1. Buscá bugs.
+2. Sugerí mejoras.
+3. Puntualizá la calidad del código de 1 a 10.
+4. Sé conciso.
 """
 
 PARAMETER temperature 0.3
@@ -167,22 +151,17 @@ PARAMETER num_ctx 4096
 ```
 
 ```bash
-# Build custom model
 ollama create code-reviewer -f Modelfile
-
-# Run
-ollama run code-reviewer "Review: def add(a, b): return a + b"
+ollama run code-reviewer "Revisá: def add(a, b): return a + b"
 ```
 
 ## vLLM
 
-### Instalacion y Serving
+### Instalación y serving
 
 ```bash
-# Instalar vLLM
 pip install vllm
 
-# Servir un model con OpenAI-compatible API
 python -m vllm.entrypoints.openai.api_server \
     --model meta-llama/Llama-3.1-8B-Instruct \
     --port 8000 \
@@ -191,191 +170,137 @@ python -m vllm.entrypoints.openai.api_server \
     --max-model-len 8192
 ```
 
-### Usar vLLM con OpenAI Client
+### Cliente compatible con OpenAI
 
 ```python
 from openai import OpenAI
 
-# vLLM provee un OpenAI-compatible API
 client = OpenAI(
     base_url="http://localhost:8000/v1",
-    api_key="dummy"  # vLLM no requiere real key
+    api_key="dummy"
 )
 
-# Chat completion (same que OpenAI API)
 response = client.chat.completions.create(
     model="meta-llama/Llama-3.1-8B-Instruct",
     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Explain Docker containers."}
+        {"role": "system", "content": "Sos un asistente útil."},
+        {"role": "user", "content": "Explicá los contenedores de Docker."}
     ],
     temperature=0.7,
     max_tokens=500
 )
 
 print(response.choices[0].message.content)
-
-# Streaming
-stream = client.chat.completions.create(
-    model="meta-llama/Llama-3.1-8B-Instruct",
-    messages=[{"role": "user", "content": "Write a Python web scraper."}],
-    stream=True
-)
-
-for chunk in stream:
-    if chunk.choices[0].delta.content:
-        print(chunk.choices[0].delta.content, end="", flush=True)
 ```
 
-### vLLM Performance Tuning
+### Ajuste de rendimiento
 
 ```bash
-# High-throughput configuration
 python -m vllm.entrypoints.openai.api_server \
     --model meta-llama/Llama-3.1-8B-Instruct \
     --port 8000 \
     --tensor-parallel-size 2 \
     --gpu-memory-utilization 0.95 \
     --max-model-len 16384 \
-    --batch-size 256 \
     --enable-chunked-prefill \
     --enable-prefix-caching
-
-# Key parameters:
-# --tensor-parallel-size: Numero de GPUs a usar
-# --gpu-memory-utilization: Fraction de GPU memory a usar (0.0-1.0)
-# --max-model-len: Maximum context length
-# --batch-size: Maximum batch size para inference
-# --enable-chunked-prefill: Better throughput para long prompts
-# --enable-prefix-caching: Cachear common prompt prefixes
 ```
+
+Flags clave:
+
+- `--tensor-parallel-size`: cantidad de GPUs.
+- `--gpu-memory-utilization`: fracción de VRAM a usar.
+- `--max-model-len`: longitud máxima de contexto.
+- `--enable-chunked-prefill`: mejor throughput para prompts largos.
+- `--enable-prefix-caching`: cache de prefijos comunes.
 
 ## llama.cpp
 
-### Build y Run
+### Compilar y ejecutar
 
 ```bash
-# Clone y build
 git clone https://github.com/ggerganov/llama.cpp
 cd llama.cpp
 
-# CPU-only build
+# Solo CPU
 make
 
-# CUDA build (NVIDIA GPU)
+# Build con CUDA
 make GGML_CUDA=1
 
-# Descargar un model (GGUF format)
+# Descargar un modelo GGUF
 wget https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct-GGUF/resolve/main/llama-3.1-8b-instruct-q4_k_m.gguf
 
-# Run inference
-./llama-cli -m llama-3.1-8b-instruct-q4_k_m.gguf -p "Explain Python GIL" -n 200
+# Inferencia
+./llama-cli -m llama-3.1-8b-instruct-q4_k_m.gguf -p "Explicá el GIL de Python" -n 200
 
-# Run como server (OpenAI-compatible API)
+# Modo servidor
 ./llama-server -m llama-3.1-8b-instruct-q4_k_m.gguf --port 8080 --ctx-size 8192
 ```
 
-### llama.cpp Python Bindings
+### Bindings de Python
 
 ```python
 from llama_cpp import Llama
 
-# Load model
 llm = Llama(
     model_path="llama-3.1-8b-instruct-q4_k_m.gguf",
     n_ctx=8192,
-    n_gpu_layers=35,  # Numero de layers a offload a GPU
-    n_threads=8,      # CPU threads
+    n_gpu_layers=35,
+    n_threads=8,
     verbose=False
 )
 
-# Generate
 response = llm(
-    "Explain Python decorators with examples.",
+    "Explicá los decoradores de Python con ejemplos.",
     max_tokens=500,
     temperature=0.7,
     stop=["\n\n\n"]
 )
-
 print(response["choices"][0]["text"])
-
-# Chat format
-response = llm.create_chat_completion(
-    messages=[
-        {"role": "system", "content": "You are a helpful coding assistant."},
-        {"role": "user", "content": "Write a Python decorator for caching."}
-    ],
-    max_tokens=500
-)
-
-print(response["choices"][0]["message"]["content"])
 ```
 
-## Model Quantization
+## Cuantización de Modelos
 
-### Formatos de Quantization
+### Niveles de cuantización
 
-```text
-Formatos de Quantization (GGUF):
-  Q2_K: 2-bit quantization — smallest, lowest quality
-  Q3_K_M: 3-bit — small, acceptable quality
-  Q4_K_M: 4-bit — recommended balance (best para most use cases)
-  Q5_K_M: 5-bit — good quality, moderate size
-  Q6_K: 6-bit — near-original quality
-  Q8_0: 8-bit — virtually lossless, largest
+|Formato|Bits|Tamaño (Llama 3.1 8B)|Calidad|
+|-------|----|---------------------|-------|
+|FP16|16|~16 GB|Original|
+|Q8_0|8|~8.5 GB|Prácticamente sin pérdida|
+|Q6_K|6|~6.5 GB|Casi original|
+|Q5_K_M|5|~5.7 GB|Buena|
+|Q4_K_M|4|~4.9 GB|Balance recomendado|
+|Q3_K_M|3|~4.0 GB|Aceptable|
+|Q2_K|2|~3.2 GB|Calidad más baja|
 
-Model sizes (Llama-3.1-8B):
-  FP16 (original): ~16 GB
-  Q8_0: ~8.5 GB
-  Q6_K: ~6.5 GB
-  Q5_K_M: ~5.7 GB
-  Q4_K_M: ~4.9 GB  ← recommended
-  Q3_K_M: ~4.0 GB
-  Q2_K: ~3.2 GB
+Q4_K_M es el mejor punto de equilibrio para la mayoría de los casos: reduce el tamaño
+aproximadamente 4x con una pérdida de calidad del 1-2%.
 
-Quality impact:
-  Q4_K_M vs FP16: ~1-2% quality degradation
-  Q5_K_M vs FP16: ~0.5% quality degradation
-  Q2_K vs FP16: ~5-10% quality degradation
+### Cuantizar un modelo
+
+```bash
+# Convertir a GGUF y luego cuantizar
+python convert.py meta-llama/Llama-3.1-8B-Instruct --outtype f16 --outfile base.gguf
+./llama-quantize base.gguf llama-3.1-8b-q4_k_m.gguf Q4_K_M
 ```
-
-### Quantizar un Model
 
 ```python
-# Usar llama.cpp para quantizar un model
-# Primero, convertir a GGUF format
-python convert.py meta-llama/Llama-3.1-8B-Instruct --outtype f16 --outfile llama-3.1-8b-f16.gguf
-
-# Luego quantizar
-./llama-quantize llama-3.1-8b-f16.gguf llama-3.1-8b-q4_k_m.gguf Q4_K_M
-
-# Usar AutoGPTQ para HuggingFace models
+# AutoGPTQ para modelos de HuggingFace
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
-from transformers import AutoTokenizer
 
-quantize_config = BaseQuantizeConfig(
-    bits=4,
-    group_size=128,
-    desc_act=False
-)
-
+quantize_config = BaseQuantizeConfig(bits=4, group_size=128, desc_act=False)
 model = AutoGPTQForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B-Instruct")
-tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B-Instruct")
-
-# Quantizar con calibration data
-calibration_texts = ["sample text 1", "sample text 2", ...]
 model.quantize(calibration_texts, quantize_config)
 model.save_quantized("./llama-3.1-8b-4bit")
 ```
 
-## GPU Requirements
+## Requisitos de GPU
 
-### VRAM Calculator
+### Calculadora de VRAM
 
 ```python
-def estimate_vram(model_params_billion: float, quantization: str = "q4") -> float:
-    """Estimar VRAM needed para un model."""
-    # Bytes per parameter por quantization
+def estimate_vram(params_billion: float, quantization: str = "q4") -> float:
     bytes_per_param = {
         "fp16": 2.0,
         "q8": 1.0,
@@ -385,63 +310,43 @@ def estimate_vram(model_params_billion: float, quantization: str = "q4") -> floa
         "q3": 0.375,
         "q2": 0.25,
     }
-    
-    bpp = bytes_per_param.get(quantization, 2.0)
-    
-    # Model weights
-    weights_gb = model_params_billion * bpp
-    
-    # KV cache (depende de context length, roughly 10-20% of weights)
-    kv_cache_gb = weights_gb * 0.15
-    
-    # Overhead (CUDA context, etc.)
-    overhead_gb = 1.0
-    
-    total = weights_gb + kv_cache_gb + overhead_gb
-    return total
 
-# Ejemplos
-models = [
+    bpp = bytes_per_param.get(quantization, 2.0)
+    weights_gb = params_billion * bpp
+    kv_cache_gb = weights_gb * 0.15
+    overhead_gb = 1.0
+    return weights_gb + kv_cache_gb + overhead_gb
+
+for name, params, quant in [
     ("Llama 3.1 8B", 8, "q4"),
     ("Llama 3.1 8B", 8, "fp16"),
     ("Llama 3.1 70B", 70, "q4"),
     ("Mistral 7B", 7, "q4"),
     ("Qwen 2.5 14B", 14, "q4"),
-]
-
-for name, params, quant in models:
+]:
     vram = estimate_vram(params, quant)
     print(f"{name} ({quant}): {vram:.1f} GB VRAM")
-
-# Output:
-# Llama 3.1 8B (q4): 5.6 GB
-# Llama 3.1 8B (fp16): 18.4 GB
-# Llama 3.1 70B (q4): 41.5 GB
-# Mistral 7B (q4): 5.0 GB
-# Qwen 2.5 14B (q4): 9.1 GB
 ```
 
 ### Recomendaciones de GPU
 
-```text
-GPU VRAM | Models Soportados
----------|------------------
-8 GB     | 7B models (Q4), 3B models (FP16)
-12 GB    | 7B models (Q8), 8B models (Q4)
-16 GB    | 8B models (FP16), 14B models (Q4)
-24 GB    | 14B models (Q8), 32B models (Q4)
-48 GB    | 32B models (Q8), 70B models (Q4)
-80 GB    | 70B models (Q8), 70B models (FP16)
+|VRAM|Modelos soportados|
+|----|------------------|
+|8 GB|7B Q4, 3B FP16|
+|12 GB|7B Q8, 8B Q4|
+|16 GB|8B FP16, 14B Q4|
+|24 GB|14B Q8, 32B Q4|
+|48 GB|32B Q8, 70B Q4|
+|80 GB|70B Q8, 70B FP16|
 
-Multi-GPU:
-  2x 24GB = 48GB total → 32B models (Q8), 70B models (Q4)
-  4x 24GB = 96GB total → 70B models (Q6), 70B models (FP16)
-```
+Las configuraciones multi-GPU combinan memoria con tensor o pipeline parallelism. Por
+ejemplo, 4 tarjetas de 24 GB dan suficiente VRAM para correr un modelo 70B a Q4 o Q6.
 
-## Serving con Docker
+## Servicio con Docker
+
+### Dockerfile para vLLM
 
 ```dockerfile
-# Dockerfile para vLLM server
 FROM vllm/vllm-openai:latest
 
 ENV MODEL_NAME=meta-llama/Llama-3.1-8B-Instruct
@@ -453,9 +358,10 @@ CMD ["--model", "meta-llama/Llama-3.1-8B-Instruct", \
      "--gpu-memory-utilization", "0.9"]
 ```
 
+### Docker Compose
+
 ```yaml
-# docker-compose.yml
-version: '3.8'
+version: "3.8"
 
 services:
   vllm:
@@ -465,7 +371,7 @@ services:
     volumes:
       - ./models:/models
     environment:
-      - HUGGING_FACE_HUB_TOKEN=hf_your_token
+      - HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
     command:
       - --model
       - meta-llama/Llama-3.1-8B-Instruct
@@ -480,7 +386,7 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
-  
+
   ollama:
     image: ollama/ollama:latest
     ports:
@@ -500,26 +406,19 @@ volumes:
 ```
 
 ```bash
-# Start services
-docker-compose up -d
-
-# Pull model en Ollama
+docker compose up -d
 docker exec -it ollama ollama pull llama3.1:8b
 ```
 
-## Performance Benchmarking
+## Benchmark de Rendimiento
 
 ```python
 import time
 import requests
-import json
 from concurrent.futures import ThreadPoolExecutor
 
-def benchmark_llm(url: str, model: str, prompt: str, n_requests: int = 10) -> dict:
-    latencies = []
-    tokens_generated = []
-    
-    def make_request():
+def benchmark(url: str, model: str, prompt: str, n: int = 10) -> dict:
+    def request():
         start = time.perf_counter()
         response = requests.post(f"{url}/v1/chat/completions", json={
             "model": model,
@@ -527,91 +426,77 @@ def benchmark_llm(url: str, model: str, prompt: str, n_requests: int = 10) -> di
             "stream": False
         })
         latency = time.perf_counter() - start
-        
-        result = response.json()
-        tokens = result["usage"]["completion_tokens"]
-        
+        tokens = response.json()["usage"]["completion_tokens"]
         return latency, tokens
-    
+
     with ThreadPoolExecutor(max_workers=1) as executor:
-        results = list(executor.map(lambda _: make_request(), range(n_requests)))
-    
+        results = list(executor.map(lambda _: request(), range(n)))
+
     latencies = [r[0] for r in results]
-    tokens_generated = [r[1] for r in results]
-    
+    tokens = [r[1] for r in results]
+    total_time = sum(latencies)
+
     return {
+        "tokens_per_second": sum(tokens) / total_time,
         "avg_latency_s": sum(latencies) / len(latencies),
-        "avg_tokens": sum(tokens_generated) / len(tokens_generated),
-        "tokens_per_second": sum(tokens_generated) / sum(latencies),
-        "p50_latency_s": sorted(latencies)[len(latencies) // 2],
         "p95_latency_s": sorted(latencies)[int(len(latencies) * 0.95)],
     }
 
-# Benchmark Ollama
-ollama_stats = benchmark_llm("http://localhost:11434", "llama3.1:8b", "Write a 200-word essay about AI.")
-print(f"Ollama: {ollama_stats['tokens_per_second']:.1f} tokens/s")
-
-# Benchmark vLLM
-vllm_stats = benchmark_llm("http://localhost:8000", "meta-llama/Llama-3.1-8B-Instruct", "Write a 200-word essay about AI.")
-print(f"vLLM: {vllm_stats['tokens_per_second']:.1f} tokens/s")
+print(benchmark("http://localhost:11434", "llama3.1:8b",
+                "Escribí un ensayo de 200 palabras sobre IA."))
+print(benchmark("http://localhost:8000", "meta-llama/Llama-3.1-8B-Instruct",
+                "Escribí un ensayo de 200 palabras sobre IA."))
 ```
 
-## Decision: Local vs Cloud
+## Local vs Cloud
 
-```text
-Cuando elegir LOCAL:
-  - Privacy/data sovereignty requirements (HIPAA, GDPR)
-  - High volume (>1M tokens/day) — local es mas barato
-  - Latency-sensitive applications (local = no network)
-  - Offline o air-gapped environments
-  - Custom fine-tuned models
-  - Full control sobre model behavior
+**Elegí local cuando:**
 
-Cuando elegir CLOUD:
-  - Low volume (<100K tokens/day) — cloud es mas barato
-  - Need best quality (GPT-4o, Claude 3.5 Sonnet)
-  - No GPU infrastructure o expertise
-  - Need multimodal (vision, audio)
-  - Variable load (cloud escala automaticamente)
-  - Quick prototyping y experimentation
+- La privacidad o soberanía de datos es crítica (HIPAA, GDPR).
+- Servís un alto volumen de tokens y el costo por token en cloud es alto.
+- La latencia importa y querés evitar viajes de red.
+- Trabajás offline o en un entorno air-gapped.
+- Necesitás control total sobre el modelo y su comportamiento.
 
-Cost comparison (1M tokens/day):
-  Cloud (gpt-4o): ~$25/day input, ~$100/day output = ~$125/day
-  Local (8B model, 1x A100): ~$2/day electricity = ~$60/month
-  Break-even: ~$3,000 GPU card se paga solo en ~24 days
-```
+**Elegí cloud cuando:**
+
+- El volumen es bajo y una API administrada es más barata que tener GPUs.
+- Necesitás la máxima calidad (GPT-4o, Claude 3.5 Sonnet).
+- No tenés infraestructura ni expertise en GPUs.
+- Necesitás capacidades multimodales (visión, audio).
+- La carga es variable y querés escalado elástico.
+
+Para 1M de tokens por día, un modelo 8B local en una sola A100 puede ser mucho más barato
+que una API cloud una vez amortizado el costo del hardware.
 
 ## Preguntas Frecuentes
 
-### ¿Cuál es la mejor tool para despliegue local de LLM?
+### ¿Cuál es la mejor herramienta para desplegar LLMs localmente?
 
-Para desarrollo y quick starts: Ollama. Para production serving con high throughput: vLLM. Para CPU-only o mixed CPU/GPU: llama.cpp. Para desktop use con GUI: LM Studio. vLLM provee el highest throughput gracias a PagedAttention y continuous batching.
+Para experimentación rápida, usá Ollama. Para alto throughput de producción, usá vLLM. Para
+solo CPU o CPU/GPU mixto, usá llama.cpp. Para una GUI de escritorio, usá LM Studio. vLLM
+suele tener el mayor throughput gracias a PagedAttention y continuous batching.
 
 ### ¿Cuánta VRAM necesito?
 
-Para un 7-8B model con Q4 quantization: 6-8 GB VRAM. Para un 14B model: 10-12 GB. Para un 32B model: 20-24 GB. Para un 70B model: 40-48 GB. Agrega 15-20% para KV cache dependiendo de context length. Usa el VRAM calculator de esta guia para estimates precisos.
+Un modelo 7-8B en Q4 necesita 6-8 GB. Uno de 14B necesita 10-12 GB. Uno de 32B necesita
+20-24 GB. Uno de 70B necesita 40-48 GB. Agregá 15-20% para KV cache y overhead.
 
-### ¿Puedo correr LLMs en CPU only?
+### ¿Puedo correr LLMs solo con CPU?
 
-Si. llama.cpp soporta CPU-only inference. Expecta 5-20 tokens/s para 7B Q4 models en un CPU moderno (vs 50-100+ tokens/s en GPU). Para produccion, GPU es strongly recommended. CPU es fine para desarrollo, testing, y low-volume use.
+Sí. llama.cpp soporta inferencia solo en CPU, pero es mucho más lento. Esperá 5-20 tokens/s
+para un modelo 7B Q4 en una CPU moderna, contra 50-100+ tokens/s en GPU. La CPU sirve para
+pruebas o uso de bajo volumen.
 
-### ¿Qué es quantization y debería usarla?
+### ¿Qué es la cuantización y cuándo usarla?
 
-Quantization reduce model precision (16-bit → 4-bit) para decrecer memory usage y aumentar inference speed. Q4_K_M es el quantization recommended para la mayoria de use cases — reduce model size en 4x con solo 1-2% quality loss. Usa Q5_K_M o Q6_K si necesitas higher quality. Usa Q2_K o Q3_K solo si VRAM es extremely limited.
+La cuantización reduce la precisión numérica para achicar el modelo y acelerar la
+inferencia. Usá Q4_K_M para la mayoría de los casos; reduce el tamaño unas 4x con una
+pérdida de calidad del 1-2%. Usá Q5_K_M o Q6_K si necesitás más calidad. Evitá Q2_K a menos
+que la VRAM sea muy limitada.
 
-### ¿Cómo expongo un local LLM como API?
+### ¿Cómo expongo un LLM local como API?
 
-Tanto Ollama como vLLM proveen built-in API servers. Ollama corre en port 11434 con su propio API format. vLLM corre en port 8000 con un OpenAI-compatible API. llama.cpp tiene un server mode (`llama-server`). Todos pueden ser fronted con nginx o un reverse proxy para produccion. Usa Docker para containerized deployment.
-
-### ¿Puedo fine-tunear models localmente?
-
-Si. Usa tools como Unsloth, Axolotl, o HuggingFace TRL para fine-tuning. Fine-tuning un 7B model requiere ~16 GB VRAM con QLoRA (4-bit quantization + LoRA). Full fine-tuning de un 7B model requiere ~60 GB VRAM. Fine-tuning es mas lento que inference — espera horas a dias dependiendo de dataset size y hardware.
-
-## See Also
-
-- [Complete Guide to PostgreSQL Replication](/es/guides/complete-guide-postgresql-replication/)
-- [Database Replication — Master-Slave, Multi-Master](/es/guides/database-replication-guide/)
-- [Blue-Green Deployment](/es/guides/blue-green-deployment-guide/)
-- [Canary Deployment: Gradual Rollouts with Safety Controls](/es/guides/canary-deployment-guide/)
-- [CI/CD Security: Harden Your Pipelines and Prevent Supply](/es/guides/ci-cd-security-guide/)
-
+Ollama, vLLM y llama.cpp tienen modos servidor. vLLM y llama.cpp exponen una API
+compatible con OpenAI; Ollama usa su propio formato. Poné un reverse proxy como nginx
+adelante para TLS y balanceo de carga en producción.
