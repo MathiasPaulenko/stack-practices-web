@@ -2,221 +2,229 @@
 contentType: recipes
 slug: server-sent-events-go
 title: "Implementa Server-Sent Events en Go para Actualizaciones"
-description: "Como construir un endpoint de Server-Sent Events en Go listo para produccion con gestion de conexiones, heartbeats y manejo graceful de desconexiones de clientes"
-metaDescription: "Server-Sent Events en Go. Construye streams de actualizacion en tiempo real con gestion de conexiones, heartbeats y manejo graceful de desconexiones de clientes."
+description: "Construí un endpoint de Server-Sent Events en Go listo para producción con gestión de conexiones, heartbeats y manejo graceful de desconexiones de clientes."
+metaDescription: "Server-Sent Events en Go. Construye streams de actualización en tiempo real con gestión de conexiones, heartbeats y manejo graceful de desconexiones de clientes."
 difficulty: intermediate
 topics:
   - api
   - performance
 tags:
   - server-sent-events
-  - real-time
+  - sse
   - golang
+  - real-time
   - api
-  - rest
+  - http
 relatedResources:
-  - /recipes/websocket-authentication
+  - /recipes/server-sent-events
+  - /recipes/server-sent-events-node
   - /recipes/real-time-websockets
+  - /recipes/websocket-authentication
   - /recipes/go-rest-api-gin
-  - /recipes/websocket-bidirectional-chat
-lastUpdated: "2026-07-09"
+  - /recipes/real-time-notifications
+lastUpdated: "2026-08-19"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Server-Sent Events en Go. Construye streams de actualizacion en tiempo real con gestion de conexiones, heartbeats y manejo graceful de desconexiones de clientes."
+  metaDescription: "Server-Sent Events en Go. Construye streams de actualización en tiempo real con gestión de conexiones, heartbeats y manejo graceful de desconexiones de clientes."
   keywords:
     - server sent events
     - sse
     - golang
     - real time api
     - event stream
-
-
-
+    - http streaming
 ---
-Server-Sent Events proporcionan un canal ligero y unidireccional para enviar actualizaciones en tiempo real del servidor al cliente sobre HTTP. A diferencia de WebSockets, SSE usa conexiones HTTP estandar, no requiere upgrade de protocolo, y maneja reconexion automaticamente a traves de la API EventSource del navegador.
 
-## Cuando Usar Esto
+## Resumen
 
-- Necesitas enviar notificaciones, logs o metricas en vivo a navegadores
-- El servidor es el unico emisor; los clientes solo reciben (sin chat bidireccional)
-- Quieres usar infraestructura HTTP existente (load balancers, CDNs)
+Server-Sent Events proporcionan un canal ligero y unidireccional para enviar actualizaciones en
+ tiempo real del servidor al cliente sobre HTTP. A diferencia de WebSockets, SSE usa conexiones
+ HTTP estándar, no requiere upgrade de protocolo y la API `EventSource` del navegador maneja la
+ reconexión automáticamente.
 
-## Requisitos Previos
+## Cuándo Usarlo
 
-- Go 1.21+ instalado
-- Comprension basica de HTTP streaming y goroutines
+- Necesitás enviar notificaciones, logs o métricas en vivo a navegadores.
+- El servidor es el único emisor; los clientes solo reciben.
+- Querés reutilizar infraestructura HTTP existente como load balancers y CDNs.
+- Necesitás una alternativa más simple a WebSockets para streaming unidireccional.
 
-## Solucion
+## Cuándo NO Usarlo
 
-### 1. Handler SSE Basico
+- Los clientes necesitan enviar mensajes al servidor en tiempo real — usá WebSockets.
+- Necesitás datos binarios o de muy alta frecuencia — WebSockets o WebTransport se ajustan mejor.
+- No podés controlar timeouts de proxies o load balancers que pueden cerrar conexiones inactivas.
+
+## Solución
+
+### Handler SSE básico
 
 ```go
 // handlers/sse.go
 package handlers
 
 import (
-	"fmt"
-	"net/http"
-	"time"
+    "fmt"
+    "net/http"
+    "time"
 )
 
 type Event struct {
-	ID    string
-	Type  string
-	Data  string
-	Retry int
+    ID    string
+    Type  string
+    Data  string
+    Retry int
 }
 
 func (e Event) String() string {
-	var result string
-	if e.ID != "" {
-		result += fmt.Sprintf("id: %s\n", e.ID)
-	}
-	if e.Type != "" {
-		result += fmt.Sprintf("event: %s\n", e.Type)
-	}
-	if e.Retry > 0 {
-		result += fmt.Sprintf("retry: %d\n", e.Retry)
-	}
-	result += fmt.Sprintf("data: %s\n\n", e.Data)
-	return result
+    var result string
+    if e.ID != "" {
+        result += fmt.Sprintf("id: %s\n", e.ID)
+    }
+    if e.Type != "" {
+        result += fmt.Sprintf("event: %s\n", e.Type)
+    }
+    if e.Retry > 0 {
+        result += fmt.Sprintf("retry: %d\n", e.Retry)
+    }
+    result += fmt.Sprintf("data: %s\n\n", e.Data)
+    return result
 }
 
 func SSEHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/event-stream")
-	w.Header().Set("Cache-Control", "no-cache")
-	w.Header().Set("Connection", "keep-alive")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Content-Type", "text/event-stream")
+    w.Header().Set("Cache-Control", "no-cache")
+    w.Header().Set("Connection", "keep-alive")
+    w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	flusher, ok := w.(http.Flusher)
-	if !ok {
-		http.Error(w, "Streaming unsupported", http.StatusInternalServerError)
-		return
-	}
+    flusher, ok := w.(http.Flusher)
+    if !ok {
+        http.Error(w, "Streaming unsupported", http.StatusInternalServerError)
+        return
+    }
 
-	ticker := time.NewTicker(2 * time.Second)
-	defer ticker.Stop()
+    ticker := time.NewTicker(2 * time.Second)
+    defer ticker.Stop()
 
-	clientGone := r.Context().Done()
+    clientGone := r.Context().Done()
 
-	for {
-		select {
-		case <-clientGone:
-			return
-		case <-ticker.C:
-			event := Event{
-				ID:   fmt.Sprintf("%d", time.Now().Unix()),
-				Type: "ping",
-				Data: `{"timestamp": ` + fmt.Sprintf("%d", time.Now().Unix()) + `}`,
-			}
-			fmt.Fprint(w, event.String())
-			flusher.Flush()
-		}
-	}
+    for {
+        select {
+        case <-clientGone:
+            return
+        case <-ticker.C:
+            now := time.Now().Unix()
+            event := Event{
+                ID:   fmt.Sprintf("%d", now),
+                Type: "ping",
+                Data: fmt.Sprintf(`{"timestamp": %d}`, now),
+            }
+            fmt.Fprint(w, event.String())
+            flusher.Flush()
+        }
+    }
 }
 ```
 
-### 2. Hub para Gestion de Conexiones
+### Gestión de conexiones con un hub
 
 ```go
 // sse/hub.go
 package sse
 
-import (
-	"sync"
-)
+import "sync"
 
 type Hub struct {
-	clients map[chan Event]bool
-	mu      sync.RWMutex
+    clients map[chan Event]bool
+    mu      sync.RWMutex
 }
 
 func NewHub() *Hub {
-	return &Hub{clients: make(map[chan Event]bool)}
+    return &Hub{clients: make(map[chan Event]bool)}
 }
 
 func (h *Hub) Subscribe() chan Event {
-	ch := make(chan Event, 10)
-	h.mu.Lock()
-	h.clients[ch] = true
-	h.mu.Unlock()
-	return ch
+    ch := make(chan Event, 10)
+    h.mu.Lock()
+    h.clients[ch] = true
+    h.mu.Unlock()
+    return ch
 }
 
 func (h *Hub) Unsubscribe(ch chan Event) {
-	h.mu.Lock()
-	delete(h.clients, ch)
-	h.mu.Unlock()
-	close(ch)
+    h.mu.Lock()
+    delete(h.clients, ch)
+    h.mu.Unlock()
+    close(ch)
 }
 
 func (h *Hub) Broadcast(event Event) {
-	h.mu.RLock()
-	defer h.mu.RUnlock()
+    h.mu.RLock()
+    defer h.mu.RUnlock()
 
-	for ch := range h.clients {
-		select {
-		case ch <- event:
-		default:
-			// Canal lleno, descarta evento para este cliente
-		}
-	}
+    for ch := range h.clients {
+        select {
+        case ch <- event:
+        default:
+            // Channel full, drop event for this client
+        }
+    }
 }
 ```
 
-### 3. Handler de Produccion con Heartbeat
+### Handler de producción con heartbeat
 
 ```go
 // handlers/events.go
 func EventStream(hub *sse.Hub) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "text/event-stream")
-		w.Header().Set("Cache-Control", "no-cache")
-		w.Header().Set("Connection", "keep-alive")
+    return func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Content-Type", "text/event-stream")
+        w.Header().Set("Cache-Control", "no-cache")
+        w.Header().Set("Connection", "keep-alive")
 
-		flusher, ok := w.(http.Flusher)
-		if !ok {
-			http.Error(w, "Streaming unsupported", http.StatusInternalServerError)
-			return
-		}
+        flusher, ok := w.(http.Flusher)
+        if !ok {
+            http.Error(w, "Streaming unsupported", http.StatusInternalServerError)
+            return
+        }
 
-		client := hub.Subscribe()
-		defer hub.Unsubscribe(client)
+        client := hub.Subscribe()
+        defer hub.Unsubscribe(client)
 
-		heartbeat := time.NewTicker(30 * time.Second)
-		defer heartbeat.Stop()
+        heartbeat := time.NewTicker(30 * time.Second)
+        defer heartbeat.Stop()
 
-		clientGone := r.Context().Done()
+        clientGone := r.Context().Done()
 
-		// Enviar evento inicial de conexion
-		fmt.Fprintf(w, "event: connected\ndata: %s\n\n", `{"status": "ok"}`)
-		flusher.Flush()
+        // Send initial connection event
+        fmt.Fprintf(w, "event: connected\ndata: %s\n\n", `{"status": "ok"}`)
+        flusher.Flush()
 
-		for {
-			select {
-			case <-clientGone:
-				return
-			case event := <-client:
-				fmt.Fprint(w, event.String())
-				flusher.Flush()
-			case <-heartbeat.C:
-				fmt.Fprint(w, ": heartbeat\n\n")
-				flusher.Flush()
-			}
-		}
-	}
+        for {
+            select {
+            case <-clientGone:
+                return
+            case event := <-client:
+                fmt.Fprint(w, event.String())
+                flusher.Flush()
+            case <-heartbeat.C:
+                fmt.Fprint(w, ": heartbeat\n\n")
+                flusher.Flush()
+            }
+        }
+    }
 }
 ```
 
-### 4. Cliente EventSource
+### EventSource del cliente
 
 ```javascript
 // client.js
 const evtSource = new EventSource('/api/events');
 
 evtSource.addEventListener('connected', (e) => {
-  console.log('Conectado:', JSON.parse(e.data));
+  console.log('Connected:', JSON.parse(e.data));
 });
 
 evtSource.addEventListener('price-update', (e) => {
@@ -225,130 +233,117 @@ evtSource.addEventListener('price-update', (e) => {
 });
 
 evtSource.onerror = (err) => {
-  console.error('Error SSE:', err);
-  // El navegador se reconecta automaticamente con backoff exponencial
+  console.error('SSE error:', err);
+  // Browser auto-reconnects with exponential backoff
 };
 
-// Cleanup al cerrar pagina
 window.addEventListener('beforeunload', () => {
   evtSource.close();
 });
 ```
 
-## Como Funciona
+## Explicación
 
-1. **HTTP Stream** envia eventos como text/plain con content type `text/event-stream`
-2. **Formato de Evento** usa campos `data:`, `event:`, `id:`, y `retry:` por linea
-3. **Reconexion del Navegador** es automatica con tracking de last-event-id
-4. **Heartbeat Comments** (`: ping`) mantienen conexiones vivas a traves de proxies
+1. **HTTP stream**: el servidor responde con `Content-Type: text/event-stream` y escribe eventos
+   como texto plano.
+2. **Formato de evento**: cada evento usa campos como `data:`, `event:`, `id:` y `retry:`.
+3. **Reconexión**: el navegador rastrea el último event ID y lo reenvía en el header
+   `Last-Event-ID` al reconectar.
+4. **Heartbeat comments**: las líneas que empiezan con `:` mantienen la conexión abierta a través
+   de proxies.
+5. **Limpieza de goroutines**: `r.Context().Done()` se dispara cuando el cliente se desconecta,
+   así que el handler retorna y el `defer` desuscribe al cliente.
 
-## Consideraciones de Produccion
+## Variantes
 
-- Ejecuta endpoints SSE detras de **[load balancers HTTP/2](/recipes/nginx-reverse-proxy/)** para multiplexing
-- Usa **Redis Pub/Sub** para broadcast entre multiples instancias de servidor Go. Consulta [Notificaciones en Tiempo Real](/recipes/real-time-notifications/) para patrones de Redis pub/sub.
-- Limita **conexiones por IP de cliente** para prevenir agotamiento de recursos
-- Configura **write timeouts** apropiados, mayores que endpoints REST estandar
+### Broadcast con Redis para múltiples instancias de Go
+
+Para escalar horizontalmente, publicá eventos en Redis Pub/Sub y que cada proceso Go se
+suscriba, luego fan-out a sus clientes SSE locales. Consultá [Real-Time
+Notifications](/es/recipes/real-time-notifications/) para patrones de Redis pub/sub.
+
+### Autenticar conexiones SSE
+
+Los navegadores no pueden setear headers custom a través de `EventSource`. Pasá un token de corta
+ duración como query parameter y validalo antes de suscribir:
+
+```go
+token := r.URL.Query().Get("token")
+if !validateToken(token) {
+    http.Error(w, "Unauthorized", http.StatusUnauthorized)
+    return
+}
+```
+
+Para SSE cross-origin, seteá los headers CORS explícitamente en el endpoint.
+
+### Test con `httptest`
+
+```go
+func TestSSEHandler(t *testing.T) {
+    req := httptest.NewRequest(http.MethodGet, "/events", nil)
+    rec := httptest.NewRecorder()
+
+    SSEHandler(rec, req)
+
+    res := rec.Result()
+    if res.Header.Get("Content-Type") != "text/event-stream" {
+        t.Fatalf("expected text/event-stream, got %s", res.Header.Get("Content-Type"))
+    }
+}
+```
+
+## Buenas Prácticas
+
+- Siempre llamá a `Flusher.Flush()` después de cada evento; de lo contrario, proxies y clientes
+  bufferan la respuesta.
+- Ejecutá SSE detrás de load balancers con HTTP/2 para distribuir muchos streams sobre una sola
+  conexión.
+- Seteá `Cache-Control: no-cache` y `Connection: keep-alive` para evitar buffering.
+- Usá un heartbeat comment cada 25–30 segundos para mantener conexiones abiertas a través de
+  proxies corporativos.
+- Limitá conexiones por IP de cliente o requerí autenticación para evitar agotamiento de
+  recursos.
+- Usá write timeouts más largos que para endpoints REST estándar.
 
 ## Errores Comunes
 
-- Olvidar llamar `Flush()` despues de cada evento
-- No manejar desconexion de cliente, dejando goroutines ejecutandose
-- Faltar `Cache-Control: no-cache`, causando que proxies bufferdeen eventos
+- Olvidar llamar a `Flush()` después de cada evento.
+- No manejar la desconexión del cliente, dejando goroutines corriendo.
+- Faltar `Cache-Control: no-cache`, lo que hace que los proxies bufferen eventos.
+- Enviar eventos sin IDs, perdiendo el replay al reconectar.
+- Ejecutar el mismo handler sin aislamiento de estado entre varios procesos Go.
 
+## Preguntas Frecuentes
 
-## Troubleshooting
+### ¿Cómo se compara SSE con WebSockets?
 
-- **5xx errors under load**: check rate limits, connection pools, and downstream timeouts.
-- **CORS errors in the browser**: confirm allowed origins, methods, and headers.   Preflight requests must return the right headers before the actual request.
-- **Unexpected 404s**: verify route definitions, path parameters, and base paths.   Watch for trailing slashes and URL encoding differences.
-- **Authentication failures**: validate token expiry, signature algorithms, and clock skew.   Log rejected tokens without exposing secrets.
-- **Slow response times**: profile the slowest percentiles.
+SSE es más simple para push servidor-a-cliente. Usá [WebSockets](/es/recipes/real-time-websockets/)
+cuando necesites comunicación bidireccional o datos binarios.
 
-## FAQ
+### ¿Puede SSE funcionar a través de proxies corporativos?
 
-**P: Como se compara SSE con WebSockets?**
-R: SSE es mas simple para push servidor-a-cliente. Usa [WebSockets](/recipes/websocket-server/) cuando necesites comunicacion bidireccional o datos binarios.
+Sí, pero algunos proxies tienen timeouts cortos. Enviá heartbeat comments cada 30 segundos para
+mantener conexiones abiertas.
 
-**P: Puede SSE funcionar a traves de proxies corporativos?**
-R: Si, pero algunos proxies tienen timeouts agresivos. Envia heartbeat comments cada 30 segundos para mantener conexiones abiertas.
+### ¿Cuál es el número máximo de conexiones SSE concurrentes?
 
-**P: Cual es el numero maximo de conexiones SSE concurrentes?**
-R: El limite del navegador es 6 conexiones por dominio. Usa HTTP/2 o una conexion compartida para evitar esto.
+Sobre HTTP/1.1, los navegadores permiten unas 6 conexiones por dominio. HTTP/2 elimina ese
+límite.
 
 ### ¿Cómo manejo la reconexión del cliente con Last-Event-ID?
 
-El header HTTP `Last-Event-ID` es enviado por el navegador cuando una conexión SSE cae y el cliente se reconecta. En el servidor, lee este header y replayea cualquier evento con ID mayor que el último recibido. Asigna IDs secuenciales a los eventos usando el campo `id:` en el formato SSE. Almacena eventos recientes en un ring buffer en memoria (ej., últimos 100 eventos por canal) para que los clientes reconectados puedan ponerse al día sin perder mensajes.
-
-### ¿Debo usar SSE o WebSocket para actualizaciones en tiempo real?
-
-Usa SSE para streams solo servidor-a-cliente (notificaciones, feeds en vivo, dashboards). SSE es más simple: usa HTTP estándar, soporta auto-reconexión y funciona a través de proxies con configuración mínima. Usa WebSocket cuando necesitas comunicación bidireccional (chat, edición colaborativa, gaming). SSE tiene un límite de navegador de 6 conexiones concurrentes por dominio sobre HTTP/1.1, pero HTTP/2 elimina este límite.
+Leé el header `Last-Event-ID` y reproducí eventos con IDs mayores. Asigná IDs secuenciales con el
+ campo `id:` y guardá eventos recientes en un pequeño ring buffer en memoria.
 
 ### ¿Cómo broadcasteo SSE a múltiples clientes en Go?
 
-Mantén un map de clientes conectados, cada uno con su propio channel. Al broadcastear, itera sobre el map y envía el evento al channel de cada cliente usando un send non-blocking (`select` con case `default`). Remueve clientes desconectados del map al cerrar. Para fan-out grande, usa un pub/sub broker como Redis Pub/Sub para que múltiples procesos Go compartan la carga de broadcast.
-
-### ¿Cómo testeo endpoints SSE en Go?
-
-Usa `httptest.NewServer` para iniciar el handler in-process. Conéctate con un cliente SSE (ej., paquete Go `eventsource` o un cliente HTTP raw que lea el body línea por línea). Aserta que los eventos lleguen en orden con data correcta. Para load testing, abre muchas conexiones concurrentes y mide la latencia de eventos. Usa `context.WithTimeout` para cancelar tests de larga duración.
-
-### ¿Cómo aseguro endpoints SSE con autenticación?
-
-Pasa tokens de auth como query parameters (`?token=...`) ya que las conexiones SSE no pueden setear headers custom desde la API `EventSource` del navegador. Valida el token server-side antes de registrar al cliente. Para producción, usa tokens de corta duración y rotalos. Alternativamente, usa cookies para auth (el navegador envía cookies con requests SSE automáticamente). Para SSE cross-origin, configura headers CORS en el endpoint SSE.
-
-### ¿Cómo manejo la limpieza de conexiones SSE en Go?
-
-Usa `context.Context` para propagar cancelación. Cuando el HTTP handler retorna, el context del request es cancelado — escucha `<-ctx.Done()` en tu event loop y cierra el flusher. Remueve el cliente del connection map dentro de un `defer` block para asegurar que la limpieza se ejecute incluso en panic. Setea un write timeout en cada flush para detectar conexiones stale. Ejecuta una goroutine en background que periódicamente chequee conexiones muertas y las remueva.
-
-### ¿Cómo comprimo respuestas SSE en Go?
-
-Habilita compresión gzip con `middleware.Compress` de chi o el middleware `Gzip` de gin. Las respuestas SSE se benefician de compresión cuando los eventos contienen payloads JSON repetitivos. Setea `Content-Encoding: gzip` y flushea después de cada chunk comprimido. nota que la compresión añade overhead de CPU por evento — benchmarkea con tamaños de payload realistas para determinar si mejora el throughput para tu caso de uso.
+Mantené un map de channels suscritos. Usá un send non-blocking con un case `default` en un
+`select` para evitar que clientes lentos bloqueen el broadcast. Para fan-out entre instancias,
+agregá Redis Pub/Sub.
 
 ### ¿Cómo manejo SSE detrás de un load balancer?
 
-Usa sticky sessions (session affinity) para que un cliente siempre se conecte a la misma instancia de backend. Configura tu load balancer (ALB, nginx, HAProxy) con timeouts largos (ej., 1 hora) para prevenir drops prematuros de conexión. Deshabilita response buffering en nginx: `proxy_buffering off;` y `proxy_cache off;`. Para broadcasting multi-instancia, usa Redis Pub/Sub para fanear eventos a todas las instancias de backend, cada una manteniendo sus propias conexiones SSE.
-
-### ¿Cómo implemento event IDs SSE para replay?
-
-Asigna un ID monotonically incremental a cada evento usando el campo `id:` en el formato SSE. Almacena eventos en un ring buffer keyed por ID. Cuando un cliente se reconecta con `Last-Event-ID: 42`, replayea eventos 43+ desde el buffer. Setea un TTL en los eventos almacenados (ej., 5 minutos) para limitar el uso de memoria. Para eventos más allá del window del buffer, retorna `204 No Content` y deja que el cliente decida si empezar fresh o mostrar un mensaje de reconexión.
-
-
-
-
-
-## Referencia Rápida
-
-- **Comando principal**: ejecuta la solución base del artículo y verifica el resultado esperado.
-- **Validación**: confirma que los tests pasan y que las métricas clave no se degradaron.
-- **Rollback**: si algo falla, revierte el cambio y consulta la sección de Troubleshooting.
-
-## Lectura Adicional
-
-- **Documentación oficial**: consulta la referencia actualizada del framework o herramienta utilizada.
-- **Guías relacionadas**: explora las guías de server-sent-events y real-time para profundizar.
-- **Patrones complementarios**: revisa los patrones de diseño aplicables a tu stack tecnológico.
-- **Postmortems públicos**: estudia incidentes reales de equipos que enfrentaron problemas similares en producción.
-
-## Notas de Producción
-
-- **Despliega gradualmente** usando canary o blue-green para detectar regresiones temprano.
-- **Configura alertas** para errores, latencia p99 y tasa de fallos antes de habilitar en producción.
-- **Documenta el rollback** en el runbook; prueba el procedimiento en staging al menos una vez por trimestre.
-- **Revisa logs estructurados** con correlation IDs para trazar requests end-to-end en incidentes.
-
-## Puntos Clave
-
-- **Aplica implementa server-sent events en go para actualizaciones** cuando necesites una solución práctica para tu caso de uso.
-- **Monitorea el rendimiento** después de implementar; mide latencia, errores y uso de recursos antes y después.
-- **Revisa la sección de Troubleshooting** ante errores comunes; la mayoría tienen causa raíz documentada con solución.
-- **Mantén dependencias actualizadas** y ejecuta tests en CI para prevenir regresiones en producción.
-
-## Errores Comunes en Producción
-
-- Copiar el ejemplo sin adaptarlo a volúmenes y modos de fallo reales.
-- Saltar tests de carga e inyección de errores antes del primer despliegue productivo.
-- Codificar valores fijos que deberían ser configurables por entorno.
-- Olvidar agregar logging y monitoreo en cada paso.
-- Desplegar sin plan de rollback ni estrategia de backup probada.
-- Asumir que el ejemplo mínimo escalará sin agregar caché o procesamiento por lotes.
-- No documentar la versión y configuración usadas en producción.
-- Dejar la receta sin cambios cuando evolucionan las dependencias o la escala.
+Usá timeouts largos, deshabilitá el response buffering en nginx con `proxy_buffering off;`, y usá
+Redis Pub/Sub para compartir eventos entre instancias si los clientes pueden caer en distintos
+backends.
