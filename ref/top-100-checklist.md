@@ -548,13 +548,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.2% / ES 42.4% (0 patterns)
    - Words: 936 | Meta: 150 chars
 
-68. - [ ] **api-gateway** (recipes)
+68. - [x] **api-gateway** (recipes)
    - Metrics: 26 imp | pos 26.8 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/api-gateway/
    - ES: https://stackpractices.com/es/recipes/api-gateway/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,686 | Meta: 159 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 46.2% / ES 40.2% (0 patterns)
+   - Words: 852 | Meta: 159 chars
 
 69. - [ ] **uuid-generation** (recipes)
    - Metrics: 26 imp | pos 26 | CTR 0.00% | Δ impr -4

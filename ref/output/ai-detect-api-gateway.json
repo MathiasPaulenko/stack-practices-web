@@ -1,0 +1,332 @@
+[
+  {
+    "label": "api-gateway-en",
+    "model": "desklib",
+    "model_ai_pct": 46.2,
+    "ai_count": 22,
+    "human_count": 21,
+    "skipped_count": 4,
+    "total": 47,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 11.9,
+      "stddev": 6.0,
+      "cv": 0.5,
+      "verdict": "natural variation",
+      "sentence_count": 43,
+      "lengths": [
+        20,
+        19,
+        11,
+        12,
+        5,
+        20,
+        6,
+        8,
+        10,
+        11,
+        12,
+        9,
+        17,
+        11,
+        13,
+        11,
+        10,
+        6,
+        6,
+        19,
+        20,
+        17,
+        39,
+        7,
+        8,
+        12,
+        17,
+        13,
+        6,
+        15,
+        5,
+        8,
+        11,
+        8,
+        11,
+        11,
+        10,
+        13,
+        9,
+        14,
+        5,
+        9,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "In a microservices architecture, clients must interact with many individual services, each with\nits own endpoint, protocol, and authentication requirements.",
+        0.8875
+      ],
+      [
+        "**No timeout or retry strategy**.",
+        0.8578
+      ],
+      [
+        "When services are added, removed, or relocated, every client must update.",
+        0.7731
+      ],
+      [
+        "**Request routing**: the gateway maps incoming paths to backend services.",
+        0.71
+      ],
+      [
+        "**Cross-cutting concerns**: auth, rate limiting, and caching are implemented once at the edge\ninstead of duplicated in every service.",
+        0.6812
+      ],
+      [
+        "The project is small and the extra operational overhead isn\u2019t justified.",
+        0.6776
+      ],
+      [
+        "Mobile apps need smaller payloads than web apps.",
+        0.639
+      ],
+      [
+        "You\u2019ve got only one or two services \u2014 a simple reverse proxy or load balancer is enough.",
+        0.6172
+      ],
+      [
+        "Supporting several client types (web, mobile, IoT) with different API requirements.",
+        0.6038
+      ],
+      [
+        "Clients talk to one URL.",
+        0.5807
+      ],
+      [
+        "**Putting business logic in the gateway**.",
+        0.5423
+      ],
+      [
+        "/api/v1/users goes\nto the user service.",
+        0.5383
+      ],
+      [
+        "Use a GraphQL gateway such as Apollo Router or Hasura.",
+        0.5378
+      ],
+      [
+        "It makes routing explicit and\n  simplifies cache keys.",
+        0.5343
+      ],
+      [
+        "Migrating from a monolith to microservices while keeping a stable external contract.",
+        0.5319
+      ],
+      [
+        "An API gateway solves this by acting as a single entry point.",
+        0.5267
+      ],
+      [
+        "The gateway validates external tokens.",
+        0.5207
+      ],
+      [
+        "Yes, but typically 1-5 ms for a well-tuned gateway.",
+        0.5101
+      ],
+      [
+        "Use path versioning (/api/v1/users) instead of headers.",
+        0.5046
+      ],
+      [
+        "For internal calls, use mTLS or signed internal tokens.",
+        0.5031
+      ],
+      [
+        "Backends can move without client updates.",
+        0.5007
+      ],
+      [
+        "Operating 5+ backend services that clients access directly.",
+        0.5003
+      ],
+      [
+        "**SSL termination**: the gateway handles TLS so internal services can use plain HTTP inside a\ntrusted network.",
+        0.4954
+      ],
+      [
+        "Never trust user-facing auth headers for internal service communication.",
+        0.4713
+      ],
+      [
+        "The benefits \u2014 caching, connection pooling,\nand centralized auth \u2014 usually reduce end-to-end latency.",
+        0.4613
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "api-gateway-es",
+    "model": "desklib",
+    "model_ai_pct": 40.2,
+    "ai_count": 14,
+    "human_count": 29,
+    "skipped_count": 3,
+    "total": 46,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.9,
+      "stddev": 6.6,
+      "cv": 0.51,
+      "verdict": "natural variation",
+      "sentence_count": 43,
+      "lengths": [
+        24,
+        21,
+        11,
+        6,
+        20,
+        8,
+        11,
+        11,
+        11,
+        11,
+        10,
+        14,
+        13,
+        17,
+        11,
+        11,
+        6,
+        7,
+        21,
+        21,
+        19,
+        42,
+        10,
+        10,
+        11,
+        20,
+        14,
+        7,
+        19,
+        5,
+        9,
+        13,
+        5,
+        10,
+        10,
+        13,
+        9,
+        13,
+        10,
+        15,
+        5,
+        9,
+        12
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "**Meter l\u00f3gica de negocio en el gateway**.",
+        0.9843
+      ],
+      [
+        "Ten\u00e9s uno o dos servicios \u2014 un reverse proxy o load balancer simple alcanza.",
+        0.9496
+      ],
+      [
+        "Los clientes hablan con una\nURL.",
+        0.8642
+      ],
+      [
+        "/api/v1/users va al servicio de usuarios.",
+        0.8076
+      ],
+      [
+        "**Ignorar necesidades espec\u00edficas de clientes**.",
+        0.8002
+      ],
+      [
+        "Protege a los clientes de la topolog\u00eda interna.",
+        0.725
+      ],
+      [
+        "**No tener timeouts ni retries**.",
+        0.6972
+      ],
+      [
+        "**Terminaci\u00f3n SSL**: el gateway maneja TLS para que los servicios internos usen HTTP simple\n  dentro de una red confiable.",
+        0.64
+      ],
+      [
+        "Soport\u00e1s m\u00faltiples tipos de clientes (web, mobile, IoT) con requisitos distintos.",
+        0.5912
+      ],
+      [
+        "Necesit\u00e1s traducci\u00f3n de protocolos entre clientes GraphQL y backends REST.",
+        0.5878
+      ],
+      [
+        "Exponerlos\ndirectamente crea un acoplamiento fr\u00e1gil: los clientes deben conocer la ubicaci\u00f3n de cada\nservicio, manejar retries y gestionar tokens distintos.",
+        0.5398
+      ],
+      [
+        "En una arquitectura de microservicios, los clientes deben interactuar con muchos servicios\nindividuales, cada uno con su propio endpoint, protocolo y requisitos de autenticaci\u00f3n.",
+        0.5115
+      ],
+      [
+        "Us\u00e1 versionado en el path (/api/v1/users) en vez de headers.",
+        0.5094
+      ],
+      [
+        "No est\u00e1s listo para manejar modos de fallo del gateway y alta disponibilidad.",
+        0.506
+      ],
+      [
+        "Los backends pueden moverse sin actualizar\n  clientes.",
+        0.4801
+      ],
+      [
+        "**Enrutamiento de requests**: el gateway mapea paths entrantes a servicios backend.",
+        0.4624
+      ],
+      [
+        "Dej\u00e1 routing, auth y rate limiting en el borde; las\n  reglas de negocio van en los servicios de dominio.",
+        0.4182
+      ],
+      [
+        "Las apps mobile necesitan payloads m\u00e1s\n  peque\u00f1os que las web.",
+        0.4127
+      ],
+      [
+        "Un API gateway resuelve esto actuando como \u00fanico punto de entrada.",
+        0.371
+      ],
+      [
+        "Necesit\u00e1s autenticaci\u00f3n, rate limiting o logging centralizados para todas las APIs.",
+        0.3486
+      ],
+      [
+        "El proyecto es peque\u00f1o y el overhead operacional no se justifica.",
+        0.3343
+      ],
+      [
+        "**Concerns cross-cutting**: auth, rate limiting y caching se implementan una vez en el borde en\n  vez de duplicarse en cada servicio.",
+        0.3299
+      ],
+      [
+        "Us\u00e1 un gateway para tr\u00e1fico north-south (clientes externos al cluster).",
+        0.3247
+      ],
+      [
+        "El gateway valida tokens externos.",
+        0.2994
+      ],
+      [
+        "La l\u00f3gica de negocio se filtra al gateway en vez de quedar en los servicios de dominio.",
+        0.2918
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

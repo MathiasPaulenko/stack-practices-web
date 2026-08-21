@@ -1,0 +1,77 @@
+[
+  {
+    "label": "api-gateway",
+    "total_sentences": 47,
+    "pattern_totals": {
+      "vague_abstraction": 3,
+      "missing_contraction": 4
+    },
+    "findings": [
+      {
+        "sentence": "Supporting multiple client types (web, mobile, IoT) with different API requirements.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "You have only one or two services \u2014 a simple reverse proxy or load balancer is enough.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you have",
+            "suggestion": "use 'you've'"
+          }
+        ]
+      },
+      {
+        "sentence": "You are not ready to manage gateway failure modes and high availability.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "are not",
+            "suggestion": "use 'aren't'"
+          },
+          {
+            "pattern": "missing_contraction",
+            "match": "you are",
+            "suggestion": "use 'you're'"
+          }
+        ]
+      },
+      {
+        "sentence": "The project is small and the extra operational overhead is not justified.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "is not",
+            "suggestion": "use 'isn't'"
+          }
+        ]
+      },
+      {
+        "sentence": "**Protocol translation**: a GraphQL gateway fans out multiple REST requests to microservices\nand assembles a single typed response for clients.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "Run multiple gateway instances behind a [load\n  balancer](/recipes/load-balancing/) with health checks.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      }
+    ]
+  }
+]

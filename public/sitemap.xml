@@ -7931,7 +7931,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/api-gateway/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/api-gateway/" />
@@ -15940,6 +15940,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/api/5/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/es/topics/api/6/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/api/6/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/api/6/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/api/6/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/es/topics/architecture/</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -20504,7 +20513,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/api-gateway/</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/api-gateway/" />
@@ -28511,6 +28520,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/api/5/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/api/5/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/api/5/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/topics/api/6/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/api/6/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/api/6/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/api/6/" />
   </url>
   <url>
     <loc>https://stackpractices.com/topics/architecture/</loc>
