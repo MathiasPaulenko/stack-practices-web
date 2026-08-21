@@ -1,0 +1,316 @@
+[
+  {
+    "label": "bridge-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 48.2,
+    "ai_count": 15,
+    "human_count": 20,
+    "skipped_count": 1,
+    "total": 36,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 11.8,
+      "stddev": 7.0,
+      "cv": 0.59,
+      "verdict": "natural variation",
+      "sentence_count": 35,
+      "lengths": [
+        21,
+        24,
+        11,
+        13,
+        11,
+        9,
+        7,
+        14,
+        13,
+        13,
+        8,
+        17,
+        10,
+        13,
+        12,
+        45,
+        5,
+        6,
+        9,
+        8,
+        11,
+        12,
+        12,
+        8,
+        16,
+        6,
+        12,
+        5,
+        6,
+        10,
+        11,
+        12,
+        5,
+        10,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "The pattern is a guide, not a strict blueprint.",
+        0.9335
+      ],
+      [
+        "For small projects with few components, Bridge may add unnecessary complexity.",
+        0.8991
+      ],
+      [
+        "You can add\nnew shapes or new renderers without modifying existing code.",
+        0.8984
+      ],
+      [
+        "**Implementation** (Renderer): the low-level operations that carry out the work.",
+        0.7748
+      ],
+      [
+        "Instead of one class hierarchy that combines\nboth, you split it into two hierarchies \u2014 one for the abstraction and one for the\nimplementation.",
+        0.755
+      ],
+      [
+        "Start with the core idea and add sophistication\nas needed.",
+        0.7441
+      ],
+      [
+        "You want to share an implementation among several objects.",
+        0.723
+      ],
+      [
+        "The Bridge pattern separates two dimensions into two class hierarchies:\n**Abstraction** (Shape): the high-level interface clients use.",
+        0.6502
+      ],
+      [
+        "A simple [Strategy](/patterns/strategy-pattern/) or [Adapter](/patterns/adapter-pattern/) is\n  enough for a single dimension of variation.",
+        0.6177
+      ],
+      [
+        "This is useful when you need several platforms or rendering backends.",
+        0.5701
+      ],
+      [
+        "|Variant|Description|Use Case|\n|-------|-----------|--------|\n|Classic Bridge|Two parallel hierarchies|Shapes and renderers, devices and drivers|\n|Driver Bridge|Abstraction over ha",
+        0.5381
+      ],
+      [
+        "Bridge\nseparates an abstraction from its implementation so both can evolve independently.",
+        0.5295
+      ],
+      [
+        "You want to avoid a permanent binding between an abstraction and its implementation.",
+        0.5232
+      ],
+      [
+        "You\u2019ve got a class explosion from combining two dimensions, such as shapes and renderers.",
+        0.5039
+      ],
+      [
+        "[Adapter](/patterns/adapter-pattern/) makes incompatible interfaces work together.",
+        0.5006
+      ],
+      [
+        "[Strategy](/patterns/strategy-pattern/) varies a single algorithm.",
+        0.4752
+      ],
+      [
+        "The project is small and the extra hierarchy adds more complexity than value.",
+        0.47
+      ],
+      [
+        "Many teams adopt patterns incrementally.",
+        0.4686
+      ],
+      [
+        "Use Bridge when you\u2019ve got two independent dimensions of variation.",
+        0.449
+      ],
+      [
+        "Favor composition over inheritance; the bridge is about composition.",
+        0.4195
+      ],
+      [
+        "Start simple and\nintroduce it when you feel the pain it solves.",
+        0.3993
+      ],
+      [
+        "Changes in the implementation shouldn\u2019t affect clients.",
+        0.3989
+      ],
+      [
+        "Bridge separates two entire\nclass hierarchies.",
+        0.3902
+      ],
+      [
+        "Use dependency injection to wire implementations into abstractions.",
+        0.3821
+      ],
+      [
+        "Applying the Bridge pattern when a simple [Strategy](/patterns/strategy-pattern/) or\n  [Adapter](/patterns/adapter-pattern/) would suffice.",
+        0.3744
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "bridge-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 42.4,
+    "ai_count": 14,
+    "human_count": 21,
+    "skipped_count": 1,
+    "total": 36,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 12.3,
+      "stddev": 7.8,
+      "cv": 0.63,
+      "verdict": "natural variation",
+      "sentence_count": 35,
+      "lengths": [
+        22,
+        23,
+        11,
+        11,
+        11,
+        7,
+        11,
+        13,
+        13,
+        13,
+        10,
+        22,
+        11,
+        13,
+        11,
+        51,
+        6,
+        7,
+        10,
+        9,
+        10,
+        11,
+        12,
+        11,
+        14,
+        7,
+        12,
+        5,
+        7,
+        9,
+        11,
+        10,
+        7,
+        10,
+        9
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Manten\u00e9 la interfaz de implementaci\u00f3n m\u00ednima.",
+        0.824
+      ],
+      [
+        "Los cambios en la implementaci\u00f3n no deber\u00edan afectar a los clientes.",
+        0.7869
+      ],
+      [
+        "[Strategy](/patterns/strategy-pattern/) var\u00eda un solo algoritmo.",
+        0.7833
+      ],
+      [
+        "**Implementaci\u00f3n** (Renderer): las operaciones de bajo nivel que hacen el trabajo.",
+        0.7155
+      ],
+      [
+        "Ten\u00e9s una explosi\u00f3n de clases por combinar dos dimensiones, como formas y renderizadores.",
+        0.7036
+      ],
+      [
+        "La abstracci\u00f3n mantiene una referencia a la implementaci\u00f3n y le delega el trabajo.",
+        0.6566
+      ],
+      [
+        "Quer\u00e9s compartir una implementaci\u00f3n entre varios objetos.",
+        0.6345
+      ],
+      [
+        "Expon\u00e9 solo lo que la abstracci\u00f3n necesita.",
+        0.6249
+      ],
+      [
+        "El patr\u00f3n Bridge separa dos dimensiones en dos jerarqu\u00edas de clases:\n**Abstracci\u00f3n** (Shape): la interfaz de alto nivel que usan los clientes.",
+        0.5797
+      ],
+      [
+        "Quer\u00e9s evitar un enlace permanente entre una abstracci\u00f3n y su implementaci\u00f3n.",
+        0.5624
+      ],
+      [
+        "El patr\u00f3n es una gu\u00eda, no un plano r\u00edgido.",
+        0.5496
+      ],
+      [
+        "Pod\u00e9s\nagregar nuevas formas o nuevos renderizadores sin modificar c\u00f3digo existente.",
+        0.5395
+      ],
+      [
+        "Aplicar el patr\u00f3n Bridge cuando un simple [Strategy](/patterns/strategy-pattern/) o\n  [Adapter](/patterns/adapter-pattern/) alcanza.",
+        0.5038
+      ],
+      [
+        "Un simple [Strategy](/patterns/strategy-pattern/) o [Adapter](/patterns/adapter-pattern/) es\n  suficiente para una sola dimensi\u00f3n de variaci\u00f3n.",
+        0.5033
+      ],
+      [
+        "Muchos equipos adoptan patrones de a poco.",
+        0.4946
+      ],
+      [
+        "Document\u00e1 qu\u00e9 clase es la abstracci\u00f3n y cu\u00e1l la implementaci\u00f3n.",
+        0.493
+      ],
+      [
+        "Es \u00fatil cuando necesit\u00e1s soportar m\u00faltiples plataformas o backends de\nrenderizado.",
+        0.4895
+      ],
+      [
+        "[Adapter](/patterns/adapter-pattern/) hace que interfaces incompatibles trabajen juntas.",
+        0.429
+      ],
+      [
+        "Dejar que la abstracci\u00f3n filtre detalles de implementaci\u00f3n a los clientes.",
+        0.3798
+      ],
+      [
+        "Us\u00e1 inyecci\u00f3n de dependencias para conectar implementaciones con abstracciones.",
+        0.3794
+      ],
+      [
+        "Bridge separa dos jerarqu\u00edas\ncompletas de clases.",
+        0.3782
+      ],
+      [
+        "En lugar de una jerarqu\u00eda de\nclases que combina ambas, la divid\u00eds en dos: una para la abstracci\u00f3n y otra para la\nimplementaci\u00f3n.",
+        0.3365
+      ],
+      [
+        "El proyecto es peque\u00f1o y la jerarqu\u00eda extra agrega m\u00e1s complejidad que valor.",
+        0.3176
+      ],
+      [
+        "En proyectos peque\u00f1os con pocos componentes, Bridge puede agregar complejidad innecesaria.",
+        0.287
+      ],
+      [
+        "No control\u00e1s ninguno de los dos lados de la abstracci\u00f3n/Implementaci\u00f3n.",
+        0.2711
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

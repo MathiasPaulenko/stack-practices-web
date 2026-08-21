@@ -540,13 +540,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.5% / ES 39.2% (0 patterns)
    - Words: 805 | Meta: 134 chars
 
-67. - [ ] **bridge-pattern** (patterns)
+67. - [x] **bridge-pattern** (patterns)
    - Metrics: 16 imp | pos 13.2 | CTR 0.00% | Δ impr 10
    - EN: https://stackpractices.com/patterns/bridge-pattern/
    - ES: https://stackpractices.com/es/patterns/bridge-pattern/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,613 | Meta: 131 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.2% / ES 42.4% (0 patterns)
+   - Words: 936 | Meta: 150 chars
 
 68. - [ ] **api-gateway** (recipes)
    - Metrics: 26 imp | pos 26.8 | CTR 0.00% | Δ impr 0

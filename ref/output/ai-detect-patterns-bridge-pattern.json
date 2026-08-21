@@ -1,0 +1,73 @@
+[
+  {
+    "label": "bridge-pattern",
+    "total_sentences": 36,
+    "pattern_totals": {
+      "vague_abstraction": 2,
+      "missing_contraction": 3,
+      "flaggy_adverb": 1
+    },
+    "findings": [
+      {
+        "sentence": "This is useful when you need multiple platforms or rendering backends.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "You want to share an implementation among multiple objects.",
+        "findings": [
+          {
+            "pattern": "vague_abstraction",
+            "match": "multiple",
+            "suggestion": "say how many, or name them"
+          }
+        ]
+      },
+      {
+        "sentence": "Changes in the implementation should not affect clients.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "should not",
+            "suggestion": "use 'shouldn't'"
+          }
+        ]
+      },
+      {
+        "sentence": "You have a class explosion from combining two dimensions, such as shapes and renderers.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you have",
+            "suggestion": "use 'you've'"
+          }
+        ]
+      },
+      {
+        "sentence": "Favor composition over inheritance; the bridge is fundamentally about composition.",
+        "findings": [
+          {
+            "pattern": "flaggy_adverb",
+            "match": "fundamentally",
+            "suggestion": "often filler \u2014 cut it or say how"
+          }
+        ]
+      },
+      {
+        "sentence": "Use Bridge when you have two independent dimensions of variation.",
+        "findings": [
+          {
+            "pattern": "missing_contraction",
+            "match": "you have",
+            "suggestion": "use 'you've'"
+          }
+        ]
+      }
+    ]
+  }
+]
