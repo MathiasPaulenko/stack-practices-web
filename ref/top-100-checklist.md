@@ -468,13 +468,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 47.6% / ES 46.6% (0 patterns)
    - Words: 1,115 | Meta: 137 chars
 
-58. - [ ] **brotli-nginx-compression** (recipes)
+58. - [x] **brotli-nginx-compression** (recipes)
    - Metrics: 24 imp | pos 23.5 | CTR 0.00% | Δ impr 12
    - EN: https://stackpractices.com/recipes/brotli-nginx-compression/
    - ES: https://stackpractices.com/es/recipes/brotli-nginx-compression/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,345 | Meta: 144 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.3% / ES 34.4% (0 patterns)
+   - Words: 656 | Meta: 149 chars
 
 59. - [x] **server-sent-events** (recipes)
    - Metrics: 42 imp | pos 32.2 | CTR 0.00% | Δ impr 11

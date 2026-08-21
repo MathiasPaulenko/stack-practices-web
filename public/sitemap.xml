@@ -8237,7 +8237,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/es/recipes/brotli-nginx-compression/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/brotli-nginx-compression/" />
@@ -16471,6 +16471,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/infrastructure/5/" />
   </url>
   <url>
+    <loc>https://stackpractices.com/es/topics/infrastructure/6/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/infrastructure/6/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/infrastructure/6/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/infrastructure/6/" />
+  </url>
+  <url>
     <loc>https://stackpractices.com/es/topics/messaging/</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -20819,7 +20828,7 @@
   </url>
   <url>
     <loc>https://stackpractices.com/recipes/brotli-nginx-compression/</loc>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/recipes/brotli-nginx-compression/" />
@@ -29051,6 +29060,15 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/infrastructure/5/" />
     <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/infrastructure/5/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/infrastructure/5/" />
+  </url>
+  <url>
+    <loc>https://stackpractices.com/topics/infrastructure/6/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://stackpractices.com/topics/infrastructure/6/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://stackpractices.com/es/topics/infrastructure/6/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://stackpractices.com/topics/infrastructure/6/" />
   </url>
   <url>
     <loc>https://stackpractices.com/topics/messaging/</loc>
