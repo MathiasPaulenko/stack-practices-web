@@ -2,132 +2,87 @@
   {
     "label": "unit-testing-mocking-en",
     "model": "desklib",
-    "model_ai_pct": 50.2,
-    "ai_count": 33,
-    "human_count": 27,
-    "skipped_count": 1,
-    "total": 61,
+    "model_ai_pct": 41.8,
+    "ai_count": 17,
+    "human_count": 34,
+    "skipped_count": 3,
+    "total": 54,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 14.6,
-      "stddev": 11.8,
-      "cv": 0.8,
+      "mean": 18.2,
+      "stddev": 13.2,
+      "cv": 0.73,
       "verdict": "natural variation",
-      "sentence_count": 60,
+      "sentence_count": 51,
       "lengths": [
-        13,
-        22,
-        21,
-        23,
-        21,
         12,
-        8,
-        13,
-        8,
-        10,
-        11,
-        11,
-        12,
-        13,
-        18,
-        6,
-        9,
-        9,
-        6,
-        18,
-        11,
-        18,
-        9,
+        29,
+        24,
+        26,
+        16,
+        46,
+        16,
         15,
+        25,
         11,
-        96,
-        12,
-        17,
+        13,
         20,
         26,
-        7,
-        15,
-        14,
+        12,
         16,
-        6,
-        15,
+        18,
+        26,
+        11,
+        96,
+        8,
+        19,
         10,
-        6,
-        20,
+        11,
+        8,
+        23,
         5,
         15,
-        17,
+        13,
+        6,
+        14,
+        14,
+        22,
+        19,
         19,
         21,
-        6,
+        26,
         20,
+        14,
+        7,
+        9,
+        15,
+        12,
+        12,
+        14,
         13,
         7,
-        8,
-        12,
-        12,
-        12,
         13,
         11,
-        6,
-        12,
-        11,
-        9,
-        20,
+        26,
+        22,
         20
       ]
     },
     "top_ai_sentences": [
       [
-        "This recipe covers the three essential test doubles \u2014 stubs,\nmocks, and spies \u2014 with examples in JavaScript, Python, and Java.",
-        0.8737
+        "Setting up verify() without calling it makes the test look complete, but it only gives the\n  illusion of safety.",
+        0.7351
       ],
       [
-        "Writing unit tests for code that calls databases, APIs, or third-party services.",
-        0.8376
+        "The code under test gets the data it needs, while the stub itself\nremains indifferent about whether it was called.",
+        0.6973
       ],
       [
-        "**Mocking the system under test**: mocking methods inside the class you're testing means you're\n  not testing the class at all.",
-        0.791
+        "The examples below cover the three test doubles you'll reach for most often \u2014 stubs, mocks, and\nspies \u2014 with code in JavaScript, Python, and Java.",
+        0.6923
       ],
       [
-        "A well-isolated unit test runs in milliseconds, produces the same result every time, and fails only\nwhen the code under test is broken.",
-        0.7788
-      ],
-      [
-        "**Stubs** provide canned answers to calls.",
-        0.7785
-      ],
-      [
-        "The closer your test is to production, the more confidence it gives you.",
-        0.7503
-      ],
-      [
-        "Unit tests verify that a single function or class behaves correctly in isolation.",
-        0.723
-      ],
-      [
-        "**Mocks** are pre-programmed objects with expectations.",
-        0.7122
-      ],
-      [
-        "If a\ncollaborator is fast and deterministic, use the real one.",
-        0.6796
-      ],
-      [
-        "Static methods are\nhard to test because they can't be injected.",
-        0.6719
-      ],
-      [
-        "Most code depends\non external systems \u2014 databases, HTTP APIs, file systems, clocks \u2014 that are slow, unreliable, or\nunavailable during tests.",
-        0.6503
-      ],
-      [
-        "The key rule is to mock at the boundary.",
-        0.6379
-      ],
-      [
-        "For integration tests, write\nto a temporary directory and clean up afterward.",
+        "For integration tests, write to\na temporary directory and clean up afterward.",
         0.6348
       ],
       [
@@ -135,48 +90,84 @@
         0.6309
       ],
       [
-        "You want to verify the real HTTP contract of an external service \u2014 use\n  [WireMock](/recipes/java-wiremock-stub-external/) or [API Mocking](/recipes/api-mocking/).",
-        0.619
+        "Mocks and stubs come in handy when your unit tests touch databases, APIs, or third-party services.",
+        0.6198
       ],
       [
-        "**Ignoring mock verification**: setting up verify() but never calling it in the test body\n  creates false confidence.",
-        0.612
+        "| Double | Replaces | Verifies calls | Best for |\n| --- | --- | --- | --- |\n| Dummy | Unused parameter | No | Filling argument lists |\n| Fake | Working implementation | No | In-mem",
+        0.5983
       ],
       [
-        "Use a spy when you want the real object to run but also need to verify how it was called.",
-        0.6054
+        "Static methods\nare tricky because they can't be injected, which makes tests awkward.",
+        0.5797
       ],
       [
-        "Use a **spy** when you want to keep the real\nimplementation but check that it was used.",
-        0.5892
+        "The catch is that most code\ndepends\non things you don't want running in a test suite \u2014 databases, HTTP APIs, the file system, the\nclock, random number generators.",
+        0.5784
       ],
       [
-        "**Use dependency injection**: code that instantiates its own dependencies with new Database()\n  is hard to mock.",
-        0.5808
+        "What matters most is mocking at the boundary, which means replacing the HTTP client or database\ndriver instead of private methods inside the class you're testing.",
+        0.573
       ],
       [
-        "Use a **mock** when the\ninteraction itself is part of the contract.",
-        0.5697
+        "A spy wraps a real object and records its calls so you can verify them later.",
+        0.5708
       ],
       [
         "Use the real implementation when it's fast, deterministic, and simple \u2014 for example, an in-memory\nMap or a pure function.",
         0.5675
       ],
       [
-        "**Prefer stubs for state verification**: if you can assert on the final state (\"balance is $50\")\n  rather than the interaction (\"withdraw was called once\"), do so.",
-        0.5609
+        "The closer your test is to production, the more useful confidence it gives\nyou.",
+        0.5575
       ],
       [
-        "Verifying that a function calls a collaborator with the correct arguments.",
-        0.5562
+        "A unit test should verify one function or one class in isolation.",
+        0.5299
       ],
       [
-        "**Spies** wrap real objects and record every call for later verification.",
-        0.5549
+        "Use a mock when the\ninteraction itself matters.",
+        0.5216
       ],
       [
-        "**Don't mock value objects**: simple data classes, structs, and DTOs have no behavior to\n  replace.",
-        0.5435
+        "Mocking the system under test instead of its collaborators means you aren't actually testing the\n  class, because internal methods have been replaced.",
+        0.5031
+      ],
+      [
+        "Use a mock when the interaction itself is part of\nthe contract.",
+        0.5018
+      ],
+      [
+        "Inject them via constructors or factories.",
+        0.4837
+      ],
+      [
+        "If a dependency is fast, deterministic, and simple, use the real thing instead of a mock.",
+        0.4769
+      ],
+      [
+        "A mock can\nact like a stub, but a stub can't act like a mock.",
+        0.4762
+      ],
+      [
+        "When you aren't sure which\ndouble fits your test, start with a stub and move to a mock only if you need to verify an\ninteraction.",
+        0.4638
+      ],
+      [
+        "And when the goal is to confirm the actual HTTP contract of\nan external service, tools like [WireMock](/recipes/java-wiremock-stub-external/) or [API\nMocking](/recipes/api-mocking/",
+        0.4595
+      ],
+      [
+        "Jest and Pytest do this automatically; in other frameworks, create\n  fresh instances for each test.",
+        0.4521
+      ],
+      [
+        "If a\ncollaborator is fast and deterministic, use the real implementation.",
+        0.4161
+      ],
+      [
+        "Code that instantiates its own dependencies with new Database() is\n  hard to mock.",
+        0.4128
       ]
     ],
     "diagnostics_sample": []
@@ -184,181 +175,181 @@
   {
     "label": "unit-testing-mocking-es",
     "model": "desklib",
-    "model_ai_pct": 39.8,
-    "ai_count": 17,
-    "human_count": 43,
-    "skipped_count": 1,
-    "total": 61,
+    "model_ai_pct": 38.0,
+    "ai_count": 13,
+    "human_count": 47,
+    "skipped_count": 0,
+    "total": 60,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 15.5,
-      "stddev": 12.3,
-      "cv": 0.8,
+      "mean": 15.9,
+      "stddev": 13.1,
+      "cv": 0.82,
       "verdict": "natural variation",
       "sentence_count": 60,
       "lengths": [
-        15,
-        30,
-        21,
-        23,
-        21,
-        15,
-        8,
-        12,
-        10,
-        13,
-        12,
-        11,
-        12,
-        11,
         16,
-        6,
-        13,
-        9,
-        5,
-        18,
-        11,
-        19,
-        8,
-        21,
-        13,
-        99,
-        11,
-        14,
+        35,
         25,
-        28,
-        10,
-        15,
-        14,
-        18,
+        25,
+        21,
+        43,
+        16,
+        11,
+        24,
         6,
-        17,
-        9,
-        9,
-        23,
-        5,
-        19,
-        17,
+        15,
         20,
-        26,
+        28,
+        11,
+        13,
+        22,
         8,
         21,
-        11,
-        7,
+        14,
+        99,
         8,
+        17,
+        11,
+        15,
+        8,
+        25,
+        8,
+        15,
+        6,
+        14,
+        5,
+        5,
+        17,
+        6,
+        16,
+        10,
+        16,
+        13,
+        8,
+        5,
+        12,
+        6,
+        14,
+        9,
+        17,
+        21,
+        15,
+        7,
         9,
         14,
+        14,
         12,
-        12,
+        13,
         11,
         8,
-        14,
+        15,
         10,
-        8,
+        6,
         17,
         21
       ]
     },
     "top_ai_sentences": [
       [
-        "Reemplaz\u00e1s dependencias no determin\u00edsticas como generadores random, hora actual o UUIDs.",
-        0.9318
+        "Confi\u00e1 en la inyecci\u00f3n de dependencias.",
+        0.9361
       ],
       [
-        "Refactoriz\u00e1 a m\u00e9todos de instancia cuando sea\nposible.",
+        "Refactoriz\u00e1 a m\u00e9todos de instancia\ncuando sea posible.",
         0.894
       ],
       [
-        "Un mock verifica que se hicieron llamadas esperadas.",
-        0.8669
+        "Eso ata el test a detalles de implementaci\u00f3n.",
+        0.7588
       ],
       [
-        "Por\n  ejemplo, pod\u00e9s espiar una cach\u00e9 real para confirmar que fue consultada antes de golpear la base\n  de datos.",
-        0.7704
-      ],
-      [
-        "**Especificar interacciones en exceso**: verificar que database.connect() fue llamado exactamente\n  una vez ata tu test a detalles de implementaci\u00f3n.",
-        0.7481
-      ],
-      [
-        "La dependencia es r\u00e1pida, determin\u00edstica y simple \u2014 us\u00e1 la implementaci\u00f3n real.",
-        0.7381
-      ],
-      [
-        "Los m\u00e9todos est\u00e1ticos\nson dif\u00edciles de testear porque no pueden inyectarse.",
+        "Los m\u00e9todos\nest\u00e1ticos son dif\u00edciles de testear porque no pueden inyectarse.",
         0.732
       ],
       [
-        "**Spies**: envuelven objetos reales y registran cada llamada para verificaci\u00f3n posterior.",
-        0.6927
+        "El c\u00f3digo bajo test obtiene los datos que necesita, pero el stub no\nle importa si fue llamado o no.",
+        0.6868
       ],
       [
-        "Teste\u00e1s manejo de errores para escenarios dif\u00edciles de disparar en sistemas reales.",
-        0.691
+        "Inyectalas v\u00eda constructores o factories.",
+        0.6737
       ],
       [
-        "Inyect\u00e1 dependencias v\u00eda constructores o factories.",
-        0.6884
+        "El c\u00f3digo que instancia sus propias dependencias con\n  new Database() es dif\u00edcil de mockear.",
+        0.6476
       ],
       [
-        "Mocke\u00e1 colaboradores, no el sujeto.",
-        0.6599
+        "Por ejemplo, pod\u00e9s\nespiar una cach\u00e9 para asegurarte de que fue consultada antes de que el c\u00f3digo golpee la base de\ndatos.",
+        0.6004
       ],
       [
-        "Quer\u00e9s acelerar un suite de tests lento dominado por tests de estilo integraci\u00f3n.",
-        0.6568
+        "Un unit test deber\u00eda verificar una sola funci\u00f3n o clase sin nada m\u00e1s en el medio.",
+        0.5489
       ],
       [
-        "**Mocks**: objetos pre-programados con expectativas.",
-        0.6276
+        "Mientras m\u00e1s cerca est\u00e9 tu test de producci\u00f3n, m\u00e1s confianza \u00fatil te va a dar.",
+        0.5394
       ],
       [
-        "**Stubs**: proveen respuestas prefabricadas a llamadas.",
-        0.6052
+        "La regla principal es mockear en el boundary.",
+        0.5332
       ],
       [
-        "Us\u00e1 un **spy** cuando quer\u00e9s mantener la implementaci\u00f3n\nreal pero verificar que fue usada.",
-        0.5788
+        "No mockees objetos de valor.",
+        0.5252
       ],
       [
-        "**Us\u00e1 inyecci\u00f3n de dependencias**: el c\u00f3digo que instancia sus propias dependencias con\n  new Database() es dif\u00edcil de mockear.",
-        0.5317
+        "El test parece completo, pero te da una falsa sensaci\u00f3n\n  de confianza.",
+        0.51
       ],
       [
-        "Us\u00e1 un **mock** cuando la\ninteracci\u00f3n misma es parte del contrato.",
-        0.5008
+        "Mockear el sistema bajo test en lugar de sus colaboradores.",
+        0.4992
+      ],
+      [
+        "Si una dependencia es r\u00e1pida, determin\u00edstica y simple, us\u00e1 la real en lugar de un mock.",
+        0.4804
       ],
       [
         "Para tests de\nintegraci\u00f3n, escrib\u00ed a un directorio temporal y limpi\u00e1 despu\u00e9s.",
         0.4768
       ],
       [
-        "**No mockees objetos de valor**: clases simples de datos, structs y DTOs no tienen comportamiento\n  para reemplazar.",
+        "Mocke\u00e1 en el boundary, no dentro de la clase bajo test.",
+        0.4624
+      ],
+      [
+        "Dejar que los mocks se separen del contrato real.",
+        0.4564
+      ],
+      [
+        "Resete\u00e1 el estado de los mocks entre tests.",
+        0.4562
+      ],
+      [
+        "Mockear cada clase en un test.",
+        0.4543
+      ],
+      [
+        "Un mock verifica que se hicieron las llamadas\nesperadas.",
         0.4437
       ],
       [
-        "Reemplazan queries pero no verifican que las llamadas ocurrieron.",
-        0.4405
-      ],
-      [
-        "Us\u00e1 un spy cuando quer\u00e9s que el objeto real corra pero tambi\u00e9n necesit\u00e1s verificar c\u00f3mo fue\nllamado.",
+        "Us\u00e1 un spy cuando quer\u00e9s que el objeto real corra pero tambi\u00e9n necesit\u00e1s verificar c\u00f3mo fue llamado.",
         0.4387
       ],
       [
-        "Los unit tests verifican que una sola funci\u00f3n o clase se comporta correctamente en aislamiento.",
-        0.4295
+        "Un spy envuelve un objeto real y registra sus llamadas para verificarlas despu\u00e9s.",
+        0.4377
       ],
       [
-        "Mientras m\u00e1s cercano est\u00e9 tu test a producci\u00f3n, m\u00e1s confianza provee.",
-        0.417
+        "| Double | Reemplaza | Verifica llamadas | Mejor para |\n| --- | --- | --- | --- |\n| Dummy | Par\u00e1metro no usado | No | Llenar listas de argumentos |\n| Fake | Implementaci\u00f3n funciona",
+        0.4038
       ],
       [
-        "**Manten\u00e9 expectativas expl\u00edcitas**: verific\u00e1 solo las llamadas que importan.",
-        0.386
-      ],
-      [
-        "La regla clave es mockear en el boundary.",
-        0.381
+        "Us\u00e1 un spy cuando quer\u00e9s que corra la implementaci\u00f3n real y solo quer\u00e9s\nverificar que fue usada.",
+        0.3963
       ]
     ],
     "diagnostics_sample": []

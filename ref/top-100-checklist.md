@@ -609,8 +609,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/unit-testing-mocking/
    - ES: https://stackpractices.com/es/recipes/unit-testing-mocking/
    - Focus: low CTR
-   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 50.2% / ES 39.8% (0 patterns)
-   - Words: 1137 | Meta: 158 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.8% / ES 38.0% (0 patterns)
+   - Words: 1176 | Meta: 158 chars
 
 76. - [ ] **graceful-shutdown** (recipes)
    - Metrics: 27 imp | pos 9.6 | CTR 0.00% | Δ impr 0

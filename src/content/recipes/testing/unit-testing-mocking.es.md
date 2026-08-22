@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/jest-snapshot-testing
   - /recipes/python-mock-external-apis-responses
   - /recipes/java-wiremock-stub-external
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -37,35 +37,32 @@ seo:
     - stub objects
 ---
 
-## Resumen
+Un unit test debería verificar una sola función o clase sin nada más en el medio. El problema es que
+la mayoría del código depende de cosas que no querés correr en un suite de tests — bases de datos,
+APIs HTTP, sistema de archivos, el reloj, generadores de números aleatorios. El mocking te permite
+cambiar esas dependencias por sustitutos controlados que devuelven el valor que necesitás, lanzan
+una
+excepción específica, o registran cómo fueron llamados.
 
-Los unit tests verifican que una sola función o clase se comporta correctamente en aislamiento. La
-mayoría del código depende de sistemas externos — bases de datos, APIs HTTP, sistemas de archivos,
-relojes — que son lentos, poco confiables o no disponibles durante los tests. El mocking reemplaza
-estas dependencias con sustitutos controlados que devuelven respuestas predeterminadas, lanzan
-excepciones bajo demanda o registran cómo fueron llamados.
-
-Un test bien aislado corre en milisegundos, produce el mismo resultado cada vez y falla solo cuando
-el código bajo test está roto. Esta receta cubre los tres test doubles esenciales — stubs, mocks y
-spies — con ejemplos en JavaScript, Python y Java.
+Esta receta cubre los tres test doubles que más vas a usar — stubs, mocks y spies — con ejemplos en
+JavaScript, Python y Java.
 
 ## Cuándo Usarlo
 
-- Escribís unit tests para código que llama bases de datos, APIs o servicios de terceros. Consultá
-  [Integration Testing](/es/recipes/integration-testing/) para testear con dependencias reales.
-- Testeás manejo de errores para escenarios difíciles de disparar en sistemas reales. Consultá
-  [API Mocking](/es/recipes/api-mocking/) para verificar respuestas de error de API.
-- Querés acelerar un suite de tests lento dominado por tests de estilo integración.
-- Verificás que una función llama a un colaborador con los argumentos correctos.
-- Reemplazás dependencias no determinísticas como generadores random, hora actual o UUIDs.
+Los mocks y stubs son una buena opción cuando tus unit tests tocan bases de datos, APIs o servicios
+de terceros. También sirven cuando querés simular un error difícil de disparar en un ambiente real,
+acelerar un suite lento, verificar que una función llamó a un colaborador con los argumentos
+ correctos, o reemplazar dependencias no determinísticas como la hora actual, UUIDs o valores
+random.
 
 ## Cuándo NO Usarlo
 
-- La dependencia es rápida, determinística y simple — usá la implementación real.
-- Necesitás validar cómo interactúan varios componentes reales — usá
-  [Integration Testing](/es/recipes/integration-testing/).
-- Querés verificar el contrato HTTP real de un servicio externo — usá
-  [WireMock](/es/recipes/java-wiremock-stub-external/) o [API Mocking](/es/recipes/api-mocking/).
+Si una dependencia es rápida, determinística y simple, usá la real en lugar de un mock. Cuando
+necesitás validar cómo interactúan varios componentes reales, mirá [Integration
+Testing](/es/recipes/integration-testing/). Y cuando el objetivo es confirmar el contrato HTTP real
+de
+un servicio externo, herramientas como [WireMock](/es/recipes/java-wiremock-stub-external/) o [API
+Mocking](/es/recipes/api-mocking/) suelen ser más apropiadas.
 
 ## Solución
 
@@ -143,17 +140,24 @@ class PaymentServiceTest {
 
 ## Explicación
 
-- **Stubs**: proveen respuestas prefabricadas a llamadas. Un stub de base de datos podría devolver un
-  registro de usuario hardcodeado. Reemplazan queries pero no verifican que las llamadas ocurrieron.
-- **Mocks**: objetos pre-programados con expectativas. Un mock falla el test si no es llamado el
-  número esperado de veces o con argumentos esperados.
-- **Spies**: envuelven objetos reales y registran cada llamada para verificación posterior. Por
-  ejemplo, podés espiar una caché real para confirmar que fue consultada antes de golpear la base
-  de datos.
+Un stub devuelve una respuesta prefabricada. Podés construir un stub de base de datos que entregue
+un
+registro de usuario hardcodeado. El código bajo test obtiene los datos que necesita, pero el stub no
+le importa si fue llamado o no.
 
-La regla clave es mockear en el boundary. Reemplazá el cliente HTTP o el driver de base de datos,
-no métodos privados dentro de la clase que estás testeando. Mockear demasiado hace los tests
-frágiles y le quita sentido al unit testing.
+Un mock es más estricto: viene programado con expectativas y falla el test si no se lo llama la
+cantidad correcta de veces o con los argumentos correctos. Usá un mock cuando la interacción misma
+es
+parte del contrato.
+
+Un spy envuelve un objeto real y registra sus llamadas para verificarlas después. Por ejemplo, podés
+espiar una caché para asegurarte de que fue consultada antes de que el código golpee la base de
+datos.
+
+La regla principal es mockear en el boundary. Reemplazá el cliente HTTP o el driver de base de
+datos,
+no métodos privados dentro de la clase que estás testeando. Mockear de más hace los tests frágiles y
+le quita sentido al unit testing.
 
 ## Variantes
 
@@ -165,50 +169,53 @@ frágiles y le quita sentido al unit testing.
 | Spy | Objeto real + registra | Sí | Verificar side effects |
 | Mock | Interacción esperada | Sí | Verificar llamadas hechas |
 
-Usá un **stub** cuando solo necesitás alimentar datos al código bajo test. Usá un **mock** cuando la
-interacción misma es parte del contrato. Usá un **spy** cuando querés mantener la implementación
-real pero verificar que fue usada.
+Usá un stub cuando solo necesitás alimentar datos al código bajo test. Usá un mock cuando la
+interacción misma importa. Usá un spy cuando querés que corra la implementación real y solo querés
+verificar que fue usada.
 
 ## Buenas Prácticas
 
-- **Mockeá en el boundary, no internamente**: mockeá el cliente HTTP o el driver de base de datos,
-  no cada método privado dentro de tu clase.
-- **Preferí stubs para verificación de estado**: si podés assertar en el estado final ("el balance
-  es $50") en lugar de la interacción ("withdraw fue llamado una vez"), hacelo. Los tests basados
-  en estado son más resilientes al refactoring.
-- **Reseteá mocks entre tests**: el estado residual de un test previo puede causar fallas confusas.
-  Jest y Pytest manejan esto automáticamente; en otros frameworks, creá instancias frescas por test.
-- **Usá inyección de dependencias**: el código que instancia sus propias dependencias con
-  `new Database()` es difícil de mockear. Inyectá dependencias vía constructores o factories.
-- **No mockees objetos de valor**: clases simples de datos, structs y DTOs no tienen comportamiento
-  para reemplazar. Pasá instancias reales.
-- **Mantené expectativas explícitas**: verificá solo las llamadas que importan. Especificar demasiado
-  ata los tests a detalles de implementación.
+- Mockeá en el boundary, no dentro de la clase bajo test. Reemplazá el cliente HTTP o el driver de
+  base de datos, no cada método privado.
+- Preferí stubs para verificación de estado cuando podés. Assertar sobre el estado final ("el
+    balance
+  es $50") suele ser más resistente al refactoring que assertar sobre la interacción ("withdraw fue
+  llamado una vez").
+- Reseteá el estado de los mocks entre tests. Jest y Pytest hacen esto automáticamente; en otros
+  frameworks, creá instancias frescas para cada test.
+- Confiá en la inyección de dependencias. El código que instancia sus propias dependencias con
+  `new Database()` es difícil de mockear. Inyectalas vía constructores o factories.
+- No mockees objetos de valor. Las clases simples de datos, structs y DTOs no tienen comportamiento
+  real, así que pasá instancias reales.
+- Mantené las expectativas de mock acotadas. Verificá solo las llamadas que importan, porque
+  especificar demasiado ata los tests a detalles de implementación.
 
 ## Errores Comunes
 
-- **Mockear el sistema bajo test**: mockear métodos dentro de la clase que estás testeando significa
-  que no estás testeando la clase en absoluto. Mockeá colaboradores, no el sujeto.
-- **Especificar interacciones en exceso**: verificar que `database.connect()` fue llamado exactamente
-  una vez ata tu test a detalles de implementación.
-- **Ignorar verificación de mock**: configurar `verify()` pero nunca llamarlo en el cuerpo del test
-  crea falsa confianza.
-- **Usar mocks para todo**: si cada clase está mockeada, tu suite de tests testea los mocks, no el
+- Mockear el sistema bajo test en lugar de sus colaboradores. Cuando mockeás métodos dentro de la
+  clase que estás testeando, ya no estás testeando esa clase.
+- Especificar interacciones en exceso, como afirmar que `database.connect()` fue llamado exactamente
+  una vez. Eso ata el test a detalles de implementación.
+- Configurar `verify()` pero nunca llamarlo. El test parece completo, pero te da una falsa sensación
+  de confianza.
+- Mockear cada clase en un test. Si todo está mockeado, el suite termina testeando los mocks, no el
   sistema real.
-- **Dejar que los mocks se separen de la realidad**: un mock HTTP que devuelve un shape distinto al
-  de la API productiva puede ocultar bugs reales. Mantené los mocks cerca de los contratos reales.
+- Dejar que los mocks se separen del contrato real. Un mock HTTP que devuelve un shape distinto al
+    de
+  la API productiva puede ocultar bugs reales.
 
 ## Preguntas Frecuentes
 
 ### ¿Cuándo debería usar una dependencia real en lugar de un mock?
 
-Usá la implementación real cuando es rápida, determinística y simple — por ejemplo, un Map en
-memoria o una función pura. Mientras más cercano esté tu test a producción, más confianza provee.
+Usá la implementación real cuando sea rápida, determinística y simple — por ejemplo, un Map en
+memoria
+o una función pura. Mientras más cerca esté tu test de producción, más confianza útil te va a dar.
 
 ### ¿Cuál es la diferencia entre un stub y un mock?
 
-Un stub responde llamadas con datos preset. Un mock verifica que se hicieron llamadas esperadas.
-Podés usar un mock como stub, pero no viceversa.
+Un stub responde llamadas con datos prefijados. Un mock verifica que se hicieron las llamadas
+esperadas. Un mock puede actuar como stub, pero un stub no puede actuar como mock.
 
 ### ¿Debería mockear el sistema de archivos?
 
@@ -217,17 +224,17 @@ integración, escribí a un directorio temporal y limpiá después.
 
 ### ¿Puedo mockear métodos estáticos?
 
-En Java, PowerMock y Mockito inline mock pueden hacerlo, pero es desalentado. Los métodos estáticos
-son difíciles de testear porque no pueden inyectarse. Refactorizá a métodos de instancia cuando sea
-posible.
+En Java, PowerMock y Mockito inline mock pueden hacerlo, pero generalmente no deberías. Los métodos
+estáticos son difíciles de testear porque no pueden inyectarse. Refactorizá a métodos de instancia
+cuando sea posible.
 
 ### ¿Cómo evito el over-mocking?
 
-Mockeá solo dependencias externas que son lentas, no determinísticas o no disponibles en tests. Si
-un colaborador es rápido y determinístico, usá el real. Cuando dudes, preferí un stub sobre un mock.
+Mockeá solo las dependencias externas que sean lentas, no determinísticas o no disponibles en tests.
+Si un colaborador es rápido y determinístico, usá el real. Cuando dudes, empezá con un stub.
 
 ### ¿Cuándo uso un spy?
 
-Usá un spy cuando querés que el objeto real corra pero también necesitás verificar cómo fue
-llamado. Ejemplos comunes incluyen chequear que un logger escribió una advertencia o que una caché
-fue consultada antes de una query lenta.
+Usá un spy cuando querés que el objeto real corra pero también necesitás verificar cómo fue llamado.
+Ejemplos comunes incluyen chequear que un logger escribió una advertencia o que una caché fue
+consultada antes de una query lenta.

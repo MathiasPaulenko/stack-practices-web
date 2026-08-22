@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/jest-snapshot-testing
   - /recipes/python-mock-external-apis-responses
   - /recipes/java-wiremock-stub-external
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-13"
 author: Mathias Paulenko
 seo:
@@ -37,34 +37,29 @@ seo:
     - stub objects
 ---
 
-## Overview
+A unit test should verify one function or one class in isolation. The catch is that most code
+depends
+on things you don't want running in a test suite — databases, HTTP APIs, the file system, the
+clock, random number generators. Mocking lets you swap those dependencies for stand-ins that return
+whatever value you need, throw a specific exception, or record how they were called.
 
-Unit tests verify that a single function or class behaves correctly in isolation. Most code depends
-on external systems — databases, HTTP APIs, file systems, clocks — that are slow, unreliable, or
-unavailable during tests. Mocking replaces these dependencies with controlled stand-ins that return
-predetermined responses, throw exceptions on demand, or record how they were called.
-
-A well-isolated unit test runs in milliseconds, produces the same result every time, and fails only
-when the code under test is broken. This recipe covers the three essential test doubles — stubs,
-mocks, and spies — with examples in JavaScript, Python, and Java.
+The examples below cover the three test doubles you'll reach for most often — stubs, mocks, and
+spies — with code in JavaScript, Python, and Java.
 
 ## When to Use
 
-- Writing unit tests for code that calls databases, APIs, or third-party services. See
-  [Integration Testing](/recipes/integration-testing/) for testing with real dependencies.
-- Testing error handling for scenarios that are hard to trigger in real systems. See
-  [API Mocking](/recipes/api-mocking/) for verifying API error responses.
-- Speeding up a slow test suite dominated by integration-style tests.
-- Verifying that a function calls a collaborator with the correct arguments.
-- Replacing non-deterministic dependencies such as random generators, current time, or UUIDs.
+Mocks and stubs come in handy when your unit tests touch databases, APIs, or third-party services.
+They also help when you want to simulate an error that's hard to trigger in a real environment,
+speed up a slow suite, verify that a function called a collaborator with the right arguments, or
+replace non-deterministic dependencies like the current time, UUIDs, or random values.
 
 ## When NOT to Use
 
-- The dependency is fast, deterministic, and simple — use the real implementation.
-- You need to validate how several real components interact — use
-  [Integration Testing](/recipes/integration-testing/).
-- You want to verify the real HTTP contract of an external service — use
-  [WireMock](/recipes/java-wiremock-stub-external/) or [API Mocking](/recipes/api-mocking/).
+If a dependency is fast, deterministic, and simple, use the real thing instead of a mock. When you
+need to validate how several real components work together, look at [Integration
+Testing](/recipes/integration-testing/). And when the goal is to confirm the actual HTTP contract of
+an external service, tools like [WireMock](/recipes/java-wiremock-stub-external/) or [API
+Mocking](/recipes/api-mocking/) are usually more appropriate.
 
 ## Solution
 
@@ -142,16 +137,20 @@ class PaymentServiceTest {
 
 ## Explanation
 
-- **Stubs** provide canned answers to calls. A database stub might return a hardcoded user record.
-  Stubs replace queries but don't verify that calls happened.
-- **Mocks** are pre-programmed objects with expectations. A mock fails the test if it's not called
-  the expected number of times or with expected arguments.
-- **Spies** wrap real objects and record every call for later verification. For example, you can
-  spy on a real cache to confirm it was checked before hitting the database.
+A stub is a simple stand-in that returns a canned answer. You might build a database stub that hands
+back a hardcoded user record. The code under test gets the data it needs, while the stub itself
+remains indifferent about whether it was called.
 
-The key rule is to mock at the boundary. Replace the HTTP client or database driver, not private
-methods inside the class you're testing. Over-mocking makes tests brittle and defeats the purpose
-of unit testing.
+A mock is stricter: it's programmed with expectations and fails the test if it isn't called the
+right number of times or with the right arguments. Use a mock when the interaction itself is part of
+the contract.
+
+A spy wraps a real object and records its calls so you can verify them later. You might spy on a
+cache to confirm the code checked it before falling through to the database.
+
+What matters most is mocking at the boundary, which means replacing the HTTP client or database
+driver instead of private methods inside the class you're testing. Over-mocking makes tests brittle
+and defeats the point of unit testing.
 
 ## Variants
 
@@ -163,69 +162,73 @@ of unit testing.
 | Spy | Real object + records | Yes | Verifying side effects |
 | Mock | Expected interaction | Yes | Verifying calls made |
 
-Use a **stub** when you only need to feed data into the code under test. Use a **mock** when the
-interaction itself is part of the contract. Use a **spy** when you want to keep the real
-implementation but check that it was used.
+Use a stub when you only need to feed data into the code under test. Use a mock when the
+interaction itself matters. Use a spy when the real implementation should run and you only need to
+check that it was used.
 
 ## Best Practices
 
-- **Mock at the boundary, not internally**: mock the HTTP client or database driver, not every
-  private method inside your class.
-- **Prefer stubs for state verification**: if you can assert on the final state ("balance is $50")
-  rather than the interaction ("withdraw was called once"), do so. State-based tests are more
-  resilient to refactoring.
-- **Reset mocks between tests**: leftover mock state from a previous test can cause confusing
-  failures. Jest and Pytest handle this automatically; in other frameworks, create fresh instances
-  per test.
-- **Use dependency injection**: code that instantiates its own dependencies with `new Database()`
-  is hard to mock. Inject dependencies via constructors or factories.
-- **Don't mock value objects**: simple data classes, structs, and DTOs have no behavior to
-  replace. Pass real instances.
-- **Keep mock expectations explicit**: verify only the calls that matter. Over-specifying ties
-  tests to implementation details.
+- Mock at the boundary, not inside the class under test. Replace the HTTP client or database driver,
+  not every private method.
+- Prefer stubs for state verification when you can. Asserting on the final state ("balance is $50")
+  is usually more resilient to refactoring than asserting on the interaction ("withdraw was called
+  once").
+- Reset mock state between tests. Jest and Pytest do this automatically; in other frameworks, create
+  fresh instances for each test.
+- Rely on dependency injection. Code that instantiates its own dependencies with `new Database()` is
+  hard to mock. Inject them via constructors or factories.
+- Don't mock value objects. Simple data classes, structs, and DTOs have no real behavior, so pass
+  real instances.
+- Keep mock expectations narrow. Verify only the calls that matter, because over-specifying ties
+  your tests to implementation details.
 
 ## Common Mistakes
 
-- **Mocking the system under test**: mocking methods inside the class you're testing means you're
-  not testing the class at all. Mock collaborators, not the subject.
-- **Over-specifying interactions**: verifying that `database.connect()` was called exactly once
-  ties your test to implementation details.
-- **Ignoring mock verification**: setting up `verify()` but never calling it in the test body
-  creates false confidence.
-- **Using mocks for everything**: if every class is mocked, your test suite tests the mocks, not
-  the real system.
-- **Letting mocks drift from reality**: an HTTP mock that returns a different shape than the
-  production API can hide real bugs. Keep mocks close to real contracts.
+- Mocking the system under test instead of its collaborators means you aren't actually testing the
+  class, because internal methods have been replaced.
+- Over-specifying interactions, like asserting that `database.connect()` was called exactly once,
+  ties the test to implementation details that may change.
+- Setting up `verify()` without calling it makes the test look complete, but it only gives the
+  illusion of safety.
+- Mocking every class in a test is a trap: the suite ends up testing the mocks instead of the real
+  system.
+- Letting mocks drift from the real contract is dangerous, because an HTTP mock that returns a
+  different shape than the production API can hide real bugs.
 
 ## FAQ
 
 ### When should I use a real dependency instead of a mock?
 
 Use the real implementation when it's fast, deterministic, and simple — for example, an in-memory
-Map or a pure function. The closer your test is to production, the more confidence it gives you.
+Map or a pure function. The closer your test is to production, the more useful confidence it gives
+you.
 
 ### What is the difference between a stub and a mock?
 
-A stub answers calls with preset data. A mock verifies that expected calls were made. You can use a
-mock as a stub, but not vice versa.
+A stub answers calls with preset data. A mock verifies that the expected calls were made. A mock can
+act like a stub, but a stub can't act like a mock.
 
 ### Should I mock the file system?
 
-For unit tests, yes — use virtual file systems or in-memory streams. For integration tests, write
-to a temporary directory and clean up afterward.
+For unit tests, yes — use virtual file systems or in-memory streams. For integration tests, write to
+a temporary directory and clean up afterward.
 
 ### Can I mock static methods?
 
-In Java, PowerMock and Mockito inline mock can do this, but it's discouraged. Static methods are
-hard to test because they can't be injected. Refactor to instance methods when possible.
+In Java, PowerMock and Mockito inline mock can do it, but you generally shouldn't. Static methods
+are tricky because they can't be injected, which makes tests awkward. Refactor to instance methods
+whenever you can.
 
 ### How do I avoid over-mocking?
 
-Mock only external dependencies that are slow, non-deterministic, or unavailable in tests. If a
-collaborator is fast and deterministic, use the real one. When in doubt, prefer a stub over a mock.
+Mock only the external dependencies that are slow, non-deterministic, or unavailable in tests. If a
+collaborator is fast and deterministic, use the real implementation. When you aren't sure which
+double fits your test, start with a stub and move to a mock only if you need to verify an
+interaction.
 
 ### When should I use a spy?
 
-Use a spy when you want the real object to run but also need to verify how it was called. Common
-examples include checking that a logger wrote a warning or that a cache was consulted before a
-slow query.
+A spy is the right choice when the real object should run and you also need to verify how it was
+called. Common examples include checking that a logger wrote a warning or that a cache was consulted
+before a slow
+query.
