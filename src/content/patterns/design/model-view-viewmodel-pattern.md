@@ -17,9 +17,12 @@ tags:
   - reactive
 relatedResources:
   - /patterns/model-view-presenter-pattern
-  - /patterns/front-controller-pattern
-  - /patterns/page-controller-pattern
-lastUpdated: "2026-06-25"
+  - /patterns/mvc-pattern
+  - /patterns/observer-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/command-pattern
+  - /patterns/composite-pattern-ui
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
@@ -35,24 +38,27 @@ seo:
 
 ## Overview
 
-The Model-View-ViewModel (MVVM) Pattern separates an application into three layers: the **Model** (data and business logic), the **View** (UI layout and structure), and the **ViewModel** (state and behavior exposed to the View). The View binds to the ViewModel declaratively, and changes in the ViewModel automatically reflect in the View.
+The Model-View-ViewModel (MVVM) pattern splits an application into three layers: the **Model** handles data and
+business logic, the **View** is the UI layout, and the **ViewModel** is the middle layer that exposes state and
+behavior the View can bind to. The View connects to the ViewModel declaratively, so changes in the ViewModel flow
+back into the View automatically.
 
-MVVM is the dominant pattern for reactive UI frameworks. WPF, Vue, Angular, and Jetpack Compose all use variations of MVVM. The key advantage is that the View is a thin declarative layer while the ViewModel holds all testable presentation logic.
+Most reactive UI frameworks are built around some form of MVVM. WPF, Vue, Angular, and Jetpack Compose all give it
+their own twist. The big win is keeping the View as a thin declarative layer while the ViewModel holds all the
+testable presentation logic.
 
 ## When to Use
 
-Use the MVVM Pattern when:
-- You are building a reactive UI where state changes need to propagate automatically
-- The view technology supports data binding (XAML, Vue templates, Angular templates)
-- You want the View to be a pure declarative mapping of ViewModel state
-- Multiple views need to display the same ViewModel data differently
+MVVM is worth it when your UI has to react automatically to state changes. It fits nicely when the view layer
+supports data binding (XAML, Vue templates, Angular templates), when you want the View to be a pure declarative
+mapping of the ViewModel, and when several views need to show the same ViewModel data in different ways.
 
 ## When to Avoid
 
-- Simple UIs without much interactivity or state
-- Environments without a data binding framework (MVVM without binding is painful)
-- The ViewModel becomes too complex trying to serve multiple unrelated views
-- Performance-critical UIs where binding overhead is unacceptable
+For simple UIs with little interactivity or state, MVVM is usually overkill. It also gets awkward without a
+data-binding framework, because without binding you're mostly adding boilerplate. Watch out when a single ViewModel
+is getting too complex trying to serve unrelated views, or when you're in a performance-critical UI where binding
+overhead isn't acceptable.
 
 ## Solution
 
@@ -346,72 +352,93 @@ view.onToggle(1);
 
 ## Explanation
 
-MVVM works through **data binding**:
+At the heart of MVVM is **data binding**. The **Model** keeps data and business rules and knows nothing about the
+UI. The **ViewModel** exposes observable properties and commands, transforming Model data into formats the View can
+use. The **View** then binds to those properties declaratively, so when the ViewModel changes, the View updates
+automatically.
 
-- **Model**: Holds data and business rules. Unaware of the UI.
-- **ViewModel**: Exposes observable properties and commands. It transforms Model data into View-friendly formats.
-- **View**: Declaratively binds to ViewModel properties. When the ViewModel changes, the View updates automatically.
-
-In frameworks like Vue or WPF, the binding is automatic. In our examples above, we use manual subscription to demonstrate the concept.
+In frameworks like Vue or WPF, that binding is handled for you. The examples above use manual subscription so the
+mechanic is visible, but in a real framework the plumbing is hidden.
 
 ## Variants
 
-| Variant | Binding Direction | Use Case |
-|---------|-------------------|----------|
-| **One-way** | ViewModel → View | Read-only displays, reactive streams |
-| **Two-way** | ViewModel ↔ View | Forms, input fields, editable grids |
-| **Command** | View → ViewModel | Buttons, actions that trigger logic |
-| **Computed** | Derived from other properties | Aggregations, filtered lists |
+**One-way** binding is the simplest form: the ViewModel pushes data to the View and that's it. Picture a read-only
+dashboard or a live stock ticker.
 
-## What Works
+**Two-way** binding keeps the ViewModel and the View in sync, so editing either side updates the other. That kind
+of sync is what you want for forms, input fields, and editable grids.
 
-- **Keep the ViewModel framework-agnostic.** It should not import UI toolkit classes.
-- **Use observable properties.** The ViewModel must notify the View when state changes.
-- **Avoid business logic in the ViewModel.** Delegate to the Model or service layer.
-- **One ViewModel per View.** Do not share a ViewModel across unrelated screens.
-- **Expose commands, not callbacks.** The View calls `viewModel.submit()` rather than passing a function.
+**Command** binding routes user actions from the View back to the ViewModel. A button that saves, deletes, or
+navigates is the usual example.
+
+**Computed** properties are calculated from other ViewModel properties. A total count, a filtered list, or a
+formatted label usually falls into this bucket.
+
+## Best Practices
+
+- Keep the ViewModel framework-agnostic. It shouldn't import UI toolkit classes, so you can unit test it without a
+  browser or device.
+- Use observable properties. The ViewModel has to notify the View whenever state changes, otherwise the View
+  stays stale.
+- Avoid business logic in the ViewModel. Delegate to the Model or a service layer.
+- Pair one ViewModel with one View. Sharing one across unrelated screens usually couples them.
+- Expose commands, not callbacks. Have the View call `viewModel.submit()` instead of passing a function around.
 
 ## Common Mistakes
 
-- **Putting view logic in the ViewModel.** Colors, fonts, and layout decisions belong in the View.
-- **Forgetting to notify.** If the ViewModel changes but does not notify, the View stays stale.
-- **ViewModel directly manipulating the View.** The ViewModel should expose state; the View binds to it.
-- **Two-way binding loops.** A change in the View updates the ViewModel, which updates the View, which updates the ViewModel...
-- **Monster ViewModels.** A ViewModel with 50 properties is hard to maintain. Split by feature or screen.
+- Putting view logic in the ViewModel. Colors, fonts, and layout decisions belong in the View.
+- Forgetting to notify. If the ViewModel changes and nobody is notified, the View stays stale.
+- Letting the ViewModel directly manipulate the View. The ViewModel should only expose state; the View binds to it.
+- Creating two-way binding loops. A change in the View updates the ViewModel, which updates the View, which updates
+  the ViewModel again.
+- Building monster ViewModels. Once a ViewModel has a huge list of properties, it becomes a maintenance headache.
+  Break it apart by feature or screen.
 
 ## Real-World Examples
 
 ### WPF / .NET
 
-WPF's XAML uses `{Binding Path=UserName}` to declaratively bind UI controls to ViewModel properties. `INotifyPropertyChanged` triggers updates.
+WPF's XAML uses `{Binding Path=UserName}` to wire a UI control directly to a ViewModel property.
+`INotifyPropertyChanged` then triggers the update.
 
 ### Vue.js
 
-Vue templates bind to reactive data: `<input v-model="message">`. The `data()` function acts as the ViewModel, and the template is the View.
+In Vue, templates bind to reactive data: `<input v-model="message">`. The `data()` or `setup()` function acts as
+the ViewModel, and the template is the View.
 
 ### Android Jetpack
 
-`ViewModel` + `LiveData` + `Data Binding` form Android's MVVM stack. The ViewModel survives configuration changes like screen rotation.
+`ViewModel` + `LiveData` + `Data Binding` form Android's MVVM stack. The ViewModel survives configuration changes
+like screen rotation.
 
 ## FAQ
 
-**Q: What is the difference between MVVM and MVP?**
-A: [MVP](/patterns/model-view-presenter-pattern/) uses explicit method calls through an interface. MVVM uses declarative data binding where the ViewModel exposes properties that the View observes.
+### What is the difference between MVVM and MVP?
 
-**Q: Does MVVM require a binding framework?**
-A: Strictly speaking yes. Without binding, you are doing MVP. However, simple manual subscription can approximate binding.
+In [MVP](/patterns/model-view-presenter-pattern/) the View calls explicit methods through an interface. MVVM uses
+declarative data binding where the ViewModel exposes properties that the View observes.
 
-**Q: Can I use MVVM with React?**
-A: React's hooks (`useState`, `useReducer`) and context API implement MVVM concepts. Custom hooks often serve as ViewModels.
+### Does MVVM require a binding framework?
+
+Strictly speaking, yes. Without binding, you're closer to MVP. That said, a simple manual subscription can
+approximate binding if you don't have a framework.
+
+### Can I use MVVM with React?
+
+React's hooks (`useState`, `useReducer`) and context API implement MVVM concepts. Custom hooks often serve as
+ViewModels.
 
 ### Is this pattern suitable for small projects?
 
-For small projects with few components, this pattern may add unnecessary complexity. Start simple and introduce the pattern when you feel the pain it solves.
+With only a few components, MVVM is usually overkill. Start simple and let the pattern appear once the code is
+actually asking for it.
 
 ### How does this pattern compare to alternatives?
 
-Each pattern makes different trade-offs. Review the variants table above and consider your specific constraints: team size, performance requirements, and future scaling plans.
+Look at the variants table above and think about what actually constrains you: team size, performance needs, and
+how far the UI might grow.
 
 ### Can I partially apply this pattern?
 
-Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication as needed. The pattern is a guide, not a strict blueprint.
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication only where it
+matters. MVVM is a guide, not a strict blueprint.

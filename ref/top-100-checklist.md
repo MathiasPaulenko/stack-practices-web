@@ -636,13 +636,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 39.7% / ES 28.9% (0 patterns)
    - Words: 1610 | Meta: 165 chars
 
-79. - [ ] **model-view-viewmodel-pattern** (patterns)
+79. - [x] **model-view-viewmodel-pattern** (patterns)
    - Metrics: 41 imp | pos 30.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/patterns/model-view-viewmodel-pattern/
    - ES: https://stackpractices.com/es/patterns/model-view-viewmodel-pattern/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 1,374 | Meta: 147 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.7% / ES 35.9% (0 patterns)
+   - Words: 1577 | Meta: 147 chars
 
 80. - [ ] **python-rate-limiting-fastapi-redis** (recipes)
    - Metrics: 17 imp | pos 17.9 | CTR 0.00% | Δ impr 0

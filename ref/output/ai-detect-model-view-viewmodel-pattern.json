@@ -1,0 +1,361 @@
+[
+  {
+    "label": "model-view-viewmodel-pattern-en",
+    "model": "desklib",
+    "model_ai_pct": 44.7,
+    "ai_count": 19,
+    "human_count": 38,
+    "skipped_count": 8,
+    "total": 65,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.2,
+      "stddev": 7.1,
+      "cv": 0.54,
+      "verdict": "natural variation",
+      "sentence_count": 57,
+      "lengths": [
+        40,
+        18,
+        11,
+        12,
+        21,
+        14,
+        43,
+        12,
+        15,
+        27,
+        8,
+        13,
+        16,
+        17,
+        12,
+        20,
+        16,
+        9,
+        17,
+        15,
+        12,
+        11,
+        8,
+        15,
+        17,
+        15,
+        6,
+        8,
+        6,
+        8,
+        11,
+        6,
+        9,
+        12,
+        7,
+        11,
+        17,
+        14,
+        7,
+        15,
+        5,
+        9,
+        15,
+        10,
+        8,
+        10,
+        14,
+        6,
+        15,
+        10,
+        6,
+        9,
+        15,
+        24,
+        5,
+        12,
+        8
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "MVVM is a guide, not a strict blueprint.",
+        0.7927
+      ],
+      [
+        "WPF, Vue, Angular, and Jetpack Compose all give it\ntheir own twist.",
+        0.7871
+      ],
+      [
+        "A button that saves, deletes, or\nnavigates is the usual example.",
+        0.7657
+      ],
+      [
+        "**Computed** properties are calculated from other ViewModel properties.",
+        0.7179
+      ],
+      [
+        "That kind\nof sync is what you want for forms, input fields, and editable grids.",
+        0.7149
+      ],
+      [
+        "It also gets awkward without a\ndata-binding framework, because without binding you're mostly adding boilerplate.",
+        0.6129
+      ],
+      [
+        "Break it apart by feature or screen.",
+        0.5901
+      ],
+      [
+        "WPF's XAML uses {Binding Path=UserName} to wire a UI control directly to a ViewModel property.",
+        0.5844
+      ],
+      [
+        "Look at the variants table above and think about what actually constrains you: team size, performance needs, and\nhow far the UI might grow.",
+        0.5811
+      ],
+      [
+        "Without binding, you're closer to MVP.",
+        0.5787
+      ],
+      [
+        "Start with the core idea and add sophistication only where it\nmatters.",
+        0.5769
+      ],
+      [
+        "MVVM is worth it when your UI has to react automatically to state changes.",
+        0.5698
+      ],
+      [
+        "For simple UIs with little interactivity or state, MVVM is usually overkill.",
+        0.5456
+      ],
+      [
+        "The ViewModel has to notify the View whenever state changes, otherwise the View\n  stays stale.",
+        0.5456
+      ],
+      [
+        "**Command** binding routes user actions from the View back to the ViewModel.",
+        0.5448
+      ],
+      [
+        "Colors, fonts, and layout decisions belong in the View.",
+        0.538
+      ],
+      [
+        "In Vue, templates bind to reactive data: <input v-model=\"message\">.",
+        0.5343
+      ],
+      [
+        "The ViewModel survives configuration changes\nlike screen rotation.",
+        0.5335
+      ],
+      [
+        "The Model-View-ViewModel (MVVM) pattern splits an application into three layers: the **Model** handles data and\nbusiness logic, the **View** is the UI layout, and the **ViewModel**",
+        0.5172
+      ],
+      [
+        "With only a few components, MVVM is usually overkill.",
+        0.4941
+      ],
+      [
+        "At the heart of MVVM is **data binding**.",
+        0.4772
+      ],
+      [
+        "If the ViewModel changes and nobody is notified, the View stays stale.",
+        0.4748
+      ],
+      [
+        "INotifyPropertyChanged then triggers the update.",
+        0.4697
+      ],
+      [
+        "Many teams adopt patterns incrementally.",
+        0.4686
+      ],
+      [
+        "Pair one ViewModel with one View.",
+        0.4641
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "model-view-viewmodel-pattern-es",
+    "model": "desklib",
+    "model_ai_pct": 35.9,
+    "ai_count": 13,
+    "human_count": 45,
+    "skipped_count": 8,
+    "total": 66,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 13.7,
+      "stddev": 7.4,
+      "cv": 0.54,
+      "verdict": "natural variation",
+      "sentence_count": 58,
+      "lengths": [
+        40,
+        21,
+        10,
+        10,
+        22,
+        16,
+        44,
+        10,
+        20,
+        29,
+        7,
+        15,
+        18,
+        21,
+        11,
+        22,
+        17,
+        13,
+        18,
+        14,
+        14,
+        11,
+        10,
+        16,
+        15,
+        19,
+        7,
+        9,
+        5,
+        8,
+        11,
+        7,
+        10,
+        12,
+        8,
+        11,
+        5,
+        18,
+        9,
+        5,
+        15,
+        11,
+        15,
+        12,
+        11,
+        11,
+        14,
+        7,
+        15,
+        14,
+        8,
+        11,
+        12,
+        5,
+        21,
+        5,
+        10,
+        8
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Us\u00e1 un ViewModel por View.",
+        0.8213
+      ],
+      [
+        "Evit\u00e1 l\u00f3gica de negocio en el ViewModel.",
+        0.7028
+      ],
+      [
+        "Muchos equipos adoptan patrones incrementalmente.",
+        0.6625
+      ],
+      [
+        "MVVM es una gu\u00eda, no un blueprint estricto.",
+        0.6567
+      ],
+      [
+        "No deber\u00eda importar clases de UI toolkit, as\u00ed pod\u00e9s testearlo sin un\n  browser o dispositivo.",
+        0.6452
+      ],
+      [
+        "Un bot\u00f3n de salvar, borrar o\nnavegar es el ejemplo habitual.",
+        0.609
+      ],
+      [
+        "Evit\u00e1 MVVM para UIs simples sin mucha interactividad o estado.",
+        0.5966
+      ],
+      [
+        "El ViewModel deber\u00eda exponer estado; la View se vincula a \u00e9l.",
+        0.5954
+      ],
+      [
+        "Las propiedades **Computed** se derivan de otras propiedades del ViewModel.",
+        0.5897
+      ],
+      [
+        "Imagin\u00e1 un dashboard de\nsolo lectura o un ticker de valores en vivo.",
+        0.5772
+      ],
+      [
+        "Un ViewModel con 50 propiedades es dif\u00edcil de mantener.",
+        0.5757
+      ],
+      [
+        "Poner l\u00f3gica de view en el ViewModel.",
+        0.5657
+      ],
+      [
+        "La View se conecta al ViewModel de forma declarativa, as\u00ed los cambios en el ViewModel se\nreflejan autom\u00e1ticamente en la View.",
+        0.5003
+      ],
+      [
+        "Cada patr\u00f3n hace distintos trade-offs.",
+        0.4903
+      ],
+      [
+        "MVVM funciona a trav\u00e9s de **data binding**.",
+        0.4757
+      ],
+      [
+        "El **Model** mantiene datos y reglas de negocio y no sabe nada de la\nUI.",
+        0.4756
+      ],
+      [
+        "El XAML de WPF usa {Binding Path=UserName} para vincular controles UI a propiedades del ViewModel.",
+        0.4604
+      ],
+      [
+        "Crear loops de two-way binding.",
+        0.46
+      ],
+      [
+        "Dividilo por feature o\n  pantalla.",
+        0.4413
+      ],
+      [
+        "MVVM es el patr\u00f3n dominante para frameworks de UI reactiva.",
+        0.4004
+      ],
+      [
+        "Los templates de Vue se vinculan a datos reactivos: <input v-model=\"message\">.",
+        0.3963
+      ],
+      [
+        "La View llama a viewModel.submit() en lugar de pasar una funci\u00f3n.",
+        0.3844
+      ],
+      [
+        "Sin binding, est\u00e1s m\u00e1s cerca de MVP.",
+        0.3833
+      ],
+      [
+        "Para proyectos peque\u00f1os con pocos componentes, MVVM puede a\u00f1adir complejidad innecesaria.",
+        0.3796
+      ],
+      [
+        "Los custom hooks a\nmenudo sirven como ViewModels.",
+        0.3794
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

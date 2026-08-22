@@ -17,9 +17,12 @@ tags:
   - reactive
 relatedResources:
   - /patterns/model-view-presenter-pattern
-  - /patterns/front-controller-pattern
-  - /patterns/page-controller-pattern
-lastUpdated: "2026-06-25"
+  - /patterns/mvc-pattern
+  - /patterns/observer-pattern
+  - /patterns/dependency-injection-pattern
+  - /patterns/command-pattern
+  - /patterns/composite-pattern-ui
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-25"
 author: Mathias Paulenko
 seo:
@@ -35,24 +38,28 @@ seo:
 
 ## Descripción General
 
-El Patrón Model-View-ViewModel (MVVM) separa una aplicación en tres capas: el **Model** (datos y lógica de negocio), la **View** (layout y estructura de UI) y el **ViewModel** (estado y comportamiento expuesto a la View). La View se vincula al ViewModel declarativamente, y los cambios en el ViewModel se reflejan automáticamente en la View.
+El patrón Model-View-ViewModel (MVVM) separa una aplicación en tres capas: el **Model** maneja los datos y la
+lógica de negocio, la **View** es el layout de UI, y el **ViewModel** expone estado y comportamiento al que la
+View puede bindearse. La View se conecta al ViewModel de forma declarativa, así los cambios en el ViewModel se
+reflejan automáticamente en la View.
 
-MVVM es el patrón dominante para frameworks de UI reactiva. WPF, Vue, Angular y Jetpack Compose usan variaciones de MVVM. La ventaja clave es que la View es una capa declarativa delgada mientras que el ViewModel contiene toda la lógica de presentación testeable.
+MVVM es el patrón dominante para frameworks de UI reactiva. WPF, Vue, Angular y Jetpack Compose usan variaciones
+del mismo. La gran ventaja es mantener la View como una capa declarativa delgada mientras el ViewModel contiene
+toda la lógica de presentación testeable.
 
 ## Cuándo Usar
 
-Usa el Patrón MVVM cuando:
-- Estás construyendo una UI reactiva donde los cambios de estado necesitan propagarse automáticamente
-- La tecnología de view soporta data binding (XAML, templates de Vue, templates de Angular)
-- Quieres que la View sea un mapeo declarativo puro del estado del ViewModel
-- Múltiples views necesitan mostrar los mismos datos del ViewModel de forma diferente
+Usá MVVM cuando estés construyendo una UI reactiva donde los cambios de estado necesiten propagarse
+automáticamente. Sirve cuando tu tecnología de view soporta data binding (XAML, templates de Vue, templates de
+Angular), cuando querés que la View sea un mapeo declarativo puro del estado del ViewModel, y cuando distintas
+views necesiten mostrar los mismos datos del ViewModel de forma diferente.
 
 ## Cuándo Evitar
 
-- UIs simples sin mucha interactividad o estado
-- Entornos sin un framework de data binding (MVVM sin binding es doloroso)
-- El ViewModel se vuelve demasiado complejo intentando servir múltiples views no relacionadas
-- UIs críticas de performance donde el overhead de binding es inaceptable
+Evitá MVVM para UIs simples sin mucha interactividad o estado. También se vuelve incómodo en entornos sin un
+framework de data binding, porque MVVM sin binding es mayormente boilerplate extra. No lo uses cuando un solo
+ViewModel se vuelve demasiado complejo intentando servir views no relacionadas, o en UIs críticas de performance
+donde el overhead de binding es inaceptable.
 
 ## Solución
 
@@ -346,72 +353,93 @@ view.onToggle(1);
 
 ## Explicación
 
-MVVM funciona a través de **data binding**:
+MVVM funciona a través de **data binding**. El **Model** mantiene datos y reglas de negocio y no sabe nada de la
+UI. El **ViewModel** expone propiedades observables y comandos, transformando datos del Model en formatos que la
+View pueda usar. La **View** se vincula a esas propiedades de forma declarativa, así que cuando el ViewModel
+cambia, la View se actualiza automáticamente.
 
-- **Model**: Mantiene datos y reglas de negocio. No conoce la UI.
-- **ViewModel**: Expone propiedades observables y comandos. Transforma datos del Model en formatos amigables para la View.
-- **View**: Se vincula declarativamente a propiedades del ViewModel. Cuando el ViewModel cambia, la View se actualiza automáticamente.
-
-En frameworks como Vue o WPF, el binding es automático. En nuestros ejemplos usamos suscripción manual para demostrar el concepto.
+En frameworks como Vue o WPF, ese binding se maneja automáticamente. Los ejemplos de arriba usan suscripción
+manual para que el mecanismo sea visible, pero en un framework real el plumbing está oculto.
 
 ## Variantes
 
-| Variante | Dirección de Binding | Caso de Uso |
-|----------|----------------------|-------------|
-| **One-way** | ViewModel → View | Displays de solo lectura, streams reactivos |
-| **Two-way** | ViewModel ↔ View | Formularios, campos de input, grids editables |
-| **Command** | View → ViewModel | Botones, acciones que disparan lógica |
-| **Computed** | Derivado de otras propiedades | Agregaciones, listas filtradas |
+El binding **One-way** es la forma más simple: el ViewModel empuja datos a la View y listo. Imaginá un dashboard de
+solo lectura o un ticker de valores en vivo.
 
-## Lo que funciona
+El binding **Two-way** mantiene sincronizados al ViewModel y a la View, así que editar cualquiera actualiza al otro.
+Ese es el comportamiento que querés para formularios, campos de input y grids editables.
 
-- **Mantén el ViewModel framework-agnostic.** No debería importar clases de UI toolkit.
-- **Usa propiedades observables.** El ViewModel debe notificar a la View cuando el estado cambia.
-- **Evita lógica de negocio en el ViewModel.** Delega al Model o capa de servicio.
-- **Un ViewModel por View.** No compartas un ViewModel a través de pantallas no relacionadas.
-- **Expón comandos, no callbacks.** La View llama `viewModel.submit()` en lugar de pasar una función.
+El binding **Command** enruta acciones del usuario desde la View de vuelta al ViewModel. Un botón de salvar, borrar o
+navegar es el ejemplo habitual.
+
+Las propiedades **Computed** se derivan de otras propiedades del ViewModel. Un conteo total, una lista filtrada o
+una etiqueta formateada suele calcularse en lugar de guardarse.
+
+## Buenas Prácticas
+
+- Mantené el ViewModel framework-agnostic. No debería importar clases de UI toolkit, así podés testearlo sin un
+  browser o dispositivo.
+- Usá propiedades observables. El ViewModel tiene que notificar a la View cuando el estado cambia; si no, la View
+  se queda stale.
+- Evitá lógica de negocio en el ViewModel. Delegá al Model o a una capa de servicio.
+- Usá un ViewModel por View. No compartas un ViewModel entre pantallas no relacionadas.
+- Exponé comandos, no callbacks. La View llama a `viewModel.submit()` en lugar de pasar una función.
 
 ## Errores Comunes
 
-- **Poner lógica de view en el ViewModel.** Colores, fuentes y decisiones de layout pertenecen a la View.
-- **Olvidar notificar.** Si el ViewModel cambia pero no notifica, la View permanece stale.
-- **ViewModel manipulando la View directamente.** El ViewModel debería exponer estado; la View se vincula a él.
-- **Loops de two-way binding.** Un cambio en la View actualiza el ViewModel, que actualiza la View, que actualiza el ViewModel...
-- **ViewModels monstruosos.** Un ViewModel con 50 propiedades es difícil de mantener. Divide por feature o pantalla.
+- Poner lógica de view en el ViewModel. Colores, fuentes y decisiones de layout pertenecen a la View.
+- Olvidar notificar. Si el ViewModel cambia pero no notifica, la View se queda stale.
+- Dejar que el ViewModel manipule la View directamente. El ViewModel debería exponer estado; la View se vincula a él.
+- Crear loops de two-way binding. Un cambio en la View actualiza el ViewModel, que actualiza la View, que vuelve a
+  actualizar el ViewModel.
+- Construir ViewModels monstruosos. Un ViewModel con 50 propiedades es difícil de mantener. Dividilo por feature o
+  pantalla.
 
 ## Ejemplos del Mundo Real
 
 ### WPF / .NET
 
-El XAML de WPF usa `{Binding Path=UserName}` para vincular controles UI a propiedades del ViewModel declarativamente. `INotifyPropertyChanged` dispara actualizaciones.
+El XAML de WPF usa `{Binding Path=UserName}` para vincular controles UI a propiedades del ViewModel.
+`INotifyPropertyChanged` dispara actualizaciones.
 
 ### Vue.js
 
-Los templates de Vue se vinculan a datos reactivos: `<input v-model="message">`. La función `data()` actúa como el ViewModel, y el template es la View.
+Los templates de Vue se vinculan a datos reactivos: `<input v-model="message">`. La función `data()` o `setup()`
+actúa como el ViewModel, y el template es la View.
 
 ### Android Jetpack
 
-`ViewModel` + `LiveData` + `Data Binding` forman el stack MVVM de Android. El ViewModel sobrevive cambios de configuración como rotación de pantalla.
+`ViewModel` + `LiveData` + `Data Binding` forman el stack MVVM de Android. El ViewModel sobrevive cambios de
+configuración como la rotación de pantalla.
 
 ## Preguntas Frecuentes
 
-**Q: Cuál es la diferencia entre MVVM y MVP?**
-A: [MVP](/patterns/model-view-presenter-pattern/) usa llamadas a métodos explícitas a través de una interfaz. MVVM usa data binding declarativo donde el ViewModel expone propiedades que la View observa.
+### ¿Cuál es la diferencia entre MVVM y MVP?
 
-**Q: MVVM requiere un framework de binding?**
-A: Estrictamente hablando sí. Sin binding, estás haciendo MVP. Sin embargo, una suscripción manual simple puede aproximar el binding.
+[MVP](/patterns/model-view-presenter-pattern/) usa llamadas a métodos explícitas a través de una interfaz. MVVM
+usa data binding declarativo donde el ViewModel expone propiedades que la View observa.
 
-**Q: Puedo usar MVVM con React?**
-A: Los hooks de React (`useState`, `useReducer`) y la context API implementan conceptos de MVVM. Los custom hooks a menudo sirven como ViewModels.
+### ¿MVVM requiere un framework de binding?
+
+Estrictamente hablando, sí. Sin binding, estás más cerca de MVP. Dicho eso, una suscripción manual simple puede
+aproximar el binding si no tenés un framework.
+
+### ¿Puedo usar MVVM con React?
+
+Los hooks de React (`useState`, `useReducer`) y la context API implementan conceptos de MVVM. Los custom hooks a
+menudo sirven como ViewModels.
 
 ### ¿Es este patrón adecuado para proyectos pequeños?
 
-Para proyectos pequeños con pocos componentes, este patrón puede añadir complejidad innecesaria. Empieza simple e introduce el patrón cuando sientas el problema que resuelve.
+Para proyectos pequeños con pocos componentes, MVVM puede añadir complejidad innecesaria. Empezá simple e
+introducí el patrón cuando sientas el problema que resuelve.
 
 ### ¿Cómo se compara este patrón con alternativas?
 
-Cada patrón hace diferentes trade-offs. Revisa la tabla de variantes arriba y considera tus restricciones específicas: tamaño del equipo, requisitos de rendimiento y planes de escalado.
+Cada patrón hace distintos trade-offs. Revisá la tabla de variantes de arriba y ponderá tus restricciones: tamaño
+del equipo, requisitos de rendimiento y planes de escalado.
 
 ### ¿Puedo aplicar este patrón parcialmente?
 
-Sí. Muchos equipos adoptan patrones incrementalmente. Empieza con la idea central y añade sofisticación según sea necesario. El patrón es una guía, no un blueprint estricto.
+Sí. Muchos equipos adoptan patrones incrementalmente. Empezá con la idea central y agregá sofisticación según
+necesites. MVVM es una guía, no un blueprint estricto.
