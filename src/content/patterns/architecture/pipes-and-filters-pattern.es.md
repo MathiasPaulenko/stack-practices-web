@@ -23,7 +23,7 @@ relatedResources:
   - /patterns/marker-interface-pattern
   - /guides/complete-guide-kafka-stream-processing
   - /patterns/static-content-hosting-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-02"
 author: Mathias Paulenko
 seo:
@@ -39,29 +39,36 @@ seo:
     - javascript pipeline
 ---
 
-## Resumen
-
-El [patrón Pipes and Filters](/es/patterns/pipes-and-filters-pattern/) divide una tarea de
-procesamiento compleja en una secuencia de pasos pequeños e independientes (filtros) conectados
-por canales (pipes). Cada filtro recibe input, realiza una transformación y pasa output al
-siguiente pipe. Los filtros son reutilizables, componibles y testeables en aislamiento. Este patrón
-es ideal para pipelines de procesamiento de datos, flujos ETL y cadenas de transformación de
+El [patrón Pipes and Filters](/es/patterns/pipes-and-filters-pattern/) toma un trabajo de
+procesamiento
+complejo y lo divide en una secuencia de pasos pequeños e independientes. Cada paso, llamado filtro,
+recibe datos, los transforma y los pasa a la siguiente etapa a través de un pipe. Los pipes son solo
+conectores; en código pueden ser tan simples como composición de funciones o tan complejos como
+queues y
+streams. Los filtros terminan siendo reutilizables, componibles y fáciles de testear en aislamiento.
+Este
+patrón aparece mucho en pipelines de procesamiento de datos, flujos ETL y cadenas de transformación
+de
 requests/responses.
 
 ## Cuándo Usarlo
 
-- Una tarea compleja se puede dividir en pasos secuenciales e independientes.
-- Necesitás reordenar, agregar o remover pasos de procesamiento sin reescribir código.
-- Los pasos son reutilizables en distintos pipelines.
-- Querés testear cada transformación en aislamiento.
-- Estás construyendo pipelines ETL, procesamiento de datos o transformación de requests/responses.
+Pipes and Filters funciona bien cuando una tarea se divide naturalmente en pasos secuenciales e
+independientes que podés querer reordenar, agregar o remover sin reescribir todo. Es una buena
+opción
+cuando la misma transformación aparece en distintos pipelines, o cuando querés testear cada paso por
+separado. Trabajos ETL, enriquecimiento de datos y cadenas de transformación de requests/responses
+son
+usos comunes.
 
 ## Cuándo NO Usarlo
 
-- Una secuencia fija de 2-3 pasos simples que nunca cambia — una función simple alcanza.
-- Los pasos están fuertemente acoplados y no se pueden separar en inputs y outputs limpios.
-- Necesitás que un handler decida si detener el procesamiento — [Chain of
-  Responsibility](/es/patterns/chain-of-responsibility-pattern/) se ajusta mejor.
+No optes por este patrón cuando el flujo son dos o tres pasos fijos que nunca cambian: una función
+simple es más sencilla. Si los pasos están fuertemente acoplados y no se pueden separar en inputs y
+outputs limpios, Pipes and Filters va a pelear con vos. Y si necesitás que un handler decida si
+detener
+el procesamiento, [Chain of Responsibility](/es/patterns/chain-of-responsibility-pattern/) suele
+ajustarse mejor.
 
 ## Solución
 
@@ -312,16 +319,19 @@ asyncio.run(main())
 
 ## Explicación
 
-El patrón Pipes and Filters descompone el procesamiento en componentes independientes:
-
-- **Filter**: un paso de procesamiento que recibe input, lo transforma y produce output. Los
-  mejores filtros son funciones puras sin side effects.
-- **Pipe**: el conector entre filtros. En su forma más simple, es composición de funciones. En
-  sistemas más complejos, puede ser una queue, canal o stream.
-- **Pipeline**: una secuencia de filtros conectados por pipes. Un pipeline es a su vez un filtro,
-  así que puede componerse en pipelines más grandes.
-- **Composability**: los filtros pueden reordenarse, agregarse o removerse. Nuevos pipelines se
-  construyen combinando filtros existentes en distintos ordenes.
+El patrón descompone un trabajo grande en componentes autocontenidos. Un filtro es simplemente un
+paso de
+procesamiento que recibe datos, los transforma y produce output. Los mejores filtros son funciones
+puras
+sin side effects. Un pipe es el conector entre filtros. En casos simples es composición de
+funciones; en
+sistemas más grandes puede ser una queue, canal o stream. Un pipeline es una cadena de filtros
+conectados
+por pipes, y como un pipeline se comporta a su vez como un filtro, podés componer pipelines en
+pipelines
+más grandes. Esa componibilidad también significa que podés reordenar, agregar o remover filtros
+para
+armar nuevos pipelines sin tocar los existentes.
 
 ## Variantes
 
@@ -334,62 +344,73 @@ El patrón Pipes and Filters descompone el procesamiento en componentes independ
 | Pipeline batch | Procesa en chunks | ETL, procesamiento de datos programado |
 
 Para streaming en tiempo real, cuidado con filtros lentos. El [patrón Back
-Pressure](/es/patterns/back-pressure-pattern/) muestra cómo evitar que productores rápidos
-saturen consumidores lentos.
+Pressure](/es/patterns/back-pressure-pattern/) muestra cómo evitar que productores rápidos saturen
+consumidores lentos.
 
 ## Buenas Prácticas
 
-- Mantené los filtros puros — sin side effects ni estado mutable compartido. Así son testeables y
-  componibles.
-- Hacé que cada filtro tenga una sola responsabilidad — cada uno realiza una transformación.
-- Usá firmas de tipos — los tipos de input y output documentan el contrato.
-- Manejá errores a nivel de pipeline — envolvé el pipeline en manejo de errores en vez de cada
-  filtro.
-- Agregá filtros condicionalmente — usá un builder o configuración para construir pipelines
-  dinámicamente.
-- Testeá los filtros en aislamiento — las funciones puras son fáciles de testear unitariamente.
-- Logueá entre filtros — insertá filtros de logging para debugging sin modificar filtros de
-  procesamiento.
+- Mantené los filtros puros, sin side effects ni estado mutable compartido, así siguen siendo
+    testeables y componibles.
+- Dales a los filtros una sola responsabilidad; un filtro por transformación los hace más fáciles de
+    entender y reusar.
+- Usá firmas de tipos para documentar el contrato entre filtros.
+- Manejá errores a nivel del pipeline en vez de dentro de cada filtro, así no ocultás fallas.
+- Construí pipelines dinámicamente con un builder o configuración cuando el orden no es fijo.
+- Testeá los filtros en aislamiento; las funciones puras son fáciles de testear unitariamente.
+- Insertá filtros de logging entre pasos de procesamiento para debugging sin tocar la lógica de
+    negocio.
 
 ## Errores Comunes
 
-- Hacer filtros stateful — rompe la composabilidad y dificulta los tests.
-- Filtros con side effects (escribir en DB, llamar APIs) — hace el pipeline no determinista.
-- No manejar errores — un fallo en un filtro puede romper todo el pipeline.
-- Hardcodear el orden de filtros — usá un builder o configuración para permitir reordenar.
-- Filtros que hacen demasiado — un filtro debería hacer una transformación.
-- No tipar inputs/outputs de filtros — los errores de tipo en runtime son difíciles de debuggear.
-- Ignorar backpressure en pipelines streaming — filtros lentos causan acumulación de memoria en
-  pipes.
+- **Hacer filtros stateful**. El estado compartido rompe la composabilidad y dificulta los tests.
+- **Meter side effects en los filtros**. Escribir en una base de datos o llamar una API desde un
+    filtro hace el pipeline no determinista.
+- **Ignorar errores**. Un fallo no manejado en un filtro puede romper todo el pipeline.
+- **Hardcodear el orden de filtros**. Usá un builder o configuración para que el pipeline pueda
+    evolucionar.
+- **Hacer filtros que hacen demasiado**. Un filtro debería hacer una sola transformación.
+- **No tipar inputs/outputs de filtros**. Los errores de tipo en runtime se vuelven difíciles de
+    debuggear.
+- **Olvidar la backpressure en pipelines streaming**. Los filtros lentos pueden acumular memoria en
+    los pipes.
 
 ## Preguntas Frecuentes
 
 ### ¿En qué se diferencia de Chain of Responsibility?
 
 En Chain of Responsibility, cada handler decide si pasa el request o se detiene. En Pipes and
-Filters, cada filtro procesa los datos y los pasa al siguiente. Pipes and Filters es sobre
-transformación; Chain of Responsibility es sobre manejo. Consultá [Chain of Responsibility
+Filters,
+cada filtro procesa los datos y los pasa al siguiente. Pipes and Filters es sobre transformación;
+Chain
+of Responsibility es sobre manejo. Consultá [Chain of Responsibility
 Pattern](/es/patterns/chain-of-responsibility-pattern/) para la diferencia.
 
 ### ¿Uso esto o una función simple?
 
-Usá Pipes and Filters cuando necesites reordenar pasos, reutilizar filtros en distintos pipelines
-o testear pasos en aislamiento. Para una secuencia fija de dos o tres pasos que nunca cambia, una
-función simple alcanza.
+Usá Pipes and Filters cuando el orden puede cambiar, los mismos filtros aparecen en varios
+pipelines, o
+necesitás testear cada paso por separado. Si la tarea son dos o tres pasos fijos que nunca cambian,
+una
+función simple suele ser suficiente.
 
 ### ¿Cómo manejo branching en un pipeline?
 
-Usá un router filter que envíe datos a distintos sub-pipelines según una condición. El router es
-a su vez un filtro — recibe input, evalúa una condición y rutea al sub-pipeline adecuado.
+Usá un router filter que envíe datos a distintos sub-pipelines según una condición. El router es a
+su vez
+un filtro: recibe input, evalúa una condición y rutea al sub-pipeline adecuado.
 
 ### ¿Cómo manejo errores en un pipeline?
 
-Envolvé el pipeline completo en un try/catch o usá un tipo resultado (por ejemplo, `Result<T,
-E>`). Dejá que el caller decida cómo manejar un paso fallido. Evitá capturar errores dentro de
-filtros individuales para no ocultar fallas.
+Envolvé el pipeline completo en un try/catch o usá un tipo resultado, como `Result<T, E>`. Dejá que
+el
+caller decida cómo manejar un paso fallido. Evitá capturar errores dentro de filtros individuales,
+porque
+ocultarías fallas.
 
 ### ¿Cuándo uso un pipeline async o paralelo?
 
 Usá un pipeline async cuando los filtros esperan I/O. Usá uno paralelo cuando los filtros son
-CPU-bound y pueden correr independientemente. Para streams en tiempo real, usá un pipeline
-streaming con manejo de backpressure.
+CPU-bound y
+pueden correr independientemente. Para streams en tiempo real, usá un pipeline streaming con manejo
+de
+backpressure.
