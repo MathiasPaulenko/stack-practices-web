@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/twin-pattern
   - /patterns/factory-pattern
   - /patterns/singleton-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -40,28 +40,30 @@ seo:
     - javascript bridge
 ---
 
-## Resumen
+El patrón Bridge es un patrón de diseño estructural que separa una abstracción de su implementación.
+En lugar de una sola jerarquía que mezcla ambas, tenés dos: una para la abstracción y otra para la
+implementación. Eso permite que cada lado evolucione sin romper el otro.
 
-El patrón Bridge es un patrón de diseño estructural que desacopla una abstracción de su
-implementación para que ambas puedan variar independientemente. En lugar de una jerarquía de
-clases que combina ambas, la dividís en dos: una para la abstracción y otra para la
-implementación. Es útil cuando necesitás soportar múltiples plataformas o backends de
-renderizado.
+Un ejemplo clásico es una UI con distintos widgets y distintos backends de renderizado. Sin Bridge,
+cada clase de widget tendría que conocer cada renderizador. Con Bridge, un `Circle` mantiene una
+referencia a un `Renderer` y le delega el dibujo. Podés agregar formas o renderizadores después sin
+tocar los existentes.
 
 ## Cuándo Usarlo
 
-- Querés evitar un enlace permanente entre una abstracción y su implementación.
-- Tanto la abstracción como la implementación deben ser extensibles por subclasificación.
-- Querés compartir una implementación entre varios objetos.
-- Los cambios en la implementación no deberían afectar a los clientes.
-- Tenés una explosión de clases por combinar dos dimensiones, como formas y renderizadores.
+- Querés evitar un enlace permanente entre la abstracción y su implementación.
+- Ambos lados del diseño deben ser extensibles mediante subclases.
+- Varios objetos necesitan compartir la misma implementación subyacente.
+- Los cambios en la implementación no deberían llegar a los clientes.
+- Tenés una explosión de clases porque dos dimensiones, como formas y renderizadores, se combinan en
+    una sola jerarquía.
 
 ## Cuándo NO Usarlo
 
-- Un simple [Strategy](/patterns/strategy-pattern/) o [Adapter](/patterns/adapter-pattern/) es
-  suficiente para una sola dimensión de variación.
+- Un simple [Strategy](/patterns/strategy-pattern/) o [Adapter](/patterns/adapter-pattern/) ya cubre
+    una sola dimensión de variación.
 - El proyecto es pequeño y la jerarquía extra agrega más complejidad que valor.
-- No controlás ninguno de los dos lados de la abstracción/Implementación.
+- No controlás ninguno de los dos lados de la abstracción/implementación.
 
 ## Solución
 
@@ -196,21 +198,21 @@ cv.draw();
 
 ## Explicación
 
-El patrón Bridge separa dos dimensiones en dos jerarquías de clases:
+El patrón separa dos dimensiones en dos jerarquías de clases:
 
 - **Abstracción** (`Shape`): la interfaz de alto nivel que usan los clientes.
 - **Implementación** (`Renderer`): las operaciones de bajo nivel que hacen el trabajo.
 
-La abstracción mantiene una referencia a la implementación y le delega el trabajo. Podés
-agregar nuevas formas o nuevos renderizadores sin modificar código existente.
+La abstracción mantiene una referencia a la implementación y le delega el trabajo. Esa separación
+permite agregar nuevas formas o nuevos renderizadores sin modificar el código existente.
 
 ## Variantes
 
-|Variante|Descripción|Caso de uso|
-|--------|-----------|-----------|
-|Bridge clásico|Dos jerarquías paralelas|Formas y renderizadores, dispositivos y drivers|
-|Driver Bridge|Abstracción sobre APIs de hardware o SO|Frameworks de UI cross-platform|
-|Remote Bridge|Abstracción local sobre implementación remota|Stubs y proxies RPC|
+| Variante | Descripción | Caso de uso |
+| --- | --- | --- |
+| Bridge clásico | Dos jerarquías paralelas | Formas y renderizadores, dispositivos y drivers |
+| Driver Bridge | Abstracción sobre APIs de hardware o SO | Frameworks de UI cross-platform |
+| Remote Bridge | Abstracción local sobre implementación remota | Stubs y proxies RPC |
 
 ### Renderizado cross-platform en TypeScript
 
@@ -251,20 +253,20 @@ console.log(canvasCircle.draw()); // Canvas circle
 
 ## Buenas Prácticas
 
-- Identificá las dimensiones independientes antes de aplicar el patrón — no todo problema de
-  jerarquías necesita un bridge.
+- Identificá las dimensiones independientes antes de aplicar el patrón. No todo problema de
+    jerarquías necesita un Bridge.
 - Mantené la interfaz de implementación mínima. Exponé solo lo que la abstracción necesita.
-- Preferí composición sobre herencia; el bridge se basa en composición.
+- Preferí composición sobre herencia. El patrón Bridge se basa en composición.
 - Usá inyección de dependencias para conectar implementaciones con abstracciones.
-- Documentá qué clase es la abstracción y cuál la implementación.
+- Documentá qué lado es la abstracción y cuál la implementación.
 
 ## Errores Comunes
 
-- Aplicar el patrón Bridge cuando un simple [Strategy](/patterns/strategy-pattern/) o
-  [Adapter](/patterns/adapter-pattern/) alcanza.
+- Aplicar Bridge cuando un simple [Strategy](/patterns/strategy-pattern/) o
+    [Adapter](/patterns/adapter-pattern/) alcanza.
 - Hacer la interfaz de implementación demasiado amplia y acoplarla a la abstracción.
 - Dejar que la abstracción filtre detalles de implementación a los clientes.
-- Crear jerarquías profundas en ambos lados y reintroducir la complejidad que el bridge evitaba.
+- Crear jerarquías profundas en ambos lados y reintroducir la complejidad que el patrón evitaba.
 
 ## Preguntas Frecuentes
 
@@ -280,10 +282,10 @@ completas de clases. Usá Bridge cuando tengas dos dimensiones de variación ind
 
 ### ¿Es adecuado para proyectos pequeños?
 
-En proyectos pequeños con pocos componentes, Bridge puede agregar complejidad innecesaria.
-Empezá simple e introducilo cuando sientas el problema que resuelve.
+En proyectos pequeños con pocos componentes, Bridge puede agregar más complejidad de la que ahorra.
+Empezá simple e introducilo cuando el problema que resuelve empiece a doler.
 
 ### ¿Puedo aplicar el patrón parcialmente?
 
-Sí. Muchos equipos adoptan patrones de a poco. Empezá con la idea central y agregá
-sofisticación según necesidad. El patrón es una guía, no un plano rígido.
+Sí. Muchos equipos adoptan patrones de a poco. Empezá con la idea central y agregá sofisticación
+solo donde sea necesaria. El patrón es una guía, no un plano rígido.

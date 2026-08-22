@@ -24,7 +24,7 @@ relatedResources:
   - /patterns/twin-pattern
   - /patterns/factory-pattern
   - /patterns/singleton-pattern
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-12"
 author: Mathias Paulenko
 seo:
@@ -40,25 +40,28 @@ seo:
     - javascript bridge
 ---
 
-## Overview
+The Bridge pattern is a structural design pattern that splits an abstraction from its
+implementation. Instead of one class hierarchy that mixes both, you get two — one for the
+abstraction and one for the implementation. That lets each side evolve without breaking the other.
 
-The Bridge pattern is a structural design pattern that decouples an abstraction from its
-implementation so the two can vary independently. Instead of one class hierarchy that combines
-both, you split it into two hierarchies — one for the abstraction and one for the
-implementation. This is useful when you need several platforms or rendering backends.
+A common example is a UI where you've got different widget shapes and different rendering backends.
+Without Bridge, every shape class would need to know about every renderer. With Bridge, a `Circle`
+holds a reference to a `Renderer` and delegates the actual drawing. You can add shapes or renderers
+later without touching the existing ones.
 
 ## When to Use
 
-- You want to avoid a permanent binding between an abstraction and its implementation.
-- Both the abstraction and its implementation should be extensible by subclassing.
-- You want to share an implementation among several objects.
-- Changes in the implementation shouldn’t affect clients.
-- You’ve got a class explosion from combining two dimensions, such as shapes and renderers.
+- You want to avoid a permanent binding between the abstraction and its implementation.
+- Both sides of the design should be extensible through subclassing.
+- Several objects need to share the same underlying implementation.
+- Changes to the implementation shouldn't ripple out to clients.
+- You're facing a class explosion because two dimensions, such as shapes and renderers, are
+    combined into one hierarchy.
 
 ## When NOT to Use
 
-- A simple [Strategy](/patterns/strategy-pattern/) or [Adapter](/patterns/adapter-pattern/) is
-  enough for a single dimension of variation.
+- A simple [Strategy](/patterns/strategy-pattern/) or [Adapter](/patterns/adapter-pattern/) already
+    covers a single dimension of variation.
 - The project is small and the extra hierarchy adds more complexity than value.
 - You control neither side of the abstraction/implementation split.
 
@@ -195,21 +198,21 @@ cv.draw();
 
 ## Explanation
 
-The Bridge pattern separates two dimensions into two class hierarchies:
+The pattern separates two dimensions into two class hierarchies:
 
 - **Abstraction** (`Shape`): the high-level interface clients use.
 - **Implementation** (`Renderer`): the low-level operations that carry out the work.
 
-The abstraction holds a reference to the implementation and delegates work to it. You can add
-new shapes or new renderers without modifying existing code.
+The abstraction holds a reference to the implementation and delegates work to it. That separation
+means you can add new shapes or new renderers without modifying existing code.
 
 ## Variants
 
-|Variant|Description|Use Case|
-|-------|-----------|--------|
-|Classic Bridge|Two parallel hierarchies|Shapes and renderers, devices and drivers|
-|Driver Bridge|Abstraction over hardware or OS APIs|Cross-platform UI frameworks|
-|Remote Bridge|Local abstraction over remote implementation|RPC stubs and proxies|
+| Variant | Description | Use Case |
+| --- | --- | --- |
+| Classic Bridge | Two parallel hierarchies | Shapes and renderers, devices and drivers |
+| Driver Bridge | Abstraction over hardware or OS APIs | Cross-platform UI frameworks |
+| Remote Bridge | Local abstraction over remote implementation | RPC stubs and proxies |
 
 ### Cross-platform rendering in TypeScript
 
@@ -250,40 +253,40 @@ console.log(canvasCircle.draw()); // Canvas circle
 
 ## Best Practices
 
-- Identify independent dimensions before applying the pattern — not every multi-hierarchy
-  problem needs a bridge.
-- Keep the implementation interface minimal. Only expose what the abstraction needs.
-- Favor composition over inheritance; the bridge is about composition.
+- Identify the independent dimensions before applying the pattern. Not every multi-hierarchy problem
+    needs a Bridge.
+- Keep the implementation interface minimal. Expose only what the abstraction actually needs.
+- Prefer composition over inheritance. The Bridge pattern is about composition.
 - Use dependency injection to wire implementations into abstractions.
-- Document which class is the abstraction and which is the implementation.
+- Document which side is the abstraction and which side is the implementation.
 
 ## Common Mistakes
 
-- Applying the Bridge pattern when a simple [Strategy](/patterns/strategy-pattern/) or
-  [Adapter](/patterns/adapter-pattern/) would suffice.
+- Applying Bridge when a simple [Strategy](/patterns/strategy-pattern/) or
+    [Adapter](/patterns/adapter-pattern/) would suffice.
 - Making the implementation interface too broad and coupling it to the abstraction.
 - Letting the abstraction leak implementation details to clients.
-- Creating deep hierarchies on both sides and reintroducing the complexity the bridge was
-  meant to solve.
+- Creating deep hierarchies on both sides and reintroducing the complexity the pattern was meant to
+    solve.
 
 ## FAQ
 
 ### What is the difference between Bridge and Adapter?
 
-[Adapter](/patterns/adapter-pattern/) makes incompatible interfaces work together. Bridge
-separates an abstraction from its implementation so both can evolve independently.
+[Adapter](/patterns/adapter-pattern/) makes incompatible interfaces work together. Bridge separates
+an abstraction from its implementation so both can evolve independently.
 
 ### When should I use Bridge instead of Strategy?
 
-[Strategy](/patterns/strategy-pattern/) varies a single algorithm. Bridge separates two entire
-class hierarchies. Use Bridge when you’ve got two independent dimensions of variation.
+[Strategy](/patterns/strategy-pattern/) varies a single algorithm. Bridge separates two entire class
+hierarchies. Use Bridge when you've got two independent dimensions of variation.
 
 ### Is this pattern suitable for small projects?
 
-For small projects with few components, Bridge may add unnecessary complexity. Start simple and
-introduce it when you feel the pain it solves.
+For small projects with few components, Bridge may add more complexity than it saves. Start simple
+and introduce it when the problem it solves becomes painful.
 
 ### Can I partially apply this pattern?
 
-Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication
-as needed. The pattern is a guide, not a strict blueprint.
+Yes. Many teams adopt patterns incrementally. Start with the core idea and add sophistication only
+where it's needed. The pattern is a guide, not a strict blueprint.
