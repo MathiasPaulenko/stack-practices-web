@@ -1,7 +1,7 @@
 ---
 contentType: recipes
 slug: java-wiremock-stub-external
-title: "Stubeá APIs HTTP Externos con WireMock en Java"
+title: "Stubear APIs HTTP Externos con WireMock en Java"
 description: "Usá WireMock en tests de Java para stubear servicios HTTP externos. Cubre templating, simulación de delays, stubs stateful y verificación de requests."
 metaDescription: "Stubeá servicios HTTP externos en tests de Java con WireMock. Simulá respuestas, delays, comportamiento stateful y response templating para tests confiables."
 difficulty: intermediate
@@ -23,7 +23,7 @@ relatedResources:
   - /recipes/javascript-msw-mock-service-worker
   - /recipes/api-mocking
   - /recipes/setup-test-fixtures
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -39,27 +39,28 @@ seo:
     - junit
 ---
 
-## Resumen
-
-WireMock es una librería de Java que arranca un servidor HTTP y te permite definir stub
-mappings para servicios externos. En lugar de llamar APIs reales de terceros, tu código
-hitea WireMock, que devuelve respuestas predefinidas. Controlás códigos de estado, headers,
-bodies, delays e incluso comportamiento stateful — todo desde tu código de test.
+WireMock es una librería de Java que levanta un servidor HTTP real dentro del proceso de tus tests.
+En lugar de pegarle a una API de terceros, tu código habla con WireMock y vos decidís exactamente
+qué devuelve cada endpoint. Podés configurar códigos de estado, headers, bodies, delays artificiales
+e incluso comportamiento stateful — todo desde el propio test.
 
 ## Cuándo Usar
 
-- Testear código que llama APIs REST externas (payment gateways, SMS o email providers).
-- Simular fallos de API como timeouts, 500s o respuestas lentas para testear lógica de retry.
-- Verificar que tu código envía la petición correcta a un servicio externo.
-- Testear webhook receivers sin un sender real.
-- Correr tests de integración en CI sin acceso a red.
+- Tu código llama a una API REST externa, como un payment gateway, proveedor de SMS o servicio de
+    email, y querés tests que no dependan del servicio real.
+- Necesitás simular fallas — timeouts, 500s, respuestas lentas o rate limits — para ver cómo se
+    comporta tu lógica de retry y fallback.
+- Querés verificar el request exacto que envía tu código, no solo la respuesta que recibe.
+- Estás construyendo un webhook receiver y necesitás un sender controlado sin levantar uno real.
+- Corrés tests de integración en CI y no podés depender del acceso a red.
 
 ## Cuándo NO Usar
 
-- Testear tus propios endpoints — usá `MockMvc` o `WebTestClient` para Spring.
-- Testear lógica de negocio con unit tests — mocká la interfaz directamente con Mockito.
-- Load testing — WireMock agrega overhead; usá un entorno real.
-- Testear interacciones con base de datos — usá Testcontainers con una base real.
+- Estás testeando tus propios endpoints. Para Spring, usá `MockMvc` o `WebTestClient`.
+- Solo necesitás unit tests para lógica de negocio. En ese caso, mockeá la interfaz directamente con
+    Mockito.
+- Estás haciendo load testing. WireMock agrega overhead, así que usá un entorno real.
+- Estás testeando interacciones con base de datos. Para eso, usá Testcontainers con una base real.
 
 ## Solución
 
@@ -74,7 +75,7 @@ bodies, delays e incluso comportamiento stateful — todo desde tu código de te
 </dependency>
 ```
 
-### Stub básico con extensión de JUnit 5
+### Stub básico con la extensión de JUnit 5
 
 ```java
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -116,6 +117,9 @@ class ExternalServiceTest {
 }
 ```
 
+Este test arranca WireMock en un puerto aleatorio, registra un stub para `/api/users/1` y luego le
+hace un HTTP call real.
+
 ### Stub con body JSON desde archivo
 
 ```java
@@ -125,7 +129,7 @@ wireMock.stubFor(WireMock.get(WireMock.urlPathEqualTo("/api/products"))
         .withBodyFile("products-response.json")));
 ```
 
-Colocá `products-response.json` en `src/test/resources/__files/`.
+Colocá `products-response.json` bajo `src/test/resources/__files/`.
 
 ### Simular delay y timeout
 
@@ -240,25 +244,26 @@ class SpringIntegrationTest {
 
 ## Buenas Prácticas
 
-- Usá `dynamicPort()` — los puertos fijos causan conflictos cuando los tests corren en
-  paralelo.
-- Guardá bodies grandes en archivos bajo `__files/` en lugar de inlinear JSON largo.
-- Usá `verify()` para asegurar que tu código envió la petición correcta, no solo que recibió
-  una respuesta.
-- Reseteá WireMock entre tests con `wireMock.resetAll()` o con la anotación `@ResetWireMock`.
-- Usá response templating para IDs dinámicos en vez de crear un stub por ID.
-- Simulá delays y errores — testear solo el camino feliz te hace perder retry y fallback.
+- Dejá que WireMock elija el puerto con `dynamicPort()`. Los puertos fijos generan conflictos cuando
+    los tests corren en paralelo.
+- Guardá bodies grandes en archivos bajo `__files/` en lugar de inlinear JSON largo en Java.
+- Usá `verify()` para chequear que tu código envió el request correcto, no solo que recibió una
+    respuesta.
+- Reseteá WireMock entre tests con `wireMock.resetAll()` o la anotación `@ResetWireMock`.
+- Usá response templating para IDs dinámicos, así no necesitás un stub por cada valor.
+- Siempre testeá los caminos de falla — delays, errores y respuestas lentas — o tu lógica de retry y
+    fallback queda sin testear.
 
 ## Errores Comunes
 
-- **Usar puertos fijos** — el puerto 8080 puede estar en uso. Usá siempre `dynamicPort()`.
+- **Usar puertos fijos** — el puerto 8080 puede estar en uso. Dejá que WireMock elija.
 - **No resetear entre tests** — los stubs de un test pueden filtrarse al siguiente. Llamá
-  `resetAll()` en `@AfterEach`.
+    `resetAll()` en `@AfterEach`.
 - **Stubs demasiado amplios** — `urlMatching(".*")` atrapa todo y oculta stubs faltantes.
-- **No verificar requests** — stubear respuestas sin verificar la petición te hace perder
-  bugs en cómo tu código llama a la API.
-- **Ignorar los logs de WireMock** — activá logging detallado con
-  `.notifier(new ConsoleNotifier(true))` para debuggear matches.
+- **No verificar requests** — stubear respuestas sin verificar el request te hace perder bugs en
+    cómo tu código llama a la API.
+- **Ignorar los logs de WireMock** — activá salida detallada con `.notifier(new
+    ConsoleNotifier(true))` cuando un stub no matchea.
 
 ## Preguntas Frecuentes
 
@@ -272,7 +277,7 @@ wireMock.stubFor(WireMock.post(WireMock.urlEqualTo("/api/orders"))
 
 ### ¿Puede WireMock proxyar requests a un servidor real?
 
-Sí. Usá proxy mode para pasar requests no stubeadas:
+Sí. El proxy mode pasa cualquier request que no tenga stub:
 
 ```java
 wireMock.stubFor(WireMock.any(WireMock.anyUrl())
@@ -289,7 +294,7 @@ wireMock.stubFor(WireMock.get("/api/down")
 
 ### ¿Puedo usar WireMock con Kotlin?
 
-Sí. La API es la misma. Usá un `companion object` para la extensión:
+Sí, la API es la misma. En Kotlin, usá un `companion object` para la extensión:
 
 ```kotlin
 companion object {
@@ -303,5 +308,11 @@ companion object {
 
 ### ¿Cómo debuggeo por qué un stub no hace match?
 
-Activá console logging: `.notifier(new ConsoleNotifier(true))`. WireMock imprime cada
-request entrante y los stubs contra los que intentó matchear.
+Activá el console logging:
+
+```java
+wireMockConfig()
+    .notifier(new ConsoleNotifier(true))
+```
+
+WireMock imprime cada request entrante y los stubs contra los que intentó matchear.
