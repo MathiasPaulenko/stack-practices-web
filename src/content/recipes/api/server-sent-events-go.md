@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/websocket-authentication
   - /recipes/go-rest-api-gin
   - /recipes/real-time-notifications
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-18"
 author: Mathias Paulenko
 seo:
@@ -36,24 +36,23 @@ seo:
     - http streaming
 ---
 
-## Overview
-
-Server-Sent Events provide a lightweight, uni-directional channel for pushing real-time updates
-from server to client over HTTP. Unlike WebSockets, SSE uses standard HTTP connections, requires no
-protocol upgrade, and the browser's built-in `EventSource` API handles reconnection automatically.
+Server-Sent Events give you a lightweight, one-way channel for pushing real-time updates from server
+to client over plain HTTP. Unlike WebSockets, SSE doesn't need a protocol upgrade. It reuses
+standard
+HTTP connections, and the browser's built-in `EventSource` API handles reconnection automatically.
 
 ## When to Use
 
-- You need to push notifications, logs, or live metrics to browsers.
-- The server is the only sender; clients only receive.
-- You want to reuse existing HTTP infrastructure such as load balancers and CDNs.
-- You need a simpler alternative to WebSockets for one-way streaming.
+Reach for SSE when the server needs to push notifications, logs, or live metrics to browsers and the
+clients only receive. It's a good fit if you want to reuse existing HTTP infrastructure such as load
+balancers and CDNs, or if you need a simpler alternative to WebSockets for one-way streaming.
 
 ## When NOT to Use
 
-- Clients need to send messages to the server in real time — use WebSockets.
-- You need binary or very high-frequency data — WebSockets or WebTransport fit better.
-- You can't control proxy or load-balancer timeouts that may close idle connections.
+Don't use SSE when clients need to send messages back to the server in real time; WebSockets are
+better for that. Avoid it for binary or very high-frequency data, where WebSockets or WebTransport
+fit better. And if you can't control proxy or load-balancer timeouts that may close idle
+connections, SSE can be frustrating to keep alive.
 
 ## Solution
 
@@ -243,27 +242,28 @@ window.addEventListener('beforeunload', () => {
 
 ## Explanation
 
-1. **HTTP stream**: the server responds with `Content-Type: text/event-stream` and writes events
-   as plain text.
-2. **Event format**: each event uses fields like `data:`, `event:`, `id:`, and `retry:`.
-3. **Reconnection**: the browser tracks the last event ID and resends it in the `Last-Event-ID`
-   header when reconnecting.
-4. **Heartbeat comments**: lines that start with `:` keep the connection open through proxies.
-5. **Goroutine cleanup**: `r.Context().Done()` fires when the client disconnects, so the handler
-   returns and the `defer` unsubscribes the client.
+An SSE endpoint responds with `Content-Type: text/event-stream` and writes events as plain text.
+Each
+event is made up of fields like `data`, `event`, `id`, and `retry`. The browser keeps track
+of
+the last event ID and sends it back in the `Last-Event-ID` header when it reconnects, so the server
+can resume the stream. Lines that start with `:` are heartbeat comments; they keep the connection
+open through proxies without triggering an actual event. When the client disconnects,
+`r.Context().Done()`
+fires, the handler returns, and the `defer` unsubscribes the client from the hub.
 
 ## Variants
 
 ### Broadcast with Redis for multiple Go instances
 
-For horizontal scaling, publish events to Redis Pub/Sub and have each Go process subscribe, then
-fan them out to its local SSE clients. See [Real-Time Notifications](/recipes/real-time-notifications/)
+For horizontal scaling, publish events to Redis Pub/Sub and have each Go process subscribe, then fan
+them out to its local SSE clients. See [Real-Time Notifications](/recipes/real-time-notifications/)
 for Redis pub/sub patterns.
 
 ### Authenticate SSE connections
 
-Browsers can't set custom headers through `EventSource`. Pass a short-lived token as a query
-parameter and validate it before subscribing:
+The catch is that browsers can't set custom headers through `EventSource`. Instead, pass a
+short-lived token as a query parameter and validate it before subscribing:
 
 ```go
 token := r.URL.Query().Get("token")
@@ -293,23 +293,27 @@ func TestSSEHandler(t *testing.T) {
 
 ## Best Practices
 
-- Always call `Flusher.Flush()` after each event; otherwise proxies and clients buffer the
-  response.
-- Run SSE behind HTTP/2-capable load balancers to fan out many streams over a single
-  connection.
-- Set `Cache-Control: no-cache` and `Connection: keep-alive` to prevent buffering.
-- Use a heartbeat comment every 25–30 seconds to keep connections alive through corporate
-  proxies.
+- Always call `Flusher.Flush()` after each event, or the client will see nothing until the buffer
+    fills.
+- Run SSE behind HTTP/2-capable load balancers so many streams can share a single connection.
+- Set `Cache-Control: no-cache` and `Connection: keep-alive` to prevent proxies from buffering.
+- Send a heartbeat comment every 25–30 seconds to keep connections alive through corporate proxies.
 - Limit connections per client IP or require authentication to avoid resource exhaustion.
-- Use longer write timeouts than for standard REST endpoints.
+- Use longer write timeouts than for standard REST endpoints, or the server may close long-lived
+    streams.
 
 ## Common Mistakes
 
-- Forgetting to call `Flush()` after each event.
-- Not handling client disconnect, leaving goroutines running.
-- Missing `Cache-Control: no-cache`, causing proxies to buffer events.
-- Sending events without IDs, losing replay on reconnection.
-- Running the same handler without state isolation across several Go processes.
+- **Forgetting to call `Flush()`**. Without flushing, the event sits buffered and the client sees
+    nothing.
+- **Ignoring client disconnect**. A missing `r.Context().Done()` check leaves goroutines and
+    channels running forever.
+- **Missing `Cache-Control: no-cache`**. Proxies buffer the response, so events arrive in bursts or
+    not at all.
+- **Sending events without IDs**. Without `id:` fields, the browser can't replay missed events after
+    reconnecting.
+- **Running the same handler without state isolation**. Each Go process needs its own hub or a
+    shared Redis fan-out.
 
 ## FAQ
 
@@ -330,12 +334,14 @@ Over HTTP/1.1, browsers allow about 6 connections per domain. HTTP/2 removes thi
 ### How do I handle client reconnection with Last-Event-ID?
 
 Read the `Last-Event-ID` header and replay any events with higher IDs. Assign sequential IDs with
-the `id:` field and store recent events in a small in-memory ring buffer.
+the
+`id:` field and store recent events in a small in-memory ring buffer.
 
 ### How do I broadcast SSE to multiple clients in Go?
 
 Maintain a map of subscribed channels. Use a non-blocking send with a `default` case in a `select`
-to avoid slow clients blocking the broadcast. For fan-out across instances, add Redis Pub/Sub.
+to
+avoid slow clients blocking the broadcast. For fan-out across instances, add Redis Pub/Sub.
 
 ### How do I handle SSE behind a load balancer?
 

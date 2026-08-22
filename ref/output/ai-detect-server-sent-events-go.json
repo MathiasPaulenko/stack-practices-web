@@ -2,48 +2,48 @@
   {
     "label": "server-sent-events-go-en",
     "model": "desklib",
-    "model_ai_pct": 48.7,
-    "ai_count": 18,
-    "human_count": 22,
-    "skipped_count": 1,
-    "total": 41,
+    "model_ai_pct": 49.1,
+    "ai_count": 19,
+    "human_count": 21,
+    "skipped_count": 5,
+    "total": 45,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 12.3,
-      "stddev": 5.0,
-      "cv": 0.41,
+      "mean": 14.5,
+      "stddev": 6.1,
+      "cv": 0.42,
       "verdict": "somewhat uniform",
       "sentence_count": 40,
       "lengths": [
-        17,
+        19,
+        8,
+        14,
+        21,
+        30,
+        21,
+        14,
+        21,
+        13,
+        13,
+        27,
         20,
-        11,
-        9,
-        13,
-        10,
-        14,
-        13,
-        12,
-        14,
-        12,
-        17,
-        13,
         18,
         23,
         7,
-        7,
-        23,
-        13,
-        15,
-        9,
+        11,
+        24,
+        16,
+        14,
+        11,
         14,
         12,
-        9,
-        7,
-        7,
-        8,
-        8,
+        16,
         11,
+        10,
+        13,
+        11,
+        7,
+        12,
         6,
         10,
         7,
@@ -59,23 +59,19 @@
     },
     "top_ai_sentences": [
       [
-        "**HTTP stream**: the server responds with Content-Type: text/event-stream and writes events\n   as plain text.",
-        0.8868
+        "Each\nevent is made up of fields like data, event, id, and retry.",
+        0.9256
       ],
       [
-        "Browsers can't set custom headers through EventSource.",
-        0.861
+        "It's a good fit if you want to reuse existing HTTP infrastructure such as load\nbalancers and CDNs, or if you need a simpler alternative to WebSockets for one-way streaming.",
+        0.8945
       ],
       [
-        "**Event format**: each event uses fields like data:, event:, id:, and retry:.",
-        0.8603
+        "Don't use SSE when clients need to send messages back to the server in real time; WebSockets are\nbetter for that.",
+        0.7422
       ],
       [
-        "You want to reuse existing HTTP infrastructure such as load balancers and CDNs.",
-        0.7401
-      ],
-      [
-        "Use a non-blocking send with a default case in a select\nto avoid slow clients blocking the broadcast.",
+        "Use a non-blocking send with a default case in a select\nto\navoid slow clients blocking the broadcast.",
         0.7348
       ],
       [
@@ -83,56 +79,60 @@
         0.7294
       ],
       [
-        "**Heartbeat comments**: lines that start with : keep the connection open through proxies.",
-        0.6997
+        "Set Cache-Control: no-cache and Connection: keep-alive to prevent proxies from buffering.",
+        0.701
       ],
       [
-        "You need a simpler alternative to WebSockets for one-way streaming.",
-        0.6768
+        "The browser keeps track\nof\nthe last event ID and sends it back in the Last-Event-ID header when it reconnects, so the server\ncan resume the stream.",
+        0.6867
+      ],
+      [
+        "Unlike WebSockets, SSE doesn't need a protocol upgrade.",
+        0.6748
       ],
       [
         "SSE is simpler for server-to-client push.",
         0.6692
       ],
       [
-        "Set Cache-Control: no-cache and Connection: keep-alive to prevent buffering.",
-        0.6464
+        "**Running the same handler without state isolation**.",
+        0.669
       ],
       [
-        "Clients need to send messages to the server in real time \u2014 use WebSockets.",
-        0.6342
+        "An SSE endpoint responds with Content-Type: text/event-stream and writes events as plain text.",
+        0.6612
+      ],
+      [
+        "Use longer write timeouts than for standard REST endpoints, or the server may close long-lived\n    streams.",
+        0.6438
+      ],
+      [
+        "The catch is that browsers can't set custom headers through EventSource.",
+        0.6224
       ],
       [
         "Yes, but some proxies have short timeouts.",
         0.6169
       ],
       [
-        "Forgetting to call Flush() after each event.",
-        0.5987
+        "Without id: fields, the browser can't replay missed events after\n    reconnecting.",
+        0.5985
       ],
       [
-        "Server-Sent Events provide a lightweight, uni-directional channel for pushing real-time updates\nfrom server to client over HTTP.",
-        0.5721
+        "Always call Flusher.Flush() after each event, or the client will see nothing until the buffer\n    fills.",
+        0.5816
       ],
       [
-        "Unlike WebSockets, SSE uses standard HTTP connections, requires no\nprotocol upgrade, and the browser's built-in EventSource API handles reconnection automatically.",
-        0.5329
+        "Server-Sent Events give you a lightweight, one-way channel for pushing real-time updates from server\nto client over plain HTTP.",
+        0.5771
       ],
       [
-        "You can't control proxy or load-balancer timeouts that may close idle connections.",
-        0.531
-      ],
-      [
-        "**Reconnection**: the browser tracks the last event ID and resends it in the Last-Event-ID\n   header when reconnecting.",
-        0.5284
+        "Instead, pass a\nshort-lived token as a query parameter and validate it before subscribing:\n\n\n\nFor cross-origin SSE, set CORS headers explicitly on the endpoint.",
+        0.5613
       ],
       [
         "Send heartbeat comments every 30 seconds to keep\nconnections open.",
         0.513
-      ],
-      [
-        "You need to push notifications, logs, or live metrics to browsers.",
-        0.4494
       ],
       [
         "Use long timeouts, disable response buffering in nginx with proxy_buffering off;, and use Redis\nPub/Sub to share events across instances if clients may land on different backends.",
@@ -147,16 +147,16 @@
         0.4342
       ],
       [
-        "Missing Cache-Control: no-cache, causing proxies to buffer events.",
-        0.4314
+        "Send a heartbeat comment every 25\u201330 seconds to keep connections alive through corporate proxies.",
+        0.4126
       ],
       [
-        "Use longer write timeouts than for standard REST endpoints.",
-        0.4301
+        "It reuses\nstandard\nHTTP connections, and the browser's built-in EventSource API handles reconnection automatically.",
+        0.4117
       ],
       [
-        "The server is the only sender; clients only receive.",
-        0.4099
+        "Reach for SSE when the server needs to push notifications, logs, or live metrics to browsers and the\nclients only receive.",
+        0.4064
       ]
     ],
     "diagnostics_sample": []
@@ -164,48 +164,49 @@
   {
     "label": "server-sent-events-go-es",
     "model": "desklib",
-    "model_ai_pct": 34.5,
-    "ai_count": 8,
-    "human_count": 32,
-    "skipped_count": 1,
-    "total": 41,
+    "model_ai_pct": 34.9,
+    "ai_count": 11,
+    "human_count": 30,
+    "skipped_count": 4,
+    "total": 45,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.4,
-      "stddev": 5.5,
-      "cv": 0.41,
+      "mean": 15.2,
+      "stddev": 6.4,
+      "cv": 0.42,
       "verdict": "somewhat uniform",
-      "sentence_count": 40,
+      "sentence_count": 41,
       "lengths": [
+        21,
+        11,
+        14,
         20,
-        24,
-        10,
-        10,
-        10,
-        10,
-        13,
-        15,
-        14,
-        14,
-        13,
-        17,
+        27,
+        22,
         16,
         22,
-        22,
-        8,
-        11,
-        25,
-        17,
-        16,
-        9,
-        16,
-        14,
-        10,
-        8,
-        9,
-        11,
-        9,
+        13,
         12,
+        25,
+        22,
+        19,
+        22,
+        8,
+        15,
+        29,
+        22,
+        16,
+        13,
+        16,
+        14,
+        19,
+        14,
+        5,
+        10,
+        14,
+        12,
+        7,
+        13,
         7,
         9,
         7,
@@ -221,104 +222,104 @@
     },
     "top_ai_sentences": [
       [
+        "**Correr el handler sin aislamiento de estado**.",
+        0.9145
+      ],
+      [
+        "**Ignorar la desconexi\u00f3n del cliente**.",
+        0.8149
+      ],
+      [
+        "Cada\nevento se compone de campos como data, event, id y retry.",
+        0.6883
+      ],
+      [
+        "Las l\u00edneas que empiezan con : son heartbeat comments; mantienen la conexi\u00f3n\nabierta a trav\u00e9s de proxies sin disparar un evento real.",
+        0.6751
+      ],
+      [
         "Sobre HTTP/1.1, los navegadores permiten unas 6 conexiones por dominio.",
         0.6247
       ],
       [
-        "Los clientes necesitan enviar mensajes al servidor en tiempo real \u2014 us\u00e1 WebSockets.",
-        0.6101
+        "Sin campos id:, el navegador no puede reproducir eventos perdidos al\n    reconectar.",
+        0.5889
       ],
       [
-        "Quer\u00e9s reutilizar infraestructura HTTP existente como load balancers y CDNs.",
-        0.5878
+        "Sete\u00e1 Cache-Control: no-cache y Connection: keep-alive para evitar que los proxies hagan\n    buffering.",
+        0.5553
       ],
       [
-        "**Formato de evento**: cada evento usa campos como data:, event:, id: y retry:.",
-        0.5565
-      ],
-      [
-        "**Heartbeat comments**: las l\u00edneas que empiezan con : mantienen la conexi\u00f3n abierta a trav\u00e9s\n   de proxies.",
-        0.5466
-      ],
-      [
-        "**HTTP stream**: el servidor responde con Content-Type: text/event-stream y escribe eventos\n   como texto plano.",
-        0.541
-      ],
-      [
-        "Necesit\u00e1s enviar notificaciones, logs o m\u00e9tricas en vivo a navegadores.",
-        0.5364
+        "No uses SSE cuando los clientes necesiten enviar mensajes de vuelta al servidor en tiempo real; los\nWebSockets son mejores para eso.",
+        0.5486
       ],
       [
         "S\u00ed, pero algunos proxies tienen timeouts cortos.",
         0.525
       ],
       [
-        "Enviar eventos sin IDs, perdiendo el replay al reconectar.",
-        0.487
+        "El problema es que los navegadores no pueden setear headers custom a trav\u00e9s de EventSource.",
+        0.5191
+      ],
+      [
+        "A diferencia de WebSockets, SSE no necesita un upgrade de\nprotocolo.",
+        0.5161
       ],
       [
         "Envi\u00e1 heartbeat comments cada 30 segundos para\nmantener conexiones abiertas.",
         0.4744
       ],
       [
-        "Sete\u00e1 Cache-Control: no-cache y Connection: keep-alive para evitar buffering.",
-        0.4654
-      ],
-      [
-        "Ejecut\u00e1 SSE detr\u00e1s de load balancers con HTTP/2 para distribuir muchos streams sobre una sola\n  conexi\u00f3n.",
+        "Ejecut\u00e1 SSE detr\u00e1s de load balancers con HTTP/2 para distribuir muchos streams sobre una sola\n    conexi\u00f3n.",
         0.4641
-      ],
-      [
-        "Ejecutar el mismo handler sin aislamiento de estado entre varios procesos Go.",
-        0.4578
-      ],
-      [
-        "Los navegadores no pueden setear headers custom a trav\u00e9s de EventSource.",
-        0.453
       ],
       [
         "Manten\u00e9 un map de channels suscritos.",
         0.4299
       ],
       [
-        "Olvidar llamar a Flush() despu\u00e9s de cada evento.",
-        0.4294
-      ],
-      [
-        "Necesit\u00e1s una alternativa m\u00e1s simple a WebSockets para streaming unidireccional.",
-        0.4154
-      ],
-      [
-        "**Limpieza de goroutines**: r.Context().Done() se dispara cuando el cliente se desconecta,\n   as\u00ed que el handler retorna y el defer desuscribe al cliente.",
-        0.3706
-      ],
-      [
-        "El servidor es el \u00fanico emisor; los clientes solo reciben.",
-        0.3636
-      ],
-      [
-        "No pod\u00e9s controlar timeouts de proxies o load balancers que pueden cerrar conexiones inactivas.",
-        0.3531
-      ],
-      [
-        "Limit\u00e1 conexiones por IP de cliente o requer\u00ed autenticaci\u00f3n para evitar agotamiento de\n  recursos.",
+        "Limit\u00e1 conexiones por IP de cliente o requer\u00ed autenticaci\u00f3n para evitar agotamiento de recursos.",
         0.3475
       ],
       [
-        "No manejar la desconexi\u00f3n del cliente, dejando goroutines corriendo.",
-        0.3329
+        "Un endpoint SSE responde con Content-Type: text/event-stream y escribe eventos como texto plano.",
+        0.3446
+      ],
+      [
+        "Es una buena opci\u00f3n si quer\u00e9s reusar infraestructura HTTP existente como load\nbalancers y CDNs, o si necesit\u00e1s una alternativa m\u00e1s simple a WebSockets para streaming\nunidireccional",
+        0.3423
+      ],
+      [
+        "El navegador rastrea el \u00faltimo\nevent ID y lo env\u00eda de vuelta en el header Last-Event-ID al reconectar, as\u00ed el servidor puede\nreanudar el stream.",
+        0.3125
+      ],
+      [
+        "Us\u00e1 SSE cuando el servidor necesita enviar notificaciones, logs o m\u00e9tricas en vivo a navegadores y\nlos\nclientes solo reciben.",
+        0.309
+      ],
+      [
+        "Envi\u00e1 un heartbeat comment cada 25\u201330 segundos para mantener conexiones abiertas a trav\u00e9s de\n    proxies corporativos.",
+        0.2973
       ],
       [
         "SSE es m\u00e1s simple para push servidor-a-cliente.",
         0.2971
       ],
       [
-        "Para fan-out entre instancias,\nagreg\u00e1 Redis Pub/Sub.",
+        "Para fan-out entre instancias, agreg\u00e1 Redis\nPub/Sub.",
         0.2791
       ],
       [
-        "Faltar Cache-Control: no-cache, lo que hace que los proxies bufferen eventos.",
-        0.2602
+        "Evitalo para datos binarios o de muy alta frecuencia, donde\nWebSockets\no WebTransport se ajustan mejor.",
+        0.2726
+      ],
+      [
+        "Cuando el cliente se desconecta,\nr.Context().Done() se dispara, el handler retorna y el defer desuscribe al cliente del hub.",
+        0.2466
+      ],
+      [
+        "Siempre llam\u00e1 a Flusher.Flush() despu\u00e9s de cada evento, o el cliente no va a ver nada hasta que\n    el buffer se llene.",
+        0.2404
       ]
     ],
     "diagnostics_sample": []

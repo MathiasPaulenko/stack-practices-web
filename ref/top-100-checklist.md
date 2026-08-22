@@ -585,8 +585,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/server-sent-events-go/
    - ES: https://stackpractices.com/es/recipes/server-sent-events-go/
    - Focus: proven demand
-   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.7% / ES 34.5% (0 patterns)
-   - Words: 1046 | Meta: 146 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 49.1% / ES 34.9% (0 patterns)
+   - Words: 1258 | Meta: 146 chars
 
 73. - [x] **pipes-and-filters-pattern** (patterns)
    - Metrics: 18 imp | pos 12.8 | CTR 0.00% | Δ impr 0
