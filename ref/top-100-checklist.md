@@ -644,13 +644,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.7% / ES 35.9% (0 patterns)
    - Words: 1577 | Meta: 147 chars
 
-80. - [ ] **python-rate-limiting-fastapi-redis** (recipes)
+80. - [x] **python-rate-limiting-fastapi-redis** (recipes)
    - Metrics: 17 imp | pos 17.9 | CTR 0.00% | Δ impr 0
    - EN: https://stackpractices.com/recipes/python-rate-limiting-fastapi-redis/
    - ES: https://stackpractices.com/es/recipes/python-rate-limiting-fastapi-redis/
    - Focus: striking distance, low CTR
-   - Status: ⏳ Pending
-   - Words: 1,424 | Meta: 157 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 44.4% / ES 34.4% (0 patterns)
+   - Words: 1669 | Meta: 157 chars
 
 81. - [ ] **parse-command-line-arguments** (recipes)
    - Metrics: 40 imp | pos 35.3 | CTR 0.00% | Δ impr 2

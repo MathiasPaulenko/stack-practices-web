@@ -1,13 +1,9 @@
 ---
-
-
-
-
 contentType: recipes
 slug: python-rate-limiting-fastapi-redis
 title: "Rate limiting distribuido con FastAPI y Redis"
-description: "Implementa rate limiting distribuido en FastAPI usando algoritmos de sliding window y token bucket con Redis para limites por usuario, por IP y por endpoint"
-metaDescription: "Implementa rate limiting distribuido en FastAPI con Redis. Usa algoritmos sliding window y token bucket para limites por usuario, IP y endpoint."
+description: "Implementa rate limiting distribuido en FastAPI usando algoritmos de sliding window y token bucket con Redis para límites por usuario, IP y endpoint."
+metaDescription: "Implementa rate limiting distribuido en FastAPI con Redis. Usa algoritmos sliding window y token bucket para límites por usuario, IP y endpoint."
 difficulty: intermediate
 topics:
   - security
@@ -24,39 +20,34 @@ relatedResources:
   - /recipes/python-sql-injection-sqlalchemy
   - /recipes/python-async-gather-concurrent-requests
   - /recipes/python-secrets-management-vault
-lastUpdated: "2026-07-02"
+  - /recipes/request-signing-hmac
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: "Implementa rate limiting distribuido en FastAPI con Redis. Usa algoritmos sliding window y token bucket para limites por usuario, IP y endpoint."
+  metaDescription: "Implementa rate limiting distribuido en FastAPI con Redis. Usa algoritmos sliding window y token bucket para límites por usuario, IP y endpoint."
   keywords:
     - rate limiting fastapi
     - redis rate limit
     - distributed rate limiting
     - sliding window
     - token bucket python
-
-
-
-
 ---
 
-El rate limiting protege las APIs de abuso, DDoS y agotamiento de recursos. En despliegues distribuidos con multiples instancias de servidor, los rate limiters en memoria no funcionan — cada instancia tiene su propio contador. Redis proporciona un contador compartido y atomico que funciona en todas las instancias. A continuacion: algoritmos sliding window y token bucket en FastAPI con Redis.
+El rate limiting evita que una API sea abusada, saturada o agotada por demasiadas peticiones. Si ejecutás varias
+instancias de servidor detras de un load balancer, un rate limiter en memoria no sirve porque cada instancia tiene su
+propio contador. Redis lo soluciona dándole a todas las instancias un contador compartido y atomico. Esta receta cubre
+rate limiting con sliding window y token bucket en FastAPI usando Redis.
 
-## Cuando Usar Esto
+## Cuándo Usar
 
-
-- For alternatives, see [Cache Database Query Results with Redis and Python](/es/recipes/database-query-result-caching/).
-
-- APIs con multiples instancias de servidor detras de un load balancer
-- APIs publicas que necesitan limites por usuario o por IP
-- Endpoints con diferentes limites (ej. auth: 5/min, search: 100/min)
+Usá esta configuración cuando tu API corra en varias instancias de servidor detras de un load balancer, cuando
+necesites límites por usuario o por IP en endpoints públicos, o cuando distintos endpoints necesiten distintos
+límites (por ejemplo, `auth: 5/min` y `search: 100/min`).
 
 ## Requisitos Previos
 
-- Python 3.10+
-- Paquetes `fastapi`, `redis`
-- Un servidor Redis ejecutandose
+Necesitás Python 3.10 o superior, los paquetes `fastapi` y `redis` instalados, y un servidor Redis corriendo.
 
 ## Solucion
 
@@ -270,13 +261,21 @@ async def get_data(request: Request):
     return {"data": "Per-user rate limited endpoint"}
 ```
 
-## Como Funciona
+## Explicación
 
-1. **Sliding window** usa un sorted set de Redis (`ZSET`) donde cada peticion es un miembro con su timestamp como score. Antes de cada peticion, removemos entradas mas viejas que la ventana, contamos las entradas restantes y agregamos la nueva peticion.
-2. **Pipeline** ejecuta todos los comandos Redis atomicamente en un solo round-trip, previniendo race conditions entre conteo y adicion.
-3. **TTL** en la key de Redis asegura limpieza despues de que la ventana expira — no necesita garbage collection manual.
-4. **Limites por endpoint** usan diferentes prefijos de key (`rate_limit:/auth/login:...` vs `rate_limit:/search:...`), por lo que los limites son independientes por endpoint.
-5. **Headers de rate limit** (`X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`) siguen el estandar draft de IETF, permitiendo a los clientes manejar los limites elegantemente.
+El enfoque de sliding window guarda cada petición como miembro de un sorted set de Redis (`ZSET`), usando el timestamp
+de la petición como score. Antes de permitir una petición, elimina las entradas más viejas que la ventana actual,
+cuenta las restantes y agrega la nueva.
+
+El pipeline de Redis ejecuta todos esos comandos en un solo round-trip, así el conteo y la adición son atómicos y
+evitan race conditions. Un TTL en la key hace que expire automáticamente después de la ventana, así no hay que hacer
+limpieza manual.
+
+Los límites por endpoint funcionan usando distintos prefijos de key, como `rate_limit:/auth/login:...` y
+`rate_limit:/search:...`, lo que mantiene el contador de cada endpoint independiente.
+
+Los headers `X-RateLimit-Limit`, `X-RateLimit-Remaining` y `X-RateLimit-Reset` siguen el estándar draft de la IETF, así
+los clientes pueden leerlos y hacer back off antes de alcanzar el límite.
 
 ## Variantes
 
@@ -399,42 +398,60 @@ async def expensive_operation(request: Request):
     return {"data": "Tiered rate limited endpoint"}
 ```
 
-## Mejores Practicas
+## Buenas Prácticas
 
-- **Usa sliding window para precision** — ventana fija permite bursts de 2x en los limites de ventana
-- **Establece headers Retry-After significativos** — los clientes pueden hacer back-off elegantemente
-- **Usa limites por usuario, no solo por IP** — multiples usuarios detras de NAT comparten una IP
-- **Monitorea los hits de rate limit** — 429s frecuentes pueden indicar un limite mal configurado o un ataque
+Usá sliding window cuando la precisión importe, porque la ventana fija puede permitir bursts dobles justo en los
+límites de la ventana. Establecé un header `Retry-After` con sentido para que los clientes sepan cuánto esperar.
+
+Limitá por usuario cuando lo conozcas, no solo por IP. Varios usuarios detras de un NAT o proxy pueden compartir la
+misma IP. Monitoreá con qué frecuencia tus endpoints retornan `429`; un pico repentino puede significar un límite mal
+configurado o un ataque.
+
+Para una guía más profunda, consultá [Cache Database Query Results with Redis and Python](/es/recipes/database-query-result-caching/).
 
 ## Errores Comunes
 
-- **Usar rate limiting en memoria en despliegues distribuidos** — cada instancia tiene su propio contador; usa Redis
-- **No establecer TTL en keys de Redis** — las keys se acumulan para siempre, consumiendo memoria
-- **Rate limiting demasiado agresivo** — usuarios legitimos se bloquean; empieza generoso y ajusta
-- **No manejar 429 en el cliente** — los clientes deben implementar exponential backoff en 429
+Usar rate limiters en memoria en despliegues distribuidos es un error común porque cada instancia termina con su
+propio contador. Usá Redis en su lugar. Olvidar el TTL en las keys de Redis es otro error; sin TTL, las keys se
+acumulan indefinidamente y consumen memoria.
 
-## FAQ
+Poner límites demasiado agresivos puede bloquear usuarios legítimos, así que empezá generoso y ajustá con datos reales.
+Finalmente, no manejar respuestas `429` en los clientes hace que pierdas la oportunidad de hacer back off con lógica de
+reintento exponencial.
 
-**Q: Sliding window vs. token bucket — cual debo usar?**
-A: Sliding window para limites estrictos (ej. 100 req/min, sin bursts). Token bucket para limites tolerantes a bursts (ej. permitir 100 peticiones instantaneas, luego rellenar a 10/seg).
+## Preguntas Frecuentes
 
-**Q: Cuanta memoria de Redis usa el rate limiting?**
-A: Sliding window almacena una entrada ZSET por peticion. Para 1000 usuarios a 100 req/min, son ~100K entradas con TTL de 60s — despreciable.
+### ¿Sliding window o token bucket?
 
-**Q: Que pasa si Redis cae?**
-A: El rate limiting falla. Implementa un fallback (permitir todo, o usar un limiter local en memoria como backup).
+Usá sliding window para límites estrictos, como `100 req/min` sin bursts. Usá token bucket cuando querés permitir un
+burst corto y luego rellenar de forma constante, como `100` peticiones instantáneas y después `10` por segundo.
 
-**Q: Debo hacer rate limiting por IP o por usuario?**
-A: Por usuario para endpoints autenticados. Por IP para endpoints publicos (login, signup). Usa ambos para endpoints sensibles.
+### ¿Cuánta memoria de Redis usa el rate limiting?
+
+Sliding window guarda una entrada ZSET por petición. Para `1000` usuarios a `100` req/min, son unas `100 000` entradas
+con TTL de `60` segundos — despreciable.
+
+### ¿Qué pasa si Redis cae?
+
+El rate limiting deja de funcionar. Decidí de antemano si fallar abierto (permitir todo) o cerrado (rechazar todo). Un
+limiter local en memoria puede servir como respaldo temporal.
+
+### ¿Debería limitar por IP o por usuario?
+
+Usá el ID de usuario para endpoints autenticados. Usá IP para endpoints públicos como login o signup. Para endpoints
+sensibles, combiná ambos.
 
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Los ejemplos están probados y funcionan, pero deberías adaptar el manejo de errores, la configuración y el fallback a tu
+entorno antes de desplegar.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+El rendimiento depende del volumen de peticiones y la infraestructura. Los ejemplos priorizan claridad. Para alto
+throughput, agregá connection pooling, pipelining en Redis y caching donde tenga sentido.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Empezá con el ejemplo mínimo y agregá logging en cada paso. Probá con pocas peticiones primero, luego escalá. Usá el
+debugger de tu lenguaje para recorrer los edge cases.

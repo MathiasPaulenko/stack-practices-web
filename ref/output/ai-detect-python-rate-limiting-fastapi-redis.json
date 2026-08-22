@@ -1,0 +1,324 @@
+[
+  {
+    "label": "python-rate-limiting-fastapi-redis-en",
+    "model": "desklib",
+    "model_ai_pct": 44.4,
+    "ai_count": 11,
+    "human_count": 27,
+    "skipped_count": 2,
+    "total": 40,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 16.1,
+      "stddev": 6.6,
+      "cv": 0.41,
+      "verdict": "somewhat uniform",
+      "sentence_count": 38,
+      "lengths": [
+        14,
+        23,
+        11,
+        18,
+        39,
+        20,
+        23,
+        21,
+        22,
+        19,
+        16,
+        23,
+        19,
+        12,
+        13,
+        13,
+        19,
+        13,
+        20,
+        5,
+        21,
+        17,
+        19,
+        13,
+        25,
+        8,
+        20,
+        15,
+        10,
+        8,
+        11,
+        5,
+        21,
+        10,
+        20,
+        11,
+        9,
+        7
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Run a few requests first, then increase the load.",
+        0.7797
+      ],
+      [
+        "For this recipe you'll need Python 3.10 or newer, the fastapi and redis packages installed, and a Redis server\nrunning.",
+        0.7673
+      ],
+      [
+        "A local in-memory limiter is fine as a temporary backup.",
+        0.7479
+      ],
+      [
+        "Per-endpoint limits keep each counter on its own by using different key prefixes, such as\nrate_limit:/auth/login:...",
+        0.6875
+      ],
+      [
+        "How fast it runs depends on request volume and infrastructure.",
+        0.6842
+      ],
+      [
+        "Step\nthrough edge cases with a debugger.",
+        0.6834
+      ],
+      [
+        "For\nsensitive endpoints, use both.",
+        0.6473
+      ],
+      [
+        "Rate limiting stops APIs from being abused, overloaded, or drained by too many requests.",
+        0.5737
+      ],
+      [
+        "Redis fixes that by giving every instance a shared, atomic counter.",
+        0.545
+      ],
+      [
+        "A TTL on the key lets it expire automatically after the window, which saves you from manual garbage\ncollection.",
+        0.5127
+      ],
+      [
+        "This recipe shows you how to implement sliding\nwindow and token bucket rate limiting in FastAPI with Redis.",
+        0.5119
+      ],
+      [
+        "The examples work and have been tested, but still adapt error handling, configuration, and fallback behavior to your\nenvironment before deploying.",
+        0.4982
+      ],
+      [
+        "Decide up front whether to fail open (allow all requests) or fail closed (reject\nrequests).",
+        0.4959
+      ],
+      [
+        "Using in-memory rate limiters in distributed deployments is a common mistake because each instance ends up with its own\ncounter.",
+        0.4781
+      ],
+      [
+        "Setting limits too aggressively can block legitimate users, so start generous and tighten once you've got data.",
+        0.4761
+      ],
+      [
+        "For public endpoints like login or signup, rate limit by IP.",
+        0.4349
+      ],
+      [
+        "Forgetting to set a TTL on Redis keys is another one; without it, the keys keep\npiling up and waste memory.",
+        0.4302
+      ],
+      [
+        "For authenticated endpoints, rate limit by user ID.",
+        0.4109
+      ],
+      [
+        "Start with the minimal example and add logging at each step.",
+        0.4028
+      ],
+      [
+        "The examples prioritize clarity, so for high throughput\nyou can add connection pooling, Redis pipelining, and caching wherever it helps.",
+        0.4024
+      ],
+      [
+        "For 1000 users making 100 requests per minute, that's about\n100 000 entries with a 60 second TTL \u2014 negligible.",
+        0.3963
+      ],
+      [
+        "The X-RateLimit-Limit, X-RateLimit-Remaining, and X-RateLimit-Reset headers follow the IETF draft standard, so\nclients can read them and back off before hitting the limit.",
+        0.3956
+      ],
+      [
+        "Monitor how often your endpoints return 429; a sudden spike can mean a misconfigured limit or an ongoing\nattack.",
+        0.3867
+      ],
+      [
+        "If you run several server\ninstances behind a load balancer, an in-memory rate limiter breaks down because each instance keeps its own counter.",
+        0.3808
+      ],
+      [
+        "Fall back to Redis instead.",
+        0.3657
+      ]
+    ],
+    "diagnostics_sample": []
+  },
+  {
+    "label": "python-rate-limiting-fastapi-redis-es",
+    "model": "desklib",
+    "model_ai_pct": 34.4,
+    "ai_count": 8,
+    "human_count": 32,
+    "skipped_count": 1,
+    "total": 41,
+    "pattern_totals": {},
+    "text_metrics": {
+      "mean": 15.8,
+      "stddev": 7.4,
+      "cv": 0.47,
+      "verdict": "somewhat uniform",
+      "sentence_count": 40,
+      "lengths": [
+        15,
+        25,
+        13,
+        15,
+        42,
+        16,
+        25,
+        21,
+        24,
+        20,
+        12,
+        11,
+        27,
+        22,
+        13,
+        10,
+        13,
+        20,
+        14,
+        20,
+        5,
+        21,
+        17,
+        22,
+        11,
+        24,
+        8,
+        18,
+        6,
+        12,
+        10,
+        8,
+        9,
+        5,
+        24,
+        10,
+        14,
+        11,
+        7,
+        11
+      ]
+    },
+    "top_ai_sentences": [
+      [
+        "Finalmente, no manejar respuestas 429 en los clientes hace que pierdas la oportunidad de hacer back off con l\u00f3gica de\nreintento exponencial.",
+        0.8881
+      ],
+      [
+        "Los l\u00edmites por endpoint funcionan usando distintos prefijos de key, como rate_limit:/auth/login:...",
+        0.7915
+      ],
+      [
+        "Un\nlimiter local en memoria puede servir como respaldo temporal.",
+        0.7855
+      ],
+      [
+        "El rendimiento depende del volumen de peticiones y la infraestructura.",
+        0.7792
+      ],
+      [
+        "Establec\u00e9 un header Retry-After con sentido para que los clientes sepan cu\u00e1nto esperar.",
+        0.582
+      ],
+      [
+        "Un TTL en la key hace que expire autom\u00e1ticamente despu\u00e9s de la ventana, as\u00ed no hay que hacer\nlimpieza manual.",
+        0.545
+      ],
+      [
+        "y\nrate_limit:/search:..., lo que mantiene el contador de cada endpoint independiente.",
+        0.5381
+      ],
+      [
+        "Us\u00e1 IP para endpoints p\u00fablicos como login o signup.",
+        0.5241
+      ],
+      [
+        "Sliding window guarda una entrada ZSET por petici\u00f3n.",
+        0.4878
+      ],
+      [
+        "Us\u00e1 el\ndebugger de tu lenguaje para recorrer los edge cases.",
+        0.4539
+      ],
+      [
+        "Usar rate limiters en memoria en despliegues distribuidos es un error com\u00fan porque cada instancia termina con su\npropio contador.",
+        0.4272
+      ],
+      [
+        "Decid\u00ed de antemano si fallar abierto (permitir todo) o cerrado (rechazar todo).",
+        0.3791
+      ],
+      [
+        "Limit\u00e1 por usuario cuando lo conozcas, no solo por IP.",
+        0.3789
+      ],
+      [
+        "El rate limiting evita que una API sea abusada, saturada o agotada por demasiadas peticiones.",
+        0.3624
+      ],
+      [
+        "Los ejemplos est\u00e1n probados y funcionan, pero deber\u00edas adaptar el manejo de errores, la configuraci\u00f3n y el fallback a tu\nentorno antes de desplegar.",
+        0.3457
+      ],
+      [
+        "Us\u00e1 Redis en su lugar.",
+        0.314
+      ],
+      [
+        "El rate limiting deja de funcionar.",
+        0.3057
+      ],
+      [
+        "Para 1000 usuarios a 100 req/min, son unas 100 000 entradas\ncon TTL de 60 segundos \u2014 despreciable.",
+        0.2888
+      ],
+      [
+        "El enfoque de sliding window guarda cada petici\u00f3n como miembro de un sorted set de Redis (ZSET), usando el timestamp\nde la petici\u00f3n como score.",
+        0.2873
+      ],
+      [
+        "Si ejecut\u00e1s varias\ninstancias de servidor detras de un load balancer, un rate limiter en memoria no sirve porque cada instancia tiene su\npropio contador.",
+        0.2745
+      ],
+      [
+        "Olvidar el TTL en las keys de Redis es otro error; sin TTL, las keys se\nacumulan indefinidamente y consumen memoria.",
+        0.2726
+      ],
+      [
+        "Us\u00e1 el ID de usuario para endpoints autenticados.",
+        0.26
+      ],
+      [
+        "Los headers X-RateLimit-Limit, X-RateLimit-Remaining y X-RateLimit-Reset siguen el est\u00e1ndar draft de la IETF, as\u00ed\nlos clientes pueden leerlos y hacer back off antes de alcanzar el ",
+        0.2599
+      ],
+      [
+        "Para alto\nthroughput, agreg\u00e1 connection pooling, pipelining en Redis y caching donde tenga sentido.",
+        0.253
+      ],
+      [
+        "Para una gu\u00eda m\u00e1s profunda, consult\u00e1 [Cache Database Query Results with Redis and Python](/es/recipes/database-query-result-caching/).",
+        0.2502
+      ]
+    ],
+    "diagnostics_sample": []
+  }
+]

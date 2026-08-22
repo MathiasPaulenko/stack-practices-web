@@ -1,12 +1,8 @@
 ---
-
-
-
-
 contentType: recipes
 slug: python-rate-limiting-fastapi-redis
 title: "Distributed Rate Limiting with FastAPI and Redis"
-description: "Implement distributed rate limiting in FastAPI using Redis sliding window and token bucket algorithms with per-user, per-IP, and per-endpoint limits"
+description: "Implement distributed rate limiting in FastAPI using Redis sliding window and token bucket algorithms with per-user, per-IP, and per-endpoint limits."
 metaDescription: "Implement distributed rate limiting in FastAPI with Redis. Use sliding window and token bucket algorithms for per-user, per-IP, and per-endpoint rate limits."
 difficulty: intermediate
 topics:
@@ -24,7 +20,8 @@ relatedResources:
   - /recipes/python-sql-injection-sqlalchemy
   - /recipes/python-async-gather-concurrent-requests
   - /recipes/python-secrets-management-vault
-lastUpdated: "2026-07-02"
+  - /recipes/request-signing-hmac
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
@@ -35,25 +32,23 @@ seo:
     - distributed rate limiting
     - sliding window
     - token bucket python
-
-
-
-
 ---
 
-Rate limiting protects APIs from abuse, DDoS, and resource exhaustion. In distributed deployments with multiple server instances, in-memory rate limiters don't work — each instance has its own counter. Redis provides a shared, atomic counter across all instances. Below: sliding window and token bucket algorithms in FastAPI with Redis.
+Rate limiting stops APIs from being abused, overloaded, or drained by too many requests. If you run several server
+instances behind a load balancer, an in-memory rate limiter breaks down because each instance keeps its own counter.
+Redis fixes that by giving every instance a shared, atomic counter. This recipe shows you how to implement sliding
+window and token bucket rate limiting in FastAPI with Redis.
 
-## When to Use This
+## When to Use
 
-- APIs with multiple server instances behind a load balancer
-- Public APIs that need per-user or per-IP rate limits
-- Endpoints with different rate limits (e.g., auth: 5/min, search: 100/min)
+Use this setup when your API runs on several server instances behind a load balancer, when you need per-user or
+per-IP limits on public endpoints, or when different endpoints need different limits (for example, `auth: 5/min` and
+`search: 100/min`).
 
 ## Prerequisites
 
-- Python 3.10+
-- `fastapi`, `redis` packages
-- A Redis server running
+For this recipe you'll need Python 3.10 or newer, the `fastapi` and `redis` packages installed, and a Redis server
+running.
 
 ## Solution
 
@@ -267,13 +262,21 @@ async def get_data(request: Request):
     return {"data": "Per-user rate limited endpoint"}
 ```
 
-## How It Works
+## Explanation
 
-1. **Sliding window** uses a Redis sorted set (`ZSET`) where each request is a member with its timestamp as the score. Before each request, we remove entries older than the window, count remaining entries, and add the new request.
-2. **Pipeline** executes all Redis commands atomically in a single round-trip, preventing race conditions between counting and adding.
-3. **TTL** on the Redis key ensures cleanup after the window expires — no manual garbage collection needed.
-4. **Per-endpoint limits** use different key prefixes (`rate_limit:/auth/login:...` vs `rate_limit:/search:...`), so limits are independent per endpoint.
-5. **Rate limit headers** (`X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`) follow the IETF draft standard, allowing clients to handle limits gracefully.
+The sliding window approach stores each request as a member of a Redis sorted set (`ZSET`), using the request timestamp
+as the score. Before allowing a request, it removes entries older than the current window, counts the remaining entries,
+and adds the new one.
+
+The Redis pipeline runs all of those commands in a single round-trip, so counting and adding happen atomically and avoid
+race conditions. A TTL on the key lets it expire automatically after the window, which saves you from manual garbage
+collection.
+
+Per-endpoint limits keep each counter on its own by using different key prefixes, such as
+`rate_limit:/auth/login:...` and `rate_limit:/search:...`.
+
+The `X-RateLimit-Limit`, `X-RateLimit-Remaining`, and `X-RateLimit-Reset` headers follow the IETF draft standard, so
+clients can read them and back off before hitting the limit.
 
 ## Variants
 
@@ -398,43 +401,57 @@ async def expensive_operation(request: Request):
 
 ## Best Practices
 
+Use sliding window when accuracy matters, because fixed window can allow bursts twice as big right at window
+boundaries. Set a meaningful `Retry-After` header so clients know how long to wait.
 
-- For a deeper guide, see [Cache Database Query Results with Redis and Python](/recipes/database-query-result-caching/).
+Rate limit by user when the user is known, not just by IP. Several users behind a NAT or proxy can share the same IP
+address. Monitor how often your endpoints return `429`; a sudden spike can mean a misconfigured limit or an ongoing
+attack.
 
-- **Use sliding window for accuracy** — fixed window allows 2x bursts at window boundaries
-- **Set meaningful Retry-After headers** — clients can back off gracefully
-- **Use per-user limits, not just per-IP** — multiple users behind NAT share an IP
-- **Monitor rate limit hits** — frequent 429s may indicate a misconfigured limit or an attack
+For a deeper guide, see [Cache Database Query Results with Redis and Python](/recipes/database-query-result-caching/).
 
 ## Common Mistakes
 
-- **Using in-memory rate limiting in distributed deployments** — each instance has its own counter; use Redis
-- **Not setting TTL on Redis keys** — keys accumulate forever, consuming memory
-- **Rate limiting too aggressively** — legitimate users get blocked; start generous and tighten
-- **Not handling 429 in the client** — clients should implement exponential backoff on 429
+Using in-memory rate limiters in distributed deployments is a common mistake because each instance ends up with its own
+counter. Fall back to Redis instead. Forgetting to set a TTL on Redis keys is another one; without it, the keys keep
+piling up and waste memory.
+
+Setting limits too aggressively can block legitimate users, so start generous and tighten once you've got data. Finally,
+not handling `429` responses in clients means missing the chance to back off and retry with exponential delay.
 
 ## FAQ
 
-**Q: Sliding window vs. token bucket — which should I use?**
-A: Sliding window for strict limits (e.g., 100 req/min, no bursts). Token bucket for burst-tolerant limits (e.g., allow 100 instant requests, then refill at 10/sec).
+### Sliding window vs. token bucket — which should I use?
 
-**Q: How much Redis memory does rate limiting use?**
-A: Sliding window stores one ZSET entry per request. For 1000 users at 100 req/min, that's ~100K entries with 60s TTL — negligible.
+Use sliding window for strict limits, such as `100 req/min` with no bursts. Use token bucket when you want to allow a
+short burst and then refill steadily, such as `100` requests instantly and then `10` per second.
 
-**Q: What happens if Redis is down?**
-A: Rate limiting fails. Implement a fallback (allow all, or use a local in-memory limiter as backup).
+### How much Redis memory does rate limiting use?
 
-**Q: Should I rate limit by IP or by user?**
-A: By user for authenticated endpoints. By IP for public endpoints (login, signup). Use both for sensitive endpoints.
+Sliding window stores one ZSET entry per request. For `1000` users making `100` requests per minute, that's about
+`100 000` entries with a `60` second TTL — negligible.
+
+### What happens if Redis is down?
+
+Rate limiting stops working. Decide up front whether to fail open (allow all requests) or fail closed (reject
+requests). A local in-memory limiter is fine as a temporary backup.
+
+### Should I rate limit by IP or by user?
+
+For authenticated endpoints, rate limit by user ID. For public endpoints like login or signup, rate limit by IP. For
+sensitive endpoints, use both.
 
 ### Is this solution production-ready?
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+The examples work and have been tested, but still adapt error handling, configuration, and fallback behavior to your
+environment before deploying.
 
 ### What are the performance characteristics?
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+How fast it runs depends on request volume and infrastructure. The examples prioritize clarity, so for high throughput
+you can add connection pooling, Redis pipelining, and caching wherever it helps.
 
 ### How do I debug issues with this approach?
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+Start with the minimal example and add logging at each step. Run a few requests first, then increase the load. Step
+through edge cases with a debugger.
