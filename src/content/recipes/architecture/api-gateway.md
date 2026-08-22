@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/jwt-authentication
   - /recipes/circuit-breaker-pattern-recipe
   - /recipes/service-mesh
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
@@ -39,32 +39,30 @@ seo:
     - jwt
 ---
 
-## Overview
+In a microservices architecture, clients often end up talking to a dozen different services, each with
+its own endpoint, protocol, and auth rules. Exposing that directly gets messy fast: every client has
+to track service locations, handle retries, and juggle separate tokens. When a service moves or a new
+one appears, every client needs an update.
 
-In a microservices architecture, clients must interact with many individual services, each with
-its own endpoint, protocol, and authentication requirements. Exposing these directly creates a
-fragile coupling: clients must know every service location, handle retries, and manage distinct
-tokens. When services are added, removed, or relocated, every client must update.
-
-An API gateway solves this by acting as a single entry point. Clients talk to one URL. The
-gateway routes requests to the right backend, handles cross-cutting concerns like
+An API gateway sits in front and becomes the single entry point. Clients call one URL, then the
+gateway forwards the request to the right backend. It also handles cross-cutting concerns —
 authentication, [rate limiting](/recipes/rate-limiting/), SSL termination, and request/response
-transformation. It shields clients from internal topology.
+transformation — so internal services don't have to.
 
 ## When to Use
 
-- Operating 5+ backend services that clients access directly.
-- Needing centralized authentication, rate limiting, or logging across all APIs.
-- Supporting several client types (web, mobile, IoT) with different API requirements.
-- Migrating from a monolith to microservices while keeping a stable external contract.
-- Requiring protocol translation between GraphQL clients and REST backends.
+An API gateway starts to pay off once several backend services are exposed to clients, auth and rate
+limiting need to be centralized, or different client types like web, mobile, and IoT need different
+API shapes. It's also useful during a monolith-to-microservices migration because you can keep the
+external contract stable while the internal topology changes. And if you want a single GraphQL API
+backed by REST microservices, the gateway is the natural place for that layer.
 
 ## When NOT to Use
 
-- You’ve got only one or two services — a simple reverse proxy or load balancer is enough.
-- You aren’t ready to manage gateway failure modes and high availability.
-- Business logic keeps creeping into the gateway instead of staying in domain services.
-- The project is small and the extra operational overhead isn’t justified.
+A gateway is overkill for one or two services; a reverse proxy or load balancer handles that fine.
+Skip it if the team isn't ready to operate it as critical infrastructure with HA and monitoring, if
+business logic keeps leaking into the gateway, or if the project is small and the operational
+overhead isn't justified.
 
 ## Solution
 
@@ -189,64 +187,68 @@ telemetry:
 
 ## Explanation
 
-- **Request routing**: the gateway maps incoming paths to backend services. `/api/v1/users` goes
-to the user service. Backends can move without client updates.
-- **Cross-cutting concerns**: auth, rate limiting, and caching are implemented once at the edge
-instead of duplicated in every service.
-- **Protocol translation**: a GraphQL gateway fans out several REST requests to microservices
-and assembles a single typed response for clients.
-- **SSL termination**: the gateway handles TLS so internal services can use plain HTTP inside a
-trusted network.
+At its core, the gateway is a router. It maps an incoming path to the right backend: a request to
+`/api/v1/users` goes to the user service, which can move or scale without the client knowing.
+
+Cross-cutting concerns such as auth, rate limiting, and caching belong at the edge. Handle them once
+there and you avoid repeating the same logic in every service.
+
+A GraphQL gateway can fan out several REST requests to microservices and assemble a single typed
+response for clients. That's protocol translation in practice.
+
+The gateway also terminates SSL, so internal services can talk over plain HTTP inside the trusted
+network.
 
 ## Variants
 
-|Type|Management|Best for|Trade-off|
-|----|----------|--------|---------|
-|Self-hosted (Kong, Traefik)|Full control|On-prem, compliance|Operational overhead|
-|Managed (AWS, Azure, GCP)|Serverless|Cloud-native, scaling|Vendor lock-in, cost|
-|Custom built|Maximum flexibility|Unique requirements|Development cost|
-|Service mesh (Istio ingress)|Kubernetes-native|K8s clusters|Complexity|
+| Type | Management | Best for | Trade-off |
+| --- | --- | --- | --- |
+| Self-hosted (Kong, Traefik) | Full control | On-prem, compliance | Operational overhead |
+| Managed (AWS, Azure, GCP) | Serverless | Cloud-native, scaling | Vendor lock-in, cost |
+| Custom built | Maximum flexibility | Unique requirements | Development cost |
+| Service mesh (Istio ingress) | Kubernetes-native | K8s clusters | Complexity |
 
 ## Best Practices
 
-- Implement [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) at the gateway to stop
-  forwarding requests to failing backends.
-- Use path versioning (`/api/v1/users`) instead of headers. It makes routing explicit and
-  simplifies cache keys.
+- Put [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) at the gateway to stop forwarding
+    traffic to failing backends.
+- Use path versioning such as `/api/v1/users` instead of header versioning. It keeps routing
+    explicit and cache keys simple.
 - Centralize observability: inject trace IDs at the edge and propagate them downstream.
-- Offload authentication: validate JWTs or API keys at the gateway and forward user context
-  headers to backends.
-- Cache read-heavy endpoints at the edge, such as product catalogs and configuration data.
+- Offload authentication by validating JWTs or API keys at the gateway, then pass user context
+    headers to the backends.
+- Cache read-heavy endpoints such as product catalogs and configuration data at the edge.
 
 ## Common Mistakes
 
-- **Putting business logic in the gateway**. Keep routing, auth, and rate limiting at the edge;
-  business rules belong in domain services.
-- **No timeout or retry strategy**. Set per-route timeouts and retry only idempotent operations.
-- **Single point of failure**. Run several gateway instances behind a [load
-  balancer](/recipes/load-balancing/) with health checks.
-- **Ignoring client-specific needs**. Mobile apps need smaller payloads than web apps. Consider
-  backend-for-frontend (BFF) gateways.
+- Treating the gateway as a service and putting business logic there. Keep routing, auth, and rate
+    limiting at the edge; business rules belong in domain services.
+- Shipping without per-route timeouts or retry rules. Define timeouts and retry only idempotent
+    operations.
+- Operating one gateway instance. Use at least two instances behind a [load
+    balancer](/recipes/load-balancing/) with health checks.
+- Ignoring client-specific needs. Mobile clients often need smaller payloads than web apps, so a
+    backend-for-frontend (BFF) gateway can be a better fit.
 
 ## FAQ
 
 ### Should I use an API gateway or a service mesh?
 
-Use a gateway for north-south traffic (external clients to the cluster). Use a [service
-mesh](/recipes/service-mesh/) for east-west traffic (service-to-service inside the cluster). They
-are complementary.
+Use a gateway for north-south traffic — external clients into the cluster. Use a [service
+mesh](/recipes/service-mesh/) for east-west traffic — services talking to each other inside the
+cluster. They complement each other.
 
 ### How do I handle GraphQL in a gateway?
 
-Use a GraphQL gateway such as Apollo Router or Hasura. Each microservice exposes a subgraph, and
+Use a dedicated GraphQL gateway like Apollo Router or Hasura. Each microservice owns a subgraph, and
 the gateway stitches them into a supergraph.
 
 ### Does a gateway add latency?
 
-Yes, but typically 1-5 ms for a well-tuned gateway. The benefits — caching, connection pooling,
-and centralized auth — usually reduce end-to-end latency.
+It does, but a well-tuned gateway adds only about 1–5 ms. The benefits — caching, connection pooling,
+and centralized auth — typically reduce end-to-end latency overall.
 
 ### How do I secure service-to-service calls behind a gateway?
 
-The gateway validates external tokens. For internal calls, use mTLS or signed internal tokens.
-Never trust user-facing auth headers for internal service communication.
+The gateway checks external tokens at the edge. For service-to-service calls behind it, use mTLS or
+signed internal tokens. Don't trust user-facing auth headers for internal communication.

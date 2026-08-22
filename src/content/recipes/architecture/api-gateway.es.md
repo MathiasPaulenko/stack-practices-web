@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/jwt-authentication
   - /recipes/circuit-breaker-pattern-recipe
   - /recipes/service-mesh
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
@@ -39,32 +39,32 @@ seo:
     - jwt
 ---
 
-## Resumen
+En una arquitectura de microservicios, los clientes pueden terminar hablando con decenas de
+servicios distintos, cada uno con su propio endpoint, protocolo y reglas de auth. Exponer todo eso
+directamente genera un desastre: cada cliente tiene que rastrear ubicaciones, manejar retries y
+administrar tokens separados. Cuando un servicio se mueve o aparece uno nuevo, cada cliente necesita
+una actualización.
 
-En una arquitectura de microservicios, los clientes deben interactuar con muchos servicios
-individuales, cada uno con su propio endpoint, protocolo y requisitos de autenticación. Exponerlos
-directamente crea un acoplamiento frágil: los clientes deben conocer la ubicación de cada
-servicio, manejar retries y gestionar tokens distintos.
-
-Un API gateway resuelve esto actuando como único punto de entrada. Los clientes hablan con una
-URL. El gateway enruta requests al backend correcto, maneja concerns cross-cutting como
+Un API gateway se ubica al frente y se convierte en el único punto de entrada. Los clientes llaman a
+una URL y el gateway reenvía el request al backend correcto. También maneja concerns cross-cutting —
 autenticación, [rate limiting](/recipes/rate-limiting/), terminación SSL y transformación de
-request/response. Protege a los clientes de la topología interna.
+request/response — para que los servicios internos no tengan que hacerlo.
 
 ## Cuándo Usarlo
 
-- Operás 5+ servicios backend a los que los clientes acceden directamente.
-- Necesitás autenticación, rate limiting o logging centralizados para todas las APIs.
-- Soportás múltiples tipos de clientes (web, mobile, IoT) con requisitos distintos.
-- Migrás de un monolito a microservicios manteniendo un contrato externo estable.
-- Necesitás traducción de protocolos entre clientes GraphQL y backends REST.
+Un API gateway empieza a valer la pena cuando varios servicios backend están expuestos a clientes,
+cuando auth y rate limiting necesitan centralizarse, o cuando distintos tipos de clientes como web,
+mobile e IoT necesitan formas de API diferentes. También ayuda durante una migración de monolito a
+microservicios porque permite mantener estable el contrato externo mientras cambia la topología
+interna. Finalmente, es el lugar correcto para poner una API GraphQL por encima de microservicios
+REST.
 
 ## Cuándo NO Usarlo
 
-- Tenés uno o dos servicios — un reverse proxy o load balancer simple alcanza.
-- No estás listo para manejar modos de fallo del gateway y alta disponibilidad.
-- La lógica de negocio se filtra al gateway en vez de quedar en los servicios de dominio.
-- El proyecto es pequeño y el overhead operacional no se justifica.
+Un gateway es exceso para uno o dos servicios; un reverse proxy o load balancer simple maneja eso.
+Saltearlo si el equipo no está listo para operarlo como infraestructura crítica con HA y monitoreo,
+si la lógica de negocio se filtra al gateway, o si el proyecto es pequeño y el overhead operacional
+no se justifica.
 
 ## Solución
 
@@ -189,54 +189,57 @@ telemetry:
 
 ## Explicación
 
-- **Enrutamiento de requests**: el gateway mapea paths entrantes a servicios backend.
-  `/api/v1/users` va al servicio de usuarios. Los backends pueden moverse sin actualizar
-  clientes.
-- **Concerns cross-cutting**: auth, rate limiting y caching se implementan una vez en el borde en
-  vez de duplicarse en cada servicio.
-- **Traducción de protocolos**: un gateway GraphQL dispara múltiples requests REST a
-  microservicios y arma una sola respuesta tipada para el cliente.
-- **Terminación SSL**: el gateway maneja TLS para que los servicios internos usen HTTP simple
-  dentro de una red confiable.
+El enrutamiento de requests es el trabajo principal del gateway. Mapea paths entrantes a servicios
+backend: `/api/v1/users` va al servicio de usuarios, y ese servicio puede moverse o escalar sin que
+el cliente lo sepa.
+
+Concerns como auth, rate limiting y caching pertenecen al borde. Resolverlos una vez allí evita
+duplicar la misma lógica en cada microservicio.
+
+Un gateway GraphQL puede disparar varios requests REST a microservicios y armar una sola respuesta
+tipada para el cliente. Esa es la traducción de protocolos en la práctica.
+
+La terminación SSL significa que el gateway maneja TLS para que los servicios internos usen HTTP
+simple dentro de una red confiable.
 
 ## Variantes
 
-|Tipo|Gestión|Ideal para|Compromiso|
-|----|-------|----------|----------|
-|Self-hosted (Kong, Traefik)|Control total|On-prem, compliance|Overhead operacional|
-|Managed (AWS, Azure, GCP)|Serverless|Cloud-native, escalar|Vendor lock-in, costo|
-|Custom built|Flexibilidad máxima|Requisitos únicos|Costo de desarrollo|
-|Service mesh (Istio ingress)|Kubernetes-native|Clusters K8s|Complejidad|
+| Tipo | Gestión | Ideal para | Compromiso |
+| --- | --- | --- | --- |
+| Self-hosted (Kong, Traefik) | Control total | On-prem, compliance | Overhead operacional |
+| Managed (AWS, Azure, GCP) | Serverless | Cloud-native, escalar | Vendor lock-in, costo |
+| Custom built | Flexibilidad máxima | Requisitos únicos | Costo de desarrollo |
+| Service mesh (Istio ingress) | Kubernetes-native | Clusters K8s | Complejidad |
 
 ## Buenas Prácticas
 
-- Implementá [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) en el gateway para
-  dejar de enviar requests a backends con fallos.
-- Usá versionado en el path (`/api/v1/users`) en vez de headers. Hace el routing explícito y
-  simplifica las claves de caché.
+- Implementá [circuit breakers](/recipes/circuit-breaker-pattern-recipe/) en el gateway para dejar
+    de enviar tráfico a backends con fallos.
+- Usá versionado en el path, como `/api/v1/users`, en vez de headers. Mantiene el routing explícito
+    y las claves de caché simples.
 - Centralizá observability: inyectá trace IDs en el borde y propagalos downstream.
-- Descargá autenticación: validá JWTs o API keys en el gateway y reenviá headers de contexto de
-  usuario a los backends.
+- Descargá autenticación validando JWTs o API keys en el gateway y reenviá headers de contexto de
+    usuario a los backends.
 - Cacheá endpoints read-heavy en el borde, como catálogos de productos y datos de configuración.
 
 ## Errores Comunes
 
-- **Meter lógica de negocio en el gateway**. Dejá routing, auth y rate limiting en el borde; las
-  reglas de negocio van en los servicios de dominio.
-- **No tener timeouts ni retries**. Definí timeouts por ruta y reintentá solo operaciones
-  idempotentes.
-- **Punto único de fallo**. Corré varias instancias del gateway detrás de un [load
-  balancer](/recipes/load-balancing/) con health checks.
-- **Ignorar necesidades específicas de clientes**. Las apps mobile necesitan payloads más
-  pequeños que las web. Considerá gateways backend-for-frontend (BFF).
+- Tratar al gateway como un servicio más y meter lógica de negocio. Dejá routing, auth y rate
+    limiting en el borde; las reglas de negocio van en los servicios de dominio.
+- Publicar sin timeouts ni reglas de retry. Definí timeouts por ruta y reintentá solo operaciones
+    idempotentes.
+- Correr una sola instancia del gateway. Usá al menos dos instancias detrás de un [load
+    balancer](/recipes/load-balancing/) con health checks.
+- Ignorar necesidades específicas de clientes. Las apps mobile suelen necesitar payloads más
+    pequeños que las web, así que un gateway backend-for-frontend (BFF) puede valer la pena.
 
 ## Preguntas Frecuentes
 
 ### ¿Uso un API gateway o un service mesh?
 
-Usá un gateway para tráfico north-south (clientes externos al cluster). Usá un [service
-mesh](/recipes/service-mesh/) para tráfico east-west (servicio a servicio dentro del cluster). Son
-complementarios.
+Usá un gateway para tráfico north-south — clientes externos hacia el cluster. Usá un [service
+mesh](/recipes/service-mesh/) para tráfico east-west — servicios hablando entre sí dentro del
+cluster. Se complementan.
 
 ### ¿Cómo manejo GraphQL en un gateway?
 
@@ -245,10 +248,10 @@ gateway los une en un supergraph.
 
 ### ¿Agrega latencia un gateway?
 
-Sí, pero típicamente 1-5 ms para un gateway bien afinado. Los beneficios — caching, connection
+Sí, pero generalmente solo 1–5 ms para un gateway bien afinado. Los beneficios — caching, connection
 pooling y auth centralizado — suelen reducir la latencia total.
 
 ### ¿Cómo aseguro llamadas servicio a servicio detrás de un gateway?
 
 El gateway valida tokens externos. Para llamadas internas, usá mTLS o tokens internos firmados.
-Nunca confiés en headers de auth orientados al usuario para comunicación interna.
+Nunca confiés en headers de auth orientados al usuario para comunicación servicio a servicio.

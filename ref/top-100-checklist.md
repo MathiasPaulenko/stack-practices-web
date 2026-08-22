@@ -553,8 +553,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/api-gateway/
    - ES: https://stackpractices.com/es/recipes/api-gateway/
    - Focus: low CTR
-   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 46.2% / ES 40.2% (0 patterns)
-   - Words: 852 | Meta: 159 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 38.1% / ES 28.7% (0 patterns)
+   - Words: 740 | Meta: 159 chars
 
 69. - [x] **uuid-generation** (recipes)
    - Metrics: 26 imp | pos 26 | CTR 0.00% | Δ impr -4
