@@ -514,7 +514,7 @@ Use this list to track progress as you audit and improve each resource.
    - ES: https://stackpractices.com/es/recipes/javascript-vitest-snapshot-testing/
    - Focus: striking distance, low CTR
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 43.5% / ES 30.1% (0 patterns)
-   - Words: 1,077 | Meta: 141 chars
+   - Words: 577 | Meta: 141 chars
 
 64. - [x] **complete-guide-bundle-size-optimization** (guides)
    - Metrics: 21 imp | pos 19.9 | CTR 0.00% | Δ impr 0

@@ -22,7 +22,7 @@ relatedResources:
   - /guides/complete-guide-vitest-react-testing
   - /recipes/javascript-msw-mock-service-worker
   - /recipes/generate-test-data
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
