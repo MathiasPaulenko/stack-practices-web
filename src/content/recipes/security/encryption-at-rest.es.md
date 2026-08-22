@@ -4,7 +4,7 @@
 
 contentType: recipes
 slug: encryption-at-rest
-title: "Encripción en Reposo para Bases de Datos y"
+title: "Encripción en Reposo para Bases de Datos y Almacenamiento"
 description: "Cómo encriptar datos sensibles antes de almacenarlos en bases de datos, object storage y backups usando AES-256-GCM, encripción de sobre y servicios de gestión de keys."
 metaDescription: "Aprende encripción en reposo para bases de datos y storage. Encripta datos sensibles usando AES-256-GCM, encripción de sobre y servicios de gestión de keys."
 difficulty: intermediate
@@ -23,9 +23,7 @@ relatedResources:
   - /recipes/csrf-protection
   - /recipes/data-privacy-gdpr
   - /recipes/request-signing-hmac
-  - /docs/security-audit-checklist-template
-  - /guides/complete-guide-encryption-at-rest
-lastUpdated: "2026-06-14"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
@@ -41,21 +39,33 @@ seo:
 
 ---
 
-## Visión general
+## Visión General
 
-La encripción en reposo protege datos cuando están almacenados en disco, en backups o en object storage. Incluso si un atacante obtiene acceso físico a un disco duro, roba un backup de base de datos o compromete un bucket de cloud storage, los datos encriptados permanecen ilegibles sin la key de decripción correspondiente. Este es un requisito fundamental para frameworks de compliance como GDPR, HIPAA, PCI-DSS y SOC 2.
+La encripción en reposo protege los datos mientras están en disco, en un backup o en object storage. Aunque
+alguien consiga un disco, una cinta de backup o un bucket de cloud, los datos seguirán ilegibles sin la key
+de decripción correcta. Por eso GDPR, HIPAA, PCI-DSS y SOC 2 la exigen.
 
-El enfoque ingenuo — encriptar columnas enteras de base de datos con una única key de aplicación — crea fragilidad operacional. La rotación de keys se vuelve dolorosa, el performance se degrada en tablas grandes, y una key filtrada expone todos los datos. La encripción en reposo moderna usa encripción de sobre (envelope encryption): una data encryption key (DEK) encripta el payload, mientras que una key encryption key (KEK) almacenada en un hardware security module o cloud KMS encripta la DEK. Esto habilita rotación de keys por registro, control de acceso granular y operaciones de bulk de alto performance. Lo siguiente cubre encripción AES-256-GCM, patrones de envelope encryption e integración con AWS KMS, Azure Key Vault y HashiCorp Vault.
+El enfoque ingenuo es encriptar columnas enteras con una única key de aplicación. Eso se vuelve doloroso: la
+rotación es lenta, las tablas grandes se degradan y una sola key filtrada expone todo. La mejor opción es la
+encripción de sobre (envelope encryption): una data encryption key (DEK) encripta el payload, y una key
+encryption key (KEK), guardada en un hardware security module o cloud KMS, encripta la DEK. Eso permite
+rotar keys por registro, controlar el acceso con más granularidad y correr operaciones bulk sin matar el
+performance. Esta receta recorre AES-256-GCM, patrones de envelope encryption y cómo integrar con AWS KMS,
+Azure Key Vault y HashiCorp Vault.
 
-## Cuándo usarlo
+## Cuándo Usarlo
 
-Usa esta receta cuando:
+Usá esta receta cuando almacenás información de identificación personal (PII), registros de salud o datos
+financieros. También aplica para aplicaciones SaaS multi-tenant donde cada tenant necesita encripción aislada,
+y para cumplir con GDPR Artículo 32, HIPAA Security Rule o PCI-DSS requisito 3.4. Otras ocasiones comunes son
+encriptar backups antes de moverlos a cold storage, y proteger API keys, credenciales y archivos de
+configuración en object storage.
 
-- Almacenando información de identificación personal (PII), registros de salud o datos financieros
-- Construyendo aplicaciones SaaS multi-tenant donde cada tenant requiere encripción aislada
-- Cumpliendo con GDPR Artículo 32, HIPAA Security Rule o PCI-DSS requisito 3.4
-- Encriptando backups de base de datos antes de transferirlos a cold storage
-- Protegiendo API keys, credenciales y archivos de configuración en object storage
+## Cuándo NO Usarlo
+
+No le agregues encripción en reposo a datos que ya son públicos o no sensibles, como catálogos de productos,
+assets de marketing o análisis anónimos. La latencia, gestión de keys y overhead operacional no valen la pena
+para información que no representa riesgo si se expone.
 
 ## Solución
 
@@ -164,63 +174,102 @@ class FieldEncryption {
 
 ## Explicación
 
-- **Encripción de sobre**: cada registro se encripta con una data encryption key (DEK) única.   La DEK misma se encripta por una key encryption key (KEK) gestionada en un KMS.   Esto significa que puedes rotar la KEK sin re-encriptar todos los datos, y puedes revocar acceso a un solo registro eliminando su DEK.
-- **AES-256-GCM**: el estándar de la industria para encripción autenticada.   El modo GCM provee confidencialidad (encripción) e integridad (tag de autenticación) en una sola operación.   Siempre verifica el tag de autenticación antes de desencriptar para detectar tampering.
-- **Derivación de keys**: en lugar de almacenar DEKs separadamente, derívalas determinísticamente de una master key y un record ID usando HKDF.
-- **Integración con cloud KMS**: AWS KMS, Azure Key Vault y GCP KMS proveen hardware security modules FIPS 140-2 Level 2+.   Para prácticas de gestión de secretos, consulta la [guía de gestión de secretos](/guides/security-best-practices-guide/).   Manejan generación de keys, rotación, políticas de acceso y audit logging.   Nunca almacenes master keys en archivos de configuración de aplicación.
+La **encripción de sobre** significa que cada registro se encripta con una data encryption key (DEK) única.
+La DEK misma se encripta con una key encryption key (KEK) gestionada en un KMS. Gracias a esa separación,
+podés rotar la KEK sin re-encriptar todo el dataset y revocar el acceso a un solo registro eliminando su DEK.
+
+**AES-256-GCM** es el estándar para encripción autenticada. El modo GCM da confidencialidad e integridad en
+una sola operación a través de un tag de autenticación. Siempre verificá ese tag antes de desencriptar, o
+perdés la detección de manipulaciones.
+
+La **derivación de keys** es una alternativa a guardar DEKs. Usando HKDF, podés derivar una DEK de forma
+determinística a partir de una master key y un record ID. Eso evita almacenar cada DEK, pero dificulta la
+rotación: cambiar la master key implica re-encriptar todos los registros.
+
+La **integración con cloud KMS** — ya sea AWS KMS, Azure Key Vault o GCP KMS — te da hardware security
+modules FIPS 140-2 Level 2+ y se encarga de generación de keys, rotación, políticas de acceso y audit logging.
+Nunca guardes master keys en archivos de configuración de la aplicación.
 
 ## Variantes
 
 | Enfoque | Gestión de keys | Performance | Facilidad de rotación | Mejor para |
-|---------|----------------|-------------|----------------------|------------|
+| --- | --- | --- | --- | --- |
 | Nativo de base de datos (TDE) | Motor de base de datos | Rápida (transparente) | Difícil | Checkbox de compliance |
 | Envelope de aplicación | Cloud KMS | Media | Fácil | SaaS multi-tenant |
 | Encripción por columna | Aplicación | Lenta (por celda) | Media | Campos altamente sensibles |
 | Encripción client-side | Key del cliente | Lenta | Fácil | Privacidad end-to-end |
 
-## Lo que funciona
+## Buenas Prácticas
 
-- **Encripta antes de que llegue a la base de datos**: la encripción a nivel de aplicación protege contra breaches a nivel de base de datos.   Si la base de datos es comprometida pero el servidor de aplicación no, los atacantes ven solo ciphertext.
-- **Usa encripción autenticada (AEAD)**: AES-GCM y ChaCha20-Poly1305 proveen tags de autenticación.   Nunca uses modos no autenticados como AES-CBC o AES-ECB, que son vulnerables a ataques de padding oracle y tampering.
-- **Rota keys regularmente**: establece una política de rotación de keys (anualmente para KEKs, por registro para DEKs).   Cloud KMS soporta rotación automática de master keys.
-- **Encripción searchable**: la encripción estándar rompe indexación y búsqueda de base de datos.   Sé consciente de que estos filtran algo de información.
-- **Key separada por tenant**: en SaaS multi-tenant, encripta los datos de cada tenant con una KEK diferente.
+- Encriptá los datos antes de que lleguen a la base de datos. La encripción a nivel de aplicación evita que un
+  atacante lea campos sensibles incluso si la base de datos está comprometida.
+- Usá encripción autenticada (AEAD). AES-GCM y ChaCha20-Poly1305 agregan tags de autenticación. Evitá modos
+  no autenticados como AES-CBC o AES-ECB, que son vulnerables a padding oracle y tampering.
+- Rotá las keys regularmente. Planeá rotar KEKs al menos una vez al año y DEKs por registro cuando sea
+  necesario. Cloud KMS puede automatizar la rotación de master keys, pero documentá y probá el procedimiento
+  en staging.
+- Pensá en la búsqueda antes de encriptar. La encripción estándar rompe indexación y búsqueda, así que usá
+  encripción determinística para matches exactos, blind indexes o encripción order-preserving para rangos.
+  Recordá que cada una filtra algo de información.
+- Dá una key separada por tenant en SaaS multi-tenant. Si se compromete una KEK, solo expone los datos de
+  ese tenant.
 
-## Errores comunes
+## Errores Comunes
 
-- **Hardcodear keys de encripción en código fuente**: embeber una master key en `config.  py` o una variable de entorno en un servidor compartido anula el propósito.
-- **Ignorar el tag de autenticación**: Siempre verifica el tag antes de procesar datos desencriptados.
-- **Encriptar todo indiscriminadamente**: la encripción agrega latencia, overhead de almacenamiento y complejidad.   Solo encripta campos genuinamente sensibles (PII, credenciales, datos de salud).   Catálogos de productos públicos no necesitan encripción en reposo.
-- **Perder la master key**: si la master key de KMS es eliminada o inaccesible, todos los datos encriptados se pierden permanentemente.
+- Hardcodear keys de encripción en código fuente. Embeber una master key en `config.py` o en una variable de
+  entorno en un servidor compartido anula el propósito. Usá un [secret manager](/recipes/vault-dynamic-credentials/)
+  dedicado con controles de IAM.
+- Ignorar el tag de autenticación. Desencriptar AES-GCM sin verificar el tag elimina la detección de
+  manipulaciones. Siempre verificá el tag antes de procesar datos desencriptados.
+- Encriptar todo indiscriminadamente. La encripción agrega latencia, overhead de almacenamiento y complejidad.
+  Solo encriptá campos genuinamente sensibles como PII, credenciales y datos de salud. Los catálogos de
+  productos públicos no necesitan encripción en reposo.
+- Perder la master key. Si la master key de KMS se elimina o es inaccesible, los datos encriptados se pierden
+  para siempre. Activá protección contra eliminación, mantené réplicas cross-region y probá los procedimientos
+  de disaster recovery.
 
-## Preguntas frecuentes
+## Preguntas Frecuentes
 
-**P: ¿La encripción en reposo protege contra SQL injection?**
-R: No. La encripción en reposo protege datos en disco. Los ataques de SQL injection operan contra bases de datos en ejecución vía manipulación de queries. Combina encripción con [queries parametrizadas](/recipes/sql-injection-prevention/) y [validación de input](/recipes/input-validation/) para defensa en profundidad.
+### ¿La encripción en reposo protege contra SQL injection?
 
-**P: ¿Cuál es la diferencia entre TDE y encripción de aplicación?**
-R: Transparent Data Encryption (TDE) encripta el archivo completo de base de datos a nivel de storage. Es rápida e invisible para aplicaciones pero protege solo contra robo de disco. La encripción de aplicación protege campos individuales, defendiendo contra breaches a nivel de base de datos pero requiriendo cambios en la aplicación.
+No. La encripción en reposo solo protege datos en disco. Los ataques de SQL injection golpean bases de datos en
+ejecución a través de la manipulación de queries, así que también necesitás [queries parametrizadas](/recipes/sql-injection-prevention/)
+y [validación de input](/recipes/input-validation/) para defensa en profundidad.
 
-**P: ¿Cómo encripto datos pero aún permito búsquedas?**
-R: Usa encripción determinística para matches exactos (ej. lookup por email), blind indexes (prefijos de hash almacenados junto a ciphertext) o encripción homomórfica para casos de uso avanzados. Cada enfoque involucra trade-offs entre seguridad y flexibilidad de queries.
+### ¿Cuál es la diferencia entre TDE y encripción de aplicación?
 
-**P: ¿Debería encriptar los backups separadamente?**
-R: Sí. Los backups de base de datos deberían encriptarse con una key distinta de la key de encripción de producción. Almacena las keys de encripción de backups en un [vault separado](/recipes/vault-dynamic-credentials/). Testea desencripción de backups trimestralmente como parte de tu plan de disaster recovery.
+Transparent Data Encryption (TDE) encripta el archivo completo de base de datos a nivel de storage. Es rápida e
+invisible para la aplicación, pero solo protege contra robo de disco. La encripción de aplicación protege
+campos individuales y ayuda contra breaches a nivel de base de datos, aunque requiere cambios en la
+aplicación.
 
+### ¿Cómo encripto datos pero sigo permitiendo búsquedas?
+
+Usá encripción determinística para matches exactos, blind indexes basados en prefijos de hash, o encripción
+homomórfica para casos avanzados. Cada opción intercambia algo de seguridad por flexibilidad de queries.
+
+### ¿Debería encriptar los backups separadamente?
+
+Sí. Los backups deberían encriptarse con una key distinta de la key de producción, y esa key de backup debería
+estar en un [vault separado](/recipes/vault-dynamic-credentials/). Testeá la desencripción de backups al menos
+trimestralmente como parte del plan de disaster recovery.
 
 ### ¿Esta solución está lista para producción?
 
-Sí. Los ejemplos de código arriba muestran implementaciones probadas. Adapta el manejo de errores y la configuración a tu entorno específico antes de desplegar.
+Los ejemplos de arriba son puntos de partida probados. Adaptá el manejo de errores, el logging y la
+configuración a tu entorno antes de desplegar.
 
 ### ¿Cuáles son las características de rendimiento?
 
-El rendimiento depende de tu volumen de datos e infraestructura. Las soluciones mostradas priorizan claridad. Para escenarios de alto throughput, añade caching, batching y connection pooling según sea necesario.
+El rendimiento depende del volumen de datos y la infraestructura. Los ejemplos priorizan claridad. Para alto
+throughput, agregá caching, batching y connection pooling según sea necesario.
 
 ### ¿Cómo depuro problemas con este enfoque?
 
-Empieza con el ejemplo mínimo de arriba. Añade logging en cada paso. Prueba con entradas pequeñas primero, luego escala. Usa el debugger de tu lenguaje para revisar los edge cases.
+Empezá con el ejemplo más chico. Agregá logging en cada paso, probá con entradas pequeñas y luego escalá. Usá
+el debugger de tu lenguaje para recorrer los edge cases.
 
-## Soluciones Avanzadas
+## Variantes Avanzadas
 
 ### Encripción de sobre multi-tenant (Python)
 
@@ -313,70 +362,70 @@ decrypted = enc.decrypt(encrypted)
 package main
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/rand"
-	"encoding/base64"
-	"fmt"
-	"io"
+    "crypto/aes"
+    "crypto/cipher"
+    "crypto/rand"
+    "encoding/base64"
+    "fmt"
+    "io"
 )
 
 type EncryptedData struct {
-	Ciphertext string `json:"ciphertext"`
-	Nonce      string `json:"nonce"`
+    Ciphertext string `json:"ciphertext"`
+    Nonce      string `json:"nonce"`
 }
 
 func encryptAESGCM(key []byte, plaintext, aad []byte) (*EncryptedData, error) {
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, fmt.Errorf("create cipher: %w", err)
-	}
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return nil, fmt.Errorf("create cipher: %w", err)
+    }
 
-	gcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, fmt.Errorf("create GCM: %w", err)
-	}
+    gcm, err := cipher.NewGCM(block)
+    if err != nil {
+        return nil, fmt.Errorf("create GCM: %w", err)
+    }
 
-	nonce := make([]byte, gcm.NonceSize())
-	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-		return nil, fmt.Errorf("generate nonce: %w", err)
-	}
+    nonce := make([]byte, gcm.NonceSize())
+    if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+        return nil, fmt.Errorf("generate nonce: %w", err)
+    }
 
-	ciphertext := gcm.Seal(nil, nonce, plaintext, aad)
+    ciphertext := gcm.Seal(nil, nonce, plaintext, aad)
 
-	return &EncryptedData{
-		Ciphertext: base64.StdEncoding.EncodeToString(ciphertext),
-		Nonce:      base64.StdEncoding.EncodeToString(nonce),
-	}, nil
+    return &EncryptedData{
+        Ciphertext: base64.StdEncoding.EncodeToString(ciphertext),
+        Nonce:      base64.StdEncoding.EncodeToString(nonce),
+    }, nil
 }
 
 func decryptAESGCM(key []byte, data *EncryptedData, aad []byte) ([]byte, error) {
-	ciphertext, err := base64.StdEncoding.DecodeString(data.Ciphertext)
-	if err != nil {
-		return nil, fmt.Errorf("decode ciphertext: %w", err)
-	}
+    ciphertext, err := base64.StdEncoding.DecodeString(data.Ciphertext)
+    if err != nil {
+        return nil, fmt.Errorf("decode ciphertext: %w", err)
+    }
 
-	nonce, err := base64.StdEncoding.DecodeString(data.Nonce)
-	if err != nil {
-		return nil, fmt.Errorf("decode nonce: %w", err)
-	}
+    nonce, err := base64.StdEncoding.DecodeString(data.Nonce)
+    if err != nil {
+        return nil, fmt.Errorf("decode nonce: %w", err)
+    }
 
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, fmt.Errorf("create cipher: %w", err)
-	}
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return nil, fmt.Errorf("create cipher: %w", err)
+    }
 
-	gcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, fmt.Errorf("create GCM: %w", err)
-	}
+    gcm, err := cipher.NewGCM(block)
+    if err != nil {
+        return nil, fmt.Errorf("create GCM: %w", err)
+    }
 
-	plaintext, err := gcm.Open(nil, nonce, ciphertext, aad)
-	if err != nil {
-		return nil, fmt.Errorf("decrypt: %w (posible tampering detectado)", err)
-	}
+    plaintext, err := gcm.Open(nil, nonce, ciphertext, aad)
+    if err != nil {
+        return nil, fmt.Errorf("decrypt: %w (posible tampering detectado)", err)
+    }
 
-	return plaintext, nil
+    return plaintext, nil
 }
 ```
 
@@ -503,6 +552,3 @@ rotation = KeyRotation(
 )
 # rotation.batch_re_encrypt(fetch_records, update_record, batch_size=500)
 ```
-
-
-

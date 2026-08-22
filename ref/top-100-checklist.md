@@ -620,13 +620,13 @@ Use this list to track progress as you audit and improve each resource.
    - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 41.2% / ES 32.2% (0 patterns)
    - Words: 1638 | Meta: 150 chars
 
-77. - [ ] **encryption-at-rest** (recipes)
+77. - [x] **encryption-at-rest** (recipes)
    - Metrics: 29 imp | pos 45.1 | CTR 0.00% | Δ impr -9
    - EN: https://stackpractices.com/recipes/encryption-at-rest/
    - ES: https://stackpractices.com/es/recipes/encryption-at-rest/
    - Focus: low CTR
-   - Status: ⏳ Pending
-   - Words: 2,139 | Meta: 158 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 45.8% / ES 33.1% (0 patterns)
+   - Words: 2471 | Meta: 158 chars
 
 78. - [ ] **sql-cte-recursive-hierarchy** (recipes)
    - Metrics: 14 imp | pos 12.6 | CTR 0.00% | Δ impr 13

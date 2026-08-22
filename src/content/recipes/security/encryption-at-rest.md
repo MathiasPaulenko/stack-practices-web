@@ -23,9 +23,7 @@ relatedResources:
   - /recipes/csrf-protection
   - /recipes/data-privacy-gdpr
   - /recipes/request-signing-hmac
-  - /docs/security-audit-checklist-template
-  - /guides/complete-guide-encryption-at-rest
-lastUpdated: "2026-06-14"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-14"
 author: Mathias Paulenko
 seo:
@@ -43,19 +41,33 @@ seo:
 
 ## Overview
 
-Encryption at rest protects data when it is stored on disk, in backups, or in object storage. Even if an attacker gains physical access to a hard drive, steals a database backup, or compromises a cloud storage bucket, encrypted data remains unreadable without the corresponding decryption key. This is a fundamental requirement for compliance frameworks like GDPR, HIPAA, PCI-DSS, and SOC 2.
+Encryption at rest is what keeps data safe when it's sitting on disk, in a backup, or in object storage.
+Without it, a lost laptop, a misconfigured S3 bucket, or a stolen backup can turn into a full data breach. If
+someone walks off with a drive, a backup tape, or a cloud bucket, the data is still just noise to them without
+the right decryption key. That's why frameworks like GDPR, HIPAA, PCI-DSS, and SOC 2 all expect it.
 
-The naive approach — encrypting entire database columns with a single application key — creates operational fragility. Key rotation becomes painful, performance degradates on large tables, and a leaked key exposes all data. Modern encryption at rest uses envelope encryption: a data encryption key (DEK) encrypts the payload, while a key encryption key (KEK) stored in a hardware security module or cloud KMS encrypts the DEK. This enables per-record key rotation, granular access control, and high-performance bulk operations. Here is how to AES-256-GCM encryption, envelope encryption patterns, and integration with AWS KMS, Azure Key Vault, and HashiCorp Vault.
+The naive way is to encrypt whole database columns with a single application key. That quickly becomes
+painful: key rotation is slow, big tables slow down, and one leaked key exposes everything. The better
+approach is envelope encryption. A data encryption key (DEK) encrypts the actual payload, and a key
+encryption key (KEK) — held in a hardware security module or cloud KMS — encrypts the DEK. Splitting the
+keys like that means you can rotate keys per record, control access more finely, and run bulk operations
+without killing performance. This recipe walks through AES-256-GCM, envelope patterns, and how to integrate
+with AWS
+KMS, Azure Key Vault, and HashiCorp Vault.
 
-## When to use it
+## When to Use
 
-Use this recipe when:
+Reach for this recipe when your data includes personally identifiable information (PII), health records, or
+financial information. It also fits multi-tenant SaaS applications where each tenant needs its own
+encryption, and any time you're working to comply with GDPR Article 32, the HIPAA Security Rule, or PCI-DSS
+requirement 3.4. Encrypting database backups before moving them to cold storage, and protecting API keys,
+credentials, and configuration files in object storage, are other common cases.
 
-- Storing personally identifiable information (PII), health records, or financial data
-- Building multi-tenant SaaS applications where each tenant requires isolated encryption
-- Complying with GDPR Article 32, HIPAA Security Rule, or PCI-DSS requirement 3.4
-- Encrypting database backups before transferring them to cold storage
-- Protecting API keys, credentials, and configuration files in object storage
+## When NOT to Use
+
+Don't add encryption at rest to data that's already public or non-sensitive, such as product
+catalogs, marketing assets, or anonymous analytics. The added latency, key management, and operational
+overhead isn't worth it for information that carries no risk if exposed.
 
 ## Solution
 
@@ -173,63 +185,105 @@ class FieldEncryption {
 
 ## Explanation
 
-- **Envelope encryption**: each record is encrypted with a unique data encryption key (DEK). The DEK itself is encrypted by a key encryption key (KEK) managed in a KMS. This means you can rotate the KEK without re-encrypting all data, and you can revoke access to a single record by deleting its DEK.
-- **AES-256-GCM**: the industry standard for authenticated encryption. GCM mode provides confidentiality (encryption) and integrity (authentication tag) in a single operation. Always verify the authentication tag before decrypting to detect tampering.
-- **Key derivation**: instead of storing DEKs separately, derive them deterministically from a master key and record ID using HKDF. This eliminates DEK storage but makes key rotation more complex — changing the master key requires re-encrypting all records.
-- **Cloud KMS integration**: AWS KMS, Azure Key Vault, and GCP KMS provide FIPS 140-2 Level 2+ hardware security modules. For secret management practices, see [secrets management guide](/guides/security-best-practices-guide/). They handle key generation, rotation, access policies, and audit logging. Never store master keys in application configuration files.
+Here's the trick with envelope encryption: each record gets its own data encryption key (DEK), and that DEK
+is wrapped by a key encryption key (KEK) stored in a KMS. Because the two keys are separate, you can rotate
+the KEK without re-encrypting the whole dataset, and you can revoke access to a single record by removing
+its DEK.
+
+When it comes to the algorithm, go with AES-256-GCM. You get both confidentiality and integrity in one
+operation through an authentication tag, so always verify that tag before decrypting. Otherwise you lose tamper
+detection.
+
+Key derivation is another way to handle DEKs. Using HKDF, you can derive a DEK deterministically from a
+master key and a record ID. That removes the need to store each DEK, but it makes rotation harder: changing
+the master key means re-encrypting every record.
+
+Cloud KMS integration — whether AWS KMS, Azure Key Vault, or GCP KMS — gives you FIPS 140-2 Level 2+
+hardware security modules and takes care of key generation, rotation, access policies, and audit logging.
+Never store master keys in application configuration files.
 
 ## Variants
 
 | Approach | Key management | Performance | Rotation ease | Best for |
-|----------|---------------|-------------|---------------|----------|
+| --- | --- | --- | --- | --- |
 | Database-native (TDE) | Database engine | Fast (transparent) | Hard | Compliance checkbox |
 | Application envelope | Cloud KMS | Medium | Easy | SaaS multi-tenant |
 | Column-level encryption | Application | Slow (per-cell) | Medium | Highly sensitive fields |
 | Client-side encryption | Client key | Slow | Easy | End-to-end privacy |
 
-## What works
+## Best Practices
 
-- **Encrypt before it reaches the database**: application-level encryption protects against database-level breaches. If the database is compromised but the application server is not, attackers see only ciphertext.
-- **Use authenticated encryption (AEAD)**: AES-GCM and ChaCha20-Poly1305 both provide authentication tags. Never use unauthenticated modes like AES-CBC or AES-ECB, which are vulnerable to padding oracle and tampering attacks.
-- **Rotate keys regularly**: establish a key rotation policy (annually for KEKs, per-record for DEKs). Cloud KMS supports automatic rotation of master keys. Document the rotation procedure and test it in staging.
-- **Searchable encryption**: standard encryption breaks database indexing and search. Use deterministic encryption (same plaintext → same ciphertext) for exact-match queries, or order-preserving encryption for range queries. Be aware these leak some information.
-- **Separate key per tenant**: in multi-tenant SaaS, encrypt each tenant's data with a different KEK. This ensures that compromising one tenant's key does not expose other tenants' data.
+Keep encryption in the application layer when the data really matters. If the database is breached but the
+application server isn't, attackers only see ciphertext. For the algorithm, stick with authenticated
+encryption (AEAD) such as AES-GCM or ChaCha20-Poly1305, and skip unauthenticated modes like AES-CBC or
+AES-ECB, which are open to padding oracle and tampering attacks.
 
-## Common mistakes
+Rotate keys on a schedule. Plan on rotating KEKs at least once a year and DEKs per record when needed. Cloud
+KMS can automate master-key rotation, but you should still document and test the procedure in staging.
 
-- **Hardcoding encryption keys in source code**: embedding a master key in `config.py` or an environment variable on a shared server defeats the purpose. Use a dedicated [secret manager](/recipes/vault-dynamic-credentials/) with IAM controls.
-- **Ignoring the authentication tag**: decrypting AES-GCM without verifying the authentication tag removes tamper detection. Always check the tag before processing decrypted data.
-- **Encrypting everything indiscriminately**: encryption adds latency, storage overhead, and complexity. Only encrypt fields that are genuinely sensitive (PII, credentials, health data). Public product catalogs do not need encryption at rest.
-- **Losing the master key**: if the KMS master key is deleted or inaccessible, all encrypted data is permanently lost. Enable key deletion protection, maintain cross-region replicas, and test disaster recovery procedures.
+Think about search before you encrypt, because standard encryption breaks indexing. Use deterministic
+encryption for exact-match queries, blind indexes, or order-preserving encryption for ranges. Each of these
+leaks a little information, so pick the one that matches your threat model. In multi-tenant SaaS, give each
+tenant its own KEK so a compromised key only exposes one tenant's data.
+
+## Common Mistakes
+
+Hardcoding encryption keys in source code is the obvious one. Embedding a master key in `config.py` or in an
+environment variable on a shared server defeats the purpose, so use a dedicated [secret manager](/recipes/vault-dynamic-credentials/)
+with IAM controls instead. Never ignore the authentication tag — decrypting AES-GCM without checking it
+removes tamper detection. Don’t encrypt every field just because you can. Encryption adds latency, storage
+overhead, and complexity, so only encrypt genuinely sensitive fields like PII, credentials, and health data.
+Public product catalogs
+don’t need to be encrypted at rest.
+
+Finally, don’t lose the master key. If the KMS master key gets deleted or becomes inaccessible, your encrypted
+data is gone for good. Enable key deletion protection, keep cross-region replicas, and test disaster recovery
+procedures.
 
 ## FAQ
 
-**Q: Does encryption at rest protect against SQL injection?**
-A: No. Encryption at rest protects data on disk. SQL injection attacks operate against running databases via query manipulation. Combine encryption with [parameterized queries](/recipes/sql-injection-prevention/) and [input validation](/recipes/input-validation/) for defense in depth.
+### Does encryption at rest protect against SQL injection?
 
-**Q: What is the difference between TDE and application encryption?**
-A: Transparent Data Encryption (TDE) encrypts the entire database file at the storage layer. It is fast and invisible to applications but protects only against disk theft. Application encryption protects individual fields, protecting against database-level breaches but requiring application changes.
+No. Encryption at rest only protects data on disk. SQL injection attacks hit running databases through
+query manipulation, so you still need [parameterized queries](/recipes/sql-injection-prevention/) and
+[input validation](/recipes/input-validation/) if you want defense in depth.
 
-**Q: How do I encrypt data but still allow searching?**
-A: Use deterministic encryption for exact matches (e.g., email lookup), blind indexes (hash prefixes stored alongside ciphertext), or homomorphic encryption for advanced use cases. Each approach involves trade-offs between security and query flexibility.
+### What's the difference between TDE and application encryption?
 
-**Q: Should I encrypt backups separately?**
-A: Yes. Database backups should be encrypted with a key distinct from the production encryption key. Store backup encryption keys in a separate [vault](/recipes/vault-dynamic-credentials/). Test backup decryption quarterly as part of your disaster recovery plan.
+Transparent Data Encryption (TDE) encrypts the whole database file at the storage layer. It's fast and
+invisible to the application, but it only protects against disk theft. Application encryption protects
+individual fields, which helps against database-level breaches, though you've got to change the application
+to make it work.
 
+### How do I encrypt data but still allow searching?
 
-### Is this solution production-ready?
+Use deterministic encryption for exact matches, blind indexes based on hash prefixes, or homomorphic
+encryption for advanced cases. Each of these trades some security for query flexibility, so choose based on
+what you're actually trying to protect.
 
-Yes. The code examples above show tested implementations. Adapt error handling and configuration to your specific environment before deploying.
+### Should I encrypt backups separately?
 
-### What are the performance characteristics?
+Yes. Back up with a key that's different from the production encryption key, and keep that backup key in a
+separate [vault](/recipes/vault-dynamic-credentials/). Test backup decryption at least quarterly as part of
+your disaster recovery plan.
 
-Performance depends on your data volume and infrastructure. The solutions shown prioritize clarity. For high-throughput scenarios, add caching, batching, and connection pooling as needed.
+### Are the examples production-ready?
 
-### How do I debug issues with this approach?
+They're tested starting points. Tighten up error handling, add logging that makes sense for you, and adjust the
+configuration to your own environment before deploying.
 
-Start with the minimal example above. Add logging at each step. Test with small inputs first, then scale up. Use your language's debugger to step through edge cases.
+### What about performance?
 
-## Advanced Solutions
+Performance depends on how much data you're encrypting and what's underneath. The examples here are written
+for clarity, not to squeeze every last millisecond. In high-throughput systems, you'll probably want caching,
+batching, and connection pooling.
+
+### How do I debug issues?
+
+Begin with the smallest working example and add logging at each step. Test with small inputs, then scale up,
+and use your language's debugger to walk through edge cases.
+
+## Advanced Variants
 
 ### Multi-tenant envelope encryption (Python)
 
@@ -322,70 +376,70 @@ decrypted = enc.decrypt(encrypted)
 package main
 
 import (
-	"crypto/aes"
-	"crypto/cipher"
-	"crypto/rand"
-	"encoding/base64"
-	"fmt"
-	"io"
+    "crypto/aes"
+    "crypto/cipher"
+    "crypto/rand"
+    "encoding/base64"
+    "fmt"
+    "io"
 )
 
 type EncryptedData struct {
-	Ciphertext string `json:"ciphertext"`
-	Nonce      string `json:"nonce"`
+    Ciphertext string `json:"ciphertext"`
+    Nonce      string `json:"nonce"`
 }
 
 func encryptAESGCM(key []byte, plaintext, aad []byte) (*EncryptedData, error) {
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, fmt.Errorf("create cipher: %w", err)
-	}
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return nil, fmt.Errorf("create cipher: %w", err)
+    }
 
-	gcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, fmt.Errorf("create GCM: %w", err)
-	}
+    gcm, err := cipher.NewGCM(block)
+    if err != nil {
+        return nil, fmt.Errorf("create GCM: %w", err)
+    }
 
-	nonce := make([]byte, gcm.NonceSize())
-	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
-		return nil, fmt.Errorf("generate nonce: %w", err)
-	}
+    nonce := make([]byte, gcm.NonceSize())
+    if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+        return nil, fmt.Errorf("generate nonce: %w", err)
+    }
 
-	ciphertext := gcm.Seal(nil, nonce, plaintext, aad)
+    ciphertext := gcm.Seal(nil, nonce, plaintext, aad)
 
-	return &EncryptedData{
-		Ciphertext: base64.StdEncoding.EncodeToString(ciphertext),
-		Nonce:      base64.StdEncoding.EncodeToString(nonce),
-	}, nil
+    return &EncryptedData{
+        Ciphertext: base64.StdEncoding.EncodeToString(ciphertext),
+        Nonce:      base64.StdEncoding.EncodeToString(nonce),
+    }, nil
 }
 
 func decryptAESGCM(key []byte, data *EncryptedData, aad []byte) ([]byte, error) {
-	ciphertext, err := base64.StdEncoding.DecodeString(data.Ciphertext)
-	if err != nil {
-		return nil, fmt.Errorf("decode ciphertext: %w", err)
-	}
+    ciphertext, err := base64.StdEncoding.DecodeString(data.Ciphertext)
+    if err != nil {
+        return nil, fmt.Errorf("decode ciphertext: %w", err)
+    }
 
-	nonce, err := base64.StdEncoding.DecodeString(data.Nonce)
-	if err != nil {
-		return nil, fmt.Errorf("decode nonce: %w", err)
-	}
+    nonce, err := base64.StdEncoding.DecodeString(data.Nonce)
+    if err != nil {
+        return nil, fmt.Errorf("decode nonce: %w", err)
+    }
 
-	block, err := aes.NewCipher(key)
-	if err != nil {
-		return nil, fmt.Errorf("create cipher: %w", err)
-	}
+    block, err := aes.NewCipher(key)
+    if err != nil {
+        return nil, fmt.Errorf("create cipher: %w", err)
+    }
 
-	gcm, err := cipher.NewGCM(block)
-	if err != nil {
-		return nil, fmt.Errorf("create GCM: %w", err)
-	}
+    gcm, err := cipher.NewGCM(block)
+    if err != nil {
+        return nil, fmt.Errorf("create GCM: %w", err)
+    }
 
-	plaintext, err := gcm.Open(nil, nonce, ciphertext, aad)
-	if err != nil {
-		return nil, fmt.Errorf("decrypt: %w (possible tampering detected)", err)
-	}
+    plaintext, err := gcm.Open(nil, nonce, ciphertext, aad)
+    if err != nil {
+        return nil, fmt.Errorf("decrypt: %w (possible tampering detected)", err)
+    }
 
-	return plaintext, nil
+    return plaintext, nil
 }
 ```
 
@@ -512,6 +566,3 @@ rotation = KeyRotation(
 )
 # rotation.batch_re_encrypt(fetch_records, update_record, batch_size=500)
 ```
-
-
-
