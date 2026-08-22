@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/typescript-utility-types-generics
   - /recipes/javascript-debounce-throttle-implementation
   - /recipes/server-side-rendering
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -38,28 +38,26 @@ seo:
     - forms type-safe
 ---
 
-## Resumen
-
-`react-hook-form` maneja el estado del formulario con re-renders mínimos. `zod` define esquemas
-de validación con inferencia completa de TypeScript. `@hookform/resolvers/zod` los conecta: el
-formulario valida contra el esquema Zod y los valores se tipan automáticamente. Esto te da
-formularios type-safe y performantes con reglas de validación declarativas.
+`react-hook-form` mantiene los re-renders bajos registrando inputs no controlados en lugar de
+trackear
+cada keystroke. `zod` te permite escribir un esquema de validación y sacarle un tipo de TypeScript.
+Sumá `@hookform/resolvers/zod` y el formulario valida contra el esquema mientras los valores salen
+ya
+tipados. El resultado es un formulario type-safe y rápido, con las reglas de validación en un solo
+lugar.
 
 ## Cuándo Usarlo
 
-- Formularios con reglas de validación complejas (condicionales, cross-field, async).
-- Formularios type-safe donde el tipo de datos enviados coincide con el esquema.
-- Formularios con campos dinámicos (field arrays, secciones condicionales).
-- Formularios grandes donde la performance importa — react-hook-form evita re-renders en cada
-  keystroke.
-- Formularios integrados con librerías de UI como shadcn/ui, Material UI o Chakra.
+Este combo brilla cuando la validación se pone fea: reglas condicionales, cross-field, validaciones
+async del lado del servidor, objetos anidados o field arrays. También es la elección correcta para
+formularios grandes donde cada keystroke no debería disparar un re-render, y para integrar con
+librerías de UI como shadcn/ui, Material UI o Chakra.
 
 ## Cuándo NO Usarlo
 
-- Formularios simples con 1-2 campos — `useState` y un check básico alcanzan.
-- Formularios que requieren feedback visual complejo en cada keystroke — los controlled
-  components pueden ser más simples.
-- Proyectos que no usen React — react-hook-form es solo para React.
+Para un formulario con uno o dos campos, un poco de `useState` y un chequeo manual alcanzan. Si
+necesitás feedback visual rico en cada keystroke, un componente totalmente controlado puede ser más
+simple. Y obviamente, solo funciona en React.
 
 ## Solución
 
@@ -458,29 +456,28 @@ function EditProfileForm({ defaultValues }: { defaultValues: FormData }) {
 
 ## Buenas Prácticas
 
-- Derivá el tipo del formulario del esquema Zod con `z.infer<typeof schema>`. No dupliques el
-  tipo.
-- Usá `valueAsNumber: true` para inputs de números. Sin él, el valor es un string.
-- Seteá `defaultValues` para todos los campos. react-hook-form funciona mejor con valores
-  iniciales.
-- Usá `mode: "onBlur"` o `mode: "onChange"` para validar en blur o change en vez de solo en
-  submit.
-- Usá `useFieldArray` para listas dinámicas. No manejes índices de arrays manualmente.
-- Usá `FormProvider` cuando los campos del formulario se dividen entre varios componentes hijos.
-- Validá en el esquema, no en el componente. Mantené las reglas de validación en un solo lugar.
-- Para performance, consultá [When to Use useMemo and useCallback](/es/recipes/react-usememo-usecallback-performance/).
+Derivá el tipo del formulario del esquema Zod con `z.infer<typeof schema>` en vez de definirlo dos
+veces. Para inputs numéricos, agregá `valueAsNumber: true` para que el valor parseado sea realmente
+un número y no un string. Seteá `defaultValues` para cada campo; react-hook-form se comporta mejor
+con valores iniciales, especialmente para checkboxes y selects.
+
+Si querés feedback antes de que el usuario envíe, usá `mode: "onBlur"` o `mode: "onChange"`. Para
+campos repetidos o dinámicos, `useFieldArray` es mucho más seguro que manejar índices a mano. Cuando
+el formulario se divide en componentes hijos, usá `FormProvider` para evitar prop drilling. Mantené
+las reglas de validación dentro del esquema Zod en lugar de dispersarlas en el componente. Para
+tips de performance, consultá [When to Use useMemo and
+useCallback](/es/recipes/react-usememo-usecallback-performance/).
 
 ## Errores Comunes
 
-- **No usar `valueAsNumber`**: los inputs de números retornan strings por defecto. Sin
-  `valueAsNumber`, `z.number()` de Zod falla.
-- **Faltar `defaultValues`**: sin defaults, checkboxes y selects pueden tener valores undefined.
-- **Validar solo en submit**: seteá `mode: "onBlur"` para mejor UX — los usuarios ven errores
-  antes de enviar.
-- **No tipar el resolver**: `useForm<FormData>({ resolver: zodResolver(schema) })`. Sin el
-  generic, los valores del formulario son untyped.
-- **Usar controlled components innecesariamente**: react-hook-form usa uncontrolled components por
-  defecto. No spreades `value` y `onChange` encima de `register`.
+- **Olvidar `valueAsNumber`**. Los inputs numéricos retornan strings por defecto, así que
+    `z.number()` los rechaza a menos que agregues `valueAsNumber: true`.
+- **Saltear `defaultValues`**. Sin ellos, checkboxes y selects pueden quedar `undefined`.
+- **Validar solo en submit**. `mode: "onBlur"` le da feedback al usuario antes.
+- **No tipar el resolver**. Siempre pasá el genérico `useForm<FormData>({ resolver:
+    zodResolver(schema) })` para obtener valores tipados.
+- **Usar controlled components innecesariamente**. `register` devuelve props para inputs no
+    controlados, así que no pongas tu propio `value` y `onChange` encima.
 
 ## Preguntas Frecuentes
 
@@ -495,8 +492,9 @@ useForm<FormData>({
 
 ### ¿Puedo usar react-hook-form sin Zod?
 
-Sí. Usá `register("name", { required: true, minLength: 2 })` para validación inline. Zod es para
-esquemas complejos y reutilizables.
+Sí. Para casos simples podés pasar las reglas directamente a `register`, como `register("name", {
+required: true, minLength: 2 })`. Zod empieza a valer la pena cuando el esquema crece o querés
+reutilizarlo en varios lugares.
 
 ### ¿Cómo seteo un valor de campo programáticamente?
 
@@ -517,7 +515,8 @@ const subscription = watch((value) => console.log(value));
 
 ### ¿Puedo usar react-hook-form con React Native?
 
-Sí. Usá `Controller` para componentes custom:
+Sí. `Controller` es el camino para componentes que no exponen una ref plana, como el `TextInput` de
+React Native:
 
 ```tsx
 import { Controller } from "react-hook-form";

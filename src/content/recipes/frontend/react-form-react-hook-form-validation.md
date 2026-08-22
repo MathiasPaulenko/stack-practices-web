@@ -22,7 +22,7 @@ relatedResources:
   - /recipes/typescript-utility-types-generics
   - /recipes/javascript-debounce-throttle-implementation
   - /recipes/server-side-rendering
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-05"
 author: Mathias Paulenko
 seo:
@@ -38,28 +38,24 @@ seo:
     - type-safe forms
 ---
 
-## Overview
-
-`react-hook-form` manages form state with minimal re-renders. `zod` defines validation schemas
-with full TypeScript inference. `@hookform/resolvers/zod` connects them: the form validates
-against the Zod schema and the values are typed automatically. This gives you type-safe,
-performant forms with declarative validation rules.
+`react-hook-form` keeps re-renders low by registering uncontrolled inputs instead of tracking every
+keystroke. `zod` lets you write a validation schema and pull a TypeScript type out of it. Add
+`@hookform/resolvers/zod` and the form validates against the schema while the values come out
+already
+typed. The result is a form that's type-safe and fast, with validation rules in one place.
 
 ## When to Use
 
-- Forms with complex validation rules (conditional, cross-field, async).
-- Type-safe forms where the submitted data type matches the schema.
-- Forms with dynamic fields (field arrays, conditional sections).
-- Large forms where performance matters — react-hook-form avoids re-rendering on every
-  keystroke.
-- Forms integrated with UI component libraries such as shadcn/ui, Material UI, or Chakra.
+This combo shines when validation gets messy: conditional rules, cross-field checks, async
+server-side checks, nested objects, or field arrays. It's also the right call for large forms where
+every keystroke shouldn't trigger a re-render, and for integrating with UI libraries such as
+shadcn/ui, Material UI, or Chakra.
 
 ## When NOT to Use
 
-- Simple forms with 1-2 fields — `useState` and a basic check is enough.
-- Forms requiring complex visual feedback on every keystroke — controlled components might be
-  simpler.
-- Non-React projects — react-hook-form is React-only.
+For a form with one or two fields, a bit of `useState` and a manual check is enough. If you need
+rich visual feedback on every keystroke, a fully controlled component might be simpler. And
+obviously, it only works in React.
 
 ## Solution
 
@@ -458,29 +454,28 @@ function EditProfileForm({ defaultValues }: { defaultValues: FormData }) {
 
 ## Best Practices
 
-- Derive the form type from the Zod schema with `z.infer<typeof schema>`. Don't duplicate the
-  type.
-- Use `valueAsNumber: true` for number inputs. Without it, the value is a string.
-- Set `defaultValues` for all fields. react-hook-form works better with initial values.
-- Use `mode: "onBlur"` or `mode: "onChange"` to validate on blur or change instead of only on
-  submit.
-- Use `useFieldArray` for dynamic lists. Don't manage array indices manually.
-- Use `FormProvider` when form fields are split across several child components.
-- Validate in the schema, not in the component. Keep validation rules in one place.
-- For performance, see [When to Use useMemo and useCallback](/recipes/react-usememo-usecallback-performance/).
+Derive the form type from the Zod schema with `z.infer<typeof schema>` instead of duplicating it.
+For number inputs, add `valueAsNumber: true` so the parsed value is actually a number, not a string.
+Set `defaultValues` for every field; react-hook-form works better with initial values, especially
+for checkboxes and selects.
+
+If you want feedback before the user hits submit, use `mode: "onBlur"` or `mode: "onChange"`. For
+repeated or dynamic fields, `useFieldArray` is much safer than managing array indices manually. When
+the form is split across child components, use `FormProvider` to avoid prop drilling. Keep
+validation rules inside the Zod schema rather than scattering them across the component. For
+performance guidance, see [When to Use useMemo and
+useCallback](/recipes/react-usememo-usecallback-performance/).
 
 ## Common Mistakes
 
-- **Not using `valueAsNumber`**: number inputs return strings by default. Without `valueAsNumber`,
-  Zod's `z.number()` fails.
-- **Missing `defaultValues`**: without defaults, checkboxes and select elements may have undefined
-  values.
-- **Validating only on submit**: set `mode: "onBlur"` for better UX — users see errors before
-  submitting.
-- **Not typing the resolver**: `useForm<FormData>({ resolver: zodResolver(schema) })`. Without the
-  generic, the form values are untyped.
-- **Using controlled components unnecessarily**: react-hook-form uses uncontrolled components by
-  default. Don't spread `value` and `onChange` on top of `register`.
+- **Forgetting `valueAsNumber`**. Number inputs return strings by default, so `z.number()` rejects
+    them unless you add `valueAsNumber: true`.
+- **Skipping `defaultValues`**. Without them, checkboxes and selects can end up `undefined`.
+- **Validating only on submit**. `mode: "onBlur"` gives users feedback earlier.
+- **Not typing the resolver**. Always pass the generic so `useForm<FormData>({ resolver:
+    zodResolver(schema) })` gives you typed values.
+- **Using controlled components unnecessarily**. `register` returns props for uncontrolled inputs,
+    so don't layer your own `value` and `onChange` on top.
 
 ## FAQ
 
@@ -495,8 +490,8 @@ useForm<FormData>({
 
 ### Can I use react-hook-form without Zod?
 
-Yes. Use `register("name", { required: true, minLength: 2 })` for inline validation. Zod is for
-complex, reusable schemas.
+Yes. For simple cases you can pass rules directly to `register`, like `register("name", { required:
+true, minLength: 2 })`. Zod becomes worth it once the schema grows or you want to reuse it in more than one form.
 
 ### How do I set a field value programmatically?
 
@@ -517,7 +512,8 @@ const subscription = watch((value) => console.log(value));
 
 ### Can I use react-hook-form with React Native?
 
-Yes. Use `Controller` for custom components:
+Yes. `Controller` is the way to go for components that don't expose a plain ref, like React Native's
+`TextInput`:
 
 ```tsx
 import { Controller } from "react-hook-form";
