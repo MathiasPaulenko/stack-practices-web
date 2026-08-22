@@ -489,8 +489,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/patterns/graphql-federated-entity-pattern/
    - ES: https://stackpractices.com/es/patterns/graphql-federated-entity-pattern/
    - Focus: low CTR, proven demand
-   - Status: ✅ Title + meta optimized in P1.1
-   - Words: 1,550 | Meta: 139 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 48.1% / ES 43.4% (0 patterns)
+   - Words: 817 | Meta: 147 chars
 
 61. - [x] **cli-tool-argument-parsing** (recipes)
    - Metrics: 15 imp | pos 12.9 | CTR 0.00% | Δ impr -7

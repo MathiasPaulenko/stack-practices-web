@@ -1,23 +1,23 @@
 ---
 contentType: patterns
 slug: graphql-federated-entity-pattern
-title: GraphQL Federated Entity Pattern
-description: Learn the GraphQL federated entity pattern with Apollo Federation. Share entity types across subgraphs using @key, @external, and @extends.
-metaDescription: Learn the GraphQL federated entity pattern with Apollo Federation. Share entity types across subgraphs using @key, @external, and @extends.
+title: "GraphQL Federated Entity Pattern"
+description: "Share an entity across Apollo Federation subgraphs. Use @key, @external, and @shareable so each service owns the fields it knows best."
+metaDescription: "Share a GraphQL entity across Apollo Federation subgraphs. Learn how @key, @external, and @shareable let each service own the fields it knows best."
 difficulty: advanced
 topics:
   - graphql
   - design
+  - architecture
 tags:
   - graphql
   - federation
-  - entity
-  - pattern
   - apollo
+  - entity
   - subgraph
   - microservices
-  - typescript
   - schema-design
+  - pattern
 relatedResources:
   - /patterns/graphql-schema-stitching-pattern
   - /patterns/graphql-connection-pagination-pattern
@@ -25,180 +25,175 @@ relatedResources:
   - /patterns/graphql-mutation-validation-pattern
   - /docs/graphql-federation-onboarding-template
   - /guides/complete-guide-graphql-federation
-lastUpdated: "2026-08-10"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-07-03"
 author: Mathias Paulenko
 seo:
-  metaDescription: Learn the GraphQL federated entity pattern with Apollo Federation. Share entity types across subgraphs using @key, @external, and @extends.
+  metaDescription: "Share a GraphQL entity across Apollo Federation subgraphs. Learn how @key, @external, and @shareable let each service own the fields it knows best."
   keywords:
     - graphql federation
     - federated entity pattern
     - apollo federation
+    - subgraph
+    - entity
 ---
-## Overview
 
-In Apollo Federation, an entity is an object type shared across multiple subgraphs. Each subgraph contributes different fields to the same entity. The gateway stitches them together so clients query a single unified type without knowing which service owns which field.
+In Apollo Federation, an entity is an object type that several subgraphs can contribute to at the
+same time. One service owns the base fields, others add their own, and the gateway merges everything
+into a single GraphQL type.
 
-Entities are the building blocks of a federated graph. They use the `@key` directive to declare a primary key, `@extends` to add fields from another subgraph, and `@external` to reference fields owned by other services. The gateway resolves entities by calling each subgraph's `_entities` field with the appropriate keys.
+The pattern keeps each subgraph focused on the data it already manages. A users service owns
+`User.name`, an orders service adds `User.orders`, and a reviews service adds `User.reviews`.
+Clients query one schema, but the gateway routes each field to the right service.
 
 ## When to Use
 
-- Multiple services own different fields of the same domain entity (e.g. User has profile in one service, orders in another)
-- You are building a microservices architecture with GraphQL
-- You need a unified API gateway without coupling services
-- Schema stitching is insufficient because you need type merging at the entity level
-- You want to split a monolithic GraphQL schema into domain-owned subgraphs
+- Different microservices own different fields of the same domain object.
+- You want a unified GraphQL API without building a monolithic schema.
+- Schema stitching feels too manual or error-prone for type merging.
+- Teams need to deploy and own their part of the graph independently.
+
+## When NOT to Use
+
+- The entity is only ever read or written by a single service. A regular GraphQL schema is simpler.
+- Subgraphs are tightly coupled and share the same database. Federation adds complexity you don't
+    need.
+- You're still on a GraphQL server that doesn't support the Apollo Federation spec.
 
 ## Solution
 
-### Subgraph A: User Service (owns User entity)
+### Subgraph A: User Service (owns the entity)
+
+The base subgraph declares the entity with `@key` and adds `__resolveReference` so the gateway
+can fetch it by its key.
 
 ```typescript
-import { buildSubgraphSchema } from '@apollo/subgraph';
 import { ApolloServer } from '@apollo/server';
+import { buildSubgraphSchema } from '@apollo/subgraph';
+import { startStandaloneServer } from '@apollo/server/standalone';
 
-const typeDefs = `
+const typeDefs = `#graphql
   type User @key(fields: "id") {
     id: ID!
     name: String!
     email: String!
-    profile: Profile
-  }
-
-  type Profile {
-    bio: String
-    avatarUrl: String
-  }
-
-  type Query {
-    user(id: ID!): User
-    users: [User!]!
   }
 `;
 
 const resolvers = {
   User: {
-    __resolveReference: (user, context) => {
-      // Called by the gateway when another subgraph references this entity
-      return context.dataSources.userApi.getById(user.id);
+    __resolveReference(user: { id: string }) {
+      return userService.getById(user.id);
     },
   },
   Query: {
-    user: (_, { id }, context) => context.dataSources.userApi.getById(id),
-    users: (_, __, context) => context.dataSources.userApi.getAll(),
+    user(_: unknown, { id }: { id: string }) {
+      return userService.getById(id);
+    },
   },
 };
 
 const server = new ApolloServer({
   schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
 });
+
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4001 },
+});
+console.log(`Users service ready at ${url}`);
 ```
 
-### Subgraph B: Order Service (extends User entity)
+### Subgraph B: Order Service (extends the entity)
+
+The order subgraph doesn't own `User`, but it adds `User.orders`. The `id` field is marked
+`@external` because another service owns it. `resolvable: false` tells the gateway that this
+subgraph can't fetch a `User` by key on its own.
 
 ```typescript
-const typeDefs = `
-  type User @key(fields: "id") @extends {
-    id: ID! @external
-    orders: [Order!]!
-  }
-
+const typeDefs = `#graphql
   type Order @key(fields: "id") {
     id: ID!
     userId: ID!
     total: Float!
-    items: [OrderItem!]!
   }
 
-  type OrderItem {
-    productId: ID!
-    quantity: Int!
-    price: Float!
-  }
-
-  type Query {
-    order(id: ID!): Order
-    ordersByUser(userId: ID!): [Order!]!
+  type User @key(fields: "id", resolvable: false) {
+    id: ID! @external
+    orders: [Order!]!
   }
 `;
 
 const resolvers = {
   User: {
-    orders: (user, _, context) => {
-      // Gateway provides user.id from the parent subgraph
-      return context.dataSources.orderApi.getByUserId(user.id);
+    orders(user: { id: string }) {
+      return orderService.getByUserId(user.id);
     },
   },
   Query: {
-    order: (_, { id }, context) => context.dataSources.orderApi.getById(id),
-    ordersByUser: (_, { userId }, context) => context.dataSources.orderApi.getByUserId(userId),
+    order(_: unknown, { id }: { id: string }) {
+      return orderService.getById(id);
+    },
   },
 };
-
-const server = new ApolloServer({
-  schema: buildSubgraphSchema([{ typeDefs, resolvers }]),
-});
 ```
 
-### Subgraph C: Review Service (extends both User and Product)
+### Subgraph C: Review Service (extends the entity again)
+
+Another subgraph can also extend `User`. Each subgraph only declares the fields it knows.
 
 ```typescript
-const typeDefs = `
-  type User @key(fields: "id") @extends {
-    id: ID! @external
-    reviews: [Review!]!
-  }
-
-  type Product @key(fields: "id") @extends {
-    id: ID! @external
-    reviews: [Review!]!
-  }
-
+const typeDefs = `#graphql
   type Review @key(fields: "id") {
     id: ID!
-    userId: ID!
     productId: ID!
     rating: Int!
     comment: String
   }
 
-  type Query {
-    reviewsByProduct(productId: ID!): [Review!]!
+  type User @key(fields: "id", resolvable: false) {
+    id: ID! @external
+    reviews: [Review!]!
   }
 `;
 
 const resolvers = {
   User: {
-    reviews: (user, _, context) =>
-      context.dataSources.reviewApi.getByUserId(user.id),
-  },
-  Product: {
-    reviews: (product, _, context) =>
-      context.dataSources.reviewApi.getByProductId(product.id),
+    reviews(user: { id: string }) {
+      return reviewService.getByUserId(user.id);
+    },
   },
 };
 ```
 
-### Gateway Setup
+### Gateway
+
+The gateway asks each subgraph for its schema, builds a supergraph, and routes fields automatically.
 
 ```typescript
-import { ApolloGateway } from '@apollo/gateway';
+import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 
 const gateway = new ApolloGateway({
-  serviceList: [
-    { name: 'users', url: 'http://localhost:4001/graphql' },
-    { name: 'orders', url: 'http://localhost:4002/graphql' },
-    { name: 'reviews', url: 'http://localhost:4003/graphql' },
-  ],
+  supergraphSdl: new IntrospectAndCompose({
+    subgraphs: [
+      { name: 'users', url: 'http://localhost:4001/graphql' },
+      { name: 'orders', url: 'http://localhost:4002/graphql' },
+      { name: 'reviews', url: 'http://localhost:4003/graphql' },
+    ],
+  }),
 });
 
 const server = new ApolloServer({ gateway });
-startStandaloneServer(server, { listen: { port: 4000 } });
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+});
+console.log(`Gateway ready at ${url}`);
 ```
 
-### Client Query (Cross-Service)
+### Client Query
+
+The client sees a single `User` type, even though the fields come from three services.
 
 ```graphql
 query GetUserWithOrdersAndReviews {
@@ -209,10 +204,6 @@ query GetUserWithOrdersAndReviews {
     orders {
       id
       total
-      items {
-        productId
-        quantity
-      }
     }
     reviews {
       id
@@ -225,145 +216,105 @@ query GetUserWithOrdersAndReviews {
 
 ## Explanation
 
-Federation works through three directives:
+Federation resolves that query in three steps:
 
-- **`@key(fields: "id")`** — declares the primary key of an entity. The gateway uses this key to request the entity from any subgraph that owns it.
-- **`@extends`** — marks a type as an extension. The subgraph does not own the type but adds fields to it.
-- **`@external`** — marks a field as owned by another subgraph. The resolver receives this field's value from the gateway.
+1. The gateway asks the **users** subgraph for `user(id: "123")` and the base fields `id`, `name`,
+    `email`.
+2. It sends the `id` to the **orders** and **reviews** subgraphs through the `_entities` query,
+    asking for `orders` and `reviews`.
+3. It merges the results into one `User` object and returns it to the client.
 
-When a client queries `user(id: "123") { orders { total } }`, the gateway:
+The key pieces are:
 
-1. Sends the query to the users subgraph to resolve `user(id: "123")` and fetch `id`, `name`, `email`
-2. Sends the `id` to the orders subgraph via `_entities` to resolve `User.orders`
-3. Merges the results and returns a single `User` object to the client
-
-The `__resolveReference` resolver is called when the gateway requests an entity by its key. Each subgraph that owns the entity must implement this resolver to fetch the base fields.
+- **`@key(fields: "id")`** — tells the gateway how to identify the entity across subgraphs.
+- **`@external`** — marks a field that this subgraph uses but doesn't own.
+- **`resolvable: false`** — tells the gateway the subgraph can't resolve the entity by key on its
+    own.
+- **`__resolveReference`** — the resolver the gateway calls when it needs to fetch an entity by its
+    key.
 
 ## Variants
 
-| Approach | Directives | Best For |
-|----------|-----------|----------|
-| Single key | `@key(fields: "id")` | Standard entities with one ID |
-| Composite key | `@key(fields: "orgId id")` | Multi-tenant or partitioned entities |
-| Multiple keys | `@key(fields: "id") @key(fields: "email")` | Lookup by different identifiers |
-| Entity with computed fields | `@requires` | Fields computed from other subgraph fields |
-| Shareable fields | `@shareable` | Fields resolved by multiple subgraphs |
+| Variant | Directive | Use Case |
+| --- | --- | --- |
+| Single key | `@key(fields: "id")` | Most entities with a primary ID |
+| Composite key | `@key(fields: "tenantId id")` | Multi-tenant or partitioned entities |
+| Several lookup keys | `@key(fields: "id") @key(fields: "email")` | Lookup by more than one identifier |
+| Computed field | `@requires(fields: "address")` | A field that needs data from another subgraph first |
+| Shared field | `@shareable` | A field resolved by more than one subgraph |
+
+### Composite key example
+
+```graphql
+type User @key(fields: "tenantId id") {
+  tenantId: ID!
+  id: ID!
+  name: String!
+}
+```
+
+### `@requires` example
+
+The shipping subgraph computes `shippingCost` from the user's `address`, which the users subgraph
+owns.
+
+```graphql
+type User @key(fields: "id", resolvable: false) {
+  id: ID! @external
+  address: String! @external
+  shippingCost: Float! @requires(fields: "address")
+}
+```
+
+The gateway fetches `address` first, then passes it to the shipping resolver.
 
 ## Best Practices
 
-
-- For a deeper guide, see [GraphQL Connection Pagination Pattern](/patterns/graphql-connection-pagination-pattern/).
-
-- **One owning service per entity** — only one subgraph should own the base type definition. Others use `@extends`.
-- **Use `__resolveReference` efficiently** — the gateway calls it for every entity reference. Batch database calls when multiple entities are requested.
-- **Keep entities small** — only declare fields that this subgraph owns. Extending with too many fields creates a heavy gateway query plan.
-- **Use `@requires` for computed fields** — if a field needs data from another subgraph, declare it with `@requires` so the gateway fetches the dependency first.
-- **Version entities carefully** — changing `@key` fields breaks the gateway. Add new keys before removing old ones.
+- Keep one base definition per entity. Other subgraphs add fields, but only one service owns the
+    core type.
+- Batch calls in `__resolveReference`. The gateway calls it for every entity reference, so one query
+    per entity isn't enough at scale.
+- Mark key fields as `@external` when the subgraph doesn't own them. Forgetting this causes a
+    schema validation error.
+- Add new keys before removing old ones. Changing a key breaks existing query plans.
+- Use Apollo Studio or the gateway's query plan viewer to verify that fields route through the right
+    subgraphs.
 
 ## Common Mistakes
 
-- **Missing `__resolveReference`** — without it, the gateway cannot resolve entity references from other subgraphs. The query fails with a runtime error.
-- **Declaring `@extends` without `@external`** — extended types must mark inherited fields as `@external`. Forgetting this causes schema validation errors.
-- **Multiple subgraphs owning the same entity** — only one subgraph should define the base type. Others must use `@extends`.
-- **Circular entity references** — Subgraph A extends User with orders, Subgraph B extends Order with user. The gateway handles this, but deep circular queries create expensive query plans.
-- **Not testing the query plan** — use Apollo Studio's query plan viewer to verify the gateway fetches fields from the right subgraphs in the right order.
+- Missing `__resolveReference` on the owning subgraph. The gateway can't fetch the entity without
+    it.
+- Forgetting `@external` on the `id` field in an extension. The gateway will reject the schema.
+- Declaring the base `User` type in two subgraphs. Only one subgraph should own the base definition.
+- Returning extra fields in `__resolveReference`. Only return what the resolver is asked for; the
+    gateway fetches the rest.
+- Deep circular references without query limits. `User.orders.user.orders` can create expensive
+    plans.
 
 ## FAQ
 
-### How does federation differ from schema stitching?
+### How is federation different from schema stitching?
 
-Federation is a specification: subgraphs implement `@key`, `@extends`, and `_entities`. The gateway uses these to build a query plan. Schema stitching manually merges schemas with custom delegation logic. Federation is more structured; stitching is more flexible.
+Federation uses directives and the `_entities` protocol to merge schemas declaratively. Schema
+stitching writes custom resolver logic in the gateway to delegate fields manually. Federation is
+cleaner for Apollo services; stitching is more flexible for integrating external APIs.
 
-### Can a subgraph extend an entity it does not own?
+### Can a subgraph extend an entity it doesn't own?
 
-Yes. That is the core of federation. The subgraph uses `@extends` and `@external` to add fields. The gateway routes field requests to the owning subgraph for base fields and to the extending subgraph for the new fields.
+Yes. It declares the entity with `@key` and marks the key field as `@external`. The gateway routes
+base fields to the owning subgraph and the new fields to the extending subgraph.
 
-### What is `@requires` for?
+### What does `@requires` do?
 
-`@requires` lets a subgraph compute a field using data from another subgraph. For example, the shipping subgraph can define `User.shippingCost` with `@requires(fields: "address")` where `address` is owned by the users subgraph. The gateway fetches `address` first, then passes it to the shipping subgraph.
+It tells the gateway to fetch one or more fields from another subgraph before resolving the
+annotated field. Use it when a field is computed from data owned elsewhere.
 
-### Can I use federation with REST services?
+### Can I federate REST services?
 
-Not directly. Subgraphs must be GraphQL services that implement the federation spec. To integrate REST, create a GraphQL wrapper that calls the REST API and expose it as a subgraph.
+Not directly. Each subgraph must expose a GraphQL schema that follows the Apollo Federation spec.
+You can wrap a REST API in a thin GraphQL subgraph if needed.
 
+### Should every field be `@shareable`?
 
-## Advanced Topics
-
-### Scenario: Federation for GraphQL Microservices
-
-```graphql
-# Subgraph A: Users service
-type User @key(fields: "id") {
-  id: ID!
-  name: String!
-  email: String!
-  # @external: resolved by another subgraph
-  orders: [Order!] @requires(fields: "id")
-}
-
-# Subgraph B: Orders service
-type Order @key(fields: "id") {
-  id: ID!
-  userId: ID!
-  total: Float!
-  # @provides: this subgraph resolves the field
-  user: User @provides(fields: "name")
-}
-
-# Query: the gateway merges both subgraphs
-query {
-  user(id: "123") {
-    name        # resolved by Users service
-    orders {    # resolved by Orders service
-      id
-      total
-    }
-  }
-}
-```
-
-```typescript
-// Apollo Federation: resolve entity reference
-const resolvers = {
-  User: {
-    // __resolveReference: called when another subgraph references User
-    __resolveReference(user, ctx) {
-      return ctx.dataSources.userAPI.getUserById(user.id);
-    },
-    orders(user, _, ctx) {
-      return ctx.dataSources.orderAPI.getOrdersByUserId(user.id);
-    },
-  },
-  Order: {
-    __resolveReference(order, ctx) {
-      return ctx.dataSources.orderAPI.getOrderById(order.id);
-    },
-    user(order, _, ctx) {
-      return { __typename: "User", id: order.userId };
-    },
-  },
-};
-
-// Gateway: merges subgraphs
-const gateway = new ApolloGateway({
-  serviceList: [
-    { name: "users", url: "http://users-service:4001/graphql" },
-    { name: "orders", url: "http://orders-service:4002/graphql" },
-  ],
-});
-
-const server = new ApolloServer({ gateway });
-```
-
-Lessons:
-  - Federation: multiple subgraphs expose a unified schema
-  - @key: defines the field that identifies the entity across subgraphs
-  - __resolveReference: resolves the entity when another subgraph references it
-  - The gateway routes the query to the corresponding subgraphs
-  - Each service is independent: deploy, scaling, separate team
-  - @extends: add fields to a type defined in another subgraph
-```
-
-### Federation vs Schema Stitching: which do I use?
-
-Federation is the modern Apollo standard: each subgraph uses directives (@key, @provides, @requires) and the gateway resolves automatically. Schema Stitching is manual: the gateway defines resolvers that call each service. Federation is declarative: the gateway infers the execution plan. Stitching is imperative: you write the gateway resolvers. For new projects, Federation. For integrating existing non-Apollo APIs, Stitching.
+No. Only use `@shareable` when the same field can be resolved by more than one subgraph. For most
+extensions, `@key` and `@external` are enough.
