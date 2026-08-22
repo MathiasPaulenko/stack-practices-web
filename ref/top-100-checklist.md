@@ -577,8 +577,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/guides/terraform-best-practices-guide/
    - ES: https://stackpractices.com/es/guides/terraform-best-practices-guide/
    - Focus: low CTR
-   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 55.9% / ES 44.3% (0 patterns)
-   - Words: 1302 | Meta: 149 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 50.3% / ES 42.6% (0 patterns)
+   - Words: 1323 | Meta: 149 chars
 
 72. - [x] **server-sent-events-go** (recipes)
    - Metrics: 30 imp | pos 28.5 | CTR 3.33% | Δ impr -2

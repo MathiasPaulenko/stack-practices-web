@@ -2,170 +2,171 @@
   {
     "label": "terraform-best-practices-guide-en",
     "model": "desklib",
-    "model_ai_pct": 55.9,
-    "ai_count": 30,
-    "human_count": 19,
-    "skipped_count": 2,
-    "total": 51,
+    "model_ai_pct": 50.3,
+    "ai_count": 25,
+    "human_count": 25,
+    "skipped_count": 6,
+    "total": 56,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 10.2,
-      "stddev": 4.1,
-      "cv": 0.4,
-      "verdict": "somewhat uniform",
-      "sentence_count": 49,
+      "mean": 12.6,
+      "stddev": 7.3,
+      "cv": 0.58,
+      "verdict": "natural variation",
+      "sentence_count": 50,
       "lengths": [
-        8,
-        14,
-        17,
-        14,
-        7,
-        8,
-        7,
-        7,
-        9,
         10,
+        14,
+        20,
+        17,
+        30,
+        25,
+        11,
+        17,
+        19,
+        6,
+        11,
+        10,
+        6,
+        5,
+        8,
+        10,
+        48,
+        6,
+        19,
+        5,
+        6,
+        11,
+        22,
+        9,
         12,
+        9,
+        17,
+        15,
+        11,
+        9,
+        5,
+        16,
+        12,
+        8,
+        8,
+        10,
+        11,
+        6,
+        11,
+        11,
+        15,
         16,
         6,
-        8,
-        10,
-        6,
-        5,
-        8,
-        9,
-        28,
-        7,
-        11,
-        5,
-        6,
-        11,
-        9,
-        12,
-        9,
-        13,
-        17,
-        15,
-        12,
-        10,
-        9,
-        10,
-        11,
-        12,
-        11,
-        10,
-        15,
-        6,
-        6,
         6,
         13,
-        11,
         13,
-        9,
-        8,
-        5
+        12,
+        12,
+        13,
+        9
       ]
     },
     "top_ai_sentences": [
       [
-        "**Storing state in Git** \u2014 use remote backends with encryption and versioning.",
-        0.91
+        "Getting started is\nstraightforward, but keeping it tidy at scale takes discipline around module design, state\nmanagement,\nsecurity, and collaboration.",
+        0.9422
       ],
       [
-        "For strong isolation, use separate\nbackend configurations or different cloud accounts.",
-        0.8788
+        "If you need real isolation, don't rely only on\nworkspaces; use separate backend configurations or even different cloud accounts.",
+        0.8907
       ],
       [
-        "**Not using plan files** \u2014 always review plans before applying.",
-        0.8272
+        "A plan is your last line of defense.",
+        0.8855
       ],
       [
-        "Apply these practices to one module or\nservice.",
-        0.7759
+        "Favor small modules that compose together instead of one monolithic block.",
+        0.8707
       ],
       [
-        "|Approach|Best For|\n|--------|--------|\n|Workspaces|Simple environments (dev/staging/prod)|\n|Separate directories|Complex environments with different configurations|\n|Separate back",
-        0.7754
+        "| Approach | Best For |\n| --- | --- |\n| Workspaces | Simple environments (dev/staging/prod) |\n| Separate directories | Complex environments with different configurations |\n| Separa",
+        0.7949
       ],
       [
-        "Use a remote backend such as S3 with DynamoDB for locking.",
-        0.7668
+        "Terraform has become the default infrastructure-as-code tool for many teams.",
+        0.7934
       ],
       [
-        "**Hardcoding credentials** \u2014 use variables, environment variables, or IAM roles.",
-        0.7612
+        "They're lightweight, but keep in mind they share the same\nbackend credentials.",
+        0.7784
       ],
       [
-        "You manage cloud infrastructure that changes frequently.",
-        0.7569
-      ],
-      [
-        "While getting started is\nstraightforward, production-grade infrastructure requires discipline around module design, state\nmanagement, security, and collaboration.",
-        0.7452
-      ],
-      [
-        "Terraform is the most widely used infrastructure-as-code tool.",
-        0.7286
-      ],
-      [
-        "They're lightweight, but\n  share backend credentials, so use separate backends for strict separation.",
-        0.7246
-      ],
-      [
-        "**Modules** keep code DRY and reusable.",
-        0.7218
-      ],
-      [
-        "For a deeper dive, see [Complete Guide to Terraform Modules](/guides/complete-guide-terraform-modules/).",
+        "For a deeper dive, see [Complete Guide to Terraform\nModules](/guides/complete-guide-terraform-modules/).",
         0.685
       ],
       [
-        "You're moving from manual provisioning to infrastructure as code.",
-        0.6744
+        "For strict separation, you're better off with separate backends.",
+        0.6713
       ],
       [
-        "Your team isn't ready to manage state files, locks, and backend access.",
-        0.6631
+        "A remote backend like S3 plus DynamoDB for locking is the standard setup.",
+        0.6688
       ],
       [
-        "Start with a small, isolated part of the codebase.",
-        0.6415
+        "Pick a small, isolated part of the codebase \u2014 one module or service.",
+        0.6597
       ],
       [
-        "You need real-time, event-driven infrastructure reconciliation \u2014 tools like Ansible or\n  Kubernetes operators may fit better.",
-        0.6286
+        "They use it to define,\nprovision, and manage cloud resources through declarative configuration files.",
+        0.6346
       ],
       [
-        "**Workspaces** split state by environment within a single backend.",
-        0.6108
+        "Terraform pays off when you're managing cloud infrastructure that changes often, when several team\nmembers touch the same resources, and when you need reproducible environments acr",
+        0.6258
       ],
       [
         "For details, see [Terraform Remote State S3 Backend](/recipes/terraform-remote-state-s3-backend/).",
         0.6086
       ],
       [
-        "Several team members collaborate on the same infrastructure.",
-        0.5924
+        "Workspaces share the same backend configuration.",
+        0.6033
       ],
       [
-        "Build small, composable modules rather than monolithic ones.",
-        0.561
+        "Don't force it on a team that\nisn't ready to manage state files, locks, and backend access.",
+        0.5997
       ],
       [
-        "Use separate state files per environment and per component.",
-        0.559
+        "And if you need real-time,\nevent-driven infrastructure reconciliation, tools like Ansible or Kubernetes operators are usually a\nbetter fit.",
+        0.5916
       ],
       [
-        "You want to version-control your infrastructure definitions.",
-        0.5552
+        "It's also the right choice when you want your infrastructure definitions in version\ncontrol, or when you're moving from manual provisioning to infrastructure as code.",
+        0.5758
       ],
       [
-        "**Monolithic modules** \u2014 break into small, reusable, testable modules.",
-        0.5489
+        "Modules keep code DRY and reusable.",
+        0.5435
       ],
       [
-        "Teams use it to define, provision,\nand manage cloud resources through declarative configuration files.",
-        0.5389
+        "Use a remote backend with encryption and versioning instead.",
+        0.5404
+      ],
+      [
+        "Skip Terraform for a handful of static resources that rarely change.",
+        0.5336
+      ],
+      [
+        "Use remote backends with locking.",
+        0.5327
+      ],
+      [
+        "State files can hold secrets and aren't designed for version-control\n  resolution.",
+        0.5271
+      ],
+      [
+        "Use\n    a\n  backend that supports locking.",
+        0.5072
+      ],
+      [
+        "Don't bake secrets into HCL.",
+        0.5038
       ]
     ],
     "diagnostics_sample": []
@@ -173,68 +174,71 @@
   {
     "label": "terraform-best-practices-guide-es",
     "model": "desklib",
-    "model_ai_pct": 44.3,
+    "model_ai_pct": 42.6,
     "ai_count": 15,
-    "human_count": 34,
-    "skipped_count": 2,
-    "total": 51,
+    "human_count": 37,
+    "skipped_count": 4,
+    "total": 56,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 11.4,
-      "stddev": 5.2,
-      "cv": 0.45,
-      "verdict": "somewhat uniform",
-      "sentence_count": 49,
+      "mean": 13.6,
+      "stddev": 7.9,
+      "cv": 0.58,
+      "verdict": "natural variation",
+      "sentence_count": 52,
       "lengths": [
-        8,
-        18,
-        21,
-        15,
-        6,
-        9,
-        6,
-        6,
-        9,
-        8,
-        15,
+        13,
+        16,
+        20,
+        19,
+        30,
+        27,
+        12,
+        20,
         22,
         8,
-        9,
+        14,
         9,
         8,
         5,
         9,
-        10,
-        33,
-        8,
-        10,
-        5,
+        13,
+        53,
         7,
         17,
-        10,
-        10,
-        11,
-        16,
+        5,
+        8,
+        17,
+        22,
+        12,
+        13,
+        8,
+        19,
         18,
+        5,
         17,
-        13,
-        11,
-        10,
-        12,
-        14,
-        14,
-        12,
-        9,
+        8,
+        6,
         16,
+        15,
+        8,
+        6,
         7,
+        12,
+        11,
+        6,
+        12,
+        10,
+        16,
+        19,
         8,
         9,
         14,
-        10,
         13,
-        9,
-        8,
-        5
+        12,
+        14,
+        12,
+        9
       ]
     },
     "top_ai_sentences": [
@@ -251,92 +255,92 @@
         0.9257
       ],
       [
-        "**Ignorar el pin de versiones de providers** \u2014 pine\u00e1 versiones para evitar breaking changes.",
-        0.8689
+        "No lo fuerces a un equipo\nque no est\u00e1 listo para gestionar archivos de estado, locks y acceso al backend.",
+        0.8988
       ],
       [
-        "Varios miembros del equipo colaboran en la misma infraestructura.",
-        0.8132
+        "Los archivos de estado pueden contener secretos y no est\u00e1n dise\u00f1ados\n    para resoluci\u00f3n de control de versiones.",
+        0.8539
       ],
       [
-        "Quer\u00e9s versionar las definiciones de infraestructura.",
-        0.7747
+        "Los m\u00f3dulos mantienen el c\u00f3digo DRY y reutilizable.",
+        0.8181
       ],
       [
-        "**Hardcodear credenciales** \u2014 us\u00e1 variables, variables de entorno o roles IAM.",
-        0.7696
+        "| Enfoque | Ideal para |\n| --- | --- |\n| Workspaces | Entornos simples (dev/staging/prod) |\n| Directorios separados | Entornos complejos con configuraciones distintas |\n| Backends ",
+        0.7979
       ],
       [
-        "**M\u00f3dulos** mantienen el c\u00f3digo DRY y reutilizable.",
-        0.7537
+        "**Ignorar el pin de versiones de providers**.",
+        0.7887
       ],
       [
         "Los m\u00f3dulos son para componentes de infraestructura reutilizables.",
         0.7389
       ],
       [
-        "Aplic\u00e1 estas pr\u00e1cticas a un m\u00f3dulo o\nservicio.",
-        0.7074
+        "Para una\nseparaci\u00f3n estricta, conviene usar backends separados.",
+        0.7222
       ],
       [
-        "El equipo no est\u00e1 listo para gestionar archivos de estado, locks y acceso al backend.",
-        0.6533
+        "El plan es tu \u00faltima l\u00ednea de defensa.",
+        0.6656
       ],
       [
-        "**M\u00f3dulos monol\u00edticos** \u2014 divid\u00ed en m\u00f3dulos peque\u00f1os, reutilizables y testeables.",
-        0.562
+        "Empezar\nes\nsencillo, pero mantenerlo ordenado a escala requiere disciplina en dise\u00f1o de m\u00f3dulos,\ngesti\u00f3n de estado, seguridad y colaboraci\u00f3n.",
+        0.6231
       ],
       [
-        "|Enfoque|Ideal para|\n|-------|----------|\n|Workspaces|Entornos simples (dev/staging/prod)|\n|Directorios separados|Entornos complejos con configuraciones distintas|\n|Backends separa",
-        0.53
+        "Pasalos por variables, variables de\n    entorno o roles IAM y manten\u00e9 los secretos fuera del repositorio.",
+        0.5603
       ],
       [
-        "Para m\u00e1s informaci\u00f3n, consult\u00e1 [Terraform Remote State S3 Backend](/es/recipes/terraform-remote-state-s3-backend/).",
+        "**Guardar el estado en Git**.",
+        0.5506
+      ],
+      [
+        "Para m\u00e1s informaci\u00f3n, consult\u00e1 [Terraform Remote State S3\nBackend](/es/recipes/terraform-remote-state-s3-backend/).",
         0.5218
       ],
       [
-        "Terraform es la herramienta de infrastructure-as-code m\u00e1s usada.",
-        0.5137
+        "Dale un archivo de estado propio a cada entorno y a cada componente.",
+        0.4832
       ],
       [
-        "**Workspaces** separan el estado por entorno dentro de un mismo backend.",
-        0.4613
+        "Los workspaces comparten la configuraci\u00f3n del backend.",
+        0.4585
       ],
       [
-        "Necesit\u00e1s entornos reproducibles (dev, staging, production).",
-        0.4355
+        "Eleg\u00ed una parte peque\u00f1a y aislada del codebase, un m\u00f3dulo o servicio.",
+        0.4476
       ],
       [
-        "**Estado remoto** almacena el archivo .tfstate fuera de discos locales.",
-        0.4354
+        "Aplic\u00e1 estas pr\u00e1cticas ah\u00ed,\nmed\u00ed el impacto y expand\u00ed.",
+        0.4448
       ],
       [
-        "Para m\u00e1s detalles, consult\u00e1 [Complete Guide to Terraform Modules](/es/guides/complete-guide-terraform-modules/).",
+        "Terraform se convirti\u00f3 en la herramienta de infrastructure-as-code por defecto para muchos equipos.",
+        0.4443
+      ],
+      [
+        "Pine\u00e1 las versiones de providers y m\u00f3dulos para\n    evitar breaking changes sorpresa.",
+        0.4389
+      ],
+      [
+        "Para m\u00e1s detalles, consult\u00e1 [Complete Guide to Terraform\nModules](/es/guides/complete-guide-terraform-modules/).",
         0.4339
       ],
       [
-        "Us\u00e1 un backend remoto como S3 con DynamoDB para locking.",
-        0.4191
+        "Marc\u00e1 las variables como sensitive = true para que no aparezcan en logs ni en la\nsalida del plan.",
+        0.3913
       ],
       [
-        "Son livianos, pero\n  comparten credenciales del backend, as\u00ed que us\u00e1 backends separados para una separaci\u00f3n\n  estricta.",
-        0.412
+        "No metas secretos en el HCL.",
+        0.3784
       ],
       [
-        "S3 provee durabilidad;\n  DynamoDB provee locking para evitar escrituras concurrentes.",
-        0.409
-      ],
-      [
-        "Us\u00e1 archivos de estado separados por entorno y por componente.",
-        0.408
-      ],
-      [
-        "**No usar plan files** \u2014 siempre revis\u00e1 los planes antes de aplicar.",
-        0.4018
-      ],
-      [
-        "Constru\u00ed m\u00f3dulos peque\u00f1os y componibles en vez de monol\u00edticos.",
-        0.4004
+        "Evit\u00e1 Terraform para un pu\u00f1ado de recursos est\u00e1ticos que rara vez cambian.",
+        0.3781
       ]
     ],
     "diagnostics_sample": []
