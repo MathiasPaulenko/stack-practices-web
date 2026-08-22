@@ -1,8 +1,8 @@
 ---
 contentType: recipes
 slug: cli-tool-argument-parsing
-title: "Parseo de Argumentos de CLI en Python, JavaScript, Java, Go y Rust"
-description: "Construí herramientas de línea de comandos profesionales con parseo de argumentos, flags, subcomandos y validación."
+title: "Parseo de argumentos CLI en Python, JS, Java, Go y Rust"
+description: "Construí herramientas de línea de comandos que manejen flags, argumentos posicionales, subcomandos y validación en Python, JS, Java, Go y Rust."
 metaDescription: "Construí herramientas CLI en Python, JavaScript, Java, Go y Rust. Cubre argparse, commander.js, picocli, cobra, clap, subcomandos y validación."
 difficulty: intermediate
 topics:
@@ -24,7 +24,7 @@ relatedResources:
   - /recipes/health-check-endpoint
   - /recipes/feature-flags
   - /recipes/parse-config-files
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-11"
 author: Mathias Paulenko
 seo:
@@ -43,26 +43,25 @@ seo:
     - rust
 ---
 
-## Resumen
+Las herramientas de línea de comandos siguen corriendo la mayoría de flujos de desarrollo,
+automatización DevOps y pipelines de procesamiento de datos. Una buena CLI te da subcomandos claros,
+defaults razonables, errores útiles y ayuda que se genera sola.
 
-Las herramientas de línea de comandos son la base de flujos de desarrollo, automatización
-DevOps y procesamiento de datos. Una CLI bien diseñada tiene subcomandos claros, defaults
-sensatos, mensajes de error útiles y ayuda automática. Esta receta muestra cómo construir
-una CLI profesional con parseo de argumentos en Python, JavaScript, Java, Go y Rust.
+A continuación hay ejemplos concretos del mismo CLI `deploy` en Python, JavaScript, Java, Go y Rust,
+usando las librerías que los equipos usan en la práctica.
 
-## Cuándo Usar
+## Cuándo Usarlo
 
-- Para construir herramientas internas, scripts de deploy o utilidades de automatización.
-- Para crear pipelines de procesamiento o ETL que corren desde el terminal.
-- Para exponer funcionalidad a sysadmins y pipelines de CI/CD.
-- Para scripts que necesitan más que un par de flags para mantenerse.
+- Estás construyendo herramientas internas, scripts de deploy o utilidades de automatización.
+- Necesitás un pipeline de procesamiento o ETL que corra desde el terminal.
+- Querés exponer funcionalidad de la app a sysadmins o pipelines de CI/CD.
+- Tu script tiene más que un par de argumentos, así que un parser lo mantiene manejable.
 
-## Cuándo NO Usar
+## Cuándo NO Usarlo
 
-- Para scripts simples de una sola vez con pocas flags; shell o flags inline pueden
-  alcanzar.
-- Cuando una web UI o dashboard es más adecuada para el usuario.
-- Para prompts interactivos que no funcionan bien en entornos no-TTY.
+- El script es de una sola vez con una o dos flags; los argumentos de shell pueden alcanzar.
+- Una web UI o dashboard le resultaría más fácil al usuario final.
+- La herramienta depende de prompts interactivos en entornos sin TTY.
 
 ## Solución
 
@@ -295,64 +294,62 @@ fn main() {
 
 ## Explicación
 
-Un buen framework de CLI se encarga de las partes tediosas para que te enfoques en la
-lógica:
+Un framework de CLI se encarga de lo aburrido para que te concentres en la lógica de la herramienta:
 
-- **Parsing** divide `deploy prod --version 2.1.0 --dry-run` en un objeto estructurado.
-- **Validación** rechaza opciones inválidas, fuerza flags requeridos y chequea tipos.
+- **Parsing** separa `deploy prod --version 2.1.0 --dry-run` en un objeto estructurado.
+- **Validación** rechaza choices inválidos, fuerza flags requeridos y chequea tipos.
 - **Generación de ayuda** construye `--help` a partir de las definiciones.
 - **Subcomandos** organizan herramientas complejas (`git push`, `git pull`, `git log`).
-- **Exit codes** devuelven `0` en éxito y distinto de cero en error para que CI/CD y
-  scripts reaccionen.
+- **Códigos de salida** devuelven `0` en éxito y distinto de cero en error, para que CI/CD y scripts
+    de shell reaccionen.
 
 ## Variantes
 
-|Lenguaje|Librería|Estilo|Ideal para|
-|--------|--------|------|----------|
-|Python|`argparse`|Stdlib, imperativo|Sin dependencias, scripts simples|
-|Python|`typer`|Type hints, moderno|Desarrollo rápido, docs automáticas|
-|JavaScript|`commander.js`|API fluente|CLI Node.js, middleware|
-|JavaScript|`yargs`|Declarativo, validación|CLIs complejos, subcomandos anidados|
-|Java|`picocli`|Anotaciones, GraalVM|Enterprise, native images|
-|Go|`cobra`|Estilo stdlib, subcomandos|CLIs Go, shell completion|
-|Rust|`clap`|Macros derive|Type-safe, binarios rápidos|
+| Lenguaje | Librería | Estilo | Ideal para |
+| --- | --- | --- | --- |
+| Python | `argparse` | Stdlib, imperativo | Sin dependencias, scripts simples |
+| Python | `typer` | Type hints, moderno | Desarrollo rápido, docs automáticas |
+| JavaScript | `commander.js` | Cadena fluida | CLI Node.js, middleware |
+| JavaScript | `yargs` | Declarativo, validación | CLIs complejos, subcomandos anidados |
+| Java | `picocli` | Anotaciones, GraalVM | Enterprise, imágenes nativas |
+| Go | `cobra` | Estilo stdlib, subcomandos | CLIs Go, shell completion |
+| Rust | `clap` | Macros derive | Type-safe, binarios rápidos |
 
 ## Buenas Prácticas
 
-- Proporcioná `--help` y `--version` para que el usuario no lea el código fuente.
-- Devolvé exit codes correctos: `0` éxito, `1` error general, `2` mal uso, `130` SIGINT.
+- Proveé `--help` y `--version` para que los usuarios no necesiten leer el código fuente.
+- Devolvé códigos de salida correctos: `0` éxito, `1` error general, `2` mal uso, `130` para SIGINT.
 - Soportá `-` para stdin/stdout: `cat data.csv | mytool process - > output.json`.
-- Validá temprano y fallá rápido; imprimí mensajes de error claros.
-- Mantené secretos en variables de entorno, no en `--api-key`.
+- Validá temprano y fallá rápido; imprimir un mensaje claro con lo esperado y lo recibido.
+- Mantené secretos en variables de entorno, no en argumentos `--api-key`.
 
 ## Errores Comunes
 
-- Escribir `Error: invalid argument` sin contexto. Decí qué se esperaba y qué llegó.
+- Imprimir `Error: invalid argument` sin contexto. Decí qué se esperaba y qué llegó.
 - Hacer una herramienta con 20 flags en vez de varios subcomandos.
 - Hardcodear rutas y asumir el entorno de desarrollo local.
-- Mandar progreso y diagnósticos a `stdout` en lugar de `stderr`.
+- Enviar progreso y diagnósticos a `stdout` en lugar de `stderr`.
 - Permitir valores inválidos como `--replicas=-5` y que lleguen a la lógica de la app.
 
 ## Preguntas Frecuentes
 
-### ¿Debería usar un framework o parsear argumentos a mano?
+### ¿Uso un framework o parseo a mano?
 
-Usá un framework. `argparse`, `commander.js`, `picocli`, `cobra` y `clap` manejan comillas,
-escapes, flags desconocidos y formato de ayuda. La ganancia de productividad supera con
-creces el costo de la dependencia.
+Usá un framework. `argparse`, `commander.js`, `picocli`, `cobra` y `clap` manejan comillas, escapes,
+flags desconocidos y formateo de ayuda. El tiempo que ahorrás supera con creces el costo de la
+dependencia.
 
-### ¿Cómo manejo archivos de configuración junto con argumentos de CLI?
+### ¿Cómo combino archivos de configuración con argumentos CLI?
 
-Cargá un archivo de configuración como default y dejá que los argumentos de CLI
-sobrescriban valores específicos. El orden de precedencia es:
-**argumentos CLI > env vars > archivo de configuración > defaults hardcodeados**.
+Cargá un archivo de configuración como default y dejá que los argumentos de CLI sobrescriban valores
+específicos. El orden de precedencia es: **args CLI > vars de entorno > archivo de config > defaults
+hardcodeados**.
 
 ### ¿Cómo testeo una herramienta CLI?
 
-Mantené la lógica de negocio separada del cableado de la CLI. Testeá las funciones
-principales directamente y agregá tests de integración que ejecuten el binario con
-`subprocess`. En Java, testeá el método `call()`; en Rust, la lógica del `match` de
-`Commands`.
+Mantené la lógica de negocio separada del cableado de la CLI. Testeá las funciones core
+directamente, luego agregá algunos tests de integración que corran el binario con `subprocess`. En
+Java, testeá el método `call()` de la clase picocli; en Rust, la lógica del match de `Commands`.
 
 ### ¿Cómo distribuyo mi herramienta CLI?
 

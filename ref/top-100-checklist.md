@@ -497,8 +497,8 @@ Use this list to track progress as you audit and improve each resource.
    - EN: https://stackpractices.com/recipes/cli-tool-argument-parsing/
    - ES: https://stackpractices.com/es/recipes/cli-tool-argument-parsing/
    - Focus: striking distance, low CTR
-   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 53.6% / ES 43.8% (0 patterns)
-   - Words: 1,104 | Meta: 140 chars
+   - Status: ✅ Content-improvement workflow applied; ✅ EN/ES aligned; ✅ Build passed; ✅ Desklib EN 52.2% / ES 45.9% (0 patterns)
+   - Words: 521 | Meta: 140 chars
 
 62. - [x] **sql-cte-guide** (guides)
    - Metrics: 33 imp | pos 9.6 | CTR 0.00% | Δ impr 0
