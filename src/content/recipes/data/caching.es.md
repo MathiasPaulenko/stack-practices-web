@@ -25,7 +25,7 @@ relatedResources:
   - /recipes/python-redis-cache-decorator
   - /recipes/multi-level-cache-l1-l2
   - /recipes/redis-distributed-lock
-lastUpdated: "2026-08-19"
+lastUpdated: "2026-08-22"
 publishedAt: "2026-06-10"
 author: Mathias Paulenko
 seo:
@@ -42,28 +42,26 @@ seo:
     - rendimiento
 ---
 
-## Resumen
-
-El caching almacena el resultado de computaciones costosas para que requests posteriores por
-los mismos datos se sirvan más rápido. La memoización es una forma de caching donde los
-valores de retorno de funciones se almacenan según sus argumentos. Es una de las
-optimizaciones de rendimiento más efectivas, pero agrega complejidad: datos stale,
-invalidación y consistencia distribuida.
+El caching es una de las formas más baratas de acelerar trabajo repetido. Calculás algo una vez,
+guardás el resultado y servís el siguiente request sin volver a hacer el cálculo. La memoización es
+simplemente caching aplicado a los valores de retorno de una función, indexados por los argumentos
+que recibió. El costo es más complejidad: datos stale, invalidación y dolores de cabeza de
+consistencia, especialmente en sistemas distribuidos.
 
 ## Cuándo Usar
 
-- Llamar repetidamente queries costosas de base de datos o endpoints de API.
-- Calcular resultados matemáticos o estadísticos complejos.
-- Servir datos de configuración estáticos o que cambian poco.
-- Reducir latencia en sistemas de mucho tráfico y lectura intensiva.
-- Descargar carga de servicios downstream.
+- Una query de base de datos o llamada a API costosa se repite una y otra vez.
+- Una función realiza cálculos matemáticos o estadísticos pesados.
+- Los datos cambian poco, como configuración o datos de referencia.
+- La latencia importa en un sistema read-heavy y de alto tráfico.
+- Querés aliviar la carga de un servicio downstream.
 
 ## Cuándo NO Usar
 
-- Los datos cambian más rápido de lo que se invalida la caché.
-- Se requiere consistencia fuerte y no se toleran lecturas stale breves.
-- El working set es mayor que la memoria de caché disponible sin política de evicción.
-- No mediste el cuello de botella — cacheá solo después de perfilar.
+- Los datos subyacentes cambian más rápido de lo que podés invalidar la caché.
+- Se requiere consistencia fuerte y no se toleran ni lecturas stale breves.
+- El working set supera la memoria de caché disponible sin una política de evicción.
+- No mediste el cuello de botella. Cacheá solo después de perfilar.
 
 ## Solución
 
@@ -174,29 +172,28 @@ def get_user(user_id):
 
 ## Explicación
 
-Una caché vive entre el llamador y la fuente de datos costosa. En un miss, la caché obtiene,
-almacena y devuelve el valor. En un hit, devuelve el valor almacenado. El TTL limita la
-antigüedad, el tamaño máximo dispara la evicción y la invalidación elimina entradas cuando
-los datos subyacentes cambian.
+Una caché se ubica entre el llamador y la fuente de datos costosa. En un hit, devuelve el valor
+guardado. En un miss, obtiene, almacena y devuelve el valor. El TTL limita la antigüedad, el tamaño
+máximo dispara la evicción y la invalidación elimina entradas cuando los datos subyacentes cambian.
 
 ## Variantes
 
-|Estrategia|Cuándo usar|Compromiso|
-|------------|-------------|------------|
-|TTL|Los datos cambian predeciblemente|Puede servir datos stale brevemente|
-|Write-through|La consistencia es crítica|Writes más lentos, reads más simples|
-|Write-behind|Alto throughput de escritura|Riesgo de pérdida de datos ante crash|
-|Cache-aside|Flexibilidad, read-heavy|La aplicación maneja la lógica de caché|
-|Evicción (LRU/LFU)|Restricciones de memoria|Puede evictar datos calientes prematuramente|
+| Estrategia | Cuándo usar | Compromiso |
+| --- | --- | --- |
+| TTL | Los datos cambian predeciblemente | Puede servir datos stale brevemente |
+| Write-through | La consistencia es crítica | Writes más lentos, reads más simples |
+| Write-behind | Alto throughput de escritura | Riesgo de pérdida de datos ante crash |
+| Cache-aside | Flexibilidad, read-heavy | La aplicación maneja la lógica de caché |
+| Evicción (LRU/LFU) | Restricciones de memoria | Puede evictar datos calientes prematuramente |
 
 ## Buenas Prácticas
 
-- Cacheá los datos más costosos y los más frecuentes, no todo.
-- Definí TTLs con criterio: muy cortos hacen inútil la caché; muy largos sirven datos stale.
-- Monitoreá hit rates. Una caché con menos del 80% de hits suele no valer la complejidad.
-- Manejá fallos de caché con elegancia. Si Redis cae, caé en la base de datos.
+- Cacheá los datos más costosos y los más frecuentes, no todos los valores.
+- Definí TTLs con criterio. Muy cortos hacen inútil la caché; muy largos sirven datos stale.
+- Monitoreá hit rates. Una caché con menos del 80% suele no valer la pena.
+- Manejá fallos con elegancia. Si Redis cae, caé en la base de datos.
 - Versioná las claves o incluí la versión de la app para evitar datos stale tras deploys.
-- Invalidá proactivamente cuando los datos subyacentes cambian, no solo cuando expira el TTL.
+- Invalidá proactivamente cuando los datos subyacentes cambian, en lugar de esperar al TTL.
 
 ## Errores Comunes
 
@@ -204,33 +201,32 @@ los datos subyacentes cambian.
 - No manejar cache stampede cuando expira una clave popular.
 - Guardar caches sin límite que crecen hasta agotar la memoria.
 - Ignorar la consistencia de caché en sistemas distribuidos.
-- Olvidar invalidar la caché después de mutaciones.
+- Olvidar invalidar la caché después de escrituras.
 
 ## Preguntas Frecuentes
 
 ### ¿Qué es el cache stampede y cómo lo prevengo?
 
-Un stampede ocurre cuando muchos requests golpean una clave de caché ausente al mismo tiempo.
-Usá locking, semáforos por clave o expiración temprana probabilística para reducir la carga
-en la fuente.
+Ocurre cuando muchos requests golpean una clave ausente al mismo tiempo. Usá locking, semáforos por
+clave o expiración temprana probabilística para reducir la carga en la fuente.
 
 ### ¿Cuándo uso Redis en vez de una caché en memoria?
 
-Usá Redis cuando necesitás una caché compartida entre instancias, persistencia o estructuras
-de datos avanzadas. Las cachés en memoria son más rápidas pero locales a un proceso.
+Usá Redis cuando necesitás una caché compartida entre instancias, persistencia o estructuras de
+datos avanzadas. Las cachés en memoria son más rápidas, pero locales a un solo proceso.
 
 ### ¿Debería cachear respuestas de API?
 
-Sí, si los datos son cacheables y el endpoint es read-heavy. Usá el header `Cache-Control`
-para comunicar cacheabilidad a clientes y CDNs.
+Sí, si los datos son cacheables y el endpoint es read-heavy. Usá el header `Cache-Control` para
+decirles a clientes y CDNs que la respuesta se puede cachear.
 
 ### ¿Cómo elijo entre evicción LRU y LFU?
 
-LRU elimina el menos recientemente usado y funciona bien cuando hay localidad temporal. LFU
-elimina el menos frecuentemente usado y funciona mejor cuando un pequeño set de claves es
-accedido intensivamente.
+LRU elimina el menos recientemente usado y funciona bien cuando hay localidad temporal. LFU elimina
+el menos frecuentemente usado y funciona mejor cuando un pequeño set de claves se accede
+intensivamente.
 
 ### ¿Cómo mantengo la caché consistente entre servicios?
 
-Usá TTLs cortos, pub/sub de invalidación o write-through. Para consistencia fuerte, considerá
-si la caché es apropiada en absoluto.
+Usá TTLs cortos, pub/sub de invalidación o write-through. Si necesitás consistencia fuerte, tal vez
+la caché no sea la herramienta adecuada.

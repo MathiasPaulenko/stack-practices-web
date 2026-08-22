@@ -2,158 +2,159 @@
   {
     "label": "caching-en",
     "model": "desklib",
-    "model_ai_pct": 45.5,
-    "ai_count": 15,
-    "human_count": 22,
-    "skipped_count": 2,
-    "total": 39,
+    "model_ai_pct": 43.8,
+    "ai_count": 12,
+    "human_count": 26,
+    "skipped_count": 4,
+    "total": 42,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 12.2,
-      "stddev": 7.1,
-      "cv": 0.59,
+      "mean": 13.9,
+      "stddev": 13.5,
+      "cv": 0.97,
       "verdict": "natural variation",
-      "sentence_count": 37,
+      "sentence_count": 38,
       "lengths": [
+        12,
         17,
-        17,
-        19,
+        15,
+        15,
+        12,
         8,
-        6,
-        6,
-        6,
-        5,
+        10,
+        7,
         9,
         11,
-        13,
-        10,
-        11,
+        12,
+        16,
+        5,
         11,
         8,
+        10,
         16,
-        48,
+        93,
+        11,
+        10,
+        9,
         14,
         12,
-        9,
-        14,
-        11,
         10,
         9,
-        7,
+        11,
         6,
         7,
-        13,
+        16,
         15,
         16,
-        10,
         11,
         11,
+        15,
         16,
         21,
         8,
-        10
+        14
       ]
     },
     "top_ai_sentences": [
       [
-        "Reducing latency in high-traffic, read-heavy systems.",
-        0.8792
+        "If you need strong consistency,\ncaching may not be the right tool at all.",
+        0.7416
       ],
       [
-        "Use the Cache-Control header\nto communicate cacheability to clients and CDNs.",
-        0.85
+        "Use the Cache-Control header to tell\nclients and CDNs that the response can be cached.",
+        0.7121
       ],
       [
-        "Offloading load from downstream services.",
-        0.7317
+        "A function performs heavy mathematical or statistical computation.",
+        0.6886
       ],
       [
-        "For strong consistency,\nconsider whether caching is appropriate at all.",
-        0.7317
+        "Storing unbounded caches that grow until they run out of memory.",
+        0.6663
       ],
       [
-        "Data changes faster than the cache can be invalidated.",
-        0.7087
+        "The trade-off is added complexity:\nstale data, invalidation, and consistency headaches, especially in distributed systems.",
+        0.6193
       ],
       [
-        "A cache stampede happens when many requests simultaneously hit a missing cache key.",
-        0.6744
-      ],
-      [
-        "Storing unbounded caches that grow until out-of-memory.",
-        0.6238
-      ],
-      [
-        "Use Redis when you need a shared cache across several instances, persistence, or advanced\ndata structures.",
+        "Use Redis when you need a shared cache across several instances, persistence, or advanced data\nstructures.",
         0.6154
       ],
       [
-        "Computing complex mathematical or statistical results.",
-        0.5877
+        "Latency matters in a read-heavy, high-traffic system.",
+        0.6097
       ],
       [
-        "Memoization is a specific form of caching where function return values are\nstored based on their arguments.",
-        0.5485
+        "The working set is larger than the available cache memory with no eviction policy in place.",
+        0.568
+      ],
+      [
+        "A cache stampede happens when many requests hit a missing cache key at the same time.",
+        0.5556
       ],
       [
         "Yes, if the data is cacheable and the endpoint is read-heavy.",
         0.536
       ],
       [
-        "|Strategy|When to use|Trade-off|\n|----------|-------------|-----------|\n|TTL|Data changes predictably|May serve stale data briefly|\n|Write-through|Consistency is critical|Slower wr",
-        0.526
+        "You haven't measured the bottleneck.",
+        0.5261
       ],
       [
-        "Calling expensive database queries or API endpoints repeatedly.",
-        0.5198
-      ],
-      [
-        "The working set is larger than available cache memory with no eviction policy.",
-        0.5118
-      ],
-      [
-        "TTL limits staleness,\nmaximum size triggers eviction, and invalidation removes entries when the underlying data\nchanges.",
+        "TTL limits staleness, maximum size\ntriggers eviction, and invalidation removes entries when the underlying data changes.",
         0.5088
       ],
       [
-        "On a miss, the cache fetches,\nstores, and returns the value.",
-        0.4932
+        "In-memory caches are faster, but they're local to a single process.",
+        0.4819
+      ],
+      [
+        "Caching is one of the cheapest ways to speed up repeated work.",
+        0.4811
+      ],
+      [
+        "A cache below 80% is usually not worth the trouble.",
+        0.467
+      ],
+      [
+        "On a miss, it fetches, stores, and returns the value.",
+        0.4613
       ],
       [
         "Ignoring cache consistency in distributed systems.",
         0.454
       ],
       [
-        "Caching is one of the most effective performance\noptimizations, but it adds complexity: stale data, invalidation, and distributed consistency.",
-        0.444
+        "Version cache keys or include the app version to avoid stale data after deployments.",
+        0.4508
       ],
       [
-        "Caching stores the result of expensive computations so subsequent requests for the same data\nare served faster.",
-        0.4405
-      ],
-      [
-        "LFU removes the least frequently used entry and works better when a small set of\nkeys is accessed heavily over time.",
+        "LFU removes the least frequently used entry and works better when a small set of keys is\naccessed heavily over time.",
         0.4313
       ],
       [
-        "Version cache keys or include the app version to prevent stale data after deployments.",
-        0.4291
-      ],
-      [
-        "On a hit, it returns the stored value.",
+        "On a hit, it returns the stored\nvalue.",
         0.4271
       ],
       [
-        "Use\nlocking, per-key semaphores, or probabilistic early expiration to reduce the load on the\nsource.",
+        "You want to take load off a downstream service.",
+        0.4228
+      ],
+      [
+        "An expensive database query or API call is hit again and again.",
+        0.3833
+      ],
+      [
+        "Too short makes the cache useless; too long serves stale data.",
+        0.3695
+      ],
+      [
+        "Use locking,\nper-key semaphores, or probabilistic early expiration to reduce the load on the source.",
         0.3668
       ],
       [
-        "Caching data that changes too frequently or is rarely requested.",
-        0.3271
-      ],
-      [
-        "In-memory caches are faster but local to a single process.",
-        0.3244
+        "You compute something once, store the\nresult, and serve the next request without doing the work again.",
+        0.3621
       ]
     ],
     "diagnostics_sample": []
@@ -161,39 +162,40 @@
   {
     "label": "caching-es",
     "model": "desklib",
-    "model_ai_pct": 39.2,
-    "ai_count": 12,
+    "model_ai_pct": 41.1,
+    "ai_count": 13,
     "human_count": 26,
-    "skipped_count": 1,
-    "total": 39,
+    "skipped_count": 3,
+    "total": 42,
     "pattern_totals": {},
     "text_metrics": {
-      "mean": 13.2,
-      "stddev": 8.2,
-      "cv": 0.62,
+      "mean": 14.4,
+      "stddev": 14.6,
+      "cv": 1.01,
       "verdict": "natural variation",
-      "sentence_count": 38,
+      "sentence_count": 39,
       "lengths": [
+        13,
+        18,
         20,
-        19,
         18,
-        12,
-        6,
-        9,
+        17,
+        8,
         10,
+        11,
+        8,
+        13,
+        12,
+        14,
+        6,
         5,
-        12,
-        11,
-        15,
-        12,
-        12,
-        11,
-        7,
-        21,
-        57,
-        15,
         13,
-        6,
+        7,
+        9,
+        21,
+        101,
+        11,
+        11,
         9,
         16,
         13,
@@ -202,26 +204,26 @@
         10,
         8,
         7,
-        15,
+        11,
         16,
         15,
-        12,
+        13,
         11,
-        11,
+        16,
         13,
         18,
         8,
-        11
+        13
       ]
     },
     "top_ai_sentences": [
       [
-        "Descargar carga de servicios downstream.",
-        0.8746
+        "Los datos cambian poco, como configuraci\u00f3n o datos de referencia.",
+        0.7728
       ],
       [
-        "Las cach\u00e9s en memoria son m\u00e1s r\u00e1pidas pero locales a un proceso.",
-        0.7915
+        "Una cach\u00e9 se ubica entre el llamador y la fuente de datos costosa.",
+        0.753
       ],
       [
         "Si Redis cae, ca\u00e9 en la base de datos.",
@@ -232,88 +234,88 @@
         0.7322
       ],
       [
-        "Una cach\u00e9 vive entre el llamador y la fuente de datos costosa.",
-        0.6885
+        "Las cach\u00e9s en memoria son m\u00e1s r\u00e1pidas, pero locales a un solo proceso.",
+        0.7307
       ],
       [
-        "La memoizaci\u00f3n es una forma de caching donde los\nvalores de retorno de funciones se almacenan seg\u00fan sus argumentos.",
-        0.6875
+        "Quer\u00e9s aliviar la carga de un servicio downstream.",
+        0.6753
       ],
       [
-        "Para consistencia fuerte, consider\u00e1\nsi la cach\u00e9 es apropiada en absoluto.",
-        0.6464
+        "El caching es una de las formas m\u00e1s baratas de acelerar trabajo repetido.",
+        0.6752
+      ],
+      [
+        "Muy cortos hacen in\u00fatil la cach\u00e9; muy largos sirven datos stale.",
+        0.6377
+      ],
+      [
+        "Una funci\u00f3n realiza c\u00e1lculos matem\u00e1ticos o estad\u00edsticos pesados.",
+        0.6316
       ],
       [
         "Ignorar la consistencia de cach\u00e9 en sistemas distribuidos.",
         0.6107
       ],
       [
-        "Se requiere consistencia fuerte y no se toleran lecturas stale breves.",
-        0.5586
+        "Olvidar invalidar la cach\u00e9 despu\u00e9s de escrituras.",
+        0.5633
       ],
       [
-        "Una cach\u00e9 con menos del 80% de hits suele no valer la complejidad.",
-        0.5113
+        "Cache\u00e1 solo despu\u00e9s de perfilar.",
+        0.5319
       ],
       [
-        "Olvidar invalidar la cach\u00e9 despu\u00e9s de mutaciones.",
-        0.5068
+        "No mediste el cuello de botella.",
+        0.5038
       ],
       [
-        "Calcular resultados matem\u00e1ticos o estad\u00edsticos complejos.",
-        0.5004
+        "Se requiere consistencia fuerte y no se toleran ni lecturas stale breves.",
+        0.4992
       ],
       [
         "Version\u00e1 las claves o inclu\u00ed la versi\u00f3n de la app para evitar datos stale tras deploys.",
         0.4855
       ],
       [
-        "Manej\u00e1 fallos de cach\u00e9 con elegancia.",
-        0.4708
+        "El working set supera la memoria de cach\u00e9 disponible sin una pol\u00edtica de evicci\u00f3n.",
+        0.4778
       ],
       [
-        "Us\u00e1 el header Cache-Control\npara comunicar cacheabilidad a clientes y CDNs.",
-        0.4235
+        "Si necesit\u00e1s consistencia fuerte, tal vez\nla cach\u00e9 no sea la herramienta adecuada.",
+        0.4545
+      ],
+      [
+        "Us\u00e1 el header Cache-Control para\ndecirles a clientes y CDNs que la respuesta se puede cachear.",
+        0.4515
+      ],
+      [
+        "Una cach\u00e9 con menos del 80% suele no valer la pena.",
+        0.4185
+      ],
+      [
+        "La latencia importa en un sistema read-heavy y de alto tr\u00e1fico.",
+        0.4168
       ],
       [
         "Cachear datos que cambian muy frecuentemente o raramente se piden.",
         0.4006
       ],
       [
-        "El working set es mayor que la memoria de cach\u00e9 disponible sin pol\u00edtica de evicci\u00f3n.",
-        0.3638
+        "El costo es m\u00e1s complejidad: datos stale, invalidaci\u00f3n y dolores de cabeza de\nconsistencia, especialmente en sistemas distribuidos.",
+        0.3717
       ],
       [
-        "Defin\u00ed TTLs con criterio: muy cortos hacen in\u00fatil la cach\u00e9; muy largos sirven datos stale.",
-        0.3619
-      ],
-      [
-        "No mediste el cuello de botella \u2014 cache\u00e1 solo despu\u00e9s de perfilar.",
-        0.3464
-      ],
-      [
-        "En un hit, devuelve el valor almacenado.",
-        0.3282
-      ],
-      [
-        "Reducir latencia en sistemas de mucho tr\u00e1fico y lectura intensiva.",
-        0.3208
-      ],
-      [
-        "En un miss, la cach\u00e9 obtiene,\nalmacena y devuelve el valor.",
-        0.3139
-      ],
-      [
-        "Los datos cambian m\u00e1s r\u00e1pido de lo que se invalida la cach\u00e9.",
-        0.3013
+        "Los datos subyacentes cambian m\u00e1s r\u00e1pido de lo que pod\u00e9s invalidar la cach\u00e9.",
+        0.3091
       ],
       [
         "S\u00ed, si los datos son cacheables y el endpoint es read-heavy.",
         0.3012
       ],
       [
-        "El caching almacena el resultado de computaciones costosas para que requests posteriores por\nlos mismos datos se sirvan m\u00e1s r\u00e1pido.",
-        0.2855
+        "Us\u00e1 locking, sem\u00e1foros por\nclave o expiraci\u00f3n temprana probabil\u00edstica para reducir la carga en la fuente.",
+        0.2833
       ]
     ],
     "diagnostics_sample": []
